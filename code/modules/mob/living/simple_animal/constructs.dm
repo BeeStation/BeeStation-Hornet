@@ -45,6 +45,12 @@
 	chat_color = "#FF6262"
 	mobchatspan = "cultmobsay"
 
+/mob/living/simple_animal/hostile/construct/get_num_legs()
+	return 0
+
+/mob/living/simple_animal/hostile/construct/get_num_arms()
+	return 0
+
 /mob/living/simple_animal/hostile/construct/Initialize()
 	. = ..()
 	update_health_hud()

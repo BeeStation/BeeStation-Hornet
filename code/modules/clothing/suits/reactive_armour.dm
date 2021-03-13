@@ -33,7 +33,7 @@
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
@@ -93,7 +93,7 @@
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
-		H.forceMove(picked)
+		do_teleport(H, picked, no_effects = TRUE)
 		H.rad_act(rad_amount)
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return 1
@@ -239,7 +239,7 @@
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
-		H.forceMove(picked)
+		do_teleport(H, picked, no_effects = TRUE)
 		new /obj/structure/table(get_turf(owner))
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return 1

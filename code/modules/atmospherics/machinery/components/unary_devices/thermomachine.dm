@@ -7,7 +7,7 @@
 
 	density = TRUE
 	max_integrity = 300
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30, "stamina" = 0)
 	layer = OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/thermomachine
 

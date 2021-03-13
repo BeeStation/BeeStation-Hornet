@@ -221,3 +221,8 @@
 /datum/mood_event/sec_insulated_gloves
 	description = "<span class='warning'>I look like an Assistant...</span>\n"
 	mood_change = -1
+
+/datum/mood_event/burnt_wings
+	description = "<span class='boldwarning'>MY PRECIOUS WINGS!!</span>\n"
+	mood_change = -10
+	timeout = 10 MINUTES

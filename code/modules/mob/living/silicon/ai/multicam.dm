@@ -95,7 +95,7 @@
 	valid_territory = FALSE
 	ambient_effects = list()
 	blob_allowed = FALSE
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 	hidden = TRUE
 	safe = TRUE
 

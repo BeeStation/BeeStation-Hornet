@@ -176,7 +176,7 @@
 /datum/quirk/spiritual/on_process()
 	var/comforted = FALSE
 	for(var/mob/living/carbon/human/H in oview(5, quirk_holder))
-		if(H.mind?.isholy && H.stat == CONSCIOUS)
+		if(H.mind?.holy_role && H.stat == CONSCIOUS)
 			comforted = TRUE
 			break
 	if(comforted)

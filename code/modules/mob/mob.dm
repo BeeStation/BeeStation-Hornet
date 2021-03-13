@@ -21,10 +21,9 @@
   * Parent call
   */
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
-	GLOB.mob_list -= src
-	GLOB.dead_mob_list -= src
-	GLOB.alive_mob_list -= src
-	GLOB.mob_directory -= tag
+	remove_from_mob_list()
+	remove_from_dead_mob_list()
+	remove_from_alive_mob_list()
 	focus = null
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
@@ -67,12 +66,11 @@
 /mob/Initialize()
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_CREATED, src)
 	mob_properties = list()
-	GLOB.mob_list += src
-	GLOB.mob_directory[tag] = src
+	add_to_mob_list()
 	if(stat == DEAD)
-		GLOB.dead_mob_list += src
+		add_to_dead_mob_list()
 	else
-		GLOB.alive_mob_list += src
+		add_to_alive_mob_list()
 	set_focus(src)
 	prepare_huds()
 	for(var/v in GLOB.active_alternate_appearances)
