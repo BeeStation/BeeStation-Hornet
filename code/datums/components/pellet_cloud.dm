@@ -31,8 +31,6 @@
 	var/list/targets_hit = list()
 	/// For grenades, any /mob/living's the grenade is moved onto, see [/datum/component/pellet_cloud/proc/handle_martyrs()]
 	var/list/bodies
-	/// For grenades, tracking people who die covering a grenade for achievement purposes, see [/datum/component/pellet_cloud/proc/handle_martyrs()]
-	var/list/purple_hearts
 
 	/// For grenades, tracking how many pellets are removed due to martyrs and how many pellets are added due to the last person to touch it being on top of it
 	var/pellet_delta = 0
@@ -136,7 +134,6 @@
   * Once the grenade detonates, handle_martyrs() is called and gets all the new mobs on the tile, and add the ones not in var/list/bodies to var/list/martyrs
   * We then iterate through the martyrs and reduce the shrapnel magnitude for each mob on top of it, shredding each of them with some of the shrapnel they helped absorb. This can snuff out all of the shrapnel if there's enough bodies
   *
-  * Note we track anyone who's alive and client'd when they get shredded in var/list/purple_hearts, for achievement checking later
   */
 /datum/component/pellet_cloud/proc/handle_martyrs(mob/living/lanced_by)
 	var/magnitude_absorbed
@@ -277,4 +274,3 @@
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	targets_hit -= target
 	bodies -= target
-	purple_hearts -= target
