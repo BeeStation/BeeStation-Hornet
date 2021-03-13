@@ -1,0 +1,13 @@
+author: Hollandaise, Nebulacrity, LemonInTheDark, Flareguy, smallveggiepaws, Mothblocks,
+  Twaticus, uomo91
+delete-after: true
+changes:
+  - tweak: You can now see if syringe guns are loaded just by looking at them.
+  - tweak: Flamethrowers produce light.
+  - soundadd: Flamethrowers play a sound when activated, syringe guns also make sounds
+      when reloaded.
+  - imageadd: Flamethrowers now have an animated inhand sprite.
+  - imageadd: Wood planks, bedsheets, advanced extinguishers, and airlock painters
+      now have inhand sprites.
+  - imageadd: New telescopic baton and singularity hammer sprites.
+  - imagedel: Old telebaton sprites.
