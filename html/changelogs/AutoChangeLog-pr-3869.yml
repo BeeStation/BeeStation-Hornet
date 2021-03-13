@@ -1,0 +1,7 @@
+author: Arkatos1, r1ks-iwnl
+delete-after: true
+changes:
+  - bugfix: Changelings will now show correct ID job icon on security huds upon transformation.
+  - bugfix: Changeling flesh disguise IDs will now properly show overlays upon examine.
+  - bugfix: Changeling flesh disguise will now properly include suit storage slot
+      item, if there is any.
