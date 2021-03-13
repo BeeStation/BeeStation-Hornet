@@ -365,7 +365,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	interaction_message.to_user = name_to
 	interaction_message.from_user_safe = safe_from
 	interaction_message.to_user_safe = safe_to
-	message_admins("safe_from")
 	_interactions += interaction_message
 	SStgui.update_uis(src)
 
@@ -809,7 +808,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		var/datum/admin_help/AH = GLOB.ahelp_tickets.CKey2ActiveTicket(what)
 		if(AH)
 			if(safeSenderLogged)
-				message_admins("logging sender")
 				AH.AddInteraction(color, message, whofrom, whoto, isSenderAdmin ? "Administrator" : "You", isSenderAdmin ? "You" : "Administrator")
 			else
 				AH.AddInteraction(color, message, whofrom, whoto)
