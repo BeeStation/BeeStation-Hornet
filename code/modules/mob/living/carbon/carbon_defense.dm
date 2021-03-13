@@ -309,7 +309,7 @@
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
 	if(!eyes) //can't flash what can't see!
 		return
-	if(HAS_TRAIT(src, TRAIT_BLIND)	// Ditto
+	if(HAS_TRAIT(src, TRAIT_BLIND))	// Ditto
 		return
 	. = ..()
 
