@@ -44,7 +44,7 @@
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
 	max_integrity = 200
-	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50, "stamina" = 0)
 
 	var/stage = 1
 	var/fixture_type = "tube"
@@ -784,6 +784,10 @@
 	explosion(T, 0, 0, 2, 2)
 	sleep(1)
 	qdel(src)
+
+/obj/machinery/light/eminence_act(mob/living/simple_animal/eminence/eminence)
+	. = ..()
+	break_light_tube()
 
 // the light item
 // can be tube or bulb subtypes

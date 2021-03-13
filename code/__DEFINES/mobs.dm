@@ -7,6 +7,12 @@
 #define PLAYER_READY_TO_PLAY 1
 #define PLAYER_READY_TO_OBSERVE 2
 
+//Game mode list indexes
+#define CURRENT_LIVING_PLAYERS	"living_players_list"
+#define CURRENT_LIVING_ANTAGS	"living_antags_list"
+#define CURRENT_DEAD_PLAYERS	"dead_players_list"
+#define CURRENT_OBSERVERS		"current_observers_list"
+
 //movement intent defines for the m_intent var
 #define MOVE_INTENT_WALK "walk"
 #define MOVE_INTENT_RUN  "run"
@@ -167,6 +173,7 @@
 #define HYGIENE_LEVEL_CLEAN 250
 #define HYGIENE_LEVEL_NORMAL 200
 #define HYGIENE_LEVEL_DIRTY 75
+#define HYGIENE_LEVEL_DISGUSTING 0
 
 //Nutrition levels for humans
 #define NUTRITION_LEVEL_FAT 600
@@ -276,6 +283,7 @@
 #define INCORPOREAL_MOVE_BASIC 1
 #define INCORPOREAL_MOVE_SHADOW 2 //!  leaves a trail of shadows
 #define INCORPOREAL_MOVE_JAUNT 3 //! is blocked by holy water/salt
+#define INCORPOREAL_MOVE_EMINENCE 4 //! same as jaunt, but lets eminence pass clockwalls
 
 //Secbot and ED209 judgment criteria bitflag values
 #define JUDGE_EMAGGED		(1<<0)

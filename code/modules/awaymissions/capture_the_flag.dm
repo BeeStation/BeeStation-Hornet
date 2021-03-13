@@ -172,12 +172,11 @@
 	..()
 
 /obj/machinery/capture_the_flag/process()
-	for(var/i in spawned_mobs)
-		if(!i)
-			spawned_mobs -= i
+	for(var/mob/living/M as() in spawned_mobs)
+		if(QDELETED(M))
+			spawned_mobs -= M
 			continue
 		// Anyone in crit, automatically reap
-		var/mob/living/M = i
 		if(M.InCritical() || M.stat == DEAD)
 			ctf_dust_old(M)
 		else
@@ -212,6 +211,9 @@
 			return
 
 
+		if(!(GLOB.ghost_role_flags & GHOSTROLE_MINIGAME))
+			to_chat(user, "<span class='warning'>CTF has been temporarily disabled by admins.</span>")
+			return
 		people_who_want_to_play |= user.ckey
 		var/num = people_who_want_to_play.len
 		var/remaining = CTF_REQUIRED_PLAYERS - num

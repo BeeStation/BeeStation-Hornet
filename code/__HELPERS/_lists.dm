@@ -19,6 +19,7 @@
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
 #define LAZYLEN(L) length(L)
 #define LAZYCLEARLIST(L) if(L) L.Cut()
+#define LAZYACCESSASSOC(L, I, K) L ? L[I] ? L[I][K] ? L[I][K] : null : null : null
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
 #define reverseList(L) reverseRange(L.Copy())
 
@@ -100,26 +101,10 @@
 
 			return "[output][and_text][input[index]]"
 
-/// Returns list element or null. Should prevent "index out of bounds" error.
-/proc/listgetindex(list/L, index)
-	if(LAZYLEN(L))
-		if(isnum_safe(index) && ISINTEGER(index))
-			if(ISINRANGE(index,1,L.len))
-				return L[index]
-		else if(index in L)
-			return L[index]
-	return
-
 /// Return either pick(list) or null if list is not of type /list or is empty
 /proc/safepick(list/L)
 	if(LAZYLEN(L))
 		return pick(L)
-
-/// Checks if the list is empty
-/proc/isemptylist(list/L)
-	if(!L.len)
-		return TRUE
-	return FALSE
 
 /// Checks for specific types in a list
 /proc/is_type_in_list(atom/A, list/L)
@@ -133,30 +118,11 @@
 /// Checks for specific types in specifically structured (Assoc "type" = TRUE) lists ('typecaches')
 #define is_type_in_typecache(A, L) (A && length(L) && L[(ispath(A) ? A : A:type)])
 
-/// Checks for a string in a list
-/proc/is_string_in_list(string, list/L)
-	if(!LAZYLEN(L) || !string)
-		return
-	for(var/V in L)
-		if(string == V)
-			return TRUE
-	return
-
-/// Removes a string from a list
-/proc/remove_strings_from_list(string, list/L)
-	if(!LAZYLEN(L) || !string)
-		return
-	for(var/V in L)
-		if(V == string)
-			L -= V //No return here so that it removes all strings of that type
-	return
-
 /// returns a new list with only atoms that are in typecache L
 /proc/typecache_filter_list(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if (typecache[A.type])
 			. += A
 
@@ -164,16 +130,14 @@
 /proc/typecache_filter_list_reverse(list/atoms, list/typecache)
 	RETURN_TYPE(/list)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if(!typecache[A.type])
 			. += A
 
 /// returns a new list with only atoms that are in typecache typecache_include but NOT in typecache_exclude
 /proc/typecache_filter_multi_list_exclusion(list/atoms, list/typecache_include, list/typecache_exclude)
 	. = list()
-	for(var/thing in atoms)
-		var/atom/A = thing
+	for(var/atom/A as() in atoms)
 		if(typecache_include[A.type] && !typecache_exclude[A.type])
 			. += A
 
@@ -204,12 +168,6 @@
 					for(var/T in typesof(P))
 						L[T] = TRUE
 		return L
-
-/// Empties the list by setting the length to 0. Hopefully the elements get garbage collected
-/proc/clearlist(list/list)
-	if(istype(list))
-		list.len = 0
-	return
 
 /// Removes any null entries from the list. Returns TRUE if the list had nulls, FALSE otherwise
 /proc/listclearnulls(list/L)
@@ -264,7 +222,7 @@
 			L[item] = 1
 		total += L[item]
 
-	total = rand(1, total)
+	total *= rand()
 	for (item in L)
 		total -=L [item]
 		if (total <= 0)
@@ -280,7 +238,7 @@
 			L[item] = 0
 		total += L[item]
 
-	total = rand(0, total)
+	total *= rand()
 	for (item in L)
 		total -=L [item]
 		if (total <= 0 && L[item])

@@ -129,7 +129,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	animate(src, pixel_y = 2, time = 10, loop = -1)
 
-	GLOB.dead_mob_list += src
+	add_to_dead_mob_list()
 
 	for(var/v in GLOB.active_alternate_appearances)
 		if(!v)
@@ -154,6 +154,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 10)
 
 /mob/dead/observer/Destroy()
+	if(data_huds_on)
+		remove_data_huds()
+
 	GLOB.ghost_images_default -= ghostimage_default
 	QDEL_NULL(ghostimage_default)
 
@@ -513,7 +516,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(bootime > world.time)
 		return
-	var/obj/machinery/light/L = locate(/obj/machinery/light) in view(1, src)
+	var/obj/machinery/light/L = locate() in view(1, src)
 	if(L)
 		L.flicker()
 		bootime = world.time + 600

@@ -24,7 +24,7 @@
 	return ..()
 
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
-	if(src != null && base != null)
+	if(!QDELETED(base))
 		var/volume = 0
 		if(istype(base, /obj/machinery/atmospherics/pipe))
 			var/obj/machinery/atmospherics/pipe/E = base
@@ -236,6 +236,8 @@
 		var/datum/gas_mixture/G = i
 		total_gas_mixture.merge(G)
 		total_volume += G.return_volume()
+	
+	total_gas_mixture.set_volume(total_volume)
 
 	//Decides what this pipeline should do next tick
 	//Pipenet air reacts here or your connected canisters won't react properly

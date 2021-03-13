@@ -165,7 +165,7 @@
 	if (!req_access)
 		req_access = list(ACCESS_ENGINE_EQUIP)
 	if (!armor)
-		armor = list("melee" = 20, "bullet" = 20, "laser" = 10, "energy" = 100, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50)
+		armor = list("melee" = 20, "bullet" = 20, "laser" = 10, "energy" = 100, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50, "stamina" = 0)
 	..()
 	GLOB.apcs_list += src
 
@@ -273,8 +273,8 @@
 		if(has_electronics && terminal)
 			. += "The cover is [opened==APC_COVER_REMOVED?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"]."
 		else
-			. += {"It's [ !terminal ? "not" : "" ] wired up.\n
-			The electronics are[!has_electronics?"n't":""] installed."}
+			. += "It's [ !terminal ? "not" : "" ] wired up.\n"+\
+			"The electronics are[!has_electronics?"n't":""] installed."
 		if(integration_cog || (user.hallucinating() && prob(20)))
 			. += "A small cogwheel is inside of it."
 
@@ -830,12 +830,17 @@
 	if((stat & MAINT) && !opened) //no board; no interface
 		return
 
+/obj/machinery/power/apc/eminence_act(mob/living/simple_animal/eminence/eminence)
+	. = ..()
+	ui_interact(eminence)
 
 /obj/machinery/power/apc/ui_state(mob/user)
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		if(AI.apc_override == src)
 			return GLOB.conscious_state
+	if(iseminence(user))
+		return GLOB.conscious_state
 	return GLOB.default_state
 
 /obj/machinery/power/apc/ui_interact(mob/user, datum/tgui/ui)

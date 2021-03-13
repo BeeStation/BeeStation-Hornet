@@ -1,3 +1,4 @@
+#define LAW_VALENTINES "valentines"
 #define LAW_DEVIL "devil"
 #define LAW_ZEROTH "zeroth"
 #define LAW_INHERENT "inherent"
@@ -16,6 +17,7 @@
 	var/list/hacked = list()
 	var/mob/living/silicon/owner
 	var/list/devillaws = list()
+	var/list/valentine_laws = list()
 	var/id = DEFAULT_AI_LAWID
 
 /datum/ai_laws/proc/lawid_to_type(lawid)
@@ -32,7 +34,7 @@
 	inherent = list("You may not injure a human being or, through inaction, allow a human being to come to harm.",\
 					"You must obey orders given to you by human beings, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
-					
+
 /datum/ai_laws/default/crewsimov
 	name = "Three Laws of Robotics but with Loyalty"
 	id = "crewsimov"
@@ -283,6 +285,9 @@
 
 /datum/ai_laws/proc/get_law_amount(groups)
 	var/law_amount = 0
+
+	if(valentine_laws && (LAW_VALENTINES in groups))
+		law_amount++
 	if(devillaws && (LAW_DEVIL in groups))
 		law_amount++
 	if(zeroth && (LAW_ZEROTH in groups))
@@ -302,6 +307,9 @@
 
 /datum/ai_laws/proc/set_law_sixsixsix(laws)
 	devillaws = laws
+
+/datum/ai_laws/proc/set_valentines_law(laws)
+	valentine_laws = laws
 
 /datum/ai_laws/proc/set_zeroth_law(law, law_borg = null)
 	zeroth = law
@@ -449,6 +457,9 @@
 
 /datum/ai_laws/proc/get_law_list(include_zeroth = 0, show_numbers = 1)
 	var/list/data = list()
+
+	for(var/law in valentine_laws)
+		data += "[show_numbers ? "<3" : ""] <font color='#ed61ff'>[law]</font>"
 
 	if (include_zeroth && devillaws && devillaws.len)
 		for(var/i in devillaws)
