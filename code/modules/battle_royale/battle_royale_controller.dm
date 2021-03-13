@@ -126,7 +126,7 @@ GLOBAL_VAR(battle_royale_map)
 	sleep(50)
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Starting game.</span>")
 	INVOKE_ASYNC(src, .proc/titanfall)
-	sleep(50)
+	sleep(350)	//So people spawn in
 	death_wall = list()
 	var/z_level = SSmapping.station_start
 	var/turf/center = SSmapping.get_station_center()
