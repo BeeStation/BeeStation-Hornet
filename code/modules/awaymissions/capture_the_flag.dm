@@ -172,12 +172,11 @@
 	..()
 
 /obj/machinery/capture_the_flag/process()
-	for(var/i in spawned_mobs)
-		if(!i)
-			spawned_mobs -= i
+	for(var/mob/living/M as() in spawned_mobs)
+		if(QDELETED(M))
+			spawned_mobs -= M
 			continue
 		// Anyone in crit, automatically reap
-		var/mob/living/M = i
 		if(M.InCritical() || M.stat == DEAD)
 			ctf_dust_old(M)
 		else
