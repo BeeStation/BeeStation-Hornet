@@ -5,6 +5,7 @@
 	var/stat_update_time = 0
 	var/selected_stat_tab = "Status"
 	var/list/previous_stat_tabs
+	var/last_adminhelp_reply = 0
 
 /*
  * Overrideable proc which gets the stat content for the selected tab.
@@ -280,7 +281,11 @@
 		if("ticket_message")
 			var/message = sanitize(params["msg"])
 			if(message)
-				client.adminhelp(message)
+				if(world.time > last_adminhelp_reply + 10 SECONDS)
+					last_adminhelp_reply = world.time
+					client.current_ticket.MessageNoRecipient(message)
+				else
+					to_chat(src, "<span class='warning'>You are sending messages too fast!</span>")
 
 /*
  * Sets the current stat tab selected.
