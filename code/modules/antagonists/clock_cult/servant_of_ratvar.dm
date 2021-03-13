@@ -109,10 +109,7 @@
 	H.put_in_hands(slab)
 	slab.pickup(H)
 	//Remove cuffs
-	if(H.handcuffed)
-		H.handcuffed.forceMove(get_turf(H))
-		H.handcuffed = null
-		H.update_handcuffed()
+	H.uncuff()
 	return FALSE
 
 //Grant access to the clockwork tools.

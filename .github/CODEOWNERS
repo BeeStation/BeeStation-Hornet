@@ -5,13 +5,12 @@
 # to the same file or dir, add them to the end under Multiple Owners
 
 # crossedfall
+# On-leave
 
 .dockerignore @crossedfall
 .github @crossedfall
-.travis.yml @crossedfall
-appveyor.yml @crossedfall
-/code/modules/tgs @crossedfall
-/config @crossedfall
+#/code/modules/tgs @crossedfall
+#/config @crossedfall
 dependencies.sh @crossedfall
 Dockerfile @crossedfall
 /SQL @crossedfall
