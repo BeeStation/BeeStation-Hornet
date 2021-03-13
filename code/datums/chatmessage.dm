@@ -22,6 +22,8 @@
 #define CHAT_MESSAGE_ICON_SIZE		7
 /// Macro from Lummox used to get height from a MeasureText proc
 #define WXH_TO_HEIGHT(x)			text2num(copytext(x, findtextEx(x, "x") + 1))
+/// How much the message moves up before fading out.
+#define MESSAGE_FADE_PIXEL_Y 10
 
 #define COLOR_JOB_UNKNOWN "#dda583"
 #define COLOR_PERSON_UNKNOWN "#999999"
@@ -183,7 +185,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			LAZYSET(language_icons, language, language_icon)
 		LAZYADD(prefixes, "\icon[language_icon]")
 
-	//Add on the icons and add a little space.
+	//Add on the icons.
 	text = "[prefixes?.Join("&nbsp;")][text]"
 
 	// Approximate text height
@@ -217,7 +219,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message.plane = RUNECHAT_PLANE
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.alpha = 0
-	message.pixel_y = owner.bound_height
+	message.pixel_y = owner.bound_height - MESSAGE_FADE_PIXEL_Y
 	message.maptext_width = CHAT_MESSAGE_WIDTH
 	message.maptext_height = mheight
 	message.maptext_x = (CHAT_MESSAGE_WIDTH - owner.bound_width) * -0.5
@@ -228,7 +230,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	// View the message
 	LAZYADDASSOCLIST(owned_by.seen_messages, message_loc, src)
 	owned_by.images |= message
-	animate(message, alpha = 255, time = CHAT_MESSAGE_SPAWN_TIME)
+	animate(message, alpha = 255, pixel_y = owner.bound_height, time = CHAT_MESSAGE_SPAWN_TIME)
 
 	// Register with the runechat SS to handle EOL and destruction
 	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
@@ -243,7 +245,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
   */
 /datum/chatmessage/proc/end_of_life(fadetime = CHAT_MESSAGE_EOL_FADE)
 	eol_complete = scheduled_destruction + fadetime
-	animate(message, alpha = 0, time = fadetime, flags = ANIMATION_PARALLEL)
+	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
 	enter_subsystem(eol_complete) // re-enter the runechat SS with the EOL completion time to QDEL self
 
 /**
