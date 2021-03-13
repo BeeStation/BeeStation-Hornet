@@ -126,9 +126,12 @@ the new instance inside the host to be updated to the template's stats.
 		link = FOLLOW_LINK(src, to_follow)
 	else
 		link = ""
+	//Get message flags
+	var/is_radio_message = message_mods.Find(MODE_RADIO_MESSAGE)
+	var/flags = is_radio_message ? RADIO_MESSAGE : NONE
 	// Create map text prior to modifying message for runechat
-	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)) && !message_mods[MODE_NOOVERHEAD])
-		create_chat_message(speaker, message_language, raw_message, spans)
+	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
+		create_chat_message(speaker, message_language, raw_message, spans, runechat_flags = flags)
 	// Recompose the message, because it's scrambled by default
 	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
 	to_chat(src, "[link] [message]")

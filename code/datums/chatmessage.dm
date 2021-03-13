@@ -264,8 +264,28 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	// Check for virtual speakers (aka hearing a message through a radio)
 	if (istype(speaker, /atom/movable/virtualspeaker))
 		var/atom/movable/virtualspeaker/v = speaker
+		//===================
+		//Check to make sure we didnt hear the source message
+		//===================
+		//Dont create the overhead chat if we said the message.
+		if(v.source == src)
+			return
+		//Dont create the overhead radio chat if we are a ghost and can hear global messages.
+		if(isobserver(src) && client.prefs.chat_toggles & CHAT_GHOSTEARS)
+			return
+		//Dont create the overhead radio chat if we heard the speaker speak
+		if(get_dist(get_turf(v.source), get_turf(src)) <= 1)
+			return
+		//===================
 		speaker = v.source
 		spans |= "virtual-speaker"
+
+	//If the message has the radio message flag
+	else if (runechat_flags & RADIO_MESSAGE)
+		//You are now a virtual speaker
+		spans |= "virtual-speaker"
+		//You are no longer italics
+		spans -= "italics"
 
 	// Display visual above source
 	if(runechat_flags & EMOTE_MESSAGE)

@@ -904,8 +904,11 @@
 
 	var/rendered = "<i><span class='game say'>[start]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
 
-	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)) && !message_mods[MODE_NOOVERHEAD])
-		create_chat_message(speaker, message_language, raw_message, spans)
+	var/is_radio_message = message_mods.Find(MODE_RADIO_MESSAGE)
+	var/flags = is_radio_message ? RADIO_MESSAGE : NONE
+
+	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
+		create_chat_message(speaker, message_language, raw_message, spans, runechat_flags = flags)
 
 	show_message(rendered, 2)
 

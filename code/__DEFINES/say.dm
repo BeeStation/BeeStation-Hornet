@@ -47,8 +47,6 @@
 
 #define MODE_SING "%"
 
-#define MODE_NOOVERHEAD "nooverhead"
-
 //Spans. Robot speech, italics, etc. Applied in compose_message().
 #define SPAN_ROBOT "robot"
 #define SPAN_YELL "yell"
@@ -71,6 +69,9 @@
 
 /// How close intercoms can be for radio code use
 #define MODE_RANGE_INTERCOM 1
+
+// Is the message actually a radio message
+#define MODE_RADIO_MESSAGE "actuallyradiomessage"
 
 // A link given to ghost alice to follow bob
 #define FOLLOW_LINK(alice, bob) "<a href=?src=[REF(alice)];follow=[REF(bob)]>(F)</a>"
@@ -106,3 +107,4 @@
 
 //Used in visible_message_flags, audible_message_flags and runechat_flags
 #define EMOTE_MESSAGE (1<<0)
+#define RADIO_MESSAGE (1<<1)
