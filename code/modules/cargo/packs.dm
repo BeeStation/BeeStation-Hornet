@@ -1491,7 +1491,7 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/medical/virus
 	name = "Virus Crate"
 	desc = "Contains several contagious virus samples, ranging from annoying to lethal. Balled-up jeans not included. Requires CMO access to open."
-	cost = 2000
+	cost = 5000
 	access = ACCESS_CMO
 	contraband = TRUE
 	contains = list(/obj/item/reagent_containers/glass/bottle/fake_gbs,
