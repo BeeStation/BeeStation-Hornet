@@ -138,7 +138,7 @@
 	setDir(pick(1,2,4,8))
 	icon_state += "-old"
 	add_blood_DNA(list("Non-human DNA" = random_blood_type()))
-	if(prob(50))
+	if(prob(75))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), rand(5, 9))
 		disease += R
 
