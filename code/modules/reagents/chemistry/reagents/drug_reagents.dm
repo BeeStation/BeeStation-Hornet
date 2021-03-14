@@ -166,7 +166,7 @@
 
 /datum/reagent/drug/krokodil/addiction_act_stage4(mob/living/carbon/human/M)
 	CHECK_DNA_AND_SPECIES(M)
-	if(istype(M.dna.species, /datum/species/human) || istype(M.dna.species, /datum/species/human/felinid))
+	if(istype(M.dna.species, /datum/species/human) || istype(M.dna.species, /datum/species/human/felinid)) // probably not the best way to do it but until we get a krokodil_addict variant for every race only humans/felinds should be transformed
 		if(!istype(M.dna.species, /datum/species/krokodil_addict))
 			to_chat(M, "<span class='userdanger'>Your skin falls off easily!</span>")
 			M.adjustBruteLoss(50*REM, 0) // holy shit your skin just FELL THE FUCK OFF
