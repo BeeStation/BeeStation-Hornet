@@ -124,12 +124,11 @@ Bonus
 		if(4)
 			if(!thresholds["nvision_buff"])
 				to_chat(L, "<span class='userdanger'>Your vision becomes better!</span>")
+				thresholds["nvision_buff"] = TRUE // So this won't happen again
 				if(thresholds["better_vis"])
 					L.see_in_dark += 4
-					thresholds["nvision_buff"] = TRUE
 				else
 					L.see_in_dark += 2
-					thresholds["nvision_buff"] = TRUE
 			if(thresholds["thermal"] && !thresholds["xray"] && !thresholds["other_buff"])
 				ADD_TRAIT(L, TRAIT_THERMAL_VISION, DISEASE_TRAIT)
 				thresholds["other_buff"] = TRUE
