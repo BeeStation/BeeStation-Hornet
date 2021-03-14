@@ -56,7 +56,7 @@
 	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/rank/medical/emt
-	name = "medical scrubs"
+	name = "paramedic jumpsuit"
 	desc = "A standard jumpsuit used by paramedics onboard space stations. It's made of a special fiber that gives special protection against biohazards."
 	icon_state = "emt"
 	item_color = "emt"
