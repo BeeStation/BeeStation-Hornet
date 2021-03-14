@@ -404,6 +404,7 @@ const EFFECTS_HARM =[
   {
     divider: 1,
   },
+  /*
   {
     title: 'Projectile Cloud',
     details: true,
@@ -411,6 +412,7 @@ const EFFECTS_HARM =[
     soloSelected: 'effectShrapnel',
     act: 'effectShrapnel',
   },
+  */
   {
     title: 'Stun',
     icon: 'sun',
@@ -1103,23 +1105,23 @@ const Timing = (props, context) => {
             color="transparent"
             tooltip={multiline`
             Toggle Reverse Delays
-            Note: Top set is  
-            normal delays, bottom set 
+            Note: Top set is
+            normal delays, bottom set
             is reversing pod's delays`}
             tooltipOverrideLong
             tooltipPosition="bottom-right"
             onClick={() => act('toggleRevDelays')} />
         </Fragment>
       )}>
-      <DelayHelper 
-        delay_list={DELAYS} 
+      <DelayHelper
+        delay_list={DELAYS}
       />
       {data.custom_rev_delay && (
         <Fragment>
           <Divider horizontal />
-          <DelayHelper 
-            delay_list={REV_DELAYS} 
-            reverse 
+          <DelayHelper
+            delay_list={REV_DELAYS}
+            reverse
           />
         </Fragment>
       )||""}
@@ -1148,7 +1150,7 @@ const DelayHelper = (props, context) => {
             unit={"s"}
             format={value => toFixed(value, 2)}
             maxValue={10}
-            color={((reverse ? data.rev_delays[i+1] : data.delays[i+1]) / 10) 
+            color={((reverse ? data.rev_delays[i+1] : data.delays[i+1]) / 10)
               > 10 ? "orange" : "default"}
             onDrag={(e, value) => {
               act('editTiming', {
