@@ -1454,7 +1454,7 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/medical/randomvirus
 	name = "Virus Sample Crate"
 	desc = "Contains five random experimental disease cultures for epidemiological research"
-	cost = 1500
+	cost = 5000
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
@@ -1491,7 +1491,7 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/medical/virus
 	name = "Virus Crate"
 	desc = "Contains several contagious virus samples, ranging from annoying to lethal. Balled-up jeans not included. Requires CMO access to open."
-	cost = 5000
+	cost = 2000
 	access = ACCESS_CMO
 	contraband = TRUE
 	contains = list(/obj/item/reagent_containers/glass/bottle/fake_gbs,
@@ -1504,6 +1504,15 @@ datum/supply_pack/medical/bruisekits
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
+/datum/supply_pack/medical/extrapolator
+	name = "Virus Extrapolator Supply Crate"
+	desc = "Contains 3 Virus Extrapolators should any existing ones be lost or otherwise destroyed."
+	cost = 2000
+	access = ACCESS_VIROLOGY
+	contains = list(/obj/item/extrapolator, /obj/item/extrapolator, /obj/item/extrapolator)
+	crate_name = "Extrapolator Crate"
+	crate_type = /obj/structure/closet/crate/secure/plasma
+	dangerous = TRUE
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
