@@ -7,7 +7,7 @@
 	belt = /obj/item/pda
 	back = /obj/item/pickaxe/harvesting_tool
 	shoes = /obj/item/clothing/shoes/combat
-	eyes = /obj/item/clothing/glasses/night
+	glasses = /obj/item/clothing/glasses/night
 
 /obj/item/pickaxe/harvesting_tool
 	name = "Harvesting Tool"
