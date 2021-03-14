@@ -1641,6 +1641,8 @@
 #include "code\modules\battle_royale\battle_royale_drops.dm"
 #include "code\modules\battle_royale\battle_royale_items.dm"
 #include "code\modules\battle_royale\battle_royale_landmarks.dm"
+#include "code\modules\battle_royale\battle_royale_loadout.dm"
+#include "code\modules\battle_royale\battle_royale_maploader.dm"
 #include "code\modules\battle_royale\battle_royale_shuttle_turf.dm"
 #include "code\modules\battle_royale\battle_royale_wall.dm"
 #include "code\modules\buildmode\bm_mode.dm"

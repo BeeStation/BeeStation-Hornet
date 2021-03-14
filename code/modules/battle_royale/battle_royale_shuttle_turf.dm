@@ -64,6 +64,8 @@ GLOBAL_VAR_INIT(shuttle_drop_max_y, 0)
 
 /turf/open/shuttle_drop_turf/Entered(atom/movable/A)
 	. = ..()
+	if(iseffect(A))
+		return
 	if(target_turf)
 		var/mutable_appearance/balloon
 		var/mutable_appearance/balloon3

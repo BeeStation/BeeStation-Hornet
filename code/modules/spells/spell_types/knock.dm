@@ -29,6 +29,3 @@
 /obj/effect/proc_holder/spell/aoe_turf/knock/proc/open_closet(var/obj/structure/closet/C)
 	C.locked = FALSE
 	C.open()
-
-/obj/effect/proc_holder/spell/aoe_turf/knock/slow
-	charge_max = 300

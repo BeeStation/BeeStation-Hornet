@@ -106,17 +106,10 @@ GLOBAL_VAR(battle_royale_z)
 	//Load the map
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Loading Map...</span>")
 	if(!GLOB.battle_royale_map)
-		var/list/errorList = list()
-		var/list/br_map = SSmapping.LoadGroup(errorList, "Battle Royale World", "battle_royale", "KiloRoyale.dmm", default_traits=ZTRAITS_BATTLE_ROYALE)
-		if(errorList.len)
-			message_admins("br_map failed to load")
-			log_game("br_map failed to load")
-			to_chat(world, "<span class='greenannounce'>Battle Royale: Loading map failed.</span>")
-			return FALSE
-		for(var/datum/parsed_map/map in br_map)
-			map.initTemplateBounds()
-			GLOB.battle_royale_map = map
-		GLOB.battle_royale_z = world.maxz - 1
+		var/datum/map_template/battle_royale/template = new('_maps/battle_royale/KiloRoyale.dmm', "Battle Royale Map")
+		if(!template.load_new_z())
+			to_chat(world, "<span class='boldannounce'>Battle Royale: Loading map failed!</span>")
+			return
 	//Wait to start
 	sleep(50)
 	to_chat(world, "<span class='greenannounce'>Battle Royale: STARTING IN 30 SECONDS.</span>")
@@ -128,8 +121,8 @@ GLOBAL_VAR(battle_royale_z)
 	to_chat(world, "<span class='greenannounce'>Make sure to hit yes to the sign up message given to all observing players.</span>")
 	sleep(50)
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Starting game.</span>")
-	INVOKE_ASYNC(src, .proc/titanfall)
-	sleep(350)	//So people spawn in
+	titanfall()
+	to_chat(world, "<span class='boldannounce'>The ash storm is forming!</span>")
 	death_wall = list()
 	var/z_level = GLOB.battle_royale_z
 	var/turf/center = SSmapping.get_station_center()
@@ -146,6 +139,7 @@ GLOBAL_VAR(battle_royale_z)
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
+	to_chat(world, "<span class='boldannounce'>JUMP OFF THE SHUTTLE TO DEPLOY TO THAT LOCATION.</span>")
 	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
 	players = list()
 	for(var/mob/M in participants)
@@ -153,23 +147,27 @@ GLOBAL_VAR(battle_royale_z)
 		//Create a mob and transfer their mind to it.
 		CHECK_TICK
 		var/spawn_pos = pick(GLOB.br_spawns)
-		var/mob/living/carbon/human/H = new(get_turf(spawn_pos))
+		var/turf/T = get_turf(spawn_pos)
+		var/mob/living/carbon/human/H = new(T)
 		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		H.status_flags = GODMODE
 		H.pass_flags |= PASSMOB
 		//Assistant gang
 		H.equipOutfit(/datum/outfit/job/assistant)
 		//Give them a spell
-		H.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock/slow)
 		H.key = key
 		//Give weapons key
 		var/obj/item/implant/weapons_auth/W = new
 		W.implant(H)
 		players += H
-		to_chat(M, "<span class='notice'>You have been given knock and pacafism for 30 seconds.</span>")
+		//Buckle to the chair
+		var/obj/structure/chair/C = locate() in T
+		if(C)
+			C.buckle_mob(M)
+		to_chat(M, "<span class='notice'>You are in the safe zone, you cannot attack here.</span>")
 	SEND_SOUND(world, sound('sound/misc/airraid.ogg'))
 	to_chat(world, "<span class='boldannounce'>A 30 second grace period has been established. Good luck.</span>")
-	to_chat(world, "<span class='boldannounce'>WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!</span>")
+	to_chat(world, "<span class='boldannounce'>WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL OR STAY ON THE SHUTTLE FOR TOO LONG!</span>")
 	to_chat(world, "<span class='boldannounce'>[players.len] people remain...</span>")
 	//Hide ghosts
 	set_observer_default_invisibility(TRUE, "You are hidden by the battle royale")

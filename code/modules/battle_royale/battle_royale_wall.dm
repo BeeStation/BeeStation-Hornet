@@ -7,9 +7,12 @@
 	var/turf/center_turf
 	icon = 'icons/effects/fields.dmi'
 	icon_state = "projectile_dampen_generic"
+	var/active = TRUE
 
 /obj/effect/death_wall/Crossed(atom/movable/AM, oldloc)
 	. = ..()
+	if(!active)
+		return
 	//lol u died
 	if(isliving(AM))
 		var/mob/living/M = AM
@@ -18,6 +21,13 @@
 
 /obj/effect/death_wall/Moved(atom/OldLoc, Dir)
 	. = ..()
+	var/area/A = get_area(src)
+	if(istype(A, /area/robusting_rocket))
+		active = FALSE
+		alpha = 0
+		return
+	active = TRUE
+	alpha = 255
 	for(var/mob/living/M in get_turf(src))
 		M.gib()
 		to_chat(M, "<span class='warning'>You left the zone!</span>")
