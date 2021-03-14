@@ -151,6 +151,9 @@
 /datum/component/proc/InheritComponent(datum/component/C, i_am_original)
 	return
 
+/datum/component/proc/CheckDupeComponent(datum/component/C, ...)
+	return
+
 /datum/component/proc/PreTransfer()
 	return
 
@@ -184,6 +187,8 @@
 
 /datum/proc/GetComponent(c_type)
 	RETURN_TYPE(c_type)
+	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
+		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
 	var/list/dc = datum_components
 	if(!dc)
 		return null
@@ -192,6 +197,9 @@
 		return .[1]
 
 /datum/proc/GetExactComponent(c_type)
+	RETURN_TYPE(c_type)
+	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
+		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
 	var/list/dc = datum_components
 	if(!dc)
 		return null
@@ -255,6 +263,18 @@
 						old_comp.InheritComponent(arglist(arguments))
 					else
 						old_comp.InheritComponent(new_comp, TRUE)
+				if(COMPONENT_DUPE_SELECTIVE)
+					var/list/arguments = raw_args.Copy()
+					arguments[1] = new_comp
+					var/make_new_component = TRUE
+					for(var/i in GetComponents(new_type))
+						var/datum/component/C = i
+						if(C.CheckDupeComponent(arglist(arguments)))
+							make_new_component = FALSE
+							QDEL_NULL(new_comp)
+							break
+					if(!new_comp && make_new_component)
+						new_comp = new nt(raw_args)
 		else if(!new_comp)
 			new_comp = new nt(raw_args) // There's a valid dupe mode but there's no old component, act like normal
 	else if(!new_comp)
