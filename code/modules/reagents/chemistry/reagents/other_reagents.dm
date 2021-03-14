@@ -646,7 +646,7 @@
 	
 /datum/reagent/mutationtoxin/oozeling
 	name = "Oozeling Mutation Toxin"
-	description = "A oozing toxin"
+	description = "An oozing toxin"
 	color = "#611e80" //RGB: 97, 30, 128
 	race = /datum/species/oozeling
 	taste_description = "burning ooze"
