@@ -100,7 +100,7 @@
 		"wants to": "wanna",
 		"gun": "gat",
 		"pistol": "gat",
-		"knife": "shank",
+		"knife": ["shank", "skeng"],
 		"talking shit": "gettin' rude",
 		"take shit": "gettin' rude",
 		"and ": "and like ",
