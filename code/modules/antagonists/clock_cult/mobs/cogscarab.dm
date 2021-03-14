@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 		Construct defences, traps and forgeries, for opening the Ark requires an unimaginable amount of power which is bound to get the attention of selfish lifeforms interested only in their own self-preservation.</span>"
 	laws = "You are have been granted the gift of sentience from Rat'var.<br>\
 		You are not bound by any laws, do whatever you must to serve Rat'var!"
-	mobsay_color = LIGHT_COLOR_CLOCKWORK
+	chat_color = LIGHT_COLOR_CLOCKWORK
 	mobchatspan = "brassmobsay"
 	initial_language_holder = /datum/language_holder/clockmob
 
