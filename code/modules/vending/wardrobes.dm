@@ -58,6 +58,7 @@
 					/obj/item/clothing/suit/hooded/wintercoat/medical = 4,
 					/obj/item/clothing/under/rank/medical/doctor/nurse = 4,
 					/obj/item/clothing/head/nursehat = 4,
+					/obj/item/clothing/under/rank/medical/doctor/skirt= 4,
 					/obj/item/clothing/under/rank/medical/doctor/blue = 4,
 					/obj/item/clothing/under/rank/medical/doctor/green = 4,
 					/obj/item/clothing/under/rank/medical/doctor/purple = 4,
@@ -91,6 +92,7 @@
 					/obj/item/clothing/suit/hooded/wintercoat/engineering = 3,
 					/obj/item/clothing/under/rank/engineering/engineer = 3,
 					/obj/item/clothing/under/rank/engineering/engineer/hazard = 3,
+					/obj/item/clothing/under/rank/engineering/engineer/skirt = 3,
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,
 					/obj/item/clothing/head/hardhat = 3,
@@ -116,6 +118,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/atmospherics = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician = 3,
+					/obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt = 3,
 					/obj/item/clothing/shoes/sneakers/black = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/atmos_wardrobe
 	payment_department = ACCOUNT_ENG
@@ -131,6 +134,7 @@
 	light_color = LIGHT_COLOR_YELLOW
 	products = list(/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
 					/obj/item/clothing/under/rank/cargo/tech = 3,
+					/obj/item/clothing/under/rank/cargo/tech/skirt = 3,
 					/obj/item/clothing/under/plasmaman/cargo = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/cargo = 3,
 					/obj/item/clothing/shoes/sneakers/black = 3,
@@ -153,6 +157,7 @@
 	products = list(/obj/item/clothing/glasses/hud/diagnostic = 2,
 					/obj/item/reagent_containers/medspray/sterilizine = 3,
 					/obj/item/clothing/under/rank/rnd/roboticist = 2,
+					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 2,
 					/obj/item/clothing/under/plasmaman/robotics = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/robotics = 2,
 					/obj/item/clothing/suit/toggle/labcoat = 2,
@@ -182,6 +187,7 @@
 					/obj/item/storage/backpack/satchel/tox = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/science = 3,
 					/obj/item/clothing/under/rank/rnd/scientist = 3,
+					/obj/item/clothing/under/rank/rnd/scientist/skirt = 3,
 					/obj/item/clothing/under/plasmaman/science = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/science = 3,
 					/obj/item/clothing/suit/toggle/labcoat/science = 3,
@@ -207,6 +213,7 @@
 					/obj/item/clothing/suit/apron = 2,
 					/obj/item/clothing/suit/apron/overalls = 3,
 					/obj/item/clothing/under/rank/civilian/hydroponics = 3,
+					/obj/item/clothing/under/rank/civilian/hydroponics/skirt = 3,
 					/obj/item/clothing/under/plasmaman/botany = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/botany = 3,
 					/obj/item/clothing/mask/bandana = 3,
@@ -229,6 +236,7 @@
 					/obj/item/pen/fourcolor = 1,
 					/obj/item/pen/fountain = 2,
 					/obj/item/clothing/accessory/pocketprotector = 2,
+					/obj/item/clothing/under/rank/curator/skirt = 2,
 					/obj/item/storage/backpack/satchel/explorer = 1,
 					/obj/item/clothing/glasses/regular = 2,
 					/obj/item/clothing/glasses/regular/jamjar = 1,
@@ -252,6 +260,7 @@
 					/obj/item/clothing/under/suit/sl = 2,
 					/obj/item/clothing/under/rank/civilian/bartender = 2,
 					/obj/item/clothing/under/rank/civilian/bartender/purple = 2,
+					/obj/item/clothing/under/rank/civilian/bartender/skirt = 2,
 					/obj/item/clothing/under/plasmaman/enviroslacks = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/white = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
@@ -290,6 +299,7 @@
 					/obj/item/clothing/under/plasmaman/chef = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/white = 1,
 					/obj/item/clothing/under/rank/civilian/chef = 1,
+					/obj/item/clothing/under/rank/civilian/chef/skirt = 2,
 					/obj/item/clothing/under/rank/civilian/altchef = 1,
 					/obj/item/clothing/head/chefhat = 3,
 					/obj/item/reagent_containers/glass/rag = 1,
@@ -306,6 +316,7 @@
 	product_ads = "Come and get your janitorial clothing, now endorsed by lizard janitors everywhere!"
 	vend_reply = "Thank you for using the JaniDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/janitor = 2,
+					/obj/item/clothing/under/rank/civilian/janitor/skirt = 2,
 					/obj/item/clothing/under/plasmaman/janitor = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/janitor = 2,
 					/obj/item/cartridge/janitor = 2,
@@ -335,15 +346,20 @@
 	product_ads = "OBJECTION! Get the rule of law for yourself!"
 	vend_reply = "Thank you for using the LawDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/lawyer/bluesuit = 1,
+					/obj/item/clothing/under/lawyer/bluesuit/skirt = 1,
 					/obj/item/clothing/suit/toggle/lawyer = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit = 1,
 					/obj/item/clothing/suit/toggle/lawyer/purple = 1,
+					/obj/item/clothing/under/lawyer/civilian/lawyer/purpsuit/skirt = 1,
 					/obj/item/clothing/under/suit/black = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/black/skirt = 1,
 					/obj/item/clothing/suit/toggle/lawyer/black = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/female = 1,
+					/obj/item/clothing/under/lawyer/civilian/lawyer/female/skirt = 1,
 					/obj/item/clothing/under/suit/black_really = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/blue = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/red = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/red/skirt = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/black = 1,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/neck/tie/red = 6,
@@ -365,6 +381,7 @@
 					/obj/item/storage/backpack/cultpack = 1,
 					/obj/item/clothing/accessory/pocketprotector/cosmetology = 1,
 					/obj/item/clothing/under/rank/civilian/chaplain = 1,
+					/obj/item/clothing/under/rank/civilian/chaplain/skirt = 1,
 					/obj/item/clothing/under/plasmaman/chaplain = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/chaplain = 1,
 					/obj/item/clothing/shoes/sneakers/black = 1,
@@ -398,6 +415,7 @@
 	product_ads = "Our clothes are 0.5% more resistant to acid spills! Get yours now!"
 	vend_reply = "Thank you for using the ChemDrobe!"
 	products = list(/obj/item/clothing/under/rank/medical/chemist = 2,
+					/obj/item/clothing/under/rank/medical/chemist/skirt = 2,
 					/obj/item/clothing/under/plasmaman/chemist = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/chemist = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
@@ -418,6 +436,7 @@
 	product_ads = "Perfect for the mad scientist in you!"
 	vend_reply = "Thank you for using the GeneDrobe!"
 	products = list(/obj/item/clothing/under/rank/medical/geneticist = 2,
+					/obj/item/clothing/under/rank/medical/geneticist/skirt = 2,
 					/obj/item/clothing/under/plasmaman/genetics = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/genetics = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
@@ -436,6 +455,7 @@
 	product_ads = " Viruses getting you down? Then upgrade to sterilized clothing today!"
 	vend_reply = "Thank you for using the ViroDrobe"
 	products = list(/obj/item/clothing/under/rank/medical/virologist = 2,
+					/obj/item/clothing/under/rank/medical/virologist/skirt = 2,
 					/obj/item/clothing/under/plasmaman/viro = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/viro = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,

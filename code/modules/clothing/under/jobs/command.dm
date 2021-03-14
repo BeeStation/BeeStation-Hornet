@@ -22,3 +22,13 @@
 	item_state = "by_suit"
 	item_color = "captain_parade"
 	can_adjust = FALSE
+
+/obj/item/clothing/under/rank/captain/skirt
+	name = "captain's jumpskirt"
+	desc = "It's a blue jumpskirt with some gold markings denoting the rank of \"Captain\"."
+	icon_state = "captain_skirt"
+	item_state = "b_suit"
+	item_color = "captain_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
