@@ -18,7 +18,7 @@
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
 	initial_language_holder = /datum/language_holder/slime
-	mobsay_color = "#A6E398"
+	chat_color = "#A6E398"
 	mobchatspan = "slimemobsay"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)

@@ -564,7 +564,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		owner.blockbreak()
 	return TRUE
 
-/obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language)
+/obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
 	return ITALICS | REDUCE_RANGE
 
 /obj/item/proc/dropped(mob/user)
