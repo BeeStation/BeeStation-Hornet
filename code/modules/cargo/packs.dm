@@ -1468,7 +1468,7 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/medical/virology
 	name = "Junior Epidemiology Kit"
 	desc = "Contains the necessary supplies to start an epidemiological research lab. P.A.N.D.E.M.I.C. not included. Comes with a free virologist action figure!"
-	cost = 900
+	cost = 1500
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/reagent_containers/food/snacks/monkeycube,
 					/obj/item/reagent_containers/food/drinks/bottle/virusfood,
@@ -1517,7 +1517,7 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/medical/pandemic
 	name = "Pandemic Replacement Crate"
 	desc = "Contains a replacement P.A.N.D.E.M.I.C. in case the ones in virology get destroyed or you want to build a new lab."
-	cost = 3000
+	cost = 5000
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/machinery/computer/pandemic)
 //////////////////////////////////////////////////////////////////////////////
