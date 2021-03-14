@@ -809,7 +809,7 @@
 
 /obj/item/integrated_circuit/input/ntnet_packet/Initialize()
 	. = ..()
-	var/datum/component/ntnet_interface/net = LoadComponent(/datum/component/ntnet_interface)
+	var/datum/component/ntnet_interface/net = AddComponent(/datum/component/ntnet_interface)
 	address = net.hardware_id
 	net.differentiate_broadcast = FALSE
 	desc += "<br>This circuit's NTNet hardware address is: [address]"
@@ -858,7 +858,7 @@
 
 /obj/item/integrated_circuit/input/ntnet_advanced/Initialize()
 	. = ..()
-	var/datum/component/ntnet_interface/net = LoadComponent(/datum/component/ntnet_interface)
+	var/datum/component/ntnet_interface/net = AddComponent(/datum/component/ntnet_interface)
 	address = net.hardware_id
 	net.differentiate_broadcast = FALSE
 	desc += "<br>This circuit's NTNet hardware address is: [address]"
