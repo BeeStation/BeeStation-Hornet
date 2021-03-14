@@ -78,13 +78,17 @@
 	var/material_flags = NONE
 
 	var/flags_ricochet = NONE
-
 	///When a projectile tries to ricochet off this atom, the projectile ricochet chance is multiplied by this
 	var/ricochet_chance_mod = 1
 	///When a projectile ricochets off this atom, it deals the normal damage * this modifier to this atom
 	var/ricochet_damage_mod = 0.33
 
-
+	/// Last name used to calculate a color for the chatmessage overlays
+	var/chat_color_name
+	/// Last color calculated for the the chatmessage overlays
+	var/chat_color
+	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
+	var/chat_color_darkened
 
 /**
   * Called when an atom is created in byond (built in engine proc)
