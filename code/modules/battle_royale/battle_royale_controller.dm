@@ -153,7 +153,7 @@ GLOBAL_VAR(battle_royale_z)
 		H.status_flags = GODMODE
 		H.pass_flags |= PASSMOB
 		//Assistant gang
-		H.equipOutfit(/datum/outfit/job/assistant)
+		H.equipOutfit(/datum/outfit/battle_royale)
 		//Give them a spell
 		H.key = key
 		//Give weapons key
