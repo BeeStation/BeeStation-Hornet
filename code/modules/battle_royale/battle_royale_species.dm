@@ -24,7 +24,7 @@
 
 //Reduce bullet damage, ignores sleeping carp
 /datum/species/human/battleroyale/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
-	var/armor = run_armor_check(P.def_zone, P.flag, "","",P.armour_penetration)
+	var/armor = H.run_armor_check(P.def_zone, P.flag, "","",P.armour_penetration)
 	if(!P.nodamage)
-		apply_damage(P.damage * bullet_mod, P.damage_type, P.def_zone, armor)
+		H.apply_damage(P.damage * bullet_mod, P.damage_type, P.def_zone, armor)
 	return P.on_hit(src, armor)? BULLET_ACT_HIT : BULLET_ACT_BLOCK
