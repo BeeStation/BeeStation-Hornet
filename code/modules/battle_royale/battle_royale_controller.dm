@@ -107,7 +107,8 @@ GLOBAL_VAR(battle_royale_z)
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Loading Map...</span>")
 	if(!GLOB.battle_royale_map)
 		var/datum/map_template/battle_royale/template = new('_maps/battle_royale/KiloRoyale.dmm', "Battle Royale Map")
-		if(!template.load_new_z())
+		GLOB.battle_royale_map = template.load_new_z()
+		if(!GLOB.battle_royale_map)
 			to_chat(world, "<span class='boldannounce'>Battle Royale: Loading map failed!</span>")
 			return
 	//Wait to start
