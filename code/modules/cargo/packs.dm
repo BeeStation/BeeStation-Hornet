@@ -1513,6 +1513,13 @@ datum/supply_pack/medical/bruisekits
 	crate_name = "Extrapolator Crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
+
+/datum/supply_pack/medical/pandemic
+	name = "Pandemic Replacement Crate"
+	desc = "Contains a replacement P.A.N.D.E.M.I.C. in case the ones in virology get destroyed or you want to build a new lab."
+	cost = 3000
+	access = ACCESS_VIROLOGY
+	contains = list(/obj/machinery/computer/pandemic)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
