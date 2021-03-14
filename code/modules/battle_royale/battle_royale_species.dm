@@ -14,7 +14,7 @@
 	//Contents get thrown
 	var/list/contents = H.get_contents()
 	var/list/turfs_to_throw = view(2, H)
-	for(var/item/I in contents)
+	for(var/obj/item/I in contents)
 		I.forceMove(get_turf(I))
 		I.throw_at(pick(turfs_to_throw), 3, 1, spin = FALSE)
 		I.pixel_x = rand(-10, 10)
@@ -24,7 +24,7 @@
 
 //Reduce bullet damage, ignores sleeping carp
 /datum/species/human/battleroyale/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
-	var/armor = run_armor_check(def_zone, P.flag, "","",P.armour_penetration)
+	var/armor = run_armor_check(P.def_zone, P.flag, "","",P.armour_penetration)
 	if(!P.nodamage)
-		apply_damage(P.damage * bullet_mod, P.damage_type, def_zone, armor)
+		apply_damage(P.damage * bullet_mod, P.damage_type, P.def_zone, armor)
 	return P.on_hit(src, armor)? BULLET_ACT_HIT : BULLET_ACT_BLOCK
