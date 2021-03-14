@@ -1363,6 +1363,9 @@
 /mob/living/carbon/human/species/supersoldier
 	race = /datum/species/human/supersoldier
 
+/mob/living/carbon/human/species/battleroyale
+	race = /datum/species/human/battleroyale
+
 /mob/living/carbon/human/species/vampire
 	race = /datum/species/vampire
 

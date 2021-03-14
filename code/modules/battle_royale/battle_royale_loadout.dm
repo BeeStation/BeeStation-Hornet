@@ -16,7 +16,6 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(wielded) //destroys windows and grilles in one hit
-		if(istype(A, /obj/structure))
-			var/obj/structure/S = A
-			A.take_damage(80, BRUTE, "melee", 0)
+	if(istype(A, /obj/structure))
+		var/obj/structure/S = A
+		S.take_damage(80, BRUTE, "melee", 0)

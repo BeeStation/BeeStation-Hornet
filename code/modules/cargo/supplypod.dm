@@ -71,8 +71,17 @@
 	bluespace = FALSE
 	explosionSize = list(0,0,0,0)
 	landingDelay = 40 //Very slow
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = NONE
 	max_integrity = 20
+	openingDelay = INFINITY
+
+/obj/structure/closet/supplypod/battleroyale/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Left click with an empty hand to open.</span>"
+
+/obj/structure/closet/supplypod/battleroyale/attack_hand(mob/living/user)
+	. = ..()
+	open(src, TRUE)
 
 /obj/structure/closet/supplypod/proc/specialisedPod()
 	return 1

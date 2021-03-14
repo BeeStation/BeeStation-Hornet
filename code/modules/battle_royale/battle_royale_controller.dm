@@ -148,7 +148,7 @@ GLOBAL_VAR(battle_royale_z)
 		CHECK_TICK
 		var/spawn_pos = pick(GLOB.br_spawns)
 		var/turf/T = get_turf(spawn_pos)
-		var/mob/living/carbon/human/H = new(T)
+		var/mob/living/carbon/human/species/battleroyale/H = new(T)
 		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		H.status_flags = GODMODE
 		H.pass_flags |= PASSMOB
