@@ -561,7 +561,7 @@
 		/datum/material/bluespace,
 		/datum/material/plastic,
 		)
-	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, max_amt=100000, materials_list, allowed_types=/obj/item/stack, _precondition=CALLBACK(src, .proc/is_insertion_ready), _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
+	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, materials_list, max_amt=100000, allowed_types=/obj/item/stack, _precondition=CALLBACK(src, .proc/is_insertion_ready), _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
 	materials.precise_insertion = TRUE
 	.=..()
 
