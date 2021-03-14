@@ -735,7 +735,7 @@
 	results = list(/datum/reagent/mutationtoxin/ipc = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
 
-/datum/chemical_reaction/muationtoxin/oozeling
+/datum/chemical_reaction/mutationtoxin/oozeling
 	name = /datum/reagent/mutationtoxin/oozeling
 	id = /datum/reagent/mutationtoxin/oozeling
 	results = list(/datum/reagent/mutationtoxin/oozeling = 5)
