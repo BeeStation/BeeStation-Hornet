@@ -11,7 +11,7 @@
 	update_mob()
 
 	for(var/turf/T in view(range,src))
-		T.AddElement(/datum/element/forced_gravity, forced_value)
-		addtimer(CALLBACK(T, /datum/.proc/_RemoveElement, list(forced_value)), duration)
+		var/datum/component/C = T.AddComponent(/datum/component/forced_gravity,forced_value)
+		QDEL_IN(C,duration)
 
 	qdel(src)
