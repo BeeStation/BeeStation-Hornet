@@ -1627,3 +1627,16 @@ config_setting should be one of the following:
 			continue
 		message["auth"] = servers[I]
 		world.Export("[I]?[json_encode(message)]")
+
+/proc/drop_shadow_filter(x, y, size, offset, color)
+	. = list("type" = "drop_shadow")
+	if(!isnull(x))
+		.["x"] = x
+	if(!isnull(y))
+		.["y"] = y
+	if(!isnull(size))
+		.["size"] = size
+	if(!isnull(offset))
+		.["offset"] = offset
+	if(!isnull(color))
+		.["color"] = color

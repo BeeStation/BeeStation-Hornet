@@ -26,11 +26,20 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 										//autocorrected this round, not that you'd need to check that.
 
 	var/UI_style = null
-	var/overhead_chat = TRUE
 	var/outline_enabled = TRUE
 	var/outline_color = COLOR_BLUE_GRAY
 	var/buttons_locked = FALSE
 	var/hotkeys = FALSE
+
+	///Runechat preference. If true, certain messages will be displayed on the map, not ust on the chat area. Boolean.
+	var/chat_on_map = TRUE
+	///Limit preference on the size of the message. Requires chat_on_map to have effect.
+	var/max_chat_length = CHAT_MESSAGE_MAX_LENGTH
+	///Whether non-mob messages will be displayed, such as machine vendor announcements. Requires chat_on_map to have effect. Boolean.
+	var/see_chat_non_mob = TRUE
+	///Whether emotes will be displayed on runechat. Requires chat_on_map to have effect. Boolean.
+	var/see_rc_emotes = TRUE
+
 	var/tgui_fancy = TRUE
 	var/tgui_lock = TRUE
 	var/windowflashing = TRUE
@@ -520,11 +529,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;task=input;preference=ui'>[UI_style]</a><br>"
-			dat += "<b>Overhead Chat:</b> <a href='?_src_=prefs;preference=overheadchat'>[overhead_chat ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Outline:</b> <a href='?_src_=prefs;preference=outline_enabled'>[outline_enabled ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Outline Color:</b> <span style='border:1px solid #161616; background-color: [outline_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=outline_color'>Change</a><BR>"
 			dat += "<b>tgui Monitors:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(tgui_lock) ? "Primary" : "All"]</a><br>"
 			dat += "<b>tgui Style:</b> <a href='?_src_=prefs;preference=tgui_fancy'>[(tgui_fancy) ? "Fancy" : "No Frills"]</a><br>"
+			dat += "<b>Show Runechat Chat Bubbles:</b> <a href='?_src_=prefs;preference=chat_on_map'>[chat_on_map ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Runechat message char limit:</b> <a href='?_src_=prefs;preference=max_chat_length;task=input'>[max_chat_length]</a><br>"
+			dat += "<b>See Runechat for non-mobs:</b> <a href='?_src_=prefs;preference=see_chat_non_mob'>[see_chat_non_mob ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>See Runechat emotes:</b> <a href='?_src_=prefs;preference=see_rc_emotes'>[see_rc_emotes ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<br>"
 			dat += "<b>Action Buttons:</b> <a href='?_src_=prefs;preference=action_buttons'>[(buttons_locked) ? "Locked In Place" : "Unlocked"]</a><br>"
 			dat += "<b>Hotkey Mode:</b> <a href='?_src_=prefs;preference=hotkeys'>[(hotkeys) ? "Hotkeys" : "Default"]</a><br>"
@@ -1632,6 +1644,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/pickedPDAColor = input(user, "Choose your PDA Interface color.", "Character Preference",pda_color) as color|null
 					if(pickedPDAColor)
 						pda_color = pickedPDAColor
+				if ("max_chat_length")
+					var/desiredlength = input(user, "Choose the max character length of shown Runechat messages. Valid range is 1 to [CHAT_MESSAGE_MAX_LENGTH] (default: [initial(max_chat_length)]))", "Character Preference", max_chat_length)  as null|num
+					if (!isnull(desiredlength))
+						max_chat_length = clamp(desiredlength, 1, CHAT_MESSAGE_MAX_LENGTH)
 
 		else
 			switch(href_list["preference"])
@@ -1659,8 +1675,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					buttons_locked = !buttons_locked
 				if("tgui_fancy")
 					tgui_fancy = !tgui_fancy
-				if("overheadchat")
-					overhead_chat = !overhead_chat
 				if("outline_enabled")
 					outline_enabled = !outline_enabled
 				if("outline_color")
@@ -1884,6 +1898,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					save_preferences()
 					ShowKeybindings(user)
 					return
+
+				if("chat_on_map")
+					chat_on_map = !chat_on_map
+				if("see_chat_non_mob")
+					see_chat_non_mob = !see_chat_non_mob
+				if("see_rc_emotes")
+					see_rc_emotes = !see_rc_emotes
 
 	ShowChoices(user)
 	return 1

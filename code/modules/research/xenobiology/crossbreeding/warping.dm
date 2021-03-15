@@ -360,7 +360,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 /obj/item/storage/backpack/holding/bluespace
 	name = "warped rune"
 	anchored = TRUE
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 100)
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -789,7 +789,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	requires_power = FALSE
 	has_gravity = TRUE
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 ///creates the warped room and place an exit rune to exit the room
 /obj/effect/warped_rune/rainbowspace/Initialize()

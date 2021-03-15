@@ -45303,11 +45303,11 @@
 	name = "Excess Security Equipment"
 	},
 /obj/item/clothing/suit/armor/vest/old{
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50);
+	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 20);
 	desc = "Older generation Type 1 armored vest. It looks like some of the local moths have gotten ahold of this will all the holes in it."
 	},
 /obj/item/clothing/suit/armor/vest/old{
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50);
+	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 20);
 	desc = "Older generation Type 1 armored vest. It looks like some of the local moths have gotten ahold of this will all the holes in it."
 	},
 /obj/item/reagent_containers/spray/pepper/empty,
@@ -45316,12 +45316,12 @@
 /area/maintenance/department/security)
 "bSA" = (
 /obj/item/clothing/head/helmet/old{
-	armor = list("melee" = 20, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50);
+	armor = list("melee" = 20, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 20);
 	pixel_x = -3;
 	pixel_y = 3
 	},
 /obj/item/clothing/head/helmet/old{
-	armor = list("melee" = 20, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50);
+	armor = list("melee" = 20, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 20);
 	pixel_x = 1;
 	pixel_y = -2
 	},
