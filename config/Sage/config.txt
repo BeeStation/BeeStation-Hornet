@@ -543,7 +543,7 @@ CENTCOM_BAN_DB https://centcom.melonmesa.com/ban/search
 
 ### Autotransfer Settings
 ## Uncomment to enable shuttle autotransfer
-VOTE_AUTOTRANSFER_ENABLED
+#VOTE_AUTOTRANSFER_ENABLED
 ## Time (in deciseconds) before the first transfer vote. Default: 90 minutes
 VOTE_AUTOTRANSFER_INITIAL 54000
 ## Time (in deciseconds) between subsequent transfer votes. Default: 30 minutes
