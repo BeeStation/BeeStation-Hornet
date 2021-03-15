@@ -207,7 +207,6 @@ BONUS
 	base_message_chance = 50
 	symptom_delay_min = 60
 	symptom_delay_max = 105
-	var/list/thresholds = list() //An Associative List Containing Threshold Vars.
 	threshold_desc = "<b>Transmission 12:</b> Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.<br>\
 					  <b>Transmission 16:</b> Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.<br>\
 					  <b>Resistance 10:</b> Eggs and Egg Sacs contain more healing chems.<br>\
@@ -240,60 +239,79 @@ BONUS
 		symptom_delay_min -= 10
 		symptom_delay_max -= 20
 
-//Placeholding
-///datum/symptom/skineggs/Activate(datum/disease/advance/A)
-//	if(!..())
-//		return
 
+/datum/symptom/skineggs/Activate(datum/disease/advance/A)
+	if(!..())
+		return
+	var/mob/living/M = A.affected_mob
+	var/list/diseases = list(A)
+	switch(A.stage)
+		if(5)
+			if(thresholds["alldisease"])
+				for(var/datum/disease/D in M.diseases)
+					if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
+						continue
+					if(D == A)
+						continue
+					diseases += D
+			new /obj/item/reagent_containers/food/snacks/eggsac(diseases, thresholds["eggsplosion"], thresholds["sneaky"], thresholds["bigheal"])
 /obj/item/reagent_containers/food/snacks/eggsac
 	name = "Fleshy Egg Sac"
 	desc = "A small Egg Sac which appears to be made out of someone's flesh!"
 	customfoodfilling = 0 //Not Used For Filling
-	icon = "placeholder"
+	icon_state = "icons/obj/food/food/eggsac.dmi"
 	bitesize = 4
-	var/list/diseases()
+	var/list/diseases = list()
 	var/sneakyegg
 	var/bigheal
 
 //Constructor
 /obj/item/reagent_containers/food/snacks/eggsac/New(var/list/disease, var/eggsplodes, var/sneaky, var/largeheal)
 	for(var/datum/disease/D in disease)
-		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
-			continue
 		diseases += D
 	if(largeheal)
-		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagents/medicine/tricordrazine = 10))
+		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
 		src.reagents.add_reagent(/datum/reagent/blood, 10, diseases)
 		bigheal = TRUE
 	else
-		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagents/medicine/tricordrazine = 10))
+		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
 		src.reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
-		icon = "sneaky"
+		icon_state = "icons/obj/food/food/eggsac-sneaky.dmi"
 		sneakyegg = sneaky
 	if(eggsplodes)
-		addtimer(CALLBACK(src, ./proc/eggsplode()), 100 SECONDS)
+		addtimer(CALLBACK(src, .proc/eggsplode), 100 SECONDS)
+	if(LAZYLEN(diseases))
+		AddComponent(/datum/component/infective, diseases)
 
-//Placeholding /obj/item/reagent_containers/food/snacks/eggsac/proc/eggsplode()
+
+/obj/item/reagent_containers/food/snacks/eggsac/proc/eggsplode()
+	var/eggcount = rand(4, 8)
+	var/i
+	for(i = 1, i<= eggcount, i++)
+		var/list/directions = GLOB.alldirs[i]
+		var/obj/item/I = new /obj/item/reagent_containers/food/snacks/fleshegg(src.diseases, src.sneakyegg, src.bigheal)
+		var/turf/thrown_at = get_ranged_target_turf(I, pick(directions), rand(2, 4))
+		I.throw_at(thrown_at, rand(2,4), 4)
 
 /obj/item/reagent_containers/food/snacks/fleshegg
 	name = "Fleshy Egg"
 	desc = "An Egg which appears to be made out of someone's flesh!"
 	customfoodfilling = 0 //Not Used For Filling
-	icon = "placeholder"
+	icon_state = "icons/obj/food/food/fleshegg.dmi"
 	bitesize = 1
-	var/list/diseases()
+	var/list/diseases = list()
 
 /obj/item/reagent_containers/food/snacks/fleshegg/New(var/list/disease, var/sneaky, var/largeheal)
 	for(var/datum/disease/D in disease)
-		if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
-			continue
 		diseases += D
 	if(largeheal)
-		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagents/medicine/tricordrazine = 10))
+		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
 		src.reagents.add_reagent(/datum/reagent/blood, 10, diseases)
 	else
-		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagents/medicine/tricordrazine = 10))
+		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
 		src.reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
-		icon = "sneaky"
+		icon_state = "icons/obj/food/food/fleshegg-sneaky.dmi"
+	if(LAZYLEN(diseases))
+		AddComponent(/datum/component/infective, diseases)
