@@ -73,7 +73,7 @@ Bonus
 	stealth = 1
 	resistance = -4
 	stage_speed = 3
-	transmittable = -2 //Buffed to make it maybe somewhat good
+	transmittable = -3
 	level = 3
 	symptom_delay_min = 1
 	symptom_delay_max = 1
@@ -95,7 +95,7 @@ Bonus
 	A.stage -= 1
 	if(A.stage < 2)
 		to_chat(M, "<span class='notice'>You suddenly feel healthy.</span>")
-		A.cure()
+		A.cure(FALSE) //Doesn't Add Resistance. Virology can now make potions for stuff, be it healing the senses or making people explode
 
 /datum/symptom/viralreverse/Start(datum/disease/advance/A)
 	if(!..())
