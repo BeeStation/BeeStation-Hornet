@@ -127,8 +127,7 @@ the new instance inside the host to be updated to the template's stats.
 	else
 		link = ""
 	//Get message flags
-	var/is_radio_message = message_mods.Find(MODE_RADIO_MESSAGE)
-	var/flags = is_radio_message ? RADIO_MESSAGE : NONE
+	var/flags = message_mods.Find(MODE_RADIO_MESSAGE) ? RADIO_MESSAGE : NONE
 	// Create map text prior to modifying message for runechat
 	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
 		create_chat_message(speaker, message_language, raw_message, spans, runechat_flags = flags)

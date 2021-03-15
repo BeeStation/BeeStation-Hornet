@@ -222,8 +222,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		deaf_message = "<span class='notice'>You can't hear yourself!</span>"
 		deaf_type = 2 // Since you should be able to hear yourself without looking
 
-	var/is_radio_message = message_mods.Find(MODE_RADIO_MESSAGE)
-	var/flags = is_radio_message ? RADIO_MESSAGE : NONE
+	var/flags = message_mods.Find(MODE_RADIO_MESSAGE) ? RADIO_MESSAGE : NONE
 
 	// Create map text prior to modifying message for goonchat
 	if(client?.prefs.chat_on_map && stat != UNCONSCIOUS && (client.prefs.see_chat_non_mob || ismob(speaker)) && can_hear())
