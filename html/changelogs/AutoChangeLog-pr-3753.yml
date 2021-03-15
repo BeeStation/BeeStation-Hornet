@@ -1,9 +1,0 @@
-author: That0nePerson
-delete-after: true
-changes:
-  - rscadd: Added anesthetic tank holder! Portable tank holder allowing for much easier
-      anesthetization of patients.
-  - rscadd: Added quick latex glove box! Allows for quick switching of gloves, to
-      keep your hands sterile.
-  - rscadd: Added sinks to a few operating rooms that did not have them, for surgery
-      tool washing.
