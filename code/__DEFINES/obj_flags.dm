@@ -42,6 +42,7 @@
 #define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
 #define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
 #define SCAN_REAGENTS           (1<<11) // Allows helmets and glasses to scan reagents.
+#define MASKEXTENDRANGE			(1<<12) //! For masks, allows you to breathe from internals on adjecent tiles
 
 /// Flags for the organ_flags var on /obj/item/organ
 
