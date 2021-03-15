@@ -14,7 +14,7 @@
 	speak_chance = 1
 	turns_per_move = 10
 	can_be_held = TRUE
-	mobsay_color = "#ECDA88"
+	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
 
 	do_footstep = TRUE
@@ -105,8 +105,7 @@
 	. = ..()
 	var/dog_area = get_area(src)
 	for(var/obj/structure/bed/dogbed/D in dog_area)
-		if(!D.owner)
-			D.update_owner(src)
+		if(D.update_owner(src)) //No muscling in on my turf you fucking parrot
 			break
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize()
