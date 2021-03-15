@@ -150,7 +150,7 @@
 	. = ..()
 	icon_state += "-old"
 	if(prob(95))//vomit is much more likely to be diseased than blood is
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 6), 6+(rand(1, 3)))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), (rand(4, 9)))
 		disease += R
 
 /obj/effect/decal/cleanable/vomit/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
