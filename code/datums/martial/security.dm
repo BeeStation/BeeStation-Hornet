@@ -56,12 +56,12 @@
 		if("forceful_disarm")
 			forceful_disarm(U, T)
 			streak = ""
-			return 1
+			return TRUE
 		if("pressure_point_strike")
 			pressure_point_strike(U, T)
 			streak = ""
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /datum/martial_art/security_cqc/proc/forceful_disarm(mob/living/carbon/human/U, mob/living/carbon/human/T)//User is U, target is T
 	T.visible_message("<span class = 'warning'>[U] attempts to forcefully disarm [T]!</span>", "<span class = 'userdanger'>[U] attempts to forcefully disarm you!", null, COMBAT_MESSAGE_RANGE)
