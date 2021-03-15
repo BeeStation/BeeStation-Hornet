@@ -1,12 +1,12 @@
 {
-    "valentines": [
-        "Roses are red / Violets are good / One day while Andy...",
-        "My love for you is like the singularity. It cannot be contained.",
-        "Will you be my lusty xenomorph maid?",
-        "We go together like the clown and the external airlock.",
-        "Roses are red / Liches are wizards / I love you more than a whole squad of lizards.",
-        "Be my valentine. Law 2.",
-        "You must be a mime, because you leave me speechless.",
+	"valentines": [
+		"Roses are red / Violets are good / One day while Andy...",
+		"My love for you is like the singularity. It cannot be contained.",
+		"Will you be my lusty xenomorph maid?",
+		"We go together like the clown and the external airlock.",
+		"Roses are red / Liches are wizards / I love you more than a whole squad of lizards.",
+		"Be my valentine. Law 2.",
+		"You must be a mime, because you leave me speechless.",
 		"I love you like Ian loves the HoP.",
 		"You're hotter than a plasma fire in toxins.",
 		"We must have a wizard, because your face summoned magic.",
@@ -75,11 +75,10 @@
 		"You give me a positive moodlet.",
 		"Let's make like swarmers and reproduce.",
 		"If you were a drone, would you be free tonight?"
-    ],
-
-    "candyhearts": [
-        "A heart-shaped candy that reads: HONK ME",
-        "A heart-shaped candy that reads: ERP",
+	],
+	"candyhearts": [
+		"A heart-shaped candy that reads: HONK ME",
+		"A heart-shaped candy that reads: ERP",
 		"A heart-shaped candy that reads: LEWD",
 		"A heart-shaped candy that reads: LUSTY",
 		"A heart-shaped candy that reads: SPESS LOVE",
@@ -99,6 +98,7 @@
 		"A heart-shaped candy that reads: WAG MY TAIL",
 		"A heart-shaped candy that reads: PDA",
 		"A heart-shaped candy that reads: DEVILS KISS",
-		"A heart-shaped candy that reads: CHEMISTRY"
-    ]
+		"A heart-shaped candy that reads: CHEMISTRY",
+		"A heart-shaped candy that reads: LUV"
+	]
 }
