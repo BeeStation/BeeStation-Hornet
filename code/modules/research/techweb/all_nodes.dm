@@ -1143,12 +1143,11 @@
 			continue
 		boost_item_paths |= UI.item	//allows deconning to unlock.
 
-/* ewww bepis
 /datum/techweb_node/sticky_basic
 	id = "sticky_basic"
 	display_name = "Basic Sticky Technology"
 	description = "The only thing left to do after researching this tech is to start printing out a bunch of 'kick me' signs."
-	prereq_ids = list("base")
+	prereq_ids = list("syndicate_basic", "adv_engi")
 	design_ids = list("sticky_tape")
 
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
@@ -1165,7 +1164,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 2500
 	hidden = TRUE
-*/
 
 //Helpers for debugging/balancing the techweb in its entirety!
 /proc/total_techweb_exports()
