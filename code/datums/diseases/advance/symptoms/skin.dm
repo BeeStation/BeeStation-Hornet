@@ -181,3 +181,23 @@ BONUS
 		else
 			if (prob(50)) // spam
 				M.visible_message("<span class='notice'>[M] looks rather vibrant.</span>", "<span class='notice'>The colors, man, the colors.</span>")
+
+/datum/symptom/skineggs //Thought Exolocomotive Xenomitosis was a weird symptom? Well, this is about 10x weirder.
+	name = "Dermagraphic Ovulogenesis"
+	desc = "The virus causes the host to grow egg-like nodules on their skin, which periodically fall off and contain the disease and some healing chemicals."
+	stealth = -3 //You are basically growing these weird Egg shits on your skin, this is not stealthy in the slightest
+	resistance = 1
+	stage_speed = 0
+	transmittable = 2 //The symptom is in it of itself meant to spread
+	level = 9
+	severity = 0
+	base_message_chance = 50
+	symptom_delay_min = 45
+	symptom_delay_max = 90
+	var/list/thresholds = list() //An Associative List Containing Threshold Vars.
+	threshold_desc = "<b>Transmission 12:</b> Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.<br>\
+					  <b>Transmission 16:</b> Egg Sacs will explode into eggs after a period of time, covering a larger area with infectious matter.<br>\
+					  <b>Resistance 10:</b> Eggs and Egg Sacs contain more healing chems.<br>\
+					  <b>Stealth 6:</b> Eggs and Egg Sacs become nearly transparent, making them more difficult to see.<br>\
+					  <b>Stage Speed 10:</b> Egg Sacs fall off the host more frequently."
+
