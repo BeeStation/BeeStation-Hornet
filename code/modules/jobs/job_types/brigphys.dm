@@ -10,9 +10,8 @@
 	selection_color = "#ffeeee"
 	chat_color = "#b16789"
 	minimal_player_age = 7
-	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_SECURITY
+	exp_requirements = 120
+	exp_type = EXP_TYPE_MEDICAL
 
 	outfit = /datum/outfit/job/brig_phys
 
