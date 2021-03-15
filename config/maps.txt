@@ -15,7 +15,6 @@ endmap
 map boxstation
 	maxplayers 60
 	votable
-	disabled
 endmap
 
 map metastation
