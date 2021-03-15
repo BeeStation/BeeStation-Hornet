@@ -487,6 +487,19 @@
 			C.cure_trauma_type(BRAIN_TRAUMA_MILD)
 	..()
 
+/datum/reagent/medicine/radioactive_disinfectant
+	name = "Radioactive Disinfectant"
+	description = "Removes irradiation in synthetics."
+	color = "#806F42"
+	taste_description = "metallic"
+	process_flags = SYNTHETIC
+
+/datum/reagent/medicine/radioactive_disinfectant/on_mob_life(mob/living/carbon/M)
+	// potassium iodide for synthetics
+	if(M.radiation > 0)
+		M.radiation -= min(M.radiation, 8)
+	..()
+
 /datum/reagent/medicine/omnizine
 	name = "Omnizine"
 	description = "Slowly heals all damage types. Overdose will cause damage in all types instead."

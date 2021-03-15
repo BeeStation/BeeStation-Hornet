@@ -1182,14 +1182,37 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		to_chat(H, "<span class='danger'>You feel weak.</span>")
 
 	if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
-		H.vomit(10, TRUE)
+		var/obj/item/organ/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		if(!(H.getorgan(/obj/item/organ/stomach) && stomach.organ_flags == ORGAN_SYNTHETIC)) // synthetics can't vomit
+			H.vomit(10, TRUE)
 
-	if(radiation > RAD_MOB_MUTATE)
+	if(!HAS_TRAIT(H, TRAIT_MUTATEIMMUNE) && radiation > RAD_MOB_MUTATE) // ipcs will get brain damage rather than mutations when exposed to radiation
 		if(prob(1))
 			to_chat(H, "<span class='danger'>You mutate!</span>")
 			H.easy_randmut(NEGATIVE+MINOR_NEGATIVE)
 			H.emote("gasp")
 			H.domutcheck()
+	if(HAS_TRAIT(H, TRAIT_IPCRADBRAINDAMAGE) && radiation > RAD_MOB_MUTATE)
+		if(prob(1))
+			to_chat(H, "<span class='danger'>Your system produces an error!</span>")
+			var/trauma_type = pickweight(list(
+				BRAIN_TRAUMA_MILD = 65,
+				BRAIN_TRAUMA_SEVERE = 30,
+				BRAIN_TRAUMA_SPECIAL = 5
+			))
+			var/resistance = pick(
+				50;TRAUMA_RESILIENCE_BASIC,
+				30;TRAUMA_RESILIENCE_SURGERY,
+				15;TRAUMA_RESILIENCE_LOBOTOMY,
+				5;TRAUMA_RESILIENCE_MAGIC
+			)
+			H.gain_trauma_type(trauma_type, resistance)
+			var/emote_type = pickweight(list(
+				"beep" = 34,
+				"buzz" = 34,
+				"buzz2" = 34,
+			))
+			H.emote(emote_type)
 
 	if(radiation > RAD_MOB_HAIRLOSS)
 		if(prob(15) && !(H.hair_style == "Bald") && (HAIR in species_traits))

@@ -379,7 +379,7 @@
 				dna.remove_mutation(HM.type)
 
 	radiation -= min(radiation, RAD_LOSS_PER_TICK)
-	if(radiation > RAD_MOB_SAFE)
+	if(!(TRAIT_TOXIMMUNE in dna.species.inherent_traits) && radiation > RAD_MOB_SAFE) // don't deal tox damage if they're immune
 		adjustToxLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT)
 
 

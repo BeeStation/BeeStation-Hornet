@@ -104,6 +104,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RESISTHIGHPRESSURE	"resist_high_pressure"
 #define TRAIT_RESISTLOWPRESSURE	"resist_low_pressure"
 #define TRAIT_RADIMMUNE			"rad_immunity"
+#define TRAIT_MUTATEIMMUNE		"mutate_immune" // makes IPCs immune to mutations
+#define TRAIT_IPCRADBRAINDAMAGE	"rad_brain_damage" // causes IPCs to take brain damage when irradiated
 #define TRAIT_VIRUSIMMUNE		"virus_immunity"
 #define TRAIT_PIERCEIMMUNE		"pierce_immunity"
 #define TRAIT_NODISMEMBER		"dismember_immunity"
