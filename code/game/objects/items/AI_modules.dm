@@ -415,8 +415,8 @@ AI MODULES
 
 /obj/item/aiModule/core/full/grusimov
 	name = "Grusimov Core Module"
-	law_id = "grusimov
-	"
+	law_id = "grusimov"
+	
 /********************* Custom *********************/
 
 /obj/item/aiModule/core/full/custom
