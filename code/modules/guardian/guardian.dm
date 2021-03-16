@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	melee_damage = 15
 	AIStatus = AI_OFF
 	hud_type = /datum/hud/guardian
-	mobsay_color = "#ffffff"
+	chat_color = "#ffffff"
 	mobchatspan = "blob"
 	var/next_reset = 0
 	var/guardiancolor = "#ffffff"
@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	GLOB.parasites += src
 	if(guardiancolor)
 		src.guardiancolor = guardiancolor
-		src.mobsay_color = guardiancolor
+		src.chat_color = guardiancolor
 	updatetheme(theme)
 	battlecry = pick("ORA", "MUDA", "DORA", "ARRI", "VOLA", "AT")
 	return ..()
@@ -410,7 +410,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.current.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.current.maxHealth)) * 100)
 		else
 			resulthealth = round((summoner.current.health / summoner.current.maxHealth) * 100, 0.5)
-		hud_used.healths.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>")
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE, forced = FALSE) //The spirit is invincible, but passes on damage to the summoner
 	if(berserk)
