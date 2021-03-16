@@ -7,6 +7,7 @@
 	var/turf/center_turf
 	icon = 'icons/effects/fields.dmi'
 	icon_state = "projectile_dampen_generic"
+	plane = ABOVE_ALL_PLANE
 	var/active = TRUE
 
 /obj/effect/death_wall/Initialize()

@@ -7,9 +7,16 @@ GLOBAL_VAR(battle_royale_z)
 	var/radius = 118
 	var/process_num = 0
 	var/list/death_wall
-	var/field_delay = 15
 	var/debug_mode = FALSE
 	var/shuttle_position = 30
+	//Field Movement
+	var/target_radius = 118								//The current target radius
+	var/wall_stage = 0									//The current stage of the wall
+	var/next_stage_world_time = 0						//The world time we will go to the next stage
+	var/radius_increments = list(70, 50, 40, 30, 20, 10)	//The list of wall radii
+	var/radius_delays = 	list(3, 4, 5, 6, 7, 10)		//The list of wall delays per stage
+	var/between_delays = 	list(60, 30, 30, 30, 30, 120)//The list of times between changing stages
+	var/field_delay = 10								//The current field delay
 
 /datum/battle_royale_controller/Destroy(force, ...)
 	QDEL_LIST(death_wall)
@@ -55,17 +62,27 @@ GLOBAL_VAR(battle_royale_z)
 			new /obj/item/melee/supermatter_sword(get_turf(winner))
 		qdel(src)
 		return
-	//Once every 15 seconsd
-	// 1,920 seconds (about 32 minutes per game)
-	if(process_num % (field_delay) == 0)
-		for(var/obj/effect/death_wall/wall as() in death_wall)
-			wall.decrease_size()
-			if(QDELETED(wall))
-				death_wall -= wall
-			CHECK_TICK
-		radius--
+	//Wall handling logic.
+	if(radius > target_radius)
+		if(process_num % field_delay == 0)
+			decrease_wall_size()
+		if(radius == target_radius)
+			wall_stage ++
+			next_stage_world_time = world.time + between_delays[wall_stage]
+	else if(next_stage_world_time < world.time)
+		target_radius = radius_increments[wall_stage]
+		field_delay = radius_delays[wall_stage]
+		to_chat(world, "<span class='hierosay big'>The field is closing in, get to safety!</span>")
 	if(radius < 70 && prob(1))
 		generate_endgame_drop()
+
+/datum/battle_royale_controller/proc/decrease_wall_size()
+	for(var/obj/effect/death_wall/wall as() in death_wall)
+		wall.decrease_size()
+		if(QDELETED(wall))
+			death_wall -= wall
+		CHECK_TICK
+	radius--
 
 //==================================
 // INITIALIZATION
@@ -137,6 +154,7 @@ GLOBAL_VAR(battle_royale_z)
 		DW.set_center(center)
 		death_wall += DW
 		CHECK_TICK
+	next_stage_world_time = world.time + 4 MINUTES
 	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall()
