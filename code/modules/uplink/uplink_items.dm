@@ -1632,6 +1632,11 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/aiModule/syndicate
 	cost = 9
 
+/datum/uplink_item/device_tools/grusimov_module
+	name = "Grusimov AI Law Upload Module"
+	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence."
+	item = /obj/item/aiModule/core/full/grusimov
+	cost = 12
 /datum/uplink_item/device_tools/hypnotic_flash
 	name = "Hypnotic Flash"
 	desc = "A modified flash able to hypnotize targets. If the target is not in a mentally vulnerable state, it will only confuse and pacify them temporarily."

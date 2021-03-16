@@ -411,6 +411,12 @@ AI MODULES
 	name = "'P.A.L.A.D.I.N. version 5e' Core AI Module"
 	law_id = "paladin5"
 
+/******************** Grusimov *********************/
+
+/obj/item/aiModule/core/full/grusimov
+	name = "Grusimov Core Module"
+	law_id = "grusimov
+	"
 /********************* Custom *********************/
 
 /obj/item/aiModule/core/full/custom
