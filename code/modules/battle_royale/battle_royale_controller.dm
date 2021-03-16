@@ -176,7 +176,7 @@ GLOBAL_VAR(battle_royale_z)
 		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		H.status_flags = GODMODE
 		H.pass_flags |= PASSMOB
-		//Assistant gang
+		//Battle Royale gang
 		H.equipOutfit(/datum/outfit/battle_royale)
 		//Give them a spell
 		H.key = key
