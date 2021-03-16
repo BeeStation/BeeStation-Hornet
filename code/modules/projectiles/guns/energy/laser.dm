@@ -103,6 +103,9 @@
 	damage += 7
 	transform *= 1 + ((damage/7) * 0.2)//20% larger per tile
 
+/obj/item/gun/energy/lasercannon/firing_pin
+	pin = /obj/item/firing_pin
+
 /obj/item/gun/energy/xray
 	name = "\improper X-ray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated X-ray blasts that pass through multiple soft targets and heavier materials."
