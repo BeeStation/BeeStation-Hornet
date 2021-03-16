@@ -211,13 +211,16 @@ GLOBAL_VAR(battle_royale_z)
 	var/shuttle_drop_min_x = GLOB.shuttle_drop_min_x
 	var/shuttle_drop_min_y = GLOB.shuttle_drop_min_y
 
+	if(shuttle_x > world.maxx - 20)
+		return FALSE
+
 	for(var/turf/open/shuttle_drop_turf/T as() in GLOB.shuttle_drop_turfs)
 		var/offset_x = T.x - shuttle_drop_min_x
 		var/offset_y = T.y - shuttle_drop_min_y
 		var/target_x = shuttle_x + offset_x
 		var/target_y = shuttle_y + offset_y
-		if(target_x > world.maxx - 20)
-			return FALSE
+		if(target_x > world.maxx)
+			continue
 		var/turf/target_turf = locate(target_x, target_y, T.z)
 		T.set_target_turf(target_turf)
 		CHECK_TICK
