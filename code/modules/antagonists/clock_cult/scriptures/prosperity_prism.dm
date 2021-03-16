@@ -54,6 +54,11 @@
 		icon_state += "_inactive"
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/process()
+	if(!anchored)
+		toggled_on = FALSE
+		STOP_PROCESSING(SSobj, src)
+		update_icon_state()
+		return
 	if(!toggled_on || depowered)
 		if(powered)
 			powered = FALSE
