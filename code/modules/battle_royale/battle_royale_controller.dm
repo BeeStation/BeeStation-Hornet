@@ -171,7 +171,7 @@ GLOBAL_VAR(battle_royale_z)
 	to_chat(world, "<span class='boldannounce'>WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL OR STAY ON THE SHUTTLE FOR TOO LONG!</span>")
 	to_chat(world, "<span class='boldannounce'>[players.len] people remain...</span>")
 	//Hide ghosts
-	set_observer_default_invisibility(TRUE, "You are hidden by the battle royale")
+	set_observer_default_invisibility(FALSE, "You are hidden by the battle royale")
 	//End the grace period
 	INVOKE_ASYNC(src, .proc/end_grace)
 	//Send the robusting rocket.
