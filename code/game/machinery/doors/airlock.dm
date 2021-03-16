@@ -91,7 +91,7 @@
 	var/mask_file = 'icons/obj/doors/airlocks/mask_32x32.dmi' // because filters aren't allowed to have icon_states :(
 	var/mask_x = 0
 	var/mask_y = 0
-	var/anim_parts = "left=-14,0;right=13,0"
+	var/anim_parts = "left=-14,0;right=13,0" //format is "left = open_px, open_py, move_start_time, move_end_time, aperture_angle" Important: move_end_time = 0 as example will not work in this case as its not an actual associ value
 	var/list/part_overlays
 	var/panel_attachment = "right"
 	var/note_attachment = "left"
