@@ -11,7 +11,7 @@ GLOBAL_VAR(battle_royale_z)
 	var/shuttle_position = 30
 	//Field Movement
 	var/target_radius = 118								//The current target radius
-	var/wall_stage = 0									//The current stage of the wall
+	var/wall_stage = 1									//The current stage of the wall
 	var/next_stage_world_time = 0						//The world time we will go to the next stage
 	var/radius_increments = list(70, 50, 40, 30, 20, 10)	//The list of wall radii
 	var/radius_delays = 	list(3, 4, 5, 6, 7, 10)		//The list of wall delays per stage
