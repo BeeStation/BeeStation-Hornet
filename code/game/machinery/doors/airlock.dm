@@ -51,7 +51,6 @@
 	assemblytype = /obj/structure/door_assembly
 	normalspeed = 1
 	explosion_block = 1
-	open_speed = 2.5
 	hud_possible = list(DIAG_AIRLOCK_HUD)
 	var/allow_repaint = TRUE //Set to FALSE if the airlock should not be allowed to be repainted.
 
@@ -174,6 +173,7 @@
 	else
 		part_overlays = list()
 	var/list/parts_desc = params2list(anim_parts)
+	var/list/door_time = list()
 	for(var/part_id in parts_desc)
 		var/obj/effect/overlay/airlock_part/P = new
 		P.side_id = part_id
@@ -191,6 +191,8 @@
 		P.icon = icon
 		P.icon_state = part_id
 		P.name = name
+		door_time += P.move_end_time
+	open_speed = max(door_time) - 1 //calculates the open_speed directly out of the animation time
 	add_filter("mask_filter", 1, list(type="alpha",icon=mask_file,x=mask_x,y=mask_y))
 
 /obj/machinery/door/airlock/proc/update_other_id()
