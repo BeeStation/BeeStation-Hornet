@@ -68,7 +68,12 @@ GLOBAL_VAR(battle_royale_z)
 			decrease_wall_size()
 		if(radius == target_radius)
 			wall_stage ++
-			next_stage_world_time = world.time + between_delays[wall_stage]
+			if(wall_stage > length(between_delays))
+				next_stage_world_time = INFINITY
+				to_chat(world, "<span class='hierosay big'>The field has stopped closing in.</span>")
+			else
+				next_stage_world_time = world.time + between_delays[wall_stage]
+				to_chat(world, "<span class='hierosay big'>The field will begin moving in [DisplayTimeText(next_stage_world_time - world.time)]</span>")
 	else if(next_stage_world_time < world.time)
 		target_radius = radius_increments[wall_stage]
 		field_delay = radius_delays[wall_stage]

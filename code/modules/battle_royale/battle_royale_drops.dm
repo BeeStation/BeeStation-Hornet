@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 
 /datum/battle_royale_controller/proc/generate_endgame_drop()
 	var/obj/item = pick(GLOB.battle_royale_insane_loot)
-	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 9000)
+	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 900)
 
 /datum/battle_royale_controller/proc/send_item(item_path, style = STYLE_BOX, announce=FALSE, force_time = 0)
 	if(!item_path)
