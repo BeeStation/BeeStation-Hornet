@@ -35,7 +35,6 @@
 		while(L.loc == src.loc)
 			L.adjustFireLoss(2, TRUE)
 			to_chat(L, "<span class='danger'>The salt! It burns!</span>")
-			sleep(20)
 
 /obj/effect/decal/cleanable/food/flour
 	name = "flour"

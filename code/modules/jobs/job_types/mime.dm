@@ -18,6 +18,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_MIME
+	departments = DEPARTMENT_SERVICE
 
 /datum/job/mime/after_spawn(mob/living/carbon/human/H, mob/M)
 	. = ..()

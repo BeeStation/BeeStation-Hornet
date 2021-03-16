@@ -18,6 +18,7 @@
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_CURATOR
+	departments = DEPARTMENT_SERVICE
 
 /datum/outfit/job/curator
 	name = "Curator"

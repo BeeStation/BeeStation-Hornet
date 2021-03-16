@@ -67,6 +67,9 @@
 
 	var/gimmick = FALSE //least hacky way i could think of for this
 
+	///Bitfield of departments this job belongs wit
+	var/departments = NONE
+
 /datum/job/New()
 	. = ..()
 	say_span = replacetext(lowertext(title), " ", "")

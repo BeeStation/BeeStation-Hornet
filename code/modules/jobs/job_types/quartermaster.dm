@@ -21,6 +21,7 @@
 	paycheck_department = ACCOUNT_CAR
 
 	display_order = JOB_DISPLAY_ORDER_QUARTERMASTER
+	departments = DEPARTMENT_CARGO
 
 /datum/outfit/job/quartermaster
 	name = "Quartermaster"

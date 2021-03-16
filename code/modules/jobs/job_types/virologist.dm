@@ -20,6 +20,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
+	departments = DEPARTMENT_MEDICAL
 
 /datum/outfit/job/virologist
 	name = "Virologist"

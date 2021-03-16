@@ -37,6 +37,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
+	departments = DEPARTMENT_COMMAND | DEPARTMENT_SERVICE
 
 /datum/outfit/job/hop
 	name = "Head of Personnel"

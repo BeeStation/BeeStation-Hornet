@@ -23,7 +23,7 @@
 		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
 
 	GLOB.total_slimes--
-	stat = DEAD
+	set_stat(DEAD)
 	cut_overlays()
 
 	if(SSticker.mode)

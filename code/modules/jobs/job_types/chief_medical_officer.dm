@@ -29,6 +29,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER
+	departments = DEPARTMENT_MEDICAL | DEPARTMENT_COMMAND
 
 /datum/outfit/job/cmo
 	name = "Chief Medical Officer"

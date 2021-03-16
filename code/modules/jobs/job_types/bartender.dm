@@ -18,6 +18,7 @@
 	paycheck = PAYCHECK_EASY
 	paycheck_department = ACCOUNT_SRV
 	display_order = JOB_DISPLAY_ORDER_BARTENDER
+	departments = DEPARTMENT_SERVICE
 
 /datum/outfit/job/bartender
 	name = "Bartender"

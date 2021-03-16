@@ -22,6 +22,7 @@
 	paycheck_department = ACCOUNT_ENG
 
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
+	departments = DEPARTMENT_ENGINEERING
 
 /datum/outfit/job/engineer
 	name = "Station Engineer"

@@ -10,6 +10,7 @@
 	selection_color = "#dddddd"
 	chat_color = "#8AB48C"
 
+
 	outfit = /datum/outfit/job/chaplain
 
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
@@ -18,7 +19,7 @@
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_CHAPLAIN
-
+	departments = DEPARTMENT_SERVICE
 
 /datum/job/chaplain/after_spawn(mob/living/H, mob/M)
 	. = ..()
