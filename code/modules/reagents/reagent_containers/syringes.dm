@@ -218,7 +218,7 @@
 /obj/item/reagent_containers/syringe/used/Initialize()
 	. = ..()
 	if(prob(75))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), rand(6, 9))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(6, 9), rand(3, 6))
 		syringediseases += R
 
 /obj/item/reagent_containers/syringe/epinephrine
