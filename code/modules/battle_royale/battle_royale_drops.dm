@@ -163,20 +163,20 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/gun/ballistic/bow/clockbolt,
 		/obj/item/gun/energy/laser/captain,
 		/obj/item/gun/ballistic/revolver/mateba,
-		/obj/item/gun/energy/pulse,
 		/obj/item/katana,
 		/obj/item/twohanded/dualsaber,
 		/obj/item/stack/telecrystal/twenty,
+		/obj/item/gun/ballistic/automatic/l6_saw/unrestricted,
 		/obj/item/clothing/suit/space/hardsuit/syndi/elite
 	))
 
 GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
-		/obj/item/gun/ballistic/automatic/l6_saw/unrestricted,
 		/obj/item/energy_katana,
 		/obj/item/clothing/suit/space/hardsuit/shielded/syndi,
 		/obj/item/his_grace,
 		/obj/mecha/combat/marauder/mauler/loaded,
 		/obj/item/guardiancreator/tech,
+		/obj/item/gun/energy/pulse,
 		/obj/item/twohanded/mjollnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
 		/obj/item/uplink/nuclear
@@ -194,20 +194,27 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 				items += pickweight(GLOB.battle_royale_tools)
 				items += pickweight(GLOB.battle_royale_healing)
 				items += pickweight(GLOB.battle_royale_guns)
+				items += pickweight(GLOB.battle_royale_guns)
 			if(2)
 				items += pickweight(GLOB.battle_royale_ammo)
+				items += pickweight(GLOB.battle_royale_healing)
 				items += pickweight(GLOB.battle_royale_tools)
 				items += pickweight(GLOB.battle_royale_tools)
 			if(3)
 				items += pickweight(GLOB.battle_royale_healing)
+				items += pickweight(GLOB.battle_royale_healing)
 				items += pickweight(GLOB.battle_royale_ammo)
 				items += pickweight(GLOB.battle_royale_guns)
 			if(4)
+				items += pickweight(GLOB.battle_royale_guns)
 				items += pickweight(GLOB.battle_royale_ammo)
 				items += pickweight(GLOB.battle_royale_ammo)
 				items += pickweight(GLOB.battle_royale_ammo)
 			if(5)
 				items += pickweight(GLOB.battle_royale_guns)
+				items += pickweight(GLOB.battle_royale_guns)
+				items += pickweight(GLOB.battle_royale_healing)
+				items += pickweight(GLOB.battle_royale_tools)
 		CHECK_TICK
 		send_item(items)
 
