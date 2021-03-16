@@ -3,7 +3,7 @@
 	id = "battleroyale"
 	limbs_id = "human"
 	species_traits = list(NOTRANSSTING) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER,TRAIT_VIRUSIMMUNE,TRAIT_NODISMEMBER,TRAIT_ALWAYS_CLEAN,TRAIT_FEARLESS)
+	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_PIERCEIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_NODISMEMBER,TRAIT_ALWAYS_CLEAN,TRAIT_FEARLESS)
 	changesource_flags = MIRROR_BADMIN
 	liked_food = ALL
 	punchdamage = 12
