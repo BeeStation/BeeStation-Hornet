@@ -51,3 +51,8 @@ map kilostation
     maxplayers 60
 	votable
 endmap
+
+map shipstation
+	maxplayers 20
+	votable
+endmap
