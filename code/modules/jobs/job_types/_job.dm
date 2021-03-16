@@ -69,6 +69,8 @@
 
 	///Bitfield of departments this job belongs wit
 	var/departments = NONE
+	///Is this job affected by weird spawns like the ones from station traits
+	var/random_spawns_possible = TRUE
 
 /datum/job/New()
 	. = ..()

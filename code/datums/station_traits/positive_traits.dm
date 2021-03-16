@@ -29,7 +29,7 @@
 	new pizza_to_spawn(toLaunch)
 	for(var/i in 1 to 6)
 		new /obj/item/reagent_containers/food/drinks/beer(toLaunch)
-	new /obj/effect/pod_landingzone(T, toLaunch)
+	//new /obj/effect/pod_landingzone(T, toLaunch)		//DEBUG COMMENT
 
 /datum/station_trait/galactic_grant
 	name = "Galactic grant"
