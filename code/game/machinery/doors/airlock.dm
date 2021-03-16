@@ -192,7 +192,7 @@
 		P.icon_state = part_id
 		P.name = name
 		door_time += P.move_end_time
-	open_speed = max(door_time) - 1 //calculates the open_speed directly out of the animation time
+	open_speed = max(door_time) //open_speed is max animation time
 	add_filter("mask_filter", 1, list(type="alpha",icon=mask_file,x=mask_x,y=mask_y))
 
 /obj/machinery/door/airlock/proc/update_other_id()
@@ -564,7 +564,7 @@
 					part.transform = T
 				if(AIRLOCK_CLOSING)
 					part.transform = T
-					animate(part, transform = T, time = initial(part.move_end_time) - part.move_end_time, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(part, transform = T, time = open_speed - part.move_end_time, flags = ANIMATION_LINEAR_TRANSFORM)
 					animate(transform = matrix(), time = part.move_end_time - part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
 				if(AIRLOCK_OPENING)
 					part.transform = matrix()
@@ -581,7 +581,7 @@
 				if(AIRLOCK_CLOSING)
 					part.pixel_x = part.open_px
 					part.pixel_y = part.open_py
-					animate(part, pixel_x = part.open_px, pixel_y = part.open_py, time = initial(part.move_end_time) - part.move_end_time)
+					animate(part, pixel_x = part.open_px, pixel_y = part.open_py, time = open_speed - part.move_end_time)
 					animate(pixel_x = 0, pixel_y = 0, time = part.move_end_time - part.move_start_time)
 				if(AIRLOCK_OPENING)
 					part.pixel_x = 0
@@ -1181,7 +1181,7 @@
 	sleep(1)
 	set_opacity(0)
 	update_freelook_sight()
-	sleep(open_speed)
+	sleep(open_speed - 1)
 	density = FALSE
 	air_update_turf(1)
 	sleep(1)
@@ -1231,7 +1231,7 @@
 	if(!air_tight)
 		density = TRUE
 		air_update_turf(1)
-	sleep(open_speed)
+	sleep(open_speed - 1)
 	if(!safe)
 		crush()
 	if(visible && !glass)
