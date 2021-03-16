@@ -2155,6 +2155,14 @@ datum/uplink_item/role_restricted/superior_honkrender
 	restricted_roles = list("Mime")
 	surplus = 0
 
+/datum/uplink_item/role_restricted/mimesabrekit
+	name = "Baguette blade bundle"
+	desc = "A very stealthy blade located inside an even stealthier baguette-shaped sheath."
+	cost = 	12
+	item = /obj/item/storage/box/syndie_kit/mimesabrekit
+	restricted_roles = list("Mime")
+	surplus = 5
+
 /datum/uplink_item/role_restricted/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. \

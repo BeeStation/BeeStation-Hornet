@@ -565,6 +565,13 @@
 	new /obj/item/sbeacondrop/constructshell(src)
 	new /obj/item/sbeacondrop/constructshell(src)
 
+/obj/item/storage/box/syndie_kit/mimesabrekit
+	name = "Baguette blade bundle"
+	desc = "Provides you with a hardly noticable blade hidden inside a baguette disguise."
+
+/obj/item/storage/box/syndie_kit/mimesabrekit/PopulateContents()
+	new /obj/item/storage/belt/sabre/mime(src)
+
 /obj/item/storage/box/syndie_kit/imp_deathrattle
 	name = "deathrattle implant box"
 	desc = "Contains eight linked deathrattle implants."
