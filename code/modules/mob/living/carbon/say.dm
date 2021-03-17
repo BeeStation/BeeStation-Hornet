@@ -19,7 +19,7 @@
 	else
 		. = initial(dt.flags) & TONGUELESS_SPEECH
 
-/mob/living/carbon/hear_intercept(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
+/mob/living/carbon/hear_intercept(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	var/datum/status_effect/bugged/B = has_status_effect(STATUS_EFFECT_BUGGED)
 	if(B)
 		B.listening_in.show_message(message)
