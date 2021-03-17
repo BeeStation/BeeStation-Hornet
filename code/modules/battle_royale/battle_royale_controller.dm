@@ -129,7 +129,7 @@ GLOBAL_VAR(battle_royale_z)
 	if(!speed_start)
 		sleep(50)
 	//Clear client mobs
-	if(use_world_mobs)
+	if(!use_world_mobs)
 		to_chat(world, "<span class='boldannounce'>Battle Royale: Clearing world mobs.</span>")
 		for(var/mob/M as() in GLOB.player_list)
 			if(isliving(M))
@@ -167,7 +167,7 @@ GLOBAL_VAR(battle_royale_z)
 				to_chat(world, "<span class='boldannounce'>Battle Royale: Loading map failed!</span>")
 				return
 	//Wait to start
-	if(speed_start)
+	if(!speed_start)
 		sleep(50)
 		to_chat(world, "<span class='greenannounce'>Battle Royale: STARTING IN 30 SECONDS.</span>")
 		if(!use_world_mobs)
