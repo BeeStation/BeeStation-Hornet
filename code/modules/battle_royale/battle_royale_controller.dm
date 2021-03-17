@@ -1,6 +1,9 @@
 GLOBAL_VAR(battle_royale_map)
 GLOBAL_VAR(battle_royale_z)
 
+#define BR_STAGE_SHUTTLE 1
+#define BR_STAGE_GAME 2
+
 /datum/battle_royale_controller
 	var/list/players
 	var/datum/proximity_monitor/advanced/battle_royale/field_wall
@@ -17,6 +20,7 @@ GLOBAL_VAR(battle_royale_z)
 	var/radius_delays = 	list(3, 4, 5, 6, 7, 10)		//The list of wall delays per stage
 	var/between_delays = 	list(600, 300, 300, 300, 300, 1200)//The list of times between changing stages
 	var/field_delay = 10								//The current field delay
+	var/stage = BR_STAGE_SHUTTLE
 
 /datum/battle_royale_controller/Destroy(force, ...)
 	QDEL_LIST(death_wall)
@@ -29,6 +33,10 @@ GLOBAL_VAR(battle_royale_z)
 
 //Trigger random events and shit, update the world border
 /datum/battle_royale_controller/process()
+	if(stage == BR_STAGE_SHUTTLE)
+		if(!move_shuttle_on())
+			stage = BR_STAGE_GAME
+		return
 	process_num++
 	//Once every 50 seconds
 	if(prob(2))
@@ -181,6 +189,7 @@ GLOBAL_VAR(battle_royale_z)
 		sleep(50)
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Starting game.</span>")
 	titanfall(use_world_mobs)
+	START_PROCESSING(SSprocessing, src)
 	to_chat(world, "<span class='boldannounce'>The ash storm is forming!</span>")
 	//Create the death wall.
 	death_wall = list()
@@ -197,7 +206,6 @@ GLOBAL_VAR(battle_royale_z)
 		death_wall += DW
 		CHECK_TICK
 	next_stage_world_time = world.time + 4 MINUTES
-	START_PROCESSING(SSprocessing, src)
 
 /datum/battle_royale_controller/proc/titanfall(use_world_mobs = FALSE)
 	to_chat(world, "<span class='boldannounce'>JUMP OFF THE SHUTTLE TO DEPLOY TO THAT LOCATION.</span>")
@@ -241,9 +249,6 @@ GLOBAL_VAR(battle_royale_z)
 	set_observer_default_invisibility(FALSE, "You are hidden by the battle royale")
 	//End the grace period
 	INVOKE_ASYNC(src, .proc/end_grace)
-	//Send the robusting rocket.
-	spawn while(move_shuttle_on())
-		sleep(10)
 
 /datum/battle_royale_controller/proc/end_grace()
 	generate_basic_loot(150)
