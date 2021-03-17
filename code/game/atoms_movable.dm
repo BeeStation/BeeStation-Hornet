@@ -424,6 +424,8 @@
 		orbiting.end_orbit(src)
 		orbiting = null
 
+	vis_contents.Cut()
+
 // Make sure you know what you're doing if you call this, this is intended to only be called by byond directly.
 // You probably want CanPass()
 /atom/movable/Cross(atom/movable/AM)

@@ -27,6 +27,9 @@
 		mytape = new starting_tape_type(src)
 	update_icon()
 
+/obj/item/taperecorder/Destroy()
+	QDEL_NULL(mytape)
+	return ..()
 
 /obj/item/taperecorder/examine(mob/user)
 	. = ..()
