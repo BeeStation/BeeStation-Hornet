@@ -93,7 +93,15 @@ GLOBAL_VAR(battle_royale_z)
 // INITIALIZATION
 //==================================
 
-/datum/battle_royale_controller/proc/start()
+/*
+ * Starts battle royale.
+ *
+ * Parameters:
+ *  - check_map (bool) : If true will check if the current map is setup for battle royale before loading. If the server runs battle royale only, set this to true to prevent double loading maps.
+ *  - use_world_mobs (bool) : If true instead of clearing mobs and making new mobs, will just use world mobs.
+ *  - speed_start (bool) : If true, will not have any delays
+ */
+/datum/battle_royale_controller/proc/start(check_map = FALSE, use_world_mobs = FALSE, speed_start = FALSE)
 	//Give Verbs to admins
 	for(var/client/C in GLOB.admins)
 		if(check_rights_for(C, R_FUN))
@@ -118,34 +126,61 @@ GLOBAL_VAR(battle_royale_z)
 		to_chat(world, "<span class='boldannounce'>Battle Royale: Force-starting game.</span>")
 		SSticker.start_immediately = TRUE
 	SEND_SOUND(world, sound('sound/misc/server-ready.ogg'))
-	sleep(50)
+	if(!speed_start)
+		sleep(50)
 	//Clear client mobs
-	to_chat(world, "<span class='boldannounce'>Battle Royale: Clearing world mobs.</span>")
-	for(var/mob/M as() in GLOB.player_list)
-		if(isliving(M))
-			qdel(M)
-		CHECK_TICK
+	if(use_world_mobs)
+		to_chat(world, "<span class='boldannounce'>Battle Royale: Clearing world mobs.</span>")
+		for(var/mob/M as() in GLOB.player_list)
+			if(isliving(M))
+				qdel(M)
+			CHECK_TICK
 	//Load the map
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Loading Map...</span>")
 	if(!GLOB.battle_royale_map)
-		var/datum/map_template/battle_royale/template = new('_maps/battle_royale/KiloRoyale.dmm', "Battle Royale Map")
-		GLOB.battle_royale_map = template.load_new_z()
-		if(!GLOB.battle_royale_map)
-			to_chat(world, "<span class='boldannounce'>Battle Royale: Loading map failed!</span>")
-			return
+		var/map_needs_loading = FALSE
+		//Check and convert other map
+		if(!check_map)
+			map_needs_loading = TRUE
+		else
+			if(!LAZYLEN(GLOB.br_spawns))
+				map_needs_loading = TRUE
+			else if(!LAZYLEN(GLOB.br_loot))
+				map_needs_loading = TRUE
+			else
+				//Map is fine, convert it
+				var/target_level = SSmapping.levels_by_trait(ZTRAIT_STATION)
+				if(!target_level)
+					map_needs_loading = TRUE
+				else
+					//The station is setup for battle royale, we can use that.
+					var/datum/space_level/S = SSmapping.get_level(target_level)
+					S.traits |= ZTRAIT_STATION
+					GLOB.battle_royale_map = S.z_value
+		//Load the map
+		if(map_needs_loading)
+			var/datum/map_template/battle_royale/template = new('_maps/battle_royale/KiloRoyale.dmm', "Battle Royale Map")
+			GLOB.battle_royale_map = template.load_new_z()
+			if(!GLOB.battle_royale_map)
+				to_chat(world, "<span class='boldannounce'>Battle Royale: Loading map failed!</span>")
+				return
 	//Wait to start
-	sleep(50)
-	to_chat(world, "<span class='greenannounce'>Battle Royale: STARTING IN 30 SECONDS.</span>")
-	to_chat(world, "<span class='greenannounce'><i>If you are on the main menu, observe immediately to sign up. (You will be prompted in 30 seconds.)</i></span>")
-	toggle_ooc(TRUE)
-	sleep(300)
-	toggle_ooc(FALSE)
-	to_chat(world, "<span class='boldannounce'>Battle Royale: STARTING IN 5 SECONDS.</span>")
-	to_chat(world, "<span class='greenannounce'>Make sure to hit yes to the sign up message given to all observing players.</span>")
-	sleep(50)
+	if(speed_start)
+		sleep(50)
+		to_chat(world, "<span class='greenannounce'>Battle Royale: STARTING IN 30 SECONDS.</span>")
+		if(!use_world_mobs)
+			to_chat(world, "<span class='greenannounce'><i>If you are on the main menu, observe immediately to sign up. (You will be prompted in 30 seconds.)</i></span>")
+		toggle_ooc(TRUE)
+		sleep(300)
+		toggle_ooc(FALSE)
+		to_chat(world, "<span class='boldannounce'>Battle Royale: STARTING IN 5 SECONDS.</span>")
+		if(!use_world_mobs)
+			to_chat(world, "<span class='greenannounce'>Make sure to hit yes to the sign up message given to all observing players.</span>")
+		sleep(50)
 	to_chat(world, "<span class='boldannounce'>Battle Royale: Starting game.</span>")
-	titanfall()
+	titanfall(use_world_mobs)
 	to_chat(world, "<span class='boldannounce'>The ash storm is forming!</span>")
+	//Create the death wall.
 	death_wall = list()
 	var/z_level = GLOB.battle_royale_z
 	var/turf/center = SSmapping.get_station_center()
@@ -162,9 +197,13 @@ GLOBAL_VAR(battle_royale_z)
 	next_stage_world_time = world.time + 4 MINUTES
 	START_PROCESSING(SSprocessing, src)
 
-/datum/battle_royale_controller/proc/titanfall()
+/datum/battle_royale_controller/proc/titanfall(use_world_mobs = FALSE)
 	to_chat(world, "<span class='boldannounce'>JUMP OFF THE SHUTTLE TO DEPLOY TO THAT LOCATION.</span>")
-	var/list/participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
+	var/list/participants = list()
+	if(use_world_mobs)
+		participants = GLOB.player_list
+	else
+		participants = pollGhostCandidates("Would you like to partake in BATTLE ROYALE?")
 	players = list()
 	for(var/mob/M in participants)
 		var/key = M.key
@@ -172,7 +211,14 @@ GLOBAL_VAR(battle_royale_z)
 		CHECK_TICK
 		var/spawn_pos = pick(GLOB.br_spawns)
 		var/turf/T = get_turf(spawn_pos)
-		var/mob/living/carbon/human/species/battleroyale/H = new(T)
+		var/mob/living/carbon/human/H
+		if(use_world_mobs && !isliving(M))
+			continue
+		H = new /mob/living/carbon/human/species/battleroyale(T)
+		if(use_world_mobs)
+			var/mob/living/carbon/human/old_human = M
+			H.dna.copy_dna(old_human.dna)
+			qdel(old_human)
 		ADD_TRAIT(H, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		H.status_flags = GODMODE
 		H.pass_flags |= PASSMOB
