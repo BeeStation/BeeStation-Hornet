@@ -22,4 +22,4 @@
 		S.take_damage(80, BRUTE, "melee", 0, armour_penetration = 100)
 	else istype(A, /obj/machinery)
 		var/obj/machinery/M = A
-		A.take_damage(80, BRUTE, "melee", 0, armour_penetration = 100)
+		M.take_damage(80, BRUTE, "melee", 0, armour_penetration = 100)
