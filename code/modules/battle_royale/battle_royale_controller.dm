@@ -145,7 +145,7 @@ GLOBAL_VAR(battle_royale_z)
 		else
 			if(!LAZYLEN(GLOB.br_spawns))
 				map_needs_loading = TRUE
-			else if(!LAZYLEN(GLOB.br_loot))
+			else if(!LAZYLEN(GLOB.br_lootdrop))
 				map_needs_loading = TRUE
 			else
 				//Map is fine, convert it
