@@ -15,7 +15,7 @@ GLOBAL_VAR(battle_royale_z)
 	var/next_stage_world_time = 0						//The world time we will go to the next stage
 	var/radius_increments = list(70, 50, 40, 30, 20, 10)	//The list of wall radii
 	var/radius_delays = 	list(3, 4, 5, 6, 7, 10)		//The list of wall delays per stage
-	var/between_delays = 	list(60, 30, 30, 30, 30, 120)//The list of times between changing stages
+	var/between_delays = 	list(600, 300, 300, 300, 300, 1200)//The list of times between changing stages
 	var/field_delay = 10								//The current field delay
 
 /datum/battle_royale_controller/Destroy(force, ...)
@@ -230,10 +230,6 @@ GLOBAL_VAR(battle_royale_z)
 		var/obj/item/implant/weapons_auth/W = new
 		W.implant(H)
 		players += H
-		//Buckle to the chair
-		var/obj/structure/chair/C = locate() in T
-		if(C)
-			C.buckle_mob(M)
 		to_chat(M, "<span class='notice'>You are in the safe zone, you cannot attack here.</span>")
 	SEND_SOUND(world, sound('sound/misc/airraid.ogg'))
 	to_chat(world, "<span class='boldannounce'>A 30 second grace period has been established. Good luck.</span>")
@@ -244,7 +240,7 @@ GLOBAL_VAR(battle_royale_z)
 	//End the grace period
 	INVOKE_ASYNC(src, .proc/end_grace)
 	//Send the robusting rocket.
-	while(move_shuttle_on())
+	spawn while(move_shuttle_on())
 		sleep(10)
 
 /datum/battle_royale_controller/proc/end_grace()
@@ -257,7 +253,7 @@ GLOBAL_VAR(battle_royale_z)
 	var/shuttle_drop_min_x = GLOB.shuttle_drop_min_x
 	var/shuttle_drop_min_y = GLOB.shuttle_drop_min_y
 
-	if(shuttle_x > world.maxx - 20)
+	if(shuttle_position > world.maxx - 20)
 		return FALSE
 
 	for(var/turf/open/shuttle_drop_turf/T as() in GLOB.shuttle_drop_turfs)
