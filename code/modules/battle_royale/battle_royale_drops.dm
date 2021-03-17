@@ -23,15 +23,12 @@ GLOBAL_LIST_INIT(battle_royale_guns, list(
 	/obj/item/pneumatic_cannon/speargun = 1,
 	/obj/item/gun/ballistic/automatic/mini_uzi = 5,
 	/obj/item/gun/energy/lasercannon/firing_pin = 1,
-	/obj/item/gun/energy/kinetic_accelerator/crossbow/large = 4,
 	/obj/item/gun/energy/e_gun/nuclear = 1,
-	/obj/item/gun/ballistic/automatic/proto/unrestricted = 1,
+	/obj/item/gun/ballistic/automatic/proto/unrestricted = 4,
 	/obj/item/gun/ballistic/automatic/c20r = 2,
-	/obj/item/gun/ballistic/automatic/l6_saw = 1,
 	/obj/item/gun/ballistic/automatic/m90 = 1,
 	/obj/item/gun/energy/e_gun/dragnet = 4,
 	/obj/item/gun/energy/e_gun/turret = 1,
-	/obj/item/gun/energy/pulse/carbine = 1,
 	/obj/item/gun/energy/decloner = 5,
 	/obj/item/gun/energy/mindflayer = 1,
 	/obj/item/gun/energy/kinetic_accelerator = 7,
@@ -193,12 +190,12 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 			if(1)
 				items += pickweight(GLOB.battle_royale_tools)
 				items += pickweight(GLOB.battle_royale_healing)
-				items += pickweight(GLOB.battle_royale_guns)
+				items += pickweight(GLOB.battle_royale_armor)
 				items += pickweight(GLOB.battle_royale_guns)
 			if(2)
 				items += pickweight(GLOB.battle_royale_ammo)
 				items += pickweight(GLOB.battle_royale_healing)
-				items += pickweight(GLOB.battle_royale_tools)
+				items += pickweight(GLOB.battle_royale_armor)
 				items += pickweight(GLOB.battle_royale_tools)
 			if(3)
 				items += pickweight(GLOB.battle_royale_healing)

@@ -1,6 +1,6 @@
 // 9mm (Stechkin APS)
 
-/obj/item/projectile/bullet/c9mm
+/obj/item/projectile/bullet/c9mm12
 	name = "9mm bullet"
 	damage = 20
 

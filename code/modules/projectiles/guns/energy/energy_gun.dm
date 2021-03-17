@@ -76,7 +76,7 @@
 	item_state = "dragnet"
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-	ammo_type = list(/obj/item/ammo_casing/energy/net, /obj/item/ammo_casing/energy/trap)
+	ammo_type = list(/obj/item/ammo_casing/energy/n1et, /obj/item/ammo_casing/energy/trap)
 	can_flashlight = FALSE
 	ammo_x_offset = 1
 	fire_rate = 1.5
