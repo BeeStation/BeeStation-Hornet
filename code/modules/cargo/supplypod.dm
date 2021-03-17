@@ -19,7 +19,7 @@
 	var/adminNamed = FALSE //Determines whether or not the pod has been named by an admin. If true, the pod's name will not get overridden when the style of the pod changes (changing the style of the pod normally also changes the name+desc)
 	var/bluespace = FALSE //If true, the pod deletes (in a shower of sparks) after landing
 	var/landingDelay = 30 //How long the pod takes to land after launching
-	var/openingDelay = 30 //How long the pod takes to open after landing
+	var/openingDelay = 30 //How long the pod takes to open after landing. -1 means it does not open.
 	var/departureDelay = 30 //How long the pod takes to leave after opening. If bluespace = TRUE, it deletes. If reversing = TRUE, it flies back to centcom.
 	var/damage = 0 //Damage that occurs to any mob under the pod when it lands.
 	var/effectStun = FALSE //If true, stuns anyone under the pod when it launches until it lands, forcing them to get hit by the pod. Devilish!
@@ -73,7 +73,7 @@
 	landingDelay = 40 //Very slow
 	resistance_flags = NONE
 	max_integrity = 20
-	openingDelay = INFINITY
+	openingDelay = -1
 
 /obj/structure/closet/supplypod/battleroyale/examine(mob/user)
 	. = ..()
@@ -205,11 +205,13 @@
 		var/mob/living/simple_animal/pet/gondola/gondolapod/benis = new(get_turf(src), src)
 		benis.contents |= contents //Move the contents of this supplypod into the gondolapod mob.
 		moveToNullspace()
-		addtimer(CALLBACK(src, .proc/open, benis), openingDelay) //After the openingDelay passes, we use the open proc from this supplyprod while referencing the contents of the "holder", in this case the gondolapod mob
+		if(openingDelay != -1)
+			addtimer(CALLBACK(src, .proc/open, benis), openingDelay) //After the openingDelay passes, we use the open proc from this supplyprod while referencing the contents of the "holder", in this case the gondolapod mob
 	else if (style == STYLE_SEETHROUGH)
 		open(src)
 	else
-		addtimer(CALLBACK(src, .proc/open, src), openingDelay) //After the openingDelay passes, we use the open proc from this supplypod, while referencing this supplypod's contents
+		if(openingDelay != -1)
+			addtimer(CALLBACK(src, .proc/open, src), openingDelay) //After the openingDelay passes, we use the open proc from this supplypod, while referencing this supplypod's contents
 
 /obj/structure/closet/supplypod/open(atom/movable/holder, var/broken = FALSE, var/forced = FALSE) //The holder var represents an atom whose contents we will be working with
 	if (!holder)

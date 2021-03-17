@@ -251,7 +251,7 @@ GLOBAL_VAR(battle_royale_z)
 	INVOKE_ASYNC(src, .proc/end_grace)
 
 /datum/battle_royale_controller/proc/end_grace()
-	generate_basic_loot(150)
+	generate_basic_loot(30)
 
 /datum/battle_royale_controller/proc/move_shuttle_on()
 	shuttle_position ++

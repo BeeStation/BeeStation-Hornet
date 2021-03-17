@@ -212,8 +212,8 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 				items += pickweight(GLOB.battle_royale_guns)
 				items += pickweight(GLOB.battle_royale_healing)
 				items += pickweight(GLOB.battle_royale_tools)
-		CHECK_TICK
 		send_item(items)
+		CHECK_TICK
 
 /datum/battle_royale_controller/proc/generate_good_drop()
 	var/list/good_drops = list()
