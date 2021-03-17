@@ -157,7 +157,7 @@ GLOBAL_VAR(battle_royale_z)
 				else
 					//The station is setup for battle royale, we can use that.
 					var/datum/space_level/S = SSmapping.get_level(target_level)
-					S.traits |= ZTRAIT_STATION
+					S.traits |= ZTRAIT_BATTLEROYALE
 					GLOB.battle_royale_map = S.z_value
 		//Load the map
 		if(map_needs_loading)
