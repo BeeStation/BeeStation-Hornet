@@ -195,47 +195,59 @@ BLIND     // can't see anything
 	female_clothing_icon 			= fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
 
-/obj/item/clothing/under/verb/toggle()
-	set name = "Adjust Suit Sensors"
-	set category = "Object"
-	set src in usr
-	var/mob/M = usr
+/obj/item/clothing/under/proc/set_sensors(mob/user as mob)
+	var/mob/M = user
 	if (istype(M, /mob/dead/))
 		return
 	if (!can_use(M))
 		return
 	if(src.has_sensor == LOCKED_SENSORS)
-		to_chat(usr, "The controls are locked.")
+		to_chat(user, "The controls are locked.")
 		return 0
 	if(src.has_sensor == BROKEN_SENSORS)
-		to_chat(usr, "The sensors have shorted out!")
+		to_chat(user, "The sensors have shorted out!")
 		return 0
 	if(src.has_sensor <= NO_SENSORS)
-		to_chat(usr, "This suit does not have any sensors.")
+		to_chat(user, "This suit does not have any sensors.")
 		return 0
 
 	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
-	if(get_dist(usr, src) > 1)
-		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+	if(get_dist(user, src) > 1)
+		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
 	sensor_mode = modes.Find(switchMode) - 1
 
-	if (src.loc == usr)
+	if (src.loc == user)
 		switch(sensor_mode)
 			if(0)
-				to_chat(usr, "<span class='notice'>You disable your suit's remote sensing equipment.</span>")
+				to_chat(user, "<span class='notice'>You disable your suit's remote sensing equipment.</span>")
 			if(1)
-				to_chat(usr, "<span class='notice'>Your suit will now only report whether you are alive or dead.</span>")
+				to_chat(user, "<span class='notice'>Your suit will now only report whether you are alive or dead.</span>")
 			if(2)
-				to_chat(usr, "<span class='notice'>Your suit will now only report your exact vital lifesigns.</span>")
+				to_chat(user, "<span class='notice'>Your suit will now only report your exact vital lifesigns.</span>")
 			if(3)
-				to_chat(usr, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")
-
+				to_chat(user, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")			
+	else if(istype(src.loc, /mob))
+		switch(sensor_mode)
+			if(0)
+				user.visible_message("<span class='warning'>[user] disables [src.loc]'s remote sensing equipment.</span>")
+			if(1)
+				user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to binary.</span>")
+			if(2)
+				user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to track vitals.</span>")
+			if(3)
+				user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to maximum.</span>")
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.w_uniform == src)
 			H.update_suit_sensors()
+
+/obj/item/clothing/under/verb/toggle()
+	set name = "Adjust Suit Sensors"
+	set category = "Object"
+	set src in usr
+	set_sensors(usr)
 
 /obj/item/clothing/under/attack_hand(mob/user)
 	if(attached_accessory && ispath(attached_accessory.pocket_storage_component_path) && loc == user)
