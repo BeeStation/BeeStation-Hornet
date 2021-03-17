@@ -1,0 +1,11 @@
+{
+    "map_name": "Battle Royale - Kilo Station",
+    "map_path": "battle_royale",
+    "map_file": "KiloRoyale.dmm",
+    "shuttles": {
+	    "emergency": "emergency_kilo",
+	    "ferry": "ferry_kilo",
+	    "cargo": "cargo_kilo",
+	    "whiteship": "whiteship_meta"
+    }
+}

@@ -117,10 +117,13 @@ PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
 
 ## Creates issues when NO_INTERCEPT_REPORT is enabled
-PROBABILITY EXTENDED 0 
+PROBABILITY EXTENDED 0
 
 ## You probably want to keep sandbox off by default for secret and random.
 PROBABILITY SANDBOX 0
+
+## Keep off unless you want the server to be a battle royale server
+PROBABILITY BATTLEROYALE 0
 
 ## Percent weight reductions for three of the most recent modes
 
@@ -153,7 +156,7 @@ CONTINUOUS DYNAMIC
 CONTINUOUS METEOR
 CONTINUOUS EXTENDED
 CONTINUOUS SECRET_EXTENDED
-
+CONTINUOUS BATTLEROYALE
 
 ## Toggles for allowing midround antagonists (aka mulligan antagonists).
 ## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.

@@ -39,6 +39,10 @@ map donutstation
 	disabled
 endmap
 
+map kiloroyale
+	disabled
+endmap
+
 map runtimestation
 	disabled
 endmap

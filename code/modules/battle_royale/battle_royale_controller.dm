@@ -144,8 +144,10 @@ GLOBAL_VAR(battle_royale_z)
 			map_needs_loading = TRUE
 		else
 			if(!LAZYLEN(GLOB.br_spawns))
+				message_admins("Server is running battle royale on an incorrect map setup.")
 				map_needs_loading = TRUE
 			else if(!LAZYLEN(GLOB.br_lootdrop))
+				message_admins("Server is running battle royale on an incorrect map setup.")
 				map_needs_loading = TRUE
 			else
 				//Map is fine, convert it

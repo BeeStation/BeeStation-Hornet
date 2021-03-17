@@ -43,6 +43,10 @@ map runtimestation
 	disabled
 endmap
 
+map kiloroyale
+	disabled
+endmap
+
 map multiz_debug
 	disabled
 endmap
