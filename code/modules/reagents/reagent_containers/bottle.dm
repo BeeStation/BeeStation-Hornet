@@ -278,6 +278,11 @@
 	desc = "A small bottle. Contains a sample of invasive Apidae."
 	spawned_disease = /datum/disease/beesease
 
+/obj/item/reagent_containers/glass/bottle/corona
+	name = "Sars-Cov-V2 culture bottle"
+	desc = "A small bottle. Contains a sample of Sars-Cov-V2."
+	spawned_disease = /datum/disease/corona
+
 /obj/item/reagent_containers/glass/bottle/fluspanish
 	name = "Spanish flu culture bottle"
 	desc = "A small bottle. Contains a sample of Inquisitius."

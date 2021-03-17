@@ -31,11 +31,11 @@
 		advanced_virus = FALSE // more chance at a special disease the more time passes. more common than dangerous diseases. 50% chance of a special disease at 40 minutes
 
 	if(!virus_type && !advanced_virus && dangerous_virus)
-		virus_type = pick(/datum/disease/dnaspread, /datum/disease/brainrot, /datum/disease/rhumba_beat, /datum/disease/gastrolosis, /datum/disease/wizarditis)
+		virus_type = pick(/datum/disease/dnaspread, /datum/disease/brainrot, /datum/disease/rhumba_beat, /datum/disease/gastrolosis, /datum/disease/wizarditis, /datum/disease/corona)
 
 	if(!virus_type && !advanced_virus)
 		virus_type = pick(/datum/disease/fake_gbs, /datum/disease/cold9, /datum/disease/magnitis, /datum/disease/pierrot_throat, /datum/disease/beesease)
-	
+
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
 		var/turf/T = get_turf(H)
 		if(!T)
