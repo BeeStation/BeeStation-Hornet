@@ -33,14 +33,14 @@ GLOBAL_VAR(battle_royale_z)
 
 //Trigger random events and shit, update the world border
 /datum/battle_royale_controller/process()
+	//Once every 50 seconds
+	if(prob(2))
+		generate_basic_loot(5)
 	if(stage == BR_STAGE_SHUTTLE)
 		if(!move_shuttle_on())
 			stage = BR_STAGE_GAME
 		return
 	process_num++
-	//Once every 50 seconds
-	if(prob(2))
-		generate_basic_loot(5)
 	//Once every 100 seconds.
 	if(prob(1))
 		generate_good_drop()
