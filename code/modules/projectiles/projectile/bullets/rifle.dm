@@ -6,7 +6,7 @@
 
 // 7.62 (Nagant Rifle)
 
-/obj/item/projectile/36bullet/a762
+/obj/item/projectile/bullet/a762
 	name = "7.62 bullet"
 	damage = 60
 
