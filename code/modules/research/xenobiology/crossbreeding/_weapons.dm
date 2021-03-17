@@ -54,7 +54,7 @@ Slimecrossing Weapons
 			attack_verb = list("irradiated","mutated","maligned")
 	return ..()
 
-//Adamantine shield - Chilling Adamantine
+//Adamantine shield - Burning Adamantine
 /obj/item/twohanded/required/adamantineshield
 	name = "adamantine shield"
 	desc = "A gigantic shield made of solid adamantium."
@@ -71,7 +71,7 @@ Slimecrossing Weapons
 	block_flags = BLOCKING_PROJECTILE
 	throw_range = 1 //How far do you think you're gonna throw a solid crystalline shield...?
 	throw_speed = 2
-	force = 15 //Heavy, but hard to wield.
+	force_wielded = 15 //Heavy, but hard to wield.
 	attack_verb = list("bashed","pounded","slammed")
 	item_flags = SLOWS_WHILE_IN_HAND
 
