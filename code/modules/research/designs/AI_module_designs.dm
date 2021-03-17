@@ -125,7 +125,7 @@
 	id = "grusimov_module"
 	build_type = IMPRINTER
 	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/copper = 300)
-	build_path = /obj/item/aiModule/core/full/paladin
+	build_path = /obj/item/aiModule/core/full/grusimov
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
