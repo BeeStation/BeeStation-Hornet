@@ -87,7 +87,7 @@
 	name = "Pack of Strange Seeds"
 	id = "random"
 	build_type = BIOGENERATOR
-	materials = list(/datum/material/biomass = 5000)
+	materials = list(/datum/material/biomass = 2500)
 	build_path = /obj/item/seeds/random
 	category = list("initial", "Food")
 
