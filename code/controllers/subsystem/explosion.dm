@@ -361,7 +361,11 @@ SUBSYSTEM_DEF(explosions)
 			flameturf += T
 
 		//--- THROW ITEMS AROUND ---
-		var/throw_dir = get_dir(epicenter,T)
+		var/throw_dir
+		if(T == epicenter)
+			throw_dir = pick(list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
+		else
+			throw_dir = get_dir(epicenter,T)
 		var/throw_range = max_range * 1.5
 		var/list/throwingturf = T.explosion_throw_details
 		if (throwingturf)
