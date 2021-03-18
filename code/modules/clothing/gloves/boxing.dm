@@ -27,4 +27,4 @@
 
 /obj/item/clothing/gloves/boxing/yellow/uninsulated/Initialize()
 	. = ..()
-	siemens_coefficient = pick(0,0,0,0.5,1.5)
+	siemens_coefficient = pick(0,0,0,0,0.25,2
