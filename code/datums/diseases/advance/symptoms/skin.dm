@@ -289,9 +289,8 @@ BONUS
 	var/eggcount = rand(4, 8)
 	var/i
 	for(i = 1, i<= eggcount, i++)
-		var/list/directions = GLOB.alldirs[i]
-		var/obj/item/I = new /obj/item/reagent_containers/food/snacks/fleshegg(src.diseases, src.sneakyegg, src.bigheal)
-		var/turf/thrown_at = get_ranged_target_turf(I, pick(directions), rand(2, 4))
+		var/obj/item/I = new /obj/item/reagent_containers/food/snacks/fleshegg(diseases, sneakyegg, bigheal)
+		var/turf/thrown_at = get_ranged_target_turf(I, GLOB.alldirs[i], rand(2, 4))
 		I.throw_at(thrown_at, rand(2,4), 4)
 
 /obj/item/reagent_containers/food/snacks/fleshegg
