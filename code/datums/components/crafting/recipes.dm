@@ -953,7 +953,7 @@
 	name = "Insulated Boxing Gloves"
 	result = /obj/item/clothing/gloves/boxing/yellow/uninsulated
 	time = 60
-	reqs = list(obj/item/clothing/gloves/boxing = 1,
+	reqs = list(/obj/item/clothing/gloves/boxing = 1,
 				/obj/item/clothing/gloves/color/yellow = 1)
 
 	category = CAT_CLOTHING
