@@ -951,7 +951,7 @@
 
 /datum/crafting_recipe/insulated_boxing_gloves
 	name = "Insulated Boxing Gloves"
-	result = /obj/item/clothing/gloves/boxing/yellow/uninsulated
+	result = /obj/item/clothing/gloves/boxing/yellow/insulated
 	time = 60
 	reqs = list(/obj/item/clothing/gloves/boxing = 1,
 				/obj/item/clothing/gloves/color/yellow = 1)
