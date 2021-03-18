@@ -47,6 +47,7 @@
 		get_asset_datum(/datum/asset/simple/tgui_panel),
 	))
 	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
+	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/tgfont))
 	window.send_asset(get_asset_datum(/datum/asset/spritesheet/chat))
 	// Preload assets for /datum/tgui
 	var/datum/asset/asset_tgui = get_asset_datum(/datum/asset/simple/tgui)
