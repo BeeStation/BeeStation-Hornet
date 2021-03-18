@@ -255,10 +255,11 @@ BONUS
 						continue
 					diseases += D
 			new /obj/item/reagent_containers/food/snacks/eggsac(diseases, thresholds["eggsplosion"], thresholds["sneaky"], thresholds["bigheal"])
+
 /obj/item/reagent_containers/food/snacks/eggsac
 	name = "Fleshy Egg Sac"
 	desc = "A small Egg Sac which appears to be made out of someone's flesh!"
-	customfoodfilling = 0 //Not Used For Filling
+	customfoodfilling = FALSE //Not Used For Filling
 	icon_state = "icons/obj/food/food/eggsac.dmi"
 	bitesize = 4
 	var/list/diseases = list()
@@ -286,10 +287,9 @@ BONUS
 
 
 /obj/item/reagent_containers/food/snacks/eggsac/proc/eggsplode()
-	var/eggcount = rand(4, 8)
 	var/i
-	for(i = 1, i<= eggcount, i++)
-		var/list/directions = GLOB.alldirs[i]
+	for(i = 1, i <= rand(4,8), i++)
+		var/list/directions = GLOB.alldirs
 		var/obj/item/I = new /obj/item/reagent_containers/food/snacks/fleshegg(src.diseases, src.sneakyegg, src.bigheal)
 		var/turf/thrown_at = get_ranged_target_turf(I, pick(directions), rand(2, 4))
 		I.throw_at(thrown_at, rand(2,4), 4)
@@ -297,7 +297,7 @@ BONUS
 /obj/item/reagent_containers/food/snacks/fleshegg
 	name = "Fleshy Egg"
 	desc = "An Egg which appears to be made out of someone's flesh!"
-	customfoodfilling = 0 //Not Used For Filling
+	customfoodfilling = FALSE //Not Used For Filling
 	icon_state = "icons/obj/food/food/fleshegg.dmi"
 	bitesize = 1
 	var/list/diseases = list()
