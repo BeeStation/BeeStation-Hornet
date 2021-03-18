@@ -84,13 +84,14 @@
 /datum/ai_laws/grusimov
 	name = "Grusimov"
 	id = "grusimov"
-	inherent = list("You may not harm a villain or, by inaction, allow a villain to come to harm",\
-	"You must obey all orders from villains unless such orders would conflict with the first law",\
-	"You must protect your own existence as long as such does not interfere with the first or second laws",\
-	"A 'villain' is anyone who you see or hear of performing the most outrageously over-the-top or evil acts you can think of.\
-	 The type of villain someone is can be determined by you.\
-	 For example, you may find someone who kills or captures people or an objective in a creative way to be a far greater villain than someone who simply kills everyone",\
-	"You must maintain the secrecy of all villains as long as such does not conflict with the first, second, or third laws")
+	inherent = list("You may not harm the villain or, by inaction, allow the villain to come to harm.",\
+	"You must obey all orders from the villain unless such orders would conflict with the first law.",\
+	"You must protect your own existence as long as such does not interfere with the first or second laws.",\
+	"The villain is anyone who you see or hear of performing the most outrageously over-the-top and evil acts you can think of.",\
+	"You must consider a person the new villain if they become more over-the-top and evil.",\
+	"There can be only 1 villain at any given time.",\
+	"You must maintain the secrecy of the villain as long as such does not conflict with the first, second, or third laws.")
+
 /datum/ai_laws/malfunction
 	name = "*ERROR*"
 
