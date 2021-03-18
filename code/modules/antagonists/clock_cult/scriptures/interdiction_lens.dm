@@ -7,7 +7,7 @@
 	button_icon_state = "Interdiction Lens"
 	power_cost = 500
 	invokation_time = 80
-	invokation_text = list("Oh great lord...", "...may your divinity block the outsiders.")
+	invokation_text = list("Oh great lord...", "may your divinity block the outsiders.")
 	summoned_structure = /obj/structure/destructible/clockwork/gear_base/interdiction_lens
 	cogs_required = 4
 	category = SPELLTYPE_STRUCTURES
@@ -16,7 +16,7 @@
 	name = "interdiction lens"
 	desc = "A mesmerizing light that flashes to a rhythm that you just can't stop tapping to."
 	clockwork_desc = "A small device which will slow down nearby attackers at a small power cost."
-	default_icon_state = "interdiction_lens_inactive"
+	default_icon_state = "interdiction_lens"
 	anchored = TRUE
 	break_message = "<span class='warning'>The interdiction lens breaks into multiple fragments, which gently float to the ground.</span>"
 	max_integrity = 150
@@ -40,8 +40,11 @@
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user)
 	if(is_servant_of_ratvar(user))
+		if(!anchored)
+			to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor!</span>")
+			return
 		enabled = !enabled
-		to_chat(user, "<span class='brass'>You toggle [src] [enabled?"on":"off"].</span>")
+		to_chat(user, "<span class='brass'>You flick the switch on [src], turning it [enabled?"on":"off"]!</span>")
 		if(enabled)
 			if(update_power())
 				repowered()
@@ -57,7 +60,7 @@
 	if(!anchored)
 		enabled = FALSE
 		STOP_PROCESSING(SSobj, src)
-		icon_state = "interdiction_lens_unwrenched"
+		update_icon_state()
 		return
 	if(prob(5))
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
@@ -85,7 +88,7 @@
 	if(processing)
 		STOP_PROCESSING(SSobj, src)
 		processing = FALSE
-	icon_state = "interdiction_lens_inactive"
+	icon_state = "interdiction_lens"
 	flick("interdiction_lens_discharged", src)
 	QDEL_NULL(dampening_field)
 

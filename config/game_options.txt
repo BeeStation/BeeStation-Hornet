@@ -86,7 +86,7 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 ## GAME MODES ###
 
 #Set the Master (Default) Game Mode.
-MASTER_MODE secret
+MASTER_MODE secret_extended
 
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
 #NO_INTERCEPT_REPORT
@@ -95,9 +95,9 @@ MASTER_MODE secret
 ## Default probablity is 1, increase to make that mode more likely to be picked.
 ## Set to 0 to disable that mode.
 
-PROBABILITY TRAITOR 9
+PROBABILITY DYNAMIC 9
+PROBABILITY TRAITOR 8
 PROBABILITY CULT 6
-PROBABILITY DYNAMIC 6
 PROBABILITY HERESY 6
 PROBABILITY NUCLEAR 6
 PROBABILITY TRAITORCHAN 5

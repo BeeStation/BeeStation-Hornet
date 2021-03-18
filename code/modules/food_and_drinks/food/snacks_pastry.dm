@@ -790,7 +790,7 @@
 					contents += P
 					update_customizable_overlays(P)
 			P = I
-			clearlist(P.contents)
+			P.contents.Cut()
 		return
 	else if(contents.len)
 		var/obj/O = contents[contents.len]
