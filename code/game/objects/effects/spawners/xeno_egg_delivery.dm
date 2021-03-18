@@ -27,8 +27,7 @@
 /obj/effect/spawner/xeno_egg_delivery_troll/Initialize(mapload)
 	..()
 	var/turf/T = get_turf(src)
-	new /obj/structure/alien/egg/burst(T)
-	new /obj/item/paper/troll(T)
+	new /obj/structure/alien/egg/troll(T)
 	playsound(T, 'sound/items/bikehorn.ogg', 60, 0, 0)
 
 	message_admins("\"A joke\" has been delivered to [ADMIN_VERBOSEJMP(T)].")
