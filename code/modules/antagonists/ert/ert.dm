@@ -87,8 +87,16 @@
 /datum/antagonist/ert/medic/inquisitor
 	outfit = /datum/outfit/ert/medic/inquisitor
 
+/datum/antagonist/ert/medic/inquisitor/on_gain()
+	. = ..()
+	owner.holy_role = HOLY_ROLE_PRIEST
+
 /datum/antagonist/ert/security/inquisitor
 	outfit = /datum/outfit/ert/security/inquisitor
+
+/datum/antagonist/ert/security/inquisitor/on_gain()
+	. = ..()
+	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/chaplain
 	role = "Chaplain"
@@ -99,14 +107,14 @@
 
 /datum/antagonist/ert/chaplain/on_gain()
 	. = ..()
-	owner.isholy = TRUE
+	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/commander/inquisitor
 	outfit = /datum/outfit/ert/commander/inquisitor
 
 /datum/antagonist/ert/commander/inquisitor/on_gain()
 	. = ..()
-	owner.isholy = TRUE
+	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/janitor
 	role = "Janitor"

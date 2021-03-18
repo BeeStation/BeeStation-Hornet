@@ -271,6 +271,10 @@
 
 	msg += "</span>"
 
+	if(HAS_TRAIT(user, TRAIT_SPIRITUAL) && mind?.holy_role)
+		msg += "[t_He] [t_has] a holy aura about [t_him].\n"
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
+
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
 			msg += "[t_He] [t_is]n't responding to anything around [t_him] and seem[p_s()] to be asleep.\n"

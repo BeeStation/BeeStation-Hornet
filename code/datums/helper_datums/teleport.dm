@@ -8,7 +8,7 @@
 // forceMove: if false, teleport will use Move() proc (dense objects will prevent teleportation)
 // no_effects: disable the default effectin/effectout of sparks
 // forced: whether or not to ignore no_teleport
-/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, forceMove = TRUE, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, forced = FALSE)
+/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, forceMove = TRUE, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE, channel=TELEPORT_CHANNEL_BLUESPACE, forced = FALSE, teleport_mode = TELEPORT_MODE_DEFAULT)
 	// teleporting most effects just deletes them
 	var/static/list/delete_atoms = typecacheof(list(
 		/obj/effect,
@@ -16,6 +16,8 @@
 		/obj/effect/dummy/chameleon,
 		/obj/effect/wisp,
 		/obj/effect/mob_spawn,
+		/obj/effect/warp_cube,
+		/obj/effect/extraction_holder,
 		))
 	if(delete_atoms[teleatom.type])
 		qdel(teleatom)
@@ -56,7 +58,11 @@
 
 	var/area/A = get_area(curturf)
 	var/area/B = get_area(destturf)
-	if(!forced && (HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT) || A.noteleport || B.noteleport))
+	if(!forced && (HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT)))
+		return FALSE
+
+	//Either area has teleport restriction and teleport mode isn't allowed in that area
+	if(!forced && ((A.teleport_restriction && A.teleport_restriction != teleport_mode) || (B.teleport_restriction && B.teleport_restriction != teleport_mode)))
 		return FALSE
 
 	if(SEND_SIGNAL(destturf, COMSIG_ATOM_INTERCEPT_TELEPORT, channel, curturf, destturf))
@@ -149,7 +155,7 @@
 		if(T.is_transition_turf())
 			continue // Avoid picking these.
 		var/area/A = T.loc
-		if(!A.noteleport)
+		if(!A.teleport_restriction)
 			posturfs.Add(T)
 	return posturfs
 

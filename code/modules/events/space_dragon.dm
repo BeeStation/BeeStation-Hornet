@@ -5,6 +5,7 @@
 	weight = 8
 	earliest_start = 50 MINUTES
 	min_players = 20
+	dynamic_should_hijack = TRUE
 
 /datum/round_event/ghost_role/space_dragon
 	minimum_required = 1

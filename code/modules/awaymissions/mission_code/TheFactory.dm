@@ -17,7 +17,7 @@
 
 /area/awaymission/factory
 	ambient_buzz = null
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/awaymission/factory/secret
 	name = "secrets"

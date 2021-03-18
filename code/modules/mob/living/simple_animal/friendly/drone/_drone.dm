@@ -78,7 +78,7 @@
 	"<span class='notify'>     - Interacting with non-living beings (dragging bodies, looting bodies, etc.)</span>\n"+\
 	"<span class='warning'>These rules are at admin discretion and will be heavily enforced.</span>\n"+\
 	"<span class='warning'><u>If you do not have the regular drone laws, follow your laws to the best of your ability.</u></span>"
-	mobsay_color = "#8AB48C"
+	chat_color = "#8AB48C"
 
 /mob/living/simple_animal/drone/Initialize()
 	. = ..()
