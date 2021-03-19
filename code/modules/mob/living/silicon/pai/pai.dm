@@ -6,6 +6,7 @@
 	density = FALSE
 	hud_type = /datum/hud/pai
 	pass_flags = PASSTABLE | PASSMOB
+	ventcrawler = VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	desc = "A generic pAI mobile hard-light holographics emitter. It seems to be deactivated."
 	weather_immunities = list("ash")
