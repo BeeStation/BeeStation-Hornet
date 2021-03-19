@@ -1151,8 +1151,7 @@
 	mainframe.diag_hud_set_deployed()
 	if(mainframe.laws)
 		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
-	if (mainframe.eyeobj)
-		mainframe.eyeobj.setLoc(get_turf(src))
+	mainframe.eyeobj?.setLoc(get_turf(src))
 	mainframe = null
 
 /mob/living/silicon/robot/attack_ai(mob/user)
