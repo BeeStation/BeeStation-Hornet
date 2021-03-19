@@ -90,6 +90,19 @@
 	display_name = "mariner hat"
 	path = /obj/item/clothing/head/marine
 
+//NECK
+/datum/gear/donator/neck
+	subtype_path = /datum/gear/donator/neck
+	slot = SLOT_NECK
+
+/datum/gear/donator/neck/bizzare
+	display_name = "bizzare scarf"
+	path = /obj/item/clothing/neck/bizzarescarf
+
+/datum/gear/donator/neck/conductive
+	display_name = "conductive scarf"
+	path = /obj/item/clothing/neck/conductivescarf
+
 //ITEMS
 
 /datum/gear/donator/item
