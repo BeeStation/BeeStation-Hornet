@@ -1475,10 +1475,10 @@
 										R.activate_module(I)
 
 		if(pod)
-			new /obj/effect/DPtarget(target, pod)
-		
+			new /obj/effect/pod_landingzone(target, pod)
+
 		var/turf/T = get_turf(usr.loc) // get admin's LOC as a turf
-		
+
 		if (number == 1)
 			log_admin("[key_name(usr)] created a [english_list(paths)] at [AREACOORD(T)]")
 			for(var/path in paths)
