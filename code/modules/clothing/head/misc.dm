@@ -442,3 +442,24 @@
 	desc = "A horrifying mix of beanie and softcap in CentCom green. You'd have to be pretty desperate for power over your peers to agree to wear this."
 	icon_state = "intern_hat"
 	item_state = "intern_hat"
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/clothing/head/gangsterwig
+	name = "gangster wig"
+	desc = "Like father like son."
+	icon_state = "gangster_wig"
+	flags_inv = HIDEHAIR
+
+/obj/item/clothing/head/oldhat
+	name = "old man hat"
+	desc = "OH MY GOD."
+	icon_state = "oldmanhat"
+
+/obj/item/clothing/head/marine
+	name = "mariner hat"
+	desc = "There's nothing quite like the ocean breeze in the morning."
+	icon_state = "marine"
+
