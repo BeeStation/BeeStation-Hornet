@@ -17,7 +17,7 @@
 
 /area/awaymission/factory
 	ambient_buzz = null
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/awaymission/factory/secret
 	name = "secrets"
@@ -210,7 +210,7 @@
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Also shows information about criminals and their condition. Has enhanced shielding which blocks flashes."
 	icon_state = "t80sunglasses"
 	darkness_view = 1
-	scan_reagents = TRUE
+	clothing_flags = SCAN_REAGENTS
 	vision_flags = SEE_MOBS
 	flash_protect = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF

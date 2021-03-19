@@ -172,7 +172,7 @@
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/forbidden_book)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// slightly better than normal cult robes
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 0, "fire" = 20, "acid" = 20)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 60)
 
 /obj/item/reagent_containers/glass/beaker/eldritch
 	name = "flask of eldritch essence"
@@ -180,6 +180,59 @@
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eldrich_flask"
 	list_reagents = list(/datum/reagent/eldritch = 50)
+
+/obj/item/clothing/mask/void_mask
+	name = "Mask Of Madness"
+	desc = "Mask created from the suffering of existance, you can look down it's eyes, and notice something gazing back at you."
+	icon_state = "mad_mask"
+	w_class = WEIGHT_CLASS_SMALL
+	flags_cover = MASKCOVERSEYES
+	resistance_flags = FLAMMABLE
+	flags_inv = HIDEFACE|HIDEFACIALHAIR
+	///Who is wearing this
+	var/mob/living/carbon/human/local_user
+
+/obj/item/clothing/mask/void_mask/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_MASK && ishuman(user) && user.mind)
+		local_user = user
+		START_PROCESSING(SSobj,src)
+
+		if(IS_HERETIC(user) || IS_HERETIC_MONSTER(user))
+			return
+		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+
+/obj/item/clothing/mask/void_mask/dropped(mob/M)
+	local_user = null
+	STOP_PROCESSING(SSobj,src)
+	REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+	return ..()
+
+/obj/item/clothing/mask/void_mask/process()
+	if(!local_user)
+		return PROCESS_KILL
+
+	if((IS_HERETIC(local_user) || IS_HERETIC_MONSTER(local_user)) && HAS_TRAIT(src,TRAIT_NODROP))
+		REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+
+	for(var/mob/living/carbon/human/human_in_range in viewers(9,local_user))
+		if(IS_HERETIC(human_in_range) || IS_HERETIC_MONSTER(human_in_range))
+			continue
+
+		SEND_SIGNAL(human_in_range,COMSIG_HUMAN_VOID_MASK_ACT,rand(-1,-10))
+
+		if(prob(60))
+			human_in_range.hallucination += 5
+
+		if(prob(40))
+			human_in_range.Jitter(5)
+
+		if(prob(30))
+			human_in_range.emote(pick("giggle","laugh"))
+			human_in_range.adjustStaminaLoss(10)
+
+		if(prob(25))
+			human_in_range.Dizzy(5)
 
 /obj/item/clothing/neck/crucifix
 	name = "crucifix"
@@ -203,3 +256,4 @@
 	desc = "A wooden crucifix meant to ward off curses and hexes."
 	resistance_flags = FLAMMABLE
 	icon_state = "rosary"
+

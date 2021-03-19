@@ -332,7 +332,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		W.implant(H)
 		players += H
 		to_chat(M, "<span class='notice'>You have been given knock and pacafism for 30 seconds.</span>")
-	new /obj/effect/DPtarget(spawn_turf, pod)
+	new /obj/effect/pod_landingzone(spawn_turf, pod)
 	SEND_SOUND(world, sound('sound/misc/airraid.ogg'))
 	to_chat(world, "<span class='boldannounce'>A 30 second grace period has been established. Good luck.</span>")
 	to_chat(world, "<span class='boldannounce'>WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!</span>")
@@ -378,8 +378,8 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	else
 		new item_path(pod)
 	if(force_time)
-		pod.fallDuration = force_time
-	new /obj/effect/DPtarget(target, pod)
+		pod.delays[POD_FALLING]= force_time
+	new /obj/effect/pod_landingzone(target, pod)
 	if(announce)
 		priority_announce("[announce] \nExpected Drop Location: [get_area(target)]\n ETA: [force_time/10] Seconds.", "High Command Supply Control")
 

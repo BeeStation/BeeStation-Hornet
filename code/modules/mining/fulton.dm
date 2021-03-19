@@ -114,7 +114,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			var/list/flooring_near_beacon = list()
 			for(var/turf/open/floor in (RANGE_TURFS(1, beacon)-get_turf(beacon)))
 				flooring_near_beacon += floor
-			holder_obj.forceMove(pick(flooring_near_beacon))
+			do_teleport(holder_obj, pick(flooring_near_beacon), no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE)
 			animate(holder_obj, pixel_z = 10, time = 50)
 			sleep(50)
 			animate(holder_obj, pixel_z = 15, time = 10)

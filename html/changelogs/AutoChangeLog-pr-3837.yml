@@ -1,0 +1,8 @@
+author: jupyterkat, mrdoombringer
+delete-after: true
+changes:
+  - admin: admins can now edit the delays for reversing supplypods
+  - admin: The supplypod menu no longer sucks
+  - imageadd: new supplypod icons
+  - imagedel: old supplypod icons
+  - refactor: refactored supplypods code
