@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - rscdel: Reverted the donor shop due to bugs.
