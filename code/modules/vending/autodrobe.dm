@@ -76,6 +76,7 @@
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 1,
 					/obj/item/clothing/mask/gas/sexymime = 1,
 					/obj/item/clothing/under/rank/civilian/mime/sexy = 1,
+					/obj/item/clothing/under/rank/civilian/mime/skirt = 1,
 					/obj/item/clothing/mask/rat/bat = 1,
 					/obj/item/clothing/mask/rat/bee = 1,
 					/obj/item/clothing/mask/rat/bear = 1,
