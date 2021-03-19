@@ -42,7 +42,7 @@
 
 	var/list/obj/machinery/atmospherics/atmos_machines = list()
 	var/list/obj/structure/cable/cables = list()
-	var/list/atom/atoms = list()
+	var/list/atom/movable/movables = list()
 	var/list/area/areas = list()
 
 	var/list/turfs = block(
@@ -57,20 +57,31 @@
 			bounds[MAP_MAXZ]
 			)
 		)
-	for(var/L in turfs)
-		var/turf/B = L
-		areas |= B.loc
-		for(var/A in B)
-			atoms += A
-			if(istype(A, /obj/structure/cable))
-				cables += A
-				continue
-			if(istype(A, /obj/machinery/atmospherics))
-				atmos_machines += A
+	for(var/turf/current_turf as anything in turfs)
+		var/area/current_turfs_area = current_turf.loc
+		areas |= current_turfs_area
+		if(!SSatoms.initialized)
+			continue
 
+		for(var/movable_in_turf in current_turf)
+			movables += movable_in_turf
+			if(istype(movable_in_turf, /obj/structure/cable))
+				cables += movable_in_turf
+				continue
+			if(istype(movable_in_turf, /obj/machinery/atmospherics))
+				atmos_machines += movable_in_turf
+
+	// Not sure if there is some importance here to make sure the area is in z
+	// first or not.  Its defined In Initialize yet its run first in templates
+	// BEFORE so... hummm
 	SSmapping.reg_in_areas_in_z(areas)
-	SSatoms.InitializeAtoms(turfs)
-	SSatoms.InitializeAtoms(atoms)
+	if(!SSatoms.initialized)
+		return
+
+	SSatoms.InitializeAtoms(areas + turfs + movables, returns_created_atoms ? created_atoms : null)
+
+	// NOTE, now that Initialize and LateInitialize run correctly, do we really
+	// need these two below?
 	SSmachines.setup_template_powernets(cables)
 	SSair.setup_template_machinery(atmos_machines)
 
@@ -87,9 +98,9 @@
 			bounds[MAP_MAXZ]
 			)
 		)
-	for(var/t in template_and_bordering_turfs)
-		var/turf/affected_turf = t
+	for(var/turf/affected_turf as anything in template_and_bordering_turfs)
 		affected_turf.air_update_turf(TRUE)
+		affected_turf.levelupdate()
 
 /datum/map_template/proc/load_new_z()
 	var/x = round((world.maxx - width)/2)
