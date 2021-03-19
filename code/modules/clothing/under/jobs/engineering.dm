@@ -10,6 +10,7 @@
 
 /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
 	name = "chief engineer's jumpskirt"
+	desc = "It's a high visibility jumpskirt given to those engineers insane enough to achieve the rank of \"Chief Engineer\". It has minor radiation shielding."
 	icon_state = "chief_skirt"
 	item_state = "gy_suit"
 	item_color = "chief_skirt"
