@@ -1,6 +1,0 @@
-author: Naevii, TheFakeElon
-delete-after: true
-changes:
-  - imageadd: Adds a heap of new cosmetic items
-  - rscadd: Adds a donator category in the beeshop
-  - config: config for donator items
