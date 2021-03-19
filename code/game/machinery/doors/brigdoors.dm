@@ -231,7 +231,7 @@
 			var/value = text2num(params["adjust"])
 			if(value)
 				. = set_timer(time_left()+value)
-				investigate_log("[key_name(usr)] modified [value/10] seconds to cell [id], currently [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
+				investigate_log("[key_name(usr)] modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
 		if("start")
 			timer_start()
 			investigate_log("[key_name(usr)] has started [id]'s timer of [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
