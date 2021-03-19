@@ -370,6 +370,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["undershirt"], undershirt)
 	READ_FILE(S["socks"], socks)
 	READ_FILE(S["backbag"], backbag)
+	READ_FILE(S["jumpsuit_style"], jumpsuit_style)
 	READ_FILE(S["uplink_loc"], uplink_spawn_loc)
 	READ_FILE(S["feature_mcolor"], features["mcolor"])
 	READ_FILE(S["feature_ethcolor"], features["ethcolor"])
