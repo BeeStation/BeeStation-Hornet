@@ -679,7 +679,7 @@ SUBSYSTEM_DEF(job)
 
 	var/obj/structure/closet/supplypod/centcompod/toLaunch = new()
 	living_mob.forceMove(toLaunch)
-	//new /obj/effect/pod_landingzone(spawn_turf, toLaunch)			//DEBUG COMMENT
+	new /obj/effect/pod_landingzone(spawn_turf, toLaunch)
 
 ///////////////////////////////////
 //Keeps track of all living heads//
