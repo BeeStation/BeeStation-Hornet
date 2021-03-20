@@ -1,7 +1,0 @@
-author: kit-katz
-delete-after: true
-changes:
-  - rscadd: Oozeling mutation toxin
-  - tweak: Krokodil's withdraw transformation only applies to humans and felinds.
-      Other races just get injured badly
-  - balance: Oozelings now enjoy eating EVERYTHING* that can be eaten. God help us
