@@ -1,5 +1,0 @@
-author: MisterMecky
-delete-after: true
-changes:
-  - bugfix: Styptic powder and Silver Sulfadiazine now properly only apply via patches
-      and med sprays
