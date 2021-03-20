@@ -94,6 +94,15 @@
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "kitty"
 	bang_protect = -2
+	actions_types = list(/datum/action/item_action/organ_action/use)
+	var/active = FALSE
+	var/datum/proximity_monitor/advanced/felinid_tracking/tracking_field
+	var/next_use_time
+	var/last_host_loc
+
+/obj/item/organ/ears/cat/Destroy()
+	disable_listening(owner)
+	. = ..()
 
 /obj/item/organ/ears/cat/Insert(mob/living/carbon/human/H, special = 0, drop_if_replaced = TRUE)
 	..()
@@ -110,6 +119,131 @@
 		H.dna.features["ears"] = "None"
 		H.dna.species.mutant_bodyparts -= "ears"
 		H.update_body()
+	disable_listening(H)
+
+/obj/item/organ/ears/cat/ui_action_click(mob/user, actiontype)
+	if(next_use_time > world.time)
+		to_chat(user, "<span class='warning'>You can't do that yet!</span>")
+		return
+	var/mob/living/carbon/human/H = user
+	if(!istype(H))
+		return
+	if(!active)
+		enable_listening(H)
+	else
+		disable_listening(H)
+
+/obj/item/organ/ears/cat/proc/enable_listening(mob/living/carbon/human/H)
+	if(active)
+		return
+	active = TRUE
+	H.add_movespeed_modifier(MOVESPEED_ID_STALKING, update=TRUE, priority=100, multiplicative_slowdown=1.25)
+	tracking_field = make_field(/datum/proximity_monitor/advanced/felinid_tracking, list("current_range" = 5, "host" = H, "parent" = H, "ears" = src))
+	bang_protect = -5	//Ears are listening out, god forbit you hear any loud noises.
+	H.visible_message("<span class='notice'>[H] freezes and looks alert, [H.p_their()] ears perking up!</span>")
+	next_use_time = world.time + 10 SECONDS
+	START_PROCESSING(SSprocessing, src)
+
+/obj/item/organ/ears/cat/proc/disable_listening(mob/living/carbon/human/H)
+	if(!active)
+		return
+	active = FALSE
+	H.remove_movespeed_modifier(MOVESPEED_ID_STALKING)
+	bang_protect = -2
+	qdel(tracking_field)
+	H.visible_message("<span class='notice'>[H]'s relaxes!</span>")
+	next_use_time = world.time + 10 SECONDS
+	STOP_PROCESSING(SSprocessing, src)
+
+/obj/item/organ/ears/cat/Remove(mob/living/carbon/M, special)
+	if(active)
+		ui_action_click(M)
+	. = ..()
+
+/obj/item/organ/ears/cat/process()
+	if(tracking_field && (!last_host_loc || last_host_loc != get_turf(owner)))
+		tracking_field.HandleMove()
+		last_host_loc = get_turf(owner)
+
+/datum/proximity_monitor/advanced/felinid_tracking
+	name = "Felinid tracking field"
+	setup_field_turfs = TRUE
+	field_shape = FIELD_SHAPE_RADIUS_SQUARE
+	var/list/tracked_turf = list()
+	var/mob/parent
+	var/obj/item/organ/ears/cat/ears
+
+/datum/proximity_monitor/advanced/felinid_tracking/Destroy()
+	. = ..()
+	for(var/tracked_atom in tracked_turf)
+		untrack_turf(tracked_atom)
+
+/datum/proximity_monitor/advanced/felinid_tracking/update_new_turfs()
+	var/list/before_turfs = field_turfs.Copy()
+	. = ..()
+	var/list/removed_turfs = before_turfs - field_turfs
+	for(var/turf/T as() in removed_turfs)
+		untrack_turf(T)
+
+/datum/proximity_monitor/advanced/felinid_tracking/setup_field_turf(turf/T)
+	track_turf(T)
+	. = ..()
+
+/datum/proximity_monitor/advanced/felinid_tracking/proc/untrack_turf(turf/T)
+	UnregisterSignal(T, COMSIG_TURF_PLAY_SOUND)
+	tracked_turf -= T
+
+/datum/proximity_monitor/advanced/felinid_tracking/proc/track_turf(turf/T)
+	RegisterSignal(T, COMSIG_TURF_PLAY_SOUND, .proc/OnHeard)
+	tracked_turf += T
+
+/datum/proximity_monitor/advanced/felinid_tracking/proc/OnHeard(turf/turf_source, atom/movable/source, list/listeners, volume, maxdistance)
+	//Check parent
+	if(!parent.client)
+		ears.disable_listening(parent)
+		return
+	//Check ears
+	if(!istype(ears))
+		qdel(src)
+		return
+	//Check hearing
+	if(!parent.can_hear())
+		return
+	//Check type
+	if(!istype(source))
+		return
+	//Check volume
+	if(volume <= 0)
+		return
+	//Check range
+	if(get_dist(get_turf(source), turf_source) >= maxdistance - 1)
+		return
+	//Check that we were a listener
+	if(!(parent in listeners))
+		return
+	//Check pressure
+	var/pressure_factor = 1
+	var/turf/T = get_turf(source)
+	var/datum/gas_mixture/hearer_env = T.return_air()
+	var/datum/gas_mixture/source_env = turf_source.return_air()
+
+	if(hearer_env && source_env)
+		var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
+		if(pressure < ONE_ATMOSPHERE)
+			pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE)/(ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
+	else //space
+		pressure_factor = 0
+	if(pressure_factor < 0.6)
+		return
+	//Do effect
+	var/image/I = new('icons/effects/alert.dmi', loc = turf_source, layer = ABOVE_LIGHTING_LAYER)
+	I.plane = ABOVE_LIGHTING_PLANE
+	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
+	parent.client.images += I
+	//Animation
+	sleep(4.3)
+	parent.client.images -= I
+	qdel(I)
 
 /obj/item/organ/ears/penguin
 	name = "penguin ears"
@@ -156,4 +290,4 @@
 			owner.Jitter(15)
 			owner.Dizzy(15)
 			owner.Knockdown(100)
-			to_chat(owner, "<span class='warning'>Your robotic ears buzz.</span>") 
+			to_chat(owner, "<span class='warning'>Your robotic ears buzz.</span>")

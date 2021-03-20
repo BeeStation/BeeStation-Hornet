@@ -147,6 +147,7 @@
 #define COMSIG_TURF_HAS_GRAVITY "turf_has_gravity"				//! from base of atom/has_gravity(): (atom/asker, list/forced_gravities)
 #define COMSIG_TURF_MULTIZ_NEW "turf_multiz_new"				//! from base of turf/New(): (turf/source, direction)
 #define COMSIG_TURF_AFTER_SHUTTLE_MOVE "turf_after_shuttle_move"	//! from base of turf/proc/afterShuttleMove: (turf/new_turf)
+#define COMSIG_TURF_PLAY_SOUND "turf_play_sound"				//! from base of playsound(): (var/atom/movable/source, var/list/listeners, volume, maxdistance)
 
 // /atom/movable signals
 #define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"				//! from base of atom/movable/Moved(): (/atom)

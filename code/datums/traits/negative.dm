@@ -643,3 +643,13 @@ datum/quirk/alcoholic/on_process()
 	gain_text = "<span class='danger'>There's a lot on your mind right now.</span>"
 	lose_text = "<span class='notice'>Your mind finally feels calm.</span>"
 	medical_record_text = "Patient's mind is in a vulnerable state, and cannot recover from traumatic events."
+
+/datum/quirk/cat_hater
+	name = "Cat Allergy"
+	desc = "You despise those cat things, and can't stand to be around them!"
+	value = -1
+	mob_trait = TRAIT_CATHATER
+	gain_text = "<span class='notice'>You start disliking the thought of felines.</span>"
+	lose_text = "<span class='notice'>You like cats again!</span>"
+	medical_record_text = "Patient suffers from an alergy to cats and has traumatic experiences surrounding felines."
+

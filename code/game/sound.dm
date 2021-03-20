@@ -24,6 +24,9 @@
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S)
 
+	//Send signal
+	SEND_SIGNAL(turf_source, COMSIG_TURF_PLAY_SOUND, source, listeners, vol, maxdistance)
+
 /mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff, channel = 0, pressure_affected = TRUE, sound/S, distance_multiplier = 1)
 	if(!client || !can_hear())
 		return

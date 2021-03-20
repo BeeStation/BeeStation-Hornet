@@ -226,3 +226,11 @@
 	description = "<span class='boldwarning'>MY PRECIOUS WINGS!!</span>\n"
 	mood_change = -10
 	timeout = 10 MINUTES
+
+/datum/mood_event/badcat
+	description = "<span class='warning'>I hate those cat things.</span>\n"
+	mood_change = -2
+	timeout = 3 MINUTES
+
+/datum/mood_event/badcat/add_effects(mob/friend)
+	description = "<span class='warning'>[friend.name] is the most vile thing I have ever seen.</span>\n"
