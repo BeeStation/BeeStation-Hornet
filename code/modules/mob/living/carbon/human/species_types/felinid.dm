@@ -3,6 +3,7 @@
 	name = "Felinid"
 	id = "felinid"
 	limbs_id = "human"
+	say_mod = "meows"
 
 	disliked_food = VEGETABLES | SUGAR
 	liked_food = DAIRY | MEAT

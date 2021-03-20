@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	var/receive_ore_updates = FALSE //If ore redemption machines will send an update when it receives new ores.
 	var/auth_id = "Unknown" //Will contain the name and and job of the person who verified it
 	max_integrity = 300
-	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90, "stamina" = 0)
 
 	light_color = LIGHT_COLOR_GREEN
 	light_power = 1.5
@@ -349,7 +349,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 	updateUsrDialog()
 
-/obj/machinery/requests_console/say_mod(input, message_mode)
+/obj/machinery/requests_console/say_mod(input, list/message_mods = list())
 	if(spantext_char(input, "!", -3))
 		return "blares"
 	else

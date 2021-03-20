@@ -22,6 +22,9 @@
 		if(!msg)
 			charge_counter = charge_max
 			return
+		if(CHAT_FILTER_CHECK(msg))
+			to_chat(user, "<span class='warning'>Your message contains forbidden words.</span>")
+			return
 		log_directed_talk(user, M, msg, LOG_SAY, "[name]")
 		to_chat(user, "<span class='[boldnotice]'>You transmit to [M]:</span> <span class='[notice]'>[msg]</span>")
 		if(!M.anti_magic_check(magic_check, holy_check)) //hear no evil
