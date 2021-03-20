@@ -954,9 +954,9 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/payout_bonus = 0
 	var/area/dropoff = null
 	var/static/list/area_blacklist = typecacheof(list(/area/ai_monitored/turret_protected,
-														/area/solar/,
-														/area/science/test_area/,
-														/area/shuttle/))
+														/area/solar,
+														/area/science/test_area,
+														/area/shuttle))
 	
 // Generate a random valid area on the station that the dropoff will happen.
 /datum/objective/contract/proc/generate_dropoff()
