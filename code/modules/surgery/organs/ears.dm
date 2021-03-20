@@ -194,7 +194,7 @@
 	tracked_turf -= T
 
 /datum/proximity_monitor/advanced/felinid_tracking/proc/track_turf(turf/T)
-	RegisterSignal(T, COMSIG_TURF_PLAY_SOUND, .proc/OnHeard)
+	RegisterSignal(T, COMSIG_TURF_PLAY_SOUND, .proc/OnHeard, TRUE)
 	tracked_turf += T
 
 /datum/proximity_monitor/advanced/felinid_tracking/proc/OnHeard(turf/turf_source, atom/movable/source, list/listeners, volume, maxdistance)
@@ -210,20 +210,20 @@
 	if(!parent.can_hear())
 		return
 	//Check type
-	if(!istype(source))
+	if(!istype(parent) || !turf_source)
 		return
 	//Check volume
 	if(volume <= 0)
 		return
 	//Check range
-	if(get_dist(get_turf(source), turf_source) >= maxdistance - 1)
+	if(get_dist(get_turf(parent), turf_source) >= maxdistance - 1)
 		return
 	//Check that we were a listener
 	if(!(parent in listeners))
 		return
 	//Check pressure
 	var/pressure_factor = 1
-	var/turf/T = get_turf(source)
+	var/turf/T = get_turf(parent)
 	var/datum/gas_mixture/hearer_env = T.return_air()
 	var/datum/gas_mixture/source_env = turf_source.return_air()
 
@@ -236,9 +236,14 @@
 	if(pressure_factor < 0.6)
 		return
 	//Do effect
-	var/image/I = new('icons/effects/alert.dmi', loc = turf_source, layer = ABOVE_LIGHTING_LAYER)
+	var/x_change = T.x - turf_source.x
+	var/y_change = T.y - turf_source.y
+	var/image/I = new('icons/effects/alert.dmi', loc = T, layer = ABOVE_LIGHTING_LAYER)
 	I.plane = ABOVE_LIGHTING_PLANE
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
+	//Do that you can see it through the darkness.
+	I.pixel_x = x_change * world.icon_size
+	I.pixel_y = y_change * world.icon_size
 	parent.client.images += I
 	//Animation
 	sleep(4.3)
