@@ -953,13 +953,17 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/payout = 0
 	var/payout_bonus = 0
 	var/area/dropoff = null
-
+	var/static/list/area_blacklist = typecacheof(list(/area/ai_monitored/turret_protected,
+														/area/solar/,
+														/area/science/test_area/,
+														/area/shuttle/))
+	
 // Generate a random valid area on the station that the dropoff will happen.
 /datum/objective/contract/proc/generate_dropoff()
 	var/found = FALSE
 	while (!found)
 		var/area/dropoff_area = pick(GLOB.sortedAreas)
-		if(dropoff_area && is_station_level(dropoff_area.z) && !dropoff_area.outdoors)
+		if(dropoff_area && is_station_level(dropoff_area.z) && !dropoff_area.outdoors && !is_type_in_typecache(dropoff_area, area_blacklist))
 			dropoff = dropoff_area
 			found = TRUE
 
