@@ -169,7 +169,7 @@
 			NT.Insert(H, drop_if_replaced = FALSE)
 		else
 			tail.Remove(H)
-	SEND_SIGNAL(other, COMSIG_CLEAR_MOOD_EVENT, "cathateriscat")
+	SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "cathateriscat")
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
 	. = ..()
