@@ -74,9 +74,6 @@
 /datum/species/human/felinid/spec_death(gibbed, mob/living/carbon/human/H)
 	if(H)
 		stop_wagging_tail(H)
-		for(var/mob/living/carbon/human/other in view(6, H))
-			if(HAS_TRAIT(other, TRAIT_CATHATER))
-				SEND_SIGNAL(other, COMSIG_ADD_MOOD_EVENT, "felinid_dead", /datum/mood_event/deadcat)
 
 /datum/species/human/felinid/spec_stun(mob/living/carbon/human/H,amount)
 	if(H)
@@ -109,10 +106,7 @@
 /datum/species/human/felinid/proc/send_mood_event(mob/living/carbon/human/H, mob/living/carbon/human/other)
 	if(iscatperson(H))
 		return
-	if(HAS_TRAIT(other, TRAIT_CATHATER))
-		SEND_SIGNAL(other, COMSIG_ADD_MOOD_EVENT, "felinid", /datum/mood_event/badcat, H)
-	else
-		SEND_SIGNAL(other, COMSIG_ADD_MOOD_EVENT, "felinid", /datum/mood_event/cutecat, H)
+	SEND_SIGNAL(other, COMSIG_ADD_MOOD_EVENT, "felinid", /datum/mood_event/cutecat, H)
 
 /datum/species/human/felinid/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	. = ..()
@@ -137,9 +131,6 @@
 			tail.Insert(H, drop_if_replaced = FALSE)
 		else
 			mutanttail = null
-	//Should have seen it coming
-	if(HAS_TRAIT(C, TRAIT_CATHATER))
-		SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "cathateriscat", /datum/mood_event/cathateriscat)
 	return ..()
 
 /datum/species/human/felinid/on_species_loss(mob/living/carbon/H, datum/species/new_species, pref_load)
