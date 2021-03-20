@@ -1,4 +1,0 @@
-author: eeSPee
-delete-after: true
-changes:
-  - bugfix: Fixed gardener service module from harvesting plants with the plant bag.
