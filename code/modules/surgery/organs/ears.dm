@@ -236,8 +236,8 @@
 	if(pressure_factor < 0.6)
 		return
 	//Do effect
-	var/x_change = T.x - turf_source.x
-	var/y_change = T.y - turf_source.y
+	var/x_change = turf_source.x - T.x
+	var/y_change = turf_source.y - T.y
 	var/image/I = new('icons/effects/alert.dmi', loc = T, layer = ABOVE_LIGHTING_LAYER)
 	I.plane = ABOVE_LIGHTING_PLANE
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
