@@ -56,7 +56,7 @@
 
 	//Felinids are adapted to live in colder environments.
 	coldmod = 0.7
-	heatmod = 1.1
+	heatmod = 1.15
 	staminamod = 1.2	//120% stamina damage
 	toxmod = 0.9		//90% toxin damage.
 
@@ -74,7 +74,7 @@
 /datum/species/human/felinid/spec_death(gibbed, mob/living/carbon/human/H)
 	if(H)
 		stop_wagging_tail(H)
-		for(var/mob/living/carbon/human/other in view(3, H))
+		for(var/mob/living/carbon/human/other in view(6, H))
 			if(HAS_TRAIT(other, TRAIT_CATHATER))
 				SEND_SIGNAL(other, COMSIG_ADD_MOOD_EVENT, "felinid_dead", /datum/mood_event/deadcat)
 
