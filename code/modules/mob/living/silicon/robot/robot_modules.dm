@@ -533,6 +533,7 @@
 		/obj/item/clock_module/sentinels_compromise,
 		/obj/item/clockwork/replica_fabricator)
 	moduleselect_icon = "service"
+	cyborg_base_icon = "service_m" // display as butlerborg for radial model selection
 	special_light_key = "service"
 	hat_offset = 0
 
