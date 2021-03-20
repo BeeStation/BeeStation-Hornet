@@ -107,6 +107,8 @@
 		send_mood_event(H, other)
 
 /datum/species/human/felinid/proc/send_mood_event(mob/living/carbon/human/H, mob/living/carbon/human/other)
+	if(iscatperson(H))
+		return
 	if(HAS_TRAIT(other, TRAIT_CATHATER))
 		SEND_SIGNAL(other, COMSIG_ADD_MOOD_EVENT, "felinid", /datum/mood_event/badcat, H)
 	else
@@ -135,6 +137,9 @@
 			tail.Insert(H, drop_if_replaced = FALSE)
 		else
 			mutanttail = null
+	//Should have seen it coming
+	if(HAS_TRAIT(other, TRAIT_CATHATER))
+		SEND_SIGNAL(other, COMSIG_ADD_MOOD_EVENT, "cathateriscat", /datum/mood_event/cathateriscat)
 	return ..()
 
 /datum/species/human/felinid/on_species_loss(mob/living/carbon/H, datum/species/new_species, pref_load)
@@ -164,6 +169,7 @@
 			NT.Insert(H, drop_if_replaced = FALSE)
 		else
 			tail.Remove(H)
+	SEND_SIGNAL(other, COMSIG_CLEAR_MOOD_EVENT, "cathateriscat")
 
 /datum/species/human/felinid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/M)
 	. = ..()

@@ -234,3 +234,7 @@
 
 /datum/mood_event/badcat/add_effects(mob/friend)
 	description = "<span class='warning'>[friend.name] is the most vile thing I have ever seen.</span>\n"
+
+/datum/mood_event/cathateriscat
+	description = "<span class='warning'>THE TAIL... THE EARS... HELP ME!</span>\n"
+	mood_change = -10
