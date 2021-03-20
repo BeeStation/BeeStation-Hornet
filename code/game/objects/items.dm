@@ -474,10 +474,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!blockhand)
 		return 0
 	if(blockhand.is_disabled())
-		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
+		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack!</span>")
 		return 0
 	else if(HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE) && owner.getStaminaLoss() >= 30)
-		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack<!/span>")
+		to_chat(owner, "<span_class='danger'>You're too exausted to block the attack!</span>")
 		return 0
 	if(owner.a_intent == INTENT_HARM) //you can choose not to block an attack
 		return 0
@@ -535,7 +535,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else if(isitem(hitby))
 		var/obj/item/I = hitby
 		attackforce = damage
-		if(I.sharpness)
+		if(I.is_sharp())
 			attackforce = (attackforce / 2)//sharp weapons get much of their force by virtue of being sharp, not physical power
 		if(!I.damtype == BRUTE)
 			attackforce = (attackforce / 2)//as above, burning weapons, or weapons that deal other damage type probably dont get force from physical power
@@ -564,7 +564,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		owner.blockbreak()
 	return TRUE
 
-/obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language)
+/obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language, list/message_mods)
 	return ITALICS | REDUCE_RANGE
 
 /obj/item/proc/dropped(mob/user)
@@ -725,10 +725,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			itempush = 0 //too light to push anything
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
+	if(HAS_TRAIT(src, TRAIT_NODROP))
+		return
 	thrownby = thrower
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
-	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force)
+	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
 
 
 /obj/item/proc/after_throw(datum/callback/callback)
@@ -786,7 +788,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(damtype == BURN)
 		. = 'sound/weapons/sear.ogg'
 	else
-		. = pick('sound/misc/desceration-01.ogg', 'sound/misc/desceration-02.ogg', 'sound/misc/desceration-03.ogg')
+		. = pick('sound/misc/desecration-01.ogg', 'sound/misc/desecration-02.ogg', 'sound/misc/desecration-03.ogg')
 
 /obj/item/proc/open_flame(flame_heat=700)
 	var/turf/location = loc
@@ -1010,11 +1012,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			dropped(M)
 	return ..()
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=TRUE, diagonals_first = FALSE, var/datum/callback/callback)
-	if(HAS_TRAIT(src, TRAIT_NODROP))
-		return
-	return ..()
-
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
 	return !HAS_TRAIT(src, TRAIT_NODROP)
 
@@ -1037,3 +1034,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			take_damage(75, BRUTE, "bomb", 0)
 		if(3)
 			take_damage(20, BRUTE, "bomb", 0)
+
+/obj/item/proc/get_armor_rating(d_type, mob/wearer)
+	return armor.getRating(d_type)

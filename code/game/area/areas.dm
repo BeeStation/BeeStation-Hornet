@@ -44,7 +44,7 @@
 
 	var/has_gravity = 0
 	///Are you forbidden from teleporting to the area? (centcom, mobs, wizard, hand teleporter)
-	var/noteleport = FALSE
+	var/teleport_restriction = TELEPORT_ALLOW_ALL
 	///Hides area from player Teleport function.
 	var/hidden = FALSE
 	///Is the area teleport-safe: no space / radiation / aggresive mobs / other dangers
@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /proc/process_teleport_locs()
 	for(var/V in GLOB.sortedAreas)
 		var/area/AR = V
-		if(istype(AR, /area/shuttle) || AR.noteleport)
+		if(istype(AR, /area/shuttle) || AR.teleport_restriction)
 			continue
 		if(GLOB.teleportlocs[AR.name])
 			continue
@@ -209,6 +209,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
+	GLOB.sortedAreas -= src
 	if(fire)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -569,7 +570,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	SEND_SIGNAL(M, COMSIG_EXIT_AREA, src) //The atom that exits the area
 
 /**
-  * Returns true if this atom has gravity for the passed in turf
+  * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
+  * In other words, it returns whether the atom can be *on* the turf (i.e. not forced to float)
   *
   * Sends signals COMSIG_ATOM_HAS_GRAVITY and COMSIG_TURF_HAS_GRAVITY, both can force gravity with
   * the forced gravity var

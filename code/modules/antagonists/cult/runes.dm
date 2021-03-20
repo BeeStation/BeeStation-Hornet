@@ -49,9 +49,9 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 /obj/effect/rune/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects
-		. += {"<b>Name:</b> [cultist_name]\n
-		<b>Effects:</b> [capitalize(cultist_desc)]\n
-		<b>Required Acolytes:</b> [req_cultists_text ? "[req_cultists_text]":"[req_cultists]"]"}
+		. += "<b>Name:</b> [cultist_name]\n"+\
+		"<b>Effects:</b> [capitalize(cultist_desc)]\n"+\
+		"<b>Required Acolytes:</b> [req_cultists_text ? "[req_cultists_text]":"[req_cultists]"]"
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> [keyword]"
 
@@ -85,6 +85,8 @@ Runes can either be invoked by one's self or with many different cultists. Each 
 		if(istype(M, /mob/living/simple_animal/hostile/construct/wraith/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/armored/angelic) || istype(M, /mob/living/simple_animal/hostile/construct/builder/angelic))
 			to_chat(M, "<span class='warning'>You purge the rune!</span>")
 			qdel(src)
+		else if(construct_invoke || !iscultist(M)) //if you're not a cult construct we want the normal fail message
+			attack_hand(M)
 		else
 			to_chat(M, "<span class='warning'>You are unable to invoke the rune!</span>")
 
@@ -114,11 +116,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(user)
 		invokers += user
 	if(req_cultists > 1 || istype(src, /obj/effect/rune/convert))
-		var/list/things_in_range = range(1, src)
-		var/obj/item/toy/plush/narplush/plushsie = locate() in things_in_range
-		if(istype(plushsie) && plushsie.is_invoker)
+		var/obj/item/toy/plush/narplush/plushsie = locate() in range(1, src)
+		if(plushsie?.is_invoker)
 			invokers += plushsie
-		for(var/mob/living/L in things_in_range)
+		for(var/mob/living/L in viewers(1, src))
 			if(iscultist(L))
 				if(L == user)
 					continue
@@ -608,7 +609,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/raise_dead/fail_invoke()
 	..()
 	rune_in_use = FALSE
-	for(var/mob/living/M in range(1,src))
+	for(var/mob/living/M in hearers(1,src))
 		if(iscultist(M) && M.stat == DEAD)
 			M.visible_message("<span class='warning'>[M] twitches.</span>")
 
@@ -710,6 +711,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists |= M.current
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of the Geometer") as null|anything in cultists
+	var/held_in_place = FALSE
+	if(iscarbon(cultist_to_summon))
+		var/mob/living/carbon/C = cultist_to_summon
+		if(C.handcuffed && cultist_to_summon.pulledby)
+			held_in_place = TRUE
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
 	if(!cultist_to_summon)
@@ -722,7 +728,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target died")
 		return
-	if(cultist_to_summon.pulledby || cultist_to_summon.buckled)
+	if(held_in_place)
 		to_chat(user, "<span class='cult italic'>[cultist_to_summon] is being held in place!</span>")
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target restrained")
@@ -740,9 +746,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 									  "<span class='cult italic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 	..()
-	visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifes into [cultist_to_summon]!</span>")
-	cultist_to_summon.forceMove(get_turf(src))
-	qdel(src)
+	if(do_teleport(cultist_to_summon, get_turf(src), no_effects = TRUE, channel = TELEPORT_CHANNEL_CULT))
+		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifes into [cultist_to_summon]!</span>")
+		qdel(src)
+	else
+		visible_message("<span class='warning'>The air displaces atop [src], however nothing appears.</span>")
 
 //Rite of Boiling Blood: Deals extremely high amounts of damage to non-cultists nearby
 /obj/effect/rune/blood_boil
@@ -970,7 +978,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/duration = intensity*10
 	playsound(T, 'sound/magic/enter_blood.ogg', 100, 1)
 	visible_message("<span class='warning'>A colossal shockwave of energy bursts from the rune, disintegrating it in the process!</span>")
-	for(var/mob/living/L in range(src, 3))
+	for(var/mob/living/L in viewers(3, src))
 		L.Paralyze(30)
 	empulse(T, 0.42*(intensity), 1)
 	var/list/images = list()

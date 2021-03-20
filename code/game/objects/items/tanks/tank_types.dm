@@ -181,3 +181,18 @@
 
 /obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()
 	return
+
+/obj/item/tank/internals/emergency_oxygen/clown
+	name = "emergency prank tank"
+	desc = "Used for pranking in emergencies! Has a smidge of a mystery ingredient for 200% FUN!"
+	icon_state = "clown"
+	flags_1 = CONDUCT_1
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+	force = 4
+	distribute_pressure = 24
+	volume = 1
+
+/obj/item/tank/internals/emergency_oxygen/clown/populate_gas()
+	air_contents.set_moles(/datum/gas/oxygen, (9.99*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_moles(/datum/gas/nitrous_oxide, (0.01*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))

@@ -30,10 +30,10 @@
 	..()
 
 //This needs to be fixed
-/mob/living/carbon/alien/larva/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Progress: [amount_grown]/[max_grown]")
+/mob/living/carbon/alien/larva/get_stat_tab_status()
+	var/list/tab_data = ..()
+	tab_data["Progress"] = GENERATE_STAT_TEXT("[amount_grown]/[max_grown]")
+	return tab_data
 
 /mob/living/carbon/alien/larva/adjustPlasma(amount)
 	if(stat != DEAD && amount > 0)

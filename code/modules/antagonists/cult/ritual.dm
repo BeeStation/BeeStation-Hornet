@@ -17,10 +17,10 @@ This file contains the cult dagger and rune list code
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || isobserver(user))
-		. += {"<span class='cult'>The scriptures of the Geometer. Allows the scribing of runes and access to the knowledge archives of the cult of Nar'Sie.\n
-		Striking a cult structure will unanchor or reanchor it.\n
-		Striking another cultist with it will purge holy water from them.\n
-		Striking a noncultist, however, will tear their flesh.</span>"}
+		. += "<span class='cult'>The scriptures of the Geometer. Allows the scribing of runes and access to the knowledge archives of the cult of Nar'Sie.\n"+\
+		"Striking a cult structure will unanchor or reanchor it.\n"+\
+		"Striking another cultist with it will purge holy water from them.\n"+\
+		"Striking a noncultist, however, will tear their flesh.</span>"
 
 /obj/item/melee/cultblade/dagger/attack(mob/living/M, mob/living/user)
 	if(iscultist(M))

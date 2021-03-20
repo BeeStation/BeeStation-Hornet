@@ -28,10 +28,10 @@
 	for(var/bp in body_parts)
 		if(!bp)
 			continue
-		if(bp && istype(bp , /obj/item/clothing))
+		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor.getRating(d_type)
+				protection += C.get_armor_rating(d_type, src)
 	protection += physiology.armor.getRating(d_type)
 	return protection
 
@@ -111,7 +111,7 @@
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
 	for(var/obj/item/I in held_items)
-		if(!istype(I, /obj/item/clothing))
+		if(!isclothing(I))
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
 				I.on_block(src, AM, attack_text, damage, attack_type)
 				return 1
@@ -219,7 +219,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		dna.species.spec_attack_hand(H, src)
+		H.dna.species.spec_attack_hand(H, src)
 
 /mob/living/carbon/human/attack_paw(mob/living/carbon/monkey/M)
 	if(check_shields(M, 0, "the M.name", UNARMED_ATTACK))
@@ -321,6 +321,9 @@
 		if(M.is_adult)
 			damage = 30
 
+		if(M.transformeffects & SLIME_EFFECT_RED)
+			damage *= 1.1
+
 		if(check_shields(M, damage, "the [M.name]"))
 			return 0
 
@@ -388,9 +391,14 @@
 	switch (severity)
 		if (EXPLODE_DEVASTATE)
 			if(bomb_armor < EXPLODE_GIB_THRESHOLD) //gibs the mob if their bomb armor is lower than EXPLODE_GIB_THRESHOLD
-				for(var/I in contents)
-					var/atom/A = I
-					A.ex_act(severity)
+				for(var/thing in contents)
+					switch(severity)
+						if(EXPLODE_DEVASTATE)
+							SSexplosions.high_mov_atom += thing
+						if(EXPLODE_HEAVY)
+							SSexplosions.med_mov_atom += thing
+						if(EXPLODE_LIGHT)
+							SSexplosions.low_mov_atom += thing
 				gib()
 				return
 			else

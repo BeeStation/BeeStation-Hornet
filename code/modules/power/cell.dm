@@ -154,6 +154,7 @@
 		var/datum/species/ethereal/E = H.dna.species
 		if(E.drain_time > world.time)
 			return
+
 		if(charge < 100)
 			to_chat(H, "<span class='warning'>The [src] doesn't have enough power!</span>")
 			return
@@ -176,9 +177,8 @@
 			to_chat(H, "<span class='warning'>You fail to receive charge from the [src]!</span>")
 	return
 
-
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
-	ex_act(EXPLODE_DEVASTATE)
+	src.ex_act(EXPLODE_HEAVY)
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)

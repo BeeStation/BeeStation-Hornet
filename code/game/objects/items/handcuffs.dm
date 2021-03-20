@@ -36,7 +36,7 @@
 	throw_range = 5
 	materials = list(/datum/material/iron=500)
 	breakouttime = 1 MINUTES
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	var/trashtype = null //for disposable cuffs
 
@@ -344,7 +344,7 @@
 	gender = NEUTER
 	var/knockdown = 0
 
-/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, quickstart = TRUE)
 	if(!..())
 		return
 	playsound(src.loc,'sound/weapons/bolathrow.ogg', 75, 1)
@@ -395,12 +395,10 @@
 	w_class = WEIGHT_CLASS_SMALL
 	breakouttime = 60
 
-/obj/item/restraints/legcuffs/bola/energy/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(iscarbon(hit_atom))
-		var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(hit_atom))
-		B.Crossed(hit_atom)
-		qdel(src)
-	..()
+/obj/item/restraints/legcuffs/bola/energy/ensnare(mob/living/carbon/C)
+	var/obj/item/restraints/legcuffs/beartrap/B = new /obj/item/restraints/legcuffs/beartrap/energy/cyborg(get_turf(C))
+	B.Crossed(C)
+	qdel(src)
 
 /obj/item/restraints/legcuffs/bola/gonbola
 	name = "gonbola"
@@ -411,11 +409,9 @@
 	slowdown = 0
 	var/datum/status_effect/gonbolaPacify/effectReference
 
-/obj/item/restraints/legcuffs/bola/gonbola/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/restraints/legcuffs/bola/gonbola/ensnare(mob/living/carbon/C)
 	. = ..()
-	if(iscarbon(hit_atom))
-		var/mob/living/carbon/C = hit_atom
-		effectReference = C.apply_status_effect(STATUS_EFFECT_GONBOLAPACIFY)
+	effectReference = C.apply_status_effect(STATUS_EFFECT_GONBOLAPACIFY)
 
 /obj/item/restraints/legcuffs/bola/gonbola/dropped(mob/user)
 	. = ..()

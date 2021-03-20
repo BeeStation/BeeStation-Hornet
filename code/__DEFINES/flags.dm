@@ -34,6 +34,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define TESLA_IGNORE_1				(1<<13) 	//! TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
 #define INITIALIZED_1				(1<<14)  	//! Whether /atom/Initialize() has already run for the object
 #define ADMIN_SPAWNED_1			(1<<15) 		//! was this spawned by an admin? used for stat tracking stuff.
+#define PREVENT_CONTENTS_EXPLOSION_1 (1<<16)
 
 //! ## turf-only flags
 #define NOJAUNT_1					(1<<0)
@@ -109,3 +110,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 
 /// 33554431 (2^24 - 1) is the maximum value our bitflags can reach.
 #define MAX_BITFLAG_DIGITS 8
+
+//religious_tool flags
+#define RELIGION_TOOL_INVOKE (1<<0)
+#define RELIGION_TOOL_SACRIFICE (1<<1)
+#define RELIGION_TOOL_SECTSELECT (1<<2)

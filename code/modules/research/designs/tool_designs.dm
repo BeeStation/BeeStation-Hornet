@@ -5,19 +5,19 @@
 
 /datum/design/handdrill
 	name = "Hand Drill"
-	desc = "A small electric hand drill with an interchangeable screwdriver and bolt bit"
+	desc = "A small electric hand drill with an interchangeable screwdriver and bolt bit."
 	id = "handdrill"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3500, /datum/material/silver = 1500, /datum/material/titanium = 2500)
-	build_path = /obj/item/screwdriver/power
+	build_path = /obj/item/powertool/hand_drill
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/jawsoflife
 	name = "Jaws of Life"
-	desc = "A small, compact Jaws of Life with an interchangeable pry jaws and cutting jaws"
+	desc = "A small, compact Jaws of Life with an interchangeable pry jaws and cutting jaws."
 	id = "jawsoflife" // added one more requirment since the Jaws of Life are a bit OP
-	build_path = /obj/item/crowbar/power
+	build_path = /obj/item/powertool/jaws_of_life
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 4500, /datum/material/silver = 2500, /datum/material/titanium = 3500)
 	category = list("Tool Designs")
@@ -25,7 +25,7 @@
 
 /datum/design/shuttlecreator
 	name = "Rapid Shuttle Designator"
-	desc = "An advanced device capable of defining areas for use in the creation of shuttles"
+	desc = "An advanced device capable of defining areas for use in the creation of shuttles."
 	id = "shuttle_creator"
 	build_path = /obj/item/shuttle_creator
 	build_type = PROTOLATHE

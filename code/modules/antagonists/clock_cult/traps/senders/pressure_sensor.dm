@@ -37,5 +37,5 @@
 	trigger_connected()
 	for(var/obj/structure/destructible/clockwork/trap/T in get_turf(parent))
 		if(T != parent)
-			SEND_SIGNAL(T, COMSIG_CLOCKWORK_SIGNAL_RECIEVED)
+			SEND_SIGNAL(T, COMSIG_CLOCKWORK_SIGNAL_RECEIVED)
 	playsound(get_turf(parent), 'sound/machines/click.ogg', 50)

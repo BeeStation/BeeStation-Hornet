@@ -73,7 +73,7 @@
 		if(world.time > last_event+15)
 			active = 1
 			radiation_pulse(src, 40)
-			for(var/turf/closed/wall/mineral/uranium/T in orange(1,src))
+			for(var/turf/closed/wall/mineral/uranium/T in (RANGE_TURFS(1,src)-src))
 				T.radiate()
 			last_event = world.time
 			active = null
@@ -141,7 +141,7 @@
 	canSmoothWith = list(/turf/closed/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/closed/wall/mineral/wood/nonmetal)
 
 /turf/closed/wall/mineral/wood/attackby(obj/item/W, mob/user)
-	if(W.sharpness && W.force)
+	if(W.is_sharp() && W.force)
 		var/duration = (48/W.force) * 2 //In seconds, for now.
 		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/twohanded/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.
@@ -278,14 +278,8 @@
 	fixed_underlay = list("space"=1)
 
 /turf/closed/wall/mineral/plastitanium/explosive/ex_act(severity)
-	var/datum/explosion/acted_explosion = null
-	for(var/datum/explosion/E in GLOB.explosions)
-		if(E.explosion_id == explosion_id)
-			acted_explosion = E
-			break
-	if(acted_explosion && istype(acted_explosion.explosion_source, /obj/item/bombcore))
-		var/obj/item/bombcore/large/bombcore = new(get_turf(src))
-		bombcore.detonate()
+	var/obj/item/bombcore/large/bombcore = new(get_turf(src))
+	bombcore.detonate()
 	..()
 
 //have to copypaste this code

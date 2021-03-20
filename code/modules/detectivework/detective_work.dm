@@ -40,7 +40,7 @@
 
 /atom/proc/add_fibers(mob/living/carbon/human/M)
 	var/old = 0
-	if(M.gloves && istype(M.gloves, /obj/item/clothing))
+	if(M.gloves && isclothing(M.gloves))
 		var/obj/item/clothing/gloves/G = M.gloves
 		old = length(G.return_blood_DNA())
 		if(G.transfer_blood > 1) //bloodied gloves transfer blood to touched objects

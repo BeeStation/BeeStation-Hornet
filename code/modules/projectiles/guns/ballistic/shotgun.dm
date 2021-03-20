@@ -22,6 +22,7 @@
 	internal_magazine = TRUE
 	casing_ejector = FALSE
 	bolt_wording = "pump"
+	bolt_type = BOLT_TYPE_PUMP
 	cartridge_wording = "shell"
 	tac_reloads = FALSE
 	fire_rate = 1 //reee
@@ -155,6 +156,7 @@
 	fire_rate = 2
 	automatic = 1
 	recoil = 0
+	bolt_type = BOLT_TYPE_STANDARD	//Not using a pump
 
 /obj/item/gun/ballistic/shotgun/bulldog/unrestricted
 	pin = /obj/item/firing_pin

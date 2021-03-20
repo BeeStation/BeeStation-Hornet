@@ -49,7 +49,7 @@
 /obj/machinery/hydroponics/constructable/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Tray efficiency at <b>[rating*100]%</b>.<span>"
+		. += "<span class='notice'>The status display reads: Tray efficiency at <b>[rating*100]%</b>.</span>"
 
 
 /obj/machinery/hydroponics/Destroy()
@@ -339,8 +339,8 @@
 		. += "<span class='info'>It's empty.</span>"
 
 	if(!self_sustaining)
-		. += {"<span class='info'>Water: [waterlevel]/[maxwater].</span>\n
-		<span class='info'>Nutrient: [nutrilevel]/[maxnutri].</span>"}
+		. += "<span class='info'>Water: [waterlevel]/[maxwater].</span>\n"+\
+		"<span class='info'>Nutrient: [nutrilevel]/[maxnutri].</span>"
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
 			. += "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
@@ -380,7 +380,8 @@
 			myseed = new /obj/item/seeds/plump(src)
 		else
 			myseed = new /obj/item/seeds/starthistle(src)
-	age = 0
+	age = 1
+	lastproduce = 1
 	plant_health = myseed.endurance
 	lastcycle = world.time
 	harvest = 0
@@ -786,6 +787,7 @@
 			myseed = O
 			update_name()
 			age = 1
+			lastproduce = 1
 			plant_health = myseed.endurance
 			lastcycle = world.time
 			update_icon()
@@ -903,6 +905,8 @@
 		myseed = null
 		update_name()
 		dead = 0
+		age = 0
+		lastproduce = 0
 	update_icon()
 
 /// Tray Setters - The following procs adjust the tray or plants variables, and make sure that the stat doesn't go out of bounds.///

@@ -39,7 +39,7 @@
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD, DIAG_CIRCUIT_HUD) //diagnostic hud overlays
 	max_integrity = 50
 	pass_flags = 0
-	armor = list("melee" = 50, "bullet" = 70, "laser" = 70, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 50, "bullet" = 70, "laser" = 70, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "stamina" = 0)
 	anchored = FALSE
 	var/can_anchor = TRUE
 	var/detail_color = COLOR_ASSEMBLY_BLACK
@@ -283,7 +283,7 @@
 		if(circuit_pins.power_draw_idle)
 			HTML += "<br>Power Draw: [circuit_pins.power_draw_idle] W (Idle)"
 		if(circuit_pins.power_draw_per_use)
-			HTML += "<br>Power Draw: [circuit_pins.power_draw_per_use] W (Active)" // Borgcode says that powercells' checked_use() takes joules as input.
+			HTML += "<br>Power Draw: [circuit_pins.power_draw_per_use] W (Active)" // Borgcode says that power cells' checked_use() takes joules as input.
 		HTML += "<br>[circuit_pins.extended_desc]</font></tr></table></div>"
 
 

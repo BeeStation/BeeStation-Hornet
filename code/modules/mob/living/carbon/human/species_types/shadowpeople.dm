@@ -192,6 +192,11 @@
 			if(!borg.lamp_cooldown)
 				borg.update_headlamp(TRUE, INFINITY)
 				to_chat(borg, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
+
+		if(L.on_fire)
+			L.ExtinguishMob()
+			playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
+
 		else
 			for(var/obj/item/O in AM)
 				if(O.light_range && O.light_power)
@@ -202,6 +207,12 @@
 		var/obj/item/I = AM
 		if(I.light_range && I.light_power)
 			disintegrate(I)
+
+	else if(istype(AM, /obj/structure/bonfire))
+		var/obj/structure/bonfire/F = AM
+		if(F.burning)
+			F.extinguish()
+			playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 
 /obj/item/light_eater/proc/disintegrate(obj/item/O)
 	if(istype(O, /obj/item/pda))

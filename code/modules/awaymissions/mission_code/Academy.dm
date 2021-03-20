@@ -170,6 +170,7 @@
 	microwave_riggable = FALSE
 	var/reusable = TRUE
 	var/used = FALSE
+	var/roll_in_progress = FALSE
 
 /obj/item/dice/d20/fate/stealth
 	name = "d20"
@@ -192,6 +193,10 @@
 
 /obj/item/dice/d20/fate/diceroll(mob/user)
 	. = ..()
+	if(roll_in_progress)
+		to_chat(user, "<span class='warning'>The dice is already channeling its power! Be patient!</span>")
+		return
+
 	if(!used)
 		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
 			to_chat(user, "<span class='warning'>You feel the magic of the dice is restricted to ordinary humans!</span>")
@@ -199,10 +204,9 @@
 
 		if(!reusable)
 			used = TRUE
-
+		roll_in_progress = TRUE
 		var/turf/T = get_turf(src)
 		T.visible_message("<span class='userdanger'>[src] flares briefly.</span>")
-
 		addtimer(CALLBACK(src, .proc/effect, user, .), 1 SECONDS)
 
 /obj/item/dice/d20/fate/equipped(mob/user, slot)
@@ -213,6 +217,7 @@
 
 /obj/item/dice/d20/fate/proc/effect(var/mob/living/carbon/human/user,roll)
 	var/turf/T = get_turf(src)
+
 	switch(roll)
 		if(1)
 			//Dust
@@ -338,6 +343,9 @@
 			//Free wizard!
 			T.visible_message("<span class='userdanger'>Magic flows out of [src] and into [user]!</span>")
 			user.mind.make_Wizard()
+	//roll is completed, allow others players to roll the dice
+	roll_in_progress = FALSE
+
 
 /datum/outfit/butler
 	name = "Butler"

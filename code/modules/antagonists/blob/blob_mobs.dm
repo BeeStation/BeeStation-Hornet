@@ -21,6 +21,7 @@
 	var/mob/camera/blob/overmind = null
 	var/obj/structure/blob/factory/factory = null
 	var/independent = FALSE
+	mobchatspan = "blob"
 
 /mob/living/simple_animal/hostile/blob/update_icons()
 	if(overmind)
@@ -31,7 +32,7 @@
 /mob/living/simple_animal/hostile/blob/Initialize()
 	. = ..()
 	if(!independent) //no pulling people deep into the blob
-		verbs -= /mob/living/verb/pulled
+		remove_verb(/mob/living/verb/pulled)
 	else
 		pass_flags &= ~PASSBLOB
 
@@ -128,7 +129,7 @@
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life()
 	if(!is_zombie && isturf(src.loc))
-		for(var/mob/living/carbon/human/H in view(src,1)) //Only for corpse right next to/on same tile
+		for(var/mob/living/carbon/human/H in hearers(1, src)) //Only for corpse right next to/on same tile
 			if(H.stat == DEAD)
 				Zombify(H)
 				break
@@ -298,7 +299,7 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/update_health_hud()
 	if(hud_used)
-		hud_used.healths.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round((health / maxHealth) * 100, 0.5)]%</font></div>"
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round((health / maxHealth) * 100, 0.5)]%</font></div>")
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/AttackingTarget()
 	. = ..()

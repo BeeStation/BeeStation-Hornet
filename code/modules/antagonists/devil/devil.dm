@@ -220,7 +220,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		H.set_species(/datum/species/human, 1)
 		H.regenerate_icons()
 	give_appropriate_spells()
-	if(istype(owner.current.loc, /obj/effect/dummy/phased_mob/slaughter/))
+	if(istype(owner.current.loc, /obj/effect/dummy/phased_mob/slaughter))
 		owner.current.forceMove(get_turf(owner.current))//Fixes dying while jaunted leaving you permajaunted.
 	form = BASIC_DEVIL
 
@@ -498,6 +498,14 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	to_chat(owner.current, GLOB.lawlorify[LAW][banish])
 	to_chat(owner.current, "<span class='warning'>Remember, the crew can research your weaknesses if they find out your devil name.</span><br>")
 	.=..()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Devil",
+		"Summon contracts to purchase the souls of the crew.\n\
+		You may not use violence to coerce someone into selling their soul.\n\
+		You may not directly and knowingly physically harm a devil, other than yourself.\n\
+		[GLOB.lawlorify[LAW][bane]]\n\
+		[GLOB.lawlorify[LAW][ban]]\n\
+		[GLOB.lawlorify[LAW][obligation]]\n\
+		[GLOB.lawlorify[LAW][banish]]")
 
 /datum/antagonist/devil/on_gain()
 	truename = randomDevilName()
