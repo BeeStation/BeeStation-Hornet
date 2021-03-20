@@ -138,8 +138,8 @@
 		else
 			mutanttail = null
 	//Should have seen it coming
-	if(HAS_TRAIT(other, TRAIT_CATHATER))
-		SEND_SIGNAL(other, COMSIG_ADD_MOOD_EVENT, "cathateriscat", /datum/mood_event/cathateriscat)
+	if(HAS_TRAIT(C, TRAIT_CATHATER))
+		SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "cathateriscat", /datum/mood_event/cathateriscat)
 	return ..()
 
 /datum/species/human/felinid/on_species_loss(mob/living/carbon/H, datum/species/new_species, pref_load)
