@@ -18,6 +18,8 @@
 	species_language_holder = /datum/language_holder/oozeling
 	limbs_id = "ooze"
 	swimming_component = /datum/component/swimming/dissolve
+	toxic_food = NONE
+	disliked_food = NONE
 
 /datum/species/oozeling/random_name(gender,unique,lastname)
 	if(unique)
