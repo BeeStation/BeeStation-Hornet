@@ -1,5 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - tweak: Replaced tiles in metastation freezer room with less cold ones.
-  - rscdel: Removed roundstart cold tiles and replaced them with /freezer tiles.
