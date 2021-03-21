@@ -1,4 +1,4 @@
-/mob/camera/aiEye/remote/ratvar
+/mob/camera/ai_eye/remote/ratvar
 	visible_icon = TRUE
 	icon = 'icons/mob/cameramob.dmi'
 	icon_state = "generic_camera"
@@ -26,7 +26,7 @@
 		warping = FALSE
 		return
 	var/mob/living/M = owner
-	var/mob/camera/aiEye/remote/ratvar/cam = M.remote_control
+	var/mob/camera/ai_eye/remote/ratvar/cam = M.remote_control
 	var/target_loc = get_turf(cam)
 	if(isclosedturf(target_loc))
 		to_chat(owner, "<span class='brass'>You cannot warp into dense objects.</span>")
@@ -87,7 +87,7 @@
 		actions += warp_action
 
 /obj/machinery/computer/camera_advanced/ratvar/CreateEye()
-	eyeobj = new /mob/camera/aiEye/remote/ratvar(get_turf(SSmapping.get_station_center()))
+	eyeobj = new /mob/camera/ai_eye/remote/ratvar(get_turf(SSmapping.get_station_center()))
 	eyeobj.origin = src
 	eyeobj.visible_icon = TRUE
 	eyeobj.icon = 'icons/mob/cameramob.dmi'
