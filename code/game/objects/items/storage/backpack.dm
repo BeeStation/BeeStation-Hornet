@@ -231,6 +231,35 @@
 	desc = "A spacious backpack with lots of pockets, worn by Engineers of an Emergency Response Team."
 	icon_state = "ert_engineering"
 
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/storage/backpack/cak
+	name = "cak backpack"
+	desc = "A cute backpack resembling Cak."
+	icon_state = "cakpack"
+
+/obj/item/storage/backpack/ian
+	name = "ian backpack"
+	desc = "A cute backpack resembling Ian."
+	icon_state = "ianpack"
+
+/obj/item/storage/backpack/lisa
+	name = "lisa backpack"
+	desc = "A cute backpack resembling Lisa."
+	icon_state = "lisapack"
+
+/obj/item/storage/backpack/renault
+	name = "renault backpack"
+	desc = "A cute backpack resembling Renault."
+	icon_state = "renaultpack"
+
+/obj/item/storage/backpack/runtime
+	name = "runtime backpack"
+	desc = "A cute backpack resembling Runtime."
+	icon_state = "runtimepack"
+
 /*
  * Satchel Types
  */

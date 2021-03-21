@@ -240,3 +240,15 @@
 			user.visible_message("You untie [oldName] back into a [newBand.name]", "[user] unties [oldName] back into a [newBand.name]")
 		else
 			to_chat(user, "<span class='warning'>You must be holding [src] in order to untie it!")
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/clothing/neck/bizzarescarf
+	name = "bizzare scarf"
+	desc = "Your next line is-"
+
+/obj/item/clothing/neck/conductivescarf
+	name = "conductive scarf"
+	desc = "Made out of 30,000 scarabs. Use with caution."
