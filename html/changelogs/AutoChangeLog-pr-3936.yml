@@ -1,0 +1,4 @@
+author: ikalpo
+delete-after: true
+changes:
+  - bugfix: RCD simple circuits upgrade now works
