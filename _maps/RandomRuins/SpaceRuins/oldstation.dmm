@@ -24,6 +24,7 @@
 /obj/item/stack/sheet/mineral/titanium{
 	amount = 30
 	},
+/obj/item/circuitboard/machine/bluespace_miner,
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/ancientstation/hivebot)
 "af" = (
@@ -50,7 +51,8 @@
 	},
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/stack/ore/bluespace_crystal,
-/obj/item/stack/ore/bluespace_crystal,
+/obj/item/stack/sheet/bluespace_crystal/five,
+/obj/item/stack/sheet/bluespace_crystal/five,
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/ancientstation/hivebot)
 "ak" = (
@@ -182,8 +184,8 @@
 /area/ruin/space/has_grav/ancientstation/hivebot)
 "aF" = (
 /obj/structure/shuttle/engine/large{
-	icon_state = "large_engine";
-	dir = 4
+	dir = 4;
+	icon_state = "large_engine"
 	},
 /turf/closed/wall,
 /area/ruin/space/has_grav/ancientstation/hivebot)
@@ -5152,6 +5154,9 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/ancientstation)
+"Oi" = (
+/turf/closed/mineral/bscrystal,
+/area/ruin/unpowered)
 "OA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
@@ -5911,8 +5916,8 @@ aa
 (14,1,1) = {"
 aa
 aa
-aa
-aa
+Oi
+Oi
 aa
 aa
 aa
@@ -5958,10 +5963,10 @@ aa
 "}
 (15,1,1) = {"
 aa
-aa
-aa
-aa
-aa
+Oi
+Oi
+Oi
+Oi
 aa
 aa
 aa
@@ -6006,10 +6011,10 @@ aa
 "}
 (16,1,1) = {"
 aa
-aa
-aa
-aa
-aa
+Oi
+Oi
+Oi
+Oi
 aa
 aa
 aa
@@ -6053,11 +6058,11 @@ aa
 aa
 "}
 (17,1,1) = {"
-aa
-aa
-aa
-aa
-aa
+Oi
+Oi
+Oi
+Oi
+Oi
 aa
 aa
 aa
@@ -6102,9 +6107,9 @@ aa
 "}
 (18,1,1) = {"
 aa
-aa
-aa
-aa
+Oi
+Oi
+Oi
 aa
 aa
 aa
