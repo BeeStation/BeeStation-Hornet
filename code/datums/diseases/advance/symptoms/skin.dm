@@ -287,8 +287,7 @@ BONUS
 
 
 /obj/item/reagent_containers/food/snacks/eggsac/proc/eggsplode()
-	var/i
-	for(i = 1, i <= rand(4,8), i++)
+	for(var/i = 1, i <= rand(4,8), i++)
 		var/list/directions = GLOB.alldirs
 		var/obj/item/I = new /obj/item/reagent_containers/food/snacks/fleshegg(src.diseases, src.sneakyegg, src.bigheal)
 		var/turf/thrown_at = get_ranged_target_turf(I, pick(directions), rand(2, 4))
