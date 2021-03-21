@@ -3538,19 +3538,6 @@
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
-"afH" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/surgery)
 "afI" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -13574,29 +13561,6 @@
 /obj/structure/sign/warning/securearea,
 /turf/closed/wall,
 /area/bridge)
-"aux" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/rxglasses{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/storage/box/beakers,
-/obj/item/gun/syringe{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/spray/cleaner,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/medical/storage)
 "auy" = (
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
@@ -15056,7 +15020,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "awA" = (
-/obj/structure/table/wood/fancy,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -15067,16 +15030,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/storage/book/bible{
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/storage/book/bible{
-	pixel_y = 2
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/structure/altar_of_gods,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "awB" = (
@@ -16757,27 +16714,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/electrical)
-"ayW" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/clipboard{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/book/manual/wiki/surgery,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/mask/surgical,
-/obj/item/clothing/suit/apron/surgical,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 28
-	},
-/obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/plasteel/dark,
-/area/medical/surgery)
 "ayX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -52008,6 +51944,10 @@
 	dir = 4
 	},
 /obj/item/flashlight/lantern,
+/obj/item/storage/book/bible{
+	pixel_x = 9;
+	pixel_y = 7
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "bwD" = (
@@ -100534,6 +100474,20 @@
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"eRI" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/anesthetic_machine,
+/turf/open/floor/plasteel/dark,
+/area/medical/surgery)
 "oOk" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral,
@@ -100542,6 +100496,52 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"pTS" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/clipboard{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/book/manual/wiki/surgery,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/mask/surgical,
+/obj/item/clothing/suit/apron/surgical,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/obj/effect/turf_decal/stripes/corner,
+/obj/item/glove_box,
+/turf/open/floor/plasteel/dark,
+/area/medical/surgery)
+"qDr" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/rxglasses{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/box/beakers,
+/obj/item/gun/syringe{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/spray/cleaner,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/light_switch{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/item/glove_box,
+/turf/open/floor/plasteel/dark,
+/area/medical/storage)
 "sAg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/landmark/start/brig_phys,
@@ -118188,7 +118188,7 @@ aVI
 aPB
 aBF
 aOZ
-aux
+qDr
 aOO
 aQv
 aIh
@@ -118712,7 +118712,7 @@ aPC
 aPI
 aSA
 aOZ
-afH
+eRI
 bdp
 aUs
 aQN
@@ -119740,7 +119740,7 @@ aQQ
 aWM
 aVV
 aQL
-ayW
+pTS
 aUu
 bdP
 bgS

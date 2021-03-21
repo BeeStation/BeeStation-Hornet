@@ -1,7 +1,7 @@
 GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega"))
 GLOBAL_LIST_INIT(slots, list("head", "wear_mask", "back", "wear_suit", "w_uniform", "shoes", "belt", "gloves", "glasses", "ears", "wear_id", "s_store"))
 GLOBAL_LIST_INIT(slot2slot, list("head" = SLOT_HEAD, "wear_mask" = SLOT_WEAR_MASK, "neck" = SLOT_NECK, "back" = SLOT_BACK, "wear_suit" = SLOT_WEAR_SUIT, "w_uniform" = SLOT_W_UNIFORM, "shoes" = SLOT_SHOES, "belt" = SLOT_BELT, "gloves" = SLOT_GLOVES, "glasses" = SLOT_GLASSES, "ears" = SLOT_EARS, "wear_id" = SLOT_WEAR_ID, "s_store" = SLOT_S_STORE))
-GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "wear_mask" = /obj/item/clothing/mask/changeling, "back" = /obj/item/changeling, "wear_suit" = /obj/item/clothing/suit/changeling, "w_uniform" = /obj/item/clothing/under/changeling, "shoes" = /obj/item/clothing/shoes/changeling, "belt" = /obj/item/changeling, "gloves" = /obj/item/clothing/gloves/changeling, "glasses" = /obj/item/clothing/glasses/changeling, "ears" = /obj/item/changeling, "wear_id" = /obj/item/changeling, "s_store" = /obj/item/changeling))
+GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "wear_mask" = /obj/item/clothing/mask/changeling, "back" = /obj/item/changeling, "wear_suit" = /obj/item/clothing/suit/changeling, "w_uniform" = /obj/item/clothing/under/changeling, "shoes" = /obj/item/clothing/shoes/changeling, "belt" = /obj/item/changeling, "gloves" = /obj/item/clothing/gloves/changeling, "glasses" = /obj/item/clothing/glasses/changeling, "ears" = /obj/item/changeling, "wear_id" = /obj/item/changeling/id, "s_store" = /obj/item/changeling))
 
 
 /datum/game_mode/changeling
@@ -113,6 +113,9 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		if((user.vars[slot] && !istype(user.vars[slot], GLOB.slot2type[slot])) || !(chosen_prof.exists_list[slot]))
 			continue
 
+		if(istype(user.vars[slot], GLOB.slot2type[slot]) && slot == "wear_id") //always remove old flesh IDs, so they get properly updated
+			qdel(user.vars[slot])
+
 		var/obj/item/C
 		var/equip = 0
 		if(!user.vars[slot])
@@ -128,8 +131,15 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		C.flags_cover = chosen_prof.flags_cover_list[slot]
 		C.item_color = chosen_prof.item_color_list[slot]
 		C.item_state = chosen_prof.item_state_list[slot]
+
+		if(istype(C, /obj/item/changeling/id) && chosen_prof.id_icon)
+			var/obj/item/changeling/id/flesh_id = C
+			flesh_id.hud_icon = chosen_prof.id_icon
+
 		if(equip)
 			user.equip_to_slot_or_del(C, GLOB.slot2slot[slot])
+			if(!QDELETED(C))
+				ADD_TRAIT(C, TRAIT_NODROP, CHANGELING_TRAIT)
 
 	user.regenerate_icons()
 

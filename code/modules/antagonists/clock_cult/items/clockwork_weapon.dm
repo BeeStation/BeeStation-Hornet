@@ -58,7 +58,7 @@
 	return
 
 /obj/item/twohanded/clockwork/brass_spear
-	name = "brassspear"
+	name = "brass spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon_state = "ratvarian_spear"
 	embedding = list("embedded_impact_pain_multiplier" = 3)

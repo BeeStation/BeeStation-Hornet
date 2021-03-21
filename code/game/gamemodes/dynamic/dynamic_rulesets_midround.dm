@@ -225,7 +225,7 @@
 	name = "Malfunctioning AI"
 	antag_datum = /datum/antagonist/traitor
 	antag_flag = ROLE_MALF
-	enemy_roles = list("Security Officer", "Warden", "Detective", "Brig Physician", "Head of Security", "Captain", "Scientist", "Chemist", "Research Director", "Chief Engineer")
+	enemy_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Scientist", "Chemist", "Research Director", "Chief Engineer")
 	exclusive_roles = list("AI")
 	required_enemies = list(4,4,4,4,4,4,2,2,2,0)
 	required_candidates = 1
@@ -275,7 +275,7 @@
 	name = "Wizard"
 	antag_datum = /datum/antagonist/wizard
 	antag_flag = ROLE_WIZARD
-	enemy_roles = list("Security Officer", "Detective", "Brig Physician", "Warden", "Head of Security", "Captain", "Research Director") //RD doesn't believe in magic
+	enemy_roles = list("Security Officer", "Detective", "Warden", "Head of Security", "Captain", "Research Director") //RD doesn't believe in magic
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 1
@@ -306,7 +306,7 @@
 	name = "Nuclear Assault"
 	antag_flag = ROLE_OPERATIVE
 	antag_datum = /datum/antagonist/nukeop
-	enemy_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Brig Physician", "Detective", "Head of Security", "Captain")
+	enemy_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	required_enemies = list(3,3,3,3,3,2,1,1,0,0)
 	required_candidates = 5
 	weight = 5
@@ -348,7 +348,7 @@
 	name = "Blob"
 	antag_datum = /datum/antagonist/blob
 	antag_flag = ROLE_BLOB
-	enemy_roles = list("Security Officer", "Detective", "Brig Physician", "Warden", "Head of Security", "Captain")
+	enemy_roles = list("Security Officer", "Detective", "Warden", "Head of Security", "Captain")
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 4
@@ -370,7 +370,7 @@
 	name = "Alien Infestation"
 	antag_datum = /datum/antagonist/xeno
 	antag_flag = ROLE_ALIEN
-	enemy_roles = list("Security Officer", "Detective", "Brig Physician", "Warden", "Head of Security", "Captain")
+	enemy_roles = list("Security Officer", "Detective", "Warden", "Head of Security", "Captain")
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 3
@@ -416,7 +416,7 @@
 	antag_datum = /datum/antagonist/nightmare
 	antag_flag = "Nightmare"
 	antag_flag_override = ROLE_ALIEN
-	enemy_roles = list("Security Officer", "Detective", "Brig Physician", "Warden", "Head of Security", "Captain")
+	enemy_roles = list("Security Officer", "Detective", "Warden", "Head of Security", "Captain")
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 3
@@ -462,7 +462,7 @@
 	name = "Abductors"
 	antag_flag = "Abductor"
 	antag_flag_override = ROLE_ABDUCTOR
-	enemy_roles = list("Security Officer", "Detective", "Brig Physician", "Warden", "Head of Security", "Captain")
+	enemy_roles = list("Security Officer", "Detective", "Warden", "Head of Security", "Captain")
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 2
 	weight = 4

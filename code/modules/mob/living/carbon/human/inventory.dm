@@ -143,9 +143,9 @@
 
 	return not_handled //For future deeper overrides
 
-/mob/living/carbon/human/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
+/mob/living/carbon/human/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, silent = FALSE, was_thrown = FALSE)
 	var/index = get_held_index_of_item(I)
-	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
+	. = ..(I, force, newloc, no_move, invdrop, was_thrown) //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
 	if(index && !QDELETED(src) && dna.species.mutanthands) //hand freed, fill with claws, skip if we're getting deleted.
