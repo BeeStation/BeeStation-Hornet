@@ -383,11 +383,8 @@
 	icon_state = "locker"
 	nodamage = TRUE
 	flag = "magic"
-<<<<<<< Updated upstream
-=======
 	martial_arts_no_deflect = FALSE
 	var/weld = TRUE
->>>>>>> Stashed changes
 	var/created = FALSE //prevents creation of more then one locker if it has multiple hits
 	var/locker_suck = TRUE
 
