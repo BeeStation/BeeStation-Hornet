@@ -248,7 +248,9 @@
 /obj/item/clothing/neck/bizzarescarf
 	name = "bizzare scarf"
 	desc = "Your next line is-"
+	icon_state = "bizzare"
 
 /obj/item/clothing/neck/conductivescarf
 	name = "conductive scarf"
 	desc = "Made out of 30,000 scarabs. Use with caution."
+	icon_state = "conductive"
