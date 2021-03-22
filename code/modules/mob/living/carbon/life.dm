@@ -349,8 +349,8 @@
 		//Force bodyparts to heal if we have more than 120 stamina damage (6 seconds)
 		force_heal = max(0, total_stamina_loss - 120) / max(bodyparts_with_stam, 1)
 	//Increase damage the more stam damage
-	//Incraesed stamina healing when above 60 stamloss
-	stam_heal_multiplier = CLAMP(total_stamina_loss / 60, 1, 2)
+	//Incraesed stamina healing when above 50 stamloss, up to 2x healing rate when at 100 stamloss.
+	stam_heal_multiplier = CLAMP(total_stamina_loss / 50, 1, 2)
 	//Heal bodypart stamina damage
 	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.needs_processing)
