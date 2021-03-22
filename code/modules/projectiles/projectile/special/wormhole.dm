@@ -11,7 +11,7 @@
 	impact_type = /obj/effect/projectile/impact/wormhole
 	muzzle_type = /obj/effect/projectile/muzzle/wormhole
 	hitscan = TRUE
-	martial_arts_no_deflect = FALSE
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/beam/wormhole/orange
 	name = "orange bluespace beam"
