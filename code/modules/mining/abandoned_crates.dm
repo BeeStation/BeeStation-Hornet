@@ -210,7 +210,7 @@
 					new /obj/item/clothing/shoes/roman(src)
 					new /obj/item/clothing/under/costume/roman(src)
 					new /obj/item/shield/riot/roman(src)
-					new /obj/item/melee/shank(src)
+					new /obj/item/kitchen/knife(src)
 				if("heavystuff3")
 					new /obj/item/twohanded/fireaxe(src)
 					new /obj/item/organ/brain/alien(src)
