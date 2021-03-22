@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Meteors now spawn 10 minutes after being announced.
+  - tweak: Meteor wave event now unlocks meteor shields.
+  - tweak: Meteor wave start time reduced from 50 minutes to 30 minutes.
