@@ -762,7 +762,7 @@
 		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			//Fake bullets just disintegrate
-			if(hitby.martial_arts_no_deflect)
+			if(P.martial_arts_no_deflect)
 				return TRUE
 		current_charges--
 		if(recharge_rate)
