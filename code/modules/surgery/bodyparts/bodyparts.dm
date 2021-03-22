@@ -191,7 +191,7 @@
 	if(owner && updating_health)
 		owner.updatehealth()
 		if(stamina > DAMAGE_PRECISION)
-			owner.update_stamina()
+			owner.update_stamina(TRUE)
 			owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
 	consider_processing()
 	update_disabled()

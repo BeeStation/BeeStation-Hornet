@@ -532,10 +532,11 @@
 		remove_movespeed_modifier(MOVESPEED_ID_CARBON_SOFTCRIT, TRUE)
 
 
-/mob/living/carbon/update_stamina()
+/mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
 	var/stam = getStaminaLoss()
 	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
-		enter_stamcrit()
+		if(extend_stam_crit || !stam_paralyzed)
+			enter_stamcrit()
 	else if(stam_paralyzed)
 		stam_paralyzed = FALSE
 	else
@@ -1017,7 +1018,7 @@
 		return FALSE
 	if(hallucinating())
 		return TRUE
-	
+
 	if(IsSleeping())
 		return TRUE
 	if(HAS_TRAIT(src, TRAIT_DUMB))
