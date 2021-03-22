@@ -239,26 +239,31 @@
 	name = "cak backpack"
 	desc = "A cute backpack resembling Cak."
 	icon_state = "cakpack"
+	item_state = "cakpack"
 
 /obj/item/storage/backpack/ian
 	name = "ian backpack"
 	desc = "A cute backpack resembling Ian."
 	icon_state = "ianpack"
+	item_state = "ianpack"
 
 /obj/item/storage/backpack/lisa
 	name = "lisa backpack"
 	desc = "A cute backpack resembling Lisa."
 	icon_state = "lisapack"
+	item_state = "lisapack"
 
 /obj/item/storage/backpack/renault
 	name = "renault backpack"
 	desc = "A cute backpack resembling Renault."
 	icon_state = "renaultpack"
+	item_state = "renaultpack"
 
 /obj/item/storage/backpack/runtime
 	name = "runtime backpack"
 	desc = "A cute backpack resembling Runtime."
 	icon_state = "runtimepack"
+	item_state = "runtimepack"
 
 /*
  * Satchel Types
