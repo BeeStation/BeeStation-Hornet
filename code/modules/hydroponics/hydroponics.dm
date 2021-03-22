@@ -380,7 +380,8 @@
 			myseed = new /obj/item/seeds/plump(src)
 		else
 			myseed = new /obj/item/seeds/starthistle(src)
-	age = 0
+	age = 1
+	lastproduce = 1
 	plant_health = myseed.endurance
 	lastcycle = world.time
 	harvest = 0
@@ -786,6 +787,7 @@
 			myseed = O
 			update_name()
 			age = 1
+			lastproduce = 1
 			plant_health = myseed.endurance
 			lastcycle = world.time
 			update_icon()
@@ -817,7 +819,7 @@
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
 	else if(istype(O, /obj/item/storage/bag/plants))
-		attack_hand(user)
+		harvest_plant(user)
 		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
 			SEND_SIGNAL(O, COMSIG_TRY_STORAGE_INSERT, G, user, TRUE)
 
@@ -875,6 +877,9 @@
 		return
 	if(issilicon(user)) //How does AI know what plant is?
 		return
+	harvest_plant(user)
+		
+/obj/machinery/hydroponics/proc/harvest_plant(mob/user)
 	if(harvest)
 		return myseed.harvest(user)
 
@@ -903,6 +908,8 @@
 		myseed = null
 		update_name()
 		dead = 0
+		age = 0
+		lastproduce = 0
 	update_icon()
 
 /// Tray Setters - The following procs adjust the tray or plants variables, and make sure that the stat doesn't go out of bounds.///

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "fuckyou"
 	max_integrity = 300
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60, "stamina" = 0)
 	density = TRUE
 	anchored = FALSE
 	var/list/mob/occupants				//mob = bitflags of their control level.
@@ -27,7 +27,7 @@
 /obj/vehicle/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /obj/item)) //thrown objects and projectiles bypass vehicles
 		return 1
-	if(HAS_TRAIT(mover, TRAIT_PASSTABLE)) 
+	if(HAS_TRAIT(mover, TRAIT_PASSTABLE))
 		return 1
 	return ..()
 

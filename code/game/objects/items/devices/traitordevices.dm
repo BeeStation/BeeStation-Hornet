@@ -252,7 +252,10 @@ effective or pretty fucking useless.
 	name = "magician's cape"
 	desc = "A magician never reveals his secrets."
 	icon = 'icons/obj/bedsheets.dmi'
+	lefthand_file = 'icons/mob/inhands/misc/bedsheet_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/bedsheet_righthand.dmi'
 	icon_state = "sheetmagician"
+	item_state = "sheetmagician"
 	slot_flags = ITEM_SLOT_NECK
 	layer = MOB_LAYER
 	equipslot = SLOT_NECK

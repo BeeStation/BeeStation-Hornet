@@ -4,7 +4,7 @@
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "eminence"
 	mob_biotypes = list(MOB_SPIRIT)
-	incorporeal_move = INCORPOREAL_MOVE_JAUNT
+	incorporeal_move = INCORPOREAL_MOVE_EMINENCE
 	invisibility = INVISIBILITY_OBSERVER
 	health = INFINITY
 	maxHealth = INFINITY
