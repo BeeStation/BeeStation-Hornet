@@ -1,5 +1,0 @@
-author: TheFakeElon
-delete-after: true
-changes:
-  - bugfix: fixes donator backpack inhands and scarf sprites
-  - code_imp: cleaner donator item handling
