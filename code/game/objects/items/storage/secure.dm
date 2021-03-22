@@ -50,7 +50,7 @@
 			if(l_hacking)
 				to_chat(user, "<span class='danger'>This safe is already being hacked.</span>")
 				return
-			if(open == TRUE)
+			if(open)
 				to_chat(user, "<span class='danger'>Now attempting to reset internal memory, please hold.</span>")
 				l_hacking = TRUE
 				if (W.use_tool(src, user, 400))
