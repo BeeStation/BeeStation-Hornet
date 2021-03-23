@@ -1,3 +1,7 @@
+#define INFLUENCE_OUTFIT 1
+#define INFLUENCE_TERRITORY 2
+#define INFLUENCE_SALARY 1
+
 /datum/antagonist/gang
 	name = "Gangster"
 	roundend_category = "gangsters"
@@ -300,10 +304,11 @@
 	var/color
 	var/influence = 0 // influence of the gang, based on how many territories they own. Can be used to buy weapons and tools from a gang uplink.
 	var/winner // Once the gang wins with a dominator, this becomes true. For roundend credits purposes.
-	var/list/inner_outfits = list()
-	var/list/outer_outfits = list()
 	var/next_point_time
-	var/recalls = MAXIMUM_RECALLS // Once this reaches 0, this gang cannot force recall the shuttle with their gangtool anymore
+	var/recalls = MAXIMUM_RECALLS // Once this reaches 0, this gang cannot force recall the shuttle with their gangtool anymore	
+	var/obj/item/clothing/head/hat
+	var/obj/item/clothing/under/outfit
+	var/obj/item/clothing/suit/suit
 
 /datum/team/gang/New(starting_members)
 	. = ..()
@@ -352,7 +357,7 @@
 	to_chat(gangster, "<font color='red'>You can identify your mates by their <b>large, bright \[G\] <font color='[color]'>icon</font></b>.</font>")
 	gangster.store_memory("You are a member of the [name] Gang!")
 
-/datum/team/gang/proc/handle_territories()
+/datum/team/gang/proc/handle_territories()	//influence is counted here
 	next_point_time = world.time + INFLUENCE_INTERVAL
 	if(!leaders.len)
 		return
@@ -417,7 +422,7 @@
 				valid_territories |= A.type
 	return valid_territories.len
 
-/datum/team/gang/proc/check_territory_income()
+/datum/team/gang/proc/check_territory_income()	//return 0?
 	var/new_influence = min(999,influence + 15 + (check_clothing() * 2) + territories.len)
 	return new_influence
 
@@ -426,26 +431,16 @@
 	var/uniformed = 0
 	for(var/datum/mind/gangmind in members)
 		if(ishuman(gangmind.current))
-			var/mob/living/carbon/human/gangster = gangmind.current
-			//Gangster must be alive and on station
-			if((gangster.stat == DEAD) || (is_station_level(gangster.z)))
-				continue
-
-			var/obj/item/clothing/outfit
-			var/obj/item/clothing/gang_outfit
-			if(gangster.w_uniform)
-				outfit = gangster.w_uniform
-				if(outfit.type in inner_outfits)
-					gang_outfit = outfit
-			if(gangster.wear_suit)
-				outfit = gangster.wear_suit
-				if(outfit.type in outer_outfits)
-					gang_outfit = outfit
-
-			if(gang_outfit)
+			if(check_gangster_outfit(gangmind.current))
 				gangster << "<span class='notice'>The [src] Gang's influence grows as you wear [gang_outfit].</span>"
 				uniformed++
 	return uniformed
+
+/datum/team/gang/proc/check_gangster_outfit(var/mob/living/carbon/human/gangster)
+	//Gangster must be alive and on station
+	if((gangster.stat == DEAD) || (is_station_level(gangster.z)))
+		return FALSE		
+	return (gangster.?w_uniform.type == outfit && gangster.?wear_suit.type == suit && gangster.?wear_suit.type == hat)
 
 /datum/team/gang/proc/adjust_influence(value)
 	influence = max(0, influence + value)
