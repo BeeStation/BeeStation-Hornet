@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(gangs)
 	recommended_enemies = 2
 	enemy_minimum_age = 14
 
-	announce_span = "danger"
+	announce_span = "danger"	//THIS NEEDS REVISION
 	announce_text = "A violent turf war has erupted on the station!\n\
 	<span class='danger'>Gangsters</span>: Take over the station with a dominator.\n\
 	<span class='notice'>Crew</span>: Prevent the gangs from expanding and initiating takeover."
@@ -30,9 +30,9 @@ GLOBAL_LIST_EMPTY(gangs)
 
 	//Spawn more bosses depending on server population
 	var/gangs_to_create = 2
-	if(prob(num_players()) && num_players() > 1.5*required_players)
-		gangs_to_create++
 	if(prob(num_players()) && num_players() > 2*required_players)
+		gangs_to_create++
+	if(prob(num_players()) && num_players() > 3*required_players)
 		gangs_to_create++
 	gangs_to_create = min(gangs_to_create, GLOB.possible_gangs.len)
 

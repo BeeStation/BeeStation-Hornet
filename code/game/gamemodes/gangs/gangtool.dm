@@ -60,9 +60,6 @@
 		else
 			dat += "This device is not authorized to promote.<br>"
 	else
-		if(gang.domination_time != NOT_DOMINATING)
-			dat += "<center><font color='red'>Takeover In Progress:<br><B>[DisplayTimeText(gang.domination_time_remaining() * 10)] remain</B></font></center>"
-
 		dat += "Registration: <B>[gang.name] Gang Boss</B><br>"
 		dat += "Organization Size: <B>[gang.members.len]</B> | Station Control: <B>[gang.territories.len] territories under control.</B> | Influence: <B>[gang.influence]</B><br>"
 		dat += "Time until Influence grows: <B>[time2text(gang.next_point_time - world.time, "mm:ss")]</B><br>"
@@ -220,10 +217,6 @@
 		return
 	if(SSshuttle.emergency.mode != SHUTTLE_CALL) //Shuttle can only be recalled when it's moving to the station
 		to_chat(user, "<span class='warning'>[icon2html(src, user)]Emergency shuttle cannot be recalled at this time.</span>")
-		recalling = FALSE
-		return
-	if(!gang.dom_attempts)
-		to_chat(user, "<span class='warning'>[icon2html(src, user)]Error: Unable to access communication arrays. Firewall has logged our signature and is blocking all further attempts.</span>")
 		recalling = FALSE
 		return
 	if(!is_station_level(user.z)) //Shuttle can only be recalled while on station

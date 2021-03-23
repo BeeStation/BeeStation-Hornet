@@ -12,11 +12,11 @@
 	outfit = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/jacket
 
-/datum/team/gang/chkn
+/datum/team/gang/chkn	//cluck cluck clan
 	name = "Ch'Kn"
 	color = "#FFFF00"
 	hat = /obj/item/clothing/head/chicken
-	outfit = /obj/item/clothing/under/suit/color/yellow
+	outfit = /obj/item/clothing/under/color/yellow
 	suit = /obj/item/clothing/suit/chickensuit
 
 /datum/team/gang/hatter
@@ -38,14 +38,14 @@
 	color = "#808000"
 	outfit = /obj/item/clothing/under/suit/green
 	suit = /obj/item/clothing/suit/poncho/green
-	hat = head/sombrero/green
+	hat = /obj/item/clothing/head/sombrero/green
 
 /datum/team/gang/north
 	name = "North"
 	color = "#00FF00"
 	hat = /obj/item/clothing/head/soft/green
 	outfit = /obj/item/clothing/under/color/green
-	suit = /obj/item/clothing/suit/labcoat/green
+	suit = /obj/item/clothing/suit/toggle/labcoat/mad
 
 /datum/team/gang/griffons
 	name = "Griffons"
@@ -58,7 +58,7 @@
 	name = "Neon"
 	color = "#808000"
 	hat = /obj/item/clothing/head/jester/alt
-	outfit = /obj/item/clothing/under/color/lightgreen
+	outfit =  /obj/item/clothing/under/color/green
 	suit = /obj/item/clothing/suit/joker
 
 /datum/team/gang/donk
@@ -87,7 +87,7 @@
 	color = "#FF0000"
 	outfit = /obj/item/clothing/under/color/red
 	suit = /obj/item/clothing/suit/jacket/leather
-	hat = /obj/item/clothing/head/beret/red
+	hat = /obj/item/clothing/head/beret
 
 /datum/team/gang/greytide
 	name = "Greytide"
@@ -100,7 +100,7 @@
 	name = "Gamer"
 	color = "#FFFFFF"
 	hat = /obj/item/clothing/head/fedora
-	outfit = /obj/item/clothing/under/suit/color/white
+	outfit = /obj/item/clothing/under/color/white
 	suit = /obj/item/clothing/suit/nerdshirt
 
 /datum/team/gang/caesar
@@ -116,7 +116,7 @@
 	outfit = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/under/color/white
 	hat = /obj/item/clothing/head/hooded/carp_hood
-	
+
 /datum/team/gang/rigatonifamily
 	name = "Rigatoni family"
 	color = "#cc9900" // p a s t a colored
@@ -127,6 +127,6 @@
 /datum/team/gang/weed
 	name = "Weed"
 	color = "#66ff33"
-	hat = /obj/item/clothing/head/soft/green
+	hat = /obj/item/clothing/head/beanie/rasta
 	outfit = /obj/item/clothing/under/color/green
 	suit = /obj/item/clothing/suit/vapeshirt

@@ -354,9 +354,12 @@
 	var/wait_time = 50
 	if(paint_mode == PAINT_LARGE_HORIZONTAL)
 		wait_time *= 3
-	if(gang) instant = FALSE // hippie -- gang spraying must not be instant, balance reasons
+	if(gang) 
+		var/area/territory = get_area(target)
+		gang.message_gangtools("[territory] is under attack by an enemy gang!")
+		wait_time = 30 SECONDS
 	if(!instant)
-		if(!do_after(user, 50, target = target))
+		if(!do_after(user, wait_time, target = target))
 			return
 
 	if(length(text_buffer))

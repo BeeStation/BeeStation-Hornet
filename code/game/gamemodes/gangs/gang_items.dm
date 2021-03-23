@@ -109,53 +109,6 @@
 		return "(GET ONE FREE)"
 	return ..()
 
-
-
-/datum/gang_item/essentials/dominator
-	name = "Station Dominator"
-	id = "dominator"
-	cost = 30
-	item_path = /obj/machinery/dominator
-	spawn_msg = "<span class='notice'>The <b>dominator</b> will secure your gang's dominance over the station. Turn it on when you are ready to defend it.</span>"
-
-/datum/gang_item/essentials/dominator/can_buy(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(!gang || !gang.dom_attempts)
-		return FALSE
-	return ..()
-
-/datum/gang_item/essentials/dominator/get_name_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(!gang || !gang.dom_attempts)
-		return ..()
-	return "<b>[..()]</b>"
-
-/datum/gang_item/essentials/dominator/get_cost_display(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(!gang || !gang.dom_attempts)
-		return "(Out of stock)"
-	return ..()
-
-/datum/gang_item/essentials/dominator/get_extra_info(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gang)
-		return "This device requires a 5x5 area clear of walls to work. (Estimated Takeover Time: [round(gang.determine_domination_time()/60,0.1)] minutes)"
-
-/datum/gang_item/essentials/dominator/purchase(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/area/userarea = get_area(user)
-	if(!(userarea.type in gang.territories|gang.new_territories))
-		to_chat(user,"<span class='warning'>The <b>dominator</b> can be spawned only on territory controlled by your gang!</span>")
-		return FALSE
-	for(var/obj/obj in get_turf(user))
-		if(obj.density)
-			to_chat(user, "<span class='warning'>There's not enough room here!</span>")
-			return FALSE
-
-	return ..()
-
-/datum/gang_item/essentials/dominator/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	new item_path(user.loc)
-	to_chat(user, spawn_msg)
-
-
-
-
 ///////////////////
 //CLOTHING
 ///////////////////
@@ -163,49 +116,66 @@
 /datum/gang_item/clothing
 	category = "Purchase Gang Clothes (Only the jumpsuit and suit give you added influence):"
 
-/datum/gang_item/clothing/under
+/datum/gang_item/clothing/basic
 	name = "Gang Uniform"
 	id = "under"
 	cost = 1
-
-/datum/gang_item/clothing/under/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gang.inner_outfits.len)
-		var/outfit = pick(gang.inner_outfits)
-		if(outfit)
-			var/obj/item/O = new outfit(user.loc)
-			user.put_in_hands(O)
-			to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
-			return
+	
+/datum/gang_item/clothing/basic/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/obj/item/storage/box/uniform_box = new ()
+	
+	new gang.outfit(uniform_box)
+	new gang.suit(uniform_box)
+	new gang.hat(uniform_box)	
+	
+	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
 	return TRUE
 
-/datum/gang_item/clothing/suit
+/datum/gang_item/clothing/armor
 	name = "Gang Armored Outerwear"
 	id = "suit"
-	cost = 1
+	cost = 10
 
-/datum/gang_item/clothing/suit/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	if(gang.outer_outfits.len)
-		var/outfit = pick(gang.outer_outfits)
-		if(outfit)
-			var/obj/item/O = new outfit(user.loc)
-			O.armor = O.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
-			O.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-			user.put_in_hands(O)
-			to_chat(user, "<span class='notice'> This is your gang's official outerwear, wearing it will increase your influence")
-			return
+/datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/obj/item/storage/box/armor_box = new ()
+	
+	var/obj/item/suit/suit = new gang.suit(armor_box)
+	suit.armor = suit.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
+	suit.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
+	
+	var/obj/item/head/hat = new gang.hat(armor_box)
+	hat.armor = hat.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
+	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
+	
+	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
 	return TRUE
 
+/datum/gang_item/clothing/armor
+	name = "Gang Armored Outerwear"
+	id = "suit"
+	cost = 10
 
-/datum/gang_item/clothing/hat
-	name = "Pimp Hat"
-	id = "hat"
-	cost = 16
-	item_path = /obj/item/clothing/head/collectable/petehat/gang
-
-
-/obj/item/clothing/head/collectable/petehat/gang
-	name = "pimpin' hat"
-	desc = "The undisputed king of style."
+/datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/obj/item/storage/box/armor_box = new ()
+	
+	var/obj/item/suit/suit = new gang.suit(armor_box)
+	suit.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL
+	suit.cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	suit.heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
+	suit.min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	suit.max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
+	suit.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
+	
+	var/obj/item/head/hat = new gang.hat(armor_box)
+	hat.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL
+	hat.cold_protection = HEAD
+	hat.heat_protection = HEAD
+	hat.min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	hat.max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
+	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
+	
+	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
+	return TRUE
 
 /datum/gang_item/clothing/mask
 	name = "Golden Death Mask"
