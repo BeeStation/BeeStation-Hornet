@@ -78,7 +78,7 @@
 	return 0
 
 
-/datum/admins/proc/makeChangelings()
+/datum/admins/proc/makeChangelings(changelingCount = 3)
 
 	var/datum/game_mode/changeling/temp = new
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -100,7 +100,7 @@
 					candidates += applicant
 
 	if(candidates.len)
-		var/numChangelings = min(candidates.len, 3)
+		var/numChangelings = min(candidates.len, changelingCount)
 
 		for(var/i = 0, i<numChangelings, i++)
 			H = pick(candidates)
@@ -111,7 +111,7 @@
 
 	return 0
 
-/datum/admins/proc/makeRevs()
+/datum/admins/proc/makeRevs(revCount = 3)
 
 	var/datum/game_mode/revolution/temp = new
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -130,7 +130,7 @@
 					candidates += applicant
 
 	if(candidates.len)
-		var/numRevs = min(candidates.len, 3)
+		var/numRevs = min(candidates.len, revCount)
 
 		for(var/i = 0, i<numRevs, i++)
 			H = pick(candidates)
@@ -151,7 +151,7 @@
 	return TRUE
 
 
-/datum/admins/proc/makeCult()
+/datum/admins/proc/makeCult(cultistCount = 4)
 	var/datum/game_mode/cult/temp = new
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		temp.restricted_jobs += temp.protected_jobs
@@ -172,7 +172,7 @@
 					candidates += applicant
 
 	if(candidates.len)
-		var/numCultists = min(candidates.len, 4)
+		var/numCultists = min(candidates.len, cultistCount)
 
 		for(var/i = 0, i<numCultists, i++)
 			H = pick(candidates)
