@@ -1573,7 +1573,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if((I.damtype == BRUTE) && (I.force >= max(10, armor_block) || I.is_sharp()))
 		if(affecting.status == BODYPART_ORGANIC)
 			I.add_mob_blood(H)	//Make the weapon bloody, not the person.
-			if(prob(I.force * 2) && H.loc)	//blood spatter!
+			if(prob(I.force * 2))	//blood spatter!
 				bloody = 1
 				var/turf/location = H.loc
 				if(prob(50))

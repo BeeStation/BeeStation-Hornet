@@ -262,11 +262,11 @@
 		var/turf/src_turf = get_turf(src)
 		if(src_turf)
 			for(var/atom/A in src_turf)
-				if(istype(A,/obj/item))
+				if(isitem(A))
 					var/obj/item/I = A
 					I.add_mob_blood(blood_source)
 					amount--
-				else if(istype(A, /mob/living/carbon/human))
+				else if(ishuman(A))
 					var/mob/living/carbon/human/H = A
 					if(H.wear_suit)
 						H.wear_suit.add_mob_blood(blood_source)
@@ -280,7 +280,7 @@
 	qdel(src)
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Bump(atom/A)
-	if(istype(A, /turf/closed/wall))
+	if(iswallturf(A))
 		if(istype(prev_loc)) //var definition already checks for type
 			loc = A
 			skip = TRUE
