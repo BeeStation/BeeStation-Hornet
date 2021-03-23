@@ -20,7 +20,7 @@
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask
 	gold_core_spawnable = FRIENDLY_SPAWN
-	mobsay_color = "#FFA656"
+	chat_color = "#FFA656"
 	mobchatspan = "blob"
 	hardattacks = TRUE//claws
 

@@ -91,7 +91,7 @@
 	var/col = BEE_DEFAULT_COLOUR
 	if(beegent?.color)
 		col = beegent.color
-	mobsay_color = col
+	chat_color = col
 
 	add_overlay("[icon_base]_base")
 
@@ -152,6 +152,7 @@
 	if(istype(R))
 		beegent = R
 		name = "[initial(name)] ([R.name])"
+		real_name = name
 		poison_type = null
 		generate_bee_visuals()
 

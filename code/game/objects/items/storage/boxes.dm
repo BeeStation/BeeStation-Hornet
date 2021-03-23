@@ -125,8 +125,6 @@
 /obj/item/storage/box/survival/PopulateContents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
-	new /obj/item/clothing/head/helmet/space/skinsuit(src)
-	new /obj/item/clothing/suit/space/skinsuit(src)
 
 	if(!isplasmaman(loc))
 		new /obj/item/tank/internals/emergency_oxygen(src)
@@ -142,8 +140,6 @@
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
-	new /obj/item/clothing/head/helmet/space/skinsuit(src)
-	new /obj/item/clothing/suit/space/skinsuit(src)
 
 	if(!isplasmaman(loc))
 		new /obj/item/tank/internals/emergency_oxygen(src)
@@ -154,8 +150,6 @@
 /obj/item/storage/box/engineer/PopulateContents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
-	new /obj/item/clothing/head/helmet/space/skinsuit(src)
-	new /obj/item/clothing/suit/space/skinsuit(src)
 
 	if(!isplasmaman(loc))
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
@@ -179,8 +173,6 @@
 /obj/item/storage/box/security/PopulateContents()
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/reagent_containers/hypospray/medipen(src)
-	new /obj/item/clothing/head/helmet/space/skinsuit(src)
-	new /obj/item/clothing/suit/space/skinsuit(src)
 
 	if(!isplasmaman(loc))
 		new /obj/item/tank/internals/emergency_oxygen(src)
@@ -938,12 +930,12 @@
 	else if(W.is_sharp())
 		if(!contents.len)
 			if(item_state == "paperbag_None")
-				user.show_message("<span class='notice'>You cut eyeholes into [src].</span>", 1)
+				user.show_message("<span class='notice'>You cut eyeholes into [src].</span>", MSG_VISUAL)
 				new /obj/item/clothing/head/papersack(user.loc)
 				qdel(src)
 				return 0
 			else if(item_state == "paperbag_SmileyFace")
-				user.show_message("<span class='notice'>You cut eyeholes into [src] and modify the design.</span>", 1)
+				user.show_message("<span class='notice'>You cut eyeholes into [src] and modify the design.</span>", MSG_VISUAL)
 				new /obj/item/clothing/head/papersack/smiley(user.loc)
 				qdel(src)
 				return 0

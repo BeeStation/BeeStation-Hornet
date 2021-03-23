@@ -204,7 +204,7 @@
 		return
 	src.add_fingerprint(user)
 	if (src.bullets < 1)
-		user.show_message("<span class='warning'>*click*</span>", 2)
+		user.show_message("<span class='warning'>*click*</span>", MSG_AUDIBLE)
 		playsound(src, 'sound/weapons/gun_dry_fire.ogg', 30, TRUE)
 		return
 	playsound(user, 'sound/weapons/gunshot.ogg', 100, 1)
@@ -1429,7 +1429,7 @@
 	to_chat(user, "You name the dummy as \"[doll_name]\"")
 	name = "[initial(name)] - [doll_name]"
 
-/obj/item/toy/dummy/talk_into(atom/movable/A, message, channel, list/spans, datum/language/language)
+/obj/item/toy/dummy/talk_into(atom/movable/A, message, channel, list/spans, datum/language/language, list/message_mods)
 	var/mob/M = A
 	if (istype(M))
 		M.log_talk(message, LOG_SAY, tag="dummy toy")
@@ -1522,7 +1522,7 @@
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 		update_icon()
-	
+
 	var/choice = null
 	if(!LAZYLEN(cards))
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
@@ -1631,8 +1631,7 @@
 	..()
 
 /obj/item/dance_trance/proc/flip_mobs(mob/living/carbon/M, mob/user)
-	var/turf/T = get_turf(src)
-	for(M in ohearers(7, T))
+	for(M in ohearers(7, get_turf(src)))
 		if(ishuman(M) && M.can_hear())
 			var/mob/living/carbon/human/H = M
 			if(istype(H.ears, /obj/item/clothing/ears/earmuffs))

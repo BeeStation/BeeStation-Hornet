@@ -19,7 +19,7 @@
 	time = 2.5 SECONDS
 
 /datum/surgery/blood_filter/can_start(mob/user, mob/living/carbon/target)
-	if(HAS_TRAIT(target, TRAIT_HUSK) || target.reagents.total_volume==0) //Can't filter husk or 0 regent body
+	if(HAS_TRAIT(target, TRAIT_HUSK) || target.reagents?.total_volume == 0) //Can't filter husk or 0 regent body
 		return FALSE
 	return ..()
 

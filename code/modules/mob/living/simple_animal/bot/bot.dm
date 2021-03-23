@@ -372,22 +372,16 @@
 	else
 		say(message)
 
-/mob/living/simple_animal/bot/radio(message, message_mode, list/spans, language)
+/mob/living/simple_animal/bot/radio(message, list/message_mods = list(), list/spans, language)
 	. = ..()
 	if(. != 0)
 		return
 
-	switch(message_mode)
-		if(MODE_HEADSET)
-			Radio.talk_into(src, message, , spans, language)
-			return REDUCE_RANGE
-
-		if(MODE_DEPARTMENT)
-			Radio.talk_into(src, message, message_mode, spans, language)
-			return REDUCE_RANGE
-
-	if(message_mode in GLOB.radiochannels)
-		Radio.talk_into(src, message, message_mode, spans, language)
+	if(message_mods[MODE_HEADSET])
+		Radio.talk_into(src, message, , spans, language, message_mods)
+		return REDUCE_RANGE
+	else if(message_mods[RADIO_EXTENSION] == MODE_DEPARTMENT || (message_mods[RADIO_EXTENSION] in GLOB.radiochannels))
+		Radio.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
 		return REDUCE_RANGE
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
@@ -429,30 +423,50 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	if(!T)
 		return
 	var/list/adjacent = T.GetAtmosAdjacentTurfs(1)
+	var/atom/final_result
+	var/static/list/turf_typecache = typecacheof(/turf)
 	if(shuffle)	//If we were on the same tile as another bot, let's randomize our choices so we dont both go the same way
 		adjacent = shuffle(adjacent)
 		shuffle = FALSE
-	for(var/scan in adjacent)//Let's see if there's something right next to us first!
+	for(var/turf/scan as() in adjacent)//Let's see if there's something right next to us first!
 		if(check_bot(scan))	//Is there another bot there? Then let's just skip it
 			continue
-		if(isturf(scan_type))	//If we're lookeing for a turf we can just run the checks directly!
-			var/final_result = checkscan(scan,scan_type,old_target)
+		if(turf_typecache[scan_type])	//If we're lookeing for a turf we can just run the checks directly!
+			if(!istype(scan, scan_type))
+				continue
+			final_result = checkscan(scan,old_target)
 			if(final_result)
 				return final_result
 		else
-			var/turf/turfy = scan
-			for(var/deepscan in turfy.contents)//Check the contents since adjacent is turfs
-				var/final_result = checkscan(deepscan,scan_type,old_target)
+			for(var/deepscan in scan.contents)//Check the contents since adjacent is turfs
+				if(!istype(deepscan, scan_type))
+					continue
+				final_result = checkscan(deepscan,old_target)
 				if(final_result)
 					return final_result
-	for (var/scan in shuffle(view(scan_range, src))-adjacent) //Search for something in range!
-		var/final_result = checkscan(scan,scan_type,old_target)
-		if(final_result)
-			return final_result
 
-/mob/living/simple_animal/bot/proc/checkscan(scan, scan_type, old_target)
-	if(!istype(scan, scan_type)) //Check that the thing we found is the type we want!
-		return FALSE //If not, keep searching!
+	var/list/wider_search_list = list()
+	for(var/turf/RT in oview(scan_range, src))
+		if(!(RT in adjacent))
+			wider_search_list += RT
+	wider_search_list = shuffle(wider_search_list) // Do we *really* need shuffles? Future coders should decide this.
+	if(turf_typecache[scan_type])
+		for(var/turf/scan as() in wider_search_list)
+			if(!istype(scan, scan_type))
+				continue
+			final_result = checkscan(scan,old_target)
+			if(final_result)
+				return final_result
+	else
+		for(var/turf/scan as() in wider_search_list)
+			for(var/deepscan in scan.contents) // view() barely checks contents of contents of turfs anyway
+				if(!istype(deepscan, scan_type))
+					continue
+				final_result = checkscan(deepscan,old_target)
+				if(final_result)
+					return final_result
+
+/mob/living/simple_animal/bot/proc/checkscan(scan, old_target)
 	if( (REF(scan) in ignore_list) || (scan == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
 		return FALSE
 
@@ -927,7 +941,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				bot_name = name
 				name = paicard.pai.name
 				faction = user.faction.Copy()
-				language_holder = paicard.pai.copy_languages(src)
+				copy_languages(paicard.pai)
 				log_combat(user, paicard.pai, "uploaded to [bot_name],")
 				return TRUE
 			else

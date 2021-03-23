@@ -26911,7 +26911,7 @@
 "aXK" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Sanitarium";
-	req_access_txt = "63"
+	req_one_access_txt = "1;34"
 	},
 /turf/open/floor/plasteel/white/side{
 	dir = 1
@@ -27036,7 +27036,7 @@
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "aXW" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/miner/carbon_dioxide,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "aXX" = (
@@ -28203,7 +28203,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "1"
+	req_one_access_txt = "1;34"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -29431,7 +29431,7 @@
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "bbO" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/miner/oxygen,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "bbP" = (
@@ -29874,7 +29874,7 @@
 "bcL" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "1"
+	req_one_access_txt = "1;34"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -29901,7 +29901,7 @@
 "bcN" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "1"
+	req_one_access_txt = "1;34"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/stripes/line{
@@ -30948,7 +30948,7 @@
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bev" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/miner/toxins,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "bew" = (
@@ -32469,7 +32469,7 @@
 "bha" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "1"
+	req_one_access_txt = "1;34"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -32505,7 +32505,7 @@
 "bhc" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "1"
+	req_one_access_txt = "1;34"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/stripes/line{
@@ -32771,7 +32771,7 @@
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "bhw" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/miner/nitrogen,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "bhx" = (
@@ -34913,9 +34913,7 @@
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bkH" = (
-/obj/machinery/portable_atmospherics/canister/nitrous_oxide{
-	valve_open = 1
-	},
+/obj/machinery/atmospherics/miner/n2o,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bkI" = (
@@ -50100,7 +50098,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access_txt = "63"
+	req_one_access_txt = "1;4"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -81373,7 +81371,7 @@
 	name = "Replica CentCom officer's jumpsuit"
 	},
 /obj/item/clothing/head/centhat{
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0);
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "stamina" = 0);
 	desc = "A replica hat of a Central Commander's attire. It has a small tag on it saying, 'It's good to be emperor.'";
 	name = "Replica CentCom hat"
 	},
@@ -81449,7 +81447,7 @@
 /obj/item/folder/red,
 /obj/item/toy/gun,
 /obj/item/clothing/head/beret/sec{
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0);
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "stamina" = 0);
 	desc = "A replica beret resembling that of a special operations officer under Nanotrasen.";
 	name = "replica officer's beret"
 	},
@@ -91828,26 +91826,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
-"cZH" = (
-/obj/structure/table/glass,
-/obj/machinery/camera{
-	c_tag = "Medbay - Sleepers";
-	dir = 2;
-	name = "medbay camera";
-	network = list("ss13","medbay")
-	},
-/obj/item/book/manual/wiki/medicine,
-/obj/item/stack/medical/gauze,
-/obj/item/stack/medical/bruise_pack,
-/obj/item/stack/medical/ointment,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/computer/cryopod{
-	pixel_y = 25
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "cZI" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -101240,20 +101218,6 @@
 	},
 /turf/closed/wall,
 /area/medical/surgery)
-"dsN" = (
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/suit/apron/surgical,
-/obj/item/clothing/mask/surgical,
-/obj/item/surgical_drapes,
-/obj/structure/table/reinforced,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/surgery)
 "dsO" = (
 /obj/item/retractor,
 /obj/item/hemostat,
@@ -101684,19 +101648,6 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/surgery)
-"dtQ" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
@@ -117637,9 +117588,8 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
 "ebi" = (
-/obj/structure/table/wood/fancy,
-/obj/item/storage/book/bible,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/altar_of_gods,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
 "ebj" = (
@@ -121316,7 +121266,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
-	req_access_txt = "1"
+	req_one_access_txt = "1;34"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -121363,6 +121313,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"hOt" = (
+/obj/structure/table/wood/fancy,
+/obj/item/storage/book/bible,
+/turf/open/floor/plasteel/grimy,
+/area/chapel/main)
 "hVp" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -122126,6 +122081,27 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/aisat)
+"ksw" = (
+/obj/structure/table/glass,
+/obj/machinery/camera{
+	c_tag = "Medbay - Sleepers";
+	dir = 2;
+	name = "medbay camera";
+	network = list("ss13","medbay")
+	},
+/obj/item/book/manual/wiki/medicine,
+/obj/item/stack/medical/gauze,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/ointment,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/computer/cryopod{
+	pixel_y = 25
+	},
+/obj/item/glove_box,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "ksH" = (
 /obj/machinery/door/firedoor/window,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -123083,6 +123059,20 @@
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine,
 /area/science/explab)
+"ndt" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -24
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/anesthetic_machine,
+/turf/open/floor/plasteel/white,
+/area/medical/surgery)
 "nfK" = (
 /obj/machinery/status_display/supply,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
@@ -126361,6 +126351,21 @@
 	heat_capacity = 1e+006
 	},
 /area/maintenance/port)
+"yml" = (
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/suit/apron/surgical,
+/obj/item/clothing/mask/surgical,
+/obj/item/surgical_drapes,
+/obj/structure/table/reinforced,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/item/glove_box,
+/turf/open/floor/plasteel/white,
+/area/medical/surgery)
 
 (1,1,1) = {"
 aaa
@@ -161005,7 +161010,7 @@ dYz
 dZk
 dZR
 eaz
-ebh
+hOt
 dVc
 ecA
 dTA
@@ -172782,7 +172787,7 @@ cST
 cUM
 cWu
 cRe
-cZH
+ksw
 cPo
 cXI
 aaI
@@ -174336,8 +174341,8 @@ dma
 dnG
 dnG
 dro
-dsN
-dtQ
+yml
+ndt
 dvE
 dxl
 dyG

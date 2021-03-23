@@ -118,7 +118,7 @@ SUBSYSTEM_DEF(explosions)
 	var/x0 = epicenter.x
 	var/y0 = epicenter.y
 	var/list/wipe_colours = list()
-	for(var/turf/T in spiral_range_turfs(max_range, epicenter))
+	for(var/turf/T as() in spiral_range_turfs(max_range, epicenter))
 		wipe_colours += T
 		var/dist = cheap_hypotenuse(T.x, T.y, x0, y0)
 
@@ -135,13 +135,13 @@ SUBSYSTEM_DEF(explosions)
 
 		if(dist < dev)
 			T.color = "red"
-			T.maptext = "Dev"
+			T.maptext = MAPTEXT("Dev")
 		else if (dist < heavy)
 			T.color = "yellow"
-			T.maptext = "Heavy"
+			T.maptext = MAPTEXT("Heavy")
 		else if (dist < light)
 			T.color = "blue"
-			T.maptext = "Light"
+			T.maptext = MAPTEXT("Light")
 		else
 			continue
 

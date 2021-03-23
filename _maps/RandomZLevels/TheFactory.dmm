@@ -6,7 +6,7 @@
 	},
 /turf/open/space/basic,
 /area/space{
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aaS" = (
 /turf/open/water{
@@ -37,7 +37,7 @@
 /turf/closed/indestructible/rock,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "acR" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -74,7 +74,7 @@
 /mob/living/simple_animal/chicken/rabbit/normal,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "afM" = (
 /mob/living/simple_animal/hostile/retaliate/clown/clownhulk/chlown,
@@ -85,7 +85,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "agS" = (
 /turf/open/floor/plating/asteroid{
@@ -120,7 +120,7 @@
 "ahN" = (
 /turf/closed/wall/mineral/wood,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "ahX" = (
 /obj/structure/floodlight_frame,
@@ -184,7 +184,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "alO" = (
 /obj/effect/fun_balloon/sentience{
@@ -196,7 +196,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "amo" = (
 /obj/item/paper{
@@ -224,7 +224,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "anM" = (
 /obj/item/grown/bananapeel,
@@ -232,7 +232,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aoj" = (
 /obj/effect/baseturf_helper/asteroid{
@@ -277,7 +277,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "apS" = (
 /obj/effect/decal/cleanable/blood{
@@ -287,7 +287,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aqg" = (
 /obj/effect/mine/explosive/traitor,
@@ -349,7 +349,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "arT" = (
 /obj/structure/table/bronze,
@@ -363,7 +363,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "asY" = (
 /obj/item/ammo_casing/shotgun/buckshot,
@@ -424,7 +424,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "avF" = (
 /obj/item/stack/tile/carpet/purple,
@@ -432,7 +432,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "avO" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -441,7 +441,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "avQ" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -450,7 +450,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "avV" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -476,7 +476,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "axI" = (
 /turf/closed/mineral/random,
@@ -488,7 +488,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "ayi" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -498,7 +498,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aym" = (
 /obj/item/stack/sheet/mineral/wood,
@@ -521,7 +521,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "azy" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -535,7 +535,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "azK" = (
 /obj/item/assembly/signaler,
@@ -573,7 +573,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aBg" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -582,7 +582,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aBC" = (
 /obj/structure/table/wood,
@@ -608,7 +608,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aCv" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -620,7 +620,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aCM" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -629,7 +629,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aCZ" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -638,7 +638,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aDq" = (
 /obj/effect/spawner/trap,
@@ -646,7 +646,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "aDs" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -655,7 +655,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aEr" = (
 /obj/effect/decal/cleanable/crayon{
@@ -690,14 +690,14 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aGV" = (
 /turf/open/floor/plating/dirt{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "aHR" = (
 /obj/effect/baseturf_helper/asteroid{
@@ -724,7 +724,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aJV" = (
 /obj/effect/clockwork/overlay/floor,
@@ -743,7 +743,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aKp" = (
 /obj/effect/decal/remains/robot,
@@ -751,7 +751,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "aKX" = (
 /obj/effect/decal/cleanable/vomit,
@@ -778,7 +778,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aNo" = (
 /obj/structure/chair/sofa/left{
@@ -848,7 +848,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aQL" = (
 /obj/item/twohanded/clockwork/brass_spear,
@@ -856,7 +856,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "aQM" = (
 /obj/structure/closet,
@@ -908,7 +908,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "aVm" = (
 /obj/item/clothing/head/helmet/skull,
@@ -1142,7 +1142,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "beF" = (
 /obj/item/multitool/ai_detect,
@@ -1159,7 +1159,7 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "bfi" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1206,7 +1206,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "bgN" = (
 /obj/item/organ/tongue/vampire,
@@ -1214,7 +1214,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "bhQ" = (
 /obj/item/paper{
@@ -1223,7 +1223,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "bie" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1268,9 +1268,7 @@
 	health = 150;
 	zombiejob = "Janitor"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "bjM" = (
 /obj/item/stack/ore/bananium,
@@ -1352,7 +1350,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "boz" = (
 /turf/closed/wall/mineral/wood,
@@ -1370,7 +1368,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "bpm" = (
 /obj/item/paper{
@@ -1379,7 +1377,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "bpW" = (
 /turf/open/floor/wood,
@@ -1390,7 +1388,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "bqC" = (
 /mob/living/simple_animal/hostile/retaliate/clown/banana{
@@ -1485,7 +1483,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "bvu" = (
 /obj/machinery/door/airlock/public/glass,
@@ -1571,7 +1569,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "bzW" = (
 /obj/effect/decal/remains/human,
@@ -1697,9 +1695,7 @@
 /turf/open/floor/plating/asteroid,
 /area/awaymission/factory/secret)
 "bIg" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -1729,7 +1725,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "bJD" = (
 /obj/structure/closet/crate/bin,
@@ -1776,7 +1772,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "bNu" = (
 /obj/structure/chair/wood,
@@ -1809,7 +1805,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "bPG" = (
 /obj/structure/stone_tile/block/burnt,
@@ -1817,7 +1813,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "bPO" = (
 /mob/living/simple_animal/hostile/retaliate/clown{
@@ -1940,9 +1936,7 @@
 /obj/item/chair,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "bTM" = (
 /obj/structure/bed,
@@ -2068,7 +2062,7 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "bZz" = (
 /obj/effect/mine/explosive/traitor,
@@ -2139,9 +2133,7 @@
 	dir = 8;
 	enemies = list(/mob/living/carbon,/mob/living/carbon/human/species)
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/holofloor/grass{
 	color = "#1eff00"
 	},
@@ -2152,7 +2144,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "cea" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2210,7 +2202,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cgR" = (
 /obj/item/paper{
@@ -2364,7 +2356,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cof" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2407,9 +2399,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/awaymission/factory/factoryafter/down)
 "cqJ" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/holofloor/grass{
 	color = "#1eff00"
 	},
@@ -2453,7 +2443,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "ctr" = (
 /mob/living/simple_animal/hostile/retaliate/clown{
@@ -2464,16 +2454,14 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cuD" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor3-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "cvq" = (
 /obj/structure/table/wood/poker,
@@ -2520,21 +2508,21 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cwH" = (
 /obj/effect/trap/nexus/trickyspawner/clowns,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cwO" = (
 /obj/effect/mob_spawn/human/corpse/charredskeleton,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cxb" = (
 /obj/item/stack/ore/bananium{
@@ -2543,14 +2531,14 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cxe" = (
 /obj/structure/flora/ausbushes/brflowers,
 /mob/living/simple_animal/chicken/rabbit/normal,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "cxo" = (
 /obj/structure/chair/wood{
@@ -2622,7 +2610,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cAE" = (
 /obj/structure/flora/ausbushes/ywflowers,
@@ -2631,7 +2619,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "cAH" = (
 /obj/item/paper{
@@ -2640,7 +2628,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cAW" = (
 /obj/structure/table/wood,
@@ -2766,16 +2754,14 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cFr" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cGs" = (
 /obj/structure/bed/pod,
@@ -2823,7 +2809,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cHO" = (
 /mob/living/simple_animal/hostile/retaliate/clown/fleshclown{
@@ -2918,7 +2904,7 @@
 /turf/closed/mineral/random/high_chance,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cLj" = (
 /obj/structure/closet/crate,
@@ -3040,7 +3026,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cPO" = (
 /obj/structure/chair/pew/right,
@@ -3102,7 +3088,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "cSG" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -3145,7 +3131,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "cTC" = (
 /turf/open/floor/mineral/bananium,
@@ -3226,7 +3212,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "cZJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3415,7 +3401,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "dnA" = (
 /obj/structure/closet/firecloset/full,
@@ -3433,7 +3419,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "dov" = (
 /obj/machinery/door/airlock{
@@ -3466,7 +3452,7 @@
 /obj/item/stack/tile/carpet/purple,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "dpL" = (
 /obj/structure/railing{
@@ -3544,9 +3530,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring)
 "duU" = (
@@ -3555,7 +3539,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "duY" = (
 /obj/structure/closet/l3closet/security,
@@ -3679,7 +3663,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "dAc" = (
 /obj/structure/table/wood,
@@ -3739,7 +3723,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "dBN" = (
 /obj/item/instrument/violin/golden{
@@ -3805,7 +3789,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "dEZ" = (
 /obj/item/twohanded/required/kirbyplants/dead{
@@ -3963,7 +3947,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "dKt" = (
 /obj/item/clothing/mask/fakemoustache/italian,
@@ -3977,7 +3961,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "dKS" = (
 /obj/structure/cable/yellow{
@@ -4090,9 +4074,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/vomit,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "dRE" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -4166,7 +4148,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "dVk" = (
 /obj/item/paper{
@@ -4361,7 +4343,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "eeH" = (
 /obj/structure/table/wood,
@@ -4432,7 +4414,7 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "ekj" = (
 /obj/machinery/camera{
@@ -4477,7 +4459,7 @@
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "elJ" = (
 /obj/effect/baseturf_helper/asteroid{
@@ -4490,7 +4472,7 @@
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "emW" = (
 /obj/machinery/light/small,
@@ -4503,9 +4485,7 @@
 	icon_state = "floor2"
 	},
 /obj/effect/decal/cleanable/chem_pile,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "enI" = (
 /obj/machinery/camera{
@@ -4545,7 +4525,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eqr" = (
 /obj/structure/flora/ausbushes/ywflowers,
@@ -4555,7 +4535,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "eqF" = (
 /obj/machinery/door/window/brigdoor{
@@ -4608,9 +4588,7 @@
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "esd" = (
 /obj/structure/window/reinforced/spawner,
@@ -4661,7 +4639,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "etI" = (
 /obj/machinery/camera,
@@ -4683,7 +4661,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "euu" = (
 /obj/item/paper{
@@ -4857,9 +4835,7 @@
 /turf/open/floor/plasteel/dark/corner,
 /area/awaymission/factory/factoryduring/down)
 "eBU" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /obj/effect/decal/cleanable/vomit,
 /turf/open/floor/plasteel/dark,
 /area/awaymission/factory/factoryduring/down)
@@ -5074,7 +5050,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "eNo" = (
 /obj/structure/closet/crate/coffin,
@@ -5083,7 +5059,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eNG" = (
 /obj/structure/closet/crate/coffin,
@@ -5092,7 +5068,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eOu" = (
 /obj/structure/closet/crate/coffin,
@@ -5101,7 +5077,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eOG" = (
 /obj/structure/closet/crate/coffin,
@@ -5110,7 +5086,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eOK" = (
 /obj/structure/table/wood,
@@ -5164,7 +5140,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eRP" = (
 /obj/machinery/light/broken,
@@ -5202,7 +5178,7 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "eSR" = (
 /obj/machinery/door/airlock/security/glass{
@@ -5223,7 +5199,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "eTl" = (
 /mob/living/simple_animal/hostile/factory/ranged/lmg{
@@ -5304,7 +5280,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "eUz" = (
 /obj/structure/table,
@@ -5320,7 +5296,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eUW" = (
 /obj/structure/table,
@@ -5333,7 +5309,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eVh" = (
 /obj/structure/closet/crate/coffin,
@@ -5342,7 +5318,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eVj" = (
 /obj/structure/closet/crate/coffin,
@@ -5351,7 +5327,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eVN" = (
 /obj/structure/closet/crate/coffin,
@@ -5360,7 +5336,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eWY" = (
 /obj/item/paper{
@@ -5369,7 +5345,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eXd" = (
 /obj/structure/chair/wood{
@@ -5443,7 +5419,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "eYS" = (
 /obj/machinery/conveyor/auto{
@@ -5474,7 +5450,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "faR" = (
 /obj/structure/closet/crate/coffin,
@@ -5485,7 +5461,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fbB" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
@@ -5497,9 +5473,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /obj/item/reagent_containers/food/snacks/meat/slab,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "fbF" = (
 /obj/structure/table,
@@ -5525,7 +5499,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fch" = (
 /turf/closed/mineral/random/high_chance,
@@ -5552,7 +5526,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "feg" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -5560,7 +5534,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "fei" = (
 /obj/structure/table/reinforced,
@@ -5631,7 +5605,7 @@
 "fgi" = (
 /turf/open/space/basic,
 /area/space{
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fhp" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -5653,7 +5627,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fhT" = (
 /obj/structure/closet/crate/coffin,
@@ -5662,7 +5636,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fid" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom{
@@ -5690,7 +5664,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fiS" = (
 /obj/structure/cable/yellow{
@@ -5801,7 +5775,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "foh" = (
 /obj/structure/lattice/catwalk/over,
@@ -5813,7 +5787,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "for" = (
 /mob/living/simple_animal/slaughter{
@@ -5822,7 +5796,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "foz" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -5878,7 +5852,7 @@
 /obj/item/stack/tile/wood,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "fqm" = (
 /obj/effect/decal/cleanable/blood{
@@ -5887,7 +5861,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fqx" = (
 /obj/item/card/id/job/med{
@@ -5912,18 +5886,14 @@
 /obj/effect/decal/cleanable/chem_pile,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "ftR" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fum" = (
 /obj/effect/decal/cleanable/blood,
@@ -5951,9 +5921,7 @@
 	icon_state = "floor5-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fvv" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide{
@@ -5977,7 +5945,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fwd" = (
 /obj/effect/fun_balloon/sentience{
@@ -5988,7 +5956,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fwi" = (
 /obj/effect/decal/cleanable/blood{
@@ -5997,7 +5965,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fwF" = (
 /obj/effect/decal/cleanable/blood{
@@ -6006,7 +5974,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fwG" = (
 /obj/machinery/light/small,
@@ -6017,9 +5985,7 @@
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/chem_pile,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "fzg" = (
 /obj/item/clothing/shoes/sandal,
@@ -6028,7 +5994,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "fzq" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -6042,9 +6008,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "fzH" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide{
@@ -6062,9 +6026,7 @@
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fAc" = (
 /obj/effect/rune/narsie{
@@ -6075,9 +6037,7 @@
 	icon_state = "floor3-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fBb" = (
 /obj/structure/kitchenspike,
@@ -6089,9 +6049,7 @@
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fBf" = (
 /obj/machinery/portable_atmospherics/canister/bz{
@@ -6131,7 +6089,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fDp" = (
 /obj/machinery/light/small/broken,
@@ -6143,7 +6101,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "fDB" = (
 /obj/structure/table/reinforced,
@@ -6167,7 +6125,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fEq" = (
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag,
@@ -6181,9 +6139,7 @@
 	icon_state = "bubblegumfoot"
 	},
 /obj/effect/decal/cleanable/chem_pile,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "fEE" = (
 /obj/item/clothing/head/helmet/skull,
@@ -6204,9 +6160,7 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor3"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "fEZ" = (
 /obj/effect/decal/cleanable/vomit,
@@ -6232,9 +6186,7 @@
 "fGa" = (
 /obj/item/bodypart/chest,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "fGp" = (
 /obj/structure/table/wood,
@@ -6254,7 +6206,7 @@
 	},
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fHB" = (
 /obj/machinery/portable_atmospherics/canister/bz{
@@ -6278,9 +6230,7 @@
 	icon_state = "ert";
 	name = "\proper level three access ID card"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fIh" = (
 /obj/structure/closet/crate/bin,
@@ -6299,9 +6249,7 @@
 	icon_state = "floor3-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fKS" = (
 /obj/structure/closet/body_bag{
@@ -6411,7 +6359,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fOk" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -6440,7 +6388,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "fPY" = (
 /obj/machinery/light/broken,
@@ -6451,9 +6399,7 @@
 	icon_state = "floor2"
 	},
 /obj/effect/decal/cleanable/blood/footprints,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "fRJ" = (
 /obj/structure/reagent_dispensers/plumbed,
@@ -6562,9 +6508,7 @@
 	icon_state = "floor5-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fWU" = (
 /obj/structure/chair/noose,
@@ -6574,9 +6518,7 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor3"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "fWZ" = (
 /obj/structure/kitchenspike,
@@ -6585,9 +6527,7 @@
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fXb" = (
 /obj/item/clothing/glasses/science/sciencesun,
@@ -6678,7 +6618,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gdD" = (
 /obj/item/bodypart/r_leg,
@@ -6691,9 +6631,7 @@
 	wander = 0;
 	zombiejob = "Assistant"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "gdS" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -6745,9 +6683,7 @@
 /area/awaymission/factory/secret)
 "gfm" = (
 /obj/effect/decal/cleanable/blood/footprints,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "gfu" = (
 /obj/item/clothing/glasses/science/sciencesun,
@@ -6783,7 +6719,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "giJ" = (
 /obj/machinery/conveyor/auto{
@@ -6824,9 +6760,7 @@
 	icon_state = "floor4-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "gkt" = (
 /obj/item/shard{
@@ -6836,16 +6770,14 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gkv" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "gkS" = (
 /obj/machinery/power/floodlight{
@@ -7034,7 +6966,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "guY" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -7057,9 +6989,7 @@
 /obj/item/organ/tongue/lizard,
 /obj/item/organ/tongue,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "gvi" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -7067,9 +6997,7 @@
 	},
 /obj/machinery/light/small/broken,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "gvo" = (
 /obj/item/ammo_casing/shotgun/buckshot{
@@ -7180,7 +7108,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gzP" = (
 /obj/structure/table,
@@ -7195,7 +7123,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gAm" = (
 /obj/structure/closet/secure_closet/freezer/fridge{
@@ -7218,9 +7146,7 @@
 	icon_state = "floor3"
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "gBo" = (
 /obj/effect/decal/cleanable/blood/tracks{
@@ -7255,9 +7181,7 @@
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 1
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "gEB" = (
 /obj/structure/chair/wood/normal,
@@ -7283,9 +7207,7 @@
 	},
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "gFD" = (
 /obj/machinery/vending/cola/random,
@@ -7309,7 +7231,7 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "gHy" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -7351,7 +7273,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gJp" = (
 /obj/structure/closet/crate/coffin,
@@ -7360,7 +7282,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gJA" = (
 /obj/structure/showcase/horrific_experiment,
@@ -7433,7 +7355,7 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "gMU" = (
 /obj/structure/table,
@@ -7459,7 +7381,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gNG" = (
 /obj/item/pickaxe/drill,
@@ -7467,14 +7389,14 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gNK" = (
 /obj/effect/spawner/lootdrop/snowdin/dungeonmisc,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gOf" = (
 /obj/effect/spawner/lootdrop/snowdin/dungeonmisc,
@@ -7482,7 +7404,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gOg" = (
 /obj/machinery/clonepod/experimental,
@@ -7565,7 +7487,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gSY" = (
 /obj/item/disk/cargo/bluespace_pod,
@@ -7590,7 +7512,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "gUL" = (
 /obj/item/organ/tongue/abductor,
@@ -7607,7 +7529,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "gVJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -7802,7 +7724,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "hdu" = (
 /obj/effect/decal/cleanable/blood/tracks,
@@ -7825,9 +7747,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/three_course_meal,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "heB" = (
 /turf/open/floor/plasteel/dark,
@@ -7870,7 +7790,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "hfM" = (
 /obj/structure/table/reinforced,
@@ -8033,12 +7953,10 @@
 /turf/closed/wall/r_wall,
 /area/awaymission/factory/factoryduring/down/leveltwo/asylum)
 "hoT" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "hoW" = (
 /obj/machinery/door/airlock/vault{
@@ -8049,7 +7967,7 @@
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "hpd" = (
 /obj/effect/decal/remains/xeno,
@@ -8766,7 +8684,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "hPu" = (
 /obj/effect/spawner/structure/window/plastitanium,
@@ -8893,9 +8811,7 @@
 /obj/item/bodypart/r_leg,
 /obj/item/bodypart/l_leg,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "hTA" = (
 /obj/structure/closet,
@@ -8960,7 +8876,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "hWz" = (
 /obj/structure/sink{
@@ -9003,7 +8919,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "hYx" = (
 /obj/structure/sink{
@@ -9106,7 +9022,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "icu" = (
 /obj/item/paper{
@@ -9176,7 +9092,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "ige" = (
 /obj/structure/table/wood,
@@ -9228,7 +9144,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "iiI" = (
 /obj/structure/table/reinforced,
@@ -9687,7 +9603,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "iBH" = (
 /obj/effect/decal/remains/human,
@@ -9849,7 +9765,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "iIm" = (
 /obj/structure/table/reinforced,
@@ -9896,7 +9812,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "iJG" = (
 /obj/machinery/light/small{
@@ -10092,7 +10008,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "iQY" = (
 /obj/effect/decal/cleanable/blood{
@@ -10374,7 +10290,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "jgE" = (
 /obj/machinery/light,
@@ -10752,7 +10668,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "jva" = (
 /obj/structure/chair/pew/left{
@@ -10782,9 +10698,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "jwr" = (
 /obj/structure/table/reinforced,
@@ -10807,9 +10721,7 @@
 /turf/open/floor/carpet/cyan,
 /area/awaymission/factory/factoryafter/down)
 "jwO" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel/checker,
 /area/awaymission/factory/factoryduring/down)
 "jxB" = (
@@ -10846,7 +10758,7 @@
 "jzs" = (
 /turf/closed/wall/mineral/wood,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "jAf" = (
 /obj/structure/table/reinforced,
@@ -10877,7 +10789,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "jCe" = (
 /obj/structure/closet/emcloset/anchored,
@@ -11227,7 +11139,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "jXe" = (
 /obj/item/stack/sheet/bone,
@@ -11392,7 +11304,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "kbn" = (
 /obj/effect/decal/remains/human,
@@ -11511,7 +11423,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "kiW" = (
 /obj/structure/spider/stickyweb,
@@ -11519,7 +11431,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kjF" = (
 /obj/structure/cable{
@@ -11655,7 +11567,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kuJ" = (
 /obj/structure/mineral_door/wood,
@@ -11733,9 +11645,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring/house)
 "kwT" = (
@@ -11799,7 +11709,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "kzf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -11909,7 +11819,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kER" = (
 /obj/machinery/light/built,
@@ -11985,7 +11895,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kHR" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper{
@@ -11994,7 +11904,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kHW" = (
 /obj/structure/table,
@@ -12047,7 +11957,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "kJX" = (
 /obj/item/ammo_casing/mm712x82{
@@ -12093,7 +12003,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "kKJ" = (
 /turf/open/floor/wood{
@@ -12115,20 +12025,18 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kLF" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "kLN" = (
 /obj/item/bodypart/chest,
 /obj/effect/decal/cleanable/vomit,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "kMo" = (
 /obj/machinery/door/airlock/freezer,
@@ -12157,14 +12065,12 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kOr" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/three_course_meal,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "kOv" = (
 /obj/structure/closet/crate/coffin,
@@ -12173,7 +12079,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kPm" = (
 /obj/structure/closet/crate/coffin,
@@ -12182,7 +12088,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kPs" = (
 /obj/structure/spider/stickyweb,
@@ -12194,7 +12100,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kPu" = (
 /obj/effect/decal/cleanable/crayon{
@@ -12224,7 +12130,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kRh" = (
 /obj/machinery/door/airlock/freezer,
@@ -12313,7 +12219,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kUQ" = (
 /obj/item/pickaxe,
@@ -12321,7 +12227,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "kUZ" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -12330,18 +12236,14 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/camera,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "kVd" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor5-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "kVo" = (
 /obj/machinery/light,
@@ -12382,7 +12284,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "kWs" = (
 /obj/structure/extinguisher_cabinet{
@@ -12476,7 +12378,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "lbD" = (
 /obj/machinery/light/small/broken{
@@ -12507,17 +12409,13 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor2"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lfb" = (
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor2"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lfh" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -12538,16 +12436,12 @@
 /area/awaymission/factory/factoryafter/down/maint)
 "lfE" = (
 /obj/machinery/camera,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lgl" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/cleanable/vomit,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lgG" = (
 /obj/structure/cable{
@@ -12664,7 +12558,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "lmf" = (
 /obj/machinery/light/small{
@@ -12710,7 +12604,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "lnt" = (
 /obj/item/shard,
@@ -12727,7 +12621,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "loO" = (
 /mob/living/simple_animal/hostile/psycho/muzzle{
@@ -12736,13 +12630,13 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "loR" = (
 /mob/living/simple_animal/chicken/rabbit,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "lpe" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -12757,18 +12651,14 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/chair/noose,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lpp" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lpM" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -12778,9 +12668,7 @@
 /obj/structure/chair/noose,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lpT" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -12789,9 +12677,7 @@
 /obj/structure/chair/noose,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lqW" = (
 /obj/effect/decal/remains/human,
@@ -12831,9 +12717,7 @@
 /obj/structure/chair/noose,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lsB" = (
 /obj/structure/stone_tile/burnt,
@@ -12841,7 +12725,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "lth" = (
 /obj/machinery/door/airlock/engineering,
@@ -12873,9 +12757,7 @@
 "lww" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lwC" = (
 /obj/structure/cable,
@@ -13004,7 +12886,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "lAJ" = (
 /obj/structure/window/reinforced/spawner/east,
@@ -13039,9 +12921,7 @@
 /area/awaymission/factory/factoryafter/down/levelthree)
 "lCp" = (
 /obj/structure/chair/noose,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lCs" = (
 /mob/living/simple_animal/hostile/zombie{
@@ -13052,9 +12932,7 @@
 	wander = 0;
 	zombiejob = "Cook"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lCT" = (
 /obj/item/circuitboard/computer/prototype_cloning,
@@ -13069,9 +12947,7 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor3"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lDg" = (
 /obj/structure/chair/noose,
@@ -13079,9 +12955,7 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor2"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lDK" = (
 /turf/closed/wall/mineral/wood/nonmetal,
@@ -13226,7 +13100,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "lJn" = (
 /obj/structure/closet/secure{
@@ -13283,23 +13157,17 @@
 "lKD" = (
 /obj/item/bodypart/l_arm,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lKP" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/item/chair,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lKZ" = (
 /obj/item/bodypart/l_arm,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lLK" = (
 /obj/structure/chair/wood{
@@ -13309,9 +13177,7 @@
 /area/awaymission/factory/villageduring/house)
 "lLZ" = (
 /obj/item/chair,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lMk" = (
 /obj/item/chair{
@@ -13337,7 +13203,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "lNr" = (
 /obj/machinery/conveyor/inverted{
@@ -13347,13 +13213,6 @@
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
-	},
-/area/awaymission/factory/factoryafter/down/leveltwo)
-"lNE" = (
-/obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lNP" = (
@@ -13410,14 +13269,12 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "lQY" = (
 /obj/effect/decal/cleanable/blood/gibs/torso,
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lRf" = (
 /obj/structure/closet/firecloset/full,
@@ -13495,9 +13352,7 @@
 	icon_state = "floor5-old"
 	},
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lTn" = (
 /obj/structure/table/wood,
@@ -13709,7 +13564,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "meh" = (
 /obj/structure/chair/pew/left,
@@ -13762,7 +13617,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "mfW" = (
 /obj/machinery/conveyor/auto{
@@ -13806,9 +13661,7 @@
 /area/awaymission/factory/villageduring/house)
 "mhD" = (
 /obj/effect/gibspawner/human,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mib" = (
 /obj/item/clothing/gloves/color/brown/cargo,
@@ -13936,7 +13789,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "mns" = (
 /turf/open/water{
@@ -14056,7 +13909,7 @@
 /turf/closed/wall/r_wall/rust,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "mwU" = (
 /obj/effect/decal/remains/human,
@@ -14066,7 +13919,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "mwW" = (
 /obj/effect/decal/remains/human,
@@ -14074,7 +13927,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "mxN" = (
 /obj/structure/table/reinforced,
@@ -14148,7 +14001,7 @@
 	icon_state = "wood-broken"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "mzg" = (
 /obj/structure/table/reinforced,
@@ -14438,16 +14291,14 @@
 	},
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mKg" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/grass/snow/basalt{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15";
 	name = "road";
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "mKl" = (
 /obj/machinery/door/window/brigdoor/security,
@@ -14510,7 +14361,7 @@
 /obj/structure/flora/ausbushes/pointybush,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "mMv" = (
 /obj/item/bedsheet/brown,
@@ -14773,7 +14624,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "nat" = (
 /obj/item/bikehorn/rubberducky,
@@ -14807,7 +14658,7 @@
 	},
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "nbu" = (
 /obj/item/ammo_casing/shotgun/buckshot{
@@ -14822,7 +14673,7 @@
 /turf/closed/mineral/random,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "ncd" = (
 /obj/structure/chair/wood{
@@ -14852,7 +14703,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "ndv" = (
 /obj/structure/window/plastitanium,
@@ -14923,7 +14774,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "nfm" = (
 /obj/structure/closet/crate,
@@ -15168,7 +15019,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "nmC" = (
 /obj/structure/bed/roller,
@@ -15527,9 +15378,7 @@
 "nzJ" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "nzT" = (
 /obj/structure/spawner/nether{
@@ -15621,7 +15470,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "nCU" = (
 /obj/structure/window/reinforced/fulltile,
@@ -15733,7 +15582,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "nIL" = (
 /obj/structure/table,
@@ -15944,7 +15793,7 @@
 /obj/structure/flora/ausbushes/fernybush,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "nQr" = (
 /mob/living/simple_animal/hostile/retaliate/ghost{
@@ -15953,7 +15802,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "nQN" = (
 /obj/machinery/door/airlock/hatch,
@@ -16138,9 +15987,7 @@
 	icon_state = "floor4-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "nZb" = (
 /obj/item/pen,
@@ -16509,7 +16356,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "oml" = (
 /obj/machinery/vending/snack/random,
@@ -16717,7 +16564,7 @@
 /turf/closed/indestructible/rock,
 /area/awaymission{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "otL" = (
 /obj/item/ammo_casing/mm712x82{
@@ -16774,7 +16621,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "owg" = (
 /obj/effect/decal/cleanable/crayon{
@@ -16828,14 +16675,14 @@
 "ozh" = (
 /turf/closed/wall/mineral/wood/nonmetal,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "ozj" = (
 /turf/open/floor/holofloor/beach/coast_b{
 	dir = 8
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "ozt" = (
 /obj/structure/table/wood,
@@ -17068,11 +16915,6 @@
 	},
 /turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryafter/down/levelthree)
-"oIg" = (
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/awaymission/factory/factoryduring/down/leveltwo)
 "oIn" = (
 /obj/item/ammo_casing/c45{
 	caliber = null;
@@ -17111,7 +16953,7 @@
 /obj/structure/flora/junglebush/b,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "oJn" = (
 /obj/machinery/door/airlock/vault{
@@ -17179,7 +17021,7 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "oKE" = (
 /obj/item/ammo_box/magazine/mm712x82{
@@ -17363,7 +17205,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "oOc" = (
 /obj/structure/stone_tile/slab/burnt,
@@ -17371,7 +17213,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "oOt" = (
 /obj/machinery/light/small/broken{
@@ -17709,7 +17551,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "pdk" = (
 /obj/machinery/computer/secure_data{
@@ -17723,9 +17565,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "peL" = (
 /obj/effect/decal/cleanable/crayon{
@@ -17850,7 +17690,7 @@
 /turf/closed/indestructible/rock,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "piB" = (
 /obj/structure/closet/l3closet/security,
@@ -18053,7 +17893,7 @@
 	},
 /area/awaymission{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "poO" = (
 /obj/structure/closet/secure_closet/personal{
@@ -18255,9 +18095,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "pwP" = (
 /obj/structure/table/reinforced,
@@ -18524,7 +18362,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "pGP" = (
 /obj/item/ammo_box/magazine/m45{
@@ -18588,7 +18426,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "pIY" = (
 /obj/effect/decal/cleanable/crayon{
@@ -18609,7 +18447,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "pJv" = (
 /obj/structure/chair/comfy/black{
@@ -18699,7 +18537,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "pLL" = (
 /obj/machinery/power/floodlight{
@@ -18939,7 +18777,7 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "pTQ" = (
 /obj/machinery/camera{
@@ -18999,7 +18837,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "pWw" = (
 /obj/structure/closet/secure_closet/personal{
@@ -19078,7 +18916,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "pZk" = (
 /obj/machinery/power/floodlight{
@@ -19138,7 +18976,7 @@
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "qcE" = (
 /obj/item/gun/ballistic/automatic/pistol/m1911,
@@ -19576,7 +19414,7 @@
 /obj/machinery/power/solar,
 /turf/open/floor/plasteel/solarpanel,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "qwm" = (
 /obj/machinery/light,
@@ -19619,9 +19457,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring)
 "qxW" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/carpet,
 /area/awaymission/factory/villageduring/house)
 "qxZ" = (
@@ -19886,7 +19722,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "qIr" = (
 /obj/structure/closet/secure{
@@ -19953,7 +19789,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "qKh" = (
 /obj/machinery/conveyor/auto{
@@ -20013,9 +19849,7 @@
 /area/awaymission/factory/factoryduring/down/levelthree)
 "qMq" = (
 /obj/structure/mineral_door/wood,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring/house/start)
 "qML" = (
@@ -20187,7 +20021,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "qVX" = (
 /obj/structure/window{
@@ -20214,7 +20048,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "qWL" = (
 /obj/structure/window{
@@ -20307,12 +20141,6 @@
 /obj/machinery/smartfridge/chemistry,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring/down/leveltwo)
-"qZa" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/awaymission/factory/factoryafter/down/leveltwo)
 "qZc" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/ballistic/automatic/pistol/m1911,
@@ -20487,13 +20315,11 @@
 /area/awaymission/factory/factoryduring/down/levelthree)
 "rhI" = (
 /obj/effect/trap/nexus/trickyspawner/clowns,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "rhS" = (
 /obj/item/clothing/suit/armor/vest/old,
@@ -20724,7 +20550,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rqI" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -20775,7 +20601,7 @@
 "rsO" = (
 /turf/open/floor/carpet/blue,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rsR" = (
 /obj/item/clothing/head/helmet/old,
@@ -20839,7 +20665,7 @@
 /obj/machinery/power/solar,
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rvg" = (
 /obj/structure/toilet{
@@ -20882,7 +20708,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rxf" = (
 /obj/machinery/door/airlock,
@@ -20938,7 +20764,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "ryU" = (
 /obj/structure/guncase/shotgun,
@@ -21170,7 +20996,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "rHG" = (
 /obj/machinery/light/built{
@@ -21189,7 +21015,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rIc" = (
 /obj/item/book/granter/spell/random,
@@ -21307,7 +21133,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rNL" = (
 /obj/structure/table/wood,
@@ -21329,7 +21155,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rOG" = (
 /obj/effect/baseturf_helper/asteroid{
@@ -21368,7 +21194,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rQz" = (
 /obj/structure/extinguisher_cabinet{
@@ -21387,12 +21213,12 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rRb" = (
 /turf/open/floor/carpet/purple,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rRh" = (
 /obj/structure/closet/crate,
@@ -21413,7 +21239,7 @@
 	name = "deep river water"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rRH" = (
 /obj/structure/extinguisher_cabinet{
@@ -21582,7 +21408,7 @@
 /obj/structure/mineral_door/wood,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "rXc" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -21710,7 +21536,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "scH" = (
 /obj/machinery/door/airlock/medical{
@@ -21776,14 +21602,14 @@
 /obj/machinery/power/solar,
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sgD" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "sgM" = (
 /obj/structure/reagent_dispensers/fueltank,
@@ -21804,7 +21630,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "shC" = (
 /obj/item/ammo_casing/c45{
@@ -21841,9 +21667,7 @@
 /turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryafter/down/levelthree/engine)
 "sjE" = (
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "sjV" = (
 /obj/machinery/shower{
@@ -22157,9 +21981,7 @@
 	dir = 4
 	},
 /obj/effect/gibspawner/human,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "syL" = (
 /obj/structure/sink{
@@ -22259,7 +22081,7 @@
 	},
 /area/awaymission{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "sBa" = (
 /obj/effect/baseturf_helper/asteroid{
@@ -22268,7 +22090,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sBi" = (
 /obj/effect/decal/remains/human,
@@ -22305,7 +22127,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sBF" = (
 /obj/item/gun/ballistic/automatic/wt550{
@@ -22322,7 +22144,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sCJ" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
@@ -22330,9 +22152,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "sCO" = (
 /obj/effect/decal/remains/robot,
@@ -22340,7 +22160,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sDy" = (
 /mob/living/simple_animal/hostile/factory/ranged/lmg{
@@ -22351,7 +22171,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sDA" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -22369,13 +22189,13 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sDS" = (
 /obj/item/stack/tile/carpet/blue,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sDU" = (
 /obj/item/ammo_casing/caseless/rocket,
@@ -22383,7 +22203,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sEf" = (
 /obj/structure/ladder/unbreakable{
@@ -22398,7 +22218,7 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sEM" = (
 /obj/machinery/door/airlock/hatch{
@@ -22469,7 +22289,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sHW" = (
 /turf/open/floor/plating{
@@ -22482,7 +22302,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sIJ" = (
 /obj/structure/table/reinforced,
@@ -22565,7 +22385,7 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sLg" = (
 /obj/structure/cable{
@@ -22577,7 +22397,7 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sLl" = (
 /obj/item/twohanded/required/kirbyplants/dead{
@@ -22600,7 +22420,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sLv" = (
 /obj/structure/lattice/catwalk/over,
@@ -22612,7 +22432,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sMo" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -22639,7 +22459,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sNs" = (
 /obj/effect/decal/cleanable/dirt,
@@ -22665,7 +22485,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sNS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -22795,7 +22615,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sSi" = (
 /obj/structure/chair,
@@ -22814,7 +22634,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sSG" = (
 /turf/open/indestructible/binary{
@@ -22832,9 +22652,7 @@
 /obj/structure/chair/noose,
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "sTu" = (
 /obj/structure/lattice/catwalk/over,
@@ -22848,7 +22666,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sTS" = (
 /obj/structure/lattice/catwalk/over,
@@ -22862,7 +22680,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sUq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -23007,7 +22825,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "sZE" = (
 /obj/item/circuitboard/machine/chem_master,
@@ -23066,7 +22884,7 @@
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "tea" = (
 /obj/item/ammo_casing/p50{
@@ -23458,7 +23276,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "tuW" = (
 /turf/open/floor/carpet,
@@ -23500,7 +23318,7 @@
 /obj/item/stack/tile/wood,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "twG" = (
 /obj/item/stack/ore/bluespace_crystal{
@@ -23553,7 +23371,7 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "txI" = (
 /obj/machinery/light/built{
@@ -23615,7 +23433,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "tAU" = (
 /obj/item/paper{
@@ -23633,9 +23451,7 @@
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "tBm" = (
 /obj/structure/table,
@@ -23701,7 +23517,7 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "tEU" = (
 /turf/open/floor/carpet/green,
@@ -23725,7 +23541,7 @@
 	icon_state = "smooth"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "tGs" = (
 /obj/structure/closet/secure{
@@ -23764,7 +23580,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "tIy" = (
 /obj/effect/decal/cleanable/dirt,
@@ -23800,7 +23616,7 @@
 /obj/item/stack/sheet/mineral/wood,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "tLp" = (
 /obj/structure/table,
@@ -23915,7 +23731,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "tQo" = (
 /obj/machinery/camera,
@@ -23938,9 +23754,7 @@
 /area/awaymission/factory/factoryafter/down)
 "tQN" = (
 /obj/structure/mineral_door/iron,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/monotile/steel,
 /area/awaymission/factory/villageduring/hospital)
 "tRn" = (
@@ -23963,7 +23777,7 @@
 "tRJ" = (
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "tSh" = (
 /turf/open/floor/carpet/red,
@@ -24055,9 +23869,7 @@
 /obj/machinery/door/airlock/security/glass{
 	req_access_txt = "203"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel{
 	dir = 8;
 	heat_capacity = 1e+006;
@@ -24178,9 +23990,7 @@
 "uef" = (
 /obj/machinery/gibber,
 /obj/effect/gibspawner/human,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "ueo" = (
 /obj/structure/table/wood,
@@ -24388,7 +24198,7 @@
 /obj/machinery/power/solar,
 /turf/open/floor/plasteel/solarpanel,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uln" = (
 /obj/machinery/door/window,
@@ -24418,7 +24228,7 @@
 /obj/structure/flora/rock/pile,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "une" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -24526,7 +24336,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "usY" = (
 /obj/structure/frame/computer{
@@ -24564,7 +24374,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "utV" = (
 /obj/effect/spawner/lootdrop/organ_spawner,
@@ -24594,7 +24404,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "uuL" = (
 /turf/open/water{
@@ -24605,7 +24415,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uuT" = (
 /obj/structure/cable{
@@ -24617,7 +24427,7 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uvc" = (
 /obj/structure/table,
@@ -24631,7 +24441,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uwO" = (
 /obj/structure/table/wood,
@@ -24661,7 +24471,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uxc" = (
 /mob/living/simple_animal/hostile/factory,
@@ -24685,7 +24495,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uxz" = (
 /obj/structure/table,
@@ -24811,7 +24621,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uEt" = (
 /obj/structure/cable{
@@ -24825,7 +24635,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uFl" = (
 /obj/structure/lattice/catwalk/over,
@@ -24836,7 +24646,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uGw" = (
 /obj/structure/lattice/catwalk/over,
@@ -24854,7 +24664,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uGX" = (
 /obj/structure/lattice/catwalk/over,
@@ -24868,7 +24678,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uHa" = (
 /obj/structure/table,
@@ -25076,7 +24886,7 @@
 	icon_state = "wood-broken2"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uOp" = (
 /obj/vehicle/ridden/scooter/skateboard{
@@ -25099,7 +24909,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uOu" = (
 /obj/item/paper/crumpled{
@@ -25211,7 +25021,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "uRB" = (
 /obj/effect/decal/remains/human,
@@ -25219,27 +25029,25 @@
 	icon_state = "wood-broken7"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uSp" = (
 /obj/item/shard,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uSN" = (
 /obj/item/stack/tile/carpet/blue,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uSP" = (
 /obj/machinery/door/airlock/security/glass{
 	req_access_txt = "203"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring)
 "uSS" = (
@@ -25347,7 +25155,7 @@
 /obj/item/stack/sheet/mineral/wood,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uXu" = (
 /obj/structure/table/reinforced,
@@ -25364,14 +25172,12 @@
 /area/awaymission/factory/factoryduring/down/levelthree)
 "uXx" = (
 /obj/structure/trap/damage,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/holofloor/grass{
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uXF" = (
 /turf/open/lava/smooth{
@@ -25381,7 +25187,7 @@
 	},
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "uXL" = (
 /obj/structure/cable/yellow{
@@ -25395,7 +25201,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uYo" = (
 /obj/structure/closet/bombcloset,
@@ -25433,7 +25239,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uYP" = (
 /obj/effect/trap/nexus/trickyspawner/clowns,
@@ -25451,7 +25257,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "uZz" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -25482,14 +25288,14 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vbP" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken7"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vbX" = (
 /obj/item/shard{
@@ -25497,7 +25303,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vcp" = (
 /obj/machinery/camera{
@@ -25512,7 +25318,7 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "veg" = (
 /obj/machinery/door/airlock/command{
@@ -25531,7 +25337,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "veD" = (
 /obj/structure/cable{
@@ -25542,7 +25348,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "veY" = (
 /obj/structure/lattice/catwalk/over,
@@ -25556,7 +25362,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vfk" = (
 /obj/effect/decal/cleanable/blood/tracks,
@@ -25587,7 +25393,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vgd" = (
 /obj/machinery/power/terminal,
@@ -25631,7 +25437,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vhB" = (
 /obj/structure/lattice/catwalk/over,
@@ -25640,7 +25446,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vhE" = (
 /obj/item/paper{
@@ -25663,7 +25469,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vir" = (
 /obj/item/stack/sheet/bone,
@@ -25686,7 +25492,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "viD" = (
 /obj/item/stack/tile/carpet/blue,
@@ -25694,7 +25500,7 @@
 	icon_state = "wood-broken"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "viK" = (
 /obj/machinery/door/airlock/highsecurity{
@@ -25718,7 +25524,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vkn" = (
 /obj/structure/table,
@@ -25730,7 +25536,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "vkE" = (
 /obj/structure/lattice/catwalk/over,
@@ -25742,7 +25548,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vkG" = (
 /obj/structure/dresser,
@@ -25781,7 +25587,7 @@
 	},
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vlV" = (
 /turf/closed/wall/mineral/wood,
@@ -25797,7 +25603,7 @@
 /obj/structure/sink/puddle,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vnn" = (
 /obj/structure/cable{
@@ -25805,7 +25611,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vnW" = (
 /obj/structure/fans/tiny,
@@ -25818,14 +25624,14 @@
 /obj/item/crowbar,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vnY" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken4"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vob" = (
 /obj/machinery/conveyor/auto{
@@ -25842,7 +25648,7 @@
 	icon_state = "wood-broken7"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "voF" = (
 /obj/machinery/door/airlock/hatch{
@@ -25867,9 +25673,7 @@
 /area/awaymission/factory/villageafter/house/ritual)
 "vpP" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "vqq" = (
 /turf/closed/wall/rust,
@@ -25918,7 +25722,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vsr" = (
 /obj/machinery/conveyor/auto{
@@ -25939,7 +25743,7 @@
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vsK" = (
 /obj/structure/chair/wood/normal{
@@ -25960,7 +25764,7 @@
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vuk" = (
 /obj/machinery/door/airlock/centcom{
@@ -25972,7 +25776,7 @@
 /mob/living/simple_animal/pet/fox,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vvo" = (
 /obj/structure/mineral_door/wood,
@@ -25990,7 +25794,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vvL" = (
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper{
@@ -26001,14 +25805,14 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "vvP" = (
 /obj/effect/decal/cleanable/chem_pile,
 /obj/effect/decal/remains/human,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vvU" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -26016,7 +25820,7 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vvX" = (
 /obj/structure/falsewall/wood,
@@ -26034,7 +25838,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vxj" = (
 /obj/machinery/door/airlock/wood,
@@ -26046,9 +25850,7 @@
 	icon_state = "floor3"
 	},
 /obj/effect/decal/cleanable/chem_pile,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "vyk" = (
 /obj/structure/table,
@@ -26105,7 +25907,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vzN" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -26163,7 +25965,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vAK" = (
 /obj/item/paper{
@@ -26189,7 +25991,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vBM" = (
 /obj/structure/reagent_dispensers/water_cooler,
@@ -26218,7 +26020,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vCq" = (
 /obj/item/stack/tile/carpet/blue,
@@ -26226,7 +26028,7 @@
 	icon_state = "wood-broken4"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vCy" = (
 /obj/structure/sink/kitchen{
@@ -26294,7 +26096,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vEw" = (
 /obj/machinery/power/floodlight{
@@ -26311,7 +26113,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "vED" = (
 /obj/structure/cable{
@@ -26325,7 +26127,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vFi" = (
 /obj/machinery/door/airlock/hatch{
@@ -26345,7 +26147,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vFA" = (
 /obj/structure/fans/tiny/invisible,
@@ -26363,7 +26165,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vFN" = (
 /obj/structure/flora/ausbushes,
@@ -26371,7 +26173,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vFP" = (
 /obj/effect/spawner/trap,
@@ -26379,7 +26181,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vFX" = (
 /mob/living/simple_animal/hostile/psycho/muzzle,
@@ -26404,7 +26206,7 @@
 "vHn" = (
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vIb" = (
 /obj/item/gun/ballistic/revolver{
@@ -26460,15 +26262,11 @@
 	icon_state = "floor3-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "vJa" = (
 /obj/structure/mineral_door/wood,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring/house)
 "vJI" = (
@@ -26723,7 +26521,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "vYJ" = (
 /obj/structure/bookcase/random/adult,
@@ -26795,7 +26593,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wbi" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
@@ -26833,7 +26631,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wfK" = (
 /obj/machinery/power/terminal,
@@ -26853,7 +26651,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wgS" = (
 /obj/machinery/power/terminal,
@@ -26934,16 +26732,14 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/grass/snow/basalt{
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15";
 	name = "road";
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wjI" = (
 /obj/structure/chair/wood/normal,
@@ -27009,9 +26805,7 @@
 /obj/machinery/door/airlock/research{
 	req_access_txt = "206"
 	},
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring)
 "wmV" = (
@@ -27067,7 +26861,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "woR" = (
 /obj/structure/cable/yellow{
@@ -27147,7 +26941,7 @@
 /mob/living/simple_animal/chicken/turkey,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wra" = (
 /obj/machinery/light/broken{
@@ -27224,7 +27018,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wuc" = (
 /obj/structure/closet/body_bag{
@@ -27237,7 +27031,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wuf" = (
 /obj/structure/cable/yellow{
@@ -27249,7 +27043,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wuM" = (
 /obj/structure/table,
@@ -27261,7 +27055,7 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wvE" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -27335,13 +27129,13 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wyD" = (
 /obj/structure/window/fulltile,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wzp" = (
 /obj/effect/spawner/lootdrop/armory_contraband,
@@ -27392,13 +27186,13 @@
 	icon_state = "wood-broken4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wBo" = (
 /obj/structure/window/fulltile/unanchored,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wBM" = (
 /obj/effect/baseturf_helper/asteroid{
@@ -27417,7 +27211,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wCc" = (
 /obj/structure/table,
@@ -27451,7 +27245,7 @@
 	icon_state = "wood-broken5"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wDy" = (
 /obj/effect/mine/explosive/traitor,
@@ -27471,7 +27265,7 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wDY" = (
 /obj/item/assembly/signaler/anomaly/bluespace,
@@ -27495,7 +27289,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wER" = (
 /obj/structure/closet/crate/trashcart{
@@ -27507,14 +27301,14 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wGk" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wGn" = (
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
@@ -27527,7 +27321,7 @@
 /obj/item/clothing/shoes/sneakers/brown,
 /turf/open/floor/carpet/purple,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wGI" = (
 /obj/structure/destructible/cult/tome,
@@ -27563,7 +27357,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wHP" = (
 /obj/machinery/camera{
@@ -27705,7 +27499,7 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "wNu" = (
 /obj/structure/bed/pod,
@@ -27765,7 +27559,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "wPR" = (
 /obj/structure/chair/wood{
@@ -28096,7 +27890,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xff" = (
 /mob/living/simple_animal/hostile/zombie{
@@ -28107,7 +27901,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xfi" = (
 /mob/living/simple_animal/hostile/zombie{
@@ -28121,7 +27915,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xfM" = (
 /obj/item/clothing/shoes/laceup,
@@ -28131,7 +27925,7 @@
 	icon_state = "wood-broken7"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xfR" = (
 /obj/item/ammo_casing/c45{
@@ -28162,7 +27956,7 @@
 	icon_state = "wood-broken4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xhu" = (
 /turf/closed/wall/mineral/wood/nonmetal,
@@ -28171,7 +27965,7 @@
 /obj/item/chair/wood,
 /turf/open/floor/carpet/purple,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xhI" = (
 /turf/open/floor/holofloor/beach,
@@ -28341,9 +28135,7 @@
 /obj/effect/decal/cleanable/blood/gibs/torso,
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "xnl" = (
 /obj/structure/frame/computer,
@@ -28398,9 +28190,7 @@
 	icon_state = "floor5-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "xrD" = (
 /obj/structure/table,
@@ -28438,7 +28228,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered{
 	ambient_buzz = null;
-	noteleport = 1
+	teleport_restriction = 1
 	})
 "xsG" = (
 /obj/machinery/washing_machine,
@@ -28550,7 +28340,7 @@
 "xwI" = (
 /turf/closed/wall/mineral/wood/nonmetal,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xxt" = (
 /obj/machinery/light/built{
@@ -28630,7 +28420,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xAc" = (
 /obj/structure/mirror{
@@ -28719,9 +28509,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "xEA" = (
 /turf/open/floor/plating/ashplanet/wateryrock{
@@ -28729,7 +28517,7 @@
 	planetary_atmos = 0
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xFn" = (
 /obj/structure/table,
@@ -28757,7 +28545,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xGw" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -28777,7 +28565,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xGH" = (
 /obj/structure/closet/l3closet,
@@ -28793,7 +28581,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xHn" = (
 /mob/living/simple_animal/hostile/zombie{
@@ -28805,7 +28593,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xHM" = (
 /obj/item/stack/sheet/mineral/wood,
@@ -28816,7 +28604,7 @@
 	icon_state = "wood-broken3"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xHX" = (
 /obj/structure/table/reinforced,
@@ -28833,7 +28621,7 @@
 	icon_state = "wood-broken6"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xJk" = (
 /obj/machinery/light/small{
@@ -28842,7 +28630,7 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xJq" = (
 /obj/structure/table/reinforced,
@@ -28867,7 +28655,7 @@
 /mob/living/simple_animal/chicken,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xKQ" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -28897,7 +28685,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xNJ" = (
 /obj/item/stack/tile/carpet/purple,
@@ -28920,7 +28708,7 @@
 	icon_state = "smooth"
 	},
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xOg" = (
 /obj/structure/cable{
@@ -28972,7 +28760,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xPC" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -28982,20 +28770,16 @@
 /area/awaymission/factory/factoryafter/down/maint)
 "xPE" = (
 /obj/machinery/door/airlock/wood,
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/monotile/dark,
 /area/awaymission/factory/villageduring/house)
 "xPF" = (
-/obj/effect/trap/trigger{
-	possibletraps = list(/obj/effect/trap/nexus/trickyspawner/clowns)
-	},
+/obj/effect/trap/trigger,
 /turf/open/floor/holofloor/grass{
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xQq" = (
 /mob/living/simple_animal/hostile/zombie{
@@ -29009,7 +28793,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xQC" = (
 /obj/effect/decal/cleanable/blood/splatter,
@@ -29017,7 +28801,7 @@
 	icon_state = "wood-broken2"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xQH" = (
 /obj/item/stack/tile/carpet/purple,
@@ -29029,7 +28813,7 @@
 /obj/effect/decal/cleanable/blood/gibs/torso,
 /turf/open/floor/wood,
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xQQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -29087,7 +28871,7 @@
 "xUr" = (
 /turf/open/floor/wood,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xUZ" = (
 /obj/structure/bed/dogbed,
@@ -29120,7 +28904,7 @@
 	icon_state = "wood-broken6"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xWr" = (
 /obj/structure/table/wood,
@@ -29146,7 +28930,7 @@
 	icon_state = "wood-broken2"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xWu" = (
 /obj/item/clothing/head/bowler,
@@ -29158,7 +28942,7 @@
 	icon_state = "wood-broken5"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "xWI" = (
 /obj/structure/closet/crate,
@@ -29255,13 +29039,13 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "yaQ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "yaV" = (
 /obj/item/shard,
@@ -29302,7 +29086,7 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "ybC" = (
 /obj/structure/barricade/wooden/snowed,
@@ -29338,13 +29122,13 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "ycQ" = (
 /obj/structure/flora/ausbushes,
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "ydc" = (
 /turf/open/floor/carpet/orange,
@@ -29408,7 +29192,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "yhu" = (
 /obj/item/shard,
@@ -29419,7 +29203,7 @@
 	icon_state = "wood-broken"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "yhx" = (
 /obj/machinery/shower{
@@ -29444,7 +29228,7 @@
 	icon_state = "wood-broken7"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "yiY" = (
 /obj/machinery/light/broken{
@@ -29480,7 +29264,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "yjQ" = (
 /obj/machinery/power/floodlight{
@@ -29503,7 +29287,7 @@
 	color = "#A4A4A4"
 	},
 /area/awaymission/factory/villageduring{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 "yla" = (
 /turf/open/floor/holofloor/grass,
@@ -29534,7 +29318,7 @@
 	},
 /turf/open/floor/holofloor/grass,
 /area/awaymission/factory/villageafter{
-	noteleport = 0
+	teleport_restriction = 0
 	})
 
 (1,1,1) = {"
@@ -36323,7 +36107,7 @@ qvG
 jCC
 bVd
 kMo
-qZa
+irG
 lpp
 hTt
 hdN
@@ -37097,7 +36881,7 @@ bwJ
 kUZ
 lsr
 lKD
-lNE
+lxQ
 hdI
 iFI
 qKh
@@ -37354,7 +37138,7 @@ kMo
 kVd
 lww
 lKP
-qZa
+irG
 hdI
 iFI
 qKh
@@ -37611,7 +37395,7 @@ bwJ
 xEo
 bTn
 tBh
-qZa
+irG
 hdI
 iFI
 phj
@@ -66651,7 +66435,7 @@ tor
 nBY
 fbB
 fWU
-oIg
+tcn
 mhD
 nBY
 ubo

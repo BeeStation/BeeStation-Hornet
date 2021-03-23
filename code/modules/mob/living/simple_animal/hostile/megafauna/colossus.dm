@@ -406,7 +406,7 @@ Difficulty: Very Hard
 		. += observer_desc
 		. += "It is activated by [activation_method]."
 
-/obj/machinery/anomalous_crystal/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, message_mode)
+/obj/machinery/anomalous_crystal/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
 	..()
 	if(isliving(speaker))
 		ActivationReaction(speaker, ACTIVATE_SPEECH)
@@ -714,7 +714,7 @@ Difficulty: Very Hard
 	if(..())
 		if(ishuman(user))
 			var/mobcheck = FALSE
-			for(var/mob/living/simple_animal/A in range(1, src))
+			for(var/mob/living/simple_animal/A in viewers(1, src))
 				if(A.melee_damage > 5 || A.mob_size >= MOB_SIZE_LARGE || A.ckey || A.stat)
 					break
 				var/obj/structure/closet/stasis/S = new /obj/structure/closet/stasis(A)

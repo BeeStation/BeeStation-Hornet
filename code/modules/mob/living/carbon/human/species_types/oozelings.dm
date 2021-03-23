@@ -18,6 +18,8 @@
 	species_language_holder = /datum/language_holder/oozeling
 	limbs_id = "ooze"
 	swimming_component = /datum/component/swimming/dissolve
+	toxic_food = NONE
+	disliked_food = NONE
 
 /datum/species/oozeling/random_name(gender,unique,lastname)
 	if(unique)
@@ -66,7 +68,7 @@
 				if(prob(5))
 					to_chat(H, "<span class='danger'>You're feeling pretty hungry...</span>")
 	var/atmos_sealed = FALSE
-	if(H.wear_suit && H.head && istype(H.wear_suit, /obj/item/clothing) && istype(H.head, /obj/item/clothing))
+	if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/CS = H.wear_suit
 		var/obj/item/clothing/CH = H.head
 		if(CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
