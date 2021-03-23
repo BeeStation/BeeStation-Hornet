@@ -67,22 +67,6 @@
 	name = "Receiver"
 	freq_listening = list()
 
-//Code for the interceptor circuit
-/obj/machinery/telecomms/receiver/Options_Menu()
-	var/dat = "<br>Remote control: <a href='?src=[REF(src)];toggle_remote_control=1'>[GLOB.remote_control ? "<font color='green'><b>ENABLED</b></font>" : "<font color='red'><b>DISABLED</b></font>"]</a>"
-	dat += "<br>Broadcasting signals: "
-	for(var/i in GLOB.ic_speakers)
-		var/obj/item/integrated_circuit/I = i
-		var/obj/item/O = I.get_object()
-		if(get_area(O)) //if it isn't in nullspace, can happen due to printer newing all possible circuits to fetch list data
-			dat += "<br>[O.name] = [O.x], [O.y], [O.z], [get_area(O)]"
-	dat += "<br><br>Circuit jammer signals: "
-	return dat
-
-/obj/machinery/telecomms/receiver/Options_Topic(href, href_list)
-	if(href_list["toggle_remote_control"])
-		GLOB.remote_control = !GLOB.remote_control
-
 //makeshift receiver used for the circuit, so that we don't
 //have to edit radio.dm and other shit
 /obj/machinery/telecomms/receiver/circuit

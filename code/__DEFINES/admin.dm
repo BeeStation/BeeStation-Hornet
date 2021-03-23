@@ -87,3 +87,18 @@
 
 #define POLICY_POLYMORPH "polymorph" //Shown to vicitm of staff of change and related effects.
 #define POLICY_VERB_HEADER "policy_verb_header" //Shown on top of policy verb window
+
+// allowed ghost roles this round, starts as everything allowed
+GLOBAL_VAR_INIT(ghost_role_flags, (~0))
+
+//Flags that control what ways ghosts can get back into the round
+//ie fugitives, space dragon, etc. also includes dynamic midrounds as it's the same deal
+#define GHOSTROLE_MIDROUND_EVENT	(1<<0)
+//ie ashwalkers, free golems, beach bums
+#define GHOSTROLE_SPAWNER			(1<<1)
+//ie mind monkeys, sentience potion
+#define GHOSTROLE_STATION_SENTIENCE	(1<<2)
+//ie pais, posibrains
+#define GHOSTROLE_SILICONS			(1<<3)
+//ie mafia, ctf
+#define GHOSTROLE_MINIGAME			(1<<4)

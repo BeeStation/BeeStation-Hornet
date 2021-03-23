@@ -42,6 +42,7 @@
 #define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
 #define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
 #define SCAN_REAGENTS           (1<<11) // Allows helmets and glasses to scan reagents.
+#define MASKEXTENDRANGE			(1<<12) //! For masks, allows you to breathe from internals on adjecent tiles
 
 /// Flags for the organ_flags var on /obj/item/organ
 
@@ -50,3 +51,7 @@
 #define ORGAN_FAILING			(1<<2)	//Failing organs perform damaging effects until replaced or fixed
 #define ORGAN_EXTERNAL			(1<<3)	//Was this organ implanted/inserted/etc, if true will not be removed during species change.
 #define ORGAN_VITAL				(1<<4)	//Currently only the brain
+
+/// Flags for the pod_flags var on /obj/structure/closet/supplypod
+
+#define FIRST_SOUNDS (1<<0) // If it shouldn't play sounds the first time it lands, used for reverse mode

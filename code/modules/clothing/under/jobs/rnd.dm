@@ -4,7 +4,7 @@
 	icon_state = "director"
 	item_state = "lb_suit"
 	item_color = "director"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 35)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 35, "stamina" = 0)
 	can_adjust = FALSE
 
 /obj/item/clothing/under/rank/rnd/research_director/hazard
@@ -22,7 +22,7 @@
 	icon_state = "rdwhimsy"
 	item_state = "rdwhimsy"
 	item_color = "rdwhimsy"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
@@ -32,7 +32,7 @@
 	icon_state = "rdturtle"
 	item_state = "p_suit"
 	item_color = "rdturtle"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	can_adjust = TRUE
 	alt_covers_chest = TRUE
 
@@ -43,7 +43,7 @@
 	item_state = "w_suit"
 	item_color = "toxinswhite"
 	permeability_coefficient = 0.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 
 /obj/item/clothing/under/rank/rnd/roboticist
 	desc = "It's a slimming black with reinforced seams; great for industrial work."

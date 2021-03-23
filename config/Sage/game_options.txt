@@ -95,9 +95,9 @@ NO_INTERCEPT_REPORT
 ## Default probablity is 1, increase to make that mode more likely to be picked.
 ## Set to 0 to disable that mode.
 
-PROBABILITY TRAITOR 9
+PROBABILITY DYNAMIC 9
+PROBABILITY TRAITOR 8
 PROBABILITY SECRET_EXTENDED 7
-PROBABILITY DYNAMIC 7
 PROBABILITY CULT 6
 PROBABILITY HERESY 6
 PROBABILITY INTERNAL_AFFAIRS 6
@@ -117,7 +117,7 @@ PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
 
 ## Creates issues when NO_INTERCEPT_REPORT is enabled
-PROBABILITY EXTENDED 0 
+PROBABILITY EXTENDED 0
 
 ## You probably want to keep sandbox off by default for secret and random.
 PROBABILITY SANDBOX 0
@@ -352,7 +352,7 @@ MINIMAL_ACCESS_THRESHOLD 20
 #JOBS_HAVE_MINIMAL_ACCESS
 
 ## Uncomment to give assistants maint access.
-ASSISTANTS_HAVE_MAINT_ACCESS
+#ASSISTANTS_HAVE_MAINT_ACCESS
 
 ## Uncoment to give security maint access. Note that if you dectivate JOBS_HAVE_MINIMAL_ACCESS security already gets maint from that.
 SECURITY_HAS_MAINT_ACCESS
@@ -624,6 +624,9 @@ ALLOW_CREW_OBJECTIVES
 
 ## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
 RESTRICTED_SUICIDE
+
+## Uncomment to enable donator items in the cosmetic shop. Only works if a patreon list has been setup
+DONATOR_ITEMS
 
 ## Bluespace Miners.
 

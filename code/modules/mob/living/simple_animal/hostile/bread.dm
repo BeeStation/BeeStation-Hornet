@@ -27,7 +27,7 @@
 	var/mutationcap = 0
 	var/mutability = 50
 	var/stability = 30
-	mobsay_color = "#CAA25B"
+	chat_color = "#CAA25B"
 	mobchatspan = "blob"
 
 /mob/living/simple_animal/hostile/breadloaf/teleport_act()

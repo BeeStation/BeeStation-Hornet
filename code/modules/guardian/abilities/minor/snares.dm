@@ -16,6 +16,9 @@
 	set name = "Set Surveillance Snare"
 	set category = "Guardian"
 	set desc = "Set an invisible snare that will alert you when living creatures walk over it. Max of 5"
+	if(!can_use_abilities)
+		to_chat(src, "<span class='danger'><B>You can't do that right now!</span></B>")
+		return
 	if(snares.len <6)
 		var/turf/snare_loc = get_turf(src.loc)
 		var/obj/effect/snare/S = new /obj/effect/snare(snare_loc)
