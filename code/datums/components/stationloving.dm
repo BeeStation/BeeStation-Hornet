@@ -16,13 +16,13 @@
 	src.allow_death = allow_death
 	check_in_bounds() // Just in case something is being created outside of station/centcom
 
-/datum/component/stationloving/InheritComponent(datum/component/stationloving/newc, original, inform_admins, allow_death)
+/datum/component/stationloving/InheritComponent(datum/component/stationloving/newc, original, _inform_admins, allow_death)
 	if (original)
 		if (newc)
 			inform_admins = newc.inform_admins
 			allow_death = newc.allow_death
 		else
-			inform_admins = inform_admins
+			inform_admins = _inform_admins
 
 /datum/component/stationloving/proc/relocate()
 	var/targetturf = find_safe_turf()
