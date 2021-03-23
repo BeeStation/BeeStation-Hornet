@@ -1,0 +1,9 @@
+author: Mat05usz
+delete-after: true
+changes:
+  - rscadd: 'Deltastation: Third brig cell.'
+  - rscdel: 'Deltastation: Security transfer room (to make space for 3rd cell).'
+  - tweak: 'Deltastation: Moved warden office, interrogation and evidence higher,
+      making security office one row shorter and gear room longer.'
+  - bugfix: 'Deltastation: No more basic brig access on doors to gulag shuttle room,
+      security office and evidence.'

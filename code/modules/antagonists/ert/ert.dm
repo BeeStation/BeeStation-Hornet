@@ -170,7 +170,7 @@
 		return
 	H.equipOutfit(outfit)
 	//Set the suits frequency
-	var/obj/item/I = H.get_item_by_slot(SLOT_WEAR_SUIT)
+	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 	if(I)
 		var/datum/component/tracking_beacon/beacon = I.GetComponent(/datum/component/tracking_beacon)
 		if(beacon)
