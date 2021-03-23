@@ -963,7 +963,7 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 	var/found = FALSE
 	while (!found)
 		var/area/dropoff_area = pick(GLOB.sortedAreas)
-		if(dropoff_area && is_station_level(dropoff_area.z) && !dropoff_area.outdoors && !is_type_in_typecache(dropoff_area, area_blacklist))
+		if(dropoff_area && is_station_level(dropoff_area.z) && !dropoff_area.outdoors && !area_blacklist[dropoff_area.type])
 			dropoff = dropoff_area
 			found = TRUE
 
