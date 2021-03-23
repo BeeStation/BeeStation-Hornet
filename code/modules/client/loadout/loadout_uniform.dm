@@ -1,7 +1,7 @@
 // Uniform slot
 /datum/gear/uniform
 	subtype_path = /datum/gear/uniform
-	slot = SLOT_W_UNIFORM
+	slot = ITEM_SLOT_ICLOTHING
 	sort_category = "Uniforms and Casual Dress"
 	species_blacklist = list("plasmaman") //Envirosuit moment
 	cost = 1000

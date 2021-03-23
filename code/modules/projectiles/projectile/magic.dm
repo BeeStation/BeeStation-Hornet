@@ -547,7 +547,7 @@
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		if(M.anti_magic_check() || istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(M.anti_magic_check() || istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			M.visible_message("<span class='warning'>[src] vanishes on contact with [target]!</span>")
 			return BULLET_ACT_BLOCK
 		for(var/x in M.get_traumas())//checks to see if the victim is already going through possession
