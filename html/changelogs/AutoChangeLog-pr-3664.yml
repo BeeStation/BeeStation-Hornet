@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Energy katana is now indestructible.
+  - tweak: Energy katana is destroyed when its attached ninja is destroyed.
