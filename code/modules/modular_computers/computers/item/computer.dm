@@ -31,7 +31,7 @@
 
 	integrity_failure = 50
 	max_integrity = 100
-	armor = list("melee" = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "stamina" = 0)
 
 	// Important hardware (must be installed for computer to work)
 
@@ -419,7 +419,7 @@
 			var/obj/item/computer_hardware/H = all_components[h]
 			component_names.Add(H.name)
 
-		var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in sortList(component_names)
+		var/choice = tgui_input_list(user, "Which component do you want to uninstall?", "Computer maintenance", sortList(component_names))
 
 		if(!choice)
 			return

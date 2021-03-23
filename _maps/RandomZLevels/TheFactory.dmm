@@ -1268,9 +1268,7 @@
 	health = 150;
 	zombiejob = "Janitor"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "bjM" = (
 /obj/item/stack/ore/bananium,
@@ -1938,9 +1936,7 @@
 /obj/item/chair,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "bTM" = (
 /obj/structure/bed,
@@ -2465,9 +2461,7 @@
 	icon_state = "floor3-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "cvq" = (
 /obj/structure/table/wood/poker,
@@ -4080,9 +4074,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/vomit,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "dRE" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -4493,9 +4485,7 @@
 	icon_state = "floor2"
 	},
 /obj/effect/decal/cleanable/chem_pile,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "enI" = (
 /obj/machinery/camera{
@@ -4598,9 +4588,7 @@
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "esd" = (
 /obj/structure/window/reinforced/spawner,
@@ -5485,9 +5473,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /obj/item/reagent_containers/food/snacks/meat/slab,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "fbF" = (
 /obj/structure/table,
@@ -5900,18 +5886,14 @@
 /obj/effect/decal/cleanable/chem_pile,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "ftR" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fum" = (
 /obj/effect/decal/cleanable/blood,
@@ -5939,9 +5921,7 @@
 	icon_state = "floor5-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fvv" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide{
@@ -6005,9 +5985,7 @@
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/chem_pile,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "fzg" = (
 /obj/item/clothing/shoes/sandal,
@@ -6030,9 +6008,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "fzH" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide{
@@ -6050,9 +6026,7 @@
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fAc" = (
 /obj/effect/rune/narsie{
@@ -6063,9 +6037,7 @@
 	icon_state = "floor3-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fBb" = (
 /obj/structure/kitchenspike,
@@ -6077,9 +6049,7 @@
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fBf" = (
 /obj/machinery/portable_atmospherics/canister/bz{
@@ -6169,9 +6139,7 @@
 	icon_state = "bubblegumfoot"
 	},
 /obj/effect/decal/cleanable/chem_pile,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "fEE" = (
 /obj/item/clothing/head/helmet/skull,
@@ -6192,9 +6160,7 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor3"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "fEZ" = (
 /obj/effect/decal/cleanable/vomit,
@@ -6220,9 +6186,7 @@
 "fGa" = (
 /obj/item/bodypart/chest,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "fGp" = (
 /obj/structure/table/wood,
@@ -6266,9 +6230,7 @@
 	icon_state = "ert";
 	name = "\proper level three access ID card"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fIh" = (
 /obj/structure/closet/crate/bin,
@@ -6287,9 +6249,7 @@
 	icon_state = "floor3-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fKS" = (
 /obj/structure/closet/body_bag{
@@ -6439,9 +6399,7 @@
 	icon_state = "floor2"
 	},
 /obj/effect/decal/cleanable/blood/footprints,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "fRJ" = (
 /obj/structure/reagent_dispensers/plumbed,
@@ -6550,9 +6508,7 @@
 	icon_state = "floor5-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fWU" = (
 /obj/structure/chair/noose,
@@ -6562,9 +6518,7 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor3"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "fWZ" = (
 /obj/structure/kitchenspike,
@@ -6573,9 +6527,7 @@
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "fXb" = (
 /obj/item/clothing/glasses/science/sciencesun,
@@ -6679,9 +6631,7 @@
 	wander = 0;
 	zombiejob = "Assistant"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "gdS" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -6733,9 +6683,7 @@
 /area/awaymission/factory/secret)
 "gfm" = (
 /obj/effect/decal/cleanable/blood/footprints,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "gfu" = (
 /obj/item/clothing/glasses/science/sciencesun,
@@ -6812,9 +6760,7 @@
 	icon_state = "floor4-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "gkt" = (
 /obj/item/shard{
@@ -6831,9 +6777,7 @@
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "gkS" = (
 /obj/machinery/power/floodlight{
@@ -7045,9 +6989,7 @@
 /obj/item/organ/tongue/lizard,
 /obj/item/organ/tongue,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "gvi" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -7055,9 +6997,7 @@
 	},
 /obj/machinery/light/small/broken,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "gvo" = (
 /obj/item/ammo_casing/shotgun/buckshot{
@@ -7206,9 +7146,7 @@
 	icon_state = "floor3"
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "gBo" = (
 /obj/effect/decal/cleanable/blood/tracks{
@@ -7243,9 +7181,7 @@
 /obj/effect/decal/cleanable/blood/footprints{
 	dir = 1
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "gEB" = (
 /obj/structure/chair/wood/normal,
@@ -7271,9 +7207,7 @@
 	},
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "gFD" = (
 /obj/machinery/vending/cola/random,
@@ -7813,9 +7747,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/three_course_meal,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "heB" = (
 /turf/open/floor/plasteel/dark,
@@ -8879,9 +8811,7 @@
 /obj/item/bodypart/r_leg,
 /obj/item/bodypart/l_leg,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "hTA" = (
 /obj/structure/closet,
@@ -10768,9 +10698,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "jwr" = (
 /obj/structure/table/reinforced,
@@ -12108,9 +12036,7 @@
 "kLN" = (
 /obj/item/bodypart/chest,
 /obj/effect/decal/cleanable/vomit,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "kMo" = (
 /obj/machinery/door/airlock/freezer,
@@ -12144,9 +12070,7 @@
 "kOr" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/three_course_meal,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "kOv" = (
 /obj/structure/closet/crate/coffin,
@@ -12312,18 +12236,14 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/camera,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "kVd" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor5-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "kVo" = (
 /obj/machinery/light,
@@ -12489,17 +12409,13 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor2"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lfb" = (
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor2"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lfh" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -12520,16 +12436,12 @@
 /area/awaymission/factory/factoryafter/down/maint)
 "lfE" = (
 /obj/machinery/camera,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lgl" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/decal/cleanable/vomit,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lgG" = (
 /obj/structure/cable{
@@ -12739,18 +12651,14 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/chair/noose,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lpp" = (
 /obj/effect/decal/cleanable/blood/old{
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lpM" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -12760,9 +12668,7 @@
 /obj/structure/chair/noose,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lpT" = (
 /obj/effect/decal/cleanable/blood/old{
@@ -12771,9 +12677,7 @@
 /obj/structure/chair/noose,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lqW" = (
 /obj/effect/decal/remains/human,
@@ -12813,9 +12717,7 @@
 /obj/structure/chair/noose,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lsB" = (
 /obj/structure/stone_tile/burnt,
@@ -12855,9 +12757,7 @@
 "lww" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lwC" = (
 /obj/structure/cable,
@@ -13021,9 +12921,7 @@
 /area/awaymission/factory/factoryafter/down/levelthree)
 "lCp" = (
 /obj/structure/chair/noose,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lCs" = (
 /mob/living/simple_animal/hostile/zombie{
@@ -13034,9 +12932,7 @@
 	wander = 0;
 	zombiejob = "Cook"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lCT" = (
 /obj/item/circuitboard/computer/prototype_cloning,
@@ -13051,9 +12947,7 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor3"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lDg" = (
 /obj/structure/chair/noose,
@@ -13061,9 +12955,7 @@
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor2"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lDK" = (
 /turf/closed/wall/mineral/wood/nonmetal,
@@ -13265,23 +13157,17 @@
 "lKD" = (
 /obj/item/bodypart/l_arm,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lKP" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/item/chair,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lKZ" = (
 /obj/item/bodypart/l_arm,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lLK" = (
 /obj/structure/chair/wood{
@@ -13291,9 +13177,7 @@
 /area/awaymission/factory/villageduring/house)
 "lLZ" = (
 /obj/item/chair,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lMk" = (
 /obj/item/chair{
@@ -13329,13 +13213,6 @@
 	},
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
-	},
-/area/awaymission/factory/factoryafter/down/leveltwo)
-"lNE" = (
-/obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
 	},
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "lNP" = (
@@ -13397,9 +13274,7 @@
 "lQY" = (
 /obj/effect/decal/cleanable/blood/gibs/torso,
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lRf" = (
 /obj/structure/closet/firecloset/full,
@@ -13477,9 +13352,7 @@
 	icon_state = "floor5-old"
 	},
 /obj/structure/table/reinforced,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "lTn" = (
 /obj/structure/table/wood,
@@ -13788,9 +13661,7 @@
 /area/awaymission/factory/villageduring/house)
 "mhD" = (
 /obj/effect/gibspawner/human,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "mib" = (
 /obj/item/clothing/gloves/color/brown/cargo,
@@ -15507,9 +15378,7 @@
 "nzJ" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "nzT" = (
 /obj/structure/spawner/nether{
@@ -16118,9 +15987,7 @@
 	icon_state = "floor4-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "nZb" = (
 /obj/item/pen,
@@ -17048,11 +16915,6 @@
 	},
 /turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryafter/down/levelthree)
-"oIg" = (
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/awaymission/factory/factoryduring/down/leveltwo)
 "oIn" = (
 /obj/item/ammo_casing/c45{
 	caliber = null;
@@ -17703,9 +17565,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "peL" = (
 /obj/effect/decal/cleanable/crayon{
@@ -18235,9 +18095,7 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "pwP" = (
 /obj/structure/table/reinforced,
@@ -20283,12 +20141,6 @@
 /obj/machinery/smartfridge/chemistry,
 /turf/open/floor/plasteel,
 /area/awaymission/factory/factoryduring/down/leveltwo)
-"qZa" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
-/area/awaymission/factory/factoryafter/down/leveltwo)
 "qZc" = (
 /obj/structure/table/reinforced,
 /obj/item/gun/ballistic/automatic/pistol/m1911,
@@ -21815,9 +21667,7 @@
 /turf/open/floor/circuit/off,
 /area/awaymission/factory/factoryafter/down/levelthree/engine)
 "sjE" = (
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "sjV" = (
 /obj/machinery/shower{
@@ -22131,9 +21981,7 @@
 	dir = 4
 	},
 /obj/effect/gibspawner/human,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "syL" = (
 /obj/structure/sink{
@@ -22304,9 +22152,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "sCO" = (
 /obj/effect/decal/remains/robot,
@@ -22806,9 +22652,7 @@
 /obj/structure/chair/noose,
 /obj/effect/mob_spawn/human/corpse/damaged,
 /obj/effect/decal/cleanable/blood,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "sTu" = (
 /obj/structure/lattice/catwalk/over,
@@ -23607,9 +23451,7 @@
 	icon_state = "floor2-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "tBm" = (
 /obj/structure/table,
@@ -24148,9 +23990,7 @@
 "uef" = (
 /obj/machinery/gibber,
 /obj/effect/gibspawner/human,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo)
 "ueo" = (
 /obj/structure/table/wood,
@@ -25833,9 +25673,7 @@
 /area/awaymission/factory/villageafter/house/ritual)
 "vpP" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "vqq" = (
 /turf/closed/wall/rust,
@@ -26012,9 +25850,7 @@
 	icon_state = "floor3"
 	},
 /obj/effect/decal/cleanable/chem_pile,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryduring/down/leveltwo/ritual)
 "vyk" = (
 /obj/structure/table,
@@ -26426,9 +26262,7 @@
 	icon_state = "floor3-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "vJa" = (
 /obj/structure/mineral_door/wood,
@@ -28301,9 +28135,7 @@
 /obj/effect/decal/cleanable/blood/gibs/torso,
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "xnl" = (
 /obj/structure/frame/computer,
@@ -28358,9 +28190,7 @@
 	icon_state = "floor5-old"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual)
 "xrD" = (
 /obj/structure/table,
@@ -28679,9 +28509,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /obj/item/reagent_containers/food/snacks/meat/slab,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor{
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
-	},
+/turf/open/floor/plasteel/freezer,
 /area/awaymission/factory/factoryafter/down/leveltwo)
 "xEA" = (
 /turf/open/floor/plating/ashplanet/wateryrock{
@@ -36279,7 +36107,7 @@ qvG
 jCC
 bVd
 kMo
-qZa
+irG
 lpp
 hTt
 hdN
@@ -37053,7 +36881,7 @@ bwJ
 kUZ
 lsr
 lKD
-lNE
+lxQ
 hdI
 iFI
 qKh
@@ -37310,7 +37138,7 @@ kMo
 kVd
 lww
 lKP
-qZa
+irG
 hdI
 iFI
 qKh
@@ -37567,7 +37395,7 @@ bwJ
 xEo
 bTn
 tBh
-qZa
+irG
 hdI
 iFI
 phj
@@ -66607,7 +66435,7 @@ tor
 nBY
 fbB
 fWU
-oIg
+tcn
 mhD
 nBY
 ubo

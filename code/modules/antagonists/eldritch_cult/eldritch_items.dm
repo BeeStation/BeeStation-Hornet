@@ -140,7 +140,7 @@
 
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && user.mind && slot == SLOT_NECK && IS_HERETIC(user) )
+	if(ishuman(user) && user.mind && slot == ITEM_SLOT_NECK && IS_HERETIC(user) )
 		ADD_TRAIT(user, trait, CLOTHING_TRAIT)
 		user.update_sight()
 
@@ -172,7 +172,7 @@
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/forbidden_book)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// slightly better than normal cult robes
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 0, "fire" = 20, "acid" = 20)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 60)
 
 /obj/item/reagent_containers/glass/beaker/eldritch
 	name = "flask of eldritch essence"
@@ -244,7 +244,7 @@
 
 /obj/item/clothing/neck/crucifix/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
-	if(slot == SLOT_NECK && istype(user))
+	if(slot == ITEM_SLOT_NECK && istype(user))
 		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
 
 /obj/item/clothing/neck/crucifix/dropped(mob/user)
@@ -256,4 +256,3 @@
 	desc = "A wooden crucifix meant to ward off curses and hexes."
 	resistance_flags = FLAMMABLE
 	icon_state = "rosary"
-

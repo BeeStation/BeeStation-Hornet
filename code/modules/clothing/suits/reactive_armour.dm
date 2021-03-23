@@ -33,7 +33,7 @@
 	icon_state = "reactiveoff"
 	item_state = "reactiveoff"
 	blood_overlay_type = "armor"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
@@ -163,7 +163,7 @@
 
 /obj/item/clothing/suit/armor/reactive/tesla/equipped(mob/user, slot)
 	..()
-	if(slot_flags & slotdefine2slotbit(slot)) //Was equipped to a valid slot for this item?
+	if(slot_flags & slot) //Was equipped to a valid slot for this item?
 		user.flags_1 |= TESLA_IGNORE_1
 
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

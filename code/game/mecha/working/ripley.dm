@@ -10,7 +10,7 @@
 	max_integrity = 200
 	lights_power = 7
 	deflect_chance = 15
-	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 20, "fire" = 100, "acid" = 100, "stamina" = 0)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	internals_req_access = list(ACCESS_MECH_ENGINE, ACCESS_MECH_SCIENCE, ACCESS_MECH_MINING)
@@ -79,7 +79,7 @@
 	fast_pressure_step_in = 2 //step_in while in low pressure conditions
 	slow_pressure_step_in = 4 //step_in while in normal pressure conditions
 	step_in = 4
-	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	wreckage = /obj/structure/mecha_wreckage/ripley/mkii
 	enclosed = TRUE
 	enter_delay = 40
@@ -97,7 +97,7 @@
 	step_in = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	lights_power = 7
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 0, "rad" = 70, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 0, "rad" = 70, "fire" = 100, "acid" = 100, "stamina" = 0)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
 	enclosed = TRUE

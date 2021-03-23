@@ -1175,7 +1175,7 @@ proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 	if(matches.len==1)
 		chosen = matches[1]
 	else
-		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in sortList(matches)
+		chosen = tgui_input_list(usr, "Select a type", "Pick Type", sortList(matches))
 		if(!chosen)
 			return
 	chosen = matches[chosen]
@@ -1635,3 +1635,16 @@ config_setting should be one of the following:
 		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
 		for(var/I in servers)
 			world.Export("[servers[I]]?[list2params(message)]")
+
+/proc/drop_shadow_filter(x, y, size, offset, color)
+	. = list("type" = "drop_shadow")
+	if(!isnull(x))
+		.["x"] = x
+	if(!isnull(y))
+		.["y"] = y
+	if(!isnull(size))
+		.["size"] = size
+	if(!isnull(offset))
+		.["offset"] = offset
+	if(!isnull(color))
+		.["color"] = color
