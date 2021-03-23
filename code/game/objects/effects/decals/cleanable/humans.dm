@@ -281,23 +281,18 @@
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Bump(atom/A)
 	if(iswallturf(A))
-		if(istype(prev_loc)) //var definition already checks for type
-			loc = A
-			skip = TRUE
-			var/mob/living/carbon/human/H = blood_source
-			if(istype(H))
-				var/obj/effect/decal/cleanable/blood/splatter/B = new(prev_loc)
-				//Adjust pixel offset to make splatters appear on the wall
-				if(istype(B))
-					B.plane = GAME_PLANE
-					B.pixel_x = (dir == EAST ? 32 : (dir == WEST ? -32 : 0))
-					B.pixel_y = (dir == NORTH ? 32 : (dir == SOUTH ? -32 : 0))
-		else //This will only happen if prev_loc is not even a turf, which is highly unlikely.
-			loc = A //Either way we got this.
-			QDEL_IN(src, 3)
+		skip = TRUE
+		var/mob/living/carbon/human/H = blood_source
+		if(istype(H))
+			var/obj/effect/decal/cleanable/blood/splatter/B = new(prev_loc)
+			//Adjust pixel offset to make splatters appear on the wall
+			if(istype(B))
+				B.plane = GAME_PLANE
+				B.pixel_x = (dir == EAST ? 32 : (dir == WEST ? -32 : 0))
+				B.pixel_y = (dir == NORTH ? 32 : (dir == SOUTH ? -32 : 0))
 	qdel(src)
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Destroy()
-	if((loc) && !skip)
+	if(!skip)
 		loc.add_mob_blood(blood_source)
 	return ..()
