@@ -2508,6 +2508,58 @@ datum/supply_pack/medical/bruisekits
 		var/item = pick_n_take(L)
 		new item(C)
 
+/datum/supply_pack/costumes_toys/chess_white
+	name = "White Chess Piece Crate"
+	desc = "Look at you, playing a nerd game within a nerd game!"
+	cost = 500
+	contains = list(
+		/obj/item/cardboard_cutout/adaptive/chess/king,
+		/obj/item/cardboard_cutout/adaptive/chess/queen,
+		/obj/item/cardboard_cutout/adaptive/chess/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,	
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+	)
+	crate_type = /obj/structure/closet/crate/wooden
+
+/datum/supply_pack/costumes_toys/chess_black
+	name = "Black Chess Piece Crate"
+	desc = "Look at you, playing a nerd game within a nerd game!"
+	cost = 500
+	contains = list(
+		/obj/item/cardboard_cutout/adaptive/chess/black/king,
+		/obj/item/cardboard_cutout/adaptive/chess/black/queen,
+		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+	)
+	crate_type = /obj/structure/closet/crate/wooden
+
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////// Wardrobe Resupplies ////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
 /datum/supply_pack/costumes_toys/wardrobes/autodrobe
 	name = "Autodrobe Supply Crate"
 	desc = "Autodrobe missing your favorite dress? Solve that issue today with this autodrobe refill."
