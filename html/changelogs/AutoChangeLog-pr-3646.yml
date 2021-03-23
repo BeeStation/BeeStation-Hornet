@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Automatic shotguns need 2 hands to be fired, fixing a bug that would break
-      automatic shotguns if you had an item in your inactive hand.
