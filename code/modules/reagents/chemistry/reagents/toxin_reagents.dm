@@ -281,8 +281,29 @@
 	taste_description = "Premium Dark Chocolate, oh god, this is the best thing you ever tried!"
 
 /datum/reagent/toxin/catbgon/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if(!ishumanbasic(M))
+		return
+
+	var/mob/living/carbon/F
+	if(method == TOUCH || method == VAPOR)
+		//check for protection
+		//actually handle the pepperspray effects
+		if(!M.is_eyes_covered() || !M.is_mouth_covered())
+			M.blur_eyes(2)
+			M.blind_eyes(2) // 6 seconds
+			M.emote("scream")
+			M.confused = max(M.confused, 10) // 10 seconds
+			M.add_movespeed_modifier(MOVESPEED_ID_PEPPER_SPRAY, update=TRUE, priority=100, multiplicative_slowdown=0.25, blacklisted_movetypes=(FLYING|FLOATING))
+			M.adjustToxLoss(12)
+			M.adjustOxyLoss(2)
+			if(prob(5))
+				F.drowsyness += 1
+			addtimer(CALLBACK(M, /mob.proc/remove_movespeed_modifier, MOVESPEED_ID_PEPPER_SPRAY), 10 SECONDS)
+			F.update_damage_hud()
+
+/datum/reagent/toxin/catbgon/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	..()
-	if(MOB_BEAST in M.mob_biotypes)
+	if(MOB_ORGANIC in M.mob_biotypes)
 		var/damage = min(round(0.8*reac_volume, 0.1),10)
 		M.adjustToxLoss(damage)
 	else

@@ -539,7 +539,7 @@
 	name = "Cat-B-Gone"
 	id = /datum/reagent/toxin/catbgon
 	results = list(/datum/reagent/toxin/mothbgon = 5)
-	required_reagents = list(/datum/reagent/consumable/cocoa = 5, /datum/reagent/toxin/mindbreaker = 5, /datum/reagent/drug/happiness = 10)
+	required_reagents = list(/datum/reagent/consumable/cocoa = 5, /datum/reagent/toxin/carpotoxin = 5, /datum/reagent/drug/happiness = 10)
 
 /datum/chemical_reaction/drying_agent
 	name = "Drying agent"
