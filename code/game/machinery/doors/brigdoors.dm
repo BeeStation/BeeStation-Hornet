@@ -8,9 +8,6 @@
 #define PRESET_MEDIUM 3 MINUTES
 #define PRESET_LONG 5 MINUTES
 
-#define TIMER_ON TRUE
-#define TIMER_OFF FALSE
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,7 +30,7 @@
 	var/activation_time = 0
 	var/timer_duration = 0
 
-	var/timing = TIMER_OFF		// boolean, true/1 timer is on, false/0 means it's not timing
+	var/timing = FALSE // boolean, true/1 timer is on, false/0 means it's not timing
 	var/list/obj/machinery/targets = list()
 	var/obj/item/radio/Radio //needed to send messages to sec radio
 
@@ -93,7 +90,7 @@
 		return 0
 
 	activation_time = world.time
-	timing = TIMER_ON
+	timing = TRUE
 
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(door.density)
@@ -119,7 +116,7 @@
 		Radio.set_frequency(FREQ_SECURITY)
 		Radio.talk_into(src, "Timer has expired. Releasing prisoner.", FREQ_SECURITY)
 
-	timing = TIMER_OFF
+	timing = FALSE
 	activation_time = null
 	set_timer(0)
 	update_icon()
@@ -222,6 +219,8 @@
 		return
 	. = TRUE
 
+	var/mob/user = usr
+
 	if(!allowed(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return FALSE
@@ -232,14 +231,18 @@
 			if(value)
 				. = set_timer(time_left()+value)
 				investigate_log("[key_name(usr)] modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
+				user.log_message("modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", LOG_ATTACK)
 		if("start")
 			timer_start()
-			investigate_log("[key_name(usr)] has started [id]'s timer of [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
+			investigate_log("[key_name(usr)] has started [id]'s timer of [time_left(seconds = TRUE)] seconds", INVESTIGATE_RECORDS)
+			user.log_message("has started [id]'s timer of [time_left(seconds = TRUE)] seconds", LOG_ATTACK)
 		if("stop")
-			investigate_log("[key_name(usr)] has stopped [id]'s timer of [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
+			investigate_log("[key_name(usr)] has stopped [id]'s timer of [time_left(seconds = TRUE)] seconds", INVESTIGATE_RECORDS)
+			user.log_message("[key_name(usr)] has stopped [id]'s timer of [time_left(seconds = TRUE)] seconds", LOG_ATTACK)
 			timer_end(forced = TRUE)
 		if("flash")
 			investigate_log("[key_name(usr)] has flashed cell [id]", INVESTIGATE_RECORDS)
+			user.log_message("[key_name(usr)] has flashed cell [id]", LOG_ATTACK)
 			for(var/obj/machinery/flasher/F in targets)
 				F.flash()
 		if("preset")
@@ -254,13 +257,12 @@
 					preset_time = PRESET_LONG
 			. = set_timer(preset_time)
 			investigate_log("[key_name(usr)] set cell [id]'s timer to [preset_time/10] seconds", INVESTIGATE_RECORDS)
+			user.log_message("set cell [id]'s timer to [preset_time/10] seconds", LOG_ATTACK)
 			if(timing)
 				activation_time = world.time
 		else
 			. = FALSE
 
-#undef TIMER_ON
-#undef TIMER_OFF
 
 #undef PRESET_SHORT
 #undef PRESET_MEDIUM

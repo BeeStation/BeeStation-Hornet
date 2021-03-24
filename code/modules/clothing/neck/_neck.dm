@@ -228,7 +228,7 @@
 /obj/item/clothing/neck/neckerchief/AltClick(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		if(C.get_item_by_slot(SLOT_NECK) == src)
+		if(C.get_item_by_slot(ITEM_SLOT_NECK) == src)
 			to_chat(user, "<span class='warning'>You can't untie [src] while wearing it!</span>")
 			return
 		if(user.is_holding(src))
@@ -240,3 +240,17 @@
 			user.visible_message("You untie [oldName] back into a [newBand.name]", "[user] unties [oldName] back into a [newBand.name]")
 		else
 			to_chat(user, "<span class='warning'>You must be holding [src] in order to untie it!")
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/clothing/neck/bizzarescarf
+	name = "bizzare scarf"
+	desc = "Your next line is-"
+	icon_state = "bizzare"
+
+/obj/item/clothing/neck/conductivescarf
+	name = "conductive scarf"
+	desc = "Made out of 30,000 scarabs. Use with caution."
+	icon_state = "conductive"

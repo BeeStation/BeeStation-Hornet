@@ -6,6 +6,7 @@
 	light_color = LIGHT_COLOR_ORANGE
 	products = list(/obj/item/toy/cards/deck = 5,
 		            /obj/item/storage/pill_bottle/dice = 10,
+					/obj/item/storage/box/yatzy = 3,
 		            /obj/item/toy/cards/deck/cas = 3,
 		            /obj/item/toy/cards/deck/cas/black = 3,
 		            /obj/item/toy/cards/deck/unum = 3,
