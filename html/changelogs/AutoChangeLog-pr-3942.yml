@@ -1,7 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - tweak: Oozeling limbs now recede at an earlier threshold, making it far more likely
-      for them to survive when exposed to adverse conditions that result in blood
-      loss.
-  - bugfix: Oozeling regeneration now costs the same as the refund from limb recession.
