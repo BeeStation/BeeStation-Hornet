@@ -171,7 +171,7 @@
 		if(108)
 			new /obj/item/circuitboard/machine/protolathe(src)
 		if(109)
-			var/chosen_circuit = pick(subtypesof(/obj/item/circuitboard) - /obj/item/circuitboard)
+			var/chosen_circuit = pick(subtypesof(/obj/item/circuitboard) - (/obj/item/circuitboard + /obj/item/circuitboard/computer + /obj/item/circuitboard/machine + /obj/item/circuitboard/machine/vending + /obj/item/circuitboard/machine/telecomms + /obj/item/circuitboard/computer/arcade + /obj/item/circuitboard/machine/shuttle + /obj/item/circuitboard/mecha + /obj/item/circuitboard/mecha/durand + /obj/item/circuitboard/mecha/gygax + /obj/item/circuitboard/mecha/honker + /obj/item/circuitboard/mecha/odysseus + /obj/item/circuitboard/mecha/phazon + /obj/item/circuitboard/mecha/ripley))
 			new chosen_circuit(src)
 		if(110)
 			new /obj/item/clothing/head/bronze(src)
@@ -373,9 +373,6 @@
 			if(prob(10))
 				new /obj/item/clothing/mask/facehugger/toy(src)
 		if(142 to 146)
-			for(var/clown in 4)
-				clown = /mob/living/simple_animal/cluwne
-				new clown(src)
 			new /obj/item/dnainjector/clumsymut(src)
 			new /obj/item/dnainjector/cluwnemut(src)
 		if(147)
