@@ -7,7 +7,7 @@
 
 /datum/gear/donator/backpack
 	subtype_path = /datum/gear/donator/backpack
-	slot = SLOT_BACK
+	slot = ITEM_SLOT_BACK
 
 /datum/gear/donator/backpack/ian
 	display_name = "ian backpack"
@@ -33,7 +33,7 @@
 
 /datum/gear/donator/suit
 	subtype_path = /datum/gear/donator/suit
-	slot = SLOT_WEAR_SUIT
+	slot = ITEM_SLOT_OCLOTHING
 
 /datum/gear/donator/suit/delinquent
 	display_name = "deliquent jacket"
@@ -50,7 +50,7 @@
 //UNIFORM/UNDER
 /datum/gear/donator/uniform
 	subtype_path = /datum/gear/donator/uniform
-	slot = SLOT_W_UNIFORM
+	slot = ITEM_SLOT_ICLOTHING
 
 /datum/gear/donator/uniform/wine_gown
 	display_name = "wine gown"
@@ -76,7 +76,7 @@
 
 /datum/gear/donator/head
 	subtype_path = /datum/gear/donator/head
-	slot = SLOT_HEAD
+	slot = ITEM_SLOT_HEAD
 
 /datum/gear/donator/head/gangster_wig
 	display_name = "gangster wig"
@@ -93,7 +93,7 @@
 //NECK
 /datum/gear/donator/neck
 	subtype_path = /datum/gear/donator/neck
-	slot = SLOT_NECK
+	slot = ITEM_SLOT_NECK
 
 /datum/gear/donator/neck/bizzare
 	display_name = "bizzare scarf"
@@ -107,7 +107,7 @@
 
 /datum/gear/donator/item
 	subtype_path = /datum/gear/donator/item
-	slot = SLOT_IN_BACKPACK
+	slot = ITEM_SLOT_BACKPACK
 	cost = 5000
 
 /datum/gear/donator/item/plush_ian
