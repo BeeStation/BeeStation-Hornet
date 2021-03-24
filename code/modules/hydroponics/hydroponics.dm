@@ -819,7 +819,7 @@
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
 	else if(istype(O, /obj/item/storage/bag/plants))
-		attack_hand(user)
+		harvest_plant(user)
 		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
 			SEND_SIGNAL(O, COMSIG_TRY_STORAGE_INSERT, G, user, TRUE)
 
@@ -877,6 +877,9 @@
 		return
 	if(issilicon(user)) //How does AI know what plant is?
 		return
+	harvest_plant(user)
+		
+/obj/machinery/hydroponics/proc/harvest_plant(mob/user)
 	if(harvest)
 		return myseed.harvest(user)
 

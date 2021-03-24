@@ -13639,7 +13639,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aKD" = (
 /obj/structure/disposalpipe/segment,
@@ -13768,7 +13768,7 @@
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aKV" = (
 /obj/machinery/door/window/southleft{
@@ -14222,7 +14222,7 @@
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo"
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aMm" = (
 /obj/machinery/firealarm{
@@ -14342,7 +14342,7 @@
 /area/crew_quarters/bar)
 "aMD" = (
 /obj/machinery/icecream_vat,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aME" = (
 /obj/structure/disposalpipe/segment{
@@ -14357,7 +14357,7 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aMF" = (
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aMG" = (
 /obj/structure/closet/crate/hydroponics,
@@ -14725,14 +14725,14 @@
 /mob/living/simple_animal/hostile/retaliate/goat{
 	name = "Pete"
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aNM" = (
 /obj/structure/kitchenspike,
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aNN" = (
 /obj/machinery/door/airlock/public/glass{
@@ -14759,7 +14759,7 @@
 	pixel_x = 24
 	},
 /obj/machinery/vending/wardrobe/chef_wardrobe,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aNP" = (
 /obj/structure/disposalpipe/segment,
@@ -15032,7 +15032,7 @@
 /area/crew_quarters/theatre)
 "aOI" = (
 /obj/structure/kitchenspike,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aOJ" = (
 /obj/structure/window/reinforced,
@@ -15060,7 +15060,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 8
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aON" = (
 /obj/structure/disposalpipe/segment,
@@ -15068,7 +15068,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aOO" = (
 /obj/machinery/door/airlock{
@@ -15107,7 +15107,7 @@
 /area/library)
 "aOT" = (
 /obj/machinery/gibber,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aOU" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
@@ -15559,7 +15559,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aQm" = (
 /obj/effect/turf_decal/tile/green{
@@ -49472,7 +49472,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "gRK" = (
 /obj/machinery/door/airlock/command/glass{
@@ -50843,7 +50843,7 @@
 "iNn" = (
 /obj/structure/reagent_dispensers/cooking_oil,
 /obj/machinery/camera/autoname,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "iRx" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -57818,7 +57818,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "ryW" = (
 /obj/structure/cable/yellow{
@@ -59595,7 +59595,7 @@
 /area/tcommsat/computer)
 "tMl" = (
 /obj/effect/turf_decal/loading_area,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "tMn" = (
 /obj/structure/cable/yellow{
