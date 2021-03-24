@@ -244,7 +244,7 @@
 	name = "Special Ops Supplies"
 	desc = "(*!&@#SAD ABOUT THAT NULL_ENTRY, HUH OPERATIVE? WELL, THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
 	hidden = TRUE
-	cost = 2000
+	cost = 800
 	contains = list(/obj/item/storage/box/emps,
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
@@ -2507,6 +2507,58 @@ datum/supply_pack/medical/bruisekits
 	for(var/i in 1 to num_contained)
 		var/item = pick_n_take(L)
 		new item(C)
+
+/datum/supply_pack/costumes_toys/chess_white
+	name = "White Chess Piece Crate"
+	desc = "Look at you, playing a nerd game within a nerd game!"
+	cost = 500
+	contains = list(
+		/obj/item/cardboard_cutout/adaptive/chess/king,
+		/obj/item/cardboard_cutout/adaptive/chess/queen,
+		/obj/item/cardboard_cutout/adaptive/chess/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,	
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+	)
+	crate_type = /obj/structure/closet/crate/wooden
+
+/datum/supply_pack/costumes_toys/chess_black
+	name = "Black Chess Piece Crate"
+	desc = "Look at you, playing a nerd game within a nerd game!"
+	cost = 500
+	contains = list(
+		/obj/item/cardboard_cutout/adaptive/chess/black/king,
+		/obj/item/cardboard_cutout/adaptive/chess/black/queen,
+		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+	)
+	crate_type = /obj/structure/closet/crate/wooden
+
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////// Wardrobe Resupplies ////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 /datum/supply_pack/costumes_toys/wardrobes/autodrobe
 	name = "Autodrobe Supply Crate"
