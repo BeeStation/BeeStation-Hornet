@@ -190,11 +190,18 @@
 */
 
 /obj/item/clothing/under/rank/brig_phys
-	name = "brig physician's uniform"
-	desc = "A lightly armored uniform worn by Nanotrasen's Asset Protection Medical Corps."
+	name = "brig physician's jumpsuit"
+	desc = "A lightly armored jumpsuit worn by Nanotrasen's Asset Protection Medical Corps."
 	icon_state = "brig_phys"
 	item_state = "labcoat_sec"
 	item_color = "brig_phys"
+
+/obj/item/clothing/under/rank/brig_phys/skirt
+	name = "brig physician's jumpskirt"
+	desc = "A lightly armored jumpskirt worn by Nanotrasen's Asset Protection Medical Corps."
+	icon_state = "brig_phys_skirt"
+	item_state = "labcoat_sec"
+	item_color = "brig_phys_skirt"
 
 /*
  * Navy uniforms
