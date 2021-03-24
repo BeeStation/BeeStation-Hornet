@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Improves stat panel background design.
-  - tweak: Stat panel will now display adminhelp messages for the bwoinkees.
