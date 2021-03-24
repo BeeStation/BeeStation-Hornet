@@ -254,7 +254,8 @@ BONUS
 					if(D == A)
 						continue
 					diseases += D
-			new /obj/item/reagent_containers/food/snacks/eggsac(diseases, thresholds["eggsplosion"], thresholds["sneaky"], thresholds["bigheal"])
+			new /obj/item/reagent_containers/food/snacks/eggsac(diseases, thresholds["eggsplosion"],\
+			thresholds["sneaky"], thresholds["bigheal"])
 
 /obj/item/reagent_containers/food/snacks/eggsac
 	name = "Fleshy Egg Sac"
@@ -271,12 +272,12 @@ BONUS
 	for(var/datum/disease/D in disease)
 		diseases += D
 	if(largeheal)
-		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
-		src.reagents.add_reagent(/datum/reagent/blood, 10, diseases)
+		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent(/datum/reagent/blood, 10, diseases)
 		bigheal = TRUE
 	else
-		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
-		src.reagents.add_reagent(/datum/reagent/blood, 15, diseases)
+		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
 		icon_state = "icons/obj/food/food/eggsac-sneaky.dmi"
 		sneakyegg = sneaky
@@ -305,11 +306,11 @@ BONUS
 	for(var/datum/disease/D in disease)
 		diseases += D
 	if(largeheal)
-		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
-		src.reagents.add_reagent(/datum/reagent/blood, 10, diseases)
+		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent(/datum/reagent/blood, 10, diseases)
 	else
-		src.add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
-		src.reagents.add_reagent(/datum/reagent/blood, 15, diseases)
+		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
 		icon_state = "icons/obj/food/food/fleshegg-sneaky.dmi"
 	if(LAZYLEN(diseases))
