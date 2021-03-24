@@ -1,4 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - bugfix: Drones can now actually drop things
