@@ -2616,6 +2616,7 @@
 #include "code\modules\paperwork\clipboard.dm"
 #include "code\modules\paperwork\contract.dm"
 #include "code\modules\paperwork\filingcabinet.dm"
+#include "code\modules\paperwork\folder_premade.dm"
 #include "code\modules\paperwork\folders.dm"
 #include "code\modules\paperwork\handlabeler.dm"
 #include "code\modules\paperwork\origami.dm"
