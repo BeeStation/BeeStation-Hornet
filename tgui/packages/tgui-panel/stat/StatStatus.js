@@ -18,11 +18,11 @@ export const StatStatus = (props, context) => {
     <Flex direction="column">
       {stat.dead_popup
         ?(
-          <Flex.Item mt={1}>
+          <Flex.Item mt={1} mb={1}>
             <Flex direction="column">
               <div className="StatBorder_observer">
                 <Flex.Item>
-                  <Section
+                  <Box
                     className="deadsay">
                     <Button
                       color="transparent"
@@ -31,14 +31,14 @@ export const StatStatus = (props, context) => {
                         type: 'stat/clearDeadPopup',
                       })} />
                     You are <b>dead</b>!
-                  </Section>
+                  </Box>
                 </Flex.Item>
-                <Flex.Item>
-                  <Section
+                <Flex.Item mt={2}>
+                  <Box
                     className="deadsay">
                     Don&#39;t worry, you can still get back into the game
                     if your body is revived or through ghost roles.
-                  </Section>
+                  </Box>
                 </Flex.Item>
               </div>
             </Flex>
@@ -47,9 +47,9 @@ export const StatStatus = (props, context) => {
         :null}
       {stat.alert_popup
         ?(
-          <Flex.Item mt={1}>
+          <Flex.Item mt={1} mb={1}>
             <div className="StatBorder_infomation">
-              <Section>
+              <Box>
                 <Flex
                   direction="column"
                   className="stat_infomation">
@@ -68,16 +68,16 @@ export const StatStatus = (props, context) => {
                     {stat.alert_popup.text}
                   </Flex.Item>
                 </Flex>
-              </Section>
+              </Box>
             </div>
           </Flex.Item>
         )
         :null}
       {stat.antagonist_popup
         ?(
-          <Flex.Item mt={1}>
+          <Flex.Item mt={1} mb={1}>
             <div className="StatBorder_antagonist">
-              <Section>
+              <Box>
                 <Flex
                   direction="column"
                   className="stat_antagonist">
@@ -96,7 +96,7 @@ export const StatStatus = (props, context) => {
                     {stat.antagonist_popup.text}
                   </Flex.Item>
                 </Flex>
-              </Section>
+              </Box>
             </div>
           </Flex.Item>
         )
