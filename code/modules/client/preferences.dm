@@ -681,6 +681,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			var/firstcat = 1
 			for(var/category in GLOB.loadout_categories)
+				if(category == "Donator" && (!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items)))
+					continue
 				if(firstcat)
 					firstcat = 0
 				else
@@ -698,23 +700,26 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td><b>Name</b></td>"
-			dat += "<td><b>Cost</b></td>"
+			if(LC.category != "Donator")
+				dat += "<td><b>Cost</b></td>"
 			dat += "<td><b>Restricted Jobs</b></td>"
 			dat += "<td><b>Description</b></td></tr>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
-			for(var/gear_name in LC.gear)
-				var/datum/gear/G = LC.gear[gear_name]
+			for(var/gear_id in LC.gear)
+				var/datum/gear/G = LC.gear[gear_id]
 				var/ticked = (G.id in equipped_gear)
 
 				dat += "<tr style='vertical-align:top;'><td width=15%>[G.display_name]\n"
+				var/donator = G.sort_category == "Donator" // purchase box and cost coloumns doesn't appear on donator items
 				if(G.id in purchased_gear)
 					if(G.sort_category == "OOC")
 						dat += "<i>Purchased.</i></td>"
 					else
 						dat += "<a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.id]'>Equip</a></td>"
 				else
-					dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.id]'>Purchase</a></td>"
-				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
+					dat += "<a style='white-space:normal;' href='?_src_=prefs;preference=gear;purchase_gear=[G.id]'>[donator ? "Donator" : "Purchase"]</a></td>"
+				dat += "<td width = 5% style='vertical-align:top'>[donator ? "" : "[G.cost]"]</td><td>"
+
 				if(G.allowed_roles)
 					dat += "<font size=2>"
 					for(var/role in G.allowed_roles)
@@ -1219,7 +1224,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(href_list["preference"] == "gear")
 		if(href_list["purchase_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["purchase_gear"]]
-			if(TG.cost < user.client.get_metabalance())
+			if(TG.sort_category == "Donator")
+				if(CONFIG_GET(flag/donator_items) && alert(parent, "This item is only accessible to our patrons. Would you like to subscribe?", "Patron Locked", "Yes", "No") == "Yes")
+					parent.donate()
+			else if(TG.cost < user.client.get_metabalance())
 				purchased_gear += TG.id
 				TG.purchase(user.client)
 				user.client.inc_metabalance((TG.cost * -1), TRUE, "Purchased [TG.display_name].")
@@ -2007,3 +2015,23 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			return
 		else
 			custom_names[name_id] = sanitized_name
+
+/// Handles adding and removing donator items from clients
+/datum/preferences/proc/handle_donator_items()
+	var/datum/loadout_category/DLC = GLOB.loadout_categories["Donator"] // stands for donator loadout category but the other def for DLC works too xD
+	if(!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items)) // donator items are only accesibile by servers with a patreon
+		return
+	if(IS_PATRON(parent.ckey))
+		for(var/gear_id in DLC.gear)
+			var/datum/gear/AG = DLC.gear[gear_id]
+			if(AG.id in purchased_gear)
+				continue
+			purchased_gear += AG.id
+			AG.purchase(parent)
+		save_preferences()
+	else if(purchased_gear.len || equipped_gear.len)
+		for(var/gear_id in DLC.gear)
+			var/datum/gear/RG = DLC.gear[gear_id]
+			equipped_gear -= RG.id
+			purchased_gear -= RG.id
+		save_preferences()

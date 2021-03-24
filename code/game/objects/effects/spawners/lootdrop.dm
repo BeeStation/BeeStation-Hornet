@@ -192,7 +192,7 @@
 		/obj/item/organ/tongue/snail = 1,
 		/obj/item/organ/appendix = 5,
 		/obj/effect/gibspawner/human = 1,
-		/obj/item/organ/wings = 1, 
+		/obj/item/organ/wings = 1,
 		/obj/item/organ/wings/moth = 1,
 		/obj/item/organ/wings/bee = 1,
 		/obj/item/organ/wings/dragon/fake = 1)
@@ -232,12 +232,16 @@
 		/obj/item/bikehorn = 5,
 		/obj/item/reagent_containers/food/snacks/pie/cream = 3)
 
-
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner
 	name = "2% chance xeno egg spawner"
 	loot = list(
 		/obj/effect/decal/remains/xeno = 49,
 		/obj/effect/spawner/xeno_egg_delivery = 1)
+
+/obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner/Initialize()
+	if(prob(40) && SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
+		loot = list(/obj/effect/spawner/xeno_egg_delivery_troll = 1)
+	..()
 
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"
@@ -255,7 +259,7 @@
 		/mob/living/simple_animal/hostile/retaliate/spaceman = 2,
 		/obj/effect/mob_spawn/human/corpse/assistant/brainrot_infection = 1,
 		/mob/living/simple_animal/hostile/retaliate/frog = 2)
-	
+
 /obj/effect/spawner/lootdrop/costume
 	name = "random costume spawner"
 

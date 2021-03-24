@@ -7,9 +7,9 @@
 	response_harm = "kicks"
 	faction = list("gondola")
 	turns_per_move = 10
-	icon = 'icons/mob/gondolapod.dmi'
-	icon_state = "gondolapod"
-	icon_living = "gondolapod"
+	icon = 'icons/obj/supplypods.dmi'
+	icon_state = "gondola"
+	icon_living = "gondola"
 	pixel_x = -16//2x2 sprite
 	pixel_y = -5
 	layer = TABLE_LAYER//so that deliveries dont appear underneath it
@@ -29,17 +29,16 @@
 	name = linked_pod.name
 	. = ..()
 
-/mob/living/simple_animal/pet/gondola/gondolapod/update_icon_state()
+/mob/living/simple_animal/pet/gondola/gondolapod/update_overlays()
+	. = ..()
 	if(opened)
-		icon_state = "gondolapod_open"
-	else
-		icon_state = "gondolapod"
+		. += "[icon_state]_open"
 
 /mob/living/simple_animal/pet/gondola/gondolapod/verb/deliver()
 	set name = "Release Contents"
 	set category = "Gondola"
 	set desc = "Release any contents stored within your vast belly."
-	linked_pod.open(src, forced = TRUE)
+	linked_pod.open_pod(src, forced = TRUE)
 
 /mob/living/simple_animal/pet/gondola/gondolapod/examine(mob/user)
 	. = ..()
@@ -58,12 +57,12 @@
 	else
 		to_chat(src, "<span class='notice'>A closer look inside yourself reveals... nothing.</span>")
 
-/mob/living/simple_animal/pet/gondola/gondolapod/proc/setOpened()
+/mob/living/simple_animal/pet/gondola/gondolapod/setOpened()
 	opened = TRUE
 	update_icon()
-	addtimer(CALLBACK(src, .proc/setClosed), 50)
+	addtimer(CALLBACK(src, /atom/.proc/setClosed), 50)
 
-/mob/living/simple_animal/pet/gondola/gondolapod/proc/setClosed()
+/mob/living/simple_animal/pet/gondola/gondolapod/setClosed()
 	opened = FALSE
 	update_icon()
 

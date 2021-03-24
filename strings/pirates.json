@@ -1,31 +1,34 @@
 {
-    "beginnings":[
-        "Star",
-        "Oort",
-        "Comet",
-        "Pulsar",
-        "Plasma",
-        "Void",
-        "Space",
-        "Solar",
-        "Laser",
-        "Ion"
-    ],
-    "endings":[
-        "keel",
-        "beard",
-        "bilge",
-        "hull",
-        "hook",
-        "flag",
-        "deck",
-        "salt",
-        "knot",
-        "fish",
-        "helm"
-    ],
-    "ship_names":[
-        "Space Queen's Revenge",
-        "Syndicate Privateer"
-    ]
+	"beginnings": [
+		"Star",
+		"Oort",
+		"Comet",
+		"Pulsar",
+		"Plasma",
+		"Void",
+		"Space",
+		"Solar",
+		"Laser",
+		"Ion",
+		"Tachyon"
+	],
+	"endings": [
+		"keel",
+		"beard",
+		"bilge",
+		"hull",
+		"hook",
+		"flag",
+		"deck",
+		"salt",
+		"knot",
+		"fish",
+		"helm",
+		"sail"
+	],
+	"ship_names": [
+		"Space Queen's Revenge",
+		"Syndicate Privateer",
+		"The Jolly Roger"
+	]
 }

@@ -52,7 +52,7 @@
 		to_chat(user, "<span class='danger'>This mind is too strong to control!</span>")
 		return
 	var/mob/living/carbon/human/H = gangster_mind.current // we are sure the dude's human cause it's checked in attack()
-	if(istype(H.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		to_chat(user, "<span class='danger'>This mind appears to be too delusional to register the mind-control waves!</span>")
 		return
 	H.silent = max(H.silent, 5)

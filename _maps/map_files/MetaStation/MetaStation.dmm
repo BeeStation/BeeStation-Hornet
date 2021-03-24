@@ -47780,15 +47780,15 @@
 	pixel_x = -27
 	},
 /obj/structure/closet/secure_closet/freezer/meat,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bNF" = (
 /obj/machinery/gibber,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bNG" = (
 /obj/structure/kitchenspike,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bNI" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -48410,7 +48410,7 @@
 /area/crew_quarters/kitchen)
 "bOX" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bOY" = (
 /obj/structure/sign/warning/vacuum/external{
@@ -48429,13 +48429,13 @@
 	name = "CondiMaster Neo";
 	pixel_x = -4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bPa" = (
 /mob/living/simple_animal/hostile/retaliate/goat{
 	name = "Pete"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bPb" = (
 /obj/structure/table/wood,
@@ -49185,11 +49185,11 @@
 /area/crew_quarters/kitchen)
 "bQI" = (
 /obj/machinery/vending/wardrobe/chef_wardrobe,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bQJ" = (
 /obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bQN" = (
 /obj/machinery/airalarm{
@@ -49766,7 +49766,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bRY" = (
 /obj/structure/disposalpipe/segment{
@@ -49783,7 +49783,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bRZ" = (
 /obj/structure/disposalpipe/segment{
@@ -49796,7 +49796,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bSa" = (
 /obj/structure/disposalpipe/segment{
@@ -49805,7 +49805,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bSd" = (
 /obj/machinery/portable_atmospherics/canister,
@@ -50235,7 +50235,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/kitchen_coldroom,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bSY" = (
 /obj/structure/disposalpipe/segment,
@@ -50248,7 +50248,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
-/turf/open/floor/plasteel/kitchen_coldroom,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bSZ" = (
 /obj/machinery/door/airlock/maintenance{
@@ -50895,7 +50895,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/kitchen_coldroom,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bUq" = (
 /obj/structure/disposalpipe/segment{
@@ -50907,7 +50907,7 @@
 	req_access_txt = "28"
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/kitchen_coldroom,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bUr" = (
 /obj/machinery/navbeacon{
@@ -53348,7 +53348,7 @@
 "bZx" = (
 /obj/machinery/icecream_vat,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bZy" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -56731,7 +56731,7 @@
 	},
 /obj/structure/reagent_dispensers/cooking_oil,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "cgG" = (
 /obj/structure/closet/emcloset/anchored,
@@ -82354,7 +82354,7 @@
 	name = "old sink";
 	pixel_y = 28
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "fBA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -85498,7 +85498,7 @@
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "rFZ" = (
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "rHt" = (
 /obj/effect/spawner/structure/window/reinforced,
