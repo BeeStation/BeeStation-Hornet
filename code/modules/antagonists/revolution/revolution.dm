@@ -218,9 +218,6 @@
 		return
 
 	to_chat(owner, "<span class='deconversion_message bold'>[victory_message]</span>")
-	var/policy = get_policy(ROLE_REV_SUCCESSFUL)
-	if (policy)
-		to_chat(owner, policy)
 
 /datum/antagonist/rev/farewell()
 	if (announce_victorious())
