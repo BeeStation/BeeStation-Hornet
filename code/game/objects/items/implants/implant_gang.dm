@@ -24,17 +24,12 @@
 	if(!target || !target.mind || target.stat == DEAD)
 		return 0
 	if (HAS_TRAIT(target, TRAIT_MINDSHIELD))
-		target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You resist the urge to run with the cool kids!</span>")
+		target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You refuse the healing nanites from a kind stranger!</span>")
 		return FALSE
 	var/datum/antagonist/gang/G = target.mind.has_antag_datum(/datum/antagonist/gang)
 	if(G && G.gang == G)
-		if (target.stat == STAT_DEAD)
-			target.adjustFireLoss(max(0,getFireLoss()-150))
-			target.adjustBruteLoss(max(0,getBruteLoss()-150))
-			target.adjustToxLoss(-100)
-			target.adjustOxyLoss(-100)
-			target.revive()
-			M.reagents.add_reagent(/datum/reagent/medicine/stabilizing_nanites, 10)						
+		if (target.stat == DEAD)
+			target.revive(1,1)					
 			return TRUE
 		return FALSE // it's pointless
 	if(..())
@@ -50,7 +45,6 @@
 				target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You feel the influence of your enemies try to invade your mind!</span>")
 				return FALSE
 		target.mind.add_antag_datum(/datum/antagonist/gang, gang)
-		M.reagents.add_reagent(/datum/reagent/medicine/stabilizing_nanites, 5)
 		qdel(src)
 		return TRUE
 
