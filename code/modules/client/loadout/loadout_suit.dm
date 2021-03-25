@@ -1,6 +1,6 @@
 /datum/gear/suit
 	subtype_path = /datum/gear/suit
-	slot = SLOT_WEAR_SUIT
+	slot = ITEM_SLOT_OCLOTHING
 	sort_category = "External Wear"
 	cost = 2500
 
