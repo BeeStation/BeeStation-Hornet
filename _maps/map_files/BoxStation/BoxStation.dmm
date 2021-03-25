@@ -57283,6 +57283,7 @@
 "qGZ" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
+/obj/item/clothing/glasses/hud/security/sunglasses,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "qJa" = (
