@@ -13556,7 +13556,7 @@
 	pixel_y = 2
 	},
 /obj/item/storage/fancy/cigarettes,
-/obj/item/clothing/glasses/hud/security/sunglasses,
+/obj/item/clothing/glasses/sunglasses,
 /turf/open/floor/carpet,
 /area/security/detectives_office)
 "aEo" = (

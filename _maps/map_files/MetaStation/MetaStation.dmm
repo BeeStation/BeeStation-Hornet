@@ -84765,7 +84765,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
 	},
-/obj/item/clothing/glasses/hud/security/sunglasses,
+/obj/item/clothing/glasses/sunglasses,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "ozV" = (
