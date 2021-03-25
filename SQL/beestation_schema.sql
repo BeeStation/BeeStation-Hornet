@@ -532,27 +532,6 @@ CREATE TABLE IF NOT EXISTS `SS13_stickyban_matched_ip` (
   PRIMARY KEY (`stickyban`,`matched_ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-
-
--- Dumping structure for table ss13tgdb.SS13_library
-DROP TABLE IF EXISTS `SS13_circuits`;
-CREATE TABLE IF NOT EXISTS `SS13_circuits` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author` varchar(45) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `content` text NOT NULL,
-  `ckey` varchar(32) NOT NULL DEFAULT 'LEGACY',
-  `datetime` datetime NOT NULL,
-  `deleted` tinyint(1) unsigned DEFAULT NULL,
-  `round_id_created` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `deleted_idx` (`deleted`),
-  KEY `idx_lib_id_del` (`id`,`deleted`),
-  KEY `idx_lib_del_name` (`deleted`,`name`),
-  KEY `idx_lib_search` (`deleted`,`author`,`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=326 DEFAULT CHARSET=utf8mb4;
-
 DELIMITER $$
 CREATE PROCEDURE `set_poll_deleted`(
 	IN `poll_id` INT

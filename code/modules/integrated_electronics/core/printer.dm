@@ -277,7 +277,7 @@
 				var/savefile/S = new /savefile("data/player_saves/[usr.ckey[1]]/[usr.ckey]/circuits.sav")
 				var/templist
 				S >> templist
-				var/name = input(usr,"Choose a Circuit from the list.","Choose") as null|anything in templist
+				var/name = tgui_input_list(usr,"Choose a Circuit from the list.","Choose",templist)
 				var/validation = SScircuit.validate_electronic_assembly(templist["[name]"], FALSE)
 				validate_circuit(validation)
 			if("print")
