@@ -216,7 +216,7 @@
 	if(wires.len)
 		blocks["wires"] = wires
 
-	return json_encode(blocks)
+	return blocks
 
 
 
@@ -225,11 +225,14 @@
 // Returns error code (type: text) if loading has failed.
 // The following parameters area calculated during validation and added to the returned save list:
 // "requires_upgrades", "unsupported_circuit", "iron_cost", "complexity", "max_complexity", "used_space", "max_space"
-/datum/controller/subsystem/processing/circuit/proc/validate_electronic_assembly(program)
+/datum/controller/subsystem/processing/circuit/proc/validate_electronic_assembly(program, var/external_import)
 	//Check for bad inputs
-	program = bad_regex.Replace(program, "")
-
-	var/list/blocks = json_decode(program)
+	var/list/blocks
+	if(external_import == TRUE)
+		program = bad_regex.Replace(program, "")
+		blocks = json_decode(program)
+	else
+		blocks = program
 	if(!blocks)
 		return
 

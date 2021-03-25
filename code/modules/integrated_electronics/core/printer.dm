@@ -162,9 +162,10 @@
 	if((can_clone && CONFIG_GET(flag/ic_printing)) || debug)
 		HTML += "Here you can load script for your assembly.<br>"
 		if(!cloning)
-			HTML += " <A href='?src=[REF(src)];print=load'>Load Program</a> "
+			HTML += " <A href='?src=[REF(src)];print=load'>Load Old Program</a> "
 		else
 			HTML += " Load Program"
+		HTML += " <A href='?src=[REF(src)];print=loadnew'>Load new Program</a> "
 		if(!program)
 			HTML += " [fast_clone ? "Print" : "Begin Printing"] Assembly"
 		else if(cloning)
@@ -269,26 +270,16 @@
 					program = null
 					return
 
-				var/validation = SScircuit.validate_electronic_assembly(input)
+				var/validation = SScircuit.validate_electronic_assembly(input, TRUE)
+				validate_circuit(validation)
 
-				// Validation error codes are returned as text.
-				if(istext(validation))
-					to_chat(usr, "<span class='warning'>Error: [validation]</span>")
-					return
-				else if(islist(validation))
-					program = validation
-					to_chat(usr, "<span class='notice'>This is a valid program for [program["assembly"]["type"]].</span>")
-					if(program["requires_upgrades"])
-						if(upgraded)
-							to_chat(usr, "<span class='notice'>It uses advanced component designs.</span>")
-						else
-							to_chat(usr, "<span class='warning'>It uses unknown component designs. Printer upgrade is required to proceed.</span>")
-					if(program["unsupported_circuit"])
-						to_chat(usr, "<span class='warning'>This program uses components not supported by the specified assembly. Please change the assembly type in the save file to a supported one.</span>")
-					to_chat(usr, "<span class='notice'>Used space: [program["used_space"]]/[program["max_space"]].</span>")
-					to_chat(usr, "<span class='notice'>Complexity: [program["complexity"]]/[program["max_complexity"]].</span>")
-					to_chat(usr, "<span class='notice'>Iron cost: [program["iron_cost"]].</span>")
-
+			if("loadnew")
+				var/savefile/S = new /savefile("data/player_saves/[usr.ckey[1]]/[usr.ckey]/circuits.sav")
+				var/templist
+				S >> templist
+				var/name = input(usr,"Choose a Circuit from the list.","Choose") as null|anything in templist
+				var/validation = SScircuit.validate_electronic_assembly(templist["[name]"], FALSE)
+				validate_circuit(validation)
 			if("print")
 				if(!program || cloning)
 					return
@@ -349,3 +340,26 @@
 	name = "integrated circuit printer upgrade disk - instant cloner"
 	desc = "Install this into your integrated circuit printer to enhance it.  This one allows the printer to duplicate assemblies instantaneously."
 	icon_state = "upgrade_disk_clone"
+
+/obj/item/integrated_circuit_printer/proc/load_circuit(var/saved_data)
+	var/validation = SScircuit.validate_electronic_assembly(saved_data, FALSE)
+	validate_circuit(validation)
+
+/obj/item/integrated_circuit_printer/proc/validate_circuit(var/validation)
+	// Validation error codes are returned as text.
+	if(istext(validation))
+		to_chat(usr, "<span class='warning'>Error: [validation]</span>")
+		return
+	else if(islist(validation))
+		program = validation
+		to_chat(usr, "<span class='notice'>This is a valid program for [program["assembly"]["type"]].</span>")
+		if(program["requires_upgrades"])
+			if(upgraded)
+				to_chat(usr, "<span class='notice'>It uses advanced component designs.</span>")
+			else
+				to_chat(usr, "<span class='warning'>It uses unknown component designs. Printer upgrade is required to proceed.</span>")
+		if(program["unsupported_circuit"])
+			to_chat(usr, "<span class='warning'>This program uses components not supported by the specified assembly. Please change the assembly type in the save file to a supported one.</span>")
+		to_chat(usr, "<span class='notice'>Used space: [program["used_space"]]/[program["max_space"]].</span>")
+		to_chat(usr, "<span class='notice'>Complexity: [program["complexity"]]/[program["max_complexity"]].</span>")
+		to_chat(usr, "<span class='notice'>Iron cost: [program["iron_cost"]].</span>")
