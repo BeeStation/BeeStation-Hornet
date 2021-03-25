@@ -123,9 +123,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/item/gps{
-	gpstag = "Emergency Blackbox GPS"
-	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "TEMP=2.7"
 	},
@@ -328,6 +325,10 @@
 /area/ruin/unpowered)
 "dc" = (
 /obj/item/shard,
+/turf/template_noop,
+/area/template_noop)
+"dA" = (
+/obj/machinery/computer/shuttle/caravan/pirate,
 /turf/template_noop,
 /area/template_noop)
 "dD" = (
@@ -3484,7 +3485,7 @@ aa
 aa
 aa
 aa
-aa
+dA
 hm
 hQ
 io
