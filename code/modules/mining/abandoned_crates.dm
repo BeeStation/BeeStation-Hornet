@@ -20,7 +20,7 @@
 		code += dig
 		digits -= dig  //there are never matching digits in the answer
 
-	var/loot = rand(1,180) //180 different crates with varying chances of spawning
+	var/loot = rand(1,181) //181 different crates with varying chances of spawning
 	switch(loot)
 		if(1 to 5) //5% chance
 			new /obj/item/reagent_containers/food/drinks/bottle/rum(src)
@@ -171,8 +171,12 @@
 		if(108)
 			new /obj/item/circuitboard/machine/protolathe(src)
 		if(109)
-			var/chosen_circuit = pick(subtypesof(/obj/item/circuitboard) - (/obj/item/circuitboard + /obj/item/circuitboard/computer + /obj/item/circuitboard/machine + /obj/item/circuitboard/machine/vending + /obj/item/circuitboard/machine/telecomms + /obj/item/circuitboard/computer/arcade + /obj/item/circuitboard/machine/shuttle + /obj/item/circuitboard/mecha + /obj/item/circuitboard/mecha/durand + /obj/item/circuitboard/mecha/gygax + /obj/item/circuitboard/mecha/honker + /obj/item/circuitboard/mecha/odysseus + /obj/item/circuitboard/mecha/phazon + /obj/item/circuitboard/mecha/ripley))
-			new chosen_circuit(src)
+			var/chosen_cigarette = pick(subtypesof(/obj/item/clothing/mask/cigarette))
+			new chosen_cigarette(src)
+			if(prob(20))
+				new /obj/item/lighter/slime(src)
+			else
+				new /obj/item/lighter(src)
 		if(110)
 			new /obj/item/clothing/head/bronze(src)
 			new /obj/item/clothing/shoes/bronze(src)
