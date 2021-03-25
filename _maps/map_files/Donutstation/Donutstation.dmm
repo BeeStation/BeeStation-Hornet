@@ -632,6 +632,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "abz" = (
+/obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "abA" = (
