@@ -6209,7 +6209,7 @@
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
 "aob" = (
-/obj/machinery/vending/wardrobe/det_wardrobe,
+/obj/machinery/computer/secure_data,
 /obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
@@ -7781,15 +7781,7 @@
 	dir = 9
 	},
 /obj/machinery/light/small,
-<<<<<<< HEAD
 /turf/open/floor/carpet/red,
-=======
-/obj/item/camera/detective,
-/obj/item/hand_labeler{
-	pixel_x = 5
-	},
-/turf/open/floor/carpet,
->>>>>>> 7ce87578a1 (Adds the detective wardrobe (#50564))
 /area/security/detectives_office)
 "auj" = (
 /obj/structure/cable/yellow{
@@ -46659,7 +46651,6 @@
 /obj/item/storage/secure/safe{
 	pixel_x = -23
 	},
-/obj/item/storage/box/evidence,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "dAV" = (
@@ -47207,7 +47198,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
-<<<<<<< HEAD
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -47215,29 +47205,6 @@
 /area/maintenance/port)
 "elL" = (
 /obj/effect/turf_decal/tile/neutral{
-=======
-/obj/item/clothing/gloves/color/orange,
-/obj/item/restraints/handcuffs,
-/obj/item/reagent_containers/spray/pepper,
-/turf/open/floor/plasteel,
-/area/security/prison)
-"fBs" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -30
-	},
-/obj/machinery/computer/secure_data,
-/turf/open/floor/plasteel/grimy,
-/area/security/detectives_office)
-"fGg" = (
-/obj/effect/landmark/start/paramedic,
-/turf/open/floor/plasteel/white,
-/area/medical/sleeper)
-"fGF" = (
-/obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/turf_decal/bot,
-/obj/machinery/light/small{
->>>>>>> 7ce87578a1 (Adds the detective wardrobe (#50564))
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
