@@ -588,8 +588,11 @@ MICE_ROUNDSTART 10
 ## If the percentage of players alive (doesn't count conversions) drops below this threshold the emergency shuttle will be forcefully called (provided it can be)
 #EMERGENCY_SHUTTLE_AUTOCALL_THRESHOLD 0.2
 
-## Determines if players are allowed to print integrated circuits, uncomment to allow.
+## Determines if players are allowed to print integrated circuits from export strings, uncomment to allow.
 IC_PRINTING
+
+## Allow circuits to be researched at all
+#CIRCUITS_RESEARCHABLE
 
 ## Uncomment to allow roundstart quirk selection in the character setup menu.
 ## This used to be named traits, hence the config name, but it handles quirks, not the other kind of trait!

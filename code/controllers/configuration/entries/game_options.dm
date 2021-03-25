@@ -412,7 +412,13 @@
 	max_val = 1
 	integer = FALSE
 
+/// CIRCUITS
+
+//Allow circuit cloning
 /datum/config_entry/flag/ic_printing
+
+//Allow circuits to be researched
+/datum/config_entry/flag/circuits_researchable
 
 /datum/config_entry/flag/roundstart_traits
 

@@ -134,6 +134,10 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
+/datum/techweb_node/circuitresearch/New()
+	. = ..()
+	hidden = !CONFIG_GET(flag/circuits_researchable)
+
 /datum/techweb_node/circuitupgrades
 	id = "circuitupgrades"
 	display_name = "Advanced Circuit Research"
@@ -142,6 +146,10 @@
 	design_ids = list("icupgadv", "icupgclo")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
+
+/datum/techweb_node/circuitupgrades/New()
+	. = ..()
+	hidden = !CONFIG_GET(flag/circuits_researchable)
 
 /////////////////////////engineering tech/////////////////////////
 /datum/techweb_node/engineering
@@ -616,7 +624,6 @@
 
 /datum/techweb_node/bluespace_mining/New() //Techweb nodes don't have an init,
 	. = ..()
-
 	hidden = !CONFIG_GET(flag/bsminer_researchable)
 
 
