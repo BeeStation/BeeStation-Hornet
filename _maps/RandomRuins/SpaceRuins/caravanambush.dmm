@@ -16,8 +16,8 @@
 /area/template_noop)
 "ae" = (
 /obj/structure/fluff/broken_flooring{
-	icon_state = "plating";
-	dir = 4
+	dir = 4;
+	icon_state = "plating"
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -66,8 +66,8 @@
 "an" = (
 /obj/structure/lattice,
 /obj/structure/fluff/broken_flooring{
-	icon_state = "plating";
-	dir = 4
+	dir = 4;
+	icon_state = "plating"
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -78,8 +78,8 @@
 "ap" = (
 /obj/structure/lattice,
 /obj/structure/fluff/broken_flooring{
-	icon_state = "pile";
-	dir = 8
+	dir = 8;
+	icon_state = "pile"
 	},
 /turf/template_noop,
 /area/template_noop)
@@ -123,6 +123,9 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/item/gps{
+	gpstag = "Emergency Blackbox GPS"
+	},
 /turf/open/floor/plasteel/dark{
 	initial_gas_mix = "TEMP=2.7"
 	},
@@ -133,8 +136,8 @@
 /area/template_noop)
 "aE" = (
 /obj/structure/fluff/broken_flooring{
-	icon_state = "pile";
-	dir = 4
+	dir = 4;
+	icon_state = "pile"
 	},
 /turf/template_noop,
 /area/template_noop)

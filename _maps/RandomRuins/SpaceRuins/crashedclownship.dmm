@@ -51,6 +51,10 @@
 	lootcount = 2;
 	name = "2maintenance loot spawner"
 	},
+/obj/item/gps/engineering{
+	color = "#FFFF00";
+	gpstag = "HONK"
+	},
 /turf/open/floor/mineral/bananium/airless,
 /area/ruin/unpowered)
 "l" = (

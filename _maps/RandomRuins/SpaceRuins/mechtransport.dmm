@@ -32,6 +32,9 @@
 "i" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/gps{
+	gpstag = "Emergency Blackbox GPS"
+	},
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "j" = (

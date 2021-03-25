@@ -466,6 +466,9 @@
 "bm" = (
 /obj/structure/closet/wardrobe/science_white,
 /obj/structure/disposalpipe/segment,
+/obj/item/gps/science{
+	gpstag = "Zoo"
+	},
 /turf/open/floor/plasteel/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
 "bn" = (
@@ -911,6 +914,20 @@
 	},
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/abandonedzoo)
+"Qb" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/item/gps/mining,
+/turf/open/floor/plasteel/dark,
+/area/ruin/space/has_grav/abandonedzoo)
 "VW" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bio Containment";
@@ -1081,7 +1098,7 @@ ax
 aG
 aN
 aV
-ay
+Qb
 tP
 bh
 bm
