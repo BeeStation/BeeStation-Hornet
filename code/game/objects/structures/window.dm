@@ -575,7 +575,7 @@
 	flags_1 = PREVENT_CLICK_UNDER_1
 	reinf = TRUE
 	heat_resistance = 50000
-	armor = list("melee" = 90, "bullet" = 40, "laser" = 0, "energy" = 0, "bomb" = 70, "bio" = 100, "rad" = 100, "fire" = 9, "acid" = 100, "stamina" = 0)
+	armor = list("melee" = 90, "bullet" = 40, "laser" = 0, "energy" = 0, "bomb" = 70, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100, "stamina" = 0)
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
 	explosion_block = 3
