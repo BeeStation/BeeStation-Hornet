@@ -59,6 +59,10 @@
 #include "unit_test.dm"
 #include "random_ruin_mapsize.dm"
 
+#ifdef REFERENCE_TRACKING //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
+#include "find_reference_sanity.dm"
+#endif
+
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
 #undef TEST_ASSERT_NOTEQUAL
