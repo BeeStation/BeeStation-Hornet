@@ -5,9 +5,7 @@
 	var/obj/item/clothing/accessory/spy_bug/linked_bug
 
 /obj/item/clothing/glasses/sunglasses/spy/proc/show_to_user(mob/user)//this is the meat of it. most of the map_popup usage is in this.
-	if(!user)
-		return
-	if(!user.client)
+	if(!user?.client)
 		return
 	if(!linked_bug)
 		user.audible_message("<span class='warning'>[src] lets off a shrill beep!</span>")
