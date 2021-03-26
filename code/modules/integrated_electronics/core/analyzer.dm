@@ -44,7 +44,7 @@
 	var/circuit_list
 	S >> circuit_list
 	if(length(circuit_list) >= 20)
-		var/override_circuit = tgui_input_list(usr,"You reached the max number of circuits choose a circuit to override.","Choose",templist)
+		var/override_circuit = tgui_input_list(usr,"You reached the max number of circuits choose a circuit to override.","Choose",circuit_list)
 		if(override_circuit == null)
 			to_chat(usr, "<span class='notice'>You do not override the circuit.</span>")
 			return
