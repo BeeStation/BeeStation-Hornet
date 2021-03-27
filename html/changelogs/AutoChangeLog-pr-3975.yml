@@ -1,5 +1,0 @@
-author: jlsnow301
-delete-after: true
-changes:
-  - rscdel: Removed chemistry and grenade functionality from circuits to prevent bomb
-      drones
