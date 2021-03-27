@@ -1,11 +1,10 @@
 #define MAX_CIRCUIT_CLONE_TIME 3 MINUTES //circuit slow-clones can only take up this amount of time to complete
 
-/obj/item/integrated_circuit_printer
+/obj/machinery/integrated_circuit_printer
 	name = "integrated circuit printer"
 	desc = "A portable(ish) machine made to print tiny modular circuitry out of iron."
 	icon = 'icons/obj/assemblies/electronic_tools.dmi'
 	icon_state = "circuit_printer"
-	w_class = WEIGHT_CLASS_BULKY
 	var/upgraded = FALSE		// When hit with an upgrade disk, will turn true, allowing it to print the higher tier circuits.
 	var/can_clone = TRUE		// Allows the printer to clone circuits, either instantly or over time depending on upgrade. Set to FALSE to disable entirely.
 	var/fast_clone = FALSE		// If this is false, then cloning will take an amount of deciseconds equal to the iron cost divided by 100.
@@ -15,28 +14,27 @@
 	var/recycling = FALSE		// If an assembly is being emptied into this printer
 	var/list/program			// Currently loaded save, in form of list
 	var/datum/weakref/idlock = null
+	var/rmat
 
-/obj/item/integrated_circuit_printer/proc/check_interactivity(mob/user)
+/obj/machinery/integrated_circuit_printer/proc/check_interactivity(mob/user)
 	return user.canUseTopic(src, BE_CLOSE)
 
-/obj/item/integrated_circuit_printer/upgraded
+/obj/machinery/integrated_circuit_printer/upgraded
 	upgraded = TRUE
 	can_clone = TRUE
 	fast_clone = TRUE
 
-/obj/item/integrated_circuit_printer/debug //translation: "integrated_circuit_printer/local_server"
+/obj/machinery/integrated_circuit_printer/debug //translation: "integrated_circuit_printer/local_server"
 	name = "debug circuit printer"
 	debug = TRUE
 	upgraded = TRUE
 	can_clone = TRUE
 	fast_clone = TRUE
-	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/integrated_circuit_printer/Initialize()
+/obj/machinery/integrated_circuit_printer/Initialize()
 	. = ..()
-	AddComponent(/datum/component/material_container, list(/datum/material/iron), MINERAL_MATERIAL_AMOUNT * 25, TRUE, list(/obj/item/stack, /obj/item/integrated_circuit, /obj/item/electronic_assembly))
-
-/obj/item/integrated_circuit_printer/proc/print_program(mob/user)
+	rmat = AddComponent(/datum/component/remote_materials, "circuit_printer")
+/obj/machinery/integrated_circuit_printer/proc/print_program(mob/user)
 	if(!cloning)
 		return
 
@@ -49,61 +47,10 @@
 	assembly.investigate_log("was printed by [assembly.creator].", INVESTIGATE_CIRCUIT)
 	cloning = FALSE
 
-/obj/item/integrated_circuit_printer/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/disk/integrated_circuit/upgrade/advanced))
-		if(upgraded)
-			to_chat(user, "<span class='warning'>[src] already has this upgrade. </span>")
-			return TRUE
-		to_chat(user, "<span class='notice'>You install [O] into [src]. </span>")
-		upgraded = TRUE
-		return TRUE
-
-	if(istype(O, /obj/item/disk/integrated_circuit/upgrade/clone))
-		if(fast_clone)
-			to_chat(user, "<span class='warning'>[src] already has this upgrade. </span>")
-			return TRUE
-		to_chat(user, "<span class='notice'>You install [O] into [src]. Circuit cloning will now be instant. </span>")
-		fast_clone = TRUE
-		return TRUE
-
+/obj/machinery/integrated_circuit_printer/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/electronic_assembly))
-		var/obj/item/electronic_assembly/EA = O //microtransactions not included
-		if(EA.assembly_components.len)
-			if(recycling)
-				return
-			if(!EA.opened)
-				to_chat(user, "<span class='warning'>You can't reach [EA]'s components to remove them!</span>")
-				return
-			if(EA.battery)
-				to_chat(user, "<span class='warning'>Remove [EA]'s power cell first!</span>")
-				return
-			for(var/V in EA.assembly_components)
-				var/obj/item/integrated_circuit/IC = V
-				if(!IC.removable)
-					to_chat(user, "<span class='warning'>[EA] has irremovable components in the casing, preventing you from emptying it.</span>")
-					return
-			to_chat(user, "<span class='notice'>You begin recycling [EA]'s components...</span>")
-			playsound(src, 'sound/items/electronic_assembly_emptying.ogg', 50, TRUE)
-			if(!do_after(user, 30, target = src) || recycling) //short channel so you don't accidentally start emptying out a complex assembly
-				return
-			recycling = TRUE
-			var/datum/component/material_container/mats = GetComponent(/datum/component/material_container)
-			for(var/V in EA.assembly_components)
-				var/obj/item/integrated_circuit/IC = V
-				if(!mats.has_space(mats.get_item_material_amount(IC)))
-					to_chat(user, "<span class='notice'>[src] can't hold any more materials!</span>")
-					break
-				if(!do_after(user, 5, target = user))
-					recycling = FALSE
-					return
-				playsound(src, 'sound/items/crowbar.ogg', 50, TRUE)
-				if(EA.try_remove_component(IC, user, TRUE))
-					mats.user_insert(IC, user)
-			to_chat(user, "<span class='notice'>You recycle all the components[EA.assembly_components.len ? " you could " : " "]from [EA]!</span>")
-			playsound(src, 'sound/items/electronic_assembly_empty.ogg', 50, TRUE)
-			recycling = FALSE
-			return TRUE
-
+		insert_assembly(O)
+		return
 	if(istype(O, /obj/item/integrated_electronics/debugger))
 		var/obj/item/integrated_electronics/debugger/debugger = O
 		if(!debugger.idlock)
@@ -123,10 +70,18 @@
 
 	return ..()
 
-/obj/item/integrated_circuit_printer/attack_self(mob/user)
-	interact(user)
+/obj/machinery/integrated_circuit_printer/MouseDrop_T(atom/movable/O, mob/user)
+	if(istype(O, /obj/item/electronic_assembly))
+		insert_assembly(O)
+		return
 
-/obj/item/integrated_circuit_printer/interact(mob/user)
+/obj/machinery/integrated_circuit_printer/proc/insert_assembly(obj/item/O)
+	if(!contents.len >= 1)
+		O.forceMove(src)
+	else
+		visible_message("<span class='notice'>Please eject assembly before inserting another one!</span>")
+
+/obj/machinery/integrated_circuit_printer/interact(mob/user)
 	if(!(in_range(src, user) || issilicon(user)))
 		return
 
@@ -199,7 +154,75 @@
 	popup.set_content(HTML)
 	popup.open()
 
-/obj/item/integrated_circuit_printer/Topic(href, href_list)
+/obj/machinery/integrated_circuit_printer/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/circuits),
+	)
+/obj/machinery/integrated_circuit_printer/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/integrated_circuit_printer/ui_interact(mob/user,datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Circuit_Printer", name)
+		ui.open()
+
+/obj/machinery/integrated_circuit_printer/ui_data(mob/user)
+	var/list/data = list()
+	data["materials"] = rmat
+	data["program"] = program
+	data["upgrade"] = upgraded
+	data["categories"] = current_category
+	data["cloning"] = cloning
+	return data
+
+/obj/machinery/integrated_circuit_printer/ui_act(action, params)
+	. = ..()
+	if(.)
+		return
+	add_fingerprint(usr)
+	switch(action)
+		if("category")
+			current_category = params["categories"]
+			. = TRUE
+		if("build")
+			var/build_type = text2path(params["build"])
+			if(!build_type || !ispath(build_type))
+				return
+			var/cost = 400
+			if(ispath(build_type, /obj/item/electronic_assembly))
+				var/obj/item/electronic_assembly/E = SScircuit.cached_assemblies[build_type]
+				cost = E.materials[/datum/material/iron]
+			else
+				var/obj/item/integrated_circuit/IC = SScircuit.cached_components[build_type]
+				cost = IC.materials[/datum/material/iron]
+			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+			if(!debug && !materials.use_amount_mat(cost, /datum/material/iron))
+				to_chat(usr, "<span class='warning'>You need [cost] iron to build that!</span>")
+				return
+			var/obj/item/built = new build_type(drop_location())
+			if(contents.len >= 1 && istype(built, /obj/item/electronic_assembly))
+				built.forceMove(src)
+			else if (contents.len >= 1 && istype(built, /obj/item/integrated_circuit))
+				var/obj/item/electronic_assembly/E = contents
+				E.add_component(built)
+			else
+				usr.put_in_hands(built)
+			if(istype(built, /obj/item/electronic_assembly))
+				var/obj/item/electronic_assembly/E = built
+				E.creator = key_name(usr)
+				E.opened = TRUE
+				E.update_icon()
+				//reupdate diagnostic hud because it was put_in_hands() and not pickup()'ed
+				E.diag_hud_set_circuithealth()
+				E.diag_hud_set_circuitcell()
+				E.diag_hud_set_circuitstat()
+				E.diag_hud_set_circuittracking()
+				E.investigate_log("was printed by [E.creator].", INVESTIGATE_CIRCUIT)
+			to_chat(usr, "<span class='notice'>[capitalize(built.name)] printed.</span>")
+			playsound(src, 'sound/items/jaws_pry.ogg', 50, TRUE)
+
+/obj/machinery/integrated_circuit_printer/Topic(href, href_list)
 	if(!check_interactivity(usr))
 		return
 	if(..())
@@ -209,48 +232,48 @@
 	if(href_list["id-lock"])
 		idlock = null
 
-	if(href_list["category"])
-		current_category = href_list["category"]
+	// if(href_list["category"])
+	// 	current_category = href_list["category"]
 
-	if(href_list["build"])
-		var/build_type = text2path(href_list["build"])
-		if(!build_type || !ispath(build_type))
-			return TRUE
+	// if(href_list["build"])
+	// 	var/build_type = text2path(href_list["build"])
+	// 	if(!build_type || !ispath(build_type))
+	// 		return TRUE
 
-		var/cost = 400
-		if(ispath(build_type, /obj/item/electronic_assembly))
-			var/obj/item/electronic_assembly/E = SScircuit.cached_assemblies[build_type]
-			cost = E.materials[/datum/material/iron]
-		else if(ispath(build_type, /obj/item/integrated_circuit))
-			var/obj/item/integrated_circuit/IC = SScircuit.cached_components[build_type]
-			cost = IC.materials[/datum/material/iron]
-		else if(!(build_type in SScircuit.circuit_fabricator_recipe_list["Tools"]))
-			log_href_exploit(usr)
-			return
+	// 	var/cost = 400
+	// 	if(ispath(build_type, /obj/item/electronic_assembly))
+	// 		var/obj/item/electronic_assembly/E = SScircuit.cached_assemblies[build_type]
+	// 		cost = E.materials[/datum/material/iron]
+	// 	else if(ispath(build_type, /obj/item/integrated_circuit))
+	// 		var/obj/item/integrated_circuit/IC = SScircuit.cached_components[build_type]
+	// 		cost = IC.materials[/datum/material/iron]
+	// 	else if(!(build_type in SScircuit.circuit_fabricator_recipe_list["Tools"]))
+	// 		log_href_exploit(usr)
+	// 		return
 
-		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	// 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 
-		if(!debug && !materials.use_amount_mat(cost, /datum/material/iron))
-			to_chat(usr, "<span class='warning'>You need [cost] iron to build that!</span>")
-			return TRUE
+	// 	if(!debug && !materials.use_amount_mat(cost, /datum/material/iron))
+	// 		to_chat(usr, "<span class='warning'>You need [cost] iron to build that!</span>")
+	// 		return TRUE
 
-		var/obj/item/built = new build_type(drop_location())
-		usr.put_in_hands(built)
+	// 	var/obj/item/built = new build_type(drop_location())
+	// 	usr.put_in_hands(built)
 
-		if(istype(built, /obj/item/electronic_assembly))
-			var/obj/item/electronic_assembly/E = built
-			E.creator = key_name(usr)
-			E.opened = TRUE
-			E.update_icon()
-			//reupdate diagnostic hud because it was put_in_hands() and not pickup()'ed
-			E.diag_hud_set_circuithealth()
-			E.diag_hud_set_circuitcell()
-			E.diag_hud_set_circuitstat()
-			E.diag_hud_set_circuittracking()
-			E.investigate_log("was printed by [E.creator].", INVESTIGATE_CIRCUIT)
+	// 	if(istype(built, /obj/item/electronic_assembly))
+	// 		var/obj/item/electronic_assembly/E = built
+	// 		E.creator = key_name(usr)
+	// 		E.opened = TRUE
+	// 		E.update_icon()
+	// 		//reupdate diagnostic hud because it was put_in_hands() and not pickup()'ed
+	// 		E.diag_hud_set_circuithealth()
+	// 		E.diag_hud_set_circuitcell()
+	// 		E.diag_hud_set_circuitstat()
+	// 		E.diag_hud_set_circuittracking()
+	// 		E.investigate_log("was printed by [E.creator].", INVESTIGATE_CIRCUIT)
 
-		to_chat(usr, "<span class='notice'>[capitalize(built.name)] printed.</span>")
-		playsound(src, 'sound/items/jaws_pry.ogg', 50, TRUE)
+	// 	to_chat(usr, "<span class='notice'>[capitalize(built.name)] printed.</span>")
+	// 	playsound(src, 'sound/items/jaws_pry.ogg', 50, TRUE)
 
 	if(href_list["print"])
 		if(!CONFIG_GET(flag/ic_printing) && !debug)
@@ -341,11 +364,11 @@
 	desc = "Install this into your integrated circuit printer to enhance it.  This one allows the printer to duplicate assemblies instantaneously."
 	icon_state = "upgrade_disk_clone"
 
-/obj/item/integrated_circuit_printer/proc/load_circuit(var/saved_data)
+/obj/machinery/integrated_circuit_printer/proc/load_circuit(var/saved_data)
 	var/validation = SScircuit.validate_electronic_assembly(saved_data, FALSE)
 	validate_circuit(validation)
 
-/obj/item/integrated_circuit_printer/proc/validate_circuit(var/validation)
+/obj/machinery/integrated_circuit_printer/proc/validate_circuit(var/validation)
 	// Validation error codes are returned as text.
 	if(istext(validation))
 		to_chat(usr, "<span class='warning'>Error: [validation]</span>")

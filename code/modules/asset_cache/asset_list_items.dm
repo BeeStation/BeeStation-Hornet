@@ -451,3 +451,10 @@
 	assets = list(
 		"paigrid.png" = 'html/paigrid.png'
 	)
+
+/datum/asset/spritesheet/circuits
+	name = "circuits"
+
+/datum/asset/spritesheet/circuits/register()
+	for(var/each in list('icons/obj/assemblies/electronic_components.dmi','icons/obj/assemblies/electronic_misc.dmi','icons/obj/assemblies/electronic_casings.dmi','icons/obj/assemblies/electronic_tools.dmi'))
+		InsertAll("",each)

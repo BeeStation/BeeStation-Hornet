@@ -65,7 +65,7 @@
 	id = "icprinter"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/glass = 5000, /datum/material/iron = 10000, /datum/material/copper = 2000)
-	build_path = /obj/item/integrated_circuit_printer
+	build_path = /obj/machinery/integrated_circuit_printer
 	category = list("Electronics")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
