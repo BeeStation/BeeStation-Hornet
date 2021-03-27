@@ -23,6 +23,9 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
 
+	if(CONFIG_GET(flag/protect_heads_from_antagonist))
+		restricted_jobs += GLOB.command_positions
+
 	var/sleeping_agents = required_enemies + round(num_players()*0.05) // At 100 players, it'd be 2 + 5 = 7 teams existing.
 
 	for (var/i in 1 to sleeping_agents)
