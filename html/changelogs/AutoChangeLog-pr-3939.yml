@@ -1,5 +1,0 @@
-author: r1ks-iwnl
-delete-after: true
-changes:
-  - tweak: Changeling last resort ability no longer takes 0.8 seconds after use to
-      actually spawn the headcrab.

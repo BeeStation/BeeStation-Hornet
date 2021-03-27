@@ -1,9 +1,0 @@
-author: Mat05usz
-delete-after: true
-changes:
-  - rscadd: 'Boxstation: Two pairs of sunglasses to Law Office.'
-  - rscdel: 'Boxstation: Remove a lot of useless wires around maintenance.'
-  - rscdel: 'Boxstation: Remove three AI cams placed in maintenance.'
-  - tweak: 'Boxstation: Bridge status displays are now placed on reinforced walls
-      instead on windows.'
-  - bugfix: 'Boxstation: No more CMO office area in maintenance.'
