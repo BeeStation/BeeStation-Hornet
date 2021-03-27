@@ -299,3 +299,9 @@
 				thing.pixel_x = L.pixel_x
 				thing.pixel_y = L.pixel_y
 				qdel(L)
+
+/obj/machinery/recharger/Initialize(mapload)
+	if(CONFIG_GET(flag/syndicate_station) && mapload)
+		for(var/i in 1 to rand(1, 3))
+			new /obj/item/ammo_box/magazine/m10mm(get_turf(src))
+		return INITIALIZE_HINT_QDEL
