@@ -275,6 +275,8 @@
 				inowhaveapen = new /obj/item/pen(traitor_mob.loc)
 				traitor_mob.put_in_hands(inowhaveapen) // I hope you don't have arms and your traitor pen gets stolen for all this trouble you've caused.
 			P = inowhaveapen
+	if(R?.freqlock)
+		R = null
 
 	var/obj/item/uplink_loc
 

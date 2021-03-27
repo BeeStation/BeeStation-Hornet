@@ -2294,3 +2294,33 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 	illegal_tech = FALSE
+
+//================
+//OVERRIDES FOR SYNDIE STATION
+//================
+
+/datum/uplink_item/New()
+	. = ..()
+	if(CONFIG_GET(flag/syndicate_station))
+		name = replacetext(name, "syndicate", "nanotrasen")
+		name = replacetext(name, "Syndicate", "Nanotrasen")
+		desc = replacetext(desc, "syndicate", "nanotrasen")
+		desc = replacetext(desc, "Syndicate", "Nanotrasen")
+
+/datum/uplink_item/suits/hardsuit/New()
+	. = ..()
+	if(CONFIG_GET(flag/syndicate_station))
+		include_modes = list(/datum/game_mode/sandbox)	//Dont use this anymore
+
+/datum/uplink_item/suits/hardsuit/elite/New()
+	. = ..()
+	if(CONFIG_GET(flag/syndicate_station))
+		item = /obj/item/clothing/suit/space/hardsuit/ert
+		include_modes = list()
+		//They spawn with ERT suits
+		exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+
+/datum/uplink_item/suits/space_suit/New()
+	. = ..()
+	if(CONFIG_GET(flag/syndicate_station))
+		item = /obj/item/storage/box/syndie_kit/nanospace

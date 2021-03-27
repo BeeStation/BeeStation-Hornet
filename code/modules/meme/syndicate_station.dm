@@ -32,6 +32,7 @@
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
 	belt = /obj/item/storage/belt/military
 	l_pocket = /obj/item/melee/transforming/energy/sword/saber/red
+	r_pocket = /obj/item/pda/captain
 	suit_store = /obj/item/gun/ballistic/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat
 	glasses = /obj/item/clothing/glasses/hud/security/night
@@ -178,12 +179,22 @@
 
 /datum/outfit/syndicate/full/become_syndie()
 	suit = /obj/item/clothing/suit/space/hardsuit/ert
-	r_hand = /obj/item/gun/energy/pulse/pistol/m1911
+	r_hand = /obj/item/gun/energy/pulse/pistol/m1911/finite
+
+/obj/item/gun/energy/pulse/pistol/m1911/finite
+	name = "\improper M1911-P"
+	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
+	icon_state = "m1911"
+	item_state = "gun"
+	cell_type = "/obj/item/stock_parts/cell/high"
 
 /datum/outfit/syndicate/post_equip(mob/living/carbon/human/H)
 	. = ..()
 	if(CONFIG_GET(flag/syndicate_station))
 		var/obj/item/radio/R = H.ears
+		if(R.keyslot)
+			qdel(R.keyslot)
+		R.keyslot = new /obj/item/encryptionkey/headset_cent(R)
 		R.set_frequency(FREQ_CENTCOM)
 
 /obj/item/encryptionkey/Initialize()
@@ -245,37 +256,10 @@
 	mask_type = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/jetpack/oxygen/harness
 
-//uplink stuff
-
-/datum/uplink_item/New()
-	. = ..()
-	if(CONFIG_GET(flag/syndicate_station))
-		name = replacetext(name, "syndicate", "nanotrasen")
-		name = replacetext(name, "Syndicate", "Nanotrasen")
-		desc = replacetext(desc, "syndicate", "nanotrasen")
-		desc = replacetext(desc, "Syndicate", "Nanotrasen")
-
-/datum/uplink_item/suits/hardsuit/New()
-	. = ..()
-	if(CONFIG_GET(flag/syndicate_station))
-		include_modes = list(/datum/game_mode/sandbox)	//Dont use this anymore
-
-/datum/uplink_item/suits/hardsuit/elite/New()
-	. = ..()
-	if(CONFIG_GET(flag/syndicate_station))
-		include_modes = list()
-		//They spawn with ERT suits
-		exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
-
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize()
 	. = ..()
 	if(CONFIG_GET(flag/syndicate_station))
 		icon_state = "hardsuit0-ert_commander"
-
-/datum/uplink_item/suits/space_suit/New()
-	. = ..()
-	if(CONFIG_GET(flag/syndicate_station))
-		item = /obj/item/storage/box/syndie_kit/nanospace
 
 /obj/item/storage/box/syndie_kit/nanospace
 	name = "nanotrasen boxed space suit and helmet"
@@ -289,3 +273,8 @@
 /obj/item/storage/box/syndie_kit/nanospace/PopulateContents()
 	new /obj/item/clothing/suit/space/eva(src) // Black and red is so in right now
 	new /obj/item/clothing/head/helmet/space/eva(src)
+
+/datum/antagonist/traitor/New()
+	. = ..()
+	if(CONFIG_GET(flag/syndicate_station))
+		employer = "Nanotrasen"
