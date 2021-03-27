@@ -150,6 +150,8 @@
   */
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	pre_equip(H, visualsOnly)
+	if(CONFIG_GET(flag/syndicate_station))
+		become_syndie()
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)

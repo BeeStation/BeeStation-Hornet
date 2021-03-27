@@ -161,3 +161,5 @@
 	name = "black engineering space suit"
 	icon_state = "syndicate-black-engie"
 	item_state = "syndicate-black"
+	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 100, "acid" = 75)
+	resistance_flags = FIRE_PROOF

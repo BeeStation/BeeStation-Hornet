@@ -41,6 +41,9 @@ GLOBAL_VAR(command_name)
 
 	var/name = "Central Command"
 
+	if(CONFIG_GET(flag/syndicate_station))
+		name = "Syndicate High Command"
+
 	GLOB.command_name = name
 	return name
 

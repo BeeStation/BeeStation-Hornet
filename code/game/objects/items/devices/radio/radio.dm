@@ -37,7 +37,8 @@
 	var/obj/item/encryptionkey/keyslot
 	var/translate_binary = FALSE  // If true, can hear the special binary channel.
 	var/independent = FALSE  // If true, can say/hear on the special CentCom channel.
-	var/syndie = FALSE  // If true, hears all well-known channels automatically, and can say/hear on the Syndicate channel.
+	var/syndie = FALSE // If true, can say/hear on the Syndicate channel.
+	var/can_hear_all = FALSE // If true, hears all well-known channels automatically, and can say/hear on the Syndicate channel.
 	var/list/channels = list()  // Map from name (see communications.dm) to on/off. First entry is current department (:h).
 	var/list/secure_radio_connections
 	var/radio_silent = FALSE // If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
@@ -55,6 +56,7 @@
 	channels = list()
 	translate_binary = FALSE
 	syndie = FALSE
+	can_hear_all = FALSE
 	independent = FALSE
 
 	if(keyslot)
@@ -66,6 +68,7 @@
 			translate_binary = TRUE
 		if(keyslot.syndie)
 			syndie = TRUE
+			can_hear_all = TRUE
 		if(keyslot.independent)
 			independent = TRUE
 
@@ -75,7 +78,8 @@
 /obj/item/radio/proc/make_syndie() // Turns normal radios into Syndicate radios!
 	qdel(keyslot)
 	keyslot = new /obj/item/encryptionkey/syndicate
-	syndie = 1
+	syndie = TRUE
+	can_hear_all = TRUE
 	recalculateChannels()
 
 /obj/item/radio/Destroy()
@@ -396,7 +400,8 @@
 	. = ..()
 
 /obj/item/radio/borg/syndicate
-	syndie = 1
+	syndie = TRUE
+	can_hear_all = TRUE
 	keyslot = new /obj/item/encryptionkey/syndicate
 
 /obj/item/radio/borg/syndicate/Initialize()
