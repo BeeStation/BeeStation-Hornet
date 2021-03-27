@@ -1,9 +1,3 @@
-/// Defines for locations of items being added to your inventory on spawn
-#define LOCATION_LPOCKET "in your left pocket"
-#define LOCATION_RPOCKET "in your right pocket"
-#define LOCATION_BACKPACK "in your backpack"
-#define LOCATION_HANDS "in your hands"
-
 SUBSYSTEM_DEF(job)
 	name = "Jobs"
 	init_order = INIT_ORDER_JOBS
@@ -738,10 +732,10 @@ obj/item/paper/fluff/spare_id_safe_code
 
 	var/paper = new /obj/item/paper/fluff/spare_id_safe_code()
 	var/list/slots = list(
-		LOCATION_LPOCKET = SLOT_L_STORE,
-		LOCATION_RPOCKET = SLOT_R_STORE,
-		LOCATION_BACKPACK = ITEM_SLOT_BACKPACK,
-		LOCATION_HANDS = ITEM_SLOT_HANDS
+		LOCATION_LPOCKET = "in your left pocket",
+		LOCATION_RPOCKET = "in your right pocket",
+		LOCATION_BACKPACK = "in your backpack",
+		LOCATION_HANDS = "in your hands"
 	)
 	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 
@@ -755,8 +749,3 @@ obj/item/paper/fluff/spare_id_safe_code
 		var/obj/item/card/id/id_card = H.wear_id
 		if(!(ACCESS_HEADS in id_card.access))
 			LAZYADD(id_card.access, ACCESS_HEADS)
-
-#undef LOCATION_LPOCKET
-#undef LOCATION_RPOCKET
-#undef LOCATION_BACKPACK
-#undef LOCATION_HANDS
