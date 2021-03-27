@@ -2062,7 +2062,6 @@
 #include "code\modules\integrated_electronics\subtypes\mining.dm"
 #include "code\modules\integrated_electronics\subtypes\output.dm"
 #include "code\modules\integrated_electronics\subtypes\power.dm"
-#include "code\modules\integrated_electronics\subtypes\reagents.dm"
 #include "code\modules\integrated_electronics\subtypes\smart.dm"
 #include "code\modules\integrated_electronics\subtypes\text.dm"
 #include "code\modules\integrated_electronics\subtypes\time.dm"
