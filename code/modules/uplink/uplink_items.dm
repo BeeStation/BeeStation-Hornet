@@ -2302,6 +2302,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/toy/cards/deck/syndicate
 	cost = 1
 	surplus = 40
+	illegal_tech = FALSE
 
 /datum/uplink_item/badass/syndiecigs
 	name = "Syndicate Smokes"
