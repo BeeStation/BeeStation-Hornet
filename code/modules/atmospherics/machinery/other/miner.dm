@@ -5,9 +5,11 @@
 #define GASMINER_POWER_KPA 3
 #define GASMINER_POWER_FULLSCALE 4
 
+#define GASMINER_DESC "Gasses mined from the gas giant below (above?) flow out through this massive vent."
+
 /obj/machinery/atmospherics/miner
 	name = "gas miner"
-	desc = "Gasses mined from the gas giant below (above?) flow out through this massive vent."
+	desc = GASMINER_DESC
 	icon = 'icons/obj/atmospherics/components/miners.dmi'
 	icon_state = "miner"
 	density = FALSE
@@ -184,37 +186,51 @@
 
 /obj/machinery/atmospherics/miner/station/n2o
 	name = "\improper N2O Gas Miner"
+	desc = GASMINER_DESC
 	overlay_color = "#FFCCCC"
 	spawn_id = /datum/gas/nitrous_oxide
 
 /obj/machinery/atmospherics/miner/station/nitrogen
 	name = "\improper N2 Gas Miner"
+	desc = GASMINER_DESC
 	overlay_color = "#CCFFCC"
 	spawn_id = /datum/gas/nitrogen
 
 /obj/machinery/atmospherics/miner/station/oxygen
 	name = "\improper O2 Gas Miner"
+	desc = GASMINER_DESC
 	overlay_color = "#007FFF"
 	spawn_id = /datum/gas/oxygen
 
 /obj/machinery/atmospherics/miner/station/toxins
 	name = "\improper Plasma Gas Miner"
+	desc = GASMINER_DESC
 	overlay_color = "#FF0000"
 	spawn_id = /datum/gas/plasma
 
 /obj/machinery/atmospherics/miner/station/carbon_dioxide
 	name = "\improper CO2 Gas Miner"
+	desc = GASMINER_DESC
 	overlay_color = "#CDCDCD"
 	spawn_id = /datum/gas/carbon_dioxide
 
 /obj/machinery/atmospherics/miner/station/bz
 	name = "\improper BZ Gas Miner"
+	desc = GASMINER_DESC
 	overlay_color = "#FAFF00"
 	spawn_id = /datum/gas/bz
 
 /obj/machinery/atmospherics/miner/station/water_vapor
 	name = "\improper Water Vapor Gas Miner"
+	desc = GASMINER_DESC
 	overlay_color = "#99928E"
 	spawn_id = /datum/gas/water_vapor
 
 
+#undef GASMINER_POWER_NONE
+#undef GASMINER_POWER_STATIC
+#undef GASMINER_POWER_MOLES
+#undef GASMINER_POWER_KPA
+#undef GASMINER_POWER_FULLSCALE
+
+#undef GASMINER_DESC
