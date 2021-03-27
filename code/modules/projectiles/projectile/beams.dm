@@ -129,6 +129,7 @@
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/beam/lasertag/on_hit(atom/target, blocked = FALSE)
 	. = ..()
