@@ -278,3 +278,24 @@
 	. = ..()
 	if(CONFIG_GET(flag/syndicate_station))
 		employer = "Nanotrasen"
+
+/area/ai_monitored/security/armory/Initialize(mapload)
+	. = ..()
+	if(CONFIG_GET(flag/syndicate_station))
+		for(var/turf/T in src)
+			//Find and replace weapons
+			for(var/obj/item/gun/energy/laser/L in T)
+				var/obj/thing = new /obj/item/gun/ballistic/automatic/mini_uzi(T)
+				thing.pixel_x = L.pixel_x
+				thing.pixel_y = L.pixel_y
+				qdel(L)
+			for(var/obj/item/gun/energy/disabler/L in T)
+				var/obj/thing = new /obj/item/gun/ballistic/automatic/pistol(T)
+				thing.pixel_x = L.pixel_x
+				thing.pixel_y = L.pixel_y
+				qdel(L)
+			for(var/obj/item/gun/energy/L in T)
+				var/obj/thing = new /obj/item/gun/ballistic/automatic/surplus(T)
+				thing.pixel_x = L.pixel_x
+				thing.pixel_y = L.pixel_y
+				qdel(L)
