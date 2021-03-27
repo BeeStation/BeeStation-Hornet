@@ -1,5 +1,0 @@
-author: Pontenerd
-delete-after: true
-changes:
-  - rscadd: Added the old animation for felinid tails
-  - rscdel: Removed the new tail animation
