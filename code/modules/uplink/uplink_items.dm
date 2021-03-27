@@ -1701,6 +1701,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	item = /obj/item/soap/syndie
 	cost = 1
 	surplus = 50
+	illegal_tech = FALSE
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffel Bag"
