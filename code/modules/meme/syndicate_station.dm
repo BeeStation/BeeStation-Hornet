@@ -303,5 +303,7 @@
 /obj/machinery/recharger/Initialize(mapload)
 	if(CONFIG_GET(flag/syndicate_station) && mapload)
 		for(var/i in 1 to rand(1, 3))
-			new /obj/item/ammo_box/magazine/m10mm(get_turf(src))
+			var/obj/item/ammo_box/magazine/m10mm/thing = new(get_turf(src))
+			thing.pixel_x = rand(-4, 4)
+			thing.pixel_y = rand(-4, 4)
 		return INITIALIZE_HINT_QDEL
