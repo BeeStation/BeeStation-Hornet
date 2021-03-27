@@ -51,7 +51,7 @@
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
 		restricted_jobs += "Assistant"
 
-	if(CONFIG_GET(flag/protect_heads_from_antagonist)) // for concistency with other game modes
+	if(CONFIG_GET(flag/protect_heads_from_antagonist)) // Already covered in restricted_jobs, for consistency with other antag setups
 		restricted_jobs += GLOB.command_positions
 
 	for (var/i=1 to max_headrevs)
