@@ -85,8 +85,10 @@
   * The arguments really don't matter, this proc is triggered by COMSIG_PELLET_CLOUD_INIT which is only for this really, it's just a big mess of the state vars we need for doing the stuff over here.
   */
 /datum/component/pellet_cloud/proc/create_casing_pellets(obj/item/ammo_casing/shell, atom/target, mob/living/user, fired_from, randomspread, spread, zone_override, params, distro)
+	SIGNAL_HANDLER
+
 	shooter = user
-	var/targloc = get_turf(target)
+	var/turf/target_loc = get_turf(target)
 	if(!zone_override)
 		zone_override = shooter.zone_selected
 
@@ -101,8 +103,11 @@
 		RegisterSignal(shell.BB, COMSIG_PROJECTILE_SELF_ON_HIT, .proc/pellet_hit)
 		RegisterSignal(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), .proc/pellet_range)
 		pellets += shell.BB
-		if(!shell.throw_proj(target, targloc, shooter, params, spread))
+		var/turf/current_loc = get_turf(user)
+		if (!istype(target_loc) || !istype(current_loc) || !(shell.loaded_projectile))
 			return
+		INVOKE_ASYNC(shell, /obj/item/ammo_casing.proc/throw_proj, target, target_loc, shooter, params, spread)
+
 		if(i != num_pellets)
 			shell.newshot()
 
