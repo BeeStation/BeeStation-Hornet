@@ -1,6 +1,7 @@
 /datum/supply_pack/New()
 	. = ..()
-	become_syndie()
+	if(CONFIG_GET(flag/syndicate_station))
+		become_syndie()
 
 /datum/supply_pack/proc/become_syndie()
 	return
