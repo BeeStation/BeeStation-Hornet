@@ -28,7 +28,10 @@
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (FIRELOSS)
 
-/obj/item/melee/baton/Initialize()
+/obj/item/melee/baton/Initialize(mapload)
+	if(mapload && CONFIG_GET(flag/syndicate_station))
+		new /obj/item/melee/classic_baton/contractor_baton/security(loc)
+		return INITIALIZE_HINT_QDEL
 	. = ..()
 	if(preload_cell_type)
 		if(!ispath(preload_cell_type,/obj/item/stock_parts/cell))
