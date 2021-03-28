@@ -267,7 +267,8 @@
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/holosign_creator/security,
 		/obj/item/club,
-		/obj/item/shield/riot/tele
+		/obj/item/shield/riot/tele,
+		/obj/item/melee/classic_baton/contractor_baton/security
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
@@ -275,7 +276,10 @@
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
-	new /obj/item/melee/baton/loaded(src)
+	if(CONFIG_GET(flag/syndicate_station))
+		new /obj/item/melee/classic_baton/contractor_baton/security(src)
+	else
+		new /obj/item/melee/baton/loaded(src)
 	update_icon()
 
 /obj/item/storage/belt/security/deputy

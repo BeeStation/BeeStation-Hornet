@@ -1,4 +1,6 @@
 /obj/item/melee/classic_baton/contractor_baton/security
+	name = "Syndicate Security Baton"
+	desc = "A compact baton for Syndicate peacekeepers."
 	stamina_damage = 55
 	knockdown_time_carbon = 0.4 SECONDS
 

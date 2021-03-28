@@ -178,6 +178,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	ears = /obj/item/radio/headset/headset_cent/alt
 	belt = /obj/item/gun/energy/e_gun
+	back = /obj/item/storage/backpack/ert
 
 /datum/outfit/syndicate/full/become_syndie()
 	. = ..()
