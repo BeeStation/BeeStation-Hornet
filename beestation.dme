@@ -3222,6 +3222,7 @@
 #include "code\modules\z_syndicate_station\recharging_belt.dm"
 #include "code\modules\z_syndicate_station\syndicate_security.dm"
 #include "code\modules\z_syndicate_station\syndicate_station.dm"
+#include "code\modules\z_syndicate_station\syndicate_supply.dm"
 #include "code\modules\zombie\items.dm"
 #include "code\modules\zombie\organs.dm"
 #include "interface\interface.dm"
