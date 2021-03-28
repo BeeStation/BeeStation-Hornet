@@ -1,4 +1,0 @@
-author: bloons3
-delete-after: true
-changes:
-  - admin: Fixes a regression with emote logging
