@@ -56,6 +56,9 @@
 	icon_state = "pshell"
 	projectile_type = /obj/item/projectile/beam/pulse/shotgun
 
+/obj/item/ammo_casing/shotgun/pulseslug/strong
+	projectile_type = /obj/item/projectile/beam/pulse/heavy
+
 /obj/item/ammo_casing/shotgun/frag12
 	name = "FRAG-12 slug"
 	desc = "A high explosive breaching round for a 12 gauge shotgun."
@@ -112,6 +115,12 @@
 	icon_state = "lshell"
 	projectile_type = /obj/item/projectile/beam/weak
 	pellets = 6
+	variance = 35
+
+/obj/item/ammo_casing/shotgun/laserslug/upgraded
+	name = "upgraded scatter laser shell"
+	projectile_type = /obj/item/projectile/beam
+	pellets = 10
 	variance = 35
 
 /obj/item/ammo_casing/shotgun/techshell

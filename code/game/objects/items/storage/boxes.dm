@@ -847,6 +847,24 @@
 	for(var/i in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/buckshot(src)
 
+/obj/item/storage/box/pulseshot
+	name = "box of pulse shotgun shots"
+	desc = "A box full of pulse shots, designed for riot shotguns."
+	icon_state = "pulseshot_box"
+
+/obj/item/storage/box/pulseshot/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/pulseslug/strong(src)
+
+/obj/item/storage/box/lasershot
+	name = "box of laser shotgun shots"
+	desc = "A box full of laser shots, designed for riot shotguns."
+	icon_state = "lasershot_box"
+
+/obj/item/storage/box/lasershot/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/laserslug/upgraded(src)
+
 /obj/item/storage/box/beanbag
 	name = "box of beanbags"
 	desc = "A box full of beanbag shells."

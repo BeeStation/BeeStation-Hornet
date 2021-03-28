@@ -1,4 +1,5 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
+
 /proc/get_uplink_items(var/datum/game_mode/gamemode = null, allow_sales = TRUE, allow_restricted = TRUE, check_include_modes = TRUE)
 	var/list/filtered_uplink_items = list()
 	var/list/sale_items = list()
@@ -7,6 +8,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		var/datum/uplink_item/I = new path
 		if(!I.item)
 			continue
+		if(I.syndicate_station_mode)
+			if(I.syndicate_station_mode == SYNDIE_MODE_ONLY && !CONFIG_GET(flag/syndicate_station))
+				continue
+			if(I.syndicate_station_mode == SYNDIE_MODE_NOT && CONFIG_GET(flag/syndicate_station))
+				continue
 		if(I.include_modes.len && check_include_modes)
 			if(!gamemode && SSticker.mode && !(SSticker.mode.type in I.include_modes))
 				continue
@@ -128,6 +134,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/discounted = FALSE
 	var/spawn_amount = 1	//How many times we should run the spawn
 	var/bonus_items	= null	//Bonus items you gain if you purchase it
+	var/syndicate_station_mode = SYNDIE_MODE_ANY
 
 /datum/uplink_item/proc/get_discount()
 	return pick(4;0.75,2;0.5,1;0.25)
@@ -178,6 +185,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffelbag/syndie/med/bioterrorbundle
 	cost = 30 // normally 42
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/bundles_TC/bulldog
 	name = "Bulldog bundle"
@@ -186,6 +194,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffelbag/syndie/bulldogbundle
 	cost = 13 // normally 16
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/bundles_TC/c20r
 	name = "C-20r bundle"
@@ -193,6 +202,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffelbag/syndie/c20rbundle
 	cost = 14 // normally 16
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/bundles_TC/cyber_implants
 	name = "Cybernetic Implants Bundle"
@@ -217,6 +227,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/briefcase/sniperbundle
 	cost = 20 // normally 26
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/bundles_TC/firestarter
 	name = "Spetsnaz Pyro bundle"
@@ -226,6 +237,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffelbag/syndie/firestarter
 	cost = 30
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/bundles_TC/contract_kit
 	name = "Contract Kit"
@@ -246,6 +258,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndicate/bundle_A
 	cost = 20
 	exclude_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/bundles_TC/bundle_B
 	name = "Syndi-kit Special"
@@ -254,6 +267,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndicate/bundle_B
 	cost = 20
 	exclude_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/bundles_TC/surplus
 	name = "Syndicate Surplus Crate"
@@ -263,6 +277,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	player_minimum = 20
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 	var/starting_crate_value = 50
 	var/check_include_modes = TRUE
 
@@ -274,6 +289,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	player_minimum = 30
 	starting_crate_value = 125
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/bundles_TC/surplus/purchase(mob/user, datum/component/uplink/U)
 	var/list/uplink_items = get_uplink_items(SSticker && SSticker.mode? SSticker.mode : null, FALSE, !check_include_modes, check_include_modes)	//If we are allowing all gamemodes, don't get items from nukeops that can't be used
@@ -307,6 +323,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	check_include_modes = FALSE
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
 	player_minimum = 30
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/bundles_TC/surplus/random/purchase(mob/user, datum/component/uplink/U)
 	var/index = rand(1, 20)
@@ -524,6 +541,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	surplus = 40
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/dangerous/superechainsaw
 	name = "Super Energy Chainsaw"
@@ -595,6 +613,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 18
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/dangerous/carbine
 	name = "M-90gl Carbine"
@@ -604,6 +623,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 18
 	surplus = 50
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/dangerous/powerfist
 	name = "Power Fist"
@@ -621,6 +641,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 16
 	surplus = 25
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/dangerous/pistol
 	name = "Stechkin Pistol"
@@ -629,6 +650,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/gun/ballistic/automatic/pistol
 	cost = 7
 	exclude_modes = list(/datum/game_mode/nuclear/clown_ops)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/dangerous/bolt_action
 	name = "Surplus Rifle"
@@ -636,6 +658,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/gun/ballistic/rifle/boltaction
 	cost = 2
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/dangerous/revolver
 	name = "Syndicate Revolver"
@@ -644,6 +667,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	surplus = 50
 	exclude_modes = list(/datum/game_mode/nuclear/clown_ops)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/dangerous/foamsmg
 	name = "Toy Submachine Gun"
@@ -857,6 +881,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/ammo/shotgun
 	cost = 2
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/ammo/shotgun/bag
 	name = "12g Ammo Duffel Bag"
@@ -912,6 +937,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_casing/a40mm
 	cost = 2
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/ammo/smg/bag
 	name = ".45 Ammo Duffel Bag"
@@ -919,6 +945,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffelbag/syndie/ammo/smg
 	cost = 22 //instead of 27 TC
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/ammo/smg
 	name = ".45 SMG Magazine"
@@ -926,10 +953,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_box/magazine/smgm45
 	cost = 3
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/ammo/sniper
 	cost = 4
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/ammo/sniper/basic
 	name = ".50 Magazine"
@@ -956,11 +985,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/ammo_box/magazine/m556
 	cost = 4
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/ammo/machinegun
 	cost = 6
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/ammo/machinegun/basic
 	name = "7.12x82mm Box Magazine"
@@ -1032,6 +1063,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = 	/obj/item/ammo_box/a762
 	cost = 1
 	include_modes = list(/datum/game_mode/nuclear)
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 //Grenades and Explosives
 /datum/uplink_item/explosives
@@ -1428,6 +1460,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 /datum/uplink_item/suits
 	category = "Space Suits"
 	surplus = 40
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
@@ -1705,6 +1738,7 @@ datum/uplink_item/stealthy_tools/taeclowndo_shoes
 	surplus = 75
 	exclude_modes = list(/datum/game_mode/incursion) //To prevent traitors from immediately outing the hunters to security.
 	restricted = TRUE
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/device_tools/syndietome
 	name = "Syndicate Tome"
@@ -2247,6 +2281,7 @@ datum/uplink_item/role_restricted/superior_honkrender
 	desc = "Ask the crew to \"inspect\" their nuclear disk and weapons system, and then when they decline, pull out a fully automatic rifle and gun down the Captain. \
 			Radio headset does not include encryption key. No gun included."
 	item = /obj/item/storage/box/syndie_kit/centcom_costume
+	syndicate_station_mode = SYNDIE_MODE_NOT
 
 /datum/uplink_item/badass/costumes/clown
 	name = "Clown Costume"
@@ -2294,33 +2329,3 @@ datum/uplink_item/role_restricted/superior_honkrender
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 	illegal_tech = FALSE
-
-//================
-//OVERRIDES FOR SYNDIE STATION
-//================
-
-/datum/uplink_item/New()
-	. = ..()
-	if(CONFIG_GET(flag/syndicate_station))
-		name = replacetext(name, "syndicate", "nanotrasen")
-		name = replacetext(name, "Syndicate", "Nanotrasen")
-		desc = replacetext(desc, "syndicate", "nanotrasen")
-		desc = replacetext(desc, "Syndicate", "Nanotrasen")
-
-/datum/uplink_item/suits/hardsuit/New()
-	. = ..()
-	if(CONFIG_GET(flag/syndicate_station))
-		include_modes = list(/datum/game_mode/sandbox)	//Dont use this anymore
-
-/datum/uplink_item/suits/hardsuit/elite/New()
-	. = ..()
-	if(CONFIG_GET(flag/syndicate_station))
-		item = /obj/item/clothing/suit/space/hardsuit/ert
-		include_modes = list()
-		//They spawn with ERT suits
-		exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
-
-/datum/uplink_item/suits/space_suit/New()
-	. = ..()
-	if(CONFIG_GET(flag/syndicate_station))
-		item = /obj/item/storage/box/syndie_kit/nanospace

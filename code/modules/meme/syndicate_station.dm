@@ -175,18 +175,18 @@
 	backpack_contents = list(/obj/item/melee/transforming/energy/sword/saber/red = 1)
 
 /datum/outfit/syndicate/become_syndie()
+	uniform = /obj/item/clothing/under/rank/centcom/officer
 	ears = /obj/item/radio/headset/headset_cent/alt
+	belt = /obj/item/gun/energy/e_gun
 
 /datum/outfit/syndicate/full/become_syndie()
+	. = ..()
 	suit = /obj/item/clothing/suit/space/hardsuit/ert
-	r_hand = /obj/item/gun/energy/pulse/pistol/m1911/finite
+	r_hand = /obj/item/gun/ballistic/automatic/laser/laser_carbine
 
-/obj/item/gun/energy/pulse/pistol/m1911/finite
-	name = "\improper M1911-P"
-	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
-	icon_state = "m1911"
-	item_state = "gun"
-	cell_type = "/obj/item/stock_parts/cell/high"
+/datum/outfit/syndicate/leader/become_syndie()
+	. = ..()
+	uniform = /obj/item/clothing/under/rank/centcom/commander
 
 /datum/outfit/syndicate/post_equip(mob/living/carbon/human/H)
 	. = ..()
@@ -256,24 +256,6 @@
 	mask_type = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/jetpack/oxygen/harness
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize()
-	. = ..()
-	if(CONFIG_GET(flag/syndicate_station))
-		icon_state = "hardsuit0-ert_commander"
-
-/obj/item/storage/box/syndie_kit/nanospace
-	name = "nanotrasen boxed space suit and helmet"
-
-/obj/item/storage/box/syndie_kit/nanospace/ComponentInitialize()
-	. = ..()
-	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_w_class = WEIGHT_CLASS_NORMAL
-	STR.can_hold = typecacheof(list(/obj/item/clothing/suit/space/eva, /obj/item/clothing/head/helmet/space/eva))
-
-/obj/item/storage/box/syndie_kit/nanospace/PopulateContents()
-	new /obj/item/clothing/suit/space/eva(src) // Black and red is so in right now
-	new /obj/item/clothing/head/helmet/space/eva(src)
-
 /datum/antagonist/traitor/New()
 	. = ..()
 	if(CONFIG_GET(flag/syndicate_station))
@@ -285,7 +267,7 @@
 		for(var/turf/T in src)
 			//Find and replace weapons
 			for(var/obj/item/gun/energy/laser/L in T)
-				var/obj/thing = new /obj/item/gun/ballistic/automatic/mini_uzi(T)
+				var/obj/thing = new /obj/item/melee/transforming/energy/sword/saber(T)
 				thing.pixel_x = L.pixel_x
 				thing.pixel_y = L.pixel_y
 				qdel(L)
@@ -295,7 +277,7 @@
 				thing.pixel_y = L.pixel_y
 				qdel(L)
 			for(var/obj/item/gun/energy/L in T)
-				var/obj/thing = new /obj/item/gun/ballistic/automatic/surplus(T)
+				var/obj/thing = new /obj/item/gun/ballistic/rifle/boltaction(T)
 				thing.pixel_x = L.pixel_x
 				thing.pixel_y = L.pixel_y
 				qdel(L)
