@@ -73,6 +73,10 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	if(be_drone == "No" || QDELETED(src) || !isobserver(user))
 		return
 	var/mob/living/simple_animal/drone/D = new mob_type(get_turf(loc))
+	if(!D.default_hatmask && seasonal_hats && possible_seasonal_hats.len)
+		var/hat_type = pick(possible_seasonal_hats)
+		var/obj/item/new_hat = new hat_type(D)
+		D.equip_to_slot_or_del(new_hat, ITEM_SLOT_HEAD)
 	D.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)
 	D.key = user.key
 	add_servant_of_ratvar(D, silent=TRUE)
