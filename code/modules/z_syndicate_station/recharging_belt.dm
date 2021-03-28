@@ -31,13 +31,13 @@
 		if(C)
 			if(C.charge < C.maxcharge)
 				C.give(150)
-
 	if(APC.cell?.charge >= 800)
 		APC.use_power(800)
 		if(istype(stored_item, /obj/item/ammo_box/magazine/recharge))
 			var/obj/item/ammo_box/magazine/recharge/R = stored_item
 			if(R.stored_ammo.len < R.max_ammo)
 				R.stored_ammo += new R.ammo_type(R)
+	stored_item.update_icon()
 
 /obj/item/storage/belt/recharging_belt/equipped(mob/user, slot)
 	. = ..()

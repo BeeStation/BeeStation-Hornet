@@ -1,3 +1,7 @@
+#define SYNDIE_MODE_ANY 0	//Station is on syndie or non syndie mode
+#define SYNDIE_MODE_ONLY 1	//Station must be on syndie mode
+#define SYNDIE_MODE_NOT 2	//Station must not be on syndie mode
+
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /proc/get_uplink_items(var/datum/game_mode/gamemode = null, allow_sales = TRUE, allow_restricted = TRUE, check_include_modes = TRUE)
@@ -8,11 +12,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		var/datum/uplink_item/I = new path
 		if(!I.item)
 			continue
-		if(I.syndicate_station_mode)
-			if(I.syndicate_station_mode == SYNDIE_MODE_ONLY && !CONFIG_GET(flag/syndicate_station))
-				continue
-			if(I.syndicate_station_mode == SYNDIE_MODE_NOT && CONFIG_GET(flag/syndicate_station))
-				continue
+		if(I.syndicate_station_mode == SYNDIE_MODE_ONLY && (!CONFIG_GET(flag/syndicate_station)))
+			continue
+		if(I.syndicate_station_mode == SYNDIE_MODE_NOT && (CONFIG_GET(flag/syndicate_station)))
+			continue
 		if(I.include_modes.len && check_include_modes)
 			if(!gamemode && SSticker.mode && !(SSticker.mode.type in I.include_modes))
 				continue

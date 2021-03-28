@@ -1,4 +1,6 @@
 
+//Maintain ordering
+
 /datum/uplink_item/suits/hardsuit/nanotrasen
 	name = "Emergency Response Hardsuit"
 	desc = "An incredibly strong Nanotrasen brand hardsuit issued to Emergency Response Personnel. \
