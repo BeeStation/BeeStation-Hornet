@@ -75,3 +75,39 @@
 	contains = list(/obj/item/melee/classic_baton/contractor_baton/security,
 					/obj/item/melee/classic_baton/contractor_baton/security,
 					/obj/item/melee/classic_baton/contractor_baton/security)
+
+/datum/supply_pack/security/ammo/become_syndie()
+	contains = list(/obj/item/ammo_box/magazine/m10mm/rubber,
+					/obj/item/ammo_box/magazine/m10mm/rubber,
+					/obj/item/storage/box/lethalshot,
+					/obj/item/storage/box/lethalshot,
+					/obj/item/storage/box/lethalshot,
+					/obj/item/storage/box/rubbershot,
+					/obj/item/storage/box/rubbershot,
+					/obj/item/storage/box/rubbershot,
+					/obj/item/ammo_box/c38/trac,
+					/obj/item/ammo_box/c38/hotshot,
+					/obj/item/ammo_box/c38/iceblox)
+
+/datum/supply_pack/security/armory/dragnet/become_syndie()
+	//Illegal nanotrasen stuff
+	hidden = TRUE
+
+/datum/supply_pack/security/armory/energy_single/become_syndie()
+	name = "Mateba Single-Pack"
+	desc = "Contains one Mateba revolver. Requires armory access to open"
+	cost = 2300
+	contains = list(/obj/item/gun/ballistic/revolver/mateba)
+	crate_name = "single mateba crate"
+
+/datum/supply_pack/security/armory/energy/become_syndie()
+	name = "Bulk Mateba Crate"
+	desc = "Contains three Mateba revolvers. Requires armory access to open"
+	cost = 4800
+	contains = list(/obj/item/gun/ballistic/revolver/mateba,
+		/obj/item/gun/ballistic/revolver/mateba,
+		/obj/item/gun/ballistic/revolver/mateba)
+	crate_name = "bulk mateba crate"
+
+/datum/supply_pack/security/armory/laserarmor/become_syndie()
+	hidden = TRUE
