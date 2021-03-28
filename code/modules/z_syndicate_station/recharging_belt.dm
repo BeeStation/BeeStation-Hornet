@@ -21,10 +21,26 @@
 	if(!LAZYLEN(contents))
 		return
 	stored_item = contents[1]
+	if(!stored_item)
+		return
 	var/area/A = get_area(src)
 	if(!A)
 		return
 	var/obj/machinery/power/apc/APC = A.get_apc()
+	//Free power
+	if(!APC)
+		if(!A.requires_power && !A.always_unpowered)
+			var/obj/item/stock_parts/cell/C = stored_item.get_cell()
+			if(C)
+				if(C.charge < C.maxcharge)
+					C.give(150)
+			if(istype(stored_item, /obj/item/ammo_box/magazine/recharge))
+				var/obj/item/ammo_box/magazine/recharge/R = stored_item
+				if(R.stored_ammo.len < R.max_ammo)
+					R.stored_ammo += new R.ammo_type(R)
+			stored_item.update_icon()
+		return
+	//not free :pensive:
 	if(APC.cell?.charge >= 500)
 		APC.use_power(500)
 		var/obj/item/stock_parts/cell/C = stored_item.get_cell()

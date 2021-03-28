@@ -11,7 +11,7 @@
 	new /obj/item/clothing/suit/space/eva(src) // Black and red is so in right now
 	new /obj/item/clothing/head/helmet/space/eva(src)
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndie/nanotrasen
+/obj/item/clothing/suit/space/hardsuit/shielded/syndi/nanotrasen
 	name = "emergency response team assault operative hardsuit"
 	desc = "The standard issue hardsuit of the ERT, this one has blue highlights and an integrated energy shield. Offers superb protection against environmental hazards."
 	icon_state = "ert_command"

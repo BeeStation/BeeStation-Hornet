@@ -14,7 +14,6 @@
 	actions_types = list()
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
-	burst_size = 2
 	full_auto = TRUE
 	fire_rate = 2
 	block_upgrade_walk = 1
@@ -59,4 +58,4 @@
 //=======================
 
 /obj/item/gun/energy/pulse/pistol/m1911/finite
-	cell_type = "/obj/item/stock_parts/cell/high"
+	cell_type = "/obj/item/stock_parts/cell"
