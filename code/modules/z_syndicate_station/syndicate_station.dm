@@ -176,7 +176,7 @@
 
 /datum/outfit/syndicate/become_syndie()
 	uniform = /obj/item/clothing/under/rank/centcom/officer
-	ears = /obj/item/radio/headset/headset_cent/alt
+	ears = /obj/item/radio/headset/headset_cent/alt/hearall
 	belt = /obj/item/gun/energy/e_gun
 	back = /obj/item/storage/backpack/ert
 
@@ -188,6 +188,7 @@
 /datum/outfit/syndicate/leader/become_syndie()
 	. = ..()
 	uniform = /obj/item/clothing/under/rank/centcom/commander
+	ears = /obj/item/radio/headset/headset_cent/alt/hearall/loud
 
 /datum/outfit/syndicate/post_equip(mob/living/carbon/human/H)
 	. = ..()

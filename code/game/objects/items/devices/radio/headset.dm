@@ -258,6 +258,13 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	keyslot = null
 	bang_protect = 1
 
+/obj/item/radio/headset/headset_cent/alt/hearall
+	keyslot = null
+	keyslot2 = new /obj/item/encryptionkey/headset_cent/hear_all
+
+/obj/item/radio/headset/headset_cent/alt/hearall/loud
+	command = TRUE
+
 /obj/item/radio/headset/silicon/pai
 	name = "\proper mini Integrated Subspace Transceiver "
 	subspace_transmission = FALSE
