@@ -15,7 +15,7 @@
 	desc=  "An upgraded version of the emergency response suit, with an integrated shielding system capable \
 		of deflecting 3 hazards before recharging."
 	cost = 30
-	item = /obj/item/clothing/suit/space/hardsuit/shielded/syndie/nanotrasen
+	item = /obj/item/clothing/suit/space/hardsuit/shielded/syndi/nanotrasen
 	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	exclude_modes = list()
 
