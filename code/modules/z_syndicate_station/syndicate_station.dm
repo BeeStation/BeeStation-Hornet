@@ -57,7 +57,7 @@
 /datum/outfit/job/ce/become_syndie()
 	uniform = /obj/item/clothing/under/syndicate/combat
 	shoes = /obj/item/clothing/shoes/combat
-	r_pocket = /obj/item/gun/ballistic/automatic/pistol
+	r_pocket = /obj/item/gun/ballistic/automatic/pistol/rubber
 	gloves = /obj/item/clothing/gloves/combat
 	head = /obj/item/clothing/head/HoS/beret/syndicate
 	backpack_contents = list(/obj/item/modular_computer/tablet/preset/advanced=1)
@@ -65,7 +65,7 @@
 /datum/outfit/job/cmo/become_syndie()
 	uniform = /obj/item/clothing/under/syndicate/combat
 	shoes = /obj/item/clothing/shoes/combat
-	r_pocket = /obj/item/gun/ballistic/automatic/pistol
+	r_pocket = /obj/item/gun/ballistic/automatic/pistol/rubber
 	glasses = /obj/item/clothing/glasses/hud/health/night
 	head = /obj/item/clothing/head/HoS/beret/syndicate
 
@@ -102,9 +102,9 @@
 	shoes = /obj/item/clothing/shoes/combat
 	suit = /obj/item/clothing/suit/armor/hos
 	head = /obj/item/clothing/head/HoS/beret/syndicate
-	suit_store = /obj/item/gun/ballistic/automatic/pistol
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/rubber
 	r_pocket = /obj/item/melee/transforming/energy/sword/saber/red	//Non lethals? *laughs* we don't do that around here.
-	backpack_contents = list(/obj/item/ammo_box/magazine/m10mm=2)
+	backpack_contents = list(/obj/item/ammo_box/magazine/m10mm/rubber=2)
 
 /datum/outfit/job/janitor/become_syndie()
 	uniform = /obj/item/clothing/under/syndicate
@@ -144,9 +144,9 @@
 	uniform = /obj/item/clothing/under/syndicate/combat
 	shoes = /obj/item/clothing/shoes/combat
 	head = /obj/item/clothing/head/HoS/beret/syndicate
-	suit_store = /obj/item/gun/ballistic/automatic/pistol
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/rubber
 	r_pocket = null
-	backpack_contents = list(/obj/item/ammo_box/magazine/m10mm=2)
+	backpack_contents = list(/obj/item/ammo_box/magazine/m10mm/rubber=2)
 
 /datum/outfit/job/miner/become_syndie()
 	uniform = /obj/item/clothing/under/syndicate/combat
@@ -272,7 +272,7 @@
 				thing.pixel_y = L.pixel_y
 				qdel(L)
 			for(var/obj/item/gun/energy/disabler/L in T)
-				var/obj/thing = new /obj/item/gun/ballistic/automatic/pistol(T)
+				var/obj/thing = new /obj/item/gun/ballistic/automatic/pistol/rubber(T)
 				thing.pixel_x = L.pixel_x
 				thing.pixel_y = L.pixel_y
 				qdel(L)
@@ -285,7 +285,7 @@
 /obj/machinery/recharger/Initialize(mapload)
 	if(CONFIG_GET(flag/syndicate_station) && mapload)
 		for(var/i in 1 to rand(1, 3))
-			var/obj/item/ammo_box/magazine/m10mm/thing = new(get_turf(src))
+			var/obj/item/ammo_box/magazine/m10mm/rubber/thing = new(get_turf(src))
 			thing.pixel_x = rand(-4, 4)
 			thing.pixel_y = rand(-4, 4)
 		return INITIALIZE_HINT_QDEL

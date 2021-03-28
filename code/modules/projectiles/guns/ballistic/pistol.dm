@@ -17,6 +17,9 @@
 	automatic = 0
 	weapon_weight = WEAPON_LIGHT
 
+/obj/item/gun/ballistic/automatic/pistol/rubber
+	mag_type = /obj/item/ammo_box/magazine/m10mm/rubber
+
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
 

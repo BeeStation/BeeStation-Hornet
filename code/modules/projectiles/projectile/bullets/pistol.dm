@@ -34,3 +34,9 @@
 	name = "10mm incendiary bullet"
 	damage = 15
 	fire_stacks = 2
+
+/obj/item/projectile/bullet/c10mm/rubber
+	name = "10mm bullet"
+	damage = 15
+	stamina = 40
+	armour_penetration = -10

@@ -25,6 +25,15 @@
 	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets."
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 
+/obj/item/ammo_box/magazine/m10mm/rubber
+	name = "pistol magazine (10mm rubber)"
+	desc = "A gun magazine loaded with rubber rounds."
+	icon_state = "9x19pR"
+	ammo_type = /obj/item/ammo_casing/c10mm/rubber
+	caliber = "10mm"
+	max_ammo = 8
+	multiple_sprites = 2
+
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
 	icon_state = "45-8"
