@@ -173,9 +173,13 @@
 	else // goals only become purchasable when on_report is called, this also makes a replacement announcement.
 		for(var/datum/station_goal/G in station_goals)
 			G.prepare_report()
+	if(CONFIG_GET(flag/syndicate_station))
+		addtimer(CALLBACK(src, .proc/send_invasion_report, 0), rand(waittime_l, waittime_h))
 	gamemode_ready = TRUE
 	return 1
 
+/datum/game_mode/proc/send_invasion_report()
+	priority_announce("The station has been occupied by the Syndicate and is now under Syndicate command.", "Transfer of Station Ownership", 'sound/ai/intercept.ogg')
 
 ///Handles late-join antag assignments
 /datum/game_mode/proc/make_antag_chance(mob/living/carbon/human/character)
