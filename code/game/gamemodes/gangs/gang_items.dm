@@ -44,8 +44,6 @@
 /datum/gang_item/proc/get_extra_info(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	return
 
-
-
 ///////////////////
 //Essential Gang Tools
 ///////////////////
@@ -53,11 +51,9 @@
 /datum/gang_item/essentials
 	category = "Purchase Essential Items:"
 
-
-
 /datum/gang_item/essentials/gangtool
 	id = "gangtool"
-	cost = 10
+	cost = 20
 
 /datum/gang_item/essentials/gangtool/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/item_type
@@ -89,7 +85,7 @@
 /datum/gang_item/essentials/pen
 	name = "Recruitment Pen"
 	id = "pen"
-	cost = 10
+	cost = 30
 	item_path = /obj/item/pen/gang
 	spawn_msg = "<span class='notice'>More <b>recruitment pens</b> will allow you to recruit gangsters faster. Only gang leaders can recruit with pens.</span>"
 
@@ -119,7 +115,7 @@
 /datum/gang_item/clothing/basic
 	name = "Gang Uniform"
 	id = "under"
-	cost = 1
+	cost = 2
 	
 /datum/gang_item/clothing/basic/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/uniform_box = new ()
@@ -134,7 +130,7 @@
 /datum/gang_item/clothing/armor
 	name = "Gang Armored Outerwear"
 	id = "suit"
-	cost = 10
+	cost = 100
 
 /datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/armor_box = new ()
@@ -153,7 +149,7 @@
 /datum/gang_item/clothing/armor
 	name = "Gang Armored Outerwear"
 	id = "suit"
-	cost = 10
+	cost = 100
 
 /datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/armor_box = new ()
@@ -180,7 +176,7 @@
 /datum/gang_item/clothing/mask
 	name = "Golden Death Mask"
 	id = "mask"
-	cost = 18
+	cost = 30
 	item_path = /obj/item/clothing/mask/gskull
 
 /obj/item/clothing/mask/gskull
@@ -191,7 +187,7 @@
 /datum/gang_item/clothing/shoes
 	name = "Bling Boots"
 	id = "boots"
-	cost = 22
+	cost = 30
 	item_path = /obj/item/clothing/shoes/gang
 
 /obj/item/clothing/shoes/gang
@@ -202,13 +198,13 @@
 /datum/gang_item/clothing/neck
 	name = "Gold Necklace"
 	id = "necklace"
-	cost = 9
+	cost = 15
 	item_path = /obj/item/clothing/neck/necklace/dope
 
 /datum/gang_item/clothing/hands
 	name = "Decorative Brass Knuckles"
 	id = "hand"
-	cost = 11
+	cost = 30
 	item_path = /obj/item/clothing/gloves/gang
 
 /obj/item/clothing/gloves/gang
@@ -220,7 +216,7 @@
 /datum/gang_item/clothing/belt
 	name = "Badass Belt"
 	id = "belt"
-	cost = 13
+	cost = 15
 	item_path = /obj/item/storage/belt/military/gang
 
 /obj/item/storage/belt/military/gang
@@ -241,78 +237,59 @@
 /datum/gang_item/weapon/shuriken
 	name = "Shuriken"
 	id = "shuriken"
-	cost = 3
+	cost = 100
 	item_path = /obj/item/throwing_star
-
-/datum/gang_item/weapon/frag
-	name = "Fragmentation Grenade"
-	id = "frag nade"
-	cost = 18
-	item_path = /obj/item/grenade/syndieminibomb/concussion/frag
-
+	
+obj/item/storage/box/shuriken_box
+	name = "Shuriken Box"
+	
+obj/item/storage/box/shuriken_box/populate_contents()
+	new /obj/item/throwing_star()
+	new /obj/item/throwing_star()
+	new /obj/item/throwing_star()
 
 /datum/gang_item/weapon/switchblade
 	name = "Switchblade"
 	id = "switchblade"
-	cost = 5
+	cost = 50
 	item_path = /obj/item/switchblade
-
-/datum/gang_item/weapon/surplus
-	name = "Surplus Rifle"
-	id = "surplus"
-	cost = 8
-	item_path = /obj/item/gun/ballistic/automatic/surplus
-
-/datum/gang_item/weapon/ammo/surplus_ammo
-	name = "Surplus Rifle Ammo"
-	id = "surplus_ammo"
-	cost = 5
-	item_path = /obj/item/ammo_box/magazine/m10mm/rifle
-
-/datum/gang_item/weapon/ammo/improvised_ammo
-	name = "Box of Buckshot"
-	id = "buckshot"
-	cost = 5
-	item_path = /obj/item/storage/box/lethalshot
 
 /datum/gang_item/weapon/pistol
 	name = "10mm Pistol"
 	id = "pistol"
-	cost = 30
+	cost = 300
 	item_path = /obj/item/gun/ballistic/automatic/pistol
 
 /datum/gang_item/weapon/ammo/pistol_ammo
 	name = "10mm Ammo"
 	id = "pistol_ammo"
-	cost = 10
+	cost = 30
 	item_path = /obj/item/ammo_box/magazine/m10mm
 
 /datum/gang_item/weapon/uzi
 	name = "Uzi SMG"
 	id = "uzi"
-	cost = 60
+	cost = 300
 	item_path = /obj/item/gun/ballistic/automatic/mini_uzi
 
 /datum/gang_item/weapon/ammo/uzi_ammo
 	name = "Uzi Ammo"
 	id = "uzi_ammo"
-	cost = 40
+	cost = 30
 	item_path = /obj/item/ammo_box/magazine/uzim9mm
+
+/datum/gang_item/weapon/laser
+	name = "Laser Gun"
+	id = "laser"
+	cost = 300
+	item_path/obj/item/gun/energy/laser/retro
 
 ///////////////////
 //EQUIPMENT
 ///////////////////
 
 /datum/gang_item/equipment
-	category = "Purchase Equipment:"
-
-
-/datum/gang_item/equipment/sharpener
-	name = "Sharpener"
-	id = "whetstone"
-	cost = 3
-	item_path = /obj/item/sharpener
-
+	category = "Purchase Support Equipment:"
 
 /datum/gang_item/equipment/emp
 	name = "EMP Grenade"
@@ -323,13 +300,98 @@
 /datum/gang_item/equipment/c4
 	name = "C4 Explosive"
 	id = "c4"
-	cost = 7
+	cost = 10
 	item_path = /obj/item/grenade/plastic/c4
 
-/datum/gang_item/equipment/implant_breaker
+/datum/gang_item/equipment/synthflesh
+	name = "Healing Cigs"
+	id = "synthflesh"
+	cost = 10
+	item_path = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
+
+/datum/gang_item/equipment/drugs
+	name = "Drug Supply"
+	id = "drugs"
+	cost = 20
+	item_path = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
+	
+/datum/gang_item/equipment/drugs/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/obj/item/O	
+	switch (rand(1,10))
+		if (1)
+			O = new /obj/item/storage/pill_bottle/lsd(user.loc)
+		if (2)
+			O = new /obj/item/storage/pill_bottle/happy(user.loc)
+		if (3)
+			O = new /obj/item/storage/pill_bottle/zoom(user.loc)
+		if (4)
+			O = new /obj/item/storage/pill_bottle/aranesp(user.loc)
+		if (5)
+			O = new /obj/item/storage/pill_bottle/happiness(user.loc)
+		if (6)
+			O = new /obj/item/storage/pill_bottle/psicodine(user.loc)
+		if (7)
+			O = new /obj/item/storage/pill_bottle/psicodine(user.loc)
+		if (8)
+			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis(user.loc)
+		if (9)
+			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow(user.loc)
+		if (10)
+			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/white(user.loc)	
+	if (O)
+		user.put_in_hands(O)
+
+/datum/gang_item/equipment/aids
+	name = "Battlefield Aid Kit"
+	id = "aids"
+	cost = 120
+	item_path = /obj/item/storage/firstaid/shifty/battle
+
+/datum/gang_item/equipment/hangover
+	name = "Bad Trip Kit"
+	id = "aids"
+	cost = 120
+	item_path = /obj/item/storage/firstaid/shifty/hangover
+	
+/obj/item/storage/firstaid/shifty
+	name = "shifty medkit"
+	desc = "A shifty medkit."
+	icon_state = "bezerk"
+
+/obj/item/storage/firstaid/shifty/battle/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/reagent_containers/pill/patch/silver_sulf = 3,
+		/obj/item/reagent_containers/pill/patch/styptic = 3,
+		/obj/item/reagent_containers/medspray/synthflesh = 1,
+		/obj/item/reagent_containers/hypospray/medipen = 2)
+	generate_items_inside(items_inside,src)
+	
+/obj/item/storage/firstaid/shifty/hangover/PopulateContents()
+	var/static/items_inside = list(
+		/obj/item/storage/pill_bottle/charcoal = 1,
+		/obj/item/reagent_containers/syringe/calomel = 1,
+		/obj/item/reagent_containers/hypospray/medipen = 2,
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
+		/obj/item/healthanalyzer = 1)
+	generate_items_inside(items_inside,src)
+
+/datum/gang_item/equipment/mulah
+	name = "Space Cash (1000cr)"
+	id = "mulah"
+	cost = 1000
+	item_path = /obj/item/stack/spacecash/c1000
+
+/datum/gang_item/equipment/reinforce
+	name = "Call Reinforcments"
+	id = "reinforce"
+	cost = 500
+	item_path = /obj/item/antag_spawner/gangster
+	spawn_msg = "<span class='notice'>The <b>implant breaker</b> is a single-use device that destroys all implants within the target before trying to recruit them to your gang. Also works on enemy gangsters.</span>"
+
+/datum/gang_item/equipment/implant_breaker	//RENAME
 	name = "Implant Breaker"
 	id = "implant_breaker"
-	cost = 10
+	cost = 50
 	item_path = /obj/item/implanter/gang
 	spawn_msg = "<span class='notice'>The <b>implant breaker</b> is a single-use device that destroys all implants within the target before trying to recruit them to your gang. Also works on enemy gangsters.</span>"
 
@@ -337,14 +399,3 @@
 	var/obj/item/O = new item_path(user.loc, gang)
 	user.put_in_hands(O)
 
-/datum/gang_item/equipment/wetwork_boots
-	name = "Wetwork boots"
-	id = "wetwork"
-	cost = 20
-	item_path = /obj/item/clothing/shoes/combat/gang
-
-/obj/item/clothing/shoes/combat/gang
-	name = "Wetwork boots"
-	desc = "A gang's best hitmen are prepared for anything."
-	permeability_coefficient = 0.01
-	clothing_flags = NOSLIP

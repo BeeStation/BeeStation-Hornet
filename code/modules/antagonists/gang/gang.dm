@@ -271,9 +271,9 @@
 	name = "Gang Lieutenant"
 	message_name = "Lieutenant"
 
-#define INFLUENCE_OUTFIT 10
-#define INFLUENCE_TERRITORY 1
-#define INFLUENCE_BASE 20
+#define INFLUENCE_OUTFIT 2
+#define INFLUENCE_TERRITORY 0
+#define INFLUENCE_BASE 10
 
 #define MAXIMUM_RECALLS 3
 #define INFLUENCE_INTERVAL 1800
@@ -407,21 +407,28 @@
 	return valid_territories.len
 
 /datum/team/gang/proc/update_influence()
-	return min(999,influence + INFLUENCE_BASE + (check_clothing() * INFLUENCE_OUTFIT) + territories.len * INFLUENCE_TERRITORY)
+	return min(999,influence + INFLUENCE_BASE + (check_clothing()) + territories.len * INFLUENCE_TERRITORY)
 
 /datum/team/gang/proc/check_clothing()
 	//Count uniformed gangsters
 	var/uniformed = 0
 	for(var/datum/mind/gangmind in members)
-		if(ishuman(gangmind.current) && check_gangster_outfit(gangmind.current))
-			uniformed++
+		if(ishuman(gangmind.current) )
+			uniformed+=check_gangster_swag(gangmind.current)
 	return uniformed
 
-/datum/team/gang/proc/check_gangster_outfit(var/mob/living/carbon/human/gangster)
+/datum/team/gang/proc/check_gangster_swag(var/mob/living/carbon/human/gangster)
 	//Gangster must be alive and on station
-	if((gangster.stat == DEAD) || (is_station_level(gangster.z)))
+	var/swag = 0
+	if((gangster.stat == DEAD) || !(is_station_level(gangster.z)))
 		return FALSE
-	return (gangster.w_uniform?.type == outfit && gangster.wear_suit?.type == suit && gangster.wear_suit?.type == hat)
+	if (gangster.w_uniform?.type == outfit)
+		swag=1
+	if (gangster.wear_suit?.type == suit)
+		swag*=INFLUENCE_OUTFIT
+	if (gangster.w_hat?.type == hat)
+		swag*=INFLUENCE_OUTFIT
+	return swag
 
 /datum/team/gang/proc/adjust_influence(value)
 	influence = max(0, influence + value)

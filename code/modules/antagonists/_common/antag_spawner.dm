@@ -275,3 +275,35 @@
 	veil_msg = "<span class='warning'>You sense an adorable presence lurking just beyond the veil...</span>"
 	demon_type = /mob/living/simple_animal/slaughter/laughter
 	antag_type = /datum/antagonist/slaughter/laughter
+
+///////////GANGSTER REINFORCEMENT SPAWNER
+
+/obj/item/antag_spawner/gangster
+	name = "Reinforcement Spawner"
+	desc = "Have headquarters send you a ..."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "locator"
+
+/obj/item/antag_spawner/gangster/proc/check_usability(mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
+		return FALSE
+	if(!user.mind.has_antag_datum(/datum/antagonist/gang,TRUE))
+		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
+		return FALSE
+	return TRUE
+
+/obj/item/antag_spawner/gangster/spawn_antag(client/C, turf/T, kind, datum/mind/user)
+	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
+	C.prefs.copy_to(M)
+	M.key = C.key
+
+	var/datum/antagonist/gang/alignment = user.has_antag_datum(/datum/antagonist/gang,TRUE)	
+	if(alignment)
+		M.mind.add_antag_datum(/datum/antagonist/gang, alignment)
+		M.equip_to_slot_or_del(new gang.outfit(M),SLOT_W_UNIFORM)
+		M.equip_to_slot_or_del(new gang.suit(M),SLOT_WEAR_SUIT)
+		M.equip_to_slot_or_del(new gang.hat(M),SLOT_HEAD)
+	
+	M.mind.special_role = "Gangster"
+	M.equipOutfit(/datum/outfit/crook)
