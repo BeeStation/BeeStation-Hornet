@@ -24,8 +24,7 @@
 					/obj/item/reagent_containers/glass/bottle/morphine = 2,
 					/obj/item/reagent_containers/glass/bottle/toxin = 4,
 					/obj/item/reagent_containers/medspray/sterilizine = 4)
-	contraband = list(/obj/item/reagent_containers/pill/tox = 3,
-		              /obj/item/reagent_containers/glass/bottle/chloralhydrate = 1,
+	contraband = list(/obj/item/reagent_containers/glass/bottle/chloralhydrate = 1,
 		              /obj/item/storage/box/hug/medical = 1,
 					  /obj/item/reagent_containers/glass/bottle/random_virus = 1)
 	premium = list(/obj/item/storage/firstaid/regular = 3,
