@@ -63,9 +63,9 @@
 	backpack_contents = list(/obj/item/modular_computer/tablet/preset/advanced=1)
 
 /datum/outfit/job/cmo/become_syndie()
-	uniform = /obj/item/clothing/under/syndicate/combat
+	uniform = /obj/item/clothing/under/syndicate/medic
 	shoes = /obj/item/clothing/shoes/combat
-	r_pocket = /obj/item/gun/ballistic/automatic/pistol/rubber
+	r_pocket = /obj/item/melee/classic_baton/contractor_baton/security
 	glasses = /obj/item/clothing/glasses/hud/health/night
 	head = /obj/item/clothing/head/HoS/beret/syndicate
 
@@ -83,7 +83,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 
 /datum/outfit/job/emt/become_syndie()
-	uniform = /obj/item/clothing/under/syndicate
+	uniform = /obj/item/clothing/under/syndicate/medic
 	shoes = /obj/item/clothing/shoes/combat
 
 /datum/outfit/job/geneticist/become_syndie()
@@ -117,7 +117,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 
 /datum/outfit/job/doctor/become_syndie()
-	uniform = /obj/item/clothing/under/syndicate
+	uniform = /obj/item/clothing/under/syndicate/medic
 	shoes = /obj/item/clothing/shoes/combat
 
 /datum/outfit/job/quartermaster/become_syndie()
