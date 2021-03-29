@@ -250,3 +250,18 @@
 			thing.pixel_x = rand(-4, 4)
 			thing.pixel_y = rand(-4, 4)
 		return INITIALIZE_HINT_QDEL
+
+/obj/docking_port/stationary/syndicate_infiltrator
+	dheight = 1
+	dir = 8
+	dwidth = 13
+	height = 21
+	id = "syndicate_away"
+	name = "syndicate recon outpost"
+	roundstart_template = /datum/map_template/shuttle/infiltrator/basic
+	width = 24
+
+/obj/docking_port/stationary/syndicate_infiltrator/load_roundstart()
+	if(CONFIG_GET(flag/syndicate_station))
+		roundstart_template = /datum/map_template/shuttle/infiltrator/centcom
+	. = ..()
