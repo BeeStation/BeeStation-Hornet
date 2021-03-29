@@ -37,6 +37,6 @@
 
 /obj/item/projectile/bullet/c10mm/rubber
 	name = "10mm bullet"
-	damage = 15
-	stamina = 40
+	damage = 10
+	stamina = 25
 	armour_penetration = -10
