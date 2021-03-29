@@ -1314,7 +1314,7 @@
 	crate_name = "rusty freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
-datum/supply_pack/medical/basickits
+/datum/supply_pack/medical/basickits
 	name = "Basic Treatment Kits Crate"
 	desc = "Contains three basic aid kits focused on basic types of damage in a simple way."
 	cost = 1400
@@ -1324,7 +1324,7 @@ datum/supply_pack/medical/basickits
 					/obj/item/storage/firstaid/regular)
 	crate_name = "basic wound treatment kits crate"
 
-datum/supply_pack/medical/bruisekits
+/datum/supply_pack/medical/bruisekits
 	name = "Bruise Treatment Kits Crate"
 	desc = "Contains three first aid kits focused on healing bruises and broken bones."
 	cost = 1400
@@ -2519,15 +2519,15 @@ datum/supply_pack/medical/bruisekits
 		/obj/item/cardboard_cutout/adaptive/chess/rook,
 		/obj/item/cardboard_cutout/adaptive/chess/knight,
 		/obj/item/cardboard_cutout/adaptive/chess/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
 		/obj/item/cardboard_cutout/adaptive/chess/pawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
@@ -2543,15 +2543,15 @@ datum/supply_pack/medical/bruisekits
 		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
 		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
 		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
