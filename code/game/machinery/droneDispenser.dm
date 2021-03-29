@@ -30,7 +30,7 @@
 	var/cooldownTime = 1800 //3 minutes
 	var/production_time = 30
 	//The item the dispenser will create
-	var/dispense_type = /obj/effect/mob_spawn/drone/
+	var/dispense_type = /obj/effect/mob_spawn/drone
 
 	// The maximum number of "idle" drone shells it will make before
 	// ceasing production. Set to 0 for infinite.
