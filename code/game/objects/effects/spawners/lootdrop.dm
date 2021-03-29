@@ -49,7 +49,7 @@
 	lootdoubles = FALSE
 
 	loot = list(
-				/obj/item/gun/ballistic/automatic/pistol = 8,
+				/obj/item/gun/ballistic/automatic/pistol/locker = 8,
 				/obj/item/gun/ballistic/shotgun/automatic/combat = 3,
 				/obj/item/gun/ballistic/revolver/mateba,
 				/obj/item/gun/ballistic/automatic/pistol/deagle,
