@@ -9,8 +9,9 @@
 	alt_covers_chest = TRUE
 
 /obj/item/clothing/under/syndicate/medic
-	name = "medcial tactical turtleneck"
+	name = "medical turtleneck"
 	icon_state = "syndicate_medic"
+	item_color = "syndicate_medic"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 40, "rad" = 0, "fire" = 50, "acid" = 40, "stamina" = 30)
 	can_adjust = FALSE
 

@@ -68,6 +68,7 @@
 	r_pocket = /obj/item/melee/classic_baton/contractor_baton/security
 	glasses = /obj/item/clothing/glasses/hud/health/night
 	head = /obj/item/clothing/head/HoS/beret/syndicate
+	backpack_contents = list()
 
 /datum/outfit/job/cook/become_syndie()
 	uniform = /obj/item/clothing/under/syndicate
