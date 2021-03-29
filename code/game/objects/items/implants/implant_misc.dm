@@ -162,6 +162,9 @@
 		user.gib(1)
 		qdel(src)
 
+/obj/item/implant/radio/syndicate/selfdestruct/centcom
+	key = /obj/item/encryptionkey/headset_cent/hear_all
+
 /obj/item/implanter/radio
 	name = "implanter (internal radio)"
 	imp_type = /obj/item/implant/radio

@@ -94,8 +94,12 @@
 	var/obj/item/uplink/incursion/uplink = new(owner, owner.key, 15)
 	owner.current.equip_to_slot(uplink, ITEM_SLOT_BACKPACK)
 	to_chat(owner.current, "<span class='notice'><b>You have been equipped with a syndicate uplink located in your backpack. Activate the transponder in hand to access the market.</b></span>")
-	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
-	syndio.implant(owner.current)
+	if(CONFIG_GET(flag/syndicate_station))
+		var/obj/item/implant/radio/syndicate/selfdestruct/centcom/centio = new
+		centio.implant(owner.current)
+	else
+		var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
+		syndio.implant(owner.current)
 
 /datum/team/incursion
 	name = "syndicate incursion force"
