@@ -46,7 +46,6 @@
 	item = /obj/item/gun/energy/tesla_revolver/self_recharge
 	cost = 6
 	syndicate_station_mode = SYNDIE_MODE_ONLY
-	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/dangerous/laser_carbine
 	name = "Laser Carbine"
