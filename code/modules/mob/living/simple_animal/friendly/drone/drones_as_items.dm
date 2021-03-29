@@ -6,7 +6,7 @@
 //Drone shells
 
 //DRONE SHELL
-/obj/effect/mob_spawn/drone/
+/obj/effect/mob_spawn/drone
 	name = "drone shell"
 	desc = "A shell of a maintenance drone, an expendable robot built to perform station repairs."
 	icon = 'icons/mob/drone.dmi'
