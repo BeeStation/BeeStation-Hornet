@@ -1139,8 +1139,7 @@
 	boost_item_paths = list()
 	for(var/path in GLOB.uplink_items)
 		var/datum/uplink_item/UI = new path
-		if(!UI.item || !UI.illegal_tech || ispath(UI.item, /obj/item/storage))
-			//ispath because the UI.item is a path, not an instance
+		if(!UI.item || !UI.illegal_tech || ispath(UI.item, /obj/item/storage/box || ispath(UI.item, /obj/item/storage/backpack))
 			continue
 		boost_item_paths |= UI.item	//allows deconning to unlock.
 
