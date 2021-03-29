@@ -54,9 +54,9 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	mob_name = "cogscarab"
 	mob_type = /mob/living/simple_animal/drone/cogscarab
 	short_desc = "You are a cogscarab!"
-	flavour_text = {"You are a cogscarab, a tiny building construct of Ratvar. While you're weak and can't leave Reebe, \
+	flavour_text = "You are a cogscarab, a tiny building construct of Ratvar. While you're weak and can't leave Reebe, \
 	you have a set of quick tools, as well as a replica fabricator that can create brass for construction. Work with the servants of Ratvar \
-	to construct and maintain defenses at the City of Cogs."}
+	to construct and maintain defenses at the City of Cogs."
 
 /obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user)
 	if(is_banned_from(user.ckey, ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))
