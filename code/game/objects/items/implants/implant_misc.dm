@@ -163,7 +163,7 @@
 		qdel(src)
 
 /obj/item/implant/radio/syndicate/selfdestruct/centcom
-	key = /obj/item/encryptionkey/headset_cent/hear_all
+	radio_key = /obj/item/encryptionkey/headset_cent/hear_all
 
 /obj/item/implanter/radio
 	name = "implanter (internal radio)"
