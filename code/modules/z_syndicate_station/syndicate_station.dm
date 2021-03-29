@@ -216,48 +216,6 @@
 	if(CONFIG_GET(flag/syndicate_station) && !istype(keyslot, /obj/item/encryptionkey/headset_cent))
 		syndie = TRUE
 
-/obj/machinery/suit_storage_unit/Initialize()
-	if(CONFIG_GET(flag/syndicate_station))
-		make_syndie()
-	. = ..()
-
-/obj/machinery/suit_storage_unit/proc/make_syndie()
-	return
-
-/obj/machinery/suit_storage_unit/standard_unit/make_syndie()
-	suit_type = /obj/item/clothing/suit/space/syndicate
-	helmet_type = /obj/item/clothing/head/helmet/space/syndicate
-	mask_type = /obj/item/clothing/mask/gas/syndicate
-
-/obj/machinery/suit_storage_unit/captain/make_syndie()
-	mask_type = /obj/item/clothing/mask/gas/syndicate
-	storage_type = /obj/item/tank/jetpack/oxygen/captain
-
-/obj/machinery/suit_storage_unit/atmos/make_syndie()
-	suit_type = /obj/item/clothing/suit/space/syndicate/black/engie
-	mask_type = /obj/item/clothing/mask/gas/syndicate
-
-/obj/machinery/suit_storage_unit/engine/make_syndie()
-	suit_type = /obj/item/clothing/suit/space/syndicate/black/engie
-	mask_type = /obj/item/clothing/mask/gas/syndicate
-
-/obj/machinery/suit_storage_unit/ce/make_syndie()
-	mask_type = /obj/item/clothing/mask/gas/syndicate
-
-/obj/machinery/suit_storage_unit/security/make_syndie()
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi
-	mask_type = /obj/item/clothing/mask/gas/syndicate
-
-/obj/machinery/suit_storage_unit/hos/make_syndie()
-	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi
-	mask_type = /obj/item/clothing/mask/gas/syndicate
-
-//woah!!! the bad guys are centcom all along?
-/obj/machinery/suit_storage_unit/syndicate/make_syndie()
-	suit_type = /obj/item/clothing/suit/space/hardsuit/ert/sec
-	mask_type = /obj/item/clothing/mask/gas/sechailer
-	storage_type = /obj/item/tank/jetpack/oxygen/harness
-
 /datum/antagonist/traitor/New()
 	. = ..()
 	if(CONFIG_GET(flag/syndicate_station))
