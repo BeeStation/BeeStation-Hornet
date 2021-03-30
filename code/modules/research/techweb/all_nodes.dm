@@ -1138,12 +1138,15 @@
 	. = ..()
 	boost_item_paths = list()
 	for(var/path in GLOB.uplink_items)
-		var/datum/uplink_item/UI = new path
-		if(!UI.item || !UI.illegal_tech)
+		var/datum/uplink_item/UI = new path //instantiate the Uplink Item
+		if(!UI.item || !UI.illegal_tech) //fall through logic
 			continue
-		if(ispath(UI.item, /obj/item/storage/box/syndie_kit))
-			var/obj/item/storage/box/syndie_kit/my_kit = UI.item
+		if(ispath(UI.item, /obj/item/storage/box/syndie_kit)) //if the item awards a syndie kit PATH
+			var/obj/item/storage/box/syndie_kit/my_kit = new UI.item //init that item so I can get the variables from it
 			for(var/each_item in my_kit.items_inside)
+				//TODO: Default off bitflag for items, ILLEGAL_TECH, that is checked here so that when an item is searched this proc can check it for illegal technology
+				//we don't want to give illegal tech for items like paper, since those also spawn in syndicate things
+				//or I change the box definition to major/minor items, but eh
 				boost_item_paths |= each_item
 		boost_item_paths |= UI.item	//allows deconning to unlock.
 
