@@ -1141,8 +1141,9 @@
 		var/datum/uplink_item/UI = new path
 		if(!UI.item || !UI.illegal_tech)
 			continue
-		if(ispath(UI.item, /obj/item/storage/box/syndie_kit) && UI.item?.items_inside)
-			for(var/each_item in items_inside)
+		if(ispath(UI.item, /obj/item/storage/box/syndie_kit))
+			var/obj/item/storage/box/syndie_kit/my_kit = UI.item
+			for(var/each_item in my_kit.items_inside)
 				boost_item_paths |= each_item
 		boost_item_paths |= UI.item	//allows deconning to unlock.
 
