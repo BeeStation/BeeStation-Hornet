@@ -409,11 +409,10 @@
 
 /obj/item/storage/box/syndie_kit/emp
 	name = "EMP kit"
-
-/obj/item/storage/box/syndie_kit/emp/PopulateContents()
-	for(var/i in 1 to 5)
-		new /obj/item/grenade/empgrenade(src)
-	new /obj/item/implanter/emp(src)
+	items_inside = (
+		/obj/item/grenade/empgrenade = 5,
+		/obj/item/implanter/emp = 1
+	)
 
 /obj/item/storage/box/syndie_kit/chemical
 	name = "chemical kit"
