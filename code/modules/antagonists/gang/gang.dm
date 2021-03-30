@@ -275,7 +275,7 @@
 #define INFLUENCE_TERRITORY 0
 #define INFLUENCE_BASE 10
 
-#define MAXIMUM_RECALLS 3
+#define MAXIMUM_RECALLS 1
 #define INFLUENCE_INTERVAL 1800
 // Gang team datum. This handles the gang itself.
 /datum/team/gang
@@ -407,7 +407,7 @@
 	return valid_territories.len
 
 /datum/team/gang/proc/update_influence()
-	return min(999,influence + INFLUENCE_BASE + (check_clothing()) + territories.len * INFLUENCE_TERRITORY)
+	return min(999,influence + INFLUENCE_BASE + (check_clothing()) + LAZYLEN(territories) * INFLUENCE_TERRITORY)
 
 /datum/team/gang/proc/check_clothing()
 	//Count uniformed gangsters

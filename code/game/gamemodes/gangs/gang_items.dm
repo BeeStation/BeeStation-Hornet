@@ -300,7 +300,7 @@ obj/item/storage/box/shuriken_box/populate_contents()
 /datum/gang_item/equipment/c4
 	name = "C4 Explosive"
 	id = "c4"
-	cost = 10
+	cost = 50
 	item_path = /obj/item/grenade/plastic/c4
 
 /datum/gang_item/equipment/synthflesh
@@ -378,13 +378,13 @@ obj/item/storage/box/shuriken_box/populate_contents()
 /datum/gang_item/equipment/mulah
 	name = "Space Cash (1000cr)"
 	id = "mulah"
-	cost = 1000
+	cost = 100
 	item_path = /obj/item/stack/spacecash/c1000
 
 /datum/gang_item/equipment/reinforce
 	name = "Call Reinforcments"
 	id = "reinforce"
-	cost = 500
+	cost = 100
 	item_path = /obj/item/antag_spawner/gangster
 	spawn_msg = "<span class='notice'>The <b>implant breaker</b> is a single-use device that destroys all implants within the target before trying to recruit them to your gang. Also works on enemy gangsters.</span>"
 
