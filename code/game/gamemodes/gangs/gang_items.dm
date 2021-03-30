@@ -303,9 +303,9 @@
 	cost = 50
 	item_path = /obj/item/grenade/plastic/c4
 
-/datum/gang_item/equipment/synthflesh
+/datum/gang_item/equipment/healcigs
 	name = "Healing Cigs"
-	id = "synthflesh"
+	id = "healcigs"
 	cost = 10
 	item_path = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 
@@ -355,15 +355,16 @@
 
 /obj/item/storage/firstaid/shifty
 	name = "shifty medkit"
-	desc = "A shifty medkit."
+	desc = "A shady medkit, assembled out of scraps and leftovers."
 	icon_state = "bezerk"
 
 /obj/item/storage/firstaid/shifty/battle/PopulateContents()
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/patch/silver_sulf = 3,
-		/obj/item/reagent_containers/pill/patch/styptic = 3,
+		/obj/item/reagent_containers/pill/patch/silver_sulf = 2,
+		/obj/item/reagent_containers/pill/patch/styptic = 2,
 		/obj/item/reagent_containers/medspray/synthflesh = 1,
-		/obj/item/reagent_containers/hypospray/medipen = 2)
+		/obj/item/reagent_containers/hypospray/medipen = 1,
+		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/shifty/hangover/PopulateContents()
@@ -387,7 +388,7 @@
 	cost = 100
 	item_path = /obj/item/antag_spawner/gangster
 
-/datum/gang_item/equipment/implant_breaker	//RENAME
+/datum/gang_item/equipment/implant_breaker
 	name = "Conversion Implant"
 	id = "implant_breaker"
 	cost = 50

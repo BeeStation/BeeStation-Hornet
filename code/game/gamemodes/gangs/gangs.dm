@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(gangs)
 	recommended_enemies = 2
 	enemy_minimum_age = 14
 
-	announce_span = "danger"	//THIS NEEDS REVISION
+	announce_span = "danger"
 	announce_text = "A violent turf war has erupted on the station!\n\
 	<span class='danger'>Gangsters</span>: Spread influence and expand the territory of your gang.\n\
 	<span class='notice'>Crew</span>: Spread awareness and prevent your coworkers from killing eachother in turf wars."
@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY(gangs)
 			winner_territories = LAZYLEN(winner.territories) 
 		
 	if (winner)
-		winner.winner = TRUE
+		winner.winner = TRUE	//chicken dinner
 
 /datum/game_mode/gang/generate_credit_text()
 	var/list/round_credits = list()
