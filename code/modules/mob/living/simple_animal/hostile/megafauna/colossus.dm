@@ -44,7 +44,7 @@ Difficulty: Very Hard
 	gps_name = "Angelic Signal"
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
+	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus, /obj/item/crusher_trophy/blaster_tubes)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	deathsound = 'sound/magic/demon_dies.ogg'

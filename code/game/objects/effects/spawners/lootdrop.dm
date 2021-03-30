@@ -460,3 +460,18 @@
 		/obj/effect/trap/nexus/trickyspawner/clownmutant = 2,
 		/obj/effect/trap/nexus/trickyspawner/honkling = 3,
 		/obj/effect/trap/nexus/cluwnecurse = 1)
+		
+/obj/effect/spawner/lootdrop/megafaunaore
+	name = "megafauna ore drop"
+	lootcount = 100
+	lootdoubles = TRUE
+	loot = list(
+		/obj/item/stack/ore/iron = 5,
+		/obj/item/stack/ore/glass/basalt = 5,
+		/obj/item/stack/ore/plasma = 3,
+		/obj/item/stack/ore/silver = 3,
+		/obj/item/stack/ore/gold = 3, 
+		/obj/item/stack/ore/copper = 3,
+		/obj/item/stack/ore/titanium = 2,
+		/obj/item/stack/ore/uranium = 2,
+		/obj/item/stack/ore/diamond = 2)
