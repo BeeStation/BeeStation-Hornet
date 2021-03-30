@@ -298,12 +298,12 @@
 	C.prefs.copy_to(M)
 	M.key = C.key
 
-	var/datum/antagonist/gang/alignment = user.has_antag_datum(/datum/antagonist/gang,TRUE)	
+	var/datum/antagonist/gang/alignment = user.has_antag_datum(/datum/antagonist/gang,TRUE)
 	if(alignment)
 		M.mind.add_antag_datum(/datum/antagonist/gang, alignment)
-		M.equip_to_slot_or_del(new gang.outfit(M),SLOT_W_UNIFORM)
-		M.equip_to_slot_or_del(new gang.suit(M),SLOT_WEAR_SUIT)
-		M.equip_to_slot_or_del(new gang.hat(M),SLOT_HEAD)
-	
+		M.equip_to_slot_or_del(new alignment.gang.outfit(M),ITEM_SLOT_ICLOTHING)
+		M.equip_to_slot_or_del(new alignment.gang.suit(M),ITEM_SLOT_OCLOTHING)
+		M.equip_to_slot_or_del(new alignment.gang.hat(M),ITEM_SLOT_HEAD)
+
 	M.mind.special_role = "Gangster"
 	M.equipOutfit(/datum/outfit/crook)

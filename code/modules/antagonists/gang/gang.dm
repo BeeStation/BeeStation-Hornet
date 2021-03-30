@@ -385,14 +385,14 @@
 	var/control = round((territories.len/total_territories)*100, 1)
 	var/uniformed = check_clothing()
 	message += "Your gang now has <b>[control]% control</b> of the station.<BR>*---------*<BR>"
-	
+
 	var/new_influence = update_influence()
-	influence =	min(999,influence+new_influence) 
-	victory_points += new_influence	
+	influence =	min(999,influence+new_influence)
+	victory_points += new_influence
 	if(new_influence > 0)
 		message += "Gang influence has increased by [new_influence] for defending [territories.len] territories and [uniformed] uniformed gangsters.<BR>"
 	message += "Your gang now has <b>[influence] influence</b>.<BR>"
-	
+
 	message_gangtools(message)
 	addtimer(CALLBACK(src, .proc/handle_territories), INFLUENCE_INTERVAL)
 
@@ -426,7 +426,7 @@
 		swag=1
 	if (gangster.wear_suit?.type == suit)
 		swag*=INFLUENCE_OUTFIT
-	if (gangster.w_hat?.type == hat)
+	if (gangster.head?.type == hat)
 		swag*=INFLUENCE_OUTFIT
 	return swag
 

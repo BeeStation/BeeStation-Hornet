@@ -354,7 +354,7 @@
 	var/wait_time = 50
 	if(paint_mode == PAINT_LARGE_HORIZONTAL)
 		wait_time *= 3
-	if(gang) 
+	if(gang)
 		var/area/territory = get_area(target)
 		gang.message_gangtools("[territory] is under attack by an enemy gang!")
 		wait_time = 30 SECONDS
@@ -813,7 +813,7 @@
 
 	var/spraying_over = FALSE
 	for(var/G in target)
-		var/obj/effect/decal/cleanable/crayon/gang/gangtag = G
+		var/obj/effect/decal/gang/gangtag = G
 		if(istype(gangtag))
 			var/datum/antagonist/gang/GA = user.mind.has_antag_datum(/datum/antagonist/gang)
 			if(gangtag.gang != GA.gang)
@@ -845,7 +845,7 @@
 
 	var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
 	var/area/territory = get_area(target)
-	new /obj/effect/decal/cleanable/crayon/gang(target,G.gang,"graffiti",0,user)
+	new /obj/effect/decal/gang(target,G.gang,"graffiti",0,user)
 	to_chat(user, "<span class='notice'>You tagged [territory] for your gang!</span>")
 
 /obj/item/toy/crayon/spraycan/gang

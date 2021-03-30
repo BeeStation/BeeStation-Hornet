@@ -116,14 +116,14 @@
 	name = "Gang Uniform"
 	id = "under"
 	cost = 2
-	
+
 /datum/gang_item/clothing/basic/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/uniform_box = new ()
-	
+
 	new gang.outfit(uniform_box)
 	new gang.suit(uniform_box)
-	new gang.hat(uniform_box)	
-	
+	new gang.hat(uniform_box)
+
 	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
 	return TRUE
 
@@ -134,15 +134,15 @@
 
 /datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/armor_box = new ()
-	
-	var/obj/item/suit/suit = new gang.suit(armor_box)
+
+	var/obj/item/clothing/suit/suit = new gang.suit(armor_box)
 	suit.armor = suit.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
 	suit.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-	
-	var/obj/item/head/hat = new gang.hat(armor_box)
+
+	var/obj/item/clothing/head/hat = new gang.hat(armor_box)
 	hat.armor = hat.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
 	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-	
+
 	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
 	return TRUE
 
@@ -153,23 +153,23 @@
 
 /datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/armor_box = new ()
-	
-	var/obj/item/suit/suit = new gang.suit(armor_box)
+
+	var/obj/item/clothing/suit/suit = new gang.suit(armor_box)
 	suit.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL
 	suit.cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	suit.heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	suit.min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	suit.max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	suit.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-	
-	var/obj/item/head/hat = new gang.hat(armor_box)
+
+	var/obj/item/clothing/head/hat = new gang.hat(armor_box)
 	hat.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL
 	hat.cold_protection = HEAD
 	hat.heat_protection = HEAD
 	hat.min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	hat.max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
-	
+
 	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
 	return TRUE
 
@@ -239,11 +239,11 @@
 	id = "shuriken"
 	cost = 100
 	item_path = /obj/item/throwing_star
-	
+
 obj/item/storage/box/shuriken_box
 	name = "Shuriken Box"
-	
-obj/item/storage/box/shuriken_box/populate_contents()
+
+obj/item/storage/box/shuriken_box/PopulateContents()
 	new /obj/item/throwing_star()
 	new /obj/item/throwing_star()
 	new /obj/item/throwing_star()
@@ -314,9 +314,9 @@ obj/item/storage/box/shuriken_box/populate_contents()
 	id = "drugs"
 	cost = 20
 	item_path = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	
+
 /datum/gang_item/equipment/drugs/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/O	
+	var/obj/item/O
 	switch (rand(1,10))
 		if (1)
 			O = new /obj/item/storage/pill_bottle/lsd(user.loc)
@@ -337,7 +337,7 @@ obj/item/storage/box/shuriken_box/populate_contents()
 		if (9)
 			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow(user.loc)
 		if (10)
-			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/white(user.loc)	
+			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/white(user.loc)
 	if (O)
 		user.put_in_hands(O)
 
@@ -352,7 +352,7 @@ obj/item/storage/box/shuriken_box/populate_contents()
 	id = "aids"
 	cost = 120
 	item_path = /obj/item/storage/firstaid/shifty/hangover
-	
+
 /obj/item/storage/firstaid/shifty
 	name = "shifty medkit"
 	desc = "A shifty medkit."
@@ -365,7 +365,7 @@ obj/item/storage/box/shuriken_box/populate_contents()
 		/obj/item/reagent_containers/medspray/synthflesh = 1,
 		/obj/item/reagent_containers/hypospray/medipen = 2)
 	generate_items_inside(items_inside,src)
-	
+
 /obj/item/storage/firstaid/shifty/hangover/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/storage/pill_bottle/charcoal = 1,
