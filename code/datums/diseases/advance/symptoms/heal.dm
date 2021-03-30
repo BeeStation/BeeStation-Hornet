@@ -132,8 +132,9 @@
 
 /datum/symptom/heal/coma/proc/coma(mob/living/M)
 	if(deathgasp)
-		M.emote("deathgasp")
-	M.Unconscious(300)
+		M.fakedeath("regenerative coma")
+	else
+		M.Unconscious(300)
 	M.update_stat()
 	M.update_mobility()
 	addtimer(CALLBACK(src, .proc/uncoma, M), 300)
@@ -142,7 +143,10 @@
 	if(!active_coma)
 		return
 	active_coma = FALSE
-	M.SetUnconscious(0)
+	if(deathgasp)
+		M.cure_fakedeath("regenerative_coma")
+	else
+		M.SetUnconscious(0)
 	M.update_stat()
 	M.update_mobility()
 
