@@ -88,7 +88,6 @@
 	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
 	threshold_desc = "<b>Stealth 2:</b> Host appears to die when falling into a coma, triggering symptoms that activate on death.<br>\
-
 					  <b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\
 					  <b>Stage Speed 7:</b> Increases healing speed."
 
@@ -134,7 +133,7 @@
 /datum/symptom/heal/coma/proc/coma(mob/living/M)
 	if(deathgasp)
 		M.emote("deathgasp")
-	M.fakedeath("regenerative_coma")
+	M.Unconscious(300)
 	M.update_stat()
 	M.update_mobility()
 	addtimer(CALLBACK(src, .proc/uncoma, M), 300)
@@ -143,7 +142,7 @@
 	if(!active_coma)
 		return
 	active_coma = FALSE
-	M.cure_fakedeath("regenerative_coma")
+	M.SetUnconscious(0)
 	M.update_stat()
 	M.update_mobility()
 
