@@ -240,10 +240,10 @@
 	cost = 100
 	item_path = /obj/item/throwing_star
 
-obj/item/storage/box/shuriken_box
+/obj/item/storage/box/shuriken_box
 	name = "Shuriken Box"
 
-obj/item/storage/box/shuriken_box/PopulateContents()
+/obj/item/storage/box/shuriken_box/PopulateContents()
 	new /obj/item/throwing_star()
 	new /obj/item/throwing_star()
 	new /obj/item/throwing_star()
@@ -282,7 +282,7 @@ obj/item/storage/box/shuriken_box/PopulateContents()
 	name = "Laser Gun"
 	id = "laser"
 	cost = 300
-	item_path/obj/item/gun/energy/laser/retro
+	item_path = /obj/item/gun/energy/laser/retro
 
 ///////////////////
 //EQUIPMENT
