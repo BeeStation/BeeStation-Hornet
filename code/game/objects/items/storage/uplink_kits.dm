@@ -325,10 +325,14 @@
 	redpaper.color = "#FF0000" //Red paper, for an extra special calling card flair
 
 /obj/item/storage/box/syndie_kit/imp_freedom
+	init_contents = list(
+		/obj/item/implanter/freedom
+	)
 	name = "freedom implant box"
 
 /obj/item/storage/box/syndie_kit/imp_freedom/PopulateContents()
-	new /obj/item/implanter/freedom(src)
+	for (item in init_contents)
+		new item(src)
 
 /obj/item/storage/box/syndie_kit/imp_microbomb
 	name = "microbomb implant box"
