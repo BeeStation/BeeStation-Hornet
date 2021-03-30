@@ -312,6 +312,11 @@
 	desc = "A sleek, sturdy box."
 	icon_state = "syndiebox"
 	illustration = "writing_syndie"
+	var/static/items_inside = list() //used for illegal tech to look inside of boxes and storage from only the typepath
+
+/obj/item/storage/box/syndie_kit/PopulateContents()
+	if(items_inside?.len)
+		generate_items_inside(items_inside,src)
 
 /obj/item/storage/box/syndie_kit/origami_bundle
 	name = "origami kit"
@@ -325,14 +330,15 @@
 	redpaper.color = "#FF0000" //Red paper, for an extra special calling card flair
 
 /obj/item/storage/box/syndie_kit/imp_freedom
-	var/static/list/init_contents = list(
-		/obj/item/implanter/freedom
+	var/static/items_inside = list(
+		/obj/item/implanter/freedom = 1
 	)
 	name = "freedom implant box"
 
-/obj/item/storage/box/syndie_kit/imp_freedom/PopulateContents()
-	for (/obj/item/init_item in init_contents)
-		new init_item(src)
+///obj/item/storage/box/syndie_kit/imp_freedom/PopulateContents()
+//	//pretend this is /obj/item/storage/box/syndie_kit/PopulateContents()
+//	for (var/item in init_contents)
+//		new item(src)
 
 /obj/item/storage/box/syndie_kit/imp_microbomb
 	name = "microbomb implant box"
