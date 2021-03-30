@@ -16,7 +16,7 @@
 				<HR>
 				<b>Implant Details:</b><BR>
 				<b>Function:</b> Contains a small pod of nanobots that change the host's brain to be loyal to a certain organization.<BR>
-				<b>Special Features:</b> This device will also emit a small EMP pulse, destroying any other implants within the host's brain.<BR>
+				<b>Special Features:</b> This device also contains healing nanites that can revive people already loyal to the organization.<BR>
 				<b>Integrity:</b> Implant's EMP function will destroy itself in the process."}
 	return dat
 

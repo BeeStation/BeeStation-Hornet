@@ -14,8 +14,8 @@ GLOBAL_LIST_EMPTY(gangs)
 
 	announce_span = "danger"	//THIS NEEDS REVISION
 	announce_text = "A violent turf war has erupted on the station!\n\
-	<span class='danger'>Gangsters</span>: Take over the station with a dominator.\n\
-	<span class='notice'>Crew</span>: Prevent the gangs from expanding and initiating takeover."
+	<span class='danger'>Gangsters</span>: Spread influence and expand the territory of your gang.\n\
+	<span class='notice'>Crew</span>: Spread awareness and prevent your coworkers from killing eachother in turf wars."
 
 	title_icon = "gang"
 

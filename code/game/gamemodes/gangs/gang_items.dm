@@ -386,14 +386,13 @@
 	id = "reinforce"
 	cost = 100
 	item_path = /obj/item/antag_spawner/gangster
-	spawn_msg = "<span class='notice'>The <b>implant breaker</b> is a single-use device that destroys all implants within the target before trying to recruit them to your gang. Also works on enemy gangsters.</span>"
 
 /datum/gang_item/equipment/implant_breaker	//RENAME
-	name = "Implant Breaker"
+	name = "Conversion Implant"
 	id = "implant_breaker"
 	cost = 50
 	item_path = /obj/item/implanter/gang
-	spawn_msg = "<span class='notice'>The <b>implant breaker</b> is a single-use device that destroys all implants within the target before trying to recruit them to your gang. Also works on enemy gangsters.</span>"
+	spawn_msg = "<span class='notice'>The <b>conversion implant</b> will reprogram your target to be part of your gang, but it is not strong enough to break the latest NT mindshield implants. Can revive allied gang members.</span>"
 
 /datum/gang_item/equipment/implant_breaker/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/O = new item_path(user.loc, gang)

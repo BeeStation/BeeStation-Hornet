@@ -341,7 +341,7 @@
 /datum/team/gang/proc/greet_gangster(datum/mind/gangster)//THIS NEEDS REVISION
 	to_chat(gangster, "<FONT size=3 color=red><B>You are now a member of the [name] Gang!</B></FONT>")
 	to_chat(gangster, "<font color='red'>Help your bosses take over the station by claiming territory with <b>special spraycans</b> only they can provide. Simply spray on any unclaimed area of the station.</font>")
-	to_chat(gangster, "<font color='red'>Their ultimate objective is to take over the station with a Dominator machine.</font>")
+	to_chat(gangster, "<font color='red'>Your objective is to take over as many territories as possible, and expand the influence of your gang.</font>")
 	to_chat(gangster, "<font color='red'>You can identify your mates by their <b>large, bright \[G\] <font color='[color]'>icon</font></b>.</font>")
 	gangster.store_memory("You are a member of the [name] Gang!")
 
