@@ -30,7 +30,6 @@ Bonus
 	symptom_delay_min = 14
 	symptom_delay_max = 30
 	var/paralysis = FALSE
-	var/power = 1 //Damage Multiplier
 	threshold_desc = "<b>Stage Speed 8:</b> Additionally synthesizes pancuronium and sodium thiopental inside the host.<br>\
 					  <b>Transmission 8:</b> Doubles the damage caused by the symptom."
 
