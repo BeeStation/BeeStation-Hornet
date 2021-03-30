@@ -1341,3 +1341,11 @@
 	template_width = 10
 	weight = 4
 	stock = 2
+
+/datum/map_template/random_room/sk_rdm157
+	name = "Space Chess"
+	room_id = "sk_rdm157_chess"
+	mappath = "_maps/RandomRooms/10x10/sk_rdm157_chess.dmm"
+	centerspawner = FALSE
+	template_height = 10
+	template_width = 10

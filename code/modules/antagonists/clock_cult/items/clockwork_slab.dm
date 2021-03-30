@@ -179,6 +179,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 				if(S.power_cost > GLOB.clockcult_power)
 					to_chat(M, "<span class='neovgre'>You need [S.power_cost]W to invoke [S.name].</span>")
 					return FALSE
+				if(S.vitality_cost > GLOB.clockcult_vitality)
+					to_chat(M, "<span class='neovgre'>You need [S.vitality_cost] vitality to invoke [S.name].</span>")
+					return FALSE
 				var/datum/clockcult/scripture/new_scripture = new S.type()
 				//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
 				new_scripture.qdel_on_completion = TRUE

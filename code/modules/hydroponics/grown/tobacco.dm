@@ -45,7 +45,7 @@
 
 //Lavaland Tobacco
 
-obj/item/seeds/tobacco/lavaland
+/obj/item/seeds/tobacco/lavaland
 	name = "pack of lavaland tobacco seeds"
 	desc = "These seeds grow into lavaland tobacco plants."
 	icon_state = "seed-lavatobacco"
