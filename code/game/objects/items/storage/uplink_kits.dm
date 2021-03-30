@@ -409,7 +409,7 @@
 
 /obj/item/storage/box/syndie_kit/emp
 	name = "EMP kit"
-	items_inside = (
+	items_inside = list(
 		/obj/item/grenade/empgrenade = 5,
 		/obj/item/implanter/emp = 1
 	)
@@ -560,10 +560,9 @@
 /obj/item/storage/box/syndie_kit/bee_grenades
 	name = "buzzkill grenade box"
 	desc = "A sleek, sturdy box with a buzzing noise coming from the inside. Uh oh."
-
-/obj/item/storage/box/syndie_kit/bee_grenades/PopulateContents()
-	for(var/i in 1 to 3)
-		new /obj/item/grenade/spawnergrenade/buzzkill(src)
+	items_inside = list(
+		/obj/item/grenade/spawnergrenade/buzzkill = 3
+	)
 
 /obj/item/storage/box/syndie_kit/cultconstructkit
 	name = "cult construct kit"
