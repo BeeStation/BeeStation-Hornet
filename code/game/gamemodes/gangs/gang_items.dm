@@ -235,18 +235,18 @@
 /datum/gang_item/weapon/ammo
 
 /datum/gang_item/weapon/shuriken
-	name = "Shuriken"
+	name = "Shuriken Box"
 	id = "shuriken"
 	cost = 100
-	item_path = /obj/item/throwing_star
+	item_path = /obj/item/storage/box/shuriken_box
 
 /obj/item/storage/box/shuriken_box
 	name = "Shuriken Box"
 
 /obj/item/storage/box/shuriken_box/PopulateContents()
-	new /obj/item/throwing_star()
-	new /obj/item/throwing_star()
-	new /obj/item/throwing_star()
+	new /obj/item/throwing_star(src)
+	new /obj/item/throwing_star(src)
+	new /obj/item/throwing_star(src)
 
 /datum/gang_item/weapon/switchblade
 	name = "Switchblade"
