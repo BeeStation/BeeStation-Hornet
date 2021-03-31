@@ -346,33 +346,37 @@
 	name = "mouse delivery beacon"
 	default_name = "Jerry"
 	mob_choice = /mob/living/simple_animal/mouse
-	
+
 /obj/item/choice_beacon/pet/corgi
 	name = "corgi delivery beacon"
 	default_name = "Tosha"
 	mob_choice = /mob/living/simple_animal/pet/dog/corgi
-	
+
 /obj/item/choice_beacon/pet/hamster
 	name = "hamster delivery beacon"
 	default_name = "Doctor"
 	mob_choice = /mob/living/simple_animal/pet/hamster
-	
+
 /obj/item/choice_beacon/pet/pug
 	name = "pug delivery beacon"
 	default_name = "Silvestro"
 	mob_choice = /mob/living/simple_animal/pet/dog/pug
-	
+
 /obj/item/choice_beacon/pet/ems
 	name = "emotional support animal delivery beacon"
 	default_name = "Hugsie"
 	mob_choice = /mob/living/simple_animal/pet/cat/kitten
-	
+
 /obj/item/choice_beacon/pet/pingu
 	name = "penguin delivery beacon"
 	default_name = "Pingu"
 	mob_choice = /mob/living/simple_animal/pet/penguin/baby
-	
+
 /obj/item/choice_beacon/pet/clown
 	name = "living lube delivery beacon"
 	default_name = "Offensive"
 	mob_choice = /mob/living/simple_animal/hostile/retaliate/clown/lube
+
+/obj/item/choice_beacon/detective
+	name = "Detective Equipment Delivery Beacon"
+	desc = "Choose your approach to the Forensic Sciences"
