@@ -29,7 +29,7 @@
 
 /obj/item/ammo_box/magazine/recharge/laser/high_cap
 	name = "high capacity power pack"
-	desc = "An upgraded, rechargable battery that serves as a magasine for laser carbines."
+	desc = "An upgraded, rechargeable battery that serves as a magazine for laser carbines."
 	icon_state = "riflehighcap"
 	max_ammo = 38
 
