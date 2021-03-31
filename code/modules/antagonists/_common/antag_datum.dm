@@ -260,7 +260,7 @@ GLOBAL_LIST(admin_antag_list)
 	show_name_in_check_antagonists = TRUE //They're all different
 	var/datum/team/custom_team
 
-datum/antagonist/custom/create_team(datum/team/team)
+/datum/antagonist/custom/create_team(datum/team/team)
 	custom_team = team
 
 /datum/antagonist/custom/get_team()
