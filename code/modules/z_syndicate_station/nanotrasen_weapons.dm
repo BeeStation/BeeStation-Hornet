@@ -35,7 +35,7 @@
 
 /obj/item/ammo_box/magazine/recharge/laser/pulse
 	name = "pulse power pack"
-	desc = "A power pack for laser carbines, modified "
+	desc = "A power pack for laser carbines, modified to fire high energy pulsed projectiles."
 	max_ammo = 16
 	ammo_type = /obj/item/ammo_casing/caseless/pulse
 	icon_state = "pulseammo"
