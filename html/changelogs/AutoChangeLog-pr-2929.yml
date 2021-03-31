@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - refactor: Refactors stamina healing to slowly heal over time rather than instantly.
+  - rscadd: health doll now displays stamina damage.
