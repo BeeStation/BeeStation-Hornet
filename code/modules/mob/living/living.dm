@@ -295,7 +295,6 @@
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER)))
 			var/mob/living/L = M
 			if (L.getorgan(/obj/item/organ/tail/cat) && zone_selected == BODY_ZONE_PRECISE_GROIN)
-				setGrabState(GRAB_AGGRESSIVE)
 				log_combat(src, M, "grabbed", addition="aggressive grab")
 				M.visible_message("<span class ='warning'> [src] grabs [L] by the tail!</span>", null, null, src)
 				to_chat(src, "<span class='notice'>You grab [L] by their tail! Weirdo!</span>")
