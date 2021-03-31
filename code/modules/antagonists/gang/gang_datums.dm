@@ -12,15 +12,22 @@
 	outfit = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/jacket
 
-/datum/team/gang/chkn	//cluck cluck clan
-	name = "Ch'Kn"
-	color = "#FFFF00"
+/datum/team/gang/prima
+	name = "Prima"
+	color = "#FFFF00"	//cluck cluck clan
 	hat = /obj/item/clothing/head/chicken
 	outfit = /obj/item/clothing/under/color/yellow
 	suit = /obj/item/clothing/suit/chickensuit
 
-/datum/team/gang/hatter
-	name = "Hatter"
+/datum/team/gang/zerog
+	name = "Zero-G"
+	color = "#C0C0C0"
+	hat = /obj/item/clothing/head/snowman
+	suit = /obj/item/clothing/suit/snowman
+	outfit = /obj/item/clothing/under/suit/white
+
+/datum/team/gang/max
+	name = "Max"
 	color = "#800000"
 	hat = /obj/item/clothing/head/that
 	outfit = /obj/item/clothing/under/costume/joker
@@ -47,15 +54,21 @@
 	outfit = /obj/item/clothing/under/color/green
 	suit = /obj/item/clothing/suit/toggle/labcoat/mad
 
-/datum/team/gang/griffons
-	name = "Griffons"
+/datum/team/gang/omni
+	name = "Omni"
+	color = "#008080"
+	inner_outfits = list(/obj/item/clothing/under/color/teal)
+	outer_outfits = list(/obj/item/clothing/suit/chaplainsuit/studentuni)
+
+/datum/team/gang/newton
+	name = "Newton"
 	color = "#A52A2A"
 	hat = /obj/item/clothing/head/griffin
 	outfit = /obj/item/clothing/under/color/brown
 	suit = /obj/item/clothing/suit/toggle/owlwings/griffinwings
 
-/datum/team/gang/neon
-	name = "Neon"
+/datum/team/gang/cyber
+	name = "Cyber"
 	color = "#808000"
 	hat = /obj/item/clothing/head/jester/alt
 	outfit =  /obj/item/clothing/under/color/green
@@ -89,32 +102,32 @@
 	suit = /obj/item/clothing/suit/jacket/leather
 	hat = /obj/item/clothing/head/beret
 
-/datum/team/gang/greytide
-	name = "Greytide"
+/datum/team/gang/psyke
+	name = "Psyke"
 	color = "#808080"
 	hat = /obj/item/clothing/head/soft/grey
 	suit = /obj/item/clothing/under/color/grey
-	outfit = /obj/item/clothing/suit/toggle/owlwings/griffinwings
+	outfit = /obj/item/clothing/suit/jacket
 
-/datum/team/gang/gamer
-	name = "Gamer"
+/datum/team/gang/osiron
+	name = "Osiron"
 	color = "#FFFFFF"
+	outfit = /obj/item/clothing/under/costume/roman
+	hat = /obj/item/clothing/head/helmet/roman/legionnaire/fake
+	suit = /obj/item/clothing/suit/toggle/owlwings
+
+/datum/team/gang/sirius
+	name = "Sirius"
+	color = "#FFC0CB"
 	hat = /obj/item/clothing/head/fedora
 	outfit = /obj/item/clothing/under/color/white
 	suit = /obj/item/clothing/suit/nerdshirt
-
-/datum/team/gang/caesar
-	name = "Caesar's"
-	color = "#FFC0CB"
-	outfit = /obj/item/clothing/under/costume/roman
-	suit = /obj/item/clothing/suit/toggle/owlwings
-	hat = /obj/item/clothing/head/helmet/roman/legionnaire/fake
 
 /datum/team/gang/sleepingcarp
 	name = "Sleeping Carp"
 	color = "#800080"
 	outfit = /obj/item/clothing/under/color/lightpurple
-	suit = /obj/item/clothing/under/color/white
+	suit = /obj/item/clothing/suit/toggle/lawyer/purple
 	hat = /obj/item/clothing/head/hooded/carp_hood
 
 /datum/team/gang/rigatonifamily
