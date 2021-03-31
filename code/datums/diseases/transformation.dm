@@ -92,8 +92,7 @@
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")		
 		affected_mob.key = C.key
 	else
-		to_chat(new_mob, "Your mob has been claimed by death! Appeal your job ban if you want to avoid this in the future!")
-		new_mob.set_playable()
+		to_chat(new_mob, "Your mob has been offered to ghosts! Appeal your job ban if you want to avoid this in the future!")
 
 /datum/disease/transformation/jungle_fever
 	name = "Jungle Fever"
