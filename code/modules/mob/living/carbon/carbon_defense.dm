@@ -78,7 +78,7 @@
 	SEND_SIGNAL(I, COMSIG_ITEM_ATTACK_ZONE, src, user, affecting)
 	send_item_attack_message(I, user, affecting.name)
 	if(I.force)
-		apply_damage(I.force, I.damtype, affecting)
+		apply_damage(I.force * user.get_force_multiplier(), I.damtype, affecting)
 		if(I.damtype == BRUTE && affecting.status == BODYPART_ORGANIC)
 			if(I.is_sharp() || I.force >= 10)
 				I.add_mob_blood(src)

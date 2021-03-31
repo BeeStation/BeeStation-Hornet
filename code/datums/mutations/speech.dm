@@ -175,11 +175,15 @@
 	if(..())
 		return
 	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	ADD_TRAIT(owner, TRAIT_NOGUNS, BRITISH_TRAIT)
+	ADD_TRAIT(owner, TRAIT_WELL_GOOD_SHANKER, BRITISH_TRAIT)
 
 /datum/mutation/human/chav/on_losing(mob/living/carbon/human/owner)
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
+	REMOVE_TRAIT(owner, TRAIT_NOGUNS, BRITISH_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_WELL_GOOD_SHANKER, BRITISH_TRAIT)
 
 /datum/mutation/human/chav/proc/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]

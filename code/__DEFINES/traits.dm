@@ -154,6 +154,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LAW_ENFORCEMENT_METABOLISM "law-enforcement-metabolism"
 #define TRAIT_ALWAYS_CLEAN      "always-clean"
 #define TRAIT_BOOZE_SLIDER      "booze-slider"
+#define TRAIT_WELL_GOOD_SHANKER		"strong-melee"
 #define TRAIT_QUICK_CARRY		"quick-carry"
 #define TRAIT_QUICKER_CARRY		"quicker-carry"
 #define TRAIT_UNINTELLIGIBLE_SPEECH "unintelligible-speech"
@@ -282,3 +283,4 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define BATTLE_ROYALE_TRAIT "battleroyale_trait"
 #define MADE_UNCLONEABLE "made-uncloneable"
 #define TRAIT_JAWS_OF_LIFE "jaws-of-life"
+#define BRITISH_TRAIT "british"

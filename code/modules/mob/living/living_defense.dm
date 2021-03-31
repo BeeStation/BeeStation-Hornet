@@ -411,4 +411,7 @@
 	else
 		return FALSE
 
-
+/mob/living/proc/get_force_multiplier(obj/item/I)
+	if(HAS_TRAIT(src, TRAIT_WELL_GOOD_SHANKER) && I.sharpness)
+		return 1.4
+	return 1
