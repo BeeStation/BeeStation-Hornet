@@ -295,12 +295,13 @@
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
 			if (L.getorgan(/obj/item/organ/tail) && zone_selected == BODY_ZONE_PRECISE_GROIN) //Does the target have a tail?
-				M.visible_message("<span class ='warning'> [src] grabs [L] by the tail!</span>", null, null, src)
-				to_chat(src, "<span class='notice'>You grab [L] by their tail! Weirdo!</span>") //Message sent to the grabber
+				M.visible_message("<span class ='warning'>[src] grabs [L] by the tail!</span>",\
+								"<span class='warning'> [src] grabs you by the tail! Ouch!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+				to_chat(src, "<span class='notice'>You grab [L] by their tail! Weirdo!</span>")  //Message sent to grabber
 			else
 				M.visible_message("<span class='warning'>[src] grabs [M] [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by their hands":"passively"]!</span>", \
-								"<span class='warning'>[src] grabs you [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by your hands":"passively"]!</span>", null, null, src)
-				to_chat(src, "<span class='notice'>You grab [M] [(zone_selected == BODY_ZONE_L_ARM|| zone_selected == BODY_ZONE_R_ARM)? "by their hands":"passively"]!</span>")
+								"<span class='warning'>[src] grabs you [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by your hands":"passively"]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+				to_chat(src, "<span class='notice'>You grab [M] [(zone_selected == BODY_ZONE_L_ARM|| zone_selected == BODY_ZONE_R_ARM)? "by their hands":"passively"]!</span>") //Message sent to grabber
 		if(!iscarbon(src))
 			M.LAssailant = null
 		else
