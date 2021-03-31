@@ -25,7 +25,6 @@
 			fish = new (C.loc)
 		else
 			fish = new /mob/living/simple_animal/hostile/carp/megacarp(C.loc)
-			fish.set_playable()
 			fish.flavor_text = FLAVOR_TEXT_EVIL
 			fish.set_playable()
 

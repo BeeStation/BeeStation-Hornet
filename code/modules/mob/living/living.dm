@@ -1406,6 +1406,7 @@
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost) && playable)
 			give_mind(ghost)
+	..()
 			
 /mob/living/proc/give_mind(mob/user)
 	if(key || !playable || stat)
@@ -1417,6 +1418,7 @@
 		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
 		return TRUE
 	key = user.key
+	playable = FALSE
 	log_game("[key_name(src)] took control of [name].")
 	return TRUE
 			

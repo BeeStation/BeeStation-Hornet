@@ -93,6 +93,7 @@
 		affected_mob.key = C.key
 	else
 		to_chat(new_mob, "Your mob has been claimed by death! Appeal your job ban if you want to avoid this in the future!")
+		new_mob.set_playable()
 
 /datum/disease/transformation/jungle_fever
 	name = "Jungle Fever"

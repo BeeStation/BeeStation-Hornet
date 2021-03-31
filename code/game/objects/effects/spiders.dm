@@ -194,7 +194,7 @@
 			S.directive = directive
 			if(player_spiders)
 				S.set_playable()
-				S.flavor_text = FLAVOR_TEXT_BLOB
+				S.flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 			qdel(src)
 
 
