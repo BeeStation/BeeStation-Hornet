@@ -122,7 +122,7 @@
 	name = "Lethal Shotgun Rounds"
 	desc = "A small box containing 7 lethal shotgun shells."
 	item = /obj/item/storage/box/lethalshot
-	cost = 2
+	cost = 1
 	syndicate_station_mode = SYNDIE_MODE_ONLY
 	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
@@ -130,7 +130,7 @@
 	name = "Pulse Shotgun Rounds"
 	desc = "A small box containing 7 heavy pulse shotgun shells."
 	item = /obj/item/storage/box/pulseshot
-	cost = 4
+	cost = 2
 	syndicate_station_mode = SYNDIE_MODE_ONLY
 	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 
@@ -138,6 +138,6 @@
 	name = "Laser Shotgun Rounds"
 	desc = "A small box containing 7 laser shotgun shells."
 	item = /obj/item/storage/box/lasershot
-	cost = 4
+	cost = 2
 	syndicate_station_mode = SYNDIE_MODE_ONLY
 	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
