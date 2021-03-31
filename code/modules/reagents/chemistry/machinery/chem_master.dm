@@ -53,9 +53,21 @@
 /obj/machinery/chem_master/contents_explosion(severity, target)
 	..()
 	if(beaker)
-		beaker.ex_act(severity, target)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.high_mov_atom += beaker
+			if(EXPLODE_HEAVY)
+				SSexplosions.med_mov_atom += beaker
+			if(EXPLODE_LIGHT)
+				SSexplosions.low_mov_atom += beaker
 	if(bottle)
-		bottle.ex_act(severity, target)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.high_mov_atom += bottle
+			if(EXPLODE_HEAVY)
+				SSexplosions.med_mov_atom += bottle
+			if(EXPLODE_LIGHT)
+				SSexplosions.low_mov_atom += bottle
 
 /obj/machinery/chem_master/handle_atom_del(atom/A)
 	..()
