@@ -421,7 +421,7 @@
 	armour_penetration = 100
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
-	paralyze = 30
+	knockdown = 30
 	var/chain
 
 /obj/item/projectile/hook/fire(setAngle)
