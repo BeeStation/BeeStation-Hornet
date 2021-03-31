@@ -179,7 +179,7 @@
 	return 1
 
 /datum/game_mode/proc/send_invasion_report()
-	priority_announce("The station has been occupied by the Syndicate and is now under Syndicate command.", "Transfer of Station Ownership", 'sound/ai/intercept.ogg')
+	priority_announce("The station has been occupied by the Syndicate and is now under Syndicate command. All Nanotrasen members of security and command have been removed from their positions and replaced by Syndicate representatives. All crew members are to follow orders from the syndicate from this point onwards. Glory to the Syndicate.", "Transfer of Station Ownership", 'sound/ai/intercept.ogg')
 
 ///Handles late-join antag assignments
 /datum/game_mode/proc/make_antag_chance(mob/living/carbon/human/character)
