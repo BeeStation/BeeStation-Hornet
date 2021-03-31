@@ -21,10 +21,10 @@
 
 /datum/team/gang/zerog
 	name = "Zero-G"
-	color = "#C0C0C0"
-	hat = /obj/item/clothing/head/snowman
-	suit = /obj/item/clothing/suit/snowman
-	outfit = /obj/item/clothing/under/suit/white
+	color = "#00FFFF"
+	outfit = /obj/item/clothing/under/color/blue
+	suit = /obj/item/clothing/suit/apron
+	hat = /obj/item/clothing/head/beanie/stripedblue
 
 /datum/team/gang/max
 	name = "Max"
@@ -43,22 +43,23 @@
 /datum/team/gang/waffle
 	name = "Waffle"
 	color = "#808000"
+	hat = /obj/item/clothing/head/sombrero/green
 	outfit = /obj/item/clothing/under/suit/green
 	suit = /obj/item/clothing/suit/poncho/green
-	hat = /obj/item/clothing/head/sombrero/green
 
 /datum/team/gang/north
 	name = "North"
-	color = "#00FF00"
-	hat = /obj/item/clothing/head/soft/green
-	outfit = /obj/item/clothing/under/color/green
-	suit = /obj/item/clothing/suit/toggle/labcoat/mad
+	color = "#C0C0C0"
+	hat = /obj/item/clothing/head/snowman
+	outfit = /obj/item/clothing/under/suit/white
+	suit = /obj/item/clothing/suit/snowman
 
 /datum/team/gang/omni
 	name = "Omni"
 	color = "#008080"
-	inner_outfits = list(/obj/item/clothing/under/color/teal)
-	outer_outfits = list(/obj/item/clothing/suit/chaplainsuit/studentuni)
+	hat = /obj/item/clothing/head/soft/blue
+	outfit = /obj/item/clothing/under/color/teal
+	suit = /obj/item/clothing/suit/apron/overalls
 
 /datum/team/gang/newton
 	name = "Newton"
@@ -69,31 +70,31 @@
 
 /datum/team/gang/cyber
 	name = "Cyber"
-	color = "#808000"
-	hat = /obj/item/clothing/head/jester/alt
-	outfit =  /obj/item/clothing/under/color/green
-	suit = /obj/item/clothing/suit/joker
+	color = "#0000FF"
+	hat = /obj/item/clothing/head/helmet/rus_ushanka
+	outfit = /obj/item/clothing/under/color/darkblue
+	suit = /obj/item/clothing/suit/security/officer/russian
 
 /datum/team/gang/donk
 	name = "Donk"
-	color = "#0000FF"
-	outfit = /obj/item/clothing/under/color/darkblue
-	suit = /obj/item/clothing/suit/apron/overalls
-	hat = /obj/item/clothing/head/soft/blue
+	color = "#808000"
+	hat = /obj/item/clothing/head/beret/black
+	outfit =  /obj/item/clothing/under/color/green
+	suit = /obj/item/clothing/suit/jacket/puffer/vest
 
 /datum/team/gang/gene
 	name = "Gene"
-	color = "#00FFFF"
-	outfit = /obj/item/clothing/under/color/blue
-	suit = /obj/item/clothing/suit/apron
-	hat = /obj/item/clothing/head/beanie/stripedblue
+	color = "#00FF00"
+	hat = /obj/item/clothing/head/soft/green
+	outfit = /obj/item/clothing/under/color/green
+	suit = /obj/item/clothing/suit/toggle/labcoat/mad
 
 /datum/team/gang/gib
 	name = "Gib"
 	color = "#000000"
 	outfit = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/jacket/leather/overcoat
-	hat = /obj/item/clothing/head/beret/black
+	suit = /obj/item/clothing/suit/toggle/lawyer/black
+	hat = /obj/item/clothing/head/bowler
 
 /datum/team/gang/diablo
 	name = "Diablo"
@@ -105,9 +106,9 @@
 /datum/team/gang/psyke
 	name = "Psyke"
 	color = "#808080"
-	hat = /obj/item/clothing/head/soft/grey
-	suit = /obj/item/clothing/under/color/grey
-	outfit = /obj/item/clothing/suit/jacket
+	hat = /obj/item/clothing/head/soft/rainbow
+	suit = /obj/item/clothing/suit/poncho/ponchoshame
+	outfit = /obj/item/clothing/under/color/rainbow
 
 /datum/team/gang/osiron
 	name = "Osiron"
