@@ -112,7 +112,7 @@
 
 /datum/uplink_item/ammo/energyclip_highcap
 	name = "High Capacity Energy Clip"
-	desc = "A 38 round rechargable battery compatible with the laser carbine."
+	desc = "A 38 round rechargeable battery compatible with the laser carbine."
 	item = /obj/item/ammo_box/magazine/recharge/laser/high_cap
 	cost = 3
 	syndicate_station_mode = SYNDIE_MODE_ONLY
