@@ -49,7 +49,7 @@
 
 /datum/uplink_item/dangerous/laser_carbine
 	name = "Laser Carbine"
-	desc = "A high-energy, fully automatic, magasine loaded carbine which fires energy based rounds."
+	desc = "A high-energy, fully automatic, magazine loaded carbine which fires energy based projectiles."
 	item = /obj/item/gun/ballistic/automatic/laser/laser_carbine
 	cost = 12
 	syndicate_station_mode = SYNDIE_MODE_ONLY
