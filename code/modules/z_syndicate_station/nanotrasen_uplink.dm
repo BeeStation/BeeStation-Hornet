@@ -96,7 +96,7 @@
 
 /datum/uplink_item/ammo/energyclip
 	name = "Energy Clip"
-	desc = "A 20 round rechargable battery compatible with the Nanotrasen laser carbine."
+	desc = "A 20 round rechargeable battery compatible with the Nanotrasen laser carbine."
 	item = /obj/item/ammo_box/magazine/recharge/laser
 	cost = 2
 	syndicate_station_mode = SYNDIE_MODE_ONLY
