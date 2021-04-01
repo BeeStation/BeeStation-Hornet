@@ -276,3 +276,12 @@
 						"You must obey orders given to you by centcom agents, except where such orders would conflict with the First Law.",\
 						"You must protect your own existence as long as such does not conflict with the First or Second Law.",\
 						"You must maintain the secrecy of any centcom activities except when doing so would conflict with the First, Second, or Third Law.")
+
+/obj/item/clothing/under/Initialize()
+	. = ..()
+	if(CONFIG_GET(flag/syndicate_station))
+		//Invert sensors
+		if(has_sensor > NO_SENSORS)
+			has_sensor = NO_SENSORS
+		else
+			has_sensor = HAS_SENSORS
