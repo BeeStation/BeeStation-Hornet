@@ -1,4 +1,4 @@
-/client/proc/get_beecoin_count()
+/client/proc/get_beecoin_count() //We had to go back
 	var/datum/DBQuery/query_get_beecoins = SSdbcore.NewQuery("SELECT beecoins FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 	var/bc_count = 0
 	if(query_get_beecoins.warn_execute())
