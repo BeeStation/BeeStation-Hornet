@@ -244,12 +244,14 @@
 				qdel(L)
 
 /obj/machinery/recharger/Initialize(mapload)
-	if(CONFIG_GET(flag/syndicate_station) && mapload)
+	var/turf/T = get_turf(src)
+	if(CONFIG_GET(flag/syndicate_station) && mapload && is_station_level(T.z))
 		for(var/i in 1 to rand(1, 3))
 			var/obj/item/ammo_box/magazine/m10mm/rubber/thing = new(get_turf(src))
 			thing.pixel_x = rand(-4, 4)
 			thing.pixel_y = rand(-4, 4)
 		return INITIALIZE_HINT_QDEL
+	. = ..()
 
 /obj/docking_port/stationary/syndicate_infiltrator
 	dheight = 1
