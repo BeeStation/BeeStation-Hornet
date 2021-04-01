@@ -111,7 +111,7 @@
 	item_state = "sunhudscience"
 	flash_protect = 1
 
-obj/item/clothing/glasses/science/sciencesun/degraded
+/obj/item/clothing/glasses/science/sciencesun/degraded
 	name = "degraded science sunglasses"
 	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion."
 	flash_protect = 0
