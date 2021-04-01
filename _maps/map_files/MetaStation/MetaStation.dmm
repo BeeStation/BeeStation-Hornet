@@ -155,6 +155,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "aay" = (
@@ -610,6 +611,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel,
 /area/security/warden)
 "abi" = (
@@ -1644,6 +1646,7 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -30
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "acX" = (
@@ -1806,6 +1809,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "adp" = (
@@ -2798,6 +2802,7 @@
 /area/security/main)
 "aiL" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "aiM" = (
@@ -4883,6 +4888,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/start/brig_phys,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "apI" = (
@@ -5505,6 +5511,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
+/obj/effect/landmark/start/warden,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "arf" = (
@@ -5515,6 +5522,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
+/obj/effect/landmark/start/head_of_security,
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "arg" = (
@@ -7048,6 +7056,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel/grimy,
 /area/security/main)
 "avk" = (
@@ -7528,6 +7537,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "awk" = (
@@ -7607,6 +7617,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel,
 /area/security/main)
 "awq" = (
@@ -7616,6 +7627,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel,
 /area/security/main)
 "awr" = (
@@ -8497,6 +8509,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "ayA" = (
@@ -9073,6 +9086,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 2
 	},
+/obj/effect/landmark/start/brig_phys,
 /turf/open/floor/plasteel,
 /area/security/brig)
 "azI" = (
@@ -79109,6 +79123,11 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/science/xenobiology)
+"nwf" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/effect/landmark/start/security_officer,
+/turf/open/floor/plasteel/dark,
+/area/security/main)
 "nyo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -80042,6 +80061,22 @@
 /obj/item/storage/photo_album,
 /turf/open/floor/engine/cult,
 /area/library)
+"qSF" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/effect/landmark/start/security_officer,
+/turf/open/floor/plasteel,
+/area/security/main)
 "qVR" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
@@ -113263,7 +113298,7 @@ akU
 amn
 dap
 aaD
-apZ
+qSF
 ars
 hMi
 aqa
@@ -114286,10 +114321,10 @@ aaa
 ahc
 aax
 aiL
-aoL
-aoL
-aoL
-aoL
+nwf
+nwf
+nwf
+nwf
 aoL
 aaH
 arv
