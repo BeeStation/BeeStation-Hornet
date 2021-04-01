@@ -104,7 +104,7 @@
 
 /datum/uplink_item/ammo/energyclip_pulse
 	name = "Pulse Energy Clip"
-	desc = "A 16 round rechargable particle pulser which fires destructive pulse lasers. Compatible with the laser carbine"
+	desc = "A 16 round rechargeable pumped laser diode which fires destructive pulse lasers. Compatible with the laser carbine"
 	item = /obj/item/ammo_box/magazine/recharge/laser/pulse
 	cost = 4
 	syndicate_station_mode = SYNDIE_MODE_ONLY
