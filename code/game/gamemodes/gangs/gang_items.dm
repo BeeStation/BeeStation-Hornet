@@ -53,7 +53,7 @@
 
 /datum/gang_item/essentials/gangtool
 	id = "gangtool"
-	cost = 20
+	cost = 50
 
 /datum/gang_item/essentials/gangtool/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/item_type
@@ -74,7 +74,7 @@
 /datum/gang_item/essentials/spraycan
 	name = "Territory Spraycan"
 	id = "spraycan"
-	cost = 5
+	cost = 10
 	item_path = /obj/item/toy/crayon/spraycan/gang
 
 /datum/gang_item/essentials/spraycan/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
@@ -85,7 +85,7 @@
 /datum/gang_item/essentials/pen
 	name = "Recruitment Pen"
 	id = "pen"
-	cost = 30
+	cost = 50
 	item_path = /obj/item/pen/gang
 	spawn_msg = "<span class='notice'>More <b>recruitment pens</b> will allow you to recruit gangsters faster. Only gang leaders can recruit with pens.</span>"
 
@@ -115,7 +115,7 @@
 /datum/gang_item/clothing/basic
 	name = "Gang Uniform"
 	id = "under"
-	cost = 2
+	cost = 5
 
 /datum/gang_item/clothing/basic/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/uniform_box = new ()
@@ -130,7 +130,7 @@
 /datum/gang_item/clothing/armor
 	name = "Gang Armored Outerwear"
 	id = "suit"
-	cost = 100
+	cost = 200
 
 /datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/armor_box = new ()
@@ -149,7 +149,7 @@
 /datum/gang_item/clothing/armor
 	name = "Gang Armored Outerwear"
 	id = "suit"
-	cost = 100
+	cost = 200
 
 /datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/storage/box/armor_box = new ()
@@ -176,7 +176,7 @@
 /datum/gang_item/clothing/mask
 	name = "Golden Death Mask"
 	id = "mask"
-	cost = 30
+	cost = 50
 	item_path = /obj/item/clothing/mask/gskull
 
 /obj/item/clothing/mask/gskull
@@ -187,7 +187,7 @@
 /datum/gang_item/clothing/shoes
 	name = "Bling Boots"
 	id = "boots"
-	cost = 30
+	cost = 50
 	item_path = /obj/item/clothing/shoes/gang
 
 /obj/item/clothing/shoes/gang
@@ -198,13 +198,13 @@
 /datum/gang_item/clothing/neck
 	name = "Gold Necklace"
 	id = "necklace"
-	cost = 15
+	cost = 25
 	item_path = /obj/item/clothing/neck/necklace/dope
 
 /datum/gang_item/clothing/hands
 	name = "Decorative Brass Knuckles"
 	id = "hand"
-	cost = 30
+	cost = 50
 	item_path = /obj/item/clothing/gloves/gang
 
 /obj/item/clothing/gloves/gang
@@ -216,7 +216,7 @@
 /datum/gang_item/clothing/belt
 	name = "Badass Belt"
 	id = "belt"
-	cost = 15
+	cost = 25
 	item_path = /obj/item/storage/belt/military/gang
 
 /obj/item/storage/belt/military/gang
@@ -237,7 +237,7 @@
 /datum/gang_item/weapon/shuriken
 	name = "Shuriken Box"
 	id = "shuriken"
-	cost = 100
+	cost = 200
 	item_path = /obj/item/storage/box/shuriken_box
 
 /obj/item/storage/box/shuriken_box
@@ -251,37 +251,37 @@
 /datum/gang_item/weapon/switchblade
 	name = "Switchblade"
 	id = "switchblade"
-	cost = 50
+	cost = 100
 	item_path = /obj/item/switchblade
 
 /datum/gang_item/weapon/pistol
 	name = "10mm Pistol"
 	id = "pistol"
-	cost = 300
+	cost = 500
 	item_path = /obj/item/gun/ballistic/automatic/pistol
 
 /datum/gang_item/weapon/ammo/pistol_ammo
 	name = "10mm Ammo"
 	id = "pistol_ammo"
-	cost = 30
+	cost = 50
 	item_path = /obj/item/ammo_box/magazine/m10mm
 
 /datum/gang_item/weapon/uzi
 	name = "Uzi SMG"
 	id = "uzi"
-	cost = 300
+	cost = 500
 	item_path = /obj/item/gun/ballistic/automatic/mini_uzi
 
 /datum/gang_item/weapon/ammo/uzi_ammo
 	name = "Uzi Ammo"
 	id = "uzi_ammo"
-	cost = 30
+	cost = 50
 	item_path = /obj/item/ammo_box/magazine/uzim9mm
 
 /datum/gang_item/weapon/laser
 	name = "Laser Gun"
 	id = "laser"
-	cost = 300
+	cost = 500
 	item_path = /obj/item/gun/energy/laser/retro
 
 ///////////////////
@@ -294,25 +294,25 @@
 /datum/gang_item/equipment/emp
 	name = "EMP Grenade"
 	id = "EMP"
-	cost = 5
+	cost = 50
 	item_path = /obj/item/grenade/empgrenade
 
 /datum/gang_item/equipment/c4
 	name = "C4 Explosive"
 	id = "c4"
-	cost = 50
+	cost = 100
 	item_path = /obj/item/grenade/plastic/c4
 
 /datum/gang_item/equipment/healcigs
 	name = "Healing Cigs"
 	id = "healcigs"
-	cost = 10
+	cost = 20
 	item_path = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 
 /datum/gang_item/equipment/drugs
 	name = "Drug Supply"
 	id = "drugs"
-	cost = 20
+	cost = 40
 	item_path = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 
 /datum/gang_item/equipment/drugs/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
@@ -370,7 +370,7 @@
 /obj/item/storage/firstaid/shifty/hangover/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/storage/pill_bottle/charcoal = 1,
-		/obj/item/reagent_containers/syringe/calomel = 1,
+		/obj/item/reagent_containers/syringe/antitoxin = 1,
 		/obj/item/reagent_containers/hypospray/medipen = 2,
 		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
 		/obj/item/healthanalyzer = 1)

@@ -241,7 +241,7 @@
 	if(!isnull(gang) && G.gang != gang)
 		to_chat(user, "<span class='danger'>You cannot use gang tools owned by enemy gangs!</span>")
 		return
-	else if(!G.gang.check_clothing(user))
+	else if(!G.gang.check_gangster_swag(user)>1)
 		to_chat(user, "<span class='danger'>You cannot use gang tools while undercover!</span>")
 		return
 	return TRUE
