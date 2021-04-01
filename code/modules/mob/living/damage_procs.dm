@@ -13,7 +13,11 @@
 	var/hit_percent = (100-blocked)/100
 	if(!damage || (!forced && hit_percent <= 0))
 		return 0
-	var/damage_amount =  forced ? damage : damage * hit_percent
+	var/damage_amount
+	if(prob(3))
+		damage_amount =  forced ? damage : damage * 2
+	else
+		damage_amount =  forced ? damage : damage * hit_percent
 	switch(damagetype)
 		if(BRUTE)
 			adjustBruteLoss(damage_amount, forced = forced)

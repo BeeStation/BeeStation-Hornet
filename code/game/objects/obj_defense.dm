@@ -6,12 +6,15 @@
 		return
 	if(sound_effect)
 		play_attack_sound(damage_amount, damage_type, damage_flag)
+	var/damage = damage_amount
+	if(prob(3))
+		damage = damage * 2
 	if(!(resistance_flags & INDESTRUCTIBLE) && obj_integrity > 0)
-		damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration)
-		if(damage_amount >= DAMAGE_PRECISION)
-			. = damage_amount
+		damage = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration)
+		if(damage >= DAMAGE_PRECISION)
+			. = damage
 			var/old_integ = obj_integrity
-			obj_integrity = max(old_integ - damage_amount, 0)
+			obj_integrity = max(old_integ - damage, 0)
 			if(obj_integrity <= 0)
 				var/int_fail = integrity_failure
 				if(int_fail && old_integ > int_fail)
