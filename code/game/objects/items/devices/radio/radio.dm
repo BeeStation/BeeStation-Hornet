@@ -337,7 +337,7 @@
 	for(var/ch_name in channels)
 		if(channels[ch_name] & FREQ_LISTENING)
 			//the GLOB.radiochannels list is located in communications.dm
-			if(GLOB.radiochannels[ch_name] == text2num(freq) || syndie)
+			if(GLOB.radiochannels[ch_name] == text2num(freq) || can_hear_all)
 				return TRUE
 	return FALSE
 
@@ -407,6 +407,15 @@
 /obj/item/radio/borg/syndicate/Initialize()
 	. = ..()
 	set_frequency(FREQ_SYNDICATE)
+
+/obj/item/radio/borg/centcom
+	syndie = TRUE
+	can_hear_all = TRUE
+	keyslot = new /obj/item/encryptionkey/headset_cent
+
+/obj/item/radio/borg/centcom/Initialize()
+	. = ..()
+	set_frequency(FREQ_CENTCOM)
 
 /obj/item/radio/borg/attackby(obj/item/W, mob/user, params)
 

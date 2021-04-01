@@ -849,7 +849,10 @@
 /mob/living/silicon/robot/modules/syndicate/Initialize()
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/hyper(src, 25000)
-	radio = new /obj/item/radio/borg/syndicate(src)
+	if(CONFIG_GET(flag/syndicate_station))
+		radio = new /obj/item/radio/borg/centcom(src)
+	else
+		radio = new /obj/item/radio/borg/syndicate(src)
 	laws = new /datum/ai_laws/syndicate_override()
 	addtimer(CALLBACK(src, .proc/show_playstyle), 5)
 

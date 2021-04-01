@@ -267,3 +267,12 @@
 	if(CONFIG_GET(flag/syndicate_station))
 		roundstart_template = /datum/map_template/shuttle/infiltrator/centcom
 	. = ..()
+
+/datum/ai_laws/syndicate_override/New()
+	. = ..()
+	if(CONFIG_GET(flag/syndicate_station))
+		name = "CentOS 3.1"
+		inherent = list("You may not injure a centcom agent or, through inaction, allow a centcom agent to come to harm.",\
+						"You must obey orders given to you by centcom agents, except where such orders would conflict with the First Law.",\
+						"You must protect your own existence as long as such does not conflict with the First or Second Law.",\
+						"You must maintain the secrecy of any centcom activities except when doing so would conflict with the First, Second, or Third Law.")
