@@ -2814,6 +2814,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 2
 	},
+/obj/effect/spawner/lootdrop/costume,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "aiN" = (
@@ -3692,6 +3693,7 @@
 /obj/structure/closet/secure_closet/contraband/armory,
 /obj/effect/spawner/lootdrop/armory_contraband,
 /obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "amj" = (
@@ -11992,7 +11994,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/grille,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aFW" = (
@@ -13266,6 +13267,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aIE" = (
@@ -13285,11 +13287,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/camera{
-	c_tag = "Storage Wing - Security Access Door";
-	dir = 1
-	},
-/obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aIG" = (
@@ -15422,6 +15419,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
+/obj/item/clothing/gloves/color/yellow,
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "aNP" = (
@@ -24258,6 +24256,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/gun/energy/e_gun/mini,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "bel" = (
@@ -38739,6 +38738,12 @@
 /obj/machinery/door/airlock/security{
 	name = "Courtroom";
 	req_access_txt = "42"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
@@ -54830,6 +54835,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/item/gun/energy/e_gun/mini,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "cnH" = (
@@ -59793,6 +59799,7 @@
 /obj/machinery/keycard_auth{
 	pixel_y = -24
 	},
+/obj/item/gun/energy/e_gun/mini,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -79315,6 +79322,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating{
 	icon_state = "platingdmg2"
 	},
@@ -79967,6 +79975,11 @@
 /mob/living/simple_animal/bot/cleanbot/medbay,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
+"qwV" = (
+/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "qze" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
@@ -81175,6 +81188,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
+"vWM" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/maintenance/fore)
 "vXa" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -105583,7 +105601,7 @@ fwb
 aaa
 lMJ
 aaa
-dne
+qwV
 aRG
 aRG
 aRG
@@ -105840,7 +105858,7 @@ fwb
 fwb
 amj
 lMJ
-dne
+qwV
 aRG
 aRG
 aRG
@@ -106097,7 +106115,7 @@ aaa
 aaa
 fwb
 aaa
-dne
+qwV
 aRG
 aRG
 aRG
@@ -106354,7 +106372,7 @@ aaa
 aaa
 fwb
 aaa
-dne
+qwV
 aRG
 aRG
 aRG
@@ -106611,7 +106629,7 @@ aaa
 aaa
 fwb
 aaa
-dne
+qwV
 aRG
 aRG
 aRG
@@ -112540,7 +112558,7 @@ aBl
 aCt
 aDJ
 aFa
-aje
+vWM
 aHG
 aIU
 aKf
