@@ -136,6 +136,8 @@
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_AFTERATTACK, target, user, proximity_flag, click_parameters)
+	var/addsrngincombat = 0 + rand(-100,100)
+	to_chat(user, "Your randomly generated number is [addsrngincombat]")
 
 
 /obj/item/proc/get_clamped_volume()
