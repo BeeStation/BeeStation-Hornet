@@ -380,3 +380,17 @@
 /obj/item/choice_beacon/detective
 	name = "Detective Equipment Delivery Beacon"
 	desc = "Choose your approach to the Forensic Sciences"
+	icon_state = "gangtool-red"
+
+/obj/item/choice_beacon/detective/generate_display_names()
+	var/static/list/detective_item_list
+	if(!detective_item_list)
+		detective_item_list = list()
+		var/list/templist = typesof(/obj/item/storage/box/detective) //we have to convert type = name to name = type, how lovely!
+		for(var/V in templist)
+			var/atom/A = V
+			detective_item_list[initial(A.name)] = A
+	return detective_item_list
+
+/obj/item/storage/box/detective
+	name = "The Noir Kit"
