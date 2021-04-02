@@ -730,7 +730,7 @@ obj/item/paper/fluff/spare_id_safe_code
 	if(!spare_id_safe_code)
 		CRASH("Cannot promote [H.real_name] to Captain, there is no spare_id_safe_code.")
 
-	var/paper = new /obj/item/paper/fluff/spare_id_safe_code()
+	var/paper = new /obj/item/paper/fluff/spare_id_safe_code(H.loc)
 	var/list/slots = list(
 		"in your left pocket" = ITEM_SLOT_LPOCKET,
 		"in your right pocket" = ITEM_SLOT_RPOCKET,
