@@ -205,7 +205,7 @@
 /obj/item/clothing/neck/petcollar/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_NECK)
-		user.gib()
+		usr.gib()
 
 //////////////
 //DOPE BLING//
