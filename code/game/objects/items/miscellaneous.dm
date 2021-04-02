@@ -392,7 +392,7 @@
 			detective_item_list[initial(A.name)] = A
 	return detective_item_list
 
-//Items Found in these Boxes Were Removed From the Wardrobe
+//Items Found in these Boxes Were Removed From the Wardrobe, Sunglasses will Be Kept Roundstart, but Variants may be Provided
 /obj/item/storage/box/detective
 	name = "The Noir Kit"
 
@@ -411,3 +411,29 @@
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/head/fedora(src)
 	new /obj/item/clothing/accessory/holster/detective(src)
+
+/obj/item/storage/box/detective/coroner
+	name = "The Coroner Kit"
+
+/obj/item/storage/backpack/duffelbag/med/surgical/coroner
+	name = "Coroner's Duffelbag"
+	desc = "A lighter equipped version of the surgical duffelbag, designed to focus on autopsies, as opposed to other surgeries."
+
+/obj/item/storage/backpack/duffelbag/med/surgical/coroner/PopulateContents()
+	new /obj/item/scalpel(src)
+	new /obj/item/hemostat(src)
+	new /obj/item/retractor(src)
+	new /obj/item/circular_saw(src)
+	new /obj/item/cautery(src)
+	new /obj/item/surgical_drapes(src)
+	new /obj/item/clothing/mask/surgical(src)
+
+/obj/item/storage/box/detective/coroner/PopulateContents()
+	new /obj/item/clothing/gloves/color/latex(src)
+	new /obj/item/clothing/shoes/sneakers/white(src)
+	new /obj/item/clothing/under/rank/medical/doctor/purple(src)
+	new /obj/item/clothing/suit/toggle/labcoat(src)
+	new /obj/item/storage/backpack/duffelbag/med/surgery/coroner(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
+	new /obj/item/bodybag(src)
+	new /obj/item/healthanalyzer(src)
