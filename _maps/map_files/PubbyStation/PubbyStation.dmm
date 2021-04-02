@@ -8510,6 +8510,10 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/item/storage/secure/safe/caps_spare{
+	pixel_x = 6;
+	pixel_y = 28
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "atQ" = (

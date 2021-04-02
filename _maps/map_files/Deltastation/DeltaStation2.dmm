@@ -45723,22 +45723,9 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/mining_voucher,
-/turf/open/floor/plasteel/dark,
-/area/bridge)
-"bBG" = (
-/obj/item/radio/intercom{
-	pixel_x = -26;
-	pixel_y = 26
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
+/obj/item/storage/secure/safe/caps_spare{
+	pixel_x = 6;
+	pixel_y = 28
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -164031,7 +164018,7 @@ aaa
 bwS
 byg
 bzM
-bBG
+bzP
 bDB
 bFi
 bGU
