@@ -404,7 +404,7 @@
 /obj/item/storage/box/detective/grey
 	name = "The Grey Noir Kit"
 
-/obj/box/detective/grey
+/obj/item/storage/box/detective/grey/PopulateContents()
 	new /obj/item/clothing/suit/det_suit/grey(src)
 	new /obj/item/clothing/accessory/waistcoat(src)
 	new /obj/item/clothing/under/rank/security/detective/grey(src)
