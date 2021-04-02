@@ -392,5 +392,22 @@
 			detective_item_list[initial(A.name)] = A
 	return detective_item_list
 
+//Items Found in these Boxes Were Removed From the Wardrobe
 /obj/item/storage/box/detective
 	name = "The Noir Kit"
+
+//The Tan Noir Jumpsuit and Shoes will be kept as roundstart equipped
+/obj/item/storage/box/detective/PopulateContents()
+	new /obj/item/clothing/suit/det_suit(src)
+	new /obj/item/clothing/head/fedora/det_hat(src)
+	new /obj/item/clothing/accessory/holster/detective(src)
+/obj/item/storage/box/detective/grey
+	name = "The Grey Noir Kit"
+
+/obj/box/detective/grey
+	new /obj/item/clothing/suit/det_suit/grey(src)
+	new /obj/item/clothing/accessory/waistcoat(src)
+	new /obj/item/clothing/under/rank/security/detective/grey(src)
+	new /obj/item/clothing/shoes/laceup(src)
+	new /obj/item/clothing/head/fedora(src)
+	new /obj/item/clothing/accessory/holster/detective(src)
