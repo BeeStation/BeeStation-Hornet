@@ -1,5 +1,5 @@
 #define AUTOLATHE_MAX_POWER_USE 2000
-#define MINIMUM_PRICE 10
+#define MINIMUM_PRICE 5
 
 /obj/machinery/autolathe
 	name = "autolathe"
@@ -19,7 +19,7 @@
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire
-	var/price_factor = 50
+	var/price_factor = 20
 
 	//Security modes
 	var/security_interface_locked = TRUE
@@ -107,7 +107,7 @@
 	var/list/data = list()	
 	data["acceptsDisk"] = TRUE
 
-	var/static/list/ore_values = list(iron = 1, glass = 1, copper = 5, plasma = 15, silver = 16, gold = 18, titanium = 30, uranium = 30, diamond = 50, bluespace = 50, bananium = 60)
+	var/static/list/ore_values = list(iron = 1, glass = 1, copper = 3, plasma = 15, silver = 16, gold = 18, titanium = 30, uranium = 30, diamond = 50, bluespace = 50, bananium = 60)
 
 	//Items
 	data["items"] = list()
