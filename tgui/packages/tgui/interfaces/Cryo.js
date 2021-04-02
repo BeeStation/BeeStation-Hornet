@@ -1,7 +1,7 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { AnimatedNumber, Button, LabeledList, ProgressBar, Section } from '../components';
-import { BeakerContents } from './common/BeakerContents';
+import { ReagentList } from './common/ReagentList';
 import { Window } from '../layouts';
 
 const damageTypes = [
@@ -109,17 +109,14 @@ const CryoContent = (props, context) => {
         </LabeledList>
       </Section>
       <Section
-        title="Beaker"
-        buttons={(
-          <Button
-            icon="eject"
-            disabled={!data.isBeakerLoaded}
-            onClick={() => act('ejectbeaker')}
-            content="Eject" />
-        )}>
-        <BeakerContents
-          beakerLoaded={data.isBeakerLoaded}
-          beakerContents={data.beakerContents} />
+        title="Reagents">
+        <ReagentList
+          content={data.reagents}
+          context={data.content} />
+        <Button
+          icon="plus"
+          onClick={() => act('add')}
+          content="Add2" />
       </Section>
     </Fragment>
   );

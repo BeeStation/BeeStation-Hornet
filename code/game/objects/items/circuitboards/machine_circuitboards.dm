@@ -683,9 +683,12 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/atmospherics/components/unary/cryo_cell
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stack/cable_coil = 1,
-		/obj/item/stack/sheet/glass = 4)
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stack/cable_coil = 3,
+		/obj/item/stack/sheet/glass = 4,
+		/obj/item/reagent_containers/glass/beaker = 4)
 
 /obj/item/circuitboard/machine/fat_sucker
 	name = "lipid extractor (Machine Board)"

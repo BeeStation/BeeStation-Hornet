@@ -42,6 +42,7 @@
 	var/datum/bank_account/current_insurance
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
 	payment_department = ACCOUNT_MED
+
 /obj/machinery/clonepod/Initialize()
 	create_reagents(100, OPENCONTAINER)
 

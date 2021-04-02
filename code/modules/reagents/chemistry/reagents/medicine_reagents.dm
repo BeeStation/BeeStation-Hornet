@@ -413,7 +413,7 @@
 	if(iscarbon(M))
 		if (M.stat == DEAD)
 			show_message = 0
-		if(method in list(PATCH))
+		if(method == PATCH)
 			M.adjustBruteLoss(-1 * reac_volume)
 			M.adjustFireLoss(-1 * reac_volume)
 			M.adjustStaminaLoss(reac_volume*2)

@@ -26,8 +26,6 @@
 	var/heat_capacity = 20000
 	var/conduction_coefficient = 0.3
 
-	var/obj/item/reagent_containers/glass/beaker = null
-
 	var/obj/item/radio/radio
 	var/radio_key = /obj/item/encryptionkey/headset_med
 	var/radio_channel = RADIO_CHANNEL_MEDICAL
@@ -37,11 +35,15 @@
 	var/escape_in_progress = FALSE
 	var/message_cooldown
 	var/breakout_time = 300
+	var/enchanted_scan = FALSE
+	var/cryo_multiply_factor = 1
+	var/list/chemicals_queue = list()
 	fair_market_price = 10
 	payment_department = ACCOUNT_MED
 
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/Initialize()
+	create_reagents(100, OPENCONTAINER)		//reagents need to be initialized before calling parent proc
 	. = ..()
 	initialize_directions = dir
 
@@ -50,6 +52,7 @@
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()
+	reagents.flags |= NO_REACT
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/Exited(atom/movable/AM, atom/newloc)
 	var/oldoccupant = occupant
@@ -61,15 +64,28 @@
 	..(dir, dir)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/RefreshParts()
-	var/C
-	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		C += M.rating
+	var/conduction_efficency		//from matter bins
+	var/efficency_multiplier		//chemical efficency from manipulators
+	var/sleep_multiplier			//from manipulator
+	for(var/obj/item/stock_parts/S in component_parts)
+		if(istype(S, /obj/item/stock_parts/matter_bin))
+			conduction_efficency += S.rating / 2
+		else if(istype(S, /obj/item/stock_parts/manipulator))
+			efficency_multiplier += S.rating / 2
+		else if(istype(S, /obj/item/stock_parts/scanning_module))
+			sleep_multiplier += S.rating
+			if(S.rating >= 3)
+				enchanted_scan = TRUE
+	reagents.maximum_volume = 0
+	for(var/obj/item/reagent_containers/glass/G in component_parts)
+		reagents.maximum_volume += G.volume
+		G.reagents.trans_to(src, G.reagents.total_volume)
 
-	efficiency = initial(efficiency) * C
-	sleep_factor = initial(sleep_factor) * C
-	unconscious_factor = initial(unconscious_factor) * C
-	heat_capacity = initial(heat_capacity) / C
-	conduction_coefficient = initial(conduction_coefficient) * C
+	efficiency = initial(efficiency) * efficency_multiplier
+	sleep_factor = initial(sleep_factor) * sleep_multiplier
+	unconscious_factor = initial(unconscious_factor) * sleep_multiplier
+	heat_capacity = initial(heat_capacity) / conduction_efficency
+	conduction_coefficient = initial(conduction_coefficient) * conduction_efficency
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/examine(mob/user) //this is leaving out everything but efficiency since they follow the same idea of "better beaker, better results"
 	. = ..()
@@ -78,24 +94,11 @@
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/Destroy()
 	QDEL_NULL(radio)
-	QDEL_NULL(beaker)
 	return ..()
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/contents_explosion(severity, target)
-	..()
-	if(beaker)
-		beaker.ex_act(severity, target)
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/handle_atom_del(atom/A)
-	..()
-	if(A == beaker)
-		beaker = null
-		updateUsrDialog()
-
 /obj/machinery/atmospherics/components/unary/cryo_cell/on_deconstruction()
-	if(beaker)
-		beaker.forceMove(drop_location())
-		beaker = null
+	for(var/obj/item/reagent_containers/glass/G in component_parts)
+		reagents.trans_to(G, G.reagents.maximum_volume)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/update_icon()
 
@@ -180,15 +183,13 @@
 	if(!occupant)//Won't operate unless there's an occupant.
 		on = FALSE
 		update_icon()
-		var/msg = "Aborting. No occupant detected."
-		radio.talk_into(src, msg, radio_channel)
+		radio.talk_into(src, "Aborting. No occupant detected.", radio_channel)
 		return
 
-	if(!beaker?.reagents?.reagent_list.len) //No beaker or beaker without reagents with stop the machine from running.
+	if(!reagents) //No reagents will stop the machine from running.
 		on = FALSE
 		update_icon()
-		var/msg = "Aborting. No beaker or chemicals installed."
-		radio.talk_into(src, msg, radio_channel)
+		radio.talk_into(src, "Aborting. No chemicals installed.", radio_channel)
 		return
 
 	var/mob/living/mob_occupant = occupant
@@ -216,11 +217,11 @@
 		if(mob_occupant.bodytemperature < T0C) // Sleepytime. Why? More cryo magic.
 			mob_occupant.Sleeping((mob_occupant.bodytemperature * sleep_factor) * 1000 * delta_time)//delta_time is roughly ~2 seconds
 			mob_occupant.Unconscious((mob_occupant.bodytemperature * unconscious_factor) * 1000 * delta_time)
-		if(beaker)//How much to transfer. As efficiency is increased, less reagent from the beaker is used and more is magically transferred to occupant
-			beaker.reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * CRYO_MULTIPLY_FACTOR, method = VAPOR) // Transfer reagents.
+		if(reagents)//How much to transfer. As efficiency is increased, less reagent is used and more is magically transferred to occupant, but only if they are currently sleeping
+			reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * CRYO_MULTIPLY_FACTOR, method = VAPOR) // Transfer reagents.
 		use_power(1000 * efficiency)
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
 	..()
@@ -322,17 +323,6 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
 		. = 1 //no afterattack
-		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into [src]!</span>")
-			return
-		if(!user.transferItemToLoc(I, src))
-			return
-		beaker = I
-		user.visible_message("[user] places [I] in [src].", \
-							"<span class='notice'>You place [I] in [src].</span>")
-		var/reagentlist = pretty_string_from_reagent_list(I.reagents.reagent_list)
-		log_game("[key_name(user)] added an [I] to cryo containing [reagentlist]")
-		return
 	if(!on && !occupant && !state_open && (default_deconstruction_screwdriver(user, "pod-off", "pod-off", I)) \
 		|| default_change_direction_wrench(user, I) \
 		|| default_pry_open(I) \
@@ -397,18 +387,33 @@
 	var/datum/gas_mixture/air1 = airs[1]
 	data["cellTemperature"] = round(air1.return_temperature(), 1)
 
-	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
+	var/reagent_list = list()
+	data["reagentEmpty"] = !reagents.reagent_list ? TRUE : FALSE
+	data["maxReagent"] = reagents.maximum_volume
+	for(var/datum/reagent/R in reagents.reagent_list)
+		reagent_list += list(list("name" = R.name, "volume" = R.volume))
+	data["reagents"] = reagent_list
+	data["reagentQueue"] = chemicals_queue
+	/*data["isBeakerLoaded"] = beaker ? TRUE : FALSE
 	var/beakerContents = list()
 	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beakerContents += list(list("name" = R.name, "volume" = R.volume))
-	data["beakerContents"] = beakerContents
+	data["beakerContents"] = beakerContents*/
 	return data
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/ui_act(action, params)
 	if(..())
 		return
 	switch(action)
+		if("add")
+			var/list/chemical = params["reagent"]
+			var/amount = text2num(params["amount"])
+			add_to_queue(chemical, amount)
+			. = TRUE
+		if("clear_queue")
+			chemicals_queue.Cut()
+			. = TRUE
 		if("power")
 			if(on)
 				on = FALSE
@@ -425,13 +430,12 @@
 		if("autoeject")
 			autoeject = !autoeject
 			. = TRUE
-		if("ejectbeaker")
-			if(beaker)
-				beaker.forceMove(drop_location())
-				if(Adjacent(usr) && !issilicon(usr))
-					usr.put_in_hands(beaker)
-				beaker = null
-				. = TRUE
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/add_to_queue(var/list/chemical, var/amount)
+	if(amount <= 0 || amount + chemicals_queue[chemical["name"]] > chemical["volume"])
+		return
+
+	chemicals_queue[chemical["name"]] += amount
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
 	if(can_interact(user) && !state_open)

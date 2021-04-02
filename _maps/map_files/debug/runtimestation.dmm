@@ -1396,8 +1396,8 @@
 	height = 5;
 	id = "laborcamp_home";
 	name = "fore bay 1";
-	width = 9;
-	roundstart_template = /datum/map_template/shuttle/labour/box
+	roundstart_template = /datum/map_template/shuttle/labour/box;
+	width = 9
 	},
 /turf/open/space/basic,
 /area/space)
@@ -1408,8 +1408,8 @@
 	height = 15;
 	id = "arrivals_stationary";
 	name = "arrivals";
-	width = 7;
-	roundstart_template = /datum/map_template/shuttle/arrival/box
+	roundstart_template = /datum/map_template/shuttle/arrival/box;
+	width = 7
 	},
 /turf/open/space/basic,
 /area/space)
@@ -2290,8 +2290,8 @@
 	height = 5;
 	id = "mining_home";
 	name = "mining shuttle bay";
-	width = 7;
-	roundstart_template = /datum/map_template/shuttle/mining/box
+	roundstart_template = /datum/map_template/shuttle/mining/box;
+	width = 7
 	},
 /turf/open/space/basic,
 /area/space)
@@ -2509,6 +2509,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
+"ih" = (
+/obj/machinery/atmospherics/pipe/manifold/general/visible{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "ii" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -2518,6 +2524,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction)
+"iJ" = (
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/obj/item/reagent_containers/glass/bottle/morphine,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "jb" = (
 /obj/machinery/door/airlock,
 /obj/structure/cable{
@@ -2545,6 +2559,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"kN" = (
+/obj/machinery/atmospherics/pipe/manifold4w/general/visible,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "kQ" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
@@ -2609,6 +2627,14 @@
 /obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/medical/medbay)
+"pJ" = (
+/obj/item/wrench/medical,
+/turf/open/floor/plasteel,
+/area/storage/primary)
+"pN" = (
+/obj/machinery/atmospherics/components/unary/cryo_cell,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "pQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2677,6 +2703,29 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"xE" = (
+/obj/item/reagent_containers/glass/beaker/cryoxadone{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/cryoxadone{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/cryoxadone{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/cryoxadone{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/glass/beaker/cryoxadone{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "zo" = (
 /obj/machinery/power/apc/auto_name/south,
 /obj/structure/cable{
@@ -2728,6 +2777,13 @@
 /obj/structure/closet/syndicate/resources/everything,
 /turf/open/floor/plasteel,
 /area/science)
+"CM" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/mob/living/carbon/human,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "CV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2735,6 +2791,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
+"Dt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "EG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -2773,6 +2838,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
+"EY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/mob/living/carbon/human,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "If" = (
 /obj/machinery/rnd/production/techfab/department,
 /turf/open/floor/plasteel,
@@ -2787,6 +2859,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
+"IB" = (
+/obj/effect/turf_decal/stripes/line,
+/mob/living/carbon/human,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "JF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -2841,6 +2918,14 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
+"RL" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1;
+	name = "Connector Port (Air Supply)"
+	},
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "RM" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -2861,6 +2946,10 @@
 "Tt" = (
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"Uh" = (
+/obj/item/reagent_containers/glass/bottle/magnitis,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "Ut" = (
 /obj/structure/closet/secure_closet/medical3{
 	locked = 0
@@ -2868,10 +2957,23 @@
 /obj/item/healthanalyzer/advanced,
 /turf/open/floor/plasteel,
 /area/medical/medbay)
+"UG" = (
+/obj/item/reagent_containers/glass/bottle/mercury,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "Vg" = (
 /obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"Vx" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "Vy" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2919,6 +3021,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
+"Xj" = (
+/obj/item/reagent_containers/glass/bottle/iron,
+/obj/item/reagent_containers/glass/bottle/iodine,
+/obj/item/reagent_containers/glass/bottle/hydrogen,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "Xp" = (
 /obj/machinery/light,
 /obj/structure/tank_dispenser{
@@ -2959,6 +3067,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/science)
+"YI" = (
+/obj/item/reagent_containers/glass/bottle/hydrogen,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "ZD" = (
 /obj/machinery/suit_storage_unit/ce,
 /turf/open/floor/plasteel,
@@ -7507,8 +7619,8 @@ dp
 dl
 dl
 fX
-dE
-dB
+EY
+IB
 dl
 dl
 dl
@@ -7599,11 +7711,11 @@ dC
 dC
 dC
 dC
-eW
+CM
 nq
 dC
-dC
-dC
+Dt
+Vx
 dC
 eW
 vv
@@ -7692,10 +7804,10 @@ dJ
 dJ
 dJ
 dJ
-dJ
-dJ
-dJ
-dJ
+pN
+ih
+kN
+RL
 dJ
 dJ
 cS
@@ -7785,9 +7897,9 @@ dJ
 dJ
 dI
 dJ
-dJ
-dJ
-dJ
+pJ
+Xj
+UG
 dJ
 ny
 cS
@@ -7877,9 +7989,9 @@ dJ
 dJ
 dI
 dJ
-dJ
-dJ
-dJ
+xE
+YI
+Uh
 dJ
 dO
 cS
@@ -7970,7 +8082,7 @@ dJ
 dI
 dJ
 dJ
-dJ
+iJ
 dJ
 dJ
 jU
