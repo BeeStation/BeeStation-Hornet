@@ -2151,7 +2151,7 @@
 	desc = "The cat goes meow! Comes with a collar and a nice cat toy! Cheeseburger not included."//i can't believe im making this reference
 	cost = 5000 //Cats are worth as much as corgis.
 	contains = list(/mob/living/simple_animal/pet/cat,
-					/obj/item/clothing/neck/petcollar,
+					/obj/item/petcollar,
 					/obj/item/toy/cattoy)
 	crate_name = "cat crate"
 
@@ -2174,7 +2174,7 @@
 	desc = "Considered the optimal dog breed by thousands of research scientists, this Corgi is but one dog from the millions of Ian's noble bloodline. Comes with a cute collar!"
 	cost = 5000
 	contains = list(/mob/living/simple_animal/pet/dog/corgi,
-					/obj/item/clothing/neck/petcollar)
+					/obj/item/petcollar)
 	crate_name = "corgi crate"
 
 /datum/supply_pack/critter/corgi/generate()
@@ -2210,7 +2210,7 @@
 	desc = "Corgis fit for a king, these corgis come in a unique color to signify their superiority. Comes with a cute collar!"
 	cost = 5500
 	contains = list(/mob/living/simple_animal/pet/dog/corgi/exoticcorgi,
-					/obj/item/clothing/neck/petcollar)
+					/obj/item/petcollar)
 	crate_name = "exotic corgi crate"
 
 /datum/supply_pack/critter/fox
@@ -2218,7 +2218,7 @@
 	desc = "The fox goes...? Comes with a collar!"//what does the fox say
 	cost = 5000
 	contains = list(/mob/living/simple_animal/pet/fox,
-					/obj/item/clothing/neck/petcollar)
+					/obj/item/petcollar)
 	crate_name = "fox crate"
 
 /datum/supply_pack/critter/goat
@@ -2241,7 +2241,7 @@
 	desc = "Like a normal dog, but... squished. Comes with a nice collar!"
 	cost = 5000
 	contains = list(/mob/living/simple_animal/pet/dog/pug,
-					/obj/item/clothing/neck/petcollar)
+					/obj/item/petcollar)
 	crate_name = "pug crate"
 
 /datum/supply_pack/critter/bullterrier
@@ -2249,7 +2249,7 @@
 	desc = "Like a normal dog, but with a head the shape of an egg. Comes with a nice collar!"
 	cost = 5000
 	contains = list(/mob/living/simple_animal/pet/dog/bullterrier,
-					/obj/item/clothing/neck/petcollar)
+					/obj/item/petcollar)
 	crate_name = "bull terrier crate"
 
 /datum/supply_pack/critter/snake

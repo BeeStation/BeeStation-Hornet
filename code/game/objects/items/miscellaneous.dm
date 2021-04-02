@@ -376,3 +376,15 @@
 	name = "living lube delivery beacon"
 	default_name = "Offensive"
 	mob_choice = /mob/living/simple_animal/hostile/retaliate/clown/lube
+
+/obj/item/petcollar
+	name = "pet collar"
+	desc = "It's for pets. You probably shouldn't wear it yourself unless you want to be ridiculed."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "petcollar"
+	item_color = "petcollar"
+	var/tagname
+
+/obj/item/petcollar/attack_self(mob/user)
+	tagname = stripped_input(user, "Would you like to change the name on the tag?", "Name your new pet", "Spot", MAX_NAME_LEN)
+	name = "[initial(name)] - [tagname]"

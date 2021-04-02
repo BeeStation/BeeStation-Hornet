@@ -22,7 +22,7 @@
 	for(var/mob/living/carbon/human/H in GLOB.mob_list)
 		if(!(H.stat == DEAD))
 			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
-				if(istype(H.wear_neck, /obj/item/clothing/neck/petcollar))
+				if(istype(H.wear_neck, /obj/item/petcollar))
 					petcount--
 	if(petcount <= 0)
 		return TRUE

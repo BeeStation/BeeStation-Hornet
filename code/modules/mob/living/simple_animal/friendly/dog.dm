@@ -219,7 +219,7 @@
 
 		switch(add_to)
 			if("collar")
-				var/obj/item/clothing/neck/petcollar/P = usr.get_active_held_item()
+				var/obj/item/petcollar/P = usr.get_active_held_item()
 				if(!istype(P))
 					to_chat(usr,"<span class='warning'>That's not a collar.</span>")
 					return

@@ -263,7 +263,7 @@
 					/obj/item/clothing/suit/armor/vest/alt = 1,
 					/obj/item/circuitboard/machine/dish_drive = 1,
 					/obj/item/clothing/glasses/sunglasses/advanced/reagent = 1,
-					/obj/item/clothing/neck/petcollar = 1,
+					/obj/item/petcollar = 1,
 					/obj/item/storage/belt/bandolier = 1,
 					/obj/item/clothing/neck/tie/black = 2,
 					/obj/item/clothing/neck/tie/blue = 2)

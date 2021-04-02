@@ -77,7 +77,7 @@
 
 /datum/gear/accessory/petcollar
 	display_name = "pet collar"
-	path = /obj/item/clothing/neck/petcollar
+	path = /obj/item/petcollar
 	cost = 20000
 
 /datum/gear/accessory/necklace

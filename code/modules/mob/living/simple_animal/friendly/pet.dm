@@ -4,7 +4,7 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/unique_pet = FALSE // if the mob can be renamed
-	var/obj/item/clothing/neck/petcollar/pcollar
+	var/obj/item/petcollar/pcollar
 	var/collar_type //if the mob has collar sprites, define them.
 
 /mob/living/simple_animal/pet/handle_atom_del(atom/A)
@@ -12,7 +12,7 @@
 		pcollar = null
 	return ..()
 
-/mob/living/simple_animal/pet/proc/add_collar(obj/item/clothing/neck/petcollar/P, mob/user)
+/mob/living/simple_animal/pet/proc/add_collar(obj/item/petcollar/P, mob/user)
 	if(QDELETED(P) || pcollar)
 		return
 	if(!user.transferItemToLoc(P, src))
@@ -24,7 +24,7 @@
 		fully_replace_character_name(null, "\proper [P.tagname]")
 
 /mob/living/simple_animal/pet/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/clothing/neck/petcollar) && !pcollar && collar_type)
+	if(istype(O, /obj/item/petcollar) && !pcollar && collar_type)
 		add_collar(O, user)
 		return
 
