@@ -204,8 +204,8 @@
 
 /obj/item/clothing/neck/petcollar/equipped(mob/user, slot)
 	. = ..()
-	if(slot == ITEM_SLOT_NECK)
-		usr.gib()
+	if(slot == ITEM_SLOT_NECK && ismob(usr))
+		user.gib()		//so it gibs person who tries to equip
 
 //////////////
 //DOPE BLING//
