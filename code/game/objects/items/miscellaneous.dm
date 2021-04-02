@@ -433,7 +433,7 @@
 	new /obj/item/clothing/shoes/sneakers/white(src)
 	new /obj/item/clothing/under/rank/medical/doctor/purple(src)
 	new /obj/item/clothing/suit/toggle/labcoat(src)
-	new /obj/item/storage/backpack/duffelbag/med/surgery/coroner(src)
+	new /obj/item/storage/backpack/duffelbag/med/surgical/coroner(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/bodybag(src)
 	new /obj/item/healthanalyzer(src)
