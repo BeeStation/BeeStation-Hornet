@@ -71,7 +71,8 @@
 	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium), 0, TRUE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
 	. = ..()
 
-	if(is_station_level(obj/machinery/autolathe))
+	var/turf/here = get_turf(src)
+	if(!is_station_level(here.z))
 		free_mode = TRUE
 
 	wires = new /datum/wires/autolathe(src)
