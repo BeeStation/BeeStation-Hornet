@@ -730,12 +730,12 @@ SUBSYSTEM_DEF(job)
 	if(!spare_id_safe_code)
 		CRASH("Cannot promote [H.real_name] to Captain, there is no spare_id_safe_code.")
 
-	var/paper = new /obj/item/paper/fluff/spare_id_safe_code()
+	var/paper = new /obj/item/paper/fluff/spare_id_safe_code(H.loc)
 	var/list/slots = list(
-		LOCATION_LPOCKET = "in your left pocket",
-		LOCATION_RPOCKET = "in your right pocket",
-		LOCATION_BACKPACK = "in your backpack",
-		LOCATION_HANDS = "in your hands"
+		"in your left pocket" = ITEM_SLOT_LPOCKET,
+		"in your right pocket" = ITEM_SLOT_RPOCKET,
+		"in your backpack" = ITEM_SLOT_BACKPACK,
+		"in your hands" = ITEM_SLOT_HANDS
 	)
 	var/where = H.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 
