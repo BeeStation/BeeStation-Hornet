@@ -12,6 +12,7 @@
 
 	var/list/can_hold								//if this is set, only things in this typecache will fit.
 	var/list/cant_hold								//if this is set, anything in this typecache will not be able to fit.
+	var/list/exception_hold							//if set, these items will be the exception to the max size of object that can fit.
 
 	var/list/mob/is_using							//lazy list of mobs looking at the contents of this storage.
 
@@ -580,7 +581,7 @@
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>[host] cannot hold [I]!</span>")
 		return FALSE
-	if(I.w_class > max_w_class)
+	if(I.w_class > max_w_class && !is_type_in_typecache(I, exception_hold))
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>[I] is too big for [host]!</span>")
 		return FALSE
