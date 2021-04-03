@@ -1,7 +1,6 @@
 GLOBAL_LIST_EMPTY(exp_to_update)
 GLOBAL_PROTECT(exp_to_update)
 
-
 // Procs
 /datum/job/proc/required_playtime_remaining(client/C)
 	if(!C)
@@ -124,14 +123,11 @@ GLOBAL_PROTECT(exp_to_update)
 		return_text += "</LI></UL>"
 	return return_text
 
-
-/client/proc/get_exp_living(var/format = TRUE)
-	if(!prefs.exp)
-		return "No data"
+/client/proc/get_exp_living(pure_numeric = FALSE)
+	if(!prefs.exp || !prefs.exp[EXP_TYPE_LIVING])
+		return pure_numeric ? 0 : "No data"
 	var/exp_living = text2num(prefs.exp[EXP_TYPE_LIVING])
-	if(format)
-		return get_exp_format(exp_living)
-	return exp_living
+	return pure_numeric ? exp_living : get_exp_format(exp_living)
 
 /proc/get_exp_format(expnum)
 	if(expnum > 60)
