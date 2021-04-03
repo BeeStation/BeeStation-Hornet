@@ -19,12 +19,15 @@
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire
-	var/price_factor = 20
 
 	//Security modes
 	var/security_interface_locked = TRUE
 	var/hacked = FALSE
+
+	//Econonomy
 	var/free_mode = FALSE
+	var/price_factor = 20
+	var/obj/item/card/id/recieving_account
 
 	var/busy = FALSE
 	var/prod_coeff = 1
@@ -77,6 +80,11 @@
 
 	wires = new /datum/wires/autolathe(src)
 	stored_research = new /datum/techweb/specialized/autounlocking/autolathe
+	
+	if(recieving_account)
+		message_admins("[recieving_account.name]")	
+	else
+		message_admins("Null account")
 
 /obj/machinery/autolathe/Destroy()
 	QDEL_NULL(wires)
@@ -375,9 +383,6 @@
 	if(user.a_intent == INTENT_HARM) //so we can hit the machine
 		return ..()
 
-	if(stat)
-		return TRUE
-
 	if(istype(O, /obj/item/disk/design_disk))
 		user.visible_message("[user] loads \the [O] into \the [src]...",
 			"You load a design from \the [O]...",
@@ -387,8 +392,21 @@
 		update_viewer_statics()
 		return TRUE
 
-	return ..()
+	if(istype(O, /obj/item/card/id))
+		var/obj/item/card/id/A = O
+		if(recieving_account)	
+			if(A.registered_account == recieving_account.registered_account)
+				to_chat(user, "<span class='notice'>You remove your registered account, more money for NanoTrasen!.</span>")
+				recieving_account = null
+			else
+				to_chat(user, "This autolathe has already been linked to an account identified as: [recieving_account.name]. To alter this, swipe with the corresponding bank account.")
+		else
+			to_chat(user, "<span class='notice'>You link the autolathe to your account.</span>")
+			recieving_account = A	
 
+	if(stat)
+		return TRUE
+	return ..()
 
 /obj/machinery/autolathe/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	if(ispath(type_inserted, /obj/item/stack/ore/bluespace_crystal))
@@ -500,7 +518,20 @@
 		
 	if(materials.has_materials(materials_used))
 		if(price != 0)
-			B._adjust_money(-price)
+			message_admins("Printing...")
+			var/datum/bank_account/Civ = SSeconomy.get_dep_account(ACCOUNT_CIV)
+			if(recieving_account) // 20% NanoTrasen/Syndi, 70% linked ID, 10% Civ budget
+				message_admins("Charging, custom...")
+				var/datum/bank_account/Reci = recieving_account.registered_account
+				B._adjust_money(-price*0.2)
+				Reci.transfer_money(B, price*0.7)
+				Civ.transfer_money(B, price*0.1) 
+				message_admins("Done...")
+			else // 30% NanoTrasen/Syndi, 70% Civ budget
+				message_admins("Charging...")
+				B._adjust_money(-price*0.3)
+				Civ.transfer_money(B, price*0.7)
+				message_admins("Done...")
 		busy = TRUE
 		use_power(power)
 		icon_state = "autolathe_n"
@@ -657,6 +688,7 @@
 	playsound(src, "sparks", 100, 1)
 	obj_flags |= EMAGGED
 	free_mode = TRUE
+	recieving_account = null
 
 /obj/machinery/autolathe/hacked/Initialize()
 	. = ..()

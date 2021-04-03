@@ -5,6 +5,7 @@
 
 #define WIRE_DUD_PREFIX "__dud"
 #define WIRE_ACTIVATE "Activate"
+#define WIRE_ACCOUNT "Account"
 #define WIRE_AI "AI Connection"
 #define WIRE_ALARM "Alarm"
 #define WIRE_AVOIDANCE "Avoidance"

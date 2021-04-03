@@ -5,9 +5,10 @@
 /datum/wires/autolathe/New(atom/holder)
 	wires = list(
 		WIRE_HACK, WIRE_DISABLE,
-		WIRE_SHOCK, WIRE_ZAP, WIRE_ACTIVATE
+		WIRE_SHOCK, WIRE_ZAP, 
+		WIRE_ACTIVATE, WIRE_ACCOUNT
 	)
-	add_duds(5)
+	add_duds(4)
 	..()
 
 /datum/wires/autolathe/interactable(mob/user)
@@ -20,6 +21,7 @@
 	var/list/status = list()
 	status += "The red light is [A.disabled ? "on" : "off"]."
 	status += "The blue light is [A.hacked ? "on" : "off"]."
+	status += "The yellow light is [A.recieving_account ? "blinking" : "off"]."
 	return status
 
 /datum/wires/autolathe/on_pulse(wire)
@@ -36,6 +38,8 @@
 			addtimer(CALLBACK(A, /obj/machinery/autolathe.proc/reset, wire), 60)
 		if(WIRE_ACTIVATE)
 			A.begin_process()
+		if(WIRE_ACCOUNT)
+			A.recieving_account = null
 
 /datum/wires/autolathe/on_cut(wire, mend)
 	var/obj/machinery/autolathe/A = holder
