@@ -25,6 +25,7 @@
 		qdel(A)
 		return
 	. = ..()
+
 /datum/component/storage/concrete/bluespace/bag_of_holding/Initialize()
     . = ..()
     var/list/exception_cache = typecacheof(list(/obj/item/storage/backpack/holding))
