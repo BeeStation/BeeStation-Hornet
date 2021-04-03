@@ -145,6 +145,7 @@ SUBSYSTEM_DEF(vote)
 			if("transfer")
 				if(. == "Initiate Crew Transfer")
 					SSshuttle.requestEvac(null, "Crew Transfer Requested.")
+					SSshuttle.emergencyNoRecall = TRUE //Prevent Recall.
 					var/obj/machinery/computer/communications/C = locate() in GLOB.machines
 					if(C)
 						C.post_status("shuttle")

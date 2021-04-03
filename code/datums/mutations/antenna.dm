@@ -59,7 +59,7 @@
 
 /obj/effect/proc_holder/spell/targeted/mindread/cast(list/targets, mob/living/carbon/human/user = usr)
 	for(var/mob/living/M in targets)
-		if(istype(usr.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat) || istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(usr.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat) || istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(usr, "<span class='warning'>As you reach out with your mind, you're suddenly stopped by a vision of a massive tinfoil wall that streches beyond visible range. It seems you've been foiled.</span>")
 			return
 		if(M.stat == DEAD)

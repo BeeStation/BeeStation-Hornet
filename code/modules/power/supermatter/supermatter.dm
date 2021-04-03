@@ -635,7 +635,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 				"<span class='danger'>Oops! The [W] flashes out of existence on contact with \the [src], taking your arm with it! That was clumsy of you!</span>")
 			playsound(src, 'sound/effects/supermatter.ogg', 150, 1)
 			Consume(dust_arm)
-			qdel(W)
+			Consume(W)
 			return
 		if(cig.lit || user.a_intent != INTENT_HELP)
 			user.visible_message("<span class='danger'>A hideous sound echoes as [W] is ashed out on contact with \the [src]. That didn't seem like a good idea...</span>")
@@ -710,6 +710,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else if(istype(AM, /obj/singularity))
 		return
 	else if(isobj(AM))
+		var/obj/O = AM
+		if(O.resistance_flags & INDESTRUCTIBLE)
+			var/image/causality_field = image(icon, null, "causality_field")
+			add_overlay(causality_field, TRUE)
+			radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
+			addtimer(CALLBACK(src, .proc/disengage_field, causality_field), 5 SECONDS)
+			return
 		if(!iseffect(AM))
 			var/suspicion = ""
 			if(AM.fingerprintslast)
@@ -729,6 +736,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", MSG_AUDIBLE)
 		else
 			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", MSG_AUDIBLE)
+
+/obj/machinery/power/supermatter_crystal/proc/disengage_field(causality_field)
+	if(QDELETED(src) || !causality_field)
+		return
+	cut_overlay(causality_field, TRUE)
 
 //Do not blow up our internal radio
 /obj/machinery/power/supermatter_crystal/contents_explosion(severity, target)

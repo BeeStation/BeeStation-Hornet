@@ -43,7 +43,7 @@ Contains:
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
 	dog_fashion = /datum/dog_fashion/back/deathsquad
-	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
@@ -55,7 +55,7 @@ Contains:
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 50, "bio" = 90, "rad" = 20, "fire" = 100, "acid" = 100, "stamina" = 60)
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
 /obj/item/clothing/head/helmet/space/beret
 	name = "officer's beret"
@@ -387,7 +387,7 @@ Contains:
 
 /obj/item/clothing/head/helmet/space/hardsuit/carp/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if (slot == SLOT_HEAD)
+	if (slot == ITEM_SLOT_HEAD)
 		user.faction |= "carp"
 
 /obj/item/clothing/head/helmet/space/hardsuit/carp/dropped(mob/living/carbon/human/user)

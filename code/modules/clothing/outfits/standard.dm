@@ -465,7 +465,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	id = /obj/item/card/id/ert
 	suit_store = /obj/item/tank/internals/oxygen
-	internals_slot = SLOT_S_STORE
+	internals_slot = ITEM_SLOT_SUITSTORE
 	glasses = /obj/item/clothing/glasses/meson/night
 	ears = /obj/item/radio/headset/headset_cent/commander
 	box = /obj/item/storage/box/debugtools
