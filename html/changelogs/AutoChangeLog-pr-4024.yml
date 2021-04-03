@@ -1,0 +1,4 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - tweak: Align powercell sprites with overlay
