@@ -6,12 +6,17 @@
 	light_color = LIGHT_COLOR_ORANGE
 	products = list(/obj/item/toy/cards/deck = 5,
 		            /obj/item/storage/pill_bottle/dice = 10,
+					/obj/item/camera = 3,
+					/obj/item/camera_film = 10,
+					/obj/item/taperecorder = 2,
+					/obj/item/tape/random = 5,
 					/obj/item/storage/box/yatzy = 3,
 		            /obj/item/toy/cards/deck/cas = 3,
 		            /obj/item/toy/cards/deck/cas/black = 3,
 		            /obj/item/toy/cards/deck/unum = 3,
 					/obj/item/hourglass = 2)
-	contraband = list(/obj/item/dice/fudge = 9)
+	contraband = list(/obj/item/dice/fudge = 9,
+					/obj/item/toy/crayon/spraycan = 5)
 	premium = list(/obj/item/melee/skateboard/pro = 3,
 					/obj/item/melee/skateboard/hoverboard = 1)
 	refill_canister = /obj/item/vending_refill/games
