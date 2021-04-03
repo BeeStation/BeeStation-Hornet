@@ -80,11 +80,6 @@
 
 	wires = new /datum/wires/autolathe(src)
 	stored_research = new /datum/techweb/specialized/autounlocking/autolathe
-	
-	if(recieving_account)
-		message_admins("[recieving_account.name]")	
-	else
-		message_admins("Null account")
 
 /obj/machinery/autolathe/Destroy()
 	QDEL_NULL(wires)
@@ -518,20 +513,15 @@
 		
 	if(materials.has_materials(materials_used))
 		if(price != 0)
-			message_admins("Printing...")
 			var/datum/bank_account/Civ = SSeconomy.get_dep_account(ACCOUNT_CIV)
 			if(recieving_account) // 20% NanoTrasen/Syndi, 70% linked ID, 10% Civ budget
-				message_admins("Charging, custom...")
 				var/datum/bank_account/Reci = recieving_account.registered_account
 				B._adjust_money(-price*0.2)
 				Reci.transfer_money(B, price*0.7)
 				Civ.transfer_money(B, price*0.1) 
-				message_admins("Done...")
 			else // 30% NanoTrasen/Syndi, 70% Civ budget
-				message_admins("Charging...")
 				B._adjust_money(-price*0.3)
 				Civ.transfer_money(B, price*0.7)
-				message_admins("Done...")
 		busy = TRUE
 		use_power(power)
 		icon_state = "autolathe_n"
