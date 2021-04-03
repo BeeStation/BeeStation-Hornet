@@ -388,12 +388,16 @@
 	data["cellTemperature"] = round(air1.return_temperature(), 1)
 
 	var/reagent_list = list()
+	var/chemicals_queue_list = list()
 	data["reagentEmpty"] = !reagents.reagent_list ? TRUE : FALSE
 	data["maxReagent"] = reagents.maximum_volume
 	for(var/datum/reagent/R in reagents.reagent_list)
-		reagent_list += list(list("name" = R.name, "volume" = R.volume))
+		reagent_list += list(list("name" = R.name, "volume" = R.volume, "path" = R.type))
+	for(var/reagent in chemicals_queue)
+		var/datum/reagent/R = reagent
+		chemicals_queue_list += list(list("name" = initial(R.name), "volume" = chemicals_queue[reagent], "path" = reagent))
 	data["reagents"] = reagent_list
-	data["reagentQueue"] = chemicals_queue
+	data["queue"] = chemicals_queue_list
 	/*data["isBeakerLoaded"] = beaker ? TRUE : FALSE
 	var/beakerContents = list()
 	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
@@ -411,7 +415,10 @@
 			var/amount = text2num(params["amount"])
 			add_to_queue(chemical, amount)
 			. = TRUE
-		if("clear_queue")
+		if("remove")
+			chemicals_queue.Cut()
+			. = TRUE
+		if("remove_all")
 			chemicals_queue.Cut()
 			. = TRUE
 		if("power")
@@ -427,15 +434,19 @@
 			else
 				open_machine()
 			. = TRUE
-		if("autoeject")
-			autoeject = !autoeject
-			. = TRUE
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/proc/add_to_queue(var/list/chemical, var/amount)
-	if(amount <= 0 || amount + chemicals_queue[chemical["name"]] > chemical["volume"])
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/add_to_queue(list/chemical, amount)
+	if(amount <= 0)
 		return
 
-	chemicals_queue[chemical["name"]] += amount
+	if(amount + chemicals_queue[chemical["path"]] > chemical["volume"])
+		chemicals_queue[chemical["path"]] += chemical["volume"]
+		return
+
+	chemicals_queue[chemical["path"]] += amount
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/remove_from_queue(chemical)
+
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
 	if(can_interact(user) && !state_open)

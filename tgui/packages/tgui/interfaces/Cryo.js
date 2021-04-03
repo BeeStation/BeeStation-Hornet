@@ -1,7 +1,7 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { AnimatedNumber, Button, LabeledList, ProgressBar, Section } from '../components';
-import { ReagentList } from './common/ReagentList';
+import { AnimatedNumber, Button, LabeledList, ProgressBar, Section, Table } from '../components';
+import { ReagentList, QueueList } from './common/ReagentList';
 import { Window } from '../layouts';
 
 const damageTypes = [
@@ -113,10 +113,15 @@ const CryoContent = (props, context) => {
         <ReagentList
           content={data.reagents}
           context={data.content} />
+      </Section>
+      <Section
+        title="Queued reagents">
         <Button
-          icon="plus"
-          onClick={() => act('add')}
-          content="Add2" />
+          content="Remove all"
+          onClick={() => act('remove_all')} />
+        <QueueList
+          content={data.queue}
+          context={data.content} />
       </Section>
     </Fragment>
   );

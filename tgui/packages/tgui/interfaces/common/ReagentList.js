@@ -55,8 +55,34 @@ export const ReagentList = (props, context) => {
               })} />
           </Table.Cell>
         </Table.Row>
+      ))}
+    </Table>
+  );
+};
 
-
+export const QueueList = (props, context) => {
+  const { content } = props;
+  const { act } = useBackend(context);
+  return (
+    <Table height="100%">
+      {content.map(queue => (
+        <Table.Row
+          key={queue.name}
+          color="label"
+          height="100%">
+          <Table.Cell>
+            {queue.volume} units of {queue.name}
+          </Table.Cell>
+          <Table.Cell
+            collapsing
+            verticalAlign="middle">
+            <Button
+              icon="minus"
+              onClick={() => act("remove", {
+                reagent: queue,
+              })} />
+          </Table.Cell>
+        </Table.Row>
       ))}
     </Table>
   );
