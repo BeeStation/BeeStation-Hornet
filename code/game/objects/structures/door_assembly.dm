@@ -160,11 +160,11 @@
 			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 			name = "near finished airlock assembly"
 			electronics = W
-			
+
 	else if(istype(W, /obj/item/electroadaptive_pseudocircuit) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
 		var/obj/item/electroadaptive_pseudocircuit/EP = W
 		if(EP.adapt_circuit(user, 25))
-			var/obj/item/electronics/airlock/AE = new
+			var/obj/item/electronics/airlock/AE = new(src)
 			AE.accesses = EP.electronics.accesses
 			AE.one_access = EP.electronics.one_access
 			AE.unres_sides = EP.electronics.unres_sides
@@ -173,14 +173,18 @@
 								"<span class='notice'>You start to install electronics into the airlock assembly...</span>")
 			if(do_after(user, 40, target = src))
 				if( state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
+					qdel(AE)
 					return
 				if(!user.transferItemToLoc(AE, src))
+					qdel(AE)
 					return
 
 				to_chat(user, "<span class='notice'>You install the electroadaptive pseudocircuit.</span>")
 				state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 				name = "near finished airlock assembly"
 				electronics = AE
+			else 
+				qdel(AE)
 
 
 	else if((W.tool_behaviour == TOOL_CROWBAR) && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )

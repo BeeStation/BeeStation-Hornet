@@ -222,11 +222,12 @@
 			else if(istype(W, /obj/item/electroadaptive_pseudocircuit))
 				var/obj/item/electroadaptive_pseudocircuit/EP = W
 				if(EP.adapt_circuit(user, 25))
-					var/obj/item/electronics/airlock/AE = new
+					var/obj/item/electronics/airlock/AE = new(src)
 					AE.accesses = EP.electronics.accesses
 					AE.one_access = EP.electronics.one_access
 					AE.unres_sides = EP.electronics.unres_sides
 					if(!user.transferItemToLoc(AE, src))
+						qdel(AE)
 						return
 					AE.play_tool_sound(src, 100)
 					user.visible_message("[user] installs the electronics into the airlock assembly.",
@@ -234,13 +235,13 @@
 
 					if(do_after(user, 40, target = src))
 						if(!src || electronics)
-							AE.forceMove(drop_location())
+							qdel(AE)
 							return
 						to_chat(user, "<span class='notice'>You install the electroadaptive pseudocircuit.</span>")
 						name = "near finished windoor assembly"
 						electronics = AE
 					else
-						AE.forceMove(drop_location())
+						qdel(AE)
 
 			//Screwdriver to remove airlock electronics. Step 6 undone.
 			else if(W.tool_behaviour == TOOL_SCREWDRIVER)
