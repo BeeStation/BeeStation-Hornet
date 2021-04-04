@@ -51131,9 +51131,6 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard)
 "bJg" = (
-/obj/structure/table/wood,
-/obj/item/clipboard,
-/obj/item/toy/figure/detective,
 /obj/structure/sign/poster/official/report_crimes{
 	pixel_y = 32
 	},
@@ -51147,6 +51144,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/plasteel/dark,
 /area/security/detectives_office)
 "bJh" = (
@@ -56450,6 +56448,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/item/toy/figure/detective,
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "bRk" = (

@@ -14014,12 +14014,20 @@
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "aFk" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/spawner/lootdrop/minor/bowler_or_that,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
+	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/sorting/mail{
+	dir = 1;
+	name = "Security Junction";
+	sortType = 30
+	},
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -14288,20 +14296,12 @@
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "aFU" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/sorting/mail{
-	dir = 1;
-	name = "Security Junction";
-	sortType = 30
-	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/lootdrop/minor/bowler_or_that,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -14321,17 +14321,12 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/maintenance/department/security/brig)
+/area/security/detectives_office)
 "aFW" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
+/obj/item/storage/secure/safe{
+	pixel_x = -22
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 9
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
+/obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/carpet,
 /area/security/detectives_office)
 "aFX" = (
@@ -55159,16 +55154,15 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "fhM" = (
-/obj/item/storage/secure/safe{
-	pixel_x = -22
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 6
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/carpet,
 /area/security/detectives_office)
 "fjs" = (
@@ -87200,9 +87194,9 @@ aAe
 aBc
 aCh
 eQZ
-eQZ
-aFk
 aFU
+aFk
+eQZ
 kxm
 gjq
 aiu
@@ -87458,8 +87452,8 @@ aBd
 aBd
 aBd
 aBd
-aBd
 aFV
+aiu
 oEA
 oEA
 oEA
