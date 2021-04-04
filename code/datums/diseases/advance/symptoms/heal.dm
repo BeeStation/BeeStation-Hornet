@@ -134,7 +134,7 @@
 	if(deathgasp)
 		M.fakedeath("regenerative coma")
 	else
-		M.Unconscious(300)
+		M.Unconscious(300, TRUE, TRUE)
 	M.update_stat()
 	M.update_mobility()
 	addtimer(CALLBACK(src, .proc/uncoma, M), 300)
