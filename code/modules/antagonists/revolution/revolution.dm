@@ -251,9 +251,9 @@
 	if(give_flash)
 		var/obj/item/assembly/flash/handheld/strong/T = new(H)
 		var/list/slots = list (
-			"backpack" = SLOT_IN_BACKPACK,
-			"left pocket" = SLOT_L_STORE,
-			"right pocket" = SLOT_R_STORE
+			"backpack" = ITEM_SLOT_BACKPACK,
+			"left pocket" = ITEM_SLOT_LPOCKET,
+			"right pocket" = ITEM_SLOT_RPOCKET
 		)
 		var/where = H.equip_in_one_of_slots(T, slots)
 		if (!where)

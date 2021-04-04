@@ -607,7 +607,7 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD)) //mindshield implant, no dice
 		return FALSE
-	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		to_chat(M, "<span class='danger'>[slimelink_owner.real_name]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
 
 		return FALSE

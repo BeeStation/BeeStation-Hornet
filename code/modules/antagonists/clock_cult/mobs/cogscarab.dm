@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 		Construct defences, traps and forgeries, for opening the Ark requires an unimaginable amount of power which is bound to get the attention of selfish lifeforms interested only in their own self-preservation.</span>"
 	laws = "You are have been granted the gift of sentience from Rat'var.<br>\
 		You are not bound by any laws, do whatever you must to serve Rat'var!"
-	mobsay_color = LIGHT_COLOR_CLOCKWORK
+	chat_color = LIGHT_COLOR_CLOCKWORK
 	mobchatspan = "brassmobsay"
 	initial_language_holder = /datum/language_holder/clockmob
 
@@ -71,7 +71,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	if(!D.default_hatmask && seasonal_hats && possible_seasonal_hats.len)
 		var/hat_type = pick(possible_seasonal_hats)
 		var/obj/item/new_hat = new hat_type(D)
-		D.equip_to_slot_or_del(new_hat, SLOT_HEAD)
+		D.equip_to_slot_or_del(new_hat, ITEM_SLOT_HEAD)
 	D.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)
 	D.key = user.key
 	add_servant_of_ratvar(D, silent=TRUE)
