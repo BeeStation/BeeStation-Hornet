@@ -1,0 +1,6 @@
+author: Victor239
+delete-after: true
+changes:
+  - balance: Updating security records now requires a single access permission, and
+      this is the same requirement whether it be via console or SecHUDs.
+  - balance: Portable turrets require Security access instead of Brig access.
