@@ -1281,7 +1281,7 @@
 /datum/map_template/random_room/sk_rdm150
 	name = "small medical lobby"
 	room_id = "sk_rdm150_smallmedlobby"
-	mappath = "_maps/RandomRooms/10x5sk_rdm150_smallmedlobby.dmm"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm150_smallmedlobby.dmm"
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
