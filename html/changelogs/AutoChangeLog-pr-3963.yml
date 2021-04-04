@@ -1,0 +1,7 @@
+author: 'SomeoneYouProbablyKnow, ArcaneDefence, Tlaltecuhtli '
+delete-after: true
+changes:
+  - rscadd: The detective now has all his extra clothes in a vendor and not their
+      locker.
+  - imageadd: added icon for Detective Clothing Drobe
+  - rscadd: Map changes required to support DetDrobe
