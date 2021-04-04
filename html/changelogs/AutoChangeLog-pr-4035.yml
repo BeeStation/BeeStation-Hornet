@@ -1,6 +1,0 @@
-author: zeskorion
-delete-after: true
-changes:
-  - bugfix: rooms in maint will no longer spawn empty due to new rooms being pathed
-      improperly. Also, the rooms that were added four months ago will finally show
-      up!
