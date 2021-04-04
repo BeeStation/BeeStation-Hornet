@@ -5484,18 +5484,8 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "ajT" = (
-/obj/machinery/door/window/southleft{
-	dir = 4;
-	name = "Research Lab Desk";
-	req_one_access_txt = "7;29"
-	},
-/obj/machinery/door/window/westleft,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor/border_only{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
 	},
 /obj/machinery/autolathe,
 /turf/open/floor/plasteel,
@@ -7246,6 +7236,19 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"amG" = (
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/clothing/glasses/welding,
+/obj/structure/table,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/turf/open/floor/plasteel,
+/area/science/lab)
 "amH" = (
 /obj/machinery/door/airlock/external{
 	req_one_access_txt = "13,8"
@@ -7317,6 +7320,23 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
+"amN" = (
+/obj/structure/table,
+/obj/structure/disposalpipe/segment,
+/obj/item/folder/white{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/item/disk/tech_disk,
+/obj/item/disk/tech_disk,
+/obj/item/disk/design_disk,
+/obj/item/disk/design_disk,
+/obj/item/paper_bin{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/white,
+/area/science/lab)
 "amO" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -59131,22 +59151,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"clz" = (
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/clothing/glasses/welding,
-/obj/structure/table,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
-	},
-/turf/open/floor/plasteel,
-/area/science/lab)
 "clA" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/purple{
@@ -59597,27 +59601,6 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
-/area/science/lab)
-"cmG" = (
-/obj/item/paper_bin{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/structure/table,
-/turf/open/floor/plasteel/white,
-/area/science/lab)
-"cmH" = (
-/obj/structure/table,
-/obj/structure/disposalpipe/segment,
-/obj/item/folder/white{
-	pixel_x = 4;
-	pixel_y = -3
-	},
-/obj/item/disk/tech_disk,
-/obj/item/disk/tech_disk,
-/obj/item/disk/design_disk,
-/obj/item/disk/design_disk,
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "cmI" = (
@@ -115378,7 +115361,7 @@ cgd
 chi
 ciB
 cjX
-clz
+ajT
 cgd
 cnR
 iqg
@@ -115893,7 +115876,7 @@ chk
 ciD
 cjZ
 clB
-cmG
+amG
 cnT
 cpe
 cqy
@@ -116150,7 +116133,7 @@ chk
 ciE
 cka
 clC
-cmH
+amN
 cnU
 cpf
 cqz
@@ -116922,7 +116905,7 @@ cgd
 ckd
 cgd
 cgd
-ajT
+cnX
 cIm
 cnX
 cgd

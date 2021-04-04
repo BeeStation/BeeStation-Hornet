@@ -628,20 +628,19 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "abE" = (
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 8;
-	icon_state = "left";
-	name = "Robotics Desk";
-	req_access_txt = "29"
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/southright{
+	name = "Research and Development Desk";
+	req_one_access_txt = "7;29"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
-	id = "robotics2";
-	name = "robotics lab shutters"
+	id = "rnd";
+	name = "research lab shutters"
 	},
-/obj/machinery/autolathe,
-/turf/open/floor/plasteel/white,
-/area/science/robotics/lab)
+/obj/item/pen,
+/obj/item/folder,
+/turf/open/floor/plating,
+/area/science/lab)
 "abF" = (
 /turf/open/floor/plasteel/freezer,
 /area/security/prison)
@@ -2610,6 +2609,36 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
+"afl" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 10
+	},
+/obj/machinery/autolathe,
+/turf/open/floor/plasteel/white,
+/area/science/lab)
+"afm" = (
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	dir = 8;
+	icon_state = "left";
+	name = "Robotics Desk";
+	req_access_txt = "29"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "robotics2";
+	name = "robotics lab shutters"
+	},
+/obj/structure/table,
+/obj/item/pen,
+/obj/item/folder,
+/turf/open/floor/plasteel/white,
+/area/science/robotics/lab)
 "afp" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -21415,18 +21444,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/lab)
-"bhD" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/southright{
-	name = "Research and Development Desk";
-	req_one_access_txt = "7;29"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "rnd";
-	name = "research lab shutters"
-	},
-/turf/open/floor/plating,
-/area/science/lab)
 "bhF" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -23787,18 +23804,6 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/science/research)
-"boA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 10
-	},
-/turf/open/floor/plasteel/white,
-/area/science/lab)
 "boB" = (
 /turf/closed/wall,
 /area/science/lab)
@@ -109028,7 +109033,7 @@ bfV
 bfV
 box
 bpW
-abE
+afm
 box
 box
 bWr
@@ -110563,7 +110568,7 @@ aYV
 aXq
 sYn
 bfX
-bhD
+abE
 biV
 biW
 blK
@@ -110825,7 +110830,7 @@ biU
 biW
 blJ
 bno
-boA
+afl
 dgK
 bqf
 brn
