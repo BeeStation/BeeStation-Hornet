@@ -1,0 +1,4 @@
+author: Lautarourtiaga
+delete-after: true
+changes:
+  - bugfix: Stops RPGLoot from unstacking stackable items
