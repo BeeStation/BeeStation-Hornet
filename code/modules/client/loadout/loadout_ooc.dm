@@ -10,6 +10,14 @@
 
 /datum/gear/ooc/char_slot/purchase(var/client/C)
 	C?.prefs?.max_save_slots += 1
+	
+/datum/gear/ooc/extra_char_slot
+	display_name = "extra extra character slot"
+	description = "Another extra charslot. Pretty self-explanatory."
+	cost = 20000
+
+/datum/gear/ooc/extra_char_slot/purchase(var/client/C)
+	C?.prefs?.max_save_slots += 1
 
 /datum/gear/ooc/real_antagtoken
 	display_name = "antag token"
