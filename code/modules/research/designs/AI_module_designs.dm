@@ -119,16 +119,6 @@
 	category = list("AI Modules")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/board/grusimov_module
-	name = "Core Module Design (Grusimov)"
-	desc = "Allows for the construction of a Grusimov AI Core Module."
-	id = "grusimov_module"
-	build_type = IMPRINTER
-	materials = list(/datum/material/glass = 1000, /datum/material/diamond = 2000, /datum/material/copper = 300)
-	build_path = /obj/item/aiModule/core/full/grusimov
-	category = list("AI Modules")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
-
 /datum/design/board/tyrant_module
 	name = "Core Module Design (T.Y.R.A.N.T.)"
 	desc = "Allows for the construction of a T.Y.R.A.N.T. AI Module."
