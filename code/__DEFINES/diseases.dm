@@ -31,3 +31,11 @@
 #define DISEASE_SEVERITY_BIOHAZARD	"BIOHAZARD" //! Symptoms that can quickly kill an unprepared victim (fungal tb, gbs)
 #define DISEASE_SEVERITY_PANDEMIC	"PANDEMIC"  //! Symptoms so deadly you will likely die before being cured (ARDS, autophageocytosis)
 
+//Anything after pipes "|" Denote Possible Implementations Brainstormed during Pathogen Development. Implementation is not guaranteed.
+//These are heavily inspired by Plague Inc. Disease Categories
+//Special Reagent to Develop Pathogen Specific Symptoms is probably a good idea since this would vastly increase the symptom library
+#define DISEASE_PATHOGEN_BACTERIUM "Bacterium" //The Default. Nothing Special, No Upside or Downside
+#define DISEASE_PATHOGEN_VIRUS "Virus" //Can use symptoms in Viral.dm | Better transmission but less resistance
+#define DISEASE_PATHOGEN_FUNGAL "Fungus" //Can use symptoms located in Fungal.dm | Better Resistance and Stealth but less transmission
+#define DISEASE_PATHOGEN_PRION "Prion" //Can use symptoms located in Prion.dm | Good Stealth and Resistance but transmission is capped to blood's threshold and stage speed is capped at 0.
+#define DISEASE_PATHOGEN_BIOWEAPON "Bioweapon" //MAY NOT BE IMPLEMENTED. Uplink Only. Increases Disease Power but has stealth capped in the negatives | Has Special Symptoms Because Definitely not Overkill, special symptoms may require an entirely separate reagent.

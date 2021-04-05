@@ -27,6 +27,7 @@
 
 	// NEW VARS
 	var/list/properties = list()
+	var/pathogen type = DISEASE_PATHOGEN_BACTERIUM
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = FALSE
