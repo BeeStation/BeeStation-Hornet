@@ -183,6 +183,8 @@
 	var/turf/T = get_turf(owner)
 	if(!T) // No more runtimes from being stuck in nullspace.
 		return 0
+	if(owner.is_flying()) // no super speed from thruster and wings
+		return 0
 
 	// Priority 1: use air from environment.
 	var/datum/gas_mixture/environment = T.return_air()
