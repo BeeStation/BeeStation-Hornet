@@ -1,6 +1,0 @@
-author: DatBoiTim
-delete-after: true
-changes:
-  - bugfix: ARDS Severity Not Calculating Properly
-  - bugfix: Blobspore on Death Messages Ignoring Neutering
-  - bugfix: Regen Coma using fake death regardless of threshold
