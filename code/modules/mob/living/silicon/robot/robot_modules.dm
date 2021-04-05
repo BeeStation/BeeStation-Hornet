@@ -1,3 +1,6 @@
+/mob/living/silicon/robot/modules/borgi
+	set_module = /obj/item/robot_module/borgi
+
 /obj/item/robot_module
 	name = "Default"
 	icon = 'icons/obj/module.dmi'
@@ -561,6 +564,14 @@
 			hat_offset = INFINITY //He is already wearing a hat
 	return ..()
 
+/obj/item/robot_module/borgi
+	name = "Borgi"
+	basic_modules = list(
+		/obj/item/assembly/flash/cyborg,
+		/obj/item/borg/charger,
+		/obj/item/borg/cyborghug/peacekeeper)
+	cyborg_base_icon = "borgi"
+	moduleselect_icon = "standard"
 
 /obj/item/robot_module/miner
 	name = "Miner"
