@@ -130,6 +130,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/power_transmission_bonus = 0
 	var/mole_heat_penalty = 0
 
+	var/anomalous_protection_field_active = FALSE
 
 	var/matter_power = 0
 
@@ -705,6 +706,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			return
 		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
 		investigate_log("has consumed [key_name(user)].", INVESTIGATE_SUPERMATTER)
+				//Some poor sod got eaten, go ahead and irradiate people nearby.
+		radiation_pulse(src, 3000, 2, TRUE)
+		for(var/mob/living/L in range(10, get_turf(src)))
+			investigate_log("has irradiated [key_name(L)] after consuming [AM].", INVESTIGATE_SUPERMATTER)
+			if(L in viewers(get_turf(src)))
+				L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
+					"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", MSG_AUDIBLE)
+			else
+				L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", MSG_AUDIBLE)
 		user.dust(force = TRUE)
 		matter_power += 200
 	else if(istype(AM, /obj/singularity))
@@ -712,10 +722,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else if(isobj(AM))
 		var/obj/O = AM
 		if(O.resistance_flags & INDESTRUCTIBLE)
-			var/image/causality_field = image(icon, null, "causality_field")
-			add_overlay(causality_field, TRUE)
-			radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
-			addtimer(CALLBACK(src, .proc/disengage_field, causality_field), 5 SECONDS)
+			if(!anomalous_protection_field_active)
+				var/image/causality_field = image(icon, null, "causality_field")
+				add_overlay(causality_field, TRUE)
+				radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
+				addtimer(CALLBACK(src, .proc/disengage_field, causality_field), 5 SECONDS)
+				anomalous_protection_field_active = TRUE
 			return
 		if(!iseffect(AM))
 			var/suspicion = ""
@@ -727,19 +739,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(!iseffect(AM))
 		matter_power += 200
 
-	//Some poor sod got eaten, go ahead and irradiate people nearby.
-	radiation_pulse(src, 3000, 2, TRUE)
-	for(var/mob/living/L in range(10))
-		investigate_log("has irradiated [key_name(L)] after consuming [AM].", INVESTIGATE_SUPERMATTER)
-		if(L in viewers(get_turf(src)))
-			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
-				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", MSG_AUDIBLE)
-		else
-			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", MSG_AUDIBLE)
-
 /obj/machinery/power/supermatter_crystal/proc/disengage_field(causality_field)
 	if(QDELETED(src) || !causality_field)
 		return
+	anomalous_protection_field_active = FALSE
 	cut_overlay(causality_field, TRUE)
 
 //Do not blow up our internal radio

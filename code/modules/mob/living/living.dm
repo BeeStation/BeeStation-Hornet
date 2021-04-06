@@ -22,7 +22,10 @@
 	med_hud_set_health()
 	med_hud_set_status()
 
-/mob/living/Destroy()
+/mob/living/Destroy(force = FALSE)
+	//Remove indestructible things from the person
+	if(!force)
+		unequip_everything(TRUE)
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s

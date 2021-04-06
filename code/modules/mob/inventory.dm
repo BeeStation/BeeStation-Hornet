@@ -262,9 +262,11 @@
 	I.dropped(src)
 	return FALSE
 
-/mob/proc/drop_all_held_items()
+/mob/proc/drop_all_held_items(only_indestructible = FALSE)
 	. = FALSE
 	for(var/obj/item/I in held_items)
+		if(only_indestructible && !(I.resistance_flags & INDESTRUCTIBLE))
+			continue
 		. |= dropItemToGround(I)
 
 //Here lie drop_from_inventory and before_item_take, already forgotten and not missed.
@@ -377,12 +379,18 @@
 			items += s_store
 	return items
 
-/mob/living/proc/unequip_everything()
+/mob/living/proc/unequip_everything(only_indestructible = FALSE)
 	var/list/items = list()
 	items |= get_equipped_items(TRUE)
 	for(var/I in items)
+		if(!I)
+			continue
+		if(isobj(I))
+			var/obj/O = I
+			if(only_indestructible && !(O.resistance_flags & INDESTRUCTIBLE))
+				continue
 		dropItemToGround(I)
-	drop_all_held_items()
+	drop_all_held_items(only_indestructible)
 
 
 /mob/living/carbon/proc/check_obscured_slots(transparent_protection)

@@ -1,4 +1,6 @@
 /mob/living/gib(no_brain, no_organs, no_bodyparts)
+	unequip_everything(TRUE)
+
 	var/prev_lying = lying
 	if(stat != DEAD)
 		death(TRUE)
@@ -29,8 +31,7 @@
 /mob/living/dust(just_ash, drop_items, force)
 	death(TRUE)
 
-	if(drop_items)
-		unequip_everything()
+	unequip_everything(!drop_items)
 
 	if(buckled)
 		buckled.unbuckle_mob(src, force = TRUE)

@@ -8,6 +8,12 @@
 	GLOB.carbon_list += src
 
 /mob/living/carbon/Destroy()
+	//Drop brain
+	var/obj/item/organ/brain/brain = locate() in internal_organs
+	if(brain)
+		brain.forceMove(get_turf(src))
+		internal_organs -= brain
+
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
 

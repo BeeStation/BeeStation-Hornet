@@ -32,7 +32,7 @@
 			new recipe.output(drop_location())
 	if (ismob(what))
 		var/mob/themob = what
-		themob.gib(TRUE,TRUE,TRUE)
+		themob.gib(FALSE,TRUE,TRUE)
 	else
 		qdel(what)
 
