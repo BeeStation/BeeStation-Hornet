@@ -36,6 +36,6 @@
 //Special Reagent to Develop Pathogen Specific Symptoms is probably a good idea since this would vastly increase the symptom library
 #define DISEASE_PATHOGEN_BACTERIUM "Bacterium" //The Default. Nothing Special, No Upside or Downside
 #define DISEASE_PATHOGEN_VIRUS "Virus" //Can use symptoms in Viral.dm | Better transmission but less resistance
-#define DISEASE_PATHOGEN_FUNGAL "Fungus" //Can use symptoms located in Fungal.dm | Better Resistance and Stealth but less transmission
+#define DISEASE_PATHOGEN_FUNGAL "Fungus" //Can use symptoms located in Fungal.dm | Better Resistance but less transmission
 #define DISEASE_PATHOGEN_PRION "Prion" //Can use symptoms located in Prion.dm | Good Stealth and Resistance but transmission is capped to blood's threshold and stage speed is capped at 0.
 #define DISEASE_PATHOGEN_BIOWEAPON "Bioweapon" //MAY NOT BE IMPLEMENTED. Uplink Only. Increases Disease Power but has stealth capped in the negatives | Has Special Symptoms Because Definitely not Overkill, special symptoms may require an entirely separate reagent.
