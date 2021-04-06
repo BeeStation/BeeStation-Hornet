@@ -9,7 +9,8 @@
 	var/upgraded = FALSE		// When hit with an upgrade disk, will turn true, allowing it to print the higher tier circuits.
 	var/can_clone = TRUE		// Allows the printer to clone circuits, either instantly or over time depending on upgrade. Set to FALSE to disable entirely.
 	var/fast_clone = FALSE		// If this is false, then cloning will take an amount of deciseconds equal to the iron cost divided by 100.
-	var/debug = FALSE			// If it's upgraded and can clone, even without config settings.
+	var/id_unlocked = FALSE		// When hit with an ID with command access, toggles this variable. Locks certain circuits.
+	var/debug = FALSE			// If it's upgraded and can clone, even without config settings. Also starts off unlocked.
 	var/current_category = null
 	var/cloning = FALSE			// If the printer is currently creating a circuit
 	var/recycling = FALSE		// If an assembly is being emptied into this printer
@@ -30,6 +31,7 @@
 	upgraded = TRUE
 	can_clone = TRUE
 	fast_clone = TRUE
+	id_unlocked = TRUE
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/integrated_circuit_printer/Initialize()
@@ -65,6 +67,16 @@
 		to_chat(user, "<span class='notice'>You install [O] into [src]. Circuit cloning will now be instant. </span>")
 		fast_clone = TRUE
 		return TRUE
+	
+	if(istype(O, /obj/item/card/id))
+		if(ACCESS_HEADS in O.GetAccess())
+			if(id_unlocked)
+				to_chat(user, "<span class='notice'>You lock the dangerous components in [src]. </span>")
+				id_unlocked = FALSE
+				return TRUE
+			to_chat(user, "<span class='notice'>You unlock the dangerous components in [src]. </span>")
+			id_unlocked = TRUE
+			return TRUE
 
 	if(istype(O, /obj/item/electronic_assembly))
 		var/obj/item/electronic_assembly/EA = O //microtransactions not included
@@ -154,9 +166,10 @@
 	if(CONFIG_GET(flag/ic_printing) || debug)
 		HTML += "Assembly cloning: [can_clone ? (fast_clone ? "Instant" : "Available") : "Unavailable"].<br>"
 
-	HTML += "Circuits available: [upgraded || debug ? "Advanced":"Regular"]."
-	if(!upgraded)
-		HTML += "<br>Crossed out circuits mean that the printer is not sufficiently upgraded to create that circuit."
+	HTML += "Circuits available: [upgraded || debug ? "Advanced":"Regular"].<br>"
+	HTML += "Dangerous circuits locked: [id_unlocked ? "Unlocked":"Locked"]."
+	if(!upgraded || id_unlocked)
+		HTML += "<br>Crossed out circuits mean that the printer is either locked or not sufficiently upgraded to create that circuit."
 
 	HTML += "<hr>"
 	if((can_clone && CONFIG_GET(flag/ic_printing)) || debug)
@@ -188,7 +201,9 @@
 		var/can_build = TRUE
 		if(ispath(path, /obj/item/integrated_circuit))
 			var/obj/item/integrated_circuit/IC = path
-			if((initial(IC.spawn_flags) & IC_SPAWN_RESEARCH) && (!(initial(IC.spawn_flags) & IC_SPAWN_DEFAULT)) && !upgraded)
+			if((initial(IC.spawn_flags) & IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS) && (!(initial(IC.spawn_flags) & IC_SPAWN_NORESEARCH)) && !upgraded)
+				can_build = FALSE
+			if((initial(IC.spawn_flags) & IC_SPAWN_ACCESS) && (!(initial(IC.spawn_flags) & IC_SPAWN_NOACCESS)) && !id_unlocked)
 				can_build = FALSE
 		if(can_build)
 			HTML += "<a href='?src=[REF(src)];build=[path]'>[initial(O.name)]</a>: [initial(O.desc)]<br>"
@@ -283,6 +298,11 @@
 							to_chat(usr, "<span class='notice'>It uses advanced component designs.</span>")
 						else
 							to_chat(usr, "<span class='warning'>It uses unknown component designs. Printer upgrade is required to proceed.</span>")
+					if(program["requires_access"])
+						if(id_unlocked)
+							to_chat(usr, "<span class='notice'>It uses dangerous component designs.</span>")
+						else
+							to_chat(usr, "<span class='warning'>It uses dangerous component designs. Printer unlocking is required to proceed.</span>")
 					if(program["unsupported_circuit"])
 						to_chat(usr, "<span class='warning'>This program uses components not supported by the specified assembly. Please change the assembly type in the save file to a supported one.</span>")
 					to_chat(usr, "<span class='notice'>Used space: [program["used_space"]]/[program["max_space"]].</span>")
@@ -295,6 +315,9 @@
 
 				if(program["requires_upgrades"] && !upgraded && !debug)
 					to_chat(usr, "<span class='warning'>This program uses unknown component designs. Printer upgrade is required to proceed.</span>")
+					return
+				if(program["requires_access"] && !id_unlocked)
+					to_chat(usr, "<span class='warning'>This program uses component designs that require access. Printer unlocking is required to proceed.</span>")
 					return
 				if(program["unsupported_circuit"] && !debug)
 					to_chat(usr, "<span class='warning'>This program uses components not supported by the specified assembly. Please change the assembly type in the save file to a supported one.</span>")

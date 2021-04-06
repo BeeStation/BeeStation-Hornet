@@ -30,7 +30,7 @@ PROCESSING_SUBSYSTEM_DEF(circuit)
 		all_components[name] = path // Populating the component lists
 		cached_components[IC] = new path
 
-		if(!(initial(IC.spawn_flags) & (IC_SPAWN_DEFAULT | IC_SPAWN_RESEARCH)))
+		if(!(initial(IC.spawn_flags) & (IC_SPAWN_NORESEARCH | IC_SPAWN_NOACCESS | IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS | IC_SPAWN_ACCESS)))
 			continue
 
 		var/category = initial(IC.category_text)

@@ -15,7 +15,7 @@
 	extended_desc = "This cell generates 1 W of power in optimal lighting conditions. Less light will result in less power being generated."
 	icon_state = "solar_cell"
 	complexity = 8
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/max_power = 30
 
 /obj/item/integrated_circuit/passive/power/solar_cell/make_energy()
@@ -33,7 +33,7 @@
 	icon_state = "led"
 	complexity = 1
 	activators = list("pulse out" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/is_charge = FALSE
 
 /obj/item/integrated_circuit/passive/power/starter/make_energy()
@@ -57,7 +57,7 @@
 	from the 'equipment' power channel."
 	icon_state = "power_relay"
 	complexity = 7
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/power_amount = 50
 
 
@@ -79,7 +79,7 @@
  	from the 'equipment' power channel."
 	icon_state = "power_relay"
 	complexity = 15
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_amount = 1000
 
 
@@ -94,7 +94,7 @@
 	inputs = list()
 	outputs = list("volume used" = IC_PINTYPE_NUMBER, "self reference" = IC_PINTYPE_SELFREF)
 	activators = list("push ref" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/volume = 60
 	var/list/fuel = list("plasma" = 50000, "slimejelly" = 22500, "welding_fuel" = 15000, "carbon" = 10000, "ethanol" = 10000, "nutriment" = 8000)
 	var/multi = 1

@@ -13,7 +13,7 @@
 	icon_state = "delay-20"
 	var/delay = 2 SECONDS
 	activators = list("incoming"= IC_PINTYPE_PULSE_IN,"outgoing" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 2
 
 /obj/item/integrated_circuit/time/delay/do_work()
@@ -25,7 +25,7 @@
 	This circuit is set to send a pulse after a delay of five seconds."
 	icon_state = "delay-50"
 	delay = 5 SECONDS
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/time/delay/one_sec
 	name = "one-sec delay circuit"
@@ -33,7 +33,7 @@
 	This circuit is set to send a pulse after a delay of one second."
 	icon_state = "delay-10"
 	delay = 1 SECONDS
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/time/delay/half_sec
 	name = "half-sec delay circuit"
@@ -41,7 +41,7 @@
 	This circuit is set to send a pulse after a delay of half a second."
 	icon_state = "delay-5"
 	delay = 0.5 SECONDS
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/time/delay/tenth_sec
 	name = "tenth-sec delay circuit"
@@ -49,7 +49,7 @@
 	This circuit is set to send a pulse after a delay of 1/10th of a second."
 	icon_state = "delay-1"
 	delay = 0.1 SECONDS
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/time/delay/custom
 	name = "custom delay circuit"
@@ -59,7 +59,7 @@
 	extended_desc = "The delay is defined in tenths of a second. For instance, 4 will be a delay of 0.4 seconds, or 15 for 1.5 seconds."
 	icon_state = "delay"
 	inputs = list("delay time" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/time/delay/custom/on_data_written()
 	..()
@@ -81,7 +81,7 @@
 	var/is_running = FALSE
 	inputs = list("enable ticking" = IC_PINTYPE_BOOLEAN)
 	activators = list("outgoing pulse" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 4
 
 /obj/item/integrated_circuit/time/ticker/Destroy()
@@ -112,7 +112,7 @@
 	complexity = 8
 	delay = 2 SECONDS
 	inputs = list("enable ticking" = IC_PINTYPE_BOOLEAN,"delay time" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 8
 
 /obj/item/integrated_circuit/time/ticker/custom/on_data_written()
@@ -131,7 +131,7 @@
 	icon_state = "tick-f"
 	complexity = 6
 	delay = 2 SECONDS
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 8
 
 /obj/item/integrated_circuit/time/ticker/slow
@@ -140,7 +140,7 @@
 	icon_state = "tick-s"
 	complexity = 2
 	delay = 6 SECONDS
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 2
 
 /obj/item/integrated_circuit/time/clock
@@ -156,7 +156,7 @@
 		"absolute decisecond elapsed time" = IC_PINTYPE_NUMBER
 		)
 	activators = list("get time" = IC_PINTYPE_PULSE_IN, "on time got" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 2
 
 /obj/item/integrated_circuit/time/clock/proc/get_time()

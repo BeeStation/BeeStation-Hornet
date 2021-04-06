@@ -14,7 +14,7 @@
 	icon_state = "num-string"
 	inputs = list("input" = IC_PINTYPE_NUMBER)
 	outputs = list("output" = IC_PINTYPE_STRING)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/num2text/do_work()
 	var/result = null
@@ -35,7 +35,7 @@
 	icon_state = "string-num"
 	inputs = list("input" = IC_PINTYPE_STRING)
 	outputs = list("output" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/text2num/do_work()
 	var/result = null
@@ -54,7 +54,7 @@
 	icon_state = "ref-string"
 	inputs = list("input" = IC_PINTYPE_REF)
 	outputs = list("output" = IC_PINTYPE_STRING)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/ref2text/do_work()
 	var/result = null
@@ -73,7 +73,7 @@
 	icon_state = "ref-string"
 	inputs = list("input" = IC_PINTYPE_REF)
 	outputs = list("output" = IC_PINTYPE_STRING)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/refcode/do_work()
 	var/result = null
@@ -92,7 +92,7 @@
 	icon_state = "ref-string"
 	inputs = list("input" = IC_PINTYPE_STRING)
 	outputs = list("output" = IC_PINTYPE_REF)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/dec
 
 /obj/item/integrated_circuit/converter/refdecode/do_work()
@@ -108,7 +108,7 @@
 	desc = "Converts radians to degrees."
 	inputs = list("radian" = IC_PINTYPE_NUMBER)
 	outputs = list("degrees" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/radians2degrees/do_work()
 	var/result = null
@@ -126,7 +126,7 @@
 	desc = "Converts degrees to radians."
 	inputs = list("degrees" = IC_PINTYPE_NUMBER)
 	outputs = list("radians" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/degrees2radians/do_work()
 	var/result = null
@@ -156,7 +156,7 @@
 		"Y" = IC_PINTYPE_NUMBER
 		)
 	activators = list("compute rel coordinates" = IC_PINTYPE_PULSE_IN, "on convert" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/abs_to_rel_coords/do_work()
 	var/x1 = get_pin_data(IC_INPUT, 1)
@@ -189,7 +189,7 @@
 		"Y" = IC_PINTYPE_NUMBER
 		)
 	activators = list("compute abs coordinates" = IC_PINTYPE_PULSE_IN, "on convert" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/rel_to_abs_coords/do_work()
 	var/x1 = get_pin_data(IC_INPUT, 1)
@@ -219,7 +219,7 @@
 		"Y" = IC_PINTYPE_NUMBER
 		)
 	activators = list("compute abs coordinates" = IC_PINTYPE_PULSE_IN, "on convert" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/adv_rel_to_abs_coords/do_work()
 	var/turf/T = get_turf(src)
@@ -249,7 +249,7 @@
 		"value" = IC_PINTYPE_NUMBER
 	)
 	outputs = list("hexadecimal rgb" = IC_PINTYPE_COLOR)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/hsv2hex/do_work()
 	var/result = null
@@ -276,7 +276,7 @@
 		"blue" = IC_PINTYPE_NUMBER
 	)
 	outputs = list("hexadecimal rgb" = IC_PINTYPE_COLOR)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/rgb2hex/do_work()
 	var/result = null
@@ -308,7 +308,7 @@
 		"green" = IC_PINTYPE_NUMBER,
 		"blue" = IC_PINTYPE_NUMBER
 	)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 /obj/item/integrated_circuit/converter/hsv2rgb/do_work()
 	var/hue = get_pin_data(IC_INPUT, 1)
 	var/sat = get_pin_data(IC_INPUT, 2)
@@ -343,7 +343,7 @@
 		"saturation" = IC_PINTYPE_NUMBER,
 		"value" = IC_PINTYPE_NUMBER
 	)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/rgb2hsv/do_work()
 	var/red = get_pin_data(IC_INPUT, 1)
@@ -375,7 +375,7 @@
 		"saturation" = IC_PINTYPE_NUMBER,
 		"value" = IC_PINTYPE_NUMBER
 	)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/hex2hsv/do_work()
 	pull_data()
@@ -406,7 +406,7 @@
 		"green" = IC_PINTYPE_NUMBER,
 		"blue" = IC_PINTYPE_NUMBER
 	)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/converter/hex2rgb/do_work()
 	var/rgb = get_pin_data(IC_INPUT, 1)

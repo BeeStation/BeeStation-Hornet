@@ -24,7 +24,7 @@
 	desc = "Only evil if you're allergic to math. Takes a degree and outputs the sine of said degree."
 	icon_state = "sine"
 	inputs = list("A" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/trig/sine/do_work()
 	pull_data()
@@ -44,7 +44,7 @@
 	desc = "Takes a degree and outputs the cosine of said degree."
 	icon_state = "cosine"
 	inputs = list("A" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/trig/cosine/do_work()
 	pull_data()
@@ -64,7 +64,7 @@
 	desc = "Takes a degree and outputs the tangent of said degree."
 	icon_state = "tangent"
 	inputs = list("A" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/trig/tangent/do_work()
 	pull_data()
@@ -84,7 +84,7 @@
 	desc = "Takes a degree and outputs the cosecant of said degree."
 	icon_state = "cosecant"
 	inputs = list("A" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/trig/cosecant/do_work()
 	pull_data()
@@ -104,7 +104,7 @@
 	desc = "Takes a degree and outputs the secant of said degree."
 	icon_state = "secant"
 	inputs = list("A" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/trig/secant/do_work()
 	pull_data()
@@ -124,7 +124,7 @@
 	desc = "Takes a degree and outputs the cotangent of said degree."
 	icon_state = "cotangent"
 	inputs = list("A" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/trig/cotangent/do_work()
 	pull_data()

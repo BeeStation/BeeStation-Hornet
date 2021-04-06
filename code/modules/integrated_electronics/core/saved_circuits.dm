@@ -294,8 +294,11 @@
 		blocks["iron_cost"] += component.materials[/datum/material/iron]
 
 		// Check if the assembly requires printer upgrades
-		if(!(component.spawn_flags & IC_SPAWN_DEFAULT))
+		if(component.spawn_flags & IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS)
 			blocks["requires_upgrades"] = TRUE
+		
+		if(component.spawn_flags & IC_SPAWN_ACCESS)
+			blocks["requires_access"] = TRUE
 
 		// Check if the assembly supports the circucit
 		if((component.action_flags & assembly.allowed_circuit_action_flags) != component.action_flags)

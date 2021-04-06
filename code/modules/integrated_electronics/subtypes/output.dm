@@ -10,7 +10,7 @@
 	inputs = list("displayed data" = IC_PINTYPE_ANY)
 	outputs = list()
 	activators = list("load data" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 10
 	var/eol = "&lt;br&gt;"
 	var/stuff_to_display = null
@@ -70,7 +70,7 @@
 	inputs = list()
 	outputs = list()
 	activators = list("toggle light" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/light_toggled = 0
 	var/light_brightness = 3
 	var/light_rgb = "#FFFFFF"
@@ -103,7 +103,7 @@
 		"brightness" = IC_PINTYPE_NUMBER
 	)
 	outputs = list()
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/output/light/advanced/on_data_written()
 	update_lighting()
@@ -174,7 +174,7 @@
 		"synth no"		= 'sound/machines/synth_no.ogg',
 		"warning buzz"	= 'sound/machines/warning-buzzer.ogg'
 		)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/output/sound/beepsky
 	name = "securitron sound circuit"
@@ -189,7 +189,7 @@
 		"radio"			= 'sound/voice/beepsky/radio.ogg',
 		"secure day"	= 'sound/voice/beepsky/secureday.ogg',
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/output/sound/medbot
 	name = "medbot sound circuit"
@@ -211,12 +211,12 @@
 		"apple"			= 'sound/voice/medbot/apple.ogg',
 		"no"			= 'sound/voice/medbot/no.ogg',
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/output/sound/vox
 	name = "ai vox sound circuit"
 	desc = "Takes a sound name as an input, and will play said sound when pulsed. This circuit is often found in AI announcement systems."
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/output/sound/vox/Initialize()
 	.= ..()
@@ -233,7 +233,7 @@
 	inputs = list("text" = IC_PINTYPE_STRING)
 	outputs = list()
 	activators = list("to speech" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 60
 
 /obj/item/integrated_circuit/output/text_to_speech/do_work()
@@ -262,7 +262,7 @@
 	inputs_default = list("1" = "video camera circuit", "3" = list("rd"))
 	outputs = list()
 	activators = list()
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	action_flags = IC_ACTION_LONG_RANGE
 	power_draw_idle = 0 // Raises to 20 when on.
 	var/obj/machinery/camera/camera
@@ -337,7 +337,7 @@
 		"2" = "#FF0000"
 	)
 	power_draw_idle = 0 // Raises to 1 when lit.
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/led_color = "#FF0000"
 
 /obj/item/integrated_circuit/output/led/on_data_written()
@@ -377,7 +377,7 @@
 	outputs = list()
 	activators = list()
 	power_draw_idle = 0
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/output/diagnostic_hud/on_data_written()
 	var/ID = get_pin_data(IC_INPUT, 1)
@@ -406,7 +406,7 @@
 	inputs = list("text" = IC_PINTYPE_STRING, "frequency" = IC_PINTYPE_NUMBER)
 	outputs = list("encryption keys" = IC_PINTYPE_LIST)
 	activators = list("broadcast" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 100
 	cooldown_per_use = 0.1
 	var/list/whitelisted_freqs = list() // special freqs can be used by inserting encryption keys

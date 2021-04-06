@@ -15,7 +15,7 @@
 	inputs = list()
 	outputs = list()
 	activators = list("on pressed" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/input/button/ask_for_input(mob/user) //Bit misleading name for this specific use.
 	to_chat(user, "<span class='notice'>You press the button labeled '[displayed_name]'.</span>")
@@ -30,7 +30,7 @@
 	inputs = list()
 	outputs = list("on" = IC_PINTYPE_BOOLEAN)
 	activators = list("on toggle" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/input/toggle_button/ask_for_input(mob/user) // Ditto.
 	set_pin_data(IC_OUTPUT, 1, !get_pin_data(IC_OUTPUT, 1))
@@ -47,7 +47,7 @@
 	inputs = list()
 	outputs = list("number entered" = IC_PINTYPE_NUMBER)
 	activators = list("on entered" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 4
 
 /obj/item/integrated_circuit/input/numberpad/ask_for_input(mob/user)
@@ -66,7 +66,7 @@
 	inputs = list()
 	outputs = list("string entered" = IC_PINTYPE_STRING)
 	activators = list("on entered" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 4
 
 /obj/item/integrated_circuit/input/textpad/ask_for_input(mob/user)
@@ -85,7 +85,7 @@
 	inputs = list()
 	outputs = list("color entered" = IC_PINTYPE_STRING)
 	activators = list("on entered" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 4
 
 /obj/item/integrated_circuit/input/colorpad/ask_for_input(mob/user)
@@ -106,7 +106,7 @@
 		"total missing health" = IC_PINTYPE_NUMBER
 		)
 	activators = list("scan" = IC_PINTYPE_PULSE_IN, "on scanned" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 40
 
 /obj/item/integrated_circuit/input/med_scanner/do_work()
@@ -140,7 +140,7 @@
 		"clone damage"			= IC_PINTYPE_NUMBER
 	)
 	activators = list("scan" = IC_PINTYPE_PULSE_IN, "on scanned" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 80
 
 /obj/item/integrated_circuit/input/adv_med_scanner/do_work()
@@ -180,7 +180,7 @@
 		"Growth progress"		= IC_PINTYPE_NUMBER,
 	)
 	activators = list("scan" = IC_PINTYPE_PULSE_IN, "on scanned" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 80
 
 /obj/item/integrated_circuit/input/slime_scanner/do_work()
@@ -236,7 +236,7 @@
 		"connected trays"		= IC_PINTYPE_LIST
 	)
 	activators = list("scan" = IC_PINTYPE_PULSE_IN, "on scanned" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 10
 
 /obj/item/integrated_circuit/input/plant_scanner/do_work()
@@ -285,7 +285,7 @@
 	)
 	activators = list("scan" = IC_PINTYPE_PULSE_IN, "on scanned" = IC_PINTYPE_PULSE_OUT)
 	icon_state = "medscan_adv"
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/input/gene_scanner/do_work()
 	var/list/gtraits = list()
@@ -335,7 +335,7 @@
 		"on scanned" = IC_PINTYPE_PULSE_OUT,
 		"not scanned" = IC_PINTYPE_PULSE_OUT
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 80
 
 /obj/item/integrated_circuit/input/examiner/do_work()
@@ -380,7 +380,7 @@
 	inputs = list("X" = IC_PINTYPE_NUMBER,"Y" = IC_PINTYPE_NUMBER)
 	outputs = list("tile" = IC_PINTYPE_REF)
 	activators = list("calculate dir" = IC_PINTYPE_PULSE_IN, "on calculated" = IC_PINTYPE_PULSE_OUT,"not calculated" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 40
 
 /obj/item/integrated_circuit/input/turfpoint/do_work()
@@ -418,7 +418,7 @@
 		"on scanned" = IC_PINTYPE_PULSE_OUT,
 		"not scanned" = IC_PINTYPE_PULSE_OUT
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 40
 	cooldown_per_use = 10
 
@@ -456,7 +456,7 @@
 	inputs = list("X" = IC_PINTYPE_NUMBER,"Y" = IC_PINTYPE_NUMBER)
 	outputs = list("tile" = IC_PINTYPE_REF)
 	activators = list("scan" = IC_PINTYPE_PULSE_IN, "on scanned" = IC_PINTYPE_PULSE_OUT,"not scanned" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 40
 
 /obj/item/integrated_circuit/input/turfpoint/do_work()
@@ -493,7 +493,7 @@
 		"on scanned" = IC_PINTYPE_PULSE_OUT,
 		"not scanned" = IC_PINTYPE_PULSE_OUT
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 40
 	cooldown_per_use = 10
 
@@ -532,7 +532,7 @@
 	activators = list("locate" = IC_PINTYPE_PULSE_IN,
 		"on scanned" = IC_PINTYPE_PULSE_OUT
 		)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 20
 
 /obj/item/integrated_circuit/input/local_locator/do_work()
@@ -556,7 +556,7 @@
 	outputs = list("located ref" = IC_PINTYPE_REF)
 	activators = list("locate" = IC_PINTYPE_PULSE_IN,"found" = IC_PINTYPE_PULSE_OUT,
 		"not found" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 30
 
 /obj/item/integrated_circuit/input/adjacent_locator/do_work()
@@ -594,7 +594,7 @@
 	inputs = list("desired type ref" = IC_PINTYPE_LIST, "radius" = IC_PINTYPE_NUMBER)
 	outputs = list("located ref" = IC_PINTYPE_LIST)
 	activators = list("locate" = IC_PINTYPE_PULSE_IN,"found" = IC_PINTYPE_PULSE_OUT,"not found" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 30
 	var/radius = 1
 	cooldown_per_use = 10
@@ -656,7 +656,7 @@
 	inputs = list("desired type" = IC_PINTYPE_ANY, "radius" = IC_PINTYPE_NUMBER)
 	outputs = list("located ref" = IC_PINTYPE_REF)
 	activators = list("locate" = IC_PINTYPE_PULSE_IN,"found" = IC_PINTYPE_PULSE_OUT,"not found" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 30
 	var/radius = 1
 
@@ -713,7 +713,7 @@
 		"send signal" = IC_PINTYPE_PULSE_IN,
 		"on signal sent" = IC_PINTYPE_PULSE_OUT,
 		"on signal received" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	action_flags = IC_ACTION_LONG_RANGE
 	power_draw_idle = 5
 	power_draw_per_use = 40
@@ -802,7 +802,7 @@
 		"is_broadcast"				= IC_PINTYPE_BOOLEAN
 		)
 	activators = list("send data" = IC_PINTYPE_PULSE_IN, "on data received" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	action_flags = IC_ACTION_LONG_RANGE
 	power_draw_per_use = 50
 	var/address
@@ -851,7 +851,7 @@
 		)
 	outputs = list("received data" = IC_PINTYPE_LIST, "is_broadcast" = IC_PINTYPE_BOOLEAN)
 	activators = list("send data" = IC_PINTYPE_PULSE_IN, "on data received" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	action_flags = IC_ACTION_LONG_RANGE
 	power_draw_per_use = 50
 	var/address
@@ -890,7 +890,7 @@
 	inputs = list()
 	outputs = list("X"= IC_PINTYPE_NUMBER, "Y" = IC_PINTYPE_NUMBER, "Z" = IC_PINTYPE_NUMBER, "full coords" = IC_PINTYPE_STRING)
 	activators = list("get coordinates" = IC_PINTYPE_PULSE_IN, "on get coordinates" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 30
 
 /obj/item/integrated_circuit/input/gps/do_work()
@@ -925,7 +925,7 @@
 	"message" = IC_PINTYPE_STRING
 	)
 	activators = list("on message received" = IC_PINTYPE_PULSE_OUT, "on translation" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 5
 
 /obj/item/integrated_circuit/input/microphone/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
@@ -952,7 +952,7 @@
 	inputs = list("ignore storage" = IC_PINTYPE_BOOLEAN)
 	outputs = list("scanned" = IC_PINTYPE_REF)
 	activators = list("on scanned" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 120
 
 /obj/item/integrated_circuit/input/sensor/sense(atom/A, mob/user, prox)
@@ -980,7 +980,7 @@
 	inputs = list("ignore storage" = IC_PINTYPE_BOOLEAN)
 	outputs = list("scanned" = IC_PINTYPE_REF)
 	activators = list("on scanned" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 120
 
 /obj/item/integrated_circuit/input/sensor/ranged/sense(atom/A, mob/user)
@@ -1014,7 +1014,7 @@
 	inputs = list("put down" = IC_PINTYPE_BOOLEAN)
 	outputs = list("scanned" = IC_PINTYPE_REF)
 	activators = list("on scanned" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 20
 
 /obj/item/integrated_circuit/input/obj_scanner/attackby_react(var/atom/A,var/mob/user,intent)
@@ -1047,7 +1047,7 @@
 		"refference to cell" = IC_PINTYPE_REF
 		)
 	activators = list("read" = IC_PINTYPE_PULSE_IN, "on read" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 1
 
 /obj/item/integrated_circuit/input/internalbm/do_work()
@@ -1080,7 +1080,7 @@
 		"percentage" = IC_PINTYPE_NUMBER
 		)
 	activators = list("read" = IC_PINTYPE_PULSE_IN, "on read" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 1
 
 /obj/item/integrated_circuit/input/externalbm/do_work()
@@ -1112,7 +1112,7 @@
 		"id" = IC_PINTYPE_STRING
 		)
 	activators = list("read" = IC_PINTYPE_PULSE_IN, "found" = IC_PINTYPE_PULSE_OUT,"not found" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 1
 
 /obj/item/integrated_circuit/input/ntnetsc/do_work()
@@ -1165,7 +1165,7 @@
 		"on scanned" = IC_PINTYPE_PULSE_OUT,
 		"not scanned" = IC_PINTYPE_PULSE_OUT
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 40
 	var/list/mtypes = list(/datum/material/iron, /datum/material/glass, /datum/material/silver, /datum/material/gold, /datum/material/diamond, /datum/material/plasma, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace, /datum/material/biomass)
 
@@ -1196,7 +1196,7 @@
 					Pressure is in kPa, temperature is in Kelvin. \
 					Due to programming limitations, scanning an object that does \
 					not contain a gas will return the air around it instead."
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	inputs = list(
 			"target" = IC_PINTYPE_REF
 			)
@@ -1256,7 +1256,7 @@
  the function and data strings stored on the card to be written to the output pins."
 	icon_state = "card_reader"
 	complexity = 4
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	inputs = list(
 		"function" = IC_PINTYPE_STRING,
 		"data to store" = IC_PINTYPE_STRING,
@@ -1337,7 +1337,7 @@
 		"on intercept" = IC_PINTYPE_PULSE_OUT
 		)
 	power_draw_idle = 0
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/obj/machinery/telecomms/receiver/circuit/receiver
 	var/list/whitelisted_freqs = list(FREQ_COMMON)
 	var/list/encryption_keys = list()
@@ -1409,7 +1409,7 @@
 	extended_desc = "This circuit lets you choose between up to 4 different values from selection of up to 8 strings that you can set. Null values are ignored and the chosen value is put out in selected."
 	icon_state = "addition"
 	can_be_asked_input = 1
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	inputs = list(
 		"A" = IC_PINTYPE_STRING,
 		"B" = IC_PINTYPE_STRING,
@@ -1449,7 +1449,7 @@
 	icon_state = "grabber"
 	can_be_asked_input = 1
 	complexity = 6
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	inputs = list(
 		"storage" = IC_PINTYPE_REF
 	)

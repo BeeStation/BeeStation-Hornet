@@ -7,7 +7,7 @@
 	outputs = list()
 	activators = list("set" = IC_PINTYPE_PULSE_IN, "on set" = IC_PINTYPE_PULSE_OUT)
 	category_text = "Memory"
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 1
 	var/number_of_pins = 1
 
@@ -66,7 +66,7 @@
 	desc = "This stick of memory can store up up to sixteen pieces of data."
 	icon_state = "memory16"
 	w_class = WEIGHT_CLASS_SMALL
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 8
 	number_of_pins = 16
 
@@ -78,7 +78,7 @@
 	outputs = list("output pin" = IC_PINTYPE_ANY)
 	activators = list("push data" = IC_PINTYPE_PULSE_IN)
 	var/accepting_refs = FALSE
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	number_of_pins = 0
 
 /obj/item/integrated_circuit/memory/constant/do_work()

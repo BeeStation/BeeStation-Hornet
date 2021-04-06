@@ -12,7 +12,7 @@
 	inputs = list("input selection" = IC_PINTYPE_NUMBER)
 	outputs = list("output" = IC_PINTYPE_ANY)
 	activators = list("select" = IC_PINTYPE_PULSE_IN, "on select" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 4
 	var/number_of_pins = 2
 
@@ -60,7 +60,7 @@
 	inputs = list("output selection" = IC_PINTYPE_NUMBER, "input" = IC_PINTYPE_ANY)
 	outputs = list()
 	activators = list("select" = IC_PINTYPE_PULSE_IN, "on select" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 4
 	var/number_of_pins = 2
 
@@ -109,7 +109,7 @@
 	inputs = list("output selection" = IC_PINTYPE_NUMBER)
 	outputs = list()
 	activators = list("select" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 4
 	var/number_of_pins = 2
 
@@ -154,7 +154,7 @@
 	inputs = list()
 	outputs = list("output" = IC_PINTYPE_ANY)
 	activators = list("on selected" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 4
 	var/number_of_pins = 2
 
@@ -199,7 +199,7 @@
 	desc = "Just a wire node to make wiring easier. Transfers the pulse from in to out."
 	icon_state = "wire_node"
 	activators = list("pulse in" = IC_PINTYPE_PULSE_IN, "pulse out" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 0
 	complexity = 0
 	size = 0.1

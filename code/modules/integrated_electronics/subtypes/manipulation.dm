@@ -24,7 +24,7 @@
 
 	)
 	var/obj/item/gun/energy/installed_gun = null
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	action_flags = IC_ACTION_COMBAT
 	power_draw_per_use = 0
 	ext_cooldown = 1
@@ -153,7 +153,7 @@
 	inputs = list("direction" = IC_PINTYPE_DIR)
 	outputs = list("obstacle" = IC_PINTYPE_REF)
 	activators = list("step towards dir" = IC_PINTYPE_PULSE_IN,"on step"=IC_PINTYPE_PULSE_OUT,"blocked"=IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	action_flags = IC_ACTION_MOVEMENT
 	power_draw_per_use = 100
 
@@ -189,7 +189,7 @@
 	inputs = list("detonation time" = IC_PINTYPE_NUMBER)
 	outputs = list("reference to grenade" = IC_PINTYPE_REF)
 	activators = list("prime grenade" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	action_flags = IC_ACTION_COMBAT
 	var/obj/item/grenade/attached_grenade
 	var/pre_attached_grenade_type
@@ -265,7 +265,7 @@
 	inputs = list("tray" = IC_PINTYPE_REF,"mode" = IC_PINTYPE_NUMBER,"item" = IC_PINTYPE_REF)
 	outputs = list("result" = IC_PINTYPE_LIST)
 	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 50
 
 /obj/item/integrated_circuit/manipulation/plant_module/do_work()
@@ -338,7 +338,7 @@
 	inputs = list("target" = IC_PINTYPE_REF)
 	outputs = list("result" = IC_PINTYPE_LIST)
 	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 50
 
 /obj/item/integrated_circuit/manipulation/seed_extractor/do_work()
@@ -371,7 +371,7 @@
 	inputs = list("target" = IC_PINTYPE_REF,"mode" = IC_PINTYPE_NUMBER)
 	outputs = list("first" = IC_PINTYPE_REF, "last" = IC_PINTYPE_REF, "amount" = IC_PINTYPE_NUMBER,"contents" = IC_PINTYPE_LIST)
 	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	action_flags = IC_ACTION_COMBAT
 	power_draw_per_use = 50
 	var/max_items = 10
@@ -447,7 +447,7 @@
 	inputs = list("target" = IC_PINTYPE_REF,"mode" = IC_PINTYPE_INDEX,"dir" = IC_PINTYPE_DIR)
 	outputs = list("is pulling" = IC_PINTYPE_BOOLEAN)
 	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT,"released" = IC_PINTYPE_PULSE_OUT,"pull to dir" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 50
 	ext_cooldown = 1
 	var/max_grab = GRAB_PASSIVE
@@ -538,7 +538,7 @@
 		"push ref" = IC_PINTYPE_PULSE_IN,
 		"on push ref" = IC_PINTYPE_PULSE_IN
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 40
 	ext_cooldown = 1
 	cooldown_per_use = 10
@@ -628,7 +628,7 @@
 	complexity = 10
 	inputs = list("target object" = IC_PINTYPE_REF, "target container" = IC_PINTYPE_REF,"mode" = IC_PINTYPE_NUMBER)
 	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	action_flags = IC_ACTION_COMBAT
 	power_draw_per_use = 20
 	var/max_items = 10
@@ -676,7 +676,7 @@
 	outputs = list("current name" = IC_PINTYPE_STRING)
 	activators = list("rename" = IC_PINTYPE_PULSE_IN,"get name" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
 	power_draw_per_use = 1
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/manipulation/renamer/do_work(var/n)
 	if(!assembly)
@@ -706,7 +706,7 @@
 	inputs = list("text" = IC_PINTYPE_STRING)
 	outputs = list("description" = IC_PINTYPE_STRING)
 	activators = list("redescribe" = IC_PINTYPE_PULSE_IN,"get description" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/manipulation/redescribe/do_work(var/n)
 	if(!assembly)
@@ -732,7 +732,7 @@
 	inputs = list("color" = IC_PINTYPE_COLOR)
 	outputs = list("current color" = IC_PINTYPE_COLOR)
 	activators = list("repaint" = IC_PINTYPE_PULSE_IN,"get color" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/manipulation/repaint/do_work(var/n)
 	if(!assembly)

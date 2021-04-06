@@ -18,7 +18,7 @@
 		"target cell percentage" = IC_PINTYPE_NUMBER
 		)
 	activators = list("transmit" = IC_PINTYPE_PULSE_IN, "on transmit" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 500 // Inefficency has to come from somewhere.
 	var/amount_to_move = 5000
 
@@ -93,7 +93,7 @@
 	extended_desc = "This circuit will automatically attempt to locate and connect to wires on the floor beneath it when pulsed. \
 						You <b>must</b> set a target before connecting. It can also transfer energy up to 2kJ from the assembly  \
 						to a wire and backwards if negative values are set for energy transfer."
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	inputs = list(
 			"charge" = IC_PINTYPE_NUMBER
 			)

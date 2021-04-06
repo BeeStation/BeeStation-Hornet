@@ -28,7 +28,7 @@
 		"on success" = IC_PINTYPE_PULSE_OUT,
 		"on failure" = IC_PINTYPE_PULSE_OUT,
 		)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	cooldown_per_use = 1
 
 /obj/item/integrated_circuit/lists/pick/do_work()
@@ -53,7 +53,7 @@
 		"appended list" = IC_PINTYPE_LIST
 		)
 	icon_state = "addition"
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/lists/append/do_work()
 	var/list/input_list = get_pin_data(IC_INPUT, 1)
@@ -85,7 +85,7 @@
 		)
 	icon_state = "addition"
 	complexity = 2
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	cooldown_per_use = 1
 
 /obj/item/integrated_circuit/lists/search/do_work()
@@ -121,7 +121,7 @@
 		)
 	complexity = 6
 	icon_state = "addition"
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/lists/filter/do_work()
 	var/list/input_list = get_pin_data(IC_INPUT, 1)
@@ -176,7 +176,7 @@
 		"list filtered" = IC_PINTYPE_LIST
 		)
 	icon_state = "addition"
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/lists/listset/do_work()
 	var/list/input_list = get_pin_data(IC_INPUT, 1)
@@ -203,7 +203,7 @@
 		"on failure" = IC_PINTYPE_PULSE_OUT
 		)
 	icon_state = "addition"
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	cooldown_per_use = 1
 
 /obj/item/integrated_circuit/lists/at/do_work()
@@ -234,7 +234,7 @@
 		"item" = IC_PINTYPE_LIST
 		)
 	icon_state = "addition"
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/lists/delete/do_work()
 	var/list/input_list = get_pin_data(IC_INPUT, 1)
@@ -269,7 +269,7 @@
 		"on failure" = IC_PINTYPE_PULSE_OUT,
 		)
 	icon_state = "addition"
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/lists/write/do_work()
 	var/list/input_list = get_pin_data(IC_INPUT, 1)
@@ -301,7 +301,7 @@
 		"item" = IC_PINTYPE_NUMBER
 		)
 	icon_state = "addition"
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/lists/len/do_work()
 	var/list/input_list = get_pin_data(IC_INPUT, 1)
@@ -330,7 +330,7 @@
 		"joined text" = IC_PINTYPE_STRING
 		)
 	icon_state = "addition"
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	cooldown_per_use = 1
 
 /obj/item/integrated_circuit/lists/jointext/do_work()
@@ -357,7 +357,7 @@
 	outputs = list(
 		"result" = IC_PINTYPE_LIST
 		)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/number_of_pins = 16
 
 /obj/item/integrated_circuit/lists/constructor/Initialize()
@@ -403,7 +403,7 @@
 		"index" = IC_PINTYPE_INDEX
 		)
 	outputs = list()
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/number_of_pins = 16
 
 /obj/item/integrated_circuit/lists/deconstructor/Initialize()
@@ -451,7 +451,7 @@
 		"joined list" = IC_PINTYPE_LIST
 		)
 	icon_state = "addition"
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/lists/join/do_work()
 	var/list/input_list = get_pin_data(IC_INPUT, 1)

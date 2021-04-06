@@ -74,7 +74,7 @@
 		"push ref" = IC_PINTYPE_PULSE_IN
 
 		)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 15
 	var/direction_mode = SYRINGE_INJECT
 	var/transfer_amount = 10
@@ -206,7 +206,7 @@
 	inputs_default = list("3" = 5)
 	outputs = list()
 	activators = list("transfer reagents" = IC_PINTYPE_PULSE_IN, "on transfer" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/transfer_amount = 10
 	var/direction_mode = SYRINGE_INJECT
 	power_draw_per_use = 10
@@ -269,7 +269,7 @@
 		"self reference" = IC_PINTYPE_SELFREF
 		)
 	activators = list("push ref" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 
 
@@ -288,7 +288,7 @@
 	volume = 180
 
 	complexity = 16
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/reagent/storage/cryo
 	name = "cryo reagent storage"
@@ -297,7 +297,7 @@
 	extended_desc = "This is effectively an internal cryo beaker."
 
 	complexity = 8
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/reagent/storage/cryo/Initialize()
 	. = ..()
@@ -324,7 +324,7 @@
 	volume = 100
 	power_draw_per_use = 150
 	complexity = 16
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 
 /obj/item/integrated_circuit/reagent/storage/grinder/do_work(ord)
@@ -375,7 +375,7 @@
 	volume = 100
 	power_draw_per_use = 150
 	complexity = 16
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/reagent/storage/juicer/do_work(ord)
 	switch(ord)
@@ -416,7 +416,7 @@
 		"scan" = IC_PINTYPE_PULSE_IN,
 		"push ref" = IC_PINTYPE_PULSE_IN
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/reagent/storage/scan/do_work(ord)
 	switch(ord)
@@ -454,7 +454,7 @@
 		"transfer reagents" = IC_PINTYPE_PULSE_IN,
 		"on transfer" = IC_PINTYPE_PULSE_OUT
 		)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/transfer_amount = 10
 	var/direction_mode = SYRINGE_INJECT
 	power_draw_per_use = 10
@@ -511,7 +511,7 @@
 		)
 	inputs_default = list("1" = 300)
 	outputs = list("volume used" = IC_PINTYPE_NUMBER,"self reference" = IC_PINTYPE_SELFREF,"temperature" = IC_PINTYPE_NUMBER)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/heater_coefficient = 0.1
 
 /obj/item/integrated_circuit/reagent/storage/heater/on_data_written()
@@ -563,7 +563,7 @@
 		"on smoked" = IC_PINTYPE_PULSE_OUT,
 		"push ref" = IC_PINTYPE_PULSE_IN
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 20
 	var/smoke_radius = 5
 	var/notified = FALSE
@@ -618,7 +618,7 @@
 		"on fail" = IC_PINTYPE_PULSE_OUT,
 		"push ref" = IC_PINTYPE_PULSE_IN
 		)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 15
 	max_allowed = 2
 	var/busy = FALSE
@@ -721,7 +721,7 @@
 		"on fail" = IC_PINTYPE_PULSE_OUT,
 		"push ref" = IC_PINTYPE_PULSE_IN
 		)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 15
 
 
@@ -787,7 +787,7 @@
 		"push ref" = IC_PINTYPE_PULSE_OUT
 		)
 
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	can_be_asked_input = TRUE
 	demands_object_input = TRUE
 	can_input_object_when_closed = TRUE

@@ -19,7 +19,7 @@
 		"on analyzed" = IC_PINTYPE_PULSE_OUT,
 		"on found" = IC_PINTYPE_PULSE_OUT
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 20
 	var/turf/closed/mineral/rock
 	var/mineral
@@ -68,7 +68,7 @@
 		"on success" = IC_PINTYPE_PULSE_OUT,
 		"on failure" = IC_PINTYPE_PULSE_OUT
 		)
-	spawn_flags = IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	power_draw_per_use = 100
 
 	var/busy = FALSE

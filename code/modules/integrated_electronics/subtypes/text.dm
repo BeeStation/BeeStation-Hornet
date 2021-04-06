@@ -12,7 +12,7 @@
 	inputs = list("input" = IC_PINTYPE_STRING)
 	outputs = list("output" = IC_PINTYPE_STRING)
 	activators = list("to lowercase" = IC_PINTYPE_PULSE_IN, "on converted" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/text/lowercase/do_work()
 	var/result = null
@@ -32,7 +32,7 @@
 	inputs = list("input" = IC_PINTYPE_STRING)
 	outputs = list("output" = IC_PINTYPE_STRING)
 	activators = list("to uppercase" = IC_PINTYPE_PULSE_IN, "on converted" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/text/uppercase/do_work()
 	var/result = null
@@ -52,7 +52,7 @@
 	inputs = list()
 	outputs = list("result" = IC_PINTYPE_STRING)
 	activators = list("concatenate" = IC_PINTYPE_PULSE_IN, "on concatenated" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	var/number_of_pins = 8
 	var/max_string_length = 512
 
@@ -121,7 +121,7 @@
 		"after split" = IC_PINTYPE_STRING
 		)
 	activators = list("separate" = IC_PINTYPE_PULSE_IN, "on separated" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/text/separator/do_work()
 	var/text = get_pin_data(IC_INPUT, 1)
@@ -152,7 +152,7 @@
 		"found character" = IC_PINTYPE_STRING
 		)
 	activators = list("index" = IC_PINTYPE_PULSE_IN, "on indexed" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/text/indexer/do_work()
 	var/strin = get_pin_data(IC_INPUT, 1)
@@ -179,7 +179,7 @@
 		"position" = IC_PINTYPE_NUMBER
 		)
 	activators = list("search" = IC_PINTYPE_PULSE_IN, "after search" = IC_PINTYPE_PULSE_OUT, "found" = IC_PINTYPE_PULSE_OUT, "not found" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 
 /obj/item/integrated_circuit/text/findstring/do_work()
@@ -205,7 +205,7 @@
 		"length" = IC_PINTYPE_NUMBER
 		)
 	activators = list("get length" = IC_PINTYPE_PULSE_IN, "on acquisition" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/text/stringlength/do_work()
 	set_pin_data(IC_OUTPUT, 1, length(get_pin_data(IC_INPUT, 1)))
@@ -229,7 +229,7 @@
 		"list" = IC_PINTYPE_LIST
 		)
 	activators = list("separate" = IC_PINTYPE_PULSE_IN, "on separated" = IC_PINTYPE_PULSE_OUT)
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 
 /obj/item/integrated_circuit/text/exploders/do_work()
 	var/strin = get_pin_data(IC_INPUT, 1)
@@ -248,7 +248,7 @@
 	name = "replace circuit"
 	desc = "Replaces all of one bit of text with another"
 	extended_desc = "Takes a string(haystack) and puts out the string while having a certain word(needle) replaced with another. Maximum 512 characters."
-	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	spawn_flags = IC_SPAWN_NORESEARCH|IC_SPAWN_NOACCESS|IC_SPAWN_RESEARCH|IC_SPAWN_ACCESS
 	inputs = list(
 		"haystack" = IC_PINTYPE_STRING,
 		"needle" = IC_PINTYPE_STRING,
