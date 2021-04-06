@@ -6,6 +6,18 @@
 /obj/structure/shuttle/engine/heater,
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
+"i" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
+	},
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor";
+	name = "supply dock loading door"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/supply)
 "l" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/supply)
@@ -42,30 +54,8 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/open/floor/plating/airless,
 /area/shuttle/supply)
-"w" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad2"
-	},
-/obj/machinery/door/poddoor{
-	id = "QMLoaddoor";
-	name = "supply dock loading door"
-	},
-/turf/open/floor/plating,
-/area/shuttle/supply)
 "z" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/supply)
-"C" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "QMLoad"
-	},
-/obj/machinery/door/poddoor{
-	id = "QMLoaddoor2";
-	name = "supply dock loading door"
-	},
-/turf/open/floor/plating,
 /area/shuttle/supply)
 "G" = (
 /obj/machinery/conveyor{
@@ -119,6 +109,18 @@
 "S" = (
 /turf/template_noop,
 /area/template_noop)
+"U" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "QMLoad"
+	},
+/obj/machinery/door/poddoor{
+	id = "QMLoaddoor2";
+	name = "supply dock loading door"
+	},
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/supply)
 "W" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
@@ -132,11 +134,11 @@
 p
 p
 p
-w
+i
 m
 p
 m
-C
+U
 p
 z
 l
