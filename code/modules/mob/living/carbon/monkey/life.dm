@@ -43,7 +43,16 @@
 				domutcheck()
 
 				if(radiation > RAD_MOB_MUTATE * 1.5)
-					gorillize()
+					switch(rand(1, 3))
+						if(1)
+							gorillize()
+						if(2)
+							humanize()
+						if(3)
+							var/obj/item/bodypart/BP = pick(bodyparts)
+							if(BP.body_part != HEAD && BP.body_part != CHEST)
+								if(BP.dismemberable)
+									BP.dismember()
 					return
 		if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
 			vomit(10, TRUE)
