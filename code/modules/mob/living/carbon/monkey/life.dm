@@ -47,7 +47,7 @@
 						if(1)
 							gorillize()
 						if(2)
-							humanize()
+							humanize(TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPDAMAGE | TR_KEEPORGANS)
 						if(3)
 							var/obj/item/bodypart/BP = pick(bodyparts)
 							if(BP.body_part != HEAD && BP.body_part != CHEST)
