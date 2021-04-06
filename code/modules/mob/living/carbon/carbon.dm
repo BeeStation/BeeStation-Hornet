@@ -10,7 +10,7 @@
 /mob/living/carbon/Destroy()
 	//Drop brain
 	var/obj/item/organ/brain/brain = locate() in internal_organs
-	if(brain)
+	if(brain?.brainmob?.get_ghost(FALSE, TRUE))
 		brain.forceMove(get_turf(src))
 		internal_organs -= brain
 
