@@ -29216,16 +29216,6 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
-"imH" = (
-/obj/structure/window/reinforced/spawner{
-	dir = 1
-	},
-/obj/structure/transit_tube/station/reverse/flipped{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/dark,
-/area/maintenance/starboard/central)
 "imI" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -35200,6 +35190,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"jWU" = (
+/obj/structure/window/reinforced/spawner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/transit_tube/station/reverse{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/starboard/secondary)
 "jXr" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Auxillary Base Construction";
@@ -35356,21 +35358,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/toilet)
-"jZU" = (
-/obj/structure/window/reinforced/spawner{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/transit_tube/station/reverse{
-	dir = 4
-	},
-/obj/structure/transit_tube_pod{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/maintenance/starboard/secondary)
 "jZZ" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay Desk";
@@ -60701,6 +60688,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"rEV" = (
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/structure/transit_tube/station/reverse/flipped{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/obj/structure/transit_tube_pod{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/maintenance/starboard/central)
 "rFe" = (
 /obj/structure/bookcase/random/fiction,
 /obj/machinery/camera/autoname{
@@ -133654,7 +133654,7 @@ aMT
 anT
 aMT
 uLw
-imH
+rEV
 xmJ
 enq
 xsn
@@ -135948,7 +135948,7 @@ efi
 krU
 hnT
 nAR
-jZU
+jWU
 pzm
 hnT
 krU
