@@ -53,6 +53,7 @@
 							if(BP.body_part != HEAD && BP.body_part != CHEST)
 								if(BP.dismemberable)
 									BP.dismember()
+							take_bodypart_damage(100, 0, 0)
 					return
 		if(radiation > RAD_MOB_VOMIT && prob(RAD_MOB_VOMIT_PROB))
 			vomit(10, TRUE)
