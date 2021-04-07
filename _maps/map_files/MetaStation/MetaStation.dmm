@@ -33984,35 +33984,8 @@
 /area/maintenance/central)
 "bmt" = (
 /obj/item/radio/off,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/maintenance/central)
-"bmu" = (
-/obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=4";
-	dir = 4;
-	freq = 1400;
-	location = "Bridge"
-	},
-/obj/structure/plasticflaps/opaque,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/maintenance/central)
-"bmv" = (
-/obj/machinery/door/window/westleft{
-	dir = 4;
-	name = "Bridge Deliveries";
-	req_access_txt = "19"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id = "bridge blast";
-	name = "bridge blast door"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/bridge)
 "bmw" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -112247,7 +112220,7 @@ bfq
 bdG
 bdG
 bcg
-bmu
+bcg
 bkz
 bqG
 dbe
@@ -112504,7 +112477,7 @@ aaf
 aaf
 bfv
 bfv
-bmv
+bfv
 bfv
 bqH
 bqH
