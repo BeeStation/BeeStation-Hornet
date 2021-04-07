@@ -319,8 +319,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	return locate(/obj/machinery/libraryscanner) in range(viewrange, get_turf(src))
 
 /obj/machinery/computer/libraryconsole/bookmanagement/proc/print_forbidden_lore(mob/user)
-	var/selection = rand(1,3)
-	switch(selection)
+	switch(rand(1,3))
 		if(1)
 			new /obj/item/melee/cultblade/dagger(get_turf(src))
 			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a sinister dagger sitting on the desk. You don't even remember where it came from...</span>")
