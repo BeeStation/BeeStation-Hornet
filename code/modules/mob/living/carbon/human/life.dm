@@ -72,23 +72,23 @@
 				var/hygiene_loss = -HYGIENE_FACTOR * 0.25 //Small loss per life
 
 				//If you're covered in blood, you'll start smelling like shit faster.
-				var/obj/item/head = get_item_by_slot(SLOT_HEAD)
+				var/obj/item/head = get_item_by_slot(ITEM_SLOT_HEAD)
 				if(head && HAS_BLOOD_DNA(head))
 					hygiene_loss -= 1 * HYGIENE_FACTOR
 
-				var/obj/item/mask = get_item_by_slot(SLOT_HEAD)
+				var/obj/item/mask = get_item_by_slot(ITEM_SLOT_HEAD)
 				if(mask && HAS_BLOOD_DNA(mask))
 					hygiene_loss -= 1 * HYGIENE_FACTOR
 
-				var/obj/item/uniform = get_item_by_slot(SLOT_W_UNIFORM)
+				var/obj/item/uniform = get_item_by_slot(ITEM_SLOT_ICLOTHING)
 				if(uniform && HAS_BLOOD_DNA(uniform))
 					hygiene_loss -= 4 * HYGIENE_FACTOR
 
-				var/obj/item/suit = get_item_by_slot(SLOT_WEAR_SUIT)
+				var/obj/item/suit = get_item_by_slot(ITEM_SLOT_OCLOTHING)
 				if(suit && HAS_BLOOD_DNA(suit))
 					hygiene_loss -= 3 * HYGIENE_FACTOR
 
-				var/obj/item/feet = get_item_by_slot(SLOT_SHOES)
+				var/obj/item/feet = get_item_by_slot(ITEM_SLOT_FEET)
 				if(feet && HAS_BLOOD_DNA(feet))
 					hygiene_loss -= 0.5 * HYGIENE_FACTOR
 
@@ -104,7 +104,7 @@
 
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
-	if (wear_suit && head && istype(wear_suit, /obj/item/clothing) && istype(head, /obj/item/clothing))
+	if (wear_suit && head && isclothing(wear_suit) && isclothing(head))
 		var/obj/item/clothing/CS = wear_suit
 		var/obj/item/clothing/CH = head
 		if (CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
@@ -149,13 +149,13 @@
 		var/datum/species/S = dna.species
 
 		if(S.breathid == "o2")
-			throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+			throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else if(S.breathid == "tox")
-			throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+			throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 		else if(S.breathid == "co2")
-			throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
+			throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else if(S.breathid == "n2")
-			throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+			throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 
 		return FALSE
 	else
@@ -337,7 +337,7 @@
 	if(glasses)
 		if(glasses.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return TRUE
-	if(head && istype(head, /obj/item/clothing))
+	if(head && isclothing(head))
 		var/obj/item/clothing/CH = head
 		if(CH.clothing_flags & BLOCK_GAS_SMOKE_EFFECT)
 			return TRUE

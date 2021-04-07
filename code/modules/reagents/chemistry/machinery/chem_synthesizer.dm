@@ -7,19 +7,22 @@
 	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
 	flags_1 = NODECONSTRUCT_1
 	use_power = NO_POWER_USE
-	ui_x = 390
-	ui_y = 330
+
+
 
 	var/static/list/shortcuts = list(
 		"meth" = /datum/reagent/drug/methamphetamine,
 		"tricord" = /datum/reagent/medicine/tricordrazine
 	)
 
-/obj/machinery/chem_dispenser/chem_synthesizer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-											datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/chem_dispenser/chem_synthesizer/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/chem_dispenser/chem_synthesizer/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemDebugSynthesizer", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "ChemDebugSynthesizer")
 		ui.open()
 
 /obj/machinery/chem_dispenser/chem_synthesizer/ui_act(action, params)
@@ -34,7 +37,7 @@
 				beaker = null
 				. = TRUE
 		if("input")
-			var/input_reagent = replacetext(lowertext(input("Enter the name of any reagent", "Input") as text|null), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
+			var/input_reagent = replacetext(lowertext(capped_input(usr, "Enter the name of any reagent", "Input")), " ", "") //95% of the time, the reagent id is a lowercase/no spaces version of the name
 
 			if (isnull(input_reagent))
 				return

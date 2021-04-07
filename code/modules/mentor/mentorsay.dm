@@ -1,12 +1,12 @@
 /client/proc/cmd_mentor_say(msg as text)
 	set category = "Mentor"
-	set name = "Msay" //Gave this shit a shorter name so you only have to time out "msay" rather than "mentor say" to use it --NeoFite
+	set name = "Msay" //Gave this shit a shorter name so you only have to type out "msay" rather than "mentor say" to use it --NeoFite
 	set hidden = 1
 	if(!is_mentor())
 		return
 
 	msg = emoji_parse(copytext(sanitize(msg), 1, MAX_MESSAGE_LEN))
-	if(!msg)	
+	if(!msg)
 		return
 
 	log_mentor("MSAY: [key_name(src)] : [msg]")

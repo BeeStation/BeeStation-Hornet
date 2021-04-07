@@ -83,36 +83,34 @@
 
 /proc/attempt_cancel_surgery(datum/surgery/S, obj/item/I, mob/living/M, mob/user)
 	var/selected_zone = user.zone_selected
+
 	if(S.status == 1)
 		M.surgeries -= S
 		user.visible_message("[user] removes [I] from [M]'s [parse_zone(selected_zone)].", \
 			"<span class='notice'>You remove [I] from [M]'s [parse_zone(selected_zone)].</span>")
 		qdel(S)
-	else if(S.can_cancel)
+		return
+
+	if(S.can_cancel)
 		var/required_tool_type = TOOL_CAUTERY
 		var/obj/item/close_tool = user.get_inactive_held_item()
 		var/is_robotic = S.requires_bodypart_type == BODYPART_ROBOTIC
+
 		if(is_robotic)
 			required_tool_type = TOOL_SCREWDRIVER
-		if(close_tool.tool_behaviour == required_tool_type || iscyborg(user))
-			M.surgeries -= S
-			user.visible_message("[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool] and removes [I].", \
-				"<span class='notice'>You close [M]'s [parse_zone(selected_zone)] with [close_tool] and remove [I].</span>")
-			qdel(S)
-		else
+
+		if(iscyborg(user))
+			close_tool = locate(/obj/item/cautery) in user.held_items
+			if(!close_tool)
+				to_chat(user, "<span class='warning'>You need to equip a cautery in an inactive slot to stop [M]'s surgery!</span>")
+				return
+		else if(close_tool?.tool_behaviour != required_tool_type)
 			to_chat(user, "<span class='warning'>You need to hold a [is_robotic ? "screwdriver" : "cautery"] in your inactive hand to stop [M]'s surgery!</span>")
-
-/proc/get_location_modifier(mob/M)
-	var/turf/T = get_turf(M)
-	if(locate(/obj/structure/table/optable, T))
-		return 1
-	else if(locate(/obj/structure/table, T))
-		return 0.8
-	else if(locate(/obj/structure/bed, T))
-		return 0.7
-	else
-		return 0.5
-
+			return
+		M.surgeries -= S
+		user.visible_message("<span class='notice'>[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool] and removes [I].</span>", \
+			"<span class='notice'>You close [M]'s [parse_zone(selected_zone)] with [close_tool] and remove [I].</span>")
+		qdel(S)
 
 /proc/get_location_accessible(mob/M, location)
 	var/covered_locations = 0	//based on body_parts_covered

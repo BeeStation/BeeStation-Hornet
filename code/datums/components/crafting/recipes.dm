@@ -10,7 +10,7 @@
 	var/chem_catalysts[] = list() //like tools but for reagents
 	var/category = CAT_NONE //where it shows up in the crafting UI
 	var/subcategory = CAT_NONE
-	var/always_availible = TRUE //Set to FALSE if it needs to be learned first.
+	var/always_available = TRUE //Set to FALSE if it needs to be learned first.
 
 /datum/crafting_recipe/New()
 	if(!(result in reqs))
@@ -232,6 +232,16 @@
 				/obj/item/bodypart/r_arm/robot = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/clothing/head/hardhat/red = 1)
+	time = 40
+	category = CAT_ROBOT
+
+/datum/crafting_recipe/Atmosbot
+	name = "Atmosbot"
+	result = /mob/living/simple_animal/bot/atmosbot
+	reqs = list(/obj/item/analyzer = 1,
+				/obj/item/bodypart/r_arm/robot = 1,
+				/obj/item/assembly/prox_sensor = 1,
+				/obj/item/tank/internals = 1)
 	time = 40
 	category = CAT_ROBOT
 
@@ -906,12 +916,12 @@
 	name = "Shank"
 	reqs = list(/obj/item/shard = 1,
 					/obj/item/stack/cable_coil = 10) // 1 glass shard + 10 cable; needs a wirecutter to snip the cable.
-	result = /obj/item/melee/shank
+	result = /obj/item/kitchen/knife/shank
 	tools = list(TOOL_WIRECUTTER)
 	time = 20
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-	always_availible = TRUE
+	always_available = TRUE
 
 /datum/crafting_recipe/sharpmop
 	name = "Sharpened Mop"
@@ -922,3 +932,19 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 	tools = list(TOOL_WIRECUTTER)
+
+/datum/crafting_recipe/poppy_pin
+	name = "Poppy Pin"
+	result = /obj/item/clothing/accessory/poppy_pin
+	time = 5
+	reqs = list(/obj/item/stack/rods = 1,
+				/obj/item/reagent_containers/food/snacks/grown/poppy = 1)
+	category = CAT_MISC
+
+/datum/crafting_recipe/poppy_pin_removal
+	name = "Poppy Pin Removal"
+	result = /obj/item/reagent_containers/food/snacks/grown/poppy
+	time = 5
+	reqs = list(/obj/item/clothing/accessory/poppy_pin = 1)
+	
+	category = CAT_MISC

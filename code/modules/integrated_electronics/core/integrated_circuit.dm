@@ -26,6 +26,7 @@
 	var/displayed_name = ""
 	var/demands_object_input = FALSE
 	var/can_input_object_when_closed = FALSE
+	var/max_allowed = 0				// The maximum amount of components allowed inside an integrated circuit.
 
 
 /*
@@ -235,14 +236,15 @@ a creative player the means to solve many problems.  Circuits are held inside an
 
 	HTML += "</table></div> \
 		<br>Complexity: [complexity] \
-		<br>Cooldown per use: [cooldown_per_use/10] sec"
+		<br>Cooldown per use: [cooldown_per_use/10] sec \
+		[max_allowed ? "<br>Maximum per circuit: [max_allowed]" : ""]"
 
 	if(ext_cooldown)
 		HTML += "<br>External manipulation cooldown: [ext_cooldown/10] sec"
 	if(power_draw_idle)
 		HTML += "<br>Power Draw: [power_draw_idle] W (Idle)"
 	if(power_draw_per_use)
-		HTML += "<br>Power Draw: [power_draw_per_use] W (Active)" // Borgcode says that powercells' checked_use() takes joules as input.
+		HTML += "<br>Power Draw: [power_draw_per_use] W (Active)" // Borgcode says that power cells' checked_use() takes joules as input.
 
 	HTML += "<br>[extended_desc]</body></html>"
 

@@ -7,7 +7,6 @@ on:
 jobs:
   stale:
     runs-on: ubuntu-latest
-    if: github.repository == 'BeeStation/BeeStation-Hornet'
     steps:
     - uses: actions/stale@v1
       with:

@@ -132,7 +132,6 @@
 	..()
 
 /obj/structure/frame/computer/AltClick(mob/user)
-	..()
 	if(!isliving(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 

@@ -34,7 +34,7 @@
 	return ..()
 
 /datum/antagonist/brother/antag_panel_data()
-	return "Conspirators : [get_brother_names()]]"
+	return "Conspirators : [get_brother_names()]"
 
 /datum/antagonist/brother/proc/get_brother_names()
 	var/list/brothers = team.members - owner
@@ -57,11 +57,19 @@
 /datum/antagonist/brother/greet()
 	var/brother_text = get_brother_names()
 	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role] of [brother_text].</span>")
-	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together!")
+	to_chat(owner.current, "The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together! You and your team are outfitted with communication implants allowing for direct, encrypted communication.")
 	owner.announce_objectives()
 	give_meeting_area()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Brother",
+		"The Syndicate only accepts those that have proven themselves. Prove yourself and prove your [team.member_name]s by completing your objectives together!")
 
 /datum/antagonist/brother/proc/finalize_brother()
+	var/obj/item/implant/bloodbrother/I = new /obj/item/implant/bloodbrother()
+	I.implant(owner.current, null, TRUE, TRUE)
+	I.implant_colour = team.team_id <= 9 ? COLOR_LIST_BLOOD_BROTHERS[team.team_id] : "#ff0000"
+	for(var/datum/mind/M in team.members) // Link the implants of all team members
+		var/obj/item/implant/bloodbrother/T = locate() in M.current.implants
+		I.link_implant(T)
 	SSticker.mode.update_brother_icons_added(owner)
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
 
@@ -91,8 +99,14 @@
 /datum/team/brother_team
 	name = "brotherhood"
 	member_name = "blood brother"
+	var/team_id
 	var/meeting_area
 	var/static/meeting_areas = list("The Bar", "Dorms", "Escape Dock", "Arrivals", "Holodeck", "Primary Tool Storage", "Recreation Area", "Chapel", "Library")
+
+/datum/team/brother_team/New(starting_members)
+	. = ..()
+	var/static/blood_teams
+	team_id = ++blood_teams
 
 /datum/team/brother_team/is_solo()
 	return FALSE

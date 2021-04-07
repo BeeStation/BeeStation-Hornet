@@ -22,7 +22,9 @@ const Title = pick(possTitles);
 
 export const AdminSecretsPanel = (props, context) => {
   const { act, data } = useBackend(context);
-  const { Categories } = data;
+  const {
+    Categories = [],
+  } = data;
   const [
     searchText,
     setSearchText,
@@ -91,24 +93,23 @@ export const AdminSecretsPanel = (props, context) => {
             </Flex>
           </Section>
         </Collapsible>
-      ); }
+      );
+    }
   };
-  const Items = (
-    Object.entries(Categories)
-      .map(makeCategory)
-      .filter(cat => !isFalsy(cat))
-      // remove null categories
-      // so Items.length can be properly counted
-  );
+
+  const Items = Object.entries(Categories)
+    .map(makeCategory);
 
   return (
     <Window
+      width={720}
+      height={480}
       resizable>
       <Window.Content scrollable>
         {Header}
         <Section>
           {Items}
-          {Items.length === 0 && "No results found."}
+          {(Items && Items.length === 0) && "No results found."}
         </Section>
       </Window.Content>
     </Window>

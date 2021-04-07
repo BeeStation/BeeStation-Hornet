@@ -155,6 +155,8 @@
 		if(SS_SLEEPING)
 			state = SS_PAUSING
 
+/// Called after the config has been loaded or reloaded.
+/datum/controller/subsystem/proc/OnConfigLoad()
 
 //used to initialize the subsystem AFTER the map has loaded
 /datum/controller/subsystem/Initialize(start_timeofday)
@@ -167,10 +169,7 @@
 
 //hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
 /datum/controller/subsystem/stat_entry(msg)
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
-
+	var/list/tab_data = list()
 
 	if(can_fire && !(SS_NO_FIRE & flags))
 		msg = "[round(cost,1)]ms|[round(tick_usage,1)]%([round(tick_overrun,1)]%)|[round(ticks,0.1)]\t[msg]"
@@ -181,7 +180,16 @@
 	if (can_fire)
 		title = "\[[state_letter()]][title]"
 
-	stat(title, statclick.update(msg))
+	tab_data["[title]"] = list(
+		text="[msg]",
+		action = "statClickDebug",
+		params=list(
+			"targetRef" = REF(src),
+			"class"="subsystem",
+		),
+		type=STAT_BUTTON,
+	)
+	return tab_data
 
 /datum/controller/subsystem/proc/state_letter()
 	switch (state)

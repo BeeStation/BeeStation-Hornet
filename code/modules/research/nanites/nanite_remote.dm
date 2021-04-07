@@ -26,7 +26,6 @@
 		. += "<span class='notice'>Alt-click to unlock.</span>"
 
 /obj/item/nanite_remote/AltClick(mob/user)
-	. = ..()
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	if(locked)
@@ -67,7 +66,7 @@
 				signal_mob(target, code, key_name(user))
 		if(REMOTE_MODE_AOE)
 			to_chat(user, "<span class='notice'>You activate [src], signaling the nanites inside every host around you.</span>")
-			for(var/mob/living/L in view(user, 7))
+			for(var/mob/living/L in hearers(7, user))
 				signal_mob(L, code, key_name(user))
 		if(REMOTE_MODE_RELAY)
 			to_chat(user, "<span class='notice'>You activate [src], signaling all connected relay nanites.</span>")
@@ -81,10 +80,14 @@
 		var/datum/nanite_program/relay/N = X
 		N.relay_signal(code, relay_code, source)
 
-/obj/item/nanite_remote/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/item/nanite_remote/ui_state(mob/user)
+	return GLOB.hands_state
+
+/obj/item/nanite_remote/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "NaniteRemote", name, 420, 500, master_ui, state)
+		ui = new(user, src, "NaniteRemote")
 		ui.open()
 
 /obj/item/nanite_remote/ui_data()
@@ -186,7 +189,7 @@
 				signal_mob(target, code, comm_message, key_name(user))
 		if(REMOTE_MODE_AOE)
 			to_chat(user, "<span class='notice'>You activate [src], signaling the nanites inside every host around you.</span>")
-			for(var/mob/living/L in view(user, 7))
+			for(var/mob/living/L in hearers(7, user))
 				signal_mob(L, code, comm_message, key_name(user))
 		if(REMOTE_MODE_RELAY)
 			to_chat(user, "<span class='notice'>You activate [src], signaling all connected relay nanites.</span>")

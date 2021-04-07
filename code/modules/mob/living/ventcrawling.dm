@@ -1,5 +1,6 @@
 
 GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
+	/obj/machinery/atmospherics/components/binary/dp_vent_pump,
 	/obj/machinery/atmospherics/components/unary/vent_pump,
 	/obj/machinery/atmospherics/components/unary/vent_scrubber)))
 
@@ -24,7 +25,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 		to_chat(src, "You can't vent crawl while buckled!")
 		return
 
-	var/obj/machinery/atmospherics/components/unary/vent_found
+	var/obj/machinery/atmospherics/components/vent_found
 
 
 	if(A)
@@ -47,7 +48,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	if(vent_found)
 		var/datum/pipeline/vent_found_parent = vent_found.parents[1]
 		if(vent_found_parent && (vent_found_parent.members.len || vent_found_parent.other_atmosmch))
-			visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>" ,"<span class='notice'>You begin climbing into the ventilation system...</span>")
+			visible_message("<span class='notice'>[src] begins climbing into the ventilation system.</span>" ,"<span class='notice'>You begin climbing into the ventilation system.</span>")
 
 			if(!do_after(src, 25, target = vent_found))
 				return

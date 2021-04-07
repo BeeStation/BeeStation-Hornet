@@ -14,11 +14,11 @@
 
 /datum/guardian_ability/major/explosive/Apply()
 	. = ..()
-	guardian.verbs += /mob/living/simple_animal/hostile/guardian/proc/DetonateBomb
+	guardian.add_verb(/mob/living/simple_animal/hostile/guardian/proc/DetonateBomb)
 
 /datum/guardian_ability/major/explosive/Remove()
 	. = ..()
-	guardian.verbs -= /mob/living/simple_animal/hostile/guardian/proc/DetonateBomb
+	guardian.remove_verb(/mob/living/simple_animal/hostile/guardian/proc/DetonateBomb)
 
 /datum/guardian_ability/major/explosive/Attack(atom/target)
 	if(prob(40) && isliving(target))
@@ -26,7 +26,7 @@
 		if(!M.anchored && M != guardian.summoner?.current && !guardian.hasmatchingsummoner(M))
 			new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 			do_teleport(M, M, 10, channel = TELEPORT_CHANNEL_BLUESPACE)
-			for(var/mob/living/L in range(1, M))
+			for(var/mob/living/L in hearers(1, M))
 				if(guardian.hasmatchingsummoner(L)) //if the summoner matches don't hurt them
 					continue
 				if(L != guardian && L != guardian.summoner?.current)

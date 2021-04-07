@@ -10,7 +10,9 @@ export const BankMachine = (props, context) => {
     station_name,
   } = data;
   return (
-    <Window>
+    <Window
+      width={335}
+      height={160}>
       <Window.Content>
         <Section title={station_name + ' Vault'}>
           <LabeledList>

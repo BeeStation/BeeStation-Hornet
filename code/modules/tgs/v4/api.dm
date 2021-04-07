@@ -50,11 +50,15 @@
 	return new /datum/tgs_version("4.0.0.0")
 
 /datum/tgs_api/v4/OnWorldNew(minimum_required_security_level)
+	if(minimum_required_security_level == TGS_SECURITY_ULTRASAFE)
+		TGS_WARNING_LOG("V4 DMAPI requires safe security!")
+		minimum_required_security_level = TGS_SECURITY_SAFE
+
 	json_path = world.params[TGS4_PARAM_INFO_JSON]
 	if(!json_path)
 		TGS_ERROR_LOG("Missing [TGS4_PARAM_INFO_JSON] world parameter!")
 		return
-	var/json_file = rustg_file_read(json_path)
+	var/json_file = file2text(json_path)
 	if(!json_file)
 		TGS_ERROR_LOG("Missing specified json file: [json_path]")
 		return
@@ -88,7 +92,7 @@
 	var/list/json = cached_json["testMerges"]
 	for(var/entry in json)
 		var/datum/tgs_revision_information/test_merge/tm = new
-		tm.time_merged = text2num(entry["timeMerged"])
+		tm.timestamp = text2num(entry["timeMerged"])
 
 		var/list/revInfo = entry["revision"]
 		if(revInfo)
@@ -100,7 +104,7 @@
 		tm.url = entry["url"]
 		tm.author = entry["author"]
 		tm.number = entry["number"]
-		tm.pull_request_commit = entry["pullRequestRevision"]
+		tm.head_commit = entry["pullRequestRevision"]
 		tm.comment = entry["comment"]
 
 		cached_test_merges += tm
@@ -110,18 +114,11 @@
 /datum/tgs_api/v4/OnInitializationComplete()
 	Export(TGS4_COMM_SERVER_PRIMED)
 
-	var/tgs4_secret_sleep_offline_sauce = 24051994
-	var/old_sleep_offline = world.sleep_offline
-	world.sleep_offline = tgs4_secret_sleep_offline_sauce
-	sleep(1)
-	if(world.sleep_offline == tgs4_secret_sleep_offline_sauce)	//if not someone changed it
-		world.sleep_offline = old_sleep_offline
-
 /datum/tgs_api/v4/OnTopic(T)
 	var/list/params = params2list(T)
 	var/their_sCK = params[TGS4_INTEROP_ACCESS_IDENTIFIER]
 	if(!their_sCK)
-		return FALSE	//continue world/Topic
+		return FALSE //continue world/Topic
 
 	if(their_sCK != access_identifier)
 		return "Invalid comms key!";
@@ -195,14 +192,14 @@
 
 		//request a new port
 		export_lock = FALSE
-		var/list/new_port_json = Export(TGS4_COMM_NEW_PORT, list(TGS4_PARAMETER_DATA = "[world.port]"), TRUE)	//stringify this on purpose
+		var/list/new_port_json = Export(TGS4_COMM_NEW_PORT, list(TGS4_PARAMETER_DATA = "[world.port]"), TRUE) //stringify this on purpose
 
 		if(!new_port_json)
 			TGS_ERROR_LOG("No new port response from server![TGS4_PORT_CRITFAIL_MESSAGE]")
 			del(world)
 
 		var/new_port = new_port_json[TGS4_PARAMETER_DATA]
-		if(!isnum_safe(new_port) || new_port <= 0)
+		if(!isnum(new_port) || new_port <= 0)
 			TGS_ERROR_LOG("Malformed new port json ([json_encode(new_port_json)])![TGS4_PORT_CRITFAIL_MESSAGE]")
 			del(world)
 
@@ -217,7 +214,7 @@
 
 	last_interop_response = null
 	fdel(server_commands_json_path)
-	rustg_file_append(json, server_commands_json_path)
+	text2file(json, server_commands_json_path)
 
 	for(var/I = 0; I < EXPORT_TIMEOUT_DS && !last_interop_response; ++I)
 		sleep(1)
@@ -237,8 +234,8 @@
 	//okay so the standard TGS4 proceedure is: right before rebooting change the port to whatever was sent to us in the above json's data parameter
 
 	var/port = result[TGS4_PARAMETER_DATA]
-	if(!isnum_safe(port))
-		return	//this is valid, server may just want use to reboot
+	if(!isnum(port))
+		return //this is valid, server may just want use to reboot
 
 	if(port == 0)
 		//to byond 0 means any port and "none" means close vOv
@@ -251,7 +248,7 @@
 	return instance_name
 
 /datum/tgs_api/v4/TestMerges()
-	return cached_test_merges
+	return cached_test_merges.Copy()
 
 /datum/tgs_api/v4/EndProcess()
 	Export(TGS4_COMM_END_PROCESS)
@@ -294,7 +291,7 @@
 /datum/tgs_api/v4/ChatChannelInfo()
 	. = list()
 	//no caching cause tgs may change this
-	var/list/json = json_decode(rustg_file_read(chat_channels_json_path))
+	var/list/json = json_decode(file2text(chat_channels_json_path))
 	for(var/I in json)
 		. += DecodeChannel(I)
 
@@ -310,30 +307,3 @@
 
 /datum/tgs_api/v4/SecurityLevel()
 	return security_level
-
-/*
-The MIT License
-
-Copyright (c) 2017 Jordan Brown
-
-Permission is hereby granted, free of charge,
-to any person obtaining a copy of this software and
-associated documentation files (the "Software"), to
-deal in the Software without restriction, including
-without limitation the rights to use, copy, modify,
-merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom
-the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice
-shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
-ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/

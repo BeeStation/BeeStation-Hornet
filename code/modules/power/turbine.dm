@@ -56,8 +56,8 @@
 	resistance_flags = FIRE_PROOF
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	circuit = /obj/item/circuitboard/machine/power_turbine
-	ui_x = 310
-	ui_y = 150
+
+
 	var/opened = 0
 	var/obj/machinery/power/compressor/compressor
 	var/turf/outturf
@@ -190,7 +190,7 @@
 /obj/machinery/power/turbine/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Productivity at <b>[productivity*100]%</b>.<span>"
+		. += "<span class='notice'>The status display reads: Productivity at <b>[productivity*100]%</b>.</span>"
 
 /obj/machinery/power/turbine/locate_machinery()
 	if(compressor)
@@ -257,11 +257,14 @@
 
 	default_deconstruction_crowbar(I)
 
-/obj/machinery/power/turbine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/power/turbine/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/power/turbine/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TurbineComputer", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "TurbineComputer")
 		ui.open()
 
 /obj/machinery/power/turbine/ui_data(mob/user)
@@ -301,8 +304,8 @@
 	icon_screen = "turbinecomp"
 	icon_keyboard = "tech_key"
 	circuit = /obj/item/circuitboard/computer/turbine_computer
-	ui_x = 310
-	ui_y = 150
+
+
 	var/obj/machinery/power/compressor/compressor
 	var/id = 0
 
@@ -319,14 +322,14 @@
 			if(C.comp_id == id)
 				compressor = C
 				return
-	else
-		compressor = locate(/obj/machinery/power/compressor) in range(7, src)
+	// Couldn't find compressor, time to do search indiscriminately
+	compressor = locate(/obj/machinery/power/compressor) in range(7, src)
 
 /obj/machinery/computer/turbine_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
 									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TurbineComputer", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "TurbineComputer")
 		ui.open()
 
 /obj/machinery/computer/turbine_computer/ui_data(mob/user)

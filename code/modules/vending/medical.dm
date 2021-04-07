@@ -12,6 +12,8 @@
 					/obj/item/healthanalyzer = 4,
 					/obj/item/reagent_containers/pill/patch/styptic = 5,
 					/obj/item/reagent_containers/pill/patch/silver_sulf = 5,
+					/obj/item/storage/pill_bottle/bicaridine = 3,
+					/obj/item/storage/pill_bottle/kelotane = 3,
 					/obj/item/reagent_containers/pill/salbutamol = 2,
 					/obj/item/reagent_containers/pill/insulin = 5,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 4,
@@ -31,13 +33,13 @@
 		              /obj/item/reagent_containers/pill/charcoal = 6,
 		              /obj/item/storage/box/hug/medical = 1,
 					  /obj/item/reagent_containers/glass/bottle/random_virus = 1)
-	premium = list(/obj/item/reagent_containers/medspray/synthflesh = 2,
-		           /obj/item/storage/pill_bottle/psicodine = 2,
+	premium = list(/obj/item/storage/pill_bottle/psicodine = 2,
+				   /obj/item/reagent_containers/medspray/synthflesh = 2,
 		           /obj/item/reagent_containers/hypospray/medipen = 3,
 		           /obj/item/storage/belt/medical = 3,
 		           /obj/item/wrench/medical = 1,
 		           /obj/item/storage/firstaid/advanced = 2)
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 	default_price = 25

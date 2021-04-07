@@ -13,7 +13,10 @@ export const NtosNetDownloader = (props, context) => {
     hackedavailable,
   } = data;
   return (
-    <NtosWindow resizable>
+    <NtosWindow
+      resizable
+      width={480}
+      height={735}>
       <NtosWindow.Content scrollable>
         {!!error && (
           <NoticeBox>

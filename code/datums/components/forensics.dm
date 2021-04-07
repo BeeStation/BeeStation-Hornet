@@ -43,8 +43,6 @@
 
 /datum/component/forensics/proc/wipe_blood_DNA()
 	blood_DNA = null
-	if(isitem(parent))
-		qdel(parent.GetComponent(/datum/component/decal/blood))
 	return TRUE
 
 /datum/component/forensics/proc/wipe_fibers()
@@ -72,7 +70,7 @@
 		if(!iscameramob(M))
 			return
 		if(isaicamera(M))
-			var/mob/camera/aiEye/ai_camera = M
+			var/mob/camera/ai_eye/ai_camera = M
 			if(!ai_camera.ai)
 				return
 			M = ai_camera.ai
@@ -144,7 +142,7 @@
 		if(!iscameramob(M))
 			return
 		if(isaicamera(M))
-			var/mob/camera/aiEye/ai_camera = M
+			var/mob/camera/ai_eye/ai_camera = M
 			if(!ai_camera.ai)
 				return
 			M = ai_camera.ai
@@ -181,4 +179,6 @@
 		return
 	if(!length(blood_DNA))
 		return
-	parent.LoadComponent(/datum/component/decal/blood)
+	if(isitem(parent))
+		var/obj/item/I = parent
+		I.AddElement(/datum/element/decal/blood, initial(I.icon) || I.icon, initial(I.icon_state) || I.icon_state)

@@ -3,6 +3,7 @@
 	var/holy = FALSE
 	var/charges = INFINITY
 	var/blocks_self = TRUE
+	var/allowed_slots = ~ITEM_SLOT_BACKPACK
 	var/datum/callback/reaction
 	var/datum/callback/expire
 
@@ -24,7 +25,7 @@
 	expire = _expire
 
 /datum/component/anti_magic/proc/on_equip(datum/source, mob/equipper, slot)
-	if(slot == SLOT_IN_BACKPACK)
+	if(!(allowed_slots & slot)) //Check that the slot is valid for antimagic
 		UnregisterSignal(equipper, COMSIG_MOB_RECEIVE_MAGIC)
 		return
 	RegisterSignal(equipper, COMSIG_MOB_RECEIVE_MAGIC, .proc/protect, TRUE)

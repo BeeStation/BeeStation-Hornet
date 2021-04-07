@@ -37,10 +37,12 @@
 	var/atom/movable/form = null
 	var/morph_time = 0
 	var/static/list/blacklist_typecache = typecacheof(list(
-	/obj/screen,
+	/atom/movable/screen,
 	/obj/singularity,
 	/mob/living/simple_animal/hostile/morph,
-	/obj/effect))
+	/obj/effect,
+	/mob/camera
+	))
 	var/atom/movable/throwatom = null
 
 	var/playstyle_string = "<span class='big bold'>You are a morph,</span></b> an abomination of science created primarily with changeling cells. \
@@ -49,6 +51,8 @@
 							less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you. \
 							You can attack any item or dead creature to consume it - creatures will restore your health. \
 							Finally, you can restore yourself to your original form while morphed by shift-clicking yourself.</b>"
+
+	mobchatspan = "blob"
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	var/datum/action/innate/morph/stomach/S = new
@@ -151,7 +155,7 @@
 		throwatom = null
 		playsound(src, 'sound/effects/splat.ogg', 50, 1)
 	. = ..()
-	
+
 
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
@@ -193,7 +197,7 @@
 		if(A == src)
 			restore()
 			return
-		if(istype(A) && allowed(A))
+		if(allowed(A))
 			assume(A)
 	else
 		to_chat(src, "<span class='warning'>Your chameleon skin is still repairing itself!</span>")
@@ -209,12 +213,19 @@
 	visible_message("<span class='warning'>[src] suddenly twists and changes shape, becoming a copy of [target]!</span>", \
 					"<span class='notice'>You twist your body and assume the form of [target].</span>")
 	appearance = target.appearance
-	copy_overlays(target)
+	if(length(target.vis_contents))
+		add_overlay(target.vis_contents)
 	alpha = max(alpha, 150)	//fucking chameleons
 	transform = initial(transform)
 	pixel_y = initial(pixel_y)
 	pixel_x = initial(pixel_x)
 	density = target.density
+
+	if(isliving(target))
+		var/mob/living/L = target
+		mobchatspan = L.mobchatspan
+	else
+		mobchatspan = initial(mobchatspan)
 
 	//Morphed is weaker
 	melee_damage = melee_damage_disguised
@@ -281,7 +292,7 @@
 	. = ..()
 	if(.)
 		var/list/things = list()
-		for(var/atom/movable/A in view(src))
+		for(var/atom/A as() in view(src))
 			if(allowed(A))
 				things += A
 		var/atom/movable/T = pick(things)

@@ -95,6 +95,8 @@
 
 #define STATUS_EFFECT_STASIS /datum/status_effect/incapacitating/stasis //! Halts biological functions like bleeding, chemical processing, blood regeneration, walking, etc
 
+#define STATUS_EFFECT_SYRINGE /datum/status_effect/syringe //used to handle being injected with a syringe
+
 //---------//
 // NEUTRAL //
 //---------//

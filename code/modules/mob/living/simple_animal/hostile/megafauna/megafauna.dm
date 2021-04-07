@@ -109,6 +109,9 @@
 		if(L.stat != DEAD)
 			if(!client && ranged && ranged_cooldown <= world.time)
 				OpenFire()
+
+			if(L.health <= HEALTH_THRESHOLD_DEAD && HAS_TRAIT(L, TRAIT_NODEATH)) //Nope, it still gibs yall
+				devour(L)
 		else
 			devour(L)
 
@@ -142,7 +145,7 @@
 	if(!medal_type || (flags_1 & ADMIN_SPAWNED_1) || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
 		return FALSE
 	if(!grant_achievement.len)
-		for(var/mob/living/L in view(7,src))
+		for(var/mob/living/L in oviewers(7,src))
 			grant_achievement += L
 	for(var/mob/living/L in grant_achievement)
 		if(L.stat || !L.client)

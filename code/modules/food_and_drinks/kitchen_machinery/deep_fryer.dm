@@ -42,6 +42,7 @@ God bless America.
 		/obj/item/wirecutters,
 		/obj/item/multitool,
 		/obj/item/weldingtool,
+		/obj/item/powertool,
 		/obj/item/reagent_containers/glass,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/food/condiment,
@@ -60,6 +61,10 @@ God bless America.
 	RefreshParts()
 	fry_loop = new(list(src), FALSE)
 
+/obj/machinery/deepfryer/Destroy()
+	QDEL_NULL(fry_loop)
+	return ..()
+
 /obj/machinery/deepfryer/RefreshParts()
 	var/oil_efficiency
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
@@ -72,7 +77,7 @@ God bless America.
 	if(frying)
 		. += "You can make out \a [frying] in the oil."
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Frying at <b>[fry_speed*100]%</b> speed.<br>Using <b>[oil_use*10]</b> units of oil per second.<span>"
+		. += "<span class='notice'>The status display reads: Frying at <b>[fry_speed*100]%</b> speed.<br>Using <b>[oil_use*10]</b> units of oil per second.</span>"
 
 /obj/machinery/deepfryer/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/pill))

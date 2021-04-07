@@ -11,7 +11,7 @@
 	power_cost = 80
 
 /datum/clockcult/scripture/slab/sentinelscompromise/click_on(atom/A)
-	if(!(get_turf(A) in view(7, get_turf(invoker))))
+	if(!(invoker in viewers(7, get_turf(A))))
 		return
 	var/mob/living/M = A
 	if(!istype(M))
@@ -33,6 +33,7 @@
 	M.adjustFireLoss(-M.getFireLoss() * 0.6, FALSE)
 	M.adjustOxyLoss(-M.getOxyLoss() * 0.6, FALSE)
 	M.adjustCloneLoss(-M.getCloneLoss() * 0.6, TRUE)
+	M.blood_volume = BLOOD_VOLUME_NORMAL
 	M.reagents.remove_reagent(/datum/reagent/water/holywater, INFINITY)
 	M.set_nutrition(NUTRITION_LEVEL_FULL)
 	M.bodytemperature = BODYTEMP_NORMAL
@@ -44,5 +45,7 @@
 	M.cure_husk()
 	M.hallucination = 0
 	new /obj/effect/temp_visual/heal(get_turf(M), "#f8d984")
+	playsound(M, 'sound/magic/magic_missile.ogg', 50, TRUE)
+	playsound(invoker, 'sound/magic/magic_missile.ogg', 50, TRUE)
 	invoker.adjustToxLoss(min(total_damage/2, 80))
 	return TRUE

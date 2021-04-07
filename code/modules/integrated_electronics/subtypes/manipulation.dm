@@ -10,6 +10,7 @@
 	lethal (TRUE) or stun (FALSE) modes. It uses the internal battery of the weapon itself, not the assembly. If you wish to fire the gun while the circuit is in \
 	hand, you will need to use an assembly that is a gun."
 	complexity = 20
+	max_allowed = 1
 	w_class = WEIGHT_CLASS_SMALL
 	size = 3
 	inputs = list(
@@ -130,8 +131,11 @@
 	installed_gun.cell.use(shot.e_cost)
 	//Shooting Code:
 	A.preparePixelProjectile(target, src)
+	A.ignore_source_check = TRUE //needed else writing into firer will mess with the projectile collision
+	A.firer = !usr ? "[assembly]/[REF(assembly)] circuit made by [assembly.creator]" : "[assembly]/[REF(assembly)] circuit activated by [usr.ckey]/[usr] and made by [assembly.creator]"
+	A.log_override = TRUE //Only resoves a runtime that would be caused on call.
 	A.fire()
-	log_attack("[assembly] [REF(assembly)] has fired [installed_gun].")
+	log_attack("[assembly] [REF(assembly)] made by [assembly.creator] has fired [installed_gun].")
 	return A
 
 /obj/item/integrated_circuit/manipulation/locomotion
@@ -143,6 +147,7 @@
 	being held, or anchored in some way. It should be noted that the ability to move is dependant on the type of assembly that this circuit inhabits; only drone assemblies can move."
 	w_class = WEIGHT_CLASS_SMALL
 	complexity = 10
+	max_allowed = 4
 	cooldown_per_use = 1 SECONDS
 	ext_cooldown = 1 SECONDS
 	inputs = list("direction" = IC_PINTYPE_DIR)
@@ -170,82 +175,6 @@
 					activate_pin(3)
 					return FALSE
 	return FALSE
-
-/obj/item/integrated_circuit/manipulation/grenade
-	name = "grenade primer"
-	desc = "This circuit comes with the ability to attach most types of grenades and prime them at will."
-	extended_desc = "The time between priming and detonation is limited to between 1 to 12 seconds, but is optional. \
-					If the input is not set, not a number, or a number less than 1, the grenade's built-in timing will be used. \
-					Beware: Once primed, there is no aborting the process!"
-	icon_state = "grenade"
-	complexity = 30
-	cooldown_per_use = 10
-	inputs = list("detonation time" = IC_PINTYPE_NUMBER)
-	outputs = list("reference to grenade" = IC_PINTYPE_REF)
-	activators = list("prime grenade" = IC_PINTYPE_PULSE_IN)
-	spawn_flags = IC_SPAWN_RESEARCH
-	action_flags = IC_ACTION_COMBAT
-	var/obj/item/grenade/attached_grenade
-	var/pre_attached_grenade_type
-	demands_object_input = TRUE	// You can put stuff in once the circuit is in assembly,passed down from additem and handled by attackby()
-
-/obj/item/integrated_circuit/manipulation/grenade/Initialize()
-	. = ..()
-	if(pre_attached_grenade_type)
-		var/grenade = new pre_attached_grenade_type(src)
-		attach_grenade(grenade)
-
-/obj/item/integrated_circuit/manipulation/grenade/Destroy()
-	if(attached_grenade && !attached_grenade.active)
-		attached_grenade.forceMove(loc)
-	detach_grenade()
-	return ..()
-
-/obj/item/integrated_circuit/manipulation/grenade/attackby(var/obj/item/grenade/G, var/mob/user)
-	if(istype(G))
-		if(attached_grenade)
-			to_chat(user, "<span class='warning'>There is already a grenade attached!</span>")
-		else if(user.transferItemToLoc(G,src))
-			user.visible_message("<span class='warning'>\The [user] attaches \a [G] to \the [src]!</span>", "<span class='notice'>You attach \the [G] to \the [src].</span>")
-			attach_grenade(G)
-			G.forceMove(src)
-	else
-		return ..()
-
-/obj/item/integrated_circuit/manipulation/grenade/attack_self(var/mob/user)
-	if(attached_grenade)
-		user.visible_message("<span class='warning'>\The [user] removes \an [attached_grenade] from \the [src]!</span>", "<span class='notice'>You remove \the [attached_grenade] from \the [src].</span>")
-		user.put_in_hands(attached_grenade)
-		detach_grenade()
-	else
-		return ..()
-
-/obj/item/integrated_circuit/manipulation/grenade/do_work()
-	if(attached_grenade && !attached_grenade.active)
-		var/datum/integrated_io/detonation_time = inputs[1]
-		var/dt
-		if(isnum_safe(detonation_time.data) && detonation_time.data > 0)
-			dt = CLAMP(detonation_time.data, 1, 12)*10
-		else
-			dt = 15
-		addtimer(CALLBACK(attached_grenade, /obj/item/grenade.proc/prime), dt)
-		var/atom/holder = loc
-		message_admins("activated a grenade assembly. Last touches: Assembly: [holder.fingerprintslast] Circuit: [fingerprintslast] Grenade: [attached_grenade.fingerprintslast]")
-
-// These procs do not relocate the grenade, that's the callers responsibility
-/obj/item/integrated_circuit/manipulation/grenade/proc/attach_grenade(var/obj/item/grenade/G)
-	attached_grenade = G
-	G.forceMove(src)
-	desc += " \An [attached_grenade] is attached to it!"
-	set_pin_data(IC_OUTPUT, 1, WEAKREF(G))
-
-/obj/item/integrated_circuit/manipulation/grenade/proc/detach_grenade()
-	if(!attached_grenade)
-		return
-	attached_grenade.forceMove(drop_location())
-	set_pin_data(IC_OUTPUT, 1, WEAKREF(null))
-	attached_grenade = null
-	desc = initial(desc)
 
 /obj/item/integrated_circuit/manipulation/plant_module
 	name = "plant manipulation module"
@@ -361,6 +290,7 @@
 	size = 3
 	cooldown_per_use = 5
 	complexity = 10
+	max_allowed = 1
 	inputs = list("target" = IC_PINTYPE_REF,"mode" = IC_PINTYPE_NUMBER)
 	outputs = list("first" = IC_PINTYPE_REF, "last" = IC_PINTYPE_REF, "amount" = IC_PINTYPE_NUMBER,"contents" = IC_PINTYPE_LIST)
 	activators = list("pulse in" = IC_PINTYPE_PULSE_IN,"pulse out" = IC_PINTYPE_PULSE_OUT)
@@ -435,6 +365,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	size = 3
 	cooldown_per_use = 5
+	max_allowed = 1
 	complexity = 10
 	inputs = list("target" = IC_PINTYPE_REF,"mode" = IC_PINTYPE_INDEX,"dir" = IC_PINTYPE_DIR)
 	outputs = list("is pulling" = IC_PINTYPE_BOOLEAN)

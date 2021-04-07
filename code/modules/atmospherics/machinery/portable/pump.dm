@@ -8,27 +8,19 @@
 	name = "portable air pump"
 	icon_state = "psiphon:0"
 	density = TRUE
-	ui_x = 300
-	ui_y = 315
+
+
 
 	var/on = FALSE
 	var/direction = PUMP_OUT
-	var/obj/machinery/atmospherics/components/binary/pump/pump
+	var/target_pressure = ONE_ATMOSPHERE
 
 	volume = 1000
-
-/obj/machinery/portable_atmospherics/pump/Initialize()
-	. = ..()
-	pump = new(src, FALSE)
-	pump.on = TRUE
-	pump.stat = 0
-	pump.build_network()
 
 /obj/machinery/portable_atmospherics/pump/Destroy()
 	var/turf/T = get_turf(src)
 	T.assume_air(air_contents)
 	air_update_turf()
-	QDEL_NULL(pump)
 	return ..()
 
 /obj/machinery/portable_atmospherics/pump/update_icon()
@@ -43,20 +35,20 @@
 /obj/machinery/portable_atmospherics/pump/process_atmos()
 	..()
 	if(!on)
-		pump.airs[1] = null
-		pump.airs[2] = null
 		return
 
 	var/turf/T = get_turf(src)
-	if(direction == PUMP_OUT) // Hook up the internal pump.
-		pump.airs[1] = holding ? holding.air_contents : air_contents
-		pump.airs[2] = holding ? air_contents : T.return_air()
+	var/datum/gas_mixture/sending
+	var/datum/gas_mixture/receiving
+	if(direction == PUMP_OUT) // Hook up the "internal" pump.
+		sending = (holding ? holding.air_contents : air_contents)
+		receiving = (holding ? air_contents : T.return_air())
 	else
-		pump.airs[1] = holding ? air_contents : T.return_air()
-		pump.airs[2] = holding ? holding.air_contents : air_contents
+		sending = (holding ? air_contents : T.return_air())
+		receiving = (holding ? holding.air_contents : air_contents)
 
-	pump.process_atmos() // Pump gas.
-	if(!holding)
+
+	if(sending.pump_gas_to(receiving, target_pressure) && !holding)
 		air_update_turf() // Update the environment if needed.
 
 /obj/machinery/portable_atmospherics/pump/emp_act(severity)
@@ -68,7 +60,7 @@
 			on = !on
 		if(prob(100 / severity))
 			direction = PUMP_OUT
-		pump.target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
+		target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
 		update_icon()
 
 /obj/machinery/portable_atmospherics/pump/replace_tank(mob/living/user, close_valve)
@@ -82,11 +74,14 @@
 			investigate_log("[key_name(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
 
 
-/obj/machinery/portable_atmospherics/pump/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-														datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/portable_atmospherics/pump/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/portable_atmospherics/pump/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortablePump", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "PortablePump")
 		ui.open()
 
 /obj/machinery/portable_atmospherics/pump/ui_data()
@@ -95,7 +90,7 @@
 	data["direction"] = direction == PUMP_IN ? TRUE : FALSE
 	data["connected"] = connected_port ? TRUE : FALSE
 	data["pressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
-	data["target_pressure"] = round(pump.target_pressure ? pump.target_pressure : 0)
+	data["target_pressure"] = round(target_pressure ? target_pressure : 0)
 	data["default_pressure"] = round(PUMP_DEFAULT_PRESSURE)
 	data["min_pressure"] = round(PUMP_MIN_PRESSURE)
 	data["max_pressure"] = round(PUMP_MAX_PRESSURE)
@@ -146,8 +141,8 @@
 				pressure = text2num(pressure)
 				. = TRUE
 			if(.)
-				pump.target_pressure = clamp(round(pressure), PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
-				investigate_log("was set to [pump.target_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
+				target_pressure = clamp(round(pressure), PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
+				investigate_log("was set to [target_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
 		if("eject")
 			if(holding)
 				replace_tank(usr, FALSE)

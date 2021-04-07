@@ -49,6 +49,7 @@
 					makelube(M, 80)
 				else
 					makelube(M, 40)
+				M.reagents.add_reagent(/datum/reagent/lube = 1)
 				if(clownshoes)
 					give_clown_shoes(A)
 
@@ -74,5 +75,5 @@
 				qdel(M.shoes)
 		var/obj/item/clothing/C = new /obj/item/clothing/shoes/clown_shoes(M)
 		ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
-		M.equip_to_slot_or_del(C, SLOT_SHOES)
+		M.equip_to_slot_or_del(C, ITEM_SLOT_FEET)
 		return

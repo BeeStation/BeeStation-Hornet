@@ -11,7 +11,9 @@ export const ChemPress = (props, context) => {
     pill_styles = [],
   } = data;
   return (
-    <Window>
+    <Window
+      width={300}
+      height={199}>
       <Window.Content>
         <Section>
           <LabeledList>

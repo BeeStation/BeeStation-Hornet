@@ -87,7 +87,6 @@ GENE SCANNER
 	throw_speed = 3
 	throw_range = 7
 	materials = list(/datum/material/iron=200)
-	var/mode = 1
 	var/scanmode = 0
 	var/advanced = FALSE
 
@@ -108,7 +107,7 @@ GENE SCANNER
 
 	// Clumsiness/brain damage check
 
-	if ((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", \
 							"<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
 		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: <b>Healthy</b></span>")
@@ -121,7 +120,7 @@ GENE SCANNER
 						"<span class='notice'>You analyze [M]'s vitals.</span>")
 
 	if(scanmode == 0)
-		healthscan(user, M, mode, advanced)
+		healthscan(user, M, advanced=advanced)
 	else if(scanmode == 1)
 		chemscan(user, M)
 
@@ -163,11 +162,11 @@ GENE SCANNER
 		to_chat(user, "\t<span class='alert'>Subject appears to be suffering from fatigue.</span>")
 		if(advanced)
 			to_chat(user, "\t<span class='info'>Fatigue Level: [M.getStaminaLoss()]%.</span>")
-	if (M.getCloneLoss())
+	if(M.getCloneLoss())
 		to_chat(user, "\t<span class='alert'>Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.</span>")
 		if(advanced)
 			to_chat(user, "\t<span class='info'>Cellular Damage Level: [M.getCloneLoss()].</span>")
-	if (!M.getorgan(/obj/item/organ/brain))
+	if(!M.getorgan(/obj/item/organ/brain))
 		to_chat(user, "\t<span class='alert'>Subject lacks a brain.</span>")
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -190,7 +189,7 @@ GENE SCANNER
 	if(advanced)
 		to_chat(user, "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>")
 
-	if (M.radiation)
+	if(M.radiation)
 		to_chat(user, "\t<span class='alert'>Subject is irradiated.</span>")
 		if(advanced)
 			to_chat(user, "\t<span class='info'>Radiation Level: [M.radiation]%.</span>")
@@ -249,7 +248,7 @@ GENE SCANNER
 
 
 	// Body part damage report
-	if(iscarbon(M) && mode == 1)
+	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		var/list/damaged = C.get_damaged_bodyparts(1,1)
 		if(length(damaged)>0 || oxy_loss>0 || tox_loss>0 || fire_loss>0)
@@ -337,27 +336,27 @@ GENE SCANNER
 		var/mob/living/carbon/human/H = M
 		var/datum/species/S = H.dna.species
 		var/mutant = FALSE
-		if (H.dna.check_mutation(HULK))
+		if(H.dna.check_mutation(HULK))
 			mutant = TRUE
-		else if (S.mutantlungs != initial(S.mutantlungs))
+		else if(S.mutantlungs != initial(S.mutantlungs))
 			mutant = TRUE
-		else if (S.mutant_brain != initial(S.mutant_brain))
+		else if(S.mutant_brain != initial(S.mutant_brain))
 			mutant = TRUE
-		else if (S.mutant_heart != initial(S.mutant_heart))
+		else if(S.mutant_heart != initial(S.mutant_heart))
 			mutant = TRUE
-		else if (S.mutanteyes != initial(S.mutanteyes))
+		else if(S.mutanteyes != initial(S.mutanteyes))
 			mutant = TRUE
-		else if (S.mutantears != initial(S.mutantears))
+		else if(S.mutantears != initial(S.mutantears))
 			mutant = TRUE
-		else if (S.mutanthands != initial(S.mutanthands))
+		else if(S.mutanthands != initial(S.mutanthands))
 			mutant = TRUE
-		else if (S.mutanttongue != initial(S.mutanttongue))
+		else if(S.mutanttongue != initial(S.mutanttongue))
 			mutant = TRUE
-		else if (S.mutanttail != initial(S.mutanttail))
+		else if(S.mutanttail != initial(S.mutanttail))
 			mutant = TRUE
-		else if (S.mutantliver != initial(S.mutantliver))
+		else if(S.mutantliver != initial(S.mutantliver))
 			mutant = TRUE
-		else if (S.mutantstomach != initial(S.mutantstomach))
+		else if(S.mutantstomach != initial(S.mutantstomach))
 			mutant = TRUE
 
 		to_chat(user, "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>")
@@ -399,13 +398,14 @@ GENE SCANNER
 			else
 				to_chat(user, "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_type]</span>")
 
-		var/cyberimp_detect
+		var/list/cyberimp_detect = list()
 		for(var/obj/item/organ/cyberimp/CI in C.internal_organs)
 			if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
-				cyberimp_detect += "[C.name] is modified with a [CI.name].<br>"
-		if(cyberimp_detect)
+				cyberimp_detect += CI.name
+		if(length(cyberimp_detect))
 			to_chat(user, "<span class='notice'>Detected cybernetic modifications:</span>")
-			to_chat(user, "<span class='notice'>[cyberimp_detect]</span>")
+			for(var/name in cyberimp_detect)
+				to_chat(user, "<span class='notice'>[name]</span>")
 	SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, FALSE)
 
 /proc/chemscan(mob/living/user, mob/living/M)
@@ -423,20 +423,6 @@ GENE SCANNER
 					to_chat(user, "<span class='alert'>[R.name]</span>")
 			else
 				to_chat(user, "<span class='notice'>Subject is not addicted to any reagents.</span>")
-
-/obj/item/healthanalyzer/verb/toggle_mode()
-	set name = "Switch Verbosity"
-	set category = "Object"
-
-	if(usr.incapacitated())
-		return
-
-	mode = !mode
-	switch (mode)
-		if(1)
-			to_chat(usr, "The scanner now shows specific limb damage.")
-		if(0)
-			to_chat(usr, "The scanner no longer shows limb damage.")
 
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
@@ -475,61 +461,30 @@ GENE SCANNER
 	user.visible_message("<span class='suicide'>[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!</span>")
 	return BRUTELOSS
 
+/obj/item/analyzer/attackby(obj/O, mob/living/user)
+	if(istype(O, /obj/item/bodypart/l_arm/robot) || istype(O, /obj/item/bodypart/r_arm/robot))
+		to_chat(user, "<span class='notice'>You add [O] to [src].</span>")
+		qdel(O)
+		qdel(src)
+		user.put_in_hands(new /obj/item/bot_assembly/atmosbot)
+	else
+		..()
+
 /obj/item/analyzer/attack_self(mob/user)
 	add_fingerprint(user)
 
-	if (user.stat || user.eye_blind)
+	if(user.stat || user.eye_blind)
 		return
 
-	var/turf/location = user.loc
+	//Functionality moved down to proc/scan_turf()
+	var/turf/location = get_turf(user)
+
 	if(!istype(location))
 		return
 
-	var/datum/gas_mixture/environment = location.return_air()
-
-	var/pressure = environment.return_pressure()
-	var/total_moles = environment.total_moles()
-
-	to_chat(user, "<span class='info'><B>Results:</B></span>")
-	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(user, "<span class='info'>Pressure: [round(pressure, 0.01)] kPa</span>")
-	else
-		to_chat(user, "<span class='alert'>Pressure: [round(pressure, 0.01)] kPa</span>")
-	if(total_moles)
-		var/o2_concentration = environment.get_moles(/datum/gas/oxygen)/total_moles
-		var/n2_concentration = environment.get_moles(/datum/gas/nitrogen)/total_moles
-		var/co2_concentration = environment.get_moles(/datum/gas/carbon_dioxide)/total_moles
-		var/plasma_concentration = environment.get_moles(/datum/gas/plasma)/total_moles
-
-		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/nitrogen), 0.01)] mol)</span>")
-		else
-			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/nitrogen), 0.01)] mol)</span>")
-
-		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/oxygen), 0.01)] mol)</span>")
-		else
-			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/oxygen), 0.01)] mol)</span>")
-
-		if(co2_concentration > 0.01)
-			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/carbon_dioxide), 0.01)] mol)</span>")
-		else
-			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/carbon_dioxide), 0.01)] mol)</span>")
-
-		if(plasma_concentration > 0.005)
-			to_chat(user, "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
-		else
-			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
-
-		for(var/id in environment.get_gases())
-			if(id in GLOB.hardcoded_gases)
-				continue
-			var/gas_concentration = environment.get_moles(id)/total_moles
-			to_chat(user, "<span class='alert'>[GLOB.meta_gas_info[id][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(environment.get_moles(id), 0.01)] mol)</span>")
-		to_chat(user, "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>")
+	scan_turf(user, location)
 
 /obj/item/analyzer/AltClick(mob/user) //Barometer output for measuring when the next storm happens
-	..()
 
 	if(user.canUseTopic(src, BE_CLOSE))
 
@@ -635,6 +590,64 @@ GENE SCANNER
 			to_chat(user, "<span class='notice'>Instability of the last fusion reaction: [instability].</span>")
 	return TRUE
 
+/obj/item/analyzer/proc/scan_turf(mob/user, turf/location)
+	var/datum/gas_mixture/environment = location.return_air()
+
+	var/pressure = environment.return_pressure()
+	var/total_moles = environment.total_moles()
+
+	to_chat(user, "<span class='info'><B>Results:</B></span>")
+	if(abs(pressure - ONE_ATMOSPHERE) < 10)
+		to_chat(user, "<span class='info'>Pressure: [round(pressure, 0.01)] kPa</span>")
+	else
+		to_chat(user, "<span class='alert'>Pressure: [round(pressure, 0.01)] kPa</span>")
+	if(total_moles)
+		var/o2_concentration = environment.get_moles(/datum/gas/oxygen)/total_moles
+		var/n2_concentration = environment.get_moles(/datum/gas/nitrogen)/total_moles
+		var/co2_concentration = environment.get_moles(/datum/gas/carbon_dioxide)/total_moles
+		var/plasma_concentration = environment.get_moles(/datum/gas/plasma)/total_moles
+
+		if(abs(n2_concentration - N2STANDARD) < 20)
+			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/nitrogen), 0.01)] mol)</span>")
+		else
+			to_chat(user, "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/nitrogen), 0.01)] mol)</span>")
+
+		if(abs(o2_concentration - O2STANDARD) < 2)
+			to_chat(user, "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/oxygen), 0.01)] mol)</span>")
+		else
+			to_chat(user, "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/oxygen), 0.01)] mol)</span>")
+
+		if(co2_concentration > 0.01)
+			to_chat(user, "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/carbon_dioxide), 0.01)] mol)</span>")
+		else
+			to_chat(user, "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/carbon_dioxide), 0.01)] mol)</span>")
+
+		if(plasma_concentration > 0.005)
+			to_chat(user, "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
+		else
+			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(/datum/gas/plasma), 0.01)] mol)</span>")
+
+		for(var/id in environment.get_gases())
+			if(id in GLOB.hardcoded_gases)
+				continue
+			var/gas_concentration = environment.get_moles(id)/total_moles
+			to_chat(user, "<span class='alert'>[GLOB.meta_gas_info[id][META_GAS_NAME]]: [round(gas_concentration*100, 0.01)] % ([round(environment.get_moles(id), 0.01)] mol)</span>")
+		to_chat(user, "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>")
+
+/obj/item/analyzer/ranged
+	desc = "A hand-held scanner which uses advanced spectroscopy and infrared readings to analyze gases as a distance. Alt-Click to use the built in barometer function."
+	name = "long-range analyzer"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "ranged_analyzer"
+
+/obj/item/analyzer/ranged/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(target.tool_act(user, src, tool_behaviour))
+		return
+	// Tool act didn't scan it, so let's get it's turf.
+	var/turf/location = get_turf(target)
+	scan_turf(user, location)
+
 //slime scanner
 
 /obj/item/slime_scanner
@@ -655,7 +668,7 @@ GENE SCANNER
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
 	if(user.stat || user.eye_blind)
 		return
-	if (!isslime(M))
+	if(!isslime(M))
 		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
 		return
 	var/mob/living/simple_animal/slime/T = M
@@ -666,17 +679,17 @@ GENE SCANNER
 	to_chat(user, "<b>Slime scan results:</b>")
 	to_chat(user, "<span class='notice'>[T.colour] [T.is_adult ? "adult" : "baby"] slime</span>")
 	to_chat(user, "Nutrition: [T.nutrition]/[T.get_max_nutrition()]")
-	if (T.nutrition < T.get_starve_nutrition())
+	if(T.nutrition < T.get_starve_nutrition())
 		to_chat(user, "<span class='warning'>Warning: slime is starving!</span>")
-	else if (T.nutrition < T.get_hunger_nutrition())
+	else if(T.nutrition < T.get_hunger_nutrition())
 		to_chat(user, "<span class='warning'>Warning: slime is hungry</span>")
 	to_chat(user, "Electric change strength: [T.powerlevel]")
 	to_chat(user, "Health: [round(T.health/T.maxHealth,0.01)*100]%")
-	if (T.slime_mutation[4] == T.colour)
+	if(T.slime_mutation[4] == T.colour)
 		to_chat(user, "This slime does not evolve any further.")
 	else
-		if (T.slime_mutation[3] == T.slime_mutation[4])
-			if (T.slime_mutation[2] == T.slime_mutation[1])
+		if(T.slime_mutation[3] == T.slime_mutation[4])
+			if(T.slime_mutation[2] == T.slime_mutation[1])
 				to_chat(user, "Possible mutation: [T.slime_mutation[3]]")
 				to_chat(user, "Genetic destability: [T.mutation_chance/2] % chance of mutation on splitting")
 			else
@@ -685,12 +698,59 @@ GENE SCANNER
 		else
 			to_chat(user, "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]")
 			to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
-	if (T.cores > 1)
+	if(T.cores > 1)
 		to_chat(user, "Multiple cores detected")
 	to_chat(user, "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]")
 	if(T.effectmod)
 		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
 		to_chat(user, "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
+	if(T.transformeffects != SLIME_EFFECT_DEFAULT)
+		var/slimeeffect = "\nTransformative extract effect detected: "
+		if(T.transformeffects & SLIME_EFFECT_GREY)
+			slimeeffect += "grey"
+		if(T.transformeffects & SLIME_EFFECT_ORANGE)
+			slimeeffect += "orange"
+		if(T.transformeffects & SLIME_EFFECT_PURPLE)
+			slimeeffect += "purple"
+		if(T.transformeffects & SLIME_EFFECT_BLUE)
+			slimeeffect += "blue"
+		if(T.transformeffects & SLIME_EFFECT_METAL)
+			slimeeffect += "metal"
+		if(T.transformeffects & SLIME_EFFECT_YELLOW)
+			slimeeffect += "yellow"
+		if(T.transformeffects & SLIME_EFFECT_DARK_PURPLE)
+			slimeeffect += "dark purple"
+		if(T.transformeffects & SLIME_EFFECT_DARK_BLUE)
+			slimeeffect += "dark blue"
+		if(T.transformeffects & SLIME_EFFECT_SILVER)
+			slimeeffect += "silver"
+		if(T.transformeffects & SLIME_EFFECT_BLUESPACE)
+			slimeeffect += "bluespace"
+		if(T.transformeffects & SLIME_EFFECT_SEPIA)
+			slimeeffect += "sepia"
+		if(T.transformeffects & SLIME_EFFECT_CERULEAN)
+			slimeeffect += "cerulean"
+		if(T.transformeffects & SLIME_EFFECT_PYRITE)
+			slimeeffect += "pyrite"
+		if(T.transformeffects & SLIME_EFFECT_RED)
+			slimeeffect += "red"
+		if(T.transformeffects & SLIME_EFFECT_GREEN)
+			slimeeffect += "green"
+		if(T.transformeffects & SLIME_EFFECT_PINK)
+			slimeeffect += "pink"
+		if(T.transformeffects & SLIME_EFFECT_GOLD)
+			slimeeffect += "gold"
+		if(T.transformeffects & SLIME_EFFECT_OIL)
+			slimeeffect += "oil"
+		if(T.transformeffects & SLIME_EFFECT_BLACK)
+			slimeeffect += "black"
+		if(T.transformeffects & SLIME_EFFECT_LIGHT_PINK)
+			slimeeffect += "light pink"
+		if(T.transformeffects & SLIME_EFFECT_ADAMANTINE)
+			slimeeffect += "adamantine"
+		if(T.transformeffects & SLIME_EFFECT_RAINBOW)
+			slimeeffect += "rainbow"
+		to_chat(user, "<span class='notice'>[slimeeffect].</span>")
 	to_chat(user, "========================")
 
 
@@ -744,7 +804,7 @@ GENE SCANNER
 
 /obj/item/sequence_scanner/attack(mob/living/M, mob/living/carbon/human/user)
 	add_fingerprint(user)
-	if (!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
+	if(!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
 		user.visible_message("<span class='notice'>[user] analyzes [M]'s genetic sequence.</span>", \
 							"<span class='notice'>You analyze [M]'s genetic sequence.</span>")
 		gene_scan(M, user)
@@ -863,7 +923,7 @@ GENE SCANNER
 		icon_state = "extrapolator_sample"
 		scan = FALSE
 		to_chat(user, "<span class='notice'>You remove the probe from the device and set it to EXTRACT</span>")
-	else 
+	else
 		icon_state = "extrapolator_scan"
 		scan = TRUE
 		to_chat(user, "<span class='notice'>You put the probe back in the device and set it to SCAN</span>")
@@ -872,17 +932,17 @@ GENE SCANNER
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		if(!scanner)
-			. += "<span class='notice'>The scanner is missing.<span>"
+			. += "<span class='notice'>The scanner is missing.</span>"
 		else
-			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.<span>"
+			. += "<span class='notice'>A class <b>[scanner.rating]</b> scanning module is installed. It is <i>screwed</i> in place.</span>"
 		if(cooldown > world.time - (1200 / scanner.rating))
 			. += "<span class='warning'>The extrapolator is still recharging!</span>"
 		else
 			. += "<span class='info'>The extrapolator is ready to use!</span>"
-	
+
 
 /obj/item/extrapolator/attack(atom/AM, mob/living/user)
-	return 
+	return
 
 /obj/item/extrapolator/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -894,7 +954,7 @@ GENE SCANNER
 				to_chat(user, "<span class='notice'>the extrapolator fails to return any data</span>")
 			else
 				to_chat(user, "<span class='notice'>the extrapolator's probe detects no diseases</span>")
-	else 
+	else
 		to_chat(user, "<span class='warning'>the extrapolator has no scanner installed</span>")
 
 /obj/item/extrapolator/proc/scan(atom/AM, var/list/diseases = list(), mob/user)
@@ -926,12 +986,12 @@ GENE SCANNER
 	if(isolate)
 		for(var/datum/symptom/S in A.symptoms)
 			if(S.level <= 6 + scanner.rating)
-				symptoms += S 
+				symptoms += S
 			continue
 		var/datum/symptom/chosen = input(user,"What symptom do you wish to isolate") in null|symptoms
 		var/datum/disease/advance/symptomholder = new
-		if(!symptoms.len || !chosen) 
-			to_chat(user, "<span class='warning'>There are no valid diseases to isolate a symptom from.</span>")	
+		if(!symptoms.len || !chosen)
+			to_chat(user, "<span class='warning'>There are no valid diseases to isolate a symptom from.</span>")
 			return
 		symptomholder.name = chosen.name
 		symptomholder.symptoms += chosen
@@ -956,4 +1016,3 @@ GENE SCANNER
 	user.put_in_hands(B)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	return TRUE
-	

@@ -48,6 +48,9 @@
 
 /obj/machinery/syndicatebomb/process()
 	if(!active)
+		var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
+		if(beacon)
+			qdel(beacon)
 		STOP_PROCESSING(SSfastprocess, src)
 		detonation_timer = null
 		next_beep = null
@@ -75,6 +78,9 @@
 		next_beep = world.time + 10
 
 	if(active && ((detonation_timer <= world.time) || explode_now))
+		var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
+		if(beacon)
+			qdel(beacon)
 		active = FALSE
 		timer_set = initial(timer_set)
 		update_icon()
@@ -184,6 +190,8 @@
 /obj/machinery/syndicatebomb/proc/activate()
 	active = TRUE
 	START_PROCESSING(SSfastprocess, src)
+	//Global teamfinder signal trackable on the synd frequency.
+	AddComponent(/datum/component/tracking_beacon, "synd", null, null, TRUE, "#ff2b2b", TRUE, TRUE)
 	countdown.start()
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)
@@ -239,7 +247,7 @@
 	wires.cut_all()
 
 /obj/machinery/syndicatebomb/self_destruct
-	name = "self destruct device"
+	name = "self-destruct device"
 	desc = "Do not taunt. Warranty invalid if exposed to high temperature. Not suitable for agents under 3 years of age."
 	payload = /obj/item/bombcore/large
 	can_unanchor = FALSE

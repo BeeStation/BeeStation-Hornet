@@ -37,7 +37,6 @@
 		to_chat(user, "<span class='notice'>You turn the disco ball on!</span>")
 
 /obj/structure/etherealball/AltClick(mob/living/carbon/human/user)
-	. = ..()
 	if(anchored)
 		to_chat(user, "<span class='notice'>You unlock the disco ball.</span>")
 		anchored = FALSE

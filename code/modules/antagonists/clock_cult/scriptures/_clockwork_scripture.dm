@@ -29,6 +29,7 @@
 		end_invoke()
 		return
 	GLOB.clockcult_power -= power_cost
+	GLOB.clockcult_vitality -= vitality_cost
 	invoke_success()
 
 /datum/clockcult/scripture/proc/invoke_success()
@@ -55,7 +56,7 @@
 		return
 	var/invokers_left = invokers_required
 	if(invokers_left > 1)
-		for(var/mob/living/M in view(invoker))
+		for(var/mob/living/M in viewers(invoker))
 			if(M.stat)
 				continue
 			if(!invokers_left)
@@ -78,7 +79,7 @@
 		to_chat(invoker, "<span class='brass'>You fail to invoke [name].</span>")
 		return FALSE
 	var/invokers
-	for(var/mob/living/M in view(invoker))
+	for(var/mob/living/M in viewers(invoker))
 		if(M.stat)
 			continue
 		if(is_servant_of_ratvar(M))

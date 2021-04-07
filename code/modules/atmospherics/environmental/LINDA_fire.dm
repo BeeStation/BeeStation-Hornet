@@ -70,7 +70,7 @@
 
 	location.active_hotspot = src
 
-	bypassing = !just_spawned && (volume > CELL_VOLUME*0.95)
+	bypassing = !just_spawned && (volume > CELL_VOLUME*0.95) || location.air.return_temperature() > FUSION_TEMPERATURE_THRESHOLD
 
 	if(bypassing)
 		volume = location.air.reaction_results["fire"]*FIRE_GROWTH_RATE

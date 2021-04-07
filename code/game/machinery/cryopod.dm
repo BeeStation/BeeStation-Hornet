@@ -189,6 +189,11 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	update_icon()
 	find_control_computer()
 
+// This is not a good situation
+/obj/machinery/cryopod/Destroy()
+	control_computer = null
+	return ..()
+
 /obj/machinery/cryopod/proc/find_control_computer(urgent = 0)
 	for(var/M in GLOB.cryopod_computers)
 		var/obj/machinery/computer/cryopod/C = M

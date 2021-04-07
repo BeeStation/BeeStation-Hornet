@@ -104,7 +104,10 @@ export const RDConsole = (props, context) => {
     servers = [],
   } = data;
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={900}
+      height={750}>
       <Window.Content scrollable>
         <Section title="Servers">
           {servers.map(server => (

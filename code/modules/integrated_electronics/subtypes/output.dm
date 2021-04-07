@@ -53,9 +53,8 @@
 		if(!isturf(assembly.loc))
 			return
 
-	var/list/nearby_things = range(0, get_turf(src))
-	for(var/mob/M in nearby_things)
-		var/obj/O = assembly ? assembly : src
+	for(var/mob/M in get_turf(src))
+		var/obj/O = assembly || src
 		to_chat(M, "<span class='notice'>[icon2html(O.icon, world, O.icon_state)] [stuff_to_display]</span>")
 	if(assembly)
 		assembly.investigate_log("displayed \"[html_encode(stuff_to_display)]\" with [type].", INVESTIGATE_CIRCUIT)
@@ -67,6 +66,7 @@
 	desc = "A basic light which can be toggled on/off when pulsed."
 	icon_state = "light"
 	complexity = 4
+	max_allowed = 4
 	inputs = list()
 	outputs = list()
 	activators = list("toggle light" = IC_PINTYPE_PULSE_IN)
@@ -130,6 +130,7 @@
 		"volume" = IC_PINTYPE_NUMBER,
 		"frequency" = IC_PINTYPE_BOOLEAN
 	)
+	max_allowed = 5
 	outputs = list()
 	activators = list("play sound" = IC_PINTYPE_PULSE_IN)
 	power_draw_per_use = 10
@@ -324,6 +325,7 @@
 	desc = "RGB LED. Takes a boolean value in, and if the boolean value is 'true-equivalent', the LED will be marked as lit on examine."
 	extended_desc = "TRUE-equivalent values are: Non-empty strings, non-zero numbers, and valid refs."
 	complexity = 0.1
+	max_allowed = 4
 	icon_state = "led"
 	inputs = list(
 		"lit" = IC_PINTYPE_BOOLEAN,

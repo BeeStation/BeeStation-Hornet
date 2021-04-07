@@ -29,7 +29,7 @@
 		return
 	if(iscarbon(hit_atom))
 		var/mob/living/carbon/H = hit_atom
-		if(istype(H.head, /obj/item/clothing))
+		if(isclothing(H.head))
 			var/obj/item/clothing/WH = H.head
 			///check if the item has NODROP
 			if(HAS_TRAIT(WH, TRAIT_NODROP))
@@ -45,7 +45,7 @@
 			///if the hat manages to knock something off
 			if(H.dropItemToGround(WH))
 				H.visible_message("<span class='warning'>[src] knocks [WH] off [H]'s head!</span>", "<span class='warning'>[WH] is suddenly knocked off your head by [src]!</span>")		
-		if(H.equip_to_slot_if_possible(src, SLOT_HEAD, 0, 1, 1))
+		if(H.equip_to_slot_if_possible(src, ITEM_SLOT_HEAD, 0, 1, 1))
 			H.visible_message("<span class='notice'>[src] lands neatly on [H]'s head!</span>", "<span class='notice'>[src] lands perfectly onto your head!</span>")
 		return
 	if(iscyborg(hit_atom))

@@ -150,7 +150,7 @@
 
 /obj/item/stand_arrow/proc/pick_name(mob/living/simple_animal/hostile/guardian/G)
 	set waitfor = FALSE
-	var/new_name = input("Set your name!", "Guardian Name") as text|null
+	var/new_name = capped_input(usr, "Set your name!", "Guardian Name", max_length=MAX_NAME_LEN)
 	if(new_name)
 		if(G.mind)
 			G.mind.name = new_name
@@ -178,9 +178,9 @@
 		users[G] = TRUE
 		log_game("[key_name(H)] has summoned [key_name(G)], a holoparasite, via the stand arrow.")
 		to_chat(H, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been summoned!</span>")
-		H.verbs += /mob/living/proc/guardian_comm
-		H.verbs += /mob/living/proc/guardian_recall
-		H.verbs += /mob/living/proc/guardian_reset
+		H.add_verb(/mob/living/proc/guardian_comm)
+		H.add_verb(/mob/living/proc/guardian_recall)
+		H.add_verb(/mob/living/proc/guardian_reset)
 		uses--
 		in_use = FALSE
 		H.visible_message("<span class='danger bold'>\The [src] falls out of [H]!</span>")

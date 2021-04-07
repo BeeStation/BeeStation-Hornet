@@ -154,6 +154,32 @@
 	else
 		airlock.abandoned = TRUE
 
+//APC helpers
+/obj/effect/mapping_helpers/apc
+
+/obj/effect/mapping_helpers/apc/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		log_mapping("[src] spawned outside of mapload!")
+		return
+	var/obj/machinery/power/apc/apc = locate(/obj/machinery/power/apc) in loc
+	if(!apc)
+		log_mapping("[src] failed to find an APC at [AREACOORD(src)]")
+	else
+		payload(apc)
+
+/obj/effect/mapping_helpers/apc/proc/payload(obj/machinery/power/apc/payload)
+	return
+
+/obj/effect/mapping_helpers/apc/discharged
+	name = "apc zero change helper"
+	icon_state = "apc_nopower"
+
+/obj/effect/mapping_helpers/apc/discharged/payload(obj/machinery/power/apc/apc)
+	var/obj/item/stock_parts/cell/C = apc.get_cell()
+	C.charge = 0
+	C.update_icon()
+
 
 //needs to do its thing before spawn_rivers() is called
 INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)

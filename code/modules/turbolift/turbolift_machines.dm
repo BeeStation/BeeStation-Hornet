@@ -277,14 +277,14 @@ GLOBAL_LIST_EMPTY(turbolifts)
 			var/obj/docking_port/stationary/turbolift/dest = SSshuttle.getDock(destID)
 
 			if(!dest)
-				warning("This code shouldnt ever run, a turbolift has attempted to go to a dock with id [destID] but none were found")
+				warning("This code shouldn't ever run, a turbolift has attempted to go to a dock with id [destID] but none were found")
 				return //shouldnt ever get to this point but w/e
 
 			if(dest.z == src.z)
-				return //this normally shouldnt run either but out of date interfaces might get here
+				return //this normally shouldn't run either but out of date interfaces might get here
 
 			if(dest.id in destination_queue)
-				return //again shouldnt ever run but out of date interfaces
+				return //again shouldn't ever run but out of date interfaces
 			destination_queue += dest.id
 
 			. = TRUE //we have an update now
@@ -292,9 +292,12 @@ GLOBAL_LIST_EMPTY(turbolifts)
 			if(online)
 				START_PROCESSING(SSmachines, src)
 
-/obj/machinery/computer/turbolift/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, \
-												datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-  ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/turbolift/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/turbolift/ui_interact(mob/user, datum/tgui/ui)
+  ui = SStgui.try_update_ui(user, src, ui)
   if(!ui)
-    ui = new(user, src, ui_key, "TurboLift", name, 300, 300, master_ui, state)
+    ui = new(user, src, "TurboLift")
     ui.open()

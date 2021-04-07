@@ -248,7 +248,7 @@ Slimecrossing Items
 	icon_state = "frozen"
 	density = TRUE
 	max_integrity = 100
-	armor = list("melee" = 30, "bullet" = 50, "laser" = -50, "energy" = -50, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = -80, "acid" = 30)
+	armor = list("melee" = 30, "bullet" = 50, "laser" = -50, "energy" = -50, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = -80, "acid" = 30, "stamina" = 0)
 
 /obj/structure/ice_stasis/Initialize()
 	. = ..()
@@ -308,3 +308,25 @@ Slimecrossing Items
 /obj/item/capturedevice/proc/release()
 	for(var/atom/movable/M in contents)
 		M.forceMove(get_turf(loc))
+
+/obj/item/cerulean_slime_crystal
+	name = "Cerulean slime poly-crystal"
+	desc = "Translucent and irregular, it can duplicate matter on a whim"
+	icon = 'icons/obj/slimecrossing.dmi'
+	icon_state = "cerulean_item_crystal"
+	var/amt = 0
+
+/obj/item/cerulean_slime_crystal/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!istype(target,/obj/item/stack) || !istype(user,/mob/living/carbon) || !proximity_flag)
+		return
+	var/obj/item/stack/stack_item = target
+
+	if(istype(stack_item,/obj/item/stack/telecrystal))
+		to_chat(user,"<span class='notice'>The crystal disappears!</span>")
+		qdel(src)
+		return
+
+	stack_item.add(amt)
+
+	qdel(src)

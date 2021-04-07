@@ -59,6 +59,9 @@
 	LoadMOTD()
 	LoadChatFilter()
 
+	if (Master)
+		Master.OnConfigLoad()
+
 /datum/controller/configuration/proc/full_wipe()
 	if(IsAdminAdvancedProcCall())
 		return
@@ -190,9 +193,17 @@
 	return !(var_name in banned_edits) && ..()
 
 /datum/controller/configuration/stat_entry()
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Edit", src)
-	stat("[name]:", statclick)
+	var/list/tab_data = list()
+	tab_data["[name]"] = list(
+		text="Edit",
+		action = "statClickDebug",
+		params=list(
+			"targetRef" = REF(src),
+			"class"="config",
+		),
+		type=STAT_BUTTON,
+	)
+	return tab_data
 
 /datum/controller/configuration/proc/Get(entry_type)
 	var/datum/config_entry/E = entry_type
@@ -428,6 +439,4 @@
 		in_character_filter += REGEX_QUOTE(line)
 
 	ic_filter_regex = in_character_filter.len ? regex("\\b([jointext(in_character_filter, "|")])\\b", "i") : null
-
-	syncChatRegexes()
 

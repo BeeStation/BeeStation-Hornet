@@ -53,7 +53,7 @@
 		if(changeling)
 			changeling.regenerate()
 			hud_used.lingchemdisplay.invisibility = 0
-			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(changeling.chem_charges)]</font></div>"
+			hud_used.lingchemdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(changeling.chem_charges)]</font></div>")
 		else
 			hud_used.lingchemdisplay.invisibility = INVISIBILITY_ABSTRACT
 
@@ -167,7 +167,7 @@
 		adjustOxyLoss(1)
 
 		failed_last_breath = 1
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		return 0
 
 	var/safe_oxy_min = 16
@@ -195,7 +195,7 @@
 		else
 			adjustOxyLoss(3)
 			failed_last_breath = 1
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		failed_last_breath = 0
@@ -226,7 +226,7 @@
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (breath.get_moles(/datum/gas/plasma)/safe_tox_max) * 10
 		adjustToxLoss(CLAMP(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
+		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 
@@ -315,7 +315,7 @@
 
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
 	if(internal)
-		if(internal.loc != src)
+		if(internal.loc != src && !(wear_mask.clothing_flags & MASKEXTENDRANGE)) // If the mask has extended range, do not check for internal.loc
 			internal = null
 			update_internals_hud_icon(0)
 		else if ((!wear_mask || !(wear_mask.clothing_flags & MASKINTERNALS)) && !getorganslot(ORGAN_SLOT_BREATHING_TUBE))
@@ -336,10 +336,25 @@
 		stam_regen = TRUE
 		if(stam_paralyzed)
 			. |= BODYPART_LIFE_UPDATE_HEALTH //make sure we remove the stamcrit
-	for(var/I in bodyparts)
-		var/obj/item/bodypart/BP = I
+	var/bodyparts_with_stam = 0
+	var/stam_heal_multiplier = 1
+	var/total_stamina_loss = 0	//Quicker to put it here too than do it again with getStaminaLoss
+	var/force_heal = 0
+	//Find how many bodyparts we have with stamina damage
+	if(stam_regen)
+		for(var/obj/item/bodypart/BP as anything in bodyparts)
+			if(BP.stamina_dam > DAMAGE_PRECISION)
+				bodyparts_with_stam ++
+				total_stamina_loss += BP.stamina_dam * BP.stam_damage_coeff
+		//Force bodyparts to heal if we have more than 120 stamina damage (6 seconds)
+		force_heal = max(0, total_stamina_loss - 120) / max(bodyparts_with_stam, 1)
+	//Increase damage the more stam damage
+	//Incraesed stamina healing when above 50 stamloss, up to 2x healing rate when at 100 stamloss.
+	stam_heal_multiplier = CLAMP(total_stamina_loss / 50, 1, 2)
+	//Heal bodypart stamina damage
+	for(var/obj/item/bodypart/BP as() in bodyparts)
 		if(BP.needs_processing)
-			. |= BP.on_life(stam_regen)
+			. |= BP.on_life(force_heal + ((stam_regen * stam_heal * stam_heal_multiplier) / max(bodyparts_with_stam, 1)))
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in diseases)
@@ -551,16 +566,16 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		if(drunkenness >= 81)
 			adjustToxLoss(1)
 			if(prob(5) && !stat)
-				to_chat(src, "<span class='warning'>Maybe you should lie down for a bit...</span>")
+				to_chat(src, "<span class='warning'>Maybe you should lie down for a bit.</span>")
 
 		if(drunkenness >= 91)
 			adjustToxLoss(1)
 			adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.4)
 			if(prob(20) && !stat)
 				if(SSshuttle.emergency.mode == SHUTTLE_DOCKED && is_station_level(z)) //QoL mainly
-					to_chat(src, "<span class='warning'>You're so tired... but you can't miss that shuttle...</span>")
+					to_chat(src, "<span class='warning'>You're so tired, but you can't miss that shuttle.</span>")
 				else
-					to_chat(src, "<span class='warning'>Just a quick nap...</span>")
+					to_chat(src, "<span class='warning'>Just a quick nap.</span>")
 					Sleeping(900)
 
 		if(drunkenness >= 101)

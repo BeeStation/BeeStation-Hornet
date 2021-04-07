@@ -5,7 +5,7 @@
 //Modified IA/changeling pinpointer, points to the nearest person who is afflicted with the hive tracker status effect
 /datum/status_effect/agent_pinpointer/hivemind
 	id = "hive_pinpointer"
-	alert_type = /obj/screen/alert/status_effect/agent_pinpointer/hivemind
+	alert_type = /atom/movable/screen/alert/status_effect/agent_pinpointer/hivemind
 	minimum_range = HIVEMIND_RADAR_MIN_DISTANCE
 	tick_interval = HIVEMIND_RADAR_PING_TIME
 	range_fuzz_factor = 0
@@ -50,7 +50,7 @@
 	else
 		scan_target = null
 	if(!trackable_targets_exist)
-		to_chat(owner, "<span class='assimilator'>The psychic energies eminating from afar have died down... for now</span>")
+		to_chat(owner, "<span class='assimilator'>The psychic energies eminating from afar have died down... for now.</span>")
 		owner.remove_status_effect(STATUS_EFFECT_HIVE_RADAR)
 
 //"Trackable" status effect
@@ -69,6 +69,6 @@
 			duration = world.time + set_duration
 
 //Screen alert
-/obj/screen/alert/status_effect/agent_pinpointer/hivemind
+/atom/movable/screen/alert/status_effect/agent_pinpointer/hivemind
 	name = "Psychic link"
 	desc = "Somebody is there, and they're definitely not friendly."

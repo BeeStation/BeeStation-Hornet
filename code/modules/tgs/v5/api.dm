@@ -15,8 +15,12 @@
 	var/datum/tgs_revision_information/revision
 	var/list/chat_channels
 
+	var/initialized = FALSE
+
 /datum/tgs_api/v5/ApiVersion()
-	return new /datum/tgs_version("5.2.0")
+	return new /datum/tgs_version(
+		#include "interop_version.dm"
+	)
 
 /datum/tgs_api/v5/OnWorldNew(minimum_required_security_level)
 	server_port = world.params[DMAPI5_PARAM_SERVER_PORT]
@@ -46,6 +50,7 @@
 	if(istype(revisionData))
 		revision = new
 		revision.commit = revisionData[DMAPI5_REVISION_INFORMATION_COMMIT_SHA]
+		revision.timestamp = revisionData[DMAPI5_REVISION_INFORMATION_TIMESTAMP]
 		revision.origin_commit = revisionData[DMAPI5_REVISION_INFORMATION_ORIGIN_COMMIT_SHA]
 	else
 		TGS_ERROR_LOG("Failed to decode [DMAPI5_RUNTIME_INFORMATION_REVISION] from runtime information!")
@@ -61,15 +66,18 @@
 			if(revInfo)
 				tm.commit = revisionData[DMAPI5_REVISION_INFORMATION_COMMIT_SHA]
 				tm.origin_commit = revisionData[DMAPI5_REVISION_INFORMATION_ORIGIN_COMMIT_SHA]
+				tm.timestamp = entry[DMAPI5_REVISION_INFORMATION_TIMESTAMP]
 			else
 				TGS_WARNING_LOG("Failed to decode [DMAPI5_TEST_MERGE_REVISION] from test merge #[tm.number]!")
 
-			tm.time_merged = text2num(entry[DMAPI5_TEST_MERGE_TIME_MERGED])
+			if(!tm.timestamp)
+				tm.timestamp = entry[DMAPI5_TEST_MERGE_TIME_MERGED]
+
 			tm.title = entry[DMAPI5_TEST_MERGE_TITLE_AT_MERGE]
 			tm.body = entry[DMAPI5_TEST_MERGE_BODY_AT_MERGE]
 			tm.url = entry[DMAPI5_TEST_MERGE_URL]
 			tm.author = entry[DMAPI5_TEST_MERGE_AUTHOR]
-			tm.pull_request_commit = entry[DMAPI5_TEST_MERGE_PULL_REQUEST_REVISION]
+			tm.head_commit = entry[DMAPI5_TEST_MERGE_PULL_REQUEST_REVISION]
 			tm.comment = entry[DMAPI5_TEST_MERGE_COMMENT]
 
 			test_merges += tm
@@ -79,6 +87,7 @@
 	chat_channels = list()
 	DecodeChannels(runtime_information)
 
+	initialized = TRUE
 	return TRUE
 
 /datum/tgs_api/v5/proc/RequireInitialBridgeResponse()
@@ -87,13 +96,6 @@
 
 /datum/tgs_api/v5/OnInitializationComplete()
 	Bridge(DMAPI5_BRIDGE_COMMAND_PRIME)
-
-	var/tgs4_secret_sleep_offline_sauce = 29051994
-	var/old_sleep_offline = world.sleep_offline
-	world.sleep_offline = tgs4_secret_sleep_offline_sauce
-	sleep(1)
-	if(world.sleep_offline == tgs4_secret_sleep_offline_sauce)	//if not someone changed it
-		world.sleep_offline = old_sleep_offline
 
 /datum/tgs_api/v5/proc/TopicResponse(error_message = null)
 	var/list/response = list()
@@ -105,18 +107,22 @@
 	var/list/params = params2list(T)
 	var/json = params[DMAPI5_TOPIC_DATA]
 	if(!json)
-		return FALSE	//continue world/Topic
+		return FALSE // continue to /world/Topic
 
 	var/list/topic_parameters = json_decode(json)
 	if(!topic_parameters)
 		return TopicResponse("Invalid topic parameters json!");
+
+	if(!initialized)
+		TGS_WARNING_LOG("Missed topic due to not being initialized: [T]")
+		return TRUE // too early to handle, but it's still our responsibility
 
 	var/their_sCK = topic_parameters[DMAPI5_PARAMETER_ACCESS_IDENTIFIER]
 	if(their_sCK != access_identifier)
 		return TopicResponse("Failed to decode [DMAPI5_PARAMETER_ACCESS_IDENTIFIER] from: [json]!");
 
 	var/command = topic_parameters[DMAPI5_TOPIC_PARAMETER_COMMAND_TYPE]
-	if(!isnum_safe(command))
+	if(!isnum(command))
 		return TopicResponse("Failed to decode [DMAPI5_TOPIC_PARAMETER_COMMAND_TYPE] from: [json]!")
 
 	switch(command)
@@ -132,7 +138,7 @@
 				return TopicResponse("Invalid [DMAPI5_TOPIC_PARAMETER_EVENT_NOTIFICATION]!")
 
 			var/event_type = event_notification[DMAPI5_EVENT_NOTIFICATION_TYPE]
-			if(!isnum_safe(event_type))
+			if(!isnum(event_type))
 				return TopicResponse("Invalid or missing [DMAPI5_EVENT_NOTIFICATION_TYPE]!")
 
 			var/list/event_parameters = event_notification[DMAPI5_EVENT_NOTIFICATION_PARAMETERS]
@@ -152,7 +158,7 @@
 			return json_encode(response)
 		if(DMAPI5_TOPIC_COMMAND_CHANGE_PORT)
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
-			if (!isnum_safe(new_port) || !(new_port > 0))
+			if (!isnum(new_port) || !(new_port > 0))
 				return TopicResponse("Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]")
 
 			if(event_handler != null)
@@ -166,7 +172,7 @@
 			return TopicResponse()
 		if(DMAPI5_TOPIC_COMMAND_CHANGE_REBOOT_STATE)
 			var/new_reboot_mode = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_REBOOT_STATE]
-			if(!isnum_safe(new_reboot_mode))
+			if(!isnum(new_reboot_mode))
 				return TopicResponse("Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_REBOOT_STATE]!")
 
 			if(event_handler != null)
@@ -193,7 +199,7 @@
 			return TopicResponse()
 		if(DMAPI5_TOPIC_COMMAND_SERVER_PORT_UPDATE)
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
-			if (!isnum_safe(new_port) || !(new_port > 0))
+			if (!isnum(new_port) || !(new_port > 0))
 				return TopicResponse("Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]")
 
 			server_port = new_port
@@ -204,7 +210,7 @@
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
 			var/error_message = null
 			if (new_port != null)
-				if (!isnum_safe(new_port) || !(new_port > 0))
+				if (!isnum(new_port) || !(new_port > 0))
 					error_message = "Invalid [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]"
 				else
 					server_port = new_port
@@ -233,17 +239,15 @@
 	data[DMAPI5_PARAMETER_ACCESS_IDENTIFIER] = access_identifier
 
 	var/json = json_encode(data)
-	var/encoded_json = rustg_url_encode(json)
+	var/encoded_json = url_encode(json)
 
 	// This is an infinite sleep until we get a response
-	var/datum/http_request/export_response = new()
-	export_response = export_response.get_request("http://127.0.0.1:[server_port]/Bridge?[DMAPI5_BRIDGE_DATA]=[encoded_json]")
-
+	var/export_response = world.Export("http://127.0.0.1:[server_port]/Bridge?[DMAPI5_BRIDGE_DATA]=[encoded_json]")
 	if(!export_response)
 		TGS_ERROR_LOG("Failed export request: [json]")
 		return
 
-	var/response_json = export_response.body
+	var/response_json = file2text(export_response["CONTENT"])
 	if(!response_json)
 		TGS_ERROR_LOG("Failed export request, missing content!")
 		return
@@ -268,8 +272,8 @@
 	//okay so the standard TGS4 proceedure is: right before rebooting change the port to whatever was sent to us in the above json's data parameter
 
 	var/port = result[DMAPI5_BRIDGE_RESPONSE_NEW_PORT]
-	if(!isnum_safe(port))
-		return	//this is valid, server may just want use to reboot
+	if(!isnum(port))
+		return //this is valid, server may just want use to reboot
 
 	if(port == 0)
 		//to byond 0 means any port and "none" means close vOv
@@ -284,7 +288,7 @@
 
 /datum/tgs_api/v5/TestMerges()
 	RequireInitialBridgeResponse()
-	return test_merges
+	return test_merges.Copy()
 
 /datum/tgs_api/v5/EndProcess()
 	Bridge(DMAPI5_BRIDGE_COMMAND_KILL)
@@ -329,7 +333,7 @@
 
 /datum/tgs_api/v5/ChatChannelInfo()
 	RequireInitialBridgeResponse()
-	return chat_channels
+	return chat_channels.Copy()
 
 /datum/tgs_api/v5/proc/DecodeChannels(chat_update_json)
 	var/list/chat_channels_json = chat_update_json[DMAPI5_CHAT_UPDATE_CHANNELS]
@@ -355,30 +359,3 @@
 /datum/tgs_api/v5/SecurityLevel()
 	RequireInitialBridgeResponse()
 	return security_level
-
-/*
-The MIT License
-
-Copyright (c) 2020 Jordan Brown
-
-Permission is hereby granted, free of charge,
-to any person obtaining a copy of this software and
-associated documentation files (the "Software"), to
-deal in the Software without restriction, including
-without limitation the rights to use, copy, modify,
-merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom
-the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice
-shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
-ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/

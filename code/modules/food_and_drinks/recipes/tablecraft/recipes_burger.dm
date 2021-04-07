@@ -368,3 +368,17 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/burger/chicken
 	subcategory = CAT_BURGER
+
+/datum/crafting_recipe/food/crazyhamburger
+	name = "Crazy Hamburger"
+	reqs = list(
+			/obj/item/reagent_containers/food/snacks/meat/steak/plain = 1,   // we have no horse meat sadly
+			/obj/item/reagent_containers/food/snacks/grown/chili = 2,
+			/datum/reagent/consumable/cooking_oil = 20,
+			/obj/item/reagent_containers/food/snacks/grown/nettle/death = 2, // closest thing to "grass of death"
+			/obj/item/reagent_containers/food/snacks/cheesewedge = 4,
+			/obj/item/reagent_containers/food/snacks/bun = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/burger/crazy
+	subcategory = CAT_BURGER
+

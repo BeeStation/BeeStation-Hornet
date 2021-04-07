@@ -13,6 +13,9 @@
 	var/last_man_standing = FALSE
 	var/list/datum/mind/targets_stolen
 
+/datum/antagonist/traitor/internal_affairs/New()
+	..()
+	targets_stolen = list()
 
 /datum/antagonist/traitor/internal_affairs/proc/give_pinpointer()
 	if(owner?.current)
@@ -42,14 +45,14 @@
 	id = "agent_pinpointer"
 	duration = -1
 	tick_interval = PINPOINTER_PING_TIME
-	alert_type = /obj/screen/alert/status_effect/agent_pinpointer
+	alert_type = /atom/movable/screen/alert/status_effect/agent_pinpointer
 	var/minimum_range = PINPOINTER_MINIMUM_RANGE
 	var/range_fuzz_factor = PINPOINTER_EXTRA_RANDOM_RANGE
 	var/mob/scan_target = null
 	var/range_mid = 8
 	var/range_far = 16
 
-/obj/screen/alert/status_effect/agent_pinpointer
+/atom/movable/screen/alert/status_effect/agent_pinpointer
 	name = "Internal Affairs Integrated Pinpointer"
 	desc = "Even stealthier than a normal implant."
 	icon = 'icons/obj/device.dmi'
@@ -248,6 +251,9 @@
 
 	to_chat(owner.current, "<span class='userdanger'>Finally, watch your back. Your target has friends in high places, and intel suggests someone may have taken out a contract of their own to protect them.</span>")
 	owner.announce_objectives()
+	owner.current.client?.tgui_panel?.give_antagonist_popup("[syndicate ? "External Affairs" : "Internal Affairs"]",
+		"[syndicate?"Eliminate your target and cause as much damage to Nanotrasen property as you see fit."\
+		: "Eliminate your target without drawing too much attention to yourself, but watch your back since somebody is after you."]")
 
 /datum/antagonist/traitor/internal_affairs/greet()
 	greet_iaa()

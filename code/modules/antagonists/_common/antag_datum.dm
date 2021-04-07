@@ -27,15 +27,19 @@ GLOBAL_LIST(admin_antag_list)
 	var/show_name_in_check_antagonists = FALSE //Will append antagonist name in admin listings - use for categories that share more than one antag type
 	var/show_to_ghosts = FALSE // Should this antagonist be shown as antag to ghosts? Shouldn't be used for stealthy antagonists like traitors
 
-/datum/antagonist/proc/show_tips(file)
+/datum/antagonist/proc/show_tips(fileid)
 	if(!owner || !owner.current || !owner.current.client)
 		return
 	var/datum/asset/stuff = get_asset_datum(/datum/asset/simple/bee_antags)
 	stuff.send(owner.current.client)
 	var/datum/browser/popup = new(owner.current, "antagTips", null, 600, 400)
 	popup.set_window_options("titlebar=1;can_minimize=0;can_resize=0")
-	popup.set_content(rustg_file_read(file))
+	//Replaces traitor.png with the appropriate hashed url
+	popup.set_content(replacetext(rustg_file_read("html/antagtips/[html_encode(fileid)].html"), regex("\\w*.png", "gm"), /datum/antagonist/proc/get_asset_url_from))
 	popup.open(FALSE)
+
+/datum/antagonist/proc/get_asset_url_from(match)
+	return SSassets.transport.get_asset_url(match)
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -63,9 +67,15 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/specialization(datum/mind/new_owner)
 	return src
 
+///Called by the transfer_to() mind proc after the mind (mind.current and new_character.mind) has moved but before the player (key and client) is transfered.
 /datum/antagonist/proc/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	SHOULD_CALL_PARENT(TRUE)
 	remove_innate_effects(old_body)
+	if(old_body.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
+		old_body.remove_from_current_living_antags()
 	apply_innate_effects(new_body)
+	if(new_body.stat != DEAD)
+		new_body.add_to_current_living_antags()
 
 //This handles the application of antag huds/special abilities
 /datum/antagonist/proc/apply_innate_effects(mob/living/mob_override)
@@ -79,18 +89,24 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/create_team(datum/team/team)
 	return
 
-//Proc called when the datum is given to a mind.
+///Called by the add_antag_datum() mind proc after the instanced datum is added to the mind's antag_datums list.
 /datum/antagonist/proc/on_gain()
-	if(owner?.current)
-		if(!silent && tips)
-			show_tips(tips)
-		greet()
-		apply_innate_effects()
-		give_antag_moodies()
-		if(is_banned(owner.current) && replace_banned)
-			replace_banned_player()
-		else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.toggles & DEADMIN_ANTAGONIST))
-			owner.current.client.holder.auto_deadmin()
+	SHOULD_CALL_PARENT(TRUE)
+	if(!owner)
+		CRASH("[src] ran on_gain() without a mind")
+	if(!owner.current)
+		CRASH("[src] ran on_gain() on a mind without a mob")
+	if(!silent && tips)
+		show_tips(tips)
+	greet()
+	apply_innate_effects()
+	give_antag_moodies()
+	if(is_banned(owner.current) && replace_banned)
+		replace_banned_player()
+	else if(owner.current.client?.holder && (CONFIG_GET(flag/auto_deadmin_antagonists) || owner.current.client.prefs?.toggles & DEADMIN_ANTAGONIST))
+		owner.current.client.holder.auto_deadmin()
+	if(owner.current.stat != DEAD)
+		owner.current.add_to_current_living_antags()
 
 /datum/antagonist/proc/is_banned(mob/M)
 	if(!M)
@@ -108,11 +124,15 @@ GLOBAL_LIST(admin_antag_list)
 		owner.current.ghostize(0)
 		owner.current.key = C.key
 
+///Called by the remove_antag_datum() and remove_all_antag_datums() mind procs for the antag datum to handle its own removal and deletion.
 /datum/antagonist/proc/on_removal()
+	SHOULD_CALL_PARENT(TRUE)
 	remove_innate_effects()
 	clear_antag_moodies()
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
+		if(!LAZYLEN(owner.antag_datums))
+			owner.current.remove_from_current_living_antags()
 		if(!silent && owner.current)
 			farewell()
 	var/datum/team/team = get_team()
@@ -240,7 +260,7 @@ GLOBAL_LIST(admin_antag_list)
 	show_name_in_check_antagonists = TRUE //They're all different
 	var/datum/team/custom_team
 
-datum/antagonist/custom/create_team(datum/team/team)
+/datum/antagonist/custom/create_team(datum/team/team)
 	custom_team = team
 
 /datum/antagonist/custom/get_team()

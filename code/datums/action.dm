@@ -9,7 +9,7 @@
 	var/obj/target = null
 	var/check_flags = NONE
 	var/processing = FALSE
-	var/obj/screen/movable/action_button/button = null
+	var/atom/movable/screen/movable/action_button/button = null
 	var/buttontooltipstyle = ""
 	var/transparent_when_unavailable = TRUE
 
@@ -70,6 +70,9 @@
 			M.client.screen += button
 			button.locked = M.client.prefs.buttons_locked || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
 			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
+			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
+			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
+				M.client.images += spell_proc_holder.text_overlay
 		M.update_action_buttons()
 	else
 		Remove(owner)
@@ -91,9 +94,6 @@
 	if(SEND_SIGNAL(src, COMSIG_ACTION_TRIGGER, src) & COMPONENT_ACTION_BLOCK_TRIGGER)
 		return FALSE
 	return TRUE
-
-/datum/action/proc/Process()
-	return
 
 /datum/action/proc/IsAvailable()
 	if(!owner)
@@ -141,7 +141,7 @@
 			button.color = rgb(255,255,255,255)
 			return 1
 
-/datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button, force = FALSE)
+/datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
 		current_button.cut_overlays(TRUE)
 		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
@@ -175,7 +175,7 @@
 		I.ui_action_click(owner, src)
 	return 1
 
-/datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button, force)
+/datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	if(button_icon && button_icon_state)
 		// If set, use the custom icon that we set instead
 		// of the item appearence
@@ -343,6 +343,21 @@
 /datum/action/item_action/toggle_helmet_mode
 	name = "Toggle Helmet Mode"
 
+/datum/action/item_action/toggle_beacon
+	name = "Toggle Hardsuit Locator Beacon"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "toggle-transmission"
+
+/datum/action/item_action/toggle_beacon_hud
+	name = "Toggle Hardsuit Locator HUD"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "toggle-hud"
+
+/datum/action/item_action/toggle_beacon_frequency
+	name = "Toggle Hardsuit Locator Frequency"
+	icon_icon = 'icons/mob/actions.dmi'
+	button_icon_state = "change-code"
+
 /datum/action/item_action/crew_monitor
 	name = "Interface With Crew Monitor"
 
@@ -493,7 +508,7 @@
 			H.attack_self(owner)
 			return
 	var/obj/item/I = target
-	if(owner.can_equip(I, SLOT_HANDS))
+	if(owner.can_equip(I, ITEM_SLOT_HANDS))
 		owner.temporarilyRemoveItemFromInventory(I)
 		owner.put_in_hands(I)
 		I.attack_self(owner)
@@ -511,10 +526,9 @@
 	background_icon_state = "bg_agent"
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "deploy_box"
-	///Cooldown between deploys. Uses world.time
-	var/cooldown = 0
 	///The type of closet this action spawns.
 	var/boxtype = /obj/structure/closet/cardboard/agent
+	COOLDOWN_DECLARE(box_cooldown)
 
 ///Handles opening and closing the box.
 /datum/action/item_action/agent_box/Trigger()
@@ -530,11 +544,12 @@
 	if(!isturf(owner.loc)) //Don't let the player use this to escape mechs/welded closets.
 		to_chat(owner, "<span class = 'notice'>You need more space to activate this implant.</span>")
 		return
-	if(cooldown < world.time - 100)
-		var/box = new boxtype(owner.drop_location())
-		owner.forceMove(box)
-		cooldown = world.time
-		owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
+	if(!COOLDOWN_FINISHED(src, box_cooldown))
+		return
+	COOLDOWN_START(src, box_cooldown, 10 SECONDS)
+	var/box = new boxtype(owner.drop_location())
+	owner.forceMove(box)
+	owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)
 
 //Preset for spells
 /datum/action/spell_action
@@ -633,21 +648,21 @@
 
 /datum/action/cooldown/proc/StartCooldown()
 	next_use_time = world.time + cooldown_time
-	button.maptext = "<b>[round(cooldown_time/10, 0.1)]</b>"
+	button.maptext = MAPTEXT("<b>[round(cooldown_time/10, 0.1)]</b>")
 	UpdateButtonIcon()
 	START_PROCESSING(SSfastprocess, src)
 
 /datum/action/cooldown/process()
 	if(!owner)
 		button.maptext = ""
-		STOP_PROCESSING(SSfastprocess, src)
+		return PROCESS_KILL
 	var/timeleft = max(next_use_time - world.time, 0)
 	if(timeleft == 0)
 		button.maptext = ""
 		UpdateButtonIcon()
-		STOP_PROCESSING(SSfastprocess, src)
+		return PROCESS_KILL
 	else
-		button.maptext = "<b>[round(timeleft/10, 0.1)]</b>"
+		button.maptext = MAPTEXT("<b>[round(timeleft/10, 0.1)]</b>")
 
 /datum/action/cooldown/Grant(mob/M)
 	..()
@@ -670,12 +685,6 @@
 	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "jetboot"
-
-/datum/action/item_action/bhop/apid
-	name = "Apid Dash"
-	desc = "Uses your wings to dash forward 6 tiles."
-	icon_icon = 'icons/mob/neck.dmi'
-	button_icon_state = "apid_wings"
 
 /datum/action/language_menu
 	name = "Language Menu"
@@ -759,7 +768,7 @@
 	icon_icon = 'icons/mob/actions/actions_items.dmi'
 	button_icon_state = "storage_gather_switch"
 
-/datum/action/item_action/storage_gather_mode/ApplyIcon(obj/screen/movable/action_button/current_button)
+/datum/action/item_action/storage_gather_mode/ApplyIcon(atom/movable/screen/movable/action_button/current_button)
 	. = ..()
 	var/old_layer = target.layer
 	var/old_plane = target.plane

@@ -14,7 +14,7 @@
 /obj/item/clothing/under/cluwne/equipped(mob/living/carbon/user, slot)
     if(!ishuman(user))
         return
-    if(slot == SLOT_W_UNIFORM)
+    if(slot == ITEM_SLOT_ICLOTHING)
         var/mob/living/carbon/human/H = user
         H.dna.add_mutation(CLUWNEMUT)
     return ..()

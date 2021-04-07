@@ -78,7 +78,7 @@
 	"<span class='notify'>     - Interacting with non-living beings (dragging bodies, looting bodies, etc.)</span>\n"+\
 	"<span class='warning'>These rules are at admin discretion and will be heavily enforced.</span>\n"+\
 	"<span class='warning'><u>If you do not have the regular drone laws, follow your laws to the best of your ability.</u></span>"
-	mobsay_color = "#8AB48C"
+	chat_color = "#8AB48C"
 
 /mob/living/simple_animal/drone/Initialize()
 	. = ..()
@@ -89,10 +89,10 @@
 
 	if(default_storage)
 		var/obj/item/I = new default_storage(src)
-		equip_to_slot_or_del(I, SLOT_GENERC_DEXTROUS_STORAGE)
+		equip_to_slot_or_del(I, ITEM_SLOT_DEX_STORAGE)
 	if(default_hatmask)
 		var/obj/item/I = new default_hatmask(src)
-		equip_to_slot_or_del(I, SLOT_HEAD)
+		equip_to_slot_or_del(I, ITEM_SLOT_HEAD)
 
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
@@ -194,7 +194,7 @@
 	. += "*---------*</span>"
 
 
-/mob/living/simple_animal/drone/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt maintenance drones.
+/mob/living/simple_animal/drone/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt maintenance drones.
 	return -10
 
 
@@ -249,9 +249,9 @@
 		return ..()
 
 /mob/living/simple_animal/drone/mob_negates_gravity()
-	return 1
+	return !isspaceturf(get_turf(src)) //We don't mimick gravity on space turfs
 
-/mob/living/simple_animal/drone/mob_has_gravity()
+/mob/living/simple_animal/drone/has_gravity(turf/T)
 	return ..() || mob_negates_gravity()
 
 /mob/living/simple_animal/drone/experience_pressure_difference(pressure_difference, direction)

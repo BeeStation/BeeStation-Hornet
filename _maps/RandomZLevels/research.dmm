@@ -4104,7 +4104,7 @@
 /area/awaymission/research/interior/maint)
 "hY" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,

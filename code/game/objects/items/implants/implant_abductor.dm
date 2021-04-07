@@ -5,22 +5,16 @@
 	icon_state = "implant"
 	activated = 1
 	var/obj/machinery/abductor/pad/home
-	var/cooldown = 30
+	COOLDOWN_DECLARE(abductor_implant_cooldown)
 
 /obj/item/implant/abductor/activate()
 	. = ..()
-	if(cooldown == initial(cooldown))
-		home.Retrieve(imp_in,1)
-		cooldown = 0
-		START_PROCESSING(SSobj, src)
-	else
-		to_chat(imp_in, "<span class='warning'>You must wait [30 - cooldown] seconds to use [src] again!</span>")
+	if(!COOLDOWN_FINISHED(src, abductor_implant_cooldown))
+		to_chat(imp_in, "<span class='warning'>You must wait [COOLDOWN_TIMELEFT(src, abductor_implant_cooldown)*0.1] seconds to use [src] again!</span>")
+		return
 
-/obj/item/implant/abductor/process()
-	if(cooldown < initial(cooldown))
-		cooldown++
-		if(cooldown == initial(cooldown))
-			STOP_PROCESSING(SSobj, src)
+	home.Retrieve(imp_in,1)
+	COOLDOWN_START(src, abductor_implant_cooldown, 60 SECONDS)
 
 /obj/item/implant/abductor/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	if(..())

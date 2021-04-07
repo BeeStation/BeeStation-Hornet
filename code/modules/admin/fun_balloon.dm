@@ -49,7 +49,7 @@
 
 /obj/effect/fun_balloon/sentience/effect()
 	var/list/bodies = list()
-	for(var/mob/living/M in range(effect_range, get_turf(src)))
+	for(var/mob/living/M in viewers(effect_range, get_turf(src)))
 		bodies += M
 
 	var/question = "Would you like to be [group_name]?"
@@ -79,7 +79,7 @@
 	var/effect_range = 5
 
 /obj/effect/fun_balloon/scatter/effect()
-	for(var/mob/living/M in range(effect_range, get_turf(src)))
+	for(var/mob/living/M in hearers(effect_range, get_turf(src)))
 		var/turf/T = find_safe_turf()
 		new /obj/effect/temp_visual/gravpush(get_turf(M))
 		M.forceMove(T)
@@ -108,7 +108,7 @@
 /obj/effect/forcefield/arena_shuttle
 	name = "portal"
 	timeleft = 0
-	var/list/warp_points
+	var/list/warp_points = list()
 
 /obj/effect/forcefield/arena_shuttle/Initialize()
 	. = ..()
@@ -137,7 +137,7 @@
 	desc = "For the winners."
 
 /obj/effect/landmark/shuttle_arena_entrance
-	name = "the arena"
+	name = "\proper the arena"
 	desc = "A lava filled battlefield."
 
 

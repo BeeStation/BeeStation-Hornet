@@ -22,14 +22,14 @@
 
 /obj/item/projectile/bullet/c38/trac/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	var/mob/living/carbon/M = target
-	var/obj/item/implant/tracking/c38/imp
-	for(var/obj/item/implant/tracking/c38/TI in M.implants) //checks if the target already contains a tracking implant
-		imp = TI
+	var/mob/living/M = target
+	if(!istype(M))
 		return
-	if(!imp)
-		imp = new /obj/item/implant/tracking/c38(M)
-		imp.implant(M)
+	if(locate(/obj/item/implant/tracking/c38) in M.implants) //checks if the target already contains a tracking implant
+		return
+	
+	var/obj/item/implant/tracking/c38/imp = new (M)
+	imp.implant(M)
 
 /obj/item/projectile/bullet/c38/hotshot //similar to incendiary bullets, but do not leave a flaming trail
 	name = ".38 Hot Shot bullet"
@@ -58,6 +58,7 @@
 	icon_state = null
 	damage = 0
 	nodamage = TRUE
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
@@ -67,7 +68,7 @@
 			M.apply_damage(5, BRUTE, CHEST, defense)
 			M.visible_message("<span class='danger'>A bullet wound appears in [M]'s chest!</span>", \
 							"<span class='userdanger'>You get hit with a .38 bullet from a finger gun! Those hurt!...</span>")
-		else 
+		else
 			to_chat(M, "<span class='userdanger'>You get shot with the finger gun!</span>")
 
 // .357 (Syndie Revolver)

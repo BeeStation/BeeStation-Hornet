@@ -9,7 +9,9 @@
 /datum/admins/proc/edit_admin_permissions(action, target, operation, page)
 	if(!check_rights(R_PERMISSIONS))
 		return
-	var/list/output = list("<link rel='stylesheet' type='text/css' href='panels.css'><a href='?_src_=holder;[HrefToken()];editrightsbrowser=1'>\[Permissions\]</a>")
+	var/datum/asset/asset_cache_datum = get_asset_datum(/datum/asset/group/permissions)
+	asset_cache_datum.send(usr)
+	var/list/output = list("<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url("panels.css")]'><a href='?_src_=holder;[HrefToken()];editrightsbrowser=1'>\[Permissions\]</a>")
 	if(action)
 		output += " | <a href='?_src_=holder;[HrefToken()];editrightsbrowserlog=1;editrightspage=0'>\[Log\]</a> | <a href='?_src_=holder;[HrefToken()];editrightsbrowsermanage=1'>\[Management\]</a><hr style='background:#000000; border:0; height:3px'>"
 	else
@@ -92,7 +94,7 @@
 		<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 		<title>Permissions Panel</title>
-		<script type='text/javascript' src='search.js'></script>
+		<script type='text/javascript' src='[SSassets.transport.get_asset_url("search.js")]'></script>
 		</head>
 		<body onload='selectTextField();updateSearch();'>
 		<div id='main'><table id='searchable' cellspacing='0'>
@@ -137,8 +139,8 @@
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='admin prefix'>Admin Edit blocked: Advanced ProcCall detected.</span>")
 		return
-	var/datum/asset/permissions_assets = get_asset_datum(/datum/asset/simple/permissions)
-	permissions_assets.send(src)
+	var/datum/asset/permissions_assets = get_asset_datum(/datum/asset/simple/namespaced/common)
+	permissions_assets.send(owner)
 	var/admin_key = href_list["key"]
 	var/admin_ckey = ckey(admin_key)
 	var/datum/admins/D = GLOB.admin_datums[admin_ckey]
@@ -208,7 +210,7 @@
 	if(admin_ckey)
 		. = admin_ckey
 	else
-		admin_key = input("New admin's key","Admin key") as text|null
+		admin_key = capped_input(usr, "New admin's key","Admin key")
 		. = ckey(admin_key)
 	if(!.)
 		return FALSE
@@ -307,7 +309,7 @@
 			rank_names[R.name] = R
 	var/new_rank = input("Please select a rank", "New rank") as null|anything in rank_names
 	if(new_rank == "*New Rank*")
-		new_rank = input("Please input a new rank", "New custom rank") as text|null
+		new_rank = capped_input(usr, "Please input a new rank", "New custom rank")
 	if(!new_rank)
 		return
 	R = rank_names[new_rank]
@@ -400,7 +402,7 @@
 		return
 	var/m1 = "[key_name_admin(usr)] edited the permissions of [use_db ? " rank [D.rank.name] permanently" : "[admin_key] temporarily"]"
 	var/m2 = "[key_name(usr)] edited the permissions of [use_db ? " rank [D.rank.name] permanently" : "[admin_key] temporarily"]"
-	if(use_db || legacy_only)
+	if(use_db && !legacy_only)
 		var/rank_name = D.rank.name
 		var/old_flags
 		var/old_exclude_flags

@@ -7,7 +7,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 	blob_allowed = FALSE //Should go without saying, no blobs should take over centcom as a win condition.
 	flags_1 = NONE
 
@@ -29,7 +29,7 @@
 /area/centcom/holding
 	name = "Holding Facility"
 
-/area/centcom/supplypod/flyMeToTheMoon
+/area/centcom/supplypod/supplypod_temp_holding
 	name = "Supplypod Shipping lane"
 	icon_state = "supplypod_flight"
 
@@ -45,21 +45,35 @@
 /area/centcom/supplypod/loading
 	name = "Supplypod Loading Facility"
 	icon_state = "supplypod_loading"
+	var/loading_id = ""
+
+/area/centcom/supplypod/loading/Initialize()
+	. = ..() 
+	if(!loading_id)
+		CRASH("[type] created without a loading_id")
+	if(GLOB.supplypod_loading_bays[loading_id])
+		CRASH("Duplicate loading bay area: [type] ([loading_id])")
+	GLOB.supplypod_loading_bays[loading_id] = src
 
 /area/centcom/supplypod/loading/one
 	name = "Bay #1"
+	loading_id = "1"
 
 /area/centcom/supplypod/loading/two
 	name = "Bay #2"
+	loading_id = "2"
 
 /area/centcom/supplypod/loading/three
 	name = "Bay #3"
+	loading_id = "3"
 
 /area/centcom/supplypod/loading/four
 	name = "Bay #4"
+	loading_id = "4"
 
 /area/centcom/supplypod/loading/ert
 	name = "ERT Bay"
+	loading_id = "5"
 //THUNDERDOME
 
 /area/tdome
@@ -106,7 +120,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 	flags_1 = NONE
 
 //Abductors
@@ -114,7 +128,7 @@
 	name = "Abductor Ship"
 	icon_state = "yellow"
 	requires_power = FALSE
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_ABDUCTORS
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 
@@ -124,10 +138,10 @@
 	icon_state = "syndie-ship"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 	blob_allowed = FALSE //Not... entirely sure this will ever come up... but if the bus makes blobs AND ops, it shouldn't aim for the ops to win.
 	flags_1 = NONE
-	ambientsounds = HIGHSEC
+	ambient_effects = HIGHSEC
 
 /area/syndicate_mothership/control
 	name = "Syndicate Control Room"
@@ -180,32 +194,12 @@
 	icon_state = "yellow"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_CLOCKWORK
 	hidden = TRUE
-	ambientsounds = REEBE
+	ambient_effects = REEBE
 
 /area/reebe/city_of_cogs
 	name = "Reebe - City of Cogs"
 	icon_state = "purple"
 	hidden = FALSE
 	var/playing_ambience = FALSE
-
-/area/reebe/city_of_cogs/Entered(atom/movable/AM)
-	. = ..()
-	if(ismob(AM))
-		var/mob/M = AM
-		if(M.client)
-			addtimer(CALLBACK(M.client, /client/proc/play_reebe_ambience), 900)
-
-//Reebe ambience replay
-
-/client/proc/play_reebe_ambience()
-	var/area/A = get_area(mob)
-	if(!istype(A, /area/reebe/city_of_cogs))
-		return
-	var/sound = pick(REEBE)
-	if(!played)
-		SEND_SOUND(src, sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE))
-		played = TRUE
-		addtimer(CALLBACK(src, /client/proc/ResetAmbiencePlayed), 600)
-	addtimer(CALLBACK(src, /client/proc/play_reebe_ambience), 900)

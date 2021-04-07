@@ -83,10 +83,14 @@
 			return
 	close_machine(target)
 
-/obj/machinery/vr_sleeper/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/vr_sleeper/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/vr_sleeper/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "vr_sleeper", "VR Sleeper", 475, 340, master_ui, state)
+		ui = new(user, src, "vr_sleeper")
 		ui.open()
 
 /obj/machinery/vr_sleeper/ui_act(action, params)
@@ -116,9 +120,9 @@
 							build_virtual_human(occupant, T, V.vr_outfit)
 							to_chat(vr_human, "<span class='notice'>Transfer successful! You are now playing as [vr_human] in VR!</span>")
 						else
-							to_chat(occupant, "<span class='warning'>Virtual world misconfigured, aborting transfer</span>")
+							to_chat(occupant, "<span class='warning'>Virtual world misconfigured, aborting transfer.</span>")
 					else
-						to_chat(occupant, "<span class='warning'>The virtual world does not support the creation of new virtual avatars, aborting transfer</span>")
+						to_chat(occupant, "<span class='warning'>The virtual world does not support the creation of new virtual avatars, aborting transfer.</span>")
 			return TRUE
 		if("delete_avatar")
 			if(!occupant || usr == occupant)

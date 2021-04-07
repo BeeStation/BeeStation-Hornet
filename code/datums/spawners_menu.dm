@@ -6,10 +6,13 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/spawners_menu/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/spawners_menu/ui_state(mob/user)
+	return GLOB.observer_state
+
+/datum/spawners_menu/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SpawnersMenu", "Spawners Menu", 700, 600, master_ui, state)
+		ui = new(user, src, "SpawnersMenu")
 		ui.open()
 
 /datum/spawners_menu/ui_data(mob/user)
@@ -31,8 +34,13 @@
 					this["flavor_text"] = MS.flavour_text
 					this["important_info"] = MS.important_info
 				else
-					var/obj/O = spawner_obj
-					this["desc"] = O.desc
+					var/atom/movable/O = spawner_obj
+					if(isslime(O))
+						this["short_desc"] = O.get_spawner_desc()
+						this["flavor_text"] = O.get_spawner_flavour_text()
+					else
+						this["desc"] = O.desc
+
 		this["amount_left"] = LAZYLEN(GLOB.mob_spawners[spawner])
 		data["spawners"] += list(this)
 
@@ -48,7 +56,7 @@
 	var/list/spawnerlist = GLOB.mob_spawners[group_name]
 	if(!spawnerlist.len)
 		return
-	var/obj/effect/mob_spawn/MS = pick(spawnerlist)
+	var/atom/movable/MS = pick(spawnerlist)
 	if(!istype(MS) || !(MS in GLOB.poi_list))
 		return
 	switch(action)

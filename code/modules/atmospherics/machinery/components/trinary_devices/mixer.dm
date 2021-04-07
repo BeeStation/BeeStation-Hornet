@@ -14,8 +14,8 @@
 	construction_type = /obj/item/pipe/trinary/flippable
 	pipe_state = "mixer"
 
-	ui_x = 370
-	ui_y = 165
+
+
 
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
@@ -29,7 +29,7 @@
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
 		update_icon()
-	return ..()
+	return
 
 /obj/machinery/atmospherics/components/trinary/mixer/update_icon()
 	cut_overlays()
@@ -120,22 +120,25 @@
 		var/datum/gas_mixture/removed1 = air1.remove(transfer_moles1)
 		air3.merge(removed1)
 		var/datum/pipeline/parent1 = parents[1]
-		parent1.update = TRUE
+		parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	if(transfer_moles2)
 		var/datum/gas_mixture/removed2 = air2.remove(transfer_moles2)
 		air3.merge(removed2)
 		var/datum/pipeline/parent2 = parents[2]
-		parent2.update = TRUE
+		parent2.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	var/datum/pipeline/parent3 = parents[3]
-	parent3.update = TRUE
+	parent3.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
-/obj/machinery/atmospherics/components/trinary/mixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-																	datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/atmospherics/components/trinary/mixer/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/atmospherics/components/trinary/mixer/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AtmosMixer", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "AtmosMixer")
 		ui.open()
 
 /obj/machinery/atmospherics/components/trinary/mixer/ui_data()

@@ -112,6 +112,9 @@
 		. = 1
 		QDEL_IN(holder, 5)
 
+/datum/spacevine_mutation/aggressive_spread/proc/aggrospread_act(obj/structure/spacevine/S, mob/living/M)
+	return
+
 /datum/spacevine_mutation/explosive/on_death(obj/structure/spacevine/holder, mob/hitter, obj/item/I)
 	explosion(holder.loc, 0, 0, severity, 0, 0)
 
@@ -135,8 +138,7 @@
 	quality = MINOR_NEGATIVE
 
 /datum/spacevine_mutation/vine_eating/on_spread(obj/structure/spacevine/holder, turf/target)
-	var/obj/structure/spacevine/prey = locate() in target
-	if(prey && !prey.mutations.Find(src))  //Eat all vines that are not of the same origin
+	for(var/obj/structure/spacevine/prey in target)
 		qdel(prey)
 
 /datum/spacevine_mutation/aggressive_spread  //very OP, but im out of other ideas currently
@@ -145,11 +147,52 @@
 	severity = 3
 	quality = NEGATIVE
 
-/datum/spacevine_mutation/aggressive_spread/on_spread(obj/structure/spacevine/holder, turf/target)
-	target.ex_act(severity, null, src) // vine immunity handled at /mob/ex_act
+/// Checks mobs on spread-target's turf to see if they should be hit by a damaging proc or not.
+/datum/spacevine_mutation/aggressive_spread/on_spread(obj/structure/spacevine/holder, turf/target, mob/living)
+	for(var/mob/living/M in target)
+		if(!isvineimmune(M) && M.stat != DEAD) // Don't kill immune creatures. Dead check to prevent log spam when a corpse is trapped between vine eaters.
+			aggrospread_act(holder, M)
 
 /datum/spacevine_mutation/aggressive_spread/on_buckle(obj/structure/spacevine/holder, mob/living/buckled)
-	buckled.ex_act(severity, null, src)
+		aggrospread_act(holder, buckled)
+
+/// Hurts mobs. To be used when a vine with aggressive spread mutation spreads into the mob's tile or buckles them.
+/datum/spacevine_mutation/aggressive_spread/aggrospread_act(obj/structure/spacevine/S, mob/living/M)
+	var/mob/living/carbon/C = M //If the mob is carbon then it now also exists as a "C", and not just an M.
+	if(istype(C)) //If the mob (M) is a carbon subtype (C) we move on to pick a more complex damage proc, with damage zones, wounds and armor mitigation.
+		var/obj/item/bodypart/limb = pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD, BODY_ZONE_CHEST) //Picks a random bodypart. Does not runtime even if it's missing.
+		var/armor = C.run_armor_check(limb, "melee", null, null) //armor = the armor value of that randomly chosen bodypart. Nulls to not print a message, because it would still print on pierce.
+		var/datum/spacevine_mutation/thorns/T = locate() in S.mutations //Searches for the thorns mutation in the "mutations"-list inside obj/structure/spacevine, and defines T if it finds it.
+		if(T && (prob(40))) //If we found the thorns mutation there is now a chance to get stung instead of lashed or smashed.
+			C.apply_damage(50, BRUTE, def_zone = limb) //This one gets a bit lower damage because it ignores armor.
+			C.Stun(1 SECONDS) //Stopped in place for a moment.
+			playsound(M, 'sound/weapons/pierce.ogg', 50, TRUE, -1)
+			M.visible_message("<span class='danger'>[M] is nailed by a sharp thorn!</span>", \
+			"<span class='userdanger'>You are nailed by a sharp thorn!</span>")
+			log_combat(S, M, "aggressively pierced") //"Aggressively" for easy ctrl+F'ing in the attack logs.
+		else
+			if(prob(80))
+				C.apply_damage(60, BRUTE, def_zone = limb, blocked = armor)
+				C.Knockdown(2 SECONDS)
+				playsound(M, 'sound/weapons/whip.ogg', 50, TRUE, -1)
+				M.visible_message("<span class='danger'>[M] is lacerated by an outburst of vines!</span>", \
+				"<span class='userdanger'>You are lacerated by an outburst of vines!</span>")
+				log_combat(S, M, "aggressively lacerated")
+			else
+				C.apply_damage(60, BRUTE, def_zone = limb, blocked = armor)
+				C.Knockdown(3 SECONDS)
+				var/atom/throw_target = get_edge_target_turf(C, get_dir(S, get_step_away(C, S)))
+				C.throw_at(throw_target, 3, 6)
+				playsound(M, 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
+				M.visible_message("<span class='danger'>[M] is smashed by a large vine!</span>", \
+				"<span class='userdanger'>You are smashed by a large vine!</span>")
+				log_combat(S, M, "aggressively smashed")
+	else //Living but not a carbon? Maybe a silicon? Can't be wounded so have a big chunk of simple bruteloss with no special effects. They can be entangled.
+		M.adjustBruteLoss(75)
+		playsound(M, 'sound/weapons/whip.ogg', 50, TRUE, -1)
+		M.visible_message("<span class='danger'>[M] is brutally threshed by [S]!</span>", \
+		"<span class='userdanger'>You are brutally threshed by [S]!</span>")
+		log_combat(S, M, "aggressively spread into") //You aren't being attacked by the vines. You just happen to stand in their way.
 
 /datum/spacevine_mutation/transparency
 	name = "transparent"
@@ -504,12 +547,14 @@
 		for(var/obj/machinery/M in stepturf)
 			if(M.density && !istype(M, /obj/machinery/power/smes) && !istype(M, /obj/machinery/door/airlock/external) && !istype(M, /obj/machinery/door/firedoor)) //please don't sabotage power or cause a hullbreach!
 				M.take_damage(40) //more damage, because machines are more commonplace and tend to be more durable
-	if (!isspaceturf(stepturf) && stepturf.Enter(src))
-		for(var/datum/spacevine_mutation/SM in mutations)
-			SM.on_spread(src, stepturf)
-			stepturf = get_step(src,direction) //in case turf changes, to make sure no runtimes happen
-		if(!locate(/obj/structure/spacevine, stepturf))
+	if(!isspaceturf(stepturf) && stepturf.Enter(src))
+		var/obj/structure/spacevine/spot_taken = locate() in stepturf //Locates any vine on target turf. Calls that vine "spot_taken".
+		var/datum/spacevine_mutation/vine_eating/E = locate() in mutations //Locates the vine eating trait in our own seed and calls it E.
+		if(!spot_taken || (E && (spot_taken && !spot_taken.mutations.Find(E)))) //Proceed if there isn't a vine on the target turf, OR we have vine eater AND target vine is from our seed and doesn't. Vines from other seeds are eaten regardless.
 			if(master)
+				for(var/datum/spacevine_mutation/SM in mutations)
+					SM.on_spread(src, stepturf) //Only do the on_spread proc if it actually spreads.
+					stepturf = get_step(src,direction) //in case turf changes, to make sure no runtimes happen
 				master.spawn_spacevine_piece(stepturf, src)
 
 /obj/structure/spacevine/ex_act(severity, target)

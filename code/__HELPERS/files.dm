@@ -1,8 +1,3 @@
-//Sends resource files to client cache
-/client/proc/getFiles(...)
-	for(var/file in args)
-		src << browse_rsc(file)
-
 /client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list("txt","log","htm", "html"))
 	if(IsAdminAdvancedProcCall())
 		log_admin_private("BROWSEFILES: Admin proc call blocked")

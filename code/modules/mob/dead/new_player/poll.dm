@@ -222,7 +222,7 @@
   *
   */
 /mob/dead/new_player/proc/poll_player_irv(datum/poll_question/poll)
-	var/datum/asset/irv_assets = get_asset_datum(/datum/asset/group/IRV)
+	var/datum/asset/irv_assets = get_asset_datum(/datum/asset/group/irv)
 	irv_assets.send(src)
 	var/datum/DBQuery/query_irv_get_votes = SSdbcore.NewQuery({"
 		SELECT optionid FROM [format_table_name("poll_vote")]
@@ -253,8 +253,8 @@
 		prepared_options = shuffle(poll.options)
 	var/list/output = list({"<html><head><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-	<script src="jquery.min.js"></script>
-	<script src="jquery-ui.custom-core-widgit-mouse-sortable-min.js"></script>
+	<script src="[SSassets.transport.get_asset_url("jquery.min.js")]"></script>
+	<script src="[SSassets.transport.get_asset_url("jquery-ui.custom-core-widgit-mouse-sortable-min.js")]"></script>
 	<style>
 		#sortable { list-style-type: none; margin: 0; padding: 2em; }
 		#sortable li { min-height: 1em; margin: 0px 1px 1px 1px; padding: 1px; border: 1px solid black; border-radius: 5px; background-color: white; cursor:move;}

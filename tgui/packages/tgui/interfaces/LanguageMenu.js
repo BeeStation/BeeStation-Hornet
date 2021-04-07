@@ -13,7 +13,10 @@ export const LanguageMenu = (props, context) => {
     unknown_languages = [],
   } = data;
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={700}
+      height={600}>
       <Window.Content scrollable>
         <Section title="Known Languages">
           <LabeledList>

@@ -66,7 +66,7 @@
 	var/turf/source = get_turf(instrumentObj)
 	if((world.time - MUSICIAN_HEARCHECK_MINDELAY) > last_hearcheck)
 		LAZYCLEARLIST(hearing_mobs)
-		for(var/mob/M in get_hearers_in_view(15, source))
+		for(var/mob/M as() in hearers(15, source))
 			LAZYADD(hearing_mobs, M)
 		last_hearcheck = world.time
 
@@ -196,7 +196,6 @@
 
 	var/datum/browser/popup = new(user, "instrument", instrumentObj.name, 700, 500)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(instrumentObj.icon, instrumentObj.icon_state))
 	popup.open()
 
 /datum/song/proc/ParseSong(text)
@@ -238,7 +237,7 @@
 	else if(href_list["import"])
 		var/t = ""
 		do
-			t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t)  as message)
+			t = stripped_multiline_input(usr, "Please paste the entire song, formatted:", text("[]", name), t, MUSIC_MAXLINES*MUSIC_MAXLINECHARS)
 			if(!usr.canUseTopic(instrumentObj, BE_CLOSE, FALSE, NO_TK))
 				return
 
@@ -275,7 +274,7 @@
 			playsong(usr)
 
 	else if(href_list["newline"])
-		var/newline = html_encode(input("Enter your line: ", instrumentObj.name) as text|null)
+		var/newline = stripped_input(usr, "Enter your line: ", instrumentObj.name, max_length=MUSIC_MAXLINECHARS)
 		if(!newline || !usr.canUseTopic(instrumentObj, BE_CLOSE, FALSE, NO_TK))
 			return
 		if(lines.len > MUSIC_MAXLINES)
@@ -292,7 +291,7 @@
 
 	else if(href_list["modifyline"])
 		var/num = round(text2num(href_list["modifyline"]),1)
-		var/content = stripped_input(usr, "Enter your line: ", instrumentObj.name, lines[num], MUSIC_MAXLINECHARS)
+		var/content = stripped_input(usr, "Enter your line: ", instrumentObj.name, lines[num], max_length=MUSIC_MAXLINECHARS)
 		if(!content || !usr.canUseTopic(instrumentObj, BE_CLOSE, FALSE, NO_TK))
 			return
 		if(num > lines.len || num < 1)

@@ -85,17 +85,17 @@
 
 	for(var/i in rad_places)
 		var/turf/place = i
-		if(get_dist(user, place) >= range*2)	//Rads are easier to see than wires under the floor
+		if(get_dist(user, place) >= range*5)	//Rads are easier to see than wires under the floor
 			continue
 		var/strength = round(rad_places[i] / 1000, 0.1)
-		var/image/pic = new(loc = place)
+		var/image/pic = image(loc = place)
 		var/mutable_appearance/MA = new()
-		MA.alpha = 180
-		MA.maptext = "[strength]k"
-		MA.color = "#64C864"
-		MA.layer = FLY_LAYER
+		MA.maptext = MAPTEXT("[strength]k")
+		MA.color = "#04e66d"
+		MA.layer = RAD_TEXT_LAYER
+		MA.plane = GAME_PLANE
 		pic.appearance = MA
-		flick_overlay(pic, list(user.client), 8)
+		flick_overlay(pic, list(user.client), 10)
 
 /obj/item/clothing/glasses/meson/engine/proc/show_shuttle()
 	var/mob/living/carbon/human/user = loc
@@ -123,7 +123,7 @@
 	item_state = icon_state
 	if(isliving(loc))
 		var/mob/living/user = loc
-		if(user.get_item_by_slot(SLOT_GLASSES) == src)
+		if(user.get_item_by_slot(ITEM_SLOT_EYES) == src)
 			user.update_inv_glasses()
 		else
 			user.update_inv_hands()

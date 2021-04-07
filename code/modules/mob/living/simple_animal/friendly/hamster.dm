@@ -29,14 +29,14 @@
 	animal_species = /mob/living/simple_animal/pet/hamster
 	gold_core_spawnable = FRIENDLY_SPAWN
 	can_be_held = TRUE
-	mobsay_color = "#D3B277"
+	chat_color = "#D3B277"
 
 /mob/living/simple_animal/pet/hamster/vector //now also viro's source of a solitary, shitty starter disease
 	name = "Vector"
 	desc = "It's Vector the hamster. Definitely not a source of deadly diseases."
 	var/datum/disease/vector_disease
 	var/list/extrapolatordisease = list()
-	
+
 
 /mob/living/simple_animal/pet/hamster/vector/Initialize()
 	. = ..()

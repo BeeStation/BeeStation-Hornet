@@ -196,10 +196,10 @@ proc name: add ventcrawl (/mob/living/proc/add_ventcrawl)
 
 The following runtime has occurred 1 time(s).
 runtime error: Cannot execute null.s click().
-proc name: Click (/obj/screen/grab/Click)
+proc name: Click (/atom/movable/screen/grab/Click)
   source file: screen_objects.dm,167
   usr: Hisstian Weston Chandler (/mob/living/carbon/human)
-  src: the disarm/kill (/obj/screen/grab)
+  src: the disarm/kill (/atom/movable/screen/grab)
 
 
 The following runtime has occurred 1 time(s).
@@ -241,13 +241,13 @@ proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
 
 /obj/effect/decal/cleanable/trail_holder - 10 time(s).
 
-/obj/screen/buildmode/bdir - 10 time(s).
+/atom/movable/screen/buildmode/bdir - 10 time(s).
 
-/obj/screen/buildmode/help - 10 time(s).
+/atom/movable/screen/buildmode/help - 10 time(s).
 
-/obj/screen/buildmode/mode - 10 time(s).
+/atom/movable/screen/buildmode/mode - 10 time(s).
 
-/obj/screen/buildmode/quit - 10 time(s).
+/atom/movable/screen/buildmode/quit - 10 time(s).
 
 /obj/effect/landmark/start - 8 time(s).
 
@@ -395,7 +395,7 @@ proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
 
 /obj/item/clothing/head/explorer - 1 time(s).
 
-/obj/screen/grab - 1 time(s).
+/atom/movable/screen/grab - 1 time(s).
 
 /obj/item/weapon/grab - 1 time(s).
 
