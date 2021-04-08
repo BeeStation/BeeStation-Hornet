@@ -78,9 +78,11 @@ const CryoContent = (props, context) => {
                   </ProgressBar>
                 </LabeledList.Item>
               )))}
-              <ReagentListPerson
-                content={data.occupantChemicals}
-              />
+              <LabeledList.Item>
+                <ReagentListPerson
+                  content={data.occupantChemicals}
+                />
+              </LabeledList.Item>
             </Fragment>
           )}
         </LabeledList>
@@ -99,7 +101,7 @@ const CryoContent = (props, context) => {
               disabled={!data.isOperating}
               onClick={() => act('change_mode')}
               color={data.currentMode && 'green'}>
-                Cryomode
+              Cryomode
             </Button>
 
           </LabeledList.Item>
@@ -123,7 +125,7 @@ const CryoContent = (props, context) => {
               content={data.isOpen ? "Open" : "Closed"} />
           </LabeledList.Item>
           <LabeledList.Item label="Reagents boost">
-            {data.currentMode === 1 && data.occupant.stat == "Unconscious" && (
+            {data.currentMode === 1 && data.occupant.stat === "Unconscious" && (
               "Active"
             ) || (
               "Inactive"
@@ -140,7 +142,8 @@ const CryoContent = (props, context) => {
         title="Queued reagents">
         <QueueList
           content={data.queue}
-          injecting={data.injecting} />
+          injecting={data.injecting}
+          multiplier={data.multiplier} />
       </Section>
     </Fragment>
   );

@@ -2,7 +2,7 @@ import { AnimatedNumber, Box, Button, Table, NumberInput } from '../../component
 import { useBackend, useLocalState } from '../../backend';
 
 export const ReagentList = (props, context) => {
-  const { content } = props;
+  const { content, multiplier } = props;
   const { act } = useBackend(context);
   const [
     amount,
@@ -17,13 +17,13 @@ export const ReagentList = (props, context) => {
           height="100%">
           <Table.Cell>
             <AnimatedNumber
-              value={chemical.volume} />
-            {chemical.volume < 2 && (
-                " unit of "
-              ) || (
-                " units of "
-              )}
-              {chemical.name}
+              value={chemical.volume * multiplier} />
+            {chemical.volume * multiplier < 2 && (
+              " unit of "
+            ) || (
+              " units of "
+            )}
+            {chemical.name}
           </Table.Cell>
           <Table.Cell
             collapsing
@@ -58,7 +58,7 @@ export const ReagentList = (props, context) => {
               content="Add"
               onClick={() => act("add", {
                 reagent: chemical,
-                amount: amount,
+                amount: amount/multiplier,
               })} />
           </Table.Cell>
         </Table.Row>
@@ -68,7 +68,7 @@ export const ReagentList = (props, context) => {
 };
 
 export const QueueList = (props, context) => {
-  const { content = {}, injecting } = props;
+  const { content = {}, injecting, multiplier } = props;
   const { act } = useBackend(context);
   return (
     <Table height="100%">
@@ -79,13 +79,13 @@ export const QueueList = (props, context) => {
           height="100%">
           <Table.Cell>
             <AnimatedNumber
-              value={queue.volume} />
-              {queue.volume < 2 && (
-                " unit of "
-              ) || (
-                " units of "
-              )}
-             {queue.name}
+              value={queue.volume * multiplier} />
+            {queue.volume * multiplier < 2 && (
+              " unit of "
+            ) || (
+              " units of "
+            )}
+            {queue.name}
           </Table.Cell>
           <Table.Cell
             collapsing
@@ -140,6 +140,12 @@ export const ReagentListPerson = props => {
           <Table.Cell>
             <AnimatedNumber
               value={chemical.volume} />
+            {chemical.volume < 2 && (
+              " unit of "
+            ) || (
+              " units of "
+            )}
+            {chemical.name}
             units of {chemical.name}
           </Table.Cell>
         </Table.Row>

@@ -222,25 +222,25 @@
 	return TRUE
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/proc/inject_patient()
-	if(!chemicals_queue)
+	if(!chemicals_queue || !chemicals_queue.len || !occupant)
+		injecting = FALSE
 		return
 
-	var/total_multiplier = 1
-
-	if(occupant)
-		var/mob/living/mob_occupant = occupant
-		if(mob_occupant?.stat == UNCONSCIOUS && mode == MODE_CRYOSLEEP)
-			total_multiplier += (efficiency / 2)	//minimum 1.5, maximum 3.5
-
 	for(var/reagent in chemicals_queue)
-		reagents.trans_id_to(occupant, GLOB.name2reagent[lowertext(reagent)], inject_amount / chemicals_queue.len, multiplier = total_multiplier)
+		reagents.trans_id_to(occupant, GLOB.name2reagent[lowertext(reagent)], inject_amount / chemicals_queue.len, multiplier = get_total_multiplier())
 		chemicals_queue[reagent] -= inject_amount
 		if(chemicals_queue[reagent] <= 0)
 			chemicals_queue -= reagent
 
-	if(!chemicals_queue.len)
-		injecting = FALSE
 	use_power(100 * efficiency)
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/get_total_multiplier()
+	if(!occupant)
+		return 1		//No boost
+	var/mob/living/mob_occupant = occupant
+	if(mob_occupant?.stat != UNCONSCIOUS || mode != MODE_CRYOSLEEP)
+		return 1		//No boost here either
+	return 1 + (efficiency / 2)	//minimum 1.5, maximum 3.5
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
 	..()
@@ -370,8 +370,9 @@
 	data["hasOccupant"] = occupant ? TRUE : FALSE
 	data["isOpen"] = state_open
 	data["oxygenSupply"] = airs[1].get_moles(/datum/gas/oxygen)
-	data["cryoxadoneSupply"] = round(reagents.get_reagent_amount(/datum/reagent/medicine/cryoxadone), 0.01)
+	data["cryoxadoneSupply"] = round(reagents.get_reagent_amount(/datum/reagent/medicine/cryoxadone), 0.0001)
 	data["currentMode"] = mode
+	data["multiplier"] = get_total_multiplier()
 
 	data["occupant"] = list()
 	if(occupant)
@@ -406,7 +407,7 @@
 			data["occupant"]["temperaturestatus"] = "bad"
 		var/occupant_reagent_list = list()
 		for(var/datum/reagent/R in occupant.reagents.reagent_list)
-			occupant_reagent_list += list(list("name" = R.name, "volume" = R.volume))
+			occupant_reagent_list += list(list("name" = R.name, "volume" = round(R.volume), 0.0001))
 		data["occupantChemicals"] = occupant_reagent_list
 
 	var/datum/gas_mixture/air1 = airs[1]
@@ -414,12 +415,10 @@
 
 	var/reagent_list = list()
 	var/chemicals_queue_list = list()
-	data["reagentEmpty"] = !reagents.reagent_list ? TRUE : FALSE
-	data["maxReagent"] = reagents.maximum_volume
 	for(var/datum/reagent/R in reagents.reagent_list)
 		if(istype(R, /datum/reagent/medicine/cryoxadone))
 			continue
-		reagent_list += list(list("name" = R.name, "volume" = R.volume))
+		reagent_list += list(list("name" = R.name, "volume" = round(R.volume), 0.0001))
 	for(var/reagent in chemicals_queue)
 		chemicals_queue_list += list(list("name" = reagent, "volume" = chemicals_queue[reagent]))
 	data["reagents"] = reagent_list
@@ -445,7 +444,8 @@
 			chemicals_queue.Cut()
 			. = TRUE
 		if("inject")
-			injecting = TRUE
+			if(occupant)
+				injecting = TRUE
 			. = TRUE
 		if("stop_injecting")
 			injecting = FALSE
