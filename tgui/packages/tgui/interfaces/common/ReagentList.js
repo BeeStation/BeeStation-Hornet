@@ -1,4 +1,4 @@
-import { Box, Button, Table, NumberInput } from '../../components';
+import { AnimatedNumber, Box, Button, Table, NumberInput } from '../../components';
 import { useBackend, useLocalState } from '../../backend';
 
 export const ReagentList = (props, context) => {
@@ -16,7 +16,14 @@ export const ReagentList = (props, context) => {
           color="label"
           height="100%">
           <Table.Cell>
-            {chemical.volume} units of {chemical.name}
+            <AnimatedNumber
+              value={chemical.volume} />
+            {chemical.volume < 2 && (
+                " unit of "
+              ) || (
+                " units of "
+              )}
+              {chemical.name}
           </Table.Cell>
           <Table.Cell
             collapsing
@@ -61,7 +68,7 @@ export const ReagentList = (props, context) => {
 };
 
 export const QueueList = (props, context) => {
-  const { content } = props;
+  const { content = {}, injecting } = props;
   const { act } = useBackend(context);
   return (
     <Table height="100%">
@@ -71,7 +78,14 @@ export const QueueList = (props, context) => {
           color="label"
           height="100%">
           <Table.Cell>
-            {queue.volume} units of {queue.name}
+            <AnimatedNumber
+              value={queue.volume} />
+              {queue.volume < 2 && (
+                " unit of "
+              ) || (
+                " units of "
+              )}
+             {queue.name}
           </Table.Cell>
           <Table.Cell
             collapsing
@@ -81,6 +95,52 @@ export const QueueList = (props, context) => {
               onClick={() => act("remove", {
                 reagent: queue,
               })} />
+          </Table.Cell>
+        </Table.Row>
+      ))}
+      {content.length && (
+        <Table.Row>
+          <Table.Cell>
+            {!injecting && (
+              <Button
+                content="Inject Patient"
+                onClick={() => act("inject")} />
+            ) || (
+              <Button
+                content="Stop injecting"
+                color="danger"
+                onClick={() => act("stop_injecting")} />
+            )}
+          </Table.Cell>
+          <Table.Cell>
+            <Button
+              content="Clear queue"
+              onClick={() => act('remove_all')} />
+          </Table.Cell>
+          <Table.Cell>
+            <Button
+              content="Destroy"
+              color="danger"
+              onClick={() => act("destroy")} />
+          </Table.Cell>
+        </Table.Row>) || ("")}
+    </Table>
+  );
+};
+
+export const ReagentListPerson = props => {
+  const { content } = props;
+  return (
+    <Table height="100%">
+      {content.map(chemical => (
+        <Table.Row
+          key={chemical.name}
+          color="label"
+          height="100%">
+          <Table.Cell>
+            <AnimatedNumber
+              value={chemical.volume} />
+            units of {chemical.name}
           </Table.Cell>
         </Table.Row>
       ))}

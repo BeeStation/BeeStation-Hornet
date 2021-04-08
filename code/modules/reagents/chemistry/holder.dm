@@ -268,7 +268,7 @@
 	src.handle_reactions()
 	return amount
 
-/datum/reagents/proc/trans_id_to(obj/target, reagent, amount=1, preserve_data=1)//Not sure why this proc didn't exist before. It does now! /N
+/datum/reagents/proc/trans_id_to(obj/target, reagent, amount = 1, preserve_data = 1, multiplier = 1)
 	var/list/cached_reagents = reagent_list
 	if (!target)
 		return
@@ -287,7 +287,7 @@
 		if(current_reagent.type == reagent)
 			if(preserve_data)
 				trans_data = current_reagent.data
-			R.add_reagent(current_reagent.type, amount, trans_data, src.chem_temp)
+			R.add_reagent(current_reagent.type, amount * multiplier, trans_data, src.chem_temp)
 			remove_reagent(current_reagent.type, amount, 1)
 			break
 

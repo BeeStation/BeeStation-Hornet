@@ -1,6 +1,7 @@
 #define CRYOMOBS 'icons/obj/cryo_mobs.dmi'
-#define CRYO_MULTIPLY_FACTOR 1.5 // Multiply factor is used with efficiency to multiply Tx quantity and how much extra is transfered to occupant magically.
 #define CRYO_TX_QTY 0.4 // Tx quantity is how much volume should be removed from the cell's beaker - multiplied by delta_time
+#define MODE_OFF	0
+#define MODE_CRYOSLEEP 	1
 
 /obj/machinery/atmospherics/components/unary/cryo_cell
 	name = "cryo cell"
@@ -17,7 +18,6 @@
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 	occupant_typecache = list(/mob/living/carbon, /mob/living/simple_animal)
 
-	var/autoeject = TRUE
 	var/volume = 100
 
 	var/efficiency = 1
@@ -36,8 +36,10 @@
 	var/message_cooldown
 	var/breakout_time = 300
 	var/enchanted_scan = FALSE
-	var/cryo_multiply_factor = 1
 	var/list/chemicals_queue = list()
+	var/inject_amount = 1			//how much we want to inject per tick
+	var/injecting = FALSE			//are we injecting anything right now?
+	var/mode = MODE_OFF
 	fair_market_price = 10
 	payment_department = ACCOUNT_MED
 
@@ -81,7 +83,8 @@
 		reagents.maximum_volume += G.volume
 		G.reagents.trans_to(src, G.reagents.total_volume)
 
-	efficiency = initial(efficiency) * efficency_multiplier
+	efficiency = initial(efficiency) * efficency_multiplier				//how much power are we using, how much fuel we use
+	inject_amount = initial(inject_amount) * efficency_multiplier		//min 1, max 4 units of chemicals per 1 delta time
 	sleep_factor = initial(sleep_factor) * sleep_multiplier
 	unconscious_factor = initial(unconscious_factor) * sleep_multiplier
 	heat_capacity = initial(heat_capacity) / conduction_efficency
@@ -173,21 +176,27 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
 	..()
 
+	if(injecting)
+		inject_patient()
 	if(!on)
+		mode = MODE_OFF
 		return
 	if(!is_operational())
 		on = FALSE
+		mode = MODE_OFF
 		update_icon()
 		return
 
 	if(!occupant)//Won't operate unless there's an occupant.
 		on = FALSE
+		mode = MODE_OFF
 		update_icon()
 		radio.talk_into(src, "Aborting. No occupant detected.", radio_channel)
 		return
 
 	if(!reagents) //No reagents will stop the machine from running.
 		on = FALSE
+		mode = MODE_OFF
 		update_icon()
 		radio.talk_into(src, "Aborting. No chemicals installed.", radio_channel)
 		return
@@ -197,31 +206,41 @@
 		mob_occupant.ExtinguishMob()
 	if(!check_nap_violations())
 		return
-	if(mob_occupant.stat == DEAD) // We don't bother with dead people.
-		return
-
-	if(mob_occupant.health >= mob_occupant.getMaxHealth()) // Don't bother with fully healed people.
-		on = FALSE
-		update_icon()
-		playsound(src, 'sound/machines/cryo_warning.ogg', volume) // Bug the doctors.
-		var/msg = "Patient fully restored."
-		if(autoeject) // Eject if configured.
-			msg += " Auto ejecting patient now."
-			open_machine()
-		radio.talk_into(src, msg, radio_channel)
-		return
 
 	var/datum/gas_mixture/air1 = airs[1]
 
-	if(air1.total_moles())
-		if(mob_occupant.bodytemperature < T0C) // Sleepytime. Why? More cryo magic.
+	if(air1.total_moles() && mode == MODE_CRYOSLEEP)
+		if(mob_occupant.bodytemperature < T0C && reagents.has_reagent(/datum/reagent/medicine/cryoxadone)) // Sleepytime. Why? More cryo magic.
 			mob_occupant.Sleeping((mob_occupant.bodytemperature * sleep_factor) * 1000 * delta_time)//delta_time is roughly ~2 seconds
 			mob_occupant.Unconscious((mob_occupant.bodytemperature * unconscious_factor) * 1000 * delta_time)
-		if(reagents)//How much to transfer. As efficiency is increased, less reagent is used and more is magically transferred to occupant, but only if they are currently sleeping
-			reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * CRYO_MULTIPLY_FACTOR, method = VAPOR) // Transfer reagents.
+			if(mob_occupant.stat == UNCONSCIOUS && !mob_occupant.reagents?.has_reagent(/datum/reagent/medicine/cryoxadone, 3))
+				reagents.trans_id_to(occupant, /datum/reagent/medicine/cryoxadone, 1/efficiency, multiplier = efficiency)
+		else
+			mode = MODE_OFF
 		use_power(1000 * efficiency)
 
 	return TRUE
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/inject_patient()
+	if(!chemicals_queue)
+		return
+
+	var/total_multiplier = 1
+
+	if(occupant)
+		var/mob/living/mob_occupant = occupant
+		if(mob_occupant?.stat == UNCONSCIOUS && mode == MODE_CRYOSLEEP)
+			total_multiplier += (efficiency / 2)	//minimum 1.5, maximum 3.5
+
+	for(var/reagent in chemicals_queue)
+		reagents.trans_id_to(occupant, GLOB.name2reagent[lowertext(reagent)], inject_amount / chemicals_queue.len, multiplier = total_multiplier)
+		chemicals_queue[reagent] -= inject_amount
+		if(chemicals_queue[reagent] <= 0)
+			chemicals_queue -= reagent
+
+	if(!chemicals_queue.len)
+		injecting = FALSE
+	use_power(100 * efficiency)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
 	..()
@@ -350,7 +369,9 @@
 	data["isOperating"] = on
 	data["hasOccupant"] = occupant ? TRUE : FALSE
 	data["isOpen"] = state_open
-	data["autoEject"] = autoeject
+	data["oxygenSupply"] = airs[1].get_moles(/datum/gas/oxygen)
+	data["cryoxadoneSupply"] = round(reagents.get_reagent_amount(/datum/reagent/medicine/cryoxadone), 0.01)
+	data["currentMode"] = mode
 
 	data["occupant"] = list()
 	if(occupant)
@@ -383,6 +404,10 @@
 			data["occupant"]["temperaturestatus"] = "average"
 		else
 			data["occupant"]["temperaturestatus"] = "bad"
+		var/occupant_reagent_list = list()
+		for(var/datum/reagent/R in occupant.reagents.reagent_list)
+			occupant_reagent_list += list(list("name" = R.name, "volume" = R.volume))
+		data["occupantChemicals"] = occupant_reagent_list
 
 	var/datum/gas_mixture/air1 = airs[1]
 	data["cellTemperature"] = round(air1.return_temperature(), 1)
@@ -392,18 +417,15 @@
 	data["reagentEmpty"] = !reagents.reagent_list ? TRUE : FALSE
 	data["maxReagent"] = reagents.maximum_volume
 	for(var/datum/reagent/R in reagents.reagent_list)
-		reagent_list += list(list("name" = R.name, "volume" = R.volume, "path" = R.type))
+		if(istype(R, /datum/reagent/medicine/cryoxadone))
+			continue
+		reagent_list += list(list("name" = R.name, "volume" = R.volume))
 	for(var/reagent in chemicals_queue)
-		var/datum/reagent/R = reagent
-		chemicals_queue_list += list(list("name" = initial(R.name), "volume" = chemicals_queue[reagent], "path" = reagent))
+		chemicals_queue_list += list(list("name" = reagent, "volume" = chemicals_queue[reagent]))
 	data["reagents"] = reagent_list
 	data["queue"] = chemicals_queue_list
-	/*data["isBeakerLoaded"] = beaker ? TRUE : FALSE
-	var/beakerContents = list()
-	if(beaker && beaker.reagents && beaker.reagents.reagent_list.len)
-		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents += list(list("name" = R.name, "volume" = R.volume))
-	data["beakerContents"] = beakerContents*/
+	data["injecting"] = injecting ? 1 : 0
+
 	return data
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/ui_act(action, params)
@@ -416,9 +438,27 @@
 			add_to_queue(chemical, amount)
 			. = TRUE
 		if("remove")
-			chemicals_queue.Cut()
+			var/list/chemical = params["reagent"]
+			remove_from_queue(chemical)
 			. = TRUE
 		if("remove_all")
+			chemicals_queue.Cut()
+			. = TRUE
+		if("inject")
+			injecting = TRUE
+			. = TRUE
+		if("stop_injecting")
+			injecting = FALSE
+			. = TRUE
+		if("change_mode")
+			if(mode == MODE_CRYOSLEEP)
+				mode = MODE_OFF
+			else
+				mode = MODE_CRYOSLEEP
+			. = TRUE
+		if("destroy")
+			for(var/chemical_name in chemicals_queue)
+				reagents.remove_reagent(GLOB.name2reagent[lowertext(chemical_name)], chemicals_queue[chemical_name])
 			chemicals_queue.Cut()
 			. = TRUE
 		if("power")
@@ -439,14 +479,17 @@
 	if(amount <= 0)
 		return
 
-	if(amount + chemicals_queue[chemical["path"]] > chemical["volume"])
-		chemicals_queue[chemical["path"]] += chemical["volume"]
+	if(amount + chemicals_queue[chemical["name"]] > chemical["volume"])
+		chemicals_queue[chemical["name"]] = chemical["volume"]
 		return
 
-	chemicals_queue[chemical["path"]] += amount
+	chemicals_queue[chemical["name"]] += amount
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/proc/remove_from_queue(chemical)
+/obj/machinery/atmospherics/components/unary/cryo_cell/proc/remove_from_queue(list/chemical)
+	if(!LAZYLEN(chemical))
+		return
 
+	chemicals_queue -= chemical["name"]
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
 	if(can_interact(user) && !state_open)
@@ -498,5 +541,6 @@
 		SSair.add_to_rebuild_queue(src)
 
 #undef CRYOMOBS
-#undef CRYO_MULTIPLY_FACTOR
 #undef CRYO_TX_QTY
+#undef MODE_OFF
+#undef MODE_CRYOSLEEP

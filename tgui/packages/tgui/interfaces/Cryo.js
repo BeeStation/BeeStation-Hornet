@@ -1,7 +1,7 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { AnimatedNumber, Button, LabeledList, ProgressBar, Section, Table } from '../components';
-import { ReagentList, QueueList } from './common/ReagentList';
+import { ReagentList, QueueList, ReagentListPerson } from './common/ReagentList';
 import { Window } from '../layouts';
 
 const damageTypes = [
@@ -78,6 +78,9 @@ const CryoContent = (props, context) => {
                   </ProgressBar>
                 </LabeledList.Item>
               )))}
+              <ReagentListPerson
+                content={data.occupantChemicals}
+              />
             </Fragment>
           )}
         </LabeledList>
@@ -92,36 +95,52 @@ const CryoContent = (props, context) => {
               color={data.isOperating && 'green'}>
               {data.isOperating ? "On" : "Off"}
             </Button>
+            <Button
+              disabled={!data.isOperating}
+              onClick={() => act('change_mode')}
+              color={data.currentMode && 'green'}>
+                Cryomode
+            </Button>
+
           </LabeledList.Item>
           <LabeledList.Item label="Temperature">
             <AnimatedNumber value={data.cellTemperature} /> K
+          </LabeledList.Item>
+          <LabeledList.Item label="Oxygen supply">
+            <AnimatedNumber
+              value={data.oxygenSupply} />
+            {' kPa'}
+          </LabeledList.Item>
+          <LabeledList.Item label="Cryoxadone supply">
+            <AnimatedNumber
+              value={data.cryoxadoneSupply} />
+            {' units'}
           </LabeledList.Item>
           <LabeledList.Item label="Door">
             <Button
               icon={data.isOpen ? "unlock" : "lock"}
               onClick={() => act('door')}
               content={data.isOpen ? "Open" : "Closed"} />
-            <Button
-              icon={data.autoEject ? "sign-out-alt" : "sign-in-alt"}
-              onClick={() => act('autoeject')}
-              content={data.autoEject ? "Auto" : "Manual"} />
+          </LabeledList.Item>
+          <LabeledList.Item label="Reagents boost">
+            {data.currentMode === 1 && data.occupant.stat == "Unconscious" && (
+              "Active"
+            ) || (
+              "Inactive"
+            )}
           </LabeledList.Item>
         </LabeledList>
       </Section>
       <Section
         title="Reagents">
         <ReagentList
-          content={data.reagents}
-          context={data.content} />
+          content={data.reagents} />
       </Section>
       <Section
         title="Queued reagents">
-        <Button
-          content="Remove all"
-          onClick={() => act('remove_all')} />
         <QueueList
           content={data.queue}
-          context={data.content} />
+          injecting={data.injecting} />
       </Section>
     </Fragment>
   );
