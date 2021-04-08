@@ -51,7 +51,7 @@
 					return
 				else if(replacebody)
 					H.adjustCloneLoss(-30) //we're fully mechanical, repair integrity. This symptom has a soft synergy with overclocked pituitary, so we want that to be useable. OFI is obviously out
-					ADD_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
+			ADD_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	return
 
 /datum/symptom/robotic_adaptation/proc/Replace(mob/living/carbon/human/H)
