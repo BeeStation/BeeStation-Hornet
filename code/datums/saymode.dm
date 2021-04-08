@@ -37,7 +37,7 @@
 								if (!HAS_TRAIT(L, CHANGELING_HIVEMIND_MUTE) && prob(70))
 									to_chat(M, msg)
 								else
-									to_chat(M, "<span class='changeling'>You hear a faint chittering from within your mind...</span>")
+									to_chat(M, "<span class='changeling'>We hear a faint chittering from within our mind...</span>")
 		if(LINGHIVE_LING)
 			if (HAS_TRAIT(user, CHANGELING_HIVEMIND_MUTE))
 				to_chat(user, "<span class='warning'>The poison in the air hinders our ability to interact with the hivemind.</span>")
