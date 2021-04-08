@@ -632,6 +632,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "abz" = (
+/obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "abA" = (
@@ -16131,7 +16132,7 @@
 /turf/open/floor/carpet,
 /area/library)
 "aLP" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/tome/library,
 /obj/item/book/codex_gigas,
 /turf/open/floor/engine/cult,
 /area/library)
