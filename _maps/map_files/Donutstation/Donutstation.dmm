@@ -632,6 +632,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "abz" = (
+/obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "abA" = (
@@ -16131,7 +16132,7 @@
 /turf/open/floor/carpet,
 /area/library)
 "aLP" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/tome/library,
 /obj/item/book/codex_gigas,
 /turf/open/floor/engine/cult,
 /area/library)
@@ -25774,7 +25775,7 @@
 /area/security/main)
 "bgp" = (
 /obj/machinery/vending/wardrobe/chef_wardrobe,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bgq" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -25808,13 +25809,13 @@
 	name = "Kitchen Cold Room";
 	req_access_txt = "28"
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bgu" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bgv" = (
 /obj/effect/turf_decal/tile/bar{
@@ -25840,7 +25841,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bgy" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
@@ -25965,7 +25966,7 @@
 /obj/machinery/airalarm/kitchen_cold_room{
 	pixel_y = 24
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bgK" = (
 /obj/structure/table/wood,
@@ -26148,14 +26149,14 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bhf" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /obj/machinery/icecream_vat,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bhg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -26167,7 +26168,7 @@
 /area/engine/atmos)
 "bhi" = (
 /obj/machinery/gibber,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bhj" = (
 /obj/machinery/power/apc{
@@ -26312,7 +26313,7 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom{
 	dir = 4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bhy" = (
 /obj/structure/chair/stool,
@@ -26679,7 +26680,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 1
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bik" = (
 /obj/structure/disposalpipe/segment,
@@ -26706,7 +26707,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bio" = (
 /obj/structure/lattice/catwalk,
@@ -26740,7 +26741,7 @@
 	pixel_y = -32
 	},
 /obj/structure/kitchenspike,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bis" = (
 /obj/structure/cable/yellow{
@@ -31594,7 +31595,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/maintenance/port/aft)
 "brz" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
@@ -51059,11 +51060,11 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "dwg" = (
 /obj/structure/reagent_dispensers/cooking_oil,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "dxJ" = (
 /obj/structure/closet/wardrobe/science_white,
@@ -51332,7 +51333,7 @@
 "esU" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/structure/closet/secure_closet/freezer/fridge,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "etl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -51743,7 +51744,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "fzV" = (
 /obj/machinery/button/door{
@@ -53398,7 +53399,7 @@
 /area/engine/engine_room)
 "lEx" = (
 /obj/machinery/chem_master/condimaster,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "lEO" = (
 /obj/structure/cable/yellow{
@@ -53948,7 +53949,7 @@
 /area/medical/medbay/central)
 "nuq" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "nvs" = (
 /obj/structure/reagent_dispensers/beerkeg,
@@ -54158,7 +54159,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "nUo" = (
 /obj/effect/turf_decal/tile/yellow{
@@ -54688,7 +54689,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "pBI" = (
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "pGQ" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -54964,7 +54965,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "qBm" = (
 /obj/structure/table,
@@ -56775,7 +56776,7 @@
 	dir = 2;
 	pixel_y = -28
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "wtu" = (
 /obj/structure/bed,
@@ -57089,7 +57090,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "xyU" = (
 /obj/structure/window/reinforced{

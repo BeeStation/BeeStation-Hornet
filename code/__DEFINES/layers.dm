@@ -86,6 +86,9 @@
 #define MASSIVE_OBJ_LAYER 11
 #define POINT_LAYER 12
 
+#define CHAT_LAYER 12.0001 // Do not insert layers between these two values
+#define CHAT_LAYER_MAX 12.9999
+
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
 
@@ -100,20 +103,21 @@
 #define CAMERA_STATIC_PLANE 19
 #define CAMERA_STATIC_LAYER 19
 
+#define RUNECHAT_PLANE 20
 //HUD layer defines
 
-#define FULLSCREEN_PLANE 20
-#define FLASH_LAYER 20
-#define FULLSCREEN_LAYER 20.1
-#define UI_DAMAGE_LAYER 20.2
-#define BLIND_LAYER 20.3
-#define CRIT_LAYER 20.4
-#define CURSE_LAYER 20.5
+#define FULLSCREEN_PLANE 21
+#define FLASH_LAYER 21
+#define FULLSCREEN_LAYER 21.1
+#define UI_DAMAGE_LAYER 21.2
+#define BLIND_LAYER 21.3
+#define CRIT_LAYER 21.4
+#define CURSE_LAYER 21.5
 
-#define HUD_PLANE 21
-#define HUD_LAYER 21
-#define ABOVE_HUD_PLANE 22
-#define ABOVE_HUD_LAYER 22
+#define HUD_PLANE 22
+#define HUD_LAYER 22
+#define ABOVE_HUD_PLANE 23
+#define ABOVE_HUD_LAYER 23
 
-#define SPLASHSCREEN_LAYER 23
-#define SPLASHSCREEN_PLANE 23
+#define SPLASHSCREEN_LAYER 24
+#define SPLASHSCREEN_PLANE 24
