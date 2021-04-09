@@ -57,10 +57,7 @@
 	dir = 4;
 	network = list("ss13","medbay")
 	},
-/obj/machinery/sleeper{
-	dir = 4;
-	icon_state = "sleeper"
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel,
 /area/medical/sleeper)
 "aag" = (
@@ -34653,13 +34650,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/zone2)
 "bzO" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/structure/closet/l3closet,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/zone2)
 "bzQ" = (
@@ -38991,11 +38986,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bIc" = (
-/obj/machinery/vending/medical,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/structure/closet/crate/medical/cryoxadonesupply,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bId" = (
@@ -40775,7 +40770,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bMM" = (
-/obj/structure/closet/l3closet,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -40783,6 +40777,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/vending/medical,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bMN" = (
@@ -53955,14 +53950,6 @@
 	pixel_y = 9
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 6;
-	pixel_y = 2
-	},
 /obj/item/reagent_containers/syringe/epinephrine{
 	pixel_x = 3;
 	pixel_y = -2

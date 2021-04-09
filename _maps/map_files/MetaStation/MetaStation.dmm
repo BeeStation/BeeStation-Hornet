@@ -3935,12 +3935,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/sleeper{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel/dark,
 /area/medical/sleeper)
 "ahh" = (
@@ -59801,15 +59799,6 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/wrench/medical,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/screwdriver{
-	pixel_y = 6
-	},
-/obj/item/crowbar,
-/turf/open/floor/plasteel/white,
-/area/medical/cryo)
-"cnv" = (
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_x = -2;
 	pixel_y = 9
@@ -59818,26 +59807,23 @@
 	pixel_x = 5;
 	pixel_y = 9
 	},
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 6;
-	pixel_y = 2
-	},
+/obj/item/clothing/neck/stethoscope,
+/obj/item/wrench/medical,
 /obj/item/reagent_containers/syringe/epinephrine{
 	pixel_x = 3;
 	pixel_y = -2
 	},
 /obj/item/reagent_containers/dropper,
+/turf/open/floor/plasteel/white,
+/area/medical/cryo)
+"cnv" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
+/obj/structure/closet/crate/medical/cryoxadonesupply,
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
 "cnw" = (

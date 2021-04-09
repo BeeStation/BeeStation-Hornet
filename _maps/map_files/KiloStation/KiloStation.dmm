@@ -20966,14 +20966,8 @@
 	pixel_y = 10
 	},
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 6
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_x = -6;
 	pixel_y = 10
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -6
 	},
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe,
@@ -20986,6 +20980,8 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/item/wrench/medical,
+/obj/item/clothing/neck/stethoscope,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/cryo)
 "aFs" = (
@@ -27298,9 +27294,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/sleeper{
-	dir = 4
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "aOI" = (
@@ -27705,7 +27699,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "aPh" = (
-/obj/structure/table,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -27714,10 +27707,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/item/wrench/medical,
-/obj/item/reagent_containers/pill/mannitol,
-/obj/item/reagent_containers/pill/mannitol,
-/obj/item/clothing/neck/stethoscope,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -26
@@ -27737,6 +27726,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/structure/closet/crate/medical/cryoxadonesupply,
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/cryo)
 "aPi" = (

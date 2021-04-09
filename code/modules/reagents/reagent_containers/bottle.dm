@@ -57,6 +57,21 @@
 	desc = "A small bottle of charcoal, which removes toxins and other chemicals from the bloodstream."
 	list_reagents = list(/datum/reagent/medicine/charcoal = 30)
 
+/obj/item/reagent_containers/glass/bottle/cryoxadone
+	name = "cryoxadone bottle"
+	desc = "A small bottle of cryoxadone, used for healing DNA damage and in cryo cells."
+	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
+
+/obj/item/reagent_containers/glass/bottle/bicaridine
+	name = "bicarding bottle"
+	desc = "A small bottle of bicaridine. Useful for healing brute damage."
+	list_reagents = list(/datum/reagent/medicine/bicaridine = 30)
+
+/obj/item/reagent_containers/glass/bottle/kelotane
+	name = "kelotane bottle"
+	desc = "A small bottle of kelotane. Useful for healing burn damage"
+	list_reagents = list(/datum/reagent/medicine/kelotane = 30)
+
 /obj/item/reagent_containers/glass/bottle/mutagen
 	name = "unstable mutagen bottle"
 	desc = "A small bottle of unstable mutagen. Randomly changes the DNA structure of whoever comes in contact."

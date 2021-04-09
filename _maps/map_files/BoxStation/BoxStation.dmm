@@ -48246,14 +48246,9 @@
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_y = 7
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_x = 7;
 	pixel_y = 7
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -57987,6 +57982,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/structure/closet/crate/medical/cryoxadonesupply,
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
 "shj" = (
@@ -60499,18 +60495,6 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
-"vsn" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "vsr" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
@@ -60911,15 +60895,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"vIS" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/sleeper{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "vIT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -96976,7 +96951,7 @@ bof
 bof
 ctQ
 bCB
-vIS
+jIS
 cvb
 bof
 oFm
