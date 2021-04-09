@@ -152,3 +152,9 @@
 
 	if(!silent)
 		to_chat(H, "You are no longer a cat.")
+
+/datum/species/human/felinid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	. = ..()
+	var/obj/item/organ/brain/B = H.getorganslot(ORGAN_SLOT_BRAIN)
+	B.applyOrganDamage(200, BRAIN_DAMAGE_DEATH)
+	H.set_suicide(TRUE)
