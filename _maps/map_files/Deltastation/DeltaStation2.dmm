@@ -98501,18 +98501,14 @@
 /area/medical/medbay/central)
 "dnx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -6;
-	pixel_y = 11
+/obj/item/storage/pill_bottle/mannitol{
+	pixel_y = 7
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 6;
-	pixel_y = 9
-	},
-/obj/item/storage/pill_bottle/mannitol,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/wrench/medical,
+/obj/item/reagent_containers/dropper,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "dny" = (
@@ -101031,7 +101027,6 @@
 	},
 /obj/item/book/manual/wiki/medicine,
 /obj/item/clothing/neck/stethoscope,
-/obj/item/wrench/medical,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -101042,7 +101037,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/reagent_containers/dropper,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "dsH" = (

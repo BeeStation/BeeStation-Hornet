@@ -59799,14 +59799,6 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -2;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 5;
-	pixel_y = 9
-	},
 /obj/item/clothing/neck/stethoscope,
 /obj/item/wrench/medical,
 /obj/item/reagent_containers/syringe/epinephrine{

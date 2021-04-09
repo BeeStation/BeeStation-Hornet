@@ -174,12 +174,13 @@
 
 /obj/structure/closet/crate/medical/cryoxadonesupply/PopulateContents()
 	. = ..()
-	new /obj/item/reagent_containers/glass/beaker/cryoxadone(src)
-	new /obj/item/reagent_containers/glass/beaker/cryoxadone(src)
-	new /obj/item/reagent_containers/glass/bottle/bicaridine(src)
-	new /obj/item/reagent_containers/glass/bottle/kelotane(src)
-	new /obj/item/reagent_containers/glass/bottle/epinephrine(src)
-	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
+	for(var/i in 1 to 2)
+		new /obj/item/reagent_containers/glass/beaker/cryoxadone(src)
+		new /obj/item/reagent_containers/glass/beaker/cryoxadone(src)
+		new /obj/item/reagent_containers/glass/bottle/bicaridine(src)
+		new /obj/item/reagent_containers/glass/bottle/kelotane(src)
+		new /obj/item/reagent_containers/glass/bottle/epinephrine(src)
+		new /obj/item/reagent_containers/glass/bottle/charcoal(src)
 
 /obj/structure/closet/crate/freezer
 	desc = "A freezer."

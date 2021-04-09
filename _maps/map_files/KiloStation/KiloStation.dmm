@@ -20961,14 +20961,6 @@
 /obj/item/clipboard{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 6;
-	pixel_y = 10
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -6;
-	pixel_y = 10
-	},
 /obj/item/reagent_containers/dropper,
 /obj/item/reagent_containers/syringe,
 /obj/machinery/camera{

@@ -31881,14 +31881,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
-"bud" = (
-/obj/item/wrench/medical,
-/obj/machinery/atmospherics/pipe/manifold/general/visible,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/sleeper)
 "bue" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
@@ -53941,14 +53933,6 @@
 /turf/open/floor/plating,
 /area/hallway/primary/fore)
 "cSJ" = (
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = -2;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 5;
-	pixel_y = 9
-	},
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/epinephrine{
 	pixel_x = 3;
@@ -53968,6 +53952,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/item/wrench/medical,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "cSK" = (
@@ -93132,7 +93117,7 @@ bld
 bpJ
 biY
 bsC
-bud
+buc
 bvk
 bwH
 rAZ

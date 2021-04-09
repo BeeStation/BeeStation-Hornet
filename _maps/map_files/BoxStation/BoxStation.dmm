@@ -48243,13 +48243,6 @@
 /area/hallway/secondary/exit)
 "fVO" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/glass/beaker/cryoxadone{
-	pixel_x = 7;
-	pixel_y = 7
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
