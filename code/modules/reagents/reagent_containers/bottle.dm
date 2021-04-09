@@ -63,7 +63,7 @@
 	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
 
 /obj/item/reagent_containers/glass/bottle/bicaridine
-	name = "bicarding bottle"
+	name = "bicarde bottle"
 	desc = "A small bottle of bicaridine. Useful for healing brute damage."
 	list_reagents = list(/datum/reagent/medicine/bicaridine = 30)
 
