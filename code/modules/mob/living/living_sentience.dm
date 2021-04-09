@@ -1,4 +1,4 @@
-/mob/living/ghostize(can_reenter_corpse = TRUE, sentience_retention = SENTIENCE_SKIP )
+/mob/living/ghostize(can_reenter_corpse, sentience_retention)
 	..()
 	switch(sentience_retention)
 		if (SENTIENCE_RETAIN)

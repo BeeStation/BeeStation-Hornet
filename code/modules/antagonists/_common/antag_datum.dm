@@ -111,9 +111,8 @@ GLOBAL_LIST(admin_antag_list)
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner)]) to replace a jobbanned player.")
 		owner.current.ghostize(FALSE)
 		owner.current.key = C.key
-	else 
+	else
 		owner.current.ghostize(FALSE,SENTIENCE_FORCE)
-		owner.current.key = C.key
 
 /datum/antagonist/proc/on_removal()
 	remove_innate_effects()

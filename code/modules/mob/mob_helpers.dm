@@ -510,7 +510,6 @@
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
 		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
-		M.set_playable()
 		return FALSE
 
 ///Is the mob a flying mob
@@ -551,7 +550,7 @@
 			colored_message = "<font color=[color]>[message]</font>"
 		else
 			colored_message = "<font color='[color]'>[message]</font>"
-	
+
 	//This makes readability a bit better for admins.
 	switch(message_type)
 		if(LOG_WHISPER)
