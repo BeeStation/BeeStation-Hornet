@@ -89,7 +89,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Mass Purrbation", "masspurrbation"),
 			list("Mass Remove Purrbation", "massremovepurrbation"),
 			list("Fully Immerse Everyone", "massimmerse"),
-			list("Un-Fully Immerse Everyone", "unmassimmerse")
+			list("Un-Fully Immerse Everyone", "unmassimmerse"),
 			list("Make All Animals Playable", "animalsentience")
 			)
 
