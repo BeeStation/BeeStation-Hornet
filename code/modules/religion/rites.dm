@@ -98,6 +98,19 @@
 	human2borg.visible_message("<span class='notice'>[human2borg] has been converted by the rite of [name]!</span>")
 	return ..()
 
+/datum/religion_rites/black_out
+	name = "Blackout"
+	desc = "Send the station in complete blackout for a limited duration."
+	ritual_length = 30 SECONDS
+	invoke_msg = "these blind fools are not worthy of the light. Let them live in darkness!"
+	favor_cost = 1000
+
+/datum/religion_rites/black_out/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	var/datum/round_event_control/electrical_storm/curse = new()
+	curse.runEvent()
+	return ..()
+
+
 /*********Ever-Burning Candle**********/
 
 ///apply a bunch of fire immunity effect to clothing
@@ -144,7 +157,6 @@
 	chosen_clothing = null
 	to_chat(user, "<span class='warning'>The clothing that was chosen for the rite is no longer on the altar!</span>")
 	return FALSE
-
 
 /datum/religion_rites/burning_sacrifice
 	name = "Candle Fuel"
@@ -217,4 +229,18 @@
 	for(var/i in 1 to 5)
 		new /obj/item/candle/infinite(altar_turf)
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
+	return ..()
+
+/datum/religion_rites/pyromania
+	name = "Pyromania"
+	desc = "Manifest Pyromania, a fireball shooting wand."
+	ritual_length = 10 SECONDS
+	invoke_msg = "from ashes we come, to ashes we go. No pain, only memories..."
+	favor_cost = 2000
+
+/datum/religion_rites/pyromania/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	var/altar_turf = get_turf(religious_tool)
+	var/obj/item/gun/magic/wand/fireball/inert/mwand = new /obj/item/gun/magic/wand/fireball/inert(altar_turf)
+	mwand.name = "Pyromania"
+	playsound(altar_turf, 'sound/magic/demon_attack1.ogg', 50, TRUE)
 	return ..()
