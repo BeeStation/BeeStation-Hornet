@@ -1402,11 +1402,12 @@
 	give_mind(user)
 
 /mob/living/Topic(href, href_list)
+	if(..())
+		return
 	if(href_list["activate"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost) && playable)
 			give_mind(ghost)
-	..()
 			
 /mob/living/proc/give_mind(mob/user)
 	if(key || !playable || stat)
