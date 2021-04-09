@@ -144,7 +144,7 @@
 		return
 	active_coma = FALSE
 	if(deathgasp)
-		M.cure_fakedeath("regenerative_coma")
+		M.cure_fakedeath("regenerative coma")
 	else
 		M.SetUnconscious(0)
 	M.update_stat()
