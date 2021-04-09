@@ -1,0 +1,6 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - bugfix: Fixed Mismatch Fake Death Flags on Regen Coma
+  - bugfix: You can now wake up from stealth threshold regen coma
+  - code_imp: Regen Coma now has a Define
