@@ -557,9 +557,10 @@
 
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
+	desc = "A special heavy winter jacket for a special person. Your actuely just wearing the carapace underneath. Not solving the nipple chaffing problem"
 	icon_state = "coatcaptain"
 	item_state = "coatcaptain"
-	armor = list("melee" = 25, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 20)
+	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 60, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 90, "stamina" = 40)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
 
 /obj/item/clothing/suit/hooded/wintercoat/captain/Initialize()
