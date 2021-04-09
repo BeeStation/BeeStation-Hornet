@@ -29,9 +29,11 @@
 	var/burnstate = 0
 	var/brute_dam = 0
 	var/burn_dam = 0
-	var/stamina_dam = 0
 	var/max_stamina_damage = 0
 	var/max_damage = 0
+
+	var/stamina_dam = 0
+	var/stamina_heal_rate = 1	//Stamina heal multiplier
 
 	var/brute_reduction = 0 //Subtracted to brute damage taken
 	var/burn_reduction = 0	//Subtracted to burn damage taken
@@ -136,7 +138,7 @@
 //Return TRUE to get whatever mob this is in to update health.
 /obj/item/bodypart/proc/on_life(stam_regen)
 	if(stamina_dam > DAMAGE_PRECISION && stam_regen)					//DO NOT update health here, it'll be done in the carbon's life.
-		heal_damage(0, 0, INFINITY, null, FALSE)
+		heal_damage(0, 0, stam_regen, null, FALSE)
 		. |= BODYPART_LIFE_UPDATE_HEALTH
 
 //Applies brute and burn damage to the organ. Returns 1 if the damage-icon states changed at all.
@@ -182,14 +184,15 @@
 	//We've dealt the physical damages, if there's room lets apply the stamina damage.
 	var/current_damage = get_damage(TRUE)		//This time around, count stamina loss too.
 	var/available_damage = max_damage - current_damage
-	stamina_dam += round(CLAMP(stamina, 0, min(max_stamina_damage - stamina_dam, available_damage)), DAMAGE_PRECISION)
+	var/applied_damage = min(max_stamina_damage - stamina_dam, available_damage)
+	stamina_dam += round(CLAMP(stamina, 0, applied_damage), DAMAGE_PRECISION)
 
 
 	if(owner && updating_health)
 		owner.updatehealth()
 		if(stamina > DAMAGE_PRECISION)
-			owner.update_stamina()
-			owner.stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
+			owner.update_stamina(TRUE)
+			owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
 	consider_processing()
 	update_disabled()
 	return update_bodypart_damage_state()

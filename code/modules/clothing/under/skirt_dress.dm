@@ -99,3 +99,22 @@
 	icon_state = "plaid_green"
 	item_state = "plaid_green"
 	item_color = "plaid_green"
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/clothing/under/dress/gown
+	name = "wine gown"
+	desc = "A classic and stylish wine red dress."
+	icon_state = "wine_gown"
+
+/obj/item/clothing/under/dress/gown/teal
+	name = "teal gown"
+	desc = "A classic and stylish teal dress."
+	icon_state = "teal_gown"
+
+/obj/item/clothing/under/dress/gown/midnight
+	name = "midnight gown"
+	desc = "A classic and stylish velvet dress."
+	icon_state = "midnight_gown"

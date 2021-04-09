@@ -15,7 +15,7 @@
 	use_power = IDLE_POWER_USE				//this turret uses and requires power
 	idle_power_usage = 100		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 600	//when active, this turret takes up constant 300 Equipment power
-	req_access = list(ACCESS_SEC_DOORS)
+	req_access = list(ACCESS_SECURITY)
 	power_channel = AREA_USAGE_EQUIP	//drains power from the EQUIPMENT channel
 
 	var/base_icon_state = "standard"
@@ -500,7 +500,7 @@
 			threatcount += 4
 
 	if(shoot_unloyal)
-		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) ||  istype(perp.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) ||  istype(perp.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			threatcount += 4
 
 	return threatcount

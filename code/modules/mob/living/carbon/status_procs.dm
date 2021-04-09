@@ -13,6 +13,7 @@
 		return
 	if(!IsParalyzed())
 		to_chat(src, "<span class='notice'>You're too exhausted to keep going.</span>")
+	stam_regen_start_time = world.time + STAMINA_CRIT_TIME
 	stam_paralyzed = TRUE
 
 /mob/living/carbon/adjust_drugginess(amount)
