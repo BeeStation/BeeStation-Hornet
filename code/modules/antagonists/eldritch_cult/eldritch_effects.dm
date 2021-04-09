@@ -194,7 +194,7 @@
 		return
 	//a very elaborate way to suicide
 	to_chat(human_user,"<span class='userdanger'>Eldritch energy lashes out, piercing your fragile mind, tearing it to pieces!</span>")
-	human_user.ghostize()
+	human_user.ghostize(FALSE,SENTIENCE_ERASE)
 	var/obj/item/bodypart/head/head = locate() in human_user.bodyparts
 	if(head)
 		head.dismember()

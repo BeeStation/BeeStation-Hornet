@@ -1161,7 +1161,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			
 		if(ADMIN_PUNISHMENT_GHOST)
 			if (target.key)
-				target.ghostize(FALSE,TRUE)
+				target.ghostize(FALSE,SENTIENCE_FORCE)
 			else
 				target.set_playable()
 

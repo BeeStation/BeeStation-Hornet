@@ -510,6 +510,7 @@
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
 		message_admins("No ghosts were willing to take control of [ADMIN_LOOKUPFLW(M)])")
+		M.set_playable()
 		return FALSE
 
 ///Is the mob a flying mob

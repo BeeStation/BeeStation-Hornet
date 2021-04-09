@@ -109,7 +109,10 @@ GLOBAL_LIST(admin_antag_list)
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner)]) to replace a jobbanned player.")
-		owner.current.ghostize(0)
+		owner.current.ghostize(FALSE)
+		owner.current.key = C.key
+	else 
+		owner.current.ghostize(FALSE,SENTIENCE_FORCE)
 		owner.current.key = C.key
 
 /datum/antagonist/proc/on_removal()
