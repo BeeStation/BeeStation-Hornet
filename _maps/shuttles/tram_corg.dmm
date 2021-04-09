@@ -12,6 +12,27 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
+"h" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/chair/comfy/shuttle,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"m" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	dwidth = 2;
+	height = 7;
+	id = "tram_corg";
+	launch_status = 0;
+	name = "transport shuttle";
+	preferred_direction = 2;
+	width = 5
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/pod_1)
 "p" = (
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/pod_1)
@@ -52,7 +73,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "E" = (
-/turf/template_noop,
+/turf/closed/wall/mineral/titanium,
 /area/template_noop)
 "I" = (
 /obj/machinery/light{
@@ -94,21 +115,6 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
-"Y" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Shuttle Airlock"
-	},
-/obj/structure/fans/tiny,
-/obj/docking_port/mobile{
-	dwidth = 2;
-	height = 7;
-	id = "tram_corg";
-	launch_status = 0;
-	name = "transport shuttle";
-	width = 5
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/pod_1)
 
 (1,1,1) = {"
 E
@@ -120,8 +126,8 @@ K
 e
 "}
 (2,1,1) = {"
-K
-K
+S
+h
 p
 M
 c
@@ -135,11 +141,11 @@ p
 p
 p
 p
-Y
+m
 "}
 (4,1,1) = {"
-K
-K
+S
+h
 p
 D
 W
