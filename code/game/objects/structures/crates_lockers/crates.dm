@@ -168,6 +168,19 @@
 	name = "medical crate"
 	icon_state = "medical_crate"
 
+/obj/structure/closet/crate/medical/cryoxadonesupply
+	desc = "Crate filled with beneficials chemicals, meant to be used in cryo cell."
+	name = "cryo cell resupply crate"
+
+/obj/structure/closet/crate/medical/cryoxadonesupply/PopulateContents()
+	. = ..()
+	new /obj/item/reagent_containers/glass/beaker/cryoxadone(src)
+	new /obj/item/reagent_containers/glass/beaker/cryoxadone(src)
+	new /obj/item/reagent_containers/glass/beaker/bicaridine(src)
+	new /obj/item/reagent_containers/glass/beaker/kelotane(src)
+	new /obj/item/reagent_containers/glass/beaker/epinephrine(src)
+	new /obj/item/reagent_containers/glass/beaker/charcoal(src)
+
 /obj/structure/closet/crate/freezer
 	desc = "A freezer."
 	name = "freezer"

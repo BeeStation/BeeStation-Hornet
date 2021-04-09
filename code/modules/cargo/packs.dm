@@ -1314,6 +1314,17 @@
 	crate_name = "rusty freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
+/datum/supply_pack/medical/cryosupplies
+	name = "Cryo cell resupply pack"
+	dest = "Cotaints 7 beakers, all filled witch healing chemicals. For all your cryo needs!"
+	cost = 4000
+	contains = list(/obj/item/reagent_containers/glass/beaker/cryoxadone,
+					/obj/item/reagent_containers/glass/beaker/cryoxadone,
+					/obj/item/reagent_containers/glass/beaker/bicaridine,
+					/obj/item/reagent_containers/glass/beaker/kelotane,
+					/obj/item/reagent_containers/glass/beaker/epinephrine,
+					/obj/item/reagent_containers/glass/beaker/charcoal)
+
 /datum/supply_pack/medical/basickits
 	name = "Basic Treatment Kits Crate"
 	desc = "Contains three basic aid kits focused on basic types of damage in a simple way."

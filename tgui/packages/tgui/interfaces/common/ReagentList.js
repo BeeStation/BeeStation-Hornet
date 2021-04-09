@@ -2,7 +2,7 @@ import { AnimatedNumber, Box, Button, Table, NumberInput } from '../../component
 import { useBackend, useLocalState } from '../../backend';
 
 export const ReagentList = (props, context) => {
-  const { content, multiplier } = props;
+  const { content} = props;
   const { act } = useBackend(context);
   const [
     amount,
@@ -17,8 +17,8 @@ export const ReagentList = (props, context) => {
           height="100%">
           <Table.Cell>
             <AnimatedNumber
-              value={chemical.volume * multiplier} />
-            {chemical.volume * multiplier < 2 && (
+              value={chemical.volume} />
+            {chemical.volume < 2 && (
               " unit of "
             ) || (
               " units of "
@@ -58,7 +58,7 @@ export const ReagentList = (props, context) => {
               content="Add"
               onClick={() => act("add", {
                 reagent: chemical,
-                amount: amount/multiplier,
+                amount: amount,
               })} />
           </Table.Cell>
         </Table.Row>

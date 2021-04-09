@@ -176,7 +176,7 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
 	..()
 
-	if(injecting)
+	if(injecting)		//we want to allow injecting even if machine itself is not on
 		inject_patient()
 	if(!on)
 		mode = MODE_OFF
