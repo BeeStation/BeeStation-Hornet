@@ -1,6 +1,6 @@
 //The chests dropped by mob spawner tendrils. Also contains associated loot.
 
-#define HIEROPHANT_CLUB_CARDINAL_DAMAGE 30
+#define HIEROPHANT_CLUB_CARDINAL_DAMAGE 15
 
 
 /obj/structure/closet/crate/necropolis
@@ -14,48 +14,34 @@
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/PopulateContents()
-	var/loot = rand(1,30)
+	var/loot = rand(1,25)
 	switch(loot)
-		if(1)
-			new /obj/item/shared_storage/red(src)
-		if(2)
-			new /obj/item/clothing/suit/space/hardsuit/cult(src)
-		if(3)
-			new /obj/item/soulstone/anybody(src)
-		if(4)
-			new /obj/item/katana/cursed(src)
-		if(5)
-			new /obj/item/clothing/glasses/godeye(src)
-		if(6)
-			new /obj/item/reagent_containers/glass/bottle/potion/flight(src)
-		if(7)
-			new /obj/item/pickaxe/diamond(src)
-		if(8)
-			if(prob(50))
-				new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)
-			else
-				new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
+		if(1 to 2)
+			new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)  //Doubled chance to receive upgrade disk that is directly relevant to mining
+		if(3 to 4)
+			new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
+		if(5 to 6)	
+			new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
+		if(7 to 8)
+			new /obj/item/disk/design_disk/modkit_disc/bounty(src)
 		if(9)
-			new /obj/item/rod_of_asclepius(src)
+			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 		if(10)
-			new /obj/item/organ/heart/cursed/wizard(src)
+			new /obj/item/shared_storage/red(src)
 		if(11)
-			new /obj/item/ship_in_a_bottle(src)
+			new /obj/item/clothing/glasses/godeye(src)
 		if(12)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland/beserker(src)
+			new /obj/item/reagent_containers/glass/bottle/potion/flight(src)
 		if(13)
-			new /obj/item/jacobs_ladder(src)
+			new /obj/item/pickaxe/diamond(src) //Ashwalkers exist. This is actually a great drop for them
 		if(14)
-			new /obj/item/nullrod/scythe/talking(src)
+			new /obj/item/rod_of_asclepius(src)
 		if(15)
-			new /obj/item/nullrod/armblade(src)
+			new /obj/item/organ/heart/cursed/wizard(src)
 		if(16)
-			new /obj/item/guardiancreator/hive(src)
+			new /obj/item/ship_in_a_bottle(src)
 		if(17)
-			if(prob(50))
-				new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
-			else
-				new /obj/item/disk/design_disk/modkit_disc/bounty(src)
+			new /obj/item/jacobs_ladder(src)
 		if(18)
 			new /obj/item/warp_cube/red(src)
 		if(19)
@@ -65,24 +51,12 @@
 		if(21)
 			new /obj/item/gun/magic/hook(src)
 		if(22)
-			new /obj/item/voodoo(src)
-		if(23)
-			new /obj/item/grenade/clusterbuster/inferno(src)
-		if(24)
-			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland/inquisitor(src)
-		if(25)
-			new /obj/item/book/granter/spell/summonitem(src)
-		if(26)
 			new /obj/item/book_of_babel(src)
-		if(27)
-			new /obj/item/borg/upgrade/modkit/lifesteal(src)
-			new /obj/item/bedsheet/cult(src)
-		if(28)
+		if(23)
 			new /obj/item/clothing/neck/necklace/memento_mori(src)
-		if(29)
+		if(24)
 			new /obj/item/reagent_containers/glass/waterbottle/relic(src)
-		if(30)
+		if(25)
 			new /obj/item/reagent_containers/glass/bottle/necropolis_seed(src)
 
 //KA modkit design discs
@@ -217,7 +191,7 @@
 	var/mob/living/carbon/human/active_owner
 
 /obj/item/clothing/neck/necklace/memento_mori/item_action_slot_check(slot)
-	return slot == SLOT_NECK
+	return slot == ITEM_SLOT_NECK
 
 /obj/item/clothing/neck/necklace/memento_mori/dropped(mob/user)
 	..()
@@ -367,7 +341,7 @@
 	var/turf/T = get_turf(src)
 	var/area/A1 = get_area(T)
 	var/area/A2 = get_area(linked)
-	if(A1.noteleport || A2.noteleport)
+	if(A1.teleport_restriction || A2.teleport_restriction)
 		to_chat(user, "[src] fizzles gently as it fails to breach the bluespace veil.")
 		return
 	teleporting = TRUE
@@ -385,7 +359,7 @@
 		user.forceMove(get_turf(link_holder))
 		qdel(link_holder)
 		return
-	link_holder.forceMove(get_turf(linked))
+	do_teleport(link_holder, get_turf(linked), no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
 	sleep(2.5)
 	if(QDELETED(user))
 		qdel(link_holder)
@@ -427,8 +401,8 @@
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	fire_sound = 'sound/weapons/batonextend.ogg'
 	max_charges = 1
-	item_flags = NEEDS_PERMIT | NOBLUDGEON
-	force = 18
+	item_flags = NEEDS_PERMIT
+	force = 15
 	attack_weight = 2
 
 /obj/item/ammo_casing/magic/hook
@@ -443,11 +417,11 @@
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	pass_flags = PASSTABLE
-	damage = 25
+	damage = 10
 	armour_penetration = 100
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
-	paralyze = 30
+	knockdown = 30
 	var/chain
 
 /obj/item/projectile/hook/fire(setAngle)
@@ -698,13 +672,31 @@
 
 ///Bosses
 
+//Legion
+
+/obj/structure/closet/crate/necropolis/legion
+	name = "legion chest"
+	
+/obj/structure/closet/crate/necropolis/legion/PopulateContents()
+	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
+	var/random_crystal = pick(choices)
+	new random_crystal(src)
+	new /obj/effect/spawner/lootdrop/megafaunaore(src)
+
 //Miniboss Miner
+
+/obj/structure/closet/crate/necropolis/bdm
+	name = "blood-drunk miner chest"
+	
+/obj/structure/closet/crate/necropolis/bdm/PopulateContents()
+	new /obj/item/melee/transforming/cleaving_saw(src)
+	new /obj/effect/spawner/lootdrop/megafaunaore(src)
 
 /obj/item/melee/transforming/cleaving_saw
 	name = "cleaving saw"
 	desc = "This saw, effective at drawing the blood of beasts, transforms into a long cleaver that makes use of centrifugal force."
-	force = 12
-	force_on = 20 //force when active
+	force = 8
+	force_on = 15 //force when active
 	throwforce = 20
 	throwforce_on = 20
 	icon = 'icons/obj/lavaland/artefacts.dmi'
@@ -722,7 +714,7 @@
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	sharpness = IS_SHARP
-	faction_bonus_force = 30
+	faction_bonus_force = 45
 	nemesis_factions = list("mining", "boss")
 	var/transform_cooldown
 	var/swiping = FALSE
@@ -798,24 +790,10 @@
 	name = "dragon chest"
 
 /obj/structure/closet/crate/necropolis/dragon/PopulateContents()
-	var/loot = rand(1,4)
-	switch(loot)
-		if(1)
-			new /obj/item/melee/ghost_sword(src)
-		if(2)
-			new /obj/item/lava_staff(src)
-		if(3)
-			new /obj/item/book/granter/spell/sacredflame(src)
-			new /obj/item/gun/magic/wand/fireball(src)
-		if(4)
-			new /obj/item/dragons_blood(src)
+	new /obj/effect/spawner/lootdrop/megafaunaore(src)
+	new /obj/item/dragons_blood(src)
 
-/obj/structure/closet/crate/necropolis/dragon/crusher
-	name = "firey dragon chest"
-
-/obj/structure/closet/crate/necropolis/dragon/crusher/PopulateContents()
-	..()
-	new /obj/item/crusher_trophy/tail_spike(src)
+// Ghost Sword - left in for other references and admin shenanigans
 
 /obj/item/melee/ghost_sword
 	name = "\improper spectral blade"
@@ -925,7 +903,7 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/random = rand(1,4)
+	var/random = rand(1,3)
 
 	switch(random)
 		if(1)
@@ -937,11 +915,6 @@
 			to_chat(user, "<span class='danger'>Your flesh begins to melt! Miraculously, you seem fine otherwise.</span>")
 			H.set_species(/datum/species/skeleton)
 		if(3)
-			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.</span>")
-			if(user.mind)
-				var/obj/effect/proc_holder/spell/targeted/shapeshift/dragon/D = new
-				user.mind.AddSpell(D)
-		if(4)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
 			H.weather_immunities |= "lava"
 
@@ -1039,21 +1012,7 @@
 /obj/structure/closet/crate/necropolis/bubblegum/PopulateContents()
 	new /obj/item/clothing/suit/space/hostile_environment(src)
 	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
-	var/loot = rand(1,3)
-	switch(loot)
-		if(1)
-			new /obj/item/mayhem(src)
-		if(2)
-			new /obj/item/blood_contract(src)
-		if(3)
-			new /obj/item/gun/magic/staff/spellblade(src)
-
-/obj/structure/closet/crate/necropolis/bubblegum/crusher
-	name = "bloody bubblegum chest"
-
-/obj/structure/closet/crate/necropolis/bubblegum/crusher/PopulateContents()
-	..()
-	new /obj/item/crusher_trophy/demon_claws(src)
+	new /obj/effect/spawner/lootdrop/megafaunaore(src)
 
 /obj/item/mayhem
 	name = "mayhem in a bottle"
@@ -1125,19 +1084,19 @@
 	return ..()
 
 /obj/structure/closet/crate/necropolis/colossus/PopulateContents()
-	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
-	var/random_crystal = pick(choices)
-	new random_crystal(src)
 	new /obj/item/organ/vocal_cords/colossus(src)
+	new /obj/effect/spawner/lootdrop/megafaunaore(src)
 
-/obj/structure/closet/crate/necropolis/colossus/crusher
-	name = "angelic colossus chest"
-
-/obj/structure/closet/crate/necropolis/colossus/crusher/PopulateContents()
-	..()
-	new /obj/item/crusher_trophy/blaster_tubes(src)
 
 //Hierophant
+
+/obj/structure/closet/crate/necropolis/hierophant
+	name = "hierophant chest"
+	
+/obj/structure/closet/crate/necropolis/hierophant/PopulateContents()
+	new /obj/item/hierophant_club(src)
+	new /obj/effect/spawner/lootdrop/megafaunaore(src)
+	
 /obj/item/hierophant_club
 	name = "hierophant club"
 	desc = "The strange technology of this large club allows various nigh-magical feats. It used to beat you, but now you can set the beat."
@@ -1150,7 +1109,7 @@
 	inhand_y_dimension = 64
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
-	force = 15
+	force = 5 //Melee attacks also invoke a 15 burn damage AoE, for a total of 20 damage
 	attack_verb = list("clubbed", "beat", "pummeled")
 	hitsound = 'sound/weapons/sonic_jackhammer.ogg'
 	actions_types = list(/datum/action/item_action/vortex_recall, /datum/action/item_action/toggle_unfriendly_fire)
@@ -1202,7 +1161,7 @@
 			if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
 				chaser_timer = world.time + chaser_cooldown
 				var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, chaser_speed, friendly_fire_check)
-				C.damage = 30
+				C.damage = 15
 				C.monster_damage_boost = FALSE
 				log_combat(user, target, "fired a chaser at", src)
 			else
@@ -1356,7 +1315,7 @@
 	sleep(2)
 	if(!M)
 		return
-	M.forceMove(turf_to_teleport_to)
+	do_teleport(M, turf_to_teleport_to, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
 	sleep(1)
 	if(!M)
 		return
@@ -1405,17 +1364,20 @@
 		var/obj/effect/temp_visual/hierophant/blast/B = new(t, user, friendly_fire_check)
 		B.damage = 15 //keeps monster damage boost due to lower damage
 
-
 //Just some minor stuff
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
 
 /obj/structure/closet/crate/necropolis/puzzle/PopulateContents()
-	var/loot = rand(1,3)
+	var/loot = rand(1,5)
 	switch(loot)
 		if(1)
-			new /obj/item/soulstone/anybody(src)
+			new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)
 		if(2)
-			new /obj/item/wisp_lantern(src)
+			new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
 		if(3)
-			new /obj/item/prisoncube(src)
+			new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
+		if(4)
+			new /obj/item/disk/design_disk/modkit_disc/bounty(src)
+		if(5)
+			new /obj/item/borg/upgrade/modkit/lifesteal(src)

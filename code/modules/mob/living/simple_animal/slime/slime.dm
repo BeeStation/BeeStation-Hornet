@@ -18,7 +18,7 @@
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
 	initial_language_holder = /datum/language_holder/slime
-	mobsay_color = "#A6E398"
+	chat_color = "#A6E398"
 	mobchatspan = "slimemobsay"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -274,7 +274,7 @@
 			Feedon(Food)
 	return ..()
 
-/mob/living/simple_animal/slime/doUnEquip(obj/item/W)
+/mob/living/simple_animal/slime/doUnEquip(obj/item/W, was_thrown = FALSE)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
@@ -530,6 +530,10 @@
 
 /mob/living/simple_animal/slime/get_spawner_flavour_text()
 	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+
+/mob/living/simple_animal/slime/proc/make_master(mob/user)
+	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
+	master = user
 
 /mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
 	. = ..(mapload, new_colour, new_is_adult)

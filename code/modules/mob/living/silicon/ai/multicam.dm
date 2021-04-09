@@ -4,16 +4,16 @@
 	var/mob/living/silicon/ai/ai
 	var/mutable_appearance/highlighted_background
 	var/highlighted = FALSE
-	var/mob/camera/aiEye/pic_in_pic/aiEye
+	var/mob/camera/ai_eye/pic_in_pic/ai_eye
 
 /atom/movable/screen/movable/pic_in_pic/ai/Initialize()
 	. = ..()
-	aiEye = new /mob/camera/aiEye/pic_in_pic()
-	aiEye.screen = src
+	ai_eye = new /mob/camera/ai_eye/pic_in_pic()
+	ai_eye.screen = src
 
 /atom/movable/screen/movable/pic_in_pic/ai/Destroy()
 	set_ai(null)
-	QDEL_NULL(aiEye)
+	QDEL_NULL(ai_eye)
 	return ..()
 
 /atom/movable/screen/movable/pic_in_pic/ai/Click()
@@ -38,18 +38,18 @@
 		add_overlay(highlighted ? highlighted_background : standard_background)
 
 /atom/movable/screen/movable/pic_in_pic/ai/set_view_size(width, height, do_refresh = TRUE)
-	aiEye.static_visibility_range =	(round(max(width, height) / 2) + 1)
+	ai_eye.static_visibility_range =	(round(max(width, height) / 2) + 1)
 	if(ai)
-		ai.camera_visibility(aiEye)
+		ai.camera_visibility(ai_eye)
 	..()
 
 /atom/movable/screen/movable/pic_in_pic/ai/set_view_center(atom/target, do_refresh = TRUE)
 	..()
-	aiEye.setLoc(get_turf(target))
+	ai_eye.setLoc(get_turf(target))
 
 /atom/movable/screen/movable/pic_in_pic/ai/refresh_view()
 	..()
-	aiEye.setLoc(get_turf(center))
+	ai_eye.setLoc(get_turf(center))
 
 /atom/movable/screen/movable/pic_in_pic/ai/proc/highlight()
 	if(highlighted)
@@ -68,7 +68,7 @@
 /atom/movable/screen/movable/pic_in_pic/ai/proc/set_ai(mob/living/silicon/ai/new_ai)
 	if(ai)
 		ai.multicam_screens -= src
-		ai.all_eyes -= aiEye
+		ai.all_eyes -= ai_eye
 		if(ai.master_multicam == src)
 			ai.master_multicam = null
 		if(ai.multicam_on)
@@ -76,7 +76,7 @@
 	ai = new_ai
 	if(new_ai)
 		new_ai.multicam_screens += src
-		ai.all_eyes += aiEye
+		ai.all_eyes += ai_eye
 		if(new_ai.multicam_on)
 			show_to(new_ai.client)
 
@@ -95,7 +95,7 @@
 	valid_territory = FALSE
 	ambient_effects = list()
 	blob_allowed = FALSE
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 	hidden = TRUE
 	safe = TRUE
 
@@ -118,7 +118,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 
 //Dummy camera eyes
 
-/mob/camera/aiEye/pic_in_pic
+/mob/camera/ai_eye/pic_in_pic
 	name = "Secondary AI Eye"
 	invisibility = INVISIBILITY_OBSERVER
 	mouse_opacity = MOUSE_OPACITY_ICON
@@ -129,11 +129,11 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	var/telegraph_range = 7
 	ai_detector_color = COLOR_ORANGE
 
-/mob/camera/aiEye/pic_in_pic/GetViewerClient()
+/mob/camera/ai_eye/pic_in_pic/GetViewerClient()
 	if(screen?.ai)
 		return screen.ai.client
 
-/mob/camera/aiEye/pic_in_pic/setLoc(turf/T)
+/mob/camera/ai_eye/pic_in_pic/setLoc(turf/T)
 	if (T)
 		forceMove(T)
 	else
@@ -145,10 +145,10 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	update_camera_telegraphing()
 	update_ai_detect_hud()
 
-/mob/camera/aiEye/pic_in_pic/get_visible_turfs()
+/mob/camera/ai_eye/pic_in_pic/get_visible_turfs()
 	return screen ? screen.get_visible_turfs() : list()
 
-/mob/camera/aiEye/pic_in_pic/proc/update_camera_telegraphing()
+/mob/camera/ai_eye/pic_in_pic/proc/update_camera_telegraphing()
 	if(!telegraph_cameras)
 		return
 	var/list/obj/machinery/camera/add = list()
@@ -180,7 +180,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 		C.in_use_lights++
 		C.update_icon()
 
-/mob/camera/aiEye/pic_in_pic/proc/disable_camera_telegraphing()
+/mob/camera/ai_eye/pic_in_pic/proc/disable_camera_telegraphing()
 	telegraph_cameras = FALSE
 	for (var/V in cameras_telegraphed)
 		var/obj/machinery/camera/C = V
@@ -190,7 +190,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 		C.update_icon()
 	cameras_telegraphed.Cut()
 
-/mob/camera/aiEye/pic_in_pic/Destroy()
+/mob/camera/ai_eye/pic_in_pic/Destroy()
 	disable_camera_telegraphing()
 	return ..()
 

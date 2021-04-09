@@ -607,7 +607,7 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD)) //mindshield implant, no dice
 		return FALSE
-	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		to_chat(M, "<span class='danger'>[slimelink_owner.real_name]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
 
 		return FALSE
@@ -627,8 +627,8 @@
 	var/datum/action/innate/linked_speech/action = linked_actions[link_id]
 	action.Remove(M)
 	to_chat(M, "<span class='notice'>You are no longer connected to [slimelink_owner.real_name]'s Slime Link.</span>")
-	linked_mobs[link_id] = null
-	linked_actions[link_id] = null
+	linked_mobs -= M
+	linked_actions -= action
 
 /datum/action/innate/linked_speech
 	name = "Slimelink"

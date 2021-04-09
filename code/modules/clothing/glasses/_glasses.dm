@@ -98,10 +98,10 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
-	if(slot == SLOT_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		return 1
 
 /obj/item/clothing/glasses/science/sciencesun
@@ -213,7 +213,7 @@
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && slot == SLOT_GLASSES)
+	if(ishuman(user) && slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/dropped(mob/user)
@@ -283,11 +283,13 @@
 	desc = "A bulky pair of unwieldy glasses that lets you see things best left unseen. Obscures vision, but also has enhanced shielding which blocks flashes."
 	icon_state = "bustin-g"
 	item_state = "bustin-g"
-	invis_view = SEE_INVISIBLE_OBSERVER
-	invis_override = null
 	flash_protect = 1
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_INVISVIEW
 	glass_colour_type = /datum/client_colour/glass_colour/green
+
+/obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/team_monitor, "ghost", 1)
 
 /obj/item/clothing/glasses/blindfold
 	name = "blindfold"
@@ -301,7 +303,7 @@
 
 /obj/item/clothing/glasses/blindfold/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
-	if(slot == SLOT_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		user.become_blind("blindfold_[REF(src)]")
 
 /obj/item/clothing/glasses/blindfold/dropped(mob/living/carbon/human/user)
@@ -316,7 +318,7 @@
 	var/colored_before = FALSE
 
 /obj/item/clothing/glasses/blindfold/white/equipped(mob/living/carbon/human/user, slot)
-	if(ishuman(user) && slot == SLOT_GLASSES)
+	if(ishuman(user) && slot == ITEM_SLOT_EYES)
 		update_icon(user)
 		user.update_inv_glasses() //Color might have been changed by update_icon.
 	..()

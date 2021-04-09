@@ -29,17 +29,17 @@
 
 /datum/species/snail/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	. = ..()
-	var/obj/item/storage/backpack/bag = C.get_item_by_slot(SLOT_BACK)
+	var/obj/item/storage/backpack/bag = C.get_item_by_slot(ITEM_SLOT_BACK)
 	if(!istype(bag, /obj/item/storage/backpack/snail))
 		if(C.dropItemToGround(bag)) //returns TRUE even if its null
-			C.equip_to_slot_or_del(new /obj/item/storage/backpack/snail(C), SLOT_BACK)
+			C.equip_to_slot_or_del(new /obj/item/storage/backpack/snail(C), ITEM_SLOT_BACK)
 	ADD_TRAIT(C, TRAIT_NOSLIPALL, SPECIES_TRAIT)
 
 /datum/species/snail/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	qdel(C.GetComponent(/datum/component/snailcrawl))
 	REMOVE_TRAIT(C, TRAIT_NOSLIPALL, SPECIES_TRAIT)
-	var/obj/item/storage/backpack/bag = C.get_item_by_slot(SLOT_BACK)
+	var/obj/item/storage/backpack/bag = C.get_item_by_slot(ITEM_SLOT_BACK)
 	if(istype(bag, /obj/item/storage/backpack/snail))
 		bag.emptyStorage()
 		C.doUnEquip(bag, TRUE, no_move = TRUE)
@@ -52,7 +52,7 @@
 	item_state = "snailshell"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 

@@ -172,12 +172,11 @@
 	..()
 
 /obj/machinery/capture_the_flag/process()
-	for(var/i in spawned_mobs)
-		if(!i)
-			spawned_mobs -= i
+	for(var/mob/living/M as() in spawned_mobs)
+		if(QDELETED(M))
+			spawned_mobs -= M
 			continue
 		// Anyone in crit, automatically reap
-		var/mob/living/M = i
 		if(M.InCritical() || M.stat == DEAD)
 			ctf_dust_old(M)
 		else
@@ -500,11 +499,11 @@
 	W.registered_name = H.real_name
 	W.update_label(W.registered_name, W.assignment)
 
-	no_drops += H.get_item_by_slot(SLOT_WEAR_SUIT)
-	no_drops += H.get_item_by_slot(SLOT_GLOVES)
-	no_drops += H.get_item_by_slot(SLOT_SHOES)
-	no_drops += H.get_item_by_slot(SLOT_W_UNIFORM)
-	no_drops += H.get_item_by_slot(SLOT_EARS)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_GLOVES)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_FEET)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_ICLOTHING)
+	no_drops += H.get_item_by_slot(ITEM_SLOT_EARS)
 	for(var/i in no_drops)
 		var/obj/item/I = i
 		ADD_TRAIT(I, TRAIT_NODROP, CAPTURE_THE_FLAG_TRAIT)

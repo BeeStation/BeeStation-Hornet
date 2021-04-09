@@ -179,10 +179,14 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/reload_configuration,
 	/client/proc/give_all_spells,
 	/datum/admins/proc/create_or_modify_area,
-#ifdef REFERENCE_TRACKING
+	#ifdef TESTING
+	/client/proc/export_dynamic_json,
+	/client/proc/run_dynamic_simulations,
+	#endif
+	#ifdef REFERENCE_TRACKING
 	/datum/admins/proc/view_refs,
 	/datum/admins/proc/view_del_failures,
-#endif
+	#endif
 	/client/proc/toggle_cdn
 	)
 

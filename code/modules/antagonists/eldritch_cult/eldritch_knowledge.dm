@@ -354,7 +354,7 @@
 	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a heart, and an item that the victim touched  with their bare hands."
 	cost = 1
 	required_atoms = list(/obj/item/wirecutters,/obj/item/organ/heart)
-	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/spell/area_conversion)
+	next_knowledge = list(/datum/eldritch_knowledge/mad_mask,/datum/eldritch_knowledge/spell/area_conversion)
 	timer = 2 MINUTES
 
 /datum/eldritch_knowledge/curse/corrosion/curse(mob/living/chosen_mob)
@@ -371,7 +371,7 @@
 	desc = "Curse someone for 5 minutes of inability to walk. Using a left leg, right leg, a hatchet and an item that the victim touched  with their bare hands. "
 	cost = 1
 	required_atoms = list(/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
-	next_knowledge = list(/datum/eldritch_knowledge/curse/blindness,/datum/eldritch_knowledge/summon/raw_prophet)
+	next_knowledge = list(/datum/eldritch_knowledge/mad_mask,/datum/eldritch_knowledge/summon/raw_prophet)
 	timer = 5 MINUTES
 
 /datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)
