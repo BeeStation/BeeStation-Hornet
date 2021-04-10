@@ -1,0 +1,5 @@
+author: St0rmC4st3r
+delete-after: true
+changes:
+  - bugfix: The quick control buttons were removed from the insides of all cryopods
+      as per SpaceOSHA request.
