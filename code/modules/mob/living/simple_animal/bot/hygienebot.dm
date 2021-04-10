@@ -97,7 +97,7 @@
 	. = ..()
 	if(washing && isturf(loc) && !emagged)
 		var/turf/open/OT = loc
-		OT.MakeSlippery(TURF_WET_WATER, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)
+		OT.MakeSlippery(TURF_WET_WATER, min_wet_time = 2 SECONDS, wet_time_to_add = 1 SECONDS)
 
 /mob/living/simple_animal/bot/hygienebot/handle_automated_action()
 	if(!..())

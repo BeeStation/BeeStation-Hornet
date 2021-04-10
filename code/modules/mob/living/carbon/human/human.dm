@@ -1200,8 +1200,10 @@
 /mob/living/carbon/human/washed(var/atom/washer)
 	. = ..()
 	if(wear_suit)
+		wear_suit.washed(washer)
 		update_inv_wear_suit()
-	else if(w_uniform && w_uniform.washed(washer))
+	else if(w_uniform)
+		w_uniform.washed(washer)
 		update_inv_w_uniform()
 
 	if(!is_mouth_covered())
