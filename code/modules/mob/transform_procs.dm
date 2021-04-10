@@ -1,4 +1,4 @@
-/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
+/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI))
 	if (notransform)
 		return
 	//Handle items on mob
@@ -132,6 +132,9 @@
 			changeling.purchasedpowers += hf
 			changeling.regain_powers()
 
+
+	if(tr_flags & TR_KEEPAI)
+		ai_controller.PossessPawn(O)
 
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a monkey.</B>")
@@ -300,7 +303,7 @@
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
-/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
+/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI))
 	if (notransform)
 		return
 	//Handle items on mob
@@ -396,6 +399,9 @@
 		for(var/Y in implants)
 			var/obj/item/implant/IMP = Y
 			IMP.implant(O, null, 1)
+
+	if(tr_flags & TR_KEEPAI)
+		ai_controller.PossessPawn(O)
 
 	if(tr_flags & TR_KEEPORGANS)
 		for(var/X in O.internal_organs)

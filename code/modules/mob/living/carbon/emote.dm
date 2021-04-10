@@ -67,6 +67,11 @@
 	message = "screeches"
 	mob_type_allowed_typecache = list(/mob/living/carbon/monkey, /mob/living/carbon/alien)
 
+/datum/emote/living/carbon/screech/roar
+	key = "roar"
+	key_third_person = "roars"
+	message = "roars."
+
 /datum/emote/living/carbon/sign
 	key = "sign"
 	key_third_person = "signs"

@@ -78,11 +78,8 @@
 		else if(!L.can_inject(user, TRUE))
 			return
 
-	// chance of monkey retaliation
-	if(ismonkey(target) && prob(MONKEY_SYRINGE_RETALIATION_PROB))
-		var/mob/living/carbon/monkey/M
-		M = target
-		M.retaliate(user)
+	SEND_SIGNAL(target, COMSIG_LIVING_TRY_SYRINGE, user)
+
 	switch(mode)
 		if(SYRINGE_DRAW)
 
@@ -209,11 +206,11 @@
 /obj/item/reagent_containers/syringe/proc/embed(mob/living/carbon/C, injectmult = 1)
 	C.apply_status_effect(STATUS_EFFECT_SYRINGE, src, injectmult)
 	forceMove(C)
-	
+
 /obj/item/reagent_containers/syringe/used
 	name = "used syringe"
 	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it"
-	
+
 
 /obj/item/reagent_containers/syringe/used/Initialize()
 	. = ..()
@@ -240,7 +237,7 @@
 	name = "syringe (diphenhydramine)"
 	desc = "Contains diphenhydramine, an antihistamine agent."
 	list_reagents = list(/datum/reagent/medicine/diphenhydramine = 15)
-	
+
 /obj/item/reagent_containers/syringe/calomel
 	name = "syringe (calomel)"
 	desc = "Contains calomel."
