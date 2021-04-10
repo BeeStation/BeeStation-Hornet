@@ -1355,8 +1355,8 @@
 	room_id = "sk_rdm158_loadsamoney"
 	mappath = "_maps/RandomRooms/3x5/sk_rdm158_loadsamoney.dmm"
 	centerspawner = FALSE
-	template_height = 3
-	template_width = 5
+	template_height = 5
+	template_width = 3
 	weight = 1
 	stock = 1
 
