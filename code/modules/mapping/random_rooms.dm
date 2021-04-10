@@ -1350,7 +1350,7 @@
 	template_height = 10
 	template_width = 10
 
-/datam/map_template/random_room/sk_rdm158
+/datum/map_template/random_room/sk_rdm158
 	name = "Loads a MONEY"
 	room_id = "sk_rdm158_loadsamoney"
 	mappath = "_maps/RandomRooms/3x5/sk_rdm158_loadsamoney.dmm"
