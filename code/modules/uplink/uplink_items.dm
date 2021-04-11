@@ -2058,6 +2058,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list("Curator")
 	limited_stock = 1 //please don't spam deadchat
 
+/datum/uplink_item/role_restricted/voodoo
+	name = "Wicker Doll"
+	desc = "A wicker voodoo doll with a cavity for storing a small item. Once an item has been stored within it, the doll may be used to manipulate the actions of another person that has previously been in contact with the stored item."
+	item = /obj/item/voodoo
+	cost = 12
+	restricted_roles = list("Curator", "Stage Magician")
+
+/datum/uplink_item/role_restricted/prison_cube
+	name = "Prison Cube"
+	desc = "A very strange artifact recovered from a volcanic planet that is useful for keeping people locked away, but not very useful for keeping their disappearance unknown"
+	item = /obj/item/prisoncube
+	cost = 6
+	restricted_roles = list("Curator")
+
 /datum/uplink_item/role_restricted/his_grace
 	name = "His Grace"
 	desc = "An incredibly dangerous weapon recovered from a station overcome by the grey tide. Once activated, He will thirst for blood and must be used to kill to sate that thirst. \

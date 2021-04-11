@@ -634,3 +634,6 @@ ROUNDSTART_BLUESPACE_MINERS 2
 
 ## Enable the bluespace miner research node?
 #BSMINER_RESEARCHABLE
+
+## Do we want all the heads to get codes to spare safe, or just one highest in CoC?
+#SPARE_ENFORCE_COC
