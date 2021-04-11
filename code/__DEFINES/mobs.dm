@@ -370,3 +370,6 @@
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
+
+/// Glide speed of carbons in soft crit
+#define CRIT_GLIDE 2

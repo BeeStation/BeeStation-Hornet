@@ -514,6 +514,12 @@
 		add_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE, multiplicative_slowdown = CRAWLING_ADD_SLOWDOWN)
 	else
 		remove_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE)
+	if(buckled || pulledby)
+		return
+	if(is_conscious())
+		glide_size = initial(glide_size)
+	else
+		glide_size = CRIT_GLIDE
 
 //Updates the mob's health from bodyparts and mob damage variables
 /mob/living/carbon/updatehealth()
@@ -770,15 +776,12 @@
 				REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		else
 			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+				// Slower glide movement handled in update_mobility()
 				stat = SOFT_CRIT
 				stuttering = 10
-				glide_size = 2
-				if(!buckled && !pulledby)
-					glide_size = 2
 			else
 				stat = CONSCIOUS
 				stuttering = 0
-				glide_size = initial(glide_size)
 			adjust_blindness(-1)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		update_mobility()

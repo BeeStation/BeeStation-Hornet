@@ -160,8 +160,6 @@
 		var/mob/living/ex_pulled = pulling
 		pulling = null
 		setGrabState(0)
-		if(ismob(ex_pulled))
-			ex_pulled.glide_size = initial(ex_pulled.glide_size)
 		if(isliving(ex_pulled))
 			var/mob/living/L = ex_pulled
 			L.update_mobility()// mob gets up if it was lyng down in a chokehold
