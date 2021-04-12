@@ -21,6 +21,7 @@
 	var/l_setshort = 0
 	var/l_hacking = 0
 	var/open = FALSE
+	var/can_hack_open = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	desc = "This shouldn't exist. If it does, create an issue report."
 
@@ -32,33 +33,34 @@
 
 /obj/item/storage/secure/examine(mob/user)
 	. = ..()
-	. += "The service panel is currently <b>[open ? "unscrewed" : "screwed shut"]</b>."
+	if(can_hack_open)
+		. += "The service panel is currently <b>[open ? "unscrewed" : "screwed shut"]</b>."
 
 /obj/item/storage/secure/attackby(obj/item/W, mob/user, params)
-	if(SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
+	if(can_hack_open && SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
 		if (W.tool_behaviour == TOOL_SCREWDRIVER)
 			if (W.use_tool(src, user, 20))
-				open =! open
+				open = !open
 				to_chat(user, "<span class='notice'>You [open ? "open" : "close"] the service panel.</span>")
 			return
 		if (W.tool_behaviour == TOOL_WIRECUTTER)
 			to_chat(user, "<span class='danger'>[src] is protected from this sort of tampering, yet it appears the internal memory wires can still be <b>pulsed</b>.</span>")
-		if ((W.tool_behaviour == TOOL_MULTITOOL) && (!l_hacking))
-			if(open == 1)
+			return
+		if ((W.tool_behaviour == TOOL_MULTITOOL))
+			if(l_hacking)
+				to_chat(user, "<span class='danger'>This safe is already being hacked.</span>")
+				return
+			if(open)
 				to_chat(user, "<span class='danger'>Now attempting to reset internal memory, please hold.</span>")
-				l_hacking = 1
+				l_hacking = TRUE
 				if (W.use_tool(src, user, 400))
 					to_chat(user, "<span class='danger'>Internal memory reset - lock has been disengaged.</span>")
-					l_set = 0
-					l_hacking = 0
-				else
-					l_hacking = 0
-			else
-				to_chat(user, "<span class='notice'>You must <b>unscrew</b> the service panel before you can pulse the wiring.</span>")
+					l_set = FALSE
+
+				l_hacking = FALSE
+				return
+			to_chat(user, "<span class='notice'>You must <b>unscrew</b> the service panel before you can pulse the wiring.</span>")
 			return
-		//At this point you have exhausted all the special things to do when locked
-		// ... but it's still locked.
-		return
 
 	// -> storage/attackby() what with handle insertion, etc
 	return ..()
@@ -187,3 +189,34 @@
 
 /obj/item/storage/secure/safe/HoS
 	name = "head of security's safe"
+
+/**
+ * This safe is meant to be damn robust. To break in, you're supposed to get creative, or use acid or an explosion.
+ *
+ * This makes the safe still possible to break in for someone who is prepared and capable enough, either through
+ * chemistry, botany or whatever else.
+ *
+ * The safe is also weak to explosions, so spending some early TC could allow an antag to blow it upen if they can
+ * get access to it.
+ */
+/obj/item/storage/secure/safe/caps_spare
+	name = "captain's spare ID safe"
+	desc = "In case of emergency, do not break glass. All Captains and Acting Captains are provided with codes to access this safe. \
+It is made out of the same material as the station's Black Box and is designed to resist all conventional weaponry. \
+There appears to be a small amount of surface corrosion. It doesn't look like it could withstand much of an explosion."
+	can_hack_open = FALSE
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 70, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70);
+	max_integrity = 300
+	color = "#ffdd33"
+
+/obj/item/storage/secure/safe/caps_spare/Initialize()
+	. = ..()
+	l_code = SSjob.spare_id_safe_code
+	l_set = TRUE
+	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, TRUE)
+
+/obj/item/storage/secure/safe/caps_spare/PopulateContents()
+	new /obj/item/card/id/captains_spare(src)
+
+/obj/item/storage/secure/safe/caps_spare/rust_heretic_act()
+	take_damage(damage_amount = 100, damage_type = BRUTE, damage_flag = "melee", armour_penetration = 100)

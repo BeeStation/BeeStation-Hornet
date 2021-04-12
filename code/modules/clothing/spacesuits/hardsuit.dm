@@ -759,6 +759,11 @@
 		s.set_up(2, 1, src)
 		s.start()
 		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
+		if(isprojectile(hitby))
+			var/obj/item/projectile/P = hitby
+			//Fake bullets just disintegrate
+			if(P.martial_arts_no_deflect)
+				return TRUE
 		current_charges--
 		if(recharge_rate)
 			START_PROCESSING(SSobj, src)
@@ -766,8 +771,8 @@
 			owner.visible_message("[owner]'s shield overloads!")
 			shield_state = "broken"
 			owner.update_inv_wear_suit()
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /obj/item/clothing/suit/space/hardsuit/shielded/Destroy()

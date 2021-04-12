@@ -585,7 +585,7 @@ MICE_ROUNDSTART 10
 #EMERGENCY_SHUTTLE_AUTOCALL_THRESHOLD 0.2
 
 ## Determines if players are allowed to print integrated circuits, uncomment to allow.
-IC_PRINTING
+@IC_PRINTING 0
 
 ## Uncomment to allow roundstart quirk selection in the character setup menu.
 ## This used to be named traits, hence the config name, but it handles quirks, not the other kind of trait!
@@ -634,3 +634,6 @@ ROUNDSTART_BLUESPACE_MINERS 2
 
 ## Enable the bluespace miner research node?
 #BSMINER_RESEARCHABLE
+
+## Do we want all the heads to get codes to spare safe, or just one highest in CoC?
+#SPARE_ENFORCE_COC

@@ -337,10 +337,6 @@
 				continue
 		//If you got this far, that means we can process whatever reagent this iteration is for. Handle things normally from here.
 
-		if(!R.metabolizing)
-			R.metabolizing = TRUE
-			R.on_mob_metabolize(C)
-
 		if(C && R)
 			if(C.reagent_check(R) != TRUE)
 				if(liverless && !R.self_consuming) //need to be metabolized
