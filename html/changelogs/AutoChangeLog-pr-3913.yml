@@ -1,0 +1,7 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Contractor baton now only works with the assigned contractor.
+  - tweak: Contractor baton no longer causes non-targets to drop their held items.
+  - tweak: Contractor baton causes the contract target to have 4 seconds of confusion
+      when hit.
