@@ -626,7 +626,7 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/squid
 	taste_description = "fish"
-	
+
 /datum/reagent/mutationtoxin/oozeling
 	name = "Oozeling Mutation Toxin"
 	description = "An oozing toxin"
@@ -714,6 +714,7 @@
 	description = "An advanced corruptive toxin produced by slimes."
 	color = "#13BC5E" // rgb: 19, 188, 94
 	taste_description = "slime"
+	can_synth = FALSE //idedplznerf
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
 	if(method != TOUCH)
