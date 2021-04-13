@@ -51,7 +51,6 @@
 	assemblytype = /obj/structure/door_assembly
 	normalspeed = 1
 	explosion_block = 1
-	open_speed = 2.5
 	hud_possible = list(DIAG_AIRLOCK_HUD)
 	var/allow_repaint = TRUE //Set to FALSE if the airlock should not be allowed to be repainted.
 
@@ -92,7 +91,7 @@
 	var/mask_file = 'icons/obj/doors/airlocks/mask_32x32.dmi' // because filters aren't allowed to have icon_states :(
 	var/mask_x = 0
 	var/mask_y = 0
-	var/anim_parts = "left=-14,0;right=13,0"
+	var/anim_parts = "left=-14,0;right=13,0" //format is "airlock_part=open_px,open_py,move_start_time,move_end_time,aperture_angle"
 	var/list/part_overlays
 	var/panel_attachment = "right"
 	var/note_attachment = "left"
@@ -174,6 +173,7 @@
 	else
 		part_overlays = list()
 	var/list/parts_desc = params2list(anim_parts)
+	var/list/door_time = list()
 	for(var/part_id in parts_desc)
 		var/obj/effect/overlay/airlock_part/P = new
 		P.side_id = part_id
@@ -191,6 +191,8 @@
 		P.icon = icon
 		P.icon_state = part_id
 		P.name = name
+		door_time += P.move_end_time
+	open_speed = max(door_time) //open_speed is max animation time
 	add_filter("mask_filter", 1, list(type="alpha",icon=mask_file,x=mask_x,y=mask_y))
 
 /obj/machinery/door/airlock/proc/update_other_id()
@@ -562,7 +564,7 @@
 					part.transform = T
 				if(AIRLOCK_CLOSING)
 					part.transform = T
-					animate(part, transform = T, time = 3.5 - part.move_end_time, flags = ANIMATION_LINEAR_TRANSFORM)
+					animate(part, transform = T, time = open_speed - part.move_end_time, flags = ANIMATION_LINEAR_TRANSFORM)
 					animate(transform = matrix(), time = part.move_end_time - part.move_start_time, flags = ANIMATION_LINEAR_TRANSFORM)
 				if(AIRLOCK_OPENING)
 					part.transform = matrix()
@@ -579,7 +581,7 @@
 				if(AIRLOCK_CLOSING)
 					part.pixel_x = part.open_px
 					part.pixel_y = part.open_py
-					animate(part, pixel_x = part.open_px, pixel_y = part.open_py, time = 3.5 - part.move_end_time)
+					animate(part, pixel_x = part.open_px, pixel_y = part.open_py, time = open_speed - part.move_end_time)
 					animate(pixel_x = 0, pixel_y = 0, time = part.move_end_time - part.move_start_time)
 				if(AIRLOCK_OPENING)
 					part.pixel_x = 0
@@ -1179,7 +1181,7 @@
 	sleep(1)
 	set_opacity(0)
 	update_freelook_sight()
-	sleep(open_speed)
+	sleep(open_speed - 1)
 	density = FALSE
 	air_update_turf(1)
 	sleep(1)
@@ -1229,7 +1231,7 @@
 	if(!air_tight)
 		density = TRUE
 		air_update_turf(1)
-	sleep(open_speed)
+	sleep(open_speed - 1)
 	if(!safe)
 		crush()
 	if(visible && !glass)
