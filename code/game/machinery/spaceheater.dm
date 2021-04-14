@@ -99,7 +99,7 @@
 		var/requiredPower = abs(env.return_temperature() - targetTemperature) * heat_capacity
 		requiredPower = min(requiredPower, heatingPower * delta_time)
 
-		if(requiredPower< 1)
+		if(requiredPower < 1)
 			return
 
 		var/deltaTemperature = requiredPower / heat_capacity

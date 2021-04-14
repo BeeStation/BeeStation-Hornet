@@ -74,7 +74,7 @@
 
 	var/emitterhealth = 20
 	var/emittermaxhealth = 20
-	var/emitterregen = 1.25
+	var/emitterregen = 0.50
 	var/emittercd = 50
 	var/emitteroverloadcd = 100
 	var/emittersemicd = FALSE
