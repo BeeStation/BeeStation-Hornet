@@ -1,4 +1,0 @@
-author: jupyterkat
-delete-after: true
-changes:
-  - code_imp: prevent explosions flag is actually used now
