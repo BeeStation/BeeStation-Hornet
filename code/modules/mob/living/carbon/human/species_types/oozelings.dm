@@ -20,6 +20,7 @@
 	swimming_component = /datum/component/swimming/dissolve
 	toxic_food = NONE
 	disliked_food = NONE
+	ass_image = 'icons/ass/assslime.png'
 
 /datum/species/oozeling/random_name(gender,unique,lastname)
 	if(unique)

@@ -40,6 +40,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
 	special_step_sounds = list('sound/effects/servostep.ogg')
+	ass_image = 'icons/ass/assmachine.png'
 
 	var/datum/action/innate/change_screen/change_screen
 
