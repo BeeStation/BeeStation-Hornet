@@ -68,19 +68,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler/hos)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	var/slippery = /obj/item/ammo_casing/energy/electrode/hos
-	var/butterfinger = /obj/item/ammo_casing/c9mm
-
-/obj/item/gun/energy/e_gun/hos/select_fire(mob/living/user)
-	if(ammo_type[select] == butterfinger)
-		ammo_type[select] = initial(ammo_type[select])
-		return ..()
-	. = ..()
-	if(ammo_type[select] == slippery)
-		if(prob(50))
-			ammo_type[select] = butterfinger
-	else
-		ammo_type[select] = initial(ammo_type[select])
 
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"
