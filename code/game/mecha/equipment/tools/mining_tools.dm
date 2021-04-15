@@ -163,10 +163,7 @@
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/can_attach(obj/mecha/M as obj)
-	if(..())
-		if(istype(M, /obj/mecha/working))
-			return TRUE
-	return FALSE
+	return (..() && istype(M, /obj/mecha/working))
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/process()
 	if(!loc)
