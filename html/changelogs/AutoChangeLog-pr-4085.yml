@@ -1,0 +1,4 @@
+author: yorii
+delete-after: true
+changes:
+  - bugfix: Starthistle can now actually be mutated to Galaxythistle
