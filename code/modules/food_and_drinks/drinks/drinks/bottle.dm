@@ -205,7 +205,8 @@
 	foodtype = NONE
 
 /obj/item/reagent_containers/food/drinks/bottle/holywater/hell
-	desc = "A flask of holy water...it's been sitting in the Necropolis a while though."
+	name = "bottle of cleansing fire"
+	desc = "A bottle of hellwater used for religious rites. Said to purge all evil from your system."
 	list_reagents = list(/datum/reagent/hellwater = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/vermouth

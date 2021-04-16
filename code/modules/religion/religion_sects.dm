@@ -36,8 +36,6 @@
 	var/altar_icon_state
 /// Currently Active (non-deleted) rites
 	var/list/active_rites
-/// Rites availalble when the altar is struck with a corrupt syndicate tome
-	var/list/on_gods_offended
 
 /datum/religion_sect/New()
 	. = ..()
@@ -131,8 +129,7 @@
 	convert_opener = "May you find peace in a metal shell, acolyte.<br>Bibles now recharge cyborgs and heal robotic limbs if targeted, but they do not heal organic limbs. You can now sacrifice cells, with favor depending on their charge."
 	alignment = ALIGNMENT_NEUT
 	desired_items = list(/obj/item/stock_parts/cell)
-	rites_list = list(/datum/religion_rites/synthconversion)
-	on_gods_offended = list(/datum/religion_rites/black_out)
+	rites_list = list(/datum/religion_rites/synthconversion,/datum/religion_rites/black_out)
 	altar_icon_state = "convertaltar-blue"
 
 /datum/religion_sect/technophile/sect_bless(mob/living/L, mob/living/user)
@@ -201,8 +198,7 @@
 	alignment = ALIGNMENT_NEUT
 	max_favor = 10000
 	desired_items = list(/obj/item/candle)
-	rites_list = list(/datum/religion_rites/fireproof, /datum/religion_rites/burning_sacrifice, /datum/religion_rites/infinite_candle)
-	on_gods_offended = list(/datum/religion_rites/pyromania)
+	rites_list = list(/datum/religion_rites/fireproof, /datum/religion_rites/burning_sacrifice, /datum/religion_rites/infinite_candle, /datum/religion_rites/hellwater)
 	altar_icon_state = "convertaltar-red"
 
 //candle sect bibles don't heal or do anything special apart from the standard holy water blessings
