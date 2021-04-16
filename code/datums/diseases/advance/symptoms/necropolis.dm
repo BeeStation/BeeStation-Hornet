@@ -77,7 +77,7 @@
 			LAZYCLEARLIST(cached_tentacle_turfs)
 			last_location = loc
 			tentacle_recheck_cooldown = world.time + initial(tentacle_recheck_cooldown)
-			for(var/turf/open/T in (RANGE_TURFS(2, loc)-loc))
+			for(var/turf/open/T in (RANGE_TURFS(1, loc)-loc))
 				LAZYADD(cached_tentacle_turfs, T)
 		for(var/t in cached_tentacle_turfs)
 			if(isopenturf(t))
