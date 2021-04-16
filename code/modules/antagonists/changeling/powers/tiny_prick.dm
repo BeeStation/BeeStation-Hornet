@@ -99,17 +99,32 @@
 /datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
 	log_combat(user, target, "stung", "transformation sting", " new identity is '[selected_dna.dna.real_name]'")
 	var/datum/dna/NewDNA = selected_dna.dna
+
+
 	if(ismonkey(target))
 		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
 
 	var/mob/living/carbon/C = target
 	. = TRUE
 	if(istype(C))
-		C.real_name = NewDNA.real_name
+		var/datum/dna/OldDNA = new /datum/dna
+		C.dna.copy_dna(OldDNA)
 		NewDNA.transfer_identity(C)
+		C.real_name = NewDNA.real_name
 		if(ismonkey(C))
 			C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG)
 		C.updateappearance(mutcolor_update=1)
+		addtimer(CALLBACK(src, .proc/remove_transform, target, OldDNA), 1200)
+
+/datum/action/changeling/sting/transformation/proc/remove_transform(mob/target, var/datum/dna/oldself)
+	if(target)
+		var/mob/living/carbon/C = target
+		if(istype(C))
+			oldself.transfer_identity(C)
+			C.real_name = oldself.real_name
+			if(ismonkey(C))
+				C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG)
+			C.updateappearance(mutcolor_update=1)
 
 
 /datum/action/changeling/sting/false_armblade
