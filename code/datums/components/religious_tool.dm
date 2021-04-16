@@ -14,7 +14,7 @@
 	///Sets the type for catalyst
 	var/catalyst_type = /obj/item/storage/book/bible
 	///Enables overide of COMPONENT_NO_AFTERATTACK, not recommended as it means you can potentially cause damage to the item using the catalyst.
-	var/force_catalyst_afterattack = TRUE
+	var/force_catalyst_afterattack = FALSE
 	var/datum/callback/after_sect_select_cb
 
 /datum/component/religious_tool/Initialize(_flags = ALL, _force_catalyst_afterattack = FALSE, _after_sect_select_cb, override_catalyst_type)
@@ -76,52 +76,49 @@
 		easy_access_sect = GLOB.religious_sect
 		after_sect_select_cb?.Invoke()
 		return
-	else
+	else if((operation_flags & RELIGION_TOOL_INVOKE))
 		/**********Rite Invocation**********/
+		if(performing_rite)
+			to_chat(user, "<span class='notice'>There is a rite currently being performed here already!")
+			return
 		var/synditome_check = istype(the_item, /obj/item/storage/book/bible/syndicate)
 		var/catalyst_check = synditome_check || (istype(the_item, catalyst_type))
-		if(catalyst_check)
-			if(!(operation_flags & RELIGION_TOOL_INVOKE))
-				return
-			. = force_catalyst_afterattack ? null : COMPONENT_NO_AFTERATTACK
-			if(performing_rite)
-				to_chat(user, "<span class='notice'>There is a rite currently being performed here already!")
-				return
-			var/list/rite_list = list()
-			for(var/datum/religion_rites/trite in easy_access_sect.rites_list)
-				if (synditome_check || !trite.requires_corruption)
-					LAZYADD(rite_list,trite)
-			if(!rite_list)
-				to_chat(user, "<span class='notice'>Your sect doesn't have any rites to perform!")
-				return
-			var/rite_select = input(user,"Select a rite to perform!","Select a rite",null) in rite_list
-			if(!rite_select || !user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))
-				to_chat(user,"<span class ='warning'>You cannot perform the rite at this time.</span>")
-				return
-			to_chat(user,"[rite_select]")
-			var/selection2type = rite_list[rite_select]
-			to_chat(user,"[selection2type]")
-			performing_rite = new selection2type(parent)
-			if(!performing_rite.perform_rite(user, parent))
-				QDEL_NULL(performing_rite)
-			else
-				to_chat(user,"[performing_rite]")
-				performing_rite.invoke_effect(user, parent)
-				easy_access_sect.adjust_favor(-performing_rite.favor_cost)
-				QDEL_NULL(performing_rite)
+		if(!catalyst_check)			
 			return
-
-		/**********Sacrificing**********/
-		else if(operation_flags & RELIGION_TOOL_SACRIFICE)
-			if(!easy_access_sect?.can_sacrifice(the_item,user))
-				if(user.a_intent != INTENT_HARM && !(the_item.item_flags & ABSTRACT))
-					var/turf/location = get_turf(parent)
-					if(location)
-						user.transferItemToLoc(the_item, location)
-					return COMPONENT_NO_AFTERATTACK
-				return
-			easy_access_sect.on_sacrifice(the_item,user)
-			return COMPONENT_NO_AFTERATTACK
+		. = force_catalyst_afterattack ? null : COMPONENT_NO_AFTERATTACK
+		var/list/rite_list
+		for(var/datum/religion_rites/trite in easy_access_sect.rites_list)
+			LAZYADD(rite_list,trite)
+		if (synditome_check)
+			for(var/datum/religion_rites/crite in easy_access_sect.corrupted_rites)
+				LAZYADD(rite_list,crite)
+		if(LAZYLEN(rite_list)==0)
+			to_chat(user, "<span class='notice'>Your sect doesn't have any rites to perform!")
+			return
+		var/rite_select = input(user,"Select a rite to perform!","Select a rite",null) in rite_list
+		if(!rite_select || !user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))
+			to_chat(user,"<span class ='warning'>You cannot perform the rite at this time.</span>")
+			return			
+		var/selection2type = easy_access_sect.rites_list[rite_select]
+		performing_rite = new selection2type(parent)
+		if(!performing_rite.perform_rite(user, parent))
+			QDEL_NULL(performing_rite)
+		else
+			performing_rite.invoke_effect(user, parent)
+			easy_access_sect.adjust_favor(-performing_rite.favor_cost)
+			QDEL_NULL(performing_rite)
+		return
+	/**********Sacrificing**********/
+	else if(operation_flags & RELIGION_TOOL_SACRIFICE)
+		if(!easy_access_sect?.can_sacrifice(the_item,user))
+			if(user.a_intent != INTENT_HARM && !(the_item.item_flags & ABSTRACT))
+				var/turf/location = get_turf(parent)
+				if(location)
+					user.transferItemToLoc(the_item, location)
+				return COMPONENT_NO_AFTERATTACK
+			return
+		easy_access_sect.on_sacrifice(the_item,user)
+		return COMPONENT_NO_AFTERATTACK
 
 
 /**
