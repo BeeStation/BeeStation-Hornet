@@ -293,6 +293,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
  * * giver - The person giving the alert and item
  * * receiving - The item being given by the giver
  */
+
 /atom/movable/screen/alert/give/proc/setup(mob/living/carbon/taker, mob/living/carbon/giver, obj/item/receiving)
 	name = "[giver] is offering [receiving]"
 	desc = "[giver] is offering [receiving]. Click this alert to take it."
@@ -305,19 +306,14 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/give/proc/check_in_range(atom/taker)
 	SIGNAL_HANDLER
-
 	if (!giver.CanReach(taker))
 		to_chat(owner, "<span class='warning'>You moved out of range of [giver]!</span>")
 		owner.clear_alert("[giver]")
 
 /atom/movable/screen/alert/give/Click(location, control, params)
 	. = ..()
-	if(!.)
-		return
-
 	if(!iscarbon(usr))
 		CRASH("User for [src] is of type \[[usr.type]\]. This should never happen.")
-
 	var/mob/living/carbon/C = owner
 	C.take(giver, receiving)
 

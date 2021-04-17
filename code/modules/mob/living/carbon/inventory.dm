@@ -147,6 +147,7 @@
  *
  * This handles creating an alert and adding an overlay to it
  */
+
 /mob/living/carbon/proc/give()
 	var/obj/item/receiving = get_active_held_item()
 	if(!receiving)
@@ -176,6 +177,7 @@
  * * giver - The person giving the original item
  * * I - The item being given by the giver
  */
+
 /mob/living/carbon/proc/take(mob/living/carbon/giver, obj/item/I)
 	clear_alert("[giver]")
 	if(get_dist(src, giver) > 1)
