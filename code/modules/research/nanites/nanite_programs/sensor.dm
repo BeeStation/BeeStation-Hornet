@@ -302,7 +302,10 @@
 		species_match = TRUE
 		for(var/name in allowed_species)
 			var/species_other = allowed_species[name]
-			if(is_species(host_mob, species_other))
+			if (species_other == /datum/species/human)
+				if(ishumanbasic(host_mob) && !is_species(host_mob, /datum/species/human/felinid))
+					species_match = FALSE
+			else if(is_species(host_mob, species_other))
 				species_match = FALSE
 				break
 
