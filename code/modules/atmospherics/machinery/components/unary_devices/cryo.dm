@@ -37,7 +37,6 @@
 	var/breakout_time = 300
 	var/enchanted_scan = FALSE
 	var/list/chemicals_queue = list()
-	var/inject_amount = 1			//how much we want to inject per tick
 	var/injecting = FALSE			//are we injecting anything right now?
 	var/mode = MODE_OFF
 	fair_market_price = 10
@@ -83,8 +82,7 @@
 		reagents.maximum_volume += G.volume
 		G.reagents.trans_to(src, G.reagents.total_volume)
 
-	efficiency = initial(efficiency) * efficency_multiplier				//how much power are we using, how much fuel we use
-	inject_amount = initial(inject_amount) * efficency_multiplier		//min 1, max 4 units of chemicals per 1 delta time
+	efficiency = initial(efficiency) * efficency_multiplier				//how much power are we using, how much fuel we use, how much we inject per tick
 	sleep_factor = initial(sleep_factor) * sleep_multiplier
 	unconscious_factor = initial(unconscious_factor) * sleep_multiplier
 	heat_capacity = initial(heat_capacity) / conduction_efficency
@@ -236,8 +234,8 @@
 		return
 
 	for(var/reagent in chemicals_queue)
-		reagents.trans_id_to(occupant, GLOB.name2reagent[lowertext(reagent)], inject_amount / chemicals_queue.len, multiplier = get_total_multiplier())
-		chemicals_queue[reagent] -= inject_amount
+		reagents.trans_id_to(occupant, GLOB.name2reagent[lowertext(reagent)], efficiency / chemicals_queue.len, multiplier = get_total_multiplier())
+		chemicals_queue[reagent] -= efficiency
 		if(chemicals_queue[reagent] <= 0)
 			chemicals_queue -= reagent
 
