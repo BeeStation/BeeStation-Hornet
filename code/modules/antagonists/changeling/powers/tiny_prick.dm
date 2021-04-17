@@ -116,7 +116,7 @@
 		C.updateappearance(mutcolor_update=1)
 		addtimer(CALLBACK(src, .proc/remove_transform, target, OldDNA), 1200)
 
-/datum/action/changeling/sting/transformation/proc/remove_transform(mob/target, var/datum/dna/oldself)
+/datum/action/changeling/sting/transformation/proc/remove_transform(mob/target, var/datum/dna/old_self)
 	if(target)
 		var/mob/living/carbon/C = target
 		if(istype(C))
