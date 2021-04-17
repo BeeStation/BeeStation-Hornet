@@ -95,6 +95,15 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Efficiency at <b>[efficiency*100]%</b>.</span>"
 
+/obj/machinery/atmospherics/components/unary/cryo_cell/emag_act()
+	if(obj_flags & EMAGGED)
+		return
+	obj_flags |= EMAGGED
+	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
+	spark_system.set_up(4, 0, src.loc)
+	spark_system.start()
+	playsound(src, "sparks", 50, 1)
+
 /obj/machinery/atmospherics/components/unary/cryo_cell/Destroy()
 	QDEL_NULL(radio)
 	return ..()
@@ -235,6 +244,9 @@
 	use_power(100 * efficiency)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/proc/get_total_multiplier()
+	if(obj_flags & EMAGGED)		//50% chance to not inject anything, but use chemical, if emagged
+		if(prob(50))
+			return 0
 	if(!occupant)
 		return 1		//No boost
 	var/mob/living/mob_occupant = occupant
@@ -270,10 +282,10 @@
 			var/air_heat_capacity = air1.heat_capacity()
 
 			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * heat_capacity / (air_heat_capacity + heat_capacity))
-
 			air1.set_temperature(max(air1.return_temperature() - heat / air_heat_capacity, TCMB))
+			if(obj_flags & EMAGGED)
+				mob_occupant.apply_damage(efficiency * 0.5, BURN, forced = TRUE)
 			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
-
 
 		air1.set_moles(/datum/gas/oxygen, max(0,air1.get_moles(/datum/gas/oxygen) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
 
@@ -434,6 +446,9 @@
 		if("add")
 			var/list/chemical = params["reagent"]
 			var/amount = text2num(params["amount"])
+			if(obj_flags & EMAGGED)
+				if(prob(50))
+					amount += rand(-10,10)
 			add_to_queue(chemical, amount)
 			. = TRUE
 		if("remove")

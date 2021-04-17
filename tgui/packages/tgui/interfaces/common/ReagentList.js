@@ -2,7 +2,7 @@ import { AnimatedNumber, Box, Button, Table, NumberInput } from '../../component
 import { useBackend, useLocalState } from '../../backend';
 
 export const ReagentList = (props, context) => {
-  const { content} = props;
+  const { content } = props;
   const { act } = useBackend(context);
   const [
     amount,
@@ -145,8 +145,6 @@ export const ReagentListPerson = props => {
             ) || (
               " units of "
             )}
-            {chemical.name}
-            units of {chemical.name}
           </Table.Cell>
         </Table.Row>
       ))}

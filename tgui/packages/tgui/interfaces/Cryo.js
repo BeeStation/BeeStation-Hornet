@@ -124,7 +124,7 @@ const CryoContent = (props, context) => {
               onClick={() => act('door')}
               content={data.isOpen ? "Open" : "Closed"} />
           </LabeledList.Item>
-          <LabeledList.Item label="Reagents boost">
+          <LabeledList.Item label="Reagent boost">
             {data.currentMode === 1 && data.occupant.stat === "Unconscious" && (
               "Active"
             ) || (
