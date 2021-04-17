@@ -217,7 +217,8 @@
 			for(var/R in rules)
 				var/datum/nanite_rule/rule = R
 				if(rule.check_rule())
-					break
+					return TRUE
+			return FALSE
 		if(NL_NOR)
 			for(var/R in rules)
 				var/datum/nanite_rule/rule = R
@@ -227,7 +228,8 @@
 			for(var/R in rules)
 				var/datum/nanite_rule/rule = R
 				if(!rule.check_rule())
-					break
+					return TRUE 
+			return FALSE
 	return TRUE
 
 //Constantly procs as long as the program is active
