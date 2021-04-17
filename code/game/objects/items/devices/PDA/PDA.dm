@@ -745,9 +745,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 	tnote += "<i><b>&larr; From <a href='byond://?src=[REF(src)];choice=Message;target=[REF(signal.source)]'>[signal.data["name"]]</a> ([signal.data["job"]]):</b></i><br>[signal.format_message()]<br>"
 
 	if (!silent)
-		if(honkamt > 7)//For clown virus.
+		if(honkamt > 9)//For clown virus.
 			var/adminname = pick(strings("admin_nicknames.json", "names", "config"))
-			honkamt -= 7
+			honkamt -= 9
 			playsound(src, 'sound/effects/adminhelp.ogg', 50, 1)
 			audible_message("<font color='red' size='4'><b>-- Administrator private message --</b></font>", null, 3)
 			audible_message("<span class='danger'>Admin PM from-</span><span class='ooc'>[adminname]</span><span class='danger'>: [pick("What do you think you're doing?","Hey, got a minute?", "Care to explain just how you aren't powergaming right now?","We need to talk.","Stop that or I'll ban you.")]</span>", null, 3)

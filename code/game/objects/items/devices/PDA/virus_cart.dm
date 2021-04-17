@@ -22,6 +22,7 @@
 	icon_state = "cart-clown"
 	desc = "A data cartridge for portable microcomputers. It smells vaguely of bananas."
 	access = CART_CLOWN
+	charges = 0
 
 /obj/item/cartridge/virus/clown/send_virus(obj/item/pda/target, mob/living/U)
 	if(charges <= 0)
