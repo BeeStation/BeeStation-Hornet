@@ -143,34 +143,39 @@
 	return index && hand_bodyparts[index]
 
 /**
-  * Proc called when giving an item to another player
-  *
-  * This handles creating an alert and adding an overlay to it
-  */
+ * Proc called when giving an item to another player
+ *
+ * This handles creating an alert and adding an overlay to it
+ */
 /mob/living/carbon/proc/give()
 	var/obj/item/receiving = get_active_held_item()
 	if(!receiving)
 		to_chat(src, "<span class='warning'>You're not holding anything to give!</span>")
 		return
-	visible_message("<span class='notice'>[src] is offering [receiving]</span>", \
-					"<span class='notice'>You offer [receiving]</span>", null, 2)
-	for(var/mob/living/carbon/C in orange(1, src))
+
+	visible_message("<span class='notice'>[src] is offering [receiving].</span>", \
+					"<span class='notice'>You offer [receiving].</span>", null, 2)
+	for(var/mob/living/carbon/C in orange(1, src)) //Fixed that, now it shouldn't be able to give benos stunbatons and IDs
 		if(!CanReach(C))
 			continue
-		var/obj/screen/alert/give/G = C.throw_alert("[src]", /obj/screen/alert/give)
+
+		if(!C.can_hold_items())
+			continue
+
+		var/atom/movable/screen/alert/give/G = C.throw_alert("[src]", /atom/movable/screen/alert/give)
 		if(!G)
 			continue
 		G.setup(C, src, receiving)
 
 /**
-  * Proc called when the player clicks the give alert
-  *
-  * Handles checking if the player taking the item has open slots and is in range of the giver
-  * Also deals with the actual transferring of the item to the players hands
-  * Arguments:
-  * * giver - The person giving the original item
-  * * I - The item being given by the giver
-  */
+ * Proc called when the player clicks the give alert
+ *
+ * Handles checking if the player taking the item has open slots and is in range of the giver
+ * Also deals with the actual transferring of the item to the players hands
+ * Arguments:
+ * * giver - The person giving the original item
+ * * I - The item being given by the giver
+ */
 /mob/living/carbon/proc/take(mob/living/carbon/giver, obj/item/I)
 	clear_alert("[giver]")
 	if(get_dist(src, giver) > 1)
