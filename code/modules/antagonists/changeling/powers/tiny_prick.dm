@@ -98,7 +98,7 @@
 
 /datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
 	log_combat(user, target, "stung", "transformation sting", " new identity is '[selected_dna.dna.real_name]'")
-	var/datum/dna/NewDNA = selected_dna.dna
+	var/datum/dna/new_dna = selected_dna.dna
 
 
 	if(ismonkey(target))
