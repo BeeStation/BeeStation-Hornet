@@ -107,7 +107,7 @@
 	var/mob/living/carbon/C = target
 	. = TRUE
 	if(istype(C))
-		var/datum/dna/OldDNA = new /datum/dna
+		var/datum/dna/old_dna = new /datum/dna
 		C.dna.copy_dna(OldDNA)
 		NewDNA.transfer_identity(C)
 		C.real_name = NewDNA.real_name
