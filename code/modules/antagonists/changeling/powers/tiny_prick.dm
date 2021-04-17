@@ -108,20 +108,20 @@
 	. = TRUE
 	if(istype(C))
 		var/datum/dna/old_dna = new /datum/dna
-		C.dna.copy_dna(OldDNA)
-		NewDNA.transfer_identity(C)
-		C.real_name = NewDNA.real_name
+		C.dna.copy_dna(old_dna)
+		new_dna.transfer_identity(C)
+		C.real_name = new_dna.real_name
 		if(ismonkey(C))
 			C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG)
 		C.updateappearance(mutcolor_update=1)
-		addtimer(CALLBACK(src, .proc/remove_transform, target, OldDNA), 1200)
+		addtimer(CALLBACK(src, .proc/remove_transform, target, old_dna), 6000)
 
 /datum/action/changeling/sting/transformation/proc/remove_transform(mob/target, var/datum/dna/old_self)
 	if(target)
 		var/mob/living/carbon/C = target
 		if(istype(C))
-			oldself.transfer_identity(C)
-			C.real_name = oldself.real_name
+			old_self.transfer_identity(C)
+			C.real_name = old_self.real_name
 			if(ismonkey(C))
 				C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG)
 			C.updateappearance(mutcolor_update=1)
