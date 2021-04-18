@@ -64,7 +64,7 @@
 								if (!HAS_TRAIT(L, CHANGELING_HIVEMIND_MUTE) && prob(70))
 									to_chat(M, msg)
 								else
-									to_chat(M, "<span class='changeling'>Wehear a faint chittering from within our mind...</span>")
+									to_chat(M, "<span class='changeling'>We hear a faint chittering from within our mind...</span>")
 		if(LINGHIVE_OUTSIDER)
 			to_chat(user, "<span class='changeling'>Our senses have not evolved enough to be able to communicate this way...</span>")
 	return FALSE
