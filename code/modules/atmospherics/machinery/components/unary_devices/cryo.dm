@@ -256,7 +256,7 @@
 	var/mob/living/mob_occupant = occupant
 	if(mob_occupant?.stat != UNCONSCIOUS || mode != MODE_CRYOSLEEP)
 		return 1		//No boost here either
-	return 1 + (efficiency / 2)	//minimum 1.5, maximum 3.5
+	return 1 + (efficiency / 2)	//minimum 1.5, maximum 3
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process_atmos()
 	..()

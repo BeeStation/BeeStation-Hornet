@@ -1316,8 +1316,8 @@
 
 /datum/supply_pack/medical/cryosupply
 	name = "Cryo cell resupply pack"
-	desc = "Cotaints 7 beakers, all filled witch healing chemicals. For all your cryo needs!"
-	cost = 3000
+	desc = "Contains 2 bottles of cryoxadone and 4 bottles of other healing reagents. For all your cryo needs!"
+	cost = 4000
 	contains = list(/obj/item/reagent_containers/glass/bottle/cryoxadone,
 					/obj/item/reagent_containers/glass/bottle/cryoxadone,
 					/obj/item/reagent_containers/glass/bottle/bicaridine,
