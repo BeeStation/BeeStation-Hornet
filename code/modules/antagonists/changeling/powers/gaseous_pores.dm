@@ -6,14 +6,14 @@
 	chemical_cost = 35
 	dna_cost = 2
 	req_stat = UNCONSCIOUS
+	var/range = 4
 
-/datum/action/changeling/gaseous_pores/sting_action(mob/user,smoke_type = /obj/effect/particle_effect/smoke/sleeping,range = 4)
+/datum/action/changeling/gaseous_pores/sting_action(mob/user)
 	..()
 	var/turf/T = get_turf(user)
 	if(!T)
 		return FALSE
 	var/datum/effect_system/smoke_spread/sleeping/smoke = new(T)
-	smoke.effect_type = smoke_type
 	smoke.set_up(range, T)
 	smoke.start()
 	user.visible_message("<span class='warning'>With a guttural screech, [user]'s skin bursts into gas.</span>")
