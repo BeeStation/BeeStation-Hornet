@@ -265,6 +265,7 @@
 	name = "Species Sensor"
 	desc = "When triggered, the nanites scan the host to determine their species and output a signal depending on the conditions set in the settings."
 	can_trigger = TRUE
+	can_rule = TRUE
 	trigger_cost = 0
 	trigger_cooldown = 5
 
@@ -316,3 +317,13 @@
 	else
 		if(!species_match)
 			send_code()
+
+/datum/nanite_program/sensor/species/make_rule(datum/nanite_program/target)
+	var/datum/nanite_rule/species/rule = new(target)
+	var/datum/nanite_extra_setting/species_name = extra_settings[NES_RACE]
+	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
+	var/datum/nanite_extra_setting/species_type = allowed_species[species_name.get_value()]
+	rule.species_rule = species_type.get_value()
+	rule.mode_rule = mode.get_value()
+	rule.species_name_rule = species_name.get_value()
+	return rule
