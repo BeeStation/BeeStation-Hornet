@@ -82,6 +82,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/static/gl_uid = 1
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 
 	critical_machine = TRUE
 
@@ -745,9 +746,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 //Do not blow up our internal radio
 /obj/machinery/power/supermatter_crystal/contents_explosion(severity, target)
 	return
-
-/obj/machinery/power/supermatter_crystal/prevent_content_explosion()
-	return TRUE
 
 /obj/machinery/power/supermatter_crystal/engine
 	is_main_engine = TRUE
