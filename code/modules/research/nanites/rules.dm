@@ -150,7 +150,7 @@
 /datum/nanite_rule/damage/display()
 	return "[damage_type] [above ? ">" : "<"] [threshold]"
 
-/datum/nanite_rule/species/
+/datum/nanite_rule/species
 	name = "Species"
 	desc = "Checks the host's race"
 
