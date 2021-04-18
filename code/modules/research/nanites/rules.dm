@@ -158,6 +158,7 @@
 	var/mode_rule = "is"
 	var/species_name_rule = "human"
 
+
 /datum/nanite_rule/species/check_rule()
 	var/species_match_rule = FALSE
 
