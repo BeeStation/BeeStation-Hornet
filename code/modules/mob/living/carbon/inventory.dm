@@ -149,24 +149,28 @@
  */
 
 /mob/living/carbon/proc/give()
+	var/alert = null
 	var/obj/item/receiving = get_active_held_item()
 	if(!receiving)
 		to_chat(src, "<span class='warning'>You're not holding anything to give!</span>")
 		return
 
-	visible_message("<span class='notice'>[src] is offering [receiving].</span>", \
-					"<span class='notice'>You offer [receiving].</span>", null, 2)
 	for(var/mob/living/carbon/C in orange(1, src)) //Fixed that, now it shouldn't be able to give benos stunbatons and IDs
-		if(!CanReach(C))
-			continue
-
-		if(!C.can_hold_items())
+		if(!CanReach(C) || !C.can_hold_items())
 			continue
 
 		var/atom/movable/screen/alert/give/G = C.throw_alert("[src]", /atom/movable/screen/alert/give)
 		if(!G)
+			to_chat(src, "<span class='warning'>There is nobody nearby to give [receiving]!</span>")
 			continue
+
 		G.setup(C, src, receiving)
+
+		if(!alert)
+			do_alert_animation(src)
+			visible_message("<span class='notice'>[src] is offering [receiving].</span>", \
+							"<span class='notice'>You offer [receiving].</span>", null, 2)
+		alert=1
 
 /**
  * Proc called when the player clicks the give alert

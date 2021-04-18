@@ -305,7 +305,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
 
 /atom/movable/screen/alert/give/proc/check_in_range(atom/taker)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER_DOES_SLEEP
 	if (!giver.CanReach(taker))
 		to_chat(owner, "<span class='warning'>You moved out of range of [giver]!</span>")
 		owner.clear_alert("[giver]")
