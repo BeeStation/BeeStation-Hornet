@@ -56,9 +56,9 @@
 	reagents.flags |= NO_REACT
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/Exited(atom/movable/AM, atom/newloc)
-	var/oldoccupant = occupant
+	var/old_occupant = occupant
 	. = ..() // Parent proc takes care of removing occupant if necessary
-	if (AM == oldoccupant)
+	if (AM == old_occupant)
 		update_icon()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/on_construction()
@@ -183,23 +183,29 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
 	..()
 
-	if(injecting)		//we want to allow injecting even if machine itself is not on
-		inject_patient()
+
 	if(!on)
 		mode = MODE_OFF
+		injecting = FALSE
 		return
+
 	if(!is_operational())
 		on = FALSE
 		mode = MODE_OFF
+		injecting = FALSE
 		update_icon()
 		return
 
 	if(!occupant)//Won't operate unless there's an occupant.
 		on = FALSE
 		mode = MODE_OFF
+		injecting = FALSE
 		update_icon()
 		radio.talk_into(src, "Aborting. No occupant detected.", radio_channel)
 		return
+
+	if(injecting)
+		inject_patient()
 
 	if(!reagents) //No reagents will stop the machine from running.
 		on = FALSE
@@ -235,7 +241,7 @@
 
 	for(var/reagent in chemicals_queue)
 		reagents.trans_id_to(occupant, GLOB.name2reagent[lowertext(reagent)], efficiency / chemicals_queue.len, multiplier = get_total_multiplier())
-		chemicals_queue[reagent] -= efficiency
+		chemicals_queue[reagent] -= efficiency / chemicals_queue.len
 		if(chemicals_queue[reagent] <= 0)
 			chemicals_queue -= reagent
 
@@ -276,13 +282,14 @@
 			var/mob/living/carbon/human/H = occupant
 			cold_protection = H.get_cold_protection(air1.return_temperature())
 
+		if(obj_flags & EMAGGED)
+			mob_occupant.apply_damage(efficiency * 0.5, BURN, forced = TRUE)
+
 		if(abs(temperature_delta) > 1)
 			var/air_heat_capacity = air1.heat_capacity()
 
 			var/heat = ((1 - cold_protection) * 0.1 + conduction_coefficient) * temperature_delta * (air_heat_capacity * heat_capacity / (air_heat_capacity + heat_capacity))
 			air1.set_temperature(max(air1.return_temperature() - heat / air_heat_capacity, TCMB))
-			if(obj_flags & EMAGGED)
-				mob_occupant.apply_damage(efficiency * 0.5, BURN, forced = TRUE)
 			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
 
 		air1.set_moles(/datum/gas/oxygen, max(0,air1.get_moles(/datum/gas/oxygen) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
@@ -416,8 +423,9 @@
 		else
 			data["occupant"]["temperaturestatus"] = "bad"
 		var/occupant_reagent_list = list()
-		for(var/datum/reagent/R in occupant.reagents.reagent_list)
-			occupant_reagent_list += list(list("name" = R.name, "volume" = round(R.volume), 0.0001))
+		if(mob_occupant.reagents)
+			for(var/datum/reagent/R in mob_occupant.reagents.reagent_list)
+				occupant_reagent_list += list(list("name" = R.name, "volume" = round(R.volume, 0.1)))
 		data["occupantChemicals"] = occupant_reagent_list
 
 	var/datum/gas_mixture/air1 = airs[1]
@@ -428,7 +436,7 @@
 	for(var/datum/reagent/R in reagents.reagent_list)
 		if(istype(R, /datum/reagent/medicine/cryoxadone))
 			continue
-		reagent_list += list(list("name" = R.name, "volume" = round(R.volume), 0.0001))
+		reagent_list += list(list("name" = R.name, "volume" = round(R.volume - chemicals_queue[R.name], 0.1)))
 	for(var/reagent in chemicals_queue)
 		chemicals_queue_list += list(list("name" = reagent, "volume" = chemicals_queue[reagent]))
 	data["reagents"] = reagent_list
@@ -492,8 +500,7 @@
 	if(amount <= 0)
 		return
 
-	if(amount + chemicals_queue[chemical["name"]] > chemical["volume"])
-		chemicals_queue[chemical["name"]] = chemical["volume"]
+	if(amount > chemical["volume"])
 		return
 
 	chemicals_queue[chemical["name"]] += amount
