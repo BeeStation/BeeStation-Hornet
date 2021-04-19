@@ -254,7 +254,7 @@ Suit storage units not only remove blood and dirt from clothing, but also radiat
 Remote devices will work when used through cameras. For example: Bluespace RPEDs and door remotes.
 You can light a cigar on a supermatter crystal.
 Walking negates all wallstuns. Walk to avoid flashes, slipping on water, etc. Walking also does not trigger motion detector flashes!
-Cloners require 30 units of synthflesh per clone. When upgraded to tier 4 parts, these cloners can clone one person much cheaper!
+Cloners require 90 units of synthflesh per clone. When upgraded to tier 4 parts, these cloners can clone one person much cheaper!
 You can perform self-surgery for amputation, tend wounds, implanting and others. It only has 20% success rate though per step, bumping hot to 40% if there's a mirror in the same room.
 Fun fact: reading this (https://beestation13.com/rules) may lead to an increase in your chances on not being banned. Seriously. Read it.
 You can whisper by putting # before your message. You can also whisper in critical, however it may kill you depending on how hurt you are.
@@ -266,3 +266,4 @@ Beating revolutionaries over the head has a chance to deconvert them.
 You can examine someone to tell if their red eyes are natural or cultist.
 You can put holy water in darts to make them more effective against cultists. Or use the shotgun, cause it doesn't miss.
 Don't know what a word means? https://wiki.beestation13.com/view/Terminology
+You are able to block with most weapons! Being on any intent but harm and walking speed allows almost anything to block. More info: https://wiki.beestation13.com/view/Guide_to_Combat#Blocking
