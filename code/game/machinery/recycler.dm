@@ -23,6 +23,10 @@
 	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/plasma, /datum/material/gold, /datum/material/diamond, /datum/material/plastic, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), INFINITY, FALSE, null, null, null, TRUE)
 	AddComponent(/datum/component/butchering, 1, amount_produced,amount_produced/5)
 	. = ..()
+	if(I.resistance_flags & INDESTRUCTIBLE) //NSV13 start - indestructible item check
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		I.forceMove(loc)
+		return //NSV13 end
 	update_icon()
 	req_one_access = get_all_accesses() + get_all_centcom_access()
 
@@ -129,7 +133,10 @@
 		playsound(src, item_recycle_sound, 50, 1)
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
-
+	if(I.resistance_flags & INDESTRUCTIBLE) //indestructible item check
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		I.forceMove(loc)
+		return
 	I.forceMove(loc)
 	var/obj/item/grown/log/L = I
 	if(istype(L))
