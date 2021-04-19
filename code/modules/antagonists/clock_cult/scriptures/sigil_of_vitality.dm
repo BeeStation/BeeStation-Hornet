@@ -37,6 +37,8 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_NODEATH))
 		return FALSE
+	if(issilicon(M))
+		return FALSE
 	return TRUE
 
 /obj/structure/destructible/clockwork/sigil/vitality/apply_effects(mob/living/M)
@@ -73,8 +75,16 @@
 	else
 		if(M.anti_magic_check())
 			return
+		if(is_convertable_to_clockcult(M) && !GLOB.gateway_opening)
+			visible_message("<span class='neovgre'>\The [src] refuses to siphon [M]'s vitality, their mind has great potential!</span>")
+			return
 		M.Paralyze(10)
-		M.adjustCloneLoss(20)
+		var/before_cloneloss = M.getCloneLoss()
+		M.adjustCloneLoss(20, TRUE, TRUE)
+		var/after_cloneloss = M.getCloneLoss()
+		if(before_cloneloss == after_cloneloss)
+			visible_message("<span class='neovgre'>\The [src] fails to siphon [M]'s spirit!</span>")
+			return
 		playsound(loc, 'sound/magic/clockwork/ratvar_attack.ogg', 40)
 		if(M.stat == DEAD)
 			M.become_husk()
@@ -84,9 +94,13 @@
 			hierophant_message("[M] has had their vitality drained by the [src]!", null, "<span class='inathneq'>")
 			var/mob/cogger = new /mob/living/simple_animal/drone/cogscarab(get_turf(M))
 			cogger.key = M.key
+			if(!cogger.grab_ghost(TRUE))
+				//Replace the mob with a shell
+				qdel(cogger)
+				new /obj/item/drone_shell/cogscarab(get_turf(M))
 			add_servant_of_ratvar(cogger, silent=TRUE)
 			return
 		if(M.client)
-			M.visible_message("<span class='neovgre'>[src] looks weak as the color fades from their body.</span>", "<span class='neovgre'>You feel your soul faltering...</span>")
+			M.visible_message("<span class='neovgre'>[M] looks weak as the color fades from their body.</span>", "<span class='neovgre'>You feel your soul faltering...</span>")
 			GLOB.clockcult_vitality += 30
 		GLOB.clockcult_vitality += 10
