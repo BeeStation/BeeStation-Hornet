@@ -49,6 +49,7 @@ SUBSYSTEM_DEF(topic)
 	Basically, this proc exists to allow servers to make ad-hoc connections, going offline and coming back up without interrupting anything.
 */
 /datum/controller/subsystem/topic/proc/handshake_server(addr, key)
+	set waitfor = FALSE
 	var/request = list("query" = "api_do_handshake", "auth" = key)
 	var/response = world.Export("[addr]?[json_encode(request)]")
 	if(!response)

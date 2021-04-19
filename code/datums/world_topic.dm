@@ -85,7 +85,7 @@
 		response = "Handshake Successful"
 		data = list("token" = token, "functions" = functions)
 		if(!GLOB.topic_servers[fmt_addr]) // part of the ad-hoc connection system
-			CallAsync(SStopic, "handshake_server", list(fmt_addr, token))
+			SStopic.handshake_server(fmt_addr, token)
 
 // TOPICS
 
