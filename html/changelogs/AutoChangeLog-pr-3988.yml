@@ -1,0 +1,5 @@
+author: bloons3
+delete-after: true
+changes:
+  - tweak: 'Removed the ability to unlock illegal tech using common items, see #3988
+      for full list'
