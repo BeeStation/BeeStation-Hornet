@@ -10,6 +10,9 @@
 
 /datum/action/changeling/gaseous_pores/sting_action(mob/user)
 	..()
+	user.visible_message("<span class='warning'>[user]'s skin begins to bubble.</span>")
+	playsound(user, 'sound/machines/fryer/deep_fryer_1.ogg', 30, 1)
+	sleep(10)
 	var/turf/T = get_turf(user)
 	if(!T)
 		return FALSE
