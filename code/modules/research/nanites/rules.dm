@@ -170,16 +170,7 @@
 			species_match_rule = TRUE
 
 
-	if(species_match_rule)
-		if(mode_rule)
-			return TRUE
-		else
-			return FALSE
-	else
-		if(!mode_rule)
-			return TRUE
-		else
-			return FALSE
+	return species_match_rule ? mode_rule : !mode_rule
 
 /datum/nanite_rule/species/copy_to(datum/nanite_program/new_program)
 	var/datum/nanite_rule/species/rule = new(new_program)
