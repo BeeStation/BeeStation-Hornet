@@ -269,11 +269,10 @@
 	trigger_cost = 0
 	trigger_cooldown = 5
 
-	var/list/static/allowed_species
+	var/list/static/allowed_species = list()
 
 /datum/nanite_program/sensor/species/New()
     if(!length(allowed_species))
-        allowed_species = list()
         for(var/id in GLOB.roundstart_races)
             allowed_species[id] = GLOB.species_list[id]
     . = ..()
