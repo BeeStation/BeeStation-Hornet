@@ -1,0 +1,5 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: The haunted magic eightballs interface is actually usable now
+  - tweak: The list of votes of said eightball gets reset upon shaking
