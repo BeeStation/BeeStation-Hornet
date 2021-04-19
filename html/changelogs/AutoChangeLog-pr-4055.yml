@@ -1,9 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Silicons cant be siphoned by the vitality matrix.
-  - tweak: Vitality matrix only generates vitality when damaging players.
-  - tweak: Vitality matrix no longer sihpons convertible players when the gateway
-      is not opening.
-  - tweak: Clockwork marauders are limited to 4 maximum
-  - tweak: Nullrod deals 15 bonus damage against marauders and breaks their shields.
