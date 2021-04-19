@@ -56,7 +56,7 @@
 
 	//Logic
 	//a list of logic types a nanite program's rules follow
-	var/list/static/logic = list(
+	var/static/list/logic = list(
     	"AND" = NL_AND,
     	"OR" = NL_OR,
 		"NOR" = NL_NOR,
