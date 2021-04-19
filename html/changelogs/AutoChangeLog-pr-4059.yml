@@ -1,0 +1,5 @@
+author: super12pl
+delete-after: true
+changes:
+  - tweak: Reduces malf ai's and nuke ops' dynamic's midround cost to 20 so it matches
+      the wizard's.
