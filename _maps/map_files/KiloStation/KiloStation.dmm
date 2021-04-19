@@ -96886,11 +96886,14 @@
 	pixel_y = -3
 	},
 /obj/structure/table,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
+	},
+/obj/item/gun/grenadelauncher/security{
+	pixel_y = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
