@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Monkeys now can mutate into humans, gorillas or lose limbs when affected
+      by radiation.
