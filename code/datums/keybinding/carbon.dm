@@ -80,7 +80,8 @@
 	category = CATEGORY_CARBON
 
 /datum/keybinding/carbon/give/down(client/user)
-	if (!iscarbon(user.mob)) return
+	if(!iscarbon(user.mob))
+		return
 	var/mob/living/carbon/C = user.mob
 	C.give()
 	return TRUE
