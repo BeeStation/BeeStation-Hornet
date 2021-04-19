@@ -16,7 +16,7 @@
 /datum/clockcult/scripture/ark_activation/New()
 	. = ..()
 
-/datum/clockcult/scripture/ark_activation/check_special_requirements()
+/datum/clockcult/scripture/ark_activation/check_special_requirements(mob/user)
 	if(!..())
 		return FALSE
 	if(!is_reebe(get_area(invoker).z))
