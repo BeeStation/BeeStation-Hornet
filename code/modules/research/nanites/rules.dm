@@ -149,3 +149,34 @@
 
 /datum/nanite_rule/damage/display()
 	return "[damage_type] [above ? ">" : "<"] [threshold]"
+
+/datum/nanite_rule/species
+	name = "Species"
+	desc = "Checks the host's race"
+
+	var/species_rule = /datum/species/human
+	var/mode_rule = "is"
+	var/species_name_rule = "human"
+
+
+/datum/nanite_rule/species/check_rule()
+	var/species_match_rule = FALSE
+
+	if(species_rule)
+		if(species_rule == /datum/species/human)
+			if(ishumanbasic(program.host_mob) && !is_species(program.host_mob, /datum/species/human/felinid))
+				species_match_rule = TRUE
+		else if(is_species(program.host_mob, species_rule))
+			species_match_rule = TRUE
+
+
+	return species_match_rule ? mode_rule : !mode_rule
+
+/datum/nanite_rule/species/copy_to(datum/nanite_program/new_program)
+	var/datum/nanite_rule/species/rule = new(new_program)
+	rule.species_rule = species_rule
+	rule.mode_rule = mode_rule
+	rule.species_name_rule = species_name_rule
+
+/datum/nanite_rule/species/display()
+	return "[mode_rule ? "IS" : "IS NOT"] [species_name_rule]"
