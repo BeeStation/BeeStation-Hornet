@@ -1,0 +1,6 @@
+author: r1ks-iwnl
+delete-after: true
+changes:
+  - tweak: Tribal claw tail sweep can't be used on yourself.
+  - bugfix: Fixes being able to stabilise legion cores multiple times.
+  - bugfix: Fixes being able to scan floor pill contents using the PDA reagent scanner.
