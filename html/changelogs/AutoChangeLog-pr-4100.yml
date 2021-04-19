@@ -1,0 +1,4 @@
+author: zeskorion
+delete-after: true
+changes:
+  - rscadd: added OR, NOR, and NAND logic types to nanite programs
