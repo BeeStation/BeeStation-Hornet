@@ -159,7 +159,7 @@
 	cut_overlays()
 
 	if(uv)
-		if(uv_super | (obj_flags & EMAGGED))
+		if(uv_super || (obj_flags & EMAGGED))
 			add_overlay("super")
 		else if(occupant)
 			add_overlay("uvhuman")
@@ -259,7 +259,7 @@
 		locked = TRUE
 		update_icon()
 		if(occupant)
-			if(uv_super | (obj_flags & EMAGGED))
+			if(uv_super || (obj_flags & EMAGGED))
 				mob_occupant.adjustFireLoss(rand(20, 36))
 			else
 				mob_occupant.adjustFireLoss(rand(10, 16))
@@ -269,7 +269,7 @@
 		uv_cycles = initial(uv_cycles)
 		uv = FALSE
 		locked = FALSE
-		if(uv_super | (obj_flags & EMAGGED))
+		if(uv_super || (obj_flags & EMAGGED))
 			toasted = TRUE
 			if(occupant)
 				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A foul stench and a cloud of smoke exit the chamber.</span>")
