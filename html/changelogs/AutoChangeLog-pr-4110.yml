@@ -1,0 +1,4 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: The hand teleporters "None (Dangerous)" option is visible/working again
