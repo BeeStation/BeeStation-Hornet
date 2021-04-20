@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 
 /obj/item/storage/book/bible/syndicate/attack_self(mob/living/carbon/human/H)
 	if (uses)
-		H.mind.holy_role = HOLY_ROLE_PRIEST
+		H.mind.holy_role = max(H.mind.holy_role,HOLY_ROLE_PRIEST)
 		uses -= 1
 		to_chat(H, "<span class='userdanger'>You try to open the book AND IT BITES YOU!</span>")
 		playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)

@@ -42,8 +42,7 @@
 	if(desired_items)
 		desired_items_typecache = typecacheof(desired_items)
 	if(rites_list)
-		var/listylist = generate_rites_list()
-		rites_list = listylist
+		rites_list = generate_rites_list()
 	on_select()
 
 ///Generates a list of rites with 'name' = 'type'
@@ -58,6 +57,8 @@
 			name_entry = "![name_entry]"
 		if(initial(RI.favor_cost))
 			name_entry += " ([initial(RI.favor_cost)] favor)"
+		if(initial(RI.desc))
+			name_entry += " - [initial(RI.desc)]"
 
 		. += list("[name_entry]" = i)
 
