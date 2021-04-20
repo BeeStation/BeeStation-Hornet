@@ -76,38 +76,37 @@
 		easy_access_sect = GLOB.religious_sect
 		after_sect_select_cb?.Invoke()
 		return
-	else if((operation_flags & RELIGION_TOOL_INVOKE))
+	if((operation_flags & RELIGION_TOOL_INVOKE))
 		/**********Rite Invocation**********/
-		. = force_catalyst_afterattack ? null : COMPONENT_NO_AFTERATTACK
 		if(performing_rite)
 			to_chat(user, "<span class='notice'>There is a rite currently being performed here already!")
-			return .
+			return COMPONENT_NO_AFTERATTACK
 		var/synditome_check = istype(the_item, /obj/item/storage/book/bible/syndicate)
 		var/catalyst_check = synditome_check || (istype(the_item, catalyst_type))
-		if(!catalyst_check)
+		if(catalyst_check)
+			var/list/rite_list
+			for(var/trite in easy_access_sect.rites_list)
+				if (trite[1] != "!" || synditome_check)
+					LAZYADD(rite_list,trite)
+			. = force_catalyst_afterattack ? null : COMPONENT_NO_AFTERATTACK
+			if(LAZYLEN(rite_list)==0)
+				to_chat(user, "<span class='notice'>Your sect doesn't have any rites to perform!")
+				return .
+			var/rite_select = input(user,"Select a rite to perform!","Select a rite",null) in rite_list
+			if(!rite_select || !user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))
+				to_chat(user,"<span class ='warning'>You cannot perform the rite at this time.</span>")
+				return .
+			var/selection2type = easy_access_sect.rites_list[rite_select]
+			performing_rite = new selection2type(parent)
+			if(!performing_rite.perform_rite(user, parent))
+				QDEL_NULL(performing_rite)
+			else
+				performing_rite.invoke_effect(user, parent)
+				easy_access_sect.adjust_favor(-performing_rite.favor_cost)
+				QDEL_NULL(performing_rite)
 			return .
-		var/list/rite_list
-		for(var/trite in easy_access_sect.rites_list)
-			if (trite[1] != "!" || synditome_check)
-				LAZYADD(rite_list,trite)
-		if(LAZYLEN(rite_list)==0)
-			to_chat(user, "<span class='notice'>Your sect doesn't have any rites to perform!")
-			return .
-		var/rite_select = input(user,"Select a rite to perform!","Select a rite",null) in rite_list
-		if(!rite_select || !user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))
-			to_chat(user,"<span class ='warning'>You cannot perform the rite at this time.</span>")
-			return .
-		var/selection2type = easy_access_sect.rites_list[rite_select]
-		performing_rite = new selection2type(parent)
-		if(!performing_rite.perform_rite(user, parent))
-			QDEL_NULL(performing_rite)
-		else
-			performing_rite.invoke_effect(user, parent)
-			easy_access_sect.adjust_favor(-performing_rite.favor_cost)
-			QDEL_NULL(performing_rite)
-		return .
 	/**********Sacrificing**********/
-	else if(operation_flags & RELIGION_TOOL_SACRIFICE)
+	if(operation_flags & RELIGION_TOOL_SACRIFICE)
 		if(!easy_access_sect?.can_sacrifice(the_item,user))
 			if(user.a_intent != INTENT_HARM && !(the_item.item_flags & ABSTRACT))
 				var/turf/location = get_turf(parent)
