@@ -83,22 +83,21 @@
 			return
 		var/synditome_check = istype(the_item, /obj/item/storage/book/bible/syndicate)
 		var/catalyst_check = synditome_check || (istype(the_item, catalyst_type))
-		if(!catalyst_check)			
+		if(!catalyst_check)
 			return
 		. = force_catalyst_afterattack ? null : COMPONENT_NO_AFTERATTACK
 		var/list/rite_list
-		for(var/datum/religion_rites/trite in easy_access_sect.rites_list)
-			LAZYADD(rite_list,trite)
-		if (synditome_check)
-			for(var/datum/religion_rites/crite in easy_access_sect.corrupted_rites)
-				LAZYADD(rite_list,crite)
+		for(var/trite in easy_access_sect.rites_list)
+			to_chat(user,"[trite];[trite[1]]")
+			if (trite[1] != "!" || synditome_check)
+				LAZYADD(rite_list,trite)
 		if(LAZYLEN(rite_list)==0)
 			to_chat(user, "<span class='notice'>Your sect doesn't have any rites to perform!")
 			return
 		var/rite_select = input(user,"Select a rite to perform!","Select a rite",null) in rite_list
 		if(!rite_select || !user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))
 			to_chat(user,"<span class ='warning'>You cannot perform the rite at this time.</span>")
-			return			
+			return
 		var/selection2type = easy_access_sect.rites_list[rite_select]
 		performing_rite = new selection2type(parent)
 		if(!performing_rite.perform_rite(user, parent))

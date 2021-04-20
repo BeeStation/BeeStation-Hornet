@@ -10,6 +10,7 @@
 /// message when you invoke
 	var/invoke_msg
 	var/favor_cost = 0
+	var/requires_corruption = FALSE
 
 /datum/religion_rites/New()
 	. = ..()
@@ -104,6 +105,7 @@
 	ritual_length = 30 SECONDS
 	invoke_msg = "these blind fools are not worthy of the light. Let them live in darkness!"
 	favor_cost = 1000
+	requires_corruption = TRUE
 
 /datum/religion_rites/black_out/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/datum/round_event_control/electrical_storm/curse = new()
@@ -237,6 +239,7 @@
 	ritual_length = 10 SECONDS
 	invoke_msg = "from ashes we come, to ashes we go. No pain, only memories..."
 	favor_cost = 2000
+	requires_corruption = TRUE
 
 /datum/religion_rites/hellwater/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
