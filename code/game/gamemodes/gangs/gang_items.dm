@@ -235,7 +235,7 @@
 /datum/gang_item/weapon/ammo
 
 /datum/gang_item/weapon/shuriken
-	name = "Shuriken Box"
+	name = "shuriken box"
 	id = "shuriken"
 	cost = 200
 	item_path = /obj/item/storage/box/shuriken_box

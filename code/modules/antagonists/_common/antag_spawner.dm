@@ -279,7 +279,7 @@
 ///////////GANGSTER REINFORCEMENT SPAWNER
 
 /obj/item/antag_spawner/gangster
-	name = "Crook Spawner"
+	name = "crook spawner"
 	desc = "Have headquarters deliver you a crook that just dropped out of high-school and is ready for the front-line. He comes dressed with your gang's outfit and a spray can in hand."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "locator"

@@ -24,7 +24,7 @@
 	if(!target || !target.mind || target.stat == DEAD)
 		return 0
 	if (HAS_TRAIT(target, TRAIT_MINDSHIELD))
-		target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You refuse the healing nanites from a kind stranger!</span>")
+		target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You resist the gang implant. You are reminded of the anti-gang PSA instead.</span>")
 		return FALSE
 	var/datum/antagonist/gang/G = target.mind.has_antag_datum(/datum/antagonist/gang)
 	if(G && G.gang == G)
