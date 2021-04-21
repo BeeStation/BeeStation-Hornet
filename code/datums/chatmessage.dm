@@ -1,17 +1,29 @@
 /// How long the chat message's spawn-in animation will occur for
 #define CHAT_MESSAGE_SPAWN_TIME		0.2 SECONDS
 /// How long the chat message will exist prior to any exponential decay
+<<<<<<< refs/remotes/BeeStation/master
 #define CHAT_MESSAGE_LIFESPAN		5.4 SECONDS
 /// How long the chat message's end of life fading animation will occur for
 #define CHAT_MESSAGE_EOL_FADE		0.3 SECONDS
+=======
+#define CHAT_MESSAGE_LIFESPAN		5 SECONDS
+/// How long the chat message's end of life fading animation will occur for
+#define CHAT_MESSAGE_EOL_FADE		0.7 SECONDS
+>>>>>>> update
 /// Factor of how much the message index (number of messages) will account to exponential decay
 #define CHAT_MESSAGE_EXP_DECAY		0.7
 /// Factor of how much height will account to exponential decay
 #define CHAT_MESSAGE_HEIGHT_DECAY	0.9
 /// Approximate height in pixels of an 'average' line, used for height decay
+<<<<<<< refs/remotes/BeeStation/master
 #define CHAT_MESSAGE_APPROX_LHEIGHT	10
 /// Max width of chat message in pixels
 #define CHAT_MESSAGE_WIDTH			128
+=======
+#define CHAT_MESSAGE_APPROX_LHEIGHT	11
+/// Max width of chat message in pixels
+#define CHAT_MESSAGE_WIDTH			96
+>>>>>>> update
 /// Max length of chat message in characters
 #define CHAT_MESSAGE_MAX_LENGTH		110
 /// Maximum precision of float before rounding errors occur (in this context)
@@ -19,6 +31,7 @@
 /// The number of z-layer 'slices' usable by the chat message layering
 #define CHAT_LAYER_MAX_Z			(CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
 /// The dimensions of the chat message icons
+<<<<<<< refs/remotes/BeeStation/master
 #define CHAT_MESSAGE_ICON_SIZE		7
 /// Macro from Lummox used to get height from a MeasureText proc
 #define WXH_TO_HEIGHT(x)			text2num(copytext(x, findtextEx(x, "x") + 1))
@@ -28,6 +41,14 @@
 #define COLOR_JOB_UNKNOWN "#dda583"
 #define COLOR_PERSON_UNKNOWN "#999999"
 #define COLOR_CHAT_EMOTE "#727272"
+=======
+#define CHAT_MESSAGE_ICON_SIZE		9
+/// Macro from Lummox used to get height from a MeasureText proc
+#define WXH_TO_HEIGHT(x)			text2num(copytext(x, findtextEx(x, "x") + 1))
+
+#define COLOR_JOB_UNKNOWN "#dda583"
+#define COLOR_PERSON_UNKNOWN "#999999"
+>>>>>>> update
 
 //For jobs that aren't roundstart but still need colours
 GLOBAL_LIST_INIT(job_colors_pastel, list(
@@ -126,9 +147,12 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	if (length_char(text) > maxlen)
 		text = copytext_char(text, 1, maxlen + 1) + "..." // BYOND index moment
 
+<<<<<<< refs/remotes/BeeStation/master
 	//The colour of the message.
 	var/tgt_color
 
+=======
+>>>>>>> update
 	// Get the chat color
 	if(isliving(target))		//target is living, thus we have preset color for him
 		if(ishuman(target))
@@ -137,6 +161,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 				var/obj/item/card/id/idcard = H.wear_id
 				var/datum/job/wearer_job = SSjob.GetJob(idcard.GetJobName())
 				if(wearer_job)
+<<<<<<< refs/remotes/BeeStation/master
 					tgt_color = wearer_job.chat_color
 				else
 					tgt_color = GLOB.job_colors_pastel[idcard.GetJobName()]
@@ -153,6 +178,23 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			target.chat_color = colorize_string(target.name)
 			target.chat_color_name = target.name
 		tgt_color = target.chat_color
+=======
+					target.chat_color = wearer_job.chat_color
+				else
+					target.chat_color = GLOB.job_colors_pastel[idcard.GetJobName()]
+				target.chat_color_name = H.name
+			else
+				target.chat_color = COLOR_PERSON_UNKNOWN
+			target.chat_color_darkened = MultiplyHexColor(target.chat_color, 0.85)
+		if(!target.chat_color)		//extreme case - mob doesn't have set color
+			target.chat_color = colorize_string(target.name)
+			target.chat_color_name = target.name
+			target.chat_color_darkened = MultiplyHexColor(target.chat_color, 0.85)
+	else if(!target.chat_color || target.chat_color_name != target.name)		//target is not living, randomizing its color
+		target.chat_color = colorize_string(target.name)
+		target.chat_color_name = target.name
+		target.chat_color_darkened = MultiplyHexColor(target.chat_color, 0.85)
+>>>>>>> update
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
@@ -173,7 +215,10 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	else if (extra_classes.Find("emote"))
 		var/image/r_icon = image('icons/UI_Icons/chat/chat_icons.dmi', icon_state = "emote")
 		LAZYADD(prefixes, "\icon[r_icon]")
+<<<<<<< refs/remotes/BeeStation/master
 		tgt_color = COLOR_CHAT_EMOTE
+=======
+>>>>>>> update
 
 	// Append language icon if the language uses one
 	var/datum/language/language_instance = GLOB.language_datum_instances[language]
@@ -185,9 +230,17 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			LAZYSET(language_icons, language, language_icon)
 		LAZYADD(prefixes, "\icon[language_icon]")
 
+<<<<<<< refs/remotes/BeeStation/master
 	//Add on the icons.
 	text = "[prefixes?.Join("&nbsp;")][text]"
 
+=======
+	text = "[prefixes?.Join("&nbsp;")][text]"
+
+	// We dim italicized text to make it more distinguishable from regular text
+	var/tgt_color = extra_classes.Find("italics") ? target.chat_color_darkened : target.chat_color
+
+>>>>>>> update
 	// Approximate text height
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
 	var/mheight = WXH_TO_HEIGHT(owned_by.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
@@ -219,18 +272,29 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message.plane = RUNECHAT_PLANE
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.alpha = 0
+<<<<<<< refs/remotes/BeeStation/master
 	message.pixel_y = owner.bound_height - MESSAGE_FADE_PIXEL_Y
 	message.maptext_width = CHAT_MESSAGE_WIDTH
 	message.maptext_height = mheight
 	message.maptext_x = (CHAT_MESSAGE_WIDTH - owner.bound_width) * -0.5
 	if(extra_classes.Find("italics"))
 		message.color = "#CCCCCC"
+=======
+	message.pixel_y = owner.bound_height * 0.95
+	message.maptext_width = CHAT_MESSAGE_WIDTH
+	message.maptext_height = mheight
+	message.maptext_x = (CHAT_MESSAGE_WIDTH - owner.bound_width) * -0.5
+>>>>>>> update
 	message.maptext = MAPTEXT(complete_text)
 
 	// View the message
 	LAZYADDASSOCLIST(owned_by.seen_messages, message_loc, src)
 	owned_by.images |= message
+<<<<<<< refs/remotes/BeeStation/master
 	animate(message, alpha = 255, pixel_y = owner.bound_height, time = CHAT_MESSAGE_SPAWN_TIME)
+=======
+	animate(message, alpha = 255, time = CHAT_MESSAGE_SPAWN_TIME)
+>>>>>>> update
 
 	// Register with the runechat SS to handle EOL and destruction
 	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
@@ -245,7 +309,11 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
   */
 /datum/chatmessage/proc/end_of_life(fadetime = CHAT_MESSAGE_EOL_FADE)
 	eol_complete = scheduled_destruction + fadetime
+<<<<<<< refs/remotes/BeeStation/master
 	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
+=======
+	animate(message, alpha = 0, time = fadetime, flags = ANIMATION_PARALLEL)
+>>>>>>> update
 	enter_subsystem(eol_complete) // re-enter the runechat SS with the EOL completion time to QDEL self
 
 /**
@@ -262,6 +330,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	spans = spans ? spans.Copy() : list()
 
 	// Check for virtual speakers (aka hearing a message through a radio)
+<<<<<<< refs/remotes/BeeStation/master
 	if (istype(speaker, /atom/movable/virtualspeaker))
 		var/atom/movable/virtualspeaker/v = speaker
 		//===================
@@ -290,6 +359,21 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	// Display visual above source
 	if(runechat_flags & EMOTE_MESSAGE)
 		new /datum/chatmessage(raw_message, speaker, src, message_language, list("emote"))
+=======
+	var/atom/movable/originalSpeaker = speaker
+	if (istype(speaker, /atom/movable/virtualspeaker))
+		var/atom/movable/virtualspeaker/v = speaker
+		speaker = v.source
+		spans |= "virtual-speaker"
+
+	// Ignore virtual speaker (most often radio messages) from ourself
+	if (originalSpeaker != src && speaker == src)
+		return
+
+	// Display visual above source
+	if(runechat_flags & EMOTE_MESSAGE)
+		new /datum/chatmessage(raw_message, speaker, src, message_language, list("emote", "italics"))
+>>>>>>> update
 	else
 		new /datum/chatmessage(lang_treat(speaker, message_language, raw_message, spans, null, TRUE), speaker, src, message_language, spans)
 

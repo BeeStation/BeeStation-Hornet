@@ -44,9 +44,13 @@ Contains:
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 =======
 	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+>>>>>>> update
+=======
+	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 >>>>>>> update
 
 	//NEW SWAT suit
@@ -60,9 +64,13 @@ Contains:
 	strip_delay = 120
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 =======
 	footstep = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+>>>>>>> update
+=======
+	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 >>>>>>> update
 
 /obj/item/clothing/head/helmet/space/beret

@@ -97,6 +97,7 @@
 #define CHAT_LAYER 12.0001 // Do not insert layers between these two values
 #define CHAT_LAYER_MAX 12.9999
 
+<<<<<<< refs/remotes/BeeStation/master
 #define EMISSIVE_BLOCKER_PLANE 12
 #define EMISSIVE_BLOCKER_LAYER 12
 #define EMISSIVE_BLOCKER_RENDER_TARGET "*EMISSIVE_BLOCKER_PLANE"
@@ -109,6 +110,8 @@
 #define EMISSIVE_UNBLOCKABLE_LAYER 14
 #define EMISSIVE_UNBLOCKABLE_RENDER_TARGET "*EMISSIVE_UNBLOCKABLE_PLANE"
 
+=======
+>>>>>>> update
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
 #define LIGHTING_RENDER_TARGET "LIGHT_PLANE"
@@ -137,6 +140,7 @@
 #define BLIND_LAYER 21.3
 #define CRIT_LAYER 21.4
 #define CURSE_LAYER 21.5
+<<<<<<< refs/remotes/BeeStation/master
 #define FULLSCREEN_RENDER_TARGET "FULLSCREEN_PLANE"
 
 #define HUD_PLANE 22
@@ -149,3 +153,13 @@
 #define SPLASHSCREEN_LAYER 24
 #define SPLASHSCREEN_PLANE 24
 #define SPLASHSCREEN_RENDER_TARGET "SPLASHSCREEN_PLANE"
+=======
+
+#define HUD_PLANE 22
+#define HUD_LAYER 22
+#define ABOVE_HUD_PLANE 23
+#define ABOVE_HUD_LAYER 23
+
+#define SPLASHSCREEN_LAYER 24
+#define SPLASHSCREEN_PLANE 24
+>>>>>>> update

@@ -118,9 +118,13 @@ PROBABILITY DEVIL_AGENTS 0
 
 ## Creates issues when NO_INTERCEPT_REPORT is enabled
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 PROBABILITY EXTENDED 0
 =======
 PROBABILITY EXTENDED 0 
+>>>>>>> update
+=======
+PROBABILITY EXTENDED 0
 >>>>>>> update
 
 ## You probably want to keep sandbox off by default for secret and random.

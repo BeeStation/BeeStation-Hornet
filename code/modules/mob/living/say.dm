@@ -99,6 +99,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/in_critical = InCritical()
 
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 	if(!message)
 		return
 =======
@@ -107,6 +108,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	else if(message_mode || saymode)
 		message = copytext_char(message, 3)
 	message = trim_left(message)
+>>>>>>> update
+=======
+	if(!message)
+		return
 >>>>>>> update
 
 	if(stat == DEAD)
@@ -123,8 +128,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				end = FALSE
 				break
 		if(end)
+<<<<<<< refs/remotes/BeeStation/master
 			message_mods += MODE_WHISPER // forces people in crit to whisper if they can't do anything else
 
+=======
+			return
+>>>>>>> update
 	else if(stat == UNCONSCIOUS)
 		var/end = TRUE
 		for(var/index in message_mods)
@@ -195,7 +204,12 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		spans |= SPAN_ITALICS
 	if(radio_return & REDUCE_RANGE)
 		message_range = 1
+<<<<<<< refs/remotes/BeeStation/master
 		message_mods[MODE_RADIO_MESSAGE] = MODE_RADIO_MESSAGE
+=======
+		if(!message_mods[WHISPER_MODE])
+			message_mods[WHISPER_MODE] = MODE_WHISPER
+>>>>>>> update
 	if(radio_return & NOPASS)
 		return 1
 
@@ -231,11 +245,17 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		deaf_message = "<span class='notice'>You can't hear yourself!</span>"
 		deaf_type = 2 // Since you should be able to hear yourself without looking
 
+<<<<<<< refs/remotes/BeeStation/master
 	var/flags = message_mods.Find(MODE_RADIO_MESSAGE) ? RADIO_MESSAGE : NONE
 
 	// Create map text prior to modifying message for goonchat
 	if(client?.prefs.chat_on_map && stat != UNCONSCIOUS && (client.prefs.see_chat_non_mob || ismob(speaker)) && can_hear())
 		create_chat_message(speaker, message_language, raw_message, spans, runechat_flags = flags)
+=======
+	// Create map text prior to modifying message for goonchat
+	if(client?.prefs.chat_on_map && stat != UNCONSCIOUS && (client.prefs.see_chat_non_mob || ismob(speaker)) && can_hear())
+		create_chat_message(speaker, message_language, raw_message, spans)
+>>>>>>> update
 
 	// Recompose message for AI hrefs, language incomprehension.
 	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
@@ -388,9 +408,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(MODE_INTERCOM)
 			for (var/obj/item/radio/intercom/I in view(MODE_RANGE_INTERCOM, src))
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 				I.talk_into(src, message, , spans, language, message_mods)
 =======
 				I.talk_into(src, message, , spans, language)
+>>>>>>> update
+=======
+				I.talk_into(src, message, , spans, language, message_mods)
 >>>>>>> update
 			return ITALICS | REDUCE_RANGE
 

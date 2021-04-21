@@ -172,11 +172,15 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(receiver && receiver.current)
 		if(ishuman(receiver.current))
 			var/mob/living/carbon/human/H = receiver.current
+<<<<<<< refs/remotes/BeeStation/master
 			var/static/list/slots = list(
 				"backpack" = ITEM_SLOT_BACKPACK,
 				"left pocket" = ITEM_SLOT_LPOCKET,
 				"right pocket" = ITEM_SLOT_RPOCKET,
 				"hands" = ITEM_SLOT_HANDS)
+=======
+			var/list/slots = list("backpack" = ITEM_SLOT_BACKPACK)
+>>>>>>> update
 			for(var/eq_path in special_equipment)
 				var/obj/O = new eq_path(get_turf(owner.current))
 				H.equip_in_one_of_slots(O, slots)

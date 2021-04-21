@@ -32,9 +32,13 @@
 			new /obj/item/clothing/glasses/godeye(src)
 		if(12)
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 			new /obj/item/reagent_containers/glass/bottle/potion/flight(src)
 =======
 			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/lavaland/beserker(src)
+>>>>>>> update
+=======
+			new /obj/item/reagent_containers/glass/bottle/potion/flight(src)
 >>>>>>> update
 		if(13)
 			new /obj/item/pickaxe/diamond(src) //Ashwalkers exist. This is actually a great drop for them
@@ -56,6 +60,7 @@
 			new /obj/item/gun/magic/hook(src)
 		if(22)
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 =======
 			new /obj/item/voodoo(src)
 		if(23)
@@ -66,6 +71,8 @@
 		if(25)
 			new /obj/item/book/granter/spell/summonitem(src)
 		if(26)
+>>>>>>> update
+=======
 >>>>>>> update
 			new /obj/item/book_of_babel(src)
 		if(23)

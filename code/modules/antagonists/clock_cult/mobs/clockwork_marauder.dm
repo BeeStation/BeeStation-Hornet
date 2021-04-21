@@ -61,6 +61,9 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	qdel(src)
 
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
+=======
+>>>>>>> update
 /mob/living/simple_animal/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/nullrod))
 		apply_damage(15, BURN)
@@ -72,6 +75,9 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 		return
 	. = ..()
 
+<<<<<<< refs/remotes/BeeStation/master
+=======
+>>>>>>> update
 =======
 >>>>>>> update
 /mob/living/simple_animal/clockwork_marauder/bullet_act(obj/item/projectile/Proj)

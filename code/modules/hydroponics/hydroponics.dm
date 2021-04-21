@@ -878,7 +878,11 @@
 	if(issilicon(user)) //How does AI know what plant is?
 		return
 	harvest_plant(user)
+<<<<<<< refs/remotes/BeeStation/master
 
+=======
+		
+>>>>>>> update
 /obj/machinery/hydroponics/proc/harvest_plant(mob/user)
 	if(harvest)
 		return myseed.harvest(user)

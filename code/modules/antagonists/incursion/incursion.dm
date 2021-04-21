@@ -91,6 +91,7 @@
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
+<<<<<<< refs/remotes/BeeStation/master
 	var/obj/item/uplink/incursion/uplink = new(get_turf(owner.current), owner.key, 15)
 	var/where
 	if(ishuman(owner.current))		//if he's not a human, uplink will spawn under his feet
@@ -103,6 +104,11 @@
 		)
 		where = H.equip_in_one_of_slots(uplink, slots, FALSE)
 	to_chat(owner.current, "<span class='notice'><b>You have been equipped with a syndicate uplink located [where ? where : "at your feet"]. Activate the transponder in hand to access the market.</b></span>")
+=======
+	var/obj/item/uplink/incursion/uplink = new(owner, owner.key, 15)
+	owner.current.equip_to_slot(uplink, ITEM_SLOT_BACKPACK)
+	to_chat(owner.current, "<span class='notice'><b>You have been equipped with a syndicate uplink located in your backpack. Activate the transponder in hand to access the market.</b></span>")
+>>>>>>> update
 	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)
 

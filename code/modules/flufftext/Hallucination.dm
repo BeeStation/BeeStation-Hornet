@@ -677,10 +677,15 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 	var/mob/living/carbon/person = null
 	var/datum/language/understood_language = target.get_random_understood_language()
-	for(var/mob/living/carbon/H in ohearers(target))
+	for(var/mob/living/carbon/H in view(target))
+		if(H == target)
+			continue
 		if(!person)
 			person = H
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
+=======
+>>>>>>> update
 		else
 			if(get_dist(target,H)<get_dist(target,person))
 				person = H
@@ -688,6 +693,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	// Get person to affect if radio hallucination
 	var/is_radio = !person || force_radio
 	if (is_radio)
+<<<<<<< refs/remotes/BeeStation/master
 =======
 		else if(get_dist(target,H)<get_dist(target,person))
 			person = H
@@ -709,6 +715,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		if(!chosen)
 			chosen = capitalize(pick(radio_messages))
 		chosen = replacetext(chosen, "%TARGETNAME%", target_name)
+>>>>>>> update
+=======
 >>>>>>> update
 		var/list/humans = list()
 		for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)

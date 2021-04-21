@@ -465,7 +465,12 @@
 
 /datum/config_entry/flag/bsminer_researchable
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 
 /datum/config_entry/flag/spare_enforce_coc
 =======
+>>>>>>> update
+=======
+
+/datum/config_entry/flag/spare_enforce_coc
 >>>>>>> update

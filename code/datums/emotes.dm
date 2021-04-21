@@ -74,11 +74,16 @@
 			continue
 		var/T = get_turf(user)
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 		if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
 			M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 =======
 		if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T)))
 			M.show_message(msg)
+>>>>>>> update
+=======
+		if(M.stat == DEAD && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
+			M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 >>>>>>> update
 
 	if(emote_type == EMOTE_AUDIBLE)

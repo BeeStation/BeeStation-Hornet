@@ -245,9 +245,13 @@
 /obj/item/clothing/neck/crucifix/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 	if(slot == ITEM_SLOT_NECK && istype(user))
 =======
 	if(slot == SLOT_NECK && istype(user))
+>>>>>>> update
+=======
+	if(slot == ITEM_SLOT_NECK && istype(user))
 >>>>>>> update
 		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
 
@@ -260,8 +264,12 @@
 	desc = "A wooden crucifix meant to ward off curses and hexes."
 	resistance_flags = FLAMMABLE
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 	icon_state = "rosary"
 =======
 	icon_state = "rosary"
 
+>>>>>>> update
+=======
+	icon_state = "rosary"
 >>>>>>> update

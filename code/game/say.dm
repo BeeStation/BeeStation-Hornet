@@ -35,6 +35,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	return 1
 
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language = null, list/message_mods = list())
 	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
 	for(var/atom/movable/AM as() in get_hearers_in_view(range, source))
@@ -44,6 +45,12 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/rendered = compose_message(src, message_language, message, , spans, message_mode)
 	for(var/atom/movable/AM as() in get_hearers_in_view(range, source))
 		AM.Hear(rendered, src, message_language, message, , spans, message_mode)
+>>>>>>> update
+=======
+/atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language = null, list/message_mods = list())
+	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
+	for(var/atom/movable/AM as() in get_hearers_in_view(range, source))
+		AM.Hear(rendered, src, message_language, message, , spans, message_mods)
 >>>>>>> update
 
 /atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE)

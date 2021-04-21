@@ -95,11 +95,18 @@
 			var/mob/cogger = new /mob/living/simple_animal/drone/cogscarab(get_turf(M))
 			cogger.key = M.key
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 			if(!cogger.grab_ghost(TRUE))
 				//Replace the mob with a shell
 				qdel(cogger)
 				new /obj/effect/mob_spawn/drone/cogscarab(get_turf(M))
 =======
+>>>>>>> update
+=======
+			if(!cogger.grab_ghost(TRUE))
+				//Replace the mob with a shell
+				qdel(cogger)
+				new /obj/item/drone_shell/cogscarab(get_turf(M))
 >>>>>>> update
 			add_servant_of_ratvar(cogger, silent=TRUE)
 			return

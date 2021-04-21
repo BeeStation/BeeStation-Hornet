@@ -47673,7 +47673,10 @@
 	sortType = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+<<<<<<< refs/remotes/BeeStation/master
 /obj/effect/landmark/start/hangover,
+=======
+>>>>>>> update
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bDY" = (
@@ -49047,7 +49050,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /obj/effect/landmark/start/hangover,
+=======
+>>>>>>> update
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "bFJ" = (
@@ -50235,6 +50241,7 @@
 /obj/machinery/door/firedoor/window,
 /obj/structure/cable/yellow{
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 	icon_state = "0-8"
 =======
 	icon_state = "4-8"
@@ -50258,6 +50265,9 @@
 	},
 /obj/machinery/door/firedoor/border_only{
 	dir = 8
+>>>>>>> update
+=======
+	icon_state = "0-8"
 >>>>>>> update
 	},
 /obj/effect/spawner/structure/window/reinforced,
@@ -50363,6 +50373,12 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+<<<<<<< refs/remotes/BeeStation/master
+=======
+/obj/machinery/keycard_auth{
+	pixel_x = 24
+	},
+>>>>>>> update
 /mob/living/simple_animal/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
 /turf/open/floor/plasteel,
@@ -62793,12 +62809,21 @@
 "bZY" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = 32
+<<<<<<< refs/remotes/BeeStation/master
 	},
 /obj/structure/table/reinforced,
 /obj/item/clothing/mask/gas/sechailer{
 	pixel_x = -3;
 	pixel_y = 3
 	},
+=======
+	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/mask/gas/sechailer{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+>>>>>>> update
 /obj/item/clothing/mask/gas/sechailer,
 /obj/item/clothing/mask/gas/sechailer{
 	pixel_x = 3;
@@ -122361,7 +122386,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+<<<<<<< refs/remotes/BeeStation/master
 /obj/effect/landmark/start/hangover,
+=======
+>>>>>>> update
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "jAD" = (
@@ -123652,6 +123680,7 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+<<<<<<< refs/remotes/BeeStation/master
 "mLb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -123659,6 +123688,8 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+=======
+>>>>>>> update
 "mMY" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/vending/snack/random,
@@ -124072,6 +124103,7 @@
 /obj/structure/lattice,
 /turf/open/space,
 /area/space)
+<<<<<<< refs/remotes/BeeStation/master
 "nOF" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -124092,6 +124124,8 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+=======
+>>>>>>> update
 "nRq" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -124818,11 +124852,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+<<<<<<< refs/remotes/BeeStation/master
 "pxS" = (
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/storage/primary)
+=======
+>>>>>>> update
 "pyw" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/cable/yellow{
@@ -125559,6 +125596,7 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/space)
+<<<<<<< refs/remotes/BeeStation/master
 "rlc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -125576,6 +125614,8 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+=======
+>>>>>>> update
 "rqe" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -126052,10 +126092,19 @@
 "sBW" = (
 /turf/closed/wall/r_wall,
 /area/hallway/secondary/exit/departure_lounge)
+<<<<<<< refs/remotes/BeeStation/master
 "sDM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
+=======
+"sEu" = (
+/obj/machinery/computer/secure_data{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+>>>>>>> update
 	},
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
@@ -126741,6 +126790,7 @@
 	},
 /turf/closed/wall,
 /area/hallway/primary/starboard)
+<<<<<<< refs/remotes/BeeStation/master
 "uoo" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
@@ -126748,6 +126798,8 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel/grimy,
 /area/library)
+=======
+>>>>>>> update
 "upk" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Access"
@@ -177661,9 +177713,15 @@ bBY
 bDX
 bFH
 cdo
+<<<<<<< refs/remotes/BeeStation/master
 mtw
 bHu
 mtw
+=======
+bHu
+bHu
+bHu
+>>>>>>> update
 iwZ
 bHu
 bHu
@@ -177917,6 +177975,10 @@ pxm
 bBZ
 bDY
 bFI
+<<<<<<< refs/remotes/BeeStation/master
+=======
+bJr
+>>>>>>> update
 bJr
 bJr
 bJr

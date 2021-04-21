@@ -497,4 +497,29 @@
 	id = /obj/item/card/id/job/clown
 	ears = /obj/item/radio/headset/headset_srv
 
+<<<<<<< refs/remotes/BeeStation/master
 
+=======
+/datum/outfit/debug //Debug objs plus hardsuit
+	name = "Debug outfit"
+	uniform = /obj/item/clothing/under/misc/patriotsuit
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	mask = /obj/item/clothing/mask/gas/welding/up
+	gloves = /obj/item/clothing/gloves/combat
+	belt = /obj/item/storage/belt/utility/chief/full
+	shoes = /obj/item/clothing/shoes/magboots/advance
+	id = /obj/item/card/id/ert
+	suit_store = /obj/item/tank/internals/oxygen
+	internals_slot = ITEM_SLOT_SUITSTORE
+	glasses = /obj/item/clothing/glasses/meson/night
+	ears = /obj/item/radio/headset/headset_cent/commander
+	box = /obj/item/storage/box/debugtools
+	back = /obj/item/storage/backpack/holding
+	backpack_contents = list(/obj/item/flashlight/emp/debug=1,\
+		/obj/item/gun/magic/wand/resurrection/debug=1,\
+		/obj/item/melee/transforming/energy/axe=1,\
+		/obj/item/storage/part_replacer/bluespace/tier4=1,\
+		/obj/item/debug/human_spawner=1,\
+		/obj/item/debug/omnitool=1
+		)
+>>>>>>> update

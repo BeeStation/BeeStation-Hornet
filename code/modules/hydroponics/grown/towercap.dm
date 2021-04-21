@@ -52,9 +52,13 @@
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
 	if(W.is_sharp())
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", MSG_VISUAL)
 =======
 		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", 1)
+>>>>>>> update
+=======
+		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", MSG_VISUAL)
 >>>>>>> update
 		var/seed_modifier = 0
 		if(seed)

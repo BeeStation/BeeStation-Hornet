@@ -197,9 +197,15 @@
 							CHECK_TICK
 						if(empty_turfs?.len)
 							LZ = pick(empty_turfs)
+<<<<<<< refs/remotes/BeeStation/master
 					if (SO.pack.get_cost() <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
 						new /obj/effect/pod_landingzone(LZ, podType, SO)
 						D.adjust_money(-SO.pack.get_cost())
+=======
+					if (SO.pack.cost <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
+						D.adjust_money(-SO.pack.cost)
+						new /obj/effect/pod_landingzone(LZ, podType, SO)
+>>>>>>> update
 						. = TRUE
 						update_icon()
 			else

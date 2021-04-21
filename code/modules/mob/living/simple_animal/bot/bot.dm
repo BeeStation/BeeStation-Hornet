@@ -445,9 +445,13 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 				if(final_result)
 					return final_result
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 
 =======
 	
+>>>>>>> update
+=======
+
 >>>>>>> update
 	var/list/wider_search_list = list()
 	for(var/turf/RT in oview(scan_range, src))

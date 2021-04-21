@@ -47899,6 +47899,7 @@
 	},
 /obj/structure/closet/secure_closet/freezer/meat,
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bNF" = (
@@ -47910,14 +47911,21 @@
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+=======
+/turf/open/floor/plasteel/freezer,
+>>>>>>> update
 /area/crew_quarters/kitchen)
 "bNF" = (
 /obj/machinery/gibber,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bNG" = (
 /obj/structure/kitchenspike,
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bNI" = (
@@ -48541,9 +48549,13 @@
 "bOX" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bOY" = (
@@ -48564,9 +48576,13 @@
 	pixel_x = -4
 	},
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bPa" = (
@@ -48574,9 +48590,13 @@
 	name = "Pete"
 	},
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bPb" = (
@@ -49328,6 +49348,7 @@
 "bQI" = (
 /obj/machinery/vending/wardrobe/chef_wardrobe,
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bQJ" = (
@@ -49339,6 +49360,13 @@
 "bQJ" = (
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen)
+"bQJ" = (
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bQN" = (
@@ -49918,9 +49946,13 @@
 	dir = 8
 	},
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bRY" = (
@@ -49939,9 +49971,13 @@
 	pixel_y = -24
 	},
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bRZ" = (
@@ -49956,9 +49992,13 @@
 	icon_state = "4-8"
 	},
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bSa" = (
@@ -49969,9 +50009,13 @@
 	icon_state = "4-8"
 	},
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bSd" = (
@@ -50404,9 +50448,13 @@
 	dir = 1
 	},
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bSY" = (
@@ -50421,9 +50469,13 @@
 	dir = 5
 	},
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bSZ" = (
@@ -51074,9 +51126,13 @@
 	},
 /obj/effect/turf_decal/delivery,
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bUq" = (
@@ -51090,9 +51146,13 @@
 	},
 /obj/effect/turf_decal/delivery,
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bUr" = (
@@ -53539,9 +53599,13 @@
 /obj/machinery/icecream_vat,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "bZy" = (
@@ -56931,9 +56995,13 @@
 /obj/structure/reagent_dispensers/cooking_oil,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "cgG" = (
@@ -82661,9 +82729,13 @@
 	pixel_y = 28
 	},
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "fBA" = (
@@ -86094,9 +86166,13 @@
 /area/hallway/secondary/exit/departure_lounge)
 "rFZ" = (
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 /turf/open/floor/plasteel/freezer,
 =======
 /turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+>>>>>>> update
+=======
+/turf/open/floor/plasteel/freezer,
 >>>>>>> update
 /area/crew_quarters/kitchen)
 "rHt" = (
@@ -87819,6 +87895,7 @@
 /obj/machinery/anesthetic_machine,
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
+<<<<<<< refs/remotes/BeeStation/master
 "xuc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -87832,6 +87909,8 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+=======
+>>>>>>> update
 "xvg" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,

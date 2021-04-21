@@ -102,7 +102,11 @@
 	if(.)
 		return
 
+<<<<<<< refs/remotes/BeeStation/master
 	if(!usr.is_conscious() || usr.incapacitated())
+=======
+	if(usr.incapacitated())
+>>>>>>> update
 		return
 
 	switch(action)

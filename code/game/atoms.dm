@@ -82,6 +82,11 @@
 	var/chat_color_name
 	/// Last color calculated for the the chatmessage overlays
 	var/chat_color
+<<<<<<< refs/remotes/BeeStation/master
+=======
+	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
+	var/chat_color_darkened
+>>>>>>> update
 
 /**
   * Called when an atom is created in byond (built in engine proc)

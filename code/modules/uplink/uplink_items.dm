@@ -1586,8 +1586,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 1
 <<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 	illegal_tech = FALSE
 =======
+>>>>>>> update
+=======
+	illegal_tech = FALSE
 >>>>>>> update
 
 /datum/uplink_item/device_tools/syndicate_teleporter
