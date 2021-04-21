@@ -346,6 +346,33 @@
 	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
 	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
 
+/datum/eldritch_knowledge/void_cloak
+	name = "Void Cloak"
+	desc = "A cloak that can become invisbile at will, hiding items you store in it. To create it transmute a glass shard, any item of clothing that you can fit over your uniform and any type of bedsheet."
+	gain_text = "Owl is the keeper of things that quite not are in practice, but in theory are."
+	cost = 1
+	next_knowledge = list(/datum/eldritch_knowledge/flesh_ghoul)
+	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/void)
+	required_atoms = list(/obj/item/shard,/obj/item/clothing/suit,/obj/item/bedsheet)
+
+/datum/eldritch_knowledge/rune_carver
+	name = "Carving Knife"
+	gain_text = "Etched, carved... eternal. I can carve the monolith and evoke their powers!"
+	desc = "You can create a carving knife, which allows you to create up to 3 carvings on the floor that have various effects on nonbelievers who walk over them. They make quite a handy throwing weapon. To create the carving knife transmute a knife with a glass shard and a piece of paper."
+	cost = 1
+	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet)
+	required_atoms = list(/obj/item/kitchen/knife,/obj/item/shard,/obj/item/paper)
+	result_atoms = list(/obj/item/melee/rune_knife)
+
+/datum/eldritch_knowledge/crucible
+	name = "Mawed Crucible"
+	gain_text = "This is pure agony, i wasn't able to summon the dereliction of the emperor, but i stumbled upon a diffrent recipe..."
+	desc = "Allows you to create a mawed crucible, eldritch structure that allows you to create potions of various effects, to do so transmute a table with a watertank"
+	cost = 1
+	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion)
+	required_atoms = list(/obj/structure/reagent_dispensers/watertank,/obj/structure/table)
+	result_atoms = list(/obj/structure/eldritch_crucible) 
+
 //	---	CURSES ---
 
 /datum/eldritch_knowledge/curse/corrosion
@@ -423,3 +450,4 @@
 	required_atoms = list(/obj/effect/decal/cleanable/vomit,/obj/item/bodypart/head,/obj/item/book)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)
+
