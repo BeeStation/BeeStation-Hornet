@@ -10,7 +10,7 @@
 	button_icon_state = "Sigil of Transmission"
 	power_cost = 100
 	invokation_time = 50
-	invokation_text = list("Oh great holy one...", "...your energy...", "...the power of the holy light!")
+	invokation_text = list("Oh great holy one...", "your energy...", "the power of the holy light!")
 	summoned_structure = /obj/structure/destructible/clockwork/sigil/transmission
 	cogs_required = 0
 	invokers_required = 2

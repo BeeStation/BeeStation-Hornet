@@ -171,7 +171,7 @@
 			else
 				L["[get_area(com.target)] (Inactive)"] = com.target
 	var/list/turfs = list()
-	for(var/turf/T as() in (RANGE_TURFS(10, src) - get_turf(src)))
+	for(var/turf/T as() in (RANGE_TURFS(10, user) - get_turf(user)))
 		if(T.x>world.maxx-8 || T.x<8)
 			continue	//putting them at the edge is dumb
 		if(T.y>world.maxy-8 || T.y<8)
@@ -198,7 +198,7 @@
 	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
-	user.show_message("<span class='notice'>Locked In.</span>", 2)
+	user.show_message("<span class='notice'>Locked In.</span>", MSG_AUDIBLE)
 	var/list/obj/effect/portal/created = create_portal_pair(current_location, get_teleport_turf(get_turf(T)), src, 300, 1, null, atmos_link_override)
 	if(!(LAZYLEN(created) == 2))
 		return

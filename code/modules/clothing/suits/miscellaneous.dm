@@ -178,7 +178,7 @@
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(slot == SLOT_WEAR_SUIT)
+	if(slot == ITEM_SLOT_OCLOTHING)
 		disguise(user)
 
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user)
@@ -262,7 +262,7 @@
 
 /obj/item/clothing/head/hooded/carp_hood/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if (slot == SLOT_HEAD)
+	if (slot == ITEM_SLOT_HEAD)
 		user.faction |= "carp"
 
 /obj/item/clothing/head/hooded/carp_hood/dropped(mob/living/carbon/human/user)
@@ -342,6 +342,32 @@
 	icon_state = "officertanjacket"
 	item_state = "officertanjacket"
 	body_parts_covered = CHEST|ARMS
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/clothing/suit/delinquent
+	name = "deliquent jacket"
+	desc = "Yare yare daze."
+	icon_state = "jocoat"
+
+/obj/item/clothing/suit/madsci
+	name = "mad scientist labcoat"
+	desc = "El psy congroo."
+	icon_state = "madsci"
+
+/obj/item/clothing/suit/hooded/renault_costume
+	name = "renault costume"
+	desc = "The cutest pair of pajamas you've ever seen."
+	icon_state = "renault_suit"
+	hoodtype = /obj/item/clothing/head/hooded/renault_hood
+
+/obj/item/clothing/head/hooded/renault_hood
+	name = "renault hoodie"
+	desc = "An adorable hoodie vaguely resembling renault."
+	icon_state = "renault_hoodie"
+	flags_inv = HIDEEARS
 
 /*
  * Misc
@@ -628,6 +654,72 @@
 
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
+
+//Old winter coats
+
+/obj/item/clothing/suit/hooded/wintercoat/old
+	name = "nostalgic winter coat"
+	desc = "A well-worn heavy jacket made from 'synthetic' animal furs."
+	icon_state = "old_coatwinter"
+
+/obj/item/clothing/head/hooded/winterhood/old
+	name = "winter hood"
+	desc = "An old hood attached to a well-worn heavy winter jacket."
+	icon_state = "old_winterhood"
+
+/obj/item/clothing/suit/hooded/wintercoat/security/old
+	name = "nostalgic security winter coat"
+	icon_state = "old_coatsecurity"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/old
+
+/obj/item/clothing/suit/hooded/wintercoat/security/old/Initialize()
+	. = ..()
+	allowed = GLOB.security_wintercoat_allowed
+
+/obj/item/clothing/head/hooded/winterhood/security/old
+	icon_state = "old_winterhood_security"
+
+/obj/item/clothing/suit/hooded/wintercoat/medical/old
+	name = "nostalgic medical winter coat"
+	icon_state = "old_coatmedical"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical/old
+
+/obj/item/clothing/head/hooded/winterhood/medical/old
+	icon_state = "old_winterhood_medical"
+
+/obj/item/clothing/suit/hooded/wintercoat/science/old
+	name = "nostalgic science winter coat"
+	icon_state = "old_coatscience"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/old
+
+/obj/item/clothing/head/hooded/winterhood/science/old
+	icon_state = "old_winterhood_science"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/old
+	name = "nostalgic engineering winter coat"
+	icon_state = "old_coatengineer"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/old
+
+/obj/item/clothing/head/hooded/winterhood/engineering/old
+	icon_state = "old_winterhood_engineer"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old
+	name = "nostalgic atmospherics winter coat"
+	icon_state = "old_coatatmos"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
+
+/obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
+	icon_state = "old_winterhood_atmos"
+
+/obj/item/clothing/suit/hooded/wintercoat/hydro/old
+	name = "nostalgic hydroponics winter coat"
+	icon_state = "old_coathydro"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/hydro/old
+
+/obj/item/clothing/head/hooded/winterhood/hydro/old
+	icon_state = "old_winterhood_hydro"
+
+//end of winter coats
 
 /obj/item/clothing/suit/spookyghost
 	name = "spooky ghost"
