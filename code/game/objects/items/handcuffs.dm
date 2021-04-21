@@ -378,7 +378,7 @@
 	icon_state = "bola_r"
 	item_state = "bola_r"
 	breakouttime = 70
-	knockdown = 35
+	knockdown = 20
 
 /obj/item/restraints/legcuffs/bola/watcher //tribal bola for tribal lizards
 	name = "watcher Bola"
