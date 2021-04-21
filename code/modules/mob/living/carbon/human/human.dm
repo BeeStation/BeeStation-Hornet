@@ -297,7 +297,10 @@
 	if(href_list["set_sensor"])
 		if(istype(w_uniform, /obj/item/clothing/under))
 			var/obj/item/clothing/under/U = w_uniform
-			U.set_sensors(usr)
+			to_chat(usr,"<span class='danger'>You try to change [src]'s sensors.</span>")
+			to_chat(src,"<span class='danger'>[usr] tries to change your sensors.</span>")
+			if(do_mob(usr, src, 2 SECONDS))
+				U.set_sensors(usr)
 
 ///////HUDs///////
 	if(href_list["hud"])

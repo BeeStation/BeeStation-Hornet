@@ -202,13 +202,13 @@ BLIND     // can't see anything
 	if (!can_use(M))
 		return
 	if(src.has_sensor == LOCKED_SENSORS)
-		to_chat(user, "The controls are locked.")
+		to_chat(user, "<span class='warning'>The controls are locked.</span>")
 		return 0
 	if(src.has_sensor == BROKEN_SENSORS)
-		to_chat(user, "The sensors have shorted out!")
+		to_chat(user, "<span class='warning'>The sensors have shorted out!</span>")
 		return 0
 	if(src.has_sensor <= NO_SENSORS)
-		to_chat(user, "This suit does not have any sensors.")
+		to_chat(user, "<span class='warning'>This suit does not have any sensors.</span>")
 		return 0
 
 	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")
