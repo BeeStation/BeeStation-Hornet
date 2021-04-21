@@ -195,7 +195,7 @@ BLIND     // can't see anything
 	female_clothing_icon 			= fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
 
-/obj/item/clothing/under/proc/set_sensors(mob/user as mob)
+/obj/item/clothing/under/proc/set_sensors(mob/user)
 	var/mob/M = user
 	if (istype(M, /mob/dead/))
 		return
@@ -229,15 +229,19 @@ BLIND     // can't see anything
 			if(3)
 				to_chat(user, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")			
 	else if(istype(src.loc, /mob))
-		switch(sensor_mode)
-			if(0)
-				user.visible_message("<span class='warning'>[user] disables [src.loc]'s remote sensing equipment.</span>")
-			if(1)
-				user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to binary.</span>")
-			if(2)
-				user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to track vitals.</span>")
-			if(3)
-				user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to maximum.</span>")
+		var/mob/living/carbon/human/wearer = src.loc
+		to_chat(user,"<span class='danger'>You try to change [wearer]'s sensors.</span>")
+		to_chat(src,"<span class='danger'>[user] tries to change your sensors.</span>")
+		if(do_mob(user, wearer, 2 SECONDS))
+			switch(sensor_mode)
+				if(0)
+					user.visible_message("<span class='warning'>[user] disables [src.loc]'s remote sensing equipment.</span>")
+				if(1)
+					user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to binary.</span>")
+				if(2)
+					user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to track vitals.</span>")
+				if(3)
+					user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to maximum.</span>")
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.w_uniform == src)
