@@ -319,6 +319,14 @@
 	
 //	---	CRAFTING ---
 
+/datum/eldritch_knowledge/essence
+	name = "Priest's Ritual"
+	desc = "You can now transmute a tank of water and a glass shard into a bottle of eldritch water."
+	gain_text = "This is an old recipe. The Owl whispered it to me."
+	cost = 0
+	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
+	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
+
 /datum/eldritch_knowledge/ashen_eyes
 	name = "Ashen Eyes"
 	gain_text = "Piercing eyes, guide me through the mundane."
@@ -337,30 +345,23 @@
 	required_atoms = list(/obj/structure/table,/obj/item/clothing/mask/gas)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
 
-/datum/eldritch_knowledge/essence
-	name = "Priest's Ritual"
-	desc = "You can now transmute a tank of water and a glass shard into a bottle of eldritch water."
-	gain_text = "This is an old recipe. The Owl whispered it to me."
-	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift)
-	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
-	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
-
 /datum/eldritch_knowledge/void_cloak
 	name = "Void Cloak"
 	desc = "A cloak that can become invisbile at will, hiding items you store in it. To create it transmute a glass shard, any item of clothing that you can fit over your uniform and any type of bedsheet."
 	gain_text = "Owl is the keeper of things that quite not are in practice, but in theory are."
 	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/flesh_ghoul)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/spell/ashen_shift)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/void)
 	required_atoms = list(/obj/item/shard,/obj/item/clothing/suit,/obj/item/bedsheet)
+	
+//	---	STRUCTURES ---
 
 /datum/eldritch_knowledge/rune_carver
 	name = "Carving Knife"
 	gain_text = "Etched, carved... eternal. I can carve the monolith and evoke their powers!"
 	desc = "You can create a carving knife, which allows you to create up to 3 carvings on the floor that have various effects on nonbelievers who walk over them. They make quite a handy throwing weapon. To create the carving knife transmute a knife with a glass shard and a piece of paper."
 	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet)
+	next_knowledge = list(/datum/eldritch_knowledge/mad_mask,/datum/eldritch_knowledge/summon/raw_prophet)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/shard,/obj/item/paper)
 	result_atoms = list(/obj/item/melee/rune_knife)
 
@@ -369,49 +370,103 @@
 	gain_text = "This is pure agony, i wasn't able to summon the dereliction of the emperor, but i stumbled upon a diffrent recipe..."
 	desc = "Allows you to create a mawed crucible, eldritch structure that allows you to create potions of various effects, to do so transmute a table with a watertank"
 	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/spell/area_conversion)
+	next_knowledge = list(/datum/eldritch_knowledge/mad_mask,/datum/eldritch_knowledge/spell/area_conversion)
 	required_atoms = list(/obj/structure/reagent_dispensers/watertank,/obj/structure/table)
 	result_atoms = list(/obj/structure/eldritch_crucible) 
 
 //	---	CURSES ---
 
-/datum/eldritch_knowledge/curse/corrosion
-	name = "Curse of Corrosion"
-	gain_text = "Cursed land, cursed man, cursed mind."
-	desc = "Curse someone for 2 minutes of vomiting and major organ damage. Using a wirecutter, a heart, and an item that the victim touched  with their bare hands."
-	cost = 1
-	required_atoms = list(/obj/item/wirecutters,/obj/item/organ/heart)
-	next_knowledge = list(/datum/eldritch_knowledge/mad_mask,/datum/eldritch_knowledge/spell/area_conversion)
+/datum/eldritch_knowledge/curse/alteration
+	name = "Curse Of Alteration"
+	gain_text = "Mortal bodies, prisons of flesh. Death, a release..."
+	desc = "Start an alteration ritual by transmuting a wire cutter a hatchet and an item that the victim touched with their bare hands. Inflict a debilitating curse that will cripple your target's body for 2 minutes. Add eyes, ears, limbs or tongues to the mix to disable those organs while the curse is in effect."
+	cost = 0
+	required_atoms = list(/obj/item/wirecutters,/obj/item/hatchet)
 	timer = 2 MINUTES
+	var/list/debuffs = list()
 
-/datum/eldritch_knowledge/curse/corrosion/curse(mob/living/chosen_mob)
+/datum/eldritch_knowledge/curse/alteration/on_finished_recipe(mob/living/user, list/atoms, loc)	//the ritual completed, take the payment and apply the curse
+	//declare
+	debuffs = list()
+	var/list/extra_atoms = list()
+
+	//check variables
+	for(var/A in range(1, loc))	//this
+		var/atom/atom_in_range = A
+		if(istype(atom_in_range,/obj/item/bodypart/r_leg))
+			extra_atoms |= A
+			debuffs |= "r_leg"
+		else if(istype(atom_in_range,/obj/item/bodypart/l_leg))
+			extra_atoms |= A
+			debuffs |= "l_leg"
+		else if(istype(atom_in_range,/obj/item/bodypart/r_arm))
+			extra_atoms |= A
+			debuffs |= "r_arm"
+		else if(istype(atom_in_range,/obj/item/bodypart/l_arm))
+			extra_atoms |= A
+			debuffs |= "l_arm"
+		else if(istype(atom_in_range,/obj/item/organ/tongue))
+			extra_atoms |= A
+			debuffs |= "tongue"
+		else if(istype(atom_in_range,/obj/item/organ/eyes))
+			extra_atoms |= A
+			debuffs |= "eyes"
+		else if(istype(atom_in_range,/obj/item/organ/ears))
+			extra_atoms |= A
+			debuffs |= "ears"
+		else if(istype(atom_in_range,/obj/item/organ/liver) || istype(atom_in_range,/obj/item/organ/lungs) || istype(atom_in_range,/obj/item/organ/appendix) || istype(atom_in_range,/obj/item/organ/heart))
+			extra_atoms |= A
+			debuffs |= "organs"
+
+	cleanup_atoms(extra_atoms)
 	. = ..()
-	chosen_mob.apply_status_effect(/datum/status_effect/corrosion_curse)
+	return .
 
-/datum/eldritch_knowledge/curse/corrosion/uncurse(mob/living/chosen_mob)
+/datum/eldritch_knowledge/curse/alteration/curse(mob/living/chosen_mob)
 	. = ..()
-	chosen_mob.remove_status_effect(/datum/status_effect/corrosion_curse)
+	if (chosen_mob.has_status_effect(/datum/status_effect/corrosion_curse))
+		return FALSE
 
-/datum/eldritch_knowledge/curse/paralysis
-	name = "Curse of Paralysis"
-	gain_text = "Corrupt their flesh, make them bleed."
-	desc = "Curse someone for 5 minutes of inability to walk. Using a left leg, right leg, a hatchet and an item that the victim touched  with their bare hands. "
-	cost = 1
-	required_atoms = list(/obj/item/bodypart/l_leg,/obj/item/bodypart/r_leg,/obj/item/hatchet)
-	next_knowledge = list(/datum/eldritch_knowledge/mad_mask,/datum/eldritch_knowledge/summon/raw_prophet)
-	timer = 5 MINUTES
+	var/mob/living/carbon/human/chosen_mortal = chosen_mob
+	chosen_mortal.apply_status_effect(/datum/status_effect/corrosion_curse)	//the purpose of this debuff is to alert the victim they've been cursed
 
-/datum/eldritch_knowledge/curse/paralysis/curse(mob/living/chosen_mob)
+	for(var/X in debuffs)
+		switch (X)
+			if ("r_leg")
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_LEG,CURSE_TRAIT)
+			if ("l_leg")
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_LEG,CURSE_TRAIT)
+			if ("r_arm")
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_ARM,CURSE_TRAIT)
+			if ("l_arm")
+				ADD_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_ARM,CURSE_TRAIT)
+			if ("tongue")
+				ADD_TRAIT(chosen_mortal, TRAIT_MUTE, CURSE_TRAIT)
+			if ("eyes")
+				chosen_mortal.become_blind(CURSE_TRAIT)
+			if ("ears")
+				ADD_TRAIT(chosen_mortal, TRAIT_DEAF, CURSE_TRAIT)
+	return .
+
+/datum/eldritch_knowledge/curse/alteration/uncurse(mob/living/chosen_mob)
 	. = ..()
-	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
-	ADD_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
-	chosen_mob.update_mobility()
+	var/mob/living/carbon/human/chosen_mortal = chosen_mob
+	//organ fuckup
+	chosen_mortal.remove_status_effect(/datum/status_effect/corrosion_curse)
 
-/datum/eldritch_knowledge/curse/paralysis/uncurse(mob/living/chosen_mob)
-	. = ..()
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
-	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
-	chosen_mob.update_mobility()
+	//CC
+	chosen_mortal.cure_blind(CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal, TRAIT_MUTE, CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal, TRAIT_DEAF, CURSE_TRAIT)
+
+	//paralysis
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_ARM,CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_ARM,CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_L_LEG,CURSE_TRAIT)
+	REMOVE_TRAIT(chosen_mortal,TRAIT_PARALYSIS_R_LEG,CURSE_TRAIT)
+	chosen_mortal.update_mobility()
+
+	return .
 	
 //	--- SPELLS ---
 

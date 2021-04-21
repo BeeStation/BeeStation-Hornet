@@ -46,7 +46,7 @@
 	desc = "Passively heals you when you are on rusted tiles."
 	gain_text = "The strength was unparalleled, unnatural. The Blacksmith was smiling."
 	cost = 1
-	next_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/armor,/datum/eldritch_knowledge/essence)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_mark,/datum/eldritch_knowledge/armor,/datum/eldritch_knowledge/void_cloak)
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_regen/on_life(mob/user)
