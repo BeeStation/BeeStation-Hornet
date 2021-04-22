@@ -112,6 +112,10 @@
 	if(istype(data))
 		src.data |= data.Copy()
 
+/*
+ * Transformation
+*/
+
 /datum/reagent/transformation
 	name = "Changium"
 	description = "A mysterious reagent that transforms you into a harmless animal."
@@ -128,25 +132,24 @@
 
 /datum/reagent/transformation/overdose_start(mob/living/L)
 	..()
-	polymorph_target(L)
-	metabolization_rate = 10 * REAGENTS_METABOLISM
+	polymorph_target(L,volume/overdose_threshold)
+	volume = 0
 
-/datum/reagent/transformation/proc/polymorph_target(mob/living/L)
+/datum/reagent/magic/polymorphine/proc/polymorph_target(mob/living/L, var/dur)
 	shapeshiftdata = locate() in L
 	if(shapeshiftdata)
 		return
 	var/mob/living/shape = make_mob(get_turf(L))
-	shapeshiftdata = new(shape,null,L)
-	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), POLYMORPHIUM_DURATION)
+	shapeshiftdata = new(shape,null,caster,convert_damage = TRUE,convert_damage_type = STAMINA, die_with_shapeshifted_form = FALSE, revert_on_death = TRUE)
+	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), 10 SECONDS * dur)
 
 /datum/reagent/transformation/on_mob_end_metabolize(mob/living/L)
 	..()
-	if(!shapeshiftdata)
-		return
-	shapeshiftdata.restore()
+	if(shapeshiftdata)
+		shapeshiftdata.restore()
 
 /datum/reagent/transformation/proc/make_mob(turf/T)
-	return /mob/living/simple_animal/pet/dog/corgi(T)
+	return new /mob/living/simple_animal/chicken(T)
 
 /datum/reagent/transformation/corgium
 	name = "Corgium"
@@ -156,6 +159,10 @@
 
 /datum/reagent/transformation/corgium/make_mob(turf/T)
 	return new /mob/living/simple_animal/pet/dog/corgi(T)
+
+/*
+ *	Water
+ */
 
 /datum/reagent/water
 	name = "Water"
