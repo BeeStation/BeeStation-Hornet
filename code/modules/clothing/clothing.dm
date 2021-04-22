@@ -231,7 +231,7 @@ BLIND     // can't see anything
 	else if(istype(src.loc, /mob))
 		var/mob/living/carbon/human/wearer = src.loc
 		to_chat(user,"<span class='danger'>You try to change [wearer]'s sensors.</span>")
-		to_chat(src,"<span class='danger'>[user] tries to change your sensors.</span>")
+		to_chat(wearer,"<span class='danger'>[user] tries to change your sensors.</span>")
 		if(do_mob(user, wearer, 2 SECONDS))
 			switch(sensor_mode)
 				if(0)
