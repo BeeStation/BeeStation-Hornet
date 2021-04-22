@@ -1535,11 +1535,9 @@
 /turf/open/space,
 /area/solar/port/fore)
 "adB" = (
-/obj/structure/sign/warning/securearea{
-	pixel_x = 32
-	},
-/turf/open/space,
-/area/space/nearstation)
+/obj/structure/sign/warning/securearea,
+/turf/closed/wall,
+/area/security/execution/transfer)
 "adC" = (
 /obj/structure/table,
 /obj/item/razor,
@@ -25354,6 +25352,7 @@
 /turf/open/floor/plasteel/white,
 /area/maintenance/aft)
 "btp" = (
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "btq" = (
@@ -31600,10 +31599,7 @@
 /turf/open/floor/plating,
 /area/science/mixing)
 "bLn" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
+/turf/open/space/basic,
 /area/science/test_area)
 "bLo" = (
 /obj/effect/turf_decal/stripes/line{
@@ -41706,6 +41702,9 @@
 /obj/machinery/camera/autoname{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "crT" = (
@@ -41790,7 +41789,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
-/area/science/mixing)
+/area/maintenance/starboard/aft)
 "cso" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -41805,7 +41804,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating,
-/area/science/mixing)
+/area/maintenance/starboard/aft)
 "csq" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Genetics Research";
@@ -42499,11 +42498,15 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
 "cuL" = (
+/obj/machinery/space_heater,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/maintenance/starboard)
 "cuM" = (
-/turf/open/floor/plating,
-/area/space)
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/mixing)
 "cuO" = (
 /obj/structure/transit_tube,
 /obj/structure/lattice,
@@ -42604,13 +42607,15 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "cuZ" = (
-/obj/effect/spawner/room/threexthree,
-/turf/open/floor/plating,
-/area/space/nearstation)
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/science/mixing)
 "cva" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
+/obj/structure/grille,
+/obj/structure/lattice,
+/turf/open/space/basic,
 /area/space/nearstation)
 "cvb" = (
 /obj/structure/disposalpipe/segment{
@@ -56248,7 +56253,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -59249,9 +59253,10 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "syg" = (
+/obj/structure/grille/broken,
 /obj/structure/lattice,
-/turf/open/space,
-/area/space)
+/turf/open/space/basic,
+/area/space/nearstation)
 "syF" = (
 /obj/machinery/porta_turret/ai{
 	dir = 4;
@@ -86898,7 +86903,7 @@ aaa
 aaa
 aaa
 aaa
-adB
+aoV
 aaa
 aaa
 aaa
@@ -87155,7 +87160,7 @@ aaa
 aaa
 aaa
 aaa
-abc
+adB
 abc
 abc
 afu
@@ -93570,7 +93575,7 @@ aaa
 aaa
 aaa
 aaa
-syg
+aaf
 aaf
 aaa
 aaf
@@ -114474,7 +114479,7 @@ bHs
 bGL
 bKd
 crh
-uUy
+bIU
 crR
 bEs
 lyz
@@ -114725,7 +114730,7 @@ bqe
 bqe
 bqe
 bZf
-bky
+bEs
 bEs
 cjV
 bEs
@@ -114982,23 +114987,23 @@ mjT
 cNT
 bMC
 jLJ
-btp
+cuL
 bEs
 bHu
 bIV
 bKf
 bLk
 bEC
-uUy
-uUy
+cuM
+cuZ
 csM
 bEC
-atS
-atS
-atS
-cuL
-cuL
-cuZ
+cNW
+cNW
+cNW
+cOe
+cOe
+ahO
 cNW
 cOe
 cOe
@@ -115252,10 +115257,10 @@ ctd
 cua
 cun
 gXs
-atS
-cuM
-cuL
-cuL
+cNW
+cOe
+cOe
+cOe
 cNW
 cOe
 cOe
@@ -115509,10 +115514,10 @@ ctD
 bEC
 aaf
 cuz
-atS
-cuM
-cuL
-cuL
+cNW
+cOe
+cOe
+cOe
 cNW
 cOe
 cOe
@@ -115766,10 +115771,10 @@ anL
 bEC
 aaf
 cuA
-atS
-vCP
-vCP
-cva
+cNW
+cOT
+cOT
+cOT
 cNW
 cOT
 cOT
@@ -116010,7 +116015,7 @@ cNS
 byx
 gko
 cNT
-atS
+gXs
 aaf
 aaf
 aaf
@@ -116524,7 +116529,7 @@ dpK
 uhf
 xET
 oJz
-aaa
+gXs
 aaa
 aaa
 aaa
@@ -116781,7 +116786,7 @@ idi
 xzo
 cNT
 cNT
-aaa
+gXs
 aaa
 aaa
 aaa
@@ -117038,7 +117043,7 @@ pWV
 cNT
 cNT
 gXs
-aaa
+gXs
 aaa
 aaa
 aaa
@@ -117879,22 +117884,22 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+eRz
+eRz
+eRz
+eRz
+eRz
+eRz
+eRz
+eRz
+quT
+eRz
+eRz
+eRz
+eRz
+quT
+eRz
+eRz
 aaa
 aaa
 aaa
@@ -118135,24 +118140,24 @@ aaa
 aaa
 aaa
 aaa
+gXs
+gXs
+gXs
+gXs
+gXs
+gXs
+gXs
+gXs
+gXs
+gXs
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+gXs
+gXs
+gXs
+gXs
+gXs
+eRz
+eRz
 aaa
 aaa
 aaa
@@ -118407,10 +118412,10 @@ aaf
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+gXs
+gXs
+eRz
+eRz
 aaa
 aaa
 aaa
@@ -118665,10 +118670,10 @@ vtH
 vtH
 vtH
 aaa
+gXs
 aaa
-aaa
-aaa
-aaa
+eRz
+eRz
 aaa
 aaa
 aaa
@@ -118923,9 +118928,9 @@ vtH
 vtH
 vtH
 aaf
-aaa
-aaa
-aaa
+gXs
+gXs
+eRz
 aaa
 aaa
 aaa
@@ -119182,7 +119187,7 @@ vtH
 vtH
 aaf
 aaa
-aaa
+quT
 aaa
 aaa
 aaa
@@ -119438,8 +119443,8 @@ vtH
 vtH
 vtH
 aaf
-aaa
-aaa
+gXs
+eRz
 aaa
 aaa
 aaa
@@ -119695,9 +119700,9 @@ vtH
 vtH
 vtH
 aaa
-aaa
-aaa
-aaa
+gXs
+eRz
+cva
 aaa
 aaa
 aaa
@@ -119953,8 +119958,8 @@ vtH
 vtH
 aaa
 aaa
-aaa
-aaa
+gXs
+syg
 aaa
 aaa
 aaa
@@ -120210,8 +120215,8 @@ vtH
 vtH
 gRO
 aaa
-aaa
-aaa
+gXs
+syg
 aaa
 aaa
 aaa
@@ -120467,8 +120472,8 @@ vtH
 vtH
 aaa
 aaa
-aaa
-aaa
+gXs
+cva
 aaa
 aaa
 aaa
@@ -120723,9 +120728,9 @@ vtH
 vtH
 vtH
 aaa
-aaa
-aaa
-aaa
+gXs
+eRz
+cva
 aaa
 aaa
 aaa
@@ -120980,8 +120985,8 @@ vtH
 vtH
 vtH
 aaf
-aaa
-aaa
+gXs
+eRz
 aaa
 aaa
 aaa
@@ -121238,7 +121243,7 @@ vtH
 vtH
 aaf
 aaa
-aaa
+eRz
 aaa
 aaa
 aaa
@@ -121493,9 +121498,9 @@ vtH
 vtH
 vtH
 aaf
-aaa
-aaa
-aaa
+gXs
+gXs
+eRz
 aaa
 aaa
 aaa
@@ -121669,7 +121674,7 @@ aaa
 aaf
 aaf
 bGf
-bLo
+bLn
 bGf
 aaf
 aaf
@@ -121749,10 +121754,10 @@ vtH
 vtH
 vtH
 aaa
+gXs
 aaa
-aaa
-aaa
-aaa
+eRz
+eRz
 aaa
 aaa
 aaa
@@ -122005,10 +122010,10 @@ aaf
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+gXs
+gXs
+eRz
+eRz
 aaa
 aaa
 aaa
@@ -122247,24 +122252,24 @@ aaa
 aaa
 aaa
 aaa
+gXs
+gXs
+gXs
+gXs
+gXs
+gXs
+gXs
+gXs
+gXs
+gXs
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+gXs
+gXs
+gXs
+gXs
+gXs
+quT
+quT
 aaa
 aaa
 aaa
@@ -122505,22 +122510,22 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+eRz
+quT
+eRz
+eRz
+eRz
+eRz
+eRz
+quT
+eRz
+eRz
+eRz
+eRz
+eRz
+eRz
+eRz
+quT
 aaa
 aaa
 aaa
