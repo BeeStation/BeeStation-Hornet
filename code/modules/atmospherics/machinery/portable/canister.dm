@@ -428,7 +428,7 @@
 			if(.)
 				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
 				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
-				user.log_message("set canister to [release_pressure] kPa.", LOG_ATTACK)
+				user.log_message("set a canister to [release_pressure] kPa.", LOG_ATTACK)
 		if("valve")
 			var/logmsg
 			valve_open = !valve_open
@@ -436,7 +436,7 @@
 				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into \the [holding || "air"].<br>"
 				if(!holding)
 					var/list/danger = list()
-					var/attack_log_message ="[key_name(usr)] opened a canister that contains the following:"
+					var/attack_log_message ="[key_name(usr)] opened a canister at [pressure]kPa pressure that contains the following:"
 
 					for(var/id in air_contents.get_gases())
 						var/mole_count = air_contents.get_moles(id)
@@ -449,7 +449,7 @@
 							danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = air_contents.get_moles(id) //ex. "plasma" = 20
 
 					if(danger.len) //only danger gases message admemes
-						var/str_admin_message = "[ADMIN_LOOKUPFLW(usr)] opened a canister that contains the following dangerous gases at [ADMIN_VERBOSEJMP(src)]:"
+						var/str_admin_message = "[ADMIN_LOOKUPFLW(usr)] opened a canister at [pressure]kPa pressure that contains the following dangerous gases at [ADMIN_VERBOSEJMP(src)]:"
 						//var/str_log_message ="[key_name(usr)] opened a canister that contains the following at [AREACOORD(src)]:"
 						for(var/name in danger)
 							var/msg = "[name]: [danger[name]] moles, "
