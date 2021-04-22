@@ -4,14 +4,11 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 0
 	damtype = STAMINA
-	wieldsound = 'sound/weapons/tap.ogg'
-	unwieldsound = 'sound/weapons/tap.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	block_sound = 'sound/weapons/tap.ogg'
 	block_level = 1
 	block_upgrade_walk = 0
 	block_power = 0
-	block_power_wielded = 20
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	attack_verb = list("wacked")
 	var/wielded = TRUE
@@ -25,7 +22,8 @@
 
 /obj/item/pool/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=0, force_wielded=5)
+	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=0, force_wielded=5, \
+				wieldsound='sound/weapons/tap.ogg', unwieldsound='sound/weapons/tap.ogg', block_power_wielded=20)
 
 /// triggered on wield of two handed item
 /obj/item/pool/proc/on_wield(obj/item/source, mob/user)

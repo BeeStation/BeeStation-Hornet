@@ -18,7 +18,7 @@
 
 /obj/item/binoculars/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12)
+	AddComponent(/datum/component/two_handed)
 
 /obj/item/binoculars/Destroy()
 	listeningTo = null
@@ -44,9 +44,10 @@
 			_y = -zoom_amt
 		if(WEST)
 			_x = -zoom_amt
-	C.change_view(world.view + zoom_out_amt)
+	C.change_view(get_zoomed_view(world.view, zoom_out_amt))
 	C.pixel_x = world.icon_size*_x
 	C.pixel_y = world.icon_size*_y
+
 /obj/item/binoculars/proc/on_unwield(obj/item/source, mob/user)
 	unwield(user)
 

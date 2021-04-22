@@ -8,16 +8,17 @@
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	block_upgrade_walk = 1
 	throwforce = 20
 	throw_speed = 4
-	embedding = list("impact_pain_mult" = 3)
+	embedding = list("embedded_impact_pain_multiplier" = 3)
 	armour_penetration = 10
-	custom_materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
+	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 0)
 	var/war_cry = "AAAAARGH!!!"
 	var/icon_prefix = "spearglass"
 
@@ -25,9 +26,9 @@
 	. = ..()
 	AddComponent(/datum/component/butchering, 100, 70) //decent in a pinch, but pretty bad.
 	AddComponent(/datum/component/jousting)
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, icon_wielded="[icon_prefix]1")
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, block_power_wielded=25, icon_wielded="[icon_prefix]1")
 
-/obj/item/spear/update_icon_state()
+/obj/item/spear/update_icon()
 	icon_state = "[icon_prefix]0"
 
 /obj/item/spear/suicide_act(mob/living/carbon/user)
@@ -42,40 +43,41 @@
 		AddComponent(/datum/component/two_handed, force_unwielded=11, force_wielded=19, icon_wielded="[icon_prefix]1")
 	update_icon()
 	qdel(tip)
+	var/obj/item/grenade/G = locate() in parts_list
+	if(G)
+		var/obj/item/spear/explosive/lance = new /obj/item/spear/explosive(src.loc, G)
+		lance.TakeComponent(GetComponent(/datum/component/two_handed))
+		lance.throwforce = throwforce
+		lance.icon_prefix = icon_prefix
+		parts_list -= G
+		qdel(src)
 	..()
 
 /obj/item/spear/explosive
 	name = "explosive lance"
+	icon_prefix = "spearbomb"
 	var/obj/item/grenade/explosive = null
-	var/wielded = FALSE // track wielded status on item
 
-/obj/item/spear/explosive/Initialize(mapload)
+/obj/item/spear/explosive/Initialize(mapload, obj/item/grenade/G)
 	. = ..()
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
-	set_explosive(new /obj/item/grenade/iedcasing()) //For admin-spawned explosive lances
+	set_explosive(G)
 
-/obj/item/spear/explosive/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, icon_wielded="spearbomb1")
-
-/// triggered on wield of two handed item
-/obj/item/spear/explosive/proc/on_wield(obj/item/source, mob/user)
-	wielded = TRUE
-
-/// triggered on unwield of two handed item
-/obj/item/spear/explosive/proc/on_unwield(obj/item/source, mob/user)
-	wielded = FALSE
-
-/obj/item/spear/explosive/update_icon_state()
-	icon_state = "spearbomb0"
+/obj/item/spear/explosive/suicide_act(mob/living/carbon/user)
+	user.visible_message("<span class='suicide'>[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.say("[war_cry]", forced="spear warcry")
+	explosive.forceMove(user)
+	explosive.prime()
+	user.gib()
+	qdel(src)
+	return BRUTELOSS
 
 /obj/item/spear/explosive/proc/set_explosive(obj/item/grenade/G)
-	if(explosive)
-		QDEL_NULL(explosive)
+	if (!G)
+		G = new /obj/item/grenade/iedcasing() //For admin-spawned explosive lances
 	G.forceMove(src)
 	explosive = G
 	desc = "A makeshift spear with [G] attached to it"
+	update_icon()
 
 /obj/item/spear/explosive/CheckParts(list/parts_list)
 	var/obj/item/grenade/G = locate() in parts_list
@@ -119,7 +121,7 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(wielded)
+	if(ISWIELDED(src))
 		user.say("[war_cry]", forced="spear warcry")
 		explosive.forceMove(AM)
 		explosive.prime()
@@ -134,7 +136,7 @@
 
 /obj/item/spear/grey_tide/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, icon_wielded="[icon_prefix]1")
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25, icon_wielded="[icon_prefix]1")
 
 /obj/item/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity)
 	. = ..()
@@ -155,7 +157,7 @@
  * Bone Spear
  */
 /obj/item/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
-	icon_state = "bone_spear0"
+	icon_prefix = "bone_spear"
 	name = "bone spear"
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
 	force = 12
@@ -164,7 +166,22 @@
 
 /obj/item/spear/bonespear/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=12, force_wielded=20, icon_wielded="bone_spear1")
+	AddComponent(/datum/component/two_handed, force_unwielded=12, force_wielded=20, block_power_wielded=25, icon_wielded="[icon_prefix]1")
 
-/obj/item/spear/bonespear/update_icon_state()
-	icon_state = "bone_spear0"
+/obj/item/spear/bamboospear
+	icon_prefix = "bamboo_spear"
+	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
+	name = "bamboo spear"
+	desc = "A haphazardly-constructed bamboo stick with a sharpened tip, ready to poke holes into unsuspecting people."
+	force = 10
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	block_upgrade_walk = 1
+	throwforce = 22
+	throw_speed = 4
+	embedding = list("embedded_impact_pain_multiplier" = 2)
+	armour_penetration = 10
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
+	sharpness = IS_SHARP

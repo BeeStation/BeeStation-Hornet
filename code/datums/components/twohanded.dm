@@ -10,6 +10,8 @@
 	var/force_multiplier = 0						/// The multiplier applied to force when wielded, does not work with force_wielded, and force_unwielded
 	var/force_wielded = 0	 						/// The force of the item when weilded
 	var/force_unwielded = 0		 					/// The force of the item when unweilded
+	var/block_power_wielded = 0						/// The block power of the item when wielded
+	var/block_power_unwielded = 0					/// The block power of the item when unwielded
 	var/wieldsound = FALSE 							/// Play sound when wielded
 	var/unwieldsound = FALSE 						/// Play sound when unwielded
 	var/attacksound = FALSE							/// Play sound on attack when wielded
@@ -32,7 +34,8 @@
  * * icon_wielded (optional) The icon to be used when wielded
  */
 /datum/component/two_handed/Initialize(require_twohands=FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
-										force_multiplier=0, force_wielded=0, force_unwielded=0, icon_wielded=FALSE)
+										force_multiplier=0, force_wielded=0, force_unwielded=0, block_power_wielded=0, \
+										block_power_unwielded=0, icon_wielded=FALSE)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -43,13 +46,15 @@
 	src.force_multiplier = force_multiplier
 	src.force_wielded = force_wielded
 	src.force_unwielded = force_unwielded
+	src.block_power_wielded = block_power_wielded
+	src.block_power_unwielded = block_power_unwielded
 	src.icon_wielded = icon_wielded
 
 // Inherit the new values passed to the component
 #define ISWIELDED(O) (SEND_SIGNAL(O, COMSIG_ITEM_CHECK_WIELDED) & COMPONENT_IS_WIELDED)
 
 /datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, wieldsound, unwieldsound, \
-											force_multiplier, force_wielded, force_unwielded, icon_wielded)
+											force_multiplier, force_wielded, force_unwielded, block_power_wielded, block_power_unwielded, icon_wielded)
 	if(!original)
 		return
 	if(require_twohands)
@@ -66,6 +71,10 @@
 		src.force_wielded = force_wielded
 	if(force_unwielded)
 		src.force_unwielded = force_unwielded
+	if(block_power_wielded)
+		src.block_power_wielded = block_power_wielded
+	if(block_power_unwielded)
+		src.block_power_unwielded = block_power_unwielded
 	if(icon_wielded)
 		src.icon_wielded = icon_wielded
 
@@ -151,6 +160,8 @@
 		parent_item.force *= force_multiplier
 	else if(force_wielded)
 		parent_item.force = force_wielded
+	if(block_power_wielded)
+		parent_item.block_power = block_power_wielded
 	if(sharpened_increase)
 		parent_item.force += sharpened_increase
 	parent_item.name = "[parent_item.name] (Wielded)"
@@ -195,8 +206,10 @@
 		parent_item.force -= sharpened_increase
 	if(force_multiplier)
 		parent_item.force /= force_multiplier
-	else if(force_unwielded)
+	else if(!isnull(force_unwielded))
 		parent_item.force = force_unwielded
+	if(!isnull(block_power_unwielded))
+		parent_item.block_power = block_power_unwielded
 
 	// update the items name to remove the wielded status
 	var/sf = findtext(parent_item.name, " (Wielded)", -10) // 10 == length(" (Wielded)")
@@ -295,7 +308,7 @@
 
 /datum/component/two_handed/proc/get_wielded(obj/item/source)
 	if(wielded)
- 		return COMPONENT_IS_WIELDED
+		return COMPONENT_IS_WIELDED
 	else
 		return 0
 

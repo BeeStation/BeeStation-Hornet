@@ -6,33 +6,21 @@
 	desc = "A simple tool used for moving hay."
 	force = 7
 	throwforce = 15
+	block_level = 1
+	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("attacked", "impaled", "pierced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
-	var/wielded = FALSE // track wielded status on item
-
-/obj/item/pitchfork/Initialize()
-	. = ..()
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
 
 /obj/item/pitchfork/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=7, force_wielded=15, icon_wielded="pitchfork1")
+	AddComponent(/datum/component/two_handed, force_unwielded=7, force_wielded=15, block_power_wielded=25, icon_wielded="pitchfork1")
 
-/// triggered on wield of two handed item
-/obj/item/pitchfork/proc/on_wield(obj/item/source, mob/user)
-	wielded = TRUE
-
-/// triggered on unwield of two handed item
-/obj/item/pitchfork/proc/on_unwield(obj/item/source, mob/user)
-	wielded = FALSE
-
-/obj/item/pitchfork/update_icon_state()
+/obj/item/pitchfork/update_icon()
 	icon_state = "pitchfork0"
 
 /obj/item/pitchfork/demonic
@@ -47,7 +35,7 @@
 
 /obj/item/pitchfork/demonic/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=19, force_wielded=25)
+	AddComponent(/datum/component/two_handed, force_unwielded=19, force_wielded=25, block_power_wielded=25)
 
 /obj/item/pitchfork/demonic/greater
 	force = 24
@@ -55,7 +43,7 @@
 
 /obj/item/pitchfork/demonic/greater/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=24, force_wielded=34)
+	AddComponent(/datum/component/two_handed, force_unwielded=24, force_wielded=34, block_power_wielded=25)
 
 /obj/item/pitchfork/demonic/ascended
 	force = 100
@@ -70,7 +58,6 @@
 	return (BRUTELOSS)
 
 /obj/item/pitchfork/demonic/pickup(mob/living/user)
-	. = ..()
 	if(isliving(user) && user.mind && user.owns_soul() && !is_devil(user))
 		var/mob/living/U = user
 		U.visible_message("<span class='warning'>As [U] picks [src] up, [U]'s arms briefly catch fire.</span>", \
@@ -89,7 +76,7 @@
 
 /obj/item/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	if(!proximity || !wielded)
+	if(!proximity || !ISWIELDED(src))
 		return
 	if(iswallturf(target))
 		var/turf/closed/wall/W = target

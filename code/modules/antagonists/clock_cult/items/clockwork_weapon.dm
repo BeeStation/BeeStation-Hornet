@@ -6,7 +6,6 @@
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
-	block_power_wielded = 25
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
@@ -28,7 +27,6 @@
 		SS = new
 		SS.marked_item = src
 		user.mind.AddSpell(SS)
-	wield(user)
 
 /obj/item/clockwork/examine(mob/user)
 	. = ..()
@@ -39,7 +37,7 @@
 	. = ..()
 	if(!is_reebe(user.z))
 		return
-	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(major=FALSE) && wielded)
+	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(major=FALSE) && ISWIELDED(src))
 		hit_effect(target, user)
 
 /obj/item/clockwork/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -66,7 +64,7 @@
 
 /obj/item/clockwork/brass_spear/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25)
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25)
 
 /obj/item/clockwork/brass_battlehammer
 	name = "brass battle-hammer"
@@ -80,7 +78,7 @@
 
 /obj/item/clockwork/brass_battlehammer/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25)
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25)
 
 /obj/item/clockwork/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
@@ -90,7 +88,6 @@
 	name = "brass longsword"
 	desc = "A large sword made of brass."
 	icon_state = "ratvarian_sword"
-	force_wielded = 26
 	throwforce = 20
 	armour_penetration = 12
 	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
@@ -99,7 +96,7 @@
 
 /obj/item/clockwork/brass_sword/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=26)
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=26, block_power_wielded=25)
 
 /obj/item/clockwork/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)
 	if(world.time > emp_cooldown)

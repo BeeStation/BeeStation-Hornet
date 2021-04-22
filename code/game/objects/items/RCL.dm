@@ -30,7 +30,6 @@
 
 /obj/item/rcl/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/update_icon_updates_onmob)
 	AddComponent(/datum/component/two_handed)
 
 /// triggered on wield of two handed item
