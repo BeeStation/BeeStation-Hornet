@@ -456,9 +456,9 @@
 							str_admin_message += msg
 							//str_log_message += msg
 
-							message_admins(admin_message)
+						message_admins(str_admin_message)
 						//log_admin(log_message) handled by attack log
-					user.log_message("attack_log_message", LOG_ATTACK)
+					user.log_message(attack_log_message, LOG_ATTACK)
 
 			else
 				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into \the [holding || "air"].<br>"
