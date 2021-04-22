@@ -104,6 +104,7 @@
 	src.die_with_shapeshifted_form = die_with_shapeshifted_form 
 	src.revert_on_death = revert_on_death
 	shape = loc
+	shape.del_on_death = FALSE
 	if(!istype(shape))
 		CRASH("shapeshift holder created outside mob/living")
 	stored = caster
