@@ -20,18 +20,18 @@
 	name = "Servant of Ratvar - Armaments"
 
 	suit = /obj/item/clothing/suit/clockwork
-	weapon = /obj/item/twohanded/clockwork/brass_spear
+	weapon = /obj/item/clockwork/brass_spear
 	head = /obj/item/clothing/head/helmet/clockcult
 	shoes = /obj/item/clothing/shoes/clockcult
 	gloves = /obj/item/clothing/gloves/clockcult
 
 /datum/outfit/clockcult/armaments/hammer
 	name = "Servant of Ratvar - Armaments (hammer)"
-	weapon = /obj/item/twohanded/clockwork/brass_battlehammer
+	weapon = /obj/item/clockwork/brass_battlehammer
 
 /datum/outfit/clockcult/armaments/sword
 	name = "Servant of Ratvar - Armaments (sword)"
-	weapon = /obj/item/twohanded/clockwork/brass_sword
+	weapon = /obj/item/clockwork/brass_sword
 
 /datum/outfit/clockcult/armaments/bow
 	name = "Servant of Ratvar - Armaments (sword)"

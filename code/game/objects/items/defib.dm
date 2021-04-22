@@ -184,7 +184,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/defibrillator/proc/make_paddles()
-	return new /obj/item/twohanded/shockpaddles(src)
+	return new paddle_type(src)
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	..()
@@ -407,7 +407,7 @@
 	forceMove(defib)
 	defib.update_icon()
 
-/obj/item/twohanded/shockpaddles/proc/check_defib_exists(mainunit, mob/living/carbon/M, obj/O)
+/obj/item/shockpaddles/proc/check_defib_exists(mainunit, mob/living/carbon/M, obj/O)
 	if(!req_defib)
 		return TRUE //If it doesn't need a defib, just say it exists
 	if (!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns

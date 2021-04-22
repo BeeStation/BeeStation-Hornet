@@ -759,11 +759,7 @@
 
 /datum/crafting_recipe/bonespear
 	name = "Bone Spear"
-<<<<<<< HEAD
-	result = /obj/item/twohanded/bonespear
-=======
 	result = /obj/item/spear/bonespear
->>>>>>> 15452cac440... [READY] Two Handed Component (#49422)
 	time = 30
 	reqs = list(/obj/item/stack/sheet/bone = 4,
 				 /obj/item/stack/sheet/sinew = 1)
@@ -790,29 +786,18 @@
 	reqs = list(/obj/item/spear = 1,
 				/obj/item/bodypart/head = 1)
 	parts = list(/obj/item/bodypart/head = 1,
-<<<<<<< HEAD
-			/obj/item/twohanded/spear = 1)
-=======
 			/obj/item/spear = 1)
 	blacklist = list(/obj/item/spear/explosive, /obj/item/spear/bonespear)
->>>>>>> 15452cac440... [READY] Two Handed Component (#49422)
 	result = /obj/structure/headpike
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/headpikebone
 	name = "Spike Head (Bone Spear)"
 	time = 65
-<<<<<<< HEAD
-	reqs = list(/obj/item/twohanded/bonespear = 1,
-				/obj/item/bodypart/head = 1)
-	parts = list(/obj/item/bodypart/head = 1,
-			/obj/item/twohanded/bonespear = 1)
-=======
 	reqs = list(/obj/item/spear/bonespear = 1,
 				/obj/item/bodypart/head = 1)
 	parts = list(/obj/item/bodypart/head = 1,
 			/obj/item/spear/bonespear = 1)
->>>>>>> 15452cac440... [READY] Two Handed Component (#49422)
 	result = /obj/structure/headpike/bone
 	category = CAT_PRIMAL
 
@@ -828,13 +813,8 @@
 
 
 /datum/crafting_recipe/rcl
-<<<<<<< HEAD
 	name = "Makeshift Rapid Cable Layer"
-	result = /obj/item/twohanded/rcl/ghetto
-=======
-	name = "Makeshift Rapid Pipe Cleaner Layer"
 	result = /obj/item/rcl/ghetto
->>>>>>> 15452cac440... [READY] Two Handed Component (#49422)
 	time = 40
 	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER, TOOL_WRENCH)
 	reqs = list(/obj/item/stack/sheet/iron = 15)

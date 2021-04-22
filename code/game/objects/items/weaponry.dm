@@ -279,7 +279,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shard))
-		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
+		var/obj/item/spear/S = new /obj/item/spear
 
 		remove_item_from_storage(user)
 		if (!user.transferItemToLoc(I, S))
@@ -521,7 +521,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/mounted_chainsaw/normal/Destroy()
 	var/obj/item/bodypart/part
-	new /obj/item/twohanded/required/chainsaw(get_turf(src))
+	new /obj/item/chainsaw(get_turf(src))
 	if(iscarbon(loc))
 		var/mob/living/carbon/holder = loc
 		var/index = holder.get_held_index_of_item(src)
@@ -540,7 +540,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/mounted_chainsaw/energy/Destroy()
 	var/obj/item/bodypart/part
-	new /obj/item/twohanded/required/chainsaw/energy(get_turf(src))
+	new /obj/item/chainsaw/energy(get_turf(src))
 	if(iscarbon(loc))
 		var/mob/living/carbon/holder = loc
 		var/index = holder.get_held_index_of_item(src)
@@ -559,7 +559,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/mounted_chainsaw/super/Destroy()
 	var/obj/item/bodypart/part
-	new /obj/item/twohanded/required/chainsaw/energy/doom(get_turf(src))
+	new /obj/item/chainsaw/energy/doom(get_turf(src))
 	if(iscarbon(loc))
 		var/mob/living/carbon/holder = loc
 		var/index = holder.get_held_index_of_item(src)

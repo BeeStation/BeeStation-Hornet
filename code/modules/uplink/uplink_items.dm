@@ -529,7 +529,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/superechainsaw
 	name = "Super Energy Chainsaw"
 	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud. It's blade has been enhanced to do even more damage and knock victims down briefly."
-	item = /obj/item/twohanded/required/chainsaw/energy/doom
+	item = /obj/item/chainsaw/energy/doom
 	cost = 22
 	include_modes = list(/datum/game_mode/nuclear)
 
@@ -2152,7 +2152,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/role_restricted/echainsaw
 	name = "Energy Chainsaw"
 	desc = "An incredibly deadly modified chainsaw with plasma-based energy blades instead of metal and a slick black-and-red finish. While it rips apart matter with extreme efficiency, it is heavy, large, and monstrously loud."
-	item = /obj/item/twohanded/required/chainsaw/energy
+	item = /obj/item/chainsaw/energy
 	cost = 10
 	player_minimum = 25
 	restricted_roles = list("Botanist", "Cook", "Bartender")

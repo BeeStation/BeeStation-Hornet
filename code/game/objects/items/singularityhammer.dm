@@ -30,7 +30,8 @@
 /obj/item/singularityhammer/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_multiplier=4, icon_wielded="mjollnir1")
-/obj/item/twohanded/singularityhammer/Destroy()
+
+/obj/item/singularityhammer/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -53,11 +54,11 @@
 	if(charged < 5)
 		charged++
 
-/obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "singularity_hammer[wielded]"
 	return
 
-/obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
+/obj/item/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/A as mob|obj in orange(5,pull))
 		if(A == wielder)
 			continue
@@ -150,6 +151,6 @@
 	if(isliving(hit_atom))
 		shock(hit_atom)
 
-/obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
 	return

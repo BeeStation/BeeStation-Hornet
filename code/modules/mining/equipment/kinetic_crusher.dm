@@ -159,7 +159,7 @@
 	else
 		set_light(0)
 
-/obj/item/twohanded/kinetic_crusher/update_icon()
+/obj/item/kinetic_crusher/update_icon()
 	..()
 	cut_overlays()
 	icon_state = "crusher[wielded]" // this is not icon_state and not supported by 2hcomponent

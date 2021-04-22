@@ -597,7 +597,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/gun/ballistic/shotgun/toy/unrestricted,
 		/obj/item/gun/ballistic/shotgun/toy/crossbow,
 		/obj/item/clothing/mask/facehugger/toy,
-		/obj/item/twohanded/dualsaber/toy,
+		/obj/item/dualsaber/toy,
 		/obj/item/clothing/under/costume/roman,
 		/obj/item/clothing/under/costume/pirate,
 		/obj/item/clothing/under/costume/kilt/highlander,

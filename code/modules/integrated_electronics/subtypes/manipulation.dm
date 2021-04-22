@@ -310,7 +310,7 @@
 				drop(contents[1])
 
 	var/obj/item/AM = get_pin_data_as_type(IC_INPUT, 1, /obj/item)
-	if(!QDELETED(AM) && !istype(AM, /obj/item/electronic_assembly) && !istype(AM, /obj/item/transfer_valve) && !istype(AM, /obj/item/twohanded) && !istype(assembly.loc, /obj/item/implant/storage))
+	if(!QDELETED(AM) && !istype(AM, /obj/item/electronic_assembly) && !istype(AM, /obj/item/transfer_valve) && !AM.GetComponent(/datum/component/two_handed) && !istype(assembly.loc, /obj/item/implant/storage))
 		switch(mode)
 			if(1)
 				grab(AM)
