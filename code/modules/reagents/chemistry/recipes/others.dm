@@ -600,7 +600,7 @@
 /datum/chemical_reaction/corgium/on_reaction(datum/reagents/holder, created_volume)
 	if(isliving(holder.my_atom) && !iscorgi(holder.my_atom))
 		var/mob/living/L = holder
-		L.reagents.add_reagent(/datum/reagent/corgium, created_volume)
+		L.reagents.add_reagent(/datum/reagent/transformation/corgium, created_volume)
 	else
 		var/location = get_turf(holder.my_atom)
 		for(var/i in rand(1, created_volume) to created_volume) // More lulz.

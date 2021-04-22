@@ -112,41 +112,50 @@
 	if(istype(data))
 		src.data |= data.Copy()
 
-/datum/reagent/corgium
+/datum/reagent/transformation
+	name = "Changium"
+	description = "A mysterious reagent that transforms you into a harmless animal."
+	color = "#9D5A99"
+	taste_description = "a rainbow of tastes"
+	overdose_threshold = 25
+	metabolization_rate = 0.1 * REAGENTS_METABOLISM
+	var/obj/shapeshift_holder/shapeshiftdata
+
+/datum/reagent/transformation/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	if (reac_volume >= overdose_threshold && (method == TOUCH || method == VAPOR))
+		polymorph_target(M)
+	..()
+
+/datum/reagent/transformation/overdose_start(mob/living/L)
+	..()
+	polymorph_target(L)
+	metabolization_rate = 10 * REAGENTS_METABOLISM
+
+/datum/reagent/transformation/proc/polymorph_target(mob/living/L)
+	shapeshiftdata = locate() in L
+	if(shapeshiftdata)
+		return
+	var/mob/living/shape = make_mob(get_turf(L))
+	shapeshiftdata = new(shape,null,L)
+	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), POLYMORPHIUM_DURATION)
+
+/datum/reagent/transformation/on_mob_end_metabolize(mob/living/L)
+	..()
+	if(!shapeshiftdata)
+		return
+	shapeshiftdata.restore()
+
+/datum/reagent/transformation/proc/make_mob(turf/T)
+	return /mob/living/simple_animal/pet/dog/corgi(T)
+
+/datum/reagent/transformation/corgium
 	name = "Corgium"
 	description = "A happy looking liquid that you feel compelled to consume if you want a better life."
 	color = "#ecca7f"
 	taste_description = "dog treats"
-	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
 
-/datum/reagent/corgium/on_mob_metabolize(mob/living/L)
-	. = ..()
-	new_corgi = new(get_turf(L))
-	new_corgi.key = L.key
-	new_corgi.name = L.name
-	ADD_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
-	L.forceMove(new_corgi)
-
-/datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
-	. = ..()
-	//If our corgi died :(
-	if(new_corgi.stat)
-		holder.remove_all_type(type)
-
-/datum/reagent/corgium/on_mob_end_metabolize(mob/living/L)
-	. = ..()
-	REMOVE_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
-	//New corgi was deleted, goodbye cruel world.
-	if(QDELETED(new_corgi))
-		if(!QDELETED(L))
-			qdel(L)
-		return
-	//Leave the corgi
-	L.key = new_corgi.key
-	L.adjustBruteLoss(new_corgi.getBruteLoss())
-	L.adjustFireLoss(new_corgi.getFireLoss())
-	L.forceMove(get_turf(new_corgi))
-	qdel(new_corgi)
+/datum/reagent/transformation/corgium/make_mob(turf/T)
+	return new /mob/living/simple_animal/pet/dog/corgi(T)
 
 /datum/reagent/water
 	name = "Water"
