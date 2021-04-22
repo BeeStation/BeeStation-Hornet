@@ -178,7 +178,6 @@
 	block_level = 1
 	block_upgrade_walk = 1
 	block_power = 25
-	var/wielded = FALSE
 
 /obj/item/staff/bostaff/Initialize()
 	. = ..()
@@ -188,14 +187,6 @@
 /obj/item/staff/bostaff/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=24, icon_wielded="bostaff1")
-
-/// triggered on wield of two handed item
-/obj/item/staff/bostaff/proc/on_wield(obj/item/source, mob/user)
-	wielded = TRUE
-
-/// triggered on unwield of two handed item
-/obj/item/staff/bostaff/proc/on_unwield(obj/item/source, mob/user)
-	wielded = FALSE
 
 /obj/item/staff/bostaff/update_icon_state()
 	icon_state = "bostaff0"
@@ -220,7 +211,7 @@
 		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while they cannot retaliate.</span>")
 		return
 	if(user.a_intent == INTENT_DISARM)
-		if(!wielded)
+		if(!ISWIELDED(src))
 			return ..()
 		if(!ishuman(target))
 			return ..()
@@ -250,6 +241,6 @@
 		return ..()
 
 /obj/item/staff/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!wielded)
+	if(!ISWIELDED(src))
 		return ..()
 	return 0

@@ -276,6 +276,8 @@
   #define COMPONENT_BLOCK_SHARPEN_BLOCKED 2
   #define COMPONENT_BLOCK_SHARPEN_ALREADY 4
   #define COMPONENT_BLOCK_SHARPEN_MAXED 8
+#define COMSIG_ITEM_CHECK_WIELDED "item_check_wielded"  //! used to check if the item is wielded for special effects
+  #define COMPONENT_IS_WIELDED 1
 
 // /obj/item/clothing signals
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"			//! from base of obj/item/clothing/shoes/proc/step_action(): ()

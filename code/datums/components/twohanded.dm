@@ -46,6 +46,8 @@
 	src.icon_wielded = icon_wielded
 
 // Inherit the new values passed to the component
+#define ISWIELDED(O) (SEND_SIGNAL(O, COMSIG_ITEM_CHECK_WIELDED) & COMPONENT_IS_WIELDED)
+
 /datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, wieldsound, unwieldsound, \
 											force_multiplier, force_wielded, force_unwielded, icon_wielded)
 	if(!original)
@@ -76,6 +78,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, .proc/on_update_icon)
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/on_moved)
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, .proc/on_sharpen)
+	RegisterSignal(parent, COMSIG_ITEM_CHECK_WIELDED, .proc/get_wielded)
 
 // Remove all siginals registered to the parent item
 /datum/component/two_handed/UnregisterFromParent()
@@ -85,7 +88,8 @@
 								COMSIG_ITEM_ATTACK,
 								COMSIG_ATOM_UPDATE_ICON,
 								COMSIG_MOVABLE_MOVED,
-								COMSIG_ITEM_SHARPEN_ACT))
+								COMSIG_ITEM_SHARPEN_ACT,
+								COMSIG_ITEM_CHECK_WIELDED))
 
 /// Triggered on equip of the item containing the component
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
@@ -288,6 +292,12 @@
 		return COMPONENT_BLOCK_SHARPEN_MAXED
 	sharpened_increase = min(amount, (max_amount - wielded_val))
 	return COMPONENT_BLOCK_SHARPEN_APPLIED
+
+/datum/component/two_handed/proc/get_wielded(obj/item/source)
+	if(wielded)
+ 		return COMPONENT_IS_WIELDED
+	else
+		return 0
 
 /**
  * The offhand dummy item for two handed items
