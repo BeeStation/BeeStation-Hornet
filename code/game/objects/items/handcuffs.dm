@@ -368,7 +368,7 @@
 		C.update_inv_legcuffed()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, "<span class='userdanger'>\The [src] ensnares you!</span>")
-		if(knockdown>0)
+		if(knockdown)
 			C.Paralyze(knockdown)	
 		playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
