@@ -242,6 +242,7 @@ BLIND     // can't see anything
 					user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to track vitals.</span>")
 				if(3)
 					user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to maximum.</span>")
+			log_combat(user, wearer, "changed sensors to [switchMode]")
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.w_uniform == src)
