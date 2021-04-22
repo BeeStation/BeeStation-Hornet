@@ -441,12 +441,16 @@
 							danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = air_contents.get_moles(id) //ex. "plasma" = 20
 
 					if(danger.len)
-						message_admins("[ADMIN_LOOKUPFLW(usr)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:")
-						log_admin("[key_name(usr)] opened a canister that contains the following at [AREACOORD(src)]:")
+						var/str_admin_message = "[ADMIN_LOOKUPFLW(usr)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:"
+						var/str_log_message ="[key_name(usr)] opened a canister that contains the following at [AREACOORD(src)]:"
+
 						for(var/name in danger)
 							var/msg = "[name]: [danger[name]] moles."
-							log_admin(msg)
+							str_admin_message = str_admin_message + msg
+							str_log_message
 							message_admins(msg)
+						message_admins(admin_message)
+						log_admin(log_message)
 			else
 				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into \the [holding || "air"].<br>"
 			investigate_log(logmsg, INVESTIGATE_ATMOS)
