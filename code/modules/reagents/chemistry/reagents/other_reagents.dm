@@ -141,7 +141,7 @@
 		return
 	var/mob/living/shape = make_mob(get_turf(L))
 	shape.name = L.name
-	shapeshiftdata = new(shape,null,L,convert_damage = TRUE,convert_damage_type = STAMINA, die_with_shapeshifted_form = FALSE, revert_on_death = TRUE)
+	shapeshiftdata = new(shape,null,L,TRUE,STAMINA, FALSE, TRUE)//convert_damage, convert_damage_type, die_with_shapeshifted_form,revert_on_death
 	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), 10 SECONDS * dur)
 
 /datum/reagent/transformation/on_mob_end_metabolize(mob/living/L)
