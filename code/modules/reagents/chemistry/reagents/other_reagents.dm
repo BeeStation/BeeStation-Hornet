@@ -140,6 +140,7 @@
 	if(shapeshiftdata)
 		return
 	var/mob/living/shape = make_mob(get_turf(L))
+	shape.name = L.name
 	shapeshiftdata = new(shape,null,L,convert_damage = TRUE,convert_damage_type = STAMINA, die_with_shapeshifted_form = FALSE, revert_on_death = TRUE)
 	addtimer(CALLBACK(shapeshiftdata, /obj/shapeshift_holder.proc/restore), 10 SECONDS * dur)
 
