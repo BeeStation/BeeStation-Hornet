@@ -42002,6 +42002,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/transit_tube_pod,
 /turf/open/floor/plating,
 /area/science/mixing)
 "cto" = (
