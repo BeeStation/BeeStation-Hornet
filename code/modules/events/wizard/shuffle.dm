@@ -84,7 +84,7 @@
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(H.stat || !H.mind || iswizard(H))
 			continue //the wizard(s) are spared on this one
-		if(istype(H.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat) || H.anti_magic_check())
+		if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat) || H.anti_magic_check())
 			continue
 		mobs += H
 
