@@ -166,10 +166,8 @@
 	if(death)
 		stored.death()
 	else if(convert_damage)
-		stored.revive(full_heal = TRUE)
-
 		var/damage_percent = (shape.maxHealth - shape.health)/shape.maxHealth;
-		var/damapply = stored.maxHealth * damage_percent
+		var/damapply = stored.maxHealth * damage_percent - stored.health
 
 		stored.apply_damage(damapply, convert_damage_type, forced = TRUE)
 	qdel(shape)
