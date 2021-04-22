@@ -387,6 +387,7 @@
 	return data
 
 /obj/machinery/portable_atmospherics/canister/ui_act(action, params)
+	var/mob/user = usr
 	if(..())
 		return
 	switch(action)
@@ -427,6 +428,7 @@
 			if(.)
 				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
 				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
+				user.log_message("set canister to [release_pressure] kPa.", LOG_ATTACK)
 		if("valve")
 			var/logmsg
 			valve_open = !valve_open
@@ -434,23 +436,30 @@
 				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into \the [holding || "air"].<br>"
 				if(!holding)
 					var/list/danger = list()
+					var/attack_log_message ="[key_name(usr)] opened a canister that contains the following:"
+
 					for(var/id in air_contents.get_gases())
-						if(!GLOB.meta_gas_info[id][META_GAS_DANGER])
+						var/mole_count = air_contents.get_moles(id)
+						if(mole_count > 0) //only log gases that exist
+							attack_log_message += "[GLOB.meta_gas_info[id][META_GAS_NAME]]:[mole_count] mole, "
+
+						if(!GLOB.meta_gas_info[id][META_GAS_DANGER]) //if the gas doesn't have the danger variable set skip it
 							continue
 						if(air_contents.get_moles(id) > (GLOB.meta_gas_info[id][META_GAS_MOLES_VISIBLE] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
 							danger[GLOB.meta_gas_info[id][META_GAS_NAME]] = air_contents.get_moles(id) //ex. "plasma" = 20
 
-					if(danger.len)
-						var/str_admin_message = "[ADMIN_LOOKUPFLW(usr)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:"
-						var/str_log_message ="[key_name(usr)] opened a canister that contains the following at [AREACOORD(src)]:"
-
+					if(danger.len) //only danger gases message admemes
+						var/str_admin_message = "[ADMIN_LOOKUPFLW(usr)] opened a canister that contains the following dangerous gases at [ADMIN_VERBOSEJMP(src)]:"
+						//var/str_log_message ="[key_name(usr)] opened a canister that contains the following at [AREACOORD(src)]:"
 						for(var/name in danger)
-							var/msg = "[name]: [danger[name]] moles."
-							str_admin_message = str_admin_message + msg
-							str_log_message
-							message_admins(msg)
-						message_admins(admin_message)
-						log_admin(log_message)
+							var/msg = "[name]: [danger[name]] moles, "
+							str_admin_message += msg
+							//str_log_message += msg
+
+							message_admins(admin_message)
+						//log_admin(log_message) handled by attack log
+					user.log_message("attack_log_message", LOG_ATTACK)
+
 			else
 				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into \the [holding || "air"].<br>"
 			investigate_log(logmsg, INVESTIGATE_ATMOS)
