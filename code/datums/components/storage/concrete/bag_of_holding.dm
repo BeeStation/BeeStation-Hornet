@@ -28,5 +28,5 @@
 
 /datum/component/storage/concrete/bluespace/bag_of_holding/Initialize()
     . = ..()
-    var/list/exception_cache = typecacheof(list(/obj/item/storage/backpack/holding))
+    var/static/list/exception_cache = typecacheof(list(/obj/item/storage/backpack/holding))
     exception_hold = exception_cache
