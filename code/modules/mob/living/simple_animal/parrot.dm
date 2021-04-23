@@ -38,6 +38,10 @@
 	health = 80
 	maxHealth = 80
 	pass_flags = PASSTABLE | PASSMOB
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+	held_state = "parrot"
+
 
 	speak = list("Hi!","Hello!","Cracker?","BAWWWWK george mellons griffing me!")
 	speak_emote = list("squawks","says","yells")
