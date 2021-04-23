@@ -32,6 +32,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
 	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "cat2"
 	chat_color = "#FFD586"
 
@@ -276,6 +277,7 @@
 	deathmessage = "loses its false life and collapses!"
 	deathsound = "bodyfall"
 	held_state = "cak"
+
 
 /mob/living/simple_animal/pet/cat/cak/CheckParts(list/parts)
 	..()

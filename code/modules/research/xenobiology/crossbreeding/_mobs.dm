@@ -43,3 +43,5 @@ Slimecrossing Mobs
 	speak_emote = list("blorbles", "bubbles", "borks")
 	emote_hear = list("bubbles!", "splorts.", "splops!")
 	emote_see = list("gets goop everywhere.", "flops.", "jiggles!")
+	worn_slot_flags = ITEM_SLOT_HEAD
+	held_state = "slime_puppy"

@@ -28,7 +28,8 @@
 	chat_color = "#82AF84"
 	var/list/ratdisease = list()
 	can_be_held = TRUE
-	held_state = "mouse_gray"
+	worn_slot_flags = ITEM_SLOT_HEAD
+
 
 /mob/living/simple_animal/mouse/Initialize()
 	. = ..()
