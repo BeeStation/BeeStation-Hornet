@@ -195,6 +195,8 @@ BLIND     // can't see anything
 	female_clothing_icon 			= fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
 
+#define SENSOR_CHANGE_DELAY 1.5 SECONDS
+
 /obj/item/clothing/under/proc/set_sensors(mob/user)
 	var/mob/M = user
 	if (istype(M, /mob/dead/))
@@ -232,21 +234,23 @@ BLIND     // can't see anything
 		var/mob/living/carbon/human/wearer = src.loc
 		to_chat(user,"<span class='danger'>You try to change [wearer]'s sensors.</span>")
 		to_chat(wearer,"<span class='danger'>[user] tries to change your sensors.</span>")
-		if(do_mob(user, wearer, 2 SECONDS))
+		if(do_mob(user, wearer, SENSOR_CHANGE_DELAY))
 			switch(sensor_mode)
 				if(0)
-					user.visible_message("<span class='warning'>[user] disables [src.loc]'s remote sensing equipment.</span>", null, COMBAT_MESSAGE_RANGE)
+					user.visible_message("<span class='warning'>[user] disables [wearer]'s remote sensing equipment.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(1)
-					user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to binary.</span>", null, COMBAT_MESSAGE_RANGE)
+					user.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to binary.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(2)
-					user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to track vitals.</span>", null, COMBAT_MESSAGE_RANGE)
+					user.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to track vitals.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(3)
-					user.visible_message("<span class='notice'>[user] turns [src.loc]'s remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
+					user.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, wearer, "changed sensors to [switchMode]")
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.w_uniform == src)
 			H.update_suit_sensors()
+
+#undef SENSOR_CHANGE_DELAY
 
 /obj/item/clothing/under/verb/toggle()
 	set name = "Adjust Suit Sensors"
