@@ -23,7 +23,6 @@
 	can_be_held = TRUE
 	held_state = "fox"
 	do_footstep = TRUE
-	worn_slot_flags = ITEM_SLOT_HEAD
 
 //Captain fox
 /mob/living/simple_animal/pet/fox/Renault
