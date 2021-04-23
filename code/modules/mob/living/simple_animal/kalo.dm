@@ -4,6 +4,9 @@
 	icon_state = "lizard"
 	icon_living = "lizard"
 	icon_dead = "lizard_dead"
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+	held_state = "lizard"
 	do_footstep = TRUE
 	can_be_held = TRUE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST, MOB_REPTILE)
