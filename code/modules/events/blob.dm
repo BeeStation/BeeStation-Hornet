@@ -7,6 +7,7 @@
 	min_players = 20
 
 	dynamic_should_hijack = TRUE
+	can_spawn_after_shuttlecall = TRUE
 
 	gamemode_blacklist = list("blob") //Just in case a blob survives that long
 
