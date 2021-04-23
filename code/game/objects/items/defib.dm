@@ -298,6 +298,10 @@
 	var/obj/item/defibrillator/defib
 	var/req_defib = TRUE
 	var/combat = FALSE //If it penetrates armor and gives additional functionality
+	var/grab_ghost = TRUE
+	var/tlimit = DEFIB_TIME_LIMIT * 10
+
+	var/mob/listeningTo
 
 	var/base_icon_state = "defibpaddles"
 	var/wielded = FALSE // track wielded status on item
@@ -696,7 +700,6 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
-	base_icon_state = "defibpaddles"
 
 /obj/item/shockpaddles/syndicate/cyborg
 	req_defib = FALSE

@@ -324,7 +324,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	insert_while_closed = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
 
-/obj/item/required/kirbyplants/equipped(mob/living/user)
+/obj/item/kirbyplants/equipped(mob/living/user)
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
 	I.copy_overlays(src)
 	I.override = 1
@@ -332,11 +332,11 @@
 	I.layer = ABOVE_MOB_LAYER
 	..()
 
-/obj/item/required/kirbyplants/dropped(mob/living/user)
+/obj/item/kirbyplants/dropped(mob/living/user)
 	..()
 	user.remove_alt_appearance("sneaking_mission")
 
-/obj/item/required/kirbyplants/random
+/obj/item/kirbyplants/random
 	icon = 'icons/obj/flora/_flora.dmi'
 	icon_state = "random_plant"
 	var/list/static/states
