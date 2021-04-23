@@ -31,7 +31,7 @@
 /area/template_noop)
 "c" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},

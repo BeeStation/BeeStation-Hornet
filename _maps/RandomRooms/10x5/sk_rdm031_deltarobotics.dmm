@@ -7,7 +7,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "b" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
@@ -238,7 +238,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "I" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/mineral/copper,
 /turf/open/floor/plating,

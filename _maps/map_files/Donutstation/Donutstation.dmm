@@ -4321,7 +4321,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "akI" = (
-/obj/item/twohanded/required/kirbyplants/dead,
+/obj/item/kirbyplants/dead,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -4979,7 +4979,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "amq" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
 /turf/open/floor/wood,
@@ -25482,7 +25482,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -41635,7 +41635,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -42665,7 +42665,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
 /turf/open/floor/plasteel,
@@ -48316,7 +48316,7 @@
 /obj/structure/sign/departments/science{
 	pixel_x = -32
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -48334,7 +48334,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -48342,7 +48342,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bZF" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
 /turf/open/floor/carpet,
@@ -48351,7 +48351,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
 /turf/open/floor/carpet,
@@ -48376,7 +48376,7 @@
 /obj/structure/sign/departments/security{
 	pixel_x = 32
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -48387,7 +48387,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 1
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
 /turf/open/floor/plasteel/white,
@@ -48404,7 +48404,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -48419,7 +48419,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -48430,11 +48430,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/item/twohanded/required/kirbyplants/photosynthetic,
+/obj/item/kirbyplants/photosynthetic,
 /turf/open/floor/plasteel/grimy,
 /area/ai_monitored/turret_protected/aisat/foyer)
 "bZM" = (
-/obj/item/twohanded/required/kirbyplants/photosynthetic,
+/obj/item/kirbyplants/photosynthetic,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
 "bZN" = (
@@ -48680,7 +48680,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
 /turf/open/floor/wood,
@@ -51090,7 +51090,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "dEx" = (
@@ -53607,7 +53607,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "mpC" = (
@@ -53826,8 +53826,8 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/meson,
-/obj/item/twohanded/rcl/pre_loaded,
-/obj/item/twohanded/rcl/pre_loaded,
+/obj/item/rcl/pre_loaded,
+/obj/item/rcl/pre_loaded,
 /obj/item/crowbar/large,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -54171,7 +54171,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "nVf" = (
@@ -54235,7 +54235,7 @@
 /area/engine/atmos)
 "oij" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "okf" = (
@@ -54314,7 +54314,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "oAn" = (
@@ -54930,7 +54930,7 @@
 /area/medical/virology)
 "qxz" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/machinery/button/door{
 	dir = 2;
 	id = "supermatter_external";
@@ -54949,7 +54949,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
 "qxZ" = (

@@ -148,7 +148,7 @@
 	pixel_x = 6;
 	pixel_y = 24
 	},
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -304,7 +304,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/shuttle/escape)
 "bc" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -405,7 +405,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
 "bG" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -499,7 +499,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "bT" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
 /obj/effect/turf_decal/tile/bar,

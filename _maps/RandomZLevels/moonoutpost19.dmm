@@ -4829,7 +4829,7 @@
 	},
 /area/awaymission/moonoutpost19/research)
 "jq" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	desc = "A plastic potted plant.";
 	pixel_y = 3
 	},
@@ -7050,7 +7050,7 @@
 	},
 /area/awaymission/moonoutpost19/arrivals)
 "ob" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	desc = "A plastic potted plant.";
 	pixel_y = 3
 	},

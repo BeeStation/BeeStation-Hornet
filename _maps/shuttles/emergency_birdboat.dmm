@@ -47,7 +47,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ak" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -128,7 +128,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aB" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
 /turf/open/floor/mineral/titanium,

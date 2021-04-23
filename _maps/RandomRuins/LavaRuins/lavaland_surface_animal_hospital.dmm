@@ -361,7 +361,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bt" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bu" = (
