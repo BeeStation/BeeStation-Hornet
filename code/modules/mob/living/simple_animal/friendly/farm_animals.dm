@@ -190,6 +190,9 @@
 	icon_living = "chick"
 	icon_dead = "chick_dead"
 	icon_gib = "chick_gib"
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+	held_state = "chick"
 	gender = FEMALE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
