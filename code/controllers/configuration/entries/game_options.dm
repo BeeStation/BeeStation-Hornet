@@ -72,6 +72,8 @@
 
 /datum/config_entry/flag/economy	//money money money money money money money money money money money money
 
+/datum/config_entry/flag/donator_items 	// do you need to be a donator to use donator items
+
 /datum/config_entry/number/traitor_scaling_coeff	//how much does the amount of players get divided by to determine traitors
 	config_entry_value = 6
 	integer = FALSE
@@ -462,3 +464,5 @@
 	min_val = 0
 
 /datum/config_entry/flag/bsminer_researchable
+
+/datum/config_entry/flag/spare_enforce_coc

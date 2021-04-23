@@ -28,7 +28,7 @@
 /proc/ooze_name()
 	return "[pick(GLOB.oozeling_first_names)] [pick(GLOB.oozeling_last_names)]"
 
-proc/squid_name(gender)
+/proc/squid_name(gender)
 	if(gender == MALE)
 		return "[pick(GLOB.squid_names_male)] [pick(GLOB.last_names)]"
 	else

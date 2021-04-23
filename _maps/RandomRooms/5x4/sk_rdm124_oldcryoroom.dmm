@@ -3,13 +3,13 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/cryoxadone,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "b" = (
 /obj/machinery/atmospherics/components/unary/cryo_cell,
 /obj/effect/turf_decal/stripes/end,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "c" = (
 /obj/effect/turf_decal/stripes/line{
@@ -17,7 +17,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "d" = (
 /obj/structure/showcase/machinery/cloning_pod,
@@ -29,11 +29,11 @@
 /obj/effect/turf_decal/bot_red,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "f" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "g" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible,
@@ -46,7 +46,7 @@
 "h" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/trap/reusable,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "i" = (
 /obj/item/wrench/medical,
@@ -59,18 +59,18 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "k" = (
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer,
 /obj/effect/turf_decal/stripes/end{
-	icon_state = "warn_end";
-	dir = 4
+	dir = 4;
+	icon_state = "warn_end"
 	},
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "l" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
@@ -78,7 +78,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "m" = (
 /obj/machinery/stasis,
@@ -95,26 +95,26 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "o" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "p" = (
 /obj/machinery/computer/med_data{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "q" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/template_noop)
 "r" = (
 /obj/effect/decal/cleanable/dirt,

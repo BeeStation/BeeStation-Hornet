@@ -66,7 +66,7 @@
 		else if(MUTCOLORS in C.dna.species.species_traits)
 			C.dna.species.species_traits -= MUTCOLORS
 
-datum/species/ipc/on_species_loss(mob/living/carbon/C)
+/datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune")
 	if(change_screen)
@@ -163,6 +163,8 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 			H.visible_message("[H]'s cooling system fans stutter and stall. There is a faint, yet rapid beeping coming from inside their chassis.")
 
 /datum/species/ipc/spec_revival(mob/living/carbon/human/H)
+	H.notify_ghost_cloning("You have been repaired!")
+	H.grab_ghost()
 	H.dna.features["ipc_screen"] = "BSOD"
 	H.update_body()
 	H.say("Reactivating [pick("core systems", "central subroutines", "key functions")]...")

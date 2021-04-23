@@ -735,6 +735,13 @@
 	results = list(/datum/reagent/mutationtoxin/ipc = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
 
+/datum/chemical_reaction/mutationtoxin/oozeling
+	name = /datum/reagent/mutationtoxin/oozeling
+	id = /datum/reagent/mutationtoxin/oozeling
+	results = list(/datum/reagent/mutationtoxin/oozeling = 5)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/medicine/calomel = 10, /datum/reagent/toxin/bad_food = 30, /datum/reagent/stable_plasma = 5)
+
+
 //////////////Mutatuion toxins made out of advanced toxin/////////////
 
 /datum/chemical_reaction/mutationtoxin/skeleton

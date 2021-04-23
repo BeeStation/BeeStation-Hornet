@@ -679,14 +679,14 @@
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/roundstart/clockcult
-	name = "Clockcult"
+	name = "Clockwork Cult"
 	antag_flag = ROLE_SERVANT_OF_RATVAR
 	antag_datum = /datum/antagonist/servant_of_ratvar
 	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective","Head of Security", "Captain", "Chaplain", "Head of Personnel")
 	required_candidates = 4
 	weight = 3
 	cost = 35
-	requirements = list(101,101,101,80,70,60,50,50,50,50)
+	requirements = list(100,90,80,70,60,50,30,30,30,30)
 	flags = HIGH_IMPACT_RULESET
 	var/datum/team/clock_cult/main_cult
 	var/list/selected_servants = list()
