@@ -27,12 +27,9 @@
 	var/backstab_bonus = 30
 	var/light_on = FALSE
 	var/brightness_on = 5
-	var/wielded = FALSE // track wielded status on item
 
 /obj/item/kinetic_crusher/Initialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
 
 /obj/item/kinetic_crusher/ComponentInitialize()
 	. = ..()
@@ -42,14 +39,6 @@
 /obj/item/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
 	return ..()
-
-/// triggered on wield of two handed item
-/obj/item/kinetic_crusher/proc/on_wield(obj/item/source, mob/user)
-	wielded = TRUE
-
-/// triggered on unwield of two handed item
-/obj/item/kinetic_crusher/proc/on_unwield(obj/item/source, mob/user)
-	wielded = FALSE
 
 /obj/item/kinetic_crusher/examine(mob/living/user)
 	. = ..()
@@ -76,7 +65,7 @@
 		return ..()
 
 /obj/item/kinetic_crusher/attack(mob/living/target, mob/living/carbon/user)
-	if(!wielded)
+	if(!ISWIELDED(src))
 		to_chat(user, "<span class='warning'>[src] is too heavy to use with one hand. You fumble and drop everything.")
 		user.drop_all_held_items()
 		return
@@ -94,7 +83,7 @@
 
 /obj/item/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
 	. = ..()
-	if(!wielded)
+	if(!ISWIELDED(src))
 		return
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = user.loc
@@ -161,6 +150,7 @@
 
 /obj/item/kinetic_crusher/update_icon()
 	..()
+	var/wielded = ISWIELDED(src)
 	cut_overlays()
 	icon_state = "crusher[wielded]" // this is not icon_state and not supported by 2hcomponent
 	if(!charged)

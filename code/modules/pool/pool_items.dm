@@ -11,27 +11,16 @@
 	block_power = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	attack_verb = list("wacked")
-	var/wielded = TRUE
 
 /obj/item/pool/Initialize()
 	. = ..()
 	//Pick a random color
 	add_atom_colour(pick(COLOR_YELLOW, COLOR_LIME, COLOR_RED, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_MAGENTA), FIXED_COLOUR_PRIORITY)
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
 
 /obj/item/pool/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=0, force_wielded=5, \
 				wieldsound='sound/weapons/tap.ogg', unwieldsound='sound/weapons/tap.ogg', block_power_wielded=20)
-
-/// triggered on wield of two handed item
-/obj/item/pool/proc/on_wield(obj/item/source, mob/user)
-	wielded = TRUE
-
-/// triggered on unwield of two handed item
-/obj/item/pool/proc/on_unwield(obj/item/source, mob/user)
-	wielded = FALSE
 
 /obj/item/pool/rubber_ring
 	name = "inflateable ring"
@@ -62,7 +51,7 @@
 
 /obj/item/pool/pool_noodle/attack(mob/target, mob/living/carbon/human/user)
 	. = ..()
-	if(wielded && prob(50))
+	if(ISWIELDED(src) && prob(50))
 		INVOKE_ASYNC(src, .proc/jedi_spin, user)
 
 /obj/item/pool/pool_noodle/proc/jedi_spin(mob/living/user) //rip complex code, but this fucked up blocking

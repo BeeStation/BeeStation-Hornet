@@ -16,29 +16,18 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	force_string = "LORD SINGULOTH HIMSELF"
 	var/charged = 5
-	var/wielded = FALSE // track wielded status on item
 
 /obj/item/singularityhammer/Initialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/singularityhammer/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_multiplier=4, icon_wielded="mjollnir1")
+	AddComponent(/datum/component/two_handed, force_multiplier=4, icon_wielded="singularity_hammer1")
 
 /obj/item/singularityhammer/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
-/// triggered on wield of two handed item
-/obj/item/singularityhammer/proc/on_wield(obj/item/source, mob/user)
-	wielded = TRUE
-
-/// triggered on unwield of two handed item
-/obj/item/singularityhammer/proc/on_unwield(obj/item/source, mob/user)
-	wielded = FALSE
 
 /obj/item/singularityhammer/update_icon_state()
 	icon_state = "mjollnir0"
@@ -52,8 +41,7 @@
 		charged++
 
 /obj/item/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "singularity_hammer[wielded]"
-	return
+	icon_state = "singularity_hammer0"
 
 /obj/item/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/A as mob|obj in orange(5,pull))
@@ -79,7 +67,7 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(wielded)
+	if(ISWIELDED(src))
 		if(charged == 5)
 			charged = 0
 			if(istype(A, /mob/living/))
@@ -103,24 +91,13 @@
 	block_upgrade_walk = 1
 	attack_weight = 3
 	w_class = WEIGHT_CLASS_HUGE
-	var/wielded = FALSE // track wielded status on item
 
 /obj/item/mjollnir/Initialize()
 	. = ..()
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
 
 /obj/item/mjollnir/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
-
-/// triggered on wield of two handed item
-/obj/item/mjollnir/proc/on_wield(obj/item/source, mob/user)
-	wielded = TRUE
-
-/// triggered on unwield of two handed item
-/obj/item/mjollnir/proc/on_unwield(obj/item/source, mob/user)
-	wielded = FALSE
 
 /obj/item/mjollnir/update_icon_state()
 	icon_state = "mjollnir0"
@@ -139,7 +116,7 @@
 
 /obj/item/mjollnir/attack(mob/living/M, mob/user)
 	..()
-	if(wielded)
+	if(ISWIELDED(src))
 		playsound(src.loc, "sparks", 50, 1)
 		shock(M)
 
@@ -149,5 +126,4 @@
 		shock(hit_atom)
 
 /obj/item/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
-	return
+	icon_state = "mjollnir0"

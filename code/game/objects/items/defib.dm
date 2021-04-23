@@ -304,19 +304,10 @@
 	var/mob/listeningTo
 
 	var/base_icon_state = "defibpaddles"
-	var/wielded = FALSE // track wielded status on item
 
 /obj/item/shockpaddles/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=8, force_wielded=12)
-
-/// triggered on wield of two handed item
-/obj/item/shockpaddles/proc/on_wield(obj/item/source, mob/user)
-	wielded = TRUE
-
-/// triggered on unwield of two handed item
-/obj/item/shockpaddles/proc/on_unwield(obj/item/source, mob/user)
-	wielded = FALSE
 
 /obj/item/shockpaddles/Destroy()
 	defib = null
@@ -367,8 +358,6 @@
 
 /obj/item/shockpaddles/New(mainunit)
 	..()
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
 	if(check_defib_exists(mainunit, src) && req_defib)
 		defib = mainunit
 		forceMove(defib)
@@ -376,6 +365,7 @@
 		update_icon()
 
 /obj/item/shockpaddles/update_icon()
+	var/wielded = ISWIELDED(src)
 	icon_state = "defibpaddles[wielded]"
 	item_state = "defibpaddles[wielded]"
 	if(cooldown)
@@ -426,7 +416,7 @@
 		user.visible_message("<span class='notice'>[defib] beeps: Unit is unpowered.</span>")
 		playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
 		return
-	if(!wielded)
+	if(!ISWIELDED(src))
 		if(iscyborg(user))
 			to_chat(user, "<span class='warning'>You must activate the paddles in your active module before you can use them on someone!</span>")
 		else

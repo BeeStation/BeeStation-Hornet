@@ -135,6 +135,6 @@
 	var/knockdown = 1
 	brightness_on = 6
 
-/obj/item/twohanded/required/chainsaw/energy/doom/attack(mob/living/target)
+/obj/item/chainsaw/energy/doom/attack(mob/living/target)
 	..()
 	target.Knockdown(4)

@@ -7,7 +7,7 @@
 	..()
 	var/mob/living/L = parent
 	var/obj/item/pool/helditem = L.get_active_held_item()
-	if(istype(helditem) && helditem.wielded)
+	if(istype(helditem) && ISWIELDED(helditem))
 		return
 	switch(rand(1, 100))
 		if(1 to 4)
