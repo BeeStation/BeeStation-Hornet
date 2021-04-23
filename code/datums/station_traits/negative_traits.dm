@@ -13,6 +13,7 @@
 	show_in_report = TRUE
 	report_message = "Due to the distance to our normal supply lines, cargo orders are more expensive."
 	blacklist = list(/datum/station_trait/strong_supply_lines)
+	trait_to_give = STATION_TRAIT_DISTANT_SUPPLY_LINES
 
 /datum/station_trait/late_arrivals
 	name = "Late Arrivals"

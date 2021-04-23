@@ -67,6 +67,7 @@
 	show_in_report = TRUE
 	report_message = "Prices are low in this system, BUY BUY BUY!"
 	blacklist = list(/datum/station_trait/distant_supply_lines)
+	trait_to_give = STATION_TRAIT_STRONG_SUPPLY_LINES
 
 /datum/station_trait/scarves
 	name = "Scarves"
