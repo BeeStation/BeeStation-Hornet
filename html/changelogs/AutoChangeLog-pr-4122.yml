@@ -1,0 +1,5 @@
+author: kit-katz
+delete-after: true
+changes:
+  - tweak: tweaks poison nanite program so oozelings and slimepeople dont vomit their
+      guts out using it.
