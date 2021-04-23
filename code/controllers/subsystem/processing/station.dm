@@ -35,27 +35,9 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	var/neutral_trait_count = pick(5;0, 10;1, 3;2)
 	var/negative_trait_count = pick(12;0, 5;1, 1;2)
 
-	//pick_traits(STATION_TRAIT_POSITIVE, positive_trait_count)
-	//pick_traits(STATION_TRAIT_NEUTRAL, neutral_trait_count)
-	//pick_traits(STATION_TRAIT_NEGATIVE, negative_trait_count)
-
-
-	//var/datum/station_trait/picked_trait4 = /datum/station_trait/strong_supply_lines
-	//picked_trait4 = new picked_trait4()
-	//station_traits += picked_trait4
-
-	//var/datum/station_trait/picked_trait6 = /datum/station_trait/filled_maint
-	//picked_trait6 = new picked_trait6()
-	//station_traits += picked_trait6
-
-	var/datum/station_trait/picked_trait41 = /datum/station_trait/announcement_medbot
-	picked_trait41 = new picked_trait41()
-	station_traits += picked_trait41
-
-	var/datum/station_trait/picked_trait2 = /datum/station_trait/hangover
-	picked_trait2 = new picked_trait2()
-	station_traits += picked_trait2
-
+	pick_traits(STATION_TRAIT_POSITIVE, positive_trait_count)
+	pick_traits(STATION_TRAIT_NEUTRAL, neutral_trait_count)
+	pick_traits(STATION_TRAIT_NEGATIVE, negative_trait_count)
 
 ///Picks traits of a specific category (e.g. bad or good) and a specified amount, then initializes them and adds them to the list of traits.
 /datum/controller/subsystem/processing/station/proc/pick_traits(trait_type, amount)
