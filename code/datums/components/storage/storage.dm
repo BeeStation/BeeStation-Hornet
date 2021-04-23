@@ -581,7 +581,7 @@
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>[host] cannot hold [I]!</span>")
 		return FALSE
-	if(I.w_class > max_w_class && !is_type_in_typecache(I, exception_hold))
+	if(I.w_class > max_w_class && !exception_hold[I.type])
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>[I] is too big for [host]!</span>")
 		return FALSE
