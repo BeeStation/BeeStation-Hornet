@@ -1,6 +1,6 @@
 /obj/item/rcl
-	name = "rapid pipe cleaner layer"
-	desc = "A device used to rapidly deploy pipe cleaners. It has screws on the side which can be removed to slide off the pipe cleaners. Do not use without insulation!"
+	name = "rapid cable layer"
+	desc = "A device used to rapidly deploy cable. It has screws on the side which can be removed to slide off the cables. Do not use without insulation!"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcl-0"
 	item_state = "rcl-0"
