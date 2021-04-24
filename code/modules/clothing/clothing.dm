@@ -214,14 +214,14 @@ BLIND     // can't see anything
 		return 0
 
 	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")
+	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
 	if(get_dist(user, src) > 1)
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
+	var/sensor_selection = modes.Find(switchMode) - 1
 
 	if (src.loc == user)
-		var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
-		sensor_mode = modes.Find(switchMode) - 1
-		switch(sensor_mode)
+		switch(sensor_selection)
 			if(0)
 				to_chat(user, "<span class='notice'>You disable your suit's remote sensing equipment.</span>")
 			if(1)
@@ -229,15 +229,14 @@ BLIND     // can't see anything
 			if(2)
 				to_chat(user, "<span class='notice'>Your suit will now only report your exact vital lifesigns.</span>")
 			if(3)
-				to_chat(user, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")			
+				to_chat(user, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")
+		sensor_mode = sensor_selection
 	else if(istype(src.loc, /mob))
 		var/mob/living/carbon/human/wearer = src.loc
 		wearer.visible_message("<span class='notice'>[user] tries to set [wearer]'s sensors.</span>", \
 						 "<span class='warning'>[user] is trying to set your sensors.</span>", null, COMBAT_MESSAGE_RANGE)
 		if(do_mob(user, wearer, SENSOR_CHANGE_DELAY))
-			var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
-			sensor_mode = modes.Find(switchMode) - 1
-			switch(sensor_mode)
+			switch(sensor_selection)
 				if(0)
 					wearer.visible_message("<span class='warning'>[user] disables [wearer]'s remote sensing equipment.</span>", \
 						 "<span class='warning'>[user] disables your remote sensing equipment.</span>", null, COMBAT_MESSAGE_RANGE)
@@ -250,6 +249,7 @@ BLIND     // can't see anything
 				if(3)
 					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to maximum.</span>", \
 						 "<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
+			sensor_mode = sensor_selection
 			log_combat(user, wearer, "changed sensors to [switchMode]")
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
