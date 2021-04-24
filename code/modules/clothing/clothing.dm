@@ -383,8 +383,8 @@ BLIND     // can't see anything
 	if(!lavaland_equipment_pressure_check(T))
 		. *= high_pressure_multiplier
 
-#undef SENSORS_OFF 0
-#undef SENSORS_BINARY 1
-#undef SENSORS_VITALS 2
-#undef SENSORS_TRACKING 3
+#undef SENSORS_OFF
+#undef SENSORS_BINARY
+#undef SENSORS_VITALS
+#undef SENSORS_TRACKING
 #undef SENSOR_CHANGE_DELAY
