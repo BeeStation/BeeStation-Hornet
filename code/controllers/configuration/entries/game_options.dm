@@ -464,3 +464,5 @@
 	min_val = 0
 
 /datum/config_entry/flag/bsminer_researchable
+
+/datum/config_entry/flag/spare_enforce_coc

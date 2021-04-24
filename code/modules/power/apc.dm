@@ -720,7 +720,7 @@
 				user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 				"<span class='notice'>You adapt a power control board and click it into place in [src]'s guts.</span>")
 				has_electronics = TRUE
-				locked = TRUE
+				locked = FALSE
 				return TRUE
 			else if(!cell)
 				if(stat & MAINT)

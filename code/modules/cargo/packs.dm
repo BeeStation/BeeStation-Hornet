@@ -1314,7 +1314,7 @@
 	crate_name = "rusty freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
-datum/supply_pack/medical/basickits
+/datum/supply_pack/medical/basickits
 	name = "Basic Treatment Kits Crate"
 	desc = "Contains three basic aid kits focused on basic types of damage in a simple way."
 	cost = 1400
@@ -1324,7 +1324,7 @@ datum/supply_pack/medical/basickits
 					/obj/item/storage/firstaid/regular)
 	crate_name = "basic wound treatment kits crate"
 
-datum/supply_pack/medical/bruisekits
+/datum/supply_pack/medical/bruisekits
 	name = "Bruise Treatment Kits Crate"
 	desc = "Contains three first aid kits focused on healing bruises and broken bones."
 	cost = 1400
@@ -2231,10 +2231,11 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/critter/monkey
 	name = "Monkey Cube Crate"
 	desc = "Stop monkeying around! Contains seven monkey cubes. Just add water!"
-	cost = 2000
+	cost = 1000
 	contains = list (/obj/item/storage/box/monkeycubes)
 	crate_type = /obj/structure/closet/crate
 	crate_name = "monkey cube crate"
+	small_item = TRUE
 
 /datum/supply_pack/critter/pug
 	name = "Pug Crate"
@@ -2519,15 +2520,15 @@ datum/supply_pack/medical/bruisekits
 		/obj/item/cardboard_cutout/adaptive/chess/rook,
 		/obj/item/cardboard_cutout/adaptive/chess/knight,
 		/obj/item/cardboard_cutout/adaptive/chess/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
 		/obj/item/cardboard_cutout/adaptive/chess/pawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
@@ -2543,15 +2544,15 @@ datum/supply_pack/medical/bruisekits
 		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
 		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
 		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
@@ -2620,9 +2621,10 @@ datum/supply_pack/medical/bruisekits
 
 /datum/supply_pack/costumes_toys/wardrobes/security
 	name = "Security Wardrobe Supply Crate"
-	desc = "This crate contains refills for the SecDrobe and LawDrobe."
+	desc = "This crate contains refills for the SecDrobe, DetDrobe and LawDrobe."
 	cost = 1000
 	contains = list(/obj/item/vending_refill/wardrobe/sec_wardrobe,
+					/obj/item/vending_refill/wardrobe/det_wardrobe,
 					/obj/item/vending_refill/wardrobe/law_wardrobe)
 	crate_name = "security department supply crate"
 
