@@ -232,18 +232,22 @@ BLIND     // can't see anything
 				to_chat(user, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")			
 	else if(istype(src.loc, /mob))
 		var/mob/living/carbon/human/wearer = src.loc
-		to_chat(user,"<span class='danger'>You try to change [wearer]'s sensors.</span>")
-		to_chat(wearer,"<span class='danger'>[user] tries to change your sensors.</span>")
+		wearer.visible_message("<span class='notice'>[user] tries to set [wearer]'s sensors.</span>", \
+						 "<span class='warning'>[user] is trying to set your sensors.</span>", null, COMBAT_MESSAGE_RANGE)
 		if(do_mob(user, wearer, SENSOR_CHANGE_DELAY))
 			switch(sensor_mode)
 				if(0)
-					user.visible_message("<span class='warning'>[user] disables [wearer]'s remote sensing equipment.</span>", null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message("<span class='warning'>[user] disables [wearer]'s remote sensing equipment.</span>", \
+						 "<span class='warning'>[user] disables your remote sensing equipment.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(1)
-					user.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to binary.</span>", null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to binary.</span>", \
+						 "<span class='notice'>[user] turns your remote sensors to binary.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(2)
-					user.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to track vitals.</span>", null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to track vitals.</span>", \
+						 "<span class='notice'>[user] turns your remote sensors to track vitals.</span>", null, COMBAT_MESSAGE_RANGE)
 				if(3)
-					user.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to maximum.</span>", \
+						 "<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
 			log_combat(user, wearer, "changed sensors to [switchMode]")
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
