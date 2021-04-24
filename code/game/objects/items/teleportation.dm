@@ -171,7 +171,7 @@
 			else
 				L["[get_area(com.target)] (Inactive)"] = com.target
 	var/list/turfs = list()
-	for(var/turf/T as() in (RANGE_TURFS(10, src) - get_turf(src)))
+	for(var/turf/T as() in (RANGE_TURFS(10, user) - get_turf(user)))
 		if(T.x>world.maxx-8 || T.x<8)
 			continue	//putting them at the edge is dumb
 		if(T.y>world.maxy-8 || T.y<8)
