@@ -32,7 +32,7 @@
 
 	
 	var/dynamic_should_hijack = FALSE	// Whether or not dynamic should hijack this event	
-	var/can_spawn_after_shuttlecall = FALSE	// Prevents the event from spawning after the shuttle was called
+	var/cannot_spawn_after_shuttlecall = FALSE	// Prevents the event from spawning after the shuttle was called
 
 /datum/round_event_control/New()
 	if(config && !wizardevent) // Magic is unaffected by configs
@@ -59,7 +59,7 @@
 		return FALSE
 	if(holidayID && (!SSevents.holidays || !SSevents.holidays[holidayID]))
 		return FALSE
-	if(can_spawn_after_shuttlecall && !EMERGENCY_IDLE_OR_RECALLED)
+	if(cannot_spawn_after_shuttlecall && !EMERGENCY_IDLE_OR_RECALLED)
 		return FALSE
 	if(ispath(typepath, /datum/round_event/ghost_role) && GHOSTROLE_MIDROUND_EVENT)
 		return FALSE
