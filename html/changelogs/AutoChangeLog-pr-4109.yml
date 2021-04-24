@@ -1,0 +1,6 @@
+author: Archanial
+delete-after: true
+changes:
+  - tweak: Removed build button from autolathe's UI.
+  - tweak: You cannot go over 50 and under 0 with "+" and "-" buttons in autolathe's
+      UI.
