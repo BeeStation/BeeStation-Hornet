@@ -199,9 +199,9 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
 	var/mob/M = user
-	if (istype(M, /mob/dead/))
+	if(isdead(M))
 		return
-	if (!can_use(M))
+	if(!can_use(M))
 		return
 	if(src.has_sensor == LOCKED_SENSORS)
 		to_chat(user, "<span class='warning'>The controls are locked.</span>")
