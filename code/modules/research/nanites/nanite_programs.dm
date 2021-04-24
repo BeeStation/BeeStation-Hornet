@@ -56,11 +56,11 @@
 
 	//Logic
 	//a list of logic types a nanite program's rules follow
-	var/list/static/logic = list(
-    	NL_AND,
-    	NL_OR,
-		NL_NOR,
-		NL_NAND,
+	var/static/list/logic = list(
+    	"AND" = NL_AND,
+    	"OR" = NL_OR,
+		"NOR" = NL_NOR,
+		"NAND" = NL_NAND,
 	)
 
 /datum/nanite_program/New()
@@ -207,29 +207,35 @@
 //Can be used to avoid consuming nanites for nothing
 /datum/nanite_program/proc/check_conditions()
 	var/datum/nanite_extra_setting/logictype = extra_settings[NES_RULE_LOGIC]
-	switch(logictype.get_value())
-		if(NL_AND)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
-				if(!rule.check_rule())
-					return FALSE
-		if(NL_OR)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
-				if(rule.check_rule())
-					return TRUE
-			return FALSE
-		if(NL_NOR)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
-				if(rule.check_rule())
-					return FALSE
-		if(NL_NAND)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
-				if(!rule.check_rule())
-					return TRUE 
-			return FALSE
+	if(logictype)
+		switch(logictype.get_value())
+			if(NL_AND)
+				for(var/R in rules)
+					var/datum/nanite_rule/rule = R
+					if(!rule.check_rule())
+						return FALSE
+			if(NL_OR)
+				for(var/R in rules)
+					var/datum/nanite_rule/rule = R
+					if(rule.check_rule())
+						return TRUE
+				return FALSE
+			if(NL_NOR)
+				for(var/R in rules)
+					var/datum/nanite_rule/rule = R
+					if(rule.check_rule())
+						return FALSE
+			if(NL_NAND)
+				for(var/R in rules)
+					var/datum/nanite_rule/rule = R
+					if(!rule.check_rule())
+						return TRUE 
+				return FALSE
+	else
+		for(var/R in rules)
+			var/datum/nanite_rule/rule = R
+			if(!rule.check_rule())
+				return FALSE
 	return TRUE
 
 //Constantly procs as long as the program is active
