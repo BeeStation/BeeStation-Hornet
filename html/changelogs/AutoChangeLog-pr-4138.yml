@@ -1,0 +1,4 @@
+author: Mothblocks
+delete-after: true
+changes:
+  - bugfix: Fixes dynamic executing latejoin rulesets more than it should be
