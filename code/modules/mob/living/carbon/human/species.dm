@@ -1321,7 +1321,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/atk_verb = user.dna.species.attack_verb
 		if(!(target.mobility_flags & MOBILITY_STAND))
 			atk_verb = ATTACK_EFFECT_KICK
-		else if(user.pulledby?.grab_state == GRAB_AGGRESIVE && iscatperson(user))
+		else if(user.pulledby?.grab_state == GRAB_AGGRESSIVE && iscatperson(user))
 			atk_verb = ATTACK_EFFECT_BITE
 
 		switch(atk_verb)//this code is really stupid but some genius apparently made "claw" and "slash" two attack types but also the same one so it's needed i guess
