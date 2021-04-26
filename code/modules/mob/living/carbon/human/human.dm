@@ -961,8 +961,8 @@
 		if(!ishumanbasic(src))
 			to_chat(usr, "This can only be done to the basic human species at the moment.")
 			return
-		var/success = purrbation_toggle(src)
-		if(success)
+		if(!has_quirk(/datum/quirk/felinid))
+			add_quirk(/datum/quirk/felinid, TRUE)
 			to_chat(usr, "Put [src] on purrbation.")
 			log_admin("[key_name(usr)] has put [key_name(src)] on purrbation.")
 			var/msg = "<span class='notice'>[key_name_admin(usr)] has put [key_name(src)] on purrbation.</span>"
@@ -970,6 +970,7 @@
 			admin_ticket_log(src, msg)
 
 		else
+			remove_quirk(/datum/quirk/felinid)
 			to_chat(usr, "Removed [src] from purrbation.")
 			log_admin("[key_name(usr)] has removed [key_name(src)] from purrbation.")
 			var/msg = "<span class='notice'>[key_name_admin(usr)] has removed [key_name(src)] from purrbation.</span>"
@@ -1186,7 +1187,7 @@
 
 /mob/living/carbon/human/ZImpactDamage(turf/T, levels)
 	//Non cat-people smash into the ground
-	if(!iscatperson(src))
+	if(HAS_TRAIT(src, TRAIT_FELINID))
 		return ..()
 	//Check to make sure legs are working
 	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)
@@ -1215,9 +1216,6 @@
 
 /mob/living/carbon/human/species/dullahan
 	race = /datum/species/dullahan
-
-/mob/living/carbon/human/species/felinid
-	race = /datum/species/human/felinid
 
 /mob/living/carbon/human/species/fly
 	race = /datum/species/fly

@@ -142,7 +142,7 @@
 		if(M.incapacitated())
 			return
 		var/mob/living/carbon/human/H = M
-		if(iscatperson(H) && !H.eye_blind) //catpeople!
+		if(HAS_TRAIT(H, TRAIT_FELINID) && !H.eye_blind) //catpeople!
 			if(user.mobility_flags & MOBILITY_STAND)
 				H.setDir(get_dir(H,targloc)) // kitty always looks at the light
 				if(prob(effectchance))

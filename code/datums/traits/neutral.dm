@@ -106,3 +106,46 @@
 /datum/quirk/monochromatic/remove()
 	if(quirk_holder)
 		quirk_holder.remove_client_colour(/datum/client_colour/monochrome)
+
+/datum/quirk/felinid
+	name = "Body Modder"
+	desc = "You have undergone unethical body modification to look like a catperson."
+	value = 0
+	mob_trait = TRAIT_FELINID
+	gain_text = "<span class='notice'>You have a cute pair of ears and a tail!</span>"
+	lose_text = "<span class='notice'>You've outgrown your catperson phase</span>"
+
+/datum/quirk/felinid/add()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(H)
+		var/datum/species/species = H.dna.species
+		species.liked_food |= DAIRY
+		species.liked_food |= MEAT
+		species.disliked_food |= SUGAR
+		species.disliked_food |= VEGETABLES
+		if(H.getorgan(/obj/item/organ/ears)) 
+			var/obj/item/organ/ears/ears = H.getorgan(/obj/item/organ/ears)
+			ears.Remove(H)
+			qdel(ears)
+			var/obj/item/organ/ears/cat/newears = new
+			newears.Insert(H, drop_if_replaced = FALSE)
+		if(!H.getorgan(/obj/item/organ/tail/cat))//don't replace the tail they already have. lizards look better with lizard tails!
+			var/obj/item/organ/tail/cat/newtail = new
+			newtail.Insert(H, drop_if_replaced = FALSE)
+
+/datum/quirk/felinid/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(H)
+		var/datum/species/species = H.dna.species
+		species.liked_food = initial(species.liked_food)
+		species.disliked_food = initial(species.disliked_food)
+		if(H.getorgan(/obj/item/organ/ears/cat))//if they arent cat ears, don't remove them
+			var/obj/item/organ/ears/cat/ears = H.getorgan(/obj/item/organ/ears/cat)
+			ears.Remove(H)
+			qdel(ears)
+			var/obj/item/organ/ears/newears = new species.mutantears(H)
+			newears.Insert(H, drop_if_replaced = FALSE)
+		if(H.getorgan(/obj/item/organ/tail/cat))//this doesnt replace normal tails so we dont add a new one back
+			var/obj/item/organ/tail/cat/tail = H.getorgan(/obj/item/organ/tail/cat)
+			tail.Remove(H)
+			qdel(tail)

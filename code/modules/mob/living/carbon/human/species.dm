@@ -828,6 +828,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		handle_flight(H)
 
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/H)
+	stop_wagging_tail(H)
 	return
 
 /datum/species/proc/auto_equip(mob/living/carbon/human/H)
@@ -1880,6 +1881,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(H.getorgan(/obj/item/organ/wings))
 		if(wings.flight_level >= WINGS_FLYING && H.movement_type & FLYING)
 			flyslip(H)
+	stop_wagging_tail(H)
 	. = stunmod * H.physiology.stun_mod * amount
 
 //////////////
@@ -1907,14 +1909,33 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 ////////////////
 
 /datum/species/proc/can_wag_tail(mob/living/carbon/human/H)
-	return FALSE
+	return ("tail_human" in mutant_bodyparts) || ("waggingtail_human" in mutant_bodyparts) || ("tail_lizard" in mutant_bodyparts) || ("waggingtail_lizard" in mutant_bodyparts)
 
 /datum/species/proc/is_wagging_tail(mob/living/carbon/human/H)
-	return FALSE
+	return ("waggingtail_human" in mutant_bodyparts) || ("waggingtail_lizard" in mutant_bodyparts)
 
 /datum/species/proc/start_wagging_tail(mob/living/carbon/human/H)
+	if("tail_human" in mutant_bodyparts)
+		mutant_bodyparts -= "tail_human"
+		mutant_bodyparts |= "waggingtail_human"
+	if("tail_lizard" in mutant_bodyparts)
+		mutant_bodyparts -= "tail_lizard"
+		mutant_bodyparts -= "spines"
+		mutant_bodyparts |= "waggingtail_lizard"
+		mutant_bodyparts |= "waggingspines"
+	H.update_body()
 
 /datum/species/proc/stop_wagging_tail(mob/living/carbon/human/H)
+	if("waggingtail_human" in mutant_bodyparts)
+		mutant_bodyparts -= "waggingtail_human"
+		mutant_bodyparts |= "tail_human"
+	if("waggingtail_lizard" in mutant_bodyparts)
+		mutant_bodyparts -= "waggingtail_lizard"
+		mutant_bodyparts -= "waggingspines"
+		mutant_bodyparts |= "tail_lizard"
+		mutant_bodyparts |= "spines"
+	H.update_body()
+
 
 ///////////////
 //FLIGHT SHIT//

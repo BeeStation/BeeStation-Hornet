@@ -81,11 +81,10 @@
 	var/mob/living/T = L.parent
 	if(ishuman(T))
 		var/mob/living/carbon/human/H = T
-		if(iscatperson(H))
-			H.dna.species.start_wagging_tail(H)
-			addtimer(CALLBACK(H.dna.species, /datum/species.proc/stop_wagging_tail, H), 30)
-			description =  "<span class='nicegreen'>They want to play on the table!</span>\n"
-			mood_change = 2
+		H.dna.species.start_wagging_tail(H)
+		addtimer(CALLBACK(H.dna.species, /datum/species.proc/stop_wagging_tail, H), 30)
+		description =  "<span class='nicegreen'>They want to play on the table!</span>\n"
+		mood_change = 2
 
 
 

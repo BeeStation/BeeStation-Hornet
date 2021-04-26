@@ -164,7 +164,7 @@
 
 	if(species_rule)
 		if(species_rule == /datum/species/human)
-			if(ishumanbasic(program.host_mob) && !is_species(program.host_mob, /datum/species/human/felinid))
+			if(ishumanbasic(program.host_mob))
 				species_match_rule = TRUE
 		else if(is_species(program.host_mob, species_rule))
 			species_match_rule = TRUE
