@@ -1,0 +1,5 @@
+author: KazooBard
+delete-after: true
+changes:
+  - balance: Shortened makeshift bola removal time to 2 seconds
+  - balance: Makeshift bola no longer causes item drop.
