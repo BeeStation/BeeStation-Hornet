@@ -1369,7 +1369,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
 			log_combat(user, target, "kicked")
 		else if(atk_verb == ATTACK_EFFECT_BITE && iscatperson(user))
-			damage += 10
+			damage += 3
 			log_combat(user, target, "bit")
 		else//other attacks deal full raw damage + 1.5x in stamina damage
 			target.apply_damage(damage, attack_type, affecting, armor_block)
