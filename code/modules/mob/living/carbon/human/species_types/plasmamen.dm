@@ -80,7 +80,7 @@
 
 		if("Stage Magician")
 			O = new /datum/outfit/plasmaman/magic
-		
+
 		if("VIP")
 			O = new /datum/outfit/plasmaman/vip
 
@@ -219,3 +219,8 @@
 					H.emote("sigh")
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
+
+/datum/species/plasmaman/bite_effect(mob/living/carbon/human/H, damage, mob/living/carbon/human/target)
+	. = ..()
+	H.apply_damage(5, BURN)
+	to_chat(H, "<span class='danger'>You burn your mouth on [target]!</span>")
