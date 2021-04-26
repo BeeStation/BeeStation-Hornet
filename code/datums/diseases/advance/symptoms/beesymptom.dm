@@ -74,6 +74,8 @@
 				else if(honey)
 					var/mob/living/simple_animal/hostile/poison/bees/newbee = new /mob/living/simple_animal/hostile/poison/bees(M.loc) //Heh, newbee
 					newbee.assign_reagent(GLOB.chemical_reagents_list[/datum/reagent/consumable/honey])
+					var/mob/living/simple_animal/hostile/poison/bees/newbee2 = new /mob/living/simple_animal/hostile/poison/bees(M.loc)
+					newbee2.assign_reagent(GLOB.chemical_reagents_list[/datum/reagent/medicine/insulin])
 				else
 					new /mob/living/simple_animal/hostile/poison/bees(M.loc)
 
