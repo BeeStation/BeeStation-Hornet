@@ -76,7 +76,7 @@
 		easy_access_sect = GLOB.religious_sect
 		after_sect_select_cb?.Invoke()
 		return
-	if((operation_flags & RELIGION_TOOL_INVOKE))
+	if(operation_flags & RELIGION_TOOL_INVOKE)
 		/**********Rite Invocation**********/
 		if(performing_rite)
 			to_chat(user, "<span class='notice'>There is a rite currently being performed here already!")
