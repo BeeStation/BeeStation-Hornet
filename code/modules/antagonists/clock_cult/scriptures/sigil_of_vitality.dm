@@ -97,7 +97,7 @@
 			if(!cogger.grab_ghost(TRUE))
 				//Replace the mob with a shell
 				qdel(cogger)
-				new /obj/item/drone_shell/cogscarab(get_turf(M))
+				new /obj/effect/mob_spawn/drone/cogscarab(get_turf(M))
 			add_servant_of_ratvar(cogger, silent=TRUE)
 			return
 		if(M.client)
