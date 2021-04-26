@@ -57,6 +57,8 @@
 	if(!msg)
 		return
 
+	user.log_message(msg, LOG_EMOTE)
+
 	var/end = copytext(msg, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-")))
 		msg += "."

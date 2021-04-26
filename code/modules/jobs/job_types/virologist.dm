@@ -38,4 +38,4 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel/vir
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
-	pda_slot = SLOT_R_STORE
+	pda_slot = ITEM_SLOT_RPOCKET

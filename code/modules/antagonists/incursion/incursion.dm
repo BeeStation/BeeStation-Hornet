@@ -92,7 +92,7 @@
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
 	var/obj/item/uplink/incursion/uplink = new(owner, owner.key, 15)
-	owner.current.equip_to_slot(uplink, SLOT_IN_BACKPACK)
+	owner.current.equip_to_slot(uplink, ITEM_SLOT_BACKPACK)
 	to_chat(owner.current, "<span class='notice'><b>You have been equipped with a syndicate uplink located in your backpack. Activate the transponder in hand to access the market.</b></span>")
 	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)

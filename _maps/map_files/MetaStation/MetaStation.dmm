@@ -13599,12 +13599,20 @@
 	dir = 4;
 	pixel_x = -24
 	},
-/obj/structure/filingcabinet,
 /obj/machinery/light/small{
 	dir = 1
 	},
 /obj/machinery/light_switch{
 	pixel_y = 25
+	},
+/obj/structure/rack,
+/obj/item/storage/secure/briefcase{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/storage/briefcase{
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
@@ -14934,7 +14942,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "aCs" = (
-/obj/structure/table/wood,
 /obj/machinery/power/apc{
 	areastring = "/area/security/detectives_office";
 	dir = 8;
@@ -14944,11 +14951,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/item/taperecorder{
-	pixel_x = 3
-	},
-/obj/item/storage/box/evidence,
-/obj/item/flashlight/seclite,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aCt" = (
@@ -15616,15 +15618,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aDN" = (
-/obj/structure/rack,
-/obj/item/storage/briefcase{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/obj/item/storage/secure/briefcase{
-	pixel_x = 2;
-	pixel_y = -2
-	},
+/obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aDO" = (
@@ -16255,20 +16249,16 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "aEZ" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/bodybag,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/clothing/mask/surgical,
-/turf/open/floor/plasteel/dark,
-/area/security/detectives_office)
-"aFa" = (
 /obj/machinery/door/window{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel/grimy,
+/area/security/detectives_office)
+"aFa" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aFb" = (
 /obj/machinery/door/airlock/maintenance{
@@ -17066,12 +17056,13 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "aGu" = (
-/obj/structure/bodycontainer/morgue,
-/turf/open/floor/plasteel/dark,
+/obj/machinery/light/small,
+/obj/structure/filingcabinet/security,
+/turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aGv" = (
-/obj/machinery/light/small,
-/turf/open/floor/plasteel/dark,
+/obj/structure/closet/secure_closet/detective,
+/turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aGw" = (
 /obj/structure/cable/yellow{
@@ -17641,20 +17632,14 @@
 /turf/closed/wall/r_wall,
 /area/security/courtroom)
 "aHF" = (
-/obj/machinery/door/airlock/security{
-	name = "Court Cell";
-	req_access_txt = "63"
+/obj/structure/table/wood,
+/obj/item/storage/box/evidence,
+/obj/item/taperecorder{
+	pixel_x = 3
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/courtroom)
+/obj/item/flashlight/seclite,
+/turf/open/floor/plasteel/grimy,
+/area/security/detectives_office)
 "aHG" = (
 /turf/closed/wall,
 /area/lawoffice)
@@ -19526,7 +19511,6 @@
 /obj/item/folder/red,
 /obj/item/folder/red,
 /obj/item/folder/red,
-/obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLF" = (
@@ -32982,15 +32966,16 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "bkD" = (
-/obj/item/radio/intercom{
-	pixel_y = 29
-	},
 /obj/machinery/modular_computer/console/preset/engineering,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/item/storage/secure/safe/caps_spare{
+	pixel_x = 6;
+	pixel_y = 28
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -47780,15 +47765,15 @@
 	pixel_x = -27
 	},
 /obj/structure/closet/secure_closet/freezer/meat,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bNF" = (
 /obj/machinery/gibber,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bNG" = (
 /obj/structure/kitchenspike,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bNI" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -48410,7 +48395,7 @@
 /area/crew_quarters/kitchen)
 "bOX" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bOY" = (
 /obj/structure/sign/warning/vacuum/external{
@@ -48429,13 +48414,13 @@
 	name = "CondiMaster Neo";
 	pixel_x = -4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bPa" = (
 /mob/living/simple_animal/hostile/retaliate/goat{
 	name = "Pete"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bPb" = (
 /obj/structure/table/wood,
@@ -48783,7 +48768,7 @@
 /turf/open/floor/wood,
 /area/library)
 "bPV" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/tome/library,
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
@@ -49185,11 +49170,11 @@
 /area/crew_quarters/kitchen)
 "bQI" = (
 /obj/machinery/vending/wardrobe/chef_wardrobe,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bQJ" = (
 /obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bQN" = (
 /obj/machinery/airalarm{
@@ -49766,7 +49751,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bRY" = (
 /obj/structure/disposalpipe/segment{
@@ -49783,7 +49768,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bRZ" = (
 /obj/structure/disposalpipe/segment{
@@ -49796,7 +49781,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bSa" = (
 /obj/structure/disposalpipe/segment{
@@ -49805,7 +49790,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bSd" = (
 /obj/machinery/portable_atmospherics/canister,
@@ -50235,7 +50220,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel/kitchen_coldroom,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bSY" = (
 /obj/structure/disposalpipe/segment,
@@ -50248,7 +50233,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
-/turf/open/floor/plasteel/kitchen_coldroom,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bSZ" = (
 /obj/machinery/door/airlock/maintenance{
@@ -50895,7 +50880,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/kitchen_coldroom,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bUq" = (
 /obj/structure/disposalpipe/segment{
@@ -50907,7 +50892,7 @@
 	req_access_txt = "28"
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/kitchen_coldroom,
+/turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bUr" = (
 /obj/machinery/navbeacon{
@@ -53348,7 +53333,7 @@
 "bZx" = (
 /obj/machinery/icecream_vat,
 /obj/machinery/atmospherics/components/unary/vent_pump/on,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "bZy" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -56731,7 +56716,7 @@
 	},
 /obj/structure/reagent_dispensers/cooking_oil,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "cgG" = (
 /obj/structure/closet/emcloset/anchored,
@@ -82354,7 +82339,7 @@
 	name = "old sink";
 	pixel_y = 28
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "fBA" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -83228,6 +83213,21 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
+"iNs" = (
+/obj/machinery/door/airlock/security{
+	name = "Court Cell";
+	req_access_txt = "63"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/courtroom)
 "iPk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -85498,7 +85498,7 @@
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "rFZ" = (
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "rHt" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -117108,8 +117108,8 @@ aBj
 aCr
 avk
 avk
-avk
-aHD
+aGt
+iNs
 aIS
 aKd
 aIR
@@ -117365,8 +117365,8 @@ ayF
 ayF
 ayJ
 ayJ
-aGt
-aHF
+ayJ
+aHD
 aIT
 aKe
 aIR
@@ -117621,8 +117621,8 @@ azQ
 aBk
 aCs
 aDI
-ayJ
-ayJ
+aFa
+aHF
 aHD
 aHD
 aHD
