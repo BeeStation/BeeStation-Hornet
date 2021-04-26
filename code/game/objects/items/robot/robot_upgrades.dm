@@ -20,7 +20,7 @@
 	if(R.stat == DEAD)
 		to_chat(user, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
 		return FALSE
-	if(module_type && !istype(R.module, module_type))
+	if(module_type && !is_type_in_list(R.module, module_type))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
 		to_chat(user, "There's no mounting point for the module!")
 		return FALSE
