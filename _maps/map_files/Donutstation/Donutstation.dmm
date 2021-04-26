@@ -27028,11 +27028,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/gun/grenadelauncher{
+/obj/item/gun/grenadelauncher/security{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/grenadelauncher,
+/obj/item/gun/grenadelauncher/security,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "biX" = (

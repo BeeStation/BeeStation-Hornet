@@ -127,7 +127,7 @@
 
 //////////////HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
-/mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
+/mob/living/simple_animal/hostile/proc/ListTargets() //Step 1, find out what we can see
 	if(!search_objects)
 		var/static/target_list = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha)) //mobs are handled via ismob(A)
 		. = list()
@@ -135,9 +135,7 @@
 			if((ismob(A) && A != src) || target_list[A.type])
 				. += A
 	else
-		. = list()
-		for (var/atom/movable/A in oview(vision_range, targets_from))
-			. += A
+		. = oview(vision_range, targets_from)
 
 /mob/living/simple_animal/hostile/proc/FindTarget(var/list/possible_targets, var/HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
 	. = list()

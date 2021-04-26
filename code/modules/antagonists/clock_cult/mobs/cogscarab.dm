@@ -47,13 +47,18 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 
 //====Shell====
 
-/obj/item/drone_shell/cogscarab
+/obj/effect/mob_spawn/drone/cogscarab
 	name = "cogscarab construct"
 	desc = "The shell of an ancient construction drone, loyal to Ratvar."
 	icon_state = "drone_clock_hat"
-	drone_type = /mob/living/simple_animal/drone/cogscarab
+	mob_name = "cogscarab"
+	mob_type = /mob/living/simple_animal/drone/cogscarab
+	short_desc = "You are a cogscarab!"
+	flavour_text = "You are a cogscarab, a tiny building construct of Ratvar. While you're weak and can't leave Reebe, \
+	you have a set of quick tools, as well as a replica fabricator that can create brass for construction. Work with the servants of Ratvar \
+	to construct and maintain defenses at the City of Cogs."
 
-/obj/item/drone_shell/cogscarab/attack_ghost(mob/user)
+/obj/effect/mob_spawn/drone/cogscarab/attack_ghost(mob/user)
 	if(is_banned_from(user.ckey, ROLE_SERVANT_OF_RATVAR) || QDELETED(src) || QDELETED(user))
 		return
 	if(CONFIG_GET(flag/use_age_restriction_for_jobs))
@@ -67,7 +72,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	var/be_drone = alert("Become a cogscarab? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(be_drone == "No" || QDELETED(src) || !isobserver(user))
 		return
-	var/mob/living/simple_animal/drone/D = new drone_type(get_turf(loc))
+	var/mob/living/simple_animal/drone/D = new mob_type(get_turf(loc))
 	if(!D.default_hatmask && seasonal_hats && possible_seasonal_hats.len)
 		var/hat_type = pick(possible_seasonal_hats)
 		var/obj/item/new_hat = new hat_type(D)
