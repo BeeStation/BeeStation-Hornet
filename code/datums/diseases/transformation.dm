@@ -355,7 +355,7 @@
 	stage3	= list("<span class='danger'>You feel the need to cough out something fluffy.</span>", "<span class='danger'>You feel the need to scratch your neck with your foot.</span>", "<span class='danger'>You think you should adopt a cat.</span>")
 	stage4	= list("<span class='danger'>You start thinking that felinids are not that bad after all!</span>", "<span class='danger'>You feel scared at the thought of eating chocolate.</span>")
 	stage5	= list("<span class='danger'>You have become a catperson.</span>")
-	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD) //Nothing evades the curse!
+	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD, MOB_ROBOTIC) //Nothing evades the curse!
 	new_form = /mob/living/carbon/human/species/felinid
 
 /datum/disease/transformation/felinid/stage_act()
