@@ -1,0 +1,15 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Lessens runechat backdrop
+  - tweak: Increases runechat line width fro 96 to 128
+  - tweak: Emotes now show up on runechat in grey text and the icon is grey too.
+  - tweak: Runechat message icons now have a space between the
+  - tweak: Size of runechat message icons reduced fro 9 to 7
+  - tweak: The message generated fro talking into radios is no longer a whisper, and
+      will no longer be rendered on runechat.
+  - tweak: Loud radio messages are no longer big on runechat.
+  - tweak: Clown megaphone works again.
+  - tweak: megaphones are now larger on runechat again.
+  - tweak: Runechat line height reduced.
+  - rscdel: Wagging tail no longer displays an emote message
