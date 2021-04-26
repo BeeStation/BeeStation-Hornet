@@ -1321,7 +1321,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/atk_verb = user.dna.species.attack_verb
 		if(!(target.mobility_flags & MOBILITY_STAND))
 			atk_verb = ATTACK_EFFECT_KICK
-		else if(user.pulledby?.grab_state == GRAB_AGGRESSIVE && iscatperson(user))
+		else if(user.pulledby?.grab_state == GRAB_AGGRESSIVE && iscatperson(user) && !(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE)))
 			atk_verb = ATTACK_EFFECT_BITE
 
 		switch(atk_verb)//this code is really stupid but some genius apparently made "claw" and "slash" two attack types but also the same one so it's needed i guess
@@ -1365,16 +1365,18 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(user.limb_destroyer)
 			target.dismembering_strike(user, affecting.body_zone)
 
-		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
-			log_combat(user, target, "kicked")
-		else if(atk_verb == ATTACK_EFFECT_BITE && iscatperson(user))
-			damage += 3
-			log_combat(user, target, "bit")
-		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, attack_type, affecting, armor_block)
-			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
-			log_combat(user, target, "punched")
+		switch(atk_verb)
+			if(ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
+				target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
+				log_combat(user, target, "kicked")
+			if(ATTACK_EFFECT_BITE)
+				damage += 3
+				target.apply_damage(damage, attack_type, affecting, armor_block)
+				log_combat(user, target, "bit")
+			else//other attacks deal full raw damage + 1.5x in stamina damage
+				target.apply_damage(damage, attack_type, affecting, armor_block)
+				target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
+				log_combat(user, target, "punched")
 
 /datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
