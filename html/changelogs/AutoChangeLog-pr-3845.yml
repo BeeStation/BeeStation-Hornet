@@ -1,0 +1,9 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - tweak: Bee Viro Symptom spawns insulin bees alongside honey bees on positive threshold
+  - tweak: DNA Saboteur no longer gives neutral mutations on positive threshold
+  - tweak: Biometallic Replication no longer makes that annoying clanging sound every
+      five seconds on positive threshold
+  - tweak: Pituitary Disruption won't give you plasmeme lungs anymore
+  - tweak: Viral Aggressive Metabolism No Longer Vaccinates When Self Curing
