@@ -82,9 +82,8 @@
 			to_chat(user, "<span class='notice'>There is a rite currently being performed here already!")
 			return COMPONENT_NO_AFTERATTACK
 		var/synditome_check = istype(the_item, /obj/item/storage/book/bible/syndicate)
-		var/catalyst_check = synditome_check || (istype(the_item, catalyst_type))
-		if(catalyst_check)
-			var/list/rite_list
+		if(synditome_check || (istype(the_item, catalyst_type)))
+			var/list/rite_list = list()
 			for(var/trite in easy_access_sect.rites_list)
 				if (trite[1] != "!" || synditome_check)
 					LAZYADD(rite_list,trite)
