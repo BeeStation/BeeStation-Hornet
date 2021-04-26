@@ -1,0 +1,13 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Corgstation
+  - rscadd: Lit glowsticks spawner.
+  - rscadd: Corgstation code ownership
+  - rscadd: Corgstation Emergency Shuttle
+  - rscadd: Corgstation Arrivals Shuttle
+  - bugfix: Fixes force_map not actually working
+  - tweak: Allows shuttles to be created in area/science/shuttle
+  - tweak: Pins some important vars on fastdmm2 for obj/machinery/camera
+  - tweak: Allows anchored supermatter crystals to be launched via those chapel cannon
+      thingys
