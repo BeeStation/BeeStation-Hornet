@@ -81,4 +81,4 @@
 
 /datum/species/lizard/bite_effect(mob/living/carbon/human/H, damage)
 	to_chat(src, "<span class='danger'>Your scales soften the bite!</span>")
-	return (damage - 3)
+	return (damage - 7)
