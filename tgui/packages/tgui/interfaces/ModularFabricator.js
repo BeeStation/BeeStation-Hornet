@@ -273,7 +273,8 @@ export const ModFabCategoryItems = (props, context) => {
               verticalAlign="middle">
               <Button
                 icon="minus"
-                onClick={() => setAmount(amount-1)} />
+                onClick={() => { amount !== 0 && (
+                  setAmount(amount-1)); }} />
             </Table.Cell>
             <Table.Cell
               collapsing
@@ -289,19 +290,8 @@ export const ModFabCategoryItems = (props, context) => {
               verticalAlign="middle">
               <Button
                 icon="plus"
-                onClick={() => setAmount(amount+1)} />
-            </Table.Cell>
-            <Table.Cell
-              collapsing
-              verticalAlign="middle">
-              <Button
-                icon="hammer"
-                content="Create"
-                onClick={() => act("build_item", {
-                  design_id: item.design_id,
-                  amount: amount,
-                  item_name: item.name,
-                })} />
+                onClick={() => { amount !== 50 && (
+                  setAmount(amount+1)); }} />
             </Table.Cell>
             <Table.Cell
               collapsing

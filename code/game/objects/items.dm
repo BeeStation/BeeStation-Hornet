@@ -7,7 +7,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items_and_weapons.dmi'
-
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	/// The icon state for the icons that appear in the players hand while holding it. Gotten from /client/var/lefthand_file and /client/var/righthand_file
 	var/item_state = null
 	/// The icon for holding in hand icon states for the left hand.

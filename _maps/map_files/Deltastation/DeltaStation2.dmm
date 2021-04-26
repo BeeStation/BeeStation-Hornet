@@ -62646,7 +62646,7 @@
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/gun/energy/e_gun/dragnet,
 /obj/item/beacon/nettingportal,
-/obj/item/gun/grenadelauncher,
+/obj/item/gun/grenadelauncher/security,
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
 "bZY" = (

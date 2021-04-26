@@ -4167,7 +4167,7 @@
 	pixel_x = 1;
 	pixel_y = -2
 	},
-/obj/item/gun/grenadelauncher,
+/obj/item/gun/grenadelauncher/security,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -19511,6 +19511,7 @@
 /obj/item/folder/red,
 /obj/item/folder/red,
 /obj/item/folder/red,
+/obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLF" = (
