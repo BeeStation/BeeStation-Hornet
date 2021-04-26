@@ -1,5 +1,3 @@
-//#define FORCE_MAP "_maps/corgstation.json"
-
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING
