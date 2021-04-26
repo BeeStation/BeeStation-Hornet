@@ -3,7 +3,7 @@
 	name = "Jellyperson"
 	id = "jelly"
 	default_color = "00FF90"
-	say_mod = "chirps"
+	say_mod = "blorbles"
 	species_traits = list(MUTCOLORS,EYECOLOR,NOBLOOD)
 	inherent_traits = list(TRAIT_TOXINLOVER)
 	mutantlungs = /obj/item/organ/lungs/slime
