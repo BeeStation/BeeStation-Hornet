@@ -79,7 +79,7 @@
 /datum/mood_event/table/add_effects()
 	var/datum/component/L = owner //owner is lying about its type, its component/mood while pretending to be mob. You must cast it to use it properly
 	var/mob/living/T = L.parent
-	if(ishuman(T))
+	if(ishuman(T) && HAS_TRAIT(T, TRAIT_FELINID))
 		var/mob/living/carbon/human/H = T
 		H.dna.species.start_wagging_tail(H)
 		addtimer(CALLBACK(H.dna.species, /datum/species.proc/stop_wagging_tail, H), 30)
