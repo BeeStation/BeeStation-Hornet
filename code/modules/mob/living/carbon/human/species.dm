@@ -1372,7 +1372,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
 				log_combat(user, target, "kicked")
 			if(ATTACK_EFFECT_BITE)
-				damage += 5 // Does more damage, but has effects
+				damage += 3 // Does more damage, but has effects
 				damage = target.dna.species.bite_effect(user, damage, target)
 				target.apply_damage(damage, attack_type, affecting, armor_block)
 				for(var/datum/disease/D in user.diseases) // spread any transmittable diseases
