@@ -1,0 +1,5 @@
+author: actioninja, Kylerace
+delete-after: true
+changes:
+  - bugfix: Glowing overlays no longer render above everything, and mobs and items
+      properly block them
