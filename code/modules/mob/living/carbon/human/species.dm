@@ -1322,6 +1322,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!(target.mobility_flags & MOBILITY_STAND))
 			atk_verb = ATTACK_EFFECT_KICK
 
+		// If aggressive grab, targeting arm, has a mouth, and mouth not covered, bite
+		if(user.pulledby?.grab_state == GRAB_AGGRESSIVE && !(user.is_muzzled() || user.is_mouth_covered(FALSE, TRUE)) && (user.zone_selected == BODY_ZONE_L_ARM || user.zone_selected == BODY_ZONE_R_ARM) && !(NOMOUTH in user.dna.species.species_traits))
+			atk_verb = ATTACK_EFFECT_BITE
+
 		switch(atk_verb)//this code is really stupid but some genius apparently made "claw" and "slash" two attack types but also the same one so it's needed i guess
 			if(ATTACK_EFFECT_KICK)
 				user.do_attack_animation(target, ATTACK_EFFECT_KICK)
@@ -1329,6 +1333,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				user.do_attack_animation(target, ATTACK_EFFECT_CLAW)
 			if(ATTACK_EFFECT_SMASH)
 				user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
+			if(ATTACK_EFFECT_BITE)
+				user.do_attack_animation(target, ATTACK_EFFECT_BITE)
 			else
 				user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
@@ -1347,8 +1353,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
-		target.visible_message("<span class='danger'>[user] [atk_verb]ed [target]!</span>", \
-					"<span class='userdanger'>[user] [atk_verb]ed you!</span>", null, COMBAT_MESSAGE_RANGE)
+		if(atk_verb == ATTACK_EFFECT_BITE)
+			target.visible_message("<span class='danger'>[user] [atk_verb]s [target]!</span>", \
+					"<span class='userdanger'>[user] [atk_verb]s you!</span>", null, COMBAT_MESSAGE_RANGE)
+		else
+			target.visible_message("<span class='danger'>[user] [atk_verb]ed [target]!</span>", \
+						"<span class='userdanger'>[user] [atk_verb]ed you!</span>", null, COMBAT_MESSAGE_RANGE)
 
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
@@ -1357,13 +1367,23 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(user.limb_destroyer)
 			target.dismembering_strike(user, affecting.body_zone)
 
-		if(atk_verb == ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
-			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
-			log_combat(user, target, "kicked")
-		else//other attacks deal full raw damage + 1.5x in stamina damage
-			target.apply_damage(damage, attack_type, affecting, armor_block)
-			target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
-			log_combat(user, target, "punched")
+		switch(atk_verb)
+			if(ATTACK_EFFECT_KICK)//kicks deal 1.5x raw damage
+				target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
+				log_combat(user, target, "kicked")
+			if(ATTACK_EFFECT_BITE)
+				damage += 5 // Does more damage, but has effects
+				damage = target.dna.species.bite_effect(user, damage, target)
+				target.apply_damage(damage, attack_type, affecting, armor_block)
+				for(var/datum/disease/D in user.diseases) // spread any transmittable diseases
+					if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
+						continue
+					user.ForceContractDisease(D)
+				log_combat(user, target, "bit")
+			else//other attacks deal full raw damage + 1.5x in stamina damage
+				target.apply_damage(damage, attack_type, affecting, armor_block)
+				target.apply_damage(damage*1.5, STAMINA, affecting, armor_block)
+				log_combat(user, target, "punched")
 
 /datum/species/proc/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
@@ -1988,3 +2008,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(isturf(H.loc))
 			var/turf/T = H.loc
 			T.Entered(H)
+
+/datum/species/proc/bite_effect(mob/living/carbon/human/H, var/damage, mob/living/carbon/human/target) // Called when someone bites a target, person biting is passed in, damage modifier is returned
+	return damage

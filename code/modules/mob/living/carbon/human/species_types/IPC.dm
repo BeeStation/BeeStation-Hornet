@@ -177,3 +177,8 @@
 	H.dna.features["ipc_screen"] = saved_screen
 	H.update_body()
 	return
+
+/datum/species/ipc/bite_effect(mob/living/carbon/human/H, damage)
+	H.visible_message("<span class='danger'>[H]'s teeth shatter!</span>", "<span class='userdanger'>Your teeth shatter!</span>")
+	H.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
+	return 0 // No damage done to the metal

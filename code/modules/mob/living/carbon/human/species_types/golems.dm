@@ -44,6 +44,11 @@
 	var/golem_name = "[prefix] [golem_surname]"
 	return golem_name
 
+/datum/species/golem/bite_effect(mob/living/carbon/human/H, damage)
+	H.visible_message("<span class='danger'>[H]'s teeth shatter!</span>", "<span class='userdanger'>Your teeth shatter!</span>")
+	H.apply_damage(5, BRUTE, BODY_ZONE_HEAD)
+	return 0 // No damage done to the golem
+
 /datum/species/golem/random
 	name = "Random golem"
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN

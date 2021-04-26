@@ -147,3 +147,9 @@
 
 /datum/species/ethereal/proc/set_charge(var/change)
 	ethereal_charge = CLAMP(change, ETHEREAL_CHARGE_NONE, ETHEREAL_CHARGE_FULL)
+
+/datum/species/ethereal/bite_effect(mob/living/carbon/human/H, damage, mob/living/carbon/human/target)
+	. = ..()
+	target.stop_pulling()
+	H.electrocute_act(15, src, 1, FALSE, FALSE, FALSE, FALSE, TRUE)
+

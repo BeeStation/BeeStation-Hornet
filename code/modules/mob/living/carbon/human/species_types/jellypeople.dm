@@ -104,6 +104,11 @@
 		return
 	to_chat(H, "<span class='warning'>...but there is not enough of you to go around! You must attain more mass to heal!</span>")
 
+/datum/species/jelly/bite_effect(mob/living/carbon/human/H, damage)
+	H.apply_damage(5, TOX) // Slime does not taste good
+	to_chat(H, "<span class='danger'>You get some slime in your mouth! That's probably bad...</span>")
+	return (damage - 1) // slime is squishy
+
 ////////////////////////////////////////////////////////SLIMEPEOPLE///////////////////////////////////////////////////////////////////
 
 //Slime people are able to split like slimes, retaining a single mind that can swap between bodies at will, even after death.

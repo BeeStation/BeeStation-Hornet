@@ -78,3 +78,7 @@
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,DIGITIGRADE)
 	inherent_traits = list(TRAIT_NOGUNS,TRAIT_NOBREATH)
 	species_language_holder = /datum/language_holder/lizard/ash
+
+/datum/species/lizard/bite_effect(mob/living/carbon/human/H, damage)
+	to_chat(src, "<span class='danger'>Your scales soften the bite!</span>")
+	return (damage - 3)

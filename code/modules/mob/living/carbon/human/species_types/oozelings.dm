@@ -159,3 +159,9 @@
 		H.blood_volume -= 25
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
+
+/datum/species/oozeling/bite_effect(mob/living/carbon/human/H, damage)
+	H.apply_damage(5, TOX) // Slime does not taste good
+	to_chat(H, "<span class='danger'>You get some slime in your mouth! That's probably bad...</span>")
+	return (damage - 1) // slime is squishy
+
