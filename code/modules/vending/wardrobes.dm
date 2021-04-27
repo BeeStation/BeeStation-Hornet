@@ -389,6 +389,8 @@
 					/obj/item/clothing/neck/cloak/chap/bishop = 1)
 	premium = list(/obj/item/clothing/suit/chaplainsuit/bishoprobe = 1,
 					/obj/item/clothing/neck/crucifix/rosary = 1,
+					/obj/item/clothing/head/hasturhood = 1,
+					/obj/item/clothing/suit/hastur = 1,
 					/obj/item/clothing/head/bishopmitre = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/chap_wardrobe
 	payment_department = ACCOUNT_CIV
