@@ -286,6 +286,14 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHAIR|HIDEEARS
 
+/obj/item/clothing/head/hooded/hasturhood
+	name = "hastur's hood"
+	desc = "It's <i>unspeakably</i> stylish."
+	icon_state = "hasturhood"
+	body_parts_covered = HEAD
+	flags_inv = HIDEHAIR
+	flags_cover = HEADCOVERSEYES
+
 /obj/item/clothing/head/hooded/carp_hood/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if (slot == ITEM_SLOT_HEAD)

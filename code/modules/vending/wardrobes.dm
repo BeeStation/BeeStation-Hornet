@@ -384,7 +384,7 @@
 					/obj/item/storage/fancy/candle_box = 2,
 					/obj/item/clothing/head/kippah = 3,
 					/obj/item/clothing/suit/hastur = 1,
-					/obj/item/clothing/head/hasturhood = 1,
+					/obj/item/clothing/head/hooded/hasturhood = 1,
 					/obj/item/clothing/suit/chaplainsuit/whiterobe = 1,
 					/obj/item/clothing/head/taqiyahwhite = 1,
 					/obj/item/clothing/head/taqiyahred = 3,
