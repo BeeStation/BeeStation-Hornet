@@ -255,7 +255,7 @@ export const ModFabCategoryItems = (props, context) => {
         {items.map(item => (
           <Table.Row
             height="100%"
-            key={item}>
+            key={item.design_id}>
             <Table.Cell>
               {item.name}
             </Table.Cell>
