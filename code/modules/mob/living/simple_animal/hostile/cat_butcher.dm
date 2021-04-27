@@ -80,7 +80,7 @@
 				var/obj/item/organ/tail/cat/newtail = new
 				newtail.Insert(L, drop_if_replaced = FALSE)
 				return
-		else if(!L.getorgan(/obj/item/organ/tongue/cat) && L.stat))
+		else if(!L.getorgan(/obj/item/organ/tongue/cat) && L.stat)
 			if(L.getorgan(/obj/item/organ/tongue))
 				var/obj/item/organ/tongue/tongue = L.getorgan(/obj/item/organ/tongue)
 				visible_message("[src] slices off [L]'s tongue!", "<span class='notice'>You slice [L]'s tongue off.</span>")
