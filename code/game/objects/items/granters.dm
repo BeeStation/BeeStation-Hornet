@@ -459,7 +459,7 @@
 
 /obj/item/book/granter/martial/pacifist/onlearned(mob/living/carbon/user)
 	..()
-	if(oneuse == TRUE)
+	if(oneuse)
 		desc = "It's completely blank."
 		name = "empty scroll"
 		icon_state = "blankscroll"
