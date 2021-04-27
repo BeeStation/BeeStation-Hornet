@@ -65,6 +65,15 @@
 	body_parts_covered = CHEST|GROIN
 	hoodtype = /obj/item/clothing/head/hooded/flashsuit
 
+/obj/item/clothing/suit/hooded/hastur
+	name = "\improper Hastur's robe"
+	desc = "Robes not meant to be worn by man."
+	icon_state = "hastur"
+	item_state = "hastur"
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	hoodtype = /obj/item/clothing/head/hooded/hasturhood
+
 /obj/item/clothing/head/hooded/flashsuit
 	name = "flash button"
 	desc = "You will learn to fear the flash."
