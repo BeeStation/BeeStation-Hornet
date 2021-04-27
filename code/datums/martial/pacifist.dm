@@ -58,7 +58,6 @@
 	return FALSE
 
 /datum/martial_art/pacifist/proc/Disarm(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	var/obj/item/I = null
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
