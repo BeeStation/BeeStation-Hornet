@@ -356,7 +356,7 @@
 			lighting_overlays = list()
 		var/mutable_appearance/LO = lighting_overlays["[base_state]-[light_power]-[light_color]"]
 		if(!LO)
-			LO = mutable_appearance(overlayicon, base_state, ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
+			LO = mutable_appearance(overlayicon, base_state, layer, EMISSIVE_PLANE)
 			LO.color = light_color
 			LO.alpha = clamp(light_power*255, 30, 200)
 			lighting_overlays["[base_state]-[light_power]-[light_color]"] = LO

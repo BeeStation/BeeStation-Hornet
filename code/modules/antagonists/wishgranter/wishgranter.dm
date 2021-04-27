@@ -2,13 +2,13 @@
 	name = "Wishgranter Avatar"
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
-	can_hijack = HIJACK_HIJACKER
+	can_elimination_hijack = ELIMINATION_ENABLED
 
 /datum/antagonist/wishgranter/proc/forge_objectives()
-	var/datum/objective/hijack/hijack = new
-	hijack.owner = owner
-	objectives += hijack
-	log_objective(owner, hijack.explanation_text)
+	var/datum/objective/elimination/highlander/elimination_objective = new
+	elimination_objective.owner = owner
+	objectives += elimination_objective
+	log_objective(owner, elimination_objective.explanation_text)
 
 /datum/antagonist/wishgranter/on_gain()
 	owner.special_role = "Avatar of the Wish Granter"

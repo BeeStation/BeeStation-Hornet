@@ -17,6 +17,7 @@
 	toolspeed = 0.9
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC
+	mech_flags = EXOSUIT_MODULE_RIPLEY | EXOSUIT_MODULE_COMBAT
 
 /obj/item/mecha_parts/mecha_equipment/drill/Initialize()
 	. = ..()
@@ -150,15 +151,19 @@
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	name = "exosuit mining scanner"
-	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
+	desc = "Equipment for working exosuits. It will automatically check surrounding rock for useful minerals."
 	icon_state = "mecha_analyzer"
 	selectable = 0
 	equip_cooldown = 15
 	var/scanning_time = 0
+	mech_flags = EXOSUIT_MODULE_RIPLEY
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/Initialize()
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/can_attach(obj/mecha/M as obj)
+	return (..() && istype(M, /obj/mecha/working))
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/process()
 	if(!loc)
