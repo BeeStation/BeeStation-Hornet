@@ -164,31 +164,29 @@
 			var/datum/uplink_item/I = uplink_items[category][item]
 			if(I.limited_stock == 0)
 				continue
-			if(I.restricted_roles.len && I.discounted == FALSE)
+			if(I.restricted_roles.len && !I.discounted)
 				var/is_inaccessible = TRUE
 				for(var/R in I.restricted_roles)
 					if(R == user.mind.assigned_role || debug)
 						is_inaccessible = FALSE
 				if(is_inaccessible)
 					continue
-			if(I.restricted_species && I.discounted == FALSE)
-				if(ishuman(user))
-					var/is_inaccessible = TRUE
-					var/mob/living/carbon/human/H = user
-					for(var/F in I.restricted_species)
-						if(F == H.dna.species.id || debug)
-							is_inaccessible = FALSE
-							break
-					if(is_inaccessible)
-						continue
-			if(I.restricted_traits && !I.discounted)
-				if(ishuman(user))
-					var/is_inaccessible = TRUE
-					var/mob/living/carbon/human/H = user
-					for(var/T in I.restricted_traits)
-						if(HAS_TRAIT(H, T) || debug)
-							is_inaccessible = FALSE
-							break
+			if(I.restricted_species && !I.discounted && ishuman(user))
+				var/is_inaccessible = TRUE
+				var/mob/living/carbon/human/H = user
+				for(var/F in I.restricted_species)
+					if(F == H.dna.species.id || debug)
+						is_inaccessible = FALSE
+						break
+				if(is_inaccessible)
+					continue
+			if(I.restricted_traits && !I.discounted && ishuman(user))
+				var/is_inaccessible = TRUE
+				var/mob/living/carbon/human/H = user
+				for(var/T in I.restricted_traits)
+					if(HAS_TRAIT(H, T) || debug)
+						is_inaccessible = FALSE
+						break
 					if(is_inaccessible)
 						continue
 			cat["items"] += list(list(

@@ -35,7 +35,7 @@
 	if(prob(25))
 		D.visible_message("<span class='warning'>[A] feints [D]!</span>", \
 						"<span class='userdanger'>[A] feints you!</span>")
-		D.dropItemToGround(D.get_active_held_item())
+		D.drop_all_held_items()
 		D.Stun(30)
 	return ..()
 
@@ -61,7 +61,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
-			var/obj/item/I = D.get_active_held_item()
+		var/obj/item/I = D.get_active_held_item()
 		if(I && D.temporarilyRemoveItemFromInventory(I))
 			playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, 1, -1)
 			D.Stun(10)

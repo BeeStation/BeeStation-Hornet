@@ -448,7 +448,7 @@
 	directed toward you. You are also able to nerve pinch an opponent to sleep. You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
-	remarks = list("I must prove myself worthy to the masters of the paci-fist...", "Stance means everything...", "Focus... And you'll be able to incapacitate any foe in seconds...", "I must avoid conflict for maximum efficiency...", "I don't think this would combine with other martial arts...", "Grab them first and pacify them...", "I must prove myself worthy of this power...")
+	remarks = list("I must prove myself worthy to the masters of the paci-fist...", "Stance means everything...", "Focus... And you'll be able to pacify any foe in seconds...", "I must avoid conflict for maximum efficiency...", "I don't think this would combine with other martial arts...", "Grab them first and pacify them...", "I must prove myself worthy of this power...")
 
 /obj/item/book/granter/martial/pacifist/already_known(mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
