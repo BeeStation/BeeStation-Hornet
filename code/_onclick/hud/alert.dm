@@ -278,12 +278,6 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(L.mobility_flags & MOBILITY_MOVE)
 		return L.resist_fire() //I just want to start a flame in your hearrrrrrtttttt.
 
-/atom/movable/screen/alert/give // information set when the give alert is made
-	icon_state = "default"
-	var/mob/living/carbon/giver
-	var/mob/living/carbon/taker
-	var/obj/item/receiving
-
 /**
  * Handles assigning most of the variables for the alert that pops up when an item is offered
  *
@@ -294,6 +288,12 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
  * * giver - The person giving the alert and item
  * * receiving - The item being given by the giver
  */
+
+/atom/movable/screen/alert/give // information set when the give alert is made
+	icon_state = "default"
+	var/mob/living/carbon/giver
+	var/mob/living/carbon/taker
+	var/obj/item/receiving
 
 /atom/movable/screen/alert/give/proc/setup(mob/living/carbon/taker, mob/living/carbon/giver, obj/item/receiving)
 	name = "[giver] is offering [receiving]"
