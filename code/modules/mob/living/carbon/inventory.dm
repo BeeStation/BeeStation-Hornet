@@ -166,11 +166,11 @@
 
 		G.setup(C, src, receiving)
 
-		if(!alert)
+		if(!alert) // only displays alert once
 			do_alert_animation(src)
 			visible_message("<span class='notice'>[src] is offering [receiving].</span>", \
 							"<span class='notice'>You offer [receiving].</span>", null, 2)
-		alert=1
+		alert=1 // disable alert animation and chat message for possible second alert
 
 /**
  * Proc called when the player clicks the give alert
