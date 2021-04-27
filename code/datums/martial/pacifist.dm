@@ -4,6 +4,7 @@
 /datum/martial_art/pacifist
 	name = "The Paci-Fist"
 	id = MARTIALART_PACIFIST
+	help_verb = /mob/living/carbon/human/proc/pacifist_help
 	block_chance = 75
 
 /datum/martial_art/pacifist/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -92,3 +93,15 @@
 					A.setGrabState(GRAB_NECK)
 				break
 	return TRUE
+
+/mob/living/carbon/human/proc/pacifist_help()
+	set name = "Remember The Basics"
+	set desc = "You try to remember some of the basics of Paci-Fist."
+	set category = "Paci-Fist"
+	to_chat(usr, "<b><i>You try to remember some of the basics of Paci-Fist.</i></b>")
+
+	to_chat(usr, "<span class='notice'>Disarms</span>: Your disarms have a higher chance to disarm.")
+	to_chat(usr, "<span class='notice'>Grabs</span>: Your grabs instantly grab your opponents firmly.")
+	to_chat(usr, "<span class='notice'>Disarm Combo</span>: Grab Disarm. You will grab opponents item out of their hand.")
+	to_chat(usr, "<span class='notice'>Nerve Pinch Combo</span>: Grab Grab. You will reach for your opponents neck and after some time pacify them.")
+	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
