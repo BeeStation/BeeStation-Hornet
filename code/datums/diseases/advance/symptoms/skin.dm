@@ -258,8 +258,7 @@ BONUS
 					if(D == A)
 						continue
 					diseases += D
-			new /obj/item/reagent_containers/food/snacks/eggsac(get_turf(src), diseases, eggsplosion,\
-			sneaky, bigheal)
+			new /obj/item/reagent_containers/food/snacks/eggsac(get_turf(src), diseases, eggsplosion, sneaky, bigheal)
 
 /obj/item/reagent_containers/food/snacks/eggsac
 	name = "Fleshy Egg Sac"
@@ -273,6 +272,7 @@ BONUS
 
 //Constructor
 /obj/item/reagent_containers/food/snacks/eggsac/New(var/list/disease, var/eggsplodes, var/sneaky, var/largeheal)
+	..()
 	for(var/datum/disease/D in disease)
 		diseases += D
 	if(largeheal)
@@ -307,6 +307,7 @@ BONUS
 	var/list/diseases = list()
 
 /obj/item/reagent_containers/food/snacks/fleshegg/New(var/list/disease, var/sneaky, var/largeheal)
+	..()
 	for(var/datum/disease/D in disease)
 		diseases += D
 	if(largeheal)
