@@ -251,7 +251,7 @@ BONUS
 	var/list/diseases = list(A)
 	switch(A.stage)
 		if(5)
-			if(thresholds["alldisease"])
+			if(alldisease)
 				for(var/datum/disease/D in M.diseases)
 					if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
 						continue
