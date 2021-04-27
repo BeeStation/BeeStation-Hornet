@@ -61,7 +61,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
-		I = D.get_active_held_item()
+			var/obj/item/I = D.get_active_held_item()
 		if(I && D.temporarilyRemoveItemFromInventory(I))
 			playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, 1, -1)
 			D.Stun(10)
