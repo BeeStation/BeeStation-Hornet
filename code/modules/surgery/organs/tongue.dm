@@ -270,3 +270,19 @@
 /obj/item/organ/tongue/ethereal/Initialize(mapload)
 	. = ..()
 	languages_possible = languages_possible_base += typecacheof(/datum/language/voltaic)
+
+/obj/item/organ/tongue/cat
+	name = "cat tongue"
+	desc = "A cat's tongue covered in tiny barbs."
+	say_mod = "meows"
+	taste_sensitivity = 12
+	modifies_speech = TRUE
+
+/obj/item/organ/tongue/cat/handle_speech(datum/source, list/speech_args)
+	var/static/regex/cat_w = new("l|r", "g")
+	var/static/regex/cat_ww = new("ll", "g")
+	var/message = speech_args[SPEECH_MESSAGE]
+	if(message[1] != "*" && prob(1)) // 1% chance to speak stupid
+		message = cat_w.Replace(message, "w")
+		message = cat_ww.Replace(message, "ww")
+	speech_args[SPEECH_MESSAGE] = message

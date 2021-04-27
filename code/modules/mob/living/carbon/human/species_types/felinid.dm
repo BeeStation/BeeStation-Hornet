@@ -3,7 +3,6 @@
 	name = "Felinid"
 	id = "felinid"
 	limbs_id = "human"
-	say_mod = "meows"
 
 	disliked_food = VEGETABLES | SUGAR
 	liked_food = DAIRY | MEAT
@@ -14,6 +13,8 @@
 
 	mutantears = /obj/item/organ/ears/cat
 	mutanttail = /obj/item/organ/tail/cat
+	mutanttongue = /obj/item/organ/tongue/cat
+
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 
 	swimming_component = /datum/component/swimming/felinid
