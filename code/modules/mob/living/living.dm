@@ -306,17 +306,13 @@
 							grab_sanity_check = TRUE
 					if(!grab_sanity_check)
 						grab_output(src, L, "head")
-						grab_sanity_check = TRUE
 				if(BODY_ZONE_L_ARM)
 					grab_output(src, L, "arm")
-					grab_sanity_check = TRUE
 				if(BODY_ZONE_R_ARM)
 					grab_output(src, L, "arm")
-					grab_sanity_check = TRUE
 				if(BODY_ZONE_PRECISE_GROIN)
 					if(L.getorgan(/obj/item/organ/tail))
 						grab_output(src, L, "tail")
-						grab_sanity_check = TRUE
 				else
 					grab_output(src, L)
 
@@ -355,6 +351,7 @@
 		grabbee.visible_message("<span class ='warning'>[grabber] grabs [grabbee] passively!</span>",\
 					"<span class='warning'>[grabber] grabs you passively!</span>", null, null, src) //Message sent to area, Message sent to grabbee
 		to_chat(src, "<span class='notice'>You grab [grabbee] passively!</span>")
+
 /mob/living/proc/set_pull_offsets(mob/living/M, grab_state = GRAB_PASSIVE)
 	if(M.buckled)
 		return //don't make them change direction or offset them if they're buckled into something.
