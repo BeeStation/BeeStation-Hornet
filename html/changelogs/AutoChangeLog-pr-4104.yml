@@ -1,0 +1,7 @@
+author: yorii
+delete-after: true
+changes:
+  - code_imp: Old non-functioning Give verb replaced with new giving system from tgstation
+  - code_imp: Give is now also a customizable keybind, defaulting to G.
+  - code_imp: Old give methods such as Ctrl-Shift-Clicking, Right Click->Give, or
+      using the verb Give, all do the same thing now.
