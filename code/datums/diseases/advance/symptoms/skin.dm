@@ -303,7 +303,7 @@ BONUS
 	name = "Fleshy Egg"
 	desc = "An Egg which appears to be made out of someone's flesh!"
 	customfoodfilling = FALSE //Not Used For Filling
-	icon "icons/obj/food/food.dmi"
+	icon = "icons/obj/food/food.dmi"
 	icon_state = "fleshegg"
 	bitesize = 1
 	var/list/diseases = list()
