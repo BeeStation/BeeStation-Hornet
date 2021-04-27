@@ -1,0 +1,4 @@
+author: Cenrus
+delete-after: true
+changes:
+  - bugfix: Borg upgrades can be installed again
