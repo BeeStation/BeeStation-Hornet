@@ -52,7 +52,7 @@
 			if(C.stat && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !istype(C.dna.species, /datum/species/ipc)))//unless they need healing
 				return ..()
 			else
-				return FALSE 
+				return FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/cat_butcherer/AttackingTarget()
@@ -80,7 +80,18 @@
 				var/obj/item/organ/tail/cat/newtail = new
 				newtail.Insert(L, drop_if_replaced = FALSE)
 				return
-		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat)) //still does damage. This also lacks a Stat check- felinids beware.
+		else if(!L.getorgan(/obj/item/organ/tongue/cat) && L.stat))
+			if(L.getorgan(/obj/item/organ/tongue))
+				var/obj/item/organ/tongue/tongue = L.getorgan(/obj/item/organ/tongue)
+				visible_message("[src] slices off [L]'s tongue!", "<span class='notice'>You slice [L]'s tongue off.</span>")
+				tongue.Remove(L)
+				tongue.forceMove(get_turf(L))
+			else
+				visible_message("[src] implants a cat tongue into [L]!", "<span class='notice'>You implant a cat tongue into [L].</span>")
+				var/obj/item/organ/ears/cat/newtongue = new
+				newtongue.Insert(L, drop_if_replaced = FALSE)
+				return
+		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat) && L.getorgan(/obj/item/organ/tongue/cat)) //still does damage. This also lacks a Stat check- felinids beware.
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
 			if(!L.stat)
 				L.emote("scream")
@@ -89,7 +100,7 @@
 			if(L.mind && maxHealth <= 300) //if he robusts a tider, he becomes stronger
 				maxHealth += 20
 			adjustHealth(-(maxHealth)) //he heals whenever he finishes
-		else if(L.stat) //quickly heal them up and move on to our next target! 
+		else if(L.stat) //quickly heal them up and move on to our next target!
 			visible_message("[src] injects [L] with an unknown medicine!", "<span class='notice'>You inject [L] with medicine.</span>")
 			L.SetSleeping(0, FALSE)
 			L.SetUnconscious(0, FALSE)
