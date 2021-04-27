@@ -181,7 +181,7 @@
 							break
 					if(is_inaccessible)
 						continue
-			if(I.restricted_traits && I.discounted == FALSE)
+			if(I.restricted_traits && !I.discounted)
 				if(ishuman(user))
 					var/is_inaccessible = TRUE
 					var/mob/living/carbon/human/H = user
