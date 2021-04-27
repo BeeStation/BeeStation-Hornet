@@ -120,8 +120,11 @@
 	if(!.)
 		return FALSE
 	if(isliving(the_target))
-		var/mob/living/H = the_target
-		return !H.bee_friendly()
+		var/mob/living/H = the_target	
+		if(isapid(the_target))
+			return H.bee_friendly()
+		else
+			return !H.bee_friendly()
 
 
 /mob/living/simple_animal/hostile/poison/bees/Found(atom/A)
