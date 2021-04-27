@@ -18,6 +18,8 @@
 /mob/living/carbon/human/bee_friendly()
 	if(dna?.species?.id == "pod") //bees pollinate plants, duh.
 		return 1
+	if(dna?.species?.id == "apid") //bees don't attack bees, why would they?
+		return 1
 	if (wear_suit && head && isclothing(wear_suit) && isclothing(head))
 		var/obj/item/clothing/CS = wear_suit
 		var/obj/item/clothing/CH = head
@@ -26,7 +28,6 @@
 	if(HAS_TRAIT(src, TRAIT_BEEFRIEND))
 		return 1
 	return 0
-
 
 /obj/structure/beebox
 	name = "apiary"
