@@ -302,6 +302,7 @@
 								"<span class='warning'> [src] grabs you by the collar!</span>", null, null, src) //Message sent to area, Message sent to grabbee
 					to_chat(src, "<span class='notice'>You grab [L] by [L.p_their()] collar!</span>")
 					grab_sanity_check = TRUE
+					L.apply_damage(5, OXY)
 
 			if (L.getorgan(/obj/item/organ/tail) && zone_selected == BODY_ZONE_PRECISE_GROIN && !grab_sanity_check) //Does the target have a tail?
 				M.visible_message("<span class ='warning'>[src] grabs [L] by [L.p_their()] tail!</span>",\
