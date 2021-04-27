@@ -50,8 +50,8 @@
 	name = "hastur's hood"
 	desc = "It's <i>unspeakably</i> stylish."
 	icon_state = "hasturhood"
-	flags_inv = HIDEHAIR
-	flags_cover = HEADCOVERSEYES
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 
 /obj/item/clothing/head/nursehat
 	name = "nurse's hat"
