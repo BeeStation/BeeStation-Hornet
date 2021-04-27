@@ -90,4 +90,5 @@
 				D.SetSleeping(400)
 				if(A.grab_state < GRAB_NECK)
 					A.setGrabState(GRAB_NECK)
+				break
 	return TRUE
