@@ -280,7 +280,6 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"
-	timeout = 30
 	var/mob/living/carbon/giver
 	var/mob/living/carbon/taker
 	var/obj/item/receiving
@@ -308,10 +307,14 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	RegisterSignal(giver, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
 	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
 
-/atom/movable/screen/alert/give/proc/check_in_range(atom/rangecheck)
+/atom/movable/screen/alert/give/proc/check_in_range()
 	SIGNAL_HANDLER_DOES_SLEEP // doesn't actually sleep since the only thing below which can sleep is CheckToolReach() which returns FALSE before coming that far.
-	if (!taker.CanReach(rangecheck) || !giver.CanReach(rangecheck)) // don't laugh when it actually works
+	if (!giver.CanReach(taker))
 		to_chat(giver, "<span class='warning'>You moved out of range of [taker]!</span>")
+		to_chat(taker, "<span class='warning'>[giver] moved out of range of you!</span>")
+		owner.clear_alert("[giver]")
+	else if (!taker.CanReach(giver))
+		to_chat(giver, "<span class='warning'>[taker]moved out of range of you!</span>")
 		to_chat(taker, "<span class='warning'>You moved out of range of [giver]!</span>")
 		owner.clear_alert("[giver]")
 
@@ -319,8 +322,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	. = ..()
 	if(!iscarbon(usr))
 		CRASH("User for [src] is of type \[[usr.type]\]. This should never happen.")
-	var/mob/living/carbon/C = owner
-	C.take(giver, receiving)
+	taker.take(giver, receiving)
 
 //ALIENS
 
