@@ -281,6 +281,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"
 	var/mob/living/carbon/giver
+	var/mob/living/carbon/taker
 	var/obj/item/receiving
 
 /**
@@ -302,14 +303,15 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	add_overlay(receiving)
 	src.receiving = receiving
 	src.giver = giver
-	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+	src.taker = taker
 	RegisterSignal(giver, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
 
 /atom/movable/screen/alert/give/proc/check_in_range(atom/rangecheck)
 	SIGNAL_HANDLER_DOES_SLEEP
-	if (!src.CanReach(rangecheck))
-		to_chat(src, "<span class='warning'>1 You moved out of range of [rangecheck]!</span>")
-		to_chat(rangecheck, "<span class='warning'>2 You moved out of range of [src]!</span>")
+	if (!src.taker.CanReach(rangecheck) || !src.giver.CanReach(rangecheck))
+		to_chat(giver, "<span class='warning'>You moved out of range of [taker]!</span>")
+		to_chat(taker, "<span class='warning'>You moved out of range of [giver]!</span>")
 		owner.clear_alert("[giver]")
 
 /atom/movable/screen/alert/give/Click(location, control, params)
