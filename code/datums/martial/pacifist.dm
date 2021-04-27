@@ -19,9 +19,9 @@
 		D.grabbedby(A, 1)
 		if(A.grab_state == GRAB_PASSIVE)
 			A.setGrabState(GRAB_AGGRESSIVE) //Instant "firm" grab if on grab intent
-			log_combat(A, D, "grabbed", addition="firmly")
-			D.visible_message("<span class='warning'>[A] firmly grabs [D]!</span>", \
-							"<span class='userdanger'>[A] firmly grabs you!</span>")
+			log_combat(A, D, "grabbed", addition="aggressive grab (paci-fist)")
+			D.visible_message("<span class='danger'>[A] firmly grips [D]!</span>",
+							"<span class='danger'>[A] firmly grips you!</span>")
 	else
 		D.grabbedby(A, 1)
 	return TRUE
@@ -36,7 +36,7 @@
 		D.visible_message("<span class='warning'>[A] feints [D]!</span>", \
 						"<span class='userdanger'>[A] feints you!</span>")
 		D.dropItemToGround(D.get_active_held_item())
-		D.Stun(60)
+		D.Stun(30)
 	return ..()
 
 /datum/martial_art/pacifist/can_use(mob/living/carbon/human/H)
@@ -64,12 +64,13 @@
 	if(!D.stat)
 		I = D.get_active_held_item()
 		if(I && D.temporarilyRemoveItemFromInventory(I))
-			A.put_in_hands(I)
+			playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, 1, -1)
+			D.Stun(10)
+			D.Jitter(2)
 			log_combat(A, D, "took [I] from (Disarm)(Paci-Fist)")
 			D.visible_message("<span class='warning'>[A] swiftly grabs [D]'s [I] out of their their hand!</span>", \
 							"<span class='userdanger'>[A] swiftly grabs your [I] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
-			playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, 1, -1)
-			D.Jitter(2)
+			A.put_in_hands(I)
 			return TRUE
 	return TRUE
 

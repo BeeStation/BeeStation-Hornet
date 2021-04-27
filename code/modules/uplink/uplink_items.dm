@@ -2261,7 +2261,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/role_restricted/pacifist
 	name = "Paci-Fist Martial Arts Scroll"
 	desc = "This scroll contains the secrets of the ancient martial arts technique of The Paci-Fist. You will learn \
-			various ways to incapacitate and pacify your foes."
+			various ways to disarm and pacify your foes."
 	item = /obj/item/book/granter/martial/pacifist
 	cost = 6
 	surplus = 10
