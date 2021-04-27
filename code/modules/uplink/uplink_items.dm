@@ -120,6 +120,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/include_modes = list() // Game modes to allow this item in.
 	var/list/exclude_modes = list() // Game modes to disallow this item from.
 	var/list/restricted_roles = list() //If this uplink item is only available to certain roles. Roles are dependent on the frequency chip or stored ID.
+	var/list/restricted_traits = list() //If this uplink item is only available to certain traits.
 	var/player_minimum //The minimum crew size needed for this item to be added to uplinks.
 	var/purchase_log_vis = TRUE // Visible in the purchase log?
 	var/restricted = FALSE // Adds restrictions for VR/Events
@@ -751,14 +752,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	player_minimum = 20
 	surplus = 10
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
-
-/datum/uplink_item/stealthy_weapons/pacifist
-	name = "Paci-Fist Martial Arts Scroll"
-	desc = "This scroll contains the secrets of the ancient martial arts technique of The Paci-Fist. You will learn \
-			various ways to incapacitate and pacify your foes."
-	item = /obj/item/book/granter/martial/pacifist
-	cost = 6
-	surplus = 10
 
 /datum/uplink_item/stealthy_weapons/radbow
 	name = "Gamma-Bow"
@@ -2264,6 +2257,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	item = /obj/item/autosurgeon/syndicate/laser_arm
 	restricted_roles = list("Roboticist", "Research Director")
+
+/datum/uplink_item/role_restricted/pacifist
+	name = "Paci-Fist Martial Arts Scroll"
+	desc = "This scroll contains the secrets of the ancient martial arts technique of The Paci-Fist. You will learn \
+			various ways to incapacitate and pacify your foes."
+	item = /obj/item/book/granter/martial/pacifist
+	cost = 6
+	surplus = 10
+	restricted_traits = list(TRAIT_PACIFISM)
 
 
 // Pointless

@@ -60,7 +60,7 @@
 	var/obj/item/I = null
 	if(!can_use(A))
 		return FALSE
-	if(!D.stat || !D.IsParalyzed())
+	if(!D.stat)
 		I = D.get_active_held_item()
 		if(I && D.temporarilyRemoveItemFromInventory(I))
 			A.put_in_hands(I)
@@ -69,21 +69,25 @@
 							"<span class='userdanger'>[A] swiftly grabs your [I] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
 			playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, 1, -1)
 			D.Jitter(2)
+			return TRUE
 	return TRUE
 
 /datum/martial_art/pacifist/proc/Vulcan(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
-	if(A.pulling == D)
+	if(A.pulling == D && !D.IsSleeping())
 		while(do_after(A, 20, target = D))
-			if(!A.CanReach(D) || A.pulling == D)
+			D.visible_message("<span class='danger'>[A] reaches for [D]'s neck!</span>", \
+							"<span class='userdanger'>[A] reaches for your neck!</span>")
+			if(!A.CanReach(D) || !A.pulling == D || D.IsSleeping())
+				A.visible_message("<span class='notice'>[A] fails to reach [D]'s neck...</span>", \
+							"<span class='notice'>[A] fails to reach your neck...</span>")
 				break
 			else
 				log_combat(A, D, "knocked out (Vulcan Nerve Pinch)(Paci-Fist)")
 				D.visible_message("<span class='danger'>[A] pinches a nerve in [D]'s neck!</span>", \
 								"<span class='userdanger'>[A] pinches a nerve in your neck!</span>")
 				D.SetSleeping(400)
-				restraining = FALSE
 				if(A.grab_state < GRAB_NECK)
 					A.setGrabState(GRAB_NECK)
 	return TRUE
