@@ -376,6 +376,8 @@
 					/obj/item/clothing/head/nun_hood = 1,
 					/obj/item/clothing/suit/chaplainsuit/holidaypriest = 1,
 					/obj/item/storage/fancy/candle_box = 2,
+					/obj/item/clothing/head/hasturhood = 1,
+					/obj/item/clothing/suit/hastur = 1,
 					/obj/item/clothing/head/kippah = 3,
 					/obj/item/clothing/suit/chaplainsuit/whiterobe = 1,
 					/obj/item/clothing/head/taqiyahwhite = 1,
@@ -389,8 +391,6 @@
 					/obj/item/clothing/neck/cloak/chap/bishop = 1)
 	premium = list(/obj/item/clothing/suit/chaplainsuit/bishoprobe = 1,
 					/obj/item/clothing/neck/crucifix/rosary = 1,
-					/obj/item/clothing/head/hasturhood = 1,
-					/obj/item/clothing/suit/hastur = 1,
 					/obj/item/clothing/head/bishopmitre = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/chap_wardrobe
 	payment_department = ACCOUNT_CIV
