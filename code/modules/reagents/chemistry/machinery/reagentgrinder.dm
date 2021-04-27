@@ -44,7 +44,13 @@
 
 /obj/machinery/reagentgrinder/contents_explosion(severity, target)
 	if(beaker)
-		beaker.ex_act(severity, target)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.high_mov_atom += beaker
+			if(EXPLODE_HEAVY)
+				SSexplosions.med_mov_atom += beaker
+			if(EXPLODE_LIGHT)
+				SSexplosions.low_mov_atom += beaker
 
 /obj/machinery/reagentgrinder/RefreshParts()
 	speed = 1
@@ -70,8 +76,8 @@
 			. += "<span class='notice'>- \A [O.name].</span>"
 
 	if(!(stat & (NOPOWER|BROKEN)))
-		. += {"<span class='notice'>The status display reads:</span>\n
-		<span class='notice'>- Grinding reagents at <b>[speed*100]%</b>.<span>"}
+		. += "<span class='notice'>The status display reads:</span>\n"+\
+		"<span class='notice'>- Grinding reagents at <b>[speed*100]%</b>.</span>"
 		if(beaker)
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				. += "<span class='notice'>- [R.volume] units of [R.name].</span>"

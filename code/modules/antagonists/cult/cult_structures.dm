@@ -258,6 +258,9 @@
 			new N(get_turf(src))
 			to_chat(user, "<span class='cultitalic'>You summon the [choice] from the archives!</span>")
 
+/obj/structure/destructible/cult/tome/library //library archive
+	debris = null
+
 /obj/effect/gateway
 	name = "gateway"
 	desc = "You're pretty sure that abyss is staring back."

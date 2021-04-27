@@ -202,14 +202,14 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /mob/camera/blob/update_health_hud()
 	if(blob_core)
-		hud_used.healths.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.obj_integrity)]</font></div>"
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.obj_integrity)]</font></div>")
 		for(var/mob/living/simple_animal/hostile/blob/blobbernaut/B in blob_mobs)
 			if(B.hud_used?.blobpwrdisplay)
-				B.hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_core.obj_integrity)]</font></div>"
+				B.hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_core.obj_integrity)]</font></div>")
 
 /mob/camera/blob/proc/add_points(points)
 	blob_points = CLAMP(blob_points + points, 0, max_blob_points)
-	hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_points)]</font></div>"
+	hud_used.blobpwrdisplay.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(blob_points)]</font></div>")
 
 /mob/camera/blob/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if (!message)
@@ -251,7 +251,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /mob/camera/blob/get_stat_tab_status()
 	var/list/tab_data = ..()
-	tab_data["Core Health"] = GENERATE_STAT_TEXT("[blob_core.obj_integrity]")
+	if(blob_core)
+		tab_data["Core Health"] = GENERATE_STAT_TEXT("[blob_core.obj_integrity]")
 	tab_data["Power Stored"] = GENERATE_STAT_TEXT("[blob_points]/[max_blob_points]")
 	tab_data["Blobs to Win"] = GENERATE_STAT_TEXT("[blobs_legit.len]/[blobwincount]")
 	if(free_strain_rerolls)

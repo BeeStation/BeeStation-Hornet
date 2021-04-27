@@ -149,7 +149,7 @@
 		M.adjustCloneLoss(-power, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC) //fixes common causes for disfiguration
 		. = 1
-	metabolization_rate = REAGENTS_METABOLISM * (0.00001 * (M.bodytemperature ** 2) + 0.5)
+	metabolization_rate = REAGENTS_METABOLISM * (0.00001 * (M.bodytemperature ** 2) + 0.5)//Metabolism rate is reduced in colder body temps making it more effective
 	..()
 
 /datum/reagent/medicine/clonexadone
@@ -164,7 +164,7 @@
 		M.adjustCloneLoss(0.00006 * (M.bodytemperature ** 2) - 6, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		. = 1
-	metabolization_rate = REAGENTS_METABOLISM * (0.000015 * (M.bodytemperature ** 2) + 0.75)
+	metabolization_rate = REAGENTS_METABOLISM * (0.000015 * (M.bodytemperature ** 2) + 0.75)//Metabolism rate is reduced in colder body temps making it more effective
 	..()
 
 /datum/reagent/medicine/pyroxadone
@@ -175,6 +175,7 @@
 
 /datum/reagent/medicine/pyroxadone/on_mob_life(mob/living/carbon/M)
 	if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+		metabolization_rate = 0.2 // It metabolises effectively when the body is taking heat damage
 		var/power = 0
 		switch(M.bodytemperature)
 			if(BODYTEMP_HEAT_DAMAGE_LIMIT to 400)
@@ -193,6 +194,8 @@
 		M.adjustCloneLoss(-power, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		. = 1
+	else //If not the right temperature for pyroxadone to work
+		metabolization_rate = REAGENTS_METABOLISM
 	..()
 
 /datum/reagent/medicine/rezadone
@@ -246,7 +249,7 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
-		else if(M.getFireLoss())
+		else if(M.getFireLoss() && method == PATCH)
 			M.adjustFireLoss(-reac_volume)
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
@@ -300,7 +303,7 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
-		else if(M.getBruteLoss())
+		else if(M.getBruteLoss() && method == PATCH)
 			M.adjustBruteLoss(-reac_volume)
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
@@ -417,8 +420,8 @@
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-			//Has to be at less than THRESHOLD_UNHUSK burn damage and have 100 synthflesh before unhusking. Corpses dont metabolize.
-			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100))
+			//Has to be at less than THRESHOLD_UNHUSK burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
+			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && (M.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
 				M.cure_husk("burn")
 				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
 	..()

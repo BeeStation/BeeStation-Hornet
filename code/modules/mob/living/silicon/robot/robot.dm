@@ -10,6 +10,8 @@
 	has_limbs = 1
 	hud_type = /datum/hud/robot
 
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+
 	var/custom_name = ""
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
@@ -171,8 +173,8 @@
 		if(mmi.brainmob)
 			if(mmi.brainmob.stat == DEAD)
 				mmi.brainmob.stat = CONSCIOUS
-				GLOB.dead_mob_list -= mmi.brainmob
-				GLOB.alive_mob_list += mmi.brainmob
+				mmi.brainmob.remove_from_dead_mob_list()
+				mmi.brainmob.add_to_alive_mob_list()
 			mind.transfer_to(mmi.brainmob)
 			mmi.update_icon()
 		else
@@ -1151,6 +1153,7 @@
 	mainframe.diag_hud_set_deployed()
 	if(mainframe.laws)
 		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
+	mainframe.eyeobj?.setLoc(get_turf(src))
 	mainframe = null
 
 /mob/living/silicon/robot/attack_ai(mob/user)

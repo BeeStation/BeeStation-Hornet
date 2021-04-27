@@ -510,6 +510,7 @@
 		H.set_species(species_type)
 		H.reagents.del_reagent(type)
 		to_chat(H, "<span class='warning'>You've become \a [lowertext(initial(species_type.name))]!</span>")
+		return
 	..()
 
 /datum/reagent/mutationtoxin/classic //The one from plasma on green slimes
@@ -625,6 +626,13 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/squid
 	taste_description = "fish"
+	
+/datum/reagent/mutationtoxin/oozeling
+	name = "Oozeling Mutation Toxin"
+	description = "An oozing toxin"
+	color = "#611e80" //RGB: 97, 30, 128
+	race = /datum/species/oozeling
+	taste_description = "burning ooze"
 
 //BLACKLISTED RACES
 /datum/reagent/mutationtoxin/skeleton

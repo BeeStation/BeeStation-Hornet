@@ -20,7 +20,6 @@
 	var/grounded = FALSE //does it ignore fliers
 	var/pick_style = PICK_STYLE_ORDERED
 	var/requirehuman = TRUE
-	var/list/possibletraps = list()
 
 /obj/effect/trap/trigger/Crossed(AM as mob|obj)
 	if(isturf(loc))
@@ -46,12 +45,12 @@
 		return FALSE
 	else
 		inuse = TRUE
+	var/list/possibletraps = list()
+	for(var/obj/effect/trap/nexus/payload in view(10, src))
+		possibletraps += payload
 	if(!LAZYLEN(possibletraps))
-		for(var/obj/effect/trap/nexus/payload in view(10, src))
-			possibletraps += payload
-		if(!LAZYLEN(possibletraps))
-			qdel(src)
-			return FALSE
+		qdel(src)
+		return FALSE
 	switch(pick_style)
 		if(PICK_STYLE_RANDOM)
 			var/obj/effect/trap/nexus/chosen = pick(possibletraps)
@@ -138,6 +137,8 @@
 			FC.force_target(C)
 			FC.dontkill = TRUE
 			FC.delete_after_target_killed = TRUE //it only affects the one to walk on the rune. when he dies, the rune is no longer usable
+			message_admins("A hugbox floor cluwne has been spawned at [COORD(T)][ADMIN_JMP(T)] following [ADMIN_LOOKUPFLW(C)]")
+			log_game("A hugbox floor cluwne has been spawned at [COORD(T)]")
 			playsound(C,'sound/misc/honk_echo_distant.ogg', 30, 1)
 			return TRUE
 	return FALSE
@@ -175,25 +176,19 @@
 	var/list/mobss = list()
 	var/list/validturfs = list()
 	var/turf/T = get_turf(src)
-	for(var/atom/I in view(7, src))
-		if(isopenturf(I))
-			turfs += I
-			continue
-		if(isliving(I))
-			var/mob/living/L = I
-			if(L.mind)
-				mobss += L
-				continue
-	for(var/turf/turf in turfs)
+	for(var/turf/open/O in view(7, src))
+		if(!isspaceturf(O))
+			turfs += O
+	for(var/mob/living/L in view(7, src))
+		if(L.mind)
+			mobss += L
+	for(var/turf/turf as() in turfs)
 		var/visible = FALSE
-		if(isspaceturf(turf))
-			continue
-		for(var/mob/living/L in mobss)
+		for(var/mob/living/L as() in mobss)
 			if(can_see(L, turf))
 				visible = TRUE
-		if(visible)
-			continue
-		validturfs += T
+		if(!visible)
+			validturfs += T
 	if(validturfs.len)
 		T = pick(validturfs)
 	if(mobs)
@@ -294,9 +289,8 @@
 	var/cluwne = FALSE
 	if(rune_in_use)
 		return
-	for(var/mob/living/simple_animal/hostile/floor_cluwne/clown in range(5, src))
+	if(locate(/mob/living/simple_animal/hostile/floor_cluwne) in range(5, src))
 		cluwne = TRUE
-		break
 	if(!cluwne && !iscultist(user))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -334,9 +328,8 @@
 		return
 	if(istype(M, /mob/living/simple_animal/cluwne) || istype(M, /mob/living/simple_animal/hostile/retaliate/clown))
 		var/cluwne = FALSE
-		for(var/mob/living/simple_animal/hostile/floor_cluwne/clown in range(5, src))
+		if(locate(/mob/living/simple_animal/hostile/floor_cluwne) in range(5, src))
 			cluwne = TRUE
-			break
 		if(!cluwne)
 			to_chat(M, "<span class='warning'>We need a connection! One of the honkmother's manifested forms!</span>")
 		else
@@ -346,11 +339,8 @@
 
 /obj/effect/rune/cluwne/can_invoke(user) //this is actually used to get "sacrifices", which can include the user
 	var/list/invokers = list() //people eligible to invoke the rune
-	var/list/things_in_range = range(1, src)
-	for(var/mob/living/carbon/human/L in things_in_range)
-		if(!L.mind)
-			continue
-		if(L.stat)
+	for(var/mob/living/carbon/human/L in range(1, src))
+		if(!L.mind || L.stat)
 			continue
 		invokers += L
 	return invokers
@@ -363,9 +353,11 @@
 		FC.delete_after_target_killed = FALSE
 		FC.interest = 300
 	color = RUNE_COLOR_SUMMON
-	for(var/mob/living/carbon/C in view(10, src))
+	for(var/mob/living/carbon/C in hearers(10, src))
 		C.Stun(350, ignore_canstun = TRUE)
 	priority_announce("Figments of an elder god have been detected in your sector. Exercise extreme caution, and abide by the 'buddy system' at all times.","Central Command Higher Dimensional Affairs", 'sound/ai/spanomalies.ogg')
+	message_admins("A dangerous cluwne rune was invoked at [AREACOORD(src)][ADMIN_COORDJMP(src)]")
+	log_game("A dangerous cluwne rune was invoked at [AREACOORD(src)][ADMIN_COORDJMP(src)]")
 	stoplag(315)
 	for(var/mob/living/carbon/human/H in invokers)
 		if(H.stat == DEAD)
@@ -378,14 +370,23 @@
 			if(prob(75))
 				cluwne.delete_after_target_killed = TRUE
 			to_chat(H, "<span class='clowntext'>YOU'RE MINE!</span>")
+			message_admins("A floor cluwne has been spawned by rune at [AREACOORD(src)][ADMIN_COORDJMP(src)] following [ADMIN_LOOKUPFLW(H)]. It [cluwne.delete_after_target_killed ? "will" : "will not"] kill additional people")
+			log_game("A floor cluwne has been spawned by rune at [AREACOORD(src)] following [ADMIN_LOOKUP(H)]. It [cluwne.delete_after_target_killed ? "will" : "will not"] kill additional people")
+			H.log_message("was targetted by cluwne from rune", LOG_ATTACK)
+
 		else if(prob(20))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)
 			if(prob(75))
 				cluwne.delete_after_target_killed = TRUE
 			to_chat(H, "<span class='clowntext'>Do you want to play a game?</span>")
+			message_admins("A floor cluwne has been spawned by rune at [AREACOORD(src)][ADMIN_COORDJMP(src)] following [ADMIN_LOOKUPFLW(H)]. It [cluwne.delete_after_target_killed ? "will" : "will not"] kill additional people")
+			log_game("A floor cluwne has been spawned by rune at [AREACOORD(src)] following [ADMIN_LOOKUP(H)]. It [cluwne.delete_after_target_killed ? "will" : "will not"] kill additional people")
+			H.log_message("was targetted by cluwne from rune", LOG_ATTACK)
 		else if(prob(60))
 			H.cluwneify()
+			H.log_message("was cluwned by rune", LOG_ATTACK)
+
 			to_chat(H, "<span class='clowntext'>Join us!</span>")
 		else
 			to_chat(H, "<span class='clowntext'>You bore me.</span>")

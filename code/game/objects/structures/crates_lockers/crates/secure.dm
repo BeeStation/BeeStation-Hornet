@@ -5,7 +5,7 @@
 	secure = TRUE
 	locked = TRUE
 	max_integrity = 500
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 0)
 	var/tamperproof = 0
 	icon_door = "crate"
 	icon_door_override = TRUE
@@ -91,7 +91,7 @@
 
 /obj/structure/closet/crate/secure/owned/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's locked with a privacy lock, and can only be unlocked by the buyer's ID.</span>"
+	. += "<span class='notice'>It's locked with a privacy lock, and can only be unlocked by the buyer's ID with required access.</span>"
 
 /obj/structure/closet/crate/secure/owned/Initialize(mapload, datum/bank_account/_buyer_account)
 	. = ..()
@@ -104,13 +104,16 @@
 			if(id_card)
 				if(id_card.registered_account)
 					if(id_card.registered_account == buyer_account)
-						if(iscarbon(user))
-							add_fingerprint(user)
-						locked = !locked
-						user.visible_message("<span class='notice'>[user] unlocks [src]'s privacy lock.</span>",
-										"<span class='notice'>You unlock [src]'s privacy lock.</span>")
-						privacy_lock = FALSE
-						update_icon()
+						if(allowed(user))
+							if(iscarbon(user))
+								add_fingerprint(user)
+							locked = !locked
+							user.visible_message("<span class='notice'>[user] unlocks [src]'s privacy lock.</span>",
+											"<span class='notice'>You unlock [src]'s privacy lock.</span>")
+							privacy_lock = FALSE
+							update_icon()
+						else if(!silent)
+							to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card.</span>")
 					else if(!silent)
 						to_chat(user, "<span class='notice'>Bank account does not match with buyer!</span>")
 				else if(!silent)

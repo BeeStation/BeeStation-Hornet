@@ -31,7 +31,7 @@
 		to_chat(user, "<span class='notice'>[target.p_theyre(TRUE)] too far away!</span>")
 		return
 
-	if(target.anti_magic_check())
+	if(target.anti_magic_check() || HAS_TRAIT(target, TRAIT_WARDED))
 		to_chat(user, "<span class='warning'>The spell had no effect!</span>")
 		target.visible_message("<span class='danger'>[target]'s face bursts into flames, which instantly burst outward, leaving [target] unharmed!</span>", \
 						   "<span class='danger'>Your face starts burning up, but the flames are repulsed by your anti-magic protection!</span>")
@@ -45,6 +45,6 @@
 						   "<span class='danger'>Your face burns up, and shortly after the fire you realise you have the face of a barnyard animal!</span>")
 	if(!target.dropItemToGround(target.wear_mask))
 		qdel(target.wear_mask)
-	target.equip_to_slot_if_possible(magichead, SLOT_WEAR_MASK, 1, 1)
+	target.equip_to_slot_if_possible(magichead, ITEM_SLOT_MASK, 1, 1)
 
 	target.flash_act()

@@ -248,7 +248,7 @@
 	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
-	icon_state = "posibrain-occupied"
+	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/brain/positron/Insert(mob/living/carbon/C, special = 0, no_id_transfer = FALSE)
@@ -343,6 +343,9 @@
 
 	if(actual_trauma.brain) //we don't accept used traumas here
 		WARNING("gain_trauma was given an already active trauma.")
+		return
+	if(QDELETED(actual_trauma)) // hypnosis might qdel on New, causing problems
+		stack_trace("brain_gain_trauma tried to add qdeleted trauma.")
 		return
 
 	traumas += actual_trauma

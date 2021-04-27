@@ -62,7 +62,7 @@
 		return
 	var/mob/M = target
 	do_sparks(4, FALSE, M.loc)
-	for(var/mob/living/L in view(src, 7))
+	for(var/mob/living/L in viewers(7, get_turf(src)))
 		if(L != user)
 			L.flash_act(affect_silicon = FALSE)
 	var/atom/A = M.anti_magic_check()
@@ -75,7 +75,7 @@
 		if(part)
 			part.dismember()
 		return ..()
-	var/obj/item/clothing/suit/hooded/bloated_human/suit = M.get_item_by_slot(SLOT_WEAR_SUIT)
+	var/obj/item/clothing/suit/hooded/bloated_human/suit = M.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 	if(istype(suit))
 		M.visible_message("<span class='danger'>[M]'s [suit] explodes off of them into a puddle of gore!</span>")
 		M.dropItemToGround(suit)

@@ -19,13 +19,14 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	cogs_required = 5
 	category = SPELLTYPE_STRUCTURES
 
-/datum/clockcult/scripture/create_structure/abstraction_crystal/check_special_requirements()
+/datum/clockcult/scripture/create_structure/abstraction_crystal/check_special_requirements(mob/user)
 	if(!..())
 		return FALSE
-	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
+	var/obj/structure/destructible/clockwork/structure = locate() in get_turf(invoker)
+	if(structure)
 		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
 		return FALSE
-	for(var/obj/structure/destructible/clockwork/abstraction_crystal/AC in range(5))
+	if(locate(/obj/structure/destructible/clockwork/abstraction_crystal) in range(5))
 		to_chat(invoker, "<span class='brass'>There is an Abstraction Crystal nearby, you cannot place this here.</span>")
 		return FALSE
 	return TRUE
@@ -110,7 +111,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	desc = "An other-worldly structure, its lattice pulsating with a bright, pulsating light."
 	icon_state = "obelisk_inactive"
 	clockwork_desc = "A powerful crystal allowing the user to manifest themselves at other abstraction crystals."
-	max_integrity = 100
+	max_integrity = 200
 	break_message = "<span class='warning'>The crystal explodes into a shower of shards!</span>"
 	var/key_word = ""
 	var/mob/living/activator

@@ -43,7 +43,7 @@
 
 /datum/brain_trauma/special/imaginary_friend/proc/get_ghost()
 	set waitfor = FALSE
-	if(owner.stat == DEAD)
+	if(owner.stat == DEAD || !owner.mind)
 		qdel(src)
 		return
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [owner]'s imaginary friend?", ROLE_PAI, null, null, 75, friend, POLL_IGNORE_IMAGINARYFRIEND)
@@ -148,8 +148,12 @@
 
 	friend_talk(message)
 
-/mob/camera/imaginary_friend/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
-	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode))
+/mob/camera/imaginary_friend/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
+	//Get message flags
+	var/flags = message_mods.Find(MODE_RADIO_MESSAGE) ? RADIO_MESSAGE : NONE
+	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
+		create_chat_message(speaker, message_language, raw_message, spans, runechat_flags = flags)
+	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods))
 
 /mob/camera/imaginary_friend/proc/friend_talk(message)
 	message = capitalize(trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN)))

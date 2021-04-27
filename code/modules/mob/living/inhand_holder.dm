@@ -44,10 +44,14 @@
 /obj/item/clothing/head/mob_holder/proc/update_visuals(mob/living/L)
 	appearance = L.appearance
 
-/obj/item/clothing/head/mob_holder/dropped()
+/obj/item/clothing/head/mob_holder/dropped(mob/user, thrown = FALSE)
 	..()
-	if(held_mob && isturf(loc))
+	if(held_mob && isturf(loc) && !thrown)
 		release()
+
+/obj/item/clothing/head/mob_holder/after_throw(datum/callback/callback)
+	. = ..()
+	release()
 
 /obj/item/clothing/head/mob_holder/proc/release(del_on_release = TRUE)
 	if(!held_mob)

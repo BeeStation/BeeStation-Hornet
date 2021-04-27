@@ -4,6 +4,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	name = "Clockwork Slab"
 	desc = "A mechanical-looking device filled with intricate cogs that swirl to their own accord."
 	clockwork_desc = "A beautiful work of art, harnessing mechanical energy for a variety of useful powers."
+	item_flags = NOBLUDGEON
 	icon_state = "dread_ipad"
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
@@ -43,6 +44,8 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	var/datum/component/clockwork_trap/buffer
 
 /obj/item/clockwork/clockwork_slab/Initialize()
+	if(!length(GLOB.clockcult_all_scriptures))
+		generate_clockcult_scriptures()
 	var/pos = 1
 	cogs = GLOB.installed_integration_cogs
 	GLOB.clockwork_slabs += src
@@ -135,7 +138,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		ui.open()
 
 /obj/item/clockwork/clockwork_slab/ui_state(mob/user)
-	return GLOB.default_state
+	return GLOB.clockcult_state
 
 /obj/item/clockwork/clockwork_slab/ui_data(mob/user)
 	//Data
@@ -144,10 +147,6 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	data["vitality"] = GLOB.clockcult_vitality
 	data["power"] = GLOB.clockcult_power
 	data["scriptures"] = list()
-	//Generate Scriptures Infomation
-	var/datum/antagonist/servant_of_ratvar/servant_datum = is_servant_of_ratvar(user)
-	if(!servant_datum)
-		return data
 	//2 scriptures accessable at the same time will cause issues
 	for(var/scripture_name in GLOB.clockcult_all_scriptures)
 		var/datum/clockcult/scripture/scripture = GLOB.clockcult_all_scriptures[scripture_name]
@@ -179,6 +178,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 					return FALSE
 				if(S.power_cost > GLOB.clockcult_power)
 					to_chat(M, "<span class='neovgre'>You need [S.power_cost]W to invoke [S.name].</span>")
+					return FALSE
+				if(S.vitality_cost > GLOB.clockcult_vitality)
+					to_chat(M, "<span class='neovgre'>You need [S.vitality_cost] vitality to invoke [S.name].</span>")
 					return FALSE
 				var/datum/clockcult/scripture/new_scripture = new S.type()
 				//Create a new scripture temporarilly to process, when it's done it will be qdeleted.

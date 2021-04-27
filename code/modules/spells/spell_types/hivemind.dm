@@ -57,14 +57,14 @@
 	var/success = FALSE
 
 	if(target.mind && target.client && target.stat != DEAD)
-		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(HAS_TRAIT(target, TRAIT_MINDSHIELD) && ignore_mindshield)
 				to_chat(user, "<span class='notice'>We bruteforce our way past the mental barriers of [target.name] and begin linking our minds!</span>")
 			else
 				to_chat(user, "<span class='notice'>We begin linking our mind with [target.name]!</span>")
-			if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (target in view(range)))
-				if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (target in view(range)))
-					if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && (target in view(range)))
+			if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (user in viewers(range, target)))
+				if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (user in viewers(range, target)))
+					if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && (user in viewers(range, target)))
 						to_chat(user, "<span class='notice'>[target.name] was added to the Hive!</span>")
 						success = TRUE
 						hive.add_to_hive(target)
@@ -334,7 +334,7 @@
 	to_chat(src, "<span class='warning'>You find yourself unable to emote, you aren't in control of your body!</span>")
 	return
 
-/mob/living/passenger/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
+/mob/living/passenger/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mods)
 	return
 
 /obj/effect/proc_holder/spell/target_hive/hive_control
@@ -628,7 +628,7 @@
 	distort(user, target, pulse_cap)
 
 /obj/effect/proc_holder/spell/target_hive/hive_warp/proc/distort(user, target, pulse_cap, pulses = 0)
-	for(var/mob/living/carbon/human/victim in view(7,target))
+	for(var/mob/living/carbon/human/victim in hearers(7,target))
 		if(user == victim || victim.is_real_hivehost())
 			continue
 		if(pulses < 4)
@@ -853,9 +853,9 @@
 	var/wall_type_b = /obj/effect/forcefield/wizard/hive/invis
 
 /obj/effect/proc_holder/spell/targeted/forcewall/hive/cast(list/targets,mob/user = usr)
-	new wall_type(get_turf(user),user)
+	new wall_type(get_turf(user), null, user)
 	for(var/dir in GLOB.alldirs)
-		new wall_type_b(get_step(user, dir),user)
+		new wall_type_b(get_step(user, dir), null, user)
 	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
 	if(hive)
 		hive.threat_level += 0.5

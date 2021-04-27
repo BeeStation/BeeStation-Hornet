@@ -1,6 +1,8 @@
 #define MARAUDER_SHIELD_RECHARGE 600
 #define MARAUDER_SHIELD_MAX 4
 
+GLOBAL_LIST_EMPTY(clockwork_marauders)
+
 /mob/living/simple_animal/clockwork_marauder
 	name = "clockwork marauder"
 	desc = "A brass machine of destruction,"
@@ -23,7 +25,7 @@
 
 	attacktext = "slices"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	mobsay_color = "#CAA25B"
+	chat_color = "#CAA25B"
 	mobchatspan = "brassmobsay"
 	obj_damage = 80
 	melee_damage = 24
@@ -32,18 +34,23 @@
 	initial_language_holder = /datum/language_holder/clockmob
 
 	var/shield_health = MARAUDER_SHIELD_MAX
-	var/next_shield_recharge = 0
 
 	var/debris = list(/obj/item/clockwork/alloy_shards/large = 1, \
 	/obj/item/clockwork/alloy_shards/medium = 2, \
 	/obj/item/clockwork/alloy_shards/small = 3) //Parts left behind when a structure breaks
 
+/mob/living/simple_animal/clockwork_marauder/Initialize()
+	. = ..()
+	GLOB.clockwork_marauders += src
+
+/mob/living/simple_animal/clockwork_marauder/Destroy()
+	GLOB.clockwork_marauders -= src
+	. = ..()
+
 /mob/living/simple_animal/clockwork_marauder/Login()
 	. = ..()
 	add_servant_of_ratvar(src)
-	to_chat(src, "<span class='brass'>Your abilities:\n\
-		 - Passive: Block up to 4 projectiles with your shield.\
-		 - Active: Create a forcewall that prevents non servants from passing through.</span>")
+	to_chat(src, "<span class='brass'>You can block up to 4 attacks with your shield, however it requires a welder to be repaired.</span>")
 
 /mob/living/simple_animal/clockwork_marauder/death(gibbed)
 	. = ..()
@@ -53,13 +60,15 @@
 			new item(get_turf(src))
 	qdel(src)
 
-/mob/living/simple_animal/clockwork_marauder/Life(seconds, times_fired)
-	//Check for shield regeneration
-	if(shield_health < MARAUDER_SHIELD_MAX)
-		if(next_shield_recharge < world.time)
-			shield_health ++
-			next_shield_recharge = world.time + MARAUDER_SHIELD_RECHARGE
-			playsound(src, 'sound/magic/charge.ogg', 60, TRUE)
+/mob/living/simple_animal/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/nullrod))
+		apply_damage(15, BURN)
+		if(shield_health > 0)
+			damage_shield()
+		playsound(src,'sound/hallucinations/veryfar_noise.ogg',40,1)
+	if(I.tool_behaviour == TOOL_WELDER)
+		welder_act(user, I)
+		return
 	. = ..()
 
 /mob/living/simple_animal/clockwork_marauder/bullet_act(obj/item/projectile/Proj)
@@ -71,17 +80,20 @@
 	return ..()
 
 /mob/living/simple_animal/clockwork_marauder/proc/damage_shield()
-	if(shield_health == MARAUDER_SHIELD_MAX)
-		next_shield_recharge = world.time + MARAUDER_SHIELD_RECHARGE
 	shield_health --
 	playsound(src, 'sound/magic/clockwork/anima_fragment_attack.ogg', 60, TRUE)
 	if(shield_health == 0)
 		to_chat(src, "<span class='userdanger'>Your shield breaks!</span>")
+		to_chat(src, "<span class='brass'>You require a welding tool to repair your damaged shield!</span>")
 
 /mob/living/simple_animal/clockwork_marauder/welder_act(mob/living/user, obj/item/I)
 	if(do_after(user, 25, target=src))
 		health = min(health + 10, maxHealth)
-		to_chat(user, "<span class='notice'>You repair some [src]'s damage.</span>")
+		to_chat(user, "<span class='notice'>You repair some of [src]'s damage.</span>")
+		if(shield_health < MARAUDER_SHIELD_MAX)
+			shield_health ++
+			playsound(src, 'sound/magic/charge.ogg', 60, TRUE)
+	return TRUE
 
 #undef MARAUDER_SHIELD_RECHARGE
 #undef MARAUDER_SHIELD_MAX
