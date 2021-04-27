@@ -60,7 +60,7 @@
 	var/obj/item/I = null
 	if(!can_use(A))
 		return FALSE
-	if(!D.stat || !D.IsParalyzed() || !restraining)
+	if(!D.stat || !D.IsParalyzed())
 		I = D.get_active_held_item()
 		if(I && D.temporarilyRemoveItemFromInventory(I))
 			A.put_in_hands(I)
@@ -74,9 +74,9 @@
 /datum/martial_art/pacifist/proc/Vulcan(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
-	if(restraining && A.pulling == D)
+	if(A.pulling == D)
 		while(do_after(A, 20, target = D))
-			if(!A.CanReach(D) || !restraining || A.pulling == D)
+			if(!A.CanReach(D) || A.pulling == D)
 				break
 			else
 				log_combat(A, D, "knocked out (Vulcan Nerve Pinch)(Paci-Fist)")
