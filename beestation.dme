@@ -545,6 +545,7 @@
 #include "code\datums\martial\sleeping_carp.dm"
 #include "code\datums\martial\tribal_claw.dm"
 #include "code\datums\martial\wrestling.dm"
+#include "code\datums\martial\pacifist.dm"
 #include "code\datums\materials\_material.dm"
 #include "code\datums\materials\basemats.dm"
 #include "code\datums\mocking\client.dm"

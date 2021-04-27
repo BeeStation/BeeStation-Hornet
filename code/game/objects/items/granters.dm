@@ -439,6 +439,31 @@
 		name = "empty scroll"
 		icon_state = "blankscroll"
 
+/obj/item/book/granter/martial/pacifist
+	martial = /datum/martial_art/pacifist
+	name = "strange scroll"
+	martialname = "paci-fist"
+	desc = "A strange scroll filled with martial lessons. It seems to be drawings of some sort of pacifist martial art."
+	greet = "<span class='sciradio'>You have learned the ancient martial art of the Paci-Fist! Your non-harmful abilities has become much more effective, and you are now able to block most attacks \
+	directed toward you. You are also able to nerve pinch an opponent to sleep. You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>"
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "scroll2"
+	remarks = list("I must prove myself worthy to the masters of the paci-fist...", "Stance means everything...", "Focus... And you'll be able to incapacitate any foe in seconds...", "I must avoid conflict for maximum efficiency...", "I don't think this would combine with other martial arts...", "Grab them first and pacify them...", "I must prove myself worthy of this power...")
+
+/obj/item/book/granter/martial/pacifist/already_known(mob/user)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		return FALSE
+	else
+		to_chat(user, "<span class='warning'>You try to read the scroll but only a real pacifist would probably understand it.</span>")
+		return TRUE
+
+/obj/item/book/granter/martial/pacifist/onlearned(mob/living/carbon/user)
+	..()
+	if(oneuse == TRUE)
+		desc = "It's completely blank."
+		name = "empty scroll"
+		icon_state = "blankscroll"
+
 // I did not include mushpunch's grant, it is not a book and the item does it just fine.
 
 //Crafting Recipe books

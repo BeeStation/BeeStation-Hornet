@@ -752,6 +752,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 10
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
 
+/datum/uplink_item/stealthy_weapons/pacifist
+	name = "Paci-Fist Martial Arts Scroll"
+	desc = "This scroll contains the secrets of the ancient martial arts technique of The Paci-Fist. You will learn \
+			various ways to incapacitate and pacify your foes."
+	item = /obj/item/book/granter/martial/pacifist
+	cost = 6
+	surplus = 10
+
 /datum/uplink_item/stealthy_weapons/radbow
 	name = "Gamma-Bow"
 	desc = "The energy crossbow's newly developed lethal cousin. Has considerably increased lethality \

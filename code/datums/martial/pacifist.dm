@@ -1,0 +1,89 @@
+#define DISARM_COMBO "GD"
+#define VULCAN_NERVE_PINCH "GG"
+
+/datum/martial_art/pacifist
+	name = "The Paci-Fist"
+	id = MARTIALART_PACIFIST
+	block_chance = 75
+
+/datum/martial_art/pacifist/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	if(!can_use(A))
+		return FALSE
+	if(A==D)
+		return FALSE //prevents grabbing yourself
+	if(A.a_intent == INTENT_GRAB)
+		add_to_streak("G",D)
+		if(check_streak(A,D))
+			return TRUE
+		D.grabbedby(A, 1)
+		if(A.grab_state == GRAB_PASSIVE)
+			A.setGrabState(GRAB_AGGRESSIVE) //Instant "firm" grab if on grab intent
+			log_combat(A, D, "grabbed", addition="firmly")
+			D.visible_message("<span class='warning'>[A] firmly grabs [D]!</span>", \
+							"<span class='userdanger'>[A] firmly grabs you!</span>")
+	else
+		D.grabbedby(A, 1)
+	return TRUE
+
+/datum/martial_art/pacifist/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	if(!can_use(A))
+		return FALSE
+	add_to_streak("D",D)
+	if(check_streak(A,D))
+		return TRUE
+	if(prob(25))
+		D.visible_message("<span class='warning'>[A] feints [D]!</span>", \
+						"<span class='userdanger'>[A] feints you!</span>")
+		D.dropItemToGround(D.get_active_held_item())
+		D.Stun(60)
+	return ..()
+
+/datum/martial_art/pacifist/can_use(mob/living/carbon/human/H)
+	if(!HAS_TRAIT(H, TRAIT_PACIFISM))
+		return FALSE
+	return ..()
+
+/datum/martial_art/pacifist/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	if(!can_use(A))
+		return FALSE
+	if(findtext(streak,DISARM_COMBO))
+		streak = ""
+		Disarm(A,D)
+		return TRUE
+	if(findtext(streak,VULCAN_NERVE_PINCH))
+		streak = ""
+		Vulcan(A,D)
+		return TRUE
+	return FALSE
+
+/datum/martial_art/pacifist/proc/Disarm(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	var/obj/item/I = null
+	if(!can_use(A))
+		return FALSE
+	if(!D.stat || !D.IsParalyzed() || !restraining)
+		I = D.get_active_held_item()
+		if(I && D.temporarilyRemoveItemFromInventory(I))
+			A.put_in_hands(I)
+			log_combat(A, D, "took [I] from (Disarm)(Paci-Fist)")
+			D.visible_message("<span class='warning'>[A] swiftly grabs [D]'s [I] out of their their hand!</span>", \
+							"<span class='userdanger'>[A] swiftly grabs your [I] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
+			playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, 1, -1)
+			D.Jitter(2)
+	return TRUE
+
+/datum/martial_art/pacifist/proc/Vulcan(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	if(!can_use(A))
+		return FALSE
+	if(restraining && A.pulling == D)
+		while(do_after(A, 20, target = D))
+			if(!A.CanReach(D) || !restraining || A.pulling == D)
+				break
+			else
+				log_combat(A, D, "knocked out (Vulcan Nerve Pinch)(Paci-Fist)")
+				D.visible_message("<span class='danger'>[A] pinches a nerve in [D]'s neck!</span>", \
+								"<span class='userdanger'>[A] pinches a nerve in your neck!</span>")
+				D.SetSleeping(400)
+				restraining = FALSE
+				if(A.grab_state < GRAB_NECK)
+					A.setGrabState(GRAB_NECK)
+	return TRUE
