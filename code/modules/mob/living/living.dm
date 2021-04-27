@@ -298,7 +298,7 @@
 
 			switch(zone_selected)
 				if(BODY_ZONE_HEAD)
-					if(ishuman(L))
+					if(ishuman(L))//Special handling required for checking clothing
 						var/mob/living/carbon/human/H = L
 						if (istype(H.wear_neck, /obj/item/clothing/neck/petcollar))
 							grab_output(src, L, "collar")
