@@ -309,7 +309,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/give/proc/check_in_range(atom/rangecheck)
 	SIGNAL_HANDLER_DOES_SLEEP
-	if (!taker.CanReach(rangecheck) || !giver.CanReach(rangecheck)) // don't laugh when it actually works
+	if (!src.CanReach(rangecheck)) // don't laugh when it actually works
 		to_chat(giver, "<span class='warning'>You moved out of range of [taker]!</span>")
 		to_chat(taker, "<span class='warning'>You moved out of range of [giver]!</span>")
 		owner.clear_alert("[giver]")
