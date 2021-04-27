@@ -207,6 +207,10 @@ BONUS
 	base_message_chance = 50
 	symptom_delay_min = 60
 	symptom_delay_max = 105
+	var/bigheal
+	var/alldisease
+	var/eggsplosion
+	var/sneaky
 	threshold_desc = "<b>Transmission 12:</b> Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.<br>\
 					  <b>Transmission 16:</b> Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.<br>\
 					  <b>Resistance 10:</b> Eggs and Egg Sacs contain more healing chems.<br>\
@@ -228,13 +232,13 @@ BONUS
 	if(!..())
 		return
 	if(A.properties["resistance"] >= 10)
-		thresholds["bigheal"] = TRUE
+		bigheal = TRUE
 	if(A.properties["transmittability"] >= 12)
-		thresholds["alldisease"] = TRUE
+		alldisease = TRUE
 	if(A.properties["transmittability"] >= 16)
-		thresholds["eggsplosion"] = TRUE //Haha get it?
+		eggsplosion = TRUE //Haha get it?
 	if(A.properties["stealth"] >= 6)
-		thresholds["sneaky"] = TRUE
+		sneaky = TRUE
 	if(A.properties["stage_rate"] >= 10)
 		symptom_delay_min -= 10
 		symptom_delay_max -= 20
@@ -254,8 +258,8 @@ BONUS
 					if(D == A)
 						continue
 					diseases += D
-			new /obj/item/reagent_containers/food/snacks/eggsac(diseases, thresholds["eggsplosion"],\
-			thresholds["sneaky"], thresholds["bigheal"])
+			new /obj/item/reagent_containers/food/snacks/eggsac(diseases, eggsplosion,\
+			sneaky, bigheal)
 
 /obj/item/reagent_containers/food/snacks/eggsac
 	name = "Fleshy Egg Sac"
