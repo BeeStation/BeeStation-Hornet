@@ -278,6 +278,51 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(L.mobility_flags & MOBILITY_MOVE)
 		return L.resist_fire() //I just want to start a flame in your hearrrrrrtttttt.
 
+/**
+ * Handles assigning most of the variables for the alert that pops up when an item is offered
+ *
+ * Handles setting the name, description and icon of the alert and tracking the person giving
+ * and the item being offered, also registers a signal that removes the alert from anyone who moves away from the giver
+ * Arguments:
+ * * taker - The person receiving the alert
+ * * giver - The person giving the alert and item
+ * * receiving - The item being given by the giver
+ */
+
+/atom/movable/screen/alert/give // information set when the give alert is made
+	icon_state = "default"
+	var/mob/living/carbon/giver
+	var/mob/living/carbon/taker
+	var/obj/item/receiving
+
+/atom/movable/screen/alert/give/proc/setup(mob/living/carbon/taker, mob/living/carbon/giver, obj/item/receiving)
+	name = "[giver] is offering [receiving]"
+	desc = "[giver] is offering [receiving]. Click this alert to take it."
+	icon_state = "template"
+	cut_overlays()
+	add_overlay(receiving)
+	src.receiving = receiving
+	src.giver = giver
+	src.taker = taker
+	RegisterSignal(giver, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+
+/atom/movable/screen/alert/give/proc/check_in_range()
+	SIGNAL_HANDLER_DOES_SLEEP // doesn't actually sleep since the only thing below which can sleep is CheckToolReach() which returns FALSE before coming that far.
+	if (!usr.CanReach(giver))
+		to_chat(giver, "<span class='warning'>[taker] moved out of range of you!</span>")
+		to_chat(taker, "<span class='warning'>You moved out of range of [giver]!</span>")
+		owner.clear_alert("[giver]")
+	else if (!usr.CanReach(taker))
+		to_chat(giver, "<span class='warning'>You moved out of range of [taker]!</span>")
+		to_chat(taker, "<span class='warning'>[giver] moved out of range of you!</span>")
+		owner.clear_alert("[giver]")
+
+/atom/movable/screen/alert/give/Click(location, control, params)
+	. = ..()
+	if(!iscarbon(usr))
+		CRASH("User for [src] is of type \[[usr.type]\]. This should never happen.")
+	taker.take(giver, receiving)
 
 //ALIENS
 
