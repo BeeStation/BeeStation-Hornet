@@ -309,13 +309,13 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/give/proc/check_in_range()
 	SIGNAL_HANDLER_DOES_SLEEP // doesn't actually sleep since the only thing below which can sleep is CheckToolReach() which returns FALSE before coming that far.
-	if (!giver.CanReach(taker))
+	if (!usr.CanReach(giver))
+		to_chat(giver, "<span class='warning'>[taker] moved out of range of you!</span>")
+		to_chat(taker, "<span class='warning'>You moved out of range of [giver]!</span>")
+		owner.clear_alert("[giver]")
+	else if (!usr.CanReach(taker))
 		to_chat(giver, "<span class='warning'>You moved out of range of [taker]!</span>")
 		to_chat(taker, "<span class='warning'>[giver] moved out of range of you!</span>")
-		owner.clear_alert("[giver]")
-	else if (!taker.CanReach(giver))
-		to_chat(giver, "<span class='warning'>[taker]moved out of range of you!</span>")
-		to_chat(taker, "<span class='warning'>You moved out of range of [giver]!</span>")
 		owner.clear_alert("[giver]")
 
 /atom/movable/screen/alert/give/Click(location, control, params)
