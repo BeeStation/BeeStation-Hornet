@@ -258,20 +258,21 @@ BONUS
 					if(D == A)
 						continue
 					diseases += D
-			new /obj/item/reagent_containers/food/snacks/eggsac(get_turf(src), diseases, eggsplosion, sneaky, bigheal)
+			new /obj/item/reagent_containers/food/snacks/eggsac(M.loc, diseases, eggsplosion, sneaky, bigheal)
 
 /obj/item/reagent_containers/food/snacks/eggsac
 	name = "Fleshy Egg Sac"
 	desc = "A small Egg Sac which appears to be made out of someone's flesh!"
 	customfoodfilling = FALSE //Not Used For Filling
-	icon_state = "icons/obj/food/food/eggsac.dmi"
+	icon = "icons/obj/food/food.dmi"
+	icon_state = "eggsac"
 	bitesize = 4
 	var/list/diseases = list()
 	var/sneakyegg
 	var/bigheal
 
 //Constructor
-/obj/item/reagent_containers/food/snacks/eggsac/New(var/list/disease, var/eggsplodes, var/sneaky, var/largeheal)
+/obj/item/reagent_containers/food/snacks/eggsac/New(loc, var/list/disease, var/eggsplodes, var/sneaky, var/largeheal)
 	..()
 	for(var/datum/disease/D in disease)
 		diseases += D
@@ -283,7 +284,7 @@ BONUS
 		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
 		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
-		icon_state = "icons/obj/food/food/eggsac-sneaky.dmi"
+		icon_state = "eggsac-sneaky"
 		sneakyegg = sneaky
 	if(eggsplodes)
 		addtimer(CALLBACK(src, .proc/eggsplode), 100 SECONDS)
@@ -294,7 +295,7 @@ BONUS
 /obj/item/reagent_containers/food/snacks/eggsac/proc/eggsplode()
 	for(var/i = 1, i <= rand(4,8), i++)
 		var/list/directions = GLOB.alldirs
-		var/obj/item/I = new /obj/item/reagent_containers/food/snacks/fleshegg(get_turf(src), diseases, sneakyegg, bigheal)
+		var/obj/item/I = new /obj/item/reagent_containers/food/snacks/fleshegg(src.loc, diseases, sneakyegg, bigheal)
 		var/turf/thrown_at = get_ranged_target_turf(I, pick(directions), rand(2, 4))
 		I.throw_at(thrown_at, rand(2,4), 4)
 
@@ -302,11 +303,12 @@ BONUS
 	name = "Fleshy Egg"
 	desc = "An Egg which appears to be made out of someone's flesh!"
 	customfoodfilling = FALSE //Not Used For Filling
-	icon_state = "icons/obj/food/food/fleshegg.dmi"
+	icon "icons/obj/food/food.dmi"
+	icon_state = "fleshegg"
 	bitesize = 1
 	var/list/diseases = list()
 
-/obj/item/reagent_containers/food/snacks/fleshegg/New(var/list/disease, var/sneaky, var/largeheal)
+/obj/item/reagent_containers/food/snacks/fleshegg/New(loc, var/list/disease, var/sneaky, var/largeheal)
 	..()
 	for(var/datum/disease/D in disease)
 		diseases += D
@@ -317,6 +319,6 @@ BONUS
 		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
 		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
-		icon_state = "icons/obj/food/food/fleshegg-sneaky.dmi"
+		icon_state = "fleshegg-sneaky"
 	if(LAZYLEN(diseases))
 		AddComponent(/datum/component/infective, diseases)
