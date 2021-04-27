@@ -303,11 +303,13 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	src.receiving = receiving
 	src.giver = giver
 	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+	RegisterSignal(giver, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
 
-/atom/movable/screen/alert/give/proc/check_in_range(atom/taker)
+/atom/movable/screen/alert/give/proc/check_in_range(atom/rangecheck)
 	SIGNAL_HANDLER_DOES_SLEEP
-	if (!giver.CanReach(taker))
-		to_chat(owner, "<span class='warning'>You moved out of range of [giver]!</span>")
+	if (!src.CanReach(rangecheck))
+		to_chat(src, "<span class='warning'>1 You moved out of range of [rangecheck]!</span>")
+		to_chat(rangecheck, "<span class='warning'>2 You moved out of range of [src]!</span>")
 		owner.clear_alert("[giver]")
 
 /atom/movable/screen/alert/give/Click(location, control, params)
