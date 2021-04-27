@@ -280,9 +280,9 @@
 
 /obj/item/organ/tongue/cat/handle_speech(datum/source, list/speech_args)
 	var/static/regex/cat_w = new("l|r", "g")
-	var/static/regex/cat_ww = new("ll", "g")
+	var/static/regex/cat_W = new("L|R", "g")
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*" && prob(1)) // 1% chance to speak stupid
 		message = cat_w.Replace(message, "w")
-		message = cat_ww.Replace(message, "ww")
+		message = cat_ww.Replace(message, "W")
 	speech_args[SPEECH_MESSAGE] = message
