@@ -295,26 +295,30 @@
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
-			if(ishuman(L))//Everything in this statement handles special grab messages that require checking item slot contents
-				var/mob/living/carbon/human/H = L
-				if (istype(H.wear_neck, /obj/item/clothing/neck/petcollar) && zone_selected == BODY_ZONE_HEAD) //Does the target have a collar?
-					M.visible_message("<span class ='warning'>[src] grabs [L] by [L.p_their()] collar!</span>",\
-								"<span class='warning'> [src] grabs you by the collar!</span>", null, null, src) //Message sent to area, Message sent to grabbee
-					to_chat(src, "<span class='notice'>You grab [L] by [L.p_their()] collar!</span>")
+
+			switch(zone_selected)
+				if(BODY_ZONE_HEAD)
+					if(ishuman(L))
+						var/mob/living/carbon/human/H = L
+						if (istype(H.wear_neck, /obj/item/clothing/neck/petcollar))
+							grab_output(src, L, "collar")
+							L.apply_damage(5, OXY)
+							grab_sanity_check = TRUE
+					if(!grab_sanity_check)
+						grab_output(src, L, "head")
+						grab_sanity_check = TRUE
+				if(BODY_ZONE_L_ARM)
+					grab_output(src, L, "arm")
 					grab_sanity_check = TRUE
-					L.apply_damage(5, OXY)
-
-			if (L.getorgan(/obj/item/organ/tail) && zone_selected == BODY_ZONE_PRECISE_GROIN && !grab_sanity_check) //Does the target have a tail?
-				M.visible_message("<span class ='warning'>[src] grabs [L] by [L.p_their()] tail!</span>",\
-								"<span class='warning'> [src] grabs you by the tail!</span>", null, null, src) //Message sent to area, Message sent to grabbee
-				to_chat(src, "<span class='notice'>You grab [L] by [L.p_their()] tail!</span>")  //Message sent to grabber
-				grab_sanity_check = TRUE
-
-			else if(!grab_sanity_check)
-				M.visible_message("<span class='warning'>[src] grabs [M] [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by their hands":"passively"]!</span>", \
-								"<span class='warning'>[src] grabs you [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by your hands":"passively"]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
-				to_chat(src, "<span class='notice'>You grab [M] [(zone_selected == BODY_ZONE_L_ARM|| zone_selected == BODY_ZONE_R_ARM)? "by their hands":"passively"]!</span>") //Message sent to grabber
-				grab_sanity_check = TRUE
+				if(BODY_ZONE_R_ARM)
+					grab_output(src, L, "arm")
+					grab_sanity_check = TRUE
+				if(BODY_ZONE_PRECISE_GROIN)
+					if(L.getorgan(/obj/item/organ/tail))
+						grab_output(src, L, "tail")
+						grab_sanity_check = TRUE
+				else
+					grab_output(src, L)
 
 		if(!iscarbon(src))
 			M.LAssailant = null
@@ -342,6 +346,15 @@
 
 		set_pull_offsets(M, state)
 
+/mob/living/proc/grab_output(mob/living/grabber, mob/living/grabbee, part)
+	if(part)
+		grabbee.visible_message("<span class ='warning'>[grabber] grabs [grabbee] by [grabber.p_their()] [part]!</span>",\
+					"<span class='warning'>[grabber] grabs you by the [part]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+		to_chat(src, "<span class='notice'>You grab [grabbee] by [grabbee.p_their()] [part]!</span>")
+	else
+		grabbee.visible_message("<span class ='warning'>[grabber] grabs [grabbee] passively!</span>",\
+					"<span class='warning'>[grabber] grabs you passively!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+		to_chat(src, "<span class='notice'>You grab [grabbee] passively!</span>")
 /mob/living/proc/set_pull_offsets(mob/living/M, grab_state = GRAB_PASSIVE)
 	if(M.buckled)
 		return //don't make them change direction or offset them if they're buckled into something.
