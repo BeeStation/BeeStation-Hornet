@@ -32,11 +32,6 @@
 #define BLOB_REFLECTOR_COST 15
 #define BLOB_STRAIN_COLOR_LIST list("#BE5532", "#7D6EB4", "#EC8383", "#00E5B1", "#00668B", "#FFF68", "#BBBBAA", "#CD7794", "#57787B", "#3C6EC8", "#AD6570", "#823ABB")
 
-//Shuttle hijacking
-#define HIJACK_NEUTRAL 0 //Does not stop hijacking but itself won't hijack
-#define HIJACK_HIJACKER 1 //Needs to be present for shuttle to be hijacked
-#define HIJACK_PREVENT 2 //Prevents hijacking same way as non-antags
-
 //Overthrow time to update heads obj
 #define OBJECTIVE_UPDATING_TIME 300
 
@@ -51,6 +46,14 @@
 #define NOT_DOMINATING			-1
 #define MAX_LEADERS_GANG		3
 #define INITIAL_DOM_ATTEMPTS	3
+
+//Shuttle elimination hijacking
+/// Does not stop elimination hijacking but itself won't elimination hijack
+#define ELIMINATION_NEUTRAL 0
+/// Needs to be present for shuttle to be elimination hijacked
+#define ELIMINATION_ENABLED 1
+/// Prevents elimination hijack same way as non-antags
+#define ELIMINATION_PREVENT 2
 
 //Syndicate Contracts
 #define CONTRACT_STATUS_INACTIVE 1
