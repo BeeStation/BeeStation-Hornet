@@ -280,6 +280,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/give // information set when the give alert is made
 	icon_state = "default"
+	timeout = 30
 	var/mob/living/carbon/giver
 	var/mob/living/carbon/taker
 	var/obj/item/receiving
@@ -308,7 +309,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
 
 /atom/movable/screen/alert/give/proc/check_in_range(atom/rangecheck)
-	SIGNAL_HANDLER_DOES_SLEEP
+	SIGNAL_HANDLER_CAN_SLEEP // doesn't actually sleep since the only thing below which can sleep is CheckToolReach() which returns FALSE before coming that far.
 	if (!src.CanReach(rangecheck)) // don't laugh when it actually works
 		to_chat(giver, "<span class='warning'>You moved out of range of [taker]!</span>")
 		to_chat(taker, "<span class='warning'>You moved out of range of [giver]!</span>")
