@@ -295,7 +295,7 @@
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
 			var/mob/living/L = M
-			if(istype(L, /mob/living/carbon/human))//Everything in this statement handles special grab messages that require checking item slot contents
+			if(ishuman(L))//Everything in this statement handles special grab messages that require checking item slot contents
 				var/mob/living/carbon/human/H = L
 				if (istype(H.wear_neck, /obj/item/clothing/neck/petcollar) && zone_selected == BODY_ZONE_HEAD) //Does the target have a collar?
 					M.visible_message("<span class ='warning'>[src] grabs [L] by [L.p_their()] collar!</span>",\
