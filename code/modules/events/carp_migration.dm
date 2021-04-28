@@ -25,10 +25,13 @@
 			fish = new (C.loc)
 		else
 			fish = new /mob/living/simple_animal/hostile/carp/megacarp(C.loc)
+			fish.flavor_text = FLAVOR_TEXT_EVIL
+			fish.set_playable()
+
 			fishannounce(fish) //Prefer to announce the megacarps over the regular fishies
 	fishannounce(fish)
 
-/datum/round_event/carp_migration/proc/fishannounce(atom/fish)	
+/datum/round_event/carp_migration/proc/fishannounce(atom/fish)
 	if (!hasAnnounced)
 		announce_to_ghosts(fish) //Only anounce the first fish
 		hasAnnounced = TRUE

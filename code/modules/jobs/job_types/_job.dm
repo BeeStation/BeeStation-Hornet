@@ -67,6 +67,9 @@
 
 	var/gimmick = FALSE //least hacky way i could think of for this
 
+	/// Should this job be allowed to be picked for the bureaucratic error event?
+	var/allow_bureaucratic_error = TRUE
+
 /datum/job/New()
 	. = ..()
 	say_span = replacetext(lowertext(title), " ", "")

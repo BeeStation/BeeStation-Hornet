@@ -938,7 +938,7 @@
 /turf/open/floor/plating,
 /area/security/prison)
 "acj" = (
-/obj/machinery/atmospherics/miner/n2o,
+/obj/machinery/atmospherics/miner/station/n2o,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "ack" = (
@@ -2333,7 +2333,7 @@
 /turf/open/space,
 /area/solar/starboard/fore)
 "aeG" = (
-/obj/machinery/atmospherics/miner/toxins,
+/obj/machinery/atmospherics/miner/station/toxins,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "aeH" = (
@@ -5017,7 +5017,7 @@
 /turf/open/floor/plating,
 /area/janitor)
 "ajl" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide,
+/obj/machinery/atmospherics/miner/station/carbon_dioxide,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "ajm" = (
@@ -5403,7 +5403,7 @@
 /turf/open/floor/plasteel,
 /area/security/range)
 "ajO" = (
-/obj/machinery/atmospherics/miner/nitrogen,
+/obj/machinery/atmospherics/miner/station/nitrogen,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "ajP" = (
@@ -6988,7 +6988,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "amu" = (
-/obj/machinery/atmospherics/miner/oxygen,
+/obj/machinery/atmospherics/miner/station/oxygen,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "amv" = (
