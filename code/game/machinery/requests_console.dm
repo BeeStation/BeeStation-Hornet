@@ -102,6 +102,8 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 /obj/machinery/requests_console/Initialize()
 	. = ..()
+	if(department == "Unknown")
+		department = get_area(src).name
 	name = "\improper [department] requests console"
 	GLOB.allConsoles += src
 

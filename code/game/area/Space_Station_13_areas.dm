@@ -940,6 +940,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Xenobiology Lab"
 	icon_state = "toxlab"
 
+/area/science/shuttle
+	name = "Shuttle Construction"
+	lighting_colour_tube = "#ffe3cc"
+	lighting_colour_bulb = "#ffdbb8"
+
 /area/science/storage
 	name = "Toxins Storage"
 	icon_state = "toxstorage"
