@@ -1,3 +1,12 @@
+/*
+ *
+ * RTX: ON Shadow calculator by PowerfulBacon.
+ *
+ * Calcuates sharp shadows on objects and makes shadow objects look sexy.
+ * This took more than just hours to make, it was painful but a lot of fun.
+ *
+ */
+
 //Lighting texture scales in world units (divide by 32)
 //256 = 8,4,2
 //1024 = 32,16,8
