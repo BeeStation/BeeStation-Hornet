@@ -117,6 +117,7 @@
 	description = "A happy looking liquid that you feel compelled to consume if you want a better life."
 	color = "#ecca7f"
 	taste_description = "dog treats"
+	can_synth = FALSE
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
 
 /datum/reagent/corgium/on_mob_metabolize(mob/living/L)
