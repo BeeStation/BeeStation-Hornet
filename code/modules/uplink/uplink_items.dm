@@ -2260,11 +2260,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/role_restricted/pacifist
 	name = "Paci-Fist Martial Arts Scroll"
-	desc = "This scroll contains the secrets of the ancient martial arts technique of The Paci-Fist. You will learn \
+	desc = "This scroll contains the secrets of the ancient martial arts technique of the Paci-Fist. You will learn \
 			various ways to disarm and pacify your foes."
 	item = /obj/item/book/granter/martial/pacifist
-	cost = 6
-	surplus = 10
+	cost = 10
+	surplus = 5 // for the lucky few, but you can still only read it if you have the pacifist trait
 	restricted_traits = list(TRAIT_PACIFISM)
 
 
