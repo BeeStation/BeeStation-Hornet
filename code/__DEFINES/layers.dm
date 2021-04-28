@@ -136,7 +136,6 @@
 
 /// Plane for balloon text (text that fades up)
 #define BALLOON_CHAT_PLANE 20.5
-
 //HUD layer defines
 
 #define FULLSCREEN_PLANE 21
