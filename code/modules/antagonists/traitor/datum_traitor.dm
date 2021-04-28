@@ -140,7 +140,7 @@
 
 /datum/antagonist/traitor/proc/forge_single_human_objective() //Returns how many objectives are added
 	.=1
-	if(prob(50) && !HAS_TRAIT(owner, TRAIT_PACIFISM)) //no murder objectives for pacifists
+	if(prob(50) && !HAS_TRAIT(owner.current, TRAIT_PACIFISM)) //no murder objectives for pacifists
 		var/list/active_ais = active_ais()
 		if(active_ais.len && prob(100/GLOB.joined_player_list.len))
 			var/datum/objective/destroy/destroy_objective = new
