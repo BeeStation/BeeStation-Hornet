@@ -39,12 +39,6 @@ map deltastation
 	votable
 endmap
 
-map donutstation
-	minplayers 60
-	maxplayers 120
-	disabled
-endmap
-
 map runtimestation
 	disabled
 endmap
