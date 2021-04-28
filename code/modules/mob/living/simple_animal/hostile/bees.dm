@@ -122,7 +122,7 @@
 	if(isliving(the_target))
 		var/mob/living/H = the_target	
 		if(isapid(the_target))
-			return H.bee_friendly()
+			return H.bee_friendly(TRUE)
 		else
 			return !H.bee_friendly()
 
