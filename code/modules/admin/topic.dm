@@ -206,14 +206,6 @@
 			return
 		SSticker.mode.admin_panel()
 
-	else if(href_list["trait_panel"])
-		if(!check_rights(R_FUN))
-			return
-		if(SSticker.HasRoundStarted())
-			return
-		var/datum/panel = new /datum/trait_panel(usr)
-		//panel.ui_interact(user)
-
 	else if(href_list["f_dynamic_roundstart"])
 		if(!check_rights(R_ADMIN))
 			return

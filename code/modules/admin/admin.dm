@@ -431,7 +431,6 @@
 	if(!check_rights(0))
 		return
 
-	//this should really be remade in tgui later
 	var/dat = {"
 		<center><B>Game Panel</B></center><hr>\n
 		<A href='?src=[REF(src)];[HrefToken()];c_mode=1'>Change Game Mode</A><br>
@@ -456,10 +455,6 @@
 		dat += "<hr/>"
 	if(SSticker.IsRoundInProgress())
 		dat += "<a href='?src=[REF(src)];[HrefToken()];gamemode_panel=1'>(Game Mode Panel)</a><BR>"
-
-	//Station traits panel
-	if(!SSticker.HasRoundStarted())
-		dat += "<a href='?src=[REF(src)];[HrefToken()];trait_panel=1'>Station Trait Panel</a><BR>"
 
 	dat += {"
 		<BR>
