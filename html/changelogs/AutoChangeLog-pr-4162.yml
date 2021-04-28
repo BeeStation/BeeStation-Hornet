@@ -1,0 +1,5 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - bugfix: Ovulogenesis actually spawns eggs
+  - bugfix: Ovulogenesis Eggs have their sprites setup correctly in code

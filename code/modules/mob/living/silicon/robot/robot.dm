@@ -216,7 +216,14 @@
 	if(!CONFIG_GET(flag/disable_peaceborg))
 		modulelist["Peacekeeper"] = /obj/item/robot_module/peacekeeper
 
-	var/input_module = input("Please, select a module!", "Robot", null, null) as null|anything in sortList(modulelist)
+	// Create radial menu for choosing borg model *smug* module
+	var/list/module_icons = list()
+	for(var/option in modulelist)
+		var/obj/item/robot_module/module = modulelist[option]
+		var/module_icon = initial(module.cyborg_base_icon)
+		module_icons[option] = image(icon = 'icons/mob/robots.dmi', icon_state = module_icon)
+
+	var/input_module = show_radial_menu(src, src, module_icons, radius = 42)
 	if(!input_module || module.type != /obj/item/robot_module)
 		return
 

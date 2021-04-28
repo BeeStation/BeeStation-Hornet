@@ -175,7 +175,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/material in materials.materials)
 		var/datum/material/M = material
-		var/mineral_amount = materials.materials[material]
+		var/mineral_amount = materials.materials[material] / MINERAL_MATERIAL_AMOUNT
 		data["materials"] += list(list(
 			"name" = M.name,
 			"amount" = mineral_amount,
@@ -332,7 +332,7 @@
 
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
 
-	if(ACCESS_SECURITY in O.GetAccess() && !(obj_flags & EMAGGED))
+	if((ACCESS_SECURITY in O.GetAccess()) && !(obj_flags & EMAGGED))
 		security_interface_locked = !security_interface_locked
 		to_chat(user, "<span class='warning'>You [security_interface_locked?"lock":"unlock"] the security controls of [src].</span>")
 		return TRUE
