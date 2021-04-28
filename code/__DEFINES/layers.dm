@@ -112,6 +112,8 @@
 #define LIGHTING_LAYER 15
 #define LIGHTING_RENDER_TARGET "LIGHT_PLANE"
 
+#define RAD_TEXT_LAYER 21
+
 #define LIGHTING_PRIMARY_LAYER 15	//The layer for the main lights of the station
 #define LIGHTING_PRIMARY_DIMMER_LAYER 15.1	//The layer that dims the main lights of the station
 #define LIGHTING_SECONDARY_LAYER 16	//The colourful, usually small lights that go on top
@@ -130,7 +132,7 @@
 #define CAMERA_STATIC_LAYER 20
 #define CAMERA_STATIC_RENDER_TARGET "CAMERA_STATIC_PLANE"
 
-#define RUNECHAT_PLANE 20
+#define RUNECHAT_PLANE 20.5
 //HUD layer defines
 
 #define FULLSCREEN_PLANE 21
