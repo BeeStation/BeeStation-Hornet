@@ -30,7 +30,12 @@
 /atom/movable/lighting_mask
 	var/list/turf/affecting_turfs
 	var/list/mutable_appearance/shadows
+	//Amount of times lighting was calculated on this object
 	var/times_calculated = 0
+
+	//The last world time shadows were calculated on this object.
+	//Prevents more than 1 shadow being made per 1/10s of a second which stops fast moving objects such as ghosts creating lag.
+	var/last_calculation_time = 0
 
 	//Please dont change these
 	var/calculated_position_x
@@ -63,7 +68,7 @@
 //Returns a list of matrices corresponding to the matrices that should be applied to triangles of
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
 //takes in the old turf to smoothly animate shadow movement
-/atom/movable/lighting_mask/proc/calculate_lighting_shadows()
+/atom/movable/lighting_mask/proc/calculate_lighting_shadows(force = FALSE)
 
 	//Check to make sure lighting is actually started
 	//If not count the amount of duplicate requests created.
@@ -74,6 +79,14 @@
 		SSlighting.sources_that_need_updating += src
 		awaiting_update = TRUE
 		return
+
+	//BIIIIG lag stopper.
+	if(!force)
+		if(world.time <= last_calculation_time)
+			SSlighting.queue_shadow_render(src)
+			return
+
+	last_calculation_time = world.time
 
 	//Dont bother calculating at all for small shadows
 	var/range = radius

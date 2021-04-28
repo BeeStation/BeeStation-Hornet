@@ -6,6 +6,8 @@ SUBSYSTEM_DEF(lighting)
 	var/duplicate_shadow_updates_in_init = 0
 	var/total_shadow_calculations = 0
 
+	var/list/queued_shadow_updates = list()
+
 	var/started = FALSE
 	var/list/sources_that_need_updating = list()
 	var/list/light_sources = list()
@@ -37,6 +39,14 @@ SUBSYSTEM_DEF(lighting)
 		light.our_mask.calculate_lighting_shadows()
 	message_admins("Shadows built in [TICK_USAGE_TO_MS(timer)]ms ([light_sources.len] shadows)")
 
+/datum/controller/subsystem/lighting/proc/queue_shadow_render(mask_to_queue)
+	LAZYOR(queued_shadow_updates, mask_to_queue)
+
+/datum/controller/subsystem/lighting/proc/draw_shadows()
+	for(var/atom/movable/lighting_mask/mask as() in queued_shadow_updates)
+		mask.calculate_lighting_shadows(TRUE)
+	LAZYCLEARLIST(queued_shadow_updates)
+
 //!!!!LEGACY!!!!!
 
 GLOBAL_LIST_EMPTY(lighting_update_lights) // List of lighting sources  queued for update.
@@ -47,9 +57,14 @@ GLOBAL_LIST_EMPTY(lighting_update_objects) // List of lighting objects queued fo
 	. = ..("Sources: [light_sources.len], ShCalcs: [total_shadow_calculations]|L:[GLOB.lighting_update_lights.len]|C:[GLOB.lighting_update_corners.len]|O:[GLOB.lighting_update_objects.len]")
 
 /datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
+	if(LAZYLEN(queued_shadow_updates))
+		draw_shadows()
+
 	MC_SPLIT_TICK_INIT(3)
+
 	if(!init_tick_checks)
 		MC_SPLIT_TICK
+
 	var/i = 0
 	for (i in 1 to GLOB.lighting_update_lights.len)
 		var/datum/legacy_light_source/L = GLOB.lighting_update_lights[i]
@@ -101,7 +116,6 @@ GLOBAL_LIST_EMPTY(lighting_update_objects) // List of lighting objects queued fo
 	if (i)
 		GLOB.lighting_update_objects.Cut(1, i+1)
 
-//F
 /datum/controller/subsystem/lighting/Recover()
 	initialized = SSlighting.initialized
 	..()
