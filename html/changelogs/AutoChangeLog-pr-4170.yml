@@ -1,9 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - bugfix: Autolathe now displays materials in sheets correctly
-  - bugfix: Security IDs can now be swiped on autolathes to lock/unlock interface.
-      The code for this was broken.
-  - bugfix: Autolathe's security interface lock/unlock button is now more intuitively
-      labeled
-  - bugfix: Autolathe UI no longer breaks and duplicates entries when hacked
