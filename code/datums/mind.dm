@@ -71,6 +71,9 @@
 	var/list/learned_recipes //List of learned recipe TYPES.
 	var/list/crew_objectives = list()
 
+	/// A lazy list of statuses to add next to this mind in the traitor panel
+	var/list/special_statuses
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
