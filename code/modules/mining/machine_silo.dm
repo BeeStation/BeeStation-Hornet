@@ -66,6 +66,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
 		updateUsrDialog()
 		return
+
 	if(default_deconstruction_crowbar(W))
 		return
 
