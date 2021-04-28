@@ -1,0 +1,4 @@
+author: yorii
+delete-after: true
+changes:
+  - rscdel: Strange seeds can no longer contain corgium.
