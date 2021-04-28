@@ -101,6 +101,34 @@ export const StatStatus = (props, context) => {
           </Flex.Item>
         )
         :null}
+        {stat.br_popup
+        ?(
+          <Flex.Item mt={1} mb={1}>
+            <div className="StatBorder_antagonist">
+              <Box>
+                <Flex
+                  direction="column"
+                  className="stat_antagonist">
+                  <Flex.Item bold>
+                    <Button
+                      color="transparent"
+                      icon="times"
+                      onClick={() => dispatch({
+                        type: 'stat/clearAntagPopup',
+                      })} />
+                    <Box inline>
+                      {stat.antagonist_popup.title}
+                    </Box>
+                  </Flex.Item>
+                  <Flex.Item mt={2}>
+                    {stat.antagonist_popup.text}
+                  </Flex.Item>
+                </Flex>
+              </Box>
+            </div>
+          </Flex.Item>
+        )
+        :null}
       <StatText />
     </Flex>
   );
@@ -187,6 +215,34 @@ export const HoboStatStatus = (props, context) => {
                 <Box>
                   {stat.antagonist_popup.text}
                 </Box>
+              </Box>
+            </Section>
+          </div>
+        )
+        :null}
+      {stat.alert_br
+        ?(
+          <div className="StatBorder_infomation">
+            <Section>
+              <Box className="stat_infomation">
+                <Button
+                  color="transparent"
+                  icon="times"
+                  onClick={() => dispatch({
+                    type: 'stat/clearAlertBr',
+                  })} />
+                <Box inline>
+                  {stat.alert_popup.title}
+                </Box>
+                <Box>
+                  {stat.alert_popup.text}
+                </Box>
+                <Button
+                  onClick={() => dispatch({
+                    type: ''
+                  })}>
+                    {Start}
+                </Button>
               </Box>
             </Section>
           </div>
