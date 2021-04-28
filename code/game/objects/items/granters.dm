@@ -456,11 +456,15 @@
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			return FALSE
 		else
-			to_chat(user, "<span class='warning'>You try to read the scroll but only a real pacifist would probably understand it.</span>")
-			return TRUE
+			var/confirm = alert(user, "Reading this scroll will make you devote yourself to a lifestyle of pacifism, you will be unable to cause any harm to any living thing after reading it.", "Read the scroll?", "Abort", "Proceed")
+			if(confirm != "Proceed")
+				return TRUE
+			else
+				return FALSE
 
 /obj/item/book/granter/martial/pacifist/onlearned(mob/living/carbon/user)
 	..()
+	ADD_TRAIT(user, TRAIT_PACIFISM)
 	if(oneuse)
 		desc = "It's completely blank."
 		name = "empty scroll"
