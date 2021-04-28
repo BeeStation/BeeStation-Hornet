@@ -91,9 +91,17 @@
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
-	var/obj/item/uplink/incursion/uplink = new(owner, owner.key, 15)
-	owner.current.equip_to_slot(uplink, ITEM_SLOT_BACKPACK)
-	to_chat(owner.current, "<span class='notice'><b>You have been equipped with a syndicate uplink located in your backpack. Activate the transponder in hand to access the market.</b></span>")
+	var/obj/item/uplink/incursion/uplink = new(owner.current.loc, owner.key, 15)
+	var/where
+	if(ishuman(owner.current))		//if he's not a human, uplink will spawn under his feet
+		var/mob/living/carbon/human/H = owner.current
+		var/list/slots = list(
+			"in your left pocket" = ITEM_SLOT_LPOCKET,
+			"in your right pocket" = ITEM_SLOT_RPOCKET,
+			"in your backpack" = ITEM_SLOT_BACKPACK
+		)
+		where = H.equip_in_one_of_slots(uplink, slots, FALSE)
+	to_chat(owner.current, "<span class='notice'><b>You have been equipped with a syndicate uplink located [where ? where : "at your feet"]. Activate the transponder in hand to access the market.</b></span>")
 	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)
 

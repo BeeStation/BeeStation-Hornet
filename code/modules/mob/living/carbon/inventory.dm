@@ -14,9 +14,9 @@
 			return legcuffed
 	return null
 
-/mob/living/carbon/proc/equip_in_one_of_slots(obj/item/I, list/slots, qdel_on_fail = 1)
+/mob/living/carbon/proc/equip_in_one_of_slots(obj/item/I, list/slots, qdel_on_fail = TRUE)
 	for(var/slot in slots)
-		if(equip_to_slot_if_possible(I, slots[slot], qdel_on_fail = 0, disable_warning = TRUE))
+		if(equip_to_slot_if_possible(I, slots[slot], qdel_on_fail = FALSE, disable_warning = TRUE))
 			return slot
 	if(qdel_on_fail)
 		qdel(I)
