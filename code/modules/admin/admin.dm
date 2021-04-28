@@ -962,7 +962,7 @@
 	if (!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
 		return 1
 
-	tomob.ghostize(0)
+	tomob.ghostize(FALSE)
 
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.key] in control of [tomob.name].</span>")
 	log_admin("[key_name(usr)] stuffed [frommob.key] into [tomob.name].")

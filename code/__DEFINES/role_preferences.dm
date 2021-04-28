@@ -15,6 +15,7 @@
 #define ROLE_INCURSION			"Incursion Team"
 #define ROLE_REV				"Revolutionary"
 #define ROLE_REV_HEAD			"Head Revolutionary"
+#define ROLE_REV_SUCCESSFUL		"Victorious Revolutionary"
 #define ROLE_ALIEN				"Xenomorph"
 #define ROLE_PAI				"pAI"
 #define ROLE_CULTIST			"Cultist"

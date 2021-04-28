@@ -46,13 +46,6 @@
 	icon_state = "plaguedoctor"
 	permeability_coefficient = 0.01
 
-/obj/item/clothing/head/hasturhood
-	name = "hastur's hood"
-	desc = "It's <i>unspeakably</i> stylish."
-	icon_state = "hasturhood"
-	flags_inv = HIDEHAIR
-	flags_cover = HEADCOVERSEYES
-
 /obj/item/clothing/head/nursehat
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."

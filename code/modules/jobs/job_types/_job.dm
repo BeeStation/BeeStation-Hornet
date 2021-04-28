@@ -71,6 +71,8 @@
 	var/departments = NONE
 	///Is this job affected by weird spawns like the ones from station traits
 	var/random_spawns_possible = TRUE
+	/// Should this job be allowed to be picked for the bureaucratic error event?
+	var/allow_bureaucratic_error = TRUE
 
 /datum/job/New()
 	. = ..()
