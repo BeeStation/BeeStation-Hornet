@@ -70,7 +70,7 @@
 			var/datum/mind/agent_mind = M
 			if(ishuman(agent_mind.current))
 				var/mob/living/carbon/human/H = agent_mind.current
-				if(H.stat != DEAD)
+				if(H.stat != DEAD && !HAS_TRAIT(H, TRAIT_PACIFISM)) //pacifists can't be IAA/EAA
 					if(H.client)
 						continue // It all checks out.
 

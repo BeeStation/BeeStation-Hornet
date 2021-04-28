@@ -87,7 +87,7 @@
 	for(var/i = objective_count, i < toa, i++)
 		forge_single_objective()
 
-	if(is_hijacker && objective_count <= toa) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
+	if(is_hijacker && objective_count <= toa && !HAS_TRAIT(owner, TRAIT_PACIFISM)) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount and don't assign it to pacifists
 		if (!(locate(/datum/objective/hijack) in objectives))
 			var/datum/objective/hijack/hijack_objective = new
 			hijack_objective.owner = owner
@@ -140,7 +140,7 @@
 
 /datum/antagonist/traitor/proc/forge_single_human_objective() //Returns how many objectives are added
 	.=1
-	if(prob(50))
+	if(prob(50) && !HAS_TRAIT(owner, TRAIT_PACIFISM)) //no murder objectives for pacifists
 		var/list/active_ais = active_ais()
 		if(active_ais.len && prob(100/GLOB.joined_player_list.len))
 			var/datum/objective/destroy/destroy_objective = new
