@@ -255,7 +255,7 @@ export const ModFabCategoryItems = (props, context) => {
         {items.map(item => (
           <Table.Row
             height="100%"
-            key={item}>
+            key={item.design_id}>
             <Table.Cell>
               {item.name}
             </Table.Cell>
@@ -336,7 +336,7 @@ export const ModFabData = (props, context) => {
               m={0}
               color={sec_interface_unlock ? "green" : "red"}
               icon={sec_interface_unlock ? "unlock" : "lock"}
-              content={sec_interface_unlock ? "Unlock" : "Lock"}
+              content={sec_interface_unlock ? "Unlocked" : "Locked"}
               onClick={() => act("toggle_lock")} />
           </Flex.Item>
         </Flex>
