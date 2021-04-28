@@ -3,7 +3,7 @@
 
 //The code execution of the emote datum is located at code/datums/emotes.dm
 /mob/proc/emote(act, m_type = null, message = null, intentional = FALSE)
-	if(emotecd > world.time)
+	if(emotecd > world.time && intentional)
 		return
 	emotecd = (world.time + 5)
 	act = lowertext(act)
