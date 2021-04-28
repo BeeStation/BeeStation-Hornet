@@ -1,11 +1,8 @@
-/mob
-	var/emotecd
-
 //The code execution of the emote datum is located at code/datums/emotes.dm
 /mob/proc/emote(act, m_type = null, message = null, intentional = FALSE)
-	if(emotecd > world.time && intentional)
+	if(emote_used > world.time && intentional)
 		return
-	emotecd = (world.time + 5)
+	emote_used = (world.time + emote_cooldown)
 	act = lowertext(act)
 	var/param = message
 	var/custom_param = findchar(act, " ")
