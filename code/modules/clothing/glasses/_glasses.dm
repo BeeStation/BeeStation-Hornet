@@ -27,7 +27,7 @@
 
 /obj/item/clothing/glasses/equipped(mob/user, slot)
 	. = ..()
-	if(slot == SLOT_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		create_night_vision(user)
 	else
 		stop_night_vision()
@@ -161,7 +161,7 @@
 
 /obj/item/clothing/glasses/night/disco/equipped(mob/user, slot)
 	. = ..()
-	if(slot == SLOT_GLASSES)
+	if(slot == ITEM_SLOT_EYES)
 		START_PROCESSING(SSobj, src)
 		if(ishuman(user))
 			ADD_TRAIT(user, TRAIT_BOOZE_SLIDER, CLOTHING_TRAIT)
