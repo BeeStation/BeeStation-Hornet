@@ -464,7 +464,7 @@
 
 /obj/item/book/granter/martial/pacifist/onlearned(mob/living/carbon/user)
 	..()
-	ADD_TRAIT(user, TRAIT_PACIFISM)
+	ADD_TRAIT(user, TRAIT_PACIFISM, "paci-fist")
 	if(oneuse)
 		desc = "It's completely blank."
 		name = "empty scroll"

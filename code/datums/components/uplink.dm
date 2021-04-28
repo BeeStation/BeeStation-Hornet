@@ -180,15 +180,6 @@
 						break
 				if(is_inaccessible)
 					continue
-			if(I.restricted_traits && !I.discounted && ishuman(user))
-				var/is_inaccessible = TRUE
-				var/mob/living/carbon/human/H = user
-				for(var/T in I.restricted_traits)
-					if(HAS_TRAIT(H, T) || debug)
-						is_inaccessible = FALSE
-						break
-					if(is_inaccessible)
-						continue
 			cat["items"] += list(list(
 				"name" = I.name,
 				"cost" = I.cost,
