@@ -444,7 +444,7 @@
 	name = "strange scroll"
 	martialname = "paci-fist"
 	desc = "A strange scroll filled with martial lessons. It seems to be drawings of some sort of pacifist martial art."
-	greet = "<span class='sciradio'>You have learned the ancient martial art of the Paci-Fist! Your non-harmful abilities has become much more effective, and you are now able to block most attacks \
+	greet = "<span class='sciradio'>You have learned the ancient martial art of the Paci-Fist! Your non-harmful abilities of disarming and grabbing have become much more effective, and you are now able to block most attacks \
 	directed toward you. You are also able to nerve pinch an opponent to sleep. You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
