@@ -77,7 +77,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(A.pulling == D && !D.IsSleeping())
-		while(do_after(A, 20, target = D))
+		while(do_after(A, 30, target = D))
 			D.visible_message("<span class='danger'>[A] reaches for [D]'s neck!</span>", \
 							"<span class='userdanger'>[A] reaches for your neck!</span>")
 			if(!A.CanReach(D) || !A.pulling == D || D.IsSleeping())

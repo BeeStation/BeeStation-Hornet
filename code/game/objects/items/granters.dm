@@ -451,11 +451,13 @@
 	remarks = list("I must prove myself worthy to the masters of the paci-fist...", "Stance means everything...", "Focus... And you'll be able to pacify any foe in seconds...", "I must avoid conflict for maximum efficiency...", "I don't think this would combine with other martial arts...", "Grab them first and pacify them...", "I must prove myself worthy of this power...")
 
 /obj/item/book/granter/martial/pacifist/already_known(mob/user)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		return FALSE
-	else
-		to_chat(user, "<span class='warning'>You try to read the scroll but only a real pacifist would probably understand it.</span>")
-		return TRUE
+	.=..()
+	if(!.)
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			return FALSE
+		else
+			to_chat(user, "<span class='warning'>You try to read the scroll but only a real pacifist would probably understand it.</span>")
+			return TRUE
 
 /obj/item/book/granter/martial/pacifist/onlearned(mob/living/carbon/user)
 	..()
