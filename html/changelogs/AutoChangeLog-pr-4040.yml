@@ -1,4 +1,0 @@
-author: TheFakeElon
-delete-after: true
-changes:
-  - bugfix: Thrusters now check for wings/flight
