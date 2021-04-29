@@ -18089,6 +18089,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ctf)
+"Vx" = (
+/obj/machinery/computer/secure_data{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/centcom/evac)
 "Vz" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
@@ -44424,7 +44430,7 @@ KS
 Lb
 Lb
 Ld
-aa
+Vx
 Ln
 Lq
 KH
