@@ -302,22 +302,22 @@
 					if(ishuman(L))//Special handling required for checking clothing
 						var/mob/living/carbon/human/H = L
 						if (istype(H.wear_neck, /obj/item/clothing/neck/petcollar))
-							grab_output(src, L, "collar")
+							grab_output(src, L, "collar", GRAB_PASSIVE)
 							L.apply_damage(5, OXY)
 							grab_sanity_check = TRUE
 					if(!grab_sanity_check)
-						grab_output(src, L, "head")
+						grab_output(src, L, "head", GRAB_PASSIVE)
 				if(BODY_ZONE_L_ARM)
-					grab_output(src, L, "hands")
+					grab_output(src, L, "hands", GRAB_PASSIVE)
 				if(BODY_ZONE_R_ARM)
-					grab_output(src, L, "hands")
+					grab_output(src, L, "hands", GRAB_PASSIVE)
 				if(BODY_ZONE_PRECISE_GROIN)
 					if(L.getorgan(/obj/item/organ/tail))
-						grab_output(src, L, "tail")
+						grab_output(src, L, "tail", GRAB_PASSIVE)
 					else
-						grab_output(src, L)
+						grab_output(src, L, null, GRAB_PASSIVE)
 				else
-					grab_output(src, L)
+					grab_output(src, L, null, GRAB_PASSIVE)
 
 		if(!iscarbon(src))
 			M.LAssailant = null
@@ -345,15 +345,23 @@
 
 		set_pull_offsets(M, state)
 
-/mob/living/proc/grab_output(mob/living/grabber, mob/living/grabbee, part)
-	if(part)
-		grabbee.visible_message("<span class ='warning'>[grabber] grabs [grabbee] by [grabber.p_their()] [part]!</span>",\
-					"<span class='warning'>[grabber] grabs you by the [part]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
-		to_chat(src, "<span class='notice'>You grab [grabbee] by [grabbee.p_their()] [part]!</span>")
-	else
-		grabbee.visible_message("<span class ='warning'>[grabber] grabs [grabbee] passively!</span>",\
-					"<span class='warning'>[grabber] grabs you passively!</span>", null, null, src) //Message sent to area, Message sent to grabbee
-		to_chat(src, "<span class='notice'>You grab [grabbee] passively!</span>")
+/mob/living/proc/grab_output(mob/living/grabber, mob/living/grabbee, mod, grabtype)
+	switch(grabtype)
+		if(GRAB_PASSIVE)
+			if(mod) //Grabbing a specific part?
+				grabbee.visible_message("<span class ='warning'>[grabber] grabs [grabbee] by [grabber.p_their()] [mod]!</span>",\
+							"<span class='warning'>[grabber] grabs you by the [mod]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+				to_chat(grabber, "<span class='notice'>You grab [grabbee] by [grabbee.p_their()] [mod]!</span>")
+			else //Generic passive grab
+				grabbee.visible_message("<span class ='warning'>[grabber] grabs [grabbee] passively!</span>",\
+							"<span class='warning'>[grabber] grabs you passively!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+				to_chat(grabber, "<span class='notice'>You grab [grabbee] passively!</span>")
+		if(GRAB_KILL)//For future use
+			if(mod)
+				grabbee.visible_message("<span class ='danger'>[grabber] grabs [grabbee] by [grabber.p_their()] [mod] and begins strangling [grabbee.p_them()]!</span>",\
+							"<span class='userdanger'>[grabber] grabs you by the [mod] and begins strangling you!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+				to_chat(grabber, "<span class='danger'>You grab [grabbee] by [grabbee.p_their()] [mod] and begin strangling [grabbee.p_them()]!</span>")
+
 
 /mob/living/proc/set_pull_offsets(mob/living/M, grab_state = GRAB_PASSIVE)
 	if(M.buckled)
