@@ -78,12 +78,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	if (light_power && light_range)
 		update_light()
-
-	//Get area light
-	var/area/A = loc
-	if(A?.lighting_effect)
-		add_overlay(A.lighting_effect)
-
+	
 	var/turf/T = SSmapping.get_turf_above(src)
 	if(T)
 		T.multiz_turf_new(src, DOWN)
