@@ -35,6 +35,8 @@
 	holder = null
 	//Remove reference to the atom we are attached to
 	attached_atom = null
+	//Remove from subsystem
+	LAZYREMOVE(SSlighting.queued_shadow_updates, src)
 	//Continue with deletiib
 	. = ..()
 
