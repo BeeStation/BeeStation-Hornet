@@ -277,11 +277,11 @@ BONUS
 	for(var/datum/disease/D in disease)
 		diseases += D
 	if(large_heal)
-		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
 		reagents.add_reagent(/datum/reagent/blood, 10, diseases)
 		big_heal = TRUE
 	else
-		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
 		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
 		icon_state = "eggsac-sneaky"
@@ -313,10 +313,10 @@ BONUS
 	for(var/datum/disease/D in disease)
 		diseases += D
 	if(large_heal)
-		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
 		reagents.add_reagent(/datum/reagent/blood, 10, diseases)
 	else
-		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
 		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
 		icon_state = "fleshegg-sneaky"
