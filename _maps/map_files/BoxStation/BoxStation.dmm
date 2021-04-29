@@ -39989,9 +39989,6 @@
 /obj/machinery/camera/autoname{
 	dir = 4
 	},
-/obj/machinery/keycard_auth{
-	pixel_y = 24
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "cnx" = (
