@@ -14,7 +14,7 @@
 	invisibility     = INVISIBILITY_LIGHTING
 	blend_mode		 = BLEND_ADD
 
-	appearance_flags = KEEP_TOGETHER | RESET_TRANSFORM
+	appearance_flags = KEEP_TOGETHER
 
 	move_resist = INFINITY
 
@@ -48,9 +48,6 @@
 	src.radius = radius
 	//Calculate shadows
 	calculate_lighting_shadows()
-	//Update our holders thing
-	var/obj/effect/lighting_mask_holder/mask_holder = holder.resolve()
-	mask_holder.update_matrix(M)
 
 /atom/movable/lighting_mask/proc/apply_matrix(matrix/M, transform_time = 0)
 	if(transform_time)

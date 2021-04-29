@@ -17,6 +17,13 @@
 /atom/movable/lighting_mask/proc/holder_turned(new_direction)
 	return
 
+///TGMC Optimisation
+///This is the template mask used for overlay merging, DO NOT TOUCH THIS FOR NO REASON
+/atom/movable/lighting_mask/template
+	icon_state = null
+	blend_mode = BLEND_DEFAULT
+//TGMC Optimisation End
+
 //Flicker
 
 /atom/movable/lighting_mask/flicker
