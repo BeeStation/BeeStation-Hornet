@@ -19,7 +19,7 @@
 		D.grabbedby(A, 1)
 		if(A.grab_state == GRAB_PASSIVE)
 			A.setGrabState(GRAB_AGGRESSIVE) //Instant "firm" grab if on grab intent
-			log_combat(A, D, "grabbed", addition="aggressive grab (paci-fist)")
+			log_combat(A, D, "grabbed", addition="aggressively (Paci-Fist)")
 			D.visible_message("<span class='danger'>[A] firmly grips [D]!</span>",
 							"<span class='danger'>[A] firmly grips you!</span>")
 	else
@@ -33,6 +33,7 @@
 	if(check_streak(A,D))
 		return TRUE
 	if(prob(25))
+		log_combat(A, D, "feinted (Paci-Fist)")
 		D.visible_message("<span class='warning'>[A] feints [D]!</span>", \
 						"<span class='userdanger'>[A] feints you!</span>")
 		D.drop_all_held_items()
@@ -66,7 +67,7 @@
 			playsound(get_turf(D), 'sound/weapons/punchmiss.ogg', 50, 1, -1)
 			D.Stun(10)
 			D.Jitter(2)
-			log_combat(A, D, "took [I] from (Disarm)(Paci-Fist)")
+			log_combat(A, D, "took [I] from (Disarm) (Paci-Fist)")
 			D.visible_message("<span class='warning'>[A] swiftly grabs [D]'s [I] out of their their hand!</span>", \
 							"<span class='userdanger'>[A] swiftly grabs your [I] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
 			A.put_in_hands(I)
@@ -85,7 +86,7 @@
 							"<span class='notice'>[A] fails to reach your neck...</span>")
 				break
 			else
-				log_combat(A, D, "knocked out (Vulcan Nerve Pinch)(Paci-Fist)")
+				log_combat(A, D, "knocked out (Vulcan Nerve Pinch) (Paci-Fist)")
 				D.visible_message("<span class='danger'>[A] pinches a nerve in [D]'s neck!</span>", \
 								"<span class='userdanger'>[A] pinches a nerve in your neck!</span>")
 				D.SetSleeping(400)
