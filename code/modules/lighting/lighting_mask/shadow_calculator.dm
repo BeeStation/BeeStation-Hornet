@@ -5,6 +5,10 @@
  * Calcuates sharp shadows on objects and makes shadow objects look sexy.
  * This took more than just hours to make, it was painful but a lot of fun.
  *
+ * Credits:
+ *  - PowerfulBacon
+ *  - TiviPlus (Dud shadow holder object for faster render time)
+ *
  */
 
 //Lighting texture scales in world units (divide by 32)
@@ -233,7 +237,6 @@
 			shadow.icon = LIGHTING_ICON_BIG
 			shadow.icon_state = "triangle"
 			shadow.layer = layer + 1
-			shadow.blend_mode = BLEND_DEFAULT
 			shadow.color = "#000"
 			shadow.alpha = 255
 			shadow.transform = M
@@ -247,7 +250,16 @@
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(overlays_add_time += TICK_USAGE_TO_MS(temp_timer))
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
-	overlays += overlays_to_add
+	//TGMC Backport
+	//Put the overlays onto a dud object and copy the appearance to merge them
+	//Doesnt impact maptick, AND means much faster render times
+	var/static/atom/movable/lighting_mask/template/dud = new
+	dud.overlays += overlays_to_add
+	var/static/mutable_appearance/overlay_merger = new()
+	overlay_merger.appearance = dud.appearance
+	overlays += overlay_merger
+	dud.overlays.Cut()
+
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("total_coordgroup_time: [total_coordgroup_time]ms"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("total_cornergroup_time: [total_cornergroup_time]ms"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("triangle_time calculation: [triangle_time]ms"))

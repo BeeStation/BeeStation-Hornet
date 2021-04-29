@@ -10,14 +10,6 @@
 	held_mask = WEAKREF(mask)
 	mask.holder = WEAKREF(src)
 
-//This may be a bug with byond, but we can control when the vis_contents is rendered
-//by updating this objects matrix with the item in vis_contents being on RESET_TRANSFORM.
-//Because shadows extend further than the light source, we need to be able to order the light
-//to stop rendering when it is out of view, and to do this we simple need to know the bounds
-//of the mask (including shadow) and the bounds of the mask without the shadow.
-/obj/effect/lighting_mask_holder/proc/update_matrix(actual_bound_top, actual_bound_bottom, actual_bound_left, actual_bound_right, radius)
-	transform = matrix()
-
 /obj/effect/lighting_mask_holder/Destroy(force)
 	var/atom/movable/lighting_mask/located = held_mask?.resolve()
 	if(located)
