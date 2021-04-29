@@ -217,16 +217,6 @@
 	desc = "A power cell with an even higher capacity than the base model!"
 	maxcharge = 5000
 
-/obj/item/stock_parts/cell/secborg
-	name = "security borg rechargeable D battery"
-	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
-	materials = list(/datum/material/glass=40)
-
-/obj/item/stock_parts/cell/secborg/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
-
 /obj/item/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
 	maxcharge = 40000

@@ -821,10 +821,6 @@
 	set_module = /obj/item/robot_module/engineering
 	icon_state = "engineer"
 
-/mob/living/silicon/robot/modules/security
-	set_module = /obj/item/robot_module/security
-	icon_state = "sec"
-
 /mob/living/silicon/robot/modules/clown
 	set_module = /obj/item/robot_module/clown
 	icon_state = "clown"
