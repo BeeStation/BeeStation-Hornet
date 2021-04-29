@@ -183,7 +183,7 @@
 /obj/item/slimecross/unstable/pyrite
 	colour = "pyrite"
 	effect_desc = "When thrown randomly colors nearby tiles"
-	var/list/color_list = list("#FFA500","#B19CD9", "#ADD8E6","#7E7E7E","#FFFF00","#551A8B","#0000FF","#D3D3D3", "#32CD32","#704214","#2956B2","#FAFAD2", "#FF0000",
+	var/static/list/color_list = list("#FFA500","#B19CD9", "#ADD8E6","#7E7E7E","#FFFF00","#551A8B","#0000FF","#D3D3D3", "#32CD32","#704214","#2956B2","#FAFAD2", "#FF0000",
 					"#00FF00", "#FF69B4","#FFD700", "#505050", "#FFB6C1","#008B8B")
 
 /obj/item/slimecross/unstable/pyrite/on_effect(atom/hit_atom)
@@ -198,15 +198,9 @@
 	if(!ishuman(hit_atom))
 		new /obj/effect/decal/cleanable/blood(get_turf(hit_atom))
 		return
-	var/mob/living/carbon/human/humie = hit_atom
-	humie.bleed_rate += 15
+	var/mob/living/carbon/human/H = hit_atom
+	H.bleed_rate += 15
 
-/obj/item/slimecross/unstable/red/on_effect(atom/hit_atom)
-	if(!ishuman(hit_atom))
-		new /obj/effect/decal/cleanable/blood(get_turf(hit_atom))
-		return
-	var/mob/living/carbon/human/humie = hit_atom
-	humie.bleed_rate += 15
 
 /obj/item/slimecross/unstable/green
 	colour = "green"
@@ -215,11 +209,10 @@
 /obj/item/slimecross/unstable/green/on_effect(atom/hit_atom)
 	if(!isliving(hit_atom))
 		return
-
-	var/mob/living/livie = hit_atom
-	var/health_amt_now = livie.getBruteLoss()
-	livie.apply_damage(25,BRUTE)
-	var/health_to_heal = health_amt_now - livie.getBruteLoss()
+	var/mob/living/L = hit_atom
+	var/health_amt_now = L.getBruteLoss()
+	L.apply_damage(25,BRUTE)
+	var/health_to_heal = health_amt_now - L.getBruteLoss()
 	human_thrower.adjustBruteLoss(health_to_heal)
 
 /obj/item/slimecross/unstable/pink
@@ -279,5 +272,5 @@
 /obj/item/slimecross/unstable/rainbow/on_effect(atom/hit_atom)
 	if(!ishuman(hit_atom))
 		return
-	var/mob/living/carbon/human/humie = hit_atom
-	humie.apply_status_effect(/datum/status_effect/rainbow_death)
+	var/mob/living/carbon/human/H = hit_atom
+	H.apply_status_effect(/datum/status_effect/rainbow_death)
