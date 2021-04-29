@@ -7,6 +7,7 @@
 	earliest_start = 8 MINUTES //not particularly dangerous, gives abductors time to do their objective
 	dynamic_should_hijack = TRUE
 	gamemode_blacklist = list("nuclear","wizard","revolution")
+	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event/ghost_role/abductor
 	minimum_required = 2

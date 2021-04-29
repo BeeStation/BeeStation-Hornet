@@ -1314,7 +1314,7 @@
 	crate_name = "rusty freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
-datum/supply_pack/medical/basickits
+/datum/supply_pack/medical/basickits
 	name = "Basic Treatment Kits Crate"
 	desc = "Contains three basic aid kits focused on basic types of damage in a simple way."
 	cost = 1400
@@ -1324,7 +1324,7 @@ datum/supply_pack/medical/basickits
 					/obj/item/storage/firstaid/regular)
 	crate_name = "basic wound treatment kits crate"
 
-datum/supply_pack/medical/bruisekits
+/datum/supply_pack/medical/bruisekits
 	name = "Bruise Treatment Kits Crate"
 	desc = "Contains three first aid kits focused on healing bruises and broken bones."
 	cost = 1400
@@ -1454,7 +1454,7 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/medical/randomvirus
 	name = "Virus Sample Crate"
 	desc = "Contains five random experimental disease cultures for epidemiological research"
-	cost = 1500
+	cost = 3750
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
@@ -1468,7 +1468,7 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/medical/virology
 	name = "Junior Epidemiology Kit"
 	desc = "Contains the necessary supplies to start an epidemiological research lab. P.A.N.D.E.M.I.C. not included. Comes with a free virologist action figure!"
-	cost = 900
+	cost = 1500
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/reagent_containers/food/snacks/monkeycube,
 					/obj/item/reagent_containers/food/drinks/bottle/virusfood,
@@ -1504,6 +1504,24 @@ datum/supply_pack/medical/bruisekits
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
+/datum/supply_pack/medical/extrapolator
+	name = "Virus Extrapolator Supply Crate"
+	desc = "Contains 3 Virus Extrapolators should any existing ones be lost or otherwise destroyed."
+	cost = 4500
+	access = ACCESS_VIROLOGY
+	contains = list(/obj/item/extrapolator, /obj/item/extrapolator, /obj/item/extrapolator)
+	crate_name = "Extrapolator Crate"
+	crate_type = /obj/structure/closet/crate/secure/plasma
+	dangerous = TRUE
+
+/datum/supply_pack/medical/pandemic
+	name = "Pandemic Replacement Crate"
+	desc = "Contains a replacement P.A.N.D.E.M.I.C. in case the ones in virology get destroyed or you want to build a new lab."
+	cost = 7500
+	access = ACCESS_VIROLOGY
+	contains = list(/obj/machinery/computer/pandemic)
+	crate_name = "P.A.N.D.E.M.I.C. Replacement Crate"
+	dangerous = TRUE
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -2231,10 +2249,11 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/critter/monkey
 	name = "Monkey Cube Crate"
 	desc = "Stop monkeying around! Contains seven monkey cubes. Just add water!"
-	cost = 2000
+	cost = 1000
 	contains = list (/obj/item/storage/box/monkeycubes)
 	crate_type = /obj/structure/closet/crate
 	crate_name = "monkey cube crate"
+	small_item = TRUE
 
 /datum/supply_pack/critter/pug
 	name = "Pug Crate"
@@ -2519,15 +2538,15 @@ datum/supply_pack/medical/bruisekits
 		/obj/item/cardboard_cutout/adaptive/chess/rook,
 		/obj/item/cardboard_cutout/adaptive/chess/knight,
 		/obj/item/cardboard_cutout/adaptive/chess/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
 		/obj/item/cardboard_cutout/adaptive/chess/pawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
@@ -2543,15 +2562,15 @@ datum/supply_pack/medical/bruisekits
 		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
 		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
 		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
-		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
-		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,	
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
@@ -2620,9 +2639,10 @@ datum/supply_pack/medical/bruisekits
 
 /datum/supply_pack/costumes_toys/wardrobes/security
 	name = "Security Wardrobe Supply Crate"
-	desc = "This crate contains refills for the SecDrobe and LawDrobe."
+	desc = "This crate contains refills for the SecDrobe, DetDrobe and LawDrobe."
 	cost = 1000
 	contains = list(/obj/item/vending_refill/wardrobe/sec_wardrobe,
+					/obj/item/vending_refill/wardrobe/det_wardrobe,
 					/obj/item/vending_refill/wardrobe/law_wardrobe)
 	crate_name = "security department supply crate"
 

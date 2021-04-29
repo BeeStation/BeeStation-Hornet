@@ -132,8 +132,10 @@
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Wizard Academy Defender")
-		current_wizard.ghostize() // on the off chance braindead defender gets back in
+		current_wizard.ghostize(FALSE) // on the off chance braindead defender gets back in
 		current_wizard.key = C.key
+	else
+		current_wizard.ghostize(FALSE,SENTIENCE_FORCE)
 
 /obj/structure/academy_wizard_spawner/proc/summon_wizard()
 	var/turf/T = src.loc
