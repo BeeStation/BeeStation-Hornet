@@ -152,7 +152,3 @@
 
 	if(!silent)
 		to_chat(H, "You are no longer a cat.")
-
-/datum/species/human/felinid/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	. = ..()
-	H.dust(drop_items = TRUE, force = TRUE)
