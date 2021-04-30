@@ -115,7 +115,3 @@ GLOBAL_LIST_EMPTY(lighting_update_objects) // List of lighting objects queued fo
 			break
 	if (i)
 		GLOB.lighting_update_objects.Cut(1, i+1)
-
-/datum/controller/subsystem/lighting/Recover()
-	initialized = SSlighting.initialized
-	..()
