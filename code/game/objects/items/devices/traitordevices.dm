@@ -270,8 +270,8 @@ effective or pretty fucking useless.
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/jammer
-	name = "radio jammer"
-	desc = "Device used to disrupt nearby radio communication."
+	name = "signal jammer"
+	desc = "Device used to disrupt nearby wireless communication."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
 	var/active = FALSE
