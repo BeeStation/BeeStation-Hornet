@@ -287,7 +287,7 @@ BONUS
 		icon_state = "eggsac-sneaky"
 		sneaky_egg = sneaky
 	if(eggsplodes)
-		addtimer(CALLBACK(src, .proc/eggsplode), 100 SECONDS)
+		addtimer(CALLBACK(src, /obj/item/reagent_containers/food/snacks/eggsac/proc/eggsplode), 100 SECONDS)
 	if(LAZYLEN(diseases))
 		AddComponent(/datum/component/infective, diseases)
 
