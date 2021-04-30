@@ -116,7 +116,7 @@
 
 /obj/item/storage/box/holy/witchhunter/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/witchhunter(src)
-	new /obj/item/clothing/head/helmet/chaplain/witchunter_hat(src)
+	new /obj/item/clothing/head/chaplain/witchunter_hat(src)
 	new /obj/item/clothing/neck/crucifix(src)
 
 /obj/item/clothing/suit/armor/riot/chaplain/witchhunter
@@ -126,12 +126,55 @@
 	item_state = "witchhunter"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 
-/obj/item/clothing/head/helmet/chaplain/witchunter_hat
+/obj/item/clothing/head/chaplain/witchunter_hat
 	name = "witchunter hat"
 	desc = "This hat saw much use back in the day."
 	icon_state = "witchhunterhat"
 	item_state = "witchhunterhat"
 	flags_cover = HEADCOVERSEYES
+
+/obj/item/storage/box/holy/graverobber
+	name = "Grave Robber Kit"
+
+/obj/item/storage/box/holy/graverobber/PopulateContents()
+	new /obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat(src)
+	new /obj/item/clothing/under/rank/civilian/graverobber_under(src)
+	new /obj/item/clothing/head/chaplain/graverobber_hat(src)
+	new /obj/item/clothing/gloves/graverobber_gloves(src)
+
+/obj/item/clothing/suit/armor/riot/chaplain/graverobber_coat
+	name = "grave robber coat"
+	desc = "To those with a keen eye, gold gleams like a dagger's point."
+	icon_state = "graverobber_coat"
+	item_state = "graverobber_coat"
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+
+/obj/item/clothing/head/chaplain/graverobber_hat
+	name = "grave robber hat"
+	desc = "A tattered leather hat. It reeks of death."
+	icon_state = "graverobber_hat"
+	item_state = "graverobber_hat"
+	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/gloves/graverobber_gloves
+	name = "grave robber gloves"
+	desc = "A pair of leather gloves in poor condition."
+	icon_state = "graverobber-gloves"
+	item_state = "graverobber-gloves"
+	permeability_coefficient = 0.9
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 20, "stamina" = 0)
+
+/obj/item/clothing/under/rank/civilian/graverobber_under
+	name = "grave robber uniform"
+	desc = "A shirt and some leather pants in poor condition."
+	icon_state = "graverobber_under"
+	item_state = "graverobber_under"
+	item_color = "graverobber_under"
 
 /obj/item/storage/box/holy/adept
 	name = "Divine Adept Kit"
