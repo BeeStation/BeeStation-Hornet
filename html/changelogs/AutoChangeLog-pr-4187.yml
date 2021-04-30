@@ -1,0 +1,5 @@
+author: bloons3
+delete-after: true
+changes:
+  - rscdel: Removed keycard authentication access from Security
+  - rscdel: Removed keycard authentication device from Warden's office
