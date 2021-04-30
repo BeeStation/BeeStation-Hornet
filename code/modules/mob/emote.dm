@@ -1,8 +1,8 @@
 //The code execution of the emote datum is located at code/datums/emotes.dm
 /mob/proc/emote(act, m_type = null, message = null, intentional = FALSE)
-	if(emote_used > world.time && intentional)
+	if(emote_timer == world.time && intentional)
 		return
-	emote_used = (world.time + emote_cooldown)
+	emote_timer = world.time + emote_antispam
 	act = lowertext(act)
 	var/param = message
 	var/custom_param = findchar(act, " ")
@@ -10,19 +10,22 @@
 		param = copytext(act, custom_param + length(act[custom_param]))
 		act = copytext(act, 1, custom_param)
 
-
 	var/list/key_emotes = GLOB.emote_list[act]
 
 	if(!length(key_emotes))
 		if(intentional)
 			to_chat(src, "<span class='notice'>'[act]' emote does not exist. Say *help for a list.</span>")
-		return
+		return FALSE
+	var/silenced = FALSE
 	for(var/datum/emote/P in key_emotes)
+		if(!P.check_cooldown(src, intentional))
+			silenced = TRUE
+			continue
 		if(P.run_emote(src, param, m_type, intentional))
-			SEND_SIGNAL(src, COMSIG_MOB_EMOTE, P, act, m_type, message, intentional)
-			return
-	if(intentional)
+			return TRUE
+	if(intentional && !silenced)
 		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
+	return FALSE
 
 /datum/emote/flip
 	key = "flip"
@@ -30,6 +33,7 @@
 	restraint_check = TRUE
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
+	cooldown = 0.0 SECONDS
 
 /datum/emote/flip/run_emote(mob/user, params , type_override, intentional)
 	. = ..()
@@ -42,6 +46,7 @@
 	restraint_check = TRUE
 	mob_type_allowed_typecache = list(/mob/living, /mob/dead/observer)
 	mob_type_ignore_stat_typecache = list(/mob/dead/observer)
+	cooldown = 0.0 SECONDS
 
 /datum/emote/spin/run_emote(mob/user, params ,  type_override, intentional)
 	. = ..()

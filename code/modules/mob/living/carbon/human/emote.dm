@@ -51,6 +51,7 @@
 	message = "screams"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
+	cooldown = 0.6 SECONDS
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
 	if(!ishuman(user))
@@ -163,6 +164,7 @@
 	message = "farts"
 	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
+	cooldown = 0.6 SECONDS
 
 /datum/emote/living/carbon/human/fart/get_sound(mob/living/user)
 	if(!ishuman(user))
@@ -172,6 +174,9 @@
 //Ayy lmao
 
 // Robotic Tongue emotes. Beep!
+
+/datum/emote/living/carbon/human/robot_tongue
+	cooldown = 0.6 SECONDS
 
 /datum/emote/living/carbon/human/robot_tongue/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())

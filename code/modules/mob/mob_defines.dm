@@ -214,6 +214,7 @@
 	/// A mock client, provided by tests and friends
 	var/datum/client_interface/mock_client
 
-	/// two vars for determining emote cooldown
-	var/emote_used = 0
-	var/emote_cooldown = 0.5 SECONDS
+	/// Used for tracking last uses of emotes for cooldown purposes
+	var/list/emotes_used
+	var/static/emote_antispam = 0.1 SECONDS
+	var/emote_timer
