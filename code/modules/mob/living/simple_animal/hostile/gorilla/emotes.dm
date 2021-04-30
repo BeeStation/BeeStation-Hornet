@@ -5,7 +5,7 @@
 /datum/emote/gorilla/ooga
 	key = "ooga"
 	key_third_person = "oogas"
-	message = "oogas."
-	message_param = "oogas at %t."
+	message = "oogas"
+	message_param = "oogas at %t"
 	sound = 'sound/creatures/gorilla.ogg'
 

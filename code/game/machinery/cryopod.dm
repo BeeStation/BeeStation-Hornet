@@ -364,11 +364,11 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		qdel(R.mmi)
 
 	// Ghost and delete the mob.
-	if(!mob_occupant.get_ghost(1))
+	if(!mob_occupant.get_ghost(TRUE))
 		if(world.time < 15 * 600)//before the 15 minute mark
-			mob_occupant.ghostize(0) // Players despawned too early may not re-enter the game
+			mob_occupant.ghostize(FALSE,SENTIENCE_ERASE) // Players despawned too early may not re-enter the game
 		else
-			mob_occupant.ghostize(1)
+			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)
 	handle_objectives()
 	QDEL_NULL(occupant)
 	open_machine()

@@ -3,7 +3,7 @@
 	desc = "Used to view and edit personnel's security records."
 	icon_screen = "security"
 	icon_keyboard = "security_key"
-	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	req_one_access = list(ACCESS_SEC_RECORDS)
 	circuit = /obj/item/circuitboard/computer/secure_data
 	var/obj/item/card/id/scan = null
 	var/authenticated = null
@@ -146,10 +146,14 @@
 									crimstat = E.fields["criminal"]
 							var/background
 							switch(crimstat)
-								if("*Arrest*")
+								if("Arrest")
 									background = "'background-color:#990000;'"
 								if("Incarcerated")
-									background = "'background-color:#CD6500;'"
+									background = "'background-color:#EB4823;'"
+								if("Search")
+									background = "'background-color:#9B13EB;'"
+								if("Monitor")
+									background = "'background-color:#990000;'"
 								if("Paroled")
 									background = "'background-color:#CD6500;'"
 								if("Discharged")
@@ -230,7 +234,7 @@
 							else
 								dat += "<td>All Paid Off</td>"
 							dat += {"<td>
-							<A href='?src=[REF(src)];choice=Edit  Field;field=citation_delete;cdataid=[c.dataId]'>\[X\]</A>
+							<A href='?src=[REF(src)];choice=Edit Field;field=citation_delete;cdataid=[c.dataId]'>\[X\]</A>
 							</td>
 							</tr>"}
 						dat += "</table>"
@@ -735,7 +739,9 @@ What a mess.*/
 							temp = "<h5>Criminal Status:</h5>"
 							temp += "<ul>"
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=none'>None</a></li>"
-							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=arrest'>*Arrest*</a></li>"
+							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=arrest'>Arrest</a></li>"
+							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=search'>Search</a></li>"
+							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=monitor'>Monitor</a></li>"
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=incarcerated'>Incarcerated</a></li>"
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=paroled'>Paroled</a></li>"
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=released'>Discharged</a></li>"
@@ -768,7 +774,11 @@ What a mess.*/
 								if("none")
 									active2.fields["criminal"] = "None"
 								if("arrest")
-									active2.fields["criminal"] = "*Arrest*"
+									active2.fields["criminal"] = "Arrest"
+								if("search")
+									active2.fields["criminal"] = "Search"
+								if("monitor")
+									active2.fields["criminal"] = "Monitor"
 								if("incarcerated")
 									active2.fields["criminal"] = "Incarcerated"
 								if("paroled")
@@ -848,7 +858,7 @@ What a mess.*/
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)
-					R.fields["criminal"] = pick("None", "*Arrest*", "Incarcerated", "Paroled", "Discharged")
+					R.fields["criminal"] = pick("None", "Arrest", "Search", "Monitor", "Incarcerated", "Paroled", "Discharged")
 				if(5)
 					R.fields["p_stat"] = pick("*Unconscious*", "Active", "Physically Unfit")
 				if(6)

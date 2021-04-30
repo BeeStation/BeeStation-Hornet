@@ -175,7 +175,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/material in materials.materials)
 		var/datum/material/M = material
-		var/mineral_amount = materials.materials[material]
+		var/mineral_amount = materials.materials[material] / MINERAL_MATERIAL_AMOUNT
 		data["materials"] += list(list(
 			"name" = M.name,
 			"amount" = mineral_amount,
@@ -332,7 +332,7 @@
 
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
 
-	if(ACCESS_SECURITY in O.GetAccess() && !(obj_flags & EMAGGED))
+	if((ACCESS_SECURITY in O.GetAccess()) && !(obj_flags & EMAGGED))
 		security_interface_locked = !security_interface_locked
 		to_chat(user, "<span class='warning'>You [security_interface_locked?"lock":"unlock"] the security controls of [src].</span>")
 		return TRUE
@@ -538,7 +538,7 @@
 	. += ..()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[prod_coeff*100]%</b>.<span>"
+		. += "<span class='notice'>The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[prod_coeff*100]%</b>.</span>"
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, amount = 1)
 	if(D.make_reagents.len)

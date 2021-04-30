@@ -108,20 +108,19 @@
 /obj/effect/mine/proc/mineEffect(mob/victim)
 	to_chat(victim, "<span class='danger'>*click*</span>")
 
-/obj/effect/mine/Crossed(AM as mob|obj)
-	if(isturf(loc))
-		if(ismob(AM))
-			var/mob/MM = AM
-			if(!(MM.movement_type & FLYING))
-				checksmartmine(AM)
-		else
-			triggermine(AM)
+/obj/effect/mine/Crossed(atom/movable/AM as mob|obj)
+	if(!isturf(loc) || AM.throwing || (AM.movement_type & (FLYING | FLOATING)) || !AM.has_gravity())
+		return
+	if(ismob(AM))
+		checksmartmine(AM)
+	else
+		triggermine(AM)
 
 /obj/effect/mine/proc/checksmartmine(mob/target)
 	if(target)
 		if(!(target && HAS_TRAIT(target, TRAIT_MINDSHIELD)))
 			triggermine(target)
-		if(smartmine == 0 || istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat)) //tinfoil hat prevents detection of implants
+		if(smartmine == 0 || istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat)) //tinfoil hat prevents detection of implants
 			triggermine(target)
 
 /obj/effect/mine/proc/triggermine(mob/victim)

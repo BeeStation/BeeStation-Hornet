@@ -24,7 +24,7 @@
 /obj/machinery/processor/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Outputting <b>[rating_amount]</b> item(s) at <b>[rating_speed*100]%</b> speed.<span>"
+		. += "<span class='notice'>The status display reads: Outputting <b>[rating_amount]</b> item(s) at <b>[rating_speed*100]%</b> speed.</span>"
 
 /obj/machinery/processor/proc/process_food(datum/food_processor_process/recipe, atom/movable/what)
 	if (recipe.output && loc && !QDELETED(src))
@@ -177,13 +177,10 @@
 	if(processing)
 		return
 	var/mob/living/simple_animal/slime/picked_slime
-	for(var/mob/living/simple_animal/slime/slime in range(1,src))
-		if(slime.loc == src)
-			continue
-		if(istype(slime, /mob/living/simple_animal/slime))
-			if(slime.stat)
-				picked_slime = slime
-				break
+	for(var/mob/living/simple_animal/slime/slime in ohearers(1,src))
+		if(slime.stat)
+			picked_slime = slime
+			break
 	if(!picked_slime)
 		return
 	var/datum/food_processor_process/P = select_recipe(picked_slime)
@@ -202,7 +199,9 @@
 			S.visible_message("<span class='notice'>[C] crawls free of the processor!</span>")
 			return
 		for(var/i in 1 to (C+rating_amount-1))
-			var/atom/movable/item = new S.coretype(drop_location())
+			var/obj/item/slime_extract/item = new S.coretype(drop_location())
+			if(S.transformeffects & SLIME_EFFECT_GOLD)
+				item.sparkly = TRUE
 			adjust_item_drop_location(item)
 			SSblackbox.record_feedback("tally", "slime_core_harvested", 1, S.colour)
 	..()

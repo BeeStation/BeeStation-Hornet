@@ -79,8 +79,8 @@
 				if(isobj(H.wear_suit))
 					Cl = H.wear_suit
 					passed = prob((Cl.permeability_coefficient*100) - 1)
-				if(passed && isobj(SLOT_W_UNIFORM))
-					Cl = SLOT_W_UNIFORM
+				if(passed && isobj(ITEM_SLOT_ICLOTHING))
+					Cl = ITEM_SLOT_ICLOTHING
 					passed = prob((Cl.permeability_coefficient*100) - 1)
 			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 				if(isobj(H.wear_suit) && H.wear_suit.body_parts_covered&HANDS)
@@ -149,4 +149,4 @@
 	return !is_mouth_covered()
 
 /mob/living/carbon/CanSpreadAirborneDisease()
-	return !((head && (head.flags_cover & HEADCOVERSMOUTH) && (head.armor.getRating("bio") >= 25)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && (wear_mask.armor.getRating("bio") >= 25)))
+	return !((head && (head.flags_cover & HEADCOVERSMOUTH) && (head.get_armor_rating("bio", src) >= 25)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && (wear_mask.get_armor_rating("bio", src) >= 25)))

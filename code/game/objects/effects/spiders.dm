@@ -169,9 +169,8 @@
 	//=================
 
 	else if(prob(33))
-		var/list/nearby = oview(10, src)
-		if(nearby.len)
-			var/target_atom = pick(nearby)
+		var/target_atom = pick(oview(10, src))
+		if(target_atom)
 			walk_to(src, target_atom)
 			if(prob(40))
 				src.visible_message("<span class='notice'>\The [src] skitters[pick(" away"," around","")].</span>")
@@ -194,8 +193,8 @@
 			S.faction = faction.Copy()
 			S.directive = directive
 			if(player_spiders)
-				S.playable_spider = TRUE
-				notify_ghosts("Spider [S.name] can be controlled", null, enter_link="<a href=?src=[REF(S)];activate=1>(Click to play)</a>", source=S, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
+				S.set_playable()
+				S.flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 			qdel(src)
 
 

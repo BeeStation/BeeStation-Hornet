@@ -22,7 +22,7 @@
   * * send signal COMSIG_MOB_CLIENT_LOGIN
   */
 /mob/Login()
-	GLOB.player_list |= src
+	add_to_player_list()
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access("Mob Login: [key_name(src)] was assigned to a [type]")
@@ -80,6 +80,9 @@
 		log_played_names(client.ckey,name,real_name)
 		auto_deadmin_on_login()
 
+	//Sort verbs
+	add_verb(verbs.Copy(), TRUE)	//verbs.Copy() because otherwise you can't see the list
+
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 
@@ -103,3 +106,4 @@
 		return client.holder.auto_deadmin()
 	if(job)
 		return SSjob.handle_auto_deadmin_roles(client, job)
+

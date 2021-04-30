@@ -10,7 +10,7 @@
 
 /datum/antagonist/ninja/New()
 	if(helping_station)
-		can_hijack = HIJACK_PREVENT
+		can_elimination_hijack = ELIMINATION_PREVENT
 	. = ..()
 
 /datum/antagonist/ninja/apply_innate_effects(mob/living/mob_override)
@@ -123,7 +123,8 @@
 	to_chat(owner.current, "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by right clicking on it, to use abilities like stealth)!")
 	to_chat(owner.current, "Officially, [helping_station?"Nanotrasen":"The Syndicate"] are my employer.")
 	owner.announce_objectives()
-	return
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Ninja",
+		"Infiltrate the station and complete your assigned objectives.")
 
 /datum/antagonist/ninja/on_gain()
 	if(give_objectives)
@@ -151,7 +152,7 @@
 		else
 			return
 	if(helping_station)
-		can_hijack = HIJACK_PREVENT
+		can_elimination_hijack = ELIMINATION_PREVENT
 	new_owner.assigned_role = ROLE_NINJA
 	new_owner.special_role = ROLE_NINJA
 	new_owner.add_antag_datum(src)

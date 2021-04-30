@@ -22,6 +22,7 @@
 	internal_magazine = TRUE
 	casing_ejector = FALSE
 	bolt_wording = "pump"
+	bolt_type = BOLT_TYPE_PUMP
 	cartridge_wording = "shell"
 	tac_reloads = FALSE
 	fire_rate = 1 //reee
@@ -58,6 +59,9 @@
 			sawoff(user)
 
 // Automatic Shotguns//
+
+/obj/item/gun/ballistic/shotgun/automatic
+	weapon_weight = WEAPON_HEAVY
 
 /obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	..()
@@ -155,6 +159,7 @@
 	fire_rate = 2
 	automatic = 1
 	recoil = 0
+	bolt_type = BOLT_TYPE_STANDARD	//Not using a pump
 
 /obj/item/gun/ballistic/shotgun/bulldog/unrestricted
 	pin = /obj/item/firing_pin

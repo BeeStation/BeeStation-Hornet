@@ -158,13 +158,13 @@
 	if(!floorcheck())
 		emergency_shutdown()
 		damaged = TRUE
-		for(var/mob/M in urange(10,src))
+		for(var/mob/M as() in viewers(10, src))
 			M.show_message("The holodeck overloads!")
 
 		for(var/turf/T in linked)
 			if(prob(30))
 				do_sparks(2, 1, T)
-			T.ex_act(EXPLODE_LIGHT)
+			SSexplosions.lowturf += T
 			T.hotspot_expose(1000,500,1)
 
 	if(!(obj_flags & EMAGGED))

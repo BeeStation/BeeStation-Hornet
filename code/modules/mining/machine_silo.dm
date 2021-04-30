@@ -43,6 +43,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 
 /obj/machinery/ore_silo/proc/remote_attackby(obj/machinery/M, mob/user, obj/item/stack/I)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+
 	// stolen from /datum/component/material_container/proc/OnAttackBy
 	if(user.a_intent != INTENT_HELP)
 		return
@@ -62,8 +63,19 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	return TRUE
 
 /obj/machinery/ore_silo/attackby(obj/item/W, mob/user, params)
-	if (istype(W, /obj/item/stack))
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W))
+		updateUsrDialog()
+		return
+
+	if(default_deconstruction_crowbar(W))
+		return
+
+	if(!powered())
+		return ..()
+
+	if(istype(W, /obj/item/stack))
 		return remote_attackby(src, user, W)
+
 	return ..()
 
 /obj/machinery/ore_silo/ui_interact(mob/user)

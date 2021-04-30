@@ -1,4 +1,6 @@
-//this datum is used by the events controller to dictate how it selects events
+#define RANDOM_EVENT_ADMIN_INTERVENTION_TIME 10
+
+//this singleton datum is used by the events controller to dictate how it selects events
 /datum/round_event_control
 	var/name						//The human-readable name of the event
 	var/typepath					//The typepath of the event datum /datum/round_event
@@ -18,7 +20,7 @@
 	var/holidayID = ""				//string which should be in the SSeventss.holidays list if you wish this event to be holiday-specific
 									//anything with a (non-null) holidayID which does not match holiday, cannot run.
 	var/wizardevent = FALSE
-	var/random = FALSE				//If the event has occured randomly, or if it was forced by an admin or in-game occurance
+	var/random = FALSE				//If the event has occured randomly, or if it was forced by an admin or in-game occurrence
 	var/alert_observers = TRUE		//should we let the ghosts and admins know this event is firing
 									//should be disabled on events that fire a lot
 
@@ -27,6 +29,10 @@
 
 	var/triggering	//admin cancellation
 	var/auto_add = TRUE				//Auto add to the event pool, if not you have to do it yourself!
+
+	
+	var/dynamic_should_hijack = FALSE	// Whether or not dynamic should hijack this event	
+	var/cannot_spawn_after_shuttlecall = FALSE	// Prevents the event from spawning after the shuttle was called
 
 /datum/round_event_control/New()
 	if(config && !wizardevent) // Magic is unaffected by configs
@@ -53,16 +59,28 @@
 		return FALSE
 	if(holidayID && (!SSevents.holidays || !SSevents.holidays[holidayID]))
 		return FALSE
+	if(cannot_spawn_after_shuttlecall && !EMERGENCY_IDLE_OR_RECALLED)
+		return FALSE
+	if(ispath(typepath, /datum/round_event/ghost_role) && GHOSTROLE_MIDROUND_EVENT)
+		return FALSE
+
+	var/datum/game_mode/dynamic/dynamic = SSticker.mode
+	if (istype(dynamic) && dynamic_should_hijack && dynamic.random_event_hijacked != HIJACKED_NOTHING)
+		return FALSE
+
 	return TRUE
 
 /datum/round_event_control/proc/preRunEvent()
 	if(!ispath(typepath, /datum/round_event))
 		return EVENT_CANT_RUN
 
+	if (SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PRE_RANDOM_EVENT, src) & CANCEL_PRE_RANDOM_EVENT)
+		return EVENT_INTERRUPTED
+
 	triggering = TRUE
 	if (alert_observers)
-		message_admins("Random Event triggering in 10 seconds: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
-		sleep(100)
+		message_admins("Random Event triggering in [RANDOM_EVENT_ADMIN_INTERVENTION_TIME] seconds: [name] (<a href='?src=[REF(src)];cancel=1'>CANCEL</a>)")
+		sleep(RANDOM_EVENT_ADMIN_INTERVENTION_TIME SECONDS)
 		var/gamemode = SSticker.mode.config_tag
 		var/players_amt = get_active_player_count(alive_check = TRUE, afk_check = TRUE, human_check = TRUE)
 		if(!canSpawnEvent(players_amt, gamemode))
@@ -212,3 +230,5 @@
 	processing = my_processing
 	SSevents.running += src
 	return ..()
+
+#undef RANDOM_EVENT_ADMIN_INTERVENTION_TIME

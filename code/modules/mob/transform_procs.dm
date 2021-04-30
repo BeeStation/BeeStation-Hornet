@@ -757,7 +757,7 @@
 /* Certain mob types have problems and should not be allowed to be controlled by players.
  *
  * This proc is here to force coders to manually place their mob in this list, hopefully tested.
- * This also gives a place to explain -why- players shouldnt be turn into certain mobs and hopefully someone can fix them.
+ * This also gives a place to explain -why- players shouldn't be turn into certain mobs and hopefully someone can fix them.
  */
 /mob/proc/safe_animal(MP)
 
@@ -789,6 +789,14 @@
 		return 1 //Bears will auto-attack mobs, even if they're player controlled (Fixed! - Nodrak)
 	if(ispath(MP, /mob/living/simple_animal/parrot))
 		return 1 //Parrots are no longer unfinished! -Nodrak
+	if(ispath(MP, /mob/living/simple_animal/slaughter))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/revenant))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/cluwne))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/cluwne))
+		return 1
 
 	//Not in here? Must be untested!
 	return 0
