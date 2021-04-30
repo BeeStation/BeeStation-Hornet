@@ -267,6 +267,7 @@ BONUS
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "eggsac"
 	bitesize = 4
+	var/eggsplode_delay = 100 SECONDS
 	var/list/diseases = list()
 	var/sneaky_egg
 	var/big_heal
@@ -287,8 +288,7 @@ BONUS
 		icon_state = "eggsac-sneaky"
 		sneaky_egg = sneaky
 	if(eggsplodes)
-		var/obj/item/reagent_containers/food/snacks/eggsac/sac = src
-		addtimer(CALLBACK(sac, .proc/eggsplode), 100 SECONDS)
+		addtimer(CALLBACK(src, .proc/eggsplode), eggsplode_delay)
 	if(LAZYLEN(diseases))
 		AddComponent(/datum/component/infective, diseases)
 
