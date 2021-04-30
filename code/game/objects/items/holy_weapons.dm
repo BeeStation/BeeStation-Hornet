@@ -191,6 +191,57 @@
 	desc = "I mean, you don't /have/ to seek bling water. I just think you should."
 	icon_state = "chaplain_hood_leader"
 
+/obj/item/storage/box/holy/leper
+	name = "Leper Attire"
+
+/obj/item/storage/box/holy/leper/PopulateContents()
+	new /obj/item/clothing/head/leperhood(src)
+	new /obj/item/clothing/suit/armor/leperarmor(src)
+	new /obj/item/clothing/mask/lepermask(src)
+	new /obj/item/clothing/under/pants/leperpants(src)
+	new /obj/item/clothing/gloves/lepergloves(src)
+
+/obj/item/clothing/head/leperhood
+	name = "tattered hood"
+	desc = "Blood in the mud."
+	icon_state = "leperhood"
+	flags_inv = HIDEHAIR
+	flags_cover = HEADCOVERSEYES
+
+/obj/item/clothing/suit/armor/leperarmor
+	name = "damaged bronze chestplate"
+	desc = "Petals must fall."
+	icon_state = "leper"
+	item_state = "leper"
+	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+	slowdown = 0
+	blocks_shove_knockdown = FALSE
+
+/obj/item/clothing/mask/lepermask
+	name = "damaged bronze mask"
+	desc = "The draft of air upon my face...intoxicating..."
+	icon_state = "lepermask"
+	item_state = "lepermask"
+
+/obj/item/clothing/under/pants/leperpants
+	name = "tattered pants"
+	desc = "A pair of damaged pants."
+	icon_state = "leperpants"
+	item_color = "leperpants"
+
+/obj/item/clothing/gloves/lepergloves
+	name = "damaged leather gloves"
+	desc = "A pair of damaged leather gloves."
+	icon_state = "leather"
+	item_state = "ggloves"
+	permeability_coefficient = 0.9
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20, "stamina" = 0)
+
 
 // CHAPLAIN NULLROD AND CUSTOM WEAPONS //
 
