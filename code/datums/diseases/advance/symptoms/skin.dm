@@ -221,9 +221,9 @@ BONUS
 	. = ..()
 	if(A.properties["resistance"] >= 10)
 		severity -= 1
-	if(A.properties["transmittability"] >= 12)
+	if(A.properties["transmission"] >= 12)
 		severity += 1
-	if(A.properties["transmittability"] >= 16)
+	if(A.properties["transmission"] >= 16)
 		severity += 1
 	if(A.properties["stealth"] >= 6)
 		severity += 1
@@ -233,9 +233,9 @@ BONUS
 		return
 	if(A.properties["resistance"] >= 10)
 		big_heal = TRUE
-	if(A.properties["transmittability"] >= 12)
+	if(A.properties["transmission"] >= 12)
 		all_disease = TRUE
-	if(A.properties["transmittability"] >= 16)
+	if(A.properties["transmission"] >= 16)
 		eggsplosion = TRUE //Haha get it?
 	if(A.properties["stealth"] >= 6)
 		sneaky = TRUE
