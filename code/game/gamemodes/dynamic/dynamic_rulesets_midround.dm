@@ -122,7 +122,7 @@
 		candidates -= applicant
 		if(!isobserver(applicant))
 			if(applicant.stat == DEAD) // Not an observer? If they're dead, make them one.
-				applicant = applicant.ghostize(FALSE)
+				applicant = applicant.ghostize(FALSE,SENTIENCE_ERASE)
 			else // Not dead? Disregard them, pick a new applicant
 				i--
 				continue
@@ -230,7 +230,7 @@
 	required_enemies = list(4,4,4,4,4,4,2,2,2,0)
 	required_candidates = 1
 	weight = 3
-	cost = 35
+	cost = 20
 	requirements = list(101,101,80,70,60,60,50,50,40,40)
 	required_type = /mob/living/silicon/ai
 	var/ion_announce = 33
@@ -310,7 +310,7 @@
 	required_enemies = list(3,3,3,3,3,2,1,1,0,0)
 	required_candidates = 5
 	weight = 5
-	cost = 35
+	cost = 20
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
 	var/list/operative_cap = list(2,2,3,3,4,5,5,5,5,5)
 	var/datum/team/nuclear/nuke_team

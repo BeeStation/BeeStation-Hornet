@@ -82,8 +82,6 @@
 	var/chat_color_name
 	/// Last color calculated for the the chatmessage overlays
 	var/chat_color
-	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
-	var/chat_color_darkened
 
 /**
   * Called when an atom is created in byond (built in engine proc)
@@ -517,10 +515,6 @@
 		buckle_message_cooldown = world.time + 50
 		to_chat(user, "<span class='warning'>You can't move while buckled to [src]!</span>")
 	return
-
-/// Return true if this atoms contents should not have ex_act called on ex_act
-/atom/proc/prevent_content_explosion()
-	return FALSE
 
 /// Handle what happens when your contents are exploded by a bomb
 /atom/proc/contents_explosion(severity, target)

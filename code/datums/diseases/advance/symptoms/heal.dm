@@ -88,7 +88,6 @@
 	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
 	threshold_desc = "<b>Stealth 2:</b> Host appears to die when falling into a coma, triggering symptoms that activate on death.<br>\
-
 					  <b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\
 					  <b>Stage Speed 7:</b> Increases healing speed."
 
@@ -133,8 +132,9 @@
 
 /datum/symptom/heal/coma/proc/coma(mob/living/M)
 	if(deathgasp)
-		M.emote("deathgasp")
-	M.fakedeath("regenerative_coma")
+		M.fakedeath(TRAIT_REGEN_COMA)
+	else
+		M.Unconscious(300, TRUE, TRUE)
 	M.update_stat()
 	M.update_mobility()
 	addtimer(CALLBACK(src, .proc/uncoma, M), 300)
@@ -143,7 +143,10 @@
 	if(!active_coma)
 		return
 	active_coma = FALSE
-	M.cure_fakedeath("regenerative_coma")
+	if(deathgasp)
+		M.cure_fakedeath(TRAIT_REGEN_COMA)
+	else
+		M.SetUnconscious(0)
 	M.update_stat()
 	M.update_mobility()
 
@@ -510,6 +513,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 									organcantidates += O
 								continue
 							organcantidates += O
+							if(ishuman(M))
+								var/mob/living/carbon/human/H = M //To view species
+								if(!is_species(H, /datum/species/plasmaman))
+									O -= /obj/item/organ/lungs/plasmaman //So this disease doesn't eventually kill everyone with lungs
 						if(organcantidates.len)
 							for(var/I in 1 to min(rand(1, 3), organcantidates.len))
 								var/obj/item/organ/chosen = pick_n_take(organcantidates)

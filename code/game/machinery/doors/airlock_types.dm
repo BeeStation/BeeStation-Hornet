@@ -400,7 +400,7 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
 	//anim_parts = "ul=-9,9;ur=9,9;dl=-9,-9;dr=9,-9"
-	anim_parts = "ul=-15,0,0,5,-90;ur=0,15,0,5,-90;dl=0,-15,0,5,-90;dr=15,0,0,5,-90"
+	anim_parts = "ul=-15,0,0,4,-90;ur=0,15,0,4,-90;dl=0,-15,0,4,-90;dr=15,0,0,4,-90"
 	note_attachment = "ul"
 	panel_attachment = "dr"
 	allow_repaint = FALSE
@@ -412,7 +412,7 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
 	//anim_parts = "ul=-9,9;ur=9,9;dl=-9,-9;dr=9,-9"
-	anim_parts = "ul=-15,0,0,5,-90;ur=0,15,0,5,-90;dl=0,-15,0,5,-90;dr=15,0,0,5,-90"
+	anim_parts = "ul=-15,0,0,4,-90;ur=0,15,0,4,-90;dl=0,-15,0,4,-90;dr=15,0,0,4,-90"
 	note_attachment = "ul"
 	panel_attachment = "dr"
 	allow_repaint = FALSE
@@ -456,7 +456,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/abductor/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_abductor
 	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
-	anim_parts="p1=0,40,0;p2=0,24,2;p3=0,-36,0.5;p4=0,16,3;p5=0,-40,0;p6=0,32,1;p7=0,-24,2" // the door has 7 fucking parts. SEVEN.
+	anim_parts="p1=0,40,0,5;p2=0,24,2,5;p3=0,-36,0.5,5;p4=0,16,3,5;p5=0,-40,0,5;p6=0,32,1,5;p7=0,-24,2,5" // the door has 7 fucking parts. SEVEN.
 	damage_deflection = 30
 	explosion_block = 3
 	hackProof = TRUE
