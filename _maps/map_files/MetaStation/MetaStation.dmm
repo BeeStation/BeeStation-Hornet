@@ -84242,9 +84242,6 @@
 /obj/item/pen{
 	pixel_x = -3
 	},
-/obj/machinery/keycard_auth{
-	pixel_y = -24
-	},
 /obj/item/folder/red{
 	pixel_x = 8
 	},

@@ -50234,9 +50234,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/keycard_auth{
-	pixel_x = 24
-	},
 /mob/living/simple_animal/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
 /turf/open/floor/plasteel,

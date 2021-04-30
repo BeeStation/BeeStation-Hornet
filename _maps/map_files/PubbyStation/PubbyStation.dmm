@@ -54630,10 +54630,6 @@
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 30
 	},
-/obj/machinery/keycard_auth{
-	pixel_x = -26;
-	pixel_y = 26
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "eeQ" = (
