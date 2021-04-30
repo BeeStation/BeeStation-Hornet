@@ -12380,9 +12380,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 1
 	},
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "dlg" = (
