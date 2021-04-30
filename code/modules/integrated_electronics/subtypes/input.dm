@@ -826,6 +826,10 @@
 	ntnet_send(data)
 
 /obj/item/integrated_circuit/input/ntnet_receive(datum/netdata/data)
+	//Check radio signal jamming
+	if(is_jammed())
+		return
+
 	set_pin_data(IC_OUTPUT, 1, data.sender_id)
 	set_pin_data(IC_OUTPUT, 2, data.data["data"])
 	set_pin_data(IC_OUTPUT, 3, data.data["data_secondary"])
@@ -875,6 +879,10 @@
 	ntnet_send(data)
 
 /obj/item/integrated_circuit/input/ntnet_advanced/ntnet_receive(datum/netdata/data)
+	//Check radio signal jamming
+	if(is_jammed())
+		return
+
 	set_pin_data(IC_OUTPUT, 1, data.data)
 	set_pin_data(IC_OUTPUT, 2, data.broadcast)
 	push_data()

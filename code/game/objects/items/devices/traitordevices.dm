@@ -285,3 +285,11 @@ effective or pretty fucking useless.
 	else
 		GLOB.active_jammers -= src
 	update_icon()
+
+/atom/proc/is_jammed()
+	var/turf/position = get_turf(src)
+	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
+		var/turf/jammer_turf = get_turf(jammer)
+		if(position?.z == jammer_turf.z && (get_dist(position, jammer_turf) <= jammer.range))
+			return TRUE
+	return FALSE
