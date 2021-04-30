@@ -260,6 +260,7 @@ BONUS
 					diseases += D
 			new /obj/item/reagent_containers/food/snacks/eggsac(M.loc, diseases, eggsplosion, sneaky, big_heal)
 
+#define EGGSPLODE_DELAY 100 SECONDS
 /obj/item/reagent_containers/food/snacks/eggsac
 	name = "Fleshy Egg Sac"
 	desc = "A small Egg Sac which appears to be made out of someone's flesh!"
@@ -267,7 +268,6 @@ BONUS
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "eggsac"
 	bitesize = 4
-	var/eggsplode_delay = 100 SECONDS
 	var/list/diseases = list()
 	var/sneaky_egg
 	var/big_heal
@@ -288,10 +288,11 @@ BONUS
 		icon_state = "eggsac-sneaky"
 		sneaky_egg = sneaky
 	if(eggsplodes)
-		addtimer(CALLBACK(src, .proc/eggsplode), eggsplode_delay)
+		addtimer(CALLBACK(src, .proc/eggsplode), EGGSPLODE_DELAY)
 	if(LAZYLEN(diseases))
 		AddComponent(/datum/component/infective, diseases)
 
+#undef EGGSPLODE_DELAY
 
 /obj/item/reagent_containers/food/snacks/eggsac/proc/eggsplode()
 	for(var/i = 1, i <= rand(4,8), i++)
