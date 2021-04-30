@@ -207,10 +207,10 @@ BONUS
 	base_message_chance = 50
 	symptom_delay_min = 60
 	symptom_delay_max = 105
-	var/big_heal = FALSE
-	var/all_disease = FALSE
-	var/eggsplosion = FALSE
-	var/sneaky = FALSE
+	var/big_heal
+	var/all_disease
+	var/eggsplosion
+	var/sneaky
 	threshold_desc = "<b>Transmission 12:</b> Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.<br>\
 					  <b>Transmission 16:</b> Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.<br>\
 					  <b>Resistance 10:</b> Eggs and Egg Sacs contain more healing chems.<br>\
