@@ -17312,6 +17312,27 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
+"eIr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/machinery/vending/modularpc,
+/turf/open/floor/plasteel,
+/area/storage/tools)
 "eIu" = (
 /obj/effect/turf_decal/tile{
 	dir = 8
@@ -50971,13 +50992,6 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /turf/open/floor/plating,
 /area/maintenance/department/chapel/monastery)
-"omh" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
-	dir = 4
-	},
-/obj/structure/table/wood,
-/turf/open/floor/carpet/green,
-/area/crew_quarters/bar)
 "oms" = (
 /obj/machinery/light_switch{
 	pixel_x = -25
@@ -51345,25 +51359,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"otR" = (
-/obj/structure/table,
-/obj/item/crowbar,
-/obj/item/wirecutters,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/storage/tools)
 "oui" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -56850,6 +56845,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
+"pUR" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/command{
+	name = "Research Director's Office";
+	req_access_txt = "30"
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/server)
 "pUU" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -60951,24 +60964,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
-"rkv" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/command{
-	name = "Research Server Room";
-	req_access_txt = "30"
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/server)
 "rkK" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/white{
@@ -61802,6 +61797,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"rAl" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/modular_computer/laptop/preset/civillian,
+/turf/open/floor/carpet/green,
+/area/crew_quarters/bar)
 "rAw" = (
 /obj/machinery/advanced_airlock_controller/directional/south,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
@@ -73188,6 +73191,26 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
+"uRN" = (
+/obj/structure/table,
+/obj/item/crowbar,
+/obj/item/wirecutters,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/item/modular_computer/tablet/preset/cheap,
+/turf/open/floor/plasteel,
+/area/storage/tools)
 "uRU" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/eastleft{
@@ -80280,30 +80303,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"wPm" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular,
-/obj/item/folder/yellow,
-/obj/item/folder/yellow,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/turf/open/floor/plasteel,
-/area/storage/tools)
 "wPn" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
@@ -111120,7 +111119,7 @@ ngv
 tZF
 nLJ
 gOj
-rkv
+pUR
 kTh
 kGU
 vHZ
@@ -114948,7 +114947,7 @@ uko
 pNo
 nIX
 rWM
-otR
+uRN
 sxe
 sbY
 qkn
@@ -115717,7 +115716,7 @@ qDx
 vlr
 bxI
 pvq
-wPm
+eIr
 xQa
 mgs
 bxI
@@ -120160,7 +120159,7 @@ tSP
 flm
 cBa
 xzr
-omh
+rAl
 wvy
 fhO
 onn
