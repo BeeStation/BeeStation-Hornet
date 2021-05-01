@@ -56850,24 +56850,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
-"pUR" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/command{
-	name = "Research Director's Office";
-	req_access_txt = "30"
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/server)
 "pUU" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -60969,6 +60951,24 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
+"rkv" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/command{
+	name = "Research Server Room";
+	req_access_txt = "30"
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/server)
 "rkK" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/white{
@@ -111120,7 +111120,7 @@ ngv
 tZF
 nLJ
 gOj
-pUR
+rkv
 kTh
 kGU
 vHZ
