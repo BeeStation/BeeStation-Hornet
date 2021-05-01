@@ -16,7 +16,7 @@
 		if(!valid)
 			continue
 
-		testing("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
+		testing("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.get_z_level()])")
 
 		for(var/i in get_affected_turfs(central_turf, 1))
 			var/turf/T = i

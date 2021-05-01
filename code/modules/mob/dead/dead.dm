@@ -33,8 +33,8 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/forceMove(atom/destination)
 	var/turf/old_turf = get_turf(src)
 	var/turf/new_turf = get_turf(destination)
-	if (old_turf?.z != new_turf?.z)
-		onTransitZ(old_turf?.z, new_turf?.z)
+	if (old_turf?.get_z_level() != new_turf?.get_z_level())
+		onTransitZ(old_turf?.z, new_turf?.get_z_level())
 	var/oldloc = loc
 	loc = destination
 	Moved(oldloc, NONE, TRUE)
@@ -115,7 +115,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	. = ..()
 	var/turf/T = get_turf(src)
 	if (isturf(T))
-		update_z(T.z)
+		update_z(T.get_z_level())
 
 /mob/dead/auto_deadmin_on_login()
 	return

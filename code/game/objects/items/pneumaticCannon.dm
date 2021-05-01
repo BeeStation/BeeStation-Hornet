@@ -207,7 +207,7 @@
 	var/y_o = (target.y - starting.y)
 	var/new_x = CLAMP((starting.x + (x_o * range_multiplier)), 0, world.maxx)
 	var/new_y = CLAMP((starting.y + (y_o * range_multiplier)), 0, world.maxy)
-	var/turf/newtarget = locate(new_x, new_y, starting.z)
+	var/turf/newtarget = locate(new_x, new_y, starting.get_z_level())
 	return newtarget
 
 /obj/item/pneumatic_cannon/handle_atom_del(atom/A)

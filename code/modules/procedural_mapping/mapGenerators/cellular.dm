@@ -26,7 +26,7 @@
 	height = max_y - min_y
 
 	//We assume 2D everywhere anyway
-	start = locate(min_x,min_y,Start.z)
+	start = locate(min_x,min_y,Start.get_z_level())
 
 /datum/mapGenerator/ca/proc/initialize()
 	old_state = new/list(width)
@@ -51,7 +51,7 @@
 
 	for(var/i=1,i<=width,i++)
 		for(var/j=1,j<=height,j++)
-			var/turf/T = locate(start.x+i-1,start.y+j-1,start.z)
+			var/turf/T = locate(start.x+i-1,start.y+j-1,start.get_z_level())
 			if(T)
 				T.ChangeTurf(type_map[current_state[i][j]+1])
 

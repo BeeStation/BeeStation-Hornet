@@ -233,7 +233,7 @@
 
 
 /obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
-	if(!is_station_level(user.z))
+	if(!is_station_level(user.get_z_level()))
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
 	if(used)

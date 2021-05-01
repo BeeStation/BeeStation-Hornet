@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 
 /datum/round_event/wormholes/start()
 	for(var/turf/open/floor/T in world)
-		if(is_station_level(T.z))
+		if(is_station_level(T.get_z_level()))
 			pick_turfs += T
 
 	for(var/i = 1, i <= number_of_wormholes, i++)

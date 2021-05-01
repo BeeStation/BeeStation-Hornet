@@ -65,7 +65,7 @@
 /datum/objective/crew/responsibility/check_completion()
 	for(var/mob/living/carbon/human/H in GLOB.mob_list)
 		if(H.stat == DEAD && H.drunkenness >= 80)
-			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
+			if((H.get_z_level() in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
 				return FALSE
 	return TRUE
 
@@ -126,7 +126,7 @@
 /datum/objective/crew/exterminator/check_completion()
 	var/num_mice = 0
 	for(var/mob/living/simple_animal/mouse/M in GLOB.alive_mob_list)
-		if((M.z in SSmapping.levels_by_trait(ZTRAIT_STATION)))
+		if((M.get_z_level() in SSmapping.levels_by_trait(ZTRAIT_STATION)))
 			num_mice++
 	if(num_mice <= target_amount)
 		return TRUE

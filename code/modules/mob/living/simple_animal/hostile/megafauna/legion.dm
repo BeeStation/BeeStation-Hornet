@@ -191,7 +191,7 @@ Difficulty: Medium
 	var/datum/weather/A
 	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
-		if((user_turf.z in W.impacted_z_levels) && W.area_type == user_area.type)
+		if((user_turf.get_z_level() in W.impacted_z_levels) && W.area_type == user_area.type)
 			A = W
 			break
 
@@ -207,7 +207,7 @@ Difficulty: Medium
 			log_game("[user] ([key_name(user)]) has dispelled a storm at [AREACOORD(user_turf)]")
 			return
 	else
-		A = new storm_type(list(user_turf.z))
+		A = new storm_type(list(user_turf.get_z_level()))
 		A.name = "staff storm"
 		log_game("[user] ([key_name(user)]) has summoned [A] at [AREACOORD(user_turf)]")
 		if (is_special_character(user))

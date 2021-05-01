@@ -62,7 +62,7 @@
 	var/client/C = GetViewerClient()
 	var/view = C ? getviewsize(C.view) : getviewsize(world.view)
 	var/turf/lowerleft = locate(max(1, x - (view[1] - 1)/2), max(1, y - (view[2] - 1)/2), z)
-	var/turf/upperright = locate(min(world.maxx, lowerleft.x + (view[1] - 1)), min(world.maxy, lowerleft.y + (view[2] - 1)), lowerleft.z)
+	var/turf/upperright = locate(min(world.maxx, lowerleft.x + (view[1] - 1)), min(world.maxy, lowerleft.y + (view[2] - 1)), lowerleft.get_z_level())
 	return block(lowerleft, upperright)
 
 // Use this when setting the ai_eye's location.
@@ -139,7 +139,7 @@
 /atom/proc/move_camera_by_click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		if(AI.eyeobj && (AI.multicam_on || (AI.client.eye == AI.eyeobj)) && (AI.eyeobj.z == z))
+		if(AI.eyeobj && (AI.multicam_on || (AI.client.eye == AI.eyeobj)) && (AI.eyeobj.get_z_level() == z))
 			AI.cameraFollow = null
 			if (isturf(loc) || isturf(src))
 				AI.eyeobj.setLoc(src)

@@ -146,7 +146,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 			/turf/closed/mineral,
 			))
 
-		if(!is_mining_level(T.z))
+		if(!is_mining_level(T.get_z_level()))
 			return BAD_ZLEVEL
 
 
@@ -209,7 +209,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	var/obj/machinery/computer/auxillary_base/AB
 
 	for (var/obj/machinery/computer/auxillary_base/A in GLOB.machines)
-		if(is_station_level(A.z))
+		if(is_station_level(A.get_z_level()))
 			AB = A
 			break
 	if(!AB)
@@ -289,7 +289,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 
 	var/turf/landing_spot = get_turf(src)
 
-	if(!is_mining_level(landing_spot.z))
+	if(!is_mining_level(landing_spot.get_z_level()))
 		to_chat(user, "<span class='warning'>This device is only to be used in a mining zone.</span>")
 		return
 	var/obj/machinery/computer/auxillary_base/aux_base_console

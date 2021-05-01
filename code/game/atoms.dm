@@ -244,7 +244,7 @@
 	if(!T)
 		return FALSE
 
-	if(is_reserved_level(T.z))
+	if(is_reserved_level(T.get_z_level()))
 		for(var/A in SSshuttle.mobile)
 			var/obj/docking_port/mobile/M = A
 			if(M.launch_status == ENDGAME_TRANSIT)
@@ -253,7 +253,7 @@
 					if(T in shuttle_area)
 						return TRUE
 
-	if(!is_centcom_level(T.z))//if not, don't bother
+	if(!is_centcom_level(T.get_z_level()))//if not, don't bother
 		return FALSE
 
 	//Check for centcom itself
@@ -281,7 +281,7 @@
 	if(!T)
 		return FALSE
 
-	if(!is_centcom_level(T.z))//if not, don't bother
+	if(!is_centcom_level(T.get_z_level()))//if not, don't bother
 		return FALSE
 
 	if(istype(T.loc, /area/shuttle/syndicate) || istype(T.loc, /area/syndicate_mothership) || istype(T.loc, /area/shuttle/assault_pod))
@@ -900,7 +900,7 @@
 	if(!ismovableatom(src))
 		var/turf/curturf = get_turf(src)
 		if(curturf)
-			. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]'>Jump To</option>"
+			. += "<option value='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.get_z_level()]'>Jump To</option>"
 	VV_DROPDOWN_OPTION(VV_HK_MODIFY_TRANSFORM, "Modify Transform")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_REAGENT, "Add Reagent")
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EMP, "EMP Pulse")
@@ -1248,3 +1248,14 @@
   */
 /atom/proc/setClosed()
 	return
+
+/**
+  * Returns the Z-level
+  * Overridden functionality for downstreams
+  */
+/atom/proc/get_z_level()
+	if(z)
+		return z
+	else
+		var/turf/T = get_turf(src)
+		return T.z

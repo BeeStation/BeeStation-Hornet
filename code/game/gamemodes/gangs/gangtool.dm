@@ -134,7 +134,7 @@
 	var/message = stripped_input(user,"Discreetly send a gang-wide message.","Send Message")
 	if(!message || !can_use(user))
 		return
-	if(!is_station_level(user.z))
+	if(!is_station_level(user.get_z_level()))
 		to_chat(user, "<span class='info'>[icon2html(src, user)]Error: Station out of range.</span>")
 		return
 	if(gang.members.len)
@@ -143,7 +143,7 @@
 			return
 		var/ping = "<span class='danger'><B><i>[gang.name] [G.message_name] [user.real_name]</i>: [message]</B></span>"
 		for(var/datum/mind/ganger in gang.members)
-			if(ganger.current && is_station_level(ganger.current.z) && (ganger.current.stat == CONSCIOUS))
+			if(ganger.current && is_station_level(ganger.current.get_z_level()) && (ganger.current.stat == CONSCIOUS))
 				to_chat(ganger.current, ping)
 		for(var/mob/M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
@@ -226,7 +226,7 @@
 		to_chat(user, "<span class='warning'>[icon2html(src, user)]Error: Unable to access communication arrays. Firewall has logged our signature and is blocking all further attempts.</span>")
 		recalling = FALSE
 		return
-	if(!is_station_level(user.z)) //Shuttle can only be recalled while on station
+	if(!is_station_level(user.get_z_level())) //Shuttle can only be recalled while on station
 		to_chat(user, "<span class='warning'>[icon2html(src, user)]Error: Device out of range of station communication arrays.</span>")
 		recalling = FALSE
 		return

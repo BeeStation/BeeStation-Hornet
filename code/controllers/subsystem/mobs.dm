@@ -51,12 +51,12 @@ SUBSYSTEM_DEF(mobs)
 				log_game("[key_name(M)] was found to have no .loc with an attached client.")
 
 			// This is a temporary error tracker to make sure we've caught everything
-			else if (M.registered_z != T.z)
+			else if (M.registered_z != T.get_z_level())
 #ifdef TESTING
-				message_admins("[ADMIN_LOOKUPFLW(M)] has somehow ended up in Z-level [T.z] despite being registered in Z-level [M.registered_z]. If you could ask them how that happened and notify coderbus, it would be appreciated.")
+				message_admins("[ADMIN_LOOKUPFLW(M)] has somehow ended up in Z-level [T.get_z_level()] despite being registered in Z-level [M.registered_z]. If you could ask them how that happened and notify coderbus, it would be appreciated.")
 #endif
-				log_game("Z-TRACKING: [M] has somehow ended up in Z-level [T.z] despite being registered in Z-level [M.registered_z].")
-				M.update_z(T.z)
+				log_game("Z-TRACKING: [M] has somehow ended up in Z-level [T.get_z_level()] despite being registered in Z-level [M.registered_z].")
+				M.update_z(T.get_z_level())
 
 	while(currentrun.len)
 		var/mob/living/L = currentrun[currentrun.len]

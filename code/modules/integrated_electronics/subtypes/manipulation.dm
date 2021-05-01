@@ -104,7 +104,7 @@
 		var/target_y = CLAMP(T.y + yo.data, 0, world.maxy)
 
 		assembly.visible_message("<span class='danger'>[assembly] fires [installed_gun]!</span>")
-		shootAt(locate(target_x, target_y, T.z))
+		shootAt(locate(target_x, target_y, T.get_z_level()))
 
 /obj/item/integrated_circuit/manipulation/weapon_firing/proc/shootAt(turf/target)
 	var/turf/T = get_turf(src)

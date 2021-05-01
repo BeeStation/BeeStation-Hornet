@@ -177,7 +177,7 @@
 		new_y--
 	new_x = CLAMP(new_x, 0, world.maxx)
 	new_y = CLAMP(new_y, 0, world.maxy)
-	return locate(new_x, new_y, starting.z)
+	return locate(new_x, new_y, starting.get_z_level())
 
 /// Returns a list where [1] is all x values and [2] is all y values that overlap between the given pair of rectangles
 /proc/get_overlap(x1, y1, x2, y2, x3, y3, x4, y4)

@@ -237,7 +237,7 @@
 							return
 					else
 						return
-				var/target = locate(locx,locy,mobloc.z)
+				var/target = locate(locx,locy,mobloc.get_z_level())
 				if(target)
 					L.loc = target
 					var/limit = 2//For only two trailing shadows.
@@ -279,7 +279,7 @@
 					to_chat(L, "<span class='warning'>[S] bars your passage!</span>")
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
-					if(!is_reebe(loccheck.z))
+					if(!is_reebe(loccheck.get_z_level()))
 						to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
 						return
 				if(locate(/obj/effect/blessing, stepTurf))

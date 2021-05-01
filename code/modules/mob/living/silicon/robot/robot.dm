@@ -332,7 +332,7 @@
 	. = 0
 
 /mob/living/silicon/robot/triggerAlarm(class, area/A, O, obj/alarmsource)
-	if(alarmsource.z != z)
+	if(alarmsource.get_z_level() != z)
 		return
 	if(stat == DEAD)
 		return 1

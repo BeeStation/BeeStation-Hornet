@@ -267,7 +267,7 @@
 		return 0
 	if(target in possible_targets)
 		var/turf/T = get_turf(src)
-		if(target.z != T.z)
+		if(target.get_z_level() != T.get_z_level())
 			LoseTarget()
 			return 0
 		var/target_distance = get_dist(targets_from,target)
@@ -546,13 +546,13 @@
 	if (!T)
 		return
 
-	if (!length(SSmobs.clients_by_zlevel[T.z])) // It's fine to use .len here but doesn't compile on 511
+	if (!length(SSmobs.clients_by_zlevel[T.get_z_level()])) // It's fine to use .len here but doesn't compile on 511
 		toggle_ai(AI_Z_OFF)
 		return
 
-	var/cheap_search = isturf(T) && !is_station_level(T.z)
+	var/cheap_search = isturf(T) && !is_station_level(T.get_z_level())
 	if (cheap_search)
-		tlist = ListTargetsLazy(T.z)
+		tlist = ListTargetsLazy(T.get_z_level())
 	else
 		tlist = ListTargets()
 

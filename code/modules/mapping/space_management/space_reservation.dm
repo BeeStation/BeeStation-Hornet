@@ -35,7 +35,7 @@
 			continue
 		if(BL.x + width > world.maxx || BL.y + height > world.maxy)
 			continue
-		TR = locate(BL.x + width - 1, BL.y + height - 1, BL.z)
+		TR = locate(BL.x + width - 1, BL.y + height - 1, BL.get_z_level())
 		if(!(TR.flags_1 & UNUSED_RESERVATION_TURF_1))
 			continue
 		final = block(BL, TR)
@@ -52,13 +52,13 @@
 		break
 	if(!passing || !istype(BL) || !istype(TR))
 		return FALSE
-	bottom_left_coords = list(BL.x, BL.y, BL.z)
-	top_right_coords = list(TR.x, TR.y, TR.z)
+	bottom_left_coords = list(BL.x, BL.y, BL.get_z_level())
+	top_right_coords = list(TR.x, TR.y, TR.get_z_level())
 	for(var/i in final)
 		var/turf/T = i
 		reserved_turfs |= T
 		T.flags_1 &= ~UNUSED_RESERVATION_TURF_1
-		SSmapping.unused_turfs["[T.z]"] -= T
+		SSmapping.unused_turfs["[T.get_z_level()]"] -= T
 		SSmapping.used_turfs[T] = src
 		T.ChangeTurf(turf_type, turf_type)
 	src.width = width

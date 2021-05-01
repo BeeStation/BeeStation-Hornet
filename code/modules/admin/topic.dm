@@ -1429,7 +1429,7 @@
 					if ("absolute")
 						target = locate(0 + X,0 + Y,0 + Z)
 					if ("relative")
-						target = locate(loc.x + X,loc.y + Y,loc.z + Z)
+						target = locate(loc.x + X,loc.y + Y,loc.get_z_level() + Z)
 			if("inmarked")
 				if(!marked_datum)
 					to_chat(usr, "You don't have any object marked. Abandoning spawn.")

@@ -177,7 +177,7 @@ GLOBAL_VAR(clockcult_eminence)
 
 /proc/flee_reebe()
 	for(var/mob/living/M in GLOB.mob_list)
-		if(!is_reebe(M.z))
+		if(!is_reebe(M.get_z_level()))
 			continue
 		var/safe_place = find_safe_turf()
 		M.forceMove(safe_place)

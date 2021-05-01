@@ -193,11 +193,11 @@
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
 	for(var/mob/living/M in hearers(1,src))
-		do_teleport(M, locate(M.x, M.y, M.z), 4, channel = TELEPORT_CHANNEL_BLUESPACE)
+		do_teleport(M, locate(M.x, M.y, M.get_z_level()), 4, channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
 	if(isliving(AM))
-		do_teleport(AM, locate(AM.x, AM.y, AM.z), 8, channel = TELEPORT_CHANNEL_BLUESPACE)
+		do_teleport(AM, locate(AM.x, AM.y, AM.get_z_level()), 8, channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /obj/effect/anomaly/bluespace/detonate()
 	var/turf/T = safepick(get_area_turfs(impact_area))
@@ -233,7 +233,7 @@
 				if(A.anchored)
 					continue
 
-				var/turf/newloc = locate(A.x + x_distance, A.y + y_distance, TO.z) // calculate the new place
+				var/turf/newloc = locate(A.x + x_distance, A.y + y_distance, TO.get_z_level()) // calculate the new place
 				if(!A.Move(newloc) && newloc) // if the atom, for some reason, can't move, FORCE them to move! :) We try Move() first to invoke any movement-related checks the atom needs to perform after moving
 					A.forceMove(newloc)
 

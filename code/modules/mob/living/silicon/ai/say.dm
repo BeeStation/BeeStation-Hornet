@@ -144,7 +144,7 @@
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.can_hear() && (M.client.prefs.toggles & SOUND_ANNOUNCEMENTS))
 					var/turf/T = get_turf(M)
-					if(T.z == z_level)
+					if(T.get_z_level() == z_level)
 						SEND_SOUND(M, voice)
 		else
 			SEND_SOUND(only_listener, voice)

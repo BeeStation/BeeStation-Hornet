@@ -65,7 +65,7 @@
 			var/mob/living/L = cult_mind.current
 			L.narsie_act()
 	for(var/mob/living/player in GLOB.player_list)
-		if(player.stat != DEAD && player.loc && is_station_level(player.loc.z) && !iscultist(player) && !isanimal(player))
+		if(player.stat != DEAD && player.loc && is_station_level(player.loc.get_z_level()) && !iscultist(player) && !isanimal(player))
 			souls_needed[player] = TRUE
 	soul_goal = round(1 + LAZYLEN(souls_needed) * 0.75)
 	INVOKE_ASYNC(src, .proc/begin_the_end)
@@ -170,7 +170,7 @@
 
 	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
-		if(!pos || (pos.z != z))
+		if(!pos || (pos.get_z_level() != z))
 			continue
 
 		if(iscultist(food))
@@ -191,7 +191,7 @@
 		if(!ghost.client)
 			continue
 		var/turf/pos = get_turf(ghost)
-		if(!pos || (pos.z != z))
+		if(!pos || (pos.get_z_level() != z))
 			continue
 		cultists += ghost
 	if(cultists.len)

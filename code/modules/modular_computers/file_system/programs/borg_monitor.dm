@@ -21,7 +21,7 @@
 
 	data["cyborgs"] = list()
 	for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
-		if((get_turf(computer)).z != (get_turf(R)).z)
+		if((get_turf(computer)).get_z_level() != (get_turf(R)).get_z_level())
 			continue
 		if(R.scrambledcodes)
 			continue

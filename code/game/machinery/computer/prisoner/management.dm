@@ -35,7 +35,7 @@
 		var/turf/Tr = null
 		for(var/obj/item/implant/chem/C in GLOB.tracked_chem_implants)
 			Tr = get_turf(C)
-			if((Tr) && (Tr.z != src.z))
+			if((Tr) && (Tr.get_z_level() != src.get_z_level()))
 				continue//Out of range
 			if(!C.imp_in)
 				continue
@@ -50,12 +50,12 @@
 			if(!isliving(T.imp_in))
 				continue
 			Tr = get_turf(T)
-			if((Tr) && (Tr.z != src.z))
+			if((Tr) && (Tr.get_z_level() != src.get_z_level()))
 				continue//Out of range
 
 			var/loc_display = "Unknown"
 			var/mob/living/M = T.imp_in
-			if(is_station_level(Tr.z) && !isspaceturf(M.loc))
+			if(is_station_level(Tr.get_z_level()) && !isspaceturf(M.loc))
 				var/turf/mob_loc = get_turf(M)
 				loc_display = mob_loc.loc
 

@@ -78,7 +78,7 @@
 		return FALSE
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
-		if(isnull(position) || !(position.z in level))
+		if(isnull(position) || !(position.get_z_level() in level))
 			return FALSE
 	if(!listening)
 		return FALSE

@@ -49,7 +49,7 @@
 		return TRUE
 	//Successful Invokation
 	invoker.mob_light(_color = LIGHT_COLOR_CLOCKWORK, _range = 2, _duration = 10)
-	if(!is_reebe(invoker.z))
+	if(!is_reebe(invoker.get_z_level()))
 		if(!HAS_TRAIT(M, TRAIT_MINDSHIELD))
 			M.Paralyze(150)
 		else

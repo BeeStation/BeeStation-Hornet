@@ -14,7 +14,7 @@ GLOBAL_VAR_INIT(curse_of_madness_triggered, FALSE)
 		if(H.stat == DEAD)
 			continue
 		var/turf/T = get_turf(H)
-		if(T && !is_station_level(T.z))
+		if(T && !is_station_level(T.get_z_level()))
 			continue
 		if(H.anti_magic_check(TRUE, FALSE) || HAS_TRAIT(H, TRAIT_WARDED))
 			to_chat(H, "<span class='notice'>You have a strange feeling for a moment, but then it passes.</span>")

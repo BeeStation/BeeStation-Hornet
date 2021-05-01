@@ -248,7 +248,7 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 				else
 					break
 			if(B)
-				if(B.z == num_level)
+				if(B.get_z_level() == num_level)
 					count++
 					atom_list += A
 

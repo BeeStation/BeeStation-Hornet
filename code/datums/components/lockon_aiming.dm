@@ -128,7 +128,7 @@
 		return
 	var/turf/T = P.return_turf()
 	LAZYINITLIST(last_location)
-	if(length(last_location) == 3 && last_location[1] == T.x && last_location[2] == T.y && last_location[3] == T.z)
+	if(length(last_location) == 3 && last_location[1] == T.x && last_location[2] == T.y && last_location[3] == T.get_z_level())
 		return			//Same turf, don't bother.
 	if(last_location)
 		last_location.Cut()
@@ -197,7 +197,7 @@
 		y = center.y + cd
 		LOCKON_RANGING_BREAK_CHECK
 		for(x in x to center.x + cd)
-			T = locate(x, y, center.z)
+			T = locate(x, y, center.get_z_level())
 			if(T)
 				L |= special_list_filter(T.contents, can_target_callback)
 				if(L.len >= amount)
@@ -207,7 +207,7 @@
 		y = center.y + cd - 1
 		x = center.x + cd
 		for(y in center.y - cd to y)
-			T = locate(x, y, center.z)
+			T = locate(x, y, center.get_z_level())
 			if(T)
 				L |= special_list_filter(T.contents, can_target_callback)
 				if(L.len >= amount)
@@ -217,7 +217,7 @@
 		y = center.y - cd
 		x = center.x + cd - 1
 		for(x in center.x - cd to x)
-			T = locate(x, y, center.z)
+			T = locate(x, y, center.get_z_level())
 			if(T)
 				L |= special_list_filter(T.contents, can_target_callback)
 				if(L.len >= amount)
@@ -227,7 +227,7 @@
 		y = center.y - cd + 1
 		x = center.x - cd
 		for(y in y to center.y + cd)
-			T = locate(x, y, center.z)
+			T = locate(x, y, center.get_z_level())
 			if(T)
 				L |= special_list_filter(T.contents, can_target_callback)
 				if(L.len >= amount)

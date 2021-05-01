@@ -107,7 +107,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if (!AR.contents.len)
 			continue
 		var/turf/picked = AR.contents[1]
-		if (picked && is_station_level(picked.z))
+		if (picked && is_station_level(picked.get_z_level()))
 			GLOB.teleportlocs[AR.name] = AR
 
 	sortTim(GLOB.teleportlocs, /proc/cmp_text_asc)
@@ -609,9 +609,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		return A.has_gravity
 	else
 		// There's a gravity generator on our z level
-		if(GLOB.gravity_generators["[T.z]"])
+		if(GLOB.gravity_generators["[T.get_z_level()]"])
 			var/max_grav = 0
-			for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.z]"])
+			for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_z_level()]"])
 				max_grav = max(G.setting,max_grav)
 			return max_grav
 	return SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)

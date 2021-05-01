@@ -906,7 +906,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	var/turf/T = get_turf(mob)
-	var/z_level = input("Z-Level to target?", "Z-Level", T?.z) as num|null
+	var/z_level = input("Z-Level to target?", "Z-Level", T?.get_z_level()) as num|null
 	if(!isnum_safe(z_level))
 		return
 
@@ -1093,8 +1093,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(ADMIN_PUNISHMENT_ROD)
 			var/turf/T = get_turf(target)
 			var/startside = pick(GLOB.cardinals)
-			var/turf/startT = spaceDebrisStartLoc(startside, T.z)
-			var/turf/endT = spaceDebrisFinishLoc(startside, T.z)
+			var/turf/startT = spaceDebrisStartLoc(startside, T.get_z_level())
+			var/turf/endT = spaceDebrisFinishLoc(startside, T.get_z_level())
 			new /obj/effect/immovablerod(startT, endT,target)
 		if(ADMIN_PUNISHMENT_SUPPLYPOD_QUICK)
 			var/target_path = input(usr,"Enter typepath of an atom you'd like to send with the pod (type \"empty\" to send an empty pod):" ,"Typepath","/obj/item/reagent_containers/food/snacks/grown/harebell") as null|text
@@ -1157,7 +1157,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		if(ADMIN_PUNISHMENT_IMMERSE)
 			immerse_player(target)
-			
+
 		if(ADMIN_PUNISHMENT_GHOST)
 			if (target.key)
 				target.ghostize(FALSE,SENTIENCE_FORCE)

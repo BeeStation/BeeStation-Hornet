@@ -187,7 +187,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		html += " <a href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[usr_ref]'>Follow</a>"
 		if (istype(usr_loc))
 			html += "<br><b>usr.loc</b>: <a href='?_src_=vars;[HrefToken()];Vars=[REF(usr_loc)]'>VV</a>"
-			html += " <a href='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[usr_loc.x];Y=[usr_loc.y];Z=[usr_loc.z]'>JMP</a>"
+			html += " <a href='?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[usr_loc.x];Y=[usr_loc.y];Z=[usr_loc.get_z_level()]'>JMP</a>"
 
 	browse_to(user, html)
 

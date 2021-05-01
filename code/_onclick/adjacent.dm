@@ -31,7 +31,7 @@
 	if(T0 == src) //same turf
 		return TRUE
 
-	if(get_dist(src, T0) > 1 || z != T0.z) //too far
+	if(get_dist(src, T0) > 1 || z != T0.get_z_level()) //too far
 		return FALSE
 
 	// Non diagonal case

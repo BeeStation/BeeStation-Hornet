@@ -39,7 +39,7 @@
 
 /obj/item/twohanded/clockwork/attack(mob/living/target, mob/living/user)
 	. = ..()
-	if(!is_reebe(user.z))
+	if(!is_reebe(user.get_z_level()))
 		return
 	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(major=FALSE) && wielded)
 		hit_effect(target, user)

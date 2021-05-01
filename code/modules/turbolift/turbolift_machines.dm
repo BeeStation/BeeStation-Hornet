@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		log_mapping("TURBOLIFT: [src] has no shuttle_id at [AREACOORD(src)]")
 		message_admins("TURBOLIFT: [src] has no shuttle_id at [AREACOORD(src)]")
 		return
-	floor_id = "[shuttle_id]_[src.z]"
+	floor_id = "[shuttle_id]_[src.get_z_level()]"
 
 /obj/machinery/turbolift_button/attack_hand(mob/user)
 	if (stat & NOPOWER)
@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 
 	if("[floor_id]" in T.destination_queue)
 		say("The current deck is already queued.")
-	else if(T.z == src.z)
+	else if(T.get_z_level() == src.get_z_level())
 		say("The turbolift is already at this deck.")
 	else
 		say("The turbolift will arrive shortly. Thank you for using Nanotrasen Turbolift Services(TM).")
@@ -280,7 +280,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 				warning("This code shouldn't ever run, a turbolift has attempted to go to a dock with id [destID] but none were found")
 				return //shouldnt ever get to this point but w/e
 
-			if(dest.z == src.z)
+			if(dest.get_z_level() == src.get_z_level())
 				return //this normally shouldn't run either but out of date interfaces might get here
 
 			if(dest.id in destination_queue)

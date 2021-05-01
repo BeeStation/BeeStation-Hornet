@@ -100,7 +100,7 @@
 /obj/machinery/computer/custom_shuttle/proc/calculateDistance(var/obj/docking_port/stationary/port)
 	var/deltaX = port.x - x
 	var/deltaY = port.y - y
-	var/deltaZ = (port.z - z) * Z_DIST
+	var/deltaZ = (port.get_z_level() - z) * Z_DIST
 	return sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * distance_multiplier
 
 /obj/machinery/computer/custom_shuttle/proc/linkShuttle(var/new_id)

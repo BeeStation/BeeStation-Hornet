@@ -153,7 +153,7 @@
 
 /obj/docking_port/proc/is_in_shuttle_bounds(atom/A)
 	var/turf/T = get_turf(A)
-	if(T.z != z)
+	if(T.get_z_level() != z)
 		return FALSE
 	var/list/bounds = return_coords()
 	var/x0 = bounds[1]

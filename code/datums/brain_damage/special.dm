@@ -203,7 +203,7 @@
 	..()
 
 /datum/brain_trauma/special/beepsky/proc/create_securitron()
-	var/turf/where = locate(owner.x + pick(-12, 12), owner.y + pick(-12, 12), owner.z)
+	var/turf/where = locate(owner.x + pick(-12, 12), owner.y + pick(-12, 12), owner.get_z_level())
 	beepsky = new(where, owner)
 	beepsky.victim = owner
 
@@ -212,7 +212,7 @@
 	..()
 
 /datum/brain_trauma/special/beepsky/on_life()
-	if(QDELETED(beepsky) || !beepsky.loc || beepsky.z != owner.z)
+	if(QDELETED(beepsky) || !beepsky.loc || beepsky.get_z_level() != owner.get_z_level())
 		QDEL_NULL(beepsky)
 		if(prob(30))
 			create_securitron()

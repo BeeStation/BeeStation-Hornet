@@ -91,7 +91,7 @@
 
 /datum/mapGenerator/repair/reload_station_map/defineRegion(turf/start, turf/end)
 	. = ..()
-	if(!is_station_level(start.z) || !is_station_level(end.z))
+	if(!is_station_level(start.get_z_level()) || !is_station_level(end.get_z_level()))
 		return
 	x_low = min(start.x, end.x)
 	y_low = min(start.y, end.y)

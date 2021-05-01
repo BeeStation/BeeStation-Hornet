@@ -250,7 +250,7 @@ SUBSYSTEM_DEF(explosions)
 			var/mob/M = MN
 			// Double check for client
 			var/turf/M_turf = get_turf(M)
-			if(M_turf && M_turf.z == z0)
+			if(M_turf && M_turf.get_z_level() == z0)
 				var/dist = get_dist(M_turf, epicenter)
 				var/baseshakeamount
 				if(orig_max_distance - dist > 0)
@@ -419,28 +419,28 @@ SUBSYSTEM_DEF(explosions)
 		y = t_center.y + c_dist
 		x = t_center.x - c_dist + 1
 		for(x in x to t_center.x+c_dist)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 
 		y = t_center.y + c_dist - 1
 		x = t_center.x + c_dist
 		for(y in t_center.y-c_dist to y)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 
 		y = t_center.y - c_dist
 		x = t_center.x + c_dist - 1
 		for(x in t_center.x-c_dist to x)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 
 		y = t_center.y - c_dist + 1
 		x = t_center.x - c_dist
 		for(y in y to t_center.y+c_dist)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 		c_dist++

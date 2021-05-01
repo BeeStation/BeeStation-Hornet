@@ -75,7 +75,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	else
 		y_off = first_offset
 		x_off = second_offset
-	var/turf/T = locate(target.x + x_off, target.y + y_off, target.z)
+	var/turf/T = locate(target.x + x_off, target.y + y_off, target.get_z_level())
 	return T
 
 /obj/effect/hallucination
@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	if(!center)
 		qdel(src)
 		return
-	feedback_details += "Vent Coords: [center.x],[center.y],[center.z]"
+	feedback_details += "Vent Coords: [center.x],[center.y],[center.get_z_level()]"
 	var/image/plasma_image = image(image_icon,center,image_state,FLY_LAYER)
 	plasma_image.alpha = 50
 	plasma_image.plane = GAME_PLANE
@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			pump = U
 			break
 	if(pump)
-		feedback_details += "Vent Coords: [pump.x],[pump.y],[pump.z]"
+		feedback_details += "Vent Coords: [pump.x],[pump.y],[pump.get_z_level()]"
 		xeno = new(pump.loc,target)
 		sleep(10)
 		xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
@@ -285,7 +285,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/turf/closed/wall/wall = locate() in spiral_range_turfs(7, target)
 	if(!wall)
 		return INITIALIZE_HINT_QDEL
-	feedback_details += "Source: [wall.x],[wall.y],[wall.z]"
+	feedback_details += "Source: [wall.x],[wall.y],[wall.get_z_level()]"
 
 	fakebroken = image('icons/turf/floors.dmi', wall, "plating", layer = TURF_LAYER)
 	var/turf/landing = get_turf(target)

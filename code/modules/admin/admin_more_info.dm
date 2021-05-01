@@ -12,9 +12,9 @@
 	//Location
 	if(isturf(T))
 		if(isarea(T.loc))
-			location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.z] in area <b>[T.loc]</b>)"
+			location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.get_z_level()] in area <b>[T.loc]</b>)"
 		else
-			location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.z])"
+			location_description = "([M.loc == T ? "at coordinates " : "in [M.loc] at coordinates "] [T.x], [T.y], [T.get_z_level()])"
 
 	//Job + antagonist
 	if(M.mind)

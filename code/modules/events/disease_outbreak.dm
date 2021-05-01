@@ -35,12 +35,12 @@
 
 	if(!virus_type && !advanced_virus)
 		virus_type = pick(/datum/disease/fake_gbs, /datum/disease/cold9, /datum/disease/magnitis, /datum/disease/pierrot_throat, /datum/disease/beesease)
-	
+
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
 		var/turf/T = get_turf(H)
 		if(!T)
 			continue
-		if(!is_station_level(T.z))
+		if(!is_station_level(T.get_z_level()))
 			continue
 		if(!H.client)
 			continue

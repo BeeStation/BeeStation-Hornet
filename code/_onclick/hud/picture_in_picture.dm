@@ -132,8 +132,8 @@
 	var/turf/T = get_turf(center)
 	if(!T)
 		return list()
-	var/turf/lowerleft = locate(max(1, T.x - round(width/2)), max(1, T.y - round(height/2)), T.z)
-	var/turf/upperright = locate(min(world.maxx, lowerleft.x + width - 1), min(world.maxy, lowerleft.y + height - 1), lowerleft.z)
+	var/turf/lowerleft = locate(max(1, T.x - round(width/2)), max(1, T.y - round(height/2)), T.get_z_level())
+	var/turf/upperright = locate(min(world.maxx, lowerleft.x + width - 1), min(world.maxy, lowerleft.y + height - 1), lowerleft.get_z_level())
 	return block(lowerleft, upperright)
 
 /atom/movable/screen/movable/pic_in_pic/proc/show_to(client/C)

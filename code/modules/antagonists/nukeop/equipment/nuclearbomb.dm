@@ -479,7 +479,7 @@
 	var/turf/bomb_location = get_turf(src)
 	var/area/A = get_area(bomb_location)
 
-	if(bomb_location && is_station_level(bomb_location.z))
+	if(bomb_location && is_station_level(bomb_location.get_z_level()))
 		if(istype(A, /area/space))
 			off_station = NUKE_NEAR_MISS
 		if((bomb_location.x < (128-NUKERANGE)) || (bomb_location.x > (128+NUKERANGE)) || (bomb_location.y < (128-NUKERANGE)) || (bomb_location.y > (128+NUKERANGE)))
@@ -542,7 +542,7 @@
 	if(!bomb_location)
 		disarm()
 		return
-	if(is_station_level(bomb_location.z))
+	if(is_station_level(bomb_location.get_z_level()))
 		var/datum/round_event_control/E = locate(/datum/round_event_control/vent_clog/beer) in SSevents.control
 		if(E)
 			E.runEvent()
@@ -579,7 +579,7 @@
 	if(!z)
 		return
 	for(var/mob/M in GLOB.mob_list)
-		if(M.stat != DEAD && M.z == z)
+		if(M.stat != DEAD && M.get_z_level() == z)
 			M.gib()
 
 /*

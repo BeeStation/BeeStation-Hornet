@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		if (!A.contents.len || !A.unique)
 			continue
 		var/turf/picked = A.contents[1]
-		if (is_station_level(picked.z))
+		if (is_station_level(picked.get_z_level()))
 			GLOB.the_station_areas += A.type
 
 	if(!GLOB.the_station_areas.len)
@@ -462,7 +462,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		//Link any found away gate with station gate
 		var/obj/machinery/gateway/centeraway/new_gate
 		for(var/obj/machinery/gateway/centeraway/G in GLOB.machines)
-			if(G.z == away_level.z_value) //I'll have to refactor gateway shitcode before multi-away support.
+			if(G.get_z_level() == away_level.z_value) //I'll have to refactor gateway shitcode before multi-away support.
 				new_gate = G
 				break
 		//Link station gate with away gate and remove wait time.
@@ -512,8 +512,8 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	for(var/i in turfs)
 		var/turf/T = i
 		T.empty(RESERVED_TURF_TYPE, RESERVED_TURF_TYPE, null, TRUE)
-		LAZYINITLIST(unused_turfs["[T.z]"])
-		unused_turfs["[T.z]"] |= T
+		LAZYINITLIST(unused_turfs["[T.get_z_level()]"])
+		unused_turfs["[T.get_z_level()]"] |= T
 		T.flags_1 |= UNUSED_RESERVATION_TURF_1
 		GLOB.areas_by_type[world.area].contents += T
 		CHECK_TICK

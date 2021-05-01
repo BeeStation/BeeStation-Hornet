@@ -102,7 +102,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 			b2xerror+=errory
 			b2yerror+=errorx
 
-	var/turf/destination=locate(location.x+dirx,location.y+diry,location.z)
+	var/turf/destination=locate(location.x+dirx,location.y+diry,location.get_z_level())
 
 	if(destination)//If there is a destination.
 		if(errorx||errory)//If errorx or y were specified.
@@ -115,10 +115,10 @@ Turf and target are separate in case you want to teleport some distance from a t
 			Offset always calculates in relation to direction faced. In other words, depending on the direction of the teleport,
 			the offset should remain positioned in relation to destination.*/
 
-			var/turf/center = locate((destination.x+xoffset),(destination.y+yoffset),location.z)//So now, find the new center.
+			var/turf/center = locate((destination.x+xoffset),(destination.y+yoffset),location.get_z_level())//So now, find the new center.
 
 			//Now to find a box from center location and make that our destination.
-			for(var/turf/T in block(locate(center.x+b1xerror,center.y+b1yerror,location.z), locate(center.x+b2xerror,center.y+b2yerror,location.z) ))
+			for(var/turf/T in block(locate(center.x+b1xerror,center.y+b1yerror,location.get_z_level()), locate(center.x+b2xerror,center.y+b2yerror,location.get_z_level()) ))
 				if(density&&T.density)
 					continue//If density was specified.
 				if(closed&&isclosedturf(T))
@@ -149,7 +149,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 /proc/getline(atom/M,atom/N)
 	var/px=M.x		//starting x
 	var/py=M.y
-	var/line[] = list(locate(px,py,M.z))
+	var/line[] = list(locate(px,py,M.get_z_level()))
 	var/dx=N.x-px	//x distance
 	var/dy=N.y-py
 	var/dxabs = abs(dx)//Absolute value of x distance
@@ -166,7 +166,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 				y-=dxabs
 				py+=sdy
 			px+=sdx		//Step on in x direction
-			line+=locate(px,py,M.z)//Add the turf to the list
+			line+=locate(px,py,M.get_z_level())//Add the turf to the list
 	else
 		for(j=0;j<dyabs;j++)
 			x+=dxabs
@@ -174,7 +174,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 				x-=dyabs
 				px+=sdx
 			py+=sdy
-			line+=locate(px,py,M.z)
+			line+=locate(px,py,M.get_z_level())
 	return line
 
 /// Returns whether or not a player is a guest using their ckey as an input
@@ -396,7 +396,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 
 /// Returns the turf located at the map edge in the specified direction relative to A. Used for mass driver
 /proc/get_edge_target_turf(atom/A, direction)
-	var/turf/target = locate(A.x, A.y, A.z)
+	var/turf/target = locate(A.x, A.y, A.get_z_level())
 	if(!A || !target)
 		return 0
 		//since NORTHEAST == NORTH|EAST, etc, doing it this way allows for diagonal mass drivers in the future
@@ -415,7 +415,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	if(direction in GLOB.diagonals) //let's make sure it's accurately-placed for diagonals
 		var/lowest_distance_to_map_edge = min(abs(x - A.x), abs(y - A.y))
 		return get_ranged_target_turf(A, direction, lowest_distance_to_map_edge)
-	return locate(x,y,A.z)
+	return locate(x,y,A.get_z_level())
 
 /// Returns turf relative to A in given direction at set range, result is bounded to map size. Note: range is non-pythagorean. Used for disposal system
 /proc/get_ranged_target_turf(atom/A, direction, range)
@@ -431,14 +431,14 @@ Turf and target are separate in case you want to teleport some distance from a t
 	else if(direction & WEST) //if you have both EAST and WEST in the provided direction, then you're gonna have issues
 		x = max(1, x - range)
 
-	return locate(x,y,A.z)
+	return locate(x,y,A.get_z_level())
 
 
 /// returns turf relative to A offset in dx and dy tiles, bound to map limits
 /proc/get_offset_target_turf(atom/A, dx, dy)
 	var/x = min(world.maxx, max(1, A.x + dx))
 	var/y = min(world.maxy, max(1, A.y + dy))
-	return locate(x,y,A.z)
+	return locate(x,y,A.get_z_level())
 
 /// Gets all contents of contents and returns them all in a list.
 /atom/proc/GetAllContents(var/T)
@@ -627,7 +627,7 @@ Returns: A list of all turfs in areas of that type of that type in the world.
 			if(!cache[A.type])
 				continue
 			for(var/turf/T in A)
-				if(target_z == 0 || target_z == T.z)
+				if(target_z == 0 || target_z == T.get_z_level())
 					turfs += T
 	else
 		for(var/V in GLOB.sortedAreas)
@@ -635,7 +635,7 @@ Returns: A list of all turfs in areas of that type of that type in the world.
 			if(A.type != areatype)
 				continue
 			for(var/turf/T in A)
-				if(target_z == 0 || target_z == T.z)
+				if(target_z == 0 || target_z == T.get_z_level())
 					turfs += T
 	return turfs
 
@@ -725,7 +725,7 @@ Returns: A list of all turfs in areas of that type of that type in the world.
 	var/final_y = T.y + rough_y
 
 	if(final_x || final_y)
-		return locate(final_x, final_y, T.z)
+		return locate(final_x, final_y, T.get_z_level())
 
 /**
 Finds the distance between two atoms, in pixels
@@ -1017,7 +1017,7 @@ eg2: `center_image(I, 96,96)`
 		y = t_center.y + c_dist
 		x = t_center.x - c_dist + 1
 		for(x in x to t_center.x+c_dist)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 				L += T.contents
@@ -1025,7 +1025,7 @@ eg2: `center_image(I, 96,96)`
 		y = t_center.y + c_dist - 1
 		x = t_center.x + c_dist
 		for(y in t_center.y-c_dist to y)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 				L += T.contents
@@ -1033,7 +1033,7 @@ eg2: `center_image(I, 96,96)`
 		y = t_center.y - c_dist
 		x = t_center.x + c_dist - 1
 		for(x in t_center.x-c_dist to x)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 				L += T.contents
@@ -1041,7 +1041,7 @@ eg2: `center_image(I, 96,96)`
 		y = t_center.y - c_dist + 1
 		x = t_center.x - c_dist
 		for(y in y to t_center.y+c_dist)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 				L += T.contents
@@ -1073,28 +1073,28 @@ eg2: `center_image(I, 96,96)`
 		y = t_center.y + c_dist
 		x = t_center.x - c_dist + 1
 		for(x in x to t_center.x+c_dist)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 
 		y = t_center.y + c_dist - 1
 		x = t_center.x + c_dist
 		for(y in t_center.y-c_dist to y)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 
 		y = t_center.y - c_dist
 		x = t_center.x + c_dist - 1
 		for(x in t_center.x-c_dist to x)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 
 		y = t_center.y - c_dist + 1
 		x = t_center.x - c_dist
 		for(y in y to t_center.y+c_dist)
-			T = locate(x,y,t_center.z)
+			T = locate(x,y,t_center.get_z_level())
 			if(T)
 				L += T
 		c_dist++
@@ -1594,7 +1594,7 @@ config_setting should be one of the following:
 
 /proc/get_final_z(atom/A)
 	var/turf/T = get_turf(A)
-	return T ? T.z : A.z
+	return T ? T.get_z_level() : A.z
 
 /proc/invertDir(var/input_dir)
 	switch(input_dir)

@@ -48,7 +48,7 @@
 
 /obj/docking_port/stationary/turbolift/Initialize()
 	. = ..()
-	id = "[id]_[src.z]"
+	id = "[id]_[src.get_z_level()]"
 	var/lower_dock = (locate(/obj/docking_port/stationary/turbolift) in SSmapping.get_turf_below(get_turf(src)))
 	if(!lower_dock)
 		bottom_floor = TRUE //We let the lowest dock handle finding all of the other docks
@@ -73,7 +73,7 @@
 		if(!istype(SM))
 			continue
 		if(findtext(SM.id, M.id) && !SM.bottom_floor)
-			SM.deck = (SM.z - src.z + src.deck)
+			SM.deck = (SM.get_z_level() - src.get_z_level() + src.deck)
 			SM.dir = dir
 			SM.dwidth = dwidth
 			SM.dheight = dheight

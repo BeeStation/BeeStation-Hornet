@@ -191,13 +191,13 @@
 		update_icons()
 
 /mob/living/simple_animal/hostile/jungle/leaper/proc/Hop(player_hop = FALSE)
-	if(z != target.z)
+	if(z != target.get_z_level())
 		return
 	hopping = TRUE
 	density = FALSE
 	pass_flags |= PASSMOB
 	notransform = TRUE
-	var/turf/new_turf = locate((target.x + rand(-3,3)),(target.y + rand(-3,3)),target.z)
+	var/turf/new_turf = locate((target.x + rand(-3,3)),(target.y + rand(-3,3)),target.get_z_level())
 	if(player_hop)
 		new_turf = get_turf(target)
 		hop_cooldown = world.time + PLAYER_HOP_DELAY

@@ -20,7 +20,7 @@
 	//make some randomly pathing rivers
 	for(var/A in river_nodes)
 		var/obj/effect/landmark/river_waypoint/W = A
-		if (W.z != target_z || W.connected)
+		if (W.get_z_level() != target_z || W.connected)
 			continue
 		W.connected = 1
 		var/turf/cur_turf = get_turf(W)

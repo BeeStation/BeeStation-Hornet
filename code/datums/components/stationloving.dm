@@ -61,13 +61,13 @@
 	if (!T)
 		return FALSE
 	var/area/A = T.loc
-	if (is_station_level(T.z))
+	if (is_station_level(T.get_z_level()))
 		return TRUE
-	if (is_centcom_level(T.z))
+	if (is_centcom_level(T.get_z_level()))
 		if (is_type_in_typecache(A, disallowed_centcom_areas))
 			return FALSE
 		return TRUE
-	if (is_reserved_level(T.z))
+	if (is_reserved_level(T.get_z_level()))
 		if (is_type_in_typecache(A, allowed_shuttles))
 			return TRUE
 

@@ -820,7 +820,7 @@
 
 	else if(istype(O, /obj/item/storage/bag/plants))
 		harvest_plant(user)
-		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
+		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.get_z_level()))
 			SEND_SIGNAL(O, COMSIG_TRY_STORAGE_INSERT, G, user, TRUE)
 
 	else if(default_unfasten_wrench(user, O))
@@ -878,7 +878,7 @@
 	if(issilicon(user)) //How does AI know what plant is?
 		return
 	harvest_plant(user)
-		
+
 /obj/machinery/hydroponics/proc/harvest_plant(mob/user)
 	if(harvest)
 		return myseed.harvest(user)

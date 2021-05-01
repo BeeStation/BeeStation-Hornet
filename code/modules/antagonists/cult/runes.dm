@@ -356,7 +356,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/list/teleportnames = list()
 	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
-		if(T != src && !is_away_level(T.z))
+		if(T != src && !is_away_level(T.get_z_level()))
 			potential_runes[avoid_assoc_duplicate_keys(T.listkey, teleportnames)] = T
 
 	if(!potential_runes.len)
@@ -366,7 +366,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	var/turf/T = get_turf(src)
-	if(is_away_level(T.z))
+	if(is_away_level(T.get_z_level()))
 		to_chat(user, "<span class='cult italic'>You are not in the right dimension!</span>")
 		log_game("Teleport rune failed - user in away mission")
 		fail_invoke()
@@ -413,7 +413,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			to_chat(user, "<span class='cult'>You[moveuserlater ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].</span>")
 		else
 			to_chat(user, "<span class='cult'>You[moveuserlater ? "r vision blurs briefly, but nothing happens":"  try send everything above the rune away, but the teleportation fails"].</span>")
-		if(is_mining_level(z) && !is_mining_level(target.z)) //No effect if you stay on lavaland
+		if(is_mining_level(z) && !is_mining_level(target.get_z_level())) //No effect if you stay on lavaland
 			actual_selected_rune.handle_portal("lava")
 		else
 			var/area/A = get_area(T)
@@ -660,7 +660,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/wall/proc/spread_density()
 	for(var/R in GLOB.wall_runes)
 		var/obj/effect/rune/wall/W = R
-		if(W.z == z && get_dist(src, W) <= 2 && !W.density && !W.recharging)
+		if(W.get_z_level() == z && get_dist(src, W) <= 2 && !W.density && !W.recharging)
 			W.density = TRUE
 			W.update_state()
 			W.spread_density()
@@ -738,7 +738,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target was deconverted")
 		return
-	if(is_away_level(cultist_to_summon.z))
+	if(is_away_level(cultist_to_summon.get_z_level()))
 		to_chat(user, "<span class='cult italic'>[cultist_to_summon] is not in our dimension!</span>")
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target in away mission")
@@ -849,7 +849,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/choice = alert(user,"You tear open a connection to the spirit realm...",,"Summon a Cult Ghost","Ascend as a Dark Spirit","Cancel")
 	if(choice == "Summon a Cult Ghost")
 		var/area/A = get_area(T)
-		if(A.map_name == "Space" || is_mining_level(T.z))
+		if(A.map_name == "Space" || is_mining_level(T.get_z_level()))
 			to_chat(user, "<span class='cultitalic'><b>The veil is not weak enough here to manifest spirits, you must be on station!</b></span>")
 			return
 		if(ghosts >= ghost_limit)
@@ -985,7 +985,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/zmatch = T.z
 	var/datum/atom_hud/AH = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	for(var/mob/living/M in GLOB.alive_mob_list)
-		if(M.z != zmatch)
+		if(M.get_z_level() != zmatch)
 			continue
 		if(ishuman(M))
 			if(!iscultist(M))

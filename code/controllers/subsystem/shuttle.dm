@@ -318,7 +318,7 @@ SUBSYSTEM_DEF(shuttle)
 				continue
 
 		var/turf/T = get_turf(thing)
-		if(T && is_station_level(T.z))
+		if(T && is_station_level(T.get_z_level()))
 			callShuttle = 0
 			break
 
@@ -488,7 +488,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/transit_x = bottomleft.x + SHUTTLE_TRANSIT_BORDER + abs(x2)
 	var/transit_y = bottomleft.y + SHUTTLE_TRANSIT_BORDER + abs(y2)
 
-	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.z)
+	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.get_z_level())
 	if(!midpoint)
 		return FALSE
 	var/area/shuttle/transit/A = new()
@@ -596,7 +596,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/stationary_cache = stationary
 	for(var/i in 1 to stationary_cache.len)
 		var/obj/docking_port/port = stationary_cache[i]
-		if(!port || port.z != z)
+		if(!port || port.get_z_level() != z)
 			continue
 		var/list/bounds = port.return_coords()
 		var/list/overlap = get_overlap(x0, y0, x1, y1, bounds[1], bounds[2], bounds[3], bounds[4])

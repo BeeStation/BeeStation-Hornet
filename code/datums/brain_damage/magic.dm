@@ -74,7 +74,7 @@
 	..()
 
 /datum/brain_trauma/magic/stalker/proc/create_stalker()
-	var/turf/stalker_source = locate(owner.x + pick(-12, 12), owner.y + pick(-12, 12), owner.z) //random corner
+	var/turf/stalker_source = locate(owner.x + pick(-12, 12), owner.y + pick(-12, 12), owner.get_z_level()) //random corner
 	stalker = new(stalker_source, owner)
 
 /datum/brain_trauma/magic/stalker/on_lose()
@@ -87,7 +87,7 @@
 		return
 
 	// Not even nullspace will keep it at bay.
-	if(!stalker || !stalker.loc || stalker.z != owner.z)
+	if(!stalker || !stalker.loc || stalker.get_z_level() != owner.get_z_level())
 		qdel(stalker)
 		create_stalker()
 

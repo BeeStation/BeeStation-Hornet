@@ -589,7 +589,7 @@
 					if (isnull(target))
 						break //if our target gets deleted during this, we stop the show
 					preLaunch() //Same as above
-					var/landingzone = locate(target.x + rand(-1,1), target.y + rand(-1,1), target.z) //Pods are randomly adjacent to (or the same as) the target
+					var/landingzone = locate(target.x + rand(-1,1), target.y + rand(-1,1), target.get_z_level()) //Pods are randomly adjacent to (or the same as) the target
 					if (landingzone) //just incase we're on the edge of the map or something that would cause target.x+1 to fail
 						launch(landingzone) //launch the pod at the adjacent turf
 					else
@@ -835,7 +835,7 @@ GLOBAL_DATUM_INIT(podlauncher, /datum/centcom_podlauncher, new)
 		target_turf = pick(get_area_turfs(target))
 	else
 		CRASH("Improper type passed to setDropoff! Should be /turf or /area")
-	temp_pod.reverse_dropoff_coords = list(target_turf.x, target_turf.y, target_turf.z)
+	temp_pod.reverse_dropoff_coords = list(target_turf.x, target_turf.y, target_turf.get_z_level())
 	indicator.forceMove(target_turf)
 
 /obj/effect/hallucination/simple/supplypod_selector

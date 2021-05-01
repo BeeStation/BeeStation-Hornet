@@ -369,7 +369,7 @@ Difficulty: Hard
 		var/ang = (startingangle + 360/times * i)
 		if(!chargeat)
 			return
-		var/turf/place = locate(chargeat.x + cos(ang) * radius, chargeat.y + sin(ang) * radius, chargeat.z)
+		var/turf/place = locate(chargeat.x + cos(ang) * radius, chargeat.y + sin(ang) * radius, chargeat.get_z_level())
 		if(!place)
 			continue
 		if(!nest || nest && nest.parent && get_dist(nest.parent, place) <= nest_range)

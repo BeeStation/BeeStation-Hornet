@@ -311,7 +311,7 @@
 	var/angle = ATAN2(at.x - user.x, at.y - user.y) + offset
 	var/turf/T = get_turf(user)
 	for(var/i in 1 to range)
-		var/turf/check = locate(user.x + cos(angle) * i, user.y + sin(angle) * i, user.z)
+		var/turf/check = locate(user.x + cos(angle) * i, user.y + sin(angle) * i, user.get_z_level())
 		if(!check)
 			break
 		T = check

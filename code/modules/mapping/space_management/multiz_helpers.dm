@@ -12,16 +12,16 @@
 	them = get_turf(them)
 	if(!us || !them)
 		return NONE
-	if(us.z == them.z)
+	if(us.get_z_level() == them.get_z_level())
 		return get_dir(us, them)
 	else
 		var/turf/T = us.above()
 		var/dir = NONE
-		if(T && (T.z == them.z))
+		if(T && (T.get_z_level() == them.get_z_level()))
 			dir = UP
 		else
 			T = us.below()
-			if(T && (T.z == them.z))
+			if(T && (T.get_z_level() == them.get_z_level()))
 				dir = DOWN
 			else
 				return get_dir(us, them)

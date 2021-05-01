@@ -114,7 +114,7 @@
 
 	var/turf/dest = get_turf(src)
 
-	if(dest && is_centcom_level(dest.z))
+	if(dest && is_centcom_level(dest.get_z_level()))
 		to_chat(user, "<span class='warning'>ERROR: Launchpad not operative. Heavy area shielding makes teleporting impossible.</span>")
 		return
 

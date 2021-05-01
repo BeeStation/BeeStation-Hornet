@@ -65,7 +65,7 @@
 	if(!new_holder)
 		return
 
-	if(is_centcom_level(new_holder.z))//you're winner!
+	if(is_centcom_level(new_holder.get_z_level()))//you're winner!
 		to_chat(new_holder, "<font color='green'>At last it feels like victory is assured!</font>")
 		new_holder.mind.add_antag_datum(/datum/antagonist/greentext)
 		new_holder.log_message("won with greentext!!!", LOG_ATTACK, color="green")

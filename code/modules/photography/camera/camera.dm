@@ -171,13 +171,13 @@
 	var/list/mobs = list()
 	var/blueprints = FALSE
 	var/clone_area = SSmapping.RequestBlockReservation(size_x * 2 + 1, size_y * 2 + 1)
-	for(var/turf/placeholder in block(locate(target_turf.x - size_x, target_turf.y - size_y, target_turf.z), locate(target_turf.x + size_x, target_turf.y + size_y, target_turf.z)))
+	for(var/turf/placeholder in block(locate(target_turf.x - size_x, target_turf.y - size_y, target_turf.get_z_level()), locate(target_turf.x + size_x, target_turf.y + size_y, target_turf.get_z_level())))
 		var/turf/T = placeholder
 		while(istype(T, /turf/open/openspace)) //Multi-z photography
 			T = SSmapping.get_turf_below(T)
 			if(!T)
 				break
-		
+
 		if(T && ((ai_user && GLOB.cameranet.checkTurfVis(placeholder)) || (placeholder in seen)))
 			turfs += T
 			for(var/mob/M in T)

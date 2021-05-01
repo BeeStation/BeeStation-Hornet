@@ -56,7 +56,7 @@
 	var/offset = level_trait(T.z, ZTRAIT_DOWN)
 	if (!offset)
 		return
-	return locate(T.x, T.y, T.z + offset)
+	return locate(T.x, T.y, T.get_z_level() + offset)
 
 // Attempt to get the turf above the provided one according to Z traits
 /datum/controller/subsystem/mapping/proc/get_turf_above(turf/T)
@@ -65,7 +65,7 @@
 	var/offset = level_trait(T.z, ZTRAIT_UP)
 	if (!offset)
 		return
-	return locate(T.x, T.y, T.z + offset)
+	return locate(T.x, T.y, T.get_z_level() + offset)
 
 // Prefer not to use this one too often
 /datum/controller/subsystem/mapping/proc/get_station_center()

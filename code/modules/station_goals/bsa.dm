@@ -90,7 +90,7 @@
 		return "No linked parts detected!"
 	if(!front.anchored || !back.anchored || !anchored)
 		return "Linked parts unwrenched!"
-	if(front.y != y || back.y != y || !(front.x > x && back.x < x || front.x < x && back.x > x) || front.z != z || back.z != z)
+	if(front.y != y || back.y != y || !(front.x > x && back.x < x || front.x < x && back.x > x) || front.get_z_level() != z || back.get_z_level() != z)
 		return "Parts misaligned!"
 	if(!has_space())
 		return "Not enough free space!"

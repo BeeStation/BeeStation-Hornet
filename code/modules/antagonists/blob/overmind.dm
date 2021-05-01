@@ -93,7 +93,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /mob/camera/blob/proc/is_valid_turf(turf/T)
 	var/area/A = get_area(T)
-	if((A && !A.blob_allowed) || !T || !is_station_level(T.z) || isspaceturf(T))
+	if((A && !A.blob_allowed) || !T || !is_station_level(T.get_z_level()) || isspaceturf(T))
 		return FALSE
 	return TRUE
 
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	for(var/i in GLOB.mob_living_list)
 		var/mob/living/L = i
 		var/turf/T = get_turf(L)
-		if(!T || !is_station_level(T.z))
+		if(!T || !is_station_level(T.get_z_level()))
 			continue
 
 		if(L in GLOB.overminds || (L.pass_flags & PASSBLOB))

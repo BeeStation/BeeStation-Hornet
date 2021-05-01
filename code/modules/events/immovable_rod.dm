@@ -67,7 +67,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	var/special_target_valid = FALSE
 	if(special_target)
 		var/turf/T = get_turf(special_target)
-		if(T.z == z_original)
+		if(T.get_z_level() == z_original)
 			special_target_valid = TRUE
 	if(special_target_valid)
 		walk_towards(src, special_target, 1)

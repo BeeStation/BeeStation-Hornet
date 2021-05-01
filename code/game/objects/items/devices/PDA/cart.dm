@@ -264,7 +264,7 @@ Code:
 			for(var/obj/machinery/computer/monitor/pMon in GLOB.machines)
 				if(pMon.stat & (NOPOWER | BROKEN)) //check to make sure the computer is functional
 					continue
-				if(pda_turf.z != pMon.z) //and that we're on the same zlevel as the computer (lore: limited signal strength)
+				if(pda_turf.get_z_level() != pMon.get_z_level()) //and that we're on the same zlevel as the computer (lore: limited signal strength)
 					continue
 				if(pMon.is_secret_monitor) //make sure it isn't a secret one (ie located on a ruin), allowing people to metagame that the location exists
 					continue
@@ -418,14 +418,14 @@ Code:
 			switch(SSshuttle.supply.mode)
 				if(SHUTTLE_CALL)
 					menu += "Moving to "
-					if(!is_station_level(SSshuttle.supply.z))
+					if(!is_station_level(SSshuttle.supply.get_z_level()))
 						menu += "station"
 					else
 						menu += "CentCom"
 					menu += " ([SSshuttle.supply.timeLeft(600)] Mins)"
 				else
 					menu += "At "
-					if(!is_station_level(SSshuttle.supply.z))
+					if(!is_station_level(SSshuttle.supply.get_z_level()))
 						menu += "CentCom"
 					else
 						menu += "station"
@@ -473,7 +473,7 @@ Code:
 					var/turf/ml = get_turf(M)
 
 					if(ml)
-						if (ml.z != cl.z)
+						if (ml.get_z_level() != cl.get_z_level())
 							continue
 						var/direction = get_dir(src, M)
 						ldat += "Mop - <b>\[[ml.x],[ml.y] ([uppertext(dir2text(direction))])\]</b> - [M.reagents.total_volume ? "Wet" : "Dry"]<br>"
@@ -490,7 +490,7 @@ Code:
 					var/turf/bl = get_turf(B)
 
 					if(bl)
-						if (bl.z != cl.z)
+						if (bl.get_z_level() != cl.get_z_level())
 							continue
 						var/direction = get_dir(src, B)
 						ldat += "Cart - <b>\[[bl.x],[bl.y] ([uppertext(dir2text(direction))])\]</b> - Water level: [B.reagents.total_volume]/100<br>"
@@ -507,7 +507,7 @@ Code:
 					var/turf/bl = get_turf(B)
 
 					if(bl)
-						if (bl.z != cl.z)
+						if (bl.get_z_level() != cl.get_z_level())
 							continue
 						var/direction = get_dir(src, B)
 						ldat += "Cleanbot - <b>\[[bl.x],[bl.y] ([uppertext(dir2text(direction))])\]</b> - [B.on ? "Online" : "Offline"]<br>"
@@ -725,7 +725,7 @@ Code:
 		var/botcount = 0
 		for(var/B in GLOB.bots_list) //Git da botz
 			var/mob/living/simple_animal/bot/Bot = B
-			if(!Bot.on || Bot.z != zlevel || Bot.remote_disabled || !(bot_access_flags & Bot.bot_type)) //Only non-emagged bots on the same Z-level are detected!
+			if(!Bot.on || Bot.get_z_level() != zlevel || Bot.remote_disabled || !(bot_access_flags & Bot.bot_type)) //Only non-emagged bots on the same Z-level are detected!
 				continue //Also, the PDA must have access to the bot type.
 			menu += "<A href='byond://?src=[REF(src)];op=control;bot=[REF(Bot)]'><b>[Bot.name]</b> ([Bot.get_mode()])<BR>"
 			botcount++

@@ -42,7 +42,7 @@
 		var/datum/antagonist/overthrow/O = the_dude.has_antag_datum(/datum/antagonist/overthrow)
 		if(!the_dude.current || the_dude.current.stat == DEAD)
 			initial_points *= KILLED
-		else if(!is_station_level(the_dude.current.z) && !is_centcom_level(the_dude.current.z)) // exiled.
+		else if(!is_station_level(the_dude.current.get_z_level()) && !is_centcom_level(the_dude.current.get_z_level())) // exiled.
 			initial_points *= EXILED
 		else if(O)
 			initial_points *= CONVERTED
@@ -138,7 +138,7 @@
 	else
 		explanation_text = "Nothing."
 
-/datum/objective/overthrow/target/is_unique_objective(datum/mind/possible_target,dupe_search_range) 
+/datum/objective/overthrow/target/is_unique_objective(datum/mind/possible_target,dupe_search_range)
 	if(possible_target.assigned_role in GLOB.command_positions)
 		return FALSE
 	return TRUE

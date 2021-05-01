@@ -95,11 +95,11 @@ GLOBAL_LIST(valentine_mobs)
 			to_chat(user, "<span class='notice'>You put down the pen thinking about who you want to send the message to.</span>")
 			return
 		var/turf/user_turf = get_turf(user)
-		if(!SSmobs.clients_by_zlevel[user_turf.z])
+		if(!SSmobs.clients_by_zlevel[user_turf.get_z_level()])
 			to_chat(user, "<span class='warning'>You stop and look around for a moment. Where the hell are you?</span>")
 			return
 		//No going back now
-		var/list/clients_on_level = SSmobs.clients_by_zlevel[user_turf.z]
+		var/list/clients_on_level = SSmobs.clients_by_zlevel[user_turf.get_z_level()]
 		var/list/mob_names = list()
 		for(var/mob/living/carbon/human/H in clients_on_level)
 			if(!H.mind || H == user)

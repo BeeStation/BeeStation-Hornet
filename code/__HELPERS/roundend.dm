@@ -559,7 +559,7 @@
 			text += " <span class='greentext'>survived</span>"
 		if(fleecheck)
 			var/turf/T = get_turf(ply.current)
-			if(!T || !is_station_level(T.z))
+			if(!T || !is_station_level(T.get_z_level()))
 				text += " while <span class='redtext'>fleeing the station</span>"
 		if(ply.current.real_name != ply.name)
 			text += " as <b>[ply.current.real_name]</b>"

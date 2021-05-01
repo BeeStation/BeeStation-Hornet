@@ -34,7 +34,7 @@
 		return FALSE
 	if(onstation)
 		var/turf/T = get_turf(applicant)
-		if(!is_station_level(T.z))
+		if(!is_station_level(T.get_z_level()))
 			return FALSE
 	if(conscious && applicant.stat) //incase you don't care about a certain antag being unconcious when made, ie if they have selfhealing abilities.
 		return FALSE

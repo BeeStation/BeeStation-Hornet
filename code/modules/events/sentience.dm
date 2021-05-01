@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(high_priority_sentience, typecacheof(list(
 
 	for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L)
-		if(!T || !is_station_level(T.z))
+		if(!T || !is_station_level(T.get_z_level()))
 			continue
 		if((L in GLOB.player_list) || L.mind || (L.flags_1 & HOLOGRAM_1))
 			continue

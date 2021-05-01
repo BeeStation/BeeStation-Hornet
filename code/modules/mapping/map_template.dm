@@ -76,7 +76,7 @@
 
 /datum/map_template/proc/load(turf/T, centered = FALSE)
 	if(centered)
-		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
+		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.get_z_level())
 	if(!T)
 		return
 	if(T.x+width > world.maxx)
@@ -100,16 +100,16 @@
 	//initialize things that are normally initialized after map load
 	parsed.initTemplateBounds()
 
-	log_game("[name] loaded at [T.x],[T.y],[T.z]")
+	log_game("[name] loaded at [T.x],[T.y],[T.get_z_level()]")
 	return bounds
 
 /datum/map_template/proc/get_affected_turfs(turf/T, centered = FALSE)
 	var/turf/placement = T
 	if(centered)
-		var/turf/corner = locate(placement.x - round(width/2), placement.y - round(height/2), placement.z)
+		var/turf/corner = locate(placement.x - round(width/2), placement.y - round(height/2), placement.get_z_level())
 		if(corner)
 			placement = corner
-	return block(placement, locate(placement.x+width-1, placement.y+height-1, placement.z))
+	return block(placement, locate(placement.x+width-1, placement.y+height-1, placement.get_z_level()))
 
 
 //for your ever biggening badminnery kevinz000

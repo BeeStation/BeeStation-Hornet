@@ -126,7 +126,7 @@
 /datum/ntnet/proc/check_relay_operation(zlevel)	//can be expanded later but right now it's true/false.
 	for(var/i in relays)
 		var/obj/machinery/ntnet_relay/n = i
-		if(zlevel && n.z != zlevel)
+		if(zlevel && n.get_z_level() != zlevel)
 			continue
 		if(n.is_operational())
 			return TRUE

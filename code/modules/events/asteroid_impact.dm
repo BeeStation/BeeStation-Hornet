@@ -23,7 +23,7 @@
 
 /datum/round_event/asteroid_impact/start()
 	for(var/mob/living/M in GLOB.mob_list)
-		if(is_station_level(M.z) && !QDELETED(M))
+		if(is_station_level(M.get_z_level()) && !QDELETED(M))
 			explosion(M, 3, 4, 6, 0, FALSE)
 			qdel(M)
 			CHECK_TICK

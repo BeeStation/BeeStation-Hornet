@@ -44,7 +44,7 @@
 	var/turf/T = get_turf(parent)
 	if (!T)
 		return FALSE
-	if (is_station_level(T.z)) // Are they on the station Z-level? If so trigger relocate()
+	if (is_station_level(T.get_z_level())) // Are they on the station Z-level? If so trigger relocate()
 		return FALSE
 	return TRUE
 
@@ -60,4 +60,4 @@
 		message_admins("[ADMIN_LOOKUPFLW(Hotelstaff)] tried to enter the station as hotel staff and was dusted.")
 	else
 		qdel(src) // This should only ever be applied to mobs
-	
+

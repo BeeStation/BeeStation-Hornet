@@ -81,7 +81,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 			for(var/x = x1; x <= x2; x += CHUNK_SIZE)
 				for(var/y = y1; y <= y2; y += CHUNK_SIZE)
-					visibleChunks |= getCameraChunk(x, y, eye.z)
+					visibleChunks |= getCameraChunk(x, y, eye.get_z_level())
 
 		var/list/remove = eye.visibleCameraChunks - visibleChunks
 		var/list/add = visibleChunks - eye.visibleCameraChunks
@@ -151,7 +151,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 		var/y2 = min(world.maxy, T.y + (CHUNK_SIZE / 2)) & ~(CHUNK_SIZE - 1)
 		for(var/x = x1; x <= x2; x += CHUNK_SIZE)
 			for(var/y = y1; y <= y2; y += CHUNK_SIZE)
-				var/datum/camerachunk/chunk = chunkGenerated(x, y, T.z)
+				var/datum/camerachunk/chunk = chunkGenerated(x, y, T.get_z_level())
 				if(chunk)
 					if(choice == 0)
 						// Remove the camera.
@@ -169,7 +169,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 
 /datum/cameranet/proc/checkTurfVis(turf/position)
-	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z)
+	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.get_z_level())
 	if(chunk)
 		if(chunk.changed)
 			chunk.hasChanged(1) // Update now, no matter if it's visible or not.

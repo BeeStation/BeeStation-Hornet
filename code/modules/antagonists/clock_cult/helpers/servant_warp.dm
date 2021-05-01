@@ -4,7 +4,7 @@
 	var/mob/living/M = servant
 	var/mob/living/P = M.pulling
 	var/turf/T = get_turf(M)
-	if(is_centcom_level(T.z))
+	if(is_centcom_level(T.get_z_level()))
 		return FALSE
 	playsound(servant, 'sound/magic/magic_missile.ogg', 50, TRUE)
 	playsound(target_location, 'sound/magic/magic_missile.ogg', 50, TRUE)

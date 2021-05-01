@@ -109,7 +109,7 @@
 
 		//The radiation is considered alive
 		futile = FALSE
-		var/turf/place = locate(xpos, ypos, cmaster_turf.z)
+		var/turf/place = locate(xpos, ypos, cmaster_turf.get_z_level())
 		atoms = get_rad_contents(place)
 
 		//Actual radiation spending
@@ -284,5 +284,5 @@
 #undef PRC_BEHAVIOR_D
 #undef PRC_BEHAVIOR_HL
 #undef PRC_BEHAVIOR_HLSTAR
-#undef PRC_BEHAVIOR_HR	
+#undef PRC_BEHAVIOR_HR
 #undef PRC_BEHAVIOR_HRSTAR

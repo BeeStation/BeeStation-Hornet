@@ -98,13 +98,13 @@
 /obj/machinery/computer/arena/proc/get_load_point()
 	var/turf/A = get_landmark_turf(ARENA_CORNER_A)
 	var/turf/B = get_landmark_turf(ARENA_CORNER_B)
-	return locate(min(A.x,B.x),min(A.y,B.y),A.z)
+	return locate(min(A.x,B.x),min(A.y,B.y),A.get_z_level())
 
 /obj/machinery/computer/arena/proc/get_arena_turfs()
 	var/lp = get_load_point()
 	var/turf/A = get_landmark_turf(ARENA_CORNER_A)
 	var/turf/B = get_landmark_turf(ARENA_CORNER_B)
-	var/turf/hp = locate(max(A.x,B.x),max(A.y,B.y),A.z)
+	var/turf/hp = locate(max(A.x,B.x),max(A.y,B.y),A.get_z_level())
 	return block(lp,hp)
 
 /obj/machinery/computer/arena/proc/clear_arena()

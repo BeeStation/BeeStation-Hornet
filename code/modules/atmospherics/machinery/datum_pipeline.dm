@@ -76,7 +76,7 @@
 	other_atmosmch += C
 	var/G = C.returnPipenetAir(src)
 	if(!G)
-		stack_trace("addMachineryMember: Null gasmix added to pipeline datum from [C] which is of type [C.type]. Nearby: ([C.x], [C.y], [C.z])")
+		stack_trace("addMachineryMember: Null gasmix added to pipeline datum from [C] which is of type [C.type]. Nearby: ([C.x], [C.y], [C.get_z_level()])")
 	other_airs |= G
 
 /datum/pipeline/proc/addMember(obj/machinery/atmospherics/A, obj/machinery/atmospherics/N)
@@ -236,7 +236,7 @@
 		var/datum/gas_mixture/G = i
 		total_gas_mixture.merge(G)
 		total_volume += G.return_volume()
-	
+
 	total_gas_mixture.set_volume(total_volume)
 
 	//Decides what this pipeline should do next tick

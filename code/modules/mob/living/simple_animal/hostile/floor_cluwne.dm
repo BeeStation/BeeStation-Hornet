@@ -103,7 +103,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 	var/turf/T = get_turf(current_victim)
 	if(prob(5))//checks roughly every 20 ticks
-		if(current_victim.stat == DEAD || current_victim.dna.check_mutation(CLUWNEMUT) || is_type_in_typecache(get_area(T), invalid_area_typecache) || !is_station_level(current_victim.z))
+		if(current_victim.stat == DEAD || current_victim.dna.check_mutation(CLUWNEMUT) || is_type_in_typecache(get_area(T), invalid_area_typecache) || !is_station_level(current_victim.get_z_level()))
 			if(!Found_You())
 				Acquire_Victim()
 
@@ -126,7 +126,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	..()
 
 /mob/living/simple_animal/hostile/floor_cluwne/Goto(target, delay, minimum_distance)
-	if(!manifested && !is_type_in_typecache(get_area(current_victim.loc), invalid_area_typecache) && is_station_level(current_victim.z))
+	if(!manifested && !is_type_in_typecache(get_area(current_victim.loc), invalid_area_typecache) && is_station_level(current_victim.get_z_level()))
 		walk_to(src, target, minimum_distance, delay)
 	else
 		walk_to(src,0)
@@ -166,10 +166,10 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 		if(specific)
 			H = specific
-			if(H.stat != DEAD && H.has_dna() && !H.dna.check_mutation(CLUWNEMUT) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache) && is_station_level(H.z))
+			if(H.stat != DEAD && H.has_dna() && !H.dna.check_mutation(CLUWNEMUT) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache) && is_station_level(H.get_z_level()))
 				return target = current_victim
 
-		if(H && ishuman(H) && H.stat != DEAD && H != current_victim && H.has_dna() && !H.dna.check_mutation(CLUWNEMUT) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache) && is_station_level(H.z))
+		if(H && ishuman(H) && H.stat != DEAD && H != current_victim && H.has_dna() && !H.dna.check_mutation(CLUWNEMUT) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache) && is_station_level(H.get_z_level()))
 			current_victim = H
 			interest = 0
 			stage = STAGE_HAUNT

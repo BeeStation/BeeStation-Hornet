@@ -476,7 +476,7 @@
 			return
 
 		var/turf/T = get_turf(src)
-		if(is_away_level(T.z))
+		if(is_away_level(T.get_z_level()))
 			to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
 			log_game("Teleport spell failed - user in away mission")
 			return

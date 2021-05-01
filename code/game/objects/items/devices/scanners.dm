@@ -506,7 +506,7 @@ GENE SCANNER
 
 		for(var/V in SSweather.processing)
 			var/datum/weather/W = V
-			if(W.barometer_predictable && (T.z in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
+			if(W.barometer_predictable && (T.get_z_level() in W.impacted_z_levels) && W.area_type == user_area.type && !(W.stage == END_STAGE))
 				ongoing_weather = W
 				break
 
@@ -519,7 +519,7 @@ GENE SCANNER
 			if(ongoing_weather.aesthetic)
 				to_chat(user, "<span class='warning'>[src]'s barometer function says that the next storm will breeze on by.</span>")
 		else
-			var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
+			var/next_hit = SSweather.next_hit_by_zlevel["[T.get_z_level()]"]
 			var/fixed = next_hit ? next_hit - world.time : -1
 			if(fixed < 0)
 				to_chat(user, "<span class='warning'>[src]'s barometer function was unable to trace any weather patterns.</span>")

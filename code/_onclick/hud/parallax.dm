@@ -180,7 +180,7 @@
 	set_parallax_movedir(areaobj.parallax_movedir, FALSE)
 
 	var/force
-	if(!C.previous_turf || (C.previous_turf.z != posobj.z))
+	if(!C.previous_turf || (C.previous_turf.get_z_level() != posobj.get_z_level()))
 		C.previous_turf = posobj
 		force = TRUE
 
@@ -324,7 +324,7 @@
 
 /atom/movable/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)
-	if(is_station_level(T.z))
+	if(is_station_level(T.get_z_level()))
 		invisibility = 0
 	else
 		invisibility = INVISIBILITY_ABSTRACT

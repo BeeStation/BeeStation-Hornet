@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(icon_smooth)
 	smooth_queue = list()
 	for(var/V in queue)
 		var/atom/A = V
-		if(!A || A.z <= 2)
+		if(!A || A.get_z_level() <= 2)
 			continue
 		smooth_icon(A)
 		CHECK_TICK

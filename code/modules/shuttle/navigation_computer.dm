@@ -69,16 +69,16 @@
 	eyeobj = new /mob/camera/ai_eye/remote/shuttle_docker(null, src)
 	var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 	the_eye.setDir(shuttle_port.dir)
-	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.z)
+	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.get_z_level())
 	for(var/V in shuttle_port.shuttle_areas)
 		var/area/A = V
 		for(var/turf/T in A)
-			if(T.z != origin.z)
+			if(T.get_z_level() != origin.get_z_level())
 				continue
 			var/image/I = image('icons/effects/alphacolors.dmi', origin, "red")
 			var/x_off = T.x - origin.x
 			var/y_off = T.y - origin.y
-			I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
+			I.loc = locate(origin.x + x_off, origin.y + y_off, origin.get_z_level()) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
 			I.layer = ABOVE_NORMAL_TURF_LAYER
 			I.plane = 0
 			I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -153,7 +153,7 @@
 		my_port.dwidth = shuttle_port.dwidth
 		my_port.hidden = shuttle_port.hidden
 	my_port.setDir(the_eye.dir)
-	my_port.forceMove(locate(eyeobj.x - x_offset, eyeobj.y - y_offset, eyeobj.z))
+	my_port.forceMove(locate(eyeobj.x - x_offset, eyeobj.y - y_offset, eyeobj.get_z_level()))
 
 	if(current_user.client)
 		current_user.client.images -= the_eye.placed_images
@@ -189,7 +189,7 @@
 		var/Tmp = coords[1]
 		coords[1] = coords[2]
 		coords[2] = -Tmp
-		pic.loc = locate(the_eye.x + coords[1], the_eye.y + coords[2], the_eye.z)
+		pic.loc = locate(the_eye.x + coords[1], the_eye.y + coords[2], the_eye.get_z_level())
 	var/Tmp = x_offset
 	x_offset = y_offset
 	y_offset = -Tmp
@@ -200,17 +200,17 @@
 	var/turf/eyeturf = get_turf(the_eye)
 	if(!eyeturf)
 		return SHUTTLE_DOCKER_BLOCKED
-	if(!eyeturf.z || SSmapping.level_has_any_trait(eyeturf.z, locked_traits))
+	if(!eyeturf.get_z_level() || SSmapping.level_has_any_trait(eyeturf.z, locked_traits))
 		return SHUTTLE_DOCKER_BLOCKED
 
 	. = SHUTTLE_DOCKER_LANDING_CLEAR
 	var/list/bounds = shuttle_port.return_coords(the_eye.x - x_offset, the_eye.y - y_offset, the_eye.dir)
-	var/list/overlappers = SSshuttle.get_dock_overlap(bounds[1], bounds[2], bounds[3], bounds[4], the_eye.z)
+	var/list/overlappers = SSshuttle.get_dock_overlap(bounds[1], bounds[2], bounds[3], bounds[4], the_eye.get_z_level())
 	var/list/image_cache = the_eye.placement_images
 	for(var/i in 1 to image_cache.len)
 		var/image/I = image_cache[i]
 		var/list/coords = image_cache[I]
-		var/turf/T = locate(eyeturf.x + coords[1], eyeturf.y + coords[2], eyeturf.z)
+		var/turf/T = locate(eyeturf.x + coords[1], eyeturf.y + coords[2], eyeturf.get_z_level())
 		I.loc = T
 		switch(checkLandingTurf(T, overlappers))
 			if(SHUTTLE_DOCKER_LANDING_CLEAR)
@@ -336,7 +336,7 @@
 			stack_trace("SSshuttle.stationary have null entry!")
 			continue
 		var/obj/docking_port/stationary/S = V
-		if(console.z_lock.len && !(S.z in console.z_lock))
+		if(console.z_lock.len && !(S.get_z_level() in console.z_lock))
 			continue
 		if(console.jumpto_ports[S.id])
 			L["([L.len])[S.name]"] = S
@@ -346,10 +346,10 @@
 			stack_trace("SSshuttle.beacons have null entry!")
 			continue
 		var/obj/machinery/spaceship_navigation_beacon/nav_beacon = V
-		if(!nav_beacon.z || SSmapping.level_has_any_trait(nav_beacon.z, console.locked_traits))
+		if(!nav_beacon.get_z_level() || SSmapping.level_has_any_trait(nav_beacon.z, console.locked_traits))
 			break
 		if(!nav_beacon.locked)
-			L["([L.len]) [nav_beacon.name] located: [nav_beacon.x] [nav_beacon.y] [nav_beacon.z]"] = nav_beacon
+			L["([L.len]) [nav_beacon.name] located: [nav_beacon.x] [nav_beacon.y] [nav_beacon.get_z_level()]"] = nav_beacon
 		else
 			L["([L.len]) [nav_beacon.name] locked"] = null
 

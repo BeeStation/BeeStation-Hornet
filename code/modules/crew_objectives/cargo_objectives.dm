@@ -17,11 +17,11 @@
 	var/petcount = target_amount
 	for(var/mob/living/simple_animal/pet/P in GLOB.mob_list)
 		if(!(P.stat == DEAD))
-			if((P.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(P)])
+			if((P.get_z_level() in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(P)])
 				petcount--
 	for(var/mob/living/carbon/human/H in GLOB.mob_list)
 		if(!(H.stat == DEAD))
-			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
+			if((H.get_z_level() in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
 				if(istype(H.wear_neck, /obj/item/clothing/neck/petcollar))
 					petcount--
 	if(petcount <= 0)

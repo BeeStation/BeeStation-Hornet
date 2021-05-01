@@ -290,7 +290,7 @@
 				return FALSE
 		else //Otherwise disk is safe when on station
 			var/turf/T = get_turf(D)
-			if(!T || !is_station_level(T.z))
+			if(!T || !is_station_level(T.get_z_level()))
 				return FALSE
 	return TRUE
 
@@ -304,7 +304,7 @@
 /datum/team/nuclear/proc/syndies_escaped()
 	var/obj/docking_port/mobile/S = SSshuttle.getShuttle("syndicate")
 	var/obj/docking_port/stationary/transit/T = locate() in S.loc
-	return S && (is_centcom_level(S.z) || T)
+	return S && (is_centcom_level(S.get_z_level()) || T)
 
 /datum/team/nuclear/proc/get_result()
 	var/evacuation = EMERGENCY_ESCAPED_OR_ENDGAMED
@@ -410,7 +410,7 @@
 				var/obj/O = disk_loc
 				disk_report += "in \a [O.name] "
 			disk_loc = disk_loc.loc
-		disk_report += "in [disk_loc.loc] at ([disk_loc.x], [disk_loc.y], [disk_loc.z])</td><td><a href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(N)]'>FLW</a></td></tr>"
+		disk_report += "in [disk_loc.loc] at ([disk_loc.x], [disk_loc.y], [disk_loc.get_z_level()])</td><td><a href='?_src_=holder;[HrefToken()];adminplayerobservefollow=[REF(N)]'>FLW</a></td></tr>"
 	disk_report += "</table>"
 	var/common_part = ..()
 	return common_part + disk_report

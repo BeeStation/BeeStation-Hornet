@@ -389,7 +389,7 @@
 			stack_trace("WARNING: Projectile [type] deleted due to being unable to resolve a target after angle was null!")
 			qdel(src)
 			return
-		var/turf/target = locate(CLAMP(starting + xo, 1, world.maxx), CLAMP(starting + yo, 1, world.maxy), starting.z)
+		var/turf/target = locate(CLAMP(starting + xo, 1, world.maxx), CLAMP(starting + yo, 1, world.maxy), starting.get_z_level())
 		setAngle(Get_Angle(src, target))
 	original_angle = Angle
 	if(!nondirectional_sprite)
@@ -421,7 +421,7 @@
 /obj/item/projectile/forceMove(atom/target)
 	if(!isloc(target) || !isloc(loc) || !z)
 		return ..()
-	var/zc = target.z != z
+	var/zc = target.get_z_level() != z
 	var/old = loc
 	if(zc)
 		before_z_change(old, target)
@@ -493,7 +493,7 @@
 		if(!istype(T))
 			qdel(src)
 			return
-		if(T.z != loc.z)
+		if(T.get_z_level() != loc.get_z_level())
 			var/old = loc
 			before_z_change(loc, T)
 			trajectory_ignore_forcemove = TRUE

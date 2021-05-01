@@ -54,8 +54,8 @@
 	var/centerX = max(abs((End.x+Start.x)/2),1)
 	var/centerY = max(abs((End.y+Start.y)/2),1)
 
-	var/lilZ = min(Start.z,End.z)
-	var/bigZ = max(Start.z,End.z)
+	var/lilZ = min(Start.z,End.get_z_level())
+	var/bigZ = max(Start.z,End.get_z_level())
 
 	var/sphereMagic = max(abs(bigZ-(lilZ/2)),1) //Spherical maps! woo!
 
@@ -98,7 +98,7 @@
 		. = 0
 	if(Start.y > world.maxy || End.y > world.maxy)
 		. = 0
-	if(Start.z > world.maxz || End.z > world.maxz)
+	if(Start.get_z_level() > world.maxz || End.get_z_level() > world.maxz)
 		. = 0
 
 
@@ -148,7 +148,7 @@
 
 	var/datum/mapGenerator/nature/N = new()
 	var/startInput = capped_input(usr,"Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1")
-	var/endInput = capped_input(usr,"End turf of Map (X;Y;Z)", "Map Gen Settings", "[world.maxx];[world.maxy];[mob ? mob.z : 1]")
+	var/endInput = capped_input(usr,"End turf of Map (X;Y;Z)", "Map Gen Settings", "[world.maxx];[world.maxy];[mob ? mob.get_z_level() : 1]")
 	//maxx maxy and current z so that if you fuck up, you only fuck up one entire z level instead of the entire universe
 	if(!startInput || !endInput)
 		to_chat(src, "Missing Input")

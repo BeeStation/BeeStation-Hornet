@@ -466,7 +466,7 @@
 		alreadyinfected = TRUE
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
 	ADD_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
-	if(owner.z == 5)
+	if(owner.get_z_level() == 5)
 		power = 2
 	owner.adjustBruteLoss(-50 * power)
 	owner.adjustFireLoss(-50 * power)

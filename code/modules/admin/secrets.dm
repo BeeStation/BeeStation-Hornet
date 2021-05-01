@@ -537,7 +537,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Egalitarian Station"))
 			for(var/obj/machinery/door/airlock/W in GLOB.machines)
-				if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
+				if(is_station_level(W.get_z_level()) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 					W.req_access = list()
 			message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 			priority_announce("CentCom airlock control override activated. Please take this time to get acquainted with your coworkers.", null, 'sound/ai/commandreport.ogg')
@@ -686,7 +686,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		if("animalsentience")
 			for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 				var/turf/T = get_turf(L)
-				if(!T || !is_station_level(T.z))
+				if(!T || !is_station_level(T.get_z_level()))
 					continue
 				if((L in GLOB.player_list) || L.mind || (L.flags_1 & HOLOGRAM_1))
 					continue

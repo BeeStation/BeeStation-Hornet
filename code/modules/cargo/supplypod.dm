@@ -98,7 +98,7 @@
 /obj/structure/closet/supplypod/extractionpod/Initialize()
 	. = ..()
 	var/turf/picked_turf = pick(GLOB.holdingfacility)
-	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.z)
+	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.get_z_level())
 
 /obj/structure/closet/supplypod/proc/setStyle(chosenStyle) //Used to give the sprite an icon state, name, and description.
 	style = chosenStyle
@@ -214,7 +214,7 @@
 	if (!reverse_dropoff_coords) //If we're centcom-launched, the reverse dropoff turf will be a centcom loading bay. If we're an extraction pod, it should be the ninja jail. Thus, this shouldn't ever really happen.
 		var/obj/error_landmark = locate(/obj/effect/landmark/error) in GLOB.landmarks_list
 		var/turf/error_landmark_turf = get_turf(error_landmark)
-		reverse_dropoff_coords = list(error_landmark_turf.x, error_landmark_turf.y, error_landmark_turf.z)
+		reverse_dropoff_coords = list(error_landmark_turf.x, error_landmark_turf.y, error_landmark_turf.get_z_level())
 	if (custom_rev_delay)
 		delays = reverse_delays
 	backToNonReverseIcon()

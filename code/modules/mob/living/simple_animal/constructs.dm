@@ -167,7 +167,7 @@
 				var/turf/curloc = get_turf(src)
 
 				// redirect the projectile
-				P.original = locate(new_x, new_y, P.z)
+				P.original = locate(new_x, new_y, P.get_z_level())
 				P.starting = curloc
 				P.firer = src
 				P.yo = new_y - curloc.y

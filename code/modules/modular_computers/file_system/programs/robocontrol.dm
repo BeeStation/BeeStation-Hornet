@@ -38,7 +38,7 @@
 
 	for(var/B in GLOB.bots_list)
 		var/mob/living/simple_animal/bot/Bot = B
-		if(!Bot.on || Bot.z != zlevel || Bot.remote_disabled) //Only non-emagged bots on the same Z-level are detected!
+		if(!Bot.on || Bot.get_z_level() != zlevel || Bot.remote_disabled) //Only non-emagged bots on the same Z-level are detected!
 			continue //Also, the PDA must have access to the bot type.
 		var/list/newbot = list("name" = Bot.name, "mode" = Bot.get_mode_ui(), "model" = Bot.model, "locat" = get_area(Bot), "bot_ref" = REF(Bot), "mule_check" = FALSE)
 		if(Bot.bot_type == MULE_BOT)

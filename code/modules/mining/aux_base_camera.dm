@@ -151,7 +151,7 @@
 		to_chat(owner, "<span class='warning'>You can only build within the mining base!</span>")
 		return FALSE
 
-	if(!is_station_level(build_target.z))
+	if(!is_station_level(build_target.get_z_level()))
 		to_chat(owner, "<span class='warning'>The mining base has launched and can no longer be modified.</span>")
 		return FALSE
 

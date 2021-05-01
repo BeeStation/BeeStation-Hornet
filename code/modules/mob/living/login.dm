@@ -15,7 +15,7 @@
 
 	var/turf/T = get_turf(src)
 	if (isturf(T))
-		update_z(T.z)
+		update_z(T.get_z_level())
 
 	//Vents
 	if(ventcrawler)

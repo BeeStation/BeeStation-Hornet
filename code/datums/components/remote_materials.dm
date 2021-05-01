@@ -26,7 +26,7 @@ handles linking back and forth.
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
 
 	var/turf/T = get_turf(parent)
-	if (force_connect || (mapload && is_station_level(T.z)))
+	if (force_connect || (mapload && is_station_level(T.get_z_level())))
 		addtimer(CALLBACK(src, .proc/LateInitialize))
 	else if (allow_standalone)
 		_MakeLocal()

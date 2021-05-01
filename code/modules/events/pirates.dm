@@ -441,7 +441,7 @@
 /datum/export/pirate/parrot/find_loot()
 	for(var/mob/living/simple_animal/parrot/P in GLOB.alive_mob_list)
 		var/turf/T = get_turf(P)
-		if(T && is_station_level(T.z))
+		if(T && is_station_level(T.get_z_level()))
 			return P
 
 /datum/export/pirate/cash

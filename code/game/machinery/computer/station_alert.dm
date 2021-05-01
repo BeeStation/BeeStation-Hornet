@@ -40,7 +40,7 @@
 	return data
 
 /obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/A, O, obj/source)
-	if(source.z != z)
+	if(source.get_z_level() != z)
 		return
 	if(stat & (BROKEN))
 		return

@@ -230,7 +230,7 @@ Consuming extracts:
 	while (L.len && !target)
 		var/I = rand(1, L.len)
 		var/turf/T = L[I]
-		if (is_centcom_level(T.z))
+		if (is_centcom_level(T.get_z_level()))
 			L.Cut(I,I+1)
 			continue
 		if(!T.density)

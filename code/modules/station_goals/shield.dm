@@ -31,7 +31,7 @@
 /datum/station_goal/proc/get_coverage()
 	var/list/coverage = list()
 	for(var/obj/machinery/satellite/meteor_shield/A in GLOB.machines)
-		if(!A.active || !is_station_level(A.z))
+		if(!A.active || !is_station_level(A.get_z_level()))
 			continue
 		coverage |= view(A.kill_range,A)
 	return coverage.len
@@ -65,7 +65,7 @@
 
 /obj/machinery/computer/sat_control/proc/toggle(id)
 	for(var/obj/machinery/satellite/S in GLOB.machines)
-		if(S.id == id && S.z == z)
+		if(S.id == id && S.get_z_level() == z)
 			S.toggle()
 
 /obj/machinery/computer/sat_control/ui_data()
@@ -149,7 +149,7 @@
 	if(!active)
 		return
 	for(var/obj/effect/meteor/M in GLOB.meteor_list)
-		if(M.z != z)
+		if(M.get_z_level() != z)
 			continue
 		if(get_dist(M,src) > kill_range)
 			continue

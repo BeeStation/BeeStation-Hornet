@@ -134,7 +134,7 @@
 			if(H.stat == DEAD)
 				Zombify(H)
 				break
-	if(factory && z != factory.z)
+	if(factory && z != factory.get_z_level())
 		death()
 	..()
 

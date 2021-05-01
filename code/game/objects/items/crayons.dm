@@ -379,8 +379,8 @@
 				C.pixel_y = clicky
 				affected_turfs += target
 			if(PAINT_LARGE_HORIZONTAL)
-				var/turf/left = locate(target.x-1,target.y,target.z)
-				var/turf/right = locate(target.x+1,target.y,target.z)
+				var/turf/left = locate(target.x-1,target.y,target.get_z_level())
+				var/turf/right = locate(target.x+1,target.y,target.get_z_level())
 				if(isValidSurface(left) && isValidSurface(right))
 					var/obj/effect/decal/cleanable/crayon/C = new(left, paint_color, drawing, temp, graf_rot, PAINT_LARGE_HORIZONTAL_ICON)
 					C.add_hiddenprint(user)
@@ -804,7 +804,7 @@
 	// Check area validity.
 	// Reject space, player-created areas, and non-station z-levels.
 	var/area/A = get_area(target)
-	if(!A || (!is_station_level(A.z)) || !A.valid_territory)
+	if(!A || (!is_station_level(A.get_z_level())) || !A.valid_territory)
 		to_chat(user, "<span class='warning'>[A] is unsuitable for tagging.</span>")
 		return FALSE
 

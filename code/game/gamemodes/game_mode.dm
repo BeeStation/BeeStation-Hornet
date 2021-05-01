@@ -94,7 +94,7 @@
 
 	var/list/candidates = list()
 	for(var/mob/living/carbon/human/H in living_crew)
-		if((!H.client) || (is_centcom_level(H.z)))
+		if((!H.client) || (is_centcom_level(H.get_z_level())))
 			continue
 		candidates += H
 
@@ -251,7 +251,7 @@
 	var/list/antag_candidates = list()
 
 	for(var/mob/living/carbon/human/H in living_crew)
-		if(H.client && H.client.prefs.allow_midround_antag && !is_centcom_level(H.z))
+		if(H.client && H.client.prefs.allow_midround_antag && !is_centcom_level(H.get_z_level()))
 			antag_candidates += H
 
 	if(!antag_candidates)
@@ -531,7 +531,7 @@
 	var/list/candidates = list()
 
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player.client && is_station_level(player.z))
+		if(player.client && is_station_level(player.get_z_level()))
 			if(role in player.client.prefs.be_special)
 				if(!is_banned_from(player.ckey, list(role, ROLE_SYNDICATE)) && !QDELETED(player))
 					if(age_check(player.client) && !player.mind.special_role) //Must be older than the minimum age

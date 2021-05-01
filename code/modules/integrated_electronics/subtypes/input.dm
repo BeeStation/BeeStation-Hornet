@@ -390,7 +390,7 @@
 	var/turf/T = get_turf(assembly)
 	var/target_x = CLAMP(get_pin_data(IC_INPUT, 1), 0, world.maxx)
 	var/target_y = CLAMP(get_pin_data(IC_INPUT, 2), 0, world.maxy)
-	var/turf/A = locate(target_x, target_y, T.z)
+	var/turf/A = locate(target_x, target_y, T.get_z_level())
 	set_pin_data(IC_OUTPUT, 1, null)
 	if(!A || !(A in view(T)))
 		activate_pin(3)
@@ -466,7 +466,7 @@
 	var/turf/T = get_turf(assembly)
 	var/target_x = CLAMP(get_pin_data(IC_INPUT, 1), 0, world.maxx)
 	var/target_y = CLAMP(get_pin_data(IC_INPUT, 2), 0, world.maxy)
-	var/turf/A = locate(target_x, target_y, T.z)
+	var/turf/A = locate(target_x, target_y, T.get_z_level())
 	set_pin_data(IC_OUTPUT, 1, null)
 	if(!A || !(A in view(T)))
 		activate_pin(3)
@@ -905,8 +905,8 @@
 
 	set_pin_data(IC_OUTPUT, 1, T.x)
 	set_pin_data(IC_OUTPUT, 2, T.y)
-	set_pin_data(IC_OUTPUT, 3, T.z)
-	set_pin_data(IC_OUTPUT, 4, "[T.x],[T.y],[T.z]")
+	set_pin_data(IC_OUTPUT, 3, T.get_z_level())
+	set_pin_data(IC_OUTPUT, 4, "[T.x],[T.y],[T.get_z_level()]")
 	push_data()
 	activate_pin(2)
 

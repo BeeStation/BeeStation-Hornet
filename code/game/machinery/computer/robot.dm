@@ -48,7 +48,7 @@
 	for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
 		if(!can_control(user, R))
 			continue
-		if(z != (get_turf(R)).z)
+		if(z != (get_turf(R)).get_z_level())
 			continue
 		var/list/cyborg_data = list(
 			name = R.name,
@@ -66,7 +66,7 @@
 	for(var/mob/living/simple_animal/drone/D in GLOB.drones_list)
 		if(D.hacked)
 			continue
-		if(z != (get_turf(D)).z)
+		if(z != (get_turf(D)).get_z_level())
 			continue
 		var/list/drone_data = list(
 			name = D.name,

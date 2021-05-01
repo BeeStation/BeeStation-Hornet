@@ -59,7 +59,7 @@
 	var/turf/T = get_turf(assembly)
 	var/target_x = CLAMP(get_pin_data(IC_INPUT, 1), 0, world.maxx)
 	var/target_y = CLAMP(get_pin_data(IC_INPUT, 2), 0, world.maxy)
-	var/turf/A = locate(target_x, target_y, T.z)
+	var/turf/A = locate(target_x, target_y, T.get_z_level())
 	set_pin_data(IC_OUTPUT, 1, null)
 	if(!A||A==T)
 		activate_pin(3)
@@ -98,7 +98,7 @@
 	//idc.access = assembly.access_card.access // hippie start -- readded xor decryption
 	hippie_xor_decrypt() // hippie end
 	var/turf/a_loc = get_turf(assembly)
-	var/list/P = cir_get_path_to(assembly, locate(get_pin_data(IC_INPUT, 1),get_pin_data(IC_INPUT, 2),a_loc.z), /turf/proc/Distance_cardinal, 0, 200, id=idc, exclude=get_turf(get_pin_data_as_type(IC_INPUT,3, /atom)), simulated_only = 0)
+	var/list/P = cir_get_path_to(assembly, locate(get_pin_data(IC_INPUT, 1),get_pin_data(IC_INPUT, 2),a_loc.get_z_level()), /turf/proc/Distance_cardinal, 0, 200, id=idc, exclude=get_turf(get_pin_data_as_type(IC_INPUT,3, /atom)), simulated_only = 0)
 
 	if(!P)
 		activate_pin(3)

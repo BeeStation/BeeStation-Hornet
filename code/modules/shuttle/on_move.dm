@@ -111,8 +111,8 @@ All ShuttleMove procs go here
 /atom/movable/proc/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 
 	var/turf/newT = get_turf(src)
-	if (newT.z != oldT.z)
-		onTransitZ(oldT.z, newT.z)
+	if (newT.get_z_level() != oldT.get_z_level())
+		onTransitZ(oldT.z, newT.get_z_level())
 
 	if(light)
 		update_light()
@@ -293,7 +293,7 @@ All ShuttleMove procs go here
 	// If the pod was launched, the storage will always open. The CentCom check
 	// ignores the movement of the shuttle from the staging area on CentCom to
 	// the station as it is loaded in.
-	if (oldT && !is_centcom_level(oldT.z))
+	if (oldT && !is_centcom_level(oldT.get_z_level()))
 		unlocked = TRUE
 
 /************************************Mob move procs************************************/
