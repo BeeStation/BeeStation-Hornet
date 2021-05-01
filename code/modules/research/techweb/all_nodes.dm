@@ -358,6 +358,15 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 	export_price = 5000
 
+/datum/techweb_node/cyborg_upg_combat
+	id = "cyborg_upg_combat"
+	display_name = "Cyborg Upgrades: Combat"
+	description = "Military grade upgrades for cyborgs."
+	prereq_ids = list("adv_robotics", "adv_engi" , "weaponry")
+	design_ids = list("borg_upgrade_vtec", "borg_upgrade_disablercooler")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
 /datum/techweb_node/cyborg_upg_service
 	id = "cyborg_upg_service"
 	display_name = "Cyborg Upgrades: Service"

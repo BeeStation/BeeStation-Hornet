@@ -126,6 +126,8 @@
 			var/module_types = initial(U.module_flags)
 			sub_category = list()
 			if(module_types)
+				if(module_types & BORG_MODULE_SECURITY)
+					sub_category += "Security"
 				if(module_types & BORG_MODULE_MINER)
 					sub_category += "Mining"
 				if(module_types & BORG_MODULE_JANITOR)
