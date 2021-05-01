@@ -1258,4 +1258,7 @@
 		return z
 	else
 		var/turf/T = get_turf(src)
-		return T.z
+		if(T)
+			return T.z
+		else
+			return 0
