@@ -210,7 +210,7 @@
 
 
 /mob/living/simple_animal/drone/proc/triggerAlarm(class, area/A, O, obj/alarmsource)
-	if(alarmsource.z != z)
+	if(alarmsource.get_virtual_z_level() != get_virtual_z_level())
 		return
 	if(stat != DEAD)
 		var/list/L = src.alarms[class]

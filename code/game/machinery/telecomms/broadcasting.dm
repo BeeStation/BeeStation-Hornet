@@ -120,7 +120,7 @@
 		"mods" = message_mods
 	)
 	var/turf/T = get_turf(source)
-	levels = list(T.z)
+	levels = list(T.get_virtual_z_level())
 
 /datum/signal/subspace/vocal/copy()
 	var/datum/signal/subspace/vocal/copy = new(source, frequency, virt, language)
@@ -153,7 +153,7 @@
 			// Syndicate radios can hear all well-known radio channels
 			if (num2text(frequency) in GLOB.reverseradiochannels)
 				for(var/obj/item/radio/R in GLOB.all_radios["[FREQ_SYNDICATE]"])
-					if(R.can_receive(FREQ_SYNDICATE, list(R.z)))
+					if(R.can_receive(FREQ_SYNDICATE, list(R.get_virtual_z_level())))
 						radios |= R
 
 		if (TRANSMISSION_RADIO)

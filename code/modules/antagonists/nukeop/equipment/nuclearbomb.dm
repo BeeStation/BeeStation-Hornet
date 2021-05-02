@@ -500,7 +500,7 @@
 
 /obj/machinery/nuclearbomb/proc/really_actually_explode(off_station)
 	Cinematic(get_cinematic_type(off_station),world,CALLBACK(SSticker,/datum/controller/subsystem/ticker/proc/station_explosion_detonation,src))
-	INVOKE_ASYNC(GLOBAL_PROC,.proc/KillEveryoneOnZLevel, z)
+	INVOKE_ASYNC(GLOBAL_PROC,.proc/KillEveryoneOnZLevel, get_virtual_z_level())
 
 /obj/machinery/nuclearbomb/proc/get_cinematic_type(off_station)
 	if(off_station < 2)
@@ -579,7 +579,7 @@
 	if(!z)
 		return
 	for(var/mob/M in GLOB.mob_list)
-		if(M.stat != DEAD && M.z == z)
+		if(M.stat != DEAD && M.get_virtual_z_level() == z)
 			M.gib()
 
 /*

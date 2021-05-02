@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			continue
 		if(amount && send_count >= amount)
 			break
-		if(z != machine.loc.z && !long_range_link && !machine.long_range_link)
+		if(get_virtual_z_level() != machine.loc.get_virtual_z_level() && !long_range_link && !machine.long_range_link)
 			continue
 
 		send_count++
@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/turf/T_position = get_turf(T)
 	var/same_zlevel = FALSE
 	if(position && T_position)	//Stops a bug with a phantom telecommunications interceptor which is spawned by circuits caching their components into nullspace
-		if(position.z == T_position.z)
+		if(position.get_virtual_z_level() == T_position.get_virtual_z_level())
 			same_zlevel = TRUE
 	if(same_zlevel || (long_range_link && T.long_range_link))
 		if(src != T)

@@ -71,7 +71,7 @@
 		if(tiles)
 			if(curtiles >= tiles)
 				break
-		if(AM.z != src.z)
+		if(AM.get_virtual_z_level() != src.get_virtual_z_level())
 			break
 
 		curtiles++

@@ -188,7 +188,7 @@
 			n++
 			circuit["index"] = n
 			circuit["name"] = O.name
-			circuit["coords"] = "[O.x], [O.y], [O.z]"
+			circuit["coords"] = "[O.x], [O.y], [O.get_virtual_z_level()]"
 			circuits += list(circuit)
 	data["circuits"] = circuits
 	return data
