@@ -3,7 +3,7 @@
   * Gets a unique value for a new virtual z level.
   */
 /proc/get_new_virtual_z()
-	var/static/virtual_value = 1000
+	var/static/virtual_value = VIRTUAL_Z_START
 	return virtual_value ++
 
 /**
