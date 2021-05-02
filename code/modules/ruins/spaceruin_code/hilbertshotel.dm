@@ -319,7 +319,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     var/obj/item/hilbertshotel/parentSphere
     var/datum/turf_reservation/reservation
     var/turf/storageTurf
-	var/virtual_z_value
+    var/virtual_z_value
 
 /area/hilbertshotel/get_virtual_z()
 	if(virtual_z_value)
