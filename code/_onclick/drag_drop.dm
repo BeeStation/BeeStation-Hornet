@@ -23,7 +23,6 @@
 	SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user)
 	return
 
-
 /client
 	var/obj/item/active_mousedown_item = null
 	var/middragtime = 0
@@ -110,7 +109,6 @@
 			middragatom = null
 	if(active_mousedown_item)
 		active_mousedown_item.onMouseDrag(src_object, over_object, src_location, over_location, params, mob)
-
 
 /obj/item/proc/onMouseDrag(src_object, over_object, src_location, over_location, params, mob)
 	return
