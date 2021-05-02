@@ -94,7 +94,7 @@
 //Please don't roast me too hard
 /client/MouseMove(object,location,control,params)
 	if(mob && LAZYLEN(mob.mousemove_intercept_objects))
-		for(var/datum/D in mob.mousemove_intercept_objects)
+		for(var/datum/D as() in mob.mousemove_intercept_objects)
 			D.onMouseMove(object, location, control, params)
 	..()
 

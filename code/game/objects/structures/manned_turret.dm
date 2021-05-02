@@ -66,7 +66,7 @@
 	anchored = TRUE
 	if(M.client)
 		M.client.view_size.setTo(view_range)
-	LAZYADD(M.mousemove_intercept_objects, src)
+	LAZYOR(M.mousemove_intercept_objects, src)
 
 /obj/machinery/manned_turret/onMouseMove(object, location, control, params)
 	. = ..()
