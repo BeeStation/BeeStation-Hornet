@@ -221,9 +221,9 @@ BONUS
 	. = ..()
 	if(A.properties["resistance"] >= 10)
 		severity -= 1
-	if(A.properties["transmittability"] >= 12)
+	if(A.properties["transmittable"] >= 12)
 		severity += 1
-	if(A.properties["transmittability"] >= 16)
+	if(A.properties["transmittable"] >= 16)
 		severity += 1
 	if(A.properties["stealth"] >= 6)
 		severity += 1
@@ -233,9 +233,9 @@ BONUS
 		return
 	if(A.properties["resistance"] >= 10)
 		big_heal = TRUE
-	if(A.properties["transmittability"] >= 12)
+	if(A.properties["transmittable"] >= 12)
 		all_disease = TRUE
-	if(A.properties["transmittability"] >= 16)
+	if(A.properties["transmittable"] >= 16)
 		eggsplosion = TRUE //Haha get it?
 	if(A.properties["stealth"] >= 6)
 		sneaky = TRUE
@@ -260,6 +260,7 @@ BONUS
 					diseases += D
 			new /obj/item/reagent_containers/food/snacks/eggsac(M.loc, diseases, eggsplosion, sneaky, big_heal)
 
+#define EGGSPLODE_DELAY 100 SECONDS
 /obj/item/reagent_containers/food/snacks/eggsac
 	name = "Fleshy Egg Sac"
 	desc = "A small Egg Sac which appears to be made out of someone's flesh!"
@@ -277,20 +278,21 @@ BONUS
 	for(var/datum/disease/D in disease)
 		diseases += D
 	if(large_heal)
-		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
 		reagents.add_reagent(/datum/reagent/blood, 10, diseases)
 		big_heal = TRUE
 	else
-		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
 		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
 		icon_state = "eggsac-sneaky"
 		sneaky_egg = sneaky
 	if(eggsplodes)
-		addtimer(CALLBACK(src, .proc/eggsplode), 100 SECONDS)
+		addtimer(CALLBACK(src, .proc/eggsplode), EGGSPLODE_DELAY)
 	if(LAZYLEN(diseases))
 		AddComponent(/datum/component/infective, diseases)
 
+#undef EGGSPLODE_DELAY
 
 /obj/item/reagent_containers/food/snacks/eggsac/proc/eggsplode()
 	for(var/i = 1, i <= rand(4,8), i++)
@@ -313,10 +315,10 @@ BONUS
 	for(var/datum/disease/D in disease)
 		diseases += D
 	if(large_heal)
-		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
 		reagents.add_reagent(/datum/reagent/blood, 10, diseases)
 	else
-		add_initial_reagents(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
 		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
 		icon_state = "fleshegg-sneaky"
