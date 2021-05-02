@@ -180,6 +180,15 @@
 	mood_change = 2
 	timeout = 2 MINUTES
 
+/datum/mood_event/kiss
+	description = "<span class='nicegreen'>Someone blew a kiss at me, I must be a real catch!</span>\n"
+	mood_change = 1.5
+	timeout = 2 MINUTES
+
+/datum/mood_event/kiss/add_effects(mob/beau)
+	if(beau)
+		description = "<span class='nicegreen'>[beau.name] blew a kiss at me, I must be a real catch!</span>\n"
+
 /datum/mood_event/area
 	description = "" //Fill this out in the area
 	mood_change = 0

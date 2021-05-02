@@ -892,3 +892,80 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	sharpness = IS_SHARP
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/kisser
+	name = "kiss"
+	desc = "I want you all to know, everyone and anyone, to seal it with a kiss."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "heart"
+	lefthand_file = null
+	righthand_file = null
+	force = 0
+	throwforce = 0
+	item_flags = DROPDEL | ABSTRACT
+
+/obj/item/kisser/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	var/obj/item/projectile/blown_kiss = new /obj/item/projectile/kiss(get_turf(user))
+	user.visible_message("<b>[user]</b> blows \a [blown_kiss] at [target]!", "<span class='notice'>You blow \a [blown_kiss] at [target]!</span>")
+
+	//Shooting Code:
+	blown_kiss.spread = 0
+	blown_kiss.original = target
+	blown_kiss.fired_from = user
+	blown_kiss.firer = user // don't hit ourself that would be really annoying
+	blown_kiss.impacted = list(user = TRUE) // just to make sure we don't hit the wearer
+	blown_kiss.preparePixelProjectile(target, user)
+	blown_kiss.fire()
+	qdel(src)
+
+/obj/item/projectile/kiss
+	name = "kiss"
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "heart"
+	hitsound = 'sound/effects/kiss.ogg'
+	hitsound_wall = 'sound/effects/kiss.ogg'
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	speed = 1.6
+	damage_type = BRUTE
+	damage = 0
+	nodamage = TRUE // love can't actually hurt you
+	armour_penetration = 100 // but if it could, it would cut through even the thickest plate
+	flag = "magic" // and most importantly, love is magic~
+
+/obj/item/projectile/kiss/fire(angle, atom/direct_target)
+	if(firer)
+		name = "[name] blown by [firer]"
+	return ..()
+
+/obj/item/projectile/kiss/on_hit(atom/target, blocked, pierce_hit)
+	def_zone = BODY_ZONE_HEAD // let's keep it PG, people
+	. = ..()
+	if(!ismob(target))
+		return
+	SEND_SIGNAL(target, COMSIG_ADD_MOOD_EVENT, "kiss", /datum/mood_event/kiss, firer)
+	var/mob/living/target_living = target
+	if(!(HAS_TRAIT(target_living, TRAIT_ANXIOUS) && prob(30)))
+		return
+
+	// flustered!!!
+	var/other_msg
+	var/self_msg
+	var/roll = rand(1, 3)
+	switch(roll)
+		if(1)
+			other_msg = "stumbles slightly, turning a bright red!"
+			self_msg = "You lose control of your limbs for a moment as your blood rushes to your face, turning it bright red!"
+			target_living.confused += (rand(5, 10))
+		if(2)
+			other_msg = "stammers softly for a moment before choking on something!"
+			self_msg = "You feel your tongue disappear down your throat as you fight to remember how to make words!"
+			addtimer(CALLBACK(target_living, /atom/movable.proc/say, pick("Uhhh...", "O-oh, uhm...", "I- uhhhhh??", "You too!!", "What?")), rand(0.5 SECONDS, 1.5 SECONDS))
+			target_living.stuttering += rand(5, 15)
+		if(3)
+			other_msg = "locks up with a stunned look on [target_living.p_their()] face, staring at [firer ? firer : "the ceiling"]!"
+			self_msg = "Your brain completely fails to process what just happened, leaving you rooted in place staring [firer ? "at [firer]" : "the ceiling"] for what feels like an eternity!"
+			target_living.face_atom(firer)
+			target_living.Stun(rand(3 SECONDS, 8 SECONDS))
+
+	target_living.visible_message("<b>[target_living]</b> [other_msg]", "<span class='userdanger'>Whoa! [self_msg]</span>")
