@@ -2529,7 +2529,7 @@
 /area/construction/mining/aux_base)
 "aDm" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
@@ -14703,7 +14703,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -21532,14 +21532,16 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "fZf" = (
-/obj/effect/landmark/start/scientist,
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/white,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
 /area/science/mixing)
 "fZo" = (
 /obj/effect/spawner/room/fivexfour,
@@ -35510,9 +35512,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "jPR" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/plasteel,
 /area/science/mixing)
@@ -39291,6 +39290,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/customs)
+"kUD" = (
+/obj/effect/landmark/start/scientist,
+/turf/open/floor/plasteel/white,
+/area/science/mixing)
 "kUL" = (
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -42495,9 +42498,6 @@
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "lLF" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "lLT" = (
@@ -49342,10 +49342,13 @@
 /turf/open/floor/plasteel,
 /area/science/shuttle)
 "nKX" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/machinery/atmospherics/components/trinary/mixer{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/science/mixing)
 "nLm" = (
 /obj/structure/chair/comfy/black{
@@ -54799,13 +54802,13 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "psB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	dir = 8
-	},
 /obj/machinery/portable_atmospherics/canister/proto,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "psK" = (
@@ -58179,10 +58182,10 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "qqf" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
 /obj/machinery/atmospherics/components/unary/thermomachine/heater,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "qqh" = (
@@ -61505,10 +61508,7 @@
 /turf/open/floor/circuit/green,
 /area/security/nuke_storage)
 "rvK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -64283,7 +64283,7 @@
 	dir = 1
 	},
 /obj/machinery/doppler_array/research/science{
-	dir = 4
+	dir = 8
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -66359,7 +66359,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
 /area/science/mixing)
 "sTA" = (
 /obj/structure/cable/yellow{
@@ -66835,14 +66838,11 @@
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
 "tbG" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/light,
-/obj/machinery/atmospherics/components/unary/portables_connector{
+/obj/machinery/portable_atmospherics/canister/proto,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/proto,
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "tck" = (
@@ -71340,7 +71340,7 @@
 	dir = 2
 	},
 /obj/machinery/disposal/bin,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/science/mixing)
 "upl" = (
 /turf/open/space/basic,
@@ -71770,10 +71770,10 @@
 /turf/open/floor/plasteel,
 /area/janitor)
 "uwI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "uwQ" = (
@@ -75053,7 +75053,7 @@
 	departmentType = 2;
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector{
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -75514,13 +75514,16 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "vBK" = (
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	dir = 1
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/science/mixing)
 "vBM" = (
 /obj/machinery/advanced_airlock_controller{
@@ -76905,6 +76908,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
+"vSu" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/turf/open/floor/plasteel,
+/area/maintenance/department/science)
 "vSv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -112181,7 +112192,7 @@ wcz
 xry
 mBW
 wIU
-gkQ
+vSu
 gkQ
 gkQ
 sWR
@@ -114239,7 +114250,7 @@ qXg
 tFX
 bOW
 dUu
-lIO
+kUD
 oaw
 sQv
 qkk
