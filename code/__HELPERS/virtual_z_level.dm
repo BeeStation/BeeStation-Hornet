@@ -1,6 +1,7 @@
 
 /**
   * Gets a unique value for a new virtual z level.
+  * This is just a number, the game wont slow down if you have a ton of empty ones.
   */
 /proc/get_new_virtual_z()
 	var/static/virtual_value = VIRTUAL_Z_START
