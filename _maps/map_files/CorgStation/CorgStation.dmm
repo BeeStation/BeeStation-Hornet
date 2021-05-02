@@ -21533,6 +21533,12 @@
 /area/crew_quarters/cryopods)
 "fZf" = (
 /obj/effect/landmark/start/scientist,
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "fZo" = (
@@ -30791,7 +30797,7 @@
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
+	icon_state = "0-2"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
@@ -35507,6 +35513,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/machinery/portable_atmospherics/scrubber,
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "jPT" = (
@@ -43219,6 +43226,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
+/obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "lYb" = (
@@ -58171,10 +58179,11 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "qqf" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
 	},
-/turf/open/floor/plasteel/white,
+/obj/machinery/atmospherics/components/unary/thermomachine/heater,
+/turf/open/floor/plasteel,
 /area/science/mixing)
 "qqh" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -64682,11 +64691,11 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "sum" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "sut" = (
@@ -71761,10 +71770,11 @@
 /turf/open/floor/plasteel,
 /area/janitor)
 "uwI" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
 	},
-/turf/open/floor/plasteel/white,
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer,
+/turf/open/floor/plasteel,
 /area/science/mixing)
 "uwQ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -72755,6 +72765,9 @@
 /obj/machinery/atmospherics/components/binary/valve{
 	dir = 1;
 	name = "manual outlet valve"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
@@ -73984,9 +73997,6 @@
 /obj/machinery/meter,
 /obj/machinery/embedded_controller/radio/airlock_controller/incinerator_toxmix{
 	pixel_y = 27
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
@@ -75503,6 +75513,15 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"vBK" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel/white,
+/area/science/mixing)
 "vBM" = (
 /obj/machinery/advanced_airlock_controller{
 	pixel_y = 24
@@ -79001,6 +79020,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/layer1{
 	dir = 8
 	},
+/obj/machinery/airlock_sensor/incinerator_toxmix{
+	pixel_x = 24
+	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "wxJ" = (
@@ -80414,6 +80436,7 @@
 	pixel_x = 1;
 	pixel_y = 28
 	},
+/obj/machinery/portable_atmospherics/pump,
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "wQU" = (
@@ -84283,6 +84306,9 @@
 /obj/machinery/atmospherics/components/binary/valve{
 	dir = 1;
 	name = "manual inlet valve"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
@@ -112926,8 +112952,8 @@ eMp
 tIb
 exD
 bQe
-sum
 uHe
+sum
 oiK
 cah
 ewC
@@ -113698,7 +113724,7 @@ lKv
 hZO
 bOW
 qqf
-ipI
+vBK
 ipI
 vKb
 iCv
