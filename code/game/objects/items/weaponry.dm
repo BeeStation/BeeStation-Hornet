@@ -932,6 +932,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	nodamage = TRUE // love can't actually hurt you
 	armour_penetration = 100 // but if it could, it would cut through even the thickest plate
 	flag = "magic" // and most importantly, love is magic~
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/kiss/fire(angle, atom/direct_target)
 	if(firer)
