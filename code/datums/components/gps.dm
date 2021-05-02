@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 	var/turf/curr = get_turf(parent)
 	data["currentArea"] = "[get_area_name(curr, TRUE)]"
-	data["currentCoords"] = "[curr.x], [curr.y], [curr.z]"
+	data["currentCoords"] = "[curr.x], [curr.y], [curr.get_virtual_z_level()]"
 
 	var/list/signals = list()
 	data["signals"] = list()

@@ -53,14 +53,14 @@
 
 	if(teleporter)
 		data["teleporter"] = teleporter
-		data["teleporter_location"] = "([teleporter.x], [teleporter.y], [teleporter.z])"
+		data["teleporter_location"] = "([teleporter.x], [teleporter.y], [teleporter.get_virtual_z_level()])"
 		data["teleporter_lock"] = teleporter.locked
 		data["teleporter_state_open"] = teleporter.state_open
 	else
 		data["teleporter"] = null
 	if(beacon)
 		data["beacon"] = beacon
-		data["beacon_location"] = "([beacon.x], [beacon.y], [beacon.z])"
+		data["beacon_location"] = "([beacon.x], [beacon.y], [beacon.get_virtual_z_level()])"
 	else
 		data["beacon"] = null
 	if(contained_id)
