@@ -203,7 +203,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/set_sensors(mob/user)
 	var/mob/M = user
-	if(M.stat != CONSCIOUS)
+	if(M.stat)
 		return
 	if(!can_use(M))
 		return
