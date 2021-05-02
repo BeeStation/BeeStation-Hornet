@@ -25,7 +25,6 @@
 
 
 /client
-	var/list/atom/selected_target[2]
 	var/obj/item/active_mousedown_item = null
 	var/middragtime = 0
 	var/atom/middragatom
@@ -40,7 +39,6 @@
 /client/MouseUp(object, location, control, params)
 	if (mouse_up_icon)
 		mouse_pointer_icon = mouse_up_icon
-	selected_target[1] = null
 	if(active_mousedown_item)
 		active_mousedown_item.onMouseUp(object, location, params, mob)
 		active_mousedown_item = null
@@ -110,9 +108,6 @@
 		else
 			middragtime = 0
 			middragatom = null
-	if(selected_target[1] && over_object && over_object.IsAutoclickable())
-		selected_target[1] = over_object
-		selected_target[2] = params
 	if(active_mousedown_item)
 		active_mousedown_item.onMouseDrag(src_object, over_object, src_location, over_location, params, mob)
 
