@@ -1,6 +1,0 @@
-author: DatBoiTim
-delete-after: true
-changes:
-  - bugfix: Ovulogenesis uses a new method for adding its reagents now they all get
-      added
-  - bugfix: Eggsacs actually have their transmission thresholds work
