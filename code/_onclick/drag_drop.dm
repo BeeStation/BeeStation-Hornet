@@ -27,10 +27,6 @@
 /client
 	var/list/atom/selected_target[2]
 	var/obj/item/active_mousedown_item = null
-	var/mouseParams = ""
-	var/mouseLocation = null
-	var/mouseObject = null
-	var/mouseControlObject = null
 	var/middragtime = 0
 	var/atom/middragatom
 
@@ -97,10 +93,6 @@
 
 //Please don't roast me too hard
 /client/MouseMove(object,location,control,params)
-	mouseParams = params
-	mouseLocation = location
-	mouseObject = object
-	mouseControlObject = control
 	if(mob && LAZYLEN(mob.mousemove_intercept_objects))
 		for(var/datum/D in mob.mousemove_intercept_objects)
 			D.onMouseMove(object, location, control, params)
@@ -118,10 +110,6 @@
 		else
 			middragtime = 0
 			middragatom = null
-	mouseParams = params
-	mouseLocation = over_location
-	mouseObject = over_object
-	mouseControlObject = over_control
 	if(selected_target[1] && over_object && over_object.IsAutoclickable())
 		selected_target[1] = over_object
 		selected_target[2] = params
