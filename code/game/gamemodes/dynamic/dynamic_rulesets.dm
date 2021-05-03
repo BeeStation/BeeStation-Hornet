@@ -183,11 +183,6 @@
 /// Only called if ruleset is flagged as HIGH_IMPACT_RULESET
 /datum/dynamic_ruleset/proc/round_result()
 
-/// Checks if round is finished, return true to end the round.
-/// Only called if ruleset is flagged as HIGH_IMPACT_RULESET
-/datum/dynamic_ruleset/proc/check_finished()
-	return FALSE
-
 //////////////////////////////////////////////
 //                                          //
 //           ROUNDSTART RULESETS            //

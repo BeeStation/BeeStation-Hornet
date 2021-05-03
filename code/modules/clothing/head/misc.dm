@@ -46,13 +46,6 @@
 	icon_state = "plaguedoctor"
 	permeability_coefficient = 0.01
 
-/obj/item/clothing/head/hasturhood
-	name = "hastur's hood"
-	desc = "It's <i>unspeakably</i> stylish."
-	icon_state = "hasturhood"
-	flags_inv = HIDEHAIR
-	flags_cover = HEADCOVERSEYES
-
 /obj/item/clothing/head/nursehat
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
@@ -141,7 +134,7 @@
 /obj/item/clothing/head/pirate/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		user.grant_language(/datum/language/piratespeak/, TRUE, TRUE, LANGUAGE_HAT)
 		to_chat(user, "You suddenly know how to speak like a pirate!")
 
@@ -149,7 +142,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(SLOT_HEAD) == src)
+	if(H.get_item_by_slot(ITEM_SLOT_HEAD) == src)
 		user.remove_language(/datum/language/piratespeak/, TRUE, TRUE, LANGUAGE_HAT)
 		to_chat(user, "You can no longer speak like a pirate.")
 
@@ -382,7 +375,7 @@
 
 /obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
 	. = ..()
-	if (slot == SLOT_HEAD)
+	if (slot == ITEM_SLOT_HEAD)
 		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)

@@ -41,6 +41,49 @@
 
 	var/zfalling = FALSE
 
+	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
+	var/blocks_emissive = FALSE
+	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
+	var/atom/movable/emissive_blocker/em_block
+
+
+/atom/movable/Initialize(mapload)
+	. = ..()
+	switch(blocks_emissive)
+		if(EMISSIVE_BLOCK_GENERIC)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+			gen_emissive_blocker.dir = dir
+			gen_emissive_blocker.alpha = alpha
+			gen_emissive_blocker.appearance_flags |= appearance_flags
+			add_overlay(list(gen_emissive_blocker))
+		if(EMISSIVE_BLOCK_UNIQUE)
+			render_target = ref(src)
+			em_block = new(src, render_target)
+			add_overlay(list(em_block))
+
+/atom/movable/Destroy()
+	QDEL_NULL(em_block)
+	return ..()
+
+/atom/movable/proc/update_emissive_block()
+	if(!blocks_emissive)
+		return
+	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
+		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+		gen_emissive_blocker.dir = dir
+		gen_emissive_blocker.alpha = alpha
+		gen_emissive_blocker.appearance_flags |= appearance_flags
+		return gen_emissive_blocker
+	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
+		if(!em_block)
+			render_target = ref(src)
+			em_block = new(src, render_target)
+		return em_block
+
+/atom/movable/update_overlays()
+	. = ..()
+	. += update_emissive_block()
+
 /atom/movable/proc/can_zFall(turf/source, levels = 1, turf/target, direction)
 	if(!direction)
 		direction = DOWN
@@ -334,8 +377,8 @@
 			stop_pulling()
 		else
 			var/pull_dir = get_dir(src, pulling)
-			//puller and pullee more than one tile away or in diagonal position
-			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir)))
+			//puller and pullee more than one tile away or in diagonal position and whatever the pullee is pulling isn't already moving from a pull as it'll most likely result in an infinite loop a la ouroborus.
+			if(!pulling.pulling?.moving_from_pull && (get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))))
 				pulling.moving_from_pull = src
 				pulling.Move(T, get_dir(pulling, T)) //the pullee tries to reach our previous position
 				pulling.moving_from_pull = null

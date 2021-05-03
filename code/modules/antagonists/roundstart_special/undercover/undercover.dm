@@ -61,9 +61,9 @@
 	var/obj/item/gun/energy/disabler/T = new(H)
 	var/obj/item/restraints/handcuffs/cable/zipties/T2 = new(H)
 	var/list/slots = list (
-		"backpack" = SLOT_IN_BACKPACK,
-		"left pocket" = SLOT_L_STORE,
-		"right pocket" = SLOT_R_STORE
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_LPOCKET,
+		"right pocket" = ITEM_SLOT_RPOCKET
 	)
 	var/where = H.equip_in_one_of_slots(T, slots)
 	H.equip_in_one_of_slots(T2, slots)

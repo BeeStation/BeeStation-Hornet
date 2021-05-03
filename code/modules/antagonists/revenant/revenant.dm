@@ -78,6 +78,14 @@
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/blight(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
 	random_revenant_name()
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+
+/mob/living/simple_animal/revenant/Destroy()
+	. = ..()
+
+	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
+	if(beacon)
+		qdel(beacon)
 
 /mob/living/simple_animal/revenant/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	return FALSE
@@ -238,7 +246,7 @@
 	R.revenant = src
 	invisibility = INVISIBILITY_ABSTRACT
 	revealed = FALSE
-	ghostize(0)//Don't re-enter invisible corpse
+	ghostize(FALSE)//Don't re-enter invisible corpse
 
 
 //reveal, stun, icon updates, cast checks, and essence changing

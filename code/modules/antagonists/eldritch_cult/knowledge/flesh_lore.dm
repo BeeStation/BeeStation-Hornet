@@ -41,7 +41,7 @@
 			return
 		var/mob/dead/observer/C = pick(candidates)
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(humie)]) to replace an AFK player.")
-		humie.ghostize(0)		
+		humie.ghostize(FALSE,SENTIENCE_ERASE)		
 		humie.key = C.key
 
 	log_game("[key_name_admin(humie)] has become a voiceless dead, their master is [user.real_name]")

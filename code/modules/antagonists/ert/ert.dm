@@ -16,10 +16,10 @@
 	var/role = "Security Officer"
 	var/list/name_source
 	var/random_names = TRUE
+	can_elimination_hijack = ELIMINATION_PREVENT
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
-	can_hijack = HIJACK_PREVENT
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)
@@ -170,7 +170,7 @@
 		return
 	H.equipOutfit(outfit)
 	//Set the suits frequency
-	var/obj/item/I = H.get_item_by_slot(SLOT_WEAR_SUIT)
+	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 	if(I)
 		var/datum/component/tracking_beacon/beacon = I.GetComponent(/datum/component/tracking_beacon)
 		if(beacon)

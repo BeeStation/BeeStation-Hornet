@@ -433,6 +433,7 @@
 	icon_state = "glowstick"
 	item_state = "glowstick"
 	grind_results = list(/datum/reagent/phenol = 15, /datum/reagent/hydrogen = 10, /datum/reagent/oxygen = 5) //Meth-in-a-stick
+	var/burn_pickup = FALSE	//If true, fuel will only decrease after being picked up or used in hand (Useful for mapping)
 	var/fuel = 0
 
 /obj/item/flashlight/glowstick/Initialize()
@@ -472,6 +473,12 @@
 		icon_state = "glowstick"
 		cut_overlays()
 
+/obj/item/flashlight/glowstick/pickup(mob/user)
+	. = ..()
+	if(burn_pickup && on)
+		burn_pickup = FALSE
+		START_PROCESSING(SSobj, src)
+
 /obj/item/flashlight/glowstick/attack_self(mob/user)
 	if(!fuel)
 		to_chat(user, "<span class='notice'>[src] is spent.</span>")
@@ -484,6 +491,7 @@
 	if(.)
 		user.visible_message("<span class='notice'>[user] cracks and shakes [src].</span>", "<span class='notice'>You crack and shake [src], turning it on!</span>")
 		START_PROCESSING(SSobj, src)
+		burn_pickup = FALSE
 
 /obj/item/flashlight/glowstick/suicide_act(mob/living/carbon/human/user)
 	if(!fuel)
@@ -529,6 +537,22 @@
 /obj/effect/spawner/lootdrop/glowstick/Initialize()
 	loot = typesof(/obj/item/flashlight/glowstick)
 	. = ..()
+
+/obj/effect/spawner/lootdrop/glowstick/lit/Initialize()
+	. = ..()
+	var/obj/item/flashlight/glowstick/found = locate() in get_turf(src)
+	if(!found)
+		return
+	found.on = TRUE
+	found.icon_state = "[initial(found.icon_state)]-on"
+	if(found.flashlight_power)
+		found.set_light(l_range = found.brightness_on, l_power = found.flashlight_power)
+	else
+		found.set_light(found.brightness_on)
+	for(var/X in found.actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+	found.burn_pickup = TRUE
 
 /obj/item/flashlight/spotlight //invisible lighting source
 	name = "disco light"
