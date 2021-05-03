@@ -392,7 +392,7 @@ export const SyncWithServers = (props, context) => {
       <Table>
         <Table.Row>
           <Table.Cell colspan={2} textAlign="center" bold>
-            Actions
+            Actions:
           </Table.Cell>
         </Table.Row>
         <Table.Row>
