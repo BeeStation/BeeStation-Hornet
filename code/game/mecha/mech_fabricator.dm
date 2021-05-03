@@ -325,7 +325,7 @@
 		// If we're not processing the queue anymore or there's nothing to build, end processing.
 		if(!process_queue || !build_next_in_queue())
 			on_finish_printing()
-			STOP_PROCESSING(SSfastprocess, src)
+			STOP_PROCESSING(SSmachines, src)
 			return TRUE
 		on_start_printing()
 
@@ -565,7 +565,7 @@
 			process_queue = TRUE
 
 			if(!being_built)
-				START_PROCESSING(SSfastprocess, src)
+				START_PROCESSING(SSmachines, src)
 			return
 		if("stop_queue")
 			// Pause queue building. Also known as stop.
@@ -584,7 +584,7 @@
 
 			if(build_part(D))
 				on_start_printing()
-				STOP_PROCESSING(SSfastprocess, src)
+				START_PROCESSING(SSmachines, src)
 
 			return
 		if("move_queue_part")
