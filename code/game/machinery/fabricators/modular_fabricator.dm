@@ -411,7 +411,7 @@
 		use_power(power)
 		set_working_sprite()
 		var/construction_time = max(being_built.construction_time, 35)
-		var/time = is_stack ?  : (construction_time * coeff * multiplier) ** 0.8
+		var/time = is_stack ? construction_time : (construction_time * coeff * multiplier) ** 0.8
 		time *= being_built.lathe_time_factor
 		//===Repeating mode===
 		//Remove from queue
