@@ -12853,41 +12853,6 @@
 "dsx" = (
 /turf/open/floor/plasteel/freezer,
 /area/medical/genetics)
-"dsT" = (
-/obj/structure/table,
-/obj/item/book/manual/wiki/engineering_construction{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/book/manual/wiki/engineering_hacking{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/book/manual/wiki/engineering_singulo_tesla,
-/obj/item/book/manual/wiki/engineering_guide{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/machinery/button/massdriver{
-	id = "smeject";
-	name = "supermatter ejection sequence";
-	pixel_x = -27;
-	pixel_y = 7
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/button/door{
-	id = "engsm";
-	name = "Radiation Shutters";
-	pixel_x = -27;
-	pixel_y = -3
-	},
-/turf/open/floor/plasteel/dark,
-/area/engine/engine_smes)
 "dtD" = (
 /obj/machinery/space_heater,
 /obj/machinery/requests_console{
@@ -24317,6 +24282,42 @@
 /obj/structure/cable/white,
 /turf/open/space/basic,
 /area/solar/port/fore)
+"gLP" = (
+/obj/structure/table,
+/obj/item/book/manual/wiki/engineering_construction{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/book/manual/wiki/engineering_hacking{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/book/manual/wiki/engineering_singulo_tesla,
+/obj/item/book/manual/wiki/engineering_guide{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/machinery/button/massdriver{
+	id = "smeject";
+	name = "supermatter ejection sequence";
+	pixel_x = -27;
+	pixel_y = 7;
+	req_access_txt = "56"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/button/door{
+	id = "engsm";
+	name = "Radiation Shutters";
+	pixel_x = -27;
+	pixel_y = -3
+	},
+/turf/open/floor/plasteel/dark,
+/area/engine/engine_smes)
 "gLT" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -49840,6 +49841,27 @@
 	dir = 6
 	},
 /area/chapel/main/monastery)
+"nUN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/machinery/vending/modularpc,
+/turf/open/floor/plasteel,
+/area/storage/tools)
 "nUO" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -50982,13 +51004,6 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
 /turf/open/floor/plating,
 /area/maintenance/department/chapel/monastery)
-"omh" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
-	dir = 4
-	},
-/obj/structure/table/wood,
-/turf/open/floor/carpet/green,
-/area/crew_quarters/bar)
 "oms" = (
 /obj/machinery/light_switch{
 	pixel_x = -25
@@ -51356,25 +51371,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"otR" = (
-/obj/structure/table,
-/obj/item/crowbar,
-/obj/item/wirecutters,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/storage/tools)
 "oui" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -58286,6 +58282,26 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
+"qri" = (
+/obj/structure/table,
+/obj/item/crowbar,
+/obj/item/wirecutters,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/item/modular_computer/tablet/preset/cheap,
+/turf/open/floor/plasteel,
+/area/storage/tools)
 "qrm" = (
 /obj/machinery/light/small/broken,
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -65863,6 +65879,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
+"sMv" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/modular_computer/laptop/preset/civillian,
+/turf/open/floor/carpet/green,
+/area/crew_quarters/bar)
 "sMX" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
 	dir = 4
@@ -80305,30 +80329,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"wPm" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/regular,
-/obj/item/folder/yellow,
-/obj/item/folder/yellow,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/turf/open/floor/plasteel,
-/area/storage/tools)
 "wPn" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
@@ -102121,7 +102121,7 @@ wop
 aXT
 acP
 atO
-dsT
+gLP
 hGx
 amI
 oGN
@@ -114977,7 +114977,7 @@ uko
 pNo
 nIX
 rWM
-otR
+qri
 sxe
 sbY
 qkn
@@ -115746,7 +115746,7 @@ qDx
 vlr
 bxI
 pvq
-wPm
+nUN
 xQa
 mgs
 bxI
@@ -120189,7 +120189,7 @@ tSP
 flm
 cBa
 xzr
-omh
+sMv
 wvy
 fhO
 onn
