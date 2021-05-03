@@ -17234,7 +17234,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/one)
 "PL" = (
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/wood,
 /area/centcom/holding)
 "PO" = (

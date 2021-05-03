@@ -1031,7 +1031,7 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAS)
 "adg" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAS)
 "adh" = (
@@ -23378,7 +23378,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "baz" = (
@@ -28553,7 +28553,7 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "bmO" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "bmP" = (
@@ -55725,7 +55725,7 @@
 	name = "Research and Development Desk";
 	req_one_access_txt = "7;29"
 	},
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
@@ -63456,7 +63456,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "txf" = (
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/westleft{
 	dir = 2;
 	name = "Cargo Desk";
