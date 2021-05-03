@@ -690,7 +690,7 @@
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/carpet/green,
 /area/lawoffice)
 "abg" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer1,
@@ -1844,7 +1844,7 @@
 	pixel_x = 24;
 	req_access_txt = "38"
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/carpet/green,
 /area/lawoffice)
 "add" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -9394,22 +9394,16 @@
 /area/maintenance/central)
 "aoy" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen,
-/obj/item/stamp/law{
-	pixel_x = 8;
-	pixel_y = 6
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/turf/open/floor/plasteel/dark,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Lawyer's Office"
+	},
+/turf/open/floor/carpet/green,
 /area/lawoffice)
 "aoz" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -9689,21 +9683,20 @@
 /area/maintenance/solars/port/fore)
 "aoX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/paper_bin{
 	pixel_x = -3;
-	pixel_y = 15
+	pixel_y = 7
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = -6;
-	pixel_y = 3
+/obj/item/pen,
+/obj/item/stamp/law{
+	pixel_x = 8;
+	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/beer{
-	desc = "A station exclusive. Consumption may result in seizures, blindness, drunkenness, or even death.";
-	icon_state = "beer";
-	list_reagents = list(/datum/reagent/consumable/ethanol/thirteenloko = 30);
-	name = "Kilo-Kocktail";
-	pixel_x = 5;
-	pixel_y = 5
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
 	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
@@ -10892,7 +10885,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/power/apc/highcap/ten_k{
 	areastring = "/area/bridge";
 	dir = 8;
@@ -10904,6 +10896,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
+	},
+/obj/structure/table,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Bridge"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)

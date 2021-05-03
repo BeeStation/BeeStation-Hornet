@@ -71,10 +71,12 @@
 								c.info = "<font color = #101010>"
 							else			//no toner? shitty copies for you!
 								c.info = "<font color = #808080>"
-							var/copied = copy.info
-							copied = replacetext(copied, "<font face=\"[PEN_FONT]\" color=", "<font face=\"[PEN_FONT]\" nocolor=")	//state of the art techniques in action
-							copied = replacetext(copied, "<font face=\"[CRAYON_FONT]\" color=", "<font face=\"[CRAYON_FONT]\" nocolor=")	//This basically just breaks the existing color tag, which we need to do because the innermost tag takes priority.
-							c.info += copied
+
+							var/copied_info = copy.info
+							copied_info = replacetext(copied_info, "<font face=\"[PEN_FONT]\" color=", "<font face=\"[PEN_FONT]\" nocolor=")	//state of the art techniques in action
+							copied_info = replacetext(copied_info, "<font face=\"[CRAYON_FONT]\" color=", "<font face=\"[CRAYON_FONT]\" nocolor=")	//This basically just breaks the existing color tag, which we need to do because the innermost tag takes priority.
+
+							c.info += copied_info
 							c.info += "</font>"
 							c.name = copy.name
 							c.update_icon()

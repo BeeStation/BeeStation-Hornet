@@ -7029,8 +7029,11 @@
 "are" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
-	pixel_x = 1;
-	pixel_y = 5
+	pixel_x = -7
+	},
+/obj/item/taperecorder{
+	pixel_x = 6;
+	pixel_y = 3
 	},
 /turf/open/floor/wood,
 /area/lawoffice)
@@ -7190,6 +7193,9 @@
 /obj/item/clothing/glasses/sunglasses/advanced{
 	pixel_x = 5;
 	pixel_y = 10
+	},
+/obj/item/cartridge/lawyer{
+	pixel_x = -7
 	},
 /turf/open/floor/wood,
 /area/lawoffice)
@@ -7765,8 +7771,9 @@
 /area/security/detectives_office)
 "auh" = (
 /obj/structure/table/wood,
-/obj/item/taperecorder,
-/obj/item/cartridge/lawyer,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Lawyer's Office"
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "aui" = (
@@ -60500,17 +60507,20 @@
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "vsn" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
+/obj/item/radio/intercom{
+	pixel_y = -29
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
+/obj/structure/table,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Bridge";
+	pixel_x = -2
+	},
+/turf/open/floor/plasteel,
+/area/bridge)
 "vsr" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
@@ -90782,7 +90792,7 @@ aPR
 aTS
 aVf
 aTX
-aYr
+vsn
 aZP
 bbh
 bcc

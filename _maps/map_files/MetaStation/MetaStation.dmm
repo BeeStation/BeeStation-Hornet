@@ -18331,10 +18331,6 @@
 /area/security/courtroom)
 "aIU" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp/green{
-	pixel_x = 1;
-	pixel_y = 5
-	},
 /obj/machinery/requests_console{
 	department = "Law office";
 	pixel_y = 32
@@ -18342,19 +18338,20 @@
 /obj/machinery/newscaster{
 	pixel_x = -31
 	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Lawyer's Office"
+	},
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aIV" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/pen/red,
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching Prison Wing holding areas.";
 	name = "Prison Monitor";
 	network = list("prison");
 	pixel_y = 30
 	},
+/obj/item/flashlight/lamp/green,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aIW" = (
@@ -18861,6 +18858,7 @@
 /area/lawoffice)
 "aKg" = (
 /obj/structure/table/wood,
+/obj/item/book/manual/wiki/security_space_law,
 /obj/item/folder/blue,
 /obj/item/folder/blue,
 /obj/item/folder/blue,
@@ -19512,6 +19510,7 @@
 /obj/item/folder/red,
 /obj/item/folder/red,
 /obj/item/clothing/glasses/sunglasses/advanced/big,
+/obj/item/pen/red,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLF" = (
@@ -35069,8 +35068,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/recharger,
-/obj/item/restraints/handcuffs,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Bridge"
+	},
 /obj/structure/table/glass,
 /turf/open/floor/plasteel/dark,
 /area/bridge)

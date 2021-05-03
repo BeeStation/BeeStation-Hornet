@@ -49855,10 +49855,11 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/taperecorder,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
 	},
+/obj/item/folder/blue,
+/obj/item/pen,
 /turf/open/floor/plasteel/grimy,
 /area/bridge)
 "bHd" = (
@@ -49889,11 +49890,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/folder/blue,
-/obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
+/obj/item/paper_bin,
 /turf/open/floor/plasteel/grimy,
 /area/bridge)
 "bHh" = (
@@ -51002,8 +51002,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/paper_bin,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Bridge";
+	pixel_x = -4
+	},
 /turf/open/floor/plasteel/grimy,
 /area/bridge)
 "bIT" = (
@@ -51022,6 +51025,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/item/taperecorder{
+	pixel_x = -6
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -64587,6 +64593,11 @@
 /obj/structure/table/wood,
 /obj/item/clipboard,
 /obj/item/toy/figure/lawyer,
+/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/item/clothing/glasses/sunglasses/advanced/big{
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "cdi" = (
@@ -66802,15 +66813,10 @@
 /area/lawoffice)
 "cgL" = (
 /obj/structure/table/wood,
-/obj/item/folder/yellow,
-/obj/item/clothing/glasses/sunglasses/advanced/big{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
+/obj/item/flashlight/lamp,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "cgM" = (
@@ -68920,9 +68926,11 @@
 /area/security/courtroom)
 "cke" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lamp,
 /obj/item/radio/intercom{
 	pixel_x = -26
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Lawyer's Office"
 	},
 /turf/open/floor/wood,
 /area/lawoffice)

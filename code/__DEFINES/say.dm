@@ -89,6 +89,9 @@
 #define MAX_BROADCAST_LEN		512
 #define MAX_CHARTER_LEN			80
 
+#define MAX_PAPER_MESSAGE_LEN 3072
+#define MAX_PAPER_FIELDS 50
+
 //Sets the max string size that can be put in for circuit cloning
 #define MAX_SIZE_CIRCUIT		15000
 

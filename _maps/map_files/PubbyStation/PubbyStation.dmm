@@ -9611,24 +9611,29 @@
 /area/bridge)
 "avW" = (
 /obj/structure/table/glass,
-/obj/item/storage/firstaid/regular,
+/obj/item/storage/toolbox/emergency,
+/obj/item/storage/firstaid/regular{
+	pixel_x = -2
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "avX" = (
+/obj/item/aicard,
 /obj/structure/table/glass,
-/obj/item/storage/toolbox/emergency,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "avY" = (
 /obj/structure/table/glass,
-/obj/item/aicard,
+/obj/item/restraints/handcuffs,
+/obj/item/assembly/flash/handheld,
+/obj/item/laser_pointer/blue,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "avZ" = (
 /obj/structure/table/glass,
-/obj/item/restraints/handcuffs,
-/obj/item/assembly/flash/handheld,
-/obj/item/laser_pointer/blue,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Bridge"
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "awa" = (
@@ -56089,6 +56094,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
+"gKU" = (
+/obj/structure/filingcabinet,
+/turf/open/floor/plasteel/dark,
+/area/bridge)
 "gLF" = (
 /obj/machinery/vending/snack/random,
 /obj/effect/turf_decal/tile/neutral{
@@ -59308,8 +59317,9 @@
 /area/hallway/primary/fore)
 "mpy" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen/blue,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Lawyer's Office"
+	},
 /turf/open/floor/wood,
 /area/lawoffice)
 "mql" = (
@@ -59628,9 +59638,9 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "mXq" = (
-/obj/item/taperecorder,
-/obj/item/cartridge/lawyer,
 /obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/pen/blue,
 /turf/open/floor/wood,
 /area/lawoffice)
 "mXs" = (
@@ -63928,8 +63938,16 @@
 /area/engine/engineering)
 "uAU" = (
 /obj/structure/table/wood,
+/obj/item/cartridge/lawyer{
+	pixel_x = -6;
+	pixel_y = 8
+	},
 /obj/item/folder/blue,
 /obj/item/folder/blue,
+/obj/item/folder/red{
+	pixel_x = 6;
+	pixel_y = 4
+	},
 /obj/item/clothing/glasses/sunglasses/advanced,
 /turf/open/floor/carpet,
 /area/lawoffice)
@@ -65228,9 +65246,6 @@
 /area/maintenance/department/security/brig)
 "wTD" = (
 /obj/structure/table/wood,
-/obj/item/folder/red,
-/obj/item/folder/red,
-/obj/item/clothing/glasses/sunglasses/advanced,
 /obj/item/radio/intercom{
 	pixel_x = 27
 	},
@@ -65238,6 +65253,7 @@
 	c_tag = "Law Office";
 	dir = 8
 	},
+/obj/item/taperecorder,
 /turf/open/floor/carpet,
 /area/lawoffice)
 "wTX" = (
@@ -97466,7 +97482,7 @@ arP
 asR
 asS
 asS
-asS
+gKU
 asS
 aya
 azl

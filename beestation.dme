@@ -2618,6 +2618,8 @@
 #include "code\modules\NTNet\services\_service.dm"
 #include "code\modules\paperwork\clipboard.dm"
 #include "code\modules\paperwork\contract.dm"
+#include "code\modules\paperwork\fax.dm"
+#include "code\modules\paperwork\faxmachine.dm"
 #include "code\modules\paperwork\filingcabinet.dm"
 #include "code\modules\paperwork\folder_premade.dm"
 #include "code\modules\paperwork\folders.dm"

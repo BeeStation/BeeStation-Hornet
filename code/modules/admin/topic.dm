@@ -1223,6 +1223,230 @@
 
 		usr.client.smite(H)
 
+	else if(href_list["FaxReplyTemplate"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/living/carbon/human/H = locate(href_list["FaxReplyTemplate"]) in GLOB.mob_list
+		if(!H || !istype(H))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
+			return
+		var/obj/item/paper/P = new /obj/item/paper(null)
+		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		P.name = "Central Command - paper"
+		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
+		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
+		var/tmsg = "<b>Nanotrasen Central Command</b><br><b>Official Expedited Memorandum</b><br><br>"
+		if(stype == "Handle it yourselves!")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.</small>"
+		else if(stype == "Illegible fax")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<BR><BR>Please consult your nearest dictionary and/or thesaurus and try again.<BR><BR><i><small>This is an automatic message.</small>"
+		else if(stype == "Fax not signed")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax has not been correctly signed and, as such, we cannot verify your identity.<BR><BR>Please sign your faxes before sending them so that we may verify your identity.<BR><BR><i><small>This is an automatic message.</small>"
+		else if(stype == "Not Right Now")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<BR><BR>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<BR><BR>Please try again later.<BR><BR><i><small>This is an automatic message.</small>"
+		else if(stype == "You are wasting our time")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<BR><BR>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of profesionalism. Do not test our patience.<BR><BR><i><small>This is an automatic message.</i></small>"
+		else if(stype == "Keep up the good work")
+			tmsg += "Greetings, esteemed crewmember. Your fax has been received successfully by NAS Trurl Fax Registration.<BR><BR>We at the NAS Trurl appreciate the good work that you have done here, and sincerely recommend that you continue such a display of dedication to the company.<BR><BR><i><small>This is absolutely not an automated message.</i></small>"
+		else
+			return
+		tmsg += "</font>"
+		P.info = tmsg
+		P.x = rand(-2, 0)
+		P.y = rand(-1, 2)
+		P.offset_x += P.x
+		P.offset_y += P.y
+		P.update_icon()
+		if(!P.stamped)
+			P.stamped = new
+		if (isnull(P.stamped))
+			P.stamped = list()
+		var/stampvalue = "cent"
+		var/mutable_appearance/stampoverlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-[stampvalue]")
+		stampoverlay.pixel_x = rand(-2, 2)
+		stampoverlay.pixel_y = rand(-3, 2)
+		stampoverlay.icon_state = "paper_stamp-[stampvalue]"
+		P.add_overlay(stampoverlay)
+		LAZYADD(P.stamped, "stamp-[stampvalue]")
+		if (isnull(P.stamps))
+			P.stamps = list()
+		P.stamps[++P.stamps.len] = list("paper121x54 stamp-[stampvalue]", 280.5, 3.5, 0)
+		fax.receivefax(P)
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.ears, /obj/item/radio/headset)))
+			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
+		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
+		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a standard '[stype]' fax")
+
+	else if(href_list["AdminFaxView"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/obj/item/fax = locate(href_list["AdminFaxView"])
+		if(istype(fax, /obj/item/paper))
+			var/obj/item/paper/P = fax
+			P.examine(usr)
+		else if(istype(fax, /obj/item/photo))
+			var/obj/item/photo/H = fax
+			H.show(usr)
+
+	else if(href_list["AdminFaxCreate"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/sender = locate(href_list["AdminFaxCreate"])
+		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
+		var/faxtype = href_list["faxtype"]
+		var/reply_to = locate(href_list["replyto"])
+		var/destination
+		var/notify
+		var/obj/item/paper/P = new /obj/item/paper(null)
+		var/use_letterheard = alert("Use letterhead?",,"Nanotrasen","Syndicate", "No")
+		var/stampname
+		var/stamptype
+		var/stampvalue
+		var/sendername
+		if(!fax)
+			var/list/departmentoptions = GLOB.alldepartments + GLOB.hidden_departments + "All Departments"
+			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
+			if(!destination)
+				qdel(P)
+				return
+
+			for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
+				if(destination != "All Departments" && F.department == destination)
+					fax = F
+
+
+		var/input = input(src.owner, "Please enter a message to send a fax via secure connection.", "Outgoing message from Centcom", "") as message|null
+		if(!input)
+			qdel(P)
+			return
+		input = admin_pencode_to_html(html_encode(input)) // Encode everything from pencode to html
+
+		var/customname = clean_input("Pick a title for the fax.", "Fax Title", , owner)
+		if(!customname)
+			customname = "paper"
+
+		switch(faxtype)
+			if("Central Command")
+				stamptype = "icon"
+				stampvalue = "cent"
+				sendername = command_name()
+			if("Syndicate")
+				stamptype = "icon"
+				stampvalue = "syndicate"
+				sendername = "UNKNOWN"
+			if("Administrator")
+				stampname = input(src.owner, "Pick a stamp icon.", "Stamp Icon") as null|anything in list("centcom","syndicate","clown","none")
+				switch(stampname)
+					if("centcom")
+						stampvalue = "cent"
+						stamptype = "icon"
+					if("syndicate")
+						stampvalue = "syndicate"
+						stamptype = "icon"
+					if("clown")
+						stampvalue = "clown"
+						stamptype = "icon"
+
+				sendername = clean_input("What organization does the fax come from? This determines the prefix of the paper (i.e. Central Command- Title). This is optional.", "Organization", , owner)
+
+		if(sender)
+			notify = alert(src.owner, "Would you like to inform the original sender that a fax has arrived?","Notify Sender","Yes","No")
+
+		// Create the reply message
+		switch(use_letterheard)
+			if("Nanotrasen")
+				P.info = "<b>Nanotrasen Central Command</b><br><b>Official Expedited Memorandum</b><br><br>"
+				P.info += "<h3>"
+				P.info += input
+				P.info += "</h3>"
+				P.info += "<br><br><small>Failure to adhere appropriately to orders that may be contained herein is in violation of Space Law, and punishments may be administered appropriately upon return to Central Command.<br>The recipient(s) of this memorandum acknowledge by reading it that they are liable for any and all damages to crew or station that may arise from ignoring suggestions or advice given herein.</small>"
+
+			if("Syndicate")
+				P.info = "<b>Syndicate Faction</b><br><b>Expedited Memorandum</b><br><br>"
+				P.info += "<h3>"
+				P.info += input
+				P.info += "</h3>"
+				sendername = "UNKNOWN"
+				stampvalue = "syndicate"
+
+			if("No")
+				P.info += "<h3>"
+				P.info += input
+				P.info += "</h3>"
+
+		if(sendername)
+			P.name = "[sendername] - [customname]"
+		else
+			P.name = "[customname]"
+
+		P.update_icon()
+		P.x = rand(-2, 0)
+		P.y = rand(-1, 2)
+		P.offset_x += P.x
+		P.offset_y += P.y
+		if(stamptype && use_letterheard != "No")
+			if(stamptype == "icon")
+				if(!P.stamped)
+					P.stamped = new
+				if (isnull(P.stamped))
+					P.stamped = list()
+				if(P.stamped.len < 30)
+					var/mutable_appearance/stampoverlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-[stampvalue]")
+					stampoverlay.pixel_x = rand(-2, 2)
+					stampoverlay.pixel_y = rand(-3, 2)
+					P.add_overlay(stampoverlay)
+					LAZYADD(P.stamped, "stamp-[stampvalue]")
+
+					if (isnull(P.stamps))
+						P.stamps = list()
+					P.stamps[++P.stamps.len] = list("paper121x54 stamp-[stampvalue]", 280.5, 3.5, 0)
+
+		if(destination != "All Departments")
+			if(!fax.receivefax(P))
+				to_chat(src.owner, "<span class='warning'>Message transmission failed.</span>")
+				return
+		else
+			for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
+				if(is_station_level(F.z))
+					spawn(0)
+						if(!F.receivefax(P))
+							to_chat(src.owner, "<span class='warning'>Message transmission to [F.department] failed.</span>")
+
+		var/datum/fax/admin/A = new /datum/fax/admin()
+		A.name = P.name
+		A.from_department = faxtype
+		if(destination != "All Departments")
+			A.to_department = fax.department
+		else
+			A.to_department = "All Departments"
+		A.origin = "Administrator"
+		A.message = P
+		A.reply_to = reply_to
+		A.sent_by = usr
+		A.sent_at = world.time
+
+		to_chat(src.owner, "<span class='notice'>Message transmitted successfully.</span>")
+		if(notify == "Yes")
+			var/mob/living/carbon/human/H = sender
+			if(istype(H) && H.stat == CONSCIOUS && (istype(H.ears, /obj/item/radio/headset)))
+				to_chat(sender, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
+		if(sender)
+			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
+			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
+		else
+			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
+			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
+		return
+
+	else if(href_list["refreshfaxpanel"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		fax_panel(usr)
+
 	else if(href_list["CentComReply"])
 		if(!check_rights(R_ADMIN))
 			return

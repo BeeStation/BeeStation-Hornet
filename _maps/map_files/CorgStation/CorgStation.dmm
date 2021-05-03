@@ -27145,6 +27145,8 @@
 	dir = 4
 	},
 /obj/effect/landmark/event_spawn,
+/obj/item/cartridge/lawyer,
+/obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "hBT" = (
@@ -33540,11 +33542,11 @@
 	name = "Captain's Desk";
 	req_access_txt = "20"
 	},
-/obj/item/folder/blue,
-/obj/item/pen/fourcolor,
-/obj/item/stamp/captain,
 /obj/machinery/light_switch{
 	pixel_x = 26
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Bridge"
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
@@ -50692,14 +50694,23 @@
 	pixel_y = 2
 	},
 /obj/item/pen{
-	pixel_x = 5;
+	pixel_x = 7;
 	pixel_y = 1
 	},
 /obj/item/flashlight/lamp/green{
 	pixel_x = -6;
 	pixel_y = 13
 	},
-/obj/item/stamp/captain,
+/obj/item/folder/blue{
+	pixel_x = -4
+	},
+/obj/item/stamp/captain{
+	pixel_x = 9;
+	pixel_y = 8
+	},
+/obj/item/folder/blue{
+	pixel_x = -6
+	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "ojz" = (
@@ -78966,14 +78977,15 @@
 /area/hallway/primary/fore)
 "wCt" = (
 /obj/structure/table/wood,
-/obj/item/cartridge/lawyer,
-/obj/item/clothing/glasses/sunglasses/advanced/big,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
 /obj/machinery/airalarm/directional/east,
 /obj/item/radio/intercom{
 	pixel_y = 24
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Lawyer's Office"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)

@@ -43,6 +43,10 @@
 	var/list/stamps			/// Positioning for the stamp in tgui
 	var/list/stamped		/// Overlay info
 
+	var/ico[0]      //Icons and
+	var/offset_x[0] //offsets stored for later
+	var/offset_y[0] //usage by the photocopier
+
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 
@@ -149,8 +153,8 @@
 		// Are we on fire?  Hard ot read if so
 	if(resistance_flags & ON_FIRE)
 		return UI_CLOSE
-	if(!in_range(user,src))
-		return UI_CLOSE
+	//if(!in_range(user,src))
+		//return UI_CLOSE
 	if(user.incapacitated(TRUE, TRUE) || (isobserver(user) && !IsAdminGhost(user)))
 		return UI_UPDATE
 	// Even harder to read if your blind...braile? humm
