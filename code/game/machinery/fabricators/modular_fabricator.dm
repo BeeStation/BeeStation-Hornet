@@ -75,11 +75,11 @@
 	return ..()
 
 /obj/machinery/modular_fabricator/proc/get_material_container()
-	if(remote_materials)
-		var/datum/component/remote_materials/materials = GetComponent(/datum/component/remote_materials)
+	var/datum/component/remote_materials/materials = GetComponent(/datum/component/remote_materials)
+	if(materials?.mat_container)
 		return materials.mat_container
-	else
-		return GetComponent(/datum/component/material_container)
+	var/datum/component/material_container/container = GetComponent(/datum/component/material_container)
+	return container
 
 /obj/machinery/modular_fabricator/RefreshParts()
 	var/T = 0
