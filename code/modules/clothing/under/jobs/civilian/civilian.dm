@@ -175,7 +175,7 @@
 	item_state = "lawyer_red"
 	item_color = "lawyer_red"
 
-/obj/item/clothing/under/rank/civilian/lawyer/red/skirt
+/obj/item/clothing/under/rank/civilian/lawyer/blue/skirt
 	name = "lawyer blue suitskirt"
 	icon_state = "lawyer_blue_skirt"
 	item_state = "lawyer_blue"

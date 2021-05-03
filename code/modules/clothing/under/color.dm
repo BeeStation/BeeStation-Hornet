@@ -27,7 +27,7 @@
 	var/obj/item/clothing/under/skirt/color/C = pick(subtypesof(/obj/item/clothing/under/skirt/color) - /obj/item/clothing/under/skirt/color/random)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.equip_to_slot_or_del(new C(H), SLOT_W_UNIFORM)
+		H.equip_to_slot_or_del(new C(H), ITEM_SLOT_ICLOTHING)
 	else
 		new C(loc)
 	return INITIALIZE_HINT_QDEL
