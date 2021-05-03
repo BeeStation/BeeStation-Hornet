@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Changelings have a 70% chance to hear hivemind messages even if they do
+      not have the ability.
+  - tweak: Last resort can no longer be used while being absorbed.
