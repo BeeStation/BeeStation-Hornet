@@ -64,7 +64,7 @@
 
 /obj/machinery/modular_fabricator/Initialize(mapload)
 	if(remote_materials)
-		AddComponent(/datum/component/remote_materials, "exosuit", mapload, TRUE, auto_link)
+		AddComponent(/datum/component/remote_materials, "modfab", mapload, TRUE, auto_link)
 	else
 		AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/gold, /datum/material/gold, /datum/material/silver, /datum/material/diamond, /datum/material/uranium, /datum/material/plasma, /datum/material/bluespace, /datum/material/bananium, /datum/material/titanium), 0, TRUE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
 	. = ..()
@@ -86,7 +86,8 @@
 	for(var/obj/item/stock_parts/matter_bin/MB in component_parts)
 		T += MB.rating*75000
 	var/datum/component/material_container/materials = get_material_container()
-	materials.max_amount = T
+	if(materials)
+		materials.max_amount = T
 	T=1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T -= M.rating*0.2
