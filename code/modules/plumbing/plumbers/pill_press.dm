@@ -51,7 +51,7 @@
 		P.name = pill_name
 		stored_pills += P
 		if(pill_number == RANDOM_PILL_STYLE)
-			P.icon_state = "pill[rand(1,21)]"
+			P.icon_state = "pill[rand(1,22)]"
 		else
 			P.icon_state = "pill[pill_number]"
 		if(P.icon_state == "pill4") //mirrored from chem masters
