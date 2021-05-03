@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Corgstation SM ejection sequence now requires CE access.
-  - tweak: Corgstation science door name corrected.
-  - tweak: Corgstation tool storage now has a modular computer vendor.
