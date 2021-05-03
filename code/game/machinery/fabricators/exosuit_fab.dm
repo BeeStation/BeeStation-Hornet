@@ -2,7 +2,7 @@
 	icon = 'icons/obj/robotics.dmi'
 	icon_state = "fab-idle"
 	name = "exosuit fabricator"
-	desc = "Nothing is being built."
+	desc = "An advanced machine containing many internal robotic arms which fabricate components for robots and exosuits."
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
