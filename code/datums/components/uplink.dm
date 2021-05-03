@@ -180,6 +180,15 @@
 						break
 				if(is_inaccessible)
 					continue
+			if(I.restricted_roundstart_traits && !I.discounted && ishuman(user))
+				var/is_inaccessible = TRUE
+				var/mob/living/carbon/human/H = user
+				for(var/T in I.restricted_roundstart_traits)
+					if(HAS_TRAIT_FROM_ONLY(H, T, ROUNDSTART_TRAIT) || debug)
+						is_inaccessible = FALSE
+						break
+					if(is_inaccessible)
+						continue
 			cat["items"] += list(list(
 				"name" = I.name,
 				"cost" = I.cost,

@@ -120,6 +120,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/include_modes = list() // Game modes to allow this item in.
 	var/list/exclude_modes = list() // Game modes to disallow this item from.
 	var/list/restricted_roles = list() //If this uplink item is only available to certain roles. Roles are dependent on the frequency chip or stored ID.
+	var/list/restricted_roundstart_traits = list() //If this uplink item is only available to certain roundstart traits.
 	var/player_minimum //The minimum crew size needed for this item to be added to uplinks.
 	var/purchase_log_vis = TRUE // Visible in the purchase log?
 	var/restricted = FALSE // Adds restrictions for VR/Events
@@ -755,11 +756,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/stealthy_weapons/pacifist
 	name = "Paci-Fist Martial Arts Scroll"
 	desc = "This scroll contains the secrets of the ancient martial arts technique of the Paci-Fist. You will learn \
-			various ways to disarm and pacify your foes."
+			various ways to disarm and pacify your foes. Might alter an individuals outlook on life."
 	item = /obj/item/book/granter/martial/pacifist
-	cost = 10
+	cost = 16
 	surplus = 10
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops) //nukies lose their pacifism trait at roundstart, it would be counterintuitive and cheesy to add this in
+
+/datum/uplink_item/stealthy_weapons/pacifist/restricted
+	category = "Discounts"
+	desc = "This scroll contains the secrets of the ancient martial arts technique of the Paci-Fist. You will learn \
+			various ways to disarm and pacify your foes. Normally costs 16TC, discounted especially for you."
+	cost = 10
+	surplus = 0
+	restricted_traits = list(TRAIT_PACIFISM) // Discounted for roundstart trait pacifists, since they already have irrevertible pacifism.
 
 /datum/uplink_item/stealthy_weapons/radbow
 	name = "Gamma-Bow"
