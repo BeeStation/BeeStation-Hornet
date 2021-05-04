@@ -15,11 +15,10 @@
 /obj/effect/particle_effect/smoke/sleeping/changeling/smoke_mob(mob/living/carbon/M,datum/antagonist)
 	if(is_changeling(M))
 		return FALSE
-	else
-		if(..())
-			M.Sleeping(200)
-			M.emote("cough")
-			return 1
+	if(..())
+		M.Sleeping(200)
+		M.emote("cough")
+		return TRUE
 
 /datum/effect_system/smoke_spread/sleeping/changeling
 	effect_type = /obj/effect/particle_effect/smoke/sleeping/changeling
