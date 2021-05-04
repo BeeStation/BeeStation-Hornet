@@ -534,6 +534,9 @@
 		stack_trace("Empty message")
 		return
 
+	if(SSticker.current_state == GAME_STATE_FINISHED && message_type == LOG_ATTACK)
+		return
+
 	// Cannot use the list as a map if the key is a number, so we stringify it (thank you BYOND)
 	var/smessage_type = num2text(message_type)
 
