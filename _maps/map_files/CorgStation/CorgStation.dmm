@@ -4865,16 +4865,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"bak" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "bal" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -6452,6 +6442,26 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"bzc" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -14;
+	pixel_y = 1
+	},
+/obj/structure/sign/poster/official/cleanliness{
+	pixel_x = -32
+	},
+/turf/open/floor/noslip/white,
+/area/medical/medbay/central)
 "bzd" = (
 /obj/structure/transit_tube/crossing{
 	dir = 1
@@ -15519,6 +15529,21 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
+"eir" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -14;
+	pixel_y = 1
+	},
+/turf/open/floor/noslip/white,
+/area/medical/medbay/central)
 "eis" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/brown,
@@ -20188,25 +20213,6 @@
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/starboard/central)
-"fGn" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/machinery/door/window/southleft{
-	name = "Cloning Shower"
-	},
-/obj/structure/mirror{
-	pixel_y = 30
-	},
-/turf/open/floor/plasteel/techmaint,
-/area/medical/genetics/cloning)
 "fGA" = (
 /obj/structure/chair/office/light{
 	dir = 1;
@@ -38776,6 +38782,28 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"kNh" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/machinery/door/window/southleft{
+	name = "Cloning Shower"
+	},
+/obj/structure/mirror{
+	pixel_y = 35
+	},
+/obj/structure/sink{
+	pixel_y = 28
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/medical/genetics/cloning)
 "kNB" = (
 /obj/structure/bed,
 /obj/machinery/requests_console{
@@ -80342,18 +80370,6 @@
 	},
 /turf/open/space/basic,
 /area/solar/starboard/aft)
-"wOA" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "wOK" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution{
@@ -123283,8 +123299,8 @@ iDL
 svG
 jSX
 iDL
-wOA
-bak
+bzc
+eir
 jdP
 kzb
 kCs
@@ -128167,7 +128183,7 @@ bVi
 nbZ
 jgy
 vmg
-fGn
+kNh
 qKx
 cZD
 vBf
