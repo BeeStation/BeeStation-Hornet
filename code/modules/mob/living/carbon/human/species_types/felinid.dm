@@ -4,6 +4,7 @@
 	id = "felinid"
 	limbs_id = "human"
 	say_mod = "meows"
+	sexes=0 //no ERP
 
 	disliked_food = VEGETABLES | SUGAR
 	liked_food = DAIRY | MEAT
