@@ -95,7 +95,7 @@
 	var/where
 	if(ishuman(owner.current))		//if he's not a human, uplink will spawn under his feet
 		var/mob/living/carbon/human/H = owner.current
-		var/list/slots = list(
+		var/static/list/slots = list(
 			"in your backpack" = ITEM_SLOT_BACKPACK,
 			"in your left pocket" = ITEM_SLOT_LPOCKET,
 			"in your right pocket" = ITEM_SLOT_RPOCKET,
@@ -219,5 +219,4 @@
 
 /datum/team/incursion/antag_listing_name()
 	return "[name]"
-
 
