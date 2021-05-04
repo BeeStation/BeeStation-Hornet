@@ -6,6 +6,7 @@
 
 export { AnimatedNumber } from './AnimatedNumber';
 export { BlockQuote } from './BlockQuote';
+export { Blink } from './Blink';
 export { Box } from './Box';
 export { Button } from './Button';
 export { ByondUi } from './ByondUi';
@@ -30,8 +31,9 @@ export { ProgressBar } from './ProgressBar';
 export { ScrollableBox } from './ScrollableBox';
 export { Section } from './Section';
 export { Slider } from './Slider';
+export { Stack } from './Stack';
 export { Table } from './Table';
-export { TextArea } from './TextArea';
 export { Tabs } from './Tabs';
-export { Tooltip } from './Tooltip';
+export { TextArea } from './TextArea';
 export { TimeDisplay } from './TimeDisplay';
+export { Tooltip } from './Tooltip';

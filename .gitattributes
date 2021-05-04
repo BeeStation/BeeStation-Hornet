@@ -1,15 +1,18 @@
 #Normalize files
 * text=auto
+
+*.cjs text eol=lf
 *.sh text eol=lf
 *.dm text eol=lf
 *.dme text eol=lf
+*.ps1 text eol=lf
 
 # merger hooks, run tools/hooks/install.bat or install.sh to set up
 *.dmm merge=dmm
 *.dmi merge=dmi
 
 # exlude maps from contribution count
-*.dmm linguist-generated=true 
+*.dmm linguist-generated=true
 
 # force changelog merging to use union
 html/changelog.html merge=union

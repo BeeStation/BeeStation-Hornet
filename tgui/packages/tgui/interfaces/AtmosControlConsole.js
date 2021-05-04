@@ -9,9 +9,8 @@ export const AtmosControlConsole = (props, context) => {
   const sensors = data.sensors || [];
   return (
     <Window
-      resizable
-      width={400}
-      height={925}>
+      width={500}
+      height={315}>
       <Window.Content scrollable>
         <Section
           title={!!data.tank && sensors[0]?.long_name}>

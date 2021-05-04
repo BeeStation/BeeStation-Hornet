@@ -6,7 +6,7 @@ export const Tank = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
-      width={400}
+      width={275}
       height={120}>
       <Window.Content>
         <Section>

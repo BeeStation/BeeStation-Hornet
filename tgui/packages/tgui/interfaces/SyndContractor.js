@@ -64,10 +64,9 @@ export class FakeTerminal extends Component {
 export const SyndContractor = (props, context) => {
   return (
     <NtosWindow
-      theme="syndicate"
-      resizable
       width={500}
-      height={600}>
+      height={600}
+      theme="syndicate">
       <NtosWindow.Content scrollable>
         <SyndContractorContent />
       </NtosWindow.Content>

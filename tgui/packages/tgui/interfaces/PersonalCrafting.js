@@ -61,8 +61,7 @@ export const PersonalCrafting = (props, context) => {
     <Window
       title="Crafting Menu"
       width={700}
-      height={800}
-      resizable>
+      height={800}>
       <Window.Content scrollable>
         {!!busy && (
           <Dimmer fontSize="32px">

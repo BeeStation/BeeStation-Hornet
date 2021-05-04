@@ -16,7 +16,10 @@ export const NtosConfiguration = (props, context) => {
   } = data;
 
   return (
-    <NtosWindow resizable>
+    <NtosWindow
+      theme={PC_device_theme}
+      width={420}
+      height={630}>
       <NtosWindow.Content scrollable>
         <Section
           title="Power Supply"

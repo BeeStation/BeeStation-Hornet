@@ -97,7 +97,12 @@ const setupApp = () => {
     'size': '0x0',
   });
 
-  based_winset();
+  // Resize the panel to match the non-browser output
+  Byond.winget('output').then(output => {
+    Byond.winset('browseroutput', {
+      'size': output.size,
+    });
+  });
 
   // Enable hot module reloading
   if (module.hot) {
@@ -116,13 +121,6 @@ const setupApp = () => {
       renderApp();
     });
   }
-};
-
-const based_winset = async (based_on_what = 'output') => {
-  const winget_output = await Byond.winget(based_on_what);
-  Byond.winset('browseroutput', {
-    'size': winget_output["size"],
-  });
 };
 
 setupApp();

@@ -1,6 +1,9 @@
 
-export class StatPanel {
+
+import { Component } from 'inferno';
+export class StatPanel extends Component {
   constructor() {
+    super();
     this.selectedTab = 'Status';
   }
 

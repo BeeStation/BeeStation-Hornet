@@ -5,26 +5,42 @@
  */
 
 import { canRender, classes } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { Component, createRef, InfernoNode, RefObject } from 'inferno';
 import { addScrollableNode, removeScrollableNode } from '../events';
-import { computeBoxClassName, computeBoxProps } from './Box';
+import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
-export class Section extends Component {
+interface SectionProps extends BoxProps {
+  className?: string;
+  title?: string;
+  buttons?: InfernoNode;
+  fill?: boolean;
+  fitted?: boolean;
+  scrollable?: boolean;
+  /** @deprecated This property no longer works, please remove it. */
+  level?: boolean;
+  /** @deprecated Please use `scrollable` property */
+  overflowY?: any;
+}
+
+export class Section extends Component<SectionProps> {
+  scrollableRef: RefObject<HTMLDivElement>;
+  scrollable: boolean;
+
   constructor(props) {
     super(props);
-    this.ref = createRef();
+    this.scrollableRef = createRef();
     this.scrollable = props.scrollable;
   }
 
   componentDidMount() {
     if (this.scrollable) {
-      addScrollableNode(this.ref.current);
+      addScrollableNode(this.scrollableRef.current);
     }
   }
 
   componentWillUnmount() {
     if (this.scrollable) {
-      removeScrollableNode(this.ref.current);
+      removeScrollableNode(this.scrollableRef.current);
     }
   }
 
@@ -32,7 +48,6 @@ export class Section extends Component {
     const {
       className,
       title,
-      level = 1,
       buttons,
       fill,
       fitted,
@@ -41,27 +56,16 @@ export class Section extends Component {
       ...rest
     } = this.props;
     const hasTitle = canRender(title) || canRender(buttons);
-    const content = fitted
-      ? children
-      : (
-        <div
-          ref={this.ref}
-          className="Section__content">
-          {children}
-        </div>
-      );
     return (
       <div
-        ref={fitted ? this.ref : undefined}
         className={classes([
           'Section',
-          'Section--level--' + level,
           Byond.IS_LTE_IE8 && 'Section--iefix',
           fill && 'Section--fill',
           fitted && 'Section--fitted',
           scrollable && 'Section--scrollable',
           className,
-          ...computeBoxClassName(rest),
+          computeBoxClassName(rest),
         ])}
         {...computeBoxProps(rest)}>
         {hasTitle && (
@@ -74,7 +78,11 @@ export class Section extends Component {
             </div>
           </div>
         )}
-        {content}
+        <div className="Section__rest">
+          <div ref={this.scrollableRef} className="Section__content">
+            {children}
+          </div>
+        </div>
       </div>
     );
   }

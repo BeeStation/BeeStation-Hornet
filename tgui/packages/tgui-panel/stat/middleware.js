@@ -1,5 +1,6 @@
 
 import { StatPanel } from './statPanel';
+import { setTabs } from './actions';
 import { sendMessage } from 'tgui/backend';
 
 export const statMiddleware = store => {
@@ -9,9 +10,9 @@ export const statMiddleware = store => {
 
     const { type, payload } = action;
 
-    if (type === 'stat/setTab') {
+    if (type === setTabs.type) {
       sendMessage({
-        type: 'stat/setTab',
+        type: setTabs.type,
         payload: {
           selectedTab: payload,
         },

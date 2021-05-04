@@ -1,3 +1,5 @@
+import { setTabs, setStatTabs, setPanelInfomation, antagPopup, clearAntagPopup, alertPopup, clearAlertPopup, deadPopup, clearDeadPopup } from './actions';
+
 const initialState = {
   selectedTab: 'Status',
   antagonist_popup: null,
@@ -10,56 +12,56 @@ const initialState = {
 
 export const statReducer = (state = initialState, action) => {
   const { type, payload } = action;
-  if (type === 'stat/setTab') {
+  if (type === setTabs.type) {
     return {
       ...state,
       selectedTab: payload,
     };
   }
-  if (type === 'stat/setStatTabs') {
+  if (type === setStatTabs.type) {
     return {
       ...state,
       statTabs: payload,
     };
   }
-  if (type === 'stat/setPanelInfomation') {
+  if (type === setPanelInfomation.type) {
     return {
       ...state,
       statInfomation: payload,
     };
   }
-  if (type === 'stat/antagPopup') {
+  if (type === antagPopup.type) {
     return {
       ...state,
       antagonist_popup: payload,
     };
   }
-  if (type === 'stat/clearAntagPopup') {
+  if (type === clearAntagPopup.type) {
     return {
       ...state,
       antagonist_popup: null,
     };
   }
-  if (type === 'stat/alertPopup') {
+  if (type === alertPopup.type) {
     return {
       ...state,
       alert_popup: payload,
     };
   }
-  if (type === 'stat/clearAlertPopup') {
+  if (type === clearAlertPopup.type) {
     return {
       ...state,
       alert_popup: null,
     };
   }
-  if (type === 'stat/deadPopup') {
+  if (type === deadPopup.type) {
     return {
       ...state,
       antagonist_popup: null,
       dead_popup: true,
     };
   }
-  if (type === 'stat/clearDeadPopup') {
+  if (type === clearDeadPopup.type) {
     return {
       ...state,
       dead_popup: false,

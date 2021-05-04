@@ -28,7 +28,6 @@ export const Telecomms = (props, context) => {
   const circuits = data.circuits || [];
   return (
     <Window
-      resizable
       title={id}
       width={400}
       height={600}>

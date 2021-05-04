@@ -4,8 +4,7 @@ import { AiRestorerContent } from './AiRestorer';
 export const NtosAiRestorer = () => {
   return (
     <NtosWindow
-      resizable
-      width={360}
+      width={370}
       height={400}>
       <NtosWindow.Content scrollable>
         <AiRestorerContent />
