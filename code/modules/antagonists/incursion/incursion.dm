@@ -91,7 +91,7 @@
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
-	var/obj/item/uplink/incursion/uplink = new(owner.current.loc, owner.key, 15)
+	var/obj/item/uplink/incursion/uplink = new(get_turf(owner.current), owner.key, 15)
 	var/where
 	if(ishuman(owner.current))		//if he's not a human, uplink will spawn under his feet
 		var/mob/living/carbon/human/H = owner.current
