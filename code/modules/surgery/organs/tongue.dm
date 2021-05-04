@@ -65,10 +65,14 @@
 /obj/item/organ/tongue/lizard/handle_speech(datum/source, list/speech_args)
 	var/static/regex/lizard_hiss = new("s+", "g")
 	var/static/regex/lizard_hiSS = new("S+", "g")
+	var/static/regex/lizard_hissx = new("x+", "g")
+	var/static/regex/lizard_hiSSX = new("X+", "g")
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = lizard_hiss.Replace(message, "sss")
 		message = lizard_hiSS.Replace(message, "SSS")
+		message = lizard_hissx.Replace(message, "ksss")
+		message = lizard_hiSSX.Replace(message, "KSSS")
 	speech_args[SPEECH_MESSAGE] = message
 
 /obj/item/organ/tongue/fly
