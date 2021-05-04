@@ -23,9 +23,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	active_power_usage = 200
 
 	/// ID card inserted into the machine, used to log in with
-	var/obj/item/card/id/scan = null
+	var/obj/item/card/id/scan
 
-	var/emagged = FALSE
+	var/emaged = FALSE
 
 	/// Whether the machine is "logged in" or not
 	var/authenticated = FALSE
@@ -63,10 +63,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
-	emagged = TRUE
+	emaged = TRUE
 	syndie_restricted = TRUE
 	req_one_access = list(ACCESS_SYNDICATE)
-	//No point setting fax network, being emagged overrides that anyway.
+	//No point setting fax network, being emaged overrides that anyway.
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
 	if(department != "Unknown")
@@ -88,17 +88,15 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return ..()
 
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
-	if(!emagged)
-		emagged = 1
+	if(!emaged)
+		emaged = 1
 		req_one_access = list()
 		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
 	else
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
 /obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
-	if(authenticated)
-		return TRUE
-	else if(user.has_unlimited_silicon_privilege)
+	if(authenticated || user.has_unlimited_silicon_privilege)
 		return TRUE
 	return FALSE
 
@@ -116,7 +114,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	data["nologin"] = !data["scan_name"] && !data["realauth"]
 	if(!data["authenticated"])
 		data["network"] = "Disconnected"
-	else if(!emagged)
+	else if(!emaged)
 		data["network"] = fax_network
 	else
 		data["network"] = "ERR*?*%!*"
@@ -177,7 +175,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					to_chat(usr, "<span class='notice'>You insert [I] into [src].</span>")
 					flick("faxsend", src)
 				else
-					to_chat(usr, "<span class='warning'>[src] only accepts paper, paper bundles, and photos.</span>")
+					to_chat(usr, "<span class='warning'>[src] only accepts paper, and photos.</span>")
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copy)
@@ -200,14 +198,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				var/list/combineddepartments = GLOB.alldepartments.Copy()
 				if(long_range_enabled)
 					combineddepartments += GLOB.admin_departments.Copy()
-				if(emagged)
+				if(emaged)
 					combineddepartments += GLOB.hidden_admin_departments.Copy()
 					combineddepartments += GLOB.hidden_departments.Copy()
 				if(syndie_restricted)
 					combineddepartments = GLOB.hidden_admin_departments.Copy()
 					combineddepartments += GLOB.hidden_departments.Copy()
 					for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
-						if(F.emagged)//we can contact emagged faxes on the station
+						if(F.emaged)//we can contact emaged faxes on the station
 							combineddepartments |= F.department
 				destination = input(usr, "To which department?", "Choose a department", "") as null|anything in combineddepartments
 				if(!destination)

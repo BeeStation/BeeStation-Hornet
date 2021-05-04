@@ -4,18 +4,18 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 
 /datum/fax
 	var/name = "fax"
-	var/from_department = null
-	var/to_department = null
-	var/origin = null
-	var/message = null
-	var/sent_by = null
-	var/sent_at = null
+	var/from_department
+	var/to_department
+	var/origin
+	var/message
+	var/sent_by
+	var/sent_at
 
 /datum/fax/New()
 	GLOB.faxes += src
 
 /datum/fax/admin
-	var/list/reply_to = null
+	var/list/reply_to
 
 /datum/fax/admin/New()
 	GLOB.adminfaxes += src
