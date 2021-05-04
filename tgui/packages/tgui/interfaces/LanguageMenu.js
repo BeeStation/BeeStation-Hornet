@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
@@ -25,7 +24,7 @@ export const LanguageMenu = (props, context) => {
                 key={language.name}
                 label={language.name}
                 buttons={(
-                  <Fragment>
+                  <>
                     {!!is_living && (
                       <Button
                         content={language.is_default
@@ -38,7 +37,7 @@ export const LanguageMenu = (props, context) => {
                         })} />
                     )}
                     {!!admin_mode && (
-                      <Fragment>
+                      <>
                         <Button
                           content="Grant"
                           onClick={() => act('grant_language', {
@@ -49,9 +48,9 @@ export const LanguageMenu = (props, context) => {
                           onClick={() => act('remove_language', {
                             language_name: language.name,
                           })} />
-                      </Fragment>
+                      </>
                     )}
-                  </Fragment>
+                  </>
                 )}>
                 {language.desc}
                 {' '}

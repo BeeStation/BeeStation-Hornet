@@ -2,7 +2,6 @@ import { map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
 import { pureComponentHooks } from 'common/react';
-import { Component, Fragment } from 'inferno';
 import { Box, Button, Chart, ColorBox, Flex, Icon, LabeledList, ProgressBar, Section, Table } from '../components';
 import { Window } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
@@ -57,7 +56,7 @@ export const PowerMonitorContent = (props, context) => {
       area => -parseFloat(area.load)),
   ])(data.areas);
   return (
-    <Fragment>
+    <>
       <Flex spacing={1}>
         <Flex.Item width="200px">
           <Section>
@@ -171,14 +170,14 @@ export const PowerMonitorContent = (props, context) => {
           ))}
         </Table>
       </Section>
-    </Fragment>
+    </>
   );
 };
 
 const AreaCharge = props => {
   const { charging, charge } = props;
   return (
-    <Fragment>
+    <>
       <Icon
         width="18px"
         textAlign="center"
@@ -206,7 +205,7 @@ const AreaCharge = props => {
         textAlign="right">
         {toFixed(charge) + '%'}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
