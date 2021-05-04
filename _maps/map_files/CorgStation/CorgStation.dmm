@@ -7883,8 +7883,6 @@
 "bQe" = (
 /obj/machinery/door/airlock/research/glass/incinerator/toxmix_interior,
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/engine,
 /area/science/mixing)
 "bQp" = (
@@ -16749,11 +16747,8 @@
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
 "exD" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 10
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume/incinerator_toxmix{
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -29240,6 +29235,9 @@
 /obj/item/nanite_remote,
 /obj/item/nanite_scanner,
 /obj/item/paicard,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -45482,8 +45480,8 @@
 /area/hallway/secondary/command)
 "mBW" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
@@ -51279,17 +51277,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "oiK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 5
-	},
-/turf/open/floor/plasteel,
-/area/science/mixing)
+/turf/closed/wall/r_wall,
+/area/science/mixing/chamber)
 "oiM" = (
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -54344,14 +54336,11 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/theatre)
 "peJ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 10
-	},
-/turf/open/floor/plasteel/white,
-/area/science/mixing)
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/hor)
 "peQ" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/brown,
@@ -57136,12 +57125,6 @@
 	},
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
@@ -62215,9 +62198,7 @@
 /obj/machinery/light_switch{
 	pixel_y = -25
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 5
-	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -65242,8 +65223,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "sum" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -73088,11 +73067,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/supply)
-"uHe" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/turf/open/floor/plasteel/white,
-/area/science/mixing)
 "uHo" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -79645,11 +79619,11 @@
 /area/maintenance/solars/port/fore)
 "wxC" = (
 /obj/machinery/atmospherics/components/binary/pump/on,
-/obj/machinery/atmospherics/components/unary/vent_pump/layer1{
-	dir = 8
-	},
 /obj/machinery/airlock_sensor/incinerator_toxmix{
 	pixel_x = 24
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -85548,8 +85522,8 @@
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/layer3{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 8
 	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
@@ -113097,7 +113071,7 @@ bFD
 bFD
 bFD
 maS
-maS
+oiK
 cah
 cah
 cah
@@ -113613,9 +113587,9 @@ eMp
 tIb
 exD
 bQe
-uHe
+lIO
 sum
-oiK
+aDm
 cah
 ewC
 sRO
@@ -114125,12 +114099,12 @@ bOW
 bOW
 bOW
 bOW
-bOW
+peJ
 bOW
 uwI
 fZf
-peJ
-uHe
+lIO
+lIO
 mVs
 bia
 cah
