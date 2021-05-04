@@ -44,7 +44,7 @@
 
 /obj/item/flashbulb/recharging
 	charges_left = 3
-	var/max_changes = 3
+	var/max_charges = 3
 	var/charge_time = 10 SECONDS
 	var/recharging = FALSE
 
