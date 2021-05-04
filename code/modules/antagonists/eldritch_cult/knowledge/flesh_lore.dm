@@ -41,7 +41,7 @@
 			return
 		var/mob/dead/observer/C = pick(candidates)
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(humie)]) to replace an AFK player.")
-		humie.ghostize(FALSE,SENTIENCE_ERASE)		
+		humie.ghostize(FALSE,SENTIENCE_ERASE)
 		humie.key = C.key
 
 	log_game("[key_name_admin(humie)] has become a voiceless dead, their master is [user.real_name]")
@@ -85,7 +85,7 @@
 	if(!ishuman(target) || target == user)
 		return
 	var/mob/living/carbon/human/human_target = target
-	
+
 	if(QDELETED(human_target) || human_target.stat != DEAD)
 		return
 
@@ -124,7 +124,7 @@
 	spooky_scaries -= humie
 	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 	UnregisterSignal(source, COMSIG_MOB_DEATH)
-	
+
 /datum/eldritch_knowledge/flesh_grasp/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!ishuman(target))
@@ -171,7 +171,7 @@
 	cost = 1
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm,/obj/effect/decal/cleanable/blood)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/raw_prophet
-	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/paralysis)
+	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/alteration)
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/summon/stalker

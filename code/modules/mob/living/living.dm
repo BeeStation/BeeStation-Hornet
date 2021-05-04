@@ -944,7 +944,7 @@
 		return 0
 	if(invisibility || alpha == 0)//cloaked
 		return 0
-	if(digitalcamo || digitalinvis)
+	if(HAS_TRAIT(src, TRAIT_DIGICAMO) || HAS_TRAIT(src, TRAIT_DIGINVIS))
 		return 0
 
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)

@@ -1,5 +1,5 @@
 /datum/eldritch_knowledge/base_ash
-	name = "Nightwatcher's secret"	
+	name = "Nightwatcher's secret"
 	desc = "Opens up the Path of Ash to you. Allows you to transmute a match with a kitchen knife, or its derivatives, into an Ashen Blade."
 	gain_text = "The City Guard know their watch. If you ask them at night, they may tell you about the ashy lantern."
 	banned_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_flesh,/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/final/flesh_final)
@@ -72,7 +72,7 @@
 	desc = "Allows you to transmute any mask, with a candle and a pair of eyes, to create a mask of madness, It causes passive stamina damage to everyone around the wearer and hallucinations, can be forced on a non believer to make him unable to take it off..."
 	result_atoms = list(/obj/item/clothing/mask/void_mask)
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/screwdriver,/obj/effect/decal/cleanable/blood)
-	next_knowledge = list(/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/paralysis)
+	next_knowledge = list(/datum/eldritch_knowledge/guise,/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/alteration)
 	cost = 1
 	route = PATH_ASH
 
