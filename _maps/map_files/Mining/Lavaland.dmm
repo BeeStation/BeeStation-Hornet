@@ -4161,7 +4161,7 @@
 "AC" = (
 /obj/structure/table/reinforced,
 /obj/item/bodypart/head/robot,
-/obj/item/flashbulb/strong{
+/obj/item/flashbulb/recharging/revolution{
 	pixel_x = -5;
 	pixel_y = 8
 	},
