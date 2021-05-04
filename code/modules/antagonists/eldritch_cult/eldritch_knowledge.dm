@@ -319,14 +319,6 @@
 	
 //	---	CRAFTING ---
 
-/datum/eldritch_knowledge/essence
-	name = "Priest's Ritual"
-	desc = "You can now transmute a tank of water and a glass shard into a bottle of eldritch water."
-	gain_text = "This is an old recipe. The Owl whispered it to me."
-	cost = 0
-	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
-	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
-
 /datum/eldritch_knowledge/ashen_eyes
 	name = "Ashen Eyes"
 	gain_text = "Piercing eyes, guide me through the mundane."
@@ -353,6 +345,14 @@
 	next_knowledge = list(/datum/eldritch_knowledge/rust_regen,/datum/eldritch_knowledge/flesh_ghoul)
 	required_atoms = list(/obj/structure/table,/obj/item/clothing/mask/gas)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
+
+/datum/eldritch_knowledge/essence
+	name = "Priest's Ritual"
+	desc = "You can now transmute a tank of water and a glass shard into a bottle of eldritch water."
+	gain_text = "This is an old recipe. The Owl whispered it to me."
+	cost = 1
+	required_atoms = list(/obj/structure/reagent_dispensers/watertank)
+	result_atoms = list(/obj/item/reagent_containers/glass/beaker/eldritch)
 	
 //	---	CURSES ---
 
@@ -360,7 +360,7 @@
 	name = "Curse Of Alteration"
 	gain_text = "Mortal bodies, prisons of flesh. Death, a release..."
 	desc = "Start an alteration ritual by transmuting a wire cutter a hatchet and an item that the victim touched with their bare hands. Inflict a debilitating curse that will cripple your target's body for 2 minutes. Add eyes, ears, limbs or tongues to the mix to disable those organs while the curse is in effect."
-	cost = 0
+	cost = 1
 	required_atoms = list(/obj/item/wirecutters,/obj/item/hatchet)
 	timer = 2 MINUTES
 	var/list/debuffs = list()
