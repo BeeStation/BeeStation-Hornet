@@ -13277,9 +13277,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "dxL" = (
@@ -13375,7 +13372,6 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "dzt" = (
@@ -17832,6 +17828,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "ePA" = (
@@ -28986,9 +28985,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 9
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "hXB" = (
@@ -32961,7 +32957,6 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
 	},
-/obj/structure/fans/tiny,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/computer)
 "iZO" = (
@@ -34633,9 +34628,6 @@
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
-	},
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 2
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -48742,6 +48734,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
+/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "nyG" = (
@@ -56958,7 +56951,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 5
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "pQo" = (
@@ -58372,7 +58367,6 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "qkx" = (
@@ -67197,7 +67191,6 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
 	},
-/obj/structure/fans/tiny,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/computer)
 "sYm" = (
@@ -72011,6 +72004,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/machinery/atmospherics/components/unary/tank/air,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "uqV" = (
@@ -72138,18 +72132,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/chapel/monastery)
-"usy" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "usA" = (
 /obj/machinery/light_switch{
 	pixel_x = -25
@@ -75766,6 +75748,9 @@
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -79869,9 +79854,6 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/machinery/atmospherics/components/unary/tank/air{
-	dir = 2
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "wBb" = (
@@ -83326,11 +83308,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -135507,7 +135489,7 @@ anT
 wHB
 dxD
 qkw
-usy
+qbD
 dzf
 hXz
 kMU
