@@ -93,8 +93,11 @@
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/changeling/attack_hand(mob/user)
-	if(loc == user && user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling))
-		to_chat(user, "<span class='notice'>You reabsorb [src] into your body.</span>")
+	if(loc == user)
+		if(user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling))
+			to_chat(user, "<span class='notice'>You reabsorb [src] into your body.</span>")
+		else
+			to_chat(user, "<span class='notice'>[src] vanishes, it was just an illusion!</span>")
 		qdel(src)
 		return
 	. = ..()
