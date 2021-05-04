@@ -330,19 +330,19 @@
 /datum/eldritch_knowledge/ashen_eyes
 	name = "Ashen Eyes"
 	gain_text = "Piercing eyes, guide me through the mundane."
-	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
+	desc = "Allows you to craft a thermal vision amulet by transmutating eyes with a glass shard."
 	cost = 1
 	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/shard)
 	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
 
 /datum/eldritch_knowledge/guise
-	name = "Ashen Eyes"
-	gain_text = "Piercing eyes, guide me through the mundane."
-	desc = "Allows you to craft thermal vision amulet by transmutating eyes with a glass shard."
+	name = "Guise of Istasha"
+	gain_text = "Hide your form from the ones without a soul."
+	desc = "Allows you to craft a digital camoflage amulet by transmutating a circuit board with a glass shard."
 	cost = 1
 	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift,/datum/eldritch_knowledge/flesh_ghoul)
-	required_atoms = list(/obj/item/organ/eyes,/obj/item/shard)
+	required_atoms = list(/obj/item/circuitboard,/obj/item/shard)
 	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet/guise)
 
 /datum/eldritch_knowledge/armor

@@ -155,8 +155,8 @@
 	trait = TRAIT_XRAY_VISION
 
 /obj/item/clothing/neck/eldritch_amulet/guise
-	name = "Piercing Eldritch Medallion"
-	desc = "A strange medallion. Peering through the crystalline surface, the light refracts into new and terrifying spectrums of color. You see yourself, reflected off cascading mirrors, warped into impossible shapes."
+	name = "Guise of Istasha"
+	desc = "An odd amulet formed out of multiple floating parts, strung togethere by forces from another world."
 	icon_state = "eye_medalion"
 	trait = TRAIT_DIGINVIS
 

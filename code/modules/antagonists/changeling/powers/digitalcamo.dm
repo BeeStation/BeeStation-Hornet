@@ -8,7 +8,7 @@
 //Prevents AIs tracking you but makes you easily detectable to the human-eye.
 /datum/action/changeling/digitalcamo/sting_action(mob/user)
 	..()
-	if(user.digitalcamo)
+	if(HAS_TRAIT(user,TRAIT_DIGICAMO))
 		to_chat(user, "<span class='notice'>We return to normal.</span>")
 		REMOVE_TRAIT(user, TRAIT_DIGICAMO, CHANGELING_TRAIT)
 		REMOVE_TRAIT(user, TRAIT_DIGINVIS, CHANGELING_TRAIT)
