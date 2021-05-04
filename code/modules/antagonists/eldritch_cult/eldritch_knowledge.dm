@@ -359,7 +359,7 @@
 /datum/eldritch_knowledge/curse/alteration
 	name = "Curse Of Alteration"
 	gain_text = "Mortal bodies, prisons of flesh. Death, a release..."
-	desc = "Start an alteration ritual by transmuting a wire cutter a hatchet and an item that the victim touched with their bare hands. Inflict a debilitating curse that will cripple your target's body for 2 minutes. Add eyes, ears, limbs or tongues to the mix to disable those organs while the curse is in effect."
+	desc = "Start an alteration ritual by transmuting a wire cutter, a hatchet and an item that the victim touched with their bare hands. Inflict a debilitating curse that will cripple your target's body for 2 minutes. Add eyes, ears, limbs or tongues to the mix to disable those organs while the curse is in effect."
 	cost = 1
 	required_atoms = list(/obj/item/wirecutters,/obj/item/hatchet)
 	timer = 2 MINUTES
@@ -485,4 +485,3 @@
 	required_atoms = list(/obj/effect/decal/cleanable/vomit,/obj/item/bodypart/head,/obj/item/book)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/rust_spirit
 	next_knowledge = list(/datum/eldritch_knowledge/summon/stalker,/datum/eldritch_knowledge/spell/flame_birth)
-
