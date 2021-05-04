@@ -79,7 +79,7 @@
 		WRITE_LOG(GLOB.world_cloning_log, "CLONING: [text]")
 
 /proc/log_id(text)
-	if(CONFIG_GET(flag/log_id) && SSticker.current_state != GAME_STATE_FINISHED)
+	if(CONFIG_GET(flag/log_id))
 		WRITE_LOG(GLOB.world_id_log, "ID: [text]")
 
 /proc/log_paper(text)
@@ -101,7 +101,7 @@
 		WRITE_LOG(GLOB.world_attack_log, "ATTACK: [text]")
 
 /proc/log_manifest(ckey, datum/mind/mind,mob/body, latejoin = FALSE)
-	if (CONFIG_GET(flag/log_manifest) && SSticker.current_state != GAME_STATE_FINISHED)
+	if (CONFIG_GET(flag/log_manifest))
 		WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"]")
 
 /proc/log_bomber(atom/user, details, atom/bomb, additional_details, message_admins = TRUE)
