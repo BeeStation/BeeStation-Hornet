@@ -124,19 +124,25 @@ export const StatStatus = (props, context) => {
                   </Flex.Item>
                   <Flex.Item mt={2}>
                     {stat.alert_br.text}
+                  </Flex.Item>
+                  <Flex.Item>
                     <Button
                       content="Start"
+                      color="transparent"
                       onClick={e => sendMessage({
                         type: 'stat/pressed',
                         payload: {
                           action_id: 'start_br',
                         },
                       })} />
-                    <Button
-                      content="Dismiss"
-                      onClick={() => dispatch({
-                        type: 'stat/clearAlertBr',
-                      })} />
+                    <Box inline>
+                      <Button
+                        content="Dismiss"
+                        color="transparent"
+                        onClick={() => dispatch({
+                          type: 'stat/clearAlertBr',
+                        })} />
+                    </Box>
                   </Flex.Item>
                 </Flex>
               </Box>
