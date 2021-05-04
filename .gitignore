@@ -216,3 +216,6 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 !/config/jukebox_music/sounds/exclude
 /config/title_music/sounds/*
 !/config/title_music/sounds/exclude
+
+# Common build tooling, C B T
+!/tools/build
