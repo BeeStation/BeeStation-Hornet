@@ -966,11 +966,6 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
-"alw" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/machinery/meter,
-/turf/open/floor/engine,
-/area/engine/engine_room)
 "alH" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced/spawner{
@@ -1855,12 +1850,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"awd" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 9
-	},
-/turf/open/floor/engine,
-/area/engine/engine_room)
 "awf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -3122,14 +3111,6 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/bridge)
-"aJc" = (
-/obj/machinery/atmospherics/components/unary/portables_connector/visible,
-/obj/machinery/portable_atmospherics/canister,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/engine/engine_room)
 "aJg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3537,12 +3518,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
-"aNk" = (
-/obj/machinery/atmospherics/components/trinary/filter/critical{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/engine/engine_room)
 "aNl" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Departures Lounge"
@@ -97486,9 +97461,9 @@ lYK
 qBt
 hPd
 jQA
-alw
 asK
-aNk
+asK
+asK
 aRt
 asK
 asK
@@ -97743,9 +97718,9 @@ kvc
 sPZ
 pPg
 ayH
-aJc
-asK
-awd
+aOn
+aOR
+aOR
 adX
 aHE
 aWF
