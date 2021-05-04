@@ -290,6 +290,9 @@
 						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
 				else
 					to_chat(src, "<span class='warning'>You are sending messages too fast!</span>")
+		if("start_br")
+			if(client.holder && check_rights(R_FUN))
+				client.battle_royale()
 
 /*
  * Sets the current stat tab selected.

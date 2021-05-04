@@ -3,6 +3,7 @@ const initialState = {
   antagonist_popup: null,
   alert_popup: null,
   dead_popup: false,
+  alert_br: false,
   statTabs: [],
   statInfomation: [],
   statTabMode: "Scroll",
@@ -63,6 +64,19 @@ export const statReducer = (state = initialState, action) => {
     return {
       ...state,
       dead_popup: false,
+    };
+  }
+  if (type === 'stat/alertBr') {
+    return {
+      ...state,
+      alert_popup: null,
+      alert_br: payload,
+    };
+  }
+  if (type === 'stat/clearAlertBr') {
+    return {
+      ...state,
+      alert_br: false,
     };
   }
   return state;

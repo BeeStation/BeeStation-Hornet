@@ -133,7 +133,7 @@
  *
  * Clears the message asking an admin to start battle royale
  */
-/datum/tgui_panel/proc/clear_alert_popup()
+/datum/tgui_panel/proc/clear_br_popup()
 	if(!is_ready())
 		return
 	window.send_message("stat/clearAlertBr", list())

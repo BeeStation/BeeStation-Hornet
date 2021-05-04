@@ -699,15 +699,10 @@
 		SSticker.admin_delay_notice = input(usr, "Enter a reason for delaying the round end", "Round Delay Reason") as null|text
 		if(isnull(SSticker.admin_delay_notice))
 			return
-		if(check_rights(R_FUN) && !GLOB.battle_royale)
-			for(var/admin in GLOB.admins)
-				admin.current.client?.tgui_panel?.give_antagonist_popup("Abductor",
-				"Capture and experiment on members of the crew, without being spotted.")
-			//log_admin("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
-			//message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
-			//GLOB.battle_royale = new()
-			//GLOB.battle_royale.ticket_count = TRUE
-			//GLOB.battle_royale.start_async()
+		for(var/client/admin in GLOB.admins)
+			if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel && SSticker.current_state == GAME_STATE_FINISHED)
+				admin.tgui_panel.give_br_popup("Battle Royale",
+				"The round end was delayed, would you like to start Battle Royale?")
 	else
 		if(alert(usr, "Really cancel current round end delay? The reason for the current delay is: \"[SSticker.admin_delay_notice]\"", "Undelay round end", "Yes", "No") != "Yes")
 			return
