@@ -364,7 +364,7 @@
 	flashing_overlay = "flash-hypno"
 	light_color = LIGHT_COLOR_PINK
 	cooldown = 20
-	bulb = /obj/item/flashbulb/recharging/cyborg	//Flashbulb with infinite charges
+	bulb = /obj/item/flashbulb/recharging/revolution
 
 /obj/item/assembly/flash/hypnotic/burn_out()
 	return
