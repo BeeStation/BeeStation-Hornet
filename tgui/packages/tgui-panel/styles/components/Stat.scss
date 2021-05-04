@@ -44,13 +44,13 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
 }
 
 .StatBorder_br {
-  border-left: (1em / 6) solid #844cc3;
+  border-left: (1em / 6) solid #2ace53;
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
   background-image: linear-gradient(to right,
-    rgba(#844cc3, 0.08) 0%,
-    rgba(#844cc3, 0) 40%);
+    rgba(#2ace53, 0.08) 0%,
+    rgba(#2ace53, 0) 40%);
 }
 
 .StatBackground {

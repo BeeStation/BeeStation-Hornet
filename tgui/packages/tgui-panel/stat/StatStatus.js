@@ -258,20 +258,24 @@ export const HoboStatStatus = (props, context) => {
                 <Box>
                   {stat.alert_br.text}
                 </Box>
-                <Box width="100px" inline>
+                <Box>
                   <Button
                     content="Start"
+                    color="transparent"
                     onClick={e => sendMessage({
                       type: 'stat/pressed',
                       payload: {
                         action_id: 'start_br',
                       },
                     })} />
-                  <Button
-                    content="Dismiss"
-                    onClick={() => dispatch({
-                      type: 'stat/clearAlertBr',
-                    })} />
+                  <Box inline>
+                    <Button
+                      content="Dismiss"
+                      color="transparent"
+                      onClick={() => dispatch({
+                        type: 'stat/clearAlertBr',
+                      })} />
+                  </Box>
                 </Box>
               </Box>
             </Section>
