@@ -314,19 +314,19 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	for(var/datum/data/record/R in GLOB.data_core.medical)
+	for(var/datum/data/record/R as() in GLOB.data_core.medical)
 		if((R.fields["name"] == mob_occupant.real_name))
 			qdel(R)
-	for(var/datum/data/record/T in GLOB.data_core.security)
+	for(var/datum/data/record/T as() in GLOB.data_core.security)
 		if((T.fields["name"] == mob_occupant.real_name))
 			qdel(T)
-	for(var/datum/data/record/G in GLOB.data_core.general)
+	for(var/datum/data/record/G as() in GLOB.data_core.general)
 		if((G.fields["name"] == mob_occupant.real_name))
 			announce_rank = G.fields["rank"]
 			qdel(G)
 
-	for(var/obj/machinery/computer/cloning/cloner in world)
-		for(var/datum/data/record/R in cloner.records)
+	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
+		for(var/datum/data/record/R as() in cloner.records)
 			if(R.fields["name"] == mob_occupant.real_name)
 				cloner.records.Remove(R)
 
@@ -361,7 +361,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(!istype(R)) return
 
 		R.contents -= R.mmi
-		qdel(R.mmi)
+		QDEL_NULL(R.mmi)
 
 	// Ghost and delete the mob.
 	if(!mob_occupant.get_ghost(TRUE))
