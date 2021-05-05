@@ -206,7 +206,7 @@
 	desc = "An upgrade to the mining module granting a self-recharging plasma cutter."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = /obj/item/robot_module/miner
+	module_type = list(/obj/item/robot_module/miner)
 
 /obj/item/borg/upgrade/cutter/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
