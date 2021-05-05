@@ -276,6 +276,8 @@
 	var/eggsFertile = TRUE
 	var/body_color
 	var/icon_prefix = "chicken"
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	var/list/feedMessages = list("It clucks happily.","It clucks happily.")
@@ -295,6 +297,8 @@
 	icon_state = "[icon_prefix]_[body_color]"
 	icon_living = "[icon_prefix]_[body_color]"
 	icon_dead = "[icon_prefix]_[body_color]_dead"
+	held_state = "[icon_prefix]_[body_color]"
+	head_icon = 'icons/mob/pets_held_large.dmi'
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 	GLOB.total_chickens++

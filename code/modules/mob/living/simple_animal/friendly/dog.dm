@@ -80,8 +80,10 @@
 	icon_dead = "bullterrier_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3) // Would feel redundant to add more new dog meats.
 	gold_core_spawnable = FRIENDLY_SPAWN
+	worn_slot_flags = ITEM_SLOT_HEAD //by popular demand
 	collar_type = "bullterrier"
 	held_state = "bullterrier"
+	head_icon = 'icons/mob/pets_held_large.dmi'
 
 /mob/living/simple_animal/pet/dog/bullterrier/walter
 	name = "Walter"
@@ -126,7 +128,6 @@
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 	user.set_machine(src)
-
 
 	var/dat = 	"<div align='center'><b>Inventory of [name]</b></div><p>"
 	dat += "<br><B>Head:</B> <A href='?src=[REF(src)];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
