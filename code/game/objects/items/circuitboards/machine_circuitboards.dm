@@ -760,6 +760,16 @@
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 2)
 
+/obj/item/circuitboard/machine/sleeper/fullupgrade
+	name = "Sleeper (Machine Board)"
+	icon_state = "medical"
+	build_path = /obj/machinery/sleeper/syndie/fullupgrade
+	req_components = list(
+		/obj/item/stock_parts/matter_bin/bluespace = 1,
+		/obj/item/stock_parts/manipulator/femto = 1,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/stack/sheet/glass = 2)
+
 /obj/item/circuitboard/machine/smoke_machine
 	name = "smoke machine (Machine Board)"
 	icon_state = "medical"
