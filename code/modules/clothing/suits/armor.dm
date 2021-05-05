@@ -140,7 +140,6 @@
 	strip_delay = 80
 	equip_delay_other = 60
 	slowdown = 0.05
-	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
