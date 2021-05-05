@@ -241,11 +241,12 @@
 	icon_state = "securitybelt"
 	item_state = "security"//Could likely use a better one.
 	content_overlays = TRUE
+	component_type = /datum/component/storage/concrete/egun_slot
 
 /obj/item/storage/belt/security/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_items = 5
+	STR.max_items = 6
 	STR.max_combined_w_class = 18
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.can_hold = typecacheof(list(
@@ -267,7 +268,8 @@
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/holosign_creator/security,
 		/obj/item/club,
-		/obj/item/shield/riot/tele
+		/obj/item/shield/riot/tele,
+		/obj/item/gun/energy
 		))
 
 /obj/item/storage/belt/security/full/PopulateContents()
@@ -295,11 +297,13 @@
 	icon_state = "securitywebbing"
 	item_state = "securitywebbing"
 	content_overlays = FALSE
+	w_class = WEIGHT_CLASS_BULKY
 	custom_premium_price = 800
 
 /obj/item/storage/belt/security/webbing/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_w_class = WEIGHT_CLASS_BULKY
 	STR.max_items = 6
 	STR.max_combined_w_class = 21
 
