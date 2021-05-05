@@ -80,6 +80,7 @@
 
 /obj/item/assembly/flash/examine(mob/user)
 	. = ..()
+	. += "[bulb ? "It looks like you can cut out the flashbulb with a pair of wirecutters." : "The device has no bulb installed."]"
 
 /obj/item/assembly/flash/suicide_act(mob/living/user)
 	if(!bulb)
