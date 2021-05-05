@@ -226,3 +226,8 @@
 	description = "<span class='boldwarning'>MY PRECIOUS WINGS!!</span>\n"
 	mood_change = -10
 	timeout = 10 MINUTES
+
+/datum/mood_event/aquarium_negative
+	description = "<span class='warning'>All the fish are dead...</span>\n"
+	mood_change = -3
+	timeout = 1.5 MINUTES

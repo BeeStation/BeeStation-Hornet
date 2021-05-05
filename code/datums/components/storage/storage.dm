@@ -53,6 +53,11 @@
 	var/screen_pixel_y = 16
 	var/screen_start_x = 4								//These two are where the storage starts being rendered, screen_loc wise.
 	var/screen_start_y = 2
+
+	/// If set can only contain stuff with this single trait present.
+	var/list/can_hold_trait
+
+	var/can_hold_description
 	//End
 
 /datum/component/storage/Initialize(datum/component/storage/concrete/master)
@@ -576,7 +581,7 @@
 			if(!stop_messages)
 				to_chat(M, "<span class='warning'>[host] cannot hold [I]!</span>")
 			return FALSE
-	if(is_type_in_typecache(I, cant_hold)) //Check for specific items which this container can't hold.
+	if(is_type_in_typecache(I, cant_hold) || (can_hold_trait && !HAS_TRAIT(I, can_hold_trait))) //Items which this container can't hold.) //Check for specific items which this container can't hold.
 		if(!stop_messages)
 			to_chat(M, "<span class='warning'>[host] cannot hold [I]!</span>")
 		return FALSE
