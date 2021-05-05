@@ -1,0 +1,4 @@
+author: Sinmero
+delete-after: true
+changes:
+  - rscdel: Removes move sound from chap armor
