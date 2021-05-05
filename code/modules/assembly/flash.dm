@@ -24,7 +24,6 @@
 
 /obj/item/flashbulb/examine(mob/user)
 	. = ..()
-	. += "This one can probably just about handle [charges_left] more uses."
 
 /obj/item/flashbulb/proc/check_working()
 	return charges_left > 0
@@ -81,7 +80,7 @@
 
 /obj/item/assembly/flash/examine(mob/user)
 	. = ..()
-	. += "[bulb ? "The bulb looks like it can handle just about [bulb.charges_left] more uses.\nIt looks like you can cut out the flashbulb with a pair of wirecutters." : "The device has no bulb installed."]"
+	. += "[bulb ? "It looks like you can cut out the flashbulb with a pair of wirecutters." : "The device has no bulb installed."]"
 
 /obj/item/assembly/flash/suicide_act(mob/living/user)
 	if(!bulb)
