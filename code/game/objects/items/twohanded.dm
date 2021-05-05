@@ -513,6 +513,7 @@
 		throwforce = 21
 		icon_prefix = "spearplasma"
 	update_icon()
+	parts_list -= tip
 	qdel(tip)
 	var/obj/item/grenade/G = locate() in parts_list
 	if(G)
