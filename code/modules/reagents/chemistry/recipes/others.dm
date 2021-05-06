@@ -705,6 +705,12 @@
 	results = list(/datum/reagent/mutationtoxin/moth = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/toxin/lipolicide = 10) //I know it's the opposite of what moths like, but I am out of ideas for this.
 
+/datum/chemical_reaction/mutationtoxin/apid
+	name = /datum/reagent/mutationtoxin/apid
+	id = /datum/reagent/mutationtoxin/apid
+	results = list(/datum/reagent/mutationtoxin/apid = 5)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/honey = 20) // beeeeeeeeeeeeeeeeeeeees
+
 /datum/chemical_reaction/mutationtoxin/pod
 	name = /datum/reagent/mutationtoxin/pod
 	id = /datum/reagent/mutationtoxin/pod
