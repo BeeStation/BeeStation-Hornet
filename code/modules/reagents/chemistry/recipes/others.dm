@@ -709,7 +709,7 @@
 	name = /datum/reagent/mutationtoxin/apid
 	id = /datum/reagent/mutationtoxin/apid
 	results = list(/datum/reagent/mutationtoxin/apid = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/honey = 20) // beeeeeeeeeeeeeeeeeeeees
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/honey = 20) // beeeeeeeeeeeeeeeeeeeeees
 
 /datum/chemical_reaction/mutationtoxin/pod
 	name = /datum/reagent/mutationtoxin/pod
