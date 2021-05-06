@@ -89,7 +89,7 @@
 	WRITE_LOG(GLOB.world_asset_log, "ASSET: [text]")
 
 /proc/log_access(text)
-	if (CONFIG_GET(flag/log_access) && SSticker.current_state != GAME_STATE_FINISHED)
+	if (CONFIG_GET(flag/log_access))
 		WRITE_LOG(GLOB.world_game_log, "ACCESS: [text]")
 
 /proc/log_law(text)
