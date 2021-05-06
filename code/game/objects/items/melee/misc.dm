@@ -702,7 +702,7 @@
 				target.emote("scream")
 				target.visible_message("<span class='danger'>[user] whips [target]!</span>", "<span class='userdanger'>[user] whips you! It stings!</span>")
 
-/obj/item/melee/curator_whip/proc/whip_disarm(mob/living/user, mob/living/target, side)
+/obj/item/melee/curator_whip/proc/whip_disarm(mob/living/carbon/user, mob/living/target, side)
 	var/obj/item/I = target.get_held_items_for_side(side)
 	if(I)
 		if(target.dropItemToGround(I))
