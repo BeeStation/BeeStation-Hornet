@@ -747,13 +747,13 @@
 	results = list(/datum/reagent/mutationtoxin/oozeling = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/medicine/calomel = 10, /datum/reagent/toxin/bad_food = 30, /datum/reagent/stable_plasma = 5)
 
+//////////////Mutation toxins made out of advanced toxin/////////////
+
 /datum/chemical_reaction/mutationtoxin/skeleton
 	name = /datum/reagent/mutationtoxin/skeleton
 	id = /datum/reagent/mutationtoxin/skeleton
 	results = list(/datum/reagent/mutationtoxin/skeleton = 5)
-	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/milk = 30, /datum/reagent/toxin/acid/fluacid = 30) //Because acid melts flesh off.
-
-//////////////Mutation toxins made out of advanced toxin/////////////
+	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/consumable/milk = 30, /datum/reagent/toxin/acid/fluacid = 30) //Because acid melts flesh off.
 
 ///datum/chemical_reaction/mutationtoxin/zombie //No zombies untill holopara issue is fixed.
 //	name = /datum/reagent/mutationtoxin/zombie
