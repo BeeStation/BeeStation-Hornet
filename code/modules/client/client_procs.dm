@@ -82,8 +82,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(tgui_Topic(href_list))
 		return
 
-	// Log all hrefs
-	log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
+	// Log all hrefs, except chat pings
+	if(!(href_list["_src_"] == "chat" && href_list["proc"] == "ping" && LAZYLEN(href_list) == 2))
+		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	//byond bug ID:2256651
 	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
