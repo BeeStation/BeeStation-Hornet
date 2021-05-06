@@ -727,6 +727,65 @@
 			log_combat(user, target, "disarmed", src)
 			H.visible_message("<span class='danger'>[user] disarms [H]!</span>", "<span class='userdanger'>[U] disarmed you!</span>")
 
+/obj/item/melee/transforming/energy/energy_whip
+	name = "energy whip"
+	desc = "Eccentric and futuristic."
+	icon_state = "energy_whip0"
+	item_state = "energy_whip0"
+	icon_state_on = "energy_whip1"
+	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
+	slot_flags = ITEM_SLOT_BELT
+	force = 0.001
+	force_on = 15
+	reach = 3
+	light_color = "#ff0000"
+	w_class = WEIGHT_CLASS_NORMAL
+	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
+	hitsound = 'sound/weapons/whip.ogg'
+
+/obj/item/melee/transforming/energy/energy_whip/attack(mob/living/target, mob/living/user)
+	. = ..()
+	var/mob/living/carbon/human/H = target
+	var/mob/living/carbon/human/U = user
+	if(ishuman(target)) // im sure allowing the weapon to still disarm and trip people while active is a good idea
+		if((user.zone_selected == BODY_ZONE_CHEST) || (user.zone_selected == BODY_ZONE_HEAD) || (user.zone_selected == BODY_ZONE_PRECISE_GROIN))
+			H.emote("scream")
+		if((user.zone_selected == BODY_ZONE_R_LEG) || (user.zone_selected == BODY_ZONE_L_LEG))
+			var/dist = get_dist(H, U)
+			if(dist < 2)
+				to_chat(user, "<span class='warning'>[H] is too close to trip with the whip!</span>")
+				return
+			else
+				target.Knockdown(15)
+				log_combat(user, target, "tripped", src)
+				H.visible_message("<span class='danger'>[U] trips [H]!</span>", "<span class='userdanger'>[U] whips your legs out from under you!</span>")
+			return
+		if(user.zone_selected == BODY_ZONE_L_ARM)
+			var/obj/item/I = H.get_held_items_for_side("left")
+			if(I)
+				if(H.dropItemToGround(I))
+					H.visible_message("<span class='danger'>[I] is yanked off [H]'s hand by [src]!</span>","<span class='userdanger'>[U] grabs [I] with [src]!</span>")
+					if(!user.get_inactive_held_item())
+						U.throw_mode_on()
+						U.swap_hand()
+						I.throw_at(user, 10, 2)
+						to_chat(user, "<span class='notice'>You pull [I] towards yourself.</span>")
+			log_combat(user, target, "disarmed", src)
+			H.visible_message("<span class='danger'>[U] disarms [H]!</span>", "<span class='userdanger'>[U] disarmed you!</span>")
+		if(user.zone_selected == BODY_ZONE_R_ARM)
+			var/obj/item/I = H.get_held_items_for_side("right")
+			if(I)
+				if(H.dropItemToGround(I))
+					H.visible_message("<span class='danger'>[I] is yanked off [H]'s hand by [src]!</span>","<span class='userdanger'>[U] grabs [I] with [src]!</span>")
+					to_chat(user, "<span class='notice'>You pull [I] towards yourself.</span>")
+					if(!user.get_inactive_held_item())
+						U.throw_mode_on()
+						U.swap_hand()
+						I.throw_at(user, 10, 2)
+			log_combat(user, target, "disarmed", src)
+			H.visible_message("<span class='danger'>[user] disarms [H]!</span>", "<span class='userdanger'>[U] disarmed you!</span>")
+
 /obj/item/melee/roastingstick
 	name = "advanced roasting stick"
 	desc = "A telescopic roasting stick with a miniature shield generator designed to ensure entry into various high-tech shielded cooking ovens and firepits."
