@@ -1,5 +1,4 @@
 GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
-GLOBAL_LIST_EMPTY(gateways)
 
 /obj/machinery/gateway
 	name = "gateway"
@@ -22,11 +21,6 @@ GLOBAL_LIST_EMPTY(gateways)
 		switch(dir)
 			if(SOUTH,SOUTHEAST,SOUTHWEST)
 				density = FALSE
-	GLOB.gateways += src
-	return ..()
-
-/obj/machinery/gateway/Destroy()
-	GLOB.gateways -= src
 	return ..()
 
 /obj/machinery/gateway/proc/toggleoff()
