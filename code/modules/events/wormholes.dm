@@ -12,7 +12,6 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 	announceWhen = 10
 	endWhen = 60
 
-	var/list/pick_turfs = list()
 	var/list/wormholes = list()
 	var/shift_frequency = 3
 	var/number_of_wormholes = 400
@@ -22,12 +21,8 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 	endWhen = rand(40, 80)
 
 /datum/round_event/wormholes/start()
-	for(var/turf/open/floor/T in world)
-		if(is_station_level(T.z))
-			pick_turfs += T
-
 	for(var/i = 1, i <= number_of_wormholes, i++)
-		var/turf/T = pick(pick_turfs)
+		var/turf/T = get_random_station_turf()	//side effect - wormholes won't spawn in space
 		wormholes += new /obj/effect/portal/wormhole(T, null, 0, null, FALSE)
 
 /datum/round_event/wormholes/announce(fake)
@@ -36,7 +31,7 @@ GLOBAL_LIST_EMPTY(all_wormholes) // So we can pick wormholes to teleport to
 /datum/round_event/wormholes/tick()
 	if(activeFor % shift_frequency == 0)
 		for(var/obj/effect/portal/wormhole/O in wormholes)
-			var/turf/T = pick(pick_turfs)
+			var/turf/T = get_random_station_turf()
 			if(T)
 				O.forceMove(T)
 

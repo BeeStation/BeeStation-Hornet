@@ -86,7 +86,6 @@ GLOBAL_PROTECT(admin_verbs_debug_mapping)
 		for(var/turf/T in seen)
 			T.maptext = MAPTEXT("[seen[T]]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Camera Range") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Camera Range")
 
 #ifdef TESTING
 GLOBAL_LIST_EMPTY(dirty_vars)

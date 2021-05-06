@@ -469,14 +469,15 @@ Code:
 				menu += "<h4>Located Mops:</h4>"
 
 				var/ldat
-				for (var/obj/item/mop/M in world)
-					var/turf/ml = get_turf(M)
+				for(var/area/A as() in get_areas(/area, cl.z))
+					for(var/obj/item/mop/M in A)
+						var/turf/ml = get_turf(M)
 
-					if(ml)
-						if (ml.z != cl.z)
-							continue
-						var/direction = get_dir(src, M)
-						ldat += "Mop - <b>\[[ml.x],[ml.y] ([uppertext(dir2text(direction))])\]</b> - [M.reagents.total_volume ? "Wet" : "Dry"]<br>"
+						if(ml)
+							if (ml.z != cl.z)
+								continue
+							var/direction = get_dir(src, M)
+							ldat += "Mop - <b>\[[ml.x],[ml.y] ([uppertext(dir2text(direction))])\]</b> - [M.reagents.total_volume ? "Wet" : "Dry"]<br>"
 
 				if (!ldat)
 					menu += "None"
@@ -486,14 +487,15 @@ Code:
 				menu += "<h4>Located Janitorial Cart:</h4>"
 
 				ldat = null
-				for (var/obj/structure/janitorialcart/B in world)
-					var/turf/bl = get_turf(B)
+				for(var/area/A as() in get_areas(/area, cl.z))
+					for(var/obj/structure/janitorialcart/B in A)
+						var/turf/bl = get_turf(B)
 
-					if(bl)
-						if (bl.z != cl.z)
-							continue
-						var/direction = get_dir(src, B)
-						ldat += "Cart - <b>\[[bl.x],[bl.y] ([uppertext(dir2text(direction))])\]</b> - Water level: [B.reagents.total_volume]/100<br>"
+						if(bl)
+							if (bl.z != cl.z)
+								continue
+							var/direction = get_dir(src, B)
+							ldat += "Cart - <b>\[[bl.x],[bl.y] ([uppertext(dir2text(direction))])\]</b> - Water level: [B.reagents.total_volume]/100<br>"
 
 				if (!ldat)
 					menu += "None"
