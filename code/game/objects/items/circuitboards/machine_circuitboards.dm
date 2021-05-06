@@ -761,7 +761,7 @@
 	icon_state = "science"
 	build_path = /obj/machinery/mineral/bluespace_miner
 	req_components = list(
-		/obj/item/stock_parts/capacitor/quadratic = 1,
+		/obj/item/stock_parts/capacitor = 1,
 		/obj/item/stock_parts/matter_bin = 3,
 		/obj/item/stock_parts/micro_laser = 1,
 		/obj/item/stock_parts/manipulator = 3,
