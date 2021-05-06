@@ -85,9 +85,13 @@
 	var/T = 0
 	for(var/obj/item/stock_parts/matter_bin/MB in component_parts)
 		T += MB.rating*75000
-	var/datum/component/material_container/materials = get_material_container()
+	//Material container
+	var/datum/component/remote_materials/materials = GetComponent(/datum/component/remote_materials)
 	if(materials)
-		materials.max_amount = T
+		materials.set_local_size(T)
+	else
+		var/datum/component/material_container/container = GetComponent(/datum/component/material_container)
+		container.max_amount = T
 	T=1.2
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T -= M.rating*0.2
