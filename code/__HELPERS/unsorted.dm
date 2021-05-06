@@ -597,13 +597,13 @@ Returns: A list of all areas of that type in the world.
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
 			if(cache[A.type])
-				if(A.z == target_z || target_z == 0)
+				if(target_z == 0 || A.z == target_z)
 					areas += V
 	else
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
 			if(A.type == areatype)
-				if(A.z == target_z || target_z == 0)
+				if(target_z == 0 || A.z == target_z)
 					areas += V
 	return areas
 
