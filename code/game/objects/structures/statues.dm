@@ -54,7 +54,8 @@
 
 /obj/structure/statue/uranium
 	max_integrity = 300
-	light_range = 2
+	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = FANCY_LIGHTING
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
 	var/last_event = 0
 	var/active = null

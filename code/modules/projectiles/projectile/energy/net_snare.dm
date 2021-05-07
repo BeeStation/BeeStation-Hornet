@@ -28,6 +28,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "dragnetfield"
 	light_range = 3
+	light_source_type = FANCY_LIGHTING
 	anchored = TRUE
 
 /obj/effect/nettingportal/Initialize()

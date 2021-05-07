@@ -223,7 +223,8 @@ Difficulty: Very Hard
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
-	light_range = 2
+	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = FANCY_LIGHTING
 	duration = 8
 	var/target
 
@@ -384,6 +385,7 @@ Difficulty: Very Hard
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
 	light_range = 8
+	light_source_type = FANCY_LIGHTING
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	use_power = NO_POWER_USE
 	anchored = FALSE

@@ -13,7 +13,7 @@
 	 *  - Has trouble with moving light sources.
 	 * Set this to true for static light sources that are very numerous. For example station lights, lava etc.
 	 */
-	var/is_legacy_light_source = FALSE
+	var/light_source_type = LEGACY_LIGHTING
 
 	//Values should avoid being close to -16, 16, -48, 48 etc.
 	//Best keep them within 10 units of a multiple of 32, as when the light is closer to a wall, the probability
@@ -57,7 +57,7 @@
 // Creates or destroys it if needed, makes it update values, makes sure it's got the correct source turf...
 /atom/proc/update_light()
 	set waitfor = FALSE
-	if(is_legacy_light_source)
+	if(light_source_type == LEGACY_LIGHTING)
 		legacy_update_light()
 		return
 

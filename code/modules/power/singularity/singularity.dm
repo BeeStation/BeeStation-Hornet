@@ -9,7 +9,11 @@
 	density = TRUE
 	move_resist = INFINITY
 	layer = MASSIVE_OBJ_LAYER
-	light_range = 6
+	//It's a black hole, it sucks in the light
+	light_power = -10
+	light_color = LIGHT_COLOR_WHITE
+	light_range = 12
+	light_source_type = FANCY_LIGHTING
 	appearance_flags = 0
 	var/current_size = 1
 	var/allowed_size = 1

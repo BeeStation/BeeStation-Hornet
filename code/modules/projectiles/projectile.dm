@@ -13,6 +13,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	movement_type = FLYING
 	hitsound = 'sound/weapons/pierce.ogg'
+	light_source_type = FANCY_LIGHTING
 	var/hitsound_wall = ""
 
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -109,6 +110,8 @@
 	var/temporary_unstoppable_movement = FALSE
 
 /obj/item/projectile/Initialize()
+	//Stop displaying light before it initializes
+	light_range = 0
 	. = ..()
 	permutated = list()
 	decayedRange = range
@@ -369,6 +372,8 @@
 		pixel_move(1, FALSE)
 
 /obj/item/projectile/proc/fire(angle, atom/direct_target)
+	//Start showing light
+	update_light(initial(light_range))
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)
 	//If no angle needs to resolve it from xo/yo!

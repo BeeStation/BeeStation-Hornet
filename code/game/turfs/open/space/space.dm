@@ -12,8 +12,6 @@
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 700000
 
-	is_legacy_light_source = TRUE
-
 	var/destination_z
 	var/destination_x
 	var/destination_y

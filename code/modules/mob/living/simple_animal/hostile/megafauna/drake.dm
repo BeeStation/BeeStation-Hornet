@@ -409,7 +409,8 @@ Difficulty: Medium
 /obj/effect/temp_visual/lava_warning
 	icon_state = "lavastaff_warn"
 	layer = BELOW_MOB_LAYER
-	light_range = 2
+	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = FANCY_LIGHTING
 	duration = 13
 
 /obj/effect/temp_visual/lava_warning/ex_act()
@@ -461,7 +462,8 @@ Difficulty: Medium
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "trap-earth"
 	layer = BELOW_MOB_LAYER
-	light_range = 2
+	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = FANCY_LIGHTING
 	duration = 13
 
 /obj/effect/temp_visual/dragon_swoop
@@ -529,7 +531,8 @@ Difficulty: Medium
 	icon = 'icons/mob/actions/actions_items.dmi'
 	icon_state = "sniper_zoom"
 	layer = BELOW_MOB_LAYER
-	light_range = 2
+	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = FANCY_LIGHTING
 	duration = 9
 
 /obj/effect/temp_visual/target/ex_act()

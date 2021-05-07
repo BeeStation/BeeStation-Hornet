@@ -1,4 +1,10 @@
+
+//Light modes
+#define LEGACY_LIGHTING 0
+#define FANCY_LIGHTING 1
+
 #define MINIMUM_USEFUL_LIGHT_RANGE 1.4
+#define MINIMUM_LIGHT_SHADOW_RADIUS 2
 
 #define LIGHTING_ICON 'icons/effects/lighting_object.dmi' //! icon used for lighting shading effects
 #define LIGHTING_ICON_BIG 'icons/effects/lighting_object_big.dmi' //! icon used for lighting shading effects
@@ -36,7 +42,7 @@
 #define LIGHT_COLOR_TUNGSTEN   "#FAE1AF" //! Extremely diluted yellow, close to skin color (for some reason). rgb(250, 225, 175)
 #define LIGHT_COLOR_HALOGEN    "#F0FAFA" //! Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
 
-#define LIGHT_RANGE_FIRE		3 //! How many tiles standard fires glow.
+#define LIGHT_RANGE_FIRE		MINIMUM_LIGHT_SHADOW_RADIUS //! How many tiles standard fires glow.
 
 #define LIGHTING_PLANE_ALPHA_VISIBLE 255
 #define LIGHTING_PLANE_ALPHA_NV_TRAIT 250

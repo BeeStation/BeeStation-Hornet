@@ -45,6 +45,7 @@
 	light_range = LIGHT_RANGE_FIRE
 	light_color = LIGHT_COLOR_FIRE
 	light_mask_type = /atom/movable/lighting_mask/flicker
+	light_source_type = FANCY_LIGHTING	//Note: This could cause clientside lag for big fires.
 	blend_mode = BLEND_ADD
 
 	var/volume = 125
@@ -242,5 +243,7 @@
 	name = "fire"
 	light_color = LIGHT_COLOR_FIRE
 	light_range = LIGHT_RANGE_FIRE
+	light_source_type = FANCY_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/flicker
 
 #undef INSUFFICIENT

@@ -15,6 +15,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	light_mask_type = /atom/movable/lighting_mask/conical
+	light_source_type = FANCY_LIGHTING
 	var/rad_count = 0
 	var/rad_record = 0
 	var/grace_count = 0

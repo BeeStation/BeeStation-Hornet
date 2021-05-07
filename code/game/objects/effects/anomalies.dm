@@ -7,6 +7,7 @@
 	density = FALSE
 	anchored = TRUE
 	light_range = 3
+	light_source_type = FANCY_LIGHTING
 	var/movechance = 70
 	var/obj/item/assembly/signaler/anomaly/aSignal
 	var/area/impact_area

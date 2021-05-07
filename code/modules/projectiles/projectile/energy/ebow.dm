@@ -9,8 +9,8 @@
 	eyeblur = 10
 	knockdown = 10
 	slur = 5
-	//light_range = 1.2
-	//light_color = "#00CC33"
+	light_range = 1.2
+	light_color = "#00CC33"
 
 /obj/item/projectile/energy/bolt/radbolt
 	name = "bolt"

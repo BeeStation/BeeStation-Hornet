@@ -171,7 +171,7 @@
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
 
 	//We are too small to consider shadows on, luminsoty has been considered at least.
-	if(radius < 2)
+	if(radius <= MINIMUM_LIGHT_SHADOW_RADIUS)
 		return
 
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to process view([range], src)."))
