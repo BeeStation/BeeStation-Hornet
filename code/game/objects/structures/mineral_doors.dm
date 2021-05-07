@@ -220,7 +220,8 @@
 	icon_state = "uranium"
 	sheetType = /obj/item/stack/sheet/mineral/uranium
 	max_integrity = 300
-	light_range = 2
+	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = FANCY_LIGHTING
 
 /obj/structure/mineral_door/uranium/ComponentInitialize()
 	return

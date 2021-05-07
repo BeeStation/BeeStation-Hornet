@@ -12,8 +12,6 @@
 	thermal_conductivity = 0
 	heat_capacity = 700000
 
-	is_legacy_light_source = TRUE
-
 	var/destination_z
 	var/destination_x
 	var/destination_y

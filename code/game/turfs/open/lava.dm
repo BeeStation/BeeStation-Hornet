@@ -7,7 +7,6 @@
 	baseturfs = /turf/open/lava //lava all the way down
 	slowdown = 2
 
-	is_legacy_light_source = TRUE
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA

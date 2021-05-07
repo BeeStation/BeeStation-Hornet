@@ -199,7 +199,6 @@
 	idle_power_usage = 2
 	active_power_usage = 20
 	light_pixel_y = -8
-	is_legacy_light_source = TRUE
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE

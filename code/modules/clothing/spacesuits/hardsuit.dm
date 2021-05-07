@@ -19,6 +19,7 @@
 	var/radiation_count = 0
 	var/grace = RAD_GEIGER_GRACE_PERIOD
 	light_mask_type = /atom/movable/lighting_mask/conical
+	light_source_type = FANCY_LIGHTING
 	var/datum/looping_sound/geiger/soundloop
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize()

@@ -80,6 +80,7 @@
 	icon_state = "mending_mantra"
 	light_range = 1.5
 	light_color = "#1E8CE1"
+	light_source_type = FANCY_LIGHTING
 
 /obj/effect/temp_visual/ratvar/mending_mantra/Initialize(mapload)
 	. = ..()

@@ -3,7 +3,6 @@
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	damage = 20
-	light_range = 2
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
@@ -16,7 +15,7 @@
 	reflectable = REFLECT_NORMAL
 	light_power = 2
 	light_range = 1.6
-	light_color = "#00CC33"
+	light_color = "#eb4040"
 
 /obj/item/projectile/beam/laser
 	tracer_type = /obj/effect/projectile/tracer/laser

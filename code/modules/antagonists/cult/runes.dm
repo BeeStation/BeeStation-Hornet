@@ -334,6 +334,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	color = RUNE_COLOR_TELEPORT
 	req_keyword = TRUE
 	light_power = 4
+	light_source_type = FANCY_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/flicker
 	var/obj/effect/temp_visual/cult/portal/inner_portal //The portal "hint" for off-station teleportations
 	var/obj/effect/temp_visual/cult/rune_spawn/rune2/outer_portal
 	var/listkey

@@ -23,6 +23,7 @@
 	light_power = 1.3
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_FIRE
+	light_source_type = FANCY_LIGHTING
 
 /obj/effect/particle_effect/sparks/Initialize()
 	..()

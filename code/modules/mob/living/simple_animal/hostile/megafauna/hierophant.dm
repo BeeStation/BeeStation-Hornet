@@ -500,7 +500,8 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/squares
 	icon_state = "hierophant_squares"
 	duration = 3
-	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = FANCY_LIGHTING
 	randomdir = FALSE
 
 /obj/effect/temp_visual/hierophant/squares/Initialize(mapload, new_caster)
@@ -513,7 +514,8 @@ Difficulty: Hard
 	name = "vortex wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	icon_state = "wall"
-	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = FANCY_LIGHTING
 	duration = 100
 	smooth = SMOOTH_TRUE
 
@@ -626,7 +628,9 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/blast
 	icon_state = "hierophant_blast"
 	name = "vortex blast"
-	light_range = 2
+	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = FANCY_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/flicker
 	light_power = 2
 	desc = "Get out of the way!"
 	duration = 9
@@ -702,7 +706,8 @@ Difficulty: Hard
 	desc = "A strange beacon, allowing mass teleportation for those able to use it."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "hierophant_tele_off"
-	light_range = 2
+	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = FANCY_LIGHTING
 	layer = LOW_OBJ_LAYER
 	anchored = TRUE
 
