@@ -80,7 +80,7 @@
 	desc = "These gloves would protect the wearer from electric shock... if the fingers were covered."
 	name = "fingerless insulated gloves"
 	icon_state = "yellowcut"
-	inhand_icon_state = "ygloves"
+	item_state = "ygloves"
 	transfer_prints = TRUE
 
 /obj/item/clothing/gloves/cut/heirloom
