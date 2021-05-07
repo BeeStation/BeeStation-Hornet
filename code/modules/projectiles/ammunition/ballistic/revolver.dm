@@ -5,6 +5,9 @@
 	desc = "A .357 bullet casing."
 	caliber = "357"
 	projectile_type = /obj/item/projectile/bullet/a357
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE
 
 // 7.62x38mmR (Nagant Revolver)
 
@@ -13,6 +16,9 @@
 	desc = "A 7.62x38mmR bullet casing."
 	caliber = "n762"
 	projectile_type = /obj/item/projectile/bullet/n762
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE
 
 // .38 (Detective's Gun)
 
@@ -21,23 +27,35 @@
 	desc = "A .38 bullet casing."
 	caliber = "38"
 	projectile_type = /obj/item/projectile/bullet/c38
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c38/trac
 	name = ".38 TRAC bullet casing"
 	desc = "A .38 \"TRAC\" bullet casing."
 	projectile_type = /obj/item/projectile/bullet/c38/trac
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c38/hotshot
 	name = ".38 Hot Shot bullet casing"
 	desc = "A .38 Hot Shot bullet casing."
 	caliber = "38"
 	projectile_type = /obj/item/projectile/bullet/c38/hotshot
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c38/iceblox
 	name = ".38 Iceblox bullet casing"
 	desc = "A .38 Iceblox bullet casing."
 	caliber = "38"
 	projectile_type = /obj/item/projectile/bullet/c38/iceblox
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/caseless/mime
 	name = "invisible .38 bullet casing"
@@ -48,4 +66,7 @@
 
 /obj/item/ammo_casing/caseless/mime/lethals
 	projectile_type = /obj/item/projectile/bullet/c38
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE
 

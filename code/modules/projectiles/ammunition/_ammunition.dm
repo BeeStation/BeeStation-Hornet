@@ -8,6 +8,8 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(/datum/material/iron = 500)
+	var/flash_power = 0
+	var/flash_colour = LIGHT_COLOR_FIRE
 	var/fire_sound = null						//What sound should play when this ammo is fired
 	var/caliber = null							//Which kind of guns it can be loaded into
 	var/projectile_type = null					//The bullet type to create when New() is called

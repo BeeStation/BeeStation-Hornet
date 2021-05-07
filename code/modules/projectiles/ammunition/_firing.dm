@@ -1,4 +1,13 @@
 /obj/item/ammo_casing/proc/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, spread_mult = 1, atom/fired_from)
+	if(flash_power)
+		//Iteratively loop to find the parent
+		//Prevent bag of holding loop shenanigans
+		var/max_depth = 5
+		var/atom/movable/parent_item = fired_from
+		while(max_depth > 0 && parent_item.loc && !isturf(parent_item.loc))
+			max_depth --
+			parent_item = fired_from.loc
+		flash_lighting_fx(MINIMUM_LIGHT_SHADOW_RADIUS, flash_power, flash_colour, 8, TRUE, 1, /atom/movable/lighting_mask/conical, parent_item.dir)
 	distro += variance
 	for (var/i = max(1, pellets), i > 0, i--)
 		var/targloc = get_turf(target)

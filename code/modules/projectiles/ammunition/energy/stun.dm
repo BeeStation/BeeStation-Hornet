@@ -4,6 +4,9 @@
 	fire_sound = 'sound/weapons/taser.ogg'
 	e_cost = 200
 	harmful = FALSE
+	//Taser flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_YELLOW
 
 /obj/item/ammo_casing/energy/electrode/spec
 	e_cost = 100
@@ -24,6 +27,9 @@
 	e_cost = 40
 	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
+	//Disabler flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_PALEBLUE
 
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 50
