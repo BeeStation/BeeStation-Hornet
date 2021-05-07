@@ -174,7 +174,8 @@
 	layer = BACKGROUND_LAYER + LIGHTING_PRIMARY_DIMMER_LAYER
 	color = "#000"
 	show_when_dead = TRUE
-	alpha = 60
+	//Dims the legacy lighting layer so hybrid lights can still be on top
+	alpha = 20
 
 /atom/movable/screen/fullscreen/lighting_backdrop/backplane
 	invisibility = INVISIBILITY_LIGHTING
