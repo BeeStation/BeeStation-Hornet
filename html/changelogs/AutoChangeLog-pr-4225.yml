@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Changeling item will not delete on drop.
-  - tweak: Changeling items can be deleted by non changelings by clicking on it.
