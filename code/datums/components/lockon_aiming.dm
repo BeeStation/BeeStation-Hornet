@@ -18,6 +18,7 @@
 	var/list/last_location
 	var/datum/callback/on_lock
 	var/datum/callback/can_target_callback
+	var/aiming_params
 
 /datum/component/lockon_aiming/Initialize(range, list/typecache, amount, list/immune, datum/callback/when_locked, icon, icon_state, datum/callback/target_callback)
 	if(!ismob(parent))
@@ -123,7 +124,8 @@
 	var/mob/M = parent
 	if(!istype(M) || !M.client)
 		return
-	var/datum/position/P = mouse_absolute_datum_map_position_from_client(M.client)
+	aiming_params = params
+	var/datum/position/P = mouse_absolute_datum_map_position_from_client(M.client, aiming_params)
 	if(!P)
 		return
 	var/turf/T = P.return_turf()
@@ -163,7 +165,7 @@
 	var/mob/M = parent
 	if(!M.client)
 		return FALSE
-	var/datum/position/current = mouse_absolute_datum_map_position_from_client(M.client)
+	var/datum/position/current = mouse_absolute_datum_map_position_from_client(M.client, aiming_params)
 	var/turf/target = current.return_turf()
 	var/list/atom/targets = get_nearest(target, target_typecache, lock_amount, lock_cursor_range)
 	if(targets == LOCKON_IGNORE_RESULT)
