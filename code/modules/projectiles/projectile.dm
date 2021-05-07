@@ -373,7 +373,7 @@
 
 /obj/item/projectile/proc/fire(angle, atom/direct_target)
 	//Start showing light
-	update_light(initial(light_range))
+	set_light(initial(light_range))
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_BEFORE_FIRE, src, original)
 	//If no angle needs to resolve it from xo/yo!
