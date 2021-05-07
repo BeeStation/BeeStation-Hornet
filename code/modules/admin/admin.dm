@@ -701,8 +701,7 @@
 			return
 		for(var/client/admin in GLOB.admins)
 			if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel && SSticker.current_state == GAME_STATE_FINISHED)
-				admin.tgui_panel.give_br_popup("Battle Royale",
-				"The round end was delayed, would you like to start Battle Royale?")
+				admin.tgui_panel.give_br_popup()
 	else
 		if(alert(usr, "Really cancel current round end delay? The reason for the current delay is: \"[SSticker.admin_delay_notice]\"", "Undelay round end", "Yes", "No") != "Yes")
 			return

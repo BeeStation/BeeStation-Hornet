@@ -120,13 +120,10 @@
  *
  * Displays the message asking an admin to start battle royale
  */
-/datum/tgui_panel/proc/give_br_popup(title, text)
+/datum/tgui_panel/proc/give_br_popup()
 	if(!is_ready())
 		return
-	var/list/payload = list()
-	payload["title"] = title
-	payload["text"] = text
-	window.send_message("stat/alertBr", payload)
+	window.send_message("stat/alertBr")
 
 /**
  * public
