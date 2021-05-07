@@ -7,6 +7,7 @@
 	earliest_start = 30 MINUTES
 	dynamic_should_hijack = TRUE
 	gamemode_blacklist = list("nuclear")
+	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event_control/pirates/preRunEvent()
 	if (!SSmapping.empty_space)

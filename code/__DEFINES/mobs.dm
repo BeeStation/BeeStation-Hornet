@@ -370,3 +370,15 @@
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
+
+// Mob Playability Set By Admin Or Ghosting
+#define SENTIENCE_SKIP 0
+#define SENTIENCE_RETAIN 1	//a player ghosting out of the mob will make the mob playable for others, if it was already playable
+#define SENTIENCE_FORCE 2		//the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+#define SENTIENCE_ERASE 3
+
+//Flavor Text When Entering A Playable Mob
+#define FLAVOR_TEXT_EVIL "evil"	//mob antag
+#define FLAVOR_TEXT_GOOD "good"	//ie do not cause evil
+#define FLAVOR_TEXT_NONE "none"
+#define FLAVOR_TEXT_GOAL_ANTAG "blob"	//is antag, but should work towards its goals
