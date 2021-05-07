@@ -6,6 +6,9 @@
 	icon_state = "762-casing"
 	caliber = "mm71282"
 	projectile_type = /obj/item/projectile/bullet/mm712x82
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/mm712x82/ap
 	name = "7.12x82mm armor-piercing bullet casing"

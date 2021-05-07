@@ -2,18 +2,27 @@
 	projectile_type = /obj/item/projectile/ion
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
+	//Ion flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_LIGHT_CYAN
 
 /obj/item/ammo_casing/energy/declone
 	projectile_type = /obj/item/projectile/energy/declone
 	select_name = "declone"
 	fire_sound = 'sound/weapons/pulse3.ogg'
-	
+	//Radioactive flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_GREEN
+
 /obj/item/ammo_casing/energy/declone/weak
 	projectile_type = /obj/item/projectile/energy/declone/weak
 
 /obj/item/ammo_casing/energy/flora
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	harmful = FALSE
+	//Radioactive flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_GREEN
 
 /obj/item/ammo_casing/energy/flora/yield
 	projectile_type = /obj/item/projectile/energy/florayield
@@ -28,10 +37,16 @@
 	select_name = "freeze"
 	e_cost = 100
 	fire_sound = 'sound/weapons/pulse3.ogg'
+	//Cold flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_PALEBLUE
 
 /obj/item/ammo_casing/energy/temp/hot
 	projectile_type = /obj/item/projectile/temp/hot
 	select_name = "bake"
+	//Hot flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_RED
 
 /obj/item/ammo_casing/energy/meteor
 	projectile_type = /obj/item/projectile/meteor
@@ -53,6 +68,9 @@
 	projectile_type = /obj/item/projectile/beam/instakill
 	e_cost = 0
 	select_name = "DESTROY"
+	//Laser flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_RED
 
 /obj/item/ammo_casing/energy/instakill/blue
 	projectile_type = /obj/item/projectile/beam/instakill/blue
@@ -65,3 +83,6 @@
 	e_cost = 200
 	select_name = "stun"
 	projectile_type = /obj/item/projectile/energy/tesla/revolver
+	//Taser flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_YELLOW

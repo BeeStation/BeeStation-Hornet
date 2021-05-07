@@ -5,6 +5,9 @@
 	desc = "A 4.6x30mm bullet casing."
 	caliber = "4.6x30mm"
 	projectile_type = /obj/item/projectile/bullet/c46x30mm
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c46x30mm/ap
 	name = "4.6x30mm armor-piercing bullet casing"
@@ -23,3 +26,6 @@
 	desc = "A .45 bullet casing."
 	caliber = ".45"
 	projectile_type = /obj/item/projectile/bullet/c45
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE

@@ -7,6 +7,9 @@
 	caliber = "shotgun"
 	projectile_type = /obj/item/projectile/bullet/shotgun_slug
 	materials = list(/datum/material/iron=4000)
+	//Bullet flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
@@ -41,6 +44,9 @@
 	icon_state = "stunshell"
 	projectile_type = /obj/item/projectile/bullet/shotgun_stunslug
 	materials = list(/datum/material/iron=250)
+	//Taser flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_YELLOW
 
 /obj/item/ammo_casing/shotgun/meteorslug
 	name = "meteorslug shell"
@@ -55,6 +61,9 @@
 	would have difficulty with."
 	icon_state = "pshell"
 	projectile_type = /obj/item/projectile/beam/pulse/shotgun
+	//Pulse flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_BLUE
 
 /obj/item/ammo_casing/shotgun/frag12
 	name = "FRAG-12 slug"
@@ -105,6 +114,9 @@
 	projectile_type = /obj/item/projectile/ion/weak
 	pellets = 4
 	variance = 35
+	//Ion flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_LIGHT_CYAN
 
 /obj/item/ammo_casing/shotgun/laserslug
 	name = "scatter laser shell"
@@ -113,6 +125,9 @@
 	projectile_type = /obj/item/projectile/beam/weak
 	pellets = 6
 	variance = 35
+	//Laser flash
+	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_colour = LIGHT_COLOR_RED
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"
@@ -125,6 +140,7 @@
 	desc = "A dart for use in shotguns. Can be injected with up to 30 units of any chemical."
 	icon_state = "cshell"
 	projectile_type = /obj/item/projectile/bullet/dart
+	light_power = 0
 	var/reagent_amount = 30
 
 /obj/item/ammo_casing/shotgun/dart/Initialize()
