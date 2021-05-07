@@ -696,9 +696,7 @@
 		if(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 			whip_trip(user, target)
 		else
-			if(target.getarmor(type = "melee") < 16)
-				target.emote("scream")
-				target.visible_message("<span class='danger'>[user] whips [target]!</span>", "<span class='userdanger'>[user] whips you! It stings!</span>")
+			whip_lash(user, target)
 
 /obj/item/melee/curator_whip/proc/whip_disarm(mob/living/carbon/user, mob/living/target, side)
 	var/obj/item/I = target.get_held_items_for_side(side)
@@ -719,6 +717,11 @@
 	target.Knockdown(3 SECONDS)
 	log_combat(user, target, "tripped", src)
 	target.visible_message("<span class='danger'>[user] knocks [target] off [target.p_their()] feet!</span>", "<span class='userdanger'>[user] yanks your legs out from under you!</span>")
+
+/obj/item/melee/curator_whip/proc/whip_lash(mob/living/user, mob/living/target)
+	if(target.getarmor(type = "melee") < 16)
+		target.emote("scream")
+		target.visible_message("<span class='danger'>[user] whips [target]!</span>", "<span class='userdanger'>[user] whips you! It stings!</span>")
 
 /obj/item/melee/roastingstick
 	name = "advanced roasting stick"
