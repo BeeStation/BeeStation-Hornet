@@ -7,6 +7,8 @@
 #define COLOR_DARKMODE_DARKBACKGROUND "#171717"
 #define COLOR_DARKMODE_TEXT "#a4bad6"
 
+#define COLOR_HALF_TRANSPARENT_BLACK    "#0000007A"
+
 #define COLOR_WHITE            "#EEEEEE"
 #define COLOR_SILVER           "#C0C0C0"
 #define COLOR_GRAY             "#808080"
