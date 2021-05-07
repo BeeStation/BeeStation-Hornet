@@ -693,9 +693,7 @@
 			whip_disarm(user, target, "left")
 		if(BODY_ZONE_R_ARM)
 			whip_disarm(user, target, "right")
-		if(BODY_ZONE_R_LEG)
-			whip_trip(user, target)
-		if(BODY_ZONE_L_LEG)
+		if(BODY_ZONE_R_LEG || BODY_ZONE_L_LEG)
 			whip_trip(user, target)
 		else
 			if(target.getarmor(type = "melee") < 16)
