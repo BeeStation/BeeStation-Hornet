@@ -9,6 +9,7 @@
 	speed = 0.4
 	hitsound = 'sound/weapons/emitter2.ogg'
 	impact_type = /obj/effect/projectile/impact/xray
+	light_source_type = FANCY_LIGHTING
 	var/static/list/particle_colors = list(
 		"red" = "#FF0000",
 		"blue" = "#00FF00",

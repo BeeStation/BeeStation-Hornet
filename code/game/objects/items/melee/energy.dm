@@ -5,6 +5,8 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
+	light_mask_type = /atom/movable/lighting_mask/flicker
+	light_source_type = FANCY_LIGHTING
 	var/brightness_on = 3
 
 /obj/item/melee/transforming/energy/Initialize()

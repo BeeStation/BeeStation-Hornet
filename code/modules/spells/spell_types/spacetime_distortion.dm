@@ -72,6 +72,7 @@
 	name = "spacetime distortion"
 	desc = "A distortion in spacetime. You can hear faint music..."
 	icon_state = ""
+	light_source_type = FANCY_LIGHTING
 	var/obj/effect/cross_action/spacetime_dist/linked_dist
 	var/busy = FALSE
 	var/sound

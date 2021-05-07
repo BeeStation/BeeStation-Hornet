@@ -4,6 +4,8 @@
 	icon = 'icons/obj/candle.dmi'
 	icon_state = "candle1"
 	light_color = LIGHT_COLOR_FIRE
+	light_source_type = FANCY_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/flicker
 
 	var/icon_state_active = "candle1_lit"
 	var/icon_state_inactive = "candle1"

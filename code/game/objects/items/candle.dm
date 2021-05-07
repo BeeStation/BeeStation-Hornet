@@ -9,7 +9,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	light_color = LIGHT_COLOR_FIRE
 	heat = 1000
-	/// How many seconds it burns for
+	light_mask_type = /atom/movable/lighting_mask/flicker
+	light_source_type = FANCY_LIGHTING
 	var/wax = 2000
 	var/lit = FALSE
 	var/infinite = FALSE

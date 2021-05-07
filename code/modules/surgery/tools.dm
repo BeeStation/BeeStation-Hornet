@@ -319,6 +319,7 @@
 	toolspeed = 0.7
 	light_color = LIGHT_COLOR_GREEN
 	sharpness = IS_SHARP_ACCURATE
+	light_source_type = FANCY_LIGHTING
 
 /obj/item/scalpel/advanced/Initialize()
 	. = ..()

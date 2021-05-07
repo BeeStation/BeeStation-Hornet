@@ -10,6 +10,8 @@
 	force = 3
 	throwforce = 10
 	block_upgrade_walk = 1
+	light_source_type = FANCY_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/flicker
 	var/acti_sound = 'sound/items/welderactivate.ogg'
 	var/deac_sound = 'sound/items/welderdeactivate.ogg'
 	throw_speed = 1

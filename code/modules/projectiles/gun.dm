@@ -17,6 +17,8 @@
 	force = 5
 	item_flags = NEEDS_PERMIT
 	attack_verb = list("struck", "hit", "bashed")
+	light_mask_type = /atom/movable/lighting_mask/conical
+	light_source_type = FANCY_LIGHTING
 
 	var/fire_sound = "gunshot"
 	var/vary_fire_sound = TRUE

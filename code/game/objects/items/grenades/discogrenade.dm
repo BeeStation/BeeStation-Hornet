@@ -13,6 +13,7 @@
 	item_state = "disco"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	light_source_type = FANCY_LIGHTING
 	var/list/messages = list("This party is great!", "Wooo!!!", "Party!", "Check out these moves!", "Hey, want to dance with me?")
 	var/list/message_social_anxiety = list("I want to go home...", "Where are the toilets?", "I don't like this song.")
 
