@@ -75,12 +75,16 @@
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/dummy/lighting_obj/Initialize(mapload, _color, _range, _power, _duration)
+/obj/effect/dummy/lighting_obj/Initialize(mapload, _range, _power, _color, _duration)
 	. = ..()
-	set_light(_range ? _range : light_range, _power ? _power : light_power, _color ? _color : light_color)
+	if(!isnull(_range))
+		set_light_range(_range)
+	if(!isnull(_power))
+		set_light_power(_power)
+	if(!isnull(_color))
+		set_light_color(_color)
 	if(_duration)
 		QDEL_IN(src, _duration)
-
 /obj/effect/dummy/lighting_obj/moblight
 	name = "mob lighting fx"
 

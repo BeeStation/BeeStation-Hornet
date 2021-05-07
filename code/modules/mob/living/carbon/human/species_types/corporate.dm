@@ -9,7 +9,7 @@
 	coldmod = 0
 	heatmod = 0.5//it's a little tough to burn them to death not as hard though.
 	punchdamage = 25//they are inhumanly strong
-	attack_verb = "smash"
+	attack_verb = "smashed"
 	attack_sound = 'sound/weapons/resonator_blast.ogg'
 	use_skintones = 0
 	species_traits = list(NOBLOOD,EYECOLOR)

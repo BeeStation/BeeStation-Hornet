@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(traumas)
 					   "skeletons" = typecacheof(list(/mob/living/simple_animal/hostile/skeleton)),
 					   "snakes"   = typecacheof(list(/mob/living/simple_animal/hostile/retaliate/poison/snake)),
 					   "robots"   = typecacheof(list(/mob/living/silicon/robot, /mob/living/silicon/ai,
-					   /mob/living/simple_animal/drone, /mob/living/simple_animal/bot, /mob/living/simple_animal/hostile/swarmer)),
+					   /mob/living/simple_animal/drone, /mob/living/simple_animal/bot, /obj/structure/swarmer_beacon)),
 					   "doctors"   = typecacheof(list(/mob/living/simple_animal/bot/medbot)),
 					   "the supernatural"   = typecacheof(list(/mob/living/simple_animal/hostile/construct,
 					   /mob/living/simple_animal/revenant, /mob/living/simple_animal/shade)),
@@ -90,7 +90,7 @@ SUBSYSTEM_DEF(traumas)
 												 /obj/item/clothing/suit/space/hardsuit/deathsquad, /obj/item/clothing/head/helmet/space/hardsuit/deathsquad,
 												 /obj/machinery/door/airlock/centcom)),
 						"robots"   = typecacheof(list(/obj/machinery/computer/upload, /obj/item/aiModule/, /obj/machinery/recharge_station,
-						/obj/item/aicard, /obj/item/deactivated_swarmer, /obj/effect/mob_spawn/swarmer)),
+						/obj/item/aicard, /obj/structure/swarmer_beacon)),
 
 						"doctors"   = typecacheof(list(/obj/item/clothing/under/rank/medical, /obj/item/clothing/under/rank/medical/chemist,
 						/obj/item/clothing/under/rank/medical/doctor/nurse, /obj/item/clothing/under/rank/medical/chief_medical_officer,

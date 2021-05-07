@@ -708,7 +708,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("bashes", "smacks", "whacks")
+	attack_verb = list("bashed", "smacked", "whacked")
 
 /obj/item/nullrod/hypertool
 	icon = 'icons/obj/device.dmi'

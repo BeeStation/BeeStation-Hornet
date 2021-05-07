@@ -22,13 +22,16 @@
 	resistance_flags = FIRE_PROOF
 
 	materials = list(/datum/material/iron=70, /datum/material/glass=30)
-	var/welding = 0 	//Whether or not the welding tool is off(0), on(1) or currently welding(2)
+	var/welding = FALSE 	//Whether the welding tool is on or off.
 	var/status = TRUE 		//Whether the welder is secured or unsecured (able to attach rods to it to make a flamethrower)
 	var/max_fuel = 20 	//The max amount of fuel the welder can hold
 	var/change_icons = 1
 	var/can_off_process = 0
-	var/light_intensity = 1 //how powerful the emitted light is when used.
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.75
 	light_color = LIGHT_COLOR_FIRE
+	light_on = FALSE
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
 	heat = 3800
@@ -40,7 +43,6 @@
 	create_reagents(max_fuel)
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
 	update_icon()
-
 
 /obj/item/weldingtool/proc/update_torch()
 	if(welding)
@@ -148,7 +150,7 @@
 		explode()
 	switched_on(user)
 	if(welding)
-		set_light(light_intensity)
+		set_light(light_range)
 
 	update_icon()
 
@@ -172,17 +174,24 @@
 	else
 		return FALSE
 
+//Toggles the welding value.
+/obj/item/weldingtool/proc/set_welding(new_value)
+	if(welding == new_value)
+		return
+	. = welding
+	welding = new_value
+	set_light_on(welding)
 
 //Turns off the welder if there is no more fuel (does this really need to be its own proc?)
 /obj/item/weldingtool/proc/check_fuel(mob/user)
 	if(get_fuel() <= 0 && welding)
+		set_light_on(FALSE)
 		switched_on(user)
 		update_icon()
 		//mob icon update
 		if(ismob(loc))
 			var/mob/M = loc
 			M.update_inv_hands(0)
-
 		return 0
 	return 1
 
@@ -191,7 +200,7 @@
 	if(!status)
 		to_chat(user, "<span class='warning'>[src] can't be turned on while unsecured!</span>")
 		return
-	welding = !welding
+	set_welding(!welding)
 	if(welding)
 		if(get_fuel() >= 1)
 			to_chat(user, "<span class='notice'>You switch [src] on.</span>")
@@ -211,9 +220,7 @@
 
 //Switches the welder off
 /obj/item/weldingtool/proc/switched_off(mob/user)
-	welding = 0
-	set_light(0)
-
+	set_welding(FALSE)
 	force = 3
 	damtype = "brute"
 	hitsound = "swing_hit"
@@ -235,14 +242,14 @@
 /obj/item/weldingtool/tool_start_check(mob/living/user, amount=0)
 	. = tool_use_check(user, amount)
 	if(. && user)
-		user.flash_act(light_intensity)
+		user.flash_act(light_range)
 
 // Flash the user during welding progress
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..()
 	if(. && user)
 		if (progress_flash_divisor == 0)
-			user.flash_act(min(light_intensity,1))
+			user.flash_act(min(light_range,1))
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else
 			progress_flash_divisor--
@@ -333,7 +340,8 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
 	toolspeed = 0.1
-	light_intensity = 0
+	light_system = NO_LIGHT_SUPPORT
+	light_range = 0
 	change_icons = 0
 
 /obj/item/weldingtool/abductor/process()
@@ -359,7 +367,7 @@
 	var/last_gen = 0
 	change_icons = 0
 	can_off_process = 1
-	light_intensity = 1
+	light_range = 1
 	toolspeed = 0.5
 	var/nextrefueltick = 0
 

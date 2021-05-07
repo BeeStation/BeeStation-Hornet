@@ -47,16 +47,15 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	icon_state = "swarmer_console"
 	health = 750
 	maxHealth = 750 //""""low-ish"""" HP because it's a passive boss, and the swarm itself is the real foe
-	mob_biotypes = list(MOB_ROBOTIC)
+	mob_biotypes = MOB_ROBOTIC
 	gps_name = "Hungry Signal"
-	medal_type = BOSS_MEDAL_SWARMERS
-	score_type = SWARMER_BEACON_SCORE
 	faction = list("mining", "boss", "swarmer")
 	weather_immunities = list("lava","ash")
 	stop_automated_movement = TRUE
 	wander = FALSE
 	layer = BELOW_MOB_LAYER
 	AIStatus = AI_OFF
+	del_on_death = TRUE
 	var/swarmer_spawn_cooldown = 0
 	var/swarmer_spawn_cooldown_amt = 150 //Deciseconds between the swarmers we spawn
 	var/call_help_cooldown = 0
@@ -100,7 +99,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 
 /mob/living/simple_animal/hostile/swarmer/ai/Initialize()
 	. = ..()
-	ToggleLight() //so you can see them eating you out of house and home/shooting you/stunlocking you for eternity
+	toggle_light() //so you can see them eating you out of house and home/shooting you/stunlocking you for eternity
 	LAZYINITLIST(GLOB.AISwarmersByType[type])
 	GLOB.AISwarmers += src
 	GLOB.AISwarmersByType[type] += src
@@ -112,7 +111,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	return ..()
 
 
-/mob/living/simple_animal/hostile/swarmer/ai/SwarmerTypeToCreate()
+/mob/living/simple_animal/hostile/swarmer/ai/swarmer_type_to_create()
 	return GetUncappedAISwarmerType()
 
 
@@ -122,7 +121,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		if(!stop_automated_movement)
 			if(health < maxHealth*0.25)
 				StartAction(100)
-				RepairSelf()
+				repair_self()
 				return
 
 
@@ -145,19 +144,19 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 
 /mob/living/simple_animal/hostile/swarmer/ai/proc/StartAction(deci = 0)
 	stop_automated_movement = TRUE
-	toggle_ai(AI_OFF)
+	AIStatus = AI_OFF
 	addtimer(CALLBACK(src, .proc/EndAction), deci)
 
 
 /mob/living/simple_animal/hostile/swarmer/ai/proc/EndAction()
 	stop_automated_movement = FALSE
-	toggle_ai(AI_ON)
+	AIStatus = AI_ON
 
 
 
 
 //RESOURCE SWARMER:
-//Similar to the original Player-Swarmers, these dismantle things to obtain the metal inside
+//Similar to the original Player-Swarmers, these dismantle things to obtain the iron inside
 //They then use this medal to produce more swarmers or traps/barricades
 
 /mob/living/simple_animal/hostile/swarmer/ai/resource
@@ -186,7 +185,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	if(is_type_in_typecache(the_target, sharedWanted)) //always eat
 		return TRUE
 
-	return ..()	//else, have a nibble, see if it's food
+	return ..() //else, have a nibble, see if it's food
 
 
 /mob/living/simple_animal/hostile/swarmer/ai/resource/OpenFire(atom/A)
@@ -209,16 +208,16 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		if(!stop_automated_movement)
 			if(GLOB.AISwarmers.len < GetTotalAISwarmerCap() && resources >= 50)
 				StartAction(100) //so they'll actually sit still and use the verbs
-				CreateSwarmer()
+				create_swarmer()
 				return
 
 			if(resources > 5)
 				if(prob(5)) //lower odds, as to prioritise reproduction
 					StartAction(10) //not a typo
-					CreateBarricade()
+					create_barricade()
 					return
 				if(prob(5))
-					CreateTrap()
+					create_trap()
 					return
 
 
@@ -265,11 +264,11 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	if(isliving(target))
 		if(prob(35))
 			StartAction(30)
-			DisperseTarget(target)
+			prepare_target(target)
 		else
 			var/mob/living/L = target
 			L.attack_animal(src)
-			L.electrocute_act(10, src, safety = TRUE) //safety = TRUE means we don't check gloves... Ok?
+			L.electrocute_act(10, src, flags = SHOCK_NOGLOVES)
 		return TRUE
 	else
 		return ..()

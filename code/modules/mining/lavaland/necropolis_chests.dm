@@ -20,7 +20,7 @@
 			new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)  //Doubled chance to receive upgrade disk that is directly relevant to mining
 		if(3 to 4)
 			new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
-		if(5 to 6)	
+		if(5 to 6)
 			new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
 		if(7 to 8)
 			new /obj/item/disk/design_disk/modkit_disc/bounty(src)
@@ -284,7 +284,9 @@
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
+	light_system = MOVABLE_LIGHT
 	light_range = 7
+	light_flags = LIGHT_ATTACHED
 	layer = ABOVE_ALL_MOB_LAYER
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -676,7 +678,7 @@
 
 /obj/structure/closet/crate/necropolis/legion
 	name = "legion chest"
-	
+
 /obj/structure/closet/crate/necropolis/legion/PopulateContents()
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 	var/random_crystal = pick(choices)
@@ -687,7 +689,7 @@
 
 /obj/structure/closet/crate/necropolis/bdm
 	name = "blood-drunk miner chest"
-	
+
 /obj/structure/closet/crate/necropolis/bdm/PopulateContents()
 	new /obj/item/melee/transforming/cleaving_saw(src)
 	new /obj/effect/spawner/lootdrop/megafaunaore(src)
@@ -1092,11 +1094,11 @@
 
 /obj/structure/closet/crate/necropolis/hierophant
 	name = "hierophant chest"
-	
+
 /obj/structure/closet/crate/necropolis/hierophant/PopulateContents()
 	new /obj/item/hierophant_club(src)
 	new /obj/effect/spawner/lootdrop/megafaunaore(src)
-	
+
 /obj/item/hierophant_club
 	name = "hierophant club"
 	desc = "The strange technology of this large club allows various nigh-magical feats. It used to beat you, but now you can set the beat."

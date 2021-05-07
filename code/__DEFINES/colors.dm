@@ -15,6 +15,7 @@
 #define COLOR_BLACK            "#000000"
 #define COLOR_RED              "#FF0000"
 #define COLOR_RED_LIGHT        "#FF3333"
+#define COLOR_SOFT_RED         "#FA8282"
 #define COLOR_MAROON           "#800000"
 #define COLOR_YELLOW           "#FFFF00"
 #define COLOR_OLIVE            "#808000"

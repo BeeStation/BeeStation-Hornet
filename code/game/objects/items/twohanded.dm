@@ -294,7 +294,10 @@
 	hitsound = "swing_hit"
 	armour_penetration = 35
 	item_color = "green"
-	light_color = "#00ff00"//green
+	light_system = MOVABLE_LIGHT
+	light_range = 6 //TWICE AS BRIGHT AS A REGULAR ESWORD
+	light_color = LIGHT_COLOR_ELECTRIC_GREEN
+	light_on = FALSE
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	block_level = 2
 	block_upgrade_walk = 1
@@ -305,7 +308,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	var/hacked = FALSE
-	var/brightness_on = 6 //TWICE AS BRIGHT AS A REGULAR ESWORD
 	var/list/possible_colors = list("red", "blue", "green", "purple")
 
 /obj/item/twohanded/dualsaber/suicide_act(mob/living/carbon/user)
@@ -402,7 +404,7 @@
 		w_class = w_class_on
 		hitsound = 'sound/weapons/blade1.ogg'
 		START_PROCESSING(SSobj, src)
-		set_light(brightness_on)
+		set_light_on(TRUE)
 
 /obj/item/twohanded/dualsaber/unwield() //Specific unwield () to switch hitsounds.
 	sharpness = initial(sharpness)
@@ -410,7 +412,7 @@
 	..()
 	hitsound = "swing_hit"
 	STOP_PROCESSING(SSobj, src)
-	set_light(0)
+	set_light_on(FALSE)
 
 /obj/item/twohanded/dualsaber/process()
 	if(wielded)
@@ -671,14 +673,14 @@
 	onsound = 'sound/weapons/echainsawon.ogg'
 	offsound = 'sound/weapons/echainsawoff.ogg'
 	on = FALSE
-	var/brightness_on = 3
+	light_range = 3
 
 /obj/item/twohanded/required/chainsaw/energy/attack_self(mob/user)
 	on = !on
 	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr intimidatingly." : "the plasma microblades stop moving."]")
 	force = on ? force_on : initial(force)
 	playsound(user, on ? onsound : offsound , 50, 1)
-	set_light(on ? brightness_on : 0)
+	set_light(on ? light_range : 0)
 	throwforce = on ? force_on : initial(force)
 	icon_state = "echainsaw_[on ? "on" : "off"]"
 
@@ -704,7 +706,7 @@
 	attack_weight = 3 //fear him
 	armour_penetration = 75
 	var/knockdown = 1
-	brightness_on = 6
+	light_range = 6
 
 /obj/item/twohanded/required/chainsaw/energy/doom/attack(mob/living/target)
 	..()

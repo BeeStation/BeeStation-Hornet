@@ -18,7 +18,7 @@
 	color = "#87878715"
 	stepsound = null
 	turnsound = null
-	opacity = 0
+	opacity = FALSE
 
 /obj/mecha/combat/reticence/loaded/Initialize()
 	. = ..()

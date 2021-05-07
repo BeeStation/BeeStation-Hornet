@@ -711,7 +711,8 @@ so as to remain in compliance with the most up-to-date laws."
 		return usr.client.Click(master, location, control, params)
 
 /atom/movable/screen/alert/Destroy()
+	. = ..()
 	severity = 0
+	master = null
 	owner = null
 	screen_loc = ""
-	return ..()

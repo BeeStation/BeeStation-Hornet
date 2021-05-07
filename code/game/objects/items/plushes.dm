@@ -370,14 +370,14 @@
 	desc = "An adorable stuffed toy that resembles a space carp."
 	icon_state = "carpplush"
 	item_state = "carp_plushie"
-	attack_verb = list("bitten", "eaten", "fin slapped")
+	attack_verb = list("bit", "ate", "fin slapped")
 	squeak_override = list('sound/weapons/bite.ogg'=1)
 
 /obj/item/toy/plush/bubbleplush
 	name = "\improper Bubblegum plushie"
 	desc = "The friendly red demon that gives good miners gifts."
 	icon_state = "bubbleplush"
-	attack_verb = list("rent")
+	attack_verb = list("rended")
 	squeak_override = list('sound/magic/demon_attack1.ogg'=1)
 
 /obj/item/toy/plush/plushvar
@@ -499,7 +499,7 @@
 	desc = "An adorable stuffed toy that resembles a snake. Not to be mistaken for the real thing."
 	icon_state = "plushie_snake"
 	item_state = "plushie_snake"
-	attack_verb = list("bitten", "hissed", "tail slapped")
+	attack_verb = list("bit", "hissed", "tail slapped")
 	squeak_override = list('sound/weapons/bite.ogg' = 1)
 
 /obj/item/toy/plush/nukeplushie

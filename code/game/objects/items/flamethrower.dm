@@ -30,6 +30,8 @@
 	var/create_with_tank = FALSE
 	var/igniter_type = /obj/item/assembly/igniter
 	trigger_guard = TRIGGER_GUARD_NORMAL
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 
 /obj/item/flamethrower/Destroy()
 	if(weldtool)
@@ -174,6 +176,7 @@
 		set_light(0)
 		playsound(loc, deac_sound, 50, TRUE)
 		STOP_PROCESSING(SSobj,src)
+	set_light_on(lit)
 	update_icon()
 
 /obj/item/flamethrower/CheckParts(list/parts_list)

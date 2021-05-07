@@ -41,18 +41,6 @@
 	if(!id_tag)
 		id_tag = assign_uid_vents()
 
-/obj/machinery/atmospherics/components/unary/vent_pump/Destroy()
-	var/area/A = get_area(src)
-	if (A)
-		A.air_vent_names -= id_tag
-		A.air_vent_info -= id_tag
-	if(aac)
-		aac.vents -= src
-
-	SSradio.remove_object(src,frequency)
-	radio_connection = null
-	return ..()
-
 /obj/machinery/atmospherics/components/unary/vent_pump/update_icon_nopipes()
 	cut_overlays()
 	if(showpipe)

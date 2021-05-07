@@ -236,7 +236,7 @@
 	item_state = "bike_horn"
 	lefthand_file = 'icons/mob/inhands/equipment/horns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/horns_righthand.dmi'
-	attack_verb = list("beautifully honks")
+	attack_verb = list("beautifully honked")
 	instrumentId = "bikehorn"
 	instrumentExt = "ogg"
 	w_class = WEIGHT_CLASS_TINY

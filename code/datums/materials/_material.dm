@@ -1,6 +1,6 @@
 /*! Material datum
 
-Simple datum which is instanced once per type and is used for every object of said material. It has a variety of variables that define behavior. Subtyping from this makes it easier to create your own materials. 
+Simple datum which is instanced once per type and is used for every object of said material. It has a variety of variables that define behavior. Subtyping from this makes it easier to create your own materials.
 
 */
 
@@ -52,7 +52,7 @@ Simple datum which is instanced once per type and is used for every object of sa
 		if(color)
 			source.remove_atom_colour(FIXED_COLOUR_PRIORITY, color)
 		source.alpha = initial(source.alpha)
-	
+
 	if(istype(source, /obj)) //objs
 		on_removed_obj(source, material_flags)
 
@@ -65,3 +65,6 @@ Simple datum which is instanced once per type and is used for every object of sa
 	o.max_integrity = new_max_integrity
 	o.force = initial(o.force)
 	o.throwforce = initial(o.throwforce)
+
+/datum/material/proc/return_composition(amount=1, breakdown_flags=NONE)
+	return list((src) = amount) // Yes we need the parenthesis, without them BYOND stringifies src into "src" and things break.

@@ -75,7 +75,7 @@
 	force = 24
 	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "teared", "lacerated", "ripped", "diced", "rended")
 	var/datum/action/innate/heretic_shatter/linked_action
 
 /obj/item/melee/sickly_blade/Initialize()

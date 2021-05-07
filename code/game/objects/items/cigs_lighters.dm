@@ -326,9 +326,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/clothing/mask/cigarette/carp
 	desc = "A Carp Classic brand cigarette."
-	
+
 /obj/item/clothing/mask/cigarette/plasma
-	list_reagents = list(/datum/reagent/toxin/plasma = 5) 
+	list_reagents = list(/datum/reagent/toxin/plasma = 5)
 
 /obj/item/clothing/mask/cigarette/syndicate
 	desc = "An unknown brand cigarette."
@@ -560,7 +560,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		)
 	heat = 1500
 	resistance_flags = FIRE_PROOF
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.6
 	light_color = LIGHT_COLOR_FIRE
+	light_on = FALSE
 	grind_results = list(/datum/reagent/iron = 1, /datum/reagent/fuel = 5, /datum/reagent/oil = 5)
 
 /obj/item/lighter/Initialize()
@@ -594,7 +598,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		. = "<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [A] with [src]. Damn [user.p_theyre()] cool.</span>"
 
 /obj/item/lighter/proc/set_lit(new_lit)
-	lit = new_lit
+	if(lit == new_lit)
+		return
 	if(lit)
 		force = 5
 		damtype = "fire"
@@ -608,6 +613,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		attack_verb = null //human_defense.dm takes care of it
 		set_light(0)
 		STOP_PROCESSING(SSobj, src)
+	set_light_on(lit)
 	update_icon()
 
 /obj/item/lighter/extinguish()
