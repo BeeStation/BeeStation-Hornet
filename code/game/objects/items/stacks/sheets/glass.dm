@@ -273,6 +273,11 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 			pixel_y = rand(-5, 5)
 	if (icon_prefix)
 		icon_state = "[icon_prefix][icon_state]"
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, src, loc_connections)
+
 
 /obj/item/shard/afterattack(atom/A as mob|obj, mob/user, proximity)
 	. = ..()
@@ -314,13 +319,13 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 		qdel(src)
 	return TRUE
 
-/obj/item/shard/Crossed(mob/living/L)
+/obj/item/shard/proc/on_entered(datum/source, mob/living/L)
+	SIGNAL_HANDLER
 	if(istype(L) && has_gravity(loc))
 		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
 			playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)
 		else
 			playsound(loc, 'sound/effects/glass_step.ogg', 50, 1)
-	return ..()
 
 /obj/item/shard/plasma
 	name = "purple shard"

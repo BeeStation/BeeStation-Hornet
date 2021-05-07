@@ -47,6 +47,10 @@
 				merge(S)
 	update_weight()
 	update_icon()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, src, loc_connections)
 
 /obj/item/stack/proc/check_max_amount()
 	while(amount > max_amount)
@@ -340,10 +344,10 @@
 	S.add(transfer)
 	return transfer
 
-/obj/item/stack/Crossed(obj/o)
+/obj/item/stack/proc/on_entered(datum/source, obj/o)
+	SIGNAL_HANDLER
 	if(merge_check(o) && !o.throwing)
-		merge(o)
-	. = ..()
+		INVOKE_ASYNC(src, .proc/merge, o)
 
 /obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(merge_check(AM))

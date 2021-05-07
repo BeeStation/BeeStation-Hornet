@@ -17,10 +17,15 @@
 		QDEL_IN(src, expire_in)
 	if(!ismovableatom(parent))
 		return COMPONENT_INCOMPATIBLE
+
+	var/static/list/disease_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/try_infect_crossed,
+	)
+	AddElement(/datum/element/connect_loc, parent, disease_connections)
+
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean)
 	RegisterSignal(parent, COMSIG_MOVABLE_BUCKLE, .proc/try_infect_buckle)
 	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, .proc/try_infect_collide)
-	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/try_infect_crossed)
 	RegisterSignal(parent, COMSIG_MOVABLE_IMPACT_ZONE, .proc/try_infect_impact_zone)
 	RegisterSignal(parent, COMSIG_ATOM_EXTRAPOLATOR_ACT, .proc/extrapolation)
 	if(isitem(parent))

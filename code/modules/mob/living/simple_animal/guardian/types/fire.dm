@@ -23,8 +23,8 @@
 	if(. && ishuman(target) && target != summoner)
 		new /datum/hallucination/delusion(target,TRUE,"custom",200,0, icon_state,icon)
 
-/mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj)
-	..()
+/mob/living/simple_animal/hostile/guardian/fire/proc/on_entered(datum/source, AM as mob|obj)
+	SIGNAL_HANDLER
 	collision_ignite(AM)
 
 /mob/living/simple_animal/hostile/guardian/fire/Bumped(atom/movable/AM)

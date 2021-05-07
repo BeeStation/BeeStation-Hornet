@@ -342,7 +342,8 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM)
+/mob/living/simple_animal/bot/honkbot/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	if(ismob(AM) && (on)) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
 			var/mob/living/carbon/C = AM
@@ -358,10 +359,9 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 			C.Paralyze(10)
 			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
 			if(!client)
-				speak("Honk!")
+				INVOKE_ASYNC(src, /mob/living/simple_animal/bot/proc/speak, "Honk!")
 			sensor_blink()
 			return
-	..()
 
 /obj/machinery/bot_core/honkbot
 	req_one_access = list(ACCESS_THEATRE, ACCESS_ROBOTICS)

@@ -138,7 +138,7 @@
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place iron rods first.</span>")
 
 /turf/open/space/Entered(atom/movable/A)
-	..()
+	. = ..()
 	if ((!(A) || src != A.loc))
 		return
 

@@ -35,7 +35,13 @@
 	var/last_process = 0
 	var/time_offset = 0
 	var/datum/point/vector/trajectory
-	var/trajectory_ignore_forcemove = FALSE	//instructs forceMove to NOT reset our trajectory to the new location!
+	var/trajectory_ignore_forcemove = FALSE //instructs forceMove to NOT reset our trajectory to the new location!
+	/// We already impacted these things, do not impact them again. Used to make sure we can pierce things we want to pierce. Lazylist, typecache style (object = TRUE) for performance.
+	var/list/impacted = list()
+	/// If TRUE, we can hit our firer.
+	var/ignore_source_check = FALSE
+	/// We are flagged PHASING temporarily to not stop moving when we Bump something but want to keep going anyways.
+	var/temporary_unstoppable_movement = FALSE
 
 	var/speed = 0.8			//Amount of deciseconds it takes for projectile to travel
 	var/Angle = 0
@@ -131,6 +137,12 @@
 	. = ..()
 	permutated = list()
 	decayedRange = range
+	if(embedding)
+		updateEmbedding()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, src, loc_connections)
 
 /obj/item/projectile/proc/Range()
 	range--
@@ -358,8 +370,132 @@
 		return T
 	//Returns null if nothing at all was found.
 
-/obj/item/projectile/proc/check_ricochet()
-	if(prob(ricochet_chance))
+//Returns true if the target atom is on our current turf and above the right layer
+//If direct target is true it's the originally clicked target.
+/obj/projectile/proc/can_hit_target(atom/target, direct_target = FALSE, ignore_loc = FALSE, cross_failed = FALSE)
+	if(QDELETED(target) || impacted[target])
+		return FALSE
+	if(!ignore_loc && (loc != target.loc))
+		return FALSE
+	// if pass_flags match, pass through entirely - unless direct target is set.
+	if((target.pass_flags_self & pass_flags) && !direct_target)
+		return FALSE
+	if(!ignore_source_check && firer)
+		var/mob/M = firer
+		if((target == firer) || ((target == firer.loc) && ismecha(firer.loc)) || (target in firer.buckled_mobs) || (istype(M) && (M.buckled == target)))
+			return FALSE
+	if(target.density || cross_failed) //This thing blocks projectiles, hit it regardless of layer/mob stuns/etc.
+		return TRUE
+	if(!isliving(target))
+		if(isturf(target)) // non dense turfs
+			return FALSE
+		if(target.layer < PROJECTILE_HIT_THRESHHOLD_LAYER)
+			return FALSE
+		else if(!direct_target) // non dense objects do not get hit unless specifically clicked
+			return FALSE
+	else
+		var/mob/living/L = target
+		if(direct_target)
+			return TRUE
+		// If target not able to use items, move and stand - or if they're just dead, pass over.
+		if(L.stat == DEAD)
+			return FALSE
+		if(!L.density)
+			return FALSE
+		if(L.body_position != LYING_DOWN)
+			return TRUE
+		var/stunned = HAS_TRAIT(L, TRAIT_IMMOBILIZED) && HAS_TRAIT(L, TRAIT_FLOORED) && HAS_TRAIT(L, TRAIT_HANDS_BLOCKED)
+		return !stunned || hit_stunned_targets
+	return TRUE
+
+/**
+ * Scan if we should hit something and hit it if we need to
+ * The difference between this and handling in Impact is
+ * In this we strictly check if we need to Impact() something in specific
+ * If we do, we do
+ * We don't even check if it got hit already - Impact() does that
+ * In impact there's more code for selecting WHAT to hit
+ * So this proc is more of checking if we should hit something at all BY having an atom cross us.
+ */
+/obj/projectile/proc/scan_crossed_hit(atom/movable/A)
+	if(can_hit_target(A, direct_target = (A == original)))
+		Impact(A)
+
+/**
+ * Scans if we should hit something on the turf we just moved to if we haven't already
+ *
+ * This proc is a little high in overhead but allows us to not snowflake CanPass in living and other things.
+ */
+/obj/projectile/proc/scan_moved_turf()
+	// Optimally, we scan: mobs --> objs --> turf for impact
+	// but, overhead is a thing and 2 for loops every time it moves is a no-go.
+	// realistically, since we already do select_target in impact, we can not do that
+	// and hope projectiles get refactored again in the future to have a less stupid impact detection system
+	// that hopefully won't also involve a ton of overhead
+	if(can_hit_target(original, TRUE, FALSE))
+		Impact(original) // try to hit thing clicked on
+	// else, try to hit mobs
+	else // because if we impacted original and pierced we'll already have select target'd and hit everything else we should be hitting
+		for(var/mob/M in loc) // so I guess we're STILL doing a for loop of mobs because living movement would otherwise have snowflake code for projectile CanPass
+			// so the snowflake vs performance is pretty arguable here
+			if(can_hit_target(M, M == original, TRUE))
+				Impact(M)
+				break
+
+/**
+ * Projectile crossed: When something enters a projectile's tile, make sure the projectile hits it if it should be hitting it.
+ */
+/obj/projectile/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	scan_crossed_hit(AM)
+
+/**
+ * Projectile can pass through
+ * Used to not even attempt to Bump() or fail to Cross() anything we already hit.
+ */
+/obj/projectile/CanPassThrough(atom/blocker, turf/target, blocker_opinion)
+	return impacted[blocker]? TRUE : ..()
+
+/**
+ * Projectile moved:
+ *
+ * If not fired yet, do not do anything. Else,
+ *
+ * If temporary unstoppable movement used for piercing through things we already hit (impacted list) is set, unset it.
+ * Scan turf we're now in for anything we can/should hit. This is useful for hitting non dense objects the user
+ * directly clicks on, as well as for PHASING projectiles to be able to hit things at all as they don't ever Bump().
+ */
+/obj/projectile/Moved(atom/OldLoc, Dir)
+	. = ..()
+	if(!fired)
+		return
+	if(temporary_unstoppable_movement)
+		temporary_unstoppable_movement = FALSE
+		movement_type &= ~PHASING
+	scan_moved_turf() //mostly used for making sure we can hit a non-dense object the user directly clicked on, and for penetrating projectiles that don't bump
+
+/**
+ * Checks if we should pierce something.
+ *
+ * NOT meant to be a pure proc, since this replaces prehit() which was used to do things.
+ * Return PROJECTILE_DELETE_WITHOUT_HITTING to delete projectile without hitting at all!
+ */
+/obj/projectile/proc/prehit_pierce(atom/A)
+	if((projectile_phasing & A.pass_flags_self) && (!phasing_ignore_direct_target || original != A))
+		return PROJECTILE_PIERCE_PHASE
+	if(projectile_piercing & A.pass_flags_self)
+		return PROJECTILE_PIERCE_HIT
+	if(ismovable(A))
+		var/atom/movable/AM = A
+		if(AM.throwing)
+			return (projectile_phasing & LETPASSTHROW)? PROJECTILE_PIERCE_PHASE : ((projectile_piercing & LETPASSTHROW)? PROJECTILE_PIERCE_HIT : PROJECTILE_PIERCE_NONE)
+	return PROJECTILE_PIERCE_NONE
+
+/obj/projectile/proc/check_ricochet(atom/A)
+	var/chance = ricochet_chance * A.receive_ricochet_chance_mod
+	if(firer && HAS_TRAIT(firer, TRAIT_NICE_SHOT))
+		chance += NICE_SHOT_RICOCHET_BONUS
+	if(prob(chance))
 		return TRUE
 	return FALSE
 
