@@ -44,8 +44,8 @@
 	layer = GASFIRE_LAYER
 	light_range = LIGHT_RANGE_FIRE
 	light_color = LIGHT_COLOR_FIRE
-	light_mask_type = /atom/movable/lighting_mask/flicker
-	light_source_type = FANCY_LIGHTING	//Note: This could cause clientside lag for big fires.
+	light_mask_type = /atom/movable/lighting_mask/flicker	//Will give fires a flickering effect when used on fancy lighting
+	//light_source_type = FANCY_LIGHTING	//Note: This could cause clientside lag for big fires.
 	blend_mode = BLEND_ADD
 
 	var/volume = 125
