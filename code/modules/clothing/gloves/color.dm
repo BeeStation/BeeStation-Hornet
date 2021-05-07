@@ -9,6 +9,23 @@
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
 
+/obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_GLOVES)
+		if(user.mind?.assigned_role in GLOB.security_positions)
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
+
+/obj/item/clothing/gloves/color/black/dropped(mob/user)
+	. = ..()
+	if(user.mind?.assigned_role in GLOB.security_positions)
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
+
+/obj/item/clothing/gloves/color/black/hos
+	item_color = "hosred"	//Exists for washing machines. Is not different from black gloves in any way.
+
+/obj/item/clothing/gloves/color/black/ce
+	item_color = "chief"		//Exists for washing machines. Is not different from black gloves in any way.
+
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_GLOVES)
