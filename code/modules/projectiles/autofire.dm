@@ -114,6 +114,8 @@ Everything else should be handled for you. Good luck soldier.
 			G.attack(autofire_target, L)
 	else
 		G.afterattack(autofire_target,L)
+		//Face the target
+		L.setDir(get_dir(L, autofire_target))
 
 /datum/component/full_auto/RemoveComponent()
 	. = ..()
