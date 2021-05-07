@@ -2,7 +2,7 @@
 	projectile_type = /obj/item/projectile/beam/laser
 	select_name = "kill"
 	//Laser flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_RED
 
 /obj/item/ammo_casing/energy/lasergun
@@ -10,7 +10,7 @@
 	e_cost = 71
 	select_name = "kill"
 	//Laser flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_RED
 
 /obj/item/ammo_casing/energy/lasergun/old
@@ -38,7 +38,7 @@
 	variance = 15
 	harmful = FALSE
 	//Disabler flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_PALEBLUE
 
 /obj/item/ammo_casing/energy/laser/heavy
@@ -52,7 +52,7 @@
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 	//Pulse flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_BLUE
 
 /obj/item/ammo_casing/energy/laser/bluetag
@@ -60,7 +60,7 @@
 	select_name = "bluetag"
 	harmful = FALSE
 	//Pulse flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_BLUE
 
 /obj/item/ammo_casing/energy/laser/bluetag/hitscan
@@ -79,7 +79,7 @@
 	e_cost = 50
 	fire_sound = 'sound/weapons/laser3.ogg'
 	//Radioactive flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_GREEN
 
 /obj/item/ammo_casing/energy/mindflayer
@@ -87,5 +87,5 @@
 	select_name = "MINDFUCK"
 	fire_sound = 'sound/weapons/laser.ogg'
 	//Radioactive flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_GREEN

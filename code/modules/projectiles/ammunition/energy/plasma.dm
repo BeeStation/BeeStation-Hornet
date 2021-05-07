@@ -5,7 +5,7 @@
 	delay = 20
 	e_cost = 25
 	//Plasma flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_PURPLE
 
 /obj/item/ammo_casing/energy/plasma/adv

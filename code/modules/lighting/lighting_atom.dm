@@ -179,6 +179,9 @@
 /atom/movable/remove_vis_contents(atom/thing)
 	vis_contents -= thing
 
+/obj/effect/light_flash
+	light_source_type = FANCY_LIGHTING
+
 /obj/effect/light_flash/Initialize(mapload,
 		_range = FLASH_LIGHT_RANGE,
 		_power = FLASH_LIGHT_POWER,

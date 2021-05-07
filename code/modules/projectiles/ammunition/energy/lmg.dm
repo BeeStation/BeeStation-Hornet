@@ -5,5 +5,5 @@
 	e_cost = 20
 	firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect
 	//Laser flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_RED

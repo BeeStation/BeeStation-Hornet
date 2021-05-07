@@ -8,7 +8,7 @@
 	projectile_type = /obj/item/projectile/bullet/shotgun_slug
 	materials = list(/datum/material/iron=4000)
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/shotgun/beanbag
@@ -45,7 +45,7 @@
 	projectile_type = /obj/item/projectile/bullet/shotgun_stunslug
 	materials = list(/datum/material/iron=250)
 	//Taser flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_YELLOW
 
 /obj/item/ammo_casing/shotgun/meteorslug
@@ -62,7 +62,7 @@
 	icon_state = "pshell"
 	projectile_type = /obj/item/projectile/beam/pulse/shotgun
 	//Pulse flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_BLUE
 
 /obj/item/ammo_casing/shotgun/frag12
@@ -115,7 +115,7 @@
 	pellets = 4
 	variance = 35
 	//Ion flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_LIGHT_CYAN
 
 /obj/item/ammo_casing/shotgun/laserslug
@@ -126,7 +126,7 @@
 	pellets = 6
 	variance = 35
 	//Laser flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_RED
 
 /obj/item/ammo_casing/shotgun/techshell
