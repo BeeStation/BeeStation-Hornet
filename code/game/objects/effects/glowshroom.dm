@@ -31,6 +31,8 @@
 	myseed = /obj/item/seeds/glowshroom/shadowshroom
 
 
+/obj/structure/glowshroom/single/
+
 /obj/structure/glowshroom/examine(mob/user)
 	. = ..()
 	. += "This is a [generation]\th generation [name]!"
