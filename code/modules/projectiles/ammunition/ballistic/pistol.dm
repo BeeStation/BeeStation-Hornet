@@ -6,7 +6,7 @@
 	caliber = "10mm"
 	projectile_type = /obj/item/projectile/bullet/c10mm
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c10mm/ap
@@ -32,7 +32,7 @@
 	caliber = "9mm"
 	projectile_type = /obj/item/projectile/bullet/c9mm
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c9mm/ap
@@ -54,6 +54,6 @@
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/a50AE
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
 

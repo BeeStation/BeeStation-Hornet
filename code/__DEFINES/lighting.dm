@@ -6,6 +6,8 @@
 #define MINIMUM_USEFUL_LIGHT_RANGE 1.4
 #define MINIMUM_LIGHT_SHADOW_RADIUS 2
 
+#define BULLET_FLASH_POWER 100
+
 #define LIGHTING_ICON 'icons/effects/lighting_object.dmi' //! icon used for lighting shading effects
 #define LIGHTING_ICON_BIG 'icons/effects/lighting_object_big.dmi' //! icon used for lighting shading effects
 

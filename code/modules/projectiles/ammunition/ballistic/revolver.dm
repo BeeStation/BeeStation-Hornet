@@ -6,7 +6,7 @@
 	caliber = "357"
 	projectile_type = /obj/item/projectile/bullet/a357
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/a357/match
@@ -23,7 +23,7 @@
 	caliber = "n762"
 	projectile_type = /obj/item/projectile/bullet/n762
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
 
 // .38 (Detective's Gun)
@@ -34,7 +34,7 @@
 	caliber = "38"
 	projectile_type = /obj/item/projectile/bullet/c38
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c38/trac
@@ -42,7 +42,7 @@
 	desc = "A .38 \"TRAC\" bullet casing."
 	projectile_type = /obj/item/projectile/bullet/c38/trac
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c38/hotshot
@@ -51,7 +51,7 @@
 	caliber = "38"
 	projectile_type = /obj/item/projectile/bullet/c38/hotshot
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c38/iceblox
@@ -60,7 +60,7 @@
 	caliber = "38"
 	projectile_type = /obj/item/projectile/bullet/c38/iceblox
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/c38/match
@@ -88,5 +88,5 @@
 /obj/item/ammo_casing/caseless/mime/lethals
 	projectile_type = /obj/item/projectile/bullet/c38
 	//Bullet flash
-	flash_power = MINIMUM_LIGHT_SHADOW_RADIUS
+	flash_power = BULLET_FLASH_POWER
 	flash_colour = LIGHT_COLOR_FIRE
