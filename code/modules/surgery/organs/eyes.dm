@@ -366,6 +366,7 @@
 
 /obj/effect/abstract/eye_lighting
 	var/obj/item/organ/eyes/robotic/glow/parent
+	light_source_type = FANCY_LIGHTING
 
 /obj/effect/abstract/eye_lighting/Initialize()
 	. = ..()

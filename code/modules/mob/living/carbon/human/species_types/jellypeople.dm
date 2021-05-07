@@ -455,6 +455,7 @@
 	icon_state = "nothing"
 	light_color = "#FFFFFF"
 	light_range = LUMINESCENT_DEFAULT_GLOW
+	light_source_type = FANCY_LIGHTING
 
 /obj/effect/dummy/luminescent_glow/Initialize()
 	. = ..()

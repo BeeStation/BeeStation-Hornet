@@ -295,6 +295,7 @@
 	armour_penetration = 35
 	item_color = "green"
 	light_color = "#00ff00"//green
+	light_source_type = FANCY_LIGHTING
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	block_level = 2
 	block_upgrade_walk = 1

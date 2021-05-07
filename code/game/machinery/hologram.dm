@@ -667,6 +667,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/effect/overlay/holo_pad_hologram
 	initial_language_holder = /datum/language_holder/universal
+	light_source_type = FANCY_LIGHTING
 	var/mob/living/Impersonation
 	var/datum/holocall/HC
 

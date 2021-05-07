@@ -71,6 +71,7 @@
 	outputs = list()
 	activators = list("toggle light" = IC_PINTYPE_PULSE_IN)
 	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
+	light_source_type = FANCY_LIGHTING
 	var/light_toggled = 0
 	var/light_brightness = 3
 	var/light_rgb = "#FFFFFF"

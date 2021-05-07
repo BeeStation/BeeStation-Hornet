@@ -33,6 +33,8 @@
 	max_integrity = 100
 	armor = list("melee" = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "stamina" = 0)
 
+	light_source_type = FANCY_LIGHTING
+
 	// Important hardware (must be installed for computer to work)
 
 	// Optional hardware (improves functionality, but is not critical for computer to work)

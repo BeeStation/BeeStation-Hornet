@@ -17,6 +17,7 @@
 	icon_state = "ethdisco_head_0"
 	anchored = TRUE
 	density = TRUE
+	light_source_type = FANCY_LIGHTING
 	var/TurnedOn = FALSE
 	var/current_color
 	var/TimerID

@@ -441,6 +441,7 @@
 
 /obj/effect/temp_visual/warp_cube
 	duration = 5
+	light_source_type = FANCY_LIGHTING
 	var/outgoing = TRUE
 
 /obj/effect/temp_visual/warp_cube/Initialize(mapload, atom/teleporting_atom, warp_color, new_outgoing)
