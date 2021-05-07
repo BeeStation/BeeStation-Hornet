@@ -27,6 +27,7 @@
 	for(var/turf/closed/mineral/M in world)
 		if(M.scan_state)
 			M.icon_state = M.scan_state
+		CHECK_TICK
 	qdel(src)
 
 /obj/item/t_scanner/adv_mining_scanner
