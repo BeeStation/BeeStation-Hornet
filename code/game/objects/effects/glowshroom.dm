@@ -13,7 +13,6 @@
 	var/delay = 1200
 	var/floor = 0
 	var/generation = 1
-	var/spreadIntoAdjacentChance = 60
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
 	var/static/list/blacklisted_glowshroom_turfs = typecacheof(list(
 	/turf/open/lava,
@@ -31,8 +30,6 @@
 	icon_state = "shadowshroom"
 	myseed = /obj/item/seeds/glowshroom/shadowshroom
 
-/obj/structure/glowshroom/single/Spread()
-	return
 
 /obj/structure/glowshroom/examine(mob/user)
 	. = ..()
@@ -79,55 +76,6 @@
 		icon_state = "[base_icon_state][rand(1,3)]"
 	else //if on the floor, glowshroom on-floor sprite
 		icon_state = base_icon_state
-
-	addtimer(CALLBACK(src, .proc/Spread), delay)
-
-/obj/structure/glowshroom/proc/Spread()
-	var/turf/ownturf = get_turf(src)
-	var/shrooms_planted = 0
-	for(var/i in 1 to myseed.yield)
-		if(prob(1/(generation * generation) * 100))//This formula gives you diminishing returns based on generation. 100% with 1st gen, decreasing to 25%, 11%, 6, 4, 2...
-			var/list/possibleLocs = list()
-			var/spreadsIntoAdjacent = FALSE
-
-			if(prob(spreadIntoAdjacentChance))
-				spreadsIntoAdjacent = TRUE
-
-			for(var/turf/open/floor/earth in view(3,src))
-				if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
-					continue
-				if(!ownturf.CanAtmosPass(earth))
-					continue
-				if(spreadsIntoAdjacent || !locate(/obj/structure/glowshroom) in view(1,earth))
-					possibleLocs += earth
-				CHECK_TICK
-
-			if(!possibleLocs.len)
-				break
-
-			var/turf/newLoc = pick(possibleLocs)
-
-			var/shroomCount = 0 //hacky
-			var/placeCount = 1
-			for(var/obj/structure/glowshroom/shroom in newLoc)
-				shroomCount++
-			for(var/wallDir in GLOB.cardinals)
-				var/turf/isWall = get_step(newLoc,wallDir)
-				if(isWall.density)
-					placeCount++
-			if(shroomCount >= placeCount)
-				continue
-
-			var/obj/structure/glowshroom/child = new type(newLoc, myseed, TRUE)
-			child.generation = generation + 1
-			shrooms_planted++
-
-			CHECK_TICK
-		else
-			shrooms_planted++ //if we failed due to generation, don't try to plant one later
-	if(shrooms_planted < myseed.yield) //if we didn't get all possible shrooms planted, try again later
-		myseed.yield -= shrooms_planted
-		addtimer(CALLBACK(src, .proc/Spread), delay)
 
 /obj/structure/glowshroom/proc/CalcDir(turf/location = loc)
 	var/direction = 16
