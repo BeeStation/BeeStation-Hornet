@@ -143,7 +143,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/restart_controller,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
-	/client/proc/cmd_debug_make_powernets, 
+	/client/proc/cmd_debug_make_powernets,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,
 	/client/proc/cmd_debug_del_all,
@@ -296,6 +296,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 				add_verb(/client/proc/play_web_sound)
 		if(rights & R_SPAWN)
 			add_verb(GLOB.admin_verbs_spawn)
+		reset_badges()
 
 /client/proc/remove_admin_verbs()
 	var/list/verb_list = list()
@@ -321,6 +322,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		/client/proc/fix_say
 		)
 	remove_verb(verb_list)
+	reset_badges()
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Adminverbs - Hide Most"
@@ -490,6 +492,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if(holder)
 		if(holder.fakekey)
 			holder.fakekey = null
+			reset_badges()
 			if(isobserver(mob))
 				mob.invisibility = initial(mob.invisibility)
 				mob.alpha = initial(mob.alpha)
@@ -500,6 +503,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			if(!new_key)
 				return
 			holder.fakekey = new_key
+			reset_badges()
 			createStealthKey()
 			if(isobserver(mob))
 				mob.invisibility = INVISIBILITY_MAXIMUM //JUST IN CASE

@@ -26,6 +26,10 @@ LOOC_ENABLED
 ## Comment this out if you want to disable emojis
 EMOJIS
 
+## BADGES ##
+## Comment this out if you want to disable badges
+BADGES
+
 ## MOB MOVEMENT ###
 
 ## We suggest editing these variables ingame to find a good speed for your server.

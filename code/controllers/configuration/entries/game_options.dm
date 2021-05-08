@@ -255,6 +255,8 @@
 
 /datum/config_entry/flag/emojis
 
+/datum/config_entry/flag/badges
+
 /datum/config_entry/keyed_list/multiplicative_movespeed
 	key_mode = KEY_MODE_TYPE
 	value_mode = VALUE_MODE_NUM
