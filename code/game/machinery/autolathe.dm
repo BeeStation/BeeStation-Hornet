@@ -113,8 +113,7 @@
 
 	var/static/list/ore_values = list(iron = 1, glass = 1, copper = 3, plasma = 4, silver = 4, gold = 4, titanium = 4, uranium = 4, diamond = 5, bluespace = 7, bananium = 8)
 
-	var/turf/here = get_turf(src)
-	if(!is_station_level(here.z))
+	if(!is_station_level(z))
 		free_mode = TRUE
 
 	//Items
