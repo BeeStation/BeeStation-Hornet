@@ -65,25 +65,19 @@ GLOBAL_LIST_EMPTY(badge_data)
 /client/proc/reset_badges()
 	cached_badges = null
 
-/proc/badge_parse(badges) //turns :badge: into a badge
+/proc/badge_parse(badges)
 	if(!LAZYLEN(badges))
-		message_admins("no badges on client")
 		return ""
 
 	var/output = "<font style='vertical-align: -3px;'>"
 
 	if(!CONFIG_GET(flag/badges))
-		message_admins("no badges")
 		return ""
 
 	for(var/badge in badges)
-		message_admins("badge: [badge]")
 		var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/chat)
 		var/tag = sheet.icon_tag("badge-badge_[badge]")
 		if(tag)
 			output = "[output][tag]"
-			message_admins(output)
-		else
-			message_admins("no tag found for [badge]")
 
-	return "[output]</font>"
+	return "[output]</font> "
