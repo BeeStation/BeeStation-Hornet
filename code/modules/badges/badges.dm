@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(badge_data)
 	//Yay
 	log_game("[LAZYLEN(GLOB.badge_data)] badges loaded successfully.")
 	//Reset everyones badges so they get reloaded.
-	for(var/client/C in GLOB.clients)
+	for(var/client/C as() in GLOB.clients)
 		C.reset_badges()
 
 //Gets the badges attached to a client.
