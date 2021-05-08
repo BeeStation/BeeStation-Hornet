@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(badge_data)
 	//Load and parse data
 	GLOB.badge_data = json_decode(rustg_file_read("[global.config.directory]/badges.json"))
 	//Associate badges with admin ranks
-	for(var/datum/admin_rank/rank in GLOB.admin_ranks)
+	for(var/datum/admin_rank/rank as() in GLOB.admin_ranks)
 		rank.badge_icon = GLOB.badge_data[rank.name]
 	//Yay
 	log_game("[LAZYLEN(GLOB.badge_data)] badges loaded successfully.")
