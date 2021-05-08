@@ -21,6 +21,7 @@
 	var/shock_wire
 
 	//Security modes
+	var/panel_reinforcement = 0
 	var/security_interface_locked = TRUE
 	var/hacked = FALSE
 
@@ -368,14 +369,68 @@
 		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return TRUE
 
-	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
-		return TRUE
+	if(panel_open)
+		var/icon = "autolathe_t"
+		if(panel_reinforcement>0)
+			icon = "autolathe_a"
+		if(default_deconstruction_screwdriver(user, icon, "autolathe", O))
+			return TRUE
 
-	if(default_deconstruction_crowbar(O))
-		return TRUE
+		switch(panel_reinforcement)
+			if(0)
+				if(istype(O, /obj/item/stack/sheet/iron))
+					var/obj/item/stack/sheet/iron/S = O
+					if(S.get_amount() < 2)
+						to_chat(user, "<span class='warning'>You need at least 2 iron sheets to reinforce [src].</span>")
+						return
+					to_chat(user, "<span class='notice'>You start reinforcing [src].</span>")
+					if(do_after(user, 20, TRUE, src))
+						if(!panel_open || !S.use(2))
+							return
+						user.visible_message("<span class='notice'>[user] reinforces \the [src] with iron.</span>",
+											"<span class='notice'>You reinforce \the [src] with iron.</span>")
+						panel_reinforcement = 1
+						icon_state = "autolathe_a"
+						update_icon()
+						return
+				else if(istype(O, /obj/item/stack/sheet/plasteel))
+					to_chat(user, "<span class='warning'>The plasteel does not fit in [src].</span>")
+					return
+			if(1)
+				if(O.tool_behaviour == TOOL_WELDER)
+					if(!O.tool_start_check(user, amount=2))
+						return
+					to_chat(user, "<span class='notice'>You begin cutting the panel's shielding...</span>")
+					if(O.use_tool(src, user, 40, volume=50, amount = 2))
+						if(!panel_open)
+							return
+						user.visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
+										"<span class='notice'>You cut through \the [src]'s shielding.</span>",
+										"<span class='italics'>You hear welding.</span>")
+						panel_reinforcement = 2
+					return
+			if(2)
+				if(O.tool_behaviour == TOOL_CROWBAR)
+					var/obj/item/crowbar/W = O
+					to_chat(user, "<span class='notice'>You start removing the inner layer of shielding...</span>")
+					if(W.use_tool(src, user, 40, volume=100))
+						if(!panel_open)
+							return
+						if(panel_reinforcement != 2)
+							return
+						user.visible_message("<span class='notice'>[user] remove \the [src]'s shielding.</span>",
+											"<span class='notice'>You remove \the [src]'s shielding.</span>")
+						panel_reinforcement = 0
+						spawn_atom_to_turf(/obj/item/stack/sheet/iron, user.loc, 2)
+						icon_state = "autolathe_t"
+						update_icon()
+					return
 
-	if(panel_open && is_wire_tool(O))
-		wires.interact(user)
+		if(is_wire_tool(O))
+			wires.interact(user)
+			return TRUE
+
+	if(default_deconstruction_crowbar(O) && panel_reinforcement == 0)
 		return TRUE
 
 	if(user.a_intent == INTENT_HARM) //so we can hit the machine
@@ -620,6 +675,14 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[prod_coeff*100]%</b>.<span>"
+	if(panel_open)
+		switch(panel_reinforcement)
+			if(0)
+				. += "Its wires are exposed."
+			if(1)
+				. += "Its wires are hidden behind a welded metal cover."
+			if(2)
+				. += "There is some shredded metal inside."
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, amount = 1)
 	if(D.make_reagents.len)
