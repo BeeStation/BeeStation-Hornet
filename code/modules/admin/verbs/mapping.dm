@@ -238,18 +238,19 @@ GLOBAL_LIST_EMPTY(dirty_vars)
 
 	var/list/atom/atom_list = list()
 
-	for(var/atom/A in world)
-		if(istype(A,type_path))
-			var/atom/B = A
-			while(!(isturf(B.loc)))
+	for(var/area/T as() in get_areas(/area, num_level))
+		for(var/atom/A in T)
+			if(istype(A, type_path))
+				var/atom/B = A
+				while(!(isturf(B.loc)))
 				if(B?.loc)
 					B = B.loc
 				else
 					break
-			if(B)
-				if(B.z == num_level)
+				if(B)
 					count++
 					atom_list += A
+			CHECK_TICK
 
 	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects Zlevel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

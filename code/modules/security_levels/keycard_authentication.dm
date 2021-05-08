@@ -122,7 +122,7 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 
 GLOBAL_VAR_INIT(emergency_access, FALSE)
 /proc/make_maint_all_access()
-	for(var/area/maintenance/M as() in get_areas(/area/maintenance))
+	for(var/area/maintenance/M as() in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
 		for(var/obj/machinery/door/airlock/A in M)
 			A.emergency = TRUE
 			A.update_icon()
@@ -131,7 +131,7 @@ GLOBAL_VAR_INIT(emergency_access, FALSE)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
-	for(var/area/maintenance/M as() in get_areas(/area/maintenance))
+	for(var/area/maintenance/M as() in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
 		for(var/obj/machinery/door/airlock/A in M)
 			A.emergency = FALSE
 			A.update_icon()
