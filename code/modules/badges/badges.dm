@@ -70,6 +70,7 @@ GLOBAL_LIST_EMPTY(badge_data)
 		return ""
 
 	var/output = "<font style='vertical-align: -3px;'>"
+	var/first_badge = TRUE
 
 	if(!CONFIG_GET(flag/badges))
 		return ""
@@ -78,6 +79,10 @@ GLOBAL_LIST_EMPTY(badge_data)
 		var/datum/asset/spritesheet/sheet = get_asset_datum(/datum/asset/spritesheet/chat)
 		var/tag = sheet.icon_tag("badge-badge_[badge]")
 		if(tag)
-			output = "[output][tag]"
+			if(first_badge)
+				output = "[output][tag]"
+				first_badge = FALSE
+			else
+				output = "[output] [tag]"
 
 	return "[output]</font> "
