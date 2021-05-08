@@ -96,7 +96,7 @@
 	name = "\improper CustodiPRO cartridge"
 	desc = "The ultimate in clean-room design."
 	icon_state = "cart-j"
-	access = CART_JANITOR | CART_DRONEPHONE
+	access = CART_DRONEPHONE
 	bot_access_flags = CLEAN_BOT
 
 /obj/item/cartridge/lawyer
@@ -458,70 +458,6 @@ Code:
 			else
 				menu += "<b>No ore silo detected!</b>"
 			menu = jointext(menu, "")
-
-		if (49) //janitorial locator
-			menu = "<h4>[PDAIMG(bucket)] Persistent Custodial Object Locator</h4>"
-
-			var/turf/cl = get_turf(src)
-			if (cl)
-				menu += "Current Orbital Location: <b>\[[cl.x],[cl.y]\]</b>"
-
-				menu += "<h4>Located Mops:</h4>"
-
-				var/ldat
-				for(var/area/A as() in get_areas(/area, cl.z))
-					for(var/obj/item/mop/M in A)
-						var/turf/ml = get_turf(M)
-
-						if(ml)
-							if (ml.z != cl.z)
-								continue
-							var/direction = get_dir(src, M)
-							ldat += "Mop - <b>\[[ml.x],[ml.y] ([uppertext(dir2text(direction))])\]</b> - [M.reagents.total_volume ? "Wet" : "Dry"]<br>"
-
-				if (!ldat)
-					menu += "None"
-				else
-					menu += "[ldat]"
-
-				menu += "<h4>Located Janitorial Cart:</h4>"
-
-				ldat = null
-				for(var/area/A as() in get_areas(/area, cl.z))
-					for(var/obj/structure/janitorialcart/B in A)
-						var/turf/bl = get_turf(B)
-
-						if(bl)
-							if (bl.z != cl.z)
-								continue
-							var/direction = get_dir(src, B)
-							ldat += "Cart - <b>\[[bl.x],[bl.y] ([uppertext(dir2text(direction))])\]</b> - Water level: [B.reagents.total_volume]/100<br>"
-
-				if (!ldat)
-					menu += "None"
-				else
-					menu += "[ldat]"
-
-				menu += "<h4>Located Cleanbots:</h4>"
-
-				ldat = null
-				for (var/mob/living/simple_animal/bot/cleanbot/B in GLOB.alive_mob_list)
-					var/turf/bl = get_turf(B)
-
-					if(bl)
-						if (bl.z != cl.z)
-							continue
-						var/direction = get_dir(src, B)
-						ldat += "Cleanbot - <b>\[[bl.x],[bl.y] ([uppertext(dir2text(direction))])\]</b> - [B.on ? "Online" : "Offline"]<br>"
-
-				if (!ldat)
-					menu += "None"
-				else
-					menu += "[ldat]"
-
-			else
-				menu += "ERROR: Unable to determine current location."
-			menu += "<br><br><A href='byond://?src=[REF(src)];choice=49'>Refresh GPS Locator</a>"
 
 		if (53) // Newscaster
 			menu = "<h4>[PDAIMG(notes)] Newscaster Access</h4>"
