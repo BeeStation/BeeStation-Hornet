@@ -39,7 +39,14 @@
 		if(WIRE_ACTIVATE)
 			A.begin_process()
 		if(WIRE_ACCOUNT)
-			A.recieving_account = null
+			if(A.recieving_account)
+				A.reset(WIRE_ACCOUNT, TRUE)
+				if(A.wire_status == 0) //Inactive?
+					while(A.wire_status < 4)
+						A.wire_status += 1
+						sleep(1000)
+						A.reset(wire)	
+					A.wire_status = 0
 
 /datum/wires/autolathe/on_cut(wire, mend)
 	var/obj/machinery/autolathe/A = holder

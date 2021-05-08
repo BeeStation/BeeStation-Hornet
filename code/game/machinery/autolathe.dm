@@ -28,6 +28,7 @@
 	var/free_mode = FALSE
 	var/price_factor = 20
 	var/obj/item/card/id/recieving_account
+	var/wire_status = 0
 
 	var/busy = FALSE
 	var/prod_coeff = 1
@@ -110,7 +111,7 @@
 	var/list/data = list()	
 	data["acceptsDisk"] = TRUE
 
-	var/static/list/ore_values = list(iron = 1, glass = 1, copper = 3, plasma = 15, silver = 16, gold = 18, titanium = 30, uranium = 30, diamond = 50, bluespace = 50, bananium = 60)
+	var/static/list/ore_values = list(iron = 1, glass = 1, copper = 3, plasma = 4, silver = 4, gold = 4, titanium = 4, uranium = 4, diamond = 5, bluespace = 7, bananium = 8)
 
 	var/turf/here = get_turf(src)
 	if(!is_station_level(here.z))
@@ -143,8 +144,7 @@
 						price += round(ore_values["[material_id]"] * D.materials[material_id] / price_factor) // also multiplied by 2000, since there are 2000 mat units in a sheet
 					
 			if(!free_mode)
-				if(price < MINIMUM_PRICE) //To ensure the price isnt too low
-					price += MINIMUM_PRICE
+				price += (price < MINIMUM_PRICE)*MINIMUM_PRICE
 
 			material_cost += list(list("name" = "Credits", "amount" = price))
 
@@ -500,8 +500,7 @@
 	if(free_mode)
 		price = 0
 	else
-		if(price < MINIMUM_PRICE) //To ensure the price isnt too low
-			price += MINIMUM_PRICE
+		price += (price < MINIMUM_PRICE)*MINIMUM_PRICE
 		if(ishuman(usr))
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id/C = H.get_idcard(TRUE)
@@ -638,7 +637,7 @@
 
 	return materials.has_materials(required_materials)
 
-/obj/machinery/autolathe/proc/reset(wire)
+/obj/machinery/autolathe/proc/reset(wire, toggle)
 	switch(wire)
 		if(WIRE_HACK)
 			if(!wires.is_cut(wire))
@@ -649,6 +648,21 @@
 		if(WIRE_DISABLE)
 			if(!wires.is_cut(wire))
 				disabled = FALSE
+		if(WIRE_ACCOUNT)
+			var/list/message = list(
+				 "0" = "initiating, pulse the wire to CANCEL the reset, otherwise wait.", "1" = "in final stage, pulse the wire to CONFIRM the reset, otherwise ignore.", "2" = "succeeded, have a nice day.", "3" = "cancelled, have a nice day.")
+			if(toggle && (wire_status == 1) || !toggle && (wire_status == 2))
+				wire_status = 3
+			else if(toggle && (wire_status == 2))
+				recieving_account.registered_account.bank_card_talk("[name] bank credential reset [message["[wire_status]"]]")
+				say("Bank credential reset [message["[wire_status]"]]")
+				recieving_account = null
+				return
+			else if(wire_status > 3)
+				return
+			recieving_account.registered_account.bank_card_talk("[name] bank credential reset [message["[wire_status]"]]")
+			say("Bank credential reset [message["[wire_status]"]]")
+			wire_status += (wire_status>1)*3
 
 /obj/machinery/autolathe/proc/shock(mob/user, prb)
 	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock

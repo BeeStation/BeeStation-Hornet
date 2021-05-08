@@ -70,7 +70,7 @@
 	if(pc && !pc.Invoke(user))
 		return
 	var/material_amount = get_item_material_amount(I)
-	if(!material_amount)
+	if(!material_amount && !istype(I, /obj/item/card/id))
 		to_chat(user, "<span class='warning'>[I] does not contain sufficient amounts of metal or glass to be accepted by [parent].</span>")
 		return
 	if(!has_space(material_amount))
