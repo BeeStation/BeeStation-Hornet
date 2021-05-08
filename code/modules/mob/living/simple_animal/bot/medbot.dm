@@ -332,7 +332,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if (H.wear_suit && H.head && istype(H.wear_suit, /obj/item/clothing) && istype(H.head, /obj/item/clothing))
+		if (H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 			var/obj/item/clothing/CS = H.wear_suit
 			var/obj/item/clothing/CH = H.head
 			if (CS.clothing_flags & CH.clothing_flags & THICKMATERIAL)

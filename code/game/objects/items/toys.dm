@@ -204,7 +204,7 @@
 		return
 	src.add_fingerprint(user)
 	if (src.bullets < 1)
-		user.show_message("<span class='warning'>*click*</span>", 2)
+		user.show_message("<span class='warning'>*click*</span>", MSG_AUDIBLE)
 		playsound(src, 'sound/weapons/gun_dry_fire.ogg', 30, TRUE)
 		return
 	playsound(user, 'sound/weapons/gunshot.ogg', 100, 1)
@@ -1429,7 +1429,7 @@
 	to_chat(user, "You name the dummy as \"[doll_name]\"")
 	name = "[initial(name)] - [doll_name]"
 
-/obj/item/toy/dummy/talk_into(atom/movable/A, message, channel, list/spans, datum/language/language)
+/obj/item/toy/dummy/talk_into(atom/movable/A, message, channel, list/spans, datum/language/language, list/message_mods)
 	var/mob/M = A
 	if (istype(M))
 		M.log_talk(message, LOG_SAY, tag="dummy toy")
@@ -1522,7 +1522,7 @@
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
 		update_icon()
-	
+
 	var/choice = null
 	if(!LAZYLEN(cards))
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
@@ -1653,3 +1653,24 @@
 	. = ..()
 	new /obj/item/dice/d6(src)
 	new /obj/item/dice/d6(src)
+
+
+/obj/item/storage/box/yatzy
+	name = "Game of Yatzy"
+	desc = "Contains all the pieces required to play a game of Yatzy with up to 4 friends!"
+
+/obj/item/storage/box/yatzy/PopulateContents()
+	new /obj/item/storage/pill_bottle/dice_cup/yatzy(src)
+	new /obj/item/paper/yatzy(src)
+	new /obj/item/paper/yatzy(src)
+	new /obj/item/paper/yatzy(src)
+	new /obj/item/paper/yatzy(src)
+
+/obj/item/storage/pill_bottle/dice_cup/yatzy/Initialize()
+	. = ..()
+	for(var/dice in 1 to 5)
+		new /obj/item/dice/d6(src)
+
+/obj/item/paper/yatzy
+	name = "paper - Yatzy Table"
+	info = "<table><tr><th>Upper</th><th>Game 1</th><th>Game 2</th><th>Game 3</th></tr><tr><th>Aces</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Twos</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Threes</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Fours</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Fives</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Sixes</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Upper Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th><b>Bonus</b></th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>1 Pair</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>2 Pairs</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th><th>3 of a Kind</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th><th>4 of a Kind</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Full House</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Sm. Straight</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Lg. Straight</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Yatzy</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Chance</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Lower Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th><b>Grand Total</b></th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr></table>"

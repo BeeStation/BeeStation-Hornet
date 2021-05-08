@@ -550,7 +550,7 @@
 			colored_message = "<font color=[color]>[message]</font>"
 		else
 			colored_message = "<font color='[color]'>[message]</font>"
-	
+
 	//This makes readability a bit better for admins.
 	switch(message_type)
 		if(LOG_WHISPER)
@@ -609,3 +609,7 @@
 			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
+
+//Can the mob see reagents inside of containers?
+/mob/proc/can_see_reagents()
+	return stat == DEAD || has_unlimited_silicon_privilege //Dead guys and silicons can always see reagents

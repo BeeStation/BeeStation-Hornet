@@ -5,6 +5,7 @@
 #define GASMINER_POWER_KPA 3
 #define GASMINER_POWER_FULLSCALE 4
 
+
 /obj/machinery/atmospherics/miner
 	name = "gas miner"
 	desc = "Gasses mined from the gas giant below (above?) flow out through this massive vent."
@@ -94,7 +95,7 @@
 		if(GASMINER_POWER_KPA)
 			active_power_usage = P * power_draw_dynamic_kpa_coeff
 		if(GASMINER_POWER_FULLSCALE)
-			active_power_usage = (spawn_mol * power_draw_dynamic_mol_coeff) + (P * power_draw_dynamic_kpa_coeff)
+			active_power_usage = (spawn_mol * power_draw_dynamic_mol_coeff) + (P * power_draw_dynamic_kpa_coeff) + power_draw_static
 
 /obj/machinery/atmospherics/miner/proc/do_use_power(amount)
 	var/turf/T = get_turf(src)
@@ -175,3 +176,50 @@
 	name = "\improper Water Vapor Gas Miner"
 	overlay_color = "#99928E"
 	spawn_id = /datum/gas/water_vapor
+
+/obj/machinery/atmospherics/miner/station
+	power_draw = GASMINER_POWER_FULLSCALE
+	spawn_mol = MOLES_CELLSTANDARD / 10
+	max_ext_kpa = 2500
+
+/obj/machinery/atmospherics/miner/station/n2o
+	name = "\improper N2O Gas Miner"
+	overlay_color = "#FFCCCC"
+	spawn_id = /datum/gas/nitrous_oxide
+
+/obj/machinery/atmospherics/miner/station/nitrogen
+	name = "\improper N2 Gas Miner"
+	overlay_color = "#CCFFCC"
+	spawn_id = /datum/gas/nitrogen
+
+/obj/machinery/atmospherics/miner/station/oxygen
+	name = "\improper O2 Gas Miner"
+	overlay_color = "#007FFF"
+	spawn_id = /datum/gas/oxygen
+
+/obj/machinery/atmospherics/miner/station/toxins
+	name = "\improper Plasma Gas Miner"
+	overlay_color = "#FF0000"
+	spawn_id = /datum/gas/plasma
+
+/obj/machinery/atmospherics/miner/station/carbon_dioxide
+	name = "\improper CO2 Gas Miner"
+	overlay_color = "#CDCDCD"
+	spawn_id = /datum/gas/carbon_dioxide
+
+/obj/machinery/atmospherics/miner/station/bz
+	name = "\improper BZ Gas Miner"
+	overlay_color = "#FAFF00"
+	spawn_id = /datum/gas/bz
+
+/obj/machinery/atmospherics/miner/station/water_vapor
+	name = "\improper Water Vapor Gas Miner"
+	overlay_color = "#99928E"
+	spawn_id = /datum/gas/water_vapor
+
+
+#undef GASMINER_POWER_NONE
+#undef GASMINER_POWER_STATIC
+#undef GASMINER_POWER_MOLES
+#undef GASMINER_POWER_KPA
+#undef GASMINER_POWER_FULLSCALE

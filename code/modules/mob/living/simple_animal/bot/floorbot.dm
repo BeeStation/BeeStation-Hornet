@@ -292,7 +292,7 @@
 				result = F
 		if(REPLACE_TILE)
 			F = scan_target
-			if(isfloorturf(F) && !isplatingturf(F)) //The floor must already have a tile.
+			if(isfloorturf(F) && !isplatingturf(F) && F.type != initial(tiletype.turf_type)) //The floor must already have a tile.
 				result = F
 		if(FIX_TILE)	//Selects only damaged floors.
 			F = scan_target
@@ -330,30 +330,35 @@
 	else
 		var/turf/open/floor/F = target_turf
 
-		if(F.type != initial(tiletype.turf_type) && (F.broken || F.burnt || isplatingturf(F)) || F.type == (initial(tiletype.turf_type) && (F.broken || F.burnt)))
-			anchored = TRUE
-			icon_state = "[toolbox_color]floorbot-c"
-			mode = BOT_REPAIRING
-			visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
-			sleep(50)
-			if(mode == BOT_REPAIRING && F && src.loc == F)
-				F.broken = FALSE
-				F.burnt = FALSE
-				F.PlaceOnTop(/turf/open/floor/plasteel, flags = CHANGETURF_INHERIT_AIR)
+		switch(process_type) // Other process types have no business here
+			if(REPLACE_TILE)
+				if(!isplatingturf(F) && F.type != initial(tiletype.turf_type))
+					anchored = TRUE
+					icon_state = "[toolbox_color]floorbot-c"
+					mode = BOT_REPAIRING
+					visible_message("<span class='notice'>[src] begins replacing the floor tiles.</span>")
+					F.make_plating()
+					sleep(50)
+					if(mode == BOT_REPAIRING && F && src.loc == F && isplatingturf(F))
+						F.broken = FALSE
+						F.burnt = FALSE
+						F.PlaceOnTop(initial(tiletype.turf_type), flags = CHANGETURF_INHERIT_AIR)
+						specialtiles -= 1
+						if(specialtiles == 0)
+							speak("Requesting refill of custom floor tiles to continue replacing.")
+			if(PLACE_TILE, FIX_TILE)
+				if(isplatingturf(F) || F.broken || F.burnt)
+					anchored = TRUE
+					icon_state = "[toolbox_color]floorbot-c"
+					mode = BOT_REPAIRING
+					visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
+					sleep(50)
+					if(mode == BOT_REPAIRING && F && src.loc == F)
+						F.broken = FALSE
+						F.burnt = FALSE
+						if(isplatingturf(F))
+							F.PlaceOnTop(/turf/open/floor/plasteel, flags = CHANGETURF_INHERIT_AIR)
 
-		if(replacetiles && F.type != initial(tiletype.turf_type) && specialtiles && !isplatingturf(F))
-			anchored = TRUE
-			icon_state = "[toolbox_color]floorbot-c"
-			mode = BOT_REPAIRING
-			visible_message("<span class='notice'>[src] begins replacing the floor tiles.</span>")
-			sleep(50)
-			if(mode == BOT_REPAIRING && F && src.loc == F)
-				F.broken = FALSE
-				F.burnt = FALSE
-				F.PlaceOnTop(initial(tiletype.turf_type), flags = CHANGETURF_INHERIT_AIR)
-				specialtiles -= 1
-				if(specialtiles == 0)
-					speak("Requesting refill of custom floor tiles to continue replacing.")
 	mode = BOT_IDLE
 	update_icon()
 	anchored = FALSE

@@ -7,7 +7,7 @@
 	drag_slowdown = 1.5		// Same as a prone mob
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60, "stamina" = 0)
 	var/icon_door = null
 	var/icon_door_override = FALSE //override to have open overlay use icon different to its base's
 	var/secure = FALSE //secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
@@ -58,6 +58,8 @@
 	return ..()
 
 /obj/structure/closet/update_icon()
+	if(istype(src, /obj/structure/closet/supplypod))
+		return . = ..()
 	cut_overlays()
 	if(!opened)
 		layer = OBJ_LAYER
@@ -358,8 +360,11 @@
 			var/mob/living/L = O
 			if(!issilicon(L))
 				L.Paralyze(40)
-			O.forceMove(T)
-			close()
+			if(istype(src, /obj/structure/closet/supplypod/extractionpod))
+				O.forceMove(src)
+			else
+				O.forceMove(T)
+				close()
 	else
 		O.forceMove(T)
 	return 1

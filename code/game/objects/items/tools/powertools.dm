@@ -6,7 +6,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(/datum/material/iron=150,/datum/material/silver=50,/datum/material/titanium=25)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 0)
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	toolspeed = 0.7
@@ -151,6 +151,7 @@
 /obj/item/powertool/jaws_of_life/attack(mob/living/carbon/C, mob/living/user)
 	if(tool_behaviour == TOOL_WIRECUTTER && istype(C) && C.handcuffed)
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
+		log_combat(user, C, "cut handcuffs from")
 		qdel(C.handcuffed)
 		return
 	else

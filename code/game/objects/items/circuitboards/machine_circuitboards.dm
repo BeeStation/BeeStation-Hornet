@@ -514,6 +514,7 @@
 		/obj/machinery/vending/games = "\improper Good Clean Fun",
 		/obj/machinery/vending/autodrobe = "AutoDrobe",
 		/obj/machinery/vending/wardrobe/sec_wardrobe = "SecDrobe",
+		/obj/machinery/vending/wardrobe/det_wardrobe = "DetDrobe",
 		/obj/machinery/vending/wardrobe/medi_wardrobe = "MediDrobe",
 		/obj/machinery/vending/wardrobe/engi_wardrobe = "EngiDrobe",
 		/obj/machinery/vending/wardrobe/atmos_wardrobe = "AtmosDrobe",
@@ -979,8 +980,8 @@
 
 /obj/item/circuitboard/machine/dish_drive/examine(mob/user)
 	. = ..()
-	. += {"<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>\n
-	<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"}
+	. += "<span class='notice'>Its suction function is [suction ? "enabled" : "disabled"]. Use it in-hand to switch.</span>\n"+\
+	"<span class='notice'>Its disposal auto-transmit function is [transmit ? "enabled" : "disabled"]. Alt-click it to switch.</span>"
 
 /obj/item/circuitboard/machine/dish_drive/attack_self(mob/living/user)
 	suction = !suction

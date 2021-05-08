@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	actions_types = list(/datum/action/item_action/toggle_light)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 
@@ -982,16 +982,19 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return
 	switch(scanmode)
 		if(PDA_SCANNER_REAGENT)
-			if(!isnull(A.reagents))
-				if(A.reagents.reagent_list.len > 0)
-					var/reagents_length = A.reagents.reagent_list.len
-					to_chat(user, "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>")
-					for (var/re in A.reagents.reagent_list)
-						to_chat(user, "<span class='notice'>\t [re]</span>")
+			if(!istype(A, /obj/item/reagent_containers/pill/floorpill))
+				if(!isnull(A.reagents))
+					if(A.reagents.reagent_list.len > 0)
+						var/reagents_length = A.reagents.reagent_list.len
+						to_chat(user, "<span class='notice'>[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] found.</span>")
+						for (var/re in A.reagents.reagent_list)
+							to_chat(user, "<span class='notice'>\t [re]</span>")
+					else
+						to_chat(user, "<span class='notice'>No active chemical agents found in [A].</span>")
 				else
-					to_chat(user, "<span class='notice'>No active chemical agents found in [A].</span>")
+					to_chat(user, "<span class='notice'>No significant chemical agents found in [A].</span>")
 			else
-				to_chat(user, "<span class='notice'>No significant chemical agents found in [A].</span>")
+				to_chat(user, "<span class='notice'>You can't scan [A].")
 
 		if(PDA_SCANNER_GAS)
 			A.analyzer_act(user, src)
@@ -1018,7 +1021,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	if (ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class='userdanger'>Your [src] explodes!</span>", 1)
+		M.show_message("<span class='userdanger'>Your [src] explodes!</span>", MSG_VISUAL, "<span class='warning'>You hear a loud *pop*!</span>", MSG_AUDIBLE)
 	else
 		visible_message("<span class='danger'>[src] explodes!</span>", "<span class='warning'>You hear a loud *pop*!</span>")
 

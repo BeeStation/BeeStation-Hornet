@@ -155,7 +155,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(ishuman(M) && (M.mind.assigned_role in list("Captain", "Chaplain")))
 		return FALSE
-	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		return FALSE
 	if(is_servant_of_ratvar(M))
 		return FALSE
@@ -238,7 +238,7 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Cogwatcher"
 				else if(role in "Clown")
 					prefix = "Clonker"
-				else if(role in GLOB.civilian_positions)
+				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
 					prefix = "Cogworker"
 				else if(role in GLOB.security_positions)
 					prefix = "Warrior"

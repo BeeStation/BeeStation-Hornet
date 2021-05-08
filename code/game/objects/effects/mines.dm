@@ -120,7 +120,7 @@
 	if(target)
 		if(!(target && HAS_TRAIT(target, TRAIT_MINDSHIELD)))
 			triggermine(target)
-		if(smartmine == 0 || istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat)) //tinfoil hat prevents detection of implants
+		if(smartmine == 0 || istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat)) //tinfoil hat prevents detection of implants
 			triggermine(target)
 
 /obj/effect/mine/proc/triggermine(mob/victim)

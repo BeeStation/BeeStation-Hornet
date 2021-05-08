@@ -4,6 +4,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	name = "Clockwork Slab"
 	desc = "A mechanical-looking device filled with intricate cogs that swirl to their own accord."
 	clockwork_desc = "A beautiful work of art, harnessing mechanical energy for a variety of useful powers."
+	item_flags = NOBLUDGEON
 	icon_state = "dread_ipad"
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
@@ -177,6 +178,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 					return FALSE
 				if(S.power_cost > GLOB.clockcult_power)
 					to_chat(M, "<span class='neovgre'>You need [S.power_cost]W to invoke [S.name].</span>")
+					return FALSE
+				if(S.vitality_cost > GLOB.clockcult_vitality)
+					to_chat(M, "<span class='neovgre'>You need [S.vitality_cost] vitality to invoke [S.name].</span>")
 					return FALSE
 				var/datum/clockcult/scripture/new_scripture = new S.type()
 				//Create a new scripture temporarilly to process, when it's done it will be qdeleted.

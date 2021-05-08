@@ -159,11 +159,11 @@
 
 /area/shuttle/escape/luxury
 	name = "Luxurious Emergency Shuttle"
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/shuttle/escape/arena
 	name = "The Arena"
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/shuttle/escape/meteor
 	name = "\proper a meteor with engines strapped to it"

@@ -285,11 +285,8 @@
 	S.rabid = TRUE
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
-
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a pyroclastic anomaly slime?", ROLE_PAI, null, null, 100, S, POLL_IGNORE_PYROSLIME)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/chosen = pick(candidates)
-		S.key = chosen.key
+	S.flavor_text = FLAVOR_TEXT_EVIL
+	S.set_playable()
 
 /////////////////////
 
@@ -313,7 +310,7 @@
 			if(target && !target.stat)
 				O.throw_at(target, 7, 5)
 		else
-			O.ex_act(EXPLODE_HEAVY)
+			SSexplosions.med_mov_atom += O
 
 /obj/effect/anomaly/bhole/proc/grav(r, ex_act_force, pull_chance, turf_removal_chance)
 	for(var/t = -r, t < r, t++)
@@ -332,7 +329,13 @@
 	if(prob(pull_chance))
 		for(var/obj/O in T.contents)
 			if(O.anchored)
-				O.ex_act(ex_act_force)
+				switch(ex_act_force)
+					if(EXPLODE_DEVASTATE)
+						SSexplosions.high_mov_atom += O
+					if(EXPLODE_HEAVY)
+						SSexplosions.med_mov_atom += O
+					if(EXPLODE_LIGHT)
+						SSexplosions.low_mov_atom += O
 			else
 				step_towards(O,src)
 		for(var/mob/living/M in T.contents)
@@ -340,4 +343,10 @@
 
 	//Damaging the turf
 	if( T && prob(turf_removal_chance) )
-		T.ex_act(ex_act_force)
+		switch(ex_act_force)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.highturf += T
+			if(EXPLODE_HEAVY)
+				SSexplosions.medturf += T
+			if(EXPLODE_LIGHT)
+				SSexplosions.lowturf += T

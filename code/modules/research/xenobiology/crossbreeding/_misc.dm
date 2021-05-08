@@ -248,7 +248,7 @@ Slimecrossing Items
 	icon_state = "frozen"
 	density = TRUE
 	max_integrity = 100
-	armor = list("melee" = 30, "bullet" = 50, "laser" = -50, "energy" = -50, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = -80, "acid" = 30)
+	armor = list("melee" = 30, "bullet" = 50, "laser" = -50, "energy" = -50, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = -80, "acid" = 30, "stamina" = 0)
 
 /obj/structure/ice_stasis/Initialize()
 	. = ..()
@@ -323,9 +323,7 @@ Slimecrossing Items
 	var/obj/item/stack/stack_item = target
 
 	if(istype(stack_item,/obj/item/stack/telecrystal))
-		var/mob/living/carbon/carbie = user
-		to_chat(user,"<span class='big red'>You will pay for your hubris!</span>")
-		carbie.gain_trauma(/datum/brain_trauma/special/beepsky,TRAUMA_RESILIENCE_ABSOLUTE)
+		to_chat(user,"<span class='notice'>The crystal disappears!</span>")
 		qdel(src)
 		return
 

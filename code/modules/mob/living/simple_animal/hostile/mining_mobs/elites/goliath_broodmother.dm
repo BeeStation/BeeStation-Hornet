@@ -188,14 +188,10 @@
 	if(get_dist(src, target) <= 7)//Screen range check, so it can't attack people off-screen
 		visible_message("<span class='warning'>[src] digs one of its tentacles under [target]!</span>")
 		new /obj/effect/temp_visual/goliath_tentacle/broodmother(tturf, src)
-
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/death()
 	. = ..()
 	if(mother != null)
 		mother.children_list -= src
-	visible_message("<span class='warning'>[src] explodes!</span>")
-	explosion(get_turf(loc),0,0,0,flame_range = 3, adminlog = FALSE)
-	gib()
 
 //Tentacles have less stun time compared to regular variant, to balance being able to use them much more often.  Also, 10 more damage.
 /obj/effect/temp_visual/goliath_tentacle/broodmother/trip()

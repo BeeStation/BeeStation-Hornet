@@ -14,7 +14,8 @@
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
 					/obj/item/holosign_creator/security = 3,
-					/obj/item/restraints/legcuffs/bola/energy = 7)
+					/obj/item/restraints/legcuffs/bola/energy = 7,
+					/obj/item/club = 5)
 	contraband = list(/obj/item/clothing/glasses/sunglasses/advanced = 2,
 					  /obj/item/storage/fancy/donut_box = 2)
 	premium = list(/obj/item/storage/belt/security/webbing = 5,

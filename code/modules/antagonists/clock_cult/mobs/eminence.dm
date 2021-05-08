@@ -4,7 +4,7 @@
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "eminence"
 	mob_biotypes = list(MOB_SPIRIT)
-	incorporeal_move = INCORPOREAL_MOVE_JAUNT
+	incorporeal_move = INCORPOREAL_MOVE_EMINENCE
 	invisibility = INVISIBILITY_OBSERVER
 	health = INFINITY
 	maxHealth = INFINITY
@@ -66,6 +66,13 @@
 	AddSpell(reagent_purge)
 	linked_abscond = new
 	AddSpell(linked_abscond)
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+
+/mob/living/simple_animal/eminence/Destroy()
+	. = ..()
+	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
+	if(beacon)
+		qdel(beacon)
 
 /mob/living/simple_animal/eminence/Login()
 	. = ..()

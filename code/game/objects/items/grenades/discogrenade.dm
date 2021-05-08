@@ -108,7 +108,7 @@
 		M.show_message("<span class='warning'>You resist your inner urges to break out your best moves.</span>", 2)
 		M.set_drugginess(5)
 		return
-	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		to_chat(M, "<span class = 'userdanger'>THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!</span>")
 		M.emote("scream")
 		return

@@ -181,6 +181,8 @@
 		chosen_department = "supply"
 	if(oldmind.assigned_role in GLOB.civilian_positions)
 		chosen_department = "civilian"
+	if(oldmind.assigned_role in GLOB.gimmick_positions)
+		chosen_department = "civilian"
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(!H.mind)
 			continue
@@ -200,6 +202,8 @@
 			their_chosen_department = "supply"
 		if(H.mind.assigned_role in GLOB.civilian_positions)
 			their_chosen_department = "civilian"
+		if(H.mind.assigned_role in GLOB.gimmick_positions)
+			chosen_department = "civilian"
 		if(their_chosen_department != chosen_department)
 			continue
 		viable_coworkers += H.mind

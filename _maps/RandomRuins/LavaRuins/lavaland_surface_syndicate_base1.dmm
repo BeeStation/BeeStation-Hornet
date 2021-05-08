@@ -2729,6 +2729,9 @@
 	dir = 9
 	},
 /obj/effect/mapping_helpers/no_lava,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/plating{
 	baseturfs = /turf/open/lava/smooth/lava_land_surface;
 	initial_gas_mix = "LAVALAND_ATMOS"
@@ -2840,10 +2843,10 @@
 	dir = 1
 	},
 /obj/machinery/turretid{
+	ailock = 1;
 	control_area = "/area/ruin/unpowered/syndicate_lava_base/main";
 	dir = 1;
 	icon_state = "control_kill";
-	ailock = 1;
 	lethal = 1;
 	name = "Base turret controls";
 	pixel_y = 30;
@@ -2876,6 +2879,9 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/plating{
 	baseturfs = /turf/open/lava/smooth/lava_land_surface;
 	initial_gas_mix = "LAVALAND_ATMOS"
@@ -3290,6 +3296,9 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
+/obj/structure/railing/corner{
+	dir = 1
+	},
 /turf/open/floor/plating{
 	baseturfs = /turf/open/lava/smooth/lava_land_surface;
 	initial_gas_mix = "LAVALAND_ATMOS"
@@ -4501,6 +4510,9 @@
 	dir = 10
 	},
 /obj/effect/mapping_helpers/no_lava,
+/obj/structure/railing{
+	dir = 8
+	},
 /turf/open/floor/plating{
 	baseturfs = /turf/open/lava/smooth/lava_land_surface;
 	initial_gas_mix = "LAVALAND_ATMOS"
@@ -5621,6 +5633,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	freerange = 1;
+	name = "Syndicate Radio Intercom"
+	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "nK" = (
@@ -6157,6 +6173,12 @@
 	},
 /turf/open/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"qM" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 5
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/testlab)
 "qP" = (
 /obj/structure/rack{
 	dir = 8
@@ -6209,6 +6231,18 @@
 /obj/item/circuitboard/machine/thermomachine,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"wt" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 10
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/telecomms)
+"xw" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 6
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
 "yv" = (
 /obj/structure/table/reinforced,
 /obj/item/surgicaldrill,
@@ -6217,6 +6251,18 @@
 /obj/item/blood_filter,
 /turf/open/floor/plasteel/white/side,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
+"zv" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 10
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
+"zM" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 5
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/engineering)
 "BF" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
@@ -6253,6 +6299,12 @@
 	},
 /turf/open/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"Ej" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 5
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/cargo)
 "EZ" = (
 /obj/machinery/door/airlock/external{
 	req_access_txt = "150"
@@ -6316,6 +6368,19 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
+"SY" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/railing{
+	dir = 9
+	},
+/turf/open/floor/plating{
+	baseturfs = /turf/open/lava/smooth/lava_land_surface;
+	initial_gas_mix = "LAVALAND_ATMOS"
+	},
+/area/lavaland/surface/outdoors)
 "Tp" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -6575,7 +6640,7 @@ mM
 nh
 mM
 mn
-mn
+wt
 ab
 ab
 ab
@@ -6964,7 +7029,7 @@ ab
 ab
 dG
 dG
-ig
+SY
 iu
 iu
 iu
@@ -7013,7 +7078,7 @@ ab
 ab
 dG
 dG
-ig
+SY
 je
 iv
 jk
@@ -7062,7 +7127,7 @@ ab
 ab
 dG
 dG
-ig
+SY
 je
 jk
 jx
@@ -7111,7 +7176,7 @@ ab
 ab
 dG
 dG
-ig
+SY
 je
 jk
 jx
@@ -7160,7 +7225,7 @@ hW
 dG
 dG
 dG
-ig
+SY
 je
 iv
 jx
@@ -7491,7 +7556,7 @@ ab
 ab
 ab
 ab
-ae
+qM
 ae
 ae
 ae
@@ -8076,7 +8141,7 @@ IJ
 uB
 ju
 ju
-ju
+zv
 ab
 ab
 ab
@@ -8296,7 +8361,7 @@ ab
 ab
 ab
 ab
-dy
+Ej
 dy
 eE
 fe
@@ -8355,7 +8420,7 @@ gf
 dy
 eF
 eF
-dy
+xw
 ab
 ab
 ab
@@ -8363,7 +8428,7 @@ ab
 ab
 ab
 ab
-ju
+zM
 ju
 kC
 la

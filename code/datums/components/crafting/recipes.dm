@@ -946,5 +946,14 @@
 	result = /obj/item/reagent_containers/food/snacks/grown/poppy
 	time = 5
 	reqs = list(/obj/item/clothing/accessory/poppy_pin = 1)
-	
+
 	category = CAT_MISC
+
+/datum/crafting_recipe/insulated_boxing_gloves
+	name = "Insulated Boxing Gloves"
+	result = /obj/item/clothing/gloves/boxing/yellow/insulated
+	time = 60
+	reqs = list(/obj/item/clothing/gloves/boxing = 1,
+				/obj/item/clothing/gloves/color/yellow = 1)
+
+	category = CAT_CLOTHING

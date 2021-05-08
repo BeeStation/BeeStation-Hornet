@@ -16,10 +16,10 @@
 	var/role = "Security Officer"
 	var/list/name_source
 	var/random_names = TRUE
+	can_elimination_hijack = ELIMINATION_PREVENT
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
-	can_hijack = HIJACK_PREVENT
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)
@@ -87,8 +87,16 @@
 /datum/antagonist/ert/medic/inquisitor
 	outfit = /datum/outfit/ert/medic/inquisitor
 
+/datum/antagonist/ert/medic/inquisitor/on_gain()
+	. = ..()
+	owner.holy_role = HOLY_ROLE_PRIEST
+
 /datum/antagonist/ert/security/inquisitor
 	outfit = /datum/outfit/ert/security/inquisitor
+
+/datum/antagonist/ert/security/inquisitor/on_gain()
+	. = ..()
+	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/chaplain
 	role = "Chaplain"
@@ -99,14 +107,14 @@
 
 /datum/antagonist/ert/chaplain/on_gain()
 	. = ..()
-	owner.isholy = TRUE
+	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/commander/inquisitor
 	outfit = /datum/outfit/ert/commander/inquisitor
 
 /datum/antagonist/ert/commander/inquisitor/on_gain()
 	. = ..()
-	owner.isholy = TRUE
+	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/janitor
 	role = "Janitor"
@@ -162,7 +170,7 @@
 		return
 	H.equipOutfit(outfit)
 	//Set the suits frequency
-	var/obj/item/I = H.get_item_by_slot(SLOT_WEAR_SUIT)
+	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 	if(I)
 		var/datum/component/tracking_beacon/beacon = I.GetComponent(/datum/component/tracking_beacon)
 		if(beacon)

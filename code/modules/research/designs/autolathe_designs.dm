@@ -157,7 +157,7 @@
 	materials = list(/datum/material/copper = 1, /datum/material/glass = 5)
 	build_path = /obj/item/stack/cable_coil
 	category = list("initial","Tools","Tool Designs")
-	maxstack = 30
+	maxstack = MAXCOIL
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/toolbox

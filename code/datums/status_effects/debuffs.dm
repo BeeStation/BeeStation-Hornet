@@ -114,6 +114,7 @@
 /datum/status_effect/incapacitating/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
         . = ..()
         update_time_of_death()
+        owner.reagents?.end_metabolization(owner, FALSE)
 
 /datum/status_effect/incapacitating/stasis/tick()
         update_time_of_death()
@@ -563,7 +564,7 @@
 		owner.remove_client_colour(/datum/client_colour/monochrome)
 	to_chat(owner, "<span class='warning'>You snap out of your trance!</span>")
 
-/datum/status_effect/trance/proc/hypnotize(datum/source, message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+/datum/status_effect/trance/proc/hypnotize(datum/source, message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	if(!owner.can_hear())
 		return
 	if(speaker == owner)

@@ -309,7 +309,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     icon_state = "hilbertshotel"
     requires_power = FALSE
     has_gravity = TRUE
-    noteleport = TRUE
+    teleport_restriction = TELEPORT_ALLOW_NONE
     hidden = TRUE
     unique = FALSE
     dynamic_lighting = DYNAMIC_LIGHTING_FORCED
@@ -387,7 +387,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     icon_state = "hilbertshotel"
     requires_power = FALSE
     has_gravity = TRUE
-    noteleport = TRUE
+    teleport_restriction = TELEPORT_ALLOW_NONE
     hidden = TRUE
 
 /obj/item/abstracthotelstorage

@@ -99,8 +99,8 @@ the new instance inside the host to be updated to the template's stats.
 /mob/camera/disease/examine(mob/user)
 	. = ..()
 	if(isobserver(user))
-		. += {"<span class='notice'>[src] has [points]/[total_points] adaptation points.</span>
-		<span class='notice'>[src] has the following unlocked:</span>"}
+		. += "<span class='notice'>[src] has [points]/[total_points] adaptation points.</span>\n"+\
+		"<span class='notice'>[src] has the following unlocked:</span>"
 		for(var/datum/disease_ability/ability in purchased_abilities)
 			. += "<span class='notice'>[ability.name]</span>"
 
@@ -115,7 +115,7 @@ the new instance inside the host to be updated to the template's stats.
 			follow_next(Dir & NORTHWEST)
 			last_move_tick = world.time
 
-/mob/camera/disease/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+/mob/camera/disease/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
 	var/atom/movable/to_follow = speaker
 	if(radio_freq)
@@ -126,8 +126,13 @@ the new instance inside the host to be updated to the template's stats.
 		link = FOLLOW_LINK(src, to_follow)
 	else
 		link = ""
+	//Get message flags
+	var/flags = message_mods.Find(MODE_RADIO_MESSAGE) ? RADIO_MESSAGE : NONE
+	// Create map text prior to modifying message for runechat
+	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
+		create_chat_message(speaker, message_language, raw_message, spans, runechat_flags = flags)
 	// Recompose the message, because it's scrambled by default
-	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode)
+	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
 	to_chat(src, "[link] [message]")
 
 

@@ -3,7 +3,7 @@
 	desc = "How someone could even fit in there is beyond me."
 	icon_state = "clowncar"
 	max_integrity = 150
-	armor = list("melee" = 70, "bullet" = 40, "laser" = 40, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 70, "bullet" = 40, "laser" = 40, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 0)
 	enter_delay = 20
 	max_occupants = 50
 	movedelay = 0.6
@@ -67,7 +67,7 @@
 /obj/vehicle/sealed/car/clowncar/remove_occupant(mob/M)
 	. = ..()
 	if(iscarbon(M))
-		var/mob/living/carbon/C = M 
+		var/mob/living/carbon/C = M
 		C.uncuff()
 
 /obj/vehicle/sealed/car/clowncar/Bump(atom/movable/M)
@@ -114,7 +114,7 @@
 	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/Cannon, VEHICLE_CONTROL_DRIVE)
 	AddComponent(/datum/component/waddling)
-	
+
 /obj/vehicle/sealed/car/clowncar/Destroy()
   playsound(src, 'sound/vehicles/clowncar_fart.ogg', 100)
   return ..()

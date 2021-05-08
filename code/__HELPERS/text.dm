@@ -667,7 +667,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 	if(fexists(log))
 		oldjson = json_decode(rustg_file_read(log))
 		oldentries = oldjson["data"]
-	if(!isemptylist(oldentries))
+	if(length(oldentries))
 		for(var/string in accepted)
 			for(var/old in oldentries)
 				if(string == old)
@@ -677,7 +677,7 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 	var/list/finalized = list()
 	finalized = accepted.Copy() + oldentries.Copy() //we keep old and unreferenced phrases near the bottom for culling
 	listclearnulls(finalized)
-	if(!isemptylist(finalized) && length(finalized) > storemax)
+	if(length(finalized) && (length(finalized) > storemax))
 		finalized.Cut(storemax + 1)
 	fdel(log)
 
@@ -825,3 +825,18 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 
 #define is_alpha(X) ((text2ascii(X) <= 122) && (text2ascii(X) >= 97))
 #define is_digit(X) ((length(X) == 1) && (length(text2num(X)) == 1))
+
+/// Slightly expensive proc to scramble a message using equal probabilities of character replacement from a list. DOES NOT SUPPORT HTML!
+/proc/scramble_message_replace_chars(original, replaceprob = 25, list/replacementchars = list("$", "@", "!", "#", "%", "^", "&", "*"), replace_letters_only = FALSE, replace_whitespace = FALSE)
+	var/list/out = list()
+	var/static/list/whitespace = list(" ", "\n", "\t")
+	for(var/i in 1 to length(original))
+		var/char = original[i]
+		if(!replace_whitespace && (char in whitespace))
+			out += char
+			continue
+		if(replace_letters_only && (!ISINRANGE(char, 65, 90) && !ISINRANGE(char, 97, 122)))
+			out += char
+			continue
+		out += prob(replaceprob) ? pick(replacementchars) : char
+	return out.Join("")

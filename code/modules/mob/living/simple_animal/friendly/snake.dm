@@ -32,7 +32,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	mobsay_color = "#26F55A"
+	chat_color = "#26F55A"
 	poison_per_bite = 3
 	poison_type = /datum/reagent/toxin/venom
 

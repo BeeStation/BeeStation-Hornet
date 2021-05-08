@@ -6,11 +6,11 @@
 	weight = 4
 	min_players = 15
 	max_occurrences = 3
-	earliest_start = 50 MINUTES
+	earliest_start = 30 MINUTES
 
 /datum/round_event/meteor_wave
-	startWhen		= 6
-	endWhen			= 66
+	startWhen		= 300
+	endWhen			= 360
 	announceWhen	= 1
 	var/list/wave_type
 	var/wave_name = "normal"
@@ -47,7 +47,12 @@
 			kill()
 
 /datum/round_event/meteor_wave/announce(fake)
-	priority_announce("Meteors have been detected on collision course with the station.", "Meteor Alert", 'sound/ai/meteors.ogg')
+	priority_announce("Meteors have been detected on collision course with the station. Estimated time until impact: 10 MINUTES. Anti-meteor point defense is available for purchase via the station's cargo shuttle.", "Meteor Alert", 'sound/ai/meteors.ogg')
+	if(!fake)
+		var/datum/supply_pack/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shield_sat]
+		P.special_enabled = TRUE
+		P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shield_sat_control]
+		P.special_enabled = TRUE
 
 /datum/round_event/meteor_wave/tick()
 	if(ISMULTIPLE(activeFor, 3))

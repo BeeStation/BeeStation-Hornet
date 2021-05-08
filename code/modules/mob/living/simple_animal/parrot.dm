@@ -59,7 +59,7 @@
 	mob_size = MOB_SIZE_SMALL
 	movement_type = FLYING
 	gold_core_spawnable = FRIENDLY_SPAWN
-	mobsay_color = "#A6E398"
+	chat_color = "#A6E398"
 	mobchatspan = "curator"
 
 	var/parrot_damage_upper = 10
@@ -144,7 +144,7 @@
 	tab_data["Mode"] = GENERATE_STAT_TEXT("[a_intent]")
 	return tab_data
 
-/mob/living/simple_animal/parrot/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, message_mode)
+/mob/living/simple_animal/parrot/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
 	if(speaker != src && prob(50)) //Dont imitate ourselves
 		if(!radio_freq || prob(10))
@@ -154,26 +154,19 @@
 	if(speaker == src && !client) //If a parrot squawks in the woods and no one is around to hear it, does it make a sound? This code says yes!
 		return message
 
-/mob/living/simple_animal/parrot/radio(message, message_mode, list/spans, language) //literally copied from human/radio(), but there's no other way to do this. at least it's better than it used to be.
+/mob/living/simple_animal/parrot/radio(message, list/message_mods = list(), list/spans, language)	//literally copied from human/radio(), but there's no other way to do this. at least it's better than it used to be.
 	. = ..()
 	if(. != 0)
 		return .
 
-	switch(message_mode)
-		if(MODE_HEADSET)
-			if (ears)
-				ears.talk_into(src, message, , spans, language)
-			return ITALICS | REDUCE_RANGE
-
-		if(MODE_DEPARTMENT)
-			if (ears)
-				ears.talk_into(src, message, message_mode, spans, language)
-			return ITALICS | REDUCE_RANGE
-
-	if(message_mode in GLOB.radiochannels)
+	if(message_mods[MODE_HEADSET])
 		if(ears)
-			ears.talk_into(src, message, message_mode, spans, language)
-			return ITALICS | REDUCE_RANGE
+			ears.talk_into(src, message, , spans, language, message_mods)
+		return ITALICS | REDUCE_RANGE
+	else if(message_mods[RADIO_EXTENSION] == MODE_DEPARTMENT || (GLOB.radiochannels[message_mods[RADIO_EXTENSION]]))
+		if(ears)
+			ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
+		return ITALICS | REDUCE_RANGE
 
 	return 0
 
@@ -239,7 +232,7 @@
 					ears = headset_to_add
 					to_chat(usr, "<span class='notice'>You fit the headset onto [src].</span>")
 
-					clearlist(available_channels)
+					available_channels.Cut()
 					for(var/ch in headset_to_add.channels)
 						switch(ch)
 							if(RADIO_CHANNEL_ENGINEERING)
@@ -887,10 +880,10 @@
 		desc += " The squawks of [-rounds_survived] dead parrots ring out in your ears..."
 		add_atom_colour("#BB7777", FIXED_COLOUR_PRIORITY)
 	else if(rounds_survived > 0)
-		speak += pick("...again?", "No, It was over!", "Let me out!", "It never ends!")
+		speak += pick("again?", "No, It was over!", "Let me out!", "It never ends!")
 		desc += " Over [rounds_survived] shifts without a \"terrible\" \"accident\"!"
 	else
-		speak += pick("...alive?", "This isn't parrot heaven!", "I live, I die, I live again!", "The void fades!")
+		speak += pick("alive?", "This isn't parrot heaven!", "I live, I die, I live again!", "The void fades!")
 
 	. = ..()
 

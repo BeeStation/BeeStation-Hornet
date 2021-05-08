@@ -153,7 +153,7 @@ transformative extracts:
 /obj/item/slimecross/transformative/lightpink/do_effect(mob/living/simple_animal/slime/S, mob/user)
 	..()
 	GLOB.poi_list |= S
-	S.master = user
+	S.make_master(user)
 	LAZYADD(GLOB.mob_spawners["[S.master.real_name]'s slime"], S)
 
 /obj/item/slimecross/transformative/adamantine

@@ -65,33 +65,37 @@
 			return
 		switch(href_list["makeAntag"])
 			if("traitors")
-				if(src.makeTraitors())
-					message_admins("[key_name_admin(usr)] created traitors.")
-					log_admin("[key_name(usr)] created traitors.")
+				var/maxCount = input("Set number of Traitors","Set Traitor Count (max)",1) as num|null
+				if(src.makeTraitors(maxCount))
+					message_admins("[key_name_admin(usr)] created [maxCount] traitor(s).")
+					log_admin("[key_name(usr)] created [maxCount] traitor(s).")
 				else
-					message_admins("[key_name_admin(usr)] tried to create traitors. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to create traitors.")
+					message_admins("[key_name_admin(usr)] tried to create  [maxCount] traitor(s). Unfortunately, there were no candidates available.")
+					log_admin("[key_name(usr)] failed to create [maxCount] traitor(s).")
 			if("changelings")
-				if(src.makeChangelings())
-					message_admins("[key_name(usr)] created changelings.")
-					log_admin("[key_name(usr)] created changelings.")
+				var/maxCount = input("Set number of Changelings","Set Changeling Count (max)",1) as num|null
+				if(src.makeChangelings(maxCount))
+					message_admins("[key_name(usr)] created [maxCount] changelings.")
+					log_admin("[key_name(usr)] created [maxCount] changelings.")
 				else
-					message_admins("[key_name_admin(usr)] tried to create changelings. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to create changelings.")
+					message_admins("[key_name_admin(usr)] tried to create [maxCount] changelings. Unfortunately, there were no candidates available.")
+					log_admin("[key_name(usr)] failed to create [maxCount] changelings.")
 			if("revs")
-				if(src.makeRevs())
-					message_admins("[key_name(usr)] started a revolution.")
-					log_admin("[key_name(usr)] started a revolution.")
+				var/maxCount = input("Set number of Revolutionaries","Set Revolutionaries Count (max)",1) as num|null
+				if(src.makeRevs(maxCount))
+					message_admins("[key_name(usr)] started a revolution with [maxCount] freedom fighters.")
+					log_admin("[key_name(usr)] started a [maxCount] freedom fighters.")
 				else
-					message_admins("[key_name_admin(usr)] tried to start a revolution. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to start a revolution.")
+					message_admins("[key_name_admin(usr)] tried to start a revolution with [maxCount] freedom fighters. Unfortunately, there were no candidates available.")
+					log_admin("[key_name(usr)] failed to start a revolution with [maxCount] freedom fighters.")
 			if("cult")
-				if(src.makeCult())
-					message_admins("[key_name(usr)] started a cult.")
-					log_admin("[key_name(usr)] started a cult.")
+				var/maxCount = input("Set number of Cultists","Set Cultist Count (max)",1) as num|null
+				if(src.makeCult(maxCount))
+					message_admins("[key_name(usr)] started a cult with [maxCount] cultists.")
+					log_admin("[key_name(usr)] started a cult with [maxCount] cultists.")
 				else
-					message_admins("[key_name_admin(usr)] tried to start a cult. Unfortunately, there were no candidates available.")
-					log_admin("[key_name(usr)] failed to start a cult.")
+					message_admins("[key_name_admin(usr)] tried to start a cult with [maxCount] cultists. Unfortunately, there were no candidates available.")
+					log_admin("[key_name(usr)] failed to start a cult with [maxCount] cultists.")
 			if("wizard")
 				message_admins("[key_name(usr)] is creating a wizard...")
 				if(src.makeWizard())
@@ -102,12 +106,13 @@
 					log_admin("[key_name(usr)] failed to create a wizard.")
 			if("nukeops")
 				message_admins("[key_name(usr)] is creating a nuke team...")
-				if(src.makeNukeTeam())
-					message_admins("[key_name(usr)] created a nuke team.")
-					log_admin("[key_name(usr)] created a nuke team.")
+				var/maxCount = input("Set number of Nuke OPs","Set Nuke OP Count (max)",5) as num|null
+				if(src.makeNukeTeam(maxCount))
+					message_admins("[key_name(usr)] created a nuke team with [maxCount] operatives")
+					log_admin("[key_name(usr)] created a nuke team with [maxCount] operatives")
 				else
-					message_admins("[key_name_admin(usr)] tried to create a nuke team. Unfortunately, there were not enough candidates available.")
-					log_admin("[key_name(usr)] failed to create a nuke team.")
+					message_admins("[key_name_admin(usr)] tried to create a nuke team with [maxCount] operatives Unfortunately, there were not enough candidates available.")
+					log_admin("[key_name(usr)] failed to create a nuke team with [maxCount] operatives.")
 			if("ninja")
 				message_admins("[key_name(usr)] spawned a ninja.")
 				log_admin("[key_name(usr)] spawned a ninja.")
@@ -206,7 +211,7 @@
 			return
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
+		if(!SSticker.is_mode("dynamic"))
 			return alert(usr, "The game mode has to be dynamic mode.", null, null, null, null)
 		var/roundstart_rules = list()
 		for (var/rule in subtypesof(/datum/dynamic_ruleset/roundstart))
@@ -241,7 +246,7 @@
 			return
 		if(!SSticker || !SSticker.mode)
 			return alert(usr, "The game must start first.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
+		if(!SSticker.is_mode("dynamic"))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 		var/latejoin_rules = list()
 		var/datum/game_mode/dynamic/mode = SSticker.mode
@@ -271,7 +276,7 @@
 			return
 		if(!SSticker || !SSticker.mode)
 			return alert(usr, "The game must start first.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
+		if(!SSticker.is_mode("dynamic"))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 		var/midround_rules = list()
 		var/datum/game_mode/dynamic/mode = SSticker.mode
@@ -291,122 +296,16 @@
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
+		if(!SSticker.is_mode("dynamic"))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_roundstart_centre"])
-		if(!check_rights(R_ADMIN))
-			return
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-
-		var/new_centre = input(usr,"Change the centre of the dynamic mode threat curve. A negative value will give a more peaceful round ; a positive value, a round with higher threat. Any number between -5 and +5 is allowed.", "Change curve centre", null) as num
-		if (new_centre < -5 || new_centre > 5)
-			return alert(usr, "Only values between -5 and +5 are allowed.", null, null, null, null)
-
-		log_admin("[key_name(usr)] changed the distribution curve center to [new_centre].")
-		message_admins("[key_name(usr)] changed the distribution curve center to [new_centre]", 1)
-		GLOB.dynamic_curve_centre = new_centre
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_roundstart_width"])
-		if(!check_rights(R_ADMIN))
-			return
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-
-		var/new_width = input(usr,"Change the width of the dynamic mode threat curve. A higher value will favour extreme rounds ; a lower value, a round closer to the average. Any Number between 0.5 and 4 are allowed.", "Change curve width", null) as num
-		if (new_width < 0.5 || new_width > 4)
-			return alert(usr, "Only values between 0.5 and +2.5 are allowed.", null, null, null, null)
-
-		log_admin("[key_name(usr)] changed the distribution curve width to [new_width].")
-		message_admins("[key_name(usr)] changed the distribution curve width to [new_width]", 1)
-		GLOB.dynamic_curve_width = new_width
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_roundstart_latejoin_min"])
-		if(!check_rights(R_ADMIN))
-			return
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-		var/new_min = input(usr,"Change the minimum delay of latejoin injection in minutes.", "Change latejoin injection delay minimum", null) as num
-		if(new_min <= 0)
-			return alert(usr, "The minimum can't be zero or lower.", null, null, null, null)
-		if((new_min MINUTES) > GLOB.dynamic_latejoin_delay_max)
-			return alert(usr, "The minimum must be lower than the maximum.", null, null, null, null)
-
-		log_admin("[key_name(usr)] changed the latejoin injection minimum delay to [new_min] minutes.")
-		message_admins("[key_name(usr)] changed the latejoin injection minimum delay to [new_min] minutes", 1)
-		GLOB.dynamic_latejoin_delay_min = (new_min MINUTES)
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_roundstart_latejoin_max"])
-		if(!check_rights(R_ADMIN))
-			return
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-		var/new_max = input(usr,"Change the maximum delay of latejoin injection in minutes.", "Change latejoin injection delay maximum", null) as num
-		if(new_max <= 0)
-			return alert(usr, "The maximum can't be zero or lower.", null, null, null, null)
-		if((new_max MINUTES) < GLOB.dynamic_latejoin_delay_min)
-			return alert(usr, "The maximum must be higher than the minimum.", null, null, null, null)
-
-		log_admin("[key_name(usr)] changed the latejoin injection maximum delay to [new_max] minutes.")
-		message_admins("[key_name(usr)] changed the latejoin injection maximum delay to [new_max] minutes", 1)
-		GLOB.dynamic_latejoin_delay_max = (new_max MINUTES)
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_roundstart_midround_min"])
-		if(!check_rights(R_ADMIN))
-			return
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-		var/new_min = input(usr,"Change the minimum delay of midround injection in minutes.", "Change midround injection delay minimum", null) as num
-		if(new_min <= 0)
-			return alert(usr, "The minimum can't be zero or lower.", null, null, null, null)
-		if((new_min MINUTES) > GLOB.dynamic_midround_delay_max)
-			return alert(usr, "The minimum must be lower than the maximum.", null, null, null, null)
-
-		log_admin("[key_name(usr)] changed the midround injection minimum delay to [new_min] minutes.")
-		message_admins("[key_name(usr)] changed the midround injection minimum delay to [new_min] minutes", 1)
-		GLOB.dynamic_midround_delay_min = (new_min MINUTES)
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_roundstart_midround_max"])
-		if(!check_rights(R_ADMIN))
-			return
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "dynamic")
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-		var/new_max = input(usr,"Change the maximum delay of midround injection in minutes.", "Change midround injection delay maximum", null) as num
-		if(new_max <= 0)
-			return alert(usr, "The maximum can't be zero or lower.", null, null, null, null)
-		if((new_max MINUTES) > GLOB.dynamic_midround_delay_max)
-			return alert(usr, "The maximum must be higher than the minimum.", null, null, null, null)
-
-		log_admin("[key_name(usr)] changed the midround injection maximum delay to [new_max] minutes.")
-		message_admins("[key_name(usr)] changed the midround injection maximum delay to [new_max] minutes", 1)
-		GLOB.dynamic_midround_delay_max = (new_max MINUTES)
 		dynamic_mode_options(usr)
 
 	else if(href_list["f_dynamic_force_extended"])
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(GLOB.master_mode != "dynamic")
+		if(!SSticker.is_mode("dynamic"))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
@@ -418,7 +317,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(GLOB.master_mode != "dynamic")
+		if(!SSticker.is_mode("dynamic"))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_no_stacking = !GLOB.dynamic_no_stacking
@@ -426,47 +325,16 @@
 		message_admins("[key_name(usr)] set 'no_stacking' to [GLOB.dynamic_no_stacking].")
 		dynamic_mode_options(usr)
 
-	else if(href_list["f_dynamic_classic_secret"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		if(GLOB.master_mode != "dynamic")
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-
-		GLOB.dynamic_classic_secret = !GLOB.dynamic_classic_secret
-		log_admin("[key_name(usr)] set 'classic_secret' to [GLOB.dynamic_classic_secret].")
-		message_admins("[key_name(usr)] set 'classic_secret' to [GLOB.dynamic_classic_secret].")
-		dynamic_mode_options(usr)
-
 	else if(href_list["f_dynamic_stacking_limit"])
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(GLOB.master_mode != "dynamic")
+		if(!SSticker.is_mode("dynamic"))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		GLOB.dynamic_stacking_limit = input(usr,"Change the threat limit at which round-endings rulesets will start to stack.", "Change stacking limit", null) as num
 		log_admin("[key_name(usr)] set 'stacking_limit' to [GLOB.dynamic_stacking_limit].")
 		message_admins("[key_name(usr)] set 'stacking_limit' to [GLOB.dynamic_stacking_limit].")
-		dynamic_mode_options(usr)
-
-	else if(href_list["f_dynamic_high_pop_limit"])
-		if(!check_rights(R_ADMIN))
-			return
-
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-
-		if(GLOB.master_mode != "dynamic")
-			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
-
-		var/new_value = input(usr, "Enter the high-pop override threshold for dynamic mode.", "High pop override") as num
-		if (new_value < 0)
-			return alert(usr, "Only positive values allowed!", null, null, null, null)
-		GLOB.dynamic_high_pop_limit = new_value
-
-		log_admin("[key_name(usr)] set 'high_pop_limit' to [GLOB.dynamic_high_pop_limit].")
-		message_admins("[key_name(usr)] set 'high_pop_limit' to [GLOB.dynamic_high_pop_limit].")
 		dynamic_mode_options(usr)
 
 	else if(href_list["f_dynamic_forced_threat"])
@@ -476,7 +344,7 @@
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 
-		if(GLOB.master_mode != "dynamic")
+		if(!SSticker.is_mode("dynamic"))
 			return alert(usr, "The game mode has to be dynamic mode!", null, null, null, null)
 
 		var/new_value = input(usr, "Enter the forced threat level for dynamic mode.", "Forced threat level") as num
@@ -1102,8 +970,8 @@
 
 		if(ishuman(L))
 			var/mob/living/carbon/human/observer = L
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit/black(observer), SLOT_W_UNIFORM)
-			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(observer), SLOT_SHOES)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit/black(observer), ITEM_SLOT_ICLOTHING)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(observer), ITEM_SLOT_FEET)
 		L.Unconscious(100)
 		sleep(5)
 		L.forceMove(pick(GLOB.tdomeobserve))
@@ -1612,10 +1480,10 @@
 										R.activate_module(I)
 
 		if(pod)
-			new /obj/effect/DPtarget(target, pod)
-		
+			new /obj/effect/pod_landingzone(target, pod)
+
 		var/turf/T = get_turf(usr.loc) // get admin's LOC as a turf
-		
+
 		if (number == 1)
 			log_admin("[key_name(usr)] created a [english_list(paths)] at [AREACOORD(T)]")
 			for(var/path in paths)

@@ -17,7 +17,7 @@
 	grab_sound = 'sound/weapons/whipgrab.ogg'
 	deathsound = 'sound/voice/hiss1.ogg'
 	use_skintones = 0
-	no_equip = list(SLOT_SHOES)
+	no_equip = list(ITEM_SLOT_FEET)
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	toxic_food = FRIED
 	species_language_holder = /datum/language_holder/squid

@@ -37,7 +37,7 @@
 	var/datum/point/vector/trajectory
 	var/trajectory_ignore_forcemove = FALSE	//instructs forceMove to NOT reset our trajectory to the new location!
 
-	var/speed = 0.7		//Amount of deciseconds it takes for projectile to travel
+	var/speed = 0.8			//Amount of deciseconds it takes for projectile to travel
 	var/Angle = 0
 	var/original_angle = 0		//Angle at firing
 	var/nondirectional_sprite = FALSE //Set TRUE to prevent projectiles from having their sprites rotated based on firing angle
@@ -104,6 +104,7 @@
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/log_override = FALSE //is this type spammed enough to not log? (KAs)
+	var/martial_arts_no_deflect = FALSE
 
 	var/temporary_unstoppable_movement = FALSE
 

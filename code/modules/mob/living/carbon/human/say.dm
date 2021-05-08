@@ -1,4 +1,4 @@
-/mob/living/carbon/human/say_mod(input, message_mode)
+/mob/living/carbon/human/say_mod(input, list/message_mods = list())
 	verb_say = dna.species.say_mod
 	if(slurring)
 		return "slurs"
@@ -52,28 +52,21 @@
 		if(dongle.translate_binary)
 			return TRUE
 
-/mob/living/carbon/human/radio(message, message_mode, list/spans, language)
+/mob/living/carbon/human/radio(message, list/message_mods = list(), list/spans, language)
 	. = ..()
-	if(. != 0)
+	if(. != FALSE)
 		return .
 
-	switch(message_mode)
-		if(MODE_HEADSET)
-			if (ears)
-				ears.talk_into(src, message, , spans, language)
-			return ITALICS | REDUCE_RANGE
-
-		if(MODE_DEPARTMENT)
-			if (ears)
-				ears.talk_into(src, message, message_mode, spans, language)
-			return ITALICS | REDUCE_RANGE
-
-	if(message_mode in GLOB.radiochannels)
+	if(message_mods[MODE_HEADSET])
 		if(ears)
-			ears.talk_into(src, message, message_mode, spans, language)
+			ears.talk_into(src, message, , spans, language, message_mods)
+		return ITALICS | REDUCE_RANGE
+	else if(message_mods[RADIO_EXTENSION] == MODE_DEPARTMENT || (GLOB.radiochannels[message_mods[RADIO_EXTENSION]]))
+		if(ears)
+			ears.talk_into(src, message, message_mods[RADIO_EXTENSION], spans, language, message_mods)
 			return ITALICS | REDUCE_RANGE
 
-	return 0
+	return FALSE
 
 /mob/living/carbon/human/get_alt_name()
 	if(name != GetVoice())

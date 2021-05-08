@@ -33,7 +33,6 @@
 	new /obj/item/storage/belt/sabre(src)
 	new /obj/item/gun/energy/e_gun(src)
 	new /obj/item/door_remote/captain(src)
-	new /obj/item/card/id/captains_spare(src)
 	new /obj/item/storage/photo_album/Captain(src)
 	new /obj/item/card/id/departmental_budget/civ(src)
 
@@ -68,7 +67,7 @@
 
 /obj/structure/closet/secure_closet/brig_phys
 	name = "\proper brig physician's locker"
-	req_access = list(ACCESS_SEC_DOORS)
+	req_access = list(ACCESS_BRIGPHYS)
 	icon_state = "brig_phys"
 
 /obj/structure/closet/secure_closet/brig_phys/PopulateContents()
@@ -207,16 +206,6 @@
 
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
-	new /obj/item/clothing/under/rank/security/detective(src)
-	new /obj/item/clothing/suit/det_suit(src)
-	new /obj/item/clothing/head/fedora/det_hat(src)
-	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/under/rank/security/detective/grey(src)
-	new /obj/item/clothing/accessory/waistcoat(src)
-	new /obj/item/clothing/suit/det_suit/grey(src)
-	new /obj/item/clothing/suit/det_suit/noir(src)
-	new /obj/item/clothing/head/fedora(src)
-	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/radio/headset/headset_sec(src)
 	new /obj/item/detective_scanner(src)

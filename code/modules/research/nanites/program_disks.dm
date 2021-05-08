@@ -131,3 +131,6 @@
 
 /obj/item/disk/nanite_program/stun
 	program_type = /datum/nanite_program/stun
+
+/obj/item/disk/nanite_program/species_sensor
+	program_type = /datum/nanite_program/sensor/species

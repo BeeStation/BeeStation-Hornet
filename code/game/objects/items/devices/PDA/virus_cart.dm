@@ -73,10 +73,10 @@
 				difficulty += 2
 		var/datum/component/uplink/hidden_uplink = target.GetComponent(/datum/component/uplink)
 		if(!target.detonatable || prob(difficulty * 15) || (hidden_uplink))
-			U.show_message("<span class='danger'>An error flashes on your [src].</span>", 1)
+			U.show_message("<span class='danger'>An error flashes on your [src].</span>", MSG_VISUAL)
 		else
 			log_bomber(U, "triggered a PDA explosion on", target, "[!is_special_character(U) ? "(TRIGGED BY NON-ANTAG)" : ""]")
-			U.show_message("<span class='notice'>Success!</span>", 1)
+			U.show_message("<span class='notice'>Success!</span>", MSG_VISUAL)
 			target.explode()
 	else
 		to_chat(U, "PDA not found.")

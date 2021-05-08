@@ -4,6 +4,8 @@
 #define CONSTRUCTION_GUTTED 3 //Wires are removed, circuit ready to remove
 #define CONSTRUCTION_NOCIRCUIT 4 //Circuit board removed, can safely weld apart
 
+#define RECLOSE_DELAY 5 SECONDS // How long until a firelock tries to shut itself if it's blocking a vacuum.
+
 /obj/machinery/door/firedoor
 	name = "firelock"
 	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
@@ -21,7 +23,7 @@
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
 	assemblytype = /obj/structure/firelock_frame
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70, "stamina" = 0)
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
@@ -110,7 +112,7 @@
 
 		add_fingerprint(user)
 		if(density)
-			emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
+			emergency_close_timer = world.time + RECLOSE_DELAY // prevent it from instaclosing again if in space
 			open()
 		else
 			close()
@@ -181,7 +183,7 @@
 			whack_a_mole()
 		if(welded || operating || !density)
 			return // in case things changed during our do_after
-		emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
+		emergency_close_timer = world.time + RECLOSE_DELAY // prevent it from instaclosing again if in space
 		open()
 	else
 		close()

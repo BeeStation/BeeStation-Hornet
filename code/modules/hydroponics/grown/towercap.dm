@@ -50,8 +50,8 @@
 	/obj/item/reagent_containers/food/snacks/grown/wheat))
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
-	if(W.sharpness)
-		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", 1)
+	if(W.is_sharp())
+		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", MSG_VISUAL)
 		var/seed_modifier = 0
 		if(seed)
 			seed_modifier = round(seed.potency / 25)
@@ -97,7 +97,7 @@
 
 /obj/item/grown/log/steel/CheckAccepted(obj/item/I)
 	return FALSE
-obj/item/seeds/bamboo
+/obj/item/seeds/bamboo
 	name = "pack of bamboo seeds"
 	desc = "Plant known for their flexible and resistant logs."
 	icon_state = "seed-bamboo"
@@ -156,6 +156,9 @@ obj/item/seeds/bamboo
 	var/grill = FALSE
 	var/fire_stack_strength = 5
 	var/needs_oxygen = TRUE
+
+/obj/structure/bonfire/bluespace
+	needs_oxygen = FALSE
 
 /obj/structure/bonfire/dense
 	density = TRUE

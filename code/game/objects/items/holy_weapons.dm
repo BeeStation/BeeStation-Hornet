@@ -13,7 +13,7 @@
 	desc = "Deus Vult."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 40)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
@@ -27,13 +27,14 @@
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
 	slowdown = 0
 	blocks_shove_knockdown = FALSE
+	move_sound = null
 
 /obj/item/choice_beacon/holy
 	name = "armaments beacon"
 	desc = "Contains a set of armaments for the chaplain that have been reinforced with a silver and beryllium-bronze alloy, providing immunity to magic and its influences."
 
 /obj/item/choice_beacon/holy/canUseBeacon(mob/living/user)
-	if(user.mind?.isholy)
+	if(user.mind?.holy_role)
 		return ..()
 	else
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40, 1)
@@ -220,7 +221,7 @@
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/nullrod/attack_self(mob/user)
-	if(user.mind && (user.mind.isholy) && !reskinned)
+	if(user.mind && (user.mind.holy_role) && !reskinned)
 		reskin_holy_weapon(user)
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/M)
@@ -433,20 +434,6 @@
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 
-/obj/item/nullrod/Hypertool
-	icon = 'icons/obj/device.dmi'
-	icon_state = "hypertool"
-	item_state = "hypertool"
-	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
-	slot_flags = ITEM_SLOT_BELT
-	name = "hypertool"
-	desc = "A tool so powerful even you cannot perfectly use it."
-	armour_penetration = 35
-	damtype = BRAIN
-	attack_verb = list("pulsed", "mended", "cut")
-	hitsound = 'sound/effects/sparks4.ogg'
-
 /obj/item/nullrod/scythe/spellblade
 	icon_state = "spellblade"
 	item_state = "spellblade"
@@ -473,6 +460,9 @@
 
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
 	if(possessed)
+		return
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
+		to_chat(user, "<span class='notice'>Anomalous otherworldly energies block you from awakening the blade!</span>")
 		return
 
 	to_chat(user, "You attempt to wake the spirit of the blade...")
@@ -517,7 +507,6 @@
 	hitsound = 'sound/weapons/chainsawhit.ogg'
 	tool_behaviour = TOOL_SAW
 	toolspeed = 0.5 //faster than normal saw
-
 
 /obj/item/nullrod/hammmer
 	icon_state = "hammeron"
@@ -648,7 +637,7 @@
 
 /obj/item/nullrod/carp/attack_self(mob/living/user)
 	if(used_blessing)
-	else if(user.mind && (user.mind.isholy))
+	else if(user.mind && (user.mind.holy_role))
 		to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 		user.faction |= "carp"
 		used_blessing = TRUE
@@ -720,3 +709,32 @@
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("bashes", "smacks", "whacks")
+
+/obj/item/nullrod/hypertool
+	icon = 'icons/obj/device.dmi'
+	icon_state = "hypertool"
+	item_state = "hypertool"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	slot_flags = ITEM_SLOT_BELT
+	name = "hypertool"
+	desc = "A tool so powerful even you cannot perfectly use it."
+	armour_penetration = 35
+	damtype = BRAIN
+	attack_verb = list("pulsed", "mended", "cut")
+	hitsound = 'sound/effects/sparks4.ogg'
+
+/obj/item/nullrod/spear
+	name = "ancient spear"
+	desc = "An ancient spear made of brass, I mean gold, I mean bronze. It looks highly mechanical."
+	icon_state = "ratvarian_spear"
+	item_state = "ratvarian_spear"
+	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
+	icon = 'icons/obj/clockwork_objects.dmi'
+	slot_flags = ITEM_SLOT_BELT
+	armour_penetration = 10
+	sharpness = IS_SHARP_ACCURATE
+	w_class = WEIGHT_CLASS_BULKY
+	attack_verb = list("stabbed", "poked", "slashed", "clocked")
+	hitsound = 'sound/weapons/bladeslice.ogg'

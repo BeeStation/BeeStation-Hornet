@@ -57,7 +57,7 @@
 	var/success = FALSE
 
 	if(target.mind && target.client && target.stat != DEAD)
-		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(HAS_TRAIT(target, TRAIT_MINDSHIELD) && ignore_mindshield)
 				to_chat(user, "<span class='notice'>We bruteforce our way past the mental barriers of [target.name] and begin linking our minds!</span>")
 			else
@@ -334,7 +334,7 @@
 	to_chat(src, "<span class='warning'>You find yourself unable to emote, you aren't in control of your body!</span>")
 	return
 
-/mob/living/passenger/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
+/mob/living/passenger/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mods)
 	return
 
 /obj/effect/proc_holder/spell/target_hive/hive_control
@@ -853,9 +853,9 @@
 	var/wall_type_b = /obj/effect/forcefield/wizard/hive/invis
 
 /obj/effect/proc_holder/spell/targeted/forcewall/hive/cast(list/targets,mob/user = usr)
-	new wall_type(get_turf(user),user)
+	new wall_type(get_turf(user), null, user)
 	for(var/dir in GLOB.alldirs)
-		new wall_type_b(get_step(user, dir),user)
+		new wall_type_b(get_step(user, dir), null, user)
 	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
 	if(hive)
 		hive.threat_level += 0.5

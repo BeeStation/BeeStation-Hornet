@@ -437,6 +437,9 @@
 	category = "Mobility"
 	cost = 1
 
+/// How much threat we need to let these rituals happen on dynamic
+#define MINIMUM_THREAT_FOR_RITUALS 100
+
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
 	category = "Rituals"
@@ -464,12 +467,6 @@
 	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
 	cost = 0
 
-/datum/spellbook_entry/summon/ghosts/IsAvailable()
-	if(!SSticker.mode)
-		return FALSE
-	else
-		return TRUE
-
 /datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	new /datum/round_event/wizard/ghost()
@@ -486,7 +483,9 @@
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
-		return FALSE
+		var/datum/game_mode/dynamic/mode = SSticker.mode
+		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
+			return FALSE
 	return !CONFIG_GET(flag/no_summon_guns)
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
@@ -505,7 +504,9 @@
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
-		return FALSE
+		var/datum/game_mode/dynamic/mode = SSticker.mode
+		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
+			return FALSE
 	return !CONFIG_GET(flag/no_summon_magic)
 
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
@@ -525,7 +526,9 @@
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
 	if(istype(SSticker.mode, /datum/game_mode/dynamic)) // Disable events on dynamic
-		return FALSE
+		var/datum/game_mode/dynamic/mode = SSticker.mode
+		if(mode.threat_level < MINIMUM_THREAT_FOR_RITUALS)
+			return FALSE
 	return !CONFIG_GET(flag/no_summon_events)
 
 /datum/spellbook_entry/summon/events/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
@@ -557,6 +560,8 @@
 	to_chat(user, "<span class='notice'>You have cast the curse of insanity!</span>")
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
 	return TRUE
+
+#undef MINIMUM_THREAT_FOR_RITUALS
 
 /obj/item/spellbook
 	name = "spell book"

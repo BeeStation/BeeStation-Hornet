@@ -21,7 +21,7 @@
 			var/obj/item/projectile/P = hitby
 			if(P.damage_type != STAMINA)// disablers dont do shit to shields
 				attackforce = (P.damage / 2)
-		if(isitem(hitby))
+		else if(isitem(hitby))
 			var/obj/item/I = hitby
 			attackforce = damage
 			if(!I.damtype == BRUTE)

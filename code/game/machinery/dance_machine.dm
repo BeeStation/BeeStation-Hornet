@@ -465,4 +465,4 @@
 					var/mob/living/L = M
 					if(!(L.mobility_flags & MOBILITY_MOVE))
 						continue
-				dance(M)
+					dance(L)

@@ -551,3 +551,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
 		if(player.stat != DEAD && player.mind && is_station_level(player.z))
 			. |= player.mind
+
+/// Gets the client of the mob, allowing for mocking of the client.
+/// You only need to use this if you know you're going to be mocking clients somewhere else.
+#define GET_CLIENT(mob) (##mob.client || ##mob.mock_client)

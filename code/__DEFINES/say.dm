@@ -3,6 +3,10 @@
 	Currently contains speech spans and message modes
 */
 
+#define RADIO_EXTENSION "department specific"
+#define RADIO_KEY "department specific key"
+#define LANGUAGE_EXTENSION "language specific"
+
 //Message modes. Each one defines a radio channel, more or less.
 #define MODE_HEADSET "headset"
 #define MODE_ROBOT "robot"
@@ -21,6 +25,7 @@
 #define MODE_KEY_BINARY "b"
 #define MODE_TOKEN_BINARY ":b"
 
+ #define WHISPER_MODE "the type of whisper"
 #define MODE_WHISPER "whisper"
 #define MODE_WHISPER_CRIT "whispercrit"
 
@@ -50,19 +55,23 @@
 #define SPAN_PAPYRUS "papyrus"
 #define SPAN_REALLYBIG "reallybig"
 #define SPAN_COMMAND "command_headset"
+#define SPAN_MEGAPHONE "megaphone"
 #define SPAN_CLOWN "clowntext"
 #define SPAN_SINGING "singing"
 
 //bitflag #defines for return value of the radio() proc.
-#define ITALICS 1
-#define REDUCE_RANGE 2
-#define NOPASS 4
+#define ITALICS			(1<<0)
+#define REDUCE_RANGE	(1<<1)
+#define NOPASS			(1<<2)
 
 //Eavesdropping
 #define EAVESDROP_EXTRA_RANGE 1 //! how much past the specified message_range does the message get starred, whispering only
 
 /// How close intercoms can be for radio code use
 #define MODE_RANGE_INTERCOM 1
+
+// Is the message actually a radio message
+#define MODE_RADIO_MESSAGE "actuallyradiomessage"
 
 // A link given to ghost alice to follow bob
 #define FOLLOW_LINK(alice, bob) "<a href=?src=[REF(alice)];follow=[REF(bob)]>(F)</a>"
@@ -88,6 +97,14 @@
 // Is something in the OOC chat filter?
 #define OOC_FILTER_CHECK(T) (CONFIG_GET(flag/ooc_filter_enabled) && config.ooc_filter_regex && findtext(T, config.ooc_filter_regex))
 
+// Audio/Visual Flags. Used to determine what sense are required to notice a message.
+#define MSG_VISUAL (1<<0)
+#define MSG_AUDIBLE (1<<1)
+
 #define INVOCATION_SHOUT "shout"
 #define INVOCATION_EMOTE "emote"
 #define INVOCATION_WHISPER "whisper"
+
+//Used in visible_message_flags, audible_message_flags and runechat_flags
+#define EMOTE_MESSAGE (1<<0)
+#define RADIO_MESSAGE (1<<1)

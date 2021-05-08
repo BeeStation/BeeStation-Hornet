@@ -19,7 +19,7 @@
 	icon_state = "fire0"
 	max_integrity = 250
 	integrity_failure = 100
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -77,23 +77,28 @@
 
 	if(is_station_level(z))
 		add_overlay("fire_[GLOB.security_level]")
-		SSvis_overlays.add_vis_overlay(src, icon, "fire_[GLOB.security_level]", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, "fire_[GLOB.security_level]", layer, plane, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, "fire_[GLOB.security_level]", layer, EMISSIVE_PLANE, dir)
 	else
 		add_overlay("fire_[SEC_LEVEL_GREEN]")
-		SSvis_overlays.add_vis_overlay(src, icon, "fire_[SEC_LEVEL_GREEN]", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, "fire_[SEC_LEVEL_GREEN]", layer, plane, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, "fire_[SEC_LEVEL_GREEN]", layer, EMISSIVE_PLANE, dir)
 
 	var/area/A = src.loc
 	A = A.loc
 
 	if(!detecting || !A.fire)
 		add_overlay("fire_off")
-		SSvis_overlays.add_vis_overlay(src, icon, "fire_off", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, "fire_off", layer, plane, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, "fire_off", layer, EMISSIVE_PLANE, dir)
 	else if(obj_flags & EMAGGED)
 		add_overlay("fire_emagged")
-		SSvis_overlays.add_vis_overlay(src, icon, "fire_emagged", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, "fire_emagged", layer, plane, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, "fire_emagged", layer, EMISSIVE_PLANE, dir)
 	else
 		add_overlay("fire_on")
-		SSvis_overlays.add_vis_overlay(src, icon, "fire_on", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, "fire_on", layer, plane, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, "fire_on", layer, EMISSIVE_PLANE, dir)
 
 /obj/machinery/firealarm/emp_act(severity)
 	. = ..()
@@ -257,6 +262,20 @@
 
 	return ..()
 
+/obj/machinery/firealarm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+	if((buildstage == 0) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
+		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)	
+	return FALSE
+
+/obj/machinery/firealarm/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+	switch(passed_mode)
+		if(RCD_UPGRADE_SIMPLE_CIRCUITS)
+			user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
+			"<span class='notice'>You adapt a fire alarm circuit and slot it into the assembly.</span>")
+			buildstage = 1
+			update_icon()
+			return TRUE
+	return FALSE
 
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()

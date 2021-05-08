@@ -60,6 +60,9 @@
 
 // Automatic Shotguns//
 
+/obj/item/gun/ballistic/shotgun/automatic
+	weapon_weight = WEAPON_HEAVY
+
 /obj/item/gun/ballistic/shotgun/automatic/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	..()
 	rack()

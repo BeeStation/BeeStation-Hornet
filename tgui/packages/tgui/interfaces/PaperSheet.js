@@ -12,10 +12,12 @@ import DOMPurify from 'dompurify';
 import { Component } from 'inferno';
 import marked from 'marked';
 import { useBackend } from '../backend';
-import { Box, Flex, Tabs, TextArea } from '../components';
+import { Box, Flex, Tabs, TextArea, Table } from '../components';
 import { Window } from '../layouts';
 
 const MAX_PAPER_LENGTH = 5000; // Question, should we send this with ui_data?
+const centerText = "<center>text</center>";
+
 
 const sanatize_text = value => {
   // This is VERY important to think first if you NEED
@@ -541,7 +543,20 @@ class PaperSheetEdit extends Component {
                   this.setState({ previewSelected: "confirm" });
                 }
               }}>
-              {this.state.previewSelected === "confirm" ? "confirm" : "save"}
+              {this.state.previewSelected === "confirm" ? "Confirm" : "Save"}
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="marked_help"
+              textColor={'black'}
+              backgroundColor="white"
+              icon="question-circle-o"
+              onmouseover={() => {
+                this.setState({ showingToolTip: 1 });
+              }}
+              onmouseout={() => {
+                this.setState({ showingToolTip: 0 });
+              }}>
+              Help
             </Tabs.Tab>
           </Tabs>
         </Flex.Item>
@@ -564,9 +579,201 @@ class PaperSheetEdit extends Component {
               textColor={textColor} />
           )}
         </Flex.Item>
+        {this.state.showingToolTip === 1 && (
+          this.helpText()
+        )}
       </Flex>
     );
   }
+
+  helpText() {
+    return (
+      <Box
+        position="absolute"
+        left="10px"
+        top="25px"
+        width="300px"
+        height="385px"
+        backgroundColor="#E8E4C9"
+        textAlign="center">
+        <h3>
+          Markdown Syntax
+        </h3>
+        <Table>
+          <Table.Row>
+            <Table.Cell>
+              <Box>
+                Heading
+              </Box>
+              =====
+            </Table.Cell>
+            <Table.Cell>
+              <h2>
+                Heading
+              </h2>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              <Box>
+                Sub Heading
+              </Box>
+              ------
+            </Table.Cell>
+            <Table.Cell>
+              <h4>
+                Sub Heading
+              </h4>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              _Italic Text_
+            </Table.Cell>
+            <Table.Cell>
+              <i>
+                Italic Text
+              </i>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              **Bold Text**
+            </Table.Cell>
+            <Table.Cell>
+              <b>
+                Bold Text
+              </b>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              `Code Text`
+            </Table.Cell>
+            <Table.Cell>
+              <code>
+                Code Text
+              </code>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              ~~Strikethrough Text~~
+            </Table.Cell>
+            <Table.Cell>
+              <s>
+                Strikethrough Text
+              </s>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              %sign
+            </Table.Cell>
+            <Table.Cell>
+              Signature
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Row>
+              [_____]
+            </Table.Row>
+            <Table.Cell>
+              Input field
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              {centerText}
+            </Table.Cell>
+            <Table.Cell>
+              <center>Centering text</center>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              <Box>
+                Horizontal Rule
+              </Box>
+              ---
+            </Table.Cell>
+            <Table.Cell>
+              Horizontal Rule
+              <hr />
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              <Table>
+                <Table.Row>
+                  * List Element 1
+                </Table.Row>
+                <Table.Row>
+                  * List Element 2
+                </Table.Row>
+                <Table.Row>
+                  * Etc...
+                </Table.Row>
+              </Table>
+            </Table.Cell>
+            <Table.Cell>
+              <ul>
+                <li>
+                  List Element 1
+                </li>
+                <li>
+                  List Element 2
+                </li>
+                <li>
+                  Etc...
+                </li>
+              </ul>
+            </Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>
+              <Table>
+                <Table.Row>
+                  1. List Element 1
+                </Table.Row>
+                <Table.Row>
+                  2. List Element 2
+                </Table.Row>
+                <Table.Row>
+                  3. Etc...
+                </Table.Row>
+              </Table>
+            </Table.Cell>
+            <Table.Cell>
+              <ol>
+                <li>
+                  List Element 1
+                </li>
+                <li>
+                  List Element 2
+                </li>
+                <li>
+                  Etc...
+                </li>
+              </ol>
+            </Table.Cell>
+          </Table.Row>
+        </Table>
+      </Box>
+    );
+  }
+
 }
 
 export const PaperSheet = (props, context) => {

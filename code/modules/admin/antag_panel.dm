@@ -77,7 +77,7 @@ GLOBAL_VAR(antag_prototypes)
 	return common_commands
 
 /datum/mind/proc/get_special_statuses()
-	var/list/result = list()
+	var/list/result = LAZYCOPY(special_statuses)
 	if(!current)
 		result += "<span class='bad'>No body!</span>"
 	if(current && HAS_TRAIT(current, TRAIT_MINDSHIELD))
@@ -128,7 +128,7 @@ GLOBAL_VAR(antag_prototypes)
 		var/list/possible_admin_antags = list()
 
 		for(var/datum/antagonist/prototype in GLOB.antag_prototypes[antag_category])
-			var/datum/antagonist/A = has_antag_datum(prototype.type)
+			var/datum/antagonist/A = has_antag_datum(prototype.type, FALSE)
 			if(A)
 				//We got the antag
 				if(!current_antag)
