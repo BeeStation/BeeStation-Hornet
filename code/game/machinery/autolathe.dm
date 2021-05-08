@@ -430,8 +430,12 @@
 			wires.interact(user)
 			return TRUE
 
-	if(default_deconstruction_crowbar(O) && panel_reinforcement == 0)
-		return TRUE
+	if(panel_reinforcement == 0)
+		if(!recieving_account)
+			if(default_deconstruction_crowbar(O))
+				return TRUE
+		else
+			to_chat(user, "<span class='warning'>The security bolts are locked in place with a bank account still active.</span>")
 
 	if(user.a_intent == INTENT_HARM) //so we can hit the machine
 		return ..()
@@ -449,12 +453,12 @@
 		var/obj/item/card/id/A = O
 		if(recieving_account)	
 			if(A.registered_account == recieving_account.registered_account)
-				to_chat(user, "<span class='notice'>You remove your registered account, more money for NanoTrasen!.</span>")
+				to_chat(user, "<span class='warning'>You remove your registered account, more money for NanoTrasen!.</span>")
 				recieving_account = null
 			else
-				to_chat(user, "This autolathe has already been linked to an account identified as: [recieving_account.name]. To alter this, swipe with the corresponding bank account.")
+				to_chat(user, "<span class='warning'>This autolathe has already been linked to an account identified as: [recieving_account.name]. To alter this, swipe with the corresponding bank account.</span>")
 		else
-			to_chat(user, "<span class='notice'>You link the autolathe to your account.</span>")
+			to_chat(user, "<span class='warning'>You link the autolathe to your account.</span>")
 			recieving_account = A	
 
 	if(stat)
@@ -752,6 +756,9 @@
 
 /obj/machinery/autolathe/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
+		return
+	if(panel_reinforcement != 0)
+		to_chat(user, "<span class='warning'>The maintenance panel is protected by a metal sheet</span>")
 		return
 	security_interface_locked = FALSE
 	adjust_hacked(TRUE)
