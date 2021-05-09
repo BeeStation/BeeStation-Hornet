@@ -1685,15 +1685,15 @@
 	tastes = list("plastic" = 1)
 	
 /obj/item/reagent_containers/food/snacks/fakefruit/apple
-	name = "plastic apple"
+	name = "artificial apple"
 	icon_state = "apple"
 		
 /obj/item/reagent_containers/food/snacks/fakefruit/grapes
-	name = "plastic grapes"
+	name = "artificial grapes"
 	icon_state = "grapes"
 	
 /obj/item/reagent_containers/food/snacks/fakefruit/skull
-	name = "plastic skull"
+	name = "fake skull"
 	desc = "Alas poor Yorick!"
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "skull"
