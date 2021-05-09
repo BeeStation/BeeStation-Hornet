@@ -1680,7 +1680,7 @@
 /obj/item/reagent_containers/food/snacks/fakefruit
 	name = "plastic fruit"
 	desc = "A tasty plastic replica of your favirite snack."
-	list_reagents = list(/datum/reagent/sillicon = 10)
+	list_reagents = list(/datum/reagent/silicon = 10)
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	tastes = list("plastic" = 1)
 	
