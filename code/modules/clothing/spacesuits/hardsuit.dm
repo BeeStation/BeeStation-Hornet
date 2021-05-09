@@ -561,10 +561,13 @@
 	name = "paramedic hardsuit helmet"
 	desc = "A special helmet that protects against hazardous, low pressure enviroments. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light. "
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 10, "energy" = 10, "bomb" = 20, "rad" = 75, "fire" = 50, "acid" = 75, "stamina" = 0)
+	resistance_flags = ACID_PROOF | FIRE_PROOF
 
 obj/item/clothing/suit/space/hardsuit/medical/emt
 	name = "paramedic hardsuit"
 	armor = list("melee" =15, "bullet" = 0, "laser" = 5, "energy" = 10, "bomb" = 20, "rad" = 75, "fire" = 75, "acid" = 80, "stamina" = 0)
+	resistance_flags = ACID_PROOF | FIRE_PROOF
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure but good enough for corpse retrieval.
 
 	//Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
