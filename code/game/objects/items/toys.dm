@@ -1676,24 +1676,24 @@
 /obj/item/paper/yatzy
 	name = "paper - Yatzy Table"
 	info = "<table><tr><th>Upper</th><th>Game 1</th><th>Game 2</th><th>Game 3</th></tr><tr><th>Aces</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Twos</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Threes</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Fours</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Fives</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Sixes</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Upper Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th><b>Bonus</b></th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>1 Pair</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>2 Pairs</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th><th>3 of a Kind</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th><th>4 of a Kind</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Full House</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Sm. Straight</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Lg. Straight</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Yatzy</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Chance</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th>Lower Total</th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr><th><b>Grand Total</b></th><th>\[___\]</th><th>\[___\]</th><th>\[___\]</th></tr></table>"
-	
-/obj/item/reagent_containers/food/snacks/fakefruit
+
+/obj/item/fakefruit
 	name = "artificial fruit"
 	desc = "A tasty plastic replica of your favirite healthy snack."
 	icon_state = "orange"
-	list_reagents = list(/datum/reagent/silicon = 10)
 	icon = 'icons/obj/hydroponics/harvest.dmi'
-	tastes = list("plastic" = 1)
-	
-/obj/item/reagent_containers/food/snacks/fakefruit/apple
+	grind_results = list(/datum/reagent/silicon = 10)
+
+/obj/item/fakefruit/apple
 	icon_state = "apple"
-		
-/obj/item/reagent_containers/food/snacks/fakefruit/grapes
+
+/obj/item/fakefruit/grapes
 	icon_state = "grapes"
-	
-/obj/item/reagent_containers/food/snacks/fakefruit/skull
+
+/obj/item/fakeskull
 	name = "fake skull"
 	desc = "Alas poor Yorick!"
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "skull"
 	item_state = "skull"
+	grind_results = list(/datum/reagent/silicon = 10)
