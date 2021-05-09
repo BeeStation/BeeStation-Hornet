@@ -133,6 +133,7 @@
 				   /obj/item/shield/riot/roman/fake = 1,
 				   /obj/item/clothing/suit/chaplainsuit/clownpriest = 1,
 				   /obj/item/clothing/head/clownmitre = 1,
+				   /obj/item/reagent_containers/food/snacks/fakefruit/skull = 1,
 		           /obj/item/skub = 1)
 
 	refill_canister = /obj/item/vending_refill/autodrobe

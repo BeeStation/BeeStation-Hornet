@@ -669,6 +669,14 @@
 	for(var/i in 1 to 6)
 		new /obj/item/assembly/mousetrap(src)
 
+/obj/item/storage/box/urinalcakes
+	name = "box of replacement urinal cakes"
+	desc = "Bacteria killing solutions compacted into a solid pill."
+
+/obj/item/storage/box/urinalcakes/PopulateContents()
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/snacks/urinalcake(src)
+
 /obj/item/storage/box/pillbottles
 	name = "box of pill bottles"
 	desc = "It has pictures of pill bottles on its front."
