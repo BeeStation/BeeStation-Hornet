@@ -671,7 +671,7 @@
 
 /obj/item/storage/box/urinalcakes
 	name = "box of replacement urinal cakes"
-	desc = "Bacteria killing solutions compacted into a solid pill."
+	desc = "Contains spare urinal cakes with a refreshing lemon smell."
 
 /obj/item/storage/box/urinalcakes/PopulateContents()
 	for(var/i in 1 to 3)
