@@ -1407,11 +1407,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
-"aru" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/evidence,
-/turf/open/floor/carpet/red,
-/area/security/detectives_office)
 "arz" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -38493,6 +38488,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"kDo" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/evidence,
+/obj/item/melee/classic_baton/police,
+/obj/item/reagent_containers/food/drinks/flask/det,
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
 "kDB" = (
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/AIsatextAP)
@@ -40917,6 +40919,23 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"ljo" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/storage/secure/safe/caps_spare{
+	pixel_x = 6;
+	pixel_y = -26
+	},
+/turf/open/floor/plasteel,
+/area/bridge)
 "ljs" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -52119,14 +52138,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"ozQ" = (
-/obj/item/flashlight/lamp,
-/obj/structure/table/wood,
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "oAg" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
@@ -55061,22 +55072,6 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"ppy" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/machinery/newscaster{
-	pixel_y = -29
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/bridge)
 "ppP" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -59573,6 +59568,30 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
+"qGb" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "HOS's Desk";
+	departmentType = 5;
+	name = "Captain RC";
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/bed/pod,
+/obj/item/bedsheet/hos,
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/obj/item/storage/secure/safe/HoS{
+	pixel_x = 37;
+	pixel_y = 30
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/heads/hos)
 "qGn" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/stairs/medium{
@@ -71825,15 +71844,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
-"unQ" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/flask/det,
-/obj/item/melee/classic_baton/police,
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "uom" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -80024,26 +80034,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
-"wDq" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "HOS's Desk";
-	departmentType = 5;
-	name = "Captain RC";
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/structure/bed/pod,
-/obj/item/bedsheet/hos,
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/heads/hos)
 "wDt" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -80506,6 +80496,15 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
+"wKc" = (
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "wKs" = (
 /obj/machinery/holopad,
 /obj/structure/cable{
@@ -85675,6 +85674,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"yma" = (
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/obj/machinery/vending/wardrobe/det_wardrobe,
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "ymf" = (
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/science/central)
@@ -120216,7 +120222,7 @@ aFu
 auP
 oVS
 sQU
-ppy
+ljo
 aRL
 fqp
 fUo
@@ -126923,7 +126929,7 @@ ubx
 nsY
 brR
 txB
-ozQ
+yma
 mbE
 sPt
 vnF
@@ -127178,7 +127184,7 @@ cwf
 cfP
 ubx
 uga
-aru
+kDo
 pEy
 clW
 mbE
@@ -127693,7 +127699,7 @@ cfP
 ubx
 nvE
 icT
-unQ
+wKc
 cBK
 mbE
 dou
@@ -129210,7 +129216,7 @@ kSO
 lBj
 wCA
 iRh
-wDq
+qGb
 hlC
 kgP
 kgV
