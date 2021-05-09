@@ -1,0 +1,5 @@
+author: bloons3
+delete-after: true
+changes:
+  - config: The map blacklist config is used to disable the Wishgranter ruin instead
+      of removing the template
