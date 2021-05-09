@@ -27,6 +27,14 @@
 	description = "WELCOME TO CLOWN PLANET! HONK HONK HONK etc.!"
 	suffix = "lavaland_biodome_clown_planet.dmm"
 
+/datum/map_template/ruin/lavaland/cube
+	name = "The Wishgranter Cube"
+	id = "wishgranter-cube"
+	description = "Nothing good can come from this. Learn from their mistakes and turn around."
+	suffix = "lavaland_surface_cube.dmm"
+	cost = 10
+	allow_duplicates = FALSE
+
 /datum/map_template/ruin/lavaland/seed_vault
 	name = "Seed Vault"
 	id = "seed-vault"
@@ -214,7 +222,7 @@
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
 	cost = 5
-
+  
 /datum/map_template/ruin/lavaland/elite_tumor
 	name = "Pulsating Tumor"
 	id = "tumor"
