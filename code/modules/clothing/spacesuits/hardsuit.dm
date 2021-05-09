@@ -568,6 +568,7 @@ obj/item/clothing/suit/space/hardsuit/medical/emt
 	armor = list("melee" =15, "bullet" = 0, "laser" = 5, "energy" = 10, "bomb" = 20, "rad" = 75, "fire" = 75, "acid" = 80, "stamina" = 0)
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure but good enough for corpse retrieval.
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/firstaid, /obj/item/healthanalyzer, /obj/item/stack/medical, /obj/item/sensor_device)
 
 	//Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
