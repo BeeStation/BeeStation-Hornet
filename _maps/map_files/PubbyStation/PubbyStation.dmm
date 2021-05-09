@@ -28877,6 +28877,9 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bnI" = (
@@ -39903,8 +39906,9 @@
 /obj/structure/curtain{
 	layer = 4.5
 	},
+/obj/effect/landmark/start/emt,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/central)
+/area/medical/paramed)
 "bKw" = (
 /obj/machinery/vending/wallmed{
 	pixel_y = 28
@@ -39916,7 +39920,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/central)
+/area/medical/paramed)
 "bKx" = (
 /obj/machinery/button/door{
 	id = "patientB";
@@ -39932,11 +39936,11 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/central)
+/area/medical/paramed)
 "bKy" = (
 /obj/machinery/door/airlock/medical{
-	name = "Patient Room";
-	req_access_txt = "5"
+	name = "Paramedics Office";
+	req_access_txt = "43"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -39948,7 +39952,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/central)
+/area/medical/paramed)
 "bKz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -40366,8 +40370,9 @@
 /obj/machinery/light_switch{
 	pixel_x = -22
 	},
+/obj/machinery/airalarm/directional/south,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/central)
+/area/medical/paramed)
 "bLG" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -40375,15 +40380,22 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/machinery/power/apc/auto_name/south,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/central)
+/area/medical/paramed)
 "bLH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/personal/patient,
+/obj/machinery/suit_storage_unit/emt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/central)
+/area/medical/paramed)
 "bLI" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "patientB";
@@ -40393,8 +40405,11 @@
 	dir = 4
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating,
-/area/medical/medbay/central)
+/area/medical/paramed)
 "bLJ" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/effect/turf_decal/tile/blue{
@@ -40402,6 +40417,9 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -53708,6 +53726,9 @@
 	name = "Medbay Maintenance";
 	req_one_access_txt = "12;45;5;9"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "cBM" = (
@@ -54676,6 +54697,9 @@
 /obj/structure/chair/office,
 /turf/open/floor/wood,
 /area/lawoffice)
+"elK" = (
+/turf/closed/wall,
+/area/medical/paramed)
 "emV" = (
 /turf/open/space,
 /area/space/nearstation)
@@ -59498,6 +59522,21 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
+"mHU" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "mIr" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/engine,
@@ -61243,6 +61282,16 @@
 	},
 /turf/open/floor/plating/airless,
 /area/maintenance/disposal/incinerator)
+"pIA" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "pKd" = (
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/closet/crate,
@@ -93156,7 +93205,7 @@ bIe
 bjc
 bKv
 bLF
-bjc
+elK
 bNS
 bCz
 bPB
@@ -93413,7 +93462,7 @@ bIf
 bjc
 bKw
 bLG
-bjc
+elK
 bNT
 bCz
 bPB
@@ -93670,7 +93719,7 @@ ebk
 bjc
 bKx
 bLH
-bjc
+elK
 bNU
 bCz
 bPB
@@ -93927,7 +93976,7 @@ bkb
 bjc
 bKy
 bLI
-bjc
+elK
 bjc
 bCz
 bPB
@@ -94441,9 +94490,9 @@ bIh
 bkh
 bKz
 bnH
-boN
+pIA
 cBL
-bCz
+mHU
 bPB
 bQq
 bRb
