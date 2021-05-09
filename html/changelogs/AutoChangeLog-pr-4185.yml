@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Updates corgstation to include detective wardrobe, Medical records and
+      adds a spare ID safe to the bridge.
