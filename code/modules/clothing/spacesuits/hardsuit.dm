@@ -557,6 +557,13 @@
 	name = "chief medical officer's hardsuit"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/medical/cmo
 
+/obj/item/clothing/head/hemlet/space/hardsuit/medical/emt
+	name = "paramedic hardsuit helmet"
+	desc = "A special helmet that protects against hazardous, low pressure enviroments. Built with lightweight materials for extra comfort, but does not protect the eyes from intense light. Comes in with a built in Medical Hud "
+
+obj/item/clothing/suit/space/hardsuit/medical/emt
+	name = "paramedic hardsuit"
+
 	//Research Director hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/rd
 	name = "prototype hardsuit helmet"
