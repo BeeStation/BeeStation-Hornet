@@ -226,7 +226,7 @@
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/pdapainter/AltClick(mob/user)
-	if(usr.stat || usr.restrained())
+	if(!usr.is_conscious() || usr.restrained())
 		return
 	if(storedpda || storedid)
 		ejectid()
