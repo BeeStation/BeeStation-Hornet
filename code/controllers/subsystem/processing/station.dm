@@ -6,14 +6,15 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	wait = 5 SECONDS
 
 	///A list of currently active station traits
-	var/list/station_traits = list()
+	var/list/station_traits
 	///Assoc list of trait type || assoc list of traits with weighted value. Used for picking traits from a specific category.
-	var/list/selectable_traits_by_types = list()
+	var/list/selectable_traits_by_types
 	///Currently active announcer. Starts as a type but gets initialized after traits are selected
 	var/datum/centcom_announcer/announcer = /datum/centcom_announcer/default
 
 /datum/controller/subsystem/processing/station/Initialize(timeofday)
 
+	station_traits = list()
 	selectable_traits_by_types = list(STATION_TRAIT_POSITIVE = list(), STATION_TRAIT_NEUTRAL = list(), STATION_TRAIT_NEGATIVE = list())
 
 	//If doing unit tests we don't do none of that trait shit ya know?
