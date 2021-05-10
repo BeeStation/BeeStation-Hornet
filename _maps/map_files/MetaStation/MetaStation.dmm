@@ -33933,7 +33933,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
 "bmh" = (
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/eastright{
 	dir = 1;
 	name = "Cargo Office";
@@ -68187,7 +68187,7 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cDd" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/item/radio/intercom{
 	pixel_y = 20
 	},
@@ -68212,7 +68212,7 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cDf" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/machinery/camera{
 	c_tag = "Robotics - Fore";
 	network = list("ss13","rd")
@@ -84668,9 +84668,6 @@
 /obj/item/pen{
 	pixel_x = -3
 	},
-/obj/machinery/keycard_auth{
-	pixel_y = -24
-	},
 /obj/item/folder/red{
 	pixel_x = 8
 	},
@@ -86865,7 +86862,7 @@
 	name = "Research and Development Desk";
 	req_one_access_txt = "7;29"
 	},
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
