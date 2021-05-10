@@ -71,6 +71,9 @@
 	var/list/learned_recipes //List of learned recipe TYPES.
 	var/list/crew_objectives = list()
 
+	/// A lazy list of statuses to add next to this mind in the traitor panel
+	var/list/special_statuses
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
@@ -99,7 +102,7 @@
 
 	if(key)
 		if(new_character.key != key)					//if we're transferring into a body with a key associated which is not ours
-			new_character.ghostize(1)						//we'll need to ghostize so that key isn't mobless.
+			new_character.ghostize(TRUE,SENTIENCE_ERASE)						//we'll need to ghostize so that key isn't mobless.
 	else
 		key = new_character.key
 
@@ -329,7 +332,7 @@
 		SSticker.mode.add_cultist(src)
 
 	else if(is_servant_of_ratvar(creator))
-		add_servant_of_ratvar(src)
+		add_servant_of_ratvar(current)
 
 	else if(is_revolutionary(creator))
 		var/datum/antagonist/rev/converter = creator.mind.has_antag_datum(/datum/antagonist/rev,TRUE)
@@ -398,7 +401,7 @@
 		A.admin_remove(usr)
 
 	if (href_list["role_edit"])
-		var/new_role = tgui_input_list(usr,"Select new role", "Assigned role", sortList(get_all_jobs()))
+		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in sortList(get_all_jobs())
 		if (!new_role)
 			return
 		assigned_role = new_role
@@ -411,6 +414,7 @@
 
 	else if (href_list["obj_edit"] || href_list["obj_add"])
 		var/objective_pos //Edited objectives need to keep same order in antag objective list
+		var/def_value
 		var/datum/antagonist/target_antag
 		var/datum/objective/old_objective //The old objective we're replacing/editing
 		var/datum/objective/new_objective //New objective we're be adding
@@ -437,9 +441,7 @@
 					if(1)
 						target_antag = antag_datums[1]
 					else
-						var/datum/antagonist/target = tgui_input_list(usr, "Which antagonist gets the objective:", "Antagonist", sortList(antag_datums) + "(new custom antag)")
-						if(!target)
-							target = "(new custom antag)"
+						var/datum/antagonist/target = input("Which antagonist gets the objective:", "Antagonist", "(new custom antag)") as null|anything in sortList(antag_datums) + "(new custom antag)"
 						if (QDELETED(target))
 							return
 						else if(target == "(new custom antag)")
@@ -450,7 +452,11 @@
 		if(!GLOB.admin_objective_list)
 			generate_admin_objective_list()
 
-		var/selected_type = tgui_input_list(usr, "Select objective type:", "Objective type", GLOB.admin_objective_list)
+		if(old_objective)
+			if(old_objective.name in GLOB.admin_objective_list)
+				def_value = old_objective.name
+
+		var/selected_type = input("Select objective type:", "Objective type", def_value) as null|anything in GLOB.admin_objective_list
 		selected_type = GLOB.admin_objective_list[selected_type]
 		if (!selected_type)
 			return
@@ -682,6 +688,11 @@
 	if(G)
 		G.reenter_corpse()
 
+/// Sets our can_hijack to the fastest speed our antag datums allow.
+/datum/mind/proc/get_hijack_speed()
+	. = 0
+	for(var/datum/antagonist/A in antag_datums)
+		. = max(., A.hijack_speed())
 
 /datum/mind/proc/has_objective(objective_type)
 	for(var/datum/antagonist/A in antag_datums)

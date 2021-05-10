@@ -605,7 +605,7 @@
 /datum/quirk/alcoholic/post_add()
 	to_chat(quirk_holder, "<span class='boldnotice'>There is a small bottle of [drink_instance] [where_drink]. You only have a single bottle, might have to find some more...</span>")
 
-datum/quirk/alcoholic/on_process()
+/datum/quirk/alcoholic/on_process()
 	if(tick_number >= 6) // how many ticks should pass between a check
 		tick_number = 0
 		var/mob/living/carbon/human/H = quirk_holder

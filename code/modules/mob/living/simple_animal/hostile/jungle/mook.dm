@@ -170,7 +170,7 @@
 				continue
 			if(istype(ML, /mob/living/simple_animal/hostile/jungle/mook) && !mook_under_us)//If we land on the same tile as another mook, spread out so we don't stack our sprite on the same tile
 				var/mob/living/simple_animal/hostile/jungle/mook/M = ML
-				if(!M.stat)
+				if(M.is_conscious())
 					mook_under_us = TRUE
 					var/anydir = pick(GLOB.cardinals)
 					Move(get_step(src, anydir), anydir)

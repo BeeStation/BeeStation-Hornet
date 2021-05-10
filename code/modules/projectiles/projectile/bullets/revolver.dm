@@ -58,6 +58,7 @@
 	icon_state = null
 	damage = 0
 	nodamage = TRUE
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/bullet/c38/mime/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
@@ -67,7 +68,7 @@
 			M.apply_damage(5, BRUTE, CHEST, defense)
 			M.visible_message("<span class='danger'>A bullet wound appears in [M]'s chest!</span>", \
 							"<span class='userdanger'>You get hit with a .38 bullet from a finger gun! Those hurt!...</span>")
-		else 
+		else
 			to_chat(M, "<span class='userdanger'>You get shot with the finger gun!</span>")
 
 // .357 (Syndie Revolver)

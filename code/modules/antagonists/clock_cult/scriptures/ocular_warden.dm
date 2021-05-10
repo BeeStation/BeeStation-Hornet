@@ -14,7 +14,7 @@
 	invokers_required = 2
 	category = SPELLTYPE_STRUCTURES
 
-/datum/clockcult/scripture/create_structure/ocular_warden/check_special_requirements()
+/datum/clockcult/scripture/create_structure/ocular_warden/check_special_requirements(mob/user)
 	if(!..())
 		return FALSE
 	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
@@ -42,7 +42,7 @@
 	//Check hostiles in range
 	var/list/valid_targets = list()
 	for(var/mob/living/potential in hearers(OCULAR_WARDEN_RANGE, src))
-		if(!is_servant_of_ratvar(potential) && !potential.stat)
+		if(!is_servant_of_ratvar(potential) && !potential.is_conscious())
 			valid_targets += potential
 	if(!LAZYLEN(valid_targets))
 		return

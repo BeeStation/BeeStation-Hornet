@@ -1159,7 +1159,7 @@ eg2: `center_image(I, 96,96)`
 	return closest_atom
 
 
-proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
+/proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 	if (value == FALSE) //nothing should be calling us with a number, so this is safe
 		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
 		if (isnull(value))
@@ -1175,7 +1175,7 @@ proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 	if(matches.len==1)
 		chosen = matches[1]
 	else
-		chosen = tgui_input_list(usr, "Select a type", "Pick Type", sortList(matches))
+		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in sortList(matches)
 		if(!chosen)
 			return
 	chosen = matches[chosen]

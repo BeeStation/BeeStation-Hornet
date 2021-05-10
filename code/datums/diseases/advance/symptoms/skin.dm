@@ -181,3 +181,146 @@ BONUS
 		else
 			if (prob(50)) // spam
 				M.visible_message("<span class='notice'>[M] looks rather vibrant.</span>", "<span class='notice'>The colors, man, the colors.</span>")
+
+/************************************
+Dermagraphic Ovulogenesis
+
+	Extremely Noticeable
+	Increases resistance slightly.
+	Not Fast, Not Slow
+	Transmittable.
+	High Level
+
+BONUS
+	Provides Brute Healing when Egg Sacs/Eggs are eaten, simultaneously infecting anyone who eats them
+
+***********************************/
+/datum/symptom/skineggs //Thought Exolocomotive Xenomitosis was a weird symptom? Well, this is about 10x weirder.
+	name = "Dermagraphic Ovulogenesis"
+	desc = "The virus causes the host to grow egg-like nodules on their skin, which periodically fall off and contain the disease and some healing chemicals."
+	stealth = -3 //You are basically growing these weird Egg shits on your skin, this is not stealthy in the slightest
+	resistance = 1
+	stage_speed = 0
+	transmittable = 2 //The symptom is in it of itself meant to spread
+	level = 9
+	severity = -1
+	base_message_chance = 50
+	symptom_delay_min = 60
+	symptom_delay_max = 105
+	var/big_heal
+	var/all_disease
+	var/eggsplosion
+	var/sneaky
+	threshold_desc = "<b>Transmission 12:</b> Eggs and Egg Sacs contain all diseases on the host, instead of just the disease containing the symptom.<br>\
+					  <b>Transmission 16:</b> Egg Sacs will 'explode' into eggs after a period of time, covering a larger area with infectious matter.<br>\
+					  <b>Resistance 10:</b> Eggs and Egg Sacs contain more healing chems.<br>\
+					  <b>Stealth 6:</b> Eggs and Egg Sacs become nearly transparent, making them more difficult to see.<br>\
+					  <b>Stage Speed 10:</b> Egg Sacs fall off the host more frequently."
+
+/datum/symptom/skineggs/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.properties["resistance"] >= 10)
+		severity -= 1
+	if(A.properties["transmittable"] >= 12)
+		severity += 1
+	if(A.properties["transmittable"] >= 16)
+		severity += 1
+	if(A.properties["stealth"] >= 6)
+		severity += 1
+
+/datum/symptom/skineggs/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.properties["resistance"] >= 10)
+		big_heal = TRUE
+	if(A.properties["transmittable"] >= 12)
+		all_disease = TRUE
+	if(A.properties["transmittable"] >= 16)
+		eggsplosion = TRUE //Haha get it?
+	if(A.properties["stealth"] >= 6)
+		sneaky = TRUE
+	if(A.properties["stage_rate"] >= 10)
+		symptom_delay_min -= 10
+		symptom_delay_max -= 20
+
+
+/datum/symptom/skineggs/Activate(datum/disease/advance/A)
+	if(!..())
+		return
+	var/mob/living/M = A.affected_mob
+	var/list/diseases = list(A)
+	switch(A.stage)
+		if(5)
+			if(all_disease)
+				for(var/datum/disease/D in M.diseases)
+					if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
+						continue
+					if(D == A)
+						continue
+					diseases += D
+			new /obj/item/reagent_containers/food/snacks/eggsac(M.loc, diseases, eggsplosion, sneaky, big_heal)
+
+#define EGGSPLODE_DELAY 100 SECONDS
+/obj/item/reagent_containers/food/snacks/eggsac
+	name = "Fleshy Egg Sac"
+	desc = "A small Egg Sac which appears to be made out of someone's flesh!"
+	customfoodfilling = FALSE //Not Used For Filling
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "eggsac"
+	bitesize = 4
+	var/list/diseases = list()
+	var/sneaky_egg
+	var/big_heal
+
+//Constructor
+/obj/item/reagent_containers/food/snacks/eggsac/New(loc, var/list/disease, var/eggsplodes, var/sneaky, var/large_heal)
+	..()
+	for(var/datum/disease/D in disease)
+		diseases += D
+	if(large_heal)
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent(/datum/reagent/blood, 10, diseases)
+		big_heal = TRUE
+	else
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
+	if(sneaky)
+		icon_state = "eggsac-sneaky"
+		sneaky_egg = sneaky
+	if(eggsplodes)
+		addtimer(CALLBACK(src, .proc/eggsplode), EGGSPLODE_DELAY)
+	if(LAZYLEN(diseases))
+		AddComponent(/datum/component/infective, diseases)
+
+#undef EGGSPLODE_DELAY
+
+/obj/item/reagent_containers/food/snacks/eggsac/proc/eggsplode()
+	for(var/i = 1, i <= rand(4,8), i++)
+		var/list/directions = GLOB.alldirs
+		var/obj/item/I = new /obj/item/reagent_containers/food/snacks/fleshegg(src.loc, diseases, sneaky_egg, big_heal)
+		var/turf/thrown_at = get_ranged_target_turf(I, pick(directions), rand(2, 4))
+		I.throw_at(thrown_at, rand(2,4), 4)
+
+/obj/item/reagent_containers/food/snacks/fleshegg
+	name = "Fleshy Egg"
+	desc = "An Egg which appears to be made out of someone's flesh!"
+	customfoodfilling = FALSE //Not Used For Filling
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "fleshegg"
+	bitesize = 1
+	var/list/diseases = list()
+
+/obj/item/reagent_containers/food/snacks/fleshegg/New(loc, var/list/disease, var/sneaky, var/large_heal)
+	..()
+	for(var/datum/disease/D in disease)
+		diseases += D
+	if(large_heal)
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 20, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent(/datum/reagent/blood, 10, diseases)
+	else
+		reagents.add_reagent_list(list(/datum/reagent/medicine/bicaridine = 10, /datum/reagent/medicine/tricordrazine = 10))
+		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
+	if(sneaky)
+		icon_state = "fleshegg-sneaky"
+	if(LAZYLEN(diseases))
+		AddComponent(/datum/component/infective, diseases)

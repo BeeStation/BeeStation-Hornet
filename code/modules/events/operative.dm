@@ -4,6 +4,7 @@
 	weight = 0 //Admin only
 	max_occurrences = 1
 	dynamic_should_hijack = TRUE
+	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event/ghost_role/operative
 	minimum_required = 1

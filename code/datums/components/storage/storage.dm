@@ -290,10 +290,10 @@
 	for(var/obj/item/I in real_location.contents)
 		if(QDELETED(I))
 			continue
-		if(!.["[I.type]-[I.name]"])
-			.["[I.type]-[I.name]"] = new /datum/numbered_display(I, 1)
+		if(!.["[I.type]"])
+			.["[I.type]"] = new /datum/numbered_display(I, 1)
 		else
-			var/datum/numbered_display/ND = .["[I.type]-[I.name]"]
+			var/datum/numbered_display/ND = .["[I.type]"]
 			ND.number++
 
 //This proc determines the size of the inventory to be displayed. Please touch it only if you know what you're doing.
@@ -352,7 +352,7 @@
 	if(!M.client)
 		return FALSE
 	var/atom/real_location = real_location()
-	if(M.active_storage != src && (M.stat == CONSCIOUS))
+	if(M.active_storage != src && (M.is_conscious()))
 		for(var/obj/item/I in real_location)
 			if(I.on_found(M))
 				return FALSE

@@ -143,7 +143,13 @@
 // Minor explosions are mostly mitigitated by casing.
 /obj/machinery/modular_computer/ex_act(severity)
 	if(cpu)
-		cpu.ex_act(severity)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.high_mov_atom += cpu
+			if(EXPLODE_HEAVY)
+				SSexplosions.med_mov_atom += cpu
+			if(EXPLODE_LIGHT)
+				SSexplosions.low_mov_atom += cpu
 	..()
 
 // EMPs are similar to explosions, but don't cause physical damage to the casing. Instead they screw up the components

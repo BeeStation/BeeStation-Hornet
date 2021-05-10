@@ -246,7 +246,7 @@
 		if("destination")
 			var/new_dest
 			if(pda)
-				new_dest =  tgui_input_list(user, "Enter Destination:", name, GLOB.deliverybeacontags)
+				new_dest = input(user, "Enter Destination:", name, destination) as null|anything in GLOB.deliverybeacontags
 			else
 				new_dest = params["value"]
 			if(new_dest)
@@ -262,7 +262,7 @@
 		if("sethome")
 			var/new_home
 			if(pda)
-				new_home = tgui_input_list(user, "Enter Home:", name, GLOB.deliverybeacontags)
+				new_home = input(user, "Enter Home:", name, home_destination) as null|anything in GLOB.deliverybeacontags
 			else
 				new_home = params["value"]
 			if(new_home)

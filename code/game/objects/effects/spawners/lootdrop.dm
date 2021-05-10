@@ -49,7 +49,7 @@
 	lootdoubles = FALSE
 
 	loot = list(
-				/obj/item/gun/ballistic/automatic/pistol = 8,
+				/obj/item/gun/ballistic/automatic/pistol/locker = 8,
 				/obj/item/gun/ballistic/shotgun/automatic/combat = 3,
 				/obj/item/gun/ballistic/revolver/mateba,
 				/obj/item/gun/ballistic/automatic/pistol/deagle,
@@ -241,7 +241,13 @@
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner/Initialize()
 	if(prob(40) && SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		loot = list(/obj/effect/spawner/xeno_egg_delivery_troll = 1)
-	..()
+	. = ..()
+
+/obj/effect/spawner/lootdrop/ten_percent_girlfriend_spawner
+	name = "10% chance girlfriend spawner"
+	loot = list(
+		/mob/living/simple_animal/pet/dog/corgi = 9,
+		/mob/living/simple_animal/pet/dog/corgi/Lisa = 1)
 
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"
@@ -460,3 +466,18 @@
 		/obj/effect/trap/nexus/trickyspawner/clownmutant = 2,
 		/obj/effect/trap/nexus/trickyspawner/honkling = 3,
 		/obj/effect/trap/nexus/cluwnecurse = 1)
+		
+/obj/effect/spawner/lootdrop/megafaunaore
+	name = "megafauna ore drop"
+	lootcount = 100
+	lootdoubles = TRUE
+	loot = list(
+		/obj/item/stack/ore/iron = 5,
+		/obj/item/stack/ore/glass/basalt = 5,
+		/obj/item/stack/ore/plasma = 3,
+		/obj/item/stack/ore/silver = 3,
+		/obj/item/stack/ore/gold = 3, 
+		/obj/item/stack/ore/copper = 3,
+		/obj/item/stack/ore/titanium = 2,
+		/obj/item/stack/ore/uranium = 2,
+		/obj/item/stack/ore/diamond = 2)

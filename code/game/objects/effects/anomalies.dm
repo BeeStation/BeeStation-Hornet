@@ -100,7 +100,7 @@
 	for(var/obj/O in get_turf(src))
 		if(!O.anchored)
 			var/mob/living/target = locate() in hearers(4,src)
-			if(target && !target.stat)
+			if(target && target.is_conscious())
 				O.throw_at(target, 5, 10)
 
 /obj/effect/anomaly/grav/Crossed(mob/A)
@@ -113,7 +113,7 @@
 	gravShock(AM)
 
 /obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
-	if(boing && isliving(A) && !A.stat)
+	if(boing && isliving(A) && A.is_conscious())
 		A.Paralyze(40)
 		var/atom/target = get_edge_target_turf(A, get_dir(src, get_step_away(A, src)))
 		A.throw_at(target, 5, 1)
@@ -285,12 +285,8 @@
 	S.rabid = TRUE
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
-
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a pyroclastic anomaly slime?", ROLE_PAI, null, null, 100, S, POLL_IGNORE_PYROSLIME)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/chosen = pick(candidates)
-		S.key = chosen.key
-		log_game("[key_name(S.key)] was made into a slime by pyroclastic anomaly at [AREACOORD(T)].")
+	S.flavor_text = FLAVOR_TEXT_EVIL
+	S.set_playable()
 
 /////////////////////
 
@@ -311,10 +307,10 @@
 	for(var/obj/O in orange(2,src))
 		if(!O.anchored)
 			var/mob/living/target = locate() in hearers(4,src)
-			if(target && !target.stat)
+			if(target && target.is_conscious())
 				O.throw_at(target, 7, 5)
 		else
-			O.ex_act(EXPLODE_HEAVY)
+			SSexplosions.med_mov_atom += O
 
 /obj/effect/anomaly/bhole/proc/grav(r, ex_act_force, pull_chance, turf_removal_chance)
 	for(var/t = -r, t < r, t++)
@@ -333,7 +329,13 @@
 	if(prob(pull_chance))
 		for(var/obj/O in T.contents)
 			if(O.anchored)
-				O.ex_act(ex_act_force)
+				switch(ex_act_force)
+					if(EXPLODE_DEVASTATE)
+						SSexplosions.high_mov_atom += O
+					if(EXPLODE_HEAVY)
+						SSexplosions.med_mov_atom += O
+					if(EXPLODE_LIGHT)
+						SSexplosions.low_mov_atom += O
 			else
 				step_towards(O,src)
 		for(var/mob/living/M in T.contents)
@@ -341,4 +343,10 @@
 
 	//Damaging the turf
 	if( T && prob(turf_removal_chance) )
-		T.ex_act(ex_act_force)
+		switch(ex_act_force)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.highturf += T
+			if(EXPLODE_HEAVY)
+				SSexplosions.medturf += T
+			if(EXPLODE_LIGHT)
+				SSexplosions.lowturf += T

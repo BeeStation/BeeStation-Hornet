@@ -104,6 +104,7 @@
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/log_override = FALSE //is this type spammed enough to not log? (KAs)
+	var/martial_arts_no_deflect = FALSE
 
 	var/temporary_unstoppable_movement = FALSE
 

@@ -1272,7 +1272,7 @@
 /datum/map_template/random_room/sk_rdm149
 	name = "space window with crates"
 	room_id = "sk_rdm149_cratewindow"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm149_cratewindow.dmm"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm149_cratewindow.dmm"
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
@@ -1281,7 +1281,7 @@
 /datum/map_template/random_room/sk_rdm150
 	name = "small medical lobby"
 	room_id = "sk_rdm150_smallmedlobby"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm150_smallmedlobby.dmm"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm150_smallmedlobby.dmm"
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
@@ -1290,7 +1290,7 @@
 /datum/map_template/random_room/sk_rdm151 //delicious
 	name = "small medical lobby"
 	room_id = "sk_rdm151_ratburger"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm151_ratburger.dmm"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm151_ratburger.dmm"
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
@@ -1299,7 +1299,7 @@
 /datum/map_template/random_room/sk_rdm152
 	name = "old genetics office"
 	room_id = "sk_rdm152_geneticsoffice"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm152_geneticsoffice.dmm"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm152_geneticsoffice.dmm"
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
@@ -1308,7 +1308,7 @@
 /datum/map_template/random_room/sk_rdm153 //its a hobo den featuring Peter the pet frog. Includes a debtor spawn
 	name = "peters room"
 	room_id = "sk_rdm153_hobowithpeter"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm153_hobowithpeter.dmm"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm153_hobowithpeter.dmm"
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
@@ -1317,7 +1317,7 @@
 /datum/map_template/random_room/sk_rdm154 //rare, has a cleaver.
 	name = "butchers den"
 	room_id = "sk_rdm154_butchersden"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm154_butchersden.dmm"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm154_butchersden.dmm"
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
@@ -1326,7 +1326,7 @@
 /datum/map_template/random_room/sk_rdm155
 	name = "punji stick conveyor trap"
 	room_id = "sk_rdm155_punjiconveyor"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm155_punjiconveyor.dmm"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm155_punjiconveyor.dmm"
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10
@@ -1335,7 +1335,7 @@
 /datum/map_template/random_room/sk_rdm156
 	name = "ancient interchange"
 	room_id = "sk_rdm156_oldairlock_interchange"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm156_oldairlock_interchange.dmm"
+	mappath = "_maps/RandomRooms/10x5/sk_rdm156_oldairlock_interchange.dmm"
 	centerspawner = FALSE
 	template_height = 5
 	template_width = 10

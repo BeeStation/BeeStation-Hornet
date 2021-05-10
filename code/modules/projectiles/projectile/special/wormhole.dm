@@ -11,6 +11,7 @@
 	impact_type = /obj/effect/projectile/impact/wormhole
 	muzzle_type = /obj/effect/projectile/muzzle/wormhole
 	hitscan = TRUE
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/beam/wormhole/orange
 	name = "orange bluespace beam"
@@ -25,5 +26,5 @@
 /obj/item/projectile/beam/wormhole/on_hit(atom/target)
 	if(!gun)
 		qdel(src)
-		return 
+		return
 	gun.create_portal(src, get_turf(src))
