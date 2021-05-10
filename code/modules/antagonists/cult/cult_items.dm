@@ -780,14 +780,13 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CULT_TRAIT)
 
-
 /obj/item/blood_beam/afterattack(atom/A, mob/living/user, flag, params)
 	. = ..()
 	if(firing || charging)
 		return
 	var/C = user.client
 	if(ishuman(user) && C)
-		angle = mouse_angle_from_client(C)
+		angle = Get_Angle(get_turf(src), get_turf(A))
 	else
 		qdel(src)
 		return
