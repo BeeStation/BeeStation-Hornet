@@ -563,7 +563,7 @@
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 10, "energy" = 10, "bomb" = 20, "rad" = 75, "fire" = 50, "acid" = 75, "stamina" = 0)
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 
-obj/item/clothing/suit/space/hardsuit/medical/emt
+/obj/item/clothing/suit/space/hardsuit/medical/emt
 	name = "paramedic hardsuit"
 	armor = list("melee" =15, "bullet" = 0, "laser" = 5, "energy" = 10, "bomb" = 20, "rad" = 75, "fire" = 75, "acid" = 80, "stamina" = 0)
 	resistance_flags = ACID_PROOF | FIRE_PROOF
