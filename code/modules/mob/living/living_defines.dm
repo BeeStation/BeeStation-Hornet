@@ -132,3 +132,7 @@
 	var/icon/held_rh = 'icons/mob/pets_held_rh.dmi'
 	var/icon/head_icon = 'icons/mob/pets_held.dmi'//what it looks like on your head
 	var/held_state = ""//icon state for the above
+	
+	//is mob player controllable
+	var/playable = FALSE
+	var/flavor_text = FLAVOR_TEXT_NONE

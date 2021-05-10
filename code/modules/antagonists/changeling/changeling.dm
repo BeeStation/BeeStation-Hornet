@@ -8,7 +8,7 @@
 	antagpanel_category = "Changeling"
 	job_rank = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/focused
-
+	hijack_speed = 0.5
 	var/you_are_greet = TRUE
 	var/team_mode = FALSE //Should assign team objectives ?
 	var/competitive_objectives = FALSE //Should we assign objectives in competition with other lings?

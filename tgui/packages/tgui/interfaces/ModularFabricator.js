@@ -255,7 +255,7 @@ export const ModFabCategoryItems = (props, context) => {
         {items.map(item => (
           <Table.Row
             height="100%"
-            key={item}>
+            key={item.design_id}>
             <Table.Cell>
               {item.name}
             </Table.Cell>
@@ -273,7 +273,8 @@ export const ModFabCategoryItems = (props, context) => {
               verticalAlign="middle">
               <Button
                 icon="minus"
-                onClick={() => setAmount(amount-1)} />
+                onClick={() => { amount !== 0 && (
+                  setAmount(amount-1)); }} />
             </Table.Cell>
             <Table.Cell
               collapsing
@@ -289,19 +290,8 @@ export const ModFabCategoryItems = (props, context) => {
               verticalAlign="middle">
               <Button
                 icon="plus"
-                onClick={() => setAmount(amount+1)} />
-            </Table.Cell>
-            <Table.Cell
-              collapsing
-              verticalAlign="middle">
-              <Button
-                icon="hammer"
-                content="Create"
-                onClick={() => act("build_item", {
-                  design_id: item.design_id,
-                  amount: amount,
-                  item_name: item.name,
-                })} />
+                onClick={() => { amount !== 50 && (
+                  setAmount(amount+1)); }} />
             </Table.Cell>
             <Table.Cell
               collapsing
@@ -346,7 +336,7 @@ export const ModFabData = (props, context) => {
               m={0}
               color={sec_interface_unlock ? "green" : "red"}
               icon={sec_interface_unlock ? "unlock" : "lock"}
-              content={sec_interface_unlock ? "Unlock" : "Lock"}
+              content={sec_interface_unlock ? "Unlocked" : "Locked"}
               onClick={() => act("toggle_lock")} />
           </Flex.Item>
         </Flex>

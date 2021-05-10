@@ -359,9 +359,9 @@
 
 	if(!get_ghost(1))
 		if(world.time < 30 * 600)//before the 30 minute mark
-			ghostize(0) // Players despawned too early may not re-enter the game
+			ghostize(FALSE,SENTIENCE_ERASE) // Players despawned too early may not re-enter the game
 	else
-		ghostize(1)
+		ghostize(TRUE,SENTIENCE_ERASE)
 
 	QDEL_NULL(src)
 
@@ -904,8 +904,10 @@
 
 	var/rendered = "<i><span class='game say'>[start]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
 
+	var/flags = message_mods.Find(MODE_RADIO_MESSAGE) ? RADIO_MESSAGE : NONE
+
 	if (client?.prefs.chat_on_map && (client.prefs.see_chat_non_mob || ismob(speaker)))
-		create_chat_message(speaker, message_language, raw_message, spans)
+		create_chat_message(speaker, message_language, raw_message, spans, runechat_flags = flags)
 
 	show_message(rendered, 2)
 
