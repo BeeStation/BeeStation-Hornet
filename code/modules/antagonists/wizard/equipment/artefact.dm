@@ -189,7 +189,7 @@
 
 /obj/item/scrying/attack_self(mob/user)
 	visible_message("<span class='danger'>[user] stares into [src], their eyes glazing over.</span>")
-	user.ghostize(1)
+	user.ghostize(TRUE)
 
 /////////////////////////////////////////Necromantic Stone///////////////////
 

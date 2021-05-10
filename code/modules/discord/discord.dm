@@ -1,5 +1,7 @@
 // discord config option
 /datum/config_entry/flag/using_discord
+/datum/config_entry/string/discord_webhook
+    config_entry_value = "http://127.0.0.1:5000/api/"
 
 /proc/msg2url(var/msg as text)
     var/list/conversions = list(
@@ -24,5 +26,5 @@
         return
     msg = msg2url(msg)
     var/datum/http_request/request = new()
-    request.prepare(RUSTG_HTTP_METHOD_GET, "http://127.0.0.1:5000/api/[channel]/[msg]")
+    request.prepare(RUSTG_HTTP_METHOD_GET, "[CONFIG_GET(string/discord_webhook)][channel]/[msg]")
     request.begin_async()

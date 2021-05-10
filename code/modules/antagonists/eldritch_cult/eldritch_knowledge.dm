@@ -198,7 +198,7 @@
 		return FALSE
 	var/mob/dead/observer/C = pick(candidates)
 	log_game("[key_name_admin(C)] has taken control of ([key_name_admin(summoned)]), their master is [user.real_name]")
-	summoned.ghostize(FALSE)
+	summoned.ghostize(FALSE,SENTIENCE_ERASE)
 	summoned.key = C.key
 	summoned.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	var/datum/antagonist/heretic_monster/heretic_monster = summoned.mind.has_antag_datum(/datum/antagonist/heretic_monster)

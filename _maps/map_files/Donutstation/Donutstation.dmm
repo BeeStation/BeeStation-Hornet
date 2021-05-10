@@ -3750,7 +3750,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "ajq" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -5455,7 +5455,7 @@
 	},
 /area/crew_quarters/kitchen)
 "anM" = (
-/obj/machinery/atmospherics/miner/n2o{
+/obj/machinery/atmospherics/miner/station/n2o{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/n2o{
@@ -10029,7 +10029,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "ayh" = (
-/obj/machinery/atmospherics/miner/toxins{
+/obj/machinery/atmospherics/miner/station/toxins{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/plasma{
@@ -10351,7 +10351,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "ayS" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide{
+/obj/machinery/atmospherics/miner/station/carbon_dioxide{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/co2{
@@ -28348,7 +28348,7 @@
 	},
 /area/crew_quarters/kitchen)
 "bln" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -38542,7 +38542,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bEP" = (
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bEQ" = (
@@ -50140,7 +50140,7 @@
 	},
 /area/engine/atmos)
 "cdM" = (
-/obj/machinery/atmospherics/miner/nitrogen{
+/obj/machinery/atmospherics/miner/station/nitrogen{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/n2{
@@ -50619,7 +50619,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "ceK" = (
-/obj/machinery/atmospherics/miner/oxygen{
+/obj/machinery/atmospherics/miner/station/oxygen{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/o2{
@@ -51813,7 +51813,7 @@
 	name = "Research Lab Desk";
 	req_one_access_txt = "7;29"
 	},
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "fED" = (
