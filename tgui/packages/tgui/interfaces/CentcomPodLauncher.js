@@ -422,7 +422,7 @@ const ViewTabHolder = (props, context) => {
   const { mapRef } = data;
   const TabPageComponent = TABPAGES[tabPageIndex].component();
   return (
-    <Section fill title="View" fill buttons={(
+    <Section fill title="View" buttons={(
       <>
         {(!!data.customDropoff && data.effectReverse===1) && (
           <Button
