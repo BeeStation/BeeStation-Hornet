@@ -47,14 +47,14 @@ const taskDm = new Task('dm')
   .depends('interface/**')
   .depends('tgui/public/tgui.html')
   .depends('tgui/public/*.bundle.*')
-  .depends('tgstation.dme')
-  .provides('tgstation.dmb')
-  .provides('tgstation.rsc')
+  .depends('beestation.dme')
+  .provides('beestation.dmb')
+  .provides('beestation.rsc')
   .build(async () => {
     const dmPath = await (async () => {
       // Search in array of paths
       const paths = [
-        ...(process.env.DM_EXE && process.env.DM_EXE.split(',')),
+        ...((process.env.DM_EXE && process.env.DM_EXE.split(',')) || []),
         'C:\\Program Files\\BYOND\\bin\\dm.exe',
         'C:\\Program Files (x86)\\BYOND\\bin\\dm.exe',
         ['reg', 'HKLM\\Software\\Dantom\\BYOND', 'installpath'],
@@ -94,7 +94,7 @@ const taskDm = new Task('dm')
         || 'DreamMaker'
       );
     })();
-    await exec(dmPath, ['tgstation.dme']);
+    await exec(dmPath, ['beestation.dme']);
   });
 
 // Frontend
