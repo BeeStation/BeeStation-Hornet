@@ -325,7 +325,7 @@
 				. += "<span class='info'>Detected physiological traits:\n[traitstring]"
 
 		if(HAS_TRAIT(user, TRAIT_SECURITY_HUD))
-			if(!user.stat && user != src)
+			if(user.is_conscious() && user != src)
 			//|| !user.canmove || user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				var/criminal = "None"
 
