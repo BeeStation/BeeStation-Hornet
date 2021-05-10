@@ -14,6 +14,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 
 /datum/controller/subsystem/processing/station/Initialize(timeofday)
 
+	station_traits = list()
 	selectable_traits_by_types = list(STATION_TRAIT_POSITIVE = list(), STATION_TRAIT_NEUTRAL = list(), STATION_TRAIT_NEGATIVE = list())
 
 	//If doing unit tests we don't do none of that trait shit ya know?
