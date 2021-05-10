@@ -787,6 +787,7 @@
 	result = /obj/item/skeleton_key
 	always_available = FALSE
 	category = CAT_PRIMAL
+
 /datum/crafting_recipe/headpike
 	name = "Spike Head (Glass Spear)"
 	time = 65
