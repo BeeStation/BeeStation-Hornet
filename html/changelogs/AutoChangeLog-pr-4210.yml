@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Modular fabricator interface for exosuit fabs.
+  - code_imp: Removed the build queue from the mod fab interface code.

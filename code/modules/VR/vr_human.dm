@@ -29,7 +29,7 @@
 			return
 		revert_to_reality(FALSE)
 
-/mob/living/carbon/human/virtual_reality/ghostize()
+/mob/living/carbon/human/virtual_reality/ghostize(can_reenter_corpse, sentience_retention)
 	if(!real_mind && !vr_sleeper)
 		return ..()
 	stack_trace("Ghostize was called on a virtual reality mob")

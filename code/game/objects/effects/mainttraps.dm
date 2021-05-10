@@ -137,6 +137,8 @@
 			FC.force_target(C)
 			FC.dontkill = TRUE
 			FC.delete_after_target_killed = TRUE //it only affects the one to walk on the rune. when he dies, the rune is no longer usable
+			message_admins("A hugbox floor cluwne has been spawned at [COORD(T)][ADMIN_JMP(T)] following [ADMIN_LOOKUPFLW(C)]")
+			log_game("A hugbox floor cluwne has been spawned at [COORD(T)]")
 			playsound(C,'sound/misc/honk_echo_distant.ogg', 30, 1)
 			return TRUE
 	return FALSE
@@ -354,6 +356,8 @@
 	for(var/mob/living/carbon/C in hearers(10, src))
 		C.Stun(350, ignore_canstun = TRUE)
 	priority_announce("Figments of an elder god have been detected in your sector. Exercise extreme caution, and abide by the 'buddy system' at all times.","Central Command Higher Dimensional Affairs", 'sound/ai/spanomalies.ogg')
+	message_admins("A dangerous cluwne rune was invoked at [AREACOORD(src)][ADMIN_COORDJMP(src)]")
+	log_game("A dangerous cluwne rune was invoked at [AREACOORD(src)][ADMIN_COORDJMP(src)]")
 	stoplag(315)
 	for(var/mob/living/carbon/human/H in invokers)
 		if(H.stat == DEAD)
@@ -366,14 +370,23 @@
 			if(prob(75))
 				cluwne.delete_after_target_killed = TRUE
 			to_chat(H, "<span class='clowntext'>YOU'RE MINE!</span>")
+			message_admins("A floor cluwne has been spawned by rune at [AREACOORD(src)][ADMIN_COORDJMP(src)] following [ADMIN_LOOKUPFLW(H)]. It [cluwne.delete_after_target_killed ? "will" : "will not"] kill additional people")
+			log_game("A floor cluwne has been spawned by rune at [AREACOORD(src)] following [ADMIN_LOOKUP(H)]. It [cluwne.delete_after_target_killed ? "will" : "will not"] kill additional people")
+			H.log_message("was targetted by cluwne from rune", LOG_ATTACK)
+
 		else if(prob(20))
 			var/mob/living/simple_animal/hostile/floor_cluwne/cluwne = new(src.loc)
 			cluwne.force_target(H)
 			if(prob(75))
 				cluwne.delete_after_target_killed = TRUE
 			to_chat(H, "<span class='clowntext'>Do you want to play a game?</span>")
+			message_admins("A floor cluwne has been spawned by rune at [AREACOORD(src)][ADMIN_COORDJMP(src)] following [ADMIN_LOOKUPFLW(H)]. It [cluwne.delete_after_target_killed ? "will" : "will not"] kill additional people")
+			log_game("A floor cluwne has been spawned by rune at [AREACOORD(src)] following [ADMIN_LOOKUP(H)]. It [cluwne.delete_after_target_killed ? "will" : "will not"] kill additional people")
+			H.log_message("was targetted by cluwne from rune", LOG_ATTACK)
 		else if(prob(60))
 			H.cluwneify()
+			H.log_message("was cluwned by rune", LOG_ATTACK)
+
 			to_chat(H, "<span class='clowntext'>Join us!</span>")
 		else
 			to_chat(H, "<span class='clowntext'>You bore me.</span>")

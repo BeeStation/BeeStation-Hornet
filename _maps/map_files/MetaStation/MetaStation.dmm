@@ -938,7 +938,7 @@
 /turf/open/floor/plating,
 /area/security/prison)
 "acj" = (
-/obj/machinery/atmospherics/miner/n2o,
+/obj/machinery/atmospherics/miner/station/n2o,
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "ack" = (
@@ -2333,7 +2333,7 @@
 /turf/open/space,
 /area/solar/starboard/fore)
 "aeG" = (
-/obj/machinery/atmospherics/miner/toxins,
+/obj/machinery/atmospherics/miner/station/toxins,
 /turf/open/floor/engine/plasma,
 /area/engine/atmos)
 "aeH" = (
@@ -4167,7 +4167,7 @@
 	pixel_x = 1;
 	pixel_y = -2
 	},
-/obj/item/gun/grenadelauncher,
+/obj/item/gun/grenadelauncher/security,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -5017,7 +5017,7 @@
 /turf/open/floor/plating,
 /area/janitor)
 "ajl" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide,
+/obj/machinery/atmospherics/miner/station/carbon_dioxide,
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
 "ajm" = (
@@ -5403,7 +5403,7 @@
 /turf/open/floor/plasteel,
 /area/security/range)
 "ajO" = (
-/obj/machinery/atmospherics/miner/nitrogen,
+/obj/machinery/atmospherics/miner/station/nitrogen,
 /turf/open/floor/engine/n2,
 /area/engine/atmos)
 "ajP" = (
@@ -6988,7 +6988,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "amu" = (
-/obj/machinery/atmospherics/miner/oxygen,
+/obj/machinery/atmospherics/miner/station/oxygen,
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "amv" = (
@@ -19511,6 +19511,7 @@
 /obj/item/folder/red,
 /obj/item/folder/red,
 /obj/item/folder/red,
+/obj/item/clothing/glasses/sunglasses/advanced/big,
 /turf/open/floor/carpet/green,
 /area/lawoffice)
 "aLF" = (
@@ -33847,7 +33848,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
 "bmh" = (
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/eastright{
 	dir = 1;
 	name = "Cargo Office";
@@ -68040,7 +68041,7 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cDd" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/item/radio/intercom{
 	pixel_y = 20
 	},
@@ -68065,7 +68066,7 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cDf" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/machinery/camera{
 	c_tag = "Robotics - Fore";
 	network = list("ss13","rd")
@@ -84241,9 +84242,6 @@
 /obj/item/pen{
 	pixel_x = -3
 	},
-/obj/machinery/keycard_auth{
-	pixel_y = -24
-	},
 /obj/item/folder/red{
 	pixel_x = 8
 	},
@@ -86215,7 +86213,7 @@
 	name = "Research and Development Desk";
 	req_one_access_txt = "7;29"
 	},
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/door/firedoor/border_only{
 	dir = 1

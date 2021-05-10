@@ -14,7 +14,7 @@
 	invokers_required = 2
 	category = SPELLTYPE_STRUCTURES
 
-/datum/clockcult/scripture/create_structure/ocular_warden/check_special_requirements()
+/datum/clockcult/scripture/create_structure/ocular_warden/check_special_requirements(mob/user)
 	if(!..())
 		return FALSE
 	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
