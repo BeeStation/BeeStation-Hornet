@@ -1,6 +1,0 @@
-author: Bokkiewokkie
-delete-after: true
-changes:
-  - rscadd: Allows you to hack suit storage units with an EMP or Emag.
-  - bugfix: Fixed recyclers and suit storage units deleting important items.
-  - bugfix: Fixed disposals mailing not working across z-levels.

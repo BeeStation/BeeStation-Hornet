@@ -1,5 +1,5 @@
-/proc/mouse_angle_from_client(client/client)
-	var/list/mouse_control = params2list(client.mouseParams)
+/proc/mouse_angle_from_client(client/client, mouseParams)
+	var/list/mouse_control = params2list(mouseParams)
 	if(mouse_control["screen-loc"] && client)
 		var/list/screen_loc_params = splittext(mouse_control["screen-loc"], ",")
 		var/list/screen_loc_X = splittext(screen_loc_params[1],":")
@@ -15,10 +15,10 @@
 		return angle
 
 //Wow, specific name!
-/proc/mouse_absolute_datum_map_position_from_client(client/client)
+/proc/mouse_absolute_datum_map_position_from_client(client/client, params)
 	if(!isloc(client.mob.loc))
 		return
-	var/list/mouse_control = params2list(client.mouseParams)
+	var/list/mouse_control = params2list(params)
 	var/atom/A = client.eye
 	var/turf/T = get_turf(A)
 	var/cx = T.x

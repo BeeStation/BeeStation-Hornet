@@ -517,7 +517,7 @@
 /turf/closed/wall/r_wall,
 /area/science)
 "bB" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /turf/open/floor/plasteel,
 /area/science)
 "bC" = (
@@ -708,7 +708,7 @@
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "ca" = (
-/obj/machinery/autolathe/hacked,
+/obj/machinery/modular_fabricator/autolathe/hacked,
 /turf/open/floor/plasteel,
 /area/science)
 "cb" = (

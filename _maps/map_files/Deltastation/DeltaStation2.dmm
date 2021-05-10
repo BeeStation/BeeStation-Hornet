@@ -50234,9 +50234,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/keycard_auth{
-	pixel_x = 24
-	},
 /mob/living/simple_animal/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
 /turf/open/floor/plasteel,
@@ -104240,7 +104237,7 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "dzH" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
@@ -120122,7 +120119,7 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
 "eqS" = (
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/southleft{
 	dir = 1;
 	req_access_txt = "48"
@@ -122726,7 +122723,7 @@
 	name = "Research Lab Desk";
 	req_one_access_txt = "7;29"
 	},
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "mAj" = (
