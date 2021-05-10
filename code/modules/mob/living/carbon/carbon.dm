@@ -100,7 +100,7 @@
 
 //Throwing stuff
 /mob/living/carbon/proc/toggle_throw_mode()
-	if(stat)
+	if(stat > SOFT_CRIT)
 		return
 	if(in_throw_mode)
 		throw_mode_off()
@@ -514,6 +514,12 @@
 		add_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE, multiplicative_slowdown = CRAWLING_ADD_SLOWDOWN)
 	else
 		remove_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE)
+	if(buckled || pulledby)
+		return
+	if(is_conscious())
+		glide_size = initial(glide_size)
+	else
+		glide_size = CRIT_GLIDE
 
 //Updates the mob's health from bodyparts and mob damage variables
 /mob/living/carbon/updatehealth()
@@ -770,15 +776,54 @@
 				REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		else
 			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
+				// Slower glide movement handled in update_mobility()
 				stat = SOFT_CRIT
+				stuttering = 10
 			else
 				stat = CONSCIOUS
+				stuttering = 0
 			adjust_blindness(-1)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		update_mobility()
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_status()
+
+/// Allows mobs to slowly walk in crit for a short time
+/mob/living/carbon/proc/crit_walk(oxy_mult = 1)
+	if(stat == SOFT_CRIT)
+		var/duration = 0
+		switch(health)
+			if(HEALTH_THRESHOLD_FULLCRIT to -30)
+				if(prob(50 * crit_weight))
+					duration = 30
+
+				if(prob(60))
+					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
+			if(-30 to -20)
+				if(prob(40 * crit_weight))
+					duration = 20
+
+				if(prob(50))
+					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
+			if(-20 to -10)
+				if(prob(30 * crit_weight))
+					duration = 10
+
+				if(prob(40 * crit_weight))
+					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
+			if(-10 to HEALTH_THRESHOLD_CRIT)
+				if(prob(25 * crit_weight))
+					duration = 5
+
+				if(prob(30))
+					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
+		if(duration)
+			crit_weight = initial(crit_weight) // reset our crit chance multiplier
+			AdjustUnconscious(rand(duration, duration * 2), ignore_canstun = TRUE)
+			adjustOxyLoss(1.5 * oxy_mult)
+		else
+			crit_weight += 0.2
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
