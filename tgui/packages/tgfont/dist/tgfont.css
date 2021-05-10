@@ -1,0 +1,29 @@
+@font-face {
+    font-family: "tgfont";
+    src: url("./tgfont.woff2?3b7364a6e7ed995b13d868bf1194f1e2") format("woff2"),
+url("./tgfont.eot?3b7364a6e7ed995b13d868bf1194f1e2#iefix") format("embedded-opentype");
+}
+
+i[class^="tg-"]:before, i[class*=" tg-"]:before {
+    font-family: tgfont !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.tg-air-tank-slash:before {
+    content: "\f101";
+}
+.tg-air-tank:before {
+    content: "\f102";
+}
+.tg-nanotrasen-logo:before {
+    content: "\f103";
+}
+.tg-syndicate-logo:before {
+    content: "\f104";
+}
