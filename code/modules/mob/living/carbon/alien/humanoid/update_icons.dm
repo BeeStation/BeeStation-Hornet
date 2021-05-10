@@ -12,7 +12,7 @@
 		else
 			icon_state = "alien[caste]_dead"
 
-	else if((stat == UNCONSCIOUS && !asleep) || stat == SOFT_CRIT || IsParalyzed())
+	else if((stat == UNCONSCIOUS && !asleep) || IsParalyzed())
 		icon_state = "alien[caste]_unconscious"
 	else if(leap_on_click)
 		icon_state = "alien[caste]_pounce"
@@ -53,7 +53,7 @@
 
 /mob/living/carbon/alien/humanoid/update_transform() //The old method of updating lying/standing was update_icons(). Aliens still expect that.
 	if(lying)
-		lying = 90 //Anything else looks retarded
+		lying = 90 //Anything else looks stupid
 	..()
 	update_icons()
 
