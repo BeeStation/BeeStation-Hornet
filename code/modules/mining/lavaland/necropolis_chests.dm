@@ -11,7 +11,7 @@
 	door_anim_time = 0
 
 /obj/structure/closet/crate/necropolis/tendril
-	desc = "It's watching you suspiciously. You need a skeleton key to open it."
+	desc = "It's watching you suspiciously."
 	///prevents bust_open to fire
 	integrity_failure = 0
 	/// var to check if it got opened by a key
@@ -79,6 +79,12 @@
 	if(!spawned_loot)
 		return FALSE
 	return ..()
+
+/obj/structure/closet/crate/necropolis/tendril/examine(mob/user)
+	. = ..()
+	if(!spawned_loot)
+		. += " You need a skeleton key to open it."
+
 
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disc
