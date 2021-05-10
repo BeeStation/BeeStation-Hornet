@@ -445,7 +445,7 @@
 	martialname = "paci-fist"
 	desc = "A strange scroll filled with martial lessons. It seems to be drawings of some sort of pacifist martial art."
 	greet = "<span class='sciradio'>You have learned the ancient martial art of the Paci-Fist! Your non-harmful abilities of disarming and grabbing have become much more effective, and you are now able to block most attacks \
-	directed toward you. You are also able to nerve pinch an opponent to sleep. You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>"
+	directed toward you. You are also able to nerve pinch an opponent to sleep. You can learn more about your newfound art by using the Recall Teachings verb in the Paci-Fist tab.</span>"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 	remarks = list("I must prove myself worthy to the masters of the paci-fist...", "Stance means everything...", "Focus... And you'll be able to pacify any foe in seconds...", "I must avoid conflict for maximum efficiency...", "I don't think this would combine with other martial arts...", "Grab them first and pacify them...", "I must prove myself worthy of this power...")
