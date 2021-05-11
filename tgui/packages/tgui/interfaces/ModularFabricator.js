@@ -258,6 +258,14 @@ export const ModFabCategoryItems = (props, context) => {
         onClick={() => {
           setCategory("");
         }} />
+      <Button
+        disabled={!items.length}
+        content="Queue all"
+        onClick={() => items.forEach(item => act("queue_item", {
+          design_id: item.design_id,
+          amount: 1,
+          name: item.name,
+        }))} />
       {!!(allow_add_category && !search) && (
         <Button
           content="Add Category"
