@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, LabeledList, Input, NoticeBox, ProgressBar, Section, Divider, Flex, Table, Grid, NumberInput, Tabs } from '../components';
+import { Box, Button, LabeledList, Input, NoticeBox, ProgressBar, Section, Divider, Stack, Table, Grid, NumberInput, Tabs } from '../components';
 import { Window } from '../layouts';
 import { Fragment } from 'inferno';
 import { capitalize, createSearch } from 'common/string';
@@ -340,28 +340,28 @@ export const ModFabData = (props, context) => {
     <Fragment>
       {show_unlock_bar ? (
         <NoticeBox color={sec_interface_unlock ? "green" : "red"}>
-          <Flex align="center">
-            <Flex.Item grow={1}>
+          <Stack align="center">
+            <Stack.Item grow={1}>
               Security protocol {hacked ? "disengaged" : "engaged"}
               . Swipe a valid ID to unlock safety controls.
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 m={0}
                 color={sec_interface_unlock ? "green" : "red"}
                 icon={sec_interface_unlock ? "unlock" : "lock"}
                 content={hacked ? "Reactivate" : "Deactivate"}
                 onClick={() => act("toggle_safety")} />
-            </Flex.Item>
-            <Flex.Item mx={1}>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 m={0}
                 color={sec_interface_unlock ? "green" : "red"}
                 icon={sec_interface_unlock ? "unlock" : "lock"}
                 content={sec_interface_unlock ? "Unlocked" : "Locked"}
                 onClick={() => act("toggle_lock")} />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </NoticeBox>
       ) : (
         <NoticeBox textAlign="center" color="orange">
@@ -534,11 +534,11 @@ export const SidePanel = (props, context) => {
       height="100%">
       <MaterialData />
       <Divider />
-      <Flex align="center">
-        <Flex.Item bold grow={1}>
+      <Stack align="center">
+        <Stack.Item bold grow={1}>
           Queue
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             m={0}
             color={queueRepeat ? "green" : "red"}
@@ -551,16 +551,16 @@ export const SidePanel = (props, context) => {
               });
               setQueueRepeat(1-queueRepeat);
             }} />
-        </Flex.Item>
-        <Flex.Item mx={1}>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             m={0}
             color="red"
             icon="times"
             content="Clear"
             onClick={() => act("clear_queue")} />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <Divider />
       <FabricationQueue />
       <ProcessingBar />

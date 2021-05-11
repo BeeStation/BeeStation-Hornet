@@ -828,10 +828,9 @@ export const PaperSheet = (props, context) => {
   return (
     <Window
       theme="paper"
-      width={sizeX || 400}
-      height={sizeY || 500}>
+      width={400}
+      height={500}>
       <Window.Content
-        backgroundColor={paper_color}
         scrollable>
         <Box
           fillPositionedParent
