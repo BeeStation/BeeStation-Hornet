@@ -430,6 +430,7 @@
 		"sheets to insert"	 	= IC_PINTYPE_NUMBER,
 		"Iron"				 	= IC_PINTYPE_NUMBER,
 		"Glass"					= IC_PINTYPE_NUMBER,
+		"Copper"				= IC_PINTYPE_NUMBER,
 		"Silver"				= IC_PINTYPE_NUMBER,
 		"Gold"					= IC_PINTYPE_NUMBER,
 		"Diamond"				= IC_PINTYPE_NUMBER,
@@ -444,6 +445,7 @@
 		"Total amount"		 	= IC_PINTYPE_NUMBER,
 		"Iron"				 	= IC_PINTYPE_NUMBER,
 		"Glass"					= IC_PINTYPE_NUMBER,
+		"Copper"				= IC_PINTYPE_NUMBER,
 		"Silver"				= IC_PINTYPE_NUMBER,
 		"Gold"					= IC_PINTYPE_NUMBER,
 		"Diamond"				= IC_PINTYPE_NUMBER,
@@ -465,13 +467,24 @@
 	power_draw_per_use = 40
 	ext_cooldown = 1
 	cooldown_per_use = 10
-	var/list/mtypes = list(/datum/material/iron, /datum/material/glass, /datum/material/silver, /datum/material/gold, /datum/material/diamond, /datum/material/plasma, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace)
+	var/list/mtypes = list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/gold, /datum/material/diamond, /datum/material/plasma, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace)
 
 /obj/item/integrated_circuit/manipulation/matman/Initialize()
-	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container,
-	list(/datum/material/iron, /datum/material/glass, /datum/material/silver, /datum/material/gold, /datum/material/diamond, /datum/material/plasma, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), 0,
-	FALSE, /obj/item/stack, CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
-	materials.max_amount =100000
+	var/static/list/materials_list = list(
+		/datum/material/iron,
+		/datum/material/glass,
+		/datum/material/copper,
+		/datum/material/silver,
+		/datum/material/gold,
+		/datum/material/diamond,
+		/datum/material/plasma,
+		/datum/material/uranium,
+		/datum/material/bananium,
+		/datum/material/titanium,
+		/datum/material/bluespace,
+		/datum/material/plastic,
+		)
+	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, materials_list, max_amt=100000, allowed_types=/obj/item/stack, _precondition=CALLBACK(src, .proc/is_insertion_ready), _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
 	materials.precise_insertion = TRUE
 	.=..()
 
