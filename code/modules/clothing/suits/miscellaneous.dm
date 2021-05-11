@@ -206,7 +206,11 @@
 /obj/item/clothing/suit/chungus/dropped(mob/user)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	H.cure_all_traumas(TRAUMA_RESILIENCE_ABSOLUTE)
+	H.cure_trauma_type(/datum/brain_trauma/severe/discoordination,TRAUMA_RESILIENCE_ABSOLUTE)
+	H.cure_trauma_type(/datum/brain_trauma/mild/stuttering,TRAUMA_RESILIENCE_ABSOLUTE)
+	H.cure_trauma_type(/datum/brain_trauma/mild/dumbness,TRAUMA_RESILIENCE_ABSOLUTE)
+	H.cure_trauma_type(/datum/brain_trauma/mild/speech_impediment,TRAUMA_RESILIENCE_ABSOLUTE)
+	H.cure_trauma_type(/datum/brain_trauma/mild/expressive_aphasia,TRAUMA_RESILIENCE_ABSOLUTE)
 
 /obj/item/clothing/suit/monkeysuit
 	name = "monkey suit"
