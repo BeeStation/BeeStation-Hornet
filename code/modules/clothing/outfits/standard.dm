@@ -245,6 +245,11 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id
 
+/datum/outfit/chungus
+	name = "Chungus"
+	suit = /obj/item/clothing/suit/chungus
+	head = /obj/item/clothing/head/chungus
+
 /datum/outfit/admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return

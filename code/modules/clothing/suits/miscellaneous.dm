@@ -190,26 +190,34 @@
 	armor = list("melee" = -50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 100)
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	var/list/datum/brain_trauma/chunguslist = list()
+	var/list/datum/brain_trauma/storedtraumas = list()
+
+/obj/item/clothing/suit/chungus/Initialize()
+	. = ..()
+	chunguslist += /datum/brain_trauma/severe/discoordination
+	chunguslist += /datum/brain_trauma/mild/stuttering
+	chunguslist += /datum/brain_trauma/mild/dumbness
+	chunguslist += /datum/brain_trauma/mild/speech_impediment
+	chunguslist += /datum/brain_trauma/mild/expressive_aphasia
 
 /obj/item/clothing/suit/chungus/equipped(mob/user, slot)
 	. = ..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.gain_trauma(/datum/brain_trauma/severe/discoordination,TRAUMA_RESILIENCE_ABSOLUTE)
-		H.gain_trauma(/datum/brain_trauma/mild/stuttering,TRAUMA_RESILIENCE_ABSOLUTE)
-		H.gain_trauma(/datum/brain_trauma/mild/dumbness,TRAUMA_RESILIENCE_ABSOLUTE)
-		H.gain_trauma(/datum/brain_trauma/mild/speech_impediment,TRAUMA_RESILIENCE_ABSOLUTE)
-		H.gain_trauma(/datum/brain_trauma/mild/expressive_aphasia,TRAUMA_RESILIENCE_ABSOLUTE)
+		if(slot == ITEM_SLOT_OCLOTHING)
+			for(var/i = 1 to length(chunguslist))
+				var/fuck = chunguslist[i]
+				storedtraumas += new fuck
+			for(var/datum/brain_trauma/trauma in storedtraumas)
+				H.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /obj/item/clothing/suit/chungus/dropped(mob/user)
 	. = ..()
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.cure_trauma_type(/datum/brain_trauma/severe/discoordination,TRAUMA_RESILIENCE_ABSOLUTE)
-		H.cure_trauma_type(/datum/brain_trauma/mild/stuttering,TRAUMA_RESILIENCE_ABSOLUTE)
-		H.cure_trauma_type(/datum/brain_trauma/mild/dumbness,TRAUMA_RESILIENCE_ABSOLUTE)
-		H.cure_trauma_type(/datum/brain_trauma/mild/speech_impediment,TRAUMA_RESILIENCE_ABSOLUTE)
-		H.cure_trauma_type(/datum/brain_trauma/mild/expressive_aphasia,TRAUMA_RESILIENCE_ABSOLUTE)
+	for(var/datum/brain_trauma/trauma in storedtraumas)
+		storedtraumas -= trauma
+		qdel(trauma)
+
 
 /obj/item/clothing/suit/monkeysuit
 	name = "monkey suit"
