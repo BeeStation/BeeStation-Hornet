@@ -176,26 +176,24 @@
 
 //I will ensure that wearing this will warent a sufficient beating to take it off again
 /obj/item/clothing/head/chungus
-	name = "chungus helmet"
+	name = "chungus hat"
 	desc = "BIG CHUNGUS HUER DU UUUUUUUUUUUUUUUU CHUNGUS FUNNY REDDIT MOMENT BIG GROBE CHUNGUS KIONO REEVES WHOLE SOME 100 ELON MUSK."
 	icon_state = "bigchungushead"
-	//item_state = "bigchungushead"
 	armor = list("melee" = -50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 100)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/suit/chungus
-	name = "chungus hardsuit"
+	name = "chungus suit"
 	desc = "BIG CHUNGUS HUER DU UUUUUUUUUUUUUUUU CHUNGUS FUNNY REDDIT MOMENT BIG GROBE CHUNGUS KIONO REEVES WHOLE SOME 100 ELON MUSK."
 	icon_state = "chungus"
-	//item_state = "chungus"
 	armor = list("melee" = -50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 100)
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
 /obj/item/clothing/suit/chungus/equipped(mob/user, slot)
 	. = ..()
-	if(ishumanbasic(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.gain_trauma(/datum/brain_trauma/severe/discoordination,TRAUMA_RESILIENCE_ABSOLUTE)
 		H.gain_trauma(/datum/brain_trauma/mild/stuttering,TRAUMA_RESILIENCE_ABSOLUTE)
@@ -205,12 +203,13 @@
 
 /obj/item/clothing/suit/chungus/dropped(mob/user)
 	. = ..()
-	var/mob/living/carbon/human/H = user
-	H.cure_trauma_type(/datum/brain_trauma/severe/discoordination,TRAUMA_RESILIENCE_ABSOLUTE)
-	H.cure_trauma_type(/datum/brain_trauma/mild/stuttering,TRAUMA_RESILIENCE_ABSOLUTE)
-	H.cure_trauma_type(/datum/brain_trauma/mild/dumbness,TRAUMA_RESILIENCE_ABSOLUTE)
-	H.cure_trauma_type(/datum/brain_trauma/mild/speech_impediment,TRAUMA_RESILIENCE_ABSOLUTE)
-	H.cure_trauma_type(/datum/brain_trauma/mild/expressive_aphasia,TRAUMA_RESILIENCE_ABSOLUTE)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.cure_trauma_type(/datum/brain_trauma/severe/discoordination,TRAUMA_RESILIENCE_ABSOLUTE)
+		H.cure_trauma_type(/datum/brain_trauma/mild/stuttering,TRAUMA_RESILIENCE_ABSOLUTE)
+		H.cure_trauma_type(/datum/brain_trauma/mild/dumbness,TRAUMA_RESILIENCE_ABSOLUTE)
+		H.cure_trauma_type(/datum/brain_trauma/mild/speech_impediment,TRAUMA_RESILIENCE_ABSOLUTE)
+		H.cure_trauma_type(/datum/brain_trauma/mild/expressive_aphasia,TRAUMA_RESILIENCE_ABSOLUTE)
 
 /obj/item/clothing/suit/monkeysuit
 	name = "monkey suit"
