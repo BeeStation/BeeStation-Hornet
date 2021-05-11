@@ -11,7 +11,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
-	var/obj/item/gun/ballistic/minigun/gun
+	var/obj/item/gun/energy/minigun/gun
 	var/armed = 0 //whether the gun is attached, 0 is attached, 1 is the gun is wielded.
 	var/overheat = 0
 	var/overheat_max = 40
@@ -98,7 +98,12 @@
 	to_chat(user, "<span class='warning'>You break the heat sensor.</span>")
 	overheat_max = 1000
 
-/obj/item/gun/ballistic/minigun
+/obj/item/stock_parts/cell/minigun
+	name = "Minigun gun fusion core"
+	charge = 500000
+	self_recharge = 0
+
+/obj/item/gun/energy/minigun
 	name = "laser gatling gun"
 	desc = "An advanced laser cannon with an incredible rate of fire. Requires a bulky backpack power source to use."
 	icon = 'icons/obj/guns/minigun.dmi'
@@ -112,15 +117,14 @@
 	automatic = 1
 	fire_rate = 10
 	weapon_weight = WEAPON_HEAVY
+	ammo_type = list(/obj/item/ammo_casing/energy/laser)
+	cell_type = /obj/item/stock_parts/cell/minigun
 	fire_sound = 'sound/weapons/laser.ogg'
-	mag_type = /obj/item/ammo_box/magazine/internal/minigun
-	tac_reloads = FALSE
-	casing_ejector = FALSE
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
 	var/cooldown = 0
 	var/obj/item/minigunpack/ammo_pack
 
-/obj/item/gun/ballistic/minigun/Initialize()
+/obj/item/gun/energy/minigun/Initialize()
 	if(istype(loc, /obj/item/minigunpack)) //We should spawn inside an ammo pack so let's use that one.
 		ammo_pack = loc
 	else
@@ -128,16 +132,16 @@
 
 	return ..()
 
-/obj/item/gun/ballistic/minigun/attack_self(mob/living/user)
+/obj/item/gun/energy/minigun/attack_self(mob/living/user)
 	return
 
-/obj/item/gun/ballistic/minigun/dropped(mob/user)
+/obj/item/gun/energy/minigun/dropped(mob/user)
 	if(ammo_pack)
 		ammo_pack.attach_gun(user)
 	else
 		qdel(src)
 
-/obj/item/gun/ballistic/minigun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+/obj/item/gun/energy/minigun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(ammo_pack)
 		if(obj_flags & EMAGGED)
 			if(cooldown < world.time)
@@ -163,15 +167,15 @@
 		else
 			to_chat(user, "The gun's heat sensor locked the trigger to prevent lens damage.")
 
-/obj/item/gun/ballistic/minigun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/energy/minigun/afterattack(atom/target, mob/living/user, flag, params)
 	if(!ammo_pack || ammo_pack.loc != user)
 		to_chat(user, "You need the backpack power source to fire the gun!")
 	. = ..()
 
-/obj/item/gun/ballistic/minigun/dropped(mob/living/user)
+/obj/item/gun/energy/minigun/dropped(mob/living/user)
 	ammo_pack.attach_gun(user)
 
-/obj/item/gun/ballistic/minigun/emag_act(mob/user)
+/obj/item/gun/energy/minigun/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
