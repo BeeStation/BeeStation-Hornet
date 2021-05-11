@@ -535,7 +535,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if (outfits[dresscode])
 		dresscode = outfits[dresscode]
 
-	if(dresscode == "As Plasmaman job...")
+	if(dresscode == "As Plasmaman...")
 		var/list/job_paths = subtypesof(/datum/outfit/plasmaman)
 		var/list/job_outfits = list()
 		for(var/path in job_paths)
