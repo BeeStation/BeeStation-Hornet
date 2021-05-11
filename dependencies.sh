@@ -18,5 +18,8 @@ export RUST_G_VERSION=0.4.7.1
 #node version
 export NODE_VERSION=12
 
-# SpacemanDMM git tag
+# SpacemanDMM git tag to use for fetching prebuilt release
 export SPACEMAN_DMM_VERSION=suite-1.6
+
+# SpacemanDMM commit to use for building from source
+export SPACEMAN_DMM_COMMIT_HASH=9c756347decf8e167ab6dc193f9423d3632a6c81
