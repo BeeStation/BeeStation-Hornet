@@ -122,7 +122,9 @@
 		              /obj/item/gun/magic/wand = 2,
 		              /obj/item/clothing/glasses/sunglasses/advanced/garb = 2,
 		              /obj/item/clothing/glasses/blindfold = 1,
-		              /obj/item/clothing/mask/muzzle = 2)
+		              /obj/item/clothing/mask/muzzle = 2,
+					  /obj/item/clothing/head/chungus = 1,
+					  /obj/item/clothing/suit/chungus = 1)
 	premium = list(/obj/item/clothing/suit/pirate/captain = 2,
 				   /obj/item/clothing/head/pirate/captain = 2,
 				   /obj/item/clothing/under/rank/civilian/clown/rainbow = 1,
