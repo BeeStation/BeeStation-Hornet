@@ -553,7 +553,7 @@ const PodStatusPage = (props, context) => {
     <Section fill width="100%">
       <Stack>
         {EFFECTS_ALL.map((list, i) => (
-          <Button key={i}>
+          <Fragment key={i}>
             <Stack.Item>
               <Box bold color="label" mb={1}>
                 {(compact === 1 && list.alt_label)
@@ -562,7 +562,7 @@ const PodStatusPage = (props, context) => {
               </Box>
               <Box>
                 {list.list.map((effect, j) => (
-                  <Button key={j}>
+                  <Fragment key={j}>
                     {effect.divider && (
                       <span style={pod_grey}><b>|</b></span>
                     )}
@@ -595,7 +595,7 @@ const PodStatusPage = (props, context) => {
                           'border-radius': '5px',
                         }} />
                     )}
-                  </Button>
+                  </Fragment>
                 ))}
               </Box>
             </Stack.Item>
@@ -651,7 +651,7 @@ const PodStatusPage = (props, context) => {
                 </Box>
               </Stack.Item>
             )}
-          </Button>
+          </Fragment>
         ))}
       </Stack>
     </Section>
