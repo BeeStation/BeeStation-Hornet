@@ -121,8 +121,7 @@ export const ModularFabricator = (props, context) => {
   return (
     <Window
       width={1000}
-      height={714}
-      resizable>
+      height={714}>
       <Window.Content>
         <div className="ModularFabricator__top">
           <ModFabData />
@@ -531,7 +530,8 @@ export const SidePanel = (props, context) => {
   return (
     <Section
       width="100%"
-      height="100%">
+      height="100%"
+      overflowY="scroll">
       <MaterialData />
       <Divider />
       <Stack align="center">
@@ -572,7 +572,7 @@ export const ProcessingBar = (props, context) => {
   const { act, data } = useBackend(context);
   const { being_build } = data;
   return (
-    <div className="ModularFabricator__sidebar_bottom">
+    <>
       <Button
         content="Process"
         color="green"
@@ -585,17 +585,17 @@ export const ProcessingBar = (props, context) => {
             minValue={0}
             maxValue={100}
             color="green"
-            width="75%">
+            width="74%">
             {being_build.name} - {Math.min(round(being_build.progress), 100)}%
           </ProgressBar>)
         : (
           <NoticeBox
             bold
-            width="75%"
+            width="74%"
             inline>
             Not Processing.
           </NoticeBox>)}
-    </div>
+    </>
   );
 };
 
