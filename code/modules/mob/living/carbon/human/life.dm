@@ -94,6 +94,8 @@
 
 				adjust_hygiene(hygiene_loss)
 
+		if(InCritical())
+			crit_walk(critwalk_oxy_mult)
 		dna.species.spec_life(src) // for mutantraces
 
 	//Update our name based on whether our face is obscured/disfigured

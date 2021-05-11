@@ -17266,7 +17266,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "azN" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -33796,7 +33796,7 @@
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
 "aXt" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -42695,7 +42695,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -100456,7 +100456,7 @@
 	name = "Research Lab Desk";
 	req_one_access_txt = "7;29"
 	},
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "eRI" = (

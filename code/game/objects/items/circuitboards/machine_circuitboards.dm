@@ -49,7 +49,7 @@
 /obj/item/circuitboard/machine/autolathe
 	name = "autolathe (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/autolathe
+	build_path = /obj/machinery/modular_fabricator/autolathe
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 3,
 		/obj/item/stock_parts/manipulator = 1,
@@ -816,7 +816,7 @@
 /obj/item/circuitboard/machine/mechfab
 	name = "exosuit fabricator (Machine Board)"
 	icon_state = "science"
-	build_path = /obj/machinery/mecha_part_fabricator
+	build_path = /obj/machinery/modular_fabricator/exosuit_fab
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 1,

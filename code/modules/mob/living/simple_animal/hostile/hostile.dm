@@ -114,12 +114,12 @@
 		face_atom(target) //Looks better if they keep looking at you when dodging
 
 /mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
-	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
+	if(is_conscious() && !target && AIStatus != AI_OFF && !client && user)
 		FindTarget(list(user), 1)
 	return ..()
 
 /mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
-	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
+	if(is_conscious() && !target && AIStatus != AI_OFF && !client)
 		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
 			FindTarget(list(P.firer), 1)
 		Goto(P.starting, move_to_delay, 3)
@@ -316,7 +316,7 @@
 
 /mob/living/simple_animal/hostile/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
-	if(!ckey && !stat && search_objects < 3 && . > 0)//Not unconscious, and we don't ignore mobs
+	if(!ckey && is_conscious() && search_objects < 3 && . > 0)//Not unconscious, and we don't ignore mobs
 		if(search_objects)//Turn off item searching and ignore whatever item we were looking at, we're more concerned with fight or flight
 			target = null
 			LoseSearchObjects()

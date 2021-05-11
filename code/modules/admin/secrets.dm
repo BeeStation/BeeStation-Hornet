@@ -73,7 +73,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Summon Events (Toggle)", "events"),
 			list("There can only be one!", "onlyone"),
 			list("There can only be one! (40-second delay)", "delayed_onlyone"),
-			list("Make all players retarded", "retardify"),
+			list("Make all players intellectually disabled", "dumbify"),
 			list("Make all players Australian", "aussify"),
 			list("Egalitarian Station Mode", "eagles"),
 			list("Anarcho-Capitalist Station Mode", "ancap"),
@@ -511,14 +511,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 					var/datum/round_event/disease_outbreak/DO = E
 					DO.virus_type = virus
 
-		if("retardify")
+		if("dumbify")
 			if(!check_rights(R_FUN))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Braindamage"))
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
 				to_chat(H, "<span class='boldannounce'>You suddenly feel stupid.</span>")
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60, 80)
-			message_admins("[key_name_admin(usr)] made everybody retarded")
+			message_admins("[key_name_admin(usr)] gave everybody intellectual disability")
 
 		if("aussify") //for rimjobtide
 			if(!check_rights(R_FUN))

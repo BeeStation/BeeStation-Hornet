@@ -22682,7 +22682,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "blC" = (
@@ -39988,9 +39988,6 @@
 /obj/machinery/camera/autoname{
 	dir = 4
 	},
-/obj/machinery/keycard_auth{
-	pixel_y = 24
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "cnx" = (
@@ -45143,7 +45140,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "cHX" = (
@@ -50004,7 +50001,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "iiH" = (
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/westleft{
 	name = "Cargo Desk";
 	req_access_txt = "31"
@@ -60662,7 +60659,7 @@
 	id = "rnd";
 	name = "research lab shutters"
 	},
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "vBU" = (
