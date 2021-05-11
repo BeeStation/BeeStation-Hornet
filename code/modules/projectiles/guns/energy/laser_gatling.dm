@@ -119,6 +119,7 @@
 	weapon_weight = WEAPON_HEAVY
 	ammo_type = list(/obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/minigun
+	can_charge = FALSE
 	fire_sound = 'sound/weapons/laser.ogg'
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
 	var/cooldown = 0
