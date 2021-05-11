@@ -144,11 +144,22 @@
 
 /obj/item/gun/energy/minigun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(ammo_pack)
-		if(ammo_pack.overheat < ammo_pack.overheat_max)
-			ammo_pack.overheat += burst_size
-			..()
+		if(obj_flags & EMAGGED)
+			if(cooldown < world.time)
+				cooldown = world.time + 50
+				playsound(get_turf(src), 'sound/weapons/heavyminigunstart.ogg', 50, 0, 0)
+				slowdown = 5
+				sleep(15)
+				if(ammo_pack.overheat < ammo_pack.overheat_max)
+					ammo_pack.overheat += burst_size
+					playsound(get_turf(src), 'sound/weapons/heavyminigunshoot.ogg', 60, 0, 0)
+					..()
+					playsound(get_turf(src), 'sound/weapons/heavyminigunstop.ogg', 50, 0, 0)
+					slowdown = initial(slowdown)
+				else
+					to_chat(user, "The gun's heat sensor locked the trigger to prevent lens damage.")
 		else
-			to_chat(user, "The gun's heat sensor locked the trigger to prevent lens damage.")
+			..()
 
 /obj/item/gun/energy/minigun/afterattack(atom/target, mob/living/user, flag, params)
 	if(!ammo_pack || ammo_pack.loc != user)
@@ -165,8 +176,7 @@
 	fire_sound = null
 	spread = 60
 	recoil = 1
-	burst_size = 45
+	burst_size = 120
 	fire_delay = 0.2
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 30, 0, 0)
-	fire_sound = 'sound/weapons/heavyminigunshoot.ogg'
 	to_chat(user, "<span class='colossus'>OVERDRIVE.</span>")
