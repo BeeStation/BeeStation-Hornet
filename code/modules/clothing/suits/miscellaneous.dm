@@ -179,7 +179,7 @@
 	name = "chungus hat"
 	desc = "BIG CHUNGUS HUER DU UUUUUUUUUUUUUUUU CHUNGUS FUNNY REDDIT MOMENT BIG GROBE CHUNGUS KIONO REEVES WHOLE SOME 100 ELON MUSK."
 	icon_state = "bigchungushead"
-	armor = list("melee" = -50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 100)
+	armor = list("melee" = -80, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 0)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
 
@@ -187,7 +187,7 @@
 	name = "chungus suit"
 	desc = "BIG CHUNGUS HUER DU UUUUUUUUUUUUUUUU CHUNGUS FUNNY REDDIT MOMENT BIG GROBE CHUNGUS KIONO REEVES WHOLE SOME 100 ELON MUSK."
 	icon_state = "chungus"
-	armor = list("melee" = -50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 100)
+	armor = list("melee" = -80, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 0)
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	var/list/datum/brain_trauma/chunguslist = list()
