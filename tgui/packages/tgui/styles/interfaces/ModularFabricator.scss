@@ -1,7 +1,7 @@
 .ModularFabricator__top {
   position: absolute;
-  left: 5px;
-  right: 5px;
+  left: 10px;
+  right: 10px;
   height: 140px;
 }
 
@@ -17,12 +17,12 @@
   position: absolute;
   right: 5px;
   width: 320px;
-  height: 100%;
+  height: calc(100% + 10px);
 }
 
 .ModularFabricator__main {
   position: absolute;
-  top: 5px;
+  top: 10px;
   left: 5px;
   width: calc(100% - 340px);
   height: 100%;
