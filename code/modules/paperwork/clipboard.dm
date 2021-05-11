@@ -72,7 +72,7 @@
 
 /obj/item/clipboard/Topic(href, href_list)
 	..()
-	if(usr.stat || usr.restrained())
+	if(!usr.is_conscious() || usr.restrained())
 		return
 
 	if(usr.contents.Find(src))

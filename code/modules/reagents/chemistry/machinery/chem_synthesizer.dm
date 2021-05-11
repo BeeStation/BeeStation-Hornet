@@ -66,6 +66,11 @@
 				amount = input
 	update_icon()
 
+/obj/machinery/chem_dispenser/chem_synthesizer/Destroy()
+	if(beaker)
+		QDEL_NULL(beaker)
+	return ..()
+
 /obj/machinery/chem_dispenser/chem_synthesizer/proc/find_reagent(input)
 	. = FALSE
 	if(GLOB.chemical_reagents_list[input]) //prefer IDs!

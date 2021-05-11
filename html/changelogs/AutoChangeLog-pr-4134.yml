@@ -1,4 +1,0 @@
-author: eeSPee
-delete-after: true
-changes:
-  - tweak: Prevents midround antags from spawning after shuttle has been called.

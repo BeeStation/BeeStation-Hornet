@@ -69,7 +69,7 @@
 	imp_in.visible_message("<span class='warning'>[imp_in] starts beeping ominously!</span>")
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	sleep(delay*0.25)
-	if(imp_in && !imp_in.stat)
+	if(imp_in && imp_in.is_conscious())
 		imp_in.visible_message("<span class='warning'>[imp_in] doubles over in pain!</span>")
 		imp_in.Paralyze(140)
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
