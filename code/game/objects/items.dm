@@ -264,7 +264,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	set category = "Object"
 	set src in oview(1)
 
-	if(!isturf(loc) || usr.stat || usr.restrained())
+	if(!isturf(loc) || !usr.is_conscious() || usr.restrained())
 		return
 
 	if(isliving(usr))

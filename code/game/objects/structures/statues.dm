@@ -10,7 +10,6 @@
 	var/material_drop_type = /obj/item/stack/sheet/iron
 	CanAtmosPass = ATMOS_PASS_DENSITY
 
-
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)

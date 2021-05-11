@@ -49,7 +49,7 @@
 	if(LAZYLEN(alerted))
 		egged = world.time + SNAKE_SPAM_TICKS
 		for(var/mob/living/L in alerted)
-			if(!L.stat)
+			if(L.is_conscious())
 				if(!L.incapacitated(ignore_restraints = 1))
 					L.face_atom(src)
 				L.do_alert_animation(L)

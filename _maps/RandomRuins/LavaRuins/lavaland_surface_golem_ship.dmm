@@ -589,7 +589,7 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "bR" = (
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
