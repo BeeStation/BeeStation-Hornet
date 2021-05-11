@@ -521,7 +521,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] changed the equipment of [ADMIN_LOOKUPFLW(H)] to [dresscode].</span>")
 
 /client/proc/robust_dress_shop()
-	var/list/outfits = list("Naked","Custom","As Plasmaman job...","As Job...")
+	var/list/outfits = list("Naked","Custom","As Plasmaman...","As Job...")
 	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - typesof(/datum/outfit/plasmaman)
 	for(var/path in paths)
 		var/datum/outfit/O = path //not much to initalize here but whatever
@@ -536,14 +536,14 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		dresscode = outfits[dresscode]
 
 	if(dresscode == "As Plasmaman job...")
-		var/list/job_paths = subtypesof(/datum/plasmaman/job)
+		var/list/job_paths = subtypesof(/datum/plasmaman)
 		var/list/job_outfits = list()
 		for(var/path in job_paths)
 			var/datum/outfit/O = path
 			if(initial(O.can_be_admin_equipped))
 				job_outfits[initial(O.name)] = path
 
-		dresscode = input("Select plasmaman job equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
+		dresscode = input("Select plasmaman equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
 		dresscode = job_outfits[dresscode]
 		if(isnull(dresscode))
 			return
