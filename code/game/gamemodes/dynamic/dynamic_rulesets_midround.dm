@@ -122,7 +122,7 @@
 		candidates -= applicant
 		if(!isobserver(applicant))
 			if(applicant.stat == DEAD) // Not an observer? If they're dead, make them one.
-				applicant = applicant.ghostize(FALSE)
+				applicant = applicant.ghostize(FALSE,SENTIENCE_ERASE)
 			else // Not dead? Disregard them, pick a new applicant
 				i--
 				continue

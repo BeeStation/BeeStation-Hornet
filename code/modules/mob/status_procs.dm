@@ -40,7 +40,7 @@
 		var/old_eye_blind = eye_blind
 		eye_blind += amount
 		if(!old_eye_blind)
-			if(stat == CONSCIOUS || stat == SOFT_CRIT)
+			if(is_conscious())
 				throw_alert("blind", /atom/movable/screen/alert/blind)
 			overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
 	else if(eye_blind)
@@ -68,7 +68,7 @@
 			overlay_fullscreen("blind", /atom/movable/screen/fullscreen/blind)
 	else if(eye_blind)
 		var/blind_minimum = 0
-		if(stat != CONSCIOUS && stat != SOFT_CRIT)
+		if(stat > SOFT_CRIT)
 			blind_minimum = 1
 		if(isliving(src))
 			var/mob/living/L = src

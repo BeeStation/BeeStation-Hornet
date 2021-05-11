@@ -26,6 +26,10 @@ const MAX_SEARCH_RESULTS = 25;
  * [*] - recommended
  *
  * ui_data / ui_static_data things:
+ *  - [R] can_sync - If TRUE the Sync R&D button will be displayed
+ *  - [R] allow_add_category - If TRUE a button will be added that lets the
+====user queue all items in the category.
+ *  - [R] show_unlock_bar - TRUE if the interface can be hacked / unlocked.
  *  - [*] sec_interface_unlock - TRUE if the security
 ====interface is unlocked. You probably want to set it to
 ====true when a sec ID is scanned, or the thing is hacked.
@@ -55,7 +59,6 @@ const MAX_SEARCH_RESULTS = 25;
 ====interface be green?
 ====You will have to handle the repeating yourself.
  *          design_id = "a",            //The design ID of the object in queue
- *          build_queue = FALSE,        //Is the design in the build queue or
 ====regular queue?
  *        ))
  *  - [R] items - List of all possible printable items
@@ -104,14 +107,14 @@ const MAX_SEARCH_RESULTS = 25;
  *  - [R] item_repeat - When repeating mode an a specific item is toggled.
     Parameters: repeating (bool), item_datum
  *  - [R] clear_item - Clear an item from the queue
-    Parameters: design_id, build_queue
-====(is the item in the build queue or regular)
+    Parameters: design_id
  *  - [R] queue_item - Add an item to the queue
     Parameters: design_id, amount, item_name
- *  - [R] build_item - Add an item to the start of the queue
-    Parameters: design_id, amount
  *  - [R] begin_process - Beings processing the queue
     (Nothing to stop this being automatic)
+ *  - [*] queue_category - Queues an entier category
+    Parameters: category_name (string)
+ *  - [*] resync_rd - Resync with nearby R&D Servers
  *
 */
 export const ModularFabricator = (props, context) => {
@@ -233,7 +236,8 @@ export const ModFabCategoryList = (props, context) => {
 };
 
 export const ModFabCategoryItems = (props, context) => {
-  const { act } = useBackend(context);
+  const { act, data } = useBackend(context);
+  const { allow_add_category = true } = data;
   const { items } = props;
   const [
     category,
@@ -243,6 +247,10 @@ export const ModFabCategoryItems = (props, context) => {
     amount,
     setAmount,
   ] = useLocalState(context, "amount", 1);
+  const [
+    search,
+    setSearch,
+  ] = useLocalState(context, "search", "");
   return (
     <Fragment>
       <Button
@@ -251,11 +259,19 @@ export const ModFabCategoryItems = (props, context) => {
         onClick={() => {
           setCategory("");
         }} />
+      {!!(allow_add_category && !search) && (
+        <Button
+          content="Add Category"
+          icon="backspace"
+          onClick={() => act("queue_category", {
+            category_name: category,
+          })} />
+      )}
       <Table height="100%">
         {items.map(item => (
           <Table.Row
             height="100%"
-            key={item}>
+            key={item.design_id}>
             <Table.Cell>
               {item.name}
             </Table.Cell>
@@ -314,33 +330,44 @@ export const ModFabCategoryItems = (props, context) => {
 
 export const ModFabData = (props, context) => {
   const { act, data } = useBackend(context);
-  const { hacked, sec_interface_unlock } = data;
+  const {
+    hacked,
+    sec_interface_unlock,
+    show_unlock_bar,
+    can_sync = true,
+  } = data;
   return (
     <Fragment>
-      <NoticeBox color={sec_interface_unlock ? "green" : "red"}>
-        <Flex align="center">
-          <Flex.Item grow={1}>
-            Security protocol {hacked ? "disengaged" : "engaged"}
-            . Swipe a valid ID to unlock safety controls.
-          </Flex.Item>
-          <Flex.Item>
-            <Button
-              m={0}
-              color={sec_interface_unlock ? "green" : "red"}
-              icon={sec_interface_unlock ? "unlock" : "lock"}
-              content={hacked ? "Reactivate" : "Deactivate"}
-              onClick={() => act("toggle_safety")} />
-          </Flex.Item>
-          <Flex.Item mx={1}>
-            <Button
-              m={0}
-              color={sec_interface_unlock ? "green" : "red"}
-              icon={sec_interface_unlock ? "unlock" : "lock"}
-              content={sec_interface_unlock ? "Unlock" : "Lock"}
-              onClick={() => act("toggle_lock")} />
-          </Flex.Item>
-        </Flex>
-      </NoticeBox>
+      {show_unlock_bar ? (
+        <NoticeBox color={sec_interface_unlock ? "green" : "red"}>
+          <Flex align="center">
+            <Flex.Item grow={1}>
+              Security protocol {hacked ? "disengaged" : "engaged"}
+              . Swipe a valid ID to unlock safety controls.
+            </Flex.Item>
+            <Flex.Item>
+              <Button
+                m={0}
+                color={sec_interface_unlock ? "green" : "red"}
+                icon={sec_interface_unlock ? "unlock" : "lock"}
+                content={hacked ? "Reactivate" : "Deactivate"}
+                onClick={() => act("toggle_safety")} />
+            </Flex.Item>
+            <Flex.Item mx={1}>
+              <Button
+                m={0}
+                color={sec_interface_unlock ? "green" : "red"}
+                icon={sec_interface_unlock ? "unlock" : "lock"}
+                content={sec_interface_unlock ? "Unlocked" : "Locked"}
+                onClick={() => act("toggle_lock")} />
+            </Flex.Item>
+          </Flex>
+        </NoticeBox>
+      ) : (
+        <NoticeBox textAlign="center" color="orange">
+          Nanotrasen Fabrication Unit V1.0.4
+        </NoticeBox>
+      )}
       <Section height="100px">
         <ModFabDataDisk />
         <Box width="150px" inline>
@@ -349,8 +376,36 @@ export const ModFabData = (props, context) => {
           </Box>
           <OutputDir />
         </Box>
+        {!!can_sync && <SyncWithServers /> }
       </Section>
     </Fragment>
+  );
+};
+
+export const SyncWithServers = (props, context) => {
+  const { act } = useBackend(context);
+  return (
+    <Box inline>
+      <Box bold textAlign="center">
+        Research Database
+      </Box>
+      <Table>
+        <Table.Row>
+          <Table.Cell colspan={2} textAlign="center" bold>
+            Actions:
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell colspan={2} textAlign="center" bold>
+            <Button
+              color={"green"}
+              content="Resync"
+              icon="upload"
+              onClick={() => act("resync_rd")} />
+          </Table.Cell>
+        </Table.Row>
+      </Table>
+    </Box>
   );
 };
 
@@ -563,11 +618,9 @@ export const FabricationQueue = (props, context) => {
           <Table.Cell collapsing>
             <Button
               icon="redo-alt"
-              color={item.build_queue
-                ? "grey"
-                : item.repeat
-                  ? "green"
-                  : "red"}
+              color={item.repeat
+                ? "green"
+                : "red"}
               onClick={() => act("item_repeat", {
                 design_id: item.design_id,
                 repeating: 1-item.repeat,
@@ -579,7 +632,6 @@ export const FabricationQueue = (props, context) => {
               color="red"
               onClick={() => act("clear_item", {
                 design_id: item.design_id,
-                build_queue: item.build_queue,
               })} />
           </Table.Cell>
         </Table.Row>

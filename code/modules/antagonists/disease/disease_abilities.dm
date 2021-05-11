@@ -175,7 +175,7 @@ new /datum/disease_ability/symptom/powerful/youth
 	var/mob/living/L = D.following_host
 	if(!L)
 		return FALSE
-	if(L.stat != CONSCIOUS)
+	if(!L.is_conscious())
 		to_chat(D, "<span class='warning'>Your host must be conscious to cough.</span>")
 		return FALSE
 	to_chat(D, "<span class='notice'>You force [L.real_name] to cough.</span>")
