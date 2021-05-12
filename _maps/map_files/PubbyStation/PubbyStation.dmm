@@ -55283,7 +55283,7 @@
 "frN" = (
 /obj/machinery/air_sensor/atmos/sm_core,
 /obj/machinery/power/supermatter_crystal/engine,
-/turf/open/floor/engine,
+/turf/open/floor/engine/airless,
 /area/engine/supermatter)
 "fsA" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
@@ -57203,7 +57203,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/turf/open/floor/engine/airless,
 /area/engine/supermatter)
 "iyJ" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
@@ -59592,7 +59592,7 @@
 /area/maintenance/department/crew_quarters/dorms)
 "mIr" = (
 /obj/effect/decal/remains/human,
-/turf/open/floor/engine,
+/turf/open/floor/engine/airless,
 /area/engine/supermatter)
 "mKc" = (
 /obj/structure/bookcase/random/nonfiction,
@@ -59869,10 +59869,6 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "npe" = (
-/obj/machinery/door/poddoor{
-	id = "sm_vent";
-	name = "supermatter core blast door"
-	},
 /turf/open/floor/engine/airless,
 /area/engine/supermatter)
 "npE" = (
@@ -61647,7 +61643,7 @@
 	dir = 8;
 	icon_state = "vent_map_on-2"
 	},
-/turf/open/floor/engine,
+/turf/open/floor/engine/airless,
 /area/engine/supermatter)
 "qbZ" = (
 /obj/structure/rack,
@@ -61738,6 +61734,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"qfZ" = (
+/obj/machinery/door/poddoor{
+	id = "sm_vent";
+	name = "supermatter core blast door"
+	},
+/turf/open/floor/engine/airless,
+/area/engine/supermatter)
 "qgB" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "SupermatterExternal";
@@ -97507,8 +97510,8 @@ uAt
 wdK
 mIr
 frN
-cnW
-mZR
+npe
+qfZ
 abI
 aht
 aht
@@ -97762,9 +97765,9 @@ wqF
 jmN
 spZ
 lYf
-kzB
-kzB
-kzB
+iyD
+iyD
+iyD
 mZR
 aaa
 aaa
@@ -98792,7 +98795,7 @@ wNL
 ciI
 ftb
 dfr
-iyD
+kzB
 mZR
 abI
 aaa
