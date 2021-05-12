@@ -1,4 +1,0 @@
-author: Autisem
-delete-after: true
-changes:
-  - refactor: minigun is energy weapon now, making it not freeze the server
