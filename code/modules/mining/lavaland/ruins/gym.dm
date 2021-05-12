@@ -34,7 +34,7 @@
 	if(.)
 		return
 	if(!Adjacent(user))
-		to_chat(user, "Your mind is too weak to get swole!")
+		to_chat(user, "You're too far away to get swole!")
 		return
 	if(obj_flags & IN_USE)
 		to_chat(user, "It's already in use - wait a bit.")
