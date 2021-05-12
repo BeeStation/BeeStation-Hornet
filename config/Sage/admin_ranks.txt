@@ -89,7 +89,7 @@ Include = EVERYTHING
 Exclude =
 Edit = EVERYTHING
 
-Name = Coder
+Name = Code Maintainer
 Include = DEBUG VAREDIT SERVER SPAWN POLL
 Exclude = AUTOADMIN
 Edit =
