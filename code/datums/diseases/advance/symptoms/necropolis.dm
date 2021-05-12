@@ -14,7 +14,7 @@
 	var/chest = FALSE
 	var/fireproof = FALSE
 	threshold_desc = "<b>Stealth 8:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
-					  <b>Resistance 15:</b> The area near the host roils with paralyzing tendrils.<br>\
+					  <b>Transmission 7:</b> The area near the host roils with paralyzing tendrils.<br>\
 					  <b>Resistance 20:</b>	Host becomes immune to heat, ash, and lava"
 	var/list/cached_tentacle_turfs
 	var/turf/last_location
@@ -26,11 +26,13 @@
 		severity += 2
 	if(A.properties["resistance"] >= 20)
 		severity -= 1
+	if(A.properties["transmittable"] >= 7)
+		severity -= 1
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 15)
+	if(A.properties["transmittable"] >= 7)
 		tendrils = TRUE
 	if(A.properties["stealth"] >= 8)
 		chest = TRUE
