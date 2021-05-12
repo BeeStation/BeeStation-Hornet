@@ -533,7 +533,8 @@
 						/datum/species/pod,
 						/datum/species/jelly,
 						/datum/species/abductor,
-						/datum/species/squid)
+						/datum/species/squid,
+						/datum/species/skeleton)
 	can_synth = TRUE
 
 /datum/reagent/mutationtoxin/felinid
