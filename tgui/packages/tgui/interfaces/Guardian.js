@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { Window } from '../layouts';
 import { useBackend, useLocalState } from '../backend';
 import { Button, LabeledList, Section, Tabs, Input, ColorBox, Dimmer, Icon, Box, Tooltip, Flex } from '../components';
@@ -262,7 +261,7 @@ const GuardianCreate = (props, context) => {
     5: "A",
   };
   return (
-    <Fragment>
+    <>
       <Section
         title="Appearance">
         <LabeledList>
@@ -326,6 +325,6 @@ const GuardianCreate = (props, context) => {
           position: 'fixed', bottom: '12px',
         }}
         onClick={() => act('spawn')} />
-    </Fragment>
+    </>
   );
 };

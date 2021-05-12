@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'common/redux';
 import { Button, Flex, Tabs, Section, Input } from 'tgui/components';
-import { Box, ScrollableBox, Fragment, Divider } from '../../tgui/components';
+import { Box, ScrollableBox, Divider } from '../../tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { StatStatus, HoboStatStatus } from './StatStatus';
@@ -25,7 +25,7 @@ export const StatTabs = (props, context) => {
       break;
   }
   return (
-    <Fragment>
+    <>
       <Flex.Item shrink={0}>
         <div className="StatTabBackground">
           {settings.statTabMode === "Scroll"
@@ -41,7 +41,7 @@ export const StatTabs = (props, context) => {
         </div>
       </ScrollableBox>
       {stat.selectedTab === '(!) Admin PM' && (
-        <Fragment>
+        <>
           <Divider />
           <Input
             fluid
@@ -55,9 +55,9 @@ export const StatTabs = (props, context) => {
                 },
               },
             })} />
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 
@@ -141,7 +141,7 @@ export const HoboStatTabs = (props, context) => {
         {statSection}
       </Box>
       {stat.selectedTab === '(!) Admin PM' && (
-        <Fragment>
+        <>
           <Divider />
           <Input
             fluid
@@ -153,7 +153,7 @@ export const HoboStatTabs = (props, context) => {
                 params: value,
               },
             })} />
-        </Fragment>
+        </>
       )}
     </Box>
   );

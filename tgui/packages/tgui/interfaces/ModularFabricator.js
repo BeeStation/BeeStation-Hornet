@@ -198,7 +198,7 @@ export const ModFabCategoryList = (props, context) => {
     setSearch,
   ] = useLocalState(context, "search", "");
   return (
-    <Fragment>
+    <>
       <Box bold>
         <Grid>
           <Grid.Column>
@@ -230,7 +230,7 @@ export const ModFabCategoryList = (props, context) => {
             }} />
         </Fragment>
       ))}
-    </Fragment>
+    </>
   );
 };
 
@@ -251,7 +251,7 @@ export const ModFabCategoryItems = (props, context) => {
     setSearch,
   ] = useLocalState(context, "search", "");
   return (
-    <Fragment>
+    <>
       <Button
         content="Return"
         icon="backspace"
@@ -331,7 +331,7 @@ export const ModFabCategoryItems = (props, context) => {
           </Table.Row>
         ))}
       </Table>
-    </Fragment>
+    </>
   );
 };
 
@@ -344,7 +344,7 @@ export const ModFabData = (props, context) => {
     can_sync = true,
   } = data;
   return (
-    <Fragment>
+    <>
       {show_unlock_bar ? (
         <NoticeBox color={sec_interface_unlock ? "green" : "red"}>
           <Stack align="center">
@@ -385,7 +385,7 @@ export const ModFabData = (props, context) => {
         </Box>
         {!!can_sync && <SyncWithServers /> }
       </Section>
-    </Fragment>
+    </>
   );
 };
 

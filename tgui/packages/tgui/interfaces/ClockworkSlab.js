@@ -79,7 +79,7 @@ export const ClockworkSlab = (props, context) => {
 
 export const ClockworkHelp = (props, context) => {
   return (
-    <Fragment>
+    <>
       <Collapsible title="Where To Start" color="average" open={1}>
         <Section>
           After a long and destructive
@@ -287,7 +287,7 @@ export const ClockworkHelp = (props, context) => {
           <br />
         </Section>
       </Collapsible>
-    </Fragment>
+    </>
   );
 };
 

@@ -77,14 +77,14 @@ export const NaniteInfoBox = (props, context) => {
               {use_rate}
             </LabeledList.Item>
             {!!can_trigger && (
-              <Fragment>
+              <>
                 <LabeledList.Item label="Trigger Cost">
                   {trigger_cost}
                 </LabeledList.Item>
                 <LabeledList.Item label="Trigger Cooldown">
                   {trigger_cooldown}
                 </LabeledList.Item>
-              </Fragment>
+              </>
             )}
           </LabeledList>
         </Grid.Column>
@@ -126,14 +126,14 @@ export const NaniteInfoBox = (props, context) => {
                 {timer_shutdown} s
               </LabeledList.Item>
               {!!can_trigger && (
-                <Fragment>
+                <>
                   <LabeledList.Item label="Trigger">
                     {timer_trigger} s
                   </LabeledList.Item>
                   <LabeledList.Item label="Trigger Delay">
                     {timer_trigger_delay} s
                   </LabeledList.Item>
-                </Fragment>
+                </>
               )}
             </LabeledList>
           </Section>
@@ -145,7 +145,7 @@ export const NaniteInfoBox = (props, context) => {
         <LabeledList>
           {extra_settings.map(setting => {
             const naniteTypesDisplayMap = {
-              number: <Fragment>{setting.value}{setting.unit}</Fragment>,
+              number: <>{setting.value}{setting.unit}</>,
               text: setting.value,
               type: setting.value,
               boolean: (setting.value ? setting.true_text : setting.false_text),
@@ -307,7 +307,7 @@ export const NaniteCloudControl = (props, context) => {
                   view: 0,
                 })} />
             ) : (
-              <Fragment>
+              <>
                 {"New Backup: "}
                 <NumberInput
                   value={new_backup_id}
@@ -321,7 +321,7 @@ export const NaniteCloudControl = (props, context) => {
                 <Button
                   icon="plus"
                   onClick={() => act('create_backup')} />
-              </Fragment>
+              </>
             )
           )}>
           {!data.current_view ? (

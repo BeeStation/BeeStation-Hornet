@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useSharedState } from '../backend';
 import { Button, LabeledList, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
@@ -32,10 +31,10 @@ export const AbductorConsole = (props, context) => {
           <Abductsoft />
         )}
         {tab === 2 && (
-          <Fragment>
+          <>
             <EmergencyTeleporter />
             <VestSettings />
-          </Fragment>
+          </>
         )}
       </Window.Content>
     </Window>
@@ -59,7 +58,7 @@ const Abductsoft = (props, context) => {
   }
 
   return (
-    <Fragment>
+    <>
       <Section>
         <LabeledList>
           <LabeledList.Item label="Collected Samples">
@@ -70,7 +69,7 @@ const Abductsoft = (props, context) => {
       <GenericUplink
         currencyAmount={credits}
         currencySymbol="Credits" />
-    </Fragment>
+    </>
   );
 };
 

@@ -1,6 +1,5 @@
 import { toFixed } from 'common/math';
 import { decodeHtmlEntities } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NumberInput, Section, ProgressBar } from '../components';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
@@ -31,7 +30,7 @@ export const AdvancedAirlockController = (props, context) => {
       width={440}
       height={650}>
       <Window.Content>
-        <Fragment>
+        <>
           <InterfaceLockNoticeBox
             siliconUser={data.siliconUser}
             locked={data.locked}
@@ -40,7 +39,7 @@ export const AdvancedAirlockController = (props, context) => {
           {!locked && (
             <AACControl state={state} />
           )}
-        </Fragment>
+        </>
       </Window.Content>
     </Window>
   );
@@ -103,7 +102,7 @@ export const AACStatus = (props, context) => {
     <Section
       title="Airlock Status">
       <LabeledList>
-        <Fragment>
+        <>
           <LabeledList.Item
             label="Pressure">
             <ProgressBar
@@ -129,7 +128,7 @@ export const AACStatus = (props, context) => {
             </LabeledList.Item>
           )}
           <LabeledList.Item />
-        </Fragment>
+        </>
       </LabeledList>
       {(cyclestate === STATE_INOPEN || cyclestate === STATE_CLOSED
       || cyclestate === STATE_INOPENING || cyclestate

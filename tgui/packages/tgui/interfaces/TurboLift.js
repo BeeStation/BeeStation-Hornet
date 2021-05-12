@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
@@ -25,10 +24,10 @@ export const TurboLift = (props, context) => {
               && `Currently at deck ${currentdeck}`
               || `Unable to determine current deck.`
           ) || (
-            <Fragment>
+            <>
               This lift is currently offline. Please contact a Nanotrasen
               lift repair technician.
-            </Fragment>
+            </>
           )}
         </NoticeBox>
         <Section title="Lift panel">
