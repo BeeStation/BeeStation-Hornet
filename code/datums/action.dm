@@ -38,8 +38,7 @@
 	if(owner)
 		Remove(owner)
 	target = null
-	qdel(button)
-	button = null
+	QDEL_NULL(button)
 	return ..()
 
 /datum/action/proc/Grant(mob/M)
@@ -49,6 +48,7 @@
 				return
 			Remove(owner)
 		owner = M
+		RegisterSignal(owner, COMSIG_PARENT_QDELETING, .proc/owner_deleted)
 
 		//button id generation
 		var/counter = 0
@@ -77,13 +77,19 @@
 	else
 		Remove(owner)
 
+/datum/action/proc/owner_deleted(datum/source)
+	SIGNAL_HANDLER
+	Remove(owner)
+
 /datum/action/proc/Remove(mob/M)
 	if(M)
 		if(M.client)
 			M.client.screen -= button
 		M.actions -= src
 		M.update_action_buttons()
-	owner = null
+	if(owner)
+		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+		owner = null
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
 	button.id = null
