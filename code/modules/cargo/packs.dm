@@ -2190,7 +2190,7 @@
 
 /datum/supply_pack/critter/cat/exotic/generate()
 	. = ..()
-	switch(rand(5))
+	switch(rand(1, 5))
 		if(1)
 			new /mob/living/simple_animal/pet/cat/original(.)
 		if(2)
