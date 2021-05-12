@@ -59,6 +59,34 @@
 
 	if(href_list[VV_HK_MARK])
 		usr.client.mark_datum(target)
+	if(href_list[VV_HK_ADDCOMPONENT])
+		if(!check_rights(NONE))
+			return
+		var/list/names = list()
+		var/list/componentsubtypes = sortList(subtypesof(/datum/component), /proc/cmp_typepaths_asc)
+		names += "---Components---"
+		names += componentsubtypes
+		names += "---Elements---"
+		names += sortList(subtypesof(/datum/element), /proc/cmp_typepaths_asc)
+		var/result = input(usr, "Choose a component/element to add","better know what ur fuckin doin pal") as null|anything in names
+		if(!usr || !result || result == "---Components---" || result == "---Elements---")
+			return
+		if(QDELETED(src))
+			to_chat(usr, "That thing doesn't exist anymore!")
+			return
+		var/list/lst = get_callproc_args()
+		if(!lst)
+			return
+		var/datumname = "error"
+		lst.Insert(1, result)
+		if(result in componentsubtypes)
+			datumname = "component"
+			target._AddComponent(lst)
+		else
+			datumname = "element"
+			target._AddElement(lst)
+		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(src)].")
+		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(src)].</span>")
 	if(href_list[VV_HK_CALLPROC])
 		usr.client.callproc_datum(target)
 
