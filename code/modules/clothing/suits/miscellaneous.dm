@@ -177,7 +177,7 @@
 //I will ensure that wearing this will warent a sufficient beating to take it off again
 /obj/item/clothing/head/chungus
 	name = "chungus hat"
-	desc = "BIG CHUNGUS HUER DU UUUUUUUUUUUUUUUU CHUNGUS FUNNY REDDIT MOMENT BIG GROBE CHUNGUS KIONO REEVES WHOLE SOME 100 ELON MUSK."
+	desc = "Made with mercury, asbestos, LSD and love."
 	icon_state = "bigchungushead"
 	armor = list("melee" = -80, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 0)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
@@ -185,38 +185,40 @@
 
 /obj/item/clothing/suit/chungus
 	name = "chungus suit"
-	desc = "BIG CHUNGUS HUER DU UUUUUUUUUUUUUUUU CHUNGUS FUNNY REDDIT MOMENT BIG GROBE CHUNGUS KIONO REEVES WHOLE SOME 100 ELON MUSK."
+	desc = "Is it from Donk? The Syndicate? You won't know, but then again you won't know anything after you get your head smashed in for wearing this."
 	icon_state = "chungus"
 	armor = list("melee" = -80, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 0)
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	var/list/datum/brain_trauma/chunguslist = list()
+	var/static/list/datum/brain_trauma/chunguslist = list(
+		/datum/brain_trauma/severe/discoordination,
+		/datum/brain_trauma/mild/stuttering,
+		/datum/brain_trauma/mild/dumbness,
+		/datum/brain_trauma/mild/speech_impediment,
+		/datum/brain_trauma/mild/expressive_aphasia
+		)
 	var/list/datum/brain_trauma/storedtraumas = list()
-
+/*
 /obj/item/clothing/suit/chungus/Initialize()
 	. = ..()
-	chunguslist += /datum/brain_trauma/severe/discoordination
-	chunguslist += /datum/brain_trauma/mild/stuttering
-	chunguslist += /datum/brain_trauma/mild/dumbness
-	chunguslist += /datum/brain_trauma/mild/speech_impediment
-	chunguslist += /datum/brain_trauma/mild/expressive_aphasia
-
+	//var/list/datum/brain_trauma/storedtraumas = list()
+*/
 /obj/item/clothing/suit/chungus/equipped(mob/user, slot)
 	. = ..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(slot == ITEM_SLOT_OCLOTHING)
 			for(var/i = 1 to length(chunguslist))
-				var/fuck = chunguslist[i]
-				storedtraumas += new fuck
+				var/newtrauma = chunguslist[i]
+				storedtraumas += new newtrauma
 			for(var/datum/brain_trauma/trauma in storedtraumas)
 				H.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
 
 /obj/item/clothing/suit/chungus/dropped(mob/user)
 	. = ..()
 	for(var/datum/brain_trauma/trauma in storedtraumas)
-		storedtraumas -= trauma
 		qdel(trauma)
+	storedtraumas = list()
 
 
 /obj/item/clothing/suit/monkeysuit
