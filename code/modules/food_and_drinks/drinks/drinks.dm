@@ -257,7 +257,7 @@
 /obj/item/reagent_containers/food/drinks/mug/cocoa
 	name = "Dutch hot cocoa"
 	desc = "Made in Space South America."
-	list_reagents = list(/datum/reagent/consumable/hot_cocoa = 15, /datum/reagent/consumable/sugar = 5)
+	list_reagents = list(/datum/reagent/consumable/cocoa/hot_cocoa = 15, /datum/reagent/consumable/sugar = 5)
 	foodtype = SUGAR
 	resistance_flags = FREEZE_PROOF
 	custom_price = 42
@@ -382,7 +382,21 @@
 		name = "small carton"
 		desc = "A small carton, intended for holding drinks."
 
+/obj/item/reagent_containers/food/drinks/honeycomb
+	name = "Honeycomb"
+	desc = "A honeycomb made by an apid. It seems to be made out of beeswax and fairly weak."
+	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "honeycomb"
+	list_reagents = list(/datum/reagent/consumable/honey = 25)
 
+/obj/item/reagent_containers/food/drinks/honeycomb/attack_self(mob/user)
+	if(!reagents.total_volume)
+		user.visible_message("<span class='warning'>[user] snaps the [src] into 2 pieces!</span>",
+		"<span class='notice'>You snap [src] in half.</span>")
+		new /obj/item/stack/sheet/mineral/wax(user.loc, 2)
+		qdel(src)
+		return
+	return ..()
 
 //////////////////////////drinkingglass and shaker//
 //Note by Darem: This code handles the mixing of drinks. New drinks go in three places: In Chemistry-Reagents.dm (for the drink
@@ -425,6 +439,7 @@
 	icon_state = "britcup"
 	volume = 30
 	spillable = TRUE
+
 
 //////////////////////////soda_cans//
 //These are in their own group to be used as IED's in /obj/item/grenade/ghettobomb.dm

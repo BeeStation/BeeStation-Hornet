@@ -7,6 +7,12 @@
 #define PLAYER_READY_TO_PLAY 1
 #define PLAYER_READY_TO_OBSERVE 2
 
+//Game mode list indexes
+#define CURRENT_LIVING_PLAYERS	"living_players_list"
+#define CURRENT_LIVING_ANTAGS	"living_antags_list"
+#define CURRENT_DEAD_PLAYERS	"dead_players_list"
+#define CURRENT_OBSERVERS		"current_observers_list"
+
 //movement intent defines for the m_intent var
 #define MOVE_INTENT_WALK "walk"
 #define MOVE_INTENT_RUN  "run"
@@ -81,7 +87,8 @@
 #define HUMAN_MAX_OXYLOSS 3
 #define HUMAN_CRIT_MAX_OXYLOSS (SSmobs.wait/30)
 
-#define STAMINA_REGEN_BLOCK_TIME (10 SECONDS)
+#define STAMINA_CRIT_TIME (5 SECONDS)	//Time before regen starts when in stam crit
+#define STAMINA_REGEN_BLOCK_TIME (2 SECONDS) //Time before regen starts when hit with stam damage
 
 #define HEAT_DAMAGE_LEVEL_1 2 //! Amount of damage applied when your body temperature just passes the 360.15k safety point
 #define HEAT_DAMAGE_LEVEL_2 3 //! Amount of damage applied when your body temperature passes the 400K point
@@ -167,6 +174,7 @@
 #define HYGIENE_LEVEL_CLEAN 250
 #define HYGIENE_LEVEL_NORMAL 200
 #define HYGIENE_LEVEL_DIRTY 75
+#define HYGIENE_LEVEL_DISGUSTING 0
 
 //Nutrition levels for humans
 #define NUTRITION_LEVEL_FAT 600
@@ -210,6 +218,31 @@
 #define SLIME_FRIENDSHIP_STAY				3 //! Min friendship to order it to stay
 #define SLIME_FRIENDSHIP_ATTACK				8 //! Min friendship to order it to attack
 
+//Slime transformative extract effects
+#define SLIME_EFFECT_DEFAULT		(1<<0)
+#define SLIME_EFFECT_GREY			(1<<1)
+#define SLIME_EFFECT_ORANGE			(1<<2)
+#define SLIME_EFFECT_PURPLE			(1<<3)
+#define SLIME_EFFECT_BLUE			(1<<4)
+#define SLIME_EFFECT_METAL			(1<<5)
+#define SLIME_EFFECT_YELLOW			(1<<6)
+#define SLIME_EFFECT_DARK_PURPLE	(1<<7)
+#define SLIME_EFFECT_DARK_BLUE		(1<<8)
+#define SLIME_EFFECT_SILVER			(1<<9)
+#define SLIME_EFFECT_BLUESPACE		(1<<10)
+#define SLIME_EFFECT_SEPIA			(1<<11)
+#define SLIME_EFFECT_CERULEAN		(1<<12)
+#define SLIME_EFFECT_PYRITE			(1<<13)
+#define SLIME_EFFECT_RED			(1<<14)
+#define SLIME_EFFECT_GREEN			(1<<15)
+#define SLIME_EFFECT_PINK			(1<<16)
+#define SLIME_EFFECT_GOLD			(1<<17)
+#define SLIME_EFFECT_OIL			(1<<18)
+#define SLIME_EFFECT_BLACK			(1<<19)
+#define SLIME_EFFECT_LIGHT_PINK		(1<<20)
+#define SLIME_EFFECT_ADAMANTINE		(1<<21)
+#define SLIME_EFFECT_RAINBOW		(1<<22)
+
 //Sentience types, to prevent things like sentience potions from giving bosses sentience
 #define SENTIENCE_ORGANIC 1
 #define SENTIENCE_ARTIFICIAL 2
@@ -236,6 +269,7 @@
 #define SLIDE					(1<<1)
 #define GALOSHES_DONT_HELP		(1<<2)
 #define SLIDE_ICE				(1<<3)
+#define SLIP_WHEN_CRAWLING		(1<<4) //clown planet ruin
 
 ///Flags used by the flags parameter of electrocute act.
 ///Makes it so that the shock doesn't take gloves into account.
@@ -250,6 +284,7 @@
 #define INCORPOREAL_MOVE_BASIC 1
 #define INCORPOREAL_MOVE_SHADOW 2 //!  leaves a trail of shadows
 #define INCORPOREAL_MOVE_JAUNT 3 //! is blocked by holy water/salt
+#define INCORPOREAL_MOVE_EMINENCE 4 //! same as jaunt, but lets eminence pass clockwalls
 
 //Secbot and ED209 judgment criteria bitflag values
 #define JUDGE_EMAGGED		(1<<0)
@@ -335,3 +370,18 @@
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
+
+/// Glide speed of carbons in soft crit
+#define CRIT_GLIDE 2
+
+// Mob Playability Set By Admin Or Ghosting
+#define SENTIENCE_SKIP 0
+#define SENTIENCE_RETAIN 1	//a player ghosting out of the mob will make the mob playable for others, if it was already playable
+#define SENTIENCE_FORCE 2		//the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+#define SENTIENCE_ERASE 3
+
+//Flavor Text When Entering A Playable Mob
+#define FLAVOR_TEXT_EVIL "evil"	//mob antag
+#define FLAVOR_TEXT_GOOD "good"	//ie do not cause evil
+#define FLAVOR_TEXT_NONE "none"
+#define FLAVOR_TEXT_GOAL_ANTAG "blob"	//is antag, but should work towards its goals

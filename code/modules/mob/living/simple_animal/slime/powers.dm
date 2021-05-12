@@ -24,8 +24,8 @@
 		return 0
 
 	var/list/choices = list()
-	for(var/mob/living/C in view(1,src))
-		if(C!=src && Adjacent(C))
+	for(var/mob/living/C in oview(1,src))
+		if(Adjacent(C))
 			choices += C
 
 	var/mob/living/M = input(src,"Who do you wish to feed on?") in null|sortNames(choices)
@@ -101,6 +101,8 @@
 			return FALSE
 		to_chat(src, "<span class='warning'><i>Another slime is already feeding on this subject...</i></span>")
 		return FALSE
+	if(transformeffects & SLIME_EFFECT_SILVER)
+		return FALSE
 	return TRUE
 
 /mob/living/simple_animal/slime/proc/Feedon(mob/living/M)
@@ -134,11 +136,13 @@
 		return
 	if(!is_adult)
 		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-			is_adult = 1
+			is_adult = TRUE
 			maxHealth = 200
+			if(transformeffects & SLIME_EFFECT_METAL)
+				maxHealth = round(maxHealth * 1.3)
 			amount_grown = 0
 			for(var/datum/action/innate/slime/evolve/E in actions)
-				E.Remove(src)
+				qdel(E)
 			regenerate_icons()
 			update_name()
 		else
@@ -178,31 +182,27 @@
 			var/new_nutrition = round(nutrition * 0.9)
 			var/new_powerlevel = round(powerlevel / 4)
 			var/datum/component/nanites/original_nanites = GetComponent(/datum/component/nanites)
-
-			for(var/i=1,i<=4,i++)
-				var/child_colour
-				if(mutation_chance >= 100)
-					child_colour = "rainbow"
-				else if(prob(mutation_chance))
-					child_colour = slime_mutation[rand(1,4)]
-				else
-					child_colour = colour
-				var/mob/living/simple_animal/slime/M
-				M = new(loc, child_colour)
-				if(ckey)
-					M.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
-				M.powerlevel = new_powerlevel
-				if(i != 1)
-					step_away(M,src)
-				M.Friends = Friends.Copy()
+			var/turf/drop_loc = drop_location()
+			var/childamount = 4
+			var/new_adult = FALSE
+			if(transformeffects & SLIME_EFFECT_GREY)
+				childamount++
+			if(transformeffects & SLIME_EFFECT_CERULEAN)
+				childamount = 2
+				new_nutrition = round(nutrition * 0.5)
+				new_powerlevel = round(powerlevel / 2)
+				new_adult = TRUE
+			for(var/i=1, i<=childamount, i++)
+				var/force_colour = FALSE
+				var/step_away = TRUE
+				if(i == 1)
+					step_away = FALSE
+					if(transformeffects & SLIME_EFFECT_BLUE)
+						force_colour = TRUE
+				if(transformeffects & SLIME_EFFECT_CERULEAN)
+					force_colour = TRUE
+				var/mob/living/simple_animal/slime/M = make_baby(drop_loc, new_adult, new_nutrition, new_powerlevel, force_colour, step_away, original_nanites)
 				babies += M
-				M.mutation_chance = CLAMP(mutation_chance+(rand(5,-5)),0,100)
-				SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
-				
-				if(original_nanites)
-					M.AddComponent(/datum/component/nanites, original_nanites.nanite_volume*0.25)
-					SEND_SIGNAL(M, COMSIG_NANITE_SYNC, original_nanites, TRUE, TRUE) //The trues are to copy activation as well
-
 
 			var/mob/living/simple_animal/slime/new_slime = pick(babies)
 			new_slime.a_intent = INTENT_HARM
@@ -224,3 +224,56 @@
 /datum/action/innate/slime/reproduce/Activate()
 	var/mob/living/simple_animal/slime/S = owner
 	S.Reproduce()
+
+/mob/living/simple_animal/slime/proc/make_baby(drop_loc, new_adult, new_nutrition, new_powerlevel, force_original_colour=FALSE, step_away=TRUE,datum/component/nanites/original_nanites=null)
+	var/child_colour = colour
+	if(!force_original_colour)
+		if(mutation_chance >= 100)
+			child_colour = "rainbow"
+		else if(prob(mutation_chance))
+			if(transformeffects & SLIME_EFFECT_PYRITE)
+				slime_mutation = mutation_table(pick(slime_colours - list("rainbow")))
+			child_colour = slime_mutation[rand(1,4)]				
+		else
+			child_colour = colour
+	var/mob/living/simple_animal/slime/M = new(drop_loc, child_colour, new_adult)
+	M.transformeffects = transformeffects
+	if(ckey || transformeffects & SLIME_EFFECT_CERULEAN)
+		M.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
+	M.powerlevel = new_powerlevel
+	if(transformeffects & SLIME_EFFECT_METAL)
+		M.maxHealth = round(M.maxHealth * 1.3)
+		M.health = M.maxHealth
+	if(transformeffects & SLIME_EFFECT_PINK)
+		M.grant_language(/datum/language/common, TRUE, TRUE)
+		var/datum/language_holder/LH = M.get_language_holder()
+		LH.selected_language = /datum/language/common
+	if(transformeffects & SLIME_EFFECT_BLUESPACE)
+		M.add_verb(/mob/living/simple_animal/slime/proc/teleport)
+	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		GLOB.poi_list |= M
+		M.master = master
+		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], M)
+	M.Friends = Friends.Copy()
+	if(step_away)
+		step_away(M,src)
+	M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
+	SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
+	if(original_nanites)
+		M.AddComponent(/datum/component/nanites, original_nanites.nanite_volume*0.25)
+		SEND_SIGNAL(M, COMSIG_NANITE_SYNC, original_nanites, TRUE, TRUE) //The trues are to copy activation as well
+	return M
+
+/mob/living/simple_animal/slime/proc/teleport()
+	set category = "Slime"
+	set name = "teleport"
+	set desc = "teleport to random location"
+	if(powerlevel <= 0)
+		to_chat(src, "<span class='warning'>No enough power.</span>")
+	else
+		random_tp()
+
+/mob/living/simple_animal/slime/proc/random_tp()
+	var/power = rand(1,powerlevel)
+	do_teleport(src, get_turf(src), power, asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
+	powerlevel -= power

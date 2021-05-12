@@ -59,7 +59,7 @@
 	if(world.time > next_portal)
 		next_portal = world.time + 100
 		var/list/turf/possible_turfs = list()
-		for(var/turf/T in range(owner, 8))
+		for(var/turf/T as() in RANGE_TURFS(8, owner))
 			if(!T.density)
 				var/clear = TRUE
 				for(var/obj/O in T)
@@ -76,7 +76,7 @@
 		if(!first_turf)
 			return
 
-		possible_turfs -= (possible_turfs & range(first_turf, 3))
+		possible_turfs -= (possible_turfs & RANGE_TURFS(3, first_turf))
 
 		var/turf/second_turf = pick(possible_turfs)
 		if(!second_turf)
@@ -116,9 +116,9 @@
 	if(do_after(user, 20, target = src))
 		new /obj/effect/temp_visual/bluespace_fissure(get_turf(src))
 		new /obj/effect/temp_visual/bluespace_fissure(get_turf(linked_to))
-		user.forceMove(get_turf(linked_to))
-		user.visible_message("<span class='warning'>[user] [slip_in_message].</span>", null, null, null, user)
-		user.visible_message("<span class='warning'>[user] [slip_out_message].</span>", "<span class='notice'>...and find your way to the other side.</span>")
+		if(do_teleport(user, get_turf(linked_to), no_effects = TRUE))
+			user.visible_message("<span class='warning'>[user] [slip_in_message].</span>", null, null, null, user)
+			user.visible_message("<span class='warning'>[user] [slip_out_message].</span>", "<span class='notice'>...and find your way to the other side.</span>")
 
 /datum/brain_trauma/special/psychotic_brawling
 	name = "Violent Psychosis"
@@ -221,7 +221,7 @@
 	if(get_dist(owner, beepsky) >= 10 && prob(20))
 		QDEL_NULL(beepsky)
 		create_securitron()
-	if(owner.stat != CONSCIOUS)
+	if(!owner.is_conscious())
 		if(prob(20))
 			owner.playsound_local(beepsky, 'sound/voice/beepsky/iamthelaw.ogg', 50)
 		return

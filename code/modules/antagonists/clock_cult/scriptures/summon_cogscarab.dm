@@ -28,4 +28,4 @@
 	. = ..()
 
 /datum/clockcult/scripture/cogscarab/invoke_success()
-	new /obj/item/drone_shell/cogscarab(get_turf(invoker))
+	new /obj/effect/mob_spawn/drone/cogscarab(get_turf(invoker))

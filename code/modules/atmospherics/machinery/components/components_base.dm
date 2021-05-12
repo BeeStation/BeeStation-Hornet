@@ -100,8 +100,16 @@
 		qdel(reference)
 	parents[i] = null
 
+// We should return every air sharing a parent
 /obj/machinery/atmospherics/components/returnPipenetAir(datum/pipeline/reference)
-	return airs[parents.Find(reference)]
+	for(var/i in 1 to device_type)
+		if(parents[i] == reference)
+			if(.)
+				if(!islist(.))
+					. = list(.)
+				. += airs[i]
+			else
+				. = airs[i]
 
 /obj/machinery/atmospherics/components/pipeline_expansion(datum/pipeline/reference)
 	if(reference)
@@ -154,13 +162,11 @@
 	for(var/i in 1 to device_type)
 		var/datum/pipeline/parent = parents[i]
 		if(!parent)
-			//WARNING("Component is missing a pipenet! Rebuilding...") why spam the server console with this?
+			//WARNING("Component is missing a pipenet! Rebuilding...")
+			//At pre-SSair_rebuild_pipenets times, not having a parent wasn't supposed to happen
 			SSair.add_to_rebuild_queue(src)
-
-			if(!parent) //parent still missing probably got deleted by explosion
-				return
-
-		parent.update = 1
+			continue
+		parent.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 /obj/machinery/atmospherics/components/returnPipenets()
 	. = list()

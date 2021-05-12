@@ -112,7 +112,7 @@
 		. += "Synthflesh consumption at <b>[round(fleshamnt*90, 1)]cm<sup>3</sup></b> per clone.</span><br>"
 		. += "<span class='notice'>The reagent display reads: [round(reagents.total_volume, 1)] / [reagents.maximum_volume] cm<sup>3</sup></span>"
 		if(efficiency > 5)
-			. += "<span class='notice'>Pod has been upgraded to support autoprocessing and apply beneficial mutations.<span>"
+			. += "<span class='notice'>Pod has been upgraded to support autoprocessing and apply beneficial mutations.</span>"
 
 //The return of data disks?? Just for transferring between genetics machine/cloning machine.
 //TO-DO: Make the genetics machine accept them.
@@ -510,7 +510,7 @@
 	container_resist(user)
 
 /obj/machinery/clonepod/container_resist(mob/living/user)
-	if(user.stat == CONSCIOUS)
+	if(user.is_conscious())
 		go_out()
 
 /obj/machinery/clonepod/emp_act(severity)

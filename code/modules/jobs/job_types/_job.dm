@@ -65,8 +65,10 @@
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
-	var/tmp/list/gear_leftovers = list()
 	var/gimmick = FALSE //least hacky way i could think of for this
+
+	/// Should this job be allowed to be picked for the bureaucratic error event?
+	var/allow_bureaucratic_error = TRUE
 
 /datum/job/New()
 	. = ..()
@@ -84,7 +86,8 @@
 	if(!ishuman(H))
 		return
 	var/mob/living/carbon/human/human = H
-	if(M.client && (M.client.prefs.equipped_gear && M.client.prefs.equipped_gear.len))
+	var/list/gear_leftovers = list()
+	if(M.client && LAZYLEN(M.client.prefs.equipped_gear))
 		for(var/gear in M.client.prefs.equipped_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)
@@ -146,8 +149,6 @@
 
 			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
 			qdel(item)
-
-		qdel(gear_leftovers)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 	if(head_announce)
@@ -258,7 +259,7 @@
 	var/satchel  = /obj/item/storage/backpack/satchel
 	var/duffelbag = /obj/item/storage/backpack/duffelbag
 
-	var/pda_slot = SLOT_BELT
+	var/pda_slot = ITEM_SLOT_BELT
 
 /datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	switch(H.backbag)

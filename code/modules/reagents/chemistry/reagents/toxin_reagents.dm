@@ -53,7 +53,7 @@
 /datum/reagent/toxin/plasma
 	name = "Plasma"
 	description = "Plasma in its liquid form."
-	taste_description = "bitterness"
+	taste_description = "a burning, tingling sensation"
 	specific_heat = SPECIFIC_HEAT_PLASMA
 	taste_mult = 1.5
 	color = "#8228A0"
@@ -122,6 +122,24 @@
 		. = 1
 	..()
 
+/datum/reagent/toxin/slimeooze
+	name = "Slime Ooze"
+	description = "A gooey semi-liquid produced from Oozelings"
+	color = "#611e80"
+	toxpwr = 0
+	taste_description = "slime"
+	taste_mult = 1.5
+
+/datum/reagent/toxin/slimeooze/on_mob_life(mob/living/carbon/M)
+	if(prob(10))
+		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
+		M.adjustToxLoss(rand(1,10)*REM, 0)
+		. = 1
+	else if(prob(40))
+		M.heal_bodypart_damage(5*REM)
+		. = 1
+	..()
+
 /datum/reagent/toxin/minttoxin
 	name = "Mint Toxin"
 	description = "Useful for dealing with undesirable customers."
@@ -153,21 +171,19 @@
 	silent_toxin = TRUE
 	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
-	toxpwr = 0.5
+	toxpwr = 0
 	taste_description = "death"
 
-/datum/reagent/toxin/zombiepowder/on_mob_metabolize(mob/living/L)
+/datum/reagent/toxin/zombiepowder/on_mob_life(mob/living/carbon/M)
+	if(current_cycle >= 10) // delayed activation for toxin
+		M.adjustStaminaLoss((current_cycle - 5)*REM, 0)
+	if(M.getStaminaLoss() >= 145) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
+		M.fakedeath(type)
 	..()
-	L.fakedeath(type)
 
 /datum/reagent/toxin/zombiepowder/on_mob_end_metabolize(mob/living/L)
 	L.cure_fakedeath(type)
 	..()
-
-/datum/reagent/toxin/zombiepowder/on_mob_life(mob/living/carbon/M)
-	M.adjustOxyLoss(0.5*REM, 0)
-	..()
-	. = 1
 
 /datum/reagent/toxin/ghoulpowder
 	name = "Ghoul Powder"
@@ -485,7 +501,7 @@
 
 /datum/reagent/toxin/itching_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == TOUCH || method == VAPOR)
-		M.reagents.add_reagent(/datum/reagent/toxin/itching_powder, reac_volume)
+		M.reagents?.add_reagent(/datum/reagent/toxin/itching_powder, reac_volume)
 
 /datum/reagent/toxin/itching_powder/on_mob_life(mob/living/carbon/M)
 	if(prob(15))
@@ -529,7 +545,7 @@
 			if(3)
 				if(!C.undergoing_cardiac_arrest() && C.can_heartattack())
 					C.set_heartattack(TRUE)
-					if(C.stat == CONSCIOUS)
+					if(C.is_conscious())
 						C.visible_message("<span class='userdanger'>[C] clutches at [C.p_their()] chest as if [C.p_their()] heart stopped!</span>")
 				else
 					C.losebreath += 10
@@ -594,7 +610,7 @@
 	toxpwr = 0
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 
-/datum/reagent/toxin/amanitin/on_mob_end_metabolize(mob/living/M)
+/datum/reagent/toxin/amanitin/on_mob_delete(mob/living/M)
 	var/toxdamage = current_cycle*3*REM
 	M.log_message("has taken [toxdamage] toxin damage from amanitin toxin", LOG_ATTACK)
 	M.adjustToxLoss(toxdamage)

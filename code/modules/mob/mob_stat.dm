@@ -5,6 +5,7 @@
 	var/stat_update_time = 0
 	var/selected_stat_tab = "Status"
 	var/list/previous_stat_tabs
+	var/last_adminhelp_reply = 0
 
 /*
  * Overrideable proc which gets the stat content for the selected tab.
@@ -44,10 +45,30 @@
 			for(var/i in GLOB.sdql2_queries)
 				var/datum/SDQL2_query/Q = i
 				tab_data += Q.generate_stat()
+		// ===== ADMIN PMS =====
+		if("(!) Admin PM")
+			client.stat_update_mode = STAT_MEDIUM_UPDATE
+			var/datum/admin_help/ticket = client.current_ticket
+			tab_data["ckey"] = key_name(client, FALSE, FALSE)
+			tab_data["admin_name"] = key_name(ticket.claimed_admin, FALSE, FALSE)
+			//Messages:
+			tab_data["messages"] = list()
+			for(var/datum/ticket_interaction/message as() in ticket._interactions)
+				//Only non-private messages have safe users.
+				//Only admins can see adminbus logs.
+				if(message.from_user_safe && message.to_user_safe)
+					var/list/msg = list(
+						"time" = message.time_stamp,
+						"color" = message.message_color,
+						"from" = message.from_user_safe,
+						"to" = message.to_user_safe,
+						"message" = message.message
+					)
+					tab_data["messages"] += list(msg)
 		else
 			// ===== NON CONSTANT TABS (Tab names which can change) =====
 			// ===== LISTEDS TURFS =====
-			if(listed_turf && listed_turf.name == selected_tab)
+			if(listed_turf && sanitize(listed_turf.name) == selected_tab)
 				client.stat_update_mode = STAT_MEDIUM_UPDATE
 				var/list/overrides = list()
 				for(var/image/I in client.images)
@@ -96,15 +117,15 @@
 	return tab_data
 
 /mob/proc/get_all_verbs()
-	var/list/all_verbs = list()
+	var/list/all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:
 	// list A [A: ["b", "c"]] +  (list B) [A: ["c", "d"]] will only have A from list B
-	all_verbs += sorted_verbs
 	for(var/i in client.sorted_verbs)
 		if(i in all_verbs)
 			all_verbs[i] += client.sorted_verbs[i]
 		else
-			all_verbs[i] = client.sorted_verbs[i]
+			var/list/verbs_to_copy = client.sorted_verbs[i]
+			all_verbs[i] = verbs_to_copy.Copy()
 	for(var/atom/A as() in contents)
 		//As an optimisation we will make it so all verbs on objects will go into the object tab.
 		//If you don't want this to happen change this.
@@ -118,7 +139,7 @@
  */
 /mob/proc/get_stat_tab_status()
 	var/list/tab_data = list()
-	tab_data["Map"] = list("[SSmapping.config?.map_name || "Loading..."]", STAT_TEXT)
+	tab_data["Map"] = GENERATE_STAT_TEXT("[SSmapping.config?.map_name || "Loading..."]")
 	var/datum/map_config/cached = SSmapping.next_map_config
 	if(cached)
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
@@ -131,7 +152,7 @@
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
-			tab_data["ETA"] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
+			tab_data[ETA] = GENERATE_STAT_TEXT(SSshuttle.emergency.getTimerStr())
 	return tab_data
 
 /mob/proc/get_stat_tab_master_controller()
@@ -168,12 +189,16 @@
 	var/list/tabs = list(
 		"Status",
 	)
+	//Get Tickets
+	if(client.current_ticket)
+		//Bwoinks come after status
+		tabs += "(!) Admin PM"
 	//Listed turfs
 	if(listed_turf && client)
 		if(!TurfAdjacent(listed_turf))
 			listed_turf = null
 		else
-			tabs |= listed_turf.name
+			tabs |= sanitize(listed_turf.name)
 	//Add spells
 	var/list/spells = mob_spell_list
 	if(mind)
@@ -254,6 +279,17 @@
 			var/datum/SDQL2_query/query = sdqlQueryByID(text2num(query_id))
 			if(query)
 				query.action_click()
+		if("ticket_message")
+			var/message = sanitize(params["msg"])
+			if(message)
+				if(world.time > client.last_adminhelp_reply + 10 SECONDS)
+					client.last_adminhelp_reply = world.time
+					if(client.current_ticket)
+						client.current_ticket.MessageNoRecipient(message)
+					else
+						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
+				else
+					to_chat(src, "<span class='warning'>You are sending messages too fast!</span>")
 
 /*
  * Sets the current stat tab selected.

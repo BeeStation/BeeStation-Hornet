@@ -385,7 +385,7 @@
 /obj/item/organ/lungs/on_life()
 	..()
 	if((!failed) && ((organ_flags & ORGAN_FAILING)))
-		if(owner.stat == CONSCIOUS)
+		if(owner.is_conscious())
 			owner.visible_message("<span class='userdanger'>[owner] grabs [owner.p_their()] throat, struggling for breath!</span>")
 		failed = TRUE
 	else if(!(organ_flags & ORGAN_FAILING))
@@ -404,6 +404,14 @@
 
 	safe_oxygen_min = 0 //We don't breath this
 	safe_toxins_min = 16 //We breath THIS!
+	safe_toxins_max = 0
+
+/obj/item/organ/lungs/oozeling
+	name = "oozling vacuole"
+	desc = "A large organelle designed to store oxygen and filter toxins."
+
+	safe_oxygen_min = 16 //We breath THIS!
+	safe_toxins_min = 0
 	safe_toxins_max = 0
 
 /obj/item/organ/lungs/slime
@@ -446,7 +454,7 @@
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
 
-obj/item/organ/lungs/apid
+/obj/item/organ/lungs/apid
 	name = "apid lungs"
 	desc = "Lungs from an apid, or beeperson. Thanks to the many spiracles an apid has, these lungs are capable of gathering more oxygen from low-pressure environments."
 	icon_state = "lungs"

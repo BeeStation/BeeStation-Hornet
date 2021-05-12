@@ -18,7 +18,7 @@
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
 	initial_language_holder = /datum/language_holder/slime
-	mobsay_color = "#A6E398"
+	chat_color = "#A6E398"
 	mobchatspan = "slimemobsay"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -50,8 +50,8 @@
 
 	var/number = 0 // Used to understand when someone is talking to it
 
-	var/mob/living/Target = null // AI variable - tells the slime to hunt this down
-	var/mob/living/Leader = null // AI variable - tells the slime to follow this person
+	var/mob/living/Target // AI variable - tells the slime to hunt this down
+	var/mob/living/Leader // AI variable - tells the slime to follow this person
 
 	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
 	var/rabid = 0 // If set to 1, the slime will attack and eat anything it comes in contact with
@@ -86,6 +86,9 @@
 	var/effectmod //What core modification is being used.
 	var/applied = 0 //How many extracts of the modtype have been applied.
 
+	// Transformative extract effects - get passed down
+	var/transformeffects = SLIME_EFFECT_DEFAULT
+	var/mob/master
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
 	GLOB.total_slimes++
@@ -105,13 +108,9 @@
 	create_reagents(100)
 	set_colour(new_colour)
 	. = ..()
-	set_nutrition(700)
-
-/mob/living/simple_animal/slime/Destroy()
-	for (var/A in actions)
-		var/datum/action/AC = A
-		AC.Remove(src)
-	return ..()
+	set_nutrition(700)	
+	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		set_playable()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
@@ -275,7 +274,7 @@
 			Feedon(Food)
 	return ..()
 
-/mob/living/simple_animal/slime/doUnEquip(obj/item/W)
+/mob/living/simple_animal/slime/doUnEquip(obj/item/W, was_thrown = FALSE)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
@@ -425,7 +424,10 @@
 	qdel(src)
 
 /mob/living/simple_animal/slime/proc/apply_water()
-	adjustBruteLoss(rand(15,20))
+	var/new_damage = rand(15,20)
+	if(transformeffects & SLIME_EFFECT_DARK_BLUE)
+		new_damage *= 0.5
+	adjustBruteLoss(new_damage)
 	if(!client)
 		if(Target) // Like cats
 			Target = null
@@ -510,3 +512,28 @@
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
+
+/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
+	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
+		blocked += 50
+	. = ..(damage, damagetype, def_zone, blocked, forced)
+
+/mob/living/simple_animal/slime/give_mind(mob/user)
+	. = ..()
+	if (.)
+		if(mind && master)
+			mind.store_memory("<b>Serve [master.real_name], your master.</b>")
+	return .
+
+/mob/living/simple_animal/slime/get_spawner_desc()
+	return "be a slime[master ? " under the command of [master.real_name]" : ""]."
+
+/mob/living/simple_animal/slime/get_spawner_flavour_text()
+	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+
+/mob/living/simple_animal/slime/proc/make_master(mob/user)
+	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
+	master = user
+
+/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
+	. = ..(mapload, new_colour, new_is_adult)

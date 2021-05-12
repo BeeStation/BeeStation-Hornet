@@ -33,7 +33,7 @@
 	collar_type = "cat"
 	can_be_held = TRUE
 	held_state = "cat2"
-	mobsay_color = "#FFD586"
+	chat_color = "#FFD586"
 
 	do_footstep = TRUE
 
@@ -178,7 +178,7 @@
 			return .
 
 		for(var/mob/living/simple_animal/mouse/M in get_turf(src))
-			if(!M.stat)
+			if(M.is_conscious())
 				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "splats \the [M]!")
 				M.splat()
 				movement_target = null
@@ -224,11 +224,11 @@
 			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
 				movement_target = null
 				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+			if(!movement_target || !(src in viewers(3, movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
-					if(isturf(snack.loc) && !snack.stat)
+				for(var/mob/living/simple_animal/mouse/snack in oview(3, src))
+					if(snack.is_conscious())
 						movement_target = snack
 						break
 			if(movement_target)

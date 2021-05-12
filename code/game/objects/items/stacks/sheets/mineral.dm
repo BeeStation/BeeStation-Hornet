@@ -526,3 +526,22 @@ GLOBAL_LIST_INIT(abductor_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/coal/ten
 	amount = 10
+
+/*
+ * Wax
+ */
+/obj/item/stack/sheet/mineral/wax
+	name = "wax"
+	icon_state = "sheet-wax"
+	item_state = "sheet-wax"
+	singular_name = "wax block"
+	force = 1
+	throwforce = 2
+	grind_results = list(/datum/reagent/consumable/honey = 20)
+	merge_type = /obj/item/stack/sheet/mineral/wax
+
+GLOBAL_LIST_INIT(wax_recipes, list (new/datum/stack_recipe("Wax tile", /obj/item/stack/tile/mineral/wax, 1, 4, 20)))
+
+/obj/item/stack/sheet/mineral/wax/Initialize(mapload, new_amount, merge = TRUE)
+	recipes = GLOB.wax_recipes
+	. = ..()

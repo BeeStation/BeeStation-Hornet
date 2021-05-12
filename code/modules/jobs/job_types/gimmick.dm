@@ -7,6 +7,9 @@
 	spawn_positions = 0
 	supervisors = "no one"
 	selection_color = "#dddddd"
+	chat_color = "#FFFFFF"
+
+	exp_type_department = EXP_TYPE_GIMMICK
 
 	access = list( ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
@@ -15,10 +18,6 @@
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 
-/datum/job/gimmick/New()
-	. = ..()
-	GLOB.civilian_positions |= title
-
 /datum/job/gimmick/barber
 	title = "Barber"
 	flag = BARBER
@@ -26,6 +25,7 @@
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	chat_color = "#bd9e86"
 
 /datum/outfit/job/gimmick/barber
 	name = "Barber"
@@ -45,6 +45,7 @@
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	chat_color = "#b898b3"
 
 /datum/outfit/job/gimmick/magician
 	name = "Stage Magician"
@@ -67,6 +68,7 @@
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	chat_color = "#929292"
 
 /datum/outfit/job/gimmick/hobo
 	name = "Debtor"
@@ -76,7 +78,7 @@
 	ears = null //hobos dont start with a headset
 	uniform = /obj/item/clothing/under/pants/jeans
 	suit = /obj/item/clothing/suit/jacket
-	
+
 
 /datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -86,7 +88,7 @@
 	var/list/possible_drugs = list(/obj/item/storage/pill_bottle/happy, /obj/item/storage/pill_bottle/zoom, /obj/item/storage/pill_bottle/stimulant, /obj/item/storage/pill_bottle/lsd, /obj/item/storage/pill_bottle/aranesp, /obj/item/storage/pill_bottle/floorpill/full)
 	var/chosen_drugs = pick(possible_drugs)
 	var/obj/item/storage/pill_bottle/I = new chosen_drugs(src)
-	H.equip_to_slot_or_del(I,SLOT_IN_BACKPACK)
+	H.equip_to_slot_or_del(I,ITEM_SLOT_BACKPACK)
 	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
 	junkie.teach(H)
 	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
@@ -100,6 +102,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	paycheck = PAYCHECK_EASY
 	gimmick = TRUE
+	chat_color = "#a2dfdc"
 
 /datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = "Psychiatrist"
@@ -119,6 +122,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
 	paycheck = PAYCHECK_VIP //our power is being fucking rich
+	chat_color = "#ebc96b"
 
 /datum/outfit/job/gimmick/celebrity
 	name = "VIP"

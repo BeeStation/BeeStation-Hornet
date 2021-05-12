@@ -148,11 +148,11 @@
 
 
 /obj/singularity/narsie/mezzer()
-	for(var/mob/living/carbon/M in viewers(consume_range, src))
-		if(M.stat == CONSCIOUS)
-			if(!iscultist(M))
-				to_chat(M, "<span class='cultsmall'>You feel conscious thought crumble away in an instant as you gaze upon [src.name].</span>")
-				M.apply_effect(60, EFFECT_STUN)
+	for(var/mob/living/carbon/M in hearers(consume_range, src))
+		if(M.is_conscious() || iscultist(M))
+			continue
+		to_chat(M, "<span class='cultsmall'>You feel conscious thought crumble away in an instant as you gaze upon [src.name].</span>")
+		M.apply_effect(60, EFFECT_STUN)
 
 
 /obj/singularity/narsie/consume(atom/A)
@@ -216,9 +216,10 @@
 /obj/singularity/narsie/wizard/eat()
 //	if(defer_powernet_rebuild != 2)
 //		defer_powernet_rebuild = 1
-	for(var/atom/X in urange(consume_range,src,1))
-		if(isturf(X) || ismovableatom(X))
-			consume(X)
+	for(var/turf/T as() in RANGE_TURFS(consume_range, src))
+		consume(T)
+	for(var/atom/movable/AM in urange(consume_range,src,1))
+		consume(AM)
 //	if(defer_powernet_rebuild != 2)
 //		defer_powernet_rebuild = 0
 	return

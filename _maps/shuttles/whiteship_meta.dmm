@@ -43,7 +43,6 @@
 /obj/docking_port/mobile{
 	callTime = 250;
 	can_move_docking_ports = 1;
-	dheight = 0;
 	dir = 2;
 	dwidth = 11;
 	height = 17;
@@ -573,7 +572,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/cargo)
 "aV" = (
-/obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/external,
 /obj/structure/cable/yellow{
@@ -688,7 +686,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/crew)
 "aZ" = (
-/obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/glass{
 	name = "Crew Quarters"
@@ -1128,7 +1125,6 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/bar)
 "bE" = (
-/obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass{
 	name = "Bar"
@@ -1759,7 +1755,6 @@
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/bar)
 "cr" = (
-/obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/command{
 	name = "Bridge"
@@ -1781,6 +1776,12 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -2035,7 +2036,6 @@
 /area/shuttle/abandoned/bridge)
 "cG" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/whiteship{
-	designate_time = 100;
 	dir = 8;
 	view_range = 14;
 	x_offset = -4;
@@ -2243,7 +2243,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/cargo)
 "cT" = (
-/obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/public/glass{
@@ -2639,7 +2638,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/cargo)
 "dw" = (
-/obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/external,
 /obj/structure/cable/yellow{
@@ -2749,7 +2747,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bar)
 "dA" = (
-/obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/glass{
 	name = "Kitchen"
@@ -2798,7 +2795,6 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/shuttle/abandoned/bar)
 "dD" = (
-/obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics"

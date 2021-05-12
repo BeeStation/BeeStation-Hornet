@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(ticker)
 				continue
 		music -= S
 
-	if(isemptylist(music))
+	if(!length(music))
 		music = world.file2list(ROUND_START_MUSIC_LIST, "\n")
 		login_music = pick(music)
 	else
@@ -374,22 +374,43 @@ SUBSYSTEM_DEF(ticker)
 
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
-	var/captainless=1
+	var/captainless = TRUE
+	var/list/spare_id_candidates = list()
+	var/highest_rank = length(SSjob.chain_of_command) + 1
+	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
+
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
 		if(istype(player) && player.mind && player.mind.assigned_role)
 			if(player.mind.assigned_role == "Captain")
-				captainless=0
+				captainless = FALSE
+				spare_id_candidates += N
+			else if(captainless && (player.mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, "Captain")))
+				if(!enforce_coc)
+					spare_id_candidates += N
+				else
+					var/spare_id_priority = SSjob.chain_of_command[player.mind.assigned_role]
+					if(spare_id_priority)
+						if(spare_id_priority < highest_rank)
+							spare_id_candidates.Cut()
+							spare_id_candidates += N
+							highest_rank = spare_id_priority
+						else if(spare_id_priority == highest_rank)
+							spare_id_candidates += N
 			if(player.mind.assigned_role != player.mind.special_role)
-				SSjob.EquipRank(N, player.mind.assigned_role, 0)
+				SSjob.EquipRank(N, player.mind.assigned_role, FALSE)
 			if(CONFIG_GET(flag/roundstart_traits) && ishuman(N.new_character))
 				SSquirks.AssignQuirks(N.new_character, N.client, TRUE)
 		CHECK_TICK
-	if(captainless)
-		for(var/mob/dead/new_player/N in GLOB.player_list)
-			if(N.new_character)
-				to_chat(N, "Captainship not forced on anyone.")
-			CHECK_TICK
+	if(length(spare_id_candidates))			//No captain, time to choose acting captain
+		if(!enforce_coc)
+			for(var/mob/dead/new_player/player in spare_id_candidates)
+				SSjob.promote_to_captain(player, captainless)
+
+		else
+			SSjob.promote_to_captain(pick(spare_id_candidates), captainless)		//This is just in case 2 heads of the same priority spawn
+		CHECK_TICK
+
 
 /datum/controller/subsystem/ticker/proc/transfer_characters()
 	var/list/livings = list()
@@ -564,7 +585,7 @@ SUBSYSTEM_DEF(ticker)
 			news_message = "During routine evacuation procedures, the emergency shuttle of [station_name()] had its navigation protocols corrupted and went off course, but was recovered shortly after."
 
 	if(news_message)
-		send2otherserver(news_source, news_message,"News_Report")
+		comms_send(news_source, news_message, "News_Report", CONFIG_GET(flag/insecure_newscaster))
 
 /datum/controller/subsystem/ticker/proc/GetTimeLeft()
 	if(isnull(SSticker.timeLeft))
@@ -585,17 +606,17 @@ SUBSYSTEM_DEF(ticker)
 			addtimer(CALLBACK(player, /mob/dead/new_player.proc/make_me_an_observer), 1)
 
 /datum/controller/subsystem/ticker/proc/load_mode()
-	var/mode = trim(rustg_file_read("data/mode.txt"))
+	var/mode = CONFIG_GET(string/master_mode)
 	if(mode)
 		GLOB.master_mode = mode
 	else
 		GLOB.master_mode = "extended"
-	log_game("Saved mode is '[GLOB.master_mode]'")
+	log_game("Master mode is '[GLOB.master_mode]'")
+	log_config("Master mode is '[GLOB.master_mode]'")
 
-/datum/controller/subsystem/ticker/proc/save_mode(the_mode)
-	var/F = file("data/mode.txt")
-	fdel(F)
-	WRITE_FILE(F, the_mode)
+/// Returns if either the master mode or the forced secret ruleset matches the mode name.
+/datum/controller/subsystem/ticker/proc/is_mode(mode_name)
+	return GLOB.master_mode == mode_name || GLOB.secret_force_mode == mode_name
 
 /datum/controller/subsystem/ticker/proc/SetRoundEndSound(the_sound)
 	set waitfor = FALSE

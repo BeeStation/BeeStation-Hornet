@@ -49,8 +49,8 @@
 	else
 		..()
 
-/obj/item/his_grace/CtrlClick(mob/user) //you can't pull his grace
-	return
+/obj/item/his_grace/can_be_pulled(user, grab_state, force)
+	return FALSE
 
 /obj/item/his_grace/examine(mob/user)
 	. = ..()
@@ -113,7 +113,7 @@
 	var/mob/living/L = pick(targets)
 	step_to(src, L)
 	if(Adjacent(L))
-		if(!L.stat)
+		if(L.is_conscious())
 			L.visible_message("<span class='warning'>[src] lunges at [L]!</span>", "<span class='his_grace big bold'>[src] lunges at you!</span>")
 			do_attack_animation(L, null, src)
 			playsound(L, 'sound/weapons/smash.ogg', 50, 1)

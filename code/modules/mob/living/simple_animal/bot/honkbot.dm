@@ -299,10 +299,8 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 		var/judgment_criteria = judgment_criteria()
 		threatlevel = C.assess_threat(judgment_criteria)
 
-		if(threatlevel <= 3)
-			if(C in view(4,src)) //keep the range short for patrolling
-				if(!spam_flag)
-					bike_horn()
+		if(threatlevel <= 3 && get_dist(C, src) <= 4 && !spam_flag)
+			bike_horn()
 
 		else if(threatlevel >= 10)
 			bike_horn() //just spam the shit outta this

@@ -5,11 +5,11 @@
 	job_rank = ROLE_OPERATIVE
 	antag_moodlet = /datum/mood_event/focused
 	show_to_ghosts = TRUE
+	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
 	var/nukeop_outfit = /datum/outfit/syndicate
-	can_hijack = HIJACK_HIJACKER //Alternative way to wipe out the station.
 
 /datum/antagonist/nukeop/proc/update_synd_icons_added(mob/living/M)
 	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
@@ -55,6 +55,7 @@
 	. = ..()
 	equip_op()
 	memorize_code()
+	memorize_frequency()
 	if(send_to_spawnpoint)
 		move_to_spawnpoint()
 		// grant extra TC for the people who start in the nukie base ie. not the lone op
@@ -96,14 +97,19 @@
 			number = nuke_team.members.Find(owner)
 			owner.current.real_name = "[nuke_team.syndicate_name] Operative #[number]"
 
-
-
 /datum/antagonist/nukeop/proc/memorize_code()
 	if(nuke_team && nuke_team.tracked_nuke && nuke_team.memorized_code)
 		antag_memory += "<B>[nuke_team.tracked_nuke] Code</B>: [nuke_team.memorized_code]<br>"
 		to_chat(owner, "The nuclear authorization code is: <B>[nuke_team.memorized_code]</B>")
 	else
 		to_chat(owner, "Unfortunately the syndicate was unable to provide you with nuclear authorization code.")
+
+/datum/antagonist/nukeop/proc/memorize_frequency()
+	if(nuke_team?.team_frequency)
+		antag_memory += "<B>Secure Tracking Beacon Frequency</B>: [nuke_team.team_frequency]<br>"
+		to_chat(owner, "Your team's unique tracking beacon code is: <B>[nuke_team.team_frequency]</B>")
+	else
+		to_chat(owner, "You were not assigned a frequency for your hardsuits beacons. You will have to coordinate with each other to decide a frequency to use.")
 
 /datum/antagonist/nukeop/proc/forge_objectives()
 	if(!give_objectives)
@@ -256,11 +262,13 @@
 	var/obj/machinery/nuclearbomb/tracked_nuke
 	var/core_objective = /datum/objective/nuclear
 	var/memorized_code
+	var/team_frequency
 	var/list/team_discounts
 
 /datum/team/nuclear/New()
 	..()
 	syndicate_name = syndicate_name()
+	team_frequency = get_free_team_frequency("synd")
 
 /datum/team/nuclear/proc/update_objectives()
 	if(core_objective)

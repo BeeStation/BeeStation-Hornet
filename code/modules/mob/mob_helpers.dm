@@ -522,9 +522,8 @@
 ///Clicks a random nearby mob with the source from this mob
 /mob/proc/click_random_mob()
 	var/list/nearby_mobs = list()
-	for(var/mob/living/L in range(1, src))
-		if(L!=src)
-			nearby_mobs |= L
+	for(var/mob/living/L in oview(1, src))
+		nearby_mobs |= L
 	if(nearby_mobs.len)
 		var/mob/living/T = pick(nearby_mobs)
 		ClickOn(T)
@@ -551,7 +550,7 @@
 			colored_message = "<font color=[color]>[message]</font>"
 		else
 			colored_message = "<font color='[color]'>[message]</font>"
-	
+
 	//This makes readability a bit better for admins.
 	switch(message_type)
 		if(LOG_WHISPER)
@@ -588,6 +587,12 @@
 	if(HAS_TRAIT(src, TRAIT_DISSECTED))
 		. += "<span class='notice'>This body has been dissected and analyzed. It is no longer worth experimenting on.</span><br>"
 
+
+//Is the mob aware of their surroundings?
+/// Should be used in place of non-dead stat checks for mobs
+/mob/proc/is_conscious()
+	return stat <= SOFT_CRIT
+
 // https://github.com/tgstation/tgstation/pull/44056
 // Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.
 // A "valid job preference setup" in this situation means at least having one job set to low, or not having "return to lobby" enabled
@@ -610,3 +615,7 @@
 			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
+
+//Can the mob see reagents inside of containers?
+/mob/proc/can_see_reagents()
+	return stat == DEAD || has_unlimited_silicon_privilege //Dead guys and silicons can always see reagents

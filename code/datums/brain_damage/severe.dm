@@ -167,15 +167,13 @@
 /datum/brain_trauma/severe/monophobia/proc/check_alone()
 	if(HAS_TRAIT(owner, TRAIT_BLIND))
 		return TRUE
-	for(var/mob/M in oview(owner, 7))
-		if(!isliving(M)) //ghosts ain't people
-			continue
+	for(var/mob/living/M in oview(7, owner))
 		if((istype(M, /mob/living/simple_animal/pet)) || M.ckey)
 			return FALSE
 	return TRUE
 
 /datum/brain_trauma/severe/monophobia/proc/stress_reaction()
-	if(owner.stat != CONSCIOUS)
+	if(!owner.is_conscious())
 		return
 
 	var/high_stress = (stress > 60) //things get psychosomatic from here on

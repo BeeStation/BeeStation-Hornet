@@ -171,6 +171,15 @@
 /datum/mood_event/nanite_happiness/add_effects(message)
 	description = "<span class='nicegreen robot'>+++++++[message]+++++++</span>\n"
 
+/datum/mood_event/poppy_pin
+	description = "<span class='nicegreen'>I feel proud to show my remembrance of the many who have died to ensure that I have freedom.</span>\n"
+	mood_change = 1
+
+/datum/mood_event/funny_prank
+	description = "<span class='nicegreen'>That was a funny prank, clown!</span>\n"
+	mood_change = 2
+	timeout = 2 MINUTES
+
 /datum/mood_event/area
 	description = "" //Fill this out in the area
 	mood_change = 0
@@ -178,3 +187,11 @@
 /datum/mood_event/area/add_effects(list/param)
 	mood_change = param[1]
 	description = param[2]
+
+/datum/mood_event/sec_black_gloves
+	description = "<span class='nicegreen'>Black gloves look good on me.</span>\n"
+	mood_change = 1
+
+/datum/mood_event/assistant_insulated_gloves
+	description = "<span class='nicegreen'>Finally got my hands on a good pair of gloves!</span>\n"
+	mood_change = 1

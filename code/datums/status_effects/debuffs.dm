@@ -45,6 +45,9 @@
 	if(owner.getStaminaLoss())
 		owner.adjustStaminaLoss(-0.3) //reduce stamina loss by 0.3 per tick, 6 per 2 seconds
 
+/datum/status_effect/incapacitating/unconscious/on_remove()
+	owner.update_mobility()
+
 //SLEEPING
 /datum/status_effect/incapacitating/sleeping
 	id = "sleeping"
@@ -114,6 +117,7 @@
 /datum/status_effect/incapacitating/stasis/on_creation(mob/living/new_owner, set_duration, updating_canmove)
         . = ..()
         update_time_of_death()
+        owner.reagents?.end_metabolization(owner, FALSE)
 
 /datum/status_effect/incapacitating/stasis/tick()
         update_time_of_death()
@@ -563,7 +567,7 @@
 		owner.remove_client_colour(/datum/client_colour/monochrome)
 	to_chat(owner, "<span class='warning'>You snap out of your trance!</span>")
 
-/datum/status_effect/trance/proc/hypnotize(datum/source, message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+/datum/status_effect/trance/proc/hypnotize(datum/source, message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	if(!owner.can_hear())
 		return
 	if(speaker == owner)
@@ -603,9 +607,8 @@
 					range = 7
 
 				var/list/mob/living/targets = list()
-				for(var/mob/M in oview(owner, range))
-					if(isliving(M))
-						targets += M
+				for(var/mob/living/M in oview(range, owner))
+					targets += M
 				if(LAZYLEN(targets))
 					to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
 					owner.log_message(" attacked someone due to a Muscle Spasm", LOG_ATTACK) //the following attack will log itself
@@ -623,7 +626,7 @@
 					return
 				var/obj/item/I = owner.get_active_held_item()
 				var/list/turf/targets = list()
-				for(var/turf/T in oview(owner, 3))
+				for(var/turf/T in oview(3, get_turf(owner)))
 					targets += T
 				if(LAZYLEN(targets) && I)
 					to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
@@ -836,8 +839,8 @@
 		var/mob/living/carbon/carbon_owner = owner
 		carbon_owner.adjustStaminaLoss(10 * repetitions)
 		carbon_owner.adjustFireLoss(5 * repetitions)
-		for(var/mob/living/carbon/victim in range(1,carbon_owner))
-			if(IS_HERETIC(victim) || victim == carbon_owner)
+		for(var/mob/living/carbon/victim in ohearers(1,carbon_owner))
+			if(IS_HERETIC(victim))
 				continue
 			victim.apply_status_effect(type,repetitions-1)
 			break

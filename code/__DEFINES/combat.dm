@@ -41,7 +41,7 @@
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
-#define HEALTH_THRESHOLD_FULLCRIT -40
+#define HEALTH_THRESHOLD_FULLCRIT -50
 #define HEALTH_THRESHOLD_DEAD -100
 
 #define HEALTH_THRESHOLD_NEARDEATH -90 //Not used mechanically, but to determine if someone is so close to death they hear the other side
@@ -71,8 +71,8 @@
 //Grab breakout odds
 #define BASE_GRAB_RESIST_CHANCE 	30
 
-//slowdown when in softcrit. Note that crawling slowdown will also apply at the same time!
-#define SOFTCRIT_ADD_SLOWDOWN 2
+//slowdown when in softcrit.
+#define SOFTCRIT_ADD_SLOWDOWN 8
 //slowdown when crawling
 #define CRAWLING_ADD_SLOWDOWN 4
 
@@ -107,6 +107,7 @@
 
 //the define for visible message range in combat
 #define COMBAT_MESSAGE_RANGE 3
+#define DEFAULT_MESSAGE_RANGE 7
 
 //Shove knockdown lengths (deciseconds)
 #define SHOVE_KNOCKDOWN_SOLID 30
@@ -148,6 +149,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BOLT_TYPE_OPEN 2
 #define BOLT_TYPE_NO_BOLT 3
 #define BOLT_TYPE_LOCKING 4
+#define BOLT_TYPE_PUMP 5	//Requires 2 hands to pump, but standard
 // Sawn off nerfs
 #define SAWN_OFF_ACC_PENALTY 25
 #define SAWN_OFF_RECOIL 1

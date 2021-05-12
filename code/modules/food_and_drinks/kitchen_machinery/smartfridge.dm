@@ -39,7 +39,7 @@
 /obj/machinery/smartfridge/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.<span>"
+		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.</span>"
 
 /obj/machinery/smartfridge/power_change()
 	..()
@@ -126,6 +126,28 @@
 				return TRUE
 			else
 				to_chat(user, "<span class='warning'>There is nothing in [O] to put in [src]!</span>")
+				return FALSE
+
+		if(istype(O, /obj/item/organ_storage))
+			var/obj/item/organ_storage/S = O
+			if(S.contents.len)
+				var/obj/item/I = S.contents[1]
+				if(accept_check(I))
+					load(I)
+					user.visible_message("[user] inserts \the [I] into \the [src].", \
+									 "<span class='notice'>You insert \the [I] into \the [src].</span>")
+					O.cut_overlays()
+					O.icon_state = "evidenceobj"
+					O.desc = "A container for holding body parts."
+					if(visible_contents)
+						update_icon()
+					updateUsrDialog()
+					return TRUE
+				else
+					to_chat(user, "<span class='warning'>[src] does not accept [I]!</span>")
+					return FALSE
+			else
+				to_chat(user, "<span class='warning'>There is nothing in [O] to put into [src]!</span>")
 				return FALSE
 
 	if(user.a_intent != INTENT_HARM)

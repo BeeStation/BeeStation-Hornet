@@ -38,9 +38,21 @@
 #define RUST_G (__rust_g || __detect_rust_g())
 #endif
 
-#define RUSTG_JOB_NO_RESULTS_YET "NO RESULTS YET"
-#define RUSTG_JOB_NO_SUCH_JOB "NO SUCH JOB"
-#define RUSTG_JOB_ERROR "JOB PANICKED"
+/**
+ * This proc generates a cellular automata noise grid which can be used in procedural generation methods.
+ *
+ * Returns a single string that goes row by row, with values of 1 representing an alive cell, and a value of 0 representing a dead cell.
+ *
+ * Arguments:
+ * * percentage: The chance of a turf starting closed
+ * * smoothing_iterations: The amount of iterations the cellular automata simulates before returning the results
+ * * birth_limit: If the number of neighboring cells is higher than this amount, a cell is born
+ * * death_limit: If the number of neighboring cells is lower than this amount, a cell dies
+ * * width: The width of the grid.
+ * * height: The height of the grid.
+ */
+#define rustg_cnoise_generate(percentage, smoothing_iterations, birth_limit, death_limit, width, height) \
+    call(RUST_G, "cnoise_generate")(percentage, smoothing_iterations, birth_limit, death_limit, width, height)
 
 #define rustg_dmi_strip_metadata(fname) call(RUST_G, "dmi_strip_metadata")("[fname]")
 #define rustg_dmi_create_png(path, width, height, data) call(RUST_G, "dmi_create_png")(path, width, height, data)
@@ -81,7 +93,12 @@
 #define rustg_http_request_async(method, url, body, headers) call(RUST_G, "http_request_async")(method, url, body, headers)
 #define rustg_http_check_request(req_id) call(RUST_G, "http_check_request")(req_id)
 
+#define RUSTG_JOB_NO_RESULTS_YET "NO RESULTS YET"
+#define RUSTG_JOB_NO_SUCH_JOB "NO SUCH JOB"
+#define RUSTG_JOB_ERROR "JOB PANICKED"
+
 #define rustg_json_is_valid(text) (call(RUST_G, "json_is_valid")(text) == "true")
+
 #define rustg_log_write(fname, text, format) call(RUST_G, "log_write")("[fname]", text, format)
 /proc/rustg_log_close_all() return call(RUST_G, "log_close_all")()
 

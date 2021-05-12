@@ -4,6 +4,8 @@
 	see_in_dark = 2
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ANTAG_HUD,NANITE_HUD,DIAG_NANITE_FULL_HUD)
 	pressure_resistance = 10
+	chat_color = "#CCCCCC"	//The say color of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
+
 
 	var/resize = 1 //Badminnery resize
 	var/lastattacker = null
@@ -115,7 +117,6 @@
 	var/ventcrawl_layer = PIPING_LAYER_DEFAULT
 	var/losebreath = 0
 
-	var/mobsay_color = "#CCCCCC"	//The say colour of the mob, for when ID say isn't available (simplemobs that are not /mob/living/carbon/human)
 	var/mobchatspan = "unknown"	//The span to use when this mob talks in chat for the name tag
 
 	//List of active diseases
@@ -131,3 +132,7 @@
 	var/icon/held_rh = 'icons/mob/pets_held_rh.dmi'
 	var/icon/head_icon = 'icons/mob/pets_held.dmi'//what it looks like on your head
 	var/held_state = ""//icon state for the above
+	
+	//is mob player controllable
+	var/playable = FALSE
+	var/flavor_text = FLAVOR_TEXT_NONE

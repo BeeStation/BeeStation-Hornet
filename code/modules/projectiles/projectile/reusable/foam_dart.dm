@@ -8,6 +8,7 @@
 	icon_state = "foamdart_proj"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	range = 10
+	martial_arts_no_deflect = TRUE
 	var/modified = FALSE
 	var/obj/item/pen/pen = null
 
@@ -20,8 +21,9 @@
 	newcasing.modified = modified
 	var/obj/item/projectile/bullet/reusable/foam_dart/newdart = newcasing.BB
 	newdart.modified = modified
-	newdart.damage = damage
-	newdart.nodamage = nodamage
+	if(modified)
+		newdart.damage = 5
+		newdart.nodamage = FALSE
 	newdart.damage_type = damage_type
 	if(pen)
 		newdart.pen = pen
@@ -40,3 +42,4 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	nodamage = FALSE
 	stamina = 25
+	martial_arts_no_deflect = FALSE

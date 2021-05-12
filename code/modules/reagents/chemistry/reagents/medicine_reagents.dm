@@ -137,7 +137,7 @@
 	name = "Cryoxadone"
 	description = "A chemical mixture with almost magical healing powers. Its main limitation is that the patient's body temperature must be under 270K for it to metabolise correctly."
 	color = "#0000C8"
-	taste_description = "sludge"
+	taste_description = "blue"
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/carbon/M)
 	var/power = -0.00003 * (M.bodytemperature ** 2) + 3
@@ -149,7 +149,7 @@
 		M.adjustCloneLoss(-power, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC) //fixes common causes for disfiguration
 		. = 1
-	metabolization_rate = REAGENTS_METABOLISM * (0.00001 * (M.bodytemperature ** 2) + 0.5)
+	metabolization_rate = REAGENTS_METABOLISM * (0.00001 * (M.bodytemperature ** 2) + 0.5)//Metabolism rate is reduced in colder body temps making it more effective
 	..()
 
 /datum/reagent/medicine/clonexadone
@@ -164,7 +164,7 @@
 		M.adjustCloneLoss(0.00006 * (M.bodytemperature ** 2) - 6, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		. = 1
-	metabolization_rate = REAGENTS_METABOLISM * (0.000015 * (M.bodytemperature ** 2) + 0.75)
+	metabolization_rate = REAGENTS_METABOLISM * (0.000015 * (M.bodytemperature ** 2) + 0.75)//Metabolism rate is reduced in colder body temps making it more effective
 	..()
 
 /datum/reagent/medicine/pyroxadone
@@ -175,6 +175,7 @@
 
 /datum/reagent/medicine/pyroxadone/on_mob_life(mob/living/carbon/M)
 	if(M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
+		metabolization_rate = 0.2 // It metabolises effectively when the body is taking heat damage
 		var/power = 0
 		switch(M.bodytemperature)
 			if(BODYTEMP_HEAT_DAMAGE_LIMIT to 400)
@@ -193,6 +194,8 @@
 		M.adjustCloneLoss(-power, 0)
 		REMOVE_TRAIT(M, TRAIT_DISFIGURED, TRAIT_GENERIC)
 		. = 1
+	else //If not the right temperature for pyroxadone to work
+		metabolization_rate = REAGENTS_METABOLISM
 	..()
 
 /datum/reagent/medicine/rezadone
@@ -246,7 +249,7 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
-		else if(M.getFireLoss())
+		else if(M.getFireLoss() && method == PATCH)
 			M.adjustFireLoss(-reac_volume)
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
@@ -300,7 +303,7 @@
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
-		else if(M.getBruteLoss())
+		else if(M.getBruteLoss() && method == PATCH)
 			M.adjustBruteLoss(-reac_volume)
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
@@ -417,8 +420,8 @@
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-			//Has to be at less than THRESHOLD_UNHUSK burn damage and have 100 synthflesh before unhusking. Corpses dont metabolize.
-			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && M.reagents.has_reagent(/datum/reagent/medicine/synthflesh, 100))
+			//Has to be at less than THRESHOLD_UNHUSK burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
+			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && (M.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
 				M.cure_husk("burn")
 				M.visible_message("<span class='nicegreen'>You successfully replace most of the burnt off flesh of [M].")
 	..()
@@ -827,7 +830,7 @@
 	overdose_threshold = 15
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/M)
-	if(M.health <= 80)
+	if(M.health <= 20)
 		M.adjustToxLoss(-4*REM, 0)
 		M.adjustBruteLoss(-4*REM, 0)
 		M.adjustFireLoss(-4*REM, 0)
@@ -969,20 +972,21 @@
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"
-	description = "Purges alcoholic substance from the patient's body and eliminates its side effects."
+	description = "Purges alcoholic substance from the patient's body and eliminates its side effects. Less effective in light drinkers."
 	color = "#00B4C8"
 	taste_description = "raw egg"
 
 /datum/reagent/medicine/antihol/on_mob_life(mob/living/carbon/M)
-	M.dizziness = 0
-	M.drowsyness = 0
-	M.slurring = 0
-	M.confused = 0
+	if(!HAS_TRAIT(M, TRAIT_LIGHT_DRINKER))
+		M.dizziness = 0
+		M.drowsyness = 0
+		M.slurring = 0
+		M.confused = 0
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.drunkenness = max(H.drunkenness - 10, 0)
 	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3*REM, 0, 1)
 	M.adjustToxLoss(-0.2*REM, 0)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		H.drunkenness = max(H.drunkenness - 10, 0)
 	..()
 	. = 1
 
@@ -1202,7 +1206,7 @@
 	taste_description = "glue"
 	reagent_state = LIQUID
 	color = "#D2691E"
-	metabolization_rate = REM * 1.5
+	metabolization_rate = REM * 3.75
 	overdose_threshold = 10
 
 /datum/reagent/medicine/hepanephrodaxon/on_mob_life(var/mob/living/carbon/M)
@@ -1267,6 +1271,21 @@
 	M.adjustFireLoss(-1.5*REM, 0)
 	M.adjustOxyLoss(-1.5*REM, 0)
 	M.adjustToxLoss(-1.5*REM, 0, TRUE) //heals TOXINLOVERs
+	. = 1
+	..()
+
+/datum/reagent/medicine/regen_ooze
+	name = "Regenerative Ooze"
+	description = "Gradually regenerates all types of damage, without harming slime anatomy."
+	reagent_state = LIQUID
+	color = "#65d891"
+	taste_description = "jelly"
+
+/datum/reagent/medicine/regen_ooze/on_mob_life(mob/living/carbon/M)
+	M.adjustBruteLoss(-0.5*REM, 0)
+	M.adjustFireLoss(-0.5*REM, 0)
+	M.adjustOxyLoss(-0.5*REM, 0)
+	M.adjustToxLoss(-0.5*REM, 0, TRUE) //heals TOXINLOVERs
 	. = 1
 	..()
 

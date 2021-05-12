@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	throw_range = 7
 	materials = list(/datum/material/iron=1000)
 	max_amount = 50
+	merge_type = /obj/item/stack/rods
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	novariants = TRUE

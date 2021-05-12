@@ -50,7 +50,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 	if(!.)
 		chunks[key] = . = new /datum/camerachunk(x, y, z)
 
-// Updates what the aiEye can see. It is recommended you use this when the aiEye moves or it's location is set.
+// Updates what the ai_eye can see. It is recommended you use this when the ai_eye moves or it's location is set.
 
 /datum/cameranet/proc/visibility(list/moved_eyes, client/C, list/other_eyes, use_static = USE_STATIC_OPAQUE)
 	if(!islist(moved_eyes))
@@ -68,7 +68,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 				C.images += obscured
 
 	for(var/V in moved_eyes)
-		var/mob/camera/aiEye/eye = V
+		var/mob/camera/ai_eye/eye = V
 		var/list/visibleChunks = list()
 		if(eye.loc)
 			// 0xf = 15
@@ -169,7 +169,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 
 /datum/cameranet/proc/checkTurfVis(turf/position)
-	var/datum/camerachunk/chunk = chunkGenerated(position.x, position.y, position.z)
+	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z)
 	if(chunk)
 		if(chunk.changed)
 			chunk.hasChanged(1) // Update now, no matter if it's visible or not.

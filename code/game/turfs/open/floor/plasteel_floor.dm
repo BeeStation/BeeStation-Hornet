@@ -88,14 +88,6 @@
 	initial_gas_mix = AIRLESS_ATMOS
 
 
-/turf/open/floor/plasteel/kitchen_coldroom
-	name = "cold room floor"
-	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
-
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor
-	icon_state = "freezerfloor"
-
-
 /turf/open/floor/plasteel/grimy
 	icon_state = "grimy"
 	tiled_dirt = FALSE

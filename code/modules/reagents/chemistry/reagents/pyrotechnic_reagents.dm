@@ -58,7 +58,7 @@
 		else if(prob(reac_volume))
 			F.burn_tile()
 		if(isfloorturf(F))
-			for(var/turf/turf in range(1,F))
+			for(var/turf/open/turf in RANGE_TURFS(1,F))
 				if(!locate(/obj/effect/hotspot) in turf)
 					new /obj/effect/hotspot(F)
 	if(iswallturf(T))
@@ -243,6 +243,28 @@
 			var/mob/living/carbon/human/H = M
 			var/datum/species/jelly/luminescent/L = H.dna.species
 			L.extract_cooldown = max(0, L.extract_cooldown - 20)
+	..()
+
+/datum/reagent/teslium/energized_jelly/energized_ooze
+	name = "Energized Ooze"
+	description = "Electrically-charged Ooze. Boosts Oozeling's nervous system, but only shocks other lifeforms."
+	reagent_state = LIQUID
+	color = "#CAFF43"
+	taste_description = "slime"
+	overdose_threshold = 30
+
+/datum/reagent/teslium/energized_jelly/energized_ooze/on_mob_life(mob/living/carbon/M)
+	if(isoozeling(M))
+		shock_timer = 0 //immune to shocks
+		M.AdjustAllImmobility(-40, FALSE)
+		M.adjustStaminaLoss(-2, 0)
+	..()
+
+/datum/reagent/teslium/energized_jelly/energized_ooze/overdose_process(mob/living/carbon/M)
+	if(isoozeling(M) || isjellyperson(M))
+		if(prob(25))
+			M.electrocute_act(rand(5,20), "Energized Jelly overdose in their body", 1, 1) //Override because it's caused from INSIDE of you
+			playsound(M, "sparks", 50, 1)
 	..()
 
 /datum/reagent/firefighting_foam

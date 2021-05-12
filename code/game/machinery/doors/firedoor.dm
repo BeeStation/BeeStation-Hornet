@@ -4,6 +4,8 @@
 #define CONSTRUCTION_GUTTED 3 //Wires are removed, circuit ready to remove
 #define CONSTRUCTION_NOCIRCUIT 4 //Circuit board removed, can safely weld apart
 
+#define RECLOSE_DELAY 5 SECONDS // How long until a firelock tries to shut itself if it's blocking a vacuum.
+
 /obj/machinery/door/firedoor
 	name = "firelock"
 	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
@@ -21,7 +23,7 @@
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
 	assemblytype = /obj/structure/firelock_frame
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70, "stamina" = 0)
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
@@ -110,7 +112,7 @@
 
 		add_fingerprint(user)
 		if(density)
-			emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
+			emergency_close_timer = world.time + RECLOSE_DELAY // prevent it from instaclosing again if in space
 			open()
 		else
 			close()
@@ -181,7 +183,7 @@
 			whack_a_mole()
 		if(welded || operating || !density)
 			return // in case things changed during our do_after
-		emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
+		emergency_close_timer = world.time + RECLOSE_DELAY // prevent it from instaclosing again if in space
 		open()
 	else
 		close()
@@ -324,6 +326,11 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	assemblytype = /obj/structure/firelock_frame/border
 
+/obj/machinery/door/firedoor/border_only/Destroy()
+	density = FALSE
+	air_update_turf(1)
+	return ..()
+
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
 	opacity = TRUE
@@ -337,14 +344,14 @@
 	var/turf/T1 = get_turf(src)
 	var/turf/T2 = get_step(T1, dir)
 	for(var/mob/living/M in T1)
-		if(M.stat == CONSCIOUS && M.pulling && M.pulling.loc == T2 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
+		if(M.is_conscious() && M.pulling && M.pulling.loc == T2 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
 			var/mob/living/M2 = M.pulling
 			if(!istype(M2) || !M2.buckled || !M2.buckled.buckle_prevents_pull)
 				to_chat(M, "<span class='notice'>You pull [M.pulling] through [src] right as it closes.</span>")
 				M.pulling.forceMove(T1)
 				M.start_pulling(M2)
 	for(var/mob/living/M in T2)
-		if(M.stat == CONSCIOUS && M.pulling && M.pulling.loc == T1 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
+		if(M.is_conscious() && M.pulling && M.pulling.loc == T1 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
 			var/mob/living/M2 = M.pulling
 			if(!istype(M2) || !M2.buckled || !M2.buckled.buckle_prevents_pull)
 				to_chat(M, "<span class='notice'>You pull [M.pulling] through [src] right as it closes.</span>")
@@ -421,6 +428,10 @@
 	resistance_flags = 0 // not fireproof
 	heat_proof = FALSE
 	assemblytype = /obj/structure/firelock_frame/window
+
+/obj/machinery/door/firedoor/window/attack_alien(mob/living/carbon/alien/humanoid/user)
+	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+	return attack_generic(user, 60, BRUTE, "melee", 0)
 
 /obj/item/electronics/firelock
 	name = "firelock circuitry"
@@ -661,6 +672,7 @@
 	name = "firelock frame"
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	icon_state = "door_frame"
+	density = FALSE
 	firelock_type = /obj/machinery/door/firedoor/border_only
 
 /obj/structure/firelock_frame/border/ComponentInitialize()

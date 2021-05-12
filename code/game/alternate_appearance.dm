@@ -178,7 +178,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		return TRUE
 	return FALSE
 
-datum/atom_hud/alternate_appearance/basic/onePerson
+/datum/atom_hud/alternate_appearance/basic/onePerson
 	var/mob/seer
 
 /datum/atom_hud/alternate_appearance/basic/onePerson/mobShouldSee(mob/M)
@@ -190,3 +190,15 @@ datum/atom_hud/alternate_appearance/basic/onePerson
 	..(key, I, FALSE)
 	seer = M
 	add_hud_to(seer)
+
+/datum/atom_hud/alternate_appearance/basic/heretics
+	add_ghost_version = FALSE //just in case, to prevent infinite loops
+
+/datum/atom_hud/alternate_appearance/basic/heretics/New()
+	..()
+	for(var/mob in  GLOB.player_list)
+		if(mobShouldSee(mob))
+			add_hud_to(mob)
+
+/datum/atom_hud/alternate_appearance/basic/heretics/mobShouldSee(mob/M)
+	return IS_HERETIC(M) || IS_HERETIC_MONSTER(M)

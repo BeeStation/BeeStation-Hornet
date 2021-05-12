@@ -26,7 +26,7 @@
 		if(!M.anchored && M != guardian.summoner?.current && !guardian.hasmatchingsummoner(M))
 			new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 			do_teleport(M, M, 10, channel = TELEPORT_CHANNEL_BLUESPACE)
-			for(var/mob/living/L in range(1, M))
+			for(var/mob/living/L in hearers(1, M))
 				if(guardian.hasmatchingsummoner(L)) //if the summoner matches don't hurt them
 					continue
 				if(L != guardian && L != guardian.summoner?.current)
@@ -40,7 +40,7 @@
 		to_chat(guardian, "<span class='danger'><B>You must be manifested to create bombs!</B></span>")
 		return
 	if(isobj(A) && guardian.Adjacent(A))
-		if(bomb_cooldown <= world.time && !guardian.stat)
+		if(bomb_cooldown <= world.time && guardian.is_conscious())
 			to_chat(guardian, "<span class='danger'><B>Success! Bomb armed!</B></span>")
 			bomb_cooldown = world.time + 200
 			RegisterSignal(A, COMSIG_PARENT_EXAMINE, .proc/display_examine)
