@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		to_chat(src, "<span class='danger'>Please download an older version of byond. You can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions.</span>")
 	if(SSinput.initialized)
 		set_macros()
-
+		update_movement_keys()
 	// Initialize tgui panel
 	tgui_panel.initialize()
 
@@ -967,6 +967,21 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 /client/proc/rescale_view(change, min, max)
 	view_size.setTo(clamp(change, min, max), clamp(change, min, max))
+
+/client/proc/update_movement_keys()
+	if(prefs && prefs.key_bindings)
+		movement_keys = list()
+		for(var/key in prefs.key_bindings)
+			for(var/kb_name in prefs.key_bindings[key])
+				switch(kb_name)
+					if("North")
+						movement_keys[key] = NORTH
+					if("East")
+						movement_keys[key] = EAST
+					if("West")
+						movement_keys[key] = WEST
+					if("South")
+						movement_keys[key] = SOUTH
 
 /client/proc/change_view(new_size)
 	if (isnull(new_size))

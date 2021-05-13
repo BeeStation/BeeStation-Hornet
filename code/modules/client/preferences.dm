@@ -1893,6 +1893,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					key_bindings[full_key] += list(kb_name)
 					key_bindings[full_key] = sortList(key_bindings[full_key])
 
+					user.client.update_movement_keys()
 					save_preferences()
 					user << browse(null, "window=capturekeypress")
 					ShowKeybindings(user)

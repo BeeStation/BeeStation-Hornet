@@ -106,6 +106,8 @@
 	var/next_keysend_reset = 0
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
+	///custom movement keys for this client
+	var/list/movement_keys = list()
 
 	var/datum/viewData/view_size
 

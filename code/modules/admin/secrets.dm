@@ -81,10 +81,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Fix all lights", "whiteout"),
 			list("The floor is lava! (DANGEROUS: extremely lame)", "floorlava"),
 			list("Spawn a custom portal storm", "customportal"),
-			list("Flip client movement directions", "flipmovement"),
-			list("Randomize client movement directions", "randommovement"),
-			list("Set each movement direction manually", "custommovement"),
-			list("Reset movement directions to default", "resetmovement"),
 			list("Change bomb cap", "changebombcap"),
 			list("Mass Purrbation", "masspurrbation"),
 			list("Mass Remove Purrbation", "massremovepurrbation"),
@@ -691,60 +687,6 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if((L in GLOB.player_list) || L.mind || (L.flags_1 & HOLOGRAM_1))
 					continue
 				L.set_playable()
-
-		if("flipmovement")
-			if(!check_rights(R_FUN))
-				return
-			if(alert("Flip all movement controls?","Confirm","Yes","Cancel") == "Cancel")
-				return
-			var/list/movement_keys = SSinput.movement_keys
-			for(var/i in 1 to movement_keys.len)
-				var/key = movement_keys[i]
-				movement_keys[key] = turn(movement_keys[key], 180)
-			message_admins("[key_name_admin(usr)] has flipped all movement directions.")
-			log_admin("[key_name(usr)] has flipped all movement directions.")
-
-		if("randommovement")
-			if(!check_rights(R_FUN))
-				return
-			if(alert("Randomize all movement controls?","Confirm","Yes","Cancel") == "Cancel")
-				return
-			var/list/movement_keys = SSinput.movement_keys
-			for(var/i in 1 to movement_keys.len)
-				var/key = movement_keys[i]
-				movement_keys[key] = turn(movement_keys[key], 45 * rand(1, 8))
-			message_admins("[key_name_admin(usr)] has randomized all movement directions.")
-			log_admin("[key_name(usr)] has randomized all movement directions.")
-
-		if("custommovement")
-			if(!check_rights(R_FUN))
-				return
-			if(alert("Are you sure you want to change every movement key?","Confirm","Yes","Cancel") == "Cancel")
-				return
-			var/list/movement_keys = SSinput.movement_keys
-			var/list/new_movement = list()
-			for(var/i in 1 to movement_keys.len)
-				var/key = movement_keys[i]
-
-				var/msg = "Please input the new movement direction when the user presses [key]. Ex. northeast"
-				var/title = "New direction for [key]"
-				var/new_direction = text2dir(capped_input(usr, msg, title))
-				if(!new_direction)
-					new_direction = movement_keys[key]
-
-				new_movement[key] = new_direction
-			SSinput.movement_keys = new_movement
-			message_admins("[key_name_admin(usr)] has configured all movement directions.")
-			log_admin("[key_name(usr)] has configured all movement directions.")
-
-		if("resetmovement")
-			if(!check_rights(R_FUN))
-				return
-			if(alert("Are you sure you want to reset movement keys to default?","Confirm","Yes","Cancel") == "Cancel")
-				return
-			SSinput.setup_default_movement_keys()
-			message_admins("[key_name_admin(usr)] has reset all movement keys.")
-			log_admin("[key_name(usr)] has reset all movement keys.")
 
 		if("customportal")
 			if(!check_rights(R_FUN))

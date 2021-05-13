@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		return
 
 	keys_held[_key] = world.time
-	var/movement = SSinput.movement_keys[_key]
+	var/movement = movement_keys[_key]
 	if(!(next_move_dir_sub & movement) && !keys_held["Ctrl"])
 		next_move_dir_add |= movement
 
@@ -82,7 +82,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		return
 
 	keys_held -= _key
-	var/movement = SSinput.movement_keys[_key]
+	var/movement = movement_keys[_key]
 	if(!(next_move_dir_add & movement))
 		next_move_dir_sub |= movement
 
