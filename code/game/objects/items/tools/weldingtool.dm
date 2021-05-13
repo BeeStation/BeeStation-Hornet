@@ -373,10 +373,10 @@
 	item_state = "brasswelder"
 
 
-/obj/item/weldingtool/experimental/process()
+/obj/item/weldingtool/experimental/process(delta_time)
 	..()
 	if(get_fuel() < max_fuel && nextrefueltick < world.time)
 		nextrefueltick = world.time + 10
-		reagents.add_reagent(/datum/reagent/fuel, 1)
+		reagents.add_reagent(/datum/reagent/fuel, 0.5*delta_time)
 
 #undef WELDER_FUEL_BURN_INTERVAL
