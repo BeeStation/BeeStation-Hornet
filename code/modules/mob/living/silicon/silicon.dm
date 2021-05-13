@@ -78,6 +78,9 @@
 /mob/living/silicon/proc/cancelAlarm()
 	return
 
+/mob/living/silicon/proc/freeCamera()
+	return
+	
 /mob/living/silicon/proc/triggerAlarm()
 	return
 

@@ -103,6 +103,7 @@
 // merge two holder objects
 // used when a holder meets a stuck holder
 /obj/structure/disposalholder/proc/merge(obj/structure/disposalholder/other)
+	destinationTag = other.destinationTag //copies typetag from other holder
 	for(var/A in other)
 		var/atom/movable/AM = A
 		AM.forceMove(src)		// move everything in other holder to this one

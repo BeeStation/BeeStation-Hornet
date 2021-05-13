@@ -43,7 +43,7 @@
 	return 1
 
 /obj/machinery/recharge_station/relaymove(mob/user)
-	if(user.stat)
+	if(!user.is_conscious())
 		return
 	open_machine()
 

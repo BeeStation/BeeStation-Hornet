@@ -238,7 +238,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!usr.stat)
+	if(usr.is_conscious())
 		attack_self(usr)
 
 //Bananalamp

@@ -55,7 +55,7 @@
 	if(HAS_TRAIT_FROM(user, TRAIT_DEATHCOMA, "changeling") && !revive_ready)
 		to_chat(user, "<span class='warning'>We are already reviving.</span>")
 		return
-	if(!user.stat && !revive_ready) //Confirmation for living changelings if they want to fake their death
+	if(user.is_conscious() && !revive_ready) //Confirmation for living changelings if they want to fake their death
 		switch(alert("Are we sure we wish to fake our own death?",,"Yes", "No"))
 			if("No")
 				return
