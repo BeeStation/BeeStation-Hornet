@@ -52,8 +52,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/blood/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(istype(thrower) && thrower.ckey)
-		thrower.log_message("threw a blood tomato at [AREACOORD(thrower)]", LOG_ATTACK)
-		message_admins("[ADMIN_LOOKUPFLW(thrower)] has thrown a blood tomato")
+		thrower.investigate_log("has thrown bloodtomatoes at [AREACOORD(thrower)].", INVESTIGATE_BOTANY)
 	. = ..()
 
 // Blue Tomato
