@@ -60,15 +60,15 @@
 			if(O.status == ORGAN_ROBOTIC) //they are either part robotic or we already converted them!
 				continue
 			switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work
-				if(ORGAN_SLOT_BRAIN)
-					var/datum/mind/ownermind = H.mind
+				if(ORGAN_SLOT_BRAIN)				
 					var/obj/item/organ/brain/clockwork/organ = new()
+					var/datum/mind/ownermind = H.mind
 					if(robustbits)
 						organ.robust = TRUE //STOPS THAT GODDAMN CLANGING BECAUSE IT'S WELL OILED OR SOMETHING
 					organ.Insert(H, TRUE, FALSE)
+					ownermind.transfer_to(H)
 					to_chat(H, "<span class='userdanger'>Your head throbs with pain for a moment, and then goes numb.</span>")
 					H.emote("scream")
-					ownermind.transfer_to(H)
 					H.grab_ghost()
 					return TRUE
 				if(ORGAN_SLOT_STOMACH)
@@ -93,7 +93,6 @@
 					if(prob(40))
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
 						H.emote("scream")
-						ownermind.transfer_to(H)
 						H.grab_ghost()
 						return TRUE
 				if(ORGAN_SLOT_STOMACH)
