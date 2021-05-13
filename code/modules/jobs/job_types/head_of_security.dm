@@ -32,6 +32,7 @@
 	paycheck_department = ACCOUNT_SEC
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
+	departments = DEPARTMENT_SECURITY | DEPARTMENT_COMMAND
 
 /datum/outfit/job/hos
 	name = "Head of Security"

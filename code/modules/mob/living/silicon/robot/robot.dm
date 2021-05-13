@@ -172,7 +172,7 @@
 			mmi.forceMove(T)
 		if(mmi.brainmob)
 			if(mmi.brainmob.stat == DEAD)
-				mmi.brainmob.stat = CONSCIOUS
+				mmi.brainmob.set_stat(CONSCIOUS)
 				mmi.brainmob.remove_from_dead_mob_list()
 				mmi.brainmob.add_to_alive_mob_list()
 			mind.transfer_to(mmi.brainmob)
@@ -1000,13 +1000,13 @@
 			return
 		if(IsUnconscious() || IsStun() || IsKnockdown() || IsParalyzed() || getOxyLoss() > maxHealth*0.5)
 			if(stat == CONSCIOUS)
-				stat = UNCONSCIOUS
+				set_stat(UNCONSCIOUS)
 				blind_eyes(1)
 				update_mobility()
 				update_headlamp()
 		else
 			if(stat == UNCONSCIOUS)
-				stat = CONSCIOUS
+				set_stat(CONSCIOUS)
 				adjust_blindness(-1)
 				update_mobility()
 				update_headlamp()
