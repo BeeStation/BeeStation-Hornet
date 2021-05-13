@@ -7,13 +7,16 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 300)
 	var/recharging = FALSE
+	var/obj/item/electronics/airlock/electronics = null
 	var/circuits = 5 //How many circuits the pseudocircuit has left
 	var/static/recycleable_circuits = typecacheof(list(/obj/item/electronics/firelock, /obj/item/electronics/airalarm, /obj/item/electronics/firealarm, \
-	/obj/item/electronics/apc, /obj/item/electronics/advanced_airlock_controller))//A typecache of circuits consumable for material
+	/obj/item/electronics/apc, /obj/item/electronics/advanced_airlock_controller, /obj/item/electronics/airlock))//A typecache of circuits consumable for material
 
 /obj/item/electroadaptive_pseudocircuit/Initialize()
 	. = ..()
 	maptext = MAPTEXT("[circuits]")
+	electronics = new/obj/item/electronics/airlock(src)
+	electronics.holder = src
 
 /obj/item/electroadaptive_pseudocircuit/examine(mob/user)
 	. = ..()
@@ -63,3 +66,12 @@
 	playsound(src, 'sound/machines/chime.ogg', 25, TRUE)
 	recharging = FALSE
 	icon_state = initial(icon_state)
+
+/obj/item/electroadaptive_pseudocircuit/attack_self(mob/user)
+	. = ..()
+	electronics.ui_interact(user)
+
+/obj/item/electroadaptive_pseudocircuit/Destroy()
+	QDEL_NULL(electronics)
+	. = ..()
+	

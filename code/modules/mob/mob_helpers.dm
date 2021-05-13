@@ -550,7 +550,7 @@
 			colored_message = "<font color=[color]>[message]</font>"
 		else
 			colored_message = "<font color='[color]'>[message]</font>"
-	
+
 	//This makes readability a bit better for admins.
 	switch(message_type)
 		if(LOG_WHISPER)
@@ -586,6 +586,12 @@
 /mob/proc/common_trait_examine()
 	if(HAS_TRAIT(src, TRAIT_DISSECTED))
 		. += "<span class='notice'>This body has been dissected and analyzed. It is no longer worth experimenting on.</span><br>"
+
+
+//Is the mob aware of their surroundings?
+/// Should be used in place of non-dead stat checks for mobs
+/mob/proc/is_conscious()
+	return stat <= SOFT_CRIT
 
 // https://github.com/tgstation/tgstation/pull/44056
 // Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.

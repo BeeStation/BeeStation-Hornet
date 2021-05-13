@@ -16,6 +16,7 @@
 	pressure_resistance = 8
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	throwforce = 10
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/datum/mind/mind
@@ -30,7 +31,7 @@
 	/// A special action? No idea why this lives here
 	var/list/datum/action/chameleon_item_actions
 
-	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here)
+	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here) - TheFakeElon (2020, still here)
 	var/stat = CONSCIOUS
 
 	/* A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.

@@ -129,7 +129,10 @@
 		playsound(src, item_recycle_sound, 50, 1)
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
-
+	if(I.resistance_flags & INDESTRUCTIBLE) //indestructible item check
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		I.forceMove(loc)
+		return
 	I.forceMove(loc)
 	var/obj/item/grown/log/L = I
 	if(istype(L))
@@ -172,7 +175,7 @@
 		playsound(src, 'sound/effects/splat.ogg', 50, 1)
 
 	if(iscarbon(L))
-		if(L.stat == CONSCIOUS)
+		if(L.is_conscious())
 			L.say("ARRRRRRRRRRRGH!!!", forced="recycler grinding")
 		add_mob_blood(L)
 
