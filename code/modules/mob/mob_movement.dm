@@ -19,7 +19,7 @@
   */
 /client/verb/drop_item()
 	set hidden = 1
-	if(!iscyborg(mob) && mob.stat == CONSCIOUS)
+	if(!iscyborg(mob) && mob.is_conscious())
 		mob.dropItemToGround(mob.get_active_held_item())
 	return
 
