@@ -6,7 +6,6 @@ export const BrigTimer = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
-      resizable
       width={300}
       height={138}>
       <Window.Content scrollable>

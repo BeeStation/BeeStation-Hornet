@@ -9,7 +9,6 @@ export const TachyonArray = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={500}
       height={225}>
       <Window.Content scrollable>

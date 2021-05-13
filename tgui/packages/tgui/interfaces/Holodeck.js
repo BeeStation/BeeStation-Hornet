@@ -13,7 +13,6 @@ export const Holodeck = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={400}
       height={500}>
       <Window.Content scrollable>

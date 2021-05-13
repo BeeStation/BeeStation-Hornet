@@ -21,7 +21,6 @@ export const NaniteProgramHub = (props, context) => {
     || [];
   return (
     <Window
-      resizable
       width={500}
       height={700}>
       <Window.Content scrollable>

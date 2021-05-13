@@ -26,7 +26,6 @@ export const ChemDispenser = (props, context) => {
     || [];
   return (
     <Window
-      resizable
       width={565}
       height={620}>
       <Window.Content scrollable>
