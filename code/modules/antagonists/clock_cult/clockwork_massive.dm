@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		. += "It doesn't seem to be doing much right now, maybe one day it will serve its purpose."
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/process(delta_time)
-	if(DT_PROB(10, delta_time)
+	if(DT_PROB(10, delta_time))
 		to_chat(world, pick(phase_messages))
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/deconstruct(disassembled = TRUE)

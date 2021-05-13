@@ -94,7 +94,7 @@
 		playsound(src, 'sound/machines/microwave/microwave-end.ogg', 100, FALSE)
 		return
 
-	if(DT_PROB(iterations * 10 + 10), delta_time) // conversion has some random variation in it
+	if(DT_PROB(iterations * 10 + 10, delta_time)) // conversion has some random variation in it
 		C.set_species(desired_race)
 		if(brainwash)
 			to_chat(C, "<span class='userdanger'>A new compulsion fills your mind... you feel forced to obey it!</span>")
