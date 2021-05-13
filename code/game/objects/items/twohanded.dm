@@ -513,6 +513,7 @@
 		throwforce = 21
 		icon_prefix = "spearplasma"
 	update_icon()
+	parts_list -= tip
 	qdel(tip)
 	var/obj/item/grenade/G = locate() in parts_list
 	if(G)
@@ -731,7 +732,7 @@
 		var/mob/living/L = AM
 		if(istype (L, /mob/living/simple_animal/hostile/illusion))
 			return
-		if(!L.stat && prob(50))
+		if(L.is_conscious() && prob(50))
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
 			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)

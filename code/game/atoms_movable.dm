@@ -189,6 +189,7 @@
 	AM.pulledby = src
 	setGrabState(state)
 	if(ismob(AM))
+		AM.glide_size = glide_size // make sure there's no weird laggy effect when pulling
 		var/mob/M = AM
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message)
@@ -305,7 +306,7 @@
 	var/turf/T = loc
 	if(!moving_from_pull)
 		check_pulling()
-	if(!loc || !newloc)
+	if(!(loc || newloc))
 		return FALSE
 	var/atom/oldloc = loc
 
@@ -423,6 +424,8 @@
 	if(orbiting)
 		orbiting.end_orbit(src)
 		orbiting = null
+
+	vis_contents.Cut()
 
 // Make sure you know what you're doing if you call this, this is intended to only be called by byond directly.
 // You probably want CanPass()

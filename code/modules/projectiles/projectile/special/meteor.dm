@@ -17,6 +17,6 @@
 		SSexplosions.medturf += A
 	playsound(src.loc, 'sound/effects/meteorimpact.ogg', 40, 1)
 	for(var/mob/M in urange(10, src))
-		if(!M.stat)
+		if(M.is_conscious())
 			shake_camera(M, 3, 1)
 	qdel(src)
