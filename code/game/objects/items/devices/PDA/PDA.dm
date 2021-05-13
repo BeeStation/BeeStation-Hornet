@@ -734,7 +734,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 	user.log_talk(message, LOG_PDA, tag="PDA: [initial(name)] to [target_text]")
 	to_chat(user, "<span class='info'>PDA message sent to [target_text]: \"[message]\"</span>")
 	if(!silent)
-		playsound(src, 'sound/machines/terminal_success.ogg', 15, TRUE)
+		if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
+			playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 50, TRUE)
+		else
+			playsound(src, 'sound/machines/terminal_success.ogg', 15, TRUE)
 	// Reset the photo
 	picture = null
 	last_text = world.time
@@ -745,7 +748,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 	tnote += "<i><b>&larr; From <a href='byond://?src=[REF(src)];choice=Message;target=[REF(signal.source)]'>[signal.data["name"]]</a> ([signal.data["job"]]):</b></i><br>[signal.format_message()]<br>"
 
 	if (!silent)
-		playsound(src, 'sound/machines/twobeep_high.ogg', 50, 1)
+		if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
+			playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 50, TRUE)
+		else
+			playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
 		audible_message("[icon2html(src, hearers(src))] *[ttone]*", null, 3)
 	//Search for holder of the PDA.
 	var/mob/living/L = null
@@ -910,7 +916,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
 		updateSelfDialog()
 		update_icon()
-		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+		if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
+			playsound(src, pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg'), 50, TRUE)
+		else
+			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 	else if(istype(C, /obj/item/card/id))
 		var/obj/item/card/id/idcard = C

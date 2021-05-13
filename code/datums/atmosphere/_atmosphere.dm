@@ -20,6 +20,9 @@
 	var/target_pressure = rand(minimum_pressure, maximum_pressure)
 	var/pressure_scalar = target_pressure / maximum_pressure
 
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNNATURAL_ATMOSPHERE))
+		restricted_chance = restricted_chance + 40
+
 	// First let's set up the gasmix and base gases for this template
 	// We make the string from a gasmix in this proc because gases need to calculate their pressure
 	var/datum/gas_mixture/gasmix = new
