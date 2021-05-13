@@ -1,0 +1,6 @@
+author: Archanial, Qustinnus, MrMelbert. coiax, Rohesie, Ghommie
+delete-after: true
+changes:
+  - rscadd: Station trait system, together with 24 traits.
+  - rscadd: Custom announcer support. Medbot and intern announcers.
+  - rscadd: Deathrattle implant. Available for nuke ops for 4tc.
