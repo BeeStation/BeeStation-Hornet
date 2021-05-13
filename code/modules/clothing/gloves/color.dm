@@ -11,9 +11,8 @@
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
-	if(slot == ITEM_SLOT_GLOVES)
-		if(user.mind?.assigned_role in GLOB.security_positions)
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
+	if(slot == ITEM_SLOT_GLOVES && user.mind?.assigned_role in GLOB.security_positions)
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
 
 /obj/item/clothing/gloves/color/black/dropped(mob/user)
 	. = ..()
