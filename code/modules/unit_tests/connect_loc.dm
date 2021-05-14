@@ -50,10 +50,10 @@
 /datum/unit_test/connect_loc_multiple_on_turf
 
 /datum/unit_test/connect_loc_multiple_on_turf/Run()
-	var/obj/item/watches_mock_calls/watcher_one = allocate(/obj/item/watches_mock_calls, run_loc_floor_bottom_left)
+	var/obj/item/watches_mock_calls/watcher_one = allocate(/obj/item/watches_mock_calls, run_loc_bottom_left)
 	qdel(watcher_one)
 
-	var/obj/item/watches_mock_calls/watcher_two = allocate(/obj/item/watches_mock_calls, run_loc_floor_bottom_left)
+	var/obj/item/watches_mock_calls/watcher_two = allocate(/obj/item/watches_mock_calls, run_loc_bottom_left)
 	qdel(watcher_two)
 
 /obj/item/watches_mock_calls
