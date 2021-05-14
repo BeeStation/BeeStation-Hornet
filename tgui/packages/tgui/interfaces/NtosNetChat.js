@@ -120,7 +120,7 @@ export const NtosNetChat = (props, context) => {
                   width: '150px',
                 }}>
                 <Box
-                  height="477px"
+                  height="460px"
                   overflowY="scroll">
                   {clients.map(client => (
                     <Box key={client.name}>

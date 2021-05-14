@@ -16,8 +16,7 @@ export const NtosConfiguration = (props, context) => {
 
   return (
     <NtosWindow
-      theme={PC_device_theme}
-      width={420}
+      width={620}
       height={630}>
       <NtosWindow.Content scrollable>
         <Section

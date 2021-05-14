@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Input, NoticeBox, Section, Tabs } from '../components';
+import { Box, Button, Stack, Input, NoticeBox, Section, Tabs } from '../components';
 import { NtosWindow } from '../layouts';
 import { AccessList } from './common/AccessList';
 
@@ -124,8 +124,8 @@ export const NtosCardContent = (props, context) => {
                   assign_target: 'Custom',
                   custom_name: value,
                 })} />
-              <Flex>
-                <Flex.Item>
+              <Stack>
+                <Stack.Item>
                   <Tabs vertical>
                     {Object.keys(jobs).map(department => (
                       <Tabs.Tab
@@ -136,8 +136,8 @@ export const NtosCardContent = (props, context) => {
                       </Tabs.Tab>
                     ))}
                   </Tabs>
-                </Flex.Item>
-                <Flex.Item grow={1}>
+                </Stack.Item>
+                <Stack.Item grow={1}>
                   {departmentJobs.map(job => (
                     <Button
                       fluid
@@ -147,8 +147,8 @@ export const NtosCardContent = (props, context) => {
                         assign_target: job.job,
                       })} />
                   ))}
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             </Section>
           )}
         </Box>
