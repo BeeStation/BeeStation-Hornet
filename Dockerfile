@@ -60,7 +60,8 @@ RUN apt-get install -y --no-install-recommends \
         gcc-multilib \
         git \
     && git init \
-    && git remote add origin https://github.com/BeeStation/rust-g
+    && git remote add origin https://github.com/BeeStation/rust-g \
+    && mkdir -p /root/.byond/bin
 
 COPY dependencies.sh .
 
@@ -79,6 +80,9 @@ RUN apt-get install -y --no-install-recommends \
 
 COPY --from=build /deploy ./
 COPY --from=rust_g /rust_g/target/i686-unknown-linux-gnu/release/librust_g.so ./librust_g.so
+
+#extools fexists memes
+RUN ln -s /beestation/libbyond-extools.so /root/.byond/bin/libbyond-extools.so
 
 VOLUME [ "/beestation/config", "/beestation/data" ]
 ENTRYPOINT [ "DreamDaemon", "beestation.dmb", "-port", "1337", "-trusted", "-close", "-verbose" ]
