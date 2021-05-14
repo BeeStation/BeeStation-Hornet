@@ -155,7 +155,7 @@
 	trait = TRAIT_XRAY_VISION
 
 /obj/item/clothing/neck/eldritch_amulet/guise
-	name = "Guise of Istasha"
+	name = "guise of Istasha"
 	desc = "An odd amulet formed out of multiple floating parts, strung togethere by forces from another world."
 	icon_state = "eye_medalion"
 	trait = TRAIT_DIGINVIS
