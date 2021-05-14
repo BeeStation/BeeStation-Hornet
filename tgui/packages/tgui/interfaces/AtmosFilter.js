@@ -9,7 +9,7 @@ export const AtmosFilter = (props, context) => {
   return (
     <Window
       width={390}
-      height={187}>
+      height={197}>
       <Window.Content>
         <Section>
           <LabeledList>
