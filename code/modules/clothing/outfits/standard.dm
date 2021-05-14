@@ -245,6 +245,25 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id
 
+/datum/outfit/chungus
+	name = "Chungus"
+
+
+	uniform = /obj/item/clothing/under/color/grey
+	suit = /obj/item/clothing/suit/chungus
+	head = /obj/item/clothing/head/chungus
+	shoes = /obj/item/clothing/shoes/sneakers/black
+	ears = /obj/item/radio/headset
+	back = /obj/item/storage/backpack
+	id = /obj/item/card/id
+
+/datum/outfit/chungus/post_equip(mob/living/carbon/human/H, visualsOnly)
+	var/obj/item/card/id/W = H.wear_id
+	W.access += ACCESS_MAINT_TUNNELS
+	W.assignment = "Rabbit from reddit"
+	W.registered_name = "Big Chungus"
+	W.update_label()
+
 /datum/outfit/admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
