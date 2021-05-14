@@ -1,6 +1,6 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox } from '../components';
+import { Box, Button, Stack, Input, Section, Table, Tabs, NoticeBox } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -11,7 +11,7 @@ export const Uplink = (props, context) => {
   const { telecrystals } = data;
   return (
     <Window
-      width={620}
+      width={740}
       height={580}
       theme="syndicate">
       <Window.Content scrollable>
@@ -85,9 +85,9 @@ export const GenericUplink = (props, context) => {
           )}
         </>
       )}>
-      <Flex>
+      <Stack fill>
         {searchText.length === 0 && (
-          <Flex.Item>
+          <Stack.Item>
             <Tabs vertical>
               {categories.map(category => (
                 <Tabs.Tab
@@ -98,9 +98,9 @@ export const GenericUplink = (props, context) => {
                 </Tabs.Tab>
               ))}
             </Tabs>
-          </Flex.Item>
+          </Stack.Item>
         )}
-        <Flex.Item grow={1} basis={0}>
+        <Stack.Item grow={1} basis={0}>
           {items.length === 0 && (
             <NoticeBox>
               {searchText.length === 0
@@ -113,8 +113,8 @@ export const GenericUplink = (props, context) => {
             currencyAmount={currencyAmount}
             currencySymbol={currencySymbol}
             items={items} />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -172,6 +172,7 @@ const ItemList = (props, context) => {
   }
   return items.map(item => (
     <Section
+      ml={0}
       key={item.name}
       title={item.name}
       level={2}

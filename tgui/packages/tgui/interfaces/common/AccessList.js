@@ -1,6 +1,6 @@
 import { sortBy } from 'common/collections';
 import { useLocalState } from '../../backend';
-import { Button, Flex, Grid, Section, Tabs } from '../../components';
+import { Button, Stack, Grid, Section, Tabs } from '../../components';
 
 const diffMap = {
   0: {
@@ -76,8 +76,8 @@ export const AccessList = (props, context) => {
             onClick={() => denyAll()} />
         </>
       )}>
-      <Flex>
-        <Flex.Item>
+      <Stack>
+        <Stack.Item>
           <Tabs vertical>
             {accesses.map(access => {
               const entries = access.accesses || [];
@@ -96,8 +96,8 @@ export const AccessList = (props, context) => {
               );
             })}
           </Tabs>
-        </Flex.Item>
-        <Flex.Item grow={1}>
+        </Stack.Item>
+        <Stack.Item grow={1}>
           <Grid>
             <Grid.Column mr={0}>
               <Button
@@ -124,8 +124,8 @@ export const AccessList = (props, context) => {
               checked={selectedList.includes(entry.ref)}
               onClick={() => accessMod(entry.ref)} />
           ))}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

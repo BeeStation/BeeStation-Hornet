@@ -56,7 +56,6 @@ export const ClockworkSlab = (props, context) => {
           <div className="ClockSlab__stats">
             <Section
               height="100%"
-              scrollable
               overflowY="scroll">
               <ClockworkOverview />
             </Section>
@@ -64,7 +63,6 @@ export const ClockworkSlab = (props, context) => {
           <div className="ClockSlab__current">
             <Section
               height="100%"
-              scrollable
               overflowY="scroll"
               title="Servants of the Cog vol.1">
               <ClockworkHelp />
