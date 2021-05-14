@@ -21046,13 +21046,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
-"bhb" = (
-/obj/machinery/sleeper,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/sleeper)
 "bhc" = (
 /obj/machinery/iv_drip,
 /obj/machinery/power/apc/auto_name/north{
@@ -98657,7 +98650,7 @@ aYV
 aYV
 ber
 cZK
-bhb
+blh
 sqB
 bmG
 bmG
