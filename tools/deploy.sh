@@ -36,5 +36,7 @@ cp -r strings/* $1/strings/
 #find $1/_maps -name "*.dm" -type f -delete
 
 #dlls on windows
-cp rust_g* $1/ || true
-cp *byond-extools.* $1/ || true
+if [ "$(uname -o)" = "Msys" ]; then
+	cp rust_g* $1/ || true
+	cp *byond-extools.* $1/ || true
+fi
