@@ -969,7 +969,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	view_size.setTo(clamp(change, min, max), clamp(change, min, max))
 
 /client/proc/update_movement_keys()
-	if(prefs && prefs.key_bindings)
+	if(prefs?.key_bindings)
 		movement_keys = list()
 		for(var/key in prefs.key_bindings)
 			for(var/kb_name in prefs.key_bindings[key])
@@ -1089,4 +1089,3 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			message_admins("[key_name(src)] was removed from the game due to a ban from BeeStation.")
 			qdel(src)
 			return
-
