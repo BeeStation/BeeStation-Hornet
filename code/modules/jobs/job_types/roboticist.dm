@@ -21,6 +21,7 @@
 	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
+	departments = DEPARTMENT_SCIENCE
 
 /datum/outfit/job/roboticist
 	name = "Roboticist"
