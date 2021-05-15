@@ -93,6 +93,8 @@
 	H.equip_to_slot_or_del(I,ITEM_SLOT_BACKPACK)
 	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
 	junkie.teach(H)
+	var/datum/brain_trauma/mild/phobia/conspiracies/paranoia = new()
+	H.gain_trauma(paranoia, TRAUMA_RESILIENCE_MAGIC)
 	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
 
 
