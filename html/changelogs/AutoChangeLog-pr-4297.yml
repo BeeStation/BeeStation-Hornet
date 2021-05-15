@@ -1,4 +1,0 @@
-author: Autisem
-delete-after: true
-changes:
-  - bugfix: admin outfit manager can load outfits from json files
