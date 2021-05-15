@@ -133,7 +133,7 @@
 	if(target)
 		if(ishuman(target))
 			var/mob/living/carbon/human/L = target
-			if(L.health <=40 || L.stat || !L.can_inject(null, FALSE))
+			if(L.health <=30 || L.stat || !L.can_inject(null, FALSE)) // base health to move in to attack is 30, not 40, as it accounts for armor somewhat
 				retreat_distance = 0
 			else
 				retreat_distance = 3 //spam chems if they aren't low and can be injected
