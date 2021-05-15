@@ -94,7 +94,7 @@
 		fearscore --
 	else if(stress && world.time > stress_check) //if we go long enough without fearing something, we begin to lose stress.
 		stress --
-		stress_check = world.time + min(3000, (600 * stress))
+		stress_check = world.time + min(1500, (300 * stress))
 	switch(fearscore) //updating the fear state is handled in mob_life, as well as effects like adrenaline rush, handled when the state changes. other things are handled lower
 		if(-INFINITY to 2) //there is a bit of a grace period before you begin to get scared
 			if(fear_state > PHOBIA_STATE_CALM)
@@ -107,7 +107,7 @@
 				to_chat(owner, "<span class ='notice'>you manage to calm down a little.</span>")
 			if(fear_state == PHOBIA_STATE_CALM)
 				fear_state = PHOBIA_STATE_EDGY
-				if(prob(stress * 10))
+				if(prob(stress * 5))
 					fearscore = 9
 		if(9 to 16)
 			if(fear_state >= PHOBIA_STATE_FIGHTORFLIGHT)
@@ -119,7 +119,7 @@
 				fear_state = PHOBIA_STATE_UNEASY
 				owner.add_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE, 100, override=TRUE, multiplicative_slowdown = 1)
 				owner.Jitter(5)
-				if(prob(stress * 10))
+				if(prob(stress * 5))
 					fearscore = 17
 		if(17 to 28)
 			if(fear_state >= PHOBIA_STATE_TERROR) //we don't get an adrenaline rush when calming down
@@ -131,7 +131,7 @@
 				to_chat(owner, "<span class ='userdanger'>YOU HAVE TO GET OUT OF HERE! IT'S DANGEROUS!</span>")
 				owner.add_movespeed_modifier(MOVESPEED_ID_PHOBIA, TRUE, 100, override=TRUE, multiplicative_slowdown = -0.4)//while terrified, get a speed boost
 				owner.emote("scream")
-				if(prob(stress * 10))
+				if(prob(stress * 5))
 					fearscore = 27 //we don't get the adrenaline rush, and keel over like a baby immediately
 				psychotic_brawling = new(null)
 				psychotic_brawling.teach(owner, TRUE)
@@ -156,7 +156,7 @@
 				owner.Jitter(8)
 				psychotic_brawling.remove(owner)
 				stress++
-				if(prob(stress * 10))
+				if(prob(stress * 5))
 					fearscore = 36 //we immediately keel over and faint
 		if(36 to INFINITY)
 			if(fear_state <= PHOBIA_STATE_TERROR)
@@ -165,7 +165,7 @@
 				psychotic_brawling.remove(owner)//ditto
 				owner.Sleeping(300)
 				owner.visible_message("<span class ='danger'>[owner] faints in fear!.</span>", "<span class ='userdanger'>It's too much! you faint!</span>")
-				if(prob(stress * 3))
+				if(prob(stress * 1))
 					owner.set_heartattack(TRUE)
 					to_chat(owner, "<span class='userdanger'>Your heart stops!</span>")
 				stress++
