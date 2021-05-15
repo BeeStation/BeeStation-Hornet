@@ -669,6 +669,7 @@
 		diag_hud_set_circuitstat() //update diagnostic hud
 		playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You slot the [I] inside \the [src]'s power supplier.</span>")
+		log_game("[user] has slotted [I] into [src].")
 		return TRUE
 
 	else if(istype(I, /obj/item/integrated_electronics/detailer))
