@@ -1115,6 +1115,17 @@
 	else
 		to_chat(target, "<span class='warning'>You can't piggyback ride [src] right now!</span>")
 
+/mob/living/carbon/human/proc/lazysynthify(mob/M)
+	var/mob/living/carbon/human/H = M
+	ADD_TRAIT(H, TRAIT_NODISMEMBER, "synth_trait")
+	ADD_TRAIT(H, TRAIT_NOBREATH, "synth_trait")
+	ADD_TRAIT(H, TRAIT_NOLIMBDISABLE, "synth_trait")
+	ADD_TRAIT(H, TRAIT_NOHUNGER, "synth_trait")
+	if(!(MOB_ROBOTIC in H.mob_biotypes))
+		H.mob_biotypes += MOB_ROBOTIC
+		if(MOB_ORGANIC in H.mob_biotypes)
+			H.mob_biotypes -= MOB_ORGANIC
+
 /mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
 	if(!force)//humans are only meant to be ridden through piggybacking and special cases
 		return
