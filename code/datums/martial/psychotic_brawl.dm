@@ -74,6 +74,11 @@
 
 /datum/martial_art/psychotic_brawling/proc/psycho_grab(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/atk_verb
+	if(D.stat)
+		atk_verb = "grabbed"
+		A.start_pulling(D)
+		log_combat(A, D, "grabbed (Psychotic Brawling)")
+		return TRUE
 	switch(rand(1,6))
 		if(1,2)
 			A.stop_pulling()
