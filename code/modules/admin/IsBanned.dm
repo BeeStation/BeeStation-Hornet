@@ -9,7 +9,7 @@
 GLOBAL_LIST_EMPTY(ckey_redirects)
 
 /world/IsBanned(key, address, computer_id, type, real_bans_only=FALSE)
-	if(IsRateLimited(address))
+	if(SSfail2topic?.IsRateLimited(address))
 		return list("reason"="rate limited", "desc"="Error: You have been ratelimited. Try again later.")
 	debug_world_log("isbanned(): '[args.Join("', '")]'")
 	if (!key || (!real_bans_only && (!address || !computer_id)))
