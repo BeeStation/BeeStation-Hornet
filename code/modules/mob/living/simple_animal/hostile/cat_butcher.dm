@@ -183,18 +183,14 @@
 	. = ..()
 	reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 4) //these'll get the victim wallslamming and then sleep em, but it will take awhile before it puts the victim to sleep
 
-/obj/item/projectile/bullet/dart/tranqplusplus
-	name = "tranquilizer dart"
+/obj/item/projectile/bullet/dart/tranq/plus
 
-/obj/item/projectile/bullet/dart/tranqplus/Initialize()
+/obj/item/projectile/bullet/dart/tranq/plus/Initialize()
 	. = ..()
-	reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 4)
 	reagents.add_reagent(/datum/reagent/pax, 1)
 
-/obj/item/projectile/bullet/dart/tranqplusplus
-	name = "tranquilizer dart"
+/obj/item/projectile/bullet/dart/tranq/plusplus
 	
-/obj/item/projectile/bullet/dart/tranqplusplus/Initialize()
+/obj/item/projectile/bullet/dart/tranq/plusplus/Initialize()
 	. = ..()
-	reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 4)
 	reagents.add_reagent(/datum/reagent/pax, 3)
