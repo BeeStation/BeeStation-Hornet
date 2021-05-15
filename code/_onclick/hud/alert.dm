@@ -487,10 +487,10 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 			desc += "The Ark is preparing to open, it will activate in <b>[round((GLOB.ratvar_arrival_tick - world.time - 6000) / 10)]</b> seconds.<br>"
 		else
 			desc += "Ratvar will rise in <b>[round((GLOB.ratvar_arrival_tick - world.time) / 10)]</b> seconds, protect the Ark with your life!<br>"
-	if(GLOB.servants_of_ratvar)
-		desc += "There [GLOB.servants_of_ratvar.len == 1?"is" : "are"] currently [GLOB.servants_of_ratvar.len] loyal servant[GLOB.servants_of_ratvar.len == 1 ? "" : "s"].<br>"
+	if(GLOB.human_servants_of_ratvar)
+		desc += "There [GLOB.human_servants_of_ratvar.len == 1?"is" : "are"] currently [GLOB.human_servants_of_ratvar.len] loyal servant\s.<br>"
 	if(GLOB.critical_servant_count)
-		desc += "Upon reaching [GLOB.critical_servant_count] the Ark will open, or it can be opened immediately by invoking Gateway Activation with 6 servants."
+		desc += "Upon reaching [GLOB.critical_servant_count] servants, the Ark will open, or it can be opened immediately by invoking Gateway Activation with 6 servants."
 
 //GUARDIANS
 

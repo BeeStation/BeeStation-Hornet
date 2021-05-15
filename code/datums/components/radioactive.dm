@@ -54,7 +54,7 @@
 		animate(filter, alpha = 110, time = 15, loop = -1)
 		animate(alpha = 40, time = 25)
 
-/datum/component/radioactive/InheritComponent(datum/component/C, i_am_original, list/arguments)
+/datum/component/radioactive/InheritComponent(datum/component/C, i_am_original, _strength, _source, _half_life, _can_contaminate)
 	if(!i_am_original)
 		return
 	if(!hl3_release_date) // Permanently radioactive things don't get to grow stronger
@@ -63,7 +63,7 @@
 		var/datum/component/radioactive/other = C
 		strength += other.strength
 	else
-		strength += arguments[1]
+		strength = max(strength, _strength)
 
 /datum/component/radioactive/proc/rad_examine(datum/source, mob/user, atom/thing)
 	var/atom/master = parent
