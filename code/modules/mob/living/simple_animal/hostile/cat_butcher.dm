@@ -90,7 +90,7 @@
 		return FALSE
 	if(L.mind)
 		victims += L
-		say(pick("I'm a genius!!", "WOOK AT MY WITTLE KITTY!!", "Another successful experiment!!", "Substandard product.", "You had better not run off, now!", "You never cease to amaze me, me."))
+		say(pick("I'm a genius!!", "KITTY!!", "Another successful experiment!!", "Substandard product.", "You had better not run off, now!", "You never cease to amaze me, me."))
 		if(LAZYLEN(victims) <= 10)
 			maxHealth = (100 + (20 * LAZYLEN(victims)))
 		else
