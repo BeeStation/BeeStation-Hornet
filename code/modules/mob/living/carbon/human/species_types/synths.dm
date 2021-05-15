@@ -27,7 +27,7 @@
 	id = "military_synth"
 	armor = 25
 	punchdamage = 14
-	disguise_fail_health = 50
+	disguise_fail_health = 50 //This literally does nothing. This doesnt work.
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 
 /datum/species/synth/on_species_gain(mob/living/carbon/human/H, datum/species/old_species)
@@ -47,7 +47,7 @@
 	else
 		return ..()
 
-
+//Mutant body parts dont work. Cat ears and tail fail to apply. Lizard digitigrade legs fail to apply.
 /datum/species/synth/proc/assume_disguise(datum/species/S, mob/living/carbon/human/H)
 	if(S && !istype(S, type))
 		name = S.name
@@ -118,7 +118,7 @@
 
 /datum/species/synth/handle_mutant_bodyparts(mob/living/carbon/human/H, forced_colour)
 	if(fake_species)
-		fake_species.handle_body(H,forced_colour)
+		fake_species.handle_mutant_bodyparts(H,forced_colour)
 	else
 		return ..()
 
