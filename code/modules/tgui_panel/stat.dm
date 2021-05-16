@@ -69,6 +69,17 @@
 	payload["title"] = title
 	payload["text"] = text
 	window.send_message("stat/antagPopup", payload)
+	addtimer(CALLBACK(src, .proc/clear_antagonist_popup), 3 MINUTES)
+
+/**
+ * public
+ *
+ * Clears the antagonist popup.
+ */
+/datum/tgui_panel/proc/clear_antagonist_popup()
+	if(!is_ready())
+		return
+	window.send_message("stat/clearAntagPopup", list())
 
 /**
  * public
@@ -79,6 +90,7 @@
 	if(!is_ready())
 		return
 	window.send_message("stat/deadPopup", list())
+	addtimer(CALLBACK(src, .proc/clear_dead_poup), 3 MINUTES)
 
 /**
  * public
