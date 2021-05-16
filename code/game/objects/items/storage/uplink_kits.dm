@@ -200,7 +200,7 @@
 			new /obj/item/grenade/gluon(src)
 			new /obj/item/dnainjector/geladikinesis(src)
 			new /obj/item/dnainjector/cryokinesis(src)
-			new /obj/item/gun/energy/temperature/security(src)
+			new /obj/item/gun/energy/temperature/pin(src)
 			new /obj/item/melee/transforming/energy/sword/saber/blue(src) //see see it fits the theme bc its blue and ice is blue
 
 /obj/item/storage/box/syndicate/contract_kit
@@ -589,3 +589,4 @@
 	for(var/i in implants)
 		group.register(i)
 	desc += " The implants are registered to the \"[group.name]\" group."
+  
