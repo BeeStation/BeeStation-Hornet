@@ -1122,10 +1122,16 @@
 	ADD_TRAIT(H, TRAIT_NOLIMBDISABLE, "synth_trait")
 	ADD_TRAIT(H, TRAIT_NOHUNGER, "synth_trait")
 	H.dna.species.punchdamage = 14
+	H.dna.species.armor = 25
+	H.grant_language(/datum/language/machine)
+	H.grant_language(/datum/language/voltaic)
+	H.grant_language(/datum/language/draconic)
+	H.grant_language(/datum/language/moffic)
 	if(!(MOB_ROBOTIC in H.mob_biotypes))
 		H.mob_biotypes += MOB_ROBOTIC
 		if(MOB_ORGANIC in H.mob_biotypes)
 			H.mob_biotypes -= MOB_ORGANIC
+
 
 /mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
 	if(!force)//humans are only meant to be ridden through piggybacking and special cases
