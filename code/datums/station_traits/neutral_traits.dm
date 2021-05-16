@@ -8,7 +8,7 @@
 /datum/station_trait/unnatural_atmosphere
 	name = "Unnatural atmospherical properties"
 	trait_type = STATION_TRAIT_NEUTRAL
-	weight = 5
+	weight = 3
 	show_in_report = TRUE
 	report_message = "System's local planet has irregular atmospherical properties"
 	trait_to_give = STATION_TRAIT_UNNATURAL_ATMOSPHERE
@@ -47,7 +47,7 @@
 /datum/station_trait/announcement_intern
 	name = "Announcement Intern"
 	trait_type = STATION_TRAIT_NEUTRAL
-	weight = 5
+	weight = 1
 	show_in_report = TRUE
 	report_message = "Please be nice to him."
 	blacklist = list(/datum/station_trait/announcement_medbot)
@@ -59,7 +59,7 @@
 /datum/station_trait/announcement_medbot
 	name = "Announcement \"System\""
 	trait_type = STATION_TRAIT_NEUTRAL
-	weight = 1
+	weight = 5
 	show_in_report = TRUE
 	report_message = "Our announcement system is under scheduled maintanance at the moment. Thankfully, we have a backup."
 	blacklist = list(/datum/station_trait/announcement_intern)
