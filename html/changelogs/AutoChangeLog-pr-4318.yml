@@ -1,0 +1,7 @@
+author: Archanial
+delete-after: true
+changes:
+  - tweak: Same station trait cannot appear twice (shouldn't affect anything in game).
+  - tweak: Station traits will appear less often.
+  - tweak: Intern and unnatural atmosphere are less common, medbot announcer is more
+      common now.
