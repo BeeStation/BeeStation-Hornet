@@ -2187,6 +2187,28 @@
 		qdel(C)
 		new /mob/living/simple_animal/pet/cat/Proc(.)
 
+/datum/supply_pack/critter/cat/exotic
+	name = "Exotic Cat Crate"
+	desc = "Commes with one of the exotic cats, collar and a toy."
+	cost = 5500
+	contains = list(/obj/item/clothing/neck/petcollar,
+					/obj/item/toy/cattoy)
+	crate_name = "cat crate"
+
+/datum/supply_pack/critter/cat/exotic/generate()
+	. = ..()
+	switch(rand(1, 5))
+		if(1)
+			new /mob/living/simple_animal/pet/cat/original(.)
+		if(2)
+			new /mob/living/simple_animal/pet/cat/breadcat(.)
+		if(3)
+			new /mob/living/simple_animal/pet/cat/cak(.)
+		if(4)
+			new /mob/living/simple_animal/pet/cat/space(.)
+		if(5)
+			new /mob/living/simple_animal/pet/cat/halal(.)
+
 /datum/supply_pack/critter/chick
 	name = "Chicken Crate"
 	desc = "The chicken goes bwaak!"
