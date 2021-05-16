@@ -7,8 +7,10 @@
 #define STICKYBAN_MAX_ADMIN_MATCHES 1
 
 GLOBAL_LIST_EMPTY(ckey_redirects)
+GLOBAL_LIST_EMPTY(isbanned_cache)
 
 /world/IsBanned(key, address, computer_id, type, real_bans_only=FALSE)
+	var/cachekey = args.Join("', '")
 	debug_world_log("isbanned(): '[args.Join("', '")]'")
 	if (!key || (!real_bans_only && (!address || !computer_id)))
 		if(real_bans_only)
@@ -19,8 +21,12 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 	if (type == "world")
 		return ..() //shunt world topic banchecks to purely to byond's internal ban system
 
+	if(!isnull(GLOB.isbanned_cache[cachekey]))
+		return GLOB.isbanned_cache[cachekey]	//we already cleared that record
+
 	var/admin = FALSE
 	var/ckey = ckey(key)
+
 
 	var/client/C = GLOB.directory[ckey]
 	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
@@ -104,6 +110,7 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 				[global_ban]
 				[expires]"}
 				log_access("Failed Login: [key] [computer_id] [address] - Banned (#[i["id"]]) [text2num(i["global_ban"]) ? "globally" : "locally"]")
+				GLOB.isbanned_cache[cachekey] = TRUE
 				return list("reason"="Banned","desc"="[desc]")
 
 	var/list/ban = ..()	//default pager ban stuff
@@ -222,6 +229,7 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 		. = list("reason" = "Stickyban", "desc" = desc)
 		log_access("Failed Login: [key] [computer_id] [address] - StickyBanned [ban["message"]] Target Username: [bannedckey] Placed by [ban["admin"]]")
 
+	GLOB.isbanned_cache[cachekey] = FALSE
 	return .
 
 
