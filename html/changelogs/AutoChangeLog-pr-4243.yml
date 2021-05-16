@@ -1,6 +1,0 @@
-author: bloons3
-delete-after: true
-changes:
-  - rscadd: Adds a variant of the temperature gun that starts with a firing pin
-  - balance: Changes the security temperature gun to be bulky
-  - balance: Changes the x-ray energy gun to be bulky
