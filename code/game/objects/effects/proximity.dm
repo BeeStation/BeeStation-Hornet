@@ -32,7 +32,8 @@
 	host = null
 	last_host_loc = null
 	hasprox_receiver = null
-	QDEL_LIST(checkers)
+	if(!isnull(checkers))
+		QDEL_LIST(checkers)
 	return ..()
 
 /datum/proximity_monitor/proc/HandleMove()
