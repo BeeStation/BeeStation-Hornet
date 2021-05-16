@@ -1121,6 +1121,7 @@
 	ADD_TRAIT(H, TRAIT_NOBREATH, "synth_trait")
 	ADD_TRAIT(H, TRAIT_NOLIMBDISABLE, "synth_trait")
 	ADD_TRAIT(H, TRAIT_NOHUNGER, "synth_trait")
+	H.dna.species.punchdamage = 14
 	if(!(MOB_ROBOTIC in H.mob_biotypes))
 		H.mob_biotypes += MOB_ROBOTIC
 		if(MOB_ORGANIC in H.mob_biotypes)
