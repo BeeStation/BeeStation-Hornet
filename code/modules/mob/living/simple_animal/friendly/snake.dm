@@ -32,9 +32,21 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
+<<<<<<< refs/remotes/BeeStation/master
+<<<<<<< refs/remotes/BeeStation/master
 	chat_color = "#26F55A"
+=======
+	mobsay_color = "#26F55A"
+>>>>>>> update
+=======
+	chat_color = "#26F55A"
+>>>>>>> update
 	poison_per_bite = 3
 	poison_type = /datum/reagent/toxin/venom
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+	head_icon = 'icons/mob/pets_held.dmi'
+	held_state = "snake"
 
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
