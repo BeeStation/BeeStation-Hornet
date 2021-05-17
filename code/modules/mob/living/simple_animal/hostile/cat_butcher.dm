@@ -36,6 +36,9 @@
 	del_on_death = TRUE
 	hardattacks = TRUE
 	dodging = TRUE
+	move_force = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_VERY_STRONG
+	pull_force = MOVE_FORCE_VERY_STRONG
 	lose_patience_timeout = 50//very impatient, moves from target to target frequently
 	var/list/victims = list()
 
@@ -62,7 +65,10 @@
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
 			if(L.is_conscious())
 				L.emote("scream")
-			L.gain_trauma(/datum/brain_trauma/severe/pacifism, TRAUMA_RESILIENCE_BASIC)
+			if(victims.Find(L) || !L.mind)//this is mostly to avoid neurine-filled catgirls from giving him many free instant heals
+				L.gain_trauma(/datum/brain_trauma/severe/pacifism, TRAUMA_RESILIENCE_SURGERY)
+			else
+				L.gain_trauma(/datum/brain_trauma/severe/pacifism, TRAUMA_RESILIENCE_BASIC)
 			newvictim(L)
 		else if(L.stat) //quickly heal them up and move on to our next target!
 			healvictim(L)
