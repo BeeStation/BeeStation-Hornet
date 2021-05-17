@@ -176,7 +176,7 @@
 
 //I will ensure that wearing this will warent a sufficient beating to take it off again
 /obj/item/clothing/head/chungus
-	name = "chungus hat"
+	name = "Chungus hat"
 	desc = "Made with mercury, asbestos, LSD and love."
 	icon_state = "bigchungushead"
 	armor = list("melee" = -80, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 0)
@@ -184,7 +184,7 @@
 	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/suit/chungus
-	name = "chungus suit"
+	name = "Chungus suit"
 	desc = "Is it from Donk? The Syndicate? You won't know, but then again you won't know anything after you get your head smashed in for wearing this."
 	icon_state = "chungus"
 	armor = list("melee" = -80, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 0)
