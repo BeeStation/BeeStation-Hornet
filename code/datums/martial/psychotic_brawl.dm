@@ -41,7 +41,7 @@
 				A.setDir(i)
 				playsound(A.loc, pick('sound/weapons/punch1.ogg', 'sound/weapons/genhit.ogg', 'sound/weapons/slap.ogg', 'sound/effects/meteorimpact.ogg'), 15, 1, -1)
 				stoplag(1)
-			var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
+			var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new()
 			R.cast(RANGE_TURFS(1,A))
 		if(5)
 			var/obj/item/I = D.get_active_held_item()
