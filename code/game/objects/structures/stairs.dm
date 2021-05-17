@@ -17,19 +17,6 @@
 	var/turf/listeningTo
 
 
-/obj/structure/stairs/north
-	dir = NORTH
-
-/obj/structure/stairs/south
-	dir = SOUTH
-
-/obj/structure/stairs/east
-	dir = EAST
-
-/obj/structure/stairs/west
-	dir = WEST
-
-
 /obj/structure/stairs/Initialize(mapload)
 	if(force_open_above)
 		force_open_above()
