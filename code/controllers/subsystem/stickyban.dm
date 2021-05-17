@@ -144,6 +144,8 @@ SUBSYSTEM_DEF(stickyban)
 
 
 /datum/controller/subsystem/stickyban/proc/import_raw_stickyban_to_db(ckey, list/ban)
+	if(!ckey || ckey == "")
+		return FALSE
 	. = FALSE
 	if (!ban["admin"])
 		ban["admin"] = "LEGACY"
