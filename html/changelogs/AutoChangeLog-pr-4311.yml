@@ -1,0 +1,4 @@
+author: francinum
+delete-after: true
+changes:
+  - server: Minor logging change to the ban system. No end-user effects.
