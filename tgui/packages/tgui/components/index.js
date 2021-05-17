@@ -29,6 +29,7 @@ export { NoticeBox } from './NoticeBox';
 export { NumberInput } from './NumberInput';
 export { ProgressBar } from './ProgressBar';
 export { ScrollableBox } from './ScrollableBox';
+export { Popper } from './Popper';
 export { Section } from './Section';
 export { Slider } from './Slider';
 export { Stack } from './Stack';
