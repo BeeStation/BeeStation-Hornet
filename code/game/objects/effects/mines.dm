@@ -133,7 +133,7 @@
 	s.start()
 	mineEffect(victim)
 	triggered = 1
-	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, triggerer)
+	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, victim)
 	qdel(src)
 
 /obj/effect/mine/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir)
