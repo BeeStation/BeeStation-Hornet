@@ -18,6 +18,9 @@
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 				continue
 
+			if ( ( data[ "donor" ] && istype( data[ "donor" ], /mob/living/simple_animal/mouse ) ) && islizard( L ) )
+				continue
+
 			if((method == TOUCH || method == VAPOR) && (D.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
 				L.ContactContractDisease(D)
 			else //ingest, patch or inject
@@ -564,7 +567,7 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/moth
 	taste_description = "clothing"
-	
+
 /datum/reagent/mutationtoxin/apid
 	name = "Apid Mutation Toxin"
 	description = "A sweet-smelling toxin."
@@ -629,7 +632,7 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/ipc
 	taste_description = "silicon and copper"
-	
+
 /datum/reagent/mutationtoxin/ethereal
 	name = "Ethereal Mutation Toxin"
 	description = "A positively electric toxin."
