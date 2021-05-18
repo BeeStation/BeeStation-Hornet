@@ -168,3 +168,6 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "asteroid"
 	tiled_dirt = FALSE
+
+/turf/open/floor/holofloor/dark
+	icon_state = "darkfull"
