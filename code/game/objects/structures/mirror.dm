@@ -8,6 +8,7 @@
 	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
+	flags_ricochet = RICOCHET_SHINY
 
 /obj/structure/mirror/Initialize(mapload)
 	. = ..()
