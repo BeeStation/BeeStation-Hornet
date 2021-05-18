@@ -247,12 +247,12 @@
 /obj/item/clothing/suit/armor/tdome/holosuit/red
 	desc = "Reddish armor."
 	icon_state = "tdred"
-	inhand_icon_state = "tdred"
+	item_state = "tdred"
 
 /obj/item/clothing/suit/armor/tdome/holosuit/green
 	desc = "Pukish armor."
 	icon_state = "tdgreen"
-	inhand_icon_state = "tdgreen"
+	item_state = "tdgreen"
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
