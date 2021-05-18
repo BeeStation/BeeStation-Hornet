@@ -9,6 +9,7 @@
 	hijack_speed = 0.5
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
+	var/list/pantheon = list()
 	var/total_sacrifices = 0
 	var/ascended = FALSE
 
@@ -280,3 +281,16 @@
 		return FALSE
 	var/datum/antagonist/heretic/cultie = owner.has_antag_datum(/datum/antagonist/heretic)
 	return cultie?.ascended
+
+//////////////
+// Pantheon //
+//////////////
+
+/datum/antagonist/heretic/proc/gain_deity(deity_id)
+	if(has_deity(deity_id))
+		return FALSE
+	pantheon[deity_id] = TRUE
+	return TRUE
+
+/datum/antagonist/heretic/proc/has_deity(deity_id)
+	return pantheon[deity_id]
