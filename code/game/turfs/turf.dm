@@ -128,6 +128,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
+	
+	vis_contents.Cut()
 
 /turf/attack_hand(mob/user)
 	. = ..()
@@ -460,7 +462,13 @@ GLOBAL_LIST_EMPTY(station_turfs)
 				var/atom/movable/movable_thing = atom_thing
 				if(!movable_thing.ex_check(explosion_id))
 					continue
-			atom_thing.ex_act(severity, target)
+				switch(severity)
+					if(EXPLODE_DEVASTATE)
+						SSexplosions.high_mov_atom += movable_thing
+					if(EXPLODE_HEAVY)
+						SSexplosions.med_mov_atom += movable_thing
+					if(EXPLODE_LIGHT)
+						SSexplosions.low_mov_atom += movable_thing
 
 /turf/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)

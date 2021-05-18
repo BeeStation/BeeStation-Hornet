@@ -130,7 +130,7 @@
 		"<span class='notice'>You lean on the back of [src] and start pushing the door open. (this will take about [DisplayTimeText(breakout_time)].)</span>", \
 		"<span class='italics'>You hear a metallic creaking from [src].</span>")
 	if(do_after(user,(breakout_time), target = src))
-		if(!user || user.stat != CONSCIOUS || user.loc != src || state_open)
+		if(!user || !user.is_conscious() || user.loc != src || state_open)
 			return
 		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \
 			"<span class='notice'>You successfully break out of [src]!</span>")
@@ -197,7 +197,7 @@
 		return FALSE
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if(istype(H.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(H.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(H, "<span class ='userdanger'>Your trusty tinfoil hat shorts out the implant as it plunges into your skull!</span>")
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 75)
 			H.emote("scream")

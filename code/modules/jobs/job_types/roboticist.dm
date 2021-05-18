@@ -21,6 +21,7 @@
 	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
+	departments = DEPARTMENT_SCIENCE
 
 /datum/outfit/job/roboticist
 	name = "Roboticist"
@@ -36,4 +37,4 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
 
-	pda_slot = SLOT_L_STORE
+	pda_slot = ITEM_SLOT_LPOCKET

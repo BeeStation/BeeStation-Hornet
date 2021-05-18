@@ -2,7 +2,7 @@
 
 /datum/gear/accessory
 	subtype_path = /datum/gear/accessory
-	slot = SLOT_NECK
+	slot = ITEM_SLOT_NECK
 	sort_category = "Accessories"
 
 /datum/gear/accessory/scarf
@@ -99,19 +99,19 @@
 
 /datum/gear/accessory/eyepatch
 	display_name = "eyepatch"
-	slot = SLOT_GLASSES
+	slot = ITEM_SLOT_EYES
 	path = /obj/item/clothing/glasses/eyepatch
 	cost = 1200
 
 /datum/gear/accessory/monocle
 	display_name = "monocle"
-	slot = SLOT_GLASSES
+	slot = ITEM_SLOT_EYES
 	path = /obj/item/clothing/glasses/monocle
 	cost = 1200
 
 /datum/gear/accessory/glasses
 	display_name = "prescription glasses"
-	slot = SLOT_GLASSES
+	slot = ITEM_SLOT_EYES
 	path = /obj/item/clothing/glasses/regular
 	cost = 3000
 

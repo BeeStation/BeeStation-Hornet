@@ -10,7 +10,7 @@
 
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
 	. = ..()
-	if(slot == SLOT_GLOVES)
+	if(slot == ITEM_SLOT_GLOVES)
 		if(user.mind?.assigned_role == "Assistant")
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "assistant_insulated_gloves", /datum/mood_event/assistant_insulated_gloves)
 		if(user.mind?.assigned_role in GLOB.security_positions)
@@ -72,7 +72,7 @@
 
 /obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
 	. = ..()
-	if(slot == SLOT_GLOVES)
+	if(slot == ITEM_SLOT_GLOVES)
 		if(user.mind?.assigned_role in GLOB.security_positions)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
 
@@ -208,7 +208,7 @@
 
 /obj/item/clothing/gloves/color/latex/equipped(mob/user, slot)
 	..()
-	if(slot == SLOT_GLOVES)
+	if(slot == ITEM_SLOT_GLOVES)
 		ADD_TRAIT(user, carrytrait, CLOTHING_TRAIT)
 
 /obj/item/clothing/gloves/color/latex/dropped(mob/user)

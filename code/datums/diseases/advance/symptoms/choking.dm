@@ -37,7 +37,6 @@ Bonus
 	. = ..()
 	if(A.properties["transmittable"] >= 8)
 		severity += 1
-	return..()
 
 /datum/symptom/asphyxiation/Start(datum/disease/advance/A)
 	if(!..())

@@ -48,7 +48,7 @@
 	else //something wrong
 		name = "[initial(name)]"
 	update_icon()
-	if(user.get_item_by_slot(SLOT_BACK) == src)
+	if(user.get_item_by_slot(ITEM_SLOT_BACK) == src)
 		user.update_inv_back()
 	else
 		user.update_inv_hands()
@@ -192,15 +192,14 @@
 	. = ..()
 
 /obj/item/twohanded/required/equipped(mob/user, slot)
-	..()
-	var/slotbit = slotdefine2slotbit(slot)
-	if(slot_flags & slotbit)
+	. = ..()
+	if(slot_flags & slot)
 		var/datum/O = user.is_holding_item_of_type(/obj/item/twohanded/offhand)
 		if(!O || QDELETED(O))
 			return
 		qdel(O)
 		return
-	if(slot == SLOT_HANDS)
+	if(slot == ITEM_SLOT_HANDS)
 		wield(user)
 	else
 		unwield(user)
@@ -514,6 +513,7 @@
 		throwforce = 21
 		icon_prefix = "spearplasma"
 	update_icon()
+	parts_list -= tip
 	qdel(tip)
 	var/obj/item/grenade/G = locate() in parts_list
 	if(G)
@@ -732,7 +732,7 @@
 		var/mob/living/L = AM
 		if(istype (L, /mob/living/simple_animal/hostile/illusion))
 			return
-		if(!L.stat && prob(50))
+		if(L.is_conscious() && prob(50))
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
 			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)

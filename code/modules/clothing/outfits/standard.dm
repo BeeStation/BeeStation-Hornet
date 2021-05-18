@@ -1,3 +1,26 @@
+/datum/outfit/debug //Debug objs plus hardsuit
+	name = "Debug outfit"
+	uniform = /obj/item/clothing/under/misc/patriotsuit
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	mask = /obj/item/clothing/mask/gas/welding/up
+	gloves = /obj/item/clothing/gloves/combat
+	belt = /obj/item/storage/belt/utility/chief/full
+	shoes = /obj/item/clothing/shoes/magboots/advance
+	id = /obj/item/card/id/ert
+	suit_store = /obj/item/tank/internals/oxygen
+	internals_slot = ITEM_SLOT_SUITSTORE
+	glasses = /obj/item/clothing/glasses/meson/night
+	ears = /obj/item/radio/headset/headset_cent/commander
+	box = /obj/item/storage/box/debugtools
+	back = /obj/item/storage/backpack/holding
+	backpack_contents = list(/obj/item/flashlight/emp/debug=1,\
+		/obj/item/gun/magic/wand/resurrection/debug=1,\
+		/obj/item/melee/transforming/energy/axe=1,\
+		/obj/item/storage/part_replacer/bluespace/tier4=1,\
+		/obj/item/debug/human_spawner=1,\
+		/obj/item/debug/omnitool=1
+		)
+
 /datum/outfit/space
 	name = "Standard Space Gear"
 
@@ -245,6 +268,25 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id
 
+/datum/outfit/chungus
+	name = "Chungus"
+
+
+	uniform = /obj/item/clothing/under/color/grey
+	suit = /obj/item/clothing/suit/chungus
+	head = /obj/item/clothing/head/chungus
+	shoes = /obj/item/clothing/shoes/sneakers/black
+	ears = /obj/item/radio/headset
+	back = /obj/item/storage/backpack
+	id = /obj/item/card/id
+
+/datum/outfit/chungus/post_equip(mob/living/carbon/human/H, visualsOnly)
+	var/obj/item/card/id/W = H.wear_id
+	W.access += ACCESS_MAINT_TUNNELS
+	W.assignment = "Rabbit from reddit"
+	W.registered_name = "Big Chungus"
+	W.update_label()
+
 /datum/outfit/admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
@@ -434,7 +476,7 @@
 		/obj/item/radio=1,\
 		/obj/item/twohanded/required/chainsaw/energy/doom=1,\
 		/obj/item/gun/ballistic/automatic/sniper_rifle=1,\
-		/obj/item/gun/grenadelauncher=1,\
+		/obj/item/gun/grenadelauncher/security=1,\
 		/obj/item/gun/ballistic/automatic/ar=1)
 
 /datum/outfit/chrono_agent
@@ -455,25 +497,4 @@
 	id = /obj/item/card/id/job/clown
 	ears = /obj/item/radio/headset/headset_srv
 
-/datum/outfit/debug //Debug objs plus hardsuit
-	name = "Debug outfit"
-	uniform = /obj/item/clothing/under/misc/patriotsuit
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
-	mask = /obj/item/clothing/mask/gas/welding/up
-	gloves = /obj/item/clothing/gloves/combat
-	belt = /obj/item/storage/belt/utility/chief/full
-	shoes = /obj/item/clothing/shoes/magboots/advance
-	id = /obj/item/card/id/ert
-	suit_store = /obj/item/tank/internals/oxygen
-	internals_slot = SLOT_S_STORE
-	glasses = /obj/item/clothing/glasses/meson/night
-	ears = /obj/item/radio/headset/headset_cent/commander
-	box = /obj/item/storage/box/debugtools
-	back = /obj/item/storage/backpack/holding
-	backpack_contents = list(/obj/item/flashlight/emp/debug=1,\
-		/obj/item/gun/magic/wand/resurrection/debug=1,\
-		/obj/item/melee/transforming/energy/axe=1,\
-		/obj/item/storage/part_replacer/bluespace/tier4=1,\
-		/obj/item/debug/human_spawner=1,\
-		/obj/item/debug/omnitool=1
-		)
+

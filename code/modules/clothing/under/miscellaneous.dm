@@ -150,3 +150,18 @@
 	item_color = "durathread"
 	can_adjust = FALSE
 	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/clothing/under/gangster
+	name = "gangstar suit"
+	desc = "Those who carry on the will of those who passed must keep moving forward."
+	icon_state = "gangster"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/gangster/purple
+	desc = "I have a dream."
+	icon_state = "gangster_p"
+	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)

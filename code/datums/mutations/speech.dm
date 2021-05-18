@@ -73,7 +73,6 @@
 		message = " [message] "
 		//Time for a friendly game of SS13
 		message = replacetext(message," stupid "," smart ")
-		message = replacetext(message," retard "," genius ")
 		message = replacetext(message," unrobust "," robust ")
 		message = replacetext(message," dumb "," smart ")
 		message = replacetext(message," awful "," great ")
@@ -183,30 +182,33 @@
 
 /datum/mutation/human/chav/proc/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]
-	if(message)
-		message = " [message] "
-		message = replacetext(message," looking at  ","  gawpin' at ")
-		message = replacetext(message," great "," bangin' ")
-		message = replacetext(message," man "," mate ")
-		message = replacetext(message," friend ",pick(" mate "," bruv "," bledrin "))
-		message = replacetext(message," what "," wot ")
-		message = replacetext(message," drink "," wet ")
-		message = replacetext(message," get "," giz ")
-		message = replacetext(message," what "," wot ")
-		message = replacetext(message," no thanks "," wuddent fukken do one ")
-		message = replacetext(message," i don't know "," wot mate ")
-		message = replacetext(message," no "," naw ")
-		message = replacetext(message," robust "," chin ")
-		message = replacetext(message,"  hi  "," how what how ")
-		message = replacetext(message," hello "," sup bruv ")
-		message = replacetext(message," kill "," bang ")
-		message = replacetext(message," murder "," bang ")
-		message = replacetext(message," windows "," windies ")
-		message = replacetext(message," window "," windy ")
-		message = replacetext(message," break "," do ")
-		message = replacetext(message," your "," yer ")
-		message = replacetext(message," security "," coppers ")
-		speech_args[SPEECH_MESSAGE] = trim(message)
+	if(message[1] != "*")
+		message = " [message]"
+		var/list/whole_words = strings("british_talk.json", "words")
+		var/list/british_sounds = strings("british_talk.json", "sounds")
+		var/list/british_appends = strings("british_talk.json", "appends")
+
+		for(var/key in whole_words)
+			var/value = whole_words[key]
+			if(islist(value))
+				value = pick(value)
+
+			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
+			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
+			message = replacetextEx(message, " [key]", " [value]")
+
+		for(var/key in british_sounds)
+			var/value = british_sounds[key]
+			if(islist(value))
+				value = pick(value)
+
+			message = replacetextEx(message, "[uppertext(key)]", "[uppertext(value)]")
+			message = replacetextEx(message, "[capitalize(key)]", "[capitalize(value)]")
+			message = replacetextEx(message, "[key]", "[value]")
+
+		if(prob(8))
+			message += pick(british_appends)
+	speech_args[SPEECH_MESSAGE] = trim(message)
 
 
 /datum/mutation/human/elvis

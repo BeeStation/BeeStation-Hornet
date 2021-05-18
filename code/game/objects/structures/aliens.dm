@@ -316,7 +316,7 @@
 			return
 
 		var/mob/living/carbon/C = AM
-		if(C.stat == CONSCIOUS && C.getorgan(/obj/item/organ/body_egg/alien_embryo))
+		if(C.is_conscious() && C.getorgan(/obj/item/organ/body_egg/alien_embryo))
 			return
 
 		Burst(kill=FALSE)
@@ -328,6 +328,12 @@
 /obj/structure/alien/egg/burst
 	status = BURST
 	icon_state = "egg_hatched"
+
+/obj/structure/alien/egg/troll
+
+/obj/structure/alien/egg/troll/finish_bursting(kill = TRUE)
+	qdel(child)
+	new /obj/item/paper/troll(get_turf(src))
 
 #undef BURST
 #undef GROWING

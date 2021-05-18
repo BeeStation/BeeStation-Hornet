@@ -117,7 +117,7 @@ PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
 
 ## Creates issues when NO_INTERCEPT_REPORT is enabled
-PROBABILITY EXTENDED 0 
+PROBABILITY EXTENDED 0
 
 ## You probably want to keep sandbox off by default for secret and random.
 PROBABILITY SANDBOX 0
@@ -322,7 +322,7 @@ ALLOW_AI_MULTICAM
 
 ## Secborg ###
 ## Uncomment to prevent the security cyborg module from being chosen
-#DISABLE_SECBORG
+DISABLE_SECBORG
 
 ## Peacekeeper Borg ###
 ## Uncomment to prevent the peacekeeper cyborg module from being chosen
@@ -585,7 +585,7 @@ MICE_ROUNDSTART 10
 #EMERGENCY_SHUTTLE_AUTOCALL_THRESHOLD 0.2
 
 ## Determines if players are allowed to print integrated circuits, uncomment to allow.
-IC_PRINTING
+@IC_PRINTING 0
 
 ## Uncomment to allow roundstart quirk selection in the character setup menu.
 ## This used to be named traits, hence the config name, but it handles quirks, not the other kind of trait!
@@ -624,6 +624,8 @@ MAX_SLIMEPERSON_BODIES 10
 ## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
 #RESTRICTED_SUICIDE
 
+## Uncomment to enable donator items in the cosmetic shop. Only works if a patreon list has been setup
+DONATOR_ITEMS
 
 ## Bluespace Miners.
 
@@ -632,3 +634,6 @@ ROUNDSTART_BLUESPACE_MINERS 2
 
 ## Enable the bluespace miner research node?
 #BSMINER_RESEARCHABLE
+
+## Do we want all the heads to get codes to spare safe, or just one highest in CoC?
+#SPARE_ENFORCE_COC

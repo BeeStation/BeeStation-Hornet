@@ -320,9 +320,8 @@
 	if(!W.mob_can_equip(src, null, slot, disable_warning, bypass_equip_delay_self))
 		if(qdel_on_fail)
 			qdel(W)
-		else
-			if(!disable_warning)
-				to_chat(src, "<span class='warning'>You are unable to equip that!</span>")
+		else if(!disable_warning)
+			to_chat(src, "<span class='warning'>You are unable to equip that!</span>")
 		return FALSE
 	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
 	return TRUE
@@ -363,14 +362,14 @@
 
 	if(!slot_priority)
 		slot_priority = list( \
-			SLOT_BACK, SLOT_WEAR_ID,\
-			SLOT_W_UNIFORM, SLOT_WEAR_SUIT,\
-			SLOT_WEAR_MASK, SLOT_HEAD, SLOT_NECK,\
-			SLOT_SHOES, SLOT_GLOVES,\
-			SLOT_EARS, SLOT_GLASSES,\
-			SLOT_BELT, SLOT_S_STORE,\
-			SLOT_L_STORE, SLOT_R_STORE,\
-			SLOT_GENERC_DEXTROUS_STORAGE\
+			ITEM_SLOT_BACK, ITEM_SLOT_ID,\
+			ITEM_SLOT_ICLOTHING, ITEM_SLOT_OCLOTHING,\
+			ITEM_SLOT_MASK, ITEM_SLOT_HEAD, ITEM_SLOT_NECK,\
+			ITEM_SLOT_FEET, ITEM_SLOT_GLOVES,\
+			ITEM_SLOT_EARS, ITEM_SLOT_EYES,\
+			ITEM_SLOT_BELT, ITEM_SLOT_SUITSTORE,\
+			ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET,\
+			ITEM_SLOT_DEX_STORAGE\
 		)
 
 	for(var/slot in slot_priority)
@@ -1218,3 +1217,10 @@
 // Returns TRUE if the hearer should hear radio noises
 /mob/proc/hears_radio()
 	return TRUE
+
+/mob/proc/set_stat(new_stat)
+	if(new_stat == stat)
+		return
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
+	. = stat
+	stat = new_stat

@@ -166,7 +166,7 @@
 			if(nanites && nanites.cloud_id != cloud_id)
 				change_cloud(attacker)
 			return
-		if((MOB_ORGANIC in L.mob_biotypes) || (MOB_UNDEAD in L.mob_biotypes))
+		if((MOB_ORGANIC in L.mob_biotypes) || (MOB_UNDEAD in L.mob_biotypes) || HAS_TRAIT(L, TRAIT_NANITECOMPATIBLE))
 			inject_nanites(attacker)
 
 /obj/machinery/public_nanite_chamber/open_machine()

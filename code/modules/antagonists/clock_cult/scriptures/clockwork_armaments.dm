@@ -8,7 +8,7 @@
 	button_icon_state = "clockwork_armor"
 	power_cost = 150
 	invokation_time = 20
-	invokation_text = list("Through courage and hope...", "...we shall protect thee!")
+	invokation_text = list("Through courage and hope...", "we shall protect thee!")
 	category = SPELLTYPE_PRESERVATION
 	cogs_required = 0
 

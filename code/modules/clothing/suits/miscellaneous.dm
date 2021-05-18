@@ -28,6 +28,32 @@
 	allowed = list (/obj/item/gun/energy/laser/redtag)
 	resistance_flags = NONE
 
+// Aristocrat Coats
+
+/obj/item/clothing/suit/aristo_orange
+	name = "orange aristocrat coat"
+	desc = "A fancy coat made of silk. This one is orange."
+	icon_state = "aristo_orange"
+	item_state = "aristo_orange"
+
+/obj/item/clothing/suit/aristo_red
+	name = "red aristocrat coat"
+	desc = "A fancy coat made of silk. This one is red."
+	icon_state = "aristo_red"
+	item_state = "aristo_red"
+
+/obj/item/clothing/suit/aristo_brown
+	name = "brown aristocrat coat"
+	desc = "A fancy coat made of silk. This one is brown."
+	icon_state = "aristo_brown"
+	item_state = "aristo_brown"
+
+/obj/item/clothing/suit/aristo_blue
+	name = "blue aristocrat coat"
+	desc = "A fancy coat made of silk. This one is blue."
+	icon_state = "aristo_blue"
+	item_state = "aristo_blue"
+
 /*
  * Costume
  */
@@ -38,6 +64,15 @@
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
 	hoodtype = /obj/item/clothing/head/hooded/flashsuit
+
+/obj/item/clothing/suit/hooded/hastur
+	name = "\improper Hastur's robe"
+	desc = "Robes not meant to be worn by man."
+	icon_state = "hastur"
+	item_state = "hastur"
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	hoodtype = /obj/item/clothing/head/hooded/hasturhood
 
 /obj/item/clothing/head/hooded/flashsuit
 	name = "flash button"
@@ -139,6 +174,52 @@
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
+//I will ensure that wearing this will warent a sufficient beating to take it off again
+/obj/item/clothing/head/chungus
+	name = "chungus hat"
+	desc = "Made with mercury, asbestos, LSD and love."
+	icon_state = "bigchungushead"
+	armor = list("melee" = -80, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 0)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	clothing_flags = SNUG_FIT
+
+/obj/item/clothing/suit/chungus
+	name = "chungus suit"
+	desc = "Is it from Donk? The Syndicate? You won't know, but then again you won't know anything after you get your head smashed in for wearing this."
+	icon_state = "chungus"
+	armor = list("melee" = -80, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 0, "acid" = 100 ,"stamina" = 0)
+	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET
+	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	var/static/list/datum/brain_trauma/chunguslist = list(
+		/datum/brain_trauma/severe/discoordination,
+		/datum/brain_trauma/mild/stuttering,
+		/datum/brain_trauma/mild/dumbness,
+		/datum/brain_trauma/mild/speech_impediment,
+		/datum/brain_trauma/mild/expressive_aphasia
+		)
+	var/list/datum/brain_trauma/storedtraumas = list()
+/*
+/obj/item/clothing/suit/chungus/Initialize()
+	. = ..()
+	//var/list/datum/brain_trauma/storedtraumas = list()
+*/
+/obj/item/clothing/suit/chungus/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(slot == ITEM_SLOT_OCLOTHING)
+			for(var/i = 1 to length(chunguslist))
+				var/newtrauma = chunguslist[i]
+				storedtraumas += new newtrauma
+			for(var/datum/brain_trauma/trauma in storedtraumas)
+				H.gain_trauma(trauma, TRAUMA_RESILIENCE_ABSOLUTE)
+
+/obj/item/clothing/suit/chungus/dropped(mob/user)
+	. = ..()
+	for(var/datum/brain_trauma/trauma in storedtraumas)
+		qdel(trauma)
+	storedtraumas = list()
+
 
 /obj/item/clothing/suit/monkeysuit
 	name = "monkey suit"
@@ -178,7 +259,7 @@
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(slot == SLOT_WEAR_SUIT)
+	if(slot == ITEM_SLOT_OCLOTHING)
 		disguise(user)
 
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user)
@@ -260,9 +341,17 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHAIR|HIDEEARS
 
+/obj/item/clothing/head/hooded/hasturhood
+	name = "hastur's hood"
+	desc = "It's <i>unspeakably</i> stylish."
+	icon_state = "hasturhood"
+	body_parts_covered = HEAD
+	flags_inv = HIDEHAIR
+	flags_cover = HEADCOVERSEYES
+
 /obj/item/clothing/head/hooded/carp_hood/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if (slot == SLOT_HEAD)
+	if (slot == ITEM_SLOT_HEAD)
 		user.faction |= "carp"
 
 /obj/item/clothing/head/hooded/carp_hood/dropped(mob/living/carbon/human/user)
@@ -342,6 +431,32 @@
 	icon_state = "officertanjacket"
 	item_state = "officertanjacket"
 	body_parts_covered = CHEST|ARMS
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/clothing/suit/delinquent
+	name = "deliquent jacket"
+	desc = "Yare yare daze."
+	icon_state = "jocoat"
+
+/obj/item/clothing/suit/madsci
+	name = "mad scientist labcoat"
+	desc = "El psy congroo."
+	icon_state = "madsci"
+
+/obj/item/clothing/suit/hooded/renault_costume
+	name = "renault costume"
+	desc = "The cutest pair of pajamas you've ever seen."
+	icon_state = "renault_suit"
+	hoodtype = /obj/item/clothing/head/hooded/renault_hood
+
+/obj/item/clothing/head/hooded/renault_hood
+	name = "renault hoodie"
+	desc = "An adorable hoodie vaguely resembling renault."
+	icon_state = "renault_hoodie"
+	flags_inv = HIDEEARS
 
 /*
  * Misc
@@ -628,6 +743,72 @@
 
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
+
+//Old winter coats
+
+/obj/item/clothing/suit/hooded/wintercoat/old
+	name = "nostalgic winter coat"
+	desc = "A well-worn heavy jacket made from 'synthetic' animal furs."
+	icon_state = "old_coatwinter"
+
+/obj/item/clothing/head/hooded/winterhood/old
+	name = "winter hood"
+	desc = "An old hood attached to a well-worn heavy winter jacket."
+	icon_state = "old_winterhood"
+
+/obj/item/clothing/suit/hooded/wintercoat/security/old
+	name = "nostalgic security winter coat"
+	icon_state = "old_coatsecurity"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/old
+
+/obj/item/clothing/suit/hooded/wintercoat/security/old/Initialize()
+	. = ..()
+	allowed = GLOB.security_wintercoat_allowed
+
+/obj/item/clothing/head/hooded/winterhood/security/old
+	icon_state = "old_winterhood_security"
+
+/obj/item/clothing/suit/hooded/wintercoat/medical/old
+	name = "nostalgic medical winter coat"
+	icon_state = "old_coatmedical"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical/old
+
+/obj/item/clothing/head/hooded/winterhood/medical/old
+	icon_state = "old_winterhood_medical"
+
+/obj/item/clothing/suit/hooded/wintercoat/science/old
+	name = "nostalgic science winter coat"
+	icon_state = "old_coatscience"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/old
+
+/obj/item/clothing/head/hooded/winterhood/science/old
+	icon_state = "old_winterhood_science"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/old
+	name = "nostalgic engineering winter coat"
+	icon_state = "old_coatengineer"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/old
+
+/obj/item/clothing/head/hooded/winterhood/engineering/old
+	icon_state = "old_winterhood_engineer"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old
+	name = "nostalgic atmospherics winter coat"
+	icon_state = "old_coatatmos"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
+
+/obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
+	icon_state = "old_winterhood_atmos"
+
+/obj/item/clothing/suit/hooded/wintercoat/hydro/old
+	name = "nostalgic hydroponics winter coat"
+	icon_state = "old_coathydro"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/hydro/old
+
+/obj/item/clothing/head/hooded/winterhood/hydro/old
+	icon_state = "old_winterhood_hydro"
+
+//end of winter coats
 
 /obj/item/clothing/suit/spookyghost
 	name = "spooky ghost"

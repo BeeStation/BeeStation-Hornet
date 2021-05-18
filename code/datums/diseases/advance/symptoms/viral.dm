@@ -65,7 +65,7 @@ Bonus
 //////////////////////////////////////
 */
 
-/datum/symptom/viralreverse		
+/datum/symptom/viralreverse
 
 	name = "Viral aggressive metabolism"
 	desc = "The virus sacrifices its long term survivability to nearly instantly fully spread inside a host. \
@@ -79,8 +79,8 @@ Bonus
 	symptom_delay_max = 1
 	var/time_to_cure
 	threshold_desc = "<b>Resistance/Stage Speed:</b> Highest between these determines the amount of time before self-curing.<br>\
-					  <b>Stealth 4</b> Doubles the time before the virus self-cures"	
-	
+					  <b>Stealth 4</b> Doubles the time before the virus self-cures"
+
 
 /datum/symptom/viralreverse/Activate(datum/disease/advance/A)
 	if(!..())
@@ -95,7 +95,7 @@ Bonus
 	A.stage -= 1
 	if(A.stage < 2)
 		to_chat(M, "<span class='notice'>You suddenly feel healthy.</span>")
-		A.cure()
+		A.cure(FALSE) //Doesn't Add Resistance. Virology can now make potions for stuff, be it healing the senses or making people explode
 
 /datum/symptom/viralreverse/Start(datum/disease/advance/A)
 	if(!..())

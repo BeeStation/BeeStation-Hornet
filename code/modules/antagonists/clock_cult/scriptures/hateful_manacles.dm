@@ -8,7 +8,7 @@
 	button_icon_state = "Hateful Manacles"
 	power_cost = 25
 	invokation_time = 15
-	invokation_text = list("Shackle the heretic...", "...Break them in body and spirit!")
+	invokation_text = list("Shackle the heretic...", "Break them in body and spirit!")
 	slab_overlay = "hateful_manacles"
 	use_time = 200
 	cogs_required = 0
@@ -32,6 +32,7 @@
 			return FALSE
 		M.handcuffed = new /obj/item/restraints/handcuffs/clockwork(M)
 		M.update_handcuffed()
+		log_combat(invoker, M, "handcuffed")
 		return TRUE
 	return FALSE
 

@@ -66,6 +66,13 @@
 	AddSpell(reagent_purge)
 	linked_abscond = new
 	AddSpell(linked_abscond)
+	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
+
+/mob/living/simple_animal/eminence/Destroy()
+	. = ..()
+	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
+	if(beacon)
+		qdel(beacon)
 
 /mob/living/simple_animal/eminence/Login()
 	. = ..()

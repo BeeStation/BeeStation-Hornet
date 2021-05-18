@@ -27,6 +27,7 @@
 	pull_force = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 | HEAR_1
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	hardattacks = TRUE
 	var/list/crusher_loot
@@ -60,12 +61,9 @@
 		for(var/i = 1 to nest_range)
 			closest = get_step(closest, get_dir(closest, src))
 		forceMove(closest) // someone teleported out probably and the megafauna kept chasing them
-		target = null
+		LoseTarget()
 		return
 	return ..()
-
-/mob/living/simple_animal/hostile/megafauna/prevent_content_explosion()
-	return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/death(gibbed, var/list/force_grant)
 	if(health > 0)
@@ -163,16 +161,15 @@
 	name = "Megafauna Attack"
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
 	button_icon_state = ""
-	var/mob/living/simple_animal/hostile/megafauna/M
 	var/chosen_message
 	var/chosen_attack_num = 0
 
 /datum/action/innate/megafauna_attack/Grant(mob/living/L)
-	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
-		M = L
-		return ..()
-	return FALSE
+	if(!ismegafauna(L))
+		return FALSE
+	return ..()
 
 /datum/action/innate/megafauna_attack/Activate()
-	M.chosen_attack = chosen_attack_num
-	to_chat(M, chosen_message)
+	var/mob/living/simple_animal/hostile/megafauna/fauna = owner
+	fauna.chosen_attack = chosen_attack_num
+	to_chat(fauna, chosen_message)

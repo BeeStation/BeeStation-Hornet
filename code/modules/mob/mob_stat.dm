@@ -5,6 +5,7 @@
 	var/stat_update_time = 0
 	var/selected_stat_tab = "Status"
 	var/list/previous_stat_tabs
+	var/last_adminhelp_reply = 0
 
 /*
  * Overrideable proc which gets the stat content for the selected tab.
@@ -44,6 +45,26 @@
 			for(var/i in GLOB.sdql2_queries)
 				var/datum/SDQL2_query/Q = i
 				tab_data += Q.generate_stat()
+		// ===== ADMIN PMS =====
+		if("(!) Admin PM")
+			client.stat_update_mode = STAT_MEDIUM_UPDATE
+			var/datum/admin_help/ticket = client.current_ticket
+			tab_data["ckey"] = key_name(client, FALSE, FALSE)
+			tab_data["admin_name"] = key_name(ticket.claimed_admin, FALSE, FALSE)
+			//Messages:
+			tab_data["messages"] = list()
+			for(var/datum/ticket_interaction/message as() in ticket._interactions)
+				//Only non-private messages have safe users.
+				//Only admins can see adminbus logs.
+				if(message.from_user_safe && message.to_user_safe)
+					var/list/msg = list(
+						"time" = message.time_stamp,
+						"color" = message.message_color,
+						"from" = message.from_user_safe,
+						"to" = message.to_user_safe,
+						"message" = message.message
+					)
+					tab_data["messages"] += list(msg)
 		else
 			// ===== NON CONSTANT TABS (Tab names which can change) =====
 			// ===== LISTEDS TURFS =====
@@ -168,6 +189,10 @@
 	var/list/tabs = list(
 		"Status",
 	)
+	//Get Tickets
+	if(client.current_ticket)
+		//Bwoinks come after status
+		tabs += "(!) Admin PM"
 	//Listed turfs
 	if(listed_turf && client)
 		if(!TurfAdjacent(listed_turf))
@@ -254,6 +279,17 @@
 			var/datum/SDQL2_query/query = sdqlQueryByID(text2num(query_id))
 			if(query)
 				query.action_click()
+		if("ticket_message")
+			var/message = sanitize(params["msg"])
+			if(message)
+				if(world.time > client.last_adminhelp_reply + 10 SECONDS)
+					client.last_adminhelp_reply = world.time
+					if(client.current_ticket)
+						client.current_ticket.MessageNoRecipient(message)
+					else
+						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
+				else
+					to_chat(src, "<span class='warning'>You are sending messages too fast!</span>")
 
 /*
  * Sets the current stat tab selected.

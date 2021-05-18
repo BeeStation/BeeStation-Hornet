@@ -61,7 +61,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_WEAR_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
+	if(slot == ITEM_SLOT_OCLOTHING) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return TRUE
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/SetDisguise(datum/icon_snapshot/entry)
@@ -348,7 +348,7 @@
 		if(QDELETED(G))
 			return
 
-		if(istype(C.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='warning'>Your target seems to have some sort of protective headgear on, blocking the message from being sent!</span>")
 			return
 
@@ -507,7 +507,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
-	if(istype(L.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		to_chat(user, "<span class='warning'>The specimen's protective headgear is interfering with the baton's stun function!</span>")
 		L.visible_message("<span class='danger'>[user] tried to stun [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>You feel a slight tickle where [src] touches you!</span>")
@@ -528,7 +528,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/abductor/baton/proc/SleepAttack(mob/living/L,mob/living/user)
 	if(L.incapacitated(TRUE, TRUE))
-		if(istype(L.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='warning'>The specimen's protective headgear is interfering with the sleep inducement!</span>")
 			L.visible_message("<span class='danger'>[user] tried to induced sleep in [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>You feel a strange wave of heavy drowsiness wash over you, but your headgear deflects most of it!</span>")
@@ -540,7 +540,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		L.Sleeping(1200)
 		log_combat(user, L, "put to sleep")
 	else
-		if(istype(L.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='warning'>The specimen's protective headgear is completely blocking our sleep inducement methods!</span>")
 			L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src], but [L.p_their()] headgear completely protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>Any sense of drowsiness is quickly diminished as your headgear deflects the effects!</span>")

@@ -64,6 +64,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/beacon_cooldown = 0
 	var/list/pocket_dim
 	var/transforming = FALSE
+	var/can_use_abilities = TRUE
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, theme, guardiancolor)
 	GLOB.parasites += src

@@ -71,6 +71,9 @@
 	var/list/learned_recipes //List of learned recipe TYPES.
 	var/list/crew_objectives = list()
 
+	/// A lazy list of statuses to add next to this mind in the traitor panel
+	var/list/special_statuses
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src
@@ -84,6 +87,7 @@
 			if(antag_datum.delete_on_mind_deletion)
 				qdel(i)
 		antag_datums = null
+	QDEL_NULL(language_holder)
 	return ..()
 
 /datum/mind/proc/get_language_holder()
@@ -99,7 +103,7 @@
 
 	if(key)
 		if(new_character.key != key)					//if we're transferring into a body with a key associated which is not ours
-			new_character.ghostize(1)						//we'll need to ghostize so that key isn't mobless.
+			new_character.ghostize(TRUE,SENTIENCE_ERASE)						//we'll need to ghostize so that key isn't mobless.
 	else
 		key = new_character.key
 
@@ -329,7 +333,7 @@
 		SSticker.mode.add_cultist(src)
 
 	else if(is_servant_of_ratvar(creator))
-		add_servant_of_ratvar(src)
+		add_servant_of_ratvar(current)
 
 	else if(is_revolutionary(creator))
 		var/datum/antagonist/rev/converter = creator.mind.has_antag_datum(/datum/antagonist/rev,TRUE)
@@ -685,6 +689,11 @@
 	if(G)
 		G.reenter_corpse()
 
+/// Sets our can_hijack to the fastest speed our antag datums allow.
+/datum/mind/proc/get_hijack_speed()
+	. = 0
+	for(var/datum/antagonist/A in antag_datums)
+		. = max(., A.hijack_speed())
 
 /datum/mind/proc/has_objective(objective_type)
 	for(var/datum/antagonist/A in antag_datums)
