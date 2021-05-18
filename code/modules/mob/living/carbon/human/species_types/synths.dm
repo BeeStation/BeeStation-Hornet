@@ -16,7 +16,6 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	species_language_holder = /datum/language_holder/synthetic
 
-
 /datum/species/synth/New()
 	initial_species_traits = species_traits.Copy()
 	initial_inherent_traits = inherent_traits.Copy()
