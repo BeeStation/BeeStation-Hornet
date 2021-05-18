@@ -582,7 +582,7 @@ Takes: Area type as text string or as typepath OR an instance of the area.
 
 Returns: A list of all areas of that type in the world.
 */
-/proc/get_areas(areatype, subtypes=TRUE)
+/proc/get_areas(areatype, target_z = 0, subtypes=TRUE)
 	if(istext(areatype))
 		areatype = text2path(areatype)
 	else if(isarea(areatype))
@@ -597,12 +597,14 @@ Returns: A list of all areas of that type in the world.
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
 			if(cache[A.type])
-				areas += V
+				if(target_z == 0 || A.z == target_z)
+					areas += V
 	else
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
 			if(A.type == areatype)
-				areas += V
+				if(target_z == 0 || A.z == target_z)
+					areas += V
 	return areas
 
 /**
