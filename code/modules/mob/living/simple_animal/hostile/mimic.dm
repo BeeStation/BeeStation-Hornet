@@ -35,7 +35,7 @@
 	attacktext = "bites"
 	speak_emote = list("clatters")
 	stop_automated_movement = 1
-	wander = 0
+	wander = FALSE
 	var/attempt_open = FALSE
 
 // Pickup loot
