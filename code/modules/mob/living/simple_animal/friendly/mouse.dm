@@ -38,7 +38,7 @@
 	icon_state = "mouse_[body_color]"
 	icon_living = "mouse_[body_color]"
 	icon_dead = "mouse_[body_color]_dead"
-	if(prob(75))
+	if(prob(100))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, rand(3,4))
 		ratdisease += R
 
@@ -58,11 +58,11 @@
 	death()
 
 /mob/living/simple_animal/mouse/death(gibbed, toast)
-	var/list/data = list("donor" = src, "viruses" = ratdisease)
 	if(!ckey)
 		..(1)
 		if(!gibbed)
 			var/obj/item/reagent_containers/food/snacks/deadmouse/M = new(loc)
+			var/list/data = list("donor" = M, "viruses" = ratdisease) // Need the object on the donor so we can track its foodtype for disease checks later 
 			M.icon_state = icon_dead
 			M.name = name
 			M.reagents.add_reagent(/datum/reagent/blood, 2, data)
