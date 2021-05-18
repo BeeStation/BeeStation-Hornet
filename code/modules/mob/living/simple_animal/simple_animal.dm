@@ -71,7 +71,7 @@
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
-	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	var/del_on_death = FALSE //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/deathmessage = ""
 
 	var/allow_movement_on_non_turfs = FALSE
