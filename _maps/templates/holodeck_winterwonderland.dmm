@@ -115,7 +115,7 @@
 /turf/open/floor/holofloor/snow,
 /area/template_noop)
 "S" = (
-/obj/item/hatchet/wooden{
+/obj/item/hatchet{
 	pixel_x = 7;
 	pixel_y = -8
 	},

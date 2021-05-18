@@ -3,81 +3,81 @@
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "b" = (
-/obj/structure/chess/blackbishop,
+/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "g" = (
-/obj/structure/chess/whitepawn,
+/obj/item/cardboard_cutout/adaptive/chess/pawn,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "o" = (
-/obj/structure/chess/whitebishop,
+/obj/item/cardboard_cutout/adaptive/chess/bishop,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "q" = (
-/obj/structure/chess/blackrook,
+/obj/item/cardboard_cutout/adaptive/chess/black/rook,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "r" = (
-/obj/structure/chess/blackpawn,
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "s" = (
-/obj/structure/chess/whiterook,
+/obj/item/cardboard_cutout/adaptive/chess/rook,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "u" = (
-/obj/structure/chess/whiteknight,
+/obj/item/cardboard_cutout/adaptive/chess/knight,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "y" = (
-/obj/structure/chess/blackbishop,
+/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "z" = (
-/obj/structure/chess/whiterook,
+/obj/item/cardboard_cutout/adaptive/chess/rook,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "A" = (
-/obj/structure/chess/blackpawn,
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "G" = (
-/obj/structure/chess/whiteknight,
+/obj/item/cardboard_cutout/adaptive/chess/knight,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "H" = (
-/obj/structure/chess/whiteking,
+/obj/item/cardboard_cutout/adaptive/chess/king,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "L" = (
-/obj/structure/chess/blackknight,
+/obj/item/cardboard_cutout/adaptive/chess/black/knight,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "M" = (
-/obj/structure/chess/blackking,
+/obj/item/cardboard_cutout/adaptive/chess/black/king,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "N" = (
-/obj/structure/chess/whitepawn,
+/obj/item/cardboard_cutout/adaptive/chess/pawn,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "O" = (
-/obj/structure/chess/blackknight,
+/obj/item/cardboard_cutout/adaptive/chess/black/knight,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
@@ -86,13 +86,13 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "U" = (
-/obj/structure/chess/whitebishop,
+/obj/item/cardboard_cutout/adaptive/chess/bishop,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},
 /area/template_noop)
 "V" = (
-/obj/structure/chess/blackrook,
+/obj/item/cardboard_cutout/adaptive/chess/black/rook,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "X" = (
@@ -101,11 +101,11 @@
 	},
 /area/template_noop)
 "Y" = (
-/obj/structure/chess/blackqueen,
+/obj/item/cardboard_cutout/adaptive/chess/black/queen,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "Z" = (
-/obj/structure/chess/whitequeen,
+/obj/item/cardboard_cutout/adaptive/chess/queen,
 /turf/open/floor/holofloor{
 	icon_state = "white"
 	},

@@ -110,10 +110,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/item/training_toolbox{
-	pixel_y = 4
-	},
-/obj/item/training_toolbox,
 /turf/open/floor/holofloor,
 /area/template_noop)
 "F" = (
@@ -197,12 +193,6 @@
 "Q" = (
 /turf/open/floor/holofloor,
 /area/template_noop)
-"S" = (
-/obj/structure/training_machine,
-/turf/open/floor/holofloor{
-	icon_state = "white"
-	},
-/area/template_noop)
 "T" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -285,7 +275,7 @@ N
 "}
 (5,1,1) = {"
 Y
-S
+K
 K
 Q
 Q

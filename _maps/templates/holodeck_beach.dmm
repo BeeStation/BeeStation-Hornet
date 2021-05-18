@@ -32,10 +32,6 @@
 "J" = (
 /turf/open/floor/holofloor/beach/coast_t,
 /area/template_noop)
-"M" = (
-/obj/item/toy/seashell,
-/turf/open/floor/holofloor/beach,
-/area/template_noop)
 "Q" = (
 /mob/living/simple_animal/crab{
 	name = "Jon"
@@ -43,10 +39,6 @@
 /turf/open/floor/holofloor/beach/coast_t,
 /area/template_noop)
 "R" = (
-/turf/open/floor/holofloor/beach,
-/area/template_noop)
-"S" = (
-/obj/structure/fluff/beach_umbrella/cap,
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "T" = (
@@ -81,7 +73,7 @@ R
 R
 X
 R
-S
+R
 R
 Q
 k
@@ -154,7 +146,7 @@ R
 R
 H
 R
-M
+R
 J
 k
 a

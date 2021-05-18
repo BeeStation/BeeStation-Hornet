@@ -8,9 +8,9 @@
 /area/template_noop)
 "g" = (
 /obj/structure/easel,
-/obj/item/canvas/twentythree_twentythree,
-/obj/item/canvas/twentythree_twentythree,
-/obj/item/canvas/twentythree_twentythree,
+/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythreeXtwentythree,
+/obj/item/canvas/twentythreeXtwentythree,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "r" = (

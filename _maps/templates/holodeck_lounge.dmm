@@ -160,7 +160,7 @@
 /area/template_noop)
 "D" = (
 /obj/structure/table/wood,
-/obj/item/kirbyplants{
+/obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-05";
 	pixel_y = 10
 	},
@@ -235,7 +235,7 @@
 /area/template_noop)
 "N" = (
 /obj/structure/table/wood,
-/obj/item/instrument/piano_synth/headphones,
+/obj/item/instrument/piano_synth,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "O" = (
@@ -303,7 +303,7 @@
 	},
 /area/template_noop)
 "Z" = (
-/obj/structure/musician/piano{
+/obj/structure/piano{
 	icon_state = "piano"
 	},
 /turf/open/floor/holofloor/carpet,
