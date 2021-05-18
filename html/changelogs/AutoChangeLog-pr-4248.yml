@@ -1,6 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - rscdel: Removed janitor's PDA locator due to performance issues.
-  - tweak: Emergency maint access is now limited to station z level.
-  - refactor: Removed some in world loops
