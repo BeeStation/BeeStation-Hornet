@@ -50,10 +50,10 @@
 				D.visible_message("<span class='warning'>[A] takes [D]'s [I]!</span>", "<span class='userdanger'>[A] snatches the [I] from your hands!!</span>")
 			else
 				D.visible_message("<span class='warning'>[A] shoves [D]!</span>", "<span class='userdanger'>[A] shoves you to the ground!</span>")
-				if(!(D.mobility_flags & MOBILITY_STAND))
-					D.Paralyze(40)
-				else
+				if(D.mobility_flags & MOBILITY_STAND)
 					D.Knockdown(20)
+				else
+					D.Paralyze(40)
 			atk_verb = "disarms"
 			playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
