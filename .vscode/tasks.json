@@ -26,12 +26,12 @@
 		},
 		{
 			"type": "dreammaker",
-			"dme": "tgstation.dme",
+			"dme": "beestation.dme",
 			"problemMatcher": [
 				"$dreammaker"
 			],
 			"group": "build",
-			"label": "dm: build - tgstation.dme"
+			"label": "dm: build - beestation.dme"
 		},
 		{
 			"type": "shell",
