@@ -6903,7 +6903,6 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/starboard/fore)
 "aqy" = (
-/obj/structure/closet/emcloset,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
 	},
@@ -7891,11 +7890,11 @@
 /turf/open/floor/plating,
 /area/crew_quarters/fitness)
 "auC" = (
-/obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
+/obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "auD" = (
@@ -8454,7 +8453,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "awE" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
@@ -8815,6 +8813,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
 	},
+/obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "ayb" = (
@@ -104132,7 +104131,7 @@ auA
 avD
 axZ
 aqy
-aqA
+anf
 anf
 awE
 aHY
@@ -104385,9 +104384,9 @@ aaf
 aaf
 aaf
 aag
-alP
-alP
-nvp
+apC
+apC
+apC
 apC
 apC
 apC
