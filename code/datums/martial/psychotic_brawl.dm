@@ -61,12 +61,12 @@
 			playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 			D.visible_message("<span class='warning'>[A] shoves [D] with great force!</span>", "<span class='userdanger'>[A] shoves you to the ground!</span>")
-			if(!(D.mobility_flags & MOBILITY_STAND))
-				D.Paralyze(20)
-			else
+			if(D.mobility_flags & MOBILITY_STAND)
 				var/throwtarget = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))
 				D.throw_at(throwtarget, 2, 2, A)
 				D.Knockdown(10)
+			else
+				D.Paralyze(20)
 			atk_verb = "shoves"
 	if(atk_verb)
 		log_combat(A, D, "[atk_verb] (Psychotic Brawling)")
