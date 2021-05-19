@@ -690,9 +690,10 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				var/turf/T = get_turf(L)
 				if(!T || !is_station_level(T.z))
 					continue
-				if((L in GLOB.player_list) || L.mind || (L.flags_1 & HOLOGRAM_1))
+				if(L.mind || (L.flags_1 & HOLOGRAM_1))
 					continue
 				L.set_playable()
+				CHECK_TICK
 
 		if("flipmovement")
 			if(!check_rights(R_FUN))
