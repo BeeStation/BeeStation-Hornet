@@ -48,6 +48,7 @@
 			ban["admin_matches_this_round"] = list()
 			ban["pending_matches_this_round"] = list()
 			SSstickyban.cache[ckey] = ban
+			GLOB.isbanned_cache = list()
 
 			log_admin_private("[key_name(usr)] has stickybanned [ckey].\nReason: [ban["message"]]")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has stickybanned [ckey].\nReason: [ban["message"]]</span>")
@@ -80,6 +81,7 @@
 
 			log_admin_private("[key_name(usr)] removed [ckey]'s stickyban")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] removed [ckey]'s stickyban</span>")
+			GLOB.isbanned_cache = list()
 
 		if ("remove_alt")
 			if (!data["ckey"])
