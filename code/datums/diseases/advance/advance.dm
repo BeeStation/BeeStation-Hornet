@@ -230,7 +230,7 @@
 		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
 		cure_chance = 15 - CLAMP(properties["resistance"], -5, 5) // can be between 10 and 20
 		stage_prob = max(properties["stage_rate"], 2)
-		SetSeverity(properties["severity"])
+		SetDanger(properties["severity"])
 		GenerateCure(properties)
 	else
 		CRASH("Our properties were empty or null!")
@@ -262,28 +262,28 @@
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
 				spread_text = "Airborne"
 
-/datum/disease/advance/proc/SetSeverity(level_sev)
+/datum/disease/advance/proc/SetDanger(level_sev)
 	switch(level_sev)
 		if(-INFINITY to -2)
-			severity = DISEASE_SEVERITY_BENEFICIAL
+			danger = DISEASE_BENEFICIAL
 		if(-1)
-			severity = DISEASE_SEVERITY_POSITIVE
+			danger = DISEASE_POSITIVE
 		if(0)
-			severity = DISEASE_SEVERITY_NONTHREAT
+			danger = DISEASE_NONTHREAT
 		if(1)
-			severity = DISEASE_SEVERITY_MINOR
+			danger = DISEASE_MINOR
 		if(2)
-			severity = DISEASE_SEVERITY_MEDIUM
+			danger = DISEASE_MEDIUM
 		if(3)
-			severity = DISEASE_SEVERITY_HARMFUL
+			danger = DISEASE_HARMFUL
 		if(4)
-			severity = DISEASE_SEVERITY_DANGEROUS
+			danger = DISEASE_DANGEROUS
 		if(5)
-			severity = DISEASE_SEVERITY_BIOHAZARD
+			danger = DISEASE_BIOHAZARD
 		if(6 to INFINITY)
-			severity = DISEASE_SEVERITY_PANDEMIC
+			danger = DISEASE_PANDEMIC
 		else
-			severity = "Unknown"
+			danger = "Unknown"
 
 /datum/disease/advance/proc/CheckChannel() //i hate that i have to  use this to make this work
 	switch(properties["severity"])

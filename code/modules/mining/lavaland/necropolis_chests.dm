@@ -20,7 +20,7 @@
 			new /obj/item/disk/design_disk/modkit_disc/resonator_blast(src)  //Doubled chance to receive upgrade disk that is directly relevant to mining
 		if(3 to 4)
 			new /obj/item/disk/design_disk/modkit_disc/rapid_repeater(src)
-		if(5 to 6)	
+		if(5 to 6)
 			new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
 		if(7 to 8)
 			new /obj/item/disk/design_disk/modkit_disc/bounty(src)
@@ -676,7 +676,7 @@
 
 /obj/structure/closet/crate/necropolis/legion
 	name = "legion chest"
-	
+
 /obj/structure/closet/crate/necropolis/legion/PopulateContents()
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 	var/random_crystal = pick(choices)
@@ -687,7 +687,7 @@
 
 /obj/structure/closet/crate/necropolis/bdm
 	name = "blood-drunk miner chest"
-	
+
 /obj/structure/closet/crate/necropolis/bdm/PopulateContents()
 	new /obj/item/melee/transforming/cleaving_saw(src)
 	new /obj/effect/spawner/lootdrop/megafaunaore(src)
@@ -928,7 +928,7 @@
 	agent = "dragon's blood"
 	desc = "What do dragons have to do with Space Station 13?"
 	stage_prob = 20
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("Your bones ache.")
 	stage2	= list("Your skin feels scaly.")
@@ -1092,11 +1092,11 @@
 
 /obj/structure/closet/crate/necropolis/hierophant
 	name = "hierophant chest"
-	
+
 /obj/structure/closet/crate/necropolis/hierophant/PopulateContents()
 	new /obj/item/hierophant_club(src)
 	new /obj/effect/spawner/lootdrop/megafaunaore(src)
-	
+
 /obj/item/hierophant_club
 	name = "hierophant club"
 	desc = "The strange technology of this large club allows various nigh-magical feats. It used to beat you, but now you can set the beat."

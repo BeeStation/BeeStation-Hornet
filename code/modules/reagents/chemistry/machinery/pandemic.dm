@@ -93,7 +93,7 @@
 		this["description"] = D.desc || "none"
 		this["spread"] = D.spread_text || "none"
 		this["cure"] = D.cure_text || "none"
-		this["severity"] = D.severity || "none"
+		this["danger"] = D.danger || "none"
 
 		. += list(this)
 
