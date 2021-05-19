@@ -240,7 +240,7 @@
 
 /obj/item/clothing/suit/armor/tdome/holosuit
 	name = "thunderdome suit"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	cold_protection = null
 	heat_protection = null
 
