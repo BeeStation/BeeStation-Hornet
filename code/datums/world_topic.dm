@@ -103,6 +103,7 @@
 	if(CHAT_FILTER_CHECK(input["message"])) // prevents any.. diplomatic incidents
 		minor_announce("In the interest of station productivity and mental hygiene, a message from [input["message_sender"]] was intercepted by the CCC and determined to be unfit for crew-level access.", "CentCom Communications Commission")
 		message_admins("Incomming cross-comms message from [input["message_sender"]] blocked: [input["message"]]")
+		log_admin("Incomming cross-comms message from [input["message_sender"]] blocked: [input["message"]]")
 		return
 	minor_announce(input["message"], "Incoming message from [input["message_sender"]]")
 	for(var/obj/machinery/computer/communications/CM in GLOB.machines)
