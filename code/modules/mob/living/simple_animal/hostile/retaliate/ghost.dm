@@ -16,7 +16,7 @@
 	maxHealth = 40
 	health = 40
 	melee_damage = 15
-	del_on_death = 1
+	del_on_death = TRUE
 	emote_see = list("weeps silently", "groans", "mumbles")
 	attacktext = "grips"
 	attack_sound = 'sound/hallucinations/growl1.ogg'

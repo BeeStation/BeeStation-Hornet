@@ -244,6 +244,7 @@
 /mob/living/simple_animal/hostile/nanotrasen/hugbox
 	loot = list(/obj/effect/gibspawner/human)//no gamer gear, sorry!
 	mobchatspan = "headofsecurity"
+	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/zombie/hugbox
 	melee_damage = 12 //zombies have a base of 21, a bit much
@@ -355,7 +356,7 @@
 	color = RUNE_COLOR_SUMMON
 	for(var/mob/living/carbon/C in hearers(10, src))
 		C.Stun(350, ignore_canstun = TRUE)
-	priority_announce("Figments of an elder god have been detected in your sector. Exercise extreme caution, and abide by the 'buddy system' at all times.","Central Command Higher Dimensional Affairs", 'sound/ai/spanomalies.ogg')
+	priority_announce("Figments of an elder god have been detected in your sector. Exercise extreme caution, and abide by the 'buddy system' at all times.","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
 	message_admins("A dangerous cluwne rune was invoked at [AREACOORD(src)][ADMIN_COORDJMP(src)]")
 	log_game("A dangerous cluwne rune was invoked at [AREACOORD(src)][ADMIN_COORDJMP(src)]")
 	stoplag(315)

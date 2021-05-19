@@ -240,6 +240,7 @@
 
 /datum/ai_laws/proc/set_laws_config()
 	var/list/law_ids = CONFIG_GET(keyed_list/random_laws)
+
 	switch(CONFIG_GET(number/default_laws))
 		if(0)
 			add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")

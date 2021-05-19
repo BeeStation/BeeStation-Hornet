@@ -6,6 +6,14 @@
 	earliest_start = 10 MINUTES
 	max_occurrences = 6
 
+/datum/round_event_control/carp_migration/New()
+	. = ..()
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_CARP_INFESTATION))
+		return
+	weight *= 3
+	max_occurrences *= 2
+	earliest_start *= 0.5
+
 /datum/round_event/carp_migration
 	announceWhen	= 3
 	startWhen = 50
@@ -25,8 +33,6 @@
 			fish = new (C.loc)
 		else
 			fish = new /mob/living/simple_animal/hostile/carp/megacarp(C.loc)
-			fish.flavor_text = FLAVOR_TEXT_EVIL
-			fish.set_playable()
 
 			fishannounce(fish) //Prefer to announce the megacarps over the regular fishies
 	fishannounce(fish)
