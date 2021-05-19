@@ -1,0 +1,5 @@
+author: ike709
+delete-after: true
+changes:
+  - bugfix: The entire game can no longer be destroyed by an admin attempting to un-possess
+      something when they haven't actually possessed anything first
