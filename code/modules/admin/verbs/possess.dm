@@ -30,7 +30,7 @@
 	set category = "Object"
 	//usr.loc = get_turf(usr)
 	
-	if(isnull(usr.control_object)
+	if(isnull(usr.control_object))
 		to_chat(usr, "<span class='warning'>You do not seem to be possessing an object!</span>")
 		return
 
