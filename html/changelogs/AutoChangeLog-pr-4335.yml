@@ -1,6 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - bugfix: Swarmer beacon and maintenance sec officer's corpses now get properly
-      deleted upon death
-  - code_imp: True/False consistency
