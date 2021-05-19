@@ -1,0 +1,4 @@
+author: Archanial
+delete-after: true
+changes:
+  - admin: Reduced logging after the round.
