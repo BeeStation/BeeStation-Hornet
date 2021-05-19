@@ -16,11 +16,15 @@
 
 /datum/wires/syndicatebomb/on_pulse(wire)
 	var/obj/machinery/syndicatebomb/B = holder
+	if(usr)
+		B.add_fingerprint(usr) // could be from a signaller
 	switch(wire)
 		if(WIRE_BOOM)
 			if(B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
+				message_admins("[key_name_admin(usr)] pulsed live boom wire on syndicate bomb")
+				usr.log_message("pulsed live boom wire on syndicate bomb", LOG_ATTACK)
 				tell_admins(B)
 			else
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] Nothing happens.</span>")
@@ -50,6 +54,7 @@
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] You hear the bomb start ticking!</span>")
 				B.activate()
 				B.update_icon()
+				usr.log_message("activated syndicate bomb via pulsed wire", LOG_ATTACK)
 			else if(B.delayedlittle)
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] Nothing happens.</span>")
 			else
@@ -59,11 +64,13 @@
 
 /datum/wires/syndicatebomb/on_cut(wire, mend)
 	var/obj/machinery/syndicatebomb/B = holder
+	B.add_fingerprint(usr)
 	switch(wire)
 		if(WIRE_BOOM)
 			if(!mend && B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
+				usr.log_message("detonated syndicate bomb via cut boom wire", LOG_ATTACK)
 				tell_admins(B)
 		if(WIRE_UNBOLT)
 			if(!mend && B.anchored)
@@ -73,6 +80,7 @@
 		if(WIRE_PROCEED)
 			if(!mend && B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")
+				usr.log_message("detonated syndicate bomb via cut proceed wire", LOG_ATTACK)
 				B.explode_now = TRUE
 				tell_admins(B)
 		if(WIRE_ACTIVATE)
