@@ -18526,6 +18526,25 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/quartermaster/qm)
+"eWn" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=hall10";
+	location = "hall9"
+	},
+/turf/open/floor/plasteel/dark,
+/area/hallway/primary/starboard)
 "eWI" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/matches,
@@ -35134,8 +35153,8 @@
 	dir = 1
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=hall10";
-	location = "hall9"
+	codes_txt = "patrol;next_patrol=hall11";
+	location = "hall10"
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
@@ -124856,7 +124875,7 @@ qxJ
 qYI
 ddl
 mFB
-tNG
+eWn
 tNG
 moS
 iDL
