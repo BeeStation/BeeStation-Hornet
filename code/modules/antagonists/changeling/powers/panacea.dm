@@ -51,7 +51,7 @@
 				continue
 			if(D in subtypesof(/datum/disease/advance))
 				var/datum/disease/advance/A = D
-				if(A.properties["resistance"] >= 12)
+				if(A.resistance >= 12)
 					continue
 			D.cure(FALSE)
 	return TRUE

@@ -4,7 +4,7 @@
 	stealth = 0
 	resistance = 0
 	stage_speed = 0
-	transmittable = 0
+	transmission = 0
 	level = -1 //not obtainable
 	base_message_chance = 20 //here used for the overlays
 	symptom_delay_min = 1
@@ -16,7 +16,7 @@
 /datum/symptom/heal/Start(datum/disease/advance/A)
 	if(!..())
 		return FALSE
-	if(A.properties["stage_rate"] >= 6) //stronger healing
+	if(A.stage_rate >= 6) //stronger healing
 		power = 2
 	return TRUE //For super calls of subclasses
 
@@ -49,7 +49,7 @@
 	stealth = 0
 	resistance = -2
 	stage_speed = 2
-	transmittable = -2
+	transmission = -2
 	level = 7
 	power = 2
 	var/food_conversion = FALSE
@@ -60,9 +60,9 @@
 /datum/symptom/heal/chem/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 6)
+	if(A.stage_rate >= 6)
 		food_conversion = TRUE
-	if(A.properties["resistance"] >= 7)
+	if(A.resistance >= 7)
 		power = 4
 
 /datum/symptom/heal/chem/Heal(mob/living/M, datum/disease/advance/A, actual_power)
@@ -80,7 +80,7 @@
 	stealth = 0
 	resistance = 2
 	stage_speed = -3
-	transmittable = -3
+	transmission = -3
 	level = 8
 	severity = -2
 	passive_message = "<span class='notice'>The pain from your wounds makes you feel oddly sleepy.</span>"
@@ -94,11 +94,11 @@
 /datum/symptom/heal/coma/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 7)
+	if(A.stage_rate >= 7)
 		power = 1.5
-	if(A.properties["resistance"] >= 4)
+	if(A.resistance >= 4)
 		stabilize = TRUE
-	if(A.properties["stealth"] >= 2)
+	if(A.stealth >= 2)
 		deathgasp = TRUE
 
 /datum/symptom/heal/coma/on_stage_change(new_stage, datum/disease/advance/A)  //mostly copy+pasted from the code for self-respiration's TRAIT_NOBREATH stuff
@@ -178,7 +178,7 @@
 	stealth = -1
 	resistance = -2
 	stage_speed = -2
-	transmittable = 0
+	transmission = 0
 	severity = -1
 	level = 6
 	passive_message = "<span class='notice'>Your skin tingles.</span>"
@@ -191,9 +191,9 @@
 /datum/symptom/heal/surface/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 8) //stronger healing
+	if(A.stage_rate >= 8) //stronger healing
 		power = 2
-	if(A.properties["resistance"] >= 10)
+	if(A.resistance >= 10)
 		threshhold = 30
 
 /datum/symptom/heal/surface/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
@@ -229,7 +229,7 @@
 	stealth = -1
 	resistance = -2
 	stage_speed = 2
-	transmittable = 1
+	transmission = 1
 	level = 4
 	var/triple_metabolism = FALSE
 	var/reduced_hunger = FALSE
@@ -241,9 +241,9 @@
 /datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 10)
+	if(A.stage_rate >= 10)
 		triple_metabolism = TRUE
-	if(A.properties["stealth"] >= 3)
+	if(A.stealth >= 3)
 		reduced_hunger = TRUE
 
 /datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
@@ -272,7 +272,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	stealth = 0
 	resistance = -1
 	stage_speed = -1
-	transmittable = -2
+	transmission = -2
 	level = 6
 	severity = 2
 	symptom_delay_min = 15
@@ -284,17 +284,17 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/EMP/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stealth"] >= 2) //if you combine this with pituitary disruption, you have the two most downside-heavy symptoms available
+	if(A.stealth >= 2) //if you combine this with pituitary disruption, you have the two most downside-heavy symptoms available
 		severity -= 1
-	if(A.properties["transmittable"] >= 8)
+	if(A.transmission >= 8)
 		severity += 1
 
 /datum/symptom/EMP/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 2)
+	if(A.stealth >= 2)
 		cellheal = TRUE
-	if(A.properties["transmittable"] >= 8)
+	if(A.transmission >= 8)
 		bigemp = TRUE
 
 /datum/symptom/EMP/Activate(datum/disease/advance/A)
@@ -320,7 +320,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	stealth = 1
 	resistance = -1
 	stage_speed = 0
-	transmittable = 1
+	transmission = 1
 	level = 6
 	severity = 1
 	symptom_delay_min = 10
@@ -334,17 +334,17 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/sweat/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 6)
+	if(A.transmission >= 6)
 		severity -= 1
 
 /datum/symptom/sweat/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 6)
+	if(A.transmission >= 6)
 		toxheal = TRUE
-	if(A.properties["transmittable"] >= 4)
+	if(A.transmission >= 4)
 		bigsweat = TRUE
-	if(A.properties["stage_rate"] >= 6)
+	if(A.stage_rate >= 6)
 		ammonia = TRUE
 
 /datum/symptom/sweat/Activate(datum/disease/advance/A)
@@ -391,7 +391,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	stealth = 1
 	resistance = 2
 	stage_speed = -2
-	transmittable = -3
+	transmission = -3
 	level = 8
 	severity = 0
 	symptom_delay_min = 1
@@ -405,17 +405,17 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/teleport/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 6)
+	if(A.resistance >= 6)
 		severity -= 1
-		if(A.properties["transmittable"] >= 8)
+		if(A.transmission >= 8)
 			severity -= 1
 
 /datum/symptom/teleport/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 6)
+	if(A.resistance >= 6)
 		burnheal = TRUE
-	if(A.properties["transmittable"] >= 8)
+	if(A.transmission >= 8)
 		telethreshold = -10
 		power = 2
 
@@ -452,7 +452,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	stealth = -3
 	resistance = -2
 	stage_speed = 1
-	transmittable = -2
+	transmission = -2
 	level = 7
 	severity = 1
 	symptom_delay_min = 1
@@ -467,22 +467,22 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/growth/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stage_rate"] >= 6)
+	if(A.stage_rate >= 6)
 		severity -= 1
-	if(A.properties["stage_rate"] >= 12)
-		severity += 3
+		if(A.stage_rate >= 12)
+			severity += 3
 
 /datum/symptom/growth/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 6)
+	if(A.stage_rate >= 6)
 		bruteheal = TRUE
-	if(A.properties["stage_rate"] >= 12)
-		tetsuo = TRUE
-		power = 3 //should make this symptom actually worth it
+		if(A.stage_rate >= 12)
+			tetsuo = TRUE
+			power = 3 //should make this symptom actually worth it
 	var/mob/living/carbon/M = A.affected_mob
 	ownermind = M.mind
-	sizemult = CLAMP((0.5 + A.properties["stage_rate"] / 10), 1.1, 2.5)
+	sizemult = CLAMP((0.5 + A.stage_rate / 10), 1.1, 2.5)
 	M.resize = sizemult
 	M.update_transform()
 

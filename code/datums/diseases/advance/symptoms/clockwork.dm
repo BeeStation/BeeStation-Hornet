@@ -4,7 +4,7 @@
 	stealth = 0
 	resistance = 1
 	stage_speed = 4 //while the reference material has low speed, this virus will take a good while to completely convert someone
-	transmittable = -1
+	transmission = -1
 	level = 9
 	severity = 0
 	symptom_delay_min = 10
@@ -21,21 +21,21 @@
 
 /datum/symptom/robotic_adaptation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stage_rate"] >= 5) //at base level, robotic organs are purely a liability
+	if(A.stage_rate >= 5) //at base level, robotic organs are purely a liability
 		severity += 1
-	if(A.properties["stage_rate"] >= 10)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
-		severity += 1 //at this stage, even one EMP will hurt, a lot.
-	if(A.properties["stage_rate"] >= 13)//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
-		severity -= 3//net benefits: 2 damage reduction, flight if you have wings, filter out low amounts of gas, durable ears, flash protection, a liver half as good as an upgraded cyberliver, and flight if you are a winged species
+		if(A.stage_rate >= 10)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
+			severity += 1 //at this stage, even one EMP will hurt, a lot.
+			if(A.stage_rate >= 13)//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
+				severity -= 3//net benefits: 2 damage reduction, flight if you have wings, filter out low amounts of gas, durable ears, flash protection, a liver half as good as an upgraded cyberliver, and flight if you are a winged species
 
 /datum/symptom/robotic_adaptation/Start(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stage_rate"] >= 4)
+	if(A.stage_rate >= 4)
 		replaceorgans = TRUE
-	if(A.properties["stage_rate"] >= 10)
-		replacebody = TRUE
-	if(A.properties["stage_rate"] >= 14)
-		robustbits = TRUE //note that having this symptom means most healing symptoms won't work on you
+		if(A.stage_rate >= 10)
+			replacebody = TRUE
+			if(A.stage_rate >= 14)
+				robustbits = TRUE //note that having this symptom means most healing symptoms won't work on you
 
 /datum/symptom/robotic_adaptation/Activate(datum/disease/advance/A)
 	if(!..())
