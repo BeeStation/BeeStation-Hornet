@@ -2770,15 +2770,13 @@
 	crate_type = /obj/structure/closet/crate/wooden
 	crate_name = "calligraphy crate"
 
-/datum/supply_pack/costumes_toys/randomised/antiques
+/datum/supply_pack/misc/antiques
 	name = "Antique Crate"
-	desc = "Who cares about pride and accomplishment? Skip the gaming and get straight to the sweet rewards with this product! Contains five random toys. Warranty void if used to prank research directors."
-	cost = 5000
-	num_contained = 3
-	contains = list(/obj/item/artifact,/obj/item/artifact/posessed)
+	desc = "Contains three old, dusty antiques for eager collectors."
+	cost = 2000
+	contains = list(/obj/item/artifact/posessed,/obj/item/artifact/posessed,/obj/item/artifact/posessed)
 	crate_name = "antique crate"
 	crate_type = /obj/structure/closet/crate/wooden
-	group = "Miscellaneous Supplies"
 
 /datum/supply_pack/misc/wrapping_paper
 	name = "Festive Wrapping Paper Crate"

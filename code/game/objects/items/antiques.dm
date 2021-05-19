@@ -24,28 +24,29 @@
 
 /obj/item/artifact/posessed/Initialize()
 	..()
-	deity = rand(1,GODS_MAX)
-	switch (deity)
-		if (GOD_NETHER)
-			godname = "Lobon"
-		if (GOD_SIGHT)
-			godname = "Nath-Horthath"
-		if (GOD_STONE)
-			godname = "Oukranos"
-		if (GOD_CLEANSE)
-			godname = "Tamash"
-		if (GOD_MEND)
-			godname = "Karakal"
-		if (GOD_CAUTERIZE)
-			godname = "D’endrrah"
-		if (GOD_MUTE)
-			godname = "Abhoth"
-		if (GOD_FORCE)
-			godname = "Ialdagorth"
-		if (GOD_PARALIZE)
-			godname = "C'thalpa"
-		if (GOD_ELDRITCH)
-			godname = "Yomagn'tho"
+	if (prob(33))
+		deity = rand(1,GODS_MAX)
+		switch (deity)
+			if (GOD_NETHER)
+				godname = "Lobon"
+			if (GOD_SIGHT)
+				godname = "Nath-Horthath"
+			if (GOD_STONE)
+				godname = "Oukranos"
+			if (GOD_CLEANSE)
+				godname = "Tamash"
+			if (GOD_MEND)
+				godname = "Karakal"
+			if (GOD_CAUTERIZE)
+				godname = "D’endrrah"
+			if (GOD_MUTE)
+				godname = "Abhoth"
+			if (GOD_FORCE)
+				godname = "Ialdagorth"
+			if (GOD_PARALIZE)
+				godname = "C'thalpa"
+			if (GOD_ELDRITCH)
+				godname = "Yomagn'tho"
 
 /obj/item/artifact/examine(mob/user)
 	. = ..()
