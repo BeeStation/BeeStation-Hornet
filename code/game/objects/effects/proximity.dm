@@ -32,8 +32,7 @@
 	host = null
 	last_host_loc = null
 	hasprox_receiver = null
-	if(!isnull(checkers))
-		QDEL_LIST(checkers)
+	QDEL_LIST(checkers)
 	return ..()
 
 /datum/proximity_monitor/proc/HandleMove()
@@ -108,7 +107,7 @@
 		return INITIALIZE_HINT_QDEL
 
 /obj/effect/abstract/proximity_checker/Destroy()
-	LAZYREMOVE(monitor.checkers, src)
+	monitor.checkers -= src
 	monitor = null
 	return ..()
 
