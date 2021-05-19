@@ -45,7 +45,6 @@
 	if(istype(R, /datum/reagent/medicine/synthflesh))
 		R.reaction_mob(H, TOUCH, 2, 0) //heal a little
 		H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
-		return FALSE
 	else
 		H.reagents.del_reagent(R.type) //Not synth flesh? eat shit and die
 	return FALSE
