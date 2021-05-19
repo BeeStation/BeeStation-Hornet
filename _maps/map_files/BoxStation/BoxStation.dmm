@@ -6895,9 +6895,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore/secondary)
-"aqv" = (
-/turf/open/space/basic,
-/area/space/nearstation)
 "aqx" = (
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
@@ -7884,7 +7881,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/maintenance/starboard/fore)
 "auB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -8163,7 +8160,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/maintenance/starboard/fore)
 "avE" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "maint3"
@@ -46823,7 +46820,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/crew_quarters/fitness)
+/area/maintenance/starboard/fore)
 "dZe" = (
 /obj/item/radio/intercom{
 	pixel_y = -29
@@ -57388,9 +57385,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
-"qJz" = (
-/turf/open/space/basic,
-/area/maintenance/starboard/fore)
 "qJW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -60438,10 +60432,6 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
-"uLY" = (
-/obj/structure/lattice,
-/turf/open/space,
-/area/maintenance/starboard/fore)
 "uMd" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
@@ -103099,9 +103089,9 @@ aaa
 aaa
 aaa
 aaa
-aqv
-aqv
-qJz
+aaa
+aaa
+aaa
 arj
 ayb
 azp
@@ -103355,10 +103345,10 @@ aaa
 aaa
 aaa
 aaa
-aqv
-qJz
-qJz
-qJz
+aaa
+aaa
+aaa
+aaa
 arj
 azh
 aAq
@@ -103612,9 +103602,9 @@ aaa
 aaa
 aaa
 aaa
-aqv
-uLY
-uLY
+aaa
+aaf
+aaf
 nvp
 arj
 arj
