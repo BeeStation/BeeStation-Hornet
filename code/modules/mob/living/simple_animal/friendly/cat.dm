@@ -302,6 +302,10 @@
 			if(!D.is_decorated)
 				D.decorate_donut()
 
+/mob/living/simple_animal/pet/cat/mob_pickup(mob/living/L)
+	icon_state = "[icon_living]"
+	. = ..()
+
 /mob/living/simple_animal/pet/cat/cak/attack_hand(mob/living/L)
 	..()
 	if(L.a_intent == INTENT_HARM && L.reagents && !stat)
