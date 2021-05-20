@@ -224,7 +224,7 @@
 	throw_message = "simply misses"
 	speed = 0
 	move_to_delay = 2
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "crumbles away!"
 	faction = list()
 	ranged = FALSE

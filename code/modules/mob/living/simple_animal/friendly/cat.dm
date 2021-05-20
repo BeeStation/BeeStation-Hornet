@@ -32,6 +32,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
 	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "cat2"
 	chat_color = "#FFD586"
 
@@ -317,3 +318,12 @@
 	collar_type = null
 	held_state = "breadcat"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/reagent_containers/food/snacks/breadslice/plain = 1)
+
+/mob/living/simple_animal/pet/cat/halal
+	name = "arabian cat"
+	desc = "It's a cat with Agal on his head."
+	gender = MALE
+	icon_state = "cathalal"
+	icon_living = "cathalal"
+	collar_type = null
+	held_state = "cathalal"

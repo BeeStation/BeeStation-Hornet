@@ -23,6 +23,10 @@
 	chat_color = "#FFA656"
 	mobchatspan = "blob"
 	hardattacks = TRUE//claws
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+	head_icon = 'icons/mob/pets_held.dmi'
+	held_state = "crab"
 
 /mob/living/simple_animal/crab/Life()
 	..()
@@ -59,6 +63,7 @@
 	response_disarm = "shoves"
 	response_harm = "stomps"
 	gold_core_spawnable = HOSTILE_SPAWN
+	held_state = "evilcrab"
 
 /mob/living/simple_animal/crab/kreb
 	name = "Kreb"
