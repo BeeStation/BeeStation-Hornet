@@ -1,0 +1,10 @@
+author: FatCat1978, ninjanomnom, stylemistake, nemvar, Timberpoes, Fikou, TemporalOroboros
+delete-after: true
+changes:
+  - rscadd: The Detective now features a classy and stylish piece of spy equipment.
+      The SpyGlasses offer a remote view of  a linked camera, which can be inconspicuously
+      worn on clothing
+  - bugfix: Makes it possible to wear the spy bug by making it actually an accessory
+      clothing item.
+  - code_imp: Moves out the recursive movement tracker found in the orbiting components
+      to a datum usable by other things

@@ -23,12 +23,14 @@
 	desc = "It's a hamster."
 	icon_state = "hamster"
 	icon_living = "hamster"
+	held_state = "hamster"
 	icon_dead = "hamster_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/hamster = 1)
 	childtype = /mob/living/simple_animal/pet/hamster
 	animal_species = /mob/living/simple_animal/pet/hamster
 	gold_core_spawnable = FRIENDLY_SPAWN
 	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
 	chat_color = "#D3B277"
 
 /mob/living/simple_animal/pet/hamster/vector //now also viro's source of a solitary, shitty starter disease
