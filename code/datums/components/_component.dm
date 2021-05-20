@@ -290,10 +290,10 @@
 		return new_comp
 	return old_comp
 
-/datum/proc/LoadComponent(component_type, ...)
-	. = GetComponent(component_type)
+/datum/proc/_LoadComponent(list/arguments)
+	. = GetComponent(arguments[1])
 	if(!.)
-		_AddComponent(args)
+		return _AddComponent(arguments)
 
 /datum/component/proc/RemoveComponent()
 	if(!parent)
