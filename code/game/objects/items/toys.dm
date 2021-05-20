@@ -662,7 +662,6 @@
 	var/card_throw_range = 7
 	var/list/card_attack_verb = list("attacked")
 	var/card_sharpness
-	var/card_embed_chance = 0
 
 /obj/item/toy/cards/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] wrists with \the [src]! It looks like [user.p_they()] [user.p_have()] a crummy hand!</span>")
@@ -911,10 +910,10 @@
 
 /obj/item/toy/cards/singlecard/apply_card_vars(obj/item/toy/cards/singlecard/newobj,obj/item/toy/cards/sourceobj)
 	..()
-	newobj.card_embed_chance = sourceobj.card_embed_chance
-	newobj.embedding = newobj.embedding.setRating(embed_chance = card_embed_chance)
+	newobj.embedding = sourceobj.embedding
 	newobj.card_sharpness = sourceobj.card_sharpness
-	newobj.sharpness = newobj.card_sharpness
+	newobj.sharpness = sourceobj.card_sharpness
+	newobj.updateEmbedding()
 
 /obj/item/toy/cards/singlecard/examine(mob/user)
 	. = ..()
@@ -1013,7 +1012,7 @@
 	card_force = 5
 	card_throwforce = 12
 	card_throw_speed = 6
-	card_embed_chance = 80
+	embedding = list("pain_mult" = 1, "embed_chance" = 80, "fall_chance" = 0, "embed_chance_turf_mod" = 15) //less painful than throwing stars
 	card_sharpness = IS_SHARP
 	card_throw_range = 7
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
