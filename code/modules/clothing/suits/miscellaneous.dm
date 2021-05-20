@@ -28,6 +28,32 @@
 	allowed = list (/obj/item/gun/energy/laser/redtag)
 	resistance_flags = NONE
 
+// Aristocrat Coats
+
+/obj/item/clothing/suit/aristo_orange
+	name = "orange aristocrat coat"
+	desc = "A fancy coat made of silk. This one is orange."
+	icon_state = "aristo_orange"
+	item_state = "aristo_orange"
+
+/obj/item/clothing/suit/aristo_red
+	name = "red aristocrat coat"
+	desc = "A fancy coat made of silk. This one is red."
+	icon_state = "aristo_red"
+	item_state = "aristo_red"
+
+/obj/item/clothing/suit/aristo_brown
+	name = "brown aristocrat coat"
+	desc = "A fancy coat made of silk. This one is brown."
+	icon_state = "aristo_brown"
+	item_state = "aristo_brown"
+
+/obj/item/clothing/suit/aristo_blue
+	name = "blue aristocrat coat"
+	desc = "A fancy coat made of silk. This one is blue."
+	icon_state = "aristo_blue"
+	item_state = "aristo_blue"
+
 /*
  * Costume
  */
@@ -38,6 +64,15 @@
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
 	hoodtype = /obj/item/clothing/head/hooded/flashsuit
+
+/obj/item/clothing/suit/hooded/hastur
+	name = "\improper Hastur's robe"
+	desc = "Robes not meant to be worn by man."
+	icon_state = "hastur"
+	item_state = "hastur"
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	hoodtype = /obj/item/clothing/head/hooded/hasturhood
 
 /obj/item/clothing/head/hooded/flashsuit
 	name = "flash button"
@@ -259,6 +294,14 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHAIR|HIDEEARS
+
+/obj/item/clothing/head/hooded/hasturhood
+	name = "hastur's hood"
+	desc = "It's <i>unspeakably</i> stylish."
+	icon_state = "hasturhood"
+	body_parts_covered = HEAD
+	flags_inv = HIDEHAIR
+	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/carp_hood/equipped(mob/living/carbon/human/user, slot)
 	..()
@@ -654,6 +697,72 @@
 
 /obj/item/clothing/head/hooded/winterhood/miner
 	icon_state = "winterhood_miner"
+
+//Old winter coats
+
+/obj/item/clothing/suit/hooded/wintercoat/old
+	name = "nostalgic winter coat"
+	desc = "A well-worn heavy jacket made from 'synthetic' animal furs."
+	icon_state = "old_coatwinter"
+
+/obj/item/clothing/head/hooded/winterhood/old
+	name = "winter hood"
+	desc = "An old hood attached to a well-worn heavy winter jacket."
+	icon_state = "old_winterhood"
+
+/obj/item/clothing/suit/hooded/wintercoat/security/old
+	name = "nostalgic security winter coat"
+	icon_state = "old_coatsecurity"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/security/old
+
+/obj/item/clothing/suit/hooded/wintercoat/security/old/Initialize()
+	. = ..()
+	allowed = GLOB.security_wintercoat_allowed
+
+/obj/item/clothing/head/hooded/winterhood/security/old
+	icon_state = "old_winterhood_security"
+
+/obj/item/clothing/suit/hooded/wintercoat/medical/old
+	name = "nostalgic medical winter coat"
+	icon_state = "old_coatmedical"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical/old
+
+/obj/item/clothing/head/hooded/winterhood/medical/old
+	icon_state = "old_winterhood_medical"
+
+/obj/item/clothing/suit/hooded/wintercoat/science/old
+	name = "nostalgic science winter coat"
+	icon_state = "old_coatscience"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/old
+
+/obj/item/clothing/head/hooded/winterhood/science/old
+	icon_state = "old_winterhood_science"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/old
+	name = "nostalgic engineering winter coat"
+	icon_state = "old_coatengineer"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/old
+
+/obj/item/clothing/head/hooded/winterhood/engineering/old
+	icon_state = "old_winterhood_engineer"
+
+/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old
+	name = "nostalgic atmospherics winter coat"
+	icon_state = "old_coatatmos"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
+
+/obj/item/clothing/head/hooded/winterhood/engineering/atmos/old
+	icon_state = "old_winterhood_atmos"
+
+/obj/item/clothing/suit/hooded/wintercoat/hydro/old
+	name = "nostalgic hydroponics winter coat"
+	icon_state = "old_coathydro"
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/hydro/old
+
+/obj/item/clothing/head/hooded/winterhood/hydro/old
+	icon_state = "old_winterhood_hydro"
+
+//end of winter coats
 
 /obj/item/clothing/suit/spookyghost
 	name = "spooky ghost"

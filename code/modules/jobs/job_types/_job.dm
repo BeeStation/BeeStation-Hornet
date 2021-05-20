@@ -67,6 +67,13 @@
 
 	var/gimmick = FALSE //least hacky way i could think of for this
 
+	///Bitfield of departments this job belongs wit
+	var/departments = NONE
+	///Is this job affected by weird spawns like the ones from station traits
+	var/random_spawns_possible = TRUE
+	/// Should this job be allowed to be picked for the bureaucratic error event?
+	var/allow_bureaucratic_error = TRUE
+
 /datum/job/New()
 	. = ..()
 	say_span = replacetext(lowertext(title), " ", "")
@@ -76,6 +83,7 @@
 //do actions on H but send messages to M as the key may not have been transferred_yet
 /datum/job/proc/after_spawn(mob/living/H, mob/M, latejoin = FALSE)
 	//do actions on H but send messages to M as the key may not have been transferred_yet
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_JOB_AFTER_SPAWN, src, H, M, latejoin)
 	if(mind_traits)
 		for(var/t in mind_traits)
 			ADD_TRAIT(H.mind, t, JOB_TRAIT)

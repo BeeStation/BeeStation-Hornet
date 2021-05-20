@@ -102,6 +102,8 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 /obj/machinery/requests_console/Initialize()
 	. = ..()
+	if(department == "Unknown")
+		department = get_area(src).name
 	name = "\improper [department] requests console"
 	GLOB.allConsoles += src
 
@@ -430,9 +432,10 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		return
 
 	var/obj/item/card/id/ID = O.GetID()
-	auth_id = "[ID.registered_name] ([ID.assignment])"
+
 
 	if(ID)
+		auth_id = "[ID.registered_name] ([ID.assignment])"
 		if(screen == REQ_SCREEN_AUTHENTICATE)
 			msgVerified = "<font color='green'><b>Verified by [ID.registered_name] ([ID.assignment])</b></font>"
 			updateUsrDialog()

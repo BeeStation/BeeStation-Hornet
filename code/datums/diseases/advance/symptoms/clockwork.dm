@@ -62,6 +62,8 @@
 			if(ORGAN_SLOT_BRAIN)
 				var/datum/mind/ownermind = H.mind
 				var/obj/item/organ/brain/clockwork/organ = new()
+				if(robustbits)
+					organ.robust = TRUE //STOPS THAT GODDAMN CLANGING BECAUSE IT'S WELL OILED OR SOMETHING
 				organ.Insert(H, TRUE, FALSE)
 				to_chat(H, "<span class='userdanger'>Your head throbs with pain for a moment, and then goes numb.</span>")
 				H.emote("scream")
@@ -147,10 +149,10 @@
 					O.burn_reduction = max(2, O.burn_reduction)
 					O.brute_reduction = max(3, O.brute_reduction)
 				continue
-			switch(O.body_zone) 
+			switch(O.body_zone)
 				if(BODY_ZONE_HEAD)
 					var/obj/item/bodypart/head/robot/clockwork/B = new()
-					if(robustbits) 
+					if(robustbits)
 						B.brute_reduction = 3 //this is just below the amount that lets augs ignore space damage.
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
@@ -260,6 +262,7 @@
 	icon_state = "posibrain-occupied"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
+	var/robust //Set to true if the robustbits causes brain replacement. Because holy fuck is the CLANG CLANG CLANG CLANG annoying
 	icon_state = "brain-clock"
 
 /obj/item/organ/brain/clockwork/emp_act(severity)
@@ -271,7 +274,7 @@
 
 /obj/item/organ/brain/clockwork/on_life()
 	. = ..()
-	if(prob(25))
+	if(prob(5) && !robust)
 		SEND_SOUND(owner, pickweight(list('sound/effects/clock_tick.ogg' = 6, 'sound/effects/smoke.ogg' = 2, 'sound/spookoween/chain_rattling.ogg' = 1, 'sound/ambience/ambiruin3.ogg' = 1)))
 
 /obj/item/organ/liver/clockwork

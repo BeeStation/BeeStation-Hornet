@@ -440,13 +440,13 @@
 				. = TRUE
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
-	if(can_interact(user) && !state_open)
+	if(user.can_interact_with(src) && !state_open && occupant != user)
 		on = !on
 		update_icon()
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/AltClick(mob/user)
-	if(can_interact(user))
+	if(user.can_interact_with(src) && occupant != user)
 		if(state_open)
 			close_machine()
 		else

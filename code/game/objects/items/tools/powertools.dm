@@ -151,6 +151,7 @@
 /obj/item/powertool/jaws_of_life/attack(mob/living/carbon/C, mob/living/user)
 	if(tool_behaviour == TOOL_WIRECUTTER && istype(C) && C.handcuffed)
 		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
+		log_combat(user, C, "cut handcuffs from")
 		qdel(C.handcuffed)
 		return
 	else

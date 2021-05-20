@@ -23,12 +23,14 @@
 	desc = "It's a hamster."
 	icon_state = "hamster"
 	icon_living = "hamster"
+	held_state = "hamster"
 	icon_dead = "hamster_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/hamster = 1)
 	childtype = /mob/living/simple_animal/pet/hamster
 	animal_species = /mob/living/simple_animal/pet/hamster
 	gold_core_spawnable = FRIENDLY_SPAWN
 	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
 	chat_color = "#D3B277"
 
 /mob/living/simple_animal/pet/hamster/vector //now also viro's source of a solitary, shitty starter disease
@@ -45,7 +47,7 @@
 		vector_disease = new disease
 		message_admins("Vector was roundstart infected with [vector_disease.name]. Don't lynch the virologist!")
 		log_game("Vector was roundstart infected with [vector_disease.name].")
-	var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 3))
+	var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), 9, 1+rand(1,3))
 	extrapolatordisease += R
 
 /mob/living/simple_animal/pet/hamster/vector/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)

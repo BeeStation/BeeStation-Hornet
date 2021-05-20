@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Grid, Section, NoticeBox } from '../components';
+import { Box, Button, Table, Section, NoticeBox } from '../components';
 import { toTitleCase } from 'common/string';
 import { Window } from '../layouts';
 
@@ -12,7 +12,7 @@ export const EightBallVote = (props, context) => {
     <Window
       width={400}
       height={600}>
-      <Window.Content>
+      <Window.Content scrollable>
         {!shaking && (
           <NoticeBox>
             No question is currently being asked.
@@ -40,9 +40,9 @@ const EightBallVoteQuestion = (props, context) => {
         m={1}>
         &quot;{question}&quot;
       </Box>
-      <Grid>
+      <Table>
         {answers.map(answer => (
-          <Grid.Column key={answer.answer}>
+          <Table.Row key={answer.answer}>
             <Button
               fluid
               bold
@@ -61,9 +61,9 @@ const EightBallVoteQuestion = (props, context) => {
               fontSize="30px">
               {answer.amount}
             </Box>
-          </Grid.Column>
+          </Table.Row>
         ))}
-      </Grid>
+      </Table>
     </Section>
   );
 };
