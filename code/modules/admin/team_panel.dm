@@ -151,7 +151,7 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M.mind?.special_role)
 			continue
-		candidates |= M.mind
+		candidates += M.mind
 	var/datum/mind/value = input("Select new member:", "New team member", null) as null|anything in sortNames(candidates)
 	if (!value)
 		return
