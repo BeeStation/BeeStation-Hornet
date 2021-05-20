@@ -71,9 +71,10 @@
 	if(light_system == MOVABLE_LIGHT)
 		AddComponent(/datum/component/overlay_lighting)
 
-/atom/movable/Destroy()
+/atom/movable/Destroy(force)
+	QDEL_NULL(proximity_monitor)
+	QDEL_NULL(language_holder)
 	QDEL_NULL(em_block)
-	return ..()
 
 	unbuckle_all_mobs(force = TRUE)
 
@@ -105,6 +106,11 @@
 
 	moveToNullspace()
 
+	//We add ourselves to this list, best to clear it out
+	//DO it after moveToNullspace so memes can be had
+	LAZYCLEARLIST(area_sensitive_contents)
+
+	vis_contents.Cut()
 
 /atom/movable/proc/update_emissive_block()
 	if(!blocks_emissive)
