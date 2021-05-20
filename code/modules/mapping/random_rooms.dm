@@ -1349,12 +1349,3 @@
 	centerspawner = FALSE
 	template_height = 10
 	template_width = 10
-
-/datum/map_template/random_room/sk_rdm158
-	name = "Blacklisted Room - See Config"
-	room_id = "sk_rdm158_blacklist"
-	mappath = "_maps/RandomRuins/RandomRooms/3x3/sk_rdm158_blacklist.dmm"
-	centerspawner = FALSE
-	template_height = 3
-	template_width = 3
-	weight = 2
