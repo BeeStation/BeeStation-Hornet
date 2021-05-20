@@ -3,4 +3,5 @@
 #A list of maps valid to blacklist can be found in _maps\RandomRooms
 #SPECIFYING AN INVALID MAP WILL RESULT IN RUNTIMES ON GAME START
 
-_maps/RandomRuins/RandomRooms/3x3/sk_rdm158_blacklist.dmm
+#_maps/RandomRooms/3x3/sk_rdm001_9storage.dmm
+_maps/RandomRooms/3x3/sk_rdm044_deltaorgantrade.dmm
