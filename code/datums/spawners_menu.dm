@@ -54,7 +54,7 @@
 	if(!group_name || !(group_name in GLOB.mob_spawners))
 		return
 	var/list/spawnerlist = GLOB.mob_spawners[group_name]
-	if(!spawnerlist.len)
+	if(!LAZYLEN(spawnerlist))
 		return
 	var/atom/movable/MS = pick(spawnerlist)
 	if(!istype(MS) || !(MS in GLOB.poi_list))
