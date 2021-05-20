@@ -1,0 +1,29 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"e" = (
+/obj/item/uplink/debug,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/structure/sign/poster/contraband/c20r,
+/turf/closed/wall/r_wall,
+/area/template_noop)
+"i" = (
+/obj/structure/sign/poster/contraband/grey_tide,
+/turf/closed/wall/r_wall,
+/area/template_noop)
+
+(1,1,1) = {"
+i
+h
+i
+"}
+(2,1,1) = {"
+h
+e
+h
+"}
+(3,1,1) = {"
+i
+h
+i
+"}

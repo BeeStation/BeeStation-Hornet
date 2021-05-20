@@ -356,11 +356,17 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	preloadRandomRoomTemplates()
 
 /datum/controller/subsystem/mapping/proc/preloadRandomRoomTemplates()
+	var/list/banned = generateMapList("[global.config.directory]/randommaintblacklist.txt")
 	for(var/item in subtypesof(/datum/map_template/random_room))
 		var/datum/map_template/random_room/room_type = item
 		if(!(initial(room_type.mappath)))
 			continue
+
 		var/datum/map_template/random_room/R = new room_type()
+
+		if(banned.Find(R.mappath))
+			continue
+
 		random_room_templates[R.room_id] = R
 		map_templates[R.room_id] = R
 
