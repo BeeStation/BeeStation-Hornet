@@ -79,7 +79,7 @@
 	for(var/mob/living/L in GLOB.player_list)
 		if(!L.mind || L.mind == new_owner || !can_be_owned(L.mind))
 			continue
-		candidates = L.mind
+		candidates += L.mind
 
 	var/choice = input(admin,"Choose the blood brother.", "Brother") as null|anything in sortNames(candidates)
 	if(!choice)
