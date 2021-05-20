@@ -157,7 +157,7 @@
 	var/turf/cen = get_turf(src)
 	FOR_DVIEW(var/turf/t, 3, get_turf(src),INVISIBILITY_LIGHTING)
 		if(t.x == cen.x && t.y > cen.y)
-			spotlights += new /obj/item/flashlight/spotlight(t, 1 + get_dist(src, t), 30 - (get_dist(src, t) * 8), COLOR_SOFT_RED)
+			spotlights += new /obj/item/flashlight/spotlight(t, 1 + get_dist(src, t), 30 - (get_dist(src, t) * 8), LIGHT_COLOR_RED)
 			continue
 		if(t.x == cen.x && t.y < cen.y)
 			spotlights += new /obj/item/flashlight/spotlight(t, 1 + get_dist(src, t), 30 - (get_dist(src, t) * 8), LIGHT_COLOR_PURPLE)
@@ -220,7 +220,7 @@
 				stack_trace("[glow?.gc_destroyed ? "Qdeleting glow" : "null entry"] found in [src].[gc_destroyed ? " Source qdeleting at the time." : ""]")
 				return
 			switch(glow.light_color)
-				if(COLOR_SOFT_RED)
+				if(LIGHT_COLOR_RED)
 					if(glow.even_cycle)
 						glow.set_light_on(FALSE)
 						glow.set_light_color(LIGHT_COLOR_BLUE)
@@ -273,11 +273,11 @@
 						glow.set_light_on(TRUE)
 				if(LIGHT_COLOR_CYAN)
 					if(glow.even_cycle)
-						glow.set_light_range_power_color(glow.base_light_range * DISCO_INFENO_RANGE, glow.light_power * 0.68, COLOR_SOFT_RED)
+						glow.set_light_range_power_color(glow.base_light_range * DISCO_INFENO_RANGE, glow.light_power * 0.68, LIGHT_COLOR_RED)
 						glow.set_light_on(TRUE)
 					else
 						glow.set_light_on(FALSE)
-						glow.set_light_color(COLOR_SOFT_RED)
+						glow.set_light_color(LIGHT_COLOR_RED)
 					glow.even_cycle = !glow.even_cycle
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
 			INVOKE_ASYNC(src, .proc/hierofunk)

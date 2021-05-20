@@ -191,8 +191,6 @@
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
 	set_light_on(TRUE)
 	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
-	times_used++
-	flash_recharge()
 	update_icon(TRUE)
 	if(user && !clown_check(user))
 		return FALSE

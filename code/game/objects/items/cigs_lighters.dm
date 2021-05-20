@@ -326,9 +326,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/clothing/mask/cigarette/carp
 	desc = "A Carp Classic brand cigarette."
-	
+
 /obj/item/clothing/mask/cigarette/plasma
-	list_reagents = list(/datum/reagent/toxin/plasma = 5) 
+	list_reagents = list(/datum/reagent/toxin/plasma = 5)
 
 /obj/item/clothing/mask/cigarette/syndicate
 	desc = "An unknown brand cigarette."
@@ -551,7 +551,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	slot_flags = ITEM_SLOT_BELT
 	heat = 1500
 	resistance_flags = FIRE_PROOF
-	grind_results = list(/datum/reagent/iron = 1, /datum/reagent/fuel = 5, /datum/reagent/fuel/oil = 5)
+	grind_results = list(/datum/reagent/iron = 1, /datum/reagent/fuel = 5, /datum/reagent/oil = 5)
 	custom_price = 55
 	light_system = MOVABLE_LIGHT
 	light_range = 2

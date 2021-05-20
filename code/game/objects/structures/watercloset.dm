@@ -390,7 +390,7 @@
 		if(opaque_closed)
 			set_opacity(TRUE)
 
-	update_appearance()
+	update_icon()
 
 /obj/structure/curtain/update_icon()
 	icon_state = "[icon_type]-[open ? "open" : "closed"]"

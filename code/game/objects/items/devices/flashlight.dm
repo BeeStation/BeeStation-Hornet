@@ -546,10 +546,10 @@
 		return
 	found.on = TRUE
 	found.icon_state = "[initial(found.icon_state)]-on"
-	if(found.flashlight_power)
-		found.set_light(l_range = found.brightness_on, l_power = found.flashlight_power)
+	if(found.light_power)
+		found.set_light(l_range = found.light_range, l_power = found.light_power)
 	else
-		found.set_light(found.brightness_on)
+		found.set_light(found.light_range)
 	for(var/X in found.actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()

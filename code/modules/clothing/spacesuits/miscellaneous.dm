@@ -523,7 +523,7 @@ Contains:
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY | SNUG_FIT
 	max_heat_protection_temperature = 100
-	brightness_on = null
+	light_range = null
 	actions_types = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/skinsuit/attack_self(mob/user)

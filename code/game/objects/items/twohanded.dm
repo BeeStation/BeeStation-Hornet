@@ -308,7 +308,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	var/hacked = FALSE
-	var/brightness_on = 6 //TWICE AS BRIGHT AS A REGULAR ESWORD
+	light_range = 6 //TWICE AS BRIGHT AS A REGULAR ESWORD
 	var/list/possible_colors = list("red", "blue", "green", "purple")
 
 /obj/item/twohanded/dualsaber/suicide_act(mob/living/carbon/user)
