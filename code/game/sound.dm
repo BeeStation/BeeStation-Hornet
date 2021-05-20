@@ -62,10 +62,10 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 		listeners = listeners & hearers(maxdistance,turf_source)
 	for(var/mob/M as() in listeners)
 		if(get_dist(M, turf_source) <= maxdistance)
-			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S)
+			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 	for(var/mob/M as() in SSmobs.dead_players_by_zlevel[z])
 		if(get_dist(M, turf_source) <= maxdistance)
-			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S)
+			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
 /*! playsound
 
@@ -111,7 +111,9 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 
 		distance *= distance_multiplier
 
-		S.volume -= max(distance - getviewsize(world.view)[1], 0) * 2 //multiplicative falloff to add on top of natural audio falloff.
+		if(max_distance) //If theres no max_distance we're not a 3D sound, so no falloff.
+			S.volume -= (max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * S.volume
+			//https://www.desmos.com/calculator/sqdfl8ipgf
 
 		if(pressure_affected)
 			//Atmosphere affects sound
@@ -141,15 +143,16 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		S.z = dz * distance_multiplier
 		// The y value is for above your head, but there is no ceiling in 2d spessmens.
 		S.y = 1
-		S.falloff = max_distance || 0 //use max_distance, else just use 0 as we are a direct sound so falloff isnt relevant.
+		S.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
-		if(S.environment == SOUND_ENVIRONMENT_NONE)
-			if(sound_environment_override != SOUND_ENVIRONMENT_NONE)
-				S.environment = sound_environment_override
-			else
-				var/area/A = get_area(src)
-				if(A.sound_environment != SOUND_ENVIRONMENT_NONE)
-					S.environment = A.sound_environment
+		// Sounds can't have their own environment. A sound's environment will be:
+		// 1. the mob's
+		// 2. the area's (defaults to SOUND_ENVRIONMENT_NONE)
+		if(sound_environment_override != SOUND_ENVIRONMENT_NONE)
+			S.environment = sound_environment_override
+		else
+			var/area/A = get_area(src)
+			S.environment = A.sound_environment
 
 		if(use_reverb && S.environment != SOUND_ENVIRONMENT_NONE) //We have reverb, reset our echo setting
 			S.echo[3] = 0 //Room setting, 0 means normal reverb
