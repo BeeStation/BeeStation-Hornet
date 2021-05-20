@@ -217,7 +217,7 @@
 	var/area/A = get_area(mob)
 	if(!istype(A, /area/reebe/city_of_cogs))
 		return
-	var/sound = pick(REEBE)
+	var/sound = pick(AMBIENCE_REEBE)
 	if(!played)
 		SEND_SOUND(src, sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE))
 		played = TRUE

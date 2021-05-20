@@ -44,7 +44,7 @@
 #define AMBIENCE_SPACE "space"
 #define AMBIENCE_MAINT "maint"
 #define AMBIENCE_AWAY "away"
-#define AMBIENCE_REEBE "reebe" //unused
+#define AMBIENCE_REEBE "reebe"
 #define AMBIENCE_CREEPY "creepy" //not to be confused with spooky
 
 //default byond sound environments

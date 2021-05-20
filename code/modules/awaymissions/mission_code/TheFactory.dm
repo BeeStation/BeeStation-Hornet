@@ -16,7 +16,6 @@
 //"old" means places we get in after the rune transition
 
 /area/awaymission/factory
-	ambient_buzz = null
 	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/awaymission/factory/secret
@@ -78,8 +77,7 @@
 
 /area/awaymission/factory/factoryafter/down/batsecret
 	name = "The maze"
-	ambient_buzz = ('sound/ambience/ambibasement.ogg')
-	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg')
+	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambimaint2.ogg','sound/ambience/ambibasement.ogg')
 
 /area/awaymission/factory/factoryafter/down/leveltwo
 	name = "The Factory - middle level"
@@ -103,8 +101,7 @@
 
 /area/awaymission/factory/factoryafter/down/levelthree/engine
 	name = "The reality engine"
-	ambient_buzz = ('sound/ambience/singulambience.ogg')
-	ambientsounds = list('sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg')
+	ambientsounds = list('sound/ambience/singulambience.ogg','sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg')
 	mood_bonus = 1
 	mood_message = "<span class='nicegreen'>Uhm... Ok?... I guess...\n</span>"
 
@@ -118,10 +115,9 @@
 
 /area/awaymission/factory/factoryduring/down/levelthree/engine
 	name = "The old reality engine"
-	ambient_buzz = ('sound/ambience/singulambience.ogg')
 	mood_bonus = 1
 	mood_message = "<span class='nicegreen'>Uhm... Ok?... I guess...\n</span>"
-	ambientsounds = list('sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg')
+	ambientsounds = list('sound/ambience/singulambience.ogg','sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg')
 	name = "The reality engine"
 
 /area/awaymission/factory/factoryduring/down/leveltwo
@@ -172,8 +168,7 @@
 
 /area/awaymission/factory/villageduring/basement
 	name = "The old basement"
-	ambientsounds = list('sound/ambience/ambimystery.ogg','sound/ambience/ambiodd.ogg')
-	ambient_buzz = ('sound/ambience/ambibasement.ogg')
+	ambientsounds = list('sound/ambience/ambibasement.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambiodd.ogg')
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/factory/villageduring/house/start
@@ -187,8 +182,7 @@
 /area/awaymission/factory/transition
 	name = "Beyond the time"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	ambientsounds = list('sound/ambience/ambiatmos.ogg','sound/ambience/antag/malf.ogg','sound/ambience/signal.ogg','sound/ambience/ambimalf.ogg')
-	ambient_buzz = list('sound/ambience/shipambience.ogg')
+	ambientsounds = list('sound/ambience/shipambience.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/antag/malf.ogg','sound/ambience/signal.ogg','sound/ambience/ambimalf.ogg')
 
 //ITEMS//
 
