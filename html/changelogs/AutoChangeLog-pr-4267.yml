@@ -1,0 +1,5 @@
+author: ''
+delete-after: true
+changes:
+  - rscadd: Degraded sunhuds
+  - rscadd: Science sunglasses removal crafting recipe
