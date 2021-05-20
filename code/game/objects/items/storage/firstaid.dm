@@ -172,7 +172,7 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/glass/bottle/antitoxin = 3,
+		/obj/item/reagent_containers/syringe/antitoxin = 3,
 		/obj/item/reagent_containers/syringe/calomel = 1,
 		/obj/item/reagent_containers/syringe/diphenhydramine = 1,
 		/obj/item/storage/pill_bottle/charcoal = 1,
