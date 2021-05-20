@@ -7,7 +7,10 @@ export const Crayon = (props, context) => {
   const capOrChanges = data.has_cap || data.can_change_colour;
   const drawables = data.drawables || [];
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={600}
+      height={600}>
       <Window.Content scrollable>
         {!!capOrChanges && (
           <Section title="Basic">

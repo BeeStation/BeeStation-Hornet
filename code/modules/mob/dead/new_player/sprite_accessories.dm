@@ -1511,6 +1511,18 @@
 	name = "Thigh-high (Bee)"
 	icon_state = "bee_thigh"
 
+/datum/sprite_accessory/socks/codersocks_pink
+	name = "Coder Socks (Pink)"
+	icon_state = "codersocks_pink"
+
+/datum/sprite_accessory/socks/codersocks_blue
+	name = "Coder Socks (Blue)"
+	icon_state = "codersocks_blue"
+
+/datum/sprite_accessory/socks/codersocks_trans
+	name = "Coder Socks (Trans)"
+	icon_state = "codersocks_trans"
+
 //////////.//////////////////
 // MutantParts Definitions //
 /////////////////////////////
@@ -1713,7 +1725,7 @@
 	dimension_x = 46
 	center = TRUE
 	dimension_y = 34
-	
+
 /datum/sprite_accessory/wings_open/apid
 	name = "Bee"
 	icon_state = "apid"
@@ -1729,7 +1741,7 @@
 	dimension_x = 46
 	center = TRUE
 	dimension_y = 34
-	
+
 /datum/sprite_accessory/wings_open/robot
 	name = "Robot"
 	icon_state = "robo"

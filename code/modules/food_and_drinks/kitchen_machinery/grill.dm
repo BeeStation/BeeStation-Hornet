@@ -86,6 +86,7 @@
 	..()
 
 /obj/machinery/grill/Destroy()
+	QDEL_NULL(grill_loop)
 	grilled_item = null
 	. = ..()
 

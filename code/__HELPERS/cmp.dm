@@ -22,7 +22,7 @@
 /proc/cmp_keybinding_dsc(datum/keybinding/a, datum/keybinding/b)
 	return cmp_numeric_dsc(a.weight, b.weight)
 
-// Datum cmp with vars is always slower than a specialist cmp proc, use your judgement.
+// Datum cmp with vars is always slower than a specialist cmp proc, use your judgment.
 /proc/cmp_datum_numeric_asc(datum/a, datum/b, variable)
 	return cmp_numeric_asc(a.vars[variable], b.vars[variable])
 
@@ -62,9 +62,6 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 
 /proc/cmp_timer(datum/timedevent/a, datum/timedevent/b)
 	return a.timeToRun - b.timeToRun
-
-/proc/cmp_clientcolour_priority(datum/client_colour/A, datum/client_colour/B)
-	return B.priority - A.priority
 
 /proc/cmp_ruincost_priority(datum/map_template/ruin/A, datum/map_template/ruin/B)
 	return initial(A.cost) - initial(B.cost)

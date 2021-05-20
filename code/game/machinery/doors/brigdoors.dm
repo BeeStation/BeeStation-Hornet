@@ -2,11 +2,11 @@
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
 #define FONT_STYLE "Small Fonts"
-#define MAX_TIMER 9000
+#define MAX_TIMER 15 MINUTES
 
-#define PRESET_SHORT 1200
-#define PRESET_MEDIUM 1800
-#define PRESET_LONG 3000
+#define PRESET_SHORT 2 MINUTES
+#define PRESET_MEDIUM 3 MINUTES
+#define PRESET_LONG 5 MINUTES
 
 
 
@@ -30,15 +30,15 @@
 	var/activation_time = 0
 	var/timer_duration = 0
 
-	var/timing = FALSE		// boolean, true/1 timer is on, false/0 means it's not timing
+	var/timing = FALSE // boolean, true/1 timer is on, false/0 means it's not timing
 	var/list/obj/machinery/targets = list()
 	var/obj/item/radio/Radio //needed to send messages to sec radio
 
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
-	ui_x = 300
-	ui_y = 138
+
+
 
 /obj/machinery/door_timer/Initialize()
 	. = ..()
@@ -147,11 +147,14 @@
 	. = new_time == timer_duration //return 1 on no change
 	timer_duration = new_time
 
-/obj/machinery/door_timer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/door_timer/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/door_timer/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BrigTimer", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "BrigTimer")
 		ui.open()
 
 //icon update function
@@ -205,7 +208,7 @@
 	data["timing"] = timing
 	data["flash_charging"] = FALSE
 	for(var/obj/machinery/flasher/F in targets)
-		if(F.last_flash && (F.last_flash + 150) > world.time)
+		if(F.last_flash && (F.last_flash + 15 SECONDS) > world.time)
 			data["flash_charging"] = TRUE
 			break
 	return data
@@ -216,6 +219,8 @@
 		return
 	. = TRUE
 
+	var/mob/user = usr
+
 	if(!allowed(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return FALSE
@@ -225,11 +230,19 @@
 			var/value = text2num(params["adjust"])
 			if(value)
 				. = set_timer(time_left()+value)
+				investigate_log("[key_name(usr)] modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
+				user.log_message("modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", LOG_ATTACK)
 		if("start")
 			timer_start()
+			investigate_log("[key_name(usr)] has started [id]'s timer of [time_left(seconds = TRUE)] seconds", INVESTIGATE_RECORDS)
+			user.log_message("has started [id]'s timer of [time_left(seconds = TRUE)] seconds", LOG_ATTACK)
 		if("stop")
+			investigate_log("[key_name(usr)] has stopped [id]'s timer of [time_left(seconds = TRUE)] seconds", INVESTIGATE_RECORDS)
+			user.log_message("[key_name(usr)] has stopped [id]'s timer of [time_left(seconds = TRUE)] seconds", LOG_ATTACK)
 			timer_end(forced = TRUE)
 		if("flash")
+			investigate_log("[key_name(usr)] has flashed cell [id]", INVESTIGATE_RECORDS)
+			user.log_message("[key_name(usr)] has flashed cell [id]", LOG_ATTACK)
 			for(var/obj/machinery/flasher/F in targets)
 				F.flash()
 		if("preset")
@@ -243,6 +256,8 @@
 				if("long")
 					preset_time = PRESET_LONG
 			. = set_timer(preset_time)
+			investigate_log("[key_name(usr)] set cell [id]'s timer to [preset_time/10] seconds", INVESTIGATE_RECORDS)
+			user.log_message("set cell [id]'s timer to [preset_time/10] seconds", LOG_ATTACK)
 			if(timing)
 				activation_time = world.time
 		else

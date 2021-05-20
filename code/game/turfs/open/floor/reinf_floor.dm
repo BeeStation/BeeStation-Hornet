@@ -13,8 +13,8 @@
 	tiled_dirt = FALSE
 
 /turf/open/floor/engine/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>The reinforcement plates are <b>wrenched</b> firmly in place.</span>")
+	. = ..()
+	. += "<span class='notice'>The reinforcement plates are <b>wrenched</b> firmly in place.</span>"
 
 /turf/open/floor/engine/light
 	icon_state = "engine_light"
@@ -153,6 +153,8 @@
 	icon_state = "plating"
 	floor_tile = null
 	var/obj/effect/clockwork/overlay/floor/bloodcult/realappearance
+	CanAtmosPass = ATMOS_PASS_NO
+	CanAtmosPassVertical =	ATMOS_PASS_NO
 
 
 /turf/open/floor/engine/cult/Initialize()

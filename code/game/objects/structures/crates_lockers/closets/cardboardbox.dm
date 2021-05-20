@@ -8,11 +8,12 @@
 	max_integrity = 70
 	integrity_failure = 0
 	can_weld_shut = 0
-	cutting_tool = /obj/item/wirecutters
+	cutting_tool = TOOL_WIRECUTTER
 	open_sound = "rustle"
 	material_drop = /obj/item/stack/sheet/cardboard
 	delivery_icon = "deliverybox"
 	anchorable = FALSE
+	door_anim_time = 0 // no animation
 	open_sound = 'sound/machines/cardboard_box.ogg'
 	close_sound = 'sound/machines/cardboard_box.ogg'
 	open_sound_volume = 35
@@ -48,7 +49,7 @@
 	if(LAZYLEN(alerted))
 		egged = world.time + SNAKE_SPAM_TICKS
 		for(var/mob/living/L in alerted)
-			if(!L.stat)
+			if(L.is_conscious())
 				if(!L.incapacitated(ignore_restraints = 1))
 					L.face_atom(src)
 				L.do_alert_animation(L)
@@ -69,7 +70,7 @@
 	mob_storage_capacity = 5
 	resistance_flags = NONE
 	move_speed_multiplier = 2
-	cutting_tool = /obj/item/weldingtool
+	cutting_tool = TOOL_WELDER
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
 	open_sound_volume = 35

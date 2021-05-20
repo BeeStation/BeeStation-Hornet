@@ -476,7 +476,7 @@
 
 //Exosuit Equipment
 /datum/design/ripleyupgrade
-	name = "Ripley MK-1 to MK-II conversion kit"
+	name = "Ripley MK-I to MK-II conversion kit"
 	id = "ripleyupgrade"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/ripleyupgrade
@@ -485,7 +485,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_hydraulic_clamp
-	name = "Exosuit Engineering Equipment (Hydraulic Clamp)"
+	name = "Exosuit Engineering (Hydraulic Clamp)"
 	id = "mech_hydraulic_clamp"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
@@ -494,7 +494,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_drill
-	name = "Exosuit Engineering Equipment (Drill)"
+	name = "Exosuit Mining (Mining Drill)"
 	id = "mech_drill"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/drill
@@ -503,7 +503,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_mining_scanner
-	name = "Exosuit Engineering Equipment (Mining Scanner)"
+	name = "Exosuit Engineering (Mining Scanner)"
 	id = "mech_mscanner"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/mining_scanner
@@ -512,7 +512,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_extinguisher
-	name = "Exosuit Engineering Equipment (Extinguisher)"
+	name = "Exosuit Engineering (Extinguisher)"
 	id = "mech_extinguisher"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/extinguisher
@@ -521,7 +521,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_generator
-	name = "Exosuit Equipment (Plasma Generator)"
+	name = "Exosuit Module (Plasma Generator)"
 	id = "mech_generator"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/generator
@@ -530,7 +530,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_mousetrap_mortar
-	name = "H.O.N.K Mousetrap Mortar"
+	name = "H.O.N.K Weapon (Mousetrap Mortar)"
 	id = "mech_mousetrap_mortar"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/mousetrap_mortar
@@ -539,7 +539,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_banana_mortar
-	name = "H.O.N.K Banana Mortar"
+	name = "H.O.N.K Weapon (Banana Mortar)"
 	id = "mech_banana_mortar"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/banana_mortar
@@ -548,7 +548,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_honker
-	name = "HoNkER BlAsT 5000"
+	name = "H.O.N.K Weapon (HoNkER BlAsT 5000)"
 	id = "mech_honker"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/honker
@@ -557,7 +557,7 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_punching_glove
-	name = "Oingo Boingo Punch-face"
+	name = "H.O.N.K Weapon (Oingo Boingo Punch-face)"
 	id = "mech_punching_face"
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/launcher/punching_glove
@@ -632,6 +632,15 @@
 	construction_time = 40
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_cutter
+	name = "Cyborg Upgrade (Plasma Cutter)"
+	id = "borg_upgrade_cutter"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/cutter
+	materials = list(/datum/material/iron = 10000, /datum/material/gold = 2000, /datum/material/uranium = 1000)
+	construction_time = 40
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_lavaproof
 	name = "Cyborg Upgrade (Lavaproof Tracks)"
 	id = "borg_upgrade_lavaproof"
@@ -656,6 +665,15 @@
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/transform/clown
 	materials = list(/datum/material/iron = 15000, /datum/material/glass = 15000, /datum/material/bananium = 1000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_transform_security
+	name = "Cyborg Upgrade (Security Module)"
+	id = "borg_transform_security"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/transform/security
+	materials = list(/datum/material/iron = 15000, /datum/material/glass = 15000, /datum/material/diamond = 3000)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
@@ -738,7 +756,8 @@
 	build_path = /obj/item/borg/upgrade/ai
 	materials = list(/datum/material/iron = 1200, /datum/material/glass = 1500, /datum/material/gold = 200)
 	construction_time = 50
-	category = list("Misc")
+	category = list("Control Interfaces")
+	search_metadata = "boris"
 
 /datum/design/borg_upgrade_rped
 	name = "Cyborg Upgrade (RPED)"
@@ -778,13 +797,13 @@
 
 //Misc
 /datum/design/mecha_tracking
-	name = "Exosuit Tracking Beacon"
+	name = "Exosuit Tracker (Exosuit Tracking Beacon)"
 	id = "mecha_tracking"
 	build_type = MECHFAB
 	build_path =/obj/item/mecha_parts/mecha_tracking
 	materials = list(/datum/material/iron=500)
 	construction_time = 50
-	category = list("Misc")
+	category = list("Exosuit Equipment")
 
 /datum/design/mecha_tracking_ai_control
 	name = "AI Control Beacon"
@@ -793,7 +812,7 @@
 	build_path = /obj/item/mecha_parts/mecha_tracking/ai_control
 	materials = list(/datum/material/iron = 1000, /datum/material/glass = 500, /datum/material/silver = 200)
 	construction_time = 50
-	category = list("Misc")
+	category = list("Control Interfaces")
 
 /datum/design/synthetic_flash
 	name = "Flash"
@@ -860,3 +879,41 @@
 	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000)
 	construction_time = 100
 	category = list("IPC Components")
+
+//service modules
+
+/datum/design/borg_upgrade_botany
+	name = "Cyborg Speciality (Botany)"
+	id = "borg_upgrade_botany"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/speciality/botany
+	materials = list(/datum/material/iron = 2000, /datum/material/glass = 1000)
+	construction_time = 40
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_kitchen
+	name = "Cyborg Speciality (Cooking)"
+	id = "borg_upgrade_kitchen"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/speciality/kitchen
+	materials = list(/datum/material/iron = 2000, /datum/material/silver = 500)
+	construction_time = 40
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_casino
+	name = "Cyborg Speciality (Casino)"
+	id = "borg_upgrade_casino"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/speciality/casino
+	materials = list(/datum/material/iron = 2000, /datum/material/gold = 500)
+	construction_time = 40
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_party
+	name = "Cyborg Speciality (Party)"
+	id = "borg_upgrade_party"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/speciality/party
+	materials = list(/datum/material/iron = 2000, /datum/material/diamond = 500)
+	construction_time = 40
+	category = list("Cyborg Upgrade Modules")

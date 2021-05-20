@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(processing)
 	var/list/currentrun = list()
 
 /datum/controller/subsystem/processing/stat_entry()
-	..("[stat_tag]:[processing.len]")
+	. = ..("[stat_tag]:[processing.len]")
 
 /datum/controller/subsystem/processing/fire(resumed = 0)
 	if (!resumed)
@@ -30,6 +30,7 @@ SUBSYSTEM_DEF(processing)
 		if (MC_TICK_CHECK)
 			return
 
+// Every aimless process should reach *here* and die; better not write another instakiller like this
 /datum/proc/process()
 	set waitfor = 0
 	return PROCESS_KILL

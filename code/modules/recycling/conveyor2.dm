@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	id = "round_end_belt"
 
 
-/obj/machinery/conveyor/inverted //Directions inverted so you can use different corner peices.
+/obj/machinery/conveyor/inverted //Directions inverted so you can use different corner pieces.
 	icon_state = "conveyor_map_inverted"
 	verted = -1
 
@@ -146,7 +146,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		if(!QDELETED(M) && (M.loc == loc) && !M.anchored && M.move_resist != INFINITY && M.has_gravity())
 			if(isliving(M))
 				var/mob/living/L = M
-				if((L.movement_type & FLYING) && !L.stat)
+				if((L.movement_type & FLYING) && L.is_conscious())
 					continue
 			affected.Add(M)
 		if(i >= MAX_CONVEYOR_ITEMS_MOVE)
@@ -385,6 +385,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	max_amount = 30
 	singular_name = "conveyor belt"
 	w_class = WEIGHT_CLASS_BULKY
+	merge_type = /obj/item/stack/conveyor
 	///id for linking
 	var/id = ""
 

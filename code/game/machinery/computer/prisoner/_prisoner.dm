@@ -16,7 +16,6 @@
 
 /obj/machinery/computer/prisoner/AltClick(mob/user)
 	id_eject(user)
-	return ..()
 
 /obj/machinery/computer/prisoner/proc/id_insert(mob/user, obj/item/card/id/prisoner/P)
 	if(istype(P))

@@ -4,8 +4,8 @@
 	icon_screen = "alert:0"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/computer/stationalert
-	ui_x = 325
-	ui_y = 500
+
+
 	var/alarms = list("Fire" = list(), "Atmosphere" = list(), "Power" = list())
 
 	light_color = LIGHT_COLOR_CYAN
@@ -18,11 +18,14 @@
 	GLOB.alert_consoles -= src
 	return ..()
 
-/obj/machinery/computer/station_alert/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/station_alert/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/station_alert/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "StationAlertConsole", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "StationAlertConsole")
 		ui.open()
 
 /obj/machinery/computer/station_alert/ui_data(mob/user)
@@ -33,34 +36,49 @@
 		data["alarms"][class] = list()
 		for(var/area in alarms[class])
 			data["alarms"][class] += area
-	
+
 	return data
 
-/obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/A, O, obj/source)
+/obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/home, cameras, obj/source)
 	if(source.z != z)
 		return
 	if(stat & (BROKEN))
 		return
 
-	var/list/L = alarms[class]
-	for(var/I in L)
-		if (I == A.name)
-			var/list/alarm = L[I]
+	var/list/our_sort = alarms[class]
+	for(var/areaname in our_sort)
+		if (areaname == home.name)
+			var/list/alarm = our_sort[areaname]
 			var/list/sources = alarm[3]
 			if (!(source in sources))
 				sources += source
-			return 1
-	var/obj/machinery/camera/C = null
-	var/list/CL = null
-	if(O && islist(O))
-		CL = O
-		if (CL.len == 1)
-			C = CL[1]
-	else if(O && istype(O, /obj/machinery/camera))
-		C = O
-	L[A.name] = list(A, (C ? C : O), list(source))
-	return 1
+			return TRUE
 
+	var/obj/machinery/camera/cam = null
+	var/list/our_cams = null
+	if(cameras && islist(cameras))
+		our_cams = cameras
+		if (our_cams.len == 1)
+			cam = our_cams[1]
+	else if(cameras && istype(cameras, /obj/machinery/camera))
+		cam = cameras
+	our_sort[home.name] = list(home, (cam ? cam : cameras), list(source))
+	return TRUE
+
+/obj/machinery/computer/station_alert/proc/freeCamera(area/home, obj/machinery/camera/cam)
+	for(var/class in alarms)
+		var/our_area = alarms[class][home.name]
+		if(!our_area)
+			continue
+		var/cams = our_area[2] //Get the cameras
+		if(!cams)
+			continue
+		if(islist(cams))
+			cams -= cam
+			if(length(cams) == 1)
+				our_area[2] = cams[1]
+		else
+			our_area[2] = null
 
 /obj/machinery/computer/station_alert/proc/cancelAlarm(class, area/A, obj/origin)
 	if(stat & (BROKEN))

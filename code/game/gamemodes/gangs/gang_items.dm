@@ -64,7 +64,7 @@
 	if(gang)
 		item_type = /obj/item/device/gangtool/spare/lt
 		if(gang.leaders.len < MAX_LEADERS_GANG)
-			to_chat(user, "<span class='notice'><b>Gangtools</b> allow you to promote a gangster to be your Lieutenant, enabling them to recruit and purchase items like you. Simply have them register the gangtool. You may promote up to [MAX_LEADERS_GANG-gang.leaders.len] more Lieutenants</span>")
+			to_chat(user, "<span class='notice'><b>Gangtools</b> allow you to promote a gangster to be your Lieutenant, enabling them to recruit and purchase items like you. Simply have them register the gangtool. You may promote up to [MAX_LEADERS_GANG-gang.leaders.len] more Lieutenants.</span>")
 	else
 		item_type = /obj/item/device/gangtool/spare
 	var/obj/item/device/gangtool/spare/tool = new item_type(user.loc)

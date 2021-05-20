@@ -56,13 +56,13 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/security = 1,
-				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/clothing/glasses/sunglasses/advanced = 1,
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/hudsunsecremoval
 	name = "Security HUD removal"
-	result = /obj/item/clothing/glasses/sunglasses
+	result = /obj/item/clothing/glasses/sunglasses/advanced
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/security/sunglasses = 1)
@@ -74,13 +74,13 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
-				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/clothing/glasses/sunglasses/advanced = 1,
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/hudsunmedremoval
 	name = "Medical HUD removal"
-	result = /obj/item/clothing/glasses/sunglasses
+	result = /obj/item/clothing/glasses/sunglasses/advanced
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/health/sunglasses = 1)
@@ -92,13 +92,13 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic = 1,
-				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/clothing/glasses/sunglasses/advanced = 1,
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/hudsundiagremoval
 	name = "Diagnostic HUD removal"
-	result = /obj/item/clothing/glasses/sunglasses
+	result = /obj/item/clothing/glasses/sunglasses/advanced
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/sunglasses = 1)
@@ -110,8 +110,16 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/science = 1,
-				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/clothing/glasses/sunglasses/advanced = 1,
 				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/beergogglesremoval
+	name = "Beer Goggles removal"
+	result = /obj/item/clothing/glasses/sunglasses/advanced
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/sunglasses/advanced/reagent = 1)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/sunhudscience
@@ -120,16 +128,88 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/science = 1,
+				  /obj/item/clothing/glasses/sunglasses/advanced = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/sunhudscienceremoval
+	name = "Science Sunglasses removal"
+	result = /obj/item/clothing/glasses/sunglasses/advanced
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/science/sciencesun = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/deghudsunsec
+	name = "Degraded Security HUDsunglasses"
+	result = /obj/item/clothing/glasses/hud/security/sunglasses/degraded
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/security = 1,
 				  /obj/item/clothing/glasses/sunglasses = 1,
 				  /obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/beergogglesremoval
-	name = "Beer Goggles removal"
+/datum/crafting_recipe/deghudsunsecremoval
+	name = "Degraded Security HUD removal"
 	result = /obj/item/clothing/glasses/sunglasses
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/sunglasses/advanced/reagent = 1)
+	reqs = list(/obj/item/clothing/glasses/hud/security/sunglasses/degraded = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/deghudsunmed
+	name = "Degraded Medical HUDsunglasses"
+	result = /obj/item/clothing/glasses/hud/health/sunglasses/degraded
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/deghudsunmedremoval
+	name = "Degraded Medical HUD removal"
+	result = /obj/item/clothing/glasses/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/health/sunglasses/degraded = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/deghudsundiag
+	name = "Degraded Diagnostic HUDsunglasses"
+	result = /obj/item/clothing/glasses/hud/diagnostic/sunglasses/degraded
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/diagnostic = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/deghudsundiagremoval
+	name = "Degraded Diagnostic HUD removal"
+	result = /obj/item/clothing/glasses/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/sunglasses/degraded = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/degsunhudscience
+	name = "Degraded Science Sunglasses"
+	result = /obj/item/clothing/glasses/science/sciencesun/degraded
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/science = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/degsunhudscienceremoval
+	name = "Degraded Science Sunglasses removal"
+	result = /obj/item/clothing/glasses/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/science/sciencesun/degraded = 1)
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/ghostsheet

@@ -96,7 +96,7 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 "<A href='?src=[REF(src)];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
 	return	dat
 
-/mob/living/simple_animal/bot/honkbot/proc/judgement_criteria()
+/mob/living/simple_animal/bot/honkbot/proc/judgment_criteria()
 	var/final = NONE
 	if(check_records)
 		final = final|JUDGE_RECORDCHECK
@@ -105,8 +105,8 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 	return final
 
 /mob/living/simple_animal/bot/honkbot/proc/retaliate(mob/living/carbon/human/H)
-	var/judgement_criteria = judgement_criteria()
-	threatlevel = H.assess_threat(judgement_criteria)
+	var/judgment_criteria = judgment_criteria()
+	threatlevel = H.assess_threat(judgment_criteria)
 	threatlevel += 6
 	if(threatlevel >= 4)
 		target = H
@@ -200,8 +200,8 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
 			if (emagged <= 1) //HONK once, then leave
-				var/judgement_criteria = judgement_criteria()
-				threatlevel = H.assess_threat(judgement_criteria)
+				var/judgment_criteria = judgment_criteria()
+				threatlevel = H.assess_threat(judgment_criteria)
 				threatlevel -= 6
 				target = oldtarget_name
 			else // you really don't want to hit an emagged honkbot
@@ -296,13 +296,11 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		var/judgement_criteria = judgement_criteria()
-		threatlevel = C.assess_threat(judgement_criteria)
+		var/judgment_criteria = judgment_criteria()
+		threatlevel = C.assess_threat(judgment_criteria)
 
-		if(threatlevel <= 3)
-			if(C in view(4,src)) //keep the range short for patrolling
-				if(!spam_flag)
-					bike_horn()
+		if(threatlevel <= 3 && get_dist(C, src) <= 4 && !spam_flag)
+			bike_horn()
 
 		else if(threatlevel >= 10)
 			bike_horn() //just spam the shit outta this

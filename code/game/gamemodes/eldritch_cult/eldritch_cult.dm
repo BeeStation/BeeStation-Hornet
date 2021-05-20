@@ -4,13 +4,15 @@
 	report_type = "heresy"
 	antag_flag = ROLE_HERETIC
 	false_report_weight = 5
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
+	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	restricted_jobs = list("AI", "Cyborg")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
 	reroll_friendly = 1
 	enemy_minimum_age = 0
+
+	allowed_special = list(/datum/special_role/traitor/higher_chance)
 
 	announce_span = "danger"
 	announce_text = "Heretics have been spotted on the station!\n\
@@ -65,3 +67,13 @@
 /datum/game_mode/heretics/generate_report()
 	return "Cybersun Industries has announced that they have successfully raided a high-security library. The library contained a very dangerous book that was \
 	shown to posses anomalous properties. We suspect that the book has been copied over, Stay vigilant!"
+
+/datum/game_mode/heretics/generate_credit_text()
+	var/list/round_credits = list()
+
+	round_credits += "<center><h1>The Eldrich Cult:</h1>"
+	for(var/datum/mind/M in culties)
+		round_credits += "<center><h2>[M.name] as a heretic</h2>"
+
+	round_credits += ..()
+	return round_credits

@@ -75,6 +75,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	)), \
 	null, \
 	new/datum/stack_recipe("firelock frame", /obj/structure/firelock_frame, 3, time = 50, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("directional firelock frame", /obj/structure/firelock_frame/border, 3, time = 50, one_per_turf = FALSE, on_floor = TRUE), \
 	new/datum/stack_recipe("turret frame", /obj/machinery/porta_turret_construct, 5, time = 25, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("meatspike frame", /obj/structure/kitchenspike_frame, 5, time = 25, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("reflector frame", /obj/structure/reflector, 5, time = 25, one_per_turf = TRUE, on_floor = TRUE), \
@@ -165,7 +166,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list ( \
 	materials = list(/datum/material/iron=2000, /datum/material/plasma=2000)
 	throwforce = 10
 	flags_1 = CONDUCT_1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/plasteel
 	grind_results = list(/datum/reagent/iron = 20, /datum/reagent/toxin/plasma = 20)
@@ -229,7 +230,7 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	item_state = "sheet-wood"
 	icon = 'icons/obj/stack_objects.dmi'
 	sheettype = "wood"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0, "stamina" = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/mineral/wood
 	novariants = TRUE
@@ -381,7 +382,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	sheettype = "bamboo"
 	force = 10
 	throwforce = 10
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0, "stamina" = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/mineral/bamboo
 	grind_results = list("carbon" = 5)
@@ -390,6 +391,14 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	recipes = GLOB.bamboo_recipes
 	return ..()
 
+/obj/item/stack/sheet/mineral/bamboo/Topic(href, href_list)
+	. = ..()
+	if(href_list["make"])
+		var/list/recipes_list = recipes
+		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
+		if(R.result_type == /obj/structure/punji_sticks)
+			var/turf/T = get_turf(src)
+			usr.investigate_log("has placed punji sticks trap at [AREACOORD(T)].", INVESTIGATE_BOTANY)
 
 /*
  * Cardboard
@@ -410,6 +419,11 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (														\
 		new /datum/stack_recipe("donut box", /obj/item/storage/fancy/donut_box),				\
 		new /datum/stack_recipe("egg box", /obj/item/storage/fancy/egg_box),					\
 		new /datum/stack_recipe("donk-pockets box", /obj/item/storage/box/donkpockets),			\
+		new /datum/stack_recipe("donk-pockets spicy box", /obj/item/storage/box/donkpockets/donkpocketspicy),			\
+		new /datum/stack_recipe("donk-pockets teriyaki box", /obj/item/storage/box/donkpockets/donkpocketteriyaki),		\
+		new /datum/stack_recipe("donk-pockets pizza box", /obj/item/storage/box/donkpockets/donkpocketpizza),			\
+		new /datum/stack_recipe("donk-pockets berry box", /obj/item/storage/box/donkpockets/donkpocketberry),			\
+		new /datum/stack_recipe("donk-pockets honk box", /obj/item/storage/box/donkpockets/donkpockethonk),				\
 		new /datum/stack_recipe("monkey cube box", /obj/item/storage/box/monkeycubes),
 		new /datum/stack_recipe("nugget box", /obj/item/storage/fancy/nugget_box),			\
 		null,																					\

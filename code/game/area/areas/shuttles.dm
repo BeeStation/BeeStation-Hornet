@@ -138,6 +138,11 @@
 	blob_allowed = FALSE
 	requires_power = TRUE
 
+/area/shuttle/science
+	name = "Science Shuttle"
+	blob_allowed = FALSE
+	requires_power = TRUE
+
 /area/shuttle/labor
 	name = "Labor Camp Shuttle"
 	blob_allowed = FALSE
@@ -154,11 +159,11 @@
 
 /area/shuttle/escape/luxury
 	name = "Luxurious Emergency Shuttle"
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/shuttle/escape/arena
 	name = "The Arena"
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/shuttle/escape/meteor
 	name = "\proper a meteor with engines strapped to it"

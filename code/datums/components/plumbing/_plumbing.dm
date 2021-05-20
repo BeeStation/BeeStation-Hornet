@@ -35,9 +35,8 @@
 		create_overlays()
 
 /datum/component/plumbing/process()
-	if(!demand_connects || !reagents)
-		STOP_PROCESSING(SSfluids, src)
-		return
+	if(!demand_connects || !reagents)		// This actually shouldn't happen, but better safe than sorry
+		return PROCESS_KILL
 	if(reagents.total_volume < reagents.maximum_volume)
 		for(var/D in GLOB.cardinals)
 			if(D & demand_connects)
@@ -144,7 +143,7 @@
 	update_dir()
 	active = TRUE
 	var/atom/movable/AM = parent
-	for(var/obj/machinery/duct/D in AM.loc)	//Destroy any ducts under us. Ducts also self destruct if placed under a plumbing machine. machines disable when they get moved
+	for(var/obj/machinery/duct/D in AM.loc)	//Destroy any ducts under us. Ducts also self-destruct if placed under a plumbing machine. machines disable when they get moved
 		if(D.anchored)								//that should cover everything
 			D.disconnect_duct()
 

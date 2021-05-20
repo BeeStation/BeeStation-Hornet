@@ -31,7 +31,7 @@
 
 
 	var/list/dna_to_add //find the dna to pass to the spawned gibs. do note this can be null if the mob doesn't have blood. add_blood_DNA() has built in null handling.
-	if(source_mob)
+	if(source_mob && ismob(source_mob)) //probably a good idea to check if IT IS a mob.
 		dna_to_add = source_mob.get_blood_dna_list() //ez pz
 	else if(gib_mob_type)
 		var/mob/living/temp_mob = new gib_mob_type(src) //generate a fake mob so that we pull the right type of DNA for the gibs.
@@ -66,6 +66,9 @@
 	if(!gibdirections.len)
 		gibdirections = list(list(WEST, NORTHWEST, SOUTHWEST, NORTH),list(EAST, NORTHEAST, SOUTHEAST, SOUTH), list())
 	return ..()
+
+/obj/effect/gibspawner/generic/bloodtomato
+	gibtypes = list(/obj/effect/decal/cleanable/blood/splatter, /obj/effect/decal/cleanable/blood/drip, /obj/effect/decal/cleanable/blood/gibs)
 
 /obj/effect/gibspawner/generic/animal
 	gib_mob_type = /mob/living/simple_animal/pet

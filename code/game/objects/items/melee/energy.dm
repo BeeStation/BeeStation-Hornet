@@ -3,7 +3,7 @@
 	hitsound_on = 'sound/weapons/blade1.ogg'
 	heat = 3500
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	var/brightness_on = 3
 
@@ -98,7 +98,7 @@
 	throw_speed = 3
 	throw_range = 5
 	sharpness = IS_SHARP
-	embedding = list("embed_chance" = 75, "embedded_impact_pain_multiplier" = 10)
+	embedding = list("embed_chance" = 75, "impact_pain_mult" = 10)
 	armour_penetration = 35
 	block_level = 1
 	block_upgrade_walk = 1

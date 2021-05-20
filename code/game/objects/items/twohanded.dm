@@ -48,7 +48,7 @@
 	else //something wrong
 		name = "[initial(name)]"
 	update_icon()
-	if(user.get_item_by_slot(SLOT_BACK) == src)
+	if(user.get_item_by_slot(ITEM_SLOT_BACK) == src)
 		user.update_inv_back()
 	else
 		user.update_inv_hands()
@@ -192,15 +192,14 @@
 	. = ..()
 
 /obj/item/twohanded/required/equipped(mob/user, slot)
-	..()
-	var/slotbit = slotdefine2slotbit(slot)
-	if(slot_flags & slotbit)
+	. = ..()
+	if(slot_flags & slot)
 		var/datum/O = user.is_holding_item_of_type(/obj/item/twohanded/offhand)
 		if(!O || QDELETED(O))
 			return
 		qdel(O)
 		return
-	if(slot == SLOT_HANDS)
+	if(slot == ITEM_SLOT_HANDS)
 		wield(user)
 	else
 		unwield(user)
@@ -243,7 +242,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/fireaxe/Initialize()
@@ -303,7 +302,7 @@
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	var/hacked = FALSE
 	var/brightness_on = 6 //TWICE AS BRIGHT AS A REGULAR ESWORD
@@ -480,14 +479,14 @@
 	block_upgrade_walk = 1
 	throwforce = 20
 	throw_speed = 4
-	embedding = list("embedded_impact_pain_multiplier" = 3)
+	embedding = list("impact_pain_mult" = 3)
 	armour_penetration = 10
 	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 0)
 	var/war_cry = "AAAAARGH!!!"
 	var/icon_prefix = "spearglass"
 
@@ -514,6 +513,7 @@
 		throwforce = 21
 		icon_prefix = "spearplasma"
 	update_icon()
+	parts_list -= tip
 	qdel(tip)
 	var/obj/item/grenade/G = locate() in parts_list
 	if(G)
@@ -571,7 +571,7 @@
 	if(wielded)
 		user.say("[war_cry]", forced="spear warcry")
 		explosive.forceMove(AM)
-		explosive.prime()
+		explosive.prime(lanced_by=user)
 		qdel(src)
 
 // CHAINSAW
@@ -732,7 +732,7 @@
 		var/mob/living/L = AM
 		if(istype (L, /mob/living/simple_animal/hostile/illusion))
 			return
-		if(!L.stat && prob(50))
+		if(L.is_conscious() && prob(50))
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
 			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
@@ -756,7 +756,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/pitchfork/demonic
@@ -929,7 +929,7 @@
 			_y = -zoom_amt
 		if(WEST)
 			_x = -zoom_amt
-	C.change_view(world.view + zoom_out_amt)
+	C.change_view(get_zoomed_view(world.view, zoom_out_amt))
 	C.pixel_x = world.icon_size*_x
 	C.pixel_y = world.icon_size*_y
 

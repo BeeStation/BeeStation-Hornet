@@ -24,8 +24,8 @@
 	icon_screen = "holocontrol"
 	idle_power_usage = 10
 	active_power_usage = 50
-	ui_x = 400
-	ui_y = 500
+
+
 
 	var/area/holodeck/linked
 	var/area/holodeck/program
@@ -52,9 +52,9 @@
 
 /obj/machinery/computer/holodeck/LateInitialize()
 	if(ispath(holodeck_type, /area))
-		linked = pop(get_areas(holodeck_type, FALSE))
+		linked = pop(get_areas(holodeck_type, null, FALSE))
 	if(ispath(offline_program, /area))
-		offline_program = pop(get_areas(offline_program), FALSE)
+		offline_program = pop(get_areas(offline_program), null, FALSE)
 	// the following is necessary for power reasons
 	if(!linked || !offline_program)
 		log_world("No matching holodeck area found")
@@ -87,10 +87,14 @@
 	. = ..()
 	toggle_power(!stat)
 
-/obj/machinery/computer/holodeck/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/holodeck/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/holodeck/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Holodeck", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Holodeck")
 		ui.open()
 
 /obj/machinery/computer/holodeck/ui_data(mob/user)
@@ -154,13 +158,13 @@
 	if(!floorcheck())
 		emergency_shutdown()
 		damaged = TRUE
-		for(var/mob/M in urange(10,src))
+		for(var/mob/M as() in viewers(10, src))
 			M.show_message("The holodeck overloads!")
 
 		for(var/turf/T in linked)
 			if(prob(30))
 				do_sparks(2, 1, T)
-			T.ex_act(EXPLODE_LIGHT)
+			SSexplosions.lowturf += T
 			T.hotspot_expose(1000,500,1)
 
 	if(!(obj_flags & EMAGGED))

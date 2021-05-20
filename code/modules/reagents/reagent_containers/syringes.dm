@@ -147,12 +147,16 @@
 						return
 				else if(!L.can_inject(user, TRUE))
 					return
-				if(user.a_intent == INTENT_HARM && iscarbon(L) && do_mob(user, L, 5))
-					var/mob/living/carbon/C = L
-					embed(C, 0.5)
-					log_combat(user, C, "injected (embedding)", src, addition="which had [contained]")
-					L.visible_message("<span class='danger'>[user] stabs [L] with the syringe!", \
-						"<span class='userdanger'>[user] shoves the syringe into your flesh, and it sticks!</span>")
+				if(user.a_intent == INTENT_HARM && iscarbon(L) && iscarbon(user))
+					L.visible_message("<span class='danger'>[user] lines a syringe up to [L]!", \
+							"<span class='userdanger'>[user] rears their arm back, ready to stab you with [src]</span>")
+					if(do_mob(user, L, 10))
+						var/mob/living/carbon/C = L
+						embed(C, 0.5)
+						log_combat(user, C, "injected (embedding)", src, addition="which had [contained]")
+						L.visible_message("<span class='danger'>[user] stabs [L] with the syringe!", \
+							"<span class='userdanger'>[user] shoves the syringe into your flesh, and it sticks!</span>")
+						return
 					return
 				if(L != user)
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
@@ -205,16 +209,16 @@
 /obj/item/reagent_containers/syringe/proc/embed(mob/living/carbon/C, injectmult = 1)
 	C.apply_status_effect(STATUS_EFFECT_SYRINGE, src, injectmult)
 	forceMove(C)
-	
+
 /obj/item/reagent_containers/syringe/used
 	name = "used syringe"
 	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it"
-	
+
 
 /obj/item/reagent_containers/syringe/used/Initialize()
 	. = ..()
-	if(prob(50))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), rand(6, 9))
+	if(prob(75))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, rand(3,4))
 		syringediseases += R
 
 /obj/item/reagent_containers/syringe/epinephrine
@@ -236,7 +240,7 @@
 	name = "syringe (diphenhydramine)"
 	desc = "Contains diphenhydramine, an antihistamine agent."
 	list_reagents = list(/datum/reagent/medicine/diphenhydramine = 15)
-	
+
 /obj/item/reagent_containers/syringe/calomel
 	name = "syringe (calomel)"
 	desc = "Contains calomel."

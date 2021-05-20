@@ -22,7 +22,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset
-	mask = /obj/item/clothing/mask/gas
+	mask = /obj/item/clothing/mask/gas/old
 	head = /obj/item/clothing/head/helmet/swat
 	back = /obj/item/storage/backpack
 	id = /obj/item/card/id/syndicate
@@ -110,7 +110,7 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/bearpelt
 	gloves = /obj/item/clothing/gloves/color/black
-	mask = /obj/item/clothing/mask/gas
+	mask = /obj/item/clothing/mask/gas/old
 
 
 
@@ -165,7 +165,7 @@
 
 
 /obj/effect/mob_spawn/human/corpse/nanotrasensoldier
-	name = "Nanotrasen Private Security Officer"
+	name = "\improper Nanotrasen Private Security Officer"
 	id_job = "Private Security Force"
 	id_access = "Security Officer"
 	outfit = /datum/outfit/nanotrasensoldiercorpse2
@@ -219,3 +219,111 @@
 	id = /obj/item/card/id
 	l_pocket = /obj/item/paper/fluff/bee_objectives
 	mask = /obj/item/clothing/mask/rat/bee
+
+/obj/effect/mob_spawn/human/corpse/sniper
+	name = "Sniper"
+	outfit = /datum/outfit/sniper
+	skin_tone = "caucasian1"
+	hair_style = "Bald"
+	facial_hair_style = "Full beard"
+	id_job = "Warden"
+	mob_gender = MALE
+
+/datum/outfit/sniper
+	name = "Sniper"
+	uniform = /obj/item/clothing/under/syndicate/camo
+	suit = /obj/item/clothing/suit/armor/bulletproof
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	belt = /obj/item/storage/belt/military/assault
+	mask = /obj/item/clothing/mask/cigarette/cigar
+	head = /obj/item/clothing/head/beret/corpwarden
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch
+	back = /obj/item/storage/backpack/satchel/sec
+	id = /obj/item/card/id/job/warden
+
+/obj/effect/mob_spawn/human/corpse/psychost
+	name = "Psycho"
+	hair_style = "Bald"
+	facial_hair_style = "Shaved"
+	skin_tone = "caucasian1"
+	brute_damage = 100
+	outfit = /datum/outfit/straightjacket
+
+/datum/outfit/straightjacket
+	name = "Straight jacket"
+	suit = /obj/item/clothing/suit/straight_jacket
+
+/obj/effect/mob_spawn/human/corpse/psychost/muzzle
+	name = "Muzzled psycho"
+	outfit = /datum/outfit/straightmuz
+
+/datum/outfit/straightmuz
+	name = "Straight jacket and a muzzle"
+	suit = /obj/item/clothing/suit/straight_jacket
+	mask = /obj/item/clothing/mask/muzzle
+
+/obj/effect/mob_spawn/human/corpse/psychost/trap
+	name = "Trapped psycho"
+	outfit = /datum/outfit/straighttrap
+
+/datum/outfit/straighttrap
+	name = "Straight jacket and a reverse bear trap"
+	suit = /obj/item/clothing/suit/straight_jacket
+	head = /obj/item/reverse_bear_trap
+
+/obj/effect/mob_spawn/human/corpse/heavy
+	name = "Heavy gunner"
+	brute_damage = 300
+	hair_style = "Bald"
+	facial_hair_style = "Shaved"
+	mob_gender = MALE
+	skin_tone = "caucasian1"
+	outfit = /datum/outfit/minigunheavy
+
+/datum/outfit/minigunheavy
+	name = "Heavy gunner"
+	uniform = /obj/item/clothing/under/rank/security/head_of_security/alt
+	shoes = /obj/item/clothing/shoes/combat/swat
+	gloves = /obj/item/clothing/gloves/combat
+	mask = /obj/item/clothing/mask/gas/sechailer/swat/emagged
+	suit = /obj/item/clothing/suit/armor/heavy
+	back = /obj/item/minigunpack
+	head = /obj/item/clothing/head/helmet/swat
+
+/obj/effect/mob_spawn/human/corpse/zombie
+	name = "zombie"
+	mob_species = /datum/species/zombie
+	brute_damage = 100
+
+/obj/effect/mob_spawn/human/corpse/suicidezombie
+	mob_species = /datum/species/zombie
+	brute_damage = 100
+	outfit = /datum/outfit/suicidezombie
+
+/datum/outfit/suicidezombie
+	name = "Guy with a grenade"
+	mask = /obj/item/clothing/mask/gas/cyborg
+	uniform = /obj/item/clothing/under/pants/camo
+	belt = /obj/item/storage/belt/bandolier
+	shoes = /obj/item/clothing/shoes/combat
+
+/obj/effect/mob_spawn/human/corpse/facboss
+	name = "Factory boss"
+	mob_species = /datum/species/synth/military
+	brute_damage = 800
+	burn_damage = 100
+	hair_style = "Crewcut"
+	facial_hair_style = "Shaved"
+	skin_tone = "caucasian1"
+	mob_gender = MALE
+	outfit = /datum/outfit/facboss
+
+/datum/outfit/facboss
+	name = "The head of The Factory"
+	glasses = /obj/item/clothing/glasses/hud/terminator
+	uniform = /obj/item/clothing/under/syndicate
+	suit = /obj/item/clothing/suit/jacket/leather
+	shoes = /obj/item/clothing/shoes/combat/swat
+	gloves = /obj/item/clothing/gloves/fingerless
+	id = /obj/item/card/id/gold

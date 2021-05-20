@@ -8653,7 +8653,7 @@
 	},
 /turf/open/floor/engine{
 	name = "air floor";
-	initial_gas_mix = "n2=10580;o2=2644"
+	initial_gas_mix = "n2=10580;o2=2644;TEMP=351.9"
 	},
 /area/awaymission/undergroundoutpost45/engineering)
 "pF" = (

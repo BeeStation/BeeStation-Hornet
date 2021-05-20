@@ -22,7 +22,7 @@
 	var/overload_step_energy_drain_min = 100
 	max_integrity = 300 //max_integrity is base health
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/equipment_disabled = 0 //disabled due to EMP
 	var/obj/item/stock_parts/cell/cell ///Keeps track of the mech's cell
@@ -79,7 +79,7 @@
 	var/destruction_sleep_duration = 20 //Time that mech pilot is put to sleep for if mech is destroyed
 	var/enclosed = TRUE //Set to false for open-cockpit mechs
 	var/silicon_icon_state = null //if the mech has a different icon when piloted by an AI or MMI
-	var/is_currently_ejecting = FALSE //Mech cannot use equiptment when true, set to true if pilot is trying to exit mech
+	var/is_currently_ejecting = FALSE //Mech cannot use equipment when true, set to true if pilot is trying to exit mech
 
 	//Action datums
 	var/datum/action/innate/mecha/mech_eject/eject_action = new
@@ -397,22 +397,22 @@
 				if(0.75 to INFINITY)
 					occupant.clear_alert("charge")
 				if(0.5 to 0.75)
-					occupant.throw_alert("charge", /obj/screen/alert/lowcell, 1)
+					occupant.throw_alert("charge", /atom/movable/screen/alert/lowcell, 1)
 				if(0.25 to 0.5)
-					occupant.throw_alert("charge", /obj/screen/alert/lowcell, 2)
+					occupant.throw_alert("charge", /atom/movable/screen/alert/lowcell, 2)
 				if(0.01 to 0.25)
-					occupant.throw_alert("charge", /obj/screen/alert/lowcell, 3)
+					occupant.throw_alert("charge", /atom/movable/screen/alert/lowcell, 3)
 				else
-					occupant.throw_alert("charge", /obj/screen/alert/emptycell)
+					occupant.throw_alert("charge", /atom/movable/screen/alert/emptycell)
 
 		var/integrity = obj_integrity/max_integrity*100
 		switch(integrity)
 			if(30 to 45)
-				occupant.throw_alert("mech damage", /obj/screen/alert/low_mech_integrity, 1)
+				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 1)
 			if(15 to 35)
-				occupant.throw_alert("mech damage", /obj/screen/alert/low_mech_integrity, 2)
+				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 2)
 			if(-INFINITY to 15)
-				occupant.throw_alert("mech damage", /obj/screen/alert/low_mech_integrity, 3)
+				occupant.throw_alert("mech damage", /atom/movable/screen/alert/low_mech_integrity, 3)
 			else
 				occupant.clear_alert("mech damage")
 		var/atom/checking = occupant.loc
@@ -454,17 +454,30 @@
 /obj/mecha/proc/drop_item()//Derpfix, but may be useful in future for engineering exosuits.
 	return
 
-/obj/mecha/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+/obj/mecha/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
 	if(speaker == occupant)
 		if(radio?.broadcasting)
-			radio.talk_into(speaker, text, , spans, message_language)
+			radio.talk_into(speaker, text, , spans, message_language, message_mods)
 		//flick speech bubble
 		var/list/speech_bubble_recipients = list()
-		for(var/mob/M in get_hearers_in_view(7,src))
+		for(var/mob/M as() in hearers(7,src))
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
+
+/obj/mecha/emag_act(mob/user)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		to_chat(user, "<span class='warning'>The mech suit's internal controls are damaged beyond repair!</span>")
+		return
+	obj_flags |= EMAGGED
+	playsound(src, "sparks", 100, 1)
+	to_chat(user, "<span class='warning'>You short out the mech suit's internal controls.</span>")
+	dna_lock = null
+	equipment_disabled = TRUE
+	log_message("System emagged detected", LOG_MECHA, color="red")
+	addtimer(CALLBACK(src, /obj/mecha/proc/restore_equipment), 15 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 ////////////////////////////
 ///// Action processing ////
@@ -481,7 +494,7 @@
 	if(is_currently_ejecting)
 		return
 	if(phasing)
-		occupant_message("Unable to interact with objects while phasing")
+		occupant_message("Unable to interact with objects while phasing.")
 		return
 	if(user.incapacitated())
 		return
@@ -576,7 +589,7 @@
 		return 0
 	if(construction_state)
 		if(world.time - last_message > 20)
-			occupant_message("<span class='danger'>Maintenance protocols in effect.</span>")
+			occupant_message("<span class='danger'>Maintenance protocols are in effect.</span>")
 			last_message = world.time
 		return
 	return domove(direction)
@@ -648,8 +661,15 @@
 				can_move = 0
 				if(phase_state)
 					flick(phase_state, src)
-				forceMove(get_step(src,dir))
-				use_power(phasing_energy_drain)
+				var/turf/target = get_step(src, dir)
+				if(target.flags_1 & NOJAUNT_1)
+					occupant_message("Phasing anomaly detected, emergency deactivation initiated.")
+					sleep(step_in*3)
+					can_move = 1
+					phasing = FALSE
+					return
+				if(do_teleport(src, get_step(src, dir), no_effects = TRUE))
+					use_power(phasing_energy_drain)
 				sleep(step_in*3)
 				can_move = 1
 	else
@@ -679,7 +699,7 @@
 ///////////////////////////////////
 
 /obj/mecha/proc/check_for_internal_damage(list/possible_int_damage,ignore_threshold=null)
-	if(!islist(possible_int_damage) || isemptylist(possible_int_damage))
+	if(!islist(possible_int_damage) || !length(possible_int_damage))
 		return
 	if(prob(20))
 		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
@@ -709,7 +729,7 @@
 			if(MECHA_INT_TEMP_CONTROL)
 				occupant_message("<span class='boldnotice'>Life support system reactivated.</span>")
 			if(MECHA_INT_FIRE)
-				occupant_message("<span class='boldnotice'>Internal fire extinquished.</span>")
+				occupant_message("<span class='boldnotice'>Internal fire extinguished.</span>")
 			if(MECHA_INT_TANK_BREACH)
 				occupant_message("<span class='boldnotice'>Damaged internal tank has been sealed.</span>")
 	internal_damage &= ~int_dam_flag
@@ -739,7 +759,7 @@
 		var/can_control_mech = 0
 		for(var/obj/item/mecha_parts/mecha_tracking/ai_control/A in trackers)
 			can_control_mech = 1
-			to_chat(user, "<span class='notice'>[icon2html(src, user)] Status of [name]:</span>\n[A.get_mecha_info()]")
+			to_chat(user, "<span class='notice'>[icon2html(src, user)] Status of [name]:</span>\n[A.get_mecha_info()].")
 			break
 		if(!can_control_mech)
 			to_chat(user, "<span class='warning'>You cannot control exosuits without AI control beacons installed.</span>")
@@ -933,7 +953,7 @@
 	return
 
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
-	if(H && H.client && (H in range(1)))
+	if(H?.client && get_dist(H, src) <= 1)
 		occupant = H
 		H.forceMove(src)
 		H.update_mouse_pointer()
@@ -1007,12 +1027,12 @@
 
 /obj/mecha/container_resist(mob/living/user)
 	is_currently_ejecting = TRUE
-	to_chat(occupant, "<span class='notice'>You begin the ejection procedure. Equipment is disabled during this process. Hold still to finish ejecting.<span>")
+	to_chat(occupant, "<span class='notice'>You begin the ejection procedure. Equipment is disabled during this process. Hold still to finish ejecting.</span>")
 	if(do_after(occupant,exit_delay, target = src))
-		to_chat(occupant, "<span class='notice'>You exit the mech.<span>")
+		to_chat(occupant, "<span class='notice'>You exit the mech.</span>")
 		go_out()
 	else
-		to_chat(occupant, "<span class='notice'>You stop exiting the mech. Weapons are enabled again.<span>")
+		to_chat(occupant, "<span class='notice'>You stop exiting the mech. Weapons are enabled again.</span>")
 	is_currently_ejecting = FALSE
 
 /obj/mecha/Exited(atom/movable/M, atom/newloc)

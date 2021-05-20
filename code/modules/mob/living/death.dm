@@ -48,7 +48,7 @@
 
 /mob/living/death(gibbed)
 	var/was_dead_before = stat == DEAD
-	stat = DEAD
+	set_stat(DEAD)
 	unset_machine()
 	timeofdeath = world.time
 	tod = station_time_timestamp()
@@ -64,9 +64,9 @@
 			var/rendered = "<span class='deadsay'><b>[mind.name]</b> has died at <b>[get_area_name(T)]</b>.</span>"
 			deadchat_broadcast(rendered, follow_target = src, turf_target = T, message_type=DEADCHAT_DEATHRATTLE)
 		mind.store_memory("Time of death: [tod]", 0)
-	GLOB.alive_mob_list -= src
+	remove_from_alive_mob_list()
 	if(!gibbed && !was_dead_before)
-		GLOB.dead_mob_list += src
+		add_to_dead_mob_list()
 
 	SetSleeping(0, 0)
 	blind_eyes(1)
@@ -87,7 +87,8 @@
 		reset_perspective(null)
 		reload_fullscreen()
 		client.move_delay = initial(client.move_delay)
-
+		//This first death of the game will not incur a ghost role cooldown
+		client.next_ghost_role_tick = client.next_ghost_role_tick || suiciding ? world.time + CONFIG_GET(number/ghost_role_cooldown) : world.time
 
 		SSmedals.UnlockMedal(MEDAL_GHOSTS,client)
 

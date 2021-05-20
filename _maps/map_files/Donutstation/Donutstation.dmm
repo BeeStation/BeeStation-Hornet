@@ -632,6 +632,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "abz" = (
+/obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "abA" = (
@@ -2367,7 +2368,7 @@
 "agc" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
@@ -2849,7 +2850,8 @@
 "ahf" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/captain/private)
@@ -3313,7 +3315,7 @@
 /area/science/research)
 "ain" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/stack/ore/silver,
 /obj/item/stack/ore/silver,
@@ -3748,7 +3750,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
 "ajq" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -4062,7 +4064,8 @@
 "aka" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Upload Access";
-	req_access_txt = "16"
+	req_access_txt = "16";
+	security_level = 6
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -5452,7 +5455,7 @@
 	},
 /area/crew_quarters/kitchen)
 "anM" = (
-/obj/machinery/atmospherics/miner/n2o{
+/obj/machinery/atmospherics/miner/station/n2o{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/n2o{
@@ -6646,7 +6649,8 @@
 "aqH" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Control";
-	req_access_txt = "3"
+	req_access_txt = "3";
+	security_level = 6
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
@@ -8555,7 +8559,8 @@
 "auO" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "EVA Storage";
-	req_access_txt = "18"
+	req_access_txt = "18";
+	security_level = 6
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -10024,7 +10029,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "ayh" = (
-/obj/machinery/atmospherics/miner/toxins{
+/obj/machinery/atmospherics/miner/station/toxins{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/plasma{
@@ -10346,7 +10351,7 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "ayS" = (
-/obj/machinery/atmospherics/miner/carbon_dioxide{
+/obj/machinery/atmospherics/miner/station/carbon_dioxide{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/co2{
@@ -11290,7 +11295,8 @@
 "aBb" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -11302,7 +11308,8 @@
 "aBc" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Emergency Storage";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -11632,7 +11639,8 @@
 "aBL" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "AI Upload Access";
-	req_access_txt = "16"
+	req_access_txt = "16";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -12641,6 +12649,9 @@
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
+	},
+/obj/machinery/door/window/northleft{
+	name = "Infirmary"
 	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
@@ -15908,7 +15919,7 @@
 /area/crew_quarters/fitness/recreation)
 "aLg" = (
 /obj/structure/closet/secure_closet/contraband/armory,
-/obj/effect/spawner/lootdrop/armory_contraband/donutstation,
+/obj/effect/spawner/lootdrop/armory_contraband,
 /obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -16095,7 +16106,8 @@
 "aLK" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "EVA Storage";
-	req_access_txt = "18"
+	req_access_txt = "18";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -16120,7 +16132,7 @@
 /turf/open/floor/carpet,
 /area/library)
 "aLP" = (
-/obj/structure/destructible/cult/tome,
+/obj/structure/destructible/cult/tome/library,
 /obj/item/book/codex_gigas,
 /turf/open/floor/engine/cult,
 /area/library)
@@ -17489,7 +17501,8 @@
 "aPl" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Control";
-	req_access_txt = "3"
+	req_access_txt = "3";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -19973,7 +19986,8 @@
 "aUJ" = (
 /obj/machinery/door/airlock/command{
 	name = "Teleport Access";
-	req_access_txt = "17"
+	req_access_txt = "17";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -25761,7 +25775,7 @@
 /area/security/main)
 "bgp" = (
 /obj/machinery/vending/wardrobe/chef_wardrobe,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bgq" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -25795,13 +25809,13 @@
 	name = "Kitchen Cold Room";
 	req_access_txt = "28"
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bgu" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 6
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bgv" = (
 /obj/effect/turf_decal/tile/bar{
@@ -25827,7 +25841,7 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bgy" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
@@ -25952,7 +25966,7 @@
 /obj/machinery/airalarm/kitchen_cold_room{
 	pixel_y = 24
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bgK" = (
 /obj/structure/table/wood,
@@ -26135,14 +26149,14 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bhf" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 10
 	},
 /obj/machinery/icecream_vat,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bhg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -26154,7 +26168,7 @@
 /area/engine/atmos)
 "bhi" = (
 /obj/machinery/gibber,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bhj" = (
 /obj/machinery/power/apc{
@@ -26299,7 +26313,7 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom{
 	dir = 4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bhy" = (
 /obj/structure/chair/stool,
@@ -26666,7 +26680,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 1
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bik" = (
 /obj/structure/disposalpipe/segment,
@@ -26693,7 +26707,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bio" = (
 /obj/structure/lattice/catwalk,
@@ -26727,7 +26741,7 @@
 	pixel_y = -32
 	},
 /obj/structure/kitchenspike,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "bis" = (
 /obj/structure/cable/yellow{
@@ -27014,11 +27028,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/gun/grenadelauncher{
+/obj/item/gun/grenadelauncher/security{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/grenadelauncher,
+/obj/item/gun/grenadelauncher/security,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "biX" = (
@@ -28334,7 +28348,7 @@
 	},
 /area/crew_quarters/kitchen)
 "bln" = (
-/obj/machinery/mecha_part_fabricator,
+/obj/machinery/modular_fabricator/exosuit_fab,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -31581,7 +31595,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel/freezer,
 /area/maintenance/port/aft)
 "brz" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
@@ -35713,7 +35727,7 @@
 "bzw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
@@ -36478,7 +36492,8 @@
 "bBg" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Research Director";
-	req_access_txt = "30"
+	req_access_txt = "30";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -36998,7 +37013,8 @@
 "bCb" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Medical Officer";
-	req_access_txt = "40"
+	req_access_txt = "40";
+	security_level = 6
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -37118,7 +37134,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel's Private Quarters";
-	req_access_txt = "57"
+	req_access_txt = "57";
+	security_level = 6
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -38525,7 +38542,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bEP" = (
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bEQ" = (
@@ -40410,7 +40427,8 @@
 "bIo" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -40430,7 +40448,8 @@
 "bIp" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
@@ -40450,7 +40469,8 @@
 "bIq" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -40464,7 +40484,8 @@
 "bIr" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19"
+	req_access_txt = "19";
+	security_level = 6
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -41494,7 +41515,8 @@
 "bKO" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access_txt = "57"
+	req_access_txt = "57";
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -41534,7 +41556,8 @@
 "bKS" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Office";
-	req_access_txt = "20"
+	req_access_txt = "20";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -42188,7 +42211,7 @@
 	dir = 4
 	},
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -45281,11 +45304,11 @@
 	name = "Excess Security Equipment"
 	},
 /obj/item/clothing/suit/armor/vest/old{
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50);
+	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 20);
 	desc = "Older generation Type 1 armored vest. It looks like some of the local moths have gotten ahold of this will all the holes in it."
 	},
 /obj/item/clothing/suit/armor/vest/old{
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50);
+	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 20);
 	desc = "Older generation Type 1 armored vest. It looks like some of the local moths have gotten ahold of this will all the holes in it."
 	},
 /obj/item/reagent_containers/spray/pepper/empty,
@@ -45294,12 +45317,12 @@
 /area/maintenance/department/security)
 "bSA" = (
 /obj/item/clothing/head/helmet/old{
-	armor = list("melee" = 20, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50);
+	armor = list("melee" = 20, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 20);
 	pixel_x = -3;
 	pixel_y = 3
 	},
 /obj/item/clothing/head/helmet/old{
-	armor = list("melee" = 20, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50);
+	armor = list("melee" = 20, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 20);
 	pixel_x = 1;
 	pixel_y = -2
 	},
@@ -45426,7 +45449,7 @@
 /area/science/robotics/lab)
 "bSQ" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/stack/sheet/mineral/copper{
 	amount = 5
@@ -47266,7 +47289,7 @@
 /area/maintenance/fore)
 "bWV" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
@@ -47584,7 +47607,7 @@
 "bXS" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -50117,7 +50140,7 @@
 	},
 /area/engine/atmos)
 "cdM" = (
-/obj/machinery/atmospherics/miner/nitrogen{
+/obj/machinery/atmospherics/miner/station/nitrogen{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/n2{
@@ -50596,7 +50619,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "ceK" = (
-/obj/machinery/atmospherics/miner/oxygen{
+/obj/machinery/atmospherics/miner/station/oxygen{
 	max_ext_kpa = 2500
 	},
 /turf/open/floor/engine/o2{
@@ -51037,11 +51060,11 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 4
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "dwg" = (
 /obj/structure/reagent_dispensers/cooking_oil,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "dxJ" = (
 /obj/structure/closet/wardrobe/science_white,
@@ -51310,7 +51333,7 @@
 "esU" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/structure/closet/secure_closet/freezer/fridge,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "etl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -51590,7 +51613,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Engineer";
-	req_access_txt = "56"
+	req_access_txt = "56";
+	security_level = 6
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -51720,7 +51744,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "fzV" = (
 /obj/machinery/button/door{
@@ -51789,7 +51813,7 @@
 	name = "Research Lab Desk";
 	req_one_access_txt = "7;29"
 	},
-/obj/machinery/autolathe,
+/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "fED" = (
@@ -52538,6 +52562,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
+"ihQ" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/door/window/northright{
+	name = "Infirmary"
+	},
+/turf/open/floor/plasteel/white,
+/area/security/brig)
 "iif" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
@@ -53363,7 +53399,7 @@
 /area/engine/engine_room)
 "lEx" = (
 /obj/machinery/chem_master/condimaster,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "lEO" = (
 /obj/structure/cable/yellow{
@@ -53913,7 +53949,7 @@
 /area/medical/medbay/central)
 "nuq" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "nvs" = (
 /obj/structure/reagent_dispensers/beerkeg,
@@ -54123,7 +54159,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "nUo" = (
 /obj/effect/turf_decal/tile/yellow{
@@ -54653,7 +54689,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "pBI" = (
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "pGQ" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -54929,7 +54965,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "qBm" = (
 /obj/structure/table,
@@ -56740,7 +56776,7 @@
 	dir = 2;
 	pixel_y = -28
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "wtu" = (
 /obj/structure/bed,
@@ -57054,7 +57090,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
 	},
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor,
+/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "xyU" = (
 /obj/structure/window/reinforced{
@@ -106270,7 +106306,7 @@ aij
 aij
 aOi
 aZI
-aDZ
+ihQ
 aEq
 aFs
 aGd

@@ -49,6 +49,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	pull_force = INFINITY
 	density = TRUE
 	anchored = TRUE
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	var/mob/living/wizard
 	var/z_original = 0
 	var/destination
@@ -96,9 +97,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination = get_edge_target_turf(src, dir)
 	walk(src,0)
 	walk_towards(src, destination, 1)
-
-/obj/structure/closet/supplypod/prevent_content_explosion()
-	return TRUE
 
 /obj/effect/immovablerod/ex_act(severity, target)
 	return 0
@@ -151,7 +149,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(U.job in list("Research Director"))
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			for(var/mob/M in urange(8, src))
-				if(!M.stat)
+				if(M.is_conscious())
 					shake_camera(M, 2, 3)
 			if(wizard)
 				U.visible_message("<span class='boldwarning'>[src] transforms into [wizard] as [U] suplexes them!</span>", "<span class='warning'>As you grab [src], it suddenly turns into [wizard] as you suplex them!</span>")

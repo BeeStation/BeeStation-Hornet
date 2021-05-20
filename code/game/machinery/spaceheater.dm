@@ -11,10 +11,8 @@
 	name = "space heater"
 	desc = "Made by Space Amish using traditional space techniques, this heater/cooler is guaranteed not to set the station on fire. Warranty void if used in engines."
 	max_integrity = 250
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 10)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 10, "stamina" = 0)
 	circuit = /obj/item/circuitboard/machine/space_heater
-	ui_x = 400
-	ui_y = 305
 
 	var/obj/item/stock_parts/cell/cell
 	var/on = FALSE
@@ -168,11 +166,14 @@
 	else
 		return ..()
 
-/obj/machinery/space_heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/space_heater/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/space_heater/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SpaceHeater", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "SpaceHeater")
 		ui.open()
 
 /obj/machinery/space_heater/ui_data()

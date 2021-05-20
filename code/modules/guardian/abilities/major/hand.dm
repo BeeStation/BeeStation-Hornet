@@ -14,12 +14,12 @@
 	for(var/atom/movable/AM in get_turf(target))
 		if(AM.anchored)
 			continue
-		AM.forceMove(hand_turf)
+		do_teleport(AM, hand_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
 	guardian.face_atom(hand_turf)
 	return ..()
 
 /datum/guardian_ability/major/hand/Stat()
-	. = ..()
-	if(statpanel("Status"))
-		if(next_hand > world.time)
-			stat(null, "THE HAND Cooldown Remaining: [DisplayTimeText(next_hand - world.time)]")
+	var/list/tab_data = list()
+	if(next_hand > world.time)
+		tab_data["THE HAND Cooldown Remaining"] = GENERATE_STAT_TEXT("[DisplayTimeText(next_hand - world.time)]")
+	return tab_data

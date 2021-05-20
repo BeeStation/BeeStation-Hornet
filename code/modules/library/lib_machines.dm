@@ -66,7 +66,6 @@
 			dat += "<A href='?src=[REF(src)];back=1'>\[Go Back\]</A><BR>"
 	var/datum/browser/popup = new(user, "publiclibrary", name, 600, 400)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/computer/libraryconsole/Topic(href, href_list)
@@ -314,19 +313,22 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 
 	var/datum/browser/popup = new(user, "library", name, 600, 400)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/computer/libraryconsole/bookmanagement/proc/findscanner(viewrange)
-	for(var/obj/machinery/libraryscanner/S in range(viewrange, get_turf(src)))
-		return S
-	return null
+	return locate(/obj/machinery/libraryscanner) in range(viewrange, get_turf(src))
 
 /obj/machinery/computer/libraryconsole/bookmanagement/proc/print_forbidden_lore(mob/user)
-	if (prob(50))
-		new /obj/item/melee/cultblade/dagger(get_turf(src))
-		to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a sinister dagger sitting on the desk. You don't even remember where it came from...</span>")
-
+	switch(rand(1,3))
+		if(1)
+			new /obj/item/melee/cultblade/dagger(get_turf(src))
+			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a sinister dagger sitting on the desk. You don't even remember where it came from...</span>")
+		if(2)
+			new /obj/item/clockwork/clockwork_slab(get_turf(src))
+			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange metal tablet sitting on the desk. You don't even remember where it came from...</span>")
+		if(3)
+			new /obj/item/forbidden_book(get_turf(src))
+			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is an ominous book, bound by a chain, sitting on the desk. You don't even remember where it came from...</span>")	
 	user.visible_message("[user] stares at the blank screen for a few moments, [user.p_their()] expression frozen in fear. When [user.p_they()] finally awaken[user.p_s()] from it, [user.p_they()] look[user.p_s()] a lot older.", 2)
 
 /obj/machinery/computer/libraryconsole/bookmanagement/attackby(obj/item/W, mob/user, params)
@@ -539,7 +541,6 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 		dat += "<BR>"
 	var/datum/browser/popup = new(user, "scanner", name, 600, 400)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/libraryscanner/Topic(href, href_list)

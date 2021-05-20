@@ -270,7 +270,8 @@ All foods are distributed among various categories. Use common sense.
 			trash = null
 			return
 
-/obj/item/reagent_containers/food/snacks/proc/update_overlays(obj/item/reagent_containers/food/snacks/S)
+// We need to refactor this someday, like, in 3 years
+/obj/item/reagent_containers/food/snacks/proc/update_customizable_overlays(obj/item/reagent_containers/food/snacks/S)
 	cut_overlays()
 	var/mutable_appearance/filling = mutable_appearance(icon, "[initial(icon_state)]_filling")
 	if(S.filling_color == "#FFFFFF")
@@ -323,13 +324,13 @@ All foods are distributed among various categories. Use common sense.
 		if(iscorgi(M))
 			var/mob/living/L = M
 			if(bitecount == 0 || prob(50))
-				M.emote("me", 1, "nibbles away at \the [src]")
+				M.emote("me", 1, "nibbles away at \the [src].")
 			bitecount++
 			L.taste(reagents) // why should carbons get all the fun?
 			if(bitecount >= 5)
-				var/sattisfaction_text = pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where \the [src] was")
-				if(sattisfaction_text)
-					M.emote("me", 1, "[sattisfaction_text]")
+				var/satisfaction_text = pick("burps from enjoyment.", "yaps for more.", "woofs twice.", "looks at the area where \the [src] was.")
+				if(satisfaction_text)
+					M.emote("me", 1, "[satisfaction_text]")
 				qdel(src)
 
 /obj/item/reagent_containers/food/snacks/afterattack(obj/item/reagent_containers/M, mob/user, proximity)

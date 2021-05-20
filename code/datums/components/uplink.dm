@@ -103,7 +103,16 @@
 			var/datum/uplink_item/UI = uplink_items[category][item]
 			var/path = UI.refund_path || UI.item
 			var/cost = UI.refund_amount || UI.cost
-			if(I.type == path && UI.refundable && I.check_uplink_validity())
+			//Check that the uplink items path is right
+			//Check that the uplink item is refundable
+			//Check that the uplink is valid
+			//Check that the uplink has purchased this item (Sales can be refunded as the path relates to the old one)
+			var/hash = purchase_log.hash_purchase(UI, UI.cost)
+			var/datum/uplink_purchase_entry/UPE = purchase_log.purchase_log[hash]
+			if(I.type == path && UI.refundable && I.check_uplink_validity() && UPE?.amount_purchased > 0 && UPE.allow_refund)
+				UPE.amount_purchased --
+				if(!UPE.amount_purchased)
+					purchase_log.purchase_log.Remove(hash)
 				telecrystals += cost
 				purchase_log.total_spent -= cost
 				to_chat(user, "<span class='notice'>[I] refunded.</span>")
@@ -121,12 +130,15 @@
 	// an unlocked uplink blocks also opening the PDA or headset menu
 	return COMPONENT_NO_INTERACT
 
-/datum/component/uplink/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+
+/datum/component/uplink/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/datum/component/uplink/ui_interact(mob/user, datum/tgui/ui)
 	active = TRUE
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Uplink", name, 620, 580, master_ui, state)
+		ui = new(user, src, "Uplink")
 		// This UI is only ever opened by one person,
 		// and never is updated outside of user input.
 		ui.set_autoupdate(FALSE)

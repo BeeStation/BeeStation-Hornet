@@ -12,9 +12,9 @@
 	var/permanent = FALSE
 	var/last_process = 0
 
-/datum/component/wet_floor/InheritComponent(datum/newcomp, orig, argslist)
+/datum/component/wet_floor/InheritComponent(datum/newcomp, orig, strength, duration_minimum, duration_add, duration_maximum, _permanent)
 	if(!newcomp)	//We are getting passed the arguments of a would-be new component, but not a new component
-		add_wet(arglist(argslist))
+		add_wet(arglist(args.Copy(3)))
 	else			//We are being passed in a full blown component
 		var/datum/component/wet_floor/WF = newcomp			//Lets make an assumption
 		if(WF.gc())						//See if it's even valid, still. Also does LAZYLEN and stuff for us.
@@ -87,6 +87,9 @@
 		if(TURF_WET_PERMAFROST)
 			intensity = 120
 			lube_flags = SLIDE_ICE | GALOSHES_DONT_HELP
+		if(TURF_WET_SUPERLUBE)
+			intensity = 120
+			lube_flags = SLIDE | GALOSHES_DONT_HELP | SLIP_WHEN_CRAWLING
 		else
 			qdel(parent.GetComponent(/datum/component/slippery))
 			return
@@ -156,7 +159,7 @@
 	//NB it's possible we get deleted after this, due to inherit
 
 /datum/component/wet_floor/proc/add_wet(type, duration_minimum = 0, duration_add = 0, duration_maximum = MAXIMUM_WET_TIME, _permanent = FALSE)
-	var/static/list/allowed_types = list(TURF_WET_WATER, TURF_WET_LUBE, TURF_WET_ICE, TURF_WET_PERMAFROST)
+	var/static/list/allowed_types = list(TURF_WET_WATER, TURF_WET_LUBE, TURF_WET_ICE, TURF_WET_PERMAFROST, TURF_WET_SUPERLUBE)
 	if(duration_minimum <= 0 || !type)
 		return FALSE
 	if(type in allowed_types)

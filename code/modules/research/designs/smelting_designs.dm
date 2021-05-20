@@ -1,7 +1,7 @@
 ///////SMELTABLE ALLOYS///////
 
 /datum/design/plasteel_alloy
-	name = "Plasma + Iron alloy"
+	name = "Plasteel (Plasma + Iron alloy)"
 	id = "plasteel"
 	build_type = SMELTER | PROTOLATHE
 	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT, /datum/material/plasma = MINERAL_MATERIAL_AMOUNT)
@@ -12,7 +12,7 @@
 
 
 /datum/design/plastitanium_alloy
-	name = "Plasma + Titanium alloy"
+	name = "Plastitanium (Plasma + Titanium alloy)"
 	id = "plastitanium"
 	build_type = SMELTER | PROTOLATHE
 	materials = list(/datum/material/titanium = MINERAL_MATERIAL_AMOUNT, /datum/material/plasma = MINERAL_MATERIAL_AMOUNT)
@@ -22,7 +22,7 @@
 	maxstack = 50
 
 /datum/design/plaglass_alloy
-	name = "Plasma + Glass alloy"
+	name = "Plasma Glass (Plasma + Glass alloy)"
 	id = "plasmaglass"
 	build_type = SMELTER | PROTOLATHE
 	materials = list(/datum/material/plasma = MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass = MINERAL_MATERIAL_AMOUNT)
@@ -32,7 +32,7 @@
 	maxstack = 50
 
 /datum/design/plasmarglass_alloy
-	name = "Plasma + Iron + Glass alloy"
+	name = "Plasma Reinforced Glass (Plasma + Iron + Glass alloy)"
 	id = "plasmareinforcedglass"
 	build_type = SMELTER | PROTOLATHE
 	materials = list(/datum/material/plasma = MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/iron = MINERAL_MATERIAL_AMOUNT * 0.5,  /datum/material/glass = MINERAL_MATERIAL_AMOUNT)
@@ -42,7 +42,7 @@
 	maxstack = 50
 
 /datum/design/titaniumglass_alloy
-	name = "Titanium + Glass alloy"
+	name = "Titanium Glass (Titanium + Glass alloy)"
 	id = "titaniumglass"
 	build_type = SMELTER | PROTOLATHE
 	materials = list(/datum/material/titanium = MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass = MINERAL_MATERIAL_AMOUNT)
@@ -52,7 +52,7 @@
 	maxstack = 50
 
 /datum/design/plastitaniumglass_alloy
-	name = "Plasma + Titanium + Glass alloy"
+	name = "Plastitanium glass (Plasma + Titanium + Glass alloy)"
 	id = "plastitaniumglass"
 	build_type = SMELTER | PROTOLATHE
 	materials = list(/datum/material/plasma = MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/titanium = MINERAL_MATERIAL_AMOUNT * 0.5, /datum/material/glass = MINERAL_MATERIAL_AMOUNT)

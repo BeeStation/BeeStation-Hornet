@@ -14,7 +14,8 @@
 	speak_chance = 1
 	turns_per_move = 10
 	can_be_held = TRUE
-	mobsay_color = "#ECDA88"
+	chat_color = "#ECDA88"
+	mobchatspan = "corgi"
 
 	do_footstep = TRUE
 
@@ -65,8 +66,10 @@
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/pug = 3)
 	gold_core_spawnable = FRIENDLY_SPAWN
+	worn_slot_flags = ITEM_SLOT_HEAD
 	collar_type = "pug"
 	held_state = "pug"
+
 
 /mob/living/simple_animal/pet/dog/bullterrier
 	name = "\improper bull terrier"
@@ -78,8 +81,10 @@
 	icon_dead = "bullterrier_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3) // Would feel redundant to add more new dog meats.
 	gold_core_spawnable = FRIENDLY_SPAWN
+	worn_slot_flags = ITEM_SLOT_HEAD //by popular demand
 	collar_type = "bullterrier"
 	held_state = "bullterrier"
+	head_icon = 'icons/mob/pets_held_large.dmi'
 
 /mob/living/simple_animal/pet/dog/bullterrier/walter
 	name = "Walter"
@@ -104,8 +109,7 @@
 	. = ..()
 	var/dog_area = get_area(src)
 	for(var/obj/structure/bed/dogbed/D in dog_area)
-		if(!D.owner)
-			D.update_owner(src)
+		if(D.update_owner(src)) //No muscling in on my turf you fucking parrot
 			break
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize()
@@ -141,16 +145,16 @@
 	if(def_zone)
 		if(def_zone == BODY_ZONE_HEAD)
 			if(inventory_head)
-				armorval = inventory_head.armor.getRating(type)
+				armorval = inventory_head.get_armor_rating(type, src)
 		else
 			if(inventory_back)
-				armorval = inventory_back.armor.getRating(type)
+				armorval = inventory_back.get_armor_rating(type, src)
 		return armorval
 	else
 		if(inventory_head)
-			armorval += inventory_head.armor.getRating(type)
+			armorval += inventory_head.get_armor_rating(type, src)
 		if(inventory_back)
-			armorval += inventory_back.armor.getRating(type)
+			armorval += inventory_back.get_armor_rating(type, src)
 	return armorval*0.5
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
@@ -168,7 +172,7 @@
 			shaved = TRUE
 			icon_living = "[initial(icon_living)]_shaved"
 			icon_dead = "[initial(icon_living)]_shaved_dead"
-			if(stat == CONSCIOUS)
+			if(is_conscious())
 				icon_state = icon_living
 			else
 				icon_state = icon_dead
@@ -363,6 +367,8 @@
 	var/record_age = 1
 	var/memory_saved = FALSE
 	var/saved_head //path
+	worn_slot_flags = ITEM_SLOT_HEAD
+
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/Initialize()
 	. = ..()
@@ -372,11 +378,7 @@
 	if(age == 0)
 		var/turf/target = get_turf(loc)
 		if(target)
-			var/mob/living/simple_animal/pet/dog/corgi/puppy/P = new /mob/living/simple_animal/pet/dog/corgi/puppy(target)
-			P.name = "Ian"
-			P.real_name = "Ian"
-			P.gender = MALE
-			P.desc = "It's the HoP's beloved corgi puppy."
+			new /mob/living/simple_animal/pet/dog/corgi/puppy/Ian(target)
 			Write_Memory(FALSE)
 			return INITIALIZE_HINT_QDEL
 	else if(age == record_age)
@@ -451,10 +453,10 @@
 			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
 				movement_target = null
 				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+			if(!movement_target || !(src in viewers(3, movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/obj/item/reagent_containers/food/snacks/S in oview(src,3))
+				for(var/obj/item/reagent_containers/food/snacks/S in oview(3, src))
 					if(isturf(S.loc) || ishuman(S.loc))
 						movement_target = S
 						break
@@ -488,10 +490,10 @@
 						movement_target.attack_animal(src)
 					else if(ishuman(movement_target.loc) )
 						if(prob(20))
-							emote("me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
+							INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face")
 
 		if(prob(1))
-			emote("me", 1, pick("dances around.","chases its tail!"))
+			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("dances around.","chases its tail!"))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -517,8 +519,8 @@
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
-	for(var/mob/living/simple_animal/pet/P in range(1, src))
-		if(P != src && !istype(P,/mob/living/simple_animal/pet/dog/corgi/narsie))
+	for(var/mob/living/simple_animal/pet/P in ohearers(1, src))
+		if(!istype(P,/mob/living/simple_animal/pet/dog/corgi/narsie))
 			visible_message("<span class='warning'>[src] devours [P]!</span>", \
 			"<span class='cult big bold'>DELICIOUS SOULS</span>")
 			playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)
@@ -597,6 +599,7 @@
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
@@ -604,6 +607,12 @@
 		to_chat(usr, "<span class='warning'>You can't fit this on [src]!</span>")
 		return
 	..()
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/Ian
+	name = "Ian"
+	real_name = "Ian"
+	gender = MALE
+	desc = "It's the HoP's beloved corgi puppy."
 
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void		//Tribute to the corgis born in nullspace
@@ -618,6 +627,7 @@
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
 	held_state = "void_puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
 	return 1	//Void puppies can navigate space.
@@ -638,6 +648,7 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	held_state = "lisa"
+	worn_slot_flags = ITEM_SLOT_HEAD
 	var/turns_since_scan = 0
 	var/puppies = 0
 
@@ -651,11 +662,12 @@
 /mob/living/simple_animal/pet/dog/corgi/Lisa/Life()
 	..()
 
-	make_babies()
+	if(next_scan_time <= world.time)
+		make_babies()
 
 	if(!stat && !resting && !buckled)
 		if(prob(1))
-			emote("me", 1, pick("dances around.","chases her tail."))
+			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("dances around.","chases her tail."))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -666,7 +678,7 @@
 
 	if(!stat && !resting && !buckled)
 		if(prob(1))
-			emote("me", 1, pick("chases its tail."))
+			INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("chases its tail."))
 			spawn(0)
 				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
 					setDir(i)
@@ -676,17 +688,16 @@
 	. = ..()
 	switch(M.a_intent)
 		if("help")
-			wuv(1,M)
+			wuv(TRUE, M)
 		if("harm")
-			wuv(-1,M)
+			wuv(FALSE, M)
 
 /mob/living/simple_animal/pet/dog/proc/wuv(change, mob/M)
 	if(change)
-		if(change > 0)
-			if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
-				new /obj/effect/temp_visual/heart(loc)
-				emote("me", 1, "yaps happily!")
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-		else
-			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
-				emote("me", 1, "growls!")
+		if(M && stat != DEAD) // Added check to see if this mob (the dog) is dead to fix issue 2454
+			new /obj/effect/temp_visual/heart(loc)
+			emote("me", 1, "yaps happily!")
+			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
+	else
+		if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
+			emote("me", 1, "growls!")

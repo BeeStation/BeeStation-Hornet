@@ -27,6 +27,8 @@
 
 /datum/antagonist/gang/greet()
 	gang.greet_gangster(owner)
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Gangster",
+		"You rule the streets, assist your gang in taking over the station.")
 
 /datum/antagonist/gang/farewell()
 	if(ishuman(owner.current))
@@ -187,10 +189,10 @@
 		return
 
 	var/list/slots = list (
-		"backpack" = SLOT_IN_BACKPACK,
-		"left pocket" = SLOT_L_STORE,
-		"right pocket" = SLOT_R_STORE,
-		"hands" = SLOT_HANDS
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_LPOCKET,
+		"right pocket" = ITEM_SLOT_RPOCKET,
+		"hands" = ITEM_SLOT_HANDS
 	)
 
 	if(gangtool)
@@ -474,4 +476,4 @@
 	return round(diff * 0.1)
 
 #undef MAXIMUM_RECALLS
-#undef INFLUENCE_INTERVAL 
+#undef INFLUENCE_INTERVAL

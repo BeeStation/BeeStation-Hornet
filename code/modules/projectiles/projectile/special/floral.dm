@@ -5,6 +5,7 @@
 	damage_type = TOX
 	nodamage = TRUE
 	flag = "energy"
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/energy/florayield
 	name = "beta somatoray"
@@ -13,3 +14,4 @@
 	damage_type = TOX
 	nodamage = TRUE
 	flag = "energy"
+	martial_arts_no_deflect = TRUE

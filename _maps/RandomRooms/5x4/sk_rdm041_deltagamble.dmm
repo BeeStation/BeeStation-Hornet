@@ -41,13 +41,6 @@
 /obj/effect/spawner/lootdrop/trap/reusable,
 /turf/open/floor/carpet/green,
 /area/template_noop)
-"i" = (
-/obj/structure/table/wood,
-/obj/item/toy/cards/deck/syndicate{
-	pixel_y = 6
-	},
-/turf/open/floor/carpet/green,
-/area/template_noop)
 "j" = (
 /turf/open/floor/wood,
 /area/template_noop)
@@ -91,6 +84,12 @@
 	icon_state = "wood-broken4"
 	},
 /area/template_noop)
+"Z" = (
+/obj/structure/table/wood,
+/obj/item/toy/cards/deck,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/carpet/green,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -101,7 +100,7 @@ l
 (2,1,1) = {"
 b
 g
-i
+Z
 m
 "}
 (3,1,1) = {"

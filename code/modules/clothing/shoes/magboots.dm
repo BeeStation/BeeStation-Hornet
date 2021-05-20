@@ -37,7 +37,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/shoes/magboots/negates_gravity()
-	return clothing_flags & NOSLIP
+	return isspaceturf(get_turf(src)) ? FALSE : magpulse //We don't mimick gravity on space turfs
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
@@ -80,7 +80,7 @@
 
 /obj/item/clothing/shoes/magboots/crushing/equipped(mob/user,slot)
 	. = ..()
-	if (slot == SLOT_SHOES && magpulse)
+	if (slot == ITEM_SLOT_FEET && magpulse)
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED,.proc/crush)
 
 /obj/item/clothing/shoes/magboots/crushing/dropped(mob/user)

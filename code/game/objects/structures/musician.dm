@@ -66,7 +66,7 @@
 	var/turf/source = get_turf(instrumentObj)
 	if((world.time - MUSICIAN_HEARCHECK_MINDELAY) > last_hearcheck)
 		LAZYCLEARLIST(hearing_mobs)
-		for(var/mob/M in get_hearers_in_view(15, source))
+		for(var/mob/M as() in hearers(15, source))
 			LAZYADD(hearing_mobs, M)
 		last_hearcheck = world.time
 
@@ -196,7 +196,6 @@
 
 	var/datum/browser/popup = new(user, "instrument", instrumentObj.name, 700, 500)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(instrumentObj.icon, instrumentObj.icon_state))
 	popup.open()
 
 /datum/song/proc/ParseSong(text)

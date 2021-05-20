@@ -4,7 +4,7 @@
 
 
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 1MB //Could probably do with being lower.
-
+#define MAX_RECOMMENDED_CLIENT 1542
 
 GLOBAL_LIST_INIT(blacklisted_builds, list(
 	"1407" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
@@ -42,11 +42,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	// asset_cache
 	var/asset_cache_job
 	if(href_list["asset_cache_confirm_arrival"])
-		asset_cache_job = round(text2num(href_list["asset_cache_confirm_arrival"]))
-		//because we skip the limiter, we have to make sure this is a valid arrival and not somebody tricking us
-		//	into letting append to a list without limit.
-		if (asset_cache_job > 0 && asset_cache_job <= last_asset_job && !(asset_cache_job in completed_asset_jobs))
-			completed_asset_jobs += asset_cache_job
+		asset_cache_job = asset_cache_confirm_arrival(href_list["asset_cache_confirm_arrival"])
+		if (!asset_cache_job)
 			return
 
 	var/mtl = CONFIG_GET(number/minute_topic_limit)
@@ -89,18 +86,17 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if (asset_cache_job && (asset_cache_job in completed_asset_jobs))
 		to_chat(src, "<span class='danger'>An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
 		src << browse("...", "window=asset_cache_browser")
+		return
+	if (href_list["asset_cache_preload_data"])
+		asset_cache_preload_data(href_list["asset_cache_preload_data"])
+		return
 
-	// Keypress passthrough
-	if(href_list["__keydown"])
-		var/keycode = browser_keycode_to_byond(href_list["__keydown"])
-		if(keycode)
-			keyDown(keycode)
+	// Tgui Topic middleware
+	if(tgui_Topic(href_list))
 		return
-	if(href_list["__keyup"])
-		var/keycode = browser_keycode_to_byond(href_list["__keyup"])
-		if(keycode)
-			keyUp(keycode)
-		return
+
+	if(href_list["reload_tguipanel"])
+		nuke_chat()
 
 	// Admin PM
 	if(href_list["priv_msg"])
@@ -126,8 +122,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return
 		if("vars")
 			return view_var_Topic(href,href_list,hsrc)
-		if("chat")
-			return chatOutput.Topic(href, href_list)
 
 	switch(href_list["action"])
 		if("openLink")
@@ -206,20 +200,22 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	///////////
 	//CONNECT//
 	///////////
-#if (PRELOAD_RSC == 0)
-GLOBAL_LIST_EMPTY(external_rsc_urls)
-#endif
 
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	chatOutput = new /datum/chatOutput(src)
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker" && connection != "web")//Invalid connection type.
 		return null
 
+	if(CONFIG_GET(flag/respect_upstream_bans) || CONFIG_GET(flag/respect_upstream_permabans))
+		check_upstream_bans()
+
 	GLOB.clients += src
 	GLOB.directory[ckey] = src
+
+		// Instantiate tgui panel
+	tgui_panel = new(src)
 
 	GLOB.ahelp_tickets.ClientLogin(src)
 	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
@@ -230,7 +226,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		holder.owner = src
 		connecting_admin = TRUE
 	else if(GLOB.deadmins[ckey])
-		verbs += /client/proc/readmin
+		add_verb(/client/proc/readmin)
 		connecting_admin = TRUE
 	if(CONFIG_GET(flag/autoadmin))
 		if(!GLOB.admin_datums[ckey])
@@ -259,8 +255,10 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
 
+	prefs.handle_donator_items()
+
 	if(fexists(roundend_report_file()))
-		verbs += /client/proc/show_previous_roundend_report
+		add_verb(/client/proc/show_previous_roundend_report)
 
 	var/full_version = "[byond_version].[byond_build ? byond_build : "xxx"]"
 	log_access("Login: [key_name(src)] from [address ? address : "localhost"]-[computer_id] || BYOND v[full_version]")
@@ -316,11 +314,14 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			else
 				qdel(src)
 				return
-
+	if(byond_build > MAX_RECOMMENDED_CLIENT)
+		to_chat(src, "<span class='userdanger'>Your version of byond is over the maximum recommended version for clients (build [MAX_RECOMMENDED_CLIENT]) and may be unstable.</span>")
+		to_chat(src, "<span class='danger'>Please download an older version of byond. You can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions.</span>")
 	if(SSinput.initialized)
 		set_macros()
 
-	chatOutput.start() // Starts the chat
+	// Initialize tgui panel
+	tgui_panel.initialize()
 
 	if(alert_mob_dupe_login)
 		spawn()
@@ -405,7 +406,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	validate_key_in_db()
 
 	fetch_uuid()
-	verbs += /client/proc/show_account_identifier
+	add_verb(/client/proc/show_account_identifier)
 
 	send_resources()
 
@@ -435,36 +436,24 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
-	var/list/topmenus = GLOB.menulist[/datum/verbs/menu]
-	for (var/thing in topmenus)
-		var/datum/verbs/menu/topmenu = thing
-		var/topmenuname = "[topmenu]"
-		if (topmenuname == "[topmenu.type]")
-			var/list/tree = splittext(topmenuname, "/")
-			topmenuname = tree[tree.len]
-		winset(src, "[topmenu.type]", "parent=menu;name=[rustg_url_encode(topmenuname)]")
-		var/list/entries = topmenu.Generate_list(src)
-		for (var/child in entries)
-			winset(src, "[child]", "[entries[child]]")
-			if (!ispath(child, /datum/verbs/menu))
-				var/procpath/verbpath = child
-				if (verbpath.name[1] != "@")
-					new child(src)
-
-	for (var/thing in prefs.menuoptions)
-		var/datum/verbs/menu/menuitem = GLOB.menulist[thing]
-		if (menuitem)
-			menuitem.Load_checked(src)
-
-	view_size = new(src, getScreenSize(FALSE))
+	view_size = new(src, getScreenSize(mob))
 	view_size.resetFormat()
 	view_size.setZoomMode()
 	fit_viewport()
 	Master.UpdateTickRate()
 
 	if(GLOB.ckey_redirects.Find(ckey))
-		to_chat(src, "<span class='redtext'>The server is full. You will be redirected to [CONFIG_GET(string/redirect_address)] in 10 seconds.</span>")
-		addtimer(CALLBACK(src, .proc/time_to_redirect), (10 SECONDS))
+		if(isnewplayer(mob))
+			to_chat(src, "<span class='redtext'>The server is full. You will be redirected to [CONFIG_GET(string/redirect_address)] in 10 seconds.</span>")
+			addtimer(CALLBACK(src, .proc/time_to_redirect), (10 SECONDS))
+		else
+			GLOB.ckey_redirects -= ckey
+
+	//Add the default client verbs to the TGUI window
+	add_verb(subtypesof(/client/verb), TRUE)
+
+	//Load the TGUI stat in case of TGUI subsystem not ready (startup)
+	mob.UpdateMobStat(TRUE)
 
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)
@@ -557,6 +546,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(movingmob != null)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+	seen_messages = null
 	Master.UpdateTickRate()
 	return ..()
 
@@ -718,7 +708,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(key != sql_key)
 		var/datum/http_request/http = new()
 		http = http.get_request("http://byond.com/members/[ckey]?format=text")
-		
+
 		if(!http)
 			log_world("Failed to connect to byond member page to get changed key for [ckey]")
 			return
@@ -919,9 +909,9 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 /client/proc/add_verbs_from_config()
 	if(CONFIG_GET(flag/see_own_notes))
-		verbs += /client/proc/self_notes
+		add_verb(/client/proc/self_notes)
 	if(CONFIG_GET(flag/use_exp_tracking))
-		verbs += /client/proc/self_playtime
+		add_verb(/client/proc/self_playtime)
 
 
 #undef UPLOAD_LIMIT
@@ -933,25 +923,22 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 		return inactivity
 	return FALSE
 
-//send resources to the client. It's here in its own proc so we can move it around easiliy if need be
+/// Send resources to the client.
+/// Sends both game resources and browser assets.
 /client/proc/send_resources()
 #if (PRELOAD_RSC == 0)
 	var/static/next_external_rsc = 0
-	if(GLOB.external_rsc_urls && GLOB.external_rsc_urls.len)
-		next_external_rsc = WRAP(next_external_rsc+1, 1, GLOB.external_rsc_urls.len+1)
-		preload_rsc = GLOB.external_rsc_urls[next_external_rsc]
+	var/list/external_rsc_urls = CONFIG_GET(keyed_list/external_rsc_urls)
+	if(length(external_rsc_urls.len))
+		next_external_rsc = WRAP(next_external_rsc+1, 1, external_rsc_urls.len+1)
+		preload_rsc = external_rsc_urls[next_external_rsc]
 #endif
-	//get the common files
-	getFiles(
-		'html/search.js',
-		'html/panels.css',
-		'html/browser/common.css',
-		'html/browser/scannernew.css',
-		'html/browser/playeroptions.css',
-		)
 	spawn (10) //removing this spawn causes all clients to not get verbs.
+		//load info on what assets the client has
+		src << browse('code/modules/asset_cache/validate_assets.html', "window=asset_cache_browser")
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
-		getFilesSlow(src, SSassets.preload, register_asset = FALSE)
+		if (CONFIG_GET(flag/asset_simple_preload))
+			addtimer(CALLBACK(SSassets.transport, /datum/asset_transport.proc/send_assets_slow, src, SSassets.transport.preload), 5 SECONDS)
 		#if (PRELOAD_RSC == 0)
 		for (var/name in GLOB.vox_sounds)
 			var/file = GLOB.vox_sounds[name]
@@ -1012,7 +999,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	var/pos = 0
 	for(var/D in GLOB.cardinals)
 		pos++
-		var/obj/screen/O = LAZYACCESS(char_render_holders, "[D]")
+		var/atom/movable/screen/O = LAZYACCESS(char_render_holders, "[D]")
 		if(!O)
 			O = new
 			LAZYSET(char_render_holders, "[D]", O)
@@ -1023,7 +1010,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 
 /client/proc/clear_character_previews()
 	for(var/index in char_render_holders)
-		var/obj/screen/S = char_render_holders[index]
+		var/atom/movable/screen/S = char_render_holders[index]
 		screen -= S
 		qdel(S)
 	char_render_holders = null
@@ -1033,7 +1020,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	set category = "OOC"
 	set desc ="Get your ID for account verification."
 
-	verbs -= /client/proc/show_account_identifier
+	remove_verb(/client/proc/show_account_identifier)
 	addtimer(CALLBACK(src, .proc/restore_account_identifier), 20) //Don't DoS DB queries, asshole
 
 	var/confirm = alert("Do NOT share the verification ID in the following popup. Understand?", "Important Warning", "Yes", "Cancel")
@@ -1056,4 +1043,35 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			onclose(src, "accountidentifier")
 
 /client/proc/restore_account_identifier()
-	verbs += /client/proc/show_account_identifier
+	add_verb(/client/proc/show_account_identifier)
+
+/client/proc/check_upstream_bans()
+	set waitfor = 0
+
+	if(!CONFIG_GET(string/centcom_ban_db))
+		return
+
+	var/datum/http_request/request = new()
+	request.prepare(RUSTG_HTTP_METHOD_GET, "[CONFIG_GET(string/centcom_ban_db)]/[ckey]", "", "")
+	request.begin_async()
+	UNTIL(request.is_complete())
+
+	var/datum/http_response/response = request.into_response()
+
+	var/list/bans
+
+	if(response.errored || response.status_code != 200 || response.body == "[]")
+		return
+
+	bans = json_decode(response["body"])
+	for(var/list/ban in bans)
+		var/list/ban_attributes = ban["banAttributes"]
+		if(ban_attributes["BeeStationGlobal"])
+			if(CONFIG_GET(flag/respect_upstream_permabans) && ban["expires"])
+				continue
+
+			to_chat(src, "<span class='userdanger'>Your connection has been closed because you are currently banned from BeeStation.</span>")
+			message_admins("[key_name(src)] was removed from the game due to a ban from BeeStation.")
+			qdel(src)
+			return
+

@@ -26,6 +26,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/emergencyCallAmount = 0		//how many times the escape shuttle was called
 	var/emergencyNoEscape
 	var/emergencyNoRecall = FALSE
+	var/adminEmergencyNoRecall = FALSE
 	var/list/hostileEnvironments = list() //Things blocking escape shuttle from leaving
 	var/list/tradeBlockade = list() //Things blocking cargo from leaving.
 	var/supplyBlocked = FALSE
@@ -378,7 +379,7 @@ SUBSYSTEM_DEF(shuttle)
 		emergency.setTimer(emergencyDockTime)
 		priority_announce("Hostile environment resolved. \
 			You have 3 minutes to board the Emergency Shuttle.",
-			null, 'sound/ai/shuttledock.ogg', "Priority")
+			null, ANNOUNCER_SHUTTLEDOCK, "Priority")
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)
@@ -753,10 +754,13 @@ SUBSYSTEM_DEF(shuttle)
 	preview_shuttle = null
 
 
-/datum/controller/subsystem/shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/controller/subsystem/shuttle/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/controller/subsystem/shuttle/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ShuttleManipulator", name, 800, 600, master_ui, state)
+		ui = new(user, src, "ShuttleManipulator")
 		ui.open()
 
 

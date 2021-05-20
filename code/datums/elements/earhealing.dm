@@ -18,7 +18,7 @@
 	user_by_item -= target
 
 /datum/element/earhealing/proc/equippedChanged(datum/source, mob/living/carbon/user, slot)
-	if(slot == SLOT_EARS && istype(user))
+	if(slot == ITEM_SLOT_EARS && istype(user))
 		user_by_item[source] = user
 	else
 		user_by_item -= source
@@ -33,4 +33,4 @@
 			continue
 		ears.deaf = max(ears.deaf - 0.25, (ears.damage < ears.maxHealth ? 0 : 1)) // Do not clear deafness if our ears are too damaged
 		ears.damage = max(ears.damage - 0.025, 0)
-		CHECK_TICK
+		CHECK_TICK	// Reviewer: yes I really am afraid of 1000 clones with earmuffs

@@ -2,6 +2,7 @@
 	name = "chemical disposer"
 	desc = "Breaks down chemicals and annihilates them."
 	icon_state = "disposal"
+	active_power_usage = 70
 	///we remove 10 reagents per second
 	var/disposal_rate = 10
 

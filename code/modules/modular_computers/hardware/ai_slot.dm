@@ -6,13 +6,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	device_type = MC_AI
 
-	var/obj/item/aicard/stored_card = null
+	var/obj/item/aicard/stored_card
 	var/locked = FALSE
 
-/obj/item/computer_hardware/ai_slot/handle_atom_del(atom/A)
+///What happens when the intellicard is removed (or deleted) from the module, through try_eject() or not.
+/obj/item/computer_hardware/ai_slot/Exited(atom/A, atom/newloc)
 	if(A == stored_card)
-		try_eject(0, null, TRUE)
-	. = ..()
+		stored_card = null
+	return ..()
 
 /obj/item/computer_hardware/ai_slot/examine(mob/user)
 	. = ..()
@@ -20,10 +21,10 @@
 		. += "There appears to be an intelliCard loaded. There appears to be a pinhole protecting a manual eject button. A screwdriver could probably press it."
 
 /obj/item/computer_hardware/ai_slot/on_install(obj/item/modular_computer/M, mob/living/user = null)
-	M.add_verb(device_type)
+	M.add_computer_verbs(device_type)
 
 /obj/item/computer_hardware/ai_slot/on_remove(obj/item/modular_computer/M, mob/living/user = null)
-	M.remove_verb(device_type)
+	M.remove_computer_verbs(device_type)
 
 /obj/item/computer_hardware/ai_slot/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)
@@ -60,7 +61,6 @@
 			user.put_in_hands(stored_card)
 		else
 			stored_card.forceMove(drop_location())
-		stored_card = null
 
 		return TRUE
 	return FALSE

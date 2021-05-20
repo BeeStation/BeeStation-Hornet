@@ -156,7 +156,7 @@
 	var/datum/component/storage/concrete/master = master()
 	var/atom/parent = src.parent
 	var/moved = FALSE
-	if(!istype(I))
+	if(!istype(I) || I.anchored)
 		return FALSE
 	if(M)
 		if(!M.temporarilyRemoveItemFromInventory(I))

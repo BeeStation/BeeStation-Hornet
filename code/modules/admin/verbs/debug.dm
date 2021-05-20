@@ -214,7 +214,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 					id.forceMove(W)
 					W.update_icon()
 			else
-				H.equip_to_slot(id,SLOT_WEAR_ID)
+				H.equip_to_slot(id,ITEM_SLOT_ID)
 
 	else
 		alert("Invalid mob")
@@ -521,8 +521,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] changed the equipment of [ADMIN_LOOKUPFLW(H)] to [dresscode].</span>")
 
 /client/proc/robust_dress_shop()
-	var/list/outfits = list("Naked","Custom","As Job...")
-	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job)
+	var/list/outfits = list("Naked","Custom","As Job...","As Job(Plasmaman)...", "Debug")
+	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job) - typesof(/datum/outfit/plasmaman) - typesof(/datum/outfit/debug)
 	for(var/path in paths)
 		var/datum/outfit/O = path //not much to initalize here but whatever
 		if(initial(O.can_be_admin_equipped))
@@ -535,6 +535,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if (outfits[dresscode])
 		dresscode = outfits[dresscode]
 
+
+
 	if (dresscode == "As Job...")
 		var/list/job_paths = subtypesof(/datum/outfit/job)
 		var/list/job_outfits = list()
@@ -545,6 +547,24 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
 		dresscode = job_outfits[dresscode]
+		if(isnull(dresscode))
+			return
+
+	if(dresscode == "As Job(Plasmaman)...")
+		var/list/job_paths = subtypesof(/datum/outfit/plasmaman)
+		var/list/job_outfits = list()
+		for(var/path in job_paths)
+			var/datum/outfit/O = path
+			if(initial(O.can_be_admin_equipped))
+				job_outfits[initial(O.name)] = path
+
+		dresscode = input("Select plasmaman equipment", "Robust quick dress shop") as null|anything in sortList(job_outfits)
+		dresscode = job_outfits[dresscode]
+		if(isnull(dresscode))
+			return
+
+	if(dresscode == "Debug")
+		dresscode = /datum/outfit/debug
 		if(isnull(dresscode))
 			return
 
@@ -786,19 +806,19 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	if(!check_rights(R_DEBUG))
 		return
-	verbs -= /client/proc/fucky_wucky
+	remove_verb(/client/proc/fucky_wucky)
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] did a fucky wucky.</span>")
 	log_admin("[key_name(src)] did a fucky wucky.")
 	for(var/m in GLOB.player_list)
 		var/datum/asset/fuckywucky = get_asset_datum(/datum/asset/simple/fuckywucky)
 		fuckywucky.send(m)
 		SEND_SOUND(m, 'sound/misc/fuckywucky.ogg')
-		to_chat(m, "<img src='fuckywucky.png'>")
+		to_chat(m, "<img src='[SSassets.transport.get_asset_url("fuckywucky.png")]'>")
 
 	addtimer(CALLBACK(src, .proc/restore_fucky_wucky), 600)
 
 /client/proc/restore_fucky_wucky()
-	verbs += /client/proc/fucky_wucky
+	add_verb(/client/proc/fucky_wucky)
 
 /client/proc/toggle_medal_disable()
 	set category = "Debug"
@@ -900,3 +920,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].</span>")
 	log_admin("[key_name_admin(src)] modified \the [C.name] at [AREACOORD(C)] - Gas: [gas_to_add], Moles: [amount], Temp: [temp].")
 
+/client/proc/give_all_spells()
+	set category = "Debug"
+	set name = "Give all spells"
+	if(!check_rights(R_DEBUG))
+		return
+	for(var/type in GLOB.spells)
+		var/obj/effect/proc_holder/spell/spell = new type
+		mob.AddSpell(spell)

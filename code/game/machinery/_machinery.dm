@@ -92,6 +92,8 @@ Class Procs:
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER //keeps shit coming out of the machine from ending up underneath it.
+	flags_ricochet = RICOCHET_HARD
+	ricochet_chance_mod = 0.3
 
 	anchored = TRUE
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
@@ -125,12 +127,10 @@ Class Procs:
 	// For storing and overriding ui id and dimensions
 	var/tgui_id // ID of TGUI interface
 	var/ui_style // ID of custom TGUI style (optional)
-	var/ui_x // Default size of TGUI window, in pixels
-	var/ui_y
 
 /obj/machinery/Initialize()
 	if(!armor)
-		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70)
+		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
 	. = ..()
 	GLOB.machines += src
 
@@ -138,6 +138,7 @@ Class Procs:
 		circuit = new circuit
 		circuit.apply_default_parts(src)
 
+	// Machines with no process() will stop being processed on /datum/proc/process
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
 	else
@@ -150,10 +151,11 @@ Class Procs:
 
 /obj/machinery/Destroy()
 	GLOB.machines.Remove(src)
-	if(!speed_process)
-		STOP_PROCESSING(SSmachines, src)
-	else
-		STOP_PROCESSING(SSfastprocess, src)
+	if(datum_flags & DF_ISPROCESSING) // A sizeable portion of machines stops processing before qdel
+		if(!speed_process)
+			STOP_PROCESSING(SSmachines, src)
+		else
+			STOP_PROCESSING(SSfastprocess, src)
 	dropContents()
 	if(length(component_parts))
 		for(var/atom/A in component_parts)
@@ -163,9 +165,6 @@ Class Procs:
 
 /obj/machinery/proc/locate_machinery()
 	return
-
-/obj/machinery/process()//If you dont use process or power why are you here
-	return PROCESS_KILL
 
 /obj/machinery/proc/process_atmos()//If you dont use process why are you here
 	return PROCESS_KILL

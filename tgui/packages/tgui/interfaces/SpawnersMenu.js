@@ -7,7 +7,10 @@ export const SpawnersMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const spawners = data.spawners || [];
   return (
-    <Window resizable>
+    <Window
+      resizable
+      width={700}
+      height={600}>
       <Window.Content scrollable>
         <Section>
           {spawners.map(spawner => (

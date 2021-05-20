@@ -5,7 +5,7 @@
 	var/list/obj/machinery/atmospherics/pipe/members
 	var/list/obj/machinery/atmospherics/components/other_atmosmch
 
-	var/update = TRUE
+	var/update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 /datum/pipeline/New()
 	other_airs = list()
@@ -23,62 +23,58 @@
 		C.nullifyPipenet(src)
 	return ..()
 
-/datum/pipeline/process()
-	if(update)
-		update = FALSE
-		reconcile_air()
-	update = air.react(src)
-
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
-	var/volume = 0
-	if(istype(base, /obj/machinery/atmospherics/pipe))
-		var/obj/machinery/atmospherics/pipe/E = base
-		volume = E.volume
-		members += E
-		if(E.air_temporary)
-			air = E.air_temporary
-			E.air_temporary = null
-	else
-		addMachineryMember(base)
-	if(!air)
-		air = new
-	var/list/possible_expansions = list(base)
-	while(possible_expansions.len)
-		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
-			var/list/result = borderline.pipeline_expansion(src)
-			if(result && result.len)
-				for(var/obj/machinery/atmospherics/P in result)
-					if(istype(P, /obj/machinery/atmospherics/pipe))
-						var/obj/machinery/atmospherics/pipe/item = P
-						if(!members.Find(item))
+	if(!QDELETED(base))
+		var/volume = 0
+		if(istype(base, /obj/machinery/atmospherics/pipe))
+			var/obj/machinery/atmospherics/pipe/E = base
+			volume = E.volume
+			members += E
+			if(E.air_temporary)
+				air = E.air_temporary
+				E.air_temporary = null
+		else
+			addMachineryMember(base)
+		if(!air)
+			air = new
+		var/list/possible_expansions = list(base)
+		while(possible_expansions.len)
+			for(var/obj/machinery/atmospherics/borderline in possible_expansions)
+				var/list/result = borderline.pipeline_expansion(src)
+				if(result && result.len)
+					for(var/obj/machinery/atmospherics/P in result)
+						if(istype(P, /obj/machinery/atmospherics/pipe))
+							var/obj/machinery/atmospherics/pipe/item = P
+							if(!members.Find(item))
 
-							if(item.parent)
-								var/static/pipenetwarnings = 10
-								if(pipenetwarnings > 0)
-									log_mapping("build_pipeline(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
-									pipenetwarnings--
-									if(pipenetwarnings == 0)
-										log_mapping("build_pipeline(): further messages about pipenets will be suppressed")
-							members += item
-							possible_expansions += item
+								if(item.parent)
+									var/static/pipenetwarnings = 10
+									if(pipenetwarnings > 0)
+										log_mapping("build_pipeline(): [item.type] added to a pipenet while still having one. (pipes leading to the same spot stacking in one turf) around [AREACOORD(item)].")
+										pipenetwarnings--
+										if(pipenetwarnings == 0)
+											log_mapping("build_pipeline(): further messages about pipenets will be suppressed")
+								members += item
+								possible_expansions += item
 
-							volume += item.volume
-							item.parent = src
+								volume += item.volume
+								item.parent = src
 
-							if(item.air_temporary)
-								air.merge(item.air_temporary)
-								item.air_temporary = null
-					else
-						P.setPipenet(src, borderline)
-						addMachineryMember(P)
+								if(item.air_temporary)
+									air.merge(item.air_temporary)
+									item.air_temporary = null
+						else if(!P.returnPipenet(borderline))
+							P.setPipenet(src, borderline)
+							addMachineryMember(P)
 
-			possible_expansions -= borderline
+				possible_expansions -= borderline
 
-	air.set_volume(volume)
+		air.set_volume(volume)
 
 /datum/pipeline/proc/addMachineryMember(obj/machinery/atmospherics/components/C)
-	other_atmosmch |= C
-	var/datum/gas_mixture/G = C.returnPipenetAir(src)
+	//Yes we are having duplicate references to components with multiple nodes sharing a parent
+	other_atmosmch += C
+	var/G = C.returnPipenetAir(src)
 	if(!G)
 		stack_trace("addMachineryMember: Null gasmix added to pipeline datum from [C] which is of type [C.type]. Nearby: ([C.x], [C.y], [C.z])")
 	other_airs |= G
@@ -116,7 +112,7 @@
 	other_airs.Add(E.other_airs)
 	E.members.Cut()
 	E.other_atmosmch.Cut()
-	update = TRUE
+	update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 	qdel(E)
 
 /obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
@@ -198,7 +194,7 @@
 				(partial_heat_capacity*target.heat_capacity/(partial_heat_capacity+target.heat_capacity))
 
 			air.set_temperature(air.return_temperature() - heat/total_heat_capacity)
-	update = TRUE
+	update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 /datum/pipeline/proc/return_air()
 	. = other_airs + air
@@ -216,6 +212,11 @@
 		if(!P)
 			continue
 		GL += P.return_air()
+		if(P != src)
+			//If one of the reconciling pipenet requires full reconciliation, we have to comply
+			update = max(update, P.update)
+			//This prevents redundant reconciliations, highlander style: there can be only one (to reconcile)
+			P.update = PIPENET_UPDATE_STATUS_DORMANT
 		for(var/atmosmch in P.other_atmosmch)
 			if (istype(atmosmch, /obj/machinery/atmospherics/components/binary/valve))
 				var/obj/machinery/atmospherics/components/binary/valve/V = atmosmch
@@ -227,6 +228,7 @@
 				if(C.connected_device)
 					GL += C.portableConnectorReturnAir()
 
+	//This builds total_gas_mixture, which is the *only* instance of complete total gas of a superpipnet.
 	var/datum/gas_mixture/total_gas_mixture = new(0)
 	var/total_volume = 0
 
@@ -234,6 +236,20 @@
 		var/datum/gas_mixture/G = i
 		total_gas_mixture.merge(G)
 		total_volume += G.return_volume()
+	
+	total_gas_mixture.set_volume(total_volume)
+
+	//Decides what this pipeline should do next tick
+	//Pipenet air reacts here or your connected canisters won't react properly
+	if(total_gas_mixture.react(pick(PL)))
+		//Might need another reaction next time; immediately set this pipenet for next reconcile_air()
+		. = PIPENET_UPDATE_STATUS_REACT_NEEDED
+	else
+		. = PIPENET_UPDATE_STATUS_DORMANT
+		//Needs no update and didn't even react? This reconcile_air() can return early since no change was made.
+		//This can only be achieved with self-ending stream of reactions, i.e. pipeline fire that has come to an end.
+		if(update < PIPENET_UPDATE_STATUS_RECONCILE_NEEDED)
+			return
 
 	if(total_volume > 0)
 		//Update individual gas_mixtures by volume ratio

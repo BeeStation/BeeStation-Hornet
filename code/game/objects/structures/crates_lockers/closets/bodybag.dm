@@ -16,6 +16,7 @@
 	anchorable = FALSE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	drag_slowdown = 0
+	door_anim_time = 0 // no animation
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 	var/tagged = 0 // so closet code knows to put the tag overlay back

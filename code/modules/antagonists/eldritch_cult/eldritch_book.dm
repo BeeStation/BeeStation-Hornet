@@ -1,6 +1,6 @@
 /obj/item/forbidden_book
 	name = "Codex Cicatrix"
-	desc = "Book describing the secrets of the veil."
+	desc = "This book describes the secrets of the veil between worlds."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "book"
 	w_class = WEIGHT_CLASS_SMALL
@@ -8,8 +8,6 @@
 	var/mob/living/last_user
 	///how many charges do we have?
 	var/charge = 1
-	///Where we cannot create the rune?
-	var/static/list/blacklisted_turfs = typecacheof(list(/turf/closed,/turf/open/space,/turf/open/lava))
 	///Is it in use?
 	var/in_use = FALSE
 
@@ -23,21 +21,15 @@
 	if(!IS_HERETIC(user))
 		return
 	. += "The Tome holds [charge] charges."
-	. += "Use it on the floor to create a transmutation rune, used to perform rituals."
 	. += "Hit an influence in the black part with it to gain a charge."
-	. += "Hit a transmutation rune to destroy it."
 
 /obj/item/forbidden_book/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
 	if(!proximity_flag || !IS_HERETIC(user) || in_use)
 		return
 	in_use = TRUE
-	if(istype(target,/obj/effect/eldritch))
-		remove_rune(target,user)
 	if(istype(target,/obj/effect/reality_smash))
 		get_power_from_influence(target,user)
-	if(istype(target,/turf/open))
-		draw_rune(target,user)
 	in_use = FALSE
 
 ///Gives you a charge and destroys a corresponding influence
@@ -48,39 +40,20 @@
 		qdel(RS)
 		charge += 1
 
-///Draws a rune on a selected turf
-/obj/item/forbidden_book/proc/draw_rune(atom/target,mob/user)
 
-	for(var/turf/T in range(1,target))
-		if(is_type_in_typecache(T, blacklisted_turfs))
-			to_chat(target, "<span class='warning'>The terrain doesn't support runes!</span>")
-			return
-	var/A = get_turf(target)
-	to_chat(user, "<span class='danger'>You start drawing a rune...</span>")
-
-	if(do_after(user,30 SECONDS,FALSE,A))
-
-		new /obj/effect/eldritch/big(A)
-
-
-///Removes runes from the selected turf
-/obj/item/forbidden_book/proc/remove_rune(atom/target,mob/user)
-
-	to_chat(user, "<span class='danger'>You start removing a rune...</span>")
-	if(do_after(user,2 SECONDS,user))
-		qdel(target)
-
-
-/obj/item/forbidden_book/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state) // Remember to use the appropriate state.
+/obj/item/forbidden_book/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!IS_HERETIC(user))
 		return FALSE
 	last_user = user
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		icon_state = "book_open"
 		flick("book_opening",src)
-		ui = new(user, src, ui_key, "ForbiddenLore", name, 500, 900, master_ui, state)
+		ui = new(user, src, "ForbiddenLore")
 		ui.open()
+
+/obj/item/forbidden_book/ui_state(mob/user)
+	return GLOB.default_state
 
 /obj/item/forbidden_book/ui_data(mob/user)
 	var/datum/antagonist/heretic/cultie = user.mind.has_antag_datum(/datum/antagonist/heretic)

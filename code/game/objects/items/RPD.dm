@@ -203,7 +203,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(/datum/material/iron=75000, /datum/material/glass=37500)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/working = 0
@@ -255,18 +255,19 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	playsound(get_turf(user), 'sound/items/deconstruct.ogg', 50, 1)
 	return(BRUTELOSS)
 
-/obj/item/pipe_dispenser/ui_base_html(html)
-	var/datum/asset/spritesheet/assets = get_asset_datum(/datum/asset/spritesheet/pipes)
-	. = replacetext(html, "<!--customheadhtml-->", assets.css_tag())
+/obj/item/pipe_dispenser/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/pipes),
+	)
 
-/obj/item/pipe_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/item/pipe_dispenser/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/item/pipe_dispenser/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/pipes)
-		assets.send(user)
-
-		ui = new(user, src, ui_key, "RapidPipeDispenser", name, 425, 515, master_ui, state)
+		ui = new(user, src, "RapidPipeDispenser")
 		ui.open()
 
 /obj/item/pipe_dispenser/ui_data(mob/user)

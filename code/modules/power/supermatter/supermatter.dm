@@ -75,12 +75,14 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	desc = "A strangely translucent and iridescent crystal."
 	icon = 'icons/obj/supermatter.dmi'
 	icon_state = "darkmatter"
+	layer = ABOVE_MOB_LAYER
 	density = TRUE
 	anchored = TRUE
 	var/uid = 1
 	var/static/gl_uid = 1
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 
 	critical_machine = TRUE
 
@@ -453,13 +455,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			env.merge(removed)
 			air_update_turf()
 
-	for(var/mob/living/carbon/human/l in view(src, HALLUCINATION_RANGE(power))) // If they can see it without mesons on.  Bad on them.
+	for(var/mob/living/carbon/human/l in viewers(HALLUCINATION_RANGE(power), src)) // If they can see it without mesons on.  Bad on them.
 		if(!istype(l.glasses, /obj/item/clothing/glasses/meson))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			l.hallucination += power * config_hallucination_power * D
 			l.hallucination = CLAMP(0, 200, l.hallucination)
 
-	for(var/mob/living/l in range(src, round((power / 100) ** 0.25)))
+	for(var/mob/living/l in range(round((power / 100) ** 0.25), src))
 		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src),1) )
 		l.rad_act(rads)
 
@@ -634,7 +636,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 				"<span class='danger'>Oops! The [W] flashes out of existence on contact with \the [src], taking your arm with it! That was clumsy of you!</span>")
 			playsound(src, 'sound/effects/supermatter.ogg', 150, 1)
 			Consume(dust_arm)
-			qdel(W)
+			Consume(W)
 			return
 		if(cig.lit || user.a_intent != INTENT_HELP)
 			user.visible_message("<span class='danger'>A hideous sound echoes as [W] is ashed out on contact with \the [src]. That didn't seem like a good idea...</span>")
@@ -709,6 +711,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else if(istype(AM, /obj/singularity))
 		return
 	else if(isobj(AM))
+		var/obj/O = AM
+		if(O.resistance_flags & INDESTRUCTIBLE)
+			var/image/causality_field = image(icon, null, "causality_field")
+			add_overlay(causality_field, TRUE)
+			radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
+			addtimer(CALLBACK(src, .proc/disengage_field, causality_field), 5 SECONDS)
+			return
 		if(!iseffect(AM))
 			var/suspicion = ""
 			if(AM.fingerprintslast)
@@ -723,18 +732,20 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	radiation_pulse(src, 3000, 2, TRUE)
 	for(var/mob/living/L in range(10))
 		investigate_log("has irradiated [key_name(L)] after consuming [AM].", INVESTIGATE_SUPERMATTER)
-		if(L in view())
+		if(L in viewers(get_turf(src)))
 			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
-				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
+				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", MSG_AUDIBLE)
 		else
-			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", 2)
+			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", MSG_AUDIBLE)
+
+/obj/machinery/power/supermatter_crystal/proc/disengage_field(causality_field)
+	if(QDELETED(src) || !causality_field)
+		return
+	cut_overlay(causality_field, TRUE)
 
 //Do not blow up our internal radio
 /obj/machinery/power/supermatter_crystal/contents_explosion(severity, target)
 	return
-
-/obj/machinery/power/supermatter_crystal/prevent_content_explosion()
-	return TRUE
 
 /obj/machinery/power/supermatter_crystal/engine
 	is_main_engine = TRUE
@@ -790,7 +801,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			step_towards(P,center)
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5)
-	var/turf/L = pick(orange(anomalyrange, anomalycenter))
+	var/turf/L = pick(RANGE_TURFS(anomalyrange, anomalycenter) - anomalycenter)
 	if(L)
 		switch(type)
 			if(FLUX_ANOMALY)
@@ -815,7 +826,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/list/arctargetsstructure = list()
 
 	if(prob(20)) //let's not hit all the engineers with every beam and/or segment of the arc
-		for(var/mob/living/Z in oview(zapstart, range+2))
+		for(var/mob/living/Z in ohearers(range+2, zapstart))
 			arctargetsmob += Z
 	if(arctargetsmob.len)
 		var/mob/living/H = pick(arctargetsmob)
@@ -824,7 +835,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		target_atom = A
 
 	else
-		for(var/obj/machinery/X in oview(zapstart, range+2))
+		for(var/obj/machinery/X in oview(range+2, zapstart))
 			arctargetsmachine += X
 		if(arctargetsmachine.len)
 			var/obj/machinery/M = pick(arctargetsmachine)
@@ -833,7 +844,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			target_atom = A
 
 		else
-			for(var/obj/structure/Y in oview(zapstart, range+2))
+			for(var/obj/structure/Y in oview(range+2, zapstart))
 				arctargetsstructure += Y
 			if(arctargetsstructure.len)
 				var/obj/structure/O = pick(arctargetsstructure)

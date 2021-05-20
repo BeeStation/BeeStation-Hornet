@@ -32,7 +32,7 @@
 
 /obj/item/multitool/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src] to [user.p_their()] chest. It looks like [user.p_theyre()] trying to pulse [user.p_their()] heart off!</span>")
-	return OXYLOSS//theres a reason it wasnt recommended by doctors
+	return OXYLOSS//theres a reason it wasn't recommended by doctors
 
 
 // circuit shit begin
@@ -112,13 +112,13 @@
 	var/rangewarning = 20 //Glows yellow when inside
 	var/hud_type = DATA_HUD_AI_DETECT
 	var/hud_on = FALSE
-	var/mob/camera/aiEye/remote/ai_detector/eye
+	var/mob/camera/ai_eye/remote/ai_detector/eye
 	var/datum/action/item_action/toggle_multitool/toggle_action
 
 /obj/item/multitool/ai_detect/Initialize()
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	eye = new /mob/camera/aiEye/remote/ai_detector()
+	eye = new /mob/camera/ai_eye/remote/ai_detector()
 	toggle_action = new /datum/action/item_action/toggle_multitool(src)
 
 /obj/item/multitool/ai_detect/Destroy()
@@ -163,7 +163,7 @@
 
 /obj/item/multitool/ai_detect/proc/show_hud(mob/user)
 	if(user && hud_type)
-		var/obj/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
+		var/atom/movable/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
 		PM.alpha = 150
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		if(!H.hudusers[user])
@@ -173,7 +173,7 @@
 
 /obj/item/multitool/ai_detect/proc/remove_hud(mob/user)
 	if(user && hud_type)
-		var/obj/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
+		var/atom/movable/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
 		PM.alpha = 255
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		H.remove_hud_from(user)
@@ -192,7 +192,7 @@
 		return
 	var/datum/camerachunk/chunk = GLOB.cameranet.chunkGenerated(our_turf.x, our_turf.y, our_turf.z)
 	if(chunk && chunk.seenby.len)
-		for(var/mob/camera/aiEye/A in chunk.seenby)
+		for(var/mob/camera/ai_eye/A in chunk.seenby)
 			if(!A.ai_detector_visible)
 				continue
 			var/turf/detect_turf = get_turf(A)
@@ -203,7 +203,7 @@
 				detect_state = PROXIMITY_NEAR
 				break
 
-/mob/camera/aiEye/remote/ai_detector
+/mob/camera/ai_eye/remote/ai_detector
 	name = "AI detector eye"
 	ai_detector_visible = FALSE
 	use_static = USE_STATIC_TRANSPARENT

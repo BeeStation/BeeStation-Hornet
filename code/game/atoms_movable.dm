@@ -41,6 +41,49 @@
 
 	var/zfalling = FALSE
 
+	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
+	var/blocks_emissive = FALSE
+	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
+	var/atom/movable/emissive_blocker/em_block
+
+
+/atom/movable/Initialize(mapload)
+	. = ..()
+	switch(blocks_emissive)
+		if(EMISSIVE_BLOCK_GENERIC)
+			var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+			gen_emissive_blocker.dir = dir
+			gen_emissive_blocker.alpha = alpha
+			gen_emissive_blocker.appearance_flags |= appearance_flags
+			add_overlay(list(gen_emissive_blocker))
+		if(EMISSIVE_BLOCK_UNIQUE)
+			render_target = ref(src)
+			em_block = new(src, render_target)
+			add_overlay(list(em_block))
+
+/atom/movable/Destroy()
+	QDEL_NULL(em_block)
+	return ..()
+
+/atom/movable/proc/update_emissive_block()
+	if(!blocks_emissive)
+		return
+	else if (blocks_emissive == EMISSIVE_BLOCK_GENERIC)
+		var/mutable_appearance/gen_emissive_blocker = mutable_appearance(icon, icon_state, EMISSIVE_BLOCKER_LAYER, EMISSIVE_BLOCKER_PLANE)
+		gen_emissive_blocker.dir = dir
+		gen_emissive_blocker.alpha = alpha
+		gen_emissive_blocker.appearance_flags |= appearance_flags
+		return gen_emissive_blocker
+	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
+		if(!em_block)
+			render_target = ref(src)
+			em_block = new(src, render_target)
+		return em_block
+
+/atom/movable/update_overlays()
+	. = ..()
+	. += update_emissive_block()
+
 /atom/movable/proc/can_zFall(turf/source, levels = 1, turf/target, direction)
 	if(!direction)
 		direction = DOWN
@@ -146,6 +189,7 @@
 	AM.pulledby = src
 	setGrabState(state)
 	if(ismob(AM))
+		AM.glide_size = glide_size // make sure there's no weird laggy effect when pulling
 		var/mob/M = AM
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message)
@@ -262,7 +306,7 @@
 	var/turf/T = loc
 	if(!moving_from_pull)
 		check_pulling()
-	if(!loc || !newloc)
+	if(!(loc || newloc))
 		return FALSE
 	var/atom/oldloc = loc
 
@@ -334,8 +378,8 @@
 			stop_pulling()
 		else
 			var/pull_dir = get_dir(src, pulling)
-			//puller and pullee more than one tile away or in diagonal position
-			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir)))
+			//puller and pullee more than one tile away or in diagonal position and whatever the pullee is pulling isn't already moving from a pull as it'll most likely result in an infinite loop a la ouroborus.
+			if(!pulling.pulling?.moving_from_pull && (get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))))
 				pulling.moving_from_pull = src
 				pulling.Move(T, get_dir(pulling, T)) //the pullee tries to reach our previous position
 				pulling.moving_from_pull = null
@@ -381,6 +425,8 @@
 		orbiting.end_orbit(src)
 		orbiting = null
 
+	vis_contents.Cut()
+
 // Make sure you know what you're doing if you call this, this is intended to only be called by byond directly.
 // You probably want CanPass()
 /atom/movable/Cross(atom/movable/AM)
@@ -416,6 +462,9 @@
 
 /atom/movable/proc/forceMove(atom/destination)
 	. = FALSE
+	if(destination == null) //destination destroyed due to explosion
+		return
+
 	if(destination)
 		. = doMove(destination)
 	else
@@ -533,8 +582,12 @@
 		return
 	return throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force)
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG) //If this returns FALSE then callback will not be called.
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE) //If this returns FALSE then callback will not be called.
 	. = FALSE
+
+	if(QDELETED(src))
+		CRASH("Qdeleted thing being thrown around.")
+
 	if (!target || speed <= 0)
 		return
 
@@ -570,20 +623,14 @@
 
 	. = TRUE // No failure conditions past this point.
 
-	var/datum/thrownthing/TT = new()
-	TT.thrownthing = src
-	TT.target = target
-	TT.target_turf = get_turf(target)
-	TT.init_dir = get_dir(src, target)
-	TT.maxrange = range
-	TT.speed = speed
-	TT.thrower = thrower
-	TT.diagonals_first = diagonals_first
-	TT.force = force
-	TT.callback = callback
-	if(!QDELETED(thrower))
-		TT.target_zone = thrower.zone_selected
-	
+	var/target_zone
+	if(QDELETED(thrower) || !istype(thrower))
+		thrower = null //Let's not pass an invalid reference.
+	else
+		target_zone = thrower.zone_selected
+
+	var/datum/thrownthing/TT = new(src, target, get_turf(target), get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
+
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
 	var/dx = (target.x > src.x) ? EAST : WEST
@@ -617,7 +664,9 @@
 	SSthrowing.processing[src] = TT
 	if (SSthrowing.state == SS_PAUSED && length(SSthrowing.currentrun))
 		SSthrowing.currentrun[src] = TT
-	TT.tick()
+
+	if(quickstart)
+		TT.tick()
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
 	for(var/m in buckled_mobs)
@@ -761,9 +810,8 @@
 	if(throwing)
 		return
 	if(on && !(movement_type & FLOATING))
-		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
-		sleep(10)
-		animate(src, pixel_y = pixel_y - 2, time = 10, loop = -1)
+		animate(src, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
+		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
 		setMovetype(movement_type | FLOATING)
 	else if (!on && (movement_type & FLOATING))
 		animate(src, pixel_y = initial(pixel_y), time = 10)
@@ -904,3 +952,9 @@
 	animate(I, alpha = 175, pixel_x = to_x, pixel_y = to_y, time = 3, transform = M, easing = CUBIC_EASING)
 	sleep(1)
 	animate(I, alpha = 0, transform = matrix(), time = 1)
+
+/atom/movable/proc/get_spawner_desc()
+	return name
+
+/atom/movable/proc/get_spawner_flavour_text()
+	return desc

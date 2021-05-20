@@ -143,7 +143,7 @@
 			return
 		var/ping = "<span class='danger'><B><i>[gang.name] [G.message_name] [user.real_name]</i>: [message]</B></span>"
 		for(var/datum/mind/ganger in gang.members)
-			if(ganger.current && is_station_level(ganger.current.z) && (ganger.current.stat == CONSCIOUS))
+			if(ganger.current && is_station_level(ganger.current.z) && (ganger.current.is_conscious()))
 				to_chat(ganger.current, ping)
 		for(var/mob/M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
@@ -207,7 +207,7 @@
 		gang.recalls--
 		return TRUE
 
-	to_chat(user, "<span class='info'>[icon2html(src, loc)]No response recieved. Emergency shuttle cannot be recalled at this time.</span>")
+	to_chat(user, "<span class='info'>[icon2html(src, loc)]No response received. Emergency shuttle cannot be recalled at this time.</span>")
 	return
 
 /obj/item/device/gangtool/proc/recallchecks(mob/user)

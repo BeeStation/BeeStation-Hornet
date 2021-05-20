@@ -56,11 +56,11 @@
 	. = ..()
 	if(over_object == usr || over_object == src)
 		try_toggle_open(usr)
-	else if(istype(over_object, /obj/screen/inventory/hand))
-		var/obj/screen/inventory/hand/H = over_object
+	else if(istype(over_object, /atom/movable/screen/inventory/hand))
+		var/atom/movable/screen/inventory/hand/H = over_object
 		var/mob/M = usr
 
-		if(!M.restrained() && !M.stat)
+		if(!M.restrained() && M.is_conscious())
 			if(!isturf(loc) || !Adjacent(M))
 				return
 			M.put_in_hand(src, H.held_index)
@@ -86,8 +86,6 @@
 /obj/item/modular_computer/laptop/AltClick(mob/user)
 	if(screen_on) // Close it.
 		try_toggle_open(user)
-	else
-		return ..()
 
 /obj/item/modular_computer/laptop/proc/toggle_open(mob/living/user=null)
 	if(screen_on)

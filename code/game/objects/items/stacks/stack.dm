@@ -38,9 +38,7 @@
 	. = ..()
 	if(new_amount != null)
 		amount = new_amount
-	while(amount > max_amount)
-		amount -= max_amount
-		new type(loc, max_amount, FALSE)
+	check_max_amount()
 	if(!merge_type)
 		merge_type = type
 	if(merge)
@@ -49,6 +47,11 @@
 				merge(S)
 	update_weight()
 	update_icon()
+
+/obj/item/stack/proc/check_max_amount()
+	while(amount > max_amount)
+		amount -= max_amount
+		new type(loc, max_amount, FALSE)
 
 /obj/item/stack/proc/update_weight()
 	if(amount <= (max_amount * (1/3)))
@@ -164,7 +167,7 @@
 
 /obj/item/stack/Topic(href, href_list)
 	..()
-	if (usr.restrained() || usr.stat || usr.get_active_held_item() != src)
+	if (usr.restrained() || !usr.is_conscious() || usr.get_active_held_item() != src)
 		return
 	if (href_list["sublist"] && !href_list["make"])
 		interact(usr, text2num(href_list["sublist"]))
@@ -318,6 +321,7 @@
 		source.add_charge(amount * cost)
 	else
 		src.amount += amount
+		check_max_amount()
 	update_icon()
 	update_weight()
 

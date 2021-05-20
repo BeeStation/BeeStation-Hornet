@@ -9,9 +9,10 @@
 	layer = OPEN_DOOR_LAYER
 	power_channel = AREA_USAGE_ENVIRON
 	max_integrity = 350
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70, "stamina" = 0)
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	flags_1 = PREVENT_CLICK_UNDER_1
+	ricochet_chance_mod = 0.8
 	damage_deflection = 10
 
 	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
@@ -37,6 +38,7 @@
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
 	var/poddoor = FALSE
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
+	var/open_speed = 5
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
@@ -292,9 +294,9 @@
 	operating = TRUE
 	do_animate("opening")
 	set_opacity(0)
-	sleep(5)
+	sleep(open_speed)
 	density = FALSE
-	sleep(5)
+	sleep(open_speed)
 	layer = initial(layer)
 	update_icon()
 	set_opacity(0)
@@ -324,9 +326,9 @@
 	layer = closingLayer
 	if(air_tight)
 		density = TRUE
-	sleep(5)
+	sleep(open_speed)
 	density = TRUE
-	sleep(5)
+	sleep(open_speed)
 	update_icon()
 	if(visible && !glass)
 		set_opacity(1)

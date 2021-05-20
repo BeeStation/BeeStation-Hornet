@@ -56,6 +56,13 @@
 		icon_regular_floor = icon_state
 	if(mapload && prob(33))
 		MakeDirty()
+	if(is_station_level(z))
+		GLOB.station_turfs += src
+
+/turf/open/floor/Destroy()
+	if(is_station_level(z))
+		GLOB.station_turfs -= src
+	..()
 
 /turf/open/floor/ex_act(severity, target)
 	var/shielded = is_shielded()
@@ -166,7 +173,7 @@
 /turf/open/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)
 		return
-	var/obj/item/crowbar/CB = user.is_holding_item_of_type(/obj/item/crowbar)
+	var/obj/item/CB = user.is_holding_tool_quality(TOOL_CROWBAR)
 	if(!CB)
 		return
 	var/turf/open/floor/plating/P = pry_tile(CB, user, TRUE)
@@ -261,18 +268,19 @@
 				return FALSE
 			to_chat(user, "<span class='notice'>You build an airlock.</span>")
 			var/obj/machinery/door/airlock/A = new the_rcd.airlock_type(src)
-
-			A.electronics = new/obj/item/electronics/airlock(A)
-
-			if(the_rcd.conf_access)
-				A.electronics.accesses = the_rcd.conf_access.Copy()
-			A.electronics.one_access = the_rcd.use_one_access
-
+			A.electronics = new /obj/item/electronics/airlock(A)
+			if(the_rcd.airlock_electronics)
+				A.electronics.accesses = the_rcd.airlock_electronics.accesses.Copy()
+				A.electronics.one_access = the_rcd.airlock_electronics.one_access
+				A.electronics.unres_sides = the_rcd.airlock_electronics.unres_sides
 			if(A.electronics.one_access)
 				A.req_one_access = A.electronics.accesses
 			else
 				A.req_access = A.electronics.accesses
+			if(A.electronics.unres_sides)
+				A.unres_sides = A.electronics.unres_sides
 			A.autoclose = TRUE
+			A.update_icon()
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			if(ScrapeAway(flags = CHANGETURF_INHERIT_AIR) == src)

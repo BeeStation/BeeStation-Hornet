@@ -9,12 +9,12 @@
 	var/obj/item/card/id/stored_card = null
 	var/obj/item/card/id/stored_card2 = null
 
-/obj/item/computer_hardware/card_slot/handle_atom_del(atom/A)
+/obj/item/computer_hardware/card_slot/Exited(atom/A, atom/newloc)
 	if(A == stored_card)
 		try_eject(1, null, TRUE)
 	if(A == stored_card2)
 		try_eject(2, null, TRUE)
-	. = ..()
+	return ..()
 
 /obj/item/computer_hardware/card_slot/Destroy()
 	try_eject()
@@ -37,10 +37,10 @@
 	return ..()
 
 /obj/item/computer_hardware/card_slot/on_install(obj/item/modular_computer/M, mob/living/user = null)
-	M.add_verb(device_type)
+	M.add_computer_verbs(device_type)
 
 /obj/item/computer_hardware/card_slot/on_remove(obj/item/modular_computer/M, mob/living/user = null)
-	M.remove_verb(device_type)
+	M.remove_computer_verbs(device_type)
 
 /obj/item/computer_hardware/card_slot/try_insert(obj/item/I, mob/living/user = null)
 	if(!holder)

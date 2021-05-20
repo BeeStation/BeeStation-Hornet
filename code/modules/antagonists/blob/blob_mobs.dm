@@ -15,14 +15,26 @@
 	maxbodytemp = 360
 	unique_name = 1
 	a_intent = INTENT_HARM
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	initial_language_holder = /datum/language_holder/empty
 	var/mob/camera/blob/overmind = null
 	var/obj/structure/blob/factory/factory = null
+	var/independent = FALSE
+	mobchatspan = "blob"
 
 /mob/living/simple_animal/hostile/blob/update_icons()
 	if(overmind)
 		add_atom_colour(overmind.blobstrain.color, FIXED_COLOUR_PRIORITY)
 	else
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+
+/mob/living/simple_animal/hostile/blob/Initialize()
+	. = ..()
+	if(!independent) //no pulling people deep into the blob
+		remove_verb(/mob/living/verb/pulled)
+	else
+		pass_flags &= ~PASSBLOB
 
 /mob/living/simple_animal/hostile/blob/Destroy()
 	if(overmind)
@@ -56,8 +68,10 @@
 		return 1
 	return ..()
 
-/mob/living/simple_animal/hostile/blob/proc/blob_chat(msg)
-	var/spanned_message = say_quote(msg)
+/mob/living/simple_animal/hostile/blob/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+	if(!overmind)
+		return ..()
+	var/spanned_message = say_quote(message)
 	var/rendered = "<font color=\"#EE4000\"><b>\[Blob Telepathy\] [real_name]</b> [spanned_message]</font>"
 	for(var/M in GLOB.mob_list)
 		if(isovermind(M) || istype(M, /mob/living/simple_animal/hostile/blob))
@@ -87,13 +101,14 @@
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	movement_type = FLYING
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "explodes into a cloud of gas!"
+	gold_core_spawnable = HOSTILE_SPAWN
 	var/death_cloud_size = 1 //size of cloud produced from a dying spore
 	var/mob/living/carbon/human/oldguy
-	var/is_zombie = 0
-	gold_core_spawnable = HOSTILE_SPAWN
+	var/is_zombie = FALSE
 	var/list/disease = list()
+	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 
 /mob/living/simple_animal/hostile/blob/blobspore/Initialize(mapload, var/obj/structure/blob/factory/linked_node)
 	if(istype(linked_node))
@@ -115,7 +130,7 @@
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life()
 	if(!is_zombie && isturf(src.loc))
-		for(var/mob/living/carbon/human/H in view(src,1)) //Only for corpse right next to/on same tile
+		for(var/mob/living/carbon/human/H in hearers(1, src)) //Only for corpse right next to/on same tile
 			if(H.stat == DEAD)
 				Zombify(H)
 				break
@@ -144,6 +159,8 @@
 	oldguy = H
 	update_icons()
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	if(!key)
+		set_playable()
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
 	// On death, create a small smoke of harmful gas (s-Acid)
@@ -222,17 +239,8 @@
 	force_threshold = 10
 	pressure_resistance = 50
 	mob_size = MOB_SIZE_LARGE
-	see_in_dark = 8
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = /datum/hud/blobbernaut
-	var/independent = FALSE
-
-/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize()
-	. = ..()
-	if(!independent) //no pulling people deep into the blob
-		verbs -= /mob/living/verb/pulled
-	else
-		pass_flags &= ~PASSBLOB
+	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life()
 	if(..())
@@ -275,7 +283,7 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/update_health_hud()
 	if(hud_used)
-		hud_used.healths.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round((health / maxHealth) * 100, 0.5)]%</font></div>"
+		hud_used.healths.maptext = MAPTEXT("<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round((health / maxHealth) * 100, 0.5)]%</font></div>")
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/AttackingTarget()
 	. = ..()

@@ -63,6 +63,22 @@
 
 	summon_type = list(/turf/closed/wall/mineral/cult/artificer) //we don't want artificer-based runed metal farms
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/door
+	name = "Summon Cult Door"
+	desc = "This spell constructs a cult Airlock."
+
+	school = "conjuration"
+	charge_max = 300
+	clothes_req = FALSE
+	invocation = "none"
+	invocation_type = "none"
+	invocation_time = 50
+	range = 0
+	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon_state = "airlockconstruct"
+	action_background_icon_state = "bg_cult"
+
+	summon_type = list(/obj/machinery/door/airlock/cult)
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall/reinforced
 	name = "Greater Construction"
@@ -102,7 +118,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/noncult/purified
 	summon_type = list(/obj/item/soulstone/anybody/purified)
-	
+
 /obj/effect/proc_holder/spell/targeted/forcewall/cult
 	name = "Shield"
 	desc = "This spell creates a temporary forcefield to shield yourself and allies from incoming fire."
@@ -157,6 +173,11 @@
 /obj/item/projectile/magic/spell/magic_missile/lesser
 	color = "red" //Looks more culty this way
 	range = 10
+
+/obj/item/projectile/magic/spell/magic_missile/lesser/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
+	if(ismob(target) && iscultist(target))
+		return FALSE
+	return ..()
 
 /obj/effect/proc_holder/spell/targeted/smoke/disable
 	name = "Paralysing Smoke"
@@ -260,7 +281,7 @@
 		revert_cast()
 		return
 
-	if(S.sentience_type != SENTIENCE_ORGANIC)
+	if(!istype(S) || S.sentience_type != SENTIENCE_ORGANIC)
 		to_chat(user, "<span class='warning'>[S] cannot be dominated!</span>")
 		revert_cast()
 		return
@@ -318,7 +339,7 @@
 	var/turf/T = get_turf(src)
 	playsound(T, 'sound/weapons/resonator_blast.ogg', 100, FALSE)
 	new /obj/effect/temp_visual/cult/sac(T)
-	for(var/obj/O in range(src,1))
+	for(var/obj/O in range(1, src))
 		if(O.density && !istype(O, /obj/structure/destructible/cult))
 			O.take_damage(90, BRUTE, "melee", 0)
 			new /obj/effect/temp_visual/cult/turf/floor(get_turf(O))

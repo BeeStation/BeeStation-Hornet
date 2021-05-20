@@ -68,7 +68,7 @@ SUBSYSTEM_DEF(traumas)
 												 /obj/item/pda/clown, /obj/item/grown/bananapeel)),
 
 					  "greytide"  = typecacheof(list(/obj/item/clothing/under/color/grey, /obj/item/melee/baton/cattleprod,
-												 /obj/item/twohanded/spear, /obj/item/clothing/mask/gas)),
+												 /obj/item/twohanded/spear, /obj/item/clothing/mask/gas/old)),
 
 					  "lizards"   = typecacheof(list(/obj/item/toy/plush/lizardplushie, /obj/item/reagent_containers/food/snacks/kebab/tail,
 												 /obj/item/organ/tail/lizard, /obj/item/reagent_containers/food/drinks/bottle/lizardwine)),

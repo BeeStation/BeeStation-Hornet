@@ -169,7 +169,7 @@
 	name = "Nervous Cough"
 	desc = "Patient feels a constant need to cough."
 	scan_desc = "nervous cough"
-	gain_text = "<span class='warning'>Your throat itches incessantly...</span>"
+	gain_text = "<span class='warning'>Your throat itches incessantly.</span>"
 	lose_text = "<span class='notice'>Your throat stops itching.</span>"
 
 /datum/brain_trauma/mild/nervous_cough/on_life()

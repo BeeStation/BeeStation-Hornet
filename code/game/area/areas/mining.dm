@@ -75,6 +75,34 @@
 	icon_state = "security"
 	ambient_effects = HIGHSEC
 
+//This is a placeholder for the lavaland sci area. Whoever is here after me, I have made you some additional areas to work with.
+//You are free to rename these and change their icons. My job is done here.
+
+/area/mine/science
+	name = "Research Outpost"
+	icon_state = "medresearch"
+	requires_power = TRUE	//Remove this when there will be pre-built APCs in the area.
+
+/area/mine/science/shuttledock
+	name = "Outpost"
+
+/area/mine/science/xenoarch
+	name = "Outpost Xenoarcheology Lab"
+
+/area/mine/science/elevator	//for going to lavaland depths if there will be those
+	name = "Outpost Elevator"
+
+/area/mine/science/experimentor
+	name = "Outpost Experimentor Lab"
+
+/area/mine/science/heavyexperiment
+	name = "Outpost Reinforced Chamber"
+
+/area/mine/science/robotics
+	name = "Outpost Robotics"
+
+
+
 
 
 

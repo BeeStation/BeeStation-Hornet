@@ -50,7 +50,7 @@
 	if(lifetime < 1)
 		kill_smoke()
 		return 0
-	for(var/mob/living/L in range(0,src))
+	for(var/mob/living/L in get_turf(src))
 		smoke_mob(L)
 	return 1
 
@@ -160,29 +160,29 @@
 	var/weldvents = TRUE
 	var/distcheck = TRUE
 
-/datum/effect_system/smoke_spread/freezing/proc/Chilled(atom/A)
-	if(isopenturf(A))
-		var/turf/open/T = A
-		if(T.air)
-			var/datum/gas_mixture/G = T.air
-			if(!distcheck || get_dist(T, location) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-				G.set_temperature(temperature)
-			T.air_update_turf()
-			for(var/obj/effect/hotspot/H in T)
-				qdel(H)
-			if(G.get_moles(/datum/gas/plasma))
-				G.adjust_moles(/datum/gas/nitrogen, G.get_moles(/datum/gas/plasma))
-				G.set_moles(/datum/gas/plasma, 0)
-		if (weldvents)
-			for(var/obj/machinery/atmospherics/components/unary/U in T)
-				if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.
-					U.welded = TRUE
-					U.update_icon()
-					U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
-		for(var/mob/living/L in T)
-			L.ExtinguishMob()
-		for(var/obj/item/Item in T)
-			Item.extinguish()
+/datum/effect_system/smoke_spread/freezing/proc/Chilled(turf/open/T)
+	if(!istype(T))
+		return
+	if(T.air)
+		var/datum/gas_mixture/G = T.air
+		if(!distcheck || get_dist(T, location) < blast) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
+			G.set_temperature(temperature)
+		T.air_update_turf()
+		for(var/obj/effect/hotspot/H in T)
+			qdel(H)
+		if(G.get_moles(/datum/gas/plasma))
+			G.adjust_moles(/datum/gas/nitrogen, G.get_moles(/datum/gas/plasma))
+			G.set_moles(/datum/gas/plasma, 0)
+	if (weldvents)
+		for(var/obj/machinery/atmospherics/components/unary/U in T)
+			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.
+				U.welded = TRUE
+				U.update_icon()
+				U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
+	for(var/mob/living/L in T)
+		L.ExtinguishMob()
+	for(var/obj/item/Item in T)
+		Item.extinguish()
 
 /datum/effect_system/smoke_spread/freezing/set_up(radius = 5, loca, blast_radius = 0)
 	..()
@@ -190,7 +190,7 @@
 
 /datum/effect_system/smoke_spread/freezing/start()
 	if(blast)
-		for(var/turf/T in RANGE_TURFS(blast, location))
+		for(var/turf/open/T in RANGE_TURFS(blast, location))
 			Chilled(T)
 	..()
 
@@ -250,6 +250,9 @@
 	var/fraction = 1/initial(lifetime)
 	reagents.copy_to(C, fraction*reagents.total_volume)
 	reagents.reaction(M, INGEST, fraction)
+	if(isapid(C))
+		C.SetSleeping(50) // Bees sleep when smoked
+	M.log_message("breathed in some smoke with reagents [english_list(reagents.reagent_list)]", LOG_ATTACK, null, FALSE) // Do not log globally b/c spam
 	return 1
 
 
@@ -287,7 +290,7 @@
 
 		var/where = "[AREACOORD(location)]"
 		if(carry.my_atom.fingerprintslast)
-			var/mob/M = get_mob_by_key(carry.my_atom.fingerprintslast)
+			var/mob/M = get_mob_by_ckey(carry.my_atom.fingerprintslast)
 			var/more = ""
 			if(M)
 				more = "[ADMIN_LOOKUPFLW(M)] "

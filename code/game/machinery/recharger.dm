@@ -5,7 +5,7 @@
 	desc = "A charging dock for energy based weaponry."
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
-	active_power_usage = 250
+	active_power_usage = 300
 	circuit = /obj/item/circuitboard/machine/recharger
 	pass_flags = PASSTABLE
 	var/obj/item/charging = null
@@ -28,15 +28,15 @@
 		return
 
 	if(charging)
-		. += {"<span class='notice'>\The [src] contains:</span>
-		<span class='notice'>- \A [charging].</span>"}
+		. += "<span class='notice'>\The [src] contains:</span>\n"+\
+		"<span class='notice'>- \A [charging].</span>"
 
 	if(!(stat & (NOPOWER|BROKEN)))
-		. += "<span class='notice'>The status display reads:<span>"
-		. += "<span class='notice'>- Recharging <b>[recharge_coeff*10]%</b> cell charge per cycle.<span>"
+		. += "<span class='notice'>The status display reads:</span>"
+		. += "<span class='notice'>- Recharging <b>[recharge_coeff*10]%</b> cell charge per cycle.</span>"
 		if(charging)
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
-			. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.<span>"
+			. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.</span>"
 
 
 /obj/machinery/recharger/proc/setCharging(new_charging)
@@ -125,7 +125,7 @@
 		if(C)
 			if(C.charge < C.maxcharge)
 				C.give(C.chargerate * recharge_coeff)
-				use_power(250 * recharge_coeff)
+				use_power(300 * recharge_coeff)
 				using_power = 1
 			update_icon(using_power)
 
@@ -133,7 +133,7 @@
 			var/obj/item/ammo_box/magazine/recharge/R = charging
 			if(R.stored_ammo.len < R.max_ammo)
 				R.stored_ammo += new R.ammo_type(R)
-				use_power(200 * recharge_coeff)
+				use_power(250 * recharge_coeff)
 				using_power = 1
 			update_icon(using_power)
 			return

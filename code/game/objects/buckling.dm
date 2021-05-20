@@ -23,7 +23,7 @@
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
 	return mouse_buckle_handling(M, user)
-	
+
 /atom/movable/proc/mouse_buckle_handling(mob/living/M, mob/living/user)
 	if(can_buckle && istype(M) && istype(user))
 		if(user_buckle_mob(M, user))
@@ -71,8 +71,9 @@
 	M.buckled = src
 	M.setDir(dir)
 	buckled_mobs |= M
+	M.glide_size = glide_size
 	M.update_mobility()
-	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
+	M.throw_alert("buckled", /atom/movable/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)

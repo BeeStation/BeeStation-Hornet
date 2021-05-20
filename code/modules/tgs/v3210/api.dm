@@ -39,7 +39,7 @@
 	var/warned_custom_commands = FALSE
 
 /datum/tgs_api/v3210/ApiVersion()
-	return new /datum/tgs_version("3.2.1.0")
+	return new /datum/tgs_version("3.2.1.3")
 
 /datum/tgs_api/v3210/proc/trim_left(text)
 	for (var/i = 1 to length(text))
@@ -54,7 +54,7 @@
 	return ""
 
 /datum/tgs_api/v3210/proc/file2list(filename)
-	return splittext(trim_left(trim_right(rustg_file_read(filename))), "\n")
+	return splittext(trim_left(trim_right(file2text(filename))), "\n")
 
 /datum/tgs_api/v3210/OnWorldNew(minimum_required_security_level)
 	. = FALSE
@@ -62,7 +62,7 @@
 	comms_key = world.params[SERVICE_WORLD_PARAM]
 	instance_name = world.params[SERVICE_INSTANCE_PARAM]
 	if(!instance_name)
-		instance_name = "TG Station Server"	//maybe just upgraded
+		instance_name = "TG Station Server" //maybe just upgraded
 
 	var/list/logs = file2list(".git/logs/HEAD")
 	if(logs.len)
@@ -92,14 +92,14 @@
 	if(skip_compat_check && !fexists(SERVICE_INTERFACE_DLL))
 		TGS_ERROR_LOG("Service parameter present but no interface DLL detected. This is symptomatic of running a service less than version 3.1! Please upgrade.")
 		return
-	call(SERVICE_INTERFACE_DLL, SERVICE_INTERFACE_FUNCTION)(instance_name, command)	//trust no retval
+	call(SERVICE_INTERFACE_DLL, SERVICE_INTERFACE_FUNCTION)(instance_name, command) //trust no retval
 	return TRUE
 
 /datum/tgs_api/v3210/OnTopic(T)
 	var/list/params = params2list(T)
 	var/their_sCK = params[SERVICE_CMD_PARAM_KEY]
 	if(!their_sCK)
-		return FALSE	//continue world/Topic
+		return FALSE //continue world/Topic
 
 	if(their_sCK != comms_key)
 		return "Invalid comms key!";
@@ -153,14 +153,14 @@
 	. = list()
 	if(!fexists(SERVICE_PR_TEST_JSON))
 		return
-	var/list/json = json_decode(rustg_file_read(SERVICE_PR_TEST_JSON))
+	var/list/json = json_decode(file2text(SERVICE_PR_TEST_JSON))
 	if(!json)
 		return
 	for(var/I in json)
 		var/datum/tgs_revision_information/test_merge/tm = new
 		tm.number = text2num(I)
 		var/list/entry = json[I]
-		tm.pull_request_commit = entry["commit"]
+		tm.head_commit = entry["commit"]
 		tm.author = entry["author"]
 		tm.title = entry["title"]
 		. += tm
@@ -176,11 +176,11 @@
 	return ri
 
 /datum/tgs_api/v3210/EndProcess()
-	sleep(world.tick_lag)	//flush the buffers
+	sleep(world.tick_lag) //flush the buffers
 	ExportService(SERVICE_REQUEST_KILL_PROCESS)
 
 /datum/tgs_api/v3210/ChatChannelInfo()
-	return list()
+	return list() // :omegalul:
 
 /datum/tgs_api/v3210/ChatBroadcast(message, list/channels)
 	if(channels)
@@ -226,30 +226,3 @@
 #undef SERVICE_REQUEST_API_VERSION
 
 #undef SERVICE_RETURN_SUCCESS
-
-/*
-The MIT License
-
-Copyright (c) 2017 Jordan Brown
-
-Permission is hereby granted, free of charge,
-to any person obtaining a copy of this software and
-associated documentation files (the "Software"), to
-deal in the Software without restriction, including
-without limitation the rights to use, copy, modify,
-merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom
-the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice
-shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
-ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/

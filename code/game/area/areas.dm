@@ -44,7 +44,7 @@
 
 	var/has_gravity = 0
 	///Are you forbidden from teleporting to the area? (centcom, mobs, wizard, hand teleporter)
-	var/noteleport = FALSE
+	var/teleport_restriction = TELEPORT_ALLOW_ALL
 	///Hides area from player Teleport function.
 	var/hidden = FALSE
 	///Is the area teleport-safe: no space / radiation / aggresive mobs / other dangers
@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /proc/process_teleport_locs()
 	for(var/V in GLOB.sortedAreas)
 		var/area/AR = V
-		if(istype(AR, /area/shuttle) || AR.noteleport)
+		if(istype(AR, /area/shuttle) || AR.teleport_restriction)
 			continue
 		if(GLOB.teleportlocs[AR.name])
 			continue
@@ -209,7 +209,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
-	STOP_PROCESSING(SSobj, src)
+	GLOB.sortedAreas -= src
+	if(fire)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /**
@@ -323,6 +325,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if (!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
+		START_PROCESSING(SSobj, src)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
@@ -340,8 +343,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/datum/computer_file/program/alarm_monitor/p = item
 		p.triggerAlarm("Fire", src, cameras, source)
 
-	START_PROCESSING(SSobj, src)
-
 /**
   * Reset the firealarm alert for this area
   *
@@ -354,6 +355,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	if (fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
+		STOP_PROCESSING(SSobj, src)
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
@@ -371,7 +373,17 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/datum/computer_file/program/alarm_monitor/p = item
 		p.cancelAlarm("Fire", src, source)
 
-	STOP_PROCESSING(SSobj, src)
+///Get rid of any dangling camera refs
+/area/proc/clear_camera(obj/machinery/camera/cam)
+	LAZYREMOVE(cameras, cam)
+	for (var/mob/living/silicon/aiPlayer as anything in GLOB.silicon_mobs)
+		aiPlayer.freeCamera(src, cam)
+	for (var/obj/machinery/computer/station_alert/comp as anything in GLOB.alert_consoles)
+		comp.freeCamera(src, cam)
+	for (var/mob/living/simple_animal/drone/drone_on as anything in GLOB.drones_list)
+		drone_on.freeCamera(src, cam)
+	for(var/datum/computer_file/program/alarm_monitor/monitor as anything in GLOB.alarmdisplay)
+		monitor.freeCamera(src, cam)
 
 /**
   * If 100 ticks has elapsed, toggle all the firedoors closed again
@@ -570,7 +582,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	SEND_SIGNAL(M, COMSIG_EXIT_AREA, src) //The atom that exits the area
 
 /**
-  * Returns true if this atom has gravity for the passed in turf
+  * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
+  * In other words, it returns whether the atom can be *on* the turf (i.e. not forced to float)
   *
   * Sends signals COMSIG_ATOM_HAS_GRAVITY and COMSIG_TURF_HAS_GRAVITY, both can force gravity with
   * the forced gravity var

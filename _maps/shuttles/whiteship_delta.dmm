@@ -1828,7 +1828,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/box/white/corners,
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 3;
@@ -2437,7 +2437,7 @@
 "dX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 3;

@@ -43,6 +43,8 @@
 /obj/item/organ/zombie_infection/process()
 	if(!owner)
 		return
+	if(owner.IsInStasis())
+		return
 	if(!(src in owner.internal_organs))
 		Remove(owner)
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)

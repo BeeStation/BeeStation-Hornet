@@ -1,3 +1,4 @@
+
 /**
   * The base type for nearly all physical objects in SS13
 
@@ -7,6 +8,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
+	appearance_flags = TILE_BOUND
 	var/level = 2
 
 	///If non-null, overrides a/an/some in all cases
@@ -46,6 +48,9 @@
 	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays
 	var/list/managed_vis_overlays
 
+	///overlays managed by update_overlays() to prevent removing overlays that weren't added by the same proc
+	var/list/managed_overlays
+
 	///Proximity monitor associated with this atom
 	var/datum/proximity_monitor/proximity_monitor
 	///Cooldown tick timer for buckle messages
@@ -73,6 +78,16 @@
 	///Bitfield for how the atom handles materials.
 	var/material_flags = NONE
 
+	var/flags_ricochet = NONE
+	///When a projectile tries to ricochet off this atom, the projectile ricochet chance is multiplied by this
+	var/ricochet_chance_mod = 1
+	///When a projectile ricochets off this atom, it deals the normal damage * this modifier to this atom
+	var/ricochet_damage_mod = 0.33
+
+	/// Last name used to calculate a color for the chatmessage overlays
+	var/chat_color_name
+	/// Last color calculated for the the chatmessage overlays
+	var/chat_color
 
 /**
   * Called when an atom is created in byond (built in engine proc)
@@ -202,19 +217,32 @@
 			AA.remove_from_hud(src)
 
 	if(reagents)
-		qdel(reagents)
+		QDEL_NULL(reagents)
 
 	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
+	LAZYCLEARLIST(managed_overlays)
 
 	QDEL_NULL(light)
 
 	return ..()
 
 /atom/proc/handle_ricochet(obj/item/projectile/P)
-	return
+	var/turf/p_turf = get_turf(P)
+	var/face_direction = get_dir(src, p_turf)
+	var/face_angle = dir2angle(face_direction)
+	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
+	var/a_incidence_s = abs(incidence_s)
+	if(a_incidence_s > 90 && a_incidence_s < 270)
+		return FALSE
+	if((P.flag in list("bullet", "bomb")) && P.ricochet_incidence_leeway)
+		if((a_incidence_s < 90 && a_incidence_s < 90 - P.ricochet_incidence_leeway) || (a_incidence_s > 270 && a_incidence_s -270 > P.ricochet_incidence_leeway))
+			return
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
+	P.setAngle(new_angle_s)
+	return TRUE
 
 ///Can the mover object pass this atom, while heading for the target turf
 /atom/proc/CanPass(atom/movable/mover, turf/target)
@@ -477,9 +505,23 @@
 	var/signalOut = SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON)
 	if(!(signalOut & COMSIG_ATOM_NO_UPDATE_ICON_STATE))
 		update_icon_state()
+	if(!(signalOut & COMSIG_ATOM_NO_UPDATE_OVERLAYS))
+		var/list/new_overlays = update_overlays()
+		if(managed_overlays)
+			cut_overlay(managed_overlays)
+			managed_overlays = null
+		if(length(new_overlays))
+			managed_overlays = new_overlays
+			add_overlay(new_overlays)
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
+
+/// Updates the overlays of the atom
+/atom/proc/update_overlays()
+	SHOULD_CALL_PARENT(TRUE)
+	. = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, .)
 
 /**
   * An atom we are buckled or is contained within us has tried to move
@@ -492,10 +534,6 @@
 		buckle_message_cooldown = world.time + 50
 		to_chat(user, "<span class='warning'>You can't move while buckled to [src]!</span>")
 	return
-
-/// Return true if this atoms contents should not have ex_act called on ex_act
-/atom/proc/prevent_content_explosion()
-	return FALSE
 
 /// Handle what happens when your contents are exploded by a bomb
 /atom/proc/contents_explosion(severity, target)
@@ -1180,6 +1218,11 @@
 	if(filter_data && filter_data[name])
 		return filters[filter_data.Find(name)]
 
+/atom/movable/proc/remove_filter(name)
+	if(filter_data && filter_data[name])
+		filter_data -= name
+		update_filters()
+
 /atom/proc/intercept_zImpact(atom/movable/AM, levels = 1)
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, AM, levels)
 
@@ -1207,4 +1250,20 @@
   * Override this if you want custom behaviour in whatever gets hit by the rust
   */
 /atom/proc/rust_heretic_act()
+	return
+
+/**
+  * Used to set something as 'open' if it's being used as a supplypod
+  *
+  * Override this if you want an atom to be usable as a supplypod.
+  */
+/atom/proc/setOpened()
+	return
+
+/**
+  * Used to set something as 'closed' if it's being used as a supplypod
+  *
+  * Override this if you want an atom to be usable as a supplypod.
+  */
+/atom/proc/setClosed()
 	return

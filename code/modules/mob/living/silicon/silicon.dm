@@ -11,6 +11,7 @@
 	weather_immunities = list("ash")
 	possible_a_intents = list(INTENT_HELP, INTENT_HARM)
 	mob_biotypes = list(MOB_ROBOTIC)
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 | HEAR_1
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	deathsound = 'sound/voice/borg_deathsound.ogg'
 	speech_span = SPAN_ROBOT
@@ -47,6 +48,8 @@
 	var/interaction_range = 7			//wireless control range
 	var/obj/item/pda/aiPDA
 
+	mobchatspan = "centcom"
+
 /mob/living/silicon/Initialize()
 	. = ..()
 	GLOB.silicon_mobs += src
@@ -72,12 +75,12 @@
 /mob/living/silicon/contents_explosion(severity, target)
 	return
 
-/mob/living/silicon/prevent_content_explosion()
-	return TRUE
-
 /mob/living/silicon/proc/cancelAlarm()
 	return
 
+/mob/living/silicon/proc/freeCamera()
+	return
+	
 /mob/living/silicon/proc/triggerAlarm()
 	return
 
@@ -372,7 +375,7 @@
 	return 0
 
 
-/mob/living/silicon/assess_threat(judgement_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt silicon units
+/mob/living/silicon/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt silicon units
 	return -10
 
 /mob/living/silicon/proc/remove_sensors()
@@ -429,3 +432,6 @@
 
 /mob/living/silicon/rust_heretic_act()
 	adjustBruteLoss(500)
+
+/mob/living/silicon/hears_radio()
+	return FALSE

@@ -23,9 +23,13 @@
 		return -1
 	L = surgery.operated_bodypart
 	if(L)
-		display_results(user, target, "<span class ='notice'>You begin to augment [target]'s [parse_zone(user.zone_selected)]...</span>",
-			"[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug].",
-			"[user] begins to augment [target]'s [parse_zone(user.zone_selected)].")
+		if(L.is_disabled() == BODYPART_DISABLED_PARALYSIS)
+			to_chat(user, "<span class='warning'>You can't augment a limb with paralysis!</span>")
+			return -1
+		else
+			display_results(user, target, "<span class ='notice'>You begin to augment [target]'s [parse_zone(user.zone_selected)]...</span>",
+				"[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug].",
+				"[user] begins to augment [target]'s [parse_zone(user.zone_selected)].")
 	else
 		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", "<span class ='notice'>You look for [target]'s [parse_zone(user.zone_selected)]...</span>")
 
@@ -38,6 +42,11 @@
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 	requires_real_bodypart = TRUE
+
+
+
+/datum/surgery/augmentation/can_start(mob/user, mob/living/carbon/target)
+	return ..() && !isoozeling(target)
 
 //SURGERY STEP SUCCESSES
 

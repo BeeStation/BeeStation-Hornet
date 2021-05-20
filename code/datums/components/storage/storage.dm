@@ -28,6 +28,7 @@
 	var/rustle_sound = TRUE							//play rustle sound on interact.
 	var/allow_quick_empty = FALSE					//allow empty verb which allows dumping on the floor of everything inside quickly.
 	var/allow_quick_gather = FALSE					//allow toggle mob verb which toggles collecting all items from a tile.
+	var/insert_while_closed = TRUE					//the user can insert items while the storage is closed, if not the user will have to click/alt click to open it before they can insert items
 
 	var/collection_mode = COLLECT_EVERYTHING
 
@@ -35,8 +36,8 @@
 
 	var/display_numerical_stacking = FALSE			//stack things of the same type and show as a single object with a number.
 
-	var/obj/screen/storage/boxes					//storage display object
-	var/obj/screen/close/closer						//close button object
+	var/atom/movable/screen/storage/boxes					//storage display object
+	var/atom/movable/screen/close/closer						//close button object
 
 	var/allow_big_nesting = FALSE					//allow storage objects of the same or greater size.
 
@@ -289,10 +290,10 @@
 	for(var/obj/item/I in real_location.contents)
 		if(QDELETED(I))
 			continue
-		if(!.["[I.type]-[I.name]"])
-			.["[I.type]-[I.name]"] = new /datum/numbered_display(I, 1)
+		if(!.["[I.type]"])
+			.["[I.type]"] = new /datum/numbered_display(I, 1)
 		else
-			var/datum/numbered_display/ND = .["[I.type]-[I.name]"]
+			var/datum/numbered_display/ND = .["[I.type]"]
 			ND.number++
 
 //This proc determines the size of the inventory to be displayed. Please touch it only if you know what you're doing.
@@ -320,7 +321,7 @@
 			var/datum/numbered_display/ND = numerical_display_contents[type]
 			ND.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
 			ND.sample_object.screen_loc = "[cx]:[screen_pixel_x],[cy]:[screen_pixel_y]"
-			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>"
+			ND.sample_object.maptext = MAPTEXT("<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>")
 			ND.sample_object.layer = ABOVE_HUD_LAYER
 			ND.sample_object.plane = ABOVE_HUD_PLANE
 			cx++
@@ -351,7 +352,7 @@
 	if(!M.client)
 		return FALSE
 	var/atom/real_location = real_location()
-	if(M.active_storage != src && (M.stat == CONSCIOUS))
+	if(M.active_storage != src && (M.is_conscious()))
 		for(var/obj/item/I in real_location)
 			if(I.on_found(M))
 				return FALSE
@@ -516,14 +517,14 @@
 	// this must come before the screen objects only block, dunno why it wasn't before
 	if(over_object == M)
 		user_show_to_mob(M)
-	if(!istype(over_object, /obj/screen))
+	if(!istype(over_object, /atom/movable/screen))
 		dump_content_at(over_object, M)
 		return
 	if(A.loc != M)
 		return
 	playsound(A, "rustle", 50, 1, -5)
-	if(istype(over_object, /obj/screen/inventory/hand))
-		var/obj/screen/inventory/hand/H = over_object
+	if(istype(over_object, /atom/movable/screen/inventory/hand))
+		var/atom/movable/screen/inventory/hand/H = over_object
 		M.putItemFromInventoryInHandIfPossible(A, H.held_index)
 		return
 	A.add_fingerprint(M)
@@ -551,7 +552,7 @@
 //This proc return 1 if the item can be picked up and 0 if it can't.
 //Set the stop_messages to stop it from printing messages
 /datum/component/storage/proc/can_be_inserted(obj/item/I, stop_messages = FALSE, mob/M)
-	if(!istype(I) || (I.item_flags & ABSTRACT))
+	if(!istype(I) || I.anchored || (I.item_flags & ABSTRACT))
 		return FALSE //Not an item
 	if(I == parent)
 		return FALSE	//no paradoxes for you
@@ -559,6 +560,8 @@
 	var/atom/host = parent
 	if(real_location == I.loc)
 		return FALSE //Means the item is already in the storage item
+	if(!insert_while_closed && !(M in is_using))
+		return FALSE
 	if(locked)
 		if(M && !stop_messages)
 			host.add_fingerprint(M)
@@ -626,13 +629,13 @@
 		return
 	if(rustle_sound)
 		playsound(parent, "rustle", 50, 1, -5)
-	for(var/mob/viewing in viewers(user, null))
+	for(var/mob/viewing as() in viewers(user))
 		if(M == viewing)
 			to_chat(usr, "<span class='notice'>You put [I] [insert_preposition]to [parent].</span>")
 		else if(in_range(M, viewing)) //If someone is standing close enough, they can tell what it is...
-			viewing.show_message("<span class='notice'>[M] puts [I] [insert_preposition]to [parent].</span>", 1)
+			viewing.show_message("<span class='notice'>[M] puts [I] [insert_preposition]to [parent].</span>", MSG_VISUAL)
 		else if(I && I.w_class >= 3) //Otherwise they can only see large or normal items from a distance...
-			viewing.show_message("<span class='notice'>[M] puts [I] [insert_preposition]to [parent].</span>", 1)
+			viewing.show_message("<span class='notice'>[M] puts [I] [insert_preposition]to [parent].</span>", MSG_VISUAL)
 
 /datum/component/storage/proc/update_icon()
 	if(isobj(parent))
@@ -725,7 +728,7 @@
 /datum/component/storage/proc/signal_on_pickup(datum/source, mob/user)
 	var/atom/A = parent
 	update_actions()
-	for(var/mob/M in range(1, A))
+	for(var/mob/M as() in hearers(1, A))
 		if(M.active_storage == src)
 			close(M)
 

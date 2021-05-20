@@ -68,12 +68,11 @@ Burning extracts:
 
 /obj/item/slimecross/burning/blue/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] flash-freezes the area!</span>")
-	for(var/turf/open/T in range(3, get_turf(user)))
+	for(var/turf/open/T in view(3, get_turf(user)))
 		T.MakeSlippery(TURF_WET_PERMAFROST, min_wet_time = 10, wet_time_to_add = 5)
-	for(var/mob/living/carbon/M in range(5, get_turf(user)))
-		if(M != user)
-			M.bodytemperature = BODYTEMP_COLD_DAMAGE_LIMIT + 10 //Not quite cold enough to hurt.
-			to_chat(M, "<span class='danger'>You feel a chill run down your spine, and the floor feels a bit slippery with frost...</span>")
+	for(var/mob/living/carbon/M in ohearers(5, user))
+		M.bodytemperature = BODYTEMP_COLD_DAMAGE_LIMIT + 10 //Not quite cold enough to hurt.
+		to_chat(M, "<span class='danger'>You feel a chill run down your spine, and the floor feels a bit slippery with frost...</span>")
 	..()
 
 /obj/item/slimecross/burning/metal
@@ -81,7 +80,7 @@ Burning extracts:
 	effect_desc = "Instantly destroys walls around you."
 
 /obj/item/slimecross/burning/metal/do_effect(mob/user)
-	for(var/turf/closed/wall/W in range(1,get_turf(user)))
+	for(var/turf/closed/wall/W in RANGE_TURFS(1,user))
 		W.dismantle_wall(1)
 		playsound(W, 'sound/effects/break_stone.ogg', 50, 1)
 	user.visible_message("<span class='danger'>[src] pulses violently, and shatters the walls around it!</span>")
@@ -94,14 +93,13 @@ Burning extracts:
 /obj/item/slimecross/burning/yellow/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] explodes into an electrical field!</span>")
 	playsound(get_turf(src), 'sound/weapons/zapbang.ogg', 50, 1)
-	for(var/mob/living/M in range(4,get_turf(user)))
-		if(M != user)
-			var/mob/living/carbon/C = M
-			if(istype(C))
-				C.electrocute_act(25,src)
-			else
-				M.adjustFireLoss(25)
-			to_chat(M, "<span class='danger'>You feel a sharp electrical pulse!</span>")
+	for(var/mob/living/M in ohearers(4,user))
+		var/mob/living/carbon/C = M
+		if(istype(C))
+			C.electrocute_act(25,src)
+		else
+			M.adjustFireLoss(25)
+		to_chat(M, "<span class='danger'>You feel a sharp electrical pulse!</span>")
 	..()
 
 /obj/item/slimecross/burning/darkpurple
@@ -135,7 +133,7 @@ Burning extracts:
 /obj/item/slimecross/burning/silver/do_effect(mob/user)
 	var/amount = rand(3,6)
 	var/list/turfs = list()
-	for(var/turf/open/T in range(1,get_turf(user)))
+	for(var/turf/open/T in RANGE_TURFS(1,user))
 		turfs += T
 	for(var/i = 0, i < amount, i++)
 		var/path = get_random_food()
@@ -197,7 +195,7 @@ Burning extracts:
 
 /obj/item/slimecross/burning/red/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] pulses a hazy red aura for a moment, which wraps around [user]!</span>")
-	for(var/mob/living/simple_animal/slime/S in view(7, get_turf(user)))
+	for(var/mob/living/simple_animal/slime/S in hearers(7, get_turf(user)))
 		if(user in S.Friends)
 			var/friendliness = S.Friends[user]
 			S.Friends = list()
@@ -287,7 +285,7 @@ Burning extracts:
 
 /obj/item/slimecross/burning/lightpink/do_effect(mob/user)
 	user.visible_message("<span class='danger'>[src] lets off a hypnotizing pink glow!</span>")
-	for(var/mob/living/carbon/C in view(7, get_turf(user)))
+	for(var/mob/living/carbon/C in hearers(7, get_turf(user)))
 		C.reagents.add_reagent(/datum/reagent/pax,5)
 	..()
 

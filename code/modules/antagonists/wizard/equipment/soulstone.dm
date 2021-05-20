@@ -60,6 +60,17 @@
 		A.death()
 	return ..()
 
+/obj/item/soulstone/Exited(mob/living/simple_animal/shade/S, atom/newLoc)
+	..()
+	if(istype(S))
+		// Things that *really should always* happen to the shade when it comes out should go here.
+		S.status_flags &= ~GODMODE
+		S.mobility_flags = MOBILITY_FLAGS_DEFAULT
+		S.cancel_camera()
+		if(purified)
+			S.icon_state = "ghost1"
+			S.name = "Purified [initial(S.name)]"
+
 /obj/item/soulstone/proc/hot_potato(mob/living/user)
 	to_chat(user, "<span class='userdanger'>Holy magics residing in \the [src] burn your hand!</span>")
 	var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
@@ -106,14 +117,9 @@
 
 /obj/item/soulstone/proc/release_shades(mob/user)
 	for(var/mob/living/simple_animal/shade/A in src)
-		A.status_flags &= ~GODMODE
-		A.mobility_flags = MOBILITY_FLAGS_DEFAULT
 		A.forceMove(get_turf(user))
-		A.cancel_camera()
 		if(purified)
 			icon_state = "purified_soulstone"
-			A.icon_state = "ghost1"
-			A.name = "Purified [initial(A.name)]"
 		else
 			icon_state = "soulstone"
 		name = initial(name)
@@ -133,11 +139,11 @@
 /obj/structure/constructshell/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || iswizard(user) || user.stat == DEAD)
-		. += {"<span class='cult'>A construct shell, used to house bound souls from a soulstone.\n
-		Placing a soulstone with a soul into this shell allows you to produce your choice of the following:\n
-		An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.\n
-		A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.\n
-		A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"}
+		. += "<span class='cult'>A construct shell, used to house bound souls from a soulstone.\n"+\
+		"Placing a soulstone with a soul into this shell allows you to produce your choice of the following:\n"+\
+		"An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.\n"+\
+		"A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.\n"+\
+		"A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
 
 /obj/structure/constructshell/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/soulstone))
@@ -270,7 +276,7 @@
 		var/datum/action/innate/seek_master/SM = new()
 		SM.Grant(newstruct)
 	newstruct.key = target.key
-	var/obj/screen/alert/bloodsense/BS
+	var/atom/movable/screen/alert/bloodsense/BS
 	if(newstruct.mind && ((stoner && iscultist(stoner)) || cultoverride) && SSticker && SSticker.mode)
 		SSticker.mode.add_cultist(newstruct.mind, 0)
 	if(iscultist(stoner) || cultoverride)
@@ -278,7 +284,7 @@
 	else if(stoner)
 		to_chat(newstruct, "<b>You are still bound to serve your creator, [stoner], follow [stoner.p_their()] orders and help [stoner.p_them()] complete [stoner.p_their()] goals at all costs.</b>")
 	newstruct.clear_alert("bloodsense")
-	BS = newstruct.throw_alert("bloodsense", /obj/screen/alert/bloodsense)
+	BS = newstruct.throw_alert("bloodsense", /atom/movable/screen/alert/bloodsense)
 	if(BS)
 		BS.Cviewer = newstruct
 	newstruct.cancel_camera()

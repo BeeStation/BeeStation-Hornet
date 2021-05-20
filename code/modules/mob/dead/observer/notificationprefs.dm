@@ -21,10 +21,14 @@
 	else
 		src.user = user
 
-/datum/notificationpanel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/datum/notificationpanel/ui_state(mob/user)
+	return GLOB.observer_state
+
+/datum/notificationpanel/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "NotificationPreferences", "Notification Preferences", 270, 360, master_ui, state)
+		ui = new(user, src, "NotificationPreferences")
 		ui.open()
 
 /datum/notificationpanel/ui_data(mob/user)

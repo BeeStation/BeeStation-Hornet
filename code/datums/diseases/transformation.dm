@@ -83,19 +83,16 @@
 /datum/disease/transformation/proc/replace_banned_player(var/mob/living/new_mob) // This can run well after the mob has been transferred, so need a handle on the new mob to kill it if needed.
 	set waitfor = FALSE
 
+	affected_mob.ghostize(TRUE,SENTIENCE_FORCE)
+	to_chat(affected_mob, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
+
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [affected_mob.name]?", bantype, null, bantype, 50, affected_mob)
 	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)
-		to_chat(affected_mob, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
-		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")
-		affected_mob.ghostize(0)
+		var/mob/dead/observer/C = pick(candidates)		
+		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")		
 		affected_mob.key = C.key
 	else
-		to_chat(new_mob, "Your mob has been claimed by death! Appeal your job ban if you want to avoid this in the future!")
-		new_mob.death()
-		if (!QDELETED(new_mob))
-			new_mob.ghostize(can_reenter_corpse = FALSE)
-			new_mob.key = null
+		to_chat(new_mob, "Your mob has been offered to ghosts! Appeal your job ban if you want to avoid this in the future!")
 
 /datum/disease/transformation/jungle_fever
 	name = "Jungle Fever"
@@ -126,12 +123,14 @@
 /datum/disease/transformation/jungle_fever/do_disease_transformation(mob/living/carbon/affected_mob)
 	if(affected_mob.mind && !is_monkey(affected_mob.mind))
 		add_monkey(affected_mob.mind)
-	if(ishuman(affected_mob))
-		if(affected_mob && !is_monkey_leader(affected_mob.mind))
-			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
-			M.ventcrawler = VENTCRAWLER_ALWAYS
-		else
+	if(affected_mob && ishuman(affected_mob))
+		if((is_monkey_leader(affected_mob.mind) || prob(4)))
 			affected_mob.junglegorillize()
+		else
+			var/mob/living/carbon/monkey/M = affected_mob.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPVIRUS | TR_KEEPSE)
+			M.ventcrawler = VENTCRAWLER_ALWAYS
+			var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+			H.add_hud_to(M)
 
 /datum/disease/transformation/jungle_fever/stage_act()
 	..()
@@ -168,7 +167,7 @@
 	cures = list(/datum/reagent/copper)
 	cure_chance = 5
 	agent = "R2D2 Nanomachines"
-	desc = "This disease, actually acute nanomachine infection, converts the victim into a cyborg."
+	desc = "An acute nanomachine infection which converts its host into a cyborg."
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list()
@@ -337,10 +336,10 @@
 
 /datum/disease/transformation/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis"
-	cure_text = "Something that would kill off the tiny cats." 
+	cure_text = "Something that would kill off the tiny cats."
 	spread_text = "Acute"
 	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
-	cures = list(/datum/reagent/consumable/coco) //kills all the tiny cats that infected your organism
+	cures = list(/datum/reagent/consumable/cocoa, /datum/reagent/consumable/cocoa/hot_cocoa) //kills all the tiny cats that infected your organism
 	cure_chance = 25
 	stage_prob = 3
 	agent = "Nano-feline Toxoplasmosis"

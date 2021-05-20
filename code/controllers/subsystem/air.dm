@@ -1,3 +1,4 @@
+//Atmospheric subtasks
 #define SSAIR_PIPENETS 1
 #define SSAIR_ATMOSMACHINERY 2
 #define SSAIR_EQUALIZE 3
@@ -6,6 +7,7 @@
 #define SSAIR_HIGHPRESSURE 6
 #define SSAIR_HOTSPOTS 7
 #define SSAIR_SUPERCONDUCTIVITY 8
+#define SSAIR_REBUILD_PIPENETS 9
 
 SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
@@ -21,12 +23,14 @@ SUBSYSTEM_DEF(air)
 	var/cost_hotspots = 0
 	var/cost_superconductivity = 0
 	var/cost_pipenets = 0
+	var/cost_rebuilds = 0
 	var/cost_atmos_machinery = 0
 	var/cost_equalize = 0
 
 	var/list/active_turfs = list()
 	var/list/hotspots = list()
 	var/list/networks = list()
+	var/list/pipenets_needing_rebuilt = list()
 	var/list/obj/machinery/atmos_machinery = list()
 	var/list/pipe_init_dirs_cache = list()
 
@@ -40,7 +44,7 @@ SUBSYSTEM_DEF(air)
 
 
 	var/list/currentrun = list()
-	var/currentpart = SSAIR_PIPENETS
+	var/currentpart = SSAIR_REBUILD_PIPENETS
 
 	var/map_loading = TRUE
 	var/list/queued_for_activation
@@ -54,6 +58,7 @@ SUBSYSTEM_DEF(air)
 	msg += "HS:[round(cost_hotspots,1)]|"
 	msg += "SC:[round(cost_superconductivity,1)]|"
 	msg += "PN:[round(cost_pipenets,1)]|"
+	msg += "RB:[round(cost_rebuilds,1)]|"
 	msg += "AM:[round(cost_atmos_machinery,1)]"
 	msg += "} "
 	msg += "AT:[active_turfs.len]|"
@@ -63,8 +68,7 @@ SUBSYSTEM_DEF(air)
 	msg += "HP:[high_pressure_delta.len]|"
 	msg += "AS:[active_super_conductivity.len]|"
 	msg += "AT/MS:[round((cost ? active_turfs.len/cost : 0),0.1)]"
-	..(msg)
-
+	. = ..(msg)
 
 /datum/controller/subsystem/air/Initialize(timeofday)
 	extools_update_ssair()
@@ -79,6 +83,19 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
+
+	if(currentpart == SSAIR_REBUILD_PIPENETS)
+		var/list/pipenet_rebuilds = pipenets_needing_rebuilt
+		for(var/obj/machinery/atmospherics/AT as() in pipenet_rebuilds)
+			if(!AT) //If a null somehow shows up here, this next line runtimes and the subsystem dies
+				continue
+			AT.build_network()
+		cost_rebuilds = MC_AVERAGE(cost_rebuilds, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		pipenets_needing_rebuilt.Cut()
+		if(state != SS_RUNNING)
+			return
+		resumed = FALSE
+		currentpart = SSAIR_PIPENETS
 
 	if(currentpart == SSAIR_PIPENETS || !resumed)
 		process_pipenets(resumed)
@@ -149,7 +166,7 @@ SUBSYSTEM_DEF(air)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
-	currentpart = SSAIR_PIPENETS
+	currentpart = SSAIR_REBUILD_PIPENETS
 
 
 
@@ -159,15 +176,19 @@ SUBSYSTEM_DEF(air)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
-		var/datum/thing = currentrun[currentrun.len]
+		var/datum/pipeline/P = currentrun[currentrun.len]
 		currentrun.len--
-		if(thing)
-			thing.process()
+		if(P)
+			if(P.update)
+				P.update = P.reconcile_air()
 		else
-			networks.Remove(thing)
+			networks.Remove(P)
 		if(MC_TICK_CHECK)
 			return
 
+/datum/controller/subsystem/air/proc/add_to_rebuild_queue(atmos_machine)
+	if(istype(atmos_machine, /obj/machinery/atmospherics))
+		pipenets_needing_rebuilt += atmos_machine
 
 /datum/controller/subsystem/air/proc/process_atmos_machinery(resumed = 0)
 	var/seconds = wait * 0.1
@@ -178,6 +199,8 @@ SUBSYSTEM_DEF(air)
 	while(currentrun.len)
 		var/obj/machinery/M = currentrun[currentrun.len]
 		currentrun.len--
+		if(M == null)
+			atmos_machinery.Remove(M)
 		if(!M || (M.process_atmos(seconds) == PROCESS_KILL))
 			atmos_machinery.Remove(M)
 		if(MC_TICK_CHECK)
@@ -320,7 +343,6 @@ SUBSYSTEM_DEF(air)
 	if(active_turfs.len)
 		var/starting_ats = active_turfs.len
 		sleep(world.tick_lag)
-		var/timer = world.timeofday
 		log_mapping("There are [starting_ats] active turfs at roundstart caused by a difference of the air between the adjacent turfs. You can see its coordinates using \"Mapping -> Show roundstart AT list\" verb (debug verbs required).")
 		for(var/turf/T in active_turfs)
 			GLOB.active_turfs_startlist += T
@@ -339,7 +361,7 @@ SUBSYSTEM_DEF(air)
 		while (turfs_to_check.len)
 		var/ending_ats = active_turfs.len
 
-		var/msg = "HEY! LISTEN! [DisplayTimeText(world.timeofday - timer)] were wasted processing [starting_ats] turf(s) (connected to [ending_ats] other turfs) with atmos differences at round start."
+		var/msg = "Processed [starting_ats] turf(s) (connected to [ending_ats] other turfs) with atmos differences at round start."
 		to_chat(world, "<span class='boldannounce'>[msg]</span>")
 		warning(msg)
 

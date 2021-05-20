@@ -105,7 +105,7 @@
 			if("Immortality")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.verbs += /mob/living/carbon/proc/immortality
+				user.add_verb(/mob/living/carbon/proc/immortality)
 				user.set_species(/datum/species/shadow)
 			if("Peace")
 				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
@@ -155,7 +155,7 @@
 	set name = "Resurrection"
 
 	var/mob/living/carbon/C = usr
-	if(!C.stat)
+	if(C.is_conscious())
 		to_chat(C, "<span class='notice'>You're not dead yet!</span>")
 		return
 	if(C.has_status_effect(STATUS_EFFECT_WISH_GRANTERS_GIFT))

@@ -58,3 +58,16 @@
 #define COLOR_ASSEMBLY_LBLUE   "#5D99BE"
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
+
+//Colours used by blood brothers
+#define COLOR_LIST_BLOOD_BROTHERS list(\
+	"#FF5050",\
+	"#D977FD",\
+	"#422ED8",\
+	"#2D87A1",\
+	"#3ED8FD",\
+	"#0EF5CE",\
+	"#0DF447",\
+	"#D6B20C",\
+	"#FF902A",\
+)

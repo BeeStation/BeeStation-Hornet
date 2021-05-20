@@ -23,7 +23,7 @@
 	speed = 8
 	glide_size = 2
 	can_be_held = TRUE
-	mobsay_color = "#E7D26F"
+	chat_color = "#E7D26F"
 
 	do_footstep = TRUE
 

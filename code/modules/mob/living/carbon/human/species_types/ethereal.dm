@@ -23,6 +23,7 @@
 	toxic_food = NONE
 	hair_color = "fixedmutcolor"
 	hair_alpha = 140
+	swimming_component = /datum/component/swimming/ethereal
 	var/current_color
 	var/ethereal_charge = ETHEREAL_CHARGE_FULL
 	var/EMPeffect = FALSE
@@ -123,14 +124,14 @@
 	brutemod = 1.25
 	switch(get_charge(H))
 		if(ETHEREAL_CHARGE_NONE)
-			H.throw_alert("ethereal_charge", /obj/screen/alert/etherealcharge, 3)
+			H.throw_alert("ethereal_charge", /atom/movable/screen/alert/etherealcharge, 3)
 		if(ETHEREAL_CHARGE_NONE to ETHEREAL_CHARGE_LOWPOWER)
-			H.throw_alert("ethereal_charge", /obj/screen/alert/etherealcharge, 2)
+			H.throw_alert("ethereal_charge", /atom/movable/screen/alert/etherealcharge, 2)
 			if(H.health > 10.5)
 				apply_damage(0.65, TOX, null, null, H)
 			brutemod = 1.75
 		if(ETHEREAL_CHARGE_LOWPOWER to ETHEREAL_CHARGE_NORMAL)
-			H.throw_alert("ethereal_charge", /obj/screen/alert/etherealcharge, 1)
+			H.throw_alert("ethereal_charge", /atom/movable/screen/alert/etherealcharge, 1)
 			brutemod = 1.5
 		else
 			H.clear_alert("ethereal_charge")
@@ -140,7 +141,7 @@
 	if(istype(stomach))
 		return stomach.crystal_charge
 	return ETHEREAL_CHARGE_NONE
-	
+
 /datum/species/ethereal/proc/adjust_charge(var/change)
 	ethereal_charge = CLAMP(ethereal_charge + change, ETHEREAL_CHARGE_NONE, ETHEREAL_CHARGE_FULL)
 

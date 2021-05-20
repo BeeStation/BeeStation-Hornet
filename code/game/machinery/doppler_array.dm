@@ -1,7 +1,5 @@
 #define PRINTER_TIMEOUT 40
 
-GLOBAL_LIST_EMPTY(doppler_arrays)
-
 /obj/machinery/doppler_array
 	name = "tachyon-doppler array"
 	desc = "A highly precise directional sensor array which measures the release of quants from decaying tachyons. The doppler shifting of the mirror-image formed by these quants can reveal the size, location and temporal affects of energetic disturbances within a large radius ahead of the array.\n"
@@ -9,8 +7,6 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	icon_state = "tdoppler"
 	density = TRUE
 	verb_say = "states coldly"
-	ui_x = 500
-	ui_y = 225
 	var/cooldown = 10
 	var/next_announce = 0
 	var/integrated = FALSE
@@ -24,16 +20,12 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/Initialize()
 	. = ..()
-	GLOB.doppler_arrays += src
+	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, .proc/sense_explosion)
 	printer_ready = world.time + PRINTER_TIMEOUT
 
 /obj/machinery/doppler_array/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE,null,null,CALLBACK(src,.proc/rot_message))
-
-/obj/machinery/doppler_array/Destroy()
-	GLOB.doppler_arrays -= src
-	return ..()
 
 /datum/data/tachyon_record
 	name = "Log Recording"
@@ -43,11 +35,14 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	var/factual_radius = list()
 	var/theory_radius = list()
 
-/obj/machinery/doppler_array/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/doppler_array/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/doppler_array/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TachyonArray", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "TachyonArray")
 		ui.open()
 
 /obj/machinery/doppler_array/ui_data(mob/user)
@@ -139,7 +134,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	to_chat(user, "<span class='notice'>You adjust [src]'s dish to face to the [dir2text(dir)].</span>")
 	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
 
-/obj/machinery/doppler_array/proc/sense_explosion(turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
+/obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
 												  took,orig_dev_range,orig_heavy_range,orig_light_range)
 	if(stat & NOPOWER)
 		return FALSE
@@ -148,7 +143,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		return FALSE
 
 	if(next_announce > world.time)
-		return
+		return FALSE
 	next_announce = world.time + cooldown
 
 	var/distance = get_dist(epicenter, zone)
@@ -209,10 +204,11 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	desc = "A specialized tachyon-doppler bomb detection array that uses the results of the highest yield of explosions for research."
 	var/datum/techweb/linked_techweb
 
-/obj/machinery/doppler_array/research/sense_explosion(turf/epicenter, dev, heavy, light, time, orig_dev, orig_heavy, orig_light)	//probably needs a way to ignore admin explosives later on
+/obj/machinery/doppler_array/research/sense_explosion(datum/source, turf/epicenter, devastation_range, heavy_impact_range, light_impact_range,
+		took, orig_dev_range, orig_heavy_range, orig_light_range) //probably needs a way to ignore admin explosives later on
 	. = ..()
 	if(!.)
-		return FALSE
+		return
 	if(!istype(linked_techweb))
 		say("Warning: No linked research system!")
 		return
@@ -220,11 +216,11 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	var/point_gain = 0
 	/*****The Point Calculator*****/
 
-	if(orig_light < 10)
+	if(orig_light_range < 10)
 		say("Explosion not large enough for research calculations.")
 		return
-	else if(orig_light < 4500)
-		point_gain = (83300 * orig_light) / (orig_light + 3000)
+	else if(orig_light_range < 4500)
+		point_gain = (83300 * orig_light_range) / (orig_light_range + 3000)
 	else
 		point_gain = TECHWEB_BOMB_POINTCAP
 

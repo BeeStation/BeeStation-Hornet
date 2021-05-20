@@ -17,10 +17,11 @@
 	minbodytemp = 0
 	spacewalk = FALSE
 	status_flags = CANPUSH
-	del_on_death = 1
+	del_on_death = TRUE
 	var/zombiejob = "Medical Doctor"
 	var/infection_chance = 0
 	var/obj/effect/mob_spawn/human/corpse/delayed/corpse
+	mobchatspan = "bartender"
 
 /mob/living/simple_animal/hostile/zombie/Initialize(mapload)
 	. = ..()

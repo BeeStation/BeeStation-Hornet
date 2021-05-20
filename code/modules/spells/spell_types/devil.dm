@@ -24,7 +24,7 @@
 	item_type = /obj/item/instrument/violin/golden
 	desc = "A devil's instrument of choice.  Use this to summon/unsummon your golden violin."
 	invocation_type = "whisper"
-	invocation = "I aint have this much fun since Georgia."
+	invocation = "I ain't have this much fun since Georgia."
 	action_icon_state = "golden_violin"
 	name = "Summon golden violin"
 	action_icon = 'icons/mob/actions/actions_minor_antag.dmi'
@@ -237,7 +237,7 @@
 			T.ChangeTurf(dancefloor_turfs_types[i], flags = CHANGETURF_INHERIT_AIR)
 	else
 		var/list/funky_turfs = RANGE_TURFS(1, user)
-		for(var/turf/closed/solid in funky_turfs)
+		if(locate(/turf/closed) in funky_turfs)
 			to_chat(user, "<span class='warning'>You're too close to a wall.</span>")
 			return
 		dancefloor_exists = TRUE

@@ -4,7 +4,7 @@
 	say_mod = "states" //inherited from a user's real species
 	sexes = 0
 	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,TRAIT_EASYDISMEMBER,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -39,6 +39,7 @@
 	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
+	special_step_sounds = list('sound/effects/servostep.ogg')
 
 	var/datum/action/innate/change_screen/change_screen
 
@@ -52,6 +53,7 @@
 	appendix.Remove(C)
 	QDEL_NULL(appendix)
 	ADD_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune") //makes the IPC immune to huggers
+	C.critwalk_oxy_mult = 0 // we have our own process for handling oxygen damage
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
@@ -65,7 +67,7 @@
 		else if(MUTCOLORS in C.dna.species.species_traits)
 			C.dna.species.species_traits -= MUTCOLORS
 
-datum/species/ipc/on_species_loss(mob/living/carbon/C)
+/datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	REMOVE_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune")
 	if(change_screen)
@@ -155,13 +157,15 @@ datum/species/ipc/on_species_loss(mob/living/carbon/C)
 
 /datum/species/ipc/spec_life(mob/living/carbon/human/H)
 	. = ..()
-	if(H.health <= HEALTH_THRESHOLD_CRIT && H.stat != DEAD) // So they die eventually instead of being stuck in crit limbo.
+	if(H.health <= 0 && H.stat != DEAD) // So they die eventually instead of being stuck in crit limbo.
 		H.adjustFireLoss(6) // After bodypart_robotic resistance this is ~2/second
 		if(prob(5))
 			to_chat(H, "<span class='warning'>Alert: Internal temperature regulation systems offline; thermal damage sustained. Shutdown imminent.</span>")
 			H.visible_message("[H]'s cooling system fans stutter and stall. There is a faint, yet rapid beeping coming from inside their chassis.")
 
 /datum/species/ipc/spec_revival(mob/living/carbon/human/H)
+	H.notify_ghost_cloning("You have been repaired!")
+	H.grab_ghost()
 	H.dna.features["ipc_screen"] = "BSOD"
 	H.update_body()
 	H.say("Reactivating [pick("core systems", "central subroutines", "key functions")]...")

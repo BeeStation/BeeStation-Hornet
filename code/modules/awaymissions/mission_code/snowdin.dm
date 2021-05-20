@@ -158,7 +158,7 @@
 	name = "liquid plasma"
 	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
 	icon_state = "liquidplasma"
-	initial_gas_mix = "o2=0;n2=82;plasma=24;TEMP=120"
+	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
 	baseturfs = /turf/open/lava/plasma
 	slowdown = 2
 
@@ -555,7 +555,7 @@
 /obj/item/clothing/under/syndicate/coldres
 	name = "insulated tactical turtleneck"
 	desc = "A nondescript and slightly suspicious-looking turtleneck with digital camouflage cargo pants. The interior has been padded with special insulation for both warmth and protection."
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 0,"energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25)
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 0,"energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
 	cold_protection = CHEST|GROIN|ARMS|LEGS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
@@ -594,6 +594,7 @@
 	short_desc = "You are a syndicate operative recently awoken from cryostasis in an underground outpost."
 	flavour_text = "You are a syndicate operative recently awoken from cryostasis in an underground outpost. Monitor Nanotrasen communications and record information. All intruders should be \
 	disposed of swiftly to assure no gathered information is stolen or lost. Try not to wander too far from the outpost as the caves can be a deadly place even for a trained operative such as yourself."
+	use_cooldown = TRUE
 
 /datum/outfit/snowsyndie
 	name = "Syndicate Snow Operative"

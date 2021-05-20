@@ -15,8 +15,8 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	power_channel = AREA_USAGE_ENVIRON
 	req_access = list(ACCESS_KEYCARD_AUTH)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	ui_x = 375
-	ui_y = 125
+
+
 
 	var/datum/callback/ev
 	var/event = ""
@@ -33,11 +33,14 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	QDEL_NULL(ev)
 	return ..()
 
-/obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-					datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/keycard_auth/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/keycard_auth/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "KeycardAuth", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "KeycardAuth")
 		ui.open()
 
 /obj/machinery/keycard_auth/ui_data()
@@ -119,19 +122,19 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 
 GLOBAL_VAR_INIT(emergency_access, FALSE)
 /proc/make_maint_all_access()
-	for(var/area/maintenance/A in world)
-		for(var/obj/machinery/door/airlock/D in A)
-			D.emergency = TRUE
-			D.update_icon(0)
+	for(var/area/maintenance/M as() in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
+		for(var/obj/machinery/door/airlock/A in M)
+			A.emergency = TRUE
+			A.update_icon()
 	minor_announce("Access restrictions on maintenance and external airlocks have been lifted.", "Attention! Station-wide emergency declared!",1)
 	GLOB.emergency_access = TRUE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
-	for(var/area/maintenance/A in world)
-		for(var/obj/machinery/door/airlock/D in A)
-			D.emergency = FALSE
-			D.update_icon(0)
+	for(var/area/maintenance/M as() in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
+		for(var/obj/machinery/door/airlock/A in M)
+			A.emergency = FALSE
+			A.update_icon()
 	minor_announce("Access restrictions in maintenance areas have been restored.", "Attention! Station-wide emergency rescinded:")
 	GLOB.emergency_access = FALSE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))

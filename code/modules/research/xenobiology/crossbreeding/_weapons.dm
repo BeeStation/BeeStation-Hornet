@@ -20,7 +20,7 @@ Slimecrossing Weapons
 	if(prob(20))
 		owner.emote("scream")
 	return ..()
-	
+
 
 //Rainbow knife - Burning Rainbow
 /obj/item/kitchen/knife/rainbowknife
@@ -54,7 +54,7 @@ Slimecrossing Weapons
 			attack_verb = list("irradiated","mutated","maligned")
 	return ..()
 
-//Adamantine shield - Chilling Adamantine
+//Adamantine shield - Burning Adamantine
 /obj/item/twohanded/required/adamantineshield
 	name = "adamantine shield"
 	desc = "A gigantic shield made of solid adamantium."
@@ -62,7 +62,7 @@ Slimecrossing Weapons
 	icon_state = "adamshield"
 	item_state = "adamshield"
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70, "stamina" = 70)
 	slot_flags = ITEM_SLOT_BACK
 	attack_weight = 2
 	block_power = 75
@@ -71,7 +71,7 @@ Slimecrossing Weapons
 	block_flags = BLOCKING_PROJECTILE
 	throw_range = 1 //How far do you think you're gonna throw a solid crystalline shield...?
 	throw_speed = 2
-	force = 15 //Heavy, but hard to wield.
+	force_wielded = 15 //Heavy, but hard to wield.
 	attack_verb = list("bashed","pounded","slammed")
 	item_flags = SLOWS_WHILE_IN_HAND
 

@@ -15,6 +15,8 @@
 
 	var/disgust = 0
 
+	var/crit_weight = 1 // Multiplier for soft crit unconscious chance.
+	var/critwalk_oxy_mult = 1 // Multiplier for soft crit oxygen damage, for species this should be handled in on_species_gain()/
 //inventory slots
 	var/obj/item/back = null
 	var/obj/item/clothing/mask/wear_mask = null
@@ -63,3 +65,4 @@
 	var/drunkenness = 0 //Overall drunkenness - check handle_alcohol() in life.dm for effects
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_paralyzed = FALSE //knocks you down
+	var/stam_heal = 10	//Stamina healed per 2 seconds overall. When the mob has taken more than 60 stamina damage, the rate of stamina regeneration will be increased, up to 20 per second when the mob has taken 120 stamina damage.

@@ -3,8 +3,8 @@
 	desc = "Used to order supplies, approve requests, and control the shuttle."
 	icon_screen = "supply"
 	circuit = /obj/item/circuitboard/computer/cargo
-	ui_x = 780
-	ui_y = 750
+
+
 
 	var/requestonly = FALSE
 	var/contraband = FALSE
@@ -39,7 +39,7 @@
 
 /obj/machinery/computer/cargo/Destroy()
 	QDEL_NULL(radio)
-	..()
+	return ..()
 
 /obj/machinery/computer/cargo/proc/get_export_categories()
 	. = EXPORT_CARGO
@@ -63,11 +63,14 @@
 	board.obj_flags |= EMAGGED
 	update_static_data(user)
 
-/obj/machinery/computer/cargo/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-											datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/cargo/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/cargo/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Cargo", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Cargo")
 		ui.open()
 
 /obj/machinery/computer/cargo/ui_data()
@@ -91,7 +94,7 @@
 	for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
 		data["cart"] += list(list(
 			"object" = SO.pack.name,
-			"cost" = SO.pack.cost,
+			"cost" = SO.pack.get_cost(),
 			"id" = SO.id,
 			"orderer" = SO.orderer,
 			"paid" = !isnull(SO.paying_account) //paid by requester
@@ -101,7 +104,7 @@
 	for(var/datum/supply_order/SO in SSshuttle.requestlist)
 		data["requests"] += list(list(
 			"object" = SO.pack.name,
-			"cost" = SO.pack.cost,
+			"cost" = SO.pack.get_cost(),
 			"orderer" = SO.orderer,
 			"reason" = SO.reason,
 			"id" = SO.id
@@ -124,7 +127,7 @@
 			continue
 		data["supplies"][P.group]["packs"] += list(list(
 			"name" = P.name,
-			"cost" = P.cost,
+			"cost" = P.get_cost(),
 			"id" = pack,
 			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
 			"small_item" = P.small_item,

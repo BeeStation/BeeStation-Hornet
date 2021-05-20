@@ -201,7 +201,7 @@
 
 /obj/item/organ/brain/on_life()
 	if(damage >= BRAIN_DAMAGE_DEATH) //rip
-		to_chat(owner, "<span class='userdanger'>The last spark of life in your brain fizzles out...</span>")
+		to_chat(owner, "<span class='userdanger'>The last spark of life in your brain fizzles out.</span>")
 		owner.death()
 		brain_death = TRUE
 
@@ -229,7 +229,7 @@
 			else if(prev_damage < BRAIN_DAMAGE_SEVERE && damage >= BRAIN_DAMAGE_SEVERE)
 				brain_message = "<span class='warning'>You feel less in control of your thoughts.</span>"
 			else if(prev_damage < (BRAIN_DAMAGE_DEATH - 20) && damage >= (BRAIN_DAMAGE_DEATH - 20))
-				brain_message = "<span class='warning'>You can feel your mind flickering on and off...</span>"
+				brain_message = "<span class='warning'>You can feel your mind flickering on and off.</span>"
 
 			if(.)
 				. += "\n[brain_message]"
@@ -248,7 +248,7 @@
 	status = ORGAN_ROBOTIC
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. It has an IPC serial number engraved on the top. In order for this Posibrain to be used as a newly built Positronic Brain, it must be coupled with an MMI."
 	icon = 'icons/obj/assemblies.dmi'
-	icon_state = "posibrain-occupied"
+	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/brain/positron/Insert(mob/living/carbon/C, special = 0, no_id_transfer = FALSE)
@@ -343,6 +343,9 @@
 
 	if(actual_trauma.brain) //we don't accept used traumas here
 		WARNING("gain_trauma was given an already active trauma.")
+		return
+	if(QDELETED(actual_trauma)) // hypnosis might qdel on New, causing problems
+		stack_trace("brain_gain_trauma tried to add qdeleted trauma.")
 		return
 
 	traumas += actual_trauma

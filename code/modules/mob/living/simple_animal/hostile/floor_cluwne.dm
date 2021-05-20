@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	move_resist = INFINITY
 	hud_type = /datum/hud/ghost
 	hud_possible = list(ANTAG_HUD)
-
+	mobchatspan = "rainbow"
 
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize()
 	. = ..()
@@ -224,7 +224,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				H.playsound_local(src,'sound/misc/bikehorn_creepy.ogg', 5)
 
 			if(prob(3))
-				var/obj/item/I = locate() in orange(H, 8)
+				var/obj/item/I = locate() in orange(8, H)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
 					to_chat(H, "<span class='warning'>What threw that?</span>")
@@ -247,7 +247,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				to_chat(H, "<i>knoh</i>")
 
 			if(prob(5))
-				var/obj/item/I = locate() in orange(H, 8)
+				var/obj/item/I = locate() in orange(8, H)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
 					to_chat(H, "<span class='warning'>What threw that?</span>")
@@ -257,18 +257,6 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				Appear()
 				manifested = FALSE
 				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 1)
-				if(current_victim.hud_used)//yay skewium
-					var/list/screens = list(current_victim.hud_used.plane_masters["[GAME_PLANE]"], current_victim.hud_used.plane_masters["[LIGHTING_PLANE]"])
-					var/matrix/skew = matrix()
-					var/intensity = 8
-					skew.set_skew(rand(-intensity,intensity), rand(-intensity,intensity))
-					var/matrix/newmatrix = skew
-
-					for(var/whole_screen in screens)
-						animate(whole_screen, transform = newmatrix, time = 5, easing = QUAD_EASING, loop = -1)
-						animate(transform = -newmatrix, time = 5, easing = QUAD_EASING)
-
-					addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Reset_View, screens), 10)
 
 		if(STAGE_TORMENT)
 
@@ -290,8 +278,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				playsound(src,'sound/misc/bikehorn_creepy.ogg', 30, 1)
 
 			if(prob(4))
-				for(var/obj/item/I in orange(H, 8))
-					if(I && !I.anchored)
+				for(var/obj/item/I in orange(8, H))
+					if(!I.anchored)
 						I.throw_at(H, 4, 3)
 				to_chat(H, "<span class='warning'>What the hell?!</span>")
 
@@ -308,7 +296,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 			if(prob(3))
 				to_chat(H, "<i>KNOH ?od nottub siht seod tahW</i>")
-				for(var/turf/open/O in range(src, 6))
+				for(var/turf/open/O in RANGE_TURFS(6, src))
 					O.MakeSlippery(TURF_WET_WATER, 10)
 					playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
 
@@ -322,12 +310,12 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				Appear()
 				manifested = FALSE
 				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 2)
-				for(var/obj/machinery/light/L in range(H, 8))
+				for(var/obj/machinery/light/L in range(8, H))
 					L.flicker()
 
 		if(STAGE_ATTACK)
 			if(dontkill)
-				stage = STAGE_TORMENT 
+				stage = STAGE_TORMENT
 				return
 			if(!eating)
 				Found_You()
@@ -340,13 +328,13 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 							forceMove(H.loc)
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")
 				H.Paralyze(300)
-				H.emote("scream")
+				INVOKE_ASYNC(H, /mob.proc/emote, "scream")
 				H.adjustBruteLoss(10)
 				manifested = TRUE
 				Manifest()
 				if(!eating)
 					addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Grab, H), 50, TIMER_OVERRIDE|TIMER_UNIQUE)
-					for(var/turf/open/O in range(src, 6))
+					for(var/turf/open/O in RANGE_TURFS(6, src))
 						O.MakeSlippery(TURF_WET_LUBE, 20)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
 				eating = TRUE
@@ -393,7 +381,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
 	H.client.color = pure_red
 	animate(H.client,color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
-	for(var/turf/T in orange(H, 4))
+	for(var/turf/open/T in RANGE_TURFS(4, H))
 		H.add_splatter_floor(T)
 	if(do_after(src, 50, target = H))
 		H.unequip_everything()//more runtime prevention

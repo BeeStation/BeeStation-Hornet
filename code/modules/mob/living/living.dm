@@ -10,6 +10,8 @@
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
 	initialize_footstep()
+	if (playable)
+		set_playable()	//announce to ghosts
 
 /mob/living/proc/initialize_footstep()
 	AddComponent(/datum/component/footstep)
@@ -53,18 +55,26 @@
 /mob/living/proc/OpenCraftingMenu()
 	return
 
+/mob/living/proc/can_bumpslam()
+	REMOVE_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type)
+
 //Generic Bump(). Override MobBump() and ObjBump() instead of this.
 /mob/living/Bump(atom/A)
 	if(..()) //we are thrown onto something
 		return
 	if(buckled || now_pushing)
 		return
-	if(!ismovableatom(A) || is_blocked_turf(A))  // ported from VORE, sue me
-		if((confused || is_blind()) && stat == CONSCIOUS && m_intent=="run" && mobility_flags & MOBILITY_STAND)
+	if((confused || is_blind()) && is_conscious() && (mobility_flags & MOBILITY_STAND) && m_intent == "run" && (!ismovableatom(A) || is_blocked_turf(A)) && !HAS_MOB_PROPERTY(src, PROP_CANTBUMPSLAM))  // ported from VORE, sue me
+		APPLY_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type) //Bump() is called continuously so ratelimit the check to 20 seconds if it passes or 5 if it doesn't
+		if(prob(10))
 			playsound(get_turf(src), "punch", 25, 1, -1)
 			visible_message("<span class='warning'>[src] [pick("ran", "slammed")] into \the [A]!</span>")
 			apply_damage(5, BRUTE)
 			Paralyze(40)
+			addtimer(CALLBACK(src, .proc/can_bumpslam), 200)
+		else
+			addtimer(CALLBACK(src, .proc/can_bumpslam), 50)
+
 
 	if(ismob(A))
 		var/mob/M = A
@@ -181,7 +191,7 @@
 		return TRUE
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
-		if(!istype(M, /obj/item/clothing))
+		if(!isclothing(M))
 			if(I.block_power >= 50)
 				return
 
@@ -284,10 +294,16 @@
 		var/mob/M = AM
 
 		log_combat(src, M, "grabbed", addition="passive grab")
-		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER)))
-			M.visible_message("<span class='warning'>[src] grabs [M] [(zone_selected == "l_arm" || zone_selected == "r_arm")? "by their hands":"passively"]!</span>", \
-							"<span class='warning'>[src] grabs you [(zone_selected == "l_arm" || zone_selected == "r_arm")? "by your hands":"passively"]!</span>", null, null, src)
-			to_chat(src, "<span class='notice'>You grab [M] [(zone_selected == "l_arm" || zone_selected == "r_arm")? "by their hands":"passively"]!</span>")
+		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER))) //Everything in this if statement handles chat messages for grabbing
+			var/mob/living/L = M
+			if (L.getorgan(/obj/item/organ/tail) && zone_selected == BODY_ZONE_PRECISE_GROIN) //Does the target have a tail?
+				M.visible_message("<span class ='warning'>[src] grabs [L] by [L.p_their()] tail!</span>",\
+								"<span class='warning'> [src] grabs you by the tail!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+				to_chat(src, "<span class='notice'>You grab [L] by [L.p_their()] tail!</span>")  //Message sent to grabber
+			else
+				M.visible_message("<span class='warning'>[src] grabs [M] [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by their hands":"passively"]!</span>", \
+								"<span class='warning'>[src] grabs you [(zone_selected == BODY_ZONE_L_ARM || zone_selected == BODY_ZONE_R_ARM)? "by your hands":"passively"]!</span>", null, null, src) //Message sent to area, Message sent to grabbee
+				to_chat(src, "<span class='notice'>You grab [M] [(zone_selected == BODY_ZONE_L_ARM|| zone_selected == BODY_ZONE_R_ARM)? "by their hands":"passively"]!</span>") //Message sent to grabber
 		if(!iscarbon(src))
 			M.LAssailant = null
 		else
@@ -400,7 +416,7 @@
 		death()
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE, ignore_stasis = FALSE)
-	if(stat || IsUnconscious() || IsStun() || IsParalyzed() || (check_immobilized && IsImmobilized()) || (!ignore_restraints && restrained(ignore_grab)) || (!ignore_stasis && IsInStasis()))
+	if((stat > SOFT_CRIT) || IsUnconscious() || IsStun() || IsParalyzed() || (check_immobilized && IsImmobilized()) || (!ignore_restraints && restrained(ignore_grab)) || (!ignore_stasis && IsInStasis()))
 		return TRUE
 
 /mob/living/canUseStorage()
@@ -513,15 +529,6 @@
 /mob/living/is_drawable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
 
-/mob/living/proc/get_organ_target()
-	var/mob/shooter = src
-	var/t = shooter.zone_selected
-	if ((t in list( BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH )))
-		t = BODY_ZONE_HEAD
-	var/def_zone = ran_zone(t)
-	return def_zone
-
-
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
 		return
@@ -537,10 +544,10 @@
 	if(full_heal)
 		fully_heal(admin_revive)
 	if(stat == DEAD && can_be_revived()) //in some cases you can't revive (e.g. no brain)
-		GLOB.dead_mob_list -= src
-		GLOB.alive_mob_list += src
+		remove_from_dead_mob_list()
+		add_to_alive_mob_list()
 		set_suicide(FALSE)
-		stat = UNCONSCIOUS //the mob starts unconscious,
+		set_stat(UNCONSCIOUS) //the mob starts unconscious,
 		blind_eyes(1)
 		updatehealth() //then we check if the mob should wake up.
 		update_mobility()
@@ -621,8 +628,8 @@
 			lying = 270
 		update_transform()
 		lying_prev = lying
-	if (buckled && buckled.loc != newloc) //not updating position
-		if (!buckled.anchored)
+	if(buckled && buckled.loc != newloc) //not updating position
+		if(!buckled.anchored)
 			return buckled.Move(newloc, direct)
 		else
 			return 0
@@ -799,11 +806,11 @@
 			clear_alert("gravity")
 		else
 			if(has_gravity >= GRAVITY_DAMAGE_TRESHOLD)
-				throw_alert("gravity", /obj/screen/alert/veryhighgravity)
+				throw_alert("gravity", /atom/movable/screen/alert/veryhighgravity)
 			else
-				throw_alert("gravity", /obj/screen/alert/highgravity)
+				throw_alert("gravity", /atom/movable/screen/alert/highgravity)
 	else
-		throw_alert("gravity", /obj/screen/alert/weightless)
+		throw_alert("gravity", /atom/movable/screen/alert/weightless)
 	if(!override && !is_flying())
 		float(!has_gravity)
 
@@ -814,9 +821,8 @@
 	if(anchored || (buckled && buckled.anchored))
 		fixed = 1
 	if(on && !(movement_type & FLOATING) && !fixed)
-		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
-		sleep(10)
-		animate(src, pixel_y = pixel_y - 2, time = 10, loop = -1)
+		animate(src, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
+		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
 		setMovetype(movement_type | FLOATING)
 	else if(((!on || fixed) && (movement_type & FLOATING)))
 		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
@@ -1005,7 +1011,7 @@
 		return TRUE
 	return FALSE
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE)
 	stop_pulling()
 	. = ..()
 
@@ -1063,7 +1069,7 @@
 		src.visible_message("<span class='warning'>[src] catches fire!</span>", \
 						"<span class='userdanger'>You're set on fire!</span>")
 		new/obj/effect/dummy/lighting_obj/moblight/fire(src)
-		throw_alert("fire", /obj/screen/alert/fire)
+		throw_alert("fire", /atom/movable/screen/alert/fire)
 		update_fire()
 		SEND_SIGNAL(src, COMSIG_LIVING_IGNITED,src)
 		return TRUE
@@ -1139,12 +1145,13 @@
 	var/knockdown = IsKnockdown()
 	var/ignore_legs = get_leg_ignore()
 	var/in_stasis = IsInStasis()
-	var/canmove = !IsImmobilized() && !stun && conscious && !paralyzed && !buckled && (!stat_softcrit || !pulledby) && !chokehold && !IsFrozen() && !in_stasis && (has_arms || ignore_legs || has_legs)
+	// (!stat_softcrit || !pulledby)
+	var/canmove = !IsImmobilized() && !stun && conscious && !paralyzed && !buckled && !chokehold && !IsFrozen() && !in_stasis && (has_arms || ignore_legs || has_legs)
 	if(canmove)
 		mobility_flags |= MOBILITY_MOVE
 	else
 		mobility_flags &= ~MOBILITY_MOVE
-	var/canstand_involuntary = conscious && !stat_softcrit && !knockdown && !chokehold && !paralyzed && (ignore_legs || has_legs) && !(buckled && buckled.buckle_lying)
+	var/canstand_involuntary = conscious && !knockdown && !chokehold && !paralyzed && (ignore_legs || has_legs) && !(buckled && buckled.buckle_lying)
 	var/canstand = canstand_involuntary && !resting
 
 	var/should_be_lying = !canstand
@@ -1285,6 +1292,9 @@
 	. = ..()
 
 /mob/living/proc/mob_pickup(mob/living/L)
+	if(resting)
+		resting = FALSE
+		update_resting()
 	var/obj/item/clothing/head/mob_holder/holder = new(get_turf(src), src, held_state, head_icon, held_lh, held_rh, worn_slot_flags)
 	L.visible_message("<span class='warning'>[L] scoops up [src]!</span>")
 	L.put_in_hands(holder)
@@ -1335,11 +1345,11 @@
 				return FALSE
 		if("stat")
 			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
-				GLOB.dead_mob_list -= src
-				GLOB.alive_mob_list += src
+				remove_from_dead_mob_list()
+				add_to_alive_mob_list()
 			if((stat < DEAD) && (var_value == DEAD))//Kill he
-				GLOB.alive_mob_list -= src
-				GLOB.dead_mob_list += src
+				remove_from_alive_mob_list()
+				add_to_dead_mob_list()
 	. = ..()
 	switch(var_name)
 		if("knockdown")
@@ -1382,6 +1392,6 @@
 	"}
 
 /mob/living/eminence_act(mob/living/simple_animal/eminence/eminence)
-	if(is_servant_of_ratvar(src))
+	if(is_servant_of_ratvar(src) && !iseminence(src))
 		eminence.selected_mob = src
 		to_chat(eminence, "<span class='brass'>You select [src].</span>")

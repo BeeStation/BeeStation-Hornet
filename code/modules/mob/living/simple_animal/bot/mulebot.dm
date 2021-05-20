@@ -20,6 +20,7 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	a_intent = INTENT_HARM //No swapping
 	buckle_lying = 0
+	buckle_prevents_pull = TRUE // No pulling loaded shit
 	mob_size = MOB_SIZE_LARGE
 
 	radio_key = /obj/item/encryptionkey/headset_cargo
@@ -29,8 +30,8 @@
 	model = "MULE"
 	bot_core_type = /obj/machinery/bot_core/mulebot
 
-	var/ui_x = 350
-	var/ui_y = 425
+
+
 
 	var/id
 
@@ -50,6 +51,8 @@
 
 	var/obj/item/stock_parts/cell/cell
 	var/bloodiness = 0
+	///The amount of steps we should take until we rest for a time.
+	var/num_steps = 0
 
 /mob/living/simple_animal/bot/mulebot/Initialize()
 	. = ..()
@@ -101,7 +104,7 @@
 		cell.forceMove(loc)
 		cell = null
 		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the powercell out of [src].</span>")
+						"<span class='notice'>You pry the power cell out of [src].</span>")
 	else if(is_wire_tool(I) && open)
 		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
@@ -168,11 +171,14 @@
 			return
 		ui_interact(user)
 
-/mob/living/simple_animal/bot/mulebot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-										datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/mob/living/simple_animal/bot/mulebot/ui_state(mob/user)
+	return GLOB.default_state
+
+/mob/living/simple_animal/bot/mulebot/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Mule", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Mule")
 		ui.open()
 
 /mob/living/simple_animal/bot/mulebot/ui_data(mob/user)
@@ -454,25 +460,16 @@
 		return
 	if(on)
 		var/speed = (wires.is_cut(WIRE_MOTOR1) ? 0 : 1) + (wires.is_cut(WIRE_MOTOR2) ? 0 : 2)
-		var/num_steps = 0
-		switch(speed)
-			if(0)
-				// do nothing
-			if(1)
-				num_steps = 10
-			if(2)
-				num_steps = 5
-			if(3)
-				num_steps = 3
+		if(!speed)//Devide by zero man bad
+			return
+		num_steps = round(10/speed) //10, 5, or 3 steps, depending on how many wires we have cut
+		if(mode != BOT_IDLE)
+			START_PROCESSING(SSfastprocess, src)
 
-		if(num_steps)
-			process_bot()
-			num_steps--
-			if(mode != BOT_IDLE)
-				var/process_timer = addtimer(CALLBACK(src, .proc/process_bot), 2, TIMER_LOOP|TIMER_STOPPABLE)
-				addtimer(CALLBACK(GLOBAL_PROC, /proc/deltimer, process_timer), (num_steps*2) + 1)
-
-/mob/living/simple_animal/bot/mulebot/proc/process_bot()
+/mob/living/simple_animal/bot/mulebot/process()
+	if(num_steps <= 0)
+		return PROCESS_KILL
+	num_steps--
 	if(!on || client)
 		return
 	update_icon()

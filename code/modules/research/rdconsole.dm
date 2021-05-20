@@ -386,9 +386,9 @@ Nothing else in the console has ID requirements.
 		var/datum/material/M = mat_id
 		var/amount = mat_container.materials[mat_id]
 		l += "* [amount] of [M.name]: "
-		if(amount >= MINERAL_MATERIAL_AMOUNT) l += "<A href='?src=[REF(src)];ejectsheet=[M.id];eject_amt=1'>Eject</A> [RDSCREEN_NOBREAK]"
-		if(amount >= MINERAL_MATERIAL_AMOUNT*5) l += "<A href='?src=[REF(src)];ejectsheet=[M.id];eject_amt=5'>5x</A> [RDSCREEN_NOBREAK]"
-		if(amount >= MINERAL_MATERIAL_AMOUNT) l += "<A href='?src=[REF(src)];ejectsheet=[M.id];eject_amt=50'>All</A>[RDSCREEN_NOBREAK]"
+		if(amount >= MINERAL_MATERIAL_AMOUNT) l += "<A href='?src=[REF(src)];ejectsheet=[REF(M)];eject_amt=1'>Eject</A> [RDSCREEN_NOBREAK]"
+		if(amount >= MINERAL_MATERIAL_AMOUNT*5) l += "<A href='?src=[REF(src)];ejectsheet=[REF(M)];eject_amt=5'>5x</A> [RDSCREEN_NOBREAK]"
+		if(amount >= MINERAL_MATERIAL_AMOUNT) l += "<A href='?src=[REF(src)];ejectsheet=[REF(M)];eject_amt=50'>All</A>[RDSCREEN_NOBREAK]"
 		l += ""
 	l += "</div>[RDSCREEN_NOBREAK]"
 	return l
@@ -520,9 +520,9 @@ Nothing else in the console has ID requirements.
 		var/datum/material/M = mat_id
 		var/amount = mat_container.materials[mat_id]
 		l += "* [amount] of [M.name]: "
-		if(amount >= MINERAL_MATERIAL_AMOUNT) l += "<A href='?src=[REF(src)];imprinter_ejectsheet=[M.id];eject_amt=1'>Eject</A> [RDSCREEN_NOBREAK]"
-		if(amount >= MINERAL_MATERIAL_AMOUNT*5) l += "<A href='?src=[REF(src)];imprinter_ejectsheet=[M.id];eject_amt=5'>5x</A> [RDSCREEN_NOBREAK]"
-		if(amount >= MINERAL_MATERIAL_AMOUNT) l += "<A href='?src=[REF(src)];imprinter_ejectsheet=[M.id];eject_amt=50'>All</A>[RDSCREEN_NOBREAK]</div>"
+		if(amount >= MINERAL_MATERIAL_AMOUNT) l += "<A href='?src=[REF(src)];imprinter_ejectsheet=[REF(M)];eject_amt=1'>Eject</A> [RDSCREEN_NOBREAK]"
+		if(amount >= MINERAL_MATERIAL_AMOUNT*5) l += "<A href='?src=[REF(src)];imprinter_ejectsheet=[REF(M)];eject_amt=5'>5x</A> [RDSCREEN_NOBREAK]"
+		if(amount >= MINERAL_MATERIAL_AMOUNT) l += "<A href='?src=[REF(src)];imprinter_ejectsheet=[REF(M)];eject_amt=50'>All</A>[RDSCREEN_NOBREAK]</div>"
 	return l
 
 /obj/machinery/computer/rdconsole/proc/ui_techdisk()		//Legacy code
@@ -766,9 +766,9 @@ Nothing else in the console has ID requirements.
 			if (linked_lathe && stored_research.researched_designs[selected_design.id])
 				l += "<A href='?src=[REF(src)];search=1;type=proto;to_search=[selected_design.name]'>Construct</A>"
 		if(selected_design.build_type & AUTOLATHE)
-			lathes += "<span data-tooltip='Autolathe'>[machine_icon(/obj/machinery/autolathe)]</span>[RDSCREEN_NOBREAK]"
+			lathes += "<span data-tooltip='Autolathe'>[machine_icon(/obj/machinery/modular_fabricator/autolathe)]</span>[RDSCREEN_NOBREAK]"
 		if(selected_design.build_type & MECHFAB)
-			lathes += "<span data-tooltip='Exosuit Fabricator'>[machine_icon(/obj/machinery/mecha_part_fabricator)]</span>[RDSCREEN_NOBREAK]"
+			lathes += "<span data-tooltip='Exosuit Fabricator'>[machine_icon(/obj/machinery/modular_fabricator/exosuit_fab)]</span>[RDSCREEN_NOBREAK]"
 		if(selected_design.build_type & BIOGENERATOR)
 			lathes += "<span data-tooltip='Biogenerator'>[machine_icon(/obj/machinery/biogenerator)]</span>[RDSCREEN_NOBREAK]"
 		if(selected_design.build_type & LIMBGROWER)
@@ -839,8 +839,8 @@ Nothing else in the console has ID requirements.
 	for(var/i in 1 to length(ui))
 		if(!findtextEx(ui[i], RDSCREEN_NOBREAK))
 			ui[i] += "<br>"
-		ui[i] = replacetextEx(ui[i], RDSCREEN_NOBREAK, "")
-	return ui.Join("")
+	. = ui.Join("")
+	return replacetextEx(., RDSCREEN_NOBREAK, "")
 
 /obj/machinery/computer/rdconsole/Topic(raw, ls)
 	if(..())
@@ -940,7 +940,7 @@ Nothing else in the console has ID requirements.
 		if(!linked_lathe.materials.mat_container)
 			say("No material storage linked to protolathe!")
 			return
-		linked_lathe.eject_sheets(ls["ejectsheet"], ls["eject_amt"])
+		linked_lathe.eject_sheets(locate(ls["ejectsheet"]), ls["eject_amt"])
 	//Circuit Imprinter Materials
 	if(ls["disposeI"])  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 		if(QDELETED(linked_imprinter))
@@ -959,7 +959,7 @@ Nothing else in the console has ID requirements.
 		if(!linked_imprinter.materials.mat_container)
 			say("No material storage linked to circuit imprinter!")
 			return
-		linked_imprinter.eject_sheets(ls["imprinter_ejectsheet"], ls["eject_amt"])
+		linked_imprinter.eject_sheets(locate(ls["imprinter_ejectsheet"]), ls["eject_amt"])
 	if(ls["disk_slot"])
 		disk_slot_selected = text2num(ls["disk_slot"])
 	if(ls["research_node"])

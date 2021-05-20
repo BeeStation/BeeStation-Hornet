@@ -38,15 +38,15 @@
 		return
 	var/found = R.Find(message)
 	if(found)
-		var/occurences = 1
+		var/occurrences = 1
 		while(R.Find(message))
-			occurences++
+			occurrences++
 		R.next = 1
 
 		if(!first_heard[speaker] || (first_heard[speaker] + max_delay < world.time))
 			first_heard[speaker] = world.time
 			count[speaker] = 0
-		count[speaker] += occurences
+		count[speaker] += occurrences
 		if(count[speaker] >= min_count)
 			first_heard -= speaker
 			count -= speaker

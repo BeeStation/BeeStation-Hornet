@@ -15,8 +15,5 @@
     "static_directories": [
       "config",
       "data"
-    ],
-    "dlls": [
-      "libmariadb.dll"
     ]
   }

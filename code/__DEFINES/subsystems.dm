@@ -109,6 +109,7 @@
 #define INIT_ORDER_VIS				80
 #define INIT_ORDER_MATERIALS		76
 #define INIT_ORDER_RESEARCH			75
+#define INIT_ORDER_STATION			74 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
 #define INIT_ORDER_EVENTS			70
 #define INIT_ORDER_JOBS				65
 #define INIT_ORDER_QUIRKS			60
@@ -127,20 +128,22 @@
 #define INIT_ORDER_ASSETS			-4
 #define INIT_ORDER_ICON_SMOOTHING	-5
 #define INIT_ORDER_OVERLAY			-6
+#define INIT_ORDER_STAT				-7
 #define INIT_ORDER_XKEYSCORE		-10
 #define INIT_ORDER_STICKY_BAN		-10
 #define INIT_ORDER_LIGHTING			-20
 #define INIT_ORDER_SHUTTLE			-21
 #define INIT_ORDER_MINOR_MAPPING	-40
 #define INIT_ORDER_PATH				-50
+#define INIT_ORDER_EXPLOSIONS		-69
 #define INIT_ORDER_PERSISTENCE		-100
 #define INIT_ORDER_CHAT				-150 //Should be last to ensure chat remains smooth during init.
 
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
+#define FIRE_PRIORITY_STAT			10
 #define FIRE_PRIORITY_AMBIENCE		10
-#define FIRE_PRIORITY_PING			10
 #define FIRE_PRIORITY_IDLE_NPC		10
 #define FIRE_PRIORITY_SERVER_MAINT	10
 #define FIRE_PRIORITY_RESEARCH		10
@@ -165,7 +168,9 @@
 #define FIRE_PRIORITY_TICKER		200
 #define FIRE_PRIORITY_ATMOS_ADJACENCY	300
 #define FIRE_PRIORITY_CHAT			400
+#define FIRE_PRIORITY_RUNECHAT		410
 #define FIRE_PRIORITY_OVERLAYS		500
+#define FIRE_PRIORITY_EXPLOSIONS	666
 #define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
 
 // SS runlevels
@@ -178,13 +183,16 @@
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
 
-
+// Explosion Subsystem subtasks
+#define SSEXPLOSIONS_MOVABLES 1
+#define SSEXPLOSIONS_TURFS 2
+#define SSEXPLOSIONS_THROWS 3
 
 //! ## Overlays subsystem
 
 /// Compile all the overlays for an atom from the cache lists
 #define COMPILE_OVERLAYS(A)\
-	if (TRUE) {\
+	if (A) {\
 		var/list/ad = A.add_overlays;\
 		var/list/rm = A.remove_overlays;\
 		var/list/po = A.priority_overlays;\

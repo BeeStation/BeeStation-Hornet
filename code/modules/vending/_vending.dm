@@ -52,7 +52,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	verb_exclaim = "beeps"
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70)
+	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
 	circuit = /obj/item/circuitboard/machine/vendor
 	payment_department = ACCOUNT_SRV
 
@@ -501,9 +501,11 @@ GLOBAL_LIST_EMPTY(vending_products)
 						crit_rebate = 50
 						for(var/i = 0, i < num_shards, i++)
 							var/obj/item/shard/shard = new /obj/item/shard(get_turf(C))
-							shard.embedding = shard.embedding.setRating(embed_chance = 100, embedded_ignore_throwspeed_threshold = TRUE, embedded_impact_pain_multiplier=1,embedded_pain_chance=5)
+							shard.embedding = list(embed_chance = 100, ignore_throwspeed_threshold = TRUE, impact_pain_mult=1, pain_chance=5)
+							shard.updateEmbedding()
 							C.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
-							shard.embedding = shard.embedding.setRating(embed_chance = EMBED_CHANCE, embedded_ignore_throwspeed_threshold = FALSE)
+							shard.embedding = list()
+							shard.updateEmbedding()
 					if(4) // paralyze this binch
 						// the new paraplegic gets like 4 lines of losing their legs so skip them
 						visible_message("<span class='danger'>[C]'s spinal cord is obliterated with a sickening crunch!</span>")
@@ -639,16 +641,18 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 	return ..()
 
-/obj/machinery/vending/ui_base_html(html)
-	var/datum/asset/spritesheet/assets = get_asset_datum(/datum/asset/spritesheet/vending)
-	. = replacetext(html, "<!--customheadhtml-->", assets.css_tag())
+/obj/machinery/vending/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/vending),
+	)
 
-/obj/machinery/vending/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/vending/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/vending/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/spritesheet/vending)
-		assets.send(user)
-		ui = new(user, src, ui_key, "Vending", ui_key, 450, 600, master_ui, state)
+		ui = new(user, src, "Vending")
 		ui.open()
 
 /obj/machinery/vending/ui_static_data(mob/user)

@@ -12,6 +12,11 @@ Format:
 	disabled (disables the map)
 endmap
 
+map corgstation
+	maxplayers 100
+	votable
+endmap
+
 map boxstation
 	maxplayers 60
 	votable
@@ -48,8 +53,6 @@ map multiz_debug
 endmap
 
 map kilostation
-    minplayers 30
-    maxplayers 80
+    maxplayers 60
 	votable
-	disabled
 endmap

@@ -5,7 +5,9 @@
 	max_occurrences = 1
 	min_players = 10
 	earliest_start = 30 MINUTES
+	dynamic_should_hijack = TRUE
 	gamemode_blacklist = list("nuclear")
+	cannot_spawn_after_shuttlecall = TRUE
 
 /datum/round_event_control/pirates/preRunEvent()
 	if (!SSmapping.empty_space)
@@ -26,7 +28,7 @@
 	ship_name = pick(strings(PIRATE_NAMES_FILE, "ship_names"))
 
 /datum/round_event/pirates/announce(fake)
-	priority_announce("Incoming subspace communication. Secure channel opened at all communication consoles.", "Incoming Message", 'sound/ai/commandreport.ogg')
+	priority_announce("Incoming subspace communication. Secure channel opened at all communication consoles.", "Incoming Message", SSstation.announcer.get_rand_report_sound())
 	if(fake)
 		return
 	threat = new
@@ -255,8 +257,8 @@
 
 /obj/machinery/computer/piratepad_control
 	name = "cargo hold control terminal"
-	ui_x = 600
-	ui_y = 230
+
+
 	var/status_report = "Ready for delivery."
 	var/obj/machinery/piratepad/pad
 	var/warmup_time = 100
@@ -287,11 +289,14 @@
 	else
 		pad = locate() in range(4,src)
 
-/obj/machinery/computer/piratepad_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/piratepad_control/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/piratepad_control/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CargoHoldTerminal", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "CargoHoldTerminal")
 		ui.open()
 
 /obj/machinery/computer/piratepad_control/ui_data(mob/user)
