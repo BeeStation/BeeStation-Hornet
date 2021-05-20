@@ -34,7 +34,7 @@
 	ex_flame = 4
 
 /obj/item/grenade/frag/mega
-	name = "FRAG grenade"
+	name = "\improper FRAG grenade"
 	desc = "An anti-everything fragmentation grenade, this weapon excels at killing anything any everything by shredding them with metal shrapnel."
 	shrapnel_type = /obj/item/projectile/bullet/shrapnel/mega
 	shrapnel_radius = 12
