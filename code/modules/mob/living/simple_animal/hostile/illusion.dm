@@ -17,7 +17,7 @@
 	var/life_span = INFINITY //how long until they despawn
 	var/mob/living/parent_mob
 	var/multiply_chance = 0 //if we multiply on hit
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "vanishes into thin air! It was a fake!"
 
 

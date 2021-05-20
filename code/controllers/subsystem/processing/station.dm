@@ -34,9 +34,9 @@ PROCESSING_SUBSYSTEM_DEF(station)
 			continue //Dont add abstract ones to it
 		selectable_traits_by_types[initial(trait_typepath.trait_type)][trait_typepath] = initial(trait_typepath.weight)
 
-	var/positive_trait_count = pick(12;0, 5;1, 1;2)
-	var/neutral_trait_count = pick(5;0, 10;1, 3;2)
-	var/negative_trait_count = pick(12;0, 5;1, 1;2)
+	var/positive_trait_count = pick(20;0, 5;1, 1;2)
+	var/neutral_trait_count = pick(10;0, 10;1, 3;2)
+	var/negative_trait_count = pick(20;0, 5;1, 1;2)
 
 	pick_traits(STATION_TRAIT_POSITIVE, positive_trait_count)
 	pick_traits(STATION_TRAIT_NEUTRAL, neutral_trait_count)
@@ -48,8 +48,11 @@ PROCESSING_SUBSYSTEM_DEF(station)
 		return
 	for(var/iterator in 1 to amount)
 		var/datum/station_trait/picked_trait = pickweight(selectable_traits_by_types[trait_type]) //Rolls from the table for the specific trait type
+		if(!picked_trait)
+			return
 		picked_trait = new picked_trait()
 		station_traits += picked_trait
+		selectable_traits_by_types[picked_trait.trait_type] -= picked_trait.type		//We don't want it to roll trait twice
 		if(!picked_trait.blacklist)
 			continue
 		for(var/i in picked_trait.blacklist)

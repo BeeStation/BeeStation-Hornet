@@ -53,6 +53,9 @@
 	var/fin_mask  = "topfin"
 	var/obj/effect/supplypod_rubble/rubble
 	var/obj/effect/engineglow/glow_effect
+	var/effectShrapnel = FALSE
+	var/shrapnel_type = /obj/item/projectile/bullet/shrapnel
+	var/shrapnel_magnitude = 3
 	var/list/reverseOptionList = list("Mobs"=FALSE,"Objects"=FALSE,"Anchored"=FALSE,"Underfloor"=FALSE,"Wallmounted"=FALSE,"Floors"=FALSE,"Walls"=FALSE)
 	var/list/turfs_in_cargo = list()
 

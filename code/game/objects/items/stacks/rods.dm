@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	merge_type = /obj/item/stack/rods
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
+	embedding = list()
 	novariants = TRUE
 	block_upgrade_walk = 1
 
