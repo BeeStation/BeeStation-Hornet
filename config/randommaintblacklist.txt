@@ -4,4 +4,3 @@
 #SPECIFYING AN INVALID MAP WILL RESULT IN RUNTIMES ON GAME START
 
 _maps/RandomRuins/RandomRooms/3x3/sk_rdm158_blacklist.dmm
-#_maps/RandomRuins/SpaceRuins/abandonedteleporter.dmm
