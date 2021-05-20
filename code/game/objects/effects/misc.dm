@@ -73,7 +73,7 @@
 	icon_state = "nothing"
 	light_system = MOVABLE_LIGHT
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
-    light_color = COLOR_WHITE
+	light_color = COLOR_WHITE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/dummy/lighting_obj/Initialize(mapload, _range, _power, _color, _duration)
