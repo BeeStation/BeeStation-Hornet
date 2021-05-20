@@ -10,6 +10,8 @@
 	var/transfer_prints = FALSE
 	strip_delay = 20
 	equip_delay_other = 40
+	// Path variable. If defined, will produced the type through interaction with wirecutters.
+	var/cut_type = null
 
 /obj/item/clothing/gloves/ComponentInitialize()
 	. = ..()
@@ -40,4 +42,14 @@
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
-	return 0 // return 1 to cancel attack_hand()
+	return FALSE // return 1 to cancel attack_hand()
+
+/obj/item/clothing/gloves/wirecutter_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(!cut_type)
+		return
+	if(icon_state != initial(icon_state))
+		return // We don't want to cut dyed gloves.
+	new cut_type(drop_location())
+	qdel(src)
+	return TRUE
