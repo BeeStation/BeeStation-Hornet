@@ -1,4 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - code_imp: Fixed some bitwise operation errors.
