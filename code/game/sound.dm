@@ -141,7 +141,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		S.z = dz * distance_multiplier
 		// The y value is for above your head, but there is no ceiling in 2d spessmens.
 		S.y = 1
-		S.falloff_exponent = max_distance || 0 //use max_distance, else just use 0 as we are a direct sound so falloff isnt relevant.
+		S.falloff = max_distance || 0 //use max_distance, else just use 0 as we are a direct sound so falloff isnt relevant.
 
 		if(S.environment == SOUND_ENVIRONMENT_NONE)
 			if(sound_environment_override != SOUND_ENVIRONMENT_NONE)
