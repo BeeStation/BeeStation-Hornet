@@ -106,12 +106,6 @@
 
 	moveToNullspace()
 
-	//We add ourselves to this list, best to clear it out
-	//DO it after moveToNullspace so memes can be had
-	LAZYCLEARLIST(area_sensitive_contents)
-
-	vis_contents.Cut()
-
 /atom/movable/proc/update_emissive_block()
 	if(!blocks_emissive)
 		return
