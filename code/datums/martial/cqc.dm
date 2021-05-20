@@ -66,7 +66,7 @@
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
 	if(!can_use(A))
 		return FALSE
-	if(!D.stat || !D.IsParalyzed())
+	if(D.is_conscious() || !D.IsParalyzed())
 		D.visible_message("<span class='warning'>[A] kicks [D] back!</span>", \
 							"<span class='userdanger'>[A] kicks you back!</span>", null, COMBAT_MESSAGE_RANGE)
 		playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
@@ -74,7 +74,7 @@
 		D.throw_at(throw_target, 1, 14, A)
 		D.apply_damage(10, A.dna.species.attack_type, blocked = def_check)
 		log_combat(A, D, "kicked (CQC)")
-	if(D.IsParalyzed() && !D.stat)
+	if(D.IsParalyzed() && D.is_conscious())
 		log_combat(A, D, "knocked out (Head kick)(CQC)")
 		D.visible_message("<span class='warning'>[A] kicks [D]'s head, knocking [D.p_them()] out!</span>", \
 					  		"<span class='userdanger'>[A] kicks your head, knocking you out!</span>")
@@ -98,7 +98,7 @@
 		return
 	if(!can_use(A))
 		return FALSE
-	if(!D.stat)
+	if(D.is_conscious())
 		log_combat(A, D, "restrained (CQC)")
 		D.visible_message("<span class='warning'>[A] locks [D] into a restraining position!</span>", \
 							"<span class='userdanger'>[A] locks you into a restraining position!</span>")
@@ -112,7 +112,7 @@
 	var/def_check = D.getarmor(BODY_ZONE_CHEST, "melee")
 	if(!can_use(A))
 		return FALSE
-	if(!D.stat)
+	if(D.is_conscious())
 		log_combat(A, D, "consecutive CQC'd (CQC)")
 		D.visible_message("<span class='warning'>[A] strikes [D]'s abdomen, neck and back consecutively.</span>", \
 							"<span class='userdanger'>[A] strikes your abdomen, neck and back consecutively!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -166,7 +166,7 @@
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>", null, COMBAT_MESSAGE_RANGE)
 	log_combat(A, D, "[picked_hit_type] (CQC)")
-	if(A.resting && !D.stat && !D.IsParalyzed())
+	if(A.resting && D.is_conscious() && !D.IsParalyzed())
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
@@ -184,7 +184,7 @@
 	if(check_streak(A,D))
 		return TRUE
 	if(prob(65))
-		if(!D.stat || !D.IsParalyzed() || !restraining)
+		if(D.is_conscious() || !D.IsParalyzed() || !restraining)
 			I = D.get_active_held_item()
 			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>", null, COMBAT_MESSAGE_RANGE)

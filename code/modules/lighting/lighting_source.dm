@@ -63,6 +63,10 @@
 	if (needs_update)
 		GLOB.lighting_update_lights -= src
 
+	top_atom = null
+	source_atom = null
+	source_turf = null
+	pixel_turf = null
 	. = ..()
 
 // Yes this doesn't align correctly on anything other than 4 width tabs.

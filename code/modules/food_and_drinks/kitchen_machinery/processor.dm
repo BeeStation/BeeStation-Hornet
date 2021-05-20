@@ -131,7 +131,7 @@
 	set category = "Object"
 	set name = "Eject Contents"
 	set src in oview(1)
-	if(usr.stat || usr.restrained())
+	if(!usr.is_conscious() || usr.restrained())
 		return
 	if(isliving(usr))
 		var/mob/living/L = usr

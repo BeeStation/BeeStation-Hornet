@@ -111,9 +111,21 @@ GLOBAL_LIST_EMPTY(objectives)
 		if(O.late_joiner)
 			try_target_late_joiners = TRUE
 	for(var/datum/mind/possible_target in get_crewmember_minds())
-		if(!(possible_target in owners) && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && is_unique_objective(possible_target,dupe_search_range))
-			if (!(possible_target in blacklist))
-				possible_targets += possible_target
+		if(possible_target in owners)
+			continue
+		if(!ishuman(possible_target.current))
+			continue
+		if(possible_target.current.stat == DEAD)
+			continue
+		if(!is_unique_objective(possible_target,dupe_search_range))
+			continue
+		var/target_area = get_area(possible_target.current)
+		if(!HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS) && istype(target_area, /area/shuttle/arrival))
+			continue
+		if(possible_target in blacklist)
+			continue
+
+		possible_targets += possible_target
 	if(try_target_late_joiners)
 		var/list/all_possible_targets = possible_targets.Copy()
 		for(var/I in all_possible_targets)
@@ -160,9 +172,13 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(receiver && receiver.current)
 		if(ishuman(receiver.current))
 			var/mob/living/carbon/human/H = receiver.current
-			var/list/slots = list("backpack" = ITEM_SLOT_BACKPACK)
+			var/static/list/slots = list(
+				"backpack" = ITEM_SLOT_BACKPACK,
+				"left pocket" = ITEM_SLOT_LPOCKET,
+				"right pocket" = ITEM_SLOT_RPOCKET,
+				"hands" = ITEM_SLOT_HANDS)
 			for(var/eq_path in special_equipment)
-				var/obj/O = new eq_path
+				var/obj/O = new eq_path(get_turf(owner.current))
 				H.equip_in_one_of_slots(O, slots)
 
 /datum/objective/assassinate

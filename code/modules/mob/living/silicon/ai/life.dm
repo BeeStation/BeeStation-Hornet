@@ -75,7 +75,7 @@
 			death()
 			return
 		else if(stat == UNCONSCIOUS)
-			stat = CONSCIOUS
+			set_stat(CONSCIOUS)
 			adjust_blindness(-1)
 	diag_hud_set_status()
 

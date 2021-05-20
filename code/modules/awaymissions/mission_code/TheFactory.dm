@@ -640,7 +640,7 @@
 	speed = 0
 	melee_damage = null
 	attack_sound = null
-	del_on_death = 1
+	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
 	a_intent = INTENT_HARM
 	var/det_time = 30
