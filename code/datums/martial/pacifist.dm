@@ -105,4 +105,4 @@
 	to_chat(usr, "<span class='notice'>Grabs</span>: Your grabs instantly grab your opponents firmly.")
 	to_chat(usr, "<span class='notice'>Disarm Combo</span>: Grab Disarm. You will grab opponents item out of their hand.")
 	to_chat(usr, "<span class='notice'>Nerve Pinch Combo</span>: Grab Grab. You will reach for your opponents neck and after some time pacify them.")
-	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
+	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block attacks done to you.</i></b>")
