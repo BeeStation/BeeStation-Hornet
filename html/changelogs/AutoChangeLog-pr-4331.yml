@@ -1,7 +1,0 @@
-author: Ryll-Ryll
-delete-after: true
-changes:
-  - rscadd: Added stickytapes
-  - rscadd: Added pellet cloud grenades
-  - refactor: Refactored embeds, there can now be harmless embeds
-  - rscadd: Added back the pellet cloud option to admin podlaunchers
