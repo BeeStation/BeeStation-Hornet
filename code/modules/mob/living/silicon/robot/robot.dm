@@ -757,10 +757,8 @@
 		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
 		return
 
-	if(lamp_intensity == 0) //We'll skip intensity of 2, since every mob already has such a see-darkness range, so no much need for it.
-		lamp_intensity = 4
-	else //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
-		lamp_intensity = (lamp_intensity + 2) % (lamp_max + 2)
+	//Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
+	lamp_intensity = (lamp_intensity + 2) % (lamp_max + 2)
 	to_chat(src, "<span class='notice'>[lamp_intensity > 2 ? "Headlamp power set to Level [lamp_intensity * 0.5]" : "Headlamp disabled"].</span>")
 	update_headlamp()
 
