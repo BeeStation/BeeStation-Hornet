@@ -1,0 +1,10 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - rscadd: Announcement system, Beepsky, boxes of bodybags, Intellicard in RD's office,
+      cleanbot in AI sat, mirror in theatre, extra toolbox in sci's main lab
+  - bugfix: Bar backroom piping is connected to pipenet, Kitchen APC and Turbine SMES
+      are now actually wired into the power grid, Bot navigation issue near arrivals
+      fixed
+  - tweak: Armory and Secure tech storage doors are now reinforced, roboticists can
+      now open the anesthetic closet in robotics
