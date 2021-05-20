@@ -376,7 +376,7 @@
 	opacity = 0
 	density = FALSE
 	var/open = TRUE
-    var/opaque_closed = FALSE
+	var/opaque_closed = FALSE
 
 /obj/structure/curtain/proc/toggle()
 	open = !open
