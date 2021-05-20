@@ -33,7 +33,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	outdoors = TRUE
 	ambience_index = AMBIENCE_SPACE
 	blob_allowed = FALSE //Eating up space doesn't count for victory as a blob.
-	ambient_buzz = null // Space is pretty quiet
 
 /area/space/nearstation
 	icon_state = "space_near"
@@ -45,7 +44,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = STANDARD_GRAVITY
-	ambient_buzz = null
 
 
 /area/testroom

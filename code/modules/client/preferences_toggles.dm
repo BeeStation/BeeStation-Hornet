@@ -133,31 +133,33 @@
 	set name = "Hear/Silence Ambience"
 	set category = "Preferences"
 	set desc = "Hear Ambient Sound Effects"
-	prefs.toggles ^= SOUND_AMBIENCE
-	prefs.save_preferences()
-	if(prefs.toggles & SOUND_AMBIENCE)
+	usr.client.prefs.toggles ^= SOUND_AMBIENCE
+	usr.client.prefs.save_preferences()
+	if(usr.client.prefs.toggles & SOUND_AMBIENCE)
 		to_chat(usr, "You will now hear ambient sounds.")
 	else
 		to_chat(usr, "You will no longer hear ambient sounds.")
-		usr.stop_sound_channel(CHANNEL_AMBIENT_EFFECTS)
-		usr.stop_sound_channel(CHANNEL_AMBIENT_MUSIC)
+		usr.stop_sound_channel(CHANNEL_AMBIENCE)
+		usr.stop_sound_channel(CHANNEL_BUZZ)
 	usr.client.update_ambience_pref()
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ambience", "[prefs.toggles & SOUND_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ambience", "[usr.client.prefs.toggles & SOUND_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+/datum/verbs/menu/settings/sound/Toggle_Soundscape/Get_checked(client/C)
+	return C.prefs.toggles & SOUND_AMBIENCE
 
 /client/verb/toggle_ship_ambience()
 	set name = "Hear/Silence Ship Ambience"
 	set category = "Preferences"
 	set desc = "Hear Ship Ambience Roar"
-	prefs.toggles ^= SOUND_SHIP_AMBIENCE
-	prefs.save_preferences()
-	if(prefs.toggles & SOUND_SHIP_AMBIENCE)
+	usr.client.prefs.toggles ^= SOUND_SHIP_AMBIENCE
+	usr.client.prefs.save_preferences()
+	if(usr.client.prefs.toggles & SOUND_SHIP_AMBIENCE)
 		to_chat(usr, "You will now hear ship ambience.")
 	else
 		to_chat(usr, "You will no longer hear ship ambience.")
-		usr.stop_sound_channel(CHANNEL_AMBIENT_BUZZ)
-		ambient_buzz_playing = FALSE
-		ambient_buzz = null
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ship Ambience", "[prefs.toggles & SOUND_SHIP_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
+		usr.stop_sound_channel(CHANNEL_BUZZ)
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ship Ambience", "[usr.client.prefs.toggles & SOUND_SHIP_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
+/datum/verbs/menu/settings/sound/toggle_ship_ambience/Get_checked(client/C)
+	return C.prefs.toggles & SOUND_SHIP_AMBIENCE
 
 /client/verb/toggle_announcement_sound()
 	set name = "Hear/Silence Announcements"
