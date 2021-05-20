@@ -11,8 +11,11 @@ SUBSYSTEM_DEF(ambience)
 /datum/controller/subsystem/ambience/fire(resumed)
 	for(var/client/client_iterator as anything in ambience_listening_clients)
 
-		if(isnull(client_iterator) || isnewplayer(client_iterator.mob))
+		if(isnull(client_iterator))
 			ambience_listening_clients -= client_iterator
+			continue
+
+		if(isnewplayer(client_iterator.mob))
 			continue
 
 		if(ambience_listening_clients[client_iterator] > world.time)
