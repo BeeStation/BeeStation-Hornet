@@ -1,0 +1,7 @@
+#Listing maps here will blacklist them from generating in random maint.
+#Maps must be the full path to them
+#A list of maps valid to blacklist can be found in _maps\RandomRooms
+#SPECIFYING AN INVALID MAP WILL RESULT IN RUNTIMES ON GAME START
+
+#_maps/RandomRooms/3x3/sk_rdm001_9storage.dmm
+_maps/RandomRooms/3x3/sk_rdm044_deltaorgantrade.dmm
