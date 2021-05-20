@@ -17,7 +17,7 @@
 /datum/wires/syndicatebomb/on_pulse(wire)
 	var/obj/machinery/syndicatebomb/B = holder
 	if(usr)
-		B.add_fingerprint(usr) // could be from a signaller
+		B.add_hiddenprint(usr) // could be from a signaller
 	switch(wire)
 		if(WIRE_BOOM)
 			if(B.active)
@@ -64,7 +64,7 @@
 
 /datum/wires/syndicatebomb/on_cut(wire, mend)
 	var/obj/machinery/syndicatebomb/B = holder
-	B.add_fingerprint(usr)
+	B.add_hiddenprint(usr)
 	switch(wire)
 		if(WIRE_BOOM)
 			if(!mend && B.active)
