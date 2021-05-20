@@ -22508,6 +22508,18 @@
 /obj/machinery/nanite_program_hub,
 /turf/open/floor/circuit,
 /area/science/nanite)
+"gfy" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
+/mob/living/simple_animal/bot/secbot/beepsky{
+	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey, and with a sturdier reinforced chassis, too.";
+	health = 45;
+	maxHealth = 45;
+	name = "Officer Beepsky"
+	},
+/turf/open/floor/plating,
+/area/security/brig)
 "gfB" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -33388,8 +33400,6 @@
 	},
 /obj/item/stack/medical/gauze,
 /obj/item/stack/medical/gauze,
-/obj/item/storage/box/bodybags,
-/obj/item/pen,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "iYF" = (
@@ -33525,6 +33535,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"iZU" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/bodybags,
+/obj/item/pen,
+/turf/open/floor/plasteel/dark,
+/area/medical/morgue)
 "iZV" = (
 /obj/effect/spawner/structure/window,
 /obj/structure/cable/yellow{
@@ -42747,9 +42763,6 @@
 	pixel_x = 29;
 	pixel_y = -2
 	},
-/obj/structure/table/glass,
-/obj/item/storage/box/bodybags,
-/obj/item/pen,
 /turf/open/floor/plasteel,
 /area/medical/morgue)
 "lAe" = (
@@ -53845,6 +53858,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/command{
+	name = "Head of Security";
+	req_access_txt = "58"
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hos)
 "oLJ" = (
@@ -80140,12 +80157,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/mob/living/simple_animal/bot/secbot/beepsky{
-	desc = "It's Officer Beepsky! Powered by a potato and a shot of whiskey, and with a sturdier reinforced chassis, too.";
-	health = 45;
-	maxHealth = 45;
-	name = "Officer Beepsky"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -123577,7 +123588,7 @@ duF
 mrs
 dde
 bFR
-eOJ
+gfy
 fwt
 nIH
 jrs
@@ -133385,7 +133396,7 @@ ppd
 xKM
 lzO
 edo
-bfm
+iZU
 bfm
 jjI
 cOV
@@ -133643,8 +133654,8 @@ bfm
 bfm
 bfm
 bfm
-eBp
-cDz
+cSs
+tyZ
 cSs
 xBm
 xBm
@@ -133900,8 +133911,8 @@ qKu
 qKu
 qKu
 qKu
-cDz
-cSs
+iog
+fZb
 cSs
 jxt
 xBm
@@ -134159,7 +134170,7 @@ cSs
 cSs
 cSs
 cSs
-xBm
+cSs
 nyS
 tUq
 iEk
