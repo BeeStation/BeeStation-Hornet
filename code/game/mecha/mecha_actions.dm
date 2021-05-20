@@ -108,12 +108,11 @@
 		return
 	chassis.lights = !chassis.lights
 	if(chassis.lights)
-		chassis.set_light(chassis.lights_power)
 		button_icon_state = "mech_lights_on"
 	else
-		chassis.set_light(-chassis.lights_power)
 		button_icon_state = "mech_lights_off"
-	chassis.occupant_message("Toggled lights [chassis.lights?"on":"off"].")
+	chassis.set_light_on(chassis.lights)
+	chassis.occupant_message("<span class='notice'>Toggled lights [chassis.lights?"on":"off"].</span>")
 	chassis.log_message("Toggled lights [chassis.lights?"on":"off"].", LOG_MECHA)
 	UpdateButtonIcon()
 

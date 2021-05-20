@@ -204,7 +204,12 @@
 	if(!glowth)
 		return
 	var/power = GET_MUTATION_POWER(src)
-	glowth.set_light(range * power, glow * power, "#[dna.features["mcolor"]]")
+	glowth.set_light_range_power_color(range * power, glow, glow_color)
+
+
+/// Returns the color for the glow effect
+/datum/mutation/human/glow/proc/glow_color()
+	return pick(COLOR_RED, COLOR_BLUE, COLOR_YELLOW, COLOR_GREEN, COLOR_PURPLE, COLOR_ORANGE)
 
 /datum/mutation/human/glow/on_losing(mob/living/carbon/human/owner)
 	. = ..()

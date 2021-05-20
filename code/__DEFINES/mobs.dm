@@ -385,3 +385,6 @@
 #define FLAVOR_TEXT_GOOD "good"	//ie do not cause evil
 #define FLAVOR_TEXT_NONE "none"
 #define FLAVOR_TEXT_GOAL_ANTAG "blob"	//is antag, but should work towards its goals
+
+///Swarmer flags
+#define SWARMER_LIGHT_ON (1<<0)
