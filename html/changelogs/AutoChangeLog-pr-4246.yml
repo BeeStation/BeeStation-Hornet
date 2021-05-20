@@ -1,0 +1,5 @@
+author: Autisem
+delete-after: true
+changes:
+  - tweak: The BS Miners cost has been altered to be buildable round start without
+      needing to mine
