@@ -23,9 +23,11 @@ GLOBAL_VAR(restart_counter)
 
 	TgsNew(minimum_required_security_level = TGS_SECURITY_TRUSTED)
 
+	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
+
 	GLOB.revdata = new
 
-	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
+	config.LoadMOTD()
 
 	load_admins()
 	load_mentors()
