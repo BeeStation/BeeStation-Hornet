@@ -25,7 +25,7 @@
 	health = 30
 	maxHealth = 30
 	unsuitable_atmos_damage = 0
-	wander = 0
+	wander = FALSE
 	speed = 0
 	ventcrawler = VENTCRAWLER_ALWAYS
 	healable = 0
@@ -209,20 +209,26 @@
 		to_chat(src, "<span class='userdanger'>HeAV% DA%^MMA+G TO I/O CIR!%UUT!</span>")
 
 
-/mob/living/simple_animal/drone/proc/triggerAlarm(class, area/A, O, obj/alarmsource)
-	if(alarmsource.z != z)
+/mob/living/simple_animal/drone/proc/triggerAlarm(class, area/home, cameras, obj/source)
+	if(source.z != z)
 		return
-	if(stat != DEAD)
-		var/list/L = src.alarms[class]
-		for (var/I in L)
-			if (I == A.name)
-				var/list/alarm = L[I]
-				var/list/sources = alarm[2]
-				if (!(alarmsource in sources))
-					sources += alarmsource
-				return
-		L[A.name] = list(A, list(alarmsource))
-		to_chat(src, "--- [class] alarm detected in [A.name]!")
+	if(stat == DEAD)
+		return
+	var/list/our_sort = alarms[class]
+	for(var/areaname in our_sort)
+		if (areaname == home.name)
+			var/list/alarm = our_sort[areaname]
+			var/list/sources = alarm[3]
+			if (!(source in sources))
+				sources += source
+			return TRUE
+
+	our_sort[home.name] = list(home, list(source))
+	to_chat(src, "--- [class] alarm detected in [home.name]!")
+
+///This isn't currently needed since drones do jack shit with cameras. I hate this code so much
+/mob/living/simple_animal/drone/proc/freeCamera(area/home, obj/machinery/camera/cam)
+	return
 
 
 /mob/living/simple_animal/drone/proc/cancelAlarm(class, area/A, obj/origin)

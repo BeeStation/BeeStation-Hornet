@@ -250,7 +250,7 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 
 	if(output_starting_pressure >= min(target_pressure,input_starting_pressure-10))
 		//No need to pump gas if target is already reached or input pressure is too low
-		//Need at least 10 KPa difference to overcome friction in the mechanism
+		//Need at least 10 kPa difference to overcome friction in the mechanism
 		return FALSE
 
 	//Calculate necessary moles to transfer using PV = nRT

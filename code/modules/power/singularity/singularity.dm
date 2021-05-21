@@ -420,7 +420,7 @@
 		if(isbrain(M)) //Ignore brains
 			continue
 
-		if(M.stat == CONSCIOUS)
+		if(M.is_conscious())
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(istype(H.glasses, /obj/item/clothing/glasses/meson))

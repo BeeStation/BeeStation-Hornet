@@ -16,8 +16,6 @@
 
 
 /mob/living/carbon/human/bee_friendly()
-	if(dna?.species?.id == "pod") //bees pollinate plants, duh.
-		return 1
 	if (wear_suit && head && isclothing(wear_suit) && isclothing(head))
 		var/obj/item/clothing/CS = wear_suit
 		var/obj/item/clothing/CH = head
@@ -208,7 +206,7 @@
 				continue
 			if(B.loc == src)
 				B.forceMove(drop_location())
-			B.target = user
+			B.GiveTarget(user)
 			bees = TRUE
 		if(bees)
 			visible_message("<span class='danger'>[user] disturbs the bees!</span>")

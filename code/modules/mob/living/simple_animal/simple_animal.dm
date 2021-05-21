@@ -21,7 +21,7 @@
 	var/turns_per_move = 1
 	var/turns_since_move = 0
 	var/stop_automated_movement = 0 //Use this to temporarely stop random movement or to if you write special movement code for animals.
-	var/wander = 1	// Does the mob wander around when idle?
+	var/wander = TRUE	// Does the mob wander around when idle?
 	var/stop_automated_movement_when_pulled = 1 //When set to 1 this stops the animal from moving when someone is pulling it.
 
 	//Interaction
@@ -71,7 +71,7 @@
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
-	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
+	var/del_on_death = FALSE //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/deathmessage = ""
 
 	var/allow_movement_on_non_turfs = FALSE
@@ -123,6 +123,8 @@
 	if (T && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 
+	//Walking counts as a reference, putting this here because most things don't walk, clean this up once walk() procs are dead
+	walk(src, 0)
 	return ..()
 
 /mob/living/simple_animal/examine(mob/user)
@@ -145,7 +147,7 @@
 		if(health <= 0)
 			death()
 		else
-			stat = CONSCIOUS
+			set_stat(CONSCIOUS)
 	med_hud_set_status()
 
 
@@ -366,7 +368,7 @@
 			return FALSE
 	if (isliving(the_target))
 		var/mob/living/L = the_target
-		if(L.stat != CONSCIOUS)
+		if(!L.is_conscious())
 			return FALSE
 	if (ismecha(the_target))
 		var/obj/mecha/M = the_target
