@@ -5,7 +5,8 @@
 #define CHANNEL_JUKEBOX 1021
 #define CHANNEL_JUSTICAR_ARK 1020
 #define CHANNEL_HEARTBEAT 1019 //sound channel for heartbeats
-#define CHANNEL_AMBIENCE 1018
+#define CHANNEL_AMBIENT_EFFECTS 1018
+#define CHANNEL_AMBIENT_MUSIC 1017
 #define CHANNEL_BUZZ 1017
 
 ///Default range of a sound.
