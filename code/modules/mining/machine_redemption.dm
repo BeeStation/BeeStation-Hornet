@@ -69,9 +69,6 @@
 
 	ore_buffer -= O
 
-	if(O?.refined_type)
-		points += O.points * point_upgrade * O.amount
-
 	var/material_amount = mat_container.get_item_material_amount(O)
 
 	if(!material_amount)
@@ -81,6 +78,8 @@
 		unload_mineral(O)
 
 	else
+		if(O?.refined_type)
+			points += O.points * point_upgrade * O.amount
 		var/mats = O.materials & mat_container.materials
 		var/amount = O.amount
 		mat_container.insert_item(O, sheet_per_ore) //insert it

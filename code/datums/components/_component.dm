@@ -7,14 +7,15 @@
 	//Make sure you also implement PostTransfer for any post transfer handling
 	var/can_transfer = FALSE
 
-/datum/component/New(datum/P, ...)
-	parent = P
-	var/list/arguments = args.Copy(2)
+/datum/component/New(list/raw_args)
+	parent = raw_args[1]
+	var/list/arguments = raw_args.Copy(2)
 	if(Initialize(arglist(arguments)) == COMPONENT_INCOMPATIBLE)
+		stack_trace("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
 		qdel(src, TRUE, TRUE)
-		CRASH("Incompatible [type] assigned to a [P.type]! args: [json_encode(arguments)]")
+		CRASH("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
 
-	_JoinParent(P)
+	_JoinParent(parent)
 
 /datum/component/proc/_JoinParent()
 	var/datum/P = parent
@@ -151,6 +152,9 @@
 /datum/component/proc/InheritComponent(datum/component/C, i_am_original)
 	return
 
+/datum/component/proc/CheckDupeComponent(datum/component/C, ...)
+	return
+
 /datum/component/proc/PreTransfer()
 	return
 
@@ -182,8 +186,10 @@
 		var/proctype = C.signal_procs[src][sigtype]
 		. |= CallAsync(C, proctype, arguments)
 
-/datum/proc/GetComponent(c_type)
+/datum/proc/GetComponent(datum/component/c_type)
 	RETURN_TYPE(c_type)
+	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
+		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
 	var/list/dc = datum_components
 	if(!dc)
 		return null
@@ -191,7 +197,10 @@
 	if(length(.))
 		return .[1]
 
-/datum/proc/GetExactComponent(c_type)
+/datum/proc/GetExactComponent(datum/component/c_type)
+	RETURN_TYPE(c_type)
+	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
+		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
 	var/list/dc = datum_components
 	if(!dc)
 		return null
@@ -211,7 +220,8 @@
 	if(!length(.))
 		return list(.)
 
-/datum/proc/AddComponent(new_type, ...)
+/datum/proc/_AddComponent(list/raw_args)
+	var/new_type = raw_args[1]
 	var/datum/component/nt = new_type
 	var/dm = initial(nt.dupe_mode)
 	var/dt = initial(nt.dupe_type)
@@ -226,7 +236,7 @@
 		new_comp = nt
 		nt = new_comp.type
 
-	args[1] = src
+	raw_args[1] = src
 
 	if(dm != COMPONENT_DUPE_ALLOWED)
 		if(!dt)
@@ -237,26 +247,38 @@
 			switch(dm)
 				if(COMPONENT_DUPE_UNIQUE)
 					if(!new_comp)
-						new_comp = new nt(arglist(args))
+						new_comp = new nt(raw_args)
 					if(!QDELETED(new_comp))
 						old_comp.InheritComponent(new_comp, TRUE)
 						QDEL_NULL(new_comp)
 				if(COMPONENT_DUPE_HIGHLANDER)
 					if(!new_comp)
-						new_comp = new nt(arglist(args))
+						new_comp = new nt(raw_args)
 					if(!QDELETED(new_comp))
 						new_comp.InheritComponent(old_comp, FALSE)
 						QDEL_NULL(old_comp)
 				if(COMPONENT_DUPE_UNIQUE_PASSARGS)
 					if(!new_comp)
-						var/list/arguments = args.Copy(2)
-						old_comp.InheritComponent(null, TRUE, arguments)
+						var/list/arguments = raw_args.Copy(2)
+						arguments.Insert(1, null, TRUE)
+						old_comp.InheritComponent(arglist(arguments))
 					else
 						old_comp.InheritComponent(new_comp, TRUE)
+				if(COMPONENT_DUPE_SELECTIVE)
+					var/list/arguments = raw_args.Copy()
+					arguments[1] = new_comp
+					var/make_new_component = TRUE
+					for(var/datum/component/C in GetComponents(new_type))
+						if(C.CheckDupeComponent(arglist(arguments)))
+							make_new_component = FALSE
+							QDEL_NULL(new_comp)
+							break
+					if(!new_comp && make_new_component)
+						new_comp = new nt(raw_args)
 		else if(!new_comp)
-			new_comp = new nt(arglist(args)) // There's a valid dupe mode but there's no old component, act like normal
+			new_comp = new nt(raw_args) // There's a valid dupe mode but there's no old component, act like normal
 	else if(!new_comp)
-		new_comp = new nt(arglist(args)) // Dupes are allowed, act like normal
+		new_comp = new nt(raw_args) // Dupes are allowed, act like normal
 
 	if(!old_comp && !QDELETED(new_comp)) // Nothing related to duplicate components happened and the new component is healthy
 		SEND_SIGNAL(src, COMSIG_COMPONENT_ADDED, new_comp)
@@ -266,7 +288,7 @@
 /datum/proc/LoadComponent(component_type, ...)
 	. = GetComponent(component_type)
 	if(!.)
-		return AddComponent(arglist(args))
+		_AddComponent(args)
 
 /datum/component/proc/RemoveComponent()
 	if(!parent)

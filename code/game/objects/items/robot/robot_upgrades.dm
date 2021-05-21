@@ -206,7 +206,7 @@
 	desc = "An upgrade to the mining module granting a self-recharging plasma cutter."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = /obj/item/robot_module/miner
+	module_type = list(/obj/item/robot_module/miner)
 
 /obj/item/borg/upgrade/cutter/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -687,6 +687,7 @@
 	desc = "Allows you to turn a cyborg into a hunter, HALT!"
 	icon_state = "cyborg_upgrade3"
 	new_module = /obj/item/robot_module/security
+	module_flags = BORG_MODULE_SECURITY
 
 /obj/item/borg/upgrade/transform/security/action(mob/living/silicon/robot/R, user = usr)
 	if(CONFIG_GET(flag/disable_secborg))
