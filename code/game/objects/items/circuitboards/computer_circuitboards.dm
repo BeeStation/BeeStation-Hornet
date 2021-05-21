@@ -309,6 +309,7 @@
 	name = "cloning console (Computer Board)"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/cloning
+	var/list/records = list()
 
 /obj/item/circuitboard/computer/crew
 	name = "crew monitoring console (Computer Board)"
