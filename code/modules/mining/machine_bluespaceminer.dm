@@ -36,5 +36,18 @@
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if(!mat_container || panel_open || !powered())
 		return
+
+	// profit requires a sacrifice
+	var/victims = get_living_station_crew()
+	if(length(victims)<=1) // https://youtu.be/1FzZ7llgeAU
+		return
+
+	var/mob/living/carbon/human/victim = pick(victims)
+	victim.adjustBruteLoss(5000)
+	victim.adjustFireLoss(5000)
+	visible_message("<span class='notice'>[src] has has provided a bounty of materials, at the cost of something dear to you!</span>")
+
+
+
 	var/datum/material/ore = pick(ore_rates)
-	mat_container.insert_amount_mat((ore_rates[ore] * 1000), ore)
+	mat_container.insert_amount_mat((ore_rates[ore] * 10000), ore)
