@@ -47,7 +47,5 @@
 	victim.adjustFireLoss(5000)
 	visible_message("<span class='notice'>[src] has has provided a bounty of materials, at the cost of something dear to you!</span>")
 
-
-
-	var/datum/material/ore = pick(ore_rates)
-	mat_container.insert_amount_mat((ore_rates[ore] * 10000), ore)
+	for(var/datum/material/ore in ore_rates)
+		mat_container.insert_amount_mat((ore_rates[ore] * 10000), ore)
