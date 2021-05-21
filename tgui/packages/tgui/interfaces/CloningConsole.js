@@ -56,6 +56,13 @@ export const CloningConsole = (props, context) => {
                 disabled={!hasOccupant}
                 onClick={() => act('scan')}
               />
+              {!! useRecords && (
+                <Button
+                  content={"Body only"}
+                  disabled={!hasOccupant}
+                  icon={"search"}
+                  onClick={() => act('scan_body_only')}
+                />)}
               <Button
                 content={scannerLocked ? "Unlock Scanner" : "Lock Scanner"}
                 icon={scannerLocked ? "lock" : "lock-open"}
@@ -125,7 +132,9 @@ export const CloningConsole = (props, context) => {
                             Unique Enzymes:<br />
                             {record["UE"]}<br />
                             Blood Type:<br />
-                            {record["blood_type"]}
+                            {record["blood_type"]}<br />
+                            Body only:<br />
+                            {record["body_only"] ? "TRUE" : "FALSE"}
                           </div>
                         </Collapsible>
                       </Section>
