@@ -2,6 +2,7 @@ import { map } from 'common/collections';
 import { useBackend } from '../backend';
 import { Box, Button, Collapsible, NoticeBox, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
+import { Fragment } from 'inferno';
 
 export const CloningConsole = (props, context) => {
   const { act, data } = useBackend(context);
@@ -115,26 +116,33 @@ export const CloningConsole = (props, context) => {
                               })}
                             />
                             <br />
-                            Health Implant Data<br />
+                            {!record["body_only"] ? (
+                              <Fragment>
+                                Health Implant Data<br />
 
-                            <small>
-                              Oxygen Deprivation Damage:<br />
-                              <ProgressBar color="blue" value={record["damages"]["oxy"] / 100} />
-                              Fire Damage:<br />
-                              <ProgressBar color="orange" value={record["damages"]["burn"] / 100} />
-                              Toxin Damage:<br />
-                              <ProgressBar color="green" value={record["damages"]["tox"] / 100} />
-                              Brute Damage:<br />
-                              <ProgressBar color="red" value={record["damages"]["brute"] / 100} />
-                            </small><br />
+                                <small>
+                                  Oxygen Deprivation Damage:<br />
+                                  <ProgressBar color="blue" value={record["damages"]["oxy"] / 100} />
+                                  Fire Damage:<br />
+                                  <ProgressBar color="orange" value={record["damages"]["burn"] / 100} />
+                                  Toxin Damage:<br />
+                                  <ProgressBar color="green" value={record["damages"]["tox"] / 100} />
+                                  Brute Damage:<br />
+                                  <ProgressBar color="red" value={record["damages"]["brute"] / 100} />
+                                </small><br />
+                              </Fragment>
+                            ) : (
+                              <Fragment>
+                                Health implant data not available<br />
+                              </Fragment>
+                            )}
                             Unique Identifier:<br />
                             {record["UI"]}<br />
                             Unique Enzymes:<br />
                             {record["UE"]}<br />
                             Blood Type:<br />
                             {record["blood_type"]}<br />
-                            Body only:<br />
-                            {record["body_only"] ? "TRUE" : "FALSE"}
+                            {record["body_only"] ? "This clone is empty!" : null}
                           </div>
                         </Collapsible>
                       </Section>

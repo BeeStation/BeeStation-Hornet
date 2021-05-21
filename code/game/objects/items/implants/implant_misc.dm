@@ -86,6 +86,7 @@
 	else
 		if(isliving(imp_in))
 			var/mob/living/L = imp_in
+			healthstring = "<small>Oxygen Deprivation Damage => [round(L.getOxyLoss())]<br />Fire Damage => [round(L.getFireLoss())]<br />Toxin Damage => [round(L.getToxLoss())]<br />Brute Force Damage => [round(L.getBruteLoss())]</small>"
 			raw_data = list() //Reset list
 			raw_data["oxy"] = list("[round(L.getOxyLoss())]")		//Suffocation
 			raw_data["burn"] = list("[round(L.getFireLoss())]")		//Burn

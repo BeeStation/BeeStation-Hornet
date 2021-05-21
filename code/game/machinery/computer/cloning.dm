@@ -444,33 +444,33 @@
 
 /obj/machinery/computer/cloning/proc/can_scan(datum/dna/dna, mob/living/mob_occupant, experimental = FALSE, datum/bank_account/account, body_only)
 	if(!istype(dna))
-		scantemp = "<font class='bad'>Unable to locate valid genetic data.</font>"
+		scantemp = "Unable to locate valid genetic data."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
 	if(NO_DNA_COPY in dna.species.species_traits)
-		scantemp = "<font class='bad'>The DNA of this lifeform could not be read due to an unknown error!</font>"
+		scantemp = "The DNA of this lifeform could not be read due to an unknown error!"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 		return
 	if((HAS_TRAIT(mob_occupant, TRAIT_HUSK)) && (src.scanner.scan_level < 2))
-		scantemp = "<font class='bad'>Subject's body is too damaged to scan properly.</font>"
+		scantemp = "Subject's body is too damaged to scan properly."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return
 	if(HAS_TRAIT(mob_occupant, TRAIT_BADDNA))
-		scantemp = "<font class='bad'>Subject's DNA is damaged beyond any hope of recovery.</font>"
+		scantemp = "Subject's DNA is damaged beyond any hope of recovery."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 		return
 	if(!experimental)
 		if(!body_only && (mob_occupant.suiciding || mob_occupant.hellbound))
-			scantemp = "<font class='bad'>Subject's brain is not responding to scanning stimuli.</font>"
+			scantemp = "Subject's brain is not responding to scanning stimuli."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			return
 		if(!body_only && isnull(mob_occupant.mind))
-			scantemp = "<font class='bad'>Mental interface failure.</font>"
+			scantemp = "Mental interface failure."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			return
 		if(!body_only && SSeconomy.full_ancap)
 			if(!account)
-				scantemp = "<font class='average'>Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan.</font>"
+				scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				return
 	return TRUE
