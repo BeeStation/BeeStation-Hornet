@@ -237,8 +237,8 @@
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
 	tool_behaviour = null //because it will drain the cutters cell and not the borgs.
-	
-	
+
+
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
@@ -337,11 +337,15 @@
 	pin = null
 	block_upgrade_walk = 1
 
+/obj/item/gun/energy/temperature/pin
+	pin = /obj/item/firing_pin
+
 /obj/item/gun/energy/temperature/security
 	name = "security temperature gun"
 	desc = "A weapon that can only be used to its full potential by the truly robust."
 	pin = /obj/item/firing_pin
 	block_upgrade_walk = 1
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/gun/energy/laser/instakill
 	name = "instakill rifle"

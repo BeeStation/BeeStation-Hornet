@@ -1,0 +1,5 @@
+author: francinum
+delete-after: true
+changes:
+  - rscdel: For performance reasons, lavaland atmos is static again. The randomization
+      system still exists but sits unused.

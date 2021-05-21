@@ -55,7 +55,8 @@
 		return
 	..()
 
-/obj/item/grenade/plastic/prime()
+/obj/item/grenade/plastic/prime(mob/living/lanced_by)
+	. = ..()
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))
@@ -124,7 +125,11 @@
 			var/obj/item/I = AM
 			I.throw_speed = max(1, (I.throw_speed - 3))
 			I.throw_range = max(1, (I.throw_range - 3))
-			I.embedding = I.embedding.setRating(embed_chance = 0)
+			if(I.embedding)
+				I.embedding["embed_chance"] = 0
+				I.updateEmbedding()
+		else if(istype(AM, /mob/living))
+			plastic_overlay.layer = FLOAT_LAYER
 
 		target.add_overlay(plastic_overlay, TRUE)
 		if(!nadeassembly)
@@ -204,9 +209,11 @@
 	else
 		return ..()
 
-/obj/item/grenade/plastic/c4/prime()
+/obj/item/grenade/plastic/c4/prime(mob/living/lanced_by)
 	if(QDELETED(src))
 		return
+
+	. = ..()
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))

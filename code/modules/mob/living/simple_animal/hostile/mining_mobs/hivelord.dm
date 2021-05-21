@@ -78,7 +78,7 @@
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	pass_flags = PASSTABLE
-	del_on_death = 1
+	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize()
 	. = ..()
@@ -105,7 +105,7 @@
 	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	loot = list(/obj/item/organ/regenerative_core/legion)
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
-	del_on_death = 1
+	del_on_death = TRUE
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
 	var/dwarf_mob = FALSE
