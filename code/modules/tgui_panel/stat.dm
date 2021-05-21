@@ -97,7 +97,7 @@
  *
  * Clears the death message
  */
-/datum/tgui_panel/proc/clear_dead_poup()
+/datum/tgui_panel/proc/clear_dead_popup()
 	if(!is_ready())
 		return
 	window.send_message("stat/clearDeadPopup", list())
