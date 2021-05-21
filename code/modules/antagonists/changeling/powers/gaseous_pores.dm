@@ -17,7 +17,7 @@
 		return FALSE
 	if(..())
 		M.Sleeping(200)
-		M.emote("cough")
+		INVOKE_ASYNC(M, /mob.proc/emote, "cough")
 		return TRUE
 
 /datum/effect_system/smoke_spread/sleeping/changeling
