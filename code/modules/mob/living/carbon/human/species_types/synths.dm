@@ -32,7 +32,7 @@
 
 /datum/species/synth/on_species_gain(mob/living/carbon/human/H, datum/species/old_species)
 	if (H.dna.features["legs"] == "Digitigrade Legs") //I fucking hate this.
-		initial_species_traits += DIGITIGRADE //If the target has digitigrade legs, store them for later
+		initial_species_traits |= DIGITIGRADE //If the target has digitigrade legs, store them for later
 	..()
 	assume_disguise(old_species, H)
 	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
