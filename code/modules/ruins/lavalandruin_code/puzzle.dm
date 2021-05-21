@@ -312,7 +312,7 @@
 	var/mob/living/victim = target
 	var/mob/living/carbon/carbon_victim = victim
 	//Handcuffed or unconcious
-	if(istype(carbon_victim) && carbon_victim.handcuffed || victim.stat != CONSCIOUS)
+	if(istype(carbon_victim) && carbon_victim.handcuffed || !victim.is_conscious())
 		if(!puzzle_imprison(target))
 			to_chat(user,"<span class='warning'>[src] does nothing.</span>")
 			return

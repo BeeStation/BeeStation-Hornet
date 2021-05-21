@@ -545,7 +545,7 @@
 			if(3)
 				if(!C.undergoing_cardiac_arrest() && C.can_heartattack())
 					C.set_heartattack(TRUE)
-					if(C.stat == CONSCIOUS)
+					if(C.is_conscious())
 						C.visible_message("<span class='userdanger'>[C] clutches at [C.p_their()] chest as if [C.p_their()] heart stopped!</span>")
 				else
 					C.losebreath += 10
