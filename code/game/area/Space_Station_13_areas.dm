@@ -32,6 +32,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	valid_territory = FALSE
 	outdoors = TRUE
 	ambientmusic = AMBIENCE_SPACE
+	ambient_buzz = null
 	sound_environment = SOUND_AREA_SPACE
 	blob_allowed = FALSE //Eating up space doesn't count for victory as a blob.
 
@@ -45,7 +46,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = STANDARD_GRAVITY
-
+	ambient_buzz = null
 
 /area/testroom
 	requires_power = FALSE
