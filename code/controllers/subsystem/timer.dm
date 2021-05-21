@@ -121,7 +121,6 @@ SUBSYSTEM_DEF(timer)
 		next_clienttime_timer_index = 0
 
 	var/static/list/invoked_timers = list()
-	var/static/datum/timedevent/timer
 	if (practical_offset > BUCKET_LEN)
 		head_offset += TICKS2DS(BUCKET_LEN)
 		practical_offset = 1
