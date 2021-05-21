@@ -141,6 +141,8 @@
 		to_chat(usr, "You will no longer hear ambient sounds.")
 		usr.stop_sound_channel(CHANNEL_AMBIENT_EFFECTS)
 		usr.stop_sound_channel(CHANNEL_AMBIENT_MUSIC)
+		usr.stop_sound_channel(CHANNEL_BUZZ)
+		usr.client.buzz_playing = FALSE
 	usr.client.update_ambience_pref()
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ambience", "[usr.client.prefs.toggles & SOUND_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
