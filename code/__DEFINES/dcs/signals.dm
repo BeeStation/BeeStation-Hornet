@@ -35,6 +35,13 @@
 #define COMSIG_COMPONENT_REMOVING "component_removing"			//! before a component is removed from a datum because of RemoveComponent: (/datum/component)
 #define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"			//! before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
 #define COMSIG_PARENT_QDELETING "parent_qdeleting"				//! just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
+#define COMSIG_TOPIC "handle_topic"                             //! generic topic handler (usr, href_list)
+
+/// fires on the target datum when an element is attached to it (/datum/element)
+#define COMSIG_ELEMENT_ATTACH "element_attach"
+/// fires on the target datum when an element is attached to it  (/datum/element)
+#define COMSIG_ELEMENT_DETACH "element_detach"
+
 
 // /atom signals
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"			        //! from base of atom/attackby(): (/obj/item, /mob/living, params)
@@ -155,6 +162,7 @@
 // /mob signals
 #define COMSIG_MOB_LOGIN "mob_login"
 #define COMSIG_MOB_DEATH "mob_death"							//! from base of mob/death(): (gibbed)
+#define COMSIG_MOB_STATCHANGE "mob_statchange"					//from base of mob/set_stat(): (new_stat)
 #define COMSIG_MOB_CLICKON "mob_clickon"						//! from base of mob/clickon(): (atom/A, params)
 	#define COMSIG_MOB_CANCEL_CLICKON 1
 #define COMSIG_MOB_ALLOWED "mob_allowed"						//! from base of obj/allowed(mob/M): (/obj) returns bool, if TRUE the mob has id access to the obj
@@ -209,15 +217,26 @@
 #define COMSIG_CARBON_SPECIESCHANGE "mob_carbon_specieschange"	//! from base of mob/living/carbon/set_species(): (new_race)
 #define COMSIG_CARBON_GAIN_ORGAN "carbon_gain_organ"			//from /item/organ/proc/Insert() (/obj/item/organ/)
 #define COMSIG_CARBON_LOSE_ORGAN "carbon_lose_organ"			//from /item/organ/proc/Remove() (/obj/item/organ/)
+#define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"						// defined twice, in carbon and human's topics, fired when interacting with a valid embedded_object to pull it out (mob/living/carbon/target, /obj/item, /obj/item/bodypart/L)
+#define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"		// called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK 1
 
+// /obj/item/grenade signals
+#define COMSIG_GRENADE_PRIME "grenade_prime"					//called in /obj/item/gun/process_fire (user, target, params, zone_override)
+#define COMSIG_GRENADE_ARMED "grenade_armed"					//called in /obj/item/gun/process_fire (user, target, params, zone_override)
+
 // /obj/item/projectile signals (sent to the firer)
+#define COMSIG_PROJECTILE_SELF_ON_HIT "projectile_self_on_hit"			// from base of /obj/item/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle)
 #define COMSIG_PROJECTILE_ON_HIT "projectile_on_hit"			// from base of /obj/item/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle)
 #define COMSIG_PROJECTILE_BEFORE_FIRE "projectile_before_fire" 			// from base of /obj/item/projectile/proc/fire(): (obj/item/projectile, atom/original_target)
 #define COMSIG_PROJECTILE_PREHIT "com_proj_prehit"				// sent to targets during the process_hit proc of projectiles
+#define COMSIG_PROJECTILE_RANGE_OUT "projectile_range_out"				// sent to targets during the process_hit proc of projectiles
+#define COMSIG_EMBED_TRY_FORCE "item_try_embed"					// sent when trying to force an embed (mainly for projectiles, only used in the embed element)
+
+#define COMSIG_PELLET_CLOUD_INIT "pellet_cloud_init"				// sent to targets during the process_hit proc of projectiles
 
 // /obj/mecha signals
 #define COMSIG_MECHA_ACTION_ACTIVATE "mecha_action_activate"	//sent from mecha action buttons to the mecha they're linked to
@@ -244,6 +263,8 @@
 #define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"		//! called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/targeted/summonitem/cast() : (mob/user)
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL 1
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"					//! from base of obj/item/hit_reaction(): (list/args)
+#define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"			///from [/obj/item/proc/disableEmbedding]:
+#define COMSIG_MINE_TRIGGERED "minegoboom"						///from [/obj/effect/mine/proc/triggermine]:
 
 // /obj/item/clothing signals
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"			//! from base of obj/item/clothing/shoes/proc/step_action(): ()
@@ -258,6 +279,12 @@
 	#define COMPONENT_DELETE_OLD_IMPLANT 4
 #define COMSIG_IMPLANT_EXISTING_UPLINK "implant_uplink_exists"	//! called on implants being implanted into someone with an uplink implant: (datum/component/uplink)
 	//This uses all return values of COMSIG_IMPLANT_OTHER
+
+/// called on implants, after a successful implantation: (mob/living/target, mob/user, silent, force)
+#define COMSIG_IMPLANT_IMPLANTED "implant_implanted"
+
+/// called on implants, after an implant has been removed: (mob/living/source, silent, special)
+#define COMSIG_IMPLANT_REMOVED "implant_removed"
 
 // /obj/item/pda signals
 #define COMSIG_PDA_CHANGE_RINGTONE "pda_change_ringtone"		//! called on pda when the user changes the ringtone: (mob/living/user, new_ringtone)
@@ -354,6 +381,12 @@
 #define COMSIG_XENO_TURF_CLICK_SHIFT "xeno_turf_click_shift"				//! from turf ShiftClickOn(): (/mob)
 #define COMSIG_XENO_TURF_CLICK_CTRL "xeno_turf_click_alt"					//! from turf AltClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"				//! from monkey CtrlClickOn(): (/mob)
+
+/// job subsystem has spawned and equipped a new mob
+#define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
+///Subsystem signals
+///From base of datum/controller/subsystem/Initialize: (start_timeofday)
+#define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
 
 //Heretics stuff
 #define COMSIG_HUMAN_VOID_MASK_ACT "void_mask_act"

@@ -19,7 +19,7 @@
 		stack_trace("Gib list dir length mismatch!")
 		return
 
-	var/obj/effect/decal/cleanable/blood/gibs/gib = null
+	var/obj/effect/decal/cleanable/blood/gib = null
 
 	if(sound_to_play && isnum_safe(sound_vol))
 		playsound(src, sound_to_play, sound_vol, TRUE)
@@ -52,7 +52,15 @@
 				var/list/directions = gibdirections[i]
 				if(isturf(loc))
 					if(directions.len)
-						gib.streak(directions)
+						if(istype(gib, /obj/effect/decal/cleanable/blood/gibs))
+							var/obj/effect/decal/cleanable/blood/gibs/G = gib
+							G.streak(directions)
+						else if(istype(gib, /obj/effect/decal/cleanable/xenoblood/xgibs))
+							var/obj/effect/decal/cleanable/xenoblood/xgibs/G = gib
+							G.streak(directions)
+						else if(istype(gib, /obj/effect/decal/cleanable/robot_debris))
+							var/obj/effect/decal/cleanable/xenoblood/xgibs/G = gib
+							G.streak(directions)
 
 	return INITIALIZE_HINT_QDEL
 
@@ -66,6 +74,9 @@
 	if(!gibdirections.len)
 		gibdirections = list(list(WEST, NORTHWEST, SOUTHWEST, NORTH),list(EAST, NORTHEAST, SOUTHEAST, SOUTH), list())
 	return ..()
+
+/obj/effect/gibspawner/generic/bloodtomato
+	gibtypes = list(/obj/effect/decal/cleanable/blood/splatter, /obj/effect/decal/cleanable/blood/drip, /obj/effect/decal/cleanable/blood/gibs)
 
 /obj/effect/gibspawner/generic/animal
 	gib_mob_type = /mob/living/simple_animal/pet

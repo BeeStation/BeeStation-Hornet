@@ -134,7 +134,7 @@
 			if("Chaplain")
 				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/food/drinks/bottle/holywater)
 			if("Assistant")
-				heirloom_type = /obj/item/storage/toolbox/mechanical/old/heirloom
+				heirloom_type = pick(/obj/item/storage/toolbox/mechanical/old/heirloom, /obj/item/clothing/gloves/cut/heirloom)
 			if("Barber")
 				heirloom_type = /obj/item/handmirror
 			if("Stage Magician")

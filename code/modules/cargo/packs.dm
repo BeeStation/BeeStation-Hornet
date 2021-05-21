@@ -33,6 +33,13 @@
 	fill(C)
 	return C
 
+/datum/supply_pack/proc/get_cost()
+	. = cost
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_DISTANT_SUPPLY_LINES))
+		. *= 1.2
+	else if(HAS_TRAIT(SSstation, STATION_TRAIT_STRONG_SUPPLY_LINES))
+		. *= 0.8
+
 /datum/supply_pack/proc/fill(obj/structure/closet/crate/C)
 	if (admin_spawned)
 		for(var/item in contains)
@@ -296,6 +303,16 @@
 					/obj/item/gun/energy/disabler)
 	crate_name = "disabler crate"
 
+/datum/supply_pack/security/dumdum
+	name = ".38 DumDum Speedloader"
+	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
+	cost = 1200
+	access = FALSE
+	small_item = TRUE
+	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	contains = list(/obj/item/ammo_box/c38/dumdum)
+	crate_name = ".38 match crate"
+
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
 	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
@@ -316,6 +333,16 @@
 					/obj/item/gun/energy/laser,
 					/obj/item/gun/energy/laser)
 	crate_name = "laser crate"
+
+/datum/supply_pack/security/match
+	name = ".38 Match Grade Speedloader"
+	desc = "Contains one speedloader of match grade .38 ammunition, perfect for showing off trickshots. Requires Security or Forensics access to open."
+	cost = 1200
+	access = FALSE
+	small_item = TRUE
+	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	contains = list(/obj/item/ammo_box/c38/match)
+	crate_name = ".38 match crate"
 
 /datum/supply_pack/security/securitybarriers
 	name = "Security Barrier Grenades"
@@ -344,6 +371,20 @@
 					/obj/item/clothing/suit/security/hos,
 					/obj/item/clothing/head/beret/sec/navyhos)
 	crate_name = "security clothing crate"
+
+/datum/supply_pack/security/stingpack
+	name = "Stingbang Grenade Pack"
+	desc = "Contains five \"stingbang\" grenades, perfect for stopping riots and playing morally unthinkable pranks. Requires Security access to open."
+	cost = 2500
+	contains = list(/obj/item/storage/box/stingbangs)
+	crate_name = "stingbang grenade pack crate"
+
+/datum/supply_pack/security/stingpack/single
+	name = "Stingbang Single-Pack"
+	desc = "Contains one \"stingbang\" grenade, perfect for playing meanhearted pranks. Requires Security access to open."
+	cost = 1400
+	small_item = TRUE
+	contains = list(/obj/item/grenade/stingbang)
 
 /datum/supply_pack/security/supplies
 	name = "Security Supplies Crate"
@@ -2179,6 +2220,28 @@
 		var/mob/living/simple_animal/pet/cat/C = locate() in .
 		qdel(C)
 		new /mob/living/simple_animal/pet/cat/Proc(.)
+
+/datum/supply_pack/critter/cat/exotic
+	name = "Exotic Cat Crate"
+	desc = "Commes with one of the exotic cats, collar and a toy."
+	cost = 5500
+	contains = list(/obj/item/clothing/neck/petcollar,
+					/obj/item/toy/cattoy)
+	crate_name = "cat crate"
+
+/datum/supply_pack/critter/cat/exotic/generate()
+	. = ..()
+	switch(rand(1, 5))
+		if(1)
+			new /mob/living/simple_animal/pet/cat/original(.)
+		if(2)
+			new /mob/living/simple_animal/pet/cat/breadcat(.)
+		if(3)
+			new /mob/living/simple_animal/pet/cat/cak(.)
+		if(4)
+			new /mob/living/simple_animal/pet/cat/space(.)
+		if(5)
+			new /mob/living/simple_animal/pet/cat/halal(.)
 
 /datum/supply_pack/critter/chick
 	name = "Chicken Crate"

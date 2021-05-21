@@ -19,6 +19,7 @@
 	var/firing_effect_type = /obj/effect/temp_visual/dir_setting/firing_effect	//the visual effect appearing when the ammo is fired.
 	var/heavy_metal = TRUE
 	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal
+	var/click_cooldown_override = 0
 
 /obj/item/ammo_casing/spent
 	name = "spent bullet casing"

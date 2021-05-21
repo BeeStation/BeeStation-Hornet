@@ -9,21 +9,19 @@
 	fakeable = FALSE
 
 /datum/round_event/spacevine/start()
-	var/list/turfs = list() //list of all the empty floor turfs in the maintenance areas
+	var/list/turfs = get_area_turfs(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1], TRUE)
 
 	var/obj/structure/spacevine/SV = new()
-
-	for(var/area/maintenance/A in world)
-		for(var/turf/F in A)
-			if(F.Enter(SV) && !isspaceturf(F))
-				turfs += F
+	for(var/turf/T in turfs)
+		if(!T.Enter(SV) || isspaceturf(T))
+			turfs -= T
 
 	qdel(SV)
 
 	if(turfs.len) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
 		new /datum/spacevine_controller(T, list(pick(subtypesof(/datum/spacevine_mutation))), rand(10,100), rand(1,6), src) //spawn a controller at turf with randomized stats and a single random mutation
-
+		message_admins("Event spacevine has been spawned in [ADMIN_VERBOSEJMP(T)].")
 
 /datum/spacevine_mutation
 	var/name = ""

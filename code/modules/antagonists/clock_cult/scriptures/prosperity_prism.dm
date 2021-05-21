@@ -72,7 +72,7 @@
 		if(!L.toxloss && !L.staminaloss && !L.bruteloss && !L.fireloss)
 			continue
 		if(use_power(2))
-			L.adjustToxLoss(-5*delta_time)
+			L.adjustToxLoss(-5*delta_time, FALSE, TRUE)
 			L.adjustStaminaLoss(-5*delta_time)
 			L.adjustBruteLoss(-1*delta_time)
 			L.adjustFireLoss(-1*delta_time)
