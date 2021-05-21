@@ -235,7 +235,7 @@
 /datum/gang_item/weapon/ammo
 
 /datum/gang_item/weapon/shuriken
-	name = "shuriken box"
+	name = "Shuriken box"
 	id = "shuriken"
 	cost = 200
 	item_path = /obj/item/storage/box/shuriken_box
@@ -313,7 +313,7 @@
 	name = "Drug Supply"
 	id = "drugs"
 	cost = 40
-	item_path = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
+	item_path = /obj/item/storage/box
 
 /datum/gang_item/equipment/drugs/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/O
