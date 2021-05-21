@@ -83,7 +83,7 @@
 /obj/structure/closet/crate/necropolis/tendril/examine(mob/user)
 	. = ..()
 	if(!spawned_loot)
-		. += " You need a skeleton key to open it."
+		. += "<span class='notice'>You need a skeleton key to open it.</span>"
 
 
 //KA modkit design discs
