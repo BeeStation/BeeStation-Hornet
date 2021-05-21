@@ -241,7 +241,7 @@
 	item_path = /obj/item/storage/box/shuriken_box
 
 /obj/item/storage/box/shuriken_box
-	name = "Shuriken Box"
+	name = "shuriken Box"
 
 /obj/item/storage/box/shuriken_box/PopulateContents()
 	new /obj/item/throwing_star(src)
@@ -398,4 +398,3 @@
 /datum/gang_item/equipment/implant_breaker/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/O = new item_path(user.loc, gang)
 	user.put_in_hands(O)
-
