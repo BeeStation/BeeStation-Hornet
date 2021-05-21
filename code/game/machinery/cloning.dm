@@ -590,7 +590,7 @@
 	. = ..()
 	reagents.add_reagent(/datum/reagent/medicine/synthflesh, 100)
 
-//Experimental cloner; clones a body regardless of the owner's status, letting a ghost control it instead
+//Experimental cloner; clones a body regardless of the owner's status.
 /obj/machinery/clonepod/experimental
 	name = "experimental cloning pod"
 	desc = "An ancient cloning pod. It seems to be an early prototype of the experimental cloners used in Nanotrasen Stations."
