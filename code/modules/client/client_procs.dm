@@ -1077,16 +1077,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			qdel(src)
 			return
 
-/client/proc/set_right_click_menu_mode(shift_only)
-	if(shift_only)
-		winset(src, "mapwindow.map", "right-click=true")
-		winset(src, "ShiftUp", "is-disabled=false")
-		winset(src, "Shift", "is-disabled=false")
-	else
-		winset(src, "mapwindow.map", "right-click=false")
-		winset(src, "default.Shift", "is-disabled=true")
-		winset(src, "default.ShiftUp", "is-disabled=true")
-
 /client/proc/update_ambience_pref()
 	if(prefs.toggles & SOUND_AMBIENCE)
 		if(SSambience.ambience_listening_clients[src] > world.time)
