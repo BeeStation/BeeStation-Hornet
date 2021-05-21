@@ -563,6 +563,7 @@
 /obj/item/stack/sheet/mineral/wood,
 /obj/item/stack/sheet/mineral/wood,
 /obj/item/seeds/tower,
+/obj/item/seeds/bamboo,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bx" = (
@@ -685,7 +686,7 @@
 /area/lavaland/surface/outdoors)
 "bP" = (
 /obj/structure/stone_tile/block,
-/obj/item/twohanded/spear,
+/obj/item/twohanded/bonespear,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -857,7 +858,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ck" = (
-/obj/item/twohanded/spear,
+/obj/item/twohanded/bonespear,
 /obj/structure/stone_tile{
 	dir = 4
 	},
@@ -871,7 +872,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/item/twohanded/spear,
+/obj/item/twohanded/bonespear,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -975,7 +976,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/obj/item/twohanded/spear,
+/obj/item/twohanded/bonespear,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "cA" = (
@@ -1019,8 +1020,8 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/item/twohanded/spear,
-/obj/item/storage/belt,
+/obj/item/twohanded/bonespear,
+/obj/item/storage/belt/mining/primitive,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "cI" = (
@@ -1058,7 +1059,19 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/twohanded/spear,
+/obj/item/twohanded/bonespear,
+/obj/item/storage/belt/quiver,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/ammo_casing/caseless/arrow/bone,
+/obj/item/gun/ballistic/bow/ashen,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "cN" = (
@@ -1073,7 +1086,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/twohanded/spear,
+/obj/item/twohanded/bonespear,
 /obj/item/clothing/head/helmet/roman/legionnaire,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
@@ -1376,7 +1389,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/twohanded/spear,
+/obj/item/twohanded/bonespear,
 /obj/item/scythe,
 /obj/item/cultivator,
 /turf/open/indestructible/boss,

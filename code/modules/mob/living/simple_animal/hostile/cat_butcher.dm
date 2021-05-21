@@ -32,7 +32,7 @@
 	faction = list("hostile")
 	check_friendly_fire = 1
 	status_flags = CANPUSH
-	del_on_death = 1
+	del_on_death = TRUE
 	var/impatience = 0
 	rapid_melee = 2 //this lets him attack nearly as fast as a normal player, instead of half as fast as one. Without this, due to mood differences, a greytider in melee can actually facetank and beat him to death with only fists
 	hardattacks = TRUE

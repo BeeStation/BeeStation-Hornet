@@ -85,7 +85,7 @@
 	desc = "This is no snake at all! It looks like someone's limb grew fangs out of it's fingers and it's out to bite anyone!"
 	icon_state = "snake"
 	icon_living = "snake"
-	del_on_death = 1
+	del_on_death = TRUE
 	speak_emote = list("gargles")
 	health = 50
 	maxHealth = 50
