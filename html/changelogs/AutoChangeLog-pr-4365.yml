@@ -1,7 +1,0 @@
-author: yorii
-delete-after: true
-changes:
-  - bugfix: made some generic healing sources handle toxinlovers properly
-  - bugfix: made the easy dismemberment trait on several species actually function
-  - bugfix: made the beelover trait actually function
-  - code_imp: some related code cleanup
