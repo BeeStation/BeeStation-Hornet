@@ -210,7 +210,7 @@
 		scarcounter++
 
 	if(M.getToxLoss() && M.getToxLoss() <= threshhold)
-		M.adjustToxLoss(-power, NULL, TRUE)
+		M.adjustToxLoss(-power, null, TRUE)
 
 	if(healed)
 		if(prob(10))

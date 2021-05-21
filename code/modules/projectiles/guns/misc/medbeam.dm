@@ -116,7 +116,7 @@
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 	target.adjustBruteLoss(-4)
 	target.adjustFireLoss(-4)
-	target.adjustToxLoss(-1, NULL, TRUE)
+	target.adjustToxLoss(-1, null, TRUE)
 	target.adjustOxyLoss(-1)
 	return
 
