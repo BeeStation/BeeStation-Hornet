@@ -35,6 +35,13 @@
 #define COMSIG_COMPONENT_REMOVING "component_removing"			//! before a component is removed from a datum because of RemoveComponent: (/datum/component)
 #define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"			//! before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
 #define COMSIG_PARENT_QDELETING "parent_qdeleting"				//! just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
+#define COMSIG_TOPIC "handle_topic"                             //! generic topic handler (usr, href_list)
+
+/// fires on the target datum when an element is attached to it (/datum/element)
+#define COMSIG_ELEMENT_ATTACH "element_attach"
+/// fires on the target datum when an element is attached to it  (/datum/element)
+#define COMSIG_ELEMENT_DETACH "element_detach"
+
 
 // /atom signals
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"			        //! from base of atom/attackby(): (/obj/item, /mob/living, params)
@@ -210,15 +217,26 @@
 #define COMSIG_CARBON_SPECIESCHANGE "mob_carbon_specieschange"	//! from base of mob/living/carbon/set_species(): (new_race)
 #define COMSIG_CARBON_GAIN_ORGAN "carbon_gain_organ"			//from /item/organ/proc/Insert() (/obj/item/organ/)
 #define COMSIG_CARBON_LOSE_ORGAN "carbon_lose_organ"			//from /item/organ/proc/Remove() (/obj/item/organ/)
+#define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"						// defined twice, in carbon and human's topics, fired when interacting with a valid embedded_object to pull it out (mob/living/carbon/target, /obj/item, /obj/item/bodypart/L)
+#define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"		// called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK 1
 
+// /obj/item/grenade signals
+#define COMSIG_GRENADE_PRIME "grenade_prime"					//called in /obj/item/gun/process_fire (user, target, params, zone_override)
+#define COMSIG_GRENADE_ARMED "grenade_armed"					//called in /obj/item/gun/process_fire (user, target, params, zone_override)
+
 // /obj/item/projectile signals (sent to the firer)
+#define COMSIG_PROJECTILE_SELF_ON_HIT "projectile_self_on_hit"			// from base of /obj/item/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle)
 #define COMSIG_PROJECTILE_ON_HIT "projectile_on_hit"			// from base of /obj/item/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle)
 #define COMSIG_PROJECTILE_BEFORE_FIRE "projectile_before_fire" 			// from base of /obj/item/projectile/proc/fire(): (obj/item/projectile, atom/original_target)
 #define COMSIG_PROJECTILE_PREHIT "com_proj_prehit"				// sent to targets during the process_hit proc of projectiles
+#define COMSIG_PROJECTILE_RANGE_OUT "projectile_range_out"				// sent to targets during the process_hit proc of projectiles
+#define COMSIG_EMBED_TRY_FORCE "item_try_embed"					// sent when trying to force an embed (mainly for projectiles, only used in the embed element)
+
+#define COMSIG_PELLET_CLOUD_INIT "pellet_cloud_init"				// sent to targets during the process_hit proc of projectiles
 
 // /obj/mecha signals
 #define COMSIG_MECHA_ACTION_ACTIVATE "mecha_action_activate"	//sent from mecha action buttons to the mecha they're linked to
@@ -245,6 +263,8 @@
 #define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"		//! called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/targeted/summonitem/cast() : (mob/user)
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL 1
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"					//! from base of obj/item/hit_reaction(): (list/args)
+#define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"			///from [/obj/item/proc/disableEmbedding]:
+#define COMSIG_MINE_TRIGGERED "minegoboom"						///from [/obj/effect/mine/proc/triggermine]:
 
 // /obj/item/clothing signals
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"			//! from base of obj/item/clothing/shoes/proc/step_action(): ()
