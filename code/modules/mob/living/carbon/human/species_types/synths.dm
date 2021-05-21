@@ -9,10 +9,10 @@
 	meat = null
 	damage_overlay_type = "synth"
 	limbs_id = "synth"
-	var/disguise_fail_health = 75 //When their health gets to this level their synthflesh partially falls off
+	var/disguise_fail_health = 75 //When their health gets to this level their synthflesh partially falls off (this doesnt work)
 	var/datum/species/fake_species //a species to do most of our work for us, unless we're damaged
-	var/list/initial_species_traits //for getting these values back for assume_disguise()
-	var/list/initial_inherent_traits
+	var/list/initial_species_traits = list() //for getting these values back for assume_disguise()
+	var/list/initial_inherent_traits = list()
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	species_language_holder = /datum/language_holder/synthetic
 
@@ -27,10 +27,12 @@
 	id = "military_synth"
 	armor = 25
 	punchdamage = 14
-	disguise_fail_health = 50
+	disguise_fail_health = 50 //This literally does nothing. This doesnt work.
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 
 /datum/species/synth/on_species_gain(mob/living/carbon/human/H, datum/species/old_species)
+	if (H.dna.features["legs"] == "Digitigrade Legs") //I fucking hate this.
+		initial_species_traits |= DIGITIGRADE //If the target has digitigrade legs, store them for later
 	..()
 	assume_disguise(old_species, H)
 	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
@@ -72,6 +74,7 @@
 		fixed_mut_color = S.fixed_mut_color
 		hair_color = S.hair_color
 		fake_species = new S.type
+		handle_snowflake_code(H, S)
 	else
 		name = initial(name)
 		say_mod = initial(say_mod)
@@ -93,7 +96,6 @@
 		sexes = 0
 		fixed_mut_color = ""
 		hair_color = ""
-
 	for(var/X in H.bodyparts) //propagates the damage_overlay changes
 		var/obj/item/bodypart/BP = X
 		BP.update_limb()
@@ -118,7 +120,7 @@
 
 /datum/species/synth/handle_mutant_bodyparts(mob/living/carbon/human/H, forced_colour)
 	if(fake_species)
-		fake_species.handle_body(H,forced_colour)
+		fake_species.handle_mutant_bodyparts(H,forced_colour)
 	else
 		return ..()
 
@@ -132,3 +134,26 @@
 					speech_args[SPEECH_SPANS] |= SPAN_CLOWN
 				if (/datum/species/golem/clockwork)
 					speech_args[SPEECH_SPANS] |= SPAN_ROBOT
+
+/datum/species/synth/proc/handle_snowflake_code(mob/living/carbon/human/H, datum/species/S) //I LITERALLY FUCKING HATE ALL OF YOU. I HATE THE FACT THIS NEEDS TO EXIST.
+	switch(S.id)
+		if("felinid")
+			if(H.dna.features["tail_human"] == "None")
+				H.dna.features["tail_human"] = "Cat"
+			if(H.dna.features["ears"] == "None")
+				H.dna.features["ears"] = "Cat"
+			if(H.dna.features["ears"] == "Cat")
+				var/obj/item/organ/ears/cat/ears = new
+				ears.Insert(H, drop_if_replaced = FALSE)
+			else
+				mutantears = /obj/item/organ/ears
+			if(H.dna.features["tail_human"] == "Cat")
+				var/obj/item/organ/tail/cat/tail = new
+				tail.Insert(H, drop_if_replaced = FALSE)
+			else
+				mutanttail = null
+		if("lizard")
+			if(DIGITIGRADE in species_traits)
+				var/mob/living/carbon/C = H
+				default_features["legs"] = "Digitigrade Legs"
+				C.Digitigrade_Leg_Swap(FALSE)
