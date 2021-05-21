@@ -76,10 +76,10 @@
 /datum/antagonist/brother/admin_add(datum/mind/new_owner,mob/admin)
 	//show list of possible brothers
 	var/list/candidates = list()
-	for(var/mob/living/L in GLOB.alive_mob_list)
+	for(var/mob/living/L in GLOB.player_list)
 		if(!L.mind || L.mind == new_owner || !can_be_owned(L.mind))
 			continue
-		candidates[L.mind.name] = L.mind
+		candidates += L.mind
 
 	var/choice = input(admin,"Choose the blood brother.", "Brother") as null|anything in sortNames(candidates)
 	if(!choice)

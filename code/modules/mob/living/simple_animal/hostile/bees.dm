@@ -315,3 +315,11 @@
 /mob/living/simple_animal/hostile/poison/bees/short/Initialize()
 	. = ..()
 	addtimer(CALLBACK(src, .proc/death), 50 SECONDS)
+
+
+/mob/living/simple_animal/hostile/poison/bees/space
+	name = "killer space bee"
+	desc = "I mean, killer is 'IN' the name..."
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = 1500
