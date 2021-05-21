@@ -161,7 +161,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_copper
 
 /obj/machinery/door/airlock/copper/glass
-	opacity = 0
+	opacity = FALSE
 	glass = TRUE
 
 /obj/machinery/door/airlock/gold
