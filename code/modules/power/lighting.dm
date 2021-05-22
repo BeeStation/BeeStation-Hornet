@@ -44,7 +44,7 @@
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
 	max_integrity = 200
-	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50, "stamina" = 0)
 
 	var/stage = 1
 	var/fixture_type = "tube"
@@ -356,7 +356,7 @@
 			lighting_overlays = list()
 		var/mutable_appearance/LO = lighting_overlays["[base_state]-[light_power]-[light_color]"]
 		if(!LO)
-			LO = mutable_appearance(overlayicon, base_state, ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
+			LO = mutable_appearance(overlayicon, base_state, layer, EMISSIVE_PLANE)
 			LO.color = light_color
 			LO.alpha = clamp(light_power*255, 30, 200)
 			lighting_overlays["[base_state]-[light_power]-[light_color]"] = LO
@@ -551,7 +551,7 @@
 				drop_light_tube()
 			new /obj/item/stack/cable_coil(loc, 1, "red")
 		transfer_fingerprints_to(newlight)
-		if(cell)
+		if(!QDELETED(cell))
 			newlight.cell = cell
 			cell.forceMove(newlight)
 			cell = null

@@ -809,7 +809,7 @@
 
 /obj/item/integrated_circuit/input/ntnet_packet/Initialize()
 	. = ..()
-	var/datum/component/ntnet_interface/net = LoadComponent(/datum/component/ntnet_interface)
+	var/datum/component/ntnet_interface/net = AddComponent(/datum/component/ntnet_interface)
 	address = net.hardware_id
 	net.differentiate_broadcast = FALSE
 	desc += "<br>This circuit's NTNet hardware address is: [address]"
@@ -858,7 +858,7 @@
 
 /obj/item/integrated_circuit/input/ntnet_advanced/Initialize()
 	. = ..()
-	var/datum/component/ntnet_interface/net = LoadComponent(/datum/component/ntnet_interface)
+	var/datum/component/ntnet_interface/net = AddComponent(/datum/component/ntnet_interface)
 	address = net.hardware_id
 	net.differentiate_broadcast = FALSE
 	desc += "<br>This circuit's NTNet hardware address is: [address]"
@@ -928,7 +928,7 @@
 	spawn_flags = IC_SPAWN_DEFAULT|IC_SPAWN_RESEARCH
 	power_draw_per_use = 5
 
-/obj/item/integrated_circuit/input/microphone/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, message_mode)
+/obj/item/integrated_circuit/input/microphone/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
 	. = ..()
 	var/translated = FALSE
 	if(speaker && message)

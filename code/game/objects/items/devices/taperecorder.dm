@@ -27,6 +27,9 @@
 		mytape = new starting_tape_type(src)
 	update_icon()
 
+/obj/item/taperecorder/Destroy()
+	QDEL_NULL(mytape)
+	return ..()
 
 /obj/item/taperecorder/examine(mob/user)
 	. = ..()
@@ -94,7 +97,7 @@
 		icon_state = "taperecorder_idle"
 
 
-/obj/item/taperecorder/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, message_mode)
+/obj/item/taperecorder/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
 	. = ..()
 	if(mytape && recording)
 		mytape.timestamp += mytape.used_capacity

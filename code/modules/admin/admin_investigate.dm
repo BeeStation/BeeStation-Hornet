@@ -1,5 +1,5 @@
 /atom/proc/investigate_log(message, subject)
-	if(!message || !subject)
+	if(!message || !subject || SSticker.current_state == GAME_STATE_FINISHED)
 		return
 	var/F = file("[GLOB.log_directory]/[subject].html")
 	WRITE_FILE(F, "[time_stamp()] [REF(src)] ([x],[y],[z]) || [src] [message]<br>")

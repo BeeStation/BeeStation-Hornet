@@ -1,5 +1,5 @@
 import { useSelector } from 'common/redux';
-import { Button, Flex, Knob, Tabs, Box, Section } from 'tgui/components';
+import { Button, Flex, Knob, Tabs, Box, Section, Fragment } from 'tgui/components';
 import { useSettings } from '../settings';
 import { selectStatPanel } from './selectors';
 import { sendMessage } from 'tgui/backend';
@@ -22,7 +22,7 @@ export const StatText = (props, context) => {
       && statPanelData[element].type === STAT_VERB);
   return (
     <div className="StatBorder">
-      <Section>
+      <Box>
         {statPanelData
           ? Object.keys(statPanelData).map(key => (
             !!statPanelData[key] && (
@@ -53,7 +53,7 @@ export const StatText = (props, context) => {
               params={statPanelData[verb].params} />
           ))
         )}
-      </Section>
+      </Box>
     </div>
   );
 };

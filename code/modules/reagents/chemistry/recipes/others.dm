@@ -705,6 +705,12 @@
 	results = list(/datum/reagent/mutationtoxin/moth = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/toxin/lipolicide = 10) //I know it's the opposite of what moths like, but I am out of ideas for this.
 
+/datum/chemical_reaction/mutationtoxin/apid
+	name = /datum/reagent/mutationtoxin/apid
+	id = /datum/reagent/mutationtoxin/apid
+	results = list(/datum/reagent/mutationtoxin/apid = 5)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/honey = 20) // beeeeeeeeeeeeeeeeeeeeees
+
 /datum/chemical_reaction/mutationtoxin/pod
 	name = /datum/reagent/mutationtoxin/pod
 	id = /datum/reagent/mutationtoxin/pod
@@ -734,8 +740,20 @@
 	id = /datum/reagent/mutationtoxin/ipc
 	results = list(/datum/reagent/mutationtoxin/ipc = 5)
 	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/teslium = 20)
+	
+/datum/chemical_reaction/mutationtoxin/ethereal
+	name = /datum/reagent/mutationtoxin/ethereal
+	id = /datum/reagent/mutationtoxin/ethereal
+	results = list(/datum/reagent/mutationtoxin/ethereal = 5)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/consumable/liquidelectricity = 20)
 
-//////////////Mutatuion toxins made out of advanced toxin/////////////
+/datum/chemical_reaction/mutationtoxin/oozeling
+	name = /datum/reagent/mutationtoxin/oozeling
+	id = /datum/reagent/mutationtoxin/oozeling
+	results = list(/datum/reagent/mutationtoxin/oozeling = 5)
+	required_reagents  = list(/datum/reagent/mutationtoxin/unstable = 5, /datum/reagent/medicine/calomel = 10, /datum/reagent/toxin/bad_food = 30, /datum/reagent/stable_plasma = 5)
+
+//////////////Mutation toxins made out of advanced toxin/////////////
 
 /datum/chemical_reaction/mutationtoxin/skeleton
 	name = /datum/reagent/mutationtoxin/skeleton

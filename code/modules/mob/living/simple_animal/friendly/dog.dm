@@ -14,7 +14,7 @@
 	speak_chance = 1
 	turns_per_move = 10
 	can_be_held = TRUE
-	mobsay_color = "#ECDA88"
+	chat_color = "#ECDA88"
 	mobchatspan = "corgi"
 
 	do_footstep = TRUE
@@ -66,8 +66,10 @@
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/pug = 3)
 	gold_core_spawnable = FRIENDLY_SPAWN
+	worn_slot_flags = ITEM_SLOT_HEAD
 	collar_type = "pug"
 	held_state = "pug"
+
 
 /mob/living/simple_animal/pet/dog/bullterrier
 	name = "\improper bull terrier"
@@ -79,8 +81,10 @@
 	icon_dead = "bullterrier_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3) // Would feel redundant to add more new dog meats.
 	gold_core_spawnable = FRIENDLY_SPAWN
+	worn_slot_flags = ITEM_SLOT_HEAD //by popular demand
 	collar_type = "bullterrier"
 	held_state = "bullterrier"
+	head_icon = 'icons/mob/pets_held_large.dmi'
 
 /mob/living/simple_animal/pet/dog/bullterrier/walter
 	name = "Walter"
@@ -105,8 +109,7 @@
 	. = ..()
 	var/dog_area = get_area(src)
 	for(var/obj/structure/bed/dogbed/D in dog_area)
-		if(!D.owner)
-			D.update_owner(src)
+		if(D.update_owner(src)) //No muscling in on my turf you fucking parrot
 			break
 
 /mob/living/simple_animal/pet/dog/corgi/Initialize()
@@ -169,7 +172,7 @@
 			shaved = TRUE
 			icon_living = "[initial(icon_living)]_shaved"
 			icon_dead = "[initial(icon_living)]_shaved_dead"
-			if(stat == CONSCIOUS)
+			if(is_conscious())
 				icon_state = icon_living
 			else
 				icon_state = icon_dead
@@ -364,6 +367,8 @@
 	var/record_age = 1
 	var/memory_saved = FALSE
 	var/saved_head //path
+	worn_slot_flags = ITEM_SLOT_HEAD
+
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/Initialize()
 	. = ..()
@@ -373,11 +378,7 @@
 	if(age == 0)
 		var/turf/target = get_turf(loc)
 		if(target)
-			var/mob/living/simple_animal/pet/dog/corgi/puppy/P = new /mob/living/simple_animal/pet/dog/corgi/puppy(target)
-			P.name = "Ian"
-			P.real_name = "Ian"
-			P.gender = MALE
-			P.desc = "It's the HoP's beloved corgi puppy."
+			new /mob/living/simple_animal/pet/dog/corgi/puppy/Ian(target)
 			Write_Memory(FALSE)
 			return INITIALIZE_HINT_QDEL
 	else if(age == record_age)
@@ -598,6 +599,7 @@
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
@@ -605,6 +607,12 @@
 		to_chat(usr, "<span class='warning'>You can't fit this on [src]!</span>")
 		return
 	..()
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/Ian
+	name = "Ian"
+	real_name = "Ian"
+	gender = MALE
+	desc = "It's the HoP's beloved corgi puppy."
 
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void		//Tribute to the corgis born in nullspace
@@ -619,6 +627,7 @@
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
 	held_state = "void_puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
 	return 1	//Void puppies can navigate space.
@@ -639,6 +648,7 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	held_state = "lisa"
+	worn_slot_flags = ITEM_SLOT_HEAD
 	var/turns_since_scan = 0
 	var/puppies = 0
 

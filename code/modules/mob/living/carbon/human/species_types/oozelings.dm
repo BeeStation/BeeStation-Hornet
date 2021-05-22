@@ -2,9 +2,9 @@
 	name = "Oozeling"
 	id = "oozeling"
 	default_color = "00FF90"
-	say_mod = "says"
-	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,TRAIT_EASYDISMEMBER)
-	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN)
+	say_mod = "blorbles"
+	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR)
+	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/oozeling
@@ -18,6 +18,8 @@
 	species_language_holder = /datum/language_holder/oozeling
 	limbs_id = "ooze"
 	swimming_component = /datum/component/swimming/dissolve
+	toxic_food = NONE
+	disliked_food = NONE
 
 /datum/species/oozeling/random_name(gender,unique,lastname)
 	if(unique)
@@ -87,7 +89,7 @@
 				H.blood_volume += 15
 	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
 		to_chat(H, "<span class='danger'>You feel drained!</span>")
-	if(H.blood_volume < BLOOD_VOLUME_BAD)
+	if(H.blood_volume < BLOOD_VOLUME_OKAY)
 		Cannibalize_Body(H)
 	if(regenerate_limbs)
 		regenerate_limbs.UpdateButtonIcon()
@@ -118,7 +120,7 @@
 	if(..())
 		var/mob/living/carbon/human/H = owner
 		var/list/limbs_to_heal = H.get_missing_limbs()
-		if(limbs_to_heal.len && H.blood_volume >= BLOOD_VOLUME_OKAY+40)
+		if(limbs_to_heal.len && H.blood_volume >= BLOOD_VOLUME_OKAY+80)
 			return TRUE
 		return FALSE
 
@@ -129,19 +131,21 @@
 		to_chat(H, "<span class='notice'>You feel intact enough as it is.</span>")
 		return
 	to_chat(H, "<span class='notice'>You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]...</span>")
-	if(H.blood_volume >= 40*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
+	if(H.blood_volume >= 80*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
 		if(do_after(H, 60, target = H))
 			H.regenerate_limbs()
-			H.blood_volume -= 40*limbs_to_heal.len
+			H.blood_volume -= 80*limbs_to_heal.len
+			H.nutrition -= 20*limbs_to_heal.len
 			to_chat(H, "<span class='notice'>...and after a moment you finish reforming!</span>")
 		return
-	if(H.blood_volume >= 40)//We can partially heal some limbs
-		while(H.blood_volume >= BLOOD_VOLUME_OKAY+40 && LAZYLEN(limbs_to_heal))
+	if(H.blood_volume >= 80)//We can partially heal some limbs
+		while(H.blood_volume >= BLOOD_VOLUME_OKAY+80 && LAZYLEN(limbs_to_heal))
 			if(do_after(H, 30, target = H))
 				var/healed_limb = pick(limbs_to_heal)
 				H.regenerate_limb(healed_limb)
 				limbs_to_heal -= healed_limb
-				H.blood_volume -= 40
+				H.blood_volume -= 80
+				H.nutrition -= 20
 			to_chat(H, "<span class='warning'>...but there is not enough of you to fix everything! You must attain more blood volume to heal completely!</span>")
 		return
 	to_chat(H, "<span class='warning'>...but there is not enough of you to go around! You must attain more blood volume to heal!</span>")

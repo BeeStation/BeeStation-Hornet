@@ -161,7 +161,6 @@
 #define TCOMMS_ATMOS				"n2=100;TEMP=80" //-193,15°C telecommunications. also used for xenobiology slime killrooms
 #define AIRLESS_ATMOS				"TEMP=2.7" //space
 #define FROZEN_ATMOS				"o2=22;n2=82;TEMP=180" //-93.15°C snow and ice turfs
-#define KITCHEN_COLDROOM_ATMOS		"o2=25;n2=96;TEMP=253.15" //-20°C kitchen coldroom; higher amount of mol to reach about 101.3 kpA
 #define BURNMIX_ATMOS				"o2=100;plasma=200;TEMP=370" //used in the holodeck burn test program
 
 //ATMOSPHERICS DEPARTMENT GAS TANK TURFS
@@ -174,9 +173,10 @@
 
 //LAVALAND
 #define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 90 //! what pressure you have to be under to increase the effect of equipment meant for lavaland
+#define LAVALAND_DEFAULT_ATMOS		"o2=14;n2=5;co2=13;TEMP=300"
 
 //ATMOS MIX IDS
-#define LAVALAND_DEFAULT_ATMOS		"LAVALAND_ATMOS"
+//Lavaland used to live here. That was a mistake.
 
 //ATMOSIA GAS MONITOR TAGS
 #define ATMOS_GAS_MONITOR_INPUT_O2 "o2_in"

@@ -54,6 +54,10 @@
 		icon_state += "_inactive"
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/process()
+	if(!anchored)
+		toggled_on = FALSE
+		update_icon_state()
+		return
 	if(!toggled_on || depowered)
 		if(powered)
 			powered = FALSE
@@ -68,7 +72,7 @@
 		if(!L.toxloss && !L.staminaloss && !L.bruteloss && !L.fireloss)
 			continue
 		if(use_power(2))
-			L.adjustToxLoss(-10)
+			L.adjustToxLoss(-10, FALSE, TRUE)
 			L.adjustStaminaLoss(-10)
 			L.adjustBruteLoss(-2)
 			L.adjustFireLoss(-2)
@@ -80,8 +84,11 @@
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/attack_hand(mob/user)
 	if(is_servant_of_ratvar(user))
+		if(!anchored)
+			to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor!</span>")
+			return
 		toggled_on = !toggled_on
-		to_chat(user, "<span class='notice'>You flick the switch on [src], turning it [toggled_on?"on":"off"]!</span>")
+		to_chat(user, "<span class='brass'>You flick the switch on [src], turning it [toggled_on?"on":"off"]!</span>")
 	else
 		. = ..()
 

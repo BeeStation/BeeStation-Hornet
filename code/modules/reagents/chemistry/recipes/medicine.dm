@@ -311,3 +311,10 @@
 	results = list(/datum/reagent/medicine/hepanephrodaxon = 5)
 	required_reagents = list(/datum/reagent/medicine/carthatoline = 2, /datum/reagent/carbon = 2, /datum/reagent/lithium = 1)
 	required_catalysts = list(/datum/reagent/toxin/plasma = 5)
+
+/datum/chemical_reaction/liquidelectricity
+	name = "Liquid Electricity"
+	id = /datum/reagent/consumable/liquidelectricity
+	results = list(/datum/reagent/consumable/liquidelectricity = 3)
+	required_reagents = list(/datum/reagent/consumable/ethanol = 3, /datum/reagent/consumable/liquidelectricity = 1, /datum/reagent/toxin/plasma = 1)
+	mix_message = "The mixture sparks and then subsides."

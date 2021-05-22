@@ -2,8 +2,8 @@
 	name = "Squidperson"
 	id = "squid"
 	default_color = "b8dfda"
-	species_traits = list(MUTCOLORS,EYECOLOR,TRAIT_EASYDISMEMBER)
-	inherent_traits = list(TRAIT_NOSLIPALL)
+	species_traits = list(MUTCOLORS,EYECOLOR)
+	inherent_traits = list(TRAIT_NOSLIPALL,TRAIT_EASYDISMEMBER)
 	default_features = list("mcolor" = "FFF") // bald
 	speedmod = 0.5
 	burnmod = 1.5
@@ -17,7 +17,7 @@
 	grab_sound = 'sound/weapons/whipgrab.ogg'
 	deathsound = 'sound/voice/hiss1.ogg'
 	use_skintones = 0
-	no_equip = list(SLOT_SHOES)
+	no_equip = list(ITEM_SLOT_FEET)
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	toxic_food = FRIED
 	species_language_holder = /datum/language_holder/squid

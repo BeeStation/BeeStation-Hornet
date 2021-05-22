@@ -14,6 +14,7 @@
 	var/static/list/drip_containers = typecacheof(list(/obj/item/reagent_containers/blood,
 									/obj/item/reagent_containers/food,
 									/obj/item/reagent_containers/glass))
+	var/can_convert = TRUE // If it can be made into an anesthetic machine or not
 
 /obj/machinery/iv_drip/Initialize(mapload)
 	. = ..()
@@ -220,11 +221,28 @@
 	. += "<span class='notice'>[attached ? attached : "No one"] is attached.</span>"
 
 
+/obj/machinery/iv_drip/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(user.is_holding_item_of_type(/obj/item/clothing/mask/breath) && can_convert)
+		visible_message("<span class='warning'>[user] attempts to attach the breath mask to [src].</span>", "<span class='notice'>You attempt to attach the breath mask to [src].</span>")
+		if(!do_after(user, 100, FALSE, src))
+			to_chat(user, "<span class='warning'>You fail to attach the breath mask to [src]!</span>")
+			return
+		var/item = user.is_holding_item_of_type(/obj/item/clothing/mask/breath)
+		if(!item) // Check after the do_after as well
+			return
+		visible_message("<span class='warning'>[user] attaches the breath mask to [src].</span>", "<span class='notice'>You attach the breath mask to [src].</span>")
+		qdel(item)
+		new /obj/machinery/anesthetic_machine(loc)
+		qdel(src)
+
+
 /obj/machinery/iv_drip/saline
 	name = "saline drip"
 	desc = "An all-you-can-drip saline canister designed to supply a hospital without running out, with a scary looking pump rigged to inject saline into containers, but filling people directly might be a bad idea."
 	icon_state = "saline"
 	density = TRUE
+	can_convert = FALSE
 
 /obj/machinery/iv_drip/saline/Initialize(mapload)
     . = ..()

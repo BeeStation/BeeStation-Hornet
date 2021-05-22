@@ -42,8 +42,14 @@
 	var/can_repair_self = FALSE
 	var/runetype
 	var/holy = FALSE
-	mobsay_color = "#FF6262"
+	chat_color = "#FF6262"
 	mobchatspan = "cultmobsay"
+
+/mob/living/simple_animal/hostile/construct/get_num_legs()
+	return 0
+
+/mob/living/simple_animal/hostile/construct/get_num_arms()
+	return 0
 
 /mob/living/simple_animal/hostile/construct/Initialize()
 	. = ..()
@@ -181,7 +187,7 @@
 	icon_living = "behemoth_angelic"
 	holy = TRUE
 	loot = list(/obj/item/ectoplasm/angelic)
-	mobsay_color = "#AED2FF"
+	chat_color = "#AED2FF"
 
 /mob/living/simple_animal/hostile/construct/armored/noncult
 
@@ -235,7 +241,7 @@
 	icon_living = "floating_angelic"
 	holy = TRUE
 	loot = list(/obj/item/ectoplasm/angelic)
-	mobsay_color = "#AED2FF"
+	chat_color = "#AED2FF"
 
 /mob/living/simple_animal/hostile/construct/wraith/noncult
 
@@ -318,7 +324,7 @@
 	icon_state = "artificer_angelic"
 	icon_living = "artificer_angelic"
 	holy = TRUE
-	mobsay_color = "#AED2FF"
+	chat_color = "#AED2FF"
 	loot = list(/obj/item/ectoplasm/angelic)
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/noncult/purified,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,

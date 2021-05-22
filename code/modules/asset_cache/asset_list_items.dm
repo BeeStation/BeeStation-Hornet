@@ -211,7 +211,7 @@
 		"boss4.gif" = 'icons/UI_Icons/Arcade/boss4.gif',
 		"boss5.gif" = 'icons/UI_Icons/Arcade/boss5.gif',
 		"boss6.gif" = 'icons/UI_Icons/Arcade/boss6.gif',
-	)
+		)
 
 /datum/asset/spritesheet/simple/pills
 	name ="pills"
@@ -254,6 +254,40 @@
 	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi', 'icons/obj/plumbing/fluid_ducts.dmi'))
 		InsertAll("", each, GLOB.alldirs)
 	..()
+
+/datum/asset/spritesheet/supplypods
+	name = "supplypods"
+
+/datum/asset/spritesheet/supplypods/register()
+	for (var/style in 1 to length(GLOB.podstyles))
+		var/icon_file = 'icons/obj/supplypods.dmi'
+		var/states = icon_states(icon_file)
+		if (style == STYLE_SEETHROUGH)
+			Insert("pod_asset[style]", icon(icon_file, "seethrough-icon", SOUTH))
+			continue
+		var/base = GLOB.podstyles[style][POD_BASE]
+		if (!base)
+			Insert("pod_asset[style]", icon(icon_file, "invisible-icon", SOUTH))
+			continue
+		var/icon/podIcon = icon(icon_file, base, SOUTH)
+		var/door = GLOB.podstyles[style][POD_DOOR]
+		if (door)
+			door = "[base]_door"
+			if(door in states)
+				podIcon.Blend(icon(icon_file, door, SOUTH), ICON_OVERLAY)
+		var/shape = GLOB.podstyles[style][POD_SHAPE]
+		if (shape == POD_SHAPE_NORML)
+			var/decal = GLOB.podstyles[style][POD_DECAL]
+			if (decal)
+				if(decal in states)
+					podIcon.Blend(icon(icon_file, decal, SOUTH), ICON_OVERLAY)
+			var/glow = GLOB.podstyles[style][POD_GLOW]
+			if (glow)
+				glow = "pod_glow_[glow]"
+				if(glow in states)
+					podIcon.Blend(icon(icon_file, glow, SOUTH), ICON_OVERLAY)
+		Insert("pod_asset[style]", podIcon)
+	return ..()
 
 // Representative icons for each research design
 /datum/asset/spritesheet/research_designs

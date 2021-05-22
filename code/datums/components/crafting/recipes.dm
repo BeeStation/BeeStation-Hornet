@@ -780,6 +780,14 @@
 	result = /obj/structure/bonfire
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/skeleton_key
+	name = "Skeleton Key"
+	time = 30
+	reqs = list(/obj/item/stack/sheet/bone = 5)
+	result = /obj/item/skeleton_key
+	always_available = FALSE
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/headpike
 	name = "Spike Head (Glass Spear)"
 	time = 65
@@ -946,5 +954,14 @@
 	result = /obj/item/reagent_containers/food/snacks/grown/poppy
 	time = 5
 	reqs = list(/obj/item/clothing/accessory/poppy_pin = 1)
-	
+
 	category = CAT_MISC
+
+/datum/crafting_recipe/insulated_boxing_gloves
+	name = "Insulated Boxing Gloves"
+	result = /obj/item/clothing/gloves/boxing/yellow/insulated
+	time = 60
+	reqs = list(/obj/item/clothing/gloves/boxing = 1,
+				/obj/item/clothing/gloves/color/yellow = 1)
+
+	category = CAT_CLOTHING

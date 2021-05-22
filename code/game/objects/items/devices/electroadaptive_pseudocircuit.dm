@@ -7,13 +7,16 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 300)
 	var/recharging = FALSE
+	var/obj/item/electronics/airlock/electronics = null
 	var/circuits = 5 //How many circuits the pseudocircuit has left
 	var/static/recycleable_circuits = typecacheof(list(/obj/item/electronics/firelock, /obj/item/electronics/airalarm, /obj/item/electronics/firealarm, \
-	/obj/item/electronics/apc, /obj/item/electronics/advanced_airlock_controller))//A typecache of circuits consumable for material
+	/obj/item/electronics/apc, /obj/item/electronics/advanced_airlock_controller, /obj/item/electronics/airlock))//A typecache of circuits consumable for material
 
 /obj/item/electroadaptive_pseudocircuit/Initialize()
 	. = ..()
-	maptext = "[circuits]"
+	maptext = MAPTEXT("[circuits]")
+	electronics = new/obj/item/electronics/airlock(src)
+	electronics.holder = src
 
 /obj/item/electroadaptive_pseudocircuit/examine(mob/user)
 	. = ..()
@@ -40,7 +43,7 @@
 	playsound(R, 'sound/items/rped.ogg', 50, TRUE)
 	recharging = TRUE
 	circuits--
-	maptext = "[circuits]"
+	maptext = MAPTEXT("[circuits]")
 	icon_state = "[initial(icon_state)]_recharging"
 	var/recharge_time = min(600, circuit_cost * 5)  //40W of cost for one fabrication = 20 seconds of recharge time; this is to prevent spamming
 	addtimer(CALLBACK(src, .proc/recharge), recharge_time)
@@ -53,7 +56,7 @@
 	if(!is_type_in_typecache(target, recycleable_circuits))
 		return
 	circuits++
-	maptext = "[circuits]"
+	maptext = MAPTEXT("[circuits]")
 	user.visible_message("<span class='notice'>User breaks down [target] with [src].</span>", \
 	"<span class='notice'>You recycle [target] into [src]. It now has material for <b>[circuits]</b> circuits.</span>")
 	playsound(user, 'sound/items/deconstruct.ogg', 50, TRUE)
@@ -63,3 +66,12 @@
 	playsound(src, 'sound/machines/chime.ogg', 25, TRUE)
 	recharging = FALSE
 	icon_state = initial(icon_state)
+
+/obj/item/electroadaptive_pseudocircuit/attack_self(mob/user)
+	. = ..()
+	electronics.ui_interact(user)
+
+/obj/item/electroadaptive_pseudocircuit/Destroy()
+	QDEL_NULL(electronics)
+	. = ..()
+	
