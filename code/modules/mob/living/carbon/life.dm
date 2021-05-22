@@ -127,11 +127,11 @@
 				breath = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
 
 			else if(isturf(loc)) //Breathe from loc as turf
-				var/breath_moles = 0
+				var/breath_ratio = 0
 				if(environment)
-					breath_moles = environment.total_moles()*BREATH_PERCENTAGE
+					breath_ratio = BREATH_VOLUME/environment.return_volume()
 
-				breath = loc.remove_air(breath_moles)
+				breath = loc.remove_air_ratio(breath_ratio)
 		else //Breathe from loc as obj again
 			if(istype(loc, /obj/))
 				var/obj/loc_as_obj = loc

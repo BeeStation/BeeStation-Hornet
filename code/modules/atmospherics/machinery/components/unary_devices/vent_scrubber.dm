@@ -158,10 +158,9 @@
 		return FALSE
 
 	if(scrubbing & SCRUBBING)
-		var/transfer_moles = min(1, volume_rate/environment.return_volume())*environment.total_moles()
 
 		//Take a gas sample
-		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
+		var/datum/gas_mixture/removed = tile.remove_air_ratio(volume_rate/environment.return_volume())
 
 		//Nothing left to remove from the tile
 		if(isnull(removed))
@@ -175,9 +174,7 @@
 
 	else //Just siphoning all air
 
-		var/transfer_moles = environment.total_moles()*(volume_rate/environment.return_volume())
-
-		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
+		var/datum/gas_mixture/removed = tile.remove_air_ratio((volume_rate/environment.return_volume()))
 
 		air_contents.merge(removed)
 		tile.air_update_turf()

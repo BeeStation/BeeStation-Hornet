@@ -205,6 +205,9 @@
 /obj/item/tank/remove_air(amount)
 	return air_contents.remove(amount)
 
+/obj/item/tank/remove_air_ratio(ratio)
+	return air_contents.remove_ratio(ratio)
+
 /obj/item/tank/return_air()
 	return air_contents
 

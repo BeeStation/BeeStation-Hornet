@@ -59,6 +59,12 @@
 	update_visuals()
 	return removed
 
+/turf/open/remove_air_ratio(ratio)
+	var/datum/gas_mixture/ours = return_air()
+	var/datum/gas_mixture/removed = ours.remove_ratio(ratio)
+	update_visuals()
+	return removed
+
 /turf/open/proc/copy_air_with_tile(turf/open/T)
 	if(istype(T))
 		air.copy_from(T.air)

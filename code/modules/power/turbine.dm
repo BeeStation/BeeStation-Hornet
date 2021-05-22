@@ -135,12 +135,11 @@
 	cut_overlays()
 
 	rpm = 0.9* rpm + 0.1 * rpmtarget
-	var/datum/gas_mixture/environment = inturf.return_air()
 
 	// It's a simplified version taking only 1/10 of the moles from the turf nearby. It should be later changed into a better version
+	// above todo 7 years and counting
 
-	var/transfer_moles = environment.total_moles()/10
-	var/datum/gas_mixture/removed = inturf.remove_air(transfer_moles)
+	var/datum/gas_mixture/removed = inturf.remove_air_ratio(0.1)
 	gas_contained.merge(removed)
 
 // RPM function to include compression friction - be advised that too low/high of a compfriction value can make things screwy
