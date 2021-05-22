@@ -1,7 +1,7 @@
 #define TRANSFORMATION_DURATION 22
 
 /mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
-	if (notransform || transformation_timer))
+	if (notransform || transformation_timer)
 		return
 
 	if(tr_flags & TR_KEEPITEMS)
