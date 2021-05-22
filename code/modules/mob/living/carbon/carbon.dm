@@ -100,7 +100,7 @@
 
 //Throwing stuff
 /mob/living/carbon/proc/toggle_throw_mode()
-	if(stat > SOFT_CRIT)
+	if(stat >= SOFT_CRIT)
 		return
 	if(in_throw_mode)
 		throw_mode_off()
@@ -787,6 +787,9 @@
 		else
 			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
 				// Slower glide movement handled in update_mobility()
+				//Knockdown at the start of critical status.
+				if(stat != SOFT_CRIT)
+					Knockdown(40, TRUE, TRUE)
 				set_stat(SOFT_CRIT)
 				stuttering = 10
 			else
@@ -806,31 +809,31 @@
 		switch(health)
 			if(HEALTH_THRESHOLD_FULLCRIT to -30)
 				if(prob(50 * crit_weight))
-					duration = 30
+					duration = 60
 
 				if(prob(60))
 					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
 			if(-30 to -20)
 				if(prob(40 * crit_weight))
-					duration = 20
+					duration = 60
 
 				if(prob(50))
 					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
 			if(-20 to -10)
 				if(prob(30 * crit_weight))
-					duration = 10
+					duration = 40
 
 				if(prob(40 * crit_weight))
 					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
 			if(-10 to HEALTH_THRESHOLD_CRIT)
 				if(prob(25 * crit_weight))
-					duration = 5
+					duration = 20
 
 				if(prob(30))
 					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
 		if(duration)
 			crit_weight = initial(crit_weight) // reset our crit chance multiplier
-			AdjustUnconscious(rand(duration, duration * 2), ignore_canstun = TRUE)
+			AdjustKnockdown(rand(duration, duration * 2), ignore_canstun = TRUE)
 			adjustOxyLoss(1.5 * oxy_mult)
 		else
 			crit_weight += 0.2
