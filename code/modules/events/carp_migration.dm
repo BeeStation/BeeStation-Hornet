@@ -33,8 +33,6 @@
 			fish = new (C.loc)
 		else
 			fish = new /mob/living/simple_animal/hostile/carp/megacarp(C.loc)
-			fish.flavor_text = FLAVOR_TEXT_EVIL
-			fish.set_playable()
 
 			fishannounce(fish) //Prefer to announce the megacarps over the regular fishies
 	fishannounce(fish)

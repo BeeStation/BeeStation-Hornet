@@ -18,7 +18,7 @@
 	if(active)
 		return ..()
 	return 0
-	
+
 
 /obj/item/melee/transforming/Initialize()
 	. = ..()
@@ -28,6 +28,8 @@
 	else
 		if(attack_verb_off.len)
 			attack_verb = attack_verb_off
+		if(embedding)
+			updateEmbedding()
 	if(is_sharp())
 		AddComponent(/datum/component/butchering, 50, 100, 0, hitsound, !active)
 
@@ -59,6 +61,8 @@
 			attack_verb = attack_verb_on
 		icon_state = icon_state_on
 		w_class = w_class_on
+		if(embedding)
+			updateEmbedding()
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)
@@ -68,6 +72,8 @@
 			attack_verb = attack_verb_off
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
+		if(embedding)
+			disableEmbedding()
 	if(is_sharp())
 		var/datum/component/butchering/BT = LoadComponent(/datum/component/butchering)
 		BT.butchering_enabled = TRUE

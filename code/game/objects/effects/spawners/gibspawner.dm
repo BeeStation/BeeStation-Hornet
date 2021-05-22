@@ -19,7 +19,7 @@
 		stack_trace("Gib list dir length mismatch!")
 		return
 
-	var/obj/effect/decal/cleanable/blood/gibs/gib = null
+	var/obj/effect/decal/cleanable/blood/gib = null
 
 	if(sound_to_play && isnum_safe(sound_vol))
 		playsound(src, sound_to_play, sound_vol, TRUE)
@@ -52,7 +52,15 @@
 				var/list/directions = gibdirections[i]
 				if(isturf(loc))
 					if(directions.len)
-						gib.streak(directions)
+						if(istype(gib, /obj/effect/decal/cleanable/blood/gibs))
+							var/obj/effect/decal/cleanable/blood/gibs/G = gib
+							G.streak(directions)
+						else if(istype(gib, /obj/effect/decal/cleanable/xenoblood/xgibs))
+							var/obj/effect/decal/cleanable/xenoblood/xgibs/G = gib
+							G.streak(directions)
+						else if(istype(gib, /obj/effect/decal/cleanable/robot_debris))
+							var/obj/effect/decal/cleanable/xenoblood/xgibs/G = gib
+							G.streak(directions)
 
 	return INITIALIZE_HINT_QDEL
 

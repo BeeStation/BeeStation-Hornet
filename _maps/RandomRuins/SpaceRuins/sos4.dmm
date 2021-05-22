@@ -1,0 +1,173 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/turf/closed/wall/mineral/titanium,
+/area/ruin/unpowered)
+"c" = (
+/obj/structure/shuttle/engine/propulsion/burst/right,
+/turf/closed/wall/mineral/titanium/overspace,
+/area/ruin/unpowered)
+"d" = (
+/obj/structure/blob/normal,
+/turf/template_noop,
+/area/template_noop)
+"e" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/item/gps{
+	gpstag = "SOS"
+	},
+/turf/open/floor/mineral/titanium/blue/airless,
+/area/ruin/unpowered)
+"f" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/corpse/assistant{
+	brute_damage = 120;
+	oxy_damage = 75
+	},
+/obj/item/storage/pod{
+	pixel_y = -30
+	},
+/mob/living/simple_animal/hostile/blob/blobspore,
+/turf/open/floor/mineral/titanium/blue/airless,
+/area/ruin/unpowered)
+"g" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Escape Pod Airlock"
+	},
+/turf/open/floor/mineral/titanium/blue/airless,
+/area/ruin/unpowered)
+"h" = (
+/obj/structure/blob/shield,
+/turf/template_noop,
+/area/template_noop)
+"i" = (
+/obj/structure/blob/normal,
+/turf/open/floor/mineral/titanium/blue/airless,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+d
+d
+d
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+d
+d
+h
+h
+h
+a
+a
+"}
+(6,1,1) = {"
+a
+d
+d
+b
+i
+b
+d
+a
+"}
+(7,1,1) = {"
+a
+a
+d
+b
+e
+b
+a
+a
+"}
+(8,1,1) = {"
+a
+a
+a
+b
+f
+b
+a
+a
+"}
+(9,1,1) = {"
+a
+a
+a
+c
+g
+c
+a
+a
+"}
+(10,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(11,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(12,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+"}

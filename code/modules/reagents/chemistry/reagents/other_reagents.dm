@@ -530,6 +530,7 @@
 						/datum/species/lizard,
 						/datum/species/fly,
 						/datum/species/moth,
+						/datum/species/apid,
 						/datum/species/pod,
 						/datum/species/jelly,
 						/datum/species/abductor,
@@ -563,6 +564,13 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/moth
 	taste_description = "clothing"
+	
+/datum/reagent/mutationtoxin/apid
+	name = "Apid Mutation Toxin"
+	description = "A sweet-smelling toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	race = /datum/species/apid
+	taste_description = "honey"
 
 /datum/reagent/mutationtoxin/pod
 	name = "Podperson Mutation Toxin"
@@ -621,6 +629,13 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/ipc
 	taste_description = "silicon and copper"
+	
+/datum/reagent/mutationtoxin/ethereal
+	name = "Ethereal Mutation Toxin"
+	description = "A positively electric toxin."
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	race = /datum/species/ethereal
+	taste_description = "shocking"
 
 /datum/reagent/mutationtoxin/squid
 	name = "Squid Mutation Toxin"
