@@ -359,7 +359,7 @@
 	if(busy || operating || disabled)
 		return
 	var/requested_design_id = null
-	if(LAZYLEN(item_queue))
+	if(length(item_queue))
 		requested_design_id = item_queue[1]
 	//Queue processing done
 	if(!requested_design_id)

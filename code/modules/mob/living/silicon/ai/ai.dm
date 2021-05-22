@@ -250,7 +250,7 @@
 				text="S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "Empty"] | \
 					Module: [R.designation] | Loc: [get_area_name(R, TRUE)] | Status: [robot_status]",
 				type=STAT_TEXT)
-		tab_data["AI shell beacons detected"] = GENERATE_STAT_TEXT("[LAZYLEN(GLOB.available_ai_shells)]") //Count of total AI shells
+		tab_data["AI shell beacons detected"] = GENERATE_STAT_TEXT("[length(GLOB.available_ai_shells)]") //Count of total AI shells
 	else
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
 	return tab_data
@@ -1028,7 +1028,7 @@
 		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)) || (R.ratvar && !is_servant_of_ratvar(src)))
 			possible += R
 
-	if(!LAZYLEN(possible))
+	if(!length(possible))
 		to_chat(src, "No usable AI shell beacons detected.")
 
 	if(!target || !(target in possible)) //If the AI is looking for a new shell, or its pre-selected shell is no longer valid

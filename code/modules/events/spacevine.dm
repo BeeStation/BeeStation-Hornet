@@ -473,7 +473,7 @@
 		qdel(src)
 
 /datum/spacevine_controller/process()
-	if(!LAZYLEN(vines))
+	if(!length(vines))
 		qdel(src) //space vines exterminated. Remove the controller
 		return
 	if(!growth_queue)

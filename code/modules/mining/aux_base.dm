@@ -46,9 +46,9 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 			dat += "<A href='?src=[REF(src)];move=[S.id]'>Send to [S.name]</A><br>"
 		if(!destination_found && is_station_level(z)) //Only available if miners are lazy and did not set an LZ using the remote.
 			dat += "<A href='?src=[REF(src)];random=1'>Prepare for blind drop? (Dangerous)</A><br>"
-	if(LAZYLEN(turrets))
+	if(length(turrets))
 		dat += "<br><b>Perimeter Defense System:</b> <A href='?src=[REF(src)];turrets_power=on'>Enable All</A> / <A href='?src=[REF(src)];turrets_power=off'>Disable All</A><br> \
-		Units connected: [LAZYLEN(turrets)]<br>\
+		Units connected: [length(turrets)]<br>\
 		Unit | Condition | Status | Direction | Distance<br>"
 		for(var/PDT in turrets)
 			var/obj/machinery/porta_turret/aux_base/T = PDT
@@ -112,7 +112,7 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 			return
 
 
-	if(LAZYLEN(turrets))
+	if(length(turrets))
 		if(href_list["turrets_power"])
 			for(var/obj/machinery/porta_turret/aux_base/T in turrets)
 				if(href_list["turrets_power"] == "on")

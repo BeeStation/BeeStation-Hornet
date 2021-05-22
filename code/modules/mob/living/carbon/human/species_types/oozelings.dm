@@ -127,7 +127,7 @@
 /datum/action/innate/regenerate_limbs/Activate()
 	var/mob/living/carbon/human/H = owner
 	var/list/limbs_to_heal = H.get_missing_limbs()
-	if(!LAZYLEN(limbs_to_heal))
+	if(!length(limbs_to_heal))
 		to_chat(H, "<span class='notice'>You feel intact enough as it is.</span>")
 		return
 	to_chat(H, "<span class='notice'>You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]...</span>")
@@ -139,7 +139,7 @@
 			to_chat(H, "<span class='notice'>...and after a moment you finish reforming!</span>")
 		return
 	if(H.blood_volume >= 80)//We can partially heal some limbs
-		while(H.blood_volume >= BLOOD_VOLUME_OKAY+80 && LAZYLEN(limbs_to_heal))
+		while(H.blood_volume >= BLOOD_VOLUME_OKAY+80 && length(limbs_to_heal))
 			if(do_after(H, 30, target = H))
 				var/healed_limb = pick(limbs_to_heal)
 				H.regenerate_limb(healed_limb)

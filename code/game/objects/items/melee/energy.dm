@@ -186,7 +186,7 @@
 
 /obj/item/melee/transforming/energy/sword/saber/Initialize(mapload)
 	. = ..()
-	if(LAZYLEN(possible_colors))
+	if(length(possible_colors))
 		var/set_color = pick(possible_colors)
 		item_color = set_color
 		light_color = possible_colors[set_color]

@@ -36,7 +36,7 @@
 	used = TRUE
 	if(!eminence)
 		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the eminence?", ROLE_SERVANT_OF_RATVAR, null, null, 100, POLL_IGNORE_PYROSLIME)
-		if(LAZYLEN(candidates))
+		if(length(candidates))
 			eminence = pick(candidates)
 	else
 		eminence.dust()

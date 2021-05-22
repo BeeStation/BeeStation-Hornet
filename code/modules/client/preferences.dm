@@ -681,7 +681,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			var/firstcat = 1
 			for(var/category in GLOB.loadout_categories)
-				if(category == "Donator" && (!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items)))
+				if(category == "Donator" && (!length(GLOB.patrons) || !CONFIG_GET(flag/donator_items)))
 					continue
 				if(firstcat)
 					firstcat = 0
@@ -2019,7 +2019,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 /// Handles adding and removing donator items from clients
 /datum/preferences/proc/handle_donator_items()
 	var/datum/loadout_category/DLC = GLOB.loadout_categories["Donator"] // stands for donator loadout category but the other def for DLC works too xD
-	if(!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items)) // donator items are only accesibile by servers with a patreon
+	if(!length(GLOB.patrons) || !CONFIG_GET(flag/donator_items)) // donator items are only accesibile by servers with a patreon
 		return
 	if(IS_PATRON(parent.ckey))
 		for(var/gear_id in DLC.gear)

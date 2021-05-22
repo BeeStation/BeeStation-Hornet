@@ -200,7 +200,7 @@
 		return
 	user.show_message("<span class='notice'>Locked In.</span>", MSG_AUDIBLE)
 	var/list/obj/effect/portal/created = create_portal_pair(current_location, get_teleport_turf(get_turf(T)), src, 300, 1, null, atmos_link_override)
-	if(!(LAZYLEN(created) == 2))
+	if(!(length(created) == 2))
 		return
 	try_move_adjacent(created[1])
 	active_portal_pairs[created[1]] = created[2]

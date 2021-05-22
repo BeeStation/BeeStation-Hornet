@@ -387,7 +387,7 @@
 
 			if(iscyborg(sillycone))
 				var/mob/living/silicon/robot/sillyconerobot = A
-				if(LAZYLEN(faction) && (ROLE_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
+				if(length(faction) && (ROLE_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
 					continue
 
 			targets += sillycone

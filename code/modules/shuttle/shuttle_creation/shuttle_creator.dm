@@ -320,7 +320,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 			to_chat(usr, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name].</span>")
 			return FALSE
 	//Finally, check to see if the area is actually attached
-	if(!LAZYLEN(loggedTurfs))
+	if(!length(loggedTurfs))
 		return TRUE
 	for(var/turf/T in turfs)
 		if(turf_connected_to_saved_turfs(T))

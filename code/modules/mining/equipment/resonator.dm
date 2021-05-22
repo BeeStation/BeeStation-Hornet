@@ -32,7 +32,7 @@
 		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 5 seconds.</span>")
 
 /obj/item/resonator/attack_self(mob/user)
-	if(LAZYLEN(fields) == 0)
+	if(length(fields) == 0)
 		return
 	to_chat(user, "<span class='info'>You detonate all resonator's active fields.</span>")
 	for(var/obj/effect/temp_visual/resonance/F in fields)
@@ -47,7 +47,7 @@
 		R.damage_multiplier = quick_burst_mod
 		R.burst()
 		return
-	if(LAZYLEN(fields) < fieldlimit)
+	if(length(fields) < fieldlimit)
 		new /obj/effect/temp_visual/resonance(T, user, src, burst_time)
 		user.changeNext_move(CLICK_CD_MELEE)
 

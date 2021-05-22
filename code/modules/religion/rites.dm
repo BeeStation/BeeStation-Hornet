@@ -30,7 +30,7 @@
 		to_chat(user, "<span class='warning'>This rite requires more favor!</span>")
 		return FALSE
 	to_chat(user, "<span class='notice'>You begin to perform the rite of [name]...</span>")
-	if(!LAZYLEN(ritual_invocations))
+	if(!length(ritual_invocations))
 		if(do_after(user, target = user, delay = ritual_length))
 			if(invoke_msg)
 				user.say(invoke_msg)
@@ -77,7 +77,7 @@
 	var/atom/movable/movable_reltool = religious_tool
 	if(!movable_reltool)
 		return FALSE
-	if(!LAZYLEN(movable_reltool.buckled_mobs))
+	if(!length(movable_reltool.buckled_mobs))
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
 			to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 			return FALSE
@@ -165,7 +165,7 @@
 	var/atom/movable/movable_reltool = religious_tool
 	if(!movable_reltool)
 		return FALSE
-	if(!LAZYLEN(movable_reltool.buckled_mobs))
+	if(!length(movable_reltool.buckled_mobs))
 		to_chat(user, "<span class='warning'>Nothing is buckled to the altar!</span>")
 		return FALSE
 	for(var/corpse in movable_reltool.buckled_mobs)

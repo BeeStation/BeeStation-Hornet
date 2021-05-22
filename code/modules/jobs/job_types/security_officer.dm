@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	var/department
 	if(M?.client?.prefs)
 		department = M.client.prefs.prefered_security_department
-		if(!LAZYLEN(GLOB.available_depts) || department == "None")
+		if(!length(GLOB.available_depts) || department == "None")
 			return
 		else if(department in GLOB.available_depts)
 			LAZYREMOVE(GLOB.available_depts, department)

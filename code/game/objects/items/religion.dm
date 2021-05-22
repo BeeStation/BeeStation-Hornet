@@ -37,8 +37,8 @@
 	morale_time = world.time + morale_cooldown
 
 	var/list/inspired = list()
-	var/has_job_loyalties = LAZYLEN(job_loyalties)
-	var/has_role_loyalties = LAZYLEN(role_loyalties)
+	var/has_job_loyalties = length(job_loyalties)
+	var/has_role_loyalties = length(role_loyalties)
 	inspired += user //The user is always inspired, regardless of loyalties
 	for(var/mob/living/carbon/human/H in viewers(4, get_turf(src)))
 		if(H.stat == DEAD || H == user)

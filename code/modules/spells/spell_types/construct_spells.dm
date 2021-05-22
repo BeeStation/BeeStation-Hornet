@@ -217,7 +217,7 @@
 	action_icon_state = "abyssal_gaze"
 
 /obj/effect/proc_holder/spell/targeted/abyssal_gaze/cast(list/targets, mob/user = usr)
-	if(!LAZYLEN(targets))
+	if(!length(targets))
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		revert_cast()
 		return
@@ -264,7 +264,7 @@
 	action_icon_state = "dominate"
 
 /obj/effect/proc_holder/spell/targeted/dominate/cast(list/targets, mob/user = usr)
-	if(!LAZYLEN(targets))
+	if(!length(targets))
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		revert_cast()
 		return

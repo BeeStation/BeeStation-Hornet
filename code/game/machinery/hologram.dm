@@ -203,7 +203,7 @@ Possible to do for anyone motivated enough:
 			//Eject
 			dat += "<a href='?src=[REF(src)];disk_eject=1'>Eject disk</a><br>"
 
-		if(LAZYLEN(holo_calls))
+		if(length(holo_calls))
 			dat += "=====================================================<br>"
 
 		if(on_network)
@@ -337,13 +337,13 @@ Possible to do for anyone motivated enough:
 	This may change in the future but for now will suffice.*/
 	if(user.eyeobj.loc != src.loc)//Set client eye on the object if it's not already.
 		user.eyeobj.setLoc(get_turf(src))
-	else if(!LAZYLEN(masters) || !masters[user])//If there is no hologram, possibly make one.
+	else if(!length(masters) || !masters[user])//If there is no hologram, possibly make one.
 		activate_holo(user)
 	else//If there is a hologram, remove it.
 		clear_holo(user)
 
 /obj/machinery/holopad/process()
-	if(LAZYLEN(masters))
+	if(length(masters))
 		for(var/I in masters)
 			var/mob/living/master = I
 			var/mob/living/silicon/ai/AI = master
@@ -412,7 +412,7 @@ Possible to do for anyone motivated enough:
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/holopad/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
-	if(speaker && LAZYLEN(masters) && !radio_freq)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
+	if(speaker && length(masters) && !radio_freq)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
 			if(masters[master] && speaker != master)
 				master.relay_speech(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
@@ -429,7 +429,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		record_message(speaker,raw_message,message_language)
 
 /obj/machinery/holopad/proc/SetLightsAndPower()
-	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	var/total_users = length(masters) + length(holo_calls)
 	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
 	if(total_users || replay_mode)
@@ -439,7 +439,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	update_icon()
 
 /obj/machinery/holopad/update_icon()
-	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	var/total_users = length(masters) + length(holo_calls)
 	if(ringing)
 		icon_state = "holopad_ringing"
 	else if(total_users || replay_mode)
@@ -503,7 +503,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		return FALSE
 
 /obj/machinery/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
-	if(LAZYLEN(masters) && masters[user])
+	if(length(masters) && masters[user])
 		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
 		var/transfered = FALSE
 		if(!validate_location(new_turf))

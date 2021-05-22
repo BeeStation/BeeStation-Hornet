@@ -167,7 +167,7 @@
 
 		var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the Contractor Support Unit for [user.real_name]?", ROLE_PAI, null, FALSE, 100, POLL_IGNORE_CONTRACTOR_SUPPORT)
 
-		if(LAZYLEN(candidates))
+		if(length(candidates))
 			var/mob/dead/observer/C = pick(candidates)
 			spawn_contractor_partner(user, C.key)
 		else
@@ -289,4 +289,3 @@
 /obj/item/storage/box/contractor/fulton_extraction/PopulateContents()
 	new /obj/item/extraction_pack(src)
 	new /obj/item/fulton_core(src)
-

@@ -577,7 +577,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/proc/ResetMe()
 	set waitfor = FALSE
 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [summoner?.current?.name]'s [real_name]?", ROLE_HOLOPARASITE, null, FALSE, 10 SECONDS)
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		key = C.key
 
@@ -653,7 +653,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	set desc = "Re-rolls which ghost will control your Guardian."
 
 	var/list/guardians = hasparasites()
-	if(LAZYLEN(guardians))
+	if(length(guardians))
 		var/mob/living/simple_animal/hostile/guardian/G = input(src, "Pick the guardian you wish to reset", "Guardian Reset") as null|anything in guardians
 		if(G)
 			if(!!G.client?.is_afk())
@@ -663,7 +663,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 				G.next_reset = world.time + GUARDIAN_RESET_COOLDOWN
 			to_chat(src, "<span class='holoparasite'>You attempt to reset <font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font>'s personality...</span>")
 			var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as [src.real_name]'s [G.real_name]?", ROLE_HOLOPARASITE, null, FALSE, 100)
-			if(LAZYLEN(candidates))
+			if(length(candidates))
 				var/mob/dead/observer/C = pick(candidates)
 				to_chat(G, "<span class='holoparasite'>Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.</span>")
 				to_chat(src, "<span class='holoparasite bold'>Your <font color=\"[G.guardiancolor]\">[G.real_name]</font> has been successfully reset.</span>")

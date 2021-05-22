@@ -334,7 +334,7 @@
 
 	var/datum/brain_trauma/actual_trauma
 	if(ispath(trauma))
-		if(!LAZYLEN(arguments))
+		if(!length(arguments))
 			actual_trauma = new trauma() //arglist with an empty list runtimes for some reason
 		else
 			actual_trauma = new trauma(arglist(arguments))
@@ -366,7 +366,7 @@
 		if(can_gain_trauma(BT, resilience) && initial(BT.random_gain))
 			possible_traumas += BT
 
-	if(!LAZYLEN(possible_traumas))
+	if(!length(possible_traumas))
 		return
 
 	var/trauma_type = pick(possible_traumas)
@@ -375,11 +375,10 @@
 //Cure a random trauma of a certain resilience level
 /obj/item/organ/brain/proc/cure_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_BASIC)
 	var/list/traumas = get_traumas_type(brain_trauma_type, resilience)
-	if(LAZYLEN(traumas))
+	if(length(traumas))
 		qdel(pick(traumas))
 
 /obj/item/organ/brain/proc/cure_all_traumas(resilience = TRAUMA_RESILIENCE_BASIC)
 	var/list/traumas = get_traumas_type(resilience = resilience)
 	for(var/X in traumas)
 		qdel(X)
-

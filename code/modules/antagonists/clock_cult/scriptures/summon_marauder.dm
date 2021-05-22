@@ -18,7 +18,7 @@
 
 /datum/clockcult/scripture/marauder/invoke()
 	candidates = pollGhostCandidates("Would you like to play as a clockwork marauder?", ROLE_SERVANT_OF_RATVAR, null, null, 100, POLL_IGNORE_CLOCKWORK)
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		selected = pick(candidates)
 	if(!selected)
 		to_chat(invoker, "<span class='brass'><i>There are no ghosts willing to be a Clockwork Marauder!</i></span>")
@@ -38,7 +38,7 @@
 /datum/clockcult/scripture/marauder/check_special_requirements(mob/user)
 	if(!..())
 		return FALSE
-	if(LAZYLEN(GLOB.clockwork_marauders) >= 4)
+	if(length(GLOB.clockwork_marauders) >= 4)
 		to_chat(user, "<span class='brass'>The mechanical-soul infrastructure of Reebe is too weak to support more clockwork battle constructs!</span>")
 		return FALSE
 	return TRUE

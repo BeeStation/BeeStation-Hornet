@@ -121,7 +121,7 @@
 				if(!B.current.incapacitated())
 					to_chat(B.current,"<span class='cultlarge'>[Nominee] has gone catatonic in the process of attempting to win the cult's support!</span>")
 		return FALSE
-	if(LAZYLEN(yes_voters) <= LAZYLEN(asked_cultists) * 0.5)
+	if(length(yes_voters) <= length(asked_cultists) * 0.5)
 		team.cult_vote_called = FALSE
 		for(var/datum/mind/B in team.members)
 			if(B.current)
@@ -161,7 +161,7 @@
 		for(var/turf/T as() in (RANGE_TURFS(1, owner) - get_turf(owner)))
 			if(!is_blocked_turf(T, TRUE))
 				destinations += T
-		if(!LAZYLEN(destinations))
+		if(!length(destinations))
 			to_chat(owner, "<span class='warning'>You need more space to summon your cult!</span>")
 			return
 		if(do_after(owner, 30, target = owner))

@@ -178,7 +178,7 @@
 
 	//Find airlocks and other shite
 	for(var/obj/S in target_turf)
-		if(LAZYLEN(S.rcd_vals(owner,B.RCD)))
+		if(length(S.rcd_vals(owner,B.RCD)))
 			rcd_target = S //If we don't break out of this loop we'll get the last placed thing
 
 	owner.changeNext_move(CLICK_CD_RANGE)

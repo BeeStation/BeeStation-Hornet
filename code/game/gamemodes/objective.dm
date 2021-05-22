@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	return target
 
 /datum/objective/proc/update_explanation_text()
-	if(team_explanation_text && LAZYLEN(get_owners()) > 1)
+	if(team_explanation_text && length(get_owners()) > 1)
 		explanation_text = team_explanation_text
 
 /datum/objective/proc/give_special_equipment(special_equipment)

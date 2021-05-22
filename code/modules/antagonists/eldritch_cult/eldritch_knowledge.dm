@@ -192,7 +192,7 @@
 	var/mob/living/summoned = new mob_to_summon(loc)
 	message_admins("[summoned.name] is being summoned by [user.real_name] in [loc]")
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [summoned.real_name]", ROLE_HERETIC, null, FALSE, 100, summoned)
-	if(!LAZYLEN(candidates))
+	if(!length(candidates))
 		to_chat(user,"<span class='warning'>No ghost could be found...</span>")
 		qdel(summoned)
 		return FALSE
@@ -316,7 +316,7 @@
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/stack/sheet/animalhide/human,/obj/item/storage/book/bible,/obj/item/pen)
 	result_atoms = list(/obj/item/forbidden_book)
 	route = "Start"
-	
+
 //	---	CRAFTING ---
 
 /datum/eldritch_knowledge/ashen_eyes
@@ -385,7 +385,7 @@
 	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_L_LEG,MAGIC_TRAIT)
 	REMOVE_TRAIT(chosen_mob,TRAIT_PARALYSIS_R_LEG,MAGIC_TRAIT)
 	chosen_mob.update_mobility()
-	
+
 //	--- SPELLS ---
 
 /datum/eldritch_knowledge/spell/cleave
@@ -403,7 +403,7 @@
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	next_knowledge = list(/datum/eldritch_knowledge/summon/raw_prophet,/datum/eldritch_knowledge/spell/area_conversion)
-	
+
 //	--- SUMMONS ---
 
 /datum/eldritch_knowledge/summon/ashy

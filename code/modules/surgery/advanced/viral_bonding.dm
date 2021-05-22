@@ -15,7 +15,7 @@
 /datum/surgery/advanced/viral_bonding/can_start(mob/user, mob/living/carbon/target)
 	if(!..())
 		return FALSE
-	if(!LAZYLEN(target.diseases))
+	if(!length(target.diseases))
 		return FALSE
 	return TRUE
 

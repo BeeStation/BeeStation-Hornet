@@ -17,12 +17,12 @@
 				if (replace_decal(C))
 					return INITIALIZE_HINT_QDEL
 
-	if(LAZYLEN(diseases))
+	if(length(diseases))
 		var/list/datum/disease/diseases_to_add = list()
 		for(var/datum/disease/D in diseases)
 			if(D.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS)
 				diseases_to_add += D
-		if(LAZYLEN(diseases_to_add))
+		if(length(diseases_to_add))
 			AddComponent(/datum/component/infective, diseases_to_add)
 
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal

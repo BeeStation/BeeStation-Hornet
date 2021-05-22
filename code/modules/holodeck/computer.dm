@@ -180,7 +180,7 @@
 /obj/machinery/computer/holodeck/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
 		return
-	if(!LAZYLEN(emag_programs))
+	if(!length(emag_programs))
 		to_chat(user, "[src] does not seem to have a card swipe port. It must be an inferior model.")
 		return
 	playsound(src, "sparks", 75, TRUE)

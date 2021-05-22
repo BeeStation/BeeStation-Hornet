@@ -92,7 +92,7 @@
 		return
 	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()
-	if(M.client && LAZYLEN(M.client.prefs.equipped_gear))
+	if(M.client && length(M.client.prefs.equipped_gear))
 		for(var/gear in M.client.prefs.equipped_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)

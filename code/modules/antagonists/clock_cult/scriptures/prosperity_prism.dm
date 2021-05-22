@@ -36,7 +36,7 @@
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	if(LAZYLEN(holder.reagent_list))
+	if(length(holder.reagent_list))
 		var/datum/effect_system/smoke_spread/chem/S = new
 		var/turf_location = get_turf(src)
 		S.attach(turf_location)
@@ -91,4 +91,3 @@
 		to_chat(user, "<span class='brass'>You flick the switch on [src], turning it [toggled_on?"on":"off"]!</span>")
 	else
 		. = ..()
-

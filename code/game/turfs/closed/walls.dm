@@ -186,7 +186,7 @@
 	return ..()
 
 /turf/closed/wall/proc/try_clean(obj/item/W, mob/user, turf/T)
-	if((user.a_intent != INTENT_HELP) || !LAZYLEN(dent_decals))
+	if((user.a_intent != INTENT_HELP) || !length(dent_decals))
 		return FALSE
 
 	if(W.tool_behaviour == TOOL_WELDER)
@@ -195,7 +195,7 @@
 
 		to_chat(user, "<span class='notice'>You begin fixing dents on the wall...</span>")
 		if(W.use_tool(src, user, 0, volume=100))
-			if(iswallturf(src) && LAZYLEN(dent_decals))
+			if(iswallturf(src) && length(dent_decals))
 				to_chat(user, "<span class='notice'>You fix some dents on the wall.</span>")
 				cut_overlay(dent_decals)
 				dent_decals.Cut()
@@ -298,7 +298,7 @@
 	return FALSE
 
 /turf/closed/wall/proc/add_dent(denttype, x=rand(-8, 8), y=rand(-8, 8))
-	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)
+	if(length(dent_decals) >= MAX_DENT_DECALS)
 		return
 
 	var/mutable_appearance/decal = mutable_appearance('icons/effects/effects.dmi', "", BULLET_HOLE_LAYER)
@@ -311,7 +311,7 @@
 	decal.pixel_x = x
 	decal.pixel_y = y
 
-	if(LAZYLEN(dent_decals))
+	if(length(dent_decals))
 		cut_overlay(dent_decals)
 		dent_decals += decal
 	else

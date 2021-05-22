@@ -25,7 +25,7 @@
 			guardian.visible_message("<span class='notice'>[guardian] swirls it's finger around in [target] for a bit, before shaking it off.</span>")
 			var/obj/effect/decal/D = target
 			var/list/blood = D.return_blood_DNA()
-			if(LAZYLEN(blood))
+			if(length(blood))
 				for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 					if(H.dna && blood[H.dna.unique_enzymes])
 						if(!(H in can_track))
@@ -36,14 +36,14 @@
 			guardian.visible_message("<span class='notice'>[guardian] picks up [target], and looks at it for a second, before setting it down.</span>")
 			var/obj/O = target
 			var/list/prints = O.return_fingerprints()
-			if(LAZYLEN(prints))
+			if(length(prints))
 				for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 					if(H.dna && prints[rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)])
 						if(!(H in can_track))
 							to_chat(guardian, "<span class='notice italics'>We learn the identity of [H.real_name].</span>")
 							can_track += H
 			var/list/blood = O.return_blood_DNA()
-			if(LAZYLEN(blood))
+			if(length(blood))
 				for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 					if(H.dna && blood[H.dna.unique_enzymes])
 						if(!(H in can_track))
@@ -68,7 +68,7 @@
 	if(!G.stats || !G.stats.ability || !istype(G.stats.ability, /datum/guardian_ability/major/predator))
 		return
 	var/datum/guardian_ability/major/predator/P = G.stats.ability
-	if(!LAZYLEN(P.can_track))
+	if(!length(P.can_track))
 		revert_cast()
 		to_chat(G, "<span class='notice'>You don't have anyone to track!</span>")
 		return

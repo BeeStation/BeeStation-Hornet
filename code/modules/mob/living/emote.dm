@@ -463,7 +463,7 @@
 	keys = sortList(keys)
 
 	for(var/emote in keys)
-		if(LAZYLEN(message) > 1)
+		if(length(message) > 1)
 			message += ", [emote]"
 		else
 			message += "[emote]"

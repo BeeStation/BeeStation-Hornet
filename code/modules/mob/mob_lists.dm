@@ -106,7 +106,7 @@
 	if(!SSticker?.mode)
 		return
 	SSticker.mode.current_players[CURRENT_LIVING_PLAYERS] -= src
-	if(LAZYLEN(mind?.antag_datums))
+	if(length(mind?.antag_datums))
 		remove_from_current_living_antags()
 
 

@@ -248,7 +248,7 @@
 	heal_people = list()
 
 /turf/open/floor/clockwork/reebe/Destroy()
-	if(LAZYLEN(heal_people))
+	if(length(heal_people))
 		STOP_PROCESSING(SSprocessing, src)
 	. = ..()
 
@@ -256,7 +256,7 @@
 	. = ..()
 	var/mob/living/M = A
 	if(istype(M) && is_servant_of_ratvar(M))
-		if(!LAZYLEN(heal_people))
+		if(!length(heal_people))
 			START_PROCESSING(SSprocessing, src)
 		heal_people += M
 
@@ -264,7 +264,7 @@
 	. = ..()
 	if(A in heal_people)
 		heal_people -= A
-		if(!LAZYLEN(heal_people))
+		if(!length(heal_people))
 			STOP_PROCESSING(SSprocessing, src)
 
 /turf/open/floor/clockwork/reebe/process()

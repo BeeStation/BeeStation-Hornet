@@ -15,7 +15,7 @@
 		else
 			heart_attack_contestants[H] = 1
 
-	if(LAZYLEN(heart_attack_contestants))
+	if(length(heart_attack_contestants))
 		var/mob/living/carbon/human/winner = pickweight(heart_attack_contestants)
 		var/datum/disease/D = new /datum/disease/heart_failure()
 		winner.ForceContractDisease(D, FALSE, TRUE)

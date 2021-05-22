@@ -335,7 +335,7 @@
 
 /obj/item/twohanded/dualsaber/Initialize()
 	. = ..()
-	if(LAZYLEN(possible_colors))
+	if(length(possible_colors))
 		item_color = pick(possible_colors)
 		switch(item_color)
 			if("red")

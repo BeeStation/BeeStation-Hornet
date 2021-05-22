@@ -73,7 +73,7 @@
 	update_positioning(object, params)
 
 /obj/machinery/manned_turret/proc/update_positioning(mouseObject, params)
-	if (!LAZYLEN(buckled_mobs))
+	if (!length(buckled_mobs))
 		return FALSE
 	var/mob/living/controller = buckled_mobs[1]
 	if(!istype(controller))

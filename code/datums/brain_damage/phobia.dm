@@ -61,7 +61,7 @@
 		var/list/seen_atoms = view(7, owner)
 		seen_atoms -= owner //make sure they aren't afraid of themselves.
 
-		if(LAZYLEN(trigger_objs))
+		if(length(trigger_objs))
 			for(var/obj/O in seen_atoms)
 				if(is_type_in_typecache(O, trigger_objs))
 					freak_out(O)
@@ -74,12 +74,12 @@
 				if(spook)
 					freak_out(HU, spooklevel = spook)
 
-		if(LAZYLEN(trigger_turfs))
+		if(length(trigger_turfs))
 			for(var/turf/T in seen_atoms)
 				if(is_type_in_typecache(T, trigger_turfs))
 					freak_out(T)
 
-		if(LAZYLEN(trigger_mobs) || LAZYLEN(trigger_species))
+		if(length(trigger_mobs) || length(trigger_species))
 			for(var/mob/M in seen_atoms)
 				if(is_type_in_typecache(M, trigger_mobs))
 					freak_out(M)
@@ -87,7 +87,7 @@
 				else if(ishuman(M)) //check their species
 					var/mob/living/carbon/human/H = M
 
-					if(LAZYLEN(trigger_species) && H.dna && H.dna.species && is_type_in_typecache(H.dna.species, trigger_species))
+					if(length(trigger_species) && H.dna && H.dna.species && is_type_in_typecache(H.dna.species, trigger_species))
 						freak_out(H)
 
 	if(fearscore && world.time > last_scare)//when we aren't being actively terrified, calm down

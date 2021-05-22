@@ -171,7 +171,7 @@
 	difficulty = CLAMP(difficulty, 1, 3)
 	switch(difficulty)
 		if(3)
-			if(LAZYLEN(active_ais()) && prob(25))	//25 %
+			if(length(active_ais()) && prob(25))	//25 %
 				//Kill AI
 				add_objective(new/datum/objective/destroy, TRUE)
 			else if(prob(32))						//~26%
@@ -201,8 +201,8 @@
 /datum/team/incursion/proc/generate_traitor_kill_objective()
 	//Spawn someone as a traitor
 	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(ROLE_TRAITOR)
-	if(!LAZYLEN(people))
-		log_game("Not enough players for incursion role. [LAZYLEN(people)]")
+	if(!length(people))
+		log_game("Not enough players for incursion role. [length(people)]")
 		return
 	var/datum/mind/target = SSticker.mode.antag_pick(people, ROLE_TRAITOR)
 	if(!target)
@@ -219,4 +219,3 @@
 
 /datum/team/incursion/antag_listing_name()
 	return "[name]"
-

@@ -17,7 +17,7 @@
 		add_wet(arglist(args.Copy(3)))
 	else			//We are being passed in a full blown component
 		var/datum/component/wet_floor/WF = newcomp			//Lets make an assumption
-		if(WF.gc())						//See if it's even valid, still. Also does LAZYLEN and stuff for us.
+		if(WF.gc())						//See if it's even valid, still. Also does length and stuff for us.
 			CRASH("Wet floor component tried to inherit another, but the other was able to garbage collect while being inherited! What a waste of time!")
 		for(var/i in WF.time_left_list)
 			add_wet(text2num(i), WF.time_left_list[i])
@@ -185,7 +185,7 @@
 	return TRUE
 
 /datum/component/wet_floor/proc/gc(on_init = FALSE)
-	if(!LAZYLEN(time_left_list))
+	if(!length(time_left_list))
 		if(on_init)
 			var/turf/T = parent
 			stack_trace("Warning: Wet floor component gc'd right after initialization! What a waste of time and CPU! Type = [T? T.type : "ERROR - NO PARENT"], Location = [istype(T)? AREACOORD(T) : "ERROR - INVALID PARENT"].")

@@ -320,7 +320,7 @@
 			if(player.mind && !player.mind.has_antag_datum(/datum/antagonist/cult) && player.stat != DEAD)
 				target_candidates += player.mind
 	listclearnulls(target_candidates)
-	if(LAZYLEN(target_candidates))
+	if(length(target_candidates))
 		target = pick(target_candidates)
 		update_explanation_text()
 	else

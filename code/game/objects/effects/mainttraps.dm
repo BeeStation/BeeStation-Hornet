@@ -48,7 +48,7 @@
 	var/list/possibletraps = list()
 	for(var/obj/effect/trap/nexus/payload in view(10, src))
 		possibletraps += payload
-	if(!LAZYLEN(possibletraps))
+	if(!length(possibletraps))
 		qdel(src)
 		return FALSE
 	switch(pick_style)

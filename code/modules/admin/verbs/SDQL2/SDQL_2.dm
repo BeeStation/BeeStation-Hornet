@@ -305,7 +305,7 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 	var/obj_count_finished
 
 /datum/SDQL2_query/New(list/tree, SU = FALSE, admin_interact = TRUE, _options = SDQL2_OPTIONS_DEFAULT, finished_qdel = FALSE)
-	if(IsAdminAdvancedProcCall() || !LAZYLEN(tree))
+	if(IsAdminAdvancedProcCall() || !length(tree))
 		qdel(src)
 		return
 	LAZYADD(GLOB.sdql2_queries, src)

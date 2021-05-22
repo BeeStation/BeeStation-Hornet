@@ -159,7 +159,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	. = ..()
 	brainmob = new(src)
 	var/new_name
-	if(!LAZYLEN(possible_names))
+	if(!length(possible_names))
 		new_name = pick(GLOB.posibrain_names)
 	else
 		new_name = pick(possible_names)

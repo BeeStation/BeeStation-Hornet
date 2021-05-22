@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		if(!servant || QDELETED(servant))
 			continue
 		servant.forceMove(pick_n_take(spawns))
-		if(!LAZYLEN(spawns))	//Just in case :^)
+		if(!length(spawns))	//Just in case :^)
 			spawns = GLOB.servant_spawns.Copy()
 		if(ishuman(servant) && add_overlay)
 			var/datum/antagonist/servant_of_ratvar/servant_antag = is_servant_of_ratvar(servant)

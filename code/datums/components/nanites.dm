@@ -353,7 +353,7 @@
 			mob_program["timer_trigger_delay"] = P.timer_trigger_delay / 10
 			var/list/extra_settings = P.get_extra_settings_frontend()
 			mob_program["extra_settings"] = extra_settings
-			if(LAZYLEN(extra_settings))
+			if(length(extra_settings))
 				mob_program["has_extra_settings"] = TRUE
 			else
 				mob_program["has_extra_settings"] = FALSE
@@ -374,7 +374,7 @@
 				rules += list(rule)
 				rule_id++
 			mob_program["rules"] = rules
-			if(LAZYLEN(rules))
+			if(length(rules))
 				mob_program["has_rules"] = TRUE
 		id++
 		mob_programs += list(mob_program)

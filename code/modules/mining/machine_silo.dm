@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 
 	ui += "</div><div class='statusDisplay'><h2>Access Logs:</h2>"
 	var/list/logs = GLOB.silo_access_logs[REF(src)]
-	var/len = LAZYLEN(logs)
+	var/len = length(logs)
 	var/num_pages = 1 + round((len - 1) / 30)
 	var/page = CLAMP(log_page, 1, num_pages)
 	if(num_pages > 1)
@@ -196,7 +196,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	var/datum/ore_silo_log/entry = new(M, action, amount, noun, mats)
 
 	var/list/datum/ore_silo_log/logs = GLOB.silo_access_logs[REF(src)]
-	if(!LAZYLEN(logs))
+	if(!length(logs))
 		GLOB.silo_access_logs[REF(src)] = logs = list(entry)
 	else if(!logs[1].merge(entry))
 		logs.Insert(1, entry)

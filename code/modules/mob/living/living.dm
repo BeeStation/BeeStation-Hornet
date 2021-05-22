@@ -25,7 +25,7 @@
 	med_hud_set_status()
 
 /mob/living/Destroy()
-	if(LAZYLEN(status_effects))
+	if(length(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s
 			if(S.on_remove_on_mob_delete) //the status effect calls on_remove when its mob is deleted
@@ -1315,7 +1315,7 @@
 	return TRUE
 
 /mob/living/proc/get_static_viruses() //used when creating blood and other infective objects
-	if(!LAZYLEN(diseases))
+	if(!length(diseases))
 		return
 	var/list/datum/disease/result = list()
 	for(var/datum/disease/D in diseases)

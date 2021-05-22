@@ -81,7 +81,7 @@
 		drowse()
 		return
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER && !ascended)
-		adjust_bloodthirst(1 + FLOOR(LAZYLEN(contents) * 0.5, 1)) //Maybe adjust this?
+		adjust_bloodthirst(1 + FLOOR(length(contents) * 0.5, 1)) //Maybe adjust this?
 	else
 		adjust_bloodthirst(1) //don't cool off rapidly once we're at the point where His Grace consumes all.
 	var/mob/living/master = get_atom_on_turf(src, /mob/living)
@@ -108,7 +108,7 @@
 	var/list/targets = list()
 	for(var/mob/living/L in oview(2, src))
 		targets += L
-	if(!LAZYLEN(targets))
+	if(!length(targets))
 		return
 	var/mob/living/L = pick(targets)
 	step_to(src, L)
@@ -132,7 +132,7 @@
 	desc = "A bloodthirsty artifact created by a profane rite."
 	gender = MALE
 	adjust_bloodthirst(1)
-	force_bonus = HIS_GRACE_FORCE_BONUS * LAZYLEN(contents)
+	force_bonus = HIS_GRACE_FORCE_BONUS * length(contents)
 	playsound(user, 'sound/effects/pope_entry.ogg', 100)
 	icon_state = "his_grace_awakened"
 	move_gracefully()
@@ -185,7 +185,7 @@
 	force_bonus += HIS_GRACE_FORCE_BONUS
 	prev_bloodthirst = bloodthirst
 	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER)
-		bloodthirst = max(LAZYLEN(contents), 1) //Never fully sated, and His hunger will only grow.
+		bloodthirst = max(length(contents), 1) //Never fully sated, and His hunger will only grow.
 	else
 		bloodthirst = HIS_GRACE_CONSUME_OWNER
 	for(var/mob/living/C in contents)

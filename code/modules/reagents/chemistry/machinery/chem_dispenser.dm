@@ -271,7 +271,7 @@
 			if(!is_operational() || QDELETED(cell))
 				return
 			var/list/chemicals_to_dispense = saved_recipes[params["recipe"]]
-			if(!LAZYLEN(chemicals_to_dispense))
+			if(!length(chemicals_to_dispense))
 				return
 			for(var/key in chemicals_to_dispense)
 				var/reagent = GLOB.name2reagent[translate_legacy_chem_id(key)]

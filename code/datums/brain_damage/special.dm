@@ -69,7 +69,7 @@
 				if(clear)
 					possible_turfs += T
 
-		if(!LAZYLEN(possible_turfs))
+		if(!length(possible_turfs))
 			return
 
 		var/turf/first_turf = pick(possible_turfs)

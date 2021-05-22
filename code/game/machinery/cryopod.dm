@@ -307,7 +307,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		//Handle job slot/tater cleanup.
 		var/job = mob_occupant.mind.assigned_role
 		SSjob.FreeRole(job)
-		if(LAZYLEN(mob_occupant.mind.objectives))
+		if(length(mob_occupant.mind.objectives))
 			mob_occupant.mind.objectives.Cut()
 			mob_occupant.mind.special_role = null
 

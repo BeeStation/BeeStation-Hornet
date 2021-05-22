@@ -35,7 +35,7 @@
 		return
 	if(get_dist(T,src) > field_distance_limit)
 		return
-	if(LAZYLEN(current_fields) >= max_fields)
+	if(length(current_fields) >= max_fields)
 		to_chat(user, "<span class='notice'>[src] cannot sustain any more forcefields!</span>")
 		return
 
@@ -46,14 +46,14 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 
 /obj/item/forcefield_projector/attack_self(mob/user)
-	if(LAZYLEN(current_fields))
+	if(length(current_fields))
 		to_chat(user, "<span class='notice'>You deactivate [src], disabling all active forcefields.</span>")
 		for(var/obj/structure/projected_forcefield/F in current_fields)
 			qdel(F)
 
 /obj/item/forcefield_projector/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is currently sustaining [LAZYLEN(current_fields)]/[max_fields] fields, and it's [round((shield_integrity/max_shield_integrity)*100)]% charged.</span>"
+	. += "<span class='notice'>It is currently sustaining [length(current_fields)]/[max_fields] fields, and it's [round((shield_integrity/max_shield_integrity)*100)]% charged.</span>"
 
 /obj/item/forcefield_projector/Initialize(mapload)
 	. = ..()
@@ -65,10 +65,10 @@
 	return ..()
 
 /obj/item/forcefield_projector/process()
-	if(!LAZYLEN(current_fields))
+	if(!length(current_fields))
 		shield_integrity = min(shield_integrity + 4, max_shield_integrity)
 	else
-		shield_integrity = max(shield_integrity - LAZYLEN(current_fields), 0) //fields degrade slowly over time
+		shield_integrity = max(shield_integrity - length(current_fields), 0) //fields degrade slowly over time
 	for(var/obj/structure/projected_forcefield/F in current_fields)
 		if(shield_integrity <= 0 || get_dist(F,src) > field_distance_limit)
 			qdel(F)

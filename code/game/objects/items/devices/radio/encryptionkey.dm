@@ -16,7 +16,7 @@
 
 /obj/item/encryptionkey/examine(mob/user)
 	. = ..()
-	if(LAZYLEN(channels))
+	if(length(channels))
 		var/list/examine_text_list = list()
 		for(var/i in channels)
 			examine_text_list += "[GLOB.channel_tokens[i]] - [lowertext(i)]"

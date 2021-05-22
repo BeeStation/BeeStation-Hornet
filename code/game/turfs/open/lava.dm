@@ -96,7 +96,7 @@
 	for(var/obj/structure/stone_tile/S in found_safeties)
 		if(S.fallen)
 			LAZYREMOVE(found_safeties, S)
-	return LAZYLEN(found_safeties)
+	return length(found_safeties)
 
 
 /turf/open/lava/proc/burn_stuff(AM)

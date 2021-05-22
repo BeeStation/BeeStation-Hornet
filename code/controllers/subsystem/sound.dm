@@ -21,7 +21,7 @@ SUBSYSTEM_DEF(sound_effects)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 
-	while(LAZYLEN(currentrun))
+	while(length(currentrun))
 		var/datum/sound_effect/sound_effect = currentrun[currentrun[currentrun.len]]
 		currentrun.len--
 

@@ -201,7 +201,7 @@
 		return FALSE
 	// IMPORTANT - if we're debugging, the user gets thrown into the stand
 	var/list/mob/dead/observer/candidates = debug_mode ? list(user) : pollGhostCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_HOLOPARASITE, null, FALSE, 100, POLL_IGNORE_HOLOPARASITE)
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		var/mob/living/simple_animal/hostile/guardian/G = new(user, theme, guardian_color)
 		if(guardian_name)
@@ -269,7 +269,7 @@
 		to_chat(user, "<span class='holoparasite'>[mob_name] chains are not allowed.</span>")
 		return
 	var/list/guardians = user.hasparasites()
-	if(LAZYLEN(guardians) && !allowmultiple)
+	if(length(guardians) && !allowmultiple)
 		to_chat(user, "<span class='holoparasite'>You already have a [mob_name]!</span>")
 		return
 	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling) && !allowling)

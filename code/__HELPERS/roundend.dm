@@ -198,7 +198,7 @@
 
 			if(CONFIG_GET(flag/allow_crew_objectives))
 				var/mob/M = C?.mob
-				if(M?.mind?.current && LAZYLEN(M.mind.crew_objectives))
+				if(M?.mind?.current && length(M.mind.crew_objectives))
 					for(var/datum/objective/crew/CO in M.mind.crew_objectives)
 						if(!C) //Yes, the client can be null here. BYOND moment.
 							break
@@ -209,7 +209,7 @@
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
 	log_game("The round has ended.")
 	SSstat.send_global_alert("Round Over", "The round has ended, the game will restart soon.")
-	if(LAZYLEN(GLOB.round_end_notifiees))
+	if(length(GLOB.round_end_notifiees))
 		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
 
 	RollCredits()
@@ -386,7 +386,7 @@
 			parts += "<span class='redtext'>You did not survive the events on [station_name()]...</span>"
 
 		if(CONFIG_GET(flag/allow_crew_objectives))
-			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
+			if(M.mind.current && length(M.mind.crew_objectives))
 				for(var/datum/objective/crew/CO in M.mind.crew_objectives)
 					if(CO.check_completion())
 						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"

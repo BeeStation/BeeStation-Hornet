@@ -723,7 +723,7 @@
 		if(!(L.mobility_flags & MOBILITY_PICKUP))
 			return
 	var/choice = null
-	if(!LAZYLEN(cards))
+	if(!length(cards))
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
 		return
 	var/obj/item/toy/cards/singlecard/H = new/obj/item/toy/cards/singlecard(user.loc)
@@ -741,13 +741,13 @@
 	update_icon()
 
 /obj/item/toy/cards/deck/update_icon()
-	if(LAZYLEN(cards) > original_size/2)
+	if(length(cards) > original_size/2)
 		icon_state = "deck_[deckstyle]_full"
-	else if(LAZYLEN(cards) > original_size/4)
+	else if(length(cards) > original_size/4)
 		icon_state = "deck_[deckstyle]_half"
-	else if(LAZYLEN(cards))
+	else if(length(cards))
 		icon_state = "deck_[deckstyle]_low"
-	else if(!LAZYLEN(cards))
+	else if(!length(cards))
 		icon_state = "deck_[deckstyle]_empty"
 
 /obj/item/toy/cards/deck/attack_self(mob/user)
@@ -1523,7 +1523,7 @@
 		update_icon()
 
 	var/choice = null
-	if(!LAZYLEN(cards))
+	if(!length(cards))
 		to_chat(user, "<span class='warning'>There are no more cards to draw!</span>")
 		return
 

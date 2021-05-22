@@ -382,7 +382,7 @@
 					parts += BP
 				else
 					undismembermerable_limbs++
-		if(!LAZYLEN(parts))
+		if(!length(parts))
 			if(undismembermerable_limbs) //they have limbs we can't remove, and no parts we can, attack!
 				return ..()
 			C.Paralyze(60)
@@ -464,7 +464,7 @@
 		to_chat(the_construct, "<span class='cult italic'>You are now tracking Nar'Sie, return to reap the harvest!</span>")
 		return
 	else
-		if(LAZYLEN(GLOB.cult_narsie.souls_needed))
+		if(length(GLOB.cult_narsie.souls_needed))
 			the_construct.master = pick(GLOB.cult_narsie.souls_needed)
 			var/mob/living/real_target = the_construct.master //We can typecast this way because Narsie only allows /mob/living into the souls list
 			to_chat(the_construct, "<span class='cult italic'>You are now tracking your prey, [real_target.real_name] - harvest [real_target.p_them()]!</span>")

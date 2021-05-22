@@ -51,7 +51,7 @@
 	H.Unconscious(80)
 
 	var/list/candidates = pollCandidatesForMob("Do you want to play as [clonename]'s defective clone?", null, null, null, 100, H, POLL_IGNORE_DEFECTIVECLONE)
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		H.key = C.key
 
@@ -69,7 +69,7 @@
 		H.set_cloned_appearance()
 
 		H.set_suicide(FALSE)
-		
+
 		H.set_playable()
 	attempting = FALSE
 	return CLONING_DELETE_RECORD | CLONING_SUCCESS //so that we don't spam clones with autoprocess unless we leave a body in the scanner
@@ -110,7 +110,7 @@
 
 /obj/machinery/computer/prototype_cloning/proc/updatemodules(findfirstcloner)
 	scanner = findscanner()
-	if(findfirstcloner && !LAZYLEN(pods))
+	if(findfirstcloner && !length(pods))
 		findcloner()
 
 /obj/machinery/computer/prototype_cloning/proc/findscanner()
@@ -186,12 +186,12 @@
 	dat += "<h3>Cloning Pod Status</h3>"
 	dat += "<div class='statusDisplay'>[temp]&nbsp;</div>"
 
-	if (isnull(src.scanner) || !LAZYLEN(pods))
+	if (isnull(src.scanner) || !length(pods))
 		dat += "<h3>Modules</h3>"
 		//dat += "<a href='byond://?src=[REF(src)];relmodules=1'>Reload Modules</a>"
 		if (isnull(src.scanner))
 			dat += "<font class='bad'>ERROR: No Scanner detected!</font><br>"
-		if (!LAZYLEN(pods))
+		if (!length(pods))
 			dat += "<font class='bad'>ERROR: No Pod detected</font><br>"
 
 	// Scan-n-Clone
@@ -290,7 +290,7 @@
 
 	var/obj/machinery/clonepod/pod = GetAvailablePod()
 	//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
-	if(!LAZYLEN(pods))
+	if(!length(pods))
 		temp = "<font class='bad'>No Clonepods detected.</font>"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 	else if(!pod)

@@ -50,7 +50,7 @@
 
 	. += msg
 
-	if (LAZYLEN(buckled_mobs))
+	if (length(buckled_mobs))
 		. += "Someone appears to be strapped in. You can help them out, or you can harm them by activating the guillotine."
 
 /obj/structure/guillotine/attack_hand(mob/user)
@@ -69,7 +69,7 @@
 			addtimer(CALLBACK(src, .proc/raise_blade), GUILLOTINE_ANIMATION_LENGTH)
 			return
 		if (GUILLOTINE_BLADE_RAISED)
-			if (LAZYLEN(buckled_mobs))
+			if (length(buckled_mobs))
 				if (user.a_intent == INTENT_HARM)
 					user.visible_message("<span class='warning'>[user] begins to pull the lever!</span>",
 						                 "<span class='warning'>You begin to the pull the lever.</span>")
@@ -220,7 +220,7 @@
 	..()
 
 /obj/structure/guillotine/can_be_unfasten_wrench(mob/user, silent)
-	if (LAZYLEN(buckled_mobs))
+	if (length(buckled_mobs))
 		if (!silent)
 			to_chat(user, "<span class='warning'>Can't unfasten, someone's strapped in!</span>")
 		return FAILED_UNFASTEN

@@ -248,7 +248,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	. = ..()
 
 	// this proc says it's for initializing components, but we're initializing elements too because it's you and me against the world >:)
-	if(!LAZYLEN(embedding))
+	if(!length(embedding))
 		if(GLOB.embedpocalypse)
 			embedding = EMBED_POINTY
 			name = "pointy [name]"
@@ -1079,7 +1079,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/tryEmbed(atom/target, forced=FALSE, silent=FALSE)
 	if(!isbodypart(target) && !iscarbon(target))
 		return
-	if(!forced && !LAZYLEN(embedding))
+	if(!forced && !length(embedding))
 		return
 
 	if(SEND_SIGNAL(src, COMSIG_EMBED_TRY_FORCE, target, forced, silent))
@@ -1093,7 +1093,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 ///For when you want to add/update the embedding on an item. Uses the vars in [/obj/item/embedding], and defaults to config values for values that aren't set. Will automatically detach previous embed elements on this item.
 /obj/item/proc/updateEmbedding()
-	if(!islist(embedding) || !LAZYLEN(embedding))
+	if(!islist(embedding) || !length(embedding))
 		return
 
 	AddElement(/datum/element/embed,\

@@ -98,7 +98,7 @@ GLOBAL_VAR(clockcult_eminence)
 	if(check_cult_victory())
 		SSticker.mode_result = "win - clockcult win"
 		SSticker.news_report = CLOCK_SUMMON
-	else if(LAZYLEN(GLOB.cyborg_servants_of_ratvar))
+	else if(length(GLOB.cyborg_servants_of_ratvar))
 		SSticker.mode_result = "loss - staff destroyed the ark"
 		SSticker.news_report = CLOCK_SILICONS
 	else

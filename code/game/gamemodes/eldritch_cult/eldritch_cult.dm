@@ -50,7 +50,7 @@
 		cultie.restricted_roles = restricted_jobs
 		culties += cultie
 
-	if(!LAZYLEN(culties))
+	if(!length(culties))
 		setup_error = "Not enough heretic candidates"
 		return FALSE
 	else

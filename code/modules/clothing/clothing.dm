@@ -103,7 +103,7 @@
 	..()
 	if(!istype(user))
 		return
-	if(LAZYLEN(user_vars_remembered))
+	if(length(user_vars_remembered))
 		for(var/variable in user_vars_remembered)
 			if(variable in user.vars)
 				if(user.vars[variable] == user_vars_to_edit[variable]) //Is it still what we set it to? (if not we best not change it)
@@ -115,7 +115,7 @@
 	if (!istype(user))
 		return
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?
-		if (LAZYLEN(user_vars_to_edit))
+		if (length(user_vars_to_edit))
 			for(var/variable in user_vars_to_edit)
 				if(variable in user.vars)
 					LAZYSET(user_vars_remembered, variable, user.vars[variable])

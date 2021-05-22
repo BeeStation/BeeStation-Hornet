@@ -385,7 +385,7 @@
 					if(L.diseases && (locate(/datum/disease/transformation/jungle_fever) in L.diseases))
 						return 2
 		return TRUE
-	if(M.mind && LAZYLEN(M.mind.antag_datums)) //they have an antag datum!
+	if(M.mind && length(M.mind.antag_datums)) //they have an antag datum!
 		return TRUE
 	return FALSE
 
@@ -500,7 +500,7 @@
 			poll_message = "[poll_message] Status:[A.name]."
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ROLE_PAI, null, FALSE, 100, M)
 
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(C)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
@@ -530,7 +530,7 @@
 
 /// Logs a message in a mob's individual log, and in the global logs as well if log_globally is true
 /mob/log_message(message, message_type, color=null, log_globally = TRUE)
-	if(!LAZYLEN(message))
+	if(!length(message))
 		stack_trace("Empty message")
 		return
 
@@ -565,7 +565,7 @@
 		if(LOG_EMOTE)
 			colored_message = "(EMOTE) [colored_message]"
 
-	var/list/timestamped_message = list("\[[time_stamp()]\] [key_name(src)] [loc_name(src)] (Event #[LAZYLEN(logging[smessage_type])])" = colored_message)
+	var/list/timestamped_message = list("\[[time_stamp()]\] [key_name(src)] [loc_name(src)] (Event #[length(logging[smessage_type])])" = colored_message)
 
 	logging[smessage_type] += timestamped_message
 

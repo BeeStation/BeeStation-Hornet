@@ -106,7 +106,7 @@ GLOBAL_LIST(valentine_mobs)
 				//Ignore non-humans, they will be handled by the event.
 				continue
 			mob_names["[H.real_name]"] = H
-		if(!LAZYLEN(mob_names))
+		if(!length(mob_names))
 			to_chat(user, "<span class='warning'>You feel empty and alone.</span>")
 			return
 		//Pick names

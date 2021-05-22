@@ -48,7 +48,7 @@
 		return
 	transmission_sigils -= T
 	T.linked_structures -= src
-	if(!LAZYLEN(transmission_sigils))
+	if(!length(transmission_sigils))
 		depowered()
 		depowered = TRUE
 
@@ -56,20 +56,20 @@
 
 /obj/structure/destructible/clockwork/gear_base/proc/update_power()
 	if(depowered)
-		if(GLOB.clockcult_power > minimum_power && LAZYLEN(transmission_sigils))
+		if(GLOB.clockcult_power > minimum_power && length(transmission_sigils))
 			repowered()
 			depowered = FALSE
 			return TRUE
 		return FALSE
 	else
-		if(GLOB.clockcult_power <= minimum_power || !LAZYLEN(transmission_sigils))
+		if(GLOB.clockcult_power <= minimum_power || !length(transmission_sigils))
 			depowered()
 			depowered = TRUE
 			return FALSE
 		return TRUE
 
 /obj/structure/destructible/clockwork/gear_base/proc/check_power(amount)
-	if(!LAZYLEN(transmission_sigils))
+	if(!length(transmission_sigils))
 		return FALSE
 	if(depowered)
 		return FALSE

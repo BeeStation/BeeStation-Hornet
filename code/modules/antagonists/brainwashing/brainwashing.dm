@@ -81,7 +81,7 @@
 	if(alert(admin,"Confirm Brainwashing?","Are you sure?","Yes","No") == "No")
 		return
 
-	if(!LAZYLEN(objectives))
+	if(!length(objectives))
 		return
 
 	if(QDELETED(C))

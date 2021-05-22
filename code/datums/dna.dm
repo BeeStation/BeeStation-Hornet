@@ -115,7 +115,7 @@
 	var/list/mutations_temp = GLOB.good_mutations + GLOB.bad_mutations + GLOB.not_good_mutations
 	if(species?.inert_mutation)
 		mutations_temp += GET_INITIALIZED_MUTATION(species.inert_mutation)
-	if(!LAZYLEN(mutations_temp))
+	if(!length(mutations_temp))
 		return
 	mutation_index.Cut()
 	shuffle_inplace(mutations_temp)
@@ -339,7 +339,7 @@
 		dna.uni_identity = ui
 		updateappearance(icon_update=0)
 
-	if(LAZYLEN(mutation_index))
+	if(length(mutation_index))
 		dna.mutation_index = mutation_index.Copy()
 		domutcheck()
 
@@ -349,7 +349,7 @@
 		update_body_parts()
 		update_mutations_overlay()
 
-	if(LAZYLEN(mutations))
+	if(length(mutations))
 		for(var/M in mutations)
 			var/datum/mutation/human/HM = M
 			if(HM.allow_transfer || force_transfer_mutations)
@@ -413,7 +413,7 @@
 			return HM
 
 /datum/dna/proc/check_block_string(mutation)
-	if((LAZYLEN(mutation_index) > DNA_MUTATION_BLOCKS) || !(mutation in mutation_index))
+	if((length(mutation_index) > DNA_MUTATION_BLOCKS) || !(mutation in mutation_index))
 		return 0
 	return is_gene_active(mutation)
 
@@ -421,7 +421,7 @@
 	return (mutation_index[mutation] == GET_SEQUENCE(mutation))
 
 /datum/dna/proc/set_se(on=TRUE, datum/mutation/human/HM)
-	if(!HM || !(HM.type in mutation_index) || (LAZYLEN(mutation_index) < DNA_MUTATION_BLOCKS))
+	if(!HM || !(HM.type in mutation_index) || (length(mutation_index) < DNA_MUTATION_BLOCKS))
 		return
 	. = TRUE
 	if(on)
@@ -492,7 +492,7 @@
 			possible += A.type
 	if(exclude_monkey)
 		possible.Remove(RACEMUT)
-	if(LAZYLEN(possible))
+	if(length(possible))
 		var/mutation = pick(possible)
 		. = dna.activate_mutation(mutation)
 		if(scrambled)

@@ -5,7 +5,7 @@
 
 /datum/nanite_rule/New(datum/nanite_program/new_program)
 	program = new_program
-	if(LAZYLEN(new_program.rules) <= 5) //Avoid infinite stacking rules
+	if(length(new_program.rules) <= 5) //Avoid infinite stacking rules
 		new_program.rules += src
 	else
 		qdel(src)

@@ -72,7 +72,7 @@
 			var/list/all_objectives = antag_types.objectives.Copy()
 			if(antag_types.antag_memory)
 				user.mind.memory += "[antag_types.antag_memory]<BR>"
-			if(LAZYLEN(all_objectives))
+			if(length(all_objectives))
 				user.mind.memory += "<B>Objectives:</B>"
 				var/obj_count = 1
 				for(var/O in all_objectives)
@@ -102,7 +102,7 @@
 					say_log = reverseRange(reversed.Copy())
 					break
 
-		if(LAZYLEN(say_log) > LING_ABSORB_RECENT_SPEECH)
+		if(length(say_log) > LING_ABSORB_RECENT_SPEECH)
 			recent_speech = say_log.Copy(say_log.len-LING_ABSORB_RECENT_SPEECH+1,0) //0 so len-LING_ARS+1 to end of list
 		else
 			for(var/spoken_memory in say_log)

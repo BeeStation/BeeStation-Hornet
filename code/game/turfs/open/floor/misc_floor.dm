@@ -29,7 +29,7 @@
 
 /turf/open/floor/circuit/update_icon()
 	if(on)
-		if(LAZYLEN(SSmapping.nuke_threats))
+		if(length(SSmapping.nuke_threats))
 			icon_state = "rcircuitanim"
 			light_color = LIGHT_COLOR_FLARE
 		else

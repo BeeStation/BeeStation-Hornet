@@ -174,7 +174,7 @@
 			if(H.stat != CONSCIOUS)
 				var/obj/item/soulstone/SS = new /obj/item/soulstone(src)
 				SS.attack(H, user)
-				if(!LAZYLEN(SS.contents))
+				if(!length(SS.contents))
 					qdel(SS)
 		if(istype(target, /obj/structure/constructshell) && contents.len)
 			var/obj/item/soulstone/SS = contents[1]

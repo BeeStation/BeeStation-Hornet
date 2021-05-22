@@ -97,7 +97,7 @@
 
 			var/list/extra_settings = P.get_extra_settings_frontend()
 			disk_data["extra_settings"] = extra_settings
-			if(LAZYLEN(extra_settings))
+			if(length(extra_settings))
 				disk_data["has_extra_settings"] = TRUE
 			if(istype(P, /datum/nanite_program/sensor))
 				var/datum/nanite_program/sensor/sensor = P
@@ -147,12 +147,12 @@
 					rules += list(rule)
 					rule_id++
 				cloud_program["rules"] = rules
-				if(LAZYLEN(rules))
+				if(length(rules))
 					cloud_program["has_rules"] = TRUE
 
 				var/list/extra_settings = P.get_extra_settings_frontend()
 				cloud_program["extra_settings"] = extra_settings
-				if(LAZYLEN(extra_settings))
+				if(length(extra_settings))
 					cloud_program["has_extra_settings"] = TRUE
 				id++
 				cloud_programs += list(cloud_program)

@@ -74,7 +74,7 @@
 
 		var/list/extra_settings = program.get_extra_settings_frontend()
 		data["extra_settings"] = extra_settings
-		if(LAZYLEN(extra_settings))
+		if(length(extra_settings))
 			data["has_extra_settings"] = TRUE
 
 	return data

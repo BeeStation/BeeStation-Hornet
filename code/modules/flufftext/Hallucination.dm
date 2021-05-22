@@ -1141,7 +1141,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		var/list/dead_people = list()
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			dead_people += G
-		if(LAZYLEN(dead_people))
+		if(length(dead_people))
 			fakemob = pick(dead_people)
 		else
 			fakemob = target //ever been so lonely you had to haunt yourself?

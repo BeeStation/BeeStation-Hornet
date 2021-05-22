@@ -39,7 +39,7 @@
 	return TRUE
 
 /datum/clockcult/scripture/proc/recital()
-	if(!LAZYLEN(invokation_text))
+	if(!length(invokation_text))
 		return
 	var/steps = invokation_text.len
 	var/time_between_say = invokation_time / (steps + 1)

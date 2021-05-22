@@ -117,7 +117,7 @@
 	log_combat(user, target, "drilled", "[name]", "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 	if(target.stat == DEAD && target.getBruteLoss() >= 200)
 		log_combat(user, target, "gibbed", name)
-		if(LAZYLEN(target.butcher_results) || LAZYLEN(target.guaranteed_butcher_results))
+		if(length(target.butcher_results) || length(target.guaranteed_butcher_results))
 			var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
 			butchering.Butcher(chassis, target)
 		else

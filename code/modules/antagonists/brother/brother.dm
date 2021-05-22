@@ -167,7 +167,7 @@
 
 /datum/team/brother_team/proc/forge_single_objective()
 	if(prob(50))
-		if(LAZYLEN(active_ais()) && prob(100/GLOB.joined_player_list.len))
+		if(length(active_ais()) && prob(100/GLOB.joined_player_list.len))
 			add_objective(new/datum/objective/destroy, TRUE)
 		else if(prob(30))
 			add_objective(new/datum/objective/maroon, TRUE)

@@ -786,7 +786,7 @@
 /datum/centcom_podlauncher/proc/supplypod_punish_log(var/list/whoDyin)
 	var/podString = effectBurst ? "5 pods" : "a pod"
 	var/whomString = ""
-	if (LAZYLEN(whoDyin))
+	if (length(whoDyin))
 		for (var/mob/living/M in whoDyin)
 			whomString += "[key_name(M)], "
 

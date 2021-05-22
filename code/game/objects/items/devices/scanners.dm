@@ -170,7 +170,7 @@ GENE SCANNER
 		to_chat(user, "\t<span class='alert'>Subject lacks a brain.</span>")
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(LAZYLEN(C.get_traumas()))
+		if(length(C.get_traumas()))
 			var/list/trauma_text = list()
 			for(var/datum/brain_trauma/B in C.get_traumas())
 				var/trauma_desc = ""
@@ -836,13 +836,13 @@ GENE SCANNER
 		return
 	buffer = C.dna.mutation_index
 	to_chat(user, "<span class='notice'>Subject [C.name]'s DNA sequence has been saved to buffer.</span>")
-	if(LAZYLEN(buffer))
+	if(length(buffer))
 		for(var/A in buffer)
 			to_chat(user, "<span class='notice'>[get_display_name(A)]</span>")
 
 
 /obj/item/sequence_scanner/proc/display_sequence(mob/living/user)
-	if(!LAZYLEN(buffer) || !ready)
+	if(!length(buffer) || !ready)
 		return
 	var/list/options = list()
 	for(var/A in buffer)
@@ -979,7 +979,7 @@ GENE SCANNER
 		return
 	for(var/datum/disease/advance/cantidate in diseases)
 		advancediseases += cantidate
-	if(!LAZYLEN(advancediseases))
+	if(!length(advancediseases))
 		to_chat(user, "<span class='warning'>There are no valid diseases to make a culture from.</span>")
 		return
 	var/datum/disease/advance/A = input(user,"What disease do you wish to extract") in null|advancediseases

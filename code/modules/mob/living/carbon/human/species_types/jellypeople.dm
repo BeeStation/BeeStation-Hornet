@@ -154,7 +154,7 @@
 			if(!swap_body.can_swap(L))
 				available_bodies -= L
 
-		if(!LAZYLEN(available_bodies))
+		if(!length(available_bodies))
 			return
 
 		swap_body.swap_to_dupe(H.mind, pick(available_bodies))

@@ -96,7 +96,7 @@
 		return
 	playsound(src, 'sound/machines/juicer.ogg', 20, 1)
 	var/mob/living/carbon/C = occupant
-	if(!LAZYLEN(operation_order)) //The list is empty, so we're done here
+	if(!length(operation_order)) //The list is empty, so we're done here
 		end_harvesting()
 		return
 	var/turf/target

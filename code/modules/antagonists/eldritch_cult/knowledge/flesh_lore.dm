@@ -36,12 +36,12 @@
 
 	if(!humie.mind || !humie.client)
 		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [humie.real_name], a voiceless dead", ROLE_HERETIC, null, ROLE_HERETIC, 50,humie)
-		if(!LAZYLEN(candidates))
+		if(!length(candidates))
 			to_chat(user,"<span class='warning'>No ghost could be found...</span>")
 			return
 		var/mob/dead/observer/C = pick(candidates)
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(humie)]) to replace an AFK player.")
-		humie.ghostize(FALSE,SENTIENCE_ERASE)		
+		humie.ghostize(FALSE,SENTIENCE_ERASE)
 		humie.key = C.key
 
 	log_game("[key_name_admin(humie)] has become a voiceless dead, their master is [user.real_name]")
@@ -99,7 +99,7 @@
 		to_chat(user, "<span class='warning'>You cannot revive a dead ghoul!</span>")
 		return
 
-	if(LAZYLEN(spooky_scaries) >= ghoul_amt)
+	if(length(spooky_scaries) >= ghoul_amt)
 		to_chat(user, "<span class='warning'>Your patron cannot support more ghouls on this plane!</span>")
 		return
 

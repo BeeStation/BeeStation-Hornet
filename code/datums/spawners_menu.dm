@@ -41,7 +41,7 @@
 					else
 						this["desc"] = O.desc
 
-		this["amount_left"] = LAZYLEN(GLOB.mob_spawners[spawner])
+		this["amount_left"] = length(GLOB.mob_spawners[spawner])
 		data["spawners"] += list(this)
 
 	return data
@@ -54,7 +54,7 @@
 	if(!group_name || !(group_name in GLOB.mob_spawners))
 		return
 	var/list/spawnerlist = GLOB.mob_spawners[group_name]
-	if(!LAZYLEN(spawnerlist))
+	if(!length(spawnerlist))
 		return
 	var/atom/movable/MS = pick(spawnerlist)
 	if(!istype(MS) || !(MS in GLOB.poi_list))

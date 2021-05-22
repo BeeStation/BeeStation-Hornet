@@ -99,7 +99,7 @@
 
 			var/obj/effect/targeteffect = A
 			if (targeteffect && istype(targeteffect) && targeteffect.forensic_protected)
-				fingerprints = list()				
+				fingerprints = list()
 				for(var/i in 1 to 2)
 					LAZYADD(fingerprints,pick("#$^@&#*$H3LP&$(@US^$&#^@#","&$(T@&#C@ME5@##$^@&","^@(#&$ET@US&FR^E#^$&#","#$^@&M*N$US^$(@&#^$&#^@#","&$(@&#^$&#^@##$^@&","^@R(#E$(D@(R&$U&#M^&#","$TH@Y#*$KN@W(@&#^$&#^@#","#$M^DN*S$^@(#&$(@&#^$&#^@##","#","#$^@&#*$^@(#&$(@","#","#$^@&#&#^@","#","@(#&$(@&#^$&#^@"))
 				blood = list("#$^@&LO0K&#@#" = "&$(@AW@Y#$^&")
@@ -193,7 +193,7 @@
 	// Best way for checking if a player can use while not incapacitated, etc
 	if(!user.canUseTopic(src, be_close=TRUE))
 		return
-	if(!LAZYLEN(log))
+	if(!length(log))
 		to_chat(user, "<span class='notice'>Cannot clear logs, the scanner has no logs.</span>")
 		return
 	if(scanning)
@@ -204,12 +204,12 @@
 
 /obj/item/detective_scanner/examine(mob/user)
 	. = ..()
-	if(LAZYLEN(log) && !scanning)
+	if(length(log) && !scanning)
 		. += "<span class='notice'>Alt-click to clear scanner logs.</span>"
 
 /obj/item/detective_scanner/proc/displayDetectiveScanResults(mob/living/user)
 	// No need for can-use checks since the action button should do proper checks
-	if(!LAZYLEN(log))
+	if(!length(log))
 		to_chat(user, "<span class='notice'>Cannot display logs, the scanner has no logs.</span>")
 		return
 	if(scanning)

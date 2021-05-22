@@ -289,7 +289,7 @@ BONUS
 		sneaky_egg = sneaky
 	if(eggsplodes)
 		addtimer(CALLBACK(src, .proc/eggsplode), EGGSPLODE_DELAY)
-	if(LAZYLEN(diseases))
+	if(length(diseases))
 		AddComponent(/datum/component/infective, diseases)
 
 #undef EGGSPLODE_DELAY
@@ -322,5 +322,5 @@ BONUS
 		reagents.add_reagent(/datum/reagent/blood, 15, diseases)
 	if(sneaky)
 		icon_state = "fleshegg-sneaky"
-	if(LAZYLEN(diseases))
+	if(length(diseases))
 		AddComponent(/datum/component/infective, diseases)

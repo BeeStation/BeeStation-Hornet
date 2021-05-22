@@ -313,7 +313,7 @@
 		reskin_obj(user)
 
 /obj/proc/reskin_obj(mob/M)
-	if(!LAZYLEN(unique_reskin))
+	if(!length(unique_reskin))
 		return
 	to_chat(M, "<b>Reskin options for [name]:</b>")
 	for(var/V in unique_reskin)

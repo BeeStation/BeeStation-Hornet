@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /mob/camera/blob/proc/validate_location()
 	var/turf/T = get_turf(src)
-	if(!is_valid_turf(T) && LAZYLEN(GLOB.blobstart))
+	if(!is_valid_turf(T) && length(GLOB.blobstart))
 		var/list/blobstarts = shuffle(GLOB.blobstart)
 		for(var/_T in blobstarts)
 			if(is_valid_turf(_T))

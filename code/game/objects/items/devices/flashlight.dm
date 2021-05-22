@@ -108,7 +108,7 @@
 					if(O.zone == BODY_ZONE_PRECISE_MOUTH)
 						mouth_organs.Add(O)
 				var/organ_list = ""
-				var/organ_count = LAZYLEN(mouth_organs)
+				var/organ_count = length(mouth_organs)
 				if(organ_count)
 					for(var/I in 1 to organ_count)
 						if(I > 1)

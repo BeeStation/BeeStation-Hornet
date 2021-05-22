@@ -113,7 +113,7 @@
 		languages_possible = languages_possible - H.language_holder.understood_languages
 		languages_possible = languages_possible - H.language_holder.spoken_languages
 		languages_possible = languages_possible - H.language_holder.blocked_languages
-		if(LAZYLEN(languages_possible))
+		if(length(languages_possible))
 			var/datum/language/random_language = pick(languages_possible)
 			H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
 //Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building

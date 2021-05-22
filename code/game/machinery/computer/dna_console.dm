@@ -72,7 +72,7 @@
 			src.updateUsrDialog()
 			return
 	if (istype(I, /obj/item/chromosome))
-		if(LAZYLEN(stored_chromosomes) < max_chromosomes)
+		if(length(stored_chromosomes) < max_chromosomes)
 			I.forceMove(src)
 			stored_chromosomes += I
 			to_chat(user, "<span class='notice'>You insert [I].</span>")
@@ -86,7 +86,7 @@
 			if(A.filled)
 				var/c_typepath = generate_chromosome()
 				var/obj/item/chromosome/CM = new c_typepath (drop_location())
-				if(LAZYLEN(stored_chromosomes) < max_chromosomes)
+				if(length(stored_chromosomes) < max_chromosomes)
 					CM.forceMove(src)
 					stored_chromosomes += CM
 					to_chat(user,"<span class='notice'>[capitalize(CM.name)] added to storage.</span>")
@@ -343,12 +343,12 @@
 			if(diskette)
 				temp_html += "<h3>[diskette.name]</h3><br>"
 				temp_html += "<a href='?src=[REF(src)];task=ejectdisk'>Eject Disk</a><br>"
-				if(LAZYLEN(diskette.mutations))
+				if(length(diskette.mutations))
 					temp_html += "<table>"
 					for(var/datum/mutation/human/A in diskette.mutations)
 						temp_html += "<tr><td><span class='linkOff'>[A.name]</span></td>"
 						temp_html += "<td><a href='?src=[REF(src)];task=deletediskmut;num=[diskette.mutations.Find(A)];'>Delete</a></td>"
-						if(LAZYLEN(stored_mutations) < max_storage)
+						if(length(stored_mutations) < max_storage)
 							temp_html += "<td><a href='?src=[REF(src)];task=importdiskmut;num=[diskette.mutations.Find(A)];'>Import</a></td>"
 						else
 							temp_html += "<td><td><span class='linkOff'>Import</span></td>"
@@ -357,8 +357,8 @@
 			else
 				temp_html += "<br>Load diskette to start ----------"
 		if("info")
-			if(LAZYLEN(stored_mutations))
-				if(LAZYLEN(stored_mutations) >= current_storage)
+			if(length(stored_mutations))
+				if(length(stored_mutations) >= current_storage)
 					var/datum/mutation/human/HM = stored_mutations[current_storage]
 					if(HM)
 						temp_html += display_sequence(HM.type, current_storage)
@@ -549,7 +549,7 @@
 	temp_html += "<br><div>"
 	if(storage_slot)
 		temp_html += "<a href='?src=[REF(src)];task=deletemut;num=[storage_slot];'>Delete</a>"
-		if((LAZYLEN(stored_mutations) < max_storage) && diskette && !diskette.read_only)
+		if((length(stored_mutations) < max_storage) && diskette && !diskette.read_only)
 			temp_html += "<a href='?src=[REF(src)];task=exportdiskmut;path=[mutation];'>Export</a>"
 		else
 			temp_html += "<span class='linkOff'>Export</span>"
@@ -747,7 +747,7 @@
 		if("savemut")
 			if(viable_occupant)
 				var/success
-				if(LAZYLEN(stored_mutations) < max_storage)
+				if(length(stored_mutations) < max_storage)
 					var/mutation = text2path(href_list["path"])
 					if(ispath(mutation, /datum/mutation/human)) //sanity checks
 						var/datum/mutation/human/HM = viable_occupant.dna.get_mutation(mutation)
@@ -801,7 +801,7 @@
 			if(injectorready < world.time)
 				if(injector_selection.Find(selection))
 					var/list/true_selection = injector_selection[selection]
-					if(LAZYLEN(injector_selection))
+					if(length(injector_selection))
 						var/obj/item/dnainjector/activator/I = new /obj/item/dnainjector/activator(loc)
 						for(var/A in true_selection)
 							var/datum/mutation/human/HM = A
@@ -847,28 +847,28 @@
 				var/path = text2path(href_list["path"])
 				if(ispath(path, /datum/mutation/human))
 					var/datum/mutation/human/A = get_valid_mutation(path)
-					if(A && diskette && (LAZYLEN(diskette.mutations) < diskette.max_mutations))
+					if(A && diskette && (length(diskette.mutations) < diskette.max_mutations))
 						var/datum/mutation/human/HM = new A.type()
 						diskette.mutations += HM
 						HM.copy_mutation(A)
 						to_chat(usr, "<span class='notice'>Successfully wrote [A.name] to [diskette.name].</span>")
 		if("deletediskmut")
 			if(diskette && !diskette.read_only)
-				if(num && (LAZYLEN(diskette.mutations) >= num))
+				if(num && (length(diskette.mutations) >= num))
 					var/datum/mutation/human/A = diskette.mutations[num]
 					diskette.mutations.Remove(A)
 					qdel(A)
 		if("importdiskmut")
-			if(diskette && (LAZYLEN(diskette.mutations) >= num))
-				if(LAZYLEN(stored_mutations) < max_storage)
+			if(diskette && (length(diskette.mutations) >= num))
+				if(length(stored_mutations) < max_storage)
 					var/datum/mutation/human/A = diskette.mutations[num]
 					var/datum/mutation/human/HM = new A.type()
 					HM.copy_mutation(A)
 					stored_mutations += HM
 					to_chat(usr,"<span class='notice'>Successfully wrote [A.name] to storage.")
 		if("combine")
-			if(num && (LAZYLEN(stored_mutations) >= num))
-				if(LAZYLEN(stored_mutations) < max_storage)
+			if(num && (length(stored_mutations) >= num))
+				if(length(stored_mutations) < max_storage)
 					var/datum/mutation/human/A = stored_mutations[num]
 					var/path = A.type
 					if(combine)
@@ -892,7 +892,7 @@
 			adjust_item_drop_location(CM)
 			stored_chromosomes -= CM
 		if("applychromosome")
-			if(viable_occupant && (LAZYLEN(viable_occupant.dna.mutations) <= num))
+			if(viable_occupant && (length(viable_occupant.dna.mutations) <= num))
 				var/datum/mutation/human/HM = viable_occupant.dna.mutations[num]
 				var/list/chromosomes = list()
 				for(var/obj/item/chromosome/CM in stored_chromosomes)
@@ -907,7 +907,7 @@
 		if("expand_advinjector")
 			var/mutation = text2path(href_list["path"])
 			var/datum/mutation/human/HM = get_valid_mutation(mutation)
-			if(HM && LAZYLEN(injector_selection))
+			if(HM && length(injector_selection))
 				var/which_injector = input(usr, "Select Adv. Injector", "Advanced Injectors") as null|anything in injector_selection
 				if(injector_selection.Find(which_injector))
 					var/list/true_selection = injector_selection[which_injector]
@@ -938,7 +938,7 @@
 					injector_selection.Remove(selection)
 
 		if("add_advinjector")
-			if(LAZYLEN(injector_selection) < max_injector_selections)
+			if(length(injector_selection) < max_injector_selections)
 				var/new_selection = stripped_input(usr, "Enter Adv. Injector name", "Advanced Injectors")
 				if(new_selection && !(new_selection in injector_selection))
 					injector_selection[new_selection] = list()
@@ -1035,7 +1035,7 @@
 	var/mob/living/carbon/C = get_viable_occupant()
 	if(C && (mutation in C.dna.mutation_index))
 		return GET_GENE_STRING(mutation, C.dna)
-	else if(C && (LAZYLEN(C.dna.mutations)))
+	else if(C && (length(C.dna.mutations)))
 		for(var/datum/mutation/human/A in C.dna.mutations)
 			if(A.type == mutation)
 				return GET_SEQUENCE(mutation)

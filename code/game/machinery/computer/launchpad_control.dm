@@ -25,7 +25,7 @@
 			return
 		var/obj/item/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/launchpad))
-			if(LAZYLEN(launchpads) < maximum_pads)
+			if(length(launchpads) < maximum_pads)
 				launchpads |= M.buffer
 				M.buffer = null
 				to_chat(user, "<span class='notice'>You upload the data from the [W.name]'s buffer.</span>")
@@ -66,7 +66,7 @@
 /obj/machinery/computer/launchpad/ui_data(mob/user)
 	var/list/data = list()
 	var/list/pad_list = list()
-	for(var/i in 1 to LAZYLEN(launchpads))
+	for(var/i in 1 to length(launchpads))
 		if(pad_exists(i))
 			var/obj/machinery/launchpad/pad = get_pad(i)
 			var/list/this_pad = list()

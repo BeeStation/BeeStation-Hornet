@@ -48,7 +48,7 @@
 
 /obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/living/user)
 	if(I.tool_behaviour == TOOL_CROWBAR)
-		if(LAZYLEN(trophies))
+		if(length(trophies))
 			to_chat(user, "<span class='notice'>You remove [src]'s trophies.</span>")
 			I.play_tool_sound(src)
 			for(var/t in trophies)

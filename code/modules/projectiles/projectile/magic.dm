@@ -396,7 +396,7 @@
 			M.visible_message("<span class='warning'>[src] vanishes on contact with [A]!</span>")
 			qdel(src)
 			return
-		if(M.incorporeal_move || M.mob_size > MOB_SIZE_HUMAN || LAZYLEN(contents)>=5)
+		if(M.incorporeal_move || M.mob_size > MOB_SIZE_HUMAN || length(contents)>=5)
 			return ..()
 		M.forceMove(src)
 		return FALSE
@@ -406,7 +406,7 @@
 	if(created)
 		return ..()
 	var/obj/structure/closet/decay/C = new(get_turf(src))
-	if(LAZYLEN(contents))
+	if(length(contents))
 		for(var/atom/movable/AM in contents)
 			AM.forceMove(C)
 		C.welded = TRUE
@@ -589,7 +589,7 @@
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob(poll_message, ROLE_PAI, null, FALSE, 100, M)
 	if(M.stat == DEAD)//boo.
 		return
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(M, "You have been noticed by a ghost, and it has possessed you!")
 		var/oldkey = M.key

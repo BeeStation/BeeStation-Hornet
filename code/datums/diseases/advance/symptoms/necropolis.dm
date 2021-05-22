@@ -73,7 +73,7 @@
 	. = A.affected_mob
 	var/mob/living/loc = A.affected_mob.loc
 	if(isturf(loc))
-		if(!LAZYLEN(cached_tentacle_turfs) || loc != last_location || tentacle_recheck_cooldown <= world.time)
+		if(!length(cached_tentacle_turfs) || loc != last_location || tentacle_recheck_cooldown <= world.time)
 			LAZYCLEARLIST(cached_tentacle_turfs)
 			last_location = loc
 			tentacle_recheck_cooldown = world.time + initial(tentacle_recheck_cooldown)

@@ -7,7 +7,7 @@ This file contains the cult dagger and rune list code
 
 /obj/item/melee/cultblade/dagger/Initialize()
 	. = ..()
-	if(!LAZYLEN(GLOB.rune_types))
+	if(!length(GLOB.rune_types))
 		GLOB.rune_types = list()
 		var/static/list/non_revealed_runes = ((subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed) - /obj/effect/rune/cluwne) //this is shitcode and i hate it
 		for(var/i_can_do_loops_now_thanks_remie in non_revealed_runes)

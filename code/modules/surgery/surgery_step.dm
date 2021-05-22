@@ -121,7 +121,7 @@
 	return TRUE
 
 /datum/surgery_step/proc/chem_check(mob/living/carbon/target)
-	if(!LAZYLEN(chems_needed))
+	if(!length(chems_needed))
 		return TRUE
 
 	if(require_all_chems)
@@ -136,7 +136,7 @@
 				return TRUE
 
 /datum/surgery_step/proc/get_chem_list()
-	if(!LAZYLEN(chems_needed))
+	if(!length(chems_needed))
 		return
 	var/list/chems = list()
 	for(var/R in chems_needed)

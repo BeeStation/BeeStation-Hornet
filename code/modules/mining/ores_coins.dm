@@ -20,12 +20,12 @@
 	var/list/stack_overlays
 
 /obj/item/stack/ore/update_icon()
-	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (LAZYLEN(stack_overlays)+1)
+	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (length(stack_overlays)+1)
 	if(difference == 0)
 		return
-	else if(difference < 0 && LAZYLEN(stack_overlays))			//amount < stack_overlays, remove excess.
+	else if(difference < 0 && length(stack_overlays))			//amount < stack_overlays, remove excess.
 		cut_overlays()
-		if (LAZYLEN(stack_overlays)-difference <= 0)
+		if (length(stack_overlays)-difference <= 0)
 			stack_overlays = null;
 		else
 			stack_overlays.len += difference

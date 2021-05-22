@@ -44,7 +44,7 @@
 	for(var/mob/living/potential in hearers(OCULAR_WARDEN_RANGE, src))
 		if(!is_servant_of_ratvar(potential) && !potential.is_conscious())
 			valid_targets += potential
-	if(!LAZYLEN(valid_targets))
+	if(!length(valid_targets))
 		return
 	var/mob/living/target = pick(valid_targets)
 	playsound(get_turf(src), 'sound/machines/clockcult/ocularwarden-target.ogg', 60, TRUE)

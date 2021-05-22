@@ -66,7 +66,7 @@
 	return pod.growclone(R.fields["name"], R.fields["UI"], R.fields["SE"], R.fields["mindref"], R.fields["last_death"], R.fields["mrace"], R.fields["features"], R.fields["factions"], R.fields["quirks"], R.fields["bank_account"], R.fields["traumas"], empty)
 
 /obj/machinery/computer/cloning/process()
-	if(!(scanner && LAZYLEN(pods) && autoprocess))
+	if(!(scanner && length(pods) && autoprocess))
 		return
 
 	if(scanner.occupant && scanner.scan_level > 2)
@@ -91,7 +91,7 @@
 
 /obj/machinery/computer/cloning/proc/updatemodules(findfirstcloner)
 	scanner = findscanner()
-	if(findfirstcloner && !LAZYLEN(pods))
+	if(findfirstcloner && !length(pods))
 		findcloner()
 	if(!autoprocess)
 		STOP_PROCESSING(SSmachines, src)
@@ -183,12 +183,12 @@
 	switch(menu)
 		if(1)
 			// Modules
-			if (isnull(scanner) || !LAZYLEN(pods))
+			if (isnull(scanner) || !length(pods))
 				dat += "<h3>Modules</h3>"
 				//dat += "<a href='byond://?src=[REF(src)];relmodules=1'>Reload Modules</a>"
 				if (isnull(scanner))
 					dat += "<font class='bad'>ERROR: No Scanner detected!</font><br>"
-				if (!LAZYLEN(pods))
+				if (!length(pods))
 					dat += "<font class='bad'>ERROR: No Pod detected</font><br>"
 
 			// Scanner
@@ -475,7 +475,7 @@
 			var/obj/machinery/clonepod/pod = GetAvailablePod()
 			var/success = FALSE
 			//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
-			if(!LAZYLEN(pods))
+			if(!length(pods))
 				temp = "<font class='bad'>No Clonepods detected.</font>"
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			else if(!pod)

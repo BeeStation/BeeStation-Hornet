@@ -74,7 +74,7 @@
 	return front_id
 
 /obj/item/storage/wallet/GetAccess()
-	if(LAZYLEN(combined_access))
+	if(length(combined_access))
 		return combined_access
 	else
 		return ..()

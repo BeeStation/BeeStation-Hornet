@@ -609,7 +609,7 @@
 				var/list/mob/living/targets = list()
 				for(var/mob/living/M in oview(range, owner))
 					targets += M
-				if(LAZYLEN(targets))
+				if(length(targets))
 					to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
 					owner.log_message(" attacked someone due to a Muscle Spasm", LOG_ATTACK) //the following attack will log itself
 					owner.ClickOn(pick(targets))
@@ -628,7 +628,7 @@
 				var/list/turf/targets = list()
 				for(var/turf/T in oview(3, get_turf(owner)))
 					targets += T
-				if(LAZYLEN(targets) && I)
+				if(length(targets) && I)
 					to_chat(owner, "<span class='warning'>Your arm spasms!</span>")
 					owner.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
 					owner.throw_item(pick(targets))

@@ -163,7 +163,7 @@
 					change_temperature()
 			return
 
-		if(!LAZYLEN(path))
+		if(!length(path))
 			var/turf/target_turf = get_turf(target)
 			path = get_path_to(src, target_turf, /turf/proc/Distance_cardinal, 0, 30, id=access_card, simulated_only = FALSE)
 
@@ -260,7 +260,7 @@
 	var/room_limit = ATMOSBOT_MAX_AREA_SCAN
 	var/list/checked_turfs = list()
 	var/list/to_check_turfs = list(origin)
-	while(room_limit > 0 && LAZYLEN(to_check_turfs))
+	while(room_limit > 0 && length(to_check_turfs))
 		room_limit --
 		var/turf/checking_turf = to_check_turfs[1]
 		//We have checked this turf

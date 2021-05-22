@@ -67,7 +67,7 @@
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.stat != DEAD && player.loc && is_station_level(player.loc.z) && !iscultist(player) && !isanimal(player))
 			souls_needed[player] = TRUE
-	soul_goal = round(1 + LAZYLEN(souls_needed) * 0.75)
+	soul_goal = round(1 + length(souls_needed) * 0.75)
 	INVOKE_ASYNC(src, .proc/begin_the_end)
 	check_gods_battle()
 
@@ -233,5 +233,3 @@
 	sleep(11)
 	move_self = 1
 	icon = initial(icon)
-
-

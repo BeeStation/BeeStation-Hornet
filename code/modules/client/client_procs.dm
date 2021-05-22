@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return
 
 	//Logs all hrefs, except chat pings
-	if(!(href_list["_src_"] == "chat" && href_list["proc"] == "ping" && LAZYLEN(href_list) == 2))
+	if(!(href_list["_src_"] == "chat" && href_list["proc"] == "ping" && length(href_list) == 2))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	//byond bug ID:2256651
@@ -1074,4 +1074,3 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			message_admins("[key_name(src)] was removed from the game due to a ban from BeeStation.")
 			qdel(src)
 			return
-

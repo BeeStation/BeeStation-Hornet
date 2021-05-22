@@ -116,7 +116,7 @@
 	if(module < 1 || module > 3)
 		return FALSE
 
-	if(LAZYLEN(held_items) >= module)
+	if(length(held_items) >= module)
 		if(held_items[module])
 			return TRUE
 	return FALSE

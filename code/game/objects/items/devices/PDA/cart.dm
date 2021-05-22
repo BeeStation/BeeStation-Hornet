@@ -444,7 +444,7 @@ Code:
 			menu = list("<h4>[PDAIMG(crate)] Ore Silo Logs</h4>")
 			if (GLOB.ore_silo_default)
 				var/list/logs = GLOB.silo_access_logs[REF(GLOB.ore_silo_default)]
-				var/len = LAZYLEN(logs)
+				var/len = length(logs)
 				var/i = 0
 				for(var/M in logs)
 					if (++i > 30)

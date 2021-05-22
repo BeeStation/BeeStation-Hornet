@@ -19,7 +19,7 @@ GLOBAL_LIST(admin_antag_list)
 	var/delay_roundend = TRUE
 	var/antag_memory = ""//These will be removed with antag datum
 	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
-	
+
 	var/can_elimination_hijack = ELIMINATION_NEUTRAL //If these antags are alone when a shuttle elimination happens.
 	/// If above 0, this is the multiplier for the speed at which we hijack the shuttle. Do not directly read, use hijack_speed().
 	var/hijack_speed = 0
@@ -74,7 +74,7 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	SHOULD_CALL_PARENT(TRUE)
 	remove_innate_effects(old_body)
-	if(old_body.stat != DEAD && !LAZYLEN(old_body.mind?.antag_datums))
+	if(old_body.stat != DEAD && !length(old_body.mind?.antag_datums))
 		old_body.remove_from_current_living_antags()
 	apply_innate_effects(new_body)
 	if(new_body.stat != DEAD)
@@ -120,7 +120,7 @@ GLOBAL_LIST(admin_antag_list)
 	set waitfor = FALSE
 
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [name]?", "[name]", null, job_rank, 50, owner.current)
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner)]) to replace a jobbanned player.")
@@ -136,7 +136,7 @@ GLOBAL_LIST(admin_antag_list)
 	clear_antag_moodies()
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
-		if(!LAZYLEN(owner.antag_datums))
+		if(!length(owner.antag_datums))
 			owner.current.remove_from_current_living_antags()
 		if(!silent && owner.current)
 			farewell()

@@ -18,7 +18,6 @@
 #define LAZYFIND(L, V) L ? L.Find(V) : 0
 #define LAZYACCESS(L, I) (L ? (isnum_safe(I) ? (I > 0 && I <= length(L) ? L[I] : null) : L[I]) : null)
 #define LAZYSET(L, K, V) if(!L) { L = list(); } L[K] = V;
-#define LAZYLEN(L) length(L)
 #define LAZYCLEARLIST(L) if(L) L.Cut()
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
 #define reverseList(L) reverseRange(L.Copy())
@@ -119,12 +118,12 @@
 
 /// Return either pick(list) or null if list is not of type /list or is empty
 /proc/safepick(list/L)
-	if(LAZYLEN(L))
+	if(length(L))
 		return pick(L)
 
 /// Checks for specific types in a list
 /proc/is_type_in_list(atom/A, list/L)
-	if(!LAZYLEN(L) || !A)
+	if(!length(L) || !A)
 		return FALSE
 	for(var/type in L)
 		if(istype(A, type))

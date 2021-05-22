@@ -58,7 +58,7 @@
 			//Remove the verb
 			sorted_verbs["[V.category]"] -= V
 			//Remove the category if necessary
-			if(!LAZYLEN(sorted_verbs["[V.category]"]))
+			if(!length(sorted_verbs["[V.category]"]))
 				sorted_verbs.Remove("[V.category]")
 				stat_tabs -= V.category
 

@@ -60,7 +60,7 @@
 		if(BP.body_part != HEAD && BP.body_part != CHEST && BP.is_organic_limb())
 			if(BP.dismemberable)
 				parts += BP
-	if(!LAZYLEN(parts))
+	if(!length(parts))
 		to_chat(user, "<span class='notice'>We don't have any limbs to detach.</span>")
 		return
 	//limb related actions
