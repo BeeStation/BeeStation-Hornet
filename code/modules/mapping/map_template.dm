@@ -114,6 +114,6 @@
 
 //for your ever biggening badminnery kevinz000
 //❤ - Cyberboss
-/proc/load_new_z_level(var/file, var/name, orbital_body_type)
+/proc/load_new_z_level(var/file, var/name, orbital_body_type = /datum/orbital_object/z_linked)
 	var/datum/map_template/template = new(file, name)
 	template.load_new_z(orbital_body_type = orbital_body_type)

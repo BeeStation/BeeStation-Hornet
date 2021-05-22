@@ -76,7 +76,7 @@ SUBSYSTEM_DEF(mapping)
 		++space_levels_so_far
 		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = CROSSLINKED), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
 	// and the transit level
-	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
+	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE), orbital_body_type = null)
 
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
@@ -85,7 +85,7 @@ SUBSYSTEM_DEF(mapping)
 	// Load the virtual reality hub
 	if(CONFIG_GET(flag/virtual_reality))
 		to_chat(world, "<span class='boldannounce'>Loading virtual reality...</span>")
-		load_new_z_level("_maps/RandomZLevels/VR/vrhub.dmm", "Virtual Reality Hub")
+		load_new_z_level("_maps/RandomZLevels/VR/vrhub.dmm", "Virtual Reality Hub", orbital_body_type = null)
 		to_chat(world, "<span class='boldannounce'>Virtual reality loaded.</span>")
 
 	// Generate mining ruins
@@ -182,7 +182,7 @@ SUBSYSTEM_DEF(mapping)
 	z_list = SSmapping.z_list
 
 #define INIT_ANNOUNCE(X) to_chat(world, "<span class='boldannounce'>[X]</span>"); log_world(X)
-/datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE, orbital_body_type)
+/datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE, orbital_body_type = /datum/orbital_object/z_linked)
 	. = list()
 	var/start_time = REALTIMEOFDAY
 
@@ -455,13 +455,13 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 			away_name = "[mapfile] custom"
 			to_chat(usr,"<span class='notice'>Loading [away_name]...</span>")
 			var/datum/map_template/template = new(mapfile, "Away Mission")
-			away_level = template.load_new_z()
+			away_level = template.load_new_z(orbital_body_type = null)
 		else
 			if(answer in GLOB.potentialRandomZlevels)
 				away_name = answer
 				to_chat(usr,"<span class='notice'>Loading [away_name]...</span>")
 				var/datum/map_template/template = new(away_name, "Away Mission")
-				away_level = template.load_new_z()
+				away_level = template.load_new_z(orbital_body_type = null)
 			else
 				return
 
@@ -494,7 +494,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 				return reserve
 		//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
 		num_of_res_levels += 1
-		var/newReserved = add_new_zlevel("Transit/Reserved [num_of_res_levels]", list(ZTRAIT_RESERVED = TRUE))
+		var/newReserved = add_new_zlevel("Transit/Reserved [num_of_res_levels]", list(ZTRAIT_RESERVED = TRUE), orbital_body_type = null)
 		if(reserve.Reserve(width, height, newReserved))
 			return reserve
 	else
