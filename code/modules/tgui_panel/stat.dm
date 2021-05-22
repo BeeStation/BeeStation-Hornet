@@ -69,7 +69,6 @@
 	payload["title"] = title
 	payload["text"] = text
 	window.send_message("stat/antagPopup", payload)
-	addtimer(CALLBACK(src, .proc/clear_antagonist_popup), 3 MINUTES)
 
 /**
  * public
