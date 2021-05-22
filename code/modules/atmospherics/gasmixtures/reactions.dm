@@ -127,6 +127,18 @@
 		/datum/gas/oxygen = MINIMUM_MOLE_COUNT
 	)
 
+/proc/fire_expose(turf/open/location, datum/gas_mixture/air, temperature)
+	if(istype(location) && temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+		location.hotspot_expose(temperature, CELL_VOLUME)
+		for(var/I in location)
+			var/atom/movable/item = I
+			item.temperature_expose(air, temperature, CELL_VOLUME)
+		location.temperature_expose(air, temperature, CELL_VOLUME)
+
+/proc/radiation_burn(turf/open/location, energy_released)
+	if(location && prob(10))
+		radiation_pulse(location, energy_released/TRITIUM_BURN_RADIOACTIVITY_FACTOR)
+
 /datum/gas_reaction/tritfire/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
@@ -322,7 +334,7 @@
 
 	//The decay of the tritium and the reaction's energy produces waste gases, different ones depending on whether the reaction is endo or exothermic
 	var/standard_waste_gas_output = scale_factor * (FUSION_TRITIUM_CONVERSION_COEFFICIENT*FUSION_TRITIUM_MOLES_USED)
-	delta_plasma > 0 ? air.adjust_moles(/datum/gas/water_vapor, standard_waste_gas_output) : air.adjust_moles(/datum/gas/bz, standard_waste_gas_output)	
+	delta_plasma > 0 ? air.adjust_moles(/datum/gas/water_vapor, standard_waste_gas_output) : air.adjust_moles(/datum/gas/bz, standard_waste_gas_output)
 	air.adjust_moles(/datum/gas/oxygen, standard_waste_gas_output) //Oxygen is a bit touchy subject
 
 	if(reaction_energy)

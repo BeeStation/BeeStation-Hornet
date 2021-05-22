@@ -231,6 +231,11 @@ GLOBAL_LIST_INIT(auxtools_atmos_initialized, FALSE)
 /datum/gas_mixture/proc/get_true_breath_pressure(partial_pressure)
 	return (partial_pressure * BREATH_VOLUME) / (R_IDEAL_GAS_EQUATION * return_temperature())
 
+/datum/gas_mixture/proc/set_analyzer_results(instability)
+	if(!analyzer_results)
+		analyzer_results = new
+	analyzer_results["fusion"] = instability
+
 //Mathematical proofs:
 /*
 get_breath_partial_pressure(gas_pp) --> gas_pp/total_moles()*breath_pp = pp
