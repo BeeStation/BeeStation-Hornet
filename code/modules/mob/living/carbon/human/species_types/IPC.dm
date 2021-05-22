@@ -53,7 +53,6 @@
 	appendix.Remove(C)
 	QDEL_NULL(appendix)
 	ADD_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune") //makes the IPC immune to huggers
-	C.critwalk_oxy_mult = 0 // we have our own process for handling oxygen damage
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
