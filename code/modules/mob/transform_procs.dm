@@ -1,4 +1,7 @@
 /mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
+	if(mob_transforming || transformation_timer)
+		return
+
 	if (notransform)
 		return
 	//Handle items on mob
@@ -36,7 +39,30 @@
 	invisibility = INVISIBILITY_MAXIMUM
 
 	new /obj/effect/temp_visual/monkeyify(loc)
-	sleep(22)
+
+	transformation_timer = addtimer(CALLBACK(src, .proc/finish_monkeyize, tr_flags), TRANSFORMATION_DURATION, TIMER_UNIQUE)
+
+/mob/living/carbon/proc/finish_monkeyize(tr_flags)
+	transformation_timer = null
+
+	var/list/missing_bodyparts_zones = get_missing_limbs()
+
+	var/list/stored_implants = list()
+
+	if (tr_flags & TR_KEEPIMPLANTS)
+		for(var/X in implants)
+			var/obj/item/implant/IMP = X
+			stored_implants += IMP
+			IMP.removed(src, 1, 1)
+
+	var/list/int_organs = list()
+	var/obj/item/cavity_object
+
+	var/obj/item/bodypart/chest/CH = get_bodypart(BODY_ZONE_CHEST)
+	if(CH.cavity_item)
+		cavity_object = CH.cavity_item
+		CH.cavity_item = null
+
 	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
 
 	// hash the original name?
@@ -50,6 +76,7 @@
 
 	if(tr_flags & TR_KEEPSE)
 		O.dna.mutation_index = dna.mutation_index
+		O.dna.default_mutation_genes = dna.default_mutation_genes
 		O.dna.set_se(1, GET_INITIALIZED_MUTATION(RACEMUT))
 
 	if(suiciding)
@@ -105,11 +132,6 @@
 		for(var/X in int_organs)
 			var/obj/item/organ/I = X
 			I.Insert(O, 1)
-
-	var/obj/item/bodypart/chest/torso = O.get_bodypart(BODY_ZONE_CHEST)
-	if(cavity_object)
-		torso.cavity_item = cavity_object //cavity item is given to the new chest
-		cavity_object.forceMove(O)
 
 	for(var/missing_zone in missing_bodyparts_zones)
 		var/obj/item/bodypart/BP = O.get_bodypart(missing_zone)
@@ -363,6 +385,7 @@
 
 	if(tr_flags & TR_KEEPSE)
 		O.dna.mutation_index = dna.mutation_index
+		O.dna.default_mutation_genes = dna.default_mutation_genes
 		O.dna.set_se(0, GET_INITIALIZED_MUTATION(RACEMUT))
 		O.domutcheck()
 
