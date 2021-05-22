@@ -1390,7 +1390,8 @@
 
 			// Check Advanced Injectors to find and remove the mutation
 			for(var/I in injector_selection)
-				if(injector_selection["[I]"].Remove(HM))
+				var/list/injstuff = injector_selection["[I]"]
+				if(injstuff.Remove(HM))
 					qdel(HM)
 					return
 
