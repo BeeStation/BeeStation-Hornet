@@ -142,7 +142,7 @@ export const CloningConsole = (props, context) => {
                             {record["UE"]}<br />
                             Blood Type:<br />
                             {record["blood_type"]}<br />
-                            {record["body_only"] ? "This clone is empty!" : null}
+                            {record["body_only"] ? "This clone is empty" : null}
                           </div>
                         </Collapsible>
                       </Section>
