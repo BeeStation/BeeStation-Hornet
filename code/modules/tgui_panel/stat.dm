@@ -90,7 +90,6 @@
 	if(!is_ready())
 		return
 	window.send_message("stat/deadPopup", list())
-	addtimer(CALLBACK(src, .proc/clear_dead_popup), 3 MINUTES)
 
 /**
  * public
