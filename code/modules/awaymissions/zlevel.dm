@@ -8,7 +8,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "[global.con
 	if(GLOB.potentialRandomZlevels?.len)
 		to_chat(world, "<span class='boldannounce'>Loading away mission...</span>")
 		var/map = pick(GLOB.potentialRandomZlevels)
-		load_new_z_level(map, "Away Mission")
+		load_new_z_level(map, "Away Mission", orbital_body_type = null)
 		to_chat(world, "<span class='boldannounce'>Away mission loaded.</span>")
 
 /proc/reset_gateway_spawns(reset = FALSE)

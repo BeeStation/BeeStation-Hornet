@@ -501,7 +501,7 @@
 /datum/dynamic_ruleset/roundstart/devil/pre_execute(population)
 	. = ..()
 	var/num_devils = get_antag_cap(population) * (scaled_times + 1)
-	
+
 	for(var/j = 0, j < num_devils, j++)
 		if (!candidates.len)
 			break
@@ -652,7 +652,7 @@
 /datum/dynamic_ruleset/roundstart/clockcult/pre_execute()
 	//Load Reebe
 	var/list/errorList = list()
-	var/list/reebe = SSmapping.LoadGroup(errorList, "Reebe", "map_files/generic", "CityOfCogs.dmm", default_traits=ZTRAITS_REEBE, silent=TRUE)
+	var/list/reebe = SSmapping.LoadGroup(errorList, "Reebe", "map_files/generic", "CityOfCogs.dmm", default_traits=ZTRAITS_REEBE, silent=TRUE, orbital_body_type = null)
 	if(errorList.len)
 		message_admins("Reebe failed to load")
 		log_game("Reebe failed to load")
