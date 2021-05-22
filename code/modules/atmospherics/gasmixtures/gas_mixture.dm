@@ -7,19 +7,15 @@ What are the archived variables for?
 #define MINIMUM_MOLE_COUNT		0.01
 #define QUANTIZE(variable)		(round(variable,0.0000001))/*I feel the need to document what happens here. Basically this is used to catch most rounding errors, however it's previous value made it so that
 															once gases got hot enough, most procedures wouldnt occur due to the fact that the mole counts would get rounded away. Thus, we lowered it a few orders of magnititude */
-GLOBAL_LIST_INIT(meta_gas_info, meta_gas_list()) //see ATMOSPHERICS/gas_types.dm
-GLOBAL_LIST_INIT(gaslist_cache, init_gaslist_cache())
+															
+GLOBAL_LIST_INIT(meta_gas_specific_heats, meta_gas_heat_list())
+GLOBAL_LIST_INIT(meta_gas_names, meta_gas_name_list())
+GLOBAL_LIST_INIT(meta_gas_visibility, meta_gas_visibility_list())
+GLOBAL_LIST_INIT(meta_gas_overlays, meta_gas_overlay_list())
+GLOBAL_LIST_INIT(meta_gas_dangers, meta_gas_danger_list())
+GLOBAL_LIST_INIT(meta_gas_ids, meta_gas_id_list())
+GLOBAL_LIST_INIT(meta_gas_fusions, meta_gas_fusion_list())
 
-/proc/init_gaslist_cache()
-	. = list()
-	for(var/id in GLOB.meta_gas_info)
-		var/list/cached_gas = new(3)
-
-		.[id] = cached_gas
-
-		cached_gas[MOLES] = 0
-		cached_gas[ARCHIVE] = 0
-		cached_gas[GAS_META] = GLOB.meta_gas_info[id]
 
 /datum/gas_mixture
 	var/initial_volume = CELL_VOLUME //liters

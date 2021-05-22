@@ -116,9 +116,8 @@
 	for(var/id in air.get_gases())
 		if (nonoverlaying_gases[id])
 			continue
-		var/gas_meta = GLOB.meta_gas_info[id]
-		var/gas_overlay = gas_meta[META_GAS_OVERLAY]
-		if(gas_overlay && air.get_moles(id) > gas_meta[id])
+		var/gas_overlay = GLOB.meta_gas_overlays[id]
+		if(gas_overlay && air.get_moles(id) > GLOB.meta_gas_visibility[id])
 			new_overlay_types += gas_overlay[min(FACTOR_GAS_VISIBLE_MAX, CEILING(air.get_moles(id) / MOLES_GAS_VISIBLE_STEP, 1))]
 
 	if (atmos_overlay_types)
