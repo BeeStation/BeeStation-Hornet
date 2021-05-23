@@ -24,6 +24,12 @@
 	var/orbitting = FALSE
 	//The relative velocity required for a stable orbit
 	var/relative_velocity_required
+	//Bodies that are orbitting us.
+	var/list/orbitting_bodies = list()
+	//Are we currently immune to collisions
+	var/collision_ignored = TRUE
+	//What are we colliding with
+	var/list/datum/orbital_object/colliding_with
 
 /datum/orbital_object/New()
 	. = ..()
@@ -33,12 +39,20 @@
 	if(!static_object)
 		START_PROCESSING(SSorbits, src)
 	//Add to orbital map
-	SSorbits.orbital_map.bodies += src
+	SSorbits.orbital_map?.bodies += src
 
 /datum/orbital_object/Destroy()
 	STOP_PROCESSING(SSorbits, src)
 	SSorbits.orbital_map.bodies -= src
+	LAZYREMOVE(target_orbital_body?.orbitting_bodies, src)
+	if(length(orbitting_bodies))
+		for(var/datum/orbital_object/orbitting_bodies in orbitting_bodies)
+			orbitting_bodies.target_orbital_body = null
+		orbitting_bodies.Cut()
 	. = ..()
+
+/datum/orbital_object/proc/explode()
+	return
 
 //Process orbital objects, calculate gravity
 /datum/orbital_object/process()
@@ -88,11 +102,27 @@
 	//Move the gravitational body.
 	position.Add(velocity.Scale(ORBITAL_UPDATE_RATE_SECONDS))
 
+	//===================================
+	// COLLISION CHECKING
+	//===================================
+	var/colliding = FALSE
+	LAZYCLEARLIST(colliding_with)
+	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
+		var/distance = object.position.Distance(position)
+		if(distance < radius + object.radius)
+			//Collision
+			LAZYADD(colliding_with, object)
+			collision(object)
+			colliding = TRUE
+	if(!colliding)
+		collision_ignored = FALSE
+
 //We do a little suvatting
 /datum/orbital_object/proc/accelerate_towards(datum/orbital_vector/acceleration_vector, time)
 	velocity.Add(acceleration_vector.Scale(time))
 
 //Called when we collide with another orbital object.
+//Make sure to check if(other.collision_ignored || collision_ignored)
 /datum/orbital_object/proc/collision(datum/orbital_object/other)
 	return
 
@@ -103,12 +133,28 @@
 	//Calculates the required velocity for the object to orbit around the target body.
 	//Hopefully the planets gravity doesn't fuck with each other too hard.
 	//Set position
+	var/delta_x = -position.x
+	var/delta_y = -position.y
 	position.x = target_body.position.x + orbit_radius
 	position.y = target_body.position.y
+	delta_x += position.x
+	delta_y += position.y
+	//Move all orbitting bodies too.
+	if(orbitting_bodies)
+		for(var/datum/orbital_object/object in orbitting_bodies)
+			object.position.Add(new /datum/orbital_vector(delta_x, delta_y))
 	//Set velocity
 	var/relative_velocity = sqrt((GRAVITATIONAL_CONSTANT * (target_body.mass + mass)) / orbit_radius)
 	velocity.x = target_body.velocity.x
 	velocity.y = target_body.velocity.y + relative_velocity
+	//Set random angle
+	/*var/random_angle = rand(0, 360)	//Is cos and sin in radians?
+	position.Rotate(random_angle)
+	velocity.Rotate(random_angle)*/
 	//Update target
 	target_orbital_body = target_body
+	LAZYADD(target_body.orbitting_bodies, src)
 	relative_velocity_required = relative_velocity
+
+/datum/orbital_object/proc/post_map_setup()
+	return

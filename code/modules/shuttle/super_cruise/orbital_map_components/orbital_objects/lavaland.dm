@@ -1,12 +1,9 @@
 /datum/orbital_object/z_linked/lavaland
 	name = "Lavaland"
 	mass = 50
-	radius = 1
-	linked_level_trait = ZTRAIT_MINING
+	radius = 20
+	forced_docking = TRUE
 
-/datum/orbital_object/z_linked/lavaland/New()
-	. = ..()
-	//Force set orbitting body of the station to be around us, we are special.
-	for(var/datum/orbital_object/z_linked/station/station in SSorbits.orbital_map.bodies)
-		set_orbitting_around_body(station, 25, TRUE)
-		break
+/datum/orbital_object/z_linked/lavaland/post_map_setup()
+	//Orbit around the systems sun
+	set_orbitting_around_body(SSorbits.orbital_map.star, 2000 + 250 * linked_z_level.z_value)
