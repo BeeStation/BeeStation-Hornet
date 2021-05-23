@@ -1,6 +1,6 @@
-# baystation12 [![CI Status](https://github.com/Baystation12/Baystation12/workflows/Run%20Tests/badge.svg)](https://github.com/Baystation12/Baystation12/actions)
+# Project Wildflower [![CI Status](https://github.com/Project-Wildflower/Wildflower/workflows/Run%20Tests/badge.svg)](https://github.com/Project-Wildflower/Wildflower/actions)
 
-[Website](https://baystation12.net/) - [Code](https://github.com/Baystation12/Baystation12/) - [Discord](https://discord.baystation12.net/) - [IRC](https://kiwiirc.com/client/irc.sorcery.net/codershuttle): irc://irc.sorcery.net/#codershuttle
+[Website](https://baystation12.net/) - [Code](https://github.com/Project-Wildflower/Wildflower/) - [Discord](https://discord.gg/vsub3GasKu)
 
 ---
 
