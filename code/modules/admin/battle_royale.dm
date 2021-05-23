@@ -127,6 +127,11 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		return
 	log_admin("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
 	message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
+
+	for(var/client/admin in GLOB.admins)
+		if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel)
+			admin.tgui_panel.clear_br_popup()
+
 	GLOB.battle_royale = new()
 	GLOB.battle_royale.start()
 
