@@ -50,6 +50,10 @@
 	//Add orbital bodies
 	data["map_objects"] = list()
 	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
+		//we can't see it
+		if(object != shuttleObject && object.stealth)
+			continue
+		//Send to be rendered on the UI
 		data["map_objects"] += list(list(
 			"name" = object.name,
 			"position_x" = object.position.x,
@@ -77,11 +81,18 @@
 	//Docking data
 	data["canDock"] = shuttleObject.can_dock_with != null
 	data["isDocking"] = shuttleObject.docking_target != null
-	data["validDockingPorts"] = list(list(
-		"name" = "Custom Location",
-		"id" = "custom_location"
-	))
+	data["validDockingPorts"] = list()
 	if(shuttleObject.docking_target)
+		if(shuttleObject.docking_target.can_dock_anywhere)
+			data["validDockingPorts"] += list(list(
+				"name" = "Custom Location",
+				"id" = "custom_location"
+			))
+		else if(shuttleObject.docking_target.random_docking)
+			data["validDockingPorts"] += list(list(
+				"name" = "Random Drop",
+				"id" = "custom_location"
+			))
 		for(var/obj/docking_port/stationary/stationary_port as() in SSshuttle.stationary)
 			if(stationary_port.z == shuttleObject.docking_target.linked_z_level.z_value && (stationary_port.id in valid_docks))
 				data["validDockingPorts"] += list(list(
@@ -139,7 +150,15 @@
 				return
 			//Special check
 			if(params["port"] == "custom_location")
-				return	//TODO
+				//Open up internal docking computer if any location is allowed.
+				//If random dropping is allowed, random drop.
+				if(shuttleObject.docking_target.random_docking)
+					random_drop()
+					return
+				//Report exploit
+				log_admin("[usr] attempted to forge a target location through a tgui exploit on [src]")
+				message_admins("[ADMIN_FULLMONTY(usr)] attempted to forge a target location through a tgui exploit on [src]")
+				return
 			//Find the target port
 			var/obj/docking_port/stationary/target_port = SSshuttle.getDock(params["port"])
 			if(!target_port)
@@ -156,6 +175,50 @@
 					to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 				else
 					to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+
+/obj/machinery/computer/shuttle_flight/proc/random_drop()
+	//Find a random place to drop in at.
+	if(!shuttleObject.docking_target?.linked_z_level)
+		return
+	//Get shuttle dock
+	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(shuttleId)
+	if(!shuttle_dock)
+		return
+	//Create temporary port
+	var/obj/docking_port/stationary/random_port = new
+	random_port.delete_after = TRUE
+	var/sanity = 20
+	var/square_length = max(shuttle_dock.width, shuttle_dock.height)
+	var/border_distance = 10 + square_length
+	//20 attempts to find a random port
+	while(sanity > 0)
+		sanity --
+		//Place the port in a random valid area.
+		var/x = rand(border_distance, world.maxx - border_distance)
+		var/y = rand(border_distance, world.maxy - border_distance)
+		//Check to make sure there are no indestructible turfs in the way
+		random_port.setDir(pick(NORTH, SOUTH, EAST, WEST))
+		random_port.forceMove(locate(x, y, shuttleObject.docking_target.linked_z_level.z_value))
+		var/list/turfs = random_port.return_turfs()
+		var/valid = TRUE
+		for(var/turf/T as() in turfs)
+			if(istype(T, /turf/open/indestructible) || istype(T, /turf/closed/indestructible))
+				valid = FALSE
+				break
+		if(!valid)
+			continue
+		//Ok lets go there
+		switch(SSshuttle.moveShuttle(shuttleId, random_port.id, 1))
+			if(0)
+				say("Initiating supercruise throttle-down, prepare for landing.")
+				QDEL_NULL(shuttleObject)
+			if(1)
+				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+				qdel(random_port)
+			else
+				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+				qdel(random_port)
+	qdel(random_port)
 
 /obj/machinery/computer/shuttle_flight/emag_act(mob/user)
 	if(obj_flags & EMAGGED)

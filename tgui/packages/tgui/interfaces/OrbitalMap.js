@@ -39,14 +39,15 @@ export const OrbitalMap = (props, context) => {
     setTrackedBody,
   ] = useLocalState(context, 'trackedBody', map_objects[0].name);
   let trackedObject = null;
-  if(map_objects.length > 0)
+  if (map_objects.length > 0)
   {
-    //Find the right tracked body
+    // Find the right tracked body
     map_objects.forEach(element => {
-      if(element.name === trackedBody)
+      if (element.name === trackedBody)
       {
         trackedObject = element;
-        if(xOffset != element.position_x && yOffset != element.position_y && trackedBody !== map_objects[0].name)
+        if (xOffset !== element.position_x && yOffset !== element.position_y
+          && trackedBody !== map_objects[0].name)
         {
           setXOffset(element.position_x);
           setYOffset(element.position_y);
@@ -100,7 +101,7 @@ export const OrbitalMap = (props, context) => {
             stepPixelSize={2 * zoomScale}
             onDrag={(e, value) => {
               setXOffset(value);
-              setTrackedBody(map_objects[0].name)
+              setTrackedBody(map_objects[0].name);
             }}
             updateRate={5}>
             {control => (
@@ -112,49 +113,89 @@ export const OrbitalMap = (props, context) => {
                 stepPixelSize={2 * zoomScale}
                 onDrag={(e, value) => {
                   setYOffset(value);
-                  setTrackedBody(map_objects[0].name)
+                  setTrackedBody(map_objects[0].name);
                 }}
                 updateRate={5}>
                 {control1 => (
                   <svg
-                    onMouseDown={(e) => {control.handleDragStart(e);control1.handleDragStart(e)}}
+                    onMouseDown={e => {
+                      control.handleDragStart(e);
+                      control1.handleDragStart(e);
+                    }}
                     viewBox="-250 -250 500 500"
                     position="absolute">
                     <defs>
-                      <pattern id="grid" width={100 * zoomScale} height={100 * zoomScale} patternUnits="userSpaceOnUse">
-                        <rect width={100 * zoomScale} height={100 * zoomScale} fill="url(#smallgrid)" />
-                        <path d={"M " + (100 * zoomScale) + " 0 L 0 0 0 " + (100 * zoomScale)} fill="none" stroke="#4665DE" stroke-width="1" />
+                      <pattern id="grid" width={100 * zoomScale}
+                        height={100 * zoomScale}
+                        patternUnits="userSpaceOnUse">
+                        <rect width={100 * zoomScale} height={100 * zoomScale}
+                          fill="url(#smallgrid)" />
+                        <path
+                          fill="none" stroke="#4665DE" stroke-width="1"
+                          d={"M " + (100 * zoomScale)+ " 0 L 0 0 0 " + (100 * zoomScale)} />
                       </pattern>
-                      <pattern id="smallgrid" width={50 * zoomScale} height={50 * zoomScale} patternUnits="userSpaceOnUse">
-                        <rect width={50 * zoomScale} height={50 * zoomScale} fill="#2B2E3B" />
-                        <path d={"M " + (50 * zoomScale) + " 0 L 0 0 0 " + (50 * zoomScale)} fill="none" stroke="#4665DE" stroke-width="0.5" />
+                      <pattern id="smallgrid"
+                        width={50 * zoomScale}
+                        height={50 * zoomScale}
+                        patternUnits="userSpaceOnUse">
+                        <rect
+                          width={50 * zoomScale}
+                          height={50 * zoomScale}
+                          fill="#2B2E3B" />
+                        <path
+                          fill="none"
+                          stroke="#4665DE"
+                          stroke-width="0.5"
+                          d={"M " + (50 * zoomScale) + " 0 L 0 0 0 "
+                          + (50 * zoomScale)} />
                       </pattern>
                     </defs>
-                    <rect x="-50%" y="-50%" width="100%" height="100%" fill="url(#grid)" />
+                    <rect x="-50%" y="-50%" width="100%" height="100%"
+                      fill="url(#grid)" />
                     {map_objects.map(map_object => (
                       <>
                         <circle
-                          cx={Math.max(Math.min((map_object.position_x - xOffset) * zoomScale, 250), -250)}
-                          cy={Math.max(Math.min((map_object.position_y - yOffset) * zoomScale, 250), -250)}
-                          r={((map_object.position_y - yOffset) * zoomScale > 250
-                            || (map_object.position_y - yOffset) * zoomScale < -250
-                            || (map_object.position_x - xOffset) * zoomScale > 250
-                            || (map_object.position_x - xOffset) * zoomScale < -250)
-                              ? 5 * zoomScale
-                              : Math.max(5 * zoomScale, map_object.radius * zoomScale)
-                          }
+                          cx={Math.max(Math.min((map_object.position_x
+                            - xOffset)
+                             * zoomScale, 250), -250)}
+                          cy={Math.max(Math.min((map_object.position_y
+                            - yOffset)
+                             * zoomScale, 250), -250)}
+                          r={((map_object.position_y - yOffset)
+                            * zoomScale > 250
+                            || (map_object.position_y - yOffset)
+                            * zoomScale < -250
+                            || (map_object.position_x - xOffset)
+                            * zoomScale > 250
+                            || (map_object.position_x - xOffset)
+                            * zoomScale < -250)
+                            ? 5 * zoomScale
+                            : Math.max(5 * zoomScale, map_object.radius
+                              * zoomScale)}
                           stroke="#BBBBBB"
                           stroke-width="1"
                           fill="rgba(0,0,0,0)" />
                         <line
-                          x1={Math.max(Math.min((map_object.position_x - xOffset) * zoomScale, 250), -250)}
-                          y1={Math.max(Math.min((map_object.position_y - yOffset) * zoomScale, 250), -250)}
-                          x2={Math.max(Math.min((map_object.position_x - xOffset + map_object.velocity_x * 10) * zoomScale, 250), -250)}
-                          y2={Math.max(Math.min((map_object.position_y - yOffset + map_object.velocity_y * 10) * zoomScale, 250), -250)}
-                          style={lineStyle} />
+                          style={lineStyle}
+                          x1={Math.max(Math.min((map_object.position_x
+                            - xOffset)
+                             * zoomScale, 250), -250)}
+                          y1={Math.max(Math.min((map_object.position_y
+                            - yOffset)
+                             * zoomScale, 250), -250)}
+                          x2={Math.max(Math.min((map_object.position_x
+                            - xOffset
+                             + map_object.velocity_x * 10)
+                             * zoomScale, 250), -250)}
+                          y2={Math.max(Math.min((map_object.position_y
+                            - yOffset
+                            + map_object.velocity_y * 10)
+                            * zoomScale, 250), -250)} />
                         <text
-                          x={Math.max(Math.min((map_object.position_x - xOffset) * zoomScale, 200), -250)}
-                          y={Math.max(Math.min((map_object.position_y - yOffset) * zoomScale, 250), -240)}
+                          x={Math.max(Math.min((map_object.position_x - xOffset)
+                             * zoomScale, 200), -250)}
+                          y={Math.max(Math.min((map_object.position_y - yOffset)
+                             * zoomScale, 250), -240)}
                           fill="white"
                           fontSize={Math.min(40 * zoomScale, 14)}>
                           {map_object.name}
@@ -178,25 +219,26 @@ export const OrbitalMap = (props, context) => {
               </Box>
               <Box>
                 <b>
-                X:&nbsp;
+                  X:&nbsp;
                 </b>
                 {trackedObject && trackedObject.position_x}
               </Box>
               <Box>
                 <b>
-                Y:&nbsp;
+                  Y:&nbsp;
                 </b>
                 {trackedObject && trackedObject.position_y}
               </Box>
               <Box>
                 <b>
-                Velocity:&nbsp;
+                  Velocity:&nbsp;
                 </b>
-                ({trackedObject && trackedObject.velocity_x}, {trackedObject && trackedObject.velocity_y})
+                ({trackedObject && trackedObject.velocity_x}
+                , {trackedObject && trackedObject.velocity_y})
               </Box>
               <Box>
                 <b>
-                Radius:&nbsp;
+                  Radius:&nbsp;
                 </b>
                 {trackedObject && trackedObject.radius} BSU
               </Box>
@@ -227,7 +269,8 @@ export const OrbitalMap = (props, context) => {
                         target: value,
                       })} />
                     <Box mt={1}>
-                      Velocity line will be adjusted to relative speed of this orbital body.
+                      Velocity line will be adjusted to relative
+                      speed of this orbital body.
                     </Box>
                     <ShuttleMap />
                     <Box bold>
@@ -257,12 +300,12 @@ export const OrbitalMap = (props, context) => {
                     <Button
                       mt={2}
                       content="Toggle Autopilot"
-                      onClick={act('nautopilot')} />
+                      onClick={() => act('nautopilot')} />
                     {!(canDock && !isDocking) || (
                       <Button
                         mt={2}
                         content="Initiate Docking"
-                        onClick={act('dock')} />
+                        onClick={() => act('dock')} />
                     )}
                     {!isDocking || (
                       <>
@@ -274,7 +317,9 @@ export const OrbitalMap = (props, context) => {
                           mt={1}
                           selected="Select Docking Location"
                           width="100%"
-                          options={validDockingPorts.map(map_object => (map_object.id))}
+                          options={validDockingPorts.map(
+                            map_object => (map_object.id)
+                          )}
                           onSelected={value => act("gotoPort", {
                             port: value,
                           })} />
@@ -282,26 +327,26 @@ export const OrbitalMap = (props, context) => {
                     )}
                   </>
                 ) : (
-                canLaunch ? (
-                  <>
-                    <NoticeBox>
-                      Currently docked, awaiting launch order.
+                  canLaunch ? (
+                    <>
+                      <NoticeBox>
+                        Currently docked, awaiting launch order.
+                      </NoticeBox>
+                      <Button
+                        content="INITIATE LAUNCH"
+                        textAlign="center"
+                        fontSize="30px"
+                        icon="rocket"
+                        width="100%"
+                        height="50px"
+                        onClick={() => act('launch')} />
+                    </>
+                  ) : (
+                    <NoticeBox
+                      color="red">
+                      Not linked to a shuttle.
                     </NoticeBox>
-                    <Button
-                      content="INITIATE LAUNCH"
-                      textAlign="center"
-                      fontSize="30px"
-                      icon="rocket"
-                      width="100%"
-                      height="50px"
-                      onClick={() => act('launch')} />
-                  </>
-                ) : (
-                  <NoticeBox
-                    color="red">
-                    Not linked to a shuttle.
-                  </NoticeBox>
-                ))}
+                  ))}
             </Section>
           </div>
         </div>

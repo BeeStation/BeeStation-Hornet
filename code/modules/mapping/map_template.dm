@@ -55,7 +55,7 @@
 	SSmachines.setup_template_powernets(cables)
 	SSair.setup_template_machinery(atmos_machines)
 
-/datum/map_template/proc/load_new_z(orbital_body_type = /datum/orbital_object/z_linked/beacon)
+/datum/map_template/proc/load_new_z(orbital_body_type)
 	var/x = round((world.maxx - width)/2)
 	var/y = round((world.maxy - height)/2)
 
@@ -114,6 +114,6 @@
 
 //for your ever biggening badminnery kevinz000
 //❤ - Cyberboss
-/proc/load_new_z_level(var/file, var/name, orbital_body_type = /datum/orbital_object/z_linked/beacon)
+/proc/load_new_z_level(var/file, var/name, orbital_body_type)
 	var/datum/map_template/template = new(file, name)
 	template.load_new_z(orbital_body_type = orbital_body_type)
