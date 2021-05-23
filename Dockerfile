@@ -1,5 +1,5 @@
 # base = ubuntu + full apt update
-FROM ubuntu:xenial AS base
+FROM ubuntu:focal AS base
 
 RUN dpkg --add-architecture i386 \
     && apt-get update \
@@ -68,18 +68,41 @@ COPY dependencies.sh .
 RUN . ./dependencies.sh \
     && git fetch --depth 1 origin "${RUST_G_VERSION}" \
     && git checkout FETCH_HEAD \
-    && env PKG_CONFIG_ALLOW_CROSS=1 ~/.cargo/bin/cargo build --release --target i686-unknown-linux-gnu
+    && env PKG_CONFIG_ALLOW_CROSS=1 ~/.cargo/bin/cargo build --release --all-features --target i686-unknown-linux-gnu
+
+# extools.
+FROM base AS extools
+WORKDIR /extools
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        cmake \
+        build-essential \
+        g++-multilib \
+        cmake \
+        wget \
+        git \
+    && git init \
+    && git remote add origin https://github.com/BeeStation/extools \
+    && git fetch --depth 1 origin "$EXTOOLS_VERSION" \
+    && git checkout FETCH_HEAD \
+    && mkdir build \
+    && cd build \
+    && cmake ../byond-extools \
+    && make
+
 
 # final = byond + runtime deps + rust_g + build
 FROM byond
 WORKDIR /beestation
 
 RUN apt-get install -y --no-install-recommends \
-        libssl1.0.0:i386 \
-        zlib1g:i386
+        libssl1.1:i386 \
+        zlib1g:i386 \
+        && mkdir -p /root/.byond/bin
 
 COPY --from=build /deploy ./
 COPY --from=rust_g /rust_g/target/i686-unknown-linux-gnu/release/librust_g.so ./librust_g.so
+COPY --from=extools /extools/build/libbyond-extools.so ./libbyond-extools.so
 
 #extools fexists memes
 RUN ln -s /beestation/libbyond-extools.so /root/.byond/bin/libbyond-extools.so
