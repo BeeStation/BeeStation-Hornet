@@ -13,10 +13,11 @@
 
 	for (var/I in 1 to default_map_traits.len)
 		var/list/features = default_map_traits[I]
-		var/datum/space_level/S = new(I, features[DL_NAME], features[DL_TRAITS])
+		//All default levels are assumed to be phobos at this stage, since there is only 1.
+		var/datum/space_level/S = new(I, features[DL_NAME], features[DL_TRAITS], orbital_body_type = /datum/orbital_object/z_linked/phobos)
 		z_list += S
 
-/datum/controller/subsystem/mapping/proc/add_new_zlevel(name, traits = list(), z_type = /datum/space_level, orbital_body_type = /datum/orbital_object/z_linked/beacon)
+/datum/controller/subsystem/mapping/proc/add_new_zlevel(name, traits = list(), z_type = /datum/space_level, orbital_body_type)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
 	var/new_z = z_list.len + 1
 	if (world.maxz < new_z)

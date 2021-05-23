@@ -1,9 +1,11 @@
 /datum/orbital_object/z_linked/lavaland
 	name = "Lavaland"
-	mass = 50
-	radius = 20
+	mass = 10000
+	radius = 200
 	forced_docking = TRUE
+	static_object = TRUE
+	random_docking = TRUE
 
-/datum/orbital_object/z_linked/lavaland/post_map_setup()
-	//Orbit around the systems sun
-	set_orbitting_around_body(SSorbits.orbital_map.star, 2000 + 250 * linked_z_level.z_value)
+/datum/orbital_object/z_linked/lavaland/New()
+	. = ..()
+	SSorbits.orbital_map.center = src

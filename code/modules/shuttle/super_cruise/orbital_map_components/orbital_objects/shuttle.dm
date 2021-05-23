@@ -2,8 +2,7 @@
 	name = "Shuttle"
 	var/shuttle_port_id
 	//Shuttle data
-	var/max_thrust = 0.2
-	var/stealth = FALSE
+	var/max_thrust = 0.5
 	//Controlls
 	var/thrust = 0
 	var/angle = 0
@@ -31,6 +30,7 @@
 	var/thrust_y = sin(angle) * thrust_amount
 	accelerate_towards(new /datum/orbital_vector(thrust_x, thrust_y), ORBITAL_UPDATE_RATE_SECONDS)
 	//Do gravity and movement
+	can_dock_with = null
 	. = ..()
 
 /datum/orbital_object/shuttle/proc/link_shuttle(obj/docking_port/mobile/dock)
