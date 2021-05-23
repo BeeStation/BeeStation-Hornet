@@ -1,0 +1,4 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Ethereal Disco Grenades no longer crash the server
