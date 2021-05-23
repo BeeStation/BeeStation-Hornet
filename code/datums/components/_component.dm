@@ -179,18 +179,11 @@
 /datum/proc/_SendSignal(sigtype, list/arguments)
 	var/target = comp_lookup[sigtype]
 	if(!length(target))
-		var/datum/C = target
-		if(!C.signal_enabled)
-			return NONE
-		var/proctype = C.signal_procs[src][sigtype]
-		return NONE | CallAsync(C, proctype, arguments)
+		var/datum/listening_datum = target
+		return NONE | call(listening_datum, listening_datum.signal_procs[src][sigtype])(arglist(arguments))
 	. = NONE
-	for(var/I in target)
-		var/datum/C = I
-		if(!C.signal_enabled)
-			continue
-		var/proctype = C.signal_procs[src][sigtype]
-		. |= CallAsync(C, proctype, arguments)
+	for(var/datum/listening_datum as anything in target)
+		. |= call(listening_datum, listening_datum.signal_procs[src][sigtype])(arglist(arguments))
 
 /datum/proc/GetComponent(datum/component/c_type)
 	RETURN_TYPE(c_type)
@@ -274,8 +267,8 @@
 					var/list/arguments = raw_args.Copy()
 					arguments[1] = new_comp
 					var/make_new_component = TRUE
-					for(var/datum/component/C in GetComponents(new_type))
-						if(C.CheckDupeComponent(arglist(arguments)))
+					for(var/datum/component/existing_component as anything in GetComponents(new_type))
+						if(existing_component.CheckDupeComponent(arglist(arguments)))
 							make_new_component = FALSE
 							QDEL_NULL(new_comp)
 							break
