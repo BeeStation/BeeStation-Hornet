@@ -8,33 +8,33 @@
 	level = 9
 	severity = 0
 	symptom_delay_min = 10
-	symptom_delay_max = 60
+	symptom_delay_max = 30
 	var/replaceorgans = FALSE
 	var/replacebody = FALSE
 	var/robustbits = FALSE
 	threshold_desc = "<b>Stage Speed 4:</b>The virus will replace the host's organic organs with mundane, biometallic versions. +1 severity.<br>\
-                      <b>Stage Speed 10:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
-                      <b>Stage Speed 13:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
+                      <b>Resistance 4:</b>The virus will eventually convert the host's entire body to biometallic materials, and maintain its cellular integrity. +1 severity.<br>\
+                      <b>Stage Speed 12:</b>Biometallic mass created by the virus will be superior to typical organic mass. -3 severity."
 
 /datum/symptom/robotic_adaptation/OnAdd(datum/disease/advance/A)
 	A.infectable_biotypes |= MOB_ROBOTIC
 
 /datum/symptom/robotic_adaptation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stage_rate"] >= 5) //at base level, robotic organs are purely a liability
+	if(A.properties["stage_rate"] >= 4) //at base level, robotic organs are purely a liability
 		severity += 1
-	if(A.properties["stage_rate"] >= 10)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
+	if(A.properties["resistance"] >= 4)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
 		severity += 1 //at this stage, even one EMP will hurt, a lot.
-	if(A.properties["stage_rate"] >= 13)//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
+	if(A.properties["stage_rate"] >= 12)//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
 		severity -= 3//net benefits: 2 damage reduction, flight if you have wings, filter out low amounts of gas, durable ears, flash protection, a liver half as good as an upgraded cyberliver, and flight if you are a winged species
 
 /datum/symptom/robotic_adaptation/Start(datum/disease/advance/A)
 	. = ..()
 	if(A.properties["stage_rate"] >= 4)
 		replaceorgans = TRUE
-	if(A.properties["stage_rate"] >= 10)
+	if(A.properties["resistance"] >= 4)
 		replacebody = TRUE
-	if(A.properties["stage_rate"] >= 14)
+	if(A.properties["stage_rate"] >= 12)
 		robustbits = TRUE //note that having this symptom means most healing symptoms won't work on you
 
 /datum/symptom/robotic_adaptation/Activate(datum/disease/advance/A)
@@ -46,102 +46,127 @@
 			if(replaceorgans)
 				to_chat(H, "<span class='warning'><b>[pick("You feel a grinding pain in your abdomen.", "You exhale a jet of steam.")]</span>")
 		if(5)
-			if(replaceorgans)
+			if(replaceorgans || replacebody)
 				if(Replace(H))
 					return
-				else if(replacebody)
-					H.adjustCloneLoss(-30) //we're fully mechanical, repair integrity. This symptom has a soft synergy with overclocked pituitary, so we want that to be useable. OFI is obviously out
+				if(replacebody)
+					H.adjustCloneLoss(-20) //repair mechanical integrity
 			ADD_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	return
 
 /datum/symptom/robotic_adaptation/proc/Replace(mob/living/carbon/human/H)
-	for(var/obj/item/organ/O in H.internal_organs)
-		if(O.status == ORGAN_ROBOTIC) //they are either part robotic or we already converted them!
-			continue
-		switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work
-			if(ORGAN_SLOT_BRAIN)
-				var/datum/mind/ownermind = H.mind
-				var/obj/item/organ/brain/clockwork/organ = new()
-				if(robustbits)
-					organ.robust = TRUE //STOPS THAT GODDAMN CLANGING BECAUSE IT'S WELL OILED OR SOMETHING
-				organ.Insert(H, TRUE, FALSE)
-				to_chat(H, "<span class='userdanger'>Your head throbs with pain for a moment, and then goes numb.</span>")
-				H.emote("scream")
-				ownermind.transfer_to(H)
-				H.grab_ghost()
-				return TRUE
-			if(ORGAN_SLOT_STOMACH)
-				var/obj/item/organ/stomach/clockwork/organ = new()
-				organ.Insert(H, TRUE, FALSE)
-				if(prob(40))
-					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
+	if(replaceorgans)
+		for(var/obj/item/organ/O in H.internal_organs)
+			if(O.status == ORGAN_ROBOTIC) //they are either part robotic or we already converted them!
+				continue
+			switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work
+				if(ORGAN_SLOT_BRAIN)				
+					var/obj/item/organ/brain/clockwork/organ = new()
+					var/datum/mind/ownermind = H.mind
+					if(robustbits)
+						organ.robust = TRUE //STOPS THAT GODDAMN CLANGING BECAUSE IT'S WELL OILED OR SOMETHING
+					organ.Insert(H, TRUE, FALSE)
+					ownermind.transfer_to(H)
+					to_chat(H, "<span class='userdanger'>Your head throbs with pain for a moment, and then goes numb.</span>")
 					H.emote("scream")
-				return TRUE
-			if(ORGAN_SLOT_EARS)
-				var/obj/item/organ/ears/robot/clockwork/organ = new()
-				if(robustbits)
-					organ.damage_multiplier = 0.5
-				organ.Insert(H, TRUE, FALSE)
-				to_chat(H, "<span class='warning'>Your ears pop.</span>")
-				return TRUE
-			if(ORGAN_SLOT_EYES)
-				var/obj/item/organ/eyes/robotic/clockwork/organ = new()
-				if(robustbits)
-					organ.flash_protect = 1
-				organ.Insert(H, TRUE, FALSE)
-				if(prob(40))
-					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
-					H.emote("scream")
-				return TRUE
-			if(ORGAN_SLOT_LUNGS)
-				var/obj/item/organ/lungs/clockwork/organ = new()
-				if(robustbits)
-					organ.safe_toxins_max = 15
-					organ.safe_co2_max = 15
-					organ.SA_para_min = 15
-					organ.SA_sleep_min = 15
-					organ.BZ_trip_balls_min = 15
-					organ.gas_stimulation_min = 15
-				organ.Insert(H, TRUE, FALSE)
-				if(prob(40))
+					H.grab_ghost()
+					return TRUE
+				if(ORGAN_SLOT_STOMACH)
+					var/obj/item/organ/stomach/clockwork/organ = new()
+					organ.Insert(H, TRUE, FALSE)
+					if(prob(40))
+						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
+						H.emote("scream")
+					return TRUE
+				if(ORGAN_SLOT_EARS)
+					var/obj/item/organ/ears/robot/clockwork/organ = new()
+					if(robustbits)
+						organ.damage_multiplier = 0.5
+					organ.Insert(H, TRUE, FALSE)
+					to_chat(H, "<span class='warning'>Your ears pop.</span>")
+					return TRUE
+				if(ORGAN_SLOT_EYES)
+					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
+					if(robustbits)
+						organ.flash_protect = 1
+					organ.Insert(H, TRUE, FALSE)
+					if(prob(40))
+						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
+						H.emote("scream")
+						H.grab_ghost()
+						return TRUE
+				if(ORGAN_SLOT_STOMACH)
+					var/obj/item/organ/stomach/clockwork/organ = new()
+					organ.Insert(H, TRUE, FALSE)
+					if(prob(40))
+						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
+						H.emote("scream")
+					return TRUE
+				if(ORGAN_SLOT_EARS)
+					var/obj/item/organ/ears/robot/clockwork/organ = new()
+					if(robustbits)
+						organ.damage_multiplier = 0.5
+					organ.Insert(H, TRUE, FALSE)
+					to_chat(H, "<span class='warning'>Your ears pop.</span>")
+					return TRUE
+				if(ORGAN_SLOT_EYES)
+					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
+					if(robustbits)
+						organ.flash_protect = 1
+					organ.Insert(H, TRUE, FALSE)
+					if(prob(40))
+						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
+						H.emote("scream")
+					return TRUE
+				if(ORGAN_SLOT_LUNGS)
+					var/obj/item/organ/lungs/clockwork/organ = new()
+					if(robustbits)
+						organ.safe_toxins_max = 15
+						organ.safe_co2_max = 15
+						organ.SA_para_min = 15
+						organ.SA_sleep_min = 15
+						organ.BZ_trip_balls_min = 15
+						organ.gas_stimulation_min = 15
+					organ.Insert(H, TRUE, FALSE)
+					if(prob(40))
+						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
+						H.emote("scream")
+					return TRUE
+				if(ORGAN_SLOT_HEART)
+					var/obj/item/organ/heart/clockwork/organ = new()
+					organ.Insert(H, TRUE, FALSE)
 					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
 					H.emote("scream")
-				return TRUE
-			if(ORGAN_SLOT_HEART)
-				var/obj/item/organ/heart/clockwork/organ = new()
-				organ.Insert(H, TRUE, FALSE)
-				to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
-				H.emote("scream")
-				return TRUE
-			if(ORGAN_SLOT_LIVER)
-				var/obj/item/organ/liver/clockwork/organ = new()
-				if(robustbits)
-					organ.toxTolerance = 7
-				organ.Insert(H, TRUE, FALSE)
-				if(prob(40))
-					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
-					H.emote("scream")
-				return TRUE
-			if(ORGAN_SLOT_TONGUE)
-				if(robustbits)
-					var/obj/item/organ/tongue/robot/clockwork/better/organ = new()
+					return TRUE
+				if(ORGAN_SLOT_LIVER)
+					var/obj/item/organ/liver/clockwork/organ = new()
+					if(robustbits)
+						organ.toxTolerance = 7
+					organ.Insert(H, TRUE, FALSE)
+					if(prob(40))
+						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
+						H.emote("scream")
+					return TRUE
+				if(ORGAN_SLOT_TONGUE)
+					if(robustbits)
+						var/obj/item/organ/tongue/robot/clockwork/better/organ = new()
+						organ.Insert(H, TRUE, FALSE)
+						return TRUE
+					else
+						var/obj/item/organ/tongue/robot/clockwork/organ = new()
+						organ.Insert(H, TRUE, FALSE)
+						return TRUE
+				if(ORGAN_SLOT_TAIL)
+					var/obj/item/organ/tail/clockwork/organ = new()
 					organ.Insert(H, TRUE, FALSE)
 					return TRUE
-				else
-					var/obj/item/organ/tongue/robot/clockwork/organ = new()
+				if(ORGAN_SLOT_WINGS)
+					var/obj/item/organ/wings/cybernetic/clockwork/organ = new()
+					if(robustbits)
+						organ.flight_level = WINGS_FLYING
 					organ.Insert(H, TRUE, FALSE)
+					to_chat(H, "<span class='warning'>Your wings feel stiff.</span>")
 					return TRUE
-			if(ORGAN_SLOT_TAIL)
-				var/obj/item/organ/tail/clockwork/organ = new()
-				organ.Insert(H, TRUE, FALSE)
-				return TRUE
-			if(ORGAN_SLOT_WINGS)
-				var/obj/item/organ/wings/cybernetic/clockwork/organ = new()
-				if(robustbits)
-					organ.flight_level = WINGS_FLYING
-				organ.Insert(H, TRUE, FALSE)
-				to_chat(H, "<span class='warning'>Your wings feel stiff.</span>")
-				return TRUE
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
 			if(O.status == BODYPART_ROBOTIC)
