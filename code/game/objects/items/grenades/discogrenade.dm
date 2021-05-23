@@ -49,7 +49,6 @@
 	var/range = 5
 	var/power = 3
 
-
 /obj/item/grenade/discogrenade/subgrenade/Initialize(mapload, duplicate = FALSE)
 	. = ..()
 	active = TRUE
