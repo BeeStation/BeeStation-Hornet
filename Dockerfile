@@ -88,7 +88,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     && mkdir build \
     && cd build \
     && cmake ../byond-extools \
-    && make
+    && cmake --build . --config RelWithDebInfo
 
 
 # final = byond + runtime deps + rust_g + build
