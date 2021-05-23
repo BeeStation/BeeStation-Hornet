@@ -508,3 +508,10 @@
 			SEND_SIGNAL(A, COMSIG_TRY_STORAGE_RETURN_INVENTORY, item_stuff)
 			processing_list += item_stuff
 	return processing_list
+
+//Checks carbon-based wearable item slots.
+/mob/proc/check_wearable_slot(mob/M, item, slot)
+	if(iscarbon(M))
+		if(istype(M.get_item_by_slot(slot), item))
+			return TRUE
+	return FALSE

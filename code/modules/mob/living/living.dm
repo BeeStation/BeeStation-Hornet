@@ -299,12 +299,10 @@
 
 			switch(zone_selected)
 				if(BODY_ZONE_HEAD)
-					if(ishuman(L))//Special handling required for checking clothing
-						var/mob/living/carbon/human/H = L
-						if (istype(H.wear_neck, /obj/item/clothing/neck/petcollar))
-							grab_output(src, L, "collar", GRAB_PASSIVE)
-							L.apply_damage(5, OXY)
-							grab_sanity_check = TRUE
+					if(check_wearable_slot(L, /obj/item/clothing/neck/petcollar, ITEM_SLOT_NECK))
+						grab_output(src, L, "collar", GRAB_PASSIVE)
+						L.apply_damage(5, OXY)
+						grab_sanity_check = TRUE
 					if(!grab_sanity_check)
 						grab_output(src, L, "head", GRAB_PASSIVE)
 				if(BODY_ZONE_L_ARM)
