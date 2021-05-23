@@ -50,7 +50,6 @@
 	var/power = 3
 
 /obj/item/grenade/discogrenade/subgrenade/Initialize(mapload, duplicate = FALSE)
-	. = ..()
 	active = TRUE
 	spawn_new = duplicate
 	icon_state = initial(icon_state) + "_active"
@@ -61,7 +60,6 @@
 	randomiseLightColor()
 
 /obj/item/grenade/discogrenade/subgrenade/prime(mob/living/lanced_by)
-	. = ..()
 	update_mob()
 	var/current_turf = get_turf(src)
 	if(!current_turf)
