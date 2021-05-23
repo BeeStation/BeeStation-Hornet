@@ -1,112 +1,74 @@
-# base = ubuntu + full apt update
-FROM ubuntu:focal AS base
+FROM beestation/byond:513.1536 as base
+ONBUILD ENV BYOND_MAJOR=513
+ONBUILD ENV BYOND_MINOR=1536
 
-RUN dpkg --add-architecture i386 \
-    && apt-get update \
-    && apt-get upgrade -y \
-    && apt-get dist-upgrade -y \
+FROM base as build_base
+
+RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        ca-certificates
+    git \
+	dos2unix\
+    ca-certificates
 
-# byond = base + byond installed globally
-FROM base AS byond
-WORKDIR /byond
+FROM build_base as rust_g
+
+WORKDIR /rust_g
 
 RUN apt-get install -y --no-install-recommends \
-        curl \
-        unzip \
-        make \
-        libstdc++6:i386
+    libssl-dev \
+    pkg-config \
+    curl \
+    gcc-multilib \
+    && curl https://sh.rustup.rs -sSf | sh -s -- -y --default-host i686-unknown-linux-gnu \
+    && git init \
+    && git remote add origin https://github.com/BeeStation/rust-g
 
 COPY dependencies.sh .
 
-RUN . ./dependencies.sh \
-    && curl "http://www.byond.com/download/build/${BYOND_MAJOR}/${BYOND_MAJOR}.${BYOND_MINOR}_byond_linux.zip" -o byond.zip \
-    && unzip byond.zip \
-    && cd byond \
-    && sed -i 's|install:|&\n\tmkdir -p $(MAN_DIR)/man6|' Makefile \
-    && make install \
-    && chmod 644 /usr/local/byond/man/man6/* \
-    && apt-get purge -y --auto-remove curl unzip make \
-    && cd .. \
-    && rm -rf byond byond.zip
+RUN dos2unix dependencies.sh \
+	&& /bin/bash -c "source dependencies.sh \
+    && git fetch --depth 1 origin \$RUST_G_VERSION" \
+    && git checkout FETCH_HEAD \
+    && ~/.cargo/bin/cargo build --release --all-features \
+	&& apt-get --purge remove -y dos2unix
 
-# build = byond + beestation compiled and deployed to /deploy
-FROM byond AS build
+FROM base as dm_base
+
 WORKDIR /beestation
 
-RUN apt-get install -y --no-install-recommends \
-        curl
+FROM dm_base as build
 
 COPY . .
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends dos2unix \
+    && rm -rf /var/lib/apt/lists/* \
 
 RUN env TG_BOOTSTRAP_NODE_LINUX=1 tools/build/build \
     && tools/deploy.sh /deploy
 
-# rust = base + rustc and i686 target
-FROM base AS rust
-RUN apt-get install -y --no-install-recommends \
-        curl && \
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal \
-    && ~/.cargo/bin/rustup target add i686-unknown-linux-gnu
+FROM dm_base
 
-# rust_g = base + rust_g compiled to /rust_g
-FROM rust AS rust_g
-WORKDIR /rust_g
+EXPOSE 1337
 
-RUN apt-get install -y --no-install-recommends \
-        pkg-config:i386 \
-        libssl-dev:i386 \
-        gcc-multilib \
-        git \
-    && git init \
-    && git remote add origin https://github.com/BeeStation/rust-g \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends software-properties-common \
+    && add-apt-repository ppa:ubuntu-toolchain-r/test \
+    && apt-get update \
+    && apt-get upgrade -y \
+    && apt-get dist-upgrade -y \
+    && apt-get install -y --no-install-recommends \
+    mariadb-client \
+    libssl1.0.0 \
+    && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /root/.byond/bin
 
-COPY dependencies.sh .
-
-RUN . ./dependencies.sh \
-    && git fetch --depth 1 origin "${RUST_G_VERSION}" \
-    && git checkout FETCH_HEAD \
-    && env PKG_CONFIG_ALLOW_CROSS=1 ~/.cargo/bin/cargo build --release --all-features --target i686-unknown-linux-gnu
-
-# extools.
-FROM base AS extools
-WORKDIR /extools
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        cmake \
-        build-essential \
-        g++-multilib \
-        cmake \
-        wget \
-        git \
-    && git init \
-    && git remote add origin https://github.com/BeeStation/extools \
-    && git fetch --depth 1 origin "$EXTOOLS_VERSION" \
-    && git checkout FETCH_HEAD \
-    && mkdir build \
-    && cd build \
-    && cmake ../byond-extools \
-    && cmake --build . --config RelWithDebInfo
-
-
-# final = byond + runtime deps + rust_g + build
-FROM byond
-WORKDIR /beestation
-
-RUN apt-get install -y --no-install-recommends \
-        libssl1.1:i386 \
-        zlib1g:i386 \
-        && mkdir -p /root/.byond/bin
-
+COPY --from=rust_g /rust_g/target/release/librust_g.so /root/.byond/bin/rust_g
 COPY --from=build /deploy ./
-COPY --from=rust_g /rust_g/target/i686-unknown-linux-gnu/release/librust_g.so ./librust_g.so
-COPY --from=extools /extools/build/libbyond-extools.so ./libbyond-extools.so
 
 #extools fexists memes
 RUN ln -s /beestation/libbyond-extools.so /root/.byond/bin/libbyond-extools.so
 
 VOLUME [ "/beestation/config", "/beestation/data" ]
+
 ENTRYPOINT [ "DreamDaemon", "beestation.dmb", "-port", "1337", "-trusted", "-close", "-verbose" ]
-EXPOSE 1337
