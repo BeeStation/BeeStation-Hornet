@@ -35,3 +35,9 @@
 	x = x / total
 	y = y / total
 	return src
+
+/datum/orbital_vector/proc/Rotate(angle)
+	var/_x = x
+	x = x * cos(angle) - y * sin(angle)
+	y = _x * sin(angle) + y * cos(angle)
+	return src

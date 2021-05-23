@@ -1,5 +1,5 @@
 /datum/orbital_map_tgui/ui_state(mob/user)
-	return GLOB.always_state
+	return GLOB.observer_state
 
 /datum/orbital_map_tgui/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -17,6 +17,8 @@
 			"position_x" = object.position.x,
 			"position_y" = object.position.y,
 			"velocity_x" = object.velocity.x,
-			"velocity_y" = object.velocity.y
+			"velocity_y" = object.velocity.y,
+			"radius" = object.radius,
+			"gravity_range" = object.relevant_gravity_range
 		))
 	return data
