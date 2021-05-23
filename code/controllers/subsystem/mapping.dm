@@ -67,13 +67,13 @@ SUBSYSTEM_DEF(mapping)
 	// Create space ruin levels
 	while (space_levels_so_far < config.space_ruin_levels)
 		++space_levels_so_far
-		add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE)
+		add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE, orbital_body_type = /datum/orbital_object/z_linked/beacon)
 	// and one level with no ruins
 	for (var/i in 1 to config.space_empty_levels)
 		++space_levels_so_far
-		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = CROSSLINKED))
+		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = CROSSLINKED), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
 	// and the transit level
-	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE), orbital_body_type = null)
+	transit = add_new_zlevel("Transit/Reserved", list(ZTRAIT_RESERVED = TRUE))
 
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
@@ -82,7 +82,7 @@ SUBSYSTEM_DEF(mapping)
 	// Load the virtual reality hub
 	if(CONFIG_GET(flag/virtual_reality))
 		to_chat(world, "<span class='boldannounce'>Loading virtual reality...</span>")
-		load_new_z_level("_maps/RandomZLevels/VR/vrhub.dmm", "Virtual Reality Hub", orbital_body_type = null)
+		load_new_z_level("_maps/RandomZLevels/VR/vrhub.dmm", "Virtual Reality Hub")
 		to_chat(world, "<span class='boldannounce'>Virtual reality loaded.</span>")
 
 	// Generate mining ruins
@@ -178,7 +178,7 @@ SUBSYSTEM_DEF(mapping)
 	z_list = SSmapping.z_list
 
 #define INIT_ANNOUNCE(X) to_chat(world, "<span class='boldannounce'>[X]</span>"); log_world(X)
-/datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE, orbital_body_type = /datum/orbital_object/z_linked/beacon)
+/datum/controller/subsystem/mapping/proc/LoadGroup(list/errorList, name, path, files, list/traits, list/default_traits, silent = FALSE, orbital_body_type)
 	. = list()
 	var/start_time = REALTIMEOFDAY
 
@@ -247,7 +247,7 @@ SUBSYSTEM_DEF(mapping)
 	// TODO: remove this when the DB is prepared for the z-levels getting reordered
 	while (world.maxz < (5 - 1) && space_levels_so_far < config.space_ruin_levels)
 		++space_levels_so_far
-		add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE)
+		add_new_zlevel("Empty Area [space_levels_so_far]", ZTRAITS_SPACE, orbital_body_type = /datum/orbital_object/z_linked/beacon)
 
 	// load mining
 	if(config.minetype == "lavaland")
@@ -441,13 +441,13 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 			away_name = "[mapfile] custom"
 			to_chat(usr,"<span class='notice'>Loading [away_name]...</span>")
 			var/datum/map_template/template = new(mapfile, "Away Mission")
-			away_level = template.load_new_z(orbital_body_type = null)
+			away_level = template.load_new_z()
 		else
 			if(answer in GLOB.potentialRandomZlevels)
 				away_name = answer
 				to_chat(usr,"<span class='notice'>Loading [away_name]...</span>")
 				var/datum/map_template/template = new(away_name, "Away Mission")
-				away_level = template.load_new_z(orbital_body_type = null)
+				away_level = template.load_new_z()
 			else
 				return
 
@@ -480,7 +480,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 				return reserve
 		//If we didn't return at this point, theres a good chance we ran out of room on the exisiting reserved z levels, so lets try a new one
 		num_of_res_levels += 1
-		var/newReserved = add_new_zlevel("Transit/Reserved [num_of_res_levels]", list(ZTRAIT_RESERVED = TRUE), orbital_body_type = null)
+		var/newReserved = add_new_zlevel("Transit/Reserved [num_of_res_levels]", list(ZTRAIT_RESERVED = TRUE))
 		if(reserve.Reserve(width, height, newReserved))
 			return reserve
 	else

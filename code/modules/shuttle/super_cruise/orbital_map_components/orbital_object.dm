@@ -16,6 +16,8 @@
 	var/maintain_orbit = FALSE
 	//The object in which we are trying to maintain a stable orbit around.
 	var/datum/orbital_object/target_orbital_body
+	//Are we invisible on the map?
+	var/stealth = FALSE
 
 	//CALCULATED IN INIT
 	//Once objects are outside of this range, we will not apply gravity to them.
@@ -63,25 +65,27 @@
 	//===================================
 	// GRAVITATIONAL ATTRACTION
 	//===================================
-	//Find relevant gravitational bodies.
-	var/list/gravitational_bodies = SSorbits.orbital_map.get_relevnant_bodies(src)
-	//Calculate acceleration vector
-	var/datum/orbital_vector/acceleration_per_second = new()
-	//Calculate gravity
-	for(var/datum/orbital_object/gravitational_body as() in gravitational_bodies)
-		//https://en.wikipedia.org/wiki/Gravitational_acceleration
-		var/distance = position.Distance(gravitational_body.position)
-		if(!distance)
-			continue
-		var/acceleration_amount = (GRAVITATIONAL_CONSTANT * gravitational_body.mass) / (distance * distance)
-		//Calculate acceleration direction
-		var/datum/orbital_vector/direction = new (gravitational_body.position.x - position.x, gravitational_body.position.y - position.y)
-		direction.Normalize()
-		direction.Scale(acceleration_amount)
-		//Add on the gravitational acceleration
-		acceleration_per_second.Add(direction)
-	//Divide acceleration per second by the tick rate
-	accelerate_towards(acceleration_per_second, ORBITAL_UPDATE_RATE_SECONDS)
+	//Gravity is not considered while we have just undocked and are at the center of a massive body.
+	if(!collision_ignored)
+		//Find relevant gravitational bodies.
+		var/list/gravitational_bodies = SSorbits.orbital_map.get_relevnant_bodies(src)
+		//Calculate acceleration vector
+		var/datum/orbital_vector/acceleration_per_second = new()
+		//Calculate gravity
+		for(var/datum/orbital_object/gravitational_body as() in gravitational_bodies)
+			//https://en.wikipedia.org/wiki/Gravitational_acceleration
+			var/distance = position.Distance(gravitational_body.position)
+			if(!distance)
+				continue
+			var/acceleration_amount = (GRAVITATIONAL_CONSTANT * gravitational_body.mass) / (distance * distance)
+			//Calculate acceleration direction
+			var/datum/orbital_vector/direction = new (gravitational_body.position.x - position.x, gravitational_body.position.y - position.y)
+			direction.Normalize()
+			direction.Scale(acceleration_amount)
+			//Add on the gravitational acceleration
+			acceleration_per_second.Add(direction)
+		//Divide acceleration per second by the tick rate
+		accelerate_towards(acceleration_per_second, ORBITAL_UPDATE_RATE_SECONDS)
 
 	//===================================
 	// ORBIT CORRECTION
@@ -108,6 +112,8 @@
 	var/colliding = FALSE
 	LAZYCLEARLIST(colliding_with)
 	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
+		if(object == src)
+			continue
 		var/distance = object.position.Distance(position)
 		if(distance < radius + object.radius)
 			//Collision
@@ -148,9 +154,9 @@
 	velocity.x = target_body.velocity.x
 	velocity.y = target_body.velocity.y + relative_velocity
 	//Set random angle
-	/*var/random_angle = rand(0, 360)	//Is cos and sin in radians?
+	var/random_angle = rand(0, 360)	//Is cos and sin in radians?
 	position.Rotate(random_angle)
-	velocity.Rotate(random_angle)*/
+	velocity.Rotate(random_angle)
 	//Update target
 	target_orbital_body = target_body
 	LAZYADD(target_body.orbitting_bodies, src)
