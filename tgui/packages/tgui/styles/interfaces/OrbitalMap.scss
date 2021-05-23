@@ -1,0 +1,26 @@
+
+.OrbitalMap__radar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 800px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.OrbitalMap__panel {
+  position: absolute;
+  left: 800px;
+  width: 380px;
+  border-left: 5px;
+  border-right: 5px;
+}
+
+.OrbitalMap__tracking {
+  height: 250px;
+}
+
+.OrbitalMap__shuttle {
+  height: 500px;
+}
