@@ -247,6 +247,7 @@
 				return
 			var/obj/item/disk/design_disk/disk = inserted_disk
 			disk.forceMove(get_turf(src))
+			inserted_disk = null
 			update_viewer_statics()
 
 		if("eject_material")
