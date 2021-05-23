@@ -15,6 +15,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	var/list/messages = list("This party is great!", "Wooo!!!", "Party!", "Check out these moves!", "Hey, want to dance with me?")
 	var/list/message_social_anxiety = list("I want to go home...", "Where are the toilets?", "I don't like this song.")
+	var/isPrimaryGrenade = 1
 
 /obj/item/grenade/discogrenade/prime(mob/living/lanced_by)
 	. = ..()
@@ -25,10 +26,10 @@
 
 	playsound(current_turf, 'sound/weapons/flashbang.ogg', 100, TRUE, 8, 0.9)
 
-	new /obj/structure/etherealball(current_turf)
-
-	for(var/i in 1 to 6)
-		new /obj/item/grenade/discogrenade/subgrenade(current_turf, TRUE)
+	if(isPrimaryGrenade)
+		new /obj/structure/etherealball(current_turf)
+		for(var/i in 1 to 6)
+			new /obj/item/grenade/discogrenade/subgrenade(current_turf, TRUE)
 
 	qdel(src)
 
@@ -41,11 +42,13 @@
 	desc = "A massive disco contained in a tiny package!"
 	icon_state = "disco"
 	item_state = "disco"
+	isPrimaryGrenade = 0
 	var/spawn_new = TRUE
 	var/timerID
 	var/lightcolor
 	var/range = 5
 	var/power = 3
+
 
 /obj/item/grenade/discogrenade/subgrenade/Initialize(mapload, duplicate = FALSE)
 	. = ..()
