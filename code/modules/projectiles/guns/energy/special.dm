@@ -404,11 +404,13 @@
 		lethals_enabled = TRUE
 		ammo_type += kill_ammo
 		select = 1
+		update_ammo_types()
 	else if(GLOB.security_level < SEC_LEVEL_RED && lethals_enabled)
 		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
 		lethals_enabled = FALSE
 		ammo_type -= kill_ammo
 		select = 1
+		update_ammo_types()
 
 /obj/item/gun/energy/smartpistol/proc/get_dna()
 	var/obj/item/firing_pin/dna/D = pin
