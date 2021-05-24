@@ -13,10 +13,10 @@
 			if (ispath(req))
 				var/datum/gas/req_gas = req
 				if (!reaction_key || initial(reaction_key.rarity) > initial(req_gas.rarity))
-					eaction_key = req_gas
+					reaction_key = req_gas
 		reaction.major_gas = reaction_key
 		. += reaction
-	sortTim(., /proc/cmp_gas_reaction)
+	sortTim(., /proc/cmp_gas_reactions)
 
 /proc/cmp_gas_reactions(list/datum/gas_reaction/a, list/datum/gas_reaction/b) // compares lists of reactions by the maximum priority contained within the list
 	if (!length(a) || !length(b))
