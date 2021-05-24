@@ -210,7 +210,9 @@
 /obj/item/gun/energy/smartpistol/examine(mob/user)
 	. = ..()
 	var/dna = get_dna()
-	if(dna)
+	if(pin.obj_flags & EMAGGED)
+		. += "<span class='warning'>The DNA lock flashes erratically! Use an ID with armory access to reset.</span>"
+	else if(dna)
 		. += "<span class='notice'>It is currently registered to: [dna]. Use an ID with armory access to reset.</span>"
 	else
 		. += "<span class='notice'>It is unregistered.</span>"
@@ -221,5 +223,7 @@
 		to_chat(user, "<span class='notice'>You reset the DNA lock.</span>")
 		var/obj/item/firing_pin/dna/D = pin
 		D.unique_enzymes = null
+		if(D.obj_flags & EMAGGED)
+			D.obj_flags &= ~EMAGGED
 		investigate_log("dna lock reset by [key_name(user)]", INVESTIGATE_RECORDS)
 	..()

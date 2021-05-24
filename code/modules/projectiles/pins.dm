@@ -43,6 +43,7 @@
 		return
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You override the authentication mechanism.</span>")
+	investigate_log("emagged by [key_name(user)]", INVESTIGATE_RECORDS)
 
 /obj/item/firing_pin/proc/gun_insert(mob/living/user, obj/item/gun/G)
 	gun = G
@@ -171,7 +172,7 @@
 			to_chat(user, "<span class='notice'>DNA-LOCK SET.</span>")
 
 /obj/item/firing_pin/dna/pin_auth(mob/living/carbon/user)
-	if(unique_enzymes && user?.dna?.unique_enzymes == unique_enzymes) //First check is in case they're both null
+	if(unique_enzymes && ((obj_flags & EMAGGED) || user?.dna?.unique_enzymes == unique_enzymes)) //First check is in case they're both null
 		return TRUE
 	return FALSE
 
