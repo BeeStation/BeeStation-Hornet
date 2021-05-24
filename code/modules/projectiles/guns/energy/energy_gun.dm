@@ -199,9 +199,7 @@
 
 /obj/item/gun/energy/smartpistol/proc/get_dna()
 	var/obj/item/firing_pin/dna/D = pin
-	if(D.unique_enzymes)
-		return D.unique_enzymes
-	return null
+	return D.unique_enzymes ? D.unique_enzymes : null
 
 /obj/item/gun/energy/smartpistol/attack_self(mob/user)
 	if(!lethals_enabled)
