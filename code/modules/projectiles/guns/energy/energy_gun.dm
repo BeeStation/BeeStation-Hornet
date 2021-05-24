@@ -173,7 +173,7 @@
 	flight_x_offset = 15
 	flight_y_offset = 10
 	pin = /obj/item/firing_pin/dna
-	var/kill_ammo = /obj/item/ammo_casing/energy/lasergun
+	var/kill_ammo = /obj/item/ammo_casing/energy/lasergun/smartpistol
 	var/stun_ammo = /obj/item/ammo_casing/energy/disabler
 	var/lethals_enabled = FALSE
 
