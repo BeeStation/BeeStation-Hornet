@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Riot shields, Roman shields, Goliath shields no longer block bullets.
