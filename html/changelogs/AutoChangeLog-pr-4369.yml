@@ -1,0 +1,5 @@
+author: Mothblocks and tgstation
+delete-after: true
+changes:
+  - refactor: Optimized TGUI_CREATE_MESSAGE() significantly.
+  - tweak: Updated the unit test code.
