@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - bugfix: Fixed a material dupe exploit with stacking machines.
