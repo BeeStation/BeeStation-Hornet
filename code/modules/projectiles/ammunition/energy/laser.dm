@@ -12,7 +12,7 @@
 
 /obj/item/ammo_casing/energy/lasergun/smartpistol
 	projectile_type = /obj/item/projectile/beam/laser/smartpistol
-	e_cost = 80
+	e_cost = 60
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/lasergun/old
