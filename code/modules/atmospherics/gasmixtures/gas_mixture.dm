@@ -7,7 +7,7 @@ What are the archived variables for?
 #define MINIMUM_MOLE_COUNT		0.01
 #define QUANTIZE(variable)		(round(variable,0.0000001))/*I feel the need to document what happens here. Basically this is used to catch most rounding errors, however it's previous value made it so that
 															once gases got hot enough, most procedures wouldnt occur due to the fact that the mole counts would get rounded away. Thus, we lowered it a few orders of magnititude */
-															
+
 GLOBAL_LIST_INIT(meta_gas_specific_heats, meta_gas_heat_list())
 GLOBAL_LIST_INIT(meta_gas_names, meta_gas_name_list())
 GLOBAL_LIST_INIT(meta_gas_visibility, meta_gas_visibility_list())
@@ -182,38 +182,6 @@ GLOBAL_LIST_INIT(auxtools_atmos_initialized, FALSE)
 			path = gas_id2path(path) //a lot of these strings can't have embedded expressions (especially for mappers), so support for IDs needs to stick around
 		set_moles(path, text2num(gas[id]))
 	return 1
-
-/datum/gas_mixture/react(datum/holder)
-	. = NO_REACTION
-	var/list/reactions = list()
-	for(var/I in get_gases())
-		reactions += SSair.gas_reactions[I]
-	if(!length(reactions))
-		return
-	reaction_results = new
-	var/temp = return_temperature()
-	var/ener = thermal_energy()
-
-	reaction_loop:
-		for(var/r in reactions)
-			var/datum/gas_reaction/reaction = r
-
-			var/list/min_reqs = reaction.min_requirements
-			if((min_reqs["TEMP"] && temp < min_reqs["TEMP"]) \
-			|| (min_reqs["ENER"] && ener < min_reqs["ENER"]))
-				continue
-
-			for(var/id in min_reqs)
-				if (id == "TEMP" || id == "ENER")
-					continue
-				if(get_moles(id) < min_reqs[id])
-					continue reaction_loop
-
-			//at this point, all requirements for the reaction are satisfied. we can now react()
-
-			. |= reaction.react(src, holder)
-			if (. & STOP_REACTIONS)
-				break
 
 //Takes the amount of the gas you want to PP as an argument
 //So I don't have to do some hacky switches/defines/magic strings
