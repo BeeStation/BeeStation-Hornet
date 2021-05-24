@@ -29,7 +29,7 @@
 /datum/export/weapon/disabler
 	cost = 100
 	unit_name = "disabler"
-	export_types = list(/obj/item/gun/energy/disabler)
+	export_types = list(/obj/item/gun/energy/smartpistol)
 
 /datum/export/weapon/energy_gun
 	cost = 300

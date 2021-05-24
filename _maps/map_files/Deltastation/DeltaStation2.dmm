@@ -57760,12 +57760,12 @@
 /area/ai_monitored/security/armory)
 "bTj" = (
 /obj/structure/rack,
-/obj/item/gun/energy/disabler{
+/obj/item/gun/energy/smartpistol{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/energy/disabler,
-/obj/item/gun/energy/disabler{
+/obj/item/gun/energy/smartpistol,
+/obj/item/gun/energy/smartpistol{
 	pixel_x = 3;
 	pixel_y = -3
 	},
