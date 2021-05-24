@@ -227,3 +227,10 @@
 			D.obj_flags &= ~EMAGGED
 		investigate_log("dna lock reset by [key_name(user)]", INVESTIGATE_RECORDS)
 	..()
+
+/obj/item/gun/energy/smartpistol/emp_act(severity)
+	audible_message("<span class='italics'>You hear erratic beeping from \the [name].</span>", null,  1)
+	var/obj/item/firing_pin/dna/D = pin
+	D.unique_enzymes = null
+	investigate_log("dna lock reset by EMP", INVESTIGATE_RECORDS)
+	..()
