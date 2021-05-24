@@ -56,6 +56,83 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">24 May 2021</h2>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Entering softcrit knocks the player down for 4 seconds.</li>
+				<li class="refactor">Items cannot be used during softcrit. (Attacking, healing, suicide bombing can no longer be performed)</li>
+				<li class="refactor">Hardcrit threshold changed from -50 to -40.</li>
+				<li class="refactor">Random oxy damage during softcrit removed. (Oxygen damage is already handled by the lungs)</li>
+				<li class="refactor">Random sleeping during softcrit replaced with knockdown.</li>
+				<li class="refactor">Reduced the probability of being knocked down / gasping / coughing during softcrit.</li>
+				<li class="refactor">Damage effect overlay now kicks in at -0 health rather than -10 health.</li>
+				<li class="tweak">Riot shields, Roman shields, Goliath shields no longer block bullets.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Disco grenade 2, electric boogaloo</li>
+			</ul>
+
+			<h2 class="date">23 May 2021</h2>
+			<h3 class="author">Kapu1178 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Synth infinite brute stacking</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Ethereal Disco Grenades no longer crash the server</li>
+			</ul>
+			<h3 class="author">jupyterkat updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">modfabs no longer teleport disks</li>
+			</ul>
+			<h3 class="author">zeskorion updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">necroseed tendril range halved. if an admin bwoinks you for this they should be ridiculed and kicked in a corner</li>
+				<li class="tweak">self respiration can now counteract autophageocytosis bleeding</li>
+				<li class="tweak">pituitary disruption is less disruptive to a round overall</li>
+				<li class="tweak">biometallic replication numbers and thresholds have been tweaked</li>
+				<li class="tweak">wizarditis transmission threshold is significantly easier</li>
+				<li class="bugfix">wizarditis now works</li>
+			</ul>
+
+			<h2 class="date">21 May 2021</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed runtime when qdeleting proximity monitor</li>
+				<li class="bugfix">Fixed runtime in cmp.dm</li>
+				<li class="bugfix">Fixed bloodtomatoes not deleting themselves.</li>
+				<li class="rscdel">Removed donutstation.</li>
+				<li class="admin">Admins will now get a pop up asking them if they want to start Battle Royale if the round was delayed.</li>
+			</ul>
+			<h3 class="author">Kapu1178 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">whip isnt shitcode anymore</li>
+				<li class="bugfix">Synths now properly inherit mutant bodyparts</li>
+				<li class="bugfix">Synths process chems as intended, and have the proper bitflags and traits</li>
+				<li class="balance">All synths revive on healing like IPCs, and military synths have additional traits.</li>
+			</ul>
+			<h3 class="author">Tlaltecuhtli  updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">tendril crates need keys to open which you can spend mining points to get</li>
+				<li class="balance">ashwalkers can craft em with bones cause they got no points</li>
+			</ul>
+			<h3 class="author">francinum updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">For performance reasons, lavaland atmos is static again. The randomization system still exists but sits unused.</li>
+			</ul>
+			<h3 class="author">yorii updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">made some generic healing sources handle toxinlovers properly</li>
+				<li class="bugfix">made the easy dismemberment trait on several species actually function</li>
+				<li class="bugfix">made the beelover trait actually function</li>
+				<li class="code_imp">some related code cleanup</li>
+			</ul>
+			<h3 class="author">yyzsong updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Removes the filter from the corg filter to space setup</li>
+			</ul>
+
 			<h2 class="date">20 May 2021</h2>
 			<h3 class="author"> updated:</h3>
 			<ul class="changes bgimages16">
@@ -972,115 +1049,6 @@
 			<h3 class="author">yyzsong updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscadd">Adds the geisha suit to the beecoin shop.</li>
-			</ul>
-
-			<h2 class="date">22 March 2021</h2>
-			<h3 class="author">Naevii updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">Buffs anime (updates schoolgirl outfits)</li>
-			</ul>
-			<h3 class="author">OceanFish1 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">On April fools' day xenobiology have a chance to get trolled by Central Command.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes suit movement sounds not playing if you remove the suit.</li>
-				<li class="tweak">Meteors now spawn 10 minutes after being announced.</li>
-				<li class="tweak">Meteor wave event now unlocks meteor shields.</li>
-				<li class="tweak">Meteor wave start time reduced from 50 minutes to 30 minutes.</li>
-			</ul>
-			<h3 class="author">TheFakeElon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixes donator backpack inhands and scarf sprites</li>
-				<li class="code_imp">cleaner donator item handling</li>
-			</ul>
-
-			<h2 class="date">21 March 2021</h2>
-			<h3 class="author">Archanial updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Replaced tiles in metastation freezer room with less cold ones.</li>
-				<li class="rscdel">Removed roundstart cold tiles and replaced them with /freezer tiles.</li>
-			</ul>
-			<h3 class="author">TheFakeElon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds donator items in the beecoin shop, for real this time.</li>
-			</ul>
-			<h3 class="author">ikalpo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">RCD simple circuits upgrade now works</li>
-			</ul>
-
-			<h2 class="date">20 March 2021</h2>
-			<h3 class="author">Archanial updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">You can now throw pets.</li>
-			</ul>
-			<h3 class="author">FlamePrince, JJRcop updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">IPCs are pulled into their body when repaired.</li>
-			</ul>
-			<h3 class="author">MisterMecky updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Styptic powder and Silver Sulfadiazine now properly only apply via patches and med sprays</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Scout guardians can no longer teleport things while scouted.</li>
-			</ul>
-			<h3 class="author">eeSPee updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed gardener service module from harvesting plants with the plant bag.</li>
-			</ul>
-			<h3 class="author">kit-katz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Oozeling mutation toxin</li>
-				<li class="tweak">Krokodil's withdraw transformation only applies to humans and felinds. Other races just get injured badly</li>
-				<li class="balance">Oozelings now enjoy eating EVERYTHING* that can be eaten. God help us</li>
-			</ul>
-			<h3 class="author">yyzsong updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="spellcheck">Fixes a typo in battle royale supply drops</li>
-			</ul>
-
-			<h2 class="date">19 March 2021</h2>
-			<h3 class="author">Naevii, TheFakeElon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">Adds a heap of new cosmetic items</li>
-				<li class="rscadd">Adds a donator category in the beeshop</li>
-				<li class="config">config for donator items</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Zombie powder is now a delayed activation stamina toxin that triggers a fake death once the victim is in a deep stamcrit</li>
-			</ul>
-			<h3 class="author">bloons3 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Security Cell doors log relevant changes made to timers</li>
-			</ul>
-			<h3 class="author">eeSPee updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">AI Eyes jump to shell when it disconnects</li>
-			</ul>
-			<h3 class="author">ike709 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Reverted the donor shop due to bugs.</li>
-			</ul>
-			<h3 class="author">jupyterkat, mrdoombringer updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">admins can now edit the delays for reversing supplypods</li>
-				<li class="admin">The supplypod menu no longer sucks</li>
-				<li class="imageadd">new supplypod icons</li>
-				<li class="imagedel">old supplypod icons</li>
-				<li class="refactor">refactored supplypods code</li>
-			</ul>
-			<h3 class="author">qwertyquerty, Merct updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Music when nukies declare war</li>
-			</ul>
-			<h3 class="author">r1ks-iwnl updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Shields can't take stamina damage.</li>
 			</ul>
 		</div>
 

@@ -497,7 +497,7 @@
 		human_user.adjustBruteLoss(-10, FALSE)
 		human_user.adjustFireLoss(-10, FALSE)
 		human_user.adjustStaminaLoss(-10, FALSE)
-		human_user.adjustToxLoss(-10, FALSE)
+		human_user.adjustToxLoss(-10, FALSE, TRUE)
 		human_user.adjustOxyLoss(-10)
 
 /obj/effect/proc_holder/spell/targeted/shed_human_form

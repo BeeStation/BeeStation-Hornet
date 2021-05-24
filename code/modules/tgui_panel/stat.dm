@@ -80,6 +80,8 @@
 		return
 	window.send_message("stat/deadPopup", list())
 
+
+
 /**
  * public
  *
@@ -112,3 +114,23 @@
 	if(!is_ready())
 		return
 	window.send_message("stat/clearAlertPopup", list())
+
+/**
+ * public
+ *
+ * Displays the message asking an admin to start battle royale
+ */
+/datum/tgui_panel/proc/give_br_popup()
+	if(!is_ready())
+		return
+	window.send_message("stat/alertBr")
+
+/**
+ * public
+ *
+ * Clears the message asking an admin to start battle royale
+ */
+/datum/tgui_panel/proc/clear_br_popup()
+	if(!is_ready())
+		return
+	window.send_message("stat/clearAlertBr", list())

@@ -72,7 +72,7 @@
 		if(!L.toxloss && !L.staminaloss && !L.bruteloss && !L.fireloss)
 			continue
 		if(use_power(2))
-			L.adjustToxLoss(-10)
+			L.adjustToxLoss(-10, FALSE, TRUE)
 			L.adjustStaminaLoss(-10)
 			L.adjustBruteLoss(-2)
 			L.adjustFireLoss(-2)
