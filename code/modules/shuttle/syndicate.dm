@@ -44,6 +44,7 @@
 	shuttleId = "steel_rain"
 	possible_destinations = null
 	clockwork = TRUE //it'd look weird
+	autopilot_forced = TRUE
 
 /obj/machinery/computer/shuttle_flight/syndicate/drop_pod/Topic(href, href_list)
 	if(!usr.canUseTopic(src))
