@@ -18,13 +18,11 @@
 	//The target, speeds are calulated relative to this.
 	var/datum/orbital_object/shuttleTarget
 
-/datum/orbital_object/shuttle/infiltrator
+/datum/orbital_object/shuttle/stealth/infiltrator
 	max_thrust = 1.5
-	stealth = TRUE
 
-/datum/orbital_object/shuttle/steel_rain
+/datum/orbital_object/shuttle/stealth/steel_rain
 	max_thrust = 3
-	stealth = TRUE
 
 /datum/orbital_object/shuttle/stealth
 	stealth = TRUE
@@ -95,7 +93,7 @@
 
 	//Adjust our speed to target to point towards it.
 	var/datum/orbital_vector/desired_velocity = new(next_position.x - position.x, next_position.y - position.y)
-	var/desired_speed = max(distance_to_target * 0.05, 0.5)
+	var/desired_speed = max(distance_to_target * 0.05, target_orbital_body.velocity.Length() + 0.5)
 	desired_velocity.Normalize()
 	desired_velocity.Scale(desired_speed)
 

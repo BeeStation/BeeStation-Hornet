@@ -427,7 +427,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		/obj/item/pipe_dispenser = 2,
 		/obj/item/storage/toolbox/syndicate = 2,
 		/obj/item/storage/toolbox/electrical = 1,
-		/obj/item/circuitboard/computer/shuttle/docker = 1,
 		/obj/item/circuitboard/computer/shuttle/flight_control = 1,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma = 2,
 		/obj/item/circuitboard/machine/shuttle/heater = 2,
