@@ -35,7 +35,7 @@
 		//send them to the place
 		var/datum/orbital_object/shuttle/shuttle = other
 		//Check if shuttle can dock at this location.
-		if(!random_docking && !can_dock_anywhere)
+		if(!random_docking && !(can_dock_anywhere && !GLOB.shuttle_docking_jammed))
 			var/can_dock_here = FALSE
 			for(var/port_name in shuttle.valid_docks)
 				var/obj/docking_port/port = SSshuttle.getDock(port_name)
