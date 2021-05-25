@@ -137,7 +137,7 @@
 
 //shuttle console for elevators//
 
-/obj/machinery/computer/shuttle/snowdin/mining
+/obj/machinery/computer/shuttle_flight/snowdin/mining
 	name = "shuttle console"
 	desc = "A shuttle control computer."
 	icon_screen = "shuttle"

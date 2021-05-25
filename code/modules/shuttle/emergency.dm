@@ -587,8 +587,8 @@
 	launch_status = UNLAUNCHED
 
 /obj/docking_port/mobile/pod/request(obj/docking_port/stationary/S)
-	var/obj/machinery/computer/shuttle/C = getControlConsole()
-	if(!istype(C, /obj/machinery/computer/shuttle/pod))
+	var/obj/machinery/computer/shuttle_flight/C = getControlConsole()
+	if(!istype(C, /obj/machinery/computer/shuttle_flight/pod))
 		return ..()
 	if(GLOB.security_level >= SEC_LEVEL_RED || (C && (C.obj_flags & EMAGGED)))
 		if(launch_status == UNLAUNCHED)
@@ -601,7 +601,7 @@
 /obj/docking_port/mobile/pod/cancel()
 	return
 
-/obj/machinery/computer/shuttle/pod
+/obj/machinery/computer/shuttle_flight/pod
 	name = "pod control computer"
 	admin_controlled = 1
 	possible_destinations = "pod_asteroid"
@@ -611,16 +611,16 @@
 	density = FALSE
 	clockwork = TRUE //it'd look weird
 
-/obj/machinery/computer/shuttle/pod/update_icon()
+/obj/machinery/computer/shuttle_flight/pod/update_icon()
 	return
 
-/obj/machinery/computer/shuttle/pod/emag_act(mob/user)
+/obj/machinery/computer/shuttle_flight/pod/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='warning'>You fry the pod's alert level monitoring system.</span>")
 
-/obj/machinery/computer/shuttle/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+/obj/machinery/computer/shuttle_flight/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	. = ..()
 	if(possible_destinations == initial(possible_destinations) || override)
 		possible_destinations = "pod_lavaland[idnum]"

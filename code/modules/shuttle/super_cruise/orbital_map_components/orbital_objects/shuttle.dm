@@ -3,9 +3,11 @@
 	var/shuttle_port_id
 	//Shuttle data
 	var/max_thrust = 0.5
-	//Controlls
+	//Controls
 	var/thrust = 0
 	var/angle = 0
+	//Valid docking locations
+	var/list/valid_docks = list()
 	//Docking
 	var/datum/orbital_object/z_linked/can_dock_with
 	var/datum/orbital_object/z_linked/docking_target

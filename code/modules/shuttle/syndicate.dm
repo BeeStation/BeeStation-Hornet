@@ -1,6 +1,6 @@
 #define SYNDICATE_CHALLENGE_TIMER 12000 //20 minutes
 
-/obj/machinery/computer/shuttle/syndicate
+/obj/machinery/computer/shuttle_flight/syndicate
 	name = "syndicate shuttle terminal"
 	desc = "The terminal used to control the syndicate transport shuttle."
 	circuit = /obj/item/circuitboard/computer/syndicate_shuttle
@@ -12,13 +12,13 @@
 	possible_destinations = "syndicate_away;syndicate_z5;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/computer/shuttle/syndicate/recall
+/obj/machinery/computer/shuttle_flight/syndicate/recall
 	name = "syndicate shuttle recall terminal"
 	desc = "Use this if your friends left you behind."
 	possible_destinations = "syndicate_away"
 
 
-/obj/machinery/computer/shuttle/syndicate/Topic(href, href_list)
+/obj/machinery/computer/shuttle_flight/syndicate/Topic(href, href_list)
 	if(!usr.canUseTopic(src))
 		return
 	if(href_list["move"])
@@ -29,12 +29,12 @@
 		board.moved = TRUE
 	..()
 
-/obj/machinery/computer/shuttle/syndicate/allowed(mob/M)
+/obj/machinery/computer/shuttle_flight/syndicate/allowed(mob/M)
 	if(issilicon(M) && !(ROLE_SYNDICATE in M.faction))
 		return FALSE
 	return ..()
 
-/obj/machinery/computer/shuttle/syndicate/drop_pod
+/obj/machinery/computer/shuttle_flight/syndicate/drop_pod
 	name = "syndicate assault pod control"
 	desc = "Controls the drop pod's launch system."
 	icon = 'icons/obj/terminals.dmi'
@@ -45,7 +45,7 @@
 	possible_destinations = null
 	clockwork = TRUE //it'd look weird
 
-/obj/machinery/computer/shuttle/syndicate/drop_pod/Topic(href, href_list)
+/obj/machinery/computer/shuttle_flight/syndicate/drop_pod/Topic(href, href_list)
 	if(!usr.canUseTopic(src))
 		return
 	if(href_list["move"])

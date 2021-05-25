@@ -32,7 +32,7 @@
 	to_chat(fugitive, "<span class='userdanger'>You are thrown into a vast void of bluespace, and as you fall further into oblivion the comparatively small entrance to reality gets smaller and smaller until you cannot see it anymore. You have failed to avoid capture.</span>")
 	fugitive.ghostize(TRUE) //so they cannot suicide, round end stuff.
 
-/obj/machinery/computer/shuttle/hunter
+/obj/machinery/computer/shuttle_flight/hunter
 	name = "shuttle console"
 	shuttleId = "huntership"
 	possible_destinations = "huntership_home;huntership_custom;whiteship_home;syndicate_nw"

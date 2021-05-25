@@ -28,7 +28,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/pirate)
 "ac" = (
-/obj/machinery/computer/shuttle/pirate,
+/obj/machinery/computer/shuttle_flight/pirate,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{

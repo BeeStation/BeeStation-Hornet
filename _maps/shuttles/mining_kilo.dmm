@@ -16,7 +16,7 @@
 /area/shuttle/mining)
 "d" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/shuttle_flight/mining,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/mining)
 "e" = (

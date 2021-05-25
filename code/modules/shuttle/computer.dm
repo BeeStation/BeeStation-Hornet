@@ -1,4 +1,4 @@
-/obj/machinery/computer/shuttle
+/*/obj/machinery/computer/shuttle_flight
 	name = "shuttle console"
 	desc = "A shuttle control computer."
 	icon_screen = "shuttle"
@@ -10,7 +10,7 @@
 	var/admin_controlled
 	var/no_destination_swap = 0
 
-/obj/machinery/computer/shuttle/ui_interact(mob/user)
+/obj/machinery/computer/shuttle_flight/ui_interact(mob/user)
 	//Ash walkers cannot use the console because they are unga bungas
 	if(user.mind?.has_antag_datum(/datum/antagonist/ashwalker))
 		to_chat(user, "<span class='warning'>This computer has been designed to keep the natives like you from meddling with it, you have no hope of using it.</span>")
@@ -39,7 +39,7 @@
 	popup.set_content("<center>[dat]</center>")
 	popup.open()
 
-/obj/machinery/computer/shuttle/Topic(href, href_list)
+/obj/machinery/computer/shuttle_flight/Topic(href, href_list)
 	if(..())
 		return
 	usr.set_machine(src)
@@ -72,13 +72,14 @@
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 
-/obj/machinery/computer/shuttle/emag_act(mob/user)
+/obj/machinery/computer/shuttle_flight/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
 		return
 	req_access = list()
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
-/obj/machinery/computer/shuttle/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+/obj/machinery/computer/shuttle_flight/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	if(port && (shuttleId == initial(shuttleId) || override))
 		shuttleId = port.id
+*/

@@ -7,6 +7,17 @@
 	req_access = list( )
 	var/shuttleId
 
+	//Admin controlled shuttles
+	var/admin_controlled = FALSE
+
+	//Autopilot only shuttles
+	//These shuttles have a list of possible ports to go to and will fly directly to them.
+	var/autopilot_forced = FALSE
+	//Is autopilot enabled.
+	var/autopilot = FALSE
+
+	//Used for mapping mainly
+	var/possible_destinations = ""
 	var/list/valid_docks = list("whiteship_home")
 
 	var/angle
@@ -15,21 +26,85 @@
 	var/datum/orbital_object/shuttle/shuttleObject
 	//The target, speeds are calulated relative to this.
 	var/datum/orbital_object/shuttleTarget
-	var/autopilot = FALSE
+
+/obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
+	. = ..()
+	valid_docks = params2list(possible_destinations)
+	//Enable autopilot.
+	if(autopilot_forced)
+		autopilot = TRUE
 
 /obj/machinery/computer/shuttle_flight/process()
-	if(!shuttleTarget || !autopilot)
+	. = ..()
+	if(!shuttleTarget || !autopilot || !shuttleObject || shuttleObject.docking_target)
 		return
-	//Calculate required angle and thrust to get to the target.
-	//Ooga booga autopilot: Thrusts towards the target until it hits it.
-	var/delta_x = -shuttleTarget.position.x + shuttleObject.position.x
-	var/delta_y = -shuttleTarget.position.y + shuttleObject.position.y
-	var/required_angle = arctan(delta_y / delta_x)
-	angle = required_angle
+
+	//Relative velocity to target needs to point towards target.
+	var/distance_to_target = shuttleObject.position.Distance(shuttleTarget.position)
+	var/shortest_distance = distance_to_target
+	var/datum/orbital_object/object_in_path
+
+	for(var/datum/orbital_object/z_linked/object in SSorbits.orbital_map.bodies)
+		//Dont care about non forced docking objects.
+		if(!object.forced_docking)
+			continue
+		//Dont avoid colliding with the thing we want to collide with.
+		if(object == shuttleTarget)
+			continue
+		//Calculate shortest distance and check if we will collide.
+		if(object.position.ShortestDistanceToLine(shuttleObject.position, shuttleObject.velocity) < object.radius)
+			//Make sure we are closer to our target than this object, otherwise the colliding object is behind the target.
+			var/distance_to_object = shuttleObject.position.Distance(object.position)
+			if(distance_to_object < shortest_distance)
+				object_in_path = object
+				shortest_distance = distance_to_object
+
+	//If there is an object in the way, we need to fly around it.
+	var/datum/orbital_vector/next_position
+	if(object_in_path)
+		var/datum/orbital_vector/normalized_velocity = new(-object_in_path.velocity.x, -object_in_path.velocity.y)
+		normalized_velocity.Normalize()
+		normalized_velocity.Scale(object_in_path.radius * 2)
+		next_position = new(object_in_path.position.x + normalized_velocity.x, object_in_path.position.y + normalized_velocity.y)
+	else
+		//Fly in a straight line towards target.
+		next_position = shuttleTarget.position
+
+	//Adjust our speed to target to point towards it.
+	var/datum/orbital_vector/desired_velocity = new(next_position.x - shuttleObject.position.x, next_position.y - shuttleObject.position.y)
+	var/desired_speed = max(distance_to_target * 0.2, 0.5)
+	desired_velocity.Normalize()
+	desired_velocity.Scale(desired_speed)
+
+	//Adjust thrust to make our velocity = desired_velocity
+	var/thrust_dir_x = desired_velocity.x - shuttleObject.velocity.x
+	var/thrust_dir_y = desired_velocity.y - shuttleObject.velocity.y
+
+	//message_admins("Thrusting in dir: [thrust_dir_y], [thrust_dir_x]")
+	//message_admins("Next pos: [next_position.x], [next_position.y]")
+
+	if(!thrust_dir_x)
+		if(!thrust_dir_y)
+			thrust_percentage = 0
+			shuttleObject.thrust = thrust_percentage
+			return
+		angle = thrust_dir_y > 0 ? 90 : -90
+	else
+		angle = arctan(thrust_dir_y / thrust_dir_x)
+		//Account for ambiguous cases
+		if(thrust_dir_x < 0)
+			if(thrust_dir_y < 0)
+				angle = 180 - angle
+			else
+				angle = 90 - angle
+
 	shuttleObject.angle = angle
 	//FULL SPEED
 	thrust_percentage = 100
 	shuttleObject.thrust = thrust_percentage
+	//Auto dock
+	if(shuttleObject.can_dock_with == shuttleTarget)
+		shuttleObject.commence_docking(shuttleTarget, TRUE)
 
 /obj/machinery/computer/shuttle_flight/ui_state(mob/user)
 	return GLOB.default_state
@@ -60,10 +135,14 @@
 			"position_y" = object.position.y,
 			"velocity_x" = object.velocity.x,
 			"velocity_y" = object.velocity.y,
-			"radius" = object.radius,
-			"gravity_range" = object.relevant_gravity_range
+			"radius" = object.radius
 		))
+	if(!SSshuttle.getShuttle(shuttleId))
+		data["linkedToShuttle"] = FALSE
+		return
 	data["canLaunch"] = TRUE
+	data["autopilot"] = autopilot
+	data["autopilot_forced"] = autopilot_forced
 	if(!shuttleObject)
 		data["linkedToShuttle"] = FALSE
 		return data
@@ -105,6 +184,9 @@
 	. = ..()
 	if(.)
 		return
+	if(admin_controlled)
+		say("This shuttle is restricted to authorised personnel only.")
+		return
 	switch(action)
 		if("setTarget")
 			var/desiredTarget = params["target"]
@@ -113,16 +195,24 @@
 					shuttleTarget = object
 					return
 		if("setThrust")
+			if(autopilot)
+				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
+				return
 			if(!shuttleObject)
 				return
 			thrust_percentage = CLAMP(params["thrust"], 0, 100)
 			shuttleObject.thrust = thrust_percentage
 		if("setAngle")
+			if(autopilot)
+				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
+				return
 			if(!shuttleObject)
 				return
 			angle = params["angle"]
 			shuttleObject.angle = angle
-		if("autopilot")
+		if("nautopilot")
+			if(autopilot_forced)
+				return
 			if(!shuttleObject || !shuttleTarget)
 				return
 			autopilot = !autopilot
@@ -131,7 +221,14 @@
 			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
 			if(!mobile_port)
 				return
+			if(mobile_port.mode == SHUTTLE_RECHARGING)
+				say("Supercruise Warning: Shuttle engines not ready for use.")
+				return
+			if(mobile_port.mode != SHUTTLE_IDLE)
+				say("Supercruise Warning: Shuttle already in transit.")
+				return
 			shuttleObject = mobile_port.enter_supercruise()
+			shuttleObject.valid_docks = valid_docks
 		//Dock at location.
 		if("dock")
 			if(!shuttleObject)
@@ -148,6 +245,16 @@
 			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
 			if(!mobile_port || mobile_port.destination != null)
 				return
+			//Check ready
+			if(mobile_port.mode == SHUTTLE_RECHARGING)
+				say("Supercruise Warning: Shuttle engines not ready for use.")
+				return
+			if(mobile_port.mode != SHUTTLE_CALL || mobile_port.destination)
+				say("Supercruise Warning: Already dethrottling shuttle.")
+				return
+			//Disable autopilot
+			if(!autopilot_forced)
+				autopilot = FALSE
 			//Special check
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
@@ -187,6 +294,10 @@
 	//Create temporary port
 	var/obj/docking_port/stationary/random_port = new
 	random_port.delete_after = TRUE
+	random_port.width = shuttle_dock.width
+	random_port.height = shuttle_dock.height
+	random_port.dwidth = shuttle_dock.dwidth
+	random_port.dheight = shuttle_dock.dheight
 	var/sanity = 20
 	var/square_length = max(shuttle_dock.width, shuttle_dock.height)
 	var/border_distance = 10 + square_length
