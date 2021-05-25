@@ -17,9 +17,8 @@
 	var/y_offset = 0
 	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating, /turf/open/lava)
 	var/see_hidden = FALSE
-	var/designate_time = 0
+	var/designate_time = 50
 	var/turf/designating_target_loc
-	var/jammed = FALSE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Initialize()
 	. = ..()
@@ -37,9 +36,6 @@
 	GLOB.navigation_computers -= src
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/attack_hand(mob/user)
-	if(jammed)
-		to_chat(user, "<span class='warning'>The Syndicate is jamming the console!</span>")
-		return
 	if(!shuttle_port && !SSshuttle.getShuttle(shuttleId))
 		to_chat(user,"<span class='warning'>Warning: Shuttle connection severed!</span>")
 		return
@@ -169,9 +165,15 @@
 		newI.mouse_opacity = 0
 		the_eye.placed_images += newI
 
-	if(current_user.client)
-		current_user.client.images += the_eye.placed_images
-		to_chat(current_user, "<span class='notice'>Transit location designated.</span>")
+	//Go to destination
+	switch(SSshuttle.moveShuttle(shuttleId, shuttlePortId, 1))
+		if(0)
+			remove_eye_control(usr)
+		if(1)
+			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+		else
+			to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+
 	return TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget()

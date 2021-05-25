@@ -297,12 +297,6 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/custom_shuttle
 
-/obj/item/circuitboard/computer/shuttle/docker
-	name = "shuttle navigation computer (Computer Board)"
-	icon_state = "generic"
-	build_path = /obj/machinery/computer/camera_advanced/shuttle_docker/custom
-
-
 //Medical
 
 /obj/item/circuitboard/computer/cloning

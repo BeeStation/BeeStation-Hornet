@@ -234,7 +234,6 @@
 	jumpto_ports = list("whiteship_home" = 1)
 	view_range = 12
 	designate_time = 100
-	circuit = /obj/item/circuitboard/computer/shuttle/docker
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/custom/placeLandingSpot()
 	if(!shuttleId)
