@@ -41,6 +41,10 @@
 	. = ..()
 	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
 
+/datum/orbital_object/shuttle/Destroy()
+	. = ..()
+	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
+
 //Dont fly into the sun idiot.
 /datum/orbital_object/shuttle/explode()
 	var/obj/docking_port/mobile/port = SSshuttle.getShuttle(shuttle_port_id)
