@@ -6865,14 +6865,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/centcom/supplypod)
-"qJ" = (
-/obj/machinery/computer/shuttle_flight/syndicate/recall,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/syndicate_mothership/control)
 "qK" = (
 /obj/machinery/vending/coffee,
 /obj/effect/turf_decal/tile/bar,
@@ -8190,15 +8182,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/syndicate_mothership/control)
-"to" = (
-/obj/machinery/computer/shuttle_flight/ferry{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/centcom/ferry)
 "tp" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -10984,6 +10967,16 @@
 	},
 /turf/open/floor/grass,
 /area/wizard_station)
+"zR" = (
+/obj/machinery/computer/shuttle_flight/syndicate/recall{
+	recall_docking_port_id = "syndicate_away"
+	},
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/syndicate_mothership/control)
 "zT" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -18732,6 +18725,16 @@
 	dir = 8
 	},
 /area/ctf)
+"ZE" = (
+/obj/machinery/computer/shuttle_flight/ferry{
+	dir = 4;
+	recall_docking_port_id = "ferry_away"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/centcom/ferry)
 "ZG" = (
 /obj/machinery/igniter/on,
 /obj/effect/turf_decal/delivery,
@@ -36200,7 +36203,7 @@ hl
 oW
 ku
 ng
-qJ
+zR
 pZ
 se
 pZ
@@ -53165,7 +53168,7 @@ aa
 oe
 rk
 sq
-to
+ZE
 uj
 oe
 aa

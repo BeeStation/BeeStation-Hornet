@@ -9227,10 +9227,6 @@
 /obj/machinery/computer/security/labor,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"aqZ" = (
-/obj/machinery/computer/shuttle_flight/labor,
-/turf/open/floor/plasteel/dark,
-/area/security/brig)
 "ara" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -15252,29 +15248,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"aDh" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 4;
-	req_access = null
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/miningoffice)
 "aDi" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/landmark/start/shaft_miner,
@@ -23010,19 +22983,6 @@
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"aSJ" = (
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/construction/mining/aux_base)
 "aSK" = (
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -83703,6 +83663,12 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
+"jii" = (
+/obj/machinery/computer/shuttle_flight/labor{
+	recall_docking_port_id = "laborcamp_home"
+	},
+/turf/open/floor/plasteel/dark,
+/area/security/brig)
 "jmO" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -84934,6 +84900,20 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
+"nEd" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 4;
+	recall_docking_port_id = "mining_public"
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "nHj" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -85044,16 +85024,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"nZy" = (
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/machinery/computer/shuttle_flight/science{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/science/shuttledock)
 "obb" = (
 /obj/structure/target_stake,
 /turf/open/floor/plasteel/white,
@@ -87425,6 +87395,17 @@
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
+"wHz" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/machinery/computer/shuttle_flight/science{
+	dir = 8;
+	recall_docking_port_id = "science_station"
+	},
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "wHH" = (
 /obj/structure/sign/departments/minsky/medical/clone/cloning2,
 /turf/closed/wall,
@@ -87980,6 +87961,30 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab/range)
+"yhI" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -24
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 4;
+	recall_docking_port_id = "mining_home";
+	req_access = null
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/miningoffice)
 "yic" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -98908,7 +98913,7 @@ aDa
 aDa
 cWK
 aRD
-aSJ
+nEd
 aDb
 aVy
 aWU
@@ -104807,7 +104812,7 @@ ayj
 azl
 aAE
 xhE
-aDh
+yhI
 aEv
 aFF
 ayj
@@ -112507,7 +112512,7 @@ alP
 ang
 aoq
 ahx
-aqZ
+jii
 aso
 atL
 ahx
@@ -126717,7 +126722,7 @@ jah
 dQV
 ovj
 mjJ
-nZy
+wHz
 mjJ
 xlJ
 rDf
