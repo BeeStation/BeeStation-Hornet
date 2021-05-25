@@ -221,7 +221,7 @@
 		linkShuttle(port.id)
 
 //Custom shuttle docker locations
-/obj/machinery/computer/camera_advanced/shuttle_docker/custom
+/*/obj/machinery/computer/camera_advanced/shuttle_docker/custom
 	name = "Shuttle Navigation Computer"
 	desc = "Used to designate a precise transit location for private ships."
 	lock_override = NONE
@@ -260,3 +260,4 @@
 	view_range = min(round(max(M.width, M.height)*0.5), 15)
 	x_offset = round((shuttlebounds[1] + shuttlebounds[3])*0.5) - M.x
 	y_offset = round((shuttlebounds[2] + shuttlebounds[4])*0.5) - M.y
+*/
