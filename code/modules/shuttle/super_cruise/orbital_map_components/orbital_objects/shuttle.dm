@@ -84,7 +84,7 @@
 
 	//Adjust our speed to target to point towards it.
 	var/datum/orbital_vector/desired_velocity = new(next_position.x - position.x, next_position.y - position.y)
-	var/desired_speed = max(distance_to_target * 0.2, 0.5)
+	var/desired_speed = max(distance_to_target * 0.05, 0.5)
 	desired_velocity.Normalize()
 	desired_velocity.Scale(desired_speed)
 
@@ -104,10 +104,7 @@
 		angle = arctan(thrust_dir_y / thrust_dir_x)
 		//Account for ambiguous cases
 		if(thrust_dir_x < 0)
-			if(thrust_dir_y < 0)
-				angle = 180 - angle
-			else
-				angle = 90 - angle
+			angle = 90 + angle
 
 	//FULL SPEED
 	thrust = 100

@@ -91,7 +91,7 @@
 	// ORBIT CORRECTION
 	//===================================
 	//Some objects may automatically thrust to maintain a stable orbit
-	if(maintain_orbit)
+	if(maintain_orbit && target_orbital_body)
 		//Velocity should always be perpendicular to the planet
 		var/datum/orbital_vector/perpendicular_vector = new(position.y - target_orbital_body.position.y, target_orbital_body.position.x - position.x)
 		//Calculate the relative velocity we should have

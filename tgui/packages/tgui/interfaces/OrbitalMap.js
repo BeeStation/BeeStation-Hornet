@@ -10,7 +10,7 @@ export const OrbitalMap = (props, context) => {
     collisionAlert = false,
     linkedToShuttle = false,
     canLaunch = false,
-    recall_docking_port_id = "mining_home",
+    recall_docking_port_id = "",
   } = data;
   const lineStyle = {
     stroke: '#BBBBBB',
