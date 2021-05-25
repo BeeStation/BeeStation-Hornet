@@ -41,6 +41,17 @@
 	. = ..()
 	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
 
+/datum/orbital_object/shuttle/infiltrator
+	max_thrust = 1.5
+	stealth = TRUE
+
+/datum/orbital_object/shuttle/steel_rain
+	max_thrust = 3
+	stealth = TRUE
+
+/datum/orbital_object/shuttle/stealth
+	stealth = TRUE
+
 /datum/orbital_object/shuttle/Destroy()
 	. = ..()
 	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
