@@ -41,6 +41,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/process()
 	. = ..()
+
+	//Check to see if the shuttleobject was launched by another console.
+	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
+		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
+
 	if(!shuttleTarget || !autopilot || !shuttleObject || shuttleObject.docking_target)
 		return
 
@@ -208,20 +213,20 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
 				return
-			if(!shuttleObject)
+			if(QDELETED(shuttleObject))
 				return
 			shuttleObject.thrust = CLAMP(params["thrust"], 0, 100)
 		if("setAngle")
 			if(autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
 				return
-			if(!shuttleObject)
+			if(QDELETED(shuttleObject))
 				return
 			shuttleObject.angle = params["angle"]
 		if("nautopilot")
 			if(autopilot_forced)
 				return
-			if(!shuttleObject || !shuttleTarget)
+			if(QDELETED(shuttleObject) || !shuttleTarget)
 				return
 			autopilot = !autopilot
 		//Launch the shuttle. Lets do this.
@@ -235,11 +240,15 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(mobile_port.mode != SHUTTLE_IDLE)
 				say("Supercruise Warning: Shuttle already in transit.")
 				return
+			if(SSorbits.assoc_shuttles.Find(shuttleId))
+				say("Shuttle is controlled from another location, updating telemetry.")
+				shuttleObject = SSorbits.assoc_shuttles[shuttleId]
+				return
 			shuttleObject = mobile_port.enter_supercruise()
 			shuttleObject.valid_docks = valid_docks
 		//Dock at location.
 		if("dock")
-			if(!shuttleObject)
+			if(QDELETED(shuttleObject))
 				return
 			if(!shuttleObject.can_dock_with)
 				return
@@ -247,7 +256,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			shuttleObject.commence_docking(shuttleObject.can_dock_with, TRUE)
 		//Go to valid port
 		if("gotoPort")
-			if(!shuttleObject)
+			if(QDELETED(shuttleObject))
 				return
 			//Get our port
 			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
