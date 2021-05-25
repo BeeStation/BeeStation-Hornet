@@ -18,6 +18,10 @@
 	//The target, speeds are calulated relative to this.
 	var/datum/orbital_object/shuttleTarget
 
+/datum/orbital_object/shuttle/Destroy()
+	. = ..()
+	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
+
 //Dont fly into the sun idiot.
 /datum/orbital_object/shuttle/explode()
 	var/obj/docking_port/mobile/port = SSshuttle.getShuttle(shuttle_port_id)
@@ -115,6 +119,7 @@
 	name = dock.name
 	shuttle_port_id = dock.id
 	stealth = dock.hidden
+	SSorbits.assoc_shuttles[shuttle_port_id] = src
 
 /datum/orbital_object/shuttle/proc/commence_docking(datum/orbital_object/z_linked/docking, forced = FALSE)
 	//Check for valid docks on z-level

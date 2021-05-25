@@ -56,6 +56,7 @@
 
 	for(var/obj/machinery/computer/shuttle_flight/S in GLOB.machines)
 		if(S.shuttleId == shuttle_id)
+			S.recall_docking_port_id = "[landing_zone.id]"
 			S.valid_docks = list("[landing_zone.id]")
 
 	to_chat(user, "Landing zone set.")
