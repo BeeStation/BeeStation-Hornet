@@ -604,8 +604,7 @@
 /obj/machinery/computer/shuttle_flight/pod
 	name = "pod control computer"
 	admin_controlled = 1
-	autopilot_forced = TRUE
-	possible_destinations = "pod_asteroid"
+	recall_docking_port_id = "null"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
 	light_color = LIGHT_COLOR_BLUE
@@ -623,8 +622,8 @@
 
 /obj/machinery/computer/shuttle_flight/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	. = ..()
-	if(possible_destinations == initial(possible_destinations) || override)
-		possible_destinations = "pod_lavaland[idnum]"
+	if(recall_docking_port_id == initial(recall_docking_port_id) || override)
+		recall_docking_port_id = "pod_lavaland[idnum]"
 
 /obj/docking_port/stationary/random
 	name = "escape pod"

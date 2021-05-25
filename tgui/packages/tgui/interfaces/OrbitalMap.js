@@ -9,15 +9,9 @@ export const OrbitalMap = (props, context) => {
     map_objects,
     collisionAlert = false,
     linkedToShuttle = false,
-    shuttleTarget,
     canLaunch = false,
-    shuttleAngle,
-    shuttleThrust,
-    canDock,
-    isDocking,
-    validDockingPorts,
+    recall_docking_port_id = "mining_home",
   } = data;
-  const increments = [-200, -150, -100, -50, 0, 50, 100, 150, 200];
   const lineStyle = {
     stroke: '#BBBBBB',
     strokeWidth: '2',
@@ -254,80 +248,11 @@ export const OrbitalMap = (props, context) => {
           <Divider />
           <div class="OrbitalMap__shuttle">
             <Section title="Flight Controls" height="100%">
-              {linkedToShuttle
-                ? (
-                  <>
-                    <Box bold>
-                      Relative Target
-                    </Box>
-                    <Dropdown
-                      mt={1}
-                      selected={shuttleTarget}
-                      width="100%"
-                      options={map_objects.map(map_object => (map_object.name))}
-                      onSelected={value => act("setTarget", {
-                        target: value,
-                      })} />
-                    <Box mt={1}>
-                      Velocity line will be adjusted to relative
-                      speed of this orbital body.
-                    </Box>
-                    <ShuttleMap />
-                    <Box bold>
-                      Throttle
-                    </Box>
-                    <Slider
-                      value={shuttleThrust}
-                      minValue={0}
-                      maxValue={100}
-                      step={1}
-                      stepPixelSize={4}
-                      onDrag={(e, value) => act('setThrust', {
-                        thrust: value,
-                      })} />
-                    <Box bold mt={2}>
-                      Thrust Angle
-                    </Box>
-                    <Slider
-                      value={shuttleAngle}
-                      minValue={-180}
-                      maxValue={180}
-                      step={1}
-                      stepPixelSize={1}
-                      onDrag={(e, value) => act('setAngle', {
-                        angle: value,
-                      })} />
-                    <Button
-                      mt={2}
-                      content="Toggle Autopilot"
-                      onClick={() => act('nautopilot')} />
-                    {!(canDock && !isDocking) || (
-                      <Button
-                        mt={2}
-                        content="Initiate Docking"
-                        onClick={() => act('dock')} />
-                    )}
-                    {!isDocking || (
-                      <>
-                        <NoticeBox mt={1}>
-                          DOCKING PROTOCOL ONLINE -
-                          SELECT DESTINATION.
-                        </NoticeBox>
-                        <Dropdown
-                          mt={1}
-                          selected="Select Docking Location"
-                          width="100%"
-                          options={validDockingPorts.map(
-                            map_object => (map_object.id)
-                          )}
-                          onSelected={value => act("gotoPort", {
-                            port: value,
-                          })} />
-                      </>
-                    )}
-                  </>
-                ) : (
-                  canLaunch ? (
+              {recall_docking_port_id !== ""
+                ? <RecallControl />
+                : linkedToShuttle
+                  ? <ShuttleControls />
+                  : (canLaunch ? (
                     <>
                       <NoticeBox>
                         Currently docked, awaiting launch order.
@@ -352,6 +277,114 @@ export const OrbitalMap = (props, context) => {
         </div>
       </Window.Content>
     </Window>
+  );
+};
+
+export const RecallControl = (props, context) => {
+  const { act } = useBackend(context);
+  return (
+    <>
+      <NoticeBox>
+        Manual control disabled, this location
+        can only recall the shuttle.
+      </NoticeBox>
+      <Button
+        content="REQUEST SHUTTLE"
+        textAlign="center"
+        fontSize="30px"
+        icon="rocket"
+        width="100%"
+        height="50px"
+        onClick={() => act('callShuttle')} />
+    </>
+  );
+};
+
+export const ShuttleControls = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    map_objects,
+    collisionAlert = false,
+    linkedToShuttle = false,
+    shuttleTarget,
+    canLaunch = false,
+    shuttleAngle,
+    shuttleThrust,
+    canDock,
+    isDocking,
+    validDockingPorts,
+  } = data;
+  return (
+    <>
+      <Box bold>
+        Relative Target
+      </Box>
+      <Dropdown
+        mt={1}
+        selected={shuttleTarget}
+        width="100%"
+        options={map_objects.map(map_object => (map_object.name))}
+        onSelected={value => act("setTarget", {
+          target: value,
+        })} />
+      <Box mt={1}>
+        Velocity line will be adjusted to relative
+        speed of this orbital body.
+      </Box>
+      <ShuttleMap />
+      <Box bold>
+        Throttle
+      </Box>
+      <Slider
+        value={shuttleThrust}
+        minValue={0}
+        maxValue={100}
+        step={1}
+        stepPixelSize={4}
+        onDrag={(e, value) => act('setThrust', {
+          thrust: value,
+        })} />
+      <Box bold mt={2}>
+        Thrust Angle
+      </Box>
+      <Slider
+        value={shuttleAngle}
+        minValue={-180}
+        maxValue={180}
+        step={1}
+        stepPixelSize={1}
+        onDrag={(e, value) => act('setAngle', {
+          angle: value,
+        })} />
+      <Button
+        mt={2}
+        content="Toggle Autopilot"
+        onClick={() => act('nautopilot')} />
+      {!(canDock && !isDocking) || (
+        <Button
+          mt={2}
+          content="Initiate Docking"
+          onClick={() => act('dock')} />
+      )}
+      {!isDocking || (
+        <>
+          <NoticeBox mt={1}>
+            DOCKING PROTOCOL ONLINE -
+            SELECT DESTINATION.
+          </NoticeBox>
+          <Dropdown
+            mt={1}
+            selected="Select Docking Location"
+            width="100%"
+            options={validDockingPorts.map(
+              map_object => (map_object.id)
+            )}
+            onSelected={value => act("gotoPort", {
+              port: value,
+            })} />
+        </>
+      )}
+    </>
   );
 };
 

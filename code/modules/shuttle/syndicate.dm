@@ -44,16 +44,7 @@
 	shuttleId = "steel_rain"
 	possible_destinations = null
 	clockwork = TRUE //it'd look weird
-	autopilot_forced = TRUE
-
-/obj/machinery/computer/shuttle_flight/syndicate/drop_pod/Topic(href, href_list)
-	if(!usr.canUseTopic(src))
-		return
-	if(href_list["move"])
-		if(!is_centcom_level(z))
-			to_chat(usr, "<span class='warning'>Pods are one way!</span>")
-			return 0
-	..()
+	recall_docking_port_id = "null"	//Make it a recall shuttle, with no default dest
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
 	name = "syndicate shuttle navigation computer"
