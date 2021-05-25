@@ -24,22 +24,15 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
 
-	//Internal shuttle docker computer
-	var/obj/machinery/computer/camera_advanced/shuttle_docker/internal_shuttle_docker
-
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
-	internal_shuttle_docker = new()
-	internal_shuttle_docker.shuttleId = shuttleId
-	internal_shuttle_docker.shuttlePortId = "[shuttleId]_custom"
-	for(var/dock in valid_docks)
-		internal_shuttle_docker.jumpto_ports[dock] = TRUE
+	shuttleId = shuttleId
+	shuttlePortId = "[shuttleId]_custom"
 
 /obj/machinery/computer/shuttle_flight/Destroy()
 	. = ..()
 	shuttleObject = null
-	QDEL_NULL(internal_shuttle_docker)
 
 /obj/machinery/computer/shuttle_flight/process()
 	. = ..()
@@ -244,10 +237,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					if(GLOB.shuttle_docking_jammed)
 						say("Shuttle docking computer jammed.")
 						return
-					internal_shuttle_docker.z_lock = list(shuttleObject.docking_target.linked_z_level)
-					internal_shuttle_docker.see_hidden = mobile_port.hidden
-					internal_shuttle_docker.view_range = max(mobile_port.width, mobile_port.height) + 4
-					internal_shuttle_docker.attack_hand(usr)
+					if(current_user)
+						to_chat(usr, "<span class='warning'>Somebody is already docking the shuttle.</span>")
+						return
+					view_range = max(mobile_port.width, mobile_port.height) + 4
+					give_eye_control(usr)
 					return
 				//If random dropping is allowed, random drop.
 				if(shuttleObject.docking_target.random_docking)
