@@ -1,5 +1,3 @@
-GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
-
 /obj/machinery/computer/shuttle_flight
 	name = "shuttle console"
 	desc = "A shuttle control computer."
@@ -9,51 +7,104 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	req_access = list( )
 	var/shuttleId
 
-	//For recall consoles
-	//If not set to an empty string, will display only the option to call the shuttle to that dock.
-	//Once pressed the shuttle will engage autopilot and return to the dock.
-	var/recall_docking_port_id = ""
-
-	var/request_shuttle_message = "Request Shuttle"
-
 	//Admin controlled shuttles
 	var/admin_controlled = FALSE
 
+	//Autopilot only shuttles
+	//These shuttles have a list of possible ports to go to and will fly directly to them.
+	var/autopilot_forced = FALSE
+	//Is autopilot enabled.
+	var/autopilot = FALSE
+
 	//Used for mapping mainly
 	var/possible_destinations = ""
-	var/list/valid_docks = list("")
+	var/list/valid_docks = list("whiteship_home")
 
+	var/angle
+	var/thrust_percentage
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
+	//The target, speeds are calulated relative to this.
+	var/datum/orbital_object/shuttleTarget
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
-	shuttleId = shuttleId
-	shuttlePortId = "[shuttleId]_custom"
-
-/obj/machinery/computer/shuttle_flight/Destroy()
-	. = ..()
-	shuttleObject = null
+	//Enable autopilot.
+	if(autopilot_forced)
+		autopilot = TRUE
 
 /obj/machinery/computer/shuttle_flight/process()
 	. = ..()
+	if(!shuttleTarget || !autopilot || !shuttleObject || shuttleObject.docking_target)
+		return
 
-	//Check to see if the shuttleobject was launched by another console.
-	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
-		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
+	//Relative velocity to target needs to point towards target.
+	var/distance_to_target = shuttleObject.position.Distance(shuttleTarget.position)
+	var/shortest_distance = distance_to_target
+	var/datum/orbital_object/object_in_path
 
-	if(recall_docking_port_id && shuttleObject?.docking_target && shuttleObject.autopilot && shuttleObject.shuttleTarget == shuttleObject.docking_target && shuttleObject.controlling_computer == src)
-		//We are at destination, dock.
-		shuttleObject.controlling_computer = null
-		switch(SSshuttle.moveShuttle(shuttleId, recall_docking_port_id, 1))
-			if(0)
-				say("Shuttle has arrived at destination.")
-				QDEL_NULL(shuttleObject)
-			if(1)
-				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+	for(var/datum/orbital_object/z_linked/object in SSorbits.orbital_map.bodies)
+		//Dont care about non forced docking objects.
+		if(!object.forced_docking)
+			continue
+		//Dont avoid colliding with the thing we want to collide with.
+		if(object == shuttleTarget)
+			continue
+		//Calculate shortest distance and check if we will collide.
+		if(object.position.ShortestDistanceToLine(shuttleObject.position, shuttleObject.velocity) < object.radius)
+			//Make sure we are closer to our target than this object, otherwise the colliding object is behind the target.
+			var/distance_to_object = shuttleObject.position.Distance(object.position)
+			if(distance_to_object < shortest_distance)
+				object_in_path = object
+				shortest_distance = distance_to_object
+
+	//If there is an object in the way, we need to fly around it.
+	var/datum/orbital_vector/next_position
+	if(object_in_path)
+		var/datum/orbital_vector/normalized_velocity = new(-object_in_path.velocity.x, -object_in_path.velocity.y)
+		normalized_velocity.Normalize()
+		normalized_velocity.Scale(object_in_path.radius * 2)
+		next_position = new(object_in_path.position.x + normalized_velocity.x, object_in_path.position.y + normalized_velocity.y)
+	else
+		//Fly in a straight line towards target.
+		next_position = shuttleTarget.position
+
+	//Adjust our speed to target to point towards it.
+	var/datum/orbital_vector/desired_velocity = new(next_position.x - shuttleObject.position.x, next_position.y - shuttleObject.position.y)
+	var/desired_speed = max(distance_to_target * 0.2, 0.5)
+	desired_velocity.Normalize()
+	desired_velocity.Scale(desired_speed)
+
+	//Adjust thrust to make our velocity = desired_velocity
+	var/thrust_dir_x = desired_velocity.x - shuttleObject.velocity.x
+	var/thrust_dir_y = desired_velocity.y - shuttleObject.velocity.y
+
+	//message_admins("Thrusting in dir: [thrust_dir_y], [thrust_dir_x]")
+	//message_admins("Next pos: [next_position.x], [next_position.y]")
+
+	if(!thrust_dir_x)
+		if(!thrust_dir_y)
+			thrust_percentage = 0
+			shuttleObject.thrust = thrust_percentage
+			return
+		angle = thrust_dir_y > 0 ? 90 : -90
+	else
+		angle = arctan(thrust_dir_y / thrust_dir_x)
+		//Account for ambiguous cases
+		if(thrust_dir_x < 0)
+			if(thrust_dir_y < 0)
+				angle = 180 - angle
 			else
-				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+				angle = 90 - angle
+
+	shuttleObject.angle = angle
+	//FULL SPEED
+	thrust_percentage = 100
+	shuttleObject.thrust = thrust_percentage
+	//Auto dock
+	if(shuttleObject.can_dock_with == shuttleTarget)
+		shuttleObject.commence_docking(shuttleTarget, TRUE)
 
 /obj/machinery/computer/shuttle_flight/ui_state(mob/user)
 	return GLOB.default_state
@@ -69,34 +120,14 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		ui.open()
 	ui.set_autoupdate(TRUE)
 
-/obj/machinery/computer/shuttle_flight/ui_static_data(mob/user)
-	var/list/data = list()
-	//The docks we can dock with never really changes
-	//This is used for the forced autopilot mode where it goes to a set port.
-	data["destination_docks"] = list()
-	for(var/dock in valid_docks)
-		data["valid_dock"] += list(list(
-			"id" = dock,
-		))
-	//If we are a recall console.
-	data["recall_docking_port_id"] = recall_docking_port_id
-	data["request_shuttle_message"] = request_shuttle_message
-	return data
-
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
 	var/list/data = list()
 	//Add orbital bodies
 	data["map_objects"] = list()
 	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
-		if(!object)
+		//we can't see it
+		if(object != shuttleObject && object.stealth)
 			continue
-		//we can't see it, unless we are stealth too
-		if(shuttleObject)
-			if(object != shuttleObject && (object.stealth && !shuttleObject.stealth))
-				continue
-		else
-			if(object.stealth)
-				continue
 		//Send to be rendered on the UI
 		data["map_objects"] += list(list(
 			"name" = object.name,
@@ -108,23 +139,21 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		))
 	if(!SSshuttle.getShuttle(shuttleId))
 		data["linkedToShuttle"] = FALSE
-		return data
+		return
 	data["canLaunch"] = TRUE
-	if(QDELETED(shuttleObject))
+	data["autopilot"] = autopilot
+	data["autopilot_forced"] = autopilot_forced
+	if(!shuttleObject)
 		data["linkedToShuttle"] = FALSE
 		return data
-	data["autopilot"] = shuttleObject.autopilot
 	data["linkedToShuttle"] = TRUE
-	data["shuttleTarget"] = shuttleObject.shuttleTarget?.name
-	data["shuttleName"] = shuttleObject.name
-	data["shuttleAngle"] = shuttleObject.angle
-	data["shuttleThrust"] = shuttleObject.thrust
-	data["autopilot_enabled"] = shuttleObject.autopilot
-	data["desired_vel_x"] = shuttleObject.desired_vel_x
-	data["desired_vel_y"] = shuttleObject.desired_vel_y
-	if(shuttleObject?.shuttleTarget)
-		data["shuttleVelX"] = shuttleObject.velocity.x - shuttleObject.shuttleTarget.velocity.x
-		data["shuttleVelY"] = shuttleObject.velocity.y - shuttleObject.shuttleTarget.velocity.y
+	data["shuttleTarget"] = shuttleTarget?.name
+	data["shuttleName"] = shuttleObject?.name
+	data["shuttleAngle"] = angle
+	data["shuttleThrust"] = thrust_percentage
+	if(shuttleTarget)
+		data["shuttleVelX"] = shuttleObject.velocity.x - shuttleTarget.velocity.x
+		data["shuttleVelY"] = shuttleObject.velocity.y - shuttleTarget.velocity.y
 	else
 		data["shuttleVelX"] = shuttleObject.velocity.x
 		data["shuttleVelY"] = shuttleObject.velocity.y
@@ -133,7 +162,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["isDocking"] = shuttleObject.docking_target != null
 	data["validDockingPorts"] = list()
 	if(shuttleObject.docking_target)
-		if(shuttleObject.docking_target.can_dock_anywhere && !GLOB.shuttle_docking_jammed)
+		if(shuttleObject.docking_target.can_dock_anywhere)
 			data["validDockingPorts"] += list(list(
 				"name" = "Custom Location",
 				"id" = "custom_location"
@@ -144,91 +173,65 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				"id" = "custom_location"
 			))
 		for(var/obj/docking_port/stationary/stationary_port as() in SSshuttle.stationary)
-			if(shuttleObject.docking_target.linked_z_level)
-				if(stationary_port.z == shuttleObject.docking_target.linked_z_level.z_value && (stationary_port.id in valid_docks))
-					data["validDockingPorts"] += list(list(
-						"name" = stationary_port.name,
-						"id" = stationary_port.id,
-					))
+			if(stationary_port.z == shuttleObject.docking_target.linked_z_level.z_value && (stationary_port.id in valid_docks))
+				data["validDockingPorts"] += list(list(
+					"name" = stationary_port.name,
+					"id" = stationary_port.id,
+				))
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_act(action, params)
 	. = ..()
-
 	if(.)
 		return
-
 	if(admin_controlled)
 		say("This shuttle is restricted to authorised personnel only.")
 		return
-
-	if(recall_docking_port_id)
-		switch(action)
-			if("callShuttle")
-				//Find the z-level that the dock is on
-				var/obj/docking_port/stationary/target_port = SSshuttle.getDock(recall_docking_port_id)
-				if(!target_port)
-					say("Unable to locate port location.")
-					return
-				//Locate linked shuttle
-				var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttleId)
-				if(!shuttle)
-					say("Unable to locate linked shuttle.")
-					return
-				if(target_port in shuttle.loc)
-					say("Shuttle is already at destination.")
-					return
-				//Locate the orbital object
-				for(var/datum/orbital_object/z_linked/z_linked in SSorbits.orbital_map.bodies)
-					if(z_linked.linked_z_level?.z_value == target_port.z)
-						if(!SSorbits.assoc_shuttles.Find(shuttleId))
-							//Launch the shuttle
-							if(!launch_shuttle())
-								return
-						if(shuttleObject.shuttleTarget == z_linked && shuttleObject.controlling_computer == src)
-							return
-						shuttleObject = SSorbits.assoc_shuttles[shuttleId]
-						shuttleObject.shuttleTarget = z_linked
-						shuttleObject.autopilot = TRUE
-						shuttleObject.controlling_computer = src
-						say("Shuttle requested.")
-						return
-				say("Docking port in invalid location. Please contact a Nanotrasen technician.")
-		return
-
 	switch(action)
 		if("setTarget")
 			var/desiredTarget = params["target"]
-			if(shuttleObject.name == desiredTarget)
-				return
 			for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
 				if(object.name == desiredTarget)
-					shuttleObject.shuttleTarget = object
+					shuttleTarget = object
 					return
 		if("setThrust")
-			if(shuttleObject.autopilot)
+			if(autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
 				return
-			if(QDELETED(shuttleObject))
+			if(!shuttleObject)
 				return
-			shuttleObject.thrust = CLAMP(params["thrust"], 0, 100)
+			thrust_percentage = CLAMP(params["thrust"], 0, 100)
+			shuttleObject.thrust = thrust_percentage
 		if("setAngle")
-			if(shuttleObject.autopilot)
+			if(autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
 				return
-			if(QDELETED(shuttleObject))
+			if(!shuttleObject)
 				return
-			shuttleObject.angle = params["angle"]
+			angle = params["angle"]
+			shuttleObject.angle = angle
 		if("nautopilot")
-			if(QDELETED(shuttleObject) || !shuttleObject.shuttleTarget)
+			if(autopilot_forced)
 				return
-			shuttleObject.autopilot = !shuttleObject.autopilot
+			if(!shuttleObject || !shuttleTarget)
+				return
+			autopilot = !autopilot
 		//Launch the shuttle. Lets do this.
 		if("launch")
-			launch_shuttle()
+			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
+			if(!mobile_port)
+				return
+			if(mobile_port.mode == SHUTTLE_RECHARGING)
+				say("Supercruise Warning: Shuttle engines not ready for use.")
+				return
+			if(mobile_port.mode != SHUTTLE_IDLE)
+				say("Supercruise Warning: Shuttle already in transit.")
+				return
+			shuttleObject = mobile_port.enter_supercruise()
+			shuttleObject.valid_docks = valid_docks
 		//Dock at location.
 		if("dock")
-			if(QDELETED(shuttleObject))
+			if(!shuttleObject)
 				return
 			if(!shuttleObject.can_dock_with)
 				return
@@ -236,9 +239,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			shuttleObject.commence_docking(shuttleObject.can_dock_with, TRUE)
 		//Go to valid port
 		if("gotoPort")
-			if(QDELETED(shuttleObject))
-				return
-			if(QDELETED(shuttleObject.docking_target))
+			if(!shuttleObject)
 				return
 			//Get our port
 			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
@@ -251,20 +252,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(mobile_port.mode != SHUTTLE_CALL || mobile_port.destination)
 				say("Supercruise Warning: Already dethrottling shuttle.")
 				return
+			//Disable autopilot
+			if(!autopilot_forced)
+				autopilot = FALSE
 			//Special check
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
-				if(shuttleObject.docking_target.can_dock_anywhere)
-					if(GLOB.shuttle_docking_jammed)
-						say("Shuttle docking computer jammed.")
-						return
-					if(current_user)
-						to_chat(usr, "<span class='warning'>Somebody is already docking the shuttle.</span>")
-						return
-					view_range = max(mobile_port.width, mobile_port.height) + 4
-					give_eye_control(usr)
-					eyeobj.forceMove(locate(world.maxx * 0.5, world.maxy * 0.5, shuttleObject.docking_target.linked_z_level.z_value))
-					return
 				//If random dropping is allowed, random drop.
 				if(shuttleObject.docking_target.random_docking)
 					random_drop()
@@ -281,11 +274,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				log_admin("[usr] attempted to forge a target location through a tgui exploit on [src]")
 				message_admins("[ADMIN_FULLMONTY(usr)] attempted to forge a target location through a tgui exploit on [src]")
 				return
-			//Dont wipe z level while we are going
-			//Dont wipe z of where we are leaving for a bit, in case we come back.
-			SSzclear.temp_keep_z(z)
-			SSzclear.temp_keep_z(target_port.z)
-			switch(SSshuttle.moveShuttle(shuttleId, target_port.id, 1))
+			switch(SSshuttle.moveShuttle(shuttleId, params["port"], 1))
 				if(0)
 					say("Initiating supercruise throttle-down, prepare for landing.")
 					QDEL_NULL(shuttleObject)
@@ -294,30 +283,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				else
 					to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 
-/obj/machinery/computer/shuttle_flight/proc/launch_shuttle()
-	var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
-	if(!mobile_port)
-		return
-	if(mobile_port.mode == SHUTTLE_RECHARGING)
-		say("Supercruise Warning: Shuttle engines not ready for use.")
-		return
-	if(mobile_port.mode != SHUTTLE_IDLE)
-		say("Supercruise Warning: Shuttle already in transit.")
-		return
-	if(SSorbits.assoc_shuttles.Find(shuttleId))
-		say("Shuttle is controlled from another location, updating telemetry.")
-		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
-		return shuttleObject
-	shuttleObject = mobile_port.enter_supercruise()
-	if(!shuttleObject)
-		say("Failed to enter supercruise due to an unknown error.")
-		return
-	shuttleObject.valid_docks = valid_docks
-	return shuttleObject
-
 /obj/machinery/computer/shuttle_flight/proc/random_drop()
 	//Find a random place to drop in at.
-	if(!shuttleObject?.docking_target?.linked_z_level)
+	if(!shuttleObject.docking_target?.linked_z_level)
 		return
 	//Get shuttle dock
 	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(shuttleId)
@@ -350,10 +318,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				break
 		if(!valid)
 			continue
-		//Dont wipe z level while we are going
-		//Dont wipe z of where we are leaving for a bit, in case we come back.
-		SSzclear.temp_keep_z(z)
-		SSzclear.temp_keep_z(shuttleObject.docking_target.linked_z_level.z_value)
 		//Ok lets go there
 		switch(SSshuttle.moveShuttle(shuttleId, random_port.id, 1))
 			if(0)
