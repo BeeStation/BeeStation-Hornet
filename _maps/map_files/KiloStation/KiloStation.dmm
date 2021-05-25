@@ -41855,23 +41855,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
-"bis" = (
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 8;
-	icon_state = "computer";
-	req_access = null;
-	req_one_access = null
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/miningoffice)
 "bit" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/neutral,
@@ -48431,19 +48414,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
-"bru" = (
-/obj/machinery/computer/shuttle_flight/mining,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/bridge)
 "brv" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral{
@@ -51485,22 +51455,6 @@
 "bvK" = (
 /turf/closed/wall/rust,
 /area/library)
-"bvL" = (
-/obj/machinery/computer/shuttle_flight/labor,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/turf/open/floor/plasteel/dark,
-/area/bridge)
 "bvM" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral,
@@ -92193,20 +92147,6 @@
 	icon_state = "platingdmg3"
 	},
 /area/maintenance/fore)
-"cEi" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 4;
-	req_access = null;
-	req_one_access = null
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/construction/mining/aux_base)
 "cEj" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
@@ -96635,26 +96575,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/processing)
-"cLk" = (
-/obj/machinery/computer/shuttle_flight/labor{
-	dir = 1;
-	icon_state = "computer"
-	},
-/obj/structure/sign/warning/vacuum/external{
-	pixel_y = -32
-	},
-/obj/machinery/camera{
-	c_tag = "Transferring Centre Dock";
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/security/processing)
 "cLl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -100072,6 +99992,39 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
+"cZQ" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 8;
+	icon_state = "computer";
+	recall_docking_port_id = "mining_home";
+	req_access = null;
+	req_one_access = null
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/miningoffice)
+"dBX" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	recall_docking_port_id = "mining_home"
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/bridge)
 "eCk" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -100085,6 +100038,27 @@
 /obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
+"eHR" = (
+/obj/machinery/computer/shuttle_flight/labor{
+	dir = 1;
+	icon_state = "computer";
+	recall_docking_port_id = "laborcamp_home"
+	},
+/obj/structure/sign/warning/vacuum/external{
+	pixel_y = -32
+	},
+/obj/machinery/camera{
+	c_tag = "Transferring Centre Dock";
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/security/processing)
 "eRI" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -100099,6 +100073,21 @@
 /obj/machinery/anesthetic_machine,
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
+"odp" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 4;
+	recall_docking_port_id = "mining_public";
+	req_access = null;
+	req_one_access = null
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/construction/mining/aux_base)
 "oOk" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral,
@@ -100181,6 +100170,24 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/lab)
+"uFL" = (
+/obj/machinery/computer/shuttle_flight/labor{
+	recall_docking_port_id = "laborcamp_home"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
+/turf/open/floor/plasteel/dark,
+/area/bridge)
 "uJN" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -124284,7 +124291,7 @@ cuo
 cOD
 cLb
 cLf
-cLk
+eHR
 akK
 acm
 bUG
@@ -128868,7 +128875,7 @@ bjs
 bjt
 cOf
 cOi
-bvL
+uFL
 bwF
 aqJ
 aTm
@@ -130407,7 +130414,7 @@ cNW
 cNU
 bgQ
 cOi
-bru
+dBX
 brL
 aBU
 aqy
@@ -134483,7 +134490,7 @@ bsJ
 ajs
 cDS
 aDF
-cEi
+odp
 ctx
 ajn
 cDD
@@ -141714,7 +141721,7 @@ bbp
 bgf
 bhH
 bhV
-bis
+cZQ
 baO
 aPN
 blh

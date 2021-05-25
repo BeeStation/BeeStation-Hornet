@@ -980,14 +980,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel,
 /area/mine/science)
-"dW" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/computer/shuttle_flight/science,
-/turf/open/floor/plasteel,
-/area/mine/science)
 "ea" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
@@ -1238,21 +1230,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/science)
-"eO" = (
-/obj/machinery/airalarm{
-	pixel_y = 23
-	},
-/obj/machinery/computer/shuttle_flight/mining{
-	req_access = null
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/mine/production)
 "eP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -3936,6 +3913,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
+"wt" = (
+/obj/machinery/airalarm{
+	pixel_y = 23
+	},
+/obj/machinery/computer/shuttle_flight/mining{
+	recall_docking_port_id = "mining_away";
+	req_access = null
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/mine/production)
 "wz" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -5152,6 +5145,16 @@
 	dir = 8
 	},
 /turf/open/floor/carpet/royalblue,
+/area/mine/science)
+"KJ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/computer/shuttle_flight/science{
+	recall_docking_port_id = "science_outpost"
+	},
+/turf/open/floor/plasteel,
 /area/mine/science)
 "KN" = (
 /obj/structure/table,
@@ -21640,7 +21643,7 @@ aj
 aj
 ab
 OZ
-eO
+wt
 gJ
 bt
 LO
@@ -23462,7 +23465,7 @@ Uh
 Uh
 Uh
 Tn
-dW
+KJ
 PA
 eI
 Tn
