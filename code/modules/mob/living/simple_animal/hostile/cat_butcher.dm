@@ -131,8 +131,7 @@
 		if(C.getorgan(/obj/item/organ/ears/cat) && C.getorgan(/obj/item/organ/tail/cat) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
 			if(C.stat && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !istype(C.dna.species, /datum/species/ipc)))//unless they need healing
 				return ..()
-			else
-				return FALSE
+			return FALSE
 	return ..()
 
 /mob/living/simple_animal/hostile/cat_butcherer/MoveToTarget(list/possible_targets)
