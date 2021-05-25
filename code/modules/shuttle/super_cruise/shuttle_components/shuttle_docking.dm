@@ -65,6 +65,8 @@
 			the_eye.placement_images[I] = list(x_off, y_off)
 
 /obj/machinery/computer/shuttle_flight/proc/give_eye_control(mob/user)
+	if(!eyeobj)
+		CreateEye()
 	GrantActions(user)
 	current_user = user
 	eyeobj.eye_user = user
@@ -187,6 +189,7 @@
 	switch(SSshuttle.moveShuttle(shuttleId, shuttlePortId, 1))
 		if(0)
 			remove_eye_control(usr)
+			QDEL_NULL(shuttleObject)
 		if(1)
 			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 		else
@@ -276,7 +279,7 @@
 				return SHUTTLE_DOCKER_BLOCKED
 
 /obj/machinery/computer/shuttle_flight/proc/update_hidden_docking_ports(list/remove_images, list/add_images)
-	if(!shuttleObject.stealth && current_user && current_user.client)
+	if(!shuttleObject?.stealth && current_user && current_user.client)
 		current_user.client.images -= remove_images
 		current_user.client.images += add_images
 
