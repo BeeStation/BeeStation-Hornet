@@ -3343,17 +3343,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
-"afY" = (
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plasteel,
-/area/construction/mining/aux_base)
 "agj" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/dirt,
@@ -25787,22 +25776,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
-"aWa" = (
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/status_display/ai{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/qm)
 "aWb" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular,
@@ -35734,13 +35707,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
-"bma" = (
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/quartermaster/miningoffice)
 "bmc" = (
 /obj/structure/cable/white,
 /obj/effect/spawner/structure/window/reinforced,
@@ -37573,20 +37539,6 @@
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/security/execution/transfer)
-"bpf" = (
-/obj/machinery/computer/shuttle_flight/labor,
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/security/execution/transfer)
@@ -105731,15 +105683,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/starboard/aft)
-"dBT" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/machinery/computer/shuttle_flight/science{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/science/shuttledock)
 "dBY" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -109558,6 +109501,23 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"dJw" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 8;
+	recall_docking_port_id = "mining_home"
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/status_display/ai{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/qm)
 "dJG" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
@@ -123154,6 +123114,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"lMX" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 1;
+	recall_docking_port_id = "mining_home"
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/quartermaster/miningoffice)
 "lOp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -123194,6 +123162,22 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"lSS" = (
+/obj/machinery/computer/shuttle_flight/labor{
+	recall_docking_port_id = "laborcamp_home"
+	},
+/obj/machinery/status_display/evac{
+	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/execution/transfer)
 "lTa" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -123237,6 +123221,16 @@
 	},
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
+"lTW" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/computer/shuttle_flight/science{
+	dir = 1;
+	recall_docking_port_id = "science_station"
+	},
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "lUX" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -127695,6 +127689,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"xjS" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 8;
+	recall_docking_port_id = "mining_public"
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "xlf" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/stripes/line{
@@ -153001,7 +153007,7 @@ saw
 lJW
 kcF
 hVM
-dBT
+lTW
 yhB
 aaa
 aaa
@@ -170608,7 +170614,7 @@ pNu
 aeE
 aff
 afG
-afY
+xjS
 ago
 ago
 ahc
@@ -174259,7 +174265,7 @@ bfF
 bfv
 bir
 bkd
-bma
+lMX
 bnC
 aad
 aaa
@@ -175791,7 +175797,7 @@ aad
 aQS
 aSA
 aUs
-aWa
+dJw
 aXH
 aQS
 aad
@@ -177859,7 +177865,7 @@ biz
 bkk
 bmd
 bnG
-bpf
+lSS
 brg
 btf
 buE

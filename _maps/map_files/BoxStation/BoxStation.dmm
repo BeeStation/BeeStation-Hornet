@@ -3343,21 +3343,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
-"ahw" = (
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/miningdock)
 "ahx" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -15720,17 +15705,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
-"aRn" = (
-/obj/machinery/computer/shuttle_flight/labor,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/bridge)
 "aRo" = (
 /obj/machinery/modular_computer/console/preset/command,
 /obj/effect/turf_decal/tile/green{
@@ -15738,17 +15712,6 @@
 	},
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/bridge)
-"aRp" = (
-/obj/machinery/computer/shuttle_flight/mining,
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -45912,16 +45875,6 @@
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/plating,
 /area/maintenance/central/secondary)
-"cTE" = (
-/obj/machinery/computer/shuttle_flight/mining{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/construction/mining/aux_base)
 "cTF" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -46293,6 +46246,19 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
+"dpo" = (
+/obj/machinery/computer/shuttle_flight/labor{
+	dir = 4;
+	recall_docking_port_id = "laborcamp_home"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
+/area/security/processing)
 "dpK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -46491,6 +46457,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
+"dDv" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 4;
+	recall_docking_port_id = "mining_home"
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/miningdock)
 "dDO" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 5
@@ -46662,18 +46644,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"dRK" = (
-/obj/machinery/computer/shuttle_flight/labor{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 9
-	},
-/turf/open/floor/plasteel,
-/area/security/processing)
 "dSt" = (
 /obj/structure/closet/secure_closet/CMO,
 /obj/machinery/light{
@@ -47186,15 +47156,6 @@
 	},
 /turf/closed/wall,
 /area/hallway/secondary/entry)
-"ete" = (
-/obj/machinery/light/small,
-/obj/machinery/computer/shuttle_flight/science{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white/side{
-	dir = 6
-	},
-/area/science/shuttledock)
 "euk" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -50175,6 +50136,19 @@
 /obj/item/plunger,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"iey" = (
+/obj/machinery/computer/shuttle_flight/labor{
+	recall_docking_port_id = "laborcamp_home"
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/bridge)
 "ieA" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -55314,6 +55288,16 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
+"oiD" = (
+/obj/machinery/light/small,
+/obj/machinery/computer/shuttle_flight/science{
+	dir = 8;
+	recall_docking_port_id = "science_station"
+	},
+/turf/open/floor/plasteel/white/side{
+	dir = 6
+	},
+/area/science/shuttledock)
 "ojP" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
@@ -58323,6 +58307,19 @@
 "sdX" = (
 /turf/closed/wall,
 /area/quartermaster/office)
+"seo" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	recall_docking_port_id = "mining_home"
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/bridge)
 "ses" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -59486,6 +59483,17 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"tAY" = (
+/obj/machinery/computer/shuttle_flight/mining{
+	dir = 8;
+	recall_docking_port_id = "mining_public"
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/construction/mining/aux_base)
 "tBe" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Mix to MiniSat"
@@ -76104,7 +76112,7 @@ aaa
 aaa
 apJ
 asJ
-cTE
+tAY
 avQ
 axc
 aCT
@@ -85666,7 +85674,7 @@ bxx
 bxu
 bxy
 bxy
-ahw
+dDv
 bHA
 vrm
 bKl
@@ -87920,7 +87928,7 @@ ajs
 akb
 akI
 jOu
-dRK
+dpo
 aiT
 cmq
 dyE
@@ -92574,7 +92582,7 @@ aMc
 aNy
 aOE
 aPS
-aRn
+iey
 aSz
 aTY
 aVl
@@ -93088,7 +93096,7 @@ aMe
 aNA
 aOE
 aPS
-aRp
+seo
 aSB
 aTZ
 aVl
@@ -116494,7 +116502,7 @@ aaa
 aaa
 aaa
 nMn
-ete
+oiD
 cNT
 vBU
 idi
