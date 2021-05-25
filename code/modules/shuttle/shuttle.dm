@@ -299,6 +299,8 @@
 
 	//The virtual Z-Value of the shuttle
 	var/virtual_z
+	
+	var/shuttle_object_type = /datum/orbital_object/shuttle
 
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile += src
