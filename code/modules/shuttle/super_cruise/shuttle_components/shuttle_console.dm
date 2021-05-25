@@ -240,7 +240,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			//Special check
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
-				if(shuttleObject.docking_target.can_dock_anywhere && !GLOB.shuttle_docking_jammed)
+				if(shuttleObject.docking_target.can_dock_anywhere)
+					if(GLOB.shuttle_docking_jammed)
+						say("Shuttle docking computer jammed.")
+						return
 					internal_shuttle_docker.z_lock = list(shuttleObject.docking_target.linked_z_level)
 					internal_shuttle_docker.see_hidden = mobile_port.hidden
 					internal_shuttle_docker.view_range = max(mobile_port.width, mobile_port.height) + 4
