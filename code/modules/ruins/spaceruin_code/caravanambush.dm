@@ -26,27 +26,27 @@
 	name = "experimental crowbar"
 	toolspeed = 0.3
 
-/obj/machinery/computer/shuttle/caravan
+/obj/machinery/computer/shuttle_flight/caravan
 
 /obj/item/circuitboard/computer/caravan
-	build_path = /obj/machinery/computer/shuttle/caravan
+	build_path = /obj/machinery/computer/shuttle_flight/caravan
 
 /obj/item/circuitboard/computer/caravan/trade1
-	build_path = /obj/machinery/computer/shuttle/caravan/trade1
+	build_path = /obj/machinery/computer/shuttle_flight/caravan/trade1
 
 /obj/item/circuitboard/computer/caravan/pirate
-	build_path = /obj/machinery/computer/shuttle/caravan/pirate
+	build_path = /obj/machinery/computer/shuttle_flight/caravan/pirate
 
 /obj/item/circuitboard/computer/caravan/syndicate1
-	build_path = /obj/machinery/computer/shuttle/caravan/syndicate1
+	build_path = /obj/machinery/computer/shuttle_flight/caravan/syndicate1
 
 /obj/item/circuitboard/computer/caravan/syndicate2
-	build_path = /obj/machinery/computer/shuttle/caravan/syndicate2
+	build_path = /obj/machinery/computer/shuttle_flight/caravan/syndicate2
 
 /obj/item/circuitboard/computer/caravan/syndicate3
-	build_path = /obj/machinery/computer/shuttle/caravan/syndicate3
+	build_path = /obj/machinery/computer/shuttle_flight/caravan/syndicate3
 
-/obj/machinery/computer/shuttle/caravan/trade1
+/obj/machinery/computer/shuttle_flight/caravan/trade1
 	name = "Small Freighter Shuttle Console"
 	desc = "Used to control the Small Freighter."
 	circuit = /obj/item/circuitboard/computer/caravan/trade1
@@ -73,7 +73,7 @@
 	y_offset = -5
 	designate_time = 100
 
-/obj/machinery/computer/shuttle/caravan/pirate
+/obj/machinery/computer/shuttle_flight/caravan/pirate
 	name = "Pirate Cutter Shuttle Console"
 	desc = "Used to control the Pirate Cutter."
 	icon_screen = "syndishuttle"
@@ -96,7 +96,7 @@
 	x_offset = 3
 	y_offset = -6
 
-/obj/machinery/computer/shuttle/caravan/syndicate1
+/obj/machinery/computer/shuttle_flight/caravan/syndicate1
 	name = "Syndicate Fighter Shuttle Console"
 	desc = "Used to control the Syndicate Fighter."
 	icon_screen = "syndishuttle"
@@ -120,7 +120,7 @@
 	x_offset = 2
 	y_offset = 0
 
-/obj/machinery/computer/shuttle/caravan/syndicate2
+/obj/machinery/computer/shuttle_flight/caravan/syndicate2
 	name = "Syndicate Fighter Shuttle Console"
 	desc = "Used to control the Syndicate Fighter."
 	icon_screen = "syndishuttle"
@@ -144,7 +144,7 @@
 	x_offset = 0
 	y_offset = 2
 
-/obj/machinery/computer/shuttle/caravan/syndicate3
+/obj/machinery/computer/shuttle_flight/caravan/syndicate3
 	name = "Syndicate Drop Ship Console"
 	desc = "Used to control the Syndicate Drop Ship."
 	icon_screen = "syndishuttle"

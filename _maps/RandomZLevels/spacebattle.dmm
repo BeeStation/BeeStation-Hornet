@@ -134,7 +134,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate3)
 "aK" = (
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -296,7 +296,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate1)
 "bu" = (
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -319,7 +319,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "bC" = (
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -1154,7 +1154,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate4)
 "eL" = (
-/obj/machinery/computer/shuttle,
+/obj/machinery/computer/shuttle_flight,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate4)
 "eM" = (
@@ -1410,7 +1410,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "fv" = (
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -2152,7 +2152,7 @@
 	},
 /area/awaymission/spacebattle/cruiser)
 "hS" = (
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -2347,7 +2347,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate5)
 "iM" = (
-/obj/machinery/computer/shuttle,
+/obj/machinery/computer/shuttle_flight,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate5)
 "iP" = (
@@ -2394,7 +2394,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate6)
 "jc" = (
-/obj/machinery/computer/shuttle,
+/obj/machinery/computer/shuttle_flight,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate6)
 "jd" = (

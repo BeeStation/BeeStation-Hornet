@@ -176,7 +176,7 @@
 	toggle_off()
 	return ..()
 
-/obj/machinery/computer/shuttle/pirate
+/obj/machinery/computer/shuttle_flight/pirate
 	name = "pirate shuttle console"
 	shuttleId = "pirateship"
 	icon_screen = "syndishuttle"

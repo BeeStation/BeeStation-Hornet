@@ -119,6 +119,9 @@
 			//Collision
 			LAZYADD(colliding_with, object)
 			collision(object)
+			//Static objects dont check collisions, so call their collision proc for them.
+			if(object.static_object)
+				object.collision(src)
 			colliding = TRUE
 	if(!colliding)
 		collision_ignored = FALSE

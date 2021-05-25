@@ -3344,7 +3344,7 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ahw" = (
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/brown{
@@ -15735,7 +15735,7 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "aRn" = (
-/obj/machinery/computer/shuttle/labor,
+/obj/machinery/computer/shuttle_flight/labor,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -15757,7 +15757,7 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "aRp" = (
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/shuttle_flight/mining,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -45932,7 +45932,7 @@
 /turf/open/floor/plating,
 /area/maintenance/central/secondary)
 "cTE" = (
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
@@ -46682,7 +46682,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "dRK" = (
-/obj/machinery/computer/shuttle/labor{
+/obj/machinery/computer/shuttle_flight/labor{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -47198,7 +47198,7 @@
 /area/hallway/secondary/entry)
 "ete" = (
 /obj/machinery/light/small,
-/obj/machinery/computer/shuttle/science{
+/obj/machinery/computer/shuttle_flight/science{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white/side{
