@@ -242,6 +242,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 						return
 					view_range = max(mobile_port.width, mobile_port.height) + 4
 					give_eye_control(usr)
+					eyeobj.forceMove(locate(world.maxx * 0.5, world.maxy * 0.5, shuttleObject.docking_target.linked_z_level.z_value))
 					return
 				//If random dropping is allowed, random drop.
 				if(shuttleObject.docking_target.random_docking)
