@@ -2287,7 +2287,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	desc = "Occasionally used to call in a resupply shuttle if one is in range.";
 	dir = 8;
 	icon_keyboard = "syndie_key";

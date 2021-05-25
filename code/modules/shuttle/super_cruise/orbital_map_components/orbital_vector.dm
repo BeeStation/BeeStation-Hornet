@@ -41,3 +41,12 @@
 	x = x * cos(angle) - y * sin(angle)
 	y = _x * sin(angle) + y * cos(angle)
 	return src
+
+//Assuming we are a position vector
+//Takes in position and direction of a line.
+/datum/orbital_vector/proc/ShortestDistanceToLine(datum/orbital_vector/position, datum/orbital_vector/direction)
+	if(!direction.x && !direction.y)
+		return INFINITY
+	var/lambda = (x * x + y * y - position.x * x - position.y * y) / (direction.x * x + direction.y * y)
+	var/datum/orbital_vector/closestPoint = new(position.x + direction.x * lambda, position.y + direction.y * lambda)
+	return closestPoint.Distance(src)

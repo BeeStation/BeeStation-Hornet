@@ -757,11 +757,11 @@
 		. = "unknown"
 
 
-// attempts to locate /obj/machinery/computer/shuttle with matching ID inside the shuttle
+// attempts to locate /obj/machinery/computer/shuttle_flight with matching ID inside the shuttle
 /obj/docking_port/mobile/proc/getControlConsole()
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
-		for(var/obj/machinery/computer/shuttle/S in shuttle_area)
+		for(var/obj/machinery/computer/shuttle_flight/S in shuttle_area)
 			if(S.shuttleId == id)
 				return S
 	return null

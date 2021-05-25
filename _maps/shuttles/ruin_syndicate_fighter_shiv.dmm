@@ -38,7 +38,7 @@
 "qx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/shuttle/caravan/syndicate1{
+/obj/machinery/computer/shuttle_flight/caravan/syndicate1{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,

@@ -71,7 +71,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "m" = (
-/obj/machinery/computer/shuttle/white_ship,
+/obj/machinery/computer/shuttle_flight/white_ship,
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "n" = (

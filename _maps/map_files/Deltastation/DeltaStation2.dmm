@@ -3344,7 +3344,7 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "afY" = (
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
@@ -25788,7 +25788,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "aWa" = (
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -35735,7 +35735,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
 "bma" = (
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
@@ -37577,7 +37577,7 @@
 /turf/open/floor/plasteel,
 /area/security/execution/transfer)
 "bpf" = (
-/obj/machinery/computer/shuttle/labor,
+/obj/machinery/computer/shuttle_flight/labor,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -105735,7 +105735,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/machinery/computer/shuttle/science{
+/obj/machinery/computer/shuttle_flight/science{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
