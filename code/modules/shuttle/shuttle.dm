@@ -297,6 +297,8 @@
 	var/can_move_docking_ports = FALSE
 	var/list/hidden_turfs = list()
 
+	var/shuttle_object_type = /datum/orbital_object/shuttle
+
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile += src
 
