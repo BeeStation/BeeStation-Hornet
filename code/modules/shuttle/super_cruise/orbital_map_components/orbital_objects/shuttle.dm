@@ -93,7 +93,7 @@
 
 	//Adjust our speed to target to point towards it.
 	var/datum/orbital_vector/desired_velocity = new(next_position.x - position.x, next_position.y - position.y)
-	var/desired_speed = max(distance_to_target * 0.05, target_orbital_body.velocity.Length() + 0.5)
+	var/desired_speed = max(distance_to_target * 0.05, shuttleTarget.velocity.Length() + 0.5)
 	desired_velocity.Normalize()
 	desired_velocity.Scale(desired_speed)
 

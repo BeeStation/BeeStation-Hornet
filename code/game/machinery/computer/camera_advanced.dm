@@ -90,25 +90,6 @@
 	if(M == current_user)
 		remove_eye_control(M)
 
-/obj/machinery/computer/camera_advanced/can_interact(mob/user)
-	var/silicon = issilicon(user)
-	var/admin_ghost = IsAdminGhost(user)
-	var/living = isliving(user)
-
-	if(silicon || admin_ghost) // If we are an AI or adminghsot, make sure the machine allows silicons to interact
-		return TRUE
-
-	else if(living) // If we are a living human
-		var/mob/living/L = user
-
-		if(L.incapacitated()) // Finally make sure we aren't incapacitated
-			return FALSE
-
-	else // If we aren't a silicon, living, or admin ghost, bad!
-		return FALSE
-
-	return TRUE // If we pass all these checks, woohoo! We can interact
-
 /obj/machinery/computer/camera_advanced/proc/can_use(mob/living/user)
 	return TRUE
 

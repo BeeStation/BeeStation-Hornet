@@ -82,14 +82,6 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		console.linkShuttle(linkedShuttleId)
 		to_chat(user, "<span class='notice'>Console linked successfully!</span>")
 		return
-	else if(istype(target, /obj/machinery/computer/camera_advanced/shuttle_docker/custom))
-		if(!linkedShuttleId)
-			to_chat(user, "<span class='warning'>Error, no defined shuttle linked to device.</span>")
-			return
-		var/obj/machinery/computer/camera_advanced/shuttle_docker/custom/console = target
-		console.linkShuttle(linkedShuttleId)
-		to_chat(user, "<span class='notice'>Console linked successfully!</span>")
-		return
 	to_chat(user, "<span class='warning'>The [src] bleeps. Select an airlock to create a docking port, or a valid machine to link.</span>")
 	return
 
