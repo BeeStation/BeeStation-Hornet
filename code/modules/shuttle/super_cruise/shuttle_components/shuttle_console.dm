@@ -48,7 +48,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
 		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
 
-	if(recall_docking_port_id && shuttleObject?.docking_target)
+	if(recall_docking_port_id && shuttleObject?.docking_target && shuttleObject.autopilot && shuttleObject.shuttleTarget == shuttleObject.docking_target)
 		//We are at destination, dock.
 		switch(SSshuttle.moveShuttle(shuttleId, recall_docking_port_id, 1))
 			if(0)
@@ -262,7 +262,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				log_admin("[usr] attempted to forge a target location through a tgui exploit on [src]")
 				message_admins("[ADMIN_FULLMONTY(usr)] attempted to forge a target location through a tgui exploit on [src]")
 				return
-			switch(SSshuttle.moveShuttle(shuttleId, params["port"], 1))
+			switch(SSshuttle.moveShuttle(shuttleId, target_port.id, 1))
 				if(0)
 					say("Initiating supercruise throttle-down, prepare for landing.")
 					QDEL_NULL(shuttleObject)
