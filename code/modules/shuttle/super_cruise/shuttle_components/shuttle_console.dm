@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
+
 /obj/machinery/computer/shuttle_flight
 	name = "shuttle console"
 	desc = "A shuttle control computer."
@@ -6,6 +8,11 @@
 	light_color = LIGHT_COLOR_CYAN
 	req_access = list( )
 	var/shuttleId
+
+	//For recall consoles
+	//If not set to an empty string, will display only the option to call the shuttle to that dock.
+	//Once pressed the shuttle will engage autopilot and return to the dock.
+	var/recall_docking_port_id = ""
 
 	//Admin controlled shuttles
 	var/admin_controlled = FALSE
@@ -18,10 +25,8 @@
 
 	//Used for mapping mainly
 	var/possible_destinations = ""
-	var/list/valid_docks = list("whiteship_home")
+	var/list/valid_docks = list("")
 
-	var/angle
-	var/thrust_percentage
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
 	//The target, speeds are calulated relative to this.
@@ -85,23 +90,20 @@
 
 	if(!thrust_dir_x)
 		if(!thrust_dir_y)
-			thrust_percentage = 0
-			shuttleObject.thrust = thrust_percentage
+			shuttleObject.thrust = 0
 			return
-		angle = thrust_dir_y > 0 ? 90 : -90
+		shuttleObject.angle = thrust_dir_y > 0 ? 90 : -90
 	else
-		angle = arctan(thrust_dir_y / thrust_dir_x)
+		shuttleObject.angle = arctan(thrust_dir_y / thrust_dir_x)
 		//Account for ambiguous cases
 		if(thrust_dir_x < 0)
 			if(thrust_dir_y < 0)
-				angle = 180 - angle
+				shuttleObject.angle = 180 - shuttleObject.angle
 			else
-				angle = 90 - angle
+				shuttleObject.angle = 90 - shuttleObject.angle
 
-	shuttleObject.angle = angle
 	//FULL SPEED
-	thrust_percentage = 100
-	shuttleObject.thrust = thrust_percentage
+	shuttleObject.thrust = 100
 	//Auto dock
 	if(shuttleObject.can_dock_with == shuttleTarget)
 		shuttleObject.commence_docking(shuttleTarget, TRUE)
@@ -119,6 +121,15 @@
 		ui = new(user, src, "OrbitalMap")
 		ui.open()
 	ui.set_autoupdate(TRUE)
+
+/obj/machinery/computer/shuttle_flight/ui_static_data(mob/user)
+	var/list/data = list()
+	//Forced autopilot mode never changes
+	data["autopilot_forced"] = autopilot_forced
+	//The docks we can dock with never really changes
+	//This is used for the forced autopilot mode where it goes to a set port.
+	data["destination_docks"] = list()
+	return data
 
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
 	var/list/data = list()
@@ -142,15 +153,14 @@
 		return
 	data["canLaunch"] = TRUE
 	data["autopilot"] = autopilot
-	data["autopilot_forced"] = autopilot_forced
 	if(!shuttleObject)
 		data["linkedToShuttle"] = FALSE
 		return data
 	data["linkedToShuttle"] = TRUE
 	data["shuttleTarget"] = shuttleTarget?.name
 	data["shuttleName"] = shuttleObject?.name
-	data["shuttleAngle"] = angle
-	data["shuttleThrust"] = thrust_percentage
+	data["shuttleAngle"] = shuttleObject.angle
+	data["shuttleThrust"] = shuttleObject.thrust
 	if(shuttleTarget)
 		data["shuttleVelX"] = shuttleObject.velocity.x - shuttleTarget.velocity.x
 		data["shuttleVelY"] = shuttleObject.velocity.y - shuttleTarget.velocity.y
@@ -162,7 +172,7 @@
 	data["isDocking"] = shuttleObject.docking_target != null
 	data["validDockingPorts"] = list()
 	if(shuttleObject.docking_target)
-		if(shuttleObject.docking_target.can_dock_anywhere)
+		if(shuttleObject.docking_target.can_dock_anywhere && !GLOB.shuttle_docking_jammed)
 			data["validDockingPorts"] += list(list(
 				"name" = "Custom Location",
 				"id" = "custom_location"
@@ -200,16 +210,14 @@
 				return
 			if(!shuttleObject)
 				return
-			thrust_percentage = CLAMP(params["thrust"], 0, 100)
-			shuttleObject.thrust = thrust_percentage
+			shuttleObject.thrust = CLAMP(params["thrust"], 0, 100)
 		if("setAngle")
 			if(autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
 				return
 			if(!shuttleObject)
 				return
-			angle = params["angle"]
-			shuttleObject.angle = angle
+			shuttleObject.angle = params["angle"]
 		if("nautopilot")
 			if(autopilot_forced)
 				return
@@ -258,6 +266,8 @@
 			//Special check
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
+				if(shuttleObject.docking_target.can_dock_anywhere && !GLOB.shuttle_docking_jammed)
+					return
 				//If random dropping is allowed, random drop.
 				if(shuttleObject.docking_target.random_docking)
 					random_drop()

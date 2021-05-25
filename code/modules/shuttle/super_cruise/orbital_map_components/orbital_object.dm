@@ -148,7 +148,7 @@
 	position.y = target_body.position.y
 	delta_x += position.x
 	delta_y += position.y
-	//Move all orbitting bodies too.
+	//Move all orbitting b()odies too.
 	if(orbitting_bodies)
 		for(var/datum/orbital_object/object in orbitting_bodies)
 			object.position.Add(new /datum/orbital_vector(delta_x, delta_y))

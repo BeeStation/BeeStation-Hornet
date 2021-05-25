@@ -62,8 +62,7 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 		var/obj/item/circuitboard/computer/syndicate_shuttle/board = V
 		board.challenge = TRUE
 
-	for(var/obj/machinery/computer/camera_advanced/shuttle_docker/D in GLOB.jam_on_wardec)
-		D.jammed = TRUE
+	GLOB.shuttle_docking_jammed = TRUE
 
 	var/list/orphans = list()
 	var/list/uplinks = list()
