@@ -349,7 +349,6 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/pirate)
 "oO" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/caravan/pirate,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},

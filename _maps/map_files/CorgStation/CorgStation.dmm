@@ -62720,7 +62720,6 @@
 /obj/item/circuitboard/machine/shuttle/heater,
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
 /obj/item/circuitboard/computer/shuttle/flight_control,
-/obj/item/circuitboard/computer/shuttle/docker,
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)

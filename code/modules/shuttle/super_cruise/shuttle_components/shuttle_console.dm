@@ -24,10 +24,22 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
 
+	//Internal shuttle docker computer
+	var/obj/machinery/computer/camera_advanced/shuttle_docker/internal_shuttle_docker
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
+	internal_shuttle_docker = new()
+	internal_shuttle_docker.shuttleId = shuttleId
+	internal_shuttle_docker.shuttlePortId = "[shuttleId]_custom"
+	for(var/dock in valid_docks)
+		internal_shuttle_docker.jumpto_ports[dock] = TRUE
+
+/obj/machinery/computer/shuttle_flight/Destroy()
+	. = ..()
+	shuttleObject = null
+	QDEL_NULL(internal_shuttle_docker)
 
 /obj/machinery/computer/shuttle_flight/process()
 	. = ..()
@@ -79,8 +91,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Add orbital bodies
 	data["map_objects"] = list()
 	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
-		//we can't see it
-		if(object != shuttleObject && object.stealth)
+		//we can't see it, unless we are stealth too
+		if(object != shuttleObject && (object.stealth && !shuttleObject.stealth))
 			continue
 		//Send to be rendered on the UI
 		data["map_objects"] += list(list(
@@ -95,7 +107,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		data["linkedToShuttle"] = FALSE
 		return
 	data["canLaunch"] = TRUE
-	if(!shuttleObject)
+	if(QDELETED(shuttleObject))
 		data["linkedToShuttle"] = FALSE
 		return data
 	data["autopilot"] = shuttleObject.autopilot
@@ -229,6 +241,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
 				if(shuttleObject.docking_target.can_dock_anywhere && !GLOB.shuttle_docking_jammed)
+					internal_shuttle_docker.z_lock = list(shuttleObject.docking_target.linked_z_level)
+					internal_shuttle_docker.see_hidden = mobile_port.hidden
+					internal_shuttle_docker.view_range = max(mobile_port.width, mobile_port.height) + 4
+					internal_shuttle_docker.attack_hand(usr)
 					return
 				//If random dropping is allowed, random drop.
 				if(shuttleObject.docking_target.random_docking)
@@ -282,7 +298,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(!shuttle_dock)
 		return
 	//Create temporary port
-	var/obj/docking_port/stationary/random_port = new
+	var/obj/docking_port/stationary/random_port = new shuttle_dock.shuttle_object_type()
 	random_port.delete_after = TRUE
 	random_port.width = shuttle_dock.width
 	random_port.height = shuttle_dock.height

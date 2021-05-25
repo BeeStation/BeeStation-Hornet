@@ -184,16 +184,6 @@
 	light_color = LIGHT_COLOR_RED
 	possible_destinations = "pirateship_away;pirateship_home;pirateship_custom"
 
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/pirate
-	name = "pirate shuttle navigation computer"
-	desc = "Used to designate a precise transit location for the pirate shuttle."
-	shuttleId = "pirateship"
-	lock_override = CAMERA_LOCK_STATION
-	shuttlePortId = "pirateship_custom"
-	x_offset = 9
-	y_offset = 0
-	see_hidden = FALSE
-
 /obj/docking_port/mobile/pirate
 	name = "pirate shuttle"
 	id = "pirateship"
