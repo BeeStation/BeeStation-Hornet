@@ -20,8 +20,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Autopilot only shuttles
 	//These shuttles have a list of possible ports to go to and will fly directly to them.
 	var/autopilot_forced = FALSE
-	//Is autopilot enabled.
-	var/autopilot = FALSE
 
 	//Used for mapping mainly
 	var/possible_destinations = ""
@@ -29,15 +27,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
-	//The target, speeds are calulated relative to this.
-	var/datum/orbital_object/shuttleTarget
+
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
-	//Enable autopilot.
-	if(autopilot_forced)
-		autopilot = TRUE
 
 /obj/machinery/computer/shuttle_flight/process()
 	. = ..()
@@ -45,73 +39,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Check to see if the shuttleobject was launched by another console.
 	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
 		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
-
-	if(!shuttleTarget || !autopilot || !shuttleObject || shuttleObject.docking_target)
-		return
-
-	//Relative velocity to target needs to point towards target.
-	var/distance_to_target = shuttleObject.position.Distance(shuttleTarget.position)
-	var/shortest_distance = distance_to_target
-	var/datum/orbital_object/object_in_path
-
-	for(var/datum/orbital_object/z_linked/object in SSorbits.orbital_map.bodies)
-		//Dont care about non forced docking objects.
-		if(!object.forced_docking)
-			continue
-		//Dont avoid colliding with the thing we want to collide with.
-		if(object == shuttleTarget)
-			continue
-		//Calculate shortest distance and check if we will collide.
-		if(object.position.ShortestDistanceToLine(shuttleObject.position, shuttleObject.velocity) < object.radius)
-			//Make sure we are closer to our target than this object, otherwise the colliding object is behind the target.
-			var/distance_to_object = shuttleObject.position.Distance(object.position)
-			if(distance_to_object < shortest_distance)
-				object_in_path = object
-				shortest_distance = distance_to_object
-
-	//If there is an object in the way, we need to fly around it.
-	var/datum/orbital_vector/next_position
-	if(object_in_path)
-		var/datum/orbital_vector/normalized_velocity = new(-object_in_path.velocity.x, -object_in_path.velocity.y)
-		normalized_velocity.Normalize()
-		normalized_velocity.Scale(object_in_path.radius * 2)
-		next_position = new(object_in_path.position.x + normalized_velocity.x, object_in_path.position.y + normalized_velocity.y)
-	else
-		//Fly in a straight line towards target.
-		next_position = shuttleTarget.position
-
-	//Adjust our speed to target to point towards it.
-	var/datum/orbital_vector/desired_velocity = new(next_position.x - shuttleObject.position.x, next_position.y - shuttleObject.position.y)
-	var/desired_speed = max(distance_to_target * 0.2, 0.5)
-	desired_velocity.Normalize()
-	desired_velocity.Scale(desired_speed)
-
-	//Adjust thrust to make our velocity = desired_velocity
-	var/thrust_dir_x = desired_velocity.x - shuttleObject.velocity.x
-	var/thrust_dir_y = desired_velocity.y - shuttleObject.velocity.y
-
-	//message_admins("Thrusting in dir: [thrust_dir_y], [thrust_dir_x]")
-	//message_admins("Next pos: [next_position.x], [next_position.y]")
-
-	if(!thrust_dir_x)
-		if(!thrust_dir_y)
-			shuttleObject.thrust = 0
-			return
-		shuttleObject.angle = thrust_dir_y > 0 ? 90 : -90
-	else
-		shuttleObject.angle = arctan(thrust_dir_y / thrust_dir_x)
-		//Account for ambiguous cases
-		if(thrust_dir_x < 0)
-			if(thrust_dir_y < 0)
-				shuttleObject.angle = 180 - shuttleObject.angle
-			else
-				shuttleObject.angle = 90 - shuttleObject.angle
-
-	//FULL SPEED
-	shuttleObject.thrust = 100
-	//Auto dock
-	if(shuttleObject.can_dock_with == shuttleTarget)
-		shuttleObject.commence_docking(shuttleTarget, TRUE)
 
 /obj/machinery/computer/shuttle_flight/ui_state(mob/user)
 	return GLOB.default_state
@@ -157,18 +84,18 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		data["linkedToShuttle"] = FALSE
 		return
 	data["canLaunch"] = TRUE
-	data["autopilot"] = autopilot
 	if(!shuttleObject)
 		data["linkedToShuttle"] = FALSE
 		return data
+	data["autopilot"] = shuttleObject.autopilot
 	data["linkedToShuttle"] = TRUE
-	data["shuttleTarget"] = shuttleTarget?.name
+	data["shuttleTarget"] = shuttleObject?.shuttleTarget?.name
 	data["shuttleName"] = shuttleObject?.name
 	data["shuttleAngle"] = shuttleObject.angle
 	data["shuttleThrust"] = shuttleObject.thrust
-	if(shuttleTarget)
-		data["shuttleVelX"] = shuttleObject.velocity.x - shuttleTarget.velocity.x
-		data["shuttleVelY"] = shuttleObject.velocity.y - shuttleTarget.velocity.y
+	if(shuttleObject?.shuttleTarget)
+		data["shuttleVelX"] = shuttleObject.velocity.x - shuttleObject.shuttleTarget.velocity.x
+		data["shuttleVelY"] = shuttleObject.velocity.y - shuttleObject.shuttleTarget.velocity.y
 	else
 		data["shuttleVelX"] = shuttleObject.velocity.x
 		data["shuttleVelY"] = shuttleObject.velocity.y
@@ -202,22 +129,31 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(admin_controlled)
 		say("This shuttle is restricted to authorised personnel only.")
 		return
+
+	if(recall_docking_port_id)
+		switch(action)
+			if("callShuttle")
+				if(!SSorbits.assoc_shuttles.Find(shuttleId))
+					return
+				shuttleObject = SSorbits.assoc_shuttles[shuttleId]
+				say("Requesting shuttle.")
+		return
 	switch(action)
 		if("setTarget")
 			var/desiredTarget = params["target"]
 			for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
 				if(object.name == desiredTarget)
-					shuttleTarget = object
+					shuttleObject.shuttleTarget = object
 					return
 		if("setThrust")
-			if(autopilot)
+			if(shuttleObject.autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
 				return
 			if(QDELETED(shuttleObject))
 				return
 			shuttleObject.thrust = CLAMP(params["thrust"], 0, 100)
 		if("setAngle")
-			if(autopilot)
+			if(shuttleObject.autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
 				return
 			if(QDELETED(shuttleObject))
@@ -226,9 +162,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		if("nautopilot")
 			if(autopilot_forced)
 				return
-			if(QDELETED(shuttleObject) || !shuttleTarget)
+			if(QDELETED(shuttleObject) || !shuttleObject.shuttleTarget)
 				return
-			autopilot = !autopilot
+			shuttleObject.autopilot = !shuttleObject.autopilot
 		//Launch the shuttle. Lets do this.
 		if("launch")
 			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
@@ -271,7 +207,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				return
 			//Disable autopilot
 			if(!autopilot_forced)
-				autopilot = FALSE
+				shuttleObject.autopilot = FALSE
 			//Special check
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
