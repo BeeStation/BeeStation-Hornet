@@ -30,21 +30,21 @@
 	var/obj/machinery/atmospherics/pipe/simple/multiz/below1 = locate(/obj/machinery/atmospherics/pipe/simple/multiz/layer1) in(SSmapping.get_turf_below(T))
 	var/obj/machinery/atmospherics/pipe/simple/multiz/below = locate(/obj/machinery/atmospherics/pipe/simple/multiz) in(SSmapping.get_turf_below(T))
 	var/obj/machinery/atmospherics/pipe/simple/multiz/below3 = locate(/obj/machinery/atmospherics/pipe/simple/multiz/layer3) in(SSmapping.get_turf_below(T))
-	if(below && (below.piping_layer == piping_layer))
+	if(below?.piping_layer == piping_layer)
 		below.pipeline_expansion() //If we've got one below us, force it to add us on facebook
-	if(below1 && (below1.piping_layer == piping_layer))
+	if(below1?.piping_layer == piping_layer)
 		below1.pipeline_expansion()
-	if(below3 && (below3.piping_layer == piping_layer))
+	if(below3?.piping_layer == piping_layer)
 		below3.pipeline_expansion()
-	if(above && (above.piping_layer == piping_layer))
+	if(above?.piping_layer == piping_layer)
 		nodes += above
 		above.nodes += src
 		return ..()
-	if(above1 && (above1.piping_layer == piping_layer))
+	if(above1?.piping_layer == piping_layer)
 		nodes += above1
 		above1.nodes += src
 		return ..()
-	if(above3 && (above3.piping_layer == piping_layer))
+	if(above3?.piping_layer == piping_layer)
 		nodes += above3
 		above3.nodes += src //Two way travel :)
 		return ..()
