@@ -10,6 +10,10 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/datum/orbital_map_tgui/orbital_map_tgui = new()
 
+	//key = port_id
+	//value = orbital shuttle object
+	var/list/assoc_shuttles = list()
+
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
 	orbital_map.post_setup()
 
