@@ -108,7 +108,7 @@
 	create_reagents(100)
 	set_colour(new_colour)
 	. = ..()
-	set_nutrition(700)
+	set_nutrition(SLIME_DEFAULT_NUTRITION)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
 		set_playable()
 

@@ -179,7 +179,7 @@
 				to_chat(src, "<i>There are too many of us...</i>")
 				return
 			var/list/babies = list()
-			var/new_nutrition = 700
+			var/new_nutrition = SLIME_DEFAULT_NUTRITION
 			var/new_powerlevel = round(powerlevel / 4)
 			var/datum/component/nanites/original_nanites = GetComponent(/datum/component/nanites)
 			var/turf/drop_loc = drop_location()
