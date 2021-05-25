@@ -124,8 +124,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/ui_act(action, params)
 	. = ..()
+
 	if(.)
 		return
+
 	if(admin_controlled)
 		say("This shuttle is restricted to authorised personnel only.")
 		return
@@ -134,10 +136,25 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		switch(action)
 			if("callShuttle")
 				if(!SSorbits.assoc_shuttles.Find(shuttleId))
-					return
+					//Launch the shuttle
+					if(!launch_shuttle())
+						return
 				shuttleObject = SSorbits.assoc_shuttles[shuttleId]
-				say("Requesting shuttle.")
+				//Find the z-level that the dock is on
+				var/obj/docking_port/stationary/target_port = SSshuttle.getDock(recall_docking_port_id)
+				if(!target_port)
+					say("Unable to locate port location.")
+					return
+				//Locate the orbital object
+				for(var/datum/orbital_object/z_linked/z_linked in SSorbits.orbital_map.bodies)
+					if(z_linked.linked_z_level == target_port.z)
+						shuttleObject.shuttleTarget = z_linked
+						shuttleObject.autopilot = TRUE
+						say("Shuttle requested.")
+						break
+				say("Docking port in invalid location. Please contact a Nanotrasen technician.")
 		return
+
 	switch(action)
 		if("setTarget")
 			var/desiredTarget = params["target"]
@@ -167,21 +184,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			shuttleObject.autopilot = !shuttleObject.autopilot
 		//Launch the shuttle. Lets do this.
 		if("launch")
-			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
-			if(!mobile_port)
-				return
-			if(mobile_port.mode == SHUTTLE_RECHARGING)
-				say("Supercruise Warning: Shuttle engines not ready for use.")
-				return
-			if(mobile_port.mode != SHUTTLE_IDLE)
-				say("Supercruise Warning: Shuttle already in transit.")
-				return
-			if(SSorbits.assoc_shuttles.Find(shuttleId))
-				say("Shuttle is controlled from another location, updating telemetry.")
-				shuttleObject = SSorbits.assoc_shuttles[shuttleId]
-				return
-			shuttleObject = mobile_port.enter_supercruise()
-			shuttleObject.valid_docks = valid_docks
+			launch_shuttle()
 		//Dock at location.
 		if("dock")
 			if(QDELETED(shuttleObject))
@@ -237,6 +240,24 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 				else
 					to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+
+/obj/machinery/computer/shuttle_flight/proc/launch_shuttle()
+	var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
+	if(!mobile_port)
+		return
+	if(mobile_port.mode == SHUTTLE_RECHARGING)
+		say("Supercruise Warning: Shuttle engines not ready for use.")
+		return
+	if(mobile_port.mode != SHUTTLE_IDLE)
+		say("Supercruise Warning: Shuttle already in transit.")
+		return
+	if(SSorbits.assoc_shuttles.Find(shuttleId))
+		say("Shuttle is controlled from another location, updating telemetry.")
+		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
+		return shuttleObject
+	shuttleObject = mobile_port.enter_supercruise()
+	shuttleObject.valid_docks = valid_docks
+	return shuttleObject
 
 /obj/machinery/computer/shuttle_flight/proc/random_drop()
 	//Find a random place to drop in at.
