@@ -17,10 +17,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Admin controlled shuttles
 	var/admin_controlled = FALSE
 
-	//Autopilot only shuttles
-	//These shuttles have a list of possible ports to go to and will fly directly to them.
-	var/autopilot_forced = FALSE
-
 	//Used for mapping mainly
 	var/possible_destinations = ""
 	var/list/valid_docks = list("")
@@ -40,6 +36,17 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
 		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
 
+	if(recall_docking_port_id && shuttleObject?.docking_target)
+		//We are at destination, dock.
+		switch(SSshuttle.moveShuttle(shuttleId, recall_docking_port_id, 1))
+			if(0)
+				say("Shuttle has arrived at destination.")
+				QDEL_NULL(shuttleObject)
+			if(1)
+				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+			else
+				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+
 /obj/machinery/computer/shuttle_flight/ui_state(mob/user)
 	return GLOB.default_state
 
@@ -56,11 +63,15 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/ui_static_data(mob/user)
 	var/list/data = list()
-	//Forced autopilot mode never changes
-	data["autopilot_forced"] = autopilot_forced
 	//The docks we can dock with never really changes
 	//This is used for the forced autopilot mode where it goes to a set port.
 	data["destination_docks"] = list()
+	for(var/dock in valid_docks)
+		data["valid_dock"] += list(list(
+			"id" = dock,
+		))
+	//If we are a recall console.
+	data["recall_docking_port_id"] = recall_docking_port_id
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
@@ -135,23 +146,31 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(recall_docking_port_id)
 		switch(action)
 			if("callShuttle")
-				if(!SSorbits.assoc_shuttles.Find(shuttleId))
-					//Launch the shuttle
-					if(!launch_shuttle())
-						return
-				shuttleObject = SSorbits.assoc_shuttles[shuttleId]
 				//Find the z-level that the dock is on
 				var/obj/docking_port/stationary/target_port = SSshuttle.getDock(recall_docking_port_id)
 				if(!target_port)
 					say("Unable to locate port location.")
 					return
+				//Locate linked shuttle
+				var/obj/docking_port/mobile/shuttle = SSshuttle.getShuttle(shuttleId)
+				if(!shuttle)
+					say("Unable to locate linked shuttle.")
+					return
+				if(target_port in shuttle.loc)
+					say("Shuttle is already at destination.")
+					return
 				//Locate the orbital object
 				for(var/datum/orbital_object/z_linked/z_linked in SSorbits.orbital_map.bodies)
-					if(z_linked.linked_z_level == target_port.z)
+					if(z_linked.linked_z_level.z_value == target_port.z)
+						if(!SSorbits.assoc_shuttles.Find(shuttleId))
+							//Launch the shuttle
+							if(!launch_shuttle())
+								return
+						shuttleObject = SSorbits.assoc_shuttles[shuttleId]
 						shuttleObject.shuttleTarget = z_linked
 						shuttleObject.autopilot = TRUE
 						say("Shuttle requested.")
-						break
+						return
 				say("Docking port in invalid location. Please contact a Nanotrasen technician.")
 		return
 
@@ -177,8 +196,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				return
 			shuttleObject.angle = params["angle"]
 		if("nautopilot")
-			if(autopilot_forced)
-				return
 			if(QDELETED(shuttleObject) || !shuttleObject.shuttleTarget)
 				return
 			shuttleObject.autopilot = !shuttleObject.autopilot
@@ -208,9 +225,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(mobile_port.mode != SHUTTLE_CALL || mobile_port.destination)
 				say("Supercruise Warning: Already dethrottling shuttle.")
 				return
-			//Disable autopilot
-			if(!autopilot_forced)
-				shuttleObject.autopilot = FALSE
 			//Special check
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
