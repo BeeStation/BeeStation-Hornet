@@ -85,6 +85,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			ghost.ManualFollow(src)
 
 /obj/effect/immovablerod/Moved()
+	if(!loc)
+		return ..()
 	if((z != z_original) || (loc == destination))
 		qdel(src)
 	if(special_target && loc == get_turf(special_target))
