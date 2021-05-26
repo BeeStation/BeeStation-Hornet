@@ -6,7 +6,7 @@ import { Window } from '../layouts';
 export const OrbitalMap = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    map_objects,
+    map_objects = [],
     collisionAlert = false,
     linkedToShuttle = false,
     canLaunch = false,
@@ -382,6 +382,7 @@ export const ShuttleControls = (props, context) => {
           </ProgressBar>
         </>
       )}
+      {display_stats}
       <Button
         mt={2}
         content="Toggle Autopilot"

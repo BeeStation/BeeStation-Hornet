@@ -448,7 +448,7 @@
 	id = "syndicate";
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
 	name = "syndicate infiltrator";
-	shuttle_object_type = /datum/orbital_object/shuttle/infiltrator;
+	shuttle_object_type = /datum/orbital_object/shuttle/stealth/infiltrator;
 	port_direction = 4;
 	width = 23
 	},
