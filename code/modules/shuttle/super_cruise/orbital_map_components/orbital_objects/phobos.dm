@@ -1,6 +1,5 @@
 //Centcom Z-Level.
 //Syndicate infiltrator level.
-//TODO: Normal ships arriving here will crash on a snowy z-level.
 /datum/orbital_object/z_linked/phobos
 	name = "Phobos"
 	mass = 500
