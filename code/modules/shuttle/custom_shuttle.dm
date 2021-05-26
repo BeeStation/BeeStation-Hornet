@@ -40,8 +40,12 @@
 	)
 	if(calculated_acceleration < 1)
 		data["thrust_alert"] = "Insufficient engine power at last callibration. Launch shuttle to recalculate thrust."
+	else
+		data["thrust_alert"] = 0
 	if(calculated_non_operational_thrusters > 0)
 		data["damage_alert"] = "[calculated_non_operational_thrusters] thrusters offline."
+	else
+		data["thrust_alert"] = 0
 	return data
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/launch_shuttle()
@@ -87,12 +91,15 @@
 	if(!calculated_engine_count && shuttleObject)
 		say("Fuel reserves depleted, dropping out of supercruise.")
 		if(!shuttleObject.docking_target)
-			//Send shuttle object to random location
-			var/datum/orbital_object/z_linked/z_linked = locate() in shuffle(SSorbits.orbital_map.bodies)
-			if(!z_linked)
-				say("Failed to dethrottle shuttle, please contact a Nanotrasen supervisor.")
-				return
-			shuttleObject.docking_target = z_linked
+			if(shuttleObject.can_dock_with)
+				shuttleObject.docking_target = shuttleObject.can_dock_with
+			else
+				//Send shuttle object to random location
+				var/datum/orbital_object/z_linked/beacon/z_linked = locate() in shuffle(SSorbits.orbital_map.bodies)
+				if(!z_linked)
+					say("Failed to dethrottle shuttle, please contact a Nanotrasen supervisor.")
+					return
+				shuttleObject.docking_target = z_linked
 		//Dock
 		random_drop()
 		return TRUE
