@@ -1,5 +1,5 @@
 import { toTitleCase } from 'common/string';
-import { Box, Button, Section, Table, DraggableControl, Dropdown, Divider, NoticeBox, Slider, Knob } from '../components';
+import { Box, Button, Section, Table, DraggableControl, Dropdown, Divider, NoticeBox, Slider, Knob, ProgressBar } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -11,6 +11,8 @@ export const OrbitalMap = (props, context) => {
     linkedToShuttle = false,
     canLaunch = false,
     recall_docking_port_id = "",
+    thrust_alert = false,
+    damage_alert = false,
   } = data;
   const lineStyle = {
     stroke: '#BBBBBB',
@@ -248,6 +250,16 @@ export const OrbitalMap = (props, context) => {
           <Divider />
           <div class="OrbitalMap__shuttle">
             <Section title="Flight Controls" height="100%">
+              {(!thrust_alert) || (
+                <NoticeBox color="red">
+                  {thrust_alert}
+                </NoticeBox>
+              )}
+              {(!damage_alert) || (
+                <NoticeBox color="red">
+                  {damage_alert}
+                </NoticeBox>
+              )}
               {recall_docking_port_id !== ""
                 ? <RecallControl />
                 : linkedToShuttle
@@ -313,6 +325,9 @@ export const ShuttleControls = (props, context) => {
     canDock,
     isDocking,
     validDockingPorts,
+    display_fuel = false,
+    fuel = 0,
+    display_stats = [],
   } = data;
   return (
     <>
@@ -356,6 +371,17 @@ export const ShuttleControls = (props, context) => {
         onDrag={(e, value) => act('setAngle', {
           angle: value,
         })} />
+      {(!display_fuel) || (
+        <>
+          <Box bold mt={2}>
+            Fuel Remaining
+          </Box>
+          <ProgressBar
+            value = {fuel}>
+            {fuel} moles.
+          </ProgressBar>
+        </>
+      )}
       <Button
         mt={2}
         content="Toggle Autopilot"
