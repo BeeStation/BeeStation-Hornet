@@ -15,8 +15,8 @@
 /obj/machinery/computer/shuttle_flight/syndicate/recall
 	name = "syndicate shuttle recall terminal"
 	desc = "Use this if your friends left you behind."
-	possible_destinations = "syndicate_away"
-
+	request_shuttle_message = "Recall Infiltrator"
+	recall_docking_port_id = "syndicate_away"
 
 /obj/machinery/computer/shuttle_flight/syndicate/Topic(href, href_list)
 	if(!usr.canUseTopic(src))
@@ -45,5 +45,6 @@
 	possible_destinations = null
 	clockwork = TRUE //it'd look weird
 	recall_docking_port_id = "null"	//Make it a recall shuttle, with no default dest
+	request_shuttle_message = "INITIATE ASSAULT"
 
 #undef SYNDICATE_CHALLENGE_TIMER
