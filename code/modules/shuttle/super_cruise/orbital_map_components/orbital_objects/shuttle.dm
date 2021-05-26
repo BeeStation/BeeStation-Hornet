@@ -77,37 +77,13 @@
 	//Relative velocity to target needs to point towards target.
 	var/distance_to_target = position.Distance(shuttleTarget.position)
 	var/shortest_distance = distance_to_target
-	var/datum/orbital_object/object_in_path
-
-	for(var/datum/orbital_object/z_linked/object in SSorbits.orbital_map.bodies)
-		//Dont care about non forced docking objects.
-		if(!object.forced_docking)
-			continue
-		//Dont avoid colliding with the thing we want to collide with.
-		if(object == shuttleTarget)
-			continue
-		//Calculate shortest distance and check if we will collide.
-		if(object.position.ShortestDistanceToLine(position, velocity) < object.radius)
-			//Make sure we are closer to our target than this object, otherwise the colliding object is behind the target.
-			var/distance_to_object = position.Distance(object.position)
-			if(distance_to_object < shortest_distance)
-				object_in_path = object
-				shortest_distance = distance_to_object
 
 	//If there is an object in the way, we need to fly around it.
-	var/datum/orbital_vector/next_position
-	if(object_in_path)
-		var/datum/orbital_vector/normalized_velocity = new(-object_in_path.velocity.x, -object_in_path.velocity.y)
-		normalized_velocity.Normalize()
-		normalized_velocity.Scale(object_in_path.radius * 2)
-		next_position = new(object_in_path.position.x + normalized_velocity.x, object_in_path.position.y + normalized_velocity.y)
-	else
-		//Fly in a straight line towards target.
-		next_position = shuttleTarget.position
+	var/datum/orbital_vector/next_position = shuttleTarget.position
 
 	//Adjust our speed to target to point towards it.
 	var/datum/orbital_vector/desired_velocity = new(next_position.x - position.x, next_position.y - position.y)
-	var/desired_speed = max(distance_to_target * 0.02, 2)
+	var/desired_speed = max(distance_to_target * 0.02, 10)
 	desired_velocity.Normalize()
 	desired_velocity.Scale(desired_speed)
 
