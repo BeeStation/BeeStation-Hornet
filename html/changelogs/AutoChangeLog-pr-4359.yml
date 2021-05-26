@@ -1,0 +1,5 @@
+author: yorii
+delete-after: true
+changes:
+  - rscadd: Rerolling blob strains now uses a radial menu, and lets you see what the
+      strain does before picking it.
