@@ -47,6 +47,10 @@
 /datum/orbital_vector/proc/ShortestDistanceToLine(datum/orbital_vector/position, datum/orbital_vector/direction)
 	if(!direction.x && !direction.y)
 		return INFINITY
+	//Uhhhhhhhhhh.
+	if(!x && !y)
+		x = 1
+		y = 1
 	var/lambda = (x * x + y * y - position.x * x - position.y * y) / (direction.x * x + direction.y * y)
 	var/datum/orbital_vector/closestPoint = new(position.x + direction.x * lambda, position.y + direction.y * lambda)
 	return closestPoint.Distance(src)
