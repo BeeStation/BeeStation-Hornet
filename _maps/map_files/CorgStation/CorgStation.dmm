@@ -5448,7 +5448,7 @@
 	},
 /area/chapel/main/monastery)
 "bkb" = (
-/obj/machinery/computer/custom_shuttle{
+/obj/machinery/computer/shuttle_flight/custom_shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{

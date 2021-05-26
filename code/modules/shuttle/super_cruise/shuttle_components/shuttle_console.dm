@@ -98,7 +98,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		))
 	if(!SSshuttle.getShuttle(shuttleId))
 		data["linkedToShuttle"] = FALSE
-		return
+		return data
 	data["canLaunch"] = TRUE
 	if(QDELETED(shuttleObject))
 		data["linkedToShuttle"] = FALSE
@@ -296,7 +296,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(!shuttle_dock)
 		return
 	//Create temporary port
-	var/obj/docking_port/stationary/random_port = new shuttle_dock.shuttle_object_type()
+	var/obj/docking_port/stationary/random_port = new
 	random_port.delete_after = TRUE
 	random_port.width = shuttle_dock.width
 	random_port.height = shuttle_dock.height
