@@ -76,7 +76,6 @@
 
 	//Relative velocity to target needs to point towards target.
 	var/distance_to_target = position.Distance(shuttleTarget.position)
-	var/shortest_distance = distance_to_target
 
 	//If there is an object in the way, we need to fly around it.
 	var/datum/orbital_vector/next_position = shuttleTarget.position
