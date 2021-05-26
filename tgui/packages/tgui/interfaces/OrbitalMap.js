@@ -13,9 +13,16 @@ export const OrbitalMap = (props, context) => {
     recall_docking_port_id = "",
     thrust_alert = false,
     damage_alert = false,
+    shuttleName = "",
+    desired_vel_x = 0,
+    desired_vel_y = 0,
   } = data;
   const lineStyle = {
     stroke: '#BBBBBB',
+    strokeWidth: '2',
+  };
+  const blueLineStyle = {
+    stroke: '#8888FF',
     strokeWidth: '2',
   };
   const [
@@ -196,6 +203,24 @@ export const OrbitalMap = (props, context) => {
                           fontSize={Math.min(40 * zoomScale, 14)}>
                           {map_object.name}
                         </text>
+                        {shuttleName !== map_object.name || (
+                          <line
+                            style={blueLineStyle}
+                            x1={Math.max(Math.min((map_object.position_x
+                              - xOffset)
+                              * zoomScale, 250), -250)}
+                            y1={Math.max(Math.min((map_object.position_y
+                              - yOffset)
+                              * zoomScale, 250), -250)}
+                            x2={Math.max(Math.min((map_object.position_x
+                              - xOffset
+                              + desired_vel_x * 10)
+                              * zoomScale, 250), -250)}
+                            y2={Math.max(Math.min((map_object.position_y
+                              - yOffset
+                              + desired_vel_y * 10)
+                              * zoomScale, 250), -250)} />
+                        )}
                       </>
                     ))};
                   </svg>
@@ -293,7 +318,8 @@ export const OrbitalMap = (props, context) => {
 };
 
 export const RecallControl = (props, context) => {
-  const { act } = useBackend(context);
+  const { act, data } = useBackend(context);
+  const { request_shuttle_message } = data;
   return (
     <>
       <NoticeBox>
@@ -301,7 +327,7 @@ export const RecallControl = (props, context) => {
         can only recall the shuttle.
       </NoticeBox>
       <Button
-        content="REQUEST SHUTTLE"
+        content={request_shuttle_message}
         textAlign="center"
         fontSize="30px"
         icon="rocket"
@@ -315,19 +341,18 @@ export const RecallControl = (props, context) => {
 export const ShuttleControls = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    map_objects,
+    map_objects = [],
     collisionAlert = false,
-    linkedToShuttle = false,
-    shuttleTarget,
-    canLaunch = false,
-    shuttleAngle,
-    shuttleThrust,
-    canDock,
-    isDocking,
-    validDockingPorts,
+    shuttleTarget = null,
+    shuttleAngle = 0,
+    shuttleThrust = 0,
+    canDock = false,
+    isDocking = false,
+    validDockingPorts = [],
     display_fuel = false,
     fuel = 0,
     display_stats = [],
+    autopilot_enabled = false,
   } = data;
   return (
     <>
@@ -377,16 +402,28 @@ export const ShuttleControls = (props, context) => {
             Fuel Remaining
           </Box>
           <ProgressBar
-            value = {fuel}>
+            value={fuel}>
             {fuel} moles.
           </ProgressBar>
         </>
       )}
-      {display_stats}
+      <Table mt={2}>
+        {Object.keys(display_stats).map(value => (
+          <Table.Row key={value}>
+            <Table.Cell bold>
+              {value} :
+            </Table.Cell>
+            <Table.Cell textAlign="right">
+              {display_stats[value]}
+            </Table.Cell>
+          </Table.Row>
+        ))}
+      </Table>
       <Button
         mt={2}
         content="Toggle Autopilot"
-        onClick={() => act('nautopilot')} />
+        onClick={() => act('nautopilot')}
+        color={autopilot_enabled ? "green" : "red"} />
       {!(canDock && !isDocking) || (
         <Button
           mt={2}
