@@ -295,7 +295,7 @@
 /obj/item/circuitboard/computer/shuttle/flight_control
 	name = "shuttle flight control (Computer Board)"
 	icon_state = "generic"
-	build_path = /obj/machinery/computer/custom_shuttle
+	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle
 
 //Medical
 

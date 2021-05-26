@@ -12,7 +12,7 @@
 	mode = SHUTTLE_IGNITING
 	setTimer(ignitionTime)
 	//Enter the orbital system
-	var/datum/orbital_object/shuttle/our_orbital_body = new()
+	var/datum/orbital_object/shuttle/our_orbital_body = new shuttle_object_type()
 	//Linkup
 	our_orbital_body.link_shuttle(src)
 	our_orbital_body.velocity = new(z_level.orbital_body.velocity.x, z_level.orbital_body.velocity.y)
