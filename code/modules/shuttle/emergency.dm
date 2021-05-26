@@ -605,6 +605,7 @@
 	name = "pod control computer"
 	admin_controlled = 1
 	recall_docking_port_id = "null"
+	request_shuttle_message = "Override Escape"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
 	light_color = LIGHT_COLOR_BLUE

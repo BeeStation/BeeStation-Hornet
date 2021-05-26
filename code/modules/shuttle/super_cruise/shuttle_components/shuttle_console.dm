@@ -14,6 +14,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Once pressed the shuttle will engage autopilot and return to the dock.
 	var/recall_docking_port_id = ""
 
+	var/request_shuttle_message = "Request Shuttle"
+
 	//Admin controlled shuttles
 	var/admin_controlled = FALSE
 
@@ -41,8 +43,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
 		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
 
-	if(recall_docking_port_id && shuttleObject?.docking_target && shuttleObject.autopilot && shuttleObject.shuttleTarget == shuttleObject.docking_target)
+	if(recall_docking_port_id && shuttleObject?.docking_target && shuttleObject.autopilot && shuttleObject.shuttleTarget == shuttleObject.docking_target && shuttleObject.controlling_computer == src)
 		//We are at destination, dock.
+		shuttleObject.controlling_computer = null
 		switch(SSshuttle.moveShuttle(shuttleId, recall_docking_port_id, 1))
 			if(0)
 				say("Shuttle has arrived at destination.")
@@ -77,6 +80,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		))
 	//If we are a recall console.
 	data["recall_docking_port_id"] = recall_docking_port_id
+	data["request_shuttle_message"] = request_shuttle_message
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
@@ -105,10 +109,13 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		return data
 	data["autopilot"] = shuttleObject.autopilot
 	data["linkedToShuttle"] = TRUE
-	data["shuttleTarget"] = shuttleObject?.shuttleTarget?.name
-	data["shuttleName"] = shuttleObject?.name
+	data["shuttleTarget"] = shuttleObject.shuttleTarget?.name
+	data["shuttleName"] = shuttleObject.name
 	data["shuttleAngle"] = shuttleObject.angle
 	data["shuttleThrust"] = shuttleObject.thrust
+	data["autopilot_enabled"] = shuttleObject.autopilot
+	data["desired_vel_x"] = shuttleObject.desired_vel_x
+	data["desired_vel_y"] = shuttleObject.desired_vel_y
 	if(shuttleObject?.shuttleTarget)
 		data["shuttleVelX"] = shuttleObject.velocity.x - shuttleObject.shuttleTarget.velocity.x
 		data["shuttleVelY"] = shuttleObject.velocity.y - shuttleObject.shuttleTarget.velocity.y
@@ -171,9 +178,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 							//Launch the shuttle
 							if(!launch_shuttle())
 								return
+						if(shuttleObject.shuttleTarget == z_linked)
+							return
 						shuttleObject = SSorbits.assoc_shuttles[shuttleId]
 						shuttleObject.shuttleTarget = z_linked
 						shuttleObject.autopilot = TRUE
+						shuttleObject.controlling_computer = src
 						say("Shuttle requested.")
 						return
 				say("Docking port in invalid location. Please contact a Nanotrasen technician.")
