@@ -10420,11 +10420,12 @@
 	},
 /area/awaymission/snowdin/post/mining_dock)
 "xK" = (
-/obj/docking_port/stationary{
+/obj/docking_port/stationary/turbolift{
 	dir = 4;
 	dwidth = 3;
 	height = 6;
-	id = "snowdin_excavation_top";
+	id = "snowdin_excavation";
+	deck = 2;
 	name = "snowdin excavation top";
 	roundstart_template = /datum/map_template/shuttle/snowdin/excavation;
 	width = 6
@@ -10462,11 +10463,11 @@
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/mining_dock)
 "xP" = (
-/obj/docking_port/stationary{
+/obj/docking_port/stationary/turbolift{
 	dir = 4;
 	dwidth = 3;
 	height = 6;
-	id = "snowdin_excavation_down";
+	id = "snowdin_excavation";
 	name = "snowdin excavation down";
 	width = 6
 	},
@@ -15387,12 +15388,13 @@
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/mining_main)
 "Kn" = (
-/obj/docking_port/stationary{
+/obj/docking_port/stationary/turbolift{
 	dir = 4;
 	dwidth = 2;
 	height = 5;
-	id = "snowdin_mining_top";
+	id = "snowdin_mining";
 	name = "snowdin mining top";
+	deck = 2;
 	roundstart_template = /datum/map_template/shuttle/snowdin/mining;
 	width = 5
 	},
@@ -15444,11 +15446,11 @@
 /turf/open/floor/plating,
 /area/awaymission/snowdin/post/mining_dock)
 "Kt" = (
-/obj/docking_port/stationary{
+/obj/docking_port/stationary/turbolift{
 	dir = 4;
 	dwidth = 2;
 	height = 5;
-	id = "snowdin_mining_down";
+	id = "snowdin_mining";
 	name = "snowdin mining bottom";
 	width = 5
 	},
