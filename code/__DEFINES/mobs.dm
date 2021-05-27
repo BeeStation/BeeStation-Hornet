@@ -203,6 +203,9 @@
 #define ETHEREAL_CHARGE_ALMOSTFULL 75
 #define ETHEREAL_CHARGE_FULL 100
 
+//Base nutrition value used for newly initialized slimes
+#define SLIME_DEFAULT_NUTRITION 700
+
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10
 
