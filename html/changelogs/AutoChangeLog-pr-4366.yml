@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - tweak: Skeletons, androids and zombies are now immune to cellular damage
