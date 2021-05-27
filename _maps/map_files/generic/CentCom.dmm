@@ -3168,11 +3168,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supply)
-"jN" = (
-/obj/structure/closet/wardrobe/cargotech,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/centcom/supply)
 "jO" = (
 /obj/machinery/vending/cola,
 /turf/open/floor/plasteel,
@@ -3272,7 +3267,6 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
 "jY" = (
-/obj/structure/closet/lawcloset,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -3283,6 +3277,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/vending/wardrobe/law_wardrobe,
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
 "jZ" = (
@@ -6710,6 +6705,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/vending/wardrobe/cargo_wardrobe,
 /turf/open/floor/plasteel/dark,
 /area/centcom/supply)
 "qq" = (
@@ -14447,6 +14443,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
+/obj/machinery/vending/wardrobe/chef_wardrobe,
 /turf/open/floor/plasteel,
 /area/tdome/tdomeobserve)
 "Hq" = (
@@ -17875,10 +17872,6 @@
 /obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
 /turf/open/floor/wood,
-/area/centcom/holding)
-"Tr" = (
-/obj/structure/closet/chefcloset,
-/turf/open/floor/plasteel/cafeteria,
 /area/centcom/holding)
 "Tu" = (
 /obj/structure/flora/ausbushes/fernybush,
@@ -47788,7 +47781,7 @@ Nm
 Nd
 SN
 pV
-Tr
+Fh
 Nd
 Fj
 Nd
@@ -60855,9 +60848,9 @@ jq
 ju
 ju
 iZ
-jN
+jp
 jQ
-jN
+jp
 jf
 iZ
 lq

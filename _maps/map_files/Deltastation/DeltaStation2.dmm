@@ -92743,7 +92743,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "dbh" = (
-/obj/structure/closet/wardrobe/chemistry_white,
+/obj/machinery/vending/wardrobe/chem_wardrobe,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -97343,7 +97343,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/vending/wardrobe/chem_wardrobe,
 /obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)

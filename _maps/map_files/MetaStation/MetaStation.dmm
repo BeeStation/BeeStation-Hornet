@@ -65922,11 +65922,11 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "cyA" = (
-/obj/structure/closet/wardrobe/science_white,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/vending/wardrobe/science_wardrobe,
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "cyB" = (

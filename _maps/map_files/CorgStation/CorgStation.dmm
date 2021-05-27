@@ -54953,11 +54953,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/closet/crate,
-/obj/item/extrapolator,
-/obj/item/extrapolator,
-/obj/item/extrapolator,
-/obj/item/extrapolator,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "pcl" = (
@@ -78355,7 +78350,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/closet/wardrobe/virology_white,
+/obj/structure/closet/crate,
+/obj/item/extrapolator,
+/obj/item/extrapolator,
+/obj/item/extrapolator,
+/obj/item/extrapolator,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "vNz" = (
