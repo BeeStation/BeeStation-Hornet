@@ -1,6 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Slimes gain less nutrition by feeding on other slimes due to an infinite
-      breeding exploit
-  - tweak: Sentient slimes no longer get bonus nutrition when breeding
