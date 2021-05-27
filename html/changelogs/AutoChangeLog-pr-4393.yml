@@ -1,0 +1,4 @@
+author: Cyberboss, MCterra
+delete-after: true
+changes:
+  - server: port TGS event handler from /tg/
