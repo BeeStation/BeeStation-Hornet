@@ -29,12 +29,10 @@
 "e" = (
 /turf/open/floor/engine,
 /area/shuttle/snowdin/elevator1)
-"f" = (
-/obj/machinery/computer/shuttle_flight/snowdin/mining{
-	dir = 2;
-	name = "Excavation Elevator Console";
-	possible_destinations = "snowdin_excavation_top;snowdin_excavation_down";
-	shuttleId = "snowdin_excavation"
+"h" = (
+/obj/machinery/computer/turbolift{
+	name = "Excavation Elevator Buttons";
+	shuttle_id = "snowdin_excavation"
 	},
 /turf/open/floor/engine,
 /area/shuttle/snowdin/elevator1)
@@ -72,8 +70,8 @@ e
 c
 "}
 (5,1,1) = {"
-b
-f
+d
+h
 e
 e
 e
