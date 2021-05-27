@@ -25,5 +25,8 @@
 	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
 
+/obj/item/ammo_casing/energy/disabler/egun
+	e_cost = 20
+
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 50
