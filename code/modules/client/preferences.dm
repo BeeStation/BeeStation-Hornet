@@ -62,6 +62,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	// Custom Keybindings
 	var/list/key_bindings = null
 
+	var/held_walk = TRUE
 
 	var/uses_glasses_colour = 0
 

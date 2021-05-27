@@ -143,6 +143,13 @@
 	M.toggle_move_intent()
 	return TRUE
 
+/datum/keybinding/mob/toggle_move_intent/up(client/user)
+	if(!user.mob) return
+	if(user.prefs.held_walk == TRUE)
+		var/mob/M = user.mob
+		M.toggle_move_intent()
+		return TRUE
+
 /datum/keybinding/mob/target_head_cycle
 	key = "Numpad8"
 	name = "target_head_cycle"
