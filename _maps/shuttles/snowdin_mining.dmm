@@ -27,10 +27,6 @@
 "d" = (
 /turf/closed/wall,
 /area/shuttle/snowdin/elevator2)
-"e" = (
-/obj/machinery/computer/shuttle_flight/snowdin/mining,
-/turf/open/floor/engine,
-/area/shuttle/snowdin/elevator2)
 "f" = (
 /turf/open/floor/engine,
 /area/shuttle/snowdin/elevator2)
@@ -47,6 +43,13 @@
 "j" = (
 /turf/closed/wall/rust,
 /area/shuttle/snowdin/elevator2)
+"z" = (
+/obj/machinery/computer/turbolift{
+	name = "Mining Elevator Buttons";
+	shuttle_id = "snowdin_mining"
+	},
+/turf/open/floor/engine,
+/area/shuttle/snowdin/elevator2)
 
 (1,1,1) = {"
 j
@@ -56,8 +59,8 @@ b
 d
 "}
 (2,1,1) = {"
-b
-e
+j
+z
 f
 i
 b
