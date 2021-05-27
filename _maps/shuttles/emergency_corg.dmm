@@ -83,6 +83,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
+"dl" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "dw" = (
 /obj/structure/bodycontainer/morgue{
 	dir = 8
@@ -840,6 +844,11 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
+"xq" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
 /area/shuttle/escape)
 "xH" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1655,8 +1664,8 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "RR" = (
-/obj/structure/window/shuttle,
 /obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Sl" = (
@@ -1761,6 +1770,7 @@
 /area/shuttle/escape)
 "UQ" = (
 /obj/structure/window/shuttle,
+/obj/structure/grille,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Vs" = (
@@ -2152,9 +2162,9 @@ Bt
 SZ
 Bt
 pB
-UQ
-UQ
-UQ
+dl
+dl
+dl
 pB
 pB
 pB
@@ -2213,7 +2223,7 @@ Xo
 bR
 wl
 Xo
-RR
+xq
 ar
 MH
 MH
@@ -2253,7 +2263,7 @@ kF
 kF
 kF
 Br
-RR
+xq
 ar
 Ju
 MH
@@ -2373,7 +2383,7 @@ kF
 kF
 kF
 Br
-RR
+xq
 ar
 Ju
 MH

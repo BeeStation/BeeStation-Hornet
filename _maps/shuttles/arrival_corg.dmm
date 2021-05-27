@@ -220,7 +220,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "z" = (
-/obj/structure/window/shuttle,
+/obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "A" = (
@@ -420,8 +420,8 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "V" = (
-/obj/structure/window/shuttle,
 /obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "W" = (
