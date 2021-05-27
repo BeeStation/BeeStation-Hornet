@@ -913,7 +913,6 @@
 	newobj.embedding = sourceobj.embedding
 	newobj.card_sharpness = sourceobj.card_sharpness
 	newobj.sharpness = sourceobj.card_sharpness
-	newobj.updateEmbedding()
 
 /obj/item/toy/cards/singlecard/examine(mob/user)
 	. = ..()

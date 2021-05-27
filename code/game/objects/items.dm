@@ -223,6 +223,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(damtype == "brute")
 			hitsound = "swing_hit"
 
+	if(LAZYLEN(embedding))
+		updateEmbedding()
 
 /obj/item/Destroy()
 	item_flags &= ~DROPDEL	//prevent reqdels

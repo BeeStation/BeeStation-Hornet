@@ -71,6 +71,11 @@
 	if(!istype(victim) || HAS_TRAIT(victim, TRAIT_PIERCEIMMUNE))
 		return
 
+	var/flying_speed = throwingdatum?.speed || weapon.throw_speed
+
+	if(!forced && (flying_speed < EMBED_THROWSPEED_THRESHOLD && !ignore_throwspeed_threshold)) // check if it's a forced embed, and if not, if it's going fast enough to proc embedding
+		return
+
 	var/actual_chance = embed_chance
 
 	if(!weapon.isEmbedHarmless()) // all the armor in the world won't save you from a kick me sign
@@ -83,9 +88,7 @@
 				victim.visible_message("<span class='danger'>[weapon] bounces off [victim]'s armor!</span>", "<span class='notice'>[weapon] bounces off your armor!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
 				return
 
-	var/roll_embed = prob(actual_chance)
-	var/pass = forced || ((((throwingdatum ? throwingdatum.speed : weapon.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || ignore_throwspeed_threshold) && roll_embed)
-	if(!pass)
+	if(!prob(actual_chance))
 		return
 
 	var/obj/item/bodypart/limb = victim.get_bodypart(hit_zone) || pick(victim.bodyparts)
