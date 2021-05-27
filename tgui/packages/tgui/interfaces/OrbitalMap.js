@@ -120,92 +120,69 @@ export const OrbitalMap = (props, context) => {
                 }}
                 updateRate={5}>
                 {control1 => (
-                  <svg
-                    onMouseDown={e => {
-                      control.handleDragStart(e);
-                      control1.handleDragStart(e);
-                    }}
-                    viewBox="-250 -250 500 500"
-                    position="absolute">
-                    <defs>
-                      <pattern id="grid" width={100 * zoomScale}
-                        height={100 * zoomScale}
-                        patternUnits="userSpaceOnUse">
-                        <rect width={100 * zoomScale} height={100 * zoomScale}
-                          fill="url(#smallgrid)" />
-                        <path
-                          fill="none" stroke="#4665DE" stroke-width="1"
-                          d={"M " + (100 * zoomScale)+ " 0 L 0 0 0 " + (100 * zoomScale)} />
-                      </pattern>
-                      <pattern id="smallgrid"
-                        width={50 * zoomScale}
-                        height={50 * zoomScale}
-                        patternUnits="userSpaceOnUse">
-                        <rect
+                  <>
+                    {control.inputElement}
+                    {control1.inputElement}
+                    <svg
+                      onMouseDown={e => {
+                        control.handleDragStart(e);
+                        control1.handleDragStart(e);
+                      }}
+                      viewBox="-250 -250 500 500"
+                      position="absolute">
+                      <defs>
+                        <pattern id="grid" width={100 * zoomScale}
+                          height={100 * zoomScale}
+                          patternUnits="userSpaceOnUse">
+                          <rect width={100 * zoomScale} height={100 * zoomScale}
+                            fill="url(#smallgrid)" />
+                          <path
+                            fill="none" stroke="#4665DE" stroke-width="1"
+                            d={"M " + (100 * zoomScale)+ " 0 L 0 0 0 " + (100 * zoomScale)} />
+                        </pattern>
+                        <pattern id="smallgrid"
                           width={50 * zoomScale}
                           height={50 * zoomScale}
-                          fill="#2B2E3B" />
-                        <path
-                          fill="none"
-                          stroke="#4665DE"
-                          stroke-width="0.5"
-                          d={"M " + (50 * zoomScale) + " 0 L 0 0 0 "
-                          + (50 * zoomScale)} />
-                      </pattern>
-                    </defs>
-                    <rect x="-50%" y="-50%" width="100%" height="100%"
-                      fill="url(#grid)" />
-                    {map_objects.map(map_object => (
-                      <>
-                        <circle
-                          cx={Math.max(Math.min((map_object.position_x
-                            - xOffset)
-                             * zoomScale, 250), -250)}
-                          cy={Math.max(Math.min((map_object.position_y
-                            - yOffset)
-                             * zoomScale, 250), -250)}
-                          r={((map_object.position_y - yOffset)
-                            * zoomScale > 250
-                            || (map_object.position_y - yOffset)
-                            * zoomScale < -250
-                            || (map_object.position_x - xOffset)
-                            * zoomScale > 250
-                            || (map_object.position_x - xOffset)
-                            * zoomScale < -250)
-                            ? 5 * zoomScale
-                            : Math.max(5 * zoomScale, map_object.radius
-                              * zoomScale)}
-                          stroke="#BBBBBB"
-                          stroke-width="1"
-                          fill="rgba(0,0,0,0)" />
-                        <line
-                          style={lineStyle}
-                          x1={Math.max(Math.min((map_object.position_x
-                            - xOffset)
-                             * zoomScale, 250), -250)}
-                          y1={Math.max(Math.min((map_object.position_y
-                            - yOffset)
-                             * zoomScale, 250), -250)}
-                          x2={Math.max(Math.min((map_object.position_x
-                            - xOffset
-                             + map_object.velocity_x * 10)
-                             * zoomScale, 250), -250)}
-                          y2={Math.max(Math.min((map_object.position_y
-                            - yOffset
-                            + map_object.velocity_y * 10)
-                            * zoomScale, 250), -250)} />
-                        <text
-                          x={Math.max(Math.min((map_object.position_x - xOffset)
-                             * zoomScale, 200), -250)}
-                          y={Math.max(Math.min((map_object.position_y - yOffset)
-                             * zoomScale, 250), -240)}
-                          fill="white"
-                          fontSize={Math.min(40 * zoomScale, 14)}>
-                          {map_object.name}
-                        </text>
-                        {shuttleName !== map_object.name || (
+                          patternUnits="userSpaceOnUse">
+                          <rect
+                            width={50 * zoomScale}
+                            height={50 * zoomScale}
+                            fill="#2B2E3B" />
+                          <path
+                            fill="none"
+                            stroke="#4665DE"
+                            stroke-width="0.5"
+                            d={"M " + (50 * zoomScale) + " 0 L 0 0 0 "
+                            + (50 * zoomScale)} />
+                        </pattern>
+                      </defs>
+                      <rect x="-50%" y="-50%" width="100%" height="100%"
+                        fill="url(#grid)" />
+                      {map_objects.map(map_object => (
+                        <>
+                          <circle
+                            cx={Math.max(Math.min((map_object.position_x
+                              - xOffset)
+                              * zoomScale, 250), -250)}
+                            cy={Math.max(Math.min((map_object.position_y
+                              - yOffset)
+                              * zoomScale, 250), -250)}
+                            r={((map_object.position_y - yOffset)
+                              * zoomScale > 250
+                              || (map_object.position_y - yOffset)
+                              * zoomScale < -250
+                              || (map_object.position_x - xOffset)
+                              * zoomScale > 250
+                              || (map_object.position_x - xOffset)
+                              * zoomScale < -250)
+                              ? 5 * zoomScale
+                              : Math.max(5 * zoomScale, map_object.radius
+                                * zoomScale)}
+                            stroke="#BBBBBB"
+                            stroke-width="1"
+                            fill="rgba(0,0,0,0)" />
                           <line
-                            style={blueLineStyle}
+                            style={lineStyle}
                             x1={Math.max(Math.min((map_object.position_x
                               - xOffset)
                               * zoomScale, 250), -250)}
@@ -214,16 +191,43 @@ export const OrbitalMap = (props, context) => {
                               * zoomScale, 250), -250)}
                             x2={Math.max(Math.min((map_object.position_x
                               - xOffset
-                              + desired_vel_x * 10)
+                              + map_object.velocity_x * 10)
                               * zoomScale, 250), -250)}
                             y2={Math.max(Math.min((map_object.position_y
                               - yOffset
-                              + desired_vel_y * 10)
+                              + map_object.velocity_y * 10)
                               * zoomScale, 250), -250)} />
-                        )}
-                      </>
-                    ))};
-                  </svg>
+                          <text
+                            x={Math.max(Math.min((map_object.position_x
+                              - xOffset) * zoomScale, 200), -250)}
+                            y={Math.max(Math.min((map_object.position_y
+                              - yOffset) * zoomScale, 250), -240)}
+                            fill="white"
+                            fontSize={Math.min(40 * zoomScale, 14)}>
+                            {map_object.name}
+                          </text>
+                          {shuttleName !== map_object.name || (
+                            <line
+                              style={blueLineStyle}
+                              x1={Math.max(Math.min((map_object.position_x
+                                - xOffset)
+                                * zoomScale, 250), -250)}
+                              y1={Math.max(Math.min((map_object.position_y
+                                - yOffset)
+                                * zoomScale, 250), -250)}
+                              x2={Math.max(Math.min((map_object.position_x
+                                - xOffset
+                                + desired_vel_x * 10)
+                                * zoomScale, 250), -250)}
+                              y2={Math.max(Math.min((map_object.position_y
+                                - yOffset
+                                + desired_vel_y * 10)
+                                * zoomScale, 250), -250)} />
+                          )}
+                        </>
+                      ))};
+                    </svg>
+                  </>
                 )}
               </DraggableControl>
             )}
