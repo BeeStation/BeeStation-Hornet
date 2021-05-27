@@ -105,10 +105,10 @@
 		angle = arctan(thrust_dir_y / thrust_dir_x)
 		//Account for ambiguous cases
 		if(thrust_dir_x < 0)
-			if(angle < 0)
-				angle = 90 - angle
+			if(thrust_dir_y > 0)
+				angle = -180 + angle
 			else
-				angle = -90 - angle
+				angle = 180 + angle
 
 	//message_admins("Angle: [angle]")
 
