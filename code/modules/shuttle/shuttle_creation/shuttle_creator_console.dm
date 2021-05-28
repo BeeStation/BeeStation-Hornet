@@ -19,9 +19,6 @@
 	eyeobj.origin = src
 	eyeobj.use_static = USE_STATIC_NONE
 
-/obj/machinery/computer/camera_advanced/shuttle_creator/is_operational()
-	return TRUE
-
 /obj/machinery/computer/camera_advanced/shuttle_creator/can_interact(mob/user)
 	if(!isliving(user))
 		return FALSE
