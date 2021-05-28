@@ -22,7 +22,7 @@
 		return
 
 	//The code below here isn't exactly optimal, but because of the individual decals that each area uses it's still applicable.
-
+	
 				//high dirt - 1/3 chance.
 	var/static/list/high_dirt_areas = typecacheof(list(/area/science/test_area,
 														/area/mine/production,
@@ -33,8 +33,22 @@
 		new /obj/effect/decal/cleanable/dirt(src)	//vanilla, but it works
 		return
 
-
-	if(prob(80))	//mid dirt  - 1/15
+	if (HAS_TRAIT(SSstation, STATION_TRAIT_FILTHY))
+		if (prob(50))
+			return		
+		if (prob(5))
+			switch(rand(1,5))
+				if (1)
+					new /obj/item/trash/chips(src)
+				if (2)
+					new /obj/item/trash/sosjerky(src)
+				if (3)
+					new /obj/item/trash/can(src)
+				if (4)
+					new /obj/item/trash/can/food/beans(src)
+				if (5)
+					new /obj/item/cigbutt(src)			
+	else if(prob(80))	//mid dirt  - 1/15
 		return
 
 		//Construction zones. Blood, sweat, and oil.  Oh, and dirt.
@@ -126,25 +140,5 @@
 		if(prob(20))
 			new /obj/effect/decal/cleanable/greenglow/filled(src)	//this cleans itself up but it might startle you when you see it.
 		return
-
-	if (HAS_TRAIT(SSstation, STATION_TRAIT_FILTHY))
-		if (prob(30))
-			new /obj/effect/decal/cleanable/dirt(src)
-		else if (prob(10))
-			new /obj/effect/decal/cleanable/vomit/old(src)
-		else if (prob(10))
-			new /obj/effect/decal/cleanable/blood/old(src)
-		else if (prob(5))
-			switch(rand(1,5))
-				if (1)
-					new /obj/item/trash/chips(src)
-				if (2)
-					new /obj/item/trash/sosjerky(src)
-				if (3)
-					new /obj/item/trash/can(src)
-				if (4)
-					new /obj/item/trash/can/food/beans(src)
-				if (5)
-					new /obj/item/cigbutt(src)
 
 	return TRUE
