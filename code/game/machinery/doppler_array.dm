@@ -136,7 +136,7 @@
 
 /obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
 												  took,orig_dev_range,orig_heavy_range,orig_light_range)
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return FALSE
 	var/turf/zone = get_turf(src)
 	if(zone.z != epicenter.z)
@@ -182,15 +182,15 @@
 	return TRUE
 
 /obj/machinery/doppler_array/power_change()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
 		if(powered() && anchored)
 			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
+			set_machine_stat(machine_stat & ~NOPOWER)
 		else
 			icon_state = "[initial(icon_state)]-off"
-			stat |= NOPOWER
+			set_machine_stat(machine_stat | NOPOWER)
 
 //Portable version, built into EOD equipment. It simply provides an explosion's three damage levels.
 /obj/machinery/doppler_array/integrated

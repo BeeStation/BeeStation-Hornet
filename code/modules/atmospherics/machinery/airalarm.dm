@@ -450,7 +450,7 @@
 
 
 /obj/machinery/airalarm/proc/shock(mob/user, prb)
-	if((stat & (NOPOWER)))		// unpowered, no shock
+	if((machine_stat & (NOPOWER)))		// unpowered, no shock
 		return 0
 	if(!prob(prb))
 		return 0 //you lucked out, no shock for you
@@ -626,7 +626,7 @@
 				icon_state = "alarm_b1"
 		return
 
-	if((stat & (NOPOWER|BROKEN)) || shorted)
+	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
 		icon_state = "alarmp"
 		return
 
@@ -640,7 +640,7 @@
 			icon_state = "alarm1"
 
 /obj/machinery/airalarm/process()
-	if((stat & (NOPOWER|BROKEN)) || shorted)
+	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
 		return
 
 	var/turf/location = get_turf(src)
@@ -703,7 +703,7 @@
 
 	var/new_area_danger_level = 0
 	for(var/obj/machinery/airalarm/AA in A)
-		if (!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
+		if (!(AA.machine_stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = max(new_area_danger_level,AA.danger_level)
 	if(A.atmosalert(new_area_danger_level,src)) //if area was in normal state or if area was in alert state
 		post_alert(new_area_danger_level)
@@ -796,7 +796,7 @@
 
 /obj/machinery/airalarm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if((buildstage == 0) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
-		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)	
+		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)
 	return FALSE
 
 /obj/machinery/airalarm/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
@@ -808,7 +808,7 @@
 			update_icon()
 			return TRUE
 	return FALSE
-	
+
 /obj/machinery/airalarm/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
 		return
@@ -816,7 +816,7 @@
 		togglelock(user)
 
 /obj/machinery/airalarm/proc/togglelock(mob/living/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		to_chat(user, "<span class='warning'>It does nothing!</span>")
 	else
 		if(src.allowed(usr) && !wires.is_cut(WIRE_IDSCAN))

@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	return FALSE
 
 /obj/machinery/pool_filter/process()
-	if(!LAZYLEN(pool) || !is_operational())
+	if(!LAZYLEN(pool) || !is_operational)
 		return //No use having one of these processing for no reason is there?
 	use_power(idle_power_usage)
 	var/delta = (current_temperature > desired_temperature) ? -0.5 : 0.5

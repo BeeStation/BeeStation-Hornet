@@ -73,7 +73,7 @@
 	return ..()
 
 /obj/machinery/door/firedoor/Bumped(atom/movable/AM)
-	if(panel_open || operating || welded || (stat & NOPOWER))
+	if(panel_open || operating || welded || (machine_stat & NOPOWER))
 		return
 	if(ismob(AM))
 		var/mob/user = AM
@@ -91,10 +91,10 @@
 
 /obj/machinery/door/firedoor/power_change()
 	if(powered(power_channel))
-		stat &= ~NOPOWER
+		set_machine_stat(machine_stat & ~NOPOWER)
 		latetoggle()
 	else
-		stat |= NOPOWER
+		set_machine_stat(machine_stat | NOPOWER)
 
 /obj/machinery/door/firedoor/attack_hand(mob/user)
 	. = ..()
@@ -102,7 +102,7 @@
 		return
 
 	if (!welded && !operating)
-		if (stat & NOPOWER)
+		if (machine_stat & NOPOWER)
 			user.visible_message("[user] tries to open \the [src] manually.",
 						 "You operate the manual lever on \the [src].")
 			if (!do_after(user, 30, TRUE, src))
@@ -197,7 +197,7 @@
 
 /obj/machinery/door/firedoor/attack_ai(mob/user)
 	add_fingerprint(user)
-	if(welded || operating || stat & NOPOWER)
+	if(welded || operating || machine_stat & NOPOWER)
 		return TRUE
 	if(density)
 		open()
@@ -310,7 +310,7 @@
 
 
 /obj/machinery/door/firedoor/proc/latetoggle()
-	if(operating || stat & NOPOWER || !nextstate)
+	if(operating || machine_stat & NOPOWER || !nextstate)
 		return
 	switch(nextstate)
 		if(FIREDOOR_OPEN)

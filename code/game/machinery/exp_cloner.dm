@@ -69,7 +69,7 @@
 		H.set_cloned_appearance()
 
 		H.set_suicide(FALSE)
-		
+
 		H.set_playable()
 	attempting = FALSE
 	return CLONING_DELETE_RECORD | CLONING_SUCCESS //so that we don't spam clones with autoprocess unless we leave a body in the scanner
@@ -105,7 +105,7 @@
 	if(pods)
 		for(var/P in pods)
 			var/obj/machinery/clonepod/experimental/pod = P
-			if(pod.is_operational() && !(pod.occupant || pod.mess))
+			if(pod.is_operational && !(pod.occupant || pod.mess))
 				return pod
 
 /obj/machinery/computer/prototype_cloning/proc/updatemodules(findfirstcloner)
@@ -121,7 +121,7 @@
 		// Try to find a scanner in that direction
 		scannerf = locate(/obj/machinery/dna_scannernew, get_step(src, direction))
 		// If found and operational, return the scanner
-		if (!isnull(scannerf) && scannerf.is_operational())
+		if (!isnull(scannerf) && scannerf.is_operational)
 			return scannerf
 
 	// If no scanner was found, it will return null
@@ -131,7 +131,7 @@
 	var/obj/machinery/clonepod/experimental/podf = null
 	for(var/direction in GLOB.cardinals)
 		podf = locate(/obj/machinery/clonepod/experimental, get_step(src, direction))
-		if (!isnull(podf) && podf.is_operational())
+		if (!isnull(podf) && podf.is_operational)
 			AttachCloner(podf)
 
 /obj/machinery/computer/prototype_cloning/proc/AttachCloner(obj/machinery/clonepod/experimental/pod)
@@ -227,7 +227,7 @@
 	if(loading)
 		return
 
-	else if ((href_list["clone"]) && !isnull(scanner) && scanner.is_operational())
+	else if ((href_list["clone"]) && !isnull(scanner) && scanner.is_operational)
 		scantemp = ""
 
 		loading = TRUE
@@ -242,7 +242,7 @@
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 		//No locking an open scanner.
-	else if ((href_list["lock"]) && !isnull(scanner) && scanner.is_operational())
+	else if ((href_list["lock"]) && !isnull(scanner) && scanner.is_operational)
 		if ((!scanner.locked) && (scanner.occupant))
 			scanner.locked = TRUE
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)

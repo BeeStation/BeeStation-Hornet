@@ -65,7 +65,7 @@
 	if (panel_open)
 		icon_state = "RD-server-on_t"
 		return
-	if (stat & EMPED || stat & NOPOWER)
+	if (machine_stat & EMPED || machine_stat & NOPOWER)
 		icon_state = "RD-server-off"
 		return
 	if (research_disabled || overheated)
@@ -135,10 +135,10 @@
 
 	// If we are overheateed, start shooting out sparks
 	// don't shoot them if we have no power
-	if(overheated && !(stat & NOPOWER) && prob(40))
+	if(overheated && !(machine_stat & NOPOWER) && prob(40))
 		do_sparks(5, FALSE, src)
 
-	if(overheated || research_disabled || stat & EMPED || stat & NOPOWER)
+	if(overheated || research_disabled || machine_stat & EMPED || machine_stat & NOPOWER)
 		working = FALSE
 	else
 		working = TRUE

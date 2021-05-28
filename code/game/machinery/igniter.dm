@@ -37,7 +37,7 @@
 	icon_state = "igniter[on]"
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()?
-	if (src.on && !(stat & NOPOWER) )
+	if (src.on && !(machine_stat & NOPOWER) )
 		var/turf/location = src.loc
 		if (isturf(location))
 			location.hotspot_expose(1000,500,1)
@@ -48,7 +48,7 @@
 	icon_state = "igniter[on]"
 
 /obj/machinery/igniter/power_change()
-	if(!( stat & NOPOWER) )
+	if(!( machine_stat & NOPOWER) )
 		icon_state = "igniter[src.on]"
 	else
 		icon_state = "igniter0"
@@ -82,11 +82,11 @@
 
 /obj/machinery/sparker/power_change()
 	if ( powered() && disable == 0 )
-		stat &= ~NOPOWER
+		set_machine_stat(machine_stat & ~NOPOWER)
 		icon_state = "[base_state]"
 //		src.sd_SetLuminosity(2)
 	else
-		stat |= ~NOPOWER
+		set_machine_stat(machine_stat | ~NOPOWER)
 		icon_state = "[base_state]-p"
 //		src.sd_SetLuminosity(0)
 
@@ -133,5 +133,5 @@
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
-	if(!(stat & (BROKEN|NOPOWER)))
+	if(!(machine_stat & (BROKEN|NOPOWER)))
 		ignite()

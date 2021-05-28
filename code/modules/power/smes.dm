@@ -58,7 +58,7 @@
 					break dir_loop
 
 	if(!terminal)
-		stat |= BROKEN
+		set_machine_stat(machine_stat | BROKEN)
 		return
 	terminal.master = src
 	update_icon()
@@ -205,12 +205,12 @@
 	if(terminal)
 		terminal.master = null
 		terminal = null
-		stat |= BROKEN
+		set_machine_stat(machine_stat | BROKEN)
 
 
 /obj/machinery/power/smes/update_icon()
 	cut_overlays()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 
 	if(panel_open)
@@ -236,7 +236,7 @@
 	return clamp(round(5.5*charge/capacity),0,5)
 
 /obj/machinery/power/smes/process()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 
 	//store machine state to see if we need to update the icon overlays
@@ -303,7 +303,7 @@
 // called after all power processes are finished
 // restores charge level to smes if there was excess this ptick
 /obj/machinery/power/smes/proc/restore()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 
 	if(!outputting)

@@ -28,7 +28,7 @@ Class Variables:
    component_parts (list)
       A list of component parts of machine used by frame based machines.
 
-   stat (bitflag)
+   machine_stat (bitflag)
       Machine status bit flags.
       Possible bit flags:
          BROKEN -- Machine is broken
@@ -189,7 +189,7 @@ Class Procs:
 
 /obj/machinery/emp_act(severity)
 	. = ..()
-	if(use_power && !stat && !(. & EMP_PROTECT_SELF))
+	if(use_power && !machine_stat && !(. & EMP_PROTECT_SELF))
 		use_power(7500/severity)
 		new /obj/effect/temp_visual/emp(loc)
 
@@ -265,7 +265,7 @@ Class Procs:
 	var/admin_ghost = IsAdminGhost(user)
 	var/living = isliving(user)
 
-	if((stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
+	if((machine_stat & (NOPOWER|BROKEN)) && !(interaction_flags_machine & INTERACT_MACHINE_OFFLINE)) // Check if the machine is broken, and if we can still interact with it if so
 		return FALSE
 
 	if(panel_open && !(interaction_flags_machine & INTERACT_MACHINE_OPEN)) // Check if we can interact with an open panel machine, if the panel is open
@@ -542,7 +542,7 @@ Class Procs:
 
 /obj/machinery/examine(mob/user)
 	. = ..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		. += "<span class='notice'>It looks broken and non-functional.</span>"
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)

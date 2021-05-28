@@ -166,7 +166,7 @@
 		else
 			add_overlay("uv")
 	else if(state_open)
-		if(stat & BROKEN)
+		if(machine_stat & BROKEN)
 			add_overlay("broken")
 		else
 			add_overlay("open")

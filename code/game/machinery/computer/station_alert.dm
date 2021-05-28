@@ -42,7 +42,7 @@
 /obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/home, cameras, obj/source)
 	if(source.z != z)
 		return
-	if(stat & (BROKEN))
+	if(machine_stat & (BROKEN))
 		return
 
 	var/list/our_sort = alarms[class]
@@ -81,7 +81,7 @@
 			our_area[2] = null
 
 /obj/machinery/computer/station_alert/proc/cancelAlarm(class, area/A, obj/origin)
-	if(stat & (BROKEN))
+	if(machine_stat & (BROKEN))
 		return
 	var/list/L = alarms[class]
 	var/cleared = 0
@@ -98,7 +98,7 @@
 
 /obj/machinery/computer/station_alert/update_icon()
 	..()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	var/active_alarms = FALSE
 	for(var/cat in alarms)

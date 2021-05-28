@@ -16,7 +16,6 @@
 
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 	occupant_typecache = list(/mob/living/carbon, /mob/living/simple_animal)
-	processing_flags = NONE
 
 	var/autoeject = TRUE
 	var/volume = 100

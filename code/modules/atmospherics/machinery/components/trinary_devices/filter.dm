@@ -61,9 +61,9 @@
 	icon_state = "filter_[on_state ? "on" : "off"][flipped ? "_f" : ""]"
 
 /obj/machinery/atmospherics/components/trinary/filter/power_change()
-	var/old_stat = stat
+	var/old_stat = machine_stat
 	..()
-	if(stat != old_stat)
+	if(machine_stat != old_stat)
 		update_icon()
 
 /obj/machinery/atmospherics/components/trinary/filter/process_atmos()

@@ -55,7 +55,7 @@
 		check_shield_icons()
 		update_shield_icons = 0
 
-	if(stat & (NOPOWER|BROKEN) || !active)//can update the icons even without power
+	if(machine_stat & (NOPOWER|BROKEN) || !active)//can update the icons even without power
 		return
 
 	if(!fueljar)//No fuel but we are on, shutdown
@@ -139,13 +139,13 @@
 
 /obj/machinery/power/am_control_unit/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		if(active)
 			toggle_power(1)
 		else
 			use_power = NO_POWER_USE
 
-	else if(!stat && anchored)
+	else if(!machine_stat && anchored)
 		use_power = IDLE_POWER_USE
 
 	return
@@ -283,7 +283,7 @@
 
 /obj/machinery/power/am_control_unit/ui_interact(mob/user)
 	. = ..()
-	if((get_dist(src, user) > 1) || (stat & (BROKEN|NOPOWER)))
+	if((get_dist(src, user) > 1) || (machine_stat & (BROKEN|NOPOWER)))
 		if(!isAI(user))
 			user.unset_machine()
 			user << browse(null, "window=AMcontrol")

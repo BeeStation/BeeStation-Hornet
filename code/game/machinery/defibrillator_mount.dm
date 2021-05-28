@@ -13,7 +13,6 @@
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_HEADS, ACCESS_SECURITY) //used to control clamps
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
-	processing_flags = NONE
 
 /obj/machinery/defibrillator_mount/loaded/Initialize() //loaded subtype for mapping use
 	. = ..()
@@ -34,7 +33,7 @@
 			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
 
 /obj/machinery/defibrillator_mount/process()
-	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
+	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational)
 		use_power(200)
 		defib.cell.give(180) //90% efficiency, a bit worse than the cell charger's 100%
 		update_icon()

@@ -52,7 +52,7 @@
 			add_overlay("button-board")
 
 	else
-		if(stat & (NOPOWER|BROKEN))
+		if(machine_stat & (NOPOWER|BROKEN))
 			icon_state = "[skin]-p"
 		else
 			icon_state = skin
@@ -152,7 +152,7 @@
 			to_chat(user, "<span class='notice'>You change the button frame's front panel.</span>")
 		return
 
-	if((stat & (NOPOWER|BROKEN)))
+	if((machine_stat & (NOPOWER|BROKEN)))
 		return
 
 	if(device && device.next_activate > world.time)

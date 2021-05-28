@@ -55,7 +55,7 @@
 	icon_state = icon_state_powered
 
 	if(!cpu || !cpu.enabled)
-		if (!(stat & NOPOWER) && (cpu && cpu.use_power()))
+		if (!(machine_stat & NOPOWER) && (cpu && cpu.use_power()))
 			add_overlay(screen_icon_screensaver)
 		else
 			icon_state = icon_state_unpowered
