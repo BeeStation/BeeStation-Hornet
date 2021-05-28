@@ -1,5 +1,0 @@
-author: r1ks-iwnl
-delete-after: true
-changes:
-  - bugfix: fixed shooting yourself in the mouth with a gun while pacified to create
-      1 hit kill projectiles.
