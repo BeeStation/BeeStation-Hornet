@@ -186,3 +186,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
 	sharpness = IS_SHARP
+
+/obj/item/spear/bamboospear/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, \
+				block_power_wielded=25, icon_wielded="[icon_prefix]1")

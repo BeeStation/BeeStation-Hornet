@@ -53,7 +53,7 @@
 
 /obj/item/dualsaber/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=3, force_wielded=34, block_power_wielded=75, \
+	AddComponent(/datum/component/two_handed, force_unwielded=3, force_wielded=34, block_power_unwielded=70, block_power_wielded=75, \
 					wieldsound='sound/weapons/saberon.ogg', unwieldsound='sound/weapons/saberoff.ogg', icon_wielded="dualsaber[item_color]1")
 
 /// Triggered on wield of two handed item
