@@ -202,8 +202,6 @@
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, .proc/handle_automated_action)
 			break
-		else
-			continue
 
 /mob/living/simple_animal/bot/hygienebot/proc/start_washing()
 	washing = TRUE
