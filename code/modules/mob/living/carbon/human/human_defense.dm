@@ -495,7 +495,7 @@
 				if(2)
 					L.receive_damage(0,5)
 					Paralyze(100)
-			if((TRAIT_EASYDISMEMBER in L.owner.dna.species.species_traits) && L.body_zone != "chest")
+			if(HAS_TRAIT(L, TRAIT_EASYDISMEMBER) && L.body_zone != "chest")
 				if(prob(20))
 					L.dismember(BRUTE)
 

@@ -105,8 +105,6 @@
 	. = ..()
 	.["Promote"] = CALLBACK(src,.proc/admin_promote)
 	.["Set Influence"] = CALLBACK(src, .proc/admin_adjust_influence)
-	if(gang.domination_time != NOT_DOMINATING)
-		.["Set domination time left"] = CALLBACK(src, .proc/set_dom_time_left)
 
 /datum/antagonist/gang/admin_add(datum/mind/new_owner,mob/admin)
 	var/new_or_existing = input(admin, "Which gang do you want to be assigned to the user?", "Gangs") as null|anything in list("New","Existing")
@@ -155,14 +153,6 @@
 /datum/antagonist/gang/proc/remove_from_gang()
 	gang.remove_member(owner)
 	owner.current.log_message("<font color='red'>Has been deconverted from the [gang.name] gang!</font>", INDIVIDUAL_ATTACK_LOG)
-
-/datum/antagonist/gang/proc/set_dom_time_left(mob/admin)
-	if(gang.domination_time == NOT_DOMINATING)
-		return // an admin shouldn't need this
-	var/seconds = input(admin, "Set the time left for the gang to win, in seconds", "Domination time left") as null|num
-	if(seconds && seconds > 0)
-		gang.domination_time = world.time + seconds*10
-		gang.message_gangtools("Takeover shortened to [gang.domination_time_remaining()] seconds by your Syndicate benefactors.")
 
 // Boss type. Those can use gang tools to buy items for their gang, in particular the Dominator, used to win the gamemode, along with more gang tools to promote fellow gangsters to boss status.
 /datum/antagonist/gang/boss
@@ -281,8 +271,11 @@
 	name = "Gang Lieutenant"
 	message_name = "Lieutenant"
 
+#define INFLUENCE_SWAG 2
+#define INFLUENCE_TERRITORY 0
+#define INFLUENCE_BASE 20
 
-#define MAXIMUM_RECALLS 3
+#define MAXIMUM_RECALLS 1
 #define INFLUENCE_INTERVAL 1800
 // Gang team datum. This handles the gang itself.
 /datum/team/gang
@@ -295,15 +288,15 @@
 	var/list/lost_territories = list() // territories lost by the gang.
 	var/list/new_territories = list() // territories captured by the gang.
 	var/list/gangtools = list()
-	var/domination_time = NOT_DOMINATING
-	var/dom_attempts = INITIAL_DOM_ATTEMPTS
 	var/color
+	var/winner = FALSE //winner winner chicken dinner
 	var/influence = 0 // influence of the gang, based on how many territories they own. Can be used to buy weapons and tools from a gang uplink.
-	var/winner // Once the gang wins with a dominator, this becomes true. For roundend credits purposes.
-	var/list/inner_outfits = list()
-	var/list/outer_outfits = list()
+	var/victory_points = 0 // influence earned throughout the round, used at eotg to calculate most efficient gang
 	var/next_point_time
 	var/recalls = MAXIMUM_RECALLS // Once this reaches 0, this gang cannot force recall the shuttle with their gangtool anymore
+	var/obj/item/clothing/head/hat
+	var/obj/item/clothing/under/outfit
+	var/obj/item/clothing/suit/suit
 
 /datum/team/gang/New(starting_members)
 	. = ..()
@@ -345,14 +338,14 @@
 
 	return "<div class='panel redborder'>[report.Join("<br>")]</div>"
 
-/datum/team/gang/proc/greet_gangster(datum/mind/gangster)
+/datum/team/gang/proc/greet_gangster(datum/mind/gangster)//THIS NEEDS REVISION
 	to_chat(gangster, "<FONT size=3 color=red><B>You are now a member of the [name] Gang!</B></FONT>")
 	to_chat(gangster, "<font color='red'>Help your bosses take over the station by claiming territory with <b>special spraycans</b> only they can provide. Simply spray on any unclaimed area of the station.</font>")
-	to_chat(gangster, "<font color='red'>Their ultimate objective is to take over the station with a Dominator machine.</font>")
+	to_chat(gangster, "<font color='red'>Your objective is to take over as many territories as possible, and expand the influence of your gang.</font>")
 	to_chat(gangster, "<font color='red'>You can identify your mates by their <b>large, bright \[G\] <font color='[color]'>icon</font></b>.</font>")
 	gangster.store_memory("You are a member of the [name] Gang!")
 
-/datum/team/gang/proc/handle_territories()
+/datum/team/gang/proc/handle_territories()	//influence is counted here
 	next_point_time = world.time + INFLUENCE_INTERVAL
 	if(!leaders.len)
 		return
@@ -390,20 +383,16 @@
 	lost_territories = list()
 	var/total_territories = total_claimable_territories()
 	var/control = round((territories.len/total_territories)*100, 1)
-	var/uniformed = check_clothing()
+	var/uniformed = count_gang_swag()
 	message += "Your gang now has <b>[control]% control</b> of the station.<BR>*---------*<BR>"
-	if(domination_time != NOT_DOMINATING)
-		var/new_time = max(world.time, domination_time - (uniformed * 4) - (territories.len * 2))
-		if(new_time < domination_time)
-			message += "Takeover shortened by [(domination_time - new_time)*0.1] seconds for defending [territories.len] territories.<BR>"
-			domination_time = new_time
-		message += "<b>[domination_time_remaining()] seconds remain</b> in hostile takeover.<BR>"
-	else
-		var/new_influence = check_territory_income()
-		if(new_influence != influence)
-			message += "Gang influence has increased by [new_influence - influence] for defending [territories.len] territories and [uniformed] uniformed gangsters.<BR>"
-		influence = new_influence
-		message += "Your gang now has <b>[influence] influence</b>.<BR>"
+
+	var/new_influence = update_influence()
+	influence =	min(999,influence+new_influence)
+	victory_points += new_influence
+	if(new_influence > 0)
+		message += "Gang influence has increased by [new_influence] for defending [territories.len] territories and [uniformed] swag.<BR>"
+	message += "Your gang now has <b>[influence] influence</b>.<BR>"
+
 	message_gangtools(message)
 	addtimer(CALLBACK(src, .proc/handle_territories), INFLUENCE_INTERVAL)
 
@@ -417,35 +406,29 @@
 				valid_territories |= A.type
 	return valid_territories.len
 
-/datum/team/gang/proc/check_territory_income()
-	var/new_influence = min(999,influence + 15 + (check_clothing() * 2) + territories.len)
-	return new_influence
+/datum/team/gang/proc/update_influence()
+	return min(999,influence + INFLUENCE_BASE + (count_gang_swag()) + LAZYLEN(territories) * INFLUENCE_TERRITORY)
 
-/datum/team/gang/proc/check_clothing()
-	//Count uniformed gangsters
-	var/uniformed = 0
+/datum/team/gang/proc/count_gang_swag()
+	//Count swag on gangsters
+	var/swag = 0
 	for(var/datum/mind/gangmind in members)
 		if(ishuman(gangmind.current))
-			var/mob/living/carbon/human/gangster = gangmind.current
-			//Gangster must be alive and on station
-			if((gangster.stat == DEAD) || (is_station_level(gangster.z)))
-				continue
+			swag+=check_gangster_swag(gangmind.current)
+	return swag
 
-			var/obj/item/clothing/outfit
-			var/obj/item/clothing/gang_outfit
-			if(gangster.w_uniform)
-				outfit = gangster.w_uniform
-				if(outfit.type in inner_outfits)
-					gang_outfit = outfit
-			if(gangster.wear_suit)
-				outfit = gangster.wear_suit
-				if(outfit.type in outer_outfits)
-					gang_outfit = outfit
-
-			if(gang_outfit)
-				gangster << "<span class='notice'>The [src] Gang's influence grows as you wear [gang_outfit].</span>"
-				uniformed++
-	return uniformed
+/datum/team/gang/proc/check_gangster_swag(var/mob/living/carbon/human/gangster)
+	//Gangster must be alive and on station
+	var/swag = 1
+	if((gangster.stat == DEAD) || !(is_station_level(gangster.z)))
+		return FALSE
+	if (gangster.w_uniform?.type == outfit)
+		swag *= INFLUENCE_SWAG
+	if (gangster.wear_suit?.type == suit)
+		swag *= INFLUENCE_SWAG
+	if (gangster.head?.type == hat)
+		swag *= INFLUENCE_SWAG
+	return swag
 
 /datum/team/gang/proc/adjust_influence(value)
 	influence = max(0, influence + value)
@@ -463,17 +446,8 @@
 				playsound(mob.loc, 'sound/machines/twobeep.ogg', 50, 1)
 			return
 
-/datum/team/gang/proc/domination()
-	domination_time = world.time + determine_domination_time()*10
-	set_security_level("delta")
-
-/datum/team/gang/proc/determine_domination_time() // calculates the value in seconds (this is the initial domination time!)
-	var/total_territories = total_claimable_territories()
-	return max(180,480 - (round((territories.len/total_territories)*100, 1) * 9))
-
-/datum/team/gang/proc/domination_time_remaining() // retrieves the value from world.time based deciseconds to seconds
-	var/diff = domination_time - world.time
-	return round(diff * 0.1)
-
 #undef MAXIMUM_RECALLS
 #undef INFLUENCE_INTERVAL
+#undef INFLUENCE_SWAG
+#undef INFLUENCE_TERRITORY
+#undef INFLUENCE_BASE
