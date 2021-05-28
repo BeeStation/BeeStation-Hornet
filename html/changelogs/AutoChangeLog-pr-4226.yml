@@ -1,5 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - admin: Admins will now get a pop up asking them if they want to start Battle Royale
-      if the round was delayed.

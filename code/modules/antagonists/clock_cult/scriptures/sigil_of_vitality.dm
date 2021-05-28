@@ -68,7 +68,7 @@
 			M.adjustBruteLoss(-5, FALSE)
 			M.adjustFireLoss(-5, FALSE)
 			M.adjustOxyLoss(-5, FALSE)
-			M.adjustToxLoss(-5, FALSE)
+			M.adjustToxLoss(-5, FALSE, TRUE)
 			M.adjustCloneLoss(-5)
 		else
 			visible_message("<span class='neovgre'>\The [src] fails to heal [M]!</span>", "<span class='neovgre'>There is insufficient vitality to heal your wounds!</span>")
