@@ -54,8 +54,24 @@
 		icon_regular_floor = "floor"
 	else
 		icon_regular_floor = icon_state
-	if(mapload && prob(33))
-		MakeDirty()
+	if(mapload)
+		if (HAS_TRAIT(SSstation, STATION_TRAIT_FILTHY))
+			if (prob(45))
+				MakeDirty()
+			if (prob(5))
+				switch(rand(1,5))
+					if (1)
+						new /obj/item/trash/chips(src)
+					if (2)
+						new /obj/item/trash/sosjerky(src)
+					if (3)
+						new /obj/item/trash/can(src)
+					if (4)
+						new /obj/item/trash/can/food/beans(src)
+					if (5)
+						new /obj/item/cigbutt(src)
+		else if (prob(33))
+			MakeDirty()
 	if(is_station_level(z))
 		GLOB.station_turfs += src
 

@@ -132,3 +132,11 @@
 		/// The bot's language holder - so we can randomize and change their language
 		var/datum/language_holder/bot_languages = found_bot.get_language_holder()
 		bot_languages.selected_language = bot_languages.get_random_spoken_language()
+
+/datum/station_trait/filthy
+	name = "Filthy Station"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 999999
+	show_in_report = TRUE
+	report_message = "The previous inhabitants left in a hurry, and the station is a mess."
+	trait_to_give = STATION_TRAIT_FILTHY
