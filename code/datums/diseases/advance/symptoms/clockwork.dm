@@ -24,8 +24,8 @@
 	if(A.stage_rate >= 4) //at base level, robotic organs are purely a liability
 		severity += 1
 		if(A.stage_rate >= 12)//but at this threshold, it all becomes worthwhile, though getting augged is a better choice
-      severity -= 3//net benefits: 2 damage reduction, flight if you have wings, filter out low amounts of gas, durable ears, flash protection, a liver half as good as an upgraded cyberliver, and flight if you are a winged species
-  if(A.resistance >= 4)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
+			severity -= 3//net benefits: 2 damage reduction, flight if you have wings, filter out low amounts of gas, durable ears, flash protection, a liver half as good as an upgraded cyberliver, and flight if you are a winged species
+	if(A.resistance >= 4)//at base level, robotic bodyparts have very few bonuses, mostly being a liability in the case of EMPS
 		severity += 1 //at this stage, even one EMP will hurt, a lot.
 
 
@@ -62,7 +62,7 @@
 			if(O.status == ORGAN_ROBOTIC) //they are either part robotic or we already converted them!
 				continue
 			switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work
-				if(ORGAN_SLOT_BRAIN)				
+				if(ORGAN_SLOT_BRAIN)
 					var/obj/item/organ/brain/clockwork/organ = new()
 					var/datum/mind/ownermind = H.mind
 					if(robustbits)
