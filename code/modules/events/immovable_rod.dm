@@ -27,7 +27,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/round_event/immovable_rod/announce(fake)
-	priority_announce("What the fuck was that?!", "General Alert")
+	priority_announce("What the fuck was that?!", "General Alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/immovable_rod/start()
 	var/datum/round_event_control/immovable_rod/C = control
