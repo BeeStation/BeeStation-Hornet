@@ -552,6 +552,16 @@
 	else
 		. = null
 
+/obj/docking_port/mobile/proc/check_exile_pass()
+	if (is_station_level(z))
+		return TRUE
+	for(var/place in shuttle_areas)
+		var/area/shuttle/shuttle_area = place
+		for(var/mob/living/L in shuttle_area)
+			for(var/obj/item/implant/exile/E in L.implants)
+				return FALSE	//exiled mob found
+	return TRUE
+
 /obj/effect/landmark/shuttle_import
 	name = "Shuttle Import"
 
