@@ -18,9 +18,6 @@
 /obj/machinery/recharge_station/Initialize()
 	. = ..()
 	update_icon()
-	if(is_operational)
-		begin_processing()
-
 
 /obj/machinery/recharge_station/RefreshParts()
 	recharge_speed = 0
@@ -39,15 +36,9 @@
 		if(repairs)
 			. += "<span class='notice'>[src] has been upgraded to support automatic repairs.</span>"
 
-
-/obj/machinery/recharge_station/on_set_is_operational(old_value)
-	if(old_value) //Turned off
-		end_processing()
-	else //Turned on
-		begin_processing()
-
-
 /obj/machinery/recharge_station/process()
+	if(!is_operational)
+		return
 	if(occupant)
 		process_occupant()
 	return 1

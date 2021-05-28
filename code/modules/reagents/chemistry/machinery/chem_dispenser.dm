@@ -89,8 +89,6 @@
 		emagged_reagents = sortList(emagged_reagents, /proc/cmp_reagents_asc)
 	if(upgrade_reagents)
 		upgrade_reagents = sortList(upgrade_reagents, /proc/cmp_reagents_asc)
-	if(is_operational)
-		begin_processing()
 	update_icon()
 
 /obj/machinery/chem_dispenser/Destroy()
@@ -107,16 +105,10 @@
 		"Recharging <b>[recharge_amount]</b> power units per interval.\n"+\
 		"Power efficiency increased by <b>[round((powerefficiency*1000)-100, 1)]%</b>.</span>"
 
-
-/obj/machinery/chem_dispenser/on_set_is_operational(old_value)
-	if(old_value) //Turned off
-		end_processing()
-	else //Turned on
-		begin_processing()
-
-
 /obj/machinery/chem_dispenser/process()
 	if (recharge_counter >= 4)
+		if(!is_operational)
+			return
 		var/usedpower = cell.give(recharge_amount)
 		if(usedpower)
 			use_power(250*recharge_amount)

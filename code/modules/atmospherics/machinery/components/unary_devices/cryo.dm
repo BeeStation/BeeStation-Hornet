@@ -44,8 +44,6 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/Initialize()
 	. = ..()
 	initialize_directions = dir
-	if(is_operational)
-		begin_processing()
 
 	radio = new(src)
 	radio.keyslot = new radio_key
@@ -174,16 +172,6 @@
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/nap_violation(mob/violator)
 	open_machine()
-
-
-/obj/machinery/atmospherics/components/unary/cryo_cell/on_set_is_operational(old_value)
-	if(old_value) //Turned off
-		on = FALSE
-		end_processing()
-		update_icon()
-	else //Turned on
-		begin_processing()
-
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
 	..()
