@@ -534,6 +534,9 @@
 	if(!ishuman(user) || !ishuman(target))
 		return
 
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		return
+
 	if(semicd)
 		return
 
