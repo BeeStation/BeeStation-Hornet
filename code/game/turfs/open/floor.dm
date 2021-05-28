@@ -58,7 +58,7 @@
 		if (HAS_TRAIT(SSstation, STATION_TRAIT_FILTHY))
 			if (prob(45))
 				MakeDirty()
-			if (prob(5))
+			if (prob(3))
 				switch(rand(1,5))
 					if (1)
 						new /obj/item/trash/chips(src)

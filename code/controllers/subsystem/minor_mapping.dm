@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(minor_mapping)
 	var/turf/proposed_turf
 
 	if (HAS_TRAIT(SSstation, STATION_TRAIT_FILTHY))
-		num_mice+=3
+		num_mice += 3
 	while((num_mice > 0) && exposed_wires.len)
 		proposed_turf = pick_n_take(exposed_wires)
 		if(!M)
