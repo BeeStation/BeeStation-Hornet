@@ -136,7 +136,7 @@
 /datum/station_trait/filthy
 	name = "Filthy Station"
 	trait_type = STATION_TRAIT_NEGATIVE
-	weight = 999999
+	weight = 3
 	show_in_report = TRUE
 	report_message = "The previous inhabitants left in a hurry, and the station is a mess."
 	trait_to_give = STATION_TRAIT_FILTHY
