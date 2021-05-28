@@ -1209,12 +1209,10 @@
 	if(!is_mouth_covered())
 		lip_style = null
 		update_body()
-	if(belt && belt.washed(washer))
+	if(belt?.washed(washer))
 		update_inv_belt()
 
-	var/list/obscured = check_obscured_slots()
-
-	if(gloves && !(HIDEGLOVES in obscured) && gloves.washed(washer))
+	if(gloves && !(HIDEGLOVES in check_obscured_slots()) && gloves.washed(washer))
 		SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 
 /mob/living/carbon/human/species
