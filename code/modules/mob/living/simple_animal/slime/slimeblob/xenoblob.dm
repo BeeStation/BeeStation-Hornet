@@ -69,7 +69,6 @@
 			owner_core = owner_node
 		else
 			owner_core = owner_node.owner_core
-		owner_node.creeps += src
 		distance_from_node = get_dist(get_turf(src), get_turf(owner_node))
 	if(!blacklisted_turfs)
 		blacklisted_turfs = typecacheof(list(
@@ -234,8 +233,15 @@
 		scolor = slmcolor
 	if(!scolor)
 		scolor = new /datum/slimecolor/grey
-	if(!(locate(/obj/structure/xenoblob/creep) in loc))
+
+	var/obj/structure/xenoblob/creep/base_creep = locate() in loc
+	if(!base_creep)
 		new /obj/structure/xenoblob/creep(loc, src)
+	else
+		base_creep.owner_node.creeps.Remove(base_creep)
+		base_creep.owner_node = src
+		base_creep.distance_from_node = 0
+		creeps.Add(base_creep)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/xenoblob/node/Destroy()
