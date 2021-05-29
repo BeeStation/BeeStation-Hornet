@@ -23,7 +23,7 @@
 	var/randomname = TRUE
 	var/datum/symptom/setsymptom = null
 
-/datum/disease/advance/random/New(max_symptoms, max_level = 9, var/datum/symptom/specialsymptom = setsymptom)
+/datum/disease/advance/random/New(max_symptoms, max_level = 9, min_level = 1, var/datum/symptom/specialsymptom = setsymptom)
 	if(!max_symptoms)
 		max_symptoms = (2 + rand(1, (VIRUS_SYMPTOM_LIMIT-2)))
 	if(specialsymptom)
@@ -33,7 +33,7 @@
 		var/datum/symptom/S = symptom
 		if(S == specialsymptom)
 			continue
-		if(initial(S.level) > max_level)
+		if(initial(S.level) > max_level || initial(S.level) < min_level)
 			continue
 		if(initial(S.level) <= 0) //unobtainable symptoms
 			continue

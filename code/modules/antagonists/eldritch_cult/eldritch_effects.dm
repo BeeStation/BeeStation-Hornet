@@ -5,6 +5,7 @@
 	icon_state = ""
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = SIGIL_LAYER
+	forensic_protected = TRUE
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE
 
@@ -144,6 +145,7 @@
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
 	anchored = TRUE
+	forensic_protected = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	alpha = 0
 
@@ -165,7 +167,7 @@
 ///Makes this obj appear out of nothing
 /obj/effect/broken_illusion/proc/show_presence()
 	animate(src,alpha = 255,time = 15 SECONDS)
-	
+
 /obj/effect/broken_illusion/proc/dissipate()
 	animate(src,alpha = 0,time = 2 MINUTES)
 	QDEL_IN(src, 2 MINUTES)
@@ -194,7 +196,7 @@
 		return
 	//a very elaborate way to suicide
 	to_chat(human_user,"<span class='userdanger'>Eldritch energy lashes out, piercing your fragile mind, tearing it to pieces!</span>")
-	human_user.ghostize()
+	human_user.ghostize(FALSE,SENTIENCE_ERASE)
 	var/obj/item/bodypart/head/head = locate() in human_user.bodyparts
 	if(head)
 		head.dismember()
@@ -211,12 +213,13 @@
 	if(istype(human_user) && !IS_HERETIC(human_user) && !IS_HERETIC_MONSTER(human_user))
 		to_chat(human_user,"<span class='warning'>Your mind burns as you stare at the tear!</span>")
 		SEND_SIGNAL(human_user, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
-		
+
 /obj/effect/reality_smash
 	name = "reality smash"
 	desc = "A weak spot in the veil of reality. You can pierce reality by harvesting this with your Codex Cicatrix to gain charges."
 	icon = 'icons/effects/eldritch.dmi'
 	anchored = TRUE
+	forensic_protected = TRUE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	invisibility = INVISIBILITY_OBSERVER
 

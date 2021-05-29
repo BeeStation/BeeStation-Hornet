@@ -244,7 +244,7 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 
 /atom/movable/screen/alert/embeddedobject/Click()
 	if(isliving(usr) && usr == owner)
-		var/mob/living/carbon/human/M = usr
+		var/mob/living/carbon/M = usr
 		return M.help_shake_act(M)
 
 /atom/movable/screen/alert/weightless
@@ -278,6 +278,51 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	if(L.mobility_flags & MOBILITY_MOVE)
 		return L.resist_fire() //I just want to start a flame in your hearrrrrrtttttt.
 
+/**
+ * Handles assigning most of the variables for the alert that pops up when an item is offered
+ *
+ * Handles setting the name, description and icon of the alert and tracking the person giving
+ * and the item being offered, also registers a signal that removes the alert from anyone who moves away from the giver
+ * Arguments:
+ * * taker - The person receiving the alert
+ * * giver - The person giving the alert and item
+ * * receiving - The item being given by the giver
+ */
+
+/atom/movable/screen/alert/give // information set when the give alert is made
+	icon_state = "default"
+	var/mob/living/carbon/giver
+	var/mob/living/carbon/taker
+	var/obj/item/receiving
+
+/atom/movable/screen/alert/give/proc/setup(mob/living/carbon/taker, mob/living/carbon/giver, obj/item/receiving)
+	name = "[giver] is offering [receiving]"
+	desc = "[giver] is offering [receiving]. Click this alert to take it."
+	icon_state = "template"
+	cut_overlays()
+	add_overlay(receiving)
+	src.receiving = receiving
+	src.giver = giver
+	src.taker = taker
+	RegisterSignal(giver, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
+
+/atom/movable/screen/alert/give/proc/check_in_range()
+	SIGNAL_HANDLER_DOES_SLEEP // doesn't actually sleep since the only thing below which can sleep is CheckToolReach() which returns FALSE before coming that far.
+	if (!usr.CanReach(giver))
+		to_chat(giver, "<span class='warning'>[taker] moved out of range of you!</span>")
+		to_chat(taker, "<span class='warning'>You moved out of range of [giver]!</span>")
+		owner.clear_alert("[giver]")
+	else if (!usr.CanReach(taker))
+		to_chat(giver, "<span class='warning'>You moved out of range of [taker]!</span>")
+		to_chat(taker, "<span class='warning'>[giver] moved out of range of you!</span>")
+		owner.clear_alert("[giver]")
+
+/atom/movable/screen/alert/give/Click(location, control, params)
+	. = ..()
+	if(!iscarbon(usr))
+		CRASH("User for [src] is of type \[[usr.type]\]. This should never happen.")
+	taker.take(giver, receiving)
 
 //ALIENS
 
@@ -442,10 +487,10 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 			desc += "The Ark is preparing to open, it will activate in <b>[round((GLOB.ratvar_arrival_tick - world.time - 6000) / 10)]</b> seconds.<br>"
 		else
 			desc += "Ratvar will rise in <b>[round((GLOB.ratvar_arrival_tick - world.time) / 10)]</b> seconds, protect the Ark with your life!<br>"
-	if(GLOB.servants_of_ratvar)
-		desc += "There [GLOB.servants_of_ratvar.len == 1?"is" : "are"] currently [GLOB.servants_of_ratvar.len] loyal servant[GLOB.servants_of_ratvar.len == 1 ? "" : "s"].<br>"
+	if(GLOB.human_servants_of_ratvar)
+		desc += "There [GLOB.human_servants_of_ratvar.len == 1?"is" : "are"] currently [GLOB.human_servants_of_ratvar.len] loyal servant\s.<br>"
 	if(GLOB.critical_servant_count)
-		desc += "Upon reaching [GLOB.critical_servant_count] the Ark will open, or it can be opened immediately by invoking Gateway Activation with 6 servants."
+		desc += "Upon reaching [GLOB.critical_servant_count] servants, the Ark will open, or it can be opened immediately by invoking Gateway Activation with 6 servants."
 
 //GUARDIANS
 

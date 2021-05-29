@@ -13,7 +13,7 @@
 
 /datum/status_effect/freon/on_apply()
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, .proc/owner_resist)
-	if(!owner.stat)
+	if(owner.is_conscious())
 		to_chat(owner, "<span class='userdanger'>You become frozen in a cube!</span>")
 	cube = icon('icons/effects/freeze.dmi', "ice_cube")
 	owner.add_overlay(cube)
@@ -34,7 +34,7 @@
 			owner.update_mobility()
 
 /datum/status_effect/freon/on_remove()
-	if(!owner.stat)
+	if(owner.is_conscious())
 		to_chat(owner, "The cube melts!")
 	owner.cut_overlay(cube)
 	owner.adjust_bodytemperature(100)

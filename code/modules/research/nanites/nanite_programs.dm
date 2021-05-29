@@ -207,29 +207,35 @@
 //Can be used to avoid consuming nanites for nothing
 /datum/nanite_program/proc/check_conditions()
 	var/datum/nanite_extra_setting/logictype = extra_settings[NES_RULE_LOGIC]
-	switch(logictype.get_value())
-		if(NL_AND)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
-				if(!rule.check_rule())
-					return FALSE
-		if(NL_OR)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
-				if(rule.check_rule())
-					return TRUE
-			return FALSE
-		if(NL_NOR)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
-				if(rule.check_rule())
-					return FALSE
-		if(NL_NAND)
-			for(var/R in rules)
-				var/datum/nanite_rule/rule = R
-				if(!rule.check_rule())
-					return TRUE 
-			return FALSE
+	if(logictype)
+		switch(logictype.get_value())
+			if(NL_AND)
+				for(var/R in rules)
+					var/datum/nanite_rule/rule = R
+					if(!rule.check_rule())
+						return FALSE
+			if(NL_OR)
+				for(var/R in rules)
+					var/datum/nanite_rule/rule = R
+					if(rule.check_rule())
+						return TRUE
+				return FALSE
+			if(NL_NOR)
+				for(var/R in rules)
+					var/datum/nanite_rule/rule = R
+					if(rule.check_rule())
+						return FALSE
+			if(NL_NAND)
+				for(var/R in rules)
+					var/datum/nanite_rule/rule = R
+					if(!rule.check_rule())
+						return TRUE
+				return FALSE
+	else
+		for(var/R in rules)
+			var/datum/nanite_rule/rule = R
+			if(!rule.check_rule())
+				return FALSE
 	return TRUE
 
 //Constantly procs as long as the program is active
@@ -276,14 +282,14 @@
 		software_error()
 
 /datum/nanite_program/proc/on_shock(shock_damage)
-	if(!program_flags & NANITE_SHOCK_IMMUNE)
+	if(!(program_flags & NANITE_SHOCK_IMMUNE))
 		if(prob(10))
 			software_error()
 		else if(prob(33))
 			qdel(src)
 
 /datum/nanite_program/proc/on_minor_shock()
-	if(!program_flags & NANITE_SHOCK_IMMUNE)
+	if(!(program_flags & NANITE_SHOCK_IMMUNE))
 		if(prob(10))
 			software_error()
 

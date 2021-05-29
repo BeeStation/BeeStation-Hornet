@@ -1,8 +1,8 @@
-/mob/living/carbon/movement_delay()	
-	. = ..()	
+/mob/living/carbon/movement_delay()
+	. = ..()
 
-	if(!get_leg_ignore() && legcuffed) //ignore the fact we lack legs	
-		. += legcuffed.slowdown	
+	if(!get_leg_ignore() && legcuffed) //ignore the fact we lack legs
+		. += legcuffed.slowdown
 
 /mob/living/carbon/slip(knockdown_amount, obj/O, lube, paralyze, force_drop)
 	if(movement_type & FLYING)
@@ -35,3 +35,4 @@
 			adjust_nutrition(-(HUNGER_FACTOR/10))
 			if(m_intent == MOVE_INTENT_RUN)
 				adjust_nutrition(-(HUNGER_FACTOR/10))
+

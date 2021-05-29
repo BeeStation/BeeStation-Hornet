@@ -1,3 +1,9 @@
+#define SENSORS_OFF 0
+#define SENSORS_BINARY 1
+#define SENSORS_VITALS 2
+#define SENSORS_TRACKING 3
+#define SENSOR_CHANGE_DELAY 1.5 SECONDS
+
 /obj/item/clothing
 	name = "clothing"
 	resistance_flags = FLAMMABLE
@@ -70,7 +76,7 @@
 	foodtype = CLOTH
 
 /obj/item/clothing/attack(mob/M, mob/user, def_zone)
-	if(user.a_intent != INTENT_HARM && ismoth(M))
+	if(user.a_intent != INTENT_HARM && ismoth(M) && !(clothing_flags & NOTCONSUMABLE))
 		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
 		clothing_as_food.name = name
 		if(clothing_as_food.attack(M, user, def_zone))
@@ -195,47 +201,70 @@ BLIND     // can't see anything
 	female_clothing_icon 			= fcopy_rsc(female_clothing_icon)
 	GLOB.female_clothing_icons[index] = female_clothing_icon
 
-/obj/item/clothing/under/verb/toggle()
-	set name = "Adjust Suit Sensors"
-	set category = "Object"
-	set src in usr
-	var/mob/M = usr
-	if (istype(M, /mob/dead/))
+/obj/item/clothing/under/proc/set_sensors(mob/user)
+	var/mob/M = user
+	if(M.stat)
 		return
-	if (!can_use(M))
+	if(!can_use(M))
 		return
 	if(src.has_sensor == LOCKED_SENSORS)
-		to_chat(usr, "The controls are locked.")
-		return 0
+		to_chat(user, "<span class='warning'>The controls are locked.</span>")
+		return FALSE
 	if(src.has_sensor == BROKEN_SENSORS)
-		to_chat(usr, "The sensors have shorted out!")
-		return 0
+		to_chat(user, "<span class='warning'>The sensors have shorted out!</span>")
+		return FALSE
 	if(src.has_sensor <= NO_SENSORS)
-		to_chat(usr, "This suit does not have any sensors.")
-		return 0
+		to_chat(user, "<span class='warning'>This suit does not have any sensors.</span>")
+		return FALSE
 
 	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
-	if(get_dist(usr, src) > 1)
-		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
+	if(get_dist(user, src) > 1)
+		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
-	sensor_mode = modes.Find(switchMode) - 1
+	var/sensor_selection = modes.Find(switchMode) - 1
 
-	if (src.loc == usr)
-		switch(sensor_mode)
-			if(0)
-				to_chat(usr, "<span class='notice'>You disable your suit's remote sensing equipment.</span>")
-			if(1)
-				to_chat(usr, "<span class='notice'>Your suit will now only report whether you are alive or dead.</span>")
-			if(2)
-				to_chat(usr, "<span class='notice'>Your suit will now only report your exact vital lifesigns.</span>")
-			if(3)
-				to_chat(usr, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")
-
+	if (src.loc == user)
+		switch(sensor_selection)
+			if(SENSORS_OFF)
+				to_chat(user, "<span class='notice'>You disable your suit's remote sensing equipment.</span>")
+			if(SENSORS_BINARY)
+				to_chat(user, "<span class='notice'>Your suit will now only report whether you are alive or dead.</span>")
+			if(SENSORS_VITALS)
+				to_chat(user, "<span class='notice'>Your suit will now only report your exact vital lifesigns.</span>")
+			if(SENSORS_TRACKING)
+				to_chat(user, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")
+		sensor_mode = sensor_selection
+	else if(istype(src.loc, /mob))
+		var/mob/living/carbon/human/wearer = src.loc
+		wearer.visible_message("<span class='notice'>[user] tries to set [wearer]'s sensors.</span>", \
+						 "<span class='warning'>[user] is trying to set your sensors.</span>", null, COMBAT_MESSAGE_RANGE)
+		if(do_mob(user, wearer, SENSOR_CHANGE_DELAY))
+			switch(sensor_selection)
+				if(SENSORS_OFF)
+					wearer.visible_message("<span class='warning'>[user] disables [wearer]'s remote sensing equipment.</span>", \
+						 "<span class='warning'>[user] disables your remote sensing equipment.</span>", null, COMBAT_MESSAGE_RANGE)
+				if(SENSORS_BINARY)
+					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to binary.</span>", \
+						 "<span class='notice'>[user] turns your remote sensors to binary.</span>", null, COMBAT_MESSAGE_RANGE)
+				if(SENSORS_VITALS)
+					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to track vitals.</span>", \
+						 "<span class='notice'>[user] turns your remote sensors to track vitals.</span>", null, COMBAT_MESSAGE_RANGE)
+				if(SENSORS_TRACKING)
+					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to maximum.</span>", \
+						 "<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
+			sensor_mode = sensor_selection
+			log_combat(user, wearer, "changed sensors to [switchMode]")
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.w_uniform == src)
 			H.update_suit_sensors()
+
+/obj/item/clothing/under/verb/toggle()
+	set name = "Adjust Suit Sensors"
+	set category = "Object"
+	set src in usr
+	set_sensors(usr)
 
 /obj/item/clothing/under/attack_hand(mob/user)
 	if(attached_accessory && ispath(attached_accessory.pocket_storage_component_path) && loc == user)
@@ -353,3 +382,9 @@ BLIND     // can't see anything
 		return
 	if(!lavaland_equipment_pressure_check(T))
 		. *= high_pressure_multiplier
+
+#undef SENSORS_OFF
+#undef SENSORS_BINARY
+#undef SENSORS_VITALS
+#undef SENSORS_TRACKING
+#undef SENSOR_CHANGE_DELAY

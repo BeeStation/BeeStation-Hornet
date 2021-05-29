@@ -108,7 +108,9 @@
 	create_reagents(100)
 	set_colour(new_colour)
 	. = ..()
-	set_nutrition(700)
+	set_nutrition(SLIME_DEFAULT_NUTRITION)
+	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		set_playable()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
 	colour = new_colour
@@ -293,7 +295,7 @@
 		attacked += 5
 		if(nutrition >= 100) //steal some nutrition. negval handled in life()
 			adjust_nutrition(-(50 + (40 * M.is_adult)))
-			M.add_nutrition(50 + (40 * M.is_adult))
+			M.add_nutrition(25 + (20 * M.is_adult))
 		if(health > 0)
 			M.adjustBruteLoss(-10 + (-10 * M.is_adult))
 			M.updatehealth()
@@ -516,24 +518,12 @@
 		blocked += 50
 	. = ..(damage, damagetype, def_zone, blocked, forced)
 
-/mob/living/simple_animal/slime/attack_ghost(mob/user)
-	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		make_sentient(user)
-
-/mob/living/simple_animal/slime/proc/make_sentient(mob/user)
-	if(key || stat)
-		return
-	var/slime_ask = alert("Become a slime?", "Slime time?", "Yes", "No")
-	if(slime_ask == "No" || QDELETED(src))
-		return
-	if(key)
-		to_chat(user, "<span class='warning'>Someone else already took this slime!</span>")
-		return
-	key = user.key
-	if(mind && master)
-		mind.store_memory("<b>Serve [master.real_name], your master.</b>")
-	remove_form_spawner_menu()
-	log_game("[key_name(src)] took control of [name].")
+/mob/living/simple_animal/slime/give_mind(mob/user)
+	. = ..()
+	if (.)
+		if(mind && master)
+			mind.store_memory("<b>Serve [master.real_name], your master.</b>")
+	return .
 
 /mob/living/simple_animal/slime/get_spawner_desc()
 	return "be a slime[master ? " under the command of [master.real_name]" : ""]."
@@ -541,21 +531,9 @@
 /mob/living/simple_animal/slime/get_spawner_flavour_text()
 	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
 
-/mob/living/simple_animal/slime/ghostize(can_reenter_corpse = TRUE)
-	. = ..()
-	if(. && transformeffects & SLIME_EFFECT_LIGHT_PINK && stat != DEAD)
-		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], src)
-		GLOB.poi_list |= src
-
-/mob/living/simple_animal/slime/proc/remove_form_spawner_menu()
-	for(var/spawner in GLOB.mob_spawners)
-		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
-	GLOB.poi_list -= src
-
 /mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
 	master = user
 
 /mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
 	. = ..(mapload, new_colour, new_is_adult)
-
