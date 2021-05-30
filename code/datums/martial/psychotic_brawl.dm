@@ -137,7 +137,7 @@
 			A.do_attack_animation(D, ATTACK_EFFECT_BITE)
 			D.apply_damage(D.dna.species.punchdamage-3, A.dna.species.attack_type, blocked = armor_block)
 			for(var/datum/disease/V in A.diseases)
-				if((V.spread_flags & DISEASE_SPREAD_SPECIAL) || (V.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (V.spread_flags & DISEASE_SPREAD_FALTERED))
+				if((V.spread_flags &(DISEASE_SPREAD_SPECIAL|DISEASE_SPREAD_NON_CONTAGIOUS|DISEASE_SPREAD_FALTERED))
 					continue
 				V.try_infect(D)
 			for(var/datum/disease/V in D.diseases)
