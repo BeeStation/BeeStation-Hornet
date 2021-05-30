@@ -356,22 +356,11 @@ BLIND     // can't see anything
 	if(visor_vars_to_toggle & VISOR_TINT)
 		tint ^= initial(tint)
 		
-/obj/item/clothing/head/helmet/space/plasmaman/security/visor_toggling() //security envirohelmets get flash protection without visor
-	up = !up
-	clothing_flags ^= visor_flags
-	flags_inv ^= visor_flags_inv
-	icon_state = "[initial(icon_state)]"
-	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
-		flash_protect = initial(flash_protect) - up
-	if(visor_vars_to_toggle & VISOR_TINT)
-		tint ^= initial(tint)
-
 /obj/item/clothing/proc/can_use(mob/user)
 	if(user && ismob(user))
 		if(!user.incapacitated())
 			return 1
 	return 0
-
 
 /obj/item/clothing/obj_destruction(damage_flag)
 	if(damage_flag == "bomb" || damage_flag == "melee")
