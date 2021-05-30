@@ -92,7 +92,7 @@
 					sanity --
 					tab_data[REF(A)] = list(
 						text="[A.name]",
-						icon=SSstat.get_flat_icon(client, A),
+						icon=null, //Disable calls to TGUIStat's icon generation system.
 						type=STAT_ATOM,
 					)
 					if(sanity < 0)
