@@ -55,7 +55,7 @@
 		return
 	chassis.use_internal_tank = !chassis.use_internal_tank
 	button_icon_state = "mech_internals_[chassis.use_internal_tank ? "on" : "off"]"
-	chassis.balloon_alert(owner, "taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"]")
+	chassis.balloon_alert(owner, "Taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"]")
 	chassis.log_message("Now taking air from [chassis.use_internal_tank?"internal airtank":"environment"].", LOG_MECHA)
 	UpdateButtonIcon()
 
@@ -73,7 +73,7 @@
 			available_equipment += M
 
 	if(available_equipment.len == 0)
-		chassis.balloon_alert(owner, "no equipment available")
+		chassis.balloon_alert(owner, "No equipment available")
 		return
 	if(!chassis.selected)
 		chassis.selected = available_equipment[1]
@@ -88,11 +88,11 @@
 		if(A == chassis.selected)
 			if(available_equipment.len == number)
 				chassis.selected = null
-				chassis.balloon_alert(owner, "switched to no equipment")
+				chassis.balloon_alert(owner, "Switched to no equipment")
 				button_icon_state = "mech_cycle_equip_off"
 			else
 				chassis.selected = available_equipment[number+1]
-				chassis.balloon_alert(owner, "switched to [chassis.selected]")
+				chassis.balloon_alert(owner, "Switched to [chassis.selected]")
 				button_icon_state = "mech_cycle_equip_on"
 			send_byjax(chassis.occupant,"exosuit.browser","eq_list",chassis.get_equipment_list())
 			UpdateButtonIcon()
@@ -113,7 +113,7 @@
 	else
 		chassis.set_light(-chassis.lights_power)
 		button_icon_state = "mech_lights_off"
-	chassis.balloon_alert(owner, "toggled lights [chassis.lights?"on":"off"]")
+	chassis.balloon_alert(owner, "Toggled lights [chassis.lights?"on":"off"]")
 	chassis.log_message("Toggled lights [chassis.lights?"on":"off"].", LOG_MECHA)
 	UpdateButtonIcon()
 
@@ -176,12 +176,12 @@
 		chassis.leg_overload_mode = 1
 		chassis.step_in = min(1, round(chassis.step_in/2))
 		chassis.step_energy_drain = max(chassis.overload_step_energy_drain_min,chassis.step_energy_drain*chassis.leg_overload_coeff)
-		chassis.balloon_alert(owner,"leg actuators overloaded")
+		chassis.balloon_alert(owner,"Leg actuators overloaded")
 	else
 		chassis.leg_overload_mode = 0
 		chassis.step_in = initial(chassis.step_in)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
-		chassis.balloon_alert(owner, "you disable the overload")
+		chassis.balloon_alert(owner, "You disable the overload")
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_smoke
@@ -228,13 +228,13 @@
 	switch(chassis.damtype)
 		if("tox")
 			new_damtype = "brute"
-			chassis.balloon_alert(owner, "your punches will now deal brute damage")
+			chassis.balloon_alert(owner, "Your punches will now deal brute damage")
 		if("brute")
 			new_damtype = "fire"
-			chassis.balloon_alert(owner, "your punches will now deal burn damage")
+			chassis.balloon_alert(owner, "Your punches will now deal burn damage")
 		if("fire")
 			new_damtype = "tox"
-			chassis.balloon_alert(owner,"your punches will now deal toxin damage")
+			chassis.balloon_alert(owner,"Your punches will now deal toxin damage")
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
 	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
@@ -249,5 +249,5 @@
 		return
 	chassis.phasing = !chassis.phasing
 	button_icon_state = "mech_phasing_[chassis.phasing ? "on" : "off"]"
-	chassis.balloon_alert(owner, "[chassis.phasing ? "enabled" : "disabled"] phasing")
+	chassis.balloon_alert(owner, "[chassis.phasing ? "Enabled" : "Disabled"] phasing")
 	UpdateButtonIcon()
