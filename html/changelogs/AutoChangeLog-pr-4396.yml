@@ -1,0 +1,4 @@
+author: bloons3
+delete-after: true
+changes:
+  - code_imp: Justifies LAZYLEN()
