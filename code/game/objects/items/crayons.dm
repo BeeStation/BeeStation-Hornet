@@ -352,10 +352,12 @@
 	if(paint_mode == PAINT_LARGE_HORIZONTAL)
 		wait_time *= 3
 	if(gang)
-		instant = FALSE
-		var/area/territory = get_area(target)
-		gang.message_gangtools("[territory] is under attack by an enemy gang!")
-		wait_time = 30 SECONDS
+		for(var/obj/effect/decal/gang/old_gang_sign in target)
+			if (old_gang_sign.gang != gang)
+				to_chat(user, "<span class='notice'>[old_gang_sign.gang.name] has been alerted of this takeover!</span>")
+				old_gang_sign.gang.message_gangtools("[get_area(target)] is under attack by an enemy gang!")
+				instant = FALSE
+				wait_time = 30 SECONDS
 	if(!instant)
 		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name]...</span>") // hippie -- removed a weird tab that had no reason to be here
 		if(!do_after(user, wait_time, target = target))
@@ -841,6 +843,8 @@
 	//Delete any old markings on this tile, including other gang tags
 	for(var/obj/effect/decal/cleanable/crayon/old_marking in target)
 		qdel(old_marking)
+	for(var/obj/effect/decal/gang/old_gang in target)
+		qdel(old_gang)
 
 	var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
 	var/area/territory = get_area(target)

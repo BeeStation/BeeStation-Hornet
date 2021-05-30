@@ -284,6 +284,24 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "locator"
 
+
+/obj/item/antag_spawner/gangster/attack_self(mob/user)
+	if(!(check_usability(user)))
+		return
+
+	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
+	var/list/nuke_candidates = pollGhostCandidates("Do you want to play as a syndicate [borg_to_spawn ? "[lowertext(borg_to_spawn)] cyborg":"operative"]?", ROLE_OPERATIVE, null, ROLE_OPERATIVE, 150, POLL_IGNORE_SYNDICATE)
+	if(LAZYLEN(nuke_candidates))
+		if(QDELETED(src) || !check_usability(user))
+			return
+		used = TRUE
+		var/mob/dead/observer/G = pick(nuke_candidates)
+		spawn_antag(G.client, get_turf(src), "syndieborg", user.mind)
+		do_sparks(4, TRUE, src)
+		qdel(src)
+	else
+		to_chat(user, "<span class='warning'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>")
+
 /obj/item/antag_spawner/gangster/proc/check_usability(mob/user)
 	if(used)
 		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
@@ -307,3 +325,28 @@
 
 	M.mind.special_role = "Gangster"
 	M.equipOutfit(/datum/outfit/crook)
+	
+	
+
+/obj/item/antag_spawner/nuke_ops/proc/check_usability(mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
+		return FALSE
+	if(!user.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE))
+		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
+		return FALSE
+	return TRUE
+
+/obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
+	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
+	C.prefs.copy_to(M)
+	M.key = C.key
+
+	var/datum/antagonist/nukeop/new_op = new()
+	new_op.send_to_spawnpoint = FALSE
+	new_op.nukeop_outfit = /datum/outfit/syndicate/no_crystals
+
+	var/datum/antagonist/nukeop/creator_op = user.has_antag_datum(/datum/antagonist/nukeop,TRUE)
+	if(creator_op)
+		M.mind.add_antag_datum(new_op,creator_op.nuke_team)
+		M.mind.special_role = "Nuclear Operative"

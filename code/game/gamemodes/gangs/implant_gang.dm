@@ -21,32 +21,22 @@
 	return dat
 
 /obj/item/implant/gang/implant(mob/living/target, mob/user, silent = 0)
-	if(!target || !target.mind || target.stat == DEAD)
-		return 0
+	if(!target || !target.mind  || target.stat == DEAD || !ishuman(target) || !..())
+		return FALSE
 	if (HAS_TRAIT(target, TRAIT_MINDSHIELD))
 		target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You resist the gang implant. You are reminded of the anti-gang PSA instead.</span>")
 		return FALSE
-	var/datum/antagonist/gang/G = target.mind.has_antag_datum(/datum/antagonist/gang)
-	if(G && G.gang == G)
-		if (target.stat == DEAD)
-			target.revive(1,1)					
-			return TRUE
-		return FALSE // it's pointless
-	if(..())
-		if(ishuman(target))
-			var/success
-			if(G)
-				if(!istype(G, /datum/antagonist/gang/boss))
-					success = TRUE	//Was not a gang boss, convert as usual
-					target.mind.remove_antag_datum(/datum/antagonist/gang)
-			else
-				success = TRUE
-			if(!success)
-				target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You feel the influence of your enemies try to invade your mind!</span>")
-				return FALSE
-		target.mind.add_antag_datum(/datum/antagonist/gang, gang)
-		qdel(src)
-		return TRUE
+			
+	var/datum/antagonist/gang/G = target.mind.has_antag_datum(/datum/antagonist/gang)	
+	if(G)
+		if(G.gang == G)
+			return FALSE
+		else if (!istype(G, /datum/antagonist/gang/boss))
+			success = TRUE	//Was not a gang boss, convert as usual
+			target.mind.remove_antag_datum(/datum/antagonist/gang)
+	target.mind.add_antag_datum(/datum/antagonist/gang, gang)
+	qdel(src)
+	return TRUE
 
 /obj/item/implanter/gang
 	name = "implanter (gang)"
