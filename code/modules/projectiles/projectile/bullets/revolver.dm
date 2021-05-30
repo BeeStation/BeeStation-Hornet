@@ -41,13 +41,6 @@
 	ricochet_decay_damage = 0.8
 	shrapnel_type = NONE
 
-/obj/item/projectile/bullet/c38/dumdum
-	name = ".38 DumDum bullet"
-	damage = 15
-	armour_penetration = -30
-	ricochets_max = 0
-	shrapnel_type = /obj/item/shrapnel/bullet/c38/dumdum
-
 /obj/item/projectile/bullet/c38/trac
 	name = ".38 TRAC bullet"
 	damage = 10

@@ -55,11 +55,6 @@
 	desc = "A .38 rubber bullet casing, manufactured to exceedingly high standards."
 	projectile_type = /obj/item/projectile/bullet/c38/match/bouncy
 
-/obj/item/ammo_casing/c38/dumdum
-	name = ".38 DumDum bullet casing"
-	desc = "A .38 DumDum bullet casing."
-	projectile_type = /obj/item/projectile/bullet/c38/dumdum
-
 /obj/item/ammo_casing/caseless/mime
 	name = "invisible .38 bullet casing"
 	icon_state = null
