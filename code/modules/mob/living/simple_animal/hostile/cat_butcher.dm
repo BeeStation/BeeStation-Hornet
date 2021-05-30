@@ -102,15 +102,9 @@
 			maxHealth = (100 + (20 * LAZYLEN(victims)))
 		else
 			maxHealth = (300 + (5 * (LAZYLEN(victims)-10)))
-<<<<<<< refs/remotes/BeeStation/master
-		switch(LAZYLEN(victims)) 
-			if(2) 
-				projectiletype = /obj/item/projectile/bullet/dart/tranqplus
-=======
 		switch(LAZYLEN(victims))
 			if(2) 
 				projectiletype = /obj/item/projectile/bullet/dart/tranq/plus
->>>>>>> commit.commit
 			if(4)//gain space adaptation to make cheesing harder
 				atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 				icon_state = "cat_butcher_fire"
@@ -120,11 +114,7 @@
 				rapid_melee = 2
 				transform *= 1.25
 			if(8)
-<<<<<<< refs/remotes/BeeStation/master
-				projectiletype = /obj/item/projectile/bullet/dart/tranqplusplus
-=======
 				projectiletype = /obj/item/projectile/bullet/dart/tranq/plusplus
->>>>>>> commit.commit
 			if(10)
 				ranged_cooldown_time = 10
 			if(15)//if he's gotten this powerful, someone has really fucked up
@@ -191,4 +181,4 @@
 	if(LAZYLEN(victims) >= 5)
 		say("I made [LAZYLEN(victims)] creations! I have no regrets!!")
 	return..()
-
+	
