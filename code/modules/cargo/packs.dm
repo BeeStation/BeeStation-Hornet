@@ -372,20 +372,6 @@
 					/obj/item/clothing/head/beret/sec/navyhos)
 	crate_name = "security clothing crate"
 
-/datum/supply_pack/security/stingpack
-	name = "Stingbang Grenade Pack"
-	desc = "Contains five \"stingbang\" grenades, perfect for stopping riots and playing morally unthinkable pranks. Requires Security access to open."
-	cost = 2500
-	contains = list(/obj/item/storage/box/stingbangs)
-	crate_name = "stingbang grenade pack crate"
-
-/datum/supply_pack/security/stingpack/single
-	name = "Stingbang Single-Pack"
-	desc = "Contains one \"stingbang\" grenade, perfect for playing meanhearted pranks. Requires Security access to open."
-	cost = 1400
-	small_item = TRUE
-	contains = list(/obj/item/grenade/stingbang)
-
 /datum/supply_pack/security/supplies
 	name = "Security Supplies Crate"
 	desc = "Contains seven flashbangs, seven teargas grenades, six flashes, and seven handcuffs. Requires Security access to open."
