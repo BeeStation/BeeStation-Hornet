@@ -88,6 +88,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Add orbital bodies
 	data["map_objects"] = list()
 	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
+		if(!object)
+			continue
 		//we can't see it, unless we are stealth too
 		if(shuttleObject)
 			if(object != shuttleObject && (object.stealth && !shuttleObject.stealth))
@@ -303,7 +305,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/proc/random_drop()
 	//Find a random place to drop in at.
-	if(!shuttleObject.docking_target?.linked_z_level)
+	if(!shuttleObject?.docking_target?.linked_z_level)
 		return
 	//Get shuttle dock
 	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(shuttleId)
