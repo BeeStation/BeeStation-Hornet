@@ -181,7 +181,7 @@
 		chassis.leg_overload_mode = 0
 		chassis.step_in = initial(chassis.step_in)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
-		chassis.balloon_alert(owner, "You disable the overload")
+		chassis.balloon_alert(owner, "Leg actuators reset")
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_smoke
