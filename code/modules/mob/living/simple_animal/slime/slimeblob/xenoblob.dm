@@ -335,6 +335,18 @@
 		new /obj/structure/xenoblob/node/core(loc, null, scolor)
 		qdel(src)
 
+/obj/structure/xenoblob/node/attackby(obj/item/I, mob/living/user, params)
+
+	if(is_core)
+		return
+	if(istype(I, /obj/item/trimmer))
+		user.visible_message("<span class=notice>[user] started to trim [src]!</span>")
+		if(do_mob(user, user, 50))
+			user.visible_message("<span class=notice>[user] successfuly trims [src]!</span>")
+			uproot()
+	else
+		return ..()
+
 /*
  * CORE (node+)
  */

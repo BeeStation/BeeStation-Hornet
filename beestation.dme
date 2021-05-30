@@ -991,6 +991,7 @@
 #include "code\game\objects\items\theft_tools.dm"
 #include "code\game\objects\items\toys.dm"
 #include "code\game\objects\items\trash.dm"
+#include "code\game\objects\items\trimmer.dm"
 #include "code\game\objects\items\twohanded.dm"
 #include "code\game\objects\items\vending_items.dm"
 #include "code\game\objects\items\weaponry.dm"

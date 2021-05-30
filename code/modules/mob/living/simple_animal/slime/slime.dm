@@ -364,6 +364,9 @@
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
 		return
+	if(istype(W, /obj/item/trimmer))
+		var/obj/item/trimmer/T = W
+		adjust_bodytemperature(T.temperature - bodytemperature)
 	if(W.force > 0)
 		attacked += 10
 		if(prob(25))
