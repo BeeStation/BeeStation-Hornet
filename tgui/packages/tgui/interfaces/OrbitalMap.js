@@ -268,6 +268,9 @@ export const OrbitalMap = (props, context) => {
                 {trackedObject && trackedObject.radius} BSU
               </Box>
               <Divider />
+              <Box bold mb={1}>
+                Camera Follow Target
+              </Box>
               <Dropdown
                 selected={trackedBody}
                 width="100%"
@@ -361,7 +364,7 @@ export const ShuttleControls = (props, context) => {
   return (
     <>
       <Box bold>
-        Relative Target
+        Autopilot Target
       </Box>
       <Dropdown
         mt={1}
