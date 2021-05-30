@@ -32,6 +32,10 @@
 //Make the vector length 1
 /datum/orbital_vector/proc/Normalize()
 	var/total = Length()
+	if(!total)
+		x = 0
+		y = 1
+		return src
 	x = x / total
 	y = y / total
 	return src
