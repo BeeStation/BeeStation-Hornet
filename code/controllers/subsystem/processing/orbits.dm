@@ -10,12 +10,20 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/datum/orbital_map_tgui/orbital_map_tgui = new()
 
+	var/initial_objective_beacons = 4
+
 	//key = port_id
 	//value = orbital shuttle object
 	var/list/assoc_shuttles = list()
 
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
 	orbital_map.post_setup()
+	//Create initial ruins
+
+/datum/controller/subsystem/processing/orbits/fire(resumed)
+	//Check creating objectives / missions.
+	//Do processing.
+	. = ..()
 
 /mob/dead/observer/verb/open_orbit_ui()
 	set name = "View Orbits"
