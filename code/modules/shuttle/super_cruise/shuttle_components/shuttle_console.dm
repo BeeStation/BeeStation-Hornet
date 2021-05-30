@@ -89,8 +89,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["map_objects"] = list()
 	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
 		//we can't see it, unless we are stealth too
-		if(object != shuttleObject && (object.stealth && !shuttleObject.stealth))
-			continue
+		if(shuttleObject)
+			if(object != shuttleObject && (object.stealth && !shuttleObject.stealth))
+				continue
+		else
+			if(object.stealth)
+				continue
 		//Send to be rendered on the UI
 		data["map_objects"] += list(list(
 			"name" = object.name,
