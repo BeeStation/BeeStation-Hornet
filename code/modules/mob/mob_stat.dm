@@ -76,7 +76,7 @@
 						overrides += I.loc
 				tab_data[REF(listed_turf)] = list(
 					text="[listed_turf.name]",
-					icon=SSstat.get_flat_icon(client, listed_turf),
+					icon=null, //Disable calls to TGUIStat's icon generation system.
 					type=STAT_ATOM,
 				)
 				var/sanity = MAX_ICONS_PER_TILE
