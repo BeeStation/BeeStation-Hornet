@@ -288,7 +288,7 @@
 	cost = 500
 	item_path = /obj/item/gun/ballistic/automatic/pistol
 
-/datum/gang_item/weapon/ammo/pistol_ammo
+/datum/gang_item/weapon/pistol_ammo
 	name = "10mm Ammo"
 	id = "pistol_ammo"
 	cost = 50
@@ -300,7 +300,7 @@
 	cost = 500
 	item_path = /obj/item/gun/ballistic/automatic/mini_uzi
 
-/datum/gang_item/weapon/ammo/uzi_ammo
+/datum/gang_item/weapon/uzi_ammo
 	name = "Uzi Ammo"
 	id = "uzi_ammo"
 	cost = 50
@@ -311,8 +311,6 @@
 	id = "laser"
 	cost = 500
 	item_path = /obj/item/gun/energy/laser/retro
-
-/datum/gang_item/weapon/ammo
 
 ///////////////////
 //EQUIPMENT
