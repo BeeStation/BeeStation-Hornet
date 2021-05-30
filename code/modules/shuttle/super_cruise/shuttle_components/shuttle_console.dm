@@ -198,6 +198,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	switch(action)
 		if("setTarget")
 			var/desiredTarget = params["target"]
+			if(shuttleObject.name == desiredTarget)
+				return
 			for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
 				if(object.name == desiredTarget)
 					shuttleObject.shuttleTarget = object
