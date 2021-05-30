@@ -29,10 +29,9 @@
 
 	var/datum/antagonist/gang/G = target.mind.has_antag_datum(/datum/antagonist/gang)
 	if(G)
-		if(G.gang == G)
+		if(G.gang == G || istype(G, /datum/antagonist/gang/boss))
 			return FALSE
-		else if (!istype(G, /datum/antagonist/gang/boss))
-			target.mind.remove_antag_datum(/datum/antagonist/gang)
+		target.mind.remove_antag_datum(/datum/antagonist/gang)
 	target.mind.add_antag_datum(/datum/antagonist/gang, gang)
 	qdel(src)
 	return TRUE
