@@ -299,7 +299,7 @@
 		spawn_antag(G.client, get_turf(src), user.mind)
 		qdel(src)
 	else
-		to_chat(user, "<span class='warning'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>")
+		to_chat(user, "<span class='warning'>No response from headquarters. Please wait and try again later.</span>")
 
 /obj/item/antag_spawner/gangster/proc/check_usability(mob/user)
 	if(used)
