@@ -141,7 +141,7 @@
 					continue
 				V.try_infect(D)
 			for(var/datum/disease/V in D.diseases)
-				if((V.spread_flags & DISEASE_SPREAD_SPECIAL) || (V.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (V.spread_flags & DISEASE_SPREAD_FALTERED))
+				if((V.spread_flags & (DISEASE_SPREAD_SPECIAL|DISEASE_SPREAD_NON_CONTAGIOUS|DISEASE_SPREAD_FALTERED))
 					continue
 				V.try_infect(A)
 			if(prob(10))
