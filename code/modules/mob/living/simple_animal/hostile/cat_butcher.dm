@@ -61,6 +61,7 @@
 			visible_message("[src] attaches a cat tail to [L]!", "<span class='notice'>You attach a tail to [L].</span>")
 			var/obj/item/organ/tail/cat/newtail = new
 			newtail.Insert(L)
+			return
 		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat)) //still does damage. This also lacks a Stat check- felinids beware.
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
 			if(L.is_conscious())
@@ -101,9 +102,15 @@
 			maxHealth = (100 + (20 * LAZYLEN(victims)))
 		else
 			maxHealth = (300 + (5 * (LAZYLEN(victims)-10)))
+<<<<<<< refs/remotes/BeeStation/master
 		switch(LAZYLEN(victims)) 
 			if(2) 
 				projectiletype = /obj/item/projectile/bullet/dart/tranqplus
+=======
+		switch(LAZYLEN(victims))
+			if(2) 
+				projectiletype = /obj/item/projectile/bullet/dart/tranq/plus
+>>>>>>> commit.commit
 			if(4)//gain space adaptation to make cheesing harder
 				atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 				icon_state = "cat_butcher_fire"
@@ -113,7 +120,11 @@
 				rapid_melee = 2
 				transform *= 1.25
 			if(8)
+<<<<<<< refs/remotes/BeeStation/master
 				projectiletype = /obj/item/projectile/bullet/dart/tranqplusplus
+=======
+				projectiletype = /obj/item/projectile/bullet/dart/tranq/plusplus
+>>>>>>> commit.commit
 			if(10)
 				ranged_cooldown_time = 10
 			if(15)//if he's gotten this powerful, someone has really fucked up
@@ -180,22 +191,4 @@
 	if(LAZYLEN(victims) >= 5)
 		say("I made [LAZYLEN(victims)] creations! I have no regrets!!")
 	return..()
-//special darts below this point
-/obj/item/projectile/bullet/dart/tranq
-	name = "tranquilizer dart"
 
-/obj/item/projectile/bullet/dart/tranq/Initialize()
-	. = ..()
-	reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 4) //these'll get the victim wallslamming and then sleep em, but it will take awhile before it puts the victim to sleep
-
-/obj/item/projectile/bullet/dart/tranq/plus
-
-/obj/item/projectile/bullet/dart/tranq/plus/Initialize()
-	. = ..()
-	reagents.add_reagent(/datum/reagent/pax, 1)
-
-/obj/item/projectile/bullet/dart/tranq/plusplus
-	
-/obj/item/projectile/bullet/dart/tranq/plusplus/Initialize()
-	. = ..()
-	reagents.add_reagent(/datum/reagent/pax, 3)
