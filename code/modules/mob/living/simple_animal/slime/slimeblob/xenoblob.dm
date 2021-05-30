@@ -124,6 +124,9 @@
 	for(var/mob/living/M in buckled_mobs) // Eating buckled mobs
 		if(M.stat != DEAD) // If it isn't dead, eat
 			eat(M)
+		else if(locate(/obj/structure/xenoblob/node) in range(1, src)) //Nodes must be at least 1 tile away
+			src.visible_message("<span class='warning'>[src] lets go of [M], as there is already a node nearby!</span>")
+			return
 		else if(!absorbing && M.stat == DEAD) // If buckled mob dead and creep not absorbing, start
 			node_timer = world.time + absorb_time
 			absorbing = TRUE
@@ -192,6 +195,21 @@
 	qdel(src)
 	. = ..()
 
+/obj/structure/xenoblob/creep/proc/find_new_node()
+	if(!owner_node)
+		to_chat(world, "## [src] IS DYING")
+		qdel(src)
+		return
+	var/obj/structure/xenoblob/node/N = locate(/obj/structure/xenoblob/node) in range(owner_node.range, src)
+	if(N && N.frozen == FALSE)
+		owner_node.creeps -= src
+		owner_node = N
+		N.creeps += src
+		to_chat(world, "## [src] FOUND NEW NODE: [N]")
+	else
+		to_chat(world, "## [src] IS DYING")
+		qdel(src)
+
 /*
  * NODE
  */
@@ -213,7 +231,8 @@
 	var/mutation_chance = 100// Chance in % to mutate
 
 	var/frozen = FALSE // If the node is frozen (by an endothermic trimmer) or not, should halt operations but stay alive
-	var/thawing_time = 900 // How long until this node thaws. Might be changed in different slime types
+	var/thawing_time = 90 SECONDS // How long until this node thaws. Might be changed in different slime types -- TESTING
+	var/time_frozen = 0 //When was the node frozen
 	var/desecrated = FALSE // If the node has been completely desecrated by cold. Makes it unharvesable, and won't thaw unless heated to very high temps
 
 	var/obj/structure/xenoblob/node/core/owner_core // What core controls this node. If none (core is killed), probably start becoming a core
@@ -249,14 +268,13 @@
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(src.loc)
 	for(var/obj/structure/xenoblob/creep/C in creeps)
-		C.owner_node = null
-		C.owner_core = null // We don't want it having a core and not having a node.
-		qdel(C)
+		C.find_new_node()
 	return ..()
 
 /obj/structure/xenoblob/node/process()
 	if(frozen || desecrated)
 		anchored = FALSE
+		handle_thawing()
 		return // Don't do process stuff if frozen/super frozen
 	else
 		anchored = TRUE
@@ -284,9 +302,10 @@
 /obj/structure/xenoblob/node/proc/uproot()
 	frozen = TRUE
 	for(var/obj/structure/xenoblob/creep/C in creeps)
-		C.owner_node = null
+		C.find_new_node()
 	owner_core = null	//for now.
 	creeps = null
+	time_frozen = world.time
 
 /obj/structure/xenoblob/node/proc/handle_aggression()
 	var/slime_spawn_chance = owner_core.aggression/100
@@ -296,6 +315,25 @@
 		playsound(src, 'sound/effects/splat.ogg', 50, 1)
 		to_chat(world, "<span class='notice'>[src] spits out [S].</span>")
 		owner_core.controlled_slimes.Add(S)
+
+/obj/structure/xenoblob/node/proc/handle_thawing()
+	if(!frozen)
+		to_chat(world, "## !FROZEN: FALSE")
+		return
+
+	to_chat(world, "## TIME FROZEN: [time_frozen] ## THAWING TIME: [thawing_time] ## WORLD TIME: [world.time]")
+
+	if(time_frozen + thawing_time > world.time)
+		to_chat(world, "## STILL THAWING")
+		return
+	to_chat(world, "## I'M HOT AGAIN")
+	frozen = FALSE
+	anchored = TRUE
+
+	if(!(locate(/obj/structure/xenoblob/creep) in loc)) //Become a new core
+		to_chat(world, "## BECOMING NEW CORE")
+		new /obj/structure/xenoblob/node/core(loc, null, scolor)
+		qdel(src)
 
 /*
  * CORE (node+)
