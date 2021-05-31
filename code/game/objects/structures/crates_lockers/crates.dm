@@ -293,3 +293,10 @@
 	..()
 	for(var/i in 1 to 5)
 		new /obj/item/coin/silver(src)
+
+/obj/structure/closet/crate/maint
+
+/obj/structure/closet/crate/maint/PopulateContents()
+	. = ..()
+	for(var/i in 1 to rand(2,6))
+		new /obj/effect/spawner/lootdrop/maintenance(src)

@@ -1023,7 +1023,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			dropped(M)
 	return ..()
 
-/obj/item/proc/embedded(atom/embedded_target)
+/obj/item/proc/embedded(atom/embedded_target, obj/item/bodypart/part)
 
 /obj/item/proc/unembedded()
 	if(item_flags & DROPDEL)
