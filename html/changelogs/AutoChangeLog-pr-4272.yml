@@ -1,5 +1,0 @@
-author: ''
-delete-after: true
-changes:
-  - server: Compiler version is now 514.1554. Players are encouraged to stay on 513
-      for now.
