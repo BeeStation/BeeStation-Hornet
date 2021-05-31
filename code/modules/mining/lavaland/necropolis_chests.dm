@@ -653,6 +653,8 @@
 				if(wings.flight_level <= WINGS_FLIGHTLESS)
 					wings.flight_level += 1 //upgrade the flight level
 					wings.Refresh(H) //they need to insert to get the flight emote
+				if(!exposed_carbon.dna.features["original_moth_wings"]) //Stores their wings for later possible reconstruction
+					exposed_carbon.dna.features["original_moth_wings"] = exposed_carbon.dna.features["moth_wings"]
 			else
 				if(MOB_ROBOTIC in H.mob_biotypes)
 					var/obj/item/organ/wings/cybernetic/newwings = new()
