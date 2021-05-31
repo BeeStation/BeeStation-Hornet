@@ -130,7 +130,7 @@
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if (shot.select_name)
-		to_chat(user, "<span class='notice'>[src] is now set to [shot.select_name].</span>")
+		balloon_alert(user, "Set to [shot.select_name]")
 	chambered = null
 	recharge_newshot(TRUE)
 	update_icon(TRUE)
