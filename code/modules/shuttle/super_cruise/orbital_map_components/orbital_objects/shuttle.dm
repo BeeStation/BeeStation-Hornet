@@ -136,3 +136,8 @@
 		return
 	//Begin docking.
 	docking_target = docking
+	//Check for ruin stuff
+	var/datum/orbital_object/z_linked/beacon/ruin/ruin_obj = docking_target
+	if(istype(ruin_obj))
+		if(!ruin_obj.linked_z_level)
+			ruin_obj.assign_z_level()

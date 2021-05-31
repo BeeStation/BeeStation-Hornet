@@ -1,0 +1,495 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/window/reinforced/spawner{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"b" = (
+/obj/structure/chair/sofa/right{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"c" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"d" = (
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"e" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/obj/structure/chair/sofa/left{
+	dir = 8
+	},
+/obj/structure/window/reinforced/spawner{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"f" = (
+/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"g" = (
+/obj/structure/chair/sofa/right{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"h" = (
+/obj/item/beacon,
+/obj/structure/chair/wood,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"i" = (
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"j" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/food/snacks/pizzaslice/pineapple{
+	pixel_x = -2;
+	pixel_y = 9
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"k" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"l" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"m" = (
+/obj/structure/sign/barsign{
+	pixel_y = 32
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"n" = (
+/obj/machinery/newscaster{
+	pixel_y = -30
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"o" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"p" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/beer{
+	pixel_x = -9;
+	pixel_y = 4
+	},
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"q" = (
+/obj/structure/chair/wood,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"r" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -30
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"t" = (
+/obj/item/radio/intercom{
+	pixel_x = -26
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/obj/structure/window/reinforced/spawner{
+	dir = 8
+	},
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"v" = (
+/obj/structure/sign/poster/random{
+	pixel_y = 32
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"w" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Bar"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"x" = (
+/obj/structure/table/wood,
+/obj/item/modular_computer/laptop/preset/civillian,
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"y" = (
+/obj/machinery/newscaster{
+	pixel_x = 30
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"z" = (
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"B" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"C" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/obj/machinery/newscaster{
+	pixel_y = -30
+	},
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"D" = (
+/obj/structure/chair/sofa/right{
+	dir = 4
+	},
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"E" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"F" = (
+/obj/machinery/light_switch{
+	pixel_x = 26
+	},
+/obj/machinery/firealarm{
+	pixel_y = -24
+	},
+/obj/machinery/vending/cola/random,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"G" = (
+/obj/structure/chair/sofa/left,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"H" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = -1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"I" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"J" = (
+/obj/machinery/vending/coffee,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"M" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"N" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = -4;
+	pixel_y = 2
+	},
+/turf/open/floor/carpet/green,
+/area/ruin/unpowered)
+"O" = (
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"S" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 30
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"T" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Bar"
+	},
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"U" = (
+/obj/structure/chair/sofa/right,
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = -2
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"V" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"W" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"Y" = (
+/obj/structure/window/reinforced/spawner{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"Z" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Bar"
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(2,1,1) = {"
+Z
+B
+U
+p
+i
+r
+w
+o
+l
+t
+"}
+(3,1,1) = {"
+T
+d
+G
+c
+O
+d
+w
+o
+l
+I
+"}
+(4,1,1) = {"
+Z
+d
+d
+d
+d
+d
+w
+o
+l
+l
+"}
+(5,1,1) = {"
+M
+d
+d
+d
+d
+d
+M
+M
+M
+M
+"}
+(6,1,1) = {"
+M
+v
+d
+d
+d
+d
+d
+z
+D
+M
+"}
+(7,1,1) = {"
+M
+m
+d
+d
+d
+d
+d
+x
+n
+M
+"}
+(8,1,1) = {"
+M
+W
+d
+d
+d
+d
+d
+b
+a
+M
+"}
+(9,1,1) = {"
+Y
+f
+d
+h
+j
+V
+d
+u
+g
+M
+"}
+(10,1,1) = {"
+Y
+f
+d
+d
+d
+d
+d
+N
+C
+M
+"}
+(11,1,1) = {"
+Y
+f
+d
+q
+H
+V
+d
+b
+e
+M
+"}
+(12,1,1) = {"
+Y
+f
+d
+d
+d
+d
+d
+d
+d
+M
+"}
+(13,1,1) = {"
+M
+v
+d
+d
+d
+d
+d
+d
+d
+E
+"}
+(14,1,1) = {"
+M
+k
+d
+d
+y
+d
+S
+J
+F
+M
+"}
+(15,1,1) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}

@@ -42,6 +42,8 @@ SUBSYSTEM_DEF(zclear)
 			continue
 		//Level is free, do the wiping thing.
 		LAZYREMOVE(autowipe, level)
+		//Reset orbital body.
+		QDEL_NULL(level.orbital_body)
 		//Continue tracking after
 		wipe_z_level(level.z_value, TRUE)
 
@@ -66,11 +68,11 @@ SUBSYSTEM_DEF(zclear)
 		if(free)
 			return picked_level
 	//Create a new z-level
-	free_levels += SSmapping.add_new_zlevel("Dynamic free level [LAZYLEN(free_levels)]", ZTRAITS_SPACE, orbital_body_type = null)
+	LAZYADD(free_levels, SSmapping.add_new_zlevel("Dynamic free level [LAZYLEN(free_levels)]", ZTRAITS_SPACE, orbital_body_type = null))
 	message_admins("SSORBITS: Created a new dynamic free level ([LAZYLEN(free_levels)] now created) as none were available at the time.")
 
 /datum/controller/subsystem/zclear/proc/begin_tracking(datum/space_level/sl)
-	autowipe |= sl
+	LAZYOR(autowipe, sl)
 
 
 /*
@@ -120,9 +122,11 @@ SUBSYSTEM_DEF(zclear)
 	var/list_element = (cleardata.process_num % (CLEAR_TURF_PROCESSING_TIME * 0.5)) + 1
 	switch(cleardata.process_num)
 		if(0 to (CLEAR_TURF_PROCESSING_TIME*0.5)-1)
-			reset_turfs(cleardata.divided_turfs[list_element])
+			if(list_element <= length(cleardata.divided_turfs))
+				reset_turfs(cleardata.divided_turfs[list_element])
 		if((CLEAR_TURF_PROCESSING_TIME*0.5) to (CLEAR_TURF_PROCESSING_TIME-1))
-			clear_turf_atoms(cleardata.divided_turfs[list_element])
+			if(list_element <= length(cleardata.divided_turfs))
+				clear_turf_atoms(cleardata.divided_turfs[list_element])
 		else
 			//Done
 			LAZYREMOVE(processing_levels, cleardata)
@@ -151,6 +155,8 @@ SUBSYSTEM_DEF(zclear)
 				var/obj/structure/cable/cable = thing
 				cable.powernet = null
 			if(ismob(thing))
+				if(!isliving(thing))
+					continue
 				var/mob/living/M = thing
 				if(M.key)
 					//If the mob has a key (but is DC) then teleport them to a safe z-level where they can potentially be retrieved.

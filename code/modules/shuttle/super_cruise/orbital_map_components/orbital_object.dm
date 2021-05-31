@@ -42,6 +42,9 @@
 		START_PROCESSING(SSorbits, src)
 	//Add to orbital map
 	SSorbits.orbital_map?.bodies += src
+	//If orbits has already setup, then post map setup
+	if(SSorbits.orbits_setup)
+		post_map_setup()
 
 /datum/orbital_object/Destroy()
 	STOP_PROCESSING(SSorbits, src)

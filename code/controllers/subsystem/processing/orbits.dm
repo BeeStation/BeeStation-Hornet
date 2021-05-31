@@ -12,13 +12,18 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/initial_objective_beacons = 4
 
+	var/orbits_setup = FALSE
+
 	//key = port_id
 	//value = orbital shuttle object
 	var/list/assoc_shuttles = list()
 
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
 	orbital_map.post_setup()
+	orbits_setup = TRUE
 	//Create initial ruins
+	for(var/i in 1 to initial_objective_beacons)
+		new /datum/orbital_object/z_linked/beacon/ruin()
 
 /datum/controller/subsystem/processing/orbits/fire(resumed)
 	//Check creating objectives / missions.

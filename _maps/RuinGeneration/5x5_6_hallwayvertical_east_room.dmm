@@ -2,6 +2,12 @@
 "h" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"E" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "M" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
@@ -47,7 +53,7 @@ Q
 (5,1,1) = {"
 h
 h
-h
+E
 h
 h
 "}

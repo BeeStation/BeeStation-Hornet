@@ -144,11 +144,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				"id" = "custom_location"
 			))
 		for(var/obj/docking_port/stationary/stationary_port as() in SSshuttle.stationary)
-			if(stationary_port.z == shuttleObject.docking_target.linked_z_level.z_value && (stationary_port.id in valid_docks))
-				data["validDockingPorts"] += list(list(
-					"name" = stationary_port.name,
-					"id" = stationary_port.id,
-				))
+			if(shuttleObject.docking_target.linked_z_level)
+				if(stationary_port.z == shuttleObject.docking_target.linked_z_level.z_value && (stationary_port.id in valid_docks))
+					data["validDockingPorts"] += list(list(
+						"name" = stationary_port.name,
+						"id" = stationary_port.id,
+					))
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_act(action, params)
@@ -179,7 +180,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					return
 				//Locate the orbital object
 				for(var/datum/orbital_object/z_linked/z_linked in SSorbits.orbital_map.bodies)
-					if(z_linked.linked_z_level.z_value == target_port.z)
+					if(z_linked.linked_z_level?.z_value == target_port.z)
 						if(!SSorbits.assoc_shuttles.Find(shuttleId))
 							//Launch the shuttle
 							if(!launch_shuttle())
@@ -302,6 +303,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
 		return shuttleObject
 	shuttleObject = mobile_port.enter_supercruise()
+	if(!shuttleObject)
+		say("Failed to enter supercruise due to an unknown error.")
+		return
 	shuttleObject.valid_docks = valid_docks
 	return shuttleObject
 

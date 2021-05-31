@@ -2,6 +2,12 @@
 "h" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"m" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "M" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
@@ -9,6 +15,12 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Q" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"S" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
@@ -19,7 +31,7 @@
 (1,1,1) = {"
 h
 h
-h
+S
 h
 h
 "}
@@ -47,7 +59,7 @@ Q
 (5,1,1) = {"
 h
 h
-h
+m
 h
 h
 "}
