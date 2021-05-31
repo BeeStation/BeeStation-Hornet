@@ -16,21 +16,23 @@
 				<HR>
 				<b>Implant Details:</b><BR>
 				<b>Function:</b> Contains a small pod of nanobots that change the host's brain to be loyal to a certain organization.<BR>
-				<b>Special Features:</b> This device will also emit a small EMP pulse, destroying any other implants within the host's brain.<BR>
+				<b>Special Features:</b> This device also contains healing nanites that can revive people already loyal to the organization.<BR>
 				<b>Integrity:</b> Implant's EMP function will destroy itself in the process."}
 	return dat
 
 /obj/item/implant/gang/implant(mob/living/target, mob/user, silent = 0)
 	if(!target || !target.mind || target.stat == DEAD)
 		return 0
+	if (HAS_TRAIT(target, TRAIT_MINDSHIELD))
+		target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You resist the gang implant. You are reminded of the anti-gang PSA instead.</span>")
+		return FALSE
 	var/datum/antagonist/gang/G = target.mind.has_antag_datum(/datum/antagonist/gang)
 	if(G && G.gang == G)
-		return 0 // it's pointless
+		if (target.stat == DEAD)
+			target.revive(1,1)					
+			return TRUE
+		return FALSE // it's pointless
 	if(..())
-		for(var/obj/item/implant/I in target.implants)
-			if(I != src)
-				qdel(I)
-
 		if(ishuman(target))
 			var/success
 			if(G)
