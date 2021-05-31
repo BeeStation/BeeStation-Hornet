@@ -2003,18 +2003,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/security/armory)
-"aet" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 10
-	},
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "aeu" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -22365,18 +22353,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"bkA" = (
-/obj/effect/landmark/event_spawn,
-/mob/living/simple_animal/bot/secbot{
-	arrest_type = 1;
-	health = 45;
-	icon_state = "secbot1";
-	idcheck = 1;
-	name = "Sergeant-at-Armsky";
-	weaponscheck = 1
-	},
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "bkB" = (
 /obj/machinery/button/door{
 	id = "Disposal Exit";
@@ -51837,6 +51813,27 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
+"kjc" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 10
+	},
+/obj/effect/landmark/event_spawn,
+/mob/living/simple_animal/bot/secbot{
+	arrest_type = 1;
+	health = 45;
+	icon_state = "secbot1";
+	idcheck = 1;
+	name = "Sergeant-at-Armsky";
+	weaponscheck = 1
+	},
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "kjY" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -60088,6 +60085,10 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"ujV" = (
+/obj/machinery/rnd/production/protolathe/department/armory,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "ukw" = (
 /obj/machinery/door/airlock/external{
 	name = "Security External Airlock";
@@ -93484,7 +93485,7 @@ aaZ
 abI
 ack
 coS
-aet
+kjc
 cxA
 aeY
 kQd
@@ -93997,7 +93998,7 @@ aaa
 aaZ
 abN
 ack
-bkA
+ujV
 acF
 aes
 avB

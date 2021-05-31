@@ -4751,20 +4751,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"alA" = (
-/obj/machinery/flasher/portable,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "alB" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -60015,6 +60001,21 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/department/science)
+"mYj" = (
+/obj/machinery/flasher/portable,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/flasher/portable,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "mZE" = (
 /turf/open/space/basic,
 /area/space/nearstation)
@@ -66126,6 +66127,20 @@
 	},
 /turf/open/floor/wood,
 /area/lawoffice)
+"xeR" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/rnd/production/protolathe/department/armory,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "xgG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -89250,7 +89265,7 @@ aiL
 ajg
 ajP
 akL
-alA
+xeR
 amh
 amV
 anF
@@ -90278,7 +90293,7 @@ aiO
 ajj
 ajT
 akP
-alA
+mYj
 amj
 amZ
 anJ

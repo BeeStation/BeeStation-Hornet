@@ -618,7 +618,7 @@
 		/obj/item/stock_parts/cell = 1)
 	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 	needs_anchored = FALSE
-	
+
 /obj/item/circuitboard/machine/chem_dispenser/fullupgrade
 	build_path = /obj/machinery/chem_dispenser/fullupgrade
 	req_components = list(
@@ -972,6 +972,11 @@
 	name = "departmental techfab - security (Machine Board)"
 	icon_state = "security"
 	build_path = /obj/machinery/rnd/production/techfab/department/security
+
+/obj/item/circuitboard/machine/protolathe/department/armory
+	name = "departmental protolathe - Armory (Machine Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/rnd/production/protolathe/department/armory
 
 
 //Service

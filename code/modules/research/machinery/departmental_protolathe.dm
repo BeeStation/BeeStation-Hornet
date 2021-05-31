@@ -41,3 +41,9 @@
 	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_SECURITY
 	department_tag = "Security"
 	circuit = /obj/item/circuitboard/machine/protolathe/department/security
+
+/obj/machinery/rnd/production/protolathe/department/armory
+	name="department protolathe (Armory)"
+	allowed_department_flags = DEPARTMENTAL_FLAG_ALL|DEPARTMENTAL_FLAG_ARMORY
+	department_tag = "Armory"
+	circuit = /obj/item/circuitboard/machine/protolathe/department/armory
