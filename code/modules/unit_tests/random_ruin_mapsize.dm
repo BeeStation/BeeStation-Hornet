@@ -7,6 +7,6 @@
 		Fail("Ruin maps failed to load")
 	for(var/datum/map_template/ruin_part/part in GLOB.loaded_ruin_parts)
 		if((part.width - 1) % 4 != 0)
-			Fail("Ruin [file_name] width is not of size 4N+1")
+			Fail("Ruin [part.file_name] width is not of size 4N+1")
 		if((part.height - 1) % 4 != 0)
-			Fail("Ruin [file_name] height is not of size 4N+1")
+			Fail("Ruin [part.file_name] height is not of size 4N+1")
