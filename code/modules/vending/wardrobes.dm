@@ -368,6 +368,7 @@
 					/obj/item/clothing/under/rank/civilian/lawyer/blue = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/blue/skirt = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/red = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/red/skirt = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/black = 1,
 					/obj/item/clothing/suit/aristo_orange = 1,
 				   	/obj/item/clothing/suit/aristo_red = 1,

@@ -39,11 +39,11 @@
 	item_color = "blackslacks"
 
 /obj/item/clothing/under/suit/black/skirt
-	name = "black suitskirt"
-	desc = "A professional black suit. Nanotrasen Investigation Bureau approved!"
-	icon_state = "blacksuit_skirt"
+	name = "executive skirt"
+	desc = "A professional black skirt. Nanotrasen Investigation Bureau approved!"
+	icon_state = "really_black_suit_skirt"
 	item_state = "bar_suit"
-	item_color = "blacksuit_skirt"
+	item_color = "really_black_suit_skirt"
 	alt_covers_chest = TRUE
 	fitted = FEMALE_UNIFORM_TOP
 

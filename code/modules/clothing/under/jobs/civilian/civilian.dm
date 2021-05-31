@@ -93,6 +93,14 @@
 	item_color = "teal_suit"
 	can_adjust = FALSE
 
+/obj/item/clothing/under/rank/civilian/head_of_personnel/suit/skirt
+	name = "head of personnel's suit"
+	desc = "A teal suit and yellow necktie. An authoritative yet tacky ensemble."
+	icon_state = "teal_suit_skirt"
+	item_state = "g_suit"
+	item_color = "teal_suit_skirt"
+	can_adjust = FALSE
+
 /obj/item/clothing/under/rank/civilian/hydroponics
 	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
 	name = "botanist's jumpsuit"
@@ -174,12 +182,11 @@
 	icon_state = "lawyer_red"
 	item_state = "lawyer_red"
 	item_color = "lawyer_red"
-
-/obj/item/clothing/under/rank/civilian/lawyer/blue/skirt
-	name = "lawyer blue suitskirt"
-	icon_state = "lawyer_blue_skirt"
-	item_state = "lawyer_blue"
-	item_color = "lawyer_blue_skirt"
+/obj/item/clothing/under/rank/civilian/lawyer/red/skirt
+	name = "lawyer red suit"
+	icon_state = "lawyer_red_skirt"
+	item_state = "lawyer_red"
+	item_color = "lawyer_red_skirt"
 	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/rank/civilian/lawyer/blue
@@ -187,6 +194,13 @@
 	icon_state = "lawyer_blue"
 	item_state = "lawyer_blue"
 	item_color = "lawyer_blue"
+
+/obj/item/clothing/under/rank/civilian/lawyer/blue/skirt
+	name = "lawyer blue suitskirt"
+	icon_state = "lawyer_blue_skirt"
+	item_state = "lawyer_blue"
+	item_color = "lawyer_blue_skirt"
+	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/lawyer/bluesuit/skirt
 	name = "blue suitskirt"
