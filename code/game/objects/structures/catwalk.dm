@@ -22,9 +22,9 @@
 	if(C.tool_behaviour == TOOL_WELDER)
 		if(!C.tool_start_check(user, amount=0))
 			return FALSE
-		to_chat(user, "<span class='notice'>You begin slicing through the outer plating...</span>")
+		balloon_alert(user, "You start slicing through outer plating")
 		if(C.use_tool(src, user, 25, volume=100))
-			to_chat(user, "<span class='notice'>You slice off [src]</span>")
+			balloon_alert(user, "[src] sliced off")
 			deconstruct()
 			return TRUE
 
