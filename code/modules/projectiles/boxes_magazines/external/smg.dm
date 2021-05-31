@@ -74,3 +74,8 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = ".45"
 	max_ammo = 50
+
+/obj/item/ammo_box/magazine/tommygunm45/box
+	name = "box magazine (.45)"
+	max_ammo = 30
+	icon_state = "box45"

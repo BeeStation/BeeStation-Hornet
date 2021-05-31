@@ -161,6 +161,20 @@
 
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 
+/obj/item/gun/ballistic/revolver/webley
+	name = "Webley revolver"
+	desc = "An old model of revolver that was originated in Britain. Able to be suppressed. Uses .38 ammo."
+	icon_state = "detective_panther"
+	fire_sound = 'sound/weapons/revolver38shot.ogg'
+	can_suppress = TRUE
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
+
+/obj/item/gun/ballistic/revolver/webley/update_icon()
+	. = ..()
+	if (suppressed)
+		icon_state = "detective_panther_moved"
+	else
+		icon_state = initial(icon_state)
 
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.

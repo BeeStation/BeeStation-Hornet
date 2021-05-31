@@ -186,7 +186,7 @@
 	name = "\improper Thompson SMG"
 	desc = "Based on the classic 'Chicago Typewriter'."
 	icon_state = "tommygun"
-	item_state = "shotgun"
+	item_state = "tommygun"
 	w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
@@ -195,6 +195,10 @@
 	can_suppress = FALSE
 	bolt_type = BOLT_TYPE_OPEN
 	block_upgrade_walk = 1
+	special_mags = TRUE
+
+/obj/item/gun/ballistic/automatic/tommygun/nomag
+	spawnwithmagazine = FALSE
 
 /obj/item/gun/ballistic/automatic/ar
 	name = "\improper NT-ARG 'Boarder'"

@@ -46,6 +46,10 @@
 	caliber = "9mm"
 	max_ammo = 15
 
+/obj/item/ammo_box/magazine/pistolm9mm/luger
+	name = "luger pistol magazine (9mm)"
+	max_ammo = 8
+
 /obj/item/ammo_box/magazine/pistolm9mm/update_icon()
 	..()
 	icon_state = "9x19p-[ammo_count() ? "8" : "0"]"
@@ -57,3 +61,13 @@
 	caliber = ".50"
 	max_ammo = 7
 	multiple_sprites = 1
+
+/obj/item/gun/ballistic/automatic/pistol/luger
+	name = "luger"
+	desc = "scheise!"
+	icon_state = "luger"
+	w_class = WEIGHT_CLASS_SMALL
+	mag_type = /obj/item/ammo_box/magazine/pistolm9mm/luger
+
+/obj/item/gun/ballistic/automatic/pistol/luger/nomag
+	spawnwithmagazine = FALSE

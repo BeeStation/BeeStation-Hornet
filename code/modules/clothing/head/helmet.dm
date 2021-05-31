@@ -292,6 +292,12 @@
 	armor = list("melee" = 25, "bullet" = 30, "laser" = 0, "energy" = 15, "bomb" = 10, "bio" = 0, "rad" = 20, "fire" = 20, "acid" = 50, "stamina" = 20)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/helmet
 
+/obj/item/clothing/head/helmet/rus_helmet/black
+	name = "black helmet"
+	desc = "Protects and goes well with a black-red gasmask. Can hold a small item."
+	icon_state = "notrus_helmet"
+	item_state = "notrus_helmet"
+
 /obj/item/clothing/head/helmet/rus_ushanka
 	name = "battle ushanka"
 	desc = "100% bear."

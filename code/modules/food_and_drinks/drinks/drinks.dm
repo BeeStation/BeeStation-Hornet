@@ -440,6 +440,11 @@
 	volume = 30
 	spillable = TRUE
 
+/obj/item/reagent_containers/food/drinks/britcup/healing
+	name = "British cup"
+	desc = "A cup with the British flag emblazoned on it. It contains special British tea that is mixed with omnizine to keep you and your lads on their feet."
+	list_reagents = list(/datum/reagent/consumable/tea = 15, /datum/reagent/medicine/omnizine = 15)
+
 
 //////////////////////////soda_cans//
 //These are in their own group to be used as IED's in /obj/item/grenade/ghettobomb.dm

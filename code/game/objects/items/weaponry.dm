@@ -260,6 +260,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 /obj/item/katana/cursed
 	slot_flags = null
 
+/obj/item/katana/compact
+	name = "compact katana"
+	desc = "Woefully underpowered in D20. This one comes in a smaller variant to fit into belt slot or backpacks and therefore has less power than a normal katana."
+	force = 35
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!</span>")
 	return(BRUTELOSS)

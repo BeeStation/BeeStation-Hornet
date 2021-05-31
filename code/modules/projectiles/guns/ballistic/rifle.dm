@@ -107,3 +107,18 @@
 		user.put_in_hands(gun)
 	else
 		user.dropItemToGround(src, TRUE)
+
+/obj/item/gun/ballistic/rifle/boltaction/japanese
+	name = "type99"
+	desc = "Looks similar to Mosin Nagant, but it feels like it wasn't made in the same place."
+	icon_state = "type999"
+	item_state = "type999"
+
+/obj/item/gun/ballistic/rifle/boltaction/leeenfield
+	name = "lee-enfield rifle"
+	desc = "A bolt-action rifle with a scope. It makes you feel british."
+	icon_state = "leeenfield"
+	item_state = "leeenfield"
+	zoomable = TRUE
+	zoom_amt = 10 //What sniper's comment say
+	zoom_out_amt = 5

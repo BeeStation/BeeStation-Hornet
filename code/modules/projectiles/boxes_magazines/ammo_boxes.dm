@@ -70,6 +70,9 @@
 	max_ammo = 5
 	multiple_sprites = 1
 
+/obj/item/ammo_box/a762/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/n762
 	name = "ammo box (7.62x38mmR)"
 	icon_state = "10mmbox"

@@ -53,6 +53,67 @@
 	icon_state = "syndicate"
 	strip_delay = 60
 
+/obj/item/clothing/mask/gas/syndicate/xrayvis
+	name = "black-red gasmask"
+	desc = "A military-grade gas mask that can be connected to an air supply. This one appears to look really suspicious."
+	icon_state = "gas_red_old"
+	strip_delay = 60
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 20, "acid" = 40)
+	resistance_flags = FIRE_PROOF
+	var/act_cooldown = 0
+	var/act_cooldown_time = 150
+	var/xray_duration = 40
+	var/vchange = 1
+	var/activated = FALSE
+	modifies_speech = TRUE
+	actions_types = list(/datum/action/item_action/darkgasmask)
+
+/obj/item/clothing/mask/gas/syndicate/xrayvis/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Activating it from UI gives X-ray vision for [xray_duration / 10] seconds. Cooldown is [act_cooldown_time / 10] seconds.</span>"
+
+/obj/item/clothing/mask/gas/syndicate/xrayvis/ui_action_click(mob/user, action)
+	if(activated)
+		return
+	activate()
+
+/datum/action/item_action/darkgasmask
+	name = "Activate the mask"
+	desc = "Activates supervision. You can't take off the mask while it's active."
+	icon_icon = 'icons/mob/actions/actions_items.dmi'
+	button_icon_state = "maskthermal"
+
+/obj/item/clothing/mask/gas/syndicate/xrayvis/verb/activate(mob/user)
+	set category = "Object"
+	set name = "Activate supervision"
+	set src in usr
+	if(!isliving(usr))
+		return
+	if(activated)
+		return
+	if(act_cooldown > world.time)
+		return to_chat(usr, "<span class='danger'>[src] is recharging!</span>")
+	activated = TRUE
+	act_cooldown = world.time + act_cooldown_time
+	ADD_TRAIT(src, TRAIT_NODROP, CURSED_MASK_TRAIT)
+	ADD_TRAIT(usr, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
+	ADD_TRAIT(usr, TRAIT_XRAY_VISION, GENETIC_MUTATION)
+	usr.update_icon()
+	usr.update_sight()
+	icon_state += "_activated"
+	playsound(get_turf(src), 'sound/items/maskactivate.ogg', 20, 0)
+	to_chat(usr, "<span class='notice'>You activate the supervision on [src]!</span>")
+	sleep(xray_duration)
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_MASK_TRAIT)
+	REMOVE_TRAIT(usr, TRAIT_THERMAL_VISION, GENETIC_MUTATION)
+	REMOVE_TRAIT(usr, TRAIT_XRAY_VISION, GENETIC_MUTATION)
+	usr.update_sight()
+	usr.update_icon()
+	icon_state = initial(icon_state)
+	playsound(get_turf(src), 'sound/items/maskdeactivate.ogg', 20, 0)
+	to_chat(usr, "<span class='notice'>Supervision deactivates!</span>")
+	activated = FALSE
+
 /obj/item/clothing/mask/gas/clown_hat
 	name = "clown wig and mask"
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
