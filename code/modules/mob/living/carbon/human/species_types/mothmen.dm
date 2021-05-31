@@ -40,3 +40,11 @@
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 9 //flyswatters deal 10x damage to moths
 	return 0
+
+/datum/species/moth/spec_fully_heal(mob/living/carbon/human/H)
+	. = ..()
+	if(H.dna.features["original_moth_wings"] != null)
+		H.dna.features["moth_wings"] = H.dna.features["original_moth_wings"]
+	if(H.dna.features["original_moth_wings"] == null && H.dna.features["moth_wings"] == "Burnt Off")
+		H.dna.features["moth_wings"] = "Plain"
+	handle_mutant_bodyparts(H)
