@@ -174,10 +174,9 @@
 			if(I.restricted_species && !I.discounted && ishuman(user))
 				var/is_inaccessible = TRUE
 				var/mob/living/carbon/human/H = user
-				for(var/F in I.restricted_species)
-					if(F == H.dna.species.id || debug)
-						is_inaccessible = FALSE
-						break
+				if(locate(H.dna.species.id) in I.restricted_species)
+					is_inaccessible = FALSE
+					break
 				if(is_inaccessible)
 					continue
 			if(I.restricted_roundstart_traits && !I.discounted && ishuman(user))
