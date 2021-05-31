@@ -15,8 +15,8 @@
 /datum/ductnet/proc/remove_duct(obj/machinery/duct/ducting)
 	destroy_network(FALSE)
 	for(var/obj/machinery/duct/D in ducting.neighbours)
-		D.reconnect()
-		D.generate_connects()
+		INVOKE_ASYNC(D, /obj/machinery/duct.proc/reconnect)
+		INVOKE_ASYNC(D, /obj/machinery/duct.proc/generate_connects)
 	qdel(src)
 ///add a plumbing object to either demanders or suppliers
 /datum/ductnet/proc/add_plumber(datum/component/plumbing/P, dir)
