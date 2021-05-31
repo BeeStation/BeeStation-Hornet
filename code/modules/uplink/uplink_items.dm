@@ -763,12 +763,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops) //nukies lose their pacifism trait at roundstart, it would be counterintuitive and cheesy to add this in
 
 /datum/uplink_item/stealthy_weapons/pacifist/restricted
-	category = "Discounts"
+	category = "Discounted Gear"
 	desc = "This scroll contains the secrets of the ancient martial arts technique of the Paci-Fist. You will learn \
 			various ways to disarm and pacify your foes. Normally costs 16TC, discounted especially for you."
 	cost = 10
 	surplus = 0
+	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	restricted_roundstart_traits = list(TRAIT_PACIFISM) // Discounted for roundstart trait pacifists, since they already have irrevertible pacifism.
+	restricted = TRUE
 
 /datum/uplink_item/stealthy_weapons/radbow
 	name = "Gamma-Bow"
