@@ -145,6 +145,7 @@
 	if(prob(80))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, 4)
 		disease += R
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_SLUDGE, CELL_VIRUS_TABLE_GENERIC, rand(2,4), 10)
 
 /obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!disease.len)
