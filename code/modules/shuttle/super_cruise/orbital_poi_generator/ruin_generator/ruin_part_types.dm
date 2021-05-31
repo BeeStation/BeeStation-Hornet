@@ -110,3 +110,7 @@
 /datum/map_template/ruin_part/donutroom
 	file_name = "13x13_donutroom"
 	weight = 4
+
+/datum/map_template/ruin_part/singularity
+	file_name = "21x21_singularity"
+	weight = 1
