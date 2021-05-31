@@ -459,8 +459,7 @@
 			var/confirm = alert(user, "Reading this scroll will make you devote yourself to a lifestyle of pacifism, you will be unable to cause any harm to any living thing after reading it.", "Read the scroll?", "Abort", "Proceed")
 			if(confirm != "Proceed")
 				return TRUE
-			else
-				return FALSE
+			return FALSE
 
 /obj/item/book/granter/martial/pacifist/onlearned(mob/living/carbon/user)
 	..()
