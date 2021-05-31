@@ -127,19 +127,13 @@
 	var/atom/A = parent
 
 	if(isgrenade(parent)) // handle_martyrs can reduce the radius and thus the number of pellets we produce if someone dives on top of a frag grenade
-		handle_martyrs(punishable_triggerer) // note that we can modify radius in this proc
+		INVOKE_ASYNC(src, .proc/handle_martyrs, triggerer) // note that we can modify radius in this proc
 	else if(islandmine(parent))
 		var/obj/effect/mine/shrapnel/triggered_mine = parent
 		if(triggered_mine.shred_triggerer && istype(punishable_triggerer)) // free shrapnel for the idiot who stepped on it if we're a mine that shreds the triggerer
 			pellet_delta += radius // so they don't count against the later total
 			for(var/i in 1 to radius)
-				pew(punishable_triggerer, TRUE)
-	else if(islandmine(parent))
-		var/obj/effect/mine/shrapnel/triggered_mine = parent
-		if(triggered_mine.shred_triggerer && istype(punishable_triggerer)) // free shrapnel for the idiot who stepped on it if we're a mine that shreds the triggerer
-			pellet_delta += radius // so they don't count against the later total
-			for(var/i in 1 to radius)
-				pew(punishable_triggerer, TRUE)
+				INVOKE_ASYNC(src, .proc/pew, triggerer, TRUE)
 
 	if(radius < 1)
 		return
@@ -149,7 +143,7 @@
 
 	for(var/T in all_the_turfs_were_gonna_lacerate)
 		var/turf/shootat_turf = T
-		pew(shootat_turf)
+		INVOKE_ASYNC(src, .proc/pew, shootat_turf)
 
 /**
   * handle_martyrs() is used for grenades that shoot shrapnel to check if anyone threw themselves/were thrown on top of the grenade, thus absorbing a good chunk of the shrapnel
