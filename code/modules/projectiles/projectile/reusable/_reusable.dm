@@ -4,6 +4,8 @@
 	impact_effect_type = null
 	embedding = null
 	shrapnel_type = null
+	var/ammo_type = /obj/item/ammo_casing/caseless
+	var/dropped = FALSE
 
 /obj/item/projectile/bullet/reusable/on_hit(atom/target, blocked = FALSE)
 	. = ..()
