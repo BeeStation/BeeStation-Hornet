@@ -768,7 +768,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			various ways to disarm and pacify your foes. Normally costs 16TC, discounted especially for you."
 	cost = 10
 	surplus = 0
-	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
 	restricted_roundstart_traits = list(TRAIT_PACIFISM) // Discounted for roundstart trait pacifists, since they already have irrevertible pacifism.
 	restricted = TRUE
 

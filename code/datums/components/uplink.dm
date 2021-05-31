@@ -164,17 +164,18 @@
 			var/datum/uplink_item/I = uplink_items[category][item]
 			if(I.limited_stock == 0)
 				continue
-			if(I.restricted_roles.len && !I.discounted)
+			if(I.restricted_roles.len && !I.discounted && ishuman(user))
 				var/is_inaccessible = TRUE
-				for(var/R in I.restricted_roles)
-					if(R == user.mind.assigned_role || debug)
-						is_inaccessible = FALSE
+				var/mob/living/carbon/human/H = user
+				if(locate(H.mind.assigned_role) in I.restricted_roles || debug)
+					is_inaccessible = FALSE
+					break
 				if(is_inaccessible)
 					continue
 			if(I.restricted_species && !I.discounted && ishuman(user))
 				var/is_inaccessible = TRUE
 				var/mob/living/carbon/human/H = user
-				if(locate(H.dna.species.id) in I.restricted_species)
+				if(locate(H.dna.species.id) in I.restricted_species || debug)
 					is_inaccessible = FALSE
 					break
 				if(is_inaccessible)
@@ -182,12 +183,11 @@
 			if(I.restricted_roundstart_traits && !I.discounted && ishuman(user))
 				var/is_inaccessible = TRUE
 				var/mob/living/carbon/human/H = user
-				for(var/T in I.restricted_roundstart_traits)
-					if(HAS_TRAIT_FROM_ONLY(H, T, ROUNDSTART_TRAIT) || debug)
-						is_inaccessible = FALSE
-						break
-					if(is_inaccessible)
-						continue
+				if(locate(H.roundstart_quirks) in I.restricted_roundstart_traits || debug)
+					is_inaccessible = FALSE
+					break
+				if(is_inaccessible)
+					continue
 			cat["items"] += list(list(
 				"name" = I.name,
 				"cost" = I.cost,
