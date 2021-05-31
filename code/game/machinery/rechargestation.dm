@@ -103,6 +103,7 @@
 /obj/machinery/recharge_station/proc/process_occupant()
 	if(!occupant)
 		return
+	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed * delta_time / 2, repairs)
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)
