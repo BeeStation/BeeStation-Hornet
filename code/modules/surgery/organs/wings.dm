@@ -122,6 +122,8 @@
 			flight_level = WINGS_COSMETIC
 			to_chat(H, "<span class='danger'>Your precious wings burn to a crisp!</span>")
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "burnt_wings", /datum/mood_event/burnt_wings)
+			if(!H.dna.features["original_moth_wings"]) //Fire apparently destroys DNA, so let's preserve that elsewhere, checks if an original was already stored to prevent bugs
+				H.dna.features["original_moth_wings"] = H.dna.features["moth_wings"]
 			H.dna.features["moth_wings"] = "Burnt Off"
 			wing_type = "Burnt Off"
 			H.dna.species.handle_mutant_bodyparts(H)
