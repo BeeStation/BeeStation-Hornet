@@ -104,7 +104,7 @@
 /obj/attacked_by(obj/item/I, mob/living/user)
 	if(I.force)
 		var/no_damage = TRUE
-		if(take_damage(I.force, I.damtype, MELEE, 1))
+		if(take_damage(I.force, I.damtype, "melee", 1))
 			no_damage = FALSE
 		//only witnesses close by and the victim see a hit message.
 		log_combat(user, src, "attacked", I)

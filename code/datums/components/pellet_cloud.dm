@@ -104,7 +104,7 @@
 		RegisterSignal(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), .proc/pellet_range)
 		pellets += shell.BB
 		var/turf/current_loc = get_turf(user)
-		if (!istype(target_loc) || !istype(current_loc) || !(shell.loaded_projectile))
+		if (!istype(target_loc) || !istype(current_loc))
 			return
 		INVOKE_ASYNC(shell, /obj/item/ammo_casing.proc/throw_proj, target, target_loc, shooter, params, spread)
 
@@ -122,6 +122,8 @@
   * * punishable_triggerer- For grenade lances or people who step on the landmines (if we shred the triggerer), we spawn extra shrapnel for them in addition to the normal spread
   */
 /datum/component/pellet_cloud/proc/create_blast_pellets(obj/O, mob/living/punishable_triggerer)
+	SIGNAL_HANDLER
+
 	var/atom/A = parent
 
 	if(isgrenade(parent)) // handle_martyrs can reduce the radius and thus the number of pellets we produce if someone dives on top of a frag grenade
@@ -204,15 +206,22 @@
 			break
 
 ///One of our pellets hit something, record what it was and check if we're done (terminated == num_pellets)
-/datum/component/pellet_cloud/proc/pellet_hit(obj/item/projectile/P, atom/movable/firer, atom/target, Angle)
+/datum/component/pellet_cloud/proc/pellet_hit(obj/item/projectile/P, atom/movable/firer, atom/target, Angle, hit_zone)
+	SIGNAL_HANDLER
+
 	pellets -= P
 	terminated++
 	hits++
+	var/obj/item/bodypart/hit_part
+	var/no_damage = FALSE
+	if(iscarbon(target) && hit_zone)
+		var/mob/living/carbon/hit_carbon = target
+		hit_part = hit_carbon.get_bodypart(hit_zone)
+		if(hit_part)
+			target = hit_part
 	else if(isobj(target))
-		var/obj/hit_object = target
-		if(hit_object.damage_deflection > P.damage || !P.damage)
+		if(!P.damage)
 			no_damage = TRUE
-
 	LAZYADDASSOC(targets_hit[target], "hits", 1)
 	LAZYSET(targets_hit[target], "no damage", no_damage)
 	if(targets_hit[target]["hits"] == 1)
@@ -223,6 +232,7 @@
 
 ///One of our pellets disappeared due to hitting their max range (or just somehow got qdel'd), remove it from our list and check if we're done (terminated == num_pellets)
 /datum/component/pellet_cloud/proc/pellet_range(obj/item/projectile/P)
+	SIGNAL_HANDLER
 	pellets -= P
 	terminated++
 	UnregisterSignal(P, list(COMSIG_PARENT_QDELETING, COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PROJECTILE_SELF_ON_HIT))
@@ -257,6 +267,10 @@
 		var/num_hits = targets_hit[target]["hits"]
 		var/did_damage = targets_hit[target]["no damage"]
 		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+		var/obj/item/bodypart/hit_part
+		if(isbodypart(target))
+			hit_part = target
+			target = hit_part.owner
 		if(num_hits > 1)
 			target.visible_message("<span class='danger'>[target] is hit by [num_hits] [proj_name]s[hit_part ? " in the [hit_part.name]" : ""][did_damage ? ", which don't leave a mark" : ""]!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
 			to_chat(target, "<span class='userdanger'>You're hit by [num_hits] [proj_name]s!</span>")
@@ -270,6 +284,7 @@
 
 /// Look alive, we're armed! Now we start watching to see if anyone's covering us
 /datum/component/pellet_cloud/proc/grenade_armed(obj/item/nade)
+	SIGNAL_HANDLER
 	if(ismob(nade.loc))
 		shooter = nade.loc
 	LAZYINITLIST(bodies)
@@ -279,11 +294,13 @@
 
 /// Someone dropped the grenade, so set them to the shooter in case they're on top of it when it goes off
 /datum/component/pellet_cloud/proc/grenade_dropped(obj/item/nade, mob/living/slick_willy)
+	SIGNAL_HANDLER
 	shooter = slick_willy
 	grenade_moved()
 
 /// Our grenade has moved, reset var/list/bodies so we're "on top" of any mobs currently on the tile
 /datum/component/pellet_cloud/proc/grenade_moved()
+	SIGNAL_HANDLER
 	LAZYCLEARLIST(bodies)
 	for(var/mob/living/L in get_turf(parent))
 		RegisterSignal(L, COMSIG_PARENT_QDELETING, .proc/on_target_qdel, override=TRUE)
@@ -291,10 +308,12 @@
 
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it
 /datum/component/pellet_cloud/proc/grenade_uncrossed(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	bodies -= AM
 
 /// Our grenade or landmine or caseless shell or whatever tried deleting itself, so we intervene and nullspace it until we're done here
 /datum/component/pellet_cloud/proc/nullspace_parent()
+	SIGNAL_HANDLER
 	var/atom/movable/AM = parent
 	AM.moveToNullspace()
 	queued_delete = TRUE
@@ -302,6 +321,7 @@
 
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it
 /datum/component/pellet_cloud/proc/on_target_qdel(atom/target)
+	SIGNAL_HANDLER
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	targets_hit -= target
 	LAZYREMOVE(bodies, target)

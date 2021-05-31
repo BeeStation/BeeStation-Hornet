@@ -403,13 +403,13 @@
 	shrapnel_magnitude = 4
 	shred_triggerer = TRUE
 	arm_delay = 3 SECONDS
-	light_range = 1.6
-	light_power = 2
-	light_color = COLOR_VIVID_RED
+	var/mine_light_range = 1.6
+	var/mine_light_power = 2
+	var/mine_light_color = "#FF3232"
 
 /obj/effect/mine/shrapnel/capspawn/now_armed()
 	. = ..()
-	set_light_on(TRUE)
+	set_light(mine_light_range, mine_light_power, mine_light_color)
 
 /obj/item/minespawner
 	name = "landmine deployment device"
@@ -442,40 +442,3 @@
 	var/obj/effect/particle_effect/smoke/poof = new (get_turf(src))
 	poof.lifetime = 3
 	qdel(src)
-
-/// These mines spawn pellet_clouds around them when triggered
-/obj/effect/mine/shrapnel
-	name = "shrapnel mine"
-	/// The type of projectiles we're shooting out of this
-	var/shrapnel_type = /obj/item/projectile/bullet/shrapnel
-	/// Broadly, how many pellets we're spawning, the total is n! - (n-1)! pellets, so don't set it too high. For reference, 15 is probably pushing it at MAX
-	var/shrapnel_magnitude = 3
-	/// If TRUE, we spawn extra pellets to eviscerate the person who stepped on it, otherwise it just spawns a ring of pellets around the tile we're on (making setting it off an offensive move)
-	var/shred_triggerer = FALSE
-
-/obj/effect/mine/shrapnel/mineEffect(mob/victim)
-	return
-
-/obj/effect/mine/shrapnel/triggermine(atom/movable/AM)
-	AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
-	return ..()
-
-/obj/effect/mine/shrapnel/sting
-	name = "stinger mine"
-	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball
-
-/obj/effect/mine/shrapnel/capspawn
-	name = "\improper AP mine"
-	desc = "A defensive landmine filled with 'AP shrapnel', good for defending cramped spaces without breaching hulls. The AP stands for 'Asset Protection', though it's still plenty nasty against any fool who sets it off."
-	shrapnel_type = /obj/item/projectile/bullet/pellet/capmine
-	shrapnel_magnitude = 4
-	shred_triggerer = TRUE
-	arm_delay = 3 SECONDS
-	light_range = 1.6
-	light_power = 2
-	light_color = COLOR_VIVID_RED
-
-/obj/effect/mine/shrapnel/capspawn/now_armed()
-	. = ..()
-	set_light_on(TRUE)
-
