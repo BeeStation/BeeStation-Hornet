@@ -167,3 +167,15 @@
 /datum/map_template/ruin_part/hallwaymaints
 	file_name = "9x5_hallwaymaints"
 	weight = 4
+
+/datum/map_template/ruin_part/toxinroom
+	file_name = "9x9_toxinstorage"
+	weight = 4
+
+/datum/map_template/ruin_part/josito
+	file_name = "13x9_josito"
+	weight = 1
+
+/datum/map_template/ruin_part/pizzaguard
+	file_name = "13x17_pizzaguardian"
+	weight = 1
