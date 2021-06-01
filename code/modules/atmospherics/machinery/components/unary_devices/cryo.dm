@@ -174,9 +174,13 @@
 	open_machine()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
+	if(!on)
+		return
 	..()
 
-	if(!on)
+	if(!is_operational())
+		on = FALSE
+		update_icon()
 		return
 
 	if(!occupant)//Won't operate unless there's an occupant.
