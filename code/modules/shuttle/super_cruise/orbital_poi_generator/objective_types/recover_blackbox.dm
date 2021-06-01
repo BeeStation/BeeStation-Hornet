@@ -1,5 +1,6 @@
 /datum/orbital_objective/recover_blackbox
 	name = "Blackbox Recovery"
+	var/generated = FALSE
 	//The blackbox required to recover.
 	var/obj/item/blackbox/objective/linked_blackbox
 	//Relatively easy mission.
@@ -7,6 +8,7 @@
 	max_payout = 40000
 
 /datum/orbital_objective/recover_blackbox/generate_objective_stuff(turf/chosen_turf)
+	generated = TRUE
 	linked_blackbox = new(chosen_turf)
 	linked_blackbox.linked_obj = src
 
@@ -16,7 +18,7 @@
 		The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/recover_blackbox/check_failed()
-	if(linked_blackbox)
+	if(linked_blackbox || !generated)
 		return FALSE
 	return TRUE
 

@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
  * however if a room attachment point is not past the border, the room it generates on that attachment point
  * can go past the border. No attachment points can be generated past the border.
  */
-/proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective)
+/proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration)
 	log_mapping("Generating random ruin at [center_x], [center_y], [center_z]")
 
 	if(!length(GLOB.loaded_ruin_parts))
@@ -204,7 +204,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 	var/list/nondirectional_walltrash = list()
 	var/structure_damage_prob = 0
 	var/floor_break_prob = 0
-	switch(pickweight(list("abandoned" = 6, "xeno" = 1, "netherworld" = 1, "blob" = 1)))
+	switch(forced_decoration ? forced_decoration : pickweight(list("abandoned" = 6, "xeno" = 2, "netherworld" = 1, "blob" = 2, "ratvar" = 1)))
 		if("abandoned")
 			floor_break_prob = 4
 			structure_damage_prob = 2
@@ -298,12 +298,14 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/effect/spawner/lootdrop/glowstick/lit = 2,
 				/obj/effect/spawner/lootdrop/glowstick = 4,
 				/obj/effect/spawner/lootdrop/maintenance = 3,
-				null = 140,
 				/mob/living/simple_animal/hostile/netherworld/blankbody = 2,
 				/mob/living/simple_animal/hostile/netherworld/migo = 2,
 				/obj/structure/spawner/nether = 0.3,
 				/obj/structure/destructible/cult/pylon = 1,
-				/obj/structure/destructible/cult/forge = 1
+				/obj/structure/destructible/cult/forge = 1,
+				/obj/effect/rune/blood_boil = 0.5,
+				/obj/effect/rune/empower = 1,
+				null = 140,
 			)
 			for(var/trash in subtypesof(/obj/item/trash))
 				floortrash[trash] = 1
@@ -336,10 +338,10 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/effect/spawner/lootdrop/glowstick/lit = 2,
 				/obj/effect/spawner/lootdrop/glowstick = 4,
 				/obj/effect/spawner/lootdrop/maintenance = 3,
-				null = 90,
 				/obj/structure/blob/node/lone = 1,
 				/mob/living/simple_animal/hostile/blob/blobspore = 2,
-				/mob/living/simple_animal/hostile/blob/blobbernaut = 0.6
+				/mob/living/simple_animal/hostile/blob/blobbernaut/independent = 0.6,
+				null = 90,
 			)
 			for(var/trash in subtypesof(/obj/item/trash))
 				floortrash[trash] = 1
@@ -357,6 +359,40 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
 				null = 60
+			)
+		if("ratvar")
+			floortrash = list(
+				/obj/effect/decal/cleanable/dirt = 6,
+				/obj/effect/decal/cleanable/blood/old = 3,
+				/obj/effect/decal/cleanable/oil = 2,
+				/obj/effect/decal/cleanable/robot_debris/old = 1,
+				/obj/effect/decal/cleanable/vomit/old = 4,
+				/obj/effect/decal/cleanable/blood/gibs/old = 1,
+				/obj/effect/decal/cleanable/greenglow/filled = 1,
+				/obj/effect/spawner/lootdrop/glowstick/lit = 6,
+				/obj/effect/spawner/lootdrop/maintenance = 3,
+				null = 70,
+				/obj/effect/spawner/structure/ratvar_skewer_trap = 4,
+				/obj/effect/spawner/structure/ratvar_flipper_trap = 2,
+				/obj/effect/spawner/structure/ratvar_skewer_trap_kill = 1,
+				/obj/structure/destructible/clockwork/sigil/transgression = 2,
+				/mob/living/simple_animal/hostile/clockwork_marauder = 1,
+				/obj/structure/destructible/clockwork/wall_gear/displaced = 10,
+				/obj/effect/spawner/ocular_warden_setup = 1,
+				/obj/effect/spawner/interdiction_lens_setup = 1,
+			)
+			directional_walltrash = list(
+				/obj/machinery/light/broken = 4,
+				/obj/machinery/light/small = 1,
+				null = 75,
+			)
+			nondirectional_walltrash = list(
+				/obj/item/radio/intercom = 2,
+				/obj/structure/sign/poster/random = 1,
+				/obj/machinery/newscaster = 2,
+				/obj/structure/destructible/clockwork/trap/delay = 1,
+				/obj/structure/destructible/clockwork/trap/lever = 1,
+				null = 50
 			)
 
 	//Place trash
