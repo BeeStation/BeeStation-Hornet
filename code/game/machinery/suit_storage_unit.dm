@@ -52,7 +52,7 @@
 	/// How long it takes to break out of the SSU.
 	var/breakout_time = 300
 	/// How fast it charges cells in a suit
-	var/charge_rate = 500
+	var/charge_rate = 250
 
 /obj/machinery/suit_storage_unit/standard_unit
 	suit_type = /obj/item/clothing/suit/space/eva

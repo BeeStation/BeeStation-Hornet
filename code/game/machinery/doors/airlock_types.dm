@@ -200,9 +200,9 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	var/last_event = 0
 
-/obj/machinery/door/airlock/uranium/process()
+/obj/machinery/door/airlock/uranium/process(delta_time)
 	if(world.time > last_event+20)
-		if(prob(50))
+		if(DT_PROB(50, delta_time))
 			radiate()
 		last_event = world.time
 	..()
