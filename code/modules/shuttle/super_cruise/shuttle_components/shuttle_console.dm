@@ -178,7 +178,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 							//Launch the shuttle
 							if(!launch_shuttle())
 								return
-						if(shuttleObject.shuttleTarget == z_linked)
+						if(shuttleObject.shuttleTarget == z_linked && shuttleObject.controlling_computer == src)
 							return
 						shuttleObject = SSorbits.assoc_shuttles[shuttleId]
 						shuttleObject.shuttleTarget = z_linked
