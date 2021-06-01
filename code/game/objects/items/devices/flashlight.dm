@@ -258,6 +258,7 @@
 	icon_state = "flare"
 	item_state = "flare"
 	actions_types = list()
+	/// How many seconds of fuel we have left
 	var/fuel = 0
 	var/on_damage = 7
 	var/produce_heat = 1500
@@ -267,12 +268,12 @@
 
 /obj/item/flashlight/flare/Initialize()
 	. = ..()
-	fuel = rand(800, 1000) // Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.
+	fuel = rand(1600, 2000)
 
-/obj/item/flashlight/flare/process()
+/obj/item/flashlight/flare/process(delta_time)
 	open_flame(heat)
-	fuel = max(fuel - 1, 0)
-	if(!fuel || !on)
+	fuel = max(fuel -= delta_time, 0)
+	if(fuel <= 0 || !on)
 		turn_off()
 		if(!fuel)
 			icon_state = "[initial(icon_state)]-empty"
@@ -305,7 +306,7 @@
 /obj/item/flashlight/flare/attack_self(mob/user)
 
 	// Usual checks
-	if(!fuel)
+	if(fuel <= 0)
 		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
 		return
 	if(on)
@@ -372,7 +373,9 @@
 /obj/item/flashlight/emp
 	var/emp_max_charges = 4
 	var/emp_cur_charges = 4
-	var/charge_tick = 0
+	var/charge_timer = 0
+	/// How many seconds between each recharge
+	var/charge_delay = 20
 
 /obj/item/flashlight/emp/New()
 	..()
@@ -382,11 +385,11 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/item/flashlight/emp/process()
-	charge_tick++
-	if(charge_tick < 10)
+/obj/item/flashlight/emp/process(delta_time)
+	charge_timer += delta_time
+	if(charge_timer < charge_delay)
 		return FALSE
-	charge_tick = 0
+	charge_timer -= charge_delay
 	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
 	return TRUE
 
@@ -434,10 +437,10 @@
 	item_state = "glowstick"
 	grind_results = list(/datum/reagent/phenol = 15, /datum/reagent/hydrogen = 10, /datum/reagent/oxygen = 5) //Meth-in-a-stick
 	var/burn_pickup = FALSE	//If true, fuel will only decrease after being picked up or used in hand (Useful for mapping)
-	var/fuel = 0
+	var/fuel = 0 // How many seconds of fuel we have left
 
 /obj/item/flashlight/glowstick/Initialize()
-	fuel = rand(1600, 2000)
+	fuel = rand(3200, 4000)
 	light_color = color
 	. = ..()
 
@@ -445,9 +448,9 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/item/flashlight/glowstick/process()
-	fuel = max(fuel - 1, 0)
-	if(!fuel)
+/obj/item/flashlight/glowstick/process(delta_time)
+	fuel = max(fuel - delta_time, 0)
+	if(fuel <= 0)
 		turn_off()
 		STOP_PROCESSING(SSobj, src)
 		update_icon()
@@ -459,7 +462,7 @@
 /obj/item/flashlight/glowstick/update_icon()
 	item_state = "glowstick"
 	cut_overlays()
-	if(!fuel)
+	if(fuel <= 0)
 		icon_state = "glowstick-empty"
 		cut_overlays()
 		set_light(0)
@@ -480,7 +483,7 @@
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/glowstick/attack_self(mob/user)
-	if(!fuel)
+	if(fuel <= 0)
 		to_chat(user, "<span class='notice'>[src] is spent.</span>")
 		return
 	if(on)

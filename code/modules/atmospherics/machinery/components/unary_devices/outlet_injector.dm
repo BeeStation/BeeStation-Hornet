@@ -71,7 +71,7 @@
 
 	if(air_contents != null)
 		if(air_contents.return_temperature() > 0)
-			var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.return_temperature() * R_IDEAL_GAS_EQUATION)
+			var/transfer_moles = (air_contents.return_pressure()) * volume_rate/(air_contents.return_temperature() * R_IDEAL_GAS_EQUATION)
 
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
@@ -219,7 +219,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos
 	frequency = FREQ_ATMOS_STORAGE
 	on = TRUE
-	volume_rate = 200
+	volume_rate = 400
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/atmos_waste
 	name = "atmos waste outlet injector"

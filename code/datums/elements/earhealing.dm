@@ -23,7 +23,7 @@
 	else
 		user_by_item -= source
 
-/datum/element/earhealing/process()
+/datum/element/earhealing/process(delta_time)
 	for(var/i in user_by_item)
 		var/mob/living/carbon/user = user_by_item[i]
 		if(HAS_TRAIT(user, TRAIT_DEAF))
@@ -31,6 +31,6 @@
 		var/obj/item/organ/ears/ears = user.getorganslot(ORGAN_SLOT_EARS)
 		if(!ears)
 			continue
-		ears.deaf = max(ears.deaf - 0.25, (ears.damage < ears.maxHealth ? 0 : 1)) // Do not clear deafness if our ears are too damaged
-		ears.damage = max(ears.damage - 0.025, 0)
+		ears.deaf = max(ears.deaf - 0.25 * delta_time, (ears.damage < ears.maxHealth ? 0 : 1)) // Do not clear deafness if our ears are too damaged
+		ears.damage = max(ears.damage - 0.025 * delta_time, 0)
 		CHECK_TICK	// Reviewer: yes I really am afraid of 1000 clones with earmuffs

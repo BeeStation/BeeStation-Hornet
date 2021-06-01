@@ -294,9 +294,9 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	UnregisterSignal(to_remove, COMSIG_PARENT_PREQDELETED)
 
 /obj/machinery/computer/holodeck/process(delta_time=2)
-	if(damaged && prob(10))
+	if(damaged && DT_PROB(10, delta_time)
 		for(var/turf/holo_turf in linked)
-			if(prob(5))
+			if(DT_PROB(5, delta_time)
 				do_sparks(2, 1, holo_turf)
 				return
 	. = ..()
@@ -308,7 +308,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		damaged = TRUE
 		visible_message("The holodeck overloads!")
 		for(var/turf/holo_turf in linked)
-			if(prob(30))
+			if(DT_PROB(30, delta_time)
 				do_sparks(2, 1, holo_turf)
 			SSexplosions.lowturf += holo_turf
 			holo_turf.hotspot_expose(1000,500,1)
