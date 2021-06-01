@@ -178,7 +178,7 @@
 		return
 	..()
 
-	if(!is_operational())
+	if(!is_operational)
 		on = FALSE
 		update_icon()
 		return
