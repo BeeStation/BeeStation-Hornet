@@ -55,7 +55,6 @@
 
 	return FALSE
 
-
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	surgery.step_in_progress = TRUE
 	var/speed_mod = 1
@@ -72,10 +71,9 @@
 	var/implement_speed_mod = 1
 	if(implement_type)	//this means it isn't a require hand or any item step.
 		implement_speed_mod = implements[implement_type] / 100.0
-
 	speed_mod /= (get_speed_modifier(user, target) * (1 + surgery.speed_modifier) * implement_speed_mod)
+	
 	var/modded_time = time * speed_mod
-
 	fail_prob = min(max(0, modded_time - (time * 2)),99)//if modded_time > time * 2, then fail_prob = modded_time - time*2. starts at 0, caps at 99
 	modded_time = min(modded_time, time * 2)//also if that, then cap modded_time at time*2
 
@@ -88,9 +86,8 @@
 
 			if(success(user, target, target_zone, tool, surgery))
 				advance = TRUE
-		else
-			if(failure(user, target, target_zone, tool, surgery, fail_prob))
-				advance = TRUE
+		else if(failure(user, target, target_zone, tool, surgery, fail_prob))
+			advance = TRUE
 
 		if(advance && !repeatable)
 			surgery.status++
@@ -99,7 +96,6 @@
 
 	surgery.step_in_progress = FALSE
 	return advance
-
 
 /datum/surgery_step/proc/preop(mob/user, mob/living/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You begin to perform surgery on [target]...</span>",
