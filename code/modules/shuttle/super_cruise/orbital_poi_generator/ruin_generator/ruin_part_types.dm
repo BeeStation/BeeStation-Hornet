@@ -142,3 +142,28 @@
 /datum/map_template/ruin_part/permbrig
 	file_name = "13x17_permabrig"
 	weight = 2
+
+/datum/map_template/ruin_part/shotelroom
+	file_name = "13x13_shotelroom"
+	weight = 1
+
+/datum/map_template/ruin_part/supermattercontainment
+	file_name = "13x13_supermatter_containment"
+	weight = 1
+
+/datum/map_template/ruin_part/gateway
+	file_name = "5x9_gateway"
+	weight = 2
+
+/datum/map_template/ruin_part/shower
+	file_name = "5x5_shower"
+	weight = 4
+
+//its 13x13 lol
+/datum/map_template/ruin_part/elevator
+	file_name = "9x9_elevator"
+	weight = 4
+
+/datum/map_template/ruin_part/hallwaymaints
+	file_name = "9x5_hallwaymaints"
+	weight = 4
