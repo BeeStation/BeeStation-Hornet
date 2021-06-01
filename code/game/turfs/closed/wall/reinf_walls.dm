@@ -89,7 +89,7 @@
 				d_state = INTACT
 				update_icon()
 				balloon_alert(user, "Outer grille repaired")
-				return 1
+				return TRUE
 
 		if(COVER)
 			if(W.tool_behaviour == TOOL_WELDER)

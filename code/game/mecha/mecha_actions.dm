@@ -209,7 +209,7 @@
 		chassis.zoom_mode = !chassis.zoom_mode
 		button_icon_state = "mech_zoom_[chassis.zoom_mode ? "on" : "off"]"
 		chassis.log_message("Toggled zoom mode.", LOG_MECHA)
-		chassis.balloon_alert("Zoom mode [chassis.zoom_mode?"enabled":"disabled"]")
+		chassis.balloon_alert(owner, "Zoom mode [chassis.zoom_mode?"enabled":"disabled"]")
 		if(chassis.zoom_mode)
 			owner.client.view_size.setTo(4.5)
 			SEND_SOUND(owner, sound('sound/mecha/imag_enh.ogg',volume=50))

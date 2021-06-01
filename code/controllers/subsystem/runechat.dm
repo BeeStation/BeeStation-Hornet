@@ -4,7 +4,11 @@
 #define BUCKET_POS(scheduled_destruction) (((round((scheduled_destruction - SSrunechat.head_offset) / world.tick_lag) + 1) % BUCKET_LEN) || BUCKET_LEN)
 /// Gets the maximum time at which messages will be handled in buckets, used for deferring to secondary queue
 #define BUCKET_LIMIT (world.time + TICKS2DS(min(BUCKET_LEN - (SSrunechat.practical_offset - DS2TICKS(world.time - SSrunechat.head_offset)) - 1, BUCKET_LEN - 1)))
-
+#define BALLOON_TEXT_WIDTH 200
+#define BALLOON_TEXT_SPAWN_TIME (0.2 SECONDS)
+#define BALLOON_TEXT_FADE_TIME (0.1 SECONDS)
+#define BALLOON_TEXT_FULLY_VISIBLE_TIME (0.7 SECONDS)
+#define BALLOON_TEXT_TOTAL_LIFETIME (BALLOON_TEXT_SPAWN_TIME + BALLOON_TEXT_FULLY_VISIBLE_TIME + BALLOON_TEXT_FADE_TIME)
 /**
   * # Runechat Subsystem
   *
@@ -232,6 +236,77 @@ SUBSYSTEM_DEF(runechat)
 		next?.prev = null
 	prev = next = null
 
+/atom/proc/balloon_alert(mob/viewer, text)
+	SHOULD_NOT_SLEEP(TRUE)
+
+	INVOKE_ASYNC(src, .proc/balloon_alert_perform, viewer, text)
+
+/atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs)
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/list/hearers = get_hearers_in_view(vision_distance, src)
+	hearers -= ignored_mobs
+
+	for (var/mob/hearer in hearers)
+		if (is_blind(hearer))
+			continue
+
+		balloon_alert(hearer, (hearer == src && self_message) || message)
+
+/atom/proc/balloon_alert_perform(mob/viewer, text)
+	var/client/viewer_client = viewer.client
+	if (isnull(viewer_client))
+		return
+
+	var/bound_width = world.icon_size
+	if (ismovable(src))
+		var/atom/movable/movable_source = src
+		bound_width = movable_source.bound_width
+
+	var/turf/location
+	if(isturf(src))
+		location = src
+	else
+		location = get_atom_on_turf(src)
+
+
+	var/image/balloon_alert = image(loc = location, layer = CHAT_LAYER)
+	balloon_alert.plane = BALLOON_CHAT_PLANE
+	balloon_alert.alpha = 0
+	balloon_alert.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005'>[text]</span>")
+	balloon_alert.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
+	balloon_alert.maptext_height = WXH_TO_HEIGHT(viewer_client?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
+	balloon_alert.maptext_width = BALLOON_TEXT_WIDTH
+
+	viewer_client?.images += balloon_alert
+
+	animate(
+		balloon_alert,
+		pixel_y = world.icon_size * 1.2,
+		time = BALLOON_TEXT_TOTAL_LIFETIME,
+		easing = SINE_EASING | EASE_OUT,
+	)
+
+	animate(
+		alpha = 255,
+		time = BALLOON_TEXT_SPAWN_TIME,
+		easing = CUBIC_EASING | EASE_OUT,
+		flags = ANIMATION_PARALLEL,
+	)
+
+	animate(
+		alpha = 0,
+		time = BALLOON_TEXT_FULLY_VISIBLE_TIME,
+		easing = CUBIC_EASING | EASE_IN,
+	)
+
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/remove_image_from_client, balloon_alert, viewer_client), BALLOON_TEXT_TOTAL_LIFETIME)
+
 #undef BUCKET_LEN
 #undef BUCKET_POS
 #undef BUCKET_LIMIT
+#undef BALLOON_TEXT_FADE_TIME
+#undef BALLOON_TEXT_FULLY_VISIBLE_TIME
+#undef BALLOON_TEXT_SPAWN_TIME
+#undef BALLOON_TEXT_TOTAL_LIFETIME
+#undef BALLOON_TEXT_WIDTH
