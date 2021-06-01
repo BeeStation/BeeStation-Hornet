@@ -9,8 +9,8 @@
 			new	/obj/item/twohanded/binoculars(src) // 2 tc?
 			new /obj/item/encryptionkey/syndicate(src) // 2 tc
 			new /obj/item/storage/box/syndie_kit/space(src) //4 tc
-			new /obj/item/grenade/syndieminibomb/concussion/frag(src) // ~2 tc each?
-			new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+			new /obj/item/grenade/frag(src) // ~2 tc each?
+			new /obj/item/grenade/frag(src)
 			new /obj/item/flashlight/emp(src)
 			new /obj/item/book/granter/martial/karate(src)
 
@@ -200,7 +200,7 @@
 			new /obj/item/grenade/gluon(src)
 			new /obj/item/dnainjector/geladikinesis(src)
 			new /obj/item/dnainjector/cryokinesis(src)
-			new /obj/item/gun/energy/temperature/security(src)
+			new /obj/item/gun/energy/temperature/pin(src)
 			new /obj/item/melee/transforming/energy/sword/saber/blue(src) //see see it fits the theme bc its blue and ice is blue
 
 /obj/item/storage/box/syndicate/contract_kit
@@ -221,17 +221,13 @@
 /obj/item/paper/contractor_guide/Initialize()
 	info = {"<p>Welcome agent, congratulations on your new position as contractor. On top of your already assigned objectives,
 			this kit will provide you contracts to take on for TC payments.</p>
-
 			<p>Provided within, we give your specialist contractor space suit. It's even more compact, being able to fit into a pocket, and faster than the
 			Syndicate space suit available to you on the uplink. We also provide your chameleon jumpsuit and mask, both of which can be changed
 			to any form you need for the moment. The cigarettes are a special blend - it'll heal your injuries slowly overtime.</p>
-
 			<p>Your standard issue contractor baton hits harder than the ones you might be used to, and likely be your go to weapon for kidnapping your
 			targets. The three additional items have been randomly selected from what we had available. We hope they're useful to you for your mission.</p>
-
 			<p>The contractor hub, available at the top right of the uplink, will provide you unique items and abilities. These are bought using Contractor Rep,
 			with two Rep being provided each time you complete a contract.</p>
-
 			<h3>Using the tablet</h3>
 			<ol>
 				<li>Open the Syndicate Contract Uplink program.</li>
@@ -241,7 +237,6 @@
 				<li>Contracts are completed by bringing the target to designated dropoff, calling for extraction, and putting them
 				inside the pod.</li>
 			</ol>
-
 			<p>Be careful when accepting a contract. While you'll be able to see the location of the dropoff point, cancelling will make it
 			unavailable to take on again.</p>
 			<p>The tablet can also be recharged at any cell charger.</p>
@@ -256,7 +251,6 @@
 			<p>We need your target for our own reasons, but we ransom them back to your mission area once their use is served. They will return back
 			from where you sent them off from in several minutes time. Don't worry, we give you a cut of what we get paid. We pay this into whatever
 			ID card you have equipped, on top of the TC payment we give.</p>
-
 			<p>Good luck agent. You can burn this document with the supplied lighter.</p>"}
 
 	return ..()
@@ -572,64 +566,20 @@
 /obj/item/storage/box/syndie_kit/mimesabrekit/PopulateContents()
 	new /obj/item/storage/belt/sabre/mime(src)
 
-/obj/item/storage/box/syndicate/OldWar
-	name = "The Old War unit kit"
-	desc = "A sleek, strudy box. You can barely hear gunshots and explosions coming out of it."
+/obj/item/storage/box/syndie_kit/imp_deathrattle
+	name = "deathrattle implant box"
+	desc = "Contains eight linked deathrattle implants."
 
-/obj/item/storage/box/syndicate/OldWar/PopulateContents()
-	switch (pickweight(list("Liberator" = 1, "KindomKnight" = 3, "RedSoldier" = 2, "RisingSun" = 3, "ThatGuyWithMoustache" = 3)))
-		if("Liberator")
-			new /obj/item/gun/ballistic/automatic/tommygun/nomag(src)
-			new /obj/item/ammo_box/magazine/tommygunm45/box(src)
-			new /obj/item/ammo_box/magazine/tommygunm45/box(src)
-			new /obj/item/signaler_art(src)
-			new /obj/item/clothing/under/pants/camo(src)
-			new /obj/item/clothing/suit/armor/vest/alt(src)
-			new /obj/item/clothing/head/soft/black(src)
-			new /obj/item/clothing/shoes/combat(src)
-		if("RisingSun")
-			new /obj/item/clothing/suit/armor/vest/kamikaze(src)
-			new /obj/item/katana/compact(src)
-			new /obj/item/clothing/mask/bandana/red(src)
-			new /obj/item/gun/ballistic/rifle/boltaction/japanese(src)
-			new /obj/item/ammo_box/a762(src)
-		if("RedSoldier")
-			new /obj/item/clothing/shoes/russian(src)
-			new /obj/item/clothing/suit/armor/vest/russian(src)
-			new /obj/item/clothing/under/syndicate/camo(src)
-			new /obj/item/clothing/head/helmet/rus_helmet(src)
-			new /obj/item/gun/ballistic/rifle/boltaction(src)
-			new /obj/item/ammo_box/a762(src)
-			new /obj/item/ammo_box/a762(src)
-			new /obj/item/backup_caller/soviet(src)
-			new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
-		if("ThatGuyWithMoustache")
-			new /obj/item/clothing/head/hopcap/dark(src)
-			new /obj/item/clothing/mask/gas/syndicate/xrayvis(src)
-			new /obj/item/clothing/suit/armor/hos(src)
-			new /obj/item/assembly/flash/hypnotic(src)
-			new /obj/item/disk/surgery/brainwashing(src)
-			new /obj/item/autosurgeon/syndicate/anti_stun(src)
-			new /obj/item/melee/baton/loaded(src)
-			new /obj/item/gun/syringe/syndicate(src)
-			new /obj/item/reagent_containers/glass/bottle/chloralhydrate(src)
-			new /obj/item/reagent_containers/glass/bottle/chloralhydrate(src)
-			new /obj/item/reagent_containers/hypospray(src)
-			new /obj/item/reagent_containers/syringe/lethal/choral(src)
-			new /obj/item/reagent_containers/syringe/lethal/choral(src)
-			new /obj/item/reagent_containers/syringe/piercing(src)
-			new /obj/item/gun/ballistic/automatic/pistol/luger/nomag(src)
-			new /obj/item/ammo_box/magazine/pistolm9mm/luger(src)
-			new /obj/item/ammo_box/magazine/pistolm9mm/luger(src)
-		if("KindomKnight")
-			new /obj/item/gun/ballistic/rifle/boltaction/leeenfield(src)
-			new /obj/item/ammo_box/a762(src)
-			new /obj/item/ammo_box/a762(src)
-			new /obj/item/reagent_containers/food/drinks/britcup(src)
-			new /obj/item/reagent_containers/food/drinks/britcup(src)
-			new /obj/item/dnainjector/chavmut(src)
-			new /obj/item/suppressor(src)
-			new /obj/item/gun/ballistic/revolver/webley(src)
-			new /obj/item/ammo_box/c38(src)
-			new /obj/item/stabbing_license(src)
+/obj/item/storage/box/syndie_kit/imp_deathrattle/PopulateContents()
+	new /obj/item/implanter(src)
 
+	var/datum/deathrattle_group/group = new
+
+	var/implants = list()
+	for(var/j in 1 to 8)
+		var/obj/item/implantcase/deathrattle/case = new (src)
+		implants += case.imp
+
+	for(var/i in implants)
+		group.register(i)
+	desc += " The implants are registered to the \"[group.name]\" group."
