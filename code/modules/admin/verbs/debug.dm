@@ -794,11 +794,16 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/ruin_size = input(src, "Ruin size (NxN) (Between 10 and 200)", "Ruin Size", 0) as num
 	if(ruin_size < 10 || ruin_size >= 200)
 		return
+	var/ruin_type = input(src, "Select ruin type.", "Ruin Type", null) as anything in list("abandoned", "xeno", "netherworld", "blob", "ratvar", "random")
+	if(!ruin_type)
+		return
+	if(ruin_type == "random")
+		ruin_type = null
 	var/response = alert(src, "This will place the ruin at your current location.", "Spawn Ruin", "Spawn Ruin", "Cancel")
 	if (response == "Cancel")
 		return
 	var/border_size = (world.maxx - ruin_size) / 2
-	generate_space_ruin(mob.x, mob.y, mob.z, border_size, border_size)
+	generate_space_ruin(mob.x, mob.y, mob.z, border_size, border_size, null, ruin_type)
 	log_admin("[key_name(src)] randomly generated a space ruin at [COORD(mob)].")
 
 /client/proc/clear_dynamic_transit()
