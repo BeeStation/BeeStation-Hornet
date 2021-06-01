@@ -210,7 +210,7 @@
 		scarcounter++
 
 	if(M.getToxLoss() && M.getToxLoss() <= threshhold)
-		M.adjustToxLoss(-power)
+		M.adjustToxLoss(-power, FALSE, TRUE)
 
 	if(healed)
 		if(prob(10))
@@ -426,7 +426,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(4, 5)
 			if(burnheal)
-				M.heal_overall_damage(0, 1) //no required_status checks here, this does all bodyparts equally
+				M.heal_overall_damage(0, 1.5) //no required_status checks here, this does all bodyparts equally
 			if(prob(5) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				if(prob(50))
@@ -494,16 +494,22 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(4, 5)
 			if(prob(5) && bruteheal)
 				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet!</span>")
-				M.Knockdown(10)
+				M.Immobilize(5)
 				new /obj/effect/decal/cleanable/blood/(M.loc)
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
 				if(prob(60))
+					if(tetsuo && prob(15))
+						if(A.affected_mob.job == "Clown")
+							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
+						if(MOB_ROBOTIC in A.infectable_biotypes)
+							new /obj/effect/decal/cleanable/robot_debris(M.loc)
+							new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/organcantidates = list()
 					var/list/missing = M.get_missing_limbs()
 					if(prob(35))
-						new /obj/effect/gibspawner/human/bodypartless(M.loc) //yes. this is very messy. very, very messy.
+						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
 						for(var/obj/item/organ/O in M.loc)
 							if(O.organ_flags & ORGAN_FAILING || O.organ_flags & ORGAN_VITAL) //dont use shitty organs or brains
@@ -547,8 +553,6 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 									ownermind.transfer_to(M)
 									M.grab_ghost()
 								break
-				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
-					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 			if(bruteheal)
 				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
 				if(prob(11 * power))
