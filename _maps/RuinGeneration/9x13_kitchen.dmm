@@ -1,0 +1,272 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	layer = 5
+	},
+/obj/item/stack/packageWrap,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"c" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 5
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"e" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -5;
+	pixel_y = 30
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"f" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"j" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"k" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/mint,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"m" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"o" = (
+/obj/structure/table,
+/obj/item/kitchen/rollingpin,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"q" = (
+/turf/open/floor/plasteel/white/corner{
+	dir = 1
+	},
+/area/ruin/unpowered)
+"s" = (
+/obj/machinery/vending/dinnerware,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"z" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"A" = (
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"D" = (
+/obj/structure/sink/kitchen{
+	pixel_y = 28
+	},
+/obj/machinery/food_cart,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"F" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"G" = (
+/obj/machinery/processor,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"I" = (
+/obj/structure/closet/secure_closet/freezer/fridge,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"J" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"K" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"L" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"O" = (
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"Q" = (
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"T" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+"Z" = (
+/obj/machinery/deepfryer,
+/turf/open/floor/plasteel/cafeteria,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+L
+L
+j
+L
+L
+L
+j
+L
+L
+z
+J
+z
+L
+"}
+(2,1,1) = {"
+L
+s
+O
+O
+O
+O
+O
+L
+q
+z
+z
+z
+L
+"}
+(3,1,1) = {"
+L
+D
+O
+O
+O
+O
+O
+L
+q
+z
+z
+z
+L
+"}
+(4,1,1) = {"
+L
+e
+O
+k
+b
+O
+O
+T
+q
+z
+z
+z
+L
+"}
+(5,1,1) = {"
+L
+I
+O
+m
+c
+O
+O
+F
+q
+z
+z
+z
+L
+"}
+(6,1,1) = {"
+L
+Q
+O
+o
+Z
+O
+O
+F
+q
+z
+z
+z
+L
+"}
+(7,1,1) = {"
+L
+Q
+O
+O
+O
+O
+O
+F
+q
+z
+z
+z
+L
+"}
+(8,1,1) = {"
+L
+A
+O
+O
+G
+f
+O
+L
+q
+z
+z
+z
+L
+"}
+(9,1,1) = {"
+L
+L
+L
+L
+L
+L
+L
+L
+q
+z
+K
+z
+L
+"}

@@ -114,3 +114,31 @@
 /datum/map_template/ruin_part/singularity
 	file_name = "21x21_singularity"
 	weight = 1
+
+/datum/map_template/ruin_part/maintroom
+	file_name = "9x5_maintroom"
+	weight = 4
+
+/datum/map_template/ruin_part/shuttledock
+	file_name = "13x17_shuttledock"
+	weight = 2
+
+/datum/map_template/ruin_part/kitchen
+	file_name = "9x13_kitchen"
+	weight = 4
+
+/datum/map_template/ruin_part/sleeproom
+	file_name = "9x13_sleeproom"
+	weight = 5
+
+/datum/map_template/ruin_part/cryo
+	file_name = "5x5_cryo"
+	weight = 4
+
+/datum/map_template/ruin_part/solars
+	file_name = "21x19_solars"
+	weight = 1
+
+/datum/map_template/ruin_part/permbrig
+	file_name = "13x17_permabrig"
+	weight = 2

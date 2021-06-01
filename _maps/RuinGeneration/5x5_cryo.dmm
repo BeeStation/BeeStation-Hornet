@@ -1,0 +1,104 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"f" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+"j" = (
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+"t" = (
+/obj/machinery/cryopod{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+"u" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"x" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"C" = (
+/turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+"E" = (
+/obj/machinery/cryopod{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+"L" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"P" = (
+/obj/machinery/computer/cryopod{
+	pixel_y = 25
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+"R" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+"T" = (
+/obj/machinery/cryopod,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+L
+L
+L
+L
+L
+"}
+(2,1,1) = {"
+L
+t
+f
+E
+u
+"}
+(3,1,1) = {"
+L
+P
+C
+C
+x
+"}
+(4,1,1) = {"
+L
+j
+R
+T
+u
+"}
+(5,1,1) = {"
+L
+L
+L
+L
+L
+"}

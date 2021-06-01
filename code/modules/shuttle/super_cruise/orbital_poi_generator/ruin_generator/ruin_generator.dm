@@ -218,6 +218,8 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/effect/spawner/lootdrop/glowstick/lit = 2,
 				/obj/effect/spawner/lootdrop/glowstick = 4,
 				/obj/effect/spawner/lootdrop/maintenance = 3,
+				/mob/living/simple_animal/hostile/poison/giant_spider/hunter = 0.4,
+				/mob/living/simple_animal/hostile/poison/giant_spider/tarantula = 0.2,
 				null = 90,
 			)
 			for(var/trash in subtypesof(/obj/item/trash))
@@ -235,7 +237,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/structure/sign/poster/random = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
-				null = 105
+				null = 60
 			)
 		if("xeno")
 			floor_break_prob = 4
@@ -279,7 +281,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/item/radio/intercom = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
-				null = 105
+				null = 60
 			)
 		if("netherworld")
 			floor_break_prob = 30
@@ -317,7 +319,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/structure/sign/poster/random = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
-				null = 105
+				null = 60
 			)
 		if("blob")
 			floor_break_prob = 8
@@ -353,7 +355,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/structure/sign/poster/random = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
-				null = 105
+				null = 60
 			)
 
 	//Place trash
