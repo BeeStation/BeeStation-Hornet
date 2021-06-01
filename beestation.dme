@@ -3036,7 +3036,6 @@
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\objective_types\vip_extraction.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\mapping.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_generator.dm"
-#include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_objects.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_part_loader.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_part_template.dm"
 #include "code\modules\shuttle\super_cruise\orbital_poi_generator\ruin_generator\ruin_part_types.dm"
