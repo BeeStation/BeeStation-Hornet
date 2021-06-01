@@ -726,7 +726,7 @@
 		else
 			. += "It looks very robust."
 
-	if(issilicon(user) && (!stat & BROKEN))
+	if(issilicon(user) && !(stat & BROKEN))
 		. += "<span class='notice'>Shift-click [src] to [ density ? "open" : "close"] it.</span>"
 		. += "<span class='notice'>Ctrl-click [src] to [ locked ? "raise" : "drop"] its bolts.</span>"
 		. += "<span class='notice'>Alt-click [src] to [ secondsElectrified ? "un-electrify" : "permanently electrify"] it.</span>"

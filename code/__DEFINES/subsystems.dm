@@ -109,6 +109,7 @@
 #define INIT_ORDER_VIS				80
 #define INIT_ORDER_MATERIALS		76
 #define INIT_ORDER_RESEARCH			75
+#define INIT_ORDER_STATION			74 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
 #define INIT_ORDER_EVENTS			70
 #define INIT_ORDER_JOBS				65
 #define INIT_ORDER_QUIRKS			60
@@ -214,3 +215,18 @@
 		}\
 		A.flags_1 &= ~OVERLAY_QUEUED_1;\
 	}
+
+/**
+	Create a new timer and add it to the queue.
+	* Arguments:
+	* * callback the callback to call on timer finish
+	* * wait deciseconds to run the timer for
+	* * flags flags for this timer, see: code\__DEFINES\subsystems.dm
+*/
+#define addtimer(args...) _addtimer(args, file = __FILE__, line = __LINE__)
+
+// Subsystem delta times or tickrates, in seconds. I.e, how many seconds in between each process() call for objects being processed by that subsystem.
+// Only use these defines if you want to access some other objects processing delta_time, otherwise use the delta_time that is sent as a parameter to process()
+#define SSMACHINES_DT (SSmachines.wait/10)
+#define SSMOBS_DT (SSmobs.wait/10)
+#define SSOBJ_DT (SSobj.wait/10)

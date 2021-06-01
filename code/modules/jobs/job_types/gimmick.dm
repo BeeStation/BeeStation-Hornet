@@ -17,6 +17,7 @@
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+	departments = DEPARTMENT_SERVICE
 
 /datum/job/gimmick/barber
 	title = "Barber"
@@ -69,6 +70,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
 	chat_color = "#929292"
+	departments = NONE		//being hobo is not a real job
 
 /datum/outfit/job/gimmick/hobo
 	name = "Debtor"
@@ -103,6 +105,7 @@
 	paycheck = PAYCHECK_EASY
 	gimmick = TRUE
 	chat_color = "#a2dfdc"
+	departments = DEPARTMENT_MEDICAL
 
 /datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = "Psychiatrist"

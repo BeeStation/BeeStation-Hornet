@@ -35,14 +35,14 @@
 	armor = list("melee" = -80, "bullet" = -50, "laser" = 40, "energy" = 40, "bomb" = 20, "bio" = 0, "rad" = 0, "stamina" = 0)
 	var/cooldown
 
-/obj/structure/destructible/clockwork/ocular_warden/process()
+/obj/structure/destructible/clockwork/ocular_warden/process(delta_time)
 	//Can we fire?
 	if(world.time < cooldown)
 		return
 	//Check hostiles in range
 	var/list/valid_targets = list()
 	for(var/mob/living/potential in hearers(OCULAR_WARDEN_RANGE, src))
-		if(!is_servant_of_ratvar(potential) && !potential.stat)
+		if(!is_servant_of_ratvar(potential) && !potential.is_conscious())
 			valid_targets += potential
 	if(!LAZYLEN(valid_targets))
 		return
@@ -51,7 +51,7 @@
 	if(!target)
 		return
 	dir = get_dir(get_turf(src), get_turf(target))
-	target.apply_damage(max(20 - (get_dist(src, target)*5), 10), BURN)
+	target.apply_damage(max(10 - (get_dist(src, target)*2.5), 5)*delta_time, BURN)
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(target))
 	new /obj/effect/temp_visual/ratvar/ocular_warden(get_turf(src))
 	playsound(get_turf(target), 'sound/machines/clockcult/ocularwarden-dot1.ogg', 60, TRUE)

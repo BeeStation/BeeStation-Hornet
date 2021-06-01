@@ -416,7 +416,6 @@
 	var/winner = revolution.process_victory(revs_win_threat_injection)
 	if (isnull(winner))
 		return
-
 	finished = winner
 	return RULESET_STOP_PROCESSING
 

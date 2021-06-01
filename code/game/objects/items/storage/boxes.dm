@@ -1,4 +1,4 @@
-	/*
+/*
  *	Everything derived from the common cardboard box.
  *	Basically everything except the original is a kit (starts full).
  *
@@ -130,6 +130,10 @@
 		new /obj/item/tank/internals/emergency_oxygen(src)
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/flashlight/flare(src)
+		new /obj/item/radio/off(src)
 
 /obj/item/storage/box/survival/radio/PopulateContents()
 	..() // we want the survival stuff too.
@@ -306,6 +310,16 @@
 		new /obj/item/assembly/flash/handheld(src)
 	for(var/i in 1 to 6)
 		new /obj/item/flashbulb(src)
+
+/obj/item/storage/box/stingbangs
+	name = "box of stingbangs (WARNING)"
+	desc = "<B>WARNING: These devices are extremely dangerous and can cause severe injuries or death in repeated use.</B>"
+	icon_state = "secbox"
+	illustration = "flashbang"
+
+/obj/item/storage/box/stingbangs/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/grenade/stingbang(src)
 
 /obj/item/storage/box/wall_flash
 	name = "wall-mounted flash kit"
@@ -839,6 +853,10 @@
 		new /obj/item/tank/internals/emergency_oxygen/clown(src)
 	else
 		new /obj/item/tank/internals/plasmaman/belt(src)
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		new /obj/item/flashlight/flare(src)
+		new /obj/item/radio/off(src)
 
 /obj/item/storage/box/rubbershot
 	name = "box of rubber shots"

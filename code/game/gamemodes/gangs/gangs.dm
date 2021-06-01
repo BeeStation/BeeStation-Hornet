@@ -7,15 +7,15 @@ GLOBAL_LIST_EMPTY(gangs)
 	config_tag = "gang"
 	antag_flag = ROLE_GANG
 	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security")
-	required_players = 15
+	required_players = 30
 	required_enemies = 1
 	recommended_enemies = 2
 	enemy_minimum_age = 14
 
 	announce_span = "danger"
 	announce_text = "A violent turf war has erupted on the station!\n\
-	<span class='danger'>Gangsters</span>: Take over the station with a dominator.\n\
-	<span class='notice'>Crew</span>: Prevent the gangs from expanding and initiating takeover."
+	<span class='danger'>Gangsters</span>: Spread influence and expand the territory of your gang.\n\
+	<span class='notice'>Crew</span>: Spread awareness and prevent your coworkers from killing eachother in turf wars."
 
 	title_icon = "gang"
 
@@ -30,9 +30,9 @@ GLOBAL_LIST_EMPTY(gangs)
 
 	//Spawn more bosses depending on server population
 	var/gangs_to_create = 2
-	if(prob(num_players()) && num_players() > 1.5*required_players)
-		gangs_to_create++
 	if(prob(num_players()) && num_players() > 2*required_players)
+		gangs_to_create++
+	if(prob(num_players()) && num_players() > 3*required_players)
 		gangs_to_create++
 	gangs_to_create = min(gangs_to_create, GLOB.possible_gangs.len)
 
@@ -68,6 +68,19 @@ GLOBAL_LIST_EMPTY(gangs)
 
 /proc/is_gang_boss(mob/M)
 	return M?.mind?.has_antag_datum(/datum/antagonist/gang/boss)
+
+/datum/game_mode/gang/set_round_result()
+	..()
+	var/datum/team/gang/winner
+	var/winner_territories = 0
+	for(var/datum/team/gang/G in GLOB.gangs)
+		var/compare_territories = LAZYLEN(G.territories)
+		if (!winner || compare_territories > winner_territories || (compare_territories == winner_territories && G.victory_points > winner.victory_points))
+			winner = G
+			winner_territories = LAZYLEN(winner.territories) 
+		
+	if (winner)
+		winner.winner = TRUE	//chicken dinner
 
 /datum/game_mode/gang/generate_credit_text()
 	var/list/round_credits = list()

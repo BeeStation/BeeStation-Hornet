@@ -122,8 +122,8 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	var/seconds_electrified = MACHINE_NOT_ELECTRIFIED
 	///When this is TRUE, we fire items at customers! We're broken!
 	var/shoot_inventory = 0
-	///How likely this is to happen (prob 100)
-	var/shoot_inventory_chance = 2
+	///How likely this is to happen (prob 100) per second
+	var/shoot_inventory_chance = 1
 	//Stop spouting those godawful pitches!
 	var/shut_up = 0
 	///can we access the hidden inventory?
@@ -501,9 +501,11 @@ GLOBAL_LIST_EMPTY(vending_products)
 						crit_rebate = 50
 						for(var/i = 0, i < num_shards, i++)
 							var/obj/item/shard/shard = new /obj/item/shard(get_turf(C))
-							shard.embedding = shard.embedding.setRating(embed_chance = 100, embedded_ignore_throwspeed_threshold = TRUE, embedded_impact_pain_multiplier=1,embedded_pain_chance=5)
+							shard.embedding = list(embed_chance = 100, ignore_throwspeed_threshold = TRUE, impact_pain_mult=1, pain_chance=5)
+							shard.updateEmbedding()
 							C.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
-							shard.embedding = shard.embedding.setRating(embed_chance = EMBED_CHANCE, embedded_ignore_throwspeed_threshold = FALSE)
+							shard.embedding = list()
+							shard.updateEmbedding()
 					if(4) // paralyze this binch
 						// the new paraplegic gets like 4 lines of losing their legs so skip them
 						visible_message("<span class='danger'>[C]'s spinal cord is obliterated with a sickening crunch!</span>")
@@ -788,7 +790,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 			SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
 			vend_ready = TRUE
 
-/obj/machinery/vending/process()
+/obj/machinery/vending/process(delta_time)
 	if(stat & (BROKEN|NOPOWER))
 		return PROCESS_KILL
 	if(!active)
@@ -798,12 +800,12 @@ GLOBAL_LIST_EMPTY(vending_products)
 		seconds_electrified--
 
 	//Pitch to the people!  Really sell it!
-	if(last_slogan + slogan_delay <= world.time && slogan_list.len > 0 && !shut_up && prob(5))
+	if(last_slogan + slogan_delay <= world.time && slogan_list.len > 0 && !shut_up && DT_PROB(2.5, delta_time))
 		var/slogan = pick(slogan_list)
 		speak(slogan)
 		last_slogan = world.time
 
-	if(shoot_inventory && prob(shoot_inventory_chance))
+	if(shoot_inventory && DT_PROB(shoot_inventory_chance, delta_time))
 		throw_item()
 /**
   * Speak the given message verbally
