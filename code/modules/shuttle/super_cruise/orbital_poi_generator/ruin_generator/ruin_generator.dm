@@ -219,8 +219,8 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/effect/spawner/lootdrop/glowstick/lit = 2,
 				/obj/effect/spawner/lootdrop/glowstick = 4,
 				/obj/effect/spawner/lootdrop/maintenance = 3,
-				/mob/living/simple_animal/hostile/poison/giant_spider/hunter = 0.4,
-				/mob/living/simple_animal/hostile/poison/giant_spider/tarantula = 0.2,
+				/mob/living/simple_animal/hostile/poison/giant_spider/hunter = 1,
+				/mob/living/simple_animal/hostile/poison/giant_spider/tarantula = 1,
 				null = 90,
 			)
 			for(var/trash in subtypesof(/obj/item/trash))
@@ -303,7 +303,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/structure/spawner/nether = 0.3,
 				/obj/structure/destructible/cult/pylon = 1,
 				/obj/structure/destructible/cult/forge = 1,
-				/obj/effect/rune/blood_boil = 0.5,
+				/obj/effect/rune/blood_boil = 1,
 				/obj/effect/rune/empower = 1,
 				null = 140,
 			)
@@ -340,7 +340,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/effect/spawner/lootdrop/maintenance = 3,
 				/obj/structure/blob/node/lone = 1,
 				/mob/living/simple_animal/hostile/blob/blobspore = 2,
-				/mob/living/simple_animal/hostile/blob/blobbernaut/independent = 0.6,
+				/mob/living/simple_animal/hostile/blob/blobbernaut/independent = 1,
 				null = 90,
 			)
 			for(var/trash in subtypesof(/obj/item/trash))
