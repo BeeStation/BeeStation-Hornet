@@ -245,7 +245,7 @@
 */
 
 /mob/living/simple_animal/hostile/UnarmedAttack(atom/A)
-	target = A
+	GiveTarget(A)
 	if(dextrous && !ismob(A))
 		..()
 	else

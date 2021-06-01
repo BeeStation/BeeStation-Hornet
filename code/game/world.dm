@@ -5,27 +5,22 @@ GLOBAL_VAR(restart_counter)
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
-	if (fexists(EXTOOLS))
-		call(EXTOOLS, "debug_initialize")()
-		call(EXTOOLS, "maptick_initialize")()
-		#ifdef REFERENCE_TRACKING
-		call(EXTOOLS, "ref_tracking_initialize")()
-		#endif
-
 	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
 	world.Profile(PROFILE_START)
 
 	log_world("World loaded at [time_stamp()]!")
 
-	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
-
 	make_datum_references_lists()	//initialises global lists for referencing frequently used datums (so that we only ever do it once)
 
-	TgsNew(minimum_required_security_level = TGS_SECURITY_TRUSTED)
+	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
+
+	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
 	GLOB.revdata = new
 
-	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
+	InitTgs()
+
+	config.LoadMOTD()
 
 	load_admins()
 	load_mentors()
@@ -63,6 +58,10 @@ GLOBAL_VAR(restart_counter)
 	HandleTestRun()
 	#endif
 
+/world/proc/InitTgs()
+	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED)
+	GLOB.revdata.load_tgs_info()
+
 /world/proc/HandleTestRun()
 	//trigger things to run the whole process
 	Master.sleep_offline_after_initializations = FALSE
@@ -74,7 +73,7 @@ GLOBAL_VAR(restart_counter)
 #else
 	cb = VARSET_CALLBACK(SSticker, force_ending, TRUE)
 #endif
-	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, /proc/addtimer, cb, 10 SECONDS))
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, /proc/_addtimer, cb, 10 SECONDS))
 
 /world/proc/SetupLogs()
 	var/override_dir = params[OVERRIDE_LOG_DIRECTORY_PARAMETER]

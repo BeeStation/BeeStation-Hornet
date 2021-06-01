@@ -479,7 +479,7 @@
 	block_upgrade_walk = 1
 	throwforce = 20
 	throw_speed = 4
-	embedding = list("embedded_impact_pain_multiplier" = 3)
+	embedding = list("impact_pain_mult" = 3)
 	armour_penetration = 10
 	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -571,7 +571,7 @@
 	if(wielded)
 		user.say("[war_cry]", forced="spear warcry")
 		explosive.forceMove(AM)
-		explosive.prime()
+		explosive.prime(lanced_by=user)
 		qdel(src)
 
 // CHAINSAW
@@ -732,7 +732,7 @@
 		var/mob/living/L = AM
 		if(istype (L, /mob/living/simple_animal/hostile/illusion))
 			return
-		if(!L.stat && prob(50))
+		if(L.is_conscious() && prob(50))
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
 			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)

@@ -203,6 +203,9 @@
 #define ETHEREAL_CHARGE_ALMOSTFULL 75
 #define ETHEREAL_CHARGE_FULL 100
 
+//Base nutrition value used for newly initialized slimes
+#define SLIME_DEFAULT_NUTRITION 700
+
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10
 
@@ -370,6 +373,9 @@
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
+
+/// Glide speed of carbons in soft crit
+#define CRIT_GLIDE 2
 
 // Mob Playability Set By Admin Or Ghosting
 #define SENTIENCE_SKIP 0

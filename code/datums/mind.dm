@@ -87,6 +87,7 @@
 			if(antag_datum.delete_on_mind_deletion)
 				qdel(i)
 		antag_datums = null
+	QDEL_NULL(language_holder)
 	return ..()
 
 /datum/mind/proc/get_language_holder()

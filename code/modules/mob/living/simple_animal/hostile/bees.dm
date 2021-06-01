@@ -47,7 +47,7 @@
 	//Spaceborn beings don't get hurt by space
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	del_on_death = 1
+	del_on_death = TRUE
 
 	var/datum/reagent/beegent = null //hehe, beegent
 	var/obj/structure/beebox/beehome = null
@@ -146,7 +146,7 @@
 			var/obj/structure/beebox/BB = target
 			forceMove(BB)
 			toggle_ai(AI_IDLE)
-			target = null
+			LoseTarget()
 			wanted_objects -= beehometypecache //so we don't attack beeboxes when not going home
 		return //no don't attack the goddamm box
 	else
@@ -169,10 +169,10 @@
 
 /mob/living/simple_animal/hostile/poison/bees/proc/pollinate(obj/machinery/hydroponics/Hydro)
 	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit)
-		target = null
+		LoseTarget()
 		return
 
-	target = null //so we pick a new hydro tray next FindTarget(), instead of loving the same plant for eternity
+	LoseTarget() //so we pick a new hydro tray next FindTarget(), instead of loving the same plant for eternity
 	wanted_objects -= hydroponicstypecache //so we only hunt them while they're alive/seeded/not visisted
 	Hydro.recent_bee_visit = TRUE
 	addtimer(VARSET_CALLBACK(Hydro, recent_bee_visit, FALSE), BEE_TRAY_RECENT_VISIT)
@@ -208,7 +208,7 @@
 			if(idle <= BEE_IDLE_GOHOME && prob(BEE_PROB_GOHOME))
 				if(!FindTarget())
 					wanted_objects |= beehometypecache //so we don't attack beeboxes when not going home
-					target = beehome
+					GiveTarget(beehome)
 	if(!beehome) //add outselves to a beebox (of the same reagent) if we have no home
 		for(var/obj/structure/beebox/BB in view(vision_range, src))
 			if(reagent_incompatible(BB.queen_bee) || BB.bees.len >= BB.get_max_bees())
@@ -315,3 +315,11 @@
 /mob/living/simple_animal/hostile/poison/bees/short/Initialize()
 	. = ..()
 	addtimer(CALLBACK(src, .proc/death), 50 SECONDS)
+
+
+/mob/living/simple_animal/hostile/poison/bees/space
+	name = "killer space bee"
+	desc = "I mean, killer is 'IN' the name..."
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = 1500
