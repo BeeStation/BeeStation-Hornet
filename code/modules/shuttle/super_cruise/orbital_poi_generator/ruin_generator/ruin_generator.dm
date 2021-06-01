@@ -238,7 +238,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/structure/sign/poster/random = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
-				null = 60
+				null = 30
 			)
 		if("xeno")
 			floor_break_prob = 4
@@ -282,7 +282,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/item/radio/intercom = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
-				null = 60
+				null = 30
 			)
 		if("netherworld")
 			floor_break_prob = 30
@@ -322,7 +322,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/structure/sign/poster/random = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
-				null = 60
+				null = 30
 			)
 		if("blob")
 			floor_break_prob = 8
@@ -358,7 +358,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/structure/sign/poster/random = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
-				null = 60
+				null = 30
 			)
 		if("ratvar")
 			floortrash = list(
@@ -392,7 +392,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				/obj/machinery/newscaster = 2,
 				/obj/structure/destructible/clockwork/trap/delay = 1,
 				/obj/structure/destructible/clockwork/trap/lever = 1,
-				null = 50
+				null = 30
 			)
 
 	//Place trash
