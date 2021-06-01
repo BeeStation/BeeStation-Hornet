@@ -99,7 +99,7 @@
 	glasses = /obj/item/clothing/glasses/hud/health
 	back = /obj/item/storage/backpack/ert/medical
 	belt = /obj/item/storage/belt/medical
-	r_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/regular
 	backpack_contents = list(/obj/item/storage/box/engineer=1,\
 		/obj/item/melee/baton/loaded=1,\
 		/obj/item/clothing/mask/gas/sechailer=1,\
@@ -136,7 +136,7 @@
 	back = /obj/item/storage/backpack/ert/engineer
 	belt = /obj/item/storage/belt/utility/full
 	l_pocket = /obj/item/rcd_ammo/large
-	r_hand = /obj/item/storage/firstaid/regular
+	l_hand = /obj/item/storage/firstaid/regular
 	backpack_contents = list(/obj/item/storage/box/engineer=1,\
 		/obj/item/melee/baton/loaded=1,\
 		/obj/item/clothing/mask/gas/sechailer=1,\
@@ -196,7 +196,7 @@
 
 /datum/outfit/ert/commander/inquisitor
 	name = "Inquisition Commander"
-	r_hand = /obj/item/nullrod/scythe/talking/chainsword
+	l_hand = /obj/item/nullrod/scythe/talking/chainsword
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/clothing/mask/gas/sechailer=1)
@@ -294,12 +294,13 @@
 
 /datum/outfit/ert/janitor/heavy
 	name = "ERT Janitor - Heavy Duty"
-	r_hand = /obj/item/reagent_containers/spray/chemsprayer/janitor
+
 	backpack_contents = list(/obj/item/storage/box/engineer=1,\
 		/obj/item/storage/box/lights/mixed=1,\
 		/obj/item/melee/baton/loaded=1,\
 		/obj/item/clothing/mask/gas/sechailer=1,\
 		/obj/item/grenade/clusterbuster/cleaner=3)
+		/obj/item/reagent_containers/spray/chemsprayer/janitor
 
 /datum/outfit/centcom_intern
 	name = "CentCom Intern"
@@ -310,7 +311,7 @@
 	ears = /obj/item/radio/headset/headset_cent
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	belt = /obj/item/melee/classic_baton/police
-	r_hand = /obj/item/gun/ballistic/rifle/boltaction
+	l_hand = /obj/item/gun/ballistic/rifle/boltaction
 	back = /obj/item/storage/backpack/satchel
 	l_pocket = /obj/item/ammo_box/a762
 	r_pocket = /obj/item/ammo_box/a762
@@ -333,7 +334,7 @@
 	belt = /obj/item/melee/baton/loaded
 	suit = /obj/item/clothing/suit/armor/vest
 	suit_store = /obj/item/gun/ballistic/rifle/boltaction
-	r_hand = /obj/item/megaphone
+	l_hand = /obj/item/megaphone
 	head = /obj/item/clothing/head/intern
 
 /datum/outfit/centcom_clown

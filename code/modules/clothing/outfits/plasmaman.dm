@@ -189,3 +189,40 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/honk
 	uniform = /obj/item/clothing/under/plasmaman/honk
+
+/datum/outfit/plasmaman/commander
+	name = "CentCom Command Plasmaman"
+
+	mask = /obj/item/clothing/mask/gas/sechailer
+	head = /obj/item/clothing/head/helmet/space/plasmaman/commander
+	uniform = /obj/item/clothing/under/plasmaman/commander
+
+/datum/outfit/plasmaman/official
+	name = "CentCom Official Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/official
+	uniform = /obj/item/clothing/under/plasmaman/official
+
+/datum/outfit/plasmaman/intern
+	name = "CentCom Intern Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/intern
+	uniform = /obj/item/clothing/under/plasmaman/intern
+
+/datum/outfit/plasmaman/ert
+	name = "ERT Common Plasmaman"
+
+	uniform = /obj/item/clothing/under/plasmaman/official
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+
+/datum/outfit/plasmaman/death_commando
+	name = "Death Commando Plasmaman"
+
+	uniform = /obj/item/clothing/under/plasmaman/commander
+	suit_store = /obj/item/tank/internals/plasmaman/belt/full
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+
+/datum/outfit/plasmaman/honk_squad
+	name = "HONK Squad Plasmaman"
+
+	suit_store = /obj/item/tank/internals/plasmaman/belt/full

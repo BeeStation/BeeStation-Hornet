@@ -162,6 +162,24 @@
 		if("Mime")
 			O = new /datum/outfit/plasmaman/mime
 
+		if("CentCom Commander")
+			O = new /datum/outfit/plasmaman/commander
+
+		if("CentCom Offial")
+			O = new /datum/outfit/plasmaman/official
+
+		if("ERT Common")
+			O = new /datum/outfit/plasmaman/ert
+
+		if("Code Banana ERT")
+			O = new /datum/outfit/plasmaman/honk
+
+		if("Death Commando")
+			O = new /datum/outfit/plasmaman/death_commando
+
+		if("HONK Squad Trooper")
+			O = new/datum/outfit/plasmaman/honk_squad
+
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.get_item_for_held_index(2)
 	H.update_internals_hud_icon(1)
