@@ -14,11 +14,12 @@ GLOBAL_VAR_INIT(waiting, FALSE)
  * center_z - The z level the ruin is on.
  * border_x - The distance from the edge of the world in which the ruin will be forced to stop.
  * border_y - See above.
+ * linked_objective - Will spawn special objective stuff if this is part of an objective.
  * Note: The ruin can generate past the border. The border prevents rooms from attaching past that point,
  * however if a room attachment point is not past the border, the room it generates on that attachment point
  * can go past the border. No attachment points can be generated past the border.
  */
-/proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y)
+/proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective)
 	log_mapping("Generating random ruin at [center_x], [center_y], [center_z]")
 
 	if(!length(GLOB.loaded_ruin_parts))
@@ -401,5 +402,13 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 							if(WEST)
 								A.pixel_x = -32
 				break
+
+	CHECK_TICK
+
+	//Generate objective stuff
+	if(linked_objective)
+		var/objective_turf = pick(floor_turfs)
+		var/split_loc = splittext(objective_turf, "_")
+		linked_objective.generate_objective_stuff(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
 
 	log_mapping("Finished generating ruin at [center_x], [center_y], [center_z]")
