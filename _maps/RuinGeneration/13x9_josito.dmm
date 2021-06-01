@@ -1,0 +1,269 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/techstorage/medical,
+/turf/open/floor/carpet/purple,
+/area/space)
+"e" = (
+/obj/structure/fans/tiny,
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/wood,
+/area/space)
+"f" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
+/turf/open/floor/wood,
+/area/space)
+"g" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/open/floor/carpet/purple,
+/area/space)
+"h" = (
+/obj/structure/chair/sofa/left{
+	dir = 8
+	},
+/turf/open/floor/carpet/purple,
+/area/space)
+"j" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/turf/open/floor/carpet/purple,
+/area/space)
+"k" = (
+/obj/structure/chair/wood,
+/turf/open/floor/wood,
+/area/space)
+"n" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/space)
+"o" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plating,
+/area/space)
+"w" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/wood,
+/area/space)
+"y" = (
+/obj/effect/spawner/room/threexthree,
+/turf/open/floor/plating,
+/area/space)
+"z" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/open/floor/carpet/purple,
+/area/space)
+"A" = (
+/obj/structure/bookcase/random,
+/turf/open/floor/wood,
+/area/space)
+"B" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/carpet/purple,
+/area/space)
+"D" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/matches,
+/turf/open/floor/wood,
+/area/space)
+"G" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/space)
+"H" = (
+/turf/open/floor/plating,
+/area/space)
+"J" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/poppy,
+/turf/open/floor/wood,
+/area/space)
+"L" = (
+/obj/structure/table/wood,
+/obj/item/candle,
+/turf/open/floor/wood,
+/area/space)
+"N" = (
+/turf/open/floor/wood,
+/area/space)
+"Q" = (
+/obj/structure/chair/sofa/left,
+/turf/open/floor/wood,
+/area/space)
+"R" = (
+/obj/structure/chair/sofa/right{
+	dir = 8
+	},
+/turf/open/floor/carpet/purple,
+/area/space)
+"S" = (
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/cat{
+	name = "Josito";
+	real_name = "Josito";
+	unique_name = 1
+	},
+/turf/open/floor/wood,
+/area/space)
+"W" = (
+/turf/closed/wall,
+/area/space)
+"Y" = (
+/turf/open/floor/carpet/purple,
+/area/space)
+"Z" = (
+/obj/structure/chair/sofa/right,
+/turf/open/floor/wood,
+/area/space)
+
+(1,1,1) = {"
+W
+W
+W
+W
+W
+W
+W
+W
+W
+"}
+(2,1,1) = {"
+W
+A
+N
+k
+L
+G
+N
+A
+W
+"}
+(3,1,1) = {"
+W
+S
+N
+k
+D
+G
+N
+A
+W
+"}
+(4,1,1) = {"
+W
+Z
+N
+N
+N
+N
+N
+w
+W
+"}
+(5,1,1) = {"
+W
+Q
+N
+N
+N
+N
+N
+N
+W
+"}
+(6,1,1) = {"
+W
+A
+N
+k
+L
+G
+N
+N
+W
+"}
+(7,1,1) = {"
+W
+f
+N
+k
+J
+G
+N
+N
+e
+"}
+(8,1,1) = {"
+W
+A
+N
+N
+N
+N
+N
+w
+W
+"}
+(9,1,1) = {"
+W
+W
+z
+W
+W
+W
+W
+W
+W
+"}
+(10,1,1) = {"
+W
+j
+Y
+Y
+W
+H
+H
+y
+W
+"}
+(11,1,1) = {"
+B
+Y
+Y
+Y
+g
+H
+H
+H
+o
+"}
+(12,1,1) = {"
+W
+b
+R
+h
+W
+H
+H
+H
+W
+"}
+(13,1,1) = {"
+W
+W
+W
+W
+W
+W
+n
+W
+W
+"}
