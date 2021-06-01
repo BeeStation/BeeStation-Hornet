@@ -59,6 +59,7 @@
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	surgery.step_in_progress = TRUE
 	var/speed_mod = 1
+	var/fail_prob = 0//100 - fail_prob = success_prob
 	var/advance = FALSE
 
 	if(preop(user, target, target_zone, tool, surgery) == -1)
@@ -68,18 +69,27 @@
 	if(tool)
 		speed_mod = tool.toolspeed
 
-	if(do_after(user, time * speed_mod, target = target))
-		var/prob_chance = 100
+	var/implement_speed_mod = 1
+	if(implement_type)	//this means it isn't a require hand or any item step.
+		implement_speed_mod = implements[implement_type] / 100.0
 
-		if(implement_type)	//this means it isn't a require hand or any item step.
-			prob_chance = implements[implement_type]
-		prob_chance *= surgery.get_propability_multiplier(user)
+	speed_mod /= (get_speed_modifier(user, target) * (1 + surgery.speed_modifier) * implement_speed_mod)
+	var/modded_time = time * speed_mod
 
-		if((prob(prob_chance) || iscyborg(user)) && chem_check(target) && !try_to_fail)
+	fail_prob = min(max(0, modded_time - (time * 2)),99)//if modded_time > time * 2, then fail_prob = modded_time - time*2. starts at 0, caps at 99
+	modded_time = min(modded_time, time * 2)//also if that, then cap modded_time at time*2
+
+	if(iscyborg(user))//any immunities to surgery slowdown should go in this check.
+		modded_time = time
+
+	if(do_after(user, modded_time, target = target))
+
+		if((prob(100-fail_prob) || iscyborg(user)) && chem_check(target) && !try_to_fail)
+
 			if(success(user, target, target_zone, tool, surgery))
 				advance = TRUE
 		else
-			if(failure(user, target, target_zone, tool, surgery))
+			if(failure(user, target, target_zone, tool, surgery, fail_prob))
 				advance = TRUE
 
 		if(advance && !repeatable)
