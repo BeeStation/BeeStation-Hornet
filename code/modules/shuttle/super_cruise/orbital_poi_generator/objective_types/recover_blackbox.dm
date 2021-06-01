@@ -18,7 +18,7 @@
 		The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/recover_blackbox/check_failed()
-	if(linked_blackbox || !generated)
+	if(QDELETED(linked_blackbox) || !generated)
 		return FALSE
 	return TRUE
 
