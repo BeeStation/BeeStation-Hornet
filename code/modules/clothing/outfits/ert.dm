@@ -299,8 +299,8 @@
 		/obj/item/storage/box/lights/mixed=1,\
 		/obj/item/melee/baton/loaded=1,\
 		/obj/item/clothing/mask/gas/sechailer=1,\
-		/obj/item/grenade/clusterbuster/cleaner=3)
-		/obj/item/reagent_containers/spray/chemsprayer/janitor
+		/obj/item/grenade/clusterbuster/cleaner=3,
+		/obj/item/reagent_containers/spray/chemsprayer/janitor=1)
 
 /datum/outfit/centcom_intern
 	name = "CentCom Intern"
