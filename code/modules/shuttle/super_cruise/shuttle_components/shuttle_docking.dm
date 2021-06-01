@@ -153,7 +153,7 @@
 		return
 
 	///Make one use port that deleted after fly off, to don't lose info that need on to properly fly off.
-	if(my_port && my_port.get_docked())
+	if(my_port)
 		my_port.delete_after = TRUE
 		my_port.id = null
 		my_port.name = "Old [my_port.name]"
