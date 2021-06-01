@@ -294,7 +294,6 @@
 
 /datum/outfit/ert/janitor/heavy
 	name = "ERT Janitor - Heavy Duty"
-
 	backpack_contents = list(/obj/item/storage/box/engineer=1,\
 		/obj/item/storage/box/lights/mixed=1,\
 		/obj/item/melee/baton/loaded=1,\
