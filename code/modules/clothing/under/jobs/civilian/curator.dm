@@ -6,7 +6,7 @@
 	item_color = "red_suit"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/rank/curator/skirt
+/obj/item/clothing/under/rank/civilian/curator/skirt
 	name = "sensible suitskirt"
 	desc = "It's very... sensible."
 	icon_state = "red_suit_skirt"
