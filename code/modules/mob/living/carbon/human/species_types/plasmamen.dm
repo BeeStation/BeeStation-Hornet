@@ -165,8 +165,11 @@
 		if("CentCom Commander")
 			O = new /datum/outfit/plasmaman/commander
 
-		if("CentCom Offial")
+		if("CentCom Official")
 			O = new /datum/outfit/plasmaman/official
+
+		if("CentCom Intern" || "CentCom Head Intern")
+			O = new /datum/outfit/plasmaman/intern
 
 		if("ERT Common")
 			O = new /datum/outfit/plasmaman/ert
