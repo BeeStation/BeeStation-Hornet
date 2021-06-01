@@ -1,5 +1,5 @@
 /obj/item/clothing/under/plasmaman/commander
-	name = "CentCom commander plasma envirosuit"
+	name = "CentCom commander envirosuit"
 	desc = "An envirosuit worn by CentCom's highest-tier Commanders."
 	icon_state = "commander_envirosuit"
 	item_state = "commander_envirosuit"
