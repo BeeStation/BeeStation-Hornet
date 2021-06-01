@@ -32,6 +32,10 @@
 	var/recovered = FALSE
 	var/datum/orbital_objective/recover_blackbox/linked_obj
 
+/obj/item/blackbox/objective/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/gps, "BLACKBOX #[rand(1000, 9999)]", TRUE)
+
 /obj/item/blackbox/objective/examine(mob/user)
 	. = ..()
 	if(recovered)
