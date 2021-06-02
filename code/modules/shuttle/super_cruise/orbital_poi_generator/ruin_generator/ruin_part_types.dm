@@ -164,6 +164,7 @@
 /datum/map_template/ruin_part/gateway
 	file_name = "5x9_gateway"
 	weight = 1
+	max_occurances = 1
 
 /datum/map_template/ruin_part/shower
 	file_name = "5x5_shower"
@@ -189,7 +190,7 @@
 	max_occurances = 1
 
 /datum/map_template/ruin_part/pizzaguard
-	file_name = "13x17_pizzaguardian"
+	file_name = "13x17_pizzaroom"
 	weight = 20
 	loot_room = TRUE
 
@@ -288,3 +289,8 @@
 /datum/map_template/ruin_part/roomcross
 	file_name = "5x5_roomcross"
 	weight = 1
+
+/datum/map_template/ruin_part/chemlab
+	file_name = "9x9_chemlab"
+	weight = 3
+	max_occurances = 2
