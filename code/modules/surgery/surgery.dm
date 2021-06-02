@@ -115,31 +115,6 @@
 	SSblackbox.record_feedback("tally", "surgeries_completed", 1, type)
 	qdel(src)
 
-/proc/get_speed_modifier(mob/M, mob/N)
-	var/propability = 0.3
-	var/turf/T = get_turf(N)
-	var/selfpenalty = 0
-	var/sleepbonus = 0
-	if(N == M)
-		if(HAS_TRAIT(M, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in view(1, M) || M.get_inactive_held_item() == /obj/item/handmirror)
-			selfpenalty = 0.4
-		else
-			selfpenalty = 0.6
-	if(N.stat != CONSCIOUS)
-		sleepbonus = 0.5
-	if(locate(/obj/structure/table/optable/abductor, T))
-		propability = 1.2
-	else if(locate(/obj/structure/table/optable, T))
-		propability = 1
-	else if(locate(/obj/machinery/stasis, T))
-		propability = 0.8
-	else if(locate(/obj/structure/table, T))
-		propability = 0.6
-	else if(locate(/obj/structure/bed, T))
-		propability = 0.5
-
-	return propability + sleepbonus - selfpenalty
-
 /datum/surgery/advanced
 	name = "advanced surgery"
 	requires_tech = TRUE

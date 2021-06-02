@@ -55,6 +55,31 @@
 
 	return FALSE
 
+/datum/surgery_step/proc/get_speed_modifier(mob/U, mob/V) //V for victim
+	var/propability = 0.3
+	var/turf/T = get_turf(V)
+	var/selfpenalty = 0
+	var/sleepbonus = 0
+	if(V == U)
+		if(HAS_TRAIT(U, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in view(1, U) || U.get_inactive_held_item() == /obj/item/handmirror)
+			selfpenalty = 0.4
+		else
+			selfpenalty = 0.6
+	if(V != CONSCIOUS)
+		sleepbonus = 0.5
+	if(locate(/obj/structure/table/optable/abductor, T))
+		propability = 1.2
+	else if(locate(/obj/structure/table/optable, T))
+		propability = 1
+	else if(locate(/obj/machinery/stasis, T))
+		propability = 0.8
+	else if(locate(/obj/structure/table, T))
+		propability = 0.6
+	else if(locate(/obj/structure/bed, T))
+		propability = 0.5
+
+	return propability + sleepbonus - selfpenalty
+
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	surgery.step_in_progress = TRUE
 	var/speed_mod = 1
