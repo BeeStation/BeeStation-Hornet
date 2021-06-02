@@ -2,17 +2,17 @@
 .OrbitalMap__radar {
   position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
-  width: 800px;
+  bottom: 0;
+  width: calc(100% - 400px);
   overflow-x: hidden;
   overflow-y: hidden;
 }
 
 .OrbitalMap__panel {
   position: absolute;
-  left: 800px;
-  width: 380px;
+  right: 0%;
+  width: 400px;
   border-left: 5px;
   border-right: 5px;
 }
