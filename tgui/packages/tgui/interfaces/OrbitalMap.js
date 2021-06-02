@@ -1,5 +1,5 @@
 import { toTitleCase } from 'common/string';
-import { Box, Button, Section, Table, DraggableControl, Dropdown, Divider, NoticeBox, Slider, Knob, ProgressBar } from '../components';
+import { Box, Button, Section, Table, DraggableControl, Dropdown, Divider, NoticeBox, Slider, Knob, ProgressBar, ScrollableBox } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -60,8 +60,9 @@ export const OrbitalMap = (props, context) => {
   }
   return (
     <Window
-      width={1200}
-      height={800}>
+      width={1036}
+      height={670}
+      resizable>
       <Window.Content>
         <div class="OrbitalMap__radar">
           <Button
@@ -280,44 +281,42 @@ export const OrbitalMap = (props, context) => {
             </Section>
           </div>
           <Divider />
-          <div class="OrbitalMap__shuttle">
-            <Section title="Flight Controls" height="100%">
-              {(!thrust_alert) || (
-                <NoticeBox color="red">
-                  {thrust_alert}
-                </NoticeBox>
-              )}
-              {(!damage_alert) || (
-                <NoticeBox color="red">
-                  {damage_alert}
-                </NoticeBox>
-              )}
-              {recall_docking_port_id !== ""
-                ? <RecallControl />
-                : linkedToShuttle
-                  ? <ShuttleControls />
-                  : (canLaunch ? (
-                    <>
-                      <NoticeBox>
-                        Currently docked, awaiting launch order.
-                      </NoticeBox>
-                      <Button
-                        content="INITIATE LAUNCH"
-                        textAlign="center"
-                        fontSize="30px"
-                        icon="rocket"
-                        width="100%"
-                        height="50px"
-                        onClick={() => act('launch')} />
-                    </>
-                  ) : (
-                    <NoticeBox
-                      color="red">
-                      Not linked to a shuttle.
+          <Section title="Flight Controls" height="100%">
+            {(!thrust_alert) || (
+              <NoticeBox color="red">
+                {thrust_alert}
+              </NoticeBox>
+            )}
+            {(!damage_alert) || (
+              <NoticeBox color="red">
+                {damage_alert}
+              </NoticeBox>
+            )}
+            {recall_docking_port_id !== ""
+              ? <RecallControl />
+              : linkedToShuttle
+                ? <ShuttleControls />
+                : (canLaunch ? (
+                  <>
+                    <NoticeBox>
+                      Currently docked, awaiting launch order.
                     </NoticeBox>
-                  ))}
-            </Section>
-          </div>
+                    <Button
+                      content="INITIATE LAUNCH"
+                      textAlign="center"
+                      fontSize="30px"
+                      icon="rocket"
+                      width="100%"
+                      height="50px"
+                      onClick={() => act('launch')} />
+                  </>
+                ) : (
+                  <NoticeBox
+                    color="red">
+                    Not linked to a shuttle.
+                  </NoticeBox>
+                ))}
+          </Section>
         </div>
       </Window.Content>
     </Window>
