@@ -51,6 +51,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 
 /obj/machinery/nuclearbomb/decomission
 	desc = "A nuclear bomb for destroying stations. Uses an old version of the nuclear authentication disk."
+	proper_bomb = FALSE
 	var/datum/orbital_objective/nuclear_bomb/linked_objective
 	var/target_z
 
