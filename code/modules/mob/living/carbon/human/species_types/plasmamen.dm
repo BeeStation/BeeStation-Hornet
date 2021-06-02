@@ -19,7 +19,7 @@
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
 	disliked_food = FRUIT
 	liked_food = VEGETABLES
-	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
+	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | ERT_SPAWN
 	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
 
@@ -161,27 +161,6 @@
 
 		if("Mime")
 			O = new /datum/outfit/plasmaman/mime
-
-		if("CentCom Commander")
-			O = new /datum/outfit/plasmaman/commander
-
-		if("CentCom Official")
-			O = new /datum/outfit/plasmaman/official
-
-		if("CentCom Intern" || "CentCom Head Intern")
-			O = new /datum/outfit/plasmaman/intern
-
-		if("ERT Common")
-			O = new /datum/outfit/plasmaman/ert
-
-		if("Code Banana ERT")
-			O = new /datum/outfit/plasmaman/honk
-
-		if("Death Commando")
-			O = new /datum/outfit/plasmaman/death_commando
-
-		if("HONK Squad Trooper")
-			O = new/datum/outfit/plasmaman/honk_squad
 
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.get_item_for_held_index(2)

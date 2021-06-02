@@ -19,7 +19,10 @@
 	if(!istype(H))
 		return
 	H.equipOutfit(/datum/outfit/centcom_official)
-
+	if(isplasmaman(H))
+		H.plasmaman_equipOutfit(/datum/outfit/plasmaman/official)
+		H.internal = H.get_item_for_held_index(2)
+		H.update_internals_hud_icon(1)
 	if(CONFIG_GET(flag/enforce_human_authority))
 		H.set_species(/datum/species/human)
 

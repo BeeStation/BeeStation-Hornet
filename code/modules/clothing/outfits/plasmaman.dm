@@ -212,12 +212,14 @@
 /datum/outfit/plasmaman/ert
 	name = "ERT Common Plasmaman"
 
+	head = null
 	uniform = /obj/item/clothing/under/plasmaman/official
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
 /datum/outfit/plasmaman/death_commando
 	name = "Death Commando Plasmaman"
 
+	head = null
 	uniform = /obj/item/clothing/under/plasmaman/commander
 	suit_store = /obj/item/tank/internals/plasmaman/belt/full
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -225,4 +227,5 @@
 /datum/outfit/plasmaman/honk_squad
 	name = "HONK Squad Plasmaman"
 
-	suit_store = /obj/item/tank/internals/plasmaman/belt/full
+	head = null
+	uniform = /obj/item/clothing/under/plasmaman/honk

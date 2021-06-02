@@ -262,6 +262,9 @@
 
 	return O.equip(src, visualsOnly)
 
+/mob/living/carbon/human/proc/plasmaman_equipOutfit(outfit) //used for plasmaman ert
+	var/datum/outfit/O = new outfit
+	return O.equip(src)
 
 //delete all equipment without dropping anything
 /mob/living/carbon/human/proc/delete_equipment()
