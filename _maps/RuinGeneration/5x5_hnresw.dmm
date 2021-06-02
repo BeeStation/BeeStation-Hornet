@@ -1,62 +1,65 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "g" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"i" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
-"y" = (
-/turf/template_noop,
-/area/template_noop)
-"z" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/template_noop)
-"O" = (
+"j" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"n" = (
 /obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"p" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"M" = (
+/obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"P" = (
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"T" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/ruin/unpowered)
 
 (1,1,1) = {"
-y
-y
-y
-y
-y
+i
+i
+p
+i
+i
 "}
 (2,1,1) = {"
-y
-z
-y
-z
-y
+j
+j
+j
+j
+i
 "}
 (3,1,1) = {"
-T
-T
-T
-T
-T
+n
+j
+j
+j
+g
 "}
 (4,1,1) = {"
-T
-P
-P
-P
-T
+j
+j
+j
+j
+i
 "}
 (5,1,1) = {"
-g
-P
-O
-P
-g
+i
+i
+M
+i
+i
 "}
