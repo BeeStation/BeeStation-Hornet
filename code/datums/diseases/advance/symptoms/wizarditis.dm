@@ -16,17 +16,17 @@
 
 /datum/symptom/wizarditis/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 8)
+	if(A.properties["transmittable"] >= 12)
 		severity += 1
-	if(A.properties["stage_rate"] >= 7)
+	if(A.properties["speed"] >= 7)
 		severity += 1
 
 /datum/symptom/wizarditis/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 8)
+	if(A.properties["transmission"] >= 14)
 		teleport = TRUE
-	if(A.properties["stage_rate"] >= 7)
+	if(A.properties["speed"] >= 7)
 		robes = TRUE
 
 /datum/symptom/wizarditis/Activate(datum/disease/advance/A)

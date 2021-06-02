@@ -7,7 +7,6 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
-	processing_flags = NONE
 	req_access = list(ACCESS_ROBOTICS)
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/cyborgrecharger
@@ -36,11 +35,12 @@
 		if(repairs)
 			. += "<span class='notice'>[src] has been upgraded to support automatic repairs.</span>"
 
-/obj/machinery/recharge_station/process(delta_time)
+/obj/machinery/recharge_station/process()
 	if(!is_operational())
 		return
+
 	if(occupant)
-		process_occupant(delta_time)
+		process_occupant()
 	return 1
 
 /obj/machinery/recharge_station/relaymove(mob/user)
@@ -101,10 +101,10 @@
 	..()
 	update_icon()
 
-/obj/machinery/recharge_station/proc/process_occupant(delta_time)
+/obj/machinery/recharge_station/proc/process_occupant()
 	if(!occupant)
 		return
-	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed * delta_time / 2, repairs)
+	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed, repairs)
 
 /obj/machinery/recharge_station/proc/restock_modules()
 	if(occupant)

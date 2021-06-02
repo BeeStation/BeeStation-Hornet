@@ -103,7 +103,7 @@
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, cultoverride = TRUE, loc_override = src.loc)
 
-/obj/singularity/narsie/process(delta_time)
+/obj/singularity/narsie/process()
 	eat()
 	if(clashing)
 		//Oh god what is it doing...
@@ -117,7 +117,7 @@
 				for(var/mob/living/M in GLOB.player_list)
 					shake_camera(M, 25, 6)
 					M.Knockdown(10)
-				if(DT_PROB(max(SSticker.mode?.cult.len/2, 15), delta_time))
+				if(prob(max(SSticker.mode?.cult.len/2, 15)))
 					SEND_SOUND(world, 'sound/magic/clockwork/anima_fragment_death.ogg')
 					SEND_SOUND(world, 'sound/effects/explosionfar.ogg')
 					to_chat(world, "<span class='narsie'>You really thought you could best me twice?</span>")
@@ -128,11 +128,11 @@
 				return
 		move()
 		return
-	if(!target || DT_PROB(5, delta_time))
+	if(!target || prob(5))
 		pickcultist()
 	else
 		move()
-	if(DT_PROB(25, delta_time))
+	if(prob(25))
 		mezzer()
 
 

@@ -58,6 +58,7 @@
 	loadmaplist(CONFIG_MAPS_FILE)
 	LoadTopicRateWhitelist()
 	LoadProtectedIDs()
+	LoadMOTD()
 	LoadChatFilter()
 
 	if (Master)
@@ -211,8 +212,6 @@
 	var/entry_is_abstract = initial(E.abstract_type) == entry_type
 	if(entry_is_abstract)
 		CRASH("Tried to retrieve an abstract config_entry: [entry_type]")
-	if(!entries_by_type)
-		CRASH("Tried to retrieve config value before it was loaded or it was nulled.")
 	E = entries_by_type[entry_type]
 	if(!E)
 		CRASH("Missing config entry for [entry_type]!")

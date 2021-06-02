@@ -246,10 +246,10 @@
 	START_PROCESSING(SSfastprocess,src)
 	..()
 
-/obj/effect/hallucination/simple/securitron/process(delta_time)
-	if(DT_PROB(60, delta_time))
+/obj/effect/hallucination/simple/securitron/process()
+	if(prob(60))
 		forceMove(get_step_towards(src, victim))
-		if(DT_PROB(5, delta_time))
+		if(prob(5))
 			to_chat(victim, "<span class='name'>[name]</span> exclaims, \"<span class='robotic'>Level 10 infraction alert!\"</span>")
 
 /obj/effect/hallucination/simple/securitron/Destroy()

@@ -11,7 +11,6 @@
 	idle_power_usage = 0
 	power_channel = AREA_USAGE_EQUIP
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_HEADS, ACCESS_SECURITY) //used to control clamps
-	processing_flags = NONE
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 

@@ -69,9 +69,9 @@
 /obj/singularity/academy/admin_investigate_setup()
 	return
 
-/obj/singularity/academy/process(delta_time)
+/obj/singularity/academy/process()
 	eat()
-	if(DT_PROB(0.5, delta_time))
+	if(prob(1))
 		mezzer()
 
 

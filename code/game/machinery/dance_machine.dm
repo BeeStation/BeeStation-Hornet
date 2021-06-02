@@ -456,11 +456,11 @@
 		stop = world.time + 100
 		return PROCESS_KILL
 
-/obj/machinery/jukebox/disco/process(delta_time)
+/obj/machinery/jukebox/disco/process()
 	. = ..()
 	if(active)
 		for(var/mob/M as() in rangers)
-			if(DT_PROB(5+(allowed(M)*4), delta_time))
+			if(prob(5+(allowed(M)*4)))
 				if(isliving(M))
 					var/mob/living/L = M
 					if(!(L.mobility_flags & MOBILITY_MOVE))

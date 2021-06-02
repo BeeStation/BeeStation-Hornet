@@ -22,7 +22,6 @@
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
-	processing_flags = NONE
 
 
 	var/obj/item/stock_parts/cell/cell
@@ -107,8 +106,8 @@
 		"Recharging <b>[recharge_amount]</b> power units per interval.\n"+\
 		"Power efficiency increased by <b>[round((powerefficiency*1000)-100, 1)]%</b>.</span>"
 
-/obj/machinery/chem_dispenser/process(delta_time)
-	if (recharge_counter >= 8)
+/obj/machinery/chem_dispenser/process()
+	if (recharge_counter >= 4)
 		if(!is_operational())
 			return
 		var/usedpower = cell.give(recharge_amount)
@@ -116,7 +115,7 @@
 			use_power(250*recharge_amount)
 		recharge_counter = 0
 		return
-	recharge_counter += delta_time
+	recharge_counter++
 
 /obj/machinery/chem_dispenser/proc/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")

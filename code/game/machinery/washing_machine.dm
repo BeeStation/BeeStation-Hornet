@@ -39,18 +39,18 @@
 
 	START_PROCESSING(SSfastprocess, src)
 
-/obj/machinery/washing_machine/process(delta_time)
+/obj/machinery/washing_machine/process()
 	if(!busy)
 		animate(src, transform=matrix(), time=2)
 		return PROCESS_KILL
 	if(anchored)
-		if(DT_PROB(2.5, delta_time))
+		if(prob(5))
 			var/matrix/M = new
 			M.Translate(rand(-1, 1), rand(0, 1))
 			animate(src, transform=M, time=1)
 			animate(transform=matrix(), time=1)
 	else
-		if(DT_PROB(0.5, delta_time))
+		if(prob(1))
 			step(src, pick(GLOB.cardinals))
 		var/matrix/M = new
 		M.Translate(rand(-3, 3), rand(-1, 3))

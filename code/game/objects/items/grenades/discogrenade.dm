@@ -59,6 +59,7 @@
 	randomiseLightColor()
 
 /obj/item/grenade/discogrenade/subgrenade/prime(mob/living/lanced_by)
+	. = ..()
 	update_mob()
 	var/current_turf = get_turf(src)
 	if(!current_turf)

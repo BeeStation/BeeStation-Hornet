@@ -1,5 +1,4 @@
-/// How many seconds between each fuel depletion tick ("use" proc)
-#define WELDER_FUEL_BURN_INTERVAL 26
+#define WELDER_FUEL_BURN_INTERVAL 13
 /obj/item/weldingtool
 	name = "welding tool"
 	desc = "A standard edition welder provided by Nanotrasen."
@@ -61,7 +60,7 @@
 	return
 
 
-/obj/item/weldingtool/process(delta_time)
+/obj/item/weldingtool/process()
 	switch(welding)
 		if(0)
 			force = 3
@@ -74,7 +73,7 @@
 		if(1)
 			force = 15
 			damtype = "fire"
-			burned_fuel_for += delta_time
+			++burned_fuel_for
 			if(burned_fuel_for >= WELDER_FUEL_BURN_INTERVAL)
 				use(1)
 			update_icon()
@@ -164,9 +163,8 @@
 	if(!isOn() || !check_fuel())
 		return FALSE
 
-	if(used > 0)
+	if(used)
 		burned_fuel_for = 0
-
 	if(get_fuel() >= used)
 		reagents.remove_reagent(/datum/reagent/fuel, used)
 		check_fuel()
@@ -373,10 +371,10 @@
 	item_state = "brasswelder"
 
 
-/obj/item/weldingtool/experimental/process(delta_time)
+/obj/item/weldingtool/experimental/process()
 	..()
 	if(get_fuel() < max_fuel && nextrefueltick < world.time)
 		nextrefueltick = world.time + 10
-		reagents.add_reagent(/datum/reagent/fuel, 0.5*delta_time)
+		reagents.add_reagent(/datum/reagent/fuel, 1)
 
 #undef WELDER_FUEL_BURN_INTERVAL

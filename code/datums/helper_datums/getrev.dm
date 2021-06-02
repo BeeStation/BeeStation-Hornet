@@ -5,12 +5,6 @@
 	var/list/testmerge = list()
 
 /datum/getrev/New()
-	commit = rustg_git_revparse("HEAD")
-	if(commit)
-		date = rustg_git_commit_date(commit)
-	originmastercommit = rustg_git_revparse("origin/master")
-
-/datum/getrev/proc/load_tgs_info()
 	testmerge = world.TgsTestMerges()
 	var/datum/tgs_revision_information/revinfo = world.TgsRevision()
 	if(revinfo)
@@ -79,9 +73,7 @@
 		msg += "No commit information"
 	if(world.TgsAvailable())
 		var/datum/tgs_version/version = world.TgsVersion()
-		msg += "TGS version: [version.raw_parameter]"
-		var/datum/tgs_version/api_version = world.TgsApiVersion()
-		msg += "DMAPI version: [api_version.raw_parameter]"
+		msg += "Server tools version: [version.raw_parameter]"
 
 	// Game mode odds
 	msg += "<br><b>Current Informational Settings:</b>"
