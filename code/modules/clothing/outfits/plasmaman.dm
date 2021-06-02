@@ -221,7 +221,6 @@
 
 	head = null
 	uniform = /obj/item/clothing/under/plasmaman/commander
-	suit_store = /obj/item/tank/internals/plasmaman/belt/full
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
 /datum/outfit/plasmaman/honk_squad
