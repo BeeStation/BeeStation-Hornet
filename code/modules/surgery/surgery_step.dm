@@ -55,17 +55,17 @@
 
 	return FALSE
 
-/datum/surgery_step/proc/get_speed_modifier(mob/U, mob/V) //V for victim
+/datum/surgery_step/proc/get_speed_modifier(mob/user, mob/target)
 	var/propability = 0.3
-	var/turf/T = get_turf(V)
+	var/turf/T = get_turf(target)
 	var/selfpenalty = 0
 	var/sleepbonus = 0
-	if(V == U)
-		if(HAS_TRAIT(U, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in view(1, U) || U.get_inactive_held_item() == /obj/item/handmirror)
+	if(target == user)
+		if(HAS_TRAIT(user, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in view(1, user) || user.get_inactive_held_item() == /obj/item/handmirror)
 			selfpenalty = 0.4
 		else
 			selfpenalty = 0.6
-	if(V != CONSCIOUS)
+	if(target != CONSCIOUS)
 		sleepbonus = 0.5
 	if(locate(/obj/structure/table/optable/abductor, T))
 		propability = 1.2
