@@ -13,9 +13,10 @@
 	linked_blackbox.linked_obj = src
 
 /datum/orbital_objective/recover_blackbox/get_text()
-	return "Outpost [new_station_name()] recently went dark and is no longer responding to our attempts \
-		to contact them. Send in a team and recover the station's blackbox for a payout of [payout] credits. \
-		The station is located at the beacon marked [linked_beacon.name]. Good luck."
+	. = "Outpost [new_station_name()] recently went dark and is no longer responding to our attempts \
+		to contact them. Send in a team and recover the station's blackbox for a payout of [payout] credits."
+	if(linked_beacon)
+		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/recover_blackbox/check_failed()
 	if(!QDELETED(linked_blackbox) || !generated)

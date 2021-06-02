@@ -5,6 +5,15 @@
 	var/completed = FALSE
 	var/min_payout = 0
 	var/max_payout = 0
+	var/id = 0
+	var/static/objective_num = 0
+
+/datum/orbital_objective/New()
+	. = ..()
+	id = objective_num ++
+
+/datum/orbital_objective/proc/on_assign(obj/machinery/computer/objective/objective_computer)
+	return
 
 /datum/orbital_objective/proc/generate_objective_stuff(turf/chosen_turf)
 	return
