@@ -187,3 +187,7 @@
 	file_name = "13x17_pizzaguardian"
 	weight = 1
 	loot_room = TRUE
+
+/datum/map_template/ruin_part/miningroom
+	file_name = "13x21_miningroom"
+	weight = 1
