@@ -18,19 +18,19 @@
 
 /datum/map_template/ruin_part/room_dorm
 	file_name = "5x5_4_room-dorm"
-	weight = 2
+	weight = 3
 
 /datum/map_template/ruin_part/room_janitor
 	file_name = "5x5_4_room-janitor_closet"
-	weight = 2
+	weight = 3
 
 /datum/map_template/ruin_part/room_storage
 	file_name = "5x5_4_room-storage"
-	weight = 2
+	weight = 3
 
 /datum/map_template/ruin_part/room_toilet
 	file_name = "5x5_4_room-toilet"
-	weight = 2
+	weight = 3
 
 /datum/map_template/ruin_part/hallwayroom_east
 	file_name = "5x5_5_hallwayroom_east"
@@ -66,27 +66,27 @@
 
 /datum/map_template/ruin_part/hallway_end_east
 	file_name = "5x5_14_hallway-end-east"
-	weight = 1
+	weight = 2
 
 /datum/map_template/ruin_part/hallway_end_north
 	file_name = "5x5_14_hallway-end-north"
-	weight = 1
+	weight = 2
 
 /datum/map_template/ruin_part/hallway_end_south
 	file_name = "5x5_14_hallway-end-south"
-	weight = 1
+	weight = 2
 
 /datum/map_template/ruin_part/hallway_end_west
 	file_name = "5x5_14_hallway-end-west"
-	weight = 1
+	weight = 2
 
 /datum/map_template/ruin_part/hallway_horizontal
 	file_name = "5x5_20_hallwayhorizontal"
-	weight = 5
+	weight = 2
 
 /datum/map_template/ruin_part/hallway_vertical
 	file_name = "5x5_20_hallwayvertical"
-	weight = 5
+	weight = 2
 
 /datum/map_template/ruin_part/separation
 	file_name = "9x5_3_seperation"
@@ -98,7 +98,7 @@
 
 /datum/map_template/ruin_part/corgarmoury
 	file_name = "13x13_corgarmoury"
-	weight = 5
+	weight = 20
 	loot_room = TRUE
 
 /datum/map_template/ruin_part/corgrobotics
@@ -154,7 +154,7 @@
 
 /datum/map_template/ruin_part/shotelroom
 	file_name = "13x13_shotelroom"
-	weight = 1
+	weight = 2
 
 /datum/map_template/ruin_part/supermattercontainment
 	file_name = "13x13_supermatter_containment"
@@ -190,12 +190,8 @@
 
 /datum/map_template/ruin_part/pizzaguard
 	file_name = "13x17_pizzaguardian"
-	weight = 5
+	weight = 20
 	loot_room = TRUE
-
-/datum/map_template/ruin_part/miningroom
-	file_name = "13x21_miningroom"
-	weight = 4
 
 /datum/map_template/ruin_part/hern
 	file_name = "5x5_hern"
