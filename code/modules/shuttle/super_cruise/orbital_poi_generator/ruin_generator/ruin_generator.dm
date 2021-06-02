@@ -2,7 +2,7 @@
 #define OPEN_CONNECTION 1
 #define ROOM_CONNECTION 16
 
-GLOBAL_VAR_INIT(waiting, FALSE)
+//GLOBAL_VAR_INIT(waiting, FALSE)
 
 /*
  * Generates a random space ruin.
@@ -20,6 +20,10 @@ GLOBAL_VAR_INIT(waiting, FALSE)
  * can go past the border. No attachment points can be generated past the border.
  */
 /proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration)
+	/*if(GLOB.waiting)
+		GLOB.waiting = FALSE
+		return*/
+
 	SSair.pause_z(center_z)
 
 	//Try and catch errors so that critical actions (unpausing the Z atmos) can happen.
@@ -80,20 +84,24 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				var/connection_type = value >= 16 ? ROOM_CONNECTION : OPEN_CONNECTION
 				var/connection_dir = value / connection_type
 				//Not an open connection
-				/*if(connection_type != OPEN_CONNECTION)
-					continue*/
+				if(connection_type != (ishallway ? OPEN_CONNECTION : ROOM_CONNECTION))
+					continue
 				//Check to make sure direction is valid.
 				if(connection_dir != looking_for_dir)
 					//Invalid connection
 					continue
 				var/valid = TRUE
+				//=======================================================
 				//Make sure connection points dont overlap blocked parts.
+				//VALIDATE OUR NEW PORTS ARE OK
+				//=======================================================
 				for(var/subconnection_point in ruin_part.connection_points)
 					CHECK_TICK
 					var/splitsubconn = splittext(subconnection_point, "_")
 					//Get subconnection positions
 					var/subconnection_x = text2num(splitsubconn[1])
 					var/subconnection_y = text2num(splitsubconn[2])
+					var/subconnection_type = ruin_part.connection_points[subconnection_point] >= 16
 					//Calculate the subconnection offset to the rooms main connection
 					var/offset_x = subconnection_x - connection_x
 					var/offset_y = subconnection_y - connection_y
@@ -101,7 +109,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 					offset_x += room_connection_x
 					offset_y += room_connection_y
 					//Port is on a blocked turf, and there isnt a connection on that blocked turf. (Essentially, the port is on a wall.)
-					if(blocked_turfs["[offset_x]_[offset_y]"] && !list_to_use["[offset_x]_[offset_y]"])
+					if(blocked_turfs["[offset_x]_[offset_y]"] && !(subconnection_type ? room_connections["[offset_x]_[offset_y]"] : hallway_connections["[offset_x]_[offset_y]"]))
 						valid = FALSE
 						break
 					//Check if the port is outside the valid world border.
@@ -111,26 +119,33 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 				//Something is blocked.
 				if(!valid)
 					continue
+				//=======================================================
 				//Make sure floors dont overlap existing floors or walls.
 				//Make sure that there are no global connection points inside us that aren't linked
-				for(var/floor_point in ruin_part.floor_locations)
-					var/splitfloorpoint = splittext(floor_point, "_")
-					//Get subconnection positions
-					var/floor_point_x = text2num(splitfloorpoint[1])
-					var/floor_point_y = text2num(splitfloorpoint[2])
-					//Calculate the subconnection offset to the rooms main connection
-					var/offset_x = floor_point_x - connection_x
-					var/offset_y = floor_point_y - connection_y
-					//Add on room world offset
-					offset_x += room_connection_x
-					offset_y += room_connection_y
-					var/world_point = "[offset_x]_[offset_y]"
-					if(blocked_turfs[world_point] && !floor_turfs[world_point])
-						valid = FALSE
-						break
-					if((room_connections[world_point] || hallway_connections[world_point]) && !ruin_part.connection_points[floor_point])
-						valid = FALSE
-						break
+				//Get the ruin origin position
+				//VALIDATE THAT THE ROOM DOESNT OVERLAP ANOTHER ROOM.
+				//=======================================================
+				var/ruin_offset_x = room_connection_x - connection_x
+				var/ruin_offset_y = room_connection_y - connection_y
+				for(var/x in ruin_offset_x + 2 to ruin_offset_x + ruin_part.width - 1)
+					for(var/y in ruin_offset_y + 2 to ruin_offset_y + ruin_part.height - 1)
+						var/world_point = "[x]_[y]"
+						//Check to see if the point in which we have a floor is blocked
+						if(blocked_turfs[world_point])
+							new /obj/effect/abstract/stupid_marker(locate(x, y, center_z), "BLOCK")
+							valid = FALSE
+							break
+				//=======================================================
+				//VALIDATE THAT EXISTING PORTS LINK TO THIS ROOM.
+				//=======================================================
+				for(var/x in ruin_offset_x + 1 to ruin_offset_x + ruin_part.width)
+					for(var/y in ruin_offset_y + 1 to ruin_offset_y + ruin_part.height)
+						var/world_point = "[x]_[y]"
+						//Check to see if there is a blocked room or hall connection
+						if((room_connections[world_point] || hallway_connections[world_point]) && !ruin_part.connection_points["[x - ruin_offset_x]_[y - ruin_offset_y]"])
+							new /obj/effect/abstract/stupid_marker(locate(x, y, center_z), "NO PORT")
+							valid = FALSE
+							break
 				//Something is disconnected or blocked.
 				if(!valid)
 					continue
@@ -198,11 +213,17 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 			if(!removed_point)
 				//Port needs adding
 				if(ruin_part.connection_points[point] >= 16)
-					room_connections["[world_x]_[world_y]"] = ruin_part.connection_points[point] / 16
-					placed_room_entrances["[world_x]_[world_y]"] = ruin_part.connection_points[point] / 16
+					if(hallway_connections.Find("[world_x]_[world_y]"))
+						message_admins("Trying to put a room connection at a hallway connection")
+					else
+						room_connections["[world_x]_[world_y]"] = ruin_part.connection_points[point] / 16
+						placed_room_entrances["[world_x]_[world_y]"] = ruin_part.connection_points[point] / 16
 				else
-					hallway_connections["[world_x]_[world_y]"] = ruin_part.connection_points[point]
-					placed_hallway_entrances["[world_x]_[world_y]"] = ruin_part.connection_points[point]
+					if(room_connections.Find("[world_x]_[world_y]"))
+						message_admins("Trying to put a hallway connection at a room connection")
+					else
+						hallway_connections["[world_x]_[world_y]"] = ruin_part.connection_points[point]
+						placed_hallway_entrances["[world_x]_[world_y]"] = ruin_part.connection_points[point]
 		//Block turfs
 		for(var/x in ruin_offset_x + 1 to ruin_offset_x + ruin_part.width)
 			CHECK_TICK
@@ -227,6 +248,8 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 		//Wow doing this based off sanity is bad
 		if(sanity == 999)
 			hallway_connections["[center_x]_[center_y]"] = SOUTH
+
+		sleep_yo()
 
 	//Lets place doors
 	for(var/door_pos in placed_room_entrances)
@@ -512,3 +535,8 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 	SSair.unpause_z(center_z)
 
 	log_mapping("Finished generating ruin at [center_x], [center_y], [center_z]")
+
+/proc/sleep_yo()
+	/*message_admins("Sleeping until continue command [rand(0, 17138945678925)]")
+	GLOB.waiting = TRUE
+	UNTIL(!GLOB.waiting)*/
