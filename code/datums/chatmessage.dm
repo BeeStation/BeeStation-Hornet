@@ -377,7 +377,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		qdel(src)
 		return
 	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, lifespan)
-	generate_image(text, target, owner, lifespan)
 
 /datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner, lifespan)
 	// Register client who owns this message
