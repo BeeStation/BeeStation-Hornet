@@ -94,6 +94,7 @@
 /datum/map_template/ruin_part/corgarmoury
 	file_name = "13x13_corgarmoury"
 	weight = 1
+	loot_room = TRUE
 
 /datum/map_template/ruin_part/corgrobotics
 	file_name = "13x13_corgrobotics"
@@ -114,6 +115,7 @@
 /datum/map_template/ruin_part/singularity
 	file_name = "21x21_singularity"
 	weight = 1
+	max_occurances = 1
 
 /datum/map_template/ruin_part/maintroom
 	file_name = "9x5_maintroom"
@@ -138,10 +140,12 @@
 /datum/map_template/ruin_part/solars
 	file_name = "21x19_solars"
 	weight = 1
+	max_occurances = 2
 
 /datum/map_template/ruin_part/permbrig
 	file_name = "13x17_permabrig"
 	weight = 2
+	max_occurances = 2
 
 /datum/map_template/ruin_part/shotelroom
 	file_name = "13x13_shotelroom"
@@ -150,6 +154,7 @@
 /datum/map_template/ruin_part/supermattercontainment
 	file_name = "13x13_supermatter_containment"
 	weight = 1
+	max_occurances = 1
 
 /datum/map_template/ruin_part/gateway
 	file_name = "5x9_gateway"
@@ -160,9 +165,10 @@
 	weight = 4
 
 //its 13x13 lol
-/datum/map_template/ruin_part/elevator
+// !! Map file uses broken turbo-lift components !!
+/*/datum/map_template/ruin_part/elevator
 	file_name = "9x9_elevator"
-	weight = 4
+	weight = 4*/
 
 /datum/map_template/ruin_part/hallwaymaints
 	file_name = "9x5_hallwaymaints"
@@ -175,7 +181,9 @@
 /datum/map_template/ruin_part/josito
 	file_name = "13x9_josito"
 	weight = 1
+	max_occurances = 2
 
 /datum/map_template/ruin_part/pizzaguard
 	file_name = "13x17_pizzaguardian"
 	weight = 1
+	loot_room = TRUE

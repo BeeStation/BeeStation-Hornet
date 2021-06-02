@@ -38,6 +38,11 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 
 	var/sanity = 1000
 
+	var/list/valid_ruin_parts = list()
+
+	for(var/datum/map_template/ruin_part/ruinpart as() in GLOB.loaded_ruin_parts)
+		valid_ruin_parts[ruinpart] = ruinpart.max_occurances
+
 	//Generate ruins.
 	while(length(hallway_connections) || length(room_connections))
 		sanity --
@@ -55,7 +60,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 		//Find a list of valid rooms.
 		var/list/valid_ruins = list()
 		//Get all loaded ruins
-		for(var/datum/map_template/ruin_part/ruin_part in GLOB.loaded_ruin_parts)
+		for(var/datum/map_template/ruin_part/ruin_part as() in valid_ruin_parts)
 			CHECK_TICK
 			//Get every connection point in the loaded ruin
 			for(var/connection_point in ruin_part.connection_points)
@@ -142,6 +147,21 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 		var/ruin_offset_y = room_connection_y - port_offset_y
 
 		var/datum/map_template/ruin_part/ruin_part = selected_ruin["ruindata"]
+
+		//If its a loot room, remove all loot rooms.
+		if(ruin_part.loot_room)
+			for(var/datum/map_template/ruin_part/otherpart as() in valid_ruin_parts)
+				if(otherpart.loot_room)
+					valid_ruin_parts.Remove(otherpart)
+		//Otherwise subtract it from amount used
+		else
+			if(!valid_ruin_parts.Find(ruin_part))
+				stack_trace("Error, ruin part wasnt in valid ruin parts somehow.")
+			else
+				valid_ruin_parts[ruin_part] --
+				if(valid_ruin_parts[ruin_part] <= 0)
+					valid_ruin_parts.Remove(ruin_part)
+
 		//Actual spawn
 		SSmapping.loading_ruins = TRUE
 		CHECK_TICK
