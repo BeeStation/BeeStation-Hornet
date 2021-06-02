@@ -2,8 +2,6 @@
 #define OPEN_CONNECTION 1
 #define ROOM_CONNECTION 16
 
-//GLOBAL_VAR_INIT(waiting, FALSE)
-
 /*
  * Generates a random space ruin.
  * Slow lmao.
@@ -20,9 +18,6 @@
  * can go past the border. No attachment points can be generated past the border.
  */
 /proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration)
-	/*if(GLOB.waiting)
-		GLOB.waiting = FALSE
-		return*/
 
 	SSair.pause_z(center_z)
 
@@ -158,7 +153,7 @@
 			ishallway ? hallway_connections.len-- : room_connections.len--
 			continue
 		//Pick a ruin and spawn it.
-		var/list/selected_ruin = pick(valid_ruins)
+		var/list/selected_ruin = pickweight_ruin(valid_ruins)
 		//Spawn the ruin
 		//Get the port offset position
 		var/port_offset_x = selected_ruin["port_offset_x"]
@@ -246,8 +241,6 @@
 		//Wow doing this based off sanity is bad
 		if(sanity == 999)
 			hallway_connections["[center_x]_[center_y]"] = SOUTH
-
-		sleep_yo()
 
 	//Lets place doors
 	for(var/door_pos in placed_room_entrances)
@@ -534,7 +527,15 @@
 
 	log_mapping("Finished generating ruin at [center_x], [center_y], [center_z]")
 
-/proc/sleep_yo()
-	/*message_admins("Sleeping until continue command [rand(0, 17138945678925)]")
-	GLOB.waiting = TRUE
-	UNTIL(!GLOB.waiting)*/
+/proc/pickweight_ruin(list/L)
+	var/total = 0
+	for (var/list/ruin_part as() in L)
+		total += ruin_part["weight"]
+
+	total *= rand()
+	for (var/list/ruin_part as() in L)
+		total -= ruin_part["weight"]
+		if (total <= 0)
+			return ruin_part
+
+	return pick(L)
