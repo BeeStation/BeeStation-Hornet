@@ -45,43 +45,43 @@
 
 /datum/map_template/ruin_part/hallway_t_east
 	file_name = "5x5_8_hallwayt-east"
-	weight = 8
+	weight = 6
 
 /datum/map_template/ruin_part/hallway_t_north
 	file_name = "5x5_8_hallwayt-north"
-	weight = 8
+	weight = 6
 
 /datum/map_template/ruin_part/hallway_t_south
 	file_name = "5x5_8_hallwayt-south"
-	weight = 8
+	weight = 6
 
 /datum/map_template/ruin_part/hallway_t_west
 	file_name = "5x5_8_hallwayt-west"
-	weight = 8
+	weight = 6
 
 /datum/map_template/ruin_part/hallway_end_east
 	file_name = "5x5_14_hallway-end-east"
-	weight = 14
+	weight = 6
 
 /datum/map_template/ruin_part/hallway_end_north
 	file_name = "5x5_14_hallway-end-north"
-	weight = 14
+	weight = 6
 
 /datum/map_template/ruin_part/hallway_end_south
 	file_name = "5x5_14_hallway-end-south"
-	weight = 14
+	weight = 6
 
 /datum/map_template/ruin_part/hallway_end_west
 	file_name = "5x5_14_hallway-end-west"
-	weight = 14
+	weight = 6
 
 /datum/map_template/ruin_part/hallway_horizontal
 	file_name = "5x5_20_hallwayhorizontal"
-	weight = 20
+	weight = 8
 
 /datum/map_template/ruin_part/hallway_vertical
 	file_name = "5x5_20_hallwayvertical"
-	weight = 20
+	weight = 8
 
 /datum/map_template/ruin_part/separation
 	file_name = "9x5_3_seperation"
@@ -191,3 +191,99 @@
 /datum/map_template/ruin_part/miningroom
 	file_name = "13x21_miningroom"
 	weight = 1
+
+/datum/map_template/ruin_part/hern
+	file_name = "5x5_hern"
+	weight = 4
+
+/datum/map_template/ruin_part/hernsw
+	file_name = "5x5_hernsw"
+	weight = 4
+
+/datum/map_template/ruin_part/hernw
+	file_name = "5x5_hernw"
+	weight = 4
+
+/datum/map_template/ruin_part/hers
+	file_name = "5x5_hers"
+	weight = 4
+
+/datum/map_template/ruin_part/hersw
+	file_name = "5x5_hersw"
+	weight = 4
+
+/datum/map_template/ruin_part/hesrnw
+	file_name = "5x5_hesrnw"
+	weight = 4
+
+/datum/map_template/ruin_part/hewrn
+	file_name = "5x5_hewrn"
+	weight = 4
+
+/datum/map_template/ruin_part/hewrns
+	file_name = "5x5_hewrns"
+	weight = 4
+
+/datum/map_template/ruin_part/hewrs
+	file_name = "5x5_hewrs"
+	weight = 4
+
+/datum/map_template/ruin_part/hnersw
+	file_name = "5x5_hnersw"
+	weight = 4
+
+/datum/map_template/ruin_part/hnesrw
+	file_name = "5x5_hnesrw"
+	weight = 4
+
+/datum/map_template/ruin_part/hnewrs
+	file_name = "5x5_hnewrs"
+	weight = 4
+
+/datum/map_template/ruin_part/hnresw
+	file_name = "5x5_hnresw"
+	weight = 4
+
+/datum/map_template/ruin_part/hnswre
+	file_name = "5x5_hnswre"
+	weight = 4
+
+/datum/map_template/ruin_part/hnwres
+	file_name = "5x5_hnwres"
+	weight = 4
+
+/datum/map_template/ruin_part/hsrnew
+	file_name = "5x5_hsrnew"
+	weight = 4
+
+/datum/map_template/ruin_part/hswrne
+	file_name = "5x5_hswrne"
+	weight = 4
+
+/datum/map_template/ruin_part/hwres
+	file_name = "5x5_hwres"
+	weight = 4
+
+/datum/map_template/ruin_part/hwrn
+	file_name = "5x5_hwrn"
+	weight = 4
+
+/datum/map_template/ruin_part/hwrne
+	file_name = "5x5_hwrne"
+	weight = 4
+
+/datum/map_template/ruin_part/hwrnes
+	file_name = "5x5_hwrnes"
+	weight = 4
+
+/datum/map_template/ruin_part/hwrns
+	file_name = "5x5_hwrns"
+	weight = 4
+
+/datum/map_template/ruin_part/hwrs
+	file_name = "5x5_hwrs"
+	weight = 4
+
+/datum/map_template/ruin_part/roomcross
+	file_name = "5x5_roomcross"
+	weight = 4
