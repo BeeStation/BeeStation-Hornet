@@ -132,7 +132,6 @@
 						var/world_point = "[x]_[y]"
 						//Check to see if the point in which we have a floor is blocked
 						if(blocked_turfs[world_point])
-							new /obj/effect/abstract/stupid_marker(locate(x, y, center_z), "BLOCK")
 							valid = FALSE
 							break
 				//=======================================================
@@ -143,7 +142,6 @@
 						var/world_point = "[x]_[y]"
 						//Check to see if there is a blocked room or hall connection
 						if((room_connections[world_point] || hallway_connections[world_point]) && !ruin_part.connection_points["[x - ruin_offset_x]_[y - ruin_offset_y]"])
-							new /obj/effect/abstract/stupid_marker(locate(x, y, center_z), "NO PORT")
 							valid = FALSE
 							break
 				//Something is disconnected or blocked.
@@ -255,7 +253,7 @@
 	for(var/door_pos in placed_room_entrances)
 		var/splitextdoor = splittext(door_pos, "_")
 		var/turf/T = locate(text2num(splitextdoor[1]), text2num(splitextdoor[2]), center_z)
-		var/valid = TRUE
+		var/valid = isopenturf(T)
 		switch(placed_room_entrances[door_pos])
 			if(EAST, WEST)
 				if(isopenturf(locate(text2num(splitextdoor[1]), text2num(splitextdoor[2]) + 1, center_z)) || isopenturf(locate(text2num(splitextdoor[1]), text2num(splitextdoor[2]) - 1, center_z)))

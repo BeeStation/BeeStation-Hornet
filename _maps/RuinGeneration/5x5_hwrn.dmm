@@ -23,9 +23,9 @@
 "N" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
-"X" = (
+"W" = (
 /obj/effect/abstract/open_area_marker{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -33,7 +33,7 @@
 (1,1,1) = {"
 N
 h
-X
+W
 h
 N
 "}
