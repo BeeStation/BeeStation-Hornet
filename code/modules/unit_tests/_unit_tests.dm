@@ -13,6 +13,7 @@
 #include "timer_sanity.dm"
 #include "unit_test.dm"
 #include "random_ruin_mapsize.dm"
+
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
 #undef TEST_ASSERT_NOTEQUAL
