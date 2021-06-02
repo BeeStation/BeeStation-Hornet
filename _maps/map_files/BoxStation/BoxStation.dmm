@@ -16637,17 +16637,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
-"aUb" = (
-/obj/machinery/modular_computer/console/preset/engineering,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/bridge)
 "aUc" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -24614,14 +24603,6 @@
 	dir = 9
 	},
 /area/science/shuttledock)
-"brI" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white/side{
-	dir = 6
-	},
-/area/science/shuttledock)
 "brM" = (
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=8";
@@ -26636,19 +26617,6 @@
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/hor)
-"byc" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/stamp/qm,
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/qm)
 "byd" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -26665,25 +26633,6 @@
 "byf" = (
 /turf/closed/wall/r_wall,
 /area/science/server)
-"byg" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/cartridge/quartermaster{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = -4;
-	pixel_y = 7
-	},
-/obj/item/cartridge/quartermaster,
-/obj/item/coin/silver,
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/qm)
 "byh" = (
 /obj/machinery/door/airlock/command{
 	name = "Server Room";
@@ -53223,6 +53172,26 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
+"lKl" = (
+/obj/structure/table,
+/obj/item/clipboard,
+/obj/item/cartridge/quartermaster{
+	pixel_x = 6;
+	pixel_y = 5
+	},
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/cartridge/quartermaster,
+/obj/item/coin/silver,
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/obj/item/stamp/qm,
+/turf/open/floor/plasteel,
+/area/quartermaster/qm)
 "lLp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -55011,6 +54980,17 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
+"nRj" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 1
+	},
+/obj/machinery/computer/objective{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white/side{
+	dir = 6
+	},
+/area/science/shuttledock)
 "nTh" = (
 /obj/machinery/camera/motion{
 	c_tag = "MiniSat AI Chamber South";
@@ -56304,6 +56284,17 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
+"pAQ" = (
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/obj/machinery/computer/objective,
+/turf/open/floor/plasteel,
+/area/bridge)
 "pBe" = (
 /obj/item/cigbutt,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -57797,6 +57788,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/hallway)
+"rpz" = (
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/obj/machinery/computer/objective{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/qm)
 "rrj" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 1
@@ -84642,7 +84643,7 @@ bjr
 bxw
 byz
 bzQ
-byc
+rpz
 iSL
 aaa
 aaa
@@ -85156,7 +85157,7 @@ bvY
 bxx
 byB
 bwS
-byg
+lKl
 iSL
 aaa
 aaa
@@ -94383,7 +94384,7 @@ rFv
 aPR
 aPR
 aPR
-aUb
+pAQ
 aVq
 aTX
 aYr
@@ -115735,7 +115736,7 @@ qVo
 kaB
 rAL
 btq
-brI
+nRj
 bvR
 cNS
 byx

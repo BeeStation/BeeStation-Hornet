@@ -31896,21 +31896,6 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/quartermaster/sorting)
-"biK" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/folder/yellow,
-/obj/item/folder/yellow,
-/obj/item/multitool,
-/obj/item/pen/red,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "biL" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -32788,24 +32773,6 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/quartermaster/sorting)
-"bkn" = (
-/obj/structure/table,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -26
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
 "bko" = (
 /obj/machinery/photocopier,
 /obj/effect/turf_decal/tile/brown,
@@ -33043,22 +33010,6 @@
 	},
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/bridge)
-"bkH" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/computer/security/mining,
-/obj/machinery/keycard_auth{
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
@@ -82448,6 +82399,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"fmc" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/computer/objective{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "fmR" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Storage Room";
@@ -85309,6 +85272,28 @@
 	},
 /turf/closed/wall/r_wall,
 /area/maintenance/starboard/fore)
+"oXc" = (
+/obj/structure/table,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -26
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/obj/item/clipboard,
+/obj/item/folder/yellow,
+/obj/item/folder/yellow,
+/obj/item/pen/red,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "oYC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -85785,15 +85770,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"qAg" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/science/shuttledock)
 "qBh" = (
 /obj/structure/table,
 /obj/item/paicard,
@@ -86179,6 +86155,22 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
+"skP" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/machinery/keycard_auth{
+	pixel_y = 24
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/computer/objective,
+/turf/open/floor/plasteel/dark,
+/area/bridge)
 "sql" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -87935,6 +87927,18 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/science/shuttledock)
+"xWQ" = (
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/obj/machinery/computer/objective{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "xXF" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 1
@@ -107203,8 +107207,8 @@ bbQ
 bdl
 beY
 bgO
-biK
-bkn
+xWQ
+oXc
 bat
 bnW
 bqs
@@ -116970,7 +116974,7 @@ aaf
 bfx
 bhs
 bfv
-bkH
+skP
 bmG
 boA
 bqS
@@ -126011,7 +126015,7 @@ gjM
 qEn
 vtf
 nTS
-qAg
+fmc
 iSa
 sxX
 oBS
