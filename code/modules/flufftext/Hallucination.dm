@@ -1110,8 +1110,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/effect/hallucination/danger/anomaly/process(delta_time)
-	if(DT_PROB(45, delta_time))
+/obj/effect/hallucination/danger/anomaly/process()
+	if(prob(70))
 		step(src,pick(GLOB.alldirs))
 
 /obj/effect/hallucination/danger/anomaly/Destroy()

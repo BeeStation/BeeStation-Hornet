@@ -8,7 +8,7 @@
 
 	var/scanning = FALSE
 	var/timing = FALSE
-	var/time = 20
+	var/time = 10
 	var/sensitivity = 1
 	var/hearing_range = 3
 
@@ -70,10 +70,10 @@
 	next_activate = world.time + 30
 	return TRUE
 
-/obj/item/assembly/prox_sensor/process(delta_time)
+/obj/item/assembly/prox_sensor/process()
 	if(!timing)
 		return
-	time -= delta_time
+	time--
 	if(time <= 0)
 		timing = FALSE
 		toggle_scan(TRUE)

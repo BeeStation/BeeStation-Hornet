@@ -14,10 +14,9 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY | SNUG_FIT
-	var/current_tick_amount = 0
-	var/radiation_count = 0
-	var/grace = RAD_GEIGER_GRACE_PERIOD
+	var/rad_count = 0
+	var/rad_record = 0
+	var/grace_count = 0
 	var/datum/looping_sound/geiger/soundloop
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize()
@@ -70,25 +69,23 @@
 	if(msg && ishuman(wearer))
 		wearer.show_message("[icon2html(src, wearer)]<b><span class='robot'>[msg]</span></b>", MSG_VISUAL)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
+/obj/item/clothing/head/helmet/space/hardsuit/rad_act(severity)
 	. = ..()
-	if(amount <= RAD_BACKGROUND_RADIATION)
+	rad_count += severity
+
+/obj/item/clothing/head/helmet/space/hardsuit/process()
+	if(!rad_count)
+		grace_count++
+		if(grace_count == 2)
+			soundloop.last_radiation = 0
 		return
-	current_tick_amount += amount
 
-/obj/item/clothing/head/helmet/space/hardsuit/process(delta_time)
-	radiation_count = LPFILTER(radiation_count, current_tick_amount, delta_time, RAD_GEIGER_RC)
+	grace_count = 0
+	rad_record -= rad_record/5
+	rad_record += rad_count/5
+	rad_count = 0
 
-	if(current_tick_amount)
-		grace = RAD_GEIGER_GRACE_PERIOD
-	else
-		grace -= delta_time
-		if(grace <= 0)
-			radiation_count = 0
-
-	current_tick_amount = 0
-
-	soundloop.last_radiation = radiation_count
+	soundloop.last_radiation = rad_record
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	. = ..()

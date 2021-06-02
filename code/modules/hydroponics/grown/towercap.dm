@@ -254,41 +254,41 @@
 	if(burning & !grill)
 		Burn()
 
-/obj/structure/bonfire/proc/Burn(delta_time = 2)
+/obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)
-	current_location.hotspot_expose(1000, 250 * delta_time, 1)
+	current_location.hotspot_expose(1000,500,1)
 	for(var/A in current_location)
 		if(A == src)
 			continue
 		if(isobj(A))
 			var/obj/O = A
-			O.fire_act(1000, 250 * delta_time)
+			O.fire_act(1000, 500)
 		else if(isliving(A))
 			var/mob/living/L = A
-			L.adjust_fire_stacks(fire_stack_strength * 0.5 * delta_time)
+			L.adjust_fire_stacks(fire_stack_strength)
 			L.IgniteMob()
 
-/obj/structure/bonfire/proc/Cook(delta_time = 2)
+/obj/structure/bonfire/proc/Cook()
 	var/turf/current_location = get_turf(src)
 	for(var/A in current_location)
 		if(A == src)
 			continue
 		else if(isliving(A)) //It's still a fire, idiot.
 			var/mob/living/L = A
-			L.adjust_fire_stacks(fire_stack_strength * 0.5 * delta_time)
+			L.adjust_fire_stacks(fire_stack_strength)
 			L.IgniteMob()
-		else if(istype(A, /obj/item) && DT_PROB(10, delta_time))
+		else if(istype(A, /obj/item) && prob(20))
 			var/obj/item/O = A
 			O.microwave_act()
 
-/obj/structure/bonfire/process(delta_time)
+/obj/structure/bonfire/process()
 	if(needs_oxygen && !CheckOxygen())
 		extinguish()
 		return
 	if(!grill)
-		Burn(delta_time)
+		Burn()
 	else
-		Cook(delta_time)
+		Cook()
 
 /obj/structure/bonfire/extinguish()
 	if(burning)

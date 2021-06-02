@@ -332,6 +332,7 @@
 	qdel(src)
 
 
+
 /obj/structure/sink/kitchen
 	name = "kitchen sink"
 	icon_state = "sink_alt"

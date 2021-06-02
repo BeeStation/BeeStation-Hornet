@@ -99,9 +99,6 @@
 		var/datum/soullink/S = s
 		S.sharerDies(gibbed)
 
-	if(mind?.current)
-		client.tgui_panel?.give_dead_popup()
-
 	return TRUE
 
 /mob/living/carbon/death(gibbed)
