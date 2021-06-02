@@ -234,10 +234,10 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 		var/turf/T = locate(text2num(splitextdoor[1]), text2num(splitextdoor[2]), center_z)
 		var/valid = TRUE
 		switch(placed_room_entrances[door_pos])
-			if(EAST || WEST)
+			if(EAST, WEST)
 				if(isopenturf(locate(text2num(splitextdoor[1]), text2num(splitextdoor[2]) + 1, center_z)) || isopenturf(locate(text2num(splitextdoor[1]), text2num(splitextdoor[2]) - 1, center_z)))
 					valid = FALSE
-			if(NORTH || SOUTH)
+			if(NORTH, SOUTH)
 				if(isopenturf(locate(text2num(splitextdoor[1]) + 1, text2num(splitextdoor[2]), center_z)) || isopenturf(locate(text2num(splitextdoor[1]) - 1, text2num(splitextdoor[2]), center_z)))
 					valid = FALSE
 			else
