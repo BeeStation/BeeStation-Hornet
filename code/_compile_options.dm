@@ -45,6 +45,7 @@
 #define FORCE_MAP "_maps/runtimestation.json"
 #endif
 
+#ifndef FASTDMM
 //Update this whenever you need to take advantage of more recent byond features
 #define MIN_COMPILER_VERSION 514
 #define MIN_COMPILER_BUILD 1554
@@ -60,7 +61,7 @@
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
 #warn WARNING: Your BYOND version is over the recommended version (514.1554)! Stability is not guaranteed.
 #endif
-
+#endif
 
 //Additional code for the above flags.
 #ifdef TESTING
