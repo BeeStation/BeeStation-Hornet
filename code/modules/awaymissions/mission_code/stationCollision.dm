@@ -148,9 +148,9 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 /obj/singularity/narsie/mini/admin_investigate_setup()
 	return
 
-/obj/singularity/narsie/mini/process(delta_time)
+/obj/singularity/narsie/mini/process()
 	eat()
-	if(DT_PROB(13, delta_time))
+	if(prob(25))
 		mezzer()
 
 /obj/singularity/narsie/mini/ex_act()

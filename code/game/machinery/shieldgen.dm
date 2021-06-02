@@ -107,9 +107,9 @@
 	update_icon()
 	QDEL_LIST(deployed_shields)
 
-/obj/machinery/shieldgen/process(delta_time)
+/obj/machinery/shieldgen/process()
 	if((stat & BROKEN) && active)
-		if(deployed_shields.len && DT_PROB(2.5, delta_time))
+		if(deployed_shields.len && prob(5))
 			qdel(pick(deployed_shields))
 
 

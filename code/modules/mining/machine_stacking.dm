@@ -94,16 +94,7 @@
 
 /obj/machinery/mineral/stacking_machine/HasProximity(atom/movable/AM)
 	if(istype(AM, /obj/item/stack/sheet) && AM.loc == get_step(src, input_dir))
-		var/obj/effect/portal/P = locate() in AM.loc
-		if(P)
-			visible_message("<span class='warning'>[src] attempts to stack the portal!</span>")
-			message_admins("Stacking machine exploded via [P.creator ? key_name(P.creator) : "UNKNOWN"]'s portal at [AREACOORD(src)]")
-			log_game("Stacking machine exploded via [P.creator ? key_name(P.creator) : "UNKNOWN"]'s portal at [AREACOORD(src)]")
-			explosion(src.loc, 0, 1, 2, 3)
-			if(!QDELETED(src))
-				qdel(src)
-		else
-			process_sheet(AM)
+		process_sheet(AM)
 
 /obj/machinery/mineral/stacking_machine/multitool_act(mob/living/user, obj/item/multitool/M)
 	if(istype(M))

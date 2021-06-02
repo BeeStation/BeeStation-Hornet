@@ -267,9 +267,9 @@
 		if(!LAZYLEN(heal_people))
 			STOP_PROCESSING(SSprocessing, src)
 
-/turf/open/floor/clockwork/reebe/process(delta_time)
+/turf/open/floor/clockwork/reebe/process()
 	for(var/mob/living/M in heal_people)
-		M.adjustToxLoss(-1 * delta_time, forced=TRUE)
+		M.adjustToxLoss(-2, forced=TRUE)
 
 //=================================================
 //Clockwork Lattice: It's a lattice for the ratvar

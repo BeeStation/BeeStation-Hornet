@@ -162,7 +162,7 @@ RSF
 		toxin = 0
 		to_chat(user, "Cookie Synthesizer Reset")
 
-/obj/item/cookiesynth/process(delta_time)
+/obj/item/cookiesynth/process()
 	if(matter < 10)
 		matter++
 

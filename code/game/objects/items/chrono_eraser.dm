@@ -167,7 +167,7 @@
 	interaction_flags_atom = NONE
 	var/mob/living/captured = null
 	var/obj/item/gun/energy/chrono_gun/gun = null
-	var/timetokill = 30
+	var/tickstokill = 15
 	var/mutable_appearance/mob_underlay
 	var/preloaded = 0
 	var/RPpos = null
@@ -198,7 +198,7 @@
 	return ..()
 
 /obj/structure/chrono_field/update_icon()
-	var/ttk_frame = 1 - (timetokill / initial(timetokill))
+	var/ttk_frame = 1 - (tickstokill / initial(tickstokill))
 	ttk_frame = CLAMP(CEILING(ttk_frame * CHRONO_FRAME_COUNT, 1), 1, CHRONO_FRAME_COUNT)
 	if(ttk_frame != RPpos)
 		RPpos = ttk_frame
@@ -206,13 +206,13 @@
 		underlays = list() //hack: BYOND refuses to update the underlay to match the icon_state otherwise
 		underlays += mob_underlay
 
-/obj/structure/chrono_field/process(delta_time)
+/obj/structure/chrono_field/process()
 	if(captured)
-		if(timetokill > initial(timetokill))
+		if(tickstokill > initial(tickstokill))
 			for(var/atom/movable/AM in contents)
 				AM.forceMove(drop_location())
 			qdel(src)
-		else if(timetokill <= 0)
+		else if(tickstokill <= 0)
 			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you are taken back to your most enjoyable memory. You feel happy...</span>")
 			var/mob/dead/observer/ghost = captured.ghostize(TRUE,SENTIENCE_ERASE)
 			if(captured.mind)
@@ -229,12 +229,12 @@
 			update_icon()
 			if(gun)
 				if(gun.field_check(src))
-					timetokill -= delta_time
+					tickstokill--
 				else
 					gun = null
 					return .()
 			else
-				timetokill += delta_time
+				tickstokill++
 	else
 		qdel(src)
 

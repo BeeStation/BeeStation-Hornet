@@ -534,9 +534,6 @@
 	if(!ishuman(user) || !ishuman(target))
 		return
 
-	if(HAS_TRAIT(user, TRAIT_PACIFISM)) //This prevents multiplying projectile damage without shooting yourself.
-		return
-
 	if(semicd)
 		return
 
