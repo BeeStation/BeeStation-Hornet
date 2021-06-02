@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 	. = ..()
 	GLOB.decomission_bombs += src
 	r_code = "[rand(10000, 99999)]"
-	priority_announce("Nuclear decomission explosive code: [r_code]", null, SSstation.announcer.get_rand_report_sound(), has_important_message = TRUE)
+	print_command_report("Nuclear decomission explosive code: [r_code]")
 	var/obj/structure/closet/supplypod/bluespacepod/pod = new()
 	pod.explosionSize = list(0,0,0,4)
 	new /obj/effect/pod_landingzone(get_turf(src), pod)
@@ -120,6 +120,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 	. = ..()
 
 /obj/machinery/nuclearbomb/decomission/actually_explode()
+	linked_objective.complete_objective()
 	INVOKE_ASYNC(GLOBAL_PROC,.proc/KillEveryoneOnZLevel, target_z)
 	QDEL_NULL(linked_objective.linked_beacon)
 	qdel(src)
