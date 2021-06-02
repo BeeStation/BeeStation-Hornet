@@ -28,6 +28,10 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 	if(!length(GLOB.loaded_ruin_parts))
 		load_ruin_parts()
 
+	//We need doors
+	var/list/placed_room_entrances = list()
+	var/list/placed_hallway_entrances = list()
+
 	var/list/room_connections = list()			//Assoc list of door connection coords, [x]_[y] = dir
 	var/list/hallway_connections = list()		//Assoc list of hallway connection coords, [x]_[y] = dir
 	//Blocked turfs = Walls and floors
@@ -38,6 +42,7 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 	//First point
 	//Place one facing up and one facing down.
 	hallway_connections["[center_x]_[center_y]"] = NORTH
+	placed_hallway_entrances["[center_x]_[center_y]"] = NORTH
 
 	var/sanity = 1000
 
@@ -183,16 +188,21 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 			var/world_x = ruin_offset_x + point_x
 			var/world_y = ruin_offset_y + point_y
 			//Remove connection points
+			var/removed_point = FALSE
 			if(hallway_connections.Find("[world_x]_[world_y]"))
+				removed_point = TRUE
 				hallway_connections.Remove("[world_x]_[world_y]")
-			else if(room_connections.Find("[world_x]_[world_y]"))
+			if(room_connections.Find("[world_x]_[world_y]"))
+				removed_point = TRUE
 				room_connections.Remove("[world_x]_[world_y]")
-			else
+			if(!removed_point)
 				//Port needs adding
 				if(ruin_part.connection_points[point] >= 16)
 					room_connections["[world_x]_[world_y]"] = ruin_part.connection_points[point] / 16
+					placed_room_entrances["[world_x]_[world_y]"] = ruin_part.connection_points[point] / 16
 				else
 					hallway_connections["[world_x]_[world_y]"] = ruin_part.connection_points[point]
+					placed_hallway_entrances["[world_x]_[world_y]"] = ruin_part.connection_points[point]
 		//Block turfs
 		for(var/x in ruin_offset_x + 1 to ruin_offset_x + ruin_part.width)
 			CHECK_TICK
@@ -217,6 +227,21 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 		//Wow doing this based off sanity is bad
 		if(sanity == 999)
 			hallway_connections["[center_x]_[center_y]"] = SOUTH
+
+	//Lets place doors
+	for(var/door_pos in placed_hallway_entrances)
+		var/splitextdoor = splittext(door_pos, "_")
+		var/turf/T = locate(text2num(splitextdoor[1]), text2num(splitextdoor[2]), center_z)
+		new /obj/machinery/door/airlock/hatch(T)
+		var/obj/machinery/door/firedoor/border_only/b1 = new(T)
+		var/obj/machinery/door/firedoor/border_only/b2 = new(T)
+		switch(placed_hallway_entrances[door_pos])
+			if(SOUTH || NORTH)
+				b1.setDir(NORTH)
+				b2.setDir(SOUTH)
+			if(EAST || WEST)
+				b1.setDir(EAST)
+				b2.setDir(WEST)
 
 	//Repopulate areas
 	repopulate_sorted_areas()
