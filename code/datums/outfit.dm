@@ -230,6 +230,14 @@
 	H.update_body()
 	return TRUE
 
+/**
+  * Apply a fingerprint from the passed in human to all items in the outfit
+  *
+  * Used for forensics setup when the mob is first equipped at roundstart
+  * essentially calls add_fingerprint to every defined item on the human
+  *
+  */
+  
 /datum/outfit/proc/plasmaman_equip(mob/living/carbon/human/H) //used for overwriting slots on ert plasmamen
 	if(head)
 		H.equip_to_slot(new head(H),ITEM_SLOT_HEAD, TRUE)
