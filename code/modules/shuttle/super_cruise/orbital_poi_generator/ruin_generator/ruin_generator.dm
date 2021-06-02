@@ -229,26 +229,31 @@ GLOBAL_VAR_INIT(waiting, FALSE)
 			hallway_connections["[center_x]_[center_y]"] = SOUTH
 
 	//Lets place doors
-	for(var/door_pos in placed_hallway_entrances)
+	for(var/door_pos in placed_room_entrances)
 		var/splitextdoor = splittext(door_pos, "_")
 		var/turf/T = locate(text2num(splitextdoor[1]), text2num(splitextdoor[2]), center_z)
 		var/valid = TRUE
-		switch(placed_hallway_entrances[door_pos])
-			if(SOUTH || NORTH)
+		switch(placed_room_entrances[door_pos])
+			if(EAST || WEST)
 				if(isopenturf(locate(text2num(splitextdoor[1]), text2num(splitextdoor[2]) + 1, center_z)) || isopenturf(locate(text2num(splitextdoor[1]), text2num(splitextdoor[2]) - 1, center_z)))
 					valid = FALSE
-			if(EAST || WEST)
+			if(NORTH || SOUTH)
 				if(isopenturf(locate(text2num(splitextdoor[1]) + 1, text2num(splitextdoor[2]), center_z)) || isopenturf(locate(text2num(splitextdoor[1]) - 1, text2num(splitextdoor[2]), center_z)))
 					valid = FALSE
+			else
+				message_admins("Why the fuck is this thing [door_pos] have a direction of [placed_room_entrances[door_pos]]??? TELL ME!!!!")
+				valid = FALSE
 		if(valid)
 			new /obj/machinery/door/airlock/hatch(T)
-			var/obj/machinery/door/firedoor/border_only/b1 = new(T)
-			var/obj/machinery/door/firedoor/border_only/b2 = new(T)
-			switch(placed_hallway_entrances[door_pos])
-				if(SOUTH || NORTH)
+			switch(placed_room_entrances[door_pos])
+				if(SOUTH, NORTH)
+					var/obj/machinery/door/firedoor/border_only/b1 = new(T)
+					var/obj/machinery/door/firedoor/border_only/b2 = new(T)
 					b1.setDir(NORTH)
 					b2.setDir(SOUTH)
-				if(EAST || WEST)
+				if(EAST, WEST)
+					var/obj/machinery/door/firedoor/border_only/b1 = new(T)
+					var/obj/machinery/door/firedoor/border_only/b2 = new(T)
 					b1.setDir(EAST)
 					b2.setDir(WEST)
 
