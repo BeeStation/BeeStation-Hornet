@@ -1,37 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/science)
-"c" = (
-/obj/machinery/button/door{
-	id = "sciencecargo";
-	name = "Cargo Blast Door Toggle";
-	pixel_x = -24
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/obj/item/storage/toolbox/mechanical,
-/obj/item/clothing/glasses/science,
-/turf/open/floor/mineral/titanium/purple,
-/area/shuttle/science)
 "d" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/science)
 "g" = (
 /obj/machinery/computer/shuttle_flight/science,
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/science)
-"h" = (
-/obj/machinery/light{
-	dir = 8;
-	light_color = "#e8eaff"
-	},
-/obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "i" = (
@@ -42,6 +15,21 @@
 /obj/item/stack/cable_coil/orange,
 /obj/item/storage/toolbox/electrical,
 /turf/open/floor/mineral/titanium/white,
+/area/shuttle/science)
+"j" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/mineral/titanium/purple,
+/area/shuttle/science)
+"l" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/shuttle/science)
+"m" = (
+/turf/open/space/basic,
 /area/shuttle/science)
 "n" = (
 /obj/structure/table/reinforced,
@@ -73,7 +61,9 @@
 /area/shuttle/science)
 "s" = (
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/janitorialcart,
 /obj/item/mop,
 /turf/open/floor/mineral/titanium/purple,
@@ -90,13 +80,12 @@
 "y" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/science)
-"z" = (
-/obj/effect/spawner/structure/window/plasma/reinforced,
-/turf/open/floor/mineral/titanium/white,
+"D" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/open/floor/plating,
 /area/shuttle/science)
-"A" = (
-/obj/machinery/modular_computer/console/preset/research,
-/turf/open/floor/mineral/titanium/white,
+"G" = (
+/turf/closed/wall/mineral/plastitanium,
 /area/shuttle/science)
 "H" = (
 /obj/machinery/door/poddoor{
@@ -105,20 +94,35 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
-"I" = (
-/obj/structure/shuttle/engine/heater,
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/science)
 "J" = (
 /obj/effect/turf_decal/box,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "K" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/obj/item/storage/toolbox/mechanical,
+/obj/item/clothing/glasses/science,
+/obj/machinery/button/door{
+	id = "sciencecargo";
+	name = "Cargo Blast Door Toggle";
+	pixel_x = -24
+	},
 /turf/open/floor/mineral/titanium/purple,
+/area/shuttle/science)
+"L" = (
+/obj/machinery/computer/objective,
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "N" = (
 /obj/structure/tank_dispenser,
 /turf/open/floor/mineral/titanium/purple,
+/area/shuttle/science)
+"P" = (
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/science)
 "Q" = (
 /obj/structure/chair/comfy/shuttle{
@@ -133,6 +137,11 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
+"W" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced/spawner/north,
+/turf/open/floor/plating,
+/area/shuttle/science)
 
 (1,1,1) = {"
 y
@@ -141,42 +150,42 @@ y
 y
 y
 y
-y
-I
-a
+t
+G
+m
 "}
 (2,1,1) = {"
 d
-c
+K
 i
 N
 y
-K
-h
-o
-y
+j
+J
+P
+G
 "}
 (3,1,1) = {"
 d
 g
 Q
 U
-z
-S
+l
 J
 J
-y
+W
+D
 "}
 (4,1,1) = {"
 d
-A
+L
 Q
 S
-z
-S
+l
 J
 J
-y
+W
+D
 "}
 (5,1,1) = {"
 d
@@ -184,10 +193,10 @@ n
 x
 s
 y
-K
-J
 o
-y
+J
+P
+G
 "}
 (6,1,1) = {"
 y
@@ -197,6 +206,6 @@ y
 t
 H
 H
-I
-a
+G
+m
 "}

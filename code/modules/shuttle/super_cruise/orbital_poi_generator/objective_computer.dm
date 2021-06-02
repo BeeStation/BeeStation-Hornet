@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(objective_computers)
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_ORANGE
 	req_access = list( )
+	circuit = /obj/item/circuitboard/computer/objective
 	var/list/viewing_mobs = list()
 
 /obj/machinery/computer/objective/Initialize(mapload, obj/item/circuitboard/C)

@@ -8587,22 +8587,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"atX" = (
-/obj/machinery/computer/shuttle_flight/labor{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/bridge)
 "atY" = (
 /turf/closed/wall,
 /area/bridge)
@@ -23406,13 +23390,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel,
-/area/quartermaster/office)
-"bax" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 1
-	},
-/obj/machinery/modular_fabricator/autolathe,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "baz" = (
@@ -54787,6 +54764,15 @@
 /obj/machinery/photocopier,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
+"eoQ" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/machinery/computer/objective{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "esC" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -57342,6 +57328,22 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
 /area/maintenance/disposal)
+"irW" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/computer/objective{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/bridge)
 "itl" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -59548,6 +59550,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"lTj" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	dir = 1
+	},
+/obj/machinery/computer/objective{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "lTC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -99243,7 +99254,7 @@ abI
 aqK
 arG
 asU
-atX
+irW
 auT
 awb
 axe
@@ -104671,7 +104682,7 @@ aWu
 aLf
 aYs
 aZk
-bax
+lTj
 aLf
 aFi
 bdC
@@ -116779,7 +116790,7 @@ vtl
 jyR
 tYr
 gVn
-pHk
+eoQ
 xXo
 pHk
 qSi

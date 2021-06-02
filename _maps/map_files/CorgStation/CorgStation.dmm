@@ -468,16 +468,6 @@
 "aeV" = (
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
-"afo" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/modular_computer/console/preset/command,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/bridge)
 "afz" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -20904,6 +20894,32 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"fIQ" = (
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_x = 1;
+	pixel_y = -25
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/machinery/computer/objective{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/office)
 "fJc" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -69765,29 +69781,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
-"tyv" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = 1;
-	pixel_y = -25
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/office)
 "tyX" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
@@ -72780,6 +72773,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"ulv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/machinery/computer/objective,
+/turf/open/floor/plasteel/dark,
+/area/bridge)
 "ulG" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -120424,7 +120427,7 @@ anT
 alZ
 ayh
 axb
-afo
+ulv
 uHP
 lVc
 ssm
@@ -129461,7 +129464,7 @@ mmS
 gsk
 qXe
 iBK
-tyv
+fIQ
 dIv
 rvY
 utO
