@@ -36,6 +36,9 @@ SUBSYSTEM_DEF(zclear)
 	var/list/active_levels = list()
 	for(var/mob/living/L in GLOB.player_list)
 		active_levels["[L.z]"] = TRUE
+	for(var/obj/machinery/nuclearbomb/decomission/bomb in GLOB.decomission_bombs)
+		if(bomb.timing)
+			active_levels["[bomb.z]"] = TRUE
 	for(var/datum/space_level/level as() in autowipe)
 		//Check if free
 		if(active_levels["[level.z_value]"])
