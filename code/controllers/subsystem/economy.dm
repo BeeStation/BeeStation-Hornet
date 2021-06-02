@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(economy)
 	init_order = INIT_ORDER_ECONOMY
 	runlevels = RUNLEVEL_GAME
 	var/roundstart_paychecks = 5
-	var/budget_pool = 35000
+	var/budget_pool = 5000
 	var/list/department_accounts = list(ACCOUNT_CIV = ACCOUNT_CIV_NAME,
 										ACCOUNT_ENG = ACCOUNT_ENG_NAME,
 										ACCOUNT_SCI = ACCOUNT_SCI_NAME,
@@ -18,7 +18,8 @@ SUBSYSTEM_DEF(economy)
 	var/list/bank_accounts = list() //List of normal accounts (not department accounts)
 	var/list/dep_cards = list()
 	///The modifier multiplied to the value of bounties paid out.
-	var/bounty_modifier = 1
+	///Multiplied as they go to all department accounts rather than just cargo.
+	var/bounty_modifier = 3
 
 /datum/controller/subsystem/economy/Initialize(timeofday)
 	var/budget_to_hand_out = round(budget_pool / department_accounts.len)
