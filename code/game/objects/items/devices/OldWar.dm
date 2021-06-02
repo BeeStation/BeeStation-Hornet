@@ -11,7 +11,7 @@
 	var/shut_down = FALSE
 	var/can_be_used_by_everyone = FALSE //can be used by everyone ???????????
 	var/failed_uses = 0
-	var/shot_delay = 10
+	var/shot_delay = 15
 	var/shots = 5
 	var/obj/item/beacon_art/linked
 	var/cooldown = 0
@@ -145,7 +145,7 @@
 		var/list/locations = list(loc, loc2, loc3, loc4)
 		playsound(T, 'sound/weapons/beam_sniper.ogg', 70, 0, 5)
 		var/chosen_loc = pick(locations)
-		var/obj/effect/targ = new /obj/effect/pod_landingzone(chosen_loc)
+		var/obj/effect/targ = new /obj/effect/pod_landingzone_effect(chosen_loc)
 		sleep(20)
 		qdel(targ)
 		explosion(chosen_loc, 1, 2, 6)

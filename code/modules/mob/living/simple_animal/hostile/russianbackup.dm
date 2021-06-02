@@ -44,7 +44,6 @@
 
 /mob/living/simple_animal/hostile/russian/army/proc/MoveToDefendTarget(mob/living/defend_target)
 	for(src in range(get_dist(src, defend_target), targets_from))
-		MoveToTarget(defend_target)
 		Goto(defend_target,move_to_delay,minimum_distance)
 		lose_patience_timeout = initial(lose_patience_timeout)
 
@@ -159,7 +158,6 @@
 /mob/living/simple_animal/hostile/russian/army/army2/AttackingTarget()
 	if(!bottle_broken)
 		if(ishuman(target))
-			. = ..()
 			var/mob/living/carbon/human/C = target
 			C.apply_damage(20, BRUTE, BODY_ZONE_HEAD)
 			C.apply_effect(min(15, 200) , EFFECT_KNOCKDOWN)
@@ -167,9 +165,9 @@
 			playsound(get_turf(src), "shatter", 80, 0)
 			icon_state = "russianarmy2_bottlebroken"
 			icon_living = "russianarmy2_bottlebroken"
-			visible_message("[src] smashes the bottle of vodka against your head!")
+			C.visible_message("<span class='danger'>[src] smashes the bottle of vodka against [C.p_their()] head!</span>", "<span class='userdanger'>[src] smashes their bottle against you!</span>")
 			var/datum/reagent/R = /datum/reagent/consumable/ethanol/vodka
-			R.reaction_mob(target, TOUCH)
+			R.reaction_mob(C, TOUCH)
 			attack_sound = 'sound/weapons/bladeslice.ogg'
 			attacktext = "slices"
 			melee_damage = 16

@@ -593,6 +593,7 @@
 /obj/item/storage/box/syndicate/OldWar
 	name = "The Old War unit kit"
 	desc = "A sleek, strudy box. You can barely hear gunshots and explosions coming out of it."
+	icon_state = "secbox"
 
 /obj/item/storage/box/syndicate/OldWar/PopulateContents()
 	switch (pickweight(list("Liberator" = 1, "KindomKnight" = 3, "RedSoldier" = 2, "RisingSun" = 3, "ThatGuyWithMoustache" = 3)))
