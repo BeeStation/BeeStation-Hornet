@@ -1,0 +1,4 @@
+author: jupyterkat
+delete-after: true
+changes:
+  - bugfix: makes machines work as intended again
