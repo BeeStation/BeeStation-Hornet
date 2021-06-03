@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
-	
+
 	vis_contents.Cut()
 
 /turf/attack_hand(mob/user)
@@ -383,7 +383,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	if(length(src_object.contents()))
-		to_chat(usr, "<span class='notice'>You start dumping out the contents...</span>")
+		balloon_alert(usr, "You dump out the contents")
 		if(!do_after(usr,20,target=src_object.parent))
 			return FALSE
 
