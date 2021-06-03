@@ -6,11 +6,13 @@
 	var/min_payout = 0
 	var/max_payout = 0
 	var/id = 0
+	var/station_name
 	var/static/objective_num = 0
 
 /datum/orbital_objective/New()
 	. = ..()
 	id = objective_num ++
+	station_name = new_station_name()
 
 /datum/orbital_objective/proc/on_assign(obj/machinery/computer/objective/objective_computer)
 	return
