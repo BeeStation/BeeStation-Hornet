@@ -427,7 +427,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	)
 
 	// Register with the runechat SS to handle EOL and destruction
-	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
+	scheduled_destruction = world.time + BALLOON_TEXT_TOTAL_LIFETIME
 	enter_subsystem()
 
 
