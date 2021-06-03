@@ -14,13 +14,29 @@
 /obj/item/artifact
 	name = "antique"
 	desc = "An antique item of some sort..."
-	icon = 'icons/obj/wizard.dmi'	//placeholder
-	icon_state = "lovestone"
+	icon = 'icons/obj/fluff.dmi'
+	icon_state = "paperstack"
 	var/inUse = FALSE
 	var/deity = NO_GOD
 	var/last_use = 0
 	var/godname = "Anime"
 	var/activated = FALSE
+
+/obj/item/artifact/Initialize()
+	..()
+	switch(rand(1,3))
+		if (1)
+			name = "Locket"
+			desc = "A precious container for someone's cherished memories."
+			icon_state = "alocket"
+		if (2)
+			name = "Homeworld"
+			desc = "A miniature representation of someone's home planet."
+			icon_state = "aplanet"
+		if (3)
+			name = "Porcelain Doll"
+			desc = "A precious porcelain doll resembling an harlequin."
+			icon_state = "adoll"
 
 /obj/item/artifact/posessed/Initialize()
 	..()
@@ -171,9 +187,7 @@
 			target.silent += 3 SECONDS
 			to_chat(target,"<span class='warning'>You suddenly cannot talk!</span>")
 		if (GOD_PARALIZE)
-			for(var/obj/item/bodypart/organ in target.bodyparts)
-				if(organ.body_part == LEG_RIGHT || organ.body_part == LEG_LEFT || organ.body_part == ARM_RIGHT || organ.body_part == ARM_LEFT)
-					organ.receive_damage(stamina = 40)
+			target.adjustStaminaLoss(50)
 			to_chat(target,"<span class='warning'>You suddenly feel tired!</span>")
 		if (GOD_FORCE)
 			target.Knockdown(2 SECONDS)
