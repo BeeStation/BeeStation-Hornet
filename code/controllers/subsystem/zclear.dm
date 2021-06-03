@@ -34,11 +34,19 @@ SUBSYSTEM_DEF(zclear)
 */
 /datum/controller/subsystem/zclear/proc/check_for_empty_levels()
 	var/list/active_levels = list()
-	for(var/mob/living/L in GLOB.player_list)
-		active_levels["[L.z]"] = TRUE
+	//Check active mobs
+	for(var/mob/living/L in GLOB.mob_list)
+		if(L.key)
+			var/turf/T = get_turf(L)
+			active_levels["[T.z]"] = TRUE
+	//Check active nukes
 	for(var/obj/machinery/nuclearbomb/decomission/bomb in GLOB.decomission_bombs)
 		if(bomb.timing)
 			active_levels["[bomb.z]"] = TRUE
+	//Check for shuttles
+	for(var/obj/docking_port/mobile/M in SSshuttle.mobile)
+		active_levels["[M.z]"] = TRUE
+
 	for(var/datum/space_level/level as() in autowipe)
 		//Check if free
 		if(active_levels["[level.z_value]"])
@@ -65,7 +73,8 @@ SUBSYSTEM_DEF(zclear)
 		//Check if the z-level is actually free. (Someone might have drifted into the z-level.)
 		var/free = TRUE
 		for(var/mob/living/L in GLOB.player_list)
-			if(L.z == picked_level.z_value)
+			var/turf/T = get_turf(L)
+			if(T.z == picked_level.z_value)
 				free = FALSE
 				break
 		if(free)
