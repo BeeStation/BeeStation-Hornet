@@ -78,7 +78,7 @@
 				. += ", one of the forbidden gods"
 	else if (IS_HERETIC(user))
 		if (!activated)
-			. += "Use it while holding a Codex Cicatrix in your other hand to perform a ritual for [godname], and infuse this [src] with a magical effect."
+			. += "Use it while holding a Codex Cicatrix in your other hand to perform a ritual of admration for [godname], and infuse this [src] with a magical effect."
 		else
 			var/boon = "The [name] bestows the [boon_type] of [godname], "			
 			switch (deity)
@@ -106,7 +106,7 @@
 			. += boon
 		var/datum/antagonist/heretic/ritualist = user.mind.has_antag_datum(/datum/antagonist/heretic)
 		if (!ritualist.has_deity(deity))
-			. += "Performing a Ritual of Admration for [godname] will also grant you a charge."
+			. += "Performing a ritual of admration for [godname] will also grant you a charge."
 
 /obj/item/artifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
