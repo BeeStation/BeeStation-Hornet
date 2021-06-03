@@ -179,7 +179,9 @@
 		/obj/item/ammo_box/magazine/pistolm9mm = 4
 	)
 
-//Important stuff
+//Important stuff like research disks
 /obj/effect/spawner/lootdrop/ruinloot/important
 	loot = list(
+		"" = 3,
+		/obj/item/disk/tech_disk/research/random = 8
 	)
