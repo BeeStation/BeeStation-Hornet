@@ -165,7 +165,4 @@
 	alpha = 150
 	categories = list(MAT_CATEGORY_RIGID = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/metal_hydrogen
-	value_per_unit = 0.35
-	beauty_modifier = 0.35
 	strength_modifier = 1.2
-	armor_modifiers = list("melee" = 1.35, "bullet" = 1.3, "laser" = 1.3, "energy" = 1.25, "bomb" = 0.7, "bio" = 1, "rad" = 1, "fire" = 1.3, "acid" = 1)

@@ -93,9 +93,9 @@ nobiliumsuppression = INFINITY
 	if (air.return_temperature() <= WATER_VAPOR_FREEZE)
 		if(location && location.freon_gas_act())
 			. = REACTING
-	else if(air.temperature <= T20C + 10)
+	else if(air.return_temperature() <= T20C + 10)
 		if(location && location.water_vapor_gas_act())
-			air.gases[/datum/gas/water_vapor][MOLES] -= MOLES_GAS_VISIBLE
+			air.adjust_moles(/datum/gas/water_vapor, -MOLES_GAS_VISIBLE)
 			. = REACTING
 
 //tritium combustion: combustion of oxygen and tritium (treated as hydrocarbons). creates hotspots. exothermic
@@ -280,7 +280,7 @@ nobiliumsuppression = INFINITY
 /datum/gas_reaction/h2fire/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
-	var/temperature = air.temperature
+	var/temperature = air.return_temperature()
 	var/list/cached_results = air.reaction_results
 	cached_results["fire"] = 0
 	var/turf/open/location = isturf(holder) ? holder : null
@@ -302,11 +302,11 @@ nobiliumsuppression = INFINITY
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.temperature = (temperature*old_heat_capacity + energy_released)/new_heat_capacity
+			air.set_temperature((temperature*old_heat_capacity + energy_released) / new_heat_capacity)
 
 	//let the floor know a fire is happening
 	if(istype(location))
-		temperature = air.temperature
+		temperature = air.return_temperature()
 		if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 			location.hotspot_expose(temperature, CELL_VOLUME)
 			for(var/I in location)
@@ -330,8 +330,7 @@ nobiliumsuppression = INFINITY
 /datum/gas_reaction/ammoniacrystals/react(datum/gas_mixture/air, datum/holder)
 	var/energy_released = 0
 	var/old_heat_capacity = air.heat_capacity()
-	var/list/cached_gases = air.gases
-	var/temperature = air.temperature
+	var/temperature = air.return_temperature()
 	var/turf/open/location = isturf(holder) ? holder : null
 	var/consumed_fuel = 0
 	if(temperature > 150 && temperature < T0C && air.get_moles(/datum/gas/nitrogen) > air.get_moles(/datum/gas/hydrogen))
@@ -344,7 +343,7 @@ nobiliumsuppression = INFINITY
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.temperature = (temperature * old_heat_capacity + energy_released) / new_heat_capacity
+			air.set_temperature((temperature * old_heat_capacity + energy_released) / new_heat_capacity)
 
 //fusion: a terrible idea that was fun but broken. Now reworked to be less broken and more interesting. Again (and again, and again). Again!
 //Fusion Rework Counter: Please increment this if you make a major overhaul to this system again.
@@ -365,7 +364,7 @@ nobiliumsuppression = INFINITY
 
 /datum/gas_reaction/fusion/react(datum/gas_mixture/air, datum/holder)
 	var/turf/open/location
-	if (istype(holder,/datum/pipeline)) //Find the tile the reaction is occuring on, or a random part of the network if it's a pipenet.
+	if(istype(holder, /datum/pipeline)) //Find the tile the reaction is occuring on, or a random part of the network if it's a pipenet.
 		var/datum/pipeline/fusion_pipenet = holder
 		location = get_turf(pick(fusion_pipenet.members))
 	else
@@ -390,8 +389,8 @@ nobiliumsuppression = INFINITY
 	var/instability = MODULUS((gas_power*INSTABILITY_GAS_POWER_FACTOR),toroidal_size) //Instability effects how chaotic the behavior of the reaction is
 	cached_scan_results[id] = instability//used for analyzer feedback
 
-	var/plasma = (initial_plasma-FUSION_MOLE_THRESHOLD)/(scale_factor) //We have to scale the amounts of hydrogen and plasma down a significant amount in order to show the chaotic dynamics we want
-	var/hydrogen = (initial_hydrogen-FUSION_MOLE_THRESHOLD)/(scale_factor) //We also subtract out the threshold amount to make it harder for fusion to burn itself out.
+	var/plasma = (initial_plasma - FUSION_MOLE_THRESHOLD) / scale_factor //We have to scale the amounts of hydrogen and plasma down a significant amount in order to show the chaotic dynamics we want
+	var/hydrogen = (initial_hydrogen - FUSION_MOLE_THRESHOLD) / scale_factor //We also subtract out the threshold amount to make it harder for fusion to burn itself out.
 
 	//The reaction is a specific form of the Kicked Rotator system, which displays chaotic behavior and can be used to model particle interactions.
 	plasma = MODULUS(plasma - (instability*sin(TODEGREES(hydrogen))), toroidal_size)

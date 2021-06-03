@@ -564,7 +564,3 @@ GLOBAL_LIST_INIT(metalhydrogen_recipes, list(
 	point_value = 100
 	custom_materials = list(/datum/material/metalhydrogen=MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/mineral/metal_hydrogen
-
-/obj/item/stack/sheet/mineral/metal_hydrogen/get_main_recipes()
-	. = ..()
-	. += GLOB.metalhydrogen_recipes
