@@ -56,13 +56,13 @@
 	else
 		. = ..()
 
-/obj/structure/destructible/clockwork/gear_base/interdiction_lens/process()
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/process(delta_time)
 	if(!anchored)
 		enabled = FALSE
 		STOP_PROCESSING(SSobj, src)
 		update_icon_state()
 		return
-	if(prob(5))
+	if(DT_PROB(5, delta_time))
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
 	for(var/mob/living/L in viewers(INTERDICTION_LENS_RANGE, src))
 		if(!is_servant_of_ratvar(L) && use_power(5))
@@ -70,7 +70,7 @@
 	for(var/obj/mecha/M in dview(INTERDICTION_LENS_RANGE, src, SEE_INVISIBLE_MINIMUM))
 		if(use_power(5))
 			M.emp_act(EMP_HEAVY)
-			M.take_damage(80)
+			M.take_damage(40 * delta_time)
 			do_sparks(4, TRUE, M)
 
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/repowered()
