@@ -69,7 +69,7 @@
 	icon_living = "swarmer"
 	icon_dead = "swarmer_unactivated"
 	icon_gib = null
-	wander = 0
+	wander = FALSE
 	minbodytemp = 0
 	maxbodytemp = 500
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -94,7 +94,7 @@
 	ranged_cooldown_time = 20
 	projectilesound = 'sound/weapons/taser2.ogg'
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "explodes with a sharp pop!"
 	light_color = LIGHT_COLOR_CYAN
 	hud_type = /datum/hud/swarmer

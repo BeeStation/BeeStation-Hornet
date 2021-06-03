@@ -13479,17 +13479,6 @@
 	},
 /turf/open/floor/carpet,
 /area/crew_quarters/heads/hop)
-"aDY" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Head of Personnel APC";
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/carpet,
-/area/crew_quarters/heads/hop)
 "aDZ" = (
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -13860,15 +13849,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/wood,
-/area/crew_quarters/heads/hop)
-"aEM" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-24"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "aEN" = (
@@ -54833,6 +54813,13 @@
 "emV" = (
 /turf/open/space,
 /area/space/nearstation)
+"enW" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/photocopier,
+/turf/open/floor/wood,
+/area/crew_quarters/heads/hop)
 "esC" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -58433,6 +58420,20 @@
 	},
 /turf/closed/wall/r_wall,
 /area/science/mixing/chamber)
+"kfp" = (
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "Head of Personnel APC";
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-24"
+	},
+/turf/open/floor/carpet,
+/area/crew_quarters/heads/hop)
 "kfM" = (
 /obj/structure/closet,
 /obj/machinery/light/small{
@@ -100064,7 +100065,7 @@ aAH
 aBB
 aCR
 aDT
-aEM
+enW
 aFA
 aGv
 aHi
@@ -101348,7 +101349,7 @@ abI
 aAH
 aBG
 aCU
-aDY
+kfp
 aER
 aAH
 aGy
