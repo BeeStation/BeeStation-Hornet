@@ -28,7 +28,11 @@
 #define BALLOON_TEXT_SPAWN_TIME (0.2 SECONDS)
 #define BALLOON_TEXT_FADE_TIME (0.1 SECONDS)
 #define BALLOON_TEXT_FULLY_VISIBLE_TIME (0.7 SECONDS)
-#define BALLOON_TEXT_TOTAL_LIFETIME (BALLOON_TEXT_SPAWN_TIME + BALLOON_TEXT_FULLY_VISIBLE_TIME + BALLOON_TEXT_FADE_TIME)
+#define BALLOON_TEXT_TOTAL_LIFETIME(mult) (BALLOON_TEXT_SPAWN_TIME + BALLOON_TEXT_FULLY_VISIBLE_TIME*mult + BALLOON_TEXT_FADE_TIME)
+/// The increase in duration per character in seconds
+#define BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT (0.05)
+/// The amount of characters needed before this increase takes into effect
+#define BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN 10
 
 #define COLOR_JOB_UNKNOWN "#dda583"
 #define COLOR_PERSON_UNKNOWN "#999999"
@@ -354,7 +358,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
 /atom/proc/balloon_alert(mob/viewer, text)
-	new /datum/chatmessage/balloon_alert(text, src, viewer, lifespan = BALLOON_TEXT_TOTAL_LIFETIME)
+	new /datum/chatmessage/balloon_alert(text, src, viewer)
 
 /atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs)
 	var/list/hearers = get_hearers_in_view(vision_distance, src)
@@ -369,16 +373,16 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 /datum/chatmessage/balloon_alert
 	tgt_color = "#ffffff"
 
-/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner, lifespan = BALLOON_TEXT_TOTAL_LIFETIME)
+/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner)
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, lifespan)
+	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
 
-/datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner, lifespan)
+/datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner)
 	// Register client who owns this message
 	owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
@@ -403,13 +407,19 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
 
 	// View the message
-	owned_by.images |= message
+	owned_by.images += message
+
+	var/duration_mult = 1
+	var/duration_length = length(text) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
+
+	if(duration_length > 0)
+		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 
 	// Animate the message
 	animate(
 		message,
 		pixel_y = world.icon_size * 1.2,
-		time = BALLOON_TEXT_TOTAL_LIFETIME,
+		time = BALLOON_TEXT_TOTAL_LIFETIME(1),
 		easing = SINE_EASING | EASE_OUT,
 	)
 
@@ -422,15 +432,17 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	animate(
 		alpha = 0,
-		time = BALLOON_TEXT_FULLY_VISIBLE_TIME,
+		time = BALLOON_TEXT_FULLY_VISIBLE_TIME * duration_mult,
 		easing = CUBIC_EASING | EASE_IN,
 	)
 
 	// Register with the runechat SS to handle EOL and destruction
-	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
+	scheduled_destruction = world.time + BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	enter_subsystem()
 
 
+#undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
+#undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 #undef CHAT_MESSAGE_SPAWN_TIME
 #undef CHAT_MESSAGE_LIFESPAN
 #undef CHAT_MESSAGE_EOL_FADE
