@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - imageadd: adds an inhand sprite for the hos gun set to stun (tazer) mode
