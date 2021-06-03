@@ -73,7 +73,7 @@
 	if(activated) 
 		var/mob/living/carbon/C = user
 		if (istype(C) && C.job == "Curator")
-			. += "It is  [godname]"
+			. += "It has the symbol of [godname] carved into it"
 			if (boon_type == "curse")
 				. += ", one of the forbidden gods"
 	else if (IS_HERETIC(user))
