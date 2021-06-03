@@ -302,3 +302,5 @@
 /datum/map_template/ruin_part/researchlab
 	file_name = "13x9_researchlab"
 	weight = 2
+	//Contains a research disk
+	max_occurances = 1
