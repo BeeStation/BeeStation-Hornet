@@ -290,7 +290,7 @@ nobiliumsuppression = INFINITY
 		air.adjust_moles(/datum/gas/hydrogen, -burned_fuel)
 	else
 		burned_fuel = air.get_moles(/datum/gas/hydrogen) * HYDROGEN_BURN_H2_FACTOR
-		air.adjust_moles(/datum/gas/hydrogen, -(air.get_moles(/datum/gas/hydrogen) / HYDROGEN_BURN_H2_FACTOR)
+		air.adjust_moles(/datum/gas/hydrogen, -(air.get_moles(/datum/gas/hydrogen) / HYDROGEN_BURN_H2_FACTOR))
 		air.adjust_moles(/datum/gas/oxygen, -air.get_moles(/datum/gas/hydrogen))
 
 	if(burned_fuel)
