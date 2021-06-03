@@ -62,7 +62,7 @@
 			if (GOD_PARALIZE)
 				godname = "C'thalpa"
 			if (GOD_ELDRITCH)
-				godname = "Yomagn'tho"
+				godname = "Yomagn'tho"	
 
 /obj/item/artifact/examine(mob/user)
 	. = ..()
@@ -70,16 +70,10 @@
 		return .
 	var/boon_type = deity < GOD_ELDRITCH ? "curse" : "blessing"
 	
-	if(activated) 
-		var/mob/living/carbon/C = user
-		if (istype(C) && C.job == "Curator")
-			. += "It has the symbol of [godname] carved into it"
-			if (boon_type == "curse")
-				. += ", one of the forbidden gods"
-	else if (IS_HERETIC(user))
-		if (!activated)
-			. += "Use it while holding a Codex Cicatrix in your other hand to perform a ritual of admration for [godname], and infuse this [src] with a magical effect."
-		else
+	var/mob/living/carbon/C = user
+	var/datum/antagonist/heretic/heretic_user = user.mind.has_antag_datum(/datum/antagonist/heretic)	
+	if (heretic_user || (istype(C) && C.job == "Curator"))		
+		if (activated)
 			var/boon = "The [name] bestows the [boon_type] of [godname], "			
 			switch (deity)
 				if (GOD_MEND)
@@ -101,12 +95,12 @@
 				if (GOD_PARALIZE)
 					boon += "paralizing the target."
 				if (GOD_ELDRITCH)
-					boon += "healing Heretics and damages others."
-			
+					boon += "healing Heretics and damages others."				
 			. += boon
-		var/datum/antagonist/heretic/ritualist = user.mind.has_antag_datum(/datum/antagonist/heretic)
-		if (!ritualist.has_deity(deity))
-			. += "Performing a ritual of admration for [godname] will also grant you a charge."
+		else if (heretic_user)
+			. += "Use it while holding a Codex Cicatrix in your other hand to perform a ritual of admration for [godname], and infuse this [src] with a magical effect."			
+		if (!heretic_user?.has_deity(deity))
+			. += "Performing a ritual of admration for [godname] will grant you a charge to your Codex Cicatrix."
 
 /obj/item/artifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
