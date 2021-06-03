@@ -11,6 +11,7 @@
 	idle_power_usage = 0
 	power_channel = AREA_USAGE_EQUIP
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_HEADS, ACCESS_SECURITY) //used to control clamps
+	processing_flags = NONE
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
@@ -21,6 +22,7 @@
 /obj/machinery/defibrillator_mount/Destroy()
 	if(defib)
 		QDEL_NULL(defib)
+		end_processing()
 	. = ..()
 
 /obj/machinery/defibrillator_mount/examine(mob/user)
@@ -76,6 +78,7 @@
 		"<span class='notice'>You press [I] into the mount, and it clicks into place.</span>")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
+		begin_processing()
 		update_icon()
 		return
 	else if(defib && I == defib.paddles)
@@ -129,6 +132,8 @@
 	user.visible_message("<span class='notice'>[user] unhooks [defib] from [src].</span>", \
 	"<span class='notice'>You slide out [defib] from [src] and unhook the charging cables.</span>")
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+	// Make sure processing ends before the defib is nulled
+	end_processing()
 	defib = null
 	update_icon()
 

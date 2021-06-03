@@ -68,10 +68,10 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/machinery/computer/camera_advanced/ratvar/process()
-	if(prob(3))
+/obj/machinery/computer/camera_advanced/ratvar/process(delta_time)
+	if(DT_PROB(3, delta_time))
 		new /obj/effect/temp_visual/steam_release(get_turf(src))
-	if(prob(7))
+	if(DT_PROB(7, delta_time))
 		playsound(get_turf(src), 'sound/machines/beep.ogg', 20, TRUE)
 
 /obj/machinery/computer/camera_advanced/ratvar/can_use(mob/living/user)
