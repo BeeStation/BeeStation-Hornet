@@ -403,7 +403,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
 
 	// View the message
-	owned_by.images |= message
+	owned_by.images += message
 
 	// Animate the message
 	animate(
