@@ -89,7 +89,7 @@
 				if (GOD_CLEANSE)
 					boon += "flushing toxins from the target."
 				if (GOD_NETHER)
-					boon += "sending a hostile minion on the target."
+					boon += "sending a hostile creature on the target."
 				if (GOD_SIGHT)
 					boon += "blinding the target."
 				if (GOD_STONE)
@@ -117,7 +117,7 @@
 			to_chat(target,"<span class='warning'>Your crucifix protects you against [user]'s hex!</span>")
 		else 
 			infuse_blessing(user,target)
-		last_use = world.time + 30 SECONDS
+		last_use = world.time + 300 SECONDS
 
 /obj/item/artifact/attack_self(mob/living/user)
 	. = ..()
@@ -184,7 +184,7 @@
 			target.blur_eyes(9)
 			to_chat(target,"<span class='warning'>You suddenly cannot see!</span>")
 		if (GOD_MUTE)
-			target.silent += 3 SECONDS
+			target.silent = max(target.silent,3 SECONDS)
 			to_chat(target,"<span class='warning'>You suddenly cannot talk!</span>")
 		if (GOD_PARALIZE)
 			target.adjustStaminaLoss(50)
@@ -198,7 +198,7 @@
 		if (GOD_NETHER)				
 			var/mob/living/simple_animal/hostile/netherworld/blankbody/spawninstance = new /mob/living/simple_animal/hostile/netherworld/blankbody(get_turf(target))
 			spawninstance.target = target
-			to_chat(target,"<span class='warning'>A [spawninstance] creature manifests and begins to attack you!</span>")
+			to_chat(target,"<span class='warning'>[spawninstance] materializes and looks at you with hate!</span>")
 	return TRUE
 
 #undef NO_GOD
