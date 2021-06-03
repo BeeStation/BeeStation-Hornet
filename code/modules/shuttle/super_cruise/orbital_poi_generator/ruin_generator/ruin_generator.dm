@@ -492,9 +492,6 @@
 			continue
 		if(prob(floor_break_prob) && istype(T, /turf/open/floor/plasteel))
 			T = T.ScrapeAway()
-		//1 in every 200 tiles will have a rare loot randomly, these are on the map too
-		if(prob(0.5))
-			new /obj/effect/spawner/lootdrop/ruinloot/important(T)
 		//Spawn floortrash.
 		var/new_floortrash = pickweight(floortrash)
 		if(ispath(new_floortrash))
@@ -557,6 +554,12 @@
 		var/split_loc = splittext(objective_turf, "_")
 		M.forceMove(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
 	SSzclear.nullspaced_mobs.Cut()
+
+	//Generate research disks
+	for(var/i in 1 to rand(1, 3))
+		var/objective_turf = pick(floor_turfs)
+		var/split_loc = splittext(objective_turf, "_")
+		new /obj/effect/spawner/lootdrop/ruinloot/important(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
 
 	SSair.unpause_z(center_z)
 
