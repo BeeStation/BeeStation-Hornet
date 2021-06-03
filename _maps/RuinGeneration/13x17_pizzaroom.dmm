@@ -36,6 +36,10 @@
 /mob/living/simple_animal/hostile/asteroid/elite/pandora,
 /turf/open/indestructible/hierophant,
 /area/ruin/unpowered)
+"v" = (
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/indestructible/hierophant,
+/area/ruin/unpowered)
 "A" = (
 /obj/item/pizzabox/infinite,
 /turf/open/indestructible/hierophant,
@@ -140,7 +144,7 @@ e
 I
 f
 f
-f
+v
 f
 f
 I
@@ -199,7 +203,7 @@ f
 f
 f
 f
-f
+v
 I
 G
 G

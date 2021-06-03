@@ -1,8 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/rack,
-/obj/item/gun/energy/e_gun/dragnet,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/ruinloot/armoury,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "b" = (
@@ -19,8 +22,16 @@
 /area/ruin/unpowered)
 "d" = (
 /obj/structure/rack,
-/obj/item/clothing/head/helmet/riot,
+/obj/item/grenade/barrier{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/grenade/barrier{
+	pixel_x = 3;
+	pixel_y = -1
+	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/spawner/lootdrop/ruinloot/security,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "e" = (
@@ -34,14 +45,21 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"g" = (
+"i" = (
 /obj/structure/rack,
-/obj/item/gun/ballistic/automatic/wt550{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/ruinloot/armoury,
+/turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "j" = (
 /obj/effect/turf_decal/stripes/line{
@@ -58,12 +76,9 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/armor/bulletproof,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet,
+/obj/effect/spawner/lootdrop/ruinloot/armoury,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "m" = (
@@ -138,12 +153,27 @@
 "x" = (
 /turf/template_noop,
 /area/template_noop)
+"z" = (
+/obj/structure/closet/secure_closet{
+	name = "contraband locker";
+	req_access_txt = "3"
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/ruinloot/armoury,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "A" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"B" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery,
+/obj/effect/spawner/lootdrop/ruinloot/armoury,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "E" = (
 /obj/effect/turf_decal/stripes/line{
@@ -154,45 +184,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
-"F" = (
-/obj/structure/closet/secure_closet{
-	name = "contraband locker";
-	req_access_txt = "3"
-	},
-/obj/effect/spawner/lootdrop/armory_contraband,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"G" = (
-/obj/effect/turf_decal/bot,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/structure/closet/secure_closet,
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
-"J" = (
+"I" = (
 /obj/structure/rack,
-/obj/item/grenade/barrier{
-	pixel_x = -3;
-	pixel_y = 1
-	},
-/obj/item/grenade/barrier,
-/obj/item/grenade/barrier{
-	pixel_x = 3;
-	pixel_y = -1
-	},
-/obj/item/grenade/barrier{
-	pixel_x = 6;
-	pixel_y = -2
-	},
 /obj/effect/turf_decal/delivery,
-/obj/item/storage/lockbox/loyalty,
-/obj/item/implantcase/tracking,
-/obj/item/implantcase/chem,
+/obj/effect/spawner/lootdrop/ruinloot/security,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "K" = (
@@ -297,25 +292,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
-"Z" = (
-/obj/structure/rack,
-/obj/item/gun/energy/disabler{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/ruin/unpowered)
 
 (1,1,1) = {"
 M
@@ -368,7 +344,7 @@ x
 x
 M
 M
-g
+B
 N
 U
 M
@@ -382,7 +358,7 @@ M
 t
 t
 M
-J
+d
 A
 E
 E
@@ -397,10 +373,10 @@ M
 x
 x
 M
-F
+z
 Q
 V
-Z
+i
 m
 M
 f
@@ -427,7 +403,7 @@ M
 x
 x
 M
-G
+l
 Q
 O
 T
@@ -442,7 +418,7 @@ M
 t
 t
 M
-a
+B
 o
 u
 u
@@ -459,8 +435,8 @@ x
 M
 M
 k
-l
-d
+a
+I
 M
 M
 t
