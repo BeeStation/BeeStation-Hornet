@@ -285,3 +285,7 @@
 	. = ..()
 	if(prob(20))
 		. += "[pick(descs)]"
+	if(HAS_TRAIT(user, TRAIT_APPRAISAL))
+		if(length(reagents.reagent_list))
+			for(var/datum/reagent/R in reagents.reagent_list)
+				. += "It contains [R.volume] units of [R.name]"
