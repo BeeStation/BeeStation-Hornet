@@ -314,6 +314,7 @@
 				/obj/structure/sign/poster/random = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
+				/obj/structure/extinguisher_cabinet = 3,
 				null = 30
 			)
 		if("xeno")
@@ -358,6 +359,7 @@
 				/obj/item/radio/intercom = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
+				/obj/structure/extinguisher_cabinet = 3,
 				null = 30
 			)
 		if("netherworld")
@@ -398,6 +400,7 @@
 				/obj/structure/sign/poster/random = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
+				/obj/structure/extinguisher_cabinet = 3,
 				null = 30
 			)
 		if("blob")
@@ -434,6 +437,7 @@
 				/obj/structure/sign/poster/random = 1,
 				/obj/structure/sign/poster/ripped = 2,
 				/obj/machinery/newscaster = 1,
+				/obj/structure/extinguisher_cabinet = 3,
 				null = 30
 			)
 		if("ratvar")
@@ -468,6 +472,7 @@
 				/obj/machinery/newscaster = 2,
 				/obj/structure/destructible/clockwork/trap/delay = 1,
 				/obj/structure/destructible/clockwork/trap/lever = 1,
+				/obj/structure/extinguisher_cabinet = 3,
 				null = 30
 			)
 
@@ -488,6 +493,9 @@
 			continue
 		if(prob(floor_break_prob) && istype(T, /turf/open/floor/plasteel))
 			T = T.ScrapeAway()
+		//1 in every 200 tiles will have a rare loot randomly, these are on the map too
+		if(prob(0.5))
+			new /obj/effect/spawner/lootdrop/ruinloot/important(T)
 		//Spawn floortrash.
 		var/new_floortrash = pickweight(floortrash)
 		if(ispath(new_floortrash))

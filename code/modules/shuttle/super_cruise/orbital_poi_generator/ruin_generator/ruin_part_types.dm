@@ -298,3 +298,7 @@
 /datum/map_template/ruin_part/lounge
 	file_name = "5x9_lounge"
 	weight = 4
+
+/datum/map_template/ruin_part/researchlab
+	file_name = "13x9_researchlab"
+	weight = 2

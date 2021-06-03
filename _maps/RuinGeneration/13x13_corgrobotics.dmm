@@ -38,21 +38,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "e" = (
-/obj/structure/table,
-/obj/item/stack/sheet/plasteel{
-	amount = 10
-	},
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/item/stock_parts/cell/high/plus,
-/obj/item/stock_parts/cell/high/plus,
+/obj/effect/spawner/lootdrop/ruinloot/science,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "f" = (
@@ -158,6 +144,24 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
+"q" = (
+/obj/structure/table,
+/obj/item/stack/sheet/plasteel{
+	amount = 10
+	},
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "r" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/hatch,
@@ -181,23 +185,20 @@
 "u" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/bodypart/r_arm/robot,
-/obj/item/bodypart/r_arm/robot,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
-/obj/item/assembly/prox_sensor,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -25
 	},
 /obj/machinery/cell_charger,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/lootdrop/ruinloot/science,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "v" = (
@@ -305,12 +306,6 @@
 /area/ruin/unpowered)
 "M" = (
 /obj/structure/rack,
-/obj/item/extinguisher,
-/obj/item/extinguisher,
-/obj/item/extinguisher,
-/obj/item/clothing/head/hardhat/red,
-/obj/item/clothing/head/hardhat/red,
-/obj/item/clothing/head/hardhat/red,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -318,6 +313,7 @@
 	dir = 6
 	},
 /obj/machinery/light,
+/obj/effect/spawner/lootdrop/ruinloot/science,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "N" = (
@@ -344,6 +340,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/spawner/lootdrop/ruinloot/science,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
@@ -456,7 +453,7 @@ c
 (4,1,1) = {"
 z
 x
-x
+e
 x
 x
 X
@@ -486,7 +483,7 @@ A
 (6,1,1) = {"
 U
 Q
-e
+q
 K
 T
 A
