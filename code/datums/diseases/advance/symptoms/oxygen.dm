@@ -50,7 +50,7 @@ Bonus
 			M.adjustOxyLoss(-7, 0)
 			M.losebreath = max(0, M.losebreath - 4)
 			if(regenerate_blood && M.blood_volume < BLOOD_VOLUME_NORMAL)
-				M.blood_volume += 1
+				M.blood_volume += 8 //it takes 4 seconds to lose one point of bleed_rate. this is exactly sufficient to counter autophageocytosis' Heparin production. Theoretically.
 			if(prob(1) && prob(50))
 				var/turf/open/T = get_turf(M)
 				if(!istype(T))

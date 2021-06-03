@@ -244,6 +244,7 @@
 /mob/living/simple_animal/hostile/nanotrasen/hugbox
 	loot = list(/obj/effect/gibspawner/human)//no gamer gear, sorry!
 	mobchatspan = "headofsecurity"
+	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/zombie/hugbox
 	melee_damage = 12 //zombies have a base of 21, a bit much
