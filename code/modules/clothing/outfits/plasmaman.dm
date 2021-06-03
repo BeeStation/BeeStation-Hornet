@@ -190,13 +190,6 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/honk
 	uniform = /obj/item/clothing/under/plasmaman/honk
 
-/datum/outfit/plasmaman/commander
-	name = "CentCom Command Plasmaman"
-
-	mask = /obj/item/clothing/mask/gas/sechailer
-	head = /obj/item/clothing/head/helmet/space/plasmaman/commander
-	uniform = /obj/item/clothing/under/plasmaman/commander
-
 /datum/outfit/plasmaman/official
 	name = "CentCom Official Plasmaman"
 
@@ -214,14 +207,14 @@
 
 	head = null
 	uniform = /obj/item/clothing/under/plasmaman/official
-	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	mask = null
 
 /datum/outfit/plasmaman/death_commando
 	name = "Death Commando Plasmaman"
 
 	head = null
 	uniform = /obj/item/clothing/under/plasmaman/commander
-	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	mask = null
 
 /datum/outfit/plasmaman/honk_squad
 	name = "HONK Squad Plasmaman"

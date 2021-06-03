@@ -173,11 +173,11 @@
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return
-	H.equipOutfit(outfit)
 	if(isplasmaman(H))
-		H.plasmaman_equipOutfit(plasmaman_outfit)
+		H.equipOutfit(plasmaman_outfit)
 		H.internal = H.get_item_for_held_index(2)
 		H.update_internals_hud_icon(1)
+	H.equipOutfit(outfit)
 	//Set the suits frequency
 	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)
 	if(I)
