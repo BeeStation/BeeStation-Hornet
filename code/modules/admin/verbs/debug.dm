@@ -908,7 +908,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_DEBUG) || !C)
 		return
 
-	var/gas_to_add = input(usr, "Choose a gas to modify.", "Choose a gas.") as null|anything in (subtypesof(/datum/gas) - /datum/gas/unobtanium) //nice try
+	var/gas_to_add = input(usr, "Choose a gas to modify.", "Choose a gas.") as null|anything in subtypesof(/datum/gas)
 	var/amount = input(usr, "Choose the amount of moles.", "Choose the amount.", 0) as num
 	var/temp = input(usr, "Choose the temperature (Kelvin).", "Choose the temp (K).", 0) as num
 

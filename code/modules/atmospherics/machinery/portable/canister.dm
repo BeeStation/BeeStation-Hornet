@@ -51,7 +51,8 @@
 		"stimulum" = /obj/machinery/portable_atmospherics/canister/stimulum,
 		"pluoxium" = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
-		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma
+		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma,
+		"hydrogen" = /obj/machinery/portable_atmospherics/canister/hydrogen
 	)
 
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
@@ -84,6 +85,13 @@
 	desc = "Plasma gas. The reason YOU are here. Highly toxic."
 	icon_state = "orange"
 	gas_type = /datum/gas/plasma
+
+/obj/machinery/portable_atmospherics/canister/hydrogen
+	name = "hydrogen canister"
+	desc = "Hydrogen, highly flammable"
+	icon_state = "grey"
+	gas_type = /datum/gas/hydrogen
+	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/bz
 	name = "\improper BZ canister"

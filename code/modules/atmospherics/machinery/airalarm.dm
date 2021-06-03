@@ -94,6 +94,7 @@
 		/datum/gas/carbon_dioxide	= new/datum/tlv(-1, -1, 5, 10),
 		/datum/gas/miasma			= new/datum/tlv/(-1, -1, 15, 30),
 		/datum/gas/plasma			= new/datum/tlv/dangerous,
+		/datum/gas/hydrogen			= new/datum/tlv/dangerous,
 		/datum/gas/nitrous_oxide	= new/datum/tlv/dangerous,
 		/datum/gas/bz				= new/datum/tlv/dangerous,
 		/datum/gas/hypernoblium		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
@@ -113,6 +114,7 @@
 		/datum/gas/carbon_dioxide	= new/datum/tlv/no_checks,
 		/datum/gas/miasma			= new/datum/tlv/no_checks,
 		/datum/gas/plasma			= new/datum/tlv/no_checks,
+		/datum/gas/hydrogen			= new/datum/tlv/no_checks,
 		/datum/gas/nitrous_oxide	= new/datum/tlv/no_checks,
 		/datum/gas/bz				= new/datum/tlv/no_checks,
 		/datum/gas/hypernoblium		= new/datum/tlv/no_checks,
@@ -132,6 +134,7 @@
 		/datum/gas/carbon_dioxide	= new/datum/tlv(-1, -1, 5, 10),
 		/datum/gas/miasma			= new/datum/tlv/(-1, -1, 2, 5),
 		/datum/gas/plasma			= new/datum/tlv/dangerous,
+		/datum/gas/hydrogen			= new/datum/tlv/dangerous,
 		/datum/gas/nitrous_oxide	= new/datum/tlv/dangerous,
 		/datum/gas/bz				= new/datum/tlv/dangerous,
 		/datum/gas/hypernoblium		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
