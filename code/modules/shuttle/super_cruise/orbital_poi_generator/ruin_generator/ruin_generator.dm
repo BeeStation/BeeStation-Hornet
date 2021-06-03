@@ -492,6 +492,9 @@
 			continue
 		if(prob(floor_break_prob) && istype(T, /turf/open/floor/plasteel))
 			T = T.ScrapeAway()
+		//1 in every 200 tiles will have a rare loot randomly, these are on the map too
+		if(prob(0.5))
+			new /obj/effect/spawner/lootdrop/ruinloot/important(T)
 		//Spawn floortrash.
 		var/new_floortrash = pickweight(floortrash)
 		if(ispath(new_floortrash))
