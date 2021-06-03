@@ -55,12 +55,6 @@
 /obj/item/clothing/gloves/color/fyellow/Initialize()
 	. = ..()
 	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
-
-/obj/item/clothing/gloves/color/fyellow/examine(mob/user)
-	. = ..()
-	var/protectionpercentage = ((1 - siemens_coefficient) * 100)
-	. += "[src] will provide [protectionpercentage] percent protection from electric shocks."
-
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."
 	name = "worn out insulated gloves"
