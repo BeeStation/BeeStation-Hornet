@@ -294,3 +294,7 @@
 	file_name = "9x9_chemlab"
 	weight = 3
 	max_occurances = 2
+
+/datum/map_template/ruin_part/lounge
+	file_name = "5x9_lounge"
+	weight = 4

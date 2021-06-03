@@ -15,7 +15,7 @@
 	nuclear_bomb.linked_objective = src
 
 /datum/orbital_objective/nuclear_bomb/get_text()
-	. = "Outpost [new_station_name()] requires immediate decomissioning to prevent infomation from being \
+	. = "Outpost [station_name] requires immediate decomissioning to prevent infomation from being \
 		leaked to the space press. Retrieve the nuclear authentication disk from the outpost and detonate it \
 		with the provided nuclear bomb which will be delivered to the bridge."
 	if(linked_beacon)
