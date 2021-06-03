@@ -46,6 +46,11 @@ SUBSYSTEM_DEF(zclear)
 	//Check for shuttles
 	for(var/obj/docking_port/mobile/M in SSshuttle.mobile)
 		active_levels["[M.z]"] = TRUE
+	//Check for shuttles docking
+	for(var/port_id in SSorbits.assoc_shuttles)
+		var/datum/orbital_object/shuttle/shuttle = SSorbits.assoc_shuttles[port_id]
+		if(shuttle.docking_target?.linked_z_level?.z_value)
+			active_levels["[shuttle.docking_target?.linked_z_level?.z_value]"] = TRUE
 
 	for(var/datum/space_level/level as() in autowipe)
 		//Check if free
