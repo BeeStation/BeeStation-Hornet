@@ -647,7 +647,7 @@ nobiliumsuppression = INFINITY
 		)
 
 /datum/gas_reaction/metalhydrogen/react(datum/gas_mixture/air, datum/holder)
-	var/temperature = air.temperature
+	var/temperature = air.return_temperature()
 	var/old_heat_capacity = air.heat_capacity()
 	///the more heat you use the higher is this factor
 	var/increase_factor = min((temperature / METAL_HYDROGEN_MINIMUM_HEAT), 5)
@@ -668,5 +668,5 @@ nobiliumsuppression = INFINITY
 	if(energy_used > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.temperature = max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity),TCMB)
+			air.set_temperature(max(((temperature * old_heat_capacity - energy_used) / new_heat_capacity),TCMB))
 		return REACTING
