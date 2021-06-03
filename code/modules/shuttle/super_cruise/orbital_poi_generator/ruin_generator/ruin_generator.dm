@@ -489,7 +489,7 @@
 			if(prob(structure_damage_prob))
 				var/obj/structure/S = locate() in T
 				if(S)
-					S.take_damage(rand(0, S.max_integrity))
+					S.take_damage(rand(0, S.max_integrity * 1.5))
 			continue
 		if(prob(floor_break_prob) && istype(T, /turf/open/floor/plasteel))
 			T = T.ScrapeAway()
