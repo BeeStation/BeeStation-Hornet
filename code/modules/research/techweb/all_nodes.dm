@@ -198,9 +198,39 @@
 	display_name = "Miniaturized Bluespace Research"
 	description = "Extreme reduction in space required for bluespace engines, leading to portable bluespace technology."
 	prereq_ids = list("bluespace_travel", "practical_bluespace", "high_efficiency")
-	design_ids = list("bluespace_matter_bin", "femto_mani", "triphasic_scanning", "bag_holding", "quantum_keycard", "wormholeprojector", "swapper", "antivirus4")
+	design_ids = list("bluespace_matter_bin", "femto_mani", "triphasic_scanning", "quantum_keycard", "antivirus4")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
+
+/datum/techweb_node/bag_of_holding
+	id = "bagofholding"
+	display_name = "Bag of Holding"
+	description = "Portable bluespace technology allows the production of backpacks that can store a greater volume of items than the volume of the bag."
+	prereq_ids = list("micro_bluespace")
+	design_ids = list("bag_holding")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+	hidden = TRUE
+
+/datum/techweb_node/wormhole_gun
+	id = "wormholegun"
+	display_name = "Bluespace Wormhold Projector"
+	description = "Develop the research required to create a miniturized bluespace wormhold projector, allowing you to jump between 2 places instantly."
+	prereq_ids = list("micro_bluespace")
+	design_ids = list("wormholeprojector")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+	hidden = TRUE
+
+/datum/techweb_node/quantum_spin
+	id = "qswapper"
+	display_name = "Quantum Spin Inverter"
+	description = "Research the ability to create an experimental device that is able to swap the locations of two entities by switching their particles' spin values. Must be linked to another device to function."
+	prereq_ids = list("micro_bluespace")
+	design_ids = list("swapper")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/practical_bluespace
 	id = "practical_bluespace"
@@ -542,6 +572,7 @@
 	design_ids = list("ci-xray", "ci-thermals", "ci-antidrop", "ci-antistun", "ci-thrusters")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/adv_combat_cyber_implants
 	id = "adv_combat_cyber_implants"
@@ -551,6 +582,7 @@
 	design_ids = list("hydraulic_blade")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 10000
+	hidden = TRUE
 
 ////////////////////////Tools////////////////////////
 
@@ -707,6 +739,7 @@
 	design_ids = list("nuclear_gun")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/medical_weapons
 	id = "medical_weapons"
@@ -725,6 +758,7 @@
 	design_ids = list("temp_gun", "xray_laser")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/adv_beam_weapons
 	id = "adv_beam_weapons"
@@ -734,6 +768,7 @@
 	design_ids = list("beamrifle")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/explosive_weapons
 	id = "explosive_weapons"
@@ -761,6 +796,7 @@
 	design_ids = list("techshotshell", "c38_hotshot", "c38_iceblox", "shotgundartcryostasis")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/gravity_gun
 	id = "gravity_gun"
@@ -820,6 +856,7 @@
 	"phazon_peri", "phazon_targ", "phazon_armor")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/adv_mecha_tools
 	id = "adv_mecha_tools"
@@ -928,6 +965,7 @@
 	design_ids = list("clusterbang_launcher")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/mech_teleporter
 	id = "mech_teleporter"
