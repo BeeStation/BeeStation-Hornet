@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Head revs now use a normal flash
-  - tweak: When a head rev uses a flash it will gain charges.

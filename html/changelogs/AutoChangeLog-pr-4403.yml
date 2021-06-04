@@ -1,4 +1,0 @@
-author: Kylerace, r1ks-iwnl
-delete-after: true
-changes:
-  - bugfix: Autolathes can't create items for cheaper than what they recycle for.
