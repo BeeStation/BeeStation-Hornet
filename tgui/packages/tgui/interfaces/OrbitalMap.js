@@ -16,6 +16,8 @@ export const OrbitalMap = (props, context) => {
     shuttleName = "",
     desired_vel_x = 0,
     desired_vel_y = 0,
+    validDockingPorts = [],
+    isDocking = false,
   } = data;
   const lineStyle = {
     stroke: '#BBBBBB',
@@ -46,7 +48,7 @@ export const OrbitalMap = (props, context) => {
   {
     // Find the right tracked body
     map_objects.forEach(element => {
-      if (element.name === trackedBody)
+      if (element.name === trackedBody && !trackedObject)
       {
         trackedObject = element;
         if (xOffset !== element.position_x && yOffset !== element.position_y
@@ -63,7 +65,8 @@ export const OrbitalMap = (props, context) => {
       width={1036}
       height={670}
       resizable>
-      <Window.Content>
+      <Window.Content
+        scrollable>
         <div class="OrbitalMap__radar">
           <Button
             position="absolute"
@@ -81,20 +84,35 @@ export const OrbitalMap = (props, context) => {
             fontSize="18px"
             color="grey"
             onClick={() => setZoomScale(zoomScale / 2)} />
-          {collisionAlert && (
+          {!isDocking || (
             <NoticeBox
               position="absolute"
               color="red"
               top="50px"
-              left="300px"
-              width="200px"
+              left="calc(50% - 150px)"
+              width="300px"
               textAlign="center"
               fontSize="14px">
-              ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
-              <Box />
-              COLLISION WARNING
-              <Box />
-              ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
+              <>
+                <NoticeBox mt={1}>
+                  DOCKING PROTOCOL ONLINE,
+                  FLIGHT DISABLED -
+                  SELECT DESTINATION.
+                </NoticeBox>
+                <Dropdown
+                  mt={1}
+                  selected="Select Docking Location"
+                  width="100%"
+                  options={validDockingPorts.map(
+                    map_object => (
+                      <option key={map_object.id}>
+                        {map_object.name}
+                      </option>
+                    ))}
+                  onSelected={value => act("gotoPort", {
+                    port: value.key,
+                  })} />
+              </>
             </NoticeBox>
           )}
           <DraggableControl
@@ -235,48 +253,46 @@ export const OrbitalMap = (props, context) => {
           </DraggableControl>
         </div>
         <div class="OrbitalMap__panel">
-          <div class="OrbitalMap__tracking">
-            <Section title="Orbital Body Tracking" height="100%">
-              <Box bold>
-                Tracking
-              </Box>
-              <Box mb={1}>
-                {trackedBody}
-              </Box>
-              <Box>
-                <b>
-                  X:&nbsp;
-                </b>
-                {trackedObject && trackedObject.position_x}
-              </Box>
-              <Box>
-                <b>
-                  Y:&nbsp;
-                </b>
-                {trackedObject && trackedObject.position_y}
-              </Box>
-              <Box>
-                <b>
-                  Velocity:&nbsp;
-                </b>
-                ({trackedObject && trackedObject.velocity_x}
-                , {trackedObject && trackedObject.velocity_y})
-              </Box>
-              <Box>
-                <b>
-                  Radius:&nbsp;
-                </b>
-                {trackedObject && trackedObject.radius} BSU
-              </Box>
-              <Divider />
-              <Dropdown
-                selected={trackedBody}
-                width="100%"
-                color="grey"
-                options={map_objects.map(map_object => (map_object.name))}
-                onSelected={value => setTrackedBody(value)} />
-            </Section>
-          </div>
+          <Section title="Orbital Body Tracking" height="100%">
+            <Box bold>
+              Tracking
+            </Box>
+            <Box mb={1}>
+              {trackedBody}
+            </Box>
+            <Box>
+              <b>
+                X:&nbsp;
+              </b>
+              {trackedObject && trackedObject.position_x}
+            </Box>
+            <Box>
+              <b>
+                Y:&nbsp;
+              </b>
+              {trackedObject && trackedObject.position_y}
+            </Box>
+            <Box>
+              <b>
+                Velocity:&nbsp;
+              </b>
+              ({trackedObject && trackedObject.velocity_x}
+              , {trackedObject && trackedObject.velocity_y})
+            </Box>
+            <Box>
+              <b>
+                Radius:&nbsp;
+              </b>
+              {trackedObject && trackedObject.radius} BSU
+            </Box>
+            <Divider />
+            <Dropdown
+              selected={trackedBody}
+              width="100%"
+              color="grey"
+              options={map_objects.map(map_object => (map_object.name))}
+              onSelected={value => setTrackedBody(value)} />
+          </Section>
           <Divider />
           <Section title="Flight Controls" height="100%">
             {(!thrust_alert) || (
@@ -345,7 +361,6 @@ export const ShuttleControls = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     map_objects = [],
-    collisionAlert = false,
     shuttleTarget = null,
     shuttleAngle = 0,
     shuttleThrust = 0,
@@ -432,24 +447,6 @@ export const ShuttleControls = (props, context) => {
           mt={2}
           content="Initiate Docking"
           onClick={() => act('dock')} />
-      )}
-      {!isDocking || (
-        <>
-          <NoticeBox mt={1}>
-            DOCKING PROTOCOL ONLINE -
-            SELECT DESTINATION.
-          </NoticeBox>
-          <Dropdown
-            mt={1}
-            selected="Select Docking Location"
-            width="100%"
-            options={validDockingPorts.map(
-              map_object => (map_object.id)
-            )}
-            onSelected={value => act("gotoPort", {
-              port: value,
-            })} />
-        </>
       )}
     </>
   );
