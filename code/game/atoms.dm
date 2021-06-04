@@ -89,6 +89,9 @@
 	/// Last color calculated for the the chatmessage overlays
 	var/chat_color
 
+	///Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()
+	var/list/targeted_by
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -110,7 +113,7 @@
 	var/do_initialize = SSatoms.initialized
 	if(do_initialize != INITIALIZATION_INSSATOMS)
 		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
-		if(SSatoms.InitAtom(src, args))
+		if(SSatoms.InitAtom(src, FALSE, args))
 			//we were deleted
 			return
 
@@ -227,6 +230,12 @@
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
 	LAZYCLEARLIST(managed_overlays)
+
+	for(var/i in targeted_by)
+		var/mob/M = i
+		LAZYREMOVE(M.do_afters, src)
+
+	targeted_by = null
 
 	QDEL_NULL(light)
 
