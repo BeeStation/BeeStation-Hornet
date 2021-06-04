@@ -180,5 +180,5 @@
 /mob/living/simple_animal/hostile/cat_butcherer/death(gibbed)
 	if(LAZYLEN(victims) >= 5)
 		say("I made [LAZYLEN(victims)] creations! I have no regrets!!")
-	return..()
+	return ..()
 	
