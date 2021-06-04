@@ -1,0 +1,4 @@
+author: Bokkiewokkie
+delete-after: true
+changes:
+  - rscadd: Makes multi-z pipe adaptors compatible with piping layers.
