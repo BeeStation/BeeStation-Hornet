@@ -1,0 +1,6 @@
+author: Vasily2013
+delete-after: true
+changes:
+  - tweak: alters Pubby's SM/TEG setup.
+  - bugfix: engineers should now be capable of not exploding on Pubby even if they're
+      incompetent.
