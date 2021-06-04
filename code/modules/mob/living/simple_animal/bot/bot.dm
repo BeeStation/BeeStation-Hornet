@@ -6,7 +6,7 @@
 	mob_biotypes = list(MOB_ROBOTIC)
 	light_range = 3
 	stop_automated_movement = 1
-	wander = 0
+	wander = FALSE
 	healable = 0
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -183,9 +183,9 @@
 	GLOB.bots_list -= src
 	if(paicard)
 		ejectpai()
-	qdel(Radio)
-	qdel(access_card)
-	qdel(bot_core)
+	QDEL_NULL(Radio)
+	QDEL_NULL(access_card)
+	QDEL_NULL(bot_core)
 	return ..()
 
 /mob/living/simple_animal/bot/bee_friendly()
@@ -880,12 +880,10 @@ Pass a positive integer as an argument to override a bot's default speed.
 /obj/machinery/bot_core
 	use_power = NO_POWER_USE
 	anchored = FALSE
-	var/mob/living/simple_animal/bot/owner = null
 
 /obj/machinery/bot_core/Initialize()
 	. = ..()
-	owner = loc
-	if(!istype(owner))
+	if(!isbot(loc))
 		return INITIALIZE_HINT_QDEL
 
 /mob/living/simple_animal/bot/proc/topic_denied(mob/user) //Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.

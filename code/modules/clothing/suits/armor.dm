@@ -238,13 +238,28 @@
 	icon_state = "tdgreen"
 	item_state = "tdgreen"
 
+/obj/item/clothing/suit/armor/tdome/holosuit
+	name = "thunderdome suit"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	cold_protection = null
+	heat_protection = null
+
+/obj/item/clothing/suit/armor/tdome/holosuit/red
+	desc = "Reddish armor."
+	icon_state = "tdred"
+	item_state = "tdred"
+
+/obj/item/clothing/suit/armor/tdome/holosuit/green
+	desc = "Pukish armor."
+	icon_state = "tdgreen"
+	item_state = "tdgreen"
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
 	desc = "A classic suit of plate armour, highly effective at stopping melee attacks."
 	icon_state = "knight_green"
 	item_state = "knight_green"
-	move_sound = list()
+	move_sound = null
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"

@@ -662,7 +662,6 @@
 	var/card_throw_range = 7
 	var/list/card_attack_verb = list("attacked")
 	var/card_sharpness
-	var/card_embed_chance = 0
 
 /obj/item/toy/cards/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] wrists with \the [src]! It looks like [user.p_they()] [user.p_have()] a crummy hand!</span>")
@@ -833,7 +832,7 @@
 /obj/item/toy/cards/cardhand/Topic(href, href_list)
 	if(..())
 		return
-	if(usr.stat || !ishuman(usr))
+	if(!usr.is_conscious()|| !ishuman(usr))
 		return
 	var/mob/living/carbon/human/cardUser = usr
 	if(!(cardUser.mobility_flags & MOBILITY_USE))
@@ -911,10 +910,10 @@
 
 /obj/item/toy/cards/singlecard/apply_card_vars(obj/item/toy/cards/singlecard/newobj,obj/item/toy/cards/sourceobj)
 	..()
-	newobj.card_embed_chance = sourceobj.card_embed_chance
-	newobj.embedding = newobj.embedding.setRating(embed_chance = card_embed_chance)
+	newobj.embedding = sourceobj.embedding
 	newobj.card_sharpness = sourceobj.card_sharpness
-	newobj.sharpness = newobj.card_sharpness
+	newobj.sharpness = sourceobj.card_sharpness
+	newobj.updateEmbedding()
 
 /obj/item/toy/cards/singlecard/examine(mob/user)
 	. = ..()
@@ -1013,7 +1012,7 @@
 	card_force = 5
 	card_throwforce = 12
 	card_throw_speed = 6
-	card_embed_chance = 80
+	embedding = list("pain_mult" = 1, "embed_chance" = 80, "fall_chance" = 0, "embed_chance_turf_mod" = 15) //less painful than throwing stars
 	card_sharpness = IS_SHARP
 	card_throw_range = 7
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
@@ -1061,7 +1060,7 @@
 	if(!..())
 		playsound(src, 'sound/effects/meteorimpact.ogg', 40, 1)
 		for(var/mob/M in urange(10, src))
-			if(!M.stat && !isAI(M))
+			if(M.is_conscious() && !isAI(M))
 				shake_camera(M, 3, 1)
 		qdel(src)
 
@@ -1082,7 +1081,7 @@
 		user.visible_message("<span class='warning'>[user] presses the big red button.</span>", "<span class='notice'>You press the button, it plays a loud noise!</span>", "<span class='italics'>The button clicks loudly.</span>")
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0)
 		for(var/mob/M in urange(10, src)) // Checks range
-			if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
+			if(M.is_conscious() && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
 				sleep(8) // Short delay to match up with the explosion sound
 				shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
 

@@ -416,7 +416,6 @@
 	var/winner = revolution.process_victory(revs_win_threat_injection)
 	if (isnull(winner))
 		return
-
 	finished = winner
 	return RULESET_STOP_PROCESSING
 
@@ -502,7 +501,7 @@
 /datum/dynamic_ruleset/roundstart/devil/pre_execute(population)
 	. = ..()
 	var/num_devils = get_antag_cap(population) * (scaled_times + 1)
-	
+
 	for(var/j = 0, j < num_devils, j++)
 		if (!candidates.len)
 			break
@@ -658,7 +657,7 @@
 		message_admins("Reebe failed to load")
 		log_game("Reebe failed to load")
 		return FALSE
-	for(var/datum/parsed_map/map in reebe)
+	for(var/datum/map_template/map in reebe)
 		map.initTemplateBounds()
 	//Make cultists
 	var/starter_servants = 4

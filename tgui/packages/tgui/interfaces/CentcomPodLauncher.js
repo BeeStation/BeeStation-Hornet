@@ -404,7 +404,6 @@ const EFFECTS_HARM =[
   {
     divider: 1,
   },
-  /*
   {
     title: 'Projectile Cloud',
     details: true,
@@ -412,7 +411,6 @@ const EFFECTS_HARM =[
     soloSelected: 'effectShrapnel',
     act: 'effectShrapnel',
   },
-  */
   {
     title: 'Stun',
     icon: 'sun',

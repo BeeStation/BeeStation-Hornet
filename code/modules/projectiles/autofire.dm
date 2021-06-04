@@ -40,7 +40,7 @@ Everything else should be handled for you. Good luck soldier.
 /obj/item/gun/ballistic/automatic/c20r
 	full_auto = TRUE
 
-/obj/item/gun/ballistic/minigun
+/obj/item/gun/energy/minigun
 	full_auto = TRUE
 
 /obj/item/gun/ballistic/automatic/laser/ctf

@@ -19,6 +19,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_CHEMIST
+	departments = DEPARTMENT_MEDICAL
 
 /datum/outfit/job/chemist
 	name = "Chemist"

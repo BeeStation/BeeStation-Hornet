@@ -233,7 +233,7 @@ effective or pretty fucking useless.
 	if(user && user.get_item_by_slot(ITEM_SLOT_BELT) != src)
 		Deactivate()
 
-/obj/item/shadowcloak/process()
+/obj/item/shadowcloak/process(delta_time)
 	if(user.get_item_by_slot(ITEM_SLOT_BELT) != src)
 		Deactivate()
 		return
@@ -241,9 +241,9 @@ effective or pretty fucking useless.
 	if(on)
 		var/lumcount = T.get_lumcount()
 		if(lumcount > 0.3)
-			charge = max(0,charge - 25)//Quick decrease in light
+			charge = max(0, charge - 12.5 * delta_time)//Quick decrease in light
 		else
-			charge = min(max_charge,charge + 50) //Charge in the dark
+			charge = min(max_charge,charge + 25 * delta_time) //Charge in the dark
 		animate(user,alpha = CLAMP(255 - charge,0,255),time = 10)
 
 /obj/item/shadowcloak/magician

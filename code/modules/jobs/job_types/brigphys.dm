@@ -22,6 +22,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
+	departments = DEPARTMENT_MEDICAL | DEPARTMENT_SECURITY
 
 /datum/outfit/job/brig_phys
 	name = "Brig Physician"
