@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - tweak: Updated the Freezer/Heater board, now named Thermomachine board.
