@@ -2,7 +2,7 @@
 	name = "Shuttle"
 	var/shuttle_port_id
 	//Shuttle data
-	var/max_thrust = 0.5
+	var/max_thrust = 2
 	//Controls
 	var/thrust = 0
 	var/angle = 0
@@ -27,10 +27,10 @@
 	var/cheating_autopilot = FALSE
 
 /datum/orbital_object/shuttle/stealth/infiltrator
-	max_thrust = 1.5
+	max_thrust = 2.5
 
 /datum/orbital_object/shuttle/stealth/steel_rain
-	max_thrust = 3
+	max_thrust = 0
 	//We never miss our mark
 	cheating_autopilot = TRUE
 
