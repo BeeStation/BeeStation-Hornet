@@ -82,7 +82,7 @@
 /obj/structure/windoor_assembly/proc/on_exit(datum/source, atom/movable/leaving, atom/new_location)
 	SIGNAL_HANDLER
 
-	if (leaving.pass_flags & pass_flags_self)
+	if(istype(leaving) && (leaving.pass_flags & PASSGLASS))
 		return
 
 	if (get_dir(loc, new_location) == dir && density)

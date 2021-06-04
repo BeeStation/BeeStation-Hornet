@@ -126,7 +126,7 @@
 /obj/structure/window/proc/on_exit(datum/source, atom/movable/leaving, atom/new_location)
 	SIGNAL_HANDLER
 
-	if (istype(leaving) && (leaving.pass_flags & pass_flags_self))
+	if (istype(leaving) && (leaving.pass_flags & PASSGLASS))
 		return
 
 	if (fulltile)

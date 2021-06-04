@@ -3156,7 +3156,6 @@
 #include "code\modules\turbolift\turbolift_docks.dm"
 #include "code\modules\turbolift\turbolift_machines.dm"
 #include "code\modules\unit_tests\_unit_tests.dm"
-#include "code\modules\unit_tests\connect_loc.dm"
 #include "code\modules\uplink\uplink_devices.dm"
 #include "code\modules\uplink\uplink_items.dm"
 #include "code\modules\uplink\uplink_purchase_log.dm"
