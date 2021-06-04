@@ -36,8 +36,6 @@
 	if(cable)
 		debris += new /obj/item/stack/cable_coil(src, cable)
 
-	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, .proc/ntnet_receive)
-
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = .proc/on_exit,
 	)

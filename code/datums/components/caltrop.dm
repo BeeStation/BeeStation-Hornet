@@ -70,3 +70,5 @@
 			H.Paralyze(10)
 		else
 			H.Paralyze(40)
+	else
+		return
