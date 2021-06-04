@@ -71,7 +71,7 @@
 	if(!istype(victim) || HAS_TRAIT(victim, TRAIT_PIERCEIMMUNE))
 		return
 
-	var/flying_speed = throwingdatum?.speed || weapon.throw_speed
+	var/flying_speed = throwingdatum ? throwingdatum.speed : weapon.throw_speed
 
 	if(!forced && (flying_speed < EMBED_THROWSPEED_THRESHOLD && !ignore_throwspeed_threshold)) // check if it's a forced embed, and if not, if it's going fast enough to proc embedding
 		return
