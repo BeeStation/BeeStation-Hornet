@@ -149,7 +149,7 @@
 					"port_offset_y" = connection_y,
 				))
 		if(!length(valid_ruins))
-			message_admins("Fuck. Ruin generation failed (No valid ruins). Continuing as if everything is actually ok.")
+			log_mapping("Fuck. Ruin generation failed (No valid ruins). Continuing as if everything is actually ok.")
 			ishallway ? hallway_connections.len-- : room_connections.len--
 			continue
 		//Pick a ruin and spawn it.
