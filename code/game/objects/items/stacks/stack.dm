@@ -45,6 +45,8 @@
 		for(var/obj/item/stack/S in loc)
 			if(S.merge_type == merge_type)
 				merge(S)
+				if(QDELETED(src))
+					return
 	update_weight()
 	update_icon()
 	var/static/list/loc_connections = list(
