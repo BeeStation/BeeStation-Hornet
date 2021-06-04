@@ -89,17 +89,10 @@
 	desc = "The final word in problem solving."
 	icon_state = "cordon"
 
-/turf/closed/indestructible/cordon/Initialize()
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
-	)
-	AddElement(/datum/element/connect_loc, src, loc_connections)
-
 //Will this look good? No. Will it work? Probably.
 
-/turf/closed/indestructible/cordon/proc/on_entered(datum/source, atom/movable/AM)
-	SIGNAL_HANDLER
+/turf/closed/indestructible/cordon/Entered(atom/movable/AM)
+	. = ..()
 	if(isobserver(AM))
 		return
 	if(ismob(AM))
