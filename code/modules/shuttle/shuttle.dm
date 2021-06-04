@@ -558,7 +558,8 @@
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
 		for(var/mob/living/L in shuttle_area)
-			for(var/obj/item/implant/exile/E in L.implants)
+			var/obj/item/implant/exile/E = locate() in L.implants
+			if(E)
 				return FALSE	//exiled mob found
 	return TRUE
 
