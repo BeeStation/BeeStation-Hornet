@@ -37,6 +37,13 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	var/turf/rune_turf
 	var/remove_on_activation = TRUE
 
+/obj/effect/warped_rune/Initialize()
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, src, loc_connections)
+
 /obj/item/slimecross/warping/examine()
 	. = ..()
 	. += "It has [warp_charge] charge left"
@@ -138,9 +145,8 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 		to_chat(user, ("<span class='notice'>[src] fades.</span>"))
 		qdel(src)
 
-/obj/effect/warped_rune/Crossed(atom/movable/AM, oldloc)
-	SHOULD_CALL_PARENT(TRUE)
-	. = ..()
+/obj/effect/warped_rune/proc/on_entered(datum/source, atom/movable/AM, oldloc)
+	SIGNAL_HANDLER
 	if(activated_on_step)
 		playsound(rune_turf, dir_sound, 20, TRUE)
 		visible_message("<span class='notice'>[src] fades.</span>")
@@ -250,7 +256,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	. = ..()
 	AddComponent(/datum/component/slippery, 30)
 
-/obj/effect/warped_rune/cyanspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/cyanspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(isliving(AM))
 		activated_on_step = TRUE
 	. = ..()
@@ -265,7 +271,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	desc = "Refreshing!"
 	remove_on_activation = FALSE
 
-/obj/effect/warped_rune/darkcyanspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/darkcyanspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.adjust_bodytemperature(-300)
@@ -297,7 +303,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	icon_state = "rune_yellow"
 	remove_on_activation = FALSE
 
-/obj/effect/warped_rune/yellowspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/yellowspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	var/obj/item/stock_parts/cell/C = AM.get_cell()
 	if(!C && isliving(AM))
 		var/mob/living/L = AM
@@ -348,7 +354,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	icon_state = "rune_silver"
 	remove_on_activation = FALSE
 
-/obj/effect/warped_rune/silverspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/silverspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
 		C.reagents.add_reagent(/datum/reagent/consumable/nutriment, 100)
@@ -393,7 +399,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	icon_state = "rune_sepia"
 	remove_on_activation = FALSE
 
-/obj/effect/warped_rune/sepiaspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/sepiaspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	new /obj/effect/timestop(rune_turf, null, null, null)
 	activated_on_step = TRUE
 	. = ..()
@@ -420,7 +426,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		holotile.say(recent_speech[pick(recent_speech)]) //say one of the 10 latest sentence said by the holo_host
 		addtimer(CALLBACK(src, .proc/holo_talk), 10 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
-/obj/effect/warped_rune/ceruleanspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/ceruleanspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	. = ..()
 	if(isliving(AM) && !holo_host)
 		holo_host = AM
@@ -493,7 +499,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	. = ..()
 	colour = pick("#FFFFFF", "#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#FF00FF")
 
-/obj/effect/warped_rune/pyritespace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/pyritespace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(isliving(AM))
 		AM.add_atom_colour(colour, WASHABLE_COLOUR_PRIORITY)
 		activated_on_step = TRUE
@@ -510,7 +516,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	icon_state = "rune_red"
 	remove_on_activation = FALSE
 
-/obj/effect/warped_rune/redspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/redspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		add_blood_DNA(list("Non-human DNA" = random_blood_type()))
@@ -534,7 +540,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	icon_state = "rune_green"
 	remove_on_activation = FALSE
 
-/obj/effect/warped_rune/greenspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/greenspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(ishuman(AM))
 		randomize_human(AM)
 		activated_on_step = TRUE
@@ -552,7 +558,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	remove_on_activation = FALSE
 
 ///adds the jolly mood effect along with hug sound effect.
-/obj/effect/warped_rune/pinkspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/pinkspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(istype(AM, /mob/living/carbon/human))
 		playsound(rune_turf, "sound/weapons/thudswoosh.ogg", 50, TRUE)
 		SEND_SIGNAL(AM, COMSIG_ADD_MOOD_EVENT,"jolly", /datum/mood_event/jolly)
@@ -667,7 +673,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	desc = "This is basically a mine."
 	remove_on_activation = FALSE
 
-/obj/effect/warped_rune/oilspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/oilspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
 		var/amt = rand(4,12)
@@ -722,7 +728,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 	icon_state = "rune_light_pink"
 	remove_on_activation = FALSE
 
-/obj/effect/warped_rune/lightpinkspace/Crossed(atom/movable/AM, oldloc)
+/obj/effect/warped_rune/lightpinkspace/on_entered(datum/source, atom/movable/AM, oldloc)
 	if(iscarbon(AM))
 		var/mob/living/carbon/C = AM
 		C.reagents.add_reagent(/datum/reagent/pax, 10)
