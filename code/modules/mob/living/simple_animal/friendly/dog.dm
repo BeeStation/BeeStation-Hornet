@@ -36,6 +36,7 @@
 	held_state = "corgi"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
+	worn_slot_flags = ITEM_SLOT_HEAD
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 
@@ -104,6 +105,7 @@
 	icon_dead = "corgigrey_dead"
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
 	nofur = TRUE
+	worn_slot_flags = null
 
 /mob/living/simple_animal/pet/dog/Initialize()
 	. = ..()
@@ -516,6 +518,7 @@
 	nofur = TRUE
 	unique_pet = TRUE
 	held_state = "narsian"
+	worn_slot_flags = null
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
