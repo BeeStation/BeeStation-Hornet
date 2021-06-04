@@ -524,15 +524,37 @@
 
 	//Generate objective stuff
 	if(linked_objective)
-		var/objective_turf = pick(floor_turfs)
-		var/split_loc = splittext(objective_turf, "_")
-		linked_objective.generate_objective_stuff(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
+		var/obj_sanity = 100
+		//Spawn in a sane place.
+		while(obj_sanity > 0)
+			obj_sanity --
+			var/objective_turf = pick(floor_turfs)
+			var/split_loc = splittext(objective_turf, "_")
+			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z)
+			if(isspaceturf(T))
+				continue
+			if(locate(/obj/structure) in T)
+				continue
+			linked_objective.generate_objective_stuff(T)
+			break
+		if(!obj_sanity)
+			var/objective_turf = pick(floor_turfs)
+			var/split_loc = splittext(objective_turf, "_")
+			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z)
+			linked_objective.generate_objective_stuff(T)
 
 	//Generate research disks
 	for(var/i in 1 to rand(1, 3))
 		var/objective_turf = pick(floor_turfs)
 		var/split_loc = splittext(objective_turf, "_")
 		new /obj/effect/spawner/lootdrop/ruinloot/important(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
+
+	//Spawn dead mosb
+	for(var/mob/M as() in SSzclear.nullspaced_mobs)
+		var/objective_turf = pick(floor_turfs)
+		var/split_loc = splittext(objective_turf, "_")
+		M.forceMove(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
+	SSzclear.nullspaced_mobs.Cut()
 
 	SSair.unpause_z(center_z)
 

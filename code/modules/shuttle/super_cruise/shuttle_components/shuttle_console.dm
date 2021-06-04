@@ -279,6 +279,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				log_admin("[usr] attempted to forge a target location through a tgui exploit on [src]")
 				message_admins("[ADMIN_FULLMONTY(usr)] attempted to forge a target location through a tgui exploit on [src]")
 				return
+			//Dont wipe z level while we are going
+			SSorbits.temp_keep_z(target_port.z)
 			switch(SSshuttle.moveShuttle(shuttleId, target_port.id, 1))
 				if(0)
 					say("Initiating supercruise throttle-down, prepare for landing.")
@@ -344,6 +346,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				break
 		if(!valid)
 			continue
+		//Dont wipe z level while we are going
+		SSorbits.temp_keep_z(shuttleObject.docking_target.linked_z_level.z_value)
 		//Ok lets go there
 		switch(SSshuttle.moveShuttle(shuttleId, random_port.id, 1))
 			if(0)
