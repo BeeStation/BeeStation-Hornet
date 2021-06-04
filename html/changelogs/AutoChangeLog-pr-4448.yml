@@ -1,6 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - bugfix: skeleton and zombie cloning now works properly
-  - tweak: skeletons and zombies cellular damage from cloning now gets transferred
-      to brute upon forceful ejection
