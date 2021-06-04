@@ -230,9 +230,9 @@
 	var/mob/living/simple_animal/bot/mulebot/MB = AM
 	var/obj/vehicle/sealed/car/C = AM
 	if(istype(MB))
-		MB.RunOver(src)
+		INVOKE_ASYNC(MB, /mob/living/simple_animal/bot/mulebot.proc/RunOver, src)
 	else if(istype(C))
-		C.RunOver(src)
+		INVOKE_ASYNC(C, /obj/vehicle/sealed/car.proc/RunOver, src)
 	spreadFire(AM)
 
 /mob/living/carbon/human/Topic(href, href_list)

@@ -122,7 +122,7 @@
 	if(ismob(AM))
 		checksmartmine(AM)
 	else
-		triggermine(AM)
+		INVOKE_ASYNC(src, .proc/triggermine, AM)
 
 /obj/effect/mine/proc/checksmartmine(mob/target)
 	if(target)
@@ -358,6 +358,8 @@
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
 	victim.add_movespeed_modifier(MOVESPEED_ID_YELLOW_ORB, update=TRUE, priority=100, multiplicative_slowdown=-2, blacklisted_movetypes=(FLYING|FLOATING))
-	sleep(duration)
+	addtimer(CALLBACK(src, .proc/finish_effect, victim), duration)
+
+/obj/effect/mine/pickup/speed/proc/finish_effect(mob/living/carbon/victim)
 	victim.remove_movespeed_modifier(MOVESPEED_ID_YELLOW_ORB)
 	to_chat(victim, "<span class='notice'>You slow down.</span>")

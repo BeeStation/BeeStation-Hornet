@@ -101,7 +101,7 @@
 /obj/machinery/shower/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 	if(on)
-		wash_atom(AM)
+		INVOKE_ASYNC(src, .proc/wash_atom, AM)
 
 /obj/machinery/shower/proc/wash_atom(atom/A)
 	SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)

@@ -783,8 +783,7 @@
 	move_to_delay = 20
 	ranged_cooldown = 300
 	ranged_cooldown_time = 300
-	sleep(30)
-	explosion(src.loc,0,3,4,flame_range = 2)
+	addtimer(CALLBACK(src, .proc/explosion, src.loc, 0, 3, 4, 0, TRUE, FALSE, 2), 30)
 	..()
 
 //GUNS//

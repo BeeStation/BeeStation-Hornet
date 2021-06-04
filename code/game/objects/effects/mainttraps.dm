@@ -81,7 +81,6 @@
 					if(!chosen.reusable)
 						qdel(chosen)
 					success = TRUE
-				stoplag()
 			if(success)
 				inuse = FALSE
 				return TRUE

@@ -55,7 +55,7 @@
 			damage *= 0.5
 		if(is_species(H, /datum/species/squid))
 			damage *= 1.3
-		H.apply_damage(damage, BRUTE, picked_def_zone)
+		INVOKE_ASYNC(H, /mob/living.proc/apply_damage, damage, BRUTE, picked_def_zone)
 
 		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
 			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.
@@ -67,8 +67,8 @@
 						"<span class='userdanger'>You slide on [A]!</span>")
 
 		if(is_species(H, /datum/species/squid))
-			H.Paralyze(10)
+			INVOKE_ASYNC(H, /mob/living.proc/Paralyze, 10)
 		else
-			H.Paralyze(40)
+			INVOKE_ASYNC(H, /mob/living.proc/Paralyze, 40)
 	else
 		return
