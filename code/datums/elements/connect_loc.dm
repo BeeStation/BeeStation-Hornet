@@ -99,6 +99,9 @@
 	post_change_callbacks += changeturf_callback
 
 /datum/element/connect_loc/proc/post_turf_change(turf/new_turf)
+	//fuck cordons
+	if(istype(new_turf, /turf/closed/indestructible/cordon))
+		return
 	// If we don't cut the targets list before iterating,
 	// then we won't re-register the change turf signal.
 	var/list/turf_targets = targets[new_turf]
