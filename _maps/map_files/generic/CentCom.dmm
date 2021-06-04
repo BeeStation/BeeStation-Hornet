@@ -8927,7 +8927,7 @@
 	},
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/holofloor,
-/area/holodeck/rec_center/basketball)
+/area/holodeck/rec_center)
 "zV" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
 /obj/item/reagent_containers/food/snacks/carpmeat,
