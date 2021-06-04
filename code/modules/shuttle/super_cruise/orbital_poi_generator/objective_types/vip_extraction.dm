@@ -44,11 +44,12 @@
 	for(var/mob/living/simple_animal/hostile/SA in view(10, created_human))
 		qdel(SA)
 	//Give them a space worthy suit
-	var/turf/open/T = locate() in shuffle(view(3, created_human))
+	var/turf/open/T = locate() in shuffle(view(1, created_human))
 	if(T)
 		new /obj/item/clothing/suit/space/hardsuit/ancient(T)
 		new /obj/item/tank/internals/oxygen(T)
 		new /obj/item/clothing/mask/gas(T)
+		new /obj/item/storage/belt/utility/full(T)
 	var/antag_elligable = FALSE
 	switch(pickweight(list("centcom_official" = 4, "dictator" = 1, "greytide" = 3)))
 		if("centcom_official")
