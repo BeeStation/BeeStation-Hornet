@@ -555,12 +555,32 @@
 /obj/docking_port/mobile/proc/check_exile_pass()
 	if (is_station_level(z))
 		return TRUE
+	
+	//OPTION A
+	for(var/mob/living/L in GLOB.alive_mob_list)
+		if(!istype(L))
+			continue
+		var/obj/item/implant/exile/E = locate() in L.implants
+		if(!E)
+			continue
+		var/area/larea = get_area(L)
+		for(var/place in shuttle_areas)
+			if (larea == place)
+				return FALSE
+	
+	//OPTION B
+	var/list/check_mobs = list()
 	for(var/place in shuttle_areas)
 		var/area/shuttle/shuttle_area = place
 		for(var/mob/living/L in shuttle_area)
-			var/obj/item/implant/exile/E = locate() in L.implants
-			if(E)
-				return FALSE	//exiled mob found
+			LAZYADD(L,check_mobs)
+		for(var/obj/structure/S in shuttle_area)
+			for(var/mob/living/M in S.contents))
+				LAZYADD(M,check_mobs)
+	for(var/mob/living/M in check_mobs)
+		var/obj/item/implant/exile/E = locate() in M.implants
+		if(E)
+			return FALSE
 	return TRUE
 
 /obj/effect/landmark/shuttle_import

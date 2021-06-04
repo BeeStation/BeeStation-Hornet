@@ -399,12 +399,14 @@ SUBSYSTEM_DEF(shuttle)
 	return 0	//dock successful
 
 
-/datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed)
+/datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, no_stowaways)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
 
 	if(!M)
-		return 1
+		return 1	//invalid shuttle
+	if (no_stowaways && !M.check_exile_pass())
+		return 2	//unable to comply
 	if(timed)
 		if(M.request(D))
 			return 2

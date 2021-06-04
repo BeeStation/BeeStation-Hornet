@@ -67,7 +67,7 @@
 			log_admin("[usr] attempted to forge a target location through a href exploit on [src]")
 			message_admins("[ADMIN_FULLMONTY(usr)] attempted to forge a target location through a href exploit on [src]")
 			return
-		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1))
+		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1, !(obj_flags & EMAGGED)))
 			if(0)
 				say("Shuttle departing. Please stand away from the doors.")
 			if(1)
