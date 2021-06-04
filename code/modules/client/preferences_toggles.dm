@@ -306,8 +306,8 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/verb/toggle_inquisition() // warning: unexpected inquisition
 	set name = "Toggle Inquisitiveness"
-	set desc = "Sets whether your ghost examines everything on click by default"
 	set category = "Preferences"
+	set desc = "Sets whether your ghost examines everything on click by default"
 
 	prefs.inquisitive_ghost = !prefs.inquisitive_ghost
 	prefs.save_preferences()
@@ -316,6 +316,16 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	else
 		to_chat(src, "<span class='notice'>You will no longer examine things you click on.</span>")
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost Inquisitiveness", "[prefs.inquisitive_ghost ? "Enabled" : "Disabled"]"))
+
+/client/verb/toggle_walk_intent()
+	set name = "Hold Down/Press Walk Hotkey"
+	set category = "Preferences"
+	set desc = "Switches walk hotkey toggle between holding it down and pressing it once"
+
+	prefs.held_walk = !prefs.held_walk
+	prefs.save_preferences()
+	to_chat(usr, "You will now walk by [(prefs.held_walk) ? "holding" : "pressing"] the walk hotkey.")
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Walk Intent", "[prefs.held_walk ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 //Admin Preferences
 /client/proc/toggleadminhelpsound()

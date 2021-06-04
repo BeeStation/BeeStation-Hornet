@@ -302,7 +302,8 @@
 		update_icon()
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/iron(drop_location(), 2)
+	if (!(flags_1 & NODECONSTRUCT_1))
+		new /obj/item/stack/sheet/iron(drop_location(), 2)
 	qdel(src)
 
 /obj/machinery/washing_machine/open_machine(drop = 1)

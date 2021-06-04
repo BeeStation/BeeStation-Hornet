@@ -657,7 +657,7 @@
 		message_admins("Reebe failed to load")
 		log_game("Reebe failed to load")
 		return FALSE
-	for(var/datum/parsed_map/map in reebe)
+	for(var/datum/map_template/map in reebe)
 		map.initTemplateBounds()
 	//Make cultists
 	var/starter_servants = 4
