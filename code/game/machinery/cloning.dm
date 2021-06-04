@@ -456,6 +456,12 @@
 
 	if(!mob_occupant)
 		return
+
+	if(HAS_TRAIT(mob_occupant, TRAIT_NOCLONELOSS))
+		var/cl_loss = mob_occupant.getCloneLoss()
+		mob_occupant.adjustBruteLoss(cl_loss, FALSE)
+		mob_occupant.setCloneLoss(0, FALSE, TRUE)
+
 	current_insurance = null
 	REMOVE_TRAIT(mob_occupant, TRAIT_STABLEHEART, CLONING_POD_TRAIT)
 	REMOVE_TRAIT(mob_occupant, TRAIT_STABLELIVER, CLONING_POD_TRAIT)
