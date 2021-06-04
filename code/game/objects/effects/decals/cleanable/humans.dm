@@ -180,8 +180,8 @@
 	var/exited_dirs = 0
 	var/list/shoe_types = list()
 
-/obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O)
-	..()
+/obj/effect/decal/cleanable/blood/footprints/on_entered(datum/source, atom/movable/O)
+	. = ..()
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes
@@ -192,8 +192,8 @@
 				entered_dirs |= H.dir
 				update_icon()
 
-/obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
-	..()
+/obj/effect/decal/cleanable/blood/footprints/on_uncrossed(datum/source, atom/movable/O)
+	. = ..()
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes

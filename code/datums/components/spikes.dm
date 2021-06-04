@@ -7,11 +7,11 @@
 	var/cooldown = 0
 
 /datum/component/spikes/Initialize(damage = 0, spikearmor = 0, diseaseid = null)
-	spikedamage = damage 
-	armor = spikearmor 
+	spikedamage = damage
+	armor = spikearmor
 	id = diseaseid
 	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, .proc/prick_collide)
-	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/prick_crossed)
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/prick_crossed)
 	RegisterSignal(parent, COMSIG_DISEASE_END, .proc/checkdiseasecure)
 	if(ishuman(parent))
 		if(armor)
@@ -20,7 +20,7 @@
 			RegisterSignal(parent, COMSIG_COMPONENT_REMOVING, .proc/removearmor)
 		RegisterSignal(parent, COMSIG_MOB_ATTACK_HAND, .proc/prick_touch)
 		RegisterSignal(parent, COMSIG_MOB_HAND_ATTACKED, .proc/prick_touched)
-		
+
 
 /datum/component/spikes/proc/prick(mob/living/carbon/C, damage_mod = 1)
 	var/netdamage = spikedamage * damage_mod
@@ -77,4 +77,3 @@
 	if(ishuman(parent) && armor)
 		var/mob/living/carbon/human/H = parent
 		H.dna.species.armor -= finalarmor
-	

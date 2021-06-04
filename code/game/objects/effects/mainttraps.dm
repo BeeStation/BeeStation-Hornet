@@ -11,6 +11,13 @@
 	var/reusable = FALSE //can it trigger more than once
 	var/inuse = FALSE //used to make sure it dont get used when it shouldn't
 
+/obj/effect/trap/Initialize()
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, src, loc_connections)
+
 /obj/effect/trap/proc/TrapEffect(AM)
 	return TRUE
 
@@ -21,7 +28,8 @@
 	var/pick_style = PICK_STYLE_ORDERED
 	var/requirehuman = TRUE
 
-/obj/effect/trap/trigger/Crossed(AM as mob|obj)
+/obj/effect/trap/trigger/proc/on_entered(datum/source, AM as mob|obj)
+	SIGNAL_HANDLER
 	if(isturf(loc))
 		if(ismob(AM) && grounded)
 			var/mob/MM = AM

@@ -265,7 +265,6 @@
 		var/mob/living/L = mover
 		L.adjust_fire_stacks(3)
 		L.IgniteMob()
-	. = ..()
 
 /obj/structure/legionnaire_bonfire/Destroy()
 	if(myowner != null)

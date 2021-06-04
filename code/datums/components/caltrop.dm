@@ -4,6 +4,10 @@
 	var/probability
 	var/flags
 	COOLDOWN_DECLARE(caltrop_cooldown)
+	///given to connect_loc to listen for something moving over target
+	var/static/list/crossed_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
 
 
 /datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100,  _flags = NONE)
@@ -12,9 +16,10 @@
 	probability = _probability
 	flags = _flags
 
-	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED), .proc/Crossed)
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/on_entered)
 
-/datum/component/caltrop/proc/Crossed(datum/source, atom/movable/AM)
+/datum/component/caltrop/proc/on_entered(atom/caltrop, atom/movable/AM)
+	SIGNAL_HANDLER
 	var/atom/A = parent
 	if(!A.has_gravity())
 		return

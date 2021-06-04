@@ -88,8 +88,9 @@
 		play_squeak()
 
 /datum/component/squeak/proc/on_equip(datum/source, mob/equipper, slot)
-	RegisterSignal(holder, COMSIG_MOVABLE_DISPOSING, .proc/disposing_react, override=TRUE)
-	RegisterSignal(holder, COMSIG_PARENT_PREQDELETED, .proc/holder_deleted, override=TRUE)
+	SIGNAL_HANDLER
+	RegisterSignal(equipper, COMSIG_MOVABLE_DISPOSING, .proc/disposing_react, override=TRUE)
+	RegisterSignal(equipper, COMSIG_PARENT_PREQDELETED, .proc/holder_deleted, override=TRUE)
 	//override for the preqdeleted is necessary because putting parent in hands sends the signal that this proc is registered towards,
 	//so putting an object in hands and then equipping the item on a clothing slot (without dropping it first)
 	//will always runtime without override = TRUE

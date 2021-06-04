@@ -19,7 +19,6 @@
 /obj/machinery/field/containment/Initialize()
 	. = ..()
 	air_update_turf(TRUE, TRUE)
-	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
@@ -71,8 +70,8 @@
 	if(isliving(AM))
 		shock(AM)
 
-	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
-		bump_field(mover)
+	if(ismachinery(AM) || isstructure(AM) || ismecha(AM))
+		bump_field(AM)
 
 /obj/machinery/field/containment/proc/set_master(master1,master2)
 	if(!master1 || !master2)
