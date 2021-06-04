@@ -2,13 +2,13 @@
 #define ELECTROLYZER_MODE_WORKING	"working"
 
 /obj/machinery/electrolyzer
+	name = "electrolyzer"
+	desc = "Thanks to the fast and dynamic response of our electrolyzers, on-site hydrogen production is guaranteed. Warranty void if used by clowns"
+	icon = 'icons/obj/atmos.dmi'
+	icon_state = "electrolyzer-off"
 	anchored = FALSE
 	density = TRUE
 	interaction_flags_machine = INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN
-	icon = 'icons/obj/atmos.dmi'
-	icon_state = "electrolyzer-off"
-	name = "space electrolyzer"
-	desc = "Thanks to the fast and dynamic response of our electrolyzers, on-site hydrogen production is guaranteed. Warranty void if used by clowns"
 	max_integrity = 250
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 10)
 	circuit = /obj/item/circuitboard/machine/electrolyzer
