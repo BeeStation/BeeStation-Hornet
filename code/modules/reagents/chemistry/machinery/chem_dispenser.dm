@@ -24,7 +24,6 @@
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
 
 
-
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
 	var/amount = 30
