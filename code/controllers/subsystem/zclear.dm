@@ -175,7 +175,7 @@ SUBSYSTEM_DEF(zclear)
 				if(!isliving(thing))
 					continue
 				var/mob/living/M = thing
-				if(M.key)
+				if(M.mind || M.key)
 					//If the mob has a key (but is DC) then teleport them to a safe z-level where they can potentially be retrieved.
 					//Since the wiping takes 90 seconds they could potentially still be on the z-level as it is wiping if they reconnect in time
 					random_teleport_atom(M)
@@ -193,6 +193,9 @@ SUBSYSTEM_DEF(zclear)
 	//Dont delete indestructible items, but indestructible structures can go
 	if(isitem(A))
 		var/obj/O = A
+		//Handled by the mob
+		if(ismob(O.loc))
+			return
 		if(O.resistance_flags & INDESTRUCTIBLE)
 			random_teleport_atom(A)
 			return
