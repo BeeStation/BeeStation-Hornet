@@ -42,7 +42,8 @@ SUBSYSTEM_DEF(zclear)
 	var/list/active_levels = list()
 	//Check active mobs
 	for(var/mob/living/L in GLOB.mob_list)
-		if(L.ckey || L.mind || L.client)
+		//Dead mobs get sent to new ruins
+		if((L.ckey || L.mind || L.client) && L.stat != DEAD)
 			var/turf/T = get_turf(L)
 			active_levels["[T.z]"] = TRUE
 	//Check active nukes
