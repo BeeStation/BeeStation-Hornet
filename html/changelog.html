@@ -56,6 +56,102 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">04 June 2021</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Volume pumps has been replaced by normal pumps in meta's SM.</li>
+				<li class="bugfix">Fixed rare runtime when you die without client</li>
+				<li class="bugfix">fixes equipment not spawning</li>
+			</ul>
+			<h3 class="author">Bokkiewokkie updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Makes multi-z pipe adaptors compatible with piping layers.</li>
+			</ul>
+			<h3 class="author">Ivniinvi updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Updated the Freezer/Heater board, now named Thermomachine board.</li>
+			</ul>
+			<h3 class="author">Kylerace, r1ks-iwnl updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Autolathes can't create items for cheaper than what they recycle for.</li>
+			</ul>
+			<h3 class="author">Naevi, ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">New roboticist enviro and jump suits</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Head revs now use a normal flash</li>
+				<li class="tweak">When a head rev uses a flash it will gain charges.</li>
+			</ul>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">adds an inhand sprite for the hos gun set to stun (tazer) mode</li>
+			</ul>
+			<h3 class="author">kylerace updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a few more holodecks</li>
+				<li class="refactor">Nanotrasen overhauled much of the holodecks programming so that it didnt have to keep physical copies of the simulations anymore.</li>
+				<li class="code_imp">holodeck uses map templates instead of area_copy</li>
+			</ul>
+			<h3 class="author">r1ks-iwnl updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Preference to switch the walk hotkey between held down and a toggle inside the stats menu's preference tab.</li>
+			</ul>
+
+			<h2 class="date">03 June 2021</h2>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">blind people can now feel around themselves to examine stuff</li>
+			</ul>
+
+			<h2 class="date">02 June 2021</h2>
+			<h3 class="author">jupyterkat updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">makes machines work as intended again</li>
+			</ul>
+
+			<h2 class="date">01 June 2021</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed runtime in config related to testmerges</li>
+			</ul>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Being on staff grants you access to donor items</li>
+			</ul>
+			<h3 class="author">Mothblocks, froststahr port updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Added the "Check Timer Sources" debug command to help isolate problematic cases of addtimer.</li>
+			</ul>
+			<h3 class="author">ike709 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Minor optimizations to powernet propagation.</li>
+			</ul>
+			<h3 class="author">jupyterkat updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">ethereals can charge via borg chargers again</li>
+			</ul>
+			<h3 class="author">steelslayer updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Updates various machines, which currently use SSfastprocess, so that they only start processing when it's necessary. Some of these updated machines have been changed so that they don't ever need to process.</li>
+				<li class="refactor">Replaces the speed_process var with two new variables. The processing_flags variable stores bitflags with information about a machine's preferences on when it should start processing. The subsystem_type var holds the path to which type of subsystem that machine should use.</li>
+			</ul>
+
+			<h2 class="date">31 May 2021</h2>
+			<h3 class="author"> updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="server">Compiler version is now 514.1554. Players are encouraged to stay on 513 for now.</li>
+			</ul>
+			<h3 class="author">Froststahr updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Integrated circuits have been removed to enable replacing them with TG's new Wiremod circuits</li>
+			</ul>
+			<h3 class="author">SpacePrius updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added copier to HoP office on pubbystation</li>
+			</ul>
+
 			<h2 class="date">30 May 2021</h2>
 			<h3 class="author">bloons3 updated:</h3>
 			<ul class="changes bgimages16">
@@ -949,50 +1045,6 @@
 			<h3 class="author">KubeRoot updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">Align powercell sprites with overlay</li>
-			</ul>
-
-			<h2 class="date">02 April 2021</h2>
-			<h3 class="author">Archanial updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Spare has been moved to safe located in bridge.</li>
-				<li class="rscadd">Captain gets code to that safe.</li>
-				<li class="config">New config entry SPARE_ENFORCE_COC.</li>
-				<li class="config">If there is no captain and SPARE_ENFORCE_COC is enabled code will be given to head highest in CoC.</li>
-				<li class="config">If there is no captain and SPARE_ENFORCE_COC is not enabled code will be given to all of roundstart heads.</li>
-			</ul>
-
-			<h2 class="date">01 April 2021</h2>
-			<h3 class="author">Dawson1917 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Handcuff timer raised to 4 seconds from 3</li>
-			</ul>
-
-			<h2 class="date">31 March 2021</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">Refactors england.</li>
-				<li class="refactor">Refactors stamina healing to slowly heal over time rather than instantly.</li>
-				<li class="rscadd">health doll now displays stamina damage.</li>
-			</ul>
-			<h3 class="author">bloons3 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">The Detective is now the best armed Security Officer on the station</li>
-			</ul>
-			<h3 class="author">jupyterkat updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed ex_act being called until the item is destroyed</li>
-			</ul>
-
-			<h2 class="date">30 March 2021</h2>
-			<h3 class="author">FlamePrince, JJRcop updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Trashbag of Holding bounties can now be fulfilled.</li>
-			</ul>
-
-			<h2 class="date">29 March 2021</h2>
-			<h3 class="author">super12pl updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Brig physician now has medical's traitor items.</li>
 			</ul>
 		</div>
 
