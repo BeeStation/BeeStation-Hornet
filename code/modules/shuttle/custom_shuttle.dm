@@ -7,8 +7,6 @@
 	light_color = LIGHT_COLOR_CYAN
 	req_access = list( )
 
-	whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava)
-
 	possible_destinations = "whiteship_home"
 
 	var/list/obj/machinery/shuttle/engine/shuttle_engines = list()
