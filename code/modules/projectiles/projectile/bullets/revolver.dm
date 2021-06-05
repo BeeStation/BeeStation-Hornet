@@ -50,6 +50,7 @@
 	ricochets_max = 0
 	shrapnel_type = /obj/item/shrapnel/bullet/c38/dumdum
 	embedding = list(embed_chance=75, fall_chance=3, jostle_chance=4, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=5, jostle_pain_mult=6, rip_time=1 SECONDS)
+	embed_falloff_tile = -15
 
 /obj/item/projectile/bullet/c38/trac
 	name = ".38 TRAC bullet"
