@@ -1,0 +1,196 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/turf/open/floor/plasteel/airless{
+	icon_state = "damaged3"
+	},
+/area/ruin/unpowered)
+"c" = (
+/obj/structure/table,
+/obj/item/stock_parts/cell{
+	charge = 100;
+	maxcharge = 15000
+	},
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"e" = (
+/obj/machinery/computer/teleporter{
+	dir = 4
+	},
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"g" = (
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"q" = (
+/turf/template_noop,
+/area/template_noop)
+"y" = (
+/obj/machinery/teleport/station,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"z" = (
+/obj/machinery/door/airlock/vault,
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"I" = (
+/obj/machinery/teleport/hub,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"L" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
+"P" = (
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"Q" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"T" = (
+/turf/open/floor/plasteel/airless{
+	icon_state = "damaged2"
+	},
+/area/ruin/unpowered)
+"X" = (
+/turf/open/floor/plating/airless,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+q
+q
+q
+q
+q
+P
+L
+P
+q
+q
+q
+q
+q
+"}
+(2,1,1) = {"
+q
+q
+q
+Q
+q
+P
+g
+P
+q
+Q
+q
+q
+q
+"}
+(3,1,1) = {"
+q
+q
+q
+P
+P
+P
+z
+P
+P
+P
+q
+q
+q
+"}
+(4,1,1) = {"
+q
+q
+P
+P
+c
+b
+X
+g
+g
+X
+X
+q
+q
+"}
+(5,1,1) = {"
+q
+Q
+P
+g
+g
+g
+g
+g
+g
+g
+X
+Q
+q
+"}
+(6,1,1) = {"
+q
+q
+P
+g
+g
+e
+y
+I
+g
+X
+P
+q
+q
+"}
+(7,1,1) = {"
+q
+Q
+X
+T
+X
+g
+g
+g
+g
+X
+P
+Q
+q
+"}
+(8,1,1) = {"
+q
+q
+X
+X
+T
+X
+g
+g
+g
+P
+P
+q
+q
+"}
+(9,1,1) = {"
+q
+q
+q
+X
+X
+P
+P
+P
+P
+P
+q
+q
+q
+"}
