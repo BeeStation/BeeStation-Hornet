@@ -238,6 +238,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		if("gotoPort")
 			if(QDELETED(shuttleObject))
 				return
+			if(QDELETED(shuttleObject.docking_target))
+				return
 			//Get our port
 			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
 			if(!mobile_port || mobile_port.destination != null)
@@ -280,6 +282,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				message_admins("[ADMIN_FULLMONTY(usr)] attempted to forge a target location through a tgui exploit on [src]")
 				return
 			//Dont wipe z level while we are going
+			//Dont wipe z of where we are leaving for a bit, in case we come back.
+			SSzclear.temp_keep_z(z)
 			SSzclear.temp_keep_z(target_port.z)
 			switch(SSshuttle.moveShuttle(shuttleId, target_port.id, 1))
 				if(0)
@@ -347,6 +351,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		if(!valid)
 			continue
 		//Dont wipe z level while we are going
+		//Dont wipe z of where we are leaving for a bit, in case we come back.
+		SSzclear.temp_keep_z(z)
 		SSzclear.temp_keep_z(shuttleObject.docking_target.linked_z_level.z_value)
 		//Ok lets go there
 		switch(SSshuttle.moveShuttle(shuttleId, random_port.id, 1))
