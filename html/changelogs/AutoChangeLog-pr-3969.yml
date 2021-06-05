@@ -1,5 +1,0 @@
-author: Froststahr
-delete-after: true
-changes:
-  - rscdel: Integrated circuits have been removed to enable replacing them with TG's
-      new Wiremod circuits
