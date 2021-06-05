@@ -124,8 +124,8 @@
 	. = ..()
 	new_corgi = new(get_turf(L))
 	new_corgi.key = L.key
-	new_corgi.name = L.name
-	new_corgi.real_name = L.name
+	new_corgi.name = L.real_name
+	new_corgi.real_name = L.real_name
 	ADD_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
 	//hack - equipt current hat
 	var/mob/living/carbon/C = L
@@ -158,8 +158,10 @@
 	var/turf/T = get_turf(new_corgi)
 	if (new_corgi.inventory_head)
 		if(!L.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
-			new_corgi.inventory_head.forceMove(T)
-	new_corgi.inventory_back?.forceMove(T)
+			new_corgi.inventory_head.forceMove(T)		
+	new_corgi.inventory_back?.forceMove(T)	
+	new_corgi.inventory_head = null
+	new_corgi.inventory_back = null
 	qdel(new_corgi)
 
 /datum/reagent/water
