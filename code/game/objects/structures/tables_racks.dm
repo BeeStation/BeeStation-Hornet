@@ -537,13 +537,13 @@
 	. = ..()
 	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
-/obj/structure/rack/CanPass(atom/movable/mover, turf/target)
+/obj/structure/rack/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(src.density == 0) //Because broken racks -Agouri |TODO: SPRITE!|
-		return 1
+		return TRUE
 	if(istype(mover) && (mover.pass_flags & PASSTABLE))
-		return 1
-	else
-		return 0
+		return TRUE
+	return FALSE
 
 /obj/structure/rack/CanAStarPass(ID, dir, caller)
 	. = !density
