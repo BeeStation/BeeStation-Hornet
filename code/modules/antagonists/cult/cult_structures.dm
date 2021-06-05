@@ -166,7 +166,7 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-/obj/structure/destructible/cult/pylon/process()
+/obj/structure/destructible/cult/pylon/process(delta_time)
 	if(!anchored)
 		return
 	if(last_heal <= world.time)
@@ -176,13 +176,13 @@
 				if(L.health != L.maxHealth)
 					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 					if(ishuman(L))
-						L.adjustBruteLoss(-1, 0)
-						L.adjustFireLoss(-1, 0)
+						L.adjustBruteLoss(-0.5*delta_time, 0)
+						L.adjustFireLoss(-0.5*delta_time, 0)
 						L.updatehealth()
 					if(isshade(L) || isconstruct(L))
 						var/mob/living/simple_animal/M = L
 						if(M.health < M.maxHealth)
-							M.adjustHealth(-3)
+							M.adjustHealth(-1.5*delta_time)
 				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1.0
 			CHECK_TICK

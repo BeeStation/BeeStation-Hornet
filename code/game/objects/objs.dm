@@ -1,4 +1,3 @@
-
 /obj
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
@@ -366,3 +365,8 @@
 //generate_tgm_metadata(thing) handles everything inside the {} for you
 /obj/proc/on_object_saved(var/depth = 0)
 	return ""
+
+/obj/handle_ricochet(obj/item/projectile/P)
+	. = ..()
+	if(. && ricochet_damage_mod)
+		take_damage(P.damage * ricochet_damage_mod, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration) // pass along ricochet_damage_mod damage to the structure for the ricochet

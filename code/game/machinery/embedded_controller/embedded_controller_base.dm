@@ -63,9 +63,9 @@
 	usr.set_machine(src)
 	addtimer(CALLBACK(src, .proc/updateDialog), 5)
 
-/obj/machinery/embedded_controller/process()
+/obj/machinery/embedded_controller/process(delta_time)
 	if(program)
-		program.process()
+		program.process(delta_time)
 
 	update_icon()
 	src.updateDialog()
