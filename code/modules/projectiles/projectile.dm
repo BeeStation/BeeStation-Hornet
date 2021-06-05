@@ -127,6 +127,9 @@
 	///If TRUE, hit mobs even if they're on the floor and not our target
 	var/hit_stunned_targets = FALSE
 
+	///How much we want to drop the embed_chance value, if we can embed, per tile, for falloff purposes
+	var/embed_falloff_tile
+
 /obj/item/projectile/Initialize()
 	. = ..()
 	permutated = list()
@@ -134,6 +137,8 @@
 
 /obj/item/projectile/proc/Range()
 	range--
+	if(embedding)
+		embedding["embed_chance"] += embed_falloff_tile
 	if(range <= 0 && loc)
 		on_range()
 

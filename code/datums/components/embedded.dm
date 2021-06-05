@@ -80,7 +80,7 @@
 	if(!weapon.isEmbedHarmless())
 		harmful = TRUE
 
-	weapon.embedded(parent)
+	weapon.embedded(parent, part)
 	START_PROCESSING(SSdcs, src)
 	var/mob/living/carbon/victim = parent
 
@@ -89,13 +89,18 @@
 	RegisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), .proc/weaponDeleted)
 	victim.visible_message("<span class='danger'>[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] [victim]'s [limb.name]!</span>", "<span class='userdanger'>[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] your [limb.name]!</span>")
 
+	var/damage = weapon.throwforce
 	if(harmful)
 		victim.throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
 		playsound(victim,'sound/weapons/bladeslice.ogg', 40)
 		weapon.add_mob_blood(victim)//it embedded itself in you, of course it's bloody!
-		var/damage = weapon.w_class * impact_pain_mult
-		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
+		damage += weapon.w_class * impact_pain_mult
 		SEND_SIGNAL(victim, COMSIG_ADD_MOOD_EVENT, "embedded", /datum/mood_event/embedded)
+
+	if(damage > 0)
+		var/armor = victim.run_armor_check(limb.body_zone, "melee", "Your armor has protected your [limb.name].", "Your armor has softened a hit to your [limb.name].",I.armour_penetration)
+		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage, blocked=armor)
+
 
 /datum/component/embedded/Destroy()
 	var/mob/living/carbon/victim = parent
@@ -117,7 +122,7 @@
 /datum/component/embedded/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_CARBON_EMBED_RIP, COMSIG_CARBON_EMBED_REMOVAL, COMSIG_PARENT_ATTACKBY))
 
-/datum/component/embedded/process()
+/datum/component/embedded/process(delta_time)
 	var/mob/living/carbon/victim = parent
 
 	if(!victim || !limb) // in case the victim and/or their limbs exploded (say, due to a sticky bomb)
@@ -129,16 +134,22 @@
 		return
 
 	var/damage = weapon.w_class * pain_mult
-	var/chance = pain_chance
+	var/pain_chance_current = DT_PROB_RATE(pain_chance / 100, delta_time) * 100
 	if(pain_stam_pct && victim.stam_paralyzed) //if it's a less-lethal embed, give them a break if they're already stamcritted
-		chance *= 0.2
+		pain_chance_current *= 0.2
 		damage *= 0.5
 
-	if(harmful && prob(chance))
+	else if(victim.lying)
+		pain_chance_current *= 0.2
+
+	if(harmful && prob(pain_chance_current))
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
 		to_chat(victim, "<span class='userdanger'>[weapon] embedded in your [limb.name] hurts!</span>")
 
-	if(prob(fall_chance))
+	var/fall_chance_current = DT_PROB_RATE(fall_chance / 100, delta_time) * 100
+	if(victim.lying)
+		fall_chance_current *= 0.2
+	if(prob(fall_chance_current))
 		fallOut()
 
 ////////////////////////////////////////
@@ -152,7 +163,7 @@
 	if(victim.m_intent == MOVE_INTENT_WALK || victim.lying)
 		chance *= 0.5
 
-	if(prob(chance))
+	if(harmful && prob(chance))
 		var/damage = weapon.w_class * jostle_pain_mult
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
 		to_chat(victim, "<span class='userdanger'>[weapon] embedded in your [limb.name] jostles and stings!</span>")
