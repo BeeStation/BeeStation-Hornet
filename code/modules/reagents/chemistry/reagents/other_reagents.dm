@@ -125,7 +125,12 @@
 	new_corgi = new(get_turf(L))
 	new_corgi.key = L.key
 	new_corgi.name = L.name
+	new_corgi.real_name = L.name
 	ADD_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
+	//hack - equipt current hat
+	var/obj/item/hat = L.head
+	if (hat)
+		new_corgi.place_on_head(hat)
 	L.forceMove(new_corgi)
 
 /datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
@@ -147,6 +152,12 @@
 	L.adjustBruteLoss(new_corgi.getBruteLoss())
 	L.adjustFireLoss(new_corgi.getFireLoss())
 	L.forceMove(get_turf(new_corgi))
+	// HACK - drop all corgi inventory
+	var/turf/T = get_turf(new_corgi)
+	if (new_corgi.inventory_head)
+		if(!H.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD))
+			new_corgi.inventory_head.forceMove(T)
+	new_corgi.inventory_back?.forceMove(T)
 	qdel(new_corgi)
 
 /datum/reagent/water
