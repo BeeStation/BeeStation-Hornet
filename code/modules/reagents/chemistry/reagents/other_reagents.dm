@@ -157,7 +157,7 @@
 	// HACK - drop all corgi inventory
 	var/turf/T = get_turf(new_corgi)
 	if (new_corgi.inventory_head)
-		if(!L.equip_to_slot(new_corgi.inventory_head, ITEM_SLOT_HEAD))
+		if(!L.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
 			new_corgi.inventory_head.forceMove(T)
 	new_corgi.inventory_back?.forceMove(T)
 	qdel(new_corgi)
