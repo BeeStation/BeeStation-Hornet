@@ -127,6 +127,10 @@
 	if(!islist(sig_type_or_types))
 		sig_type_or_types = list(sig_type_or_types)
 	for(var/sig in sig_type_or_types)
+		if(!signal_procs[target][sig])
+			if(!istext(sig))
+				stack_trace("We're unregistering with something that isn't a valid signal \[[sig]\], you fucked up")
+			continue
 		switch(length(lookup[sig]))
 			if(2)
 				lookup[sig] = (lookup[sig]-src)[1]
@@ -138,6 +142,8 @@
 						target.comp_lookup = null
 						break
 			if(0)
+				if(lookup[sig] != src)
+					continue
 				lookup -= sig
 				if(!length(lookup))
 					target.comp_lookup = null
