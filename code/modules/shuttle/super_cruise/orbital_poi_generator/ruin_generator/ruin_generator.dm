@@ -296,8 +296,8 @@
 				/obj/effect/spawner/lootdrop/glowstick = 4,
 				/obj/effect/spawner/lootdrop/maintenance = 3,
 				/mob/living/simple_animal/hostile/poison/giant_spider/hunter = 1,
-				/mob/living/simple_animal/hostile/poison/giant_spider/tarantula = 1,
-				null = 90,
+				/mob/living/simple_animal/hostile/poison/giant_spider/nurse = 1,
+				null = 110,
 			)
 			for(var/trash in subtypesof(/obj/item/trash))
 				floortrash[trash] = 1
@@ -333,10 +333,9 @@
 				/obj/effect/spawner/lootdrop/maintenance = 3,
 				/obj/item/ammo_casing/c9mm = 4,
 				/obj/item/gun/ballistic/automatic/pistol/no_mag = 1,
-				/mob/living/simple_animal/hostile/alien/drone = 2,
-				/mob/living/simple_animal/hostile/alien/sentinel = 2,
-				/mob/living/simple_animal/hostile/alien/queen = 1,
-				/mob/living/simple_animal/hostile/alien = 3,
+				/mob/living/simple_animal/hostile/alien/drone = 1,
+				/mob/living/simple_animal/hostile/alien/sentinel = 1,
+				/mob/living/simple_animal/hostile/alien = 1,
 				/obj/structure/alien/egg = 1,
 				/obj/structure/alien/weeds/node = 8,
 				/obj/structure/alien/gelpod = 4,
