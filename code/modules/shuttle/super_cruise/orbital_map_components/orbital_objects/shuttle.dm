@@ -49,12 +49,15 @@
 	qdel(src)
 
 /datum/orbital_object/shuttle/process()
-	if(docking_target)
+	if(!QDELETED(docking_target))
 		velocity.x = 0
 		velocity.y = 0
 		position.x = docking_target.position.x
 		position.y = docking_target.position.y
 		return
+	else
+		//If our docking target was deleted, null it to prevent docking interface etc.
+		docking_target = null
 	//AUTOPILOT
 	if(autopilot)
 		handle_autopilot()

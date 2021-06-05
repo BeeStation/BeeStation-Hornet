@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(zclear)
 //Temporarily stops a z from being wiped for 30 seconds.
 /datum/controller/subsystem/zclear/proc/temp_keep_z(z_level)
 	docking_levels |= z_level
-	addtimer(CALLBACK(src, .proc/unkeep_z, z_level), 30 SECONDS)
+	addtimer(CALLBACK(src, .proc/unkeep_z, z_level), 2 MINUTES)
 
 /datum/controller/subsystem/zclear/proc/unkeep_z(z_level)
 	docking_levels -= z_level
