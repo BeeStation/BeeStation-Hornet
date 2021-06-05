@@ -132,7 +132,7 @@
 	if (istype(C))
 		var/obj/item/hat = C.head
 		if (hat)
-			new_corgi.place_on_head(hat)
+			new_corgi.place_on_head(hat,null,FALSE)
 	L.forceMove(new_corgi)
 
 /datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
