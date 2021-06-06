@@ -252,7 +252,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			continue
 		if(!M.client || !client) //client is so that ghosts don't have to listen to mice
 			continue
-		if(get_dist(M, src) > 7 || M.z != z) //they're out of range of normal hearing
+		if(get_dist(M, src) > 7 || M.get_virtual_z_level() != get_virtual_z_level()) //they're out of range of normal hearing
 			if(eavesdrop_range && !(M.client.prefs.chat_toggles & CHAT_GHOSTWHISPER)) //they're whispering and we have hearing whispers at any range off
 				continue
 			if(!(M.client.prefs.chat_toggles & CHAT_GHOSTEARS)) //they're talking normally and we have hearing at any range off
