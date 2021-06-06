@@ -110,7 +110,8 @@
 						/obj/item/radio/headset/headset_eng, \
 						/obj/item/radio/headset/headset_med, \
 						/obj/item/radio/headset/headset_sci, \
-						/obj/item/radio/headset/headset_cargo)
+						/obj/item/radio/headset/headset_cargo, \
+						/obj/item/radio/headset/headset_exploration)
 		ears = new headset(src)
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var

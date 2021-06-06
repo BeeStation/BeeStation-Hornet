@@ -29,7 +29,7 @@
 
 	id = /obj/item/card/id/job/qm
 	belt = /obj/item/pda/quartermaster
-	ears = /obj/item/radio/headset/headset_cargo
+	ears = /obj/item/radio/headset/headset_quartermaster
 	uniform = /obj/item/clothing/under/rank/cargo/qm
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
