@@ -63377,6 +63377,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"rAq" = (
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/fitness/recreation)
 "rAw" = (
 /obj/machinery/advanced_airlock_controller/directional/south,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump,
@@ -64539,6 +64545,9 @@
 	pixel_y = -25
 	},
 /obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/camera/autoname{
+	dir = 10
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "rTc" = (
@@ -76185,6 +76194,9 @@
 	},
 /obj/machinery/firealarm{
 	pixel_y = -24
+	},
+/obj/machinery/camera/autoname{
+	dir = 10
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
@@ -120224,7 +120236,7 @@ nPW
 coK
 kyY
 coK
-coK
+rAq
 coK
 nPW
 nPW
