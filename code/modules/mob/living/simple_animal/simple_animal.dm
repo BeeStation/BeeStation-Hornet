@@ -330,6 +330,8 @@
 	return tab_data
 
 /mob/living/simple_animal/proc/drop_loot()
+	if(flags_1 & HOLOGRAM_1)
+		return
 	if(loot.len)
 		for(var/i in loot)
 			new i(loc)
