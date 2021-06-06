@@ -18,6 +18,8 @@
 	req_access = list(ACCESS_SECURITY)
 	power_channel = AREA_USAGE_EQUIP	//drains power from the EQUIPMENT channel
 
+	var/uses_stored = TRUE	//if TRUE this will cause the turret to stop working if the stored_gun var is null in process()
+
 	var/base_icon_state = "standard"
 	var/scan_range = 7
 	var/atom/base = null //for turrets inside other objects
@@ -126,8 +128,10 @@
 	if(installation && !turret_gun)
 		stored_gun = new installation(src)
 	else if (turret_gun)
+		turret_gun.forceMove(src)
 		stored_gun = turret_gun
 
+	RegisterSignal(stored_gun, COMSIG_PARENT_PREQDELETED, .proc/null_gun)
 	var/list/gun_properties = stored_gun.get_turret_properties()
 
 	//required properties
@@ -145,6 +149,11 @@
 
 	update_icon()
 	return gun_properties
+
+///destroys reference to stored_gun to prevent hard deletions
+/obj/machinery/porta_turret/proc/null_gun()
+	SIGNAL_HANDLER
+	stored_gun = null
 
 /obj/machinery/porta_turret/Destroy()
 	//deletes its own cover with it
@@ -360,8 +369,12 @@
 				cover = new /obj/machinery/porta_turret_cover(loc)	//if the turret has no cover and is anchored, give it a cover
 				cover.parent_turret = src	//assign the cover its parent_turret, which would be this (src)
 
-	if(!on || (stat & (NOPOWER|BROKEN)) || manual_control)
-		return
+	if(!on || (stat & (NOPOWER|BROKEN)))
+		return PROCESS_KILL
+	if(manual_control)
+		return PROCESS_KILL
+	if(uses_stored && !stored_gun)
+		return PROCESS_KILL
 
 	var/list/targets = list()
 	for(var/mob/A as() in hearers(scan_range, base))
@@ -644,11 +657,12 @@
 
 /obj/machinery/porta_turret/syndicate
 	installation = null
-	always_up = 1
+	always_up = TRUE
 	use_power = NO_POWER_USE
-	has_cover = 0
+	has_cover = TRUE
 	scan_range = 9
 	req_access = list(ACCESS_SYNDICATE)
+	uses_stored = FALSE
 	mode = TURRET_LETHAL
 	stun_projectile = /obj/item/projectile/bullet
 	lethal_projectile = /obj/item/projectile/bullet
@@ -755,7 +769,7 @@
 /obj/machinery/porta_turret/centcom_shuttle
 	installation = null
 	max_integrity = 260
-	always_up = 1
+	always_up = TRUE
 	use_power = NO_POWER_USE
 	has_cover = 0
 	scan_range = 9

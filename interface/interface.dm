@@ -260,7 +260,6 @@ Any-Mode: (hotkey doesn't need to be on)
 	switch(SSmapping.config?.map_name)
 		if("Box Station")			map_in_url = "box"
 		if("Delta Station")			map_in_url = "delta"
-		if("Donutstation")			map_in_url = "donut"
 		if("MetaStation")			map_in_url = "meta"
 		if("Kilo Station")          map_in_url = "kilo"
 		if("PubbyStation")          map_in_url = "pubby"

@@ -112,6 +112,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOGUNS			"no_guns"
 #define TRAIT_NOHUNGER			"no_hunger"
 #define TRAIT_NOMETABOLISM		"no_metabolism"
+#define TRAIT_NOCLONELOSS		"no_cloneloss"
 #define TRAIT_TOXIMMUNE			"toxin_immune"
 #define TRAIT_EASYDISMEMBER		"easy_dismember"
 #define TRAIT_LIMBATTACHMENT 	"limb_attach"
@@ -289,7 +290,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///Traits given by station traits
 #define STATION_TRAIT_BANANIUM_SHIPMENTS "station_trait_bananium_shipments"
-#define STATION_TRAIT_UNNATURAL_ATMOSPHERE "station_trait_unnatural_atmosphere"
 #define STATION_TRAIT_CARP_INFESTATION "station_trait_carp_infestation"
 #define STATION_TRAIT_PREMIUM_INTERNALS "station_trait_premium_internals"
 #define STATION_TRAIT_LATE_ARRIVALS "station_trait_late_arrivals"

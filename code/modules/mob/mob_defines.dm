@@ -197,6 +197,9 @@
 	///List of progress bars this mob is currently seeing for actions
 	var/list/progressbars = null	//for stacking do_after bars
 
+	///For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time
+	var/list/do_afters	
+
 	var/list/mousemove_intercept_objects
 
 	///Allows a datum to intercept all click calls this mob is the source of
