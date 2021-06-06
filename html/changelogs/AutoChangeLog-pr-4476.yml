@@ -1,0 +1,5 @@
+author: francinum
+delete-after: true
+changes:
+  - bugfix: Storage items now dump their contents before being deconstructed in the
+      autolathe (Or other machines that operate with the same system)
