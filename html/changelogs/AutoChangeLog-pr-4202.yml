@@ -1,0 +1,7 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - rscadd: Virtual z-levels
+  - tweak: Each shuttle will be treated as a different z-level, meaning things that
+      affect a z-level (Comms, suit sensors, AI upload, explosions, heretic tracking
+      etc.) will no longer be able to track different shuttles while they are in transit.
