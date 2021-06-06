@@ -1,4 +1,4 @@
-"a" = (/turf/open/floor/holofloor/plating,/area/template_noop)
+"a" = (/turf/open/floor/holofloor/dark,/area/template_noop)
 "b" = (/turf/open/floor/holofloor/snow{color = "#FF9900"},/area/template_noop)
 "c" = (/obj/effect/holodeck_effect/mobspawner/clown,/turf/open/floor/holofloor/snow,/area/template_noop)
 "d" = (/turf/open/floor/holofloor/snow,/area/template_noop)
