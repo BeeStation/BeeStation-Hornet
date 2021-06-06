@@ -113,14 +113,13 @@
 	description = "benis"
 	mappath = "_maps/templates/holodeck_skatepark.dmm"
 
-//bad evil no good programs
-
 /datum/map_template/holodeck/medicalsim
 	name = "Holodeck - Emergency Medical"
 	template_id = "holodeck_medicalsim"
 	description = "benis"
 	mappath = "_maps/templates/holodeck_medicalsim.dmm"
-	restricted = TRUE
+
+//bad evil no good programs
 
 /datum/map_template/holodeck/thunderdome1218
 	name = "Holodeck - 1218 AD"
