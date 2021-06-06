@@ -106,7 +106,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 	var/turf/curr = get_turf(parent)
 	data["currentArea"] = "[get_area_name(curr, TRUE)]"
-	data["currentCoords"] = "[curr.x], [curr.y], [curr.z]"
+	data["currentCoords"] = "[curr.x], [curr.y], [curr.get_virtual_z_level()]"
 
 	var/list/signals = list()
 	data["signals"] = list()
@@ -116,12 +116,12 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		if(G.emped || !G.tracking || G == src)
 			continue
 		var/turf/pos = get_turf(G.parent)
-		if(!pos || !global_mode && pos.z != curr.z)
+		if(!pos || !global_mode && pos.get_virtual_z_level() != curr.get_virtual_z_level())
 			continue
 		var/list/signal = list()
 		signal["entrytag"] = G.gpstag //Name or 'tag' of the GPS
-		signal["coords"] = "[pos.x], [pos.y], [pos.z]"
-		if(pos.z == curr.z) //Distance/Direction calculations for same z-level only
+		signal["coords"] = "[pos.x], [pos.y], [pos.get_virtual_z_level()]"
+		if(pos.get_virtual_z_level() == curr.get_virtual_z_level()) //Distance/Direction calculations for same z-level only
 			signal["dist"] = max(get_dist(curr, pos), 0) //Distance between the src and remote GPS turfs
 			signal["degrees"] = round(Get_Angle(curr, pos)) //0-360 degree directional bearing, for more precision.
 		signals += list(signal) //Add this signal to the list of signals
