@@ -9898,11 +9898,11 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ass" = (
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -30
 	},
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "ast" = (
@@ -13359,6 +13359,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "azu" = (

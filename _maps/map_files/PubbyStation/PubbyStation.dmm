@@ -16964,6 +16964,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
 "aMq" = (

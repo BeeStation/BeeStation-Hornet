@@ -403,11 +403,11 @@
 /area/bridge)
 "adM" = (
 /obj/structure/bed/dogbed/renault,
-/mob/living/simple_animal/pet/fox/Renault,
 /obj/machinery/airalarm/directional/west,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/mob/living/simple_animal/pet/fox/Renault,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "adN" = (
@@ -3971,8 +3971,8 @@
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "aQu" = (
-/mob/living/carbon/monkey,
 /obj/structure/bed/roller,
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel/freezer,
 /area/medical/genetics)
 "aQv" = (
@@ -7215,8 +7215,8 @@
 /turf/open/floor/carpet/green,
 /area/library)
 "bHO" = (
-/mob/living/simple_animal/crab,
 /obj/structure/bed/dogbed,
+/mob/living/simple_animal/crab,
 /turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
 "bHS" = (
@@ -10896,8 +10896,8 @@
 /area/crew_quarters/toilet)
 "cKz" = (
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/machinery/camera/autoname,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "cKK" = (
@@ -18544,8 +18544,8 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "eWW" = (
-/mob/living/carbon/monkey,
 /obj/machinery/light/small,
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel/freezer,
 /area/medical/genetics)
 "eWX" = (
@@ -31490,12 +31490,12 @@
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "iwN" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /mob/living/simple_animal/bot/floorbot{
 	locked = 0;
 	on = 0
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
@@ -44305,6 +44305,10 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "lYr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
 /mob/living/simple_animal/bot/secbot{
 	arrest_type = 1;
 	health = 45;
@@ -44313,10 +44317,6 @@
 	name = "Sergeant-at-Armsky";
 	weaponscheck = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "lYy" = (
@@ -44757,6 +44757,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
+"meo" = (
+/obj/structure/sign/departments/minsky/engineering/telecommmunications{
+	pixel_y = 32
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/engine/engineering)
 "mes" = (
 /obj/structure/chair/comfy/black{
 	dir = 1
@@ -46901,9 +46914,6 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "mPw" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete"
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 8
 	},
@@ -46912,6 +46922,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/mob/living/simple_animal/hostile/retaliate/goat{
+	name = "Pete"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
@@ -53211,8 +53224,8 @@
 	dir = 1;
 	pixel_y = 1
 	},
-/mob/living/carbon/monkey,
 /obj/structure/bed/roller,
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel/freezer,
 /area/medical/genetics)
 "oDJ" = (
@@ -57172,10 +57185,10 @@
 /area/ai_monitored/turret_protected/aisat_interior)
 "pGL" = (
 /obj/structure/filingcabinet/chestdrawer,
-/mob/living/simple_animal/parrot/Poly,
 /obj/machinery/camera/autoname{
 	dir = 4
 	},
+/mob/living/simple_animal/parrot/Poly,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "pHc" = (
@@ -69523,7 +69536,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "tsM" = (
-/mob/living/simple_animal/kalo,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
@@ -69537,6 +69549,7 @@
 	dir = 5
 	},
 /obj/effect/landmark/event_spawn,
+/mob/living/simple_animal/kalo,
 /turf/open/floor/plasteel,
 /area/janitor)
 "tsP" = (
@@ -69833,7 +69846,6 @@
 /area/hallway/primary/fore)
 "tzM" = (
 /obj/structure/bed/dogbed/vector,
-/mob/living/simple_animal/pet/hamster/vector,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -69850,6 +69862,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/mob/living/simple_animal/pet/hamster/vector,
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "tzS" = (
@@ -79153,11 +79166,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/structure/closet/crate{
-	name = "conveyor belt crate"
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet/crate/secure/loot,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/warehouse)
 "vXj" = (
@@ -86940,19 +86949,6 @@
 "ymf" = (
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/science/central)
-"ymm" = (
-/obj/structure/sign/departments/minsky/engineering/telecommmunications{
-	pixel_y = 32
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/engine/engineering)
 
 (1,1,1) = {"
 aMT
@@ -106074,7 +106070,7 @@ pYg
 iZH
 nmi
 nmi
-ymm
+meo
 dHr
 otQ
 iBF

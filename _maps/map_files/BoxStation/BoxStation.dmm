@@ -5880,8 +5880,8 @@
 /turf/open/floor/plasteel,
 /area/security/processing)
 "amN" = (
-/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /obj/structure/bed/dogbed/walter,
+/mob/living/simple_animal/pet/dog/bullterrier/walter,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "amQ" = (
@@ -29891,10 +29891,10 @@
 /area/medical/genetics)
 "bHa" = (
 /obj/structure/window/reinforced,
-/mob/living/carbon/monkey,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel,
 /area/medical/genetics)
 "bHb" = (
@@ -41630,13 +41630,13 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "ctA" = (
-/mob/living/carbon/monkey,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel,
 /area/medical/genetics)
 "ctB" = (
@@ -41790,10 +41790,10 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "ctV" = (
-/mob/living/carbon/monkey,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel,
 /area/medical/genetics)
 "ctX" = (
@@ -41889,13 +41889,13 @@
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
 "cum" = (
-/mob/living/carbon/monkey,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel,
 /area/medical/genetics)
 "cun" = (
@@ -42196,10 +42196,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/mob/living/simple_animal/bot/cleanbot,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 1
 	},
+/mob/living/simple_animal/bot/cleanbot,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/service)
 "cuZ" = (
@@ -46588,13 +46588,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/kalo,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 5
 	},
+/mob/living/simple_animal/kalo,
 /turf/open/floor/plasteel,
 /area/janitor)
 "dMZ" = (
@@ -47462,6 +47462,11 @@
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"eMc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/open/floor/plasteel,
+/area/quartermaster/warehouse)
 "eMs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -49540,13 +49545,13 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "gYV" = (
-/mob/living/simple_animal/hostile/retaliate/goose/vomit,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "gZG" = (
@@ -50843,10 +50848,10 @@
 /area/ai_monitored/turret_protected/aisat/hallway)
 "iMF" = (
 /obj/effect/turf_decal/tile/blue,
-/mob/living/simple_animal/bot/floorbot,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 1
 	},
+/mob/living/simple_animal/bot/floorbot,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "iNb" = (
@@ -52054,9 +52059,9 @@
 /obj/machinery/ai_slipper{
 	uses = 10
 	},
-/mob/living/simple_animal/bot/secbot/pingsky,
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden/layer3,
+/mob/living/simple_animal/bot/secbot/pingsky,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "kwA" = (
@@ -84613,7 +84618,7 @@ aTF
 aPG
 aSX
 gjl
-baS
+eMc
 aZI
 hOL
 baS
