@@ -1,0 +1,21 @@
+"a" = (/turf/open/floor/holofloor/plating,/area/template_noop)
+"b" = (/turf/open/floor/holofloor/snow{color = "#FF9900"},/area/template_noop)
+"c" = (/obj/effect/holodeck_effect/mobspawner/clown,/turf/open/floor/holofloor/snow,/area/template_noop)
+"d" = (/turf/open/floor/holofloor/snow,/area/template_noop)
+"e" = (/turf/open/floor/holofloor/clown,/area/template_noop)
+"f" = (/obj/effect/holodeck_effect/mobspawner/clown,/turf/open/floor/holofloor/clown,/area/template_noop)
+"g" = (/turf/open/floor/holofloor/snow{color = "#000000"},/area/template_noop)
+"h" = (/turf/open/floor/holofloor/snow{color = "#FF0000"},/area/template_noop)
+
+(1,1,1) = {"
+abbaaabba
+bbcdedcbb
+bbddfddbb
+abdgegdba
+aaehhheaa
+aafhhhfaa
+addeeedda
+adgdcdgda
+hdcgggcdh
+ahdddddha
+"}
