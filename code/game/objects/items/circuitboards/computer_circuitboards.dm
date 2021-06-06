@@ -525,3 +525,7 @@
 /obj/item/circuitboard/computer/science_shuttle
 	name = "science shuttle console (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle_flight/science
+
+/obj/item/circuitboard/computer/exploration_shuttle
+	name = "exploration shuttle console (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle_flight/exploration
