@@ -477,6 +477,11 @@
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
+
+	if(cid_check && config.protected_cids.Find(player_cid))
+		if(alert(usr, "CID [player_cid] is listed as protected for the following reason: [config.protected_cids[player_cid]], Are you sure you want to restrict this CID?", "Protected CID", "Yes", "No", "Cancel") != "Yes")
+			return
+
 	var/player_ckey = ckey(player_key)
 	if(player_ckey)
 		var/datum/DBQuery/query_create_ban_get_player = SSdbcore.NewQuery({"
@@ -793,6 +798,11 @@
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
+
+	if(cid_check && config.protected_cids.Find(player_cid))
+		if(alert(usr, "CID [player_cid] is listed as protected for the following reason: [config.protected_cids[player_cid]], Are you sure you want to restrict this CID?", "Protected CID", "Yes", "No", "Cancel") != "Yes")
+			return
+
 	var/player_ckey = ckey(player_key)
 	var/bantime
 	if(player_ckey)
