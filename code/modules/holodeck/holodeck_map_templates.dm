@@ -95,12 +95,13 @@
 	template_id = "skatepark"
 	mappath = "_maps/holodeck/skatepark.dmm"
 
+//bad evil no good programs
+
 /datum/map_template/holodeck/medicalsim
 	name = "Holodeck - Emergency Medical"
 	template_id = "medicalsim"
 	mappath = "_maps/holodeck/medicalsim.dmm"
-
-//bad evil no good programs
+	restricted = TRUE
 
 /datum/map_template/holodeck/thunderdome1218
 	name = "Holodeck - 1218 AD"
