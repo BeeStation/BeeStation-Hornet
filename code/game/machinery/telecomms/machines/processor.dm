@@ -53,5 +53,10 @@
 	network = "tcommsat"
 	autolinkers = list("processor4")
 
+/obj/machinery/telecomms/processor/preset_exploration
+	id = "Exploration Processor"
+	network = "exploration"
+	autolinkers = list("processorExp")
+
 /obj/machinery/telecomms/processor/preset_one/birdstation
 	name = "Processor"

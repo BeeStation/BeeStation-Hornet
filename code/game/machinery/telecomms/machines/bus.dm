@@ -76,6 +76,12 @@
 	for(var/i = MIN_FREQ, i <= MAX_FREQ, i += 2)
 		freq_listening |= i
 
+/obj/machinery/telecomms/bus/preset_exploration
+	id = "Exploration Bus"
+	network = "exploration"
+	freq_listening = list(FREQ_EXPLORATION)
+	autolinkers = list("processorExp", "exploration")
+
 /obj/machinery/telecomms/bus/preset_one/birdstation
 	name = "Bus"
 	autolinkers = list("processor1", "common", "messaging")

@@ -48,7 +48,6 @@
 	autolinkers = list("receiverA") // link to relay
 	freq_listening = list(FREQ_SCIENCE, FREQ_MEDICAL, FREQ_SUPPLY, FREQ_SERVICE)
 
-
 //--PRESET RIGHT--//
 
 /obj/machinery/telecomms/receiver/preset_right
@@ -62,6 +61,12 @@
 	. = ..()
 	for(var/i = MIN_FREQ, i <= MAX_FREQ, i += 2)
 		freq_listening |= i
+
+/obj/machinery/telecomms/receiver/preset_exploration
+	id = "Exploration Receiver"
+	network = "exploration"
+	autolinkers = list("receiverExp") // link to relay
+	freq_listening = list(FREQ_EXPLORATION)
 
 /obj/machinery/telecomms/receiver/preset_left/birdstation
 	name = "Receiver"

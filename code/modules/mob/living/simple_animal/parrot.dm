@@ -252,6 +252,8 @@
 								available_channels.Add(RADIO_TOKEN_MEDICAL)
 							if(RADIO_CHANNEL_SUPPLY)
 								available_channels.Add(RADIO_TOKEN_SUPPLY)
+							if(RADIO_CHANNEL_EXPLORATION)
+								available_channels.Add(RADIO_TOKEN_EXPLORATION)
 							if(RADIO_CHANNEL_SERVICE)
 								available_channels.Add(RADIO_TOKEN_SERVICE)
 
