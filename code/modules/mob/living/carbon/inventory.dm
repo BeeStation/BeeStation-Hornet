@@ -12,7 +12,6 @@
 			return handcuffed
 		if(ITEM_SLOT_LEGCUFFED)
 			return legcuffed
-	return null
 
 /mob/living/carbon/proc/equip_in_one_of_slots(obj/item/I, list/slots, qdel_on_fail = TRUE)
 	for(var/slot in slots)
@@ -20,13 +19,10 @@
 			return slot
 	if(qdel_on_fail)
 		qdel(I)
-	return null
 
 //This is an UNSAFE proc. Use mob_can_equip() before calling this one! Or rather use equip_to_slot_if_possible() or advanced_equip_to_slot_if_possible()
 /mob/living/carbon/equip_to_slot(obj/item/I, slot)
-	if(!slot)
-		return
-	if(!istype(I))
+	if(!slot || !istype(I))
 		return
 
 	var/index = get_held_index_of_item(I)
@@ -37,8 +33,7 @@
 		I.pulledby.stop_pulling()
 
 	I.screen_loc = null
-	if(client)
-		client.screen -= I
+	client?.screen -= I
 	if(observers?.len)
 		for(var/M in observers)
 			var/mob/dead/observe = M
@@ -90,32 +85,33 @@
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
 
-	if(I == head)
-		head = null
-		if(!QDELETED(src))
-			head_update(I)
-	else if(I == back)
-		back = null
-		if(!QDELETED(src))
-			update_inv_back()
-	else if(I == wear_mask)
-		wear_mask = null
-		if(!QDELETED(src))
-			wear_mask_update(I, toggle_off = 1)
-	if(I == wear_neck)
-		wear_neck = null
-		if(!QDELETED(src))
-			update_inv_neck(I)
-	else if(I == handcuffed)
-		handcuffed = null
-		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob(src)
-		if(!QDELETED(src))
-			update_handcuffed()
-	else if(I == legcuffed)
-		legcuffed = null
-		if(!QDELETED(src))
-			update_inv_legcuffed()
+	switch(I)
+		if(head)
+			head = null
+			if(!QDELETED(src))
+				head_update(I)
+		if(back)
+			back = null
+			if(!QDELETED(src))
+				update_inv_back()
+		if(wear_mask)
+			wear_mask = null
+			if(!QDELETED(src))
+				wear_mask_update(I, toggle_off = 1)
+		if(wear_neck)
+			wear_neck = null
+			if(!QDELETED(src))
+				update_inv_neck(I)
+		if(handcuffed)
+			handcuffed = null
+			if(buckled?.buckle_requires_restraints)
+				buckled.unbuckle_mob(src)
+			if(!QDELETED(src))
+				update_handcuffed()
+		if(legcuffed)
+			legcuffed = null
+			if(!QDELETED(src))
+				update_inv_legcuffed()
 
 //handle stuff to update when a mob equips/unequips a mask.
 /mob/living/proc/wear_mask_update(obj/item/I, toggle_off = 1)
@@ -170,7 +166,7 @@
 			do_alert_animation(src)
 			visible_message("<span class='notice'>[src] is offering [receiving].</span>", \
 							"<span class='notice'>You offer [receiving].</span>", null, 2)
-		alert=1 // disable alert animation and chat message for possible second alert
+		alert = 1 // disable alert animation and chat message for possible second alert
 
 /**
  * Proc called when the player clicks the give alert
