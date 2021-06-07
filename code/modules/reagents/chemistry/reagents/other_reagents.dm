@@ -17,10 +17,8 @@
 
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 				continue
-				
-			// if ( ( data[ "donor" ] && istype( data[ "donor" ], /mob/living/simple_animal/mouse ) ) && islizard( L ) )
-			// if ( foodtype & L.dna.species.liked_food )
-			if ( ( data[ "donor" ] && istype( data[ "donor" ], /obj/item/reagent_containers/food/snacks/deadmouse ) ) && ( data[ "donor" ].foodtype & H.dna.species.liked_food ) )
+
+			if ( ( MEAT & H.dna.species.liked_food ) && ( RAW & H.dna.species.liked_food ) ) // Any raw foods with diseases can infect 
 				continue
 
 			if((method == TOUCH || method == VAPOR) && (D.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
