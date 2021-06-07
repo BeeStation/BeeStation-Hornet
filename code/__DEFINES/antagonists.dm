@@ -84,3 +84,6 @@
 #define PATH_ASH "Ash"
 #define PATH_RUST "Rust"
 #define PATH_FLESH "Flesh"
+
+/// How much does it cost to reroll strains?
+#define BLOB_REROLL_COST 40

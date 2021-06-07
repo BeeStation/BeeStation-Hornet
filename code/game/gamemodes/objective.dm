@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(objectives)
 
 //Shared by few objective types
 /datum/objective/proc/admin_simple_target_pick(mob/admin)
-	var/list/possible_targets = list("Free objective","Random")
+	var/list/possible_targets = list()
 	var/def_value
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if ((possible_target != src) && ishuman(possible_target.current))
@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(target?.current)
 		def_value = target.current
 
-	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in sortNames(possible_targets)
+	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in (sortNames(possible_targets) | list("Free objective","Random"))
 	if (!new_target)
 		return
 
@@ -178,7 +178,7 @@ GLOBAL_LIST_EMPTY(objectives)
 				"right pocket" = ITEM_SLOT_RPOCKET,
 				"hands" = ITEM_SLOT_HANDS)
 			for(var/eq_path in special_equipment)
-				var/obj/O = new eq_path(get_turf(owner.current))
+				var/obj/O = new eq_path(get_turf(receiver.current))
 				H.equip_in_one_of_slots(O, slots)
 
 /datum/objective/assassinate

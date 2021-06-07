@@ -186,7 +186,7 @@
 					dropoff_turf = content
 					break
 
-			if(curr.z == dropoff_turf.z) //Direction calculations for same z-level only
+			if(curr.get_virtual_z_level() == dropoff_turf.get_virtual_z_level()) //Direction calculations for same z-level only
 				direction = uppertext(dir2text(get_dir(curr, dropoff_turf))) //Direction text (East, etc). Not as precise, but still helpful.
 				if(get_area(user) == traitor_data.contractor_hub.current_contract.contract.dropoff)
 					direction = "LOCATION CONFIRMED"

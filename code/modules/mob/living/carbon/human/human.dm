@@ -973,7 +973,7 @@
 			admin_ticket_log(src, msg)
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
-	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat > SOFT_CRIT || a_intent != INTENT_GRAB)
+	if(pulling != target || grab_state < GRAB_AGGRESSIVE || !is_conscious() || a_intent != INTENT_GRAB)
 		return ..()
 
 	//If they dragged themselves and we're currently aggressively grabbing them try to piggyback
@@ -1101,6 +1101,7 @@
 			visible_message("<span class='warning'>[target] fails to climb onto [src]!</span>")
 	else
 		to_chat(target, "<span class='warning'>You can't piggyback ride [src] right now!</span>")
+
 
 /mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
 	if(!force)//humans are only meant to be ridden through piggybacking and special cases
