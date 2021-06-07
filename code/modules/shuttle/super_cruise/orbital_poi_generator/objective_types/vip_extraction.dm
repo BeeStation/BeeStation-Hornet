@@ -3,6 +3,7 @@
 	var/generated = FALSE
 	var/death_caring = TRUE
 	var/mob/mob_to_recover
+	var/tracked_diary
 	//Relatively easy mission.
 	min_payout = 100000
 	max_payout = 400000
@@ -27,12 +28,15 @@
 					//Spawn in a diary
 					var/obj/item/disk/record/diary = new(get_turf(mob_to_recover))
 					diary.setup_recover(src)
+					tracked_diary = diary
 					priority_announce("Sensors indicate that the VIP you were required to extract has perished from the \
 						events that took place in the outpost. Recover their personal logbook and bring it to the station bridge \
 						for recovery.")
 				death_caring = FALSE
 		else if(is_station_level(mob_to_recover.z))
 			complete_objective()
+		if(death_caring && QDELETED(tracked_diary))
+			return TRUE
 	return FALSE
 
 /datum/orbital_objective/vip_recovery/generate_objective_stuff(turf/chosen_turf)

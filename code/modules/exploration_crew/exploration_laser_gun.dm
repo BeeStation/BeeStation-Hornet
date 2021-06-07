@@ -24,7 +24,7 @@
 /obj/item/ammo_casing/energy/laser/cutting
 	projectile_type = /obj/item/projectile/beam/laser/cutting
 	select_name = "cutting laser"
-	e_cost = 60
+	e_cost = 30
 
 /obj/item/projectile/beam/laser/cutting
 	damage = 5
@@ -37,4 +37,7 @@
 	damage = initial(damage)
 	if(isobj(target))
 		damage = 70
+	else if(istype(target, /turf/closed/mineral))
+		var/turf/closed/mineral/T = target
+		T.gets_drilled()
 	. = ..()
