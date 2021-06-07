@@ -103,6 +103,12 @@
 			continue
 		// Check for a malformed history object
 		if (!row || row.len < 3 || (!row["ckey"] || !row["address"] || !row["computer_id"]))
+			if(row && row["ckey"] && row["computer_id"]) //Is the address the only invalid field?
+				LAZYADD(telemetry_notices, "<span class='highlight'>Telemetry Entry [i] has no address. User may be a developer.</span>")
+				LAZYADD(all_ckeys, row["ckey"])
+				LAZYADD(all_ips, "127.0.0.1")
+				LAZYADD(all_cids, row["computer_id"])
+				continue
 			LAZYADD(telemetry_notices, "<span class='highlight'>Telemetry Entry [i] corrupt. Data may be damaged or tampered with.</span>")
 			skipped_entries++
 			continue
@@ -113,7 +119,6 @@
 			LAZYADD(telemetry_notices, "<span class='bad'>BANNED ACCOUNT IN HISTORY! Matched: [row["ckey"]], [row["address"]], [row["computer_id"]]</span>")
 		//Track changes.
 		LAZYADD(all_ckeys, row["ckey"])
-		//Ignore IPs
 		LAZYADD(all_ips, row["address"])
 		LAZYADD(all_cids, row["computer_id"])
 		CHECK_TICK
