@@ -29,3 +29,10 @@
 	item_state = "explorer"
 	item_color = "explorer"
 	can_adjust = FALSE
+
+/obj/item/clothing/under/rank/cargo/exploration
+	name = "exploration uniform"
+	desc = "A robust uniform used by exploration teams."
+	icon_state = "curator"
+	item_state = "curator"
+	item_color = "curator"

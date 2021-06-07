@@ -29,17 +29,21 @@
 	ears = /obj/item/radio/headset/headset_exploration
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/color/black
-	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
+	uniform = /obj/item/clothing/under/rank/cargo/exploration
 	backpack_contents = list(
 		/obj/item/kitchen/knife/combat/survival=1,\
 		/obj/item/stack/marker_beacon/thirty=1)
 	l_pocket = /obj/item/gps/mining/exploration
 	r_pocket = /obj/item/gun/energy/e_gun/mini/exploration
 
-	box = /obj/item/storage/box/survival_mining
+	backpack = /obj/item/storage/backpack/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	duffelbag = /obj/item/storage/backpack/duffelbag
 
 	chameleon_extras = /obj/item/gun/energy/e_gun/mini/exploration
 
 /datum/outfit/job/exploration/hardsuit
 	name = "Exploration Crew (Hardsuit)"
 	suit = /obj/item/clothing/suit/space/hardsuit/exploration
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
+	mask = /obj/item/clothing/mask/breath
