@@ -69,6 +69,21 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"p" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+	dir = 6
+	},
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 5;
+	height = 7;
+	id = "exploration";
+	name = "Exploration Shuttle";
+	width = 13
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "q" = (
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line{
@@ -92,21 +107,6 @@
 "s" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden,
 /turf/closed/wall/mineral/titanium,
-/area/shuttle/exploration)
-"t" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
-	dir = 6
-	},
-/obj/docking_port/mobile{
-	dir = 4;
-	dwidth = 7;
-	height = 7;
-	id = "exploration";
-	name = "Exploration Shuttle";
-	width = 13
-	},
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "u" = (
 /obj/effect/turf_decal/stripes/line{
@@ -273,7 +273,7 @@ R
 R
 Q
 Q
-t
+p
 s
 H
 q

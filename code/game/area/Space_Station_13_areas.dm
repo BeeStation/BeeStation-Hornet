@@ -898,12 +898,28 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Quartermaster's Office"
 	icon_state = "quart"
 
+/area/quartermaster/qm_bedroom
+	name = "Quartermaster's Bedroom"
+	icon_state = "quart"
+
 /area/quartermaster/miningdock
 	name = "Mining Dock"
 	icon_state = "mining"
 
 /area/quartermaster/miningoffice
 	name = "Mining Office"
+	icon_state = "mining"
+
+/area/quartermaster/meeting_room
+	name = "Supply Meeting Room"
+	icon_state = "mining"
+
+/area/quartermaster/exploration_prep
+	name = "Exploration Preperation Room"
+	icon_state = "mining"
+
+/area/quartermaster/exploration_dock
+	name = "Exploration Dock"
 	icon_state = "mining"
 
 /area/janitor
