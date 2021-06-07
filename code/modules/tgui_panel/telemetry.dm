@@ -82,7 +82,7 @@
 		qdel(client)
 		return
 	if(len < TGUI_TELEMETRY_MAX_CONNECTIONS)
-		LAZYADD(telemetry_notices, "<span class='highlight'>User has less than [TGUI_TELEMETRY_MAX_CONNECTIONS] entries in history.</span>")
+		LAZYADD(telemetry_notices, "<span class='highlight'>User has less than [TGUI_TELEMETRY_MAX_CONNECTIONS] entries in history ([len]).</span>")
 
 	//Process the data.
 	var/list/first_found_ban
@@ -96,8 +96,8 @@
 			return
 		var/list/row = telemetry_connections[i]
 		// Check for guest keys, these objects are probably either banned by default or are "corrupt" (Missing an address).
-		if(findtext(row["ckey"],"guest") && !row["address"]) //The guest proc doesn't seem to like working here, so have this hack.
-			LAZYADD(telemetry_notices, "<span class='highlight'>Entry [i] is a guest user and has no address. This entry has been skipped.</span>")
+		if("guest[row["computer_id"]]" == row["ckey"])
+			LAZYADD(telemetry_notices, "<span class='highlight'>Entry [i] is a guest user. This entry has been skipped.</span>")
 			skipped_entries++
 			LAZYADD(all_cids, row["computer_id"])
 			continue
@@ -137,13 +137,13 @@
 			LAZYADD(telemetry_notices, "<span class='average'>User has more than one CKEY in history.</span>")
 		if(3 to INFINITY)
 			if(length(all_ckeys) == len)
-				LAZYADD(telemetry_notices, "<span class='bad'>EVERY ENTRY IN HISTORY HAS A DIFFERENT CKEY!</span>")
+				LAZYADD(telemetry_notices, "<span class='bad'><b>EVERY ENTRY IN HISTORY HAS A DIFFERENT CKEY!</b></span>")
 			else
 				LAZYADD(telemetry_notices, "<span class='bad'>User has multiple CKEYs in history!</span>")
 	switch(length(all_ips))
 		if(2 to INFINITY)
 			if(length(all_ips) == len)
-				LAZYADD(telemetry_notices, "<span class='bad'>EVERY ENTRY IN HISTORY HAS A DIFFERENT IP!</span>")
+				LAZYADD(telemetry_notices, "<span class='bad'><b>EVERY ENTRY IN HISTORY HAS A DIFFERENT IP!</b></span>")
 			else
 				LAZYADD(telemetry_notices, "<span class='average'>User has changed IPs at least once in history.</span>")
 	switch(length(all_cids))
@@ -151,9 +151,9 @@
 			LAZYADD(telemetry_notices, "<span class='average'>User has changed CIDs once.")
 		if(3 to INFINITY)
 			if(length(all_cids) == len)
-				LAZYADD(telemetry_notices, "<span class='bad'>EVERY ENTRY IN HISTORY HAS A DIFFERENT CID!</span>")
+				LAZYADD(telemetry_notices, "<span class='bad'><b>EVERY ENTRY IN HISTORY HAS A DIFFERENT CID!</b></span>")
 			else
-				LAZYADD(telemetry_notices, "<span class='bad'>User has more than one CID in history.</span>")
+				LAZYADD(telemetry_notices, "<span class='bad'>User has more than two CIDs in history.</span>")
 
 /// Render the stats to some
 /datum/tgui_panel/proc/show_notices()
