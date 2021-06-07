@@ -130,7 +130,7 @@
 	//hack - equipt current hat
 	var/mob/living/carbon/C = L
 	if (istype(C))
-		var/obj/item/hat = C.head
+		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
 		if (hat)
 			new_corgi.place_on_head(hat,null,FALSE)
 	L.forceMove(new_corgi)
