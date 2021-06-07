@@ -1,3 +1,4 @@
+//HOLODECK templates
 
 /datum/map_template/holodeck
 	var/template_id = "id"
