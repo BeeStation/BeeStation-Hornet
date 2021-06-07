@@ -147,6 +147,9 @@
 	if(!bulb)
 		to_chat(user, "<span class='notice'>There is no bulb in \the [src].</span>")
 		return FALSE
+	if((flags_1 & NODECONSTRUCT_1))
+		to_chat(user, "<span class='notice'>You cannot remove the bulb from [scr].</span>")
+		return FALSE
 	bulb.forceMove(drop_location())
 	user.put_in_hands(bulb)
 	bulb.update_icon()
