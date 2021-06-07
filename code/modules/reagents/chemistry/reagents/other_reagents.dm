@@ -18,7 +18,7 @@
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 				continue
 
-			if ( ( MEAT & H.dna.species.liked_food ) && ( RAW & H.dna.species.liked_food ) ) // Any raw foods with diseases can infect 
+			if ( ( MEAT & H.dna.species.liked_food ) && ( RAW & H.dna.species.liked_food ) ) // If the food has a disease but the user is immune to these traits, continue 
 				continue
 
 			if((method == TOUCH || method == VAPOR) && (D.spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
