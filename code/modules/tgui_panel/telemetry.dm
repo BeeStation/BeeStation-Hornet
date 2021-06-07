@@ -7,7 +7,7 @@
  * Maximum number of connection records allowed to analyze.
  * Should match the value set in the browser.
  */
-#define TGUI_TELEMETRY_MAX_CONNECTIONS 5
+#define TGUI_TELEMETRY_MAX_CONNECTIONS 10
 
 /**
  * Maximum time allocated for sending a telemetry packet.
@@ -95,10 +95,11 @@
 			// He got cleaned up before we were done
 			return
 		var/list/row = telemetry_connections[i]
-		// Check for guest keys, these objects are probably either banned by default or are corrupt.
-		if(IsGuestKey(row["ckey"]))
-			LAZYADD(telemetry_notices, "<span class='highlight'>Entry [i] is a guest user. This entry has been skipped.</span>")
+		// Check for guest keys, these objects are probably either banned by default or are "corrupt" (Missing an address).
+		if(findtext(row["ckey"],"guest") && !row["address"]) //The guest proc doesn't seem to like working here, so have this hack.
+			LAZYADD(telemetry_notices, "<span class='highlight'>Entry [i] is a guest user and has no address. This entry has been skipped.</span>")
 			skipped_entries++
+			LAZYADD(all_cids, row["computer_id"])
 			continue
 		// Check for a malformed history object
 		if (!row || row.len < 3 || (!row["ckey"] || !row["address"] || !row["computer_id"]))
@@ -112,6 +113,7 @@
 			LAZYADD(telemetry_notices, "<span class='bad'>BANNED ACCOUNT IN HISTORY! Matched: [row["ckey"]], [row["address"]], [row["computer_id"]]</span>")
 		//Track changes.
 		LAZYADD(all_ckeys, row["ckey"])
+		//Ignore IPs
 		LAZYADD(all_ips, row["address"])
 		LAZYADD(all_cids, row["computer_id"])
 		CHECK_TICK
@@ -122,6 +124,9 @@
 		var/msg = "[key_name(client)] has a banned account in connection history! (Matched: [first_found_ban["ckey"]], [first_found_ban["address"]], [first_found_ban["computer_id"]])"
 		message_admins(msg)
 		log_admin_private(msg)
+	all_ckeys = uniqueList(all_ckeys)
+	all_ips = uniqueList(all_ips)
+	all_cids = uniqueList(all_cids)
 	switch(length(all_ckeys))
 		if(2)
 			LAZYADD(telemetry_notices, "<span class='average'>User has more than one CKEY in history.</span>")
