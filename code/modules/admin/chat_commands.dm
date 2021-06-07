@@ -52,6 +52,7 @@
 	var/res = IrcPm(target, all_params.Join(" "), sender.friendly_name)
 	if(res != "Message Successful")
 		return res
+**/
 
 /datum/tgs_chat_command/namecheck
 	name = "namecheck"
@@ -65,7 +66,6 @@
 	log_admin("Chat Name Check: [sender.friendly_name] on [params]")
 	message_admins("Name checking [params] from [sender.friendly_name]")
 	return keywords_lookup(params, 1)
-**/
 
 /datum/tgs_chat_command/adminwho
 	name = "adminwho"
