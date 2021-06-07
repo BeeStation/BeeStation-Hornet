@@ -36,6 +36,7 @@
 	held_state = "corgi"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
+	worn_slot_flags = ITEM_SLOT_HEAD
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
 
@@ -66,8 +67,10 @@
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/pug = 3)
 	gold_core_spawnable = FRIENDLY_SPAWN
+	worn_slot_flags = ITEM_SLOT_HEAD
 	collar_type = "pug"
 	held_state = "pug"
+
 
 /mob/living/simple_animal/pet/dog/bullterrier
 	name = "\improper bull terrier"
@@ -79,8 +82,10 @@
 	icon_dead = "bullterrier_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 3) // Would feel redundant to add more new dog meats.
 	gold_core_spawnable = FRIENDLY_SPAWN
+	worn_slot_flags = ITEM_SLOT_HEAD //by popular demand
 	collar_type = "bullterrier"
 	held_state = "bullterrier"
+	head_icon = 'icons/mob/pets_held_large.dmi'
 
 /mob/living/simple_animal/pet/dog/bullterrier/walter
 	name = "Walter"
@@ -100,6 +105,7 @@
 	icon_dead = "corgigrey_dead"
 	animal_species = /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
 	nofur = TRUE
+	worn_slot_flags = null
 
 /mob/living/simple_animal/pet/dog/Initialize()
 	. = ..()
@@ -363,6 +369,8 @@
 	var/record_age = 1
 	var/memory_saved = FALSE
 	var/saved_head //path
+	worn_slot_flags = ITEM_SLOT_HEAD
+
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/Initialize()
 	. = ..()
@@ -510,6 +518,7 @@
 	nofur = TRUE
 	unique_pet = TRUE
 	held_state = "narsian"
+	worn_slot_flags = null
 
 /mob/living/simple_animal/pet/dog/corgi/narsie/Life()
 	..()
@@ -593,6 +602,7 @@
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	collar_type = "puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD
 
 //puppies cannot wear anything.
 /mob/living/simple_animal/pet/dog/corgi/puppy/Topic(href, href_list)
@@ -620,6 +630,7 @@
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
 	held_state = "void_puppy"
+	worn_slot_flags = ITEM_SLOT_HEAD
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/Process_Spacemove(movement_dir = 0)
 	return 1	//Void puppies can navigate space.
@@ -640,6 +651,7 @@
 	response_disarm = "bops"
 	response_harm   = "kicks"
 	held_state = "lisa"
+	worn_slot_flags = ITEM_SLOT_HEAD
 	var/turns_since_scan = 0
 	var/puppies = 0
 

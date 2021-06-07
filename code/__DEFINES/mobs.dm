@@ -203,6 +203,9 @@
 #define ETHEREAL_CHARGE_ALMOSTFULL 75
 #define ETHEREAL_CHARGE_FULL 100
 
+//Base nutrition value used for newly initialized slimes
+#define SLIME_DEFAULT_NUTRITION 700
+
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10
 
@@ -368,6 +371,7 @@
 #define WABBAJACK     (1<<6)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+#define INTERACTING_WITH(X, Y) (Y in X.do_afters)
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
 

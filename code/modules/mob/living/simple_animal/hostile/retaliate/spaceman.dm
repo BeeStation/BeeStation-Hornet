@@ -20,7 +20,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	del_on_death = 0
+	del_on_death = FALSE
 
 	do_footstep = TRUE
 

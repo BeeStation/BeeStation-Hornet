@@ -582,7 +582,7 @@ Takes: Area type as text string or as typepath OR an instance of the area.
 
 Returns: A list of all areas of that type in the world.
 */
-/proc/get_areas(areatype, subtypes=TRUE)
+/proc/get_areas(areatype, target_z = 0, subtypes=TRUE)
 	if(istext(areatype))
 		areatype = text2path(areatype)
 	else if(isarea(areatype))
@@ -597,12 +597,14 @@ Returns: A list of all areas of that type in the world.
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
 			if(cache[A.type])
-				areas += V
+				if(target_z == 0 || A.z == target_z)
+					areas += V
 	else
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
 			if(A.type == areatype)
-				areas += V
+				if(target_z == 0 || A.z == target_z)
+					areas += V
 	return areas
 
 /**
@@ -748,22 +750,6 @@ of course mathematically this is just adding `world.icon_size` on again
 			return loc
 		loc = loc.loc
 	return null
-
-
-//For objects that should embed, but make no sense being is_sharp or is_pointed() e.g: rods
-GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
-	/obj/item/stack/rods,
-	/obj/item/pipe)))
-
-/proc/can_embed(obj/item/W)
-	if(W.is_sharp())
-		return 1
-	if(is_pointed(W))
-		return 1
-
-	if(is_type_in_typecache(W, GLOB.can_embed_types))
-		return 1
-
 
 /*
 Checks if that loc and dir has an item on the wall

@@ -225,6 +225,9 @@ MAX_POP INCURSION -1
 MIN_POP CLOCKCULT 32
 MAX_POP CLOCKCULT -1
 
+MIN_POP HERESY 25
+MAX_POP HERESY -1
+
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000
 

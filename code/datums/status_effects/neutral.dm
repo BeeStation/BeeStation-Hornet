@@ -119,7 +119,7 @@
 			spell.update_icon()
 		rewarded.adjustBruteLoss(-25)
 		rewarded.adjustFireLoss(-25)
-		rewarded.adjustToxLoss(-25)
+		rewarded.adjustToxLoss(-25, FALSE, TRUE)
 		rewarded.adjustOxyLoss(-25)
 		rewarded.adjustCloneLoss(-25)
 

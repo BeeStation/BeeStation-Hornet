@@ -25,7 +25,7 @@
 	health = 30
 	maxHealth = 30
 	unsuitable_atmos_damage = 0
-	wander = 0
+	wander = FALSE
 	speed = 0
 	ventcrawler = VENTCRAWLER_ALWAYS
 	healable = 0
@@ -210,7 +210,7 @@
 
 
 /mob/living/simple_animal/drone/proc/triggerAlarm(class, area/home, cameras, obj/source)
-	if(source.z != z)
+	if(source.get_virtual_z_level() != get_virtual_z_level())
 		return
 	if(stat == DEAD)
 		return
