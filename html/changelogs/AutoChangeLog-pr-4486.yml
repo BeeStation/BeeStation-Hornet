@@ -1,4 +1,0 @@
-author: willox,LemonInTheDark
-delete-after: true
-changes:
-  - code_imp: Updates the debugger to use auxtools over extools.
