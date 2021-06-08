@@ -195,7 +195,7 @@
 					power *= 2.5
 				else
 					power *= 3
-		if(power > 50 && user.z == target.z)
+		if(power > 50 && user.get_virtual_z_level() == target.get_virtual_z_level())
 			to_chat(user, "<span class='notice'>We have overloaded the vessel for a short time!</span>")
 			target.Jitter(round(power/10))
 			target.Unconscious(power)
@@ -236,7 +236,7 @@
 			break
 		distance = get_dist(user, L)
 		message = "[(L.is_real_hivehost()) ? "Someone": "A hivemind host"] tracking us"
-		if(user.z != L.z || L.stat == DEAD)
+		if(user.get_virtual_z_level() != L.get_virtual_z_level() || L.stat == DEAD)
 			message += " could not be found."
 		else
 			switch(distance)
@@ -259,7 +259,7 @@
 		var/mob/living/real_enemy = C.get_real_hivehost()
 		distance = get_dist(user, real_enemy)
 		message = "A host that we can track for [(hive.individual_track_bonus[enemy])/10] extra seconds"
-		if(user.z != real_enemy.z || real_enemy.stat == DEAD)
+		if(user.get_virtual_z_level() != real_enemy.get_virtual_z_level() || real_enemy.stat == DEAD)
 			message += " could not be found."
 		else
 			switch(distance)
@@ -401,7 +401,7 @@
 			to_chat(user, "<span class='notice'>We fail to assume control of the target.</span>")
 			revert_cast()
 			return
-		if(user.z != vessel.z)
+		if(user.get_virtual_z_level() != vessel.get_virtual_z_level())
 			to_chat(user, "<span class='notice'>Our vessel is too far away to control.</span>")
 			revert_cast()
 			return
@@ -460,7 +460,7 @@
 			original_body.adjustOrganLoss(ORGAN_SLOT_BRAIN, 200)
 			to_chat(vessel.mind, "<span class='warning'>Our vessel is one of us no more!</span>")
 			release_control()
-		else if(!QDELETED(original_body) && original_body.z != vessel.z) //Return to original bodies
+		else if(!QDELETED(original_body) && original_body.get_virtual_z_level() != vessel.get_virtual_z_level()) //Return to original bodies
 			release_control()
 			to_chat(original_body, "<span class='warning'>Our vessel is too far away to control!</span>")
 		else if(QDELETED(original_body) || original_body.stat == DEAD) //Return vessel to its body, either return or ghost the original
@@ -620,7 +620,7 @@
 	if(!hive)
 		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
 		return
-	if(target.z != user.z)
+	if(target.get_virtual_z_level() != user.get_virtual_z_level())
 		to_chat(user, "<span class='notice'>We are too far away from [target.name] to affect them!</span>")
 		return
 	to_chat(user, "<span class='notice'>We successfully distort reality surrounding [target.name]!</span>")

@@ -2021,7 +2021,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/datum/loadout_category/DLC = GLOB.loadout_categories["Donator"] // stands for donator loadout category but the other def for DLC works too xD
 	if(!LAZYLEN(GLOB.patrons) || !CONFIG_GET(flag/donator_items)) // donator items are only accesibile by servers with a patreon
 		return
-	if(IS_PATRON(parent.ckey))
+	if(IS_PATRON(parent.ckey) || (parent in GLOB.admins))
 		for(var/gear_id in DLC.gear)
 			var/datum/gear/AG = DLC.gear[gear_id]
 			if(AG.id in purchased_gear)

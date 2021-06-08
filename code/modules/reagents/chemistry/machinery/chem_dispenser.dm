@@ -24,7 +24,6 @@
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
 
 
-
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
 	var/amount = 30
@@ -107,8 +106,8 @@
 		"Recharging <b>[recharge_amount]</b> power units per interval.\n"+\
 		"Power efficiency increased by <b>[round((powerefficiency*1000)-100, 1)]%</b>.</span>"
 
-/obj/machinery/chem_dispenser/process()
-	if (recharge_counter >= 4)
+/obj/machinery/chem_dispenser/process(delta_time)
+	if (recharge_counter >= 8)
 		if(!is_operational())
 			return
 		var/usedpower = cell.give(recharge_amount)
@@ -116,7 +115,7 @@
 			use_power(250*recharge_amount)
 		recharge_counter = 0
 		return
-	recharge_counter++
+	recharge_counter += delta_time
 
 /obj/machinery/chem_dispenser/proc/display_beaker()
 	var/mutable_appearance/b_o = beaker_overlay || mutable_appearance(icon, "disp_beaker")

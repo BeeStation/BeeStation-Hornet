@@ -73,6 +73,16 @@
 /**
  * public
  *
+ * Clears the antagonist popup.
+ */
+/datum/tgui_panel/proc/clear_antagonist_popup()
+	if(!is_ready())
+		return
+	window.send_message("stat/clearAntagPopup", list())
+
+/**
+ * public
+ *
  * Displays the dead message.
  */
 /datum/tgui_panel/proc/give_dead_popup()
@@ -87,7 +97,7 @@
  *
  * Clears the death message
  */
-/datum/tgui_panel/proc/clear_dead_poup()
+/datum/tgui_panel/proc/clear_dead_popup()
 	if(!is_ready())
 		return
 	window.send_message("stat/clearDeadPopup", list())
