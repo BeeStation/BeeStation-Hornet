@@ -74,6 +74,7 @@
 	options["The Madman"] = "joker"
 	options["The Rainbow Color"] ="rainbow"
 	options["The Jester"] ="chaos" //Nepeta33Leijon is holding me captive and forced me to help with this please send help
+	options["The Lunatic"] = "trickymask"
 
 	var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sortList(options)
 
