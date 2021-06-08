@@ -285,13 +285,13 @@
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
-	if (signal.data["done"] && (T.z in signal.levels))
+	if (signal.data["done"] && (T.get_virtual_z_level() in signal.levels))
 		return
 
 	// Okay, the signal was never processed, send a mundane broadcast.
 	signal.data["compression"] = 0
 	signal.transmission_method = TRANSMISSION_RADIO
-	signal.levels = list(T.z)
+	signal.levels = list(T.get_virtual_z_level())
 	signal.broadcast()
 
 /obj/item/radio/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
@@ -321,7 +321,7 @@
 		return independent  // hard-ignores the z-level check
 	if (!(0 in level))
 		var/turf/position = get_turf(src)
-		if(!position || !(position.z in level))
+		if(!position || !(position.get_virtual_z_level() in level))
 			return FALSE
 
 	// allow checks: are we listening on that frequency?

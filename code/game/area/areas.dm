@@ -621,9 +621,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		return A.has_gravity
 	else
 		// There's a gravity generator on our z level
-		if(GLOB.gravity_generators["[T.z]"])
+		if(GLOB.gravity_generators["[T.get_virtual_z_level()]"])
 			var/max_grav = 0
-			for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.z]"])
+			for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_virtual_z_level()]"])
 				max_grav = max(G.setting,max_grav)
 			return max_grav
 	return SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)
@@ -669,3 +669,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// A hook so areas can modify the incoming args (of what??)
 /area/proc/PlaceOnTopReact(list/new_baseturfs, turf/fake_turf_type, flags)
 	return flags
+
+/// Gets an areas virtual z value. For having multiple areas on the same z-level treated mechanically as different z-levels
+/area/proc/get_virtual_z()
+	return z
+
+/area/get_virtual_z_level()
+	return get_virtual_z()
