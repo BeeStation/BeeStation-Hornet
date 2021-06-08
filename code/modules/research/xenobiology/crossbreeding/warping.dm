@@ -791,7 +791,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 	has_gravity = TRUE
 	teleport_restriction = TELEPORT_ALLOW_NONE
 
-/area/warped_room/get_virtual_z()
+/area/warped_room/get_virtual_z(turf/T)
 	return WARPED_ROOM_VIRTUAL_Z
 
 ///creates the warped room and place an exit rune to exit the room
