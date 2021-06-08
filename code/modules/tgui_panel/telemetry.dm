@@ -3,23 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-/**
- * Maximum number of connection records allowed to analyze.
- * Should match the value set in the browser.
- */
-#define TGUI_TELEMETRY_MAX_CONNECTIONS 10
-
-/**
- * Maximum time allocated for sending a telemetry packet.
- */
-#define TGUI_TELEMETRY_RESPONSE_WINDOW 30 SECONDS
-
-/// Telemetry statuses
-#define TGUI_TELEMETRY_STAT_NOT_REQUESTED 0 //Not Yet Requested
-#define TGUI_TELEMETRY_STAT_AWAITING      1 //Awaiting request response
-#define TGUI_TELEMETRY_STAT_ANALYZED      2 //Retrieved and validated
-#define TGUI_TELEMETRY_STAT_MISSING       3 //Telemetry response window miss without valid telemetry
-#define TGUI_TELEMETRY_STAT_OVERSEND      4 //Telemetry was already processed but was repeated
+/// Moved to _DEFINES/tgui.dm
 
 /// Time of telemetry request
 /datum/tgui_panel/var/telemetry_requested_at
@@ -31,8 +15,6 @@
 /datum/tgui_panel/var/telemetry_status = TGUI_TELEMETRY_STAT_NOT_REQUESTED
 /// Telemetry Notices
 /datum/tgui_panel/var/list/telemetry_notices
-/// Player Panel telemetry cache. It's static, no reason to do it multiple times.
-/datum/tgui_panel/var/telemetry_pp_cache
 /**
  * private
  *
@@ -61,13 +43,11 @@
 		if(telemetry_status == TGUI_TELEMETRY_STAT_ANALYZED) //Hey we already have a packet from you!
 			LAZYADD(telemetry_notices, "<span class='highlight'>Telemetry was sent multiple times.</span>")
 			telemetry_status = TGUI_TELEMETRY_STAT_OVERSEND
-			telemetry_pp_cache = null
 		return
 	if(telemetry_analyzed_at)
 		message_admins("[key_name(client)] sent telemetry more than once.")
 		LAZYADD(telemetry_notices, "<span class='highlight'>Telemetry was sent multiple times.</span>")
 		telemetry_status = TGUI_TELEMETRY_STAT_OVERSEND
-		telemetry_pp_cache = null
 		return
 	telemetry_analyzed_at = world.time
 	telemetry_status = TGUI_TELEMETRY_STAT_ANALYZED
@@ -157,8 +137,6 @@
 
 /// Render the stats to some
 /datum/tgui_panel/proc/show_notices()
-	if(telemetry_pp_cache)
-		return telemetry_pp_cache
 	//Yes this code was in fact just dragged out and thrown in a different file.
 	. += "<br><b>Telemetry Status:</b>"
 	switch(telemetry_status)
@@ -171,7 +149,6 @@
 			. += "<br><b>Telemetry Alerts:</b>"
 			if(!length(telemetry_notices))
 				. += "<span class='good'>No Alerts.</span>"
-				telemetry_pp_cache = .
 				return
 			. += "<br><ul>"
 			for(var/notice in telemetry_notices)
@@ -181,4 +158,3 @@
 			. += "<span class='bad'>Telemetry Data Missing!</span>"
 		else
 			. += "<span class='bad'>Telemetry datum in invalid state ID [isnum(telemetry_status) ? telemetry_status : "!!NAN!!, CALL A CODER"]. Call a coder.</span>"
-	telemetry_pp_cache = .
