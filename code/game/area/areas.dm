@@ -675,4 +675,4 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	return T.z
 
 /area/get_virtual_z_level()
-	return get_virtual_z()
+	return get_virtual_z(get_turf(src))

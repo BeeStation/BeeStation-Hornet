@@ -14,5 +14,9 @@
   */
 /atom/proc/get_virtual_z_level()
 	var/turf/T = get_turf(src)
+	if(!T)
+		return 0
 	var/area/A = T.loc
+	if(!A)
+		return 0
 	return A.get_virtual_z(T)
