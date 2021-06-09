@@ -48,6 +48,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_ID	//when this be added to vis_contents of something it inherit something.plane and be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
+	///the holodeck can load onto this turf if TRUE
+	var/holodeck_compatible = FALSE
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -128,7 +131,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
-	
+
 	vis_contents.Cut()
 
 /turf/attack_hand(mob/user)
