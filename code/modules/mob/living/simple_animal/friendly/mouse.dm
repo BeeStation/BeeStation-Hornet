@@ -60,11 +60,11 @@
 	death()
 
 /mob/living/simple_animal/mouse/death(gibbed, toast)
+	var/list/data = list("viruses" = ratdisease)
 	if(!ckey)
 		..(1)
 		if(!gibbed)
 			var/obj/item/reagent_containers/food/snacks/deadmouse/M = new(loc)
-			var/list/data = list("donor" = M, "viruses" = ratdisease) // Need the object on the donor so we can track its foodtype for disease checks later 
 			M.icon_state = icon_dead
 			M.name = name
 			M.reagents.add_reagent(/datum/reagent/blood, 2, data)
