@@ -501,11 +501,11 @@
 		examine_delay_length *= 1.5
 	else if(ismob(examined_thing) && examined_thing != src)
 		examine_delay_length *= 2
-	
+
 	if(examine_delay_length > 0 && !do_after(src, examine_delay_length, target = examined_thing))
 		to_chat(src, "<span class='notice'>You can't get a good feel for what is there.</span>")
 		return FALSE
-	
+
 	//now we touch the thing we're examining
 	/// our current intent, so we can go back to it after touching
 	var/previous_intent = a_intent
@@ -608,7 +608,7 @@
 /mob/verb/memory()
 	set name = "Notes"
 	set category = "IC"
-	set desc = "View your character's notes memory."
+	set desc = "View/Edit your character's notes memory."
 	if(mind)
 		mind.show_memory(src)
 	else
