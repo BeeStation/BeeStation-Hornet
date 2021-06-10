@@ -377,7 +377,6 @@
 	. = ..()
 	new /obj/item/gun/ballistic/revolver/detective(src)
 	new /obj/item/ammo_box/c38(src)
-	new /obj/item/ammo_box/c38(src)
 
 //Poppy Pin
 /obj/item/clothing/accessory/poppy_pin

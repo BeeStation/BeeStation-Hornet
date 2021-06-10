@@ -88,3 +88,19 @@
 /datum/mutation/human/laser_eyes/on_ranged_attack(atom/target, mouseparams)
 	if(owner.a_intent == INTENT_HARM)
 		owner.LaserEyes(target, mouseparams)
+//Noir
+/datum/mutation/human/noir
+	name = "Color Blindness"
+	desc = "Renders the subject unable to see any colors."
+	quality = NEGATIVE
+	text_gain_indication = "<span class='danger'>Colors start to dissipate...</span>"
+
+/datum/mutation/human/noir/on_acquiring(mob/living/carbon/human/owner)
+	if(..())
+		return
+	owner.add_client_colour(/datum/client_colour/monochrome)
+
+/datum/mutation/human/noir/on_losing(mob/living/carbon/human/owner)
+	if(..())
+		return
+	owner.remove_client_colour(/datum/client_colour/monochrome)

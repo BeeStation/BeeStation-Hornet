@@ -724,6 +724,9 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/detective
 	icon_state = "detective"
+	
+/obj/item/card/id/syndicate/anyone/undercover
+	var/illegal_tech = FALSE
 
 /obj/item/card/id/job/warden
 	icon_state = "warden"
