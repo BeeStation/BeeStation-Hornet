@@ -255,9 +255,6 @@
 		if(TOOL_HEMOSTAT)
 			damage_multiplier = 0
 			remove_verb = "carefully removing"
-		if(TOOL_SHOVEL)
-			damage_multiplier = (6 - weapon.w_class)
-			remove_verb = "attempting to dig out"
 		if(TOOL_WIRECUTTER)
 			if(weapon.w_class >= WEIGHT_CLASS_NORMAL)
 				to_chat(user, "<span class='warning'>[weapon] is too large to extract with wirecutters!</span>")
