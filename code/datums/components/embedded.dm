@@ -141,7 +141,7 @@
 
 	if(harmful && prob(chance))
 		var/damage_left = max_damage - limb.get_damage()
-		var/damage_wanted = min((1-pain_stam_pct) * damage
+		var/damage_wanted = (1-pain_stam_pct) * damage
 		var/damage_to_deal = CLAMP(damage_wanted, 0, damage_left)
 		var/damage_as_stam = damage_wanted - damage_to_deal
 		if(!damage_to_deal)
