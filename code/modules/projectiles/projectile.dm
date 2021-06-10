@@ -124,6 +124,9 @@
 
 	///If defined, on hit we create an item of this type then call hitby() on the hit target with this
 	var/shrapnel_type
+	///If we have a shrapnel_type defined, these embedding stats will be passed to the spawned shrapnel type, which will roll for embedding on the target
+	var/list/embedding
+
 	///If TRUE, hit mobs even if they're on the floor and not our target
 	var/hit_stunned_targets = FALSE
 
@@ -750,7 +753,7 @@
 	return
 
 ///Like [/obj/item/proc/updateEmbedding] but for projectiles instead, call this when you want to add embedding or update the stats on the embedding element
-/obj/projectile/proc/updateEmbedding()
+/obj/item/projectile/proc/updateEmbedding()
 	if(!shrapnel_type || !LAZYLEN(embedding))
 		return
 
