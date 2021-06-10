@@ -7,6 +7,7 @@
 	name = "beanbag slug"
 	damage = 5
 	stamina = 55
+	embedding = null
 
 /obj/item/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
@@ -84,6 +85,7 @@
 	name = "rubbershot pellet"
 	damage = 3
 	stamina = 9
+	embedding = null
 
 /obj/item/projectile/bullet/pellet/shotgun_incapacitate
 	name = "incapacitating pellet"

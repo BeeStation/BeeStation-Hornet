@@ -30,6 +30,7 @@
 	ricochet_incidence_leeway = 50
 	ricochet_decay_chance = 1
 	ricochet_decay_damage = 1
+	embedding = null
 
 /obj/item/projectile/bullet/c38/match/bouncy
 	name = ".38 Rubber bullet"

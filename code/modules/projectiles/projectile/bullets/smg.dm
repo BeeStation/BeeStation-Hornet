@@ -15,6 +15,7 @@
 	name = "4.6x30mm armor-piercing bullet"
 	damage = 15
 	armour_penetration = 40
+	embedding = null
 
 /obj/item/projectile/bullet/incendiary/c46x30mm
 	name = "4.6x30mm incendiary bullet"
