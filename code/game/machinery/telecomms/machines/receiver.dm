@@ -28,12 +28,12 @@
 		relay_information(signal, /obj/machinery/telecomms/bus)
 
 /obj/machinery/telecomms/receiver/proc/check_receive_level(datum/signal/subspace/signal)
-	if (z in signal.levels)
+	if (get_virtual_z_level() in signal.levels)
 		return TRUE
 
 	for(var/obj/machinery/telecomms/hub/H in links)
 		for(var/obj/machinery/telecomms/relay/R in H.links)
-			if(R.can_receive(signal) && (R.z in signal.levels))
+			if(R.can_receive(signal) && (R.get_virtual_z_level() in signal.levels))
 				return TRUE
 
 	return FALSE

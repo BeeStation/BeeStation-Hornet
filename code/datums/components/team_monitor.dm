@@ -169,7 +169,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/atom/movable/screen/arrow/screen = tracking[beacon]
 	var/turf/target_turf = get_turf(beacon.parent)
 	var/turf/parent_turf = get_turf(parent)
-	if(target_turf.z != parent_turf.z || target_turf == parent_turf)
+	if(target_turf.get_virtual_z_level() != parent_turf.get_virtual_z_level() || target_turf == parent_turf)
 		if(screen)
 			//Remove the screen
 			updating.hud_used.team_finder_arrows -= screen

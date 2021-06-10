@@ -73,7 +73,7 @@
 	for(var/V in shuttle_port.shuttle_areas)
 		var/area/A = V
 		for(var/turf/T in A)
-			if(T.z != origin.z)
+			if(T.get_virtual_z_level() != origin.get_virtual_z_level())
 				continue
 			var/image/I = image('icons/effects/alphacolors.dmi', origin, "red")
 			var/x_off = T.x - origin.x
