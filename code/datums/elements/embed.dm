@@ -140,13 +140,16 @@
 		return // we don't care
 
 	var/obj/item/payload = new payload_type(get_turf(hit))
+	if(istype(payload, /obj/item/shrapnel/bullet))
+		payload.name = P.name
+	payload.embedding = P.embedding
+	payload.updateEmbedding()
 	var/mob/living/carbon/C = hit
 	var/obj/item/bodypart/limb = C.get_bodypart(hit_zone)
 	if(!limb)
 		limb = C.get_bodypart()
 
-	if(!payload.tryEmbed(limb))
-		payload.failedEmbed()
+	payload.tryEmbed(limb)
 	Detach(P)
 
 /**
@@ -178,4 +181,5 @@
 		hit_zone = limb.body_zone
 		C = limb.owner
 
-	return checkEmbed(I, C, hit_zone, forced=TRUE)
+	checkEmbed(I, C, hit_zone, forced=TRUE)
+	return TRUE

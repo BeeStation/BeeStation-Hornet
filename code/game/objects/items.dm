@@ -1086,7 +1086,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 
 	if(SEND_SIGNAL(src, COMSIG_EMBED_TRY_FORCE, target, forced, silent))
-		return TRUE
+		return COMPONENT_EMBED_SUCCESS
 	failedEmbed()
 
 ///For when you want to disable an item's embedding capabilities (like transforming weapons and such), this proc will detach any active embed elements from it.
