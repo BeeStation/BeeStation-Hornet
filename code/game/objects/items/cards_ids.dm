@@ -767,13 +767,13 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	if (istype(target,/obj/item/card/id) && proximity)
+	if(istype(target,/obj/item/card/id) && proximity)
 		var/obj/item/card/id/idcard = target
-		for (var/ac in access)
+		for(var/ac in access)
 			idcard.access |= ac
-		if (assignment!="Access Pass")
+		if(assignment!=initial(assignment))
 			idcard.assignment = assignment
-		if (name!="Unregistered ID")
+		if(name!=initial(name))
 			idcard.name = name
 		to_chat(user, "You upgrade your [idcard] with the [name].")
 		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
@@ -784,8 +784,3 @@ update_label("John Doe", "Clowny")
 	desc = "Swipe it on your ID card to become a Deputy. How does it feel to be at the other side of the stunbaton?"
 	assignment = "Deputy"
 	access = list (ACCESS_SEC_DOORS,ACCESS_MAINT_TUNNELS,ACCESS_COURT,ACCESS_BRIG,ACCESS_WEAPONS)
-
-/obj/item/card/id/pass/theatre
-	name = "thespian card"
-	desc = "Grants access to theatre, and acting related rooms."
-	access = list(ACCESS_THEATRE)

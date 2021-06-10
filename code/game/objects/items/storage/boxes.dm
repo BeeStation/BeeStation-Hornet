@@ -1226,17 +1226,6 @@
 		)
 	generate_items_inside(items_inside,src)
 
-//passes box
-
-/obj/item/storage/box/passes
-	name = "box of promotion passes"
-	desc = "Has so many empty IDs."
-	illustration = "id"
-
-/obj/item/storage/box/ids/PopulateContents()
-	for(var/i in 1 to 10)
-		new /obj/item/card/id/pass(src)
-
 /obj/item/storage/box/deputy
 	name = "box of deputy armbands"
 	desc = "To be issued to those authorized to act as deputy of security."
