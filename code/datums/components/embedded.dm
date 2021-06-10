@@ -219,7 +219,7 @@
 		if(to_hands)
 			INVOKE_ASYNC(to_hands, /mob.proc/put_in_hands, weapon)
 		else
-			weapon.forceMove(get_turf(victim))
+			INVOKE_ASYNC(weapon, /atom/movable.proc/forceMove, get_turf(victim))
 
 	qdel(src)
 
