@@ -477,7 +477,7 @@
 	force_wielded = 18
 	block_power_wielded = 25
 	block_upgrade_walk = 1
-	throwforce = 20
+	throwforce = 22
 	throw_speed = 4
 	embedding = list("armour_block" = 60)
 	armour_penetration = 10
@@ -878,7 +878,7 @@
 	block_upgrade_walk = 1
 	force_unwielded = 11
 	force_wielded = 20					//I have no idea how to balance
-	throwforce = 22
+	throwforce = 24
 	throw_speed = 4
 	embedding = list("armour_block" = 50)
 	armour_penetration = 15				//Enhanced armor piercing

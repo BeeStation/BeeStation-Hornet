@@ -128,7 +128,7 @@
 	desc = "A mop with a sharpened handle. Careful!"
 	name = "sharpened mop"
 	force = 10
-	throwforce = 15
+	throwforce = 18
 	throw_speed = 4
 	attack_verb = list("mopped", "stabbed", "shanked", "jousted")
 	sharpness = IS_SHARP
