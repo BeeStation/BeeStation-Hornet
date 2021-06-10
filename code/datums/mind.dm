@@ -399,6 +399,18 @@
 /datum/mind/ui_state(mob/user)
 	return GLOB.always_state
 
+//don't need to send pen shit all the time
+/datum/mind/ui_static_data(mob/user)
+	var/list/data = list()
+	data["max_length"] = MAX_MESSAGE_LEN
+	data["paper_color"] = "#FFFFFF"
+	data["pen_color"] = "#000000"
+	data["edit_mode"] = 1
+	data["is_crayon"] = FALSE
+	data["stamp_class"] = "FAKE"
+	data["stamp_icon_state"] = "FAKE"
+	return data
+
 /datum/mind/ui_data(mob/user)
 	var/list/data = list()
 
@@ -407,6 +419,7 @@
 	for(var/datum/antagonist/A in antag_datums)
 		objective_out += A.antag_memory
 		all_objectives |= A.objectives
+
 	if(!all_objectives.len)
 		objective_out += "\n"
 
@@ -423,14 +436,9 @@
 				objective_out += "</ul>"
 		objective_out += "\n"
 
-	data["text"] = objective_out + memory
-	data["max_length"] = MAX_MESSAGE_LEN
-	data["paper_color"] = "#FFFFFF"
-	data["pen_color"] = "#000000"
-	data["edit_mode"] = 1
-	data["is_crayon"] = FALSE
-	data["stamp_class"] = "FAKE"
-	data["stamp_icon_state"] = "FAKE"
+	data["static_text"] = objective_out
+
+	data["text"] = memory
 
 	return data
 
