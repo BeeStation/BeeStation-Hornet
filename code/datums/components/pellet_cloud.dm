@@ -311,7 +311,6 @@
 
 /// Our grenade or landmine or caseless shell or whatever tried deleting itself, so we intervene and nullspace it until we're done here
 /datum/component/pellet_cloud/proc/nullspace_parent()
-	SIGNAL_HANDLER
 	var/atom/movable/AM = parent
 	AM.moveToNullspace()
 	queued_delete = TRUE

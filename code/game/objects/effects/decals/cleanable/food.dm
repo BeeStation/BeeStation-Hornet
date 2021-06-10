@@ -33,7 +33,7 @@
 /obj/effect/decal/cleanable/food/salt/Crossed(mob/living/L)
 	if(is_species(L, /datum/species/snail) || is_species(L, /datum/species/squid))
 		while(L.loc == src.loc)
-			INVOKE_ASYNC(L, /mob/living.proc/adjustFireLoss, 2, TRUE)
+			L.adjustFireLoss(2, TRUE)
 			to_chat(L, "<span class='danger'>The salt! It burns!</span>")
 			sleep(20)
 
