@@ -86,7 +86,7 @@
 	var/target_armour = 0
 
 	if(!weapon.isEmbedHarmless()) // all the armor in the world won't save you from a kick me sign
-		target_armour = victim.run_armor_check(hit_zone, armour_penetration = I.armour_penetration, silent = TRUE)
+		target_armour = victim.run_armor_check(hit_zone, armour_penetration = weapon.armour_penetration, silent = TRUE)
 
 		//Target has enough armour to block the embed.
 		if(target_armour >= armour_block)
