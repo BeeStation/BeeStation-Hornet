@@ -396,21 +396,19 @@
 	return detective_item_list
 
 /obj/item/storage/box/detectivebeacon
-	name = "Private Investigator"
+	name = "The Private Investigator"
 	desc = "Gritty, rude, and answers all questions in a sarcastic tone. The Private Investigator likes to rely more on his own senses and intuition, instead of this fancy new technology. Contains your standard gear, and an olfaction injector."
 
 /obj/item/storage/box/detectivebeacon/PopulateContents()
 	new /obj/item/clothing/suit/det_suit/noir(src)
 	new /obj/item/clothing/under/rank/security/detective/grey(src)
 	new /obj/item/clothing/head/fedora (src)
-	new /obj/item/clothing/neck/tie/detective (src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
-	new obj/item/ammo_box/c38(src)
+	new /obj/item/ammo_box/c38(src)
 	new /obj/item/dnainjector/privatedick(src)
 
 /obj/item/storage/box/detectivebeacon/undercover
-	name = "Undercover Agent"
-	desc = "No, I don't know of any syndicate activity, mister Dick Detectiveson! The Undercover Agent Kit provides you with additional gear required to disguise yourself as a regular assistant."
+	name = "The Undercover Agent"
+	desc = "No, I don't know of any syndicate activity, mister Rick Detectiveson! The Undercover Agent Kit provides you with additional gear required to disguise yourself as a regular assistant."
 
 /obj/item/storage/box/detectivebeacon/undercover/PopulateContents()
 	new /obj/item/implanter/undercover(src)
@@ -419,19 +417,20 @@
 	new /obj/item/card/assistant_disguise_card(src)
 	new /obj/item/ammo_box/c38/trac(src)
 
-/obj/item/storage/box/detectivebeacon/scrunnysidekick
-	name = "Scrunny Sidekick"
-	desc = "Clumsy, awkward and always willing to lend a hand, the Scrunny Sidekick equipts you with the proper gear to tend for your fallen coworkers on the field."
+/obj/item/storage/box/detectivebeacon/coroner
+	name = "The Coroner"
+	desc = "The dead tell may tales, if you know how to liste. For a detective with a little medical expertise, the Coroner Kit provides you with plenty of medical tools to support and investigate trails that have not gone cold yet."
 
-/obj/item/storage/box/detectivebeacon/scrunnysidekick/PopulateContents()
+/obj/item/storage/box/detectivebeacon/coroner/PopulateContents()
 	new /obj/item/clothing/glasses/hud/medsec(src)
 	new /obj/item/storage/firstaid/advanced(src)
+	new /obj/item/clothing/suit/toggle/labcoat(src)
 	new /obj/item/sensor_device(src)
 	new /obj/item/locator(src)
-	new /obj/item/clothing/accessory/holster/responder(src)
+	new /obj/item/ammo_box/c38/match/bouncy(src)
 
 /obj/item/storage/box/detectivebeacon/fastresponder
-	name = "Fast Responder"
+	name = "The Fast Responder"
 	desc = "For being the first in the line of combat, the fast responder kit equipts you with deputy gear, a detective vest and plenty of robust gear to handle arrests."
 
 /obj/item/storage/box/detectivebeacon/fastresponder/PopulateContents()

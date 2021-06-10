@@ -90,7 +90,7 @@
 		owner.LaserEyes(target, mouseparams)
 //Noir
 /datum/mutation/human/noir
-	name = "Color Blindness"
+	name = "Gritty Take On Life"
 	desc = "Renders the subject unable to see any colors."
 	quality = NEGATIVE
 	text_gain_indication = "<span class='danger'>Colors start to dissipate...</span>"
