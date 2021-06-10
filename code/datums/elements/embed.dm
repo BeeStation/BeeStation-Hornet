@@ -69,7 +69,7 @@
 
 
 /// Checking to see if we're gonna embed into a human
-/datum/element/embed/proc/checkEmbed(obj/item/weapon, mob/living/carbon/victim, hit_zone, datum/thrownthing/throwingdatum, forced=FALSE)
+/datum/element/embed/proc/checkEmbed (obj/item/weapon, mob/living/carbon/victim, hit_zone, datum/thrownthing/throwingdatum, forced=FALSE)
 	if(!istype(victim) || HAS_TRAIT(victim, TRAIT_PIERCEIMMUNE))
 		return
 
@@ -83,17 +83,19 @@
 	if(throwingdatum?.speed > weapon.throw_speed)
 		actual_chance += (throwingdatum.speed - weapon.throw_speed) * EMBEDDED_CHANCE_SPEED_BONUS
 
+	var/target_armour = 0
+
 	if(!weapon.isEmbedHarmless()) // all the armor in the world won't save you from a kick me sign
-		var/armor = max(victim.run_armor_check(hit_zone, "bullet", silent=TRUE), victim.run_armor_check(hit_zone, "bomb", silent=TRUE)) // we'll be nice and take the better of bullet and bomb armor
+		target_armour = victim.run_armor_check(hit_zone, armour_penetration = I.armour_penetration, silent = TRUE)
 
-		if(armor) // we only care about armor penetration if there's actually armor to penetrate
-			var/pen_mod = -armor + weapon.armour_penetration // even a little bit of armor can make a big difference for shrapnel with large negative armor pen
-			actual_chance += pen_mod // doing the armor pen as a separate calc just in case this ever gets expanded on
-			if(actual_chance <= 0)
-				victim.visible_message("<span class='danger'>[weapon] bounces off [victim]'s armor!</span>", "<span class='notice'>[weapon] bounces off your armor!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
-				return
+		//Target has enough armour to block the embed.
+		if(target_armour >= armour_block)
+			victim.visible_message("<span class='danger'>[weapon] bounces off [victim]'s armor!</span>", "<span class='notice'>[weapon] bounces off your armor!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
+			return
 
-	if(!prob(actual_chance))
+	var/percentage_unblocked = 1 - (target_armour / armour_block)
+
+	if(!prob(actual_chance * percentage_unblocked))
 		return
 
 	var/obj/item/bodypart/limb = victim.get_bodypart(hit_zone) || pick(victim.bodyparts)
@@ -167,22 +169,7 @@
 	var/obj/item/bodypart/limb
 	var/mob/living/carbon/C
 
-	var/target_armour = 0
-	if(isobj(target))
-		var/obj/targetObject = target
-		if(targetObject.armor)
-			target_armour = CLAMP(targetObject.armor.getRating("melee") - I.armour_penetration, 0, 100)
-	else if(isliving(target))
-		var/mob/living/L = target
-		target_armour = L.run_armor_check(hit_zone, armour_penetration = I.armour_penetration, silent = TRUE)
-
-	//Target has enough armour to block the embed.
-	if(target_armour >= armour_block)
-		return
-
-	var/percentage_unblocked = (1 - (target_armour / armour_block)) * 100
-
-	if(!forced && !prob(embed_chance * percentage_unblocked))
+	if(!forced && !prob(embed_chance))
 		return
 
 	if(iscarbon(target))
