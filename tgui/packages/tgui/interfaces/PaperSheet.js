@@ -809,7 +809,7 @@ export const PaperSheet = (props, context) => {
       case 0:
         return (
           <PaperSheetView
-            value={text}
+            value={static_text + text}
             stamps={stamp_list}
             readOnly />
         );

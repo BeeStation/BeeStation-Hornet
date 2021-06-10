@@ -357,7 +357,7 @@
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator)], an antagonist.")
 		to_chat(current, "<span class='userdanger'>Despite your creator's current allegiances, your true master remains [creator.real_name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed.</span>")
 
-/datum/mind/proc/show_memory(mob/recipient, window=1)
+/datum/mind/proc/show_memory(mob/recipient, window=1, read_only=FALSE)
 	if(!recipient)
 		recipient = current
 
@@ -405,7 +405,10 @@
 	data["max_length"] = MAX_MESSAGE_LEN
 	data["paper_color"] = "#FFFFFF"
 	data["pen_color"] = "#000000"
-	data["edit_mode"] = 1
+	if(user == current)
+		data["edit_mode"] = 1
+	else
+		data["edit_mode"] = 0
 	data["is_crayon"] = FALSE
 	data["stamp_class"] = "FAKE"
 	data["stamp_icon_state"] = "FAKE"
