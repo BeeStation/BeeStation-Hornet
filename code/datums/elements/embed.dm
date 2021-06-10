@@ -180,7 +180,7 @@
 	if(target_armour >= armour_block)
 		return
 
-	var/percentage_unblocked = target_armour / armour_block
+	var/percentage_unblocked = 1 - (target_armour / armour_block)
 
 	if(!forced && !prob(embed_chance * percentage_unblocked))
 		return
