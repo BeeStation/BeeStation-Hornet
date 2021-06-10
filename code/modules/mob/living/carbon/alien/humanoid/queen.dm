@@ -87,7 +87,7 @@
 //Queen verbs
 /obj/effect/proc_holder/alien/lay_egg
 	name = "Lay Egg"
-	desc = "Lay an egg to produce huggers to impregnate prey with."
+	desc = "Lay an egg to produce huggers to impregnate prey with. Costs 75 Plasma."
 	plasma_cost = 75
 	check_turf = TRUE
 	action_icon_state = "alien_egg"
@@ -107,7 +107,7 @@
 //Button to let queen choose her praetorian.
 /obj/effect/proc_holder/alien/royal/queen/promote
 	name = "Create Royal Parasite"
-	desc = "Produce a royal parasite to grant one of your children the honor of being your Praetorian."
+	desc = "Produce a royal parasite to grant one of your children the honor of being your Praetorian. Costs 500 Plasma."
 	plasma_cost = 500 //Plasma cost used on promotion, not spawning the parasite.
 
 	action_icon_state = "alien_queen_promote"
@@ -166,7 +166,7 @@
 		qdel(src)
 		return
 	else
-		to_chat(user, "<span class='warning'>This child must be alert and responsive to become a Praetorian!</span>")
+		to_chat(user, "<span class='warning'>This child must be fully alert and responsive to become a Praetorian!</span>")
 
 /obj/item/queenpromote/attack_self(mob/user)
 	to_chat(user, "<span class='noticealien'>You discard [src].</span>")

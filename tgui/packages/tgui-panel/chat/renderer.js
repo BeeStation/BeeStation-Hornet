@@ -9,7 +9,7 @@ import { classes } from 'common/react';
 import { createLogger } from 'tgui/logging';
 import { COMBINE_MAX_MESSAGES, COMBINE_MAX_TIME_WINDOW, IMAGE_RETRY_DELAY, IMAGE_RETRY_LIMIT, IMAGE_RETRY_MESSAGE_AGE, MAX_PERSISTED_MESSAGES, MAX_VISIBLE_MESSAGES, MESSAGE_PRUNE_INTERVAL, MESSAGE_TYPES, MESSAGE_TYPE_INTERNAL, MESSAGE_TYPE_UNKNOWN } from './constants';
 import { canPageAcceptType, createMessage, isSameMessage } from './model';
-import { highlightNode, linkifyNode } from './replaceInTextNode';
+import { highlightNode, linkifyNode, replaceInTextNode } from './replaceInTextNode';
 
 const logger = createLogger('chatRenderer');
 
@@ -50,6 +50,66 @@ const createReconnectedNode = () => {
   const node = document.createElement('div');
   node.className = 'Chat__reconnected';
   return node;
+};
+
+// Removes job formatting
+const formatHighContrast = inputHtml => {
+  const replacementNodes = [
+    "unknown",
+    "assistant",
+    "atmospherictechnician",
+    "bartender",
+    "botanist",
+    "brigphysician",
+    "captain",
+    "cargotechnician",
+    "chaplain",
+    "chemist",
+    "chiefengineer",
+    "chiefmedicalofficer",
+    "clown",
+    "cook",
+    "curator",
+    "deputy",
+    "detective",
+    "paramedic",
+    "geneticist",
+    "headofpersonnel",
+    "headofsecurity",
+    "janitor",
+    "lawyer",
+    "medicaldoctor",
+    "mime",
+    "quartermaster",
+    "researchdirector",
+    "roboticist",
+    "scientist",
+    "securityofficer",
+    "shaftminer",
+    "stationengineer",
+    "virologist",
+    "warden",
+    "centcom",
+    "prisoner",
+    "blob",
+    "corgi",
+    "fox",
+    "rainbow",
+    "hierosay",
+    "brassmobsay",
+    "syndmob",
+    "alienmobsay",
+    "cultmobsay",
+    "slimemobsay",
+    "gimmick",
+    "barber",
+    "stagemagician",
+    "debtor",
+    "psychiatrist",
+    "vip",
+  ];
+  const spanRegex = new RegExp('(<span[\\w| |\t|=]*[\'|"][\\w| ]*)(?:' + replacementNodes.join('|') + ')([\'|"]>)', 'gi');
+  return inputHtml.replace(spanRegex, '$1$2');
 };
 
 const handleImageError = e => {
@@ -196,6 +256,14 @@ class ChatRenderer {
     this.highlightColor = color;
   }
 
+  setHighContrast(newValue) {
+    if (newValue === this.highContrast) {
+      return;
+    }
+    this.highContrast = newValue;
+    this.rebuildChat();
+  }
+
   scrollToBottom() {
     // scrollHeight is always bigger than scrollTop and is
     // automatically clamped to the valid range.
@@ -296,7 +364,12 @@ class ChatRenderer {
         }
         // Payload is HTML
         else if (message.html) {
-          node.innerHTML = message.html;
+          if (this.highContrast) {
+            node.innerHTML = formatHighContrast(message.html);
+          }
+          else {
+            node.innerHTML = message.html;
+          }
         }
         else {
           logger.error('Error: message is missing text payload', message);

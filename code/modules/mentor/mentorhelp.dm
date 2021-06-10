@@ -10,9 +10,9 @@
 	if(!msg)	return
 
 	//remove out mentorhelp verb temporarily to prevent spamming of mentors.
-	verbs -= /client/verb/mentorhelp
+	remove_verb(/client/verb/mentorhelp)
 	spawn(300)
-		verbs += /client/verb/mentorhelp	// 30 second cool-down for mentorhelp
+		add_verb(/client/verb/mentorhelp)	// 30 second cool-down for mentorhelp
 
 	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
 	if(!msg)	return

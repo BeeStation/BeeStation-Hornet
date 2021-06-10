@@ -47,7 +47,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	move_resist = INFINITY
 	hud_type = /datum/hud/ghost
 	hud_possible = list(ANTAG_HUD)
-
+	mobchatspan = "rainbow"
 
 /mob/living/simple_animal/hostile/floor_cluwne/Initialize()
 	. = ..()
@@ -84,7 +84,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	do_jitter_animation(1000)
 	pixel_y = 8
 
-	if(is_type_in_typecache(get_area(src.loc), invalid_area_typecache) || !is_station_level(z))
+	var/area/A = get_area(src.loc)
+	if(is_type_in_typecache(A, invalid_area_typecache) || !is_station_level(z))
 		var/area = pick(GLOB.teleportlocs)
 		var/area/tp = GLOB.teleportlocs[area]
 		forceMove(pick(get_area_turfs(tp.type)))
@@ -102,12 +103,13 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 		return
 
 	var/turf/T = get_turf(current_victim)
+	A = get_area(T)
 	if(prob(5))//checks roughly every 20 ticks
-		if(current_victim.stat == DEAD || current_victim.dna.check_mutation(CLUWNEMUT) || is_type_in_typecache(get_area(T), invalid_area_typecache) || !is_station_level(current_victim.z))
+		if(current_victim.stat == DEAD || current_victim.dna.check_mutation(CLUWNEMUT) || is_type_in_typecache(A, invalid_area_typecache) || !is_station_level(current_victim.z))
 			if(!Found_You())
 				Acquire_Victim()
 
-	if(get_dist(src, current_victim) > 9 && !manifested &&  !is_type_in_typecache(get_area(T), invalid_area_typecache))//if cluwne gets stuck he just teleports
+	if(get_dist(src, current_victim) > 9 && !manifested &&  !is_type_in_typecache(A, invalid_area_typecache))//if cluwne gets stuck he just teleports
 		do_teleport(src, T)
 
 	interest++
@@ -126,7 +128,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	..()
 
 /mob/living/simple_animal/hostile/floor_cluwne/Goto(target, delay, minimum_distance)
-	if(!manifested && !is_type_in_typecache(get_area(current_victim.loc), invalid_area_typecache) && is_station_level(current_victim.z))
+	var/area/A = get_area(current_victim.loc)
+	if(!manifested && !is_type_in_typecache(A, invalid_area_typecache) && is_station_level(current_victim.z))
 		walk_to(src, target, minimum_distance, delay)
 	else
 		walk_to(src,0)
@@ -163,13 +166,16 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
 	for(var/I in GLOB.player_list)//better than a potential recursive loop
 		var/mob/living/carbon/human/H = pick(GLOB.player_list)//so the check is fair
+		var/area/A
 
 		if(specific)
 			H = specific
-			if(H.stat != DEAD && H.has_dna() && !H.dna.check_mutation(CLUWNEMUT) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache) && is_station_level(H.z))
+			A = get_area(H.loc)
+			if(H.stat != DEAD && H.has_dna() && !H.dna.check_mutation(CLUWNEMUT) && !is_type_in_typecache(A, invalid_area_typecache) && is_station_level(H.z))
 				return target = current_victim
 
-		if(H && ishuman(H) && H.stat != DEAD && H != current_victim && H.has_dna() && !H.dna.check_mutation(CLUWNEMUT) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache) && is_station_level(H.z))
+		A = get_area(H.loc)
+		if(H && ishuman(H) && H.stat != DEAD && H != current_victim && H.has_dna() && !H.dna.check_mutation(CLUWNEMUT) && !is_type_in_typecache(A, invalid_area_typecache) && is_station_level(H.z))
 			current_victim = H
 			interest = 0
 			stage = STAGE_HAUNT
@@ -224,7 +230,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				H.playsound_local(src,'sound/misc/bikehorn_creepy.ogg', 5)
 
 			if(prob(3))
-				var/obj/item/I = locate() in orange(H, 8)
+				var/obj/item/I = locate() in orange(8, H)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
 					to_chat(H, "<span class='warning'>What threw that?</span>")
@@ -247,7 +253,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				to_chat(H, "<i>knoh</i>")
 
 			if(prob(5))
-				var/obj/item/I = locate() in orange(H, 8)
+				var/obj/item/I = locate() in orange(8, H)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
 					to_chat(H, "<span class='warning'>What threw that?</span>")
@@ -278,8 +284,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				playsound(src,'sound/misc/bikehorn_creepy.ogg', 30, 1)
 
 			if(prob(4))
-				for(var/obj/item/I in orange(H, 8))
-					if(I && !I.anchored)
+				for(var/obj/item/I in orange(8, H))
+					if(!I.anchored)
 						I.throw_at(H, 4, 3)
 				to_chat(H, "<span class='warning'>What the hell?!</span>")
 
@@ -296,7 +302,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 
 			if(prob(3))
 				to_chat(H, "<i>KNOH ?od nottub siht seod tahW</i>")
-				for(var/turf/open/O in range(src, 6))
+				for(var/turf/open/O in RANGE_TURFS(6, src))
 					O.MakeSlippery(TURF_WET_WATER, 10)
 					playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
 
@@ -310,7 +316,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				Appear()
 				manifested = FALSE
 				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 2)
-				for(var/obj/machinery/light/L in range(H, 8))
+				for(var/obj/machinery/light/L in range(8, H))
 					L.flicker()
 
 		if(STAGE_ATTACK)
@@ -334,7 +340,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 				Manifest()
 				if(!eating)
 					addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Grab, H), 50, TIMER_OVERRIDE|TIMER_UNIQUE)
-					for(var/turf/open/O in range(src, 6))
+					for(var/turf/open/O in RANGE_TURFS(6, src))
 						O.MakeSlippery(TURF_WET_LUBE, 20)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
 				eating = TRUE
@@ -381,7 +387,7 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
 	H.client.color = pure_red
 	animate(H.client,color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
-	for(var/turf/T in orange(H, 4))
+	for(var/turf/open/T in RANGE_TURFS(4, H))
 		H.add_splatter_floor(T)
 	if(do_after(src, 50, target = H))
 		H.unequip_everything()//more runtime prevention

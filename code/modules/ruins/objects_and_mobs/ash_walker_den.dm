@@ -38,7 +38,7 @@
 	spawn_mob()
 
 /obj/structure/lavaland/ash_walker/proc/consume()
-	for(var/mob/living/H in view(src, 1)) //Only for corpse right next to/on same tile
+	for(var/mob/living/H in hearers(1, src)) //Only for corpse right next to/on same tile
 		if(H.stat)
 			visible_message("<span class='warning'>Serrated tendrils eagerly pull [H] to [src], tearing the body apart as its blood seeps over the eggs.</span>")
 			playsound(get_turf(src),'sound/magic/demon_consume.ogg', 100, 1)
@@ -51,8 +51,8 @@
 				meat_counter++
 			H.gib()
 			obj_integrity = min(obj_integrity + max_integrity*0.05,max_integrity)//restores 5% hp of tendril
-			for(var/mob/living/L in view(src, 5))
-				if(L.mind.has_antag_datum(/datum/antagonist/ashwalker))
+			for(var/mob/living/L in viewers(5, src))
+				if(L.mind?.has_antag_datum(/datum/antagonist/ashwalker))
 					SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "oogabooga", /datum/mood_event/sacrifice_good)
 				else
 					SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "oogabooga", /datum/mood_event/sacrifice_bad)

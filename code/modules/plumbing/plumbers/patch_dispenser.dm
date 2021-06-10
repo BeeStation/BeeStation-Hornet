@@ -3,6 +3,8 @@
 	name = "patch dispenser"
 	desc = "A dispenser that dispenses patches."
 	icon_state = "pill_press" //TODO SPRITE IT !!!!!!
+	active_power_usage = 80
+
 	var/patch_name = "factory patch"
 	var/patch_size = 40
 	///the icon_state number for the patch.

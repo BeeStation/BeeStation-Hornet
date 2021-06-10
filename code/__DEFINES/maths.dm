@@ -61,9 +61,6 @@
 
 #define INVERSE(x) ( 1/(x) )
 
-/// Used for calculating the radioactive strength falloff
-#define INVERSE_SQUARE(initial_strength,cur_distance,initial_distance) ( (initial_strength)*((initial_distance)**2/(cur_distance)**2) )
-
 #define ISABOUTEQUAL(a, b, deviation) (deviation ? abs((a) - (b)) <= deviation : abs((a) - (b)) <= 0.1)
 
 #define ISEVEN(x) (x % 2 == 0)
@@ -88,7 +85,13 @@
 /// Returns the nth root of x.
 #define ROOT(n, x) ((x) ** (1 / (n)))
 
-/// The quadratic formula. Returns a list with the solutions, or an empty list if they are imaginary.
+/// Low-pass filter a value to smooth out high frequent peaks. This can be thought of as a moving average filter as well.
+/// delta_time is how many seconds since we last ran this command. RC is the filter constant, high RC means more smoothing
+/// See https://en.wikipedia.org/wiki/Low-pass_filter#Simple_infinite_impulse_response_filter for the maths
+#define LPFILTER(memory, signal, delta_time, RC) (delta_time / (RC + delta_time)) * signal + (1 - delta_time / (RC + delta_time)) * memory
+
+// The quadratic formula. Returns a list with the solutions, or an empty list
+// if they are imaginary.
 /proc/SolveQuadratic(a, b, c)
 	ASSERT(a)
 	. = list()
@@ -106,7 +109,11 @@
 
 #define TORADIANS(degrees) ((degrees) * 0.0174532925)
 
-/// Will filter out extra rotations and negative rotations E.g: 540 becomes 180. -180 becomes 180.
+/// Gets shift x that would be required the bitflag (1<<x)
+#define TOBITSHIFT(bit) ( log(2, bit) )
+
+// Will filter out extra rotations and negative rotations
+// E.g: 540 becomes 180. -180 becomes 180.
 #define SIMPLIFY_DEGREES(degrees) (MODULUS((degrees), 360))
 
 #define GET_ANGLE_OF_INCIDENCE(face, input) (MODULUS((face) - (input), 360))
@@ -205,4 +212,10 @@
 
 #define RULE_OF_THREE(a, b, x) ((a*x)/b)
 
+/// Converts a probability/second chance to probability/delta_time chance
+/// For example, if you want an event to happen with a 10% per second chance, but your proc only runs every 5 seconds, do `if(prob(100*DT_PROB_RATE(0.1, 5)))`
+#define DT_PROB_RATE(prob_per_second, delta_time) (1 - (1 - (prob_per_second)) ** delta_time)
+
+/// Like DT_PROB_RATE but easier to use, simply put `if(DT_PROB(10, 5))`
+#define DT_PROB(prob_per_second_percent, delta_time) (prob(100*DT_PROB_RATE((prob_per_second_percent)/100, delta_time)))
 // )

@@ -5,7 +5,7 @@
 /obj/machinery/disposal
 	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
 	density = TRUE
-	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
+	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
@@ -23,7 +23,6 @@
 	var/flush_every_ticks = 30 //Every 30 ticks it will look whether it is ready to flush
 	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
 	var/last_sound = 0
-	var/obj/structure/disposalconstruct/stored
 	// create a new disposal
 	// find the attached trunk (if present) and init gas resvr.
 
@@ -32,11 +31,7 @@
 
 	if(make_from)
 		setDir(make_from.dir)
-		make_from.moveToNullspace()
-		stored = make_from
 		pressure_charging = FALSE // newly built disposal bins start with pump off
-	else
-		stored = new /obj/structure/disposalconstruct(null, null , SOUTH , FALSE , src)
 
 	trunk_check()
 
@@ -234,16 +229,10 @@
 	qdel(H)
 
 /obj/machinery/disposal/deconstruct(disassembled = TRUE)
-	var/turf/T = loc
 	if(!(flags_1 & NODECONSTRUCT_1))
-		if(stored)
-			stored.forceMove(T)
-			src.transfer_fingerprints_to(stored)
-			stored.anchored = FALSE
-			stored.density = TRUE
-			stored.update_icon()
+		new /obj/structure/disposalconstruct(loc, null, SOUTH, FALSE, src)
 	for(var/atom/movable/AM in src) //out, out, darned crowbar!
-		AM.forceMove(T)
+		AM.forceMove(get_turf(src))
 	..()
 
 /obj/machinery/disposal/get_dumping_location(obj/item/storage/source,mob/user)
@@ -388,7 +377,7 @@
 
 //timed process
 //charge the gas reservoir and perform flush if ready
-/obj/machinery/disposal/bin/process()
+/obj/machinery/disposal/bin/process(delta_time)
 	if(stat & BROKEN) //nothing can happen if broken
 		return
 
@@ -421,7 +410,7 @@
 	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.return_pressure()
 
 	if(env.return_temperature() > 0)
-		var/transfer_moles = 0.1 * pressure_delta*air_contents.return_volume()/(env.return_temperature() * R_IDEAL_GAS_EQUATION)
+		var/transfer_moles = 0.05 * delta_time * pressure_delta * air_contents.return_volume() / (env.return_temperature() * R_IDEAL_GAS_EQUATION)
 
 		//Actually transfer the gas
 		var/datum/gas_mixture/removed = env.remove(transfer_moles)
@@ -503,6 +492,9 @@
 	return
 
 /obj/mecha/CanEnterDisposals()
+	return
+
+/obj/structure/spacevine/CanEnterDisposals()
 	return
 
 /obj/machinery/disposal/bin/newHolderDestination(obj/structure/disposalholder/H)

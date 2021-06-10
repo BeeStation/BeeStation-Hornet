@@ -30,6 +30,7 @@
 	simple_mob_flags = SILENCE_RANGED_MESSAGE
 	///Innate spells that are supposed to be added when a beast is created
 	var/list/spells_to_add
+	mobchatspan = "cultmobsay"
 
 /mob/living/simple_animal/hostile/eldritch/Initialize()
 	. = ..()
@@ -157,7 +158,7 @@
 			current.icon_state = "armsy_mid"
 			current.icon_living = "armsy_mid"
 			current.front = src
-			current.AIStatus = AI_OFF
+			current.toggle_ai(AI_OFF)
 			back = current
 		else if(i < len)
 			current = new type(drop_location(),FALSE)
@@ -165,12 +166,12 @@
 			prev.icon_state = "armsy_mid"
 			prev.icon_living = "armsy_mid"
 			prev.front = next
-			prev.AIStatus = AI_OFF
+			prev.toggle_ai(AI_OFF)
 		else
 			prev.icon_state = "armsy_end"
 			prev.icon_living = "armsy_end"
 			prev.front = next
-			prev.AIStatus = AI_OFF
+			prev.toggle_ai(AI_OFF)
 		next = prev
 
 //we are literally a vessel of otherworldly destruction, we bring our own gravity unto this plane
@@ -232,13 +233,13 @@
 			prev.icon_state = "armsy_end"
 			prev.icon_living = "armsy_end"
 			prev.front = src
-			prev.AIStatus = AI_OFF
+			prev.toggle_ai(AI_OFF)
 			current_stacks = 0
 			return
 
 
 /mob/living/simple_animal/hostile/eldritch/armsy/Shoot(atom/targeted_atom)
-	target = targeted_atom
+	GiveTarget(targeted_atom)
 	AttackingTarget()
 
 
@@ -250,7 +251,7 @@
 	if(target == back || target == front)
 		return
 	if(back)
-		back.target = target
+		back.GiveTarget(target)
 		back.AttackingTarget()
 	if(!Adjacent(target))
 		return

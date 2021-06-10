@@ -23,7 +23,7 @@
 			RegisterSignal(parent, COMSIG_ITEM_ATTACK_OBJ, .proc/rad_attack)
 	else
 		return COMPONENT_INCOMPATIBLE
-	if(strength > RAD_MINIMUM_CONTAMINATION)
+	if(strength * (RAD_CONTAMINATION_STR_COEFFICIENT * RAD_CONTAMINATION_BUDGET_SIZE) > RAD_COMPONENT_MINIMUM)
 		SSradiation.warn(src)
 	//Let's make er glow
 	//This relies on parent not being a turf or something. IF YOU CHANGE THAT, CHANGE THIS
@@ -38,15 +38,16 @@
 	master.remove_filter("rad_glow")
 	return ..()
 
-/datum/component/radioactive/process()
-	if(!prob(50))
+/datum/component/radioactive/process(delta_time)
+	if(!DT_PROB(50, delta_time))
 		return
-	radiation_pulse(parent, strength, RAD_DISTANCE_COEFFICIENT*2, FALSE, can_contaminate)
+	if(strength >= RAD_WAVE_MINIMUM)
+		radiation_pulse(parent, strength, RAD_DISTANCE_COEFFICIENT*RAD_DISTANCE_COEFFICIENT_COMPONENT_MULTIPLIER, FALSE, can_contaminate)
 	if(!hl3_release_date)
 		return
 	strength -= strength / hl3_release_date
 
-	if(strength < RAD_WAVE_MINIMUM)
+	if(strength < RAD_COMPONENT_MINIMUM)
 		qdel(src)
 
 /datum/component/radioactive/proc/glow_loop(atom/movable/master)
@@ -55,16 +56,16 @@
 		animate(filter, alpha = 110, time = 15, loop = -1)
 		animate(alpha = 40, time = 25)
 
-/datum/component/radioactive/InheritComponent(datum/component/C, i_am_original, list/arguments)
+/datum/component/radioactive/InheritComponent(datum/component/C, i_am_original, _strength, _source, _half_life, _can_contaminate)
 	if(!i_am_original)
 		return
 	if(!hl3_release_date) // Permanently radioactive things don't get to grow stronger
 		return
 	if(C)
 		var/datum/component/radioactive/other = C
-		strength = max(strength, other.strength)
+		strength += other.strength
 	else
-		strength = max(strength, arguments[1])
+		strength = max(strength, _strength)
 
 /datum/component/radioactive/proc/rad_examine(datum/source, mob/user, atom/thing)
 	var/atom/master = parent

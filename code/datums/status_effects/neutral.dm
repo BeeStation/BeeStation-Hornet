@@ -70,7 +70,9 @@
 /datum/status_effect/in_love/tick()
 	if(date)
 		new /obj/effect/temp_visual/love_heart/invisible(get_turf(date.loc), owner)
-
+		if(get_dist(get_turf(owner), get_turf(date)) < 7)
+			owner.heal_overall_damage(1, 1, BODYPART_ORGANIC)
+			date.heal_overall_damage(1, 1, BODYPART_ORGANIC)
 
 /datum/status_effect/throat_soothed
 	id = "throat_soothed"
@@ -117,7 +119,7 @@
 			spell.update_icon()
 		rewarded.adjustBruteLoss(-25)
 		rewarded.adjustFireLoss(-25)
-		rewarded.adjustToxLoss(-25)
+		rewarded.adjustToxLoss(-25, FALSE, TRUE)
 		rewarded.adjustOxyLoss(-25)
 		rewarded.adjustCloneLoss(-25)
 

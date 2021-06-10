@@ -2,6 +2,7 @@
 	name = "energy gun"
 	desc = "A basic hybrid energy gun with two settings: disable and kill."
 	icon_state = "energy"
+	w_class = WEIGHT_CLASS_BULKY	//powergaming is kill
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	modifystate = 1
@@ -59,6 +60,7 @@
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
 	cell_type = /obj/item/stock_parts/cell{charge = 1200; maxcharge = 1200}
 	icon_state = "hoslaser"
+	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
 	automatic = 1
 	fire_rate = 3
@@ -78,6 +80,7 @@
 	can_flashlight = FALSE
 	ammo_x_offset = 1
 	fire_rate = 1.5
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/gun/energy/e_gun/dragnet/snare
 	name = "Energy Snare Launcher"
@@ -105,7 +108,7 @@
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
 	icon_state = "nucgun"
 	item_state = "nucgun"
-	charge_delay = 5
+	charge_delay = 10
 	pin = null
 	can_charge = FALSE
 	ammo_x_offset = 1
@@ -115,9 +118,9 @@
 	var/fail_tick = 0
 	var/fail_chance = 0
 
-/obj/item/gun/energy/e_gun/nuclear/process()
+/obj/item/gun/energy/e_gun/nuclear/process(delta_time)
 	if(fail_tick > 0)
-		fail_tick--
+		fail_tick -= delta_time * 0.5
 	..()
 
 /obj/item/gun/energy/e_gun/nuclear/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)

@@ -7,6 +7,7 @@
 /area/shuttle/escape/luxury)
 "ac" = (
 /obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
 /turf/open/floor/wood{
 	icon_state = "wood-broken2"
 	},
@@ -304,17 +305,6 @@
 /obj/machinery/stasis,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"bg" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-21";
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/turf/open/floor/mineral/gold,
-/area/shuttle/escape/luxury)
-"bh" = (
-/turf/open/floor/plating/beach/coastline_b,
-/area/shuttle/escape/luxury)
 "bi" = (
 /obj/machinery/light,
 /turf/open/floor/mineral/gold,
@@ -340,13 +330,15 @@
 	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
-"bp" = (
+"cu" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/machinery/light,
+/obj/effect/turf_decal/pool{
+	dir = 4
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "hA" = (
@@ -354,9 +346,45 @@
 /obj/item/surgical_drapes,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
+"nZ" = (
+/obj/item/twohanded/required/pool/pool_noodle,
+/turf/open/indestructible/sound/pool,
+/area/shuttle/escape/luxury)
+"vB" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-21";
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/machinery/light,
+/obj/effect/turf_decal/pool{
+	dir = 8
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"wf" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-21";
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/machinery/light,
+/obj/effect/turf_decal/pool{
+	dir = 4
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
 "zg" = (
 /obj/machinery/vending/wallmed,
 /turf/closed/indestructible/riveted/uranium,
+/area/shuttle/escape/luxury)
+"CU" = (
+/obj/effect/turf_decal/pool/corner,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"Jr" = (
+/obj/effect/turf_decal/pool,
+/turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "OL" = (
 /obj/item/surgicaldrill,
@@ -366,6 +394,30 @@
 /obj/item/hemostat,
 /obj/item/circular_saw,
 /obj/structure/table/wood/fancy,
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"Ui" = (
+/obj/item/twohanded/required/pool/rubber_ring,
+/turf/open/indestructible/sound/pool,
+/area/shuttle/escape/luxury)
+"Vf" = (
+/turf/open/indestructible/sound/pool,
+/area/shuttle/escape/luxury)
+"Vm" = (
+/obj/effect/turf_decal/pool/corner{
+	dir = 4
+	},
+/turf/open/floor/mineral/gold,
+/area/shuttle/escape/luxury)
+"Vq" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-21";
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/effect/turf_decal/pool{
+	dir = 8
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 
@@ -460,9 +512,9 @@ ax
 aN
 bd
 aj
-aj
-bg
-bp
+CU
+cu
+wf
 ab
 "}
 (7,1,1) = {"
@@ -476,9 +528,9 @@ ay
 aO
 bd
 aj
-aj
-bh
-bh
+Jr
+Vf
+Vf
 ab
 "}
 (8,1,1) = {"
@@ -492,9 +544,9 @@ az
 aP
 bd
 aj
-aj
-bh
-bh
+Jr
+nZ
+Vf
 ab
 "}
 (9,1,1) = {"
@@ -508,9 +560,9 @@ aA
 aQ
 bd
 aj
-aj
-bh
-bh
+Jr
+Vf
+Vf
 ab
 "}
 (10,1,1) = {"
@@ -524,9 +576,9 @@ aB
 aR
 bd
 aj
-aj
-bh
-bh
+Jr
+Vf
+Ui
 ab
 "}
 (11,1,1) = {"
@@ -540,9 +592,9 @@ aC
 aS
 bd
 aj
-aj
-bh
-bh
+Jr
+Vf
+Vf
 ab
 "}
 (12,1,1) = {"
@@ -556,9 +608,9 @@ aD
 aT
 bd
 aj
-aj
-bh
-bh
+Jr
+Vf
+Vf
 ab
 "}
 (13,1,1) = {"
@@ -572,9 +624,9 @@ aE
 aU
 bd
 aj
-aj
-bh
-bh
+Jr
+Vf
+Vf
 ab
 "}
 (14,1,1) = {"
@@ -588,9 +640,9 @@ aF
 aV
 bd
 aj
-aj
-bh
-bh
+Jr
+nZ
+Vf
 ab
 "}
 (15,1,1) = {"
@@ -604,9 +656,9 @@ aG
 aW
 bd
 aj
-aj
-bh
-bh
+Jr
+Vf
+Vf
 ab
 "}
 (16,1,1) = {"
@@ -620,9 +672,9 @@ aH
 aX
 bd
 aj
-aj
-bh
-bh
+Jr
+Vf
+Vf
 ab
 "}
 (17,1,1) = {"
@@ -636,9 +688,9 @@ aI
 aY
 bd
 aj
-aj
-bh
-bh
+Jr
+Vf
+Vf
 ab
 "}
 (18,1,1) = {"
@@ -652,9 +704,9 @@ aJ
 aZ
 bd
 aj
-aj
-bh
-bh
+Jr
+Ui
+Vf
 ab
 "}
 (19,1,1) = {"
@@ -668,9 +720,9 @@ aK
 ba
 bd
 aj
-aj
-bh
-bh
+Jr
+Vf
+Vf
 ab
 "}
 (20,1,1) = {"
@@ -684,9 +736,9 @@ aL
 bb
 bd
 aj
-aj
-bg
-bp
+Vm
+Vq
+vB
 ab
 "}
 (21,1,1) = {"

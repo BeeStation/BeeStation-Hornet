@@ -25,11 +25,10 @@
 	if(loc == summoner && toggle)
 		ToggleMode(0)
 
-/mob/living/simple_animal/hostile/guardian/assassin/Stat()
-	..()
-	if(statpanel("Status"))
-		if(stealthcooldown >= world.time)
-			stat(null, "Stealth Cooldown Remaining: [DisplayTimeText(stealthcooldown - world.time)]")
+/mob/living/simple_animal/hostile/guardian/assassin/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(stealthcooldown >= world.time)
+		tab_data["Stealth Cooldown Remaining"] = GENERATE_STAT_TEXT("[DisplayTimeText(stealthcooldown - world.time)]")
 
 /mob/living/simple_animal/hostile/guardian/assassin/AttackingTarget()
 	. = ..()

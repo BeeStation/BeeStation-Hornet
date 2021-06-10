@@ -1,27 +1,27 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "dZ" = (
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "eB" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "gd" = (
 /obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "gK" = (
 /obj/structure/chair/stool/bar,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "hL" = (
 /obj/structure/table_frame/wood,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/space)
+/area/template_noop)
 "ig" = (
 /obj/structure/chair/wood{
 	dir = 4
@@ -29,47 +29,47 @@
 /turf/open/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/space)
+/area/template_noop)
 "iU" = (
 /obj/structure/closet/firecloset/full,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "ja" = (
 /obj/machinery/door/airlock/wood,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "lT" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "nt" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/space)
+/area/template_noop)
 "oV" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "pb" = (
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/structure/rack,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "pI" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/plasteel/cafeteria,
-/area/space)
+/area/template_noop)
 "qm" = (
 /obj/structure/table_frame/wood,
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "tO" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "ut" = (
 /obj/item/stack/sheet/mineral/wood,
 /obj/machinery/light/small{
@@ -77,12 +77,12 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/cafeteria,
-/area/space)
+/area/template_noop)
 "uB" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken4"
 	},
-/area/space)
+/area/template_noop)
 "uE" = (
 /obj/item/stack/tile/carpet/black/fifty,
 /obj/structure/closet,
@@ -90,32 +90,32 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/glass/fifty,
 /turf/open/floor/wood,
-/area/space)
+/area/template_noop)
 "vw" = (
 /obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "vO" = (
 /obj/effect/decal/cleanable/vomit/old,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "wa" = (
 /obj/structure/table/wood/fancy/black,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "wr" = (
 /obj/structure/table/wood/fancy/black,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "xT" = (
 /obj/machinery/light/small,
 /obj/machinery/processor,
 /turf/open/floor/plasteel/cafeteria,
-/area/space)
+/area/template_noop)
 "ya" = (
 /obj/machinery/chem_dispenser/drinks/beer,
 /obj/structure/table/wood,
@@ -123,34 +123,34 @@
 	pixel_y = 26
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "yn" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "yH" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/space)
+/area/template_noop)
 "ze" = (
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "zm" = (
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/mineral/wood,
 /turf/open/floor/monotile/steel,
-/area/space)
+/area/template_noop)
 "AN" = (
 /obj/machinery/door/airlock/wood,
 /obj/structure/barricade/wooden/crude,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "AR" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/storage/toolbox/electrical,
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "Bt" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -158,32 +158,32 @@
 /turf/open/floor/wood{
 	icon_state = "wood-broken"
 	},
-/area/space)
+/area/template_noop)
 "Bw" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/open/floor/carpet,
-/area/space)
+/area/template_noop)
 "Ch" = (
 /turf/closed/wall,
-/area/space)
+/area/template_noop)
 "Dz" = (
 /obj/structure/table_frame/wood,
 /obj/item/stack/sheet/mineral/wood,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/space)
+/area/template_noop)
 "Eg" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken"
 	},
-/area/space)
+/area/template_noop)
 "FF" = (
 /obj/structure/sign/warning/nosmoking/circle,
 /turf/closed/wall,
-/area/space)
+/area/template_noop)
 "FK" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -191,86 +191,86 @@
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks,
 /turf/open/floor/plasteel/cafeteria,
-/area/space)
+/area/template_noop)
 "Hd" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife,
 /turf/open/floor/monotile/steel,
-/area/space)
+/area/template_noop)
 "Il" = (
 /turf/open/floor/carpet,
-/area/space)
+/area/template_noop)
 "Ly" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
 /turf/open/floor/carpet,
-/area/space)
+/area/template_noop)
 "Mm" = (
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "Ny" = (
 /obj/structure/bookcase/random/reference,
 /turf/open/floor/carpet,
-/area/space)
+/area/template_noop)
 "Ok" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/space)
+/area/template_noop)
 "Os" = (
 /obj/item/chair/wood,
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "Pi" = (
 /obj/machinery/smartfridge/drinks,
 /turf/open/floor/plasteel/cafeteria,
-/area/space)
+/area/template_noop)
 "QG" = (
 /obj/machinery/door/airlock/wood,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "RI" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "RQ" = (
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "Sl" = (
 /turf/open/floor/plasteel/cafeteria,
-/area/space)
+/area/template_noop)
 "SJ" = (
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "SV" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
 /turf/open/floor/carpet,
-/area/space)
+/area/template_noop)
 "Ue" = (
 /obj/structure/table/wood,
 /turf/open/floor/carpet,
-/area/space)
+/area/template_noop)
 "UO" = (
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/table/wood,
 /obj/machinery/microwave,
 /turf/open/floor/monotile/steel,
-/area/space)
+/area/template_noop)
 "Wn" = (
 /obj/item/stack/sheet/mineral/wood,
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "XA" = (
 /turf/open/floor/wood{
 	icon_state = "wood-broken7"
 	},
-/area/space)
+/area/template_noop)
 "XO" = (
 /obj/structure/closet/crate,
 /obj/item/storage/box/ingredients/sweets,
@@ -278,31 +278,31 @@
 /obj/item/storage/box/ingredients/vegetarian,
 /obj/item/storage/box/ingredients/carnivore,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "Yd" = (
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall,
-/area/space)
+/area/template_noop)
 "Yr" = (
 /obj/structure/table/wood,
 /obj/machinery/microwave,
 /obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/monotile/steel,
-/area/space)
+/area/template_noop)
 "Yt" = (
 /obj/machinery/light/small,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "Zp" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 "ZF" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
 /turf/open/floor/plasteel/white,
-/area/space)
+/area/template_noop)
 "ZH" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/drinks/soda_cans/dr_gibb{
@@ -310,7 +310,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/carpet/royalblack,
-/area/space)
+/area/template_noop)
 
 (1,1,1) = {"
 lT

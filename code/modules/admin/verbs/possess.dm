@@ -29,6 +29,10 @@
 	set name = "Release Obj"
 	set category = "Object"
 	//usr.loc = get_turf(usr)
+	
+	if(isnull(usr.control_object))
+		to_chat(usr, "<span class='warning'>You do not seem to be possessing an object!</span>")
+		return
 
 	if(usr.control_object && usr.name_archive) //if you have a name archived and if you are actually relassing an object
 		usr.real_name = usr.name_archive
@@ -48,6 +52,6 @@
 	set desc = "Give this guy possess/release verbs"
 	set category = "Debug"
 	set name = "Give Possessing Verbs"
-	M.verbs += /proc/possess
-	M.verbs += /proc/release
+	M.add_verb(/proc/possess)
+	M.add_verb(/proc/release)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Give Possessing Verbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

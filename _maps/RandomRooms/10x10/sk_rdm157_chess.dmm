@@ -1,0 +1,283 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"b" = (
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"c" = (
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"d" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"e" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/festive,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"f" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"g" = (
+/obj/machinery/light/small,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"h" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"i" = (
+/obj/item/cardboard_cutout/adaptive/chess/black/rook,
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"j" = (
+/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"k" = (
+/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"l" = (
+/obj/item/cardboard_cutout/adaptive/chess/black/queen,
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"m" = (
+/obj/item/cardboard_cutout/adaptive/chess/black/king,
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"n" = (
+/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"o" = (
+/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"p" = (
+/obj/item/cardboard_cutout/adaptive/chess/black/rook,
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"q" = (
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"r" = (
+/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"s" = (
+/obj/item/cardboard_cutout/adaptive/chess/pawn,
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"t" = (
+/obj/item/cardboard_cutout/adaptive/chess/pawn,
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"u" = (
+/obj/item/cardboard_cutout/adaptive/chess/rook,
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"v" = (
+/obj/item/cardboard_cutout/adaptive/chess/knight,
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"w" = (
+/obj/item/cardboard_cutout/adaptive/chess/bishop,
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"x" = (
+/obj/item/cardboard_cutout/adaptive/chess/queen,
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"y" = (
+/obj/item/cardboard_cutout/adaptive/chess/king,
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"z" = (
+/obj/item/cardboard_cutout/adaptive/chess/bishop,
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"A" = (
+/obj/item/cardboard_cutout/adaptive/chess/knight,
+/turf/open/floor/monotile/dark,
+/area/template_noop)
+"B" = (
+/obj/item/cardboard_cutout/adaptive/chess/rook,
+/turf/open/floor/monotile/light,
+/area/template_noop)
+"C" = (
+/obj/structure/table/wood,
+/obj/item/storage/crayons,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"D" = (
+/obj/structure/table/wood,
+/obj/item/stack/sheet/cardboard/fifty,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"E" = (
+/obj/structure/table/wood,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"F" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/soda_cans/tonic{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/tonic{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/tonic{
+	pixel_y = -3
+	},
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+"G" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/nachos{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/snacks/nachos{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/snacks/nachos{
+	pixel_y = -3
+	},
+/turf/open/floor/carpet/orange,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+d
+a
+a
+a
+a
+d
+C
+D
+"}
+(2,1,1) = {"
+a
+i
+q
+b
+c
+b
+c
+s
+u
+E
+"}
+(3,1,1) = {"
+h
+j
+r
+c
+b
+c
+b
+t
+v
+g
+"}
+(4,1,1) = {"
+a
+k
+q
+b
+c
+b
+c
+s
+w
+a
+"}
+(5,1,1) = {"
+a
+l
+r
+c
+b
+c
+b
+t
+x
+a
+"}
+(6,1,1) = {"
+a
+m
+q
+b
+c
+b
+c
+s
+y
+a
+"}
+(7,1,1) = {"
+a
+n
+r
+c
+b
+c
+b
+t
+z
+a
+"}
+(8,1,1) = {"
+h
+o
+q
+b
+c
+b
+c
+s
+A
+g
+"}
+(9,1,1) = {"
+e
+p
+r
+c
+b
+c
+b
+t
+B
+a
+"}
+(10,1,1) = {"
+F
+G
+f
+a
+a
+a
+a
+f
+a
+a
+"}

@@ -45,7 +45,48 @@
 			usr.client.admin_delete(target)
 			if (isturf(src))	// show the turf that took its place
 				usr.client.debug_variables(src)
+				return
+
+		#ifdef REFERENCE_TRACKING
+		if(href_list[VV_HK_VIEW_REFERENCES])
+			var/datum/D = locate(href_list[VV_HK_TARGET])
+			if(!D)
+				to_chat(usr, "<span class='warning'>Unable to locate item.</span>")
+				return
+			usr.client.holder.view_refs(target)
+			return
+		#endif
+
 	if(href_list[VV_HK_MARK])
 		usr.client.mark_datum(target)
+	if(href_list[VV_HK_ADDCOMPONENT])
+		if(!check_rights(NONE))
+			return
+		var/list/names = list()
+		var/list/componentsubtypes = sortList(subtypesof(/datum/component), /proc/cmp_typepaths_asc)
+		names += "---Components---"
+		names += componentsubtypes
+		names += "---Elements---"
+		names += sortList(subtypesof(/datum/element), /proc/cmp_typepaths_asc)
+		var/result = input(usr, "Choose a component/element to add","better know what ur fuckin doin pal") as null|anything in names
+		if(!usr || !result || result == "---Components---" || result == "---Elements---")
+			return
+		if(QDELETED(src))
+			to_chat(usr, "That thing doesn't exist anymore!")
+			return
+		var/list/lst = get_callproc_args()
+		if(!lst)
+			return
+		var/datumname = "error"
+		lst.Insert(1, result)
+		if(result in componentsubtypes)
+			datumname = "component"
+			target._AddComponent(lst)
+		else
+			datumname = "element"
+			target._AddElement(lst)
+		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(src)].")
+		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(src)].</span>")
 	if(href_list[VV_HK_CALLPROC])
 		usr.client.callproc_datum(target)
+

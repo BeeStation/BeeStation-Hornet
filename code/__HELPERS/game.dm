@@ -5,6 +5,12 @@
     locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
   )
 
+#define RANGE_TURFS_XY(XRADIUS, YRADIUS, CENTER) \
+  block( \
+    locate(max(CENTER.x-(XRADIUS),1),          max(CENTER.y-(YRADIUS),1),          CENTER.z), \
+    locate(min(CENTER.x+(XRADIUS),world.maxx), min(CENTER.y+(YRADIUS),world.maxy), CENTER.z) \
+  )
+
 #define Z_TURFS(ZLEVEL) block(locate(1,1,ZLEVEL), locate(world.maxx, world.maxy, ZLEVEL))
 #define CULT_POLL_WAIT 2400
 
@@ -28,10 +34,8 @@
 	if(!center)
 		return list()
 
-	var/list/turfs = RANGE_TURFS(dist, center)
 	var/list/areas = list()
-	for(var/V in turfs)
-		var/turf/T = V
+	for(var/turf/T as() in RANGE_TURFS(dist, center))
 		areas |= T.loc
 	return areas
 
@@ -115,7 +119,7 @@
 	var/list/turfs = new/list()
 	var/rsq = radius * (radius+0.5)
 
-	for(var/atom/T in range(radius, centerturf))
+	for(var/atom/T as() in range(radius, centerturf))
 		var/dx = T.x - centerturf.x
 		var/dy = T.y - centerturf.y
 		if(dx*dx + dy*dy <= rsq)
@@ -130,7 +134,7 @@
 	var/list/atoms = new/list()
 	var/rsq = radius * (radius+0.5)
 
-	for(var/atom/A in view(radius, centerturf))
+	for(var/atom/A as() in view(radius, centerturf))
 		var/dx = A.x - centerturf.x
 		var/dy = A.y - centerturf.y
 		if(dx*dx + dy*dy <= rsq)
@@ -153,7 +157,7 @@
 	var/list/turfs = new/list()
 	var/rsq = radius * (radius+0.5)
 
-	for(var/turf/T in range(radius, centerturf))
+	for(var/turf/T as() in RANGE_TURFS(radius, centerturf))
 		var/dx = T.x - centerturf.x
 		var/dy = T.y - centerturf.y
 		if(dx*dx + dy*dy <= rsq)
@@ -224,7 +228,7 @@
 
 	return
 
-// Better recursive loop, technically sort of not actually recursive cause that shit is retarded, enjoy.
+// Better recursive loop, technically sort of not actually recursive cause that shit is stupid, enjoy.
 //No need for a recursive limit either
 /proc/recursive_mob_check(atom/O,client_check=1,sight_check=1,include_radio=1)
 
@@ -265,9 +269,8 @@
 
 	return found_mobs
 
-
+// Returns a list of hearers in view(R) from source (ignoring luminosity). Used in saycode. Consider using `hearers` when you *only* need mobs.
 /proc/get_hearers_in_view(R, atom/source)
-	// Returns a list of hearers in view(R) from source (ignoring luminosity). Used in saycode.
 	var/turf/T = get_turf(source)
 	. = list()
 
@@ -277,20 +280,22 @@
 	var/list/processing_list = list()
 	if (R == 0) // if the range is zero, we know exactly where to look for, we can skip view
 		processing_list += T.contents // We can shave off one iteration by assuming turfs cannot hear
-	else  // A variation of get_hear inlined here to take advantage of the compiler's fastpath for obj/mob in view
-		var/lum = T.luminosity
-		T.luminosity = 6 // This is the maximum luminosity
-		for(var/mob/M in view(R, T))
-			processing_list += M
-		for(var/obj/O in view(R, T))
-			processing_list += O
-		T.luminosity = lum
+	else  // A variation(?) of get_hear inlined here to take advantage of the compiler's fastpath for obj in view
+		// Benchmark before trying to "optimize" this proc
+		processing_list += hearers(R, T)
 
-	while(processing_list.len) // recursive_hear_check inlined here
-		var/atom/A = processing_list[1]
+		// dview is inlined here
+		GLOB.dview_mob.loc = T
+		GLOB.dview_mob.see_invisible = SEE_INVISIBLE_MINIMUM // Sorry, invisible objects. You folks can't HEAR_1 anyway.
+		for(var/obj/O in view(R, GLOB.dview_mob))
+			processing_list += O
+		GLOB.dview_mob.loc = null
+
+	while(length(processing_list)) // recursive_hear_check inlined here with optimized processing
+		var/atom/A = processing_list[length(processing_list)]
 		if(A.flags_1 & HEAR_1)
 			. += A
-		processing_list.Cut(1, 2)
+		processing_list.len--
 		processing_list += A.contents
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
@@ -377,11 +382,10 @@
 		if(AM.Move(get_step(T, direction)))
 			break
 
-/proc/get_mob_by_key(key)
-	var/ckey = ckey(key)
-	for(var/i in GLOB.player_list)
-		var/mob/M = i
-		if(M.ckey == ckey)
+/proc/get_mob_by_ckey(key)
+	var/ckey = ckey(key) //just to be safe
+	for(var/mob/M as() in GLOB.player_list)
+		if(M?.ckey == ckey)
 			return M
 	return null
 
@@ -402,7 +406,7 @@
 /proc/ScreenText(obj/O, maptext="", screen_loc="CENTER-7,CENTER-7", maptext_height=480, maptext_width=480)
 	if(!isobj(O))
 		O = new /atom/movable/screen/text()
-	O.maptext = maptext
+	O.maptext = MAPTEXT(maptext)
 	O.maptext_height = maptext_height
 	O.maptext_width = maptext_width
 	O.screen_loc = screen_loc
@@ -419,8 +423,7 @@
 
 /proc/flick_overlay_view(image/I, atom/target, duration) //wrapper for the above, flicks to everyone who can see the target atom
 	var/list/viewing = list()
-	for(var/m in viewers(target))
-		var/mob/M = m
+	for(var/mob/M as() in viewers(target))
 		if(M.client)
 			viewing += M.client
 	flick_overlay(I, viewing, duration)
@@ -476,6 +479,8 @@
 
 /proc/pollGhostCandidates(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE)
 	var/list/candidates = list()
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_STATION_SENTIENCE))
+		return candidates
 
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		candidates += G
@@ -610,10 +615,9 @@
 
 // Find a obstruction free turf that's within the range of the center. Can also condition on if it is of a certain area type.
 /proc/find_obstruction_free_location(var/range, var/atom/center, var/area/specific_area)
-	var/list/turfs = RANGE_TURFS(range, center)
 	var/list/possible_loc = list()
 
-	for(var/turf/found_turf in turfs)
+	for(var/turf/found_turf as() in RANGE_TURFS(range, center))
 		var/area/turf_area = get_area(found_turf)
 
 		// We check if both the turf is a floor, and that it's actually in the area.

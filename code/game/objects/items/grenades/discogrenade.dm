@@ -1,6 +1,6 @@
 //Ethereal Disco Grenade for Ethereal traitors
 //Does not affect ethereals.
-//Some basic code peices taken from flashbang, spawner grenade and ethereal disco ball for functionality (basically a combination of the 3).
+//Some basic code pieces taken from flashbang, spawner grenade and ethereal disco ball for functionality (basically a combination of the 3).
 
 //////////////////////
 // Primary grenade  //
@@ -16,7 +16,8 @@
 	var/list/messages = list("This party is great!", "Wooo!!!", "Party!", "Check out these moves!", "Hey, want to dance with me?")
 	var/list/message_social_anxiety = list("I want to go home...", "Where are the toilets?", "I don't like this song.")
 
-/obj/item/grenade/discogrenade/prime()
+/obj/item/grenade/discogrenade/prime(mob/living/lanced_by)
+	. = ..()
 	update_mob()
 	var/current_turf = get_turf(src)
 	if(!current_turf)
@@ -57,7 +58,7 @@
 	addtimer(CALLBACK(src, .proc/prime), rand(10, 60))
 	randomiseLightColor()
 
-/obj/item/grenade/discogrenade/subgrenade/prime()
+/obj/item/grenade/discogrenade/subgrenade/prime(mob/living/lanced_by)
 	update_mob()
 	var/current_turf = get_turf(src)
 	if(!current_turf)
@@ -73,7 +74,7 @@
 	//Create the lights
 	new /obj/effect/dummy/lighting_obj (current_turf, rand_hex_color(), 4, 1, 10)
 
-	for(var/mob/living/carbon/human/M in view(4, src))
+	for(var/mob/living/carbon/human/M in hearers(4, src))
 		forcedance(get_turf(M), M)
 	qdel(src)
 
@@ -108,7 +109,7 @@
 		M.show_message("<span class='warning'>You resist your inner urges to break out your best moves.</span>", 2)
 		M.set_drugginess(5)
 		return
-	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		to_chat(M, "<span class = 'userdanger'>THOSE GLOW-IN-THE-DARK NANOTRASEN LIGHTBULBS WON'T CORRUPT ME WITH THEIR AGENDA!</span>")
 		M.emote("scream")
 		return

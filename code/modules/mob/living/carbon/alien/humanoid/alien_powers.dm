@@ -17,10 +17,6 @@ Doesn't work on other aliens/AI.*/
 	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_alien"
 
-/obj/effect/proc_holder/alien/Initialize()
-	. = ..()
-	action = new(src)
-
 /obj/effect/proc_holder/alien/Click()
 	if(!iscarbon(usr))
 		return 1
@@ -69,7 +65,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/plant
 	name = "Plant Weeds"
-	desc = "Plants some alien weeds."
+	desc = "Alien weeds spread resin which heals any alien. Costs 50 Plasma."
 	plasma_cost = 50
 	check_turf = TRUE
 	action_icon_state = "alien_plant"
@@ -84,7 +80,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/whisper
 	name = "Whisper"
-	desc = "Whisper to someone."
+	desc = "Whisper to someone through the hivemind. Costs 10 Plasma."
 	plasma_cost = 10
 	action_icon_state = "alien_whisper"
 
@@ -138,15 +134,15 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/acid
 	name = "Corrosive Acid"
-	desc = "Drench an object in acid, destroying it over time."
+	desc = "Drench an object in acid, destroying it over time. Costs 200 Plasma."
 	plasma_cost = 200
 	action_icon_state = "alien_acid"
 
 /obj/effect/proc_holder/alien/acid/on_gain(mob/living/carbon/user)
-	user.verbs.Add(/mob/living/carbon/proc/corrosive_acid)
+	user.add_verb(/mob/living/carbon/proc/corrosive_acid)
 
 /obj/effect/proc_holder/alien/acid/on_lose(mob/living/carbon/user)
-	user.verbs.Remove(/mob/living/carbon/proc/corrosive_acid)
+	user.remove_verb(/mob/living/carbon/proc/corrosive_acid)
 
 /obj/effect/proc_holder/alien/acid/proc/corrode(atom/target,mob/living/carbon/user = usr)
 	if(target in oview(1,user))
@@ -184,7 +180,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/neurotoxin
 	name = "Spit Neurotoxin"
-	desc = "Spits neurotoxin at someone, paralyzing them for a short time."
+	desc = "Activates your Neurotoxin glands. You can shoot paralyzing shots. Each shot costs 50 Plasma."
 	action_icon_state = "alien_neurotoxin_0"
 	active = FALSE
 
@@ -204,7 +200,7 @@ Doesn't work on other aliens/AI.*/
 /obj/effect/proc_holder/alien/neurotoxin/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
 		return
-	var/p_cost = 50
+	var/p_cost = 30
 	if(!iscarbon(ranged_ability_user) || ranged_ability_user.stat)
 		remove_ranged_ability()
 		return
@@ -249,7 +245,7 @@ Doesn't work on other aliens/AI.*/
 
 /obj/effect/proc_holder/alien/resin
 	name = "Secrete Resin"
-	desc = "Secrete tough malleable resin."
+	desc = "Secrete tough malleable resin. Costs 55 Plasma."
 	plasma_cost = 55
 	check_turf = TRUE
 	var/list/structures = list(

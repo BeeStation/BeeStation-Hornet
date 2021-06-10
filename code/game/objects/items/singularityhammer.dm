@@ -1,7 +1,7 @@
 /obj/item/twohanded/singularityhammer
 	name = "singularity hammer"
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
-	icon_state = "mjollnir0"
+	icon_state = "singularity_hammer0"
 	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
 	flags_1 = CONDUCT_1
@@ -15,7 +15,7 @@
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
 	var/charged = 5
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	force_string = "LORD SINGULOTH HIMSELF"
 
@@ -33,29 +33,27 @@
 	return
 
 /obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
+	icon_state = "singularity_hammer[wielded]"
 	return
 
 /obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
-	for(var/atom/X in orange(5,pull))
-		if(ismovableatom(X))
-			var/atom/movable/A = X
-			if(A == wielder)
-				continue
-			if(A && !A.anchored && !ishuman(X))
-				step_towards(A,pull)
-				step_towards(A,pull)
-				step_towards(A,pull)
-			else if(ishuman(X))
-				var/mob/living/carbon/human/H = X
-				if(istype(H.shoes, /obj/item/clothing/shoes/magboots))
-					var/obj/item/clothing/shoes/magboots/M = H.shoes
-					if(M.magpulse)
-						continue
-				H.apply_effect(20, EFFECT_PARALYZE, 0)
-				step_towards(H,pull)
-				step_towards(H,pull)
-				step_towards(H,pull)
+	for(var/atom/movable/A as mob|obj in orange(5,pull))
+		if(A == wielder)
+			continue
+		if(A && !A.anchored && !ishuman(A))
+			step_towards(A,pull)
+			step_towards(A,pull)
+			step_towards(A,pull)
+		else if(ishuman(A))
+			var/mob/living/carbon/human/H = A
+			if(istype(H.shoes, /obj/item/clothing/shoes/magboots))
+				var/obj/item/clothing/shoes/magboots/M = H.shoes
+				if(M.magpulse)
+					continue
+			H.apply_effect(20, EFFECT_PARALYZE, 0)
+			step_towards(H,pull)
+			step_towards(H,pull)
+			step_towards(H,pull)
 	return
 
 /obj/item/twohanded/singularityhammer/afterattack(atom/A as mob|obj|turf|area, mob/user, proximity)

@@ -92,6 +92,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
 /area/shuttle/mining)
 "j" = (
@@ -131,6 +132,7 @@
 	dir = 8
 	},
 /obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
 /turf/open/floor/pod/light,
 /area/shuttle/mining)
 "n" = (

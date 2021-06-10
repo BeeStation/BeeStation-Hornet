@@ -4,6 +4,7 @@
 	weight = 5
 	max_occurrences = 1
 	min_players = 15
+	dynamic_should_hijack = TRUE
 
 /datum/round_event/spider_infestation
 	announceWhen	= 400
@@ -16,8 +17,7 @@
 	spawncount = rand(5, 8)
 
 /datum/round_event/spider_infestation/announce(fake)
-	priority_announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", 'sound/ai/aliens.ogg')
-
+	priority_announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", ANNOUNCER_ALIENS)
 
 /datum/round_event/spider_infestation/start()
 	var/list/vents = list()

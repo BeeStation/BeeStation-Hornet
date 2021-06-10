@@ -7,7 +7,7 @@
 	var/last_blink
 	var/check_every = 20 SECONDS			//we scp now
 	var/grace_period = 6 SECONDS
-	var/damage_rate = 1 // organ damage taken per tick
+	var/damage_rate = 0.5 // organ damage taken per second
 	var/list/valid_emotes = list(/datum/emote/living/carbon/blink, /datum/emote/living/carbon/blink_r)
 	var/datum/action/blink/button = new
 
@@ -17,7 +17,7 @@
 	button_icon_state = "see"						//Feel free to replace
 
 /datum/action/blink/Trigger()
-	if(owner.stat != CONSCIOUS)
+	if(!owner.is_conscious())
 		return FALSE
 	owner.emote("blink")
 
@@ -61,7 +61,7 @@
 /datum/component/manual_blinking/proc/pause()
 	STOP_PROCESSING(SSdcs, src)
 
-/datum/component/manual_blinking/process()
+/datum/component/manual_blinking/process(delta_time)
 	var/mob/living/carbon/C = parent
 
 	if(world.time > (last_blink + check_every + grace_period))
@@ -69,7 +69,7 @@
 			to_chat(C, "<span class='userdanger'>Your eyes begin to wither, you need to blink!</span>")
 			warn_dying = TRUE
 
-		E.applyOrganDamage(damage_rate)
+		E.applyOrganDamage(damage_rate * delta_time)
 	else if(world.time > (last_blink + check_every))
 		if(!warn_grace)
 			to_chat(C, "<span class='danger'>You feel a need to blink!</span>")

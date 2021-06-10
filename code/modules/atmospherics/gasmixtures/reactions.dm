@@ -399,7 +399,7 @@
 	air.adjust_moles(/datum/gas/nitrous_oxide, -reaction_efficency)
 	air.adjust_moles(/datum/gas/plasma, -2*reaction_efficency)
 
-	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min((reaction_efficency**2)*BZ_RESEARCH_SCALE),BZ_RESEARCH_MAX_AMOUNT)
+	SSresearch.science_tech.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, min((reaction_efficency**2)*BZ_RESEARCH_SCALE,BZ_RESEARCH_MAX_AMOUNT))
 
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()

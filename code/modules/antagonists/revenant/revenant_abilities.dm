@@ -1,5 +1,8 @@
 
 /mob/living/simple_animal/revenant/ClickOn(atom/A, params) //revenants can't interact with the world directly.
+	if(check_click_intercept(params,A))
+		return
+
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"])
 		ShiftClickOn(A)
@@ -22,7 +25,7 @@
 	if(draining)
 		to_chat(src, "<span class='revenwarning'>You are already siphoning the essence of a soul!</span>")
 		return
-	if(!target.stat)
+	if(target.is_conscious())
 		to_chat(src, "<span class='revennotice'>[target.p_their(TRUE)] soul is too strong to harvest.</span>")
 		if(prob(10))
 			to_chat(target, "You feel as if you are being watched.")
@@ -50,7 +53,7 @@
 				if(90 to INFINITY)
 					to_chat(src, "<span class='revenbignotice'>Ah, the perfect soul. [target] will yield massive amounts of essence to you.</span>")
 			if(do_after(src, rand(15, 25), 0, target)) //how about now
-				if(!target.stat)
+				if(target.is_conscious())
 					to_chat(src, "<span class='revenwarning'>[target.p_theyre(TRUE)] now powerful enough to fight off your draining.</span>")
 					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
 					draining = 0
@@ -209,7 +212,7 @@
 	if(!L.on) //wait, wait, don't shock me
 		return
 	flick("[L.base_state]2", L)
-	for(var/mob/living/carbon/human/M in view(shock_range, L))
+	for(var/mob/living/carbon/human/M in hearers(shock_range, L))
 		if(M == user)
 			continue
 		L.Beam(M,icon_state="purple_lightning",time=5)

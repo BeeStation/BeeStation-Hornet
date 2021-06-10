@@ -4,6 +4,9 @@
 	icon_state = "lizard"
 	icon_living = "lizard"
 	icon_dead = "lizard_dead"
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+	held_state = "lizard"
 	do_footstep = TRUE
 	can_be_held = TRUE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST, MOB_REPTILE)
@@ -28,6 +31,7 @@
 	maxbodytemp = 800
 	var/turns_since_scan = 0
 	var/obj/item/reagent_containers/food/snacks/movement_target
+	mobchatspan = "centcom"
 
 /mob/living/simple_animal/kalo/Destroy()
 	movement_target = null
@@ -43,13 +47,9 @@
 			if((movement_target) && !isturf(movement_target.loc))
 				movement_target = null
 				stop_automated_movement = 0
-			if(!movement_target || !(movement_target.loc in oview(src, 5)))
-				movement_target = null
+			if(!movement_target || !(src in viewers(5, movement_target.loc)))
 				stop_automated_movement = 0
-				for(var/obj/item/reagent_containers/food/snacks/S in oview(src,5)) //can smell things up to 5 blocks radius
-					if(isturf(S.loc))
-						movement_target = S
-						break
+				movement_target = locate(/obj/item/reagent_containers/food/snacks) in oview(5, src) //can smell things up to 5 blocks radius
 
 			if(movement_target)
 				stop_automated_movement = 1
@@ -82,7 +82,7 @@
 
 			else //if we don't see a better snack, lick up nearby blood
 				var/obj/effect/decal/cleanable/blood/B
-				for(var/obj/effect/decal/cleanable/blood/O in oview(src,2))
+				for(var/obj/effect/decal/cleanable/blood/O in oview(2, src))
 					if (!istype(O, /obj/effect/decal/cleanable/blood/gibs) && !istype(O, /obj/effect/decal/cleanable/blood/innards)) //dont lick up gibs or innards
 						B = O
 						break

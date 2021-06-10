@@ -13,7 +13,7 @@
 	max_integrity = 300
 	integrity_failure = 100
 	move_resist = INFINITY
-	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 10, "acid" = 70)
+	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 10, "acid" = 70, "stamina" = 0)
 	var/datum/team/gang/gang
 	var/operating = FALSE	//false=standby or broken, true=takeover
 	var/warned = FALSE	//if this device has set off the warning at <3 minutes yet
@@ -202,9 +202,8 @@
 	var/open = FALSE
 	if(isclosedturf(loc))
 		return TRUE
-	for(var/turf/T in view(3, src))
-		if(!isclosedturf(T))
-			open++
+	for(var/turf/open/T in view(3, src))
+		open++
 	if(open < DOM_REQUIRED_TURFS)
 		return TRUE
 	else

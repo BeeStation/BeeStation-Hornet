@@ -7,7 +7,7 @@
 			src.digitaldisguise = image(loc = src)
 		src.digitaldisguise.override = 1
 		for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
-			AI.client.images |= src.digitaldisguise
+			AI.client?.images |= src.digitaldisguise
 
 	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
 		float(on = TRUE)
@@ -42,7 +42,7 @@
 			handle_environment(environment)
 
 		//Handle gravity
-		var/gravity = mob_has_gravity()
+		var/gravity = has_gravity()
 		update_gravity(gravity)
 
 		if(gravity > STANDARD_GRAVITY)

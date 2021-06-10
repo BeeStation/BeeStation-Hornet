@@ -295,9 +295,9 @@
 			if(kill)
 				child.Die()
 			else
-				for(var/mob/M in range(1,src))
-					if(CanHug(M))
-						child.Leap(M)
+				for(var/mob/living/carbon/C in ohearers(1,src))
+					if(CanHug(C))
+						child.Leap(C)
 						break
 
 /obj/structure/alien/egg/obj_break(damage_flag)
@@ -316,7 +316,7 @@
 			return
 
 		var/mob/living/carbon/C = AM
-		if(C.stat == CONSCIOUS && C.getorgan(/obj/item/organ/body_egg/alien_embryo))
+		if(C.is_conscious() && C.getorgan(/obj/item/organ/body_egg/alien_embryo))
 			return
 
 		Burst(kill=FALSE)
@@ -328,6 +328,12 @@
 /obj/structure/alien/egg/burst
 	status = BURST
 	icon_state = "egg_hatched"
+
+/obj/structure/alien/egg/troll
+
+/obj/structure/alien/egg/troll/finish_bursting(kill = TRUE)
+	qdel(child)
+	new /obj/item/paper/troll(get_turf(src))
 
 #undef BURST
 #undef GROWING

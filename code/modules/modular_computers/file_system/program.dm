@@ -65,7 +65,7 @@
 	return 0
 
 // Called by Process() on device that runs us, once every tick.
-/datum/computer_file/program/proc/process_tick()
+/datum/computer_file/program/proc/process_tick(delta_time)
 	return 1
 
 // Check if the user can run program. Only humans can operate computer. Automatically called in run_program()
@@ -150,9 +150,9 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui && tgui_id)
 		ui = new(user, src, tgui_id, filename)
-
 		ui.set_autoupdate(TRUE)
-		ui.open()
+		if(ui.open())
+			ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
 
 // CONVENTIONS, READ THIS WHEN CREATING NEW PROGRAM AND OVERRIDING THIS PROC:
 // Topic calls are automagically forwarded from NanoModule this program contains.

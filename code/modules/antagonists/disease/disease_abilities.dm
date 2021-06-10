@@ -175,7 +175,7 @@ new /datum/disease_ability/symptom/powerful/youth
 	var/mob/living/L = D.following_host
 	if(!L)
 		return FALSE
-	if(L.stat != CONSCIOUS)
+	if(!L.is_conscious())
 		to_chat(D, "<span class='warning'>Your host must be conscious to cough.</span>")
 		return FALSE
 	to_chat(D, "<span class='notice'>You force [L.real_name] to cough.</span>")
@@ -217,7 +217,7 @@ new /datum/disease_ability/symptom/powerful/youth
 	if(L.CanSpreadAirborneDisease()) //don't spread germs if they covered their mouth
 		var/datum/disease/advance/sentient_disease/SD = D.hosts[L]
 
-		for(var/mob/living/M in oview(4, SD.affected_mob))
+		for(var/mob/living/M in ohearers(4, SD.affected_mob))
 			if(is_A_facing_B(SD.affected_mob, M) && disease_air_spread_walk(get_turf(SD.affected_mob), get_turf(M)))
 				M.AirborneContractDisease(SD, TRUE)
 

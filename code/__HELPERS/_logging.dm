@@ -1,9 +1,11 @@
 //wrapper macros for easier grepping
 #define DIRECT_OUTPUT(A, B) A << B
+#define DIRECT_INPUT(A, B) A >> B
 #define SEND_IMAGE(target, image) DIRECT_OUTPUT(target, image)
 #define SEND_SOUND(target, sound) DIRECT_OUTPUT(target, sound)
 #define SEND_TEXT(target, text) DIRECT_OUTPUT(target, text)
 #define WRITE_FILE(file, text) DIRECT_OUTPUT(file, text)
+#define READ_FILE(file, text) DIRECT_INPUT(file, text)
 //This is an external call, "true" and "false" are how rust parses out booleans
 #define WRITE_LOG(log, text) rustg_log_write(log, text, "true")
 #define WRITE_LOG_NO_FORMAT(log, text) rustg_log_write(log, text, "false")
@@ -27,7 +29,7 @@
 #define testing(msg)
 #endif
 
-#ifdef UNIT_TESTS
+#if defined(UNIT_TESTS) || defined(SPACEMAN_DMM)
 /proc/log_test(text)
 	WRITE_LOG(GLOB.test_log, text)
 	SEND_TEXT(world.log, text)
@@ -65,15 +67,15 @@
 		WRITE_LOG(GLOB.world_objective_log, "OBJ: [key_name(whom)] was assigned the following objective [admin_involved ? "by [key_name(admin_involved)]" : "automatically"]: [objective]")
 
 /proc/log_mecha(text)
-	if (CONFIG_GET(flag/log_mecha))
+	if (CONFIG_GET(flag/log_mecha) && SSticker.current_state != GAME_STATE_FINISHED)
 		WRITE_LOG(GLOB.world_mecha_log, "MECHA: [text]")
 
 /proc/log_virus(text)
-	if (CONFIG_GET(flag/log_virus))
+	if (CONFIG_GET(flag/log_virus) && SSticker.current_state != GAME_STATE_FINISHED)
 		WRITE_LOG(GLOB.world_virus_log, "VIRUS: [text]")
 
 /proc/log_cloning(text, mob/initiator)
-	if(CONFIG_GET(flag/log_cloning))
+	if(CONFIG_GET(flag/log_cloning) && SSticker.current_state != GAME_STATE_FINISHED)
 		WRITE_LOG(GLOB.world_cloning_log, "CLONING: [text]")
 
 /proc/log_id(text)
@@ -95,7 +97,7 @@
 		WRITE_LOG(GLOB.world_game_log, "LAW: [text]")
 
 /proc/log_attack(text)
-	if (CONFIG_GET(flag/log_attack))
+	if (CONFIG_GET(flag/log_attack) && SSticker.current_state != GAME_STATE_FINISHED)
 		WRITE_LOG(GLOB.world_attack_log, "ATTACK: [text]")
 
 /proc/log_manifest(ckey, datum/mind/mind,mob/body, latejoin = FALSE)
@@ -103,6 +105,9 @@
 		WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"]")
 
 /proc/log_bomber(atom/user, details, atom/bomb, additional_details, message_admins = TRUE)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return
+
 	var/bomb_message = "[details][bomb ? " [bomb.name] at [AREACOORD(bomb)]": ""][additional_details ? " [additional_details]" : ""]."
 
 	if(user)
@@ -115,6 +120,7 @@
 
 	if(message_admins)
 		message_admins("[user ? "[ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(user)] " : ""][details][bomb ? " [bomb.name] at [ADMIN_VERBOSEJMP(bomb)]": ""][additional_details ? " [additional_details]" : ""].")
+
 
 /proc/log_say(text)
 	if (CONFIG_GET(flag/log_say))

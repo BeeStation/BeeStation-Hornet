@@ -3,7 +3,6 @@
 	icon = 'icons/obj/shields.dmi'
 	block_level = 1
 	block_upgrade_walk = 1
-	block_flags = BLOCKING_PROJECTILE
 	block_power = 50
 	max_integrity =  75
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
@@ -21,7 +20,7 @@
 			var/obj/item/projectile/P = hitby
 			if(P.damage_type != STAMINA)// disablers dont do shit to shields
 				attackforce = (P.damage / 2)
-		if(isitem(hitby))
+		else if(isitem(hitby))
 			var/obj/item/I = hitby
 			attackforce = damage
 			if(!I.damtype == BRUTE)
@@ -255,6 +254,7 @@
 	throw_speed = 3
 	max_integrity = 50
 	block_sound = 'sound/weapons/egloves.ogg'
+	block_flags = BLOCKING_PROJECTILE
 	var/base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
 	var/on_force = 10
 	var/on_throwforce = 8

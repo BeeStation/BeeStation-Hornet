@@ -312,7 +312,7 @@
 	playsound(owner, 'sound/weapons/fwoosh.ogg', 75, 0)
 	var/obj/item/slashy
 	slashy = owner.get_active_held_item()
-	for(var/mob/living/M in orange(1,owner))
+	for(var/mob/living/M in ohearers(1,owner))
 		slashy.attack(M, owner)
 
 /datum/status_effect/sword_spin/on_remove()
@@ -334,8 +334,8 @@
 	owner.adjustBruteLoss(-2.5, FALSE)
 	owner.adjustFireLoss(-2.5, FALSE)
 	owner.adjustOxyLoss(-2.5)
-	owner.adjustToxLoss(-2.5, FALSE)
 	owner.adjustCloneLoss(-2.5)
+	owner.adjustToxLoss(-2.5, FALSE, TRUE)
 
 /atom/movable/screen/alert/status_effect/fleshmend
 	name = "Fleshmend"
@@ -427,13 +427,13 @@
 			itemUser.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1.5)
 			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
 		//Heal all those around you, unbiased
-		for(var/mob/living/L in view(7, owner))
+		for(var/mob/living/L in hearers(7, owner))
 			if(L.health < L.maxHealth)
 				new /obj/effect/temp_visual/heal(get_turf(L), "#375637")
 			if(iscarbon(L))
 				L.adjustBruteLoss(-3.5)
 				L.adjustFireLoss(-3.5)
-				L.adjustToxLoss(-3.5, forced = TRUE) //Because Slime People are people too
+				L.adjustToxLoss(-3.5, FALSE, TRUE) //Because Slime People are people too
 				L.adjustOxyLoss(-3.5)
 				L.adjustStaminaLoss(-3.5)
 				L.adjustOrganLoss(ORGAN_SLOT_BRAIN, -3.5)

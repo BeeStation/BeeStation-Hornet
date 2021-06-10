@@ -88,14 +88,6 @@
 	initial_gas_mix = AIRLESS_ATMOS
 
 
-/turf/open/floor/plasteel/kitchen_coldroom
-	name = "cold room floor"
-	initial_gas_mix = KITCHEN_COLDROOM_ATMOS
-
-/turf/open/floor/plasteel/kitchen_coldroom/freezerfloor
-	icon_state = "freezerfloor"
-
-
 /turf/open/floor/plasteel/grimy
 	icon_state = "grimy"
 	tiled_dirt = FALSE
@@ -110,14 +102,6 @@
 /turf/open/floor/plasteel/cult
 	icon_state = "cult"
 	name = "engraved floor"
-	CanAtmosPass = ATMOS_PASS_NO	
-	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
-	
-/turf/open/floor/plasteel/cult/Initialize()
-	..()
-	var/datum/gas_mixture/auto_atmos = new (initial_gas_mix)
-	assume_air(auto_atmos)
-	update_air_ref()
 
 /turf/open/floor/plasteel/vaporwave
 	icon_state = "pinkblack"

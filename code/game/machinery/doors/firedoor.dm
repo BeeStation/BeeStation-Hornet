@@ -4,9 +4,11 @@
 #define CONSTRUCTION_GUTTED 3 //Wires are removed, circuit ready to remove
 #define CONSTRUCTION_NOCIRCUIT 4 //Circuit board removed, can safely weld apart
 
+#define RECLOSE_DELAY 5 SECONDS // How long until a firelock tries to shut itself if it's blocking a vacuum.
+
 /obj/machinery/door/firedoor
 	name = "firelock"
-	desc = "A convenable firelock. Equipt with a manual lever for operating in case of emergency."
+	desc = "A convenable firelock. Equipped with a manual lever for operating in case of emergency."
 	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = FALSE
@@ -21,7 +23,7 @@
 	layer = BELOW_OPEN_DOOR_LAYER
 	closingLayer = CLOSED_FIREDOOR_LAYER
 	assemblytype = /obj/structure/firelock_frame
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70, "stamina" = 0)
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	air_tight = TRUE
 	open_speed = 2
@@ -98,26 +100,26 @@
 	. = ..()
 	if(.)
 		return
-	
+
 	if (!welded && !operating)
-		if (stat & NOPOWER) 				
+		if (stat & NOPOWER)
 			user.visible_message("[user] tries to open \the [src] manually.",
 						 "You operate the manual lever on \the [src].")
 			if (!do_after(user, 30, TRUE, src))
 				return FALSE
 		else if (density && !allow_hand_open(user))
 			return FALSE
-	
-		add_fingerprint(user)		
+
+		add_fingerprint(user)
 		if(density)
-			emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
+			emergency_close_timer = world.time + RECLOSE_DELAY // prevent it from instaclosing again if in space
 			open()
 		else
 			close()
 		return TRUE
 	if(operating || !density)
 		return
-	
+
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	user.visible_message("[user] bangs on \the [src].",
@@ -181,7 +183,7 @@
 			whack_a_mole()
 		if(welded || operating || !density)
 			return // in case things changed during our do_after
-		emergency_close_timer = world.time + 15 // prevent it from instaclosing again if in space
+		emergency_close_timer = world.time + RECLOSE_DELAY // prevent it from instaclosing again if in space
 		open()
 	else
 		close()
@@ -298,7 +300,6 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		var/obj/structure/firelock_frame/F = new assemblytype(get_turf(src))
 		F.dir = src.dir
-		F.firelock_type = src.type
 		if(disassembled)
 			F.constructionStep = CONSTRUCTION_PANEL_OPEN
 		else
@@ -325,6 +326,11 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	assemblytype = /obj/structure/firelock_frame/border
 
+/obj/machinery/door/firedoor/border_only/Destroy()
+	density = FALSE
+	air_update_turf(1)
+	return ..()
+
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
 	opacity = TRUE
@@ -338,14 +344,14 @@
 	var/turf/T1 = get_turf(src)
 	var/turf/T2 = get_step(T1, dir)
 	for(var/mob/living/M in T1)
-		if(M.stat == CONSCIOUS && M.pulling && M.pulling.loc == T2 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
+		if(M.is_conscious() && M.pulling && M.pulling.loc == T2 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
 			var/mob/living/M2 = M.pulling
 			if(!istype(M2) || !M2.buckled || !M2.buckled.buckle_prevents_pull)
 				to_chat(M, "<span class='notice'>You pull [M.pulling] through [src] right as it closes.</span>")
 				M.pulling.forceMove(T1)
 				M.start_pulling(M2)
 	for(var/mob/living/M in T2)
-		if(M.stat == CONSCIOUS && M.pulling && M.pulling.loc == T1 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
+		if(M.is_conscious() && M.pulling && M.pulling.loc == T1 && !M.pulling.anchored && M.pulling.move_resist <= M.move_force)
 			var/mob/living/M2 = M.pulling
 			if(!istype(M2) || !M2.buckled || !M2.buckled.buckle_prevents_pull)
 				to_chat(M, "<span class='notice'>You pull [M.pulling] through [src] right as it closes.</span>")
@@ -423,6 +429,10 @@
 	heat_proof = FALSE
 	assemblytype = /obj/structure/firelock_frame/window
 
+/obj/machinery/door/firedoor/window/attack_alien(mob/living/carbon/alien/humanoid/user)
+	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
+	return attack_generic(user, 60, BRUTE, "melee", 0)
+
 /obj/item/electronics/firelock
 	name = "firelock circuitry"
 	custom_price = 5
@@ -438,7 +448,7 @@
 	density = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
-	var/firelock_type
+	var/firelock_type = /obj/machinery/door/firedoor
 
 /obj/structure/firelock_frame/examine(mob/user)
 	. = ..()
@@ -491,12 +501,9 @@
 				user.visible_message("<span class='notice'>[user] finishes the firelock.</span>", \
 									 "<span class='notice'>You finish the firelock.</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-				if(reinforced)
-					new /obj/machinery/door/firedoor/heavy(get_turf(src))
-				else
-					var/obj/machinery/door/firedoor/F = new firelock_type(get_turf(src))
-					F.dir = src.dir
-					F.update_icon()
+				var/obj/machinery/door/firedoor/F = new firelock_type(get_turf(src))
+				F.dir = src.dir
+				F.update_icon()
 				qdel(src)
 				return
 			if(istype(C, /obj/item/stack/sheet/plasteel))
@@ -517,7 +524,8 @@
 										 "<span class='notice'>You reinforce [src].</span>")
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 					P.use(2)
-					reinforced = 1
+					reinforced = TRUE
+					firelock_type = /obj/machinery/door/firedoor/heavy
 				return
 
 		if(CONSTRUCTION_WIRES_EXPOSED)
@@ -591,12 +599,21 @@
 				if(C.use_tool(src, user, 40, volume=50, amount=1))
 					if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 						return
-					user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
-										 "<span class='notice'>You cut [src] into iron.</span>")
 					var/turf/T = get_turf(src)
-					new /obj/item/stack/sheet/iron(T, 3)
-					if(reinforced)
-						new /obj/item/stack/sheet/plasteel(T, 2)
+					switch(firelock_type)
+						if(/obj/machinery/door/firedoor/heavy)
+							user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
+										 "<span class='notice'>You cut [src] into iron and plasteel.</span>")
+							new /obj/item/stack/sheet/plasteel(T, 2)
+							new /obj/item/stack/sheet/iron(T, 3)
+						if(/obj/machinery/door/firedoor/window)
+							user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
+										 "<span class='notice'>You cut [src] into reinforced glass.</span>")
+							new /obj/item/stack/sheet/rglass(T,2)
+						else
+							user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
+										 "<span class='notice'>You cut [src] into iron.</span>")
+							new /obj/item/stack/sheet/iron(T, 3)
 					qdel(src)
 				return
 			if(istype(C, /obj/item/electronics/firelock))
@@ -649,11 +666,14 @@
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"
 	reinforced = TRUE
+	firelock_type = /obj/machinery/door/firedoor/heavy
 
 /obj/structure/firelock_frame/border
 	name = "firelock frame"
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	icon_state = "door_frame"
+	density = FALSE
+	firelock_type = /obj/machinery/door/firedoor/border_only
 
 /obj/structure/firelock_frame/border/ComponentInitialize()
 	. = ..()
@@ -672,6 +692,7 @@
 	name = "window firelock frame"
 	icon = 'icons/obj/doors/doorfirewindow.dmi'
 	icon_state = "door_frame"
+	firelock_type = /obj/machinery/door/firedoor/window
 
 /obj/structure/firelock_frame/window/update_icon()
 	return

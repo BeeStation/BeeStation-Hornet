@@ -58,12 +58,12 @@
 		give_payout(balance)
 	return ..()
 
-/obj/machinery/computer/slot_machine/process()
+/obj/machinery/computer/slot_machine/process(delta_time)
 	. = ..() //Sanity checks.
 	if(!.)
 		return .
 
-	money++ //SPESSH MAJICKS
+	money += round(delta_time / 2) //SPESSH MAJICKS
 
 /obj/machinery/computer/slot_machine/update_icon()
 	if(stat & NOPOWER)
@@ -319,7 +319,7 @@
 		amount = dispense(amount, cointype, null, 0)
 
 	else
-		var/mob/living/target = locate() in range(2, src)
+		var/mob/living/target = locate() in hearers(2, src)
 
 		amount = dispense(amount, cointype, target, 1)
 

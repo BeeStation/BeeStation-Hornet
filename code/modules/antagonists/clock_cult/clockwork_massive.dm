@@ -1,8 +1,11 @@
 GLOBAL_LIST_INIT(clockwork_portals, list())
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway
-	name = "ark of the Clockwork Justicar"
-	max_integrity = 400
+	name = "\improper Ark of the Clockwork Justiciar"
+	desc = "A massive, hulking amalgamation of parts. It seems to be maintaining a very unstable bluespace anomaly."
+	clockwork_desc = "Nezbere's magnum opus: a hulking clockwork machine capable of combining bluespace and steam power to summon Ratvar. Once activated, \
+	its instability will cause one-way bluespace rifts to open across the station to the City of Cogs, so be prepared to defend it at all costs."
+	max_integrity = 1000
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "clockwork_gateway_components"
 	pixel_x = -32
@@ -30,7 +33,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		return
 	destroyed = TRUE
 	hierophant_message("The Ark has been destroyed, Reebe is becomming unstable!", null, "<span class='large_brass'>")
-	for(var/mob/living/M in GLOB.mob_list)
+	for(var/mob/living/M in GLOB.player_list)
 		if(!is_reebe(M.z))
 			continue
 		if(is_servant_of_ratvar(M))
@@ -55,8 +58,8 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	else
 		. += "It doesn't seem to be doing much right now, maybe one day it will serve its purpose."
 
-/obj/structure/destructible/clockwork/massive/celestial_gateway/process()
-	if(prob(10))
+/obj/structure/destructible/clockwork/massive/celestial_gateway/process(delta_time)
+	if(DT_PROB(10, delta_time))
 		to_chat(world, pick(phase_messages))
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/deconstruct(disassembled = TRUE)
@@ -67,7 +70,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 			sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/clockcult_gateway_disrupted.ogg'))
 			for(var/mob/M in GLOB.player_list)
 				var/turf/T = get_turf(M)
-				if((T && T.z == z) || is_servant_of_ratvar(M))
+				if((T && T.get_virtual_z_level() == get_virtual_z_level()) || is_servant_of_ratvar(M))
 					M.playsound_local(M, 'sound/machines/clockcult/ark_deathrattle.ogg', 100, FALSE, pressure_affected = FALSE)
 			sleep(27)
 			explosion(src, 1, 3, 8, 8)
@@ -150,13 +153,10 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 	priority_announce("Space-time anomalies detected near the station. Source determined to be a temporal \
 		energy pulse emanating from J1523-215. All crew are to enter [text2ratvar("prep#re %o di%")]\
 		and destroy the [text2ratvar("I'd like to see you try")], which has been determined to be the source of the \
-		pulse to prevent mass damage to Nanotrasen property.", "Anomaly Alert", 'sound/ai/spanomalies.ogg')
-	var/list/pick_turfs = list()
-	for(var/turf/open/floor/T in world)
-		if(is_station_level(T.z))
-			pick_turfs += T
+		pulse to prevent mass damage to Nanotrasen property.", "Anomaly Alert", ANNOUNCER_SPANOMALIES)
+
 	for(var/i in 1 to 100)
-		var/turf/T = pick(pick_turfs)
+		var/turf/T = get_random_station_turf()
 		GLOB.clockwork_portals += new /obj/effect/portal/wormhole/clockcult(T, null, 0, null, FALSE)
 	addtimer(CALLBACK(src, .proc/begin_activation), 2400)
 
@@ -235,7 +235,7 @@ GLOBAL_VAR(cult_ratvar)
 	check_gods_battle()
 
 //tasty
-/obj/singularity/ratvar/process()
+/obj/singularity/ratvar/process(delta_time)
 	eat()
 	if(ratvar_target)
 		target = ratvar_target
@@ -247,7 +247,7 @@ GLOBAL_VAR(cult_ratvar)
 				SpinAnimation(4, 0)
 				for(var/mob/living/M in GLOB.player_list)
 					shake_camera(M, 25, 6)
-					M.Knockdown(10)
+					M.Knockdown(5 * delta_time)
 				if(prob(max(GLOB.servants_of_ratvar.len/2, 15)))
 					SEND_SOUND(world, 'sound/magic/demon_dies.ogg')
 					to_chat(world, "<span class='ratvar'>You were a fool for underestimating me...</span>")
@@ -259,8 +259,7 @@ GLOBAL_VAR(cult_ratvar)
 	move()
 
 /obj/singularity/ratvar/eat()
-	for(var/tile in spiral_range_turfs(range, src))
-		var/turf/T = tile
+	for(var/turf/T as() in spiral_range_turfs(range, src))
 		if(!T || !isturf(loc))
 			continue
 		T.ratvar_act()

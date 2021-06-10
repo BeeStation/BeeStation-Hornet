@@ -81,7 +81,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambient_effects = MAINTENANCE
 	valid_territory = FALSE
 	mood_bonus = -1
-	mood_message = "<span class='nicegreen'>It's kind of cramped in here!\n</span>"
+	mood_message = "<span class='warning'>It's kind of cramped in here!\n</span>"
 	lighting_colour_tube = "#ffe5cb"
 	lighting_colour_bulb = "#ffdbb4"
 
@@ -430,6 +430,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#fff4d6"
 	lighting_colour_bulb = "#ffebc1"
 
+/area/crew_quarters/bar/Initialize(mapload)
+	. = ..()
+	GLOB.bar_areas += src
+
+/area/service/bar/Initialize(mapload)
+	. = ..()
+	GLOB.bar_areas += src
+
 /area/crew_quarters/bar/atrium
 	name = "Atrium"
 	icon_state = "bar"
@@ -718,7 +726,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "morgue"
 	ambient_effects = SPOOKY
 	mood_bonus = -2
-	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
+	mood_message = "<span class='warning'>It smells like death in here!\n</span>"
 
 /area/medical/chemistry
 	name = "Chemistry"
@@ -770,7 +778,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Brig"
 	icon_state = "brig"
 	mood_bonus = -3
-	mood_message = "<span class='nicegreen'>I hate cramped brig cells.\n</span>"
+	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
 
 /area/security/courtroom
 	name = "Courtroom"
@@ -795,7 +803,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/detectives_office
 	name = "Detective's Office"
 	icon_state = "detective"
-	ambient_effects = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg')
+	ambient_effects = list('sound/ambience/ambidet1.ogg','sound/ambience/ambidet2.ogg','sound/ambience/ambidet3.ogg','sound/ambience/ambidet4.ogg')
 
 /area/security/detectives_office/private_investigators_office
 	name = "Private Investigator's Office"
@@ -808,7 +816,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/execution
 	icon_state = "execution_room"
 	mood_bonus = -5
-	mood_message = "<span class='nicegreen'>I feel a sense of impending doom.\n</span>"
+	mood_message = "<span class='warning'>I feel a sense of impending doom.\n</span>"
 
 /area/security/execution/transfer
 	name = "Transfer Centre"
@@ -903,7 +911,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "janitor"
 	flags_1 = NONE
 	mood_bonus = -1
-	mood_message = "<span class='nicegreen'>It feels dirty in here!\n</span>"
+	mood_message = "<span class='warning'>It feels dirty in here!\n</span>"
 
 /area/hydroponics
 	name = "Hydroponics"
@@ -939,6 +947,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/science/xenobiology
 	name = "Xenobiology Lab"
 	icon_state = "toxlab"
+
+/area/science/shuttle
+	name = "Shuttle Construction"
+	lighting_colour_tube = "#ffe3cc"
+	lighting_colour_bulb = "#ffdbb8"
 
 /area/science/storage
 	name = "Toxins Storage"

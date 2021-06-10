@@ -29,6 +29,11 @@
 	laws.set_zeroth_law(law, law_borg)
 	post_lawchange(announce)
 
+/mob/living/silicon/proc/set_valentines_laws(law, announce = TRUE)
+	laws_sanity_check()
+	laws.set_valentines_law(law)
+	post_lawchange(announce)
+
 /mob/living/silicon/proc/add_inherent_law(law, announce = TRUE)
 	laws_sanity_check()
 	laws.add_inherent_law(law)

@@ -69,18 +69,20 @@
  * public
  *
  * Open this UI (and initialize it with data).
+ *
+ * return bool - TRUE if a new pooled window is opened, FALSE in all other situations including if a new pooled window didn't open because one already exists.
  */
 /datum/tgui/proc/open()
 	if(!user.client)
-		return null
+		return FALSE
 	if(window)
-		return null
+		return FALSE
 	process_status()
 	if(status < UI_UPDATE)
-		return null
+		return FALSE
 	window = SStgui.request_pooled_window(user)
 	if(!window)
-		return null
+		return FALSE
 	opened_at = world.time
 	window.acquire_lock(src)
 	if(!window.is_ready())
@@ -102,6 +104,8 @@
 		with_data = TRUE,
 		with_static_data = TRUE))
 	SStgui.on_open(src)
+
+	return TRUE
 
 /**
  * public
@@ -158,7 +162,7 @@
  */
 /datum/tgui/proc/send_asset(datum/asset/asset)
 	if(!window)
-		CRASH("send_asset() can only be called after open().")
+		CRASH("send_asset() was called either without calling open() first or when open() did not return TRUE.")
 	return window.send_asset(asset)
 
 /**
@@ -239,7 +243,7 @@
  * Run an update cycle for this UI. Called internally by SStgui
  * every second or so.
  */
-/datum/tgui/process(force = FALSE)
+/datum/tgui/process(delta_time, force = FALSE)
 	if(closing)
 		return
 	var/datum/host = src_object.ui_host(user)
@@ -256,6 +260,10 @@
 			+ "world.time: [world.time]")
 		close(can_be_suspended = FALSE)
 		return
+	// Update through a normal call to ui_interact
+	if(status != UI_DISABLED && (autoupdate || force))
+		src_object.ui_interact(user, src)
+		return
 	// Update status only
 	var/needs_update = process_status()
 	if(status <= UI_CLOSE)
@@ -263,10 +271,6 @@
 		return
 	if(needs_update)
 		window.send_message("update", get_payload())
-	// Update through a normal call to ui_interact
-	if(status != UI_DISABLED && (autoupdate || force))
-		src_object.ui_interact(user, src)
-		return
 
 /**
  * private

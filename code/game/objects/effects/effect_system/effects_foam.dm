@@ -146,7 +146,7 @@
 		if(lifetime % reagent_divisor)
 			reagents.reaction(O, VAPOR, fraction)
 	var/hit = 0
-	for(var/mob/living/L in range(0,src))
+	for(var/mob/living/L in get_turf(src))
 		hit += foam_mob(L)
 	if(hit)
 		lifetime++ //this is so the decrease from mobs hit and the natural decrease don't cumulate.

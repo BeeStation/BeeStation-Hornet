@@ -363,9 +363,9 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/i in GLOB.mob_list)
 		var/mob/M = i
-		if(M.z != z && !(ztrait && SSmapping.level_trait(z, ztrait) && SSmapping.level_trait(M.z, ztrait)))
+		if(M.get_virtual_z_level() != get_virtual_z_level() && !(ztrait && SSmapping.level_trait(z, ztrait) && SSmapping.level_trait(M.z, ztrait)))
 			continue
-		M.update_gravity(M.mob_has_gravity())
+		M.update_gravity(M.has_gravity())
 		if(M.client)
 			shake_camera(M, 15, 1)
 			M.playsound_local(T, null, 100, 1, 0.5, S = alert_sound)
@@ -374,8 +374,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/turf/T = get_turf(src)
 	if(!T)
 		return 0
-	if(GLOB.gravity_generators["[T.z]"])
-		return length(GLOB.gravity_generators["[T.z]"])
+	if(GLOB.gravity_generators["[T.get_virtual_z_level()]"])
+		return length(GLOB.gravity_generators["[T.get_virtual_z_level()]"])
 	return 0
 
 /obj/machinery/gravity_generator/main/proc/update_list()

@@ -103,7 +103,7 @@
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, cultoverride = TRUE, loc_override = src.loc)
 
-/obj/singularity/narsie/process()
+/obj/singularity/narsie/process(delta_time)
 	eat()
 	if(clashing)
 		//Oh god what is it doing...
@@ -117,7 +117,7 @@
 				for(var/mob/living/M in GLOB.player_list)
 					shake_camera(M, 25, 6)
 					M.Knockdown(10)
-				if(prob(max(SSticker.mode?.cult.len/2, 15)))
+				if(DT_PROB(max(SSticker.mode?.cult.len/2, 15), delta_time))
 					SEND_SOUND(world, 'sound/magic/clockwork/anima_fragment_death.ogg')
 					SEND_SOUND(world, 'sound/effects/explosionfar.ogg')
 					to_chat(world, "<span class='narsie'>You really thought you could best me twice?</span>")
@@ -128,11 +128,11 @@
 				return
 		move()
 		return
-	if(!target || prob(5))
+	if(!target || DT_PROB(5, delta_time))
 		pickcultist()
 	else
 		move()
-	if(prob(25))
+	if(DT_PROB(25, delta_time))
 		mezzer()
 
 
@@ -148,11 +148,11 @@
 
 
 /obj/singularity/narsie/mezzer()
-	for(var/mob/living/carbon/M in viewers(consume_range, src))
-		if(M.stat == CONSCIOUS)
-			if(!iscultist(M))
-				to_chat(M, "<span class='cultsmall'>You feel conscious thought crumble away in an instant as you gaze upon [src.name]...</span>")
-				M.apply_effect(60, EFFECT_STUN)
+	for(var/mob/living/carbon/M in hearers(consume_range, src))
+		if(M.is_conscious() || iscultist(M))
+			continue
+		to_chat(M, "<span class='cultsmall'>You feel conscious thought crumble away in an instant as you gaze upon [src.name].</span>")
+		M.apply_effect(60, EFFECT_STUN)
 
 
 /obj/singularity/narsie/consume(atom/A)
@@ -170,7 +170,7 @@
 
 	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
-		if(!pos || (pos.z != z))
+		if(!pos || (pos.get_virtual_z_level() != get_virtual_z_level()))
 			continue
 
 		if(iscultist(food))
@@ -191,7 +191,7 @@
 		if(!ghost.client)
 			continue
 		var/turf/pos = get_turf(ghost)
-		if(!pos || (pos.z != z))
+		if(!pos || (pos.get_virtual_z_level() != get_virtual_z_level()))
 			continue
 		cultists += ghost
 	if(cultists.len)
@@ -216,9 +216,10 @@
 /obj/singularity/narsie/wizard/eat()
 //	if(defer_powernet_rebuild != 2)
 //		defer_powernet_rebuild = 1
-	for(var/atom/X in urange(consume_range,src,1))
-		if(isturf(X) || ismovableatom(X))
-			consume(X)
+	for(var/turf/T as() in RANGE_TURFS(consume_range, src))
+		consume(T)
+	for(var/atom/movable/AM in urange(consume_range,src,1))
+		consume(AM)
 //	if(defer_powernet_rebuild != 2)
 //		defer_powernet_rebuild = 0
 	return

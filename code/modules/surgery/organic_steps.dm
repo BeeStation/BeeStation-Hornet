@@ -114,8 +114,15 @@
 //drill bone
 /datum/surgery_step/drill
 	name = "drill bone"
-	implements = list(TOOL_DRILL = 100, /obj/item/screwdriver/power = 80, /obj/item/pickaxe/drill = 60, TOOL_SCREWDRIVER = 20)
+	implements = list(TOOL_DRILL = 100, /obj/item/powertool/hand_drill = 80, /obj/item/pickaxe/drill = 60, TOOL_SCREWDRIVER = 20)
 	time = 30
+
+/datum/surgery_step/drill/tool_check(mob/user, obj/item/tool)
+	if(istype(tool, /obj/item/powertool/hand_drill))
+		var/obj/item/powertool/hand_drill = tool
+		if(hand_drill.tool_behaviour != TOOL_SCREWDRIVER)
+			return FALSE
+	return TRUE
 
 /datum/surgery_step/drill/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, "<span class='notice'>You begin to drill into the bone in [target]'s [parse_zone(target_zone)]...</span>",

@@ -11,19 +11,21 @@
 	antag_flag = ROLE_TRAITOR
 	antag_datum = /datum/antagonist/traitor
 	minimum_required_age = 0
-	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
+	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	restricted_roles = list("Cyborg")
 	required_candidates = 1
 	weight = 5
-	cost = 10	// Avoid raising traitor threat above 10, as it is the default low cost ruleset.
-	scaling_cost = 10
+	cost = 8	// Avoid raising traitor threat above 10, as it is the default low cost ruleset.
+	scaling_cost = 9
 	requirements = list(10,10,10,10,10,10,10,10,10,10)
-	high_population_requirement = 10
-	antag_cap = list(1,1,1,1,2,2,2,2,3,3)
-	var/autotraitor_cooldown = 450 // 15 minutes (ticks once per 2 sec)
+	antag_cap = list("denominator" = 24)
+	var/autotraitor_cooldown = (15 MINUTES)
+	COOLDOWN_DECLARE(autotraitor_cooldown_check)
 
-/datum/dynamic_ruleset/roundstart/traitor/pre_execute()
-	var/num_traitors = antag_cap[indice_pop] * (scaled_times + 1)
+/datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
+	. = ..()
+	COOLDOWN_START(src, autotraitor_cooldown_check, autotraitor_cooldown)
+	var/num_traitors = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_traitors)
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
@@ -32,11 +34,8 @@
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/traitor/rule_process()
-	if (autotraitor_cooldown > 0)
-		autotraitor_cooldown--
-	else
-		autotraitor_cooldown = 450 // 15 minutes
-		message_admins("Checking if we can turn someone into a traitor.")
+	if (COOLDOWN_FINISHED(src, autotraitor_cooldown_check))
+		COOLDOWN_START(src, autotraitor_cooldown_check, autotraitor_cooldown)
 		log_game("DYNAMIC: Checking if we can turn someone into a traitor.")
 		mode.picking_specific_rule(/datum/dynamic_ruleset/midround/autotraitor)
 
@@ -50,20 +49,20 @@
 	name = "Blood Brothers"
 	antag_flag = ROLE_BROTHER
 	antag_datum = /datum/antagonist/brother/
-	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
+	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	restricted_roles = list("Cyborg", "AI")
 	required_candidates = 2
 	weight = 4
 	cost = 15
 	scaling_cost = 15
 	requirements = list(40,30,30,20,20,15,15,15,10,10)
-	high_population_requirement = 15
-	antag_cap = list(2,2,2,2,2,2,2,2,2,2)	// Can pick 3 per team, but rare enough it doesn't matter.
+	antag_cap = 2	// Can pick 3 per team, but rare enough it doesn't matter.
 	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/min_team_size = 2
 
-/datum/dynamic_ruleset/roundstart/traitorbro/pre_execute()
-	var/num_teams = (antag_cap[indice_pop]/min_team_size) * (scaled_times + 1) // 1 team per scaling
+/datum/dynamic_ruleset/roundstart/traitorbro/pre_execute(population)
+	. = ..()
+	var/num_teams = (get_antag_cap(population)/min_team_size) * (scaled_times + 1) // 1 team per scaling
 	for(var/j = 1 to num_teams)
 		if(candidates.len < min_team_size || candidates.len < required_candidates)
 			break
@@ -98,18 +97,18 @@
 	name = "Changelings"
 	antag_flag = ROLE_CHANGELING
 	antag_datum = /datum/antagonist/changeling
-	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
+	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	restricted_roles = list("AI", "Cyborg")
 	required_candidates = 1
 	weight = 3
-	cost = 15
-	scaling_cost = 15
+	cost = 16
+	scaling_cost = 10
 	requirements = list(70,70,60,50,40,20,20,10,10,10)
-	high_population_requirement = 10
-	antag_cap = list(1,1,1,1,1,2,2,2,2,3)
+	antag_cap = list("denominator" = 29)
 
-/datum/dynamic_ruleset/roundstart/changeling/pre_execute()
-	var/num_changelings = antag_cap[indice_pop] * (scaled_times + 1)
+/datum/dynamic_ruleset/roundstart/changeling/pre_execute(population)
+	. = ..()
+	var/num_changelings = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_changelings)
 		var/mob/M = pick_n_take(candidates)
 		assigned += M.mind
@@ -133,16 +132,19 @@
 	name = "Heretics"
 	antag_flag = ROLE_HERETIC
 	antag_datum = /datum/antagonist/heretic
-	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Brig Physician")
+	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	restricted_roles = list("AI", "Cyborg")
 	required_candidates = 1
 	weight = 3
-	cost = 20
+	cost = 15
+	scaling_cost = 9
 	requirements = list(50,45,45,40,35,20,20,15,10,10)
+	antag_cap = list("denominator" = 24)
 
-/datum/dynamic_ruleset/roundstart/heretics/pre_execute()
+
+/datum/dynamic_ruleset/roundstart/heretics/pre_execute(population)
 	. = ..()
-	var/num_ecult = min(round(mode.candidates.len / 10) + 1, candidates.len)
+	var/num_ecult = get_antag_cap(population) * (scaled_times + 1)
 
 	for (var/i = 1 to num_ecult)
 		var/mob/picked_candidate = pick_n_take(candidates)
@@ -172,13 +174,13 @@
 	name = "Wizard"
 	antag_flag = ROLE_WIZARD
 	antag_datum = /datum/antagonist/wizard
+	flags = LONE_RULESET
 	minimum_required_age = 14
 	restricted_roles = list("Head of Security", "Captain") // Just to be sure that a wizard getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 1
 	weight = 2
-	cost = 30
+	cost = 20
 	requirements = list(90,90,70,40,30,20,10,10,10,10)
-	high_population_requirement = 10
 	var/list/roundstart_wizards = list()
 
 /datum/dynamic_ruleset/roundstart/wizard/acceptable(population=0, threat=0)
@@ -217,23 +219,22 @@
 	antag_flag = ROLE_CULTIST
 	antag_datum = /datum/antagonist/cult
 	minimum_required_age = 14
-	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Chaplain", "Head of Personnel", "Brig Physician")
+	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Chaplain", "Head of Personnel")
 	required_candidates = 2
 	weight = 3
-	cost = 35
+	cost = 20
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	high_population_requirement = 10
-	flags = HIGHLANDER_RULESET
-	antag_cap = list(2,2,2,3,3,4,4,4,4,4)
+	flags = HIGH_IMPACT_RULESET
+	antag_cap = list("denominator" = 20, "offset" = 1)
 	var/datum/team/cult/main_cult
 
-/datum/dynamic_ruleset/roundstart/bloodcult/ready(forced = FALSE)
-	required_candidates = antag_cap[indice_pop]
+/datum/dynamic_ruleset/roundstart/bloodcult/ready(population, forced = FALSE)
+	required_candidates = get_antag_cap(population)
 	. = ..()
 
-/datum/dynamic_ruleset/roundstart/bloodcult/pre_execute()
-	var/cultists = antag_cap[indice_pop]
-	mode.antags_rolled += cultists
+/datum/dynamic_ruleset/roundstart/bloodcult/pre_execute(population)
+	. = ..()
+	var/cultists = get_antag_cap(population)
 	for(var/cultists_number = 1 to cultists)
 		if(candidates.len <= 0)
 			break
@@ -277,21 +278,20 @@
 	restricted_roles = list("Head of Security", "Captain") // Just to be sure that a nukie getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 5
 	weight = 3
-	cost = 40
+	cost = 20
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
-	high_population_requirement = 10
-	flags = HIGHLANDER_RULESET
-	antag_cap = list(2,2,2,3,3,3,4,4,5,5)
+	flags = HIGH_IMPACT_RULESET
+	antag_cap = list("denominator" = 18, "offset" = 1)
 	var/datum/team/nuclear/nuke_team
 
-/datum/dynamic_ruleset/roundstart/nuclear/ready(forced = FALSE)
-	required_candidates = antag_cap[indice_pop]
+/datum/dynamic_ruleset/roundstart/nuclear/ready(population, forced = FALSE)
+	required_candidates = get_antag_cap(population)
 	. = ..()
 
-/datum/dynamic_ruleset/roundstart/nuclear/pre_execute()
+/datum/dynamic_ruleset/roundstart/nuclear/pre_execute(population)
+	. = ..()
 	// If ready() did its job, candidates should have 5 or more members in it
-	var/operatives = antag_cap[indice_pop]
-	mode.antags_rolled += operatives
+	var/operatives = get_antag_cap(population)
 	for(var/operatives_number = 1 to operatives)
 		if(candidates.len <= 0)
 			break
@@ -360,24 +360,25 @@
 	antag_flag_override = ROLE_REV
 	antag_datum = /datum/antagonist/rev/head
 	minimum_required_age = 14
-	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Brig Physician", "Head of Security", "Captain", "Head of Personnel", "Chief Engineer", "Chief Medical Officer", "Research Director")
+	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel", "Chief Engineer", "Chief Medical Officer", "Research Director")
 	required_candidates = 3
-	weight = 2
+	weight = 3
 	delay = 7 MINUTES
-	cost = 35
+	cost = 20
 	requirements = list(101,101,70,40,30,20,10,10,10,10)
-	high_population_requirement = 10
-	antag_cap = list(3,3,3,3,3,3,3,3,3,3)
-	flags = HIGHLANDER_RULESET
+	antag_cap = 3
+	flags = HIGH_IMPACT_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
 	// I give up, just there should be enough heads with 35 players...
 	minimum_players = 35
+	/// How much threat should be injected when the revolution wins?
+	var/revs_win_threat_injection = 20
 	var/datum/team/revolution/revolution
 	var/finished = FALSE
 
-/datum/dynamic_ruleset/roundstart/revs/pre_execute()
-	var/max_candidates = antag_cap[indice_pop]
-	mode.antags_rolled += max_candidates
+/datum/dynamic_ruleset/roundstart/revs/pre_execute(population)
+	. = ..()
+	var/max_candidates = get_antag_cap(population)
 	for(var/i = 1 to max_candidates)
 		if(candidates.len <= 0)
 			break
@@ -402,7 +403,7 @@
 	if(revolution.members.len)
 		revolution.update_objectives()
 		revolution.update_heads()
-		SSshuttle.registerHostileEnvironment(src)
+		SSshuttle.registerHostileEnvironment(revolution)
 		return TRUE
 	log_game("DYNAMIC: [ruletype] [name] failed to get any eligible headrevs. Refunding [cost] threat.")
 	return FALSE
@@ -412,30 +413,11 @@
 	..()
 
 /datum/dynamic_ruleset/roundstart/revs/rule_process()
-	if(!revolution)
-		log_game("DYNAMIC: Something went horrifically wrong with [name] - and the antag datum could not be created. Notify coders.")
+	var/winner = revolution.process_victory(revs_win_threat_injection)
+	if (isnull(winner))
 		return
-	if(check_rev_victory())
-		finished = REVOLUTION_VICTORY
-		return RULESET_STOP_PROCESSING
-	else if (check_heads_victory())
-		finished = STATION_VICTORY
-		SSshuttle.clearHostileEnvironment(src)
-		revolution.save_members()
-		for(var/datum/mind/M in revolution.members)	// Remove antag datums and prevents podcloned or exiled headrevs restarting rebellions.
-			if(M.has_antag_datum(/datum/antagonist/rev/head))
-				var/datum/antagonist/rev/head/R = M.has_antag_datum(/datum/antagonist/rev/head)
-				R.remove_revolutionary(FALSE, "gamemode")
-				if(M.current)
-					var/mob/living/carbon/C = M.current
-					if(istype(C) && C.stat == DEAD)
-						C.makeUncloneable()
-			if(M.has_antag_datum(/datum/antagonist/rev))
-				var/datum/antagonist/rev/R = M.has_antag_datum(/datum/antagonist/rev)
-				R.remove_revolutionary(FALSE, "gamemode")
-		priority_announce("It appears the mutiny has been quelled. Please return yourself and your incapacitated colleagues to work. \
-			We have remotely blacklisted the head revolutionaries in your medical records to prevent accidental revival.", null, 'sound/ai/attention.ogg', null, "Central Command Loyalty Monitoring Division")
-		return RULESET_STOP_PROCESSING
+	finished = winner
+	return RULESET_STOP_PROCESSING
 
 /// Checks for revhead loss conditions and other antag datums.
 /datum/dynamic_ruleset/roundstart/revs/proc/check_eligible(var/datum/mind/M)
@@ -444,33 +426,8 @@
 		return TRUE
 	return FALSE
 
-/datum/dynamic_ruleset/roundstart/revs/check_finished()
-	if(finished == REVOLUTION_VICTORY)
-		return TRUE
-	else
-		return ..()
-
-/datum/dynamic_ruleset/roundstart/revs/proc/check_rev_victory()
-	for(var/datum/objective/mutiny/objective in revolution.objectives)
-		if(!(objective.check_completion()))
-			return FALSE
-	return TRUE
-
-/datum/dynamic_ruleset/roundstart/revs/proc/check_heads_victory()
-	for(var/datum/mind/rev_mind in revolution.head_revolutionaries())
-		var/turf/T = get_turf(rev_mind.current)
-		if(!considered_afk(rev_mind) && considered_alive(rev_mind) && is_station_level(T.z))
-			if(ishuman(rev_mind.current) || ismonkey(rev_mind.current))
-				return FALSE
-	return TRUE
-
 /datum/dynamic_ruleset/roundstart/revs/round_result()
-	if(finished == REVOLUTION_VICTORY)
-		SSticker.mode_result = "win - heads killed"
-		SSticker.news_report = REVS_WIN
-	else if(finished == STATION_VICTORY)
-		SSticker.mode_result = "loss - rev heads killed"
-		SSticker.news_report = REVS_LOSE
+	revolution.round_result(finished)
 
 // Admin only rulesets. The threat requirement is 101 so it is not possible to roll them.
 
@@ -489,12 +446,13 @@
 	weight = 3
 	cost = 0
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	high_population_requirement = 101
+	flags = LONE_RULESET
 
 /datum/dynamic_ruleset/roundstart/extended/pre_execute()
 	message_admins("Starting a round of extended.")
 	log_game("Starting a round of extended.")
-	mode.spend_threat(mode.threat)
+	mode.spend_roundstart_budget(mode.round_start_budget)
+	mode.spend_midround_budget(mode.mid_round_budget)
 	mode.threat_log += "[worldtime2text()]: Extended ruleset set threat to 0."
 	return TRUE
 
@@ -509,7 +467,6 @@
 	antag_datum = /datum/antagonist/nukeop/clownop
 	antag_leader_datum = /datum/antagonist/nukeop/leader/clownop
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	high_population_requirement = 101
 
 /datum/dynamic_ruleset/roundstart/nuclear/clown_ops/pre_execute()
 	. = ..()
@@ -533,17 +490,17 @@
 	name = "Devil"
 	antag_flag = ROLE_DEVIL
 	antag_datum = /datum/antagonist/devil
-	restricted_roles = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective", "Brig Physician")
+	restricted_roles = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective")
 	required_candidates = 1
 	weight = 3
 	cost = 0
+	flags = LONE_RULESET
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	high_population_requirement = 101
-	antag_cap = list(1,1,1,2,2,2,3,3,3,4)
+	antag_cap = list("denominator" = 30)
 
-/datum/dynamic_ruleset/roundstart/devil/pre_execute()
-	var/num_devils = antag_cap[indice_pop]
-	mode.antags_rolled += num_devils
+/datum/dynamic_ruleset/roundstart/devil/pre_execute(population)
+	. = ..()
+	var/num_devils = get_antag_cap(population) * (scaled_times + 1)
 
 	for(var/j = 0, j < num_devils, j++)
 		if (!candidates.len)
@@ -591,15 +548,15 @@
 	weight = 3
 	cost = 0
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	high_population_requirement = 101
+	flags = LONE_RULESET
 	var/players_per_carrier = 30
 	var/monkeys_to_win = 1
 	var/escaped_monkeys = 0
 	var/datum/team/monkey/monkey_team
 
-/datum/dynamic_ruleset/roundstart/monkey/pre_execute()
-	var/carriers_to_make = max(round(mode.roundstart_pop_ready / players_per_carrier, 1), 1)
-	mode.antags_rolled += carriers_to_make
+/datum/dynamic_ruleset/roundstart/monkey/pre_execute(population)
+	. = ..()
+	var/carriers_to_make = get_antag_cap(population) * (scaled_times + 1)
 
 	for(var/j = 0, j < carriers_to_make, j++)
 		if (!candidates.len)
@@ -651,7 +608,7 @@
 	weight = 3
 	cost = 0
 	requirements = list(101,101,101,101,101,101,101,101,101,101)
-	high_population_requirement = 101
+	flags = LONE_RULESET
 	var/meteordelay = 2000
 	var/nometeors = 0
 	var/rampupdelta = 5
@@ -680,19 +637,18 @@
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/roundstart/clockcult
-	name = "Clockcult"
+	name = "Clockwork Cult"
 	antag_flag = ROLE_SERVANT_OF_RATVAR
 	antag_datum = /datum/antagonist/servant_of_ratvar
-	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Brig Physician", "Head of Security", "Captain", "Chaplain", "Head of Personnel")
+	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective","Head of Security", "Captain", "Chaplain", "Head of Personnel")
 	required_candidates = 4
 	weight = 3
 	cost = 35
-	requirements = list(101,101,101,80,70,60,50,50,50,50)
-	high_population_requirement = 10
-	flags = HIGHLANDER_RULESET
+	requirements = list(100,90,80,70,60,50,30,30,30,30)
+	flags = HIGH_IMPACT_RULESET
 	var/datum/team/clock_cult/main_cult
 	var/list/selected_servants = list()
-	
+
 /datum/dynamic_ruleset/roundstart/clockcult/pre_execute()
 	//Load Reebe
 	var/list/errorList = list()
@@ -701,7 +657,7 @@
 		message_admins("Reebe failed to load")
 		log_game("Reebe failed to load")
 		return FALSE
-	for(var/datum/parsed_map/map in reebe)
+	for(var/datum/map_template/map in reebe)
 		map.initTemplateBounds()
 	//Make cultists
 	var/starter_servants = 4
@@ -716,9 +672,7 @@
 		servant.mind.assigned_role = ROLE_SERVANT_OF_RATVAR
 		servant.mind.special_role = ROLE_SERVANT_OF_RATVAR
 	//Generate scriptures
-	for(var/categorypath in typesof(/datum/clockcult/scripture))
-		var/datum/clockcult/scripture/S = new categorypath
-		GLOB.clockcult_all_scriptures[S.name] = S
+	generate_clockcult_scriptures()
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/clockcult/execute()
@@ -732,7 +686,7 @@
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
-		S.prefix = CLOCKCULT_MASTER
+		S.prefix = CLOCKCULT_PREFIX_MASTER
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()

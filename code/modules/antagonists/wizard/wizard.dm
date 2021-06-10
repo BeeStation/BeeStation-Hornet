@@ -4,6 +4,7 @@
 	antagpanel_category = "Wizard"
 	job_rank = ROLE_WIZARD
 	antag_moodlet = /datum/mood_event/focused
+	hijack_speed = 0.5
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
 	var/hud_version = "wizard"
@@ -11,7 +12,6 @@
 	var/move_to_lair = TRUE
 	var/outfit_type = /datum/outfit/wizard
 	var/wiz_age = WIZARD_AGE_MIN /* Wizards by nature cannot be too young. */
-	can_hijack = HIJACK_HIJACKER
 	show_to_ghosts = TRUE
 
 /datum/antagonist/wizard/on_gain()
@@ -142,7 +142,9 @@
 	to_chat(owner, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
 	to_chat(owner, "The spellbook is bound to you, and others cannot use it.")
 	to_chat(owner, "In your pockets you will find a teleport scroll. Use it as needed.")
-	to_chat(owner,"<B>Remember:</B> do not forget to prepare your spells.")
+	to_chat(owner,"<B>Remember:</B> Do not forget to prepare your spells.")
+	owner.current.client?.tgui_panel?.give_antagonist_popup("Space Wizard",
+		"Prepare your spells and cause havok upon the accursed station.")
 
 /datum/antagonist/wizard/farewell()
 	to_chat(owner, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard!</span>")
@@ -247,17 +249,17 @@
 	if(!istype(master_mob) || !istype(H))
 		return
 	if(master_mob.ears)
-		H.equip_to_slot_or_del(new master_mob.ears.type, SLOT_EARS)
+		H.equip_to_slot_or_del(new master_mob.ears.type, ITEM_SLOT_EARS)
 	if(master_mob.w_uniform)
-		H.equip_to_slot_or_del(new master_mob.w_uniform.type, SLOT_W_UNIFORM)
+		H.equip_to_slot_or_del(new master_mob.w_uniform.type, ITEM_SLOT_ICLOTHING)
 	if(master_mob.shoes)
-		H.equip_to_slot_or_del(new master_mob.shoes.type, SLOT_SHOES)
+		H.equip_to_slot_or_del(new master_mob.shoes.type, ITEM_SLOT_FEET)
 	if(master_mob.wear_suit)
-		H.equip_to_slot_or_del(new master_mob.wear_suit.type, SLOT_WEAR_SUIT)
+		H.equip_to_slot_or_del(new master_mob.wear_suit.type, ITEM_SLOT_OCLOTHING)
 	if(master_mob.head)
-		H.equip_to_slot_or_del(new master_mob.head.type, SLOT_HEAD)
+		H.equip_to_slot_or_del(new master_mob.head.type, ITEM_SLOT_HEAD)
 	if(master_mob.back)
-		H.equip_to_slot_or_del(new master_mob.back.type, SLOT_BACK)
+		H.equip_to_slot_or_del(new master_mob.back.type, ITEM_SLOT_BACK)
 
 	//Operation: Fuck off and scare people
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))

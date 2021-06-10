@@ -112,10 +112,9 @@
 	return .
 
 /datum/dna/proc/generate_dna_blocks()
-	var/bonus
+	var/list/mutations_temp = GLOB.good_mutations + GLOB.bad_mutations + GLOB.not_good_mutations
 	if(species?.inert_mutation)
-		bonus = GET_INITIALIZED_MUTATION(species.inert_mutation)
-	var/list/mutations_temp = GLOB.good_mutations + GLOB.bad_mutations + GLOB.not_good_mutations + bonus
+		mutations_temp += GET_INITIALIZED_MUTATION(species.inert_mutation)
 	if(!LAZYLEN(mutations_temp))
 		return
 	mutation_index.Cut()

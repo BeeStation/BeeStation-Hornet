@@ -277,14 +277,14 @@ GLOBAL_LIST_EMPTY(turbolifts)
 			var/obj/docking_port/stationary/turbolift/dest = SSshuttle.getDock(destID)
 
 			if(!dest)
-				warning("This code shouldnt ever run, a turbolift has attempted to go to a dock with id [destID] but none were found")
+				warning("This code shouldn't ever run, a turbolift has attempted to go to a dock with id [destID] but none were found")
 				return //shouldnt ever get to this point but w/e
 
 			if(dest.z == src.z)
-				return //this normally shouldnt run either but out of date interfaces might get here
+				return //this normally shouldn't run either but out of date interfaces might get here
 
 			if(dest.id in destination_queue)
-				return //again shouldnt ever run but out of date interfaces
+				return //again shouldn't ever run but out of date interfaces
 			destination_queue += dest.id
 
 			. = TRUE //we have an update now

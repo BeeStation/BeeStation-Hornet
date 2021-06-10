@@ -88,7 +88,6 @@
 	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
 	threshold_desc = "<b>Stealth 2:</b> Host appears to die when falling into a coma, triggering symptoms that activate on death.<br>\
-
 					  <b>Resistance 4:</b> The virus also stabilizes the host while they are in critical condition.<br>\
 					  <b>Stage Speed 7:</b> Increases healing speed."
 
@@ -133,8 +132,9 @@
 
 /datum/symptom/heal/coma/proc/coma(mob/living/M)
 	if(deathgasp)
-		M.emote("deathgasp")
-	M.fakedeath("regenerative_coma")
+		M.fakedeath(TRAIT_REGEN_COMA)
+	else
+		M.Unconscious(300, TRUE, TRUE)
 	M.update_stat()
 	M.update_mobility()
 	addtimer(CALLBACK(src, .proc/uncoma, M), 300)
@@ -143,7 +143,10 @@
 	if(!active_coma)
 		return
 	active_coma = FALSE
-	M.cure_fakedeath("regenerative_coma")
+	if(deathgasp)
+		M.cure_fakedeath(TRAIT_REGEN_COMA)
+	else
+		M.SetUnconscious(0)
 	M.update_stat()
 	M.update_mobility()
 
@@ -207,7 +210,7 @@
 		scarcounter++
 
 	if(M.getToxLoss() && M.getToxLoss() <= threshhold)
-		M.adjustToxLoss(-power)
+		M.adjustToxLoss(-power, FALSE, TRUE)
 
 	if(healed)
 		if(prob(10))
@@ -313,7 +316,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 
 /datum/symptom/sweat
 	name = "Hyperperspiration"
-	desc = "Causes the host to sweat profusely, leaving small water puddles and extnguishing small fires"
+	desc = "Causes the host to sweat profusely, leaving small water puddles and extinguishing small fires"
 	stealth = 1
 	resistance = -1
 	stage_speed = 0
@@ -378,7 +381,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	create_reagents(1000)
 	reagents.add_reagent(/datum/reagent/water, 10)
 
-obj/effect/sweatsplash/proc/splash()
+/obj/effect/sweatsplash/proc/splash()
 	chem_splash(loc, 2, list(reagents))
 	qdel(src)
 
@@ -423,14 +426,14 @@ obj/effect/sweatsplash/proc/splash()
 	switch(A.stage)
 		if(4, 5)
 			if(burnheal)
-				M.heal_overall_damage(0, 1) //no required_status checks here, this does all bodyparts equally
+				M.heal_overall_damage(0, 1.5) //no required_status checks here, this does all bodyparts equally
 			if(prob(5) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				if(prob(50))
 					to_chat(M, "<span class='userwarning'>The lukewarm temperature makes you feel strange!</span>")
 			if(cooldowntimer == 0 && ((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
 				do_sparks(5,FALSE,M)
-				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spacial state!</span>")
+				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
 				do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 				do_sparks(5,FALSE,M)
 				cooldowntimer = 10
@@ -491,16 +494,22 @@ obj/effect/sweatsplash/proc/splash()
 		if(4, 5)
 			if(prob(5) && bruteheal)
 				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet!</span>")
-				M.Knockdown(10)
+				M.Immobilize(5)
 				new /obj/effect/decal/cleanable/blood/(M.loc)
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
 				if(prob(60))
+					if(tetsuo && prob(15))
+						if(A.affected_mob.job == "Clown")
+							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
+						if(MOB_ROBOTIC in A.infectable_biotypes)
+							new /obj/effect/decal/cleanable/robot_debris(M.loc)
+							new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/organcantidates = list()
 					var/list/missing = M.get_missing_limbs()
 					if(prob(35))
-						new /obj/effect/gibspawner/human/bodypartless(M.loc) //yes. this is very messy. very, very messy.
+						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
 						for(var/obj/item/organ/O in M.loc)
 							if(O.organ_flags & ORGAN_FAILING || O.organ_flags & ORGAN_VITAL) //dont use shitty organs or brains
@@ -510,6 +519,10 @@ obj/effect/sweatsplash/proc/splash()
 									organcantidates += O
 								continue
 							organcantidates += O
+							if(ishuman(M))
+								var/mob/living/carbon/human/H = M //To view species
+								if(!is_species(H, /datum/species/plasmaman))
+									O -= /obj/item/organ/lungs/plasmaman //So this disease doesn't eventually kill everyone with lungs
 						if(organcantidates.len)
 							for(var/I in 1 to min(rand(1, 3), organcantidates.len))
 								var/obj/item/organ/chosen = pick_n_take(organcantidates)
@@ -540,8 +553,6 @@ obj/effect/sweatsplash/proc/splash()
 									ownermind.transfer_to(M)
 									M.grab_ghost()
 								break
-				if(tetsuo && prob(10) && A.affected_mob.job == "Clown")
-					new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 			if(bruteheal)
 				M.heal_overall_damage(2 * power, required_status = BODYPART_ORGANIC)
 				if(prob(11 * power))

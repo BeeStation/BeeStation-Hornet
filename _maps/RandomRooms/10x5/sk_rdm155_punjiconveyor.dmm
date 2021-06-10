@@ -4,12 +4,12 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "d" = (
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
-/area/space)
+/area/template_noop)
 "i" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 1;
@@ -17,10 +17,10 @@
 	name = "punji conveyor switch"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "m" = (
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "n" = (
 /obj/structure/punji_sticks,
 /obj/item/restraints/handcuffs/cable,
@@ -28,63 +28,63 @@
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/space)
+/area/template_noop)
 "r" = (
 /obj/item/wirerod,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "s" = (
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "t" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "w" = (
 /obj/structure/grille,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "x" = (
 /obj/item/trash/can/food/beans,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "z" = (
 /obj/item/stack/sheet/animalhide,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "B" = (
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "H" = (
 /obj/item/trash/can{
 	pixel_x = -9;
 	pixel_y = 6
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "I" = (
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "punji_conveyor"
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "M" = (
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
-/area/space)
+/area/template_noop)
 "P" = (
 /obj/item/trash/sosjerky{
 	pixel_x = -10;
 	pixel_y = 2
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 "Z" = (
 /obj/structure/closet{
 	name = "beekeeping wardrobe"
@@ -94,7 +94,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/space)
+/area/template_noop)
 
 (1,1,1) = {"
 a

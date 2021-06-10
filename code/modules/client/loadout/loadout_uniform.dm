@@ -1,7 +1,7 @@
 // Uniform slot
 /datum/gear/uniform
 	subtype_path = /datum/gear/uniform
-	slot = SLOT_W_UNIFORM
+	slot = ITEM_SLOT_ICLOTHING
 	sort_category = "Uniforms and Casual Dress"
 	species_blacklist = list("plasmaman") //Envirosuit moment
 	cost = 1000
@@ -234,6 +234,11 @@
 	path = /obj/item/clothing/under/costume/jabroni
 	cost = 20000
 
+/datum/gear/uniform/misc/geisha
+	display_name = "geisha suit"
+	path = /obj/item/clothing/under/costume/geisha
+	cost = 20000
+
 /datum/gear/uniform/misc/soviet
 	display_name = "soviet uniform"
 	path = /obj/item/clothing/under/costume/soviet
@@ -245,6 +250,11 @@
 /datum/gear/uniform/misc/sailor
 	display_name = "sailor outfit"
 	path = /obj/item/clothing/under/costume/sailor
+
+/datum/gear/uniform/misc/swagoutfit
+	display_name = "swag outfit"
+	path = /obj/item/clothing/under/costume/swagoutfit
+	cost = 69000
 
 //RANK SUBTYPE
 
@@ -289,7 +299,7 @@
 
 /datum/gear/uniform/rank/cargo/mining_classic
 	display_name = "miner's overalls, asteroid purple"
-	description = "Purple jumpsuit, dirty overalls. Standard NanoTrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
+	description = "Purple jumpsuit, dirty overalls. Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
 	path = /obj/item/clothing/under/rank/cargo/miner
 	allowed_roles = list ("Shaft Miner")
 
@@ -349,6 +359,6 @@
 	cost = 7500
 
 /datum/gear/uniform/rank/security/blart
-	display_name = "security jumpsuit, NanoTrasen mall cop uniform"
+	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
 	path = /obj/item/clothing/under/rank/security/officer/mallcop
 	cost = 7500
