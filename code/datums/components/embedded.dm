@@ -293,7 +293,7 @@
 
 	//Pluck time
 	var/pluck_time = 4 SECONDS * weapon.w_class * time_multiplier
-	if(!do_after(user, pluck_time, victim))
+	if(!do_after(user, pluck_time, target = victim))
 		if(self_pluck)
 			to_chat(user, "<span class='danger'>You fail to remove [weapon] from your [limb.name].</span>")
 		else
