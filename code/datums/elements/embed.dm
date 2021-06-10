@@ -19,16 +19,17 @@
 	var/fall_chance
 	var/pain_chance
 	var/pain_mult
+	var/max_damage_mult
 	var/remove_pain_mult
-	var/impact_pain_mult
 	var/rip_time
 	var/ignore_throwspeed_threshold
 	var/jostle_chance
 	var/jostle_pain_mult
 	var/pain_stam_pct
+	var/armour_block
 	var/payload_type
 
-/datum/element/embed/Attach(datum/target, embed_chance, fall_chance, pain_chance, pain_mult, remove_pain_mult, impact_pain_mult, rip_time, ignore_throwspeed_threshold, jostle_chance, jostle_pain_mult, pain_stam_pct, projectile_payload=/obj/item/shard)
+/datum/element/embed/Attach(datum/target, embed_chance, fall_chance, pain_chance, pain_mult, max_damage_mult, remove_pain_mult, rip_time, ignore_throwspeed_threshold, jostle_chance, jostle_pain_mult, pain_stam_pct, armour_block, projectile_payload=/obj/item/shard)
 	. = ..()
 
 	if(!isitem(target) && !isprojectile(target))
@@ -45,13 +46,14 @@
 			src.fall_chance = fall_chance
 			src.pain_chance = pain_chance
 			src.pain_mult = pain_mult
+			src.max_damage_mult = max_damage_mult
 			src.remove_pain_mult = remove_pain_mult
 			src.rip_time = rip_time
-			src.impact_pain_mult = impact_pain_mult
 			src.ignore_throwspeed_threshold = ignore_throwspeed_threshold
 			src.jostle_chance = jostle_chance
 			src.jostle_pain_mult = jostle_pain_mult
 			src.pain_stam_pct = pain_stam_pct
+			src.armour_block = armour_block
 			initialized = TRUE
 	else
 		payload_type = projectile_payload
@@ -71,7 +73,15 @@
 	if(!istype(victim) || HAS_TRAIT(victim, TRAIT_PIERCEIMMUNE))
 		return
 
+	var/flying_speed = throwingdatum ? throwingdatum.speed : weapon.throw_speed
+
+	if(!forced && (flying_speed < EMBED_THROWSPEED_THRESHOLD && !ignore_throwspeed_threshold)) // check if it's a forced embed, and if not, if it's going fast enough to proc embedding
+		return
+
 	var/actual_chance = embed_chance
+
+	if(throwingdatum?.speed > weapon.throw_speed)
+		actual_chance += (throwingdatum.speed - weapon.throw_speed) * EMBEDDED_CHANCE_SPEED_BONUS
 
 	if(!weapon.isEmbedHarmless()) // all the armor in the world won't save you from a kick me sign
 		var/armor = max(victim.run_armor_check(hit_zone, "bullet", silent=TRUE), victim.run_armor_check(hit_zone, "bomb", silent=TRUE)) // we'll be nice and take the better of bullet and bomb armor
@@ -83,9 +93,7 @@
 				victim.visible_message("<span class='danger'>[weapon] bounces off [victim]'s armor!</span>", "<span class='notice'>[weapon] bounces off your armor!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
 				return
 
-	var/roll_embed = prob(actual_chance)
-	var/pass = forced || ((((throwingdatum ? throwingdatum.speed : weapon.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || ignore_throwspeed_threshold) && roll_embed)
-	if(!pass)
+	if(!prob(actual_chance))
 		return
 
 	var/obj/item/bodypart/limb = victim.get_bodypart(hit_zone) || pick(victim.bodyparts)
@@ -159,7 +167,22 @@
 	var/obj/item/bodypart/limb
 	var/mob/living/carbon/C
 
-	if(!forced && !prob(embed_chance))
+	var/target_armour = 0
+	if(isobj(target))
+		var/obj/targetObject = target
+		if(targetObject.armor)
+			target_armour = CLAMP(targetObject.armor.getRating("melee") - I.armour_penetration, 0, 100)
+	else if(isliving(target))
+		var/mob/living/L = target
+		target_armour = L.run_armor_check(hit_zone, armour_penetration = I.armour_penetration, silent = TRUE)
+
+	//Target has enough armour to block the embed.
+	if(target_armour >= armour_block)
+		return
+
+	var/percentage_unblocked = (armour_block - target_armour) / armour_block
+
+	if(!forced && !prob(embed_chance * percentage_unblocked))
 		return
 
 	if(iscarbon(target))
