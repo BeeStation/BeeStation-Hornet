@@ -93,12 +93,13 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 3
 	throwforce = 5
+	throwforce_on = 35	//Does a lot of damage on throw, but will embed
 	hitsound = "swing_hit" //it starts deactivated
 	attack_verb_off = list("tapped", "poked")
 	throw_speed = 3
 	throw_range = 5
 	sharpness = IS_SHARP
-	embedding = list("embed_chance" = 75, "impact_pain_mult" = 10)
+	embedding = list("embed_chance" = 200, "armour_block" = 60, "max_pain_mult" = 15)
 	armour_penetration = 35
 	block_level = 1
 	block_upgrade_walk = 1

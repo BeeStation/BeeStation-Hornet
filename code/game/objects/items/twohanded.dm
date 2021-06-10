@@ -479,7 +479,7 @@
 	block_upgrade_walk = 1
 	throwforce = 20
 	throw_speed = 4
-	embedding = list("impact_pain_mult" = 3)
+	embedding = list("armour_block" = 60)
 	armour_penetration = 10
 	materials = list(/datum/material/iron=1150, /datum/material/glass=2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -880,7 +880,7 @@
 	force_wielded = 20					//I have no idea how to balance
 	throwforce = 22
 	throw_speed = 4
-	embedding = list("embedded_impact_pain_multiplier" = 3)
+	embedding = list("armour_block" = 50)
 	armour_penetration = 15				//Enhanced armor piercing
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
@@ -962,7 +962,7 @@
 	force_wielded = 18
 	throwforce = 22
 	throw_speed = 4
-	embedding = list("embedded_impact_pain_multiplier" = 2)
+	embedding = list("armour_block" = 30)
 	armour_penetration = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "tore", "gored")
