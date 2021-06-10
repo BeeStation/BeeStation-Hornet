@@ -92,6 +92,9 @@
 	if(!zone_override)
 		zone_override = shooter.zone_selected
 
+	// things like mouth executions and gunpoints can multiply the damage of projectiles, so this makes sure those effects are applied to each pellet instead of just one
+	var/original_damage = shell.BB.damage
+
 	for(var/i in 1 to num_pellets)
 		shell.ready_proj(target, user, SUPPRESSED_VERY, zone_override, fired_from)
 		if(distro)
@@ -102,9 +105,10 @@
 
 		RegisterSignal(shell.BB, COMSIG_PROJECTILE_SELF_ON_HIT, .proc/pellet_hit)
 		RegisterSignal(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), .proc/pellet_range)
+		shell.BB.damage = original_damage
 		pellets += shell.BB
 		var/turf/current_loc = get_turf(user)
-		if (!istype(target_loc) || !istype(current_loc))
+		if (!istype(target_loc) || !istype(current_loc) || !shell.BB)
 			return
 		INVOKE_ASYNC(shell, /obj/item/ammo_casing.proc/throw_proj, target, target_loc, shooter, params, spread)
 
@@ -267,10 +271,10 @@
 			target = hit_part.owner
 		if(num_hits > 1)
 			target.visible_message("<span class='danger'>[target] is hit by [num_hits] [proj_name]s[hit_part ? " in the [hit_part.name]" : ""][did_damage ? ", which don't leave a mark" : ""]!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
-			to_chat(target, "<span class='userdanger'>You're hit by [num_hits] [proj_name]s!</span>")
+			to_chat(target, "<span class='userdanger'>You're hit by [num_hits] [proj_name]s[hit_part ? " in the [hit_part.name]" : ""]!</span>")
 		else
 			target.visible_message("<span class='danger'>[target] is hit by a [proj_name][hit_part ? " in the [hit_part.name]" : ""][did_damage ? ", which doesn't leave a mark" : ""]!</span>", null, null, COMBAT_MESSAGE_RANGE, target)
-			to_chat(target, "<span class='userdanger'>You're hit by a [proj_name]!</span>")
+			to_chat(target, "<span class='userdanger'>You're hit by a [proj_name][hit_part ? " in the [hit_part.name]" : ""]!</span>")
 	UnregisterSignal(parent, COMSIG_PARENT_PREQDELETED)
 	if(queued_delete)
 		qdel(parent)
