@@ -418,7 +418,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		return
 	var/turf/P = get_turf(blood_target)
 	var/turf/Q = get_turf(owner)
-	if(!P || !Q || (P.z != Q.z)) //The target is on a different Z level, we cannot sense that far.
+	if(!P || !Q || (P.get_virtual_z_level()!= Q.get_virtual_z_level())) //The target is on a different Z level, we cannot sense that far.
 		icon_state = "runed_sense2"
 		desc = "You can no longer sense your target's presence."
 		return

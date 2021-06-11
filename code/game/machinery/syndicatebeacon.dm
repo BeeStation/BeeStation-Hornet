@@ -24,7 +24,7 @@
 			to_chat(user, "<span class='notice'>The connected wire doesn't have enough current.</span>")
 		return
 	for(var/obj/singularity/singulo in GLOB.singularities)
-		if(singulo.z == z)
+		if(singulo.get_virtual_z_level() == get_virtual_z_level())
 			singulo.target = src
 	icon_state = "[icontype]1"
 	active = 1
@@ -95,7 +95,7 @@
 		if(cooldown <= world.time)
 			cooldown = world.time + 80
 			for(var/obj/singularity/singulo in GLOB.singularities)
-				if(singulo.z == z)
+				if(singulo.get_virtual_z_level() == get_virtual_z_level())
 					say("[singulo] is now [get_dist(src,singulo)] standard lengths away to the [dir2text(get_dir(src,singulo))]")
 	else
 		Deactivate()
