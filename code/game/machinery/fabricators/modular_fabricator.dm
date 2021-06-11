@@ -247,6 +247,7 @@
 				return
 			var/obj/item/disk/design_disk/disk = inserted_disk
 			disk.forceMove(get_turf(src))
+			inserted_disk = null
 			update_viewer_statics()
 
 		if("eject_material")
@@ -293,7 +294,7 @@
 	for(var/obj/machinery/computer/rdconsole/RDC in orange(7, src))
 		RDC.stored_research.copy_research_to(stored_research)
 		update_static_data(usr)
-		say("Successfully synchoronized with R&D server.")
+		say("Successfully synchronized with R&D server.")
 		return
 
 /obj/machinery/modular_fabricator/proc/update_viewer_statics()

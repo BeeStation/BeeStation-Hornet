@@ -113,6 +113,11 @@
 	icon_state = "vintageberet"
 	dog_fashion = null
 
+/obj/item/clothing/head/beret/navy
+	name = "navy beret"
+	icon_state = "beret_blue"
+	dog_fashion = null
+
 /obj/item/clothing/head/beret/archaic
 	name = "archaic beret"
 	desc = "An absolutely ancient beret, allegedly worn by the first mime to ever step foot on a Nanotrasen station."
