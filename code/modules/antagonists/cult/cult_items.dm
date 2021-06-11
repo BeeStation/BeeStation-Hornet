@@ -117,6 +117,11 @@
 	linked_action = new(src)
 	AddComponent(/datum/component/butchering, 50, 80)
 
+/obj/item/cult_bastard/Destroy()
+	QDEL_NULL(jaunt)
+	QDEL_NULL(linked_action)
+	return ..()
+
 /obj/item/twohanded/required/cult_bastard/examine(mob/user)
 	. = ..()
 	if(contents.len)
@@ -194,7 +199,7 @@
 	phaseout = /obj/effect/temp_visual/dir_setting/cult/phase/out
 
 /datum/action/innate/dash/cult/IsAvailable()
-	if(iscultist(holder) && current_charges)
+	if(iscultist(owner) && current_charges)
 		return TRUE
 	else
 		return FALSE

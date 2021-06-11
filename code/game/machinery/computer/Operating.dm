@@ -7,7 +7,7 @@
 	icon_screen = "crew"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/computer/operating
-	var/mob/living/carbon/human/patient
+
 	var/obj/structure/table/optable/table
 	var/obj/machinery/stasis/sbed
 	var/list/advanced_surgeries = list()
@@ -80,7 +80,14 @@
 		surgery["desc"] = initial(S.desc)
 		surgeries += list(surgery)
 	data["surgeries"] = surgeries
-	data["patient"] = null
+	
+	//If there's no patient just hop to it yeah?
+	if(!table && !sbed)
+		data["patient"] = null
+		return data
+
+	var/mob/living/carbon/human/patient
+
 	if(table)
 		data["table"] = table
 		if(!table.check_patient())
