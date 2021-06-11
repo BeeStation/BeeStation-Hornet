@@ -190,6 +190,12 @@
 				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "bats \the [T] around with its paw!")
 				T.cooldown = world.time
 
+/mob/living/simple_animal/pet/cat/update_resting()
+	. = ..()
+	if(!resting)
+		icon_state = "[icon_living]"
+		collar_type = "[initial(collar_type)]"
+
 /mob/living/simple_animal/pet/cat/Life()
 	if(!stat && !buckled && !client)
 		if(prob(3))

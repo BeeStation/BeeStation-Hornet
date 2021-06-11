@@ -264,6 +264,10 @@ GLOBAL_LIST_EMPTY(species_list)
 	if(target && !isturf(target))
 		Tloc = target.loc
 
+	if(target)
+		LAZYADD(user.do_afters, target)
+		LAZYADD(target.targeted_by, user)
+
 	var/atom/Uloc = user.loc
 
 	var/drifting = 0
@@ -309,6 +313,10 @@ GLOBAL_LIST_EMPTY(species_list)
 				. = 0
 				break
 
+		if(target && !(target in user.do_afters))
+			. = 0
+			break
+
 		if(needhand)
 			//This might seem like an odd check, but you can still need a hand even when it's empty
 			//i.e the hand is used to pull some item/tool out of the construction
@@ -321,6 +329,10 @@ GLOBAL_LIST_EMPTY(species_list)
 				break
 	if (progress)
 		qdel(progbar)
+	
+	if(!QDELETED(target))
+		LAZYREMOVE(user.do_afters, target)
+		LAZYREMOVE(target.targeted_by, user)
 
 /mob/proc/do_after_coefficent() // This gets added to the delay on a do_after, default 1
 	. = 1
