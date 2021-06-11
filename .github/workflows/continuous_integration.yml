@@ -11,7 +11,7 @@ on:
   pull_request:
     branches:
     - master
-
+    
 jobs:
   run_linters:
     runs-on: ubuntu-latest
@@ -25,7 +25,7 @@ jobs:
       - name: Install Tools
         run: |
           pip3 install setuptools
-          bash tools/ci/install_node.sh
+          bash tools/ci/install_build_tools.sh
           bash tools/ci/install_spaceman_dmm.sh dreamchecker
           pip3 install -r tools/mapmerge2/requirements.txt
       - name: Run Linters
@@ -34,8 +34,7 @@ jobs:
           bash tools/ci/check_changelogs.sh
           find . -name "*.php" -print0 | xargs -0 -n1 php -l
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/json_verifier.py
-          tgui/bin/tgui --lint
-          tgui/bin/tgui --test
+          bash tools/ci/build_tgui.sh
           bash tools/ci/check_grep.sh
           python3 tools/mapmerge2/dmi.py --test
           ~/dreamchecker
@@ -53,10 +52,7 @@ jobs:
           bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           python3 tools/ci/template_dm_generator.py
-          tools/build/build
-        env:
-          CBT_BUILD_MODE : ALL_MAPS
-
+          bash tools/ci/dm.sh -DCIBUILDING -DCITESTING -DALL_MAPS beestation.dme
   run_all_tests:
     runs-on: ubuntu-latest
     services:
@@ -89,16 +85,11 @@ jobs:
         run: |
           bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build
+          bash tools/ci/dm.sh -DCIBUILDING beestation.dme
           bash tools/ci/run_server.sh
-        env:
-          CBT_BUILD_MODE: TEST_RUN
-
   test_windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Compile
         run: pwsh tools/ci/build.ps1
-        env:
-          DM_EXE: "C:\\byond\\bin\\dm.exe"

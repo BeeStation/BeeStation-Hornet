@@ -1,6 +1,6 @@
-FROM beestation/byond:513.1536 as base
-ONBUILD ENV BYOND_MAJOR=513
-ONBUILD ENV BYOND_MINOR=1536
+FROM beestation/byond:514.1554 as base
+ONBUILD ENV BYOND_MAJOR=514
+ONBUILD ENV BYOND_MINOR=1554
 
 FROM base as build_base
 
@@ -43,9 +43,7 @@ COPY . .
 RUN apt-get update \
     && apt-get install -y --no-install-recommends dos2unix \
     && rm -rf /var/lib/apt/lists/* \
-
-RUN env TG_BOOTSTRAP_NODE_LINUX=1 tools/build/build \
-    && tools/deploy.sh /deploy
+    && DreamMaker -max_errors 0 beestation.dme && dos2unix tools/deploy.sh && tools/deploy.sh /deploy
 
 FROM dm_base
 
