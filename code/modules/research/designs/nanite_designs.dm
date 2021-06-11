@@ -258,13 +258,6 @@
 	program_type = /datum/nanite_program/adrenaline
 	category = list("Augmentation Nanites")
 
-/datum/design/nanites/haste
-	name = "Amphetamine Injection"
-	desc = "The nanites synthesize amphetamine when triggered, which temporarily increases the host's running speed."
-	id = "haste_nanites"
-	program_type = /datum/nanite_program/haste
-	category = list("Augmentation Nanites")
-
 ////////////////////DEFECTIVE NANITES//////////////////////////////////////
 
 /datum/design/nanites/glitch
@@ -394,6 +387,13 @@
 	desc = "The nanites imprint an absolute directive onto the host's brain while they're active."
 	id = "mindcontrol_nanites"
 	program_type = /datum/nanite_program/comm/mind_control
+	category = list("Weaponized Nanites")
+
+/datum/design/nanites/haste
+	name = "Amphetamine Injection"
+	desc = "The nanites synthesize amphetamine when triggered, which temporarily increases the host's running speed."
+	id = "haste_nanites"
+	program_type = /datum/nanite_program/haste
 	category = list("Weaponized Nanites")
 
 ////////////////////SUPPRESSION NANITES//////////////////////////////////////
