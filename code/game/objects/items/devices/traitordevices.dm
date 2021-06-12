@@ -262,7 +262,7 @@ effective or pretty fucking useless.
 	if(slot == ITEM_SLOT_NECK)
 		return TRUE
 
-/obj/item/shadowcloak/ui_action_click(mob/user)
+/obj/item/shadowcloak/magician/ui_action_click(mob/user)
 	if(user.get_item_by_slot(ITEM_SLOT_NECK) == src)
 		if(!on)
 			Activate(usr)
@@ -270,7 +270,7 @@ effective or pretty fucking useless.
 			Deactivate()
 	return
 
-/obj/item/shadowcloak/process(delta_time)
+/obj/item/shadowcloak/magician/process(delta_time)
 	if(user.get_item_by_slot(ITEM_SLOT_NECK) != src)
 		Deactivate()
 		return
