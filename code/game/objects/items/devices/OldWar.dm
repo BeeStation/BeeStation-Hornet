@@ -1,4 +1,14 @@
+
 //Items for the Old War bundle//
+
+/obj/effect/pod_landingzone_nopod //Only for effects without pods, used here to show artillery shot designation
+	name = ""
+	desc = ""
+	icon = 'icons/obj/supplypods_32x32.dmi'
+	icon_state = "LZ"
+	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	anchored = TRUE
+	light_range = 2
 
 /obj/item/signaler_art
 	name = "suspicious red signaler"
@@ -145,7 +155,7 @@
 		var/list/locations = list(loc, loc2, loc3, loc4)
 		playsound(T, 'sound/weapons/beam_sniper.ogg', 70, 0, 5)
 		var/chosen_loc = pick(locations)
-		var/obj/effect/targ = new /obj/effect/pod_landingzone_effect(chosen_loc)
+		var/obj/effect/targ = new /obj/effect/pod_landingzone_nopod(chosen_loc)
 		sleep(20)
 		qdel(targ)
 		explosion(chosen_loc, 1, 2, 6)
@@ -412,27 +422,115 @@
 	icon_state = "slicense2"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
-	item_state = "orange_id"
+	item_state = "orange-id"
+	var/obj/item/I
+	var/activated = FALSE
+	var/duration = 100
 	var/cooldown = 0
-	var/cooldown_time = 60
+	var/cooldown_time = 250
 
 /obj/item/stabbing_license/examine(mob/user)
 	. = ..()
-	. += "<span class='notice' Holding it in hand will make all your attacks with sharp items more powerful.</span>"
+	. += "<span class='notice'>Activating it in hand will make a sharp item you're holding in another hand more powerful for [duration / 10] seconds.</span>"
+	. += "<span class='notice'>Cooldown is [cooldown_time / 10 - 10] seconds.</span>"
 
 /obj/item/stabbing_license/attack_self(mob/user)
 	if(cooldown > world.time)
-		return
+		return to_chat(user, "<span class='danger'>Oi bruv, you can't show this thing too often! Cry about it.</span>")
+	I = user.get_inactive_held_item()
+	if(!I)
+		return to_chat(user, "<span class='danger'>You can't empower your fists!</span>")
+	if(!I.is_sharp())
+		return to_chat(user, "<span class='danger'>This thing is not sharp at all, mate!</span>")
 	cooldown = world.time + cooldown_time
+	activated = TRUE
 	user.visible_message("<span class='userdanger'>[user] shows you their [src], mate! You got no balls to mess with them in stabbing fight, innit?</span>", "<span class='suicide'>You show your [src] to lower the morale of everyone around, innit?</span>")
+	I.attack_weight = I.attack_weight + 1
+	I.force = I.force + 4
+	addtimer(CALLBACK(src, .proc/deactivate, I), duration)
 
-/obj/item/stabbing_license/worn_overlays(isinhands)
+/obj/item/stabbing_license/worn_overlays(isinhands, mob/user)
 	. = ..()
 	if(isinhands)
-		. += mutable_appearance('icons/effects/effects.dmi', "blessed", MOB_LAYER + 0.01)
-		var/obj/item/I
-		if(I.sharpness == IS_SHARP || I.sharpness == IS_SHARP_ACCURATE)
-			. -= mutable_appearance('icons/effects/effects.dmi', "blessed", MOB_LAYER + 0.01)
+		if(activated)
 			. += mutable_appearance('icons/effects/cult_effects.dmi', "bloodsparkles", MOB_LAYER + 0.01)
-			I.attack_weight = I.attack_weight + 0.5
-			I.force = I.force + 3
+		else
+			. += mutable_appearance('icons/effects/effects.dmi', "blessed", MOB_LAYER + 0.01)
+
+/obj/item/stabbing_license/proc/deactivate(mob/user)
+	I.attack_weight = initial(I.attack_weight)
+	I.force = initial(I.force)
+	user.update_icon()
+	update_icon()
+	activated = FALSE
+
+//Separated OldWar kits for debugging//
+
+/obj/item/storage/box/syndicate/OldWar/soviet
+
+/obj/item/storage/box/syndicate/OldWar/soviet/PopulateContents()
+			new /obj/item/clothing/shoes/russian(src)
+			new /obj/item/clothing/suit/armor/vest/russian(src)
+			new /obj/item/clothing/under/syndicate/camo(src)
+			new /obj/item/clothing/head/helmet/rus_helmet(src)
+			new /obj/item/gun/ballistic/rifle/boltaction(src)
+			new /obj/item/ammo_box/a762(src)
+			new /obj/item/ammo_box/a762(src)
+			new /obj/item/backup_caller/soviet(src)
+			new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
+
+/obj/item/storage/box/syndicate/OldWar/german
+
+/obj/item/storage/box/syndicate/OldWar/german/PopulateContents()
+			new /obj/item/clothing/head/hopcap/dark(src)
+			new /obj/item/clothing/mask/gas/syndicate/xrayvis(src)
+			new /obj/item/clothing/suit/armor/hos(src)
+			new /obj/item/assembly/flash/hypnotic(src)
+			new /obj/item/disk/surgery/brainwashing(src)
+			new /obj/item/autosurgeon/syndicate/anti_stun(src)
+			new /obj/item/melee/baton/loaded(src)
+			new /obj/item/gun/syringe/syndicate(src)
+			new /obj/item/reagent_containers/glass/bottle/chloralhydrate(src)
+			new /obj/item/reagent_containers/glass/bottle/chloralhydrate(src)
+			new /obj/item/reagent_containers/hypospray(src)
+			new /obj/item/reagent_containers/syringe/lethal/choral(src)
+			new /obj/item/reagent_containers/syringe/lethal/choral(src)
+			new /obj/item/reagent_containers/syringe/piercing(src)
+			new /obj/item/gun/ballistic/automatic/pistol/luger/nomag(src)
+			new /obj/item/ammo_box/magazine/pistolm9mm/luger(src)
+			new /obj/item/ammo_box/magazine/pistolm9mm/luger(src)
+
+/obj/item/storage/box/syndicate/OldWar/american
+
+/obj/item/storage/box/syndicate/OldWar/american/PopulateContents()
+			new /obj/item/gun/ballistic/automatic/tommygun/nomag(src)
+			new /obj/item/ammo_box/magazine/tommygunm45/box(src)
+			new /obj/item/ammo_box/magazine/tommygunm45/box(src)
+			new /obj/item/signaler_art(src)
+			new /obj/item/clothing/under/pants/camo(src)
+			new /obj/item/clothing/suit/armor/vest/alt(src)
+			new /obj/item/clothing/head/soft/black(src)
+			new /obj/item/clothing/shoes/combat(src)
+
+/obj/item/storage/box/syndicate/OldWar/japanese
+
+/obj/item/storage/box/syndicate/OldWar/japanese/PopulateContents()
+			new /obj/item/clothing/suit/armor/vest/kamikaze(src)
+			new /obj/item/katana/compact(src)
+			new /obj/item/clothing/head/bandana_kamikaze(src)
+			new /obj/item/gun/ballistic/rifle/boltaction/japanese(src)
+			new /obj/item/ammo_box/a762(src)
+
+/obj/item/storage/box/syndicate/OldWar/briish
+
+/obj/item/storage/box/syndicate/OldWar/briish/PopulateContents()
+			new /obj/item/gun/ballistic/rifle/boltaction/leeenfield(src)
+			new /obj/item/ammo_box/a762(src)
+			new /obj/item/ammo_box/a762(src)
+			new /obj/item/reagent_containers/food/drinks/britcup(src)
+			new /obj/item/reagent_containers/food/drinks/britcup(src)
+			new /obj/item/dnainjector/chavmut(src)
+			new /obj/item/suppressor(src)
+			new /obj/item/gun/ballistic/revolver/webley(src)
+			new /obj/item/ammo_box/c38(src)
+			new /obj/item/stabbing_license(src)

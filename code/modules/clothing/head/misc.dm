@@ -157,6 +157,13 @@
 	item_state = "bandana"
 	dynamic_hair_suffix = ""
 
+/obj/item/clothing/head/bandana_kamikaze
+	name = "kamikaze bandana"
+	desc = "Banzai."
+	icon_state = "kbandan"
+	item_state = "bandana"
+	dynamic_hair_suffix = ""
+
 /obj/item/clothing/head/bowler
 	name = "bowler-hat"
 	desc = "Gentleman, elite aboard!"

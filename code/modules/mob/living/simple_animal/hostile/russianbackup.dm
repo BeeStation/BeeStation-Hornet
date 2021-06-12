@@ -40,7 +40,9 @@
 	if(defend_target && !target && get_dist(src, defend_target) >= 5)
 		MoveToDefendTarget(defend_target)
 		if(get_dist(src, defend_target) >= 9)
-			lose_patience_timeout = 30
+			lose_patience_timeout = 20
+		else
+			lose_patience_timeout = initial(lose_patience_timeout)
 
 /mob/living/simple_animal/hostile/russian/army/proc/MoveToDefendTarget(mob/living/defend_target)
 	for(src in range(get_dist(src, defend_target), targets_from))
@@ -115,7 +117,7 @@
 	var/ability_cooldown_time = 100
 	health = 180
 	maxHealth = 180
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian_army/army2)
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian_army/army2, /obj/item/reagent_containers/food/drinks/bottle/vodka)
 	move_to_delay = 3
 	rapid_melee = 1
 	melee_damage = 20
@@ -157,6 +159,7 @@
 
 /mob/living/simple_animal/hostile/russian/army/army2/AttackingTarget()
 	if(!bottle_broken)
+		loot = list(/obj/effect/mob_spawn/human/corpse/russian_army/army2, /obj/item/reagent_containers/food/drinks/bottle/vodka/broken)
 		if(ishuman(target))
 			var/mob/living/carbon/human/C = target
 			C.apply_damage(20, BRUTE, BODY_ZONE_HEAD)
@@ -166,8 +169,9 @@
 			icon_state = "russianarmy2_bottlebroken"
 			icon_living = "russianarmy2_bottlebroken"
 			C.visible_message("<span class='danger'>[src] smashes the bottle of vodka against [C.p_their()] head!</span>", "<span class='userdanger'>[src] smashes their bottle against you!</span>")
-			var/datum/reagent/R = /datum/reagent/consumable/ethanol/vodka
-			R.reaction_mob(C, TOUCH)
+			var/obj/item/reagent_containers/V = new /obj/item/reagent_containers/food/drinks/bottle/vodka
+			V.SplashReagents(C)
+			qdel(V)
 			attack_sound = 'sound/weapons/bladeslice.ogg'
 			attacktext = "slices"
 			melee_damage = 16
@@ -182,6 +186,12 @@
 			bottle_broken = TRUE
 			return
 	. = ..()
+
+/obj/item/reagent_containers/food/drinks/bottle/vodka/broken
+
+/obj/item/reagent_containers/food/drinks/bottle/vodka/broken/Initialize()
+	. = ..()
+	smash()
 
 /mob/living/simple_animal/hostile/russian/army/army3
 	name = "Russian soldier with a knife"
@@ -204,7 +214,7 @@
 
 /mob/living/simple_animal/hostile/russian/army/army3/MoveToTarget(list/possible_targets)
 	. = ..()
-	if(knives_left > 0 && prob(30) && ability_cooldown < world.time)
+	if(knives_left > 0 && prob(30) && ability_cooldown < world.time && target)
 		move_to_delay = 8
 		speed = 10
 		visible_message("[src] prepares a knife to throw!")

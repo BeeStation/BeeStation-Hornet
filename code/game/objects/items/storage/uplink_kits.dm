@@ -609,7 +609,7 @@
 		if("RisingSun")
 			new /obj/item/clothing/suit/armor/vest/kamikaze(src)
 			new /obj/item/katana/compact(src)
-			new /obj/item/clothing/mask/bandana/red(src)
+			new /obj/item/clothing/head/bandana_kamikaze(src)
 			new /obj/item/gun/ballistic/rifle/boltaction/japanese(src)
 			new /obj/item/ammo_box/a762(src)
 		if("RedSoldier")
