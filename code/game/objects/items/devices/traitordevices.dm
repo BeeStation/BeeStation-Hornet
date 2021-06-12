@@ -209,7 +209,7 @@ effective or pretty fucking useless.
 
 /obj/item/shadowcloak/item_action_slot_check(slot, mob/user)
 	if(slot == ITEM_SLOT_BELT)
-		return 1
+		return TRUE
 
 /obj/item/shadowcloak/proc/Activate(mob/living/carbon/human/user)
 	if(!user)
@@ -257,6 +257,31 @@ effective or pretty fucking useless.
 	slot_flags = ITEM_SLOT_NECK
 	layer = MOB_LAYER
 	attack_verb = null
+
+/obj/item/shadowcloak/magician/item_action_slot_check(slot, mob/user)
+	if(slot == ITEM_SLOT_NECK)
+		return TRUE
+
+/obj/item/shadowcloak/ui_action_click(mob/user)
+	if(user.get_item_by_slot(ITEM_SLOT_NECK) == src)
+		if(!on)
+			Activate(usr)
+		else
+			Deactivate()
+	return
+
+/obj/item/shadowcloak/process(delta_time)
+	if(user.get_item_by_slot(ITEM_SLOT_NECK) != src)
+		Deactivate()
+		return
+	var/turf/T = get_turf(src)
+	if(on)
+		var/lumcount = T.get_lumcount()
+		if(lumcount > 0.3)
+			charge = max(0, charge - 12.5 * delta_time)//Quick decrease in light
+		else
+			charge = min(max_charge,charge + 25 * delta_time) //Charge in the dark
+		animate(user,alpha = CLAMP(255 - charge,0,255),time = 10)
 
 /obj/item/shadowcloak/magician/attackby(obj/item/W, mob/user, params)
 	. = ..()
