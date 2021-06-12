@@ -32,6 +32,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
 	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "cat2"
 	chat_color = "#FFD586"
 
@@ -178,7 +179,7 @@
 			return .
 
 		for(var/mob/living/simple_animal/mouse/M in get_turf(src))
-			if(!M.stat)
+			if(M.is_conscious())
 				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "splats \the [M]!")
 				M.splat()
 				movement_target = null
@@ -188,6 +189,12 @@
 			if (T.cooldown < (world.time - 400))
 				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "bats \the [T] around with its paw!")
 				T.cooldown = world.time
+
+/mob/living/simple_animal/pet/cat/update_resting()
+	. = ..()
+	if(!resting)
+		icon_state = "[icon_living]"
+		collar_type = "[initial(collar_type)]"
 
 /mob/living/simple_animal/pet/cat/Life()
 	if(!stat && !buckled && !client)
@@ -228,7 +235,7 @@
 				movement_target = null
 				stop_automated_movement = 0
 				for(var/mob/living/simple_animal/mouse/snack in oview(3, src))
-					if(!snack.stat)
+					if(snack.is_conscious())
 						movement_target = snack
 						break
 			if(movement_target)
@@ -317,3 +324,12 @@
 	collar_type = null
 	held_state = "breadcat"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/reagent_containers/food/snacks/breadslice/plain = 1)
+
+/mob/living/simple_animal/pet/cat/halal
+	name = "arabian cat"
+	desc = "It's a cat with Agal on his head."
+	gender = MALE
+	icon_state = "cathalal"
+	icon_living = "cathalal"
+	collar_type = null
+	held_state = "cathalal"

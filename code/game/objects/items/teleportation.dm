@@ -42,7 +42,7 @@
 
 /obj/item/locator/Topic(href, href_list)
 	..()
-	if (usr.stat || usr.restrained())
+	if (!usr.is_conscious() || usr.restrained())
 		return
 	var/turf/current_location = get_turf(usr)//What turf is the user on?
 	if(!current_location || is_centcom_level(current_location.z))//If turf was not found or they're on CentCom
@@ -60,7 +60,7 @@
 					if (!W.renamed)
 						continue
 					var/turf/tr = get_turf(W)
-					if (tr.z == sr.z && tr)
+					if (tr.get_virtual_z_level() == sr.get_virtual_z_level() && tr)
 						var/direct = max(abs(tr.x - sr.x), abs(tr.y - sr.y))
 						if (direct < 5)
 							direct = "very strong"
@@ -85,7 +85,7 @@
 								continue
 
 					var/turf/tr = get_turf(W)
-					if (tr.z == sr.z && tr)
+					if (tr.get_virtual_z_level() == sr.get_virtual_z_level() && tr)
 						var/direct = max(abs(tr.x - sr.x), abs(tr.y - sr.y))
 						if (direct < 20)
 							if (direct < 5)

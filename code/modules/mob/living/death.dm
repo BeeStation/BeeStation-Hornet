@@ -48,7 +48,7 @@
 
 /mob/living/death(gibbed)
 	var/was_dead_before = stat == DEAD
-	stat = DEAD
+	set_stat(DEAD)
 	unset_machine()
 	timeofdeath = world.time
 	tod = station_time_timestamp()
@@ -98,6 +98,9 @@
 	for(var/s in sharedSoullinks)
 		var/datum/soullink/S = s
 		S.sharerDies(gibbed)
+
+	if(mind?.current)
+		client?.tgui_panel?.give_dead_popup()
 
 	return TRUE
 

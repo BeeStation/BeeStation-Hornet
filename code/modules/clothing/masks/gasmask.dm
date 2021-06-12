@@ -74,6 +74,7 @@
 	options["The Madman"] = "joker"
 	options["The Rainbow Color"] ="rainbow"
 	options["The Jester"] ="chaos" //Nepeta33Leijon is holding me captive and forced me to help with this please send help
+	options["The Lunatic"] = "trickymask"
 
 	var/choice = input(user,"To what form do you wish to Morph this mask?","Morph Mask") in sortList(options)
 
@@ -190,7 +191,7 @@
 
 	var/choice = input(M,"To what form do you wish to change this mask?","Morph Mask") in sortList(options)
 
-	if(src && choice && !M.stat && in_range(M,src))
+	if(src && choice && M.is_conscious() && in_range(M,src))
 		icon_state = options[choice]
 		user.update_inv_wear_mask()
 		for(var/X in actions)

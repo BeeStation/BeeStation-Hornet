@@ -45,25 +45,6 @@
 			adjustBruteLoss(2)
 
 		if(stat != DEAD)
-			//handle embedded objects
-			//Stuff jammed in your limbs hurts
-			for(var/X in bodyparts)
-				var/obj/item/bodypart/BP = X
-				for(var/obj/item/I in BP.embedded_objects)
-					if(prob(I.embedding.embedded_pain_chance))
-						BP.receive_damage(I.w_class*I.embedding.embedded_pain_multiplier)
-						to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
-
-					if(prob(I.embedding.embedded_fall_chance))
-						BP.receive_damage(I.w_class*I.embedding.embedded_fall_pain_multiplier)
-						BP.embedded_objects -= I
-						I.forceMove(drop_location())
-						visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
-						if(!has_embedded_objects())
-							clear_alert("embeddedobject")
-							SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "embedded")
-
-		if(stat != DEAD)
 			//Handle hygiene
 			if(HAS_TRAIT(src, TRAIT_ALWAYS_CLEAN))
 				set_hygiene(HYGIENE_LEVEL_CLEAN)
@@ -94,6 +75,8 @@
 
 				adjust_hygiene(hygiene_loss)
 
+		if(InCritical())
+			softcrit_damage()
 		dna.species.spec_life(src) // for mutantraces
 
 	//Update our name based on whether our face is obscured/disfigured
