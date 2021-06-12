@@ -268,8 +268,9 @@
 
 /datum/world_topic/status/authed
 	key = "status_authed"
+	anonymous = FALSE
 
-/datum/world_topic/status/authed/Run()
+/datum/world_topic/status/authed/Run(list/input)
 	. = ..()
 	// Add on a little extra data for our "special" patrons
 	data["active_players"] = get_active_player_count()

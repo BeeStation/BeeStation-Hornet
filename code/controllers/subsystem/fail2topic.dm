@@ -55,6 +55,9 @@ SUBSYSTEM_DEF(fail2topic)
 	DropFirewallRule()
 
 /datum/controller/subsystem/fail2topic/proc/IsRateLimited(ip)
+	if(!enabled)
+		return FALSE
+
 	var/last_attempt = rate_limiting[ip]
 
 	if (config.fail2topic_whitelisted_ips[ip])
