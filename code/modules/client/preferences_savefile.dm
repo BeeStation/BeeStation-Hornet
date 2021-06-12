@@ -208,8 +208,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	READ_FILE(S["key_bindings"], key_bindings)
 
-	READ_FILE(S["held_walk"], held_walk)
-
 	READ_FILE(S["purchased_gear"], purchased_gear)
 	READ_FILE(S["equipped_gear"], equipped_gear)
 
@@ -314,7 +312,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["show_credits"], show_credits)
 	WRITE_FILE(S["purchased_gear"], purchased_gear)
 	WRITE_FILE(S["equipped_gear"], equipped_gear)
-	WRITE_FILE(S["held_walk"], held_walk)
 
 	if (!key_bindings)
 		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)

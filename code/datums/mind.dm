@@ -36,7 +36,7 @@
 	var/mob/living/current
 	var/active = 0
 
-	var/memory
+	var/memory = ""
 
 	var/assigned_role
 	var/special_role
@@ -357,34 +357,116 @@
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator)], an antagonist.")
 		to_chat(current, "<span class='userdanger'>Despite your creator's current allegiances, your true master remains [creator.real_name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed.</span>")
 
-/datum/mind/proc/show_memory(mob/recipient, window=1)
+/datum/mind/proc/show_memory(mob/recipient, window=1, read_only=FALSE)
 	if(!recipient)
 		recipient = current
-	var/output = "<B>[current.real_name]'s Memories:</B><br>"
-	output += memory
-
 
 	var/list/all_objectives = list()
+	var/output = "<B>[current.real_name]'s Memories:</B><br>"
 	for(var/datum/antagonist/A in antag_datums)
 		output += A.antag_memory
 		all_objectives |= A.objectives
 
+	if(window)
+		ui_interact(recipient)
+	else if(all_objectives.len || memory)
+		output += memory
+
+		if(all_objectives.len)
+			output += "<B>Objectives:</B>"
+			var/obj_count = 1
+			for(var/datum/objective/objective in all_objectives)
+				output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+				var/list/datum/mind/other_owners = objective.get_owners() - src
+				if(other_owners.len)
+					output += "<ul>"
+					for(var/datum/mind/M in other_owners)
+						output += "<li>Conspirator: [M.name]</li>"
+					output += "</ul>"
+		to_chat(recipient, "<i>[output]</i>")
+
+/datum/mind/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "PaperSheet", "[current.real_name]'s Memories")
+		ui.open()
+
+/datum/mind/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/simple/paper),
+	)
+
+/datum/mind/ui_state(mob/user)
+	return GLOB.always_state
+
+//don't need to send pen shit all the time
+/datum/mind/ui_static_data(mob/user)
+	var/list/data = list()
+	data["max_length"] = MAX_MESSAGE_LEN
+	data["paper_color"] = "#FFFFFF"
+	data["pen_color"] = "#000000"
+	if(user == current)
+		data["edit_mode"] = 1
+	else
+		data["edit_mode"] = 0
+	data["is_crayon"] = FALSE
+	data["stamp_class"] = "FAKE"
+	data["stamp_icon_state"] = "FAKE"
+	return data
+
+/datum/mind/ui_data(mob/user)
+	var/list/data = list()
+
+	var/list/all_objectives = list()
+	var/objective_out
+	for(var/datum/antagonist/A in antag_datums)
+		objective_out += A.antag_memory
+		all_objectives |= A.objectives
+
+	if(!all_objectives.len)
+		objective_out += "\n"
+
 	if(all_objectives.len)
-		output += "<B>Objectives:</B>"
+		objective_out += "<B>Objectives:</B>"
 		var/obj_count = 1
 		for(var/datum/objective/objective in all_objectives)
-			output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+			objective_out += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
 			var/list/datum/mind/other_owners = objective.get_owners() - src
 			if(other_owners.len)
-				output += "<ul>"
+				objective_out += "<ul>"
 				for(var/datum/mind/M in other_owners)
-					output += "<li>Conspirator: [M.name]</li>"
-				output += "</ul>"
+					objective_out += "<li>Conspirator: [M.name]</li>"
+				objective_out += "</ul>"
+		objective_out += "\n"
 
-	if(window)
-		recipient << browse(output,"window=memory")
-	else if(all_objectives.len || memory)
-		to_chat(recipient, "<i>[output]</i>")
+	data["static_text"] = objective_out
+
+	data["text"] = memory
+
+	return data
+
+//Like in papers, but only takes the "save" action
+/datum/mind/ui_act(action, params,datum/tgui/ui)
+	if(..())
+		return
+	switch(action)
+		if("save")
+			var/written = params["text"]
+			var/written_len = length(written)
+
+			if(written_len > MAX_MESSAGE_LEN)
+				// Side note, the only way we should get here is if
+				// the javascript was modified, somehow, outside of
+				// byond.  but right now we are logging it as
+				// the generated html might get beyond this limit
+				to_chat(ui.user, pick("You can't remember all of this!", "It's too long!"))
+			if(written_len == 0)
+				to_chat(ui.user, "You can't remember nothing!")
+			else
+				if(memory != written)
+					to_chat(ui.user, "You have remembered something!");
+					memory = written
+			. = TRUE
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))
