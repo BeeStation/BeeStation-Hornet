@@ -104,6 +104,7 @@
 				I.forceMove(user.drop_location())
 		else
 			to_chat(user, "<span class='notice'>You insert a material total of [inserted] into [parent].</span>")
+			SEND_SIGNAL(I, COMSIG_OBJ_DECONSTRUCT) //Help prevent using material ingestors to void storage items.
 			qdel(I)
 		if(after_insert)
 			after_insert.Invoke(I.type, last_inserted_id, inserted)
