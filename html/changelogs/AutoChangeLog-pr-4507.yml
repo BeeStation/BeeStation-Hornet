@@ -1,0 +1,4 @@
+author: MCterra10
+delete-after: true
+changes:
+  - rscadd: Rebases to AuStation codebase
