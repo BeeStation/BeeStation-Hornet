@@ -360,8 +360,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 /atom/proc/balloon_alert(mob/viewer, text)
 	if(!viewer.client)
 		return
-	var/client/C = viewer.client
-	switch(C.prefs.see_balloon_alerts)
+	switch(viewer.client.prefs.see_balloon_alerts)
 		if(BALLOON_ALERT_ALWAYS)
 			new /datum/chatmessage/balloon_alert(text, src, viewer)
 		if(BALLOON_ALERT_WITH_CHAT)
