@@ -4410,12 +4410,12 @@
 /area/security/brig)
 "akL" = (
 /obj/structure/rack,
-/obj/item/gun/energy/smartpistol{
+/obj/item/gun/energy/energypistol{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/gun/energy/smartpistol,
-/obj/item/gun/energy/smartpistol{
+/obj/item/gun/energy/energypistol,
+/obj/item/gun/energy/energypistol{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -8673,7 +8673,7 @@
 /obj/item/tank/internals/plasma/full,
 /obj/item/disk/nuclear/fake,
 /obj/item/stack/ore/diamond,
-/obj/item/gun/energy/smartpistol,
+/obj/item/gun/energy/energypistol,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
