@@ -1,0 +1,8 @@
+author: Mothblocks,  dragomagol, InsaneRed, Archanial
+delete-after: true
+changes:
+  - rscadd: Balloon alerts - small runechat like pop ups while performing specific
+      actions, which can be toggled in preferences
+  - rscadd: Balloon alerts to some mech actions, door remote and beakers
+  - rscadd: Balloon alerts to storage, guns, energy swords, reagent containers, constructing
+      walls and tools
