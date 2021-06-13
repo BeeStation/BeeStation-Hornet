@@ -10,8 +10,8 @@
 	e_cost = 71
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/lasergun/smartpistol
-	projectile_type = /obj/item/projectile/beam/laser/smartpistol
+/obj/item/ammo_casing/energy/lasergun/energypistol
+	projectile_type = /obj/item/projectile/beam/laser/energypistol
 	e_cost = 60
 	select_name = "kill"
 

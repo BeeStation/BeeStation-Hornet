@@ -387,7 +387,7 @@ Auto Patrol[]"},
 	drop_part(cell_type, Tsec)
 
 	if(!lasercolor)
-		var/obj/item/gun/energy/smartpistol/G = new (Tsec)
+		var/obj/item/gun/energy/energypistol/G = new (Tsec)
 		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")

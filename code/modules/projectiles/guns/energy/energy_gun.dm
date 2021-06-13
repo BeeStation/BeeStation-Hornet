@@ -161,8 +161,8 @@
 			if(151 to INFINITY)
 				add_overlay("[icon_state]_fail_2")
 
-/obj/item/gun/energy/smartpistol
-	name = "\improper LSG-2556 smart pistol"
+/obj/item/gun/energy/energypistol
+	name = "\improper LSG-2556 energy pistol"
 	desc = "Standard-issue security personnel armament. Features a Warden-resettable DNA lock and a restricted kill mode."
 	icon_state = "disabler"
 	item_state = null
@@ -173,15 +173,15 @@
 	flight_x_offset = 15
 	flight_y_offset = 10
 	pin = /obj/item/firing_pin/dna
-	var/kill_ammo = /obj/item/ammo_casing/energy/lasergun/smartpistol
+	var/kill_ammo = /obj/item/ammo_casing/energy/lasergun/energypistol
 	var/stun_ammo = /obj/item/ammo_casing/energy/disabler
 	var/lethals_enabled = FALSE
 
-/obj/item/gun/energy/smartpistol/Initialize()
+/obj/item/gun/energy/energypistol/Initialize()
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_LEVEL, .proc/security_level)
 
-/obj/item/gun/energy/smartpistol/proc/security_level()
+/obj/item/gun/energy/energypistol/proc/security_level()
 	SIGNAL_HANDLER
 	if(GLOB.security_level >= SEC_LEVEL_RED && !lethals_enabled)
 		audible_message("<span class='italics'>You hear a beep from \the [name].</span>", null,  1)
@@ -197,17 +197,17 @@
 		update_ammo_types()
 		select_fire()
 
-/obj/item/gun/energy/smartpistol/proc/get_dna()
+/obj/item/gun/energy/energypistol/proc/get_dna()
 	var/obj/item/firing_pin/dna/D = pin
 	return D.unique_enzymes ? D.unique_enzymes : null
 
-/obj/item/gun/energy/smartpistol/attack_self(mob/user)
+/obj/item/gun/energy/energypistol/attack_self(mob/user)
 	if(!lethals_enabled)
 		to_chat(user, "<span class='warning'>Lethality is not unlocked until <b>Red Alert</b> or higher.</span>")
 	else
 		..()
 
-/obj/item/gun/energy/smartpistol/examine(mob/user)
+/obj/item/gun/energy/energypistol/examine(mob/user)
 	. = ..()
 	var/dna = get_dna()
 	if(pin.obj_flags & EMAGGED)
@@ -218,7 +218,7 @@
 		. += "<span class='notice'>It is unregistered.</span>"
 	. += "<span class='warning'>Lethality is <b>[lethals_enabled ? "enabled" : "disabled"]</b>.</span>"
 
-/obj/item/gun/energy/smartpistol/attackby(obj/item/O, mob/user, params)
+/obj/item/gun/energy/energypistol/attackby(obj/item/O, mob/user, params)
 	if(get_dna() && (ACCESS_ARMORY in O.GetAccess()))
 		to_chat(user, "<span class='notice'>You reset the DNA lock.</span>")
 		var/obj/item/firing_pin/dna/D = pin
@@ -228,7 +228,7 @@
 		investigate_log("dna lock reset by [key_name(user)]", INVESTIGATE_RECORDS)
 	..()
 
-/obj/item/gun/energy/smartpistol/emp_act(severity)
+/obj/item/gun/energy/energypistol/emp_act(severity)
 	audible_message("<span class='italics'>You hear erratic beeping from \the [name].</span>", null,  1)
 	var/obj/item/firing_pin/dna/D = pin
 	D.unique_enzymes = null

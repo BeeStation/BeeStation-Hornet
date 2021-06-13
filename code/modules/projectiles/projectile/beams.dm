@@ -20,7 +20,7 @@
 	muzzle_type = /obj/effect/projectile/muzzle/laser
 	impact_type = /obj/effect/projectile/impact/laser
 
-/obj/item/projectile/beam/laser/smartpistol
+/obj/item/projectile/beam/laser/energypistol
 	damage = 30
 
 /obj/item/projectile/beam/laser/heavylaser
