@@ -400,8 +400,15 @@ class PaperSheetEdit extends Component {
       is_crayon,
       field_counter,
       edit_usr,
+      static_text,
     } = data;
     const out = { text: text };
+    if (static_text.length > 0) {
+      const sanitized_static = sanatize_text(static_text);
+      out.text = sanitized_static + text;
+    } else {
+      out.text = text;
+    }
     // check if we are adding to paper, if not
     // we still have to check if somone entered something
     // into the fields
@@ -781,6 +788,7 @@ export const PaperSheet = (props, context) => {
   const {
     edit_mode,
     text,
+    static_text,
     paper_color,
     pen_color = "black",
     pen_font = "Verdana",
@@ -801,14 +809,14 @@ export const PaperSheet = (props, context) => {
       case 0:
         return (
           <PaperSheetView
-            value={text}
+            value={static_text + text}
             stamps={stamp_list}
             readOnly />
         );
       case 1:
         return (
           <PaperSheetEdit
-            value={text}
+            value={static_text + text}
             textColor={pen_color}
             fontFamily={pen_font}
             stamps={stamp_list}

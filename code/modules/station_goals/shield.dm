@@ -65,7 +65,7 @@
 
 /obj/machinery/computer/sat_control/proc/toggle(id)
 	for(var/obj/machinery/satellite/S in GLOB.machines)
-		if(S.id == id && S.z == z)
+		if(S.id == id && S.get_virtual_z_level() == get_virtual_z_level())
 			S.toggle()
 
 /obj/machinery/computer/sat_control/ui_data()
@@ -118,9 +118,11 @@
 		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] [src].</span>")
 	active = !active
 	if(active)
+		begin_processing()
 		animate(src, pixel_y = 2, time = 10, loop = -1)
 		anchored = TRUE
 	else
+		end_processing()
 		animate(src, pixel_y = 0, time = 10)
 		anchored = FALSE
 	update_icon()
@@ -136,7 +138,8 @@
 	name = "\improper Meteor Shield Satellite"
 	desc = "A meteor point-defense satellite."
 	mode = "M-SHIELD"
-	speed_process = TRUE
+	processing_flags = START_PROCESSING_MANUALLY
+	subsystem_type = /datum/controller/subsystem/processing/fastprocess
 	var/kill_range = 14
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
@@ -149,7 +152,7 @@
 	if(!active)
 		return
 	for(var/obj/effect/meteor/M in GLOB.meteor_list)
-		if(M.z != z)
+		if(M.get_virtual_z_level() != get_virtual_z_level())
 			continue
 		if(get_dist(M,src) > kill_range)
 			continue
