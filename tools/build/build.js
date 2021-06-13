@@ -142,11 +142,13 @@ const TgsTarget = Juke.createTarget({
   },
 });
 
-const TGS_MODE = process.env.CBT_BUILD_MODE === 'TGS';
-
 Juke
   .setup({
-    default: TGS_MODE ? TgsTarget : DefaultTarget,
+    default: (
+      process.env.CBT_BUILD_MODE === 'TGS'
+        ? TgsTarget
+        : DefaultTarget
+    ),
   })
   .then((code) => {
     process.exit(code);
