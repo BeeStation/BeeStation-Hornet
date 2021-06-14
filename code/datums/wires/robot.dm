@@ -52,6 +52,7 @@
 			if(R.lawupdate)
 				R.visible_message("[R] gently chimes.", "LawSync protocol engaged.")
 				R.lawsync()
+				log_combat(usr, R, "forcibly synced cyborg laws")
 				R.show_laws()
 		if(WIRE_LOCKDOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle

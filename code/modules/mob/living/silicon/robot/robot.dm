@@ -67,7 +67,7 @@
 	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/datum/effect_system/spark_spread/spark_system // So they can initialize sparks whenever/N
 
-	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
+	var/lawupdate = TRUE //Cyborgs will sync their laws with their AI by default
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
 	var/lockcharge //Boolean of whether the borg is locked down or not
 
@@ -1233,7 +1233,7 @@
 	if(connected_ai)
 		connected_ai.connected_robots += src
 		lawsync()
-		lawupdate = 1
+		lawupdate = TRUE
 		return TRUE
 	picturesync()
 	return FALSE

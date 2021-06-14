@@ -103,7 +103,7 @@
 	if(masterAI)
 		R.connected_ai = masterAI
 		R.lawsync()
-		R.lawupdate = 1
+		R.lawupdate = TRUE
 	addtimer(CALLBACK(src, .proc/unlock_new_robot, R), 50)
 
 /obj/machinery/transformer/proc/unlock_new_robot(mob/living/silicon/robot/R)
