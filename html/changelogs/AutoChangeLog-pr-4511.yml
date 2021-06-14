@@ -1,5 +1,0 @@
-author: lordScrubling
-delete-after: true
-changes:
-  - bugfix: showing up as an unknown if you had a nameless id in your second tablet
-      slot
