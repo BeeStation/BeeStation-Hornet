@@ -29,6 +29,7 @@ export const MESSAGE_TYPE_WARNING = 'warning';
 export const MESSAGE_TYPE_DEADCHAT = 'deadchat';
 export const MESSAGE_TYPE_OOC = 'ooc';
 export const MESSAGE_TYPE_ADMINPM = 'adminpm';
+export const MESSAGE_TYPE_MENTORPM = 'mentorpm';
 export const MESSAGE_TYPE_COMBAT = 'combat';
 export const MESSAGE_TYPE_ADMINCHAT = 'adminchat';
 export const MESSAGE_TYPE_MODCHAT = 'modchat';
@@ -58,13 +59,13 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_RADIO,
     name: 'Radio',
     description: 'All departments of radio messages',
-    selector: '.alert, .syndradio, .centradio, .airadio, .entradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .supradio, .srvradio, .expradio, .radio, .deptradio, .newscaster',
+    selector: '.alert, .syndradio, .centcomradio, .airadio, .entradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .suppradio, .servradio, .radio, .newscaster, .redteamradio, .blueteamradio, .binarysay, .aiprivradio, .alien, .changeling, .holoparasite, .cult',
   },
   {
     type: MESSAGE_TYPE_INFO,
     name: 'Info',
     description: 'Non-urgent messages from the game and items',
-    selector: '.notice:not(.pm), .adminnotice, .info, .sinister, .cult',
+    selector: '.notice:not(.pm), .adminnotice, .info, .sinister',
   },
   {
     type: MESSAGE_TYPE_WARNING,
@@ -89,6 +90,12 @@ export const MESSAGE_TYPES = [
     name: 'Admin PMs',
     description: 'Messages to/from admins (adminhelp)',
     selector: '.pm, .adminhelp',
+  },
+  {
+    type: MESSAGE_TYPE_MENTORPM,
+    name: 'Mentor PMs',
+    description: 'Messages to/from mentors (mentorhelp)',
+    selector: '.mentorfrom, .mentorto, .mentorhelp',
   },
   {
     type: MESSAGE_TYPE_COMBAT,
