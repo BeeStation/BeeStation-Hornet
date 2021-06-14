@@ -783,4 +783,4 @@ update_label("John Doe", "Clowny")
 	name = "deputy promotion card"
 	desc = "A small card, that when used on an ID, will grant basic security access, and the job title of 'Deputy.' You can wear it if you really need to."
 	assignment = "Deputy"
-	access = list (ACCESS_SEC_DOORS,ACCESS_MAINT_TUNNELS,ACCESS_COURT,ACCESS_BRIG,ACCESS_WEAPONS)
+	access = list(ACCESS_SEC_DOORS,ACCESS_MAINT_TUNNELS,ACCESS_COURT,ACCESS_BRIG,ACCESS_WEAPONS)
