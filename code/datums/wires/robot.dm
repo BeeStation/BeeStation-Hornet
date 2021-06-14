@@ -78,7 +78,7 @@
 		if (WIRE_CAMERA) // Disable the camera.
 			if(!QDELETED(R.builtInCamera) && !R.scrambledcodes)
 				R.builtInCamera.status = mend
-				R.builtInCamera.toggle_cam(usr, 0)
+				R.builtInCamera.toggle_cam(usr, FALSE)
 				R.visible_message("[R]'s camera lens focuses loudly.", "Your camera lens focuses loudly.")
 		if(WIRE_LOCKDOWN) // Simple lockdown.
 			R.SetLockdown(!mend)
