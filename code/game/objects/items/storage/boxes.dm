@@ -1256,7 +1256,7 @@
 	desc = "To be issued to those authorized to act as deputy of security."
 
 /obj/item/storage/box/deputy/PopulateContents()
-	for(var/i in 1 to 5)
+	for(var/i in 1 to 4)
 		new /obj/item/clothing/accessory/armband/deputy(src)
 		new /obj/item/card/id/pass/minisec(src)
 		
