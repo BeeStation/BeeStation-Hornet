@@ -84,8 +84,8 @@ AI MODULES
 		for(var/mob/living/silicon/robot/owned_borg in owner.connected_robots)
 			if(owned_borg.connected_ai && owned_borg.lawupdate)
 				affected_cyborgs += owned_borg
-				borg_flw += "[ADMIN_LOOKUPFLW(user)], "
-				borg_txt += "[ADMIN_LOOKUP(user)], "
+				borg_flw += "[ADMIN_LOOKUPFLW(owned_borg)], "
+				borg_txt += "[ADMIN_LOOKUP(owned_borg)], "
 
 	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) used [src.name] on [ainame]([aikey]).[law2log ? " The law specified [law2log]" : ""], [length(affected_cyborgs) ? ", impacting synced borgs [borg_txt]" : "FALSE"]")
 	log_law("[user.key]/[user.name] used [src.name] on [aikey]/([ainame]) from [AREACOORD(user)].[law2log ? " The law specified [law2log]" : ""] , [length(affected_cyborgs) ? ", impacting synced borgs [borg_txt]" : "FALSE"]")
