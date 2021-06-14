@@ -40,13 +40,6 @@
 	reagents.add_reagent(/datum/reagent/foaming_agent, 5)
 	reagents.add_reagent(/datum/reagent/toxin/acid/fluacid, 5)
 
-/obj/item/projectile/bullet/dart/tranq
-	name = "syringe"
-	icon_state = "syringeproj"
-
-/obj/item/projectile/bullet/dart/tranq/Initialize()
-	. = ..()
-	reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 4) //these'll get the victim wallslamming and then sleep em, but it will take awhile before it puts the victim to sleep
 
 /obj/item/projectile/bullet/dart/syringe
 	name = "syringe"
@@ -93,3 +86,22 @@
 		new /obj/effect/decal/cleanable/insectguts(src.loc)
 		
 	return ..()
+
+/obj/item/projectile/bullet/dart/tranq
+	name = "tranquilizer dart"
+
+/obj/item/projectile/bullet/dart/tranq/Initialize()
+	. = ..()
+	reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 4) //these'll get the victim wallslamming and then sleep em, but it will take awhile before it puts the victim to sleep
+
+/obj/item/projectile/bullet/dart/tranq/plus
+
+/obj/item/projectile/bullet/dart/tranq/plus/Initialize()
+	. = ..()
+	reagents.add_reagent(/datum/reagent/pax, 1)
+
+/obj/item/projectile/bullet/dart/tranq/plusplus
+	
+/obj/item/projectile/bullet/dart/tranq/plusplus/Initialize()
+	. = ..()
+	reagents.add_reagent(/datum/reagent/pax, 3)

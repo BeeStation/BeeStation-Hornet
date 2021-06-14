@@ -321,11 +321,11 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     var/turf/storageTurf
     var/virtual_z_value
 
-/area/hilbertshotel/get_virtual_z()
+/area/hilbertshotel/get_virtual_z(turf/T)
     if(virtual_z_value)
         return virtual_z_value
     else
-        return ..()
+        return ..(T)
 
 /area/hilbertshotel/Entered(atom/movable/AM)
     . = ..()

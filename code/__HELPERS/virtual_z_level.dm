@@ -13,5 +13,10 @@
   * Note: If the user teleports to another virtual z on the same z-level they will need to have reset_virtual_z called. (Teleportations etc.)
   */
 /atom/proc/get_virtual_z_level()
-	var/area/A = get_area(src)
-	return A.get_virtual_z()
+	var/turf/T = get_turf(src)
+	if(!T)
+		return 0
+	var/area/A = T.loc
+	if(!A)
+		return 0
+	return A.get_virtual_z(T)
