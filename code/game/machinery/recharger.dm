@@ -161,7 +161,7 @@
 				B.cell.charge = 0
 
 
-/obj/machinery/recharger/update_icon(using_power = 0, scan)	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
+/obj/machinery/recharger/update_icon(scan)	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
 	if(machine_stat & (NOPOWER|BROKEN) || !anchored)
 		icon_state = "rechargeroff"
 		return
