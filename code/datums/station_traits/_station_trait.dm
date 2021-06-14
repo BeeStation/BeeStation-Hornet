@@ -32,7 +32,7 @@
 
 ///Proc ran when round starts. Use this for roundstart effects.
 /datum/station_trait/proc/on_round_start()
-	if(possible_announcements)
+	if(length(possible_announcements))
 		priority_announce(pick(possible_announcements), null, null, has_important_message = TRUE)
 
 ///type of info the centcom report has on this trait, if any.
