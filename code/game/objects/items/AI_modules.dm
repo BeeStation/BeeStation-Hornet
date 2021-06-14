@@ -79,15 +79,17 @@ AI MODULES
 	var/affected_cyborgs = list()
 	var/borg_txt = ""
 	var/borg_flw = ""
-	for(var/cyborg in law_datum.owner.connected_robots)
-		if(cyborg.connected_ai && cyborg.lawupdate)
-			affected_cyborgs += cyborg
-			borg_flw += "[ADMIN_LOOKUPFLW(user)], "
-			borg_txt += "[ADMIN_LOOKUP(user)], "
+	if(isAI(law_datum.owner))
+		var/mob/living/silicon/ai/owner = law_datum.owner
+		for(var/mob/living/silicon/robot/owned_borg in owner.connected_robots)
+			if(owned_borg.connected_ai && owned_borg.lawupdate)
+				affected_cyborgs += owned_borg
+				borg_flw += "[ADMIN_LOOKUPFLW(user)], "
+				borg_txt += "[ADMIN_LOOKUP(user)], "
 
-	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) used [src.name] on [ainame]([aikey]).[law2log ? " The law specified [law2log]" : ""], [len(affected_cyborgs) ? ", impacting synced borgs [borg_txt]" : "FALSE"]")
-	log_law("[user.key]/[user.name] used [src.name] on [aikey]/([ainame]) from [AREACOORD(user)].[law2log ? " The law specified [law2log]" : ""] , [len(affected_cyborgs) ? ", impacting synced borgs [borg_txt]" : "FALSE"]")
-	message_admins("[ADMIN_LOOKUPFLW(user)] used [src.name] on [ADMIN_LOOKUPFLW(law_datum.owner)] from [AREACOORD(user)].[law2log ? " The law specified [law2log]" : ""] , [len(affected_cyborgs) ? ", impacting synced borgs [borg_flw]" : "FALSE"]")
+	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) used [src.name] on [ainame]([aikey]).[law2log ? " The law specified [law2log]" : ""], [length(affected_cyborgs) ? ", impacting synced borgs [borg_txt]" : "FALSE"]")
+	log_law("[user.key]/[user.name] used [src.name] on [aikey]/([ainame]) from [AREACOORD(user)].[law2log ? " The law specified [law2log]" : ""] , [length(affected_cyborgs) ? ", impacting synced borgs [borg_txt]" : "FALSE"]")
+	message_admins("[ADMIN_LOOKUPFLW(user)] used [src.name] on [ADMIN_LOOKUPFLW(law_datum.owner)] from [AREACOORD(user)].[law2log ? " The law specified [law2log]" : ""] , [length(affected_cyborgs) ? ", impacting synced borgs [borg_flw]" : "FALSE"]")
 	if(law_datum.owner)
 		deadchat_broadcast("<span class='deadsay'><span class='name'>[user.name]</span> changed <span class='name'>[ainame]</span>'s laws at <b>[get_area_name(user, TRUE)].</b></span>", "<span class='name'>[user]</span>", follow_target=user, message_type=DEADCHAT_LAWCHANGE)
 
