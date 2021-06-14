@@ -9,6 +9,7 @@
 	dynamic_should_hijack = TRUE
 
 	gamemode_blacklist = list("blob") //Just in case a blob survives that long
+	malffake = TRUE
 
 /datum/round_event/ghost_role/blob
 	announceChance	= 0

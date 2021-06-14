@@ -7,6 +7,7 @@
 
 	dynamic_should_hijack = TRUE
 	cannot_spawn_after_shuttlecall = TRUE
+	malffake = TRUE
 
 /datum/round_event_control/alien_infestation/canSpawnEvent()
 	. = ..()
