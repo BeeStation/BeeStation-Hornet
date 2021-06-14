@@ -1,0 +1,5 @@
+author: Froststahr
+delete-after: true
+changes:
+  - bugfix: A couple of recent changes have been reverted, movement should be more
+      consistent again.
