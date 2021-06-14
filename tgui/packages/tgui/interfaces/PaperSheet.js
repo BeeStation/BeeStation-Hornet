@@ -403,7 +403,7 @@ class PaperSheetEdit extends Component {
       static_text,
     } = data;
     const out = { text: text };
-    if (static_text.length > 0) {
+    if (static_text?.length > 0) {
       const sanitized_static = sanatize_text(static_text);
       out.text = sanitized_static + text;
     } else {
@@ -809,14 +809,14 @@ export const PaperSheet = (props, context) => {
       case 0:
         return (
           <PaperSheetView
-            value={static_text + text}
+            value={static_text ? static_text + text : text}
             stamps={stamp_list}
             readOnly />
         );
       case 1:
         return (
           <PaperSheetEdit
-            value={static_text + text}
+            value={static_text ? static_text + text : text}
             textColor={pen_color}
             fontFamily={pen_font}
             stamps={stamp_list}
