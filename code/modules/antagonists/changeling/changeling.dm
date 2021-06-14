@@ -414,7 +414,7 @@
 		objectives += destroy_objective
 		log_objective(owner, destroy_objective.explanation_text)
 	else
-		if(prob(70))
+		if(prob(20))
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = owner
 			if(team_mode) //No backstabbing while in a team
