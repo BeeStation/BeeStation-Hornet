@@ -364,6 +364,7 @@
 	clothes_req = 0
 	invocation = "JE VES"
 	invocation_type = "whisper"
+	school = SCHOOL_CONJURATION
 	range = -1
 	level_max = 0 //cannot be improved
 	cooldown_min = 100

@@ -558,3 +558,37 @@
 		M.Jitter(4)
 		M.Dizzy(4)
 	..()
+
+/datum/reagent/drug/maint/sludge
+	name = "Maintenance Sludge"
+	description = "An unknown sludge that you most likely gotten from an assistant, a bored chemist... or cooked yourself. Half refined, it fills your body with itself, making it more resistant to wounds, but causes toxins to accumulate."
+	reagent_state = LIQUID
+	color = "#203d2c"
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+	overdose_threshold = 25
+	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
+	addiction_types = list(/datum/addiction/maintenance_drugs = 8)
+
+/datum/reagent/drug/maint/sludge/on_mob_metabolize(mob/living/L)
+
+	. = ..()
+	ADD_TRAIT(L,TRAIT_HARDLY_WOUNDED,type)
+
+/datum/reagent/drug/maint/sludge/on_mob_life(mob/living/carbon/M, delta_time, times_fired)
+	. = ..()
+	M.adjustToxLoss(0.5 * REM * delta_time)
+
+/datum/reagent/drug/maint/sludge/on_mob_end_metabolize(mob/living/M)
+	. = ..()
+	REMOVE_TRAIT(M,TRAIT_HARDLY_WOUNDED,type)
+
+/datum/reagent/drug/maint/sludge/overdose_process(mob/living/M, delta_time, times_fired)
+	. = ..()
+	if(!iscarbon(M))
+		return
+	var/mob/living/carbon/carbie = M
+	//You will be vomiting so the damage is really for a few ticks before you flush it out of your system
+	carbie.adjustToxLoss(1 * REM * delta_time)
+	if(DT_PROB(5, delta_time))
+		carbie.adjustToxLoss(5)
+		carbie.vomit()
