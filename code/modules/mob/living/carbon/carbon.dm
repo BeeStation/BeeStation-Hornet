@@ -526,10 +526,6 @@
 		remove_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE)
 	if(buckled || pulledby)
 		return
-	if(is_conscious())
-		glide_size = initial(glide_size)
-	else
-		glide_size = CRIT_GLIDE
 
 //Updates the mob's health from bodyparts and mob damage variables
 /mob/living/carbon/updatehealth()
