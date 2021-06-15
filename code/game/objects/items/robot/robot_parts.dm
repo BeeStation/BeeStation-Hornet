@@ -293,7 +293,7 @@
 				if(forced_ai)
 					O.connected_ai = forced_ai
 			if(!lawsync)
-				O.lawupdate = 0
+				O.lawupdate = FALSE
 				if(M.laws.id == DEFAULT_AI_LAWID)
 					O.make_laws()
 
