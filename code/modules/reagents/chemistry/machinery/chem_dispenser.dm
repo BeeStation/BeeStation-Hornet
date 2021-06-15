@@ -22,6 +22,7 @@
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
+	processing_flags = NONE
 
 	var/obj/item/stock_parts/cell/cell
 	var/powerefficiency = 0.1
@@ -84,6 +85,8 @@
 
 /obj/machinery/chem_dispenser/Initialize()
 	. = ..()
+	if(is_operational)
+		begin_processing()
 	dispensable_reagents = sortList(dispensable_reagents, /proc/cmp_reagents_asc)
 	if(emagged_reagents)
 		emagged_reagents = sortList(emagged_reagents, /proc/cmp_reagents_asc)
@@ -96,6 +99,12 @@
 	QDEL_NULL(cell)
 	return ..()
 
+/obj/machinery/chem_dispenser/on_set_is_operational(old_value)
+	if(old_value) //Turned off
+		end_processing()
+	else //Turned on
+		begin_processing()
+
 /obj/machinery/chem_dispenser/examine(mob/user)
 	. = ..()
 	if(panel_open)
@@ -107,8 +116,6 @@
 
 /obj/machinery/chem_dispenser/process(delta_time)
 	if (recharge_counter >= 4)
-		if(!is_operational)
-			return
 		var/usedpower = cell.give(recharge_amount)
 		if(usedpower)
 			use_power(250*recharge_amount)

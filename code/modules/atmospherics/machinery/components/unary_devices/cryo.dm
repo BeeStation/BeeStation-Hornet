@@ -12,6 +12,7 @@
 	layer = ABOVE_WINDOW_LAYER
 	state_open = FALSE
 	circuit = /obj/item/circuitboard/machine/cryo_tube
+	processing_flags = NONE
 
 
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
@@ -44,6 +45,8 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/Initialize()
 	. = ..()
 	initialize_directions = dir
+	if(is_operational)
+		begin_processing()
 
 	radio = new(src)
 	radio.keyslot = new radio_key
@@ -102,6 +105,13 @@
 	if(beaker)
 		beaker.forceMove(drop_location())
 		beaker = null
+
+/obj/machinery/atmospherics/components/unary/cryo_cell/on_set_is_operational(old_value)
+	if(old_value) //Turned off
+		on = FALSE
+		end_processing()
+	else //Turned on
+		begin_processing()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/update_icon()
 
@@ -174,13 +184,9 @@
 	open_machine()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
-	if(!on)
-		return
 	..()
 
-	if(!is_operational)
-		on = FALSE
-		update_icon()
+	if(!on)
 		return
 
 	if(!occupant)//Won't operate unless there's an occupant.
