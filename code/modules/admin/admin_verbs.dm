@@ -197,6 +197,8 @@ GLOBAL_LIST_INIT(admin_verbs_permissions, list(/client/proc/edit_admin_permissio
 GLOBAL_PROTECT(admin_verbs_permissions)
 GLOBAL_LIST_INIT(admin_verbs_poll, list(/client/proc/poll_panel))
 GLOBAL_PROTECT(admin_verbs_poll)
+GLOBAL_LIST_INIT(admin_verbs_requestperms, list(/client/proc/requestperms))
+GLOBAL_PROTECT(admin_verbs_requestperms)
 
 //verbs which can be hidden - needs work
 GLOBAL_LIST_INIT(admin_verbs_hideable, list(
@@ -297,6 +299,8 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 				add_verb(/client/proc/play_web_sound)
 		if(rights & R_SPAWN)
 			add_verb(GLOB.admin_verbs_spawn)
+		if(rights & R_REQUESTPERM)
+			add_verb(GLOB.admin_verbs_requestperms)
 
 /client/proc/remove_admin_verbs()
 	var/list/verb_list = list()
@@ -310,6 +314,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		GLOB.admin_verbs_debug,
 		GLOB.admin_verbs_possess,
 		GLOB.admin_verbs_permissions,
+		GLOB.admin_verbs_requestperms,
 		/client/proc/stealth,
 		GLOB.admin_verbs_poll,
 		GLOB.admin_verbs_sounds,

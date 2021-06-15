@@ -1164,7 +1164,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		if(ADMIN_PUNISHMENT_IMMERSE)
 			immerse_player(target)
-			
+
 		if(ADMIN_PUNISHMENT_GHOST)
 			if (target.key)
 				target.ghostize(FALSE,SENTIENCE_FORCE)
@@ -1301,3 +1301,25 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/turf/T = get_turf(usr)
 	new /mob/living/carbon/human(T)
 	log_admin("[key_name(usr)] spawned a mindless human.")
+
+/client/proc/requestperms()
+	set name = "Request Debug Permissions"
+	set category = "Debug"
+	if(!check_rights(R_REQUESTPERM))
+		return
+
+	remove_verb(/client/proc/requestperms)
+	log_admin("[key_name(usr)] requested debug permissions.")
+
+	var/message = "has requested debug permissions: (<a href='?_src_=holder;[HrefToken(TRUE)];handlepermsrequest=1;client=[REF(src)]'>APPROVE</a>) (<a href='?_src_=holder;[HrefToken(TRUE)];handlepermsrequest=0;client=[REF(src)]'>DENY</a>)"
+	var/full_message = "<span class='adminsay'><span class='prefix'>ADMIN:</span> <EM>[key_name(usr, 1)]</EM> <font color='#FF4500'><span class='message linkify'>[message]</span></span></font>"
+
+	for(var/client/C in GLOB.admins)
+		if(check_rights(R_SERVER))
+			to_chat(C, full_message)
+	addtimer(CALLBACK(src, .proc/restore_requestperms), 300)
+
+/client/proc/restore_requestperms()
+	if(check_rights(R_DEBUG)) //They were approved
+		return
+	add_verb(/client/proc/requestperms)

@@ -2116,6 +2116,29 @@
 		var/datum/poll_option/option = locate(href_list["submitoption"]) in GLOB.poll_options
 		var/datum/poll_question/poll = locate(href_list["submitoptionpoll"]) in GLOB.polls
 		poll_option_parse_href(href_list, poll, option)
+	else if(href_list["handlepermsrequest"])
+		if(!check_rights(R_SERVER))
+			return
+		var/client/C = locate(href_list["client"]) in GLOB.clients
+		if(C)
+			if(C.ckey == usr.ckey) //This shouldn't happen
+				log_admin("[key_name_admin(usr)] tried to approve their own permission's request.")
+				message_admins("[key_name_admin(usr)] tried to approve their own permission's request.")
+				return
+
+			var/approved = text2num(href_list["handlepermsrequest"])
+			if(approved)
+				var/datum/admins/D = GLOB.admin_datums[C.ckey]
+				D.disassociate()
+				var/new_flags = R_DEBUG & R_VAREDIT & R_SERVER & R_SPAWN & R_POLL
+				var/exclude_flags = R_AUTOADMIN
+				D.rank = new("[D.rank.name]([C.ckey])", new_flags, exclude_flags, null) //duplicate our previous admin_rank but with a new name
+				D.associate(C)
+			to_chat(C, "<span class='notice'>Your permissions request has been [approved ? "approved" : "denied"] by [key_name(usr)].</span>")
+
+			to_chat(usr, "<span class='notice'>You have [approved ? "approved" : "denied"] [key_name(C)]'s permissions request.</span>")
+			log_admin("[key_name_admin(usr)] has [approved ? "approved" : "denied"] [key_name(C)]'s permissions request.")
+			message_admins("<span class='adminnotice'>[key_name_admin(usr)] [approved ? "approved" : "denied"] [key_name(C)]'s permissions request.</span>")
 
 /datum/admins/proc/HandleCMode()
 	if(!check_rights(R_ADMIN))

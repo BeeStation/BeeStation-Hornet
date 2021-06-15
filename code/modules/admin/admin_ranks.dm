@@ -87,6 +87,8 @@ GLOBAL_PROTECT(protected_ranks)
 				flag = R_AUTOADMIN
 			if("DBRANKS")
 				flag = R_DBRANKS
+			if("REQUESTPERM")
+				flag = R_REQUESTPERM
 			if("@")
 				if(previous_rank)
 					switch(group_count)

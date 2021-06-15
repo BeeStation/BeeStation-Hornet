@@ -168,6 +168,8 @@
 		. += "[seperator]AUTOLOGIN"
 	if(rights & R_DBRANKS)
 		. += "[seperator]DBRANKS"
+	if(rights & R_REQUESTPERM)
+		. += "[seperator]REQUESTPERM"
 	if(!.)
 		. = "NONE"
 	return .
