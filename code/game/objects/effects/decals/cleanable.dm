@@ -93,3 +93,7 @@
 		return bloodiness
 	else
 		return 0
+
+/atom/effect/decal/cleanable/washed(atom/washer)
+	. = ..()
+	qdel(src)

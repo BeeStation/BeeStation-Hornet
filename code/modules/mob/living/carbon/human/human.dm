@@ -1194,6 +1194,24 @@
 	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
 		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
 
+/mob/living/carbon/human/washed(var/atom/washer)
+	. = ..()
+	if(wear_suit)
+		wear_suit.washed(washer)
+		update_inv_wear_suit()
+	else if(w_uniform)
+		w_uniform.washed(washer)
+		update_inv_w_uniform()
+
+	if(!is_mouth_covered())
+		lip_style = null
+		update_body()
+	if(belt?.washed(washer))
+		update_inv_belt()
+
+	if(gloves && !(HIDEGLOVES in check_obscured_slots()) && gloves.washed(washer))
+		SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
+
 /mob/living/carbon/human/species
 	var/race = null
 
