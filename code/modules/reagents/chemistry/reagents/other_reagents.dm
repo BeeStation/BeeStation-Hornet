@@ -564,7 +564,7 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/moth
 	taste_description = "clothing"
-	
+
 /datum/reagent/mutationtoxin/apid
 	name = "Apid Mutation Toxin"
 	description = "A sweet-smelling toxin."
@@ -629,7 +629,7 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/ipc
 	taste_description = "silicon and copper"
-	
+
 /datum/reagent/mutationtoxin/ethereal
 	name = "Ethereal Mutation Toxin"
 	description = "A positively electric toxin."
@@ -2080,3 +2080,10 @@
 	L.set_light(-1)
 
 	..()
+
+/datum/reagent/cellulose
+	name = "Cellulose Fibers"
+	description = "A crystaline polydextrose polymer, plants swear by this stuff."
+	reagent_state = SOLID
+	color = "#E6E6DA"
+	taste_mult = 0

@@ -15,12 +15,11 @@
 	minbodytemp = 250
 	maxbodytemp = INFINITY
 	faction = list("slime")
-	melee_damage_lower = 10
-	melee_damage_upper = 10
+	//melee_damage_lower = 10 -- testing
+	//melee_damage_upper = 10
 	health = 200
 	maxHealth = 200
-	attack_verb_continuous = "slimes"
-	attack_verb_simple = "slime"
+	attacktext = "slimes"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	a_intent = INTENT_HARM
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
@@ -36,7 +35,6 @@
 	. = ..()
 	create_reagents(300)
 	add_cell_sample()
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_SLIME, 7.5)
 
 /mob/living/simple_animal/hostile/ooze/attacked_by(obj/item/I, mob/living/user)
 	if(!check_edible(I))
@@ -110,8 +108,8 @@
 	desc = "A cubic ooze native to Sholus VII.\nSince the advent of space travel this species has established itself in the waste treatment facilities of several space colonies.\nIt is often considered to be the third most infamous invasive species due to its highly agressive and predatory nature."
 	speed = 1
 	damage_coeff = list(BRUTE = 1, BURN = 0.6, TOX = 0.5, CLONE = 1.5, STAMINA = 0, OXY = 1)
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	//melee_damage_lower = 20 -- testing
+	//melee_damage_upper = 20
 	armour_penetration = 15
 	obj_damage = 20
 	deathmessage = "collapses into a pile of goo!"
@@ -170,7 +168,7 @@
 	if(!.)
 		return
 	var/mob/living/simple_animal/hostile/ooze/ooze = owner
-	ooze.add_movespeed_modifier(/datum/movespeed_modifier/metabolicboost)
+	ooze.add_movespeed_modifier(-1.5)
 	var/timerid = addtimer(CALLBACK(src, .proc/HeatUp), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP) //Heat up every second
 	addtimer(CALLBACK(src, .proc/FinishSpeedup, timerid), 6 SECONDS)
 	to_chat(ooze, "<span class='notice'>You start feel a lot quicker.</span>")
@@ -185,7 +183,7 @@
 ///Remove the speed modifier and delete the timer for heating up
 /datum/action/cooldown/metabolicboost/proc/FinishSpeedup(timerid)
 	var/mob/living/simple_animal/hostile/ooze/ooze = owner
-	ooze.remove_movespeed_modifier(/datum/movespeed_modifier/metabolicboost)
+	ooze.remove_movespeed_modifier(-1.5)
 	to_chat(ooze, "<span class='notice'>You start slowing down again.</span>")
 	deltimer(timerid)
 	active = FALSE

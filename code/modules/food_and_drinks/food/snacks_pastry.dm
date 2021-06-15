@@ -467,7 +467,7 @@
 	desc = "Delicious, cheesy and surprisingly filling."
 	icon_state = "donkpocketpizza"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/consumable/tomatojuice = 2)
-	cooked_type = /obj/item/reagent_containers/food/snacks/donkpocket/warm/pizza
+	cooked_type = /obj/item/reagent_containers/food/snacks/donkpocket/pizza/warm
 	filling_color = "#CD853F"
 	tastes = list("meat" = 2, "dough" = 2, "cheese"= 2)
 	foodtype = GRAIN
