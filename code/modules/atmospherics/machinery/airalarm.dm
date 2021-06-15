@@ -216,11 +216,13 @@
 	wires = null
 	var/area/ourarea = get_area(src)
 	ourarea.atmosalert(FALSE, src)
+	GLOB.zclear_atoms -= src
 	return ..()
 
 /obj/machinery/airalarm/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
+	GLOB.zclear_atoms += src
 
 /obj/machinery/airalarm/examine(mob/user)
 	. = ..()
@@ -796,7 +798,7 @@
 
 /obj/machinery/airalarm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if((buildstage == 0) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
-		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)	
+		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)
 	return FALSE
 
 /obj/machinery/airalarm/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
@@ -808,7 +810,7 @@
 			update_icon()
 			return TRUE
 	return FALSE
-	
+
 /obj/machinery/airalarm/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
 		return

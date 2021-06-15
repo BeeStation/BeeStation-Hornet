@@ -2252,14 +2252,14 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/supply)
 "md" = (
-/obj/machinery/computer/shuttle/labor,
+/obj/machinery/computer/shuttle_flight/labor,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supply)
 "me" = (
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/shuttle_flight/mining,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -4851,7 +4851,7 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/supplypod)
 "qJ" = (
-/obj/machinery/computer/shuttle/syndicate/recall,
+/obj/machinery/computer/shuttle_flight/syndicate/recall,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
@@ -5073,14 +5073,14 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/ferry)
 "rm" = (
-/obj/machinery/computer/shuttle/labor,
+/obj/machinery/computer/shuttle_flight/labor,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
 "rn" = (
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/shuttle_flight/mining,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -5675,7 +5675,7 @@
 /turf/open/floor/plating/airless,
 /area/syndicate_mothership/control)
 "sq" = (
-/obj/machinery/computer/shuttle/white_ship{
+/obj/machinery/computer/shuttle_flight/white_ship{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -6154,7 +6154,7 @@
 /turf/open/floor/plating/airless,
 /area/syndicate_mothership/control)
 "to" = (
-/obj/machinery/computer/shuttle/ferry{
+/obj/machinery/computer/shuttle_flight/ferry{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{

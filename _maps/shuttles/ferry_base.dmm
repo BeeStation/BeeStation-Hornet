@@ -30,7 +30,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "i" = (
-/obj/machinery/computer/shuttle/ferry/request{
+/obj/machinery/computer/shuttle_flight/ferry/request{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,

@@ -536,6 +536,10 @@ Nothing else in the console has ID requirements.
 	for(var/i in t_disk.stored_research.researched_nodes)
 		var/datum/techweb_node/N = SSresearch.techweb_node_by_id(i)
 		l += "<A href='?src=[REF(src)];view_node=[i];back_screen=[screen]'>[N.display_name]</A>"
+	for(var/i in stored_research.hidden_nodes)
+		if(!t_disk.stored_research.hidden_nodes[i])
+			var/datum/techweb_node/N = SSresearch.techweb_node_by_id(i)
+			l += "Hidden Node - [N.display_name]"
 	l += "</div>"
 	return l
 

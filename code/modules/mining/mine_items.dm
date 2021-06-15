@@ -71,7 +71,7 @@
 
 /**********************Shuttle Computer**************************/
 
-/obj/machinery/computer/shuttle/mining
+/obj/machinery/computer/shuttle_flight/mining
 	name = "mining shuttle console"
 	desc = "Used to call and send the mining shuttle."
 	circuit = /obj/item/circuitboard/computer/mining_shuttle
@@ -81,7 +81,7 @@
 	var/static/list/dumb_rev_heads = list()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/machinery/computer/shuttle/mining/attack_hand(mob/user)
+/obj/machinery/computer/shuttle_flight/mining/attack_hand(mob/user)
 	if(is_station_level(user.z) && user.mind && is_head_revolutionary(user) && !(user.mind in dumb_rev_heads))
 		to_chat(user, "<span class='warning'>You get a feeling that leaving the station might be a REALLY dumb idea...</span>")
 		dumb_rev_heads += user.mind
@@ -89,7 +89,7 @@
 	. = ..()
 
 //It is on lavaland, soooo....
-/obj/machinery/computer/shuttle/science
+/obj/machinery/computer/shuttle_flight/science
 	name = "science outpost shuttle console"
 	desc = "Used to call and send the science shuttle."
 	circuit = /obj/item/circuitboard/computer/science_shuttle

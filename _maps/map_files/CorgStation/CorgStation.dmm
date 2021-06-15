@@ -4649,7 +4649,7 @@
 /turf/open/space/basic,
 /area/space)
 "aXw" = (
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
@@ -5443,7 +5443,7 @@
 	},
 /area/chapel/main/monastery)
 "bkb" = (
-/obj/machinery/computer/custom_shuttle{
+/obj/machinery/computer/shuttle_flight/custom_shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
@@ -8214,7 +8214,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -32070,7 +32070,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "iFr" = (
-/obj/machinery/computer/shuttle/labor,
+/obj/machinery/computer/shuttle_flight/labor,
 /obj/machinery/advanced_airlock_controller/directional/north,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)

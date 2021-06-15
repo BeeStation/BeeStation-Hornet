@@ -73,15 +73,16 @@
 		update_engine()
 		return
 	attached_heater = null
-	for(var/obj/machinery/atmospherics/components/unary/shuttle/heater/as_heater in heater_turf)
-		if(as_heater.dir != dir)
-			continue
-		if(as_heater.panel_open)
-			continue
-		if(!as_heater.anchored)
-			continue
-		attached_heater = WEAKREF(as_heater)
-		break
+	var/obj/machinery/atmospherics/components/unary/shuttle/heater/as_heater = locate() in heater_turf
+	if(!as_heater)
+		return
+	if(as_heater.dir != dir)
+		return
+	if(as_heater.panel_open)
+		return
+	if(!as_heater.anchored)
+		return
+	attached_heater = WEAKREF(as_heater)
 	update_engine()
 	return
 

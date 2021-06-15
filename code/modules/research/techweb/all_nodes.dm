@@ -180,7 +180,7 @@
 	display_name = "Basic Bluespace Theory"
 	description = "Basic studies into the mysterious alternate dimension known as bluespace."
 	prereq_ids = list("base")
-	design_ids = list("beacon", "dragnetbeacon", "xenobioconsole", "telesci_gps", "bluespace_crystal", "spaceship_navigation_beacon")
+	design_ids = list("beacon", "dragnetbeacon", "xenobioconsole", "telesci_gps", "bluespace_crystal")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -198,9 +198,39 @@
 	display_name = "Miniaturized Bluespace Research"
 	description = "Extreme reduction in space required for bluespace engines, leading to portable bluespace technology."
 	prereq_ids = list("bluespace_travel", "practical_bluespace", "high_efficiency")
-	design_ids = list("bluespace_matter_bin", "femto_mani", "triphasic_scanning", "bag_holding", "quantum_keycard", "wormholeprojector", "swapper", "antivirus4")
+	design_ids = list("bluespace_matter_bin", "femto_mani", "triphasic_scanning", "quantum_keycard", "antivirus4")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
+
+/datum/techweb_node/bag_of_holding
+	id = "bagofholding"
+	display_name = "Bag of Holding"
+	description = "Portable bluespace technology allows the production of backpacks that can store a greater volume of items than the volume of the bag."
+	prereq_ids = list("micro_bluespace")
+	design_ids = list("bag_holding")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+	hidden = TRUE
+
+/datum/techweb_node/wormhole_gun
+	id = "wormholegun"
+	display_name = "Bluespace Wormhold Projector"
+	description = "Develop the research required to create a miniturized bluespace wormhold projector, allowing you to jump between 2 places instantly."
+	prereq_ids = list("micro_bluespace")
+	design_ids = list("wormholeprojector")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+	hidden = TRUE
+
+/datum/techweb_node/quantum_spin
+	id = "qswapper"
+	display_name = "Quantum Spin Inverter"
+	description = "Research the ability to create an experimental device that is able to swap the locations of two entities by switching their particles' spin values. Must be linked to another device to function."
+	prereq_ids = list("micro_bluespace")
+	design_ids = list("swapper")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/practical_bluespace
 	id = "practical_bluespace"
@@ -257,33 +287,6 @@
 	prereq_ids = list("bluespace_travel", "adv_engi")
 	design_ids = list("shuttle_creator", "engine_plasma", "engine_heater", "shuttle_control", "shuttle_docker", "wingpack")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
-	export_price = 5000
-
-/datum/techweb_node/shuttle_route_upgrade
-	id = "shuttle_route_upgrade"
-	display_name = "Route Optimisation Upgrade"
-	description = "Research into bluespace tunnelling, allowing us to reduce flight times by up to 20%!"
-	prereq_ids = list("basic_shuttle")
-	design_ids = list("disk_shuttle_route")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-	export_price = 2500
-
-/datum/techweb_node/shuttle_route_upgrade_hyper
-	id = "shuttle_route_upgrade_hyper"
-	display_name = "Hyperlane Optimisation Upgrade"
-	description = "Research into bluespace hyperlane, allowing us to reduce flight times by up to 40%!"
-	prereq_ids = list("shuttle_route_upgrade", "micro_bluespace")
-	design_ids = list("disk_shuttle_route_hyper")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
-	export_price = 5000
-
-/datum/techweb_node/shuttle_route_upgrade_void
-	id = "shuttle_route_upgrade_void"
-	display_name = "Nullspace Breaching Upgrade"
-	description = "Research into voidspace tunnelling, allowing us to significantly reduce flight times."
-	prereq_ids = list("shuttle_route_upgrade_hyper", "alientech")
-	design_ids = list("disk_shuttle_route_void", "engine_void", "wingpack_ayy")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
 	export_price = 5000
 
 /////////////////////////robotics tech/////////////////////////
@@ -427,7 +430,7 @@
 	display_name = "Computer Consoles"
 	description = "Computers and how they work."
 	prereq_ids = list("datatheory")
-	design_ids = list("cargo", "cargorequest", "libraryconsole", "mining", "crewconsole", "rdcamera", "comconsole", "idcardconsole", "seccamera")
+	design_ids = list("cargo", "cargorequest", "objective", "libraryconsole", "mining", "crewconsole", "rdcamera", "comconsole", "idcardconsole", "seccamera")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 	export_price = 5000
 
@@ -569,6 +572,7 @@
 	design_ids = list("ci-xray", "ci-thermals", "ci-antidrop", "ci-antistun", "ci-thrusters")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/adv_combat_cyber_implants
 	id = "adv_combat_cyber_implants"
@@ -578,6 +582,7 @@
 	design_ids = list("hydraulic_blade")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 10000
+	hidden = TRUE
 
 ////////////////////////Tools////////////////////////
 
@@ -734,6 +739,7 @@
 	design_ids = list("nuclear_gun")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/medical_weapons
 	id = "medical_weapons"
@@ -752,6 +758,7 @@
 	design_ids = list("temp_gun", "xray_laser")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/adv_beam_weapons
 	id = "adv_beam_weapons"
@@ -761,6 +768,7 @@
 	design_ids = list("beamrifle")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/explosive_weapons
 	id = "explosive_weapons"
@@ -788,6 +796,7 @@
 	design_ids = list("techshotshell", "c38_hotshot", "c38_iceblox", "shotgundartcryostasis")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/gravity_gun
 	id = "gravity_gun"
@@ -847,6 +856,7 @@
 	"phazon_peri", "phazon_targ", "phazon_armor")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/adv_mecha_tools
 	id = "adv_mecha_tools"
@@ -955,6 +965,7 @@
 	design_ids = list("clusterbang_launcher")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/mech_teleporter
 	id = "mech_teleporter"

@@ -157,6 +157,11 @@
 	blob_allowed = FALSE
 	requires_power = TRUE
 
+/area/shuttle/exploration
+	name = "exploration Shuttle"
+	blob_allowed = FALSE
+	requires_power = TRUE
+
 /area/shuttle/labor
 	name = "Labor Camp Shuttle"
 	blob_allowed = FALSE

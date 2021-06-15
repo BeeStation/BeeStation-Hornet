@@ -92,6 +92,14 @@
 	flick("interdiction_lens_discharged", src)
 	QDEL_NULL(dampening_field)
 
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/free/use_power(amount)
+	return
+
+/obj/structure/destructible/clockwork/gear_base/interdiction_lens/free/check_power(amount)
+	if(!LAZYLEN(transmission_sigils))
+		return FALSE
+	return TRUE
+
 //Dampening field
 /datum/proximity_monitor/advanced/peaceborg_dampener/clockwork
 	name = "\improper Reality Distortion Field"

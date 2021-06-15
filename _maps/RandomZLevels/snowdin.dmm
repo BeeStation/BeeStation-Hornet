@@ -10642,7 +10642,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/computer/shuttle/snowdin/mining{
+/obj/machinery/computer/shuttle_flight/snowdin/mining{
 	dir = 8;
 	name = "Excavation Elevator Console";
 	possible_destinations = "snowdin_excavation_top;snowdin_excavation_down";
@@ -10684,7 +10684,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/obj/machinery/computer/shuttle/snowdin/mining{
+/obj/machinery/computer/shuttle_flight/snowdin/mining{
 	dir = 8;
 	name = "Excavation Elevator Console";
 	possible_destinations = "snowdin_excavation_top;snowdin_excavation_down";
@@ -15610,7 +15610,7 @@
 	},
 /area/awaymission/snowdin/post/mining_main)
 "KO" = (
-/obj/machinery/computer/shuttle/snowdin/mining{
+/obj/machinery/computer/shuttle_flight/snowdin/mining{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -15623,7 +15623,7 @@
 /turf/open/floor/plasteel,
 /area/awaymission/snowdin/post/mining_main)
 "KQ" = (
-/obj/machinery/computer/shuttle/snowdin/mining{
+/obj/machinery/computer/shuttle_flight/snowdin/mining{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{

@@ -69,7 +69,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/armory)
 "aj" = (
-/obj/machinery/computer/shuttle/syndicate,
+/obj/machinery/computer/shuttle_flight/syndicate,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
