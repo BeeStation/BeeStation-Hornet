@@ -21,6 +21,8 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != GLOB.security_level)
 		switch(level)
 			if(SEC_LEVEL_GREEN)
+				if(GLOB.security_level == SEC_LEVEL_RED)
+					clear_red_alert()
 				minor_announce(CONFIG_GET(string/alert_green), "Attention! Security level lowered to green:")
 				if(SSshuttle.emergency.mode == SHUTTLE_CALL || SSshuttle.emergency.mode == SHUTTLE_RECALL)
 					if(GLOB.security_level >= SEC_LEVEL_RED)
@@ -37,6 +39,8 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 					if(SSshuttle.emergency.mode == SHUTTLE_CALL || SSshuttle.emergency.mode == SHUTTLE_RECALL)
 						SSshuttle.emergency.modTimer(0.5)
 				else
+					if(GLOB.security_level == SEC_LEVEL_RED)
+						clear_red_alert()
 					minor_announce(CONFIG_GET(string/alert_blue_downto), "Attention! Security level lowered to blue:")
 					if(SSshuttle.emergency.mode == SHUTTLE_CALL || SSshuttle.emergency.mode == SHUTTLE_RECALL)
 						SSshuttle.emergency.modTimer(2)
@@ -45,6 +49,7 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 					if(is_station_level(FA.z))
 						FA.update_icon()
 			if(SEC_LEVEL_RED)
+				set_red_alert()
 				if(GLOB.security_level < SEC_LEVEL_RED)
 					minor_announce(CONFIG_GET(string/alert_red_upto), "Attention! Code red!",1)
 					if(SSshuttle.emergency.mode == SHUTTLE_CALL || SSshuttle.emergency.mode == SHUTTLE_RECALL)
@@ -116,3 +121,20 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 			return SEC_LEVEL_RED
 		if("delta")
 			return SEC_LEVEL_DELTA
+
+/proc/set_red_alert()
+	SSshuttle.supply.callTime *= 2
+	SSeconomy.can_fire = FALSE
+	SScommunications.last_red_alert = world.time
+
+/proc/clear_red_alert()
+	SSshuttle.supply.callTime /= 2
+	SSeconomy.can_fire = TRUE
+
+	if(SScommunications.last_red_alert != 0 && (world.time < SScommunications.last_red_alert + 30 MINUTES))
+		minor_announce("Frivolous Red Alert detected! All departments have been substantially fined.")
+		for(var/datum/bank_account/department/D in generated_accounts)
+			D.account_balance *= 0.8 //20% fine
+
+
+	SScommunications.last_red_alert = 0
