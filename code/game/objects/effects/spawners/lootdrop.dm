@@ -570,7 +570,6 @@
 				/obj/item/reagent_containers/food/drinks/soda_cans/space_mountain_wind = 5,
 				/obj/item/reagent_containers/food/drinks/soda_cans/starkist = 5,
 				/obj/item/reagent_containers/food/drinks/soda_cans/space_up = 5,
-				/obj/item/reagent_containers/food/drinks/soda_cans/sol_dry = 5,
 				/obj/item/reagent_containers/food/drinks/soda_cans/cola = 5)
 
 /obj/effect/spawner/lootdrop/maint_drugs

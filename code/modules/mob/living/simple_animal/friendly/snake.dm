@@ -40,6 +40,12 @@
 	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "snake"
 
+/mob/living/simple_animal/hostile/retaliate/poison/snake/Initialize()
+	. = ..()
+	add_cell_sample()
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_SNAKE, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
 	var/list/living_mobs = list()

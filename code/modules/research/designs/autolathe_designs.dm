@@ -140,7 +140,7 @@
 	materials = list(/datum/material/iron = 150)
 	build_path = /obj/item/plunger
 	category = list("initial","Tools","Tool Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_MEDICAL
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/welding_helmet
 	name = "Welding Helmet"
@@ -1039,3 +1039,21 @@
 	build_path = /obj/item/stack/ducts
 	category = list("initial", "Construction")
 	maxstack = 50
+
+/datum/design/petridish
+	name = "Petri Dish"
+	id = "petri_dish"
+	build_type = PROTOLATHE | AUTOLATHE
+	materials = list(/datum/material/glass = 500)
+	build_path = /obj/item/petri_dish
+	category = list("initial","Misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/swab
+	name = "Sterile Swab"
+	id = "swab"
+	build_type = PROTOLATHE | AUTOLATHE
+	materials = list(/datum/material/plastic = 200)
+	build_path = /obj/item/swab
+	category = list("initial","Misc","Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

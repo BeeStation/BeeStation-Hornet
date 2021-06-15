@@ -267,7 +267,7 @@
 	icon_state = "burrito"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/protein = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2,/datum/reagent/consumable/nutriment/protein = 4, /datum/reagent/consumable/nutriment/vitamin = 1)
-	filling_color = "#FFEFD5"s
+	filling_color = "#FFEFD5"
 	tastes = list("torilla" = 2, "meat" = 3)
 	foodtype = GRAIN | MEAT
 

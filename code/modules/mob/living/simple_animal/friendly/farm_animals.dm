@@ -139,6 +139,10 @@
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()
 	. = ..()
+	add_cell_sample()
+
+/mob/living/simple_animal/cow/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_COW, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 /mob/living/simple_animal/cow/Destroy()
 	qdel(udder)
@@ -223,6 +227,10 @@
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 	GLOB.total_chickens++
+	add_cell_sample()
+
+/mob/living/simple_animal/chick/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_CHICKEN, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 /mob/living/simple_animal/chick/Life()
 	. =..()
@@ -302,6 +310,10 @@
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 	GLOB.total_chickens++
+	add_cell_sample()
+
+/mob/living/simple_animal/chicken/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_CHICKEN, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 /mob/living/simple_animal/chicken/death(gibbed)
 	GLOB.total_chickens--

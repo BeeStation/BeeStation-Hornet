@@ -41,6 +41,10 @@
 /mob/living/simple_animal/pet/cat/Initialize()
 	. = ..()
 	add_verb(/mob/living/proc/lay_down)
+	add_cell_sample()
+
+/mob/living/simple_animal/pet/cat/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_CAT, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 /mob/living/simple_animal/pet/cat/update_mobility()
 	..()
@@ -74,6 +78,9 @@
 	collar_type = null
 	unique_pet = TRUE
 	held_state = "original"
+
+/mob/living/simple_animal/pet/cat/original/add_cell_sample()
+	return
 
 /mob/living/simple_animal/pet/cat/kitten
 	name = "kitten"
@@ -307,6 +314,9 @@
 	if(L.a_intent == INTENT_HARM && L.reagents && !stat)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment, 0.4)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.4)
+
+/mob/living/simple_animal/pet/cat/cak/add_cell_sample()
+	return
 
 /mob/living/simple_animal/pet/cat/breadcat
 	name = "bread cat"
