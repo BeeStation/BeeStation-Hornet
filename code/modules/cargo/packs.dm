@@ -907,6 +907,14 @@
 					)
 	crate_name= "bluespace artillery parts crate"
 
+/datum/supply_pack/engineering/drone_dispenser
+	name = "Drone Dispenser Board"
+	desc = "Secure the longevity of the current state of humanity within this massive library of scientific knowledge, capable of granting superhuman powers and abilities. Highly advanced research is required for proper construction. Also contains five DNA probes."
+	cost = 15000
+	special = TRUE
+	contains = list(/obj/item/circuitboard/machine/drone_dispenser)
+	crate_name= "drone dispenser board crate"
+
 /datum/supply_pack/engineering/dna_vault
 	name = "DNA Vault Parts"
 	desc = "Secure the longevity of the current state of humanity within this massive library of scientific knowledge, capable of granting superhuman powers and abilities. Highly advanced research is required for proper construction. Also contains five DNA probes."
