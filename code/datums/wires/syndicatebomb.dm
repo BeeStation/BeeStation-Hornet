@@ -24,7 +24,7 @@
 			if(B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
-				if(usr && is_real_bomb(B))
+				if(user && is_real_bomb(B))
 					message_admins("[key_name_admin(usr)] pulsed live boom wire on syndicate bomb")
 					user.log_message("pulsed live boom wire on syndicate bomb", LOG_ATTACK)
 				tell_admins(B)
