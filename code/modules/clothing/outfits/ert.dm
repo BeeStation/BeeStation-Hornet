@@ -2,6 +2,7 @@
 	name = "ERT Common"
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer
+	mask = /obj/item/clothing/mask/gas/sechailer
 	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/headset_cent/alt
@@ -32,9 +33,8 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	back = /obj/item/storage/backpack/ert
 	belt = /obj/item/storage/belt/security/full
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/melee/baton/loaded=1,\
-		/obj/item/clothing/mask/gas/sechailer=1)
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/melee/baton/loaded=1)
 	l_pocket = /obj/item/switchblade
 
 /datum/outfit/ert/commander/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -50,9 +50,9 @@
 	name = "ERT Commander - High Alert"
 
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/melee/baton/loaded=1,\
-		/obj/item/clothing/mask/gas/sechailer/swat=1,\
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1)
 	l_pocket = /obj/item/melee/transforming/energy/sword/saber
 
@@ -65,9 +65,8 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/security/full
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/storage/box/handcuffs=1,\
-		/obj/item/clothing/mask/gas/sechailer=1,\
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/storage/box/handcuffs=1,
 		/obj/item/melee/baton/loaded=1)
 
 /datum/outfit/ert/security/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -83,10 +82,10 @@
 /datum/outfit/ert/security/alert
 	name = "ERT Security - High Alert"
 
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/storage/box/handcuffs=1,\
-		/obj/item/clothing/mask/gas/sechailer/swat=1,\
-		/obj/item/melee/baton/loaded=1,\
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/storage/box/handcuffs=1,
+		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/carbine/loyalpin=1)
 
 
@@ -100,10 +99,9 @@
 	back = /obj/item/storage/backpack/ert/medical
 	belt = /obj/item/storage/belt/medical
 	l_hand = /obj/item/storage/firstaid/regular
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/melee/baton/loaded=1,\
-		/obj/item/clothing/mask/gas/sechailer=1,\
-		/obj/item/reagent_containers/hypospray/combat=1,\
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/melee/baton/loaded=1,
+		/obj/item/reagent_containers/hypospray/combat=1,
 		/obj/item/gun/medbeam=1)
 
 /datum/outfit/ert/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -119,11 +117,11 @@
 /datum/outfit/ert/medic/alert
 	name = "ERT Medic - High Alert"
 
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/melee/baton/loaded=1,\
-		/obj/item/clothing/mask/gas/sechailer/swat=1,\
-		/obj/item/gun/energy/pulse/pistol/loyalpin=1,\
-		/obj/item/reagent_containers/hypospray/combat/nanites=1,\
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/melee/baton/loaded=1,
+		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
+		/obj/item/reagent_containers/hypospray/combat/nanites=1,
 		/obj/item/gun/medbeam=1)
 
 /datum/outfit/ert/engineer
@@ -137,9 +135,8 @@
 	belt = /obj/item/storage/belt/utility/full
 	l_pocket = /obj/item/rcd_ammo/large
 	l_hand = /obj/item/storage/firstaid/regular
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/melee/baton/loaded=1,\
-		/obj/item/clothing/mask/gas/sechailer=1,\
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/melee/baton/loaded=1,
 		/obj/item/construction/rcd/loaded=1)
 
 /datum/outfit/ert/engineer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -155,10 +152,10 @@
 /datum/outfit/ert/engineer/alert
 	name = "ERT Engineer - High Alert"
 
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/melee/baton/loaded=1,\
-		/obj/item/clothing/mask/gas/sechailer/swat=1,\
-		/obj/item/gun/energy/pulse/pistol/loyalpin=1,\
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/melee/baton/loaded=1,
+		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
 		/obj/item/construction/rcd/combat=1)
 
 
@@ -198,8 +195,7 @@
 	name = "Inquisition Commander"
 	l_hand = /obj/item/nullrod/scythe/talking/chainsword
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
-	backpack_contents = list(/obj/item/storage/box/engineer=1,
-		/obj/item/clothing/mask/gas/sechailer=1)
+	backpack_contents = list(/obj/item/storage/box/engineer=1)
 
 /datum/outfit/ert/security/inquisitor
 	name = "Inquisition Security"
@@ -209,7 +205,6 @@
 
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/storage/box/handcuffs=1,
-		/obj/item/clothing/mask/gas/sechailer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/construction/rcd/loaded=1)
 
@@ -221,7 +216,6 @@
 
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/clothing/mask/gas/sechailer=1,
 		/obj/item/reagent_containers/hypospray/combat=1,
 		/obj/item/reagent_containers/hypospray/combat/heresypurge=1,
 		/obj/item/gun/medbeam=1)
@@ -246,9 +240,7 @@
 	back = /obj/item/storage/backpack/cultpack
 	belt = /obj/item/storage/belt/soulstone
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
-		/obj/item/nullrod=1,
-		/obj/item/clothing/mask/gas/sechailer=1
-		)
+		/obj/item/nullrod=1)
 
 /datum/outfit/ert/chaplain/inquisitor
 	name = "Inquisition Chaplain"
@@ -259,9 +251,7 @@
 	belt = /obj/item/storage/belt/soulstone/full/chappy
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/grenade/chem_grenade/holy=1,
-		/obj/item/nullrod=1,
-		/obj/item/clothing/mask/gas/sechailer=1
-		)
+		/obj/item/nullrod=1)
 
 /datum/outfit/ert/janitor
 	name = "ERT Janitor"
@@ -274,12 +264,11 @@
 	r_pocket = /obj/item/grenade/chem_grenade/cleaner
 	l_pocket = /obj/item/grenade/chem_grenade/cleaner
 	l_hand = /obj/item/storage/bag/trash/bluespace
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/storage/box/lights/mixed=1,\
-		/obj/item/melee/baton/loaded=1,\
-		/obj/item/clothing/mask/gas/sechailer=1,\
-		/obj/item/mop/advanced=1,\
-		/obj/item/reagent_containers/glass/bucket=1,\
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/storage/box/lights/mixed=1,
+		/obj/item/melee/baton/loaded=1,
+		/obj/item/mop/advanced=1,
+		/obj/item/reagent_containers/glass/bucket=1,
 		/obj/item/grenade/clusterbuster/cleaner=1)
 
 /datum/outfit/ert/janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -294,10 +283,9 @@
 
 /datum/outfit/ert/janitor/heavy
 	name = "ERT Janitor - Heavy Duty"
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/storage/box/lights/mixed=1,\
-		/obj/item/melee/baton/loaded=1,\
-		/obj/item/clothing/mask/gas/sechailer=1,\
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/storage/box/lights/mixed=1,
+		/obj/item/melee/baton/loaded=1,
 		/obj/item/grenade/clusterbuster/cleaner=3,
 		/obj/item/reagent_containers/spray/chemsprayer/janitor=1)
 
