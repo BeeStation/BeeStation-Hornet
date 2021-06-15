@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Cyborg flash nerfed to 3 charges and auto-recharge every 10 seconds.
+  - tweak: Revolutionary flash changed to 10 charges and auto-recharged every 15 seconds.
+  - balance: Default flashbulbs nerfed from 15 flashes to 10.
