@@ -1,7 +1,0 @@
-author: eeSPee
-delete-after: true
-changes:
-  - tweak: Corgium corgis will now wear your hat. You will get your hat back when
-      you return to human.
-  - bugfix: Corgium corgis will keep your name when they put on a hat
-  - bugfix: Pet beacon pets' real name is now the name you assign them
