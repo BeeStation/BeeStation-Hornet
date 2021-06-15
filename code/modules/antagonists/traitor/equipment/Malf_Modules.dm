@@ -882,7 +882,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 		if(!E.can_malf_fake_alert)
 			continue
 		events_to_chose[E.name] = E
-	var/datum/round_event_control/event_control = events_to_chose[input(owner,"Send fake alert","Fake Alert") in events_list]
+	var/datum/round_event_control/event_control = events_to_chose[input(owner,"Send fake alert","Fake Alert") in events_to_chose]
 	if (!event_control)
 		event_control = pick(events_to_chose)
 	if(event_control)
