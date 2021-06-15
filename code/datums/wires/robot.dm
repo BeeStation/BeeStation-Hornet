@@ -59,7 +59,7 @@
 				R.show_laws()
 		if(WIRE_LOCKDOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle
-			log_combat(usr, R, "toggled lockdown to [R.lockcharge ? "lock" : "release"] via pulse") // TODO consistent verbiage with RD console's lockdown
+			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via pulse") // TODO consistent verbiage with RD console's lockdown
 
 		if(WIRE_RESET_MODULE)
 			if(R.has_module())
@@ -91,7 +91,7 @@
 				log_combat(usr, R, "[mend ? "true" : "false"] cyborg camera via wire")
 		if(WIRE_LOCKDOWN) // Simple lockdown.
 			R.SetLockdown(!mend)
-			log_combat(usr, R, "[mend ? "lifted lockdown" : "locked down"] via wire")
+			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via wire")
 		if(WIRE_RESET_MODULE)
 			if(R.has_module() && !mend)
 				R.ResetModule()
