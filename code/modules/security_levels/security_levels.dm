@@ -133,7 +133,7 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 
 	if(SScommunications.last_red_alert != 0 && (world.time < SScommunications.last_red_alert + 30 MINUTES))
 		minor_announce("Frivolous Red Alert detected! All departments have been substantially fined.")
-		for(var/datum/bank_account/department/D in generated_accounts)
+		for(var/datum/bank_account/department/D in SSeconomy.generated_accounts)
 			D.account_balance *= 0.8 //20% fine
 
 
