@@ -226,9 +226,14 @@
 	return can_unwrench
 
 // Throws the user when they unwrench a pipe with a major difference between the internal and environmental pressure.
-/obj/machinery/atmospherics/proc/unsafe_pressure_release(mob/user, pressures = null)
+/obj/machinery/atmospherics/proc/unsafe_pressure_release(mob/living/carbon/user, pressures = null)
 	if(!user)
 		return
+	if(ishuman(user)) //other carbons like monkeys can unwrench but cant wear magboots
+		if(istype(user.shoes, /obj/item/clothing/shoes/magboots))
+			var/obj/item/clothing/shoes/magboots/M = user.shoes
+			if(M.magpulse)
+				return
 	if(!pressures)
 		var/datum/gas_mixture/int_air = return_air()
 		var/datum/gas_mixture/env_air = loc.return_air()
