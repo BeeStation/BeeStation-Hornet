@@ -110,5 +110,5 @@
 	playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 	sleep(30)
 	if(R)
-		R.SetLockdown(0)
+		R.SetLockdown(FALSE)
 		R.notify_ai(NEW_BORG)

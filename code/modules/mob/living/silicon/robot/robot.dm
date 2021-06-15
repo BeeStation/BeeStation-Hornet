@@ -701,10 +701,10 @@
 		W.attack_self(src)
 
 
-/mob/living/silicon/robot/proc/SetLockdown(state = 1)
+/mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_LOCKDOWN))
-		state = 1
+		state = TRUE
 	if(state)
 		throw_alert("locked", /atom/movable/screen/alert/locked)
 	else
