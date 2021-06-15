@@ -32,3 +32,20 @@
 	if(CONFIG_GET(number/roundstart_bluespace_miners))
 		for(var/i in 1 to CONFIG_GET(number/roundstart_bluespace_miners))
 			new /obj/item/circuitboard/machine/bluespace_miner(src)
+
+/obj/structure/closet/secure_closet/cytology
+	name = "cytology equipment locker"
+	icon_state = "science"
+	req_access = list(ACCESS_RESEARCH)
+
+/obj/structure/closet/secure_closet/cytology/PopulateContents()
+	. = ..()
+	new /obj/item/pushbroom(src)
+	new /obj/item/plunger(src)
+	new /obj/item/storage/bag/bio(src)
+	new /obj/item/storage/box/petridish(src)
+	new /obj/item/stack/ducts/fifty(src)
+	for(var/i in 1 to 2)
+		new /obj/item/biopsy_tool(src)
+		new /obj/item/storage/box/swab(src)
+	new /obj/item/construction/plumbing/research(src)
