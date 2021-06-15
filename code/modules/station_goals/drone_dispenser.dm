@@ -1,8 +1,6 @@
-//Crew has to create dna vault
-// Cargo can order DNA samplers + DNA vault boards
-// DNA vault requires x animals ,y plants, z human dna
-// DNA vaults require high tier stock parts and cold
-// After completion each crewmember can receive single upgrade chosen out of 2 for the mob.
+//Crew has to create drone dispenser
+// Cargo can order the board
+// The station needs to dispense N number of drones
 
 /datum/station_goal/drone_dispenser
 	name = "Drone Dispenser"
@@ -13,13 +11,11 @@
 	drones_produced = rand(1,5)
 
 /datum/station_goal/drone_dispenser/get_report()
-	return {"Our long term prediction systems indicate a 99% chance of system-wide cataclysm in the near future.
-	 We need you to construct a DNA Vault aboard your station.
+	return {"We want you to construct the requirements for a self-sustaining, autonomous research facility.
+	 This would require you to construct a Drone Dispenser aboard your station.
 
-	 The DNA Vault needs to contain samples of:
-	 [animal_count] unique animal data
-	 [plant_count] unique non-standard plant data
-	 [human_count] unique sapient humanoid DNA data
+	 The Drone Dispenser needs to be operational at the end of the shift,
+	 and must have dispensed at least [drones_produced] drone shells.
 
 	 Base vault parts are available for shipping via cargo."}
 

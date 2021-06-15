@@ -909,7 +909,7 @@
 
 /datum/supply_pack/engineering/drone_dispenser
 	name = "Drone Dispenser Board"
-	desc = "Secure the longevity of the current state of humanity within this massive library of scientific knowledge, capable of granting superhuman powers and abilities. Highly advanced research is required for proper construction. Also contains five DNA probes."
+	desc = "Are your superiors throwing buzzwords like 'autonomy' and 'self sustaining'? Satisfy their needs with a drone dispenser, the latest solution for autonomous facilities. Highly advanced research is required for proper construction."
 	cost = 15000
 	special = TRUE
 	contains = list(/obj/item/circuitboard/machine/drone_dispenser)
