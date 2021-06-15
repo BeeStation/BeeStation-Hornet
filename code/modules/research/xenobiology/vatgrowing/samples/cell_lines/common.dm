@@ -37,7 +37,7 @@
 							/datum/reagent/consumable/eggyolk = 1,
 							/datum/reagent/consumable/nutriment/vitamin = 2)
 
-	suppressive_reagents = list(/datum/reagent/fuel/oil = -4,
+	suppressive_reagents = list(/datum/reagent/oil = -4,
 								/datum/reagent/toxin = -2)
 
 	virus_suspectibility = 1
@@ -75,8 +75,8 @@
 						/datum/reagent/medicine/oculine = 2,
 						/datum/reagent/consumable/milk = 1) //milkies
 	suppressive_reagents = list(
-						/datum/reagent/consumable/coco = -4,
-						/datum/reagent/consumable/hot_coco = -2,
+						/datum/reagent/consumable/cocoa = -4,
+						/datum/reagent/consumable/cocoa/hot_cocoa = -2,
 						/datum/reagent/consumable/chocolatepudding = -2,
 						/datum/reagent/consumable/milk/chocolate_milk = -1)
 
@@ -97,7 +97,7 @@
 	suppressive_reagents = list(
 						/datum/reagent/consumable/garlic = -2,
 						/datum/reagent/consumable/tearjuice = -3,
-						/datum/reagent/consumable/coco = -2)
+						/datum/reagent/consumable/cocoa = -2)
 	virus_suspectibility = 1
 	resulting_atoms = list(/mob/living/simple_animal/pet/dog/corgi = 1)
 
@@ -114,7 +114,7 @@
 	suppressive_reagents = list(
 						/datum/reagent/consumable/garlic = -2,
 						/datum/reagent/consumable/tearjuice = -3,
-						/datum/reagent/consumable/coco = -2)
+						/datum/reagent/consumable/cocoa = -2)
 
 	virus_suspectibility = 3
 	resulting_atoms = list(/mob/living/simple_animal/pet/dog/pug = 1)
@@ -124,7 +124,7 @@
 	required_reagents = list(
 						/datum/reagent/consumable/nutriment/protein,
 						/datum/reagent/liquidgibs,
-						/datum/reagent/medicine/c2/synthflesh) //Nuke this if the dispenser becomes xenobio meta.
+						/datum/reagent/medicine/synthflesh) //Nuke this if the dispenser becomes xenobio meta.
 
 	supplementary_reagents = list(
 						/datum/reagent/consumable/honey = 8, //Hunny.
@@ -164,7 +164,7 @@
 	desc = "Cartilaginous cyprinid cells"
 	required_reagents = list(
 						/datum/reagent/consumable/nutriment/protein,
-						/datum/reagent/medicine/c2/synthflesh,
+						/datum/reagent/medicine/synthflesh,
 						/datum/reagent/consumable/nutriment)
 
 	supplementary_reagents = list(
@@ -189,7 +189,6 @@
 
 	supplementary_reagents = list(
 						/datum/reagent/growthserum = 3,
-						/datum/reagent/consumable/nutriment/peptides = 3,
 						/datum/reagent/consumable/eggyolk = 2,
 						/datum/reagent/consumable/nutriment/vitamin = 2)
 
@@ -241,7 +240,7 @@
 	desc = "Blobular myocytes"
 	required_reagents = list(
 	 					/datum/reagent/consumable/nutriment/protein,
-	 					/datum/reagent/medicine/c2/synthflesh,
+	 					/datum/reagent/medicine/synthflesh,
 	 					/datum/reagent/sulfur) //grind flares to get this
 
 	supplementary_reagents = list(
@@ -261,14 +260,11 @@
 	required_reagents = list(
 	 					/datum/reagent/consumable/nutriment/protein,
 						/datum/reagent/toxin/slimejelly,
-						/datum/reagent/yuck,
 						/datum/reagent/consumable/enzyme) //Powerful enzymes helps the cube digest prey.
 
 	supplementary_reagents = list(
-						/datum/reagent/water/hollowwater = 4,
 						/datum/reagent/consumable/corn_syrup = 3,
 						/datum/reagent/gold = 2, //This is why they eat so many adventurers.
-						/datum/reagent/consumable/nutriment/peptides = 2,
 						/datum/reagent/consumable/potato_juice = 1,
 						/datum/reagent/liquidgibs = 1,
 						/datum/reagent/consumable/nutriment/vitamin = 1)
@@ -285,12 +281,10 @@
 	required_reagents = list(
 	 					/datum/reagent/consumable/nutriment/protein,
 						/datum/reagent/toxin/slimejelly,
-						/datum/reagent/yuck,
 						/datum/reagent/consumable/vitfro)
 
 	supplementary_reagents = list(
 						/datum/reagent/medicine/omnizine = 4,
-						/datum/reagent/consumable/nutriment/peptides = 3,
 						/datum/reagent/consumable/corn_syrup = 2,
 						/datum/reagent/consumable/ethanol/squirt_cider = 2,
 						/datum/reagent/consumable/doctor_delight = 1,
@@ -313,7 +307,6 @@
 	desc = "Blattodeoid anthropod cells"
 	required_reagents = list(/datum/reagent/consumable/nutriment/protein)
 	supplementary_reagents = list(
-							/datum/reagent/yuck = 4,
 							/datum/reagent/growthserum = 2,
 							/datum/reagent/toxin/slimejelly = 2,
 							/datum/reagent/consumable/nutriment/vitamin = 1)
@@ -324,7 +317,7 @@
 							/datum/reagent/consumable/ethanol/bug_spray = -4)
 
 	virus_suspectibility = 0
-	resulting_atoms = list(/mob/living/simple_animal/hostile/cockroach = 5)
+	resulting_atoms = list(/mob/living/simple_animal/cockroach = 5)
 
 /datum/micro_organism/cell_line/pine
 	desc = "Coniferous plant cells"
@@ -351,10 +344,8 @@
 	required_reagents = list(
 						/datum/reagent/consumable/nutriment/protein,
 						/datum/reagent/consumable/nutriment/vitamin,
-						/datum/reagent/consumable/nutriment/peptides,
 						/datum/reagent/consumable/liquidelectricity,
-						/datum/reagent/growthserum,
-						/datum/reagent/yuck)
+						/datum/reagent/growthserum)
 
 	supplementary_reagents = list(
 						/datum/reagent/medicine/rezadone = 3,
@@ -365,8 +356,7 @@
 						/datum/reagent/liquidgibs = 1)
 
 	suppressive_reagents = list(
-						/datum/reagent/consumable/sodiumchloride = -3,
-						/datum/reagent/medicine/c2/syriniver = -2)
+						/datum/reagent/consumable/sodiumchloride = -3)
 	virus_suspectibility = 0.5
 	resulting_atoms = list(/mob/living/simple_animal/hostile/vatbeast = 1)
 

@@ -113,7 +113,6 @@
 	name = "Organ Tissue"
 	description = "Natural tissues that make up the bulk of organs, providing many vitamins and minerals."
 	taste_description = "rich earthy pungent"
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/cooking_oil
 	name = "Cooking Oil"
