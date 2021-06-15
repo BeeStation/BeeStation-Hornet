@@ -107,4 +107,4 @@
 	message_admins("A [B.name] was detonated via boom wire at [ADMIN_VERBOSEJMP(T)][B.fingerprintslast ? "by [B.fingerprintslast]" : ""].")
 
 /datum/wires/syndicatebomb/proc/is_real_bomb(obj/machinery/syndicatebomb/B)
-	return !(istype(B, /obj/machinery/syndicatebomb/training))
+	return !istype(B, /obj/machinery/syndicatebomb/training)
