@@ -809,16 +809,39 @@ RLD
 	///
 	var/list/machinery_data = list("cost" = list(), "delay" = list())
 
+	var/list/plumbing_design_types
+
+/obj/item/construction/plumbing/Initialize(mapload)
+	. = ..()
+	set_plumbing_designs()
+
+/obj/item/construction/plumbing/proc/set_plumbing_designs()
+	plumbing_design_types = list(
+	/obj/machinery/plumbing/input,
+	/obj/machinery/plumbing/output,
+	/obj/machinery/plumbing/tank,
+	/obj/machinery/plumbing/acclimator,
+	/obj/machinery/plumbing/disposer,
+	/obj/machinery/plumbing/filter,
+	/obj/machinery/plumbing/grinder_chemical,
+	/obj/machinery/plumbing/pill_press,
+	/obj/machinery/plumbing/reaction_chamber,
+	/obj/machinery/plumbing/splitter,
+	/obj/machinery/plumbing/synthesizer,
+	/obj/machinery/plumbing/bottle_dispenser,
+	/obj/machinery/plumbing/patch_dispenser,
+	)
+
 /obj/item/construction/plumbing/attack_self(mob/user)
 	..()
 	if(!choices.len)
-		for(var/A in subtypesof(/obj/machinery/plumbing))
+		for(var/A in plumbing_design_types)
 			var/obj/machinery/plumbing/M = A
 			if(initial(M.rcd_constructable))
 				choices += list(initial(M.name) = image(icon = initial(M.icon), icon_state = initial(M.icon_state)))
 				name_to_type[initial(M.name)] = M
-				machinery_data["cost"][A] = initial(M.rcd_cost)
-				machinery_data["delay"][A] = initial(M.rcd_delay)
+				machinery_data["cost"][A] = M.rcd_cost
+				machinery_data["delay"][A] = M.rcd_delay
 
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
@@ -883,6 +906,27 @@ RLD
 /obj/item/rcd_upgrade/silo_link
 	desc = "It contains direct silo connection RCD upgrade."
 	upgrade = RCD_UPGRADE_SILO_LINK
+
+/obj/item/construction/plumbing/research
+	name = "research plumbing constructor"
+	desc = "A type of plumbing constructor designed to rapidly deploy the machines needed to conduct cytological research."
+	icon_state = "plumberer_sci"
+	has_ammobar = TRUE
+
+/obj/item/construction/plumbing/research/set_plumbing_designs()
+	plumbing_design_types = list(
+	/obj/machinery/plumbing/input,
+	/obj/machinery/plumbing/output,
+	/obj/machinery/plumbing/tank,
+	/obj/machinery/plumbing/acclimator,
+	/obj/machinery/plumbing/filter,					//TODO: MOVE THOSE FROM HERE
+	/obj/machinery/plumbing/grinder_chemical,
+	/obj/machinery/plumbing/reaction_chamber,
+	/obj/machinery/plumbing/splitter,
+	/obj/machinery/plumbing/disposer,
+	/obj/machinery/plumbing/growing_vat = 20
+)
+
 
 #undef GLOW_MODE
 #undef LIGHT_MODE
