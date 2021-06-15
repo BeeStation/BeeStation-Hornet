@@ -58,7 +58,7 @@ export const MESSAGE_TYPES = [
   {
     type: MESSAGE_TYPE_RADIO,
     name: 'Radio',
-    description: 'All departments of radio messages',
+    description: 'All departments of radio messages, along with various antagonist private channels',
     selector: '.alert, .syndradio, .centcomradio, .airadio, .entradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .suppradio, .servradio, .radio, .newscaster, .redteamradio, .blueteamradio, .binarysay, .aiprivradio, .alien, .changeling, .holoparasite, .cult',
   },
   {
