@@ -903,11 +903,10 @@
 	id = "ghoul"
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
-	examine_text = "<span class='warning'>SUBJECTPRONOUN seems slow and unfocused.</span>"
-	var/stun = TRUE
+	examine_text = "<span class='warning'>SUBJECTPRONOUN has a blank, catatonic like stare.</span>"
 	alert_type = /atom/movable/screen/alert/status_effect/ghoul
 
 /atom/movable/screen/alert/status_effect/ghoul
 	name = "Flesh Servant"
-	desc = "Everything feels so distant, and you can feel your thoughts forming loops inside your head."
+	desc = "You are a Ghoul! A eldritch monster reanimated to serve its master."
 	icon_state = "mind_control"
