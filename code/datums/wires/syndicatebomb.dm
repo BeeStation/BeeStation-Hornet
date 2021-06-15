@@ -16,15 +16,16 @@
 
 /datum/wires/syndicatebomb/on_pulse(wire)
 	var/obj/machinery/syndicatebomb/B = holder
+	var/mob/user
 	if(usr)
-		mob/user/user = usr
+		user = usr
 		B.add_hiddenprint(usr) // could be from a signaller
 	switch(wire)
 		if(WIRE_BOOM)
 			if(B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
-				if(user && is_real_bomb(B))
+				if(usr && is_real_bomb(B))
 					message_admins("[key_name_admin(usr)] pulsed live boom wire on syndicate bomb")
 					user.log_message("pulsed live boom wire on syndicate bomb", LOG_ATTACK)
 				tell_admins(B)
@@ -67,8 +68,9 @@
 
 /datum/wires/syndicatebomb/on_cut(wire, mend)
 	var/obj/machinery/syndicatebomb/B = holder
+	var/mob/user
 	if(usr)
-		mob/user/user = usr
+		user = usr
 		B.add_hiddenprint(usr) // could be from a signaller
 
 	switch(wire)
@@ -103,8 +105,8 @@
 	if(!is_real_bomb(B))
 		return
 	var/turf/T = get_turf(B)
-	log_game("\A [B] was detonated via boom wire at [AREACOORD(T)][B.fingerprintslast ? "by [B.fingerprintslast]" , ""]")
-	message_admins("A [B.name] was detonated via boom wire at [ADMIN_VERBOSEJMP(T)][B.fingerprintslast ? "by [B.fingerprintslast]" , ""].")
+	log_game("\A [B] was detonated via boom wire at [AREACOORD(T)][B.fingerprintslast ? "by [B.fingerprintslast]" : ""]")
+	message_admins("A [B.name] was detonated via boom wire at [ADMIN_VERBOSEJMP(T)][B.fingerprintslast ? "by [B.fingerprintslast]" : ""].")
 
 /datum/wires/syndicatebomb/proc/is_real_bomb(obj/machinery/syndicatebomb/B)
 	return !(istype(B, /obj/machinery/syndicatebomb/training))
