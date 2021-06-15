@@ -19,6 +19,14 @@
 
 	do_footstep = TRUE
 
+/mob/living/simple_animal/pet/dog/Initialize()
+	. = ..()
+	add_cell_sample()
+
+
+/mob/living/simple_animal/pet/dog/add_cell_sample()
+	return
+
 //Corgis and pugs are now under one dog subtype
 
 /mob/living/simple_animal/pet/dog/corgi
@@ -39,6 +47,9 @@
 	worn_slot_flags = ITEM_SLOT_HEAD
 	var/shaved = FALSE
 	var/nofur = FALSE 		//Corgis that have risen past the material plane of existence.
+
+/mob/living/simple_animal/pet/dog/corgi/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_CORGI, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 /mob/living/simple_animal/pet/dog/corgi/Destroy()
 	QDEL_NULL(inventory_head)
@@ -71,6 +82,8 @@
 	collar_type = "pug"
 	held_state = "pug"
 
+/mob/living/simple_animal/pet/dog/pug/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_PUG, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 /mob/living/simple_animal/pet/dog/bullterrier
 	name = "\improper bull terrier"

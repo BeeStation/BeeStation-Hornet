@@ -41,6 +41,13 @@
 
 	do_footstep = TRUE
 
+/mob/living/simple_animal/hostile/bear/Initialize()
+	. = ..()
+	add_cell_sample()
+
+/mob/living/simple_animal/hostile/bear/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_BEAR, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
+
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson
 	name = "Hudson"
@@ -113,6 +120,9 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/butter = 6, /obj/item/reagent_containers/food/snacks/meat/slab = 3, /obj/item/organ/brain = 1, /obj/item/organ/heart = 1)
 	attack_sound = 'sound/weapons/slap.ogg'
 	attacktext = "slaps"
+
+/mob/living/simple_animal/hostile/bear/butter/add_cell_sample()
+	return //You cannot grow a real bear from butter.
 
 /mob/living/simple_animal/hostile/bear/butter/Life() //Heals butter bear really fast when he takes damage.
 	if(stat)

@@ -108,7 +108,6 @@
 	description = "A natural polyamide made up of amino acids. An essential constituent of mosts known forms of life."
 	brute_heal = 0.8 //Rewards the player for eating a balanced diet.
 	nutriment_factor = 9 * REAGENTS_METABOLISM //45% as calorie dense as corn oil.
-	chemical_flags = REAGENT_CAN_BE_SYNTHESIZED
 
 /datum/reagent/consumable/nutriment/organ_tissue
 	name = "Organ Tissue"

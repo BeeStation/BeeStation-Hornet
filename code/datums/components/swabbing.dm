@@ -1,8 +1,3 @@
-/*!
-
-This component is used in vat growing to swab for microbiological samples which can then be mixed with reagents in a petridish to create a culture plate.
-
-*/
 /datum/component/swabbing
 	///The current datums on the swab
 	var/list/swabbed_items
@@ -82,21 +77,21 @@ This component is used in vat growing to swab for microbiological samples which 
 		LAZYCLEARLIST(swabbed_items)
 
 		var/obj/item/I = parent
-		I.update_appearance()
+		I.update_icon()
 
-		return COMPONENT_CANCEL_ATTACK_CHAIN
+		return COMPONENT_NO_ATTACK
 	if(!can_swab(target))
 		return NONE //Just do the normal attack.
 
 
-	. = COMPONENT_CANCEL_ATTACK_CHAIN //Point of no return. No more attacking after this.
+	. = COMPONENT_NO_ATTACK //Point of no return. No more attacking after this.
 
 	if(LAZYLEN(swabbed_items))
 		to_chat(user, "<span class='warning'>You cannot collect another sample on [parent]!</span>")
 		return
 
 	to_chat(user, "<span class='notice'>You start swabbing [target] for samples!</span>")
-	if(!do_after(user, 3 SECONDS, target)) // Start swabbing boi
+	if(!do_after(user, 3 SECONDS, TRUE, target)) // Start swabbing boi
 		return
 
 	LAZYINITLIST(swabbed_items) //If it isn't initialized, initialize it. As we need to pass it by reference
@@ -108,7 +103,7 @@ This component is used in vat growing to swab for microbiological samples which 
 	to_chat(user, "<span class='nicegreen'>You manage to collect a microbiological sample from [target]!</span>")
 
 	var/obj/item/parent_item = parent
-	parent_item.update_appearance()
+	parent_item.update_icon()
 
 ///Checks if the swabbing component can swab the specific object or nots
 /datum/component/swabbing/proc/can_swab(atom/target)
