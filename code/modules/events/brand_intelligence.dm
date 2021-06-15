@@ -5,7 +5,7 @@
 
 	min_players = 15
 	max_occurrences = 1
-	malffake = TRUE
+	can_malf_fake_alert = TRUE
 
 /datum/round_event/brand_intelligence
 	announceWhen	= 21

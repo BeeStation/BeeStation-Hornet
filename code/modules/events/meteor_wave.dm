@@ -7,7 +7,7 @@
 	min_players = 15
 	max_occurrences = 3
 	earliest_start = 30 MINUTES
-	malffake = TRUE
+	can_malf_fake_alert = TRUE
 
 /datum/round_event/meteor_wave
 	startWhen		= 300

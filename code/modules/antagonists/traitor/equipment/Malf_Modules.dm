@@ -877,14 +877,14 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	uses = 1
 
 /datum/action/innate/ai/fake_alert/Activate()
-	var/list/events_list = list()
+	var/list/events_to_chose = list()
 	for(var/datum/round_event_control/E in SSevents.control)
-		if(!E.malffake)
+		if(!E.can_malf_fake_alert)
 			continue
-		events_list[E.name] = E
-	var/datum/round_event_control/event_control = events_list[input(owner,"Send fake alert","Fake Alert") in events_list]
+		events_to_chose[E.name] = E
+	var/datum/round_event_control/event_control = events_to_chose[input(owner,"Send fake alert","Fake Alert") in events_list]
 	if (!event_control)
-		event_control = pick(events_list)
+		event_control = pick(events_to_chose)
 	if(event_control)
 		var/datum/round_event/Event = new event_control.typepath()
 		Event.kill()

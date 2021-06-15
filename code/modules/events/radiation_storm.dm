@@ -2,7 +2,7 @@
 	name = "Radiation Storm"
 	typepath = /datum/round_event/radiation_storm
 	max_occurrences = 1
-	malffake = TRUE
+	can_malf_fake_alert = TRUE
 
 /datum/round_event/radiation_storm
 

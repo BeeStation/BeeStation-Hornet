@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/grey_tide
 	max_occurrences = 2
 	min_players = 5
-	malffake = TRUE
+	can_malf_fake_alert = TRUE
 
 /datum/round_event/grey_tide
 	announceWhen = 50
