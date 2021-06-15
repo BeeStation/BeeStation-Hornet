@@ -67,9 +67,8 @@
 
 /datum/wires/syndicatebomb/on_cut(wire, mend)
 	var/obj/machinery/syndicatebomb/B = holder
-	var/mob/user
-	if(usr)
-		user = usr
+	var/mob/user = usr
+	if(user)
 		B.add_hiddenprint(usr) // could be from a signaller
 
 	switch(wire)
