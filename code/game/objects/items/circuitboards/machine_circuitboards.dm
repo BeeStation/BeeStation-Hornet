@@ -958,7 +958,7 @@
 	build_path = /obj/machinery/droneDispenser/objective
 	req_components = list(
 		/obj/item/stock_parts/matter_bin/bluespace = 2,
-		/obj/item/stock_parts/manipulator/femt = 2,
+		/obj/item/stock_parts/manipulator/femto = 2,
 		/obj/item/stack/ore/bluespace_crystal = 5)
 
 
