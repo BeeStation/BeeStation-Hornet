@@ -59,7 +59,7 @@
 				R.show_laws()
 		if(WIRE_LOCKDOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle
-			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via pulse") // TODO consistent verbiage with RD console's lockdown
+			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via pulse")
 
 		if(WIRE_RESET_MODULE)
 			if(R.has_module())
@@ -88,7 +88,7 @@
 				R.builtInCamera.status = mend
 				R.builtInCamera.toggle_cam(usr, FALSE)
 				R.visible_message("[R]'s camera lens focuses loudly.", "Your camera lens focuses loudly.")
-				log_combat(usr, R, "[mend ? "true" : "false"] cyborg camera via wire")
+				log_combat(usr, R, "[mend ? "enabled" : "disabled"] cyborg camera via wire")
 		if(WIRE_LOCKDOWN) // Simple lockdown.
 			R.SetLockdown(!mend)
 			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via wire")
