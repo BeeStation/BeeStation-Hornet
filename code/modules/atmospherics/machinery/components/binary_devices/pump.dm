@@ -39,7 +39,7 @@
 /obj/machinery/atmospherics/components/binary/pump/AltClick(mob/user)
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
-		to_chat(user, "<span class='notice'>You maximize the pressure output on [src] to [target_pressure] kPa.</span>")
+		balloon_alert(user, "[src] set to [target_pressure] kPa")
 		update_icon()
 	return
 
