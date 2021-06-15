@@ -17,14 +17,16 @@
 /datum/wires/syndicatebomb/on_pulse(wire)
 	var/obj/machinery/syndicatebomb/B = holder
 	if(usr)
+		mob/user/user = usr
 		B.add_hiddenprint(usr) // could be from a signaller
 	switch(wire)
 		if(WIRE_BOOM)
 			if(B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
-				message_admins("[key_name_admin(usr)] pulsed live boom wire on syndicate bomb")
-				usr.log_message("pulsed live boom wire on syndicate bomb", LOG_ATTACK)
+				if(user && is_real_bomb(B))
+					message_admins("[key_name_admin(usr)] pulsed live boom wire on syndicate bomb")
+					user.log_message("pulsed live boom wire on syndicate bomb", LOG_ATTACK)
 				tell_admins(B)
 			else
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] Nothing happens.</span>")
@@ -54,7 +56,8 @@
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] You hear the bomb start ticking!</span>")
 				B.activate()
 				B.update_icon()
-				usr.log_message("activated syndicate bomb via pulsed wire", LOG_ATTACK)
+				if(user && is_real_bomb(B))
+					user.log_message("activated syndicate bomb via pulsed wire", LOG_ATTACK)
 			else if(B.delayedlittle)
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] Nothing happens.</span>")
 			else
@@ -64,13 +67,17 @@
 
 /datum/wires/syndicatebomb/on_cut(wire, mend)
 	var/obj/machinery/syndicatebomb/B = holder
-	B.add_hiddenprint(usr)
+	if(usr)
+		mob/user/user = usr
+		B.add_hiddenprint(usr) // could be from a signaller
+
 	switch(wire)
 		if(WIRE_BOOM)
 			if(!mend && B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
-				usr.log_message("detonated syndicate bomb via cut boom wire", LOG_ATTACK)
+				if(user && is_real_bomb(B))
+					user.log_message("detonated syndicate bomb via cut boom wire", LOG_ATTACK)
 				tell_admins(B)
 		if(WIRE_UNBOLT)
 			if(!mend && B.anchored)
@@ -80,7 +87,8 @@
 		if(WIRE_PROCEED)
 			if(!mend && B.active)
 				holder.visible_message("<span class='danger'>[icon2html(B, viewers(holder))] An alarm sounds! It's go-</span>")
-				usr.log_message("detonated syndicate bomb via cut proceed wire", LOG_ATTACK)
+				if(user && is_real_bomb(B))
+					user.log_message("detonated syndicate bomb via cut proceed wire", LOG_ATTACK)
 				B.explode_now = TRUE
 				tell_admins(B)
 		if(WIRE_ACTIVATE)
@@ -92,8 +100,11 @@
 				B.update_icon()
 
 /datum/wires/syndicatebomb/proc/tell_admins(obj/machinery/syndicatebomb/B)
-	if(istype(B, /obj/machinery/syndicatebomb/training))
+	if(!is_real_bomb(B))
 		return
 	var/turf/T = get_turf(B)
-	log_game("\A [B] was detonated via boom wire at [AREACOORD(T)] by [B.fingerprintslast]")
-	message_admins("A [B.name] was detonated via boom wire at [ADMIN_VERBOSEJMP(T)] by [B.fingerprintslast].")
+	log_game("\A [B] was detonated via boom wire at [AREACOORD(T)][B.fingerprintslast ? "by [B.fingerprintslast]" , ""]")
+	message_admins("A [B.name] was detonated via boom wire at [ADMIN_VERBOSEJMP(T)][B.fingerprintslast ? "by [B.fingerprintslast]" , ""].")
+
+/datum/wires/syndicatebomb/proc/is_real_bomb(obj/machinery/syndicatebomb/B)
+	return !(istype(B, /obj/machinery/syndicatebomb/training))
