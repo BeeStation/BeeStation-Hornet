@@ -962,7 +962,7 @@ GENE SCANNER
 	for(var/datum/disease/D in diseases)
 		if(istype(D, /datum/disease/advance))
 			var/datum/disease/advance/A = D
-			if(A.properties["stealth"] >= (2 + scanner.rating)) //the extrapolator can detect diseases of higher stealth than a normal scanner
+			if(A.stealth >= (2 + scanner.rating)) //the extrapolator can detect diseases of higher stealth than a normal scanner
 				continue
 			to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b>, stage [A.stage]/5</font></span>")
 			to_chat(user, "<span class='info'><b>[A] has the following symptoms:</b></span>")

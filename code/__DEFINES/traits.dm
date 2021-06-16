@@ -172,6 +172,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOBLOCK			"noblock"
 #define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
 #define TRAIT_WARDED       		"curse_immune"
+#define TRAIT_DIGICAMO     		"digital_camo"
+#define TRAIT_DIGINVIS     		"digital_invis"	//note: diginvis grants digitalcamo, but carbons can tell if you have the digicamo trait on examine
 #define TRAIT_NICE_SHOT			"nice_shot" //hnnnnnnnggggg..... you're pretty good....
 
 //non-mob traits
@@ -232,6 +234,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define VEHICLE_TRAIT "vehicle" // inherited from riding vehicles
 #define INNATE_TRAIT "innate"
 #define GLASSES_TRAIT "glasses"
+#define CURSE_TRAIT "eldritch"
 #define STATION_TRAIT "station-trait"
 
 // unique trait sources, still defines
