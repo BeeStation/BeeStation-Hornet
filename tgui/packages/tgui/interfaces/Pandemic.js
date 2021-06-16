@@ -115,8 +115,8 @@ export const PandemicDiseaseDisplay = (props, context) => {
                 <LabeledList.Item label="Spread">
                   {virus.spread}
                 </LabeledList.Item>
-                <LabeledList.Item label="Severity">
-                  {virus.severity}
+                <LabeledList.Item label="Danger">
+                  {virus.danger}
                 </LabeledList.Item>
                 <LabeledList.Item label="Possible Cure">
                   {virus.cure}

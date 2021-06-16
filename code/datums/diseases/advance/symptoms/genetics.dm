@@ -21,7 +21,7 @@ Bonus
 	stealth = -2
 	resistance = -3
 	stage_speed = 0
-	transmittable = -3
+	transmission = -3
 	level = 6
 	severity = 3
 	var/list/possible_mutations
@@ -37,9 +37,9 @@ Bonus
 
 /datum/symptom/genetic_mutation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stage_rate"] >= 14)
+	if(A.stage_rate >= 14)
 		severity = 0
-	else if(A.properties["resistance"] >= 8)
+	else if(A.resistance >= 8)
 		severity += 1
 
 /datum/symptom/genetic_mutation/Activate(datum/disease/advance/A)
@@ -59,14 +59,14 @@ Bonus
 /datum/symptom/genetic_mutation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 5) //don't restore dna after curing
+	if(A.stealth >= 5) //don't restore dna after curing
 		no_reset = TRUE
-	if(A.properties["stage_rate"] >= 10) //mutate more often
+	if(A.stage_rate >= 10) //mutate more often
 		symptom_delay_min = 20
 		symptom_delay_max = 60
-	if(A.properties["resistance"] >= 8) //mutate twice
+	if(A.resistance >= 8) //mutate twice
 		power = 2
-	if(A.properties["stage_rate"] >= 14)
+	if(A.stage_rate >= 14)
 		possible_mutations = (GLOB.good_mutations) //This should never have contained not good mutations
 	else
 		possible_mutations = (GLOB.bad_mutations | GLOB.not_good_mutations) - GLOB.all_mutations[RACEMUT]
