@@ -864,40 +864,47 @@
 	id = "corrosion_curse"
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
-	tick_interval = 1 SECONDS
+	tick_interval = 4 SECONDS
 
 /datum/status_effect/corrosion_curse/on_creation(mob/living/new_owner, ...)
 	. = ..()
-	to_chat(owner, "<span class='danger'>You feel your body starting to break apart.</span>")
+	to_chat(owner, "<span class='danger'>You hear a distant whisper that fills you with dread.</span>")
 
 /datum/status_effect/corrosion_curse/tick()
 	. = ..()
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
+	if (H.IsSleeping())
+		return
 	var/chance = rand(0,100)
+	var/message = "Coder did fucky wucky U w U"
 	switch(chance)
-		if(0 to 19)
+		if(0 to 39)
+			H.adjustStaminaLoss(20)
+			message = "<span class='notice'>You feel tired.</span>"
+		if(40 to 59)
+			H.Dizzy(3 SECONDS)
+			message = "<span class='warning'>Your feel light headed.</span>"
+		if(60 to 74)
+			H.confused = max(H.confused, 2 SECONDS)
+			message = "<span class='warning'>Your feel confused.</span>"
+		if(75 to 79)
+			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,15)
 			H.vomit()
-		if(20 to 29)
-			H.Dizzy(10)
-		if(30 to 39)
-			H.adjustOrganLoss(ORGAN_SLOT_LIVER,5)
-		if(40 to 49)
-			H.adjustOrganLoss(ORGAN_SLOT_HEART,5)
-		if(50 to 59)
-			H.adjustOrganLoss(ORGAN_SLOT_STOMACH,5)
-		if(60 to 69)
-			H.adjustOrganLoss(ORGAN_SLOT_EYES,10)
-		if(70 to 79)
-			H.adjustOrganLoss(ORGAN_SLOT_EARS,10)
-		if(80 to 89)
-			H.adjustOrganLoss(ORGAN_SLOT_LUNGS,10)
-		if(90 to 99)
-			H.adjustOrganLoss(ORGAN_SLOT_TONGUE,10)
-		if(100)
-			H.adjustOrganLoss(ORGAN_SLOT_BRAIN,20)
-
+			message = "<span class='warning'>Black bile shoots out of your mouth.</span>"
+		if(80 to 84)
+			H.adjustOrganLoss(ORGAN_SLOT_LIVER,15)
+			H.SetKnockdown(10)
+			message = "<span class='warning'>Your feel a terrible pain in your abdomen.</span>"
+		if(85 to 89)
+			H.adjustOrganLoss(ORGAN_SLOT_EYES,15)
+			message = "<span class='warning'>Your eyes sting.</span>"
+		else
+			H.adjustOrganLoss(ORGAN_SLOT_EARS,15)
+			message = "<span class='warning'>Your inner ear hurts.</span>"
+	if (prob(33))	//so the victim isn't spammed with messages every 3 seconds
+		to_chat(H,message)
 
 /datum/status_effect/ghoul
 	id = "ghoul"

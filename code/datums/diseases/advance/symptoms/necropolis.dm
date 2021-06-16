@@ -4,7 +4,7 @@
 	stealth = 0
 	resistance = 3
 	stage_speed = -10
-	transmittable = -3
+	transmission = -3
 	level = 9
 	base_message_chance = 5
 	severity = -1
@@ -22,20 +22,21 @@
 
 /datum/symptom/necroseed/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stealth"] >= 8)
+	if(A.stealth >= 8)
 		severity += 2
-	if(A.properties["resistance"] >= 20)
+	if(A.resistance >= 20)
 		severity -= 1
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 15)
+	if(A.resistance >= 15)
 		tendrils = TRUE
-	if(A.properties["stealth"] >= 8)
+		if(A.resistance >= 20)
+			fireproof = TRUE
+	if(A.stealth >= 8)
 		chest = TRUE
-	if(A.properties["resistance"] >= 20)
-		fireproof = TRUE
+
 
 /datum/symptom/necroseed/Activate(datum/disease/advance/A)
 	if(!..())

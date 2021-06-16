@@ -5,7 +5,7 @@
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	34
+#define SAVEFILE_VERSION_MAX	35
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -67,7 +67,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		see_chat_non_mob = TRUE
 		see_rc_emotes = TRUE
 		S.dir.Remove("overhead_chat")
-	if(current_version < 34)
+	if(current_version < 35)
 		see_balloon_alerts = BALLOON_ALERT_ALWAYS
 	return
 
@@ -374,6 +374,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["undershirt"], undershirt)
 	READ_FILE(S["socks"], socks)
 	READ_FILE(S["backbag"], backbag)
+	READ_FILE(S["jumpsuit_style"], jumpsuit_style)
 	READ_FILE(S["uplink_loc"], uplink_spawn_loc)
 	READ_FILE(S["feature_mcolor"], features["mcolor"])
 	READ_FILE(S["feature_ethcolor"], features["ethcolor"])
@@ -456,6 +457,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	eye_color		= sanitize_hexcolor(eye_color, 3, 0)
 	skin_tone		= sanitize_inlist(skin_tone, GLOB.skin_tones)
 	backbag			= sanitize_inlist(backbag, GLOB.backbaglist, initial(backbag))
+	jumpsuit_style = sanitize_inlist(jumpsuit_style, GLOB.jumpsuitlist, initial(jumpsuit_style))
 	uplink_spawn_loc = sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list, initial(uplink_spawn_loc))
 	features["mcolor"]	= sanitize_hexcolor(features["mcolor"], 3, 0)
 	features["ethcolor"]	= copytext_char(features["ethcolor"], 1, 7)
@@ -520,6 +522,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["undershirt"]			, undershirt)
 	WRITE_FILE(S["socks"]				, socks)
 	WRITE_FILE(S["backbag"]			, backbag)
+	WRITE_FILE(S["jumpsuit_style"]		, jumpsuit_style)
 	WRITE_FILE(S["uplink_loc"]			, uplink_spawn_loc)
 	WRITE_FILE(S["species"]			, pref_species.id)
 	WRITE_FILE(S["feature_mcolor"]					, features["mcolor"])
