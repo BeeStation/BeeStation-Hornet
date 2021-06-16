@@ -4,11 +4,10 @@
 #define BUCKET_POS(scheduled_destruction) (((round((scheduled_destruction - SSrunechat.head_offset) / world.tick_lag) + 1) % BUCKET_LEN) || BUCKET_LEN)
 /// Gets the maximum time at which messages will be handled in buckets, used for deferring to secondary queue
 #define BUCKET_LIMIT (world.time + TICKS2DS(min(BUCKET_LEN - (SSrunechat.practical_offset - DS2TICKS(world.time - SSrunechat.head_offset)) - 1, BUCKET_LEN - 1)))
-
 /**
   * # Runechat Subsystem
   *
-  * Maintains a timer-like system to handle destruction of runechat messages. Much of this code is modeled
+  * Maintains a timer-like system to handle destruction of runechat messages and balloon alerts. Much of this code is modeled
   * after or adapted from the timer subsystem.
   *
   * Note that this has the same structure for storing and queueing messages as the timer subsystem does
@@ -231,6 +230,7 @@ SUBSYSTEM_DEF(runechat)
 		prev?.next = null
 		next?.prev = null
 	prev = next = null
+
 
 #undef BUCKET_LEN
 #undef BUCKET_POS

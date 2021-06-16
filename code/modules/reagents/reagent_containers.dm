@@ -42,7 +42,7 @@
 					amount_per_transfer_from_this = possible_transfer_amounts[i+1]
 				else
 					amount_per_transfer_from_this = possible_transfer_amounts[1]
-				to_chat(user, "<span class='notice'>[src]'s transfer amount is now [amount_per_transfer_from_this] units.</span>")
+				balloon_alert(user, "Transferring [amount_per_transfer_from_this]u")
 				return
 
 /obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
@@ -51,24 +51,24 @@
 
 /obj/item/reagent_containers/proc/canconsume(mob/eater, mob/user)
 	if(!iscarbon(eater))
-		return 0
+		return FALSE
 	var/mob/living/carbon/C = eater
 	var/covered = ""
 	if(C.is_mouth_covered(head_only = 1))
 		covered = "headgear"
 	else if(C.is_mouth_covered(mask_only = 1))
 		covered = "mask"
-	if(covered)
+	if(covered && user.a_intent != INTENT_HARM)
 		var/who = (isnull(user) || eater == user) ? "your" : "[eater.p_their()]"
-		to_chat(user, "<span class='warning'>You have to remove [who] [covered] first!</span>")
-		return 0
+		balloon_alert(user, "Remove [who] [covered] first")
+		return FALSE
 	if(!eater.has_mouth())
 		if(eater == user)
-			to_chat(eater, "<span class='warning'>You have no mouth, and cannot eat.</span>")
+			balloon_alert(eater, "You have no mouth")
 		else
-			to_chat(user, "<span class='warning'>You can't feed [eater], because they have no mouth!</span>")
-		return 0
-	return 1
+			balloon_alert(user, "[eater] has no mouth")
+		return FALSE
+	return TRUE
 
 /obj/item/reagent_containers/ex_act()
 	if(reagents)
