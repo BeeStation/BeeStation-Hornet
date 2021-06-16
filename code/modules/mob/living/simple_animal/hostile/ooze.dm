@@ -1,5 +1,5 @@
 ///Oozes are slime-esque creatures, they are highly gluttonous creatures primarily intended for player controll.
-/mob/living/simple_animal/hostile/ooze
+/*/mob/living/simple_animal/hostile/ooze
 	name = "Ooze"
 	icon = 'icons/mob/vatgrowing.dmi'
 	icon_state = "gelatinous"
@@ -501,4 +501,4 @@
 		inhabitant.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, 1.5)
 
 	if(inhabitant.reagents.get_reagent_amount(/datum/reagent/consumable/milk) < 20)
-		inhabitant.reagents.add_reagent(/datum/reagent/consumable/milk, 2)
+		inhabitant.reagents.add_reagent(/datum/reagent/consumable/milk, 2)*/

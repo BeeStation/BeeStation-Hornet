@@ -1,5 +1,5 @@
 ///Hud type with targetting dol and a nutrition bar
-/datum/hud/ooze/New(mob/living/owner)
+/*/datum/hud/ooze/New(mob/living/owner)
 	. = ..()
 
 	zone_select = new /obj/screen/zone_sel()
@@ -16,4 +16,4 @@
 	icon = 'icons/mob/screen_alien.dmi'
 	icon_state = "power_display"
 	name = "nutrition"
-	screen_loc = ui_alienplasmadisplay
+	screen_loc = ui_alienplasmadisplay*/
