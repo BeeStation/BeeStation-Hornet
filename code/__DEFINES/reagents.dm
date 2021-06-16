@@ -36,13 +36,15 @@
 #define PILL_STYLE_COUNT 22 //Update this if you add more pill icons or you die
 #define RANDOM_PILL_STYLE 22 //Dont change this one though
 
-///Minimum requirement for addiction buzz to be met
-#define MIN_ADDICTION_REAGENT_AMOUNT 2
+///Minimum requirement for addiction buzz to be met. Addiction code only checks this once every two seconds, so this should generally be low
+#define MIN_ADDICTION_REAGENT_AMOUNT 1
+///Nicotine requires much less in your system to be happy
+#define MIN_NICOTINE_ADDICTION_REAGENT_AMOUNT 0.1
 #define MAX_ADDICTION_POINTS 1000
 
 ///Addiction start/ends
-#define WITHDRAWAL_STAGE1_START_CYCLE 1
-#define WITHDRAWAL_STAGE1_END_CYCLE 60
-#define WITHDRAWAL_STAGE2_START_CYCLE 61
-#define WITHDRAWAL_STAGE2_END_CYCLE 120
-#define WITHDRAWAL_STAGE3_START_CYCLE 121
+#define WITHDRAWAL_STAGE1_START_CYCLE 60
+#define WITHDRAWAL_STAGE1_END_CYCLE 120
+#define WITHDRAWAL_STAGE2_START_CYCLE 121
+#define WITHDRAWAL_STAGE2_END_CYCLE 180
+#define WITHDRAWAL_STAGE3_START_CYCLE 181
