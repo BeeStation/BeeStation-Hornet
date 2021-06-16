@@ -224,14 +224,14 @@
 	sleep(1)
 	flick("[cyborg_base_icon]_transform", R)
 	R.notransform = TRUE
-	R.SetLockdown(1)
+	R.SetLockdown(TRUE)
 	R.anchored = TRUE
 	sleep(1)
 	for(var/i in 1 to 4)
 		playsound(R, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 80, 1, -1)
 		sleep(7)
 	if(!prev_lockcharge)
-		R.SetLockdown(0)
+		R.SetLockdown(FALSE)
 	R.setDir(SOUTH)
 	R.anchored = FALSE
 	R.notransform = FALSE
@@ -420,7 +420,7 @@
 			T.cell.give(S.e_cost * coeff)
 			T.update_icon()
 		else
-			T.charge_tick = 0
+			T.charge_timer = 0
 
 /obj/item/robot_module/peacekeeper
 	name = "Peacekeeper"

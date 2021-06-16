@@ -5,15 +5,10 @@ GLOBAL_VAR(restart_counter)
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
-	if (fexists(EXTOOLS))
-		call(EXTOOLS, "debug_initialize")()
-		call(EXTOOLS, "maptick_initialize")()
-		#ifdef REFERENCE_TRACKING
-		call(EXTOOLS, "ref_tracking_initialize")()
-		#endif
-
 	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
 	world.Profile(PROFILE_START)
+
+	enable_debugger()
 
 	log_world("World loaded at [time_stamp()]!")
 
@@ -21,11 +16,13 @@ GLOBAL_VAR(restart_counter)
 
 	GLOB.config_error_log = GLOB.world_manifest_log = GLOB.world_pda_log = GLOB.world_job_debug_log = GLOB.sql_error_log = GLOB.world_href_log = GLOB.world_runtime_log = GLOB.world_attack_log = GLOB.world_game_log = "data/logs/config_error.[GUID()].log" //temporary file used to record errors with loading config, moved to log directory once logging is set bl
 
+	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
+
 	GLOB.revdata = new
 
 	InitTgs()
 
-	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
+	config.LoadMOTD()
 
 	load_admins()
 	load_mentors()
@@ -78,7 +75,7 @@ GLOBAL_VAR(restart_counter)
 #else
 	cb = VARSET_CALLBACK(SSticker, force_ending, TRUE)
 #endif
-	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, /proc/addtimer, cb, 10 SECONDS))
+	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, /proc/_addtimer, cb, 10 SECONDS))
 
 /world/proc/SetupLogs()
 	var/override_dir = params[OVERRIDE_LOG_DIRECTORY_PARAMETER]
