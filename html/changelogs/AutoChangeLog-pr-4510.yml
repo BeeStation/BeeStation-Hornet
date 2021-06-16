@@ -1,0 +1,8 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - rscadd: construction bags from tg
+  - rscadd: sheet snatcher crafting recipe
+  - rscadd: atmos holofan in chief engineer's locker
+  - balance: sheet snatcher holds 150 instead of 300 sheets
+  - bugfix: borg sheet snatcher now holds true amount of sheets
