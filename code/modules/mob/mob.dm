@@ -81,6 +81,7 @@
 	set_nutrition(rand(NUTRITION_LEVEL_START_MIN, NUTRITION_LEVEL_START_MAX))
 	. = ..()
 	update_config_movespeed()
+	initialize_actionspeed()
 	update_movespeed(TRUE)
 	//Give verbs to stat
 	add_verb(verbs, TRUE)
@@ -501,11 +502,11 @@
 		examine_delay_length *= 1.5
 	else if(ismob(examined_thing) && examined_thing != src)
 		examine_delay_length *= 2
-	
+
 	if(examine_delay_length > 0 && !do_after(src, examine_delay_length, target = examined_thing))
 		to_chat(src, "<span class='notice'>You can't get a good feel for what is there.</span>")
 		return FALSE
-	
+
 	//now we touch the thing we're examining
 	/// our current intent, so we can go back to it after touching
 	var/previous_intent = a_intent

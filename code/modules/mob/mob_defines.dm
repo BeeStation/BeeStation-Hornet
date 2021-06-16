@@ -26,6 +26,12 @@
 	var/list/movespeed_modification				//Lazy list, see mob_movespeed.dm
 	/// The calculated mob speed slowdown based on the modifiers list
 	var/cached_multiplicative_slowdown
+	/// List of action speed modifiers applying to this mob
+	var/list/actionspeed_modification				//Lazy list, see mob_movespeed.dm
+	/// List of action speed modifiers ignored by this mob. List -> List (id) -> List (sources)
+	var/list/actionspeed_mod_immunities			//Lazy list, see mob_movespeed.dm
+	/// The calculated mob action speed slowdown based on the modifiers list
+	var/cached_multiplicative_actions_slowdown
 	/// List of action hud items the user has
 	var/list/datum/action/actions = list()
 	/// A special action? No idea why this lives here
@@ -198,7 +204,7 @@
 	var/list/progressbars = null	//for stacking do_after bars
 
 	///For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time
-	var/list/do_afters	
+	var/list/do_afters
 
 	var/list/mousemove_intercept_objects
 

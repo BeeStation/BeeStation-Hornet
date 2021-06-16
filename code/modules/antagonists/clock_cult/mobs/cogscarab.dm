@@ -25,9 +25,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	chat_color = LIGHT_COLOR_CLOCKWORK
 	mobchatspan = "brassmobsay"
 	initial_language_holder = /datum/language_holder/clockmob
-
-/mob/living/simple_animal/drone/cogscarab/do_after_coefficent() // This gets added to the delay on a do_after, default 1
-	return 0.6
+	actionspeed_modification = 0.6
 
 //No you can't go weilding guns like that.
 /mob/living/simple_animal/drone/cogscarab/Initialize()
