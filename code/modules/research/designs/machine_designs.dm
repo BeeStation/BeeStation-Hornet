@@ -634,3 +634,10 @@
 	build_path = /obj/item/circuitboard/machine/spaceship_navigation_beacon
 	category = list ("Teleportation Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/vendatray
+	name = "Vend-a-Tray"
+	desc = "The circuit board for a Vend-a-Tray."
+	id = "vendatray"
+	build_path = /obj/item/circuitboard/machine/vendatray
+	category = list ("Misc. Machinery")
