@@ -178,7 +178,7 @@ GLOBAL_LIST_EMPTY(objectives)
 				"right pocket" = ITEM_SLOT_RPOCKET,
 				"hands" = ITEM_SLOT_HANDS)
 			for(var/eq_path in special_equipment)
-				var/obj/O = new eq_path(get_turf(owner.current))
+				var/obj/O = new eq_path(get_turf(receiver.current))
 				H.equip_in_one_of_slots(O, slots)
 
 /datum/objective/assassinate

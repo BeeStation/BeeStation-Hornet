@@ -247,24 +247,24 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 /obj/structure/slime_crystal/darkblue
 	colour = "dark blue"
 
-/obj/structure/slime_crystal/darkblue/process()
+/obj/structure/slime_crystal/darkblue/process(delta_time)
 	for(var/turf/open/T in RANGE_TURFS(5, src))
-		if(prob(75))
+		if(DT_PROB(75, delta_time))
 			continue
 		T.MakeDry(TURF_WET_LUBE)
 
 	for(var/obj/item/trash/trashie in range(5, src))
-		if(prob(25))
+		if(DT_PROB(25, delta_time))
 			qdel(trashie)
 
 /obj/structure/slime_crystal/silver
 	colour = "silver"
 
-/obj/structure/slime_crystal/silver/process()
+/obj/structure/slime_crystal/silver/process(delta_time)
 	for(var/obj/machinery/hydroponics/hydr in range(5,src))
 		hydr.weedlevel = 0
 		hydr.pestlevel = 0
-		if(prob(10))
+		if(DT_PROB(10, delta_time))
 			hydr.age++
 
 /obj/structure/slime_crystal/bluespace

@@ -26,6 +26,7 @@
 /obj/machinery/atmospherics/components/trinary/filter/AltClick(mob/user)
 	if(can_interact(user))
 		transfer_rate = MAX_TRANSFER_RATE
+		balloon_alert(user, "Set to [transfer_rate] L/s")
 		update_icon()
 	return
 
@@ -85,7 +86,7 @@
 		//No need to transfer if target is already full!
 		return
 
-	var/transfer_ratio = transfer_rate/air1.return_volume()
+	var/transfer_ratio = transfer_rate / air1.return_volume()
 
 	//Actually transfer the gas
 

@@ -58,7 +58,7 @@
 		return 1
 	if(IsStun() || IsParalyzed())
 		return 1
-	if(stat > SOFT_CRIT)
+	if(stat >= SOFT_CRIT)
 		return 1
 	return 0
 
