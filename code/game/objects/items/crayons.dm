@@ -641,8 +641,11 @@
 		return
 
 	if(is_capped)
-		to_chat(user, "<span class='warning'>Take the cap off first!</span>")
-		return
+		if(istype(target, /obj/machinery/modular_fabricator/autolathe))
+			return ..()
+		else
+			to_chat(user, "<span class='warning'>Take the cap off first!</span>")
+			return
 
 	if(check_empty(user))
 		return
