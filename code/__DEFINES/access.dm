@@ -64,6 +64,7 @@
 #define ACCESS_NETWORK 67 //! NTnet diagnostics/monitoring software
 #define ACCESS_CLONING 68 //! Cloning room and clone pod ejection
 #define ACCESS_SEC_RECORDS 69 //! Update security records
+#define ACCESS_PRISONER 70 //! Genpop. This access is added to prisoner IDs that have served their time.
 
 /// Room and launching.
 #define ACCESS_AUX_BASE 72
