@@ -14553,18 +14553,6 @@
 /obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/security/warden)
-"dNw" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness/recreation)
 "dNA" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
@@ -21007,9 +20995,6 @@
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_y = 24
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -63831,7 +63816,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "rIz" = (
-/obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/hangover,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -66703,9 +66687,6 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "sAA" = (
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -78917,11 +78898,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
@@ -79015,6 +78996,10 @@
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_x = 29;
+	pixel_y = -2
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -83677,6 +83662,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "xqo" = (
@@ -115463,7 +115449,7 @@ prA
 tJA
 vzn
 fof
-dNw
+ttb
 dES
 rdA
 glo
