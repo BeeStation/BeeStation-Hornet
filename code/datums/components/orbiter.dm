@@ -62,6 +62,7 @@
 	orbiters[orbiter] = TRUE
 	orbiter.orbiting = src
 	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, .proc/orbiter_move_react)
+	RegisterSignal(parent, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, .proc/orbiter_glide_size_update)
 
 	var/matrix/initial_transform = matrix(orbiter.transform)
 	orbiters[orbiter] = initial_transform
@@ -80,6 +81,12 @@
 	orbiter.transform = shift
 
 	orbiter.SpinAnimation(rotation_speed, -1, clockwise, rotation_segments, parallel = FALSE)
+	if(ismob(orbiter))
+		var/mob/M = orbiter
+		M.updating_glide_size = FALSE
+	if(ismovableatom(parent))
+		var/atom/movable/AM = parent
+		orbiter.glide_size = AM.glide_size
 
 	orbiter.forceMove(get_turf(parent))
 	to_chat(orbiter, "<span class='notice'>Now orbiting [parent].</span>")
@@ -94,6 +101,10 @@
 	orbiters -= orbiter
 	orbiter.stop_orbit(src)
 	orbiter.orbiting = null
+	if(ismob(orbiter))
+		var/mob/M = orbiter
+		M.updating_glide_size = TRUE
+		M.glide_size = 8
 	if(!refreshing && !length(orbiters) && !QDELING(src))
 		qdel(src)
 
@@ -123,6 +134,11 @@
 	if(orbiter.loc == get_turf(parent))
 		return
 	end_orbit(orbiter)
+
+/datum/component/orbiter/proc/orbiter_glide_size_update(datum/source, target)
+	for(var/orbiter in orbiters)
+		var/atom/movable/AM = orbiter
+		AM.glide_size = target
 
 /////////////////////
 

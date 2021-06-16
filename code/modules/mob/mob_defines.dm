@@ -216,3 +216,6 @@
 
 	/// A mock client, provided by tests and friends
 	var/datum/client_interface/mock_client
+
+	//Whether the mob is updating glide size when movespeed updates or not
+	var/updating_glide_size = TRUE
