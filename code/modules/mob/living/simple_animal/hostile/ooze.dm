@@ -262,9 +262,9 @@
 		stop_consuming()
 
 ///On owner death dump the current vored mob
-/datum/action/consume/proc/on_owner_death()
-	SIGNAL_HANDLER
-	stop_consuming()
+///datum/action/consume/proc/on_owner_death() -- test
+	//SIGNAL_HANDLER
+	//stop_consuming()
 
 
 ///* Gelatinious Grapes code below *\\\\
@@ -279,8 +279,8 @@
 	health = 200
 	maxHealth = 200
 	damage_coeff = list(BRUTE = 1, BURN = 0.8, TOX = 0.5, CLONE = 1.5, STAMINA = 0, OXY = 1)
-	melee_damage_lower = 12
-	melee_damage_upper = 12
+	//melee_damage_lower = 12
+	//melee_damage_upper = 12
 	obj_damage = 15
 	deathmessage = "deflates and spills its vital juices!"
 	///The ability lets you envelop a carbon in a healing cocoon. Useful for saving critical carbons.
