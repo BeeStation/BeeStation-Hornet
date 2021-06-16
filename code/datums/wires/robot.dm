@@ -98,7 +98,7 @@
 				log_combat(usr, R, "reset the cyborg module via wire")
 
 /datum/wires/robot/can_reveal_wires(mob/user)
-	if(user?.mind && HAS_TRAIT(user.mind, TRAIT_KNOW_CYBORG_WIRES))
+	if(user.mind && HAS_TRAIT(user.mind, TRAIT_KNOW_CYBORG_WIRES))
 		return TRUE
 
 	return ..()
