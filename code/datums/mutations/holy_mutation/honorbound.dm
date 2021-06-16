@@ -48,11 +48,10 @@
 	. = ..()
 
 /// Signal to see if the mutation allows us to attack a target
-/datum/mutation/human/honorbound/proc/attack_honor(mob/living/carbon/human/honorbound, atom/clickingon, params)
+/datum/mutation/human/honorbound/proc/attack_honor(mob/living/carbon/human/honorbound, atom/clickingon)
 	SIGNAL_HANDLER
 
 	var/obj/item/weapon = honorbound.get_active_held_item()
-	var/list/modifiers = params2list(params)
 
 	if(!isliving(clickingon))
 		return

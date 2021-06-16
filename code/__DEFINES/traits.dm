@@ -176,7 +176,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Addictions don't tick down, basically they're permanently addicted
 #define TRAIT_HOPELESSLY_ADDICTED "hopelessly_addicted"
 /// Special examine if eyes are visible
-#define CULT_EYES "cult_eyes"
+#define CULT_EYES 				"cult_eyes"
+/// From anti-convulsant medication against seizures.
+#define TRAIT_ANTICONVULSANT 	"anticonvulsant"
 
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it

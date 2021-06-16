@@ -486,7 +486,6 @@
 		var/mob/living/carbon/vomitorium = user
 		vomitorium.vomit()
 		var/datum/dna/dna = vomitorium.has_dna()
-		dna?.add_mutation(/datum/mutation/human/stimmed) //some fluff mutations
 		dna?.add_mutation(/datum/mutation/human/strong)
 		user.mind.add_addiction_points(/datum/addiction/maintenance_drugs, 1000)//ensure addiction
 
@@ -526,11 +525,11 @@
 	invoke_msg = "Moldify!"
 	favor_cost = 5 //5u of organic slurry
 	///the food that will be molded, only one per rite
-	var/obj/item/food/mold_target
+	var/obj/item/reagent_containers/food/mold_target
 
 /datum/religion_rites/adapted_food/perform_rite(mob/living/user, atom/religious_tool)
 	for(var/obj/item/reagent_containers/food/could_mold in get_turf(religious_tool))
-		if(istype(could_mold, obj/item/reagent_containers/food/badrecipe/moldy))
+		if(istype(could_mold, /obj/item/reagent_containers/food/badrecipe/moldy))
 			continue
 		mold_target = could_mold //moldify this o great one
 		return ..()
@@ -539,14 +538,14 @@
 
 /datum/religion_rites/adapted_food/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	..()
-	var/obj/item/food/moldify = mold_target
+	var/obj/item/reagent_containers/food/moldify = mold_target
 	mold_target = null
 	if(QDELETED(moldify) || !(get_turf(religious_tool) == moldify.loc)) //check if the same food is still there
 		to_chat(user, "<span class='warning'>Your target left the altar!</span>")
 		return FALSE
 	to_chat(user, "<span class='warning'>[moldify] becomes rancid!</span>")
 	user.emote("laughs")
-	new /obj/item/food/badrecipe/moldy(get_turf(religious_tool))
+	new /obj/item/reagent_containers/food/badrecipe/moldy(get_turf(religious_tool))
 	qdel(moldify)
 	return TRUE
 
