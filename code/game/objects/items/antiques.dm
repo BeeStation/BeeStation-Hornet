@@ -93,7 +93,7 @@
 				if (GOD_FORCE)
 					boon += "pushing the target away."
 				if (GOD_PARALIZE)
-					boon += "paralizing the target."
+					boon += "paralyzing the target."
 				if (GOD_ELDRITCH)
 					boon += "healing Heretics and damages others."				
 			. += boon
