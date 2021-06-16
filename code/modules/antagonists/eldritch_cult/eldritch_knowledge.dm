@@ -371,32 +371,35 @@
 	var/list/extra_atoms = list()
 
 	//check variables
-	for(var/A in range(1, loc))	//this
-		var/atom/atom_in_range = A
-		if(istype(atom_in_range,/obj/item/bodypart/r_leg))
-			extra_atoms |= A
-			debuffs |= "r_leg"
-		else if(istype(atom_in_range,/obj/item/bodypart/l_leg))
-			extra_atoms |= A
-			debuffs |= "l_leg"
-		else if(istype(atom_in_range,/obj/item/bodypart/r_arm))
-			extra_atoms |= A
-			debuffs |= "r_arm"
-		else if(istype(atom_in_range,/obj/item/bodypart/l_arm))
-			extra_atoms |= A
-			debuffs |= "l_arm"
-		else if(istype(atom_in_range,/obj/item/organ/tongue))
-			extra_atoms |= A
-			debuffs |= "tongue"
-		else if(istype(atom_in_range,/obj/item/organ/eyes))
-			extra_atoms |= A
-			debuffs |= "eyes"
-		else if(istype(atom_in_range,/obj/item/organ/ears))
-			extra_atoms |= A
-			debuffs |= "ears"
-		else if(istype(atom_in_range,/obj/item/organ/liver) || istype(atom_in_range,/obj/item/organ/lungs) || istype(atom_in_range,/obj/item/organ/appendix) || istype(atom_in_range,/obj/item/organ/heart))
-			extra_atoms |= A
-			debuffs |= "organs"
+	for(var/A in range(1, loc))	//this		
+		var/obj/item/bodypart/selected_part = A
+		if (istype(selected_part) && selected_part.status == BODYPART_ORGANIC)
+			switch(selected_part.body_zone)
+				if(BODY_ZONE_R_LEG)
+					extra_atoms |= A
+					debuffs |= "r_leg"
+				if(BODY_ZONE_L_LEG)
+					extra_atoms |= A
+					debuffs |= "l_leg"
+				if(BODY_ZONE_R_ARM)
+					extra_atoms |= A
+					debuffs |= "r_arm"
+				if(BODY_ZONE_L_ARM)
+					extra_atoms |= A
+					debuffs |= "l_arm"
+	
+		var/obj/item/organ/selected_organ = A
+		if (istype(selected_organ) && selected_organ.status == ORGAN_ORGANIC)
+			switch(selected_organ.slot)
+				if(ORGAN_SLOT_TONGUE)
+					extra_atoms |= A
+					debuffs |= "tongue"
+				if(ORGAN_SLOT_EYES)
+					extra_atoms |= A
+					debuffs |= "eyes"
+				if(ORGAN_SLOT_EARS)
+					extra_atoms |= A
+					debuffs |= "ears"
 
 	cleanup_atoms(extra_atoms)
 	. = ..()
@@ -408,8 +411,10 @@
 		return FALSE
 
 	var/mob/living/carbon/human/chosen_mortal = chosen_mob
+	if (!istype(chosen_mob))
+		return
+	
 	chosen_mortal.apply_status_effect(/datum/status_effect/corrosion_curse)	//the purpose of this debuff is to alert the victim they've been cursed
-
 	for(var/X in debuffs)
 		switch (X)
 			if ("r_leg")
