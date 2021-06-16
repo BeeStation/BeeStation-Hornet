@@ -246,6 +246,14 @@
 	build_path = /obj/item/clothing/ears/earmuffs
 	category = list("initial", "Misc")
 
+/datum/design/earplugs
+	name = "Earplugs"
+	id = "earplugs"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 1000)
+	build_path = /obj/item/clothing/ears/earplugs
+	category = list("initial", "Misc")
+
 /datum/design/pipe_painter
 	name = "Pipe Painter"
 	id = "pipe_painter"

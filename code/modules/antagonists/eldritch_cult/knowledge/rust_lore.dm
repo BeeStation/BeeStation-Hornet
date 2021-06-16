@@ -30,7 +30,6 @@
 		var/datum/status_effect/eldritch/E = H.has_status_effect(/datum/status_effect/eldritch/rust) || H.has_status_effect(/datum/status_effect/eldritch/ash) || H.has_status_effect(/datum/status_effect/eldritch/flesh)
 		if(E)
 			E.on_effect()
-			H.adjustOrganLoss(pick(ORGAN_SLOT_BRAIN,ORGAN_SLOT_EARS,ORGAN_SLOT_EYES,ORGAN_SLOT_LIVER,ORGAN_SLOT_LUNGS,ORGAN_SLOT_STOMACH,ORGAN_SLOT_HEART),25)
 
 /datum/eldritch_knowledge/spell/area_conversion
 	name = "Agressive Spread"
@@ -38,7 +37,7 @@
 	gain_text = "All wise men know well not to touch the Bound King."
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
-	next_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade,/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/spell/blood_siphon)
+	next_knowledge = list(/datum/eldritch_knowledge/rust_blade_upgrade, /datum/eldritch_knowledge/spell/blood_siphon)
 	route = PATH_RUST
 
 /datum/eldritch_knowledge/rust_regen

@@ -323,3 +323,11 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
+
+/mob/living/simple_animal/hostile/poison/bees/mosquitos
+	name = "KH'Rmaopazian bloodfeaster"
+	desc = "We will need a bigger flyswatter..."
+	attacktext = "Drinks"
+	faction = list("eldritch", "hostile")
+	melee_damage = 0
+	search_objects = 0

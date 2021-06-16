@@ -391,3 +391,5 @@
 
 //Heretics stuff
 #define COMSIG_HUMAN_VOID_MASK_ACT "void_mask_act"
+#define ASH_WHISPERING_ACT "ash_whispering_act" 
+

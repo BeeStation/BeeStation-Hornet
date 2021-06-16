@@ -212,6 +212,16 @@
 	reqs = list(/obj/item/clothing/glasses/science/sciencesun/degraded = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/earplugs
+	name = "Earplugs"
+	result = /obj/item/clothing/ears/earplugs
+	time = 20
+	tools = list (TOOL_WIRECUTTER)
+	reqs = list(/obj/item/stack/cable_coil = 10,
+				/obj/item/stack/sheet/iron = 2,
+				/obj/item/stack/sheet/cotton/cloth = 6, )
+	category = CAT_MISC
+
 /datum/crafting_recipe/ghostsheet
 	name = "Ghost Sheet"
 	result = /obj/item/clothing/suit/ghost_sheet

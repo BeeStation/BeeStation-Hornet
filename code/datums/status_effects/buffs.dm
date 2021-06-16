@@ -515,3 +515,39 @@
 /datum/status_effect/antimagic/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
 	owner.visible_message("<span class='warning'>[owner]'s dull aura fades away...</span>")
+
+/datum/status_effect/rewindtime
+	id = "Ashen Rewind's Rebirth"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 30 SECONDS
+	examine_text = "<span class='notice'>They seem to be aging rapidly, turning to ash...</span>"
+	var/turf/location
+
+/datum/status_effect/rewindtime/on_apply()
+	. = ..()
+	to_chat(owner,"<span class='notice'>You phase through reality, nothing is out of bounds!</span>")
+	owner.alpha = 180
+	location = get_turf(owner)
+
+/datum/status_effect/rewindtime/on_remove()
+	to_chat(owner,"<span class='notice'>You regain your physicality, returning you to your original location...</span>")
+	owner.alpha = initial(owner.alpha)
+	owner.forceMove(location)
+	location = null
+	return ..() 
+
+/datum/status_effect/executionerfury
+	id = "Executioner's Fury"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 5 SECONDS
+	examine_text = "<span class='notice'>Their arms burn</span>"
+
+/datum/status_effect/executionerfury/on_apply()
+	. = ..()
+	to_chat(owner,"<span class='notice'>Your arms are guided by God !</span>")
+	owner.next_move_modifier -= 0.50
+
+/datum/status_effect/executionerfury/on_remove()
+	to_chat(owner,"<span class='notice'>You regain your physicality, returning you to your original location...</span>")
+	owner.next_move_modifier = initial(owner.next_move_modifier)
+	return ..() 

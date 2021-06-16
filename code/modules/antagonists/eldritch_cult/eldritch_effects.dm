@@ -75,7 +75,7 @@
 			continue
 
 		flick("[icon_state]_active",src)
-		playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE)
+		playsound(user, 'sound/magic/castsummon.ogg', 25, TRUE)
 		//we are doing this since some on_finished_recipe subtract the atoms from selected_atoms making them invisible permanently.
 		var/list/atoms_to_disappear = selected_atoms.Copy()
 		for(var/to_disappear in atoms_to_disappear)
@@ -241,7 +241,7 @@
 
 ///Generates random name
 /obj/effect/reality_smash/proc/generate_name()
-	var/static/list/prefix = list("Omniscient","Thundering","Enlightening","Intrusive","Rejectful","Atomized","Subtle","Rising","Lowering","Fleeting","Towering","Blissful","Arrogant","Threatening","Peaceful","Aggressive")
-	var/static/list/postfix = list("Flaw","Presence","Crack","Heat","Cold","Memory","Reminder","Breeze","Grasp","Sight","Whisper","Flow","Touch","Veil","Thought","Imperfection","Blemish","Blush")
+	var/static/list/prefix = list("Omniscient","Thundering","Enlightening","Intrusive","Rejectful","Atomized","Subtle","Rising","Lowering","Fleeting","Towering","Blissful","Arrogant","Threatening","Peaceful","Aggressive", "Divine", "Intrusive", "Uncontainable", "Sanctified", "Ancient", "Biblical", "Angelic", "Devilish", "Mind-breaking")
+	var/static/list/postfix = list("Flaw","Presence","Crack","Heat","Cold","Memory","Reminder","Breeze","Grasp","Sight","Whisper","Flow","Touch","Veil","Thought","Imperfection","Blemish","Blush", "Call", "Concept", "Idea", "Creation", "Voice", "Mirror")
 
 	name = "\improper" + pick(prefix) + " " + pick(postfix)

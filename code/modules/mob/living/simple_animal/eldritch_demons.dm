@@ -116,7 +116,7 @@
 	melee_damage = 15
 	move_resist = MOVE_FORCE_OVERPOWERING+1
 	movement_type = GROUND
-	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/worm_contract)
+	spells_to_add = list()
 	ranged_cooldown_time = 2
 	ranged = TRUE
 	rapid = 1
@@ -362,9 +362,10 @@
 	icon_state = "stalker"
 	status_flags = CANPUSH
 	icon_living = "stalker"
-	maxHealth = 150
-	health = 150
+	maxHealth = 75
+	health = 75
 	melee_damage = 20
 	sight = SEE_MOBS
-	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash,/obj/effect/proc_holder/spell/targeted/shapeshift/eldritch,/obj/effect/proc_holder/spell/targeted/emplosion/eldritch)
+	ventcrawler = VENTCRAWLER_ALWAYS
+	spells_to_add = list(/obj/effect/proc_holder/spell/targeted/shapeshift/eldritch)
 

@@ -51,3 +51,22 @@
 		H.update_inv_neck()
 		H.update_inv_head()
 	to_chat(owner, "<span class='notice'>You turn the music [headphones_on? "on. Untz Untz Untz!" : "off."]</span>")
+
+/obj/item/clothing/ears/earplugs
+	name = "earplugs"
+	desc = "Protects your hearing people's bullshit. At all."
+	icon_state = "earmuffs"
+	item_state = "earmuffs"
+	strip_delay = 15
+	equip_delay_other = 25
+	resistance_flags = FIRE_PROOF
+	bang_protect = 2
+
+/obj/item/clothing/ears/earplugs/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_EARS)
+		ADD_TRAIT(user, TRAIT_DEAF, CLOTHING_TRAIT)
+
+/obj/item/clothing/ears/earplugs/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_DEAF, CLOTHING_TRAIT) 

@@ -774,33 +774,33 @@
 	msg_stage++
 
 /datum/status_effect/eldritch
-	duration = 15 SECONDS
+	duration = 10 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	on_remove_on_mob_delete = TRUE
 	///underlay used to indicate that someone is marked
-	var/mutable_appearance/marked_underlay
+	var/mutable_appearance/marked_overlay
 	///path for the underlay
 	var/effect_sprite = ""
 
 /datum/status_effect/eldritch/on_creation(mob/living/new_owner, ...)
-	marked_underlay = mutable_appearance('icons/effects/effects.dmi', effect_sprite,BELOW_MOB_LAYER)
+	marked_overlay = mutable_appearance('icons/effects/effects.dmi', effect_sprite)
 	return ..()
 
 /datum/status_effect/eldritch/on_apply()
 	if(owner.mob_size >= MOB_SIZE_HUMAN)
-		owner.add_overlay(marked_underlay)
+		owner.add_overlay(marked_overlay)
 		owner.update_icon()
 		return TRUE
 	return FALSE
 
 /datum/status_effect/eldritch/on_remove()
-	owner.cut_overlay(marked_underlay)
+	owner.cut_overlay(marked_overlay)
 	owner.update_icon()
 	return ..()
 
 /datum/status_effect/eldritch/Destroy()
-	QDEL_NULL(marked_underlay)
+	QDEL_NULL(marked_overlay)
 	return ..()
 
 /**
@@ -809,7 +809,7 @@
   * Adds actual functionality to each mark
   */
 /datum/status_effect/eldritch/proc/on_effect()
-	playsound(owner, 'sound/magic/repulse.ogg', 75, TRUE)
+	playsound(owner, 'sound/magic/forcewall.ogg', 75, TRUE)
 	qdel(src) //what happens when this is procced.
 
 //Each mark has diffrent effects when it is destroyed that combine with the mansus grasp effect.
@@ -827,24 +827,18 @@
 /datum/status_effect/eldritch/ash
 	id = "ash_mark"
 	effect_sprite = "emark2"
-	///Dictates how much damage and stamina loss this mark will cause.
-	var/repetitions = 1
-
-/datum/status_effect/eldritch/ash/on_creation(mob/living/new_owner, _repetition = 5)
-	. = ..()
-	repetitions = min(1,_repetition)
 
 /datum/status_effect/eldritch/ash/on_effect()
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.adjustStaminaLoss(10 * repetitions)
-		carbon_owner.adjustFireLoss(5 * repetitions)
-		for(var/mob/living/carbon/victim in ohearers(1,carbon_owner))
+		carbon_owner.adjust_fire_stacks(6)
+		carbon_owner.IgniteMob()
+		for(var/mob/living/carbon/victim in ohearers(1))
+			victim.adjust_fire_stacks(3)
+			victim.IgniteMob()
 			if(IS_HERETIC(victim))
-				continue
-			victim.apply_status_effect(type,repetitions-1)
-			break
-	return ..()
+				victim.ExtinguishMob()
+				return ..()
 
 /datum/status_effect/eldritch/rust
 	id = "rust_mark"
@@ -854,11 +848,7 @@
 	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/carbon_owner = owner
-	for(var/obj/item/I in carbon_owner.get_all_gear())
-		//Affects roughly 75% of items
-		if(!QDELETED(I) && prob(75)) //Just in case
-			I.take_damage(100)
-	return ..()
+	owner.emp_act(EMP_HEAVY)
 
 /datum/status_effect/corrosion_curse
 	id = "corrosion_curse"
@@ -897,3 +887,13 @@
 			H.adjustOrganLoss(ORGAN_SLOT_TONGUE,10)
 		if(100)
 			H.adjustOrganLoss(ORGAN_SLOT_BRAIN,20)
+
+/datum/status_effect/ashen_flames
+	id = "ashen_flame"
+
+/datum/status_effect/ashen_flames/on_apply()
+	if(iscarbon(owner))
+		var/mob/living/carbon/carbon_owner = owner
+		carbon_owner.adjust_fire_stacks(3)
+		carbon_owner.IgniteMob()
+		carbon_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5) 

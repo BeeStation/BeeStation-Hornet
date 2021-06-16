@@ -4,12 +4,12 @@
 	school = "transmutation"
 	invocation = "ASH'N P'SSG'"
 	invocation_type = INVOCATION_WHISPER
-	charge_max = 150
+	charge_max = 250
 	range = -1
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "ash_shift"
 	action_background_icon_state = "bg_ecult"
-	jaunt_in_time = 13
+	jaunt_in_time = 5
 	jaunt_duration = 10
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/ash_shift
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
@@ -28,6 +28,26 @@
 
 /obj/effect/temp_visual/dir_setting/ash_shift/out
 	icon_state = "ash_shift"
+
+/obj/effect/proc_holder/spell/targeted/ashen_rewind
+	name = "Ashen Rewind"
+	desc = "Rewinds you back to the cast location after 30 seconds."
+	clothes_req = FALSE
+	invocation = "ASH'S TO ASH'S, D'ST T' D'T!"
+	invocation_type = INVOCATION_WHISPER
+	charge_max = 300
+	range = -1
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "ash_shift"
+	action_background_icon_state = "bg_ecult"
+
+/obj/effect/proc_holder/spell/targeted/ashen_rewind/cast(list/targets, mob/user = usr)
+	. = ..()
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/carbie = user
+	carbie.apply_status_effect(/datum/status_effect/rewindtime)
+
 
 /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	name = "Mansus Grasp"
@@ -128,6 +148,10 @@
 	name = "Rust Conversion"
 	desc = "Spreads rust onto nearby turfs."
 	range = 2
+
+/obj/effect/proc_holder/spell/targeted/rust_bash
+	name = "Full Force Forward"
+	desc = "Shoulderbash ahead 3 tiles, knocking and stunning those hit down for 3 seconds and breaking all rusted terrain you try to bash through"
 
 /obj/effect/proc_holder/spell/targeted/touch/blood_siphon
 	name = "Blood Siphon"
@@ -401,17 +425,32 @@
 	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
-
-/obj/effect/proc_holder/spell/targeted/fire_sworn
-	name = "Oath of Fire"
-	desc = "For a minute you will passively create a ring of fire around you."
-	invocation = "FL'MS"
+	
+/obj/effect/proc_holder/spell/targeted/slither
+	name = "WIP slither"
+	desc = "wip"
+	invocation = "death"
 	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
 	include_user = TRUE
-	charge_max = 700
+	charge_max = 300
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "smoke"
+
+//ascend abilities//
+
+/obj/effect/proc_holder/spell/targeted/trial_by_fire
+	name = "Speak in tongues"
+	desc = "For a minute you will passively ignite those around you, causing mind damage."
+	invocation = "IT IS A PUNISHMENT, A PUNISHMENT UPON US!"
+	invocation_type = INVOCATION_SHOUT
+	clothes_req = FALSE
+	action_background_icon_state = "bg_ecult"
+	range = -1
+	include_user = TRUE
+	charge_max = 5
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "fire_ring"
 	///how long it lasts
@@ -420,45 +459,70 @@
 	var/mob/current_user
 	///Determines if you get the fire ring effect
 	var/has_fire_ring = FALSE
-
-/obj/effect/proc_holder/spell/targeted/fire_sworn/cast(list/targets, mob/user)
-	. = ..()
-	current_user = user
-	has_fire_ring = TRUE
-	addtimer(CALLBACK(src, .proc/remove, user), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
-
-/obj/effect/proc_holder/spell/targeted/fire_sworn/proc/remove()
-	has_fire_ring = FALSE
-
-/obj/effect/proc_holder/spell/targeted/fire_sworn/process(delta_time)
-	. = ..()
-	if(!has_fire_ring)
-		return
-	for(var/turf/open/T in RANGE_TURFS(1,current_user))
-		new /obj/effect/hotspot(T)
-		T.hotspot_expose(700,250 * delta_time,1)
-		for(var/mob/living/livies in T.contents - current_user)
-			livies.adjustFireLoss(25 * delta_time)
-
-
-/obj/effect/proc_holder/spell/targeted/worm_contract
-	name = "Force Contract"
-	desc = "Forces all the worm parts to collapse onto a single turf"
-	invocation_type = "none"
-	clothes_req = FALSE
-	action_background_icon_state = "bg_ecult"
-	range = -1
-	include_user = TRUE
-	charge_max = 300
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "worm_contract"
+	action_icon_state = "fire_ring"
+	active = FALSE
+	include_user = TRUE
+	var/mob/user
 
-/obj/effect/proc_holder/spell/targeted/worm_contract/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/targeted/trial_by_fire/cast(list/targets, mob/user)
+	user.say("thou have failed your father and shall rise again, a phoenix from the ashes, listen to the words of his as they burn into your skull. Feel the flame consume you as it leaves the purity, fear him as the day has come and you shall be judged. Fear not your Saviour as there is life after in a perfect place where the pure shall reside.")
 	. = ..()
-	if(!istype(user,/mob/living/simple_animal/hostile/eldritch/armsy))
-		to_chat(user, "<span class='userdanger'>You try to contract your muscles but nothing happens...</span>")
-	var/mob/living/simple_animal/hostile/eldritch/armsy/armsy = user
-	armsy.contract_next_chain_into_single_tile()
+	active = !active
+	while(active)
+		sleep(20)
+		for(var/mob/living/carbon/human/human_in_range in ohearers(12,user))
+			if(IS_HERETIC(human_in_range) || IS_HERETIC_MONSTER(human_in_range))
+				continue
+
+			SEND_SIGNAL(human_in_range, ASH_WHISPERING_ACT)
+			if(human_in_range.stat != DEAD && !HAS_TRAIT(human_in_range, TRAIT_DEAF))
+				if(prob(100))
+					human_in_range.hallucination += 5
+					human_in_range.apply_status_effect(/datum/status_effect/ashen_flames)
+
+				if(prob(100))
+					human_in_range.emote(pick("laugh","cry"))
+
+				if(prob(30))
+					human_in_range.say(pick("FORGIVE ME FATHER FOR I HAVE SINNED!!!", "PLEASE, I BEG YOU!!!", "ALL HAIL THE ASHLORD, FOR HE WILL CLEANSE US!!!", "THE CLEANSER HAS ARRIVED, THE END IS NIGH!", "AS A PHOENIX FROM THE ASHES WE SHALL RISE AGAIN!!!"))
+
+				if(prob(35))
+					human_in_range.emote(pick("giggle","laugh"))
+
+				if(prob(30))
+					human_in_range.Dizzy(5)
+
+				if(prob(1) && human_in_range.stat != DEAD)        //corpse exploder because it's cool
+					if(human_in_range.anti_magic_check())
+						return BULLET_ACT_BLOCK
+					explosion(human_in_range.loc, 0, 0, 1, 3, FALSE, FALSE, 1)
+		
+		for(var/mob/living/carbon/human/human_in_range in ohearers(40,user))
+			if(human_in_range.stat != DEAD)
+				to_chat(human_in_range, "<span class='boldannounce'>You are in danger.</span>")
+				if(!HAS_TRAIT(human_in_range, TRAIT_DEAF))
+					to_chat(human_in_range, "<span class='boldannounce'>You hear a sound, it hurts! Grab protection, NOW!!!</span>")
+
+		for(var/mob/living/carbon/human/human_in_range in ohearers(20,user))
+			if(human_in_range.stat != DEAD)
+				to_chat(human_in_range, "<span class='boldannounce'>Hide.</span>")
+
+		for(var/mob/living/carbon/human/human_in_range in ohearers(10,user))
+			if(human_in_range.stat != DEAD)
+				to_chat(human_in_range, "<span class='boldannounce'>You can taste ash form on your lips. They are here.</span>")
+			
+
+/obj/effect/proc_holder/spell/targeted/conjure_item/ash_javelin
+	name = "Summon The Spear Of Destiny"
+	desc = "This spell brings forth the Spear of Destiny, conquer them..."
+	school = "transmutation"
+	charge_max = 100
+	clothes_req = FALSE
+	invocation = "Pierce."
+	invocation_type = "shout"
+	range = -1
+	item_type = /obj/item/melee/spear_of_destiny
 
 /obj/effect/temp_visual/cleave
 	icon = 'icons/effects/eldritch.dmi'
@@ -470,16 +534,36 @@
 	icon_state = "smoke"
 	duration = 10
 
-/obj/effect/proc_holder/spell/targeted/fiery_rebirth
-	name = "Nightwatcher's Rebirth"
-	desc = "Drains nearby alive people that are engulfed in flames. It heals 10 of each damage type per person. If a person is in critical condition it finishes them off."
-	invocation = "GL'RY T' TH' N'GHT'W'TCH'ER"
+/obj/effect/proc_holder/spell/targeted/executioners_fury
+	name = "Executioner's fury"
+	desc = "Boosts your action performance speed significantly for 5 seconds."
+	invocation = "OVERDRIVE"
 	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
 	include_user = TRUE
-	charge_max = 600
+	charge_max = 300
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "smoke"
+
+/obj/effect/proc_holder/spell/targeted/executioners_fury/cast(list/targets, mob/user)
+	. = ..()
+	if(isliving(user))
+		var/mob/living/living_target = user
+		living_target.apply_status_effect(/datum/status_effect/executionerfury)
+
+
+/obj/effect/proc_holder/spell/targeted/fiery_rebirth
+	name = "Cleanser's Blessing"
+	desc = "Drains nearby alive people that are engulfed in flames. It heals 20 of each damage type per person and 40 for stamina. If a person is in critical condition it finishes them off."
+	invocation = "B'COME THE SALVE FOR MY WOUNDS"
+	invocation_type = INVOCATION_WHISPER
+	clothes_req = FALSE
+	action_background_icon_state = "bg_ecult"
+	range = -1
+	include_user = TRUE
+	charge_max = 400
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "smoke"
 
@@ -493,14 +577,42 @@
 		//This is essentially a death mark, use this to finish your opponent quicker.
 		if(target.InCritical())
 			target.death()
-		target.adjustFireLoss(20)
 		new /obj/effect/temp_visual/eldritch_smoke(target.drop_location())
 		human_user.ExtinguishMob()
-		human_user.adjustBruteLoss(-10, FALSE)
-		human_user.adjustFireLoss(-10, FALSE)
-		human_user.adjustStaminaLoss(-10, FALSE)
-		human_user.adjustToxLoss(-10, FALSE, TRUE)
-		human_user.adjustOxyLoss(-10)
+		human_user.adjustBruteLoss(-20, FALSE)
+		human_user.adjustFireLoss(-20, FALSE)
+		human_user.adjustStaminaLoss(-40, FALSE)
+		human_user.adjustToxLoss(-20, FALSE, TRUE)
+		human_user.adjustOxyLoss(-20)
+
+/obj/effect/proc_holder/spell/targeted/flame_birth_variant
+	name = "Cleanser's Curse"
+	desc = "Damages nearby alive people that are engulfed in flames. Paralyzes them. If a person is in critical condition it finishes them off."
+	invocation = "B'COMETH DUST"
+	invocation_type = INVOCATION_WHISPER
+	clothes_req = FALSE
+	action_background_icon_state = "bg_ecult"
+	range = -1
+	include_user = TRUE
+	charge_max = 400
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "smoke"
+
+/obj/effect/proc_holder/spell/targeted/flame_birth_variant/cast(list/targets, mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	for(var/mob/living/carbon/target in ohearers(7,user))
+		if(target.stat == DEAD || !target.on_fire)
+			continue
+		//This is essentially a death mark, use this to finish your opponent quicker.
+		if(target.InCritical())
+			target.death()
+		target.adjustFireLoss(25)
+		target.Paralyze(4 SECONDS)
+		new /obj/effect/temp_visual/eldritch_smoke(target.drop_location())
+		human_user.ExtinguishMob()
+
 
 /obj/effect/proc_holder/spell/targeted/shed_human_form
 	name = "Shed form"
