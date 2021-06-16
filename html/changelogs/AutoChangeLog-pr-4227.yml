@@ -1,8 +1,0 @@
-author: eeSPee
-delete-after: true
-changes:
-  - rscadd: Alteration curse replace paralysis curse, available for Ash and Flesh.
-  - rscadd: Amulet of Digital Invisibility replaces corrosion curse, available to
-      Ash and Rust, craftable from a shard and circuitboard.
-  - rscdel: Paralysis curse and Corrosion curse are now removed.
-  - tweak: Digital camoflage is now a trait.
