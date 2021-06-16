@@ -34,3 +34,23 @@
 #define TGUI_CREATE_MESSAGE(type, payload) ( \
 	"%7b%22type%22%3a%22[type]%22%2c%22payload%22%3a[url_encode(json_encode(payload))]%7d" \
 )
+
+/// Telemetry
+
+/**
+ * Maximum number of connection records allowed to analyze.
+ * Should match the value set in the browser.
+ */
+#define TGUI_TELEMETRY_MAX_CONNECTIONS 10
+
+/**
+ * Maximum time allocated for sending a telemetry packet.
+ */
+#define TGUI_TELEMETRY_RESPONSE_WINDOW 30 SECONDS
+
+/// Telemetry statuses
+#define TGUI_TELEMETRY_STAT_NOT_REQUESTED 0 //Not Yet Requested
+#define TGUI_TELEMETRY_STAT_AWAITING      1 //Awaiting request response
+#define TGUI_TELEMETRY_STAT_ANALYZED      2 //Retrieved and validated
+#define TGUI_TELEMETRY_STAT_MISSING       3 //Telemetry response window miss without valid telemetry
+#define TGUI_TELEMETRY_STAT_OVERSEND      4 //Telemetry was already processed but was repeated
