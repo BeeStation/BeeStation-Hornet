@@ -28,6 +28,16 @@
 	item_state = "blackslacks"
 	item_color = "blackslacks"
 
+/obj/item/clothing/under/suit/black/skirt
+	name = "black suitskirt"
+	desc = "A professional black suit. Nanotrasen Investigation Bureau approved!"
+	icon_state = "blacksuit_skirt"
+	item_state = "bar_suit"
+	item_color = "blacksuit_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
+
 /obj/item/clothing/under/suit/black_really
 	name = "executive suit"
 	desc = "A formal black suit and red tie, intended for the station's finest."
