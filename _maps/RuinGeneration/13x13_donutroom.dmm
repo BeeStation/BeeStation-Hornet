@@ -1,0 +1,253 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"k" = (
+/obj/structure/chair/comfy,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"o" = (
+/obj/effect/spawner/structure/window,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"s" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/obj/structure/chair/comfy{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"v" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"C" = (
+/turf/template_noop,
+/area/template_noop)
+"G" = (
+/obj/machinery/vending/snack/random,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"J" = (
+/obj/structure/table/wood,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"O" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/template_noop)
+"Q" = (
+/obj/machinery/vending/cola/random,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"R" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Y" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+Y
+Y
+Y
+Y
+Y
+s
+R
+s
+Y
+Y
+Y
+Y
+Y
+"}
+(2,1,1) = {"
+Y
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+Y
+"}
+(3,1,1) = {"
+Y
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+Y
+"}
+(4,1,1) = {"
+Y
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+Y
+"}
+(5,1,1) = {"
+Y
+s
+s
+a
+Y
+o
+o
+o
+Y
+Q
+s
+s
+Y
+"}
+(6,1,1) = {"
+Y
+s
+s
+u
+o
+C
+O
+C
+o
+k
+s
+s
+Y
+"}
+(7,1,1) = {"
+Y
+s
+s
+J
+o
+O
+O
+O
+o
+J
+s
+s
+Y
+"}
+(8,1,1) = {"
+Y
+s
+s
+u
+o
+C
+O
+C
+o
+k
+s
+s
+Y
+"}
+(9,1,1) = {"
+Y
+s
+s
+G
+Y
+o
+o
+o
+Y
+a
+s
+s
+Y
+"}
+(10,1,1) = {"
+Y
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+Y
+"}
+(11,1,1) = {"
+Y
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+Y
+"}
+(12,1,1) = {"
+Y
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+Y
+"}
+(13,1,1) = {"
+Y
+Y
+Y
+Y
+Y
+s
+v
+s
+Y
+Y
+Y
+Y
+Y
+"}
