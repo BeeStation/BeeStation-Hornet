@@ -1,0 +1,4 @@
+author: Mat05usz
+delete-after: true
+changes:
+  - bugfix: 'Pubby: SM no longer delams roundstart'
