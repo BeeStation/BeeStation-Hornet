@@ -7,7 +7,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	permeability_mod = 0.5
 	desc = "If left untreated, the subject will contract the flu."
-	severity = DISEASE_SEVERITY_NONTHREAT
+	danger = DISEASE_NONTHREAT
 
 /datum/disease/cold/stage_act()
 	..()
