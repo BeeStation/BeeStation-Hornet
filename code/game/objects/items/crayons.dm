@@ -627,11 +627,11 @@
 	if(!proximity)
 		return
 
-	if(is_capped && istype(target, /obj/machinery/modular_fabricator/autolathe))
-		. = ..()
-
 	if(is_capped)
-		to_chat(user, "<span class='warning'>Take the cap off first!</span>")
+		if(istype(target, /obj/machinery/modular_fabricator/autolathe))
+			. = ..()
+		else
+			to_chat(user, "<span class='warning'>Take the cap off first!</span>")
 		return
 
 	if(check_empty(user))
