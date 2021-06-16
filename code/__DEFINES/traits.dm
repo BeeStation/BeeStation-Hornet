@@ -300,3 +300,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define STATION_TRAIT_PDA_GLITCHED "station_trait_pda_glitched"
 #define STATION_TRAIT_DISTANT_SUPPLY_LINES "distant_supply_lines"
 #define STATION_TRAIT_STRONG_SUPPLY_LINES "strong_supply_lines"
+
+//SKILLS
+#define TRAIT_KNOW_CYBORG_WIRES "know_cyborg_wires"

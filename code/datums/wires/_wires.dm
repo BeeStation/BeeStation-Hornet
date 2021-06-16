@@ -225,7 +225,7 @@
   */
 /datum/wires/proc/can_reveal_wires(mob/user)
 	// Admin ghost can see a purpose of each wire.
-	if(isAdminGhostAI(user))
+	if(IsAdminGhost(user))
 		return TRUE
 
 	// Same for anyone with an abductor multitool.
