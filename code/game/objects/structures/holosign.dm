@@ -142,8 +142,14 @@
 
 /obj/structure/holosign/barrier/medical/proc/CheckHuman(mob/living/carbon/human/sickboi)
 	var/threat = sickboi.check_virus()
-	if(get_disease_severity_value(threat) > get_disease_severity_value(DISEASE_SEVERITY_MINOR))
+	if(get_disease_danger_value(threat) > get_disease_danger_value(DISEASE_MINOR))
+		if(buzzcd < world.time)
+			playsound(get_turf(src),'sound/machines/buzz-sigh.ogg',65,1,4)
+			buzzcd = (world.time + 60)
+		icon_state = "holo_medical-deny"
 		return FALSE
+	else
+		return TRUE //nice or benign diseases!
 	return TRUE
 
 /obj/structure/holosign/barrier/medical/attack_hand(mob/living/user)

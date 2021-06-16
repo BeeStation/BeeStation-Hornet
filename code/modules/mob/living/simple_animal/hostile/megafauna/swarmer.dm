@@ -129,7 +129,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 
 /mob/living/simple_animal/hostile/swarmer/ai/Move(atom/newloc)
 	if(newloc)
-		if(newloc.z == z) //so these actions are Z-specific
+		if(newloc.get_virtual_z_level() == get_virtual_z_level()) //so these actions are Z-specific
 			if(islava(newloc))
 				var/turf/open/lava/L = newloc
 				if(!L.is_safe())

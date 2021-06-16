@@ -219,7 +219,7 @@ SUBSYSTEM_DEF(explosions)
 
 	var/x0 = epicenter.x
 	var/y0 = epicenter.y
-	var/z0 = epicenter.z
+	var/z0 = epicenter.get_virtual_z_level()
 	var/area/areatype = get_area(epicenter)
 	SSblackbox.record_feedback("associative", "explosion", 1, list("dev" = devastation_range, "heavy" = heavy_impact_range, "light" = light_impact_range, "flash" = flash_range, "flame" = flame_range, "orig_dev" = orig_dev_range, "orig_heavy" = orig_heavy_range, "orig_light" = orig_light_range, "x" = x0, "y" = y0, "z" = z0, "area" = areatype.type, "time" = time_stamp("YYYY-MM-DD hh:mm:ss", 1)))
 
@@ -250,7 +250,7 @@ SUBSYSTEM_DEF(explosions)
 			var/mob/M = MN
 			// Double check for client
 			var/turf/M_turf = get_turf(M)
-			if(M_turf && M_turf.z == z0)
+			if(M_turf && M_turf.get_virtual_z_level() == z0)
 				var/dist = get_dist(M_turf, epicenter)
 				var/baseshakeamount
 				if(orig_max_distance - dist > 0)
@@ -322,7 +322,9 @@ SUBSYSTEM_DEF(explosions)
 
 		var/flame_dist = dist < flame_range
 
-		if(dist < devastation_range)
+		if(T.get_virtual_z_level() != z0)
+			dist = EXPLODE_NONE
+		else if(dist < devastation_range)
 			dist = EXPLODE_DEVASTATE
 		else if(dist < heavy_impact_range)
 			dist = EXPLODE_HEAVY

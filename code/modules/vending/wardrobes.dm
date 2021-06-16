@@ -212,6 +212,7 @@
 					/obj/item/clothing/suit/apron = 2,
 					/obj/item/clothing/suit/apron/overalls = 3,
 					/obj/item/clothing/under/rank/civilian/hydroponics = 3,
+					/obj/item/clothing/under/rank/civilian/hydroponics/skirt = 3,
 					/obj/item/clothing/under/plasmaman/botany = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/botany = 3,
 					/obj/item/clothing/mask/bandana = 3,
@@ -229,7 +230,8 @@
 	product_ads = "Glasses for your eyes and literature for your soul, Curadrobe has it all!; Impress & enthrall your library guests with Curadrobe's extended line of pens!"
 	vend_reply = "Thank you for using the CuraDrobe!"
 	light_color = LIGHT_COLOR_WHITE
-	products = list(/obj/item/pen = 4,
+	products = list(/obj/item/clothing/under/rank/civilian/curator/skirt = 2,
+					/obj/item/pen = 4,
 					/obj/item/pen/red = 2,
 					/obj/item/pen/blue = 2,
 					/obj/item/pen/fourcolor = 1,
@@ -258,6 +260,7 @@
 					/obj/item/clothing/under/suit/sl = 2,
 					/obj/item/clothing/under/rank/civilian/bartender = 2,
 					/obj/item/clothing/under/rank/civilian/bartender/purple = 2,
+					/obj/item/clothing/under/rank/civilian/bartender/skirt = 2,
 					/obj/item/clothing/under/plasmaman/enviroslacks = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/white = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
@@ -296,6 +299,7 @@
 					/obj/item/clothing/under/plasmaman/chef = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/white = 1,
 					/obj/item/clothing/under/rank/civilian/chef = 1,
+					/obj/item/clothing/under/rank/civilian/chef/skirt = 2,
 					/obj/item/clothing/under/rank/civilian/altchef = 1,
 					/obj/item/clothing/head/chefhat = 3,
 					/obj/item/reagent_containers/glass/rag = 1,
@@ -312,6 +316,7 @@
 	product_ads = "Come and get your janitorial clothing, now endorsed by lizard janitors everywhere!"
 	vend_reply = "Thank you for using the JaniDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/janitor = 2,
+					/obj/item/clothing/under/rank/civilian/janitor/skirt = 2,
 					/obj/item/clothing/under/plasmaman/janitor = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/janitor = 2,
 					/obj/item/cartridge/janitor = 2,
@@ -341,15 +346,21 @@
 	product_ads = "OBJECTION! Get the rule of law for yourself!"
 	vend_reply = "Thank you for using the LawDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/lawyer/bluesuit = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit/skirt = 1,
 					/obj/item/clothing/suit/toggle/lawyer = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/purpsuit = 1,
 					/obj/item/clothing/suit/toggle/lawyer/purple = 1,
+					/obj/item/clothing/under/lawyer/civilian/lawyer/purpsuit/skirt = 1,
 					/obj/item/clothing/under/suit/black = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/black/skirt = 1,
 					/obj/item/clothing/suit/toggle/lawyer/black = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/female = 1,
+					/obj/item/clothing/under/lawyer/civilian/lawyer/female/skirt = 1,
 					/obj/item/clothing/under/suit/black_really = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/blue = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/blue/skirt = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/red = 1,
+					/obj/item/clothing/under/rank/civilian/lawyer/red/skirt = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/black = 1,
 					/obj/item/clothing/suit/aristo_orange = 1,
 				   	/obj/item/clothing/suit/aristo_red = 1,
@@ -375,6 +386,7 @@
 					/obj/item/storage/backpack/cultpack = 1,
 					/obj/item/clothing/accessory/pocketprotector/cosmetology = 1,
 					/obj/item/clothing/under/rank/civilian/chaplain = 1,
+					/obj/item/clothing/under/rank/civilian/chaplain/skirt = 1,
 					/obj/item/clothing/under/plasmaman/chaplain = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/chaplain = 1,
 					/obj/item/clothing/shoes/sneakers/black = 1,

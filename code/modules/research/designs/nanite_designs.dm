@@ -251,6 +251,13 @@
 	program_type = /datum/nanite_program/mindshield
 	category = list("Augmentation Nanites")
 
+/datum/design/nanites/adrenaline
+	name = "Adrenaline Burst"
+	desc = "The nanites cause a burst of adrenaline when triggered, waking the host from stuns and temporarily increasing their speed."
+	id = "adrenaline_nanites"
+	program_type = /datum/nanite_program/adrenaline
+	category = list("Augmentation Nanites")
+
 ////////////////////DEFECTIVE NANITES//////////////////////////////////////
 
 /datum/design/nanites/glitch
@@ -380,13 +387,6 @@
 	desc = "The nanites imprint an absolute directive onto the host's brain while they're active."
 	id = "mindcontrol_nanites"
 	program_type = /datum/nanite_program/comm/mind_control
-	category = list("Weaponized Nanites")
-
-/datum/design/nanites/adrenaline
-	name = "Adrenaline Burst"
-	desc = "The nanites cause a burst of adrenaline when triggered, waking the host from stuns and temporarily increasing their speed."
-	id = "adrenaline_nanites"
-	program_type = /datum/nanite_program/adrenaline
 	category = list("Weaponized Nanites")
 
 ////////////////////SUPPRESSION NANITES//////////////////////////////////////
