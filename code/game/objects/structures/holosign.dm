@@ -150,7 +150,6 @@
 		return FALSE
 	else
 		return TRUE //nice or benign diseases!
-	return TRUE
 
 /obj/structure/holosign/barrier/medical/attack_hand(mob/living/user)
 	if(CanPass(user) && user.a_intent == INTENT_HELP)
