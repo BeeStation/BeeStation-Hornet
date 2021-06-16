@@ -357,6 +357,7 @@
 					/obj/item/clothing/under/rank/civilian/lawyer/female = 1,
 					/obj/item/clothing/under/lawyer/civilian/lawyer/female/skirt = 1,
 					/obj/item/clothing/under/suit/black_really = 1,
+					/obj/item/clothing/under/suit/black_really/skirt = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/blue = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/blue/skirt = 1,
 					/obj/item/clothing/under/rank/civilian/lawyer/red = 1,
