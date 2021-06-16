@@ -4,7 +4,7 @@
 	stealth = -1
 	resistance = 3
 	stage_speed = 1
-	transmittable = 2
+	transmission = 2
 	level = 0
 	severity = 0
 	symptom_delay_min = 2
@@ -18,20 +18,20 @@
 
 /datum/symptom/pierrot/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 10)
+	if(A.resistance >= 10)
 		severity +=1
-	if(A.properties["resistance"] >= 15)
-		severity += 2
+		if(A.resistance >= 15)
+			severity += 2
 
 /datum/symptom/pierrot/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmission"] >= 10)
+	if(A.transmission >= 10)
 		honkspread = TRUE
-	if(A.properties["resistance"] >= 10)
+	if(A.resistance >= 10)
 		clownmask = TRUE
-	if(A.properties["resistance"] >= 15)
-		clumsy = TRUE
+		if(A.resistance >= 15)
+			clumsy = TRUE
 
 /datum/symptom/pierrot/Activate(datum/disease/advance/A)
 	if(!..())
@@ -72,11 +72,11 @@
 		var/mob/living/carbon/human/M = A.affected_mob
 		if(istype(M.wear_mask, /obj/item/clothing/mask/gas/clown_hat))
 			REMOVE_TRAIT(M.wear_mask, TRAIT_NODROP, DISEASE_TRAIT)
-		
+
 
 /datum/symptom/pierrot/proc/give_clown_mask(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
-		var/mob/living/carbon/human/M = A.affected_mob 
+		var/mob/living/carbon/human/M = A.affected_mob
 		if(!istype(M.wear_mask, /obj/item/clothing/mask/gas/clown_hat))
 			if(!M.dropItemToGround(M.wear_mask))
 				qdel(M.wear_mask)

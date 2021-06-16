@@ -22,7 +22,7 @@ BONUS
 	stealth = -1
 	resistance = 3
 	stage_speed = 1
-	transmittable = 2
+	transmission = 2
 	level = 1
 	severity = 0
 	base_message_chance = 15
@@ -37,23 +37,23 @@ BONUS
 
 /datum/symptom/cough/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 3)
+	if(A.resistance >= 3)
 		severity += 1
-	if(A.properties["resistance"] >= 10) 
-		severity += 1
+		if(A.resistance >= 10)
+			severity += 1
 
 /datum/symptom/cough/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.stealth >= 4)
 		suppress_warning = TRUE
 	if(A.spread_flags & DISEASE_SPREAD_AIRBORNE) //infect bystanders
 		infective = TRUE
-	if(A.properties["resistance"] >= 3) //strong enough to drop items
+	if(A.resistance >= 3) //strong enough to drop items
 		power = 1.5
-	if(A.properties["resistance"] >= 10) //strong enough to stun (rarely)
-		power = 2
-	if(A.properties["stage_rate"] >= 6) //cough more often
+		if(A.resistance >= 10) //strong enough to stun (rarely)
+			power = 2
+	if(A.stage_rate >= 6) //cough more often
 		symptom_delay_max = 10
 
 /datum/symptom/cough/Activate(datum/disease/advance/A)
