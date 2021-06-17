@@ -149,7 +149,6 @@
 	else 
 		infuse_blessing(user,user)
 	inUse = FALSE
-	return .
 
 /obj/item/artifact/proc/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
 	if (!activated || !istype(target))
