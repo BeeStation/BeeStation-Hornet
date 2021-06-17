@@ -101,13 +101,11 @@
 /datum/map_template/holodeck/teahouse
 	name = "Holodeck - Japanese Tea House"
 	template_id = "holodeck_teahouse"
-	description = "benis"
 	mappath = "_maps/templates/holodeck_teahouse.dmm"
 
 /datum/map_template/holodeck/kitchen
 	name = "Holodeck - Holo-Kitchen"
 	template_id = "holodeck_kitchen"
-	description = "benis"
 	mappath = "_maps/templates/holodeck_kitchen.dmm"
 
 //bad evil no good programs
@@ -157,13 +155,11 @@
 /datum/map_template/holodeck/asylum
 	name = "Holodeck - Asylum"
 	template_id = "holodeck_asylum"
-	description = "benis"
 	mappath = "_maps/templates/holodeck_asylum.dmm"
 	restricted = TRUE
 
 /datum/map_template/holodeck/clownworld
 	name = "Holodeck - Clown World"
 	template_id = "holodeck_clownworld"
-	description = "benis"
 	mappath = "_maps/templates/holodeck_clownworld.dmm"
 	restricted = TRUE
