@@ -1,6 +1,0 @@
-author: lordScrubling
-delete-after: true
-changes:
-  - bugfix: fixed clown mime and non replacement miner envirohelms using the wrong
-      welding screen sprites
-  - bugfix: fixed drawing a smile on a clown envirosuit helmet using the wrong sprite

@@ -1,4 +1,0 @@
-author: jupyterkat
-delete-after: true
-changes:
-  - bugfix: operating computers now correctly show surgery procedures on stasis beds

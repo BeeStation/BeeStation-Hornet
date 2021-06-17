@@ -1,5 +1,0 @@
-author: lordScrubling
-delete-after: true
-changes:
-  - rscadd: Laptops eject their ids, data disks, and ai cards if you alt click them
-      while their lid is down now
