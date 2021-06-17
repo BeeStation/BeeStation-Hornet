@@ -49,13 +49,10 @@
 ///Ran when you attack an object, tries to get a swab of the object. if a swabbable surface is found it will run behavior and hopefully
 /datum/component/swabbing/proc/try_to_swab(datum/source, atom/target, mob/user, params)
 	set waitfor = FALSE //This prevents do_after() from making this proc not return it's value.
-	to_chat(world, "SWABBING")
 	if(istype(target, /obj/structure/table))//help how do i do this less shitty
-		to_chat(world, "TABLE")
 		return NONE //idk bro pls send help
 
 	if(istype(target, /obj/item/petri_dish))
-		to_chat(world, "PETRI DISH")
 		if(!LAZYLEN(swabbed_items))
 			return NONE
 		var/obj/item/petri_dish/dish = target
@@ -67,7 +64,6 @@
 		for(var/i in swabbed_items) //Typed in case there is a non sample on the swabbing tool because someone was fucking with swabbable element
 			if(!istype(i, /datum/biological_sample/))
 				stack_trace("Non biological sample being swabbed, no bueno.")
-				to_chat(world, "NO SAMPLE")
 				continue
 			var/datum/biological_sample/sample = i
 			//Collapse the samples into one sample; one gooey mess essentialy.
@@ -84,7 +80,6 @@
 
 		return COMPONENT_NO_ATTACK
 	if(!can_swab(target))
-		to_chat(world, "CANT SWAB [target]")
 		return NONE //Just do the normal attack.
 
 
@@ -111,7 +106,6 @@
 
 ///Checks if the swabbing component can swab the specific object or nots
 /datum/component/swabbing/proc/can_swab(atom/target)
-	to_chat(world, "[target] IS MOB [can_swab_mobs] ; IS OBJ [can_swab_objs] ; IS TURF [can_swab_turfs]")
 	if(isobj(target))
 		return can_swab_objs
 	if(isturf(target))

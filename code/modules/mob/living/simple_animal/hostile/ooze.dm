@@ -15,8 +15,7 @@
 	minbodytemp = 250
 	maxbodytemp = INFINITY
 	faction = list("slime")
-	//melee_damage_lower = 10 -- testing
-	//melee_damage_upper = 10
+	melee_damage = 10
 	health = 200
 	maxHealth = 200
 	attacktext = "slimes"
@@ -108,8 +107,7 @@
 	desc = "A cubic ooze native to Sholus VII.\nSince the advent of space travel this species has established itself in the waste treatment facilities of several space colonies.\nIt is often considered to be the third most infamous invasive species due to its highly agressive and predatory nature."
 	speed = 1
 	damage_coeff = list(BRUTE = 1, BURN = 0.6, TOX = 0.5, CLONE = 1.5, STAMINA = 0, OXY = 1)
-	//melee_damage_lower = 20 -- testing
-	//melee_damage_upper = 20
+	melee_damage = 20
 	armour_penetration = 15
 	obj_damage = 20
 	deathmessage = "collapses into a pile of goo!"
@@ -279,8 +277,7 @@
 	health = 200
 	maxHealth = 200
 	damage_coeff = list(BRUTE = 1, BURN = 0.8, TOX = 0.5, CLONE = 1.5, STAMINA = 0, OXY = 1)
-	//melee_damage_lower = 12
-	//melee_damage_upper = 12
+	melee_damage = 12
 	obj_damage = 15
 	deathmessage = "deflates and spills its vital juices!"
 	///The ability lets you envelop a carbon in a healing cocoon. Useful for saving critical carbons.
@@ -325,6 +322,7 @@
 
 /obj/effect/proc_holder/globules/Click(location, control, params)
 	. = ..()
+	to_chat(world, "CLICK")
 	if(!isliving(usr))
 		return TRUE
 	var/mob/living/user = usr
@@ -332,6 +330,7 @@
 
 /obj/effect/proc_holder/globules/fire(mob/living/carbon/user)
 	var/message
+	to_chat(world, "FIRE")
 	if(current_cooldown > world.time)
 		to_chat(user, "<span class='notice'>This ability is still on cooldown.</span>")
 		return
@@ -375,45 +374,23 @@
 /obj/item/projectile/globule
 	name = "mending globule"
 	icon_state = "glob_projectile"
-	shrapnel_type = /obj/item/mending_globule
-	embedding = list("embed_chance" = 100, ignore_throwspeed_threshold = TRUE, "pain_mult" = 0, "jostle_pain_mult" = 0, "fall chance" = 0.5)
 	nodamage = TRUE
-	damage = 0
+	var/heal_amount = 30
 
-///This item is what is embedded into the mob, and actually handles healing of mending globules
-/obj/item/mending_globule
-	name = "mending globule"
-	desc = "It somehow heals those who touch it."
-	icon = 'icons/obj/xenobiology/vatgrowing.dmi'
-	icon_state = "globule"
-	embedding = list("embed_chance" = 100, ignore_throwspeed_threshold = TRUE, "pain_mult" = 0, "jostle_pain_mult" = 0, "fall chance" = 0.5)
-	var/obj/item/bodypart/bodypart
-	var/heals_left = 35
 
-/obj/item/mending_globule/Destroy()
+/obj/item/projectile/globule/on_hit(atom/target, blocked)
 	. = ..()
-	bodypart = null
+	if(iscarbon(target))
+		var/mob/living/carbon/C = target
+		var/obj/item/bodypart/healed_bodypart = C.get_bodypart(check_zone(src.def_zone))
+		if(!healed_bodypart)
+			return
+		if(healed_bodypart.status == BODYPART_ORGANIC)
+			if(healed_bodypart.heal_damage(heal_amount, heal_amount))
+				C.update_damage_overlays()
 
-/obj/item/mending_globule/embedded(mob/living/carbon/human/embedded_mob, obj/item/bodypart/part)
-	. = ..()
-	if(!istype(part))
-		return
-	bodypart = part
-	START_PROCESSING(SSobj, src)
 
-/obj/item/mending_globule/unembedded()
-	. = ..()
-	bodypart = null
-	STOP_PROCESSING(SSobj, src)
 
-///Handles the healing of the mending globule
-/obj/item/mending_globule/process()
-	if(!bodypart) //this is fucked
-		return FALSE
-	bodypart.heal_damage(1,1)
-	heals_left--
-	if(heals_left <= 0)
-		qdel(src)
 
 ///This action lets you put a mob inside of a cacoon that will inject it with some chemicals.
 /datum/action/cooldown/gel_cocoon
