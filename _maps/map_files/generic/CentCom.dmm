@@ -4966,7 +4966,7 @@
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "ra" = (
-/obj/machinery/computer/shuttle,
+/obj/machinery/computer/shuttle_flight,
 /turf/open/floor/engine/cult,
 /area/wizard_station)
 "rb" = (
@@ -14432,7 +14432,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/centcom/evac)
 "LP" = (
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,

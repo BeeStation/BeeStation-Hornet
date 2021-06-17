@@ -1154,7 +1154,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate4)
 "eL" = (
-/obj/machinery/computer/shuttle,
+/obj/machinery/computer/shuttle_flight,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate4)
 "eM" = (
@@ -2347,7 +2347,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate5)
 "iM" = (
-/obj/machinery/computer/shuttle,
+/obj/machinery/computer/shuttle_flight,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate5)
 "iP" = (
@@ -2394,7 +2394,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate6)
 "jc" = (
-/obj/machinery/computer/shuttle,
+/obj/machinery/computer/shuttle_flight,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate6)
 "jd" = (
