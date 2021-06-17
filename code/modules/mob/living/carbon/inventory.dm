@@ -85,33 +85,43 @@
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
 
-	switch(I)
-		if(head)
-			head = null
-			if(!QDELETED(src))
-				head_update(I)
-		if(back)
-			back = null
-			if(!QDELETED(src))
-				update_inv_back()
-		if(wear_mask)
-			wear_mask = null
-			if(!QDELETED(src))
-				wear_mask_update(I, toggle_off = 1)
-		if(wear_neck)
-			wear_neck = null
-			if(!QDELETED(src))
-				update_inv_neck(I)
-		if(handcuffed)
-			handcuffed = null
-			if(buckled?.buckle_requires_restraints)
-				buckled.unbuckle_mob(src)
-			if(!QDELETED(src))
-				update_handcuffed()
-		if(legcuffed)
-			legcuffed = null
-			if(!QDELETED(src))
-				update_inv_legcuffed()
+	if(I == head)
+		head = null
+		if(!QDELETED(src))
+			head_update(I)
+		return
+
+	if(I == back)
+		back = null
+		if(!QDELETED(src))
+			update_inv_back()
+		return
+
+	if(I == wear_mask)
+		wear_mask = null
+		if(!QDELETED(src))
+			wear_mask_update(I, toggle_off = 1)
+		return
+
+	if(I == wear_neck)
+		wear_neck = null
+		if(!QDELETED(src))
+			update_inv_neck(I)
+		return
+
+	if(I == handcuffed)
+		handcuffed = null
+		if(buckled && buckled.buckle_requires_restraints)
+			buckled.unbuckle_mob(src)
+		if(!QDELETED(src))
+			update_handcuffed()
+		return
+
+	if(I == legcuffed)
+		legcuffed = null
+		if(!QDELETED(src))
+			update_inv_legcuffed()
+		return
 
 //handle stuff to update when a mob equips/unequips a mask.
 /mob/living/proc/wear_mask_update(obj/item/I, toggle_off = 1)
@@ -166,7 +176,7 @@
 			do_alert_animation(src)
 			visible_message("<span class='notice'>[src] is offering [receiving].</span>", \
 							"<span class='notice'>You offer [receiving].</span>", null, 2)
-		alert = 1 // disable alert animation and chat message for possible second alert
+		alert = TRUE // disable alert animation and chat message for possible second alert
 
 /**
  * Proc called when the player clicks the give alert
