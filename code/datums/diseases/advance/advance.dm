@@ -203,6 +203,11 @@
 
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
+	resistance = 0
+	stealth = 0
+	stage_rate = 0
+	transmission = 0
+	severity = 0
 	for(var/datum/symptom/S in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
 		resistance += S.resistance
 		stealth += S.stealth
