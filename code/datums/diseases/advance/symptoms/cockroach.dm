@@ -5,7 +5,7 @@
 	stealth = 0
 	resistance = 3
 	stage_speed = 3
-	transmittable = 1
+	transmission = 1
 	level = 0
 	severity = 0 //rip funy
 	symptom_delay_min = 10
@@ -17,10 +17,10 @@
 /datum/symptom/cockroach/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 8)
+	if(A.stage_rate >= 8)
 		symptom_delay_min = 5
 		symptom_delay_max = 15
-	if(A.properties["transmittable"] >= 8)
+	if(A.transmission >= 8)
 		death_roaches = TRUE
 
 /datum/symptom/cockroach/Activate(datum/disease/advance/A)

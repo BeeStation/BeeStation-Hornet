@@ -16,8 +16,8 @@
 					var/datum/disease/D = thing
 					if(istype(D, /datum/disease/advance))
 						var/datum/disease/advance/A = D
-						if(A.properties["resistance"] >= resistcap)
-							if(A.properties["stealth"] <= 4)
+						if(A.resistance >= resistcap)
+							if(A.stealth <= 4)
 								H.say("Failed to delete [D].exe")
 							continue
 					else if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
@@ -29,12 +29,12 @@
 					stoplag(5 - cured)
 				if(cured)
 					H.forcesay("[cured] malicious files were deleted. Thank you for using [src]")
-				else 
+				else
 					H.forcesay("No malicious files detected!")
 			return
 		else
 			return ..()
-			
+
 
 /obj/item/disk/antivirus/tier2
 	name = "Ahoy"

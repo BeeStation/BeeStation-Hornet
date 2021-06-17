@@ -5,7 +5,7 @@
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	33
+#define SAVEFILE_VERSION_MAX	35
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -63,10 +63,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 				purchased_gear += n_gear
 	if(current_version < 33)
 		chat_on_map = TRUE
-		max_chat_length = 110		//same as CHAT_MESSAGE_MAX_LENGTH
+		max_chat_length = CHAT_MESSAGE_MAX_LENGTH
 		see_chat_non_mob = TRUE
 		see_rc_emotes = TRUE
 		S.dir.Remove("overhead_chat")
+	if(current_version < 35)
+		see_balloon_alerts = BALLOON_ALERT_ALWAYS
 	return
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
@@ -172,6 +174,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["max_chat_length"], max_chat_length)
 	READ_FILE(S["see_chat_non_mob"] , see_chat_non_mob)
 	READ_FILE(S["see_rc_emotes"] , see_rc_emotes)
+	READ_FILE(S["see_balloon_alerts"], see_balloon_alerts)
 	READ_FILE(S["tgui_fancy"], tgui_fancy)
 	READ_FILE(S["tgui_lock"], tgui_lock)
 	READ_FILE(S["buttons_locked"], buttons_locked)
@@ -280,6 +283,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["max_chat_length"], max_chat_length)
 	WRITE_FILE(S["see_chat_non_mob"], see_chat_non_mob)
 	WRITE_FILE(S["see_rc_emotes"], see_rc_emotes)
+	WRITE_FILE(S["see_balloon_alerts"], see_balloon_alerts)
 	WRITE_FILE(S["tgui_fancy"], tgui_fancy)
 	WRITE_FILE(S["tgui_lock"], tgui_lock)
 	WRITE_FILE(S["buttons_locked"], buttons_locked)
@@ -370,6 +374,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["undershirt"], undershirt)
 	READ_FILE(S["socks"], socks)
 	READ_FILE(S["backbag"], backbag)
+	READ_FILE(S["jumpsuit_style"], jumpsuit_style)
 	READ_FILE(S["uplink_loc"], uplink_spawn_loc)
 	READ_FILE(S["feature_mcolor"], features["mcolor"])
 	READ_FILE(S["feature_ethcolor"], features["ethcolor"])
@@ -452,6 +457,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	eye_color		= sanitize_hexcolor(eye_color, 3, 0)
 	skin_tone		= sanitize_inlist(skin_tone, GLOB.skin_tones)
 	backbag			= sanitize_inlist(backbag, GLOB.backbaglist, initial(backbag))
+	jumpsuit_style = sanitize_inlist(jumpsuit_style, GLOB.jumpsuitlist, initial(jumpsuit_style))
 	uplink_spawn_loc = sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list, initial(uplink_spawn_loc))
 	features["mcolor"]	= sanitize_hexcolor(features["mcolor"], 3, 0)
 	features["ethcolor"]	= copytext_char(features["ethcolor"], 1, 7)
@@ -516,6 +522,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["undershirt"]			, undershirt)
 	WRITE_FILE(S["socks"]				, socks)
 	WRITE_FILE(S["backbag"]			, backbag)
+	WRITE_FILE(S["jumpsuit_style"]		, jumpsuit_style)
 	WRITE_FILE(S["uplink_loc"]			, uplink_spawn_loc)
 	WRITE_FILE(S["species"]			, pref_species.id)
 	WRITE_FILE(S["feature_mcolor"]					, features["mcolor"])

@@ -6,7 +6,7 @@
 	cure_text = "A coder's love (theoretical)."
 	agent = "Shenanigans"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/alien)
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	stage_prob = 10
 	visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 	disease_flags = CURABLE
@@ -88,8 +88,8 @@
 
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [affected_mob.name]?", bantype, null, bantype, 50, affected_mob)
 	if(LAZYLEN(candidates))
-		var/mob/dead/observer/C = pick(candidates)		
-		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")		
+		var/mob/dead/observer/C = pick(candidates)
+		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(affected_mob)]) to replace a jobbanned player.")
 		affected_mob.key = C.key
 	else
 		to_chat(new_mob, "Your mob has been offered to ghosts! Appeal your job ban if you want to avoid this in the future!")
@@ -105,7 +105,7 @@
 	cure_chance = 1
 	disease_flags = CAN_CARRY|CAN_RESIST
 	desc = "Monkeys with this disease will bite humans, causing humans to mutate into a monkey."
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	stage_prob = 4
 	visibility_flags = 0
 	agent = "Kongey Vibrion M-909"
@@ -168,7 +168,7 @@
 	cure_chance = 5
 	agent = "R2D2 Nanomachines"
 	desc = "An acute nanomachine infection which converts its host into a cyborg."
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list()
 	stage2	= list("Your joints feel stiff.", "<span class='danger'>Beep...boop..</span>")
@@ -201,7 +201,7 @@
 	cure_chance = 5
 	agent = "Rip-LEY Alien Microbes"
 	desc = "This disease changes the victim into a xenomorph."
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list()
 	stage2	= list("Your throat feels scratchy.", "<span class='danger'>Kill...</span>")
@@ -230,7 +230,7 @@
 	cure_chance = 80
 	agent = "Advanced Mutation Toxin"
 	desc = "This highly concentrated extract converts anything into more of itself."
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("You don't feel very well.")
 	stage2	= list("Your skin feels a little slimy.")
@@ -258,7 +258,7 @@
 	cures = list(/datum/reagent/medicine/adminordrazine)
 	agent = "Fell Doge Majicks"
 	desc = "This disease transforms the victim into a corgi."
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("BARK.")
 	stage2	= list("You feel the need to wear silly hats.")
@@ -284,7 +284,7 @@
 	agent = "Gluttony's Blessing"
 	desc = "A 'gift' from somewhere terrible."
 	stage_prob = 20
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("Your stomach rumbles.")
 	stage2	= list("Your skin feels saggy.")
@@ -302,7 +302,7 @@
 	stage_prob = 5
 	agent = "Tranquility"
 	desc = "Consuming the flesh of a Gondola comes at a terrible price."
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("You seem a little lighter in your step.")
 	stage2	= list("You catch yourself smiling for no reason.")
@@ -345,7 +345,7 @@
 	agent = "Nano-feline Toxoplasmosis"
 	desc = "A lot of tiny cats in the blood that slowly turn you into a big cat."
 	is_mutagenic = TRUE //So that it won't be autocured after stage 5
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("You feel scratching fom within.", "You hear a faint miaow somewhere really close.")
 	stage2	= list("<span class='danger'>You suppress the urge to lick yourself.</span>")
@@ -443,7 +443,7 @@
 	stage_prob = 5
 	agent = "Legion droppings"
 	desc = "Who knew that spreading the primordial goop of a vile entity would take a toll on the body?"
-	severity = DISEASE_SEVERITY_BIOHAZARD
+	danger = DISEASE_BIOHAZARD
 	visibility_flags = 0
 	stage1	= list("Your skin seems ashy.")
 	stage2	= list("You wonder what it would be like to live on Lavaland forever...")

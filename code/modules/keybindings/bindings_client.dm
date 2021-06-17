@@ -101,10 +101,3 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		holder.key_up(_key, src)
 	if(mob.focus)
 		mob.focus.key_up(_key, src)
-
-// Called every game tick
-/client/keyLoop()
-	if(holder)
-		holder.keyLoop(src)
-	if(mob?.focus)
-		mob.focus.keyLoop(src)
