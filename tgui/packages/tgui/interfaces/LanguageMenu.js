@@ -13,7 +13,6 @@ export const LanguageMenu = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={700}
       height={600}>
       <Window.Content scrollable>

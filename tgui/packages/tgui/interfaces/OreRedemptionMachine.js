@@ -14,7 +14,6 @@ export const OreRedemptionMachine = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={440}
       height={550}>
       <Window.Content scrollable>

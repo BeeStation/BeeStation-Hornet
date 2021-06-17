@@ -76,7 +76,7 @@
 		O.setOrganDamage(0)
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
-		if(D.severity == DISEASE_SEVERITY_BENEFICIAL || D.severity == DISEASE_SEVERITY_POSITIVE)
+		if(D.danger == DISEASE_BENEFICIAL || D.danger == DISEASE_POSITIVE)
 			continue
 		D.cure()
 	..()

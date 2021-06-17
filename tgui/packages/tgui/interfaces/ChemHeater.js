@@ -17,7 +17,6 @@ export const ChemHeater = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={275}
       height={320}>
       <Window.Content scrollable>

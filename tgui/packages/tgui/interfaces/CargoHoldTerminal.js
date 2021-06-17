@@ -12,7 +12,6 @@ export const CargoHoldTerminal = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={600}
       height={230}>
       <Window.Content scrollable>

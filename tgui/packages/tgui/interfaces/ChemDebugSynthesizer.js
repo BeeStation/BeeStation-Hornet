@@ -13,7 +13,6 @@ export const ChemDebugSynthesizer = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={390}
       height={330}>
       <Window.Content scrollable>

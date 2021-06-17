@@ -324,10 +324,10 @@ the new instance inside the host to be updated to the template's stats.
 		dat += "<a href='byond://?src=[REF(src)];main_menu=1'>Back</a><br><h1>[examining_ability.name]</h1>[examining_ability.stat_block][examining_ability.long_desc][examining_ability.threshold_block]"
 	else
 		dat += "<h1>Disease Statistics</h1><br>\
-			Resistance: [DT.totalResistance()]<br>\
-			Stealth: [DT.totalStealth()]<br>\
-			Stage Speed: [DT.totalStageSpeed()]<br>\
-			Transmissibility: [DT.totalTransmittable()]<hr>\
+			Resistance: [DT.resistance]<br>\
+			Stealth: [DT.stealth]<br>\
+			Stage Speed: [DT.stage_rate]<br>\
+			Transmissibility: [DT.transmission]<hr>\
 			Cure: [DT.cure_text]"
 		dat += "<hr><h1>Adaptations</h1>\
 			Points: [points] / [total_points]\

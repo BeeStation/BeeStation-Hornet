@@ -5,7 +5,6 @@ import { Window } from '../layouts';
 export const StationAlertConsole = () => {
   return (
     <Window
-      resizable
       width={325}
       height={500}>
       <Window.Content scrollable>

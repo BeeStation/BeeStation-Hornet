@@ -46,7 +46,6 @@ export const Sleeper = (props, context) => {
 
   return (
     <Window
-      resizable
       width={310}
       height={520}>
       <Window.Content>

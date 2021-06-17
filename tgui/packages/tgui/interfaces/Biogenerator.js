@@ -15,7 +15,6 @@ export const Biogenerator = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={550}
       height={380}>
       {!!processing && (

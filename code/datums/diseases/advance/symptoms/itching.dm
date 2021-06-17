@@ -23,7 +23,7 @@ BONUS
 	stealth = 0
 	resistance = 3
 	stage_speed = 3
-	transmittable = 1
+	transmission = 1
 	level = 1
 	severity = 0
 	symptom_delay_min = 5
@@ -35,10 +35,10 @@ BONUS
 /datum/symptom/itching/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 6) //itch more often
+	if(A.transmission >= 6) //itch more often
 		symptom_delay_min = 1
 		symptom_delay_max = 4
-	if(A.properties["stage_rate"] >= 7) //scratch
+	if(A.stage_rate >= 7) //scratch
 		scratch = TRUE
 
 /datum/symptom/itching/Activate(datum/disease/advance/A)

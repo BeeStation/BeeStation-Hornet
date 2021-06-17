@@ -113,8 +113,8 @@ export const PandemicDiseaseDisplay = (props, context) => {
                 <LabeledList.Item label="Spread">
                   {virus.spread}
                 </LabeledList.Item>
-                <LabeledList.Item label="Severity">
-                  {virus.severity}
+                <LabeledList.Item label="Danger">
+                  {virus.danger}
                 </LabeledList.Item>
                 <LabeledList.Item label="Possible Cure">
                   {virus.cure}
@@ -285,7 +285,6 @@ export const Pandemic = (props, context) => {
 
   return (
     <Window
-      resizable
       width={520}
       height={550}>
       <Window.Content scrollable>
