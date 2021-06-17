@@ -3,7 +3,7 @@
 	var/generated = FALSE
 	var/death_caring = TRUE
 	var/mob/mob_to_recover
-	var/tracked_diary
+	var/atom/tracked_diary
 	//Relatively easy mission.
 	min_payout = 100000
 	max_payout = 400000

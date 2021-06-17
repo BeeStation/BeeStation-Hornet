@@ -606,7 +606,6 @@
 	admin_controlled = 1
 	recall_docking_port_id = "null"
 	request_shuttle_message = "Override Escape"
-	autopilot_forced = TRUE
 	possible_destinations = "pod_asteroid"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
