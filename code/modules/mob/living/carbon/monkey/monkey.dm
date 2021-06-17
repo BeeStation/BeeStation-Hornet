@@ -215,3 +215,9 @@
 			var/datum/mutation/human/race/R = M
 			R.mutadone_proof = TRUE
 	dna.species.species_traits += NOTRANSSTING
+
+/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
+	return
+
+/mob/living/carbon/monkey/tumor/has_dna()
+	return FALSE
