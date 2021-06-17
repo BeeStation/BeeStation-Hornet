@@ -134,6 +134,6 @@
 	rogue_types = list(/datum/nanite_program/toxic, /datum/nanite_program/nerve_decay)
 
 /datum/nanite_program/haste/on_trigger()
-	to_chat(host_mob, "<span class='notice'>You feel a sudden surge of energy!</span>")
+	to_chat(host_mob, "<span class='notice'>Your body feels lighter and your legs feel relaxed!</span>")
 	host_mob.set_resting(FALSE)
 	host_mob.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 3)
