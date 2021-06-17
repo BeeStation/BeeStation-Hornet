@@ -15,8 +15,7 @@
 	minbodytemp = 250
 	maxbodytemp = INFINITY
 	faction = list("slime")
-	//melee_damage_lower = 10 -- testing
-	//melee_damage_upper = 10
+	melee_damage = 10
 	health = 200
 	maxHealth = 200
 	attacktext = "slimes"
@@ -108,8 +107,7 @@
 	desc = "A cubic ooze native to Sholus VII.\nSince the advent of space travel this species has established itself in the waste treatment facilities of several space colonies.\nIt is often considered to be the third most infamous invasive species due to its highly agressive and predatory nature."
 	speed = 1
 	damage_coeff = list(BRUTE = 1, BURN = 0.6, TOX = 0.5, CLONE = 1.5, STAMINA = 0, OXY = 1)
-	//melee_damage_lower = 20 -- testing
-	//melee_damage_upper = 20
+	melee_damage = 20
 	armour_penetration = 15
 	obj_damage = 20
 	deathmessage = "collapses into a pile of goo!"
@@ -168,7 +166,7 @@
 	if(!.)
 		return
 	var/mob/living/simple_animal/hostile/ooze/ooze = owner
-	ooze.add_movespeed_modifier(-1.5)
+	ooze.add_movespeed_modifier(MOVESPEED_ID_METABOLIC_BOOST, TRUE, 100, multiplicative_slowdown = -1.5)
 	var/timerid = addtimer(CALLBACK(src, .proc/HeatUp), 1 SECONDS, TIMER_STOPPABLE | TIMER_LOOP) //Heat up every second
 	addtimer(CALLBACK(src, .proc/FinishSpeedup, timerid), 6 SECONDS)
 	to_chat(ooze, "<span class='notice'>You start feel a lot quicker.</span>")
@@ -183,7 +181,7 @@
 ///Remove the speed modifier and delete the timer for heating up
 /datum/action/cooldown/metabolicboost/proc/FinishSpeedup(timerid)
 	var/mob/living/simple_animal/hostile/ooze/ooze = owner
-	ooze.remove_movespeed_modifier(-1.5)
+	ooze.remove_movespeed_modifier(MOVESPEED_ID_METABOLIC_BOOST, TRUE)
 	to_chat(ooze, "<span class='notice'>You start slowing down again.</span>")
 	deltimer(timerid)
 	active = FALSE
@@ -279,8 +277,7 @@
 	health = 200
 	maxHealth = 200
 	damage_coeff = list(BRUTE = 1, BURN = 0.8, TOX = 0.5, CLONE = 1.5, STAMINA = 0, OXY = 1)
-	//melee_damage_lower = 12
-	//melee_damage_upper = 12
+	melee_damage = 12
 	obj_damage = 15
 	deathmessage = "deflates and spills its vital juices!"
 	///The ability lets you envelop a carbon in a healing cocoon. Useful for saving critical carbons.
@@ -358,7 +355,7 @@
 		return
 
 	ooze.visible_message("<span class='nicegreen>[ooze] launches a mending globule!</span>", "<span class='notice'>You launch a mending globule.</span>")
-	var/obj/projectile/globule/globule = new (ooze.loc)
+	var/obj/item/projectile/globule/globule = new (ooze.loc)
 	globule.preparePixelProjectile(target, ooze, params)
 	globule.def_zone = ooze.zone_selected
 	globule.fire()
@@ -469,13 +466,13 @@
 		dump_inhabitant(FALSE)
 	return ..()
 
-/obj/structure/gel_cocoon/container_resist_act(mob/living/user)
+/*/obj/structure/gel_cocoon/container_resist_act(mob/living/user)
 	. = ..()
 	user.visible_message("<span class='notice'>You see [user] breaking out of [src]!</span>", \
 		"<span class='notice'>You start tearing the soft tissue of the gel cocoon</span>")
 	if(!do_after(user, 1.5 SECONDS, target = src))
 		return FALSE
-	dump_inhabitant()
+	dump_inhabitant()*/
 
 ///This proc handles the insertion of a person into the cocoon
 /obj/structure/gel_cocoon/proc/insert_target(target)
