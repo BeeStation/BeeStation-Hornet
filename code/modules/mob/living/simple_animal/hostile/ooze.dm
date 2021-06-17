@@ -1,5 +1,5 @@
 ///Oozes are slime-esque creatures, they are highly gluttonous creatures primarily intended for player controll.
-/*/mob/living/simple_animal/hostile/ooze
+/mob/living/simple_animal/hostile/ooze
 	name = "Ooze"
 	icon = 'icons/mob/vatgrowing.dmi'
 	icon_state = "gelatinous"
@@ -126,17 +126,17 @@
 	consume = new
 	consume.Grant(src)
 
+
 /mob/living/simple_animal/hostile/ooze/gelatinous/Destroy()
 	. = ..()
 	QDEL_NULL(boost)
 	QDEL_NULL(consume)
 
 ///If this mob gets resisted by something, its trying to escape consumption.
-/mob/living/simple_animal/hostile/ooze/gelatinous/container_resist_act(mob/living/user)
-	. = ..()
+/*/mob/living/simple_animal/hostile/ooze/gelatinous/proc/resist_act(mob/living/user)
 	if(!do_after(user, 6 SECONDS)) //6 second struggle
 		return FALSE
-	consume.stop_consuming()
+	consume.stop_consuming()*/
 
 /mob/living/simple_animal/hostile/ooze/gelatinous/add_cell_sample()
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_GELATINOUS, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
@@ -262,9 +262,9 @@
 		stop_consuming()
 
 ///On owner death dump the current vored mob
-///datum/action/consume/proc/on_owner_death() -- test
+/datum/action/consume/proc/on_owner_death()
 	//SIGNAL_HANDLER
-	//stop_consuming()
+	stop_consuming()
 
 
 ///* Gelatinious Grapes code below *\\\\
@@ -372,7 +372,7 @@
 	remove_ranged_ability()
 
 ///This projectile embeds into mobs and heals them over time.
-/obj/projectile/globule
+/obj/item/projectile/globule
 	name = "mending globule"
 	icon_state = "glob_projectile"
 	shrapnel_type = /obj/item/mending_globule
@@ -501,4 +501,4 @@
 		inhabitant.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, 1.5)
 
 	if(inhabitant.reagents.get_reagent_amount(/datum/reagent/consumable/milk) < 20)
-		inhabitant.reagents.add_reagent(/datum/reagent/consumable/milk, 2)*/
+		inhabitant.reagents.add_reagent(/datum/reagent/consumable/milk, 2)
