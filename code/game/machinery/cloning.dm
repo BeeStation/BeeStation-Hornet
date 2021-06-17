@@ -513,9 +513,9 @@
 		QDEL_IN(mob_occupant, 40)
 
 /obj/machinery/clonepod/relaymove(mob/user)
-	container_resist(user)
+	container_resist_act(user)
 
-/obj/machinery/clonepod/container_resist(mob/living/user)
+/obj/machinery/clonepod/container_resist_act(mob/living/user)
 	if(user.is_conscious())
 		go_out()
 

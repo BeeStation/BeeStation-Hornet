@@ -229,13 +229,13 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	density = TRUE
 	name = initial(name)
 
-/obj/machinery/cryopod/container_resist(mob/living/user)
+/obj/machinery/cryopod/container_resist_act(mob/living/user)
 	visible_message("<span class='notice'>[occupant] emerges from [src]!</span>",
 		"<span class='notice'>You climb out of [src]!</span>")
 	open_machine()
 
 /obj/machinery/cryopod/relaymove(mob/user)
-	container_resist(user)
+	container_resist_act(user)
 
 /obj/machinery/cryopod/process()
 	if(!occupant)

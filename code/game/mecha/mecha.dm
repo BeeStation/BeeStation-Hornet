@@ -1025,7 +1025,7 @@
 	GrantActions(brainmob)
 	return TRUE
 
-/obj/mecha/container_resist(mob/living/user)
+/obj/mecha/container_resist_act(mob/living/user)
 	is_currently_ejecting = TRUE
 	to_chat(occupant, "<span class='notice'>You begin the ejection procedure. Equipment is disabled during this process. Hold still to finish ejecting.</span>")
 	if(do_after(occupant,exit_delay, target = src))

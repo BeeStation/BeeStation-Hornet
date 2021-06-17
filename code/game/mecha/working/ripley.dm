@@ -221,7 +221,7 @@
 		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
 			drill.equip_cooldown = initial(drill.equip_cooldown)
 
-/obj/mecha/working/ripley/relay_container_resist(mob/living/user, obj/O)
+/obj/mecha/working/ripley/relay_container_resist_act(mob/living/user, obj/O)
 	to_chat(user, "<span class='notice'>You lean on the back of [O] and start pushing so it falls out of [src].</span>")
 	if(do_after(user, 300, target = O))
 		if(!user || user.stat != CONSCIOUS || user.loc != src || O.loc != src )
