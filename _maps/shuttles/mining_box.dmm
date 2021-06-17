@@ -1,0 +1,143 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/titanium/survival,
+/area/shuttle/mining)
+"b" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"c" = (
+/obj/structure/table,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"d" = (
+/obj/machinery/computer/shuttle/mining,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"e" = (
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"f" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/mining)
+"g" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/pod/light,
+/area/shuttle/mining)
+"h" = (
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "mining";
+	name = "mining shuttle";
+	port_direction = 4;
+	width = 7
+	},
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/structure/fans/tiny,
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"i" = (
+/obj/structure/closet/crate,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"j" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"k" = (
+/obj/structure/ore_box,
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"l" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/open/floor/plating/airless,
+/area/shuttle/mining)
+"q" = (
+/turf/closed/wall/mineral/titanium/survival/nodiagonal,
+/area/shuttle/mining)
+"F" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+"K" = (
+/turf/open/floor/pod/light,
+/area/shuttle/mining)
+"Q" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/pod/dark,
+/area/shuttle/mining)
+"X" = (
+/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/shuttle/mining)
+
+(1,1,1) = {"
+a
+q
+X
+q
+X
+q
+a
+"}
+(2,1,1) = {"
+q
+c
+e
+g
+f
+i
+q
+"}
+(3,1,1) = {"
+b
+d
+Q
+K
+f
+j
+l
+"}
+(4,1,1) = {"
+q
+c
+e
+K
+f
+k
+q
+"}
+(5,1,1) = {"
+a
+q
+F
+h
+F
+q
+a
+"}

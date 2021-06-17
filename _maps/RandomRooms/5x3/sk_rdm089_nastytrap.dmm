@@ -1,0 +1,119 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal/deliveryChute{
+	dir = 4
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
+"b" = (
+/obj/machinery/conveyor/auto{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/throwing_star,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/trap/nexus/trickyspawner,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"d" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/machinery/disposal/deliveryChute,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"g" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/deliveryChute{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
+"i" = (
+/obj/machinery/conveyor/auto{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/throwing_star,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal/deliveryChute{
+	dir = 8
+	},
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"k" = (
+/obj/effect/spawner/lootdrop/trap/reusable,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/effect/trap/nexus/trickyspawner/shitsec,
+/turf/open/floor/plating,
+/area/template_noop)
+"r" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+r
+g
+"}
+(2,1,1) = {"
+b
+c
+h
+"}
+(3,1,1) = {"
+r
+k
+r
+"}
+(4,1,1) = {"
+d
+l
+i
+"}
+(5,1,1) = {"
+e
+f
+j
+"}

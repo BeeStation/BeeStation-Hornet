@@ -1,0 +1,136 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/computer/mech_bay_power_console{
+	dir = 4
+	},
+/turf/open/floor/circuit,
+/area/template_noop)
+"b" = (
+/turf/open/floor/circuit,
+/area/template_noop)
+"c" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/machinery/modular_fabricator/exosuit_fab/maint{
+	name = "forgotten exosuit fabricator"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/cardboard,
+/obj/item/radio/off,
+/obj/structure/light_construct{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/turf/open/floor/mech_bay_recharge_floor,
+/area/template_noop)
+"g" = (
+/obj/structure/closet,
+/obj/item/stack/sheet/iron{
+	amount = 34
+	},
+/obj/item/extinguisher/mini,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/machinery/mech_bay_recharge_port{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/closet,
+/obj/item/stack/sheet/glass{
+	amount = 12
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/structure/rack,
+/obj/item/screwdriver{
+	pixel_y = 16
+	},
+/obj/item/hand_labeler,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"k" = (
+/obj/structure/rack,
+/obj/item/stack/cable_coil{
+	pixel_x = -1;
+	pixel_y = -3
+	},
+/obj/item/wrench,
+/obj/item/flashlight/seclite,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/machinery/recharge_station,
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/obj/structure/rack,
+/obj/item/clothing/glasses/sunglasses/advanced,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/rods{
+	amount = 23
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"P" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/circuit,
+/area/template_noop)
+"T" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+f
+h
+j
+"}
+(2,1,1) = {"
+b
+P
+b
+k
+"}
+(3,1,1) = {"
+c
+T
+c
+l
+"}
+(4,1,1) = {"
+d
+c
+c
+m
+"}
+(5,1,1) = {"
+e
+g
+i
+n
+"}

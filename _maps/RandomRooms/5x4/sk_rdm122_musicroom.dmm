@@ -1,0 +1,127 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/closet,
+/obj/item/instrument/piano_synth,
+/obj/item/instrument/recorder,
+/obj/item/instrument/saxophone,
+/obj/item/instrument/trombone,
+/obj/item/instrument/trumpet,
+/obj/item/instrument/violin,
+/turf/open/floor/plating{
+	icon_state = "wood"
+	},
+/area/template_noop)
+"b" = (
+/obj/structure/closet/crate/wooden,
+/obj/item/instrument/accordion,
+/obj/item/instrument/glockenspiel,
+/obj/item/instrument/guitar,
+/obj/item/instrument/harmonica,
+/obj/item/instrument/banjo,
+/obj/item/instrument/eguitar,
+/turf/open/floor/plating{
+	icon_state = "wood"
+	},
+/area/template_noop)
+"c" = (
+/turf/open/floor/plating{
+	icon_state = "wood-broken3"
+	},
+/area/template_noop)
+"d" = (
+/obj/structure/table/wood,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/toy/plush/slimeplushie,
+/turf/open/floor/plating{
+	icon_state = "wood"
+	},
+/area/template_noop)
+"e" = (
+/obj/structure/table/wood,
+/obj/item/toy/plush/nukeplushie,
+/turf/open/floor/plating{
+	icon_state = "wood"
+	},
+/area/template_noop)
+"f" = (
+/turf/open/floor/plating{
+	icon_state = "wood"
+	},
+/area/template_noop)
+"g" = (
+/turf/open/floor/carpet,
+/area/template_noop)
+"h" = (
+/obj/structure/chair/stool,
+/turf/open/floor/carpet,
+/area/template_noop)
+"i" = (
+/obj/structure/table/wood,
+/obj/item/toy/plush/beeplushie,
+/turf/open/floor/plating{
+	icon_state = "wood"
+	},
+/area/template_noop)
+"j" = (
+/obj/structure/dresser,
+/turf/open/floor/plating{
+	icon_state = "wood"
+	},
+/area/template_noop)
+"k" = (
+/obj/structure/table/wood,
+/obj/item/toy/plush/lizardplushie,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating{
+	icon_state = "wood"
+	},
+/area/template_noop)
+"l" = (
+/obj/structure/table/wood,
+/obj/machinery/light/small,
+/obj/item/toy/plush/snakeplushie,
+/turf/open/floor/plating{
+	icon_state = "wood"
+	},
+/area/template_noop)
+"m" = (
+/obj/structure/bed,
+/obj/item/bedsheet/random,
+/obj/effect/landmark/start/randommaint/celebrity,
+/turf/open/floor/plating{
+	icon_state = "wood"
+	},
+/area/template_noop)
+
+(1,1,1) = {"
+a
+f
+i
+k
+"}
+(2,1,1) = {"
+b
+g
+g
+l
+"}
+(3,1,1) = {"
+c
+h
+g
+f
+"}
+(4,1,1) = {"
+d
+g
+g
+f
+"}
+(5,1,1) = {"
+e
+f
+j
+m
+"}

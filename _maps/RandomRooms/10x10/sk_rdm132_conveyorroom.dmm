@@ -1,0 +1,364 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/machinery/light/broken{
+	dir = 1
+	},
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"d" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"e" = (
+/obj/structure/ore_box,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"g" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"h" = (
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"k" = (
+/turf/open/floor/plasteel,
+/area/template_noop)
+"l" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"m" = (
+/obj/machinery/conveyor{
+	dir = 5;
+	id = "BeltLoad"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"n" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "BeltLoad"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/machinery/conveyor{
+	dir = 6;
+	id = "BeltLoad"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/seven,
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/machinery/light/built{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+"s" = (
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "BeltLoad"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"t" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/template_noop)
+"u" = (
+/obj/machinery/conveyor{
+	id = "BeltLoad"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"v" = (
+/obj/machinery/light/built{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/glowstick,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"w" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
+"x" = (
+/obj/machinery/conveyor{
+	dir = 9;
+	id = "BeltLoad"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"y" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "BeltLoad"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"z" = (
+/obj/machinery/conveyor{
+	dir = 10;
+	id = "BeltLoad"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"A" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"B" = (
+/obj/machinery/conveyor_switch/oneway{
+	dir = 8;
+	id = "BeltLoad"
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"C" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
+"D" = (
+/obj/machinery/light/broken{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"E" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"F" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/oil,
+/obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/gloves,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"G" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"H" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"I" = (
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"J" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/plating,
+/area/template_noop)
+"K" = (
+/obj/machinery/light/broken{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"L" = (
+/obj/structure/reagent_dispensers,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"M" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"N" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"O" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/template_noop)
+"P" = (
+/obj/machinery/light/built,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"Q" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/template_noop)
+"S" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/six,
+/turf/open/floor/plasteel,
+/area/template_noop)
+"T" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/arrows{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/template_noop)
+
+(1,1,1) = {"
+b
+f
+k
+q
+a
+a
+D
+k
+b
+a
+"}
+(2,1,1) = {"
+b
+g
+S
+T
+w
+A
+b
+L
+f
+a
+"}
+(3,1,1) = {"
+a
+a
+m
+s
+x
+b
+E
+C
+G
+b
+"}
+(4,1,1) = {"
+c
+h
+n
+t
+y
+b
+F
+b
+M
+P
+"}
+(5,1,1) = {"
+a
+i
+n
+t
+y
+b
+E
+b
+E
+k
+"}
+(6,1,1) = {"
+b
+l
+n
+t
+y
+B
+G
+f
+H
+k
+"}
+(7,1,1) = {"
+d
+f
+n
+t
+y
+b
+H
+f
+E
+P
+"}
+(8,1,1) = {"
+b
+f
+o
+u
+z
+a
+I
+f
+N
+Q
+"}
+(9,1,1) = {"
+a
+f
+p
+a
+a
+C
+J
+f
+O
+a
+"}
+(10,1,1) = {"
+e
+k
+g
+v
+k
+a
+K
+a
+a
+a
+"}

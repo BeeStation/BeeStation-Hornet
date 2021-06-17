@@ -1,0 +1,312 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/machinery/seed_extractor,
+/turf/open/floor/grass,
+/area/template_noop)
+"e" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/flora/ausbushes/reedbush{
+	pixel_y = 5
+	},
+/turf/open/floor/grass,
+/area/template_noop)
+"g" = (
+/obj/machinery/biogenerator,
+/turf/open/floor/grass,
+/area/template_noop)
+"h" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/liberty,
+/turf/open/floor/grass,
+/area/template_noop)
+"j" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/plantbgone{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/plant_analyzer,
+/obj/item/shovel/spade,
+/obj/item/cultivator{
+	pixel_x = 6
+	},
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/reagent_containers/glass/bucket,
+/turf/open/floor/grass,
+/area/template_noop)
+"k" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/cannabis,
+/turf/open/floor/grass,
+/area/template_noop)
+"l" = (
+/mob/living/simple_animal/butterfly,
+/turf/open/floor/grass,
+/area/template_noop)
+"m" = (
+/obj/structure/flora/grass/jungle/b,
+/turf/open/floor/grass,
+/area/template_noop)
+"n" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"o" = (
+/turf/open/floor/plating{
+	icon_state = "panelscorched"
+	},
+/area/template_noop)
+"q" = (
+/obj/structure/sink/puddle,
+/turf/open/floor/grass,
+/area/template_noop)
+"r" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/cabbage,
+/turf/open/floor/grass,
+/area/template_noop)
+"t" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plating,
+/area/template_noop)
+"u" = (
+/turf/open/floor/monotile/steel,
+/area/template_noop)
+"v" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/template_noop)
+"x" = (
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/grass,
+/area/template_noop)
+"D" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/bamboo,
+/turf/open/floor/grass,
+/area/template_noop)
+"G" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/grass,
+/area/template_noop)
+"H" = (
+/turf/closed/wall,
+/area/template_noop)
+"J" = (
+/obj/structure/closet{
+	name = "beekeeping wardrobe"
+	},
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/melee/flyswatter,
+/obj/item/melee/flyswatter,
+/obj/item/melee/flyswatter,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"K" = (
+/obj/item/stack/cable_coil/blue,
+/turf/open/floor/plating,
+/area/template_noop)
+"M" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/grass,
+/area/template_noop)
+"N" = (
+/obj/effect/spawner/lootdrop/grille_or_trash,
+/turf/open/floor/plating,
+/area/template_noop)
+"O" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/replicapod,
+/turf/open/floor/grass,
+/area/template_noop)
+"P" = (
+/obj/structure/flora/grass/jungle,
+/turf/open/floor/grass,
+/area/template_noop)
+"Q" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/ambrosia,
+/turf/open/floor/grass,
+/area/template_noop)
+"R" = (
+/obj/structure/closet{
+	name = "beekeeping supplies"
+	},
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"T" = (
+/obj/structure/beebox,
+/turf/open/floor/grass,
+/area/template_noop)
+"U" = (
+/turf/open/floor/grass,
+/area/template_noop)
+"X" = (
+/obj/effect/landmark/blobstart,
+/turf/open/floor/grass,
+/area/template_noop)
+"Y" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/carrot,
+/turf/open/floor/grass,
+/area/template_noop)
+"Z" = (
+/obj/machinery/hydroponics/soil,
+/obj/item/seeds/glowshroom,
+/turf/open/floor/grass,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+N
+a
+a
+a
+a
+a
+o
+a
+a
+"}
+(2,1,1) = {"
+N
+H
+e
+e
+u
+u
+e
+e
+H
+a
+"}
+(3,1,1) = {"
+a
+e
+Z
+r
+U
+U
+U
+h
+e
+v
+"}
+(4,1,1) = {"
+o
+e
+Q
+U
+U
+P
+U
+O
+e
+a
+"}
+(5,1,1) = {"
+a
+n
+T
+M
+X
+q
+U
+R
+e
+a
+"}
+(6,1,1) = {"
+t
+n
+T
+U
+x
+f
+l
+J
+e
+a
+"}
+(7,1,1) = {"
+a
+e
+D
+G
+U
+U
+m
+b
+e
+a
+"}
+(8,1,1) = {"
+o
+e
+k
+Y
+U
+U
+j
+g
+e
+K
+"}
+(9,1,1) = {"
+a
+H
+e
+e
+u
+u
+e
+e
+H
+N
+"}
+(10,1,1) = {"
+a
+a
+a
+a
+a
+o
+a
+a
+N
+a
+"}

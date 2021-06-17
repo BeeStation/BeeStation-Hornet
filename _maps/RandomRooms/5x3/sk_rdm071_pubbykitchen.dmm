@@ -1,0 +1,94 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/table,
+/obj/machinery/microwave,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/structure/sink/kitchen{
+	pixel_y = 28
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/food/condiment/rice,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/turf/open/floor/plating,
+/area/template_noop)
+"f" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/cookie{
+	desc = "It has a distinctly eldritch taste to it.";
+	name = "grandma's cookie"
+	},
+/obj/item/cigbutt,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/chair/stool,
+/obj/item/clothing/suit/apron/chef,
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/obj/machinery/hydroponics/constructable,
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/closet/crate,
+/obj/item/cultivator,
+/obj/item/shovel/spade,
+/obj/item/storage/bag/plants/portaseeder,
+/obj/item/seeds/wheat/rice,
+/obj/item/seeds/replicapod,
+/obj/item/seeds/carrot,
+/obj/item/seeds/tomato,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/effect/decal/cleanable/food/egg_smudge,
+/turf/open/floor/plating,
+/area/template_noop)
+"Y" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+b
+i
+"}
+(2,1,1) = {"
+f
+g
+j
+"}
+(3,1,1) = {"
+c
+Y
+Y
+"}
+(4,1,1) = {"
+d
+c
+h
+"}
+(5,1,1) = {"
+e
+c
+h
+"}

@@ -1,0 +1,532 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"b" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-21"
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"c" = (
+/obj/structure/table,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"d" = (
+/obj/structure/table,
+/obj/item/storage/box/lights/mixed,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"e" = (
+/obj/machinery/vending/cigarette,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"f" = (
+/obj/structure/closet/boxinggloves,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"g" = (
+/obj/structure/closet/masks,
+/obj/item/reagent_containers/food/snacks/deadmouse,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"h" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/mob/living/simple_animal/chicken{
+	name = "Cletus"
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"i" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"j" = (
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	dir = 8;
+	icon_state = "left";
+	name = "Arena"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"k" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"l" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"m" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"n" = (
+/obj/structure/chair/comfy/black,
+/obj/item/trash/pistachios,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"o" = (
+/obj/structure/chair/comfy/black,
+/obj/item/stack/spacecash/c100,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"p" = (
+/obj/structure/chair/comfy/black,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"q" = (
+/obj/structure/chair/comfy/black,
+/obj/item/cigbutt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"r" = (
+/obj/item/trash/popcorn,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"s" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"t" = (
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Arena"
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"u" = (
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	dir = 8;
+	icon_state = "left";
+	name = "Arena"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/chair/stool,
+/turf/open/floor/engine,
+/area/template_noop)
+"v" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/mob/living/simple_animal/chicken{
+	name = "Bloodthirsty Peckins"
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"w" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"x" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"y" = (
+/obj/item/stack/medical/gauze,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"z" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/mob/living/simple_animal/chicken{
+	name = "Kentucky Fried Terror"
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"A" = (
+/obj/effect/decal/cleanable/oil{
+	icon_state = "floor6"
+	},
+/obj/effect/decal/cleanable/robot_debris/old,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"B" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"C" = (
+/turf/open/floor/engine,
+/area/template_noop)
+"D" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"E" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/engine,
+/area/template_noop)
+"F" = (
+/obj/item/stack/spacecash/c10,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"G" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"H" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"I" = (
+/obj/item/stack/medical/bruise_pack,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"J" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"K" = (
+/obj/structure/window/reinforced,
+/turf/open/floor/engine,
+/area/template_noop)
+"L" = (
+/obj/structure/window/reinforced,
+/mob/living/simple_animal/chicken{
+	name = "Killer Cluck"
+	},
+/turf/open/floor/engine,
+/area/template_noop)
+"M" = (
+/obj/machinery/door/window/eastright{
+	base_state = "left";
+	icon_state = "left";
+	name = "Arena"
+	},
+/obj/structure/window/reinforced,
+/obj/structure/chair/stool,
+/turf/open/floor/engine,
+/area/template_noop)
+"N" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"O" = (
+/obj/structure/mopbucket,
+/obj/item/mop,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"P" = (
+/obj/structure/table,
+/obj/item/storage/box/mousetraps,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"Q" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"R" = (
+/obj/structure/table,
+/obj/item/stack/cable_coil,
+/obj/item/extinguisher,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"S" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"T" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"U" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"V" = (
+/obj/item/trash/chips,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"W" = (
+/obj/structure/table,
+/obj/item/paper,
+/obj/item/pen,
+/obj/item/stack/sheet/mineral/copper{
+	amount = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"X" = (
+/obj/structure/chair/stool,
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+h
+k
+t
+a
+a
+H
+H
+P
+R
+"}
+(2,1,1) = {"
+b
+a
+l
+a
+A
+a
+I
+a
+a
+S
+"}
+(3,1,1) = {"
+c
+a
+m
+m
+m
+m
+m
+m
+a
+T
+"}
+(4,1,1) = {"
+d
+a
+n
+u
+B
+B
+J
+N
+a
+U
+"}
+(5,1,1) = {"
+a
+a
+o
+v
+C
+C
+K
+N
+a
+a
+"}
+(6,1,1) = {"
+a
+a
+p
+w
+C
+E
+L
+N
+a
+a
+"}
+(7,1,1) = {"
+e
+i
+q
+x
+D
+D
+M
+N
+a
+V
+"}
+(8,1,1) = {"
+f
+a
+r
+y
+m
+F
+m
+m
+a
+W
+"}
+(9,1,1) = {"
+g
+a
+a
+a
+a
+G
+a
+a
+a
+X
+"}
+(10,1,1) = {"
+a
+j
+s
+z
+a
+a
+a
+O
+Q
+a
+"}

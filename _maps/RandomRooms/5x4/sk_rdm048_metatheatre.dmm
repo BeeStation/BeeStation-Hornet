@@ -1,0 +1,104 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/template_noop)
+"b" = (
+/obj/structure/closet/crate{
+	opened = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/floor/plating,
+/area/template_noop)
+"c" = (
+/obj/effect/spawner/lootdrop/trap,
+/obj/effect/spawner/lootdrop/clowntrap,
+/turf/open/floor/plating,
+/area/template_noop)
+"d" = (
+/obj/machinery/vending/autodrobe/all_access,
+/turf/open/floor/plating,
+/area/template_noop)
+"e" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/lootdrop/costume,
+/turf/open/floor/plating,
+/area/template_noop)
+"g" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/template_noop)
+"h" = (
+/turf/open/floor/plating,
+/area/template_noop)
+"i" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/costume,
+/obj/effect/spawner/lootdrop/costume,
+/turf/open/floor/plating,
+/area/template_noop)
+"j" = (
+/obj/structure/table,
+/obj/item/clothing/mask/cigarette/pipe,
+/turf/open/floor/plating,
+/area/template_noop)
+"l" = (
+/obj/item/cigbutt,
+/turf/open/floor/plating,
+/area/template_noop)
+"m" = (
+/obj/structure/rack,
+/obj/item/clothing/mask/horsehead,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/plating,
+/area/template_noop)
+"o" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/template_noop)
+"p" = (
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/template_noop)
+"q" = (
+/obj/structure/rack,
+/obj/item/storage/box,
+/obj/item/toy/plush/beeplushie,
+/turf/open/floor/plating,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+h
+j
+m
+"}
+(2,1,1) = {"
+b
+h
+g
+o
+"}
+(3,1,1) = {"
+h
+c
+h
+h
+"}
+(4,1,1) = {"
+d
+h
+l
+p
+"}
+(5,1,1) = {"
+e
+h
+i
+q
+"}
