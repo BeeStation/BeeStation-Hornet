@@ -1,0 +1,7 @@
+author: eeSPee
+delete-after: true
+changes:
+  - bugfix: Fixed some gang items not working properly
+  - bugfix: Fixed gang spray/territory takeover bugging out
+  - bugfix: Fixed reinforcements not working
+  - balance: Gang revival implant no longer aheals/revives
