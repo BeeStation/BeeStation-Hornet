@@ -233,5 +233,14 @@
 	desc = "A holographic copy of the EightO brand professional skateboard."
 	instability = 6
 
+/obj/vehicle/ridden/scooter/skateboard/pro/holodeck/screwdriver_act(mob/living/user, obj/item/I)
+	return FALSE
+
 /obj/vehicle/ridden/scooter/skateboard/pro/holodeck/pick_up_board() //picking up normal skateboards spawned in the holodeck gets rid of the holo flag, now you cant pick them up.
 	return
+
+/obj/vehicle/ridden/scooter/skateboard/pro/holodeck/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/rods))
+		return
+	else
+		return ..()

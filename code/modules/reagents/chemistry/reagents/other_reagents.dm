@@ -124,8 +124,15 @@
 	. = ..()
 	new_corgi = new(get_turf(L))
 	new_corgi.key = L.key
-	new_corgi.name = L.name
+	new_corgi.name = L.real_name
+	new_corgi.real_name = L.real_name
 	ADD_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
+	//hack - equipt current hat
+	var/mob/living/carbon/C = L
+	if (istype(C))
+		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
+		if (hat)
+			new_corgi.place_on_head(hat,null,FALSE)
 	L.forceMove(new_corgi)
 
 /datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
@@ -147,6 +154,14 @@
 	L.adjustBruteLoss(new_corgi.getBruteLoss())
 	L.adjustFireLoss(new_corgi.getFireLoss())
 	L.forceMove(get_turf(new_corgi))
+	// HACK - drop all corgi inventory
+	var/turf/T = get_turf(new_corgi)
+	if (new_corgi.inventory_head)
+		if(!L.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
+			new_corgi.inventory_head.forceMove(T)		
+	new_corgi.inventory_back?.forceMove(T)	
+	new_corgi.inventory_head = null
+	new_corgi.inventory_back = null
 	qdel(new_corgi)
 
 /datum/reagent/water
@@ -564,7 +579,7 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/moth
 	taste_description = "clothing"
-	
+
 /datum/reagent/mutationtoxin/apid
 	name = "Apid Mutation Toxin"
 	description = "A sweet-smelling toxin."
@@ -629,7 +644,7 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	race = /datum/species/ipc
 	taste_description = "silicon and copper"
-	
+
 /datum/reagent/mutationtoxin/ethereal
 	name = "Ethereal Mutation Toxin"
 	description = "A positively electric toxin."
