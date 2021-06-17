@@ -221,7 +221,7 @@
 	use_skintones = 1
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	liked_food = JUNKFOOD | FRIED | GROSS | RAW
-	changesource_flags = NONE
+	changesource_flags = MIRROR_BADMIN
 	mutant_brain = /obj/item/organ/brain/tumor
 
 /obj/item/organ/brain/tumor
