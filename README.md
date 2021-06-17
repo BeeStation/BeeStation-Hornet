@@ -30,13 +30,18 @@ docker run -d -p <your port>:1337 -v /path/to/your/config:/beestation/config -v 
 
 ## INSTALLATION
 
-You can **no** longer compile the codebase simply through **DreamMaker**.
+First-time installation should be fairly straightforward. First, you'll need
+BYOND installed. You can get it from https://www.byond.com/download. Once you've done
+that, extract the game files to wherever you want to keep them. This is a
+sourcecode-only release, so the next step is to compile the server files.
+Open beestation.dme by double-clicking it, open the Build menu, and click
+compile. This'll take a little while, and if everything's done right you'll get
+a message like this:
 
-You will find `BUILD.bat` in the root folder of Beestation, double-clicking it will initiate the build. It consists of multiple steps and might take around 1-5 minutes to compile. Unix users can directly call ./tools/build/build.
-
-**Building Beestation in DreamMaker directly is now deprecated and might produce errors**, such as `'tgui.bundle.js': cannot find file`.
-
-**[How to compile in VSCode and other build options](tools/build/README.md).**
+```
+saving beestation.dmb (DEBUG mode)
+beestation.dmb - 0 errors, 0 warnings
+```
 
 If you see any errors or warnings, something has gone wrong - possibly a corrupt
 download or the files extracted wrong. If problems persist, ask for assistance
