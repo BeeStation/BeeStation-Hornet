@@ -116,7 +116,7 @@
 /obj/item/artifact/attack_self(mob/living/user)
 	. = ..()
 	if (deity != NO_GOD || inUse)
-		return .
+		return
 	
 	//activate ritual
 	if (!activated && IS_HERETIC(user))			
