@@ -208,13 +208,30 @@
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					 /obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
 
+/datum/species/teratoma
+	name = "Teratoma"
+	id = "teratoma"
+	say_mod = "mumbles"
+	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR,HAIR,FACEHAIR,LIPS)
+	inherent_traits = list(TRAIT_NOHUNGER)
+	default_features = list("mcolor" = "FFF", "wings" = "None")
+	use_skintones = 1
+	skinned_type = /obj/item/stack/sheet/animalhide/monkey
+	liked_food = JUNKFOOD | FRIED
+	changesource_flags = NONE
+	mutant_brain = /obj/item/organ/brain/tumor
+
+/obj/item/organ/brain/tumor
+	name = "teratoma brain"
+
+/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer)
+	. = ..()
+	//Removing it deletes it
+	qdel(src)
+
 /mob/living/carbon/monkey/tumor/Initialize()
 	. = ..()
-	for(var/datum/mutation/M in dna.mutations)
-		if(istype(M,/datum/mutation/human/race))
-			var/datum/mutation/human/race/R = M
-			R.mutadone_proof = TRUE
-	dna.species.species_traits += NOTRANSSTING
+	set_species(/datum/species/teratoma)
 
 /mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
 	return
