@@ -92,7 +92,7 @@
 				srcs -= origin
 			if (srcs.len == 0)
 				cleared = 1
-				GLOB.alarms[class] -= I
+				L -= I
 	return !cleared
 
 /obj/machinery/computer/station_alert/update_icon()
