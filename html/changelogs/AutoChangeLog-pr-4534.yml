@@ -1,0 +1,4 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - bugfix: runtime when checking tablet with one id
