@@ -1,11 +1,11 @@
 ///Vatbeasts are creatures from vatgrowing and are literaly a beast in a vat, yup. They are designed to be a powerful mount roughly equal to a gorilla in power.
-/*/mob/living/simple_animal/hostile/vatbeast
+/mob/living/simple_animal/hostile/vatbeast
 	name = "vatbeast"
 	desc = "A strange molluscoidal creature carrying a busted growing vat.\nYou wonder if this burden is a voluntary undertaking in order to achieve comfort and protection, or simply because the creature is fused to its metal shell?"
 	icon = 'icons/mob/vatgrowing.dmi'
 	icon_state = "vat_beast"
 	icon_dead = "vat_beast_dead"
-	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	mob_size = MOB_SIZE_LARGE
 	gender = NEUTER
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
@@ -14,15 +14,12 @@
 	health = 250
 	maxHealth = 250
 	damage_coeff = list(BRUTE = 0.7, BURN = 0.7, TOX = 1, CLONE = 2, STAMINA = 0, OXY = 1)
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	melee_damage = 25
 	obj_damage = 40
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	attack_sound = 'sound/weapons/punch3.ogg'
-	attack_verb_continuous = "slaps"
-	attack_verb_simple = "slap"
-	food_type = list(/obj/item/reagent_containers/food/snacks/fries, /obj/item/reagent_containers/food/snacks/cheesyfries, /obj/item/reagent_containers/food/snacks/cornchips, /obj/item/reagent_containers/food/snacks/carrotfries)
-	tame_chance = 30
+	//food_type = list(/obj/item/reagent_containers/food/snacks/fries, /obj/item/reagent_containers/food/snacks/cheesyfries, /obj/item/reagent_containers/food/snacks/cornchips, /obj/item/reagent_containers/food/snacks/carrotfries)
+	//tame_chance = 30
 
 	var/obj/effect/proc_holder/tentacle_slap/tentacle_slap
 
@@ -36,7 +33,7 @@
 	. = ..()
 	QDEL_NULL(tentacle_slap)
 
-/mob/living/simple_animal/hostile/vatbeast/tamed()
+/*/mob/living/simple_animal/hostile/vatbeast/tamed()
 	. = ..()
 	can_buckle = TRUE
 	buckle_lying = FALSE
@@ -48,7 +45,7 @@
 	riding.set_vehicle_dir_layer(WEST, OBJ_LAYER)
 	riding.drive_verb = "ride"
 	riding.override_allow_spacemove = TRUE
-	faction = list("neutral")
+	faction = list("neutral")*/
 
 /mob/living/simple_animal/hostile/vatbeast/add_cell_sample()
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_VATBEAST, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
@@ -61,7 +58,7 @@
 	action_icon = 'icons/mob/actions/actions_animal.dmi'
 	action_icon_state = "tentacle_slap"
 	action_background_icon_state = "bg_revenant"
-	ranged_mousepointer = 'icons/effects/mouse_pointers/supplypod_target.dmi'
+	ranged_mousepointer = 'icons/effects/supplypod_target.dmi'
 	var/cooldown = 12 SECONDS
 	var/current_cooldown = 0
 
@@ -100,10 +97,10 @@
 	var/mob/living/simple_animal/hostile/vatbeast/vatbeast = ranged_ability_user
 
 	vatbeast.visible_message("<span class='warning>[vatbeast] slaps [living_target] with its tentacle!</span>", "<span class='notice'>You slap [living_target] with your tentacle.</span>")
-	playsound(vatbeast, 'sound/effects/assslap.ogg', 90)
+	playsound(vatbeast, 'sound/weapons/slap.ogg', 90)
 	var/atom/throw_target = get_edge_target_turf(target, vatbeast.dir)
 	living_target.throw_at(throw_target, 6, 4, vatbeast)
 	living_target.apply_damage(30)
 	current_cooldown = world.time + cooldown
 	remove_ranged_ability()
-	return TRUE*/
+	return TRUE
