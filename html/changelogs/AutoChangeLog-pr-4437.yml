@@ -1,0 +1,6 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - rscadd: centcom envirosuits
+  - tweak: moved some job items to left hand
+  - bugfix: plasmamen dying as certain ert roles
