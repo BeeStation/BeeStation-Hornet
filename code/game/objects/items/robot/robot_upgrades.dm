@@ -499,15 +499,16 @@
 /obj/item/borg/upgrade/defib/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		var/obj/item/twohanded/shockpaddles/cyborg/S = new(R.module)
+		var/obj/item/shockpaddles/cyborg/S = new(R.module)
 		R.module.basic_modules += S
 		R.module.add_module(S, FALSE, TRUE)
 
 /obj/item/borg/upgrade/defib/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		var/obj/item/twohanded/shockpaddles/cyborg/S = locate() in R.module
+		var/obj/item/shockpaddles/cyborg/S = locate() in R.module
 		R.module.remove_module(S, TRUE)
+
 
 /obj/item/borg/upgrade/processor
 	name = "medical cyborg surgical processor"
@@ -571,17 +572,17 @@
 
 		R.notransform = TRUE
 		var/prev_lockcharge = R.lockcharge
-		R.SetLockdown(1)
+		R.SetLockdown(TRUE)
 		R.anchored = TRUE
 		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(1, R.loc)
+		smoke.set_up(TRUE, R.loc)
 		smoke.start()
 		sleep(2)
 		for(var/i in 1 to 4)
 			playsound(R, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 80, 1, -1)
 			sleep(12)
 		if(!prev_lockcharge)
-			R.SetLockdown(0)
+			R.SetLockdown(FALSE)
 		R.anchored = FALSE
 		R.notransform = FALSE
 		R.resize = 2

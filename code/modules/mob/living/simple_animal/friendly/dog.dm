@@ -283,7 +283,7 @@
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
 // > some will probably be removed
 
-/mob/living/simple_animal/pet/dog/corgi/proc/place_on_head(obj/item/item_to_add, mob/user)
+/mob/living/simple_animal/pet/dog/corgi/proc/place_on_head(obj/item/item_to_add, mob/user, drop = TRUE)
 
 	if(istype(item_to_add, /obj/item/grenade/plastic)) // last thing he ever wears, I guess
 		item_to_add.afterattack(src,user,1)
@@ -323,7 +323,8 @@
 		regenerate_icons()
 	else
 		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
-		item_to_add.forceMove(drop_location())
+		if (drop)
+			item_to_add.forceMove(drop_location())
 		if(prob(25))
 			step_rand(item_to_add)
 		for(var/i in list(1,2,4,8,4,8,4,dir))

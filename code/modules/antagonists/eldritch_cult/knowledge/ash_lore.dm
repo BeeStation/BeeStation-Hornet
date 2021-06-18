@@ -72,7 +72,7 @@
 	desc = "Allows you to transmute any mask, with a candle and a pair of eyes, to create a mask of madness, It causes passive stamina damage to everyone around the wearer and hallucinations, can be forced on a non believer to make him unable to take it off..."
 	result_atoms = list(/obj/item/clothing/mask/void_mask)
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/screwdriver,/obj/effect/decal/cleanable/blood)
-	next_knowledge = list(/datum/eldritch_knowledge/curse/corrosion,/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/paralysis)
+	next_knowledge = list(/datum/eldritch_knowledge/guise,/datum/eldritch_knowledge/ash_blade_upgrade,/datum/eldritch_knowledge/curse/alteration)
 	cost = 1
 	route = PATH_ASH
 

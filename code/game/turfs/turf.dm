@@ -196,7 +196,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	target.zImpact(A, levels, src)
 	return TRUE
 
-/turf/proc/handleRCL(obj/item/twohanded/rcl/C, mob/user)
+/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
 	if(C.loaded)
 		for(var/obj/structure/cable/LC in src)
 			if(!LC.d1 || !LC.d2)
@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		coil.place_turf(src, user)
 		return TRUE
 
-	else if(istype(C, /obj/item/twohanded/rcl))
+	else if(istype(C, /obj/item/rcl))
 		handleRCL(C, user)
 
 	return FALSE
@@ -386,7 +386,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	if(length(src_object.contents()))
-		to_chat(usr, "<span class='notice'>You start dumping out the contents...</span>")
+		balloon_alert(usr, "You dump out the contents")
 		if(!do_after(usr,20,target=src_object.parent))
 			return FALSE
 

@@ -1,3 +1,7 @@
+#define GHOUL_MAX_HEALTH 25
+#define MUTE_MAX_HEALTH 50
+#define ORIGINAL_MAX_HEALTH 100
+
 /datum/eldritch_knowledge/base_flesh
 	name = "Principle of Hunger"
 	desc = "Opens up the Path of Flesh to you. Allows you to transmute a pool of blood with a kitchen knife, or its derivatives, into a Flesh Blade."
@@ -41,7 +45,7 @@
 			return
 		var/mob/dead/observer/C = pick(candidates)
 		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(humie)]) to replace an AFK player.")
-		humie.ghostize(FALSE,SENTIENCE_ERASE)		
+		humie.ghostize(FALSE,SENTIENCE_ERASE)
 		humie.key = C.key
 
 	log_game("[key_name_admin(humie)] has become a voiceless dead, their master is [user.real_name]")
@@ -52,10 +56,11 @@
 	ADD_TRAIT(humie, TRAIT_IGNOREDAMAGESLOWDOWN, MAGIC_TRAIT)
 	ADD_TRAIT(humie, TRAIT_NOSTAMCRIT, MAGIC_TRAIT)
 	ADD_TRAIT(humie, TRAIT_NOLIMBDISABLE, MAGIC_TRAIT)
-	humie.setMaxHealth(50)
-	humie.health = 50 // Voiceless dead are much tougher than ghouls
+	humie.setMaxHealth(MUTE_MAX_HEALTH)
+	humie.health = MUTE_MAX_HEALTH // Voiceless dead are much tougher than ghouls
 	humie.become_husk()
 	humie.faction |= "heretics"
+	humie.apply_status_effect(/datum/status_effect/ghoul)
 
 	var/datum/antagonist/heretic_monster/heretic_monster = humie.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -67,6 +72,8 @@
 /datum/eldritch_knowledge/flesh_ghoul/proc/remove_ghoul(datum/source)
 	var/mob/living/carbon/human/humie = source
 	ghouls -= humie
+	humie.setMaxHealth(ORIGINAL_MAX_HEALTH)
+	humie.remove_status_effect(/datum/status_effect/ghoul)
 	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 	UnregisterSignal(source,COMSIG_MOB_DEATH)
 
@@ -111,9 +118,10 @@
 	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
 	ADD_TRAIT(human_target, TRAIT_NOSTAMCRIT, MAGIC_TRAIT)
 	ADD_TRAIT(human_target, TRAIT_NOLIMBDISABLE, MAGIC_TRAIT)
-	human_target.setMaxHealth(25)
-	human_target.health = 25
+	human_target.setMaxHealth(GHOUL_MAX_HEALTH)
+	human_target.health = GHOUL_MAX_HEALTH
 	human_target.become_husk()
+	human_target.apply_status_effect(/datum/status_effect/ghoul)
 	human_target.faction |= "heretics"
 	var/datum/antagonist/heretic_monster/heretic_monster = human_target.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -122,6 +130,8 @@
 /datum/eldritch_knowledge/flesh_grasp/proc/remove_ghoul(datum/source)
 	var/mob/living/carbon/human/humie = source
 	spooky_scaries -= humie
+	humie.setMaxHealth(ORIGINAL_MAX_HEALTH)
+	humie.remove_status_effect(/datum/status_effect/ghoul)
 	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 	UnregisterSignal(source, COMSIG_MOB_DEATH)
 
@@ -171,7 +181,7 @@
 	cost = 1
 	required_atoms = list(/obj/item/organ/eyes,/obj/item/bodypart/l_arm,/obj/item/bodypart/r_arm,/obj/effect/decal/cleanable/blood)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/raw_prophet
-	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/paralysis)
+	next_knowledge = list(/datum/eldritch_knowledge/flesh_blade_upgrade,/datum/eldritch_knowledge/spell/blood_siphon,/datum/eldritch_knowledge/curse/alteration)
 	route = PATH_FLESH
 
 /datum/eldritch_knowledge/summon/stalker
@@ -206,3 +216,7 @@
 	ghoul1.ghoul_amt *= 3
 	var/datum/eldritch_knowledge/flesh_ghoul/ghoul2 = heretic.get_knowledge(/datum/eldritch_knowledge/flesh_ghoul)
 	ghoul2.max_amt *= 3
+
+#undef GHOUL_MAX_HEALTH
+#undef MUTE_MAX_HEALTH
+#undef ORIGINAL_MAX_HEALTH
