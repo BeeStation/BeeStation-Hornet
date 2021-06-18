@@ -8237,7 +8237,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 4
 	},
-/obj/effect/landmark/start/hangover,
+/obj/structure/displaycase/forsale/kitchen,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "bVZ" = (
@@ -31391,7 +31391,6 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/item/kirbyplants/random,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 9
 	},
@@ -60248,9 +60247,8 @@
 /turf/open/floor/wood,
 /area/library)
 "qAi" = (
-/obj/structure/sign/poster/random{
-	pixel_y = 32
-	},
+/obj/structure/table/wood,
+/obj/structure/displaycase/forsale/kitchen,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "qAo" = (
@@ -123444,8 +123442,8 @@ aYT
 bRi
 sSn
 iuu
-fhO
 qAi
+xzr
 xHU
 xzr
 pjn
