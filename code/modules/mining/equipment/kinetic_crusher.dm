@@ -28,9 +28,6 @@
 	var/light_on = FALSE
 	var/brightness_on = 5
 
-/obj/item/kinetic_crusher/Initialize()
-	. = ..()
-
 /obj/item/kinetic_crusher/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 60, 110) //technically it's huge and bulky, but this provides an incentive to use it
