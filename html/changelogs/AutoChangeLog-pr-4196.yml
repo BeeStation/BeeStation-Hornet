@@ -1,0 +1,8 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Radio jammer changed to signal jammer
+  - tweak: Radio jammer price increased from 3 TC to 5 TC
+  - tweak: Signal jammer blocks most outgoing wireless signals.
+  - code_imp: Moves jammer check into a proc on atoms, so it can be overridden and
+      used anywhere.
