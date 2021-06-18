@@ -27,7 +27,7 @@
 
 /obj/item/clothing/under/rank/cargo/tech/skirt
 	name = "cargo technician's jumpskirt"
-	desc = "Skiiiiirts! They're comfy and easy to wear"
+	desc = "Skiiiiirts! They're comfy and easy to wear!"
 	icon_state = "cargo_skirt"
 	item_state = "lb_suit"
 	item_color = "cargo_skirt"
