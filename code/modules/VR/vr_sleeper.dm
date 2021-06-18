@@ -39,7 +39,7 @@
 /obj/machinery/vr_sleeper/relaymove(mob/user)
 	open_machine()
 
-/obj/machinery/vr_sleeper/container_resist_act(mob/living/user)
+/obj/machinery/vr_sleeper/container_resist(mob/living/user)
 	open_machine()
 
 /obj/machinery/vr_sleeper/Destroy()

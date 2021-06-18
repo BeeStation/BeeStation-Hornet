@@ -253,7 +253,7 @@
 			to_chat(A, "<span class='notice'>You suddenly feel the space around you tear apart! You're free!</span>")
 	return ..()
 
-/obj/item/clothing/head/that/bluespace/container_resist_act(mob/living/user)
+/obj/item/clothing/head/that/bluespace/container_resist(mob/living/user)
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't get out while you're restrained like this!</span>")
 		return

@@ -749,8 +749,9 @@
 		resist_buckle()
 
 	//Breaking out of a container (Locker, sleeper, cryo...)
-	else if(loc)
-		loc.container_resist_act(src)
+	else if(istype(loc, /atom/movable))
+		var/atom/movable/M = loc
+		M.container_resist(src)
 
 	else if(mobility_flags & MOBILITY_MOVE)
 		if(on_fire)

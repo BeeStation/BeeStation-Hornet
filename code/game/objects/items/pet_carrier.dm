@@ -114,9 +114,9 @@
 		update_icon()
 		return
 	else if(user.client)
-		container_resist_act(user)
+		container_resist(user)
 
-/obj/item/pet_carrier/container_resist_act(mob/living/user)
+/obj/item/pet_carrier/container_resist(mob/living/user)
 	user.changeNext_move(CLICK_CD_BREAKOUT)
 	user.last_special = world.time + CLICK_CD_BREAKOUT
 	if(user.mob_size <= MOB_SIZE_SMALL)
