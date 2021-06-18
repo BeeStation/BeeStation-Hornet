@@ -728,7 +728,7 @@
 	. = dense_object_backup
 
 //Called when something resists while this atom is its loc
-/atom/proc/container_resist_act(mob/living/user)
+/atom/movable/proc/container_resist_act(mob/living/user)
 
 //Called when a mob resists while inside a container that is itself inside something.
 /atom/movable/proc/relay_container_resist_act(mob/living/user, obj/O)
