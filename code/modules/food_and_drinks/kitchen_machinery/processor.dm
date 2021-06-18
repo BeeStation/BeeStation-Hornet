@@ -14,6 +14,7 @@
 	var/processing = FALSE
 	var/rating_speed = 1
 	var/rating_amount = 1
+	processing_flags = NONE
 
 /obj/machinery/processor/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
@@ -158,6 +159,7 @@
 	. = ..()
 	var/obj/item/circuitboard/machine/B = new /obj/item/circuitboard/machine/processor/slime(null)
 	B.apply_default_parts(src)
+	proximity_monitor = new(src, 1)
 
 /obj/machinery/processor/slime/adjust_item_drop_location(atom/movable/AM)
 	var/static/list/slimecores = subtypesof(/obj/item/slime_extract)
@@ -173,22 +175,10 @@
 	AM.pixel_y = -8 + (round(ii/3)*8)
 	return i
 
-/obj/machinery/processor/slime/process()
-	if(processing)
-		return
-	var/mob/living/simple_animal/slime/picked_slime
-	for(var/mob/living/simple_animal/slime/slime in ohearers(1,src))
-		if(slime.stat)
-			picked_slime = slime
-			break
-	if(!picked_slime)
-		return
-	var/datum/food_processor_process/P = select_recipe(picked_slime)
-	if (!P)
-		return
-
-	visible_message("[picked_slime] is sucked into [src].")
-	picked_slime.forceMove(src)
+/obj/machinery/processor/slime/HasProximity(mob/AM)
+	if(!processing && AM.stat == DEAD && istype(AM,/mob/living/simple_animal/slime))
+		visible_message("[AM] is sucked into [src].")
+		AM.forceMove(src)
 
 /obj/machinery/processor/slime/process_food(datum/food_processor_process/recipe, atom/movable/what)
 	var/mob/living/simple_animal/slime/S = what
