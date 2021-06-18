@@ -28,6 +28,8 @@ GLOBAL_PROTECT(href_token)
 
 	var/deadmined
 
+	var/datum/filter_editor/filteriffic
+
 	//Admin help manager
 	var/datum/admin_help_ui/admin_interface
 
