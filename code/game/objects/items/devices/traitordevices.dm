@@ -290,6 +290,6 @@ effective or pretty fucking useless.
 	var/turf/position = get_turf(src)
 	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		var/turf/jammer_turf = get_turf(jammer)
-		if(position?.get_virtual_z() == jammer_turf.get_virtual_z() && (get_dist(position, jammer_turf) <= jammer.range))
+		if(position?.get_virtual_z_level() == jammer_turf.get_virtual_z_level() && (get_dist(position, jammer_turf) <= jammer.range))
 			return TRUE
 	return FALSE
