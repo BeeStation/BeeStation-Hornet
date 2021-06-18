@@ -1,4 +1,0 @@
-author: jupyterkat
-delete-after: true
-changes:
-  - rscadd: hidden admin music no longer shows a title on the music player.

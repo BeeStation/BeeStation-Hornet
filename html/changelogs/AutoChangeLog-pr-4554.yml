@@ -1,4 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - bugfix: Meta's kitchen alarm no longer goes off roundstart
