@@ -389,6 +389,13 @@
 	program_type = /datum/nanite_program/comm/mind_control
 	category = list("Weaponized Nanites")
 
+/datum/design/nanites/haste
+	name = "Amphetamine Injection"
+	desc = "The nanites synthesize amphetamine when triggered, which temporarily increases the host's running speed."
+	id = "haste_nanites"
+	program_type = /datum/nanite_program/haste
+	category = list("Weaponized Nanites")
+
 ////////////////////SUPPRESSION NANITES//////////////////////////////////////
 
 /datum/design/nanites/shock

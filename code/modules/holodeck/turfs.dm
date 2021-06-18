@@ -171,3 +171,6 @@
 
 /turf/open/floor/holofloor/dark
 	icon_state = "darkfull"
+
+/turf/open/floor/holofloor/clown
+	icon_state = "bananium"

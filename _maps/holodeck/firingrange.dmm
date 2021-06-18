@@ -100,6 +100,10 @@
 /area/template_noop)
 "E" = (
 /obj/structure/table/reinforced,
+/obj/machinery/magnetic_controller{
+	autolink = 1
+	},
+/obj/item/paper/guides/jobs/security/range,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -215,6 +219,13 @@
 	icon_state = "white"
 	},
 /area/template_noop)
+"D" = (
+/turf/open/floor/holofloor{
+	icon_state = "white"
+	},
+/obj/structure/target_stake,
+/obj/machinery/magnetic_module,
+/area/template_noop)
 "Z" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -275,7 +286,7 @@ N
 "}
 (5,1,1) = {"
 Y
-K
+D
 K
 Q
 Q

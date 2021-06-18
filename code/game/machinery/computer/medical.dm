@@ -271,7 +271,7 @@
 <BR>
 <BR><b>Notes:</b> [Dis.desc]
 <BR>
-<BR><b>Severity:</b> [Dis.severity]"}
+<BR><b>Danger:</b> [Dis.danger]"}
 
 			else if(href_list["del_all"])
 				src.temp = "Are you sure you wish to delete all records?<br>\n\t<A href='?src=[REF(src)];temp=1;del_all2=1'>Yes</A><br>\n\t<A href='?src=[REF(src)];temp=1'>No</A><br>"

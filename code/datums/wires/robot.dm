@@ -38,6 +38,7 @@
 					new_ai = select_active_ai(R)
 				R.notify_ai(DISCONNECT)
 				if(new_ai && (new_ai != R.connected_ai))
+					log_combat(usr, R, "synced cyborg [R.connected_ai ? "from [ADMIN_LOOKUP(R.connected_ai)]": "false"] to [ADMIN_LOOKUP(new_ai)]")
 					R.connected_ai = new_ai
 					if(R.shell)
 						R.undeploy() //If this borg is an AI shell, disconnect the controlling AI and assign ti to a new AI
@@ -46,15 +47,20 @@
 						R.notify_ai(TRUE)
 		if(WIRE_CAMERA) // Pulse to disable the camera.
 			if(!QDELETED(R.builtInCamera) && !R.scrambledcodes)
-				R.builtInCamera.toggle_cam(usr, 0)
+				R.builtInCamera.toggle_cam(usr, FALSE)
 				R.visible_message("[R]'s camera lens focuses loudly.", "Your camera lens focuses loudly.")
+				log_combat(usr, R, "toggled cyborg camera to [R.builtInCamera.status ? "on" : "off"] via pulse")
 		if(WIRE_LAWSYNC) // Forces a law update if possible.
 			if(R.lawupdate)
 				R.visible_message("[R] gently chimes.", "LawSync protocol engaged.")
+				log_combat(usr, R, "forcibly synced cyborg laws via pulse")
+				// TODO, log the laws they gained here
 				R.lawsync()
 				R.show_laws()
 		if(WIRE_LOCKDOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle
+			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via pulse")
+
 		if(WIRE_RESET_MODULE)
 			if(R.has_module())
 				R.visible_message("[R]'s module servos twitch.", "Your module display flickers.")
@@ -65,6 +71,7 @@
 		if(WIRE_AI) // Cut the AI wire to reset AI control.
 			if(!mend)
 				R.notify_ai(DISCONNECT)
+				log_combat(usr, R, "cut AI wire on cyborg[R.connected_ai ? " and disconnected from [ADMIN_LOOKUP(R.connected_ai)]": ""]")
 				if(R.shell)
 					R.undeploy()
 				R.connected_ai = null
@@ -72,15 +79,20 @@
 			if(mend)
 				if(!R.emagged)
 					R.lawupdate = TRUE
+					log_combat(usr, R, "enabled lawsync via wire")
 			else if(!R.deployed) //AI shells must always have the same laws as the AI
 				R.lawupdate = FALSE
+				log_combat(usr, R, "disabled lawsync via wire")
 		if (WIRE_CAMERA) // Disable the camera.
 			if(!QDELETED(R.builtInCamera) && !R.scrambledcodes)
 				R.builtInCamera.status = mend
-				R.builtInCamera.toggle_cam(usr, 0)
+				R.builtInCamera.toggle_cam(usr, FALSE)
 				R.visible_message("[R]'s camera lens focuses loudly.", "Your camera lens focuses loudly.")
+				log_combat(usr, R, "[mend ? "enabled" : "disabled"] cyborg camera via wire")
 		if(WIRE_LOCKDOWN) // Simple lockdown.
 			R.SetLockdown(!mend)
+			log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] via wire")
 		if(WIRE_RESET_MODULE)
 			if(R.has_module() && !mend)
 				R.ResetModule()
+				log_combat(usr, R, "reset the cyborg module via wire")
