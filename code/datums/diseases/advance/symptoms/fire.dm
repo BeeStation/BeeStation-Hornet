@@ -22,7 +22,7 @@ Bonus
 	stealth = 1
 	resistance = -2
 	stage_speed = -3
-	transmittable = -3
+	transmission = -3
 	level = 6
 	severity = 4
 	base_message_chance = 20
@@ -37,13 +37,13 @@ Bonus
 /datum/symptom/fire/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 4)
+	if(A.stage_rate >= 4)
 		power = 1.5
-	if(A.properties["stage_rate"] >= 8)
-		power = 2
-	if(A.properties["stealth"] >= 4)
+		if(A.stage_rate >= 8)
+			power = 2
+	if(A.stealth >= 4)
 		suppress_warning = TRUE
-	if(A.properties["transmittable"] >= 8) //burning skin spreads the virus through smoke
+	if(A.transmission >= 8) //burning skin spreads the virus through smoke
 		infective = TRUE
 
 /datum/symptom/fire/Activate(datum/disease/advance/A)
@@ -108,7 +108,7 @@ Bonus
 	stealth = 2
 	resistance = -2
 	stage_speed = -2
-	transmittable = -2
+	transmission = -2
 	level = 9
 	severity = 5
 	base_message_chance = 100
@@ -122,21 +122,19 @@ Bonus
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 9)
-		severity = 6
-	if(A.properties["stage_rate"] >= 10)
+	if(A.resistance >= 9 || A.stage_rate >= 10)
 		severity = 6
 
 /datum/symptom/alkali/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 9) //intense but sporadic effect
+	if(A.resistance >= 9) //intense but sporadic effect
 		power = 2
 		symptom_delay_min = 50
 		symptom_delay_max = 140
-	if(A.properties["stage_rate"] >= 8) //serious boom when wet
+	if(A.stage_rate >= 8) //serious boom when wet
 		explosion_power = 2
-	if(A.properties["transmittable"] >= 8) //extra chemicals
+	if(A.transmission >= 8) //extra chemicals
 		chems = TRUE
 
 /datum/symptom/alkali/Activate(datum/disease/advance/A)

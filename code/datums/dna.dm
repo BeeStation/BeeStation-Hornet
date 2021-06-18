@@ -120,11 +120,8 @@
 	mutation_index.Cut()
 	shuffle_inplace(mutations_temp)
 	if(ismonkey(holder))
-		if(istype(holder, /mob/living/carbon/monkey/tumor))
-			mutations |= new RACEMUT(MUT_OTHER)
-		else
-			mutations |= new RACEMUT(MUT_NORMAL)
-			mutation_index[RACEMUT] = GET_SEQUENCE(RACEMUT)
+		mutations |= new RACEMUT(MUT_NORMAL)
+		mutation_index[RACEMUT] = GET_SEQUENCE(RACEMUT)
 	else
 		mutation_index[RACEMUT] = create_sequence(RACEMUT, FALSE)
 	for(var/i in 2 to DNA_MUTATION_BLOCKS)

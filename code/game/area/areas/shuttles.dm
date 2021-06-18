@@ -14,6 +14,7 @@
 	unique = FALSE
 	lighting_colour_tube = "#fff0dd"
 	lighting_colour_bulb = "#ffe1c1"
+	sound_environment = SOUND_ENVIRONMENT_ROOM
 	//The mobile port attached to this area
 	var/obj/docking_port/mobile/mobile_port
 
@@ -36,10 +37,10 @@
 /area/shuttle/proc/link_to_shuttle(obj/docking_port/mobile/M)
 	mobile_port = M
 
-/area/shuttle/get_virtual_z()
-	if(mobile_port)
+/area/shuttle/get_virtual_z(turf/T)
+	if(mobile_port && is_reserved_level(mobile_port.z))
 		return mobile_port.virtual_z
-	return ..()
+	return ..(T)
 
 ////////////////////////////Multi-area shuttles////////////////////////////
 
@@ -48,7 +49,7 @@
 /area/shuttle/syndicate
 	name = "Syndicate Infiltrator"
 	blob_allowed = FALSE
-	ambient_effects = HIGHSEC
+	ambience_index = AMBIENCE_DANGER
 	canSmoothWithAreas = /area/shuttle/syndicate
 
 /area/shuttle/syndicate/bridge

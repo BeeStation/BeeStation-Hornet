@@ -597,7 +597,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/gun/ballistic/shotgun/toy/unrestricted,
 		/obj/item/gun/ballistic/shotgun/toy/crossbow,
 		/obj/item/clothing/mask/facehugger/toy,
-		/obj/item/twohanded/dualsaber/toy,
+		/obj/item/dualsaber/toy,
 		/obj/item/clothing/under/costume/roman,
 		/obj/item/clothing/under/costume/pirate,
 		/obj/item/clothing/under/costume/kilt/highlander,
@@ -791,7 +791,7 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 	has_gravity = TRUE
 	teleport_restriction = TELEPORT_ALLOW_NONE
 
-/area/warped_room/get_virtual_z()
+/area/warped_room/get_virtual_z(turf/T)
 	return WARPED_ROOM_VIRTUAL_Z
 
 ///creates the warped room and place an exit rune to exit the room

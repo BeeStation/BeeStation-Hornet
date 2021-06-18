@@ -78,17 +78,28 @@
 	name = "health implant"
 	activated = 0
 	var/healthstring = ""
+	var/list/raw_data = list()
 
-/obj/item/implant/health/proc/sensehealth()
+/obj/item/implant/health/proc/sensehealth(get_list = FALSE)
 	if (!imp_in)
 		return "ERROR"
 	else
 		if(isliving(imp_in))
 			var/mob/living/L = imp_in
 			healthstring = "<small>Oxygen Deprivation Damage => [round(L.getOxyLoss())]<br />Fire Damage => [round(L.getFireLoss())]<br />Toxin Damage => [round(L.getToxLoss())]<br />Brute Force Damage => [round(L.getBruteLoss())]</small>"
-		if (!healthstring)
+			raw_data = list() //Reset list
+			raw_data["oxy"] = list("[round(L.getOxyLoss())]")		//Suffocation
+			raw_data["burn"] = list("[round(L.getFireLoss())]")		//Burn
+			raw_data["tox"] = list("[round(L.getToxLoss())]")		//Tox
+			raw_data["brute"] = list("[round(L.getBruteLoss())]")	//Brute
+		if(!healthstring)											//I have no idea who made it go this order but okay.
 			healthstring = "ERROR"
-		return healthstring
+		if(!length(raw_data))
+			raw_data = list("ERROR")
+		if(!get_list)
+			return healthstring
+		else
+			return raw_data
 
 /obj/item/implant/radio
 	name = "internal radio implant"
