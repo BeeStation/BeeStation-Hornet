@@ -15,7 +15,7 @@
 	log_admin("[key_name(admin)] has heresized [key_name(new_owner)].")
 
 /datum/antagonist/heretic_monster/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	to_chat(owner, "<span class='boldannounce'>You became an Eldritch Horror, servant of [master]!</span>")
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Eldritch Horror",
 		"You are an Eldritch Horror, follow your master's orders.")
