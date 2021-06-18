@@ -113,13 +113,10 @@
 		M.visible_message("<span class='danger'>An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
 		playsound(M.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		M.hellbound = TRUE
-		if(ishuman(M)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
-			var/mob/living/carbon/human/H = M
-			var/S = H.dna.species
-			if(istype(S, /datum/species/golem) || istype(S, /datum/species/jelly)) //nope. sorry, xenobio.
-				M.gib()
-				return
-		else
+		if(!ishuman(M)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
+			M.gib()
+			return
+		if(HAS_TRAIT(M, TRAIT_NONECRODISEASE))
 			M.gib()
 			return
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)

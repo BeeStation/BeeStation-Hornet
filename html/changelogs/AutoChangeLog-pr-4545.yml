@@ -1,7 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: Fixes flashlights attached to guns not displaying a message.
-  - bugfix: Fixes shooting someone with syringe not displaying a message.
-  - bugfix: Fixed balloon alerts preference (again). Your preference might've been
-      reset.
