@@ -9,9 +9,6 @@
 /obj/item/clockwork/alloy_shards/small,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
-"d" = (
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors/unexplored)
 "e" = (
 /obj/item/stack/tile/brass,
 /turf/open/floor/clockwork{
@@ -99,19 +96,8 @@
 	initial_gas_mix = "LAVALAND_ATMOS"
 	},
 /area/lavaland/surface/outdoors/unexplored)
-"x" = (
-/obj/item/stack/tile/brass,
-/turf/open/floor/clockwork{
-	initial_gas_mix = "LAVALAND_ATMOS"
-	},
-/area/lavaland/surface/outdoors/unexplored)
 "y" = (
 /obj/item/clockwork/component/geis_capacitor/fallen_armor,
-/turf/open/floor/clockwork{
-	initial_gas_mix = "LAVALAND_ATMOS"
-	},
-/area/lavaland/surface/outdoors/unexplored)
-"z" = (
 /turf/open/floor/clockwork{
 	initial_gas_mix = "LAVALAND_ATMOS"
 	},
@@ -123,7 +109,7 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "B" = (
-/obj/item/twohanded/clockwork/brass_spear,
+/obj/item/clockwork/brass_spear,
 /turf/open/floor/clockwork{
 	initial_gas_mix = "LAVALAND_ATMOS"
 	},
@@ -195,7 +181,7 @@ b
 r
 c
 j
-x
+e
 b
 b
 g
@@ -440,7 +426,7 @@ b
 a
 "}
 (12,1,1) = {"
-d
+b
 j
 j
 j
@@ -766,7 +752,7 @@ p
 h
 m
 e
-z
+h
 j
 j
 l
@@ -791,7 +777,7 @@ l
 b
 h
 r
-x
+e
 h
 l
 l

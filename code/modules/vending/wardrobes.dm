@@ -135,6 +135,7 @@
 	light_color = LIGHT_COLOR_YELLOW
 	products = list(/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
 					/obj/item/clothing/under/rank/cargo/tech = 3,
+					/obj/item/clothing/under/rank/cargo/tech/skirt = 3,
 					/obj/item/clothing/under/plasmaman/cargo = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/cargo = 3,
 					/obj/item/clothing/shoes/sneakers/black = 3,
@@ -322,7 +323,7 @@
 					/obj/item/cartridge/janitor = 2,
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/head/soft/purple = 2,
-					/obj/item/twohanded/pushbroom = 2,
+					/obj/item/pushbroom = 2,
 					/obj/item/paint/paint_remover = 2,
 					/obj/item/melee/flyswatter = 2,
 					/obj/item/flashlight = 2,

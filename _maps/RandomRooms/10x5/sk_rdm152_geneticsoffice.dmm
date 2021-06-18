@@ -114,7 +114,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "F" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},
