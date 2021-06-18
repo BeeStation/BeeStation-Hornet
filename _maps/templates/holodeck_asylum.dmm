@@ -1,0 +1,515 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/effect/holodeck_effect/mobspawner/psycho,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"b" = (
+/obj/machinery/door/window{
+	dir = 2
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"c" = (
+/obj/structure/window{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"d" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/window{
+	dir = 8
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"e" = (
+/obj/structure/window,
+/obj/structure/window{
+	dir = 8
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"f" = (
+/obj/structure/window,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"g" = (
+/obj/structure/bed,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"h" = (
+/obj/structure/toilet,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"i" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"j" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"k" = (
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"l" = (
+/obj/machinery/igniter,
+/obj/effect/holodeck_effect/mobspawner/psycho,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"m" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"n" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"o" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"p" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/curtain,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"q" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/bedsheet,
+/obj/item/screwdriver,
+/obj/item/wirecutters,
+/obj/item/hatchet,
+/obj/item/lighter,
+/obj/item/healthanalyzer,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"r" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"s" = (
+/obj/structure/bed,
+/obj/effect/decal/cleanable/vomit,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"t" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"u" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/clothing/suit/straight_jacket,
+/obj/item/assembly/flash,
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"v" = (
+/obj/structure/window,
+/obj/effect/decal/cleanable/vomit,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"w" = (
+/obj/structure/table/glass,
+/obj/item/clothing/glasses/blindfold,
+/obj/item/clothing/glasses/blindfold,
+/obj/item/clothing/glasses/blindfold,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"x" = (
+/obj/structure/curtain,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"y" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"z" = (
+/obj/structure/table/glass,
+/obj/item/clothing/mask/muzzle,
+/obj/item/clothing/mask/muzzle,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"A" = (
+/obj/structure/window,
+/obj/structure/curtain,
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"B" = (
+/obj/structure/window,
+/obj/structure/table/optable,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"C" = (
+/obj/structure/window{
+	dir = 8
+	},
+/obj/structure/toilet,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"D" = (
+/obj/structure/window,
+/obj/machinery/computer/operating{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"E" = (
+/obj/machinery/door/window{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"F" = (
+/obj/structure/window{
+	dir = 8
+	},
+/obj/structure/toilet{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"G" = (
+/obj/machinery/door/window{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"H" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/syringe,
+/obj/item/reagent_containers/glass/beaker,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"I" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"J" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/decal/cleanable/blood/drip,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"K" = (
+/obj/structure/window{
+	dir = 1
+	},
+/obj/structure/window{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/vomit,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"L" = (
+/obj/structure/toilet{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/vomit,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"M" = (
+/obj/structure/bed,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"N" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"O" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"P" = (
+/obj/machinery/door/window/brigdoor,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"Q" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"R" = (
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"S" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/window/brigdoor,
+/obj/effect/decal/cleanable/blood/tracks,
+/obj/effect/decal/cleanable/blood/footprints,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"T" = (
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"U" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"V" = (
+/obj/machinery/door/window{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/tracks,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+"W" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/holofloor/dark,
+/area/template_noop)
+
+(1,1,1) = {"
+h
+f
+i
+r
+r
+r
+k
+R
+c
+L
+"}
+(2,1,1) = {"
+a
+b
+i
+p
+x
+A
+k
+R
+G
+a
+"}
+(3,1,1) = {"
+g
+v
+j
+q
+r
+B
+O
+R
+c
+M
+"}
+(4,1,1) = {"
+C
+e
+i
+u
+y
+D
+O
+R
+d
+F
+"}
+(5,1,1) = {"
+a
+E
+i
+m
+t
+I
+k
+T
+V
+W
+"}
+(6,1,1) = {"
+g
+f
+j
+n
+l
+P
+S
+U
+c
+g
+"}
+(7,1,1) = {"
+C
+e
+j
+o
+J
+N
+Q
+T
+K
+F
+"}
+(8,1,1) = {"
+a
+E
+i
+w
+z
+H
+O
+R
+G
+a
+"}
+(9,1,1) = {"
+s
+f
+i
+k
+r
+k
+k
+R
+c
+g
+"}

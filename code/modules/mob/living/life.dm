@@ -2,7 +2,7 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(digitalinvis) //AI unable to see mob
+	if(HAS_TRAIT(src,TRAIT_DIGINVIS)) //AI unable to see mob
 		if(!digitaldisguise)
 			src.digitaldisguise = image(loc = src)
 		src.digitaldisguise.override = 1
