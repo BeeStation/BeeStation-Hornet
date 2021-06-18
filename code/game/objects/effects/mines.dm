@@ -295,7 +295,7 @@
 	duration = 1200 //2min
 	color = "#FF0000"
 	var/mob/living/doomslayer
-	var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw
+	var/obj/item/chainsaw/doomslayer/chainsaw
 
 /obj/effect/mine/pickup/bloodbath/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
@@ -312,7 +312,6 @@
 	victim.drop_all_held_items()
 	victim.put_in_hands(chainsaw, forced = TRUE)
 	chainsaw.attack_self(victim)
-	chainsaw.wield(victim)
 	victim.reagents.add_reagent(/datum/reagent/medicine/adminordrazine,25)
 	to_chat(victim, "<span class='warning'>KILL, KILL, KILL! YOU HAVE NO ALLIES ANYMORE, KILL THEM ALL!</span>")
 

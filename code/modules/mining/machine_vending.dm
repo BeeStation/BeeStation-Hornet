@@ -28,7 +28,7 @@
 		new /datum/data/mining_equipment("Advanced Ore Scanner",		/obj/item/t_scanner/adv_mining_scanner,								800),
 		new /datum/data/mining_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
 		new /datum/data/mining_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,										2000),
-		new /datum/data/mining_equipment("Proto-Kinetic Crusher",		/obj/item/twohanded/kinetic_crusher,								800),
+		new /datum/data/mining_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,								800),
 		new /datum/data/mining_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/kinetic_accelerator,							500),
 		new /datum/data/mining_equipment("Resonator",					/obj/item/resonator,												750),
 		new /datum/data/mining_equipment("Upgraded Resonator",			/obj/item/resonator/upgraded,										1500),
@@ -203,7 +203,7 @@
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/twohanded/kinetic_crusher(drop_location)
+			new /obj/item/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffelbag/mining_conscript(drop_location)
 
