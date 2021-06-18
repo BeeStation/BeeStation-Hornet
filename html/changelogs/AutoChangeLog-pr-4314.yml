@@ -1,4 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - code_imp: Timer subsystem can now have subtypes
