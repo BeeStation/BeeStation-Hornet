@@ -283,12 +283,15 @@
 	desc = "A black and white envirosuit helmet, specially made for the mime. Rattling bones won't stop your silent shinanigains!"
 	icon_state = "mime_envirohelm"
 	item_state = "mime_envirohelm"
+	visor_icon = "mime_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/honk
 	name = "clowns envirosuit helmet"
 	desc = "A multicolor helmet that smellls of bananium and securitys tears."
 	icon_state = "honk_envirohelm"
 	item_state = "honk_envirohelm"
+	visor_icon = "clown_envisor"
+	smile_state = "clown_smile"
 
 //command helms
 
@@ -403,6 +406,7 @@
 	desc = "A khaki replacement helmet given to plasmamen miners operating on lavaland."
 	icon_state = "explorer_envirohelm"
 	item_state = "explorer_envirohelm"
+	visor_icon = "explorer_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/chaplain
 	name = "chaplain's replace envirosuit helmet"
