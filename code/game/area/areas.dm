@@ -56,9 +56,10 @@
 
 	var/parallax_movedir = 0
 
-	var/list/ambient_music = null // OOC, doesn't require the user to actually be able to hear it
-	var/list/ambient_effects = GENERIC // IC, requires the user to actually be able to hear it, will play spontaneously
+	var/ambience_index = AMBIENCE_GENERIC
+	var/list/ambientsounds
 	var/ambient_buzz = 'sound/ambience/shipambience.ogg' // Ambient buzz of the station, plays repeatedly, also IC
+	var/ambientmusic
 
 	flags_1 = CAN_BE_DIRTY_1
 
@@ -79,6 +80,13 @@
 	var/lighting_brightness_tube = 10
 	var/lighting_brightness_bulb = 6
 	var/lighting_brightness_night = 6
+
+	///Used to decide what the minimum time between ambience is
+	var/min_ambience_cooldown = 30 SECONDS
+	///Used to decide what the maximum time between ambience is
+	var/max_ambience_cooldown = 90 SECONDS
+	///Used to decide what kind of reverb the area makes sound have
+	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
 /**
   * A list of teleport locations
@@ -138,6 +146,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	layer = AREA_LAYER
 	map_name = name // Save the initial (the name set in the map) name of the area.
 	canSmoothWithAreas = typecacheof(canSmoothWithAreas)
+
+	if(!ambientsounds)
+		ambientsounds = GLOB.ambience_assoc[ambience_index]
 
 	if(requires_power)
 		luminosity = 0

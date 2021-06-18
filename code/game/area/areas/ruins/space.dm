@@ -22,7 +22,7 @@
 	power_environ = FALSE
 	valid_territory = FALSE
 	outdoors = TRUE
-	ambient_effects = SPACE
+	ambience_index = AMBIENCE_SPACE
 	blob_allowed = FALSE
 
 /////////////
@@ -63,7 +63,7 @@
 
 /area/ruin/space/has_grav/powered/aesthetic
 	name = "Aesthetic"
-	ambient_effects = list('sound/ambience/ambivapor1.ogg')
+	ambientsounds = list('sound/ambience/ambivapor1.ogg')
 
 
 //Ruin of Hotel
@@ -244,6 +244,7 @@
 	name = "Beta Station Atmospherics"
 	icon_state = "red"
 	has_gravity = FALSE
+	ambience_index = AMBIENCE_ENGI
 
 /area/ruin/space/has_grav/ancientstation/betanorth
 	name = "Beta Station North Corridor"
@@ -256,6 +257,7 @@
 /area/ruin/space/has_grav/ancientstation/engi
 	name = "Charlie Station Engineering"
 	icon_state = "engine"
+	ambience_index = AMBIENCE_ENGI
 
 /area/ruin/space/has_grav/ancientstation/comm
 	name = "Charlie Station Command"
@@ -381,7 +383,7 @@
 /area/ruin/space/abandoned_tele
 	name = "Abandoned Teleporter"
 	icon_state = "teleporter"
-	ambient_effects = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
+	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
 
 //OLD AI SAT
 
