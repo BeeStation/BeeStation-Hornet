@@ -22239,16 +22239,13 @@
 /area/crew_quarters/bar)
 "aYe" = (
 /obj/structure/table/reinforced,
-/obj/item/kirbyplants{
-	icon_state = "plant-18";
-	pixel_y = 10
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
+/obj/structure/displaycase/forsale/kitchen,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aYf" = (
@@ -66019,6 +66016,27 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
+"wIZ" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchenshutters";
+	name = "kitchen shutters"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/structure/displaycase/forsale/kitchen,
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/kitchen)
 "wKa" = (
 /obj/machinery/light/small,
 /obj/machinery/advanced_airlock_controller{
@@ -97460,7 +97478,7 @@ bad
 uux
 bbl
 bbl
-bbl
+wIZ
 aRN
 bgo
 bhd
