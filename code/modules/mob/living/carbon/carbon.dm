@@ -155,7 +155,13 @@
 			return TRUE
 
 	if(thrown_thing)
-		visible_message("<span class='danger'>[src] throws [thrown_thing].</span>", \
+		if(prob(1))
+			visible_message("<span class='hierosay big'>YEET!</span>")
+			visible_message("<span class='danger'>[src] YEETS [thrown_thing].</span>", \
+						"<span class='danger'>You YEET [thrown_thing].</span>")
+			new /obj/effect/temp_visual/yeet(loc)
+		else
+			visible_message("<span class='danger'>[src] throws [thrown_thing].</span>", \
 						"<span class='danger'>You throw [thrown_thing].</span>")
 		log_message("has thrown [thrown_thing]", LOG_ATTACK)
 		newtonian_move(get_dir(target, src))

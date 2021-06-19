@@ -562,3 +562,8 @@
 	layer = FLY_LAYER
 	duration = 4.8
 	mouse_opacity = 0
+
+/obj/effect/temp_visual/yeet
+	icon_state = "yeet"
+	duration = 5.6
+	pixel_y = 20
