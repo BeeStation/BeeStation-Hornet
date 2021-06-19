@@ -10,7 +10,7 @@
 	var/obj/item/card/id/stored_card2
 
 /obj/item/computer_hardware/card_slot/Exited(atom/A, atom/newloc)
-	if(A == stored_card || A == stored_card2)
+	if(A == (stored_card | stored_card2))
 		stored_card = null
 		if(holder)
 			if(holder.active_program)
