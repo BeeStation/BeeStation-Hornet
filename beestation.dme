@@ -1696,6 +1696,7 @@
 #include "code\modules\cargo\exports.dm"
 #include "code\modules\cargo\expressconsole.dm"
 #include "code\modules\cargo\gondolapod.dm"
+#include "code\modules\cargo\order.dm"
 #include "code\modules\cargo\orderconsole.dm"
 #include "code\modules\cargo\packs.dm"
 #include "code\modules\cargo\supplypod.dm"
