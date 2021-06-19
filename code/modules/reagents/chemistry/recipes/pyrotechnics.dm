@@ -55,7 +55,6 @@
 	id = "potassium_explosion"
 	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/potassium = 1)
 	strengthdiv = 10
-
 /datum/chemical_reaction/reagent_explosion/potassium_explosion/holyboom
 	name = "Holy Explosion"
 	id = "holyboom"
@@ -81,6 +80,39 @@
 			C.Paralyze(40)
 			C.adjust_fire_stacks(5)
 			C.IgniteMob()
+
+/datum/chemical_reaction/reagent_explosion/water_fluorosulphuric_explosion
+	name = "Explosion"
+	id = "fluorosulphuric_water_explosion"
+	required_reagents = list(/datum/reagent/water = 1, /datum/reagent/toxin/acid/fluacid = 1) //Fluacid is a dumb fucking name
+	strengthdiv = 8 //It's a /little/ more powerful than WaterPot because fluorosulfuric isn't a base(or upgraded) chem. But it still requires water so get phucked.
+
+/datum/chemical_reaction/reagent_explosion/water_fluorosulphuric_explosion/holyboom
+	name = "Holy Explosion"
+	id = "fluoro_holyboom"
+	required_reagents = list(/datum/reagent/water/holywater = 1, /datum/reagent/toxin/acid/fluacid = 1)
+
+/datum/chemical_reaction/reagent_explosion/water_fluorosulphuric_explosion/holyboom/on_reaction(datum/reagents/holder, created_volume)
+	if(created_volume >= 150)
+		playsound(get_turf(holder.my_atom), 'sound/effects/pray.ogg', 80, 0, round(created_volume/48))
+		strengthdiv = 6
+		for(var/mob/living/simple_animal/revenant/R in hearers(7,get_turf(holder.my_atom)))
+			var/deity = GLOB.deity || "Christ"
+			to_chat(R, "<span class='userdanger'>The power of [deity] compels you!</span>")
+			R.stun(20)
+			R.reveal(100)
+			R.adjustHealth(50)
+		addtimer(CALLBACK(src, .proc/divine_explosion, round(created_volume/48,1),get_turf(holder.my_atom)), 2 SECONDS)
+	..()
+
+/datum/chemical_reaction/reagent_explosion/water_fluorosulphuric_explosion/holyboom/proc/divine_explosion(size, turf/T)
+	for(var/mob/living/carbon/C in hearers(size,T))
+		if(iscultist(C))
+			to_chat(C, "<span class='userdanger'>The divine explosion sears you!</span>")
+			C.Paralyze(40)
+			C.adjust_fire_stacks(5)
+			C.IgniteMob()
+
 
 /datum/chemical_reaction/blackpowder
 	name = "Black Powder"
