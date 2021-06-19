@@ -81,6 +81,7 @@
 /obj/item/dualsaber/update_icon()
 	icon_state = "dualsaber0"
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
+	..()
 
 /obj/item/dualsaber/suicide_act(mob/living/carbon/user)
 	if(ISWIELDED(src))
@@ -186,8 +187,7 @@
 			hacked = TRUE
 			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
 			item_color = "rainbow"
-			AddComponent(/datum/component/two_handed, force_unwielded=3, force_wielded=34, block_power_wielded=75, \
-					wieldsound='sound/weapons/saberon.ogg', unwieldsound='sound/weapons/saberoff.ogg', icon_wielded="[item_color]1")
+			AddComponent(/datum/component/two_handed, icon_wielded="dualsaber[item_color]1")
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
