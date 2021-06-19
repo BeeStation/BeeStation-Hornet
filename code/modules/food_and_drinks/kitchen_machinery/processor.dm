@@ -175,6 +175,13 @@
 	AM.pixel_y = -8 + (round(ii/3)*8)
 	return i
 
+/obj/machinery/processor/slime/interact(mob/user)
+	. = ..()
+	for(var/mob/living/simple_animal/slime/AM in hearers(1,src)) //fallback in case slimes got placed while processor was active
+		if(AM.stat == DEAD)
+			visible_message("[AM] is sucked into [src].")
+			AM.forceMove(src)
+
 /obj/machinery/processor/slime/HasProximity(mob/AM)
 	if(!processing && istype(AM, /mob/living/simple_animal/slime) && AM.stat == DEAD)
 		visible_message("[AM] is sucked into [src].")
