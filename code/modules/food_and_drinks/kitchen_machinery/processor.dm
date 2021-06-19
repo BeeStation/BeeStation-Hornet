@@ -176,7 +176,7 @@
 	return i
 
 /obj/machinery/processor/slime/HasProximity(mob/AM)
-	if(!processing && istype(AM,/mob/living/simple_animal/slime) && AM.stat == DEAD)
+	if(!processing && istype(AM, /mob/living/simple_animal/slime) && AM.stat == DEAD)
 		visible_message("[AM] is sucked into [src].")
 		AM.forceMove(src)
 
