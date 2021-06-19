@@ -25,7 +25,7 @@
 /datum/computer_file/program/budgetorders/proc/get_export_categories()
 	. = EXPORT_CARGO
 
-/datum/computer_file/program/budgetorders/proc/get_buyer_id(mob/user)
+/datum/computer_file/program/budgetorders/proc/get_buyer_id(mob/user) //gets access from id on person or inserted one
 	var/obj/item/card/id/id
 	if(ishuman(user))
 		var/mob/living/carbon/human/U = user
@@ -49,7 +49,6 @@
 	if(IsAdminGhost(user))
 		return TRUE
 
-	//Acquire access from the inserted ID card.
 	if(!length(access))
 		var/obj/item/card/id/D
 		D = get_buyer_id(user)
@@ -81,7 +80,7 @@
 	if(buyer)
 		data["points"] = buyer.account_balance
 
-//Otherwise static data, that is being applied in ui_data as the crates visible and buyable are not static, and are determined by inserted ID.
+//Otherwise static data, that is being applied in ui_data as the crates visible and buyable are not static
 	data["requestonly"] = requestonly
 	data["supplies"] = list()
 	for(var/pack in SSshuttle.supply_packs)
