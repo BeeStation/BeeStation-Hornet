@@ -144,7 +144,6 @@
 /datum/computer_file/program/budgetorders/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
-	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 	switch(action)
 		if("send")
 			if(!SSshuttle.supply.canMove())
@@ -200,13 +199,12 @@
 
 			var/datum/bank_account/account
 			if(self_paid && ishuman(usr))
-				var/mob/living/carbon/human/H = usr
-				var/obj/item/card/id/id_card = H.get_idcard(TRUE)
+				var/obj/item/card/id/id_card = get_buyer_id(usr)
 				if(!istype(id_card))
 					computer.say("No ID card detected.")
 					return
 				if(istype(id_card, /obj/item/card/id/departmental_budget))
-					computer.say("The [src] rejects [id_card].")
+					computer.say("The application rejects [id_card].")
 					return
 				account = id_card.registered_account
 				if(!istype(account))
@@ -214,19 +212,26 @@
 					return
 
 			var/reason = ""
-			if((requestonly && !self_paid) || !(card_slot?.GetID()))
+			if((requestonly && !self_paid) || !(get_buyer_id(usr)))
 				reason = stripped_input("Reason:", name, "")
 				if(isnull(reason) || ..())
 					return
 
 			if(!self_paid && ishuman(usr) && !account)
-				var/obj/item/card/id/id_card = card_slot?.GetID()
-				account = SSeconomy.get_dep_account(id_card?.registered_account?.account_job.paycheck_department)
+				var/obj/item/card/id/id_card = get_buyer_id(usr)
+				if(!istype(id_card))
+					computer.say("No ID card detected.")
+					return
+				if(istype(id_card, /obj/item/card/id/departmental_budget))
+					computer.say("The application rejects [id_card].")
+					return
+				else
+					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_job.paycheck_department)
 
 			var/turf/T = get_turf(src)
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
 			SO.generateRequisition(T)
-			if((requestonly && !self_paid) || !(card_slot?.GetID()))
+			if((requestonly && !self_paid) || !(get_buyer_id(usr)))
 				SSshuttle.requestlist += SO
 			else
 				SSshuttle.shoppinglist += SO
@@ -247,7 +252,7 @@
 			var/id = text2num(params["id"])
 			for(var/datum/supply_order/SO in SSshuttle.requestlist)
 				if(SO.id == id)
-					var/obj/item/card/id/id_card = card_slot?.GetID()
+					var/obj/item/card/id/id_card = get_buyer_id(usr)
 					if(id_card && id_card?.registered_account)
 						SO.paying_account = SSeconomy.get_dep_account(id_card?.registered_account?.account_job.paycheck_department)
 					SSshuttle.requestlist -= SO
