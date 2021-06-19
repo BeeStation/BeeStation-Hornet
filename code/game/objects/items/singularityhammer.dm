@@ -31,6 +31,7 @@
 
 /obj/item/singularityhammer/update_icon_state()
 	icon_state = "mjollnir0"
+	..()
 
 /obj/item/singularityhammer/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -127,3 +128,4 @@
 
 /obj/item/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir0"
+	..()
