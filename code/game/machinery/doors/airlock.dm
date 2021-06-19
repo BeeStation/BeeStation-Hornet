@@ -239,6 +239,10 @@
 	if(!hasPower() || !canAIControl())
 		return
 
+	//Check radio signal jamming
+	if(is_jammed())
+		return
+
 	// Check packet access level.
 	if(!check_access_ntnet(data))
 		return
@@ -424,10 +428,14 @@
 /obj/machinery/door/airlock/proc/canAIControl(mob/user)
 	if(protected_door)
 		return FALSE
+	if(is_jammed())
+		return FALSE
 	return ((aiControlDisabled != 1) && !isAllPowerCut())
 
 /obj/machinery/door/airlock/proc/canAIHack()
 	if(protected_door)
+		return FALSE
+	if(is_jammed())
 		return FALSE
 	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerCut()));
 
@@ -746,6 +754,9 @@
 		return
 	if(detonated)
 		to_chat(user, "<span class='warning'>Unable to interface. Airlock control panel damaged.</span>")
+		return
+	if(is_jammed())
+		to_chat(user, "<span class='warning'>Unable to interface. Remote communications not responding.</span>")
 		return
 
 	ui_interact(user)

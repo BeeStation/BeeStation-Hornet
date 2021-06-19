@@ -240,10 +240,20 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id
 
+/datum/outfit/centcom/commander/plasmaman
+	name = "CentCom Commander Plasmaman"
+
+	mask = /obj/item/clothing/mask/gas/sechailer
+	head = /obj/item/clothing/head/helmet/space/plasmaman/commander
+	uniform = /obj/item/clothing/under/plasmaman/commander
+
 /datum/outfit/centcom/commander/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
+	if(isplasmaman(H))
+		H.internal = H.get_item_for_held_index(2)
+		H.update_internals_hud_icon(1)
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
@@ -404,7 +414,7 @@
 	r_pocket = /obj/item/shield/energy
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	belt = /obj/item/gun/ballistic/revolver/mateba
-	r_hand = /obj/item/gun/energy/pulse/loyalpin
+	l_hand = /obj/item/gun/energy/pulse/loyalpin
 	id = /obj/item/card/id
 	ears = /obj/item/radio/headset/headset_cent/alt
 
