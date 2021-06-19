@@ -141,3 +141,9 @@
 /mob/living/carbon/proc/get_holding_bodypart_of_item(obj/item/I)
 	var/index = get_held_index_of_item(I)
 	return index && hand_bodyparts[index]
+
+/mob/living/carbon/check_wearable_slot(mob/M, item, slot)
+	if(iscarbon(M))
+		if(istype(M.get_item_by_slot(slot), item))
+			return TRUE
+	return FALSE

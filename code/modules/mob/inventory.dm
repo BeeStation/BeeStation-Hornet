@@ -511,7 +511,4 @@
 
 //Checks carbon-based wearable item slots.
 /mob/proc/check_wearable_slot(mob/M, item, slot)
-	if(iscarbon(M))
-		if(istype(M.get_item_by_slot(slot), item))
-			return TRUE
 	return FALSE
