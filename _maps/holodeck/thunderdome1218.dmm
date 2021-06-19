@@ -33,7 +33,7 @@
 "r" = (
 /obj/structure/table/wood,
 /obj/item/scythe,
-/obj/item/twohanded/spear,
+/obj/item/spear,
 /obj/item/melee/chainofcommand{
 	name = "chain whip"
 	},
@@ -54,7 +54,7 @@
 /obj/item/melee/chainofcommand{
 	name = "chain whip"
 	},
-/obj/item/twohanded/spear,
+/obj/item/spear,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
 "B" = (
@@ -83,7 +83,7 @@
 /area/template_noop)
 "N" = (
 /obj/structure/table/wood,
-/obj/item/twohanded/spear,
+/obj/item/spear,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
 "Q" = (
@@ -102,13 +102,13 @@
 "T" = (
 /obj/structure/table/wood,
 /obj/item/club/tailclub,
-/obj/item/twohanded/spear,
+/obj/item/spear,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
 "X" = (
 /obj/structure/table/wood,
 /obj/item/scythe,
-/obj/item/twohanded/spear,
+/obj/item/spear,
 /turf/open/floor/holofloor/asteroid,
 /area/template_noop)
 
