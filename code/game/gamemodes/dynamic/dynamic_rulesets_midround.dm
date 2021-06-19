@@ -122,7 +122,7 @@
 		candidates -= applicant
 		if(!isobserver(applicant))
 			if(applicant.stat == DEAD) // Not an observer? If they're dead, make them one.
-				applicant = applicant.ghostize(FALSE)
+				applicant = applicant.ghostize(FALSE,SENTIENCE_ERASE)
 			else // Not dead? Disregard them, pick a new applicant
 				i--
 				continue
@@ -258,7 +258,7 @@
 	M.mind.special_role = antag_flag
 	M.mind.add_antag_datum(AI)
 	if(prob(ion_announce))
-		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/ai/ionstorm.ogg')
+		priority_announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", ANNOUNCER_IONSTORM)
 		if(prob(removeDontImproveChance))
 			M.replace_random_law(generate_ion_law(), list(LAW_INHERENT, LAW_SUPPLIED, LAW_ION))
 		else

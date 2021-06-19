@@ -118,7 +118,7 @@
 	H.physiology.burn_mod *= 0.5
 	for(var/X in trait_list)
 		ADD_TRAIT(user,X,MAGIC_TRAIT)
-	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the decay, for Rustbringer [user.real_name] has come! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", 'sound/ai/spanomalies.ogg')
+	priority_announce("$^@&#*$^@(#&$(@&#^$&#^@# Fear the decay, for the Rustbringer, [user.real_name] has ascended! None shall escape the corrosion! $^@&#*$^@(#&$(@&#^$&#^@#","#$^@&#*$^@(#&$(@&#^$&#^@#", ANNOUNCER_SPANOMALIES)
 	new /datum/rust_spread(loc)
 	return ..()
 
@@ -130,7 +130,7 @@
 	var/mob/living/carbon/human/human_user = user
 	human_user.adjustBruteLoss(-4, FALSE)
 	human_user.adjustFireLoss(-4, FALSE)
-	human_user.adjustToxLoss(-4, FALSE)
+	human_user.adjustToxLoss(-4, FALSE, TRUE)
 	human_user.adjustOxyLoss(-2, FALSE)
 	human_user.adjustStaminaLoss(-20)
 	human_user.AdjustAllImmobility(-10)
@@ -147,7 +147,7 @@
 	var/turf/centre
 	var/list/turfs = list()
 	var/static/list/blacklisted_turfs = typecacheof(list(/turf/open/indestructible,/turf/closed/indestructible,/turf/open/space,/turf/open/lava,/turf/open/chasm))
-	var/spread_per_tick = 6
+	var/spread_per_sec = 6
 
 
 /datum/rust_spread/New(loc)
@@ -162,8 +162,8 @@
 	STOP_PROCESSING(SSprocessing,src)
 	return ..()
 
-/datum/rust_spread/process()
-	var/spread_am = round(spread_per_tick)
+/datum/rust_spread/process(delta_time)
+	var/spread_am = round(spread_per_sec * delta_time)
 
 	if(edge_turfs.len < spread_am)
 		compile_turfs()

@@ -128,13 +128,13 @@
 		START_PROCESSING(SSobj, src)
 		to_chat(user, "<span class='nezbere'>You suddenly see so much more, but your eyes begin to faulter...</span>")
 
-/obj/item/clothing/glasses/clockwork/wraith_spectacles/process()
+/obj/item/clothing/glasses/clockwork/wraith_spectacles/process(delta_time)
 	. = ..()
 	if(!wearer)
 		STOP_PROCESSING(SSobj, src)
 		return
 	//~1 damage every 2 seconds, maximum of 70 after 140 seconds
-	wearer.adjustOrganLoss(ORGAN_SLOT_EYES, 1, 70)
+	wearer.adjustOrganLoss(ORGAN_SLOT_EYES, 0.5*delta_time, 70)
 	applied_eye_damage = min(applied_eye_damage + 1, 70)
 
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/dropped(mob/user)

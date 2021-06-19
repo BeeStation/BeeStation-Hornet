@@ -184,6 +184,10 @@
 			return FALSE
 		if(FLASH_USE_BURNOUT)
 			burn_out()
+	if(is_head_revolutionary(user) && !burnt_out)
+		//Flash will drain to a minimum of 1 charge when used by a head rev.
+		if(bulb.charges_left < rand(2, initial(bulb.charges_left) - 1))
+			bulb.charges_left ++
 	last_trigger = world.time
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
 	flash_lighting_fx(FLASH_LIGHT_RANGE, light_power, light_color)
@@ -360,20 +364,19 @@
 		to_chat(M, "<span class='disarm'>[src] emits a soothing light...</span>")
 	if(targeted)
 		if(M.flash_act(1, 1))
-			var/hypnosis = FALSE
-			if(M.hypnosis_vulnerable())
-				hypnosis = TRUE
 			if(user)
 				user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>", "<span class='danger'>You hypno-flash [M]!</span>")
 
-			if(!hypnosis)
+			if(M.hypnosis_vulnerable())
+				M.apply_status_effect(/datum/status_effect/trance, 200, TRUE)
+			else
 				to_chat(M, "<span class='notice'>The light makes you feel oddly relaxed...</span>")
 				M.confused += min(M.confused + 10, 20)
 				M.dizziness += min(M.dizziness + 10, 20)
 				M.drowsyness += min(M.drowsyness + 10, 20)
 				M.apply_status_effect(STATUS_EFFECT_PACIFY, 100)
-			else
-				M.apply_status_effect(/datum/status_effect/trance, 200, TRUE)
+
+
 
 		else if(user)
 			user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>", "<span class='warning'>You fail to hypno-flash [M]!</span>")

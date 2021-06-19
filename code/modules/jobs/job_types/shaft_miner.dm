@@ -20,6 +20,7 @@
 	paycheck_department = ACCOUNT_CAR
 
 	display_order = JOB_DISPLAY_ORDER_SHAFT_MINER
+	departments = DEPARTMENT_CARGO
 
 /datum/outfit/job/miner
 	name = "Shaft Miner"

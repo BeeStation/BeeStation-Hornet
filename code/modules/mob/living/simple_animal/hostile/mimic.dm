@@ -27,7 +27,7 @@
 	faction = list("mimic")
 	move_to_delay = 9
 	gold_core_spawnable = HOSTILE_SPAWN
-	del_on_death = 1
+	del_on_death = TRUE
 	hardattacks = TRUE
 
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
@@ -35,7 +35,7 @@
 	attacktext = "bites"
 	speak_emote = list("clatters")
 	stop_automated_movement = 1
-	wander = 0
+	wander = FALSE
 	var/attempt_open = FALSE
 
 // Pickup loot

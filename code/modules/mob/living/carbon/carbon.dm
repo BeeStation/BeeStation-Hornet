@@ -100,7 +100,7 @@
 
 //Throwing stuff
 /mob/living/carbon/proc/toggle_throw_mode()
-	if(stat)
+	if(stat >= SOFT_CRIT)
 		return
 	if(in_throw_mode)
 		throw_mode_off()
@@ -232,6 +232,16 @@
 
 				visible_message("<span class='danger'>[usr] [internal ? "opens" : "closes"] the valve on [src]'s [ITEM.name].</span>", \
 								"<span class='userdanger'>You [internal ? "open" : "close"] the valve on [src]'s [ITEM.name].</span>")
+
+	if(href_list["embedded_object"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
+		var/obj/item/bodypart/L = locate(href_list["embedded_limb"]) in bodyparts
+		if(!L)
+			return
+		var/obj/item/I = locate(href_list["embedded_object"]) in L.embedded_objects
+		if(!I || I.loc != src) //no item, no limb, or item is not in limb or in the person anymore
+			return
+		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
+		return
 
 /mob/living/carbon/fall(forced)
     loc.handle_fall(src, forced)//it's loc so it doesn't call the mob's handle_fall which does nothing
@@ -514,6 +524,12 @@
 		add_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE, multiplicative_slowdown = CRAWLING_ADD_SLOWDOWN)
 	else
 		remove_movespeed_modifier(MOVESPEED_ID_CARBON_CRAWLING, TRUE)
+	if(buckled || pulledby)
+		return
+	if(is_conscious())
+		glide_size = initial(glide_size)
+	else
+		glide_size = CRIT_GLIDE
 
 //Updates the mob's health from bodyparts and mob damage variables
 /mob/living/carbon/updatehealth()
@@ -639,7 +655,7 @@
 	if(health <= crit_threshold)
 		var/severity = 0
 		switch(health)
-			if(-20 to -10)
+			if(-20 to 0)
 				severity = 1
 			if(-30 to -20)
 				severity = 2
@@ -762,7 +778,7 @@
 			death()
 			return
 		if(IsUnconscious() || IsSleeping() || getOxyLoss() > 50 || (HAS_TRAIT(src, TRAIT_DEATHCOMA)) || (health <= HEALTH_THRESHOLD_FULLCRIT && !HAS_TRAIT(src, TRAIT_NOHARDCRIT)))
-			stat = UNCONSCIOUS
+			set_stat(UNCONSCIOUS)
 			blind_eyes(1)
 			if(CONFIG_GET(flag/near_death_experience) && health <= HEALTH_THRESHOLD_NEARDEATH && !HAS_TRAIT(src, TRAIT_NODEATH))
 				ADD_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
@@ -770,15 +786,56 @@
 				REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		else
 			if(health <= crit_threshold && !HAS_TRAIT(src, TRAIT_NOSOFTCRIT))
-				stat = SOFT_CRIT
+				// Slower glide movement handled in update_mobility()
+				//Knockdown at the start of critical status.
+				if(stat != SOFT_CRIT)
+					Knockdown(40, TRUE, TRUE)
+				set_stat(SOFT_CRIT)
+				stuttering = 10
 			else
-				stat = CONSCIOUS
+				set_stat(CONSCIOUS)
+				stuttering = 0
 			adjust_blindness(-1)
 			REMOVE_TRAIT(src, TRAIT_SIXTHSENSE, "near-death")
 		update_mobility()
 	update_damage_hud()
 	update_health_hud()
 	med_hud_set_status()
+
+/// Allows mobs to slowly walk in crit for a short time
+/mob/living/carbon/proc/softcrit_damage()
+	if(stat == SOFT_CRIT)
+		var/duration = 0
+		switch(health)
+			if(HEALTH_THRESHOLD_FULLCRIT to -30)
+				if(prob(25 * crit_weight))
+					duration = 60
+
+				if(prob(30 * crit_weight))
+					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
+			if(-30 to -20)
+				if(prob(20 * crit_weight))
+					duration = 60
+
+				if(prob(25 * crit_weight))
+					INVOKE_ASYNC(src, /mob.proc/emote, "gasp")
+			if(-20 to -10)
+				if(prob(15 * crit_weight))
+					duration = 40
+
+				if(prob(20 * crit_weight))
+					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
+			if(-10 to HEALTH_THRESHOLD_CRIT)
+				if(prob(15 * crit_weight))
+					duration = 20
+
+				if(prob(20 * crit_weight))
+					INVOKE_ASYNC(src, /mob.proc/emote, "cough")
+		if(duration)
+			crit_weight = initial(crit_weight) // reset our crit chance multiplier
+			AdjustKnockdown(rand(duration, duration * 2), ignore_canstun = TRUE)
+		else
+			crit_weight += 0.2
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()

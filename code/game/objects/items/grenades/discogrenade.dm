@@ -16,7 +16,8 @@
 	var/list/messages = list("This party is great!", "Wooo!!!", "Party!", "Check out these moves!", "Hey, want to dance with me?")
 	var/list/message_social_anxiety = list("I want to go home...", "Where are the toilets?", "I don't like this song.")
 
-/obj/item/grenade/discogrenade/prime()
+/obj/item/grenade/discogrenade/prime(mob/living/lanced_by)
+	. = ..()
 	update_mob()
 	var/current_turf = get_turf(src)
 	if(!current_turf)
@@ -57,7 +58,7 @@
 	addtimer(CALLBACK(src, .proc/prime), rand(10, 60))
 	randomiseLightColor()
 
-/obj/item/grenade/discogrenade/subgrenade/prime()
+/obj/item/grenade/discogrenade/subgrenade/prime(mob/living/lanced_by)
 	update_mob()
 	var/current_turf = get_turf(src)
 	if(!current_turf)

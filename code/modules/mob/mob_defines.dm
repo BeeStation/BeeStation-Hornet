@@ -31,7 +31,7 @@
 	/// A special action? No idea why this lives here
 	var/list/datum/action/chameleon_item_actions
 
-	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here)
+	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here) - TheFakeElon (2020, still here)
 	var/stat = CONSCIOUS
 
 	/* A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
@@ -196,6 +196,9 @@
 
 	///List of progress bars this mob is currently seeing for actions
 	var/list/progressbars = null	//for stacking do_after bars
+
+	///For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time
+	var/list/do_afters	
 
 	var/list/mousemove_intercept_objects
 

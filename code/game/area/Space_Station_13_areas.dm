@@ -430,6 +430,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_tube = "#fff4d6"
 	lighting_colour_bulb = "#ffebc1"
 
+/area/crew_quarters/bar/Initialize(mapload)
+	. = ..()
+	GLOB.bar_areas += src
+
+/area/service/bar/Initialize(mapload)
+	. = ..()
+	GLOB.bar_areas += src
+
 /area/crew_quarters/bar/atrium
 	name = "Atrium"
 	icon_state = "bar"
@@ -939,6 +947,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/science/xenobiology
 	name = "Xenobiology Lab"
 	icon_state = "toxlab"
+
+/area/science/shuttle
+	name = "Shuttle Construction"
+	lighting_colour_tube = "#ffe3cc"
+	lighting_colour_bulb = "#ffdbb8"
 
 /area/science/storage
 	name = "Toxins Storage"

@@ -65,10 +65,10 @@
 	START_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/structure/spider/eggcluster/process()
-	amount_grown += rand(0,2)
+/obj/structure/spider/eggcluster/process(delta_time)
+	amount_grown += rand(0,1) * delta_time
 	if(amount_grown >= 100)
-		var/num = rand(3,12)
+		var/num = round(rand(1.5, 6) * delta_time)
 		for(var/i=0, i<num, i++)
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(src.loc)
 			S.faction = faction.Copy()
@@ -193,8 +193,8 @@
 			S.faction = faction.Copy()
 			S.directive = directive
 			if(player_spiders)
-				S.playable_spider = TRUE
-				notify_ghosts("Spider [S.name] can be controlled", null, enter_link="<a href=?src=[REF(S)];activate=1>(Click to play)</a>", source=S, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
+				S.set_playable()
+				S.flavor_text = FLAVOR_TEXT_GOAL_ANTAG
 			qdel(src)
 
 
@@ -216,7 +216,7 @@
 	to_chat(user, "<span class='notice'>You struggle against the tight bonds... (This will take about [DisplayTimeText(breakout_time)].)</span>")
 	visible_message("You see something struggling and writhing in \the [src]!")
 	if(do_after(user,(breakout_time), target = src))
-		if(!user || user.stat != CONSCIOUS || user.loc != src)
+		if(!user || !user.is_conscious() || user.loc != src)
 			return
 		qdel(src)
 

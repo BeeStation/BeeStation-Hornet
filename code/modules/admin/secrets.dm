@@ -73,7 +73,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Summon Events (Toggle)", "events"),
 			list("There can only be one!", "onlyone"),
 			list("There can only be one! (40-second delay)", "delayed_onlyone"),
-			list("Make all players retarded", "retardify"),
+			list("Make all players intellectually disabled", "dumbify"),
 			list("Make all players Australian", "aussify"),
 			list("Egalitarian Station Mode", "eagles"),
 			list("Anarcho-Capitalist Station Mode", "ancap"),
@@ -89,7 +89,8 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			list("Mass Purrbation", "masspurrbation"),
 			list("Mass Remove Purrbation", "massremovepurrbation"),
 			list("Fully Immerse Everyone", "massimmerse"),
-			list("Un-Fully Immerse Everyone", "unmassimmerse")
+			list("Un-Fully Immerse Everyone", "unmassimmerse"),
+			list("Make All Animals Playable", "animalsentience")
 			)
 
 	if(check_rights(R_DEBUG,0))
@@ -458,7 +459,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Chinese Cartoons"))
 			message_admins("[key_name_admin(usr)] made everything kawaii.")
 			for(var/mob/living/carbon/human/H in GLOB.carbon_list)
-				SEND_SOUND(H, sound('sound/ai/animes.ogg'))
+				SEND_SOUND(H, sound(SSstation.announcer.event_sounds[ANNOUNCER_ANIMES]))
 
 				if(H.dna.species.id == "human")
 					if(H.dna.features["tail_human"] == "None" || H.dna.features["ears"] == "None")
@@ -510,14 +511,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 					var/datum/round_event/disease_outbreak/DO = E
 					DO.virus_type = virus
 
-		if("retardify")
+		if("dumbify")
 			if(!check_rights(R_FUN))
 				return
 			SSblackbox.record_feedback("nested tally", "admin_secrets_fun_used", 1, list("Mass Braindamage"))
 			for(var/mob/living/carbon/human/H in GLOB.player_list)
 				to_chat(H, "<span class='boldannounce'>You suddenly feel stupid.</span>")
 				H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60, 80)
-			message_admins("[key_name_admin(usr)] made everybody retarded")
+			message_admins("[key_name_admin(usr)] gave everybody intellectual disability")
 
 		if("aussify") //for rimjobtide
 			if(!check_rights(R_FUN))
@@ -539,7 +540,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 				if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 					W.req_access = list()
 			message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-			priority_announce("CentCom airlock control override activated. Please take this time to get acquainted with your coworkers.", null, 'sound/ai/commandreport.ogg')
+			priority_announce("CentCom airlock control override activated. Please take this time to get acquainted with your coworkers.", null, SSstation.announcer.get_rand_report_sound())
 
 		if("ancap")
 			if(!check_rights(R_FUN))
@@ -548,9 +549,9 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			SSeconomy.full_ancap = !SSeconomy.full_ancap
 			message_admins("[key_name_admin(usr)] toggled Anarcho-capitalist mode")
 			if(SSeconomy.full_ancap)
-				priority_announce("The NAP is now in full effect.", null, 'sound/ai/commandreport.ogg')
+				priority_announce("The NAP is now in full effect.", null, SSstation.announcer.get_rand_report_sound())
 			else
-				priority_announce("The NAP has been revoked.", null, 'sound/ai/commandreport.ogg')
+				priority_announce("The NAP has been revoked.", null, SSstation.announcer.get_rand_report_sound())
 
 
 
@@ -682,6 +683,14 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 			message_admins("[key_name_admin(usr)] has Un-Fully Immersed \
 				everyone!")
 			log_admin("[key_name(usr)] has Un-Fully Immersed everyone.")
+		if("animalsentience")
+			for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
+				var/turf/T = get_turf(L)
+				if(!T || !is_station_level(T.z))
+					continue
+				if((L in GLOB.player_list) || L.mind || (L.flags_1 & HOLOGRAM_1))
+					continue
+				L.set_playable()
 
 		if("flipmovement")
 			if(!check_rights(R_FUN))

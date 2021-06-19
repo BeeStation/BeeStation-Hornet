@@ -115,6 +115,13 @@
 
 /obj/effect/spawner/lootdrop/maintenance/Initialize(mapload)
 	loot = GLOB.maintenance_loot
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_FILLED_MAINT))
+		lootcount = FLOOR(lootcount * 1.5, 1)
+
+	else if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT))
+		lootcount = FLOOR(lootcount * 0.5, 1)
+
 	. = ..()
 
 /obj/effect/spawner/lootdrop/maintenance/two
@@ -216,9 +223,37 @@
 		/obj/item/organ/vocal_cords/adamantine = 1,
 		/obj/effect/gibspawner/xeno = 1,
 		/obj/effect/mob_spawn/human/corpse/assistant = 1,
-		/obj/effect/mob_spawn/teratomamonkey = 5,
+		/obj/effect/mob_spawn/teratomamonkey = 1,
 		/obj/item/organ/wings/moth/robust = 1,
 		/obj/item/organ/wings/dragon = 1)
+
+/obj/effect/spawner/lootdrop/teratoma/robot
+	name = "robotic teratoma spawner"
+	loot = list(
+		/obj/item/organ/ears/robot = 5,
+		/obj/item/organ/eyes/robotic = 5,
+		/obj/item/organ/eyes/robotic/flashlight = 1,
+		/obj/item/organ/eyes/night_vision = 1,
+		/obj/item/organ/liver/cybernetic = 4,
+		/obj/item/organ/liver/cybernetic/upgraded/ipc = 3,
+		/obj/item/organ/lungs/cybernetic = 4,
+		/obj/item/organ/lungs/cybernetic/upgraded= 2,
+		/obj/item/organ/stomach/cell = 4,
+		/obj/item/organ/heart/clockwork = 6,
+		/obj/item/organ/stomach/clockwork = 6,
+		/obj/item/organ/liver/clockwork = 6,
+		/obj/item/organ/lungs/clockwork = 6,
+		/obj/item/organ/tail/clockwork = 6,
+		/obj/item/organ/adamantine_resonator = 1,
+		/obj/item/organ/eyes/robotic/thermals = 2,
+		/obj/item/organ/heart/gland/viral = 1,
+		/obj/item/organ/eyes/robotic/shield = 2,
+		/obj/item/organ/eyes/robotic/glow = 2,
+		/obj/item/organ/heart/cybernetic = 2,
+		/obj/item/organ/wings/cybernetic = 2,
+		/obj/item/organ/tongue/robot/clockwork/better = 2,
+		/obj/effect/gibspawner/robot = 4,
+		/obj/item/drone_shell = 1)
 
 /obj/effect/spawner/lootdrop/teratoma/major/clown
 	name = "funny teratoma spawner"
@@ -242,6 +277,12 @@
 	if(prob(40) && SSevents.holidays && SSevents.holidays[APRIL_FOOLS])
 		loot = list(/obj/effect/spawner/xeno_egg_delivery_troll = 1)
 	. = ..()
+
+/obj/effect/spawner/lootdrop/ten_percent_girlfriend_spawner
+	name = "10% chance girlfriend spawner"
+	loot = list(
+		/mob/living/simple_animal/pet/dog/corgi = 9,
+		/mob/living/simple_animal/pet/dog/corgi/Lisa = 1)
 
 /obj/effect/spawner/lootdrop/sanitarium
 	name = "patient spawner"

@@ -49,7 +49,7 @@
 /obj/item/circuitboard/machine/autolathe
 	name = "autolathe (Machine Board)"
 	icon_state = "engineering"
-	build_path = /obj/machinery/autolathe
+	build_path = /obj/machinery/modular_fabricator/autolathe
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 3,
 		/obj/item/stock_parts/manipulator = 1,
@@ -618,6 +618,39 @@
 		/obj/item/stock_parts/cell = 1)
 	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 	needs_anchored = FALSE
+	
+/obj/item/circuitboard/machine/chem_dispenser/fullupgrade
+	build_path = /obj/machinery/chem_dispenser/fullupgrade
+	req_components = list(
+		/obj/item/stock_parts/matter_bin/bluespace = 2,
+		/obj/item/stock_parts/capacitor/quadratic = 2,
+		/obj/item/stock_parts/manipulator/femto = 2,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/cell/bluespace = 1,
+	)
+
+/obj/item/circuitboard/machine/chem_dispenser/mutagensaltpeter
+	build_path = /obj/machinery/chem_dispenser/mutagensaltpeter
+	req_components = list(
+		/obj/item/stock_parts/matter_bin/bluespace = 2,
+		/obj/item/stock_parts/capacitor/quadratic = 2,
+		/obj/item/stock_parts/manipulator/femto = 2,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/cell/bluespace = 1,
+	)
+
+/obj/item/circuitboard/machine/chem_dispenser/abductor
+	name = "Reagent Synthesizer (Abductor Machine Board)"
+	icon_state = "abductor_mod"
+	build_path = /obj/machinery/chem_dispenser/abductor
+	req_components = list(
+		/obj/item/stock_parts/matter_bin/bluespace = 2,
+		/obj/item/stock_parts/capacitor/quadratic = 2,
+		/obj/item/stock_parts/manipulator/femto = 2,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/cell/bluespace = 1,
+	)
+	needs_anchored = FALSE
 
 /obj/item/circuitboard/machine/chem_heater
 	name = "chemical heater (Machine Board)"
@@ -727,6 +760,16 @@
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 2)
 
+/obj/item/circuitboard/machine/sleeper/fullupgrade
+	name = "Sleeper (Machine Board)"
+	icon_state = "medical"
+	build_path = /obj/machinery/sleeper/syndie/fullupgrade
+	req_components = list(
+		/obj/item/stock_parts/matter_bin/bluespace = 1,
+		/obj/item/stock_parts/manipulator/femto = 1,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/stack/sheet/glass = 2)
+
 /obj/item/circuitboard/machine/smoke_machine
 	name = "smoke machine (Machine Board)"
 	icon_state = "medical"
@@ -813,7 +856,7 @@
 /obj/item/circuitboard/machine/mechfab
 	name = "exosuit fabricator (Machine Board)"
 	icon_state = "science"
-	build_path = /obj/machinery/mecha_part_fabricator
+	build_path = /obj/machinery/modular_fabricator/exosuit_fab
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,
 		/obj/item/stock_parts/manipulator = 1,
@@ -949,10 +992,30 @@
 	icon_state = "service"
 	build_path = /obj/machinery/chem_dispenser/drinks
 
+/obj/item/circuitboard/machine/chem_dispenser/drinks/fullupgrade
+	build_path = /obj/machinery/chem_dispenser/drinks/fullupgrade
+	req_components = list(
+		/obj/item/stock_parts/matter_bin/bluespace = 2,
+		/obj/item/stock_parts/capacitor/quadratic = 2,
+		/obj/item/stock_parts/manipulator/femto = 2,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/cell/bluespace = 1,
+	)
+
 /obj/item/circuitboard/machine/chem_dispenser/drinks/beer
 	name = "booze dispenser (Machine Board)"
 	icon_state = "service"
 	build_path = /obj/machinery/chem_dispenser/drinks/beer
+
+/obj/item/circuitboard/machine/chem_dispenser/drinks/beer/fullupgrade
+	build_path = /obj/machinery/chem_dispenser/drinks/beer/fullupgrade
+	req_components = list(
+		/obj/item/stock_parts/matter_bin/bluespace = 2,
+		/obj/item/stock_parts/capacitor/quadratic = 2,
+		/obj/item/stock_parts/manipulator/femto = 2,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/cell/bluespace = 1,
+	)
 
 /obj/item/circuitboard/machine/chem_master/condi
 	name = "CondiMaster 3000 (Machine Board)"

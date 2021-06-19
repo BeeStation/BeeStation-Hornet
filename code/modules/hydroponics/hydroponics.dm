@@ -101,18 +101,18 @@
 	else
 		return ..()
 
-/obj/machinery/hydroponics/process()
+/obj/machinery/hydroponics/process(delta_time)
 	var/needs_update = 0 // Checks if the icon needs updating so we don't redraw empty trays every time
 
 	if(myseed && (myseed.loc != src))
 		myseed.forceMove(src)
 
 	if(self_sustaining)
-		adjustNutri(1)
-		adjustWater(rand(3,5))
-		adjustWeeds(-2)
-		adjustPests(-2)
-		adjustToxic(-2)
+		adjustNutri(0.5 * delta_time)
+		adjustWater(rand(1,2) * delta_time * 0.5)
+		adjustWeeds(-1 * delta_time)
+		adjustPests(-1 * delta_time)
+		adjustToxic(-1 * delta_time)
 
 	if(world.time > (lastcycle + cycledelay))
 		lastcycle = world.time
@@ -595,7 +595,7 @@
 		adjustHealth(round(S.get_reagent_amount(/datum/reagent/consumable/sodawater) * 0.1))
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/consumable/sodawater) * 0.1))
 
-	// Man, you guys are retards
+	// Man, you guys are stupid
 	if(S.has_reagent(/datum/reagent/toxin/acid, 1))
 		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/toxin/acid) * 1))
 		adjustToxic(round(S.get_reagent_amount(/datum/reagent/toxin/acid) * 1.5))
@@ -878,7 +878,7 @@
 	if(issilicon(user)) //How does AI know what plant is?
 		return
 	harvest_plant(user)
-		
+
 /obj/machinery/hydroponics/proc/harvest_plant(mob/user)
 	if(harvest)
 		return myseed.harvest(user)

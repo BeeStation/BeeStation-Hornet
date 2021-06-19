@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	light_color = LIGHT_COLOR_CYAN
 	var/list/links = list() // list of machines this machine is linked to
 	var/traffic = 0 // value increases as traffic increases
-	var/netspeed = 5 // how much traffic to lose per tick (50 gigabytes/second * netspeed)
+	var/netspeed = 2.5 // how much traffic to lose per second (50 gigabytes/second * netspeed)
 	var/list/autolinkers = list() // list of text/number values to link with
 	var/id = "NULL" // identification string
 	var/network = "NULL" // the network of the machinery
@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 			continue
 		if(amount && send_count >= amount)
 			break
-		if(z != machine.loc.z && !long_range_link && !machine.long_range_link)
+		if(get_virtual_z_level() != machine.loc.get_virtual_z_level() && !long_range_link && !machine.long_range_link)
 			continue
 
 		send_count++
@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/turf/T_position = get_turf(T)
 	var/same_zlevel = FALSE
 	if(position && T_position)	//Stops a bug with a phantom telecommunications interceptor which is spawned by circuits caching their components into nullspace
-		if(position.z == T_position.z)
+		if(position.get_virtual_z_level() == T_position.get_virtual_z_level())
 			same_zlevel = TRUE
 	if(same_zlevel || (long_range_link && T.long_range_link))
 		if(src != T)
@@ -139,14 +139,14 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 	set_light(on)
 
-/obj/machinery/telecomms/process()
+/obj/machinery/telecomms/process(delta_time)
 	update_power()
 
 	// Update the icon
 	update_icon()
 
 	if(traffic > 0)
-		traffic -= netspeed
+		traffic -= netspeed * delta_time
 
 /obj/machinery/telecomms/emp_act(severity)
 	. = ..()

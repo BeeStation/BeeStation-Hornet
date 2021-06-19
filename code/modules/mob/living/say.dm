@@ -115,7 +115,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				end = FALSE
 				break
 		if(end)
-			return
+			message_mods += MODE_WHISPER // forces people in crit to whisper if they can't do anything else
+
 	else if(stat == UNCONSCIOUS)
 		var/end = TRUE
 		for(var/index in message_mods)
@@ -186,8 +187,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		spans |= SPAN_ITALICS
 	if(radio_return & REDUCE_RANGE)
 		message_range = 1
-		if(!message_mods[WHISPER_MODE])
-			message_mods[WHISPER_MODE] = MODE_WHISPER
+		message_mods[MODE_RADIO_MESSAGE] = MODE_RADIO_MESSAGE
 	if(radio_return & NOPASS)
 		return 1
 
@@ -223,9 +223,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		deaf_message = "<span class='notice'>You can't hear yourself!</span>"
 		deaf_type = 2 // Since you should be able to hear yourself without looking
 
+	var/flags = message_mods.Find(MODE_RADIO_MESSAGE) ? RADIO_MESSAGE : NONE
+
 	// Create map text prior to modifying message for goonchat
 	if(client?.prefs.chat_on_map && stat != UNCONSCIOUS && (client.prefs.see_chat_non_mob || ismob(speaker)) && can_hear())
-		create_chat_message(speaker, message_language, raw_message, spans)
+		create_chat_message(speaker, message_language, raw_message, spans, runechat_flags = flags)
 
 	// Recompose message for AI hrefs, language incomprehension.
 	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
@@ -250,7 +252,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			continue
 		if(!M.client || !client) //client is so that ghosts don't have to listen to mice
 			continue
-		if(get_dist(M, src) > 7 || M.z != z) //they're out of range of normal hearing
+		if(get_dist(M, src) > 7 || M.get_virtual_z_level() != get_virtual_z_level()) //they're out of range of normal hearing
 			if(eavesdrop_range && !(M.client.prefs.chat_toggles & CHAT_GHOSTWHISPER)) //they're whispering and we have hearing whispers at any range off
 				continue
 			if(!(M.client.prefs.chat_toggles & CHAT_GHOSTEARS)) //they're talking normally and we have hearing at any range off
