@@ -256,7 +256,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	qdel(src)
 
 //what happens when the obj's health is below integrity_failure level.
-/obj/proc/obj_break	(damage_flag)
+/obj/proc/obj_break(damage_flag)
 	return
 
 //what happens when the obj's integrity reaches zero.
