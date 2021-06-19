@@ -275,7 +275,7 @@
 		. += "<span class='notice'><b>A small display on the back reads:</b></span>"
 		var/timeleft = timeleft(recharge_timer)
 		var/loadingbar = num2loadingbar(timeleft/recharge_time)
-		. += "<span class='notice'><b>CHARGING: [loadingbar] ([timeleft*0.1]s)</b></span>"
+		. += "<span class='notice'><b>CHARGING: [loadingbar] ([timeleft SECONDS]s)</b></span>"
 
 /obj/item/teleporter/attack_self(mob/user)
 	..()
