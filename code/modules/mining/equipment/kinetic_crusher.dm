@@ -149,7 +149,6 @@
 	..()
 	var/wielded = ISWIELDED(src)
 	cut_overlays()
-	icon_state = "crusher[wielded]" // this is not icon_state and not supported by 2hcomponent
 	if(!charged)
 		add_overlay("[icon_state]_uncharged")
 	if(light_on)
