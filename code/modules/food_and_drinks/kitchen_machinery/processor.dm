@@ -154,6 +154,7 @@
 /obj/machinery/processor/slime
 	name = "slime processor"
 	desc = "An industrial grinder with a sticker saying appropriated for science department. Keep hands clear of intake area while operating."
+	var/sbacklogged = FALSE
 
 /obj/machinery/processor/slime/Initialize()
 	. = ..()
@@ -177,15 +178,20 @@
 
 /obj/machinery/processor/slime/interact(mob/user)
 	. = ..()
-	for(var/mob/living/simple_animal/slime/AM in hearers(1,src)) //fallback in case slimes got placed while processor was active
-		if(AM.stat == DEAD)
-			visible_message("[AM] is sucked into [src].")
-			AM.forceMove(src)
+	if(sbacklogged)
+		for(var/mob/living/simple_animal/slime/AM in hearers(1,src)) //fallback in case slimes got placed while processor was active
+			if(AM.stat == DEAD)
+				visible_message("[AM] is sucked into [src].")
+				AM.forceMove(src)
+				sbacklogged = FALSE
 
 /obj/machinery/processor/slime/HasProximity(mob/AM)
-	if(!processing && istype(AM, /mob/living/simple_animal/slime) && AM.stat == DEAD)
-		visible_message("[AM] is sucked into [src].")
-		AM.forceMove(src)
+	if(!sbacklogged && istype(AM, /mob/living/simple_animal/slime) && AM.stat == DEAD)
+		if(processing)
+			sbacklogged = TRUE
+		else
+			visible_message("[AM] is sucked into [src].")
+			AM.forceMove(src)
 
 /obj/machinery/processor/slime/process_food(datum/food_processor_process/recipe, atom/movable/what)
 	var/mob/living/simple_animal/slime/S = what
