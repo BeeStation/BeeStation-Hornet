@@ -183,7 +183,7 @@
 			if(AM.stat == DEAD)
 				visible_message("[AM] is sucked into [src].")
 				AM.forceMove(src)
-				sbacklogged = FALSE
+		sbacklogged = FALSE
 
 /obj/machinery/processor/slime/HasProximity(mob/AM)
 	if(!sbacklogged && istype(AM, /mob/living/simple_animal/slime) && AM.stat == DEAD)
