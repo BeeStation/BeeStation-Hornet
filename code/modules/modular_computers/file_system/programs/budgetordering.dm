@@ -7,24 +7,36 @@
 	usage_flags = PROGRAM_LAPTOP | PROGRAM_TABLET
 	size = 20
 	tgui_id = "NtosCargo"
-	///Are you actually placing orders with it?
+	//Are you actually placing orders with it?
 	var/requestonly = TRUE
-	///Can the tablet see or buy illegal stuff?
+	//Can the tablet see or buy illegal stuff?
 	var/contraband = FALSE
-	///Is it being bought from a personal account, or is it being done via a budget/cargo?
+	//Is it being bought from a personal account, or is it being done via a budget/cargo?
 	var/self_paid = FALSE
-	///Can this console approve purchase requests?
+	//Can this console approve purchase requests?
 	var/can_approve_requests = FALSE
-	///What do we say when the shuttle moves with living beings on it.
+	//What do we say when the shuttle moves with living beings on it.
 	var/safety_warning = "For safety reasons, the automated supply shuttle \
 		cannot transport live organisms, human remains, classified nuclear weaponry, \
 		homing beacons or machinery housing any form of artificial intelligence."
-	///If you're being raided by pirates, what do you tell the crew?
+	//If you're being raided by pirates, what do you tell the crew?
 	var/blockade_warning = "Bluespace instability detected. Shuttle movement impossible."
 
 /datum/computer_file/program/budgetorders/proc/get_export_categories()
 	. = EXPORT_CARGO
 
+/datum/computer_file/program/budgetorders/proc/get_buyer_id(mob/user)
+	var/obj/item/card/id/id
+	if(ishuman(user))
+		var/mob/living/carbon/human/U = user
+		id = U.get_idcard(TRUE)
+	else if(computer)
+		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+		id = card_slot?.GetID()
+	if(!id)
+		return FALSE
+	return id
+	
 /datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, paccess_to_check, var/list/access, var/contraband)
 	if(issilicon(user)) //Borgs can't buy things.
 		return FALSE
@@ -37,14 +49,11 @@
 	if(IsAdminGhost(user))
 		return TRUE
 
-	//Aquire access from the inserted ID card.
+	//Acquire access from the inserted ID card.
 	if(!length(access))
 		var/obj/item/card/id/D
-		var/obj/item/computer_hardware/card_slot/card_slot
-		if(computer)
-			card_slot = computer.all_components[MC_CARD]
-			D = card_slot?.GetID()
-		if(!D)
+		D = get_buyer_id(user)
+		if(!get_buyer_id(user))
 			return FALSE
 		access = D.GetAccess()
 
@@ -53,14 +62,13 @@
 
 	return FALSE
 
-/datum/computer_file/program/budgetorders/ui_data()
+/datum/computer_file/program/budgetorders/ui_data(mob/user)
 	. = ..()
 	var/list/data = get_header_data()
 	data["location"] = SSshuttle.supply.getStatusText()
 	var/datum/bank_account/buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
-	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
-	var/obj/item/card/id/id_card = card_slot?.GetID()
-	if(id_card?.registered_account)
+	var/obj/item/card/id/id_card = get_buyer_id(user)
+	if(get_buyer_id(user))
 		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
 			requestonly = FALSE
 			buyer = SSeconomy.get_dep_account(id_card.registered_account.account_job.paycheck_department)
@@ -78,7 +86,7 @@
 	data["supplies"] = list()
 	for(var/pack in SSshuttle.supply_packs)
 		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]
-		if(!is_visible_pack(usr, P.access_view , null, P.contraband) || P.hidden)
+		if(!is_visible_pack(user, P.access_view , null, P.contraband) || P.hidden)
 			continue
 		if(!data["supplies"][P.group])
 			data["supplies"][P.group] = list(
