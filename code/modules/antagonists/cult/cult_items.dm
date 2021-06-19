@@ -650,8 +650,9 @@
 	AddComponent(/datum/component/butchering, 100, 90)
 	AddComponent(/datum/component/two_handed, force_unwielded=17, force_wielded=24, icon_wielded="bloodspear1")
 
-/obj/item/cult_spear/update_icon_state()
+/obj/item/cult_spear/update_icon()
 	icon_state = "bloodspear0"
+	..()
 
 /obj/item/cult_spear/Destroy()
 	if(spear_act)

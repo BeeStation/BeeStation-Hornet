@@ -887,6 +887,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return INITIALIZE_HINT_QDEL
 
 /mob/living/simple_animal/bot/proc/topic_denied(mob/user) //Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.
+	//Silicons cannot remotely interfact with robots while the robot is jammed
+	if(issilicon(user) && is_jammed())
+		return TRUE
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return TRUE
 	// 0 for access, 1 for denied.
