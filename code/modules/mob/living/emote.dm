@@ -255,6 +255,50 @@
 	message = "pouts"
 	emote_type = EMOTE_AUDIBLE
 
+/datum/emote/living/purr //Ported from CitRP originally by buffyuwu.
+	key = "purr"
+	key_third_person = "purrs!"
+	message = "purrs!"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	sound = 'sound/misc/feline_purr.ogg'
+
+/datum/emote/living/purr/run_emote(mob/user, params, type_override, range = 3, intentional = FALSE)
+	. = ..()
+	if(. == FALSE)
+		return
+	if(!isipc(user))
+		return
+	if(!user.loc)
+		return
+	var/list/purr_targets = collect_victims(user.loc, range)
+	//heal
+
+	for(var/mob/living/carbon/purr_target in purr_targets)
+		if(purr_target == user || purr_target.stat == DEAD)
+			continue
+		var/list/damaged_bodyparts = purr_target.get_damaged_bodyparts(TRUE, TRUE, FALSE, BODYPART_ORGANIC)
+		if(!damaged_bodyparts.len)
+			continue
+		for(var/obj/item/bodypart/bodypart in damaged_bodyparts)
+			if (bodypart.heal_damage(1/damaged_bodyparts.len, 1/damaged_bodyparts.len, 0, BODYPART_ORGANIC))
+				purr_target.update_damage_overlays()
+	//print messages
+	if (!purr_targets.len)
+		return
+	if (purr_targets.len == 1)
+		user.show_message("<span class='infoplain'><span class='green'>You purr nearby [purr_targets[1]], slowly healing \his tissues.</span></span>", MSG_AUDIBLE)
+	else
+		user.show_message("<span class='infoplain'><span class='green'>You purr, slowly healing everyone nearby.</span></span>", MSG_AUDIBLE)
+	for (var/mob/living/carbon/purr_target as anything in purr_targets)
+		purr_target.show_message("<span class='infoplain'><span class='green'>[user] heals your tissues with their purr.</span></span>", MSG_AUDIBLE)
+
+/datum/emote/living/purr/proc/collect_victims(atom/user_loc, range = 3)
+	if(isturf(user_loc) || (ishuman(user_loc) && isturf(user_loc.loc)))
+		return viewers(range, get_turf(user_loc))
+	else
+		return typecache_filter_list(user_loc.GetAllContents(), GLOB.typecache_living)
+
 /datum/emote/living/scream
 	key = "scream"
 	key_third_person = "screams"
