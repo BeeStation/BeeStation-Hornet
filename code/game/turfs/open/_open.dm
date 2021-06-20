@@ -66,7 +66,7 @@
 /turf/open/indestructible/sound/Entered(var/mob/AM)
 	..()
 
-	if(istype(AM) && !(movement_type & (FLYING|FLOATING)))
+	if(istype(AM) && !(AM.movement_type & (FLYING|FLOATING)))
 		playsound(src,sound,50,1)
 
 /turf/open/indestructible/necropolis
