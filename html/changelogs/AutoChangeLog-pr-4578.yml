@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - bugfix: Debtor martial art no longer bypasses pacifism
