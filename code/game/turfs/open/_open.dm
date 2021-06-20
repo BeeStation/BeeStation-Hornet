@@ -63,16 +63,10 @@
 	heavyfootstep = null
 	var/sound
 
-/turf/open/indestructible/sound/Initialize()
-	. = ..()
+/turf/open/indestructible/sound/Entered(var/mob/AM)
+	..()
 
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = .proc/on_entered,
-	)
-	AddElement(/datum/element/connect_loc, src, loc_connections)
-
-/turf/open/indestructible/sound/proc/on_entered(var/mob/AM)
-	if(istype(AM))
+	if(istype(AM) && !(movement_type & (FLYING|FLOATING)))
 		playsound(src,sound,50,1)
 
 /turf/open/indestructible/necropolis
