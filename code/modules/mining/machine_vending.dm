@@ -12,9 +12,12 @@
 	var/icon_deny = "mining-deny"
 	var/obj/item/card/id/inserted_id
 	var/list/prize_list = list( //if you add something to this, please, for the love of god, sort it by price/type. use tabs and not spaces.
-		new /datum/data/mining_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,								100),
+		new /datum/data/mining_equipment("1 Marker Beacon",				/obj/item/stack/marker_beacon,										5),
+		new /datum/data/mining_equipment("10 Marker Beacons",			/obj/item/stack/marker_beacon/ten,									500),
+		new /datum/data/mining_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,								150),
 		new /datum/data/mining_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
 		new /datum/data/mining_equipment("Regen. Core Stabilizer",		/obj/item/hivelordstabilizer,										400),
+		new /datum/data/mining_equipment("Skeleton Key",				/obj/item/skeleton_key,												750),
 		new /datum/data/mining_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			500),
 		new /datum/data/mining_equipment("Brute Healing Kit",			/obj/item/storage/firstaid/brute,									600),
 		new /datum/data/mining_equipment("Burn Healing Kit",			/obj/item/storage/firstaid/fire,									600),
@@ -25,7 +28,7 @@
 		new /datum/data/mining_equipment("Advanced Ore Scanner",		/obj/item/t_scanner/adv_mining_scanner,								800),
 		new /datum/data/mining_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
 		new /datum/data/mining_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,										2000),
-		new /datum/data/mining_equipment("Proto-Kinetic Crusher",		/obj/item/twohanded/kinetic_crusher,								800),
+		new /datum/data/mining_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,								800),
 		new /datum/data/mining_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/kinetic_accelerator,							500),
 		new /datum/data/mining_equipment("Resonator",					/obj/item/resonator,												750),
 		new /datum/data/mining_equipment("Upgraded Resonator",			/obj/item/resonator/upgraded,										1500),
@@ -200,7 +203,7 @@
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/twohanded/kinetic_crusher(drop_location)
+			new /obj/item/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffelbag/mining_conscript(drop_location)
 

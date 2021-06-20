@@ -76,6 +76,7 @@
 					/obj/item/clothing/under/rank/civilian/clown/sexy = 1,
 					/obj/item/clothing/mask/gas/sexymime = 1,
 					/obj/item/clothing/under/rank/civilian/mime/sexy = 1,
+					/obj/item/clothing/under/rank/civilian/mime/skirt = 1,
 					/obj/item/clothing/mask/rat/bat = 1,
 					/obj/item/clothing/mask/rat/bee = 1,
 					/obj/item/clothing/mask/rat/bear = 1,
@@ -122,9 +123,7 @@
 		              /obj/item/gun/magic/wand = 2,
 		              /obj/item/clothing/glasses/sunglasses/advanced/garb = 2,
 		              /obj/item/clothing/glasses/blindfold = 1,
-		              /obj/item/clothing/mask/muzzle = 2,
-					  /obj/item/clothing/head/chungus = 1,
-					  /obj/item/clothing/suit/chungus = 1)
+		              /obj/item/clothing/mask/muzzle = 2)
 	premium = list(/obj/item/clothing/suit/pirate/captain = 2,
 				   /obj/item/clothing/head/pirate/captain = 2,
 				   /obj/item/clothing/under/rank/civilian/clown/rainbow = 1,

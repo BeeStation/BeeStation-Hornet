@@ -355,7 +355,8 @@
 		/obj/item/storage/bag/plants,
 		/obj/item/stack/marker_beacon,
 		/obj/item/restraints/legcuffs/bola/watcher,
-		/obj/item/claymore/bone
+		/obj/item/claymore/bone,
+		/obj/item/skeleton_key
 		))
 
 
@@ -605,7 +606,7 @@
 		/obj/item/melee/flyswatter,
 		/obj/item/assembly/mousetrap,
 		/obj/item/paint/paint_remover,
-		/obj/item/twohanded/pushbroom
+		/obj/item/pushbroom
 		))
 
 /obj/item/storage/belt/janitor/full/PopulateContents()

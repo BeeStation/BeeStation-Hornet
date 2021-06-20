@@ -96,7 +96,7 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 		return A.layer - B.layer
 
 /proc/cmp_advdisease_resistance_asc(datum/disease/advance/A, datum/disease/advance/B)
-	return A.totalResistance() - B.totalResistance()
+	return A.resistance - B.resistance
 
 /proc/cmp_quirk_asc(datum/quirk/A, datum/quirk/B)
 	var/a_sign = num2sign(initial(A.value) * -1)

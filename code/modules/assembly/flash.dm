@@ -14,7 +14,7 @@
 	flags_1 = CONDUCT_1
 	throw_speed = 3
 	throw_range = 7
-	var/charges_left = 15
+	var/charges_left = 10
 
 /obj/item/flashbulb/update_icon()
 	if(charges_left <= 0)
@@ -42,13 +42,36 @@
 	name = "weakened flashbulb"
 	charges_left = 4
 
-/obj/item/flashbulb/strong
-	name = "modified flashbulb"
-	charges_left = 120
+/obj/item/flashbulb/recharging
+	charges_left = 3
+	var/max_charges = 3
+	var/charge_time = 10 SECONDS
+	var/recharging = FALSE
 
-/obj/item/flashbulb/cyborg
+/obj/item/flashbulb/recharging/proc/recharge()
+	recharging = FALSE
+	if(charges_left >= max_charges)
+		return
+	charges_left ++
+	icon_state = "flashbulb"
+	if(charges_left < max_charges)
+		addtimer(CALLBACK(src, .proc/recharge), charge_time, TIMER_UNIQUE)
+		recharging = TRUE
+
+/obj/item/flashbulb/recharging/use_flashbulb()
+	. = ..()
+	if(!recharging)
+		addtimer(CALLBACK(src, .proc/recharge), charge_time, TIMER_UNIQUE)
+		recharging = TRUE
+
+/obj/item/flashbulb/recharging/revolution
+	name = "modified flashbulb"
+	charges_left = 10
+	max_charges = 10
+	charge_time = 15 SECONDS
+
+/obj/item/flashbulb/recharging/cyborg
 	name = "cyborg flashbulb"
-	charges_left = INFINITY
 
 /obj/item/assembly/flash
 	name = "flash"
@@ -76,7 +99,7 @@
 	bulb = /obj/item/flashbulb/weak
 
 /obj/item/assembly/flash/handheld/strong
-	bulb = /obj/item/flashbulb/strong
+	bulb = /obj/item/flashbulb/recharging/revolution
 
 /obj/item/assembly/flash/Initialize()
 	. = ..()
@@ -150,6 +173,9 @@
 	if(!bulb)
 		to_chat(user, "<span class='notice'>There is no bulb in \the [src].</span>")
 		return FALSE
+	if(flags_1 & NODECONSTRUCT_1)
+		to_chat(user, "<span class='notice'>You cannot remove the bulb from \the [src].</span>")
+		return FALSE
 	bulb.forceMove(drop_location())
 	user.put_in_hands(bulb)
 	bulb.update_icon()
@@ -187,6 +213,10 @@
 			return FALSE
 		if(FLASH_USE_BURNOUT)
 			burn_out()
+	if(is_head_revolutionary(user) && !burnt_out)
+		//Flash will drain to a minimum of 1 charge when used by a head rev.
+		if(bulb.charges_left < rand(2, initial(bulb.charges_left) - 1))
+			bulb.charges_left ++
 	last_trigger = world.time
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
 	set_light_on(TRUE)
@@ -285,7 +315,7 @@
 
 
 /obj/item/assembly/flash/cyborg
-	bulb = /obj/item/flashbulb/cyborg
+	bulb = /obj/item/flashbulb/recharging/cyborg
 
 /obj/item/assembly/flash/cyborg/attack(mob/living/M, mob/user)
 	..()
@@ -350,7 +380,7 @@
 	flashing_overlay = "flash-hypno"
 	light_color = LIGHT_COLOR_PINK
 	cooldown = 20
-	bulb = /obj/item/flashbulb/cyborg	//Flashbulb with infinite charges
+	bulb = /obj/item/flashbulb/recharging/revolution
 
 /obj/item/assembly/flash/hypnotic/burn_out()
 	return

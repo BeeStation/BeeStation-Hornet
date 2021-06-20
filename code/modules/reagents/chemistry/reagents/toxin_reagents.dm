@@ -148,7 +148,7 @@
 	taste_description = "mint"
 
 /datum/reagent/toxin/minttoxin/on_mob_life(mob/living/carbon/M)
-	if(HAS_TRAIT(M, TRAIT_FAT))
+	if(HAS_TRAIT_FROM(M, TRAIT_FAT, OBESITY))
 		M.gib()
 	return ..()
 

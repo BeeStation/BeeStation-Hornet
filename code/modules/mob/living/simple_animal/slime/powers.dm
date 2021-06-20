@@ -179,7 +179,7 @@
 				to_chat(src, "<i>There are too many of us...</i>")
 				return
 			var/list/babies = list()
-			var/new_nutrition = round(nutrition * 0.9)
+			var/new_nutrition = SLIME_DEFAULT_NUTRITION
 			var/new_powerlevel = round(powerlevel / 4)
 			var/datum/component/nanites/original_nanites = GetComponent(/datum/component/nanites)
 			var/turf/drop_loc = drop_location()
@@ -233,13 +233,12 @@
 		else if(prob(mutation_chance))
 			if(transformeffects & SLIME_EFFECT_PYRITE)
 				slime_mutation = mutation_table(pick(slime_colours - list("rainbow")))
-			child_colour = slime_mutation[rand(1,4)]				
+			child_colour = slime_mutation[rand(1,4)]
 		else
 			child_colour = colour
 	var/mob/living/simple_animal/slime/M = new(drop_loc, child_colour, new_adult)
 	M.transformeffects = transformeffects
-	if(ckey || transformeffects & SLIME_EFFECT_CERULEAN)
-		M.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
+	M.set_nutrition(new_nutrition)
 	M.powerlevel = new_powerlevel
 	if(transformeffects & SLIME_EFFECT_METAL)
 		M.maxHealth = round(M.maxHealth * 1.3)

@@ -14,7 +14,7 @@
 			return
 		var/turf/Q = get_turf(queen)
 		var/turf/A = get_turf(src)
-		if(Q.z != A.z) //The queen is on a different Z level, we cannot sense that far.
+		if(Q.get_virtual_z_level() != A.get_virtual_z_level()) //The queen is on a different Z level, we cannot sense that far.
 			return
 		var/Qdir = get_dir(src, Q)
 		var/Qdist = get_dist(src, Q)

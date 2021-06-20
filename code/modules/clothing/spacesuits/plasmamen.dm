@@ -285,12 +285,15 @@
 	desc = "A black and white envirosuit helmet, specially made for the mime. Rattling bones won't stop your silent shinanigains!"
 	icon_state = "mime_envirohelm"
 	item_state = "mime_envirohelm"
+	visor_icon = "mime_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/honk
 	name = "clowns envirosuit helmet"
 	desc = "A multicolor helmet that smellls of bananium and securitys tears."
 	icon_state = "honk_envirohelm"
 	item_state = "honk_envirohelm"
+	visor_icon = "clown_envisor"
+	smile_state = "clown_smile"
 
 //command helms
 
@@ -329,6 +332,25 @@
 	desc = "An envirosuit helmet made for the Head of Personnel. Some corgi hair is stuck to it."
 	icon_state = "hop_envirohelm"
 	item_state = "hop_envirohelm"
+
+//centcom envirohelms
+/obj/item/clothing/head/helmet/space/plasmaman/commander
+	name = "CentCom commander envirosuit helmet"
+	desc = "A special containment helmet designed for the Higher Central Command Staff. Not many of these exist, as CentCom does not usually employ plasmamen to higher staff positions due to their complications."
+	icon_state = "commander_envirohelm"
+	item_state = "commander_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/official
+	name = "CentCom official envirosuit helmet"
+	desc = "A special containment helmet designed for CentCom Staff. They sure do love their green."
+	icon_state = "official_envirohelm"
+	item_state = "official_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/intern
+	name = "CentCom intern envirosuit helmet"
+	desc = "A special containment helmet designed for CentCom Staff. You know, so any coffee spills don't kill the poor sod."
+	icon_state = "intern_envirohelm"
+	item_state = "intern_envirohelm"
 
 //replacements for vendors
 /obj/item/clothing/head/helmet/space/plasmaman/replacement
@@ -405,6 +427,7 @@
 	desc = "A khaki replacement helmet given to plasmamen miners operating on lavaland."
 	icon_state = "explorer_envirohelm"
 	item_state = "explorer_envirohelm"
+	visor_icon = "explorer_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/chaplain
 	name = "chaplain's replace envirosuit helmet"

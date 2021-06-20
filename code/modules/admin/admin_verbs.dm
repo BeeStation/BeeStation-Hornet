@@ -187,7 +187,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/datum/admins/proc/view_refs,
 	/datum/admins/proc/view_del_failures,
 	#endif
-	/client/proc/toggle_cdn
+	/client/proc/toggle_cdn,
+	/client/proc/check_timer_sources
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))

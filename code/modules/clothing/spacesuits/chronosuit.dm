@@ -170,7 +170,7 @@
 		if(user && ishuman(user) && (user.wear_suit == src))
 			if(camera && (user.remote_control == camera))
 				if(!teleporting)
-					if(camera.loc != user && ((camera.x != user.x) || (camera.y != user.y) || (camera.z != user.z)))
+					if(camera.loc != user && ((camera.x != user.x) || (camera.y != user.y) || (camera.get_virtual_z_level() != user.get_virtual_z_level())))
 						if(camera.phase_time <= world.time)
 							chronowalk(camera)
 					else
