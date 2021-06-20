@@ -159,6 +159,7 @@
 			visible_message("<span class='hierosay big'>YEET!</span>")
 			visible_message("<span class='danger'>[src] YEETS [thrown_thing].</span>", \
 						"<span class='danger'>You YEET [thrown_thing].</span>")
+			playsound(src, 'sound/effects/yeet.ogg', 50, 1)
 			new /obj/effect/temp_visual/yeet(loc)
 		else
 			visible_message("<span class='danger'>[src] throws [thrown_thing].</span>", \
