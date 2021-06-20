@@ -179,7 +179,7 @@
 /obj/machinery/processor/slime/interact(mob/user)
 	. = ..()
 	if(sbacklogged)
-		for(var/mob/living/simple_animal/slime/AM in hearers(1,src)) //fallback in case slimes got placed while processor was active
+		for(var/mob/living/simple_animal/slime/AM in hearers(1,src)) //fallback in case slimes got placed while processor was active triggers only after processing!!!!
 			if(AM.stat == DEAD)
 				visible_message("[AM] is sucked into [src].")
 				AM.forceMove(src)
