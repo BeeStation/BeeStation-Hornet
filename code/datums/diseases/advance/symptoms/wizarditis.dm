@@ -4,7 +4,7 @@
 	stealth = 1
 	resistance = -2
 	stage_speed = -3
-	transmittable = -1
+	transmission = -1
 	level = 0
 	severity = 0
 	symptom_delay_min = 15
@@ -16,17 +16,17 @@
 
 /datum/symptom/wizarditis/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 8)
+	if(A.transmission >= 8)
 		severity += 1
-	if(A.properties["stage_rate"] >= 7)
+	if(A.stage_rate >= 7)
 		severity += 1
 
 /datum/symptom/wizarditis/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 8)
+	if(A.transmission >= 8)
 		teleport = TRUE
-	if(A.properties["stage_rate"] >= 7)
+	if(A.stage_rate >= 7)
 		robes = TRUE
 
 /datum/symptom/wizarditis/Activate(datum/disease/advance/A)
@@ -101,8 +101,8 @@
 	var/turf/L = get_safe_random_station_turf()
 	A.affected_mob.say("SCYAR NILA!")
 	do_teleport(A.affected_mob, L, forceMove = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
-	playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)	
-	
+	playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)
+
 /datum/symptom/wizarditis/End(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
@@ -113,5 +113,5 @@
 		if(istype(H.shoes, /obj/item/clothing/shoes/sandal/magic))
 			REMOVE_TRAIT(H.shoes, TRAIT_NODROP, DISEASE_TRAIT)
 
-		
+
 

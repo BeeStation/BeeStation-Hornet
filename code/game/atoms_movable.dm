@@ -189,7 +189,6 @@
 	AM.pulledby = src
 	setGrabState(state)
 	if(ismob(AM))
-		AM.glide_size = glide_size // make sure there's no weird laggy effect when pulling
 		var/mob/M = AM
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message)

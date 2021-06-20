@@ -22,7 +22,7 @@ Bonus
 	stealth = -1
 	resistance = -3
 	stage_speed = -4
-	transmittable = -2
+	transmission = -2
 	level = 5
 	severity = 3
 	base_message_chance = 50
@@ -34,15 +34,15 @@ Bonus
 
 /datum/symptom/visionloss/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 12) //goodbye eyes
+	if(A.resistance >= 12) //goodbye eyes
 		severity += 1
 
 /datum/symptom/visionloss/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 4)
+	if(A.stealth >= 4)
 		suppress_warning = TRUE
-	if(A.properties["resistance"] >= 12) //goodbye eyes
+	if(A.resistance >= 12) //goodbye eyes
 		remove_eyes = TRUE
 
 /datum/symptom/visionloss/Activate(datum/disease/advance/A)
