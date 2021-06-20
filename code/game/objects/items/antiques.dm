@@ -16,7 +16,7 @@
 	desc = "An antique item of some sort..."
 	icon = 'icons/obj/fluff.dmi'
 	icon_state = "paperstack"
-	var/inUse = FALSE
+	var/being_activated = FALSE
 	var/deity = NO_GOD
 	var/last_use = 0
 	var/godname = "Anime"
@@ -26,15 +26,15 @@
 	..()
 	switch(rand(1,3))
 		if (1)
-			name = "Locket"
+			name = "locket"
 			desc = "A precious container for someone's cherished memories."
 			icon_state = "alocket"
 		if (2)
-			name = "Homeworld"
+			name = "homeworld"
 			desc = "A miniature representation of someone's home planet."
 			icon_state = "aplanet"
 		if (3)
-			name = "Porcelain Doll"
+			name = "porcelain doll"
 			desc = "A precious porcelain doll resembling an harlequin."
 			icon_state = "adoll"
 
@@ -115,7 +115,7 @@
 
 /obj/item/artifact/attack_self(mob/living/user)
 	. = ..()
-	if (deity != NO_GOD || inUse)
+	if (deity != NO_GOD || being_activated)
 		return
 	
 	//activate ritual
@@ -131,7 +131,7 @@
 			to_chat(user,"<span class='notice'>You need to hold a Codex Cicatrix to perform a ritual!</span>")
 			return FALSE
 			
-		inUse = TRUE
+		being_activated = TRUE
 		to_chat(user,"<span class='notice'>You begin chanting the ritual!</span>")
 		while (do_after(user,3 SECONDS) && !activated)
 			if (prob(15))
@@ -148,7 +148,7 @@
 			user.whisper(pick("hypnos","celephalis","azathoth","dagon","yig","ex oblivione","nyarlathotep","nathicana","arcadia","astrophobos"), language = /datum/language/rlyehian, forced = "eldritch invocation")		
 	else 
 		infuse_blessing(user,user)
-	inUse = FALSE
+	being_activated = FALSE
 
 /obj/item/artifact/proc/infuse_blessing(mob/living/user,mob/living/carbon/human/target)
 	if (!activated || !istype(target))
