@@ -6,16 +6,6 @@
 	item_color = "scratch"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/suit/white/skirt
-	name = "white suitskirt"
-	desc = "A white suitskirt, suitable for an excellent host."
-	icon_state = "white_suit_skirt"
-	item_state = "scratch"
-	item_color = "white_suit_skirt"
-	body_parts_covered = CHEST|GROIN|ARMS
-	can_adjust = FALSE
-	fitted = FEMALE_UNIFORM_TOP
-
 /obj/item/clothing/under/suit/sl
 	desc = "It's a very amish looking suit."
 	name = "amish suit"
@@ -44,9 +34,9 @@
 	icon_state = "blacksuit_skirt"
 	item_state = "bar_suit"
 	item_color = "blacksuit_skirt"
-	alt_covers_chest = TRUE
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
-
 
 /obj/item/clothing/under/suit/black_really
 	name = "executive suit"
@@ -54,6 +44,17 @@
 	icon_state = "really_black_suit"
 	item_state = "bl_suit"
 	item_color = "really_black_suit"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/suit/black_really/skirt
+	name = "executive suitskirt"
+	desc = "A formal black suitskirt and red tie, intended for the station's finest."
+	icon_state = "reallyblack_suit_skirt"
+	item_state = "bl_suit"
+	item_color = "reallyblack_suit_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/suit/black/female
 	name = "executive suit"

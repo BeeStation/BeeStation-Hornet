@@ -138,7 +138,7 @@
 	if(!is_operational())
 		return
 	var/area/A = get_area(src)
-	A.firereset()
+	A.firereset(src)
 	if(user)
 		log_game("[user] reset a fire alarm at [COORD(src)]")
 

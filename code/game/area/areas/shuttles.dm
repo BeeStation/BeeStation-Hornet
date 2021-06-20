@@ -14,6 +14,7 @@
 	unique = FALSE
 	lighting_colour_tube = "#fff0dd"
 	lighting_colour_bulb = "#ffe1c1"
+	sound_environment = SOUND_ENVIRONMENT_ROOM
 	//The mobile port attached to this area
 	var/obj/docking_port/mobile/mobile_port
 
@@ -48,7 +49,7 @@
 /area/shuttle/syndicate
 	name = "Syndicate Infiltrator"
 	blob_allowed = FALSE
-	ambient_effects = HIGHSEC
+	ambience_index = AMBIENCE_DANGER
 	canSmoothWithAreas = /area/shuttle/syndicate
 
 /area/shuttle/syndicate/bridge

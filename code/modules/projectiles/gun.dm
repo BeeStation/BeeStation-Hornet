@@ -489,7 +489,7 @@
 
 	var/mob/living/carbon/human/user = usr
 	gun_light.on = !gun_light.on
-	balloon_alert("Flashlight [gun_light.on ? "on":"off"]")
+	balloon_alert(user, "Flashlight [gun_light.on ? "on":"off"]")
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 	update_gunlight()
