@@ -139,12 +139,6 @@
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 	update_icon()
 
-/obj/item/kinetic_crusher/proc/update_brightness(mob/user = null)
-	if(light_on)
-		set_light(brightness_on)
-	else
-		set_light(0)
-
 /obj/item/kinetic_crusher/update_icon()
 	..()
 	var/wielded = ISWIELDED(src)
