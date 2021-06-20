@@ -341,11 +341,11 @@
 	for(var/obj/item/I in contents)
 		add_overlay(new /mutable_appearance(I))
 
-/obj/item/storage/bag/tray/Entered()
+/obj/item/storage/bag/tray/Entered(atom/movable/arrived, direction)
 	. = ..()
 	update_icon()
 
-/obj/item/storage/bag/tray/Exited()
+/obj/item/storage/bag/tray/Exited(atom/movable/gone, direction)
 	. = ..()
 	update_icon()
 

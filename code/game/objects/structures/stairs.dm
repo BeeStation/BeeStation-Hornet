@@ -49,10 +49,10 @@
 		if(S)
 			S.update_icon()
 
-/obj/structure/stairs/proc/on_exit(datum/source, atom/movable/leaving, atom/new_location)
+/obj/structure/stairs/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
-	if(!isobserver(leaving) && isTerminator() && (get_dir(src, new_location) == dir))
+	if(!isobserver(leaving) && isTerminator() && direction == dir)
 		INVOKE_ASYNC(src, .proc/stair_ascend, leaving)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT

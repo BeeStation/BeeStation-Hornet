@@ -84,9 +84,9 @@
 		var/obj/item/I = parent
 		I.permeability_coefficient = old_permeability
 
-/datum/component/infective/proc/try_infect_crossed(datum/source, atom/movable/M)
-	if(isliving(M))
-		try_infect(M, BODY_ZONE_PRECISE_L_FOOT)
+/datum/component/infective/proc/try_infect_crossed(datum/source, atom/movable/arrived, direction)
+	if(isliving(arrived))
+		try_infect(arrived, BODY_ZONE_PRECISE_L_FOOT)
 
 /datum/component/infective/proc/try_infect_streak(datum/source, list/directions, list/output_diseases)
 	output_diseases |= diseases

@@ -18,7 +18,7 @@
 
 	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/on_entered)
 
-/datum/component/caltrop/proc/on_entered(atom/caltrop, atom/movable/AM)
+/datum/component/caltrop/proc/on_entered(datum/source, atom/movable/arrived, direction)
 	SIGNAL_HANDLER
 	var/atom/A = parent
 	if(!A.has_gravity())
@@ -27,8 +27,8 @@
 	if(!prob(probability))
 		return
 
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
+	if(ishuman(arrived))
+		var/mob/living/carbon/human/H = arrived
 		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			return
 

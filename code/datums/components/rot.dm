@@ -30,10 +30,14 @@
 /datum/component/rot/corpse
 	amount = MIASMA_CORPSE_MOLES
 
-/datum/component/rot/corpse/Initialize()
-	if(!iscarbon(parent))
-		return COMPONENT_INCOMPATIBLE
-	. = ..()
+/// Triggered when something enters the component's parent.
+/datum/component/rot/proc/on_entered(datum/source, atom/movable/arrived, direction)
+	rot_react(source, arrived)
+
+///The main bit of logic for the rot component, does a temperature check and has a chance to infect react_to
+/datum/component/rot/proc/rot_react(source, mob/living/react_to, target_zone = null)
+	if(!isliving(react_to))
+		return
 
 /datum/component/rot/corpse/process()
 	var/mob/living/carbon/C = parent

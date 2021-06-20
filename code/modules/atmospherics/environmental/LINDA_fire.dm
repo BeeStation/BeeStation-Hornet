@@ -232,11 +232,11 @@
 				T.to_be_destroyed = FALSE
 				T.max_fire_temperature_sustained = 0
 
-/obj/effect/hotspot/proc/on_entered(datum/source, atom/movable/AM, oldLoc)
+/obj/effect/hotspot/proc/on_entered(datum/source, atom/movable/arrived, direction)
 	SIGNAL_HANDLER
-	if(isliving(AM))
-		var/mob/living/L = AM
-		L.fire_act(temperature, volume)
+	if(isliving(arrived))
+		var/mob/living/immolated = arrived
+		immolated.fire_act(temperature, volume)
 
 /obj/effect/hotspot/singularity_pull()
 	return
