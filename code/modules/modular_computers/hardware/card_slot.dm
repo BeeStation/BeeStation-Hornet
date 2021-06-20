@@ -12,7 +12,6 @@
 /obj/item/computer_hardware/card_slot/Exited(atom/A, atom/newloc)
 	if(!(A == stored_card || A == stored_card2))
 		return ..()
-	stored_card = null
 	if(holder)
 		if(holder.active_program)
 			holder.active_program.event_idremoved(0)
