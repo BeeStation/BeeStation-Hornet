@@ -1,0 +1,5 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - bugfix: Ascend as a Dark Spirit function of the Spirit Realm rune is working correctly
+      again
