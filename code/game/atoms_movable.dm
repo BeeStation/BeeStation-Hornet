@@ -255,8 +255,9 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_UPDATE_GLIDE_SIZE, target)
 	glide_size = target
 
-	for(var/atom/movable/AM in buckled_mobs)
-		AM.set_glide_size(target)
+	for(var/atom/movable/m in buckled_mobs)
+		var/mob/buckled_mob = m
+		buckled_mob.set_glide_size(target)
 
 ////////////////////////////////////////
 // Here's where we rewrite how byond handles movement except slightly different
