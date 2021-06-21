@@ -40,7 +40,7 @@
 
 /obj/structure/closet/secure_closet/cytology/PopulateContents()
 	. = ..()
-	new /obj/item/twohanded/pushbroom(src)
+	new /obj/item/pushbroom(src)
 	new /obj/item/plunger(src)
 	new /obj/item/storage/bag/bio(src)
 	new /obj/item/storage/box/petridish(src)

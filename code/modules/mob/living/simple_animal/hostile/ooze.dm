@@ -358,7 +358,7 @@
 		return
 
 	ooze.visible_message("<span class='nicegreen>[ooze] launches a mending globule!</span>", "<span class='notice'>You launch a mending globule.</span>")
-	var/obj/projectile/globule/globule = new (ooze.loc)
+	var/obj/item/projectile/globule/globule = new (ooze.loc)
 	globule.preparePixelProjectile(target, ooze, params)
 	globule.def_zone = ooze.zone_selected
 	globule.fire()
@@ -469,13 +469,13 @@
 		dump_inhabitant(FALSE)
 	return ..()
 
-/obj/structure/gel_cocoon/container_resist_act(mob/living/user)
+/*/obj/structure/gel_cocoon/container_resist_act(mob/living/user)
 	. = ..()
 	user.visible_message("<span class='notice'>You see [user] breaking out of [src]!</span>", \
 		"<span class='notice'>You start tearing the soft tissue of the gel cocoon</span>")
 	if(!do_after(user, 1.5 SECONDS, target = src))
 		return FALSE
-	dump_inhabitant()
+	dump_inhabitant()*/
 
 ///This proc handles the insertion of a person into the cocoon
 /obj/structure/gel_cocoon/proc/insert_target(target)
