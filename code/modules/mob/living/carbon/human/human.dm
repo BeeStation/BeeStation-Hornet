@@ -1183,7 +1183,7 @@
 
 /mob/living/carbon/human/ZImpactDamage(turf/T, levels)
 	//Non cat-people smash into the ground
-	if(!iscatperson(src))
+	if(!isfelinid(src))
 		return ..()
 	//Check to make sure legs are working
 	var/obj/item/bodypart/left_leg = get_bodypart(BODY_ZONE_L_LEG)

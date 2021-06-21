@@ -350,7 +350,7 @@
 	taste_description = "bitterness"
 /datum/reagent/consumable/cocoa/on_mob_add(mob/living/carbon/M)
 	.=..()
-	if(iscatperson(M))
+	if(isfelinid(M))
 		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
 		M.vomit(20)
 

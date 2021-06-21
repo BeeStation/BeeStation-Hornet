@@ -161,7 +161,7 @@
 	taste_description = "fish"
 
 /datum/reagent/toxin/carpotoxin/on_mob_metabolize(mob/living/carbon/L)
-	if(iscatperson(L))
+	if(isfelinid(L))
 		toxpwr = 0
 	..()
 

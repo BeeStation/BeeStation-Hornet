@@ -210,7 +210,7 @@
 /datum/emote/living/laugh/get_sound(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/human_laugh = ishumanbasic(H) || iscatperson(H)
+		var/human_laugh = ishumanbasic(H) || isfelinid(H)
 		if(human_laugh && (!H.mind || !H.mind.miming))
 			if(user.gender == FEMALE)
 				return 'sound/voice/human/womanlaugh.ogg'
