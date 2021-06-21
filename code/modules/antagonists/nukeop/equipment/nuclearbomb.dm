@@ -1,3 +1,5 @@
+#define ARM_ACTION_COOLDOWN (5 SECONDS)
+
 /obj/machinery/nuclearbomb
 	name = "nuclear fission explosive"
 	desc = "You probably shouldn't stick around to see if this is armed."
@@ -33,6 +35,7 @@
 	var/interior = ""
 	var/proper_bomb = TRUE //Please
 	var/obj/effect/countdown/nuclearbomb/countdown
+	COOLDOWN_DECLARE(arm_cooldown)
 
 /obj/machinery/nuclearbomb/Initialize()
 	. = ..()
@@ -383,6 +386,8 @@
 				playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
 		if("arm")
 			if(auth && yes_code && !safety && !exploded)
+				if(!COOLDOWN_FINISHED(src, arm_cooldown))
+					return
 				playsound(src, 'sound/machines/nuke/confirm_beep.ogg', 50, FALSE)
 				set_active()
 				update_ui_mode()
@@ -426,7 +431,7 @@
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(TRACK_INFILTRATOR)
 		countdown.start()
-		set_security_level("delta")
+		set_security_level(SEC_LEVEL_DELTA)
 	else
 		detonation_timer = null
 		set_security_level(previous_level)
@@ -434,6 +439,7 @@
 			S.switch_mode_to(initial(S.mode))
 			S.alert = FALSE
 		countdown.stop()
+	COOLDOWN_START(src, arm_cooldown, ARM_ACTION_COOLDOWN)
 	update_icon()
 
 /obj/machinery/nuclearbomb/proc/get_time_left()

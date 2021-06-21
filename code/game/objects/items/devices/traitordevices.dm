@@ -190,6 +190,7 @@ effective or pretty fucking useless.
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 
 	var/mob/living/carbon/human/user = null
@@ -200,7 +201,7 @@ effective or pretty fucking useless.
 	actions_types = list(/datum/action/item_action/toggle)
 
 /obj/item/shadowcloak/ui_action_click(mob/user)
-	if(user.get_item_by_slot(ITEM_SLOT_BELT) == src)
+	if(user.get_item_by_slot(slot_flags) == src)
 		if(!on)
 			Activate(usr)
 		else
@@ -208,8 +209,8 @@ effective or pretty fucking useless.
 	return
 
 /obj/item/shadowcloak/item_action_slot_check(slot, mob/user)
-	if(slot == ITEM_SLOT_BELT)
-		return 1
+	if(slot == slot_flags)
+		return TRUE
 
 /obj/item/shadowcloak/proc/Activate(mob/living/carbon/human/user)
 	if(!user)
@@ -230,11 +231,11 @@ effective or pretty fucking useless.
 
 /obj/item/shadowcloak/dropped(mob/user)
 	..()
-	if(user && user.get_item_by_slot(ITEM_SLOT_BELT) != src)
+	if(user && user.get_item_by_slot(slot_flags) != src)
 		Deactivate()
 
 /obj/item/shadowcloak/process(delta_time)
-	if(user.get_item_by_slot(ITEM_SLOT_BELT) != src)
+	if(user.get_item_by_slot(slot_flags) != src)
 		Deactivate()
 		return
 	var/turf/T = get_turf(src)
@@ -270,8 +271,8 @@ effective or pretty fucking useless.
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/jammer
-	name = "radio jammer"
-	desc = "Device used to disrupt nearby radio communication."
+	name = "signal jammer"
+	desc = "Device used to disrupt nearby wireless communication."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
 	var/active = FALSE
@@ -285,3 +286,11 @@ effective or pretty fucking useless.
 	else
 		GLOB.active_jammers -= src
 	update_icon()
+
+/atom/proc/is_jammed()
+	var/turf/position = get_turf(src)
+	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
+		var/turf/jammer_turf = get_turf(jammer)
+		if(position?.get_virtual_z_level() == jammer_turf.get_virtual_z_level() && (get_dist(position, jammer_turf) <= jammer.range))
+			return TRUE
+	return FALSE

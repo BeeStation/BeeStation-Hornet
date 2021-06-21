@@ -165,10 +165,6 @@
 	/// bitflags defining which status effects can be inflicted (replaces canknockdown, canstun, etc)
 	var/status_flags = CANSTUN|CANKNOCKDOWN|CANUNCONSCIOUS|CANPUSH
 
-	/// Can they be tracked by the AI?
-	var/digitalcamo = 0
-	///Are they ivisible to the AI?
-	var/digitalinvis = 0
 	///what does the AI see instead of them?
 	var/image/digitaldisguise = null
 
@@ -216,3 +212,6 @@
 
 	/// A mock client, provided by tests and friends
 	var/datum/client_interface/mock_client
+
+	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
+	var/sound_environment_override = SOUND_ENVIRONMENT_NONE

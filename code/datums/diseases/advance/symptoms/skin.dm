@@ -21,7 +21,7 @@ BONUS
 	stealth = 2
 	resistance = 0
 	stage_speed = 3
-	transmittable = 1
+	transmission = 1
 	level = 5
 	severity = 0
 	symptom_delay_min = 25
@@ -91,7 +91,7 @@ BONUS
 	stealth = 1
 	resistance = 2
 	stage_speed = 1
-	transmittable = 2
+	transmission = 2
 	level = 5
 	severity = 0
 	symptom_delay_min = 7
@@ -161,7 +161,7 @@ BONUS
 	stealth = 0
 	resistance = 1
 	stage_speed = 4
-	transmittable = 1
+	transmission = 1
 	level = 0
 	severity = 0
 	base_message_chance = 50
@@ -201,7 +201,7 @@ BONUS
 	stealth = -3 //You are basically growing these weird Egg shits on your skin, this is not stealthy in the slightest
 	resistance = 1
 	stage_speed = 0
-	transmittable = 2 //The symptom is in it of itself meant to spread
+	transmission = 2 //The symptom is in it of itself meant to spread
 	level = 9
 	severity = -1
 	base_message_chance = 50
@@ -219,27 +219,27 @@ BONUS
 
 /datum/symptom/skineggs/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 10)
+	if(A.resistance >= 10)
 		severity -= 1
-	if(A.properties["transmittable"] >= 12)
+	if(A.transmission >= 12)
 		severity += 1
-	if(A.properties["transmittable"] >= 16)
-		severity += 1
-	if(A.properties["stealth"] >= 6)
+		if(A.transmission >= 16)
+			severity += 1
+	if(A.stealth >= 6)
 		severity += 1
 
 /datum/symptom/skineggs/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 10)
+	if(A.resistance >= 10)
 		big_heal = TRUE
-	if(A.properties["transmittable"] >= 12)
+	if(A.transmission >= 12)
 		all_disease = TRUE
-	if(A.properties["transmittable"] >= 16)
-		eggsplosion = TRUE //Haha get it?
-	if(A.properties["stealth"] >= 6)
+		if(A.transmission >= 16)
+			eggsplosion = TRUE //Haha get it?
+	if(A.stealth >= 6)
 		sneaky = TRUE
-	if(A.properties["stage_rate"] >= 10)
+	if(A.stage_rate >= 10)
 		symptom_delay_min -= 10
 		symptom_delay_max -= 20
 
