@@ -120,7 +120,7 @@
 	icon_state = "banner"
 	desc = "This is where a banner with Nanotrasen's logo on it would go."
 	layer = LOW_ITEM_LAYER
-	var/obj/item/twohanded/ctf/flag
+	var/obj/item/ctf/flag
 
 /obj/effect/ctf/flag_reset/Destroy()
 	if(flag)
