@@ -622,13 +622,14 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD)) //mindshield implant, no dice
 		return FALSE
+	var/mob/living/carbon/human/owner = slimelink_owner.resolve()
 	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
-		to_chat(M, "<span class='danger'>[slimelink_owner.real_name]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
+		if(owner)
+			to_chat(M, "<span class='danger'>[owner.real_name]'s no-good syndicate mind-slime is blocked by your protective headgear!</span>")
 
 		return FALSE
 	if(M in linked_mobs)
 		return FALSE
-	var/mob/living/carbon/human/owner = slimelink_owner.resolve()
 	if(!owner)
 		return FALSE
 	linked_mobs.Add(M)
@@ -646,7 +647,7 @@
 	action.Remove(M)
 	var/mob/living/carbon/human/owner = slimelink_owner.resolve()
 	if(owner)
-		to_chat(M, "<span class='notice'>You are no longer connected to [slimelink_owner.real_name]'s Slime Link.</span>")
+		to_chat(M, "<span class='notice'>You are no longer connected to [owner.real_name]'s Slime Link.</span>")
 	linked_mobs -= M
 	linked_actions -= action
 	qdel(action)

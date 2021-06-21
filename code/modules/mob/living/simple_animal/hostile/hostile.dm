@@ -582,7 +582,7 @@
 			else if (M.loc.type in hostile_machines)
 				. += M.loc
 
-/mob/living/simple_animal/hostile/proc/set_targets_from(atom/target_from)
+/mob/living/simple_animal/hostile/proc/get_targets_from()
 	var/atom/target_from = targets_from.resolve()
 	if(!target_from)
 		targets_from = null

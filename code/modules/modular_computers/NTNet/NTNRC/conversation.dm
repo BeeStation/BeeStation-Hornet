@@ -16,7 +16,7 @@
 /datum/ntnet_conversation/Destroy()
 	if(SSnetworks.station_network)
 		SSnetworks.station_network.chat_channels.Remove(src)
-	for(var/datum/computer_file/program/chatclient/chatterbox in (active_clients | offline_clients | muted_clients))
+	for(var/datum/computer_file/program/chatclient/chatterbox in clients)
 		purge_client(chatterbox)
 	return ..()
 

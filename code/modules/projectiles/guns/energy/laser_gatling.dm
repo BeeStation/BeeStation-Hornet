@@ -26,7 +26,6 @@
 	if(!QDELETED(gun))
 		qdel(gun)
 	gun = null
-	QDEL_NULL(battery)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 

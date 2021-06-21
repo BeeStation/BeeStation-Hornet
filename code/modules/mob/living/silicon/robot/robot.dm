@@ -191,7 +191,6 @@
 			radio.keyslot.forceMove(T)
 			radio.keyslot = null
 	QDEL_NULL(wires)
-	QDEL_NULL(model)
 	QDEL_NULL(eye_lights)
 	QDEL_NULL(inv1)
 	QDEL_NULL(inv2)

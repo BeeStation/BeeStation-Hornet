@@ -117,7 +117,7 @@
 	linked_action = new(src)
 	AddComponent(/datum/component/butchering, 50, 80)
 
-/obj/item/cult_bastard/Destroy()
+/obj/item/twohanded/required/cult_bastard/Destroy()
 	QDEL_NULL(jaunt)
 	QDEL_NULL(linked_action)
 	return ..()

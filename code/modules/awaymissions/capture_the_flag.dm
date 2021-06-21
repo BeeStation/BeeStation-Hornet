@@ -116,7 +116,7 @@
 	icon_state = "banner"
 	desc = "This is where a banner with Nanotrasen's logo on it would go."
 	layer = LOW_ITEM_LAYER
-	var/obj/item/ctf/flag
+	var/obj/item/twohanded/ctf/flag
 
 /obj/effect/ctf/flag_reset/Destroy()
 	if(flag)
@@ -656,8 +656,8 @@
 
 /obj/effect/ctf/dead_barricade/Destroy()
 	for(var/obj/machinery/capture_the_flag/CTF in GLOB.machines)
-		if(CTF.game_id != game_id)
-			continue
+		//if(CTF.game_id != game_id)
+		//	continue
 		CTF.dead_barricades -= src
 	return ..()
 

@@ -262,7 +262,7 @@
 	if(hungry == 2)
 		if(Friends.len > 0 && prob(1))
 			var/mob/nofriend = pick(Friends)
-			add_friendsship(nofriend, -1)
+			add_friendship(nofriend, -1)
 
 	if(!Target)
 		if(will_hunt() && hungry || attacked || rabid)
