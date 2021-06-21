@@ -8,7 +8,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	allowed = list(/obj/item/clockwork, /obj/item/stack/tile/brass, /obj/item/twohanded/clockwork, /obj/item/gun/ballistic/bow/clockwork)
+	allowed = list(/obj/item/clockwork, /obj/item/stack/tile/brass, /obj/item/clockwork, /obj/item/gun/ballistic/bow/clockwork)
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
 	. = ..()

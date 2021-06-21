@@ -255,11 +255,8 @@
 		channel = null
 
 	// Nearby active jammers prevent the message from transmitting
-	var/turf/position = get_turf(src)
-	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
-		var/turf/jammer_turf = get_turf(jammer)
-		if(position?.get_virtual_z_level() == jammer_turf.get_virtual_z_level() && (get_dist(position, jammer_turf) <= jammer.range))
-			return
+	if(is_jammed())
+		return
 
 	// Determine the identity information which will be attached to the signal.
 	var/atom/movable/virtualspeaker/speaker = new(null, M, src)

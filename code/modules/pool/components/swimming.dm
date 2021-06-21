@@ -85,8 +85,8 @@
 /datum/component/swimming/process()
 	var/mob/living/L = parent
 	var/floating = FALSE
-	var/obj/item/twohanded/required/pool/helditem = L.get_active_held_item()
-	if(istype(helditem) && helditem.wielded)
+	var/obj/item/pool/helditem = L.get_active_held_item()
+	if(istype(helditem) && ISWIELDED(helditem))
 		bob_tick ++
 		animate(L, time=9.5, pixel_y = (L.pixel_y == bob_height_max) ? bob_height_min : bob_height_max)
 		floating = TRUE
@@ -105,8 +105,8 @@
 	L.adjust_fire_stacks(-1)
 
 /datum/component/swimming/proc/is_drowning(mob/living/victim)
-	var/obj/item/twohanded/required/pool/helditem = victim.get_active_held_item()
-	if(istype(helditem) && helditem.wielded)
+	var/obj/item/pool/helditem = victim.get_active_held_item()
+	if(istype(helditem) && ISWIELDED(helditem))
 		return
 	return ((!(victim.mobility_flags & MOBILITY_STAND)) && (!HAS_TRAIT(victim, TRAIT_NOBREATH)))
 

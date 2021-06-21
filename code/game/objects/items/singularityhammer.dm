@@ -1,4 +1,4 @@
-/obj/item/twohanded/singularityhammer
+/obj/item/singularityhammer
 	name = "singularity hammer"
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
 	icon_state = "singularity_hammer0"
@@ -9,34 +9,42 @@
 	force = 5
 	attack_weight = 3
 	block_upgrade_walk = 1
-	force_unwielded = 5
-	force_wielded = 20
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
-	var/charged = 5
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	force_string = "LORD SINGULOTH HIMSELF"
+	var/charged = 5
 
-/obj/item/twohanded/singularityhammer/New()
-	..()
+/obj/item/singularityhammer/Initialize()
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/twohanded/singularityhammer/Destroy()
+/obj/item/singularityhammer/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_multiplier=4, icon_wielded="singularity_hammer1")
+
+/obj/item/singularityhammer/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/twohanded/singularityhammer/process()
+/obj/item/singularityhammer/update_icon_state()
+	icon_state = "mjollnir0"
+	..()
+
+/obj/item/singularityhammer/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/singularityhammer/process()
 	if(charged < 5)
 		charged++
-	return
 
-/obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "singularity_hammer[wielded]"
-	return
+/obj/item/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
+	icon_state = "singularity_hammer0"
 
-/obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
+/obj/item/singularityhammer/proc/vortex(turf/pull, mob/wielder)
 	for(var/atom/movable/A as mob|obj in orange(5,pull))
 		if(A == wielder)
 			continue
@@ -56,11 +64,11 @@
 			step_towards(H,pull)
 	return
 
-/obj/item/twohanded/singularityhammer/afterattack(atom/A as mob|obj|turf|area, mob/user, proximity)
+/obj/item/singularityhammer/afterattack(atom/A as mob|obj|turf|area, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
-	if(wielded)
+	if(ISWIELDED(src))
 		if(charged == 5)
 			charged = 0
 			if(istype(A, /mob/living/))
@@ -70,7 +78,7 @@
 			var/turf/target = get_turf(A)
 			vortex(target,user)
 
-/obj/item/twohanded/mjollnir
+/obj/item/mjollnir
 	name = "Mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon_state = "mjollnir0"
@@ -79,15 +87,23 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BACK
 	force = 5
-	force_unwielded = 5
-	force_wielded = 25
 	throwforce = 30
 	throw_range = 7
 	block_upgrade_walk = 1
 	attack_weight = 3
 	w_class = WEIGHT_CLASS_HUGE
 
-/obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
+/obj/item/mjollnir/Initialize()
+	. = ..()
+
+/obj/item/mjollnir/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_multiplier=5, icon_wielded="mjollnir1", attacksound="sparks")
+
+/obj/item/mjollnir/update_icon_state()
+	icon_state = "mjollnir0"
+
+/obj/item/mjollnir/proc/shock(mob/living/target)
 	target.Stun(60)
 	var/datum/effect_system/lightning_spread/s = new /datum/effect_system/lightning_spread
 	s.set_up(5, 1, target.loc)
@@ -99,17 +115,17 @@
 	target.throw_at(throw_target, 200, 4)
 	return
 
-/obj/item/twohanded/mjollnir/attack(mob/living/M, mob/user)
+/obj/item/mjollnir/attack(mob/living/M, mob/user)
 	..()
-	if(wielded)
+	if(ISWIELDED(src))
 		playsound(src.loc, "sparks", 50, 1)
 		shock(M)
 
-/obj/item/twohanded/mjollnir/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/mjollnir/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(isliving(hit_atom))
 		shock(hit_atom)
 
-/obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
-	icon_state = "mjollnir[wielded]"
-	return
+/obj/item/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
+	icon_state = "mjollnir0"
+	..()

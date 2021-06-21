@@ -1,5 +1,0 @@
-author: lordScrubling
-delete-after: true
-changes:
-  - bugfix: alarm manager now shows alarm changes from when it was off
-  - bugfix: fire alarms clear when you pull them up now
