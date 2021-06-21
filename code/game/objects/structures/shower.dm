@@ -1,26 +1,38 @@
 #define SHOWER_FREEZING "freezing"
+#define SHOWER_FREEZING_TEMP 100
 #define SHOWER_NORMAL "normal"
+#define SHOWER_NORMAL_TEMP 300
 #define SHOWER_BOILING "boiling"
+#define SHOWER_BOILING_TEMP 400
 
 /obj/machinery/shower
 	name = "shower"
-	desc = "The HS-451. Installed in the 2550s by the Nanotrasen Hygiene Division."
+	desc = "The HS-452. Installed in the 2550s by the Nanotrasen Hygiene Division, now with 2560 lead compliance! Passively replenishes itself with water when not in use."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "shower"
 	density = FALSE
 	use_power = NO_POWER_USE
+	//is the shower on/off?
 	var/on = FALSE
+	//what temp the shower reagents are set to
 	var/current_temperature = SHOWER_NORMAL
+	//what sound will be played on loop when the shower is on and pouring
 	var/datum/looping_sound/showering/soundloop
+	//what reagent should the shower be filled with when initially being built
 	var/reagent_id = /datum/reagent/water
+	//how much reagent capacity should the shower being with when built
 	var/reaction_volume = 200
 
 /obj/machinery/shower/Initialize()
 	. = ..()
 	create_reagents(reaction_volume)
 	reagents.add_reagent(reagent_id, reaction_volume)
-
 	soundloop = new(list(src), FALSE)
+	AddComponent(/datum/component/plumbing/simple_demand)
+
+/obj/machinery/shower/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[reagents.total_volume]/[reagents.maximum_volume] liquids remaining.</span>"
 
 /obj/machinery/shower/Destroy()
 	QDEL_NULL(soundloop)
@@ -28,6 +40,9 @@
 	return ..()
 
 /obj/machinery/shower/interact(mob/M)
+	if(reagents.total_volume < 5)
+		to_chat(M,"<span class='notice'>\The [src] is dry.</span>")
+		return FALSE
 	on = !on
 	update_icon()
 	handle_mist()
@@ -65,11 +80,12 @@
 	return TRUE
 
 
-/obj/machinery/shower/update_icon()
-	cut_overlays()
-
+/obj/machinery/shower/update_overlays()
+	. = ..()
 	if(on)
-		add_overlay(mutable_appearance('icons/obj/watercloset.dmi', "water", ABOVE_MOB_LAYER))
+		var/mutable_appearance/water_falling = mutable_appearance('icons/obj/watercloset.dmi', "water", ABOVE_MOB_LAYER)
+		water_falling.color = mix_color_from_reagents(reagents.reagent_list)
+		. += water_falling
 
 /obj/machinery/shower/proc/handle_mist()
 	// If there is no mist, and the shower was turned on (on a non-freezing temp): make mist in 5 seconds
@@ -84,7 +100,8 @@
 /obj/machinery/shower/proc/make_mist()
 	var/obj/effect/mist/mist = locate() in loc
 	if(!mist && on && current_temperature != SHOWER_FREEZING)
-		new /obj/effect/mist(loc)
+		var/obj/effect/mist/new_mist = new /obj/effect/mist(loc)
+		new_mist.color = mix_color_from_reagents(reagents.reagent_list)
 
 /obj/machinery/shower/proc/clear_mist()
 	var/obj/effect/mist/mist = locate() in loc
