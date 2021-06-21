@@ -1,0 +1,4 @@
+author: floyd, amonkeythatcodes, mat05usz
+delete-after: true
+changes:
+  - code_imp: Resisting is now on atom level so it can be used on mobs too
