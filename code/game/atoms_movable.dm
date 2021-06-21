@@ -729,6 +729,7 @@
 
 //Called when something resists while this atom is its loc
 /atom/movable/proc/container_resist(mob/living/user)
+	return
 
 //Called when a mob resists while inside a container that is itself inside something.
 /atom/movable/proc/relay_container_resist(mob/living/user, obj/O)
