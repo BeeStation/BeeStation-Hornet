@@ -26,8 +26,8 @@
 /obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)
 	if(W.is_refillable())
 		return FALSE //so we can refill them via their afterattack.
-	if(istype(W, /obj/item/stack/sheet/metal) && can_be_tanked)
-		var/obj/item/stack/sheet/metal/metal_stack = W
+	if(istype(W, /obj/item/stack/sheet/iron) && can_be_tanked)
+		var/obj/item/stack/sheet/iron/metal_stack = W
 		metal_stack.use(1)
 		var/obj/structure/reagent_dispensers/plumbed/storage/new_tank = new /obj/structure/reagent_dispensers/plumbed/storage(drop_location())
 		new_tank.reagents.maximum_volume = reagents.maximum_volume
