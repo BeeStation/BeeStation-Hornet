@@ -88503,8 +88503,8 @@
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "cTU" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/chem_master,
+/obj/structure/table/reinforced,
+/obj/structure/microscope,
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "cTV" = (
@@ -89705,14 +89705,6 @@
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "cVT" = (
-/obj/structure/table/reinforced,
-/obj/item/folder/white,
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 5
-	},
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/dropper,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -89725,6 +89717,7 @@
 	pixel_x = 32;
 	receive_ore_updates = 1
 	},
+/obj/machinery/chem_master,
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "cVU" = (
@@ -94232,9 +94225,13 @@
 /area/science/xenobiology)
 "ddV" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/slime_scanner,
 /obj/effect/turf_decal/delivery,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 5
+	},
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/dropper,
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "ddW" = (
@@ -127165,6 +127162,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
+"vAx" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/secure_closet/cytology,
+/turf/open/floor/plasteel,
+/area/science/xenobiology)
 "vDU" = (
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
@@ -160176,7 +160178,7 @@ cNh
 cOQ
 cQy
 cSh
-cTT
+vAx
 cVR
 cXk
 cYZ
