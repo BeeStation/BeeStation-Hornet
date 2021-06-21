@@ -1270,6 +1270,6 @@
 	var/list/items_inside = list(
 		/obj/item/stock_parts/water_recycler = 2,
 		/obj/item/stack/ducts/fifty = 1,
-		/obj/item/stack/sheet/metal/ten = 1,
+		/obj/item/stack/sheet/iron/ten = 1,
 		)
 	generate_items_inside(items_inside, src)

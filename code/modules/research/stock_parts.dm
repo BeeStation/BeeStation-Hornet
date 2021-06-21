@@ -312,7 +312,11 @@ If you create T5+ please take a pass at gene_modder.dm [L40]. Max_values MUST fi
 	icon_state = "subspace_transmitter"
 	desc = "A large piece of equipment used to open a window into the subspace dimension."
 	materials = list(/datum/material/iron=50)
-
+/obj/item/stock_parts/water_recycler
+	name = "water recycler"
+	icon_state = "water_recycler"
+	desc = "A chemical reclaimation component, which serves to re-accumulate and filter water over time."
+	custom_materials = list(/datum/material/plastic=200, /datum/material/iron=50)
 /obj/item/research//Makes testing much less of a pain -Sieve
 	name = "research"
 	icon = 'icons/obj/stock_parts.dmi'

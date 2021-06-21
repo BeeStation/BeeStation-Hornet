@@ -116,7 +116,8 @@
 
 /obj/machinery/shower/proc/wash_atom(atom/A)
 	SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
-	reagents.reaction(A, TOUCH, reaction_volume)
+	reagents.reaction(A, TOUCH)
+	reagents.reaction(A, VAPOR)
 
 	if(isobj(A))
 		wash_obj(A)
@@ -220,11 +221,20 @@
 	healthy_green_glow.strength -= max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * 2)) * 0.2)
 
 /obj/machinery/shower/process()
-	if(on)
+	if(on && reagents.total_volume >= 5)
+		reagents.remove_any(5)
 		wash_atom(loc)
 		for(var/AM in loc)
+			var/atom/movable/movable_content = AM
+			reagents.reaction(movable_content, TOUCH, reaction_volume)
 			wash_atom(AM)
 	else
+		reagents.add_reagent(reagent_id, 1)
+		on = FALSE
+		soundloop.stop()
+		handle_mist()
+		update_icon()
+	if(reagents.total_volume == reagents.maximum_volume)
 		return PROCESS_KILL
 
 /obj/machinery/shower/deconstruct(disassembled = TRUE)
@@ -261,6 +271,30 @@
 	else if(H.head && !(H.head.clothing_flags & SHOWEROKAY))
 		. = TRUE
 
+/obj/structure/showerframe
+	name = "shower frame"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "shower_frame"
+	desc = "A shower frame, that needs a water recycler to finish construction."
+	anchored = FALSE
+
+/obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stock_parts/water_recycler))
+		qdel(I)
+		var/obj/machinery/shower/new_shower = new /obj/machinery/shower(loc)
+		new_shower.setDir(dir)
+		qdel(src)
+		return
+	return ..()
+
+/obj/structure/showerframe/Initialize()
+	. = ..()
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+
+/obj/structure/showerframe/proc/can_be_rotated(mob/user, rotation_type)
+	if(anchored)
+		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
+	return !anchored
 
 /obj/effect/mist
 	name = "mist"

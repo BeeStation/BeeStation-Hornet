@@ -212,10 +212,29 @@
 	name = "sink"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "sink"
-	desc = "A sink used for washing one's hands and face."
+	desc = "A sink used for washing one's hands and face. Passively reclaims water over time."
 	anchored = TRUE
-	var/busy = FALSE 	//Something's being washed at the moment
-	var/dispensedreagent = /datum/reagent/water // for whenever plumbing happens
+	//Something's being washed at the moment
+	var/busy = FALSE
+	//What kind of reagent is produced by this sink by default?
+	var/dispensedreagent = /datum/reagent/water
+	//Does the sink have a water recycler to recollect it's water supply?
+	var/has_water_reclaimer = TRUE
+	//Has the water reclamation begun?
+	var/reclaiming = FALSE
+	//Units of water to relaim per second
+	var/reclaim_rate = 0.5
+
+/obj/structure/sink/Initialize(mapload, bolt)
+	. = ..()
+	if(has_water_reclaimer)
+		create_reagents(100, NO_REACT)
+		reagents.add_reagent(dispensedreagent, 100)
+	AddComponent(/datum/component/plumbing/simple_demand, bolt)
+
+/obj/structure/sink/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[reagents.total_volume]/[reagents.maximum_volume] liquids remaining.</span>"
 
 /obj/structure/sink/attack_hand(mob/living/user)
 	. = ..()
@@ -228,6 +247,9 @@
 	if(!Adjacent(user))
 		return
 
+	if(reagents.total_volume < 5)
+		to_chat(user, "<span class='warning'>The sink has no more contents left!</span>")
+		return
 	if(busy)
 		to_chat(user, "<span class='notice'>Someone's already washing here.</span>")
 		return
@@ -247,6 +269,10 @@
 
 	user.visible_message("<span class='notice'>[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src].</span>", \
 						"<span class='notice'>You wash your [washing_face ? "face" : "hands"] using [src].</span>")
+	reagents.remove_any(5)
+	reagents.reaction(user, TOUCH)
+
+	begin_reclamation()
 	if(washing_face)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -269,9 +295,13 @@
 
 	if(istype(O, /obj/item/reagent_containers))
 		var/obj/item/reagent_containers/RG = O
+		if(reagents.total_volume <= 0)
+			to_chat(user, "<span class='notice'>\The [src] is dry.</span>")
+			return FALSE
 		if(RG.is_refillable())
 			if(!RG.reagents.holder_full())
-				RG.reagents.add_reagent(dispensedreagent, min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
+				reagents.trans_to(RG, RG.amount_per_transfer_from_this, transfered_by = user)
+				begin_reclamation()
 				to_chat(user, "<span class='notice'>You fill [RG] from [src].</span>")
 				return TRUE
 			to_chat(user, "<span class='notice'>\The [RG] is full.</span>")
@@ -292,7 +322,11 @@
 				return
 
 	if(istype(O, /obj/item/mop))
-		O.reagents.add_reagent(dispensedreagent, 5)
+		if(reagents.total_volume <= 0)
+			to_chat(user, "<span class='notice'>\The [src] is dry.</span>")
+			return FALSE
+		reagents.trans_to(O, 5, transfered_by = user)
+		begin_reclamation()
 		to_chat(user, "<span class='notice'>You wet [O] in [src].</span>")
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return
@@ -318,8 +352,6 @@
 		busy = FALSE
 		SEND_SIGNAL(O, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 		O.acid_level = 0
-		create_reagents(5)
-		reagents.add_reagent(dispensedreagent, 5)
 		reagents.reaction(O, TOUCH)
 		user.visible_message("<span class='notice'>[user] washes [O] using [src].</span>", \
 							"<span class='notice'>You wash [O] using [src].</span>")
@@ -331,6 +363,17 @@
 	new /obj/item/stack/sheet/iron (loc, 3)
 	qdel(src)
 
+/obj/structure/sink/process(delta_time)
+	if(has_water_reclaimer && reagents.total_volume < reagents.maximum_volume)
+		reagents.add_reagent(dispensedreagent, reclaim_rate * delta_time)
+	else
+		reclaiming = FALSE
+		return PROCESS_KILL
+
+/obj/structure/sink/proc/begin_reclamation()
+	if(!reclaiming)
+		reclaiming = TRUE
+		START_PROCESSING(SSfluids, src)
 
 /obj/structure/sink/kitchen
 	name = "kitchen sink"
@@ -357,6 +400,31 @@
 /obj/structure/sink/puddle/deconstruct(disassembled = TRUE)
 	qdel(src)
 
+/obj/structure/sinkframe
+	name = "sink frame"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "sink_frame"
+	desc = "A sink frame, that needs a water recycler to finish construction."
+	anchored = FALSE
+
+/obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stock_parts/water_recycler))
+		qdel(I)
+		var/obj/structure/sink/new_sink = new /obj/structure/sink(loc)
+		new_sink.has_water_reclaimer = TRUE
+		new_sink.setDir(dir)
+		qdel(src)
+		return
+	return ..()
+
+/obj/structure/sinkframe/Initialize()
+	. = ..()
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+
+/obj/structure/sinkframe/proc/can_be_rotated(mob/user, rotation_type)
+	if(anchored)
+		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
+	return !anchored
 
 //Shower Curtains//
 //Defines used are pre-existing in layers.dm//
