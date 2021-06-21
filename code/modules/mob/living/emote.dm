@@ -267,11 +267,13 @@
 	. = ..()
 	if(. == FALSE)
 		return
-	if(!isipc(user))
+	if(!isfelinid(user))
 		return
 	if(!user.loc)
 		return
 	var/list/purr_targets = collect_victims(user.loc, range)
+	if(user)
+		purr_targets -= user
 	//heal
 
 	for(var/mob/living/carbon/purr_target in purr_targets)
