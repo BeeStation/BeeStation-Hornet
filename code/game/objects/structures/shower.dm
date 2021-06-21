@@ -4,6 +4,7 @@
 #define SHOWER_NORMAL_TEMP 300
 #define SHOWER_BOILING "boiling"
 #define SHOWER_BOILING_TEMP 400
+#define SHOWER_REACTION_MULTIPLIER 0.05
 
 /obj/machinery/shower
 	name = "shower"
@@ -226,7 +227,7 @@
 		wash_atom(loc)
 		for(var/AM in loc)
 			var/atom/movable/movable_content = AM
-			reagents.reaction(movable_content, TOUCH, reaction_volume)
+			reagents.reaction(movable_content, TOUCH, SHOWER_REACTION_MULTIPLIER)
 			wash_atom(AM)
 	else
 		reagents.add_reagent(reagent_id, 1)
@@ -303,3 +304,5 @@
 	layer = FLY_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+#undef SHOWER_REACTION_MULTIPLIER
