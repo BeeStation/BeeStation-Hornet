@@ -358,7 +358,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
 /atom/proc/balloon_alert(mob/viewer, text)
-	if(!viewer.client)
+	if(!viewer?.client)
 		return
 	switch(viewer.client.prefs.see_balloon_alerts)
 		if(BALLOON_ALERT_ALWAYS)
