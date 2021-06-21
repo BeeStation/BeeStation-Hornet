@@ -840,8 +840,8 @@ RLD
 			if(initial(M.rcd_constructable))
 				choices += list(initial(M.name) = image(icon = initial(M.icon), icon_state = initial(M.icon_state)))
 				name_to_type[initial(M.name)] = M
-				machinery_data["cost"][A] = M.rcd_cost
-				machinery_data["delay"][A] = M.rcd_delay
+				machinery_data["cost"][A] = initial(M.rcd_cost)
+				machinery_data["delay"][A] = initial(M.rcd_delay)
 
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user), require_near = TRUE, tooltips = TRUE)
 	if(!check_menu(user))
@@ -919,7 +919,7 @@ RLD
 	/obj/machinery/plumbing/output,
 	/obj/machinery/plumbing/tank,
 	/obj/machinery/plumbing/acclimator,
-	/obj/machinery/plumbing/filter,					//TODO: MOVE THOSE FROM HERE
+	/obj/machinery/plumbing/filter,
 	/obj/machinery/plumbing/grinder_chemical,
 	/obj/machinery/plumbing/reaction_chamber,
 	/obj/machinery/plumbing/splitter,
