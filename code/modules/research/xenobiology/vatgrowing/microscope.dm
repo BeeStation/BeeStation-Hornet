@@ -6,6 +6,7 @@
 	var/obj/item/petri_dish/current_dish
 
 /obj/structure/microscope/attacked_by(obj/item/I, mob/living/user)
+	to_chat(world, "[I] ATTACKED BY")
 	if(!istype(I, /obj/item/petri_dish))
 		return ..()
 	if(current_dish)
