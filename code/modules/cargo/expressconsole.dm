@@ -1,4 +1,4 @@
-#define MAX_EMAG_ROCKETS 8
+#define MAX_EMAG_ROCKETS 5
 #define BEACON_COST 500
 #define SP_LINKED 1
 #define SP_READY 2
@@ -158,6 +158,9 @@
 
 
 		if("add")//Generate Supply Order first
+			if(TIMER_COOLDOWN_CHECK(src, COOLDOWN_EXPRESSPOD_CONSOLE))
+				say("Railgun recalibrating. Stand by.")
+				return
 			var/id = text2path(params["id"])
 			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
 			if(!istype(pack))
@@ -198,6 +201,7 @@
 						if(empty_turfs?.len)
 							LZ = pick(empty_turfs)
 					if (SO.pack.get_cost() <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
+						TIMER_COOLDOWN_START(src, COOLDOWN_EXPRESSPOD_CONSOLE, 5 SECONDS)
 						new /obj/effect/pod_landingzone(LZ, podType, SO)
 						D.adjust_money(-SO.pack.get_cost())
 						. = TRUE
@@ -211,6 +215,7 @@
 						LAZYADD(empty_turfs, T)
 						CHECK_TICK
 					if(empty_turfs && empty_turfs.len)
+						TIMER_COOLDOWN_START(src, COOLDOWN_EXPRESSPOD_CONSOLE, 10 SECONDS)
 						D.adjust_money(-(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS)))
 
 						SO.generateRequisition(get_turf(src))
