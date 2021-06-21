@@ -61,7 +61,7 @@
 
 /mob/living/proc/remove_from_spawner_menu()
 	for(var/spawner in GLOB.mob_spawners)
-		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
-		if(!LAZYLEN(GLOB.mob_spawners[spawner]))
-			GLOB.mob_spawners -= spawner		//0 respawns, why keep it?
+		GLOB.mob_spawners[spawner] -= src
+		if(!length(GLOB.mob_spawners[spawner]))
+			GLOB.mob_spawners -= spawner
 	GLOB.poi_list -= src
