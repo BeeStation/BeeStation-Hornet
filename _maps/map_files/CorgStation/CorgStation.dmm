@@ -16266,6 +16266,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
+"enO" = (
+/obj/effect/loot_site_spawner,
+/turf/open/floor/plating,
+/area/maintenance/fore)
 "enP" = (
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue,
@@ -20594,6 +20598,20 @@
 /obj/effect/turf_decal/tile/purple,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
+	},
+/obj/structure/table/reinforced,
+/obj/item/paper_bin{
+	pixel_y = 3
+	},
+/obj/item/pen{
+	pixel_y = 2
+	},
+/obj/item/petri_dish{
+	pixel_x = -4
+	},
+/obj/item/petri_dish,
+/obj/item/swab{
+	pixel_x = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
@@ -32971,8 +32989,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "iSa" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "iSh" = (
@@ -34549,6 +34566,8 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple,
+/obj/structure/table/reinforced,
+/obj/structure/microscope,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "joR" = (
@@ -37446,6 +37465,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
+"keZ" = (
+/obj/effect/loot_site_spawner,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "kff" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -40048,7 +40071,7 @@
 /area/hallway/secondary/exit)
 "kRs" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/structure/closet/crate,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "kRv" = (
@@ -53623,6 +53646,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
+"oHK" = (
+/obj/effect/loot_site_spawner,
+/turf/open/floor/plating,
+/area/maintenance/department/crew_quarters/dorms)
 "oIe" = (
 /obj/machinery/telecomms/server/presets/service,
 /turf/open/floor/circuit/telecomms/server,
@@ -60873,8 +60900,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "qLz" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/closet/crate,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "qLZ" = (
@@ -67314,6 +67340,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
+"sIi" = (
+/obj/effect/loot_site_spawner,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "sIx" = (
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -69219,6 +69249,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"tkL" = (
+/obj/effect/loot_site_spawner,
+/turf/open/floor/plating,
+/area/maintenance/starboard/central)
 "tkN" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 2
@@ -75928,6 +75962,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple,
+/obj/structure/closet/secure_closet/cytology,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "vjC" = (
@@ -85714,6 +85749,19 @@
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
+"xTk" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/structure/chair/office,
+/turf/open/floor/plasteel/white,
+/area/science/xenobiology)
 "xTD" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -106993,7 +107041,7 @@ vhc
 iOB
 vhc
 iOB
-iOB
+sIi
 jbA
 iOB
 vhc
@@ -108781,7 +108829,7 @@ aMT
 anT
 aMT
 qVl
-iOB
+sIi
 iOB
 iOB
 iHe
@@ -111586,7 +111634,7 @@ wpg
 wpg
 wpg
 fJp
-sZh
+xTk
 joH
 wpg
 eKA
@@ -112136,7 +112184,7 @@ auR
 auR
 iOB
 aHc
-iOB
+sIi
 iOL
 lhu
 pTe
@@ -112380,7 +112428,7 @@ chC
 iOB
 iOB
 baA
-iOB
+sIi
 vAt
 uAE
 vAt
@@ -118235,7 +118283,7 @@ scI
 mKY
 geF
 wYA
-aVf
+enO
 enp
 vlr
 vlr
@@ -119567,7 +119615,7 @@ lKm
 bCx
 wFw
 fHC
-fKx
+qLz
 fKx
 hzU
 mfo
@@ -120084,7 +120132,7 @@ fHC
 hzU
 hzU
 hzU
-fKx
+qLz
 fKx
 laH
 fKx
@@ -120116,7 +120164,7 @@ qwa
 qwa
 pfu
 qwa
-tDJ
+oHK
 tDJ
 rdA
 fSR
@@ -120346,7 +120394,7 @@ fKx
 hzU
 fKx
 fKx
-fKx
+qLz
 fKx
 hzU
 nig
@@ -133887,7 +133935,7 @@ aMT
 anT
 aMT
 jdN
-erD
+keZ
 ivK
 uHo
 jdN
@@ -133900,7 +133948,7 @@ ivK
 ivK
 nkH
 jdN
-erD
+keZ
 ivK
 jdN
 ivK
@@ -134964,7 +135012,7 @@ aMZ
 aWM
 aMT
 iEk
-xBm
+tkL
 xBm
 cSs
 xBm

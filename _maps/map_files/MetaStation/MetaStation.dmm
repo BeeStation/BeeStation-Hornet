@@ -13693,6 +13693,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating{
 	icon_state = "platingdmg2"
 	},
@@ -15233,9 +15234,7 @@
 /turf/closed/wall,
 /area/construction/mining/aux_base)
 "aDc" = (
-/obj/structure/closet/crate,
-/obj/item/coin/silver,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "aDh" = (
@@ -41718,7 +41717,7 @@
 /turf/open/floor/wood,
 /area/vacant_room/office)
 "bBj" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -57492,14 +57491,10 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "chD" = (
-/obj/structure/closet/crate{
-	opened = 1
-	},
-/obj/item/cane,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "chE" = (
@@ -67563,7 +67558,7 @@
 /area/medical/virology)
 "cBT" = (
 /obj/item/cigbutt,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cBU" = (
@@ -80745,6 +80740,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "dnF" = (
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -82348,11 +82344,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
-"ewK" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "exJ" = (
 /obj/structure/table/glass,
 /obj/item/folder,
@@ -83129,6 +83120,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "gHh" = (
@@ -85337,6 +85329,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
+"oaI" = (
+/obj/effect/loot_site_spawner,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "obb" = (
 /obj/structure/target_stake,
 /turf/open/floor/plasteel/white,
@@ -86939,6 +86935,13 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
+"tIX" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/loot_site_spawner,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "tLf" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/closed/wall,
@@ -87215,7 +87218,7 @@
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "uQU" = (
-/obj/structure/closet/crate,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "uRM" = (
@@ -107055,7 +107058,7 @@ aob
 aob
 alK
 bTv
-bTv
+oaI
 alC
 bSr
 dux
@@ -110177,7 +110180,7 @@ cGK
 cHA
 cIz
 cJo
-cKs
+tIX
 cLa
 cLY
 cMH
@@ -128589,7 +128592,7 @@ afD
 afD
 afD
 aqo
-ewK
+uQU
 gKC
 dnh
 dnh
@@ -132446,7 +132449,7 @@ apn
 aqy
 arT
 apm
-dnS
+uQU
 avB
 wba
 aAx

@@ -5909,7 +5909,7 @@
 /turf/closed/wall/r_wall,
 /area/teleporter)
 "aod" = (
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
 "aoe" = (
@@ -17878,7 +17878,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/bar)
 "aOB" = (
@@ -28320,6 +28320,12 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
+"blW" = (
+/obj/effect/loot_site_spawner,
+/turf/open/floor/plating{
+	luminosity = 2
+	},
+/area/maintenance/department/science)
 "blX" = (
 /turf/open/floor/engine,
 /area/science/xenobiology)
@@ -29697,11 +29703,6 @@
 /obj/item/wrench,
 /turf/open/floor/engine,
 /area/science/explab)
-"bpq" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/closet/crate,
-/turf/open/floor/plating,
-/area/maintenance/department/cargo)
 "bpr" = (
 /obj/structure/disposaloutlet{
 	dir = 1
@@ -35895,11 +35896,7 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "bBV" = (
-/obj/structure/closet/crate{
-	opened = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance/two,
-/obj/item/clothing/mask/balaclava,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "bBW" = (
@@ -54054,18 +54051,24 @@
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
 "cPT" = (
-/obj/structure/table/glass,
 /obj/structure/window/reinforced{
 	dir = 4;
 	layer = 2.9
 	},
 /obj/structure/window/reinforced,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/structure/table/reinforced,
+/obj/item/petri_dish{
+	pixel_x = -4
+	},
+/obj/item/swab{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/dropper,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "cQJ" = (
@@ -55882,7 +55885,6 @@
 /turf/open/floor/grass,
 /area/hydroponics)
 "gdJ" = (
-/obj/structure/table/glass,
 /obj/item/folder/blue,
 /obj/item/pen,
 /obj/structure/window/reinforced{
@@ -55896,6 +55898,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/structure/table/reinforced,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "gdL" = (
@@ -56404,6 +56407,10 @@
 "gSH" = (
 /turf/closed/wall,
 /area/lawoffice)
+"gTS" = (
+/obj/effect/loot_site_spawner,
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "gUh" = (
 /obj/machinery/holopad,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -56464,6 +56471,11 @@
 	name = "Science Requests Console";
 	pixel_x = 32;
 	receive_ore_updates = 1
+	},
+/obj/item/extinguisher,
+/obj/item/extinguisher{
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
@@ -57049,12 +57061,20 @@
 /area/quartermaster/miningdock)
 "hPN" = (
 /obj/structure/table/glass,
-/obj/item/clothing/glasses/science,
 /obj/machinery/button/door{
 	id = "xenobiomain";
 	name = "Containment Blast Doors";
 	pixel_x = 28;
 	req_access_txt = "55"
+	},
+/obj/item/storage/box/monkeycubes{
+	pixel_y = 8
+	},
+/obj/item/clothing/glasses/science{
+	pixel_y = -4
+	},
+/obj/item/storage/box/monkeycubes{
+	pixel_y = 6
 	},
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
@@ -58863,11 +58883,8 @@
 /turf/open/floor/plating,
 /area/tcommsat/computer)
 "kFu" = (
-/obj/structure/closet/crate{
-	opened = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},
@@ -60595,6 +60612,7 @@
 "nSj" = (
 /obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "nSo" = (
@@ -61580,13 +61598,12 @@
 /turf/open/floor/plating,
 /area/security/execution/transfer)
 "pfP" = (
-/obj/structure/table,
-/obj/item/storage/box/syringes,
 /obj/machinery/camera{
 	c_tag = "Xenobiology Computers";
 	dir = 4;
 	network = list("ss13","rd")
 	},
+/obj/structure/closet/secure_closet/cytology,
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "pgP" = (
@@ -62045,13 +62062,7 @@
 /turf/open/floor/carpet,
 /area/library)
 "pXg" = (
-/obj/structure/table/glass,
 /obj/structure/window/reinforced,
-/obj/item/extinguisher{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/extinguisher,
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -62060,6 +62071,8 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/structure/table/reinforced,
+/obj/structure/microscope,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "pXT" = (
@@ -65135,6 +65148,12 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"vkK" = (
+/obj/effect/loot_site_spawner,
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/maintenance/department/crew_quarters/bar)
 "vll" = (
 /obj/structure/sign/warning,
 /turf/closed/wall/r_wall,
@@ -65676,6 +65695,9 @@
 /area/engine/supermatter)
 "wfs" = (
 /obj/structure/table,
+/obj/item/storage/box/syringes{
+	pixel_y = 12
+	},
 /obj/item/clothing/gloves/color/latex,
 /obj/item/stack/sheet/mineral/plasma{
 	pixel_y = 4
@@ -66969,8 +66991,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "ygZ" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/loot_site_spawner,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
 "yjg" = (
@@ -95644,7 +95665,7 @@ pPv
 aIO
 aJO
 aKT
-aPz
+vkK
 aLL
 aOw
 aLL
@@ -96720,7 +96741,7 @@ bJr
 bKD
 bKD
 bFU
-bNX
+gTS
 bCz
 bPE
 bQs
@@ -110578,7 +110599,7 @@ vzP
 eUk
 iWV
 aFi
-bpq
+ygZ
 bnj
 brT
 bxF
@@ -113422,7 +113443,7 @@ lWy
 bwm
 qul
 bwm
-izF
+blW
 bwm
 lWy
 lWy
