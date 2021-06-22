@@ -1,4 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - bugfix: Mindshield no longer gives duplicate message when implanted
