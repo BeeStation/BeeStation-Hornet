@@ -34,9 +34,28 @@
 		. += clockwork_hint
 
 /obj/item/clockwork/weapon/attack(mob/living/target, mob/living/user)
-	. = ..()
 	if(!is_reebe(user.z))
 		return
+	//Gain a slight buff when fighting near to the Ark.
+	var/force_buff = 0
+	//Check distance
+	if(GLOB.celestial_gateway)
+		var/turf/gatewayT = get_turf(GLOB.celestial_gateway)
+		var/turf/ourT = get_turf(user)
+		var/distance_from_ark = get_dist(gatewayT, ourT)
+		if(gatewayT.z == ourT.z && distance_from_ark < 15)
+			switch(distance_from_ark)
+				if(0 to 6)
+					force_buff = 8
+				if(6 to 10)
+					force_buff = 5
+				if(10 to 15)
+					force_buff = 3
+			//Magic sound
+			playsound(src, 'sound/effects/clockcult_gateway_disrupted.ogg', 40)
+	force += force_buff
+	. = ..()
+	force -= force_buff
 	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(major=FALSE) && ISWIELDED(src))
 		hit_effect(target, user)
 
