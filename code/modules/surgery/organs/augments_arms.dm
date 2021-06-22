@@ -257,7 +257,7 @@
 		if(!istype(/obj/item/assembly/flash/armimplant, potential_flash))
 			continue
 		var/obj/item/assembly/flash/armimplant/flash = potential_flash
-		flash.I = WEAKREF(src)
+		flash.arm = WEAKREF(src)
 
 /obj/item/organ/cyberimp/arm/flash/Extend()
 	. = ..()
@@ -284,7 +284,7 @@
 		if(!istype(/obj/item/assembly/flash/armimplant, potential_flash))
 			continue
 		var/obj/item/assembly/flash/armimplant/flash = potential_flash
-		flash.I = WEAKREF(src) // Todo: wipe single letter vars out of assembly code
+		flash.arm = WEAKREF(src)
 
 /obj/item/organ/cyberimp/arm/surgery
 	name = "surgical toolset implant"
