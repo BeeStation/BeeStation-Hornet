@@ -657,8 +657,8 @@
 		message_admins("Reebe failed to load")
 		log_game("Reebe failed to load")
 		return FALSE
-	for(var/datum/parsed_map/map in reebe)
-		map.initTemplateBounds()
+	for(var/datum/map_template/map in reebe)
+		map.initTemplateBounds(map.preload_size("map_files/generic/CityOfCogs.dmm"))
 	//Make cultists
 	var/starter_servants = 4
 	var/number_players = mode.roundstart_pop_ready
