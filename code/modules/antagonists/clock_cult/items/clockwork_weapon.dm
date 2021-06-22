@@ -79,12 +79,9 @@
 	icon_state = "ratvarian_spear"
 	embedding = list("embedded_impact_pain_multiplier" = 3)
 	throwforce = 36
+	force = 25
 	armour_penetration = 24
 	clockwork_hint = "Throwing the spear will deal bonus damage while on Reebe."
-
-/obj/item/clockwork/weapon/brass_spear/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25)
 
 /obj/item/clockwork/weapon/brass_battlehammer
 	name = "brass battle-hammer"
@@ -99,7 +96,7 @@
 
 /obj/item/clockwork/weapon/brass_battlehammer/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25)
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=28, block_power_wielded=25)
 
 /obj/item/clockwork/weapon/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
@@ -110,15 +107,12 @@
 	desc = "A large sword made of brass."
 	clockwork_desc = "A large sword made of brass. It contains an aurora of energetic power designed to disrupt electronics."
 	icon_state = "ratvarian_sword"
+	force = 26
 	throwforce = 20
 	armour_penetration = 12
 	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
 	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse while on Reebe."
 	var/emp_cooldown = 0
-
-/obj/item/clockwork/weapon/brass_sword/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=26, block_power_wielded=25)
 
 /obj/item/clockwork/weapon/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)
 	if(world.time > emp_cooldown)
