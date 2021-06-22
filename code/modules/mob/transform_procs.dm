@@ -4,6 +4,23 @@
 	if (notransform || transformation_timer)
 		return
 
+	var/list/stored_implants = list()
+
+	if (tr_flags & TR_KEEPIMPLANTS)
+		for(var/X in implants)
+			var/obj/item/implant/IMP = X
+			stored_implants += IMP
+			IMP.removed(src, 1, 1)
+
+	var/list/missing_bodyparts_zones = get_missing_limbs()
+	var/list/int_organs = list()
+	var/obj/item/cavity_object
+
+	var/obj/item/bodypart/chest/CH = get_bodypart(BODY_ZONE_CHEST)
+	if(CH.cavity_item)
+		cavity_object = CH.cavity_item
+		CH.cavity_item = null
+
 	if(tr_flags & TR_KEEPITEMS)
 		var/Itemlist = get_equipped_items(TRUE)
 		Itemlist += held_items
@@ -19,27 +36,9 @@
 
 	new /obj/effect/temp_visual/monkeyify(loc)
 
-	transformation_timer = addtimer(CALLBACK(src, .proc/finish_monkeyize, tr_flags), TRANSFORMATION_DURATION, TIMER_UNIQUE)
-
-/mob/living/carbon/proc/finish_monkeyize(tr_flags)
-	transformation_timer = null
-
-	var/list/missing_bodyparts_zones = get_missing_limbs()
-	var/list/stored_implants = list()
-
-	if (tr_flags & TR_KEEPIMPLANTS)
-		for(var/X in implants)
-			var/obj/item/implant/IMP = X
-			stored_implants += IMP
-			IMP.removed(src, 1, 1)
-
-	var/list/int_organs = list()
-	var/obj/item/cavity_object
-
-	var/obj/item/bodypart/chest/CH = get_bodypart(BODY_ZONE_CHEST)
-	if(CH.cavity_item)
-		cavity_object = CH.cavity_item
-		CH.cavity_item = null
+	transformation_timer = TRUE
+	sleep(TRANSFORMATION_DURATION)
+	transformation_timer = FALSE
 
 	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
 
@@ -154,7 +153,7 @@
 //Mostly same as monkey but turns target into teratoma
 
 /mob/living/carbon/proc/teratomize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
-	if (notransform)
+	if (notransform || transformation_timer)
 		return
 	//Handle items on mob
 
@@ -185,13 +184,17 @@
 
 	//Make mob invisible and spawn animation
 	notransform = TRUE
-	Paralyze(22, ignore_canstun = TRUE)
+	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
 	invisibility = INVISIBILITY_MAXIMUM
 
 	new /obj/effect/temp_visual/monkeyify(loc)
-	sleep(22)
+
+	transformation_timer = TRUE
+	sleep(TRANSFORMATION_DURATION)
+	transformation_timer = FALSE
+
 	var/mob/living/carbon/monkey/tumor/O = new /mob/living/carbon/monkey/tumor( loc )
 
 	// hash the original name?
@@ -309,28 +312,6 @@
 	if (notransform || transformation_timer)
 		return
 
-	//now the rest
-	if (tr_flags & TR_KEEPITEMS)
-		var/Itemlist = get_equipped_items(TRUE)
-		Itemlist += held_items
-		for(var/obj/item/W in Itemlist)
-			dropItemToGround(W, TRUE)
-			if (client)
-				client.screen -= W
-
-	//Make mob invisible and spawn animation
-	notransform = TRUE
-	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
-
-	icon = null
-	cut_overlays()
-	invisibility = INVISIBILITY_MAXIMUM
-	new /obj/effect/temp_visual/monkeyify/humanify(loc)
-
-	transformation_timer = addtimer(CALLBACK(src, .proc/finish_humanize, tr_flags), TRANSFORMATION_DURATION, TIMER_UNIQUE)
-
-/mob/living/carbon/proc/finish_humanize(tr_flags)
-	transformation_timer = null
 	var/list/stored_implants = list()
 	var/list/int_organs = list()
 
@@ -348,6 +329,30 @@
 	if(CH.cavity_item)
 		cavity_object = CH.cavity_item
 		CH.cavity_item = null
+
+	//now the rest
+	if (tr_flags & TR_KEEPITEMS)
+		var/Itemlist = get_equipped_items(TRUE)
+		Itemlist += held_items
+		for(var/obj/item/W in Itemlist)
+			dropItemToGround(W, TRUE)
+			if (client)
+				client.screen -= W
+
+
+
+	//Make mob invisible and spawn animation
+	notransform = TRUE
+	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
+
+	icon = null
+	cut_overlays()
+	invisibility = INVISIBILITY_MAXIMUM
+	new /obj/effect/temp_visual/monkeyify/humanify(loc)
+
+	transformation_timer = TRUE
+	sleep(TRANSFORMATION_DURATION)
+	transformation_timer = FALSE
 
 	var/mob/living/carbon/human/O = new( loc )
 	for(var/obj/item/C in O.loc)
