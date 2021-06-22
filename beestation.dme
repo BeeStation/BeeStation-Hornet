@@ -429,6 +429,7 @@
 #include "code\datums\components\spikes.dm"
 #include "code\datums\components\spill.dm"
 #include "code\datums\components\spooky.dm"
+#include "code\datums\components\spybug.dm"
 #include "code\datums\components\squeak.dm"
 #include "code\datums\components\stationloving.dm"
 #include "code\datums\components\swarming.dm"

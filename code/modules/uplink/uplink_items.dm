@@ -2346,3 +2346,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/implants/spyninjakit
+	name = "Spider Clan Espionage Kit"
+	desc = "Contains a espionage kit, perfected by the Spider Clan. /
+	The shuriken is an advanced piece of tech that incorporates a built in camera, /
+	while the chameleon glasses can interface with the camera and show you its location."
+	item = /obj/item/storage/box/syndie_kit/spyninjakit
+	cost = 2
+	surplus = 0

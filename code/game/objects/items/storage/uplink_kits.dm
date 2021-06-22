@@ -590,3 +590,14 @@
 		group.register(i)
 	desc += " The implants are registered to the \"[group.name]\" group."
   
+//it needs to be linked, hence a kit.
+/obj/item/storage/box/syndie_kit/spyninjakit
+	name = "spider clan espionage kit"
+	desc = "Contains a pair of glasses with in-built camera, and an attached spybug ninja start that can emblem in flesh."
+
+/obj/item/storage/box/syndie_kit/spyninjakit/PopulateContents()
+	var/obj/item/throwing_star/spy_bug/newbug = new(src)
+	var/datum/component/spybug/spy_bug_component = newbug.GetComponent(/datum/component/spybug)
+	var/obj/item/clothing/glasses/sunglasses/spy/newglasses = new /obj/item/clothing/glasses/sunglasses/spy/chameleon(src)
+	spy_bug_component.linked_glasses = newglasses
+	newglasses.linked_bug = spy_bug_component
