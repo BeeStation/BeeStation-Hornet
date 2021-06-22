@@ -213,7 +213,7 @@
 							var/LZ = pick(empty_turfs)
 							LAZYREMOVE(empty_turfs, LZ)
 							new /obj/effect/pod_landingzone(LZ, podType, SO)
-							COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN)
+							COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN/2)
 							. = TRUE
 							update_icon()
 							CHECK_TICK
