@@ -30,6 +30,7 @@
 /obj/machinery/atmospherics/components/binary/pressure_valve/AltClick(mob/user)
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
+		balloon_alert(user, "Set to [target_pressure] kPa")
 		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 	return ..()
@@ -41,16 +42,16 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/pressure_valve/update_icon_nopipes()
-	if(on && is_operational && is_gas_flowing)
+	if(on && is_operational() && is_gas_flowing)
 		icon_state = "pvalve_flow"
-	else if(on && is_operational && !is_gas_flowing)
+	else if(on && is_operational() && !is_gas_flowing)
 		icon_state = "pvalve_on"
 	else
 		icon_state = "pvalve_off"
 
 /obj/machinery/atmospherics/components/binary/pressure_valve/process_atmos()
 
-	if(!on || !is_operational)
+	if(!on || !is_operational())
 		return
 
 	var/datum/gas_mixture/air1 = airs[1]
@@ -149,7 +150,7 @@
 
 /obj/machinery/atmospherics/components/binary/pressure_valve/can_unwrench(mob/user)
 	. = ..()
-	if(. && on && is_operational)
+	if(. && on && is_operational())
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
 		return FALSE
 
