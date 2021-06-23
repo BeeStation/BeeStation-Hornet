@@ -25,7 +25,7 @@
 	SIGNAL_HANDLER
 
 
-	do_shrapnel(firer, target)
+	INVOKE_ASYNC(src, .proc/do_shrapnel, firer, target)
 
 /datum/component/mirv/proc/do_shrapnel(mob/firer, atom/target)
 	if(radius < 1)

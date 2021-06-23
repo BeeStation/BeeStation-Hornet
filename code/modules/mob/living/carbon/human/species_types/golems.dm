@@ -671,9 +671,6 @@
 	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
 
 /datum/species/golem/clockwork/on_species_loss(mob/living/carbon/human/H)
-	SIGNAL_HANDLER
-
-
 	UnregisterSignal(H, COMSIG_MOB_SAY)
 	. = ..()
 

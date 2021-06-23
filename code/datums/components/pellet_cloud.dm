@@ -89,7 +89,7 @@
 
 
 	shooter = user
-	var/targloc = get_turf(target)
+	var/turf/targloc = get_turf(target)
 	if(!zone_override)
 		zone_override = shooter.zone_selected
 
@@ -104,8 +104,10 @@
 		RegisterSignal(shell.BB, COMSIG_PROJECTILE_SELF_ON_HIT, .proc/pellet_hit)
 		RegisterSignal(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_PARENT_QDELETING), .proc/pellet_range)
 		pellets += shell.BB
-		if(!shell.throw_proj(target, targloc, shooter, params, spread))
+		var/turf/current_loc = get_turf(user)
+		if(!istype(targloc) || !istype(current_loc))
 			return
+		INVOKE_ASYNC(shell, /obj/item/ammo_casing.proc/throw_proj, target, targloc, shooter, params, spread)
 		if(i != num_pellets)
 			shell.newshot()
 
@@ -121,7 +123,7 @@
 	var/atom/A = parent
 
 	if(isgrenade(parent)) // handle_martyrs can reduce the radius and thus the number of pellets we produce if someone dives on top of a frag grenade
-		handle_martyrs(lanced_by) // note that we can modify radius in this proc
+		INVOKE_ASYNC(src, .proc/handle_martyrs, lanced_by) // note that we can modify radius in this proc
 
 	if(radius < 1)
 		return
@@ -131,7 +133,7 @@
 
 	for(var/T in all_the_turfs_were_gonna_lacerate)
 		var/turf/shootat_turf = T
-		pew(shootat_turf)
+		INVOKE_ASYNC(src, .proc/pew, shootat_turf)
 
 /**
   * handle_martyrs() is used for grenades that shoot shrapnel to check if anyone threw themselves/were thrown on top of the grenade, thus absorbing a good chunk of the shrapnel

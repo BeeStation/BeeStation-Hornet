@@ -62,6 +62,18 @@
 	if(istype(clicked_turf, /turf/open/indestructible/sound/pool))
 		return
 	if(L.pulling)
+		INVOKE_ASYNC(src, .proc/pull_out, L, clicked_turf)
+		return
+	INVOKE_ASYNC(src, .proc/climb_out, L, clicked_turf)
+
+/datum/component/swimming/proc/climb_out(var/mob/living/L, turf/clicked_turf)
+	L.forceMove(clicked_turf)
+	L.visible_message("<span class='notice'>[parent] climbs out of the pool.</span>")
+	RemoveComponent()
+
+/datum/component/swimming/proc/pull_out(var/mob/living/L, turf/clicked_turf)
+	to_chat(parent, "<span class='notice'>You start to climb out of the pool...</span>")
+	if(do_after(parent, 1 SECONDS, target=clicked_turf))
 		to_chat(parent, "<span class='notice'>You start to lift [L.pulling] out of the pool...</span>")
 		var/atom/movable/pulled_object = L.pulling
 		if(do_after(parent, 1 SECONDS, target=pulled_object))
@@ -70,12 +82,6 @@
 			var/datum/component/swimming/swimming_comp = pulled_object.GetComponent(/datum/component/swimming)
 			if(swimming_comp)
 				swimming_comp.RemoveComponent()
-		return
-	to_chat(parent, "<span class='notice'>You start to climb out of the pool...</span>")
-	if(do_after(parent, 1 SECONDS, target=clicked_turf))
-		L.forceMove(clicked_turf)
-		L.visible_message("<span class='notice'>[parent] climbs out of the pool.</span>")
-		RemoveComponent()
 
 /datum/component/swimming/UnregisterFromParent()
 	exit_pool()

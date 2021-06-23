@@ -127,4 +127,4 @@
 	if(scan)
 		E.scan(source, diseases, user)
 	else
-		E.extrapolate(source, diseases, user)
+		INVOKE_ASYNC(E, /obj/item/extrapolator.proc/extrapolate, source, diseases, user)

@@ -316,7 +316,7 @@
 
 
 	if(user == parent)
-		ui_interact(user)
+		INVOKE_ASYNC(src, .proc/ui_interact, user)
 
 /datum/component/personal_crafting/ui_state(mob/user)
 	return GLOB.not_incapacitated_turf_state

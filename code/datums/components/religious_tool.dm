@@ -51,9 +51,6 @@
   * Since all of these involve attackby, we require mega proc. Handles Invocation, Sacrificing, And Selection of Sects.
   */
 /datum/component/religious_tool/proc/AttemptActions(datum/source, obj/item/the_item, mob/living/user)
-	SIGNAL_HANDLER
-
-
 	/**********Sect Selection**********/
 	if(!SetGlobalToLocal())
 		if(!(operation_flags & RELIGION_TOOL_SECTSELECT))

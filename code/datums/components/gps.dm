@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 
 	if(user)
-		ui_interact(user)
+		INVOKE_ASYNC(src, .proc/ui_interact, user)
 
 ///Called on COMSIG_PARENT_EXAMINE
 /datum/component/gps/item/proc/on_examine(datum/source, mob/user, list/examine_list)

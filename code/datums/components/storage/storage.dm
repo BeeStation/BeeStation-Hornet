@@ -174,7 +174,7 @@
 		host.balloon_alert(M, "It's locked")
 		return FALSE
 	if((M.get_active_held_item() == parent) && allow_quick_empty)
-		quick_empty(M)
+		INVOKE_ASYNC(src, .proc/quick_empty, M)
 
 /datum/component/storage/proc/preattack_intercept(datum/source, obj/O, mob/M, params)
 	SIGNAL_HANDLER
@@ -194,19 +194,23 @@
 		return
 	if(!isturf(I.loc))
 		return
-	var/list/things = I.loc.contents.Copy()
+	INVOKE_ASYNC(src, .proc/async_preattack_intercept, I, M)
+
+///async functionality from preattack_intercept
+/datum/component/storage/proc/async_preattack_intercept(obj/item/attack_item, mob/pre_attack_mob)
+	var/list/things = attack_item.loc.contents.Copy()
 	if(collection_mode == COLLECT_SAME)
-		things = typecache_filter_list(things, typecacheof(I.type))
+		things = typecache_filter_list(things, typecacheof(attack_item.type))
 	var/len = length(things)
 	if(!len)
-		to_chat(M, "<span class='notice'>You failed to pick up anything with [parent].</span>")
+		to_chat(pre_attack_mob, "<span class='warning'>You failed to pick up anything with [parent]!</span>")
 		return
-	var/datum/progressbar/progress = new(M, len, I.loc)
+	var/datum/progressbar/progress = new(pre_attack_mob, len, attack_item.loc)
 	var/list/rejections = list()
-	while(do_after(M, 10, TRUE, parent, FALSE, CALLBACK(src, .proc/handle_mass_pickup, things, I.loc, rejections, progress)))
+	while(do_after(pre_attack_mob, 1 SECONDS, parent, NONE, FALSE, CALLBACK(src, .proc/handle_mass_pickup, things, attack_item.loc, rejections, progress)))
 		stoplag(1)
 	qdel(progress)
-	to_chat(M, "<span class='notice'>You put everything you could [insert_preposition] [parent].</span>")
+	to_chat(pre_attack_mob, "<span class='notice'>You put everything you could [insert_preposition] [parent].</span>")
 
 /datum/component/storage/proc/handle_mass_item_insertion(list/things, datum/component/storage/src_object, mob/user, datum/progressbar/progress)
 	var/atom/source_real_location = src_object.real_location()
@@ -559,7 +563,7 @@
 	if(over_object == M)
 		user_show_to_mob(M)
 	if(!istype(over_object, /atom/movable/screen))
-		dump_content_at(over_object, M)
+		INVOKE_ASYNC(src, .proc/dump_content_at, over_object, M)
 		return
 	if(A.loc != M)
 		return
@@ -758,7 +762,8 @@
 		amount = min(remaining_space_items(), amount)
 	for(var/i in 1 to amount)
 		handle_item_insertion(new type(real_location), TRUE)
-		CHECK_TICK
+		if(QDELETED(src))
+			return TRUE
 	return TRUE
 
 /datum/component/storage/proc/on_attack_hand(datum/source, mob/user)
@@ -781,12 +786,12 @@
 		var/mob/living/carbon/human/H = user
 		if(H.l_store == A && !H.get_active_held_item())	//Prevents opening if it's in a pocket.
 			. = COMPONENT_NO_ATTACK_HAND
-			H.put_in_hands(A)
+			INVOKE_ASYNC(H, /mob.proc/put_in_hands, A)
 			H.l_store = null
 			return
 		if(H.r_store == A && !H.get_active_held_item())
 			. = COMPONENT_NO_ATTACK_HAND
-			H.put_in_hands(A)
+			INVOKE_ASYNC(H, /mob.proc/put_in_hands, A)
 			H.r_store = null
 			return
 
@@ -846,17 +851,25 @@
 		playsound(A, "rustle", 50, 1, -5)
 		return
 
-	if(!user.incapacitated())
-		var/obj/item/I = locate() in real_location()
-		if(!I)
-			return
-		A.add_fingerprint(user)
-		remove_from_storage(I, get_turf(user))
-		if(!user.put_in_hands(I))
-			to_chat(user, "<span class='notice'>You fumble for [I] and it falls on the floor.</span>")
-			return
-		user.visible_message("<span class='warning'>[user] draws [I] from [parent]!</span>", "<span class='notice'>You draw [I] from [parent].</span>")
+	if(user.incapacitated())
 		return
+
+	var/obj/item/to_remove = locate() in real_location()
+	if(!to_remove)
+		return
+	INVOKE_ASYNC(src, .proc/attempt_put_in_hands, to_remove, user)
+
+///attempt to put an item from contents into the users hands
+/datum/component/storage/proc/attempt_put_in_hands(obj/item/to_remove, mob/user)
+	var/atom/parent_as_atom = parent
+
+	parent_as_atom.add_fingerprint(user)
+	remove_from_storage(to_remove, get_turf(user))
+	if(!user.put_in_hands(to_remove))
+		to_chat(user, "<span class='notice'>You fumble for [to_remove] and it falls on the floor.</span>")
+		return
+	user.visible_message("<span class='warning'>[user] draws [to_remove] from [parent]!</span>", "<span class='notice'>You draw [to_remove] from [parent].</span>")
+	return
 
 /datum/component/storage/proc/action_trigger(datum/signal_source, datum/action/source)
 	SIGNAL_HANDLER

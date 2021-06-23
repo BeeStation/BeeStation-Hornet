@@ -66,9 +66,6 @@
 	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
 
 /datum/mutation/human/smile/on_losing(mob/living/carbon/human/owner)
-	SIGNAL_HANDLER
-
-
 	if(..())
 		return
 	UnregisterSignal(owner, COMSIG_MOB_SAY)

@@ -587,7 +587,6 @@
 	SIGNAL_HANDLER
 
 
-	SIGNAL_HANDLER
 	if(targets_from != src)
 		set_targets_from(src)
 

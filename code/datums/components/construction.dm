@@ -36,7 +36,7 @@
 	SIGNAL_HANDLER
 
 
-	return check_step(I, user)
+	return INVOKE_ASYNC(src, .proc/check_step, I, user)
 
 /datum/component/construction/proc/update_index(diff)
 	index += diff

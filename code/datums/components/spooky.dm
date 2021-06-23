@@ -16,7 +16,7 @@
 			U.stuttering = 20
 			if(U.getStaminaLoss() > 95)
 				to_chat(U, "<font color ='red', size ='4'><B>Your ears weren't meant for this spectral sound.</B></font>")
-				spectral_change(U)
+				INVOKE_ASYNC(src, .proc/spectral_change, U)
 			return
 
 	if(ishuman(C))
@@ -31,7 +31,7 @@
 		if((!istype(H.dna.species, /datum/species/skeleton)) && (!istype(H.dna.species, /datum/species/golem)) && (!istype(H.dna.species, /datum/species/android)) && (!istype(H.dna.species, /datum/species/jelly)))
 			C.adjustStaminaLoss(25) //boneless humanoids don't lose the will to live
 		to_chat(C, "<font color='red' size='4'><B>DOOT</B></font>")
-		spectral_change(H)
+		INVOKE_ASYNC(src, .proc/spectral_change, H)
 
 	else //the sound will spook monkeys.
 		C.Jitter(15)

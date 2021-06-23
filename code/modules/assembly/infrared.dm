@@ -175,7 +175,7 @@
 		var/obj/item/I = offender
 		if (I.item_flags & ABSTRACT)
 			return
-	return refreshBeam()
+	INVOKE_ASYNC(src, .proc/refreshBeam)
 
 /obj/item/assembly/infra/setDir()
 	. = ..()
