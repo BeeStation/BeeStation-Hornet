@@ -31,3 +31,7 @@
 
 /datum/component/magnetic_catch/proc/throw_react(datum/source, list/arguments)
 	return COMPONENT_CANCEL_THROW
+
+/datum/component/magnetic_catch/UnregisterFromParent()
+	. = ..()
+	RemoveElement(/datum/element/connect_loc, parent, loc_connections)

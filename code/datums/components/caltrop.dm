@@ -75,3 +75,7 @@
 			INVOKE_ASYNC(H, /mob/living.proc/Paralyze, 40)
 	else
 		return
+
+/datum/component/caltrop/UnregisterFromParent()
+	. = ..()
+	RemoveElement(/datum/element/connect_loc, parent, crossed_connections)

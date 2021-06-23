@@ -20,6 +20,8 @@
 	if(ismovable(parent))
 		AddElement(/datum/element/connect_loc, parent, default_connections)
 
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/Slip)
+
 /datum/component/slippery/proc/Slip(datum/source, atom/movable/arrived, direction)
 	if(!isliving(arrived))
 		return
