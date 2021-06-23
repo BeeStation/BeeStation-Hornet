@@ -63,6 +63,9 @@
 	return ..()
 
 /obj/item/bodybag/bluespace/proc/CanReachReact(atom/movable/source, list/next)
+	SIGNAL_HANDLER
+
+
 	return COMPONENT_BLOCK_REACH
 
 /obj/item/bodybag/bluespace/deploy_bodybag(mob/user, atom/location)

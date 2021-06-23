@@ -79,6 +79,8 @@
 
 /datum/action/proc/owner_deleted(datum/source)
 	SIGNAL_HANDLER
+
+
 	Remove(owner)
 
 /datum/action/proc/Remove(mob/M)

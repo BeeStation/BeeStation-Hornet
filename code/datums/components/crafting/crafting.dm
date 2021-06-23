@@ -312,6 +312,9 @@
 		qdel(DL)
 
 /datum/component/personal_crafting/proc/component_ui_interact(atom/movable/screen/craft/image, location, control, params, user)
+	SIGNAL_HANDLER
+
+
 	if(user == parent)
 		ui_interact(user)
 

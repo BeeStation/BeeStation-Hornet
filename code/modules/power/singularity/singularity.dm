@@ -451,5 +451,8 @@
 	return(gain)
 
 /obj/singularity/proc/bluespace_reaction()
+	SIGNAL_HANDLER
+
+
 	investigate_log("has been shot by bluespace artillery and destroyed.", INVESTIGATE_SINGULO)
 	qdel(src)

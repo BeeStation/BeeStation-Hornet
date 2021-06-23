@@ -21,7 +21,7 @@
 	cleanable = _cleanable
 	rotated = _rotated
 
-	RegisterSignal(target,COMSIG_ATOM_UPDATE_OVERLAYS,.proc/apply_overlay, TRUE)
+	RegisterSignal(target,COMSIG_ATOM_UPDATE_OVERLAYS, .proc/apply_overlay, TRUE)
 	if(isturf(target))
 		RegisterSignal(target,COMSIG_TURF_AFTER_SHUTTLE_MOVE,.proc/shuttlemove_react, TRUE)
 	if(target.flags_1 & INITIALIZED_1)
@@ -35,7 +35,7 @@
 	if(_cleanable)
 		RegisterSignal(target, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_react,TRUE)
 	if(_description)
-		RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/examine,TRUE)
+		RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/examine, TRUE)
 
 /datum/element/decal/proc/generate_appearance(_icon, _icon_state, _dir, _layer, _color, _alpha, source)
 	if(!_icon || !_icon_state)
@@ -68,11 +68,14 @@
 
 /datum/element/decal/proc/shuttlemove_react(datum/source, turf/newT)
 	SIGNAL_HANDLER
+
+
 	Detach(source)
 	newT.AddElement(/datum/element/decal, pic.icon, pic.icon_state, pic.dir, cleanable, pic.color, pic.layer, description, pic.alpha, rotated)
 
 /datum/element/decal/proc/rotate_react(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
+
 
 	if(old_dir == new_dir)
 		return
@@ -82,6 +85,7 @@
 /datum/element/decal/proc/clean_react(datum/source, clean_types)
 	SIGNAL_HANDLER
 
+
 	if(clean_types & cleanable)
 		Detach(source)
 		return TRUE
@@ -89,5 +93,6 @@
 
 /datum/element/decal/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
+
 
 	examine_list += description

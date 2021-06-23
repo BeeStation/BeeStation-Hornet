@@ -123,6 +123,9 @@
 		ducterlays += I
 ///we stop acting like a plumbing thing and disconnect if we are, so we can safely be moved and stuff
 /datum/component/plumbing/proc/disable()
+	SIGNAL_HANDLER
+
+
 	if(!active)
 		return
 	STOP_PROCESSING(SSfluids, src)
@@ -163,6 +166,9 @@
 
 /// Toggle our machinery on or off. This is called by a hook from default_unfasten_wrench with anchored as only param, so we dont have to copypaste this on every object that can move
 /datum/component/plumbing/proc/toggle_active(obj/O, new_state)
+	SIGNAL_HANDLER
+
+
 	if(new_state)
 		enable()
 	else

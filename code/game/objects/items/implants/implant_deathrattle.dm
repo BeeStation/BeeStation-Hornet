@@ -32,18 +32,24 @@
 /datum/deathrattle_group/proc/on_implant_implantation(obj/item/implant/implant, mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	SIGNAL_HANDLER
 
+
 	RegisterSignal(target, COMSIG_MOB_STATCHANGE, .proc/on_user_statchange)
 
 /datum/deathrattle_group/proc/on_implant_removal(obj/item/implant/implant, mob/living/source, silent = FALSE, special = 0)
 	SIGNAL_HANDLER
 
+
 	UnregisterSignal(source, COMSIG_MOB_STATCHANGE)
 
 /datum/deathrattle_group/proc/on_implant_destruction(obj/item/implant/implant)
+	SIGNAL_HANDLER
+
+
 	implants -= implant
 
 /datum/deathrattle_group/proc/on_user_statchange(mob/living/owner, new_stat)
 	SIGNAL_HANDLER
+
 
 	if(new_stat != DEAD)
 		return

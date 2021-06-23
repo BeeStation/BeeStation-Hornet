@@ -584,6 +584,9 @@
 	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
 
 /datum/species/golem/bananium/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
+
 	speech_args[SPEECH_SPANS] |= SPAN_CLOWN
 
 /datum/species/golem/runic
@@ -668,6 +671,9 @@
 	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
 
 /datum/species/golem/clockwork/on_species_loss(mob/living/carbon/human/H)
+	SIGNAL_HANDLER
+
+
 	UnregisterSignal(H, COMSIG_MOB_SAY)
 	. = ..()
 
@@ -1140,6 +1146,9 @@
 	target.adjust_nutrition(40)
 
 /datum/species/golem/capitalist/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
+
 	playsound(source, 'sound/misc/mymoney.ogg', 25, 0)
 	speech_args[SPEECH_MESSAGE] = "Hello, I like money!"
 
@@ -1182,5 +1191,8 @@
 	target.adjust_nutrition(-40)
 
 /datum/species/golem/soviet/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
+
 	playsound(source, 'sound/misc/Cyka Blyat.ogg', 25, 0)
 	speech_args[SPEECH_MESSAGE] = "Cyka Blyat"

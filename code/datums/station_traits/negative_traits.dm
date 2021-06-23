@@ -49,6 +49,7 @@
 /datum/station_trait/hangover/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/spawned_mob, joined_late)
 	SIGNAL_HANDLER
 
+
 	if(joined_late)
 		return
 	if(prob(35))
@@ -98,6 +99,8 @@
 
 /datum/station_trait/overflow_job_bureacracy/proc/set_overflow_job_override(datum/source, new_overflow_role)
 	SIGNAL_HANDLER
+
+
 	SSjob.set_overflow_role(chosen_job)
 
 /datum/station_trait/slow_shuttle

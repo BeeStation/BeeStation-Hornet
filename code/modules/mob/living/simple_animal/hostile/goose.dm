@@ -140,6 +140,9 @@
 	icon_state = initial(icon_state)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/goosement(atom/movable/AM, OldLoc, Dir, Forced)
+	SIGNAL_HANDLER
+
+
 	if(stat == DEAD)
 		return
 	if(vomiting)
