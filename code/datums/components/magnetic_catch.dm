@@ -1,10 +1,11 @@
-/datum/component/magnetic_catch/Initialize()
-	. = ..()
+/datum/component/magnetic_catch
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 		COMSIG_ATOM_EXITED = .proc/on_exited,
 	)
 
+/datum/component/magnetic_catch/Initialize()
+	. = ..()
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/examine)
