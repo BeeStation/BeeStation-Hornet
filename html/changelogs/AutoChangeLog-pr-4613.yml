@@ -1,0 +1,4 @@
+author: Archanial
+delete-after: true
+changes:
+  - bugfix: Fixed cloning console UI breaking when trying to scan human with no mind.
