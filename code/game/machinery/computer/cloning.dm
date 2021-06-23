@@ -289,7 +289,7 @@
 	say("Initiating scan...")
 	var/prev_locked = scanner.locked
 	scanner.locked = TRUE
-	addtimer(CALLBACK(src, .proc/finish_scan, scanner.occupant, prev_locked, body_only), 2 SECONDS)
+	addtimer(CALLBACK(src, .proc/finish_scan, scanner.occupant, user, prev_locked, body_only), 2 SECONDS)
 	. = TRUE
 
 /obj/machinery/computer/cloning/proc/Toggle_autoprocess(mob/user)
@@ -395,21 +395,21 @@
 		ui = new(user, src, "CloningConsole", "Cloning System Control")
 		ui.open()
 
-/obj/machinery/computer/cloning/proc/finish_scan(mob/living/L, prev_locked, body_only)
+/obj/machinery/computer/cloning/proc/finish_scan(mob/living/L, mob/user, prev_locked, body_only)
 	if(!scanner || !L)
 		return
 	src.add_fingerprint(usr)
 	if(use_records)
-		scan_occupant(L,,body_only)
+		scan_occupant(L, user, body_only)
 	else
-		clone_occupant(L)
+		clone_occupant(L, user)
 
 	loading = FALSE
 	scanner.locked = prev_locked
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 //Used by consoles without records
-/obj/machinery/computer/cloning/proc/clone_occupant(occupant)
+/obj/machinery/computer/cloning/proc/clone_occupant(occupant, mob/user)
 	var/mob/living/mob_occupant = get_mob_or_brainmob(occupant)
 	var/datum/dna/dna
 	if(ishuman(mob_occupant))
@@ -441,6 +441,7 @@
 		pod.growclone(mob_occupant.real_name, dna.uni_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
 		temp = "[mob_occupant.real_name] => Cloning data sent to pod."
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")
 
 /obj/machinery/computer/cloning/proc/can_scan(datum/dna/dna, mob/living/mob_occupant, experimental = FALSE, datum/bank_account/account, body_only)
 	if(!istype(dna))
@@ -561,7 +562,7 @@
 	else
 		scantemp = "Subject successfully scanned."
 	records += R
-	log_cloning("[M ? key_name(M) : "Autoprocess"] added the [body_only ? "body-only " : ""]record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
+	log_cloning("[user ? key_name(user) : "Autoprocess"] added the [body_only ? "body-only " : ""]record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50)
 
 //Prototype cloning console, much more rudimental and lacks modern functions such as saving records, autocloning, or safety checks.
