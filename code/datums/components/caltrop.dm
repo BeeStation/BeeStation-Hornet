@@ -16,7 +16,10 @@
 	probability = _probability
 	flags = _flags
 
-	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/on_entered)
+	if(ismovable(parent))
+		AddElement(/datum/element/connect_loc, parent, crossed_connections)
+	else
+		RegisterSignal(get_turf(parent), COMSIG_ATOM_ENTERED, .proc/on_entered)
 
 /datum/component/caltrop/proc/on_entered(datum/source, atom/movable/arrived, direction)
 	SIGNAL_HANDLER
