@@ -51,6 +51,7 @@
 
 /obj/structure/destructible/clockwork/sigil/proc/on_exited(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(currently_affecting != AM)
 		return
 	currently_affecting = null

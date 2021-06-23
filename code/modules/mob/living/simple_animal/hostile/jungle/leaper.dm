@@ -94,6 +94,7 @@
 
 /obj/structure/leaper_bubble/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/jungle/leaper))

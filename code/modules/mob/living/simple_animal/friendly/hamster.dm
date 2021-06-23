@@ -65,6 +65,7 @@
 
 /mob/living/simple_animal/pet/hamster/vector/proc/on_entered(datum/source, M as mob)
 	SIGNAL_HANDLER
+
 	if(isliving(M) && !isnull(vector_disease) && prob(20))
 		var/mob/living/L = M
 		if(!L.HasDisease(vector_disease)) //I'm not actually sure if this check is needed, but better to be safe than sorry

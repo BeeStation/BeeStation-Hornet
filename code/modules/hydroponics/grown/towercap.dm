@@ -259,6 +259,7 @@
 
 /obj/structure/bonfire/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(burning & !grill)
 		Burn()
 

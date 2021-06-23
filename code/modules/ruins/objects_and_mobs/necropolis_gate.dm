@@ -277,6 +277,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 
 /obj/structure/stone_tile/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(falling || fallen)
 		return
 	var/turf/T = get_turf(src)

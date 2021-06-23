@@ -42,6 +42,7 @@
 
 /mob/living/simple_animal/cockroach/proc/on_entered(datum/source ,var/atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(ismob(AM))
 		if(isliving(AM))
 			var/mob/living/A = AM

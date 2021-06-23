@@ -135,6 +135,7 @@
 
 /obj/item/rupee/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(!ismob(AM))
 		return
 	INVOKE_ASYNC(src, .proc/put_in_crossers_hands, AM)

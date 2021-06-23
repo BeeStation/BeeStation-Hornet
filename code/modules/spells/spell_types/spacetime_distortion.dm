@@ -110,6 +110,7 @@
 
 /obj/effect/cross_action/spacetime_dist/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(!busy)
 		walk_link(AM)
 

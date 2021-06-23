@@ -123,4 +123,5 @@
 
 /obj/effect/abstract/proximity_checker/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	monitor?.hasprox_receiver?.HasProximity(AM)

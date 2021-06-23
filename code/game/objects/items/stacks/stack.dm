@@ -348,6 +348,7 @@
 
 /obj/item/stack/proc/on_entered(datum/source, obj/o)
 	SIGNAL_HANDLER
+
 	if(merge_check(o) && !o.throwing)
 		INVOKE_ASYNC(src, .proc/merge, o)
 

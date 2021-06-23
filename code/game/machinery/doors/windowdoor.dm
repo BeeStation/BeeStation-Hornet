@@ -133,6 +133,7 @@
 
 /obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
+
 	if(istype(leaving) && (leaving.pass_flags & PASSGLASS))
 		return
 

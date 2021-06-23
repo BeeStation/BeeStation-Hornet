@@ -385,6 +385,7 @@
 
 /obj/structure/spacevine/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(isliving(AM))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			SM.on_cross(src, AM)

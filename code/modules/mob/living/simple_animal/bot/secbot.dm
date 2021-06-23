@@ -440,6 +440,7 @@ Auto Patrol: []"},
 
 /mob/living/simple_animal/bot/secbot/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(has_gravity() && ismob(AM) && target)
 		var/mob/living/carbon/C = AM
 		if(!istype(C) || !C || in_range(src, target))

@@ -81,6 +81,7 @@
 
 /mob/living/simple_animal/mouse/proc/on_entered(datum/source, AM as mob|obj)
 	SIGNAL_HANDLER
+
 	if( ishuman(AM) )
 		if(!stat)
 			var/mob/M = AM

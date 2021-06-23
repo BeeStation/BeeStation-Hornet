@@ -78,6 +78,7 @@
 //This is on /cleanable because fuck this ancient mess
 /obj/effect/decal/cleanable/proc/on_entered(datum/source, atom/movable/O)
 	SIGNAL_HANDLER
+
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		if(H.shoes && blood_state && bloodiness && !HAS_TRAIT(H, TRAIT_LIGHT_STEP))

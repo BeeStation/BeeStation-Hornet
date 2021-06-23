@@ -147,6 +147,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 
 /obj/effect/warped_rune/proc/on_entered(datum/source, atom/movable/AM, oldloc)
 	SIGNAL_HANDLER
+
 	if(activated_on_step)
 		playsound(rune_turf, dir_sound, 20, TRUE)
 		visible_message("<span class='notice'>[src] fades.</span>")

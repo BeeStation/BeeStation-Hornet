@@ -45,6 +45,11 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /mob/living/simple_animal/bot/honkbot/proc/spam_flag_false() //used for addtimer
 	spam_flag = FALSE
 
@@ -344,6 +349,7 @@ Maintenance panel panel is [open ? "opened" : "closed"]"},
 
 /mob/living/simple_animal/bot/honkbot/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(ismob(AM) && (on)) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
 			var/mob/living/carbon/C = AM

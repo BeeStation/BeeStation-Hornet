@@ -45,6 +45,7 @@
 
 /obj/effect/ebeam/vine/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!("vines" in L.faction))

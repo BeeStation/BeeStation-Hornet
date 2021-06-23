@@ -618,6 +618,7 @@
 
 /obj/effect/ctf/ammo/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	INVOKE_ASYNC(src, .proc/reload, AM)
 
 /obj/effect/ctf/ammo/Bump(atom/movable/AM)

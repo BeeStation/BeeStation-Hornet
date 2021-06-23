@@ -96,6 +96,7 @@
 
 /obj/item/clothing/mask/facehugger/proc/on_entered(datum/source, atom/target)
 	SIGNAL_HANDLER
+
 	HasProximity(target)
 	return
 

@@ -52,6 +52,7 @@
 
 /obj/effect/accelerated_particle/proc/on_entered(datum/source, atom/movable/A)
 	SIGNAL_HANDLER
+
 	if(isliving(A))
 		toxmob(A)
 

@@ -115,6 +115,7 @@
 
 /obj/effect/anomaly/grav/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	gravShock(AM)
 
 /obj/effect/anomaly/grav/Bump(mob/A)
@@ -170,6 +171,7 @@
 
 /obj/effect/anomaly/flux/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	mobShock(AM)
 
 /obj/effect/anomaly/flux/Bump(mob/living/M)

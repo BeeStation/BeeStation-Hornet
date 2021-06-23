@@ -227,6 +227,7 @@
 // this could be made more general, but for now just handle mulebot
 /mob/living/carbon/human/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	var/mob/living/simple_animal/bot/mulebot/MB = AM
 	var/obj/vehicle/sealed/car/C = AM
 	if(istype(MB))

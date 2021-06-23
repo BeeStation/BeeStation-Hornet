@@ -59,6 +59,7 @@
 
 /obj/effect/acid/proc/on_entered(datum/source, AM as mob|obj)
 	SIGNAL_HANDLER
+
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(L.movement_type & FLYING)

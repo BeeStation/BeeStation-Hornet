@@ -190,6 +190,7 @@
 
 /obj/structure/table/wood/bar/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(isliving(AM) && !is_barstaff(AM))
 		// No climbing on the bar please
 		var/mob/living/M = AM

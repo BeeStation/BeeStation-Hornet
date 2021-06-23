@@ -871,6 +871,7 @@
 
 /obj/item/light/proc/on_entered(datum/source, atom/movable/L)
 	SIGNAL_HANDLER
+
 	if(istype(L) && has_gravity(loc))
 		if(HAS_TRAIT(L, TRAIT_LIGHT_STEP))
 			playsound(loc, 'sound/effects/glass_step.ogg', 30, 1)

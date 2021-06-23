@@ -100,6 +100,7 @@
 
 /obj/machinery/shower/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(on)
 		INVOKE_ASYNC(src, .proc/wash_atom, AM)
 

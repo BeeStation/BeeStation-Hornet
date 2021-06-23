@@ -67,6 +67,7 @@
 
 /obj/machinery/field/containment/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(isliving(AM))
 		shock(AM)
 

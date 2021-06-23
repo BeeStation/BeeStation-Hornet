@@ -812,6 +812,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/structure/table/optable/abductor/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(iscarbon(AM))
 		START_PROCESSING(SSobj, src)
 		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")

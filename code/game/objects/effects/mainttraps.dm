@@ -30,6 +30,7 @@
 
 /obj/effect/trap/trigger/proc/on_entered(datum/source, AM as mob|obj)
 	SIGNAL_HANDLER
+
 	if(isturf(loc))
 		if(ismob(AM) && grounded)
 			var/mob/MM = AM

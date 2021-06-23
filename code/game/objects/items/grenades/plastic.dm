@@ -86,6 +86,8 @@
 	prime()
 
 /obj/item/grenade/plastic/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(nadeassembly)
 		nadeassembly.on_entered(source, AM)
 

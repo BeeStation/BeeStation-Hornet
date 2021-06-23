@@ -663,6 +663,7 @@ Difficulty: Hard
 
 /obj/effect/temp_visual/hierophant/blast/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
+
 	if(bursting)
 		do_damage(get_turf(src))
 
