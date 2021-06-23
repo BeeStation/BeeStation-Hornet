@@ -25,7 +25,7 @@
 	if(ismovableatom(parent))
 		RegisterSignal(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_IMPACT), .proc/play_squeak)
 
-		AddElement(/datum/element/connect_loc, parent, item_connections)
+		AddElement(/datum/element/connect_loc_behalf, parent, item_connections)
 		RegisterSignal(parent, COMSIG_ATOM_EMINENCE_ACT, .proc/play_squeak_crossed)
 		RegisterSignal(parent, COMSIG_MOVABLE_DISPOSING, .proc/disposing_react)
 		if(isitem(parent))
@@ -48,7 +48,7 @@
 
 /datum/component/squeak/UnregisterFromParent()
 	. = ..()
-	RemoveElement(/datum/element/connect_loc, parent, item_connections)
+	RemoveElement(/datum/element/connect_loc_behalf, parent, item_connections)
 
 /datum/component/squeak/proc/play_squeak()
 	if(prob(squeak_chance))
