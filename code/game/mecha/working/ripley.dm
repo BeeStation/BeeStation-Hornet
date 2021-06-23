@@ -21,6 +21,7 @@
 	enter_delay = 10 //can enter in a quarter of the time of other mechs
 	exit_delay = 10
 	opacity = FALSE //Ripley has a window
+	flash_protect = 0
 
 /obj/mecha/working/ripley/Move()
 	. = ..()

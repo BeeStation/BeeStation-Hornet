@@ -11,6 +11,9 @@
 		. += glasses.flash_protect
 	if(isclothing(wear_mask)) //Mask
 		. += wear_mask.flash_protect
+	if(ismecha(loc))
+		var/obj/mecha/mechnerd = loc
+		. += mechnerd.flash_protect
 
 /mob/living/carbon/get_ear_protection()
 	. = ..()
