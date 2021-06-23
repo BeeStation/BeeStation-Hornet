@@ -67,6 +67,8 @@
 	if(user.canUseTopic(src, BE_CLOSE))
 		toggle_welding_screen(user)
 
+/obj/item/clothing/head/helmet/space/plasmaman/replacement/AltClick(mob/user)
+
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
 		if(on)
@@ -146,6 +148,8 @@
 		var/datum/action/A=X
 		A.UpdateButtonIcon()
 
+/obj/item/clothing/head/helmet/space/plasmaman/replacement/attack_self(mob/user)
+
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for security officers, protecting them from being flashed and burning alive, along-side other undesirables."
@@ -214,7 +218,7 @@
 	item_state = "engineer_envirohelm"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
 
-/obj/item/clothing/head/helmet/space/plasmaman/atmospherics
+/obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics
 	name = "atmospherics plasma envirosuit helmet"
 	desc = "A space-worthy helmet specially designed for atmos technician plasmamen, the usual purple stripes being replaced by engineering's blue."
 	icon_state = "atmos_envirohelm"
@@ -277,39 +281,39 @@
 	desc = "A grey helmet bearing a pair of purple stripes, designating the wearer as a janitor."
 	icon_state = "janitor_envirohelm"
 	item_state = "janitor_envirohelm"
+
 //mime and clown
 /obj/item/clothing/head/helmet/space/plasmaman/mime
 	name = "mime envirosuit helmet"
-	desc = "A black and white envirosuit helmet, specially made for the mime. Rattling bones won't stop your silent shinanigains!"
+	desc = "A black and white envirosuit helmet, specially made for the mime. Rattling bones won't stop your silent shenanigans!"
 	icon_state = "mime_envirohelm"
 	item_state = "mime_envirohelm"
 	visor_icon = "mime_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/honk
 	name = "clowns envirosuit helmet"
-	desc = "A multicolor helmet that smellls of bananium and securitys tears."
+	desc = "A multicolor helmet that smells of bananium and security's tears."
 	icon_state = "honk_envirohelm"
 	item_state = "honk_envirohelm"
 	visor_icon = "clown_envisor"
 	smile_state = "clown_smile"
 
 //command helms
-
 /obj/item/clothing/head/helmet/space/plasmaman/command
 	name = "captains envirosuit helmet"
-	desc = "A helmet issued to the head of the command staff. Sleak and Stylish, as all captains should be."
+	desc = "A helmet issued to the head of the command staff. Sleak and stylish, as all captains should be."
 	icon_state = "command_envirohelm"
 	item_state = "command_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
 	name = "chief engineers envirohelmet"
-	desc = "An envirohelmet designed for the chief engineer. It reeks of poly and plasma."
+	desc = "An envirohelmet designed for the Chief Engineer. It reeks of Poly and plasma."
 	icon_state = "ce_envirohelm"
 	item_state = "ce_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/cmo
 	name = "chief medical officers envirohelmet"
-	desc = "A helmet issued to the head of the command staff. Sleak and Stylish, as all captains should be."
+	desc = "A helmet issued to the chief of the medical staff."
 	icon_state = "cmo_envirohelm"
 	item_state = "cmo_envirohelm"
 
@@ -354,7 +358,9 @@
 /obj/item/clothing/head/helmet/space/plasmaman/replacement
 	name = "replacement envirosuit helmet"
 	desc = "An outdated helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment, still kept in use as replacement helmets. While it is space worthy, it lacks the UV protection newer models come with.."
-	flash_protect = 0
+	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY | SNUG_FIT
+	min_cold_protection_temperature = null
+	actions_types = list()
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/security
 	name = "replacement security envirosuit helmet"
@@ -365,7 +371,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/medical
 	name = "medical's replacement envirosuit helmet"
-	desc = "An outdated envriohelmet designed for plasmaman medical doctors, having two stripes down it's length to denote as much, lacks UV shielding."
+	desc = "An outdated envirohelmet designed for plasmaman medical doctors, having two stripes down it's length to denote as much, lacks UV shielding."
 	icon_state = "doctor_envirohelm"
 	item_state = "doctor_envirohelm"
 
@@ -401,18 +407,16 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/engineering
 	name = "replacement engineering envirosuit helmet"
-	desc = "A replacement helmet designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange, despite its age it has some UV protection for welding.."
+	desc = "A replacement helmet designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange."
 	item_state = "engineer_envirohelm"
 	icon_state = "engineer_envirohelm"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
-	flash_protect = 1
 
-/obj/item/clothing/head/helmet/space/plasmaman/replacement/atmospherics
+/obj/item/clothing/head/helmet/space/plasmaman/replacement/engineering/atmospherics
 	name = "replacement atmospherics envirosuit helmet"
-	desc = "A space-worthy helmet specially designed for atmos technician plasmamen, the usual purple stripes being replaced by engineering's blue, despite its age is has some UV protection for welding."
+	desc = "A space-worthy helmet specially designed for atmos technician plasmamen, the usual purple stripes being replaced by engineering's blue."
 	icon_state = "atmos_envirohelm"
 	item_state = "atmos_envirohelm"
-	flash_protect = 1
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/cargo
 	name = "cargo replacement envirosuit helmet"
@@ -441,10 +445,10 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/curator
 	name = "curator's replacement envirosuit helmet"
-	desc = "A tradiational voidsuit helmet, this helmet was Nano-Trasen's first solution to the *logistical problems* that come with employing plasmamen. Despite their limitations, these helmets still see use by historian and old-styled plasmamen alike."
+	desc = "A traditional voidsuit helmet, this helmet was Nano-Trasen's first solution to the *logistical problems* that come with employing plasmamen. Despite their limitations, these helmets still see use by historian and old-styled plasmamen alike."
 	icon_state = "prototype_envirohelm"
 	item_state = "prototype_envirohelm"
-	actions_types = list()
+	smile_state = "prototype_smile"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/botany
 	name = "botany replacement envirosuit helmet"
