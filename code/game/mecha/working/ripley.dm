@@ -130,6 +130,7 @@
 	ME.attach(src)
 
 /obj/mecha/working/ripley/deathripley/real
+	flash_protect = 1
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE. FOR REAL"
 
 /obj/mecha/working/ripley/deathripley/real/Initialize()
