@@ -17,7 +17,7 @@
 	 The Drone Dispenser needs to be operational at the end of the shift,
 	 and must have dispensed at least [drones_produced] drone shells.
 
-	 Base vault parts are available for shipping via cargo."}
+	 Dispenser circuitry are available for shipping via cargo."}
 
 
 /datum/station_goal/drone_dispenser/on_report()
@@ -31,4 +31,3 @@
 	for(var/obj/machinery/droneDispenser/M in GLOB.machines)
 		production_count += M.drones_produced
 	return production_count>=drones_produced
-
