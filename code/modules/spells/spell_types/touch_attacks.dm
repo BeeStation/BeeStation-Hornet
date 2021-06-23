@@ -64,12 +64,10 @@
 	name = "Disintegrate"
 	desc = "This spell charges your hand with vile energy that can be used to violently explode victims."
 	hand_path = /obj/item/melee/touch_attack/disintegrate
-
-	school = "evocation"
+	school = SCHOOL_EVOCATION
 	charge_max = 600
 	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank
-
 	action_icon_state = "gib"
 
 /obj/effect/proc_holder/spell/targeted/touch/flesh_to_stone
@@ -77,7 +75,7 @@
 	desc = "This spell charges your hand with the power to turn victims into inert statues for a long period of time."
 	hand_path = /obj/item/melee/touch_attack/fleshtostone
 
-	school = "transmutation"
+	school = SCHOOL_TRANSMUTATION
 	charge_max = 600
 	clothes_req = TRUE
 	cooldown_min = 200 //100 deciseconds reduction per rank

@@ -76,16 +76,13 @@
 /obj/effect/proc_holder/spell/aimed/fireball/hellish
 	name = "Hellfire"
 	desc = "This spell launches hellfire at the target."
-
-	school = "evocation"
+	school = SCHOOL_EVOCATION
 	charge_max = 80
 	clothes_req = FALSE
 	invocation = "Your very soul will catch fire!"
 	invocation_type = "shout"
 	range = 2
-
 	projectile_type = /obj/item/projectile/magic/aoe/fireball/infernal
-
 	action_background_icon_state = "bg_demon"
 
 /obj/effect/proc_holder/spell/targeted/infernal_jaunt

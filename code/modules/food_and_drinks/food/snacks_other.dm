@@ -140,6 +140,11 @@
 	filling_color = "#8B4513"
 	foodtype = GROSS
 
+/obj/item/reagent_containers/food/badrecipe/moldy
+	name = "moldy mess"
+	desc = "A rancid, living culture of mold. Somewhere, under there, at SOME POINT... there was food."
+	list_reagents = list(/datum/reagent/consumable/mold = 30)
+
 /obj/item/reagent_containers/food/snacks/carrotfries
 	name = "carrot fries"
 	desc = "Tasty fries from fresh carrots."

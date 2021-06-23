@@ -1,8 +1,6 @@
 import { useBackend } from '../backend';
-import { Box, Section, LabeledList, Button, ProgressBar, AnimatedNumber } from '../components';
-import { Fragment } from 'inferno';
+import { Box, Button, LabeledList, ProgressBar, Section, AnimatedNumber } from '../components';
 import { Window } from '../layouts';
-import { BeakerContents } from './common/BeakerContents';
 import { toFixed } from 'common/math';
 
 export const Sleeper = (props, context) => {
@@ -48,7 +46,6 @@ export const Sleeper = (props, context) => {
 
   return (
     <Window
-      resizable
       width={310}
       height={520}>
       <Window.Content>
@@ -64,7 +61,7 @@ export const Sleeper = (props, context) => {
             </Box>
           )}>
           {!!occupied && (
-            <Fragment>
+            <>
               <ProgressBar
                 value={occupant.health}
                 minValue={occupant.minHealth}
@@ -111,7 +108,7 @@ export const Sleeper = (props, context) => {
                   </Box>
                 </LabeledList.Item>
               </LabeledList>
-            </Fragment>
+            </>
           )}
         </Section>
         <Section

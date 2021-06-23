@@ -114,6 +114,10 @@
 	description = "<span class='warning'>It sure is dark around here...</span>\n"
 	mood_change = -3
 
+/datum/mood_event/bright_light
+	description = "<span class='boldwarning'>I hate it in the light...I need to find a darker place...</span>\n"
+	mood_change = -12
+
 /datum/mood_event/family_heirloom_missing
 	description = "<span class='warning'>I'm missing my family heirloom...</span>\n"
 	mood_change = -4
@@ -224,5 +228,15 @@
 
 /datum/mood_event/burnt_wings
 	description = "<span class='boldwarning'>MY PRECIOUS WINGS!!</span>\n"
+	mood_change = -10
+	timeout = 10 MINUTES
+
+/datum/mood_event/holy_smite
+	description = "<span class='warning'>I have been punished by my deity!</span>\n"
+	mood_change = -5
+	timeout = 5 MINUTES
+
+/datum/mood_event/banished
+	description = "<span class='boldwarning'>I have been excommunicated!</span>\n"
 	mood_change = -10
 	timeout = 10 MINUTES

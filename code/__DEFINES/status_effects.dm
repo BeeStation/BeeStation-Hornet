@@ -97,6 +97,16 @@
 
 #define STATUS_EFFECT_SYRINGE /datum/status_effect/syringe //used to handle being injected with a syringe
 
+///Raises click cooldowns for everything you do.
+#define STATUS_EFFECT_WOOZY /datum/status_effect/woozy
+
+///Makes you bleed harder
+#define STATUS_EFFECT_HIGHBLOODPRESSURE /datum/status_effect/high_blood_pressure
+
+
+/// makes you seize up. reminds me of this video https://www.youtube.com/watch?v=wvkHIZg_954
+#define STATUS_EFFECT_SEIZURE /datum/status_effect/seizure
+
 //---------//
 // NEUTRAL //
 //---------//

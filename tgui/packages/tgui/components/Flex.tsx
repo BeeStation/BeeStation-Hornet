@@ -4,10 +4,18 @@
  * @license MIT
  */
 
-import { classes, pureComponentHooks } from 'common/react';
-import { Box, unit } from './Box';
+import { BooleanLike, classes, pureComponentHooks } from 'common/react';
+import { Box, BoxProps, unit } from './Box';
 
-export const computeFlexProps = props => {
+export interface FlexProps extends BoxProps {
+  direction?: string | BooleanLike;
+  wrap?: string | BooleanLike;
+  align?: string | BooleanLike;
+  justify?: string | BooleanLike;
+  inline?: BooleanLike;
+}
+
+export const computeFlexProps = (props: FlexProps) => {
   const {
     className,
     direction,
@@ -15,7 +23,6 @@ export const computeFlexProps = props => {
     align,
     justify,
     inline,
-    spacing = 0,
     ...rest
   } = props;
   return {
@@ -27,7 +34,6 @@ export const computeFlexProps = props => {
           : 'Flex--iefix'
       ),
       inline && 'Flex--inline',
-      spacing > 0 && 'Flex--spacing--' + spacing,
       className,
     ]),
     style: {
@@ -47,7 +53,15 @@ export const Flex = props => (
 
 Flex.defaultHooks = pureComponentHooks;
 
-export const computeFlexItemProps = props => {
+export interface FlexItemProps extends BoxProps {
+  grow?: number;
+  order?: number;
+  shrink?: number;
+  basis?: string | BooleanLike;
+  align?: string | BooleanLike;
+}
+
+export const computeFlexItemProps = (props: FlexItemProps) => {
   const {
     className,
     style,
@@ -69,8 +83,8 @@ export const computeFlexItemProps = props => {
     ]),
     style: {
       ...style,
-      'flex-grow': grow,
-      'flex-shrink': shrink,
+      'flex-grow': grow !== undefined && Number(grow),
+      'flex-shrink': shrink !== undefined && Number(shrink),
       'flex-basis': unit(basis),
       'order': order,
       'align-self': align,
@@ -79,7 +93,7 @@ export const computeFlexItemProps = props => {
   };
 };
 
-export const FlexItem = props => (
+const FlexItem = props => (
   <Box {...computeFlexItemProps(props)} />
 );
 

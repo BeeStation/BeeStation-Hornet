@@ -11,7 +11,7 @@ source dependencies.sh
 ## Setup NVM
 if [[ -e ~/.nvm/nvm.sh ]]; then
 	source ~/.nvm/nvm.sh
-	nvm use "${NODE_VERSION}"
+	nvm use "${NODE_VERSION_PRECISE}"
 fi
 
 echo "Building 'tgui'"

@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
 	name = "Ashen passage"
 	desc = "Low range spell allowing you to pass through a few walls."
-	school = "transmutation"
+	school = SCHOOL_FORBIDDEN
 	invocation = "ASH'N P'SSG'"
 	invocation_type = INVOCATION_WHISPER
 	charge_max = 150
@@ -33,7 +33,7 @@
 	name = "Mansus Grasp"
 	desc = "Touch spell that let's you channel the power of the old gods through you."
 	hand_path = /obj/item/melee/touch_attack/mansus_fist
-	school = "evocation"
+	school = SCHOOL_EVOCATION
 	charge_max = 150
 	clothes_req = FALSE
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -105,7 +105,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/rust_conversion
 	name = "Aggressive Spread"
 	desc = "Spreads rust onto nearby turfs."
-	school = "transmutation"
+	school = SCHOOL_FORBIDDEN
 	charge_max = 300 //twice as long as mansus grasp
 	clothes_req = FALSE
 	invocation = "A'GRSV SPR'D"
@@ -133,7 +133,7 @@
 	name = "Blood Siphon"
 	desc = "Touch spell that heals you while damaging the enemy."
 	hand_path = /obj/item/melee/touch_attack/blood_siphon
-	school = "evocation"
+	school = SCHOOL_EVOCATION
 	charge_max = 150
 	clothes_req = FALSE
 	invocation = "FL'MS O'ET'RN'ITY"
@@ -177,6 +177,7 @@
 	name = "Patron's Reach"
 	desc = "Channels energy into your gauntlet - firing it results in a wave of rust being created in it's wake."
 	proj_type = /obj/item/projectile/magic/spell/rust_wave
+	school = SCHOOL_FORBIDDEN
 	charge_max = 350
 	clothes_req = FALSE
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -226,7 +227,7 @@
 /obj/effect/proc_holder/spell/pointed/cleave
 	name = "Cleave"
 	desc = "Causes severe bleeding on a target and people around them"
-	school = "transmutation"
+	school = SCHOOL_FORBIDDEN
 	charge_max = 350
 	clothes_req = FALSE
 	invocation = "CL'VE"
@@ -280,7 +281,7 @@
 /obj/effect/proc_holder/spell/pointed/ash_final
 	name = "Nightwatcher's Rite"
 	desc = "Powerful spell that releases 5 streams of fire away from you."
-	school = "transmutation"
+	school = SCHOOL_FORBIDDEN
 	invocation = "F'RE"
 	invocation_type = INVOCATION_WHISPER
 	charge_max = 300
@@ -359,6 +360,7 @@
 	name = "Energetic Pulse"
 	invocation = "E'P"
 	invocation_type = INVOCATION_WHISPER
+	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -370,7 +372,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/fire_cascade
 	name = "Fire Cascade"
 	desc = "creates hot turfs around you."
-	school = "transmutation"
+	school = SCHOOL_FORBIDDEN
 	charge_max = 300 //twice as long as mansus grasp
 	clothes_req = FALSE
 	invocation = "C'SC'DE"
@@ -407,6 +409,7 @@
 	desc = "For a minute you will passively create a ring of fire around you."
 	invocation = "FL'MS"
 	invocation_type = INVOCATION_WHISPER
+	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -445,6 +448,7 @@
 	name = "Force Contract"
 	desc = "Forces all the worm parts to collapse onto a single turf"
 	invocation_type = "none"
+	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -475,6 +479,7 @@
 	desc = "Drains nearby alive people that are engulfed in flames. It heals 10 of each damage type per person. If a person is in critical condition it finishes them off."
 	invocation = "GL'RY T' TH' N'GHT'W'TCH'ER"
 	invocation_type = INVOCATION_WHISPER
+	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -507,6 +512,7 @@
 	desc = "Shed your fragile form, become one with the arms, become one with the emperor."
 	invocation_type = INVOCATION_SHOUT
 	invocation = "REALITY UNCOIL!"
+	school = SCHOOL_FORBIDDEN
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
@@ -561,7 +567,7 @@
 /obj/effect/proc_holder/spell/pointed/manse_link
 	name = "Mansus Link"
 	desc = "Piercing through reality, connecting minds. This spell allows you to add people to a mansus net, allowing them to communicate with eachother"
-	school = "transmutation"
+	school = SCHOOL_FORBIDDEN
 	charge_max = 300
 	clothes_req = FALSE
 	invocation = "PI'RC' TH' M'ND"

@@ -13,10 +13,9 @@ import { logger } from "../logging";
 export const Vote = (props, context) => {
   const { data } = useBackend(context);
   const { mode, question, lower_admin } = data;
-  
+
   return (
     <Window
-      resizable
       title={`Vote${
         mode
           ? `: ${

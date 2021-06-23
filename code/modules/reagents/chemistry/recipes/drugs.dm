@@ -54,3 +54,23 @@
 	results = list(/datum/reagent/drug/ketamine = 3)
 	required_reagents = list(/datum/reagent/medicine/morphine = 3, /datum/reagent/toxin/chloralhydrate = 3, /datum/reagent/toxin/fentanyl = 3, /datum/reagent/medicine/epinephrine =3)
 	required_temp = 370
+
+/datum/chemical_reaction/maint_sludge
+	results = list(/datum/reagent/drug/maint/sludge = 1)
+	required_reagents = list(/datum/reagent/drug/maint/tar = 3 , /datum/reagent/toxin/acid/fluacid = 1)
+
+/datum/chemical_reaction/maint_tar1
+	results = list(/datum/reagent/toxin/acid = 1 ,/datum/reagent/drug/maint/tar = 3)
+	required_reagents = list(/datum/reagent/consumable/tea = 1, /datum/reagent/yuck = 1 , /datum/reagent/fuel = 1)
+
+/datum/chemical_reaction/maint_tar2
+	results = list(/datum/reagent/toxin/acid = 1 ,/datum/reagent/drug/maint/tar = 3)
+	required_reagents = list(/datum/reagent/consumable/tea = 1, /datum/reagent/consumable/enzyme = 3 , /datum/reagent/fuel = 1)
+
+/datum/chemical_reaction/maint_sludge
+	results = list(/datum/reagent/drug/maint/sludge = 1)
+	required_reagents = list(/datum/reagent/drug/maint/tar = 3 , /datum/reagent/toxin/acid/fluacid = 1)
+
+/datum/chemical_reaction/maint_powder
+	results = list(/datum/reagent/drug/maint/powder = 1)
+	required_reagents = list(/datum/reagent/drug/maint/sludge = 6 , /datum/reagent/toxin/acid = 1 , /datum/reagent/consumable/enzyme = 1)

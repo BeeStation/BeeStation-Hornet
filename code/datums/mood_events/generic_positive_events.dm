@@ -195,3 +195,13 @@
 /datum/mood_event/assistant_insulated_gloves
 	description = "<span class='nicegreen'>Finally got my hands on a good pair of gloves!</span>\n"
 	mood_change = 1
+
+/datum/mood_event/maintenance_adaptation
+	mood_change = 8
+
+/datum/mood_event/maintenance_adaptation/add_effects()
+	description = "<span class='nicegreen'>[GLOB.deity] has helped me adapt to the maintenance shafts!</span>\n"
+
+/datum/mood_event/honorbound
+	description = "<span class='nicegreen'>Following my honorbound code is fulfilling!</span>\n"
+	mood_change = 4

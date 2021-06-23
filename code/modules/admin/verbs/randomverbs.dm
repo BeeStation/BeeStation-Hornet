@@ -1084,7 +1084,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(ADMIN_PUNISHMENT_LIGHTNING)
 			var/turf/T = get_step(get_step(target, NORTH), NORTH)
 			T.Beam(target, icon_state="lightning[rand(1,12)]", time = 5)
-			target.adjustFireLoss(75)
+			target.adjustFireLoss(LIGHTNING_BOLT_DAMAGE)
+			playsound(T, 'sound/magic/lightningbolt.ogg', 50, TRUE)
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
 				H.electrocution_animation(40)
@@ -1164,7 +1165,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		if(ADMIN_PUNISHMENT_IMMERSE)
 			immerse_player(target)
-			
+
 		if(ADMIN_PUNISHMENT_GHOST)
 			if (target.key)
 				target.ghostize(FALSE,SENTIENCE_FORCE)

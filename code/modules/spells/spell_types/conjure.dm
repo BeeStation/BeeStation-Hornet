@@ -1,6 +1,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/conjure
 	name = "Conjure"
 	desc = "This spell conjures objs of the specified types in range."
+	school = SCHOOL_CONJURATION
 
 	var/list/summon_type = list() //determines what exactly will be summoned
 	//should be text, like list("/mob/living/simple_animal/bot/ed209")
@@ -74,6 +75,7 @@
 /obj/effect/proc_holder/spell/targeted/conjure_item
 	name = "Summon weapon"
 	desc = "A generic spell that should not exist.  This summons an instance of a specific type of item, or if one already exists, un-summons it.  Summons into hand if possible."
+	school = SCHOOL_CONJURATION
 	invocation_type = "none"
 	include_user = TRUE
 	range = -1

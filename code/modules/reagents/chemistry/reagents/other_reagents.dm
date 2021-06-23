@@ -1084,6 +1084,7 @@
 	glass_desc = "Unless you're an industrial tool, this is probably not safe for consumption."
 	process_flags = ORGANIC | SYNTHETIC
 	random_unrestricted = FALSE
+	addiction_types = list(/datum/addiction/alcohol = 4)
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == TOUCH || method == VAPOR)
@@ -1200,6 +1201,7 @@
 	description = "Impedrezene is a narcotic that impedes one's ability by slowing down the higher brain cell functions."
 	color = "#C8A5DC" // rgb: 200, 165, 220A
 	taste_description = "numbness"
+	addiction_types = list(/datum/addiction/opiods = 10)
 
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M)
 	M.jitteriness = max(M.jitteriness-5,0)
@@ -1354,6 +1356,7 @@
 	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "E1A116"
 	taste_description = "sourness"
+	addiction_types = list(/datum/addiction/stimulants = 14)
 
 /datum/reagent/stimulum/on_mob_metabolize(mob/living/L)
 	..()
@@ -1561,6 +1564,7 @@
 	taste_description = "oil"
 	process_flags = ORGANIC | SYNTHETIC
 	random_unrestricted = FALSE
+	addiction_types = null
 
 /datum/reagent/stable_plasma
 	name = "Stable Plasma"
@@ -2095,3 +2099,54 @@
 	L.set_light(-1)
 
 	..()
+
+/datum/reagent/yuck
+	name = "Organic Slurry"
+	description = "A mixture of various colors of fluid. Induces vomiting."
+	glass_name = "glass of ...yuck!"
+	glass_desc = "It smells like a carcass, and doesn't look much better."
+	color = "#545000"
+	taste_description = "insides"
+	taste_mult = 4
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	var/yuck_cycle = 0 //! The `current_cycle` when puking starts.
+
+/datum/reagent/yuck/on_mob_add(mob/living/L)
+	. = ..()
+	if(HAS_TRAIT(L, TRAIT_NOHUNGER)) //they can't puke
+		holder.del_reagent(type)
+
+#define YUCK_PUKE_CYCLES 3 // every X cycle is a puke
+#define YUCK_PUKES_TO_STUN 3 // hit this amount of pukes in a row to start stunning
+/datum/reagent/yuck/on_mob_life(mob/living/carbon/C, delta_time, times_fired)
+	if(!yuck_cycle)
+		if(DT_PROB(4, delta_time))
+			var/dread = pick("Something is moving in your stomach...", \
+				"A wet growl echoes from your stomach...", \
+				"For a moment you feel like your surroundings are moving, but it's your stomach...")
+			to_chat(C, "<span class='danger'>[dread]</span>")
+			yuck_cycle = current_cycle
+	else
+		var/yuck_cycles = current_cycle - yuck_cycle
+		if(yuck_cycles % YUCK_PUKE_CYCLES == 0)
+			if(yuck_cycles >= YUCK_PUKE_CYCLES * YUCK_PUKES_TO_STUN)
+				holder.remove_reagent(type, 5)
+			C.vomit(rand(14, 26), stun = yuck_cycles >= YUCK_PUKE_CYCLES * YUCK_PUKES_TO_STUN)
+	if(holder)
+		return ..()
+#undef YUCK_PUKE_CYCLES
+#undef YUCK_PUKES_TO_STUN
+
+/datum/reagent/yuck/on_mob_end_metabolize(mob/living/L)
+	yuck_cycle = 0 // reset vomiting
+	return ..()
+
+/datum/reagent/yuck/on_transfer(atom/A, methods=TOUCH, trans_volume)
+	if((methods & INGEST) || !iscarbon(A))
+		return ..()
+
+	A.reagents.remove_reagent(type, trans_volume)
+	A.reagents.add_reagent(/datum/reagent/fuel, trans_volume * 0.75)
+	A.reagents.add_reagent(/datum/reagent/water, trans_volume * 0.25)
+
+	return ..()

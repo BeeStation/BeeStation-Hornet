@@ -17,25 +17,25 @@
 	timeout = 5 MINUTES
 
 /datum/mood_event/overdose/add_effects(drug_name)
-	description = "<span class='warning'>I think I took a bit too much of that [drug_name]</span>\n"
+	description = "<span class='warning'>I think I took a bit too much of that [drug_name]!</span>\n"
 
 /datum/mood_event/withdrawal_light
 	mood_change = -2
 
 /datum/mood_event/withdrawal_light/add_effects(drug_name)
-	description = "<span class='warning'>I could use some [drug_name]</span>\n"
+	description = "<span class='warning'>I could use some [drug_name]...</span>\n"
 
 /datum/mood_event/withdrawal_medium
 	mood_change = -5
 
 /datum/mood_event/withdrawal_medium/add_effects(drug_name)
-	description = "<span class='warning'>I really need [drug_name]</span>\n"
+	description = "<span class='warning'>I really need [drug_name].</span>\n"
 
 /datum/mood_event/withdrawal_severe
 	mood_change = -8
 
 /datum/mood_event/withdrawal_severe/add_effects(drug_name)
-	description = "<span class='boldwarning'>Oh god I need some [drug_name]</span>\n"
+	description = "<span class='boldwarning'>Oh god I need some [drug_name]!</span>\n"
 
 /datum/mood_event/withdrawal_critical
 	mood_change = -10
@@ -58,3 +58,11 @@
 	mood_change = -100
 	timeout = 30 SECONDS
 	special_screen_obj = "mood_happiness_bad"
+
+/datum/mood_event/nicotine_withdrawal_moderate
+	description = "<span class='warning'>Haven't had a smoke in a while. Feeling a little on edge... </span>\n"
+	mood_change = -5
+
+/datum/mood_event/nicotine_withdrawal_severe
+	description = "<span class='boldwarning'>Head pounding. Cold sweating. Feeling anxious. Need a smoke to calm down!</span>\n"
+	mood_change = -8

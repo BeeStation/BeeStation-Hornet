@@ -330,6 +330,7 @@
 		randomized_gun_spread =	rand(0,spread)
 	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
 		bonus_spread += 25
+	SEND_SIGNAL(user, COMSIG_MOB_FIRED_GUN, src, target, params, zone_override)
 	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if(burst_size > 1)

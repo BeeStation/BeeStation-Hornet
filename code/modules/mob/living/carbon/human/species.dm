@@ -94,6 +94,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	//The component to add when swimming
 	var/swimming_component = /datum/component/swimming
 
+	///List of visual overlays created by handle_body()
+	var/list/body_vis_overlays = list()
+
 ///////////
 // PROCS //
 ///////////
@@ -544,19 +547,35 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		// eyes
 		if(!(NOEYESPRITES in species_traits))
-			var/obj/item/organ/eyes/E = H.getorganslot(ORGAN_SLOT_EYES)
-			var/mutable_appearance/eye_overlay
-			if(!E)
-				eye_overlay = mutable_appearance('icons/mob/human_face.dmi', "eyes_missing", -BODY_LAYER)
-			else
-				eye_overlay = mutable_appearance('icons/mob/human_face.dmi', E.eye_icon_state, -BODY_LAYER)
-			if((EYECOLOR in species_traits) && E)
-				eye_overlay.color = "#" + H.eye_color
+			var/obj/item/organ/eyes/eye_organ = H.getorganslot(ORGAN_SLOT_EYES)
+			var/mutable_appearance/no_eyeslay
+			var/list/eye_overlays
+			var/obscured = H.check_obscured_slots(TRUE) //eyes that shine in the dark shouldn't show when you have glasses
+			var/add_pixel_x = 0
+			var/add_pixel_y = 0
+			//cut any possible vis overlays
+			if(body_vis_overlays.len)
+				SSvis_overlays.remove_vis_overlay(H, body_vis_overlays)
 			if(OFFSET_FACE in H.dna.species.offset_features)
-				eye_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
-				eye_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
-			standing += eye_overlay
-
+				add_pixel_x = H.dna.species.offset_features[OFFSET_FACE][1]
+				add_pixel_y = H.dna.species.offset_features[OFFSET_FACE][2]
+			if(!eye_organ)
+				no_eyeslay = mutable_appearance('icons/mob/human_face.dmi', "eyes_missing", -BODY_LAYER)
+				no_eyeslay.pixel_x += add_pixel_x
+				no_eyeslay.pixel_y += add_pixel_y
+				standing += no_eyeslay
+			if(!no_eyeslay)//we need eyes
+				if(eye_organ.overlay_ignore_lighting && !(obscured & ITEM_SLOT_EYES))
+					eye_overlays += mutable_appearance('icons/mob/human_face.dmi', eye_organ.eye_icon_state, -BODY_LAYER)
+					eye_overlays += mutable_appearance('icons/mob/human_face.dmi', eye_organ.eye_icon_state, -BODY_LAYER, EMISSIVE_PLANE)
+				else
+					eye_overlays += mutable_appearance('icons/mob/human_face.dmi', eye_organ.eye_icon_state, -BODY_LAYER)
+				for(var/mutable_appearance/eye_overlay as anything in eye_overlays)
+					eye_overlay.pixel_x += add_pixel_x
+					eye_overlay.pixel_y += add_pixel_y
+					if((EYECOLOR in species_traits) && eye_organ)
+						eye_overlay.color = "#" + H.eye_color
+					standing += eye_overlay
 	//Underwear, Undershirts & Socks
 	if(!(NO_UNDERWEAR in species_traits))
 		if(H.underwear)

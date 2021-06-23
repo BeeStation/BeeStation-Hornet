@@ -829,8 +829,7 @@ export const PaperSheet = (props, context) => {
     <Window
       theme="paper"
       width={400}
-      height={500}
-      resizable>
+      height={500}>
       <Window.Content>
         <Box
           fillPositionedParent
