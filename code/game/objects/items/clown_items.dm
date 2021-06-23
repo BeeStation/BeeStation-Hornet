@@ -158,13 +158,15 @@
 	throw_speed = 3
 	throw_range = 7
 	attack_verb = list("HONKED")
-	///sound file given to the squeaky component we make in Initialize()
-	var/soundfile = 'sound/items/bikehorn.ogg'
+	///sound file given to the squeaky component we make in Initialize() so sub-types can specify their own sound
+	var/sound_file = 'sound/items/bikehorn.ogg'
 
 /obj/item/bikehorn/Initialize()
 	. = ..()
+	var/list/sound_list = list()
+	sound_list[sound_file] = 1
 	//LoadComponent so child types dont stack squeak components
-	LoadComponent(/datum/component/squeak, list(soundfile=1), 50, 0, 0, 0, 0, 20, 0)
+	LoadComponent(/datum/component/squeak, sound_list, 50)
 
 /obj/item/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "honk", /datum/mood_event/honk)
@@ -180,7 +182,7 @@
 	name = "air horn"
 	desc = "Damn son, where'd you find this?"
 	icon_state = "air_horn"
-	soundfile = 'sound/items/airhorn2.ogg'
+	sound_file = 'sound/items/airhorn2.ogg'
 
 //golden bikehorn
 /obj/item/bikehorn/golden
