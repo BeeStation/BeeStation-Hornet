@@ -21,7 +21,6 @@
 	enter_delay = 10 //can enter in a quarter of the time of other mechs
 	exit_delay = 10
 	opacity = FALSE //Ripley has a window
-	flash_protect = 0
 
 /obj/mecha/working/ripley/Move()
 	. = ..()
@@ -131,6 +130,7 @@
 
 /obj/mecha/working/ripley/deathripley/real
 	flash_protect = 1
+	bang_protect = 1
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE. FOR REAL"
 
 /obj/mecha/working/ripley/deathripley/real/Initialize()
