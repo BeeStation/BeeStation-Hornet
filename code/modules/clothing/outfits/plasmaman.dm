@@ -54,14 +54,12 @@
 /datum/outfit/plasmaman/security
 	name = "Security Plasmaman"
 
-	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security
 	uniform = /obj/item/clothing/under/plasmaman/security
 
 /datum/outfit/plasmaman/detective
 	name = "Detective Plasmaman"
 
-	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
 	ears = /obj/item/radio/headset/headset_sec
@@ -69,14 +67,12 @@
 /datum/outfit/plasmaman/warden
 	name = "Warden Plasmaman"
 
-	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	uniform = /obj/item/clothing/under/plasmaman/security/warden
 
 /datum/outfit/plasmaman/secmed
 	name = "Brig Physician Plasmaman"
 
-	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/secmed
 	uniform = /obj/item/clothing/under/plasmaman/security/secmed
 
@@ -147,9 +143,8 @@
 	uniform = /obj/item/clothing/under/plasmaman/engineering/atmospherics
 
 /datum/outfit/plasmaman/command
-	name = "Command Plasmaman"
-
-	mask = /obj/item/clothing/mask/gas/sechailer
+	name = "Command Plasmamand"
+	
 	head = /obj/item/clothing/head/helmet/space/plasmaman/command
 	uniform = /obj/item/clothing/under/plasmaman/command
 
@@ -168,9 +163,8 @@
 /datum/outfit/plasmaman/hos
 	name = "HoS plasmaman"
 
-	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/hos
-	uniform = /obj/item/clothing/under/plasmaman/security/hos
+	uniform =/obj/item/clothing/under/plasmaman/security/hos
 
 /datum/outfit/plasmaman/rd
 	name = "RD plasmaman"
