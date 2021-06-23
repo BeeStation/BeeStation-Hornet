@@ -3,6 +3,7 @@
 	name = "\improper APLU MK-I \"Ripley\""
 	icon_state = "ripley"
 	silicon_icon_state = "ripley-empty"
+	flags_1 = HEAR_1
 	step_in = 1.5 //Move speed, lower is faster.
 	var/fast_pressure_step_in = 1.5 //step_in while in low pressure conditions
 	var/slow_pressure_step_in = 2.0 //step_in while in normal pressure conditions
@@ -84,6 +85,7 @@
 	enclosed = TRUE
 	enter_delay = 40
 	silicon_icon_state = null
+	flags_1 = HEAR_1 | PREVENT_CONTENTS_EXPLOSION_1
 	opacity = TRUE
 
 /obj/mecha/working/ripley/firefighter
@@ -103,6 +105,7 @@
 	enclosed = TRUE
 	enter_delay = 40
 	silicon_icon_state = null
+	flags_1 = HEAR_1 | PREVENT_CONTENTS_EXPLOSION_1
 	opacity = TRUE
 
 
@@ -121,6 +124,7 @@
 	enclosed = TRUE
 	enter_delay = 40
 	silicon_icon_state = null
+	flags_1 = HEAR_1 | PREVENT_CONTENTS_EXPLOSION_1
 	opacity = TRUE
 
 /obj/mecha/working/ripley/deathripley/Initialize()
