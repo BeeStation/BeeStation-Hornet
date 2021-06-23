@@ -446,33 +446,33 @@
 	if(!istype(dna))
 		scantemp = "Unable to locate valid genetic data."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-		return
+		return FALSE
 	if(NO_DNA_COPY in dna.species.species_traits)
 		scantemp = "The DNA of this lifeform could not be read due to an unknown error!"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-		return
+		return FALSE
 	if((HAS_TRAIT(mob_occupant, TRAIT_HUSK)) && (src.scanner.scan_level < 2))
 		scantemp = "Subject's body is too damaged to scan properly."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
-		return
+		return FALSE
 	if(HAS_TRAIT(mob_occupant, TRAIT_BADDNA))
 		scantemp = "Subject's DNA is damaged beyond any hope of recovery."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
-		return
+		return FALSE
 	if(!experimental)
 		if(!body_only && (mob_occupant.suiciding || mob_occupant.hellbound))
 			scantemp = "Subject's brain is not responding to scanning stimuli."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-			return
+			return FALSE
 		if(!body_only && isnull(mob_occupant.mind))
 			scantemp = "Mental interface failure."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-			return
+			return FALSE
 		if(!body_only && SSeconomy.full_ancap)
 			if(!account)
 				scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				return
+				return FALSE
 	return TRUE
 
 /obj/machinery/computer/cloning/proc/scan_occupant(occupant, mob/M, body_only)
