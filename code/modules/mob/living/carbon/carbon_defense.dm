@@ -28,6 +28,9 @@
 	else if(istype(ears, /obj/item/radio/headset))
 		var/obj/item/radio/headset/headset_in_ear = ears
 		. += headset_in_ear.bang_protect
+	if(ismecha(loc))
+		var/obj/mecha/mechnerd = loc
+		. += mechnerd.bang_protect
 
 /mob/living/carbon/is_mouth_covered(head_only = 0, mask_only = 0)
 	if( (!mask_only && head && (head.flags_cover & HEADCOVERSMOUTH)) || (!head_only && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH)) )
