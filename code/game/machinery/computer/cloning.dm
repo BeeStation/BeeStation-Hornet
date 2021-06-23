@@ -473,6 +473,15 @@
 				scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 				return FALSE
+	else
+		if(mob_occupant.suiciding)
+			scantemp = "Subject's brain is not responding to scanning stimuli."
+			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			return FALSE
+		if(isnull(mob_occupant.mind))
+			scantemp = "Mental interface failure."
+			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			return FALSE
 	return TRUE
 
 /obj/machinery/computer/cloning/proc/scan_occupant(occupant, mob/M, body_only)
