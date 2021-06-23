@@ -479,7 +479,7 @@
 			scantemp = "Subject's brain is not responding to scanning stimuli."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			return FALSE
-		if(isnull(mob_occupant.mind))
+		if(!mob_occupant.mind)
 			scantemp = "Mental interface failure."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
 			return FALSE
