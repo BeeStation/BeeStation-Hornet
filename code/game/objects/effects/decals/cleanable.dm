@@ -28,7 +28,7 @@
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 		COMSIG_ATOM_EXITED = .proc/on_uncrossed,
 	)
-	AddElement(/datum/element/connect_loc, src, loc_connections)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)

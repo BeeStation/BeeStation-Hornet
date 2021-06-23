@@ -403,7 +403,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
-	AddElement(/datum/element/connect_loc, src, loc_connections)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/death_wall/proc/on_entered(atom/movable/AM, oldloc)
 	SIGNAL_HANDLER

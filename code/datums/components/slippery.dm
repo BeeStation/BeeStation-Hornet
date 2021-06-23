@@ -18,7 +18,7 @@
 	lube_flags = _lube_flags
 	callback = _callback
 	if(ismovable(parent))
-		AddElement(/datum/element/connect_loc, parent, default_connections)
+		AddElement(/datum/element/connect_loc_behalf, parent, default_connections)
 
 	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/Slip)
 
@@ -31,4 +31,4 @@
 
 /datum/component/slippery/UnregisterFromParent()
 	. = ..()
-	RemoveElement(/datum/element/connect_loc, parent, default_connections)
+	RemoveElement(/datum/element/connect_loc_behalf, parent, default_connections)
