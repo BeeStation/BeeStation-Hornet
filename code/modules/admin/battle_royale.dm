@@ -405,7 +405,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/death_wall/proc/on_entered(atom/movable/AM, oldloc)
+/obj/effect/death_wall/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 	//lol u died
 	if(isliving(AM))

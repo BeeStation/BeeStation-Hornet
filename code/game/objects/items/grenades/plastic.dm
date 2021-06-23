@@ -85,9 +85,9 @@
 /obj/item/grenade/plastic/receive_signal()
 	prime()
 
-/obj/item/grenade/plastic/proc/on_entered(atom/movable/AM)
+/obj/item/grenade/plastic/proc/on_entered(datum/source, atom/movable/AM)
 	if(nadeassembly)
-		nadeassembly.on_entered(AM)
+		nadeassembly.on_entered(source, AM)
 
 /obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)
