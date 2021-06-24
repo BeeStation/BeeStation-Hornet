@@ -4,11 +4,9 @@ import { Box, Button, LabeledList, NoticeBox, Section } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosCyborgRemoteMonitor = (props, context) => {
+  const { data } = useBackend(context);
   return (
-    <NtosWindow
-      resizable
-      width={600}
-      height={800}>
+    <NtosWindow theme="ntos">
       <NtosWindow.Content scrollable>
         <NtosCyborgRemoteMonitorContent />
       </NtosWindow.Content>
