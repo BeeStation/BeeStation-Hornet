@@ -18,9 +18,8 @@
 	var/available_on_syndinet = 0			// Whether the program can be downloaded from SyndiNet (accessible via emagging the computer). Set to 1 to enable.
 	var/tgui_id								// ID of TGUI interface
 	var/ui_style							// ID of custom TGUI style (optional)
-
-
 	var/ui_header = null					// Example: "something.gif" - a header image that will be rendered in computer's UI when this program is running at background. Images are taken from /icons/program_icons. Be careful not to use too large images!
+	var/list/special_assets = list()		//Assets specific to programs
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()
@@ -143,8 +142,19 @@
 		get_asset_datum(/datum/asset/simple/headers),
 	)
 
+<<<<<<< HEAD
 /datum/computer_file/program/ui_state(mob/user)
 	return GLOB.default_state
+=======
+/datum/computer_file/program/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui && tgui_id)
+		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
+		assets.send(user)
+		for(var/i in special_assets)
+			assets = get_asset_datum(i)
+			assets.send(user)
+>>>>>>> 5a07c3f29a6 (Adds two new modular apps: Lifeline for tracking suit sensors, and the Syndicate-only Fission360 for tracking nuke-related items (#51152))
 
 /datum/computer_file/program/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
