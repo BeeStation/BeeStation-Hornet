@@ -255,6 +255,13 @@
 		InsertAll("", each, GLOB.alldirs)
 	..()
 
+/datum/asset/simple/genetics
+	assets = list(
+		"dna_discovered.gif" = 'html/dna_discovered.gif',
+		"dna_undiscovered.gif" = 'html/dna_undiscovered.gif',
+		"dna_extra.gif" = 'html/dna_extra.gif'
+	)
+
 /datum/asset/spritesheet/supplypods
 	name = "supplypods"
 
@@ -381,14 +388,6 @@
 
 		Insert(imgid, I)
 	return ..()
-
-/datum/asset/simple/genetics
-	assets = list(
-		"dna_discovered.png"	= 'html/dna_discovered.png',
-		"dna_undiscovered.png"	= 'html/dna_undiscovered.png',
-		"dna_extra.png" 		= 'html/dna_extra.png'
-	)
-
 /datum/asset/simple/bee_antags
 	assets = list(
 		"traitor.png" = 'html/img/traitor.png',

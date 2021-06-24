@@ -301,7 +301,7 @@
 	icon_state = "fullgrass_[rand(1, 3)]"
 	. = ..()
 
-/obj/item/twohanded/required/kirbyplants
+/obj/item/kirbyplants
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-01"
@@ -310,13 +310,13 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
 	attack_weight = 2
-	force_wielded = 10
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
 
-/obj/item/twohanded/required/kirbyplants/Initialize()
+/obj/item/kirbyplants/ComponentInitialize()
 	. = ..()
+	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_unwielded=10, force_wielded=10)
 	AddComponent(/datum/component/storage/concrete/kirbyplants)
 
 /datum/component/storage/concrete/kirbyplants
@@ -324,7 +324,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	insert_while_closed = FALSE // We don't want clicking plants with items to insert it, you have to alt click then click the slots
 
-/obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
+/obj/item/kirbyplants/equipped(mob/living/user)
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
 	I.copy_overlays(src)
 	I.override = 1
@@ -332,23 +332,23 @@
 	I.layer = ABOVE_MOB_LAYER
 	..()
 
-/obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
+/obj/item/kirbyplants/dropped(mob/living/user)
 	..()
 	user.remove_alt_appearance("sneaking_mission")
 
-/obj/item/twohanded/required/kirbyplants/random
+/obj/item/kirbyplants/random
 	icon = 'icons/obj/flora/_flora.dmi'
 	icon_state = "random_plant"
 	var/list/static/states
 
-/obj/item/twohanded/required/kirbyplants/random/Initialize()
+/obj/item/kirbyplants/random/Initialize()
 	. = ..()
 	icon = 'icons/obj/flora/plants.dmi'
 	if(!states)
 		generate_states()
 	icon_state = pick(states)
 
-/obj/item/twohanded/required/kirbyplants/random/proc/generate_states()
+/obj/item/kirbyplants/random/proc/generate_states()
 	states = list()
 	for(var/i in 1 to 34)
 		var/number
@@ -360,12 +360,12 @@
 	states += "applebush"
 
 
-/obj/item/twohanded/required/kirbyplants/dead
+/obj/item/kirbyplants/dead
 	name = "RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
 	icon_state = "plant-25"
 
-/obj/item/twohanded/required/kirbyplants/photosynthetic
+/obj/item/kirbyplants/photosynthetic
 	name = "photosynthetic potted plant"
 	desc = "A bioluminescent plant."
 	icon_state = "plant-09"
