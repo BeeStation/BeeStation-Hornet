@@ -224,9 +224,9 @@
 			electronics = I
 			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
 
-	else if(istype(I, /obj/item/stock_parts/card_reader))
-		var/obj/item/stock_parts/card_reader/C = I
-		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
+	else if(istype(I, /obj/item/stock_parts/manipulator))
+		var/obj/item/stock_parts/manipulator/M = I
+		to_chat(user, "<span class='notice'>You start adding [M] to [src]...</span>")
 		if(do_after(user, 20, target = src))
 			var/obj/structure/displaycase/forsale/sale = new(src.loc)
 			if(electronics)
@@ -237,7 +237,7 @@
 				else
 					sale.req_access = electronics.accesses
 			qdel(src)
-			qdel(C)
+			qdel(M)
 
 	else if(istype(I, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = I
