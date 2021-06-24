@@ -45,19 +45,10 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
-		assets = get_asset_datum(/datum/asset/simple/arcade)
-		assets.send(user)
-		var/headername
-		switch(device_theme)
-			if("ntos")
-				headername = "NtOS Main Menu"
-			if("syndicate")
-				headername = "Syndix Main Menu"
-		ui = new(user, src, ui_key, "NtosMain", headername, 400, 500, master_ui, state)
-		ui.open()
-		ui.set_autoupdate(state = 1)
+		ui = new(user, src, "NtosMain")
+		ui.set_autoupdate(TRUE)
+		if(ui.open())
+			ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
 
 /obj/item/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()

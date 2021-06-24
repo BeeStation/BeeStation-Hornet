@@ -213,7 +213,7 @@
 	available_on_ntnet = TRUE
 
 /datum/computer_file/program/radar/lifeline/find_atom()
-	return locate(selected) in GLOB.human_list
+	return locate(selected) in GLOB.carbon_list //currently we dont have a list of humanoids so this'll have to do
 
 /datum/computer_file/program/radar/lifeline/scan()
 	if(world.time < next_scan)
