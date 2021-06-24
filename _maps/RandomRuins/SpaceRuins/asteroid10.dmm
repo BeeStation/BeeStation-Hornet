@@ -164,7 +164,7 @@
 /turf/open/floor/holofloor/beach,
 /area/ruin/space/has_grav/powered)
 "aP" = (
-/obj/item/twohanded/required/pool/rubber_ring,
+/obj/item/pool/rubber_ring,
 /turf/open/floor/holofloor/beach/water,
 /area/ruin/space/has_grav/powered)
 "aQ" = (
