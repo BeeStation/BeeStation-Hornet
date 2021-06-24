@@ -449,6 +449,7 @@
 	desc = "A traditional voidsuit helmet, this helmet was Nano-Trasen's first solution to the *logistical problems* that come with employing plasmamen. Despite their limitations, these helmets still see use by historian and old-styled plasmamen alike."
 	icon_state = "prototype_envirohelm"
 	item_state = "prototype_envirohelm"
+	actions_types = list()
 	smile_state = "prototype_smile"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/botany
