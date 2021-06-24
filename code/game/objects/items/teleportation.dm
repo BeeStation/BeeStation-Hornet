@@ -253,17 +253,29 @@
 	throw_speed = 4
 	throw_range = 10
 
+	//Uses of the device left
 	var/charges = 4
+	//The maximum number of stored uses
 	var/max_charges = 4
 	var/minimum_teleport_distance = 4
 	var/maximum_teleport_distance = 8
-	var/saving_throw_distance = 3
-	var/recharge_time = 200 //20 Seconds
+	//How far the emergency teleport checks for a safe position
+	var/parallel_teleport_distance = 3
+	//How long it takes to replenish a charge
+	var/recharge_time = 15 SECONDS
+	//If the device is recharging, prevents timers stacking
 	var/recharging = FALSE
+	//stores the recharge timer id
+	var/recharge_timer
 
 /obj/item/teleporter/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
+	if(recharging)
+		. += "<span class='notice'><b>A small display on the back reads:</b></span>"
+		var/timeleft = timeleft(recharge_timer)
+		var/loadingbar = num2loadingbar(timeleft/recharge_time, reverse=TRUE)
+		. += "<span class='notice'><b>CHARGING: [loadingbar] ([timeleft*0.1]s)</b></span>"
 
 /obj/item/teleporter/attack_self(mob/user)
 	..()
@@ -273,11 +285,12 @@
 	if(recharging)
 		return
 	if(charges < max_charges)
-		addtimer(CALLBACK(src, .proc/recharge), recharge_time)
+		recharge_timer = addtimer(CALLBACK(src, .proc/recharge), recharge_time, TIMER_STOPPABLE)
 		recharging = TRUE
 
 /obj/item/teleporter/proc/recharge()
 	charges++
+	playsound(src,'sound/machines/twobeep.ogg',10,TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	recharging = FALSE
 	check_charges()
 
@@ -326,7 +339,7 @@
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination)
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
-	var/turf/emergency_destination = get_teleport_loc(destination,C,0,0,1,saving_throw_distance,0,0,0)
+	var/turf/emergency_destination = get_teleport_loc(destination,C,0,0,1,parallel_teleport_distance,0,0,0)
 
 	if(emergency_destination)
 		telefrag(emergency_destination, user)
@@ -380,7 +393,3 @@
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
-
-/obj/item/teleporter/admin
-	charges = 999
-	max_charges = 999
