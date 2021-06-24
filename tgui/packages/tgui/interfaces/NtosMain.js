@@ -23,14 +23,16 @@ const PROGRAM_ICONS = {
 export const NtosMain = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    device_theme,
     programs = [],
     has_light,
     light_on,
     comp_light_color,
   } = data;
   return (
-    <NtosWindow resizable theme={device_theme}>
+    <NtosWindow
+      resizable
+      width={400}
+      height={500}>
       <NtosWindow.Content scrollable>
         {!!has_light && (
           <Section>
