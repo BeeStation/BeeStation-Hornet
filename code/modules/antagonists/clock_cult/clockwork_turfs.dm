@@ -243,10 +243,6 @@
 	planetary_atmos = TRUE
 	var/list/heal_people
 
-/turf/open/floor/clockwork/reebe/Initialize()
-	. = ..()
-	heal_people = list()
-
 /turf/open/floor/clockwork/reebe/Destroy()
 	if(LAZYLEN(heal_people))
 		STOP_PROCESSING(SSprocessing, src)

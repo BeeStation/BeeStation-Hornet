@@ -1,2 +1,3 @@
 /proc/LoadReebe()
-	load_new_z_level("_maps/map_files/generic/CityOfCogs.dmm", "Reebe - The city of cogs")
+	var/datum/map_template/template = new("_maps/map_files/generic/CityOfCogs.dmm", "Reebe")
+	template.load_new_z(ZTRAITS_REEBE)
