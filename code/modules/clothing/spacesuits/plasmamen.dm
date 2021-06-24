@@ -361,18 +361,18 @@
 //replacements for vendors
 /obj/item/clothing/head/helmet/space/plasmaman/replacement
 	name = "replacement envirosuit helmet"
-	desc = "An outdated helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment, still kept in use as replacement helmets. While it is space worthy, it lacks the UV protection newer models come with.."
+	desc = "An outdated helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment, still kept in use as replacement helmets."
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/security
 	name = "replacement security envirosuit helmet"
-	desc = "An outdated containment helmet designed for security officers, lacks the UV shielding a standard helmet possesses."
+	desc = "An outdated containment helmet designed for security officers."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75, "stamina" = 0)
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/medical
 	name = "medical's replacement envirosuit helmet"
-	desc = "An outdated envirohelmet designed for plasmaman medical doctors, having two stripes down it's length to denote as much, lacks UV shielding."
+	desc = "An outdated envirohelmet designed for plasmaman medical doctors, having two stripes down it's length to denote as much."
 	icon_state = "doctor_envirohelm"
 	item_state = "doctor_envirohelm"
 
