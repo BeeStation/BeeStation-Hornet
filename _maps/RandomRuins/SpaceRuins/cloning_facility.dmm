@@ -69,7 +69,7 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/powered/ancient_shuttle)
 "j" = (
-/obj/machinery/computer/prototype_cloning,
+/obj/machinery/computer/cloning/prototype,
 /obj/machinery/light{
 	dir = 1
 	},

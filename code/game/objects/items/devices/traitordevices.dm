@@ -271,8 +271,8 @@ effective or pretty fucking useless.
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/jammer
-	name = "radio jammer"
-	desc = "Device used to disrupt nearby radio communication."
+	name = "signal jammer"
+	desc = "Device used to disrupt nearby wireless communication."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
 	var/active = FALSE
@@ -286,3 +286,11 @@ effective or pretty fucking useless.
 	else
 		GLOB.active_jammers -= src
 	update_icon()
+
+/atom/proc/is_jammed()
+	var/turf/position = get_turf(src)
+	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
+		var/turf/jammer_turf = get_turf(jammer)
+		if(position?.get_virtual_z_level() == jammer_turf.get_virtual_z_level() && (get_dist(position, jammer_turf) <= jammer.range))
+			return TRUE
+	return FALSE

@@ -195,4 +195,3 @@
 	if(stat != DEAD)
 		GLOB.total_cube_monkeys--
 	return ..()
-	

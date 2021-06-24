@@ -284,7 +284,7 @@
 		/obj/item/clock_module/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
 		/obj/item/stack/tile/brass/cyborg,
-		/obj/item/twohanded/clockwork/brass_spear)
+		/obj/item/clockwork/brass_spear)
 	moduleselect_icon = "standard"
 	hat_offset = -3
 
@@ -398,7 +398,7 @@
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
-		/obj/item/twohanded/clockwork/brass_spear,
+		/obj/item/clockwork/brass_spear,
 		/obj/item/clock_module/ocular_warden,
 		/obj/item/clock_module/vanguard)
 	cyborg_base_icon = "sec"
@@ -517,7 +517,7 @@
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
 		/obj/item/clock_module/vanguard,
-		/obj/item/twohanded/clockwork/brass_battlehammer)	//honk
+		/obj/item/clockwork/brass_battlehammer)	//honk
 	moduleselect_icon = "service"
 	cyborg_base_icon = "clown"
 	hat_offset = -2
@@ -685,7 +685,7 @@
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/reagent_containers/borghypo/syndicate,
-		/obj/item/twohanded/shockpaddles/syndicate/cyborg,
+		/obj/item/shockpaddles/syndicate/cyborg,
 		/obj/item/healthanalyzer,
 		/obj/item/surgical_drapes,
 		/obj/item/borg/charger,
