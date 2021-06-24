@@ -142,19 +142,8 @@
 		get_asset_datum(/datum/asset/simple/headers),
 	)
 
-<<<<<<< HEAD
 /datum/computer_file/program/ui_state(mob/user)
 	return GLOB.default_state
-=======
-/datum/computer_file/program/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui && tgui_id)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
-		for(var/i in special_assets)
-			assets = get_asset_datum(i)
-			assets.send(user)
->>>>>>> 5a07c3f29a6 (Adds two new modular apps: Lifeline for tracking suit sensors, and the Syndicate-only Fission360 for tracking nuke-related items (#51152))
 
 /datum/computer_file/program/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

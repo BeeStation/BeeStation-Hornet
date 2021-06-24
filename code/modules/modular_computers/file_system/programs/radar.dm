@@ -10,8 +10,8 @@
 	network_destination = "tracking program"
 	size = 5
 	tgui_id = "NtosRadar"
-	ui_x = 800
-	ui_y = 600
+	//ui_x = 800 for when we get tgui 4.3 whichever version has screen sizes
+	//ui_y - 600
 	special_assets = list(
 		/datum/asset/simple/radar_assets,
 	)
@@ -113,7 +113,7 @@
 	available_on_ntnet = TRUE
 
 /datum/computer_file/program/radar/lifeline/track()
-	var/mob/living/carbon/human/humanoid = locate(selected) in GLOB.human_list
+	var/mob/living/carbon/human/humanoid = locate(selected) in GLOB.carbon_list //currently we dont have a list of humanoids so this'll have to do
 	if(!istype(humanoid) || !trackable(humanoid))
 		return
 
@@ -150,7 +150,7 @@
 		return
 	next_scan = world.time + (2 SECONDS)
 	objects = list()
-	for(var/i in GLOB.human_list)
+	for(var/i in GLOB.carbon_list) //currently we dont have a list of humanoids so this'll have to do
 		var/mob/living/carbon/human/humanoid = i
 		if(!trackable(humanoid))
 			continue
