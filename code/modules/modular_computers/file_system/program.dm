@@ -19,7 +19,6 @@
 	var/tgui_id								// ID of TGUI interface
 	var/ui_style							// ID of custom TGUI style (optional)
 	var/ui_header = null					// Example: "something.gif" - a header image that will be rendered in computer's UI when this program is running at background. Images are taken from /icons/program_icons. Be careful not to use too large images!
-	var/list/special_assets = list()		//Assets specific to programs
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()
