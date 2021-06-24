@@ -1,0 +1,7 @@
+author: Cenrus, MrDoomBringer
+delete-after: true
+changes:
+  - balance: Reduced recharge time of the syndicate teleporter to 15 seconds (previously
+      20)
+  - rscadd: Added a recharge timer to the syndicate teleporter that is shown on examine
+  - rscadd: Added a sound to indicate that the teleporter has recharged
