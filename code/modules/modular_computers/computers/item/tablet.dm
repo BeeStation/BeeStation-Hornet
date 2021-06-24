@@ -39,6 +39,8 @@
 /// Given to Nuke Ops members.
 /obj/item/modular_computer/tablet/nukeops
 	icon_state = "tablet-syndicate"
+	icon_state_powered = "tablet-syndicate"
+	icon_state_unpowered = "tablet-syndicate"
 	comp_light_luminosity = 6.3
 	has_variants = FALSE
 	device_theme = "syndicate"
