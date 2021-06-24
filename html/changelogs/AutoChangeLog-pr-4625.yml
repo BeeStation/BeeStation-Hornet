@@ -1,0 +1,6 @@
+author: Cenrus
+delete-after: true
+changes:
+  - rscadd: Added eighties tiles as an arcade reward
+  - bugfix: Fixed arcade screen overlay sprites
+  - bugfix: You can now skip the old ship arcade event

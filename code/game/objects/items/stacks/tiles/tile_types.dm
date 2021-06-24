@@ -237,6 +237,9 @@
 /obj/item/stack/tile/eighties/fifty
 	amount = 50
 
+/obj/item/stack/tile/eighties/loaded
+	amount = 30
+
 /obj/item/stack/tile/fakespace
 	name = "astral carpet"
 	singular_name = "astral carpet"

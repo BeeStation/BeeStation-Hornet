@@ -1,14 +1,11 @@
-/obj/item/twohanded/clockwork
+/obj/item/clockwork
 	name = "Clockwork Weapon"
 	desc = "Something"
 	icon = 'icons/obj/clockwork_objects.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/clockwork_lefthand.dmi';
 	righthand_file = 'icons/mob/inhands/antag/clockwork_righthand.dmi'
-	force_unwielded = 15
-	force_wielded = 5
 	block_flags = BLOCKING_NASTY | BLOCKING_ACTIVE
 	block_level = 1	//God blocking is actual aids to deal with, I am sorry for putting this here
-	block_power_wielded = 25
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
@@ -23,28 +20,27 @@
 	var/clockwork_hint = ""
 	var/obj/effect/proc_holder/spell/targeted/summon_spear/SS
 
-/obj/item/twohanded/clockwork/pickup(mob/user)
+/obj/item/clockwork/pickup(mob/user)
 	. = ..()
 	user.mind.RemoveSpell(SS)
 	if(is_servant_of_ratvar(user))
 		SS = new
 		SS.marked_item = src
 		user.mind.AddSpell(SS)
-	wield(user)
 
-/obj/item/twohanded/clockwork/examine(mob/user)
+/obj/item/clockwork/examine(mob/user)
 	. = ..()
 	if(is_servant_of_ratvar(user) && clockwork_hint)
 		. += clockwork_hint
 
-/obj/item/twohanded/clockwork/attack(mob/living/target, mob/living/user)
+/obj/item/clockwork/attack(mob/living/target, mob/living/user)
 	. = ..()
 	if(!is_reebe(user.z))
 		return
-	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(major=FALSE) && wielded)
+	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(major=FALSE) && ISWIELDED(src))
 		hit_effect(target, user)
 
-/obj/item/twohanded/clockwork/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/clockwork/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(!is_reebe(z))
 		return
@@ -54,46 +50,55 @@
 			if(!target.anti_magic_check() && !is_servant_of_ratvar(target))
 				hit_effect(target, throwingdatum.thrower, TRUE)
 
-/obj/item/twohanded/clockwork/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
+/obj/item/clockwork/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	return
 
-/obj/item/twohanded/clockwork/brass_spear
+/obj/item/clockwork/brass_spear
 	name = "brass spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon_state = "ratvarian_spear"
 	embedding = list("embedded_impact_pain_multiplier" = 3)
-	force_wielded = 24
 	throwforce = 36
 	armour_penetration = 24
 	clockwork_hint = "Throwing the spear will deal bonus damage while on Reebe."
 
-/obj/item/twohanded/clockwork/brass_battlehammer
+/obj/item/clockwork/brass_spear/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25)
+
+/obj/item/clockwork/brass_battlehammer
 	name = "brass battle-hammer"
 	desc = "A brass hammer glowing with energy."
 	icon_state = "ratvarian_hammer"
-	force_wielded = 25
 	throwforce = 25
 	armour_penetration = 6
 	sharpness = IS_BLUNT
 	attack_verb = list("bashed", "smitted", "hammered", "attacked")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
 
-/obj/item/twohanded/clockwork/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
+/obj/item/clockwork/brass_battlehammer/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25)
+
+/obj/item/clockwork/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, thrown ? 2 : 1, 4)
 
-/obj/item/twohanded/clockwork/brass_sword
+/obj/item/clockwork/brass_sword
 	name = "brass longsword"
 	desc = "A large sword made of brass."
 	icon_state = "ratvarian_sword"
-	force_wielded = 26
 	throwforce = 20
 	armour_penetration = 12
 	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
 	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse while on Reebe."
 	var/emp_cooldown = 0
 
-/obj/item/twohanded/clockwork/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)
+/obj/item/clockwork/brass_sword/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=26, block_power_wielded=25)
+
+/obj/item/clockwork/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)
 	if(world.time > emp_cooldown)
 		target.emp_act(EMP_LIGHT)
 		emp_cooldown = world.time + 300
@@ -101,7 +106,7 @@
 		to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
 		playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
-/obj/item/twohanded/clockwork/brass_sword/proc/send_message(mob/living/target)
+/obj/item/clockwork/brass_sword/proc/send_message(mob/living/target)
 	to_chat(target, "<span class='brass'>[src] glows, indicating the next attack will disrupt electronics of the target.</span>")
 
 /obj/item/gun/ballistic/bow/clockwork
