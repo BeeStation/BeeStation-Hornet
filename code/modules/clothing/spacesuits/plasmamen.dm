@@ -353,10 +353,8 @@
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/equipped(mob/living/carbon/user, slot)
 	..()
 	if(slot == ITEM_SLOT_HEAD && !isplasmaman(user))
-		user.put_in_active_hand(src)
-		user.head = null
-		user.head_update(src)
-		to_chat(user, "<span class='userdanger'>You're not a plasmaman. Stop.</span>")
+		user.dropItemToGround(src)
+		to_chat(user, "<span class='danger'>[src] doesn't fit on your head and falls to the ground.</span>")
 
 //replacements for vendors
 /obj/item/clothing/head/helmet/space/plasmaman/replacement
