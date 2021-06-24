@@ -1,0 +1,6 @@
+author: mickyan, watermelon914
+delete-after: true
+changes:
+  - bugfix: Bombproof containers should once again protect their contents from being
+      damaged by explosions
+  - bugfix: Fixed explosions delimbing you if they're weaker
