@@ -77,10 +77,10 @@
   **arg1 is the atom being evaluated.
 */
 /datum/computer_file/program/radar/proc/trackable(atom/movable/signal)
-	if(!signal)
-		return FALSE
 	var/turf/here = get_turf(computer)
 	var/turf/there = get_turf(signal)
+	if(!there)
+		return
 	return (there.z == here.z) || (is_station_level(here.z) && is_station_level(there.z))
 
 /**
