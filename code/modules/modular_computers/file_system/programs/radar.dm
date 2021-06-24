@@ -10,8 +10,6 @@
 	network_destination = "tracking program"
 	size = 5
 	tgui_id = "NtosRadar"
-	//ui_x = 800 for when we get tgui 4.3 whichever version has screen sizes
-	//ui_y = 600
 	special_assets = list(
 		/datum/asset/simple/radar_assets,
 	)
