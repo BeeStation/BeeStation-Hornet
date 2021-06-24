@@ -21,9 +21,9 @@
 
 		holder.update_slot_icon()
 
-		if(!ishuman(get_turf(holder)))
+		if(!ishuman(holder.loc))
 			return ..()
-		var/mob/living/carbon/human/human_wearer = get_turf(holder)
+		var/mob/living/carbon/human/human_wearer = holder.loc
 		if(human_wearer.wear_id == holder)
 			human_wearer.sec_hud_set_ID()
 	return ..()
