@@ -67,8 +67,6 @@
 	if(user.canUseTopic(src, BE_CLOSE))
 		toggle_welding_screen(user)
 
-/obj/item/clothing/head/helmet/space/plasmaman/replacement/AltClick(mob/user)
-
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
 		if(on)
@@ -147,8 +145,6 @@
 	for(var/X in actions)
 		var/datum/action/A=X
 		A.UpdateButtonIcon()
-
-/obj/item/clothing/head/helmet/space/plasmaman/replacement/attack_self(mob/user)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security envirosuit helmet"
@@ -354,13 +350,18 @@
 	icon_state = "intern_envirohelm"
 	item_state = "intern_envirohelm"
 
+/obj/item/clothing/head/helmet/space/plasmaman/replacement/equipped(mob/living/carbon/user, slot)
+	..()
+	if(slot == ITEM_SLOT_HEAD && !isplasmaman(user))
+		user.put_in_active_hand(src)
+		user.head = null
+		user.head_update(src)
+		to_chat(user, "<span class='userdanger'>You're not a plasmaman. Stop.</span>")
+
 //replacements for vendors
 /obj/item/clothing/head/helmet/space/plasmaman/replacement
 	name = "replacement envirosuit helmet"
 	desc = "An outdated helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment, still kept in use as replacement helmets. While it is space worthy, it lacks the UV protection newer models come with.."
-	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY | SNUG_FIT
-	min_cold_protection_temperature = null
-	actions_types = list()
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/security
 	name = "replacement security envirosuit helmet"
