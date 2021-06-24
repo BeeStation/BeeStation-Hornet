@@ -441,7 +441,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	return locate(x,y,A.z)
 
 /// Gets all contents of contents and returns them all in a list.
-/atom/proc/GetAllContents(var/T)
+/atom/proc/GetAllContents(var/T, ignore_flag_1)
 	var/list/processing_list = list(src)
 	var/list/assembled = list()
 	if(T)
@@ -457,7 +457,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 		while(processing_list.len)
 			var/atom/A = processing_list[1]
 			processing_list.Cut(1, 2)
-			processing_list += A.contents
+			if(!(A.flags_1 & ignore_flag_1))
+				processing_list += A.contents
 			assembled += A
 	return assembled
 
