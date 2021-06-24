@@ -1,0 +1,5 @@
+author: jupyterkat
+delete-after: true
+changes:
+  - bugfix: fixed cloning
+  - bugfix: cloning logs stuff correctly again
