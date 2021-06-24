@@ -32,7 +32,6 @@
 /datum/mutation/human/wacky/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
-
 	speech_args[SPEECH_SPANS] |= SPAN_SANS
 
 /datum/mutation/human/mute
@@ -157,7 +156,6 @@
 /datum/mutation/human/swedish/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
-
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)
 		message = replacetext(message,"w","v")
@@ -188,7 +186,6 @@
 
 /datum/mutation/human/chav/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
-
 
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
@@ -251,7 +248,6 @@
 
 /datum/mutation/human/elvis/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
-
 
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)

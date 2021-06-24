@@ -89,7 +89,6 @@ Everything else should be handled for you. Good luck soldier.
 /datum/component/full_auto/proc/unset_target()
 	SIGNAL_HANDLER
 
-
 	autofire_target = null
 	next_process = world.time + melee_attack_delay //So you can't abuse this to magdump.
 

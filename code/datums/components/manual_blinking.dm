@@ -58,12 +58,10 @@
 /datum/component/manual_blinking/proc/restart()
 	SIGNAL_HANDLER
 
-
 	START_PROCESSING(SSdcs, src)
 
 /datum/component/manual_blinking/proc/pause()
 	SIGNAL_HANDLER
-
 
 	STOP_PROCESSING(SSdcs, src)
 
@@ -84,7 +82,6 @@
 /datum/component/manual_blinking/proc/check_added_organ(mob/who_cares, obj/item/organ/O)
 	SIGNAL_HANDLER
 
-
 	var/obj/item/organ/eyes/new_eyes = O
 
 	if(istype(new_eyes,/obj/item/organ/eyes))
@@ -94,7 +91,6 @@
 /datum/component/manual_blinking/proc/check_removed_organ(mob/who_cares, obj/item/organ/O)
 	SIGNAL_HANDLER
 
-
 	var/obj/item/organ/eyes/bye_beyes = O // oh come on, that's pretty good
 
 	if(istype(bye_beyes, /obj/item/organ/eyes))
@@ -103,7 +99,6 @@
 
 /datum/component/manual_blinking/proc/check_emote(mob/living/carbon/user, datum/emote/emote)
 	SIGNAL_HANDLER
-
 
 	if(emote.type in valid_emotes)
 		warn_grace = FALSE

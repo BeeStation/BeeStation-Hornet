@@ -382,7 +382,6 @@
 /datum/disease/transformation/felinid/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
-
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"

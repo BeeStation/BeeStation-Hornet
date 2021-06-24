@@ -64,7 +64,6 @@
 /obj/item/clothing/shoes/magboots/crushing/proc/crush(mob/living/user)
 	SIGNAL_HANDLER
 
-
 	if (!isturf(user.loc) || !magpulse)
 		return
 	var/turf/T = user.loc

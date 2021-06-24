@@ -335,7 +335,6 @@
 /obj/item/shockpaddles/proc/check_range()
 	SIGNAL_HANDLER
 
-
 	if(!req_defib || !defib)
 		return
 	if(!in_range(src,defib))

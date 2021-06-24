@@ -29,7 +29,6 @@
 /datum/component/swimming/proc/onMove()
 	SIGNAL_HANDLER
 
-
 	lengths ++
 	if(lengths > lengths_for_bonus)
 		var/mob/living/L = parent
@@ -41,7 +40,6 @@
 /datum/component/swimming/proc/onChangeSpecies()
 	SIGNAL_HANDLER
 
-
 	var/mob/living/carbon/C = parent
 	var/component_type = /datum/component/swimming
 	if(istype(C) && C?.dna?.species)
@@ -52,7 +50,6 @@
 
 /datum/component/swimming/proc/try_leave_pool(datum/source, turf/clicked_turf)
 	SIGNAL_HANDLER
-
 
 	var/mob/living/L = parent
 	if(!L.can_interact_with(clicked_turf))

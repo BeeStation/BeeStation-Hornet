@@ -70,7 +70,6 @@
 /datum/component/radioactive/proc/rad_examine(datum/source, mob/user, atom/thing)
 	SIGNAL_HANDLER
 
-
 	var/atom/master = parent
 	var/list/out = list()
 	if(get_dist(master, user) <= 1)
@@ -88,7 +87,6 @@
 
 /datum/component/radioactive/proc/rad_attack(datum/source, atom/movable/target, mob/living/user)
 	SIGNAL_HANDLER
-
 
 	radiation_pulse(parent, strength/20)
 	target.rad_act(strength/2)

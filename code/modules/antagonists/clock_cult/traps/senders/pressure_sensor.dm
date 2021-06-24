@@ -25,7 +25,6 @@
 /datum/component/clockwork_trap/pressure_sensor/proc/crossed(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-
 	//Item's in hands or boxes shouldn't trigger it
 	if(!istype(AM.loc, /turf))
 		return

@@ -48,7 +48,6 @@
 /datum/mutation/human/hulk/proc/handle_speech(original_message, wrapped_message)
 	SIGNAL_HANDLER
 
-
 	var/message = wrapped_message[1]
 	if(message)
 		message = "[replacetext(message, ".", "!")]!!"

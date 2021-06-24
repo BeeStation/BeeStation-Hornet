@@ -72,7 +72,6 @@
 /datum/eldritch_knowledge/flesh_ghoul/proc/remove_ghoul(datum/source)
 	SIGNAL_HANDLER
 
-
 	var/mob/living/carbon/human/humie = source
 	ghouls -= humie
 	humie.setMaxHealth(ORIGINAL_MAX_HEALTH)
@@ -132,7 +131,6 @@
 
 /datum/eldritch_knowledge/flesh_grasp/proc/remove_ghoul(datum/source)
 	SIGNAL_HANDLER
-
 
 	var/mob/living/carbon/human/humie = source
 	spooky_scaries -= humie

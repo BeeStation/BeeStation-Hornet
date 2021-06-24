@@ -724,7 +724,6 @@
 /mob/living/carbon/human/proc/clean_blood(datum/source, strength)
 	SIGNAL_HANDLER
 
-
 	if(strength < CLEAN_STRENGTH_BLOOD)
 		return
 	if(gloves)

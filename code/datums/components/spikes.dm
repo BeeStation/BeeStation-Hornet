@@ -35,18 +35,15 @@
 /datum/component/spikes/proc/prick_touch(datum/source, mob/living/carbon/human/M, mob/living/carbon/human/H)
 	SIGNAL_HANDLER
 
-
 	prick(H, 0.5)
 
 /datum/component/spikes/proc/prick_touched(datum/source, mob/living/carbon/human/H, mob/living/carbon/human/M)
 	SIGNAL_HANDLER
 
-
 	prick(M, 1.5)
 
 /datum/component/spikes/proc/prick_collide(datum/source, atom/A)
 	SIGNAL_HANDLER
-
 
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
@@ -54,7 +51,6 @@
 
 /datum/component/spikes/proc/prick_crossed(datum/source, atom/movable/M)
 	SIGNAL_HANDLER
-
 
 	var/atom/movable/P = parent
 	if(iscarbon(M))
@@ -74,7 +70,6 @@
 /datum/component/spikes/proc/setarmor(datum/source, datum/species/S) //this is a proc used to make sure a change in species won't fuck up the armor bonus.
 	SIGNAL_HANDLER
 
-
 	if(ishuman(parent))
 		var/mob/living/carbon/human/H = parent
 		finalarmor = armor
@@ -85,13 +80,11 @@
 /datum/component/spikes/proc/checkdiseasecure(datum/source, var/diseaseid)
 	SIGNAL_HANDLER
 
-
 	if(diseaseid == id)
 		qdel(src) //we were cured! time to go.
 
 /datum/component/spikes/proc/removearmor(datum/source, var/datum/component/C)
 	SIGNAL_HANDLER
-
 
 	if(C != src)
 		return

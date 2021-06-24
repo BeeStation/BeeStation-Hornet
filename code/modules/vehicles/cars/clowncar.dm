@@ -210,7 +210,6 @@
 /obj/vehicle/sealed/car/clowncar/proc/FireCannon(mob/user, atom/A, params)
 	SIGNAL_HANDLER
 
-
 	if(cannonmode && return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED).len)
 		var/mob/living/L = pick(return_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
 		mob_exit(L, TRUE)

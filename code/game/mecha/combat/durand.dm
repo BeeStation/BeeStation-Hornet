@@ -58,7 +58,6 @@
 /obj/mecha/combat/durand/proc/relay(datum/source, list/signal_args)
 	SIGNAL_HANDLER
 
-
 	if(!shield) //if the shield somehow got deleted
 		shield = new/obj/durand_shield
 		shield.chassis = src
@@ -70,7 +69,6 @@
 //Redirects projectiles to the shield if defense_check decides they should be blocked and returns true.
 /obj/mecha/combat/durand/proc/prehit(obj/item/projectile/source, list/signal_args)
 	SIGNAL_HANDLER
-
 
 	if(defense_check(source.loc) && shield)
 		signal_args[2] = shield
@@ -163,7 +161,6 @@ the shield is disabled by means other than the action button (like running out o
 
 /obj/durand_shield/proc/activate(datum/source, var/datum/action/innate/mecha/mech_defense_mode/button, list/signal_args)
 	SIGNAL_HANDLER
-
 
 	if(!chassis || !chassis.occupant)
 		return

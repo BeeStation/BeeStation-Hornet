@@ -28,7 +28,6 @@
 
 /obj/item/clothing/mask/proc/handle_speech()
 	SIGNAL_HANDLER
-
 /obj/item/clothing/mask/worn_overlays(isinhands = FALSE)
 	. = list()
 	if(!isinhands)

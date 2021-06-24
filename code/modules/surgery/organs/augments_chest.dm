@@ -176,7 +176,6 @@
 /obj/item/organ/cyberimp/chest/thrusters/proc/move_react()
 	SIGNAL_HANDLER
 
-
 	allow_thrust(0.01)
 
 /obj/item/organ/cyberimp/chest/thrusters/proc/allow_thrust(num)

@@ -55,7 +55,6 @@
 /mob/living/simple_animal/hostile/guardian/bomb/proc/kaboom(atom/source, mob/living/explodee)
 	SIGNAL_HANDLER
 
-
 	if(!istype(explodee))
 		return
 	if(explodee == src || explodee == summoner || hasmatchingsummoner(explodee))
@@ -74,7 +73,6 @@
 
 /mob/living/simple_animal/hostile/guardian/bomb/proc/display_examine(datum/source, mob/user, text)
 	SIGNAL_HANDLER
-
 
 	text += "<span class='holoparasite'>It glows with a strange <font color=\"[guardiancolor]\">light</font>!</span>"
 

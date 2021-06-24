@@ -59,7 +59,6 @@
 /obj/machinery/washing_machine/proc/clean_blood()
 	SIGNAL_HANDLER
 
-
 	if(!busy)
 		bloody_mess = FALSE
 		update_icon()

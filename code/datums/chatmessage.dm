@@ -109,7 +109,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 /datum/chatmessage/proc/on_parent_qdel()
 	SIGNAL_HANDLER
 
-
 	qdel(src)
 
 /**

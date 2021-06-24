@@ -19,7 +19,6 @@
 /datum/component/tether/proc/checkTether(mob/mover, newloc)
 	SIGNAL_HANDLER
 
-
 	if (get_dist(mover,newloc) > max_dist)
 		to_chat(mover, "<span class='userdanger'>The [tether_name] runs out of slack and prevents you from moving!</span>")
 		return COMPONENT_MOVABLE_BLOCK_PRE_MOVE

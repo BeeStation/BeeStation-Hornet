@@ -27,7 +27,6 @@
 /datum/component/stationloving/proc/relocate()
 	SIGNAL_HANDLER
 
-
 	var/targetturf = find_safe_turf()
 	if(!targetturf)
 		if(GLOB.blobstart.len > 0)
@@ -44,7 +43,6 @@
 /datum/component/stationloving/proc/check_in_bounds()
 	SIGNAL_HANDLER
 
-
 	if(in_bounds())
 		return
 	else
@@ -57,12 +55,10 @@
 /datum/component/stationloving/proc/check_soul_imbue()
 	SIGNAL_HANDLER
 
-
 	return disallow_soul_imbue
 
 /datum/component/stationloving/proc/check_mark_retrieval()
 	SIGNAL_HANDLER
-
 
 	return COMPONENT_BLOCK_MARK_RETRIEVAL
 
@@ -87,7 +83,6 @@
 
 /datum/component/stationloving/proc/check_deletion(datum/source, force) // TRUE = interrupt deletion, FALSE = proceed with deletion
 	SIGNAL_HANDLER
-
 
 	var/turf/T = get_turf(parent)
 

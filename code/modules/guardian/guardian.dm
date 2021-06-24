@@ -220,7 +220,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/proc/OnMoved()
 	SIGNAL_HANDLER
 
-
 	snapback()
 	setup_barriers()
 
@@ -587,7 +586,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/proc/Reviveify()
 	SIGNAL_HANDLER
 
-
 	revive()
 	var/mob/gost = grab_ghost(TRUE)
 	if(!QDELETED(gost) && gost.ckey)
@@ -595,7 +593,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/proc/OnMindTransfer(datum/_source, mob/old_body, mob/new_body)
 	SIGNAL_HANDLER
-
 
 	if(!QDELETED(old_body))
 		old_body.remove_verb(/mob/living/proc/guardian_comm)

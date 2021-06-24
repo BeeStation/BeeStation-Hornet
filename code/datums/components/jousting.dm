@@ -25,13 +25,11 @@
 /datum/component/jousting/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 
-
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/mob_move, TRUE)
 	current_holder = user
 
 /datum/component/jousting/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER
-
 
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 	current_holder = null
@@ -40,7 +38,6 @@
 
 /datum/component/jousting/proc/on_attack(datum/source, mob/living/target, mob/user)
 	SIGNAL_HANDLER
-
 
 	if(user != current_holder)
 		return
@@ -69,7 +66,6 @@
 
 /datum/component/jousting/proc/mob_move(datum/source, newloc, dir)
 	SIGNAL_HANDLER
-
 
 	if(!current_holder || (requires_mount && ((requires_mob_riding && !ismob(current_holder.buckled)) || (!current_holder.buckled))))
 		return

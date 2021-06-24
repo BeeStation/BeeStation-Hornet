@@ -35,18 +35,15 @@
 /datum/component/explodable/proc/explodable_insert_item(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
 	SIGNAL_HANDLER
 
-
 	check_if_detonate(I)
 
 /datum/component/explodable/proc/explodable_impact(datum/source, atom/hit_atom, datum/thrownthing/throwingdatum)
 	SIGNAL_HANDLER
 
-
 	check_if_detonate(hit_atom)
 
 /datum/component/explodable/proc/explodable_bump(datum/source, atom/A)
 	SIGNAL_HANDLER
-
 
 	check_if_detonate(A)
 
@@ -54,13 +51,11 @@
 /datum/component/explodable/proc/explodable_attack(datum/source, atom/movable/target, mob/living/user)
 	SIGNAL_HANDLER
 
-
 	check_if_detonate(target)
 
 ///Called when you attack a specific body part of the thing this is equipped on. Useful for exploding pants.
 /datum/component/explodable/proc/explodable_attack_zone(datum/source, damage, damagetype, def_zone)
 	SIGNAL_HANDLER
-
 
 	if(!def_zone)
 		return
@@ -73,12 +68,10 @@
 /datum/component/explodable/proc/on_equip(datum/source, mob/equipper, slot)
 	SIGNAL_HANDLER
 
-
 	RegisterSignal(equipper, COMSIG_MOB_APPLY_DAMGE,  .proc/explodable_attack_zone)
 
 /datum/component/explodable/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER
-
 
 	UnregisterSignal(user, COMSIG_MOB_APPLY_DAMGE)
 
@@ -122,7 +115,6 @@
 /// Expldoe and remove the object
 /datum/component/explodable/proc/detonate()
 	SIGNAL_HANDLER
-
 
 	var/atom/A = parent
 	explosion(A, devastation_range, heavy_impact_range, light_impact_range, flash_range) //epic explosion time

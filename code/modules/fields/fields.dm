@@ -321,7 +321,6 @@
 /obj/item/multitool/field_debug/proc/on_mob_move()
 	SIGNAL_HANDLER
 
-
 	check_turf(get_turf(src))
 
 /obj/item/multitool/field_debug/process()

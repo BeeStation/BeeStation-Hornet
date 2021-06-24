@@ -125,7 +125,6 @@
 /obj/item/clothing/head/helmet/space/plasmaman/proc/wipe_that_smile_off_your_face()
 	SIGNAL_HANDLER
 
-
 	if(smile)
 		smile = FALSE
 		cut_overlays()

@@ -55,7 +55,6 @@
 
 /datum/element/decal/proc/late_update_icon(atom/source)
 	SIGNAL_HANDLER
-
 	if(source && istype(source))
 		source.update_icon()
 		UnregisterSignal(source,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
@@ -63,19 +62,16 @@
 
 /datum/element/decal/proc/apply_overlay(atom/source, list/overlay_list)
 	SIGNAL_HANDLER
-
 	overlay_list += pic
 
 /datum/element/decal/proc/shuttlemove_react(datum/source, turf/newT)
 	SIGNAL_HANDLER
-
 
 	Detach(source)
 	newT.AddElement(/datum/element/decal, pic.icon, pic.icon_state, pic.dir, cleanable, pic.color, pic.layer, description, pic.alpha, rotated)
 
 /datum/element/decal/proc/rotate_react(datum/source, old_dir, new_dir)
 	SIGNAL_HANDLER
-
 
 	if(old_dir == new_dir)
 		return
@@ -85,7 +81,6 @@
 /datum/element/decal/proc/clean_react(datum/source, clean_types)
 	SIGNAL_HANDLER
 
-
 	if(clean_types & cleanable)
 		Detach(source)
 		return TRUE
@@ -93,6 +88,5 @@
 
 /datum/element/decal/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-
 
 	examine_list += description

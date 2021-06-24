@@ -32,7 +32,6 @@
 /datum/component/armor_plate/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-
 	//upgrade_item could also be typecast here instead
 	if(ismecha(parent))
 		if(amount)
@@ -50,7 +49,6 @@
 
 /datum/component/armor_plate/proc/applyplate(datum/source, obj/item/I, mob/user, params)
 	SIGNAL_HANDLER
-
 
 	if(!istype(I,upgrade_item))
 		return
@@ -80,7 +78,6 @@
 
 /datum/component/armor_plate/proc/dropplates(datum/source, force)
 	SIGNAL_HANDLER
-
 
 	if(ismecha(parent)) //items didn't drop the plates before and it causes erroneous behavior for the time being with collapsible helmets
 		for(var/i in 1 to amount)

@@ -27,7 +27,6 @@
 /obj/item/binoculars/proc/on_wield(obj/item/source, mob/user)
 	SIGNAL_HANDLER
 
-
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/unwield)
 	listeningTo = user
 	user.visible_message("<span class='notice'>[user] holds [src] up to [user.p_their()] eyes.</span>", "<span class='notice'>You hold [src] up to your eyes.</span>")
@@ -53,7 +52,6 @@
 
 /obj/item/binoculars/proc/on_unwield(obj/item/source, mob/user)
 	SIGNAL_HANDLER
-
 
 	unwield(user)
 

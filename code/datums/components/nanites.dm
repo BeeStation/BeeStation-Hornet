@@ -123,13 +123,11 @@
 /datum/component/nanites/proc/delete_nanites()
 	SIGNAL_HANDLER
 
-
 	qdel(src)
 
 //Syncs the nanite component to another, making it so programs are the same with the same programming (except activation status)
 /datum/component/nanites/proc/sync(datum/signal_source, datum/component/nanites/source, full_overwrite = TRUE, copy_activation = FALSE)
 	SIGNAL_HANDLER
-
 
 	var/list/programs_to_remove = programs.Copy()
 	var/list/programs_to_add = source.programs.Copy()
@@ -165,7 +163,6 @@
 /datum/component/nanites/proc/add_program(datum/source, datum/nanite_program/new_program, datum/nanite_program/source_program)
 	SIGNAL_HANDLER
 
-
 	for(var/X in programs)
 		var/datum/nanite_program/NP = X
 		if(NP.unique && NP.type == new_program.type)
@@ -187,7 +184,6 @@
 /datum/component/nanites/proc/adjust_nanites(datum/source, amount)
 	SIGNAL_HANDLER
 
-
 	nanite_volume = clamp(nanite_volume + amount, 0, max_nanites)
 	if(nanite_volume <= 0) //oops we ran out
 		qdel(src)
@@ -206,7 +202,6 @@
 /datum/component/nanites/proc/on_emp(datum/source, severity)
 	SIGNAL_HANDLER
 
-
 	nanite_volume *= (rand(60, 90) * 0.01)		//Lose 10-40% of nanites
 	adjust_nanites(null, -(rand(5, 50)))		//Lose 5-50 flat nanite volume
 	if(prob(40/severity))
@@ -218,7 +213,6 @@
 
 /datum/component/nanites/proc/on_shock(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
 	SIGNAL_HANDLER
-
 
 	if(flags & SHOCK_ILLUSION || shock_damage < 1)
 		return
@@ -233,7 +227,6 @@
 /datum/component/nanites/proc/on_minor_shock(datum/source)
 	SIGNAL_HANDLER
 
-
 	adjust_nanites(null, -(rand(5, 15)))			//Lose 5-15 flat nanite volume
 	for(var/X in programs)
 		var/datum/nanite_program/NP = X
@@ -242,12 +235,10 @@
 /datum/component/nanites/proc/check_stealth(datum/source)
 	SIGNAL_HANDLER
 
-
 	return stealth
 
 /datum/component/nanites/proc/on_death(datum/source, gibbed)
 	SIGNAL_HANDLER
-
 
 	for(var/X in programs)
 		var/datum/nanite_program/NP = X
@@ -256,14 +247,12 @@
 /datum/component/nanites/proc/receive_signal(datum/source, code, source = "an unidentified source")
 	SIGNAL_HANDLER
 
-
 	for(var/X in programs)
 		var/datum/nanite_program/NP = X
 		NP.receive_signal(code, source)
 
 /datum/component/nanites/proc/receive_comm_signal(datum/source, comm_code, comm_message, comm_source = "an unidentified source")
 	SIGNAL_HANDLER
-
 
 	for(var/X in programs)
 		if(istype(X, /datum/nanite_program/comm))
@@ -273,13 +262,11 @@
 /datum/component/nanites/proc/check_viable_biotype()
 	SIGNAL_HANDLER
 
-
 	if(!(MOB_ORGANIC in host_mob.mob_biotypes) && !(MOB_UNDEAD in host_mob.mob_biotypes) && !HAS_TRAIT(host_mob, TRAIT_NANITECOMPATIBLE))
 		qdel(src) //bodytype no longer sustains nanites
 
 /datum/component/nanites/proc/check_access(datum/source, obj/O)
 	SIGNAL_HANDLER
-
 
 	for(var/datum/nanite_program/access/access_program in programs)
 		if(access_program.activated)
@@ -291,24 +278,20 @@
 /datum/component/nanites/proc/set_volume(datum/source, amount)
 	SIGNAL_HANDLER
 
-
 	nanite_volume = clamp(amount, 0, max_nanites)
 
 /datum/component/nanites/proc/set_max_volume(datum/source, amount)
 	SIGNAL_HANDLER
-
 
 	max_nanites = max(1, max_nanites)
 
 /datum/component/nanites/proc/set_cloud(datum/source, amount)
 	SIGNAL_HANDLER
 
-
 	cloud_id = clamp(amount, 0, 100)
 
 /datum/component/nanites/proc/set_cloud_sync(datum/source, method)
 	SIGNAL_HANDLER
-
 
 	switch(method)
 		if(NANITE_CLOUD_TOGGLE)
@@ -321,18 +304,15 @@
 /datum/component/nanites/proc/set_safety(datum/source, amount)
 	SIGNAL_HANDLER
 
-
 	safety_threshold = clamp(amount, 0, max_nanites)
 
 /datum/component/nanites/proc/set_regen(datum/source, amount)
 	SIGNAL_HANDLER
 
-
 	regen_rate = amount
 
 /datum/component/nanites/proc/confirm_nanites()
 	SIGNAL_HANDLER
-
 
 	return TRUE //yup i exist
 
@@ -346,7 +326,6 @@
 
 /datum/component/nanites/proc/get_programs(datum/source, list/nanite_programs)
 	SIGNAL_HANDLER
-
 
 	nanite_programs |= programs
 
@@ -365,7 +344,6 @@
 
 /datum/component/nanites/proc/nanite_scan(datum/source, mob/user, full_scan)
 	SIGNAL_HANDLER
-
 
 	if(!full_scan)
 		if(!stealth)
@@ -391,7 +369,6 @@
 
 /datum/component/nanites/proc/nanite_ui_data(datum/source, list/data, scan_level)
 	SIGNAL_HANDLER
-
 
 	data["has_nanites"] = TRUE
 	data["nanite_volume"] = nanite_volume

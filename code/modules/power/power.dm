@@ -110,7 +110,6 @@
 /obj/machinery/proc/power_change()
 	SIGNAL_HANDLER
 
-
 	if(powered(power_channel))
 		stat &= ~NOPOWER
 	else

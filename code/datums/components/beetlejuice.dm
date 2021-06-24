@@ -36,7 +36,6 @@
 /datum/component/beetlejuice/proc/say_react(datum/source, mob/speaker,message)
 	SIGNAL_HANDLER
 
-
 	if(!speaker || !message || !active)
 		return
 	var/found = R.Find(message)

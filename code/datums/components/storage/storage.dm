@@ -146,7 +146,6 @@
 /datum/component/storage/proc/canreach_react(datum/source, list/next)
 	SIGNAL_HANDLER
 
-
 	var/datum/component/storage/concrete/master = master()
 	if(!master)
 		return
@@ -159,7 +158,6 @@
 /datum/component/storage/proc/on_move()
 	SIGNAL_HANDLER
 
-
 	var/atom/A = parent
 	for(var/mob/living/L in can_see_contents())
 		if(!L.CanReach(A))
@@ -167,7 +165,6 @@
 
 /datum/component/storage/proc/attack_self(datum/source, mob/M)
 	SIGNAL_HANDLER
-
 
 	if(locked)
 		var/atom/host = parent
@@ -178,7 +175,6 @@
 
 /datum/component/storage/proc/preattack_intercept(datum/source, obj/O, mob/M, params)
 	SIGNAL_HANDLER
-
 
 	if(!isitem(O) || !click_gather || SEND_SIGNAL(O, COMSIG_CONTAINS_STORAGE))
 		return FALSE
@@ -302,7 +298,6 @@
 /datum/component/storage/proc/set_locked(datum/source, new_state)
 	SIGNAL_HANDLER
 
-
 	locked = new_state
 	if(locked)
 		close_all()
@@ -407,7 +402,6 @@
 /datum/component/storage/proc/close_all()
 	SIGNAL_HANDLER
 
-
 	. = FALSE
 	for(var/mob/M in can_see_contents())
 		close(M)
@@ -415,7 +409,6 @@
 
 /datum/component/storage/proc/emp_act(datum/source, severity)
 	SIGNAL_HANDLER
-
 
 	if(emp_shielded)
 		return
@@ -453,7 +446,6 @@
 /datum/component/storage/proc/_remove_and_refresh(datum/source, atom/movable/thing)
 	SIGNAL_HANDLER
 
-
 	_removal_reset(thing)
 	refresh_mob_views()
 
@@ -468,7 +460,6 @@
 
 /datum/component/storage/proc/refresh_mob_views()
 	SIGNAL_HANDLER
-
 
 	var/list/seeing = can_see_contents()
 	for(var/i in seeing)
@@ -502,7 +493,6 @@
 /datum/component/storage/proc/attackby(datum/source, obj/item/I, mob/M, params)
 	SIGNAL_HANDLER
 
-
 	if(istype(I, /obj/item/hand_labeler))
 		var/obj/item/hand_labeler/labeler = I
 		if(labeler.mode)
@@ -534,7 +524,6 @@
 /datum/component/storage/proc/signal_return_inv(datum/source, list/interface, recursive = TRUE)
 	SIGNAL_HANDLER
 
-
 	if(!islist(interface))
 		return FALSE
 	interface |= return_inv(recursive)
@@ -542,7 +531,6 @@
 
 /datum/component/storage/proc/mousedrop_onto(datum/source, atom/over_object, mob/M)
 	SIGNAL_HANDLER
-
 
 	set waitfor = FALSE
 	. = COMPONENT_NO_MOUSEDROP
@@ -588,7 +576,6 @@
 
 /datum/component/storage/proc/mousedrop_receive(datum/source, atom/movable/O, mob/M)
 	SIGNAL_HANDLER
-
 
 	if(isitem(O))
 		var/obj/item/I = O
@@ -694,7 +681,6 @@
 /datum/component/storage/proc/signal_insertion_attempt(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
 	SIGNAL_HANDLER
 
-
 	if((!force && !can_be_inserted(I, TRUE, M)) || (I == parent))
 		return FALSE
 	return handle_item_insertion(I, silent, M)
@@ -702,36 +688,30 @@
 /datum/component/storage/proc/signal_can_insert(datum/source, obj/item/I, mob/M, silent = FALSE)
 	SIGNAL_HANDLER
 
-
 	return can_be_inserted(I, silent, M)
 
 /datum/component/storage/proc/show_to_ghost(datum/source, mob/dead/observer/M)
 	SIGNAL_HANDLER
-
 
 	return user_show_to_mob(M, TRUE)
 
 /datum/component/storage/proc/signal_show_attempt(datum/source, mob/showto, force = FALSE)
 	SIGNAL_HANDLER
 
-
 	return user_show_to_mob(showto, force)
 
 /datum/component/storage/proc/on_check()
 	SIGNAL_HANDLER
-
 
 	return TRUE
 
 /datum/component/storage/proc/check_locked()
 	SIGNAL_HANDLER
 
-
 	return locked
 
 /datum/component/storage/proc/signal_take_type(datum/source, type, atom/destination, amount = INFINITY, check_adjacent = FALSE, force = FALSE, mob/user, list/inserted)
 	SIGNAL_HANDLER
-
 
 	if(!force)
 		if(check_adjacent)
@@ -756,7 +736,6 @@
 /datum/component/storage/proc/signal_fill_type(datum/source, type, amount = 20, force = FALSE)
 	SIGNAL_HANDLER
 
-
 	var/atom/real_location = real_location()
 	if(!force)
 		amount = min(remaining_space_items(), amount)
@@ -768,7 +747,6 @@
 
 /datum/component/storage/proc/on_attack_hand(datum/source, mob/user)
 	SIGNAL_HANDLER
-
 
 	var/atom/A = parent
 	if(!attack_hand_interact)
@@ -806,7 +784,6 @@
 /datum/component/storage/proc/signal_on_pickup(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-
 	var/atom/A = parent
 	update_actions()
 	for(var/mob/M as() in hearers(1, A))
@@ -816,7 +793,6 @@
 /datum/component/storage/proc/signal_take_obj(datum/source, atom/movable/AM, new_loc, force = FALSE)
 	SIGNAL_HANDLER
 
-
 	if(!(AM in real_location()))
 		return FALSE
 	return remove_from_storage(AM, new_loc)
@@ -824,18 +800,15 @@
 /datum/component/storage/proc/signal_quick_empty(datum/source, atom/loctarget)
 	SIGNAL_HANDLER
 
-
 	return do_quick_empty(loctarget)
 
 /datum/component/storage/proc/signal_hide_attempt(datum/source, mob/target)
 	SIGNAL_HANDLER
 
-
 	return hide_from(target)
 
 /datum/component/storage/proc/on_alt_click(datum/source, mob/user)
 	SIGNAL_HANDLER
-
 
 	if(!isliving(user) || !user.CanReach(parent))
 		return
@@ -873,7 +846,6 @@
 
 /datum/component/storage/proc/action_trigger(datum/signal_source, datum/action/source)
 	SIGNAL_HANDLER
-
 
 	gather_mode_switch(source.owner)
 	return COMPONENT_ACTION_BLOCK_TRIGGER

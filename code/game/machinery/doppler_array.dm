@@ -138,7 +138,6 @@
 												  took,orig_dev_range,orig_heavy_range,orig_light_range)
 	SIGNAL_HANDLER
 
-
 	if(stat & NOPOWER)
 		return FALSE
 	var/turf/zone = get_turf(src)

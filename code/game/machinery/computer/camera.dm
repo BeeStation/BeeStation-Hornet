@@ -288,7 +288,6 @@
 /obj/machinery/computer/security/telescreen/entertainment/proc/BigClick()
 	SIGNAL_HANDLER
 
-
 	interact(usr)
 
 /obj/machinery/computer/security/telescreen/entertainment/proc/notify(on)

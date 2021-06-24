@@ -53,7 +53,6 @@
 /datum/guardian_ability/major/explosive/proc/kaboom(atom/source, mob/living/explodee)
 	SIGNAL_HANDLER
 
-
 	if(!istype(explodee))
 		return
 	if(explodee == guardian || explodee == guardian.summoner?.current || guardian.hasmatchingsummoner(explodee))
@@ -74,7 +73,6 @@
 
 /datum/guardian_ability/major/explosive/proc/display_examine(datum/source, mob/user, text)
 	SIGNAL_HANDLER
-
 
 	text += "<span class='holoparasite'>It glows with a strange <font color=\"[guardian.guardiancolor]\">light</font>!</span>"
 

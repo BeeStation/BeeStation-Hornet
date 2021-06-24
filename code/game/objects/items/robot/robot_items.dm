@@ -788,7 +788,6 @@
 /obj/item/borg/apparatus/proc/safedecon()
 	SIGNAL_HANDLER
 
-
 	if(stored)
 		stored.forceMove(get_turf(src))
 		stored = null

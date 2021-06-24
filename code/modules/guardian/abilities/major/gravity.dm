@@ -25,7 +25,6 @@
 /datum/guardian_ability/major/gravity/proc/recheck_distances()
 	SIGNAL_HANDLER
 
-
 	for(var/datum/component/C in gravito_targets)
 		if(get_dist(src, C.parent) > (master_stats.potential * 2))
 			remove_gravity(C)
@@ -53,7 +52,6 @@
 
 /datum/guardian_ability/major/gravity/proc/__distance_check(atom/movable/AM, OldLoc, Dir, Forced)
 	SIGNAL_HANDLER
-
 
 	if(get_dist(src, AM) > (master_stats.potential * 2))
 		remove_gravity(AM.GetComponent(/datum/component/forced_gravity))

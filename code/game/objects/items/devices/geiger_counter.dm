@@ -216,7 +216,6 @@
 /obj/item/geiger_counter/cyborg/proc/redirect_rad_act(datum/source, amount)
 	SIGNAL_HANDLER
 
-
 	rad_act(amount)
 
 /obj/item/geiger_counter/cyborg/dropped()

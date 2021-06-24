@@ -38,7 +38,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /datum/component/gps/item/proc/interact(datum/source, mob/user)
 	SIGNAL_HANDLER
 
-
 	if(user)
 		INVOKE_ASYNC(src, .proc/ui_interact, user)
 
@@ -46,13 +45,11 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /datum/component/gps/item/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-
 	examine_list += "<span class='notice'>Alt-click to switch it [tracking ? "off":"on"].</span>"
 
 ///Called on COMSIG_ATOM_EMP_ACT
 /datum/component/gps/item/proc/on_emp_act(datum/source, severity)
 	SIGNAL_HANDLER
-
 
 	emped = TRUE
 	var/atom/A = parent
@@ -71,7 +68,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 ///Calls toggletracking
 /datum/component/gps/item/proc/on_AltClick(datum/source, mob/user)
 	SIGNAL_HANDLER
-
 
 	toggletracking(user)
 

@@ -33,7 +33,6 @@
 /datum/element/bed_tuckable/proc/tuck_into_bed(obj/item/tucked, obj/structure/bed/target_bed, mob/living/tucker)
 	SIGNAL_HANDLER
 
-
 	if(!istype(target_bed))
 		return
 
@@ -56,7 +55,6 @@
  */
 /datum/element/bed_tuckable/proc/untuck(obj/item/tucked)
 	SIGNAL_HANDLER
-
 
 	tucked.transform = turn(tucked.transform, -rotation_degree)
 	UnregisterSignal(tucked, COMSIG_ITEM_PICKUP)

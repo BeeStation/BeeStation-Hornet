@@ -31,7 +31,6 @@
 /datum/component/spawner/proc/stop_spawning(force)
 	SIGNAL_HANDLER
 
-
 	STOP_PROCESSING(SSprocessing, src)
 	for(var/mob/living/simple_animal/L in spawned_mobs)
 		if(L.nest == src)

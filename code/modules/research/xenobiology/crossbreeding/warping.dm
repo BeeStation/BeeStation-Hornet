@@ -71,7 +71,6 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 /obj/effect/warped_rune/proc/clean_rune()
 	SIGNAL_HANDLER
 
-
 	qdel(src)
 
 ///using the extract on the floor will "draw" the rune.

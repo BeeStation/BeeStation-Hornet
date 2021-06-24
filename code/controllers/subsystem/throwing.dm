@@ -96,7 +96,6 @@ SUBSYSTEM_DEF(throwing)
 /datum/thrownthing/proc/on_thrownthing_qdel(atom/movable/source, force)
 	SIGNAL_HANDLER
 
-
 	qdel(src)
 
 

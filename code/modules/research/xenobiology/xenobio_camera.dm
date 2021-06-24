@@ -137,7 +137,6 @@
 /obj/machinery/computer/camera_advanced/xenobio/proc/on_contents_del(datum/source, atom/deleted)
 	SIGNAL_HANDLER
 
-
 	if(current_potion == deleted)
 		current_potion = null
 	if(deleted in stored_slimes)
@@ -371,7 +370,6 @@
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickCtrl(mob/living/user, mob/living/simple_animal/slime/S)
 	SIGNAL_HANDLER
 
-
 	if(!GLOB.cameranet.checkTurfVis(S.loc))
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return
@@ -384,7 +382,6 @@
 //Feeds a potion to slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickAlt(mob/living/user, mob/living/simple_animal/slime/S)
 	SIGNAL_HANDLER
-
 
 	if(!GLOB.cameranet.checkTurfVis(S.loc))
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
@@ -402,7 +399,6 @@
 //Picks up slime
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoSlimeClickShift(mob/living/user, mob/living/simple_animal/slime/S)
 	SIGNAL_HANDLER
-
 
 	if(!GLOB.cameranet.checkTurfVis(S.loc))
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
@@ -428,7 +424,6 @@
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoTurfClickShift(mob/living/user, turf/open/T)
 	SIGNAL_HANDLER
 
-
 	if(!GLOB.cameranet.checkTurfVis(T))
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return
@@ -445,7 +440,6 @@
 //Place monkey
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoTurfClickCtrl(mob/living/user, turf/open/T)
 	SIGNAL_HANDLER
-
 
 	if(!GLOB.cameranet.checkTurfVis(T))
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
@@ -468,7 +462,6 @@
 //Pick up monkey
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/monkey/M)
 	SIGNAL_HANDLER
-
 
 	if(!GLOB.cameranet.checkTurfVis(M.loc))
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")

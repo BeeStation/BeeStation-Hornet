@@ -289,7 +289,6 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 /obj/machinery/computer/holodeck/proc/remove_from_holo_lists(datum/to_remove, _forced)
 	SIGNAL_HANDLER
 
-
 	spawned -= to_remove
 	UnregisterSignal(to_remove, COMSIG_PARENT_PREQDELETED)
 

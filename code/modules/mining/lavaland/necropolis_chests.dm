@@ -24,7 +24,6 @@
 /obj/structure/closet/crate/necropolis/tendril/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
 	SIGNAL_HANDLER
 
-
 	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
 		return FALSE
 	var/loot = rand(1,25)
@@ -333,7 +332,6 @@
 
 /obj/effect/wisp/proc/update_user_sight(mob/user)
 	SIGNAL_HANDLER
-
 
 	user.sight |= sight_flags
 	if(!isnull(lighting_alpha))

@@ -104,7 +104,6 @@
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 
-
 	if(require_twohands && slot == ITEM_SLOT_HANDS) // force equip the item
 		wield(user)
 	if(!user.is_holding(parent) && wielded && !require_twohands)
@@ -113,7 +112,6 @@
 /// Triggered on drop of item containing the component
 /datum/component/two_handed/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER
-
 
 	if(require_twohands)
 		unwield(user, show_message=TRUE)
@@ -125,7 +123,6 @@
 /// Triggered on attack self of the item containing the component
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
 	SIGNAL_HANDLER
-
 
 	if(wielded)
 		unwield(user)
@@ -264,7 +261,6 @@
 /datum/component/two_handed/proc/on_attack(obj/item/source, mob/living/target, mob/living/user)
 	SIGNAL_HANDLER
 
-
 	if(wielded && attacksound)
 		var/obj/item/parent_item = parent
 		playsound(parent_item.loc, attacksound, 50, TRUE)
@@ -276,7 +272,6 @@
  */
 /datum/component/two_handed/proc/on_update_icon(datum/source)
 	SIGNAL_HANDLER
-
 
 	if(icon_wielded && wielded)
 		var/obj/item/parent_item = parent
@@ -290,7 +285,6 @@
 /datum/component/two_handed/proc/on_moved(datum/source, mob/user, dir)
 	SIGNAL_HANDLER
 
-
 	unwield(user)
 
 /**
@@ -298,7 +292,6 @@
  */
 /datum/component/two_handed/proc/on_swap_hands(mob/user, obj/item/held_item)
 	SIGNAL_HANDLER
-
 
 	if(!held_item)
 		return
@@ -310,7 +303,6 @@
  */
 /datum/component/two_handed/proc/on_sharpen(obj/item/item, amount, max_amount)
 	SIGNAL_HANDLER
-
 
 	if(!item)
 		return COMPONENT_BLOCK_SHARPEN_BLOCKED
@@ -332,7 +324,6 @@
 
 /datum/component/two_handed/proc/get_wielded(obj/item/source)
 	SIGNAL_HANDLER
-
 
 	if(wielded)
 		return COMPONENT_IS_WIELDED

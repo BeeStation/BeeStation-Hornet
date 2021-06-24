@@ -73,7 +73,6 @@
 /datum/syndicate_contract/proc/enter_check(datum/source, sent_mob)
 	SIGNAL_HANDLER
 
-
 	if (istype(source, /obj/structure/closet/supplypod/extractionpod))
 		if (isliving(sent_mob))
 			var/mob/living/M = sent_mob

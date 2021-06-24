@@ -24,7 +24,6 @@
 /datum/component/mirv/proc/projectile_hit(atom/fired_from, atom/movable/firer, atom/target, Angle)
 	SIGNAL_HANDLER
 
-
 	INVOKE_ASYNC(src, .proc/do_shrapnel, firer, target)
 
 /datum/component/mirv/proc/do_shrapnel(mob/firer, atom/target)

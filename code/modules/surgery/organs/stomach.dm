@@ -125,7 +125,6 @@
 /obj/item/organ/stomach/cell/proc/charge(datum/source, amount, repairs)
 	SIGNAL_HANDLER
 
-
 	if(owner.nutrition < NUTRITION_LEVEL_WELL_FED)
 		owner.nutrition += (amount / 10) //IPCs can feed themselves from a borg recharging station
 	if(owner.nutrition >= NUTRITION_LEVEL_WELL_FED)
@@ -155,12 +154,10 @@
 /obj/item/organ/stomach/ethereal/proc/charge(datum/source, amount, repairs)
 	SIGNAL_HANDLER
 
-
 	adjust_charge(amount / 70)
 
 /obj/item/organ/stomach/ethereal/proc/on_electrocute(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
 	SIGNAL_HANDLER
-
 
 	if(flags & SHOCK_ILLUSION)
 		return

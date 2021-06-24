@@ -79,7 +79,6 @@
 /datum/species/ethereal/proc/on_emp_act(mob/living/carbon/human/H, severity)
 	SIGNAL_HANDLER
 
-
 	EMPeffect = TRUE
 	spec_updatehealth(H)
 	to_chat(H, "<span class='notice'>You feel the light of your body leave you.</span>")
@@ -91,7 +90,6 @@
 
 /datum/species/ethereal/proc/on_emag_act(mob/living/carbon/human/H, mob/user)
 	SIGNAL_HANDLER
-
 
 	if(emageffect)
 		return

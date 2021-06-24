@@ -96,7 +96,6 @@
 /datum/component/uplink/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
 	SIGNAL_HANDLER
 
-
 	if(!active)
 		return	//no hitting everyone/everything just to try to slot tcs in!
 	if(istype(I, /obj/item/stack/telecrystal))
@@ -124,7 +123,6 @@
 
 /datum/component/uplink/proc/interact(datum/source, mob/user)
 	SIGNAL_HANDLER
-
 
 	if(locked)
 		return
@@ -244,7 +242,6 @@
 /datum/component/uplink/proc/implant_activation()
 	SIGNAL_HANDLER
 
-
 	var/obj/item/implant/implant = parent
 	locked = FALSE
 	interact(null, implant.imp_in)
@@ -252,20 +249,17 @@
 /datum/component/uplink/proc/implanting(datum/source, list/arguments)
 	SIGNAL_HANDLER
 
-
 	var/mob/user = arguments[2]
 	owner = "[user.key]"
 
 /datum/component/uplink/proc/old_implant(datum/source, list/arguments, obj/item/implant/new_implant)
 	SIGNAL_HANDLER
 
-
 	// It kinda has to be weird like this until implants are components
 	return SEND_SIGNAL(new_implant, COMSIG_IMPLANT_EXISTING_UPLINK, src)
 
 /datum/component/uplink/proc/new_implant(datum/source, datum/component/uplink/uplink)
 	SIGNAL_HANDLER
-
 
 	uplink.telecrystals += telecrystals
 	return COMPONENT_DELETE_NEW_IMPLANT
@@ -274,7 +268,6 @@
 
 /datum/component/uplink/proc/new_ringtone(datum/source, mob/living/user, new_ring_text)
 	SIGNAL_HANDLER
-
 
 	var/obj/item/pda/master = parent
 	if(trim(lowertext(new_ring_text)) != trim(lowertext(unlock_code)))
@@ -294,7 +287,6 @@
 /datum/component/uplink/proc/new_frequency(datum/source, list/arguments)
 	SIGNAL_HANDLER
 
-
 	var/obj/item/radio/master = parent
 	var/frequency = arguments[1]
 	if(frequency != unlock_code)
@@ -309,7 +301,6 @@
 
 /datum/component/uplink/proc/pen_rotation(datum/source, degrees, mob/living/carbon/user)
 	SIGNAL_HANDLER
-
 
 	var/obj/item/pen/master = parent
 	previous_attempts += degrees

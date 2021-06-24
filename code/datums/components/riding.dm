@@ -31,7 +31,6 @@
 /datum/component/riding/proc/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
 	SIGNAL_HANDLER
 
-
 	var/atom/movable/AM = parent
 	restore_position(M)
 	unequip_buckle_inhands(M)
@@ -40,7 +39,6 @@
 
 /datum/component/riding/proc/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
 	SIGNAL_HANDLER
-
 
 	handle_vehicle_offsets()
 
@@ -59,7 +57,6 @@
 
 /datum/component/riding/proc/vehicle_moved(datum/source)
 	SIGNAL_HANDLER
-
 
 	var/atom/movable/AM = parent
 	for(var/i in AM.buckled_mobs)
@@ -223,7 +220,6 @@
 
 /datum/component/riding/human/proc/on_host_unarmed_melee(atom/target)
 	SIGNAL_HANDLER
-
 
 	var/mob/living/carbon/human/H = parent
 	if(H.a_intent == INTENT_DISARM && (target in H.buckled_mobs))

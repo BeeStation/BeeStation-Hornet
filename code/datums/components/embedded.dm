@@ -148,7 +148,6 @@
 /datum/component/embedded/proc/jostleCheck()
 	SIGNAL_HANDLER
 
-
 	var/mob/living/carbon/victim = parent
 	var/chance = jostle_chance
 	if(victim.m_intent == MOVE_INTENT_WALK || victim.lying)
@@ -174,7 +173,6 @@
 /// Called when a carbon with an object embedded/stuck to them inspects themselves and clicks the appropriate link to begin ripping the item out. This handles the ripping attempt, descriptors, and dealing damage, then calls safe_remove()
 /datum/component/embedded/proc/ripOut(datum/source, obj/item/I, obj/item/bodypart/limb)
 	SIGNAL_HANDLER
-
 
 	if(I != weapon || src.limb != limb)
 		return
@@ -206,7 +204,6 @@
 /datum/component/embedded/proc/safeRemove(to_hands)
 	SIGNAL_HANDLER
 
-
 	var/mob/living/carbon/victim = parent
 	limb.embedded_objects -= weapon
 	UnregisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING)) // have to do it here otherwise we trigger weaponDeleted()
@@ -223,7 +220,6 @@
 /// Something deleted or moved our weapon while it was embedded, how rude!
 /datum/component/embedded/proc/weaponDeleted()
 	SIGNAL_HANDLER
-
 
 	var/mob/living/carbon/victim = parent
 	limb.embedded_objects -= weapon

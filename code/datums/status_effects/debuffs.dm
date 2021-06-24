@@ -570,7 +570,6 @@
 /datum/status_effect/trance/proc/hypnotize(datum/source, message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	SIGNAL_HANDLER
 
-
 	if(!owner.can_hear())
 		return
 	if(speaker == owner)

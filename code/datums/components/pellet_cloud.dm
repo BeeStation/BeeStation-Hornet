@@ -87,7 +87,6 @@
 /datum/component/pellet_cloud/proc/create_casing_pellets(obj/item/ammo_casing/shell, atom/target, mob/living/user, fired_from, randomspread, spread, zone_override, params, distro)
 	SIGNAL_HANDLER
 
-
 	shooter = user
 	var/turf/targloc = get_turf(target)
 	if(!zone_override)
@@ -118,7 +117,6 @@
   */
 /datum/component/pellet_cloud/proc/create_blast_pellets(obj/O, mob/living/lanced_by)
 	SIGNAL_HANDLER
-
 
 	var/atom/A = parent
 
@@ -193,7 +191,6 @@
 /datum/component/pellet_cloud/proc/pellet_hit(obj/item/projectile/P, atom/movable/firer, atom/target, Angle)
 	SIGNAL_HANDLER
 
-
 	pellets -= P
 	terminated++
 	hits++
@@ -207,7 +204,6 @@
 ///One of our pellets disappeared due to hitting their max range (or just somehow got qdel'd), remove it from our list and check if we're done (terminated == num_pellets)
 /datum/component/pellet_cloud/proc/pellet_range(obj/item/projectile/P)
 	SIGNAL_HANDLER
-
 
 	pellets -= P
 	terminated++
@@ -255,7 +251,6 @@
 /datum/component/pellet_cloud/proc/grenade_armed(obj/item/nade)
 	SIGNAL_HANDLER
 
-
 	if(ismob(nade.loc))
 		shooter = nade.loc
 	LAZYINITLIST(bodies)
@@ -267,14 +262,12 @@
 /datum/component/pellet_cloud/proc/grenade_dropped(obj/item/nade, mob/living/slick_willy)
 	SIGNAL_HANDLER
 
-
 	shooter = slick_willy
 	grenade_moved()
 
 /// Our grenade has moved, reset var/list/bodies so we're "on top" of any mobs currently on the tile
 /datum/component/pellet_cloud/proc/grenade_moved()
 	SIGNAL_HANDLER
-
 
 	LAZYCLEARLIST(bodies)
 	for(var/mob/living/L in get_turf(parent))
@@ -285,13 +278,11 @@
 /datum/component/pellet_cloud/proc/grenade_uncrossed(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-
 	bodies -= AM
 
 /// Our grenade or landmine or caseless shell or whatever tried deleting itself, so we intervene and nullspace it until we're done here
 /datum/component/pellet_cloud/proc/nullspace_parent()
 	SIGNAL_HANDLER
-
 
 	var/atom/movable/AM = parent
 	AM.moveToNullspace()
@@ -301,7 +292,6 @@
 /// Someone who was originally "under" the grenade has moved off the tile and is now eligible for being a martyr and "covering" it
 /datum/component/pellet_cloud/proc/on_target_qdel(atom/target)
 	SIGNAL_HANDLER
-
 
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	targets_hit -= target

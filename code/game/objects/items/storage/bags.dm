@@ -153,7 +153,6 @@
 /obj/item/storage/bag/ore/proc/Pickup_ores(mob/living/user)
 	SIGNAL_HANDLER
 
-
 	var/show_message = FALSE
 	var/obj/structure/ore_box/box
 	var/turf/tile = user.loc

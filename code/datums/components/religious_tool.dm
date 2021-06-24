@@ -130,7 +130,6 @@
 /datum/component/religious_tool/proc/on_examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-
 	var/can_i_see = FALSE
 	if(isobserver(user))
 		can_i_see = TRUE

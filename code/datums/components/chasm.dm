@@ -31,7 +31,6 @@
 /datum/component/chasm/proc/Entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-
 	START_PROCESSING(SSobj, src)
 	drop_stuff(AM)
 

@@ -22,7 +22,6 @@
 /datum/component/construction/proc/examine(datum/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-
 	if(desc)
 		examine_list += desc
 
@@ -34,7 +33,6 @@
 
 /datum/component/construction/proc/action(datum/source, obj/item/I, mob/living/user)
 	SIGNAL_HANDLER
-
 
 	return INVOKE_ASYNC(src, .proc/check_step, I, user)
 

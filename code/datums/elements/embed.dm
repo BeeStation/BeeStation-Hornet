@@ -70,7 +70,6 @@
 /datum/element/embed/proc/checkEmbed(obj/item/weapon, mob/living/carbon/victim, hit_zone, datum/thrownthing/throwingdatum, forced=FALSE)
 	SIGNAL_HANDLER
 
-
 	if(!istype(victim) || HAS_TRAIT(victim, TRAIT_PIERCEIMMUNE))
 		return
 
@@ -113,7 +112,6 @@
 /datum/element/embed/proc/severancePackage(obj/item/weapon, datum/element/E)
 	SIGNAL_HANDLER
 
-
 	if(istype(E, /datum/element/embed))
 		Detach(weapon)
 
@@ -121,13 +119,11 @@
 /datum/element/embed/proc/detachFromWeapon(obj/weapon)
 	SIGNAL_HANDLER
 
-
 	Detach(weapon)
 
 ///Someone inspected our embeddable item
 /datum/element/embed/proc/examined(obj/item/I, mob/user, list/examine_list)
 	SIGNAL_HANDLER
-
 
 	if(I.isEmbedHarmless())
 		examine_list += "[I] feels sticky, and could probably get stuck to someone if thrown properly!"
@@ -142,7 +138,6 @@
   */
 /datum/element/embed/proc/checkEmbedProjectile(obj/item/projectile/P, atom/movable/firer, atom/hit, angle, hit_zone)
 	SIGNAL_HANDLER
-
 
 	if(!iscarbon(hit))
 		Detach(P)
@@ -172,7 +167,6 @@
   */
 /datum/element/embed/proc/tryForceEmbed(obj/item/I, atom/target, hit_zone, forced=FALSE)
 	SIGNAL_HANDLER
-
 
 	var/obj/item/bodypart/limb
 	var/mob/living/carbon/C

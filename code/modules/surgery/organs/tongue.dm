@@ -36,7 +36,6 @@
 
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
-
 /obj/item/organ/tongue/Insert(mob/living/carbon/M, special = 0)
 	..()
 	if(say_mod && M.dna && M.dna.species)
