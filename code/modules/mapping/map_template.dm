@@ -103,8 +103,8 @@
 		affected_turf.levelupdate()
 
 /datum/map_template/proc/load_new_z()
-	var/x = round((world.maxx - width)/2)
-	var/y = round((world.maxy - height)/2)
+	var/x = round((world.maxx - width) * 0.5) + 1
+	var/y = round((world.maxy - height) * 0.5) + 1
 
 	var/datum/space_level/level = SSmapping.add_new_zlevel(name, list(ZTRAIT_AWAY = TRUE))
 	var/datum/parsed_map/parsed = load_map(file(mappath), x, y, level.z_value, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
@@ -130,6 +130,13 @@
 		return
 	if(T.y+height > world.maxy)
 		return
+
+	var/list/border = block(locate(max(T.x-1, 1), max(T.y-1, 1),  T.z),
+							locate(min(T.x+width+1, world.maxx), min(T.y+height+1, world.maxy), T.z))
+	for(var/L in border)
+		var/turf/turf_to_disable = L
+		SSair.remove_from_active(turf_to_disable) //stop processing turfs along the border to prevent runtimes, we return it in initTemplateBounds()
+		turf_to_disable.atmos_adjacent_turfs?.Cut()
 
 	// Accept cached maps, but don't save them automatically - we don't want
 	// ruins clogging up memory for the whole round.
