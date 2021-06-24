@@ -501,11 +501,11 @@
 		examine_delay_length *= 1.5
 	else if(ismob(examined_thing) && examined_thing != src)
 		examine_delay_length *= 2
-	
+
 	if(examine_delay_length > 0 && !do_after(src, examine_delay_length, target = examined_thing))
 		to_chat(src, "<span class='notice'>You can't get a good feel for what is there.</span>")
 		return FALSE
-	
+
 	//now we touch the thing we're examining
 	/// our current intent, so we can go back to it after touching
 	var/previous_intent = a_intent
@@ -762,7 +762,7 @@
   */
 /mob/MouseDrop_T(atom/dropping, atom/user)
 	. = ..()
-	if(ismob(dropping) && dropping != user)
+	if(ismob(dropping) && dropping != user && !isAI(dropping))
 		var/mob/M = dropping
 		if(ismob(user))
 			var/mob/U = user
@@ -870,7 +870,11 @@
 	return FALSE
 
 /mob/proc/swap_hand()
-	return
+	var/obj/item/held_item = get_active_held_item()
+	if(SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP)
+		to_chat(src, "<span class='warning'>Your other hand is too busy holding [held_item].</span>")
+		return FALSE
+	return TRUE
 
 /mob/proc/activate_hand(selhand)
 	return

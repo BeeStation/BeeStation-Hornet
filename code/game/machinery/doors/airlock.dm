@@ -239,6 +239,10 @@
 	if(!hasPower() || !canAIControl())
 		return
 
+	//Check radio signal jamming
+	if(is_jammed())
+		return
+
 	// Check packet access level.
 	if(!check_access_ntnet(data))
 		return
@@ -424,10 +428,14 @@
 /obj/machinery/door/airlock/proc/canAIControl(mob/user)
 	if(protected_door)
 		return FALSE
+	if(is_jammed())
+		return FALSE
 	return ((aiControlDisabled != 1) && !isAllPowerCut())
 
 /obj/machinery/door/airlock/proc/canAIHack()
 	if(protected_door)
+		return FALSE
+	if(is_jammed())
 		return FALSE
 	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerCut()));
 
@@ -746,6 +754,9 @@
 		return
 	if(detonated)
 		to_chat(user, "<span class='warning'>Unable to interface. Airlock control panel damaged.</span>")
+		return
+	if(is_jammed())
+		to_chat(user, "<span class='warning'>Unable to interface. Remote communications not responding.</span>")
 		return
 
 	ui_interact(user)
@@ -1107,9 +1118,9 @@
 	else if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
 	else if( !welded && !operating)
-		if(istype(I, /obj/item/twohanded/fireaxe)) //being fireaxe'd
-			var/obj/item/twohanded/fireaxe/F = I
-			if(!F.wielded)
+		if(istype(I, /obj/item/fireaxe)) //being fireaxe'd
+			var/obj/item/fireaxe/F = I
+			if(F && !ISWIELDED(F))
 				to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
 				return
 		INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
