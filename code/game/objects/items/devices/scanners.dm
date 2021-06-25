@@ -427,7 +427,7 @@ GENE SCANNER
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
 	icon_state = "health_adv"
-	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy and store advanced research."
+	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy and store advanced surgery procedures."
 	advanced = TRUE
 	var/list/advanced_surgeries = list()
 
