@@ -1,6 +1,6 @@
 import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, NoticeBox, Section, Tabs } from '../components';
+import { Button, Flex, NoticeBox, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const PortraitPicker = (props, context) => {
@@ -15,19 +15,23 @@ export const PortraitPicker = (props, context) => {
   const TABS = [
     {
       name: 'Common Portraits',
+      asset_prefix: "library",
       list: library,
     },
     {
       name: 'Secure Portraits',
+      asset_prefix: "library_secure",
       list: library_secure,
     },
     {
       name: 'Private Portraits',
+      asset_prefix: "library_private",
       list: library_private,
     },
   ];
   const tab2list = TABS[tabIndex].list;
-  const current_portrait = tab2list[listIndex]["title"];
+  const current_portrait_title = tab2list[listIndex]["title"];
+  const current_portrait_asset_name = TABS[tabIndex].asset_prefix + "_" + tab2list[listIndex]["md5"];
   return (
     <Window
       theme="ntos"
@@ -40,24 +44,29 @@ export const PortraitPicker = (props, context) => {
             <Section fitted>
               <Tabs fluid textAlign="center">
                 {TABS.map((tabObj, i) => (
-                  !!tabObj.list !== 0 && (
-                    <Tabs.Tab
-                      key={i}
-                      selected={i === tabIndex}
-                      onClick={() => { setListIndex(0); setTabIndex(i); }}>
-                      {tabObj.name}
-                    </Tabs.Tab>
-                  )
+                  <Tabs.Tab
+                    key={i}
+                    selected={i === tabIndex}
+                    onClick={() => {
+                      setListIndex(0);
+                      setTabIndex(i);
+                    }}>
+                    {tabObj.name}
+                  </Tabs.Tab>
                 ))}
               </Tabs>
             </Section>
           </Flex.Item>
           <Flex.Item mb={1} grow={2}>
             <Section fill>
-              <Flex height="100%" align="center" justify="center" direction="column">
+              <Flex
+                height="100%"
+                align="center"
+                justify="center"
+                direction="column">
                 <Flex.Item>
                   <img
-                    src={resolveAsset(current_portrait)}
+                    src={resolveAsset(current_portrait_asset_name)}
                     height="96px"
                     width="96px"
                     style={{
@@ -66,7 +75,7 @@ export const PortraitPicker = (props, context) => {
                     }} />
                 </Flex.Item>
                 <Flex.Item className="Section__titleText">
-                  {current_portrait}
+                  {current_portrait_title}
                 </Flex.Item>
               </Flex>
             </Section>
