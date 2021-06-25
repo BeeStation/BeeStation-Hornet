@@ -13,6 +13,7 @@ SUBSYSTEM_DEF(persistence)
 	var/list/antag_rep_change = list()
 	var/list/picture_logging_information = list()
 	var/list/obj/structure/sign/picture_frame/photo_frames
+	var/list/obj/structure/sign/painting/painting_frames = list()
 	var/list/obj/item/storage/photo_album/photo_albums
 	var/list/paintings = list()
 
