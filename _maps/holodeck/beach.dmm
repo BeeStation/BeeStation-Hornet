@@ -1,6 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/open/floor/holofloor/beach/water,
+/turf/open/indestructible/sound/pool{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "water"
+	},
 /area/template_noop)
 "f" = (
 /obj/item/shovel/spade,
@@ -16,7 +19,10 @@
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "k" = (
-/turf/open/floor/holofloor/beach/coast_b,
+/turf/open/indestructible/sound/pool/end{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "sandwater_b"
+	},
 /area/template_noop)
 "q" = (
 /obj/item/reagent_containers/glass/bucket,
@@ -24,18 +30,6 @@
 /area/template_noop)
 "t" = (
 /turf/open/floor/holofloor/carpet,
-/area/template_noop)
-"E" = (
-/turf/open/indestructible/sound/pool/end{
-	icon = 'icons/misc/beach.dmi';
-	icon_state = "sandwater_b"
-	},
-/area/template_noop)
-"F" = (
-/turf/open/indestructible/sound/pool{
-	icon = 'icons/misc/beach.dmi';
-	icon_state = "water"
-	},
 /area/template_noop)
 "H" = (
 /obj/effect/holodeck_effect/mobspawner/monkey,
@@ -76,8 +70,8 @@ R
 R
 R
 J
-E
-F
+k
+a
 "}
 (2,1,1) = {"
 R
@@ -88,8 +82,8 @@ R
 R
 R
 Q
-E
-F
+k
+a
 "}
 (3,1,1) = {"
 X
@@ -100,8 +94,8 @@ R
 t
 t
 J
-E
-F
+k
+a
 "}
 (4,1,1) = {"
 R
@@ -112,8 +106,8 @@ h
 R
 R
 J
-E
-F
+k
+a
 "}
 (5,1,1) = {"
 R
@@ -124,8 +118,8 @@ R
 t
 t
 J
-E
-F
+k
+a
 "}
 (6,1,1) = {"
 R
@@ -136,8 +130,8 @@ X
 g
 R
 q
-E
-F
+k
+a
 "}
 (7,1,1) = {"
 R
@@ -148,8 +142,8 @@ R
 R
 R
 f
-E
-F
+k
+a
 "}
 (8,1,1) = {"
 W
@@ -160,8 +154,8 @@ H
 R
 R
 J
-E
-F
+k
+a
 "}
 (9,1,1) = {"
 R
