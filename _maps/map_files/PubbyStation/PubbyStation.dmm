@@ -11382,10 +11382,6 @@
 /obj/structure/weightmachine/weightlifter,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
-"azE" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/crew_quarters/fitness)
 "azF" = (
 /obj/machinery/power/apc{
 	areastring = "/area/crew_quarters/fitness/recreation";
@@ -11398,7 +11394,7 @@
 	},
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "azG" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
@@ -11919,7 +11915,7 @@
 	},
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "aAU" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
@@ -11940,7 +11936,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "aAV" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -12451,7 +12447,7 @@
 	},
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "aBZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -12461,7 +12457,7 @@
 	},
 /obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "aCa" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -14016,7 +14012,7 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "aFi" = (
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
@@ -25877,7 +25873,7 @@
 	},
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "bfY" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /obj/effect/turf_decal/tile/neutral,
@@ -35916,7 +35912,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "bBW" = (
 /turf/open/space,
 /area/space)
@@ -58478,10 +58474,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"jZE" = (
-/obj/effect/landmark/start/hangover,
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
 "jZG" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/tile/red,
@@ -59107,7 +59099,7 @@
 	},
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "kSF" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -59223,7 +59215,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "lhu" = (
 /obj/machinery/shieldgen,
 /obj/machinery/light{
@@ -59810,7 +59802,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "mql" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
@@ -60679,9 +60671,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"nVg" = (
-/turf/closed/wall,
-/area/crew_quarters/fitness)
 "nVz" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/sign/directions/evac{
@@ -62788,7 +62777,7 @@
 /obj/structure/table,
 /obj/item/paper/fluff/holodeck/disclaimer,
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "qXq" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/abandoned,
@@ -64736,7 +64725,7 @@
 	pixel_x = 28
 	},
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "uos" = (
 /obj/machinery/computer/camera_advanced/base_construction,
 /obj/effect/turf_decal/stripes/line{
@@ -64864,7 +64853,7 @@
 "uwN" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "uwX" = (
 /obj/machinery/field/generator,
 /turf/open/floor/plating,
@@ -65416,7 +65405,7 @@
 /obj/effect/landmark/start/assistant,
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
-/area/crew_quarters/fitness)
+/area/crew_quarters/fitness/recreation)
 "vzP" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
@@ -110921,7 +110910,7 @@ aiS
 sbk
 akn
 aiU
-nVg
+atn
 aur
 aur
 aur
@@ -110932,7 +110921,7 @@ aur
 aur
 aur
 aur
-nVg
+atn
 aEj
 aEj
 aEj
@@ -111178,7 +111167,7 @@ aiS
 sbk
 awC
 sbk
-nVg
+atn
 aur
 aur
 aur
@@ -111189,7 +111178,7 @@ aur
 aur
 aur
 aur
-nVg
+atn
 pGo
 aEk
 aEk
@@ -111435,7 +111424,7 @@ aiS
 sbk
 awC
 sbk
-nVg
+atn
 aur
 aur
 aur
@@ -111446,7 +111435,7 @@ aur
 aur
 aur
 aur
-nVg
+atn
 uWK
 iZl
 aEj
@@ -111692,18 +111681,18 @@ aiS
 aiS
 awD
 aiS
-nVg
-nVg
-nVg
-azE
+atn
+atn
+atn
+avm
 aAU
-azE
-azE
+avm
+avm
 aAU
-azE
-azE
-nVg
-nVg
+avm
+avm
+atn
+atn
 aFR
 aEj
 aEj
@@ -111951,15 +111940,15 @@ awC
 aiU
 aiS
 ayw
-nVg
+atn
 azF
 aBY
 bBV
 qXj
 mpU
-jZE
+pcj
 uwN
-nVg
+atn
 aKp
 xxI
 xef
@@ -112465,15 +112454,15 @@ sbk
 sbk
 aiS
 aiS
-nVg
-nVg
+atn
+atn
 aFh
 aFh
 aFh
 aFh
-nVg
-nVg
-nVg
+atn
+atn
+atn
 aFj
 tdx
 tHI
