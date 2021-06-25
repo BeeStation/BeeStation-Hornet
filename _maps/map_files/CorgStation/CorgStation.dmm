@@ -37789,11 +37789,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engine_room)
-"kjG" = (
-/obj/machinery/light/small/broken,
-/obj/structure/alien/weeds,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "kjY" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -48874,13 +48869,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
-"nqu" = (
-/obj/structure/chair/office{
-	dir = 8
-	},
-/obj/structure/alien/weeds,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "nqA" = (
 /obj/structure/sign/warning/vacuum/external{
 	pixel_x = 32
@@ -50901,11 +50889,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"nRN" = (
-/obj/structure/alien/egg/burst,
-/obj/structure/alien/weeds,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "nRU" = (
 /obj/machinery/air_sensor/atmos/nitrogen_tank,
 /turf/open/floor/engine/n2,
@@ -57102,11 +57085,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
-"pEf" = (
-/obj/structure/closet/secure_closet/miner,
-/obj/structure/alien/weeds,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "pEk" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/brown,
@@ -60700,12 +60678,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"qHT" = (
-/obj/structure/alien/egg/burst,
-/obj/structure/alien/weeds,
-/obj/effect/spawner/lootdrop/glowstick,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "qIg" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow,
@@ -64448,6 +64420,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"rRi" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "rRl" = (
 /obj/machinery/vending/engivend,
 /obj/machinery/camera/autoname,
@@ -77255,10 +77233,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
-"vzu" = (
-/obj/structure/alien/weeds,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "vzR" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -77671,6 +77645,10 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"vEQ" = (
+/obj/structure/closet/secure_closet/miner,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "vER" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -128065,7 +128043,7 @@ kfy
 vZm
 cwY
 pTS
-pEf
+vEQ
 ecf
 nFX
 eif
@@ -128321,8 +128299,8 @@ pLJ
 kfy
 gbM
 pTS
-vzu
-nRN
+pLJ
+pLJ
 ecf
 pTS
 lhZ
@@ -128579,7 +128557,7 @@ kfy
 gbM
 pLJ
 cnl
-kjG
+sGC
 kfy
 ijO
 nbg
@@ -128834,7 +128812,7 @@ mVi
 mVi
 mVi
 iCW
-nqu
+rRi
 pLJ
 pLJ
 qyH
@@ -129091,8 +129069,8 @@ frW
 cZk
 mVi
 dxQ
-qHT
-vzu
+nAK
+pLJ
 pLJ
 kfy
 pTS
