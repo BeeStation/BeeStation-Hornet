@@ -158,8 +158,8 @@
 	var/turf/T = get_turf(new_corgi)
 	if (new_corgi.inventory_head)
 		if(!L.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
-			new_corgi.inventory_head.forceMove(T)		
-	new_corgi.inventory_back?.forceMove(T)	
+			new_corgi.inventory_head.forceMove(T)
+	new_corgi.inventory_back?.forceMove(T)
 	new_corgi.inventory_head = null
 	new_corgi.inventory_back = null
 	qdel(new_corgi)
@@ -935,7 +935,7 @@
 	random_unrestricted = FALSE
 
 /datum/reagent/lithium/on_mob_life(mob/living/carbon/M)
-	if((M.mobility_flags & MOBILITY_MOVE) && !isspaceturf(M.loc))
+	if((M.mobility_flags & MOBILITY_MOVE) && !isspaceturf(M.loc) && isturf(M.loc))
 		step(M, pick(GLOB.cardinals))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
