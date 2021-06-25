@@ -427,9 +427,14 @@ GENE SCANNER
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
 	icon_state = "health_adv"
-	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy."
+	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy and store advanced research."
 	advanced = TRUE
 	var/list/advanced_surgeries = list()
+
+/obj/item/healthanalyzer/advanced/examine(mob/user)
+	. = ..()
+	. += "Click on consoles or disks with surgery research to upload it to the analyzer."
+	. += "To begin advanced surgeries, please hold the analyzer on your other hand."
 
 /obj/item/healthanalyzer/advanced/afterattack(obj/item/O, mob/user, proximity)
 	. = ..()
