@@ -374,8 +374,12 @@
 
 /obj/item/dualsaber/toy/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_wielded = 0, force_unwielded = 0, wieldsound='sound/weapons/saberon.ogg', unwieldsound='sound/weapons/saberoff.ogg')
-
+	var/datum/component/two_handed/two_hander = GetComponent(/datum/component/two_handed)
+	two_hander.force_wielded = 0
+	two_hander.force_unwielded = 0
+	two_hander.block_power_unwielded = 0
+	two_hander.block_power_wielded = 0
+	
 /obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
