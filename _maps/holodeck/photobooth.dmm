@@ -32,10 +32,16 @@
 "t" = (
 /obj/structure/table/wood,
 /obj/item/toy/crayon/spraycan{
+	charges = 99999999999999999;
+	desc = "A metallic container containing near unlimited  tasty holographic paint.";
+	name = "holographic spray can";
 	pixel_x = 5;
 	pixel_y = 5
 	},
 /obj/item/toy/crayon/spraycan{
+	charges = 99999999999999999;
+	desc = "A metallic container containing near unlimited  tasty holographic paint.";
+	name = "holographic spray can";
 	pixel_x = -5;
 	pixel_y = 5
 	},
