@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/open/floor/holofloor/snow,
+/turf/open/floor/white,
 /area/template_noop)
 "c" = (
 /obj/structure/dresser,
@@ -55,6 +55,7 @@
 "H" = (
 /obj/structure/table/wood,
 /obj/item/storage/crayons,
+/obj/item/razor,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "L" = (
