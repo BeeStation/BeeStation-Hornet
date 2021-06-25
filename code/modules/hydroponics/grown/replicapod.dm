@@ -152,7 +152,7 @@
 		features["mcolor"] = "#59CE00"
 	for(var/V in quirks)
 		new V(podman)
-	podman.hardset_dna(null,null,podman.real_name,blood_type, new /datum/species/pod,features)//Discard SE's and UI's, podman cloning is inaccurate, and always make them a podman
+	podman.hardset_dna(null,null,podman.real_name,blood_type, new /datum/species/pod,features,null)//Discard SE's and UI's, podman cloning is inaccurate, and always make them a podman
 	podman.set_cloned_appearance()
 	// On harvest
 	to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")

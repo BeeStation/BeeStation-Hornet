@@ -368,6 +368,7 @@
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 5
+	twohand_force = 0
 	attack_verb = list("attacked", "struck", "hit")
 	block_upgrade_walk = 1
 	block_power = -100
