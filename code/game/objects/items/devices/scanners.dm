@@ -429,6 +429,25 @@ GENE SCANNER
 	icon_state = "health_adv"
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy."
 	advanced = TRUE
+	var/list/advanced_surgeries = list()
+
+/obj/item/healthanalyzer/advanced/afterattack(obj/item/O, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(istype(O, /obj/item/disk/surgery))
+		to_chat(user, "<span class='notice'>You load the surgery protocol from [O] into [src].</span>")
+		var/obj/item/disk/surgery/D = O
+		if(do_after(user, 10, target = O))
+			advanced_surgeries |= D.surgeries
+		return TRUE
+	if(istype(O, /obj/machinery/computer/operating))
+		to_chat(user, "<span class='notice'>You copy surgery protocols from [O] into [src].</span>")
+		var/obj/machinery/computer/operating/OC = O
+		if(do_after(user, 10, target = O))
+			advanced_surgeries |= OC.advanced_surgeries
+		return TRUE
+	return
 
 /obj/item/analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels. Alt-Click to use the built in barometer function."
