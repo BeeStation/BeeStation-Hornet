@@ -25,6 +25,18 @@
 "t" = (
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
+"E" = (
+/turf/open/indestructible/sound/pool/end{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "sandwater_b"
+	},
+/area/template_noop)
+"F" = (
+/turf/open/indestructible/sound/pool{
+	icon = 'icons/misc/beach.dmi';
+	icon_state = "water"
+	},
+/area/template_noop)
 "H" = (
 /obj/effect/holodeck_effect/mobspawner/monkey,
 /turf/open/floor/holofloor/beach,
@@ -64,8 +76,8 @@ R
 R
 R
 J
-k
-a
+E
+F
 "}
 (2,1,1) = {"
 R
@@ -76,8 +88,8 @@ R
 R
 R
 Q
-k
-a
+E
+F
 "}
 (3,1,1) = {"
 X
@@ -88,8 +100,8 @@ R
 t
 t
 J
-k
-a
+E
+F
 "}
 (4,1,1) = {"
 R
@@ -100,8 +112,8 @@ h
 R
 R
 J
-k
-a
+E
+F
 "}
 (5,1,1) = {"
 R
@@ -112,8 +124,8 @@ R
 t
 t
 J
-k
-a
+E
+F
 "}
 (6,1,1) = {"
 R
@@ -124,8 +136,8 @@ X
 g
 R
 q
-k
-a
+E
+F
 "}
 (7,1,1) = {"
 R
@@ -136,8 +148,8 @@ R
 R
 R
 f
-k
-a
+E
+F
 "}
 (8,1,1) = {"
 W
@@ -148,8 +160,8 @@ H
 R
 R
 J
-k
-a
+E
+F
 "}
 (9,1,1) = {"
 R
