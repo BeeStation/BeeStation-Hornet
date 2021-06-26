@@ -131,10 +131,10 @@
 	QDEL_NULL(consume)
 
 ///If this mob gets resisted by something, its trying to escape consumption.
-/*/mob/living/simple_animal/hostile/ooze/gelatinous/proc/resist_act(mob/living/user)
+/mob/living/simple_animal/hostile/ooze/gelatinous/proc/resist_act(mob/living/user)
 	if(!do_after(user, 6 SECONDS)) //6 second struggle
 		return FALSE
-	consume.stop_consuming()*/
+	consume.stop_consuming()
 
 /mob/living/simple_animal/hostile/ooze/gelatinous/add_cell_sample()
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_GELATINOUS, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
@@ -200,7 +200,7 @@
 	var/mob/living/vored_mob
 
 ///Register for owner death
-/datum/action/consume/New(Target)
+/datum/action/consume/Grant(mob/M)
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOB_DEATH, .proc/on_owner_death)
 	RegisterSignal(owner, COMSIG_PARENT_PREQDELETED, .proc/handle_mob_deletion)
@@ -221,7 +221,7 @@
 		to_chat(src, "<span class='warning'>You are already consuming another creature!</span>")
 		return FALSE
 	owner.visible_message("<span class='warning>[ooze] starts attempting to devour [target]!</span>", "<span class='notice'>You start attempting to devour [target].</span>")
-	if(!do_after(ooze, 15, target = ooze.pulling))
+	if(!do_after(ooze, 50, target = ooze.pulling))
 		return FALSE
 	var/mob/living/eat_target = ooze.pulling
 
@@ -261,7 +261,10 @@
 
 ///On owner death dump the current vored mob
 /datum/action/consume/proc/on_owner_death()
-	//SIGNAL_HANDLER
+
+
+
+	to_chat(world, "OWNER DIED")
 	stop_consuming()
 
 
@@ -322,7 +325,6 @@
 
 /obj/effect/proc_holder/globules/Click(location, control, params)
 	. = ..()
-	to_chat(world, "CLICK")
 	if(!isliving(usr))
 		return TRUE
 	var/mob/living/user = usr
@@ -330,7 +332,6 @@
 
 /obj/effect/proc_holder/globules/fire(mob/living/carbon/user)
 	var/message
-	to_chat(world, "FIRE")
 	if(current_cooldown > world.time)
 		to_chat(user, "<span class='notice'>This ability is still on cooldown.</span>")
 		return
@@ -357,10 +358,10 @@
 		return
 
 	ooze.visible_message("<span class='nicegreen>[ooze] launches a mending globule!</span>", "<span class='notice'>You launch a mending globule.</span>")
-	var/obj/item/projectile/globule/globule = new (ooze.loc)
-	globule.preparePixelProjectile(target, ooze, params)
-	globule.def_zone = ooze.zone_selected
-	globule.fire()
+	var/obj/item/mending_globule/globule = new (ooze.loc)
+
+	globule.forceMove(get_turf(ooze.loc))
+	globule.throw_at(target, 7, globule.throw_speed, caller)
 	ooze.adjust_ooze_nutrition(-5)
 	remove_ranged_ability()
 	current_cooldown = world.time + cooldown
@@ -370,27 +371,44 @@
 /obj/effect/proc_holder/globules/on_lose(mob/living/carbon/user)
 	remove_ranged_ability()
 
-///This projectile embeds into mobs and heals them over time.
-/obj/item/projectile/globule
+///This item is what is embedded into the mob, and actually handles healing of mending globules
+/obj/item/mending_globule
 	name = "mending globule"
-	icon_state = "glob_projectile"
-	nodamage = TRUE
-	var/heal_amount = 30
+	desc = "It somehow heals those who touch it."
+	icon = 'icons/obj/xenobiology/vatgrowing.dmi'
+	icon_state = "globule"
+	embedding = list("embed_chance" = 100, ignore_throwspeed_threshold = TRUE, "pain_mult" = 0, "jostle_pain_mult" = 0, "fall chance" = 0.5)
+	var/mob/living/carbon/human/embedded_mob
+	var/heals_left = 10
+	throw_speed = 4
 
-
-/obj/item/projectile/globule/on_hit(atom/target, blocked)
+/obj/item/mending_globule/Destroy()
 	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/C = target
-		var/obj/item/bodypart/healed_bodypart = C.get_bodypart(check_zone(src.def_zone))
-		if(!healed_bodypart)
-			return
-		if(healed_bodypart.status == BODYPART_ORGANIC)
-			if(healed_bodypart.heal_damage(heal_amount, heal_amount))
-				C.update_damage_overlays()
+	embedded_mob = null
 
+/obj/item/mending_globule/embedded(mob/living/carbon/human/embedded_mob, obj/item/bodypart/part)
+	. = ..()
+	if(!istype(embedded_mob))
+		return
+	src.embedded_mob = embedded_mob
+	START_PROCESSING(SSobj, src)
 
+/obj/item/mending_globule/unembedded()
+	. = ..()
+	embedded_mob = null
+	STOP_PROCESSING(SSobj, src)
+	new /obj/effect/decal/cleanable/greenglow/filled(get_turf(src))
+	qdel(src)
 
+///Handles the healing of the mending globule
+/obj/item/mending_globule/process()
+	if(!embedded_mob) //this is fucked
+		return FALSE
+	embedded_mob.heal_overall_damage(1,1)
+	new /obj/effect/temp_visual/heal(get_turf(embedded_mob), "#00ff00")
+	heals_left--
+	if(heals_left <= 0)
+		qdel(src)
 
 ///This action lets you put a mob inside of a cacoon that will inject it with some chemicals.
 /datum/action/cooldown/gel_cocoon

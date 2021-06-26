@@ -274,7 +274,7 @@
 						/datum/reagent/consumable/frostoil = -2,
 						/datum/reagent/consumable/ice = -1)
 	virus_suspectibility = 0
-	resulting_atoms = list()///mob/living/simple_animal/hostile/ooze/gelatinous = 1)
+	resulting_atoms = list(/mob/living/simple_animal/hostile/ooze/gelatinous = 1)
 
 /datum/micro_organism/cell_line/sholean_grapes
 	desc = "Globular ooze particles"
@@ -298,7 +298,7 @@
 						/datum/reagent/consumable/frostoil = -2,
 						/datum/reagent/consumable/ice = -1)
 	virus_suspectibility = 0
-	resulting_atoms = list()///mob/living/simple_animal/hostile/ooze/grapes = 1)
+	resulting_atoms = list(/mob/living/simple_animal/hostile/ooze/grapes = 1)
 
 ////////////////////
 ////	MISC	////
@@ -358,7 +358,7 @@
 	suppressive_reagents = list(
 						/datum/reagent/consumable/sodiumchloride = -3)
 	virus_suspectibility = 0.5
-	resulting_atoms = list()//mob/living/simple_animal/hostile/vatbeast = 1)
+	resulting_atoms = list(/mob/living/simple_animal/hostile/vatbeast = 1)
 
 /datum/micro_organism/cell_line/vat_beast/succeed_growing(obj/machinery/plumbing/growing_vat/vat)
 	. = ..()
