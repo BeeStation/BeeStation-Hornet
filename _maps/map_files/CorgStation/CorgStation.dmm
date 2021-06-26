@@ -11069,9 +11069,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -13557,9 +13554,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "dAF" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
@@ -30290,9 +30284,6 @@
 /area/maintenance/starboard/secondary)
 "ihJ" = (
 /obj/machinery/light,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
@@ -34264,9 +34255,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "jjQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -66804,9 +66792,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "sBg" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -69150,11 +69135,14 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "tkf" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
 /obj/structure/cable/yellow{
-	icon_state = "0-8"
+	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
-/area/maintenance/department/crew_quarters/dorms)
+/area/maintenance/port)
 "tkj" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -70300,14 +70288,14 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "tEc" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 6
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -78492,8 +78480,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "vNJ" = (
-/obj/item/stack/cable_coil/yellow,
 /obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "vNK" = (
@@ -81059,7 +81049,7 @@
 /area/hallway/primary/fore)
 "wzs" = (
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
@@ -81965,6 +81955,9 @@
 "wLr" = (
 /obj/item/stack/cable_coil/yellow,
 /obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port)
 "wLz" = (
@@ -107504,10 +107497,10 @@ iOB
 iQt
 iOB
 vhc
-nDO
-iOB
+aTr
+bTd
 wLr
-sAH
+tkf
 tEc
 gRD
 uFb
@@ -119597,7 +119590,7 @@ qwa
 qwa
 qwa
 tXc
-tkf
+pfu
 qwa
 qwa
 qwa
@@ -119854,9 +119847,9 @@ tDJ
 tdY
 qwa
 tXc
-tDJ
-vNJ
 wzs
+vNJ
+slu
 eNN
 qwa
 tDJ
