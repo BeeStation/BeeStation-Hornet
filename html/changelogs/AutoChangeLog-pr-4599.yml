@@ -1,0 +1,4 @@
+author: eeSPee
+delete-after: true
+changes:
+  - bugfix: Corg cameras in ai sat are now on the ai sat network.
