@@ -15,8 +15,6 @@
 
 	var/disgust = 0
 
-	var/crit_weight = 1 // Multiplier for soft crit unconscious chance.
-	var/critwalk_oxy_mult = 1 // Multiplier for soft crit oxygen damage, for species this should be handled in on_species_gain()/
 //inventory slots
 	var/obj/item/back = null
 	var/obj/item/clothing/mask/wear_mask = null
