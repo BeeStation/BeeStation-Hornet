@@ -64,7 +64,7 @@
 			return
 		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat)) //still does damage. This also lacks a Stat check- felinids beware.
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
-			if(L.stat())
+			if(L.stat)
 				L.emote("scream")
 			if(victims.Find(L) || !L.mind)//this is mostly to avoid neurine-filled catgirls from giving him many free instant heals
 				L.gain_trauma(/datum/brain_trauma/severe/pacifism, TRAUMA_RESILIENCE_SURGERY)
