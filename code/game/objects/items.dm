@@ -1109,3 +1109,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		jostle_pain_mult = (!isnull(embedding["jostle_pain_mult"]) ? embedding["jostle_pain_mult"] : EMBEDDED_JOSTLE_PAIN_MULTIPLIER),\
 		pain_stam_pct = (!isnull(embedding["pain_stam_pct"]) ? embedding["pain_stam_pct"] : EMBEDDED_PAIN_STAM_PCT))
 	return TRUE
+
+//Called by the carbon throw_item() proc. Returns null if the item negates the throw, or a reference to the thing to suffer the throw else.
+/obj/item/proc/on_thrown(mob/living/carbon/user, atom/target)
+	if((item_flags & ABSTRACT) || HAS_TRAIT(src, TRAIT_NODROP))
+		return
+	user.dropItemToGround(src)
+	if(throwforce && HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='notice'>You set [src] down gently on the ground.</span>")
+		return
+	return src

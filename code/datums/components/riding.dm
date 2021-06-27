@@ -29,6 +29,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/vehicle_moved)
 
 /datum/component/riding/proc/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
+	unequip_buckle_inhands(parent)
 	var/atom/movable/AM = parent
 	restore_position(M)
 	unequip_buckle_inhands(M)
@@ -367,3 +368,12 @@
 		if(rider in AM.buckled_mobs)
 			AM.unbuckle_mob(rider)
 	. = ..()
+
+/obj/item/riding_offhand/on_thrown(mob/living/carbon/user, atom/target)
+	if(rider == user)
+		return //Piggyback user.
+	user.unbuckle_mob(rider)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='notice'>You gently let go of [rider].</span>")
+		return
+	return rider
