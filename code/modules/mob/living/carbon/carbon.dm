@@ -90,8 +90,8 @@
 		if(hurt)
 			victim.take_bodypart_damage(10,check_armor = TRUE)
 			take_bodypart_damage(10,check_armor = TRUE)
-			victim.Paralyze(20)
-			Paralyze(20)
+			victim.Paralyze(5)
+			Paralyze(5)
 			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>",\
 				"<span class='userdanger'>You violently crash into [victim]!</span>")
 		playsound(src,'sound/weapons/punch1.ogg',50,1)
