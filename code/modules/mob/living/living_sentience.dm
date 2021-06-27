@@ -1,3 +1,5 @@
+//WHY ISN'T THIS COMPONENT
+
 /mob/living/ghostize(can_reenter_corpse, sentience_retention)
 	. = ..()
 	switch(sentience_retention)
@@ -34,7 +36,7 @@
 		return TRUE
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")
-	remove_form_spawner_menu()
+	remove_from_spawner_menu()
 	return TRUE
 
 /mob/living/proc/set_playable()
@@ -57,7 +59,9 @@
 			return "You have a disdain for the inhabitants of this station, but your goals are more important. Make sure you work towards your objectives with your kin, instead of attacking everything on sight."
 	return ""
 
-/mob/living/proc/remove_form_spawner_menu()
+/mob/living/proc/remove_from_spawner_menu()
 	for(var/spawner in GLOB.mob_spawners)
-		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
+		GLOB.mob_spawners[spawner] -= src
+		if(!length(GLOB.mob_spawners[spawner]))
+			GLOB.mob_spawners -= spawner
 	GLOB.poi_list -= src

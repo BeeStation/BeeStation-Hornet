@@ -28,7 +28,7 @@
 		. += "<span class='notice'>It looks like the dents could be <i>welded</i> smooth.</span>"
 		return
 	if(attachment_holes)
-		. += "<span class='notice'>There are a few attachment holes for a new <i>tile</i> or reinforcement <i>rods</i>.</span>"
+		. += "<span class='notice'>There are a few attachment holes for a new <i>tile</i>, reinforcement <i>sheets</i> or catwalk <i>rods</i>.</span>"
 	else
 		. += "<span class='notice'>You might be able to build ontop of it with some <i>tiles</i>...</span>"
 

@@ -65,6 +65,8 @@
 			deadchat_broadcast(rendered, follow_target = src, turf_target = T, message_type=DEADCHAT_DEATHRATTLE)
 		mind.store_memory("Time of death: [tod]", 0)
 	remove_from_alive_mob_list()
+	if(playable)
+		remove_from_spawner_menu()
 	if(!gibbed && !was_dead_before)
 		add_to_dead_mob_list()
 
