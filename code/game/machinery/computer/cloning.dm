@@ -84,6 +84,9 @@
 		if(pod.occupant)
 			break
 
+		if(R.fields["body_only"])
+			continue
+
 		var/result = grow_clone_from_record(pod, R)
 		if(result & CLONING_SUCCESS)
 			temp = "[R.fields["name"]] => Cloning cycle in progress..."
