@@ -158,7 +158,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "q" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-05"
 	},
 /obj/effect/turf_decal/tile/neutral,

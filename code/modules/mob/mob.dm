@@ -608,11 +608,28 @@
 /mob/verb/memory()
 	set name = "Notes"
 	set category = "IC"
-	set desc = "View/Edit your character's notes memory."
+	set desc = "View your character's notes memory."
 	if(mind)
 		mind.show_memory(src)
 	else
 		to_chat(src, "You don't have a mind datum for some reason, so you can't look at your notes, if you had any.")
+
+/**
+  * Add a note to the mind datum
+  */
+/mob/verb/add_memory(msg as message)
+	set name = "Add Note"
+	set category = "IC"
+	if(mind)
+		if (world.time < memory_throttle_time)
+			return
+		memory_throttle_time = world.time + 5 SECONDS
+		msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
+		msg = sanitize(msg)
+
+		mind.store_memory(msg)
+	else
+		to_chat(src, "You don't have a mind datum for some reason, so you can't add a note to it.")
 
 /**
   * Allows you to respawn, abandoning your current mob
@@ -745,7 +762,7 @@
   */
 /mob/MouseDrop_T(atom/dropping, atom/user)
 	. = ..()
-	if(ismob(dropping) && dropping != user)
+	if(ismob(dropping) && dropping != user && !isAI(dropping))
 		var/mob/M = dropping
 		if(ismob(user))
 			var/mob/U = user
@@ -853,7 +870,11 @@
 	return FALSE
 
 /mob/proc/swap_hand()
-	return
+	var/obj/item/held_item = get_active_held_item()
+	if(SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP)
+		to_chat(src, "<span class='warning'>Your other hand is too busy holding [held_item].</span>")
+		return FALSE
+	return TRUE
 
 /mob/proc/activate_hand(selhand)
 	return

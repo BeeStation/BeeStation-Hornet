@@ -35,6 +35,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/AltClick(mob/user)
 	if(can_interact(user))
 		volume_rate = MAX_TRANSFER_RATE
+		balloon_alert(user, "Set to [volume_rate] L/s")
 		update_icon()
 	return
 

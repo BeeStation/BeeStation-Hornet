@@ -288,7 +288,7 @@
 /datum/proc/LoadComponent(component_type, ...)
 	. = GetComponent(component_type)
 	if(!.)
-		_AddComponent(args)
+		return _AddComponent(args)
 
 /datum/component/proc/RemoveComponent()
 	if(!parent)

@@ -2,11 +2,15 @@
 	set invisibility = 0
 	if (src.notransform)
 		return
-
 	..()
 	adjustOxyLoss(-10) //we're a robot!
 	handle_robot_hud_updates()
 	handle_robot_cell()
+
+/mob/living/silicon/robot/proc/handle_jamming()
+	if(deployed && is_jammed())
+		to_chat(src, "<span class='warning robot'>Remote connection with target lost.</span>")
+		undeploy()
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)
