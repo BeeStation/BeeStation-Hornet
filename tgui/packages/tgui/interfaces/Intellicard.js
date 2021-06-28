@@ -17,7 +17,6 @@ export const Intellicard = (props, context) => {
   const offline = isDead || isBraindead;
   return (
     <Window
-      resizable
       width={500}
       height={500}>
       <Window.Content scrollable>
