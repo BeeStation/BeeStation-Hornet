@@ -47,6 +47,12 @@
 	var/atom/movable/emissive_blocker/em_block
 
 
+	///Lazylist to keep track on the sources of illumination.
+	var/list/affected_dynamic_lights
+	///Highest-intensity light affecting us, which determines our visibility.
+	var/affecting_dynamic_lumi = 0
+
+
 /atom/movable/Initialize(mapload)
 	. = ..()
 	switch(blocks_emissive)
@@ -59,11 +65,46 @@
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
 			em_block = new(src, render_target)
-			add_overlay(list(em_block))
+			vis_contents += em_block
+	if(opacity)
+		AddElement(/datum/element/light_blocking)
+	if(light_system == MOVABLE_LIGHT)
+		AddComponent(/datum/component/overlay_lighting)
 
-/atom/movable/Destroy()
+/atom/movable/Destroy(force)
+	QDEL_NULL(proximity_monitor)
+	QDEL_NULL(language_holder)
 	QDEL_NULL(em_block)
-	return ..()
+
+	unbuckle_all_mobs(force = TRUE)
+
+	if(loc)
+		//Restore air flow if we were blocking it (movables with ATMOS_PASS_PROC will need to do this manually if necessary)
+		if(((CanAtmosPass == ATMOS_PASS_DENSITY && density) || CanAtmosPass == ATMOS_PASS_NO) && isturf(loc))
+			CanAtmosPass = ATMOS_PASS_YES
+			air_update_turf(TRUE)
+		loc.handle_atom_del(src)
+
+	if(opacity)
+		RemoveElement(/datum/element/light_blocking)
+
+	invisibility = INVISIBILITY_ABSTRACT
+
+	if(pulledby)
+		pulledby.stop_pulling()
+
+	if(orbiting)
+		orbiting.end_orbit(src)
+		orbiting = null
+
+	. = ..()
+
+	for(var/movable_content in contents)
+		qdel(movable_content)
+
+	LAZYCLEARLIST(client_mobs_in_contents)
+
+	moveToNullspace()
 
 /atom/movable/proc/update_emissive_block()
 	if(!blocks_emissive)

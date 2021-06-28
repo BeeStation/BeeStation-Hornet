@@ -169,7 +169,7 @@ Contains:
 	item_color = "ert_commander"
 	armor = list("melee" = 65, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 80, "stamina" = 70)
 	strip_delay = 130
-	brightness_on = 7
+	light_range = 7
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list(
@@ -368,7 +368,8 @@ Contains:
 	icon_state = "carp_helm"
 	item_state = "syndicate"
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 20, "energy" = 20, "bomb" = 30, "bio" = 100, "rad" = 75, "fire" = 60, "acid" = 75, "stamina" = 40)
-	brightness_on = 0 //luminosity when on
+	light_system = NO_LIGHT_SUPPORT
+	light_range = 0 //luminosity when on
 	actions_types = list()
 
 /obj/item/clothing/head/helmet/space/hardsuit/carp/Initialize()
@@ -522,7 +523,7 @@ Contains:
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY | SNUG_FIT
 	max_heat_protection_temperature = 100
-	brightness_on = null
+	light_range = null
 	actions_types = null
 
 /obj/item/clothing/head/helmet/space/hardsuit/skinsuit/attack_self(mob/user)
