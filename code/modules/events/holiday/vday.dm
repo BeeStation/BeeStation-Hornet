@@ -39,7 +39,7 @@ GLOBAL_LIST(valentine_mobs)
 	//Locate all the failures
 	var/list/valentines = list()
 	for(var/mob/living/M in GLOB.player_list)
-		if(!M.stat && M.client && M.mind && !M.mind.has_antag_datum(/datum/antagonist/valentine))
+		if(M.is_conscious() && M.client && M.mind && !M.mind.has_antag_datum(/datum/antagonist/valentine))
 			valentines |= M
 
 	while(valentines.len)

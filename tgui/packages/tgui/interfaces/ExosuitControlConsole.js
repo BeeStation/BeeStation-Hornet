@@ -1,5 +1,4 @@
 import { toFixed } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
@@ -11,7 +10,6 @@ export const ExosuitControlConsole = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={500}
       height={500}>
       <Window.Content scrollable>
@@ -25,7 +23,7 @@ export const ExosuitControlConsole = (props, context) => {
             key={mech.tracker_ref}
             title={mech.name}
             buttons={(
-              <Fragment>
+              <>
                 <Button
                   icon="envelope"
                   content="Send Message"
@@ -43,7 +41,7 @@ export const ExosuitControlConsole = (props, context) => {
                   onClick={() => act('shock', {
                     tracker_ref: mech.tracker_ref,
                   })} />
-              </Fragment>
+              </>
             )}>
             <LabeledList>
               <LabeledList.Item label="Integrity">

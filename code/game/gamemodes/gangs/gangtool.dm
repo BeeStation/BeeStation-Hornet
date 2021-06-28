@@ -60,9 +60,6 @@
 		else
 			dat += "This device is not authorized to promote.<br>"
 	else
-		if(gang.domination_time != NOT_DOMINATING)
-			dat += "<center><font color='red'>Takeover In Progress:<br><B>[DisplayTimeText(gang.domination_time_remaining() * 10)] remain</B></font></center>"
-
 		dat += "Registration: <B>[gang.name] Gang Boss</B><br>"
 		dat += "Organization Size: <B>[gang.members.len]</B> | Station Control: <B>[gang.territories.len] territories under control.</B> | Influence: <B>[gang.influence]</B><br>"
 		dat += "Time until Influence grows: <B>[time2text(gang.next_point_time - world.time, "mm:ss")]</B><br>"
@@ -143,7 +140,7 @@
 			return
 		var/ping = "<span class='danger'><B><i>[gang.name] [G.message_name] [user.real_name]</i>: [message]</B></span>"
 		for(var/datum/mind/ganger in gang.members)
-			if(ganger.current && is_station_level(ganger.current.z) && (ganger.current.stat == CONSCIOUS))
+			if(ganger.current && is_station_level(ganger.current.z) && (ganger.current.is_conscious()))
 				to_chat(ganger.current, ping)
 		for(var/mob/M in GLOB.dead_mob_list)
 			var/link = FOLLOW_LINK(M, user)
@@ -222,10 +219,6 @@
 		to_chat(user, "<span class='warning'>[icon2html(src, user)]Emergency shuttle cannot be recalled at this time.</span>")
 		recalling = FALSE
 		return
-	if(!gang.dom_attempts)
-		to_chat(user, "<span class='warning'>[icon2html(src, user)]Error: Unable to access communication arrays. Firewall has logged our signature and is blocking all further attempts.</span>")
-		recalling = FALSE
-		return
 	if(!is_station_level(user.z)) //Shuttle can only be recalled while on station
 		to_chat(user, "<span class='warning'>[icon2html(src, user)]Error: Device out of range of station communication arrays.</span>")
 		recalling = FALSE
@@ -247,6 +240,9 @@
 		return
 	if(!isnull(gang) && G.gang != gang)
 		to_chat(user, "<span class='danger'>You cannot use gang tools owned by enemy gangs!</span>")
+		return
+	else if(!G.gang.check_gangster_swag(user)>1)
+		to_chat(user, "<span class='danger'>You cannot use gang tools while undercover!</span>")
 		return
 	return TRUE
 

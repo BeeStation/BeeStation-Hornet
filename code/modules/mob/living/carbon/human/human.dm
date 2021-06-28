@@ -202,6 +202,10 @@
 		dat += "&nbsp;<A href='?src=[REF(src)];pockets=right'>[(r_store && !(r_store.item_flags & ABSTRACT)) ? "Right (Full)" : "<font color=grey>Right (Empty)</font>"]</A></td></tr>"
 		dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_ID]'>[(wear_id && !(wear_id.item_flags & ABSTRACT)) ? wear_id : "<font color=grey>Empty</font>"]</A></td></tr>"
 
+		if(istype(w_uniform, /obj/item/clothing/under))
+			var/obj/item/clothing/under/U = w_uniform
+			dat += "<tr><td>&nbsp;&#8627;<B>Suit Sensors:</b></td><td><A href='?src=[REF(src)];set_sensor=1'>[U.has_sensor >= 2 ? "<font color=grey>--SENSORS LOCKED--</font>" : "Set Sensors</a>"]</td></tr>"
+
 	if(handcuffed)
 		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[REF(src)];item=[ITEM_SLOT_HANDCUFFED]'>Remove</A></td></tr>"
 	if(legcuffed)
@@ -236,20 +240,7 @@
 		var/obj/item/I = locate(href_list["embedded_object"]) in L.embedded_objects
 		if(!I || I.loc != src) //no item, no limb, or item is not in limb or in the person anymore
 			return
-		var/time_taken = I.embedding.embedded_unsafe_removal_time*I.w_class
-		usr.visible_message("<span class='warning'>[usr] attempts to remove [I] from [usr.p_their()] [L.name].</span>","<span class='notice'>You attempt to remove [I] from your [L.name]... (It will take [DisplayTimeText(time_taken)].)</span>")
-		if(do_after(usr, time_taken, needhand = 1, target = src))
-			if(!I || !L || I.loc != src || !(I in L.embedded_objects))
-				return
-			L.embedded_objects -= I
-			L.receive_damage(I.embedding.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
-			I.forceMove(get_turf(src))
-			usr.put_in_hands(I)
-			usr.emote("scream")
-			usr.visible_message("[usr] successfully rips [I] out of [usr.p_their()] [L.name]!","<span class='notice'>You successfully remove [I] from your [L.name].</span>")
-			if(!has_embedded_objects())
-				clear_alert("embeddedobject")
-				SEND_SIGNAL(usr, COMSIG_CLEAR_MOOD_EVENT, "embedded")
+		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
 		return
 
 	if(href_list["item"]) //canUseTopic check for this is handled by mob/Topic()
@@ -289,6 +280,11 @@
 		else
 			// Display a warning if the user mocks up
 			to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
+
+	if(href_list["set_sensor"])
+		if(istype(w_uniform, /obj/item/clothing/under))
+			var/obj/item/clothing/under/U = w_uniform
+			U.set_sensors(usr)
 
 ///////HUDs///////
 	if(href_list["hud"])
@@ -392,7 +388,7 @@
 		if(href_list["hud"] == "s")
 			if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD))
 				return
-			if(usr.stat || usr == src) //|| !usr.canmove || usr.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
+			if(!usr.is_conscious() || usr == src) //|| !usr.canmove || usr.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				return													  //Non-fluff: This allows sec to set people to arrest as they get disarmed or beaten
 			// Checks the user has security clearence before allowing them to change arrest status via hud, comment out to enable all access
 			var/allowed_access = null
@@ -553,28 +549,28 @@
 			if(head && isclothing(head))
 				var/obj/item/clothing/head/CH = head
 				if(CH.clothing_flags & THICKMATERIAL)
-					to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on [p_their()] head!</span>")
-					return 0
+					balloon_alert(user, "There is no exposed flesh on [p_their()] head")
+					return FALSE
 		if(wear_suit && isclothing(wear_suit))
 			var/obj/item/clothing/suit/CS = wear_suit
 			if(CS.clothing_flags & THICKMATERIAL)
 				switch(target_zone)
 					if(BODY_ZONE_CHEST)
 						if(CS.body_parts_covered & CHEST)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this chest!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on this chest")
+							return FALSE
 					if(BODY_ZONE_PRECISE_GROIN)
 						if(CS.body_parts_covered & GROIN)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this groin!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on this groin")
+							return FALSE
 					if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 						if(CS.body_parts_covered & ARMS)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these arms!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on these arms")
+							return FALSE
 					if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 						if(CS.body_parts_covered & LEGS)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these legs!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on these legs")
+							return FALSE
 
 /mob/living/carbon/human/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	if(judgment_criteria & JUDGE_EMAGGED)
@@ -977,7 +973,7 @@
 			admin_ticket_log(src, msg)
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
-	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
+	if(pulling != target || grab_state < GRAB_AGGRESSIVE || !is_conscious() || a_intent != INTENT_GRAB)
 		return ..()
 
 	//If they dragged themselves and we're currently aggressively grabbing them try to piggyback
@@ -1064,7 +1060,7 @@
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
-	return (istype(target) && target.stat == CONSCIOUS && (target.mobility_flags & MOBILITY_STAND))
+	return (istype(target) && target.is_conscious() && (target.mobility_flags & MOBILITY_STAND))
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
 	return (ishuman(target) && !(target.mobility_flags & MOBILITY_STAND))
@@ -1105,6 +1101,7 @@
 			visible_message("<span class='warning'>[target] fails to climb onto [src]!</span>")
 	else
 		to_chat(target, "<span class='warning'>You can't piggyback ride [src] right now!</span>")
+
 
 /mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
 	if(!force)//humans are only meant to be ridden through piggybacking and special cases

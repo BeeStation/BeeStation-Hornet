@@ -42,6 +42,12 @@
 
 	if(M.client)
 		body += "<br><br><b>First Seen:</b> [M.client.player_join_date]<br><b>Byond account registered on:</b> [M.client.account_join_date]"
+
+		if(M.client?.tgui_panel)
+			body += M.client.tgui_panel.show_notices() //The datum holds a reference to the client already, no need to pass it.
+		else //This should never happen in practice.
+			body += "<br><b>Telemetry Status:</b> <span class='bad'>USER CHAT NOT LOADED, CALL A CODER MAYBE?</span>"
+
 		body += "<br><br><b>CentCom Galactic Ban DB: </b> "
 		if(CONFIG_GET(string/centcom_ban_db))
 			body += "<a href='?_src_=holder;[HrefToken()];centcomlookup=[M.client.ckey]'>Search</a>"
@@ -687,7 +693,7 @@
 			log_admin("[key_name(usr)] delayed the round start.")
 		else
 			to_chat(world, "<b>The game will start in [DisplayTimeText(newtime)].</b>")
-			SEND_SOUND(world, sound('sound/ai/attention.ogg'))
+			SEND_SOUND(world, sound('sound/ai/default/attention.ogg'))
 			log_admin("[key_name(usr)] set the pre-game delay to [DisplayTimeText(newtime)].")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay Game Start") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -699,6 +705,9 @@
 		SSticker.admin_delay_notice = input(usr, "Enter a reason for delaying the round end", "Round Delay Reason") as null|text
 		if(isnull(SSticker.admin_delay_notice))
 			return
+		for(var/client/admin in GLOB.admins)
+			if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel && SSticker.current_state == GAME_STATE_FINISHED)
+				admin.tgui_panel.give_br_popup()
 	else
 		if(alert(usr, "Really cancel current round end delay? The reason for the current delay is: \"[SSticker.admin_delay_notice]\"", "Undelay round end", "Yes", "No") != "Yes")
 			return
@@ -962,7 +971,7 @@
 	if (!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
 		return 1
 
-	tomob.ghostize(0)
+	tomob.ghostize(FALSE)
 
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.key] in control of [tomob.name].</span>")
 	log_admin("[key_name(usr)] stuffed [frommob.key] into [tomob.name].")

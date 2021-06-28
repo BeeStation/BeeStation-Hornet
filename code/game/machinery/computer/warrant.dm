@@ -101,8 +101,11 @@
 	var/mob/M = usr
 	switch(href_list["choice"])
 		if("Login")
+			if(iscyborg(M))		//cyborgs cannot be set to arrest
+				return
 			var/obj/item/card/id/scan = M.get_idcard(TRUE)
-			authenticated = scan.registered_name
+			if(scan)
+				authenticated = scan.registered_name
 			if(authenticated)
 				for(var/datum/data/record/R in GLOB.data_core.security)
 					if(R.fields["name"] == authenticated)

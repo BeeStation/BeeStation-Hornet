@@ -16,7 +16,7 @@
 		return
 	var/dist = get_dist(user.loc,target.loc)
 	var/dir = get_dir(user.loc,target.loc)
-	if(user.z != target.z)
+	if(user.get_virtual_z_level() != target.get_virtual_z_level())
 		to_chat(user,"<span class='warning'>[target.real_name] is on another plane of existance!</span>")
 	else
 		switch(dist)
@@ -153,6 +153,12 @@
 	name = "Piercing Eldritch Medallion"
 	desc = "A strange medallion. Peering through the crystalline surface, the light refracts into new and terrifying spectrums of color. You see yourself, reflected off cascading mirrors, warped into impossible shapes."
 	trait = TRAIT_XRAY_VISION
+
+/obj/item/clothing/neck/eldritch_amulet/guise
+	name = "guise of Istasha"
+	desc = "An odd amulet formed out of multiple floating parts, strung togethere by forces from another world."
+	icon_state = "eye_medalion"
+	trait = TRAIT_DIGINVIS
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"

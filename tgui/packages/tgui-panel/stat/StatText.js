@@ -36,8 +36,7 @@ export const StatText = (props, context) => {
                 params={statPanelData[key].params} />
               || statPanelData[key].type === STAT_ATOM && <StatTextAtom
                 atom_ref={key}
-                atom_name={statPanelData[key].text}
-                atom_icon={statPanelData[key].icon} />
+                atom_name={statPanelData[key].text} />
               || statPanelData[key].type === STAT_DIVIDER
               && <StatTextDivider />
               || null
@@ -108,7 +107,6 @@ export const StatTextButton = (props, context) => {
 export const StatTextAtom = (props, context) => {
   const {
     atom_name,
-    atom_icon,
     atom_ref,
   } = props;
   return (
@@ -124,19 +122,7 @@ export const StatTextAtom = (props, context) => {
           },
         })}
         color="transparent">
-        <Flex>
-          <Flex.Item>
-            <img
-              src={`data:image/jpeg;base64,${atom_icon}`}
-              style={{
-                'vertical-align': 'middle',
-                'horizontal-align': 'middle',
-              }} />
-          </Flex.Item>
-          <Flex.Item ml={1}>
-            {atom_name}
-          </Flex.Item>
-        </Flex>
+        {atom_name}
       </Button>
     </Flex.Item>
   );
@@ -208,8 +194,7 @@ export const HoboStatText = (props, context) => {
                 params={statPanelData[key].params} />
               || statPanelData[key].type === STAT_ATOM && <HoboStatTextAtom
                 atom_ref={key}
-                atom_name={statPanelData[key].text}
-                atom_icon={statPanelData[key].icon} />
+                atom_name={statPanelData[key].text} />
               || statPanelData[key].type === STAT_DIVIDER
               && <StatTextDivider />
               || null

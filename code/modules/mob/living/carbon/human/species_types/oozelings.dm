@@ -2,9 +2,9 @@
 	name = "Oozeling"
 	id = "oozeling"
 	default_color = "00FF90"
-	say_mod = "says"
-	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR,TRAIT_EASYDISMEMBER)
-	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN)
+	say_mod = "blorbles"
+	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR)
+	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/oozeling

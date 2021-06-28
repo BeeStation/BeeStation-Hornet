@@ -275,7 +275,7 @@
 			return
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
-			var/obj/item/twohanded/dualsaber/toy/newSaber = new /obj/item/twohanded/dualsaber/toy(user.loc)
+			var/obj/item/dualsaber/toy/newSaber = new /obj/item/dualsaber/toy(user.loc)
 			if(hacked) // That's right, we'll only check the "original" "sword".
 				newSaber.hacked = TRUE
 				newSaber.item_color = "rainbow"
@@ -361,26 +361,25 @@
 /*
  * Subtype of Double-Bladed Energy Swords
  */
-/obj/item/twohanded/dualsaber/toy
+/obj/item/dualsaber/toy
 	name = "double-bladed toy sword"
 	desc = "A cheap, plastic replica of TWO energy swords.  Double the fun!"
 	force = 0
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 5
-	force_unwielded = 0
-	force_wielded = 0
+	twohand_force = 0
 	attack_verb = list("attacked", "struck", "hit")
 	block_upgrade_walk = 1
 	block_power = -100
 
-/obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
-/obj/item/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
+/obj/item/dualsaber/toy/IsReflect() //Stops Toy Dualsabers from reflecting energy projectiles
 	return 0
 
-/obj/item/twohanded/dualsaber/toy/impale(mob/living/user)//Stops Toy Dualsabers from injuring clowns
+/obj/item/dualsaber/toy/impale(mob/living/user)//Stops Toy Dualsabers from injuring clowns
 	to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
 	user.adjustStaminaLoss(25)
 
@@ -662,7 +661,6 @@
 	var/card_throw_range = 7
 	var/list/card_attack_verb = list("attacked")
 	var/card_sharpness
-	var/card_embed_chance = 0
 
 /obj/item/toy/cards/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] wrists with \the [src]! It looks like [user.p_they()] [user.p_have()] a crummy hand!</span>")
@@ -833,7 +831,7 @@
 /obj/item/toy/cards/cardhand/Topic(href, href_list)
 	if(..())
 		return
-	if(usr.stat || !ishuman(usr))
+	if(!usr.is_conscious()|| !ishuman(usr))
 		return
 	var/mob/living/carbon/human/cardUser = usr
 	if(!(cardUser.mobility_flags & MOBILITY_USE))
@@ -911,10 +909,10 @@
 
 /obj/item/toy/cards/singlecard/apply_card_vars(obj/item/toy/cards/singlecard/newobj,obj/item/toy/cards/sourceobj)
 	..()
-	newobj.card_embed_chance = sourceobj.card_embed_chance
-	newobj.embedding = newobj.embedding.setRating(embed_chance = card_embed_chance)
+	newobj.embedding = sourceobj.embedding
 	newobj.card_sharpness = sourceobj.card_sharpness
-	newobj.sharpness = newobj.card_sharpness
+	newobj.sharpness = sourceobj.card_sharpness
+	newobj.updateEmbedding()
 
 /obj/item/toy/cards/singlecard/examine(mob/user)
 	. = ..()
@@ -1013,7 +1011,7 @@
 	card_force = 5
 	card_throwforce = 12
 	card_throw_speed = 6
-	card_embed_chance = 80
+	embedding = list("pain_mult" = 1, "embed_chance" = 80, "fall_chance" = 0, "embed_chance_turf_mod" = 15) //less painful than throwing stars
 	card_sharpness = IS_SHARP
 	card_throw_range = 7
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
@@ -1061,7 +1059,7 @@
 	if(!..())
 		playsound(src, 'sound/effects/meteorimpact.ogg', 40, 1)
 		for(var/mob/M in urange(10, src))
-			if(!M.stat && !isAI(M))
+			if(M.is_conscious() && !isAI(M))
 				shake_camera(M, 3, 1)
 		qdel(src)
 
@@ -1082,7 +1080,7 @@
 		user.visible_message("<span class='warning'>[user] presses the big red button.</span>", "<span class='notice'>You press the button, it plays a loud noise!</span>", "<span class='italics'>The button clicks loudly.</span>")
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0)
 		for(var/mob/M in urange(10, src)) // Checks range
-			if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
+			if(M.is_conscious() && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
 				sleep(8) // Short delay to match up with the explosion sound
 				shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
 

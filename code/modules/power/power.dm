@@ -256,14 +256,13 @@
 			worklist |= C.get_connections() //get adjacents power objects, with or without a powernet
 
 		else if(P.anchored && istype(P, /obj/machinery/power))
-			var/obj/machinery/power/M = P
-			found_machines |= M //we wait until the powernet is fully propagates to connect the machines
+			found_machines |= P //we wait until the powernet is fully propagates to connect the machines
 
 		else
 			continue
 
 	//now that the powernet is set, connect found machines to it
-	for(var/obj/machinery/power/PM in found_machines)
+	for(var/obj/machinery/power/PM as() in found_machines)
 		if(!PM.connect_to_network()) //couldn't find a node on its turf...
 			PM.disconnect_from_network() //... so disconnect if already on a powernet
 

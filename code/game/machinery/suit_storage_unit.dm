@@ -40,9 +40,11 @@
 	* If the hack wire is cut/pulsed.
 	* Modifies effects of cook()
 	* * If FALSE, decontamination sequence will clear radiation for all atoms (and their contents) contained inside the unit, and burn any mobs inside.
-	* * If TRUE, decontamination sequence will delete all items contained within, and if occupied by a mob, intensifies burn damage delt. All wires will be cut at the end.
+	* * If TRUE, decontamination sequence will burn and decontaminate all items contained within, and if occupied by a mob, intensifies burn damage delt. All wires will be cut at the end.
 	*/
 	var/uv_super = FALSE
+	/// For managing the messages sent back when the machine was hacked
+	var/toasted = FALSE
 	/// How many cycles remain for the decontamination sequence.
 	var/uv_cycles = 6
 	/// Cooldown for occupant breakout messages via relaymove()
@@ -50,7 +52,7 @@
 	/// How long it takes to break out of the SSU.
 	var/breakout_time = 300
 	/// How fast it charges cells in a suit
-	var/charge_rate = 500
+	var/charge_rate = 250
 
 /obj/machinery/suit_storage_unit/standard_unit
 	suit_type = /obj/item/clothing/suit/space/eva
@@ -150,17 +152,14 @@
 	update_icon()
 
 /obj/machinery/suit_storage_unit/Destroy()
-	QDEL_NULL(suit)
-	QDEL_NULL(helmet)
-	QDEL_NULL(mask)
-	QDEL_NULL(storage)
+	dump_contents()
 	return ..()
 
 /obj/machinery/suit_storage_unit/update_icon()
 	cut_overlays()
 
 	if(uv)
-		if(uv_super)
+		if(uv_super || (obj_flags & EMAGGED))
 			add_overlay("super")
 		else if(occupant)
 			add_overlay("uvhuman")
@@ -195,6 +194,16 @@
 	storage = null
 	occupant = null
 
+/obj/machinery/suit_storage_unit/emp_act()
+	. = ..()
+	uv_super = !uv_super
+
+/obj/machinery/suit_storage_unit/emag_act(mob/user)
+	if(obj_flags & EMAGGED)
+		return
+	obj_flags |= EMAGGED
+	to_chat(user, "<span class='warning'>You reprogram [src]'s decontamination subroutines.</span>")
+
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		open_machine()
@@ -203,7 +212,7 @@
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/living/user)
-	if(!istype(user) || user.stat || !Adjacent(user) || !Adjacent(A) || !isliving(A))
+	if(!istype(user) || !user.is_conscious() || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	if(isliving(user))
 		var/mob/living/L = user
@@ -219,7 +228,6 @@
 	if(occupant || helmet || suit || storage)
 		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")
 		return
-
 	if(target == user)
 		user.visible_message("<span class='warning'>[user] starts squeezing into [src]!</span>", "<span class='notice'>You start working your way into [src]...</span>")
 	else
@@ -251,7 +259,7 @@
 		locked = TRUE
 		update_icon()
 		if(occupant)
-			if(uv_super)
+			if(uv_super || (obj_flags & EMAGGED))
 				mob_occupant.adjustFireLoss(rand(20, 36))
 			else
 				mob_occupant.adjustFireLoss(rand(10, 16))
@@ -261,47 +269,52 @@
 		uv_cycles = initial(uv_cycles)
 		uv = FALSE
 		locked = FALSE
-		if(uv_super)
-			visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
+		if(uv_super || (obj_flags & EMAGGED))
+			toasted = TRUE
+			if(occupant)
+				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A foul stench and a cloud of smoke exit the chamber.</span>")
+			else
+				visible_message("<span class='warning'>[src]'s door creaks open with a loud whining noise. A cloud of foul black smoke escapes from its chamber.</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 50, TRUE)
-			helmet = null
-			qdel(helmet)
-			suit = null
-			qdel(suit) // Delete everything but the occupant.
-			mask = null
-			qdel(mask)
-			storage = null
-			qdel(storage)
+			if(helmet)
+				helmet.take_damage(100,BURN,"fire")
+			if(suit)
+				suit.take_damage(100,BURN,"fire")
+			if(mask)
+				mask.take_damage(100,BURN,"fire")
+			if(storage)
+				storage.take_damage(100,BURN,"fire")
 			// The wires get damaged too.
 			wires.cut_all()
-		else
-			if(!occupant)
-				visible_message("<span class='notice'>[src]'s door slides open. The glowing yellow lights dim to a gentle green.</span>")
-			else
+		if(!toasted) //Special toast check to prevent a double finishing message.
+			if(occupant)
 				visible_message("<span class='warning'>[src]'s door slides open, barraging you with the nauseating smell of charred flesh.</span>")
 				mob_occupant.radiation = 0
-			playsound(src, 'sound/machines/airlockclose.ogg', 25, TRUE)
-			var/list/things_to_clear = list() //Done this way since using GetAllContents on the SSU itself would include circuitry and such.
-			if(suit)
-				things_to_clear += suit
-				things_to_clear += suit.GetAllContents()
-			if(helmet)
-				things_to_clear += helmet
-				things_to_clear += helmet.GetAllContents()
-			if(mask)
-				things_to_clear += mask
-				things_to_clear += mask.GetAllContents()
-			if(storage)
-				things_to_clear += storage
-				things_to_clear += storage.GetAllContents()
-			if(occupant)
-				things_to_clear += occupant
-				things_to_clear += occupant.GetAllContents()
-			for(var/atom/movable/AM in things_to_clear) //Scorches away blood and forensic evidence, although the SSU itself is unaffected
-				SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRONG)
-				var/datum/component/radioactive/contamination = AM.GetComponent(/datum/component/radioactive)
-				if(contamination)
-					qdel(contamination)
+			else
+				visible_message("<span class='notice'>[src]'s door slides open. The glowing yellow lights dim to a gentle green.</span>")
+		toasted = FALSE
+		playsound(src, 'sound/machines/airlockclose.ogg', 25, TRUE)
+		var/list/things_to_clear = list() //Done this way since using GetAllContents on the SSU itself would include circuitry and such.
+		if(suit)
+			things_to_clear += suit
+			things_to_clear += suit.GetAllContents()
+		if(helmet)
+			things_to_clear += helmet
+			things_to_clear += helmet.GetAllContents()
+		if(mask)
+			things_to_clear += mask
+			things_to_clear += mask.GetAllContents()
+		if(storage)
+			things_to_clear += storage
+			things_to_clear += storage.GetAllContents()
+		if(occupant)
+			things_to_clear += occupant
+			things_to_clear += occupant.GetAllContents()
+		for(var/atom/movable/AM in things_to_clear) //Scorches away blood and forensic evidence, although the SSU itself is unaffected
+			SEND_SIGNAL(AM, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRONG)
+			var/datum/component/radioactive/contamination = AM.GetComponent(/datum/component/radioactive)
+			if(contamination)
+				qdel(contamination)
 		open_machine(FALSE)
 		if(occupant)
 			dump_contents()
@@ -485,7 +498,7 @@
 			else
 				if(occupant)
 					var/mob/living/mob_occupant = occupant
-					to_chat(mob_occupant, "<span class='userdanger'>[src]'s confines grow warm, then hot, then scorching. You're being burned [!mob_occupant.stat ? "alive" : "away"]!</span>")
+					to_chat(mob_occupant, "<span class='userdanger'>[src]'s confines grow warm, then hot, then scorching. You're being burned [mob_occupant.is_conscious() ? "alive" : "away"]!</span>")
 				cook()
 				. = TRUE
 		if("dispense")

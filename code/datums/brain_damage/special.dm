@@ -221,7 +221,7 @@
 	if(get_dist(owner, beepsky) >= 10 && prob(20))
 		QDEL_NULL(beepsky)
 		create_securitron()
-	if(owner.stat != CONSCIOUS)
+	if(!owner.is_conscious())
 		if(prob(20))
 			owner.playsound_local(beepsky, 'sound/voice/beepsky/iamthelaw.ogg', 50)
 		return
@@ -246,10 +246,10 @@
 	START_PROCESSING(SSfastprocess,src)
 	..()
 
-/obj/effect/hallucination/simple/securitron/process()
-	if(prob(60))
+/obj/effect/hallucination/simple/securitron/process(delta_time)
+	if(DT_PROB(60, delta_time))
 		forceMove(get_step_towards(src, victim))
-		if(prob(5))
+		if(DT_PROB(5, delta_time))
 			to_chat(victim, "<span class='name'>[name]</span> exclaims, \"<span class='robotic'>Level 10 infraction alert!\"</span>")
 
 /obj/effect/hallucination/simple/securitron/Destroy()

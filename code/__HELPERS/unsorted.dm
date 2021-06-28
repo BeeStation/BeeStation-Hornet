@@ -441,7 +441,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	return locate(x,y,A.z)
 
 /// Gets all contents of contents and returns them all in a list.
-/atom/proc/GetAllContents(var/T)
+/atom/proc/GetAllContents(var/T, ignore_flag_1)
 	var/list/processing_list = list(src)
 	var/list/assembled = list()
 	if(T)
@@ -457,7 +457,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 		while(processing_list.len)
 			var/atom/A = processing_list[1]
 			processing_list.Cut(1, 2)
-			processing_list += A.contents
+			if(!(A.flags_1 & ignore_flag_1))
+				processing_list += A.contents
 			assembled += A
 	return assembled
 
@@ -582,7 +583,7 @@ Takes: Area type as text string or as typepath OR an instance of the area.
 
 Returns: A list of all areas of that type in the world.
 */
-/proc/get_areas(areatype, subtypes=TRUE)
+/proc/get_areas(areatype, target_z = 0, subtypes=TRUE)
 	if(istext(areatype))
 		areatype = text2path(areatype)
 	else if(isarea(areatype))
@@ -597,12 +598,14 @@ Returns: A list of all areas of that type in the world.
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
 			if(cache[A.type])
-				areas += V
+				if(target_z == 0 || A.z == target_z)
+					areas += V
 	else
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
 			if(A.type == areatype)
-				areas += V
+				if(target_z == 0 || A.z == target_z)
+					areas += V
 	return areas
 
 /**
@@ -748,22 +751,6 @@ of course mathematically this is just adding `world.icon_size` on again
 			return loc
 		loc = loc.loc
 	return null
-
-
-//For objects that should embed, but make no sense being is_sharp or is_pointed() e.g: rods
-GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
-	/obj/item/stack/rods,
-	/obj/item/pipe)))
-
-/proc/can_embed(obj/item/W)
-	if(W.is_sharp())
-		return 1
-	if(is_pointed(W))
-		return 1
-
-	if(is_type_in_typecache(W, GLOB.can_embed_types))
-		return 1
-
 
 /*
 Checks if that loc and dir has an item on the wall
@@ -1121,9 +1108,9 @@ eg2: `center_image(I, 96,96)`
 /proc/get_random_station_turf()
 	return safepick(get_area_turfs(pick(GLOB.the_station_areas)))
 
-/proc/get_safe_random_station_turf()
+/proc/get_safe_random_station_turf(list/areas_to_pick_from = GLOB.the_station_areas) //excludes dense turfs (like walls) and areas that have valid_territory set to FALSE
 	for (var/i in 1 to 5)
-		var/list/L = get_area_turfs(pick(GLOB.the_station_areas))
+		var/list/L = get_area_turfs(pick(areas_to_pick_from))
 		var/turf/target
 		while (L.len && !target)
 			var/I = rand(1, L.len)

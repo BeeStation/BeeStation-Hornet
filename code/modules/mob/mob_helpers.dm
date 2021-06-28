@@ -534,6 +534,9 @@
 		stack_trace("Empty message")
 		return
 
+	if(SSticker.current_state == GAME_STATE_FINISHED && message_type == LOG_ATTACK)
+		return
+
 	// Cannot use the list as a map if the key is a number, so we stringify it (thank you BYOND)
 	var/smessage_type = num2text(message_type)
 
@@ -550,7 +553,7 @@
 			colored_message = "<font color=[color]>[message]</font>"
 		else
 			colored_message = "<font color='[color]'>[message]</font>"
-	
+
 	//This makes readability a bit better for admins.
 	switch(message_type)
 		if(LOG_WHISPER)
@@ -587,26 +590,30 @@
 	if(HAS_TRAIT(src, TRAIT_DISSECTED))
 		. += "<span class='notice'>This body has been dissected and analyzed. It is no longer worth experimenting on.</span><br>"
 
+
+//Is the mob aware of their surroundings?
+/// Should be used in place of non-dead stat checks for mobs
+/mob/proc/is_conscious()
+	return stat == CONSCIOUS
+
 // https://github.com/tgstation/tgstation/pull/44056
 // Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.
 // A "valid job preference setup" in this situation means at least having one job set to low, or not having "return to lobby" enabled
 // Prevents "antag rolling" by setting antag prefs on, all jobs to never, and "return to lobby if preferences not availible"
 // Doing so would previously allow you to roll for antag, then send you back to lobby if you didn't get an antag role
 // This also does some admin notification and logging as well
-/mob/proc/has_valid_preferences()
+/mob/proc/has_valid_preferences(var/silent = FALSE)
 	if(!client)
 		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
 	if(client.prefs.joblessrole != RETURNTOLOBBY)
 		return TRUE
 	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
-	var/has_antags = FALSE
-	if(client.prefs.be_special.len > 0)
-		has_antags = TRUE
-	if(client.prefs.job_preferences.len == 0)
-		to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
-		if(has_antags)
-			log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")
-			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
+	if(!client.prefs.job_preferences.len)
+		if(!silent)
+			to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			if(client.prefs.be_special.len)
+				log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")
+				message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
 

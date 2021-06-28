@@ -19,6 +19,7 @@
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_ENG
 	display_order = JOB_DISPLAY_ORDER_ATMOSPHERIC_TECHNICIAN
+	departments = DEPARTMENT_ENGINEERING
 
 /datum/outfit/job/atmos
 	name = "Atmospheric Technician"

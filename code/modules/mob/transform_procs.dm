@@ -1,11 +1,15 @@
+<<<<<<< HEAD
 /mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI))
 	if (notransform)
-		return
-	//Handle items on mob
+=======
+#define TRANSFORMATION_DURATION 22
 
-	//first implants & organs
+/mob/living/carbon/proc/monkeyize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
+	if (notransform || transformation_timer)
+>>>>>>> master
+		return
+
 	var/list/stored_implants = list()
-	var/list/int_organs = list()
 
 	if (tr_flags & TR_KEEPIMPLANTS)
 		for(var/X in implants)
@@ -14,7 +18,7 @@
 			IMP.removed(src, 1, 1)
 
 	var/list/missing_bodyparts_zones = get_missing_limbs()
-
+	var/list/int_organs = list()
 	var/obj/item/cavity_object
 
 	var/obj/item/bodypart/chest/CH = get_bodypart(BODY_ZONE_CHEST)
@@ -30,13 +34,17 @@
 
 	//Make mob invisible and spawn animation
 	notransform = TRUE
-	Paralyze(22, ignore_canstun = TRUE)
+	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
 	invisibility = INVISIBILITY_MAXIMUM
 
 	new /obj/effect/temp_visual/monkeyify(loc)
-	sleep(22)
+
+	transformation_timer = TRUE
+	sleep(TRANSFORMATION_DURATION)
+	transformation_timer = FALSE
+
 	var/mob/living/carbon/monkey/O = new /mob/living/carbon/monkey( loc )
 
 	// hash the original name?
@@ -50,6 +58,7 @@
 
 	if(tr_flags & TR_KEEPSE)
 		O.dna.mutation_index = dna.mutation_index
+		O.dna.default_mutation_genes = dna.default_mutation_genes
 		O.dna.set_se(1, GET_INITIALIZED_MUTATION(RACEMUT))
 
 	if(suiciding)
@@ -152,7 +161,7 @@
 //Mostly same as monkey but turns target into teratoma
 
 /mob/living/carbon/proc/teratomize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
-	if (notransform)
+	if (notransform || transformation_timer)
 		return
 	//Handle items on mob
 
@@ -183,13 +192,17 @@
 
 	//Make mob invisible and spawn animation
 	notransform = TRUE
-	Paralyze(22, ignore_canstun = TRUE)
+	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 	icon = null
 	cut_overlays()
 	invisibility = INVISIBILITY_MAXIMUM
 
 	new /obj/effect/temp_visual/monkeyify(loc)
-	sleep(22)
+
+	transformation_timer = TRUE
+	sleep(TRANSFORMATION_DURATION)
+	transformation_timer = FALSE
+
 	var/mob/living/carbon/monkey/tumor/O = new /mob/living/carbon/monkey/tumor( loc )
 
 	// hash the original name?
@@ -303,12 +316,15 @@
 //////////////////////////           Humanize               //////////////////////////////
 //Could probably be merged with monkeyize but other transformations got their own procs, too
 
+<<<<<<< HEAD
 /mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI))
 	if (notransform)
+=======
+/mob/living/carbon/proc/humanize(tr_flags = (TR_KEEPITEMS | TR_KEEPVIRUS | TR_DEFAULTMSG))
+	if (notransform || transformation_timer)
+>>>>>>> master
 		return
-	//Handle items on mob
 
-	//first implants & organs
 	var/list/stored_implants = list()
 	var/list/int_organs = list()
 
@@ -340,13 +356,16 @@
 
 	//Make mob invisible and spawn animation
 	notransform = TRUE
-	Paralyze(22, ignore_canstun = TRUE)
+	Paralyze(TRANSFORMATION_DURATION, ignore_canstun = TRUE)
 
 	icon = null
 	cut_overlays()
 	invisibility = INVISIBILITY_MAXIMUM
 	new /obj/effect/temp_visual/monkeyify/humanify(loc)
-	sleep(22)
+
+	transformation_timer = TRUE
+	sleep(TRANSFORMATION_DURATION)
+	transformation_timer = FALSE
 
 	var/mob/living/carbon/human/O = new( loc )
 	for(var/obj/item/C in O.loc)
@@ -366,6 +385,7 @@
 
 	if(tr_flags & TR_KEEPSE)
 		O.dna.mutation_index = dna.mutation_index
+		O.dna.default_mutation_genes = dna.default_mutation_genes
 		O.dna.set_se(0, GET_INITIALIZED_MUTATION(RACEMUT))
 		O.domutcheck()
 
@@ -795,6 +815,16 @@
 		return 1 //Bears will auto-attack mobs, even if they're player controlled (Fixed! - Nodrak)
 	if(ispath(MP, /mob/living/simple_animal/parrot))
 		return 1 //Parrots are no longer unfinished! -Nodrak
+	if(ispath(MP, /mob/living/simple_animal/slaughter))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/revenant))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/cluwne))
+		return 1
+	if(ispath(MP, /mob/living/simple_animal/cluwne))
+		return 1
 
 	//Not in here? Must be untested!
 	return 0
+
+#undef TRANSFORMATION_DURATION

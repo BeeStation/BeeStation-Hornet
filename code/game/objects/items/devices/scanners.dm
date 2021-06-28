@@ -891,7 +891,7 @@ GENE SCANNER
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	var/scan = TRUE
-	var/cooldown = -1200 //so it's charged roundstart
+	var/cooldown = -1000 //so it's charged roundstart
 	var/obj/item/stock_parts/scanning_module/scanner //used for upgrading!
 
 /obj/item/extrapolator/Initialize()
@@ -962,7 +962,7 @@ GENE SCANNER
 	for(var/datum/disease/D in diseases)
 		if(istype(D, /datum/disease/advance))
 			var/datum/disease/advance/A = D
-			if(A.properties["stealth"] >= (2 + scanner.rating)) //the extrapolator can detect diseases of higher stealth than a normal scanner
+			if(A.stealth >= (2 + scanner.rating)) //the extrapolator can detect diseases of higher stealth than a normal scanner
 				continue
 			to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b>, stage [A.stage]/5</font></span>")
 			to_chat(user, "<span class='info'><b>[A] has the following symptoms:</b></span>")
@@ -974,7 +974,7 @@ GENE SCANNER
 /obj/item/extrapolator/proc/extrapolate(atom/AM, var/list/diseases = list(), mob/user, isolate = FALSE, timer = 200)
 	var/list/advancediseases = list()
 	var/list/symptoms = list()
-	if(cooldown > world.time - (1200 / scanner.rating))
+	if(cooldown > world.time - (1000 / scanner.rating))
 		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
 		return
 	for(var/datum/disease/advance/cantidate in diseases)
