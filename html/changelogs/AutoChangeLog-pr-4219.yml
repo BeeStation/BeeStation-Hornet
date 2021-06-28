@@ -1,0 +1,8 @@
+author: 'Stylemistake, Cyberboss, SpaceManiac, other TG coders, Froststahr port. '
+delete-after: true
+changes:
+  - code_imp: TGUI has been upgraded to 4.3 and now includes typescript.
+  - code_imp: Custom SVG icons are now easy to do as well.
+  - bugfix: All tgui windows will resize automatically, and can now be resized as
+      will.
+  - server: TGS will require adaptation.
