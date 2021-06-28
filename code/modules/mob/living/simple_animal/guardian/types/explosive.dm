@@ -43,7 +43,7 @@
 		to_chat(src, "<span class='danger'><B>You must be manifested to create bombs!</B></span>")
 		return
 	if(isobj(A) && Adjacent(A))
-		if(bomb_cooldown <= world.time && is_conscious())
+		if(bomb_cooldown <= world.time && !stat)
 			to_chat(src, "<span class='danger'><B>Success! Bomb armed!</B></span>")
 			bomb_cooldown = world.time + 200
 			RegisterSignal(A, COMSIG_PARENT_EXAMINE, .proc/display_examine)

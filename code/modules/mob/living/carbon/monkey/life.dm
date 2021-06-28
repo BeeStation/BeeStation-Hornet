@@ -12,7 +12,7 @@
 	if(..() && !IsInStasis())
 
 		if(!client)
-			if(is_conscious())
+			if(stat == CONSCIOUS)
 				if(on_fire || buckled || restrained())
 					if(!resisting && prob(MONKEY_RESIST_PROB))
 						resisting = TRUE

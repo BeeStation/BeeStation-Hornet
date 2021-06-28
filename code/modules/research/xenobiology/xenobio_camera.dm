@@ -460,7 +460,7 @@
 		to_chat(C, "<span class='notice'>There is no connected monkey recycler.  Use a multitool to link one.</span>")
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
-		if(M.is_conscious())
+		if(!M.stat)
 			return
 		M.visible_message("[M] vanishes as [p_theyre()] reclaimed for recycling!")
 		X.connected_recycler.use_power(500)

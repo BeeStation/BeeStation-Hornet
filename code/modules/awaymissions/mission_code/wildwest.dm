@@ -155,7 +155,7 @@
 	set name = "Resurrection"
 
 	var/mob/living/carbon/C = usr
-	if(C.is_conscious())
+	if(!C.stat)
 		to_chat(C, "<span class='notice'>You're not dead yet!</span>")
 		return
 	if(C.has_status_effect(STATUS_EFFECT_WISH_GRANTERS_GIFT))

@@ -1,0 +1,4 @@
+author: Froststahr
+delete-after: true
+changes:
+  - rscdel: The new soft crit system has been reverted

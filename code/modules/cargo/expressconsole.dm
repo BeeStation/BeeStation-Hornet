@@ -1,11 +1,3 @@
-#define MAX_EMAG_ROCKETS 8
-#define BEACON_COST 500
-#define SP_LINKED 1
-#define SP_READY 2
-#define SP_LAUNCH 3
-#define SP_UNLINK 4
-#define SP_UNREADY 5
-
 /obj/machinery/computer/cargo/express
 	name = "express supply console"
 	desc = "This console allows the user to purchase a package \
@@ -158,6 +150,8 @@
 
 
 		if("add")//Generate Supply Order first
+			if(!COOLDOWN_FINISHED(src, order_cooldown))
+				return
 			var/id = text2path(params["id"])
 			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
 			if(!istype(pack))
@@ -199,6 +193,7 @@
 							LZ = pick(empty_turfs)
 					if (SO.pack.get_cost() <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
 						new /obj/effect/pod_landingzone(LZ, podType, SO)
+						COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN)
 						D.adjust_money(-SO.pack.get_cost())
 						. = TRUE
 						update_icon()
@@ -218,6 +213,7 @@
 							var/LZ = pick(empty_turfs)
 							LAZYREMOVE(empty_turfs, LZ)
 							new /obj/effect/pod_landingzone(LZ, podType, SO)
+							COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN/2)
 							. = TRUE
 							update_icon()
 							CHECK_TICK

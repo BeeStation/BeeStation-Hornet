@@ -414,11 +414,19 @@
 	apply_damage(burn_loss, BURN, blocked = (bomb_armor * 0.6))
 
 	//attempt to dismember bodyparts
-	if(severity >= 2) //don't dismember from light explosions
-		var/max_limb_loss = round(4/severity) //so you don't lose four limbs at severity 3.
+	if(severity >= EXPLODE_HEAVY || !bomb_armor)
+		var/max_limb_loss = 0
+		var/probability = 0
+		switch(severity)
+			if(EXPLODE_HEAVY)
+				max_limb_loss = 3
+				probability = 40
+			if(EXPLODE_DEVASTATE)
+				max_limb_loss = 4
+				probability = 50
 		for(var/X in bodyparts)
 			var/obj/item/bodypart/BP = X
-			if(prob(50/severity) && !prob(getarmor(BP, "bomb")) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
+			if(prob(probability) && !prob(getarmor(BP, "bomb")) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
 				BP.brute_dam = BP.max_damage
 				BP.dismember()
 				max_limb_loss--
