@@ -73,7 +73,6 @@ export const RapidPipeDispenser = (props, context) => {
     || categories[0];
   return (
     <Window
-      resizable
       width={425}
       height={515}>
       <Window.Content scrollable>

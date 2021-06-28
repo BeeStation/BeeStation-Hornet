@@ -76,8 +76,7 @@
 						overrides += I.loc
 				tab_data[REF(listed_turf)] = list(
 					text="[listed_turf.name]",
-					icon=SSstat.get_flat_icon(client, listed_turf),
-					type=STAT_ATOM,
+					type=STAT_ATOM
 				)
 				var/sanity = MAX_ICONS_PER_TILE
 				for(var/atom/A in listed_turf)
@@ -92,8 +91,7 @@
 					sanity --
 					tab_data[REF(A)] = list(
 						text="[A.name]",
-						icon=SSstat.get_flat_icon(client, A),
-						type=STAT_ATOM,
+						type=STAT_ATOM
 					)
 					if(sanity < 0)
 						break

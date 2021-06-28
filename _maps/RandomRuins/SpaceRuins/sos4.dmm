@@ -26,10 +26,6 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/effect/mob_spawn/human/corpse/assistant{
-	brute_damage = 120;
-	oxy_damage = 75
-	},
 /obj/item/storage/pod{
 	pixel_y = -30
 	},
