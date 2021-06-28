@@ -40,8 +40,8 @@ Contents:
 		//Main function variables.
 	var/s_initialized = 0//Suit starts off.
 	var/s_coold = 0//If the suit is on cooldown. Can be used to attach different cooldowns to abilities. Ticks down every second based on suit ntick().
-	var/s_cost = 5//Base energy cost each ntick.
-	var/s_acost = 25//Additional cost for additional powers active.
+	var/s_cost = 2.5//Base energy cost each ntick.
+	var/s_acost = 12.5//Additional cost for additional powers active.
 	var/s_delay = 40//How fast the suit does certain things, lower is faster. Can be overridden in specific procs. Also determines adverse probability.
 	var/a_transfer = 20//How much radium is used per adrenaline boost.
 	var/a_maxamount = 7//Maximum number of adrenaline boosts.
@@ -88,8 +88,8 @@ Contents:
 
 //Randomizes suit parameters.
 /obj/item/clothing/suit/space/space_ninja/proc/randomize_param()
-	s_cost = rand(1,20)
-	s_acost = rand(20,100)
+	s_cost = rand(1,10)
+	s_acost = rand(10,50)
 	s_delay = rand(10,100)
 	s_bombs = rand(5,20)
 	a_boost = rand(1,7)

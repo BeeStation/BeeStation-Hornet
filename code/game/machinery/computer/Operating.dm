@@ -93,7 +93,9 @@
 			if(!sbed.check_patient())
 				return data
 			data["patient"] = list()
-			patient = sbed.occupant
+			if(isliving(sbed.occupant))
+				var/mob/living/live = sbed.occupant
+				patient = live
 		else
 			data["patient"] = null
 			return data

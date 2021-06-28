@@ -125,24 +125,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
-/datum/techweb_node/circuitresearch
-	id = "circuitresearch"
-	display_name = "Circuit Research"
-	description = "Modular circuitry adaptable to a wide range of utilities."
-	prereq_ids = list("datatheory")
-	design_ids = list("icprinter")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-	export_price = 5000
-
-/datum/techweb_node/circuitupgrades
-	id = "circuitupgrades"
-	display_name = "Advanced Circuit Research"
-	description = "Advanced designs that expand the possibilities of modular circuits."
-	prereq_ids = list("circuitresearch")
-	design_ids = list("icupgadv", "icupgclo")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
-	export_price = 5000
-
 /////////////////////////engineering tech/////////////////////////
 /datum/techweb_node/engineering
 	id = "engineering"
@@ -1073,7 +1055,7 @@
 	display_name = "Harmonic Nanite Programming"
 	description = "Nanite programs that require seamless integration between nanites and biology."
 	prereq_ids = list("nanite_bio","nanite_smart","nanite_mesh")
-	design_ids = list("fakedeath_nanites","aggressive_nanites","defib_nanites","regenerative_plus_nanites","brainheal_plus_nanites","purging_plus_nanites", "sensor_species_nanites")
+	design_ids = list("fakedeath_nanites","aggressive_nanites","defib_nanites","regenerative_plus_nanites","brainheal_plus_nanites","purging_plus_nanites", "sensor_species_nanites","adrenaline_nanites")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000, TECHWEB_POINT_TYPE_NANITES = 2000)
 	export_price = 8000
 
@@ -1082,7 +1064,7 @@
 	display_name = "Military Nanite Programming"
 	description = "Nanite programs that perform military-grade functions."
 	prereq_ids = list("nanite_harmonic", "syndicate_basic")
-	design_ids = list("explosive_nanites","pyro_nanites","meltdown_nanites","viral_nanites","nanite_sting_nanites", "adrenaline_nanites")
+	design_ids = list("explosive_nanites","pyro_nanites","meltdown_nanites","viral_nanites","nanite_sting_nanites", "haste_nanites")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
 	export_price = 12500
 

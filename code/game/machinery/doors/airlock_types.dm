@@ -200,9 +200,9 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	var/last_event = 0
 
-/obj/machinery/door/airlock/uranium/process()
+/obj/machinery/door/airlock/uranium/process(delta_time)
 	if(world.time > last_event+20)
-		if(prob(50))
+		if(DT_PROB(50, delta_time))
 			radiate()
 		last_event = world.time
 	..()
@@ -586,7 +586,7 @@
 	name = "large glass airlock"
 	icon = 'icons/obj/doors/airlocks/glass_large/glass_large.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
-	mask_file = 'icons/obj/doors/airlocks/mask_64x32.dmi'
+	mask_file = 'icons/obj/doors/airlocks/mask_64x32_airlocks.dmi'
 	mask_x = 16 // byond is consistent and sane
 	anim_parts = "left=-21,0;right=21,0;top=0,29"
 	opacity = 0

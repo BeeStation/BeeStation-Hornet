@@ -51,6 +51,23 @@
 /datum/gang_item/essentials
 	category = "Purchase Essential Items:"
 
+/datum/gang_item/essentials/spraycan
+	name = "Territory Spraycan"
+	id = "spraycan"
+	cost = 10
+	item_path = /obj/item/toy/crayon/spraycan/gang
+
+/datum/gang_item/essentials/implant_breaker
+	name = "Reprogramming Implant"
+	id = "implant_breaker"
+	cost = 25
+	item_path = /obj/item/implanter/gang
+	spawn_msg = "<span class='notice'>The <b>reprogramming implant</b> is a single use implant that will reprogram its target to be part of your gang. Not strong enough to break the latest NT mindshield implants, or reprogram Lieutenants.</span>"
+
+/datum/gang_item/essentials/implant_breaker/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/obj/item/O = new item_path(get_turf(user), gang)
+	user.put_in_hands(O)
+
 /datum/gang_item/essentials/gangtool
 	id = "gangtool"
 	cost = 50
@@ -71,16 +88,9 @@
 		return "Promote a Gangster"
 	return "Spare Gangtool"
 
-/datum/gang_item/essentials/spraycan
-	name = "Territory Spraycan"
-	id = "spraycan"
-	cost = 10
-	item_path = /obj/item/toy/crayon/spraycan/gang
-
 /datum/gang_item/essentials/spraycan/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/O = new item_path(user.loc, gang)
 	user.put_in_hands(O)
-
 
 /datum/gang_item/essentials/pen
 	name = "Recruitment Pen"
@@ -104,13 +114,19 @@
 	if(gangtool?.free_pen)
 		return "(GET ONE FREE)"
 	return ..()
+	
+/datum/gang_item/essentials/reinforce
+	name = "Call Reinforcments"
+	id = "reinforce"
+	cost = 250
+	item_path = /obj/item/antag_spawner/gangster
 
 ///////////////////
 //CLOTHING
 ///////////////////
 
 /datum/gang_item/clothing
-	category = "Purchase Gang Clothes (Only the jumpsuit and suit give you added influence):"
+	category = "Purchase Gang Clothes (Only the jumpsuit, hat and suit give you added influence):"
 
 /datum/gang_item/clothing/basic
 	name = "Gang Uniform"
@@ -118,22 +134,23 @@
 	cost = 5
 
 /datum/gang_item/clothing/basic/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/storage/box/uniform_box = new ()
+	var/obj/item/storage/box/uniform_box = new (get_turf(user))
 
 	new gang.outfit(uniform_box)
 	new gang.suit(uniform_box)
 	new gang.hat(uniform_box)
 
+	user.put_in_hands(uniform_box)
 	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
 	return TRUE
 
 /datum/gang_item/clothing/armor
 	name = "Gang Armored Outerwear"
-	id = "suit"
+	id = "armor"
 	cost = 200
 
 /datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/storage/box/armor_box = new ()
+	var/obj/item/storage/box/armor_box = new (get_turf(user))
 
 	var/obj/item/clothing/suit/suit = new gang.suit(armor_box)
 	suit.armor = suit.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
@@ -143,16 +160,17 @@
 	hat.armor = hat.armor.setRating(melee = 20, bullet = 35, laser = 10, energy = 10, bomb = 30, bio = 0, rad = 0, fire = 30, acid = 30)
 	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
 
+	user.put_in_hands(armor_box)
 	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
 	return TRUE
 
-/datum/gang_item/clothing/armor
-	name = "Gang Armored Outerwear"
-	id = "suit"
+/datum/gang_item/clothing/ssuit
+	name = "Gang Spaceproof Outerwear"
+	id = "ssuit"
 	cost = 200
 
-/datum/gang_item/clothing/armor/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/storage/box/armor_box = new ()
+/datum/gang_item/clothing/ssuit/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
+	var/obj/item/storage/box/armor_box = new (get_turf(user))
 
 	var/obj/item/clothing/suit/suit = new gang.suit(armor_box)
 	suit.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL
@@ -170,6 +188,7 @@
 	hat.max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
 
+	user.put_in_hands(armor_box)
 	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
 	return TRUE
 
@@ -232,21 +251,17 @@
 /datum/gang_item/weapon
 	category = "Purchase Weapons:"
 
-/datum/gang_item/weapon/ammo
+/datum/gang_item/weapon/emp
+	name = "EMP Grenade"
+	id = "EMP"
+	cost = 50
+	item_path = /obj/item/grenade/empgrenade
 
-/datum/gang_item/weapon/shuriken
-	name = "Shuriken box"
-	id = "shuriken"
-	cost = 200
-	item_path = /obj/item/storage/box/shuriken_box
-
-/obj/item/storage/box/shuriken_box
-	name = "shuriken Box"
-
-/obj/item/storage/box/shuriken_box/PopulateContents()
-	new /obj/item/throwing_star(src)
-	new /obj/item/throwing_star(src)
-	new /obj/item/throwing_star(src)
+/datum/gang_item/weapon/c4
+	name = "C4 Explosive"
+	id = "c4"
+	cost = 100
+	item_path = /obj/item/grenade/plastic/c4
 
 /datum/gang_item/weapon/switchblade
 	name = "Switchblade"
@@ -254,13 +269,26 @@
 	cost = 100
 	item_path = /obj/item/switchblade
 
+/datum/gang_item/weapon/shuriken
+	name = "Shuriken box"
+	id = "shuriken"
+	cost = 150
+	item_path = /obj/item/storage/box/shuriken_box
+
+/obj/item/storage/box/shuriken_box
+	name = "shuriken Box"
+
+/obj/item/storage/box/shuriken_box/PopulateContents()
+	for (var/i in 1 to 4)
+		new /obj/item/throwing_star(src)
+
 /datum/gang_item/weapon/pistol
 	name = "10mm Pistol"
 	id = "pistol"
 	cost = 500
 	item_path = /obj/item/gun/ballistic/automatic/pistol
 
-/datum/gang_item/weapon/ammo/pistol_ammo
+/datum/gang_item/weapon/pistol_ammo
 	name = "10mm Ammo"
 	id = "pistol_ammo"
 	cost = 50
@@ -272,7 +300,7 @@
 	cost = 500
 	item_path = /obj/item/gun/ballistic/automatic/mini_uzi
 
-/datum/gang_item/weapon/ammo/uzi_ammo
+/datum/gang_item/weapon/uzi_ammo
 	name = "Uzi Ammo"
 	id = "uzi_ammo"
 	cost = 50
@@ -291,66 +319,61 @@
 /datum/gang_item/equipment
 	category = "Purchase Support Equipment:"
 
-/datum/gang_item/equipment/emp
-	name = "EMP Grenade"
-	id = "EMP"
-	cost = 50
-	item_path = /obj/item/grenade/empgrenade
-
-/datum/gang_item/equipment/c4
-	name = "C4 Explosive"
-	id = "c4"
-	cost = 100
-	item_path = /obj/item/grenade/plastic/c4
-
 /datum/gang_item/equipment/healcigs
 	name = "Healing Cigs"
 	id = "healcigs"
 	cost = 20
 	item_path = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 
+/datum/gang_item/equipment/mulah
+	name = "Space Cash (1000cr)"
+	id = "mulah"
+	cost = 25
+	item_path = /obj/item/stack/spacecash/c1000
+
 /datum/gang_item/equipment/drugs
 	name = "Drug Supply"
 	id = "drugs"
-	cost = 40
+	cost = 50
 	item_path = /obj/item/storage/box
 
 /datum/gang_item/equipment/drugs/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/O
+	var/turf/T = get_turf(user)
 	switch (rand(1,10))
 		if (1)
-			O = new /obj/item/storage/pill_bottle/lsd(user.loc)
+			O = new /obj/item/storage/pill_bottle/lsd(T)
 		if (2)
-			O = new /obj/item/storage/pill_bottle/happy(user.loc)
+			O = new /obj/item/storage/pill_bottle/happy(T)
 		if (3)
-			O = new /obj/item/storage/pill_bottle/zoom(user.loc)
+			O = new /obj/item/storage/pill_bottle/zoom(T)
 		if (4)
-			O = new /obj/item/storage/pill_bottle/aranesp(user.loc)
+			O = new /obj/item/storage/pill_bottle/aranesp(T)
 		if (5)
-			O = new /obj/item/storage/pill_bottle/happiness(user.loc)
+			O = new /obj/item/storage/pill_bottle/happiness(T)
 		if (6)
-			O = new /obj/item/storage/pill_bottle/psicodine(user.loc)
+			O = new /obj/item/storage/pill_bottle/psicodine(T)
 		if (7)
-			O = new /obj/item/storage/pill_bottle/psicodine(user.loc)
+			O = new /obj/item/storage/pill_bottle/psicodine(T)
 		if (8)
-			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis(user.loc)
+			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis(T)
 		if (9)
-			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow(user.loc)
+			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow(T)
 		if (10)
-			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/white(user.loc)
+			O = new /obj/item/reagent_containers/food/snacks/grown/cannabis/white(T)
 	if (O)
 		user.put_in_hands(O)
 
 /datum/gang_item/equipment/aids
 	name = "Battlefield Aid Kit"
 	id = "aids"
-	cost = 120
+	cost = 75
 	item_path = /obj/item/storage/firstaid/shifty/battle
 
 /datum/gang_item/equipment/hangover
 	name = "Bad Trip Kit"
-	id = "aids"
-	cost = 120
+	id = "hangover"
+	cost = 75
 	item_path = /obj/item/storage/firstaid/shifty/hangover
 
 /obj/item/storage/firstaid/shifty
@@ -375,26 +398,3 @@
 		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
 		/obj/item/healthanalyzer = 1)
 	generate_items_inside(items_inside,src)
-
-/datum/gang_item/equipment/mulah
-	name = "Space Cash (1000cr)"
-	id = "mulah"
-	cost = 100
-	item_path = /obj/item/stack/spacecash/c1000
-
-/datum/gang_item/equipment/reinforce
-	name = "Call Reinforcments"
-	id = "reinforce"
-	cost = 100
-	item_path = /obj/item/antag_spawner/gangster
-
-/datum/gang_item/equipment/implant_breaker
-	name = "Conversion Implant"
-	id = "implant_breaker"
-	cost = 50
-	item_path = /obj/item/implanter/gang
-	spawn_msg = "<span class='notice'>The <b>conversion implant</b> will reprogram your target to be part of your gang, but it is not strong enough to break the latest NT mindshield implants. Can revive allied gang members.</span>"
-
-/datum/gang_item/equipment/implant_breaker/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
-	var/obj/item/O = new item_path(user.loc, gang)
-	user.put_in_hands(O)

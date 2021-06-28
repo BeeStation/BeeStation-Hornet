@@ -90,7 +90,7 @@
     ..();\
     if(!(flags_1 & INITIALIZED_1)) {\
         args[1] = TRUE;\
-        SSatoms.InitAtom(src, args);\
+        SSatoms.InitAtom(src, FALSE, args);\
     }\
 }
 
@@ -171,6 +171,7 @@
 #define FIRE_PRIORITY_RUNECHAT		410
 #define FIRE_PRIORITY_OVERLAYS		500
 #define FIRE_PRIORITY_EXPLOSIONS	666
+#define FIRE_PRIORITY_SOUND_LOOPS	800
 #define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
 
 // SS runlevels
@@ -215,3 +216,18 @@
 		}\
 		A.flags_1 &= ~OVERLAY_QUEUED_1;\
 	}
+
+/**
+	Create a new timer and add it to the queue.
+	* Arguments:
+	* * callback the callback to call on timer finish
+	* * wait deciseconds to run the timer for
+	* * flags flags for this timer, see: code\__DEFINES\subsystems.dm
+*/
+#define addtimer(args...) _addtimer(args, file = __FILE__, line = __LINE__)
+
+// Subsystem delta times or tickrates, in seconds. I.e, how many seconds in between each process() call for objects being processed by that subsystem.
+// Only use these defines if you want to access some other objects processing delta_time, otherwise use the delta_time that is sent as a parameter to process()
+#define SSMACHINES_DT (SSmachines.wait/10)
+#define SSMOBS_DT (SSmobs.wait/10)
+#define SSOBJ_DT (SSobj.wait/10)

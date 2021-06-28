@@ -170,29 +170,28 @@
 					screen_obj.color = "#2eeb9a"
 			break
 
-/datum/component/mood/process() //Called on SSmood process
+///Called on SSmood process
+/datum/component/mood/process(delta_time)
 	var/mob/living/owner = parent
-
 	switch(mood_level)
 		if(1)
-			setSanity(sanity-0.3)
+			setSanity(sanity-0.3*delta_time)
 		if(2)
-			setSanity(sanity-0.15)
+			setSanity(sanity-0.15*delta_time)
 		if(3)
-			setSanity(sanity-0.1)
+			setSanity(sanity-0.1*delta_time)
 		if(4)
-			setSanity(sanity-0.05, minimum=SANITY_UNSTABLE)
+			setSanity(sanity-0.05*delta_time, minimum=SANITY_UNSTABLE)
 		if(5)
 			setSanity(sanity+0.1, maximum=SANITY_NEUTRAL)
 		if(6)
-			setSanity(sanity+0.2, maximum=SANITY_GREAT)
+			setSanity(sanity+0.2*delta_time, maximum=SANITY_GREAT)
 		if(7)
-			setSanity(sanity+0.3, maximum=SANITY_GREAT)
+			setSanity(sanity+0.3*delta_time, maximum=SANITY_GREAT)
 		if(8)
-			setSanity(sanity+0.4, maximum=SANITY_MAXIMUM)
+			setSanity(sanity+0.4*delta_time, maximum=SANITY_MAXIMUM)
 		if(9)
-			setSanity(sanity+0.6, maximum=SANITY_MAXIMUM)
-
+			setSanity(sanity+0.6*delta_time, maximum=SANITY_MAXIMUM)
 	HandleNutrition(owner)
 	HandleHygiene(owner)
 
