@@ -312,12 +312,8 @@
 #include "code\controllers\subsystem\vis_overlays.dm"
 #include "code\controllers\subsystem\vote.dm"
 #include "code\controllers\subsystem\weather.dm"
-<<<<<<< HEAD
 #include "code\controllers\subsystem\processing\ai_controllers.dm"
 #include "code\controllers\subsystem\processing\ai_movement.dm"
-#include "code\controllers\subsystem\processing\circuit.dm"
-=======
->>>>>>> master
 #include "code\controllers\subsystem\processing\fastprocess.dm"
 #include "code\controllers\subsystem\processing\fields.dm"
 #include "code\controllers\subsystem\processing\fluids.dm"
@@ -373,7 +369,6 @@
 #include "code\datums\world_topic.dm"
 #include "code\datums\actions\beam_rifle.dm"
 #include "code\datums\actions\ninja.dm"
-<<<<<<< HEAD
 #include "code\datums\ai\_ai_behaviour.dm"
 #include "code\datums\ai\_ai_controller.dm"
 #include "code\datums\ai\generic_actions.dm"
@@ -381,12 +376,10 @@
 #include "code\datums\ai\monkey\monkey_controller.dm"
 #include "code\datums\ai\movement\_ai_movement.dm"
 #include "code\datums\ai\movement\ai_movement_dumb.dm"
-=======
 #include "code\datums\announcers\_announcer.dm"
 #include "code\datums\announcers\default_announcer.dm"
 #include "code\datums\announcers\intern_announcer.dm"
 #include "code\datums\announcers\medbot_announcer.dm"
->>>>>>> master
 #include "code\datums\atmosphere\_atmosphere.dm"
 #include "code\datums\brain_damage\brain_trauma.dm"
 #include "code\datums\brain_damage\creepy_trauma.dm"

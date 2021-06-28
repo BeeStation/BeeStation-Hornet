@@ -10,44 +10,29 @@ have ways of interacting with a specific atom and control it. They posses a blac
 	var/ai_traits
 	///Current actions being performed by the AI.
 	var/list/current_behaviors = list()
-	///Current actions and their respective last time ran as an assoc list.
-	var/list/behavior_cooldowns = list()
-	///Current status of AI (OFF/ON)
+	///Current status of AI (OFF/ON/IDLE)
 	var/ai_status
 	///Current movement target of the AI, generally set by decision making.
 	var/atom/current_movement_target
+	///Delay between atom movements, if this is not a multiplication of the delay in
+	var/move_delay
 	///This is a list of variables the AI uses and can be mutated by actions. When an action is performed you pass this list and any relevant keys for the variables it can mutate.
 	var/list/blackboard = list()
 	///Tracks recent pathing attempts, if we fail too many in a row we fail our current plans.
 	var/pathing_attempts
-	///Can the AI remain in control if there is a client?
-	var/continue_processing_when_client = FALSE
-	///distance to give up on target
-	var/max_target_distance = 14
-	///Reference to the movement datum we use. Is a type on initialize but becomes a ref afterwards.
-	var/datum/ai_movement/ai_movement = /datum/ai_movement/dumb
-	///Cooldown until next movement
-	COOLDOWN_DECLARE(movement_cooldown)
-	///Delay between movements. This is on the controller so we can keep the movement datum singleton
-	var/movement_delay = 0.1 SECONDS
-	///A list for the path we're currently following, if we're using JPS pathing
-	var/list/movement_path
-	///Cooldown for JPS movement, how often we're allowed to try making a new path
-	COOLDOWN_DECLARE(repath_cooldown)
 
 /datum/ai_controller/New(atom/new_pawn)
-	//ai_movement = SSai_movement.movement_types[ai_movement]
 	PossessPawn(new_pawn)
 
 /datum/ai_controller/Destroy(force, ...)
 	set_ai_status(AI_STATUS_OFF)
-	UnpossessPawn(FALSE)
+	UnpossessPawn()
 	return ..()
 
 ///Proc to move from one pawn to another, this will destroy the target's existing controller.
 /datum/ai_controller/proc/PossessPawn(atom/new_pawn)
 	if(pawn) //Reset any old signals
-		UnpossessPawn(FALSE)
+		UnpossessPawn()
 
 	if(istype(new_pawn.ai_controller)) //Existing AI, kill it.
 		QDEL_NULL(new_pawn.ai_controller)
@@ -59,14 +44,7 @@ have ways of interacting with a specific atom and control it. They posses a blac
 	pawn = new_pawn
 	pawn.ai_controller = src
 
-	if(!continue_processing_when_client && istype(new_pawn, /mob))
-		var/mob/possible_client_holder = new_pawn
-		if(possible_client_holder.client)
-			set_ai_status(AI_STATUS_OFF)
-		else
-			set_ai_status(AI_STATUS_ON)
-	else
-		set_ai_status(AI_STATUS_ON)
+	set_ai_status(AI_STATUS_ON)
 
 	RegisterSignal(pawn, COMSIG_MOB_LOGIN, .proc/on_sentience_gained)
 
@@ -75,12 +53,10 @@ have ways of interacting with a specific atom and control it. They posses a blac
 	return
 
 ///Proc for deinitializing the pawn to the old controller
-/datum/ai_controller/proc/UnpossessPawn(destroy)
+/datum/ai_controller/proc/UnpossessPawn()
 	UnregisterSignal(pawn, COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT)
 	pawn.ai_controller = null
 	pawn = null
-	if(destroy)
-		qdel(src)
 	return
 
 ///Returns TRUE if the ai controller can actually run at the moment.
@@ -90,7 +66,6 @@ have ways of interacting with a specific atom and control it. They posses a blac
 /// Generates a plan and see if our existing one is still valid.
 /datum/ai_controller/process(delta_time)
 	if(!able_to_run())
-		walk(pawn, 0) //stop moving
 		return //this should remove them from processing in the future through event-based stuff.
 	if(!current_behaviors?.len)
 		SelectBehaviors(delta_time)
@@ -98,38 +73,30 @@ have ways of interacting with a specific atom and control it. They posses a blac
 			PerformIdleBehavior(delta_time) //Do some stupid shit while we have nothing to do
 			return
 
-
-	if(current_movement_target && get_dist(pawn, current_movement_target) > max_target_distance) //The distance is out of range
-		CancelActions()
-		return
-
+	var/want_to_move = FALSE
 	for(var/i in current_behaviors)
 		var/datum/ai_behavior/current_behavior = i
+		if(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT && current_movement_target && current_behavior.required_distance < get_dist(pawn, current_movement_target)) //Move closer
+			want_to_move = TRUE
+			if(current_behavior.behavior_flags & AI_BEHAVIOR_MOVE_AND_PERFORM) //Move and perform the action
+				current_behavior.perform(delta_time, src)
+		else //Perform the action
+			current_behavior.perform(delta_time, src)
 
-		if(behavior_cooldowns[current_behavior] > world.time) //Still on cooldown
-			continue
+	if(want_to_move)
+		MoveTo(delta_time) //Need to add some code to check if we can perform the actions now without too much overhead
 
-		// Convert the current behaviour action cooldown to realtime seconds from deciseconds.current_behavior
-		// Then pick the max of this and the delta_time passed to ai_controller.process()
-		// Action cooldowns cannot happen faster than delta_time, so delta_time should be the value used in this scenario.
-		var/action_delta_time = max(current_behavior.action_cooldown * 0.1, delta_time)
 
-		if(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT && current_movement_target) //Might need to move closer
-			if(current_behavior.required_distance >= get_dist(pawn, current_movement_target)) ///Are we close enough to engage?
-				if(ai_movement.moving_controllers[src] == current_movement_target) //We are close enough, if we're moving stop.else
-					ai_movement.stop_moving_towards(src)
-				current_behavior.perform(action_delta_time, src)
-				return
+///Move somewhere using dumb movement (byond base)
+/datum/ai_controller/proc/MoveTo(delta_time)
+	var/current_loc = get_turf(pawn)
 
-			else if(ai_movement.moving_controllers[src] != current_movement_target) //We're too far, if we're not already moving start doing it.
-				ai_movement.start_moving_towards(src, current_movement_target, current_behavior.required_distance) //Then start moving
-
-			if(current_behavior.behavior_flags & AI_BEHAVIOR_MOVE_AND_PERFORM) //If we can move and perform then do so.
-				current_behavior.perform(action_delta_time, src)
-				return
-		else //No movement required
-			current_behavior.perform(action_delta_time, src)
-			return
+	if(!is_type_in_typecache(get_step(pawn, get_dir(pawn, current_movement_target)), GLOB.dangerous_turfs))
+		step_towards(pawn, current_movement_target)
+	if(current_loc == get_turf(pawn))
+		if(++pathing_attempts >= MAX_PATHING_ATTEMPTS)
+			CancelActions()
+			pathing_attempts = 0
 
 
 ///Perform some dumb idle behavior.
@@ -161,15 +128,10 @@ have ways of interacting with a specific atom and control it. They posses a blac
 
 /datum/ai_controller/proc/on_sentience_gained()
 	UnregisterSignal(pawn, COMSIG_MOB_LOGIN)
-	if(!continue_processing_when_client)
-		set_ai_status(AI_STATUS_OFF) //Can't do anything while player is connected
+	set_ai_status(AI_STATUS_OFF) //Can't do anything while player is connected
 	RegisterSignal(pawn, COMSIG_MOB_LOGOUT, .proc/on_sentience_lost)
 
 /datum/ai_controller/proc/on_sentience_lost()
 	UnregisterSignal(pawn, COMSIG_MOB_LOGOUT)
 	set_ai_status(AI_STATUS_ON) //Can't do anything while player is connected
 	RegisterSignal(pawn, COMSIG_MOB_LOGIN, .proc/on_sentience_gained)
-
-/// Use this proc to define how your controller defines what access the pawn has for the sake of pathfinding, likely pointing to whatever ID slot is relevant
-/datum/ai_controller/proc/get_access()
-	return
