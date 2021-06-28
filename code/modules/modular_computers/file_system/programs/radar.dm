@@ -242,9 +242,13 @@
 		return FALSE
 	if(..())
 		if(humanoid in SSnanites.nanite_monitored_mobs)
+			if(humanoid.is_jammed())
+				return FALSE
 			return TRUE
 		if(istype(humanoid.w_uniform, /obj/item/clothing/under))
 			var/obj/item/clothing/under/uniform = humanoid.w_uniform
+			if(uniform.is_jammed())
+				return FALSE
 			if(uniform.has_sensor && uniform.sensor_mode >= SENSOR_COORDS) // Suit sensors must be on maximum
 				return TRUE
 	return FALSE
