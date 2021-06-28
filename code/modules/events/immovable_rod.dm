@@ -149,7 +149,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(U.job in list("Research Director"))
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			for(var/mob/M in urange(8, src))
-				if(M.is_conscious())
+				if(!M.stat)
 					shake_camera(M, 2, 3)
 			if(wizard)
 				U.visible_message("<span class='boldwarning'>[src] transforms into [wizard] as [U] suplexes them!</span>", "<span class='warning'>As you grab [src], it suddenly turns into [wizard] as you suplex them!</span>")
