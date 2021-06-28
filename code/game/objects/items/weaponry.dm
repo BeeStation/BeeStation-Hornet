@@ -936,3 +936,4 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/vibro_weapon/update_icon()
 	icon_state = "hfrequency0"
+	..()

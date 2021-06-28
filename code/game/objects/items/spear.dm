@@ -30,6 +30,7 @@
 
 /obj/item/spear/update_icon()
 	icon_state = "[icon_prefix]0"
+	..()
 
 /obj/item/spear/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -57,6 +58,7 @@
 /obj/item/spear/explosive
 	name = "explosive lance"
 	icon_prefix = "spearbomb"
+	icon_state = "spearbomb0"
 	var/obj/item/grenade/explosive = null
 
 /obj/item/spear/explosive/Initialize(mapload, obj/item/grenade/G)
@@ -159,6 +161,7 @@
  */
 /obj/item/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
 	icon_prefix = "bone_spear"
+	icon_state = "bone_spear0"
 	name = "bone spear"
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
 	force = 12
@@ -171,6 +174,7 @@
 
 /obj/item/spear/bamboospear
 	icon_prefix = "bamboo_spear"
+	icon_state = "bamboo_spear0"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	name = "bamboo spear"

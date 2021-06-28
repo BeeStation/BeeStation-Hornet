@@ -24,6 +24,7 @@
 
 /obj/item/pushbroom/update_icon_state()
 	icon_state = "broom0"
+	..()
 
 /// triggered on wield of two handed item
 /obj/item/pushbroom/proc/on_wield(obj/item/source, mob/user)

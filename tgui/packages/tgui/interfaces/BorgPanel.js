@@ -14,7 +14,6 @@ export const BorgPanel = (props, context) => {
   const laws = data.laws || [];
   return (
     <Window
-      resizable
       width={700}
       height={700}>
       <Window.Content scrollable>
