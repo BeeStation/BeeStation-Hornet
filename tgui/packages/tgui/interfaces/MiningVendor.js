@@ -10,7 +10,6 @@ export const MiningVendor = (props, context) => {
   ];
   return (
     <Window
-      resizable
       width={425}
       height={600}>
       <Window.Content scrollable>
