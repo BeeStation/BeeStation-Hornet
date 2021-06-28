@@ -137,8 +137,12 @@
 			changeling.regain_powers()
 
 
+	//if we have an AI, transfer it; if we don't, make sure the new thing doesn't either
 	if(tr_flags & TR_KEEPAI)
-		ai_controller.PossessPawn(O)
+		if(ai_controller)
+			ai_controller.PossessPawn(O)
+		else if(O.ai_controller)
+			QDEL_NULL(O.ai_controller)
 
 	if (tr_flags & TR_DEFAULTMSG)
 		to_chat(O, "<B>You are now a monkey.</B>")
@@ -410,9 +414,6 @@
 			var/obj/item/implant/IMP = Y
 			IMP.implant(O, null, 1)
 
-	if(tr_flags & TR_KEEPAI)
-		ai_controller.PossessPawn(O)
-
 	if(tr_flags & TR_KEEPORGANS)
 		for(var/X in O.internal_organs)
 			var/obj/item/organ/I = X
@@ -460,6 +461,14 @@
 			for(var/datum/action/changeling/humanform/HF in changeling.purchasedpowers)
 				changeling.purchasedpowers -= HF
 				changeling.regain_powers()
+
+	//if we have an AI, transfer it; if we don't, make sure the new thing doesn't either
+	if(tr_flags & TR_KEEPAI)
+		if(ai_controller)
+			ai_controller.PossessPawn(O)
+		else if(O.ai_controller)
+			QDEL_NULL(O.ai_controller)
+
 
 	O.a_intent = INTENT_HELP
 	if (tr_flags & TR_DEFAULTMSG)

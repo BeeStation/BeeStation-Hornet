@@ -91,7 +91,8 @@ have ways of interacting with a specific atom and control it. They posses a blac
 /datum/ai_controller/proc/MoveTo(delta_time)
 	var/current_loc = get_turf(pawn)
 
-	if(!is_type_in_typecache(get_step(pawn, get_dir(pawn, current_movement_target)), GLOB.dangerous_turfs))
+	var/get_step = get_step(pawn, get_dir(pawn, current_movement_target))
+	if(!is_type_in_typecache(get_step, GLOB.dangerous_turfs))
 		step_towards(pawn, current_movement_target)
 	if(current_loc == get_turf(pawn))
 		if(++pathing_attempts >= MAX_PATHING_ATTEMPTS)
