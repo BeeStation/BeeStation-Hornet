@@ -13,12 +13,6 @@
 	"workbench.editorAssociations": {
 		"*.dmi": "imagePreview.previewEditor"
 	},
-<<<<<<< HEAD
-	"workbench.editorAssociations": {
-		"*.dmi": "imagePreview.previewEditor"
-	},
-=======
->>>>>>> master
 	"files.eol": "\n",
 	"gitlens.advanced.blame.customArguments": ["-w"],
 	"tgstationTestExplorer.project.resultsType": "json",
