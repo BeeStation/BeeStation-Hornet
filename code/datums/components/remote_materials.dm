@@ -86,6 +86,8 @@ handles linking back and forth.
 		_MakeLocal()
 
 /datum/component/remote_materials/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
+	SIGNAL_HANDLER
+
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		if(!I.multitool_check_buffer(user, I))
 			return COMPONENT_NO_AFTERATTACK
