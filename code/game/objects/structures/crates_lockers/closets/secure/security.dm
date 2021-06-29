@@ -82,6 +82,8 @@
 	new	/obj/item/storage/firstaid/brute(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/under/rank/brig_phys(src)
+	new /obj/item/clothing/under/rank/brig_phys/skirt(src)
 
 /obj/structure/closet/secure_closet/hos
 	name = "\proper head of security's locker"
@@ -100,7 +102,10 @@
 	new /obj/item/clothing/suit/armor/vest/leather(src)
 	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
 	new /obj/item/clothing/suit/armor/hos(src)
+	new /obj/item/clothing/under/rank/security/head_of_security(src)
+	new /obj/item/clothing/under/rank/security/head_of_security/skirt(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/alt(src)
+	new /obj/item/clothing/under/rank/security/head_of_security/alt/skirt(src)
 	new /obj/item/clothing/head/HoS(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/gars/supergars(src)
@@ -134,6 +139,8 @@
 	new /obj/item/clothing/head/beret/corpwarden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
 	new /obj/item/clothing/under/rank/security/warden/formal(src)
+	new /obj/item/clothing/under/rank/security/warden(src)
+	new /obj/item/clothing/under/rank/security/warden/skirt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/storage/box/zipties(src)

@@ -118,7 +118,7 @@
 			if(!(L.mobility_flags & MOBILITY_STAND))
 				return FALSE
 	if(check_flags & AB_CHECK_CONSCIOUS)
-		if(!owner.is_conscious())
+		if(owner.stat)
 			return FALSE
 	return TRUE
 

@@ -30,7 +30,7 @@
 
 /obj/item/teleportation_scroll/Topic(href, href_list)
 	..()
-	if (!usr.is_conscious() || usr.restrained() || src.loc != usr)
+	if (usr.stat || usr.restrained() || src.loc != usr)
 		return
 	if (!ishuman(usr))
 		return 1

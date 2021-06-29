@@ -294,10 +294,10 @@
 	for(var/obj/item/I in real_location.contents)
 		if(QDELETED(I))
 			continue
-		if(!.["[I.type]"])
-			.["[I.type]"] = new /datum/numbered_display(I, 1)
+		if(!.["[I.type]-[I.name]"])
+			.["[I.type]-[I.name]"] = new /datum/numbered_display(I, 1)
 		else
-			var/datum/numbered_display/ND = .["[I.type]"]
+			var/datum/numbered_display/ND = .["[I.type]-[I.name]"]
 			ND.number++
 
 //This proc determines the size of the inventory to be displayed. Please touch it only if you know what you're doing.
@@ -356,7 +356,7 @@
 	if(!M.client)
 		return FALSE
 	var/atom/real_location = real_location()
-	if(M.active_storage != src && (M.is_conscious()))
+	if(M.active_storage != src && (M.stat == CONSCIOUS))
 		for(var/obj/item/I in real_location)
 			if(I.on_found(M))
 				return FALSE
@@ -582,7 +582,7 @@
 			if(!stop_messages)
 				host.balloon_alert(M, "It doesn't fit")
 			return FALSE
-	if(is_type_in_typecache(I, cant_hold)) //Check for specific items which this container can't hold.
+	if(is_type_in_typecache(I, cant_hold) || HAS_TRAIT(I, TRAIT_NO_STORAGE_INSERT)) //Items which this container can't hold.
 		if(!stop_messages)
 			host.balloon_alert(M, "It doesn't fit")
 		return FALSE

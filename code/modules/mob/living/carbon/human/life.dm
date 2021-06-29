@@ -75,8 +75,6 @@
 
 				adjust_hygiene(hygiene_loss)
 
-		if(InCritical())
-			softcrit_damage()
 		dna.species.spec_life(src) // for mutantraces
 
 	//Update our name based on whether our face is obscured/disfigured
