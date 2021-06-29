@@ -628,7 +628,7 @@
 
 /obj/structure/sign/poster/official/moth5
 	name = "Safety Moth - Piping"
-	desc = "This informational poster uses Safety Moth(TM) to tell atmospheric technicians correct types of piping to be used. Proper pipe placement prevents poor preformance! It's signed by 'AspEv'."
+	desc = "This informational poster uses Safety Moth(TM) to tell atmospheric technicians correct types of piping to be used. Proper pipe placement prevents poor performance! It's signed by 'AspEv'."
 	icon_state = "poster40_legit"
 
 /obj/structure/sign/poster/official/moth6
