@@ -17,6 +17,7 @@
 	var/obj/item/radio/headset/radio
 	/// var that tracks message cooldown
 	var/message_cooldown
+	COOLDOWN_DECLARE(order_cooldown)
 
 	light_color = "#E2853D"//orange
 
@@ -171,6 +172,8 @@
 				say("The supply shuttle has been loaned to CentCom.")
 				. = TRUE
 		if("add")
+			if(!COOLDOWN_FINISHED(src, order_cooldown))
+				return
 			var/id = text2path(params["id"])
 			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
 			if(!istype(pack))

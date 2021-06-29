@@ -17,7 +17,7 @@
 	button_icon_state = "see"						//Feel free to replace
 
 /datum/action/blink/Trigger()
-	if(!owner.is_conscious())
+	if(owner.stat != CONSCIOUS)
 		return FALSE
 	owner.emote("blink")
 
