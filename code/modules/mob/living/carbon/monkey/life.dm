@@ -1,34 +1,5 @@
 /mob/living/carbon/monkey
 
-<<<<<<< HEAD
-=======
-
-/mob/living/carbon/monkey/Life()
-	set invisibility = 0
-
-	if (notransform)
-		return
-
-	if(..() && !IsInStasis())
-
-		if(!client)
-			if(stat == CONSCIOUS)
-				if(on_fire || buckled || restrained())
-					if(!resisting && prob(MONKEY_RESIST_PROB))
-						resisting = TRUE
-						walk_to(src,0)
-						resist()
-				else if(resisting)
-					resisting = FALSE
-				else if((mode == MONKEY_IDLE && !pickupTarget && !prob(MONKEY_SHENANIGAN_PROB)) || !handle_combat())
-					if(prob(25) && (mobility_flags & MOBILITY_MOVE) && isturf(loc) && !pulledby)
-						step(src, pick(GLOB.cardinals))
-					else if(prob(1))
-						INVOKE_ASYNC(src, /mob.proc/emote, pick("scratch","jump","roll","tail"))
-			else
-				walk_to(src,0)
-
->>>>>>> master
 /mob/living/carbon/monkey/handle_mutations_and_radiation()
 	if(radiation)
 		if(radiation > RAD_MOB_KNOCKDOWN && prob(RAD_MOB_KNOCKDOWN_PROB))

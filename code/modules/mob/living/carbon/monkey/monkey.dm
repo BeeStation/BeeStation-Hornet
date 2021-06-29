@@ -208,6 +208,7 @@
 	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					 /obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	ai_controller = null
 
 /datum/dna/tumor
 	species = new /datum/species/teratoma

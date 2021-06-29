@@ -76,10 +76,6 @@
 				'sound/creatures/monkey/monkey_screech_5.ogg',
 				'sound/creatures/monkey/monkey_screech_6.ogg',
 				'sound/creatures/monkey/monkey_screech_7.ogg')
-/datum/emote/living/carbon/screech/roar
-	key = "roar"
-	key_third_person = "roars"
-	message = "roars."
 
 /datum/emote/living/carbon/screech/roar
 	key = "roar"
