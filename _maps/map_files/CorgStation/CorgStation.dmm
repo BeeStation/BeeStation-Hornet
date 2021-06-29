@@ -5740,7 +5740,7 @@
 	},
 /area/chapel/main/monastery)
 "bkb" = (
-/obj/machinery/computer/custom_shuttle{
+/obj/machinery/computer/shuttle_flight/custom_shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{
@@ -63454,7 +63454,6 @@
 /obj/item/circuitboard/machine/shuttle/heater,
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
 /obj/item/circuitboard/computer/shuttle/flight_control,
-/obj/item/circuitboard/computer/shuttle/docker,
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
