@@ -1,24 +1,24 @@
 /datum/job/exploration
 	title = "Exploration Crew"
 	flag = EXPLORATION_CREW
-	department_head = list("Head of Personnel", "Research Director")
-	department_flag = CIVILIAN
+	department_head = list("Research Director")
+	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
-	supervisors = "the quartermaster, head of personnel and research director"
-	selection_color = "#dcba97"
+	supervisors = "the research director"
+	selection_color = "#ffeeff"
 	chat_color = "#85d8b8"
 
 	outfit = /datum/outfit/job/exploration
 
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_RESEARCH, ACCESS_EXPLORATION)
-	minimal_access = list(ACCESS_MAILSORTING, ACCESS_EXPLORATION)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE)
+	minimal_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE)
 	paycheck = PAYCHECK_HARD
-	paycheck_department = ACCOUNT_CAR
+	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
-	departments = DEPARTMENT_CARGO
+	departments = DEPARTMENT_SCIENCE
 
 /datum/outfit/job/exploration
 	name = "Exploration Crew"
