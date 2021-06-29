@@ -8,6 +8,7 @@ import { BoxProps } from '../../components/Box';
 export const MATERIAL_KEYS = {
   "iron": "sheet-metal_3",
   "glass": "sheet-glass_3",
+  "copper": "sheet-copper_3",
   "silver": "sheet-silver_3",
   "gold": "sheet-gold_3",
   "diamond": "sheet-diamond",

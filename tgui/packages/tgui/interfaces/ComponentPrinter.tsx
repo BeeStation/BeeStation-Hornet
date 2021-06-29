@@ -73,7 +73,7 @@ export const ComponentPrinter = (props, context) => {
   const [searchText, setSearchText] = useLocalState(context, "searchText", "");
 
   return (
-    <Window title="Component Printer" width={900} height={700}>
+    <Window title="Component Printer" width={1250} height={700}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item grow>
