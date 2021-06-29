@@ -115,8 +115,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				end = FALSE
 				break
 		if(end)
-			message_mods += MODE_WHISPER // forces people in crit to whisper if they can't do anything else
-
+			return
 	else if(stat == UNCONSCIOUS)
 		var/end = TRUE
 		for(var/index in message_mods)

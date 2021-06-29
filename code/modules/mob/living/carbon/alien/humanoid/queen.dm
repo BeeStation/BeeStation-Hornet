@@ -166,7 +166,7 @@
 		qdel(src)
 		return
 	else
-		to_chat(user, "<span class='warning'>This child must be fully alert and responsive to become a Praetorian!</span>")
+		to_chat(user, "<span class='warning'>This child must be alert and responsive to become a Praetorian!</span>")
 
 /obj/item/queenpromote/attack_self(mob/user)
 	to_chat(user, "<span class='noticealien'>You discard [src].</span>")

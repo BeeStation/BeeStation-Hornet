@@ -556,16 +556,19 @@
 /obj/mecha/Process_Spacemove(var/movement_dir = 0)
 	. = ..()
 	if(.)
-		return TRUE
+		return
 
-	var/atom/movable/backup = get_spacemove_backup()
-	if(backup)
-		if(istype(backup) && movement_dir && !backup.anchored)
-			if(backup.newtonian_move(turn(movement_dir, 180)))
+	var/atom/backup = get_spacemove_backup()
+	if(backup && movement_dir)
+		if(isturf(backup)) //get_spacemove_backup() already checks if a returned turf is solid, so we can just go
+			return TRUE
+		if(istype(backup, /atom/movable))
+			var/atom/movable/movable_backup = backup
+			if((!movable_backup.anchored) && (movable_backup.newtonian_move(turn(movement_dir, 180))))
 				step_silent = TRUE
 				if(occupant)
-					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
-		return TRUE
+					to_chat(occupant, "<span class='info'>You push off of [movable_backup] to propel yourself.</span>")
+			return TRUE
 
 	if(can_move <= world.time && active_thrusters && movement_dir && active_thrusters.thrust(movement_dir))
 		step_silent = TRUE
