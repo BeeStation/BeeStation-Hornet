@@ -56,8 +56,8 @@
 	display_name = "Basic Integrated Circuits"
 	description = "Research on how to fully exploit the power of integrated circuits"
 	design_ids = list("integrated_circuit", "circuit_multitool", "comp_arithmetic", "comp_clock", "comp_combiner", "comp_comparison", "comp_delay",
-		"comp_direction", "comp_gps", "comp_health", "comp_hear", "comp_index", "comp_length", "comp_light", "comp_logic", "comp_mmi", "comp_multiplexer", "comp_not", "comp_ram",
-		"comp_random", "comp_species", "comp_textcase","comp_speech", "comp_concat", "comp_speech", "comp_self", "comp_radio", "comp_tostring",
+		"comp_direction", "comp_get_column", "comp_gps", "comp_health", "comp_hear", "comp_index", "comp_index_table", "comp_length", "comp_light", "comp_logic", "comp_mmi", "comp_multiplexer", "comp_not", "comp_ram",
+		"comp_random", "comp_select_query", "comp_species", "comp_textcase","comp_speech", "comp_concat", "comp_concat_list", "comp_speech", "comp_self", "comp_radio", "comp_tostring",
 		"comp_typecheck", "compact_remote_shell", "component_printer", "comp_string_contains", "usb_cable")
 
 /////////////////////////Biotech/////////////////////////
