@@ -5,13 +5,14 @@
  */
 /obj/item/circuit_component/random
 	display_name = "Random"
+	display_desc = "A component that returns random values."
 
 	/// The minimum value that the random number can be
 	var/datum/port/input/minimum
 	/// The maximum value that the random number can be
 	var/datum/port/input/maximum
 
-	has_trigger = TRUE
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 	/// The result from the output
 	var/datum/port/output/output
@@ -42,4 +43,3 @@
 		return
 
 	output.set_output(rand(min_val, max_val))
-	trigger_output.set_output(COMPONENT_SIGNAL)

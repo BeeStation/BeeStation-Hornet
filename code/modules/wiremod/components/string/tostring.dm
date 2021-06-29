@@ -5,6 +5,7 @@
  */
 /obj/item/circuit_component/tostring
 	display_name = "To String"
+	display_desc = "A component that converts its input to text."
 
 	/// The input port
 	var/datum/port/input/input_port
@@ -12,9 +13,9 @@
 	/// The result from the output
 	var/datum/port/output/output
 
-	has_trigger = TRUE
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-	var/min_range = 5
+	var/max_range = 5
 
 /obj/item/circuit_component/tostring/Initialize()
 	. = ..()
@@ -36,9 +37,8 @@
 	if(isatom(input_value))
 		var/turf/location = get_turf(src)
 		var/atom/object = input_value
-		if(object.z != location.z || get_dist(location, object) > min_range)
+		if(object.z != location.z || get_dist(location, object) > max_range)
 			output.set_output(PORT_TYPE_ATOM)
 			return
 
 	output.set_output("[input_value]")
-	trigger_output.set_output(COMPONENT_SIGNAL)

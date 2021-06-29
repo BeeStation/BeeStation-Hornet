@@ -5,6 +5,7 @@
  */
 /obj/item/circuit_component/textcase
 	display_name = "Text Case"
+	display_desc = "A component that makes its input uppercase or lowercase."
 
 	/// The input port
 	var/datum/port/input/input_port
@@ -12,15 +13,16 @@
 	/// The result of the text operation
 	var/datum/port/output/output
 
-	has_trigger = TRUE
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-GLOBAL_LIST_INIT(comp_text_operations, list(
-	COMP_TEXT_LOWER,
-	COMP_TEXT_UPPER
-))
+/obj/item/circuit_component/textcase/populate_options()
+	var/static/component_options = list(
+		COMP_TEXT_LOWER,
+		COMP_TEXT_UPPER,
+	)
+	options = component_options
 
 /obj/item/circuit_component/textcase/Initialize()
-	options = GLOB.comp_text_operations
 	. = ..()
 	input_port = add_input_port("Input", PORT_TYPE_STRING)
 	output = add_output_port("Output", PORT_TYPE_STRING)
@@ -47,4 +49,3 @@ GLOBAL_LIST_INIT(comp_text_operations, list(
 			result = uppertext(value)
 
 	output.set_output(result)
-	trigger_output.set_output(COMPONENT_SIGNAL)

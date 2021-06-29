@@ -106,8 +106,7 @@ export const ComponentPrinter = (props, context) => {
                           <Tabs.Tab key={category}
                             onClick={() => setCurrentCategory(category)}
                             selected={category === currentCategory}
-                            fluid
-                          >
+                            fluid>
                             {category}
                           </Tabs.Tab>
                         );
@@ -145,8 +144,7 @@ export const ComponentPrinter = (props, context) => {
                                 disabled={
                                   !canProduce(design.materials, data.materials)
                                 }
-                                px={1.5}
-                              >
+                                px={1.5}>
                                 Print
                               </Button>
                             )}>

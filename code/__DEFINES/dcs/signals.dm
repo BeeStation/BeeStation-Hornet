@@ -42,7 +42,7 @@
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"			        //! from base of atom/attackby(): (/obj/item, /mob/living, params)
 	#define COMPONENT_NO_AFTERATTACK 1							//! Return this in response if you don't want afterattack to be called
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"					//! from base of atom/attack_hulk(): (/mob/living/carbon/human)
-#define COMSIG_PARENT_EXAMINE "atom_examine"                    //! from base of atom/examine(): (/mob)
+#define COMSIG_PARENT_EXAMINE "atom_examine"                    //! from base of atom/examine(): (/mob, list/examine_text)
 #define COMSIG_ATOM_GET_EXAMINE_NAME "atom_examine_name"		//! from base of atom/get_examine_name(): (/mob, list/overrides)
 	//Positions for overrides list
 	#define EXAMINE_POSITION_ARTICLE 1
@@ -414,7 +414,38 @@
 	/// Cancels adding the component to the circuit.
 	#define COMPONENT_CANCEL_ADD_COMPONENT (1<<0)
 
+/// Sent when a [/obj/item/circuit_component] is added to a circuit manually, by putting the item inside directly.
+/// Accepts COMPONENT_CANCEL_ADD_COMPONENT.
+#define COMSIG_CIRCUIT_ADD_COMPONENT_MANUALLY "circuit_add_component_manually"
+
+/// Sent when a circuit is removed from its shell
+#define COMSIG_CIRCUIT_SHELL_REMOVED "circuit_shell_removed"
+
+/// Sent to [/obj/item/circuit_component] when it is removed from a circuit. (/obj/item/integrated_circuit)
+#define COMSIG_CIRCUIT_COMPONENT_REMOVED "circuit_component_removed"
+
+/// Sent to an atom when a [/obj/item/usb_cable] attempts to connect to something. (/obj/item/usb_cable/usb_cable, /mob/user)
+#define COMSIG_ATOM_USB_CABLE_TRY_ATTACH "usb_cable_try_attach"
+	/// Attaches the USB cable to the atom. If the USB cables moves away, it will disconnect.
+	#define COMSIG_USB_CABLE_ATTACHED (1<<0)
+
+	/// Attaches the USB cable to a circuit. Producers of this are expected to set the usb_cable's
+	/// `attached_circuit` variable.
+	#define COMSIG_USB_CABLE_CONNECTED_TO_CIRCUIT (1<<1)
+
+	/// Cancels the attack chain, but without performing any other action.
+	#define COMSIG_CANCEL_USB_CABLE_ATTACK (1<<2)
+
+/// Sent from /obj/structure/industrial_lift/tram when its travelling status updates. (travelling)
+#define COMSIG_TRAM_SET_TRAVELLING "tram_set_travelling"
+
+/// Sent from /obj/structure/industrial_lift/tram when it begins to travel. (obj/effect/landmark/tram/from_where, obj/effect/landmark/tram/to_where)
+#define COMSIG_TRAM_TRAVEL "tram_travel"
+
 ///for any tool behaviors: (mob/living/user, obj/item/I, list/recipes)
 #define COMSIG_ATOM_TOOL_ACT(tooltype) "tool_act_[tooltype]"
 	#define COMPONENT_BLOCK_TOOL_ATTACK (1<<0)
 //not widely used yet, but has lot of potential
+
+/// Called in /obj/structure/moneybot/add_money(). (to_add)
+#define COMSIG_MONEYBOT_ADD_MONEY "moneybot_add_money"

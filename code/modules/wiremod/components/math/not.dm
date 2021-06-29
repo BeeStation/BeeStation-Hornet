@@ -5,13 +5,14 @@
  */
 /obj/item/circuit_component/not
 	display_name = "Not"
+	display_desc = "A component that inverts its input."
 
 	/// The input port
 	var/datum/port/input/input_port
 
 	/// The result from the output
 	var/datum/port/output/result
-	has_trigger = TRUE
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 /obj/item/circuit_component/not/Initialize()
 	. = ..()
@@ -30,4 +31,3 @@
 		return
 
 	result.set_output(!input_port.input_value)
-	trigger_output.set_output(COMPONENT_SIGNAL)

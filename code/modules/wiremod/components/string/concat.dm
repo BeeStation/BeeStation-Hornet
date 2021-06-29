@@ -5,13 +5,14 @@
  */
 /obj/item/circuit_component/concat
 	display_name = "Concatenate"
+	display_desc = "A component that combines strings."
 
 	/// The amount of input ports to have
 	var/input_port_amount = 4
 
 	/// The result from the output
 	var/datum/port/output/output
-	has_trigger = TRUE
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 /obj/item/circuit_component/concat/Initialize()
 	. = ..()
@@ -42,4 +43,3 @@
 		result += "[value]"
 
 	output.set_output(result)
-	trigger_output.set_output(COMPONENT_SIGNAL)

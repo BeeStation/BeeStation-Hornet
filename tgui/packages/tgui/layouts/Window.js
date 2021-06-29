@@ -9,7 +9,7 @@ import { useDispatch } from 'common/redux';
 import { decodeHtmlEntities, toTitleCase } from 'common/string';
 import { Component } from 'inferno';
 import { backendSuspendStart, useBackend } from '../backend';
-import { Icon } from '../components';
+import { Icon, Flex } from '../components';
 import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from '../constants';
 import { useDebug } from '../debug';
 import { toggleKitchenSink } from '../debug/actions';
@@ -61,6 +61,7 @@ export class Window extends Component {
       theme,
       title,
       children,
+      buttons,
     } = this.props;
     const {
       config,
@@ -88,7 +89,10 @@ export class Window extends Component {
           onClose={() => {
             logger.log('pressed close');
             dispatch(backendSuspendStart());
-          }} />
+          }}
+          canClose={canClose}>
+          {buttons}
+        </TitleBar>
         <div
           className={classes([
             'Window__rest',
@@ -159,6 +163,7 @@ const TitleBar = (props, context) => {
     fancy,
     onDragStart,
     onClose,
+    children,
   } = props;
   const dispatch = useDispatch(context);
   return (
@@ -178,15 +183,20 @@ const TitleBar = (props, context) => {
           color={statusToColor(status)}
           name="eye" />
       )}
+      <div
+        className="TitleBar__dragZone"
+        onMousedown={e => fancy && onDragStart(e)} />
       <div className="TitleBar__title">
         {typeof title === 'string'
           && title === title.toLowerCase()
           && toTitleCase(title)
           || title}
+        {!!children && (
+          <div className="TitleBar__buttons">
+            {children}
+          </div>
+        )}
       </div>
-      <div
-        className="TitleBar__dragZone"
-        onMousedown={e => fancy && onDragStart(e)} />
       {process.env.NODE_ENV !== 'production' && (
         <div
           className="TitleBar__devBuildIndicator"

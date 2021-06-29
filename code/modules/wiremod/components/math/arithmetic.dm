@@ -6,6 +6,7 @@
  */
 /obj/item/circuit_component/arithmetic
 	display_name = "Arithmetic"
+	display_desc = "General arithmetic component with arithmetic capabilities."
 
 	/// The amount of input ports to have
 	var/input_port_amount = 4
@@ -13,19 +14,20 @@
 	/// The result from the output
 	var/datum/port/output/output
 
-	has_trigger = TRUE
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-GLOBAL_LIST_INIT(comp_arithmetic_options, list(
-	COMP_ARITHMETIC_ADD,
-	COMP_ARITHMETIC_SUBTRACT,
-	COMP_ARITHMETIC_MULTIPLY,
-	COMP_ARITHMETIC_DIVIDE,
-	COMP_ARITHMETIC_MIN,
-	COMP_ARITHMETIC_MAX,
-))
+/obj/item/circuit_component/arithmetic/populate_options()
+	var/static/component_options = list(
+		COMP_ARITHMETIC_ADD,
+		COMP_ARITHMETIC_SUBTRACT,
+		COMP_ARITHMETIC_MULTIPLY,
+		COMP_ARITHMETIC_DIVIDE,
+		COMP_ARITHMETIC_MIN,
+		COMP_ARITHMETIC_MAX,
+	)
+	options = component_options
 
 /obj/item/circuit_component/arithmetic/Initialize()
-	options = GLOB.comp_arithmetic_options
 	. = ..()
 	for(var/port_id in 1 to input_port_amount)
 		var/letter = ascii2text(text2ascii("A") + (port_id-1))
@@ -72,4 +74,3 @@ GLOBAL_LIST_INIT(comp_arithmetic_options, list(
 				result = min(result, value)
 
 	output.set_output(result)
-	trigger_output.set_output(COMPONENT_SIGNAL)

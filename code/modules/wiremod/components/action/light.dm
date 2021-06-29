@@ -5,6 +5,7 @@
  */
 /obj/item/circuit_component/light
 	display_name = "Light"
+	display_desc = "A component that emits a light of a specific brightness and colour. Requires a shell."
 
 	/// The colours of the light
 	var/datum/port/input/red
@@ -20,6 +21,14 @@
 	var/max_power = 5
 	var/min_lightness = 0.4
 	var/shell_light_color
+
+/obj/item/circuit_component/light/get_ui_notices()
+	. = ..()
+	. += list(list(
+		"icon" = "lightbulb",
+		"content" = "Maximum Brightness: [max_power]",
+		"color" = "orange"
+	))
 
 /obj/item/circuit_component/light/Initialize()
 	. = ..()
@@ -41,7 +50,7 @@
 
 /obj/item/circuit_component/light/register_shell(atom/movable/shell)
 	. = ..()
-	input_received()
+	TRIGGER_CIRCUIT_COMPONENT(src, null)
 
 /obj/item/circuit_component/light/unregister_shell(atom/movable/shell)
 	shell.set_light(0, 0)
@@ -49,10 +58,10 @@
 
 /obj/item/circuit_component/light/input_received(datum/port/input/port)
 	. = ..()
-	brightness.set_input(min(max(brightness.input_value || 0, 0), max_power), FALSE)
-	red.set_input(min(max(red.input_value, 0), 255), FALSE)
-	blue.set_input(min(max(blue.input_value, 0), 255), FALSE)
-	green.set_input(min(max(green.input_value, 0), 255), FALSE)
+	brightness.set_input(clamp(brightness.input_value || 0, 0, max_power), FALSE)
+	red.set_input(clamp(red.input_value, 0, 255), FALSE)
+	blue.set_input(clamp(blue.input_value, 0, 255), FALSE)
+	green.set_input(clamp(green.input_value, 0, 255), FALSE)
 	var/list/hsl = rgb2hsl(red.input_value || 0, green.input_value || 0, blue.input_value || 0)
 	var/list/light_col = hsl2rgb(hsl[1], hsl[2], max(min_lightness, hsl[3]))
 	shell_light_color = rgb(light_col[1], light_col[2], light_col[3])
