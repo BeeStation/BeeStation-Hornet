@@ -1,4 +1,3 @@
-import { toFixed } from 'common/math';
 import { Component } from 'inferno';
 
 // AnimatedNumber Copypaste

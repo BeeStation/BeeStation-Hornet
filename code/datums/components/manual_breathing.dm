@@ -18,7 +18,7 @@
 	var/datum/emote/next_emote = "inhale"
 
 /datum/action/breathe/Trigger()
-	if(!owner.is_conscious())
+	if(owner.stat != CONSCIOUS)
 		return FALSE
 	owner.emote(next_emote)
 
