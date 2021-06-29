@@ -8,12 +8,11 @@
 	name = "controller"
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "setup_small_calc"
-	inhand_icon_state = "electronic"
-	worn_icon_state = "electronic"
+	item_state = "electronic"
+	//worn_icon_state = "electronic"	//remember to change it
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
-	light_on = FALSE
+	light_range = FALSE
 
 /obj/item/controller/Initialize()
 	. = ..()
@@ -44,12 +43,10 @@
 /obj/item/circuit_component/controller/register_shell(atom/movable/shell)
 	RegisterSignal(shell, COMSIG_ITEM_ATTACK_SELF, .proc/send_trigger)
 	RegisterSignal(shell, COMSIG_CLICK_ALT, .proc/send_alternate_signal)
-	RegisterSignal(shell, COMSIG_CLICK_ALT_SECONDARY, .proc/send_right_signal)
 
 /obj/item/circuit_component/controller/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, list(
 		COMSIG_ITEM_ATTACK_SELF,
-		COMSIG_CLICK_ALT_SECONDARY,
 		COMSIG_CLICK_ALT,
 	))
 

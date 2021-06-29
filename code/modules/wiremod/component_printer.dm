@@ -23,7 +23,6 @@
 		/datum/component/remote_materials, \
 		"component_printer", \
 		mapload, \
-		mat_container_flags = BREAKDOWN_FLAGS_LATHE, \
 	)
 
 /obj/machinery/component_printer/ui_interact(mob/user, datum/tgui/ui)
@@ -64,8 +63,8 @@
 			materials.mat_container?.use_materials(design.materials)
 			materials.silo_log(src, "printed", -1, design.name, design.materials)
 			var/atom/printed_design = new design.build_path(drop_location())
-			printed_design.pixel_x = printed_design.base_pixel_x + rand(-5, 5)
-			printed_design.pixel_y = printed_design.base_pixel_y + rand(-5, 5)
+			printed_design.pixel_x = rand(-5, 5)
+			printed_design.pixel_y = rand(-5, 5)
 		if ("remove_mat")
 			var/datum/material/material = locate(params["ref"])
 			var/amount = text2num(params["amount"])
@@ -125,7 +124,7 @@
 
 /obj/item/circuitboard/machine/component_printer
 	name = "\improper Component Printer (Machine Board)"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	icon_state = "science"
 	build_path = /obj/machinery/component_printer
 	req_components = list(
 		/obj/item/stock_parts/matter_bin = 2,

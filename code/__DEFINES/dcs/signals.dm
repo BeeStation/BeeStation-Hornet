@@ -87,7 +87,6 @@
   #define COMPONENT_RAD_WAVE_HANDLED 1
 #define COMSIG_ATOM_CANREACH "atom_can_reach"					//! from internal loop in atom/movable/proc/CanReach(): (list/next)
 	#define COMPONENT_BLOCK_REACH 1
-#define COMSIG_ATOM_SCREWDRIVER_ACT "atom_screwdriver_act"		//! from base of atom/screwdriver_act(): (mob/living/user, obj/item/I)
 #define COMSIG_ATOM_INTERCEPT_TELEPORT "intercept_teleport"		//! called when teleporting into a protected turf: (channel, turf/origin)
 	#define COMPONENT_BLOCK_TELEPORT 1
 /////////////////
@@ -414,3 +413,8 @@
 #define COMSIG_CIRCUIT_ADD_COMPONENT "circuit_add_component"
 	/// Cancels adding the component to the circuit.
 	#define COMPONENT_CANCEL_ADD_COMPONENT (1<<0)
+
+///for any tool behaviors: (mob/living/user, obj/item/I, list/recipes)
+#define COMSIG_ATOM_TOOL_ACT(tooltype) "tool_act_[tooltype]"
+	#define COMPONENT_BLOCK_TOOL_ATTACK (1<<0)
+//not widely used yet, but has lot of potential

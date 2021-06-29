@@ -9,7 +9,7 @@
 	name = "integrated circuit"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "integrated_circuit"
-	inhand_icon_state = "electronic"
+	item_state = "electronic"
 
 	/// The power of the integrated circuit
 	var/obj/item/stock_parts/cell/cell
