@@ -5,7 +5,6 @@
 	icon = 'icons/obj/wiremod.dmi'
 	icon_state = "usb_cable"
 	item_state = "coil"
-	//base_icon_state = "coil"		//reminder to remove it
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron = 75)
 

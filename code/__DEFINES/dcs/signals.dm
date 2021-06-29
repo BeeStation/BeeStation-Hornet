@@ -188,6 +188,9 @@
 #define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"        //from base of mob/swap_hand()
   #define COMPONENT_BLOCK_SWAP 1
 
+///from base of /obj/item/mmi/set_brainmob(): (mob/living/brain/new_brainmob)
+#define COMSIG_MMI_SET_BRAINMOB "mmi_set_brainmob"
+
 // /mob/living signals
 #define COMSIG_LIVING_REVIVE "living_revive"					//! from base of mob/living/revive() (/mob/living, full_heal, admin_revive)
 #define COMSIG_LIVING_RESIST "living_resist"					//! from base of mob/living/resist() (/mob/living)
