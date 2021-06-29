@@ -21,7 +21,7 @@
 	impact_type = /obj/effect/projectile/impact/laser
 
 /obj/item/projectile/beam/laser/energypistol
-	damage = 30
+	damage = 20
 
 /obj/item/projectile/beam/laser/heavylaser
 	name = "heavy laser"
