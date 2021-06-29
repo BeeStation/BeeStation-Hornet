@@ -221,7 +221,7 @@
 	if(get_dist(owner, beepsky) >= 10 && prob(20))
 		QDEL_NULL(beepsky)
 		create_securitron()
-	if(!owner.is_conscious())
+	if(owner.stat != CONSCIOUS)
 		if(prob(20))
 			owner.playsound_local(beepsky, 'sound/voice/beepsky/iamthelaw.ogg', 50)
 		return

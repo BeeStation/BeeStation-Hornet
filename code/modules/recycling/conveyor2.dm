@@ -151,7 +151,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		if(!QDELETED(M) && (M.loc == loc) && !M.anchored && M.move_resist != INFINITY && M.has_gravity())
 			if(isliving(M))
 				var/mob/living/L = M
-				if((L.movement_type & FLYING) && L.is_conscious())
+				if((L.movement_type & FLYING) && !L.stat)
 					continue
 			affected.Add(M)
 		if(i >= MAX_CONVEYOR_ITEMS_MOVE)
