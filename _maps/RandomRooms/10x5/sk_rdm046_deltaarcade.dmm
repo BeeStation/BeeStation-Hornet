@@ -119,7 +119,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "k" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plating,
 /area/template_noop)
 "l" = (

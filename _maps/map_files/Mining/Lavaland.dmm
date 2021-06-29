@@ -1289,7 +1289,7 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "eV" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/mine/science)
 "eX" = (
@@ -4060,7 +4060,7 @@
 /turf/open/floor/plasteel,
 /area/mine/laborcamp/security)
 "zl" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -4161,7 +4161,7 @@
 "AC" = (
 /obj/structure/table/reinforced,
 /obj/item/bodypart/head/robot,
-/obj/item/flashbulb/strong{
+/obj/item/flashbulb/recharging/revolution{
 	pixel_x = -5;
 	pixel_y = 8
 	},
@@ -4838,7 +4838,7 @@
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "HA" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -5298,7 +5298,7 @@
 /area/mine/production)
 "LY" = (
 /obj/structure/window/reinforced,
-/obj/item/twohanded/required/kirbyplants/random{
+/obj/item/kirbyplants/random{
 	pixel_y = 4
 	},
 /turf/open/floor/plasteel,

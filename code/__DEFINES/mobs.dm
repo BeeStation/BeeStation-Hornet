@@ -375,9 +375,6 @@
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
 
-/// Glide speed of carbons in soft crit
-#define CRIT_GLIDE 2
-
 // Mob Playability Set By Admin Or Ghosting
 #define SENTIENCE_SKIP 0
 #define SENTIENCE_RETAIN 1	//a player ghosting out of the mob will make the mob playable for others, if it was already playable

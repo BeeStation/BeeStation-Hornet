@@ -6,7 +6,7 @@ Fever
 	No change to hidden.
 	Increases resistance.
 	Increases stage speed.
-	Little transmittable.
+	Little transmission.
 	Low level.
 
 Bonus
@@ -21,7 +21,7 @@ Bonus
 	stealth = -1
 	resistance = 3
 	stage_speed = 3
-	transmittable = 2
+	transmission = 2
 	level = 2
 	severity = 0
 	base_message_chance = 20
@@ -33,19 +33,19 @@ Bonus
 
 /datum/symptom/fever/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 5)
+	if(A.resistance >= 5)
 		severity += 1
-	if(A.properties["resistance"] >= 10)
-		severity += 1
+		if(A.resistance >= 10)
+			severity += 1
 
 /datum/symptom/fever/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 5) //dangerous fever
+	if(A.resistance >= 5) //dangerous fever
 		power = 1.5
 		unsafe = TRUE
-	if(A.properties["resistance"] >= 10)
-		power = 2.5
+		if(A.resistance >= 10)
+			power = 2.5
 
 /datum/symptom/fever/Activate(datum/disease/advance/A)
 	if(!..())

@@ -292,7 +292,7 @@
 			else if(!client)
 				msg += "[t_He] [t_has] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon.\n"
 
-		if(digitalcamo)
+		if(HAS_TRAIT(src, TRAIT_DIGICAMO))
 			msg += "[t_He] [t_is] moving [t_his] body in an unnatural and blatantly inhuman manner.\n"
 
 	if (length(msg))
@@ -328,7 +328,7 @@
 				. += "<span class='info'>Detected physiological traits:\n[traitstring]"
 
 		if(HAS_TRAIT(user, TRAIT_SECURITY_HUD))
-			if(user.is_conscious() && user != src)
+			if(!user.stat && user != src)
 			//|| !user.canmove || user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				var/criminal = "None"
 

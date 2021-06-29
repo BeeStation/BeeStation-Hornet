@@ -686,7 +686,7 @@
 /area/lavaland/surface/outdoors)
 "bP" = (
 /obj/structure/stone_tile/block,
-/obj/item/twohanded/bonespear,
+/obj/item/spear/bonespear,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -858,7 +858,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ck" = (
-/obj/item/twohanded/bonespear,
+/obj/item/spear/bonespear,
 /obj/structure/stone_tile{
 	dir = 4
 	},
@@ -872,7 +872,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/item/twohanded/bonespear,
+/obj/item/spear/bonespear,
 /obj/effect/mapping_helpers/no_lava,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -976,7 +976,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/obj/item/twohanded/bonespear,
+/obj/item/spear/bonespear,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "cA" = (
@@ -1020,7 +1020,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/item/twohanded/bonespear,
+/obj/item/spear/bonespear,
 /obj/item/storage/belt/mining/primitive,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
@@ -1059,7 +1059,7 @@
 	dir = 8
 	},
 /obj/structure/table/wood,
-/obj/item/twohanded/bonespear,
+/obj/item/spear/bonespear,
 /obj/item/storage/belt/quiver,
 /obj/item/ammo_casing/caseless/arrow/bone,
 /obj/item/ammo_casing/caseless/arrow/bone,
@@ -1086,7 +1086,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/twohanded/bonespear,
+/obj/item/spear/bonespear,
 /obj/item/clothing/head/helmet/roman/legionnaire,
 /turf/open/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
@@ -1389,7 +1389,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/twohanded/bonespear,
+/obj/item/spear/bonespear,
 /obj/item/scythe,
 /obj/item/cultivator,
 /turf/open/indestructible/boss,
