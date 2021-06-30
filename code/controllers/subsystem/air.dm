@@ -20,6 +20,12 @@ SUBSYSTEM_DEF(air)
 	var/thread_wait_ticks = 0
 	var/cur_thread_wait_ticks = 0
 
+	var/low_pressure_turfs = 0
+	var/high_pressure_turfs = 0
+
+	var/num_group_turfs_processed = 0
+	var/num_equalize_processed = 0
+
 	var/list/hotspots = list()
 	var/list/networks = list()
 	var/list/pipenets_needing_rebuilt = list()
@@ -48,21 +54,18 @@ SUBSYSTEM_DEF(air)
 	// Max number of turfs to look for a space turf, and max number of turfs that will be decompressed.
 	var/equalize_hard_turf_limit = 2000
 	// Whether equalization should be enabled at all.
-	var/equalize_enabled = TRUE
+	var/equalize_enabled = FALSE
 	// Whether turf-to-turf heat exchanging should be enabled.
 	var/heat_enabled = FALSE
 	// Max number of times process_turfs will share in a tick.
 	var/share_max_steps = 1
 	// If process_turfs finds no pressure differentials larger than this, it'll stop for that tick.
 	var/share_pressure_diff_to_stop = 101.325
+	// Excited group processing will try to equalize groups with total pressure difference less than this amount.
+	var/excited_group_pressure_goal = 1
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
-	msg += "AT:[round(cost_turfs,1)]|"
-	msg += "TH:[round(turf_process_time(),1)],[thread_wait_ticks]|"
-	msg += "EG:[round(cost_groups,1)]|"
-	msg += "EQ:[round(cost_equalize,1)]|"
-	msg += "PO:[round(cost_post_process,1)]|"
 	msg += "HP:[round(cost_highpressure,1)]|"
 	msg += "HS:[round(cost_hotspots,1)]|"
 	msg += "HE:[round(heat_process_time(),1)]|"
@@ -70,12 +73,23 @@ SUBSYSTEM_DEF(air)
 	msg += "PN:[round(cost_pipenets,1)]|"
 	msg += "AM:[round(cost_atmos_machinery,1)]"
 	msg += "} "
+	msg += "TC:{"
+	msg += "AT:[round(cost_turfs,1)]|"
+	msg += "EG:[round(cost_groups,1)]|"
+	msg += "EQ:[round(cost_equalize,1)]|"
+	msg += "PO:[round(cost_post_process,1)]"
+	msg += "}"
+	msg += "TH:[round(thread_wait_ticks,1)]|"
 	msg += "HS:[hotspots.len]|"
 	msg += "PN:[networks.len]|"
 	msg += "HP:[high_pressure_delta.len]|"
+	msg += "HT:[high_pressure_turfs]|"
+	msg += "LT:[low_pressure_turfs]|"
+	msg += "ET:[num_equalize_processed]|"
+	msg += "GT:[num_group_turfs_processed]|"
 	msg += "DF:[max_deferred_airs]|"
 	msg += "GA:[get_amt_gas_mixes()]|"
-	msg += "MG:[get_max_gas_mixes()]|"
+	msg += "MG:[get_max_gas_mixes()]"
 	return ..()
 
 /datum/controller/subsystem/air/Initialize(timeofday)
@@ -91,8 +105,25 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/auxtools_update_reactions()
 
+/proc/reset_all_air()
+	SSair.can_fire = 0
+	message_admins("Air reset begun.")
+	for(var/turf/open/T in world)
+		T.Initalize_Atmos(0)
+		CHECK_TICK
+	message_admins("Air reset done.")
+	SSair.can_fire = 1
+
 /datum/controller/subsystem/air/proc/thread_running()
 	return FALSE
+
+/proc/fix_corrupted_atmos()
+
+/datum/admins/proc/fixcorruption()
+	set category = "Debug"
+	set desc="Fixes air that has weird NaNs (-1.#IND and such). Hopefully."
+	set name="Fix Infinite Air"
+	fix_corrupted_atmos()
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
@@ -165,7 +196,37 @@ SUBSYSTEM_DEF(air)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
-		currentpart = equalize_enabled ? SSAIR_EQUALIZE : SSAIR_EXCITEDGROUPS
+		currentpart = SSAIR_HOTSPOTS
+
+	if(currentpart == SSAIR_HOTSPOTS)
+		timer = TICK_USAGE_REAL
+		process_hotspots(resumed)
+		cost_hotspots = MC_AVERAGE(cost_hotspots, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		if(state != SS_RUNNING)
+			return
+		resumed = 0
+		currentpart = heat_enabled ? SSAIR_TURF_CONDUCTION : SSAIR_ACTIVETURFS
+	// Heat -- slow and of questionable usefulness. Off by default for this reason. Pretty cool, though.
+	if(currentpart == SSAIR_TURF_CONDUCTION)
+		timer = TICK_USAGE_REAL
+		if(process_turf_heat(MC_TICK_REMAINING_MS))
+			pause()
+		cost_superconductivity = MC_AVERAGE(cost_superconductivity, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		if(state != SS_RUNNING)
+			return
+		resumed = 0
+		currentpart = SSAIR_ACTIVETURFS
+	// This simply starts the turf thread. It runs in the background until the FINALIZE_TURFS step, at which point it's waited for.
+	// This also happens to do all the commented out stuff below, all in a single separate thread. This is mostly so that the
+	// waiting is consistent.
+	if(currentpart == SSAIR_ACTIVETURFS)
+		timer = TICK_USAGE_REAL
+		process_turfs(resumed)
+		cost_turfs = MC_AVERAGE(cost_turfs, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
+		if(state != SS_RUNNING)
+			return
+		resumed = 0
+	/*
 	// Monstermos and/or Putnamos--making large pressure deltas move faster
 	if(currentpart == SSAIR_EQUALIZE)
 		timer = TICK_USAGE_REAL
@@ -193,33 +254,7 @@ SUBSYSTEM_DEF(air)
 			return
 		resumed = 0
 		currentpart = SSAIR_HOTSPOTS
-
-	if(currentpart == SSAIR_HOTSPOTS)
-		timer = TICK_USAGE_REAL
-		process_hotspots(resumed)
-		cost_hotspots = MC_AVERAGE(cost_hotspots, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-		if(state != SS_RUNNING)
-			return
-		resumed = 0
-		currentpart = heat_enabled ? SSAIR_TURF_CONDUCTION : SSAIR_ACTIVETURFS
-	// Heat -- slow and of questionable usefulness. Off by default for this reason. Pretty cool, though.
-	if(currentpart == SSAIR_TURF_CONDUCTION)
-		timer = TICK_USAGE_REAL
-		if(process_turf_heat(MC_TICK_REMAINING_MS))
-			pause()
-		cost_superconductivity = MC_AVERAGE(cost_superconductivity, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-		if(state != SS_RUNNING)
-			return
-		resumed = 0
-		currentpart = SSAIR_ACTIVETURFS
-	// This simply starts the turf thread. It runs in the background until the FINALIZE_TURFS step, at which point it's waited for.
-	if(currentpart == SSAIR_ACTIVETURFS)
-		timer = TICK_USAGE_REAL
-		process_turfs(resumed)
-		cost_turfs = MC_AVERAGE(cost_turfs, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-		if(state != SS_RUNNING)
-			return
-		resumed = 0
+	*/
 	currentpart = SSAIR_REBUILD_PIPENETS
 
 
@@ -247,12 +282,23 @@ SUBSYSTEM_DEF(air)
 	while(deferred_airs.len)
 		var/list/cur_op = deferred_airs[deferred_airs.len]
 		deferred_airs.len--
-		var/turf/open/T = cur_op[1]
-		if(istype(cur_op[2],/datum/gas_mixture))
-			T.air.merge(cur_op[2])
-		else if(istype(cur_op[2], /datum/callback))
-			var/datum/callback/cb = cur_op[2]
-			cb.Invoke(T)
+		var/datum/gas_mixture/air1
+		var/datum/gas_mixture/air2
+		if(isopenturf(cur_op[1]))
+			var/turf/open/T = cur_op[1]
+			air1 = T.return_air()
+		else
+			air1 = cur_op[1]
+		if(isopenturf(cur_op[2]))
+			var/turf/open/T = cur_op[2]
+			air2 = T.return_air()
+		else
+			air2 = cur_op[2]
+		if(istype(cur_op[3], /datum/callback))
+			var/datum/callback/cb = cur_op[3]
+			cb.Invoke(air1, air2)
+		else
+			air1.transfer_ratio_to(air2, cur_op[3])
 		if(MC_TICK_CHECK)
 			return
 

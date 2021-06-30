@@ -139,8 +139,7 @@
 	// It's a simplified version taking only 1/10 of the moles from the turf nearby. It should be later changed into a better version
 	// above todo 7 years and counting
 
-	var/datum/gas_mixture/removed = inturf.remove_air_ratio(0.1)
-	gas_contained.merge(removed)
+	inturf.transfer_air_ratio(gas_contained, 0.1)
 
 // RPM function to include compression friction - be advised that too low/high of a compfriction value can make things screwy
 
@@ -230,8 +229,7 @@
 		if(destroy_output)
 			compressor.gas_contained.set_moles(compressor.gas_contained.get_moles() - oamount)
 		else
-			var/datum/gas_mixture/removed = compressor.gas_contained.remove(oamount)
-			outturf.assume_air(removed)
+			outturf.assume_air_moles(compressor.gas_contained, oamount)
 
 // If it works, put an overlay that it works!
 

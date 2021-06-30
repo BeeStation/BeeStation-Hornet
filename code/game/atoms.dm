@@ -363,11 +363,23 @@
 /atom/proc/assume_air(datum/gas_mixture/giver)
 	return null
 
+/atom/proc/assume_air_moles(datum/gas_mixture/giver, moles)
+	return null
+
+/atom/proc/assume_air_ratio(datum/gas_mixture/giver, ratio)
+	return null
+
 ///Remove air from this atom
 /atom/proc/remove_air(amount)
 	return null
 
 /atom/proc/remove_air_ratio(ratio)
+	return null
+
+/atom/proc/transfer_air(datum/gas_mixture/taker, amount)
+	return null
+
+/atom/proc/transfer_air_ratio(datum/gas_mixture/taker, ratio)
 	return null
 
 ///Return the current air environment in this atom
