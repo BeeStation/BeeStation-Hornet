@@ -39,6 +39,7 @@
 		spyglasses.linked_bug = null
 	qdel(cam_screen)
 	QDEL_LIST(cam_plane_masters)
+	qdel(tracker)
 	return ..()
 
 /datum/spybug/proc/update_view()//this doesn't do anything too crazy, just updates the vis_contents of its screen obj
