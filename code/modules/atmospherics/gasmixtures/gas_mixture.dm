@@ -233,24 +233,6 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 
 /datum/gas_mixture/turf
 
-/// Pumps gas from src to output_air. Amount depends on target_pressure
-/datum/gas_mixture/proc/pump_gas_to(datum/gas_mixture/output_air, target_pressure)
-	var/output_starting_pressure = output_air.return_pressure()
-
-	if((target_pressure - output_starting_pressure) < 0.01)
-		//No need to pump gas if target is already reached!
-		return
-
-	//Calculate necessary moles to transfer using PV=nRT
-	if((total_moles() > 0) && (return_temperature()>0))
-		var/pressure_delta = target_pressure - output_starting_pressure
-		var/transfer_moles = pressure_delta*output_air.return_volume()/(return_temperature() * R_IDEAL_GAS_EQUATION)
-
-		//Actually transfer the gas
-		input_air.transfer_to(output_air, transfer_moles)
-		return TRUE
-	return FALSE
-
 /// Releases gas from src to output air. This means that it can not transfer air to gas mixture with higher pressure.
 /datum/gas_mixture/proc/release_gas_to(datum/gas_mixture/output_air, target_pressure)
 	var/output_starting_pressure = output_air.return_pressure()
