@@ -1,14 +1,17 @@
-//detective spyglasses. meant to be an example for map_popups.dm
+// **********************
+//  DETECTIVE SPYGLASSES
+// **********************
+
 /obj/item/clothing/glasses/sunglasses/spy
 	desc = "Made by Nerd. Co's infiltration and surveillance department. Upon closer inspection, there's a small screen in each lens."
 	actions_types = list(/datum/action/item_action/activate_remote_view)
-	var/datum/component/spybug/linked_bug
+	var/datum/spybug/linked_bug
 
 /obj/item/clothing/glasses/sunglasses/spy/proc/show_to_user(mob/user)//this is the meat of it. most of the map_popup usage is in this.
 	if(!user?.client)
 		return
 	if(!linked_bug)
-		user.audible_message("<span class='warning'>Spybug destroyed or no longer available!</span>")
+		user.audible_message("<span class='warning'>Spybug destroyed or no longer functional!</span>")
 	if("spypopup_map" in user.client.screen_maps) //alright, the popup this object uses is already IN use, so the window is open. no point in doing any other work here, so we're good.
 		return
 	user.client.setup_popup("spypopup", 3, 3, 2)
@@ -34,30 +37,28 @@
 
 /obj/item/clothing/glasses/sunglasses/spy/Destroy()
 	if(linked_bug)
-		linked_bug.linked_glasses = null
+		qdel(linked_bug)
 	return ..()
 
+// *******************
+//  DETECTIVE SPYÅPEN
+// *******************
 
 /obj/item/pen/spy_bug
+	var/datum/spybug/bug
 	desc = "An advanced piece of espionage equipment in the shape of a pen. It has a built in 360 degree camera for all your \"admirable\" needs. Microphone not included."
-	var/obj/item/clothing/glasses/sunglasses/spy/linked_glasses
-	var/atom/movable/screen/map_view/cam_screen
-	var/list/cam_plane_masters
-	// Ranges higher than one can be used to see through walls.
-	var/cam_range = 1
-	var/datum/movement_detector/tracker
 
-/obj/item/pen/spy_bug/ComponentInitialize()
+/obj/item/pen/spy_bug/Initialize()
 	..()
-	AddComponent(/datum/component/spybug)
+	bug = new (src)
 
 /obj/item/pen/spy_bug/Destroy()
-	if(linked_glasses)
-		linked_glasses.linked_bug = null
-	qdel(cam_screen)
-	QDEL_LIST(cam_plane_masters)
-	qdel(tracker)
+	qdel(bug)
 	return ..()
+
+// **************
+//  SPYGLASS KIT
+// **************
 
 //it needs to be linked, hence a kit.
 /obj/item/storage/box/rxglasses/spyglasskit
@@ -65,13 +66,15 @@
 	desc = "this box contains <i>cool</i> nerd glasses; with built-in displays to view a linked camera."
 
 /obj/item/storage/box/rxglasses/spyglasskit/PopulateContents()
+	//fluff
+	new /obj/item/paper/fluff/nerddocs(src)
+	//items
 	var/obj/item/clothing/accessory/pocketprotector/protector = new (src)
 	var/obj/item/pen/spy_bug/newbug = new(protector)
-	var/datum/component/spybug/spy_bug_component = newbug.GetComponent(/datum/component/spybug)
 	var/obj/item/clothing/glasses/sunglasses/spy/newglasses = new(src)
-	spy_bug_component.linked_glasses = newglasses
-	newglasses.linked_bug = spy_bug_component
-	new /obj/item/paper/fluff/nerddocs(src)
+	//datum
+	var/datum/spybug/spy_bug_component = newbug.bug
+	spy_bug_component.link_spyglasses_to_spybug(newglasses,newbug)
 
 /obj/item/paper/fluff/nerddocs
 	name = "Espionage For Dummies"
@@ -84,6 +87,10 @@ Step Three: Press the "Activate Remote View" Button on the side of your SpySpeks
 My SpySpeks <small>tm</small> Make a shrill beep while attempting to use!
 A shrill beep coming from your SpySpeks means that they can't connect to the included ProfitProtektor <small>tm</small>, please make sure your ProfitProtektor is still active, and functional!
 	"}
+
+// **********************
+//  CHAMELEON SPYGLASSES
+// **********************
 
 /obj/item/clothing/glasses/sunglasses/spy/chameleon
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -102,6 +109,17 @@ A shrill beep coming from your SpySpeks means that they can't connect to the inc
 		return
 	chameleon_action.emp_randomise()
 
-/obj/item/throwing_star/spy_bug/ComponentInitialize()
-	..()	
-	AddComponent(/datum/component/spybug)
+// **************
+//  NINJA SPYBUG
+// **************
+
+/obj/item/throwing_star/spy_bug
+	var/datum/spybug/bug
+
+/obj/item/throwing_star/spy_bug/Initialize()
+	..()
+	bug = new (src)
+
+/obj/item/throwing_star/spy_bug/Destroy()
+	qdel(bug)
+	return ..()

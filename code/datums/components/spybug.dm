@@ -1,15 +1,21 @@
-/datum/component/spybug
-	var/obj/item/clothing/glasses/sunglasses/spy/linked_glasses
+/datum/spybug
+	var/obj/item/spybug
+	var/obj/item/clothing/glasses/sunglasses/spy/spyglasses
+
 	var/atom/movable/screen/map_view/cam_screen
 	var/list/cam_plane_masters
 	// Ranges higher than one can be used to see through walls.
 	var/cam_range = 1
 	var/datum/movement_detector/tracker
 
-/datum/component/spybug/Initialize()
-	. = ..()
-	tracker = new /datum/movement_detector(parent, CALLBACK(src, .proc/update_view))
+/datum/spybug/proc/link_spyglasses_to_spybug(obj/item/clothing/glasses/sunglasses/spy/g, obj/item/b)
+	spybug = b
+	spyglasses = g
 
+	//assign moevement detector
+	tracker = new /datum/movement_detector(spybug, CALLBACK(src, .proc/update_view))
+
+	//instantiate camera
 	cam_screen = new
 	cam_screen.name = "screen"
 	cam_screen.assigned_map = "spypopup_map"
@@ -28,15 +34,14 @@
 		instance.screen_loc = "spypopup_map:CENTER"
 		cam_plane_masters += instance
 
-/datum/component/spybug/Destroy()
-	if(linked_glasses)
-		linked_glasses.linked_bug = null
+/datum/spybug/Destroy()	//destroying the glasses or the object deletes this datum
+	if(spyglasses)
+		spyglasses.linked_bug = null
 	qdel(cam_screen)
 	QDEL_LIST(cam_plane_masters)
-	qdel(tracker)
 	return ..()
 
-/datum/component/spybug/proc/update_view()//this doesn't do anything too crazy, just updates the vis_contents of its screen obj
+/datum/spybug/proc/update_view()//this doesn't do anything too crazy, just updates the vis_contents of its screen obj
 	cam_screen.vis_contents.Cut()
-	for(var/turf/visible_turf in view(1,get_turf(parent)))//fuck you usr
+	for(var/turf/visible_turf in view(1,get_turf(spybug)))
 		cam_screen.vis_contents += visible_turf
