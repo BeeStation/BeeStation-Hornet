@@ -4,7 +4,7 @@
 	icon_state = "blank_blob"
 	desc = "A huge, pulsating yellow mass."
 	max_integrity = 400
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 90)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 90, "stamina" = 0)
 	explosion_block = 6
 	point_return = -1
 	health_regen = 0 //we regen in Life() instead of when pulsed
@@ -52,7 +52,7 @@
 		if(overmind) //we should have an overmind, but...
 			overmind.update_health_hud()
 
-/obj/structure/blob/core/process()
+/obj/structure/blob/core/process(delta_time)
 	if(QDELETED(src))
 		return
 	if(!overmind)
@@ -62,7 +62,7 @@
 		overmind.update_health_hud()
 	Pulse_Area(overmind, 12, 4, 3)
 	for(var/obj/structure/blob/normal/B in range(1, src))
-		if(prob(5))
+		if(DT_PROB(2.5, delta_time))
 			B.change_to(/obj/structure/blob/shield/core, overmind)
 	..()
 

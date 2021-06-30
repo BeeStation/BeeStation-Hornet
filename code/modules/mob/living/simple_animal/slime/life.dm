@@ -18,6 +18,9 @@
 			handle_feeding()
 		if(!stat) // Slimes in stasis don't lose nutrition, don't change mood and don't respond to speech
 			handle_nutrition()
+			if(QDELETED(src)) // Stop if the slime split during handle_nutrition()
+				return
+			reagents.remove_all(0.5 * REAGENTS_METABOLISM * reagents.reagent_list.len) //Slimes are such snowflakes
 			handle_targets()
 			if(!ckey)
 				handle_mood()
@@ -38,7 +41,7 @@
 	if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
 		slime_on_target = 1
 
-	if(Target.z == src.z && attack_cooldown < world.time && get_dist(Target, src) <= 1)
+	if(Target.get_virtual_z_level() == src.get_virtual_z_level() && attack_cooldown < world.time && get_dist(Target, src) <= 1)
 		if(!slime_on_target && CanFeedon(Target))
 			if(!Target.client || prob(20))
 				Feedon(Target)
@@ -96,14 +99,14 @@
 
 		if(stat == CONSCIOUS && stasis)
 			to_chat(src, "<span class='danger'>Nerve gas in the air has put you in stasis!</span>")
-			stat = UNCONSCIOUS
+			set_stat(UNCONSCIOUS)
 			powerlevel = 0
 			rabid = 0
 			update_mobility()
 			regenerate_icons()
 		else if(stat == UNCONSCIOUS && !stasis)
 			to_chat(src, "<span class='notice'>You wake up from the stasis.</span>")
-			stat = CONSCIOUS
+			set_stat(CONSCIOUS)
 			update_mobility()
 			regenerate_icons()
 

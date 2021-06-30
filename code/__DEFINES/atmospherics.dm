@@ -127,9 +127,13 @@
 
 //PIPES
 //Atmos pipe limits
-#define MAX_OUTPUT_PRESSURE					4500 //! (kPa) What pressure pumps and powered equipment max out at.
-#define MAX_TRANSFER_RATE					200 //! (L/s) Maximum speed powered equipment can work at.
-#define VOLUME_PUMP_LEAK_AMOUNT				0.1 //! 10% of an overclocked volume pump leaks into the air
+/// (kPa) What pressure pumps and powered equipment max out at.
+#define MAX_OUTPUT_PRESSURE					4500
+/// (L/s) Maximum speed powered equipment can work at.
+#define MAX_TRANSFER_RATE 200
+/// How many percent of the contents that an overclocked volume pumps leak into the air
+#define VOLUME_PUMP_LEAK_AMOUNT 0.1
+
 //used for device_type vars
 #define UNARY		1
 #define BINARY 		2
@@ -161,7 +165,6 @@
 #define TCOMMS_ATMOS				"n2=100;TEMP=80" //-193,15°C telecommunications. also used for xenobiology slime killrooms
 #define AIRLESS_ATMOS				"TEMP=2.7" //space
 #define FROZEN_ATMOS				"o2=22;n2=82;TEMP=180" //-93.15°C snow and ice turfs
-#define KITCHEN_COLDROOM_ATMOS		"o2=25;n2=96;TEMP=253.15" //-20°C kitchen coldroom; higher amount of mol to reach about 101.3 kpA
 #define BURNMIX_ATMOS				"o2=100;plasma=200;TEMP=370" //used in the holodeck burn test program
 
 //ATMOSPHERICS DEPARTMENT GAS TANK TURFS
@@ -174,9 +177,10 @@
 
 //LAVALAND
 #define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 90 //! what pressure you have to be under to increase the effect of equipment meant for lavaland
+#define LAVALAND_DEFAULT_ATMOS		"o2=14;n2=5;co2=13;TEMP=300"
 
 //ATMOS MIX IDS
-#define LAVALAND_DEFAULT_ATMOS		"LAVALAND_ATMOS"
+//Lavaland used to live here. That was a mistake.
 
 //ATMOSIA GAS MONITOR TAGS
 #define ATMOS_GAS_MONITOR_INPUT_O2 "o2_in"
@@ -308,7 +312,6 @@ GLOBAL_LIST_INIT(pipe_paint_colors, sortList(list(
 //ROT MIASMA
 #define MIASMA_CORPSE_MOLES 0.02
 #define MIASMA_GIBS_MOLES 0.005
-#define MIASMA_HYGIENE_MOLES 0.002
 
 //PIPENET UPDATE STATUS
 #define PIPENET_UPDATE_STATUS_DORMANT 0

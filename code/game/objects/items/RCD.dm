@@ -24,7 +24,7 @@ RLD
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=100000)
 	req_access_txt = "11"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	var/datum/effect_system/spark_spread/spark_system
 	var/matter = 0
@@ -53,7 +53,7 @@ RLD
 	. += "\A [src]. It currently holds [matter]/[max_matter] matter-units."
 	if(upgrade & RCD_UPGRADE_SILO_LINK)
 		. += "\A [src]. Remote storage link state: [silo_link ? "[silo_mats.on_hold() ? "ON HOLD" : "ON"]" : "OFF"]."
-		if(silo_link && !silo_mats.on_hold())
+		if(silo_link && !silo_mats.on_hold() && silo_mats.mat_container)
 			. += "\A [src]. Remote connection have iron in equivalent to [silo_mats.mat_container.get_material_amount(/datum/material/iron)/500] rcd units." // 1 matter for 1 floortile, as 4 tiles are produced from 1 iron
 
 /obj/item/construction/Destroy()
@@ -138,7 +138,7 @@ RLD
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
 			return FALSE
-		if(!silo_mats.mat_container.has_materials(matlist, amount))
+		if(!silo_mats.mat_container?.has_materials(matlist, amount))
 			if(user)
 				to_chat(user, no_ammo_message)
 			return FALSE
@@ -155,7 +155,7 @@ RLD
 			if(user)
 				to_chat(user, "Mineral access is on hold, please contact the quartermaster.")
 			return FALSE
-		. = silo_mats.mat_container.has_materials(list(getmaterialref(/datum/material/iron) = 500), amount)
+		. = silo_mats.mat_container?.has_materials(list(getmaterialref(/datum/material/iron) = 500), amount)
 	if(!. && user)
 		to_chat(user, no_ammo_message)
 		if(has_ammobar)

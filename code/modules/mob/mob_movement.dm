@@ -194,9 +194,11 @@
   * * INCORPOREAL_MOVE_BASIC - forceMoved to the next tile with no stop
   * * INCORPOREAL_MOVE_SHADOW  - the same but leaves a cool effect path
   * * INCORPOREAL_MOVE_JAUNT - the same but blocked by holy tiles
+  * * INCORPOREAL_MOVE_EMINCENCE - was invented so that only Eminence can pass through clockwalls
   *
   * You'll note this is another mob living level proc living at the client level
   */
+
 /client/proc/Process_Incorpmove(direct)
 	var/turf/mobloc = get_turf(mob)
 	if(!isliving(mob))
@@ -263,14 +265,29 @@
 				if(stepTurf.flags_1 & NOJAUNT_1)
 					to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
 					return
-				if (locate(/obj/effect/blessing, stepTurf))
+				if(locate(/obj/effect/blessing, stepTurf))
 					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
 					return
+				L.forceMove(stepTurf)
+			L.setDir(direct)
 
+		if(INCORPOREAL_MOVE_EMINENCE) //Incorporeal move for emincence. Blocks move like Jaunt but lets it pass through clockwalls
+			var/turf/open/floor/stepTurf = get_step(L, direct)
+			var/turf/loccheck = get_turf(stepTurf)
+			if(stepTurf)
+				for(var/obj/effect/decal/cleanable/food/salt/S in stepTurf)
+					to_chat(L, "<span class='warning'>[S] bars your passage!</span>")
+					return
+				if(stepTurf.flags_1 & NOJAUNT_1)
+					if(!is_reebe(loccheck.z))
+						to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
+						return
+				if(locate(/obj/effect/blessing, stepTurf))
+					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
+					return
 				L.forceMove(stepTurf)
 			L.setDir(direct)
 	return TRUE
-
 
 /**
   * Handles mob/living movement in space (or no gravity)

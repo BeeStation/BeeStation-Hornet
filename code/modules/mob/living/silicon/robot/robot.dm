@@ -10,6 +10,8 @@
 	has_limbs = 1
 	hud_type = /datum/hud/robot
 
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+
 	var/custom_name = ""
 	var/braintype = "Cyborg"
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
@@ -65,7 +67,7 @@
 	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/datum/effect_system/spark_spread/spark_system // So they can initialize sparks whenever/N
 
-	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
+	var/lawupdate = TRUE //Cyborgs will sync their laws with their AI by default
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
 	var/lockcharge //Boolean of whether the borg is locked down or not
 
@@ -170,9 +172,9 @@
 			mmi.forceMove(T)
 		if(mmi.brainmob)
 			if(mmi.brainmob.stat == DEAD)
-				mmi.brainmob.stat = CONSCIOUS
-				GLOB.dead_mob_list -= mmi.brainmob
-				GLOB.alive_mob_list += mmi.brainmob
+				mmi.brainmob.set_stat(CONSCIOUS)
+				mmi.brainmob.remove_from_dead_mob_list()
+				mmi.brainmob.add_to_alive_mob_list()
 			mind.transfer_to(mmi.brainmob)
 			mmi.update_icon()
 		else
@@ -214,7 +216,14 @@
 	if(!CONFIG_GET(flag/disable_peaceborg))
 		modulelist["Peacekeeper"] = /obj/item/robot_module/peacekeeper
 
-	var/input_module = input("Please, select a module!", "Robot", null, null) as null|anything in sortList(modulelist)
+	// Create radial menu for choosing borg model *smug* module
+	var/list/module_icons = list()
+	for(var/option in modulelist)
+		var/obj/item/robot_module/module = modulelist[option]
+		var/module_icon = initial(module.cyborg_base_icon)
+		module_icons[option] = image(icon = 'icons/mob/robots.dmi', icon_state = module_icon)
+
+	var/input_module = show_radial_menu(src, src, module_icons, radius = 42)
 	if(!input_module || module.type != /obj/item/robot_module)
 		return
 
@@ -322,30 +331,46 @@
 /mob/living/silicon/robot/restrained(ignore_grab)
 	. = 0
 
-/mob/living/silicon/robot/triggerAlarm(class, area/A, O, obj/alarmsource)
-	if(alarmsource.z != z)
+/mob/living/silicon/robot/triggerAlarm(class, area/home, cameras, obj/source)
+	if(source.get_virtual_z_level() != get_virtual_z_level())
 		return
 	if(stat == DEAD)
-		return 1
-	var/list/L = alarms[class]
-	for (var/I in L)
-		if (I == A.name)
-			var/list/alarm = L[I]
+		return TRUE
+	var/list/our_sort = alarms[class]
+	for(var/areaname in our_sort)
+		if (areaname == home.name)
+			var/list/alarm = our_sort[areaname]
 			var/list/sources = alarm[3]
-			if (!(alarmsource in sources))
-				sources += alarmsource
-			return 1
-	var/obj/machinery/camera/C = null
-	var/list/CL = null
-	if (O && istype(O, /list))
-		CL = O
-		if (CL.len == 1)
-			C = CL[1]
-	else if (O && istype(O, /obj/machinery/camera))
-		C = O
-	L[A.name] = list(A, (C) ? C : O, list(alarmsource))
-	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
-	return 1
+			if (!(source in sources))
+				sources += source
+			return TRUE
+
+	var/obj/machinery/camera/cam = null
+	var/list/our_cams = null
+	if(cameras && islist(cameras))
+		our_cams = cameras
+		if (our_cams.len == 1)
+			cam = our_cams[1]
+	else if(cameras && istype(cameras, /obj/machinery/camera))
+		cam = cameras
+	our_sort[home.name] = list(home, (cam ? cam : cameras), list(source))
+	queueAlarm(text("--- [class] alarm detected in [home.name]!"), class)
+	return TRUE
+
+/mob/living/silicon/robot/freeCamera(area/home, obj/machinery/camera/cam)
+	for(var/class in alarms)
+		var/our_area = alarms[class][home.name]
+		if(!our_area)
+			continue
+		var/cams = our_area[2] //Get the cameras
+		if(!cams)
+			continue
+		if(islist(cams))
+			cams -= cam
+			if(length(cams) == 1)
+				our_area[2] = cams[1]
+		else
+			our_area[2] = null
 
 /mob/living/silicon/robot/cancelAlarm(class, area/A, obj/origin)
 	var/list/L = alarms[class]
@@ -369,6 +394,8 @@
 	var/turf/T0 = get_turf(src)
 	var/turf/T1 = get_turf(A)
 	if (!T0 || ! T1)
+		return FALSE
+	if(A.is_jammed())
 		return FALSE
 	return ISINRANGE(T1.x, T0.x - interaction_range, T0.x + interaction_range) && ISINRANGE(T1.y, T0.y - interaction_range, T0.y + interaction_range)
 
@@ -676,10 +703,10 @@
 		W.attack_self(src)
 
 
-/mob/living/silicon/robot/proc/SetLockdown(state = 1)
+/mob/living/silicon/robot/proc/SetLockdown(state = TRUE)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_LOCKDOWN))
-		state = 1
+		state = TRUE
 	if(state)
 		throw_alert("locked", /atom/movable/screen/alert/locked)
 	else
@@ -975,13 +1002,13 @@
 			return
 		if(IsUnconscious() || IsStun() || IsKnockdown() || IsParalyzed() || getOxyLoss() > maxHealth*0.5)
 			if(stat == CONSCIOUS)
-				stat = UNCONSCIOUS
+				set_stat(UNCONSCIOUS)
 				blind_eyes(1)
 				update_mobility()
 				update_headlamp()
 		else
 			if(stat == UNCONSCIOUS)
-				stat = CONSCIOUS
+				set_stat(CONSCIOUS)
 				adjust_blindness(-1)
 				update_mobility()
 				update_headlamp()
@@ -1151,6 +1178,7 @@
 	mainframe.diag_hud_set_deployed()
 	if(mainframe.laws)
 		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
+	mainframe.eyeobj?.setLoc(get_turf(src))
 	mainframe = null
 
 /mob/living/silicon/robot/attack_ai(mob/user)
@@ -1207,7 +1235,7 @@
 	if(connected_ai)
 		connected_ai.connected_robots += src
 		lawsync()
-		lawupdate = 1
+		lawupdate = TRUE
 		return TRUE
 	picturesync()
 	return FALSE

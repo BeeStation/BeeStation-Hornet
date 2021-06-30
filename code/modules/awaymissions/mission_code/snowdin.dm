@@ -516,11 +516,11 @@
 
 /obj/effect/spawner/lootdrop/snowdin/dungeonheavy
 	name = "dungeon heavy"
-	loot = list(/obj/item/twohanded/singularityhammer = 25,
-				/obj/item/twohanded/mjollnir = 10,
-				/obj/item/twohanded/fireaxe = 25,
+	loot = list(/obj/item/singularityhammer = 25,
+				/obj/item/mjollnir = 10,
+				/obj/item/fireaxe = 25,
 				/obj/item/organ/brain/alien = 17,
-				/obj/item/twohanded/dualsaber = 15,
+				/obj/item/dualsaber = 15,
 				/obj/item/organ/heart/demon = 7,
 				/obj/item/gun/ballistic/automatic/c20r/unrestricted = 16,
 				/obj/item/gun/magic/wand/resurrection/inert = 15,
@@ -541,7 +541,7 @@
 	loot = list(/obj/item/stack/sheet/mineral/snow{amount = 25} = 10,
 				/obj/item/toy/snowball = 15,
 				/obj/item/shovel = 10,
-				/obj/item/twohanded/spear = 8,
+				/obj/item/spear = 8,
 				)
 
 //special items//--
@@ -555,7 +555,7 @@
 /obj/item/clothing/under/syndicate/coldres
 	name = "insulated tactical turtleneck"
 	desc = "A nondescript and slightly suspicious-looking turtleneck with digital camouflage cargo pants. The interior has been padded with special insulation for both warmth and protection."
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 0,"energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25)
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 0,"energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
 	cold_protection = CHEST|GROIN|ARMS|LEGS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 

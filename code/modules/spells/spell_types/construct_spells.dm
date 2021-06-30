@@ -175,7 +175,7 @@
 	range = 10
 
 /obj/item/projectile/magic/spell/magic_missile/lesser/can_hit_target(atom/target, list/passthrough, direct_target = FALSE, ignore_loc = FALSE)
-	if (iscultist(target))
+	if(ismob(target) && iscultist(target))
 		return FALSE
 	return ..()
 

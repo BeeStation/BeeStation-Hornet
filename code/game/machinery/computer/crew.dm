@@ -15,7 +15,7 @@
 /obj/machinery/computer/crew/syndie
 	icon_keyboard = "syndie_key"
 
-/obj/machinery/computer/crew/interact(mob/user)
+/obj/machinery/computer/crew/ui_interact(mob/user)
 	GLOB.crewmonitor.show(user,src)
 
 GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
@@ -100,10 +100,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	return ui_sources[user]
 
 /datum/crewmonitor/ui_data(mob/user)
-	var/z = user.z
+	var/z = user.get_virtual_z_level()
 	if(!z)
 		var/turf/T = get_turf(user)
-		z = T.z
+		z = T.get_virtual_z_level()
 	var/list/zdata = update_data(z)
 	. = list()
 	.["sensors"] = zdata
@@ -135,15 +135,19 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 			nanite_sensors = TRUE
 		// Check if their z-level is correct and if they are wearing a uniform.
 		// Accept H.z==0 as well in case the mob is inside an object.
-		if ((H.z == 0 || H.z == z || (is_station_level(H.z) && is_station_level(z))) && (istype(H.w_uniform, /obj/item/clothing/under) || nanite_sensors))
+		if ((H.z == 0 || H.get_virtual_z_level() == z || (is_station_level(H.z) && is_station_level(z))) && (istype(H.w_uniform, /obj/item/clothing/under) || nanite_sensors))
 			U = H.w_uniform
+
+			//Radio transmitters are jammed
+			if(nanite_sensors ? H.is_jammed() : U.is_jammed())
+				continue
 
 			// Are the suit sensors on?
 			if (nanite_sensors || ((U.has_sensor > 0) && U.sensor_mode))
 				pos = H.z == 0 || (nanite_sensors || U.sensor_mode == SENSOR_COORDS) ? get_turf(H) : null
 
 				// Special case: If the mob is inside an object confirm the z-level on turf level.
-				if (H.z == 0 && (!pos || (pos.z != z) && !(is_station_level(pos.z) && is_station_level(z))))
+				if (H.z == 0 && (!pos || (pos.get_virtual_z_level() != z) && !(is_station_level(pos.z) && is_station_level(z))))
 					continue
 
 				I = H.wear_id ? H.wear_id.GetID() : null

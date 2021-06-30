@@ -101,7 +101,8 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 		return ..()
 
 /obj/structure/bodycontainer/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/iron (loc, 5)
+	if (!(flags_1 & NODECONSTRUCT_1))
+		new /obj/item/stack/sheet/iron (loc, 5)
 	recursive_organ_check(src)
 	qdel(src)
 
@@ -260,6 +261,11 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		locked = TRUE
 		update_icon()
 
+		for(var/obj/O in conts)
+			if(O.resistance_flags & INDESTRUCTIBLE)
+				O.forceMove(src) // in case an item in container should be spared
+				conts -= O
+
 		for(var/mob/living/M in conts)
 			if (M.stat != DEAD)
 				M.emote("scream")
@@ -267,7 +273,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 				log_combat(user, M, "cremated")
 			else
 				M.log_message("was cremated", LOG_ATTACK)
-
 			M.death(1)
 			if(M) //some animals get automatically deleted on death.
 				M.ghostize()

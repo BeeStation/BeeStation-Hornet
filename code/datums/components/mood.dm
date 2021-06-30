@@ -24,6 +24,7 @@
 	RegisterSignal(parent, COMSIG_ENTER_AREA, .proc/check_area_mood)
 
 	RegisterSignal(parent, COMSIG_MOB_HUD_CREATED, .proc/modify_hud)
+	RegisterSignal(parent, COMSIG_HUMAN_VOID_MASK_ACT, .proc/direct_sanity_drain)
 	var/mob/living/owner = parent
 	if(owner.hud_used)
 		modify_hud()
@@ -169,29 +170,28 @@
 					screen_obj.color = "#2eeb9a"
 			break
 
-/datum/component/mood/process() //Called on SSmood process
+///Called on SSmood process
+/datum/component/mood/process(delta_time)
 	var/mob/living/owner = parent
-
 	switch(mood_level)
 		if(1)
-			setSanity(sanity-0.3)
+			setSanity(sanity-0.3*delta_time)
 		if(2)
-			setSanity(sanity-0.15)
+			setSanity(sanity-0.15*delta_time)
 		if(3)
-			setSanity(sanity-0.1)
+			setSanity(sanity-0.1*delta_time)
 		if(4)
-			setSanity(sanity-0.05, minimum=SANITY_UNSTABLE)
+			setSanity(sanity-0.05*delta_time, minimum=SANITY_UNSTABLE)
 		if(5)
 			setSanity(sanity+0.1, maximum=SANITY_NEUTRAL)
 		if(6)
-			setSanity(sanity+0.2, maximum=SANITY_GREAT)
+			setSanity(sanity+0.2*delta_time, maximum=SANITY_GREAT)
 		if(7)
-			setSanity(sanity+0.3, maximum=SANITY_GREAT)
+			setSanity(sanity+0.3*delta_time, maximum=SANITY_GREAT)
 		if(8)
-			setSanity(sanity+0.4, maximum=SANITY_MAXIMUM)
+			setSanity(sanity+0.4*delta_time, maximum=SANITY_MAXIMUM)
 		if(9)
-			setSanity(sanity+0.6, maximum=SANITY_MAXIMUM)
-
+			setSanity(sanity+0.6*delta_time, maximum=SANITY_MAXIMUM)
 	HandleNutrition(owner)
 	HandleHygiene(owner)
 
@@ -354,30 +354,29 @@
 			add_event(null, "charge", /datum/mood_event/charged)
 
 /datum/component/mood/proc/HandleHygiene(mob/living/carbon/human/H)
-	if(H.hygiene <= HYGIENE_LEVEL_DIRTY)
-		HygieneMiasma(H)
-
-/datum/component/mood/proc/HygieneMiasma(mob/living/carbon/human/H)
-	// Properly stored humans shouldn't create miasma
-	if(istype(H.loc, /obj/structure/closet/crate/coffin)|| istype(H.loc, /obj/structure/closet/body_bag) || istype(H.loc, /obj/structure/bodycontainer))
-		return
-
-	var/turf/T = get_turf(H)
-
-	if(!istype(T) || T.return_air().return_pressure() > (WARNING_HIGH_PRESSURE - 10))
-		return
-
-	var/datum/gas_mixture/stank = new
-	stank.set_moles(/datum/gas/miasma, MIASMA_HYGIENE_MOLES)
-	stank.set_temperature(BODYTEMP_NORMAL)
-	T.assume_air(stank)
-	T.air_update_turf()
+	if(H.has_quirk(/datum/quirk/neet))
+		return //Neets don't care.
+	switch (H.hygiene)
+		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DISGUSTING)//Believe it or not but this is actually the cleaner option.
+			add_event(null, "hygiene", /datum/mood_event/disgusting)
+		if(HYGIENE_LEVEL_DISGUSTING to HYGIENE_LEVEL_DIRTY)
+			add_event(null, "hygiene", /datum/mood_event/dirty)
+		if(HYGIENE_LEVEL_DIRTY to HYGIENE_LEVEL_NORMAL)
+			clear_event(null, "hygiene")
+		if(HYGIENE_LEVEL_NORMAL to HYGIENE_LEVEL_CLEAN)
+			add_event(null, "hygiene", /datum/mood_event/neat)
 
 /datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
 	if(A.mood_bonus)
+		if(get_event("area"))	//walking between areas that give mood bonus should first clear the bonus from the previous one
+			clear_event(null, "area")
 		add_event(null, "area", /datum/mood_event/area, list(A.mood_bonus, A.mood_message))
 	else
 		clear_event(null, "area")
 
 #undef MINOR_INSANITY_PEN
 #undef MAJOR_INSANITY_PEN
+
+///Causes direct drain of someone's sanity, call it with a numerical value corresponding how badly you want to hurt their sanity
+/datum/component/mood/proc/direct_sanity_drain(datum/source, amount)
+	setSanity(sanity + amount)

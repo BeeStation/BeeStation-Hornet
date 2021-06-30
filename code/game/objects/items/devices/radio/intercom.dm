@@ -78,7 +78,7 @@
 		return FALSE
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
-		if(isnull(position) || !(position.z in level))
+		if(isnull(position) || !(position.get_virtual_z_level() in level))
 			return FALSE
 	if(!listening)
 		return FALSE
@@ -89,8 +89,8 @@
 	return TRUE
 
 
-/obj/item/radio/intercom/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, message_mode)
-	if(message_mode == MODE_INTERCOM)
+/obj/item/radio/intercom/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, list/message_mods = list())
+	if(message_mods[RADIO_EXTENSION] == MODE_INTERCOM)
 		return  // Avoid hearing the same thing twice
 	return ..()
 

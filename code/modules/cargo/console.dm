@@ -17,6 +17,7 @@
 	var/obj/item/radio/headset/radio
 	/// var that tracks message cooldown
 	var/message_cooldown
+	COOLDOWN_DECLARE(order_cooldown)
 
 	light_color = "#E2853D"//orange
 
@@ -39,7 +40,7 @@
 
 /obj/machinery/computer/cargo/Destroy()
 	QDEL_NULL(radio)
-	..()
+	return ..()
 
 /obj/machinery/computer/cargo/proc/get_export_categories()
 	. = EXPORT_CARGO
@@ -94,7 +95,7 @@
 	for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
 		data["cart"] += list(list(
 			"object" = SO.pack.name,
-			"cost" = SO.pack.cost,
+			"cost" = SO.pack.get_cost(),
 			"id" = SO.id,
 			"orderer" = SO.orderer,
 			"paid" = !isnull(SO.paying_account) //paid by requester
@@ -104,7 +105,7 @@
 	for(var/datum/supply_order/SO in SSshuttle.requestlist)
 		data["requests"] += list(list(
 			"object" = SO.pack.name,
-			"cost" = SO.pack.cost,
+			"cost" = SO.pack.get_cost(),
 			"orderer" = SO.orderer,
 			"reason" = SO.reason,
 			"id" = SO.id
@@ -127,7 +128,7 @@
 			continue
 		data["supplies"][P.group]["packs"] += list(list(
 			"name" = P.name,
-			"cost" = P.cost,
+			"cost" = P.get_cost(),
 			"id" = pack,
 			"desc" = P.desc || P.name, // If there is a description, use it. Otherwise use the pack's name.
 			"small_item" = P.small_item,
@@ -171,6 +172,8 @@
 				say("The supply shuttle has been loaned to CentCom.")
 				. = TRUE
 		if("add")
+			if(!COOLDOWN_FINISHED(src, order_cooldown))
+				return
 			var/id = text2path(params["id"])
 			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
 			if(!istype(pack))

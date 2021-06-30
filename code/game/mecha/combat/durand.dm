@@ -6,7 +6,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 400
 	deflect_chance = 20
-	armor = list("melee" = 40, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 20, "bio" = 0, "rad" = 50, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 40, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 20, "bio" = 0, "rad" = 50, "fire" = 100, "acid" = 100, "stamina" = 0)
 	max_temperature = 30000
 	infra_luminosity = 8
 	force = 40
@@ -91,7 +91,7 @@ Expects a turf. Returns true if the attack should be blocked, false if not.*/
 				. = TRUE
 	return
 
-obj/mecha/combat/durand/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
+/obj/mecha/combat/durand/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
 	if(defense_check(user.loc))
 		log_message("Attack absorbed by defense field. Attacker - [user].", LOG_MECHA, color="orange")
 		shield.attack_generic(user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
@@ -161,13 +161,13 @@ the shield is disabled by means other than the action button (like running out o
 	if(switching && !signal_args[1])
 		return
 	if(!chassis.defense_mode && (!chassis.cell || chassis.cell.charge < 100)) //If it's off, and we have less than 100 units of power
-		chassis.occupant_message("<span class='warn'>Insufficient power; cannot activate defense mode.</span>")
+		chassis.balloon_alert(chassis.occupant, "Insufficient power")
 		return
 	switching = TRUE
 	chassis.defense_mode = !chassis.defense_mode
 	chassis.defense_action.button_icon_state = "mech_defense_mode_[chassis.defense_mode ? "on" : "off"]" //This is backwards because we haven't changed the var yet
 	if(!signal_args[1])
-		chassis.occupant_message("<span class='notice'>Defense mode [chassis.defense_mode?"enabled":"disabled"].</span>")
+		chassis.balloon_alert(chassis.occupant, "Shield [chassis.defense_mode?"enabled":"disabled"]")
 		chassis.log_message("User has toggled defense mode -- now [chassis.defense_mode?"enabled":"disabled"].", LOG_MECHA)
 	else
 		chassis.log_message("defense mode state changed -- now [chassis.defense_mode?"enabled":"disabled"].", LOG_MECHA)

@@ -32,7 +32,9 @@ LOBBY_COUNTDOWN 180
 ## Round End Time: This is the amount of time after the round ends that players have to murder death kill each other.
 ROUND_END_COUNTDOWN 90
 
+## Uncomment this if you want to use the Discord webhook handler
 #USING_DISCORD
+#DISCORD_WEBHOOK http://127.0.0.1:5000/api/
 
 ## Comment this out if you want to use the SQL based admin system, the legacy system uses admins.txt.
 ## You need to set up your database to use the SQL based system.
@@ -291,7 +293,7 @@ INVOKE_YOUTUBEDL C:\youtubedl\youtube-dl.exe
 
 ## In-game features
 ##Toggle for having jobs load up from the .txt
-LOAD_JOBS_FROM_TXT
+#LOAD_JOBS_FROM_TXT
 
 ## Uncomment this to forbid admins from possessing the singularity.
 #FORBID_SINGULO_POSSESSION
@@ -554,3 +556,6 @@ VOTE_AUTOTRANSFER_INTERVAL 18000
 
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 3000
+
+## Enable/disable roundstart station traits
+#STATION_TRAITS

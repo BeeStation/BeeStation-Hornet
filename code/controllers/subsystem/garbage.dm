@@ -56,7 +56,7 @@ SUBSYSTEM_DEF(garbage)
 		msg += "TGR:[round((totalgcs/(totaldels+totalgcs))*100, 0.01)]%"
 	msg += " P:[pass_counts.Join(",")]"
 	msg += "|F:[fail_counts.Join(",")]"
-	..(msg)
+	. = ..(msg)
 
 /datum/controller/subsystem/garbage/Shutdown()
 	//Adds the del() log to the qdel log file
@@ -261,14 +261,20 @@ SUBSYSTEM_DEF(garbage)
 // Should be treated as a replacement for the 'del' keyword.
 // Datums passed to this will be given a chance to clean up references to allow the GC to collect them.
 /proc/qdel(datum/D, force=FALSE, ...)
+	if(isweakref(D))
+		var/datum/weakref/weakref = D
+		D = weakref.resolve()
+		if(!D)
+			return
+
 	if(!istype(D))
 		del(D)
 		return
+
 	var/datum/qdel_item/I = SSgarbage.items[D.type]
 	if (!I)
 		I = SSgarbage.items[D.type] = new /datum/qdel_item(D.type)
 	I.qdels++
-
 
 	if(isnull(D.gc_destroyed))
 		if (SEND_SIGNAL(D, COMSIG_PARENT_PREQDELETED, force)) // Give the components a chance to prevent their parent from being deleted

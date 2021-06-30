@@ -23,14 +23,8 @@
 	SEND_SIGNAL(src, COMSIG_MOUSEDROPPED_ONTO, dropping, user)
 	return
 
-
 /client
-	var/list/atom/selected_target[2]
 	var/obj/item/active_mousedown_item = null
-	var/mouseParams = ""
-	var/mouseLocation = null
-	var/mouseObject = null
-	var/mouseControlObject = null
 	var/middragtime = 0
 	var/atom/middragatom
 
@@ -44,7 +38,6 @@
 /client/MouseUp(object, location, control, params)
 	if (mouse_up_icon)
 		mouse_pointer_icon = mouse_up_icon
-	selected_target[1] = null
 	if(active_mousedown_item)
 		active_mousedown_item.onMouseUp(object, location, params, mob)
 		active_mousedown_item = null
@@ -97,12 +90,8 @@
 
 //Please don't roast me too hard
 /client/MouseMove(object,location,control,params)
-	mouseParams = params
-	mouseLocation = location
-	mouseObject = object
-	mouseControlObject = control
 	if(mob && LAZYLEN(mob.mousemove_intercept_objects))
-		for(var/datum/D in mob.mousemove_intercept_objects)
+		for(var/datum/D as() in mob.mousemove_intercept_objects)
 			D.onMouseMove(object, location, control, params)
 	..()
 
@@ -118,16 +107,8 @@
 		else
 			middragtime = 0
 			middragatom = null
-	mouseParams = params
-	mouseLocation = over_location
-	mouseObject = over_object
-	mouseControlObject = over_control
-	if(selected_target[1] && over_object && over_object.IsAutoclickable())
-		selected_target[1] = over_object
-		selected_target[2] = params
 	if(active_mousedown_item)
 		active_mousedown_item.onMouseDrag(src_object, over_object, src_location, over_location, params, mob)
-
 
 /obj/item/proc/onMouseDrag(src_object, over_object, src_location, over_location, params, mob)
 	return

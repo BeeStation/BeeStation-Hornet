@@ -269,13 +269,6 @@
 	credit_cost = 2000
 	description = "The gold standard in emergency exfiltration, this tried and true design is equipped with everything the crew needs for a safe flight home."
 
-/datum/map_template/shuttle/emergency/donut
-	suffix = "donut"
-	name = "Donutstation Emergency Shuttle"
-	description = "The perfect spearhead for any crude joke involving the station's shape, this shuttle supports a separate containment cell for prisoners and a compact medical wing."
-	admin_notes = "Has airlocks on both sides of the shuttle and will probably intersect near the front on some stations that build past departures."
-	credit_cost = 2500
-
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
 	name = "Snappop(tm)!"
@@ -307,6 +300,12 @@
 	name = "Kilo Station Emergency Shuttle"
 	credit_cost = 5000
 	description = "A fully functional shuttle including a complete infirmary, storage facilties and regular amenities."
+
+/datum/map_template/shuttle/emergency/corg
+	suffix = "corg"
+	name = "Corg Station Emergency Shuttle"
+	credit_cost = 4000
+	description = "A smaller shuttle with area for cargo, medical and security personnel."
 
 /datum/map_template/shuttle/emergency/mini
 	suffix = "mini"
@@ -452,13 +451,13 @@
 	suffix = "kilo"
 	name = "supply shuttle (Kilo)"
 
+/datum/map_template/shuttle/cargo/corg
+	suffix = "corg"
+	name = "supply shuttle (Corg)"
+
 /datum/map_template/shuttle/cargo/birdboat
 	suffix = "birdboat"
 	name = "supply shuttle (Birdboat)"
-
-/datum/map_template/shuttle/cargo/donut
-	suffix = "donut"
-	name = "supply shuttle (Donut)"
 
 /datum/map_template/shuttle/emergency/delta
 	suffix = "delta"
@@ -505,9 +504,9 @@
 	suffix = "box"
 	name = "labour shuttle (Box)"
 
-/datum/map_template/shuttle/arrival/donut
-	suffix = "donut"
-	name = "arrival shuttle (Donut)"
+/datum/map_template/shuttle/arrival/corg
+	suffix = "corg"
+	name = "arrival shuttle (Corg)"
 
 /datum/map_template/shuttle/infiltrator/basic
 	suffix = "basic"
@@ -546,6 +545,10 @@
 /datum/map_template/shuttle/labour/kilo
 	suffix = "kilo"
 	name = "labour shuttle (Kilo)"
+
+/datum/map_template/shuttle/labour/corg
+	suffix = "corg"
+	name = "labour shuttle (Corg)"
 
 /datum/map_template/shuttle/arrival/delta
 	suffix = "delta"
@@ -630,3 +633,11 @@
 	suffix = "primary"
 	name = "primary turbolift (multi-z debug)"
 	can_be_bought = FALSE
+
+/datum/map_template/shuttle/tram
+	port_id = "tram"
+	can_be_bought = FALSE
+
+/datum/map_template/shuttle/tram/corg
+	suffix = "corg"
+	name = "corgstation transport shuttle"

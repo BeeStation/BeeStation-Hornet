@@ -76,11 +76,10 @@
 	else if(istype(tablet))
 		var/obj/item/computer_hardware/card_slot/card_slot = tablet.all_components[MC_CARD]
 		if(card_slot && (card_slot.stored_card2 || card_slot.stored_card))
-			if(card_slot.stored_card2) //The second card is the one used for authorization in the ID changing program, so we prioritize it here for consistency
+			if(card_slot.stored_card2?.registered_name) //The second card is the one used for authorization in the ID changing program, so we prioritize it here for consistency
 				. = card_slot.stored_card2.registered_name
-			else
-				if(card_slot.stored_card)
-					. = card_slot.stored_card.registered_name
+			else if(card_slot.stored_card?.registered_name)
+				. = card_slot.stored_card.registered_name
 	if(!.)
 		. = if_no_id	//to prevent null-names making the mob unclickable
 	return
@@ -181,3 +180,14 @@
 		return account
 
 	return FALSE
+
+/mob/living/carbon/human/can_see_reagents()
+	. = ..()
+	if(.) //No need to run through all of this if it's already true.
+		return
+	if(isclothing(glasses) && (glasses.clothing_flags & SCAN_REAGENTS))
+		return TRUE
+	if(isclothing(head) && (head.clothing_flags & SCAN_REAGENTS))
+		return TRUE
+	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_REAGENTS))
+		return TRUE

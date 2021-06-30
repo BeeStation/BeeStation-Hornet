@@ -27,6 +27,9 @@
 	if(!G.is_deployed())
 		to_chat(G, "<span class='danger'><B>You must be manifested to warp a target!</span></B>")
 		return
+	if(!G.can_use_abilities)
+		to_chat(G, "<span class='danger'><B>You can't do that right now!</span></B>")
+		return
 	if(!G.beacon)
 		to_chat(G, "<span class='danger'><B>You need a beacon placed to warp things!</span></B>")
 		return
@@ -38,7 +41,7 @@
 		return
 
 	var/turf/T = get_turf(A)
-	if(G.beacon.z != T.z)
+	if(G.beacon.get_virtual_z_level() != T.get_virtual_z_level())
 		to_chat(G, "<span class='danger'><B>The beacon is too far away to warp to!</span></B>")
 		return
 	remove_ranged_ability()

@@ -24,7 +24,7 @@
 	power_equip = FALSE
 	power_light = FALSE
 	poweralm = FALSE
-	ambient_effects = list('sound/ambience/ambimine.ogg')
+	ambientsounds = list('sound/ambience/ambimine.ogg')
 	icon_state = "awaycontent5"
 
 /area/awaymission/moonoutpost19/hive

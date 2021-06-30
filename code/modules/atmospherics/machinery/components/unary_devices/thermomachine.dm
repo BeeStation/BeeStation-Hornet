@@ -7,7 +7,7 @@
 
 	density = TRUE
 	max_integrity = 300
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30, "stamina" = 0)
 	layer = OBJ_LAYER
 	circuit = /obj/item/circuitboard/machine/thermomachine
 
@@ -102,11 +102,10 @@
 	if(cooling)
 		target_temperature = min_temperature
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-		to_chat(user, "<span class='notice'>You minimize the target temperature on [src] to [target_temperature] K.</span>")
 	else
 		target_temperature = max_temperature
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-		to_chat(user, "<span class='notice'>You maximize the target temperature on [src] to [target_temperature] K.</span>")
+	balloon_alert(user, "Set to [target_temperature] K")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
 	..()

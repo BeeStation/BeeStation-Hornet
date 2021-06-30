@@ -4,7 +4,7 @@
 
 /obj/machinery/camera
 	name = "security camera"
-	desc = "It's used to monitor rooms."
+	desc = "A wireless camera used to monitor rooms. It is powered by a long-life internal battery."
 	icon = 'icons/obj/machines/camera.dmi'
 	icon_state = "camera" //mapping icon to represent upgrade states. if you want a different base icon, update default_camera_icon as well as this.
 	use_power = ACTIVE_POWER_USE
@@ -13,7 +13,7 @@
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 
-	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50)
+	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50, "stamina" = 0)
 	max_integrity = 100
 	integrity_failure = 50
 	var/default_camera_icon = "camera" //the camera's base icon used by update_icon - icon_state is primarily used for mapping display purposes.
@@ -25,6 +25,10 @@
 	var/obj/item/camera_bug/bug = null
 	var/obj/structure/camera_assembly/assembly = null
 	var/area/myarea = null
+
+	FASTDMM_PROP(\
+		pinned_vars = list("name", "network", "c_tag")\
+	)
 
 	//OTHER
 
@@ -90,16 +94,16 @@
 	if(can_use())
 		toggle_cam(null, 0) //kick anyone viewing out and remove from the camera chunks
 	GLOB.cameranet.cameras -= src
+	cancelCameraAlarm()
 	if(isarea(myarea))
-		LAZYREMOVE(myarea.cameras, src)
+		myarea.clear_camera(src)
 	QDEL_NULL(assembly)
 	QDEL_NULL(emp_component)
 	if(bug)
-		bug.bugged_cameras -= src.c_tag
+		bug.bugged_cameras -= c_tag
 		if(bug.current == src)
 			bug.current = null
 		bug = null
-	cancelCameraAlarm()
 	return ..()
 
 /obj/machinery/camera/examine(mob/user)
@@ -343,7 +347,7 @@
 	else
 		icon_state = "[xray_module][default_camera_icon][in_use_lights ? "_in_use" : ""]"
 
-/obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = 1)
+/obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
@@ -396,6 +400,8 @@
 	if(!status)
 		return FALSE
 	if(stat & EMPED)
+		return FALSE
+	if(is_jammed())
 		return FALSE
 	return TRUE
 

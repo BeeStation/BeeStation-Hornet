@@ -10,7 +10,7 @@
 	var/device_type = null
 	var/id = null
 	var/initialized_button = 0
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 70)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 70, "stamina" = 0)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -272,7 +272,6 @@
 	icon_state = "launcher"
 	skin = "launcher"
 	device_type = /obj/item/assembly/control/crematorium
-	req_access = list()
 	id = 1
 
 /obj/machinery/button/crematorium/indestructible

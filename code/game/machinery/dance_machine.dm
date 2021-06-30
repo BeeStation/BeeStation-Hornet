@@ -447,7 +447,7 @@
 				continue
 			if(!(M in rangers))
 				rangers += M
-				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
+				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
 	else if(active)
 		active = FALSE
 		dance_over()
@@ -456,13 +456,13 @@
 		stop = world.time + 100
 		return PROCESS_KILL
 
-/obj/machinery/jukebox/disco/process()
+/obj/machinery/jukebox/disco/process(delta_time)
 	. = ..()
 	if(active)
 		for(var/mob/M as() in rangers)
-			if(prob(5+(allowed(M)*4)))
+			if(DT_PROB(5+(allowed(M)*4), delta_time))
 				if(isliving(M))
 					var/mob/living/L = M
 					if(!(L.mobility_flags & MOBILITY_MOVE))
 						continue
-				dance(M)
+					dance(L)

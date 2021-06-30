@@ -391,6 +391,17 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define TELEPORT_CHANNEL_CULT "cult"			//! Cult teleportation, does whatever it wants (unless there's holiness)
 #define TELEPORT_CHANNEL_FREE "free"			//! Anything else
 
+//Teleport restriction modes (For areas)
+#define TELEPORT_ALLOW_ALL 0
+#define TELEPORT_ALLOW_NONE 1
+#define TELEPORT_ALLOW_CLOCKWORK 2
+#define TELEPORT_ALLOW_ABDUCTORS 3
+
+//Teleport modes
+#define TELEPORT_MODE_DEFAULT 0
+#define TELEPORT_MODE_CLOCKWORK 2
+#define TELEPORT_MODE_ABDUCTORS 3
+
 /// Force the log directory to be something specific in the data/logs folder
 #define OVERRIDE_LOG_DIRECTORY_PARAMETER "log-directory"
 /// Prevent the master controller from starting automatically
@@ -449,3 +460,12 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define FALL_INTERCEPTED		(1<<0) //Stops the movable from falling further and crashing on the ground
 #define FALL_NO_MESSAGE			(1<<1) //Used to suppress the "[A] falls through [old_turf]" messages where it'd make little sense at all, like going downstairs.
 #define FALL_STOP_INTERCEPTING	(1<<2) //Used in situations where halting the whole "intercept" loop would be better, like supermatter dusting (and thus deleting) the atom.
+
+//Religion
+
+#define HOLY_ROLE_PRIEST 1 //default priestly role
+#define HOLY_ROLE_HIGHPRIEST 2 //the one who designates the religion
+
+#define ALIGNMENT_GOOD "good"
+#define ALIGNMENT_NEUT "neutral"
+#define ALIGNMENT_EVIL "evil"

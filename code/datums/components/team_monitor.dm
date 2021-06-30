@@ -169,7 +169,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/atom/movable/screen/arrow/screen = tracking[beacon]
 	var/turf/target_turf = get_turf(beacon.parent)
 	var/turf/parent_turf = get_turf(parent)
-	if(target_turf.z != parent_turf.z || target_turf == parent_turf)
+	if(target_turf.get_virtual_z_level() != parent_turf.get_virtual_z_level() || target_turf == parent_turf)
 		if(screen)
 			//Remove the screen
 			updating.hud_used.team_finder_arrows -= screen
@@ -204,7 +204,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/obj/item/clothing/item = parent
 	if(!istype(item))
 		return
-	if(item.slot_flags & slotdefine2slotbit(slot)) //Was equipped to a valid slot for this item?
+	if(item.slot_flags & slot) //Was equipped to a valid slot for this item?
 		show_hud(equipper)
 	else
 		hide_hud(equipper)
@@ -423,7 +423,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/obj/item/clothing/item = parent
 	if(!istype(item))
 		return
-	if(item.slot_flags & slotdefine2slotbit(slot)) //Was equipped to a valid slot for this item?
+	if(item.slot_flags & slot) //Was equipped to a valid slot for this item?
 		updating = equipper
 		toggle_visibility(TRUE)
 		RegisterSignal(updating, COMSIG_MOVABLE_MOVED, .proc/update_position)

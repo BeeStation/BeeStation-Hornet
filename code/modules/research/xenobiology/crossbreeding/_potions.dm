@@ -164,7 +164,7 @@ Slimecrossing Potions
 	C.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	C.add_atom_colour("#800000", FIXED_COLOUR_PRIORITY)
 	C.resistance_flags |= LAVA_PROOF
-	if (istype(C, /obj/item/clothing))
+	if (isclothing(C))
 		var/obj/item/clothing/CL = C
 		CL.clothing_flags |= LAVAPROTECT
 	uses--
@@ -189,7 +189,7 @@ Slimecrossing Potions
 	if(M.maxHealth <= 0)
 		to_chat(user, "<span class='warning'>The slime is too unstable to return!</span>")
 	M.revive(full_heal = 1)
-	M.stat = CONSCIOUS
+	M.set_stat(CONSCIOUS)
 	M.visible_message("<span class='notice'>[M] is filled with renewed vigor and blinks awake!</span>")
 	M.maxHealth -= 10 //Revival isn't healthy.
 	M.health -= 10

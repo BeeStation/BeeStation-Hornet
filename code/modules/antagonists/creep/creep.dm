@@ -22,7 +22,7 @@
 	C.gain_trauma(/datum/brain_trauma/special/obsessed)//ZAP
 
 /datum/antagonist/obsessed/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/creepalert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='userdanger'>You are the Obsessed!</span>")
 	to_chat(owner, "<B>The Voices have reached out to you, and are using you to complete their evil deeds.</B>")
 	to_chat(owner, "<B>You don't know their connection, but The Voices compel you to stalk [trauma.obsession], forcing them into a state of constant paranoia.</B>")
@@ -181,6 +181,8 @@
 		chosen_department = "supply"
 	if(oldmind.assigned_role in GLOB.civilian_positions)
 		chosen_department = "civilian"
+	if(oldmind.assigned_role in GLOB.gimmick_positions)
+		chosen_department = "civilian"
 	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(!H.mind)
 			continue
@@ -200,6 +202,8 @@
 			their_chosen_department = "supply"
 		if(H.mind.assigned_role in GLOB.civilian_positions)
 			their_chosen_department = "civilian"
+		if(H.mind.assigned_role in GLOB.gimmick_positions)
+			chosen_department = "civilian"
 		if(their_chosen_department != chosen_department)
 			continue
 		viable_coworkers += H.mind

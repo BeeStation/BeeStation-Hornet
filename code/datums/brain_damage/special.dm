@@ -116,9 +116,9 @@
 	if(do_after(user, 20, target = src))
 		new /obj/effect/temp_visual/bluespace_fissure(get_turf(src))
 		new /obj/effect/temp_visual/bluespace_fissure(get_turf(linked_to))
-		user.forceMove(get_turf(linked_to))
-		user.visible_message("<span class='warning'>[user] [slip_in_message].</span>", null, null, null, user)
-		user.visible_message("<span class='warning'>[user] [slip_out_message].</span>", "<span class='notice'>...and find your way to the other side.</span>")
+		if(do_teleport(user, get_turf(linked_to), no_effects = TRUE))
+			user.visible_message("<span class='warning'>[user] [slip_in_message].</span>", null, null, null, user)
+			user.visible_message("<span class='warning'>[user] [slip_out_message].</span>", "<span class='notice'>...and find your way to the other side.</span>")
 
 /datum/brain_trauma/special/psychotic_brawling
 	name = "Violent Psychosis"
@@ -246,10 +246,10 @@
 	START_PROCESSING(SSfastprocess,src)
 	..()
 
-/obj/effect/hallucination/simple/securitron/process()
-	if(prob(60))
+/obj/effect/hallucination/simple/securitron/process(delta_time)
+	if(DT_PROB(60, delta_time))
 		forceMove(get_step_towards(src, victim))
-		if(prob(5))
+		if(DT_PROB(5, delta_time))
 			to_chat(victim, "<span class='name'>[name]</span> exclaims, \"<span class='robotic'>Level 10 infraction alert!\"</span>")
 
 /obj/effect/hallucination/simple/securitron/Destroy()

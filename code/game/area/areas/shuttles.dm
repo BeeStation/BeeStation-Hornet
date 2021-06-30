@@ -14,10 +14,17 @@
 	unique = FALSE
 	lighting_colour_tube = "#fff0dd"
 	lighting_colour_bulb = "#ffe1c1"
+	sound_environment = SOUND_ENVIRONMENT_ROOM
+	//The mobile port attached to this area
+	var/obj/docking_port/mobile/mobile_port
 
 /area/shuttle/Initialize()
 	if(!canSmoothWithAreas)
 		canSmoothWithAreas = type
+	. = ..()
+
+/area/shuttle/Destroy()
+	mobile_port = null
 	. = ..()
 
 /area/shuttle/PlaceOnTopReact(list/new_baseturfs, turf/fake_turf_type, flags)
@@ -27,6 +34,14 @@
 	if(ispath(new_baseturfs[1], /turf/open/floor/plating))
 		new_baseturfs.Insert(1, /turf/baseturf_skipover/shuttle)
 
+/area/shuttle/proc/link_to_shuttle(obj/docking_port/mobile/M)
+	mobile_port = M
+
+/area/shuttle/get_virtual_z(turf/T)
+	if(mobile_port && is_reserved_level(mobile_port.z))
+		return mobile_port.virtual_z
+	return ..(T)
+
 ////////////////////////////Multi-area shuttles////////////////////////////
 
 ////////////////////////////Syndicate infiltrator////////////////////////////
@@ -34,7 +49,7 @@
 /area/shuttle/syndicate
 	name = "Syndicate Infiltrator"
 	blob_allowed = FALSE
-	ambient_effects = HIGHSEC
+	ambience_index = AMBIENCE_DANGER
 	canSmoothWithAreas = /area/shuttle/syndicate
 
 /area/shuttle/syndicate/bridge
@@ -159,11 +174,11 @@
 
 /area/shuttle/escape/luxury
 	name = "Luxurious Emergency Shuttle"
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/shuttle/escape/arena
 	name = "The Arena"
-	noteleport = TRUE
+	teleport_restriction = TELEPORT_ALLOW_NONE
 
 /area/shuttle/escape/meteor
 	name = "\proper a meteor with engines strapped to it"

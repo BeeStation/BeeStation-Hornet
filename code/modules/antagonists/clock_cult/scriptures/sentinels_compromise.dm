@@ -45,5 +45,7 @@
 	M.cure_husk()
 	M.hallucination = 0
 	new /obj/effect/temp_visual/heal(get_turf(M), "#f8d984")
+	playsound(M, 'sound/magic/magic_missile.ogg', 50, TRUE)
+	playsound(invoker, 'sound/magic/magic_missile.ogg', 50, TRUE)
 	invoker.adjustToxLoss(min(total_damage/2, 80))
 	return TRUE

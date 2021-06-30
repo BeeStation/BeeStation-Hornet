@@ -12,6 +12,8 @@
 
 	var/list/network = list("ss13")
 	var/obj/machinery/camera/active_camera
+	/// The turf where the camera was last updated.
+	var/turf/last_camera_turf
 	var/list/concurrent_users = list()
 	var/long_ranged = FALSE
 
@@ -64,9 +66,10 @@
 /obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui)
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui)
-	// Show static if can't use the camera
-	if(!active_camera?.can_use())
-		show_camera_static()
+
+	// Update the camera, showing static if necessary and updating data if the location has moved.
+	update_active_camera_screen()
+
 	if(!ui)
 		var/user_ref = REF(user)
 		var/is_living = isliving(user)
@@ -121,27 +124,47 @@
 		active_camera = C
 		playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
-		// Show static if can't use the camera
-		if(!active_camera?.can_use())
-			show_camera_static()
+		if(!C)
 			return TRUE
 
-		var/list/visible_turfs = list()
-		if(C.isXRay())
-			visible_turfs += RANGE_TURFS(C.view_range, C)
-		else
-			for(var/turf/T in view(C.view_range, get_turf(C)))
-				visible_turfs += T
-
-		var/list/bbox = get_bbox_of_atoms(visible_turfs)
-		var/size_x = bbox[3] - bbox[1] + 1
-		var/size_y = bbox[4] - bbox[2] + 1
-
-		cam_screen.vis_contents = visible_turfs
-		cam_background.icon_state = "clear"
-		cam_background.fill_rect(1, 1, size_x, size_y)
+		update_active_camera_screen()
 
 		return TRUE
+
+/obj/machinery/computer/security/proc/update_active_camera_screen()
+	// Show static if can't use the camera
+	if(!active_camera?.can_use())
+		show_camera_static()
+		return
+
+	var/list/visible_turfs = list()
+
+	// Is this camera located in or attached to a living thing? If so, assume the camera's loc is the living thing.
+	var/atom/cam_location = isliving(active_camera.loc) ? active_camera.loc : active_camera
+
+	// If we're not forcing an update for some reason and the cameras are in the same location,
+	// we don't need to update anything.
+	// Most security cameras will end here as they're not moving.
+	var/newturf = get_turf(cam_location)
+	if(last_camera_turf == newturf)
+		return
+
+	// Cameras that get here are moving, and are likely attached to some moving atom such as cyborgs.
+	last_camera_turf = get_turf(cam_location)
+
+	if(active_camera.isXRay())
+		visible_turfs += RANGE_TURFS(active_camera.view_range, cam_location)
+	else
+		for(var/turf/T in view(active_camera.view_range, cam_location))
+			visible_turfs += T
+
+	var/list/bbox = get_bbox_of_atoms(visible_turfs)
+	var/size_x = bbox[3] - bbox[1] + 1
+	var/size_y = bbox[4] - bbox[2] + 1
+
+	cam_screen.vis_contents = visible_turfs
+	cam_background.icon_state = "clear"
+	cam_background.fill_rect(1, 1, size_x, size_y)
 
 /obj/machinery/computer/security/ui_close(mob/user)
 	var/user_ref = REF(user)
@@ -165,7 +188,7 @@
 /obj/machinery/computer/security/proc/get_available_cameras()
 	var/list/L = list()
 	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		if((is_away_level(z) || is_away_level(C.z)) && (C.z != z))//if on away mission, can only receive feed from same z_level cameras
+		if((is_away_level(z) || is_away_level(C.z)) && (C.get_virtual_z_level() != get_virtual_z_level()))//if on away mission, can only receive feed from same z_level cameras
 			continue
 		L.Add(C)
 	var/list/D = list()

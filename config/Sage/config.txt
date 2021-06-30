@@ -294,7 +294,7 @@ INVOKE_YOUTUBEDL C:\youtubedl\youtube-dl.exe
 
 ## In-game features
 ##Toggle for having jobs load up from the .txt
-LOAD_JOBS_FROM_TXT
+#LOAD_JOBS_FROM_TXT
 
 ## Uncomment this to forbid admins from possessing the singularity.
 #FORBID_SINGULO_POSSESSION
@@ -551,3 +551,6 @@ VOTE_AUTOTRANSFER_INTERVAL 18000
 
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 3000
+
+## Enable/disable roundstart station traits
+#STATION_TRAITS

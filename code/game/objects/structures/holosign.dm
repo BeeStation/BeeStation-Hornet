@@ -6,7 +6,7 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
-	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)
+	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 0)
 	layer = BELOW_OBJ_LAYER
 	var/obj/item/holosign_creator/projector
 
@@ -132,7 +132,7 @@
 	if(ishuman(mover))
 		var/mob/living/carbon/human/sickboi = mover
 		var/threat = sickboi.check_virus()
-		if(get_disease_severity_value(threat) > get_disease_severity_value(DISEASE_SEVERITY_MINOR))
+		if(get_disease_danger_value(threat) > get_disease_danger_value(DISEASE_MINOR))
 			if(buzzcd < world.time)
 				playsound(get_turf(src),'sound/machines/buzz-sigh.ogg',65,1,4)
 				buzzcd = (world.time + 60)

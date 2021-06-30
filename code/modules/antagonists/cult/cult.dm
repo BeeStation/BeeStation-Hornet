@@ -48,7 +48,7 @@
 
 /datum/antagonist/cult/greet()
 	to_chat(owner, "<span class='userdanger'>You are a member of the cult!</span>")
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/bloodcult.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Blood Cult",
 		"Use your ritual dagger to draw runes with your blood and expand your cult until you have enough influence to summon the great Nar'Sie!")
@@ -82,9 +82,9 @@
 
 /datum/antagonist/cult/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/mob)
 	var/list/slots = list(
-		"backpack" = SLOT_IN_BACKPACK,
-		"left pocket" = SLOT_L_STORE,
-		"right pocket" = SLOT_R_STORE
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_LPOCKET,
+		"right pocket" = ITEM_SLOT_RPOCKET
 	)
 
 	var/T = new item_path(mob)

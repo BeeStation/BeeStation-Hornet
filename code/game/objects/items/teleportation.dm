@@ -60,7 +60,7 @@
 					if (!W.renamed)
 						continue
 					var/turf/tr = get_turf(W)
-					if (tr.z == sr.z && tr)
+					if (tr.get_virtual_z_level() == sr.get_virtual_z_level() && tr)
 						var/direct = max(abs(tr.x - sr.x), abs(tr.y - sr.y))
 						if (direct < 5)
 							direct = "very strong"
@@ -85,7 +85,7 @@
 								continue
 
 					var/turf/tr = get_turf(W)
-					if (tr.z == sr.z && tr)
+					if (tr.get_virtual_z_level() == sr.get_virtual_z_level() && tr)
 						var/direct = max(abs(tr.x - sr.x), abs(tr.y - sr.y))
 						if (direct < 20)
 							if (direct < 5)
@@ -128,7 +128,7 @@
 	throw_speed = 3
 	throw_range = 5
 	materials = list(/datum/material/iron=10000)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/list/active_portal_pairs
 	var/max_portal_pairs = 3
@@ -157,27 +157,27 @@
 /obj/item/hand_tele/attack_self(mob/user)
 	var/turf/current_location = get_turf(user)//What turf is the user on?
 	var/area/current_area = current_location.loc
-	if(!current_location || current_area.noteleport || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
+	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 	var/list/L = list(  )
 	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
 		if(com.target)
 			var/area/A = get_area(com.target)
-			if(!A || A.noteleport)
+			if(!A || A.teleport_restriction)
 				continue
 			if(com.power_station && com.power_station.teleporter_hub && com.power_station.engaged)
 				L["[get_area(com.target)] (Active)"] = com.target
 			else
 				L["[get_area(com.target)] (Inactive)"] = com.target
 	var/list/turfs = list()
-	for(var/turf/T as() in (RANGE_TURFS(10, src) - get_turf(src)))
+	for(var/turf/T as() in (RANGE_TURFS(10, user) - get_turf(user)))
 		if(T.x>world.maxx-8 || T.x<8)
 			continue	//putting them at the edge is dumb
 		if(T.y>world.maxy-8 || T.y<8)
 			continue
 		var/area/A = T.loc
-		if(A.noteleport)
+		if(A.teleport_restriction)
 			continue
 		turfs += T
 	if(turfs.len)
@@ -190,15 +190,15 @@
 		return
 	var/atom/T = L[t1]
 	var/area/A = get_area(T)
-	if(A.noteleport)
+	if(A.teleport_restriction)
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 	current_location = get_turf(user)	//Recheck.
 	current_area = current_location.loc
-	if(!current_location || current_area.noteleport || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
+	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
-	user.show_message("<span class='notice'>Locked In.</span>", 2)
+	user.show_message("<span class='notice'>Locked In.</span>", MSG_AUDIBLE)
 	var/list/obj/effect/portal/created = create_portal_pair(current_location, get_teleport_turf(get_turf(T)), src, 300, 1, null, atmos_link_override)
 	if(!(LAZYLEN(created) == 2))
 		return
@@ -235,7 +235,7 @@
 		else
 			itemUser.visible_message("<span class='suicide'>[user] looks even further depressed as they realize they do not have a head...and suddenly dies of shame!</span>")
 		return (BRUTELOSS)
-		
+
 /*
  * Syndicate Teleporter
  */
@@ -253,17 +253,29 @@
 	throw_speed = 4
 	throw_range = 10
 
+	//Uses of the device left
 	var/charges = 4
+	//The maximum number of stored uses
 	var/max_charges = 4
 	var/minimum_teleport_distance = 4
 	var/maximum_teleport_distance = 8
-	var/saving_throw_distance = 3
-	var/recharge_time = 200 //20 Seconds
+	//How far the emergency teleport checks for a safe position
+	var/parallel_teleport_distance = 3
+	//How long it takes to replenish a charge
+	var/recharge_time = 15 SECONDS
+	//If the device is recharging, prevents timers stacking
 	var/recharging = FALSE
+	//stores the recharge timer id
+	var/recharge_timer
 
 /obj/item/teleporter/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[src] has [charges] out of [max_charges] charges left.</span>"
+	if(recharging)
+		. += "<span class='notice'><b>A small display on the back reads:</b></span>"
+		var/timeleft = timeleft(recharge_timer)
+		var/loadingbar = num2loadingbar(timeleft/recharge_time, reverse=TRUE)
+		. += "<span class='notice'><b>CHARGING: [loadingbar] ([timeleft*0.1]s)</b></span>"
 
 /obj/item/teleporter/attack_self(mob/user)
 	..()
@@ -273,11 +285,12 @@
 	if(recharging)
 		return
 	if(charges < max_charges)
-		addtimer(CALLBACK(src, .proc/recharge), recharge_time)
+		recharge_timer = addtimer(CALLBACK(src, .proc/recharge), recharge_time, TIMER_STOPPABLE)
 		recharging = TRUE
 
 /obj/item/teleporter/proc/recharge()
 	charges++
+	playsound(src,'sound/machines/twobeep.ogg',10,TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	recharging = FALSE
 	check_charges()
 
@@ -296,10 +309,10 @@
 	if(!charges)
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")
 		return
-		
+
 	var/turf/current_location = get_turf(user)
 	var/area/current_area = current_location.loc
-	if(!current_location || current_area.noteleport || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
+	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 
@@ -326,7 +339,7 @@
 /obj/item/teleporter/proc/panic_teleport(mob/user, turf/destination)
 	var/mob/living/carbon/C = user
 	var/turf/mobloc = get_turf(C)
-	var/turf/emergency_destination = get_teleport_loc(destination,C,0,0,1,saving_throw_distance,0,0,0)
+	var/turf/emergency_destination = get_teleport_loc(destination,C,0,0,1,parallel_teleport_distance,0,0,0)
 
 	if(emergency_destination)
 		telefrag(emergency_destination, user)
@@ -342,15 +355,15 @@
 
 /obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
 	var/turf/mobloc = get_turf(user)
-	user.forceMove(destination)
-	playsound(mobloc, "sparks", 50, TRUE)
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
-	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
-	playsound(destination, "sparks", 50, TRUE)
-	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
-	to_chat(user, "<span class='userdanger'>You teleport into the wall, the teleporter tries to save you, but-</span>")
-	destination.ex_act(2) //Destroy the wall
-	user.gib()
+	if(do_teleport(user, destination, channel = TELEPORT_CHANNEL_FREE, no_effects = TRUE))
+		playsound(mobloc, "sparks", 50, TRUE)
+		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
+		new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)
+		playsound(destination, "sparks", 50, TRUE)
+		playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
+		to_chat(user, "<span class='userdanger'>You teleport into the wall, the teleporter tries to save you, but-</span>")
+		destination.ex_act(2) //Destroy the wall
+		user.gib()
 
 /obj/item/teleporter/proc/telefrag(turf/fragging_location, mob/user)
 	for(var/mob/living/M in fragging_location)//Hit everything in the turf
@@ -380,7 +393,3 @@
 
 /obj/effect/temp_visual/teleport_abductor/syndi_teleporter
 	duration = 5
-
-/obj/item/teleporter/admin
-	charges = 999
-	max_charges = 999

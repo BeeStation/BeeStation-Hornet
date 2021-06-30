@@ -8,7 +8,7 @@
 	icon_state = "pod-off"
 	density = TRUE
 	max_integrity = 350
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30, "stamina" = 0)
 	layer = ABOVE_WINDOW_LAYER
 	state_open = FALSE
 	circuit = /obj/item/circuitboard/machine/cryo_tube
@@ -74,7 +74,7 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/examine(mob/user) //this is leaving out everything but efficiency since they follow the same idea of "better beaker, better results"
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Efficiency at <b>[efficiency*100]%</b>.<span>"
+		. += "<span class='notice'>The status display reads: Efficiency at <b>[efficiency*100]%</b>.</span>"
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/Destroy()
 	QDEL_NULL(radio)
@@ -84,7 +84,13 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/contents_explosion(severity, target)
 	..()
 	if(beaker)
-		beaker.ex_act(severity, target)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.high_mov_atom += beaker
+			if(EXPLODE_HEAVY)
+				SSexplosions.med_mov_atom += beaker
+			if(EXPLODE_LIGHT)
+				SSexplosions.low_mov_atom += beaker
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/handle_atom_del(atom/A)
 	..()
@@ -168,10 +174,9 @@
 	open_machine()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
-	..()
-
 	if(!on)
 		return
+
 	if(!is_operational())
 		on = FALSE
 		update_icon()
@@ -214,7 +219,7 @@
 
 	if(air1.total_moles())
 		if(mob_occupant.bodytemperature < T0C) // Sleepytime. Why? More cryo magic.
-			mob_occupant.Sleeping((mob_occupant.bodytemperature * sleep_factor) * 1000 * delta_time)//delta_time is roughly ~2 seconds
+			mob_occupant.Sleeping((mob_occupant.bodytemperature * sleep_factor) * 1000 * delta_time)
 			mob_occupant.Unconscious((mob_occupant.bodytemperature * unconscious_factor) * 1000 * delta_time)
 		if(beaker)//How much to transfer. As efficiency is increased, less reagent from the beaker is used and more is magically transferred to occupant
 			beaker.reagents.trans_to(occupant, (CRYO_TX_QTY / (efficiency * CRYO_MULTIPLY_FACTOR)) * delta_time, efficiency * CRYO_MULTIPLY_FACTOR, method = VAPOR) // Transfer reagents.
@@ -254,8 +259,9 @@
 			air1.set_temperature(max(air1.return_temperature() - heat / air_heat_capacity, TCMB))
 			mob_occupant.adjust_bodytemperature(heat / heat_capacity, TCMB)
 
-
 		air1.set_moles(/datum/gas/oxygen, max(0,air1.get_moles(/datum/gas/oxygen) - 0.5 / efficiency)) // Magically consume gas? Why not, we run on cryo magic.
+
+	update_parents()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/power_change()
 	..()
@@ -434,13 +440,13 @@
 				. = TRUE
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
-	if(can_interact(user) && !state_open)
+	if(user.can_interact_with(src) && !state_open && occupant != user)
 		on = !on
 		update_icon()
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/AltClick(mob/user)
-	if(can_interact(user))
+	if(user.can_interact_with(src) && occupant != user)
 		if(state_open)
 			close_machine()
 		else

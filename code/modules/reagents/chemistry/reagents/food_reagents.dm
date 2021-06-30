@@ -431,7 +431,7 @@
 	taste_description = "childhood whimsy"
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/carbon/M)
-	if(HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
+	if(M.mind && HAS_TRAIT(M.mind, TRAIT_LAW_ENFORCEMENT_METABOLISM))
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
 	..()
@@ -711,8 +711,8 @@
 		var/mob/living/carbon/human/H = M
 		var/datum/species/ethereal/E = H.dna?.species
 		E.adjust_charge(5*REM)
-	else if(prob(25)) //scp13 optimization
-		M.electrocute_act(rand(10,15), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars
+	else if(prob(3)) //scp13 optimization
+		M.electrocute_act(rand(3,5), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars
 		playsound(M, "sparks", 50, 1)
 	return ..()
 

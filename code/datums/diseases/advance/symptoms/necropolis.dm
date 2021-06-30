@@ -4,7 +4,7 @@
 	stealth = 0
 	resistance = 3
 	stage_speed = -10
-	transmittable = -3
+	transmission = -3
 	level = 9
 	base_message_chance = 5
 	severity = -1
@@ -22,20 +22,21 @@
 
 /datum/symptom/necroseed/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stealth"] >= 8)
+	if(A.stealth >= 8)
 		severity += 2
-	if(A.properties["resistance"] >= 20)
+	if(A.resistance >= 20)
 		severity -= 1
 
 /datum/symptom/necroseed/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 15)
+	if(A.resistance >= 15)
 		tendrils = TRUE
-	if(A.properties["stealth"] >= 8)
+		if(A.resistance >= 20)
+			fireproof = TRUE
+	if(A.stealth >= 8)
 		chest = TRUE
-	if(A.properties["resistance"] >= 20)
-		fireproof = TRUE
+
 
 /datum/symptom/necroseed/Activate(datum/disease/advance/A)
 	if(!..())
@@ -77,7 +78,7 @@
 			LAZYCLEARLIST(cached_tentacle_turfs)
 			last_location = loc
 			tentacle_recheck_cooldown = world.time + initial(tentacle_recheck_cooldown)
-			for(var/turf/open/T in (RANGE_TURFS(2, loc)-loc))
+			for(var/turf/open/T in (RANGE_TURFS(1, loc)-loc))
 				LAZYADD(cached_tentacle_turfs, T)
 		for(var/t in cached_tentacle_turfs)
 			if(isopenturf(t))
@@ -112,15 +113,14 @@
 		M.visible_message("<span class='danger'>An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
 		playsound(M.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		M.hellbound = TRUE
-		M.gib()
-		if(ishuman(M)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
-			var/mob/living/carbon/human/H = M
-			var/S = H.dna.species
-			if(istype(S, /datum/species/golem) || istype(S, /datum/species/jelly)) //nope. sorry, xenobio.
-				return
-		else
+		if(!ishuman(M)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
+			M.gib()
+			return
+		if(HAS_TRAIT(M, TRAIT_NONECRODISEASE))
+			M.gib()
 			return
 		new /obj/structure/closet/crate/necropolis/tendril(M.loc)
+		M.gib()
 
 /obj/effect/temp_visual/goliath_tentacle/necro
 	name = "fledgling necropolis tendril"

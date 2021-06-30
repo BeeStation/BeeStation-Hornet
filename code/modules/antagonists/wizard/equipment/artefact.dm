@@ -189,7 +189,7 @@
 
 /obj/item/scrying/attack_self(mob/user)
 	visible_message("<span class='danger'>[user] stares into [src], their eyes glazing over.</span>")
-	user.ghostize(1)
+	user.ghostize(TRUE)
 
 /////////////////////////////////////////Necromantic Stone///////////////////
 
@@ -264,12 +264,12 @@
 		H.dropItemToGround(I)
 
 	var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionnaire)
-	H.equip_to_slot_or_del(new hat(H), SLOT_HEAD)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), SLOT_W_UNIFORM)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), SLOT_SHOES)
+	H.equip_to_slot_or_del(new hat(H), ITEM_SLOT_HEAD)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), ITEM_SLOT_ICLOTHING)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), ITEM_SLOT_FEET)
 	H.put_in_hands(new /obj/item/shield/riot/roman(H), TRUE)
 	H.put_in_hands(new /obj/item/claymore(H), TRUE)
-	H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), SLOT_BACK)
+	H.equip_to_slot_or_del(new /obj/item/spear(H), ITEM_SLOT_BACK)
 
 
 /obj/item/voodoo
@@ -438,7 +438,7 @@
 	var/breakout = 0
 	while(breakout < 50)
 		var/turf/potential_T = find_safe_turf()
-		if(T.z != potential_T.z || abs(get_dist_euclidian(potential_T,T)) > 50 - breakout)
+		if(T.get_virtual_z_level() != potential_T.get_virtual_z_level() || abs(get_dist_euclidian(potential_T,T)) > 50 - breakout)
 			do_teleport(user, potential_T, channel = TELEPORT_CHANNEL_MAGIC)
 			user.mobility_flags &= ~MOBILITY_MOVE
 			T = potential_T

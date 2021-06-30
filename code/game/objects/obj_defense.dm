@@ -70,7 +70,8 @@
 /obj/bullet_act(obj/item/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, 1)
-	visible_message("<span class='danger'>[src] is hit by \a [P]!</span>", null, null, COMBAT_MESSAGE_RANGE)
+	if(P.suppressed != SUPPRESSED_VERY)
+		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>", null, null, COMBAT_MESSAGE_RANGE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
@@ -162,7 +163,7 @@
 	return take_damage(M.force*3, mech_damtype, "melee", play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 /obj/singularity_act()
-	ex_act(EXPLODE_DEVASTATE)
+	SSexplosions.high_mov_atom += src
 	if(src && !QDELETED(src))
 		qdel(src)
 	return 2

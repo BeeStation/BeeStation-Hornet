@@ -18,7 +18,7 @@
 	if (!(lube&GALOSHES_DONT_HELP))
 		if(HAS_TRAIT(src, TRAIT_NOSLIPWATER))
 			return 0
-		if(shoes && istype(shoes, /obj/item/clothing))
+		if(shoes && isclothing(shoes))
 			var/obj/item/clothing/CS = shoes
 			if (CS.clothing_flags & NOSLIP)
 				return 0
@@ -29,7 +29,7 @@
 		playsound_local(null, 'sound/effects/space_wind_big.ogg', CLAMP(pressure_difference / 50, 10, 100), 1)
 	else
 		playsound_local(null, 'sound/effects/space_wind.ogg', CLAMP(pressure_difference, 10, 100), 1)
-	if(shoes && istype(shoes, /obj/item/clothing))
+	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/S = shoes
 		if((S.clothing_flags & NOSLIP))
 			return 0

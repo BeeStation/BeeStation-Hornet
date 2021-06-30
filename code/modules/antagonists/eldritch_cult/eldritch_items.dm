@@ -16,7 +16,7 @@
 		return
 	var/dist = get_dist(user.loc,target.loc)
 	var/dir = get_dir(user.loc,target.loc)
-	if(user.z != target.z)
+	if(user.get_virtual_z_level() != target.get_virtual_z_level())
 		to_chat(user,"<span class='warning'>[target.real_name] is on another plane of existance!</span>")
 	else
 		switch(dist)
@@ -140,7 +140,7 @@
 
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && user.mind && slot == SLOT_NECK && IS_HERETIC(user) )
+	if(ishuman(user) && user.mind && slot == ITEM_SLOT_NECK && IS_HERETIC(user) )
 		ADD_TRAIT(user, trait, CLOTHING_TRAIT)
 		user.update_sight()
 
@@ -153,6 +153,12 @@
 	name = "Piercing Eldritch Medallion"
 	desc = "A strange medallion. Peering through the crystalline surface, the light refracts into new and terrifying spectrums of color. You see yourself, reflected off cascading mirrors, warped into impossible shapes."
 	trait = TRAIT_XRAY_VISION
+
+/obj/item/clothing/neck/eldritch_amulet/guise
+	name = "guise of Istasha"
+	desc = "An odd amulet formed out of multiple floating parts, strung togethere by forces from another world."
+	icon_state = "eye_medalion"
+	trait = TRAIT_DIGINVIS
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"
@@ -172,7 +178,7 @@
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/forbidden_book)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// slightly better than normal cult robes
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 0, "fire" = 20, "acid" = 20)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 60)
 
 /obj/item/reagent_containers/glass/beaker/eldritch
 	name = "flask of eldritch essence"
@@ -180,3 +186,79 @@
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eldrich_flask"
 	list_reagents = list(/datum/reagent/eldritch = 50)
+
+/obj/item/clothing/mask/void_mask
+	name = "Mask Of Madness"
+	desc = "Mask created from the suffering of existance, you can look down it's eyes, and notice something gazing back at you."
+	icon_state = "mad_mask"
+	w_class = WEIGHT_CLASS_SMALL
+	flags_cover = MASKCOVERSEYES
+	resistance_flags = FLAMMABLE
+	flags_inv = HIDEFACE|HIDEFACIALHAIR
+	///Who is wearing this
+	var/mob/living/carbon/human/local_user
+
+/obj/item/clothing/mask/void_mask/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_MASK && ishuman(user) && user.mind)
+		local_user = user
+		START_PROCESSING(SSobj,src)
+
+		if(IS_HERETIC(user) || IS_HERETIC_MONSTER(user))
+			return
+		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+
+/obj/item/clothing/mask/void_mask/dropped(mob/M)
+	local_user = null
+	STOP_PROCESSING(SSobj,src)
+	REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+	return ..()
+
+/obj/item/clothing/mask/void_mask/process()
+	if(!local_user)
+		return PROCESS_KILL
+
+	if((IS_HERETIC(local_user) || IS_HERETIC_MONSTER(local_user)) && HAS_TRAIT(src,TRAIT_NODROP))
+		REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+
+	for(var/mob/living/carbon/human/human_in_range in viewers(9,local_user))
+		if(IS_HERETIC(human_in_range) || IS_HERETIC_MONSTER(human_in_range))
+			continue
+
+		SEND_SIGNAL(human_in_range,COMSIG_HUMAN_VOID_MASK_ACT,rand(-1,-10))
+
+		if(prob(60))
+			human_in_range.hallucination += 5
+
+		if(prob(40))
+			human_in_range.Jitter(5)
+
+		if(prob(30))
+			human_in_range.emote(pick("giggle","laugh"))
+			human_in_range.adjustStaminaLoss(10)
+
+		if(prob(25))
+			human_in_range.Dizzy(5)
+
+/obj/item/clothing/neck/crucifix
+	name = "crucifix"
+	desc = "In the eventuality that one of those you falesly accused is, in fact, a real witch, this will ward you against their curses."
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "crucifix"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/clothing/neck/crucifix/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_NECK && istype(user))
+		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
+
+/obj/item/clothing/neck/crucifix/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
+
+/obj/item/clothing/neck/crucifix/rosary
+	name = "rosary beads"
+	desc = "A wooden crucifix meant to ward off curses and hexes."
+	resistance_flags = FLAMMABLE
+	icon_state = "rosary"

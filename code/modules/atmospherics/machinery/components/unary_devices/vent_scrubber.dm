@@ -148,17 +148,17 @@
 			scrub(tile)
 	return TRUE
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/scrub(var/turf/tile)
+/obj/machinery/atmospherics/components/unary/vent_scrubber/proc/scrub(var/turf/open/tile)
 	if(!istype(tile))
 		return FALSE
 	var/datum/gas_mixture/environment = tile.return_air()
 	var/datum/gas_mixture/air_contents = airs[1]
 
-	if(air_contents.return_pressure() >= 50*ONE_ATMOSPHERE)
+	if(air_contents.return_pressure() >= 50 * ONE_ATMOSPHERE)
 		return FALSE
 
 	if(scrubbing & SCRUBBING)
-		var/transfer_moles = min(1, volume_rate/environment.return_volume())*environment.total_moles()
+		var/transfer_moles = min(1, volume_rate / environment.return_volume()) * environment.total_moles()
 
 		//Take a gas sample
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
@@ -175,7 +175,7 @@
 
 	else //Just siphoning all air
 
-		var/transfer_moles = environment.total_moles()*(volume_rate/environment.return_volume())
+		var/transfer_moles = environment.total_moles() * (volume_rate / environment.return_volume())
 
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
 

@@ -6,7 +6,7 @@
 	desc = "Allows you to enchant your weapons and armor, however enchanting can have risky side effects."
 	tip = "Make your gear more powerful by enchanting them with stargazers."
 	button_icon_state = "Stargazer"
-	power_cost = 600
+	power_cost = 300
 	invokation_time = 80
 	invokation_text = list("A light of Eng'ine shall empower my armaments!")
 	summoned_structure = /obj/structure/destructible/clockwork/gear_base/stargazer

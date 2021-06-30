@@ -82,6 +82,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/static/gl_uid = 1
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 
 	critical_machine = TRUE
 
@@ -281,7 +282,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/proc/explode()
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
-		if(istype(L) && L.z == z)
+		if(istype(L) && L.get_virtual_z_level() == get_virtual_z_level())
 			if(ishuman(mob))
 				//Hilariously enough, running into a closet should make you get hit the hardest.
 				var/mob/living/carbon/human/H = mob
@@ -291,7 +292,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/turf/T = get_turf(src)
 	for(var/mob/M in GLOB.player_list)
-		if(M.z == z)
+		if(M.get_virtual_z_level() == get_virtual_z_level())
 			SEND_SOUND(M, 'sound/magic/charge.ogg')
 			to_chat(M, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "delam", /datum/mood_event/delam)
@@ -545,7 +546,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	for(var/mob/M in GLOB.player_list)
-		if(M.z == z)
+		if(M.get_virtual_z_level() == get_virtual_z_level())
 			SEND_SOUND(M, 'sound/effects/supermatter.ogg') //everyone goan know bout this
 			to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
 	qdel(src)
@@ -635,7 +636,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 				"<span class='danger'>Oops! The [W] flashes out of existence on contact with \the [src], taking your arm with it! That was clumsy of you!</span>")
 			playsound(src, 'sound/effects/supermatter.ogg', 150, 1)
 			Consume(dust_arm)
-			qdel(W)
+			Consume(W)
 			return
 		if(cig.lit || user.a_intent != INTENT_HELP)
 			user.visible_message("<span class='danger'>A hideous sound echoes as [W] is ashed out on contact with \the [src]. That didn't seem like a good idea...</span>")
@@ -710,6 +711,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else if(istype(AM, /obj/singularity))
 		return
 	else if(isobj(AM))
+		var/obj/O = AM
+		if(O.resistance_flags & INDESTRUCTIBLE)
+			var/image/causality_field = image(icon, null, "causality_field")
+			add_overlay(causality_field, TRUE)
+			radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
+			addtimer(CALLBACK(src, .proc/disengage_field, causality_field), 5 SECONDS)
+			return
 		if(!iseffect(AM))
 			var/suspicion = ""
 			if(AM.fingerprintslast)
@@ -726,16 +734,18 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		investigate_log("has irradiated [key_name(L)] after consuming [AM].", INVESTIGATE_SUPERMATTER)
 		if(L in viewers(get_turf(src)))
 			L.show_message("<span class='danger'>As \the [src] slowly stops resonating, you find your skin covered in new radiation burns.</span>", 1,\
-				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
+				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", MSG_AUDIBLE)
 		else
-			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", 2)
+			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", MSG_AUDIBLE)
+
+/obj/machinery/power/supermatter_crystal/proc/disengage_field(causality_field)
+	if(QDELETED(src) || !causality_field)
+		return
+	cut_overlay(causality_field, TRUE)
 
 //Do not blow up our internal radio
 /obj/machinery/power/supermatter_crystal/contents_explosion(severity, target)
 	return
-
-/obj/machinery/power/supermatter_crystal/prevent_content_explosion()
-	return TRUE
 
 /obj/machinery/power/supermatter_crystal/engine
 	is_main_engine = TRUE

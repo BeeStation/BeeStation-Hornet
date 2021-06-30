@@ -3,7 +3,7 @@
 	id = "dullahan"
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
-	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH)
+	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH, TRAIT_NONECRODISEASE)
 	default_features = list("mcolor" = "FFF", "tail_human" = "None", "ears" = "None", "wings" = "None")
 	use_skintones = TRUE
 	mutant_brain = /obj/item/organ/brain/dullahan
@@ -121,10 +121,10 @@
 		. = PROCESS_KILL
 		qdel(src)
 
-/obj/item/dullahan_relay/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+/obj/item/dullahan_relay/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
 	if(!QDELETED(owner))
-		message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode)
+		message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
 		to_chat(owner,message)
 	else
 		qdel(src)

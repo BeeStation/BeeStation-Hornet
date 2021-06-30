@@ -54,7 +54,7 @@ GLOBAL_LIST(end_titles)
 
 /atom/movable/screen/credit/Initialize(mapload, credited)
 	. = ..()
-	maptext = "<font face='Verdana'>[credited]</font>"
+	maptext = MAPTEXT("<font face='Verdana'>[credited]</font>")
 	maptext_height = world.icon_size * 2
 	maptext_width = world.icon_size * 13
 	var/matrix/M = matrix(transform)

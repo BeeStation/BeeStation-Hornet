@@ -11,7 +11,7 @@
 	throw_range = 7
 	attack_verb = list("banned")
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/banhammer/suicide_act(mob/user)
@@ -81,7 +81,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/claymore/Initialize()
@@ -232,7 +232,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	block_level = 0
 	block_power = 30
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 
 /obj/item/katana
 	name = "katana"
@@ -254,7 +254,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	sharpness = IS_SHARP
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/katana/cursed
@@ -279,7 +279,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shard))
-		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
+		var/obj/item/spear/S = new /obj/item/spear
 
 		remove_item_from_storage(user)
 		if (!user.transferItemToLoc(I, S))
@@ -315,12 +315,27 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 2
 	throwforce = 20 //20 + 2 (WEIGHT_CLASS_SMALL) * 4 (EMBEDDED_IMPACT_PAIN_MULTIPLIER) = 28 damage on hit due to guaranteed embedding
 	throw_speed = 4
-	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 100, "embedded_fall_chance" = 0)
+	embedding = list("pain_mult" = 4, "embed_chance" = 100, "fall_chance" = 0)
+	armour_penetration = 40
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	materials = list(/datum/material/iron=500, /datum/material/glass=500)
 	resistance_flags = FIRE_PROOF
+
+/obj/item/throwing_star/stamina
+	name = "shock throwing star"
+	desc = "An aerodynamic disc designed to cause excruciating pain when stuck inside fleeing targets, hopefully without causing fatal harm."
+	throwforce = 5
+	embedding = list("pain_chance" = 5, "embed_chance" = 100, "fall_chance" = 0, "jostle_chance" = 10, "pain_stam_pct" = 0.8, "jostle_pain_mult" = 3)
+
+/obj/item/throwing_star/toy
+	name = "toy throwing star"
+	desc = "An aerodynamic disc strapped with adhesive for sticking to people, good for playing pranks and getting yourself killed by security."
+	sharpness = IS_BLUNT
+	force = 0
+	throwforce = 0
+	embedding = list("pain_mult" = 0, "jostle_pain_mult" = 0, "embed_chance" = 100, "fall_chance" = 0)
 
 /obj/item/throwing_star/magspear
 	name = "magnetic spear"
@@ -333,7 +348,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throw_range = 0 //throwing these invalidates the speargun
 	attack_verb = list("stabbed", "ripped", "gored", "impaled")
-	embedding = list("embedded_pain_multiplier" = 8, "embed_chance" = 100, "embedded_fall_chance" = 0, "embedded_impact_pain_multiplier" = 15) //55 damage+embed on hit
+	embedding = list("pain_mult" = 8, "embed_chance" = 100, "fall_chance" = 0, "impact_pain_mult" = 15) //55 damage+embed on hit
 
 /obj/item/switchblade
 	name = "long switchblade"
@@ -521,7 +536,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/mounted_chainsaw/normal/Destroy()
 	var/obj/item/bodypart/part
-	new /obj/item/twohanded/required/chainsaw(get_turf(src))
+	new /obj/item/chainsaw(get_turf(src))
 	if(iscarbon(loc))
 		var/mob/living/carbon/holder = loc
 		var/index = holder.get_held_index_of_item(src)
@@ -540,7 +555,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/mounted_chainsaw/energy/Destroy()
 	var/obj/item/bodypart/part
-	new /obj/item/twohanded/required/chainsaw/energy(get_turf(src))
+	new /obj/item/chainsaw/energy(get_turf(src))
 	if(iscarbon(loc))
 		var/mob/living/carbon/holder = loc
 		var/index = holder.get_held_index_of_item(src)
@@ -559,7 +574,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 /obj/item/mounted_chainsaw/super/Destroy()
 	var/obj/item/bodypart/part
-	new /obj/item/twohanded/required/chainsaw/energy/doom(get_turf(src))
+	new /obj/item/chainsaw/energy/doom(get_turf(src))
 	if(iscarbon(loc))
 		var/mob/living/carbon/holder = loc
 		var/index = holder.get_held_index_of_item(src)
@@ -687,7 +702,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	if(homerun_ready)
 		user.visible_message("<span class='userdanger'>It's a home run!</span>")
 		target.throw_at(throw_target, rand(8,10), 14, user)
-		target.ex_act(EXPLODE_HEAVY)
+		SSexplosions.medturf += throw_target
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 		homerun_ready = 0
 		return
@@ -892,3 +907,33 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	sharpness = IS_SHARP
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+
+//HF blade
+/obj/item/vibro_weapon
+	icon_state = "hfrequency0"
+	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
+	name = "vibro sword"
+	desc = "A potent weapon capable of cutting through nearly anything. Wielding it in two hands will allow you to deflect gunfire."
+	armour_penetration = 100
+	block_level = 1
+	block_upgrade_walk = 2
+	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
+	block_sound = 'sound/weapons/genhit.ogg'
+	force = 20
+	throwforce = 20
+	throw_speed = 4
+	sharpness = IS_SHARP
+	attack_verb = list("cut", "sliced", "diced")
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
+	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/vibro_weapon/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/butchering, 20, 105)
+	AddComponent(/datum/component/two_handed, force_multiplier=2, block_power_wielded=40, icon_wielded="hfrequency1")
+
+/obj/item/vibro_weapon/update_icon()
+	icon_state = "hfrequency0"
+	..()

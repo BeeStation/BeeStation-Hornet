@@ -124,6 +124,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     currentArea.storageTurf = storageTurf
     currentArea.roomnumber = currentRoomnumber
     currentArea.reservation = currentReservation
+    currentArea.virtual_z_value = get_new_virtual_z()
     for(var/turf/closed/indestructible/hoteldoor/door in currentArea)
         door.parentSphere = src
         door.desc = "The door to this hotel room. The placard reads 'Room [currentRoomnumber]'. Strange, this door doesnt even seem openable. The doorknob, however, seems to buzz with unusual energy...<br /><span class='info'>Alt-Click to look through the peephole.</span>"
@@ -309,15 +310,22 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     icon_state = "hilbertshotel"
     requires_power = FALSE
     has_gravity = TRUE
-    noteleport = TRUE
+    teleport_restriction = TELEPORT_ALLOW_NONE
     hidden = TRUE
     unique = FALSE
     dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-    ambient_effects = list('sound/ambience/servicebell.ogg')
+    ambientsounds = list('sound/ambience/servicebell.ogg')
     var/roomnumber = 0
     var/obj/item/hilbertshotel/parentSphere
     var/datum/turf_reservation/reservation
     var/turf/storageTurf
+    var/virtual_z_value
+
+/area/hilbertshotel/get_virtual_z(turf/T)
+    if(virtual_z_value)
+        return virtual_z_value
+    else
+        return ..(T)
 
 /area/hilbertshotel/Entered(atom/movable/AM)
     . = ..()
@@ -387,7 +395,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     icon_state = "hilbertshotel"
     requires_power = FALSE
     has_gravity = TRUE
-    noteleport = TRUE
+    teleport_restriction = TELEPORT_ALLOW_NONE
     hidden = TRUE
 
 /obj/item/abstracthotelstorage

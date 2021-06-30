@@ -413,6 +413,7 @@ em						{font-style: normal;	font-weight: bold;}
 .robot					{font-family: "Courier New", cursive, sans-serif;}
 
 .command_headset		{font-weight: bold; font-size: 24px;}
+.megaphone				{font-weight: bold; font-size: 24px;}
 .small					{font-size: 8px;}
 .big					{font-size: 24px;}
 .reallybig				{font-size: 32px;}
@@ -462,6 +463,7 @@ em						{font-style: normal;	font-weight: bold;}
 .hidden {display: none; visibility: hidden;}
 
 //Job Colours
+//Make sure you add to replacementNodes in renderer.js
 .unknown {color: #cec9c1}
 .assistant {color: #cccccc}
 .atmospherictechnician {color: #d4a07d}
@@ -508,6 +510,12 @@ em						{font-style: normal;	font-weight: bold;}
 .alienmobsay {color: #855d85;}
 .cultmobsay {color: #aa1c1c;}
 .slimemobsay {color: #00CED1;}
+.gimmick {color: #a1a1a1;}
+.barber {color: #a58264;}
+.stagemagician {color: #b659a6;}
+.debtor {color: #6d6056;}
+.psychiatrist {color: #88bac9;}
+.vip {color: #e4ce6c;}
 
 @keyframes rainbowtext {
 	0% { color: #ff0000 }
@@ -528,3 +536,5 @@ em						{font-style: normal;	font-weight: bold;}
 .stat_antagonist_underline			{color: #dd3535;	text-decoration: underline;}
 
 .stat_infomation				{color: #e6a648;}
+
+.stat_br				        {color: #2ace53;}

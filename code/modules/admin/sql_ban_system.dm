@@ -317,10 +317,10 @@
 				"}
 				break_counter++
 			output += "</div></div>"
-		var/list/long_job_lists = list("Civilian" = GLOB.civilian_positions,
+		var/list/long_job_lists = list(("Civilian" = GLOB.civilian_positions | "Gimmick"),
 									"Ghost and Other Roles" = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE),
 									"Antagonist Positions" = list(ROLE_ABDUCTOR, ROLE_ALIEN, ROLE_BLOB,
-									ROLE_BROTHER, ROLE_CHANGELING, ROLE_CULTIST,
+									ROLE_BROTHER, ROLE_CHANGELING, ROLE_CULTIST, ROLE_HERETIC,
 									ROLE_DEVIL, ROLE_INTERNAL_AFFAIRS, ROLE_MALF,
 									ROLE_MONKEY, ROLE_NINJA, ROLE_OPERATIVE,
 									ROLE_SERVANT_OF_RATVAR,
@@ -477,6 +477,16 @@
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
+
+	if(cid_check && config.protected_cids.Find(player_cid))
+		if(alert(usr, "CID [player_cid] is listed as protected for the following reason: [config.protected_cids[player_cid]], Are you sure you want to restrict this CID? THIS WILL PROBABLY CATCH LEGITIMATE PLAYERS.", "Protected CID", "Yes", "No", "Cancel") != "Yes")
+			return
+		var/kn = key_name(usr)
+		//Log the shit out of this and scream bloody murder to anyone who will listen.
+		send2irc("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
+		message_admins("<span class='danger'>[kn] Has overridden CID protection for a ban on CID [player_cid]!</span>")
+		log_admin_private("[kn] Has overridden CID protection for a ban on CID [player_cid]!")
+
 	var/player_ckey = ckey(player_key)
 	if(player_ckey)
 		var/datum/DBQuery/query_create_ban_get_player = SSdbcore.NewQuery({"
@@ -741,8 +751,7 @@
 			if(unban_datetime)
 				output += "<br>Unbanned by <b>[unban_key]</b> on <b>[unban_datetime]</b> during round <b>#[unban_round_id]</b>."
 			output += "</div><div class='container'><div class='reason'>[reason]</div><div class='edit'>"
-			if(!expired && !unban_datetime)
-				output += "<a href='?_src_=holder;[HrefToken()];editbanid=[ban_id];editbankey=[player_key];editbanip=[player_ip];editbancid=[player_cid];editbanrole=[role];editbanduration=[duration];editbanadmins=[applies_to_admins];editbanreason=[rustg_url_encode(reason)];editbanpage=[page];editbanadminkey=[admin_key]'>Edit</a><br>[unban_href]"
+			output += "<a href='?_src_=holder;[HrefToken()];editbanid=[ban_id];editbankey=[player_key];editbanip=[player_ip];editbancid=[player_cid];editbanrole=[role];editbanduration=[duration];editbanadmins=[applies_to_admins];editbanreason=[rustg_url_encode(reason)];editbanpage=[page];editbanadminkey=[admin_key]'>Edit</a><br>[unban_href]"
 			if(edits)
 				output += "<br><a href='?_src_=holder;[HrefToken()];unbanlog=[ban_id]'>Edit log</a>"
 			output += "</div></div></div>"
@@ -793,6 +802,16 @@
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
+
+	if(cid_check && config.protected_cids.Find(player_cid))
+		if(alert(usr, "CID [player_cid] is listed as protected for the following reason: [config.protected_cids[player_cid]], Are you sure you want to restrict this CID? THIS WILL PROBABLY CATCH LEGITIMATE PLAYERS.", "Protected CID", "Yes", "No", "Cancel") != "Yes")
+			return
+		var/kn = key_name(usr)
+		//Log the shit out of this and scream bloody murder to anyone who will listen.
+		send2irc("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
+		message_admins("<span class='danger'>[kn] Has overridden CID protection for a ban on CID [player_cid]!</span>")
+		log_admin_private("[kn] Has overridden CID protection for a ban on CID [player_cid]!")
+
 	var/player_ckey = ckey(player_key)
 	var/bantime
 	if(player_ckey)

@@ -15,7 +15,7 @@
 	icon_state = "rsecurity"
 	item_state = "r_suit"
 	item_color = "rsecurity"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30, "stamina" = 30)
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = SENSOR_COORDS
@@ -67,11 +67,21 @@
 	icon_state = "rwarden"
 	item_state = "r_suit"
 	item_color = "rwarden"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30, "stamina" = 30)
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = 3
 	random_sensor = FALSE
+
+/obj/item/clothing/under/rank/security/warden/skirt
+	name = "warden's suitskirt"
+	desc = "A formal security suitskirt for officers complete with Nanotrasen belt buckle."
+	icon_state = "rwarden_skirt"
+	item_state = "r_suit"
+	item_color = "rwarden_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/rank/security/warden/white
 	name = "white security suit"
@@ -89,11 +99,21 @@
 	icon_state = "detective"
 	item_state = "det"
 	item_color = "detective"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30, "stamina" = 20)
 	strip_delay = 50
 	alt_covers_chest = TRUE
 	sensor_mode = 3
 	random_sensor = FALSE
+
+/obj/item/clothing/under/rank/security/detective/skirt
+	name = "detective's suitskirt"
+	desc = "Someone who wears this means business."
+	icon_state = "detective_skirt"
+	item_state = "det"
+	item_color = "detective_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/rank/security/detective/grey
 	name = "noir suit"
@@ -102,6 +122,16 @@
 	item_state = "greydet"
 	item_color = "greydet"
 	alt_covers_chest = TRUE
+
+/obj/item/clothing/under/rank/security/detective/grey/skirt
+	name = "noir suitskirt"
+	desc = "A hard-boiled private investigator's grey suitskirt, complete with tie clip."
+	icon_state = "greydet_skirt"
+	item_state = "greydet"
+	item_color = "greydet_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
 
 /*
  * Head of Security
@@ -112,11 +142,21 @@
 	icon_state = "rhos"
 	item_state = "r_suit"
 	item_color = "rhos"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
 	strip_delay = 60
 	alt_covers_chest = TRUE
 	sensor_mode = 3
 	random_sensor = FALSE
+
+/obj/item/clothing/under/rank/security/head_of_security/skirt
+	name = "head of security's jumpskirt"
+	desc = "A security jumpskirt decorated for those few with the dedication to achieve the position of Head of Security."
+	icon_state = "rhos_skirt"
+	item_state = "r_suit"
+	item_color = "rhos_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
 
 /obj/item/clothing/under/rank/security/head_of_security/white
 	name = "head of security's white jumpsuit"
@@ -132,16 +172,36 @@
 	item_state = "bl_suit"
 	item_color = "hosalt"
 
+/obj/item/clothing/under/rank/security/head_of_security/alt/skirt
+	name = "head of security's turtleneck skirt"
+	desc = "A stylish alternative to the normal head of security jumpsuit, complete with a tactical skirt."
+	icon_state = "hosalt_skirt"
+	item_state = "bl_suit"
+	item_color = "hosalt_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
+
 /*
  * Brig Physician
 */
 
 /obj/item/clothing/under/rank/brig_phys
-	name = "brig physician's uniform"
-	desc = "A lightly armored uniform worn by Nanotrasen's Asset Protection Medical Corps."
+	name = "brig physician's jumpsuit"
+	desc = "A lightly armored jumpsuit worn by Nanotrasen's Asset Protection Medical Corps."
 	icon_state = "brig_phys"
 	item_state = "labcoat_sec"
 	item_color = "brig_phys"
+
+/obj/item/clothing/under/rank/brig_phys/skirt
+	name = "brig physician's jumpskirt"
+	desc = "A lightly armored jumpskirt worn by Nanotrasen's Asset Protection Medical Corps."
+	icon_state = "brig_phys_skirt"
+	item_state = "labcoat_sec"
+	item_color = "brig_phys_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
 
 /*
  * Navy uniforms
@@ -163,7 +223,7 @@
 	item_state = "wardenblueclothes"
 	item_color = "wardenblueclothes"
 	alt_covers_chest = TRUE
-	
+
 /obj/item/clothing/under/rank/security/head_of_security/formal
 	desc = "The insignia on this uniform tells you that this uniform belongs to the Head of Security."
 	name = "head of security's formal uniform"
@@ -205,11 +265,11 @@
 	has_sensor = LOCKED_SENSORS
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-	
+
 /*
  * Triiodine's security uniforms
  */
- 
+
 
 /obj/item/clothing/under/rank/security/officer/mallcop
 	name = "NT mall cop uniform"

@@ -33,6 +33,13 @@
 	fill(C)
 	return C
 
+/datum/supply_pack/proc/get_cost()
+	. = cost
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_DISTANT_SUPPLY_LINES))
+		. *= 1.2
+	else if(HAS_TRAIT(SSstation, STATION_TRAIT_STRONG_SUPPLY_LINES))
+		. *= 0.8
+
 /datum/supply_pack/proc/fill(obj/structure/closet/crate/C)
 	if (admin_spawned)
 		for(var/item in contains)
@@ -175,43 +182,6 @@
 	contains = list(/obj/item/storage/box/metalfoam)
 	crate_name = "metal foam grenade crate"
 
-/datum/supply_pack/emergency/syndicate
-	name = "NULL_ENTRY"
-	desc = "(#@&^$THIS PACKAGE CONTAINS 30TC WORTH OF SOME RANDOM SYNDICATE GEAR WE HAD LYING AROUND THE WAREHOUSE. GIVE EM HELL, OPERATIVE, BUT DON'T GET GREEDY- ORDER TOO MANY AND WE'LL BE SENDING OUR DEADLIEST ENFORCERS TO INVESTIGATE@&!*() "
-	hidden = TRUE
-	cost = 20000
-	contains = list()
-	crate_name = "emergency crate"
-	crate_type = /obj/structure/closet/crate/internals
-	dangerous = TRUE
-	var/beepsky_chance = -1
-	var/level = 1
-
-/datum/supply_pack/emergency/syndicate/fill(obj/structure/closet/crate/C)
-	var/crate_value = 30
-	var/list/uplink_items = get_uplink_items(SSticker.mode)
-	beepsky_chance += min(level, 5) //1% chance per crate an item will be replaced with a beepsky and the crate stops spawning items. Doesnt act as a hardcap, making nullcrates far riskier and less predictable
-	while(crate_value)
-		if(prob(beepsky_chance) && prob(50))
-			new /mob/living/simple_animal/bot/secbot/grievous/nullcrate(C)
-			crate_value = 0
-			beepsky_chance = 0
-			level += 1
-		var/category = pick(uplink_items)
-		var/item = pick(uplink_items[category])
-		var/datum/uplink_item/I = uplink_items[category][item]
-		if(!I.surplus_nullcrates || prob(100 - I.surplus_nullcrates))
-			continue
-		if(crate_value < I.cost)
-			continue
-		crate_value -= I.cost
-		new I.item(C)
-	var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
-	if(istype(loneop))
-		loneop.weight += 7
-		message_admins("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
-		log_game("a NULL_ENTRY crate has shipped, increasing the weight of the Lone Operative event to [loneop.weight]")
-
 /datum/supply_pack/emergency/plasma_spacesuit
 	name = "Plasmaman Space Envirosuits"
 	desc = "Contains two space-worthy envirosuits for Plasmamen. Order now and we'll throw in two free helmets! Requires EVA access to open."
@@ -279,9 +249,9 @@
 
 /datum/supply_pack/emergency/specialops
 	name = "Special Ops Supplies"
-	desc = "(*!&@#TOO CHEAP FOR THAT NULL_ENTRY, HUH OPERATIVE? WELL, THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
+	desc = "(*!&@#SAD ABOUT THAT NULL_ENTRY, HUH OPERATIVE? WELL, THIS LITTLE ORDER CAN STILL HELP YOU OUT IN A PINCH. CONTAINS A BOX OF FIVE EMP GRENADES, THREE SMOKEBOMBS, AN INCENDIARY GRENADE, AND A \"SLEEPY PEN\" FULL OF NICE TOXINS!#@*$"
 	hidden = TRUE
-	cost = 2000
+	cost = 800
 	contains = list(/obj/item/storage/box/emps,
 					/obj/item/grenade/smokebomb,
 					/obj/item/grenade/smokebomb,
@@ -333,6 +303,16 @@
 					/obj/item/gun/energy/disabler)
 	crate_name = "disabler crate"
 
+/datum/supply_pack/security/dumdum
+	name = ".38 DumDum Speedloader"
+	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
+	cost = 1200
+	access = FALSE
+	small_item = TRUE
+	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	contains = list(/obj/item/ammo_box/c38/dumdum)
+	crate_name = ".38 match crate"
+
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
 	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
@@ -353,6 +333,16 @@
 					/obj/item/gun/energy/laser,
 					/obj/item/gun/energy/laser)
 	crate_name = "laser crate"
+
+/datum/supply_pack/security/match
+	name = ".38 Match Grade Speedloader"
+	desc = "Contains one speedloader of match grade .38 ammunition, perfect for showing off trickshots. Requires Security or Forensics access to open."
+	cost = 1200
+	access = FALSE
+	small_item = TRUE
+	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	contains = list(/obj/item/ammo_box/c38/match)
+	crate_name = ".38 match crate"
 
 /datum/supply_pack/security/securitybarriers
 	name = "Security Barrier Grenades"
@@ -381,6 +371,20 @@
 					/obj/item/clothing/suit/security/hos,
 					/obj/item/clothing/head/beret/sec/navyhos)
 	crate_name = "security clothing crate"
+
+/datum/supply_pack/security/stingpack
+	name = "Stingbang Grenade Pack"
+	desc = "Contains five \"stingbang\" grenades, perfect for stopping riots and playing morally unthinkable pranks. Requires Security access to open."
+	cost = 2500
+	contains = list(/obj/item/storage/box/stingbangs)
+	crate_name = "stingbang grenade pack crate"
+
+/datum/supply_pack/security/stingpack/single
+	name = "Stingbang Single-Pack"
+	desc = "Contains one \"stingbang\" grenade, perfect for playing meanhearted pranks. Requires Security access to open."
+	cost = 1400
+	small_item = TRUE
+	contains = list(/obj/item/grenade/stingbang)
 
 /datum/supply_pack/security/supplies
 	name = "Security Supplies Crate"
@@ -1351,7 +1355,7 @@
 	crate_name = "rusty freezer"
 	crate_type = /obj/structure/closet/crate/freezer
 
-datum/supply_pack/medical/basickits
+/datum/supply_pack/medical/basickits
 	name = "Basic Treatment Kits Crate"
 	desc = "Contains three basic aid kits focused on basic types of damage in a simple way."
 	cost = 1400
@@ -1361,7 +1365,7 @@ datum/supply_pack/medical/basickits
 					/obj/item/storage/firstaid/regular)
 	crate_name = "basic wound treatment kits crate"
 
-datum/supply_pack/medical/bruisekits
+/datum/supply_pack/medical/bruisekits
 	name = "Bruise Treatment Kits Crate"
 	desc = "Contains three first aid kits focused on healing bruises and broken bones."
 	cost = 1400
@@ -1491,7 +1495,7 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/medical/randomvirus
 	name = "Virus Sample Crate"
 	desc = "Contains five random experimental disease cultures for epidemiological research"
-	cost = 1500
+	cost = 3750
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
 					/obj/item/reagent_containers/glass/bottle/random_virus,
@@ -1505,7 +1509,7 @@ datum/supply_pack/medical/bruisekits
 /datum/supply_pack/medical/virology
 	name = "Junior Epidemiology Kit"
 	desc = "Contains the necessary supplies to start an epidemiological research lab. P.A.N.D.E.M.I.C. not included. Comes with a free virologist action figure!"
-	cost = 900
+	cost = 1500
 	access = ACCESS_VIROLOGY
 	contains = list(/obj/item/reagent_containers/food/snacks/monkeycube,
 					/obj/item/reagent_containers/food/drinks/bottle/virusfood,
@@ -1541,6 +1545,24 @@ datum/supply_pack/medical/bruisekits
 	crate_type = /obj/structure/closet/crate/secure/plasma
 	dangerous = TRUE
 
+/datum/supply_pack/medical/extrapolator
+	name = "Virus Extrapolator Supply Crate"
+	desc = "Contains 3 Virus Extrapolators should any existing ones be lost or otherwise destroyed."
+	cost = 4500
+	access = ACCESS_VIROLOGY
+	contains = list(/obj/item/extrapolator, /obj/item/extrapolator, /obj/item/extrapolator)
+	crate_name = "Extrapolator Crate"
+	crate_type = /obj/structure/closet/crate/secure/plasma
+	dangerous = TRUE
+
+/datum/supply_pack/medical/pandemic
+	name = "Pandemic Replacement Crate"
+	desc = "Contains a replacement P.A.N.D.E.M.I.C. in case the ones in virology get destroyed or you want to build a new lab."
+	cost = 7500
+	access = ACCESS_VIROLOGY
+	contains = list(/obj/machinery/computer/pandemic)
+	crate_name = "P.A.N.D.E.M.I.C. Replacement Crate"
+	dangerous = TRUE
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1700,7 +1722,7 @@ datum/supply_pack/medical/bruisekits
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/mop,
-					/obj/item/twohanded/pushbroom,
+					/obj/item/pushbroom,
 					/obj/item/clothing/suit/caution,
 					/obj/item/clothing/suit/caution,
 					/obj/item/clothing/suit/caution,
@@ -2075,11 +2097,11 @@ datum/supply_pack/medical/bruisekits
 	name = "Potted Plants Crate"
 	desc = "Spruce up the station with these lovely plants! Contains a random assortment of five potted plants from Nanotrasen's potted plant research division. Warranty void if thrown."
 	cost = 550
-	contains = list(/obj/item/twohanded/required/kirbyplants/random,
-					/obj/item/twohanded/required/kirbyplants/random,
-					/obj/item/twohanded/required/kirbyplants/random,
-					/obj/item/twohanded/required/kirbyplants/random,
-					/obj/item/twohanded/required/kirbyplants/random)
+	contains = list(/obj/item/kirbyplants/random,
+					/obj/item/kirbyplants/random,
+					/obj/item/kirbyplants/random,
+					/obj/item/kirbyplants/random,
+					/obj/item/kirbyplants/random)
 	crate_name = "potted plants crate"
 	crate_type = /obj/structure/closet/crate/hydroponics
 
@@ -2199,6 +2221,28 @@ datum/supply_pack/medical/bruisekits
 		qdel(C)
 		new /mob/living/simple_animal/pet/cat/Proc(.)
 
+/datum/supply_pack/critter/cat/exotic
+	name = "Exotic Cat Crate"
+	desc = "Commes with one of the exotic cats, collar and a toy."
+	cost = 5500
+	contains = list(/obj/item/clothing/neck/petcollar,
+					/obj/item/toy/cattoy)
+	crate_name = "cat crate"
+
+/datum/supply_pack/critter/cat/exotic/generate()
+	. = ..()
+	switch(rand(1, 5))
+		if(1)
+			new /mob/living/simple_animal/pet/cat/original(.)
+		if(2)
+			new /mob/living/simple_animal/pet/cat/breadcat(.)
+		if(3)
+			new /mob/living/simple_animal/pet/cat/cak(.)
+		if(4)
+			new /mob/living/simple_animal/pet/cat/space(.)
+		if(5)
+			new /mob/living/simple_animal/pet/cat/halal(.)
+
 /datum/supply_pack/critter/chick
 	name = "Chicken Crate"
 	desc = "The chicken goes bwaak!"
@@ -2267,11 +2311,12 @@ datum/supply_pack/medical/bruisekits
 
 /datum/supply_pack/critter/monkey
 	name = "Monkey Cube Crate"
-	desc = "Stop monkeying around! Contains seven monkey cubes. Just add water!"
-	cost = 2000
+	desc = "Stop monkeying around! Contains five monkey cubes. Just add water!"
+	cost = 1000
 	contains = list (/obj/item/storage/box/monkeycubes)
 	crate_type = /obj/structure/closet/crate
 	crate_name = "monkey cube crate"
+	small_item = TRUE
 
 /datum/supply_pack/critter/pug
 	name = "Pug Crate"
@@ -2545,6 +2590,58 @@ datum/supply_pack/medical/bruisekits
 		var/item = pick_n_take(L)
 		new item(C)
 
+/datum/supply_pack/costumes_toys/chess_white
+	name = "White Chess Piece Crate"
+	desc = "Look at you, playing a nerd game within a nerd game!"
+	cost = 500
+	contains = list(
+		/obj/item/cardboard_cutout/adaptive/chess/king,
+		/obj/item/cardboard_cutout/adaptive/chess/queen,
+		/obj/item/cardboard_cutout/adaptive/chess/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/pawn,
+	)
+	crate_type = /obj/structure/closet/crate/wooden
+
+/datum/supply_pack/costumes_toys/chess_black
+	name = "Black Chess Piece Crate"
+	desc = "Look at you, playing a nerd game within a nerd game!"
+	cost = 500
+	contains = list(
+		/obj/item/cardboard_cutout/adaptive/chess/black/king,
+		/obj/item/cardboard_cutout/adaptive/chess/black/queen,
+		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/black/rook,
+		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/black/knight,
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/black/bishop,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
+	)
+	crate_type = /obj/structure/closet/crate/wooden
+
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////// Wardrobe Resupplies ////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
 /datum/supply_pack/costumes_toys/wardrobes/autodrobe
 	name = "Autodrobe Supply Crate"
 	desc = "Autodrobe missing your favorite dress? Solve that issue today with this autodrobe refill."
@@ -2605,9 +2702,10 @@ datum/supply_pack/medical/bruisekits
 
 /datum/supply_pack/costumes_toys/wardrobes/security
 	name = "Security Wardrobe Supply Crate"
-	desc = "This crate contains refills for the SecDrobe and LawDrobe."
+	desc = "This crate contains refills for the SecDrobe, DetDrobe and LawDrobe."
 	cost = 1000
 	contains = list(/obj/item/vending_refill/wardrobe/sec_wardrobe,
+					/obj/item/vending_refill/wardrobe/det_wardrobe,
 					/obj/item/vending_refill/wardrobe/law_wardrobe)
 	crate_name = "security department supply crate"
 
@@ -2733,6 +2831,7 @@ datum/supply_pack/medical/bruisekits
 					/obj/item/reagent_containers/food/drinks/bottle/holywater,
 					/obj/item/storage/book/bible/booze,
 					/obj/item/storage/book/bible/booze,
+					/obj/item/clothing/neck/crucifix/rosary,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie,
 					/obj/item/clothing/suit/hooded/chaplain_hoodie)
 	crate_name = "religious supplies crate"

@@ -6,11 +6,11 @@
 		if("recon")
 			new /obj/item/clothing/glasses/thermal/xray(src) // ~8 tc?
 			new /obj/item/storage/briefcase/launchpad(src) //6 tc
-			new	/obj/item/twohanded/binoculars(src) // 2 tc?
+			new	/obj/item/binoculars(src) // 2 tc?
 			new /obj/item/encryptionkey/syndicate(src) // 2 tc
 			new /obj/item/storage/box/syndie_kit/space(src) //4 tc
-			new /obj/item/grenade/syndieminibomb/concussion/frag(src) // ~2 tc each?
-			new /obj/item/grenade/syndieminibomb/concussion/frag(src)
+			new /obj/item/grenade/frag(src) // ~2 tc each?
+			new /obj/item/grenade/frag(src)
 			new /obj/item/flashlight/emp(src)
 			new /obj/item/book/granter/martial/karate(src)
 
@@ -147,7 +147,7 @@
 			new /obj/item/chameleon(src) // 7 tc
 
 		if("darklord")
-			new /obj/item/twohanded/dualsaber(src)
+			new /obj/item/dualsaber(src)
 			new /obj/item/dnainjector/telemut/darkbundle(src)
 			new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 			new /obj/item/card/id/syndicate(src)
@@ -200,7 +200,7 @@
 			new /obj/item/grenade/gluon(src)
 			new /obj/item/dnainjector/geladikinesis(src)
 			new /obj/item/dnainjector/cryokinesis(src)
-			new /obj/item/gun/energy/temperature/security(src)
+			new /obj/item/gun/energy/temperature/pin(src)
 			new /obj/item/melee/transforming/energy/sword/saber/blue(src) //see see it fits the theme bc its blue and ice is blue
 
 /obj/item/storage/box/syndicate/contract_kit
@@ -564,3 +564,29 @@
 	new /obj/item/storage/belt/soulstone/full/purified(src)
 	new /obj/item/sbeacondrop/constructshell(src)
 	new /obj/item/sbeacondrop/constructshell(src)
+
+/obj/item/storage/box/syndie_kit/mimesabrekit
+	name = "Baguette blade bundle"
+	desc = "Provides you with a hardly noticable blade hidden inside a baguette disguise."
+
+/obj/item/storage/box/syndie_kit/mimesabrekit/PopulateContents()
+	new /obj/item/storage/belt/sabre/mime(src)
+
+/obj/item/storage/box/syndie_kit/imp_deathrattle
+	name = "deathrattle implant box"
+	desc = "Contains eight linked deathrattle implants."
+
+/obj/item/storage/box/syndie_kit/imp_deathrattle/PopulateContents()
+	new /obj/item/implanter(src)
+
+	var/datum/deathrattle_group/group = new
+
+	var/implants = list()
+	for(var/j in 1 to 8)
+		var/obj/item/implantcase/deathrattle/case = new (src)
+		implants += case.imp
+
+	for(var/i in implants)
+		group.register(i)
+	desc += " The implants are registered to the \"[group.name]\" group."
+  

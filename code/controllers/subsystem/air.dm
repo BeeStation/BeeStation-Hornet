@@ -2,7 +2,7 @@ SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
 	init_order = INIT_ORDER_AIR
 	priority = FIRE_PRIORITY_AIR
-	wait = 5
+	wait = 0.5 SECONDS
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
@@ -213,7 +213,8 @@ SUBSYSTEM_DEF(air)
 		resumed = 0
 	currentpart = SSAIR_REBUILD_PIPENETS
 
-/datum/controller/subsystem/air/proc/process_pipenets(resumed = 0)
+
+/datum/controller/subsystem/air/proc/process_pipenets(resumed = FALSE)
 	if (!resumed)
 		src.currentrun = networks.Copy()
 	//cache for sanic speed (lists are references anyways)
@@ -246,7 +247,6 @@ SUBSYSTEM_DEF(air)
 			return
 
 /datum/controller/subsystem/air/proc/process_atmos_machinery(resumed = 0)
-	var/seconds = wait * 0.1
 	if (!resumed)
 		src.currentrun = atmos_machinery.Copy()
 	//cache for sanic speed (lists are references anyways)
@@ -254,7 +254,9 @@ SUBSYSTEM_DEF(air)
 	while(currentrun.len)
 		var/obj/machinery/M = currentrun[currentrun.len]
 		currentrun.len--
-		if(!M || (M.process_atmos(seconds) == PROCESS_KILL))
+		if(M == null)
+			atmos_machinery.Remove(M)
+		if(!M || (M.process_atmos() == PROCESS_KILL))
 			atmos_machinery.Remove(M)
 		if(MC_TICK_CHECK)
 			return
@@ -275,7 +277,7 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/process_turf_heat()
 
-/datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
+/datum/controller/subsystem/air/proc/process_hotspots(resumed = FALSE)
 	if (!resumed)
 		src.currentrun = hotspots.Copy()
 	//cache for sanic speed (lists are references anyways)

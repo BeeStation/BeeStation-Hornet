@@ -13,7 +13,7 @@
 	icon_state = "vest_stealth"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70)
+	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70, "stamina" = 30)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(
 		/obj/item/abductor,
@@ -23,11 +23,12 @@
 		/obj/item/restraints/handcuffs
 		)
 	var/mode = VEST_STEALTH
-	var/stealth_active = 0
-	var/combat_cooldown = 10
+	var/stealth_active = FALSE
+	/// Cooldown in seconds
+	var/combat_cooldown = 20
 	var/datum/icon_snapshot/disguise
-	var/stealth_armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70)
-	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90)
+	var/stealth_armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70, "stamina" = 30)
+	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90, "stamina" = 60)
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize()
 	. = ..()
@@ -61,7 +62,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
-	if(slot == SLOT_WEAR_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
+	if(slot == ITEM_SLOT_OCLOTHING) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return TRUE
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/SetDisguise(datum/icon_snapshot/entry)
@@ -110,7 +111,7 @@
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
 	if(ishuman(loc))
-		if(combat_cooldown != initial(combat_cooldown))
+		if(combat_cooldown < initial(combat_cooldown))
 			to_chat(loc, "<span class='warning'>Combat injection is still recharging.</span>")
 			return
 		var/mob/living/carbon/human/M = loc
@@ -123,9 +124,9 @@
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/suit/armor/abductor/vest/process()
-	combat_cooldown++
-	if(combat_cooldown==initial(combat_cooldown))
+/obj/item/clothing/suit/armor/abductor/vest/process(delta_time)
+	combat_cooldown += delta_time
+	if(combat_cooldown >= initial(combat_cooldown))
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
@@ -348,7 +349,7 @@
 		if(QDELETED(G))
 			return
 
-		if(istype(C.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='warning'>Your target seems to have some sort of protective headgear on, blocking the message from being sent!</span>")
 			return
 
@@ -507,7 +508,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
-	if(istype(L.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		to_chat(user, "<span class='warning'>The specimen's protective headgear is interfering with the baton's stun function!</span>")
 		L.visible_message("<span class='danger'>[user] tried to stun [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>You feel a slight tickle where [src] touches you!</span>")
@@ -528,7 +529,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/abductor/baton/proc/SleepAttack(mob/living/L,mob/living/user)
 	if(L.incapacitated(TRUE, TRUE))
-		if(istype(L.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='warning'>The specimen's protective headgear is interfering with the sleep inducement!</span>")
 			L.visible_message("<span class='danger'>[user] tried to induced sleep in [L] with [src], but [L.p_their()] headgear protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>You feel a strange wave of heavy drowsiness wash over you, but your headgear deflects most of it!</span>")
@@ -540,7 +541,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		L.Sleeping(1200)
 		log_combat(user, L, "put to sleep")
 	else
-		if(istype(L.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			to_chat(user, "<span class='warning'>The specimen's protective headgear is completely blocking our sleep inducement methods!</span>")
 			L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src], but [L.p_their()] headgear completely protected [L.p_them()]!</span>", \
 								"<span class='userdanger'>Any sense of drowsiness is quickly diminished as your headgear deflects the effects!</span>")
@@ -797,6 +798,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
 	can_buckle = 1
+	/// Amount to inject per second
+	var/inject_am = 0.5
 
 	var/static/list/injected_reagents = list(/datum/reagent/medicine/corazone)
 
@@ -806,13 +809,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		START_PROCESSING(SSobj, src)
 		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
 
-/obj/structure/table/optable/abductor/process()
+/obj/structure/table/optable/abductor/process(delta_time)
 	. = PROCESS_KILL
 	for(var/mob/living/carbon/C in get_turf(src))
 		. = TRUE
 		for(var/chemical in injected_reagents)
-			if(C.reagents.get_reagent_amount(chemical) < 1)
-				C.reagents.add_reagent(chemical, 1)
+			if(C.reagents.get_reagent_amount(chemical) < inject_am * delta_time)
+				C.reagents.add_reagent(chemical, inject_am * delta_time)
 
 /obj/structure/table/optable/abductor/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -841,5 +844,5 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien jumpsuit"
 	icon_state = "abductor-suit"
 	item_state = "bl_suit"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0, fire = 0, acid = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0, fire = 0, acid = 0, stamina = 0)
 	can_adjust = 0

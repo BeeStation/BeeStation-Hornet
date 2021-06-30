@@ -55,7 +55,7 @@ GLOBAL_VAR(clockcult_eminence)
 		message_admins("Reebe failed to load")
 		log_game("Reebe failed to load")
 		return FALSE
-	for(var/datum/parsed_map/map in reebe)
+	for(var/datum/map_template/map in reebe)
 		map.initTemplateBounds()
 	//Generate cultists
 	for(var/i in 1 to clock_cultists)
@@ -80,7 +80,7 @@ GLOBAL_VAR(clockcult_eminence)
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
 		S.equip_carbon(servant_mind.current)
 		S.equip_servant()
-		S.prefix = CLOCKCULT_MASTER
+		S.prefix = CLOCKCULT_PREFIX_MASTER
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()
@@ -155,7 +155,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(ishuman(M) && (M.mind.assigned_role in list("Captain", "Chaplain")))
 		return FALSE
-	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		return FALSE
 	if(is_servant_of_ratvar(M))
 		return FALSE
@@ -171,7 +171,7 @@ GLOBAL_VAR(clockcult_eminence)
 
 /proc/generate_clockcult_scriptures()
 	//Generate scriptures
-	for(var/categorypath in typesof(/datum/clockcult/scripture))
+	for(var/categorypath in subtypesof(/datum/clockcult/scripture))
 		var/datum/clockcult/scripture/S = new categorypath
 		GLOB.clockcult_all_scriptures[S.name] = S
 
@@ -209,38 +209,42 @@ GLOBAL_VAR(clockcult_eminence)
 		msg = sender.treat_message(msg)
 		var/datum/antagonist/servant_of_ratvar/SoR = is_servant_of_ratvar(sender)
 		var/prefix = "Clockbrother"
-		if(SoR.prefix)
-			prefix = sender.gender == MALE\
-				? "Clockfather"\
-				: sender.gender == FEMALE\
-					? "Clockmother"\
-					: "Clockmaster"
-			hierophant_message = "<span class='leader_brass'>"
-		else
-			var/role = sender.mind?.assigned_role
-			//Ew, this could be done better with a dictionary list, but this isn't much slower
-			if(role in GLOB.command_positions)
-				prefix = "High Priest"
-			else if(role in GLOB.engineering_positions)
-				prefix = "Cogturner"
-			else if(role in GLOB.medical_positions)
-				prefix = "Rejuvinator"
-			else if(role in GLOB.science_positions)
-				prefix = "Calculator"
-			else if(role in GLOB.supply_positions)
-				prefix = "Pathfinder"
-			else if(role in "Assistant")
-				prefix = "Helper"
-			else if(role in "Mime")
-				prefix = "Cogwatcher"
-			else if(role in "Clown")
-				prefix = "Clonker"
-			else if(role in GLOB.civilian_positions)
-				prefix = "Cogworker"
-			else if(role in GLOB.security_positions)
-				prefix = "Warrior"
-			else if(role in GLOB.nonhuman_positions)
-				prefix = "CPU"
+		switch(SoR.prefix)
+			if(CLOCKCULT_PREFIX_EMINENCE)
+				prefix = "Master"
+			if(CLOCKCULT_PREFIX_MASTER)
+				prefix = sender.gender == MALE\
+					? "Clockfather"\
+					: sender.gender == FEMALE\
+						? "Clockmother"\
+						: "Clockmaster"
+				hierophant_message = "<span class='leader_brass'>"
+			if(CLOCKCULT_PREFIX_RECRUIT)
+				var/role = sender.mind?.assigned_role
+				//Ew, this could be done better with a dictionary list, but this isn't much slower
+				if(role in GLOB.command_positions)
+					prefix = "High Priest"
+				else if(role in GLOB.engineering_positions)
+					prefix = "Cogturner"
+				else if(role in GLOB.medical_positions)
+					prefix = "Rejuvinator"
+				else if(role in GLOB.science_positions)
+					prefix = "Calculator"
+				else if(role in GLOB.supply_positions)
+					prefix = "Pathfinder"
+				else if(role in "Assistant")
+					prefix = "Helper"
+				else if(role in "Mime")
+					prefix = "Cogwatcher"
+				else if(role in "Clown")
+					prefix = "Clonker"
+				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
+					prefix = "Cogworker"
+				else if(role in GLOB.security_positions)
+					prefix = "Warrior"
+				else if(role in GLOB.nonhuman_positions)
+					prefix = "CPU"
+			//Fallthrough is default of "Clockbrother"
 		hierophant_message += "<b>[prefix] [sender.name]</b> transmits, \"[msg]\""
 	else
 		hierophant_message += msg

@@ -189,3 +189,35 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/honk
 	uniform = /obj/item/clothing/under/plasmaman/honk
+
+/datum/outfit/plasmaman/official
+	name = "CentCom Official Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/official
+	uniform = /obj/item/clothing/under/plasmaman/official
+
+/datum/outfit/plasmaman/intern
+	name = "CentCom Intern Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/intern
+	uniform = /obj/item/clothing/under/plasmaman/intern
+
+/datum/outfit/plasmaman/ert
+	name = "ERT Common Plasmaman"
+
+	head = null
+	uniform = /obj/item/clothing/under/plasmaman/official
+	mask = null
+
+/datum/outfit/plasmaman/death_commando
+	name = "Death Commando Plasmaman"
+
+	head = null
+	uniform = /obj/item/clothing/under/plasmaman/commander
+	mask = null
+
+/datum/outfit/plasmaman/honk_squad
+	name = "HONK Squad Plasmaman"
+
+	head = null
+	uniform = /obj/item/clothing/under/plasmaman/honk

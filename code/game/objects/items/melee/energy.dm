@@ -3,7 +3,7 @@
 	hitsound_on = 'sound/weapons/blade1.ogg'
 	heat = 3500
 	max_integrity = 200
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	var/brightness_on = 3
 
@@ -98,7 +98,7 @@
 	throw_speed = 3
 	throw_range = 5
 	sharpness = IS_SHARP
-	embedding = list("embed_chance" = 75, "embedded_impact_pain_multiplier" = 10)
+	embedding = list("embed_chance" = 75, "impact_pain_mult" = 10)
 	armour_penetration = 35
 	block_level = 1
 	block_upgrade_walk = 1
@@ -142,7 +142,7 @@
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(active && !(C.use(hitcost)))
 			attack_self(R)
-			to_chat(R, "<span class='notice'>It's out of charge!</span>")
+			balloon_alert(R, "Out of charge")
 			return
 		return ..()
 
@@ -215,13 +215,13 @@
 		if(!hacked)
 			hacked = TRUE
 			item_color = "rainbow"
-			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
+			balloon_alert(user, "RNBW_ENGAGE")
 
 			if(active)
 				icon_state = "swordrainbow"
 				user.update_inv_hands()
 		else
-			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+			balloon_alert(user, "It's already fabulous!")
 	else
 		return ..()
 

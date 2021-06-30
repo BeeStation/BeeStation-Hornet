@@ -98,11 +98,13 @@
 		/obj/item/gun/ballistic/revolver/detective,
 		/obj/item/ammo_box/c38))
 
-/datum/component/storage/concrete/pockets/small/helmet
-	max_items = 1
+/datum/component/storage/concrete/pockets/helmet
 	quickdraw = TRUE
+	max_combined_w_class = 6
 
-/datum/component/storage/concrete/pockets/small/helmet/Initialize()
+/datum/component/storage/concrete/pockets/helmet/Initialize()
 	. = ..()
-	can_hold = typecacheof(list(/obj/item/reagent_containers/glass/bottle,
-								/obj/item/ammo_box/a762))
+	can_hold = typecacheof(list(/obj/item/reagent_containers/food/drinks/bottle/vodka,
+					  /obj/item/reagent_containers/food/drinks/bottle/molotov,
+					  /obj/item/reagent_containers/food/drinks/drinkingglass,
+					  /obj/item/ammo_box/a762))

@@ -8,7 +8,7 @@
 	antagpanel_category = "Changeling"
 	job_rank = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/focused
-
+	hijack_speed = 0.5
 	var/you_are_greet = TRUE
 	var/team_mode = FALSE //Should assign team objectives ?
 	var/competitive_objectives = FALSE //Should we assign objectives in competition with other lings?
@@ -278,6 +278,9 @@
 	prof.undershirt = H.undershirt
 	prof.socks = H.socks
 
+	if(H.wear_id?.GetID())
+		prof.id_icon = "hud[ckey(H.wear_id.GetJobName())]"
+
 	var/list/slots = list("head", "wear_mask", "back", "wear_suit", "w_uniform", "shoes", "belt", "gloves", "glasses", "ears", "wear_id", "s_store")
 	for(var/slot in slots)
 		if(slot in H.vars)
@@ -361,7 +364,7 @@
 		to_chat(owner.current, "<span class='boldannounce'>You are [changelingID], a changeling! You have absorbed and taken the form of a human.</span>")
 	to_chat(owner.current, "<span class='boldannounce'>Use say \"[MODE_TOKEN_CHANGELING] message\" to communicate with your fellow changelings.</span>")
 	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Changeling",
@@ -504,6 +507,9 @@
 	var/undershirt
 	var/socks
 
+	/// ID HUD icon associated with the profile
+	var/id_icon
+
 /datum/changelingprofile/Destroy()
 	qdel(dna)
 	. = ..()
@@ -522,7 +528,7 @@
 	newprofile.underwear = underwear
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks
-
+	newprofile.id_icon = id_icon
 
 /datum/antagonist/changeling/xenobio
 	name = "Xenobio Changeling"

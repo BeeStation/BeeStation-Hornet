@@ -244,18 +244,18 @@
 	program_type = /datum/nanite_program/conductive
 	category = list("Augmentation Nanites")
 
-/datum/design/nanites/adrenaline
-	name = "Adrenaline Burst"
-	desc = "The nanites cause a burst of adrenaline when triggered, waking the host from stuns and temporarily increasing their speed."
-	id = "adrenaline_nanites"
-	program_type = /datum/nanite_program/adrenaline
-	category = list("Augmentation Nanites")
-
 /datum/design/nanites/mindshield
 	name = "Mental Barrier"
 	desc = "The nanites form a protective membrane around the host's brain, shielding them from abnormal influences while they're active."
 	id = "mindshield_nanites"
 	program_type = /datum/nanite_program/mindshield
+	category = list("Augmentation Nanites")
+
+/datum/design/nanites/adrenaline
+	name = "Adrenaline Burst"
+	desc = "The nanites cause a burst of adrenaline when triggered, waking the host from stuns and temporarily increasing their speed."
+	id = "adrenaline_nanites"
+	program_type = /datum/nanite_program/adrenaline
 	category = list("Augmentation Nanites")
 
 ////////////////////DEFECTIVE NANITES//////////////////////////////////////
@@ -387,6 +387,13 @@
 	desc = "The nanites imprint an absolute directive onto the host's brain while they're active."
 	id = "mindcontrol_nanites"
 	program_type = /datum/nanite_program/comm/mind_control
+	category = list("Weaponized Nanites")
+
+/datum/design/nanites/haste
+	name = "Amphetamine Injection"
+	desc = "The nanites synthesize amphetamine when triggered, which temporarily increases the host's running speed."
+	id = "haste_nanites"
+	program_type = /datum/nanite_program/haste
 	category = list("Weaponized Nanites")
 
 ////////////////////SUPPRESSION NANITES//////////////////////////////////////

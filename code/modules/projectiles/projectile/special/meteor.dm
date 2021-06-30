@@ -11,7 +11,10 @@
 	if(A == firer)
 		forceMove(A.loc)
 		return
-	A.ex_act(EXPLODE_HEAVY)
+	if(isobj(A))
+		SSexplosions.med_mov_atom += A
+	else if(isturf(A))
+		SSexplosions.medturf += A
 	playsound(src.loc, 'sound/effects/meteorimpact.ogg', 40, 1)
 	for(var/mob/M in urange(10, src))
 		if(!M.stat)

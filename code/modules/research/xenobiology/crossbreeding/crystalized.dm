@@ -3,6 +3,7 @@
 	desc = "It's crystalline,"
 	effect = "crystalline"
 	icon_state = "crystalline"
+	effect_desc = "Use to place a pylon."
 	var/obj/structure/slime_crystal/crystal_type
 
 /obj/item/slimecross/crystalline/attack_self(mob/user)

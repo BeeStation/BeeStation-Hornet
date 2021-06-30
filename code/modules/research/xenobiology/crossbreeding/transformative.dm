@@ -26,7 +26,7 @@ transformative extracts:
 /obj/item/slimecross/transformative/proc/do_effect(mob/living/simple_animal/slime/S, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	if(S.transformeffects & SLIME_EFFECT_LIGHT_PINK)
-		S.remove_form_spawner_menu()
+		S.remove_from_spawner_menu()
 		S.master = null
 	if(S.transformeffects & SLIME_EFFECT_METAL)
 		S.maxHealth = round(S.maxHealth/1.3)
@@ -153,7 +153,7 @@ transformative extracts:
 /obj/item/slimecross/transformative/lightpink/do_effect(mob/living/simple_animal/slime/S, mob/user)
 	..()
 	GLOB.poi_list |= S
-	S.master = user
+	S.make_master(user)
 	LAZYADD(GLOB.mob_spawners["[S.master.real_name]'s slime"], S)
 
 /obj/item/slimecross/transformative/adamantine

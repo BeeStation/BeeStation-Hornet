@@ -12,6 +12,12 @@ Format:
 	disabled (disables the map)
 endmap
 
+
+map corgstation
+	maxplayers 100
+	votable
+endmap
+
 map boxstation
 	maxplayers 60
 	votable
@@ -31,12 +37,6 @@ endmap
 map deltastation
 	minplayers 40
 	votable
-endmap
-
-map donutstation
-	minplayers 60
-	maxplayers 120
-	disabled
 endmap
 
 map runtimestation

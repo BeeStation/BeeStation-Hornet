@@ -1,11 +1,3 @@
-#define MAX_EMAG_ROCKETS 8
-#define BEACON_COST 500
-#define SP_LINKED 1
-#define SP_READY 2
-#define SP_LAUNCH 3
-#define SP_UNLINK 4
-#define SP_UNREADY 5
-
 /obj/machinery/computer/cargo/express
 	name = "express supply console"
 	desc = "This console allows the user to purchase a package \
@@ -83,7 +75,7 @@
 			continue // i'd be right happy to
 		meme_pack_data[P.group]["packs"] += list(list(
 			"name" = P.name,
-			"cost" = P.cost,
+			"cost" = P.get_cost(),
 			"id" = pack,
 			"desc" = P.desc || P.name // If there is a description, use it. Otherwise use the pack's name.
 		))
@@ -158,6 +150,8 @@
 
 
 		if("add")//Generate Supply Order first
+			if(!COOLDOWN_FINISHED(src, order_cooldown))
+				return
 			var/id = text2path(params["id"])
 			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
 			if(!istype(pack))
@@ -180,7 +174,7 @@
 			if(D)
 				points_to_check = D.account_balance
 			if(!(obj_flags & EMAGGED))
-				if(SO.pack.cost <= points_to_check)
+				if(SO.pack.get_cost() <= points_to_check)
 					var/LZ
 					if (istype(beacon) && usingBeacon)//prioritize beacons over landing in cargobay
 						LZ = get_turf(beacon)
@@ -197,13 +191,14 @@
 							CHECK_TICK
 						if(empty_turfs?.len)
 							LZ = pick(empty_turfs)
-					if (SO.pack.cost <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
-						D.adjust_money(-SO.pack.cost)
-						new /obj/effect/DPtarget(LZ, podType, SO)
+					if (SO.pack.get_cost() <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
+						new /obj/effect/pod_landingzone(LZ, podType, SO)
+						COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN)
+						D.adjust_money(-SO.pack.get_cost())
 						. = TRUE
 						update_icon()
 			else
-				if(SO.pack.cost * (0.72*MAX_EMAG_ROCKETS) <= points_to_check) // bulk discount :^)
+				if(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS) <= points_to_check) // bulk discount :^)
 					landingzone = GLOB.areas_by_type[pick(GLOB.the_station_areas)]  //override default landing zone
 					for(var/turf/open/floor/T in landingzone.contents)
 						if(is_blocked_turf(T))
@@ -211,13 +206,14 @@
 						LAZYADD(empty_turfs, T)
 						CHECK_TICK
 					if(empty_turfs && empty_turfs.len)
-						D.adjust_money(-(SO.pack.cost * (0.72*MAX_EMAG_ROCKETS)))
+						D.adjust_money(-(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS)))
 
 						SO.generateRequisition(get_turf(src))
 						for(var/i in 1 to MAX_EMAG_ROCKETS)
 							var/LZ = pick(empty_turfs)
 							LAZYREMOVE(empty_turfs, LZ)
-							new /obj/effect/DPtarget(LZ, podType, SO)
+							new /obj/effect/pod_landingzone(LZ, podType, SO)
+							COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN/2)
 							. = TRUE
 							update_icon()
 							CHECK_TICK

@@ -11,7 +11,7 @@
 	var/mob/living/L = parent
 	var/mob/living/carbon/human/H = L
 	if(istype(H))
-		if(H.wear_suit && istype(H.wear_suit, /obj/item/clothing))
+		if(H.wear_suit && isclothing(H.wear_suit))
 			var/obj/item/clothing/CH = H.wear_suit
 			if (CH.clothing_flags & THICKMATERIAL)
 				return

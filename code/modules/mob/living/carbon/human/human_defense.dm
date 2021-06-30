@@ -28,10 +28,10 @@
 	for(var/bp in body_parts)
 		if(!bp)
 			continue
-		if(bp && istype(bp , /obj/item/clothing))
+		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor.getRating(d_type)
+				protection += C.get_armor_rating(d_type, src)
 	protection += physiology.armor.getRating(d_type)
 	return protection
 
@@ -49,7 +49,7 @@
 	if(mind)
 		if(mind.martial_art && !incapacitated(FALSE, TRUE) && mind.martial_art.can_use(src) && mind.martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
 			if(prob(mind.martial_art.deflection_chance))
-				if((mobility_flags & MOBILITY_USE) && dna && !dna.check_mutation(HULK)) //But only if they're otherwise able to use items, and hulks can't do it
+				if((mobility_flags & MOBILITY_USE) && dna && !dna.check_mutation(HULK) && !P.martial_arts_no_deflect) //But only if they're otherwise able to use items, and hulks can't do it. Also damageless weapons are not deflected.
 					if(!isturf(loc)) //if we're inside something and still got hit
 						P.force_hit = TRUE //The thing we're in passed the bullet to us. Pass it back, and tell it to take the damage.
 						loc.bullet_act(P)
@@ -111,7 +111,7 @@
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
 	for(var/obj/item/I in held_items)
-		if(!istype(I, /obj/item/clothing))
+		if(!isclothing(I))
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
 				I.on_block(src, AM, attack_text, damage, attack_type)
 				return 1
@@ -148,20 +148,6 @@
 		hitpush = FALSE
 		skipcatch = TRUE
 		blocked = TRUE
-	else if(I)
-		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedding.embedded_ignore_throwspeed_threshold)
-			if(can_embed(I))
-				if(prob(I.embedding.embed_chance) && !HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-					throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
-					var/obj/item/bodypart/L = pick(bodyparts)
-					L.embedded_objects |= I
-					I.add_mob_blood(src)//it embedded itself in you, of course it's bloody!
-					I.forceMove(src)
-					L.receive_damage(I.w_class*I.embedding.embedded_impact_pain_multiplier)
-					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
-					SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "embedded", /datum/mood_event/embedded)
-					hitpush = FALSE
-					skipcatch = TRUE //can't catch the now embedded item
 
 	return ..()
 
@@ -428,11 +414,19 @@
 	apply_damage(burn_loss, BURN, blocked = (bomb_armor * 0.6))
 
 	//attempt to dismember bodyparts
-	if(severity >= 2) //don't dismember from light explosions
-		var/max_limb_loss = round(4/severity) //so you don't lose four limbs at severity 3.
+	if(severity >= EXPLODE_HEAVY || !bomb_armor)
+		var/max_limb_loss = 0
+		var/probability = 0
+		switch(severity)
+			if(EXPLODE_HEAVY)
+				max_limb_loss = 3
+				probability = 40
+			if(EXPLODE_DEVASTATE)
+				max_limb_loss = 4
+				probability = 50
 		for(var/X in bodyparts)
 			var/obj/item/bodypart/BP = X
-			if(prob(50/severity) && !prob(getarmor(BP, "bomb")) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
+			if(prob(probability) && !prob(getarmor(BP, "bomb")) && BP.body_zone != BODY_ZONE_HEAD && BP.body_zone != BODY_ZONE_CHEST)
 				BP.brute_dam = BP.max_damage
 				BP.dismember()
 				max_limb_loss--
@@ -509,7 +503,7 @@
 				if(2)
 					L.receive_damage(0,5)
 					Paralyze(100)
-			if((TRAIT_EASYDISMEMBER in L.owner.dna.species.species_traits) && L.body_zone != "chest")
+			if(HAS_TRAIT(L, TRAIT_EASYDISMEMBER) && L.body_zone != "chest")
 				if(prob(20))
 					L.dismember(BRUTE)
 
@@ -696,7 +690,7 @@
 
 		..()
 
-/mob/living/carbon/human/proc/check_self_for_injuries()
+/mob/living/carbon/human/check_self_for_injuries()
 	if(stat == DEAD || stat == UNCONSCIOUS)
 		return
 
@@ -749,7 +743,10 @@
 		to_chat(src, "\t <span class='[no_damage ? "notice" : "warning"]'>Your [LB.name] [HAS_TRAIT(src, TRAIT_SELF_AWARE) ? "has" : "is"] [status].</span>")
 
 		for(var/obj/item/I in LB.embedded_objects)
-			to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+			if(I.isEmbedHarmless())
+				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
+			else
+				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
 
 	for(var/t in missing)
 		to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")

@@ -412,6 +412,7 @@ h1.alert, h2.alert		{color: #000000;}
 .robot					{font-family: "Courier New", cursive, sans-serif;}
 
 .command_headset		{font-weight: bold; font-size: 24px;}
+.megaphone				{font-weight: bold; font-size: 24px;}
 .small					{font-size: 8px;}
 .big					{font-size: 24px;}
 .reallybig				{font-size: 32px;}
@@ -461,6 +462,7 @@ h1.alert, h2.alert		{color: #000000;}
 .hidden {display: none; visibility: hidden;}
 
 //Job Colours
+//Make sure you add to replacementNodes in renderer.js
 .unknown {color: #313131}
 .assistant {color: #a1a1a1}
 .atmospherictechnician {color: #d4a07d}
@@ -507,6 +509,12 @@ h1.alert, h2.alert		{color: #000000;}
 .alienmobsay {color: #543354;}
 .cultmobsay {color: #960000;}
 .slimemobsay {color: #00CED1;}
+.gimmick {color: #a1a1a1;}
+.barber {color: #836f5f;}
+.stagemagician {color: #b659a6;}
+.debtor {color: #6d6056;}
+.psychiatrist {color: #5394a8;}
+.vip {color: #d3be62;}
 
 @keyframes rainbowtext {
 	0% { color: #ff0000; }
@@ -528,3 +536,4 @@ h1.alert, h2.alert		{color: #000000;}
 
 .stat_infomation				{color: #be8530;}
 
+.stat_br				        {color: #2ace53;}

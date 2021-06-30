@@ -68,6 +68,7 @@
 	novariants = TRUE
 	grind_results = list(/datum/reagent/bluespace = 20)
 	point_value = 30
+	merge_type = /obj/item/stack/sheet/bluespace_crystal
 	var/crystal_type = /obj/item/stack/ore/bluespace_crystal/refined
 
 /obj/item/stack/sheet/bluespace_crystal/fifty

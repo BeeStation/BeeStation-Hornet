@@ -177,13 +177,13 @@
 				to_chat(src, "<span class='notice'>Admin PM to-<b>[key_name(recipient, src, 1)]</b>: <span class='linkify'>[keywordparsedmsg]</span></span>", type = MESSAGE_TYPE_ADMINPM)
 
 				//omg this is dumb, just fill in both their tickets
-				admin_ticket_log(src, keywordparsedmsg, key_name(src, recipient, 1), key_name(recipient, src, 1), color="teal")
+				admin_ticket_log(src, keywordparsedmsg, key_name(src, recipient, 1), key_name(recipient, src, 1), color="teal", isSenderAdmin = TRUE, safeSenderLogged = TRUE)
 				if(recipient != src)	//reeee
-					admin_ticket_log(recipient, keywordparsedmsg, key_name(src, recipient, 1), key_name(recipient, src, 1), color="teal")
+					admin_ticket_log(recipient, keywordparsedmsg, key_name(src, recipient, 1), key_name(recipient, src, 1), color="teal", isSenderAdmin = TRUE, safeSenderLogged = TRUE)
 
 			else		//recipient is an admin but sender is not
 				var/replymsg = "Reply PM from-<b>[key_name(src, recipient, 1)]</b>: <span class='linkify'>[keywordparsedmsg]</span>"
-				admin_ticket_log(src, keywordparsedmsg, key_name(src, recipient, 1), null, "white")
+				admin_ticket_log(src, keywordparsedmsg, key_name(src, recipient, 1), null, "white", isSenderAdmin = TRUE, safeSenderLogged = TRUE)
 				to_chat(recipient, "<span class='danger'>[replymsg]</span>", type = MESSAGE_TYPE_ADMINPM)
 				to_chat(src, "<span class='notice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>", type = MESSAGE_TYPE_ADMINPM)
 
@@ -201,7 +201,7 @@
 				to_chat(recipient, "<span class='adminsay'><i>Click on the administrator's name to reply.</i></span>", type = MESSAGE_TYPE_ADMINPM)
 				to_chat(src, "<span class='notice'>Admin PM to-<b>[key_name(recipient, src, 1)]</b>: <span class='linkify'>[msg]</span></span>", type = MESSAGE_TYPE_ADMINPM)
 
-				admin_ticket_log(recipient, keywordparsedmsg, key_name_admin(src), null, "purple")
+				admin_ticket_log(recipient, keywordparsedmsg, key_name_admin(src), null, "purple", safeSenderLogged = TRUE)
 
 				//always play non-admin recipients the adminhelp sound
 				SEND_SOUND(recipient, sound('sound/effects/adminhelp.ogg'))
@@ -323,7 +323,7 @@
 	to_chat(C, "<span class='adminsay'>Admin PM from-<b><a href='?priv_msg=[stealthkey]'>[adminname]</A></b>: [msg]</span>", allow_linkify = TRUE, type = MESSAGE_TYPE_ADMINPM)
 	to_chat(C, "<span class='adminsay'><i>Click on the administrator's name to reply.</i></span>", type = MESSAGE_TYPE_ADMINPM)
 
-	admin_ticket_log(C, msg, adminname, null, "cyan")
+	admin_ticket_log(C, msg, adminname, null, "cyan", isSenderAdmin = TRUE, safeSenderLogged = TRUE)
 
 	window_flash(C, ignorepref = TRUE)
 	//always play non-admin recipients the adminhelp sound

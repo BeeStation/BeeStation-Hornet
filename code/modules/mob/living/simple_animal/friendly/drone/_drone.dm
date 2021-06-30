@@ -25,7 +25,7 @@
 	health = 30
 	maxHealth = 30
 	unsuitable_atmos_damage = 0
-	wander = 0
+	wander = FALSE
 	speed = 0
 	ventcrawler = VENTCRAWLER_ALWAYS
 	healable = 0
@@ -78,7 +78,7 @@
 	"<span class='notify'>     - Interacting with non-living beings (dragging bodies, looting bodies, etc.)</span>\n"+\
 	"<span class='warning'>These rules are at admin discretion and will be heavily enforced.</span>\n"+\
 	"<span class='warning'><u>If you do not have the regular drone laws, follow your laws to the best of your ability.</u></span>"
-	mobsay_color = "#8AB48C"
+	chat_color = "#8AB48C"
 
 /mob/living/simple_animal/drone/Initialize()
 	. = ..()
@@ -89,10 +89,10 @@
 
 	if(default_storage)
 		var/obj/item/I = new default_storage(src)
-		equip_to_slot_or_del(I, SLOT_GENERC_DEXTROUS_STORAGE)
+		equip_to_slot_or_del(I, ITEM_SLOT_DEX_STORAGE)
 	if(default_hatmask)
 		var/obj/item/I = new default_hatmask(src)
-		equip_to_slot_or_del(I, SLOT_HEAD)
+		equip_to_slot_or_del(I, ITEM_SLOT_HEAD)
 
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
@@ -209,20 +209,26 @@
 		to_chat(src, "<span class='userdanger'>HeAV% DA%^MMA+G TO I/O CIR!%UUT!</span>")
 
 
-/mob/living/simple_animal/drone/proc/triggerAlarm(class, area/A, O, obj/alarmsource)
-	if(alarmsource.z != z)
+/mob/living/simple_animal/drone/proc/triggerAlarm(class, area/home, cameras, obj/source)
+	if(source.get_virtual_z_level() != get_virtual_z_level())
 		return
-	if(stat != DEAD)
-		var/list/L = src.alarms[class]
-		for (var/I in L)
-			if (I == A.name)
-				var/list/alarm = L[I]
-				var/list/sources = alarm[2]
-				if (!(alarmsource in sources))
-					sources += alarmsource
-				return
-		L[A.name] = list(A, list(alarmsource))
-		to_chat(src, "--- [class] alarm detected in [A.name]!")
+	if(stat == DEAD)
+		return
+	var/list/our_sort = alarms[class]
+	for(var/areaname in our_sort)
+		if (areaname == home.name)
+			var/list/alarm = our_sort[areaname]
+			var/list/sources = alarm[3]
+			if (!(source in sources))
+				sources += source
+			return TRUE
+
+	our_sort[home.name] = list(home, list(source))
+	to_chat(src, "--- [class] alarm detected in [home.name]!")
+
+///This isn't currently needed since drones do jack shit with cameras. I hate this code so much
+/mob/living/simple_animal/drone/proc/freeCamera(area/home, obj/machinery/camera/cam)
+	return
 
 
 /mob/living/simple_animal/drone/proc/cancelAlarm(class, area/A, obj/origin)

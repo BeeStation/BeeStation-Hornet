@@ -204,15 +204,15 @@
 					recalculateChannels()
 				. = TRUE
 
-/obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language)
+/obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!spans)
 		spans = list(M.speech_span)
 	if(!language)
 		language = M.get_selected_language()
-	INVOKE_ASYNC(src, .proc/talk_into_impl, M, message, channel, spans.Copy(), language)
+	INVOKE_ASYNC(src, .proc/talk_into_impl, M, message, channel, spans.Copy(), language, message_mods)
 	return ITALICS | REDUCE_RANGE
 
-/obj/item/radio/proc/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language)
+/obj/item/radio/proc/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!on)
 		return // the device has to be on
 	if(!M || !message)
@@ -255,17 +255,14 @@
 		channel = null
 
 	// Nearby active jammers prevent the message from transmitting
-	var/turf/position = get_turf(src)
-	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
-		var/turf/jammer_turf = get_turf(jammer)
-		if(position?.z == jammer_turf.z && (get_dist(position, jammer_turf) <= jammer.range))
-			return
+	if(is_jammed())
+		return
 
 	// Determine the identity information which will be attached to the signal.
 	var/atom/movable/virtualspeaker/speaker = new(null, M, src)
 
 	// Construct the signal
-	var/datum/signal/subspace/vocal/signal = new(src, freq, speaker, language, message, spans)
+	var/datum/signal/subspace/vocal/signal = new(src, freq, speaker, language, message, spans, message_mods)
 
 	// Independent radios, on the CentCom frequency, reach all independent radios
 	if (independent && (freq == FREQ_CENTCOM || freq == FREQ_CTF_RED || freq == FREQ_CTF_BLUE))
@@ -288,30 +285,27 @@
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
-	if (signal.data["done"] && (T.z in signal.levels))
+	if (signal.data["done"] && (T.get_virtual_z_level() in signal.levels))
 		return
 
 	// Okay, the signal was never processed, send a mundane broadcast.
 	signal.data["compression"] = 0
 	signal.transmission_method = TRANSMISSION_RADIO
-	signal.levels = list(T.z)
+	signal.levels = list(T.get_virtual_z_level())
 	signal.broadcast()
 
-/obj/item/radio/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode)
+/obj/item/radio/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
 	if(radio_freq || !broadcasting || get_dist(src, speaker) > canhear_range)
 		return
 
-	if(message_mode == MODE_WHISPER || message_mode == MODE_WHISPER_CRIT)
-		// radios don't pick up whispers very well
-		raw_message = stars(raw_message)
-	else if(message_mode == MODE_L_HAND || message_mode == MODE_R_HAND)
+	if(message_mods[RADIO_EXTENSION] == MODE_L_HAND || message_mods[RADIO_EXTENSION] == MODE_R_HAND)
 		// try to avoid being heard double
 		if (loc == speaker && ismob(speaker))
 			var/mob/M = speaker
 			var/idx = M.get_held_index_of_item(src)
 			// left hands are odd slots
-			if (idx && (idx % 2) == (message_mode == MODE_L_HAND))
+			if (idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
 				return
 
 	talk_into(speaker, raw_message, , spans, language=message_language)
@@ -327,7 +321,7 @@
 		return independent  // hard-ignores the z-level check
 	if (!(0 in level))
 		var/turf/position = get_turf(src)
-		if(!position || !(position.z in level))
+		if(!position || !(position.get_virtual_z_level() in level))
 			return FALSE
 
 	// allow checks: are we listening on that frequency?

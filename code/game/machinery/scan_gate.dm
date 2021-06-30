@@ -33,7 +33,7 @@
 	var/next_beep = 0 //avoids spam
 	var/locked = FALSE
 	var/scangate_mode = SCANGATE_NONE
-	var/disease_threshold = DISEASE_SEVERITY_MINOR
+	var/disease_threshold = DISEASE_MINOR
 	var/nanite_cloud = 1
 	var/detect_species = SCANGATE_HUMAN
 	var/reverse = FALSE //If true, signals if the scan returns false
@@ -117,7 +117,7 @@
 		if(SCANGATE_DISEASE)
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
-				if(get_disease_severity_value(C.check_virus()) >= get_disease_severity_value(disease_threshold))
+				if(get_disease_danger_value(C.check_virus()) >= get_disease_danger_value(disease_threshold))
 					beep = TRUE
 		if(SCANGATE_SPECIES)
 			if(ishuman(M))

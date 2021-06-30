@@ -28,7 +28,7 @@
 	visor_flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.9
 	permeability_coefficient = 0.01
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 25, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 25, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	actions_types = list(/datum/action/item_action/adjust)
 
 /obj/item/clothing/mask/surgical/attack_self(mob/user)
@@ -244,7 +244,7 @@
 /obj/item/clothing/mask/bandana/AltClick(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		if((C.get_item_by_slot(SLOT_HEAD == src)) || (C.get_item_by_slot(SLOT_WEAR_MASK) == src))
+		if((C.get_item_by_slot(ITEM_SLOT_HEAD == src)) || (C.get_item_by_slot(ITEM_SLOT_MASK) == src))
 			to_chat(user, "<span class='warning'>You can't tie [src] while wearing it!</span>")
 			return
 	if(slot_flags & ITEM_SLOT_HEAD)

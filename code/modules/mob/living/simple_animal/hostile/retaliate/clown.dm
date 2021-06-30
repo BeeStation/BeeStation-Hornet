@@ -23,7 +23,7 @@
 	attack_sound = 'sound/items/bikehorn.ogg'
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
-	del_on_death = 1
+	del_on_death = TRUE
 	loot = list(/obj/effect/mob_spawn/human/clown/corpse)
 
 	mobchatspan = "clown"
@@ -165,7 +165,6 @@
 	response_help = "tries desperately to appease"
 	response_disarm = "foolishly pushes"
 	response_harm = "angers"
-	access_card = ACCESS_THEATRE
 	speak = list("HONK", "Honk!", "HAUAUANK!!!", "GUUURRRRAAAHHH!!!")
 	emote_see = list("honks", "sweats", "grunts")
 	speak_chance = 5

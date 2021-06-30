@@ -9,21 +9,19 @@
 	fakeable = FALSE
 
 /datum/round_event/spacevine/start()
-	var/list/turfs = list() //list of all the empty floor turfs in the maintenance areas
+	var/list/turfs = get_area_turfs(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1], TRUE)
 
 	var/obj/structure/spacevine/SV = new()
-
-	for(var/area/maintenance/A in world)
-		for(var/turf/F in A)
-			if(F.Enter(SV) && !isspaceturf(F))
-				turfs += F
+	for(var/turf/T in turfs)
+		if(!T.Enter(SV) || isspaceturf(T))
+			turfs -= T
 
 	qdel(SV)
 
 	if(turfs.len) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
 		new /datum/spacevine_controller(T, list(pick(subtypesof(/datum/spacevine_mutation))), rand(10,100), rand(1,6), src) //spawn a controller at turf with randomized stats and a single random mutation
-
+		message_admins("Event spacevine has been spawned in [ADMIN_VERBOSEJMP(T)].")
 
 /datum/spacevine_mutation
 	var/name = ""
@@ -474,7 +472,7 @@
 		KZ.set_production(11 - (spread_cap / initial(spread_cap)) * 5) //Reverts spread_cap formula so resulting seed gets original production stat or equivalent back.
 		qdel(src)
 
-/datum/spacevine_controller/process()
+/datum/spacevine_controller/process(delta_time)
 	if(!LAZYLEN(vines))
 		qdel(src) //space vines exterminated. Remove the controller
 		return
@@ -482,9 +480,7 @@
 		qdel(src) //Sanity check
 		return
 
-	var/length = 0
-
-	length = min( spread_cap , max( 1 , vines.len / spread_multiplier ) )
+	var/length = round(min( spread_cap , max( 1 , delta_time * 0.5 *vines.len / spread_multiplier)))
 	var/i = 0
 	var/list/obj/structure/spacevine/queue_end = list()
 
@@ -497,7 +493,7 @@
 		for(var/datum/spacevine_mutation/SM in SV.mutations)
 			SM.process_mutation(SV)
 		if(SV.energy < 2) //If tile isn't fully grown
-			if(prob(20))
+			if(DT_PROB(10, delta_time))
 				SV.grow()
 		else //If tile is fully grown
 			SV.entangle_mob()

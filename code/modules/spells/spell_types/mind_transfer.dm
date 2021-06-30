@@ -66,7 +66,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 			to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is resisting your spell!</span>")
 		return
 
-	if(istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		to_chat(target, "<span class='warning'>Your protective headgear successfully deflects mind controlling brainwaves!</span>")
 		to_chat(user, "<span class='warning'>[target.p_their(TRUE)] mind is protected by a strange ward on their headgear!</span>")
 		return

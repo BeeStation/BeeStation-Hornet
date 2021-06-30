@@ -3,7 +3,7 @@
 /datum/asset/simple/tgui_common
 	keep_local_name = TRUE
 	assets = list(
-		"tgui-common.chunk.js" = 'tgui/public/tgui-common.chunk.js',
+		"tgui-common.bundle.js" = 'tgui/public/tgui-common.bundle.js',
 	)
 
 /datum/asset/simple/tgui
@@ -158,6 +158,13 @@
 	)
 	parents = list("font-awesome.css" = 'html/font-awesome/css/all.min.css')
 
+/datum/asset/simple/namespaced/tgfont
+	assets = list(
+		"tgfont.eot" = 'tgui/packages/tgfont/dist/tgfont.eot',
+		"tgfont.woff2" = 'tgui/packages/tgfont/dist/tgfont.woff2',
+	)
+	parents = list("tgfont.css" = 'tgui/packages/tgfont/dist/tgfont.css')
+
 /datum/asset/spritesheet/chat
 	name = "chat"
 
@@ -211,7 +218,7 @@
 		"boss4.gif" = 'icons/UI_Icons/Arcade/boss4.gif',
 		"boss5.gif" = 'icons/UI_Icons/Arcade/boss5.gif',
 		"boss6.gif" = 'icons/UI_Icons/Arcade/boss6.gif',
-	)
+		)
 
 /datum/asset/spritesheet/simple/pills
 	name ="pills"
@@ -254,6 +261,47 @@
 	for (var/each in list('icons/obj/atmospherics/pipes/pipe_item.dmi', 'icons/obj/atmospherics/pipes/disposal.dmi', 'icons/obj/atmospherics/pipes/transit_tube.dmi', 'icons/obj/plumbing/fluid_ducts.dmi'))
 		InsertAll("", each, GLOB.alldirs)
 	..()
+
+/datum/asset/simple/genetics
+	assets = list(
+		"dna_discovered.gif" = 'html/dna_discovered.gif',
+		"dna_undiscovered.gif" = 'html/dna_undiscovered.gif',
+		"dna_extra.gif" = 'html/dna_extra.gif'
+	)
+
+/datum/asset/spritesheet/supplypods
+	name = "supplypods"
+
+/datum/asset/spritesheet/supplypods/register()
+	for (var/style in 1 to length(GLOB.podstyles))
+		var/icon_file = 'icons/obj/supplypods.dmi'
+		var/states = icon_states(icon_file)
+		if (style == STYLE_SEETHROUGH)
+			Insert("pod_asset[style]", icon(icon_file, "seethrough-icon", SOUTH))
+			continue
+		var/base = GLOB.podstyles[style][POD_BASE]
+		if (!base)
+			Insert("pod_asset[style]", icon(icon_file, "invisible-icon", SOUTH))
+			continue
+		var/icon/podIcon = icon(icon_file, base, SOUTH)
+		var/door = GLOB.podstyles[style][POD_DOOR]
+		if (door)
+			door = "[base]_door"
+			if(door in states)
+				podIcon.Blend(icon(icon_file, door, SOUTH), ICON_OVERLAY)
+		var/shape = GLOB.podstyles[style][POD_SHAPE]
+		if (shape == POD_SHAPE_NORML)
+			var/decal = GLOB.podstyles[style][POD_DECAL]
+			if (decal)
+				if(decal in states)
+					podIcon.Blend(icon(icon_file, decal, SOUTH), ICON_OVERLAY)
+			var/glow = GLOB.podstyles[style][POD_GLOW]
+			if (glow)
+				glow = "pod_glow_[glow]"
+				if(glow in states)
+					podIcon.Blend(icon(icon_file, glow, SOUTH), ICON_OVERLAY)
+		Insert("pod_asset[style]", podIcon)
+	return ..()
 
 // Representative icons for each research design
 /datum/asset/spritesheet/research_designs
@@ -347,14 +395,6 @@
 
 		Insert(imgid, I)
 	return ..()
-
-/datum/asset/simple/genetics
-	assets = list(
-		"dna_discovered.png"	= 'html/dna_discovered.png',
-		"dna_undiscovered.png"	= 'html/dna_undiscovered.png',
-		"dna_extra.png" 		= 'html/dna_extra.png'
-	)
-
 /datum/asset/simple/bee_antags
 	assets = list(
 		"traitor.png" = 'html/img/traitor.png',
@@ -412,3 +452,8 @@
 	// Special case to handle Bluespace Crystals
 	Insert("polycrystal", 'icons/obj/telescience.dmi', "polycrystal")
 	..()
+
+/datum/asset/simple/pAI
+	assets = list(
+		"paigrid.png" = 'html/paigrid.png'
+	)

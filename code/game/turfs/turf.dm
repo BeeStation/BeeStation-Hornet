@@ -48,6 +48,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_ID	//when this be added to vis_contents of something it inherit something.plane and be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
+	///the holodeck can load onto this turf if TRUE
+	var/holodeck_compatible = FALSE
+
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
 	if(var_name in banned_edits)
@@ -139,6 +142,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	requires_activation = FALSE
 	..()
 
+	vis_contents.Cut()
+
 /turf/attack_hand(mob/user)
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
@@ -201,7 +206,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	target.zImpact(A, levels, src)
 	return TRUE
 
-/turf/proc/handleRCL(obj/item/twohanded/rcl/C, mob/user)
+/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
 	if(C.loaded)
 		for(var/obj/structure/cable/LC in src)
 			if(!LC.d1 || !LC.d2)
@@ -224,7 +229,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		coil.place_turf(src, user)
 		return TRUE
 
-	else if(istype(C, /obj/item/twohanded/rcl))
+	else if(istype(C, /obj/item/rcl))
 		handleRCL(C, user)
 
 	return FALSE
@@ -391,7 +396,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	if(length(src_object.contents()))
-		to_chat(usr, "<span class='notice'>You start dumping out the contents...</span>")
+		balloon_alert(usr, "You dump out the contents")
 		if(!do_after(usr,20,target=src_object.parent))
 			return FALSE
 
@@ -470,7 +475,13 @@ GLOBAL_LIST_EMPTY(station_turfs)
 				var/atom/movable/movable_thing = atom_thing
 				if(!movable_thing.ex_check(explosion_id))
 					continue
-			atom_thing.ex_act(severity, target)
+				switch(severity)
+					if(EXPLODE_DEVASTATE)
+						SSexplosions.high_mov_atom += movable_thing
+					if(EXPLODE_HEAVY)
+						SSexplosions.med_mov_atom += movable_thing
+					if(EXPLODE_LIGHT)
+						SSexplosions.low_mov_atom += movable_thing
 
 /turf/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)

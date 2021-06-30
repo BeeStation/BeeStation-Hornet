@@ -48,7 +48,6 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	see_in_dark = 4
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	var/playable_spider = FALSE
 	var/datum/action/innate/spider/lay_web/lay_web
 	var/directive = "" //Message passed down to children, to relay the creator's orders
 
@@ -63,12 +62,6 @@
 	QDEL_NULL(lay_web)
 	return ..()
 
-/mob/living/simple_animal/hostile/poison/giant_spider/Topic(href, href_list)
-	if(href_list["activate"])
-		var/mob/dead/observer/ghost = usr
-		if(istype(ghost) && playable_spider)
-			humanize_spider(ghost)
-
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	..()
 	if(directive)
@@ -77,25 +70,11 @@
 		if(mind)
 			mind.store_memory("<span class='spider'><b>[directive]</b></span>")
 
-/mob/living/simple_animal/hostile/poison/giant_spider/attack_ghost(mob/user)
-	. = ..()
-	if(.)
-		return
-	humanize_spider(user)
-
-/mob/living/simple_animal/hostile/poison/giant_spider/proc/humanize_spider(mob/user)
-	if(key || !playable_spider || stat)//Someone is in it, it's dead, or the fun police are shutting it down
-		return 0
-	var/spider_ask = alert("Become a spider?", "Are you australian?", "Yes", "No")
-	if(spider_ask == "No" || !src || QDELETED(src))
-		return 1
-	if(key)
-		to_chat(user, "<span class='notice'>Someone else already took this spider.</span>")
-		return 1
-	key = user.key
+/mob/living/simple_animal/hostile/poison/giant_spider/give_mind(mob/user)
+	..()
 	if(directive)
 		log_game("[key_name(src)] took control of [name] with the objective: '[directive]'.")
-	return 1
+	return TRUE
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -341,11 +320,11 @@
 /datum/action/innate/spider
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
 	background_icon_state = "bg_alien"
+	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/spider/lay_web
 	name = "Spin Web"
 	desc = "Spin a web to slow down potential prey."
-	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "lay_web"
 
 /datum/action/innate/spider/lay_web/Activate()
@@ -378,7 +357,6 @@
 	name = "Wrap"
 	panel = "Spider"
 	active = FALSE
-	datum/action/spell_action/action = null
 	desc = "Wrap something or someone in a cocoon. If it's a living being, you'll also consume them, allowing you to lay eggs."
 	ranged_mousepointer = 'icons/effects/wrap_target.dmi'
 	action_icon = 'icons/mob/actions/actions_animal.dmi'
@@ -434,7 +412,6 @@
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
 	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must wrap a living being to do this."
-	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "lay_eggs"
 
 /datum/action/innate/spider/lay_eggs/IsAvailable()
@@ -479,7 +456,6 @@
 /datum/action/innate/spider/set_directive
 	name = "Set Directive"
 	desc = "Set a directive for your children to follow."
-	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "directive"
 
 /datum/action/innate/spider/set_directive/IsAvailable()
@@ -487,7 +463,7 @@
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
 			return FALSE
 		var/mob/living/simple_animal/hostile/poison/giant_spider/S = owner
-		if(S.playable_spider)
+		if(S.playable)
 			return FALSE
 		return TRUE
 
@@ -495,7 +471,7 @@
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-	if(!S.playable_spider)
+	if(!S.playable)
 		S.directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
 		message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
 		log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
@@ -514,9 +490,7 @@
 	button_icon_state = "command"
 
 /datum/action/innate/spider/comm/IsAvailable()
-	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife))
-		return FALSE
-	return TRUE
+	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
 
 /datum/action/innate/spider/comm/Trigger()
 	var/input = stripped_input(owner, "Input a command for your legions to follow.", "Command", "")

@@ -44,7 +44,7 @@ class DMM:
             return bio.getvalue()
 
     def generate_new_key(self):
-        free_keys = self._ensure_free_keys(1)
+        self._ensure_free_keys(1)
         # choose one of the free keys at random
         key = 0
         while free_keys:
