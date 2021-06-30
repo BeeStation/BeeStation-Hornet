@@ -120,14 +120,14 @@
 		on_overlay.color = overlay_color
 		add_overlay(on_overlay)
 
-/obj/machinery/atmospherics/miner/process_atmos()
+/obj/machinery/atmospherics/miner/process_atmos() //TODO figure out delta_time for this
 	update_power()
 	check_operation()
 	if(active && !broken)
 		if(isnull(spawn_id))
 			return FALSE
 		if(do_use_power(active_power_usage))
-			mine_gas(delta_time)
+			mine_gas()
 
 /obj/machinery/atmospherics/miner/proc/mine_gas(delta_time = 2)
 	var/turf/open/O = get_turf(src)

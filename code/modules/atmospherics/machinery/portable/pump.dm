@@ -35,20 +35,20 @@
 /obj/machinery/portable_atmospherics/pump/process_atmos()
 	..()
 	if(!on)
+		pump.airs[1] = null
+		pump.airs[2] = null
 		return
 
 	var/turf/T = get_turf(src)
-	var/datum/gas_mixture/sending
-	var/datum/gas_mixture/receiving
-	if(direction == PUMP_OUT) // Hook up the "internal" pump.
-		sending = (holding ? holding.air_contents : air_contents)
-		receiving = (holding ? air_contents : T.return_air())
+	if(direction == PUMP_OUT) // Hook up the internal pump.
+		pump.airs[1] = holding ? holding.air_contents : air_contents
+		pump.airs[2] = holding ? air_contents : T.return_air()
 	else
-		sending = (holding ? air_contents : T.return_air())
-		receiving = (holding ? holding.air_contents : air_contents)
+		pump.airs[1] = holding ? air_contents : T.return_air()
+		pump.airs[2] = holding ? holding.air_contents : air_contents
 
-
-	if(sending.pump_gas_to(receiving, target_pressure) && !holding)
+	pump.process_atmos() // Pump gas.
+	if(!holding)
 		air_update_turf() // Update the environment if needed.
 
 /obj/machinery/portable_atmospherics/pump/emp_act(severity)
