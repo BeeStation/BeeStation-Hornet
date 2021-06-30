@@ -38,4 +38,4 @@
 			qdel(src)
 			return
 		else
-			amount_left --
+			amount_left--
