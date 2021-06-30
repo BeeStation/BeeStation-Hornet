@@ -4,9 +4,6 @@
 
 /proc/extools_finalize_logging()
 
-/proc/auxtools_stack_trace(msg)
-	CRASH(msg)
-
 GLOBAL_LIST_EMPTY(auxtools_initialized)
 
 #define AUXTOOLS_CHECK(LIB)\

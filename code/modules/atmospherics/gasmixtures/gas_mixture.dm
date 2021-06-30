@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(auxtools_atmos_initialized, FALSE)
 
 /datum/gas_mixture/vv_get_var(var_name)
 	. = ..()
-	if(var_name == NAMEOF(src, gas_list_view_only))
+	if(var_name == "gas_list_view_only")
 		var/list/dummy = get_gases()
 		for(var/gas in dummy)
 			dummy[gas] = get_moles(gas)
@@ -110,6 +110,8 @@ GLOBAL_LIST_INIT(auxtools_atmos_initialized, FALSE)
 /datum/gas_mixture/proc/remove(amount)
 	//Proportionally removes amount of gas from the gas_mixture
 	//Returns: gas_mixture with the gases removed
+
+/datum/gas_mixture/proc/transfer_to(datum/gas_mixture/target, amount)
 
 /datum/gas_mixture/proc/transfer_ratio_to(datum/gas_mixture/target, ratio)
 	//Transfers ratio of gas to target. Equivalent to target.merge(remove_ratio(amount)) but faster.
