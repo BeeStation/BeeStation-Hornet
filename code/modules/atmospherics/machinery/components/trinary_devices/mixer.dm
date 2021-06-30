@@ -28,6 +28,7 @@
 /obj/machinery/atmospherics/components/trinary/mixer/AltClick(mob/user)
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
+		balloon_alert(user, "Set to [target_pressure] kPa")
 		update_icon()
 	return
 

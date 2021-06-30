@@ -371,11 +371,9 @@
 #define WABBAJACK     (1<<6)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+#define INTERACTING_WITH(X, Y) (Y in X.do_afters)
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
-
-/// Glide speed of carbons in soft crit
-#define CRIT_GLIDE 2
 
 // Mob Playability Set By Admin Or Ghosting
 #define SENTIENCE_SKIP 0

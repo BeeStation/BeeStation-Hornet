@@ -188,7 +188,7 @@
 /obj/machinery/computer/security/proc/get_available_cameras()
 	var/list/L = list()
 	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-		if((is_away_level(z) || is_away_level(C.z)) && (C.z != z))//if on away mission, can only receive feed from same z_level cameras
+		if((is_away_level(z) || is_away_level(C.z)) && (C.get_virtual_z_level() != get_virtual_z_level()))//if on away mission, can only receive feed from same z_level cameras
 			continue
 		L.Add(C)
 	var/list/D = list()
@@ -276,9 +276,12 @@
 	density = FALSE
 	circuit = null
 	long_ranged = TRUE
-	interaction_flags_atom = NONE  // interact() is called by BigClick()
 	var/icon_state_off = "entertainment_blank"
 	var/icon_state_on = "entertainment"
+
+//Can use this telescreen at long range.
+/obj/machinery/computer/security/telescreen/entertainment/ui_state(mob/user)
+	return GLOB.not_incapacitated_state
 
 /obj/machinery/computer/security/telescreen/entertainment/Initialize()
 	. = ..()
