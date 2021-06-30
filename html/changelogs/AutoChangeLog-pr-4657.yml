@@ -1,7 +1,0 @@
-author: Naevii, ivanmixo
-delete-after: true
-changes:
-  - rscadd: Science skirts
-  - bugfix: Adds missing hop skirt to hop locker
-  - code_imp: Removed leftover skirts with no sprites and moved robotics suits to
-      the appropriate file
