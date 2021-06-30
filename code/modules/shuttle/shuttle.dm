@@ -566,6 +566,7 @@
 		for(var/place in shuttle_areas)
 			if (larea == place)
 				return FALSE
+	return TRUE
 
 /obj/effect/landmark/shuttle_import
 	name = "Shuttle Import"
