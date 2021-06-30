@@ -15,7 +15,7 @@
 	do_sparks(rand(5, 9), FALSE, src)
 	playsound(flashbang_turf, 'sound/weapons/flashbang.ogg', 100, TRUE, 8, 0.9)
 	new /obj/effect/dummy/lighting_obj (flashbang_turf, LIGHT_COLOR_WHITE, (flashbang_range + 2), 4, 2)
-	for(var/mob/living/M in hearers(flashbang_range, flashbang_turf))
+	for(var/mob/living/M in viewers(flashbang_range, flashbang_turf))
 		bang(get_turf(M), M)
 	qdel(src)
 
@@ -26,10 +26,12 @@
 	var/distance = max(0,get_dist(get_turf(src),T))
 
 //Flash
-	if(M.flash_act(affect_silicon = 1) || (M in viewers(flashbang_range, get_turf(src))))
+	if(M.flash_act(affect_silicon = 1))
 		M.Paralyze(max(20/max(1,distance), 5))
 		M.Knockdown(max(200/max(1,distance), 60))
 //Bang
+	if(!(M in hearers(flashbang_range, get_turf(src))))
+		return
 	if(!distance || loc == M || loc == M.loc)	//Stop allahu akbarring rooms with this.
 		M.Paralyze(20)
 		M.Knockdown(200)
