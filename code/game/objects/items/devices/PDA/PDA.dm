@@ -917,13 +917,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 		balloon_alert(user, "Out of charges")
 		return ..()
 	balloon_alert(user, "Virus uploaded")
-	var/sig_list
+	var/list/sig_list = list()
 	if(istype(target,/obj/machinery/door/airlock))
 		sig_list += list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)
 	else
 		sig_list += list(COMSIG_ATOM_ATTACK_HAND)
+	installed_cartridge.charges--
 	target.AddComponent(/datum/component/sound_player, amount = (rand(30,50)), signal_or_sig_list = sig_list)
-	installed_cartridge.charges --
 	return TRUE
 
 // access to status display signals
