@@ -202,10 +202,15 @@
 	var/list/obj/effect/portal/created = create_portal_pair(current_location, get_teleport_turf(get_turf(T)), src, 300, 1, null, atmos_link_override)
 	if(!(LAZYLEN(created) == 2))
 		return
-	try_move_adjacent(created[1])
-	active_portal_pairs[created[1]] = created[2]
+
 	var/obj/effect/portal/c1 = created[1]
 	var/obj/effect/portal/c2 = created[2]
+
+	var/turf/check_turf = get_turf(get_step(user, user.dir))
+	if(check_turf.CanPass(user, get_dir(check_turf, user)))
+		c1.forceMove(check_turf)
+	active_portal_pairs[created[1]] = created[2]
+
 	investigate_log("was used by [key_name(user)] at [AREACOORD(user)] to create a portal pair with destinations [AREACOORD(c1)] and [AREACOORD(c2)].", INVESTIGATE_PORTAL)
 	add_fingerprint(user)
 
