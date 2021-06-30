@@ -367,6 +367,9 @@
 /atom/proc/remove_air(amount)
 	return null
 
+/atom/proc/remove_air_ratio(ratio)
+	return null
+
 ///Return the current air environment in this atom
 /atom/proc/return_air()
 	if(loc)

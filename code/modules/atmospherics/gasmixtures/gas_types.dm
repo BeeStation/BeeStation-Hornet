@@ -22,13 +22,59 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(/datum/gas/oxygen, /datum/g
 		.[gas_path] = gas_info
 
 /proc/gas_id2path(id)
-	var/list/meta_gas = GLOB.meta_gas_info
+	var/list/meta_gas = GLOB.meta_gas_ids
 	if(id in meta_gas)
 		return id
 	for(var/path in meta_gas)
-		if(meta_gas[path][META_GAS_ID] == id)
+		if(meta_gas[path] == id)
 			return path
 	return ""
+
+/proc/meta_gas_heat_list()
+	. = subtypesof(/datum/gas)
+	for(var/gas_path in .)
+		var/datum/gas/gas = gas_path
+		.[gas_path] = initial(gas.specific_heat)
+
+/proc/meta_gas_name_list()
+	. = subtypesof(/datum/gas)
+	for(var/gas_path in .)
+		var/datum/gas/gas = gas_path
+		.[gas_path] = initial(gas.name)
+
+/proc/meta_gas_visibility_list()
+	. = subtypesof(/datum/gas)
+	for(var/gas_path in .)
+		var/datum/gas/gas = gas_path
+		.[gas_path] = initial(gas.moles_visible)
+
+/proc/meta_gas_overlay_list()
+	. = subtypesof(/datum/gas)
+	for(var/gas_path in .)
+		var/datum/gas/gas = gas_path
+		.[gas_path] = 0 //gotta make sure if(GLOB.meta_gas_overlays[gaspath]) doesn't break
+		if(initial(gas.moles_visible) != null)
+			.[gas_path] = new /list(FACTOR_GAS_VISIBLE_MAX)
+			for(var/i in 1 to FACTOR_GAS_VISIBLE_MAX)
+				.[gas_path][i] = new /obj/effect/overlay/gas(initial(gas.gas_overlay), i * 255 / FACTOR_GAS_VISIBLE_MAX)
+
+/proc/meta_gas_danger_list()
+	. = subtypesof(/datum/gas)
+	for(var/gas_path in .)
+		var/datum/gas/gas = gas_path
+		.[gas_path] = initial(gas.dangerous)
+
+/proc/meta_gas_id_list()
+	. = subtypesof(/datum/gas)
+	for(var/gas_path in .)
+		var/datum/gas/gas = gas_path
+		.[gas_path] = initial(gas.id)
+
+/proc/meta_gas_fusion_list()
+	. = subtypesof(/datum/gas)
+	for(var/gas_path in .)
+		var/datum/gas/gas = gas_path
+		.[gas_path] = initial(gas.fusion_power)
 
 /*||||||||||||||/----------\||||||||||||||*\
 ||||||||||||||||[GAS DATUMS]||||||||||||||||

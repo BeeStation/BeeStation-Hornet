@@ -17,11 +17,14 @@ SUBSYSTEM_DEF(air)
 	var/cost_rebuilds = 0
 	var/cost_atmos_machinery = 0
 	var/cost_equalize = 0
+	var/thread_wait_ticks = 0
+	var/cur_thread_wait_ticks = 0
 
 	var/list/hotspots = list()
 	var/list/networks = list()
 	var/list/pipenets_needing_rebuilt = list()
 	var/list/deferred_airs = list()
+	var/max_deferred_airs = 0
 	var/list/obj/machinery/atmos_machinery = list()
 	var/list/obj/machinery/atmos_air_machinery = list()
 	var/list/pipe_init_dirs_cache = list()
@@ -56,7 +59,7 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
 	msg += "AT:[round(cost_turfs,1)]|"
-	msg += "TH:[round(turf_process_time(),1)]|"
+	msg += "TH:[round(turf_process_time(),1)],[thread_wait_ticks]|"
 	msg += "EG:[round(cost_groups,1)]|"
 	msg += "EQ:[round(cost_equalize,1)]|"
 	msg += "PO:[round(cost_post_process,1)]|"
@@ -70,6 +73,7 @@ SUBSYSTEM_DEF(air)
 	msg += "HS:[hotspots.len]|"
 	msg += "PN:[networks.len]|"
 	msg += "HP:[high_pressure_delta.len]|"
+	msg += "DF:[max_deferred_airs]|"
 	msg += "GA:[get_amt_gas_mixes()]|"
 	msg += "MG:[get_max_gas_mixes()]|"
 	return ..()
@@ -80,10 +84,12 @@ SUBSYSTEM_DEF(air)
 	setup_atmos_machinery()
 	setup_pipenets()
 	gas_reactions = init_gas_reactions()
+	auxtools_update_reactions()
 	return ..()
 
 /datum/controller/subsystem/air/proc/extools_update_ssair()
-//datum/controller/subsystem/air/proc/extools_update_reactions()
+
+/datum/controller/subsystem/air/proc/auxtools_update_reactions()
 
 /datum/controller/subsystem/air/proc/thread_running()
 	return FALSE
@@ -138,8 +144,11 @@ SUBSYSTEM_DEF(air)
 	if(currentpart == SSAIR_FINALIZE_TURFS)
 		finish_turf_processing(resumed)
 		if(state != SS_RUNNING)
+			cur_thread_wait_ticks++
 			return
 		resumed = 0
+		thread_wait_ticks = MC_AVERAGE(thread_wait_ticks, cur_thread_wait_ticks)
+		cur_thread_wait_ticks = 0
 		currentpart = SSAIR_DEFERRED_AIRS
 	if(currentpart == SSAIR_DEFERRED_AIRS)
 		timer = TICK_USAGE_REAL
@@ -234,6 +243,7 @@ SUBSYSTEM_DEF(air)
 		pipenets_needing_rebuilt += atmos_machine
 
 /datum/controller/subsystem/air/proc/process_deferred_airs(resumed = 0)
+	max_deferred_airs = max(deferred_airs.len,max_deferred_airs)
 	while(deferred_airs.len)
 		var/list/cur_op = deferred_airs[deferred_airs.len]
 		deferred_airs.len--

@@ -100,9 +100,8 @@
 		return FALSE
 
 	var/list/f_types = list()
-	for(var/path in GLOB.meta_gas_info)
-		var/list/gas = GLOB.meta_gas_info[path]
-		f_types += list(list("gas_id" = gas[META_GAS_ID], "gas_name" = gas[META_GAS_NAME], "enabled" = (path in filter_types)))
+	for(var/path in GLOB.meta_gas_ids)
+		f_types += list(list("gas_id" = GLOB.meta_gas_ids[path], "gas_name" = GLOB.meta_gas_names[path], "enabled" = (path in filter_types)))
 
 	var/datum/signal/signal = new(list(
 		"tag" = id_tag,
@@ -158,10 +157,9 @@
 		return FALSE
 
 	if(scrubbing & SCRUBBING)
-		var/transfer_moles = min(1, volume_rate / environment.return_volume()) * environment.total_moles()
 
 		//Take a gas sample
-		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
+		var/datum/gas_mixture/removed = tile.remove_air_ratio(volume_rate/environment.return_volume())
 
 		//Nothing left to remove from the tile
 		if(isnull(removed))
@@ -175,9 +173,7 @@
 
 	else //Just siphoning all air
 
-		var/transfer_moles = environment.total_moles() * (volume_rate / environment.return_volume())
-
-		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
+		var/datum/gas_mixture/removed = tile.remove_air_ratio((volume_rate/environment.return_volume()))
 
 		air_contents.merge(removed)
 		tile.air_update_turf()

@@ -11,7 +11,7 @@ on:
   pull_request:
     branches:
     - master
-    
+
 jobs:
   run_linters:
     runs-on: ubuntu-latest
@@ -27,6 +27,7 @@ jobs:
           pip3 install setuptools
           bash tools/ci/install_build_tools.sh
           bash tools/ci/install_spaceman_dmm.sh dreamchecker
+          bash tools/ci/install_auxmos.sh
           pip3 install -r tools/mapmerge2/requirements.txt
       - name: Run Linters
         run: |
@@ -81,6 +82,9 @@ jobs:
           sudo apt update || true
           sudo apt install libssl1.1:i386
           bash tools/ci/install_rust_g.sh
+      - name: Install auxmos
+        run: |
+          bash tools/ci/install_auxmos.sh
       - name: Compile and run tests
         run: |
           bash tools/ci/install_byond.sh
