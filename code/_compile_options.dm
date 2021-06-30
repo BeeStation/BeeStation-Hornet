@@ -68,4 +68,4 @@
 #define TESTING
 #endif
 
-#define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/auxmos.dll" : "./auxtools/libauxmos.so")
+#define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/linda_auxmos.dll" : "./auxtools/linda_libauxmos.so")
