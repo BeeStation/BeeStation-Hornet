@@ -1,0 +1,5 @@
+author: ike709
+delete-after: true
+changes:
+  - tweak: The (strongly) recommended client version for 514 users is now 1557. Previous
+      versions have severe potential UI bugs.
