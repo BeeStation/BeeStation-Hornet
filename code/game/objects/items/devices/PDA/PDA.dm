@@ -917,7 +917,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "<span class='notice'>Out of charges.</span>")
 		return ..()
 	to_chat(user, "<span class='notice'>You upload the virus to the airlock controller!</span>")
-	var/sig_list
+	var/list/sig_list = list()
 	if(istype(target,/obj/machinery/door/airlock))
 		sig_list += list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)
 	else
