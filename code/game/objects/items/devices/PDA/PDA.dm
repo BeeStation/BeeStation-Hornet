@@ -918,6 +918,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return ..()
 
 	if(target.GetComponent(/datum/component/sound_player))
+		balloon_alert(user, "This is already hacked")
 		return
 
 	balloon_alert(user, "Virus uploaded")
