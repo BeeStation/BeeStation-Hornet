@@ -327,7 +327,6 @@ Key procs
 								/datum/language/calcic = list(LANGUAGE_ATOM),
 								/datum/language/buzzwords = list(LANGUAGE_ATOM),
 								/datum/language/rlyehian = list(LANGUAGE_ATOM),
-								/datum/language/slime = list(LANGUAGE_ATOM),
 								/datum/language/drone = list(LANGUAGE_ATOM),
 								/datum/language/apidite = list(LANGUAGE_ATOM),
 								/datum/language/voltaic = list(LANGUAGE_ATOM))
@@ -339,7 +338,6 @@ Key procs
 							/datum/language/calcic = list(LANGUAGE_ATOM),
 							/datum/language/buzzwords = list(LANGUAGE_ATOM),
 							/datum/language/rlyehian = list(LANGUAGE_ATOM),
-							/datum/language/slime = list(LANGUAGE_ATOM),
 							/datum/language/apidite = list(LANGUAGE_ATOM),
 							/datum/language/voltaic = list(LANGUAGE_ATOM))
 
