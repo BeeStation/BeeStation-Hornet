@@ -19,14 +19,8 @@
 
 /// Signifies that this proc is used to handle signals.
 /// Every proc you pass to RegisterSignal must have this.
-/// Mostly unused in Bee since it is a recent tg PR:
-/// https://github.com/tgstation/tgstation/pull/52761
-/// it doesn't matter *that* much so I don't care now *shrug
 #define SIGNAL_HANDLER SHOULD_NOT_SLEEP(TRUE)
 
-/// Signifies that this proc is used to handle signals, but also sleeps.
-/// Do not use this for new work.
-#define SIGNAL_HANDLER_DOES_SLEEP
 
 //////////////////////////////////////////////////////////////////
 

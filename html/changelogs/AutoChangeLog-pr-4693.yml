@@ -1,0 +1,4 @@
+author: MNarath1
+delete-after: true
+changes:
+  - rscdel: Removes a now completly unused define
