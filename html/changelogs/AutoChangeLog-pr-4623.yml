@@ -1,6 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - rscadd: SIGNAL_HANDLER to all procs meant to handle signals
-  - rscdel: Removed SIGNAL_HANDLER_DOES_SLEEP
-  - rscdel: Some sleeps
