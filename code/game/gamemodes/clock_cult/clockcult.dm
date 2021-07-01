@@ -49,6 +49,7 @@ GLOBAL_VAR(clockcult_eminence)
 
 /datum/game_mode/clockcult/setup_maps()
 	LoadReebe()
+	return TRUE
 
 /datum/game_mode/clockcult/pre_setup()
 	//Generate cultists
