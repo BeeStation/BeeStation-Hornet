@@ -916,6 +916,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(installed_cartridge.charges <=0)
 		balloon_alert(user, "Out of charges")
 		return ..()
+
+	if(target.GetComponent(/datum/component/sound_player))
+		return
+
 	balloon_alert(user, "Virus uploaded")
 	var/list/sig_list = list()
 	if(istype(target, /obj/machinery/door/airlock))
