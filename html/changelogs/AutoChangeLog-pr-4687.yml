@@ -1,4 +1,0 @@
-author: jupyterkat
-delete-after: true
-changes:
-  - bugfix: fixed statpanel being empty during init
