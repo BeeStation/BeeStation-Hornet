@@ -1702,6 +1702,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			for rapid healing, a medical night vision HUD for quick identification of injured personnel, \
 			and other supplies helpful for a field medic."
 	item = /obj/item/storage/firstaid/tactical
+	exclude_modes = list(/datum/game_mode/incursion)
 	cost = 4
 
 /datum/uplink_item/device_tools/soap
