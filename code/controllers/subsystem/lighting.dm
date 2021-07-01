@@ -8,9 +8,21 @@ SUBSYSTEM_DEF(lighting)
 
 	var/list/queued_shadow_updates = list()
 
+	var/total_calculations = list()
+	var/total_time_spent_processing = list()
+
 	var/started = FALSE
 	var/list/sources_that_need_updating = list()
 	var/list/light_sources = list()
+
+/client/verb/get_lighting_speed()
+	set name = "light speed"
+	set category = "lighting"
+
+	for(var/range in SSlighting.total_calculations)
+		var/total_amount = SSlighting.total_calculations[range]
+		var/total_time = SSlighting.total_time_spent_processing[range]
+		to_chat(usr, "[range] - [total_time / total_amount] ms")
 
 /datum/controller/subsystem/lighting/Initialize(timeofday)
 	started = TRUE

@@ -7,7 +7,6 @@
  *
  * Credits:
  *  - PowerfulBacon
- *  - TiviPlus (Dud shadow holder object for faster render time)
  *
  */
 
@@ -66,8 +65,6 @@
 			if(!LAZYLEN(thing.lights_affecting) && !LAZYLEN(thing.legacy_affecting_lights) && !A.base_lighting_alpha)
 				thing.luminosity = FALSE
 		affecting_turfs = null
-	//Cut the shadows. Since they are overlays they will be deleted when cut from overlays probably.
-	LAZYCLEARLIST(shadows)
 	. = ..()
 
 /atom/movable/lighting_mask/proc/link_turf_to_light(turf/T)
@@ -82,6 +79,8 @@
 //coordinates (0,0),(1,0),(0,1) to create a triangcalculate_shadows_matricesle that respresents the shadows
 //takes in the old turf to smoothly animate shadow movement
 /atom/movable/lighting_mask/proc/calculate_lighting_shadows(force = FALSE)
+
+	var/start_time = TICK_USAGE
 
 	//Check to make sure lighting is actually started
 	//If not count the amount of duplicate requests created.
@@ -132,9 +131,6 @@
 	calculated_position_x = ourx + ((offset_x) / world.icon_size)
 	calculated_position_y = oury + ((offset_y) / world.icon_size)
 
-	//Remove the old shadows
-	overlays.Cut()
-
 	//Optimise grouping by storing as
 	// Key : x (AS A STRING BECAUSE BYOND DOESNT ALLOW FOR INT KEY DICTIONARIES)
 	// Value: List(y values)
@@ -151,7 +147,6 @@
 
 	//Clear the list
 	LAZYCLEARLIST(affecting_turfs)
-	LAZYCLEARLIST(shadows)
 
 	//Rebuild the list
 	var/isClosedTurf = istype(our_turf, /turf/closed)
@@ -194,7 +189,8 @@
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/MA_vars_time = 0)
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/overlays_add_time = 0)
 
-	var/list/overlays_to_add = list()
+	filters = list()
+
 	for(var/group in grouped_atoms)
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
@@ -229,36 +225,16 @@
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(matrix_division_time += TICK_USAGE_TO_MS(temp_timer))
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
-			var/mutable_appearance/shadow = new()
-
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(MA_new_time += TICK_USAGE_TO_MS(temp_timer))
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
-
-			shadow.icon = LIGHTING_ICON_BIG
-			shadow.icon_state = "triangle"
-			shadow.layer = layer + 1
-			shadow.color = "#000"
-			shadow.alpha = 255
-			shadow.transform = M
 
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(MA_vars_time += TICK_USAGE_TO_MS(temp_timer))
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
-			LAZYADD(shadows, shadow)
-			overlays_to_add += shadow
+			filters += filter(type="layer", icon = icon(LIGHTING_ICON_BIG, "triangle"), color = "#000", transform = M)
 
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(overlays_add_time += TICK_USAGE_TO_MS(temp_timer))
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
-
-	//TGMC Backport
-	//Put the overlays onto a dud object and copy the appearance to merge them
-	//Doesnt impact maptick, AND means much faster render times
-	var/static/atom/movable/lighting_mask/template/dud = new
-	dud.overlays += overlays_to_add
-	var/static/mutable_appearance/overlay_merger = new()
-	overlay_merger.appearance = dud.appearance
-	overlays += overlay_merger
-	dud.overlays.Cut()
 
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("total_coordgroup_time: [total_coordgroup_time]ms"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("total_cornergroup_time: [total_cornergroup_time]ms"))
@@ -270,6 +246,13 @@
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("MA_vars_time: [MA_vars_time]"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("overlays_add_time: [overlays_add_time]"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("[TICK_USAGE_TO_MS(timer)]ms to process total."))
+
+	if(islist(SSlighting.total_calculations["[range]"]))
+		SSlighting.total_calculations["[range]"] ++
+		SSlighting.total_time_spent_processing["[range]"] += TICK_USAGE_TO_MS(start_time)
+	else
+		SSlighting.total_calculations["[range]"] = 1
+		SSlighting.total_time_spent_processing["[range]"] = TICK_USAGE_TO_MS(start_time)
 
 //Converts a triangle into a matrix that can be applied to a standardized triangle
 //to make it represent the points.
@@ -582,12 +565,7 @@
 			)
 		//Middle Middle (Why?????????)
 		else
-			return list(
-				list(list(xhigh, ylow), list(xlow, ylow)),
-				list(list(xlow, ylow), list(xlow, yhigh)),
-				list(list(xlow, yhigh), list(xhigh, yhigh)),
-				list(list(xlow, yhigh), list(xhigh, ylow))
-			)
+			return list()
 
 //Calculates the coordinates of the corner
 //Takes a list of blocks and calculates the bottom left corner and the top right corner.

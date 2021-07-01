@@ -6,7 +6,8 @@
 
 //Rotates the light source to angle degrees.
 /atom/movable/lighting_mask/proc/rotate(angle = 0)
-	desiredAngle = angle
+	message_admins("not implemented")
+	/*desiredAngle = angle
 	//Converting our transform is pretty simple.
 	var/matrix/M = matrix()
 	M.Turn(desiredAngle - currentAngle)
@@ -24,4 +25,4 @@
 	//Readd the shadow overlays.
 	overlays += shadows
 	//Now we are facing this direction
-	currentAngle = angle
+	currentAngle = angle*/
