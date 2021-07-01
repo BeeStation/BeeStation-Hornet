@@ -675,7 +675,7 @@
 	M.set_light(2)
 
 /datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)
-	M.set_light(-2)
+	M.set_light(0)
 
 /datum/reagent/consumable/vitfro
 	name = "Vitrium Froth"
