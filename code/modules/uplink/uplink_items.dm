@@ -1703,7 +1703,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			and other supplies helpful for a field medic."
 	item = /obj/item/storage/firstaid/tactical
 	cost = 4
-	exclude_modes = list(/datum/game_mode/incursion)
 
 /datum/uplink_item/device_tools/soap
 	name = "Syndicate Soap"
