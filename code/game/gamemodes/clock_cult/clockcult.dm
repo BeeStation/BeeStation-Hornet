@@ -47,8 +47,10 @@ GLOBAL_VAR(clockcult_eminence)
 
 	var/datum/team/clock_cult/main_cult
 
-/datum/game_mode/clockcult/pre_setup()
+/datum/game_mode/clockcult/setup_maps()
 	LoadReebe()
+
+/datum/game_mode/clockcult/pre_setup()
 	//Generate cultists
 	for(var/i in 1 to clock_cultists)
 		if(!antag_candidates.len)
