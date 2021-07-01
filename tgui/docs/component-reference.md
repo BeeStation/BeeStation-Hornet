@@ -28,6 +28,7 @@ Make sure to add new items to this list if you document new components.
   - [`Grid`](#grid)
   - [`Grid.Column`](#gridcolumn)
   - [`Icon`](#icon)
+  - [`Icon.Stack`](#iconstack)
   - [`Input`](#input)
   - [`Knob`](#knob)
   - [`LabeledControls`](#labeledcontrols)
@@ -41,14 +42,14 @@ Make sure to add new items to this list if you document new components.
   - [`ProgressBar`](#progressbar)
   - [`Section`](#section)
   - [`Slider`](#slider)
-  - ['Stack'](#stack)
+  - [`Stack`](#stack)
   - [`Table`](#table)
   - [`Table.Row`](#tablerow)
   - [`Table.Cell`](#tablecell)
   - [`Tabs`](#tabs)
   - [`Tabs.Tab`](#tabstab)
   - [`Tooltip`](#tooltip)
-- [`tgui/layouts`](#tguilayouts)
+  - [`tgui/layouts`](#tguilayouts)
   - [`Window`](#window)
   - [`Window.Content`](#windowcontent)
 
@@ -247,7 +248,7 @@ A button with an extra confirmation step, using native button component.
 **Props:**
 
 - See inherited props: [Button](#button)
-- `confirmMessage: string` - Text to display after first click; defaults to "Confirm?"
+- `confirmContent: string` - Text to display after first click; defaults to "Confirm?"
 - `confirmColor: string` - Color to display after first click; defaults to "bad"
 
 ### `Button.Input`
@@ -360,12 +361,16 @@ and displays selected entry.
 **Props:**
 
 - See inherited props: [Box](#box)
+- See inherited props: [Icon](#icon)
 - `options: string[]` - An array of strings which will be displayed in the
 dropdown when open
 - `selected: string` - Currently selected entry
 - `width: number` - Width of dropdown button and resulting menu
-- `over: boolean` - dropdown renders over instead of below
-- `color: string` - color of dropdown button
+- `over: boolean` - Dropdown renders over instead of below
+- `color: string` - Color of dropdown button
+- `nochevron: boolean` - Whether or not the arrow on the right hand side of the dropdown button is visible
+- `noscroll: boolean` - Whether or not the dropdown menu should have a scroll bar
+- `displayText: string` - Text to always display in place of the selected text
 - `onClick: (e) => void` - Called when dropdown button is clicked
 - `onSelected: (value) => void` - Called when a value is picked from the list, `value` is the value that was picked
 
@@ -527,6 +532,22 @@ Fractional numbers are supported.
 - `rotation: number` - Icon rotation, in degrees.
 - `spin: boolean` - Whether an icon should be spinning. Good for load
 indicators.
+
+### `Icon.Stack`
+
+Renders children icons on top of each other in order to make your own icon.
+
+```jsx
+<Icon.Stack>
+  <Icon name="pen" />
+  <Icon name="slash" />
+</Icon.Stack>
+```
+
+**Props:**
+
+- See inherited props: [Box](#box)
+- `children: Icon` - Icons to stack.
 
 ### `Input`
 
@@ -753,6 +774,17 @@ based on whether the value lands in the range between `from` and `to`.
 - `color: string` - Color of the progress bar.
 - `children: any` - Content to render inside the progress bar.
 
+**Props:**
+
+- See inherited props: [Box](#box)
+- `value: number` - The current value of the metric.
+- `minValue: number` (default: 0) - The lower bound of the guage.
+- `maxValue: number` (default: 1) - The upper bound of the guage.
+- `ranges: { color: [from, to] }` (default: `{ "good": [0, 1] }`) - Provide regions of the guage to color between two specified values of the metric.
+- `alertAfter: number` (optional) - When provided, will cause an alert symbol on the gauge to begin flashing in the color upon which the needle currently rest, as defined in `ranges`.
+- `format: function(value) => string` (optional) - When provided, will be used to format the value of the metric for display.
+- `size: number` (default: 1) - When provided scales the gauge.
+
 ### `Section`
 
 Section is a surface that displays content and actions on a single topic.
@@ -784,10 +816,12 @@ If you want to have a button on the right side of an section title
 </Section>
 ```
 
+**New:** Sections can now be nested, and will automatically font size of the
+header according to their nesting level. Previously this was done via `level`
+prop, but now it is automatically calculated.
+
 - See inherited props: [Box](#box)
 - `title: string` - Title of the section.
-- `level: number` - Section level in hierarchy. Default is 1, higher number
-means deeper level of nesting. Must be an integer number.
 - `buttons: any` - Buttons to render aside the section title.
 - `fill: boolean` - If true, fills all available vertical space.
 - `fitted: boolean` - If true, removes all section padding.
@@ -971,25 +1005,41 @@ Notice that tabs do not contain state. It is your job to track the selected
 tab, handle clicks and place tab content where you need it. In return, you get
 a lot of flexibility in regards to how you can layout your tabs.
 
-Tabs also support a vertical configuration. This is usually paired with a
-[Flex](#flex) component to render tab content to the right.
+Tabs also support a vertical configuration. This is usually paired with
+[Stack](#stack) to render tab content to the right.
 
 ```jsx
-<Flex>
-  <Flex.Item>
+<Stack>
+  <Stack.Item>
     <Tabs vertical>
       ...
     </Tabs>
-  </Flex.Item>
-  <Flex.Item grow={1} basis={0}>
+  </Stack.Item>
+  <Stack.Item grow={1} basis={0}>
     Tab content.
-  </Flex.Item>
-</Flex>
+  </Stack.Item>
+</Stack>
+```
+
+If you need to combine a tab section with other elements, or if you want to
+add scrollable functionality to tabs, pair them with the [Section](#section)
+component:
+
+```jsx
+<Section fill fitted scrollable width="128px">
+  <Tabs vertical>
+    ...
+  </Tabs>
+  ... other things ...
+</Section>
 ```
 
 **Props:**
 
 - See inherited props: [Box](#box)
+- `fluid: boolean` - If true, tabs will take all available horizontal space.
+- `fill: boolean` - Similarly to `fill` on [Section](#section), tabs will fill
+all available vertical space. Only makes sense in a vertical configuration.
 - `vertical: boolean` - Use a vertical configuration, where tabs will be
 stacked vertically.
 - `children: Tab[]` - This component only accepts tabs as its children.
