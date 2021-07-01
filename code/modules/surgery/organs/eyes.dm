@@ -30,6 +30,7 @@
 	var/lighting_alpha
 	var/no_glasses
 	var/damaged	= FALSE	//damaged indicates that our eyes are undergoing some level of negative effect
+	var/xray_protect //can it have flash protection with x-ray
 
 /obj/item/organ/eyes/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE, initialising)
 	. = ..()
@@ -148,6 +149,7 @@
 
 /obj/item/organ/eyes/robotic/xray/syndicate
 	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. On closer look, they have been modified to reduce brightness from sudden bright flashes."
+	xray_protect = TRUE
 
 /obj/item/organ/eyes/robotic/thermals
 	name = "thermal eyes"
@@ -193,6 +195,7 @@
 	name = "shielded robotic eyes"
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
 	flash_protect = 2
+	xray_protect = TRUE
 
 /obj/item/organ/eyes/robotic/shield/emp_act(severity)
 	return

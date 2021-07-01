@@ -4,8 +4,8 @@
 	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
 	if(!E)
 		return INFINITY //Can't get flashed without eyes
-	if(!(~sight & (SEE_MOBS|SEE_OBJS|SEE_TURFS)) && !(istype(E, /obj/item/organ/eyes/robotic/xray/syndicate) || istype(E, /obj/item/organ/eyes/robotic/shield)))
-		return 0
+	if(!(~sight & (SEE_MOBS|SEE_OBJS|SEE_TURFS)) && !(E.xray_protect))
+		return E.flash_protect
 	. += E.flash_protect
 	if(isclothing(head)) //Adds head protection
 		. += head.flash_protect
