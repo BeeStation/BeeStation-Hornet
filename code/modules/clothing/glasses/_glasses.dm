@@ -306,15 +306,6 @@
 	darkness_view = 1
 	dog_fashion = /datum/dog_fashion/head
 
-/obj/item/clothing/glasses/blindfold/equipped(mob/living/carbon/human/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_EYES)
-		user.become_blind("blindfold_[REF(src)]")
-
-/obj/item/clothing/glasses/blindfold/dropped(mob/living/carbon/human/user)
-	..()
-	user.cure_blind("blindfold_[REF(src)]")
-
 /obj/item/clothing/glasses/blindfold/white
 	name = "blind personnel blindfold"
 	desc = "Indicates that the wearer suffers from blindness."
