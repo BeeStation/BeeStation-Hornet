@@ -169,8 +169,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new)
 
 
 /datum/cameranet/proc/checkTurfVis(turf/position)
-	var/a = get_area(position)
-	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z, a)
+	var/datum/camerachunk/chunk = getCameraChunk(position.x, position.y, position.z, get_area(position))
 	if(chunk)
 		if(chunk.changed)
 			chunk.hasChanged(1) // Update now, no matter if it's visible or not.
