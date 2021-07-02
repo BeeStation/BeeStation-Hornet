@@ -88,6 +88,16 @@
 #define PATH_RUST "Rust"
 #define PATH_FLESH "Flesh"
 
+/// Forces the blob to place the core where they currently are, ignoring any checks.
+#define BLOB_FORCE_PLACEMENT -1
+/// Normal blob placement, does the regular checks to make sure the blob isn't placing itself in an invalid location
+#define BLOB_NORMAL_PLACEMENT 0
+/// Selects a random location for the blob to be placed.
+#define BLOB_RANDOM_PLACEMENT 1
+
+#define OVERMIND_STARTING_MIN_PLACE_TIME 1 MINUTES // Minimum time before the core can be placed
+#define OVERMIND_STARTING_AUTO_PLACE_TIME 6 MINUTES // After this time, randomly place the core somewhere viable
+
 /// How much does it cost to reroll strains?
 #define BLOB_REROLL_COST 40
 

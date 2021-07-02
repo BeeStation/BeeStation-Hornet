@@ -32,8 +32,8 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	var/last_reroll_time = 0 //time since we last rerolled, used to give free rerolls
 	var/nodes_required = 1 //if the blob needs nodes to place resource and factory blobs
 	var/placed = 0
-	var/manualplace_min_time = 600 //in deciseconds //a minute, to get bearings
-	var/autoplace_max_time = 3600 //six minutes, as long as should be needed
+	var/manualplace_min_time = OVERMIND_STARTING_MIN_PLACE_TIME
+	var/autoplace_max_time = OVERMIND_STARTING_AUTO_PLACE_TIME
 	var/list/blobs_legit = list()
 	var/max_count = 0 //The biggest it got before death
 	var/blobwincount = 400
@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 				to_chat(src, "<span class='big'><font color=\"#EE4000\">You will automatically place your blob core in [DisplayTimeText(autoplace_max_time - world.time)].</font></span>")
 				manualplace_min_time = 0
 			if(autoplace_max_time && world.time >= autoplace_max_time)
-				place_blob_core(1)
+				place_blob_core(BLOB_RANDOM_PLACEMENT)
 		else
 			qdel(src)
 	else if(!victory_in_progress && (blobs_legit.len >= blobwincount))

@@ -10,10 +10,10 @@
 
 // Power verbs
 
-/mob/camera/blob/proc/place_blob_core(placement_override, pop_override = FALSE)
-	if(placed && placement_override != -1)
-		return 1
-	if(!placement_override)
+/mob/camera/blob/proc/place_blob_core(placement_override = BLOB_NORMAL_PLACEMENT, pop_override = FALSE)
+	if(placed && placement_override != BLOB_FORCE_PLACEMENT)
+		return TRUE
+	if(placement_override == BLOB_NORMAL_PLACEMENT)
 		if(!pop_override)
 			for(var/mob/living/M in range(7, src))
 				if(ROLE_BLOB in M.faction)
@@ -43,8 +43,8 @@
 				return 0
 		if(!pop_override && world.time <= manualplace_min_time && world.time <= autoplace_max_time)
 			to_chat(src, "<span class='warning'>It is too early to place your blob core!</span>")
-			return 0
-	else if(placement_override == 1)
+			return FALSE
+	else if(placement_override == BLOB_RANDOM_PLACEMENT)
 		var/turf/T = pick(GLOB.blobstart)
 		forceMove(T) //got overrided? you're somewhere random, motherfucker
 	if(placed && blob_core)
