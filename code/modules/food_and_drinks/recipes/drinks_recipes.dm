@@ -841,7 +841,7 @@
 	results = list(/datum/reagent/consumable/ethanol/beesknees = 4)
 	required_reagents = list(/datum/reagent/consumable/ethanol/mead = 1, /datum/reagent/consumable/honey = 1, /datum/reagent/consumable/ethanol/whiskey = 1, /datum/reagent/consumable/lemonjuice = 1)
 
-/datum/chemical_reaction/beesknees
+/datum/chemical_reaction/beeffizz
 	name = "Beef Fizz"
 	id = /datum/reagents/consumable/ethanol/beeffizz
 	results = list(/datum/reagent/consumable/ethanol/beeffizz = 10)
