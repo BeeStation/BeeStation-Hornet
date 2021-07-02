@@ -10,9 +10,9 @@
 	marked_atom = null
 	return ..()
 
-/obj/item/multitool/circuit/examine(mob/user)
+/obj/item/multitool/circuit/on_examine(datum/source, mob/user, list/examine_list)
 	. = ..()
-	. += "<span class='notice'>It has [marked_atom? "a" : "no"] marked entity registered.</span>"
+	examine_list += "<span class='notice'>It has [marked_atom? "a" : "no"] marked entity registered.</span>"
 
 /obj/item/multitool/circuit/attack_self(mob/user, modifiers)
 	. = ..()

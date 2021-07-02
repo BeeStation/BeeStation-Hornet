@@ -59,7 +59,7 @@
 				say("Not enough materials.")
 				return TRUE
 
-			balloon_alert_to_viewers("printed [design.name]")
+			balloon_alert_to_viewers("Printed [design.name]")
 			materials.mat_container?.use_materials(design.materials)
 			materials.silo_log(src, "printed", -1, design.name, design.materials)
 			var/atom/printed_design = new design.build_path(drop_location())
