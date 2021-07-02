@@ -2342,3 +2342,18 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.adjustFireLoss(-1.5, 0)
 		M.adjustToxLoss(-1, 0)
 	. = ..()
+
+/datum/reagent/consumable/ethanol/beeffizz
+	name = "Beef Fizz"
+	description = "this is beef fizz, BEEF FIZZ, THERE IS NO GOD"
+	boozepwr = 15
+	quality = DRINK_BAD
+	taste_description = "Nice and Salty Fizzless Beef Juice with a quick bite of lemon"
+	glass_icon_state = "beef_fizz"
+	glass_name = "Beef Fizz"
+	glass_desc = "WHO THOUGHT THIS WAS A GOOD IDEA??"
+
+/datum/reagent/consumable/ethanol/beeffizz/on_mob_metabolize(mob/living/M)
+		to_chat(M, "<span class='warning'>That drink was horrible! You feel sick.</span>")
+		M.adjust_disgust(50)
+	. = ..()

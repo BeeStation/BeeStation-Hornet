@@ -2170,6 +2170,47 @@
 					)
 	crate_name = "grilling fuel kit crate"
 
+/datum/supply_pack/organic/beefbroth
+	name = "Beef Broth Bulk Crate"
+	desc = "Noone really wants to order beef broth so were selling it in bulk!"
+	cost = 3300
+	contraband = TRUE
+	crate_type = /obj/structure/closet/crate
+	contains = list(/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					)
+	crate_name = "grilling fuel kit crate"
 //////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// Livestock /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
