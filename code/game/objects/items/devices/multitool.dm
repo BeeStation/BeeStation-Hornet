@@ -34,7 +34,7 @@
 	RegisterSignal(src, COMSIG_PARENT_EXAMINE, .proc/on_examine)
 	return ..()
 
-/obj/item/multitoo/Destroy()
+/obj/item/multitool/Destroy()
 	UnregisterSignal(src, COMSIG_PARENT_EXAMINE)
 
 /obj/item/multitool/suicide_act(mob/living/carbon/user)
