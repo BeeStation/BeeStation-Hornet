@@ -2354,6 +2354,6 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "WHO THOUGHT THIS WAS A GOOD IDEA??"
 
 /datum/reagent/consumable/ethanol/beeffizz/on_mob_metabolize(mob/living/M)
-		to_chat(M, "<span class='warning'>That drink was horrible! You feel sick.</span>")
+	to_chat(M, "<span class='warning'>That drink was horrible! You feel sick.</span>")
 	M.adjust_disgust(50)
 	. = ..()
