@@ -109,7 +109,8 @@
 	// MOVEMENT
 	//===================================
 	//Move the gravitational body.
-	position.Add(velocity.Scale(ORBITAL_UPDATE_RATE_SECONDS * velocity_multiplier))
+	var/datum/orbital_vector/vel_new = new(velocity.x * ORBITAL_UPDATE_RATE_SECONDS * velocity_multiplier, velocity.y * ORBITAL_UPDATE_RATE_SECONDS * velocity_multiplier)
+	position.Add(vel_new)
 
 	//===================================
 	// COLLISION CHECKING
