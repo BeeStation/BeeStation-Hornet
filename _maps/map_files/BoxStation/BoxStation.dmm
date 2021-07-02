@@ -60421,6 +60421,10 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
+"uRv" = (
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "uRR" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -116454,7 +116458,7 @@ aaa
 aaa
 aaa
 nMn
-bxt
+uRv
 fBc
 pHk
 qoQ

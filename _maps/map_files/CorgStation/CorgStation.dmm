@@ -4193,15 +4193,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
-"aQu" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/science/shuttledock)
 "aQv" = (
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
@@ -21839,6 +21830,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"fOd" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plasteel,
+/area/science/shuttledock)
 "fOs" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -49134,13 +49132,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"nmy" = (
-/obj/effect/landmark/start/exploration,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/science/shuttledock)
 "nne" = (
 /obj/machinery/door/airlock/external{
 	name = "Exploration Shuttle Bay"
@@ -67295,6 +67286,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
+"syX" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+	dir = 1
+	},
+/obj/effect/landmark/start/exploration,
+/turf/open/floor/plasteel,
+/area/science/shuttledock)
 "szd" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -112249,7 +112250,7 @@ anT
 kWB
 eDS
 iWk
-aQu
+syX
 aUF
 aCr
 kWB
@@ -112506,7 +112507,7 @@ aMT
 kWB
 sbD
 cHl
-nmy
+fOd
 tMa
 mUW
 kWB

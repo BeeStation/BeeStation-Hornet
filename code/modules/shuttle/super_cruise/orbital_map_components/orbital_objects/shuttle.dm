@@ -15,6 +15,9 @@
 	var/desired_vel_x = 0
 	var/desired_vel_y = 0
 
+	//They go faster
+	velocity_multiplier = 3
+
 	//The computer controlling us.
 	var/controlling_computer = null
 
@@ -98,7 +101,7 @@
 
 	//Adjust our speed to target to point towards it.
 	var/datum/orbital_vector/desired_velocity = new(next_position.x - position.x, next_position.y - position.y)
-	var/desired_speed = max(distance_to_target * 0.02, 10)
+	var/desired_speed = distance_to_target * 0.02 + 10
 	desired_velocity.Normalize()
 	desired_velocity.Scale(desired_speed)
 

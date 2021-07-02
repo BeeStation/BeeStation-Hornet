@@ -86432,6 +86432,10 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
+"sIl" = (
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "sIA" = (
 /obj/machinery/door/airlock/external{
 	name = "Transport Airlock"
@@ -126807,7 +126811,7 @@ jah
 dQV
 ovj
 mjJ
-dQI
+sIl
 owf
 rAt
 svZ

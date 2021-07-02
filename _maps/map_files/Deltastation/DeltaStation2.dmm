@@ -126766,6 +126766,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/aft)
+"uVs" = (
+/obj/effect/turf_decal/tile/purple,
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "uXL" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -153127,7 +153132,7 @@ vfl
 vfl
 xcs
 pza
-wNF
+uVs
 piD
 aaa
 aaa

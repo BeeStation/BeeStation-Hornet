@@ -25,6 +25,27 @@
 "d" = (
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"e" = (
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/obj/machinery/button/door{
+	desc = "A remote control switch.";
+	id = "exploration";
+	name = "Exploration Shuttle Shutters";
+	normaldoorcontrol = 0;
+	pixel_x = 0;
+	pixel_y = 24
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "f" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
@@ -37,6 +58,15 @@
 "h" = (
 /obj/machinery/telecomms/hub/preset/exploration,
 /obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"i" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "j" = (
@@ -69,23 +99,12 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"q" = (
-/obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "r" = (
-/obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -146,6 +165,19 @@
 "z" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
+"A" = (
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "B" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -195,6 +227,19 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"K" = (
+/obj/structure/fans/tiny,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "exploration"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "L" = (
 /obj/machinery/telecomms/processor/preset_exploration,
 /obj/effect/turf_decal/delivery,
@@ -238,11 +283,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"T" = (
-/obj/structure/closet/emcloset/anchored,
-/obj/machinery/advanced_airlock_controller/directional/east,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "U" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
@@ -267,6 +307,14 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"Z" = (
+/obj/structure/closet/emcloset/anchored,
+/obj/machinery/advanced_airlock_controller/directional/east,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 
 (1,1,1) = {"
 l
@@ -277,8 +325,8 @@ Q
 t
 s
 H
-q
-r
+e
+K
 Q
 I
 l
@@ -288,7 +336,7 @@ R
 R
 D
 z
-T
+Z
 c
 y
 f
@@ -348,11 +396,11 @@ R
 R
 F
 z
+i
 X
-X
-X
+i
 z
-V
+r
 O
 j
 I
@@ -367,8 +415,8 @@ Q
 R
 Q
 z
-q
-q
+e
+A
 Q
 I
 l

@@ -102,8 +102,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			"name" = object.name,
 			"position_x" = object.position.x,
 			"position_y" = object.position.y,
-			"velocity_x" = object.velocity.x,
-			"velocity_y" = object.velocity.y,
+			"velocity_x" = object.velocity.x * object.velocity_multiplier,
+			"velocity_y" = object.velocity.y * object.velocity_multiplier,
 			"radius" = object.radius
 		))
 	if(!SSshuttle.getShuttle(shuttleId))
