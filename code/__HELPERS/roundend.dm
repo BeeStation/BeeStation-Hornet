@@ -150,8 +150,6 @@
 							SSmedals.UnlockMedal(MEDAL_GREEN_NUCLEAR,C)
 						if (/datum/antagonist/teratoma)
 							SSmedals.UnlockMedal(MEDAL_GREEN_TERATOMA,C)
-						if (/datum/antagonist/ert)
-							SSmedals.UnlockMedal(MEDAL_GREEN_ERT,C)
 						if (/datum/antagonist/nightmare)
 							SSmedals.UnlockMedal(MEDAL_GREEN_NIGHTMARE,C)
 						if (/datum/antagonist/revenant)

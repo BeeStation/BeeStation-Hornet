@@ -58,7 +58,6 @@
 #define MEDAL_GREEN_INCURSION "Greentext: Incursion"
 #define MEDAL_GREEN_NUCLEAR "Greentext: Nuclear Operative"
 #define MEDAL_GREEN_TERATOMA "Greentext: Teratoma"
-#define MEDAL_GREEN_ERT "Greentext: Emergency Response Team"
 #define MEDAL_GREEN_NIGHTMARE "Greentext: Nightmare"
 #define MEDAL_GREEN_REVENANT "Greentext: Revenant"
 #define MEDAL_GREEN_REVHEAD "Greentext: Head Revolutionary"
