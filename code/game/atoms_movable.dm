@@ -337,11 +337,11 @@
 
 	if(new_locs) // Same here, only if multi-tile.
 		for(var/atom/entered_loc as anything in (new_locs - old_locs))
-			entered_loc.Entered(src, direction)
+			entered_loc.Entered(src, oldloc, old_locs)
 	else
-		newloc.Entered(src, direction)
+		newloc.Entered(src, oldloc, old_locs)
 	if(oldarea != newarea)
-		newarea.Entered(src, direction)
+		newarea.Entered(src, oldarea)
 
 	Moved(oldloc, direction)
 
@@ -576,7 +576,7 @@
 				onTransitZ(old_z, dest_z)
 			destination.Entered(src, oldloc)
 			if(destarea && old_area != destarea)
-				destarea.Entered(src, oldloc)
+				destarea.Entered(src, old_area)
 
 		. = TRUE
 

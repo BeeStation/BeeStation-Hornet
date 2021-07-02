@@ -21,7 +21,7 @@
 	else
 		RegisterSignal(get_turf(parent), COMSIG_ATOM_ENTERED, .proc/on_entered)
 
-/datum/component/caltrop/proc/on_entered(datum/source, atom/movable/arrived, direction)
+/datum/component/caltrop/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	var/atom/A = parent

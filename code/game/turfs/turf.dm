@@ -72,8 +72,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		queue_smooth(src)
 	visibilityChanged()
 
-	for(var/atom/movable/AM in src)
-		Entered(AM)
+	for(var/atom/movable/content as anything in src)
+		Entered(content, null)
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
@@ -281,7 +281,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
 		reconsider_lights()
 
-/turf/open/Entered(atom/movable/arrived, direction)
+/turf/open/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	..()
 	//melting
 	if(isobj(arrived) && air && air.return_temperature() > T0C)

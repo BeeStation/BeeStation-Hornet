@@ -221,7 +221,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     explosion_block = INFINITY
     var/obj/item/hilbertshotel/parentSphere
 
-/turf/open/space/bluespace/Entered(atom/movable/arrived, direction)
+/turf/open/space/bluespace/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
     . = ..()
     arrived.forceMove(get_turf(parentSphere))
     do_sparks(3, FALSE, get_turf(arrived))
@@ -327,7 +327,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     else
         return ..(T)
 
-/area/hilbertshotel/Entered(atom/movable/arrived, direction)
+/area/hilbertshotel/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
     . = ..()
     if(istype(arrived, /obj/item/hilbertshotel))
         relocate(arrived)
@@ -406,7 +406,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     var/roomNumber
     var/obj/item/hilbertshotel/parentSphere
 
-/obj/item/abstracthotelstorage/Entered(atom/movable/arrived, direction)
+/obj/item/abstracthotelstorage/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
     . = ..()
     if(ismob(arrived))
         var/mob/M = arrived

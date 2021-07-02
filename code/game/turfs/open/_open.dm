@@ -63,7 +63,7 @@
 	heavyfootstep = null
 	var/sound
 
-/turf/open/indestructible/sound/Entered(atom/movable/arrived, direction)
+/turf/open/indestructible/sound/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 
 	if(istype(arrived) && !(arrived.movement_type & (FLYING|FLOATING)))

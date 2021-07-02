@@ -80,7 +80,7 @@
 	. = ..()
 	countEggs()
 
-/obj/item/storage/bag/easterbasket/Entered(atom/movable/arrived, direction)
+/obj/item/storage/bag/easterbasket/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	countEggs()
 

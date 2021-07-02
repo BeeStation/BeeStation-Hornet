@@ -22,7 +22,7 @@
 
 	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/Slip)
 
-/datum/component/slippery/proc/Slip(datum/source, atom/movable/arrived, direction)
+/datum/component/slippery/proc/Slip(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(!isliving(arrived))

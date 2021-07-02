@@ -231,7 +231,7 @@
 				T.to_be_destroyed = FALSE
 				T.max_fire_temperature_sustained = 0
 
-/obj/effect/hotspot/proc/on_entered(datum/source, atom/movable/arrived, direction)
+/obj/effect/hotspot/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	if(isliving(arrived))

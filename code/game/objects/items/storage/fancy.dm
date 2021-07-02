@@ -53,7 +53,7 @@
 	fancy_open = TRUE
 	update_icon()
 
-/obj/item/storage/fancy/Entered(atom/movable/arrived, direction)
+/obj/item/storage/fancy/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	fancy_open = TRUE
 	update_icon()

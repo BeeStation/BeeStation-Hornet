@@ -578,9 +578,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   *
   * If the area has ambience, then it plays some ambience music to the ambience channel
   */
-/area/Entered(atom/movable/arrived, direction)
+/area/Entered(atom/movable/arrived, area/old_area)
 	set waitfor = FALSE
-	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, direction)
+	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
 	SEND_SIGNAL(arrived, COMSIG_ENTER_AREA, src) //The atom that enters the area
 
 /**
