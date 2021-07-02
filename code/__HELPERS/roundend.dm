@@ -132,7 +132,6 @@
 					switch(A.type)
 						if (/datum/antagonist/traitor)
 							SSmedals.UnlockMedal(MEDAL_GREEN_TRAITOR,C)
-							message_admins(C)
 						if (/datum/antagonist/brother)
 							SSmedals.UnlockMedal(MEDAL_GREEN_BLOODBRO,C)
 						if (/datum/antagonist/traitor/internal_affairs)
