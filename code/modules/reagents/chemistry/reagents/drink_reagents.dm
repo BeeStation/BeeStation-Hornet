@@ -879,7 +879,7 @@
 
 /datum/reagent/consumable/beefbroth
 	name = "Beef Broth"
-	color = "color = "#100800" // rgb: 16, 8, 0 , just like cola
+	color = "#100800" // rgb: 16, 8, 0 , just like cola
 	taste_description = "Pure Beef Essence"
 	glass_icon_state  = "glass_brown"
 	glass_name = "glass of Space Cola?"
