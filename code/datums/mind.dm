@@ -92,7 +92,7 @@
 	return ..()
 
 /datum/mind/proc/set_current(mob/new_current)
-	if(new_current && QDELETED(new_current))
+	if(new_current && QDELING(new_current))
 		CRASH("Tried to set a mind's current var to a qdeleted mob, what the fuck")
 	if(current)
 		UnregisterSignal(src, COMSIG_PARENT_QDELETING)
