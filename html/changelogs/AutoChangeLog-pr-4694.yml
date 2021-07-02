@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - bugfix: You can no longer eat thru the miner gas mask
