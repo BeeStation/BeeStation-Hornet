@@ -777,8 +777,7 @@
 	move_to_delay = 20
 	ranged_cooldown = 300
 	ranged_cooldown_time = 300
-	sleep(30)
-	explosion(src.loc,0,3,4,flame_range = 2)
+	INVOKE_ASYNC(src, .proc/explosion, src.loc, 0, 3, 4, null, null, FALSE, 2)
 	..()
 
 //GUNS//
