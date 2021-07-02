@@ -1,0 +1,4 @@
+author: MCterra10
+delete-after: true
+changes:
+  - bugfix: lumi eyes can be turned off again
