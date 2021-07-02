@@ -35,7 +35,7 @@
 				death_caring = FALSE
 		else if(is_station_level(mob_to_recover.z))
 			complete_objective()
-		if(death_caring && QDELETED(tracked_diary))
+		if(!death_caring && QDELETED(tracked_diary))
 			return TRUE
 	return FALSE
 
@@ -45,7 +45,7 @@
 	created_human.set_playable()
 	created_human.mind_initialize()
 	//Remove nearby dangers
-	for(var/mob/living/simple_animal/hostile/SA in view(10, created_human))
+	for(var/mob/living/simple_animal/hostile/SA in range(10, created_human))
 		qdel(SA)
 	//Give them a space worthy suit
 	var/turf/open/T = locate() in shuffle(view(1, created_human))

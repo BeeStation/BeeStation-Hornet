@@ -55,6 +55,9 @@ SUBSYSTEM_DEF(zclear)
 	//Check for shuttles
 	for(var/obj/docking_port/mobile/M in SSshuttle.mobile)
 		active_levels["[M.z]"] = TRUE
+		//Check shuttle destination
+		if(M.destination)
+			active_levels["[M.destination.z]"] = TRUE
 	//Check for shuttles docking
 	for(var/port_id in SSorbits.assoc_shuttles)
 		var/datum/orbital_object/shuttle/shuttle = SSorbits.assoc_shuttles[port_id]
