@@ -13,7 +13,7 @@
 /obj/item/shell/screwdriver_act(mob/living/user, obj/item/tool)
 	user.visible_message("<span class='notice'>[user] begins finishing [src].</span>", "<span class='notice'>You begin finishing [src].</span>")
 	tool.play_tool_sound(src)
-	if(!do_after(user, screw_delay, src))
+	if(!do_after(user, screw_delay, target = src))
 		return
 	user.visible_message("<span class='notice'>[user] finishes [src].</span>", "<span class='notice'>You finish [src].</span>")
 
