@@ -55,6 +55,7 @@
 		return
 	telemetry_connections = payload["connections"]
 	var/len = length(telemetry_connections)
+	var/len_noip = 0
 	if(len == 0)
 		return
 	if(len > TGUI_TELEMETRY_MAX_CONNECTIONS)
@@ -87,6 +88,7 @@
 				LAZYADD(telemetry_notices, "<span class='highlight'>Telemetry Entry [i] has no address. User may be a developer.</span>")
 				LAZYADD(all_ckeys, row["ckey"])
 				LAZYADD(all_cids, row["computer_id"])
+				len_noip = len_noip + 1
 				continue
 			LAZYADD(telemetry_notices, "<span class='highlight'>Telemetry Entry [i] corrupt. Data may be damaged or tampered with.</span>")
 			skipped_entries++
@@ -121,7 +123,7 @@
 				LAZYADD(telemetry_notices, "<span class='bad'>User has multiple CKEYs in history!</span>")
 	switch(length(all_ips))
 		if(2 to INFINITY)
-			if(length(all_ips) == len)
+			if(length(all_ips) == (len - len_noip)) //we substract the amount of localhost entries so they won't influence the list size so no 127.0.0.1 placeholder is needed
 				LAZYADD(telemetry_notices, "<span class='bad'><b>EVERY ENTRY IN HISTORY HAS A DIFFERENT IP!</b></span>")
 			else
 				LAZYADD(telemetry_notices, "<span class='average'>User has changed IPs at least once in history.</span>")
