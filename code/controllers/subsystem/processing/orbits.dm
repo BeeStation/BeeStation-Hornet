@@ -1,6 +1,6 @@
 PROCESSING_SUBSYSTEM_DEF(orbits)
 	name = "Orbits"
-	flags = SS_KEEP_TIMING | SS_NO_INIT
+	flags = SS_KEEP_TIMING
 	//init_order = INIT_ORDER_ORBITS
 	priority = FIRE_PRIORITY_ORBITS
 	wait = ORBITAL_UPDATE_RATE
@@ -18,11 +18,32 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/datum/orbital_objective/current_objective
 
+	var/list/datum/ruin_event/ruin_events = list()
+
+	var/list/runnable_events
+
+	var/event_probability = 60
+
 	//key = port_id
 	//value = orbital shuttle object
 	var/list/assoc_shuttles = list()
 
 	var/next_objective_time = 0
+
+/datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
+	. = ..()
+	setup_event_list()
+
+/datum/controller/subsystem/processing/orbits/proc/setup_event_list()
+	runnable_events = list()
+	for(var/ruin_event in subtypesof(/datum/ruin_event))
+		var/datum/ruin_event/instanced = new ruin_event()
+		runnable_events[instanced] = instanced.probability
+
+/datum/controller/subsystem/processing/orbits/proc/get_event()
+	if(!event_probability)
+		return null
+	return pickweight(runnable_events)
 
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
 	orbital_map.post_setup()
@@ -41,6 +62,10 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		if(current_objective.check_failed())
 			priority_announce("Central Command priority objective failed.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 			QDEL_NULL(current_objective)
+	//Process events
+	for(var/datum/ruin_event/ruin_event as() in ruin_events)
+		if(!ruin_event.update())
+			ruin_events.Remove(ruin_event)
 	//Do processing.
 	. = ..()
 

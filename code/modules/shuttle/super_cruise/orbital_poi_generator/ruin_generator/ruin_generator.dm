@@ -16,7 +16,7 @@
  * however if a room attachment point is not past the border, the room it generates on that attachment point
  * can go past the border. No attachment points can be generated past the border.
  */
-/proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration)
+/proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
 
 	SSair.pause_z(center_z)
 
@@ -48,6 +48,8 @@
 
 	for(var/datum/map_template/ruin_part/ruinpart as() in GLOB.loaded_ruin_parts)
 		valid_ruin_parts[ruinpart] = ruinpart.max_occurances
+
+	ruin_event?.pre_spawn(center_z)
 
 	//Generate ruins.
 	while(length(hallway_connections) || length(room_connections))
@@ -553,6 +555,12 @@
 		var/split_loc = splittext(objective_turf, "_")
 		M.forceMove(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
 	SSzclear.nullspaced_mobs.Cut()
+
+	ruin_event?.post_spawn(floor_turfs, center_z)
+
+	//Start running event
+	if(ruin_event)
+		SSorbits.ruin_events += ruin_event
 
 	SSair.unpause_z(center_z)
 

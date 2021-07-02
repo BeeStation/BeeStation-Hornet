@@ -3,10 +3,18 @@
 	mass = 0
 	radius = 30
 	can_dock_anywhere = TRUE
+	//The attached event
+	var/datum/ruin_event/ruin_event
 
 /datum/orbital_object/z_linked/beacon/New()
 	. = ..()
-	name = "[initial(name)] #[rand(1, 9)][SSorbits.orbital_map.bodies.len][rand(1, 9)]"
+	ruin_event = SSorbits.get_event()
+	if(ruin_event?.warning_message)
+		name = "[initial(name)] #[rand(1, 9)][SSorbits.orbital_map.bodies.len][rand(1, 9)] ([ruin_event.warning_message])"
+	else
+		name = "[initial(name)] #[rand(1, 9)][SSorbits.orbital_map.bodies.len][rand(1, 9)]"
+	//Link the ruin event to ourselves
+	ruin_event.linked_z = src
 
 /datum/orbital_object/z_linked/beacon/post_map_setup()
 	//Orbit around the systems sun

@@ -46,6 +46,22 @@
 			if(M.client.prefs.toggles & SOUND_ANNOUNCEMENTS)
 				SEND_SOUND(M, s)
 
+/proc/exploration_announce(text, z_value)
+	var/announcement = "<meta charset='UTF-8'>"
+	announcement += "<h1 class='alert'>[command_name()] Update</h1>"
+	announcement += "<br><span class='alert'>[html_encode(text)]</span><br>"
+	announcement += "<br>"
+
+	for(var/mob/M in GLOB.player_list)
+		if(isliving(M))
+			var/turf/T = get_turf(M)
+			if(istype(get_area(M), /area/shuttle/exploration) || T.z == z_value)
+				to_chat(M, announcement)
+		if(isobserver(M))
+			to_chat(M, announcement)
+
+	print_command_report(text, "Exploration Update")
+
 /proc/print_command_report(text = "", title = null, announce=TRUE)
 	if(!title)
 		title = "Classified [command_name()] Update"
