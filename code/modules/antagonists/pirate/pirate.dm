@@ -37,6 +37,9 @@
 		objectives |= crew.objectives
 	. = ..()
 
+/datum/antagonist/pirate/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_PIRATE,GLOB.directory[ckey(owner.key)])
+
 /datum/team/pirate
 	name = "Pirate crew"
 

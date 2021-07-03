@@ -301,6 +301,9 @@
 
 	return ..()
 
+/datum/antagonist/rev/head/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_REVHEAD,GLOB.directory[ckey(owner.key)])
+
 /datum/team/revolution
 	name = "Revolution"
 	var/max_headrevs = 3

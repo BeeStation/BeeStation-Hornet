@@ -18,6 +18,9 @@
 	message_admins("[key_name_admin(admin)] has heresized [key_name_admin(new_owner)].")
 	log_admin("[key_name(admin)] has heresized [key_name(new_owner)].")
 
+/datum/antagonist/heretic/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_HERETIC,GLOB.directory[ckey(owner.key)])
+
 /datum/antagonist/heretic/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	to_chat(owner, "<span class='boldannounce'>You are the Heretic!</span><br>\

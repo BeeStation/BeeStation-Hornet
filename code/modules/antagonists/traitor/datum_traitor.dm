@@ -415,3 +415,6 @@
 
 /datum/antagonist/traitor/is_gamemode_hero()
 	return SSticker.mode.name == "traitor"
+
+/datum/antagonist/traitor/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_TRAITOR,GLOB.directory[ckey(owner.key)])

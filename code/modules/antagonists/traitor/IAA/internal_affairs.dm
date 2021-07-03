@@ -40,6 +40,8 @@
 /datum/antagonist/traitor/internal_affairs/process()
 	iaa_process()
 
+/datum/antagonist/internal_affairs/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_IAA,GLOB.directory[ckey(owner.key)])
 
 /datum/status_effect/agent_pinpointer
 	id = "agent_pinpointer"

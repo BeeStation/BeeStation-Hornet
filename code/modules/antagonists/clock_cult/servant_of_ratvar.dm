@@ -56,6 +56,9 @@
 	GLOB.cyborg_servants_of_ratvar -= owner
 	. = ..()
 
+/datum/antagonist/servant_of_ratvar/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_CLOCKCULT,GLOB.directory[ckey(owner.key)])
+
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
 	owner.current.faction |= "ratvar"

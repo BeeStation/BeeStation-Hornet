@@ -48,6 +48,9 @@
 /datum/antagonist/abductor/get_team()
 	return team
 
+/datum/antagonist/abductor/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_ABDUCTOR,GLOB.directory[ckey(owner.key)])
+
 /datum/antagonist/abductor/on_gain()
 	owner.special_role = "[name]"
 	owner.assigned_role = "[name]"

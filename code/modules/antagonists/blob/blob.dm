@@ -28,6 +28,9 @@
 			Expand and manage your resources carefully, the crew will know about your existence soon \
 			and will work together to destroy you.")
 
+/datum/antagonist/blob/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_BLOB,GLOB.directory[ckey(owner.key)])
+
 /datum/antagonist/blob/on_gain()
 	create_objectives()
 	. = ..()

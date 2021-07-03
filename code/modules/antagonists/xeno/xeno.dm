@@ -33,6 +33,9 @@
 /datum/antagonist/xeno/get_team()
 	return xeno_team
 
+/datum/antagonist/xeno/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_XENO,GLOB.directory[ckey(owner.key)])
+
 //XENO
 /mob/living/carbon/alien/mind_initialize()
 	..()

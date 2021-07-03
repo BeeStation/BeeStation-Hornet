@@ -54,6 +54,9 @@
 	to_chat(owner.current, "<B>Your designated meeting area:</B> [team.meeting_area]")
 	antag_memory += "<b>Meeting Area</b>: [team.meeting_area]<br>"
 
+/datum/antagonist/brother/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_BLOODBRO,GLOB.directory[ckey(owner.key)])
+
 /datum/antagonist/brother/greet()
 	var/brother_text = get_brother_names()
 	to_chat(owner.current, "<span class='alertsyndie'>You are the [owner.special_role] of [brother_text].</span>")

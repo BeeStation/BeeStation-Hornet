@@ -22,3 +22,6 @@
 /datum/antagonist/revenant/on_gain()
 	forge_objectives()
 	. = ..()
+
+/datum/antagonist/revenant/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_REVENANT,GLOB.directory[ckey(owner.key)])

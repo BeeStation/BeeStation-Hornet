@@ -106,6 +106,8 @@
 	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)
 
+/datum/antagonist/incursion/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_INCURSION,GLOB.directory[ckey(owner.key)])
 /datum/team/incursion
 	name = "syndicate incursion force"
 	member_name = "incursion member"
