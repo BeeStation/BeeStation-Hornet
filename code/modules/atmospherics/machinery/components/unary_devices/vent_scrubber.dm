@@ -19,7 +19,7 @@
 	var/id_tag = null
 	var/scrubbing = SCRUBBING //0 = siphoning, 1 = scrubbing
 
-	var/filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/bz)
+	var/filter_types = list(GAS_CO2, GAS_BZ)
 	var/volume_rate = 200
 	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
 	var/list/turf/adjacent_turfs = list()
@@ -293,10 +293,10 @@
 	icon_state = "scrub_map_on-3"
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/lavaland
-	filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/plasma, /datum/gas/water_vapor, /datum/gas/bz)
+	filter_types = list(GAS_CO2, GAS_PLASMA, GAS_H2O, GAS_BZ)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland
-	filter_types = list(/datum/gas/carbon_dioxide, /datum/gas/plasma, /datum/gas/water_vapor, /datum/gas/bz)
+	filter_types = list(GAS_CO2, GAS_PLASMA, GAS_H2O, GAS_BZ)
 
 #undef SIPHONING
 #undef SCRUBBING

@@ -379,15 +379,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		//calculating gas related values
 		combined_gas = max(removed.total_moles(), 0)
 
-		plasmacomp = max(removed.get_moles(/datum/gas/plasma)/combined_gas, 0)
-		o2comp = max(removed.get_moles(/datum/gas/oxygen)/combined_gas, 0)
-		co2comp = max(removed.get_moles(/datum/gas/carbon_dioxide)/combined_gas, 0)
-		pluoxiumcomp = max(removed.get_moles(/datum/gas/pluoxium)/combined_gas, 0)
-		tritiumcomp = max(removed.get_moles(/datum/gas/tritium)/combined_gas, 0)
-		bzcomp = max(removed.get_moles(/datum/gas/bz)/combined_gas, 0)
+		plasmacomp = max(removed.get_moles(GAS_PLASMA)/combined_gas, 0)
+		o2comp = max(removed.get_moles(GAS_O2)/combined_gas, 0)
+		co2comp = max(removed.get_moles(GAS_CO2)/combined_gas, 0)
+		pluoxiumcomp = max(removed.get_moles(GAS_PLUOXIUM)/combined_gas, 0)
+		tritiumcomp = max(removed.get_moles(GAS_TRITIUM)/combined_gas, 0)
+		bzcomp = max(removed.get_moles(GAS_BZ)/combined_gas, 0)
 
-		n2ocomp = max(removed.get_moles(/datum/gas/nitrous_oxide)/combined_gas, 0)
-		n2comp = max(removed.get_moles(/datum/gas/nitrogen)/combined_gas, 0)
+		n2ocomp = max(removed.get_moles(GAS_NO2)/combined_gas, 0)
+		n2comp = max(removed.get_moles(GAS_N2)/combined_gas, 0)
 
 		if(pluoxiumcomp >= 15)
 			pluoxiumbonus = 1	//Just to be safe I don't want to remove pluoxium
@@ -447,9 +447,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		removed.set_temperature(max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
 
 		//Calculate how much gas to release
-		removed.adjust_moles(/datum/gas/plasma, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
+		removed.adjust_moles(GAS_PLASMA, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
 
-		removed.adjust_moles(/datum/gas/oxygen, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
+		removed.adjust_moles(GAS_O2, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
 
 		if(produces_gas)
 			env.merge(removed)

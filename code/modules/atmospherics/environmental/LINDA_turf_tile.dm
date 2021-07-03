@@ -184,7 +184,7 @@
 	for (var/gastype in subtypesof(/datum/gas))
 		var/datum/gas/gasvar = gastype
 		if (!initial(gasvar.gas_overlay))
-			.[gastype] = TRUE
+			.[initial(gasvar.id)] = TRUE
 
 /////////////////////////////SIMULATION///////////////////////////////////
 

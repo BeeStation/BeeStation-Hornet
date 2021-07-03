@@ -178,9 +178,9 @@
 	var/oxygen_used = 0
 	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.return_temperature())/BREATH_VOLUME
 
-	var/O2_partialpressure = (breath.get_moles(/datum/gas/oxygen)/breath.total_moles())*breath_pressure
-	var/Toxins_partialpressure = (breath.get_moles(/datum/gas/plasma)/breath.total_moles())*breath_pressure
-	var/CO2_partialpressure = (breath.get_moles(/datum/gas/carbon_dioxide)/breath.total_moles())*breath_pressure
+	var/O2_partialpressure = (breath.get_moles(GAS_O2)/breath.total_moles())*breath_pressure
+	var/Toxins_partialpressure = (breath.get_moles(GAS_PLASMA)/breath.total_moles())*breath_pressure
+	var/CO2_partialpressure = (breath.get_moles(GAS_CO2)/breath.total_moles())*breath_pressure
 
 
 	//OXYGEN
@@ -191,7 +191,7 @@
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
 			adjustOxyLoss(min(5*ratio, 3))
 			failed_last_breath = 1
-			oxygen_used = breath.get_moles(/datum/gas/oxygen)*ratio
+			oxygen_used = breath.get_moles(GAS_O2)*ratio
 		else
 			adjustOxyLoss(3)
 			failed_last_breath = 1
@@ -201,11 +201,11 @@
 		failed_last_breath = 0
 		if(health >= crit_threshold)
 			adjustOxyLoss(-5)
-		oxygen_used = breath.get_moles(/datum/gas/oxygen)
+		oxygen_used = breath.get_moles(GAS_O2)
 		clear_alert("not_enough_oxy")
 
-	breath.adjust_moles(/datum/gas/oxygen, -oxygen_used)
-	breath.adjust_moles(/datum/gas/carbon_dioxide, oxygen_used)
+	breath.adjust_moles(GAS_O2, -oxygen_used)
+	breath.adjust_moles(GAS_CO2, oxygen_used)
 
 	//CARBON DIOXIDE
 	if(CO2_partialpressure > safe_co2_max)
@@ -224,15 +224,15 @@
 
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
-		var/ratio = (breath.get_moles(/datum/gas/plasma)/safe_tox_max) * 10
+		var/ratio = (breath.get_moles(GAS_PLASMA)/safe_tox_max) * 10
 		adjustToxLoss(CLAMP(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 
 	//NITROUS OXIDE
-	if(breath.get_moles(/datum/gas/nitrous_oxide))
-		var/SA_partialpressure = (breath.get_moles(/datum/gas/nitrous_oxide)/breath.total_moles())*breath_pressure
+	if(breath.get_moles(GAS_NO2))
+		var/SA_partialpressure = (breath.get_moles(GAS_NO2)/breath.total_moles())*breath_pressure
 		if(SA_partialpressure > SA_para_min)
 			Unconscious(60)
 			if(SA_partialpressure > SA_sleep_min)
@@ -245,26 +245,26 @@
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "chemical_euphoria")
 
 	//BZ (Facepunch port of their Agent B)
-	if(breath.get_moles(/datum/gas/bz))
-		var/bz_partialpressure = (breath.get_moles(/datum/gas/bz)/breath.total_moles())*breath_pressure
+	if(breath.get_moles(GAS_BZ))
+		var/bz_partialpressure = (breath.get_moles(GAS_BZ)/breath.total_moles())*breath_pressure
 		if(bz_partialpressure > 1)
 			hallucination += 10
 		else if(bz_partialpressure > 0.01)
 			hallucination += 5
 
 	//TRITIUM
-	if(breath.get_moles(/datum/gas/tritium))
-		var/tritium_partialpressure = (breath.get_moles(/datum/gas/tritium)/breath.total_moles())*breath_pressure
+	if(breath.get_moles(GAS_TRITIUM))
+		var/tritium_partialpressure = (breath.get_moles(GAS_TRITIUM)/breath.total_moles())*breath_pressure
 		radiation += tritium_partialpressure/10
 
 	//NITRYL
-	if(breath.get_moles(/datum/gas/nitryl))
-		var/nitryl_partialpressure = (breath.get_moles(/datum/gas/nitryl)/breath.total_moles())*breath_pressure
+	if(breath.get_moles(GAS_NITRYL))
+		var/nitryl_partialpressure = (breath.get_moles(GAS_NITRYL)/breath.total_moles())*breath_pressure
 		adjustFireLoss(nitryl_partialpressure/4)
 
 	//MIASMA
-	if(breath.get_moles(/datum/gas/miasma))
-		var/miasma_partialpressure = (breath.get_moles(/datum/gas/miasma)/breath.total_moles())*breath_pressure
+	if(breath.get_moles(GAS_MIASMA))
+		var/miasma_partialpressure = (breath.get_moles(GAS_MIASMA)/breath.total_moles())*breath_pressure
 
 		if(prob(1 * miasma_partialpressure))
 			var/datum/disease/advance/miasma_disease = new /datum/disease/advance/random(2,3)

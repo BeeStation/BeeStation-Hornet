@@ -13,11 +13,11 @@
 	if(!air)
 		return
 
-	var/oxy = air.get_moles(/datum/gas/oxygen)
+	var/oxy = air.get_moles(GAS_O2)
 	if (oxy < 0.5)
 		return
-	var/tox = air.get_moles(/datum/gas/plasma)
-	var/trit = air.get_moles(/datum/gas/tritium)
+	var/tox = air.get_moles(GAS_PLASMA)
+	var/trit = air.get_moles(GAS_TRITIUM)
 	if(active_hotspot)
 		if(soh)
 			if(tox > 0.5 || trit > 0.5)
@@ -154,13 +154,13 @@
 	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
 		qdel(src)
 		return
-	if(!location.air || (INSUFFICIENT(/datum/gas/plasma) && INSUFFICIENT(/datum/gas/tritium)) || INSUFFICIENT(/datum/gas/oxygen))
+	if(!location.air || (INSUFFICIENT(GAS_PLASMA) && INSUFFICIENT(GAS_TRITIUM)) || INSUFFICIENT(GAS_O2))
 		qdel(src)
 		return
 
 	//Not enough to burn
 	// god damn it previous coder you made the INSUFFICIENT macro for a fucking reason why didn't you use it here smh
-	if((INSUFFICIENT(/datum/gas/plasma) && INSUFFICIENT(/datum/gas/tritium)) || INSUFFICIENT(/datum/gas/oxygen))
+	if((INSUFFICIENT(GAS_PLASMA) && INSUFFICIENT(GAS_TRITIUM)) || INSUFFICIENT(GAS_O2))
 		qdel(src)
 		return
 
