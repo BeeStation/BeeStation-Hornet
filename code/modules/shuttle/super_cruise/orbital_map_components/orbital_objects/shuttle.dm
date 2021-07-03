@@ -75,7 +75,7 @@
 		//If our docking target was deleted, null it to prevent docking interface etc.
 		docking_target = null
 	//I hate that I have to do this, but people keep flying them away.
-	if(position.x > 50000 || position.x < -50000 || position.y > 50000 || position.y < -50000)
+	if(position.x > 20000 || position.x < -20000 || position.y > 20000 || position.y < -20000)
 		priority_announce("Bluespace reality fracture detected, source: [name].")
 		position.x = rand(-2000, 2000)
 		position.y = rand(-2000, 2000)
