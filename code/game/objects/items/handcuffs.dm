@@ -261,7 +261,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
 	..()
-	if(ishuman(user) && user.is_conscious() && !user.restrained())
+	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
 		update_icon()
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
