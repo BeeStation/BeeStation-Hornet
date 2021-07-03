@@ -8741,7 +8741,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/item/gun/energy/ionrifle/carbine,
+/obj/item/gun/energy/ionrifle/carbine/pin,
 /turf/open/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "zz" = (
