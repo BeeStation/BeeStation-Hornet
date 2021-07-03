@@ -29,6 +29,7 @@ export const MESSAGE_TYPE_WARNING = 'warning';
 export const MESSAGE_TYPE_DEADCHAT = 'deadchat';
 export const MESSAGE_TYPE_OOC = 'ooc';
 export const MESSAGE_TYPE_ADMINPM = 'adminpm';
+export const MESSAGE_TYPE_MENTORPM = 'mentorpm';
 export const MESSAGE_TYPE_COMBAT = 'combat';
 export const MESSAGE_TYPE_ADMINCHAT = 'adminchat';
 export const MESSAGE_TYPE_MODCHAT = 'modchat';
@@ -57,8 +58,8 @@ export const MESSAGE_TYPES = [
   {
     type: MESSAGE_TYPE_RADIO,
     name: 'Radio',
-    description: 'All departments of radio messages',
-    selector: '.alert, .syndradio, .centradio, .airadio, .entradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .supradio, .srvradio, .expradio, .radio, .deptradio, .newscaster',
+    description: 'All departments of radio messages along with various antagonist private channels',
+    selector: '.alert, .syndradio, .centcomradio, .aiprivradio, .comradio, .secradio, .engradio, .medradio, .sciradio, .suppradio, .servradio, .expradio, .radio, .newscaster, .binarysay, .alien, .changeling, .abductor, .monkeyhive, .monkeylead, .drone, .holoparasite, .redteamradio, .blueteamradio, .narsie, .narsiesmall',
   },
   {
     type: MESSAGE_TYPE_INFO,
@@ -82,13 +83,19 @@ export const MESSAGE_TYPES = [
     type: MESSAGE_TYPE_OOC,
     name: 'OOC',
     description: 'The bluewall of global OOC messages',
-    selector: '.ooc, .adminooc',
+    selector: '.ooc, .looc, .adminooc',
   },
   {
     type: MESSAGE_TYPE_ADMINPM,
     name: 'Admin PMs',
     description: 'Messages to/from admins (adminhelp)',
     selector: '.pm, .adminhelp',
+  },
+  {
+    type: MESSAGE_TYPE_MENTORPM,
+    name: 'Mentor PMs',
+    description: 'Messages to/from mentors (mentorhelp)',
+    selector: '.mentorhelp, .mentorfrom, .mentorto',
   },
   {
     type: MESSAGE_TYPE_COMBAT,
@@ -99,7 +106,7 @@ export const MESSAGE_TYPES = [
   {
     type: MESSAGE_TYPE_UNKNOWN,
     name: 'Unsorted',
-    description: 'Everything we could not sort, always enabled',
+    description: 'Everything we could not sort',
   },
   // Admin stuff
   {
