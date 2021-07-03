@@ -140,21 +140,26 @@
 	icon_state = initial(icon_state)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/goosement(atom/movable/AM, OldLoc, Dir, Forced)
+	SIGNAL_HANDLER
+
 	if(stat == DEAD)
 		return
 	if(vomiting)
-		vomit() // its supposed to keep vomiting if you move
+		INVOKE_ASYNC(src, .proc/vomit) // its supposed to keep vomiting if you move
 		return
+	INVOKE_ASYNC(src, .proc/eat)
+	if(prob(vomitCoefficient * 0.2))
+		vomit_prestart(vomitTimeBonus + 25)
+		vomitCoefficient = 1
+		vomitTimeBonus = 0
+
+/mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/eat()
 	var/turf/currentTurf = get_turf(src)
 	while (currentTurf == get_turf(src))
 		var/obj/item/reagent_containers/food/tasty = locate() in currentTurf
 		if (tasty)
 			feed(tasty)
 		stoplag(2)
-	if(prob(vomitCoefficient * 0.2))
-		vomit_prestart(vomitTimeBonus + 25)
-		vomitCoefficient = 1
-		vomitTimeBonus = 0
 
 /datum/action/cooldown/vomit
 	name = "Vomit"

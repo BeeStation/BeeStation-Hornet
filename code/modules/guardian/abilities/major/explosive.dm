@@ -40,7 +40,7 @@
 		to_chat(guardian, "<span class='danger'><B>You must be manifested to create bombs!</B></span>")
 		return
 	if(isobj(A) && guardian.Adjacent(A))
-		if(bomb_cooldown <= world.time && guardian.is_conscious())
+		if(bomb_cooldown <= world.time && !guardian.stat)
 			to_chat(guardian, "<span class='danger'><B>Success! Bomb armed!</B></span>")
 			bomb_cooldown = world.time + 200
 			RegisterSignal(A, COMSIG_PARENT_EXAMINE, .proc/display_examine)
@@ -51,6 +51,8 @@
 			to_chat(guardian, "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</B></span>")
 
 /datum/guardian_ability/major/explosive/proc/kaboom(atom/source, mob/living/explodee)
+	SIGNAL_HANDLER
+
 	if(!istype(explodee))
 		return
 	if(explodee == guardian || explodee == guardian.summoner?.current || guardian.hasmatchingsummoner(explodee))
@@ -70,6 +72,8 @@
 	UNREGISTER_BOMB_SIGNALS(A)
 
 /datum/guardian_ability/major/explosive/proc/display_examine(datum/source, mob/user, text)
+	SIGNAL_HANDLER
+
 	text += "<span class='holoparasite'>It glows with a strange <font color=\"[guardian.guardiancolor]\">light</font>!</span>"
 
 
