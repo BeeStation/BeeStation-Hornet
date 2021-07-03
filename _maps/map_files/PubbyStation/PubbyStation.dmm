@@ -27627,13 +27627,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
-"bkn" = (
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Sci3";
-	location = "Sci2"
-	},
-/turf/open/floor/plasteel/white,
-/area/science/lab)
 "bko" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/purple{
@@ -28599,7 +28592,7 @@
 "bmH" = (
 /obj/machinery/holopad,
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Sci2";
+	codes_txt = "patrol;next_patrol=Med";
 	location = "Sci"
 	},
 /turf/open/floor/plasteel/white,
@@ -33317,9 +33310,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/junction/yjunction{
-	dir = 4
-	},
+/obj/structure/disposalpipe/junction/flip,
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "bxp" = (
@@ -35983,6 +35974,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
+/obj/machinery/holopad,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
 "bCG" = (
@@ -37212,8 +37204,8 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 1
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
@@ -39138,7 +39130,9 @@
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "bJL" = (
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "bJM" = (
@@ -50376,14 +50370,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"cqe" = (
-/obj/effect/turf_decal/plaque,
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Med";
-	location = "Sci9"
-	},
-/turf/open/floor/plasteel/white,
-/area/science/lab)
 "cqf" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
@@ -59431,8 +59417,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/disposalpipe/junction/yjunction{
-	dir = 1
+/obj/structure/disposalpipe/junction{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
@@ -101581,7 +101567,7 @@ biq
 bGa
 bkq
 blB
-bkn
+cqi
 bnM
 bsU
 bqd
@@ -101838,7 +101824,7 @@ bip
 bKM
 bkr
 blC
-cqe
+cqi
 bnN
 bIA
 xLe
