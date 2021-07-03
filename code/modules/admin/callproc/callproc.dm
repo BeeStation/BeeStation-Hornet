@@ -83,8 +83,6 @@ GLOBAL_VAR(LastAdminCalledTarget)
 GLOBAL_PROTECT(LastAdminCalledTarget)
 GLOBAL_VAR(LastAdminCalledProc)
 GLOBAL_PROTECT(LastAdminCalledProc)
-GLOBAL_LIST_EMPTY(AdminProcCallSpamPrevention)
-GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /proc/WrapAdminProcCall(datum/target, procname, list/arguments)
 	if(target && procname == "Del")
@@ -98,6 +96,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	var/ckey = usr ? usr.client.ckey : GLOB.AdminProcCaller
 	if(!ckey)
 		CRASH("WrapAdminProcCall with no ckey: [target] [procname] [english_list(arguments)]")
+
 	if(current_caller && current_caller != ckey)
 		to_chat(usr, "<span class='adminnotice'>Another set of admin called procs are still running. Try again later.</span>")
 		return

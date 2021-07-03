@@ -23,6 +23,8 @@
 	RegisterSignal(parent, COMSIG_ATOM_ENTERED, .proc/Slip)
 
 /datum/component/slippery/proc/Slip(datum/source, atom/movable/arrived, direction)
+	SIGNAL_HANDLER
+
 	if(!isliving(arrived))
 		return
 	var/mob/living/victim = arrived

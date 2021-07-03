@@ -26,6 +26,8 @@ All ShuttleMove procs go here
 		if(ismob(thing))
 			if(isliving(thing))
 				var/mob/living/M = thing
+				if(M.incorporeal_move)
+					return
 				if(M.buckled)
 					M.buckled.unbuckle_mob(M, 1)
 				if(M.pulledby)

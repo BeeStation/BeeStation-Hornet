@@ -180,7 +180,7 @@
 
 /datum/component/lockon_aiming/proc/can_target(atom/A)
 	var/mob/M = A
-	return is_type_in_typecache(A, target_typecache) && !(ismob(A) && mob_stat_check && !M.is_conscious()) && !immune_weakrefs[WEAKREF(A)]
+	return is_type_in_typecache(A, target_typecache) && !(ismob(A) && mob_stat_check && M.stat != CONSCIOUS) && !immune_weakrefs[WEAKREF(A)]
 
 /datum/component/lockon_aiming/proc/get_nearest(turf/T, list/typecache, amount, range)
 	current_ranging_id++

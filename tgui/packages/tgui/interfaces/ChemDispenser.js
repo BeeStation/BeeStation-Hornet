@@ -1,6 +1,5 @@
 import { toFixed } from 'common/math';
 import { toTitleCase } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { AnimatedNumber, Box, Button, Icon, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
@@ -27,7 +26,6 @@ export const ChemDispenser = (props, context) => {
     || [];
   return (
     <Window
-      resizable
       width={565}
       height={620}>
       <Window.Content scrollable>
@@ -51,7 +49,7 @@ export const ChemDispenser = (props, context) => {
         <Section
           title="Recipes"
           buttons={(
-            <Fragment>
+            <>
               {!recording && (
                 <Box inline mx={1}>
                   <Button
@@ -81,7 +79,7 @@ export const ChemDispenser = (props, context) => {
                   content="Save"
                   onClick={() => act('save_recording')} />
               )}
-            </Fragment>
+            </>
           )}>
           <Box mr={-1}>
             {recipes.map(recipe => (
@@ -156,12 +154,12 @@ export const ChemDispenser = (props, context) => {
                 && 'Virtual beaker'
                 || data.isBeakerLoaded
                   && (
-                    <Fragment>
+                    <>
                       <AnimatedNumber
                         initial={0}
                         value={data.beakerCurrentVolume} />
                       /{data.beakerMaxVolume} units
-                    </Fragment>
+                    </>
                   )
                 || 'No beaker'}
             </LabeledList.Item>
