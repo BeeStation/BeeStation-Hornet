@@ -5828,6 +5828,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 8
 	},
+/obj/machinery/anesthetic_machine,
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "bmi" = (
@@ -13248,6 +13249,14 @@
 "dsx" = (
 /turf/open/floor/plasteel/freezer,
 /area/medical/genetics)
+"dtC" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/bed/roller,
+/turf/open/floor/plasteel/white,
+/area/medical/medbay/central)
 "dtD" = (
 /obj/machinery/space_heater,
 /obj/machinery/requests_console{
@@ -24503,7 +24512,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "gEV" = (
-/obj/structure/chair,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -31860,11 +31868,14 @@
 "iAu" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/surgery,
-/obj/item/surgical_drapes,
 /obj/item/cautery{
 	pixel_x = 4
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/item/glove_box{
+	pixel_x = 1;
+	pixel_y = 3
+	},
 /turf/open/floor/plasteel/white/side{
 	dir = 6
 	},
@@ -35171,6 +35182,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/chair,
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
 "jxh" = (
@@ -38347,6 +38359,14 @@
 	},
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "kpI" = (
@@ -42379,6 +42399,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/structure/bed/roller,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "ltq" = (
@@ -42576,7 +42597,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "lwa" = (
-/obj/machinery/disposal/bin,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
@@ -42591,6 +42611,7 @@
 	pixel_x = 29;
 	pixel_y = -2
 	},
+/obj/structure/closet/secure_closet/medical3,
 /turf/open/floor/plasteel,
 /area/medical/storage)
 "lwe" = (
@@ -48086,6 +48107,14 @@
 	},
 /obj/effect/mapping_helpers/airlock/unres,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "ndm" = (
@@ -51050,6 +51079,9 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/item/surgical_drapes{
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/white/side,
 /area/medical/surgery)
 "nTj" = (
@@ -78193,9 +78225,6 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/item/scalpel,
-/obj/item/hemostat,
-/obj/item/surgical_drapes,
 /obj/machinery/requests_console{
 	department = "Medical Treatment";
 	pixel_x = -32
@@ -78206,6 +78235,12 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/item/cautery{
+	pixel_x = 4
+	},
+/obj/item/scalpel,
+/obj/item/hemostat,
+/obj/item/surgical_drapes,
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "vKq" = (
@@ -126775,7 +126810,7 @@ pss
 raQ
 ofY
 ofY
-jLX
+dtC
 vFZ
 gCw
 jbP
