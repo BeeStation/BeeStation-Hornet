@@ -362,20 +362,20 @@
 	desc = "An outdated helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment, still kept in use as replacement helmets."
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/security
-	name = "replacement security envirosuit helmet"
+	name = "security replacementenvirosuit helmet"
 	desc = "An outdated containment helmet designed for security officers."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75, "stamina" = 0)
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/medical
-	name = "medical's replacement envirosuit helmet"
+	name = "medical replacement envirosuit helmet"
 	desc = "An outdated envirohelmet designed for plasmaman medical doctors, having two stripes down it's length to denote as much."
 	icon_state = "doctor_envirohelm"
 	item_state = "doctor_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/genetics
-	name = "geneticist's replacement envirosuit helmet"
+	name = "geneticist replacement envirosuit helmet"
 	desc = "An outdated plasmaman envirohelmet designed for geneticists."
 	icon_state = "geneticist_envirohelm"
 	item_state = "geneticist_envirohelm"
@@ -405,14 +405,14 @@
 	item_state = "roboticist_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/engineering
-	name = "replacement engineering envirosuit helmet"
+	name = "engineering replacement envirosuit helmet"
 	desc = "A replacement helmet designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange."
 	item_state = "engineer_envirohelm"
 	icon_state = "engineer_envirohelm"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75, "stamina" = 0)
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/engineering/atmospherics
-	name = "replacement atmospherics envirosuit helmet"
+	name = "atmospherics replacement envirosuit helmet"
 	desc = "A space-worthy helmet specially designed for atmos technician plasmamen, the usual purple stripes being replaced by engineering's blue."
 	icon_state = "atmos_envirohelm"
 	item_state = "atmos_envirohelm"
@@ -431,7 +431,7 @@
 	visor_icon = "explorer_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/chaplain
-	name = "chaplain's replace envirosuit helmet"
+	name = "chaplain's replacement envirosuit helmet"
 	desc = "An outdated envirohelmet specially designed for only the most pious of plasmamen."
 	icon_state = "chap_envirohelm"
 	item_state = "chap_envirohelm"
