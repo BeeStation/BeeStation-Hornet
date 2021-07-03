@@ -81,6 +81,7 @@
 		position.y = rand(-2000, 2000)
 		velocity.x = 0
 		velocity.y = 0
+		thrust = 0
 	//AUTOPILOT
 	if(autopilot)
 		handle_autopilot()
