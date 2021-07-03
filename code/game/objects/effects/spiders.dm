@@ -216,7 +216,7 @@
 	to_chat(user, "<span class='notice'>You struggle against the tight bonds... (This will take about [DisplayTimeText(breakout_time)].)</span>")
 	visible_message("You see something struggling and writhing in \the [src]!")
 	if(do_after(user,(breakout_time), target = src))
-		if(!user || !user.is_conscious() || user.loc != src)
+		if(!user || user.stat != CONSCIOUS || user.loc != src)
 			return
 		qdel(src)
 

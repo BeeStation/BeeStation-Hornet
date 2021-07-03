@@ -467,6 +467,7 @@
 
 /obj/structure/closet/supplypod/proc/remove_glow()
 	SIGNAL_HANDLER
+
 	UnregisterSignal(glow_effect, COMSIG_PARENT_QDELETING)
 	glow_effect = null
 

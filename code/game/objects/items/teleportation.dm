@@ -42,7 +42,7 @@
 
 /obj/item/locator/Topic(href, href_list)
 	..()
-	if (!usr.is_conscious() || usr.restrained())
+	if (usr.stat || usr.restrained())
 		return
 	var/turf/current_location = get_turf(usr)//What turf is the user on?
 	if(!current_location || is_centcom_level(current_location.z))//If turf was not found or they're on CentCom

@@ -41,6 +41,7 @@
 			buckled_mob.client.view_size.resetToDefault()
 	anchored = FALSE
 	. = ..()
+	STOP_PROCESSING(SSfastprocess, src)
 	LAZYREMOVE(buckled_mob, src)
 
 /obj/machinery/manned_turret/user_buckle_mob(mob/living/M, mob/living/carbon/user)
@@ -66,11 +67,11 @@
 	anchored = TRUE
 	if(M.client)
 		M.client.view_size.setTo(view_range)
-	LAZYOR(M.mousemove_intercept_objects, src)
+	START_PROCESSING(SSfastprocess, src)
 
-/obj/machinery/manned_turret/onMouseMove(object, location, control, params)
-	. = ..()
-	update_positioning(object, params)
+/obj/machinery/manned_turret/process()
+	if (!update_positioning())
+		return PROCESS_KILL
 
 /obj/machinery/manned_turret/proc/update_positioning(mouseObject, params)
 	if (!LAZYLEN(buckled_mobs))
@@ -147,6 +148,7 @@
 /obj/machinery/manned_turret/proc/fire_helper(mob/user)
 	if(user.incapacitated() || !(user in buckled_mobs))
 		return
+	update_positioning()
 	var/turf/targets_from = get_turf(src)
 	if(QDELETED(target))
 		target = target_turf
