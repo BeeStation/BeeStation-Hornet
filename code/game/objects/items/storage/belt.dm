@@ -607,6 +607,7 @@
 		/obj/item/assembly/mousetrap,
 		/obj/item/paint/paint_remover,
 		/obj/item/pushbroom
+		/obj/item/storage/bag/trash
 		))
 
 /obj/item/storage/belt/janitor/full/PopulateContents()
