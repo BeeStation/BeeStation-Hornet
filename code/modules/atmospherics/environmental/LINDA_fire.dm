@@ -13,21 +13,19 @@
 	if(!air)
 		return
 
-	var/oxy = air.get_moles(GAS_O2)
-	if (oxy < 0.5)
+	if (air.get_oxidation_power(exposed_temperature) < 0.5)
 		return
-	var/tox = air.get_moles(GAS_PLASMA)
-	var/trit = air.get_moles(GAS_TRITIUM)
+	var/has_fuel = air.get_moles(GAS_PLASMA) > 0.5 || air.get_moles(GAS_TRITIUM) > 0.5 || air.get_fuel_amount(exposed_temperature) > 0.5
 	if(active_hotspot)
 		if(soh)
-			if(tox > 0.5 || trit > 0.5)
+			if(has_fuel)
 				if(active_hotspot.temperature < exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
 					active_hotspot.volume = exposed_volume
 		return
 
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && (tox > 0.5 || trit > 0.5))
+	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && has_fuel)
 		active_hotspot = new /obj/effect/hotspot(src, exposed_volume*25, exposed_temperature)
 
 //This is the icon for fire on turfs, also helps for nurturing small fires until they are full tile
@@ -154,13 +152,7 @@
 	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
 		qdel(src)
 		return
-	if(!location.air || (INSUFFICIENT(GAS_PLASMA) && INSUFFICIENT(GAS_TRITIUM)) || INSUFFICIENT(GAS_O2))
-		qdel(src)
-		return
-
-	//Not enough to burn
-	// god damn it previous coder you made the INSUFFICIENT macro for a fucking reason why didn't you use it here smh
-	if((INSUFFICIENT(GAS_PLASMA) && INSUFFICIENT(GAS_TRITIUM)) || INSUFFICIENT(GAS_O2))
+	if(!location.air || location.air.get_oxidation_power() < 0.5 || (INSUFFICIENT(GAS_PLASMA) && INSUFFICIENT(GAS_TRITIUM) && location.air.get_fuel_amount() < 0.5))
 		qdel(src)
 		return
 

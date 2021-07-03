@@ -128,7 +128,7 @@
 		location.temperature_expose(air, temperature, CELL_VOLUME)
 
 /proc/radiation_burn(turf/open/location, energy_released)
-	if(location && prob(10))
+	if(istype(location) && prob(10))
 		radiation_pulse(location, energy_released/TRITIUM_BURN_RADIOACTIVITY_FACTOR)
 
 /datum/gas_reaction/tritfire/react(datum/gas_mixture/air, datum/holder)

@@ -141,11 +141,12 @@
 				var/moles = breath.get_moles(gas)
 				var/multiplier = gases[gas]
 				mole_adjustments[gas] = (gas in mole_adjustments) ? mole_adjustments[gas] - moles : -moles
-				required_moles += moles
 				required_pp += PP_MOLES(moles) * multiplier
-				var/to_add = moles * multiplier
-				for(var/product in products)
-					mole_adjustments[product] = (product in mole_adjustments) ? mole_adjustments[product] + to_add : to_add
+				required_moles += moles
+				if(multiplier > 0)
+					var/to_add = moles * multiplier
+					for(var/product in products)
+						mole_adjustments[product] = (product in mole_adjustments) ? mole_adjustments[product] + to_add : to_add
 		else
 			required_moles = breath.get_moles(entry)
 			required_pp = PP_MOLES(required_moles)
@@ -156,7 +157,9 @@
 			mole_adjustments[entry] = -required_moles
 			mole_adjustments[breath_results[entry]] = required_moles
 		if(required_pp < safe_min)
-			var/multiplier = handle_too_little_breath(H, required_pp, safe_min, required_moles) / required_moles
+			var/multiplier = 0
+			if(required_moles > 0)
+				multiplier = handle_too_little_breath(H, required_pp, safe_min, required_moles) / required_moles
 			for(var/adjustment in mole_adjustments)
 				mole_adjustments[adjustment] *= multiplier
 			if(alert_category)
@@ -193,7 +196,7 @@
 		if(found_pp > gas_max[entry])
 			if(istype(danger_reagent))
 				H.reagents.add_reagent(danger_reagent,1)
-			var/list/damage_info = gas_damage[entry]
+			var/list/damage_info = (entry in gas_damage) ? gas_damage[entry] : gas_damage["default"]
 			var/dam = found_pp / gas_max[entry] * 10
 			H.apply_damage_type(clamp(dam, damage_info["min"], damage_info["max"]), damage_info["damage_type"])
 			if(alert_category && alert_type)

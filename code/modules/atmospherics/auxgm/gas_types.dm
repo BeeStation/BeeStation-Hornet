@@ -117,7 +117,7 @@
 	specific_heat = 80
 	name = "Pluoxium"
 	fusion_power = 10
-	oxidation_temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST + 100
+	oxidation_temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 1000 // it is VERY stable
 	oxidation_rate = 8
 
 /datum/gas/miasma

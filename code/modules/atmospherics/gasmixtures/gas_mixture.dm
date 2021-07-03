@@ -27,9 +27,12 @@ GLOBAL_LIST_INIT(auxtools_atmos_initialized, FALSE)
 	__gasmixture_register()
 	reaction_results = new
 
+/*
+we use a hook instead
 /datum/gas_mixture/Del()
 	__gasmixture_unregister()
 	. = ..()
+*/
 
 /datum/gas_mixture/vv_edit_var(var_name, var_value)
 	if(var_name == "_extools_pointer_gasmixture" || var_name == "gas_list_view_only")
@@ -150,6 +153,12 @@ GLOBAL_LIST_INIT(auxtools_atmos_initialized, FALSE)
 /datum/gas_mixture/proc/equalize_with(datum/gas_mixture/giver)
 	//Makes this mix have the same temperature and gas ratios as the giver, but with the same pressure, accounting for volume.
 	//Returns: null
+
+/datum/gas_mixture/proc/get_oxidation_power(temp)
+	//Gets how much oxidation this gas can do, optionally at a given temperature.
+
+/datum/gas_mixture/proc/get_fuel_amount(temp)
+	//Gets how much fuel for fires (not counting trit/plasma!) this gas has, optionally at a given temperature.
 
 /proc/equalize_all_gases_in_list(list/L)
 	//Makes every gas in the given list have the same pressure, temperature and gas proportions.

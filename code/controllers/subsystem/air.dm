@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(air)
 	var/log_explosive_decompression = TRUE // If things get spammy, admemes can turn this off.
 
 	// Max number of turfs equalization will grab.
-	var/equalize_turf_limit = 25
+	var/equalize_turf_limit = 10
 	// Max number of turfs to look for a space turf, and max number of turfs that will be decompressed.
 	var/equalize_hard_turf_limit = 2000
 	// Whether equalization should be enabled at all.
@@ -59,10 +59,8 @@ SUBSYSTEM_DEF(air)
 	var/heat_enabled = FALSE
 	// Max number of times process_turfs will share in a tick.
 	var/share_max_steps = 1
-	// If process_turfs finds no pressure differentials larger than this, it'll stop for that tick.
-	var/share_pressure_diff_to_stop = 101.325
 	// Excited group processing will try to equalize groups with total pressure difference less than this amount.
-	var/excited_group_pressure_goal = 1
+	var/excited_group_pressure_goal = 0.25
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
