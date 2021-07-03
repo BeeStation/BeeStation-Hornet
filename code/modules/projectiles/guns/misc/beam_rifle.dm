@@ -235,6 +235,8 @@
 		lastangle = angle
 
 /obj/item/gun/energy/beam_rifle/proc/on_mob_move()
+	SIGNAL_HANDLER
+
 	check_user()
 	if(aiming)
 		delay_penalty(aiming_time_increase_user_movement)

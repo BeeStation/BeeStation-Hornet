@@ -191,7 +191,7 @@
 
 	var/choice = input(M,"To what form do you wish to change this mask?","Morph Mask") in sortList(options)
 
-	if(src && choice && M.is_conscious() && in_range(M,src))
+	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
 		user.update_inv_wear_mask()
 		for(var/X in actions)

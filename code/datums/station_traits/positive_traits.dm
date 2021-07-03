@@ -96,6 +96,7 @@
 
 /datum/station_trait/scarves/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/M, joined_late)
 	SIGNAL_HANDLER
+
 	var/scarf_type = pick(scarves)
 
 	living_mob.equip_to_slot_or_del(new scarf_type(living_mob), ITEM_SLOT_NECK)
@@ -141,8 +142,7 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, .proc/on_job_after_spawn)
 
 /datum/station_trait/deathrattle_department/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/M, joined_late)
-	SIGNAL_HANDLER_DOES_SLEEP		//someone should replace those sleeps
-
+	SIGNAL_HANDLER
 	if(!(job.departments & department_to_apply_to))
 		return
 
@@ -209,7 +209,7 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, .proc/on_job_after_spawn)
 
 /datum/station_trait/deathrattle_all/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/M, joined_late)
-	SIGNAL_HANDLER_DOES_SLEEP		//someone should replace those sleeps
+	SIGNAL_HANDLER
 
 	var/obj/item/implant/deathrattle/implant_to_give = new()
 	deathrattle_group.register(implant_to_give)
