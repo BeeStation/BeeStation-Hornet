@@ -212,7 +212,7 @@
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/living/user)
-	if(!istype(user) || !user.is_conscious() || !Adjacent(user) || !Adjacent(A) || !isliving(A))
+	if(!istype(user) || user.stat || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	if(isliving(user))
 		var/mob/living/L = user
@@ -498,7 +498,7 @@
 			else
 				if(occupant)
 					var/mob/living/mob_occupant = occupant
-					to_chat(mob_occupant, "<span class='userdanger'>[src]'s confines grow warm, then hot, then scorching. You're being burned [mob_occupant.is_conscious() ? "alive" : "away"]!</span>")
+					to_chat(mob_occupant, "<span class='userdanger'>[src]'s confines grow warm, then hot, then scorching. You're being burned [!mob_occupant.stat ? "alive" : "away"]!</span>")
 				cook()
 				. = TRUE
 		if("dispense")

@@ -88,7 +88,7 @@ The console is located at computer/gulag_teleporter.dm
 
 
 /obj/machinery/gulag_teleporter/relaymove(mob/user)
-	if(!user.is_conscious())
+	if(user.stat != CONSCIOUS)
 		return
 	if(locked)
 		if(message_cooldown <= world.time)
@@ -107,7 +107,7 @@ The console is located at computer/gulag_teleporter.dm
 		"<span class='notice'>You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)</span>", \
 		"<span class='italics'>You hear a metallic creaking from [src].</span>")
 	if(do_after(user,(breakout_time), target = src))
-		if(!user || !user.is_conscious() || user.loc != src || state_open || !locked)
+		if(!user || user.stat != CONSCIOUS || user.loc != src || state_open || !locked)
 			return
 		locked = FALSE
 		user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \

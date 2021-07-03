@@ -85,7 +85,7 @@
 			"<span class='notice'>You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)</span>", \
 			"<span class='italics'>You hear a metallic creaking from [src].</span>")
 		if(do_after(user, breakout_time, target = src))
-			if(!user || !user.is_conscious() || user.loc != src || state_open)
+			if(!user || user.stat != CONSCIOUS || user.loc != src || state_open)
 				return
 			free_exit = TRUE
 			user.visible_message("<span class='warning'>[user] successfully broke out of [src]!</span>", \

@@ -40,7 +40,7 @@
 	var/A
 	A = input("Area to bombard", "Open Fire", A) in GLOB.teleportlocs
 	var/area/thearea = GLOB.teleportlocs[A]
-	if(!usr.is_conscious() || usr.restrained())
+	if(usr.stat || usr.restrained())
 		return
 	if(reload < reload_cooldown)
 		return

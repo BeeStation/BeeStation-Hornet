@@ -513,6 +513,8 @@
 
 /// Updates the icon of the atom
 /atom/proc/update_icon()
+	SIGNAL_HANDLER
+
 	// I expect we're going to need more return flags and options in this proc
 	var/signalOut = SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON)
 	if(!(signalOut & COMSIG_ATOM_NO_UPDATE_ICON_STATE))

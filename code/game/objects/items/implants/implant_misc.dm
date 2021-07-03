@@ -155,23 +155,16 @@
 /obj/item/implant/radio/syndicate/selfdestruct
 	name = "hacked internal radio implant"
 
-/obj/item/implant/radio/syndicate/selfdestruct/on_implanted(mob/living/user)
+/obj/item/implant/radio/syndicate/selfdestruct/on_implanted(mob/living/user, var/time = 50)
 	if(!user.mind.has_antag_datum(/datum/antagonist/incursion))
+		if(time <= 0)
+			explosion(src,0,0,2,2, flame_range = 2)
+			user.gib(1)
+			qdel(src)
 		user.visible_message("<span class='warning'>[imp_in] starts beeping ominously!</span>", "<span class='userdanger'>You have a sudden feeling of dread. The implant is rigged to explode!</span>")
 		playsound(user, 'sound/items/timer.ogg', 30, 0)
-		sleep(50)
-		playsound(user, 'sound/items/timer.ogg', 30, 0)
-		sleep(40)
-		playsound(user, 'sound/items/timer.ogg', 30, 0)
-		sleep(30)
-		playsound(user, 'sound/items/timer.ogg', 30, 0)
-		sleep(20)
-		playsound(user, 'sound/items/timer.ogg', 30, 0)
-		sleep(10)
-		playsound(user, 'sound/items/timer.ogg', 30, 0)
-		explosion(src,0,0,2,2, flame_range = 2)
-		user.gib(1)
-		qdel(src)
+		INVOKE_ASYNC(src, .proc/on_implanted, time - 10)
+
 
 /obj/item/implanter/radio
 	name = "implanter (internal radio)"

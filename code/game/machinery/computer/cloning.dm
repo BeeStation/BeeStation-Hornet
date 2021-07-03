@@ -86,7 +86,7 @@
 
 		var/result = grow_clone_from_record(pod, R)
 		if(result & CLONING_SUCCESS)
-			temp = "[R.fields["name"]] => <font class='good'>Cloning cycle in progress...</font>"
+			temp = "[R.fields["name"]] => Cloning cycle in progress..."
 			log_cloning("Cloning of [key_name(R.fields["mindref"])] automatically started via autoprocess - [src] at [AREACOORD(src)]. Pod: [pod] at [AREACOORD(pod)].")
 		if(result & CLONING_DELETE_RECORD)
 			records -= R
@@ -289,7 +289,7 @@
 	say("Initiating scan...")
 	var/prev_locked = scanner.locked
 	scanner.locked = TRUE
-	addtimer(CALLBACK(src, .proc/finish_scan, scanner.occupant, prev_locked, body_only), 2 SECONDS)
+	addtimer(CALLBACK(src, .proc/finish_scan, scanner.occupant, user, prev_locked, body_only), 2 SECONDS)
 	. = TRUE
 
 /obj/machinery/computer/cloning/proc/Toggle_autoprocess(mob/user)
@@ -395,21 +395,21 @@
 		ui = new(user, src, "CloningConsole", "Cloning System Control")
 		ui.open()
 
-/obj/machinery/computer/cloning/proc/finish_scan(mob/living/L, prev_locked, body_only)
+/obj/machinery/computer/cloning/proc/finish_scan(mob/living/L, mob/user, prev_locked, body_only)
 	if(!scanner || !L)
 		return
 	src.add_fingerprint(usr)
 	if(use_records)
-		scan_occupant(L,,body_only)
+		scan_occupant(L, user, body_only)
 	else
-		clone_occupant(L)
+		clone_occupant(L, user)
 
 	loading = FALSE
 	scanner.locked = prev_locked
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 //Used by consoles without records
-/obj/machinery/computer/cloning/proc/clone_occupant(occupant)
+/obj/machinery/computer/cloning/proc/clone_occupant(occupant, mob/user)
 	var/mob/living/mob_occupant = get_mob_or_brainmob(occupant)
 	var/datum/dna/dna
 	if(ishuman(mob_occupant))
@@ -441,41 +441,51 @@
 		pod.growclone(mob_occupant.real_name, dna.uni_identity, dna.mutation_index, null, null, clone_species, dna.blood_type, mob_occupant.faction)
 		temp = "[mob_occupant.real_name] => Cloning data sent to pod."
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+		log_cloning("[user ? key_name(user) : "Unknown"] cloned [key_name(mob_occupant)] with [src] at [AREACOORD(src)].")
 
 /obj/machinery/computer/cloning/proc/can_scan(datum/dna/dna, mob/living/mob_occupant, experimental = FALSE, datum/bank_account/account, body_only)
 	if(!istype(dna))
 		scantemp = "Unable to locate valid genetic data."
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-		return
+		return FALSE
 	if(NO_DNA_COPY in dna.species.species_traits)
 		scantemp = "The DNA of this lifeform could not be read due to an unknown error!"
 		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-		return
+		return FALSE
 	if((HAS_TRAIT(mob_occupant, TRAIT_HUSK)) && (src.scanner.scan_level < 2))
 		scantemp = "Subject's body is too damaged to scan properly."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
-		return
+		return FALSE
 	if(HAS_TRAIT(mob_occupant, TRAIT_BADDNA))
 		scantemp = "Subject's DNA is damaged beyond any hope of recovery."
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
-		return
+		return FALSE
 	if(!experimental)
 		if(!body_only && (mob_occupant.suiciding || mob_occupant.hellbound))
 			scantemp = "Subject's brain is not responding to scanning stimuli."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-			return
+			return FALSE
 		if(!body_only && isnull(mob_occupant.mind))
 			scantemp = "Mental interface failure."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-			return
+			return FALSE
 		if(!body_only && SSeconomy.full_ancap)
 			if(!account)
 				scantemp = "Subject is either missing an ID card with a bank account on it, or does not have an account to begin with. Please ensure the ID card is on the body before attempting to scan."
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
-				return
+				return FALSE
+	else
+		if(mob_occupant.suiciding)
+			scantemp = "Subject's brain is not responding to scanning stimuli."
+			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			return FALSE
+		if(!mob_occupant.mind)
+			scantemp = "Mental interface failure."
+			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
+			return FALSE
 	return TRUE
 
-/obj/machinery/computer/cloning/proc/scan_occupant(occupant, mob/M, body_only)
+/obj/machinery/computer/cloning/proc/scan_occupant(occupant, mob/user, body_only)
 	var/mob/living/mob_occupant = get_mob_or_brainmob(occupant)
 	var/datum/dna/dna
 	var/datum/bank_account/has_bank_account
@@ -552,7 +562,7 @@
 	else
 		scantemp = "Subject successfully scanned."
 	records += R
-	log_cloning("[M ? key_name(M) : "Autoprocess"] added the [body_only ? "body-only " : ""]record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
+	log_cloning("[user ? key_name(user) : "Autoprocess"] added the [body_only ? "body-only " : ""]record of [key_name(mob_occupant)] to [src] at [AREACOORD(src)].")
 	playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50)
 
 //Prototype cloning console, much more rudimental and lacks modern functions such as saving records, autocloning, or safety checks.
