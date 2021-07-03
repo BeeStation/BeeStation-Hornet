@@ -54423,18 +54423,7 @@
 	dir = 1;
 	pixel_y = 2
 	},
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/large{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = -2
-	},
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 2;
-	pixel_y = -6
-	},
+/obj/machinery/component_printer,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "duQ" = (
