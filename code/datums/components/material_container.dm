@@ -354,4 +354,21 @@
 /datum/component/material_container/proc/get_material_amount(var/datum/material/mat)
 	if(!istype(mat))
 		mat = getmaterialref(mat)
-	return(materials[mat])
+	return materials[mat]
+
+/// List format is list(material_name = list(amount = ..., ref = ..., etc.))
+/datum/component/material_container/ui_data(mob/user)
+	var/list/data = list()
+
+	for(var/datum/material/material as anything in materials)
+		var/amount = materials[material]
+
+		data += list(list(
+			"name" = material.name,
+			"ref" = REF(material),
+			"amount" = amount,
+			"sheets" = round(amount / MINERAL_MATERIAL_AMOUNT),
+			"removable" = amount >= MINERAL_MATERIAL_AMOUNT,
+		))
+
+	return data
