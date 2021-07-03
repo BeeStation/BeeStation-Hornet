@@ -62008,6 +62008,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"wqd" = (
+/mob/living/simple_animal/crab/Coffee,
+/turf/open/floor/plasteel/white,
+/area/science/lab)
 "wqH" = (
 /obj/machinery/nanite_chamber,
 /obj/effect/turf_decal/bot,
@@ -111349,7 +111353,7 @@ sYn
 bgb
 bhC
 biU
-biW
+wqd
 blJ
 bno
 boA
