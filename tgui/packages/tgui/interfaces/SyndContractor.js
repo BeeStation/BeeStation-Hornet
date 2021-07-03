@@ -51,10 +51,10 @@ export class FakeTerminal extends Component {
     return (
       <Box m={1}>
         {this.state.currentDisplay.map(value => (
-          <Button key={value}>
+          <Fragment key={value}>
             {value}
             <br />
-          </Button>
+          </Fragment>
         ))}
       </Box>
     );
