@@ -4,7 +4,7 @@
 /mob/living/simple_animal/hostile/retaliate/Found(atom/A)
 	if(isliving(A))
 		var/mob/living/L = A
-		if(L.is_conscious())
+		if(!L.stat)
 			return L
 		else
 			enemies -= L

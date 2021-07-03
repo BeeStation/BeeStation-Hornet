@@ -54,3 +54,8 @@
 #define TGUI_TELEMETRY_STAT_ANALYZED      2 //Retrieved and validated
 #define TGUI_TELEMETRY_STAT_MISSING       3 //Telemetry response window miss without valid telemetry
 #define TGUI_TELEMETRY_STAT_OVERSEND      4 //Telemetry was already processed but was repeated
+
+/// Telem Trigger Defines
+#define TGUI_TELEM_CKEY_WARNING "TELEM_CKEY_TEXT"
+#define TGUI_TELEM_IP_WARNING "TELEM_IP_TEXT"
+#define TGUI_TELEM_CID_WARNING "TELEM_CID_TEXT"

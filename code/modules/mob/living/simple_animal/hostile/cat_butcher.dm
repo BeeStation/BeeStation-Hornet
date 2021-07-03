@@ -45,7 +45,7 @@
 //heal himself when not in combat
 /mob/living/simple_animal/hostile/cat_butcherer/Life()
 	. = ..()
-	if(prob(10) && health <= maxHealth && !target) 
+	if(prob(10) && health <= maxHealth && !target)
 		adjustHealth(-(20+ 2*LAZYLEN(victims)))
 		visible_message("[src] medicates themself.", "<span class='notice'>You medicate yourself.</span>")
 
@@ -64,7 +64,7 @@
 			return
 		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat)) //still does damage. This also lacks a Stat check- felinids beware.
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
-			if(L.is_conscious())
+			if(L.stat)
 				L.emote("scream")
 			if(victims.Find(L) || !L.mind)//this is mostly to avoid neurine-filled catgirls from giving him many free instant heals
 				L.gain_trauma(/datum/brain_trauma/severe/pacifism, TRAUMA_RESILIENCE_SURGERY)
@@ -103,7 +103,7 @@
 		else
 			maxHealth = (300 + (5 * (LAZYLEN(victims)-10)))
 		switch(LAZYLEN(victims))
-			if(2) 
+			if(2)
 				projectiletype = /obj/item/projectile/bullet/dart/tranq/plus
 			if(4)//gain space adaptation to make cheesing harder
 				atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -143,7 +143,7 @@
 				retreat_distance = 0
 			else
 				retreat_distance = 3 //spam chems if they aren't low and can be injected
-		else 
+		else
 			retreat_distance = 0//dont shoot chems at mobs that dont give a fuck
 	return ..()
 
@@ -161,10 +161,10 @@
 		if(ishuman(pos_targ))
 			var/mob/living/carbon/human/H = pos_targ
 			if(!CanAttack(H))
-				Targets -= H 
+				Targets -= H
 				continue
 			if(H.stat == DEAD)
-				Targets -= H 
+				Targets -= H
 				continue
 			if(H.stat)
 				Targets[H] = 20
@@ -180,4 +180,3 @@
 	if(LAZYLEN(victims) >= 5)
 		say("I made [LAZYLEN(victims)] creations! I have no regrets!!")
 	return ..()
-	

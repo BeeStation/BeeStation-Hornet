@@ -305,7 +305,7 @@
 	var/turf/T = loc
 	if(!moving_from_pull)
 		check_pulling()
-	if(!(loc || newloc))
+	if(!loc || !newloc)
 		return FALSE
 	var/atom/oldloc = loc
 
