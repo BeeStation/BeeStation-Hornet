@@ -227,8 +227,6 @@
 
 	if(living_pawn.Adjacent(disposal))
 		INVOKE_ASYNC(src, .proc/try_disposal_mob, controller) //put him in!
-	else //This means we might be getting pissed!
-		return
 
 /datum/ai_behavior/disposal_mob/proc/try_disposal_mob(datum/ai_controller/controller)
 	var/mob/living/living_pawn = controller.pawn
