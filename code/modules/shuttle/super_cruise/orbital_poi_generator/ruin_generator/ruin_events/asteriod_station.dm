@@ -1,5 +1,5 @@
 /datum/ruin_event/asteriod_station
-	probability = 5
+	probability = 3
 
 /datum/ruin_event/asteriod_station/pre_spawn(z_value)
 	var/perlin_noise_scale = 65

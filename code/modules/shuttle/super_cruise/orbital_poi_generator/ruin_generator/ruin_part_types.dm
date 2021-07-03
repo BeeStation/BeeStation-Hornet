@@ -333,3 +333,11 @@
 	file_name = "9x13_teleporter"
 	weight = 1
 	max_occurances = 1
+
+/datum/map_template/ruin_part/medicalroom
+	file_name = "13x9_medical"
+	weight = 3
+
+/datum/map_template/ruin_part/genetics
+	file_name = "9x9_genetics"
+	weight = 3

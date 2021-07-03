@@ -44,3 +44,16 @@
 /datum/orbital_object/z_linked/beacon/ruin/post_map_setup()
 	//Orbit around the systems sun
 	set_orbitting_around_body(SSorbits.orbital_map.center, 4000 + 250 * rand(4, 20))
+
+//Stranded shuttles
+/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle
+	name = "Distress Beacon"
+	static_object = TRUE
+
+/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/assign_z_level()
+	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
+	linked_z_level = assigned_space_level
+	assigned_space_level.orbital_body = src
+
+/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/post_map_setup()
+	return

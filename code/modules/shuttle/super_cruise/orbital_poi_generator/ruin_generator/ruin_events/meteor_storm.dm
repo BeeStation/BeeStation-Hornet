@@ -1,8 +1,8 @@
 /datum/ruin_event/meteor_storm
 	warning_message = "METEOR STORM"
-	probability = 2
-	start_tick_min = 600
-	start_tick_max = 3000
+	probability = 1
+	start_tick_min = 3000
+	start_tick_max = 6000
 	tick_rate = 80
 
 /datum/ruin_event/meteor_storm/post_spawn(list/floor_turfs, z_value)
