@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - code_imp: Nuked /client/MouseMove() for a massive amount of free performance.
