@@ -15,6 +15,10 @@
 		var/sand_value = (distance / 120)
 		if(noise_at_coord >= rock_value)
 			T.ChangeTurf(/turf/closed/mineral/random, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
+			if(!T.lighting_object)
+				T.lighting_build_overlay()
 		else if(noise_at_coord >= sand_value)
 			T.ChangeTurf(/turf/open/floor/plating/asteroid/airless, flags = CHANGETURF_IGNORE_AIR)
+			if(!T.lighting_object)
+				T.lighting_build_overlay()
 		CHECK_TICK
