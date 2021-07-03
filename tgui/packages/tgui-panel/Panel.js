@@ -52,9 +52,7 @@ export const Panel = (props, context) => {
     <Pane theme={settings.theme}>
       <Stack
         height={(98-number) + '%'}
-        vertical
-        grow={0}
-        shrink={0}>
+        vertical>
         <StatTabs
           direction="column" />
       </Stack>
@@ -86,17 +84,18 @@ export const Panel = (props, context) => {
       <Stack
         fill
         vertical
+        mt={1}
         height={(number-1) + '%'}>
         <Stack.Item>
           <Section fitted>
-            <Stack mx={1} align="center">
-              <Stack.Item grow overflowX="auto">
+            <Stack align="center">
+              <Stack.Item mx={0.5} grow overflowX="auto">
                 <ChatTabs />
               </Stack.Item>
-              <Stack.Item>
+              <Stack.Item mx={0.5}>
                 <PingIndicator />
               </Stack.Item>
-              <Stack.Item>
+              <Stack.Item mx={0.5}>
                 <Button
                   color="grey"
                   selected={audio.visible}
@@ -105,7 +104,7 @@ export const Panel = (props, context) => {
                   tooltipPosition="bottom-left"
                   onClick={() => audio.toggle()} />
               </Stack.Item>
-              <Stack.Item>
+              <Stack.Item mx={0.5}>
                 <Button
                   icon={settings.visible ? 'times' : 'cog'}
                   selected={settings.visible}
@@ -119,18 +118,18 @@ export const Panel = (props, context) => {
           </Section>
         </Stack.Item>
         {audio.visible && (
-          <Stack.Item>
+          <Stack.Item mt={1}>
             <Section>
               <NowPlayingWidget />
             </Section>
           </Stack.Item>
         )}
         {settings.visible && (
-          <Stack.Item>
+          <Stack.Item mt={1}>
             <SettingsPanel />
           </Stack.Item>
         )}
-        <Stack.Item grow>
+        <Stack.Item mt={1} grow>
           <Section fill fitted position="relative">
             <Pane.Content scrollable>
               <ChatPanel lineHeight={settings.lineHeight} />
