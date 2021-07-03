@@ -10,7 +10,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, typecacheof(list(
 	if(!ventcrawler || !Adjacent(A))
 		return
 	if(stat)
-		to_chat(src, "You must be fully conscious to do this!")
+		to_chat(src, "You must be conscious to do this!")
 		return
 	if(IsStun() || IsParalyzed())
 		to_chat(src, "You can't vent crawl while you're stunned!")

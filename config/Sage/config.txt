@@ -551,3 +551,6 @@ VOTE_AUTOTRANSFER_INTERVAL 18000
 
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 3000
+
+## Enable/disable roundstart station traits
+#STATION_TRAITS
