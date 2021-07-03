@@ -69,7 +69,9 @@
 	SIGNAL_HANDLER
 
 	if(isliving(AM))
-		shock(AM)
+		var/mob/living/living_moving_through_field = AM
+		if(!living_moving_through_field.incorporeal_move)
+			shock(AM)
 
 	if(ismachinery(AM) || isstructure(AM) || ismecha(AM))
 		bump_field(AM)
