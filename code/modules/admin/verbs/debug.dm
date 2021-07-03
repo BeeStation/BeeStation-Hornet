@@ -912,7 +912,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	var/amount = input(usr, "Choose the amount of moles.", "Choose the amount.", 0) as num
 	var/temp = input(usr, "Choose the temperature (Kelvin).", "Choose the temp (K).", 0) as num
 
-f
+
 	C.air_contents.set_moles(gas_to_add, amount)
 	C.air_contents.set_temperature(temp)
 	C.update_icon()

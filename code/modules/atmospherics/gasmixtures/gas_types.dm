@@ -1,26 +1,6 @@
 GLOBAL_LIST_INIT(hardcoded_gases, list(GAS_O2, GAS_N2, GAS_CO2, GAS_PLASMA)) //the main four gases, which were at one time hardcoded
 GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(GAS_O2, GAS_N2, GAS_CO2, GAS_PLUOXIUM, GAS_STIMULUM, GAS_NITRYL))) //unable to react amongst themselves
 
-/proc/meta_gas_list()
-	. = subtypesof(/datum/gas)
-	for(var/gas_path in .)
-		var/list/gas_info = new(7)
-		var/datum/gas/gas = gas_path
-
-		gas_info[META_GAS_SPECIFIC_HEAT] = initial(gas.specific_heat)
-		gas_info[META_GAS_NAME] = initial(gas.name)
-
-		gas_info[META_GAS_MOLES_VISIBLE] = initial(gas.moles_visible)
-		if(initial(gas.moles_visible) != null)
-			gas_info[META_GAS_OVERLAY] = new /list(FACTOR_GAS_VISIBLE_MAX)
-			for(var/i in 1 to FACTOR_GAS_VISIBLE_MAX)
-				gas_info[META_GAS_OVERLAY][i] = new /obj/effect/overlay/gas(initial(gas.gas_overlay), i * 255 / FACTOR_GAS_VISIBLE_MAX)
-
-		gas_info[META_GAS_FUSION_POWER] = initial(gas.fusion_power)
-		gas_info[META_GAS_DANGER] = initial(gas.dangerous)
-		gas_info[META_GAS_ID] = initial(gas.id)
-		.[initial(gas.id)] = gas_info
-
 /proc/gas_id2path(id)
 	var/list/meta_gas = GLOB.meta_gas_ids
 	if(id in meta_gas)
@@ -82,7 +62,7 @@ GLOBAL_LIST_INIT(gas_data, meta_gas_info_list())
 	. = subtypesof(/datum/gas)
 	for(var/gas_path in .)
 		var/datum/gas/gas = gas_path
-		.[initial(gas.id)] = initial(gas.dangerous)
+		.[initial(gas.id)] = initial(gas.flags)
 
 /proc/meta_gas_id_list()
 	. = subtypesof(/datum/gas)
@@ -154,7 +134,7 @@ GLOBAL_LIST_INIT(gas_data, meta_gas_info_list())
 	rarity = 50
 
 /datum/gas/nitrous_oxide
-	id = GAS_N2O
+	id = GAS_NITROUS
 	specific_heat = 40
 	name = "Nitrous Oxide"
 	gas_overlay = "nitrous_oxide"

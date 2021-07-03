@@ -228,7 +228,7 @@
 
 	// N2O
 
-		var/SA_pp = breath.get_breath_partial_pressure(breath.get_moles(GAS_NO2))
+		var/SA_pp = breath.get_breath_partial_pressure(breath.get_moles(GAS_NITRYL))
 		if(SA_pp > SA_para_min) // Enough to make us stunned for a bit
 			H.Unconscious(60) // 60 gives them one second to wake up and run away a bit!
 			if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
