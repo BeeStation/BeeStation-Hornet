@@ -98,7 +98,7 @@
 
 /datum/map_template/ruin_part/corgarmoury
 	file_name = "13x13_corgarmoury"
-	weight = 20
+	weight = 5
 	loot_room = TRUE
 
 /datum/map_template/ruin_part/corgrobotics
@@ -191,7 +191,7 @@
 
 /datum/map_template/ruin_part/pizzaguard
 	file_name = "13x17_pizzaroom"
-	weight = 20
+	weight = 3
 	loot_room = TRUE
 
 /datum/map_template/ruin_part/hern
