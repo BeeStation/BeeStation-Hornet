@@ -179,7 +179,7 @@
 			return .
 
 		for(var/mob/living/simple_animal/mouse/M in get_turf(src))
-			if(M.is_conscious())
+			if(!M.stat)
 				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "splats \the [M]!")
 				M.splat()
 				movement_target = null
@@ -235,7 +235,7 @@
 				movement_target = null
 				stop_automated_movement = 0
 				for(var/mob/living/simple_animal/mouse/snack in oview(3, src))
-					if(snack.is_conscious())
+					if(!snack.stat)
 						movement_target = snack
 						break
 			if(movement_target)

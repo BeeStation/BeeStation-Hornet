@@ -103,7 +103,7 @@
 	for(var/obj/O in get_turf(src))
 		if(!O.anchored)
 			var/mob/living/target = locate() in hearers(4,src)
-			if(target && target.is_conscious())
+			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
 
 /obj/effect/anomaly/grav/Crossed(mob/A)
@@ -116,7 +116,7 @@
 	gravShock(AM)
 
 /obj/effect/anomaly/grav/proc/gravShock(mob/living/A)
-	if(boing && isliving(A) && A.is_conscious())
+	if(boing && isliving(A) && !A.stat)
 		A.Paralyze(40)
 		var/atom/target = get_edge_target_turf(A, get_dir(src, get_step_away(A, src)))
 		A.throw_at(target, 5, 1)
@@ -313,7 +313,7 @@
 	for(var/obj/O in orange(2,src))
 		if(!O.anchored)
 			var/mob/living/target = locate() in hearers(4,src)
-			if(target && target.is_conscious())
+			if(target && !target.stat)
 				O.throw_at(target, 7, 5)
 		else
 			SSexplosions.med_mov_atom += O

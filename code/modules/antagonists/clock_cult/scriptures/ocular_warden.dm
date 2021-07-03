@@ -42,7 +42,7 @@
 	//Check hostiles in range
 	var/list/valid_targets = list()
 	for(var/mob/living/potential in hearers(OCULAR_WARDEN_RANGE, src))
-		if(!is_servant_of_ratvar(potential) && !potential.is_conscious())
+		if(!is_servant_of_ratvar(potential) && !potential.stat)
 			valid_targets += potential
 	if(!LAZYLEN(valid_targets))
 		return
