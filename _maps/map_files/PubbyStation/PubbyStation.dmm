@@ -18512,6 +18512,18 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Dorms";
+	location = "Tool"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Dorms";
+	location = "Tool"
+	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Dorms";
+	location = "Tool"
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
 "aQb" = (
@@ -27627,6 +27639,15 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
+"bkn" = (
+/obj/effect/landmark/start/hangover,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/turf_decal/tile/yellow,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "bko" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/purple{
@@ -34726,9 +34747,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "bAk" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -34798,11 +34816,10 @@
 /turf/closed/wall,
 /area/security/checkpoint/science)
 "bAv" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/light/small{
+/obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/yellow{
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -39856,6 +39873,9 @@
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "bLU" = (
@@ -41591,7 +41611,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Eng3";
+	codes_txt = "patrol;next_patrol=Med";
 	location = "Eng2"
 	},
 /turf/open/floor/plasteel,
@@ -50370,6 +50390,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"cqe" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "cqf" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
@@ -54434,14 +54460,13 @@
 /area/science/explab)
 "eTv" = (
 /obj/effect/landmark/start/hangover,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
-/obj/machinery/light/small{
+/obj/effect/turf_decal/tile/yellow,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "eTX" = (
@@ -54697,6 +54722,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"fqD" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "frN" = (
 /obj/machinery/air_sensor/atmos/sm_core,
 /obj/machinery/power/supermatter_crystal/engine,
@@ -56829,6 +56860,13 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
 /turf/open/floor/engine,
 /area/engine/engineering)
+"iMa" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/dropper,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "iMp" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -60189,6 +60227,7 @@
 /area/storage/primary)
 "ooh" = (
 /obj/structure/table/glass,
+/obj/item/radio/headset/headset_med,
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "opz" = (
@@ -61812,6 +61851,11 @@
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
+"qAm" = (
+/obj/structure/table/glass,
+/obj/item/clothing/glasses/science,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "qAM" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/cigbutt,
@@ -64237,6 +64281,16 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
+"uDm" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "uDN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -64385,6 +64439,9 @@
 	},
 /obj/structure/sign/poster/random{
 	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -98242,8 +98299,8 @@ brm
 bsN
 bun
 mcf
-bsK
-bsK
+qAm
+iMa
 ooh
 bpY
 bCB
@@ -98755,15 +98812,15 @@ bAk
 bBm
 bHm
 bBm
-bBm
+bAv
 bHm
 bJM
 bBm
-bBm
+uDm
 bBm
 bHm
 bBm
-bAv
+bBm
 jCv
 dQZ
 bBm
@@ -99012,10 +99069,10 @@ bmC
 bmC
 bmC
 bmC
-bmC
-bmC
-bmC
+cqe
 bKQ
+bmC
+fqD
 bmC
 bmC
 bmC
@@ -99265,7 +99322,7 @@ bCC
 bCC
 bCC
 bCC
-bIy
+bkn
 bCC
 bCC
 bIy
