@@ -54714,12 +54714,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"fqD" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/aft)
 "frN" = (
 /obj/machinery/air_sensor/atmos/sm_core,
 /obj/machinery/power/supermatter_crystal/engine,
@@ -56488,6 +56482,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/library)
+"ifc" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/dropper,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "igl" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -56852,13 +56853,6 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
 /turf/open/floor/engine,
 /area/engine/engineering)
-"iMa" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/glass/beaker/large,
-/obj/item/reagent_containers/dropper,
-/turf/open/floor/plasteel/white,
-/area/medical/chemistry)
 "iMp" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -58757,6 +58751,12 @@
 	},
 /turf/open/floor/plating,
 /area/storage/emergency/starboard)
+"lLf" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "lME" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /obj/machinery/vending/cola,
@@ -61330,6 +61330,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"pVn" = (
+/obj/structure/table/glass,
+/obj/item/clothing/glasses/science,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "pWb" = (
 /obj/structure/lattice,
 /obj/structure/lattice,
@@ -61843,11 +61848,6 @@
 	},
 /turf/open/floor/plating,
 /area/tcommsat/computer)
-"qAm" = (
-/obj/structure/table/glass,
-/obj/item/clothing/glasses/science,
-/turf/open/floor/plasteel/white,
-/area/medical/chemistry)
 "qAM" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/cigbutt,
@@ -63676,6 +63676,16 @@
 /obj/effect/turf_decal/stripes/box,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"tyk" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "typ" = (
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
@@ -64273,16 +64283,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
-"uDm" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/aft)
 "uDN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -98291,8 +98291,8 @@ brm
 bsN
 bun
 mcf
-qAm
-iMa
+pVn
+ifc
 ooh
 bpY
 bCB
@@ -98808,7 +98808,7 @@ bAv
 bHm
 bJM
 bBm
-uDm
+tyk
 bBm
 bHm
 bBm
@@ -99064,7 +99064,7 @@ bmC
 cqe
 bKQ
 bmC
-fqD
+lLf
 bmC
 bmC
 bmC
