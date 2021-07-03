@@ -47413,7 +47413,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/machinery/computer/shuttle_flight/exploration,
+/obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 1
 	},

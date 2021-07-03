@@ -14,7 +14,7 @@
 	else
 		name = "[initial(name)] #[rand(1, 9)][SSorbits.orbital_map.bodies.len][rand(1, 9)]"
 	//Link the ruin event to ourselves
-	ruin_event.linked_z = src
+	ruin_event?.linked_z = src
 
 /datum/orbital_object/z_linked/beacon/post_map_setup()
 	//Orbit around the systems sun

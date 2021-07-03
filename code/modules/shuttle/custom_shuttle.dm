@@ -88,7 +88,7 @@
 		say("Fuel reserves depleted, dropping out of supercruise.")
 		if(!shuttleObject.docking_target)
 			if(shuttleObject.can_dock_with)
-				shuttleObject.docking_target = shuttleObject.can_dock_with
+				shuttleObject.commence_docking(shuttleObject.can_dock_with, TRUE)
 			else
 				//Send shuttle object to random location
 				var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle()
@@ -97,7 +97,7 @@
 				if(!z_linked)
 					say("Failed to dethrottle shuttle, please contact a Nanotrasen supervisor.")
 					return
-				shuttleObject.docking_target = z_linked
+				shuttleObject.commence_docking(z_linked, TRUE)
 		//Dock
 		random_drop()
 		return TRUE

@@ -88,15 +88,33 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "n" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
+/obj/machinery/telecomms/processor/preset_exploration,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
 	},
-/obj/structure/shuttle/engine/heater,
-/turf/open/floor/plating,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "o" = (
 /obj/machinery/telecomms/bus/preset_exploration,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"p" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/exploration)
+"q" = (
+/obj/machinery/telecomms/server/presets/exploration,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "r" = (
@@ -124,6 +142,7 @@
 	id = "exploration";
 	name = "Exploration Shuttle";
 	port_direction = 8;
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
 	width = 13
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -202,16 +221,16 @@
 /obj/machinery/recharger,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"E" = (
+/obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "F" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
 /obj/item/gps/mining,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"G" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/open/floor/plating,
 /area/shuttle/exploration)
 "H" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
@@ -221,11 +240,6 @@
 /area/shuttle/exploration)
 "I" = (
 /turf/closed/wall/mineral/plastitanium,
-/area/shuttle/exploration)
-"J" = (
-/obj/machinery/telecomms/server/presets/exploration,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "K" = (
 /obj/structure/fans/tiny,
@@ -241,9 +255,13 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "L" = (
-/obj/machinery/telecomms/processor/preset_exploration,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/titanium,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 1
+	},
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "N" = (
 /obj/effect/turf_decal/stripes/line{
@@ -256,6 +274,7 @@
 /area/shuttle/exploration)
 "O" = (
 /obj/effect/turf_decal/bot,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "P" = (
@@ -283,6 +302,11 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"T" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/toxins,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "U" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
@@ -296,10 +320,6 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"W" = (
-/obj/machinery/computer/shuttle_flight/exploration,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "X" = (
 /obj/structure/chair/comfy/shuttle{
@@ -348,7 +368,7 @@ I
 "}
 (3,1,1) = {"
 R
-W
+E
 P
 z
 z
@@ -358,8 +378,8 @@ v
 u
 O
 o
-n
-G
+L
+p
 "}
 (4,1,1) = {"
 R
@@ -372,9 +392,9 @@ h
 R
 N
 b
-J
-n
-G
+q
+L
+p
 "}
 (5,1,1) = {"
 R
@@ -387,9 +407,9 @@ g
 a
 V
 U
-L
 n
-G
+L
+p
 "}
 (6,1,1) = {"
 R
@@ -401,7 +421,7 @@ X
 i
 z
 r
-O
+T
 j
 I
 I

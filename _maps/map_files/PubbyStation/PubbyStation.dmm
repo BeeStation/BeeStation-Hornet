@@ -65801,7 +65801,7 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "wrd" = (
-/obj/machinery/computer/shuttle_flight/exploration{
+/obj/machinery/computer/shuttle_flight/custom_shuttle/exploration{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{

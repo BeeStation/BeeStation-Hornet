@@ -121684,7 +121684,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "ijN" = (
-/obj/machinery/computer/shuttle_flight/exploration{
+/obj/machinery/computer/shuttle_flight/custom_shuttle/exploration{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
