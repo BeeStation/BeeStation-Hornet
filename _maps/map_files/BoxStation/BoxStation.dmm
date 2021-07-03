@@ -50304,6 +50304,10 @@
 	},
 /turf/open/floor/carpet/green,
 /area/chapel/main)
+"ijD" = (
+/mob/living/simple_animal/crab/Coffee,
+/turf/open/floor/plasteel/white,
+/area/science/lab)
 "ijO" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/firedoor/window,
@@ -62008,10 +62012,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"wqd" = (
-/mob/living/simple_animal/crab/Coffee,
-/turf/open/floor/plasteel/white,
-/area/science/lab)
 "wqH" = (
 /obj/machinery/nanite_chamber,
 /obj/effect/turf_decal/bot,
@@ -111353,7 +111353,7 @@ sYn
 bgb
 bhC
 biU
-wqd
+ijD
 blJ
 bno
 boA

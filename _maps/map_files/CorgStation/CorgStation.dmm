@@ -31231,6 +31231,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"ipX" = (
+/mob/living/simple_animal/crab/Coffee,
+/turf/open/floor/plasteel/white,
+/area/science/lab)
 "ipZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -31808,10 +31812,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"iyL" = (
-/mob/living/simple_animal/crab/Coffee,
-/turf/open/floor/plasteel/white,
-/area/science/lab)
 "iyM" = (
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/secondary)
@@ -77094,10 +77094,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
-"vxn" = (
-/mob/camera,
-/turf/open/space/basic,
-/area/space)
 "vxp" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -107611,7 +107607,7 @@ aMT
 aMT
 aMT
 aMT
-vxn
+aMT
 aMT
 aMT
 aMT
@@ -115475,7 +115471,7 @@ kQh
 mDG
 mHr
 iCm
-iyL
+ipX
 oYB
 ivq
 ivq
