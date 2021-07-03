@@ -1,0 +1,6 @@
+author: Archanial
+delete-after: true
+changes:
+  - rscadd: Hangover, random spawn and late join station traits now have announcements.
+  - bugfix: Almost empty beer bottles
+  - refactor: Not providing any sound to priority_announce will make it silent.
