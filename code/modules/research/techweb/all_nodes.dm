@@ -1165,15 +1165,6 @@
 	export_price = 5000
 	hidden = TRUE
 
-/datum/techweb_node/syndicate_basic/New()		//Crappy way of making syndicate gear decon supported until there's another way.
-	. = ..()
-	boost_item_paths = list()
-	for(var/path in GLOB.uplink_items)
-		var/datum/uplink_item/UI = new path
-		if(!UI.item || !UI.illegal_tech)
-			continue
-		boost_item_paths |= UI.item	//allows deconning to unlock.
-
 /datum/techweb_node/sticky_basic
 	id = "sticky_basic"
 	display_name = "Basic Sticky Technology"

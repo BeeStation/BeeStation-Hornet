@@ -49,6 +49,7 @@ GLOBAL_LIST_INIT(bitfields, list(
 		"NOBLUDGEON" = NOBLUDGEON,
 		"ABSTRACT" = ABSTRACT,
 		"IN_STORAGE" = IN_STORAGE,
+		"ILLEGAL" = ILLEGAL,
 		),
 	"admin_flags" = list(
 		"BUILDMODE" = R_BUILD,
