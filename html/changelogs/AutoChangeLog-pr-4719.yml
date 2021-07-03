@@ -1,7 +1,0 @@
-author: lordScrubling
-delete-after: true
-changes:
-  - bugfix: paramedic envirohelm appearing invisible with light on
-  - imageadd: paramedic envirohelm light state
-  - imageadd: basic envirohelm inhand sprite from tg
-  - imagedel: old basic envirohelm inhand sprite

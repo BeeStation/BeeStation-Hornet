@@ -1,6 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Stabilized light pink extract speed reduced from 2x increase to 1.5x
-      increase.
-  - balance: Stabilized light pink extract now applies pacifism to its user.

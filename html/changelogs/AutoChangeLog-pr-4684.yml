@@ -1,4 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: Fixed runtime related to removing item from shells
