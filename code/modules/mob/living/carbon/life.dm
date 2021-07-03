@@ -137,6 +137,7 @@
 				var/obj/loc_as_obj = loc
 				loc_as_obj.handle_internal_lifeform(src,0)
 
+	breath.set_volume(BREATH_VOLUME)
 	check_breath(breath)
 
 	if(breath)
@@ -176,11 +177,11 @@
 	var/SA_para_min = 1
 	var/SA_sleep_min = 5
 	var/oxygen_used = 0
-	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.return_temperature())/BREATH_VOLUME
-
-	var/O2_partialpressure = (breath.get_moles(GAS_O2)/breath.total_moles())*breath_pressure
-	var/Toxins_partialpressure = (breath.get_moles(GAS_PLASMA)/breath.total_moles())*breath_pressure
-	var/CO2_partialpressure = (breath.get_moles(GAS_CO2)/breath.total_moles())*breath_pressure
+	var/moles = breath.total_moles()
+	var/breath_pressure = (moles*R_IDEAL_GAS_EQUATION*breath.return_temperature())/BREATH_VOLUME
+	var/O2_partialpressure = ((breath.get_moles(GAS_O2)/moles)*breath_pressure) + (((breath.get_moles(GAS_PLUOXIUM)*8)/moles)*breath_pressure)
+	var/Toxins_partialpressure = (breath.get_moles(GAS_PLASMA)/moles)*breath_pressure
+	var/CO2_partialpressure = (breath.get_moles(GAS_CO2)/moles)*breath_pressure
 
 
 	//OXYGEN

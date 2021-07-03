@@ -434,10 +434,10 @@
 				if(!holding)
 					var/list/danger = list()
 					for(var/id in air_contents.get_gases())
-						if(!(GLOB.meta_gas_flags[id] & GAS_FLAG_DANGEROUS))
+						if(!(GLOB.gas_data.flags[id] & GAS_FLAG_DANGEROUS))
 							continue
-						if(air_contents.get_moles(id) > (GLOB.meta_gas_visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
-							danger[GLOB.meta_gas_names[id]] = air_contents.get_moles(id) //ex. "plasma" = 20
+						if(air_contents.get_moles(id) > (GLOB.gas_data.visibility[id] || MOLES_GAS_VISIBLE)) //if moles_visible is undefined, default to default visibility
+							danger[GLOB.gas_data.names[id]] = air_contents.get_moles(id) //ex. "plasma" = 20
 
 					if(danger.len)
 						message_admins("[ADMIN_LOOKUPFLW(usr)] opened a canister that contains the following at [ADMIN_VERBOSEJMP(src)]:")

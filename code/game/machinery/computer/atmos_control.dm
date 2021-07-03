@@ -63,7 +63,7 @@
 		var/total_moles = air_sample.total_moles()
 		if(total_moles)
 			for(var/gas_id in air_sample.get_gases())
-				var/gas_name = GLOB.meta_gas_names[gas_id]
+				var/gas_name = GLOB.gas_data.names[gas_id]
 				signal.data["gases"][gas_name] = air_sample.get_moles(gas_id) / total_moles * 100
 
 		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)

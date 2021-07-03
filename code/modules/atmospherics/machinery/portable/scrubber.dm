@@ -73,8 +73,8 @@
 
 	data["id_tag"] = -1 //must be defined in order to reuse code between portable and vent scrubbers
 	data["filter_types"] = list()
-	for(var/path in GLOB.meta_gas_ids)
-		data["filter_types"] += list(list("gas_id" = GLOB.meta_gas_ids[path], "gas_name" = GLOB.meta_gas_names[path], "enabled" = (path in scrubbing)))
+	for(var/id in GLOB.gas_data.ids)
+		data["filter_types"] += list(list("gas_id" = id, "gas_name" = GLOB.gas_data.names[id], "enabled" = (id in scrubbing)))
 
 	if(holding)
 		data["holding"] = list()
@@ -106,7 +106,7 @@
 				replace_tank(usr, FALSE)
 				. = TRUE
 		if("toggle_filter")
-			scrubbing ^= gas_id2path(params["val"])
+			scrubbing ^= params["val"]
 			. = TRUE
 	update_icon()
 

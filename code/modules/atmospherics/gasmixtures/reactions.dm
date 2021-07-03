@@ -8,13 +8,6 @@
 		if(initial(reaction.exclude))
 			continue
 		reaction = new r
-		var/datum/gas/reaction_key
-		for (var/req in reaction.min_requirements)
-			if (ispath(req))
-				var/datum/gas/req_gas = req
-				if (!reaction_key || initial(reaction_key.rarity) > initial(req_gas.rarity))
-					reaction_key = req_gas
-		reaction.major_gas = reaction_key
 		. += reaction
 	sortTim(., /proc/cmp_gas_reactions)
 
@@ -35,7 +28,7 @@
 	//regarding the requirements lists: the minimum or maximum requirements must be non-zero.
 	//when in doubt, use MINIMUM_MOLE_COUNT.
 	var/list/min_requirements
-	var/major_gas //the highest rarity gas used in the reaction.
+	var/list/max_requirements
 	var/exclude = FALSE //do it this way to allow for addition/removal of reactions midmatch in the future
 	var/priority = 100 //lower numbers are checked/react later than higher numbers. if two reactions have the same priority they may happen in either order
 	var/name = "reaction"
@@ -256,6 +249,84 @@
 
 	return cached_results["fire"] ? REACTING : NO_REACTION
 
+/datum/gas_reaction/genericfire
+	priority = -3 // very last reaction
+	name = "Combustion"
+	id = "genericfire"
+
+/datum/gas_reaction/genericfire/init_reqs()
+	var/lowest_fire_temp = INFINITY
+	var/list/fire_temperatures = GLOB.gas_data.fire_temperatures
+	for(var/gas in fire_temperatures)
+		lowest_fire_temp = min(lowest_fire_temp, fire_temperatures[gas])
+	var/lowest_oxi_temp = INFINITY
+	var/list/oxidation_temperatures = GLOB.gas_data.oxidation_temperatures
+	for(var/gas in oxidation_temperatures)
+		lowest_oxi_temp = min(lowest_oxi_temp, oxidation_temperatures[gas])
+	min_requirements = list(
+		"TEMP" = max(lowest_oxi_temp, lowest_fire_temp),
+		"FIRE_REAGENTS" = MINIMUM_MOLE_COUNT
+	)
+
+// no requirements, always runs
+// bad idea? maybe
+// this is overridden by auxmos but, hey, good idea to have it readable
+
+/datum/gas_reaction/genericfire/react(datum/gas_mixture/air, datum/holder)
+	var/temperature = air.return_temperature()
+	var/list/oxidation_temps = GLOB.gas_data.oxidation_temperatures
+	var/list/oxidation_rates = GLOB.gas_data.oxidation_rates
+	var/oxidation_power = 0
+	var/list/burn_results = list()
+	var/list/fuels = list()
+	var/list/oxidizers = list()
+	var/list/fuel_rates = GLOB.gas_data.fire_burn_rates
+	var/list/fuel_temps = GLOB.gas_data.fire_temperatures
+	var/total_fuel = 0
+	var/energy_released = 0
+	for(var/G in air.get_gases())
+		var/oxidation_temp = oxidation_temps[G]
+		if(oxidation_temp && oxidation_temp > temperature)
+			var/temperature_scale = max(0, 1-(temperature / oxidation_temp))
+			var/amt = air.get_moles(G) * temperature_scale
+			oxidizers[G] = amt
+			oxidation_power += amt * oxidation_rates[G]
+		else
+			var/fuel_temp = fuel_temps[G]
+			if(fuel_temp && fuel_temp > temperature)
+				var/amt = (air.get_moles(G) / fuel_rates[G]) * max(0, 1-(temperature / fuel_temp))
+				fuels[G] = amt // we have to calculate the actual amount we're using after we get all oxidation together
+				total_fuel += amt
+	if(oxidation_power <= 0 || total_fuel <= 0)
+		return NO_REACTION
+	var/oxidation_ratio = oxidation_power / total_fuel
+	if(oxidation_ratio > 1)
+		for(var/oxidizer in oxidizers)
+			oxidizers[oxidizer] /= oxidation_ratio
+	else if(oxidation_ratio < 1)
+		for(var/fuel in fuels)
+			fuels[fuel] *= oxidation_ratio
+	fuels += oxidizers
+	var/list/fire_products = GLOB.gas_data.fire_products
+	var/list/fire_enthalpies = GLOB.gas_data.fire_enthalpies
+	for(var/fuel in fuels + oxidizers)
+		var/amt = fuels[fuel]
+		if(!burn_results[fuel])
+			burn_results[fuel] = 0
+		burn_results[fuel] -= amt
+		energy_released += amt * fire_enthalpies[fuel]
+		for(var/product in fire_products[fuel])
+			if(!burn_results[product])
+				burn_results[product] = 0
+			burn_results[product] += amt
+	var/final_energy = air.thermal_energy() + energy_released
+	for(var/result in burn_results)
+		air.adjust_moles(result, burn_results[result])
+	air.set_temperature(final_energy / air.heat_capacity())
+	var/list/cached_results = air.reaction_results
+	cached_results["fire"] = min(total_fuel, oxidation_power) * 2
+	return cached_results["fire"] ? REACTING : NO_REACTION
+
 //fusion: a terrible idea that was fun but broken. Now reworked to be less broken and more interesting. Again (and again, and again). Again!
 //Fusion Rework Counter: Please increment this if you make a major overhaul to this system again.
 //6 reworks
@@ -296,7 +367,7 @@
 							: 4 ** (temperature_scale-FUSION_BASE_TEMPSCALE) / FUSION_SLOPE_DIVISOR)
 	var/gas_power = 0
 	for (var/gas_id in air.get_gases())
-		gas_power += (GLOB.meta_gas_fusions[gas_id]*air.get_moles(gas_id))
+		gas_power += (GLOB.gas_data.fusion_powers[gas_id]*air.get_moles(gas_id))
 	var/instability = MODULUS((gas_power*INSTABILITY_GAS_POWER_FACTOR),toroidal_size) //Instability effects how chaotic the behavior of the reaction is
 	cached_scan_results[id] = instability//used for analyzer feedback
 

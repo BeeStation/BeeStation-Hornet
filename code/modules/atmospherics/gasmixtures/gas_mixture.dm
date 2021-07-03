@@ -8,15 +8,6 @@ What are the archived variables for?
 #define QUANTIZE(variable)		(round(variable,0.0000001))/*I feel the need to document what happens here. Basically this is used to catch most rounding errors, however it's previous value made it so that
 															once gases got hot enough, most procedures wouldnt occur due to the fact that the mole counts would get rounded away. Thus, we lowered it a few orders of magnititude */
 
-GLOBAL_LIST_INIT(meta_gas_specific_heats, meta_gas_heat_list())
-GLOBAL_LIST_INIT(meta_gas_names, meta_gas_name_list())
-GLOBAL_LIST_INIT(meta_gas_visibility, meta_gas_visibility_list())
-GLOBAL_LIST_INIT(meta_gas_overlays, meta_gas_overlay_list())
-GLOBAL_LIST_INIT(meta_gas_flags, meta_gas_flags_list())
-GLOBAL_LIST_INIT(meta_gas_ids, meta_gas_id_list())
-GLOBAL_LIST_INIT(meta_gas_fusions, meta_gas_fusion_list())
-
-
 /datum/gas_mixture
 	var/initial_volume = CELL_VOLUME //liters
 	var/list/reaction_results
@@ -70,7 +61,7 @@ GLOBAL_LIST_INIT(auxtools_atmos_initialized, FALSE)
 		L[gt] = initial(G.specific_heat)
 	return L
 
-/datum/gas_mixture/proc/heat_capacity(data = MOLES) //joules per kelvin
+/datum/gas_mixture/proc/heat_capacity() //joules per kelvin
 
 /datum/gas_mixture/proc/partial_heat_capacity(gas_type)
 
@@ -201,18 +192,6 @@ GLOBAL_LIST_INIT(auxtools_atmos_initialized, FALSE)
 	for(var/id in gas)
 		set_moles(id, text2num(gas[id]))
 	return 1
-
-//Takes the amount of the gas you want to PP as an argument
-//So I don't have to do some hacky switches/defines/magic strings
-//eg:
-//Tox_PP = get_partial_pressure(gas_mixture.toxins)
-//O2_PP = get_partial_pressure(gas_mixture.oxygen)
-
-/datum/gas_mixture/proc/get_breath_partial_pressure(gas_pressure)
-	return (gas_pressure * R_IDEAL_GAS_EQUATION * return_temperature()) / BREATH_VOLUME
-//inverse
-/datum/gas_mixture/proc/get_true_breath_pressure(partial_pressure)
-	return (partial_pressure * BREATH_VOLUME) / (R_IDEAL_GAS_EQUATION * return_temperature())
 
 /datum/gas_mixture/proc/set_analyzer_results(instability)
 	if(!analyzer_results)

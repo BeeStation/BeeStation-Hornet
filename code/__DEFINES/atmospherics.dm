@@ -1,15 +1,3 @@
-//LISTMOS
-//indices of values in gas lists.
-#define MOLES			1
-#define ARCHIVE			2
-#define GAS_META		3
-#define META_GAS_SPECIFIC_HEAT	1
-#define META_GAS_NAME			2
-#define META_GAS_MOLES_VISIBLE	3
-#define META_GAS_OVERLAY		4
-#define META_GAS_DANGER			5
-#define META_GAS_ID				6
-#define META_GAS_FUSION_POWER   7
 //ATMOS
 //stuff you should probably leave well alone!
 #define R_IDEAL_GAS_EQUATION	8.31	//! kPa*L/(K*mol)
@@ -289,7 +277,8 @@
 #define GAS_PLUOXIUM			"pluox"
 #define GAS_MIASMA				"miasma"
 
-#define GAS_FLAG_DANGEROUS (1<<0)
+#define GAS_FLAG_DANGEROUS		(1<<0)
+#define GAS_FLAG_BREATH_PROC	(1<<1)
 
 //HELPERS
 #define PIPING_LAYER_SHIFT(T, PipingLayer) \

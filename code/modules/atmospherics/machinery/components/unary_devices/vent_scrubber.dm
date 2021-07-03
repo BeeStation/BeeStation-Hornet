@@ -36,11 +36,6 @@
 	if(!id_tag)
 		id_tag = assign_uid_vents()
 
-	for(var/f in filter_types)
-		if(istext(f))
-			filter_types -= f
-			filter_types += gas_id2path(f)
-
 /obj/machinery/atmospherics/components/unary/vent_scrubber/Destroy()
 	var/area/A = get_area(src)
 	if (A)
@@ -100,8 +95,8 @@
 		return FALSE
 
 	var/list/f_types = list()
-	for(var/path in GLOB.meta_gas_ids)
-		f_types += list(list("gas_id" = GLOB.meta_gas_ids[path], "gas_name" = GLOB.meta_gas_names[path], "enabled" = (path in filter_types)))
+	for(var/id in GLOB.gas_data.ids)
+		f_types += list(list("gas_id" = id, "gas_name" = GLOB.gas_data.names[id], "enabled" = (id in filter_types)))
 
 	var/datum/signal/signal = new(list(
 		"tag" = id_tag,
@@ -208,12 +203,12 @@
 		investigate_log(" was toggled to [scrubbing ? "scrubbing" : "siphon"] mode by [key_name(signal_sender)]",INVESTIGATE_ATMOS)
 
 	if("toggle_filter" in signal.data)
-		filter_types ^= gas_id2path(signal.data["toggle_filter"])
+		filter_types ^= signal.data["toggle_filter"]
 
 	if("set_filters" in signal.data)
 		filter_types = list()
 		for(var/gas in signal.data["set_filters"])
-			filter_types += gas_id2path(gas)
+			filter_types += gas
 
 	if("init" in signal.data)
 		name = signal.data["init"]
