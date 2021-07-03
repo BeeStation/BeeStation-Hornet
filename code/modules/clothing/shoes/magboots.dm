@@ -62,6 +62,8 @@
 	desc = "Normal looking magboots that are altered to increase magnetic pull to crush anything underfoot."
 
 /obj/item/clothing/shoes/magboots/crushing/proc/crush(mob/living/user)
+	SIGNAL_HANDLER
+
 	if (!isturf(user.loc) || !magpulse)
 		return
 	var/turf/T = user.loc

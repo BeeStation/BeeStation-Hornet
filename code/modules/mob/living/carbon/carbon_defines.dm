@@ -15,7 +15,7 @@
 
 	var/disgust = 0
 
-	var/crit_weight = 1 // Multiplier for soft crit unconscious chance.
+//inventory slots
 	var/obj/item/back = null
 	var/obj/item/clothing/mask/wear_mask = null
 	var/obj/item/clothing/neck/wear_neck = null

@@ -107,7 +107,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
   * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
   */
 /datum/chatmessage/proc/on_parent_qdel()
-	leave_subsystem()
+	SIGNAL_HANDLER
+
 	qdel(src)
 
 /**
@@ -366,9 +367,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			new /datum/chatmessage/balloon_alert(text, src, viewer)
 		if(BALLOON_ALERT_WITH_CHAT)
 			new /datum/chatmessage/balloon_alert(text, src, viewer)
-			to_chat(viewer, "<span class='notice'>[text]</span>")
+			to_chat(viewer, "<span class='notice'>[text].</span>")
 		if(BALLOON_ALERT_NEVER)
-			to_chat(viewer, text)
+			to_chat(viewer, "<span class='notice'>[text].</span>")
 
 /atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs)
 	var/list/hearers = get_hearers_in_view(vision_distance, src)
