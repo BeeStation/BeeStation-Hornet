@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - tweak: Solder now stops hallucinations as well
