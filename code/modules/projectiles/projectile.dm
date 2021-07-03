@@ -448,7 +448,7 @@
 	last_projectile_move = world.time
 	fired = TRUE
 	if(hitscan)
-		process_hitscan()
+		INVOKE_ASYNC(src, .proc/process_hitscan)
 	if(!(datum_flags & DF_ISPROCESSING))
 		START_PROCESSING(SSprojectiles, src)
 	pixel_move(1, FALSE)	//move it now!
