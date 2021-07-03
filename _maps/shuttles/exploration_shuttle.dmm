@@ -221,10 +221,6 @@
 /obj/machinery/recharger,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"E" = (
-/obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "F" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -262,6 +258,10 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
+/area/shuttle/exploration)
+"M" = (
+/obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "N" = (
 /obj/effect/turf_decal/stripes/line{
@@ -321,6 +321,9 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"W" = (
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/exploration)
 "X" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -363,12 +366,12 @@ f
 B
 C
 w
-I
+W
 I
 "}
 (3,1,1) = {"
 R
-E
+M
 P
 z
 z
@@ -423,7 +426,7 @@ z
 r
 T
 j
-I
+W
 I
 "}
 (7,1,1) = {"
