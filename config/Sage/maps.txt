@@ -10,8 +10,11 @@ Format:
 	default (The last map with this defined will get all votes of players who have not explicitly voted for a map)
 	voteweight [number] (How much to count each player vote as, defaults to 1, setting to 0.5 counts each vote as half a vote, 2 as double, etc, Setting to 0 disables the map but allows players to still pick it)
 	disabled (disables the map)
+	votable (allow the map to be selected in a called map vote)
 endmap
 
+
+#Active Rotation
 
 map corgstation
 	maxplayers 100
@@ -30,7 +33,8 @@ map metastation
 endmap
 
 map pubbystation
-	maxplayers 50
+	#Let's be real do you really want to play this with more than this?
+	maxplayers 20
 	votable
 endmap
 
@@ -39,14 +43,20 @@ map deltastation
 	votable
 endmap
 
+#Does not support fastmos
+
+map kilostation
+	maxplayers 60
+	votable
+	disabled
+endmap
+
+#Debug Maps, you probably don't want these enabled.
+
 map runtimestation
 	disabled
 endmap
 
 map multiz_debug
 	disabled
-endmap
-
-map kilostation
-	maxplayers 60
 endmap
