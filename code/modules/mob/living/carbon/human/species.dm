@@ -352,6 +352,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	SIGNAL_HANDLER
+
 	if(C.dna.species.exotic_bloodtype)
 		C.dna.blood_type = random_blood_type()
 	if(DIGITIGRADE in species_traits)
