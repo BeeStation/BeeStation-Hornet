@@ -4,7 +4,7 @@
 
 	var/announcement = "<meta charset='UTF-8'>"
 	if(!sound)
-		sound - SSstation.announcer.get_rand_alert_sound()
+		sound = SSstation.announcer.get_rand_alert_sound()
 
 	if(sound && SSstation.announcer.event_sounds[sound])
 		sound = SSstation.announcer.event_sounds[sound]
