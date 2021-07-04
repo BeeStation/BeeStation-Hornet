@@ -114,7 +114,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/parallax
 
 	///Do we show screentips, if so, how big?
-	var/screentip_pref = TRUE
+	var/screentip_pref = FALSE
 	///Color of screentips at top of screen
 	var/screentip_color = "#ffd391"
 
@@ -1613,7 +1613,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference")  as null|anything in GLOB.backbaglist
 					if(new_backbag)
 						backbag = new_backbag
-				
+
 				if("suit")
 					if(jumpsuit_style == PREF_SUIT)
 						jumpsuit_style = PREF_SKIRT
