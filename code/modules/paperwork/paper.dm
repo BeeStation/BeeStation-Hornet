@@ -372,12 +372,11 @@
 	
 /obj/item/paper/crumpled/beernuke/Initialize()
 	. = ..()
-	var/code = random_nukecode()
+	var/code
 	for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
 		if(beernuke.r_code == "ADMIN")
-			beernuke.r_code = code
-		else 
-			code = beernuke.r_code
+			beernuke.r_code = random_nukecode()
+		code = beernuke.r_code
 	info = "important party info, DONT FORGET: <b>[code]</b>" 
 
 /obj/item/paper/troll
