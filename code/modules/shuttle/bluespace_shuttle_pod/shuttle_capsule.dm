@@ -35,7 +35,7 @@
 	. = ..()
 
 /obj/item/survivalcapsule/shuttle/examine(mob/user)
-	. = ...()
+	. = ..()
 	get_template()
 	. += "This capsule has the [shuttle_template.name] stored."
 	. += shuttle_template.description
