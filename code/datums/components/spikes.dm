@@ -7,8 +7,8 @@
 	var/cooldown = 0
 
 /datum/component/spikes/Initialize(damage = 0, spikearmor = 0, diseaseid = null)
-	spikedamage = damage 
-	armor = spikearmor 
+	spikedamage = damage
+	armor = spikearmor
 	id = diseaseid
 	RegisterSignal(parent, COMSIG_MOVABLE_BUMP, .proc/prick_collide)
 	RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/prick_crossed)
@@ -20,7 +20,7 @@
 			RegisterSignal(parent, COMSIG_COMPONENT_REMOVING, .proc/removearmor)
 		RegisterSignal(parent, COMSIG_MOB_ATTACK_HAND, .proc/prick_touch)
 		RegisterSignal(parent, COMSIG_MOB_HAND_ATTACKED, .proc/prick_touched)
-		
+
 
 /datum/component/spikes/proc/prick(mob/living/carbon/C, damage_mod = 1)
 	var/netdamage = spikedamage * damage_mod
@@ -33,17 +33,25 @@
 		cooldown = (world.time + 8) //spike cooldown is equal to default unarmed attack speed
 
 /datum/component/spikes/proc/prick_touch(datum/source, mob/living/carbon/human/M, mob/living/carbon/human/H)
+	SIGNAL_HANDLER
+
 	prick(H, 0.5)
 
 /datum/component/spikes/proc/prick_touched(datum/source, mob/living/carbon/human/H, mob/living/carbon/human/M)
+	SIGNAL_HANDLER
+
 	prick(M, 1.5)
 
 /datum/component/spikes/proc/prick_collide(datum/source, atom/A)
+	SIGNAL_HANDLER
+
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		prick(C)
 
 /datum/component/spikes/proc/prick_crossed(datum/source, atom/movable/M)
+	SIGNAL_HANDLER
+
 	var/atom/movable/P = parent
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -60,6 +68,8 @@
 			prick(C)
 
 /datum/component/spikes/proc/setarmor(datum/source, datum/species/S) //this is a proc used to make sure a change in species won't fuck up the armor bonus.
+	SIGNAL_HANDLER
+
 	if(ishuman(parent))
 		var/mob/living/carbon/human/H = parent
 		finalarmor = armor
@@ -68,13 +78,16 @@
 		H.dna.species.armor += finalarmor
 
 /datum/component/spikes/proc/checkdiseasecure(datum/source, var/diseaseid)
+	SIGNAL_HANDLER
+
 	if(diseaseid == id)
 		qdel(src) //we were cured! time to go.
 
 /datum/component/spikes/proc/removearmor(datum/source, var/datum/component/C)
+	SIGNAL_HANDLER
+
 	if(C != src)
 		return
 	if(ishuman(parent) && armor)
 		var/mob/living/carbon/human/H = parent
 		H.dna.species.armor -= finalarmor
-	

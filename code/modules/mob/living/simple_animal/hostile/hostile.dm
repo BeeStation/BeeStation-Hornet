@@ -585,11 +585,13 @@
 
 /mob/living/simple_animal/hostile/proc/handle_targets_from_del(datum/source)
 	SIGNAL_HANDLER
+
 	if(targets_from != src)
 		set_targets_from(src)
 
 /mob/living/simple_animal/hostile/proc/handle_target_del(datum/source)
 	SIGNAL_HANDLER
+
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = null
 	LoseTarget()
