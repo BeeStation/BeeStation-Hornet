@@ -81,18 +81,14 @@ export const Panel = (props, context) => {
           </Box>
         )}
       </DraggableControl>
-      <Stack
-        fill
-        vertical
-        mt={1}
-        height={(number-1) + '%'}>
+      <Stack mt={1} vertical height={(number-1) + '%'}>
         <Stack.Item>
-          <Section fitted>
-            <Stack align="center">
-              <Stack.Item mx={0.5} grow overflowX="auto">
+          <Section>
+            <Stack my={-1.25} align="center">
+              <Stack.Item grow overflowX="auto">
                 <ChatTabs />
               </Stack.Item>
-              <Stack.Item mx={0.5}>
+              <Stack.Item>
                 <PingIndicator />
               </Stack.Item>
               <Stack.Item mx={0.5}>
@@ -104,7 +100,7 @@ export const Panel = (props, context) => {
                   tooltipPosition="bottom-left"
                   onClick={() => audio.toggle()} />
               </Stack.Item>
-              <Stack.Item mx={0.5}>
+              <Stack.Item>
                 <Button
                   icon={settings.visible ? 'times' : 'cog'}
                   selected={settings.visible}
@@ -118,14 +114,14 @@ export const Panel = (props, context) => {
           </Section>
         </Stack.Item>
         {audio.visible && (
-          <Stack.Item mt={1}>
+          <Stack.Item>
             <Section>
               <NowPlayingWidget />
             </Section>
           </Stack.Item>
         )}
         {settings.visible && (
-          <Stack.Item mt={1}>
+          <Stack.Item>
             <SettingsPanel />
           </Stack.Item>
         )}
