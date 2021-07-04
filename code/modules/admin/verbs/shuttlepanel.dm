@@ -48,6 +48,11 @@
 			if(options[selection])
 				request(options[selection])
 
+				//Remove shuttle object
+				if(SSorbits.assoc_shuttles.Find(options[selection]))
+					//Removing from the list is handled by deleting the shuttle
+					qdel(SSorbits.assoc_shuttles[options[selection]])
+
 /obj/docking_port/mobile/emergency/admin_fly_shuttle(mob/user)
 	return  // use the existing verbs for this
 
