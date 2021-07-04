@@ -1,0 +1,6 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - bugfix: explorer mask being larger when adjusted down than while adjusted up when
+      it should be the other way around
+  - bugfix: adjusting a mask thats not on your face turning off your internals
