@@ -21439,8 +21439,10 @@
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "bhV" = (
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/science/lab)
 "bhW" = (
 /obj/machinery/door/poddoor/shutters{
@@ -22822,19 +22824,14 @@
 /area/science/research)
 "blI" = (
 /obj/machinery/rnd/destructive_analyzer,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "blJ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/rnd/production/protolathe/department/science,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "blK" = (
+/obj/machinery/component_printer,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -56333,7 +56330,10 @@
 /obj/machinery/computer/cargo/request{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/science/lab)
 "pDL" = (
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner,
@@ -111056,8 +111056,8 @@ sYn
 bfX
 bhD
 biV
-biW
-blK
+bhV
+bnp
 bnp
 bng
 bpZ
@@ -111313,7 +111313,7 @@ sYn
 bgb
 bhC
 biU
-biW
+blK
 blJ
 bno
 boA
@@ -111570,7 +111570,7 @@ sYn
 rYy
 bgc
 biX
-bhV
+bka
 bka
 bka
 bnk

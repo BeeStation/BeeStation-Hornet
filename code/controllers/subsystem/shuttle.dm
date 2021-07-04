@@ -149,7 +149,7 @@ SUBSYSTEM_DEF(shuttle)
 		message_admins(msg)
 		log_game("[msg] Alive: [alive], Roundstart: [total], Threshold: [threshold]")
 		emergencyNoRecall = TRUE
-		priority_announce("Catastrophic casualties detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.")
+		priority_announce("Catastrophic casualties detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.", sound = SSstation.announcer.get_rand_alert_sound())
 		if(emergency.timeLeft(1) > emergencyCallTime * 0.4)
 			emergency.request(null, set_coefficient = 0.4)
 

@@ -8738,12 +8738,10 @@
 /area/syndicate_mothership/control)
 "zy" = (
 /obj/structure/table,
-/obj/item/gun/energy/ionrifle{
-	pin = /obj/item/firing_pin
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/gun/energy/ionrifle/carbine/pin,
 /turf/open/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/control)
 "zz" = (
