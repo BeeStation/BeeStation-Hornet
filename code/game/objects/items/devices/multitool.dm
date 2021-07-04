@@ -30,15 +30,22 @@
 	usesound = 'sound/weapons/empty.ogg'
 	var/mode = 0
 
+/obj/item/multitool/Initialize()
+	RegisterSignal(src, COMSIG_PARENT_EXAMINE, .proc/on_examine)
+	return ..()
+
+/obj/item/multitool/Destroy()
+	UnregisterSignal(src, COMSIG_PARENT_EXAMINE)
+
 /obj/item/multitool/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src] to [user.p_their()] chest. It looks like [user.p_theyre()] trying to pulse [user.p_their()] heart off!</span>")
 	return OXYLOSS//theres a reason it wasn't recommended by doctors
 
+/obj/item/multitool/proc/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
 
-//I know copypasting it and overwriting the old procs is a pretty rough thing to do, but hey, it's the simplest and most effective
-/obj/item/multitool/examine(mob/user)
 	if(buffer)
-		. += "<span class='notice'>Its buffer contains [buffer].</span>"
+		examine_list += "<span class='notice'>Its buffer contains [buffer].</span>"
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
