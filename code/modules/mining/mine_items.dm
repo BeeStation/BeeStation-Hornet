@@ -77,6 +77,7 @@
 	circuit = /obj/item/circuitboard/computer/mining_shuttle
 	shuttleId = "mining"
 	possible_destinations = "mining_home;mining_away;landing_zone_dock;mining_public"
+	req_access = list(ACCESS_MINING)
 	var/static/list/dumb_rev_heads = list()
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE

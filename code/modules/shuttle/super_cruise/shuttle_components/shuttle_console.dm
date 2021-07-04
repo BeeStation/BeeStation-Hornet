@@ -288,6 +288,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			switch(SSshuttle.moveShuttle(shuttleId, target_port.id, 1))
 				if(0)
 					say("Initiating supercruise throttle-down, prepare for landing.")
+					if(current_user)
+						remove_eye_control(current_user)
 					QDEL_NULL(shuttleObject)
 				if(1)
 					to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
@@ -323,6 +325,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(shuttleId)
 	if(!shuttle_dock)
 		return
+	var/target_zvalue = shuttleObject.docking_target.linked_z_level.z_value
 	//Create temporary port
 	var/obj/docking_port/stationary/random_port = new
 	random_port.delete_after = TRUE
@@ -341,7 +344,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		var/y = rand(border_distance, world.maxy - border_distance)
 		//Check to make sure there are no indestructible turfs in the way
 		random_port.setDir(pick(NORTH, SOUTH, EAST, WEST))
-		random_port.forceMove(locate(x, y, shuttleObject.docking_target.linked_z_level.z_value))
+		random_port.forceMove(locate(x, y, target_zvalue))
 		var/list/turfs = random_port.return_turfs()
 		var/valid = TRUE
 		for(var/turf/T as() in turfs)
@@ -353,11 +356,13 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		//Dont wipe z level while we are going
 		//Dont wipe z of where we are leaving for a bit, in case we come back.
 		SSzclear.temp_keep_z(z)
-		SSzclear.temp_keep_z(shuttleObject.docking_target.linked_z_level.z_value)
+		SSzclear.temp_keep_z(target_zvalue)
 		//Ok lets go there
 		switch(SSshuttle.moveShuttle(shuttleId, random_port.id, 1))
 			if(0)
 				say("Initiating supercruise throttle-down, prepare for landing.")
+				if(current_user)
+					remove_eye_control(current_user)
 				QDEL_NULL(shuttleObject)
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
@@ -365,6 +370,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 				qdel(random_port)
+		break
 	qdel(random_port)
 
 /obj/machinery/computer/shuttle_flight/emag_act(mob/user)

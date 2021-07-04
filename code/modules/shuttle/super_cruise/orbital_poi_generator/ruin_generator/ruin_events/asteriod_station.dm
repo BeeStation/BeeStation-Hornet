@@ -1,11 +1,11 @@
 /datum/ruin_event/asteriod_station
 	probability = 3
 
-/datum/ruin_event/asteriod_station/pre_spawn(z_value)
+/datum/ruin_event/asteriod_station/post_spawn(list/floor_turfs, z_value)
 	var/perlin_noise_scale = 65
 	var/seed = rand(0, 999999)
 	var/turf/z_center = locate(world.maxx * 0.5, world.maxy * 0.5, z_value)
-	for(var/turf/T as() in block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value)))
+	for(var/turf/open/space/T in block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value)))
 		//Calculate distance to edge
 		var/distance = z_center.Distance(T)
 		if(distance > 120)
@@ -15,10 +15,6 @@
 		var/sand_value = (distance / 120)
 		if(noise_at_coord >= rock_value)
 			T.ChangeTurf(/turf/closed/mineral/random, list(/turf/open/floor/plating/asteroid/airless), CHANGETURF_IGNORE_AIR)
-			if(!T.lighting_object)
-				T.lighting_build_overlay()
 		else if(noise_at_coord >= sand_value)
 			T.ChangeTurf(/turf/open/floor/plating/asteroid/airless, flags = CHANGETURF_IGNORE_AIR)
-			if(!T.lighting_object)
-				T.lighting_build_overlay()
 		CHECK_TICK
