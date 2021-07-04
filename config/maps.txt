@@ -34,7 +34,7 @@ endmap
 
 map pubbystation
 	#Let's be real do you really want to play this with more than this?
-	maxplayers 20
+	maxplayers 50
 	votable
 endmap
 
