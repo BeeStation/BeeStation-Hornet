@@ -341,3 +341,16 @@
 /datum/map_template/ruin_part/genetics
 	file_name = "9x9_genetics"
 	weight = 3
+
+/datum/map_template/ruin_part/northairlock
+	file_name = "5x9_northernairlock"
+	weight = 4
+
+/datum/map_template/ruin_part/southairlock
+	file_name = "5x9_southernairlock"
+	weight = 4
+
+/datum/map_template/ruin_part/shuttledock_inside
+	file_name = "21x17_shuttledock"
+	weight = 4
+	max_occurances = 1
