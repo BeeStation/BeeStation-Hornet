@@ -1,42 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/pod_shuttle)
-"b" = (
-/obj/machinery/computer/crew/syndie,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/pod_shuttle)
-"c" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/pod_shuttle)
-"d" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/pod_shuttle)
-"e" = (
-/obj/effect/spawner/structure/window/plastitanium,
-/turf/open/floor/plating,
-/area/shuttle/pod_shuttle)
-"f" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
-"h" = (
-/obj/machinery/computer/shuttle_flight/bluespace_pod/traitor,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/pod_shuttle)
-"j" = (
+"c" = (
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -51,39 +18,16 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
-"n" = (
-/obj/machinery/atmospherics/components/unary/shuttle/heater{
-	dir = 1
-	},
-/obj/effect/spawner/structure/window/plastitanium,
-/turf/open/floor/plating,
-/area/shuttle/pod_shuttle)
-"o" = (
-/obj/machinery/shuttle/engine/plasma{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/shuttle/pod_shuttle)
-"r" = (
-/obj/machinery/computer/camera_advanced/syndie,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/pod_shuttle)
-"t" = (
+"e" = (
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "4-8"
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
-"w" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/turf/open/floor/mineral/plastitanium/red,
+"h" = (
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
-"x" = (
+"i" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
@@ -98,7 +42,19 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
-"y" = (
+"j" = (
+/turf/closed/wall/mineral/plastitanium,
+/area/shuttle/pod_shuttle)
+"k" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/toy/nuke,
+/obj/item/toy/cards/deck/syndicate,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/pod_shuttle)
+"l" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -108,68 +64,10 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
-"A" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
+"m" = (
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pod_shuttle)
-"B" = (
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/pod_shuttle)
-"C" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/shuttle/pod_shuttle)
-"E" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/pod_shuttle)
-"G" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/pod_shuttle)
-"J" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/structure/table/reinforced,
-/obj/item/storage/toolbox/syndicate,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/pod_shuttle)
-"L" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/structure/table/reinforced,
-/obj/item/toy/nuke,
-/obj/item/toy/cards/deck/syndicate,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/pod_shuttle)
-"N" = (
-/obj/machinery/modular_fabricator/autolathe/hacked,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/shuttle/pod_shuttle)
-"O" = (
+"n" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -179,7 +77,19 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
-"P" = (
+"o" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/pod_shuttle)
+"p" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -191,34 +101,7 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
-"R" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
-	},
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/shuttle/pod_shuttle)
-"S" = (
-/turf/template_noop,
-/area/template_noop)
-"T" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/item/stack/sheet/mineral/plasma/five,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/pod_shuttle)
-"U" = (
-/turf/closed/wall/mineral/plastitanium,
-/area/shuttle/pod_shuttle)
-"V" = (
+"q" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -231,19 +114,19 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
-"X" = (
+"s" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 5
 	},
 /obj/machinery/light/small{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
-"Y" = (
+"t" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -252,7 +135,69 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
-"Z" = (
+"x" = (
+/obj/machinery/atmospherics/components/unary/shuttle/heater{
+	dir = 1
+	},
+/obj/effect/spawner/structure/window/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/pod_shuttle)
+"y" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/pod_shuttle)
+"z" = (
+/obj/machinery/computer/shuttle_flight/bluespace_pod/traitor,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/pod_shuttle)
+"A" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle/pod_shuttle)
+"B" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/stack/sheet/mineral/plasma/five,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/pod_shuttle)
+"C" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/shuttle/pod_shuttle)
+"D" = (
+/obj/machinery/computer/crew/syndie,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/pod_shuttle)
+"K" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/pod_shuttle)
+"M" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/pod_shuttle)
+"N" = (
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -269,99 +214,155 @@
 	dir = 8;
 	dwidth = 4;
 	height = 6;
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
 	width = 10
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
+"O" = (
+/obj/machinery/modular_fabricator/autolathe/hacked,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/shuttle/pod_shuttle)
+"S" = (
+/turf/template_noop,
+/area/template_noop)
+"T" = (
+/obj/effect/spawner/structure/window/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/pod_shuttle)
+"V" = (
+/obj/machinery/computer/camera_advanced/syndie,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/pod_shuttle)
+"W" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/shuttle/pod_shuttle)
+"X" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/pod_shuttle)
+"Y" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/syndicate,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/pod_shuttle)
+"Z" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/pod_shuttle)
 
 (1,1,1) = {"
 S
-U
-e
-U
-U
-e
 j
-U
-U
-U
+T
+j
+j
+T
+c
+j
+j
+j
 S
 "}
 (2,1,1) = {"
-e
-e
-L
-c
-x
-f
-f
-f
-N
+T
+T
+k
+s
+i
 a
 a
+a
+O
+m
+m
 "}
 (3,1,1) = {"
-e
-r
-A
-B
-d
-B
-B
-t
-y
-n
-o
-"}
-(4,1,1) = {"
+T
+V
+M
+h
 e
 h
-Y
-B
-O
+h
+Z
+l
+x
+A
+"}
+(4,1,1) = {"
 T
-E
-P
-R
+z
+t
+h
 n
-o
+B
+y
+p
+W
+x
+A
 "}
 (5,1,1) = {"
-e
-b
-A
-B
-B
-B
-B
-G
+T
+D
+M
+h
+h
+h
+h
+K
 C
-n
-o
+x
+A
 "}
 (6,1,1) = {"
-e
-e
-J
+T
+T
+Y
+o
 X
-w
-f
-f
-f
-V
 a
 a
+a
+q
+m
+m
 "}
 (7,1,1) = {"
 S
-U
-e
-U
-U
-e
-Z
-U
-U
-U
+j
+T
+j
+j
+T
+N
+j
+j
+j
 S
 "}
