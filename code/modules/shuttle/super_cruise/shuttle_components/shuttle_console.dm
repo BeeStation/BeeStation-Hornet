@@ -360,11 +360,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 /obj/machinery/computer/shuttle_flight/proc/random_drop(datum/orbital_object/shuttle/_shuttleObject = shuttleObject, _shuttleId = shuttleId)
 	//Find a random place to drop in at.
 	if(!_shuttleObject?.docking_target?.linked_z_level)
-		return
+		return FALSE
 	//Get shuttle dock
 	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(_shuttleId)
 	if(!shuttle_dock)
-		return
+		return FALSE
 	var/target_zvalue = _shuttleObject.docking_target.linked_z_level.z_value
 	//Create temporary port
 	var/obj/docking_port/stationary/random_port = new
@@ -404,14 +404,15 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				if(current_user)
 					remove_eye_control(current_user)
 				QDEL_NULL(_shuttleObject)
+				return TRUE
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 				qdel(random_port)
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 				qdel(random_port)
-		break
 	qdel(random_port)
+	return FALSE
 
 /obj/machinery/computer/shuttle_flight/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
