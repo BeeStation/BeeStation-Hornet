@@ -334,7 +334,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 /obj/machinery/computer/shuttle_flight/proc/launch_shuttle()
 	if(SSorbits.interdicted_shuttles.Find(shuttleId))
 		if(world.time < SSorbits.interdicted_shuttles[shuttleId])
-			say("Supercruise Warning: Engines have been interdicted, waiting for recharge...")
+			var/time_left = (SSorbits.interdicted_shuttles[shuttleId] - world.time) * 0.1
+			say("Supercruise Warning: Engines have been interdicted and will be recharged in [time_left] seconds.")
 			return
 	var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
 	if(!mobile_port)
