@@ -356,7 +356,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	shuttleObject.valid_docks = valid_docks
 	return shuttleObject
 
-/obj/machinery/computer/shuttle_flight/proc/random_drop(_shuttleObject = shuttleObject, _shuttleId = shuttleId)
+/obj/machinery/computer/shuttle_flight/proc/random_drop(datum/orbital_object/shuttle/_shuttleObject = shuttleObject, _shuttleId = shuttleId)
 	//Find a random place to drop in at.
 	if(!_shuttleObject?.docking_target?.linked_z_level)
 		return
