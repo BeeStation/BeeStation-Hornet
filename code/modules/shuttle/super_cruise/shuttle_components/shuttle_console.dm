@@ -9,6 +9,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	req_access = list( )
 	var/shuttleId
 
+	//Interdiction range
+	var/interdiction_range = 150
+	//Time it takes to recharge after interdiction
+	var/interdiction_time = 3 MINUTES
+
 	//For recall consoles
 	//If not set to an empty string, will display only the option to call the shuttle to that dock.
 	//Once pressed the shuttle will engage autopilot and return to the dock.
@@ -81,6 +86,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//If we are a recall console.
 	data["recall_docking_port_id"] = recall_docking_port_id
 	data["request_shuttle_message"] = request_shuttle_message
+	data["interdiction_range"] = interdiction_range
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
@@ -234,6 +240,35 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				return
 			//Force dock with the thing we are colliding with.
 			shuttleObject.commence_docking(shuttleObject.can_dock_with, TRUE)
+		if("interdict")
+			if(QDELETED(shuttleObject))
+				return
+			if(shuttleObject.docking_target || shuttleObject.can_dock_with)
+				say("Cannot use interdictor while docking.")
+				return
+			if(shuttleObject.stealth)
+				say("Cannot use interdictor on stealthed shuttles.")
+				return
+			say("Interdictor activated, shuttle throttling down...")
+			//Create the site of interdiction
+			var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle()
+			z_linked.position = new /datum/orbital_vector(shuttleObject.position.x, shuttleObject.position.y)
+			z_linked.name = "Interdiction Site"
+			//Lets tell everyone about it
+			priority_announce("Supercruise interdiction detected. Source: [shuttleObject.name]")
+			//Get all shuttle objects in range
+			for(var/shuttleportid in SSorbits.assoc_shuttles)
+				var/datum/orbital_object/shuttle/other_shuttle = SSorbits.assoc_shuttles[shuttleportid]
+				//Do this last
+				if(other_shuttle == shuttleObject)
+					continue
+				if(other_shuttle?.position?.Distance(shuttleObject.position) <= interdiction_range && !other_shuttle.stealth)
+					other_shuttle.commence_docking(z_linked, TRUE)
+					random_drop(other_shuttle, shuttleportid)
+					SSorbits.interdicted_shuttles[shuttleportid] = world.time + interdiction_time
+			shuttleObject.commence_docking(z_linked, TRUE)
+			random_drop()
+			SSorbits.interdicted_shuttles[shuttleId] = world.time + interdiction_time
 		//Go to valid port
 		if("gotoPort")
 			if(QDELETED(shuttleObject))
@@ -297,6 +332,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 
 /obj/machinery/computer/shuttle_flight/proc/launch_shuttle()
+	if(SSorbits.interdicted_shuttles.Find(shuttleId))
+		if(world.time < SSorbits.interdicted_shuttles[shuttleId])
+			say("Supercruise Warning: Engines have been interdicted, waiting for recharge...")
+			return
 	var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
 	if(!mobile_port)
 		return
@@ -317,15 +356,15 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	shuttleObject.valid_docks = valid_docks
 	return shuttleObject
 
-/obj/machinery/computer/shuttle_flight/proc/random_drop()
+/obj/machinery/computer/shuttle_flight/proc/random_drop(_shuttleObject = shuttleObject, _shuttleId = shuttleId)
 	//Find a random place to drop in at.
-	if(!shuttleObject?.docking_target?.linked_z_level)
+	if(!_shuttleObject?.docking_target?.linked_z_level)
 		return
 	//Get shuttle dock
-	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(shuttleId)
+	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(_shuttleId)
 	if(!shuttle_dock)
 		return
-	var/target_zvalue = shuttleObject.docking_target.linked_z_level.z_value
+	var/target_zvalue = _shuttleObject.docking_target.linked_z_level.z_value
 	//Create temporary port
 	var/obj/docking_port/stationary/random_port = new
 	random_port.delete_after = TRUE
@@ -358,12 +397,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		SSzclear.temp_keep_z(z)
 		SSzclear.temp_keep_z(target_zvalue)
 		//Ok lets go there
-		switch(SSshuttle.moveShuttle(shuttleId, random_port.id, 1))
+		switch(SSshuttle.moveShuttle(_shuttleId, random_port.id, 1))
 			if(0)
 				say("Initiating supercruise throttle-down, prepare for landing.")
 				if(current_user)
 					remove_eye_control(current_user)
-				QDEL_NULL(shuttleObject)
+				QDEL_NULL(_shuttleObject)
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 				qdel(random_port)

@@ -1,5 +1,5 @@
 import { toTitleCase } from 'common/string';
-import { Box, Button, Section, Table, DraggableControl, Dropdown, Divider, NoticeBox, Slider, Knob, ProgressBar, ScrollableBox } from '../components';
+import { Box, Button, Section, Table, DraggableControl, Dropdown, Divider, NoticeBox, Slider, Knob, ProgressBar, Fragment, ScrollableBox } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -18,6 +18,7 @@ export const OrbitalMap = (props, context) => {
     desired_vel_y = 0,
     validDockingPorts = [],
     isDocking = false,
+    interdiction_range = 0,
   } = data;
   const lineStyle = {
     stroke: '#BBBBBB',
@@ -43,11 +44,17 @@ export const OrbitalMap = (props, context) => {
     trackedBody,
     setTrackedBody,
   ] = useLocalState(context, 'trackedBody', map_objects[0].name);
+  let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
   let trackedObject = null;
+  let ourObject = null;
   if (map_objects.length > 0)
   {
     // Find the right tracked body
     map_objects.forEach(element => {
+      if (element.name === shuttleName)
+      {
+        ourObject = element;
+      }
       if (element.name === trackedBody && !trackedObject)
       {
         trackedObject = element;
@@ -64,9 +71,9 @@ export const OrbitalMap = (props, context) => {
     <Window
       width={1036}
       height={670}
-      resizable>
-      <Window.Content
-        scrollable>
+      resizable
+      overflowY="hidden">
+      <Window.Content overflowY="hidden">
         <div class="OrbitalMap__radar">
           <Button
             position="absolute"
@@ -148,31 +155,33 @@ export const OrbitalMap = (props, context) => {
                         control1.handleDragStart(e);
                       }}
                       viewBox="-250 -250 500 500"
-                      position="absolute">
+                      position="absolute"
+                      overflowY="hidden">
                       <defs>
-                        <pattern id="grid" width={100 * zoomScale}
-                          height={100 * zoomScale}
+                        <pattern id="grid" width={100 * lockedZoomScale}
+                          height={100 * lockedZoomScale}
                           patternUnits="userSpaceOnUse">
-                          <rect width={100 * zoomScale} height={100 * zoomScale}
+                          <rect width={100 * lockedZoomScale}
+                            height={100 * lockedZoomScale}
                             fill="url(#smallgrid)" />
                           <path
                             fill="none" stroke="#4665DE" stroke-width="1"
-                            d={"M " + (100 * zoomScale)+ " 0 L 0 0 0 " + (100 * zoomScale)} />
+                            d={"M " + (100 * lockedZoomScale)+ " 0 L 0 0 0 " + (100 * lockedZoomScale)} />
                         </pattern>
                         <pattern id="smallgrid"
-                          width={50 * zoomScale}
-                          height={50 * zoomScale}
+                          width={50 * lockedZoomScale}
+                          height={50 * lockedZoomScale}
                           patternUnits="userSpaceOnUse">
                           <rect
-                            width={50 * zoomScale}
-                            height={50 * zoomScale}
+                            width={50 * lockedZoomScale}
+                            height={50 * lockedZoomScale}
                             fill="#2B2E3B" />
                           <path
                             fill="none"
                             stroke="#4665DE"
                             stroke-width="0.5"
-                            d={"M " + (50 * zoomScale) + " 0 L 0 0 0 "
-                            + (50 * zoomScale)} />
+                            d={"M " + (50 * lockedZoomScale) + " 0 L 0 0 0 "
+                            + (50 * lockedZoomScale)} />
                         </pattern>
                       </defs>
                       <rect x="-50%" y="-50%" width="100%" height="100%"
@@ -222,7 +231,7 @@ export const OrbitalMap = (props, context) => {
                             y={Math.max(Math.min((map_object.position_y
                               - yOffset) * zoomScale, 250), -240)}
                             fill="white"
-                            fontSize={Math.min(40 * zoomScale, 14)}>
+                            fontSize={Math.min(40 * lockedZoomScale, 14)}>
                             {map_object.name}
                           </text>
                           {shuttleName !== map_object.name || (
@@ -245,6 +254,29 @@ export const OrbitalMap = (props, context) => {
                           )}
                         </>
                       ))};
+                      {ourObject && (
+                        <circle
+                          cx={Math.max(Math.min((ourObject.position_x
+                            - xOffset)
+                            * zoomScale, 250), -250)}
+                          cy={Math.max(Math.min((ourObject.position_y
+                            - yOffset)
+                            * zoomScale, 250), -250)}
+                          r={((ourObject.position_y - yOffset)
+                            * zoomScale > 250
+                            || (ourObject.position_y - yOffset)
+                            * zoomScale < -250
+                            || (ourObject.position_x - xOffset)
+                            * zoomScale > 250
+                            || (ourObject.position_x - xOffset)
+                            * zoomScale < -250)
+                            ? 5 * zoomScale
+                            : Math.max(5 * zoomScale, interdiction_range
+                              * zoomScale)}
+                          stroke="#00FF00"
+                          stroke-width="1"
+                          fill="rgba(0,0,0,0)" />
+                      )}
                     </svg>
                   </>
                 )}
@@ -253,83 +285,85 @@ export const OrbitalMap = (props, context) => {
           </DraggableControl>
         </div>
         <div class="OrbitalMap__panel">
-          <Section title="Orbital Body Tracking" height="100%">
-            <Box bold>
-              Tracking
-            </Box>
-            <Box mb={1}>
-              {trackedBody}
-            </Box>
-            <Box>
-              <b>
-                X:&nbsp;
-              </b>
-              {trackedObject && trackedObject.position_x}
-            </Box>
-            <Box>
-              <b>
-                Y:&nbsp;
-              </b>
-              {trackedObject && trackedObject.position_y}
-            </Box>
-            <Box>
-              <b>
-                Velocity:&nbsp;
-              </b>
-              ({trackedObject && trackedObject.velocity_x}
-              , {trackedObject && trackedObject.velocity_y})
-            </Box>
-            <Box>
-              <b>
-                Radius:&nbsp;
-              </b>
-              {trackedObject && trackedObject.radius} BSU
-            </Box>
+          <ScrollableBox overflowY="scroll" height="100%">
+            <Section title="Orbital Body Tracking">
+              <Box bold>
+                Tracking
+              </Box>
+              <Box mb={1}>
+                {trackedBody}
+              </Box>
+              <Box>
+                <b>
+                  X:&nbsp;
+                </b>
+                {trackedObject && trackedObject.position_x}
+              </Box>
+              <Box>
+                <b>
+                  Y:&nbsp;
+                </b>
+                {trackedObject && trackedObject.position_y}
+              </Box>
+              <Box>
+                <b>
+                  Velocity:&nbsp;
+                </b>
+                ({trackedObject && trackedObject.velocity_x}
+                , {trackedObject && trackedObject.velocity_y})
+              </Box>
+              <Box>
+                <b>
+                  Radius:&nbsp;
+                </b>
+                {trackedObject && trackedObject.radius} BSU
+              </Box>
+              <Divider />
+              <Dropdown
+                selected={trackedBody}
+                width="100%"
+                color="grey"
+                options={map_objects.map(map_object => (map_object.name))}
+                onSelected={value => setTrackedBody(value)} />
+            </Section>
             <Divider />
-            <Dropdown
-              selected={trackedBody}
-              width="100%"
-              color="grey"
-              options={map_objects.map(map_object => (map_object.name))}
-              onSelected={value => setTrackedBody(value)} />
-          </Section>
-          <Divider />
-          <Section title="Flight Controls" height="100%">
-            {(!thrust_alert) || (
-              <NoticeBox color="red">
-                {thrust_alert}
-              </NoticeBox>
-            )}
-            {(!damage_alert) || (
-              <NoticeBox color="red">
-                {damage_alert}
-              </NoticeBox>
-            )}
-            {recall_docking_port_id !== ""
-              ? <RecallControl />
-              : linkedToShuttle
-                ? <ShuttleControls />
-                : (canLaunch ? (
-                  <>
-                    <NoticeBox>
-                      Currently docked, awaiting launch order.
+            <Section title="Flight Controls">
+              {(!thrust_alert) || (
+                <NoticeBox color="red">
+                  {thrust_alert}
+                </NoticeBox>
+              )}
+              {(!damage_alert) || (
+                <NoticeBox color="red">
+                  {damage_alert}
+                </NoticeBox>
+              )}
+              {recall_docking_port_id !== ""
+                ? <RecallControl />
+                : linkedToShuttle
+                  ? <ShuttleControls />
+                  : (canLaunch ? (
+                    <>
+                      <NoticeBox>
+                        Currently docked, awaiting launch order.
+                      </NoticeBox>
+                      <Button
+                        content="INITIATE LAUNCH"
+                        textAlign="center"
+                        fontSize="30px"
+                        icon="rocket"
+                        width="100%"
+                        height="50px"
+                        onClick={() => act('launch')} />
+                    </>
+                  ) : (
+                    <NoticeBox
+                      color="red">
+                      Not linked to a shuttle.
                     </NoticeBox>
-                    <Button
-                      content="INITIATE LAUNCH"
-                      textAlign="center"
-                      fontSize="30px"
-                      icon="rocket"
-                      width="100%"
-                      height="50px"
-                      onClick={() => act('launch')} />
-                  </>
-                ) : (
-                  <NoticeBox
-                    color="red">
-                    Not linked to a shuttle.
-                  </NoticeBox>
-                ))}
-          </Section>
+                  ))}
+            </Section>
+          </ScrollableBox>
         </div>
       </Window.Content>
     </Window>
@@ -448,6 +482,11 @@ export const ShuttleControls = (props, context) => {
           content="Initiate Docking"
           onClick={() => act('dock')} />
       )}
+      <Button
+        mt={2}
+        content="ENGAGE INTERDICTOR"
+        onClick={() => act('interdict')}
+        color="purple" />
     </>
   );
 };

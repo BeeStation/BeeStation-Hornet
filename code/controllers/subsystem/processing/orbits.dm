@@ -28,6 +28,10 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//value = orbital shuttle object
 	var/list/assoc_shuttles = list()
 
+	//Key = port_id
+	//value = world time of next launch
+	var/list/interdicted_shuttles = list()
+
 	var/next_objective_time = 0
 
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
