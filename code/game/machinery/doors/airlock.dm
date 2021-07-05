@@ -827,8 +827,8 @@
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_AIRLOCK_TOUCHED, user) & COMPONENT_PREVENT_OPEN)
-		return
-	if(locked && allowed(user) && aac)
+		. = TRUE
+	else if(locked && allowed(user) && aac)
 		aac.request_from_door(src)
 		. = TRUE
 	else

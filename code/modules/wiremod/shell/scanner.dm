@@ -8,7 +8,6 @@
 	icon = 'icons/obj/assemblies/electronic_setups.dmi'
 	icon_state = "setup_small_hook"
 	item_state = "electronic"
-	//worn_icon_state = "electronic"		//remember to change it later lol
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	light_range = FALSE
