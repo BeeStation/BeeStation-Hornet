@@ -61,6 +61,10 @@
 		velocity.y = 0
 		position.x = docking_target.position.x
 		position.y = docking_target.position.y
+		//Disable autopilot and thrust while docking to prevent fuel usage.
+		thrust = 0
+		angle = 0
+		autopilot = FALSE
 		return
 	else
 		//If our docking target was deleted, null it to prevent docking interface etc.

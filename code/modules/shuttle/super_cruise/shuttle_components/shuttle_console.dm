@@ -204,6 +204,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 	switch(action)
 		if("setTarget")
+			if(QDELETED(shuttleObject))
+				return
 			var/desiredTarget = params["target"]
 			if(shuttleObject.name == desiredTarget)
 				return
@@ -212,17 +214,17 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					shuttleObject.shuttleTarget = object
 					return
 		if("setThrust")
+			if(QDELETED(shuttleObject))
+				return
 			if(shuttleObject.autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
-				return
-			if(QDELETED(shuttleObject))
 				return
 			shuttleObject.thrust = CLAMP(params["thrust"], 0, 100)
 		if("setAngle")
+			if(QDELETED(shuttleObject))
+				return
 			if(shuttleObject.autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
-				return
-			if(QDELETED(shuttleObject))
 				return
 			shuttleObject.angle = params["angle"]
 		if("nautopilot")
@@ -359,7 +361,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/proc/random_drop(datum/orbital_object/shuttle/_shuttleObject = shuttleObject, _shuttleId = shuttleId)
 	//Find a random place to drop in at.
-	if(!_shuttleObject?.docking_target?.linked_z_level)
+	if(!(_shuttleObject?.docking_target?.linked_z_level))
 		return FALSE
 	//Get shuttle dock
 	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(_shuttleId)

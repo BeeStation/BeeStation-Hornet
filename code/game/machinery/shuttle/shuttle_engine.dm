@@ -20,6 +20,7 @@
 	var/bluespace_capable = TRUE
 	var/cooldown = 0
 	var/thruster_active = FALSE
+	var/needs_heater = TRUE
 	var/datum/weakref/attached_heater
 
 /obj/machinery/shuttle/engine/plasma
@@ -47,6 +48,7 @@
 	thrust = 400
 	fuel_use = 0
 	bluespace_capable = TRUE
+	needs_heater = FALSE
 	cooldown = 90
 
 /obj/machinery/shuttle/engine/Initialize()
@@ -87,6 +89,10 @@
 	return
 
 /obj/machinery/shuttle/engine/proc/update_engine()
+	if(!needs_heater)
+		icon_state = icon_state_closed
+		thruster_active = TRUE
+		return
 	if(!attached_heater)
 		icon_state = icon_state_off
 		thruster_active = FALSE

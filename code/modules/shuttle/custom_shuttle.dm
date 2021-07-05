@@ -63,21 +63,28 @@
 	calculated_consumption = 0
 	//Consume fuel
 	for(var/obj/machinery/shuttle/engine/E as() in shuttle_engines)
-		//Check for inop engines
-		if(!E.attached_heater)
-			continue
-		var/obj/machinery/atmospherics/components/unary/shuttle/heater/shuttle_heater = E.attached_heater.resolve()
-		if(!shuttle_heater)
-			continue
-		if(shuttle_heater.dir != E.dir)
-			continue
-		if(shuttle_heater.panel_open)
-			continue
-		if(!shuttle_heater.anchored)
-			continue
-		//Setup correct, check fuel.
-		if(shuttle_heater.hasFuel(E.fuel_use * multiplier))
-			shuttle_heater.consumeFuel(E.fuel_use * multiplier)
+		var/valid_thruster = FALSE
+		//Void thrusters don't need heaters
+		if(E.needs_heater)
+			//Check for inop engines
+			if(!E.attached_heater)
+				continue
+			var/obj/machinery/atmospherics/components/unary/shuttle/heater/shuttle_heater = E.attached_heater.resolve()
+			if(!shuttle_heater)
+				continue
+			if(shuttle_heater.dir != E.dir)
+				continue
+			if(shuttle_heater.panel_open)
+				continue
+			if(!shuttle_heater.anchored)
+				continue
+			//Setup correct, check fuel.
+			if(shuttle_heater.hasFuel(E.fuel_use * multiplier / shuttle_heater.efficiency_multiplier))
+				shuttle_heater.consumeFuel(E.fuel_use * multiplier / shuttle_heater.efficiency_multiplier)
+				valid_thruster = TRUE
+		else
+			valid_thruster = TRUE
+		if(valid_thruster)
 			calculated_consumption += E.fuel_use
 			calculated_dforce += E.thrust
 			calculated_engine_count ++
@@ -130,6 +137,7 @@
 	calculated_cooldown = 0
 	calculated_fuel_less_thrusters = 0
 	calculated_non_operational_thrusters = 0
+	shuttle_engines = list()
 	//Calculate all the data
 	var/list/areas = M.shuttle_areas
 	for(var/shuttleArea in areas)
