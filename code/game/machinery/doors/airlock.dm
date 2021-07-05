@@ -416,6 +416,8 @@
 				if(G.siemens_coefficient)//not insulated
 					new /datum/hallucination/shock(H)
 					return
+	if(SEND_SIGNAL(src, COMSIG_AIRLOCK_TOUCHED, user) & COMPONENT_PREVENT_OPEN)
+		return
 	if (cyclelinkedairlock)
 		if (!shuttledocked && !emergency && !cyclelinkedairlock.shuttledocked && !cyclelinkedairlock.emergency && allowed(user))
 			if(cyclelinkedairlock.operating)
@@ -824,6 +826,8 @@
 	return attack_hand(user)
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
+	if(SEND_SIGNAL(src, COMSIG_AIRLOCK_TOUCHED, user) & COMPONENT_PREVENT_OPEN)
+		return
 	if(locked && allowed(user) && aac)
 		aac.request_from_door(src)
 		. = TRUE
