@@ -441,6 +441,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			else
 				say("Unable to comply.")
 	qdel(random_port)
+	say("FAILED TO DROP IN A RANDOM PLACE PLEASE TRY AGAIN!!!!!!!!!")
 	return FALSE
 
 /obj/machinery/computer/shuttle_flight/proc/unfreeze_shuttle(obj/docking_port/mobile/shuttle_dock, datum/space_level/target_spacelevel)
