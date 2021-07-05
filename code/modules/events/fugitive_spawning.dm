@@ -116,4 +116,4 @@
 	for(var/turf/A in ship.get_affected_turfs(T))
 		for(var/obj/effect/mob_spawn/human/fugitive/spawner in A)
 			announce_to_ghosts(spawner)
-	priority_announce("Unidentified ship detected near the station.")
+	priority_announce("Unidentified ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())

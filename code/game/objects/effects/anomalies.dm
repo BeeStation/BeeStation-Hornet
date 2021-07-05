@@ -221,7 +221,7 @@
 			var/turf/TO = get_turf(chosen) // the turf of origin we're travelling TO
 
 			playsound(TO, 'sound/effects/phasein.ogg', 100, 1)
-			priority_announce("Massive bluespace translocation detected.", "Anomaly Alert")
+			priority_announce("Massive bluespace translocation detected.", "Anomaly Alert", SSstation.announcer.get_rand_alert_sound())
 
 			var/list/flashers = list()
 			for(var/mob/living/carbon/C in viewers(TO))

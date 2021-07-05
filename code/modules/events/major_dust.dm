@@ -16,4 +16,4 @@
 		some mild debris is expected.",
 		"A neighbouring station is throwing rocks at you. (Perhaps they've \
 		grown tired of your messages.)")
-	priority_announce(pick(reason), "Collision Alert")
+	priority_announce(pick(reason), "Collision Alert", SSstation.announcer.get_rand_alert_sound())

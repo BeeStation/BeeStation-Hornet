@@ -47,16 +47,11 @@ GLOBAL_VAR(clockcult_eminence)
 
 	var/datum/team/clock_cult/main_cult
 
+/datum/game_mode/clockcult/setup_maps()
+	LoadReebe()
+	return TRUE
+
 /datum/game_mode/clockcult/pre_setup()
-	//Load Reebe
-	var/list/errorList = list()
-	var/list/reebe = SSmapping.LoadGroup(errorList, "Reebe", "map_files/generic", "CityOfCogs.dmm", default_traits=ZTRAITS_REEBE, silent=TRUE)
-	if(errorList.len)
-		message_admins("Reebe failed to load")
-		log_game("Reebe failed to load")
-		return FALSE
-	for(var/datum/map_template/map in reebe)
-		map.initTemplateBounds()
 	//Generate cultists
 	for(var/i in 1 to clock_cultists)
 		if(!antag_candidates.len)

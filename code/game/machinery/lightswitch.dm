@@ -62,3 +62,9 @@
 		return
 	if(!(stat & (BROKEN|NOPOWER)))
 		power_change()
+
+/obj/machinery/light_switch/eminence_act(mob/living/simple_animal/eminence/eminence)
+	. = ..()
+	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	if(do_after(eminence, 20, target=get_turf(eminence)))
+		interact(eminence)

@@ -72,7 +72,7 @@
 	if(stat != DEAD)
 		SSshuttle.clearHostileEnvironment(src)
 		if(EMERGENCY_IDLE_OR_RECALLED)
-			priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.")
+			priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.", SSstation.announcer.get_rand_alert_sound())
 			SSshuttle.emergency.request(null, set_coefficient=0.5)
 			SSshuttle.emergencyNoRecall = TRUE
 

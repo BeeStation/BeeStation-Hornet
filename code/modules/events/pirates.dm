@@ -46,15 +46,15 @@
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 		if(D)
 			if(D.adjust_money(-payoff))
-				priority_announce("Thanks for the credits, landlubbers.",sender_override = ship_name)
+				priority_announce("Thanks for the credits, landlubbers.", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
 				paid_off = TRUE
 				return
 			else
-				priority_announce("Trying to cheat us? You'll regret this!",sender_override = ship_name)
+				priority_announce("Trying to cheat us? You'll regret this!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
 	if(!shuttle_spawned)
 		spawn_shuttle()
 	else
-		priority_announce("Too late to beg for mercy!",sender_override = ship_name)
+		priority_announce("Too late to beg for mercy!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
 
 /datum/round_event/pirates/start()
 	if(threat && !threat.answered)
@@ -90,7 +90,7 @@
 			else
 				announce_to_ghosts(spawner)
 
-	priority_announce("Unidentified armed ship detected near the station.")
+	priority_announce("Unidentified armed ship detected near the station.", sound = SSstation.announcer.get_rand_alert_sound())
 
 //Shuttle equipment
 
@@ -159,7 +159,7 @@
 		to_chat(user,"<span class='notice'>There's nothing to withdraw.</span>")
 
 /obj/machinery/shuttle_scrambler/proc/send_notification()
-	priority_announce("Data theft signal detected, source registered on local gps units.")
+	priority_announce("Data theft signal detected, source registered on local gps units.", sound = SSstation.announcer.get_rand_alert_sound())
 
 /obj/machinery/shuttle_scrambler/proc/toggle_off(mob/user)
 	SSshuttle.clearTradeBlockade(src)

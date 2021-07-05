@@ -281,11 +281,12 @@
 
 /obj/item/reagent_containers/food/drinks/beer/almost_empty
 	var/amount
+	list_reagents = null
 
 /obj/item/reagent_containers/food/drinks/beer/almost_empty/Initialize()
 	. = ..()
-	amount = rand(1,6)
-	list_reagents = list(/datum/reagent/consumable/ethanol/beer = amount)
+	amount = rand(1,4)
+	reagents.add_reagent(/datum/reagent/consumable/ethanol/beer, amount)
 
 /obj/item/reagent_containers/food/drinks/syndicatebeer
 	name = "syndicate beer"

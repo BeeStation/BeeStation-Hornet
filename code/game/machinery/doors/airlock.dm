@@ -291,10 +291,17 @@
 /obj/machinery/door/airlock/proc/bolt()
 	if(locked || protected_door)
 		return
-	locked = TRUE
-	playsound(src,boltDown,30,0,3)
+	set_bolt(TRUE)
+	playsound(src, boltDown, 30, 0, 3)
 	audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", null,  1)
 	update_icon()
+
+/obj/machinery/door/airlock/proc/set_bolt(should_bolt)
+	if(locked == should_bolt)
+		return
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_SET_BOLT, should_bolt)
+	. = locked
+	locked = should_bolt
 
 /obj/machinery/door/airlock/unlock()
 	unbolt()
@@ -302,7 +309,7 @@
 /obj/machinery/door/airlock/proc/unbolt()
 	if(!locked)
 		return
-	locked = FALSE
+	set_bolt(FALSE)
 	playsound(src,boltUp,30,0,3)
 	audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", null,  1)
 	update_icon()

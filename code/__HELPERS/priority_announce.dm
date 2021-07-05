@@ -3,9 +3,7 @@
 		return
 
 	var/announcement = "<meta charset='UTF-8'>"
-	if(!sound)
-		sound = SSstation.announcer.get_rand_alert_sound()
-	else if(SSstation.announcer.event_sounds[sound])
+	if(sound && SSstation.announcer.event_sounds[sound])
 		sound = SSstation.announcer.event_sounds[sound]
 
 	if(type == "Priority")

@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			qdel(src)
 	else if(!victory_in_progress && (blobs_legit.len >= blobwincount))
 		victory_in_progress = TRUE
-		priority_announce("Biohazard has reached critical mass. Station loss is imminent.", "Biohazard Alert")
+		priority_announce("Biohazard has reached critical mass. Station loss is imminent.", "Biohazard Alert", SSstation.announcer.get_rand_alert_sound())
 		set_security_level("delta")
 		max_blob_points = INFINITY
 		blob_points = INFINITY

@@ -50,6 +50,16 @@
 	description = "Basic mechanical, electronic, surgical and botanical tools."
 	design_ids = list("screwdriver", "wrench", "wirecutters", "crowbar", "multitool", "welding_tool", "tscanner", "analyzer", "cable_coil", "pipe_painter", "airlock_painter", "scalpel", "circular_saw", "surgicaldrill", "retractor", "cautery", "blood_filter", "hemostat", "surgical_drapes", "syringe", "cultivator", "plant_analyzer", "shovel", "spade", "hatchet",  "mop")
 
+/datum/techweb_node/basic_circuitry
+	id = "basic_circuitry"
+	starting_node = TRUE
+	display_name = "Basic Integrated Circuits"
+	description = "Research on how to fully exploit the power of integrated circuits"
+	design_ids = list("integrated_circuit", "circuit_multitool", "comp_arithmetic", "comp_clock", "comp_combiner", "comp_comparison", "comp_delay",
+		"comp_direction", "comp_get_column", "comp_gps", "comp_health", "comp_hear", "comp_index", "comp_index_table", "comp_length", "comp_light", "comp_logic", "comp_mmi", "comp_multiplexer", "comp_not", "comp_ram",
+		"comp_random", "comp_select_query", "comp_species", "comp_textcase","comp_speech", "comp_concat", "comp_concat_list", "comp_speech", "comp_self", "comp_soundemitter", "comp_radio", "comp_tostring",
+		"comp_typecheck", "compact_remote_shell", "component_printer", "comp_string_contains", "usb_cable")
+
 /////////////////////////Biotech/////////////////////////
 /datum/techweb_node/biotech
 	id = "biotech"
@@ -285,6 +295,32 @@
 	design_ids = list("disk_shuttle_route_void", "engine_void", "wingpack_ayy")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
 	export_price = 5000
+
+/////////////////////////integrated circuits tech/////////////////////////
+
+/datum/techweb_node/adv_shells
+	id = "adv_shells"
+	display_name = "Advanced Shell Research"
+	description = "Grants access to more complicated shell designs."
+	prereq_ids = list("basic_circuitry", "engineering")
+	design_ids = list("controller_shell", "bot_shell", "door_shell", "money_bot_shell")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+
+/datum/techweb_node/movable_shells_tech
+	id = "movable_shells"
+	display_name = "Movable Shell Research"
+	description = "Grants access to movable shells."
+	prereq_ids = list("adv_shells", "robotics")
+	design_ids = list("comp_pull", "drone_shell")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
+
+/datum/techweb_node/server_shell_tech
+	id = "server_shell"
+	display_name = "Server Technology Research"
+	description = "Grants access to a server shell that has a very high capacity for components."
+	prereq_ids = list("adv_shells", "computer_hardware_basic")
+	design_ids = list("server_shell")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 
 /////////////////////////robotics tech/////////////////////////
 /datum/techweb_node/robotics

@@ -14,6 +14,11 @@
 
 
 /obj/machinery/nanite_programmer/attackby(obj/item/I, mob/user)
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+		update_icon()
+		return
+	if(default_deconstruction_crowbar(I))
+		return
 	if(istype(I, /obj/item/disk/nanite_program))
 		var/obj/item/disk/nanite_program/N = I
 		if(user.transferItemToLoc(N, src))
