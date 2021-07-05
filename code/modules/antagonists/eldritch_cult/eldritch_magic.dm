@@ -31,23 +31,26 @@
 
 /obj/effect/proc_holder/spell/targeted/ashen_rewind
 	name = "Ashen Rewind"
-	desc = "Rewinds you back to the cast location after 30 seconds."
+	desc = "Rewinds you back to the cast location after 60 seconds."
 	clothes_req = FALSE
+	school = "transmutation"
 	invocation = "ASH'S TO ASH'S, D'ST T' D'T!"
 	invocation_type = INVOCATION_WHISPER
-	charge_max = 300
+	charge_max = 450
 	range = -1
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "ash_shift"
+	action_icon_state = "rewind"
 	action_background_icon_state = "bg_ecult"
 
-/obj/effect/proc_holder/spell/targeted/ashen_rewind/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/ashen_rewind/cast(list/targets, mob/user)  //todo add wolverine-esque claws for flesh
 	. = ..()
-	if(!iscarbon(user))
-		return
-	var/mob/living/carbon/carbie = user
-	carbie.apply_status_effect(/datum/status_effect/rewindtime)
-
+	if(isliving(user))
+		var/mob/living/rewinding_heretic = user
+		if(rewinding_heretic.has_status_effect(STATUS_EFFECT_REWIND_TIME) == FALSE)
+			rewinding_heretic.apply_status_effect(/datum/status_effect/rewindtime)
+			to_chat(user, "<span class='notice'>You start the rewind. Be careful, your health does not restore...</span>")
+		else
+			to_chat(user, "<span class='notice'>You still have time left...</span>")
 
 /obj/effect/proc_holder/spell/targeted/touch/mansus_grasp
 	name = "Mansus Grasp"
@@ -425,7 +428,7 @@
 	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
-	
+
 /obj/effect/proc_holder/spell/targeted/slither
 	name = "WIP slither"
 	desc = "wip"
@@ -443,8 +446,8 @@
 
 /obj/effect/proc_holder/spell/targeted/trial_by_fire
 	name = "Speak in tongues"
-	desc = "For a minute you will passively ignite those around you, causing mind damage."
-	invocation = "IT IS A PUNISHMENT, A PUNISHMENT UPON US!"
+	desc = "For a minute you will passively ignite those around you, causing mind damage. The deaf are unaffcted."
+	invocation = "YOU ARE AWAITED BY BRIMSTONE!!!"
 	invocation_type = INVOCATION_SHOUT
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
@@ -452,7 +455,7 @@
 	include_user = TRUE
 	charge_max = 5
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "fire_ring"
+	action_icon_state = "whisper_ash"
 	///how long it lasts
 	var/duration = 1 MINUTES
 	///who casted it right now
@@ -460,16 +463,25 @@
 	///Determines if you get the fire ring effect
 	var/has_fire_ring = FALSE
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "fire_ring"
+	action_icon_state = "whisper_ash"
 	active = FALSE
 	include_user = TRUE
 	var/mob/user
 
 /obj/effect/proc_holder/spell/targeted/trial_by_fire/cast(list/targets, mob/user)
-	user.say("thou have failed your father and shall rise again, a phoenix from the ashes, listen to the words of his as they burn into your skull. Feel the flame consume you as it leaves the purity, fear him as the day has come and you shall be judged. Fear not your Saviour as there is life after in a perfect place where the pure shall reside.")
+	user.say("YOU!!!")
+	sleep(20)
+	user.say("ALL!!!")
+	sleep(20)
+	user.say("SHALL!!!")
+	sleep(20)
+	user.say("BE!!!")
+	sleep(20)
+	user.say("CLEANSED!!!")
+	user.playsound_local(src, 'sound/magic/fireball.ogg', 80)
 	. = ..()
 	active = !active
-	while(active)
+	while(active && user.stat != DEAD)
 		sleep(20)
 		for(var/mob/living/carbon/human/human_in_range in ohearers(12,user))
 			if(IS_HERETIC(human_in_range) || IS_HERETIC_MONSTER(human_in_range))
@@ -493,11 +505,6 @@
 				if(prob(30))
 					human_in_range.Dizzy(5)
 
-				if(prob(1) && human_in_range.stat != DEAD)        //corpse exploder because it's cool
-					if(human_in_range.anti_magic_check())
-						return BULLET_ACT_BLOCK
-					explosion(human_in_range.loc, 0, 0, 1, 3, FALSE, FALSE, 1)
-		
 		for(var/mob/living/carbon/human/human_in_range in ohearers(40,user))
 			if(human_in_range.stat != DEAD)
 				to_chat(human_in_range, "<span class='boldannounce'>You are in danger.</span>")
@@ -511,7 +518,7 @@
 		for(var/mob/living/carbon/human/human_in_range in ohearers(10,user))
 			if(human_in_range.stat != DEAD)
 				to_chat(human_in_range, "<span class='boldannounce'>You can taste ash form on your lips. They are here.</span>")
-			
+
 
 /obj/effect/proc_holder/spell/targeted/conjure_item/ash_javelin
 	name = "Summon The Spear Of Destiny"
@@ -543,9 +550,9 @@
 	action_background_icon_state = "bg_ecult"
 	range = -1
 	include_user = TRUE
-	charge_max = 300
+	charge_max = 450
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "smoke"
+	action_icon_state = "fury"
 
 /obj/effect/proc_holder/spell/targeted/executioners_fury/cast(list/targets, mob/user)
 	. = ..()
@@ -563,7 +570,7 @@
 	action_background_icon_state = "bg_ecult"
 	range = -1
 	include_user = TRUE
-	charge_max = 400
+	charge_max = 600
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "smoke"
 
@@ -584,19 +591,20 @@
 		human_user.adjustStaminaLoss(-40, FALSE)
 		human_user.adjustToxLoss(-20, FALSE, TRUE)
 		human_user.adjustOxyLoss(-20)
+		target.ExtinguishMob()
 
 /obj/effect/proc_holder/spell/targeted/flame_birth_variant
 	name = "Cleanser's Curse"
 	desc = "Damages nearby alive people that are engulfed in flames. Paralyzes them. If a person is in critical condition it finishes them off."
-	invocation = "B'COMETH DUST"
+	invocation = "THY SINS GRASP AT YOUR HEARTS!"
 	invocation_type = INVOCATION_WHISPER
 	clothes_req = FALSE
 	action_background_icon_state = "bg_ecult"
 	range = -1
 	include_user = TRUE
-	charge_max = 400
+	charge_max = 600
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "smoke"
+	action_icon_state = "judgement"
 
 /obj/effect/proc_holder/spell/targeted/flame_birth_variant/cast(list/targets, mob/user)
 	if(!ishuman(user))
@@ -612,6 +620,10 @@
 		target.Paralyze(4 SECONDS)
 		new /obj/effect/temp_visual/eldritch_smoke(target.drop_location())
 		human_user.ExtinguishMob()
+		target.ExtinguishMob()
+		target.visible_message("<span class='danger'>[target] Is crushed into the floor by the weight of their sins!</span>", \
+							"<span class='danger'>You feel the weight of your sins crush you down into the floor!</span>")
+
 
 
 /obj/effect/proc_holder/spell/targeted/shed_human_form

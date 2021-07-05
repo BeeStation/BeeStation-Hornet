@@ -41,6 +41,7 @@
 
 #define STATUS_EFFECT_ANTIMAGIC /datum/status_effect/antimagic //! grants antimagic (and reapplies if lost) for the duration
 
+#define STATUS_EFFECT_REWIND_TIME /datum/status_effect/rewindtime
 //---------//
 // DEBUFFS //
 //---------//

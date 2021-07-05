@@ -1,7 +1,7 @@
 /datum/eldritch_knowledge/base_ash
 	name = "STATION I - The Lord's wrath"
 	desc = "Opens up the Path of Ash to you. Allows you to transmute a match with a kitchen knife, or its derivatives, into an Ashen Blade."
-	gain_text = "A sudden burst of anger overwhelms you, you feel strong and mighty, you see their heresy. They must be punished and YOU are the one that must cleanse all with flame into the perfectness of ash..."
+	gain_text = "A sudden burst of anger overwhelms you, a feeling of power, you see their heresy. They must be punished and YOU are the one that must cleanse all with flame into the perfectness of ash..."
 	banned_knowledge = list(/datum/eldritch_knowledge/base_rust,/datum/eldritch_knowledge/base_flesh,/datum/eldritch_knowledge/final/rust_final,/datum/eldritch_knowledge/final/flesh_final)
 	next_knowledge = list(/datum/eldritch_knowledge/ashen_grasp)
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/match)
@@ -41,7 +41,7 @@
 /datum/eldritch_knowledge/spell/ashen_rewind
 	name = "STATION III - Ashen rewind"
 	gain_text = "Ashes to ashes, dust to dust, and as such your time will come, but fear not as you will be granted life again by your savior once you complete your task."
-	desc = "Lets you rewind back to casting position after 30 seconds."
+	desc = "Lets you rewind back to the casting position after 60 seconds. Your health is unaffected."
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/ashen_rewind
 	next_knowledge = list(/datum/eldritch_knowledge/spell/ashen_shift, /datum/eldritch_knowledge/spell/executioners_fury)
@@ -49,7 +49,7 @@
 
 /datum/eldritch_knowledge/spell/ashen_shift
 	name = "STATION IV - Ashen Shift"
-	gain_text = "The Nightwatcher was the first of them, his treason started it all."
+	gain_text = "A goal he was so decided in completing no matter of the physical world could stop his advance..."
 	desc = "A short range jaunt that can help you escape from bad situations."
 	cost = 1
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/ash
@@ -59,8 +59,8 @@
 
 /datum/eldritch_knowledge/spell/executioners_fury
 	name = "STATION IV - Executioner's Fury"
-	gain_text = "And he swung, and swung till his son's face was one with the ground below him. He asked, 'Why do you protect the weak and corroded by sin? What will you have once they all are taken down below'. He remained silent."
-	desc = "Empower your action speed for a few seconds, allowing you to attack at a high speed."
+	gain_text = "...a motivation so strong not even his flesh could stop what his soul yearned the most!"
+	desc = "Empower your action speed for a few seconds, allowing you to perform most melee actions at high speeds for a short time."
 	cost = 1
 	spell_to_add = (/obj/effect/proc_holder/spell/targeted/executioners_fury)
 	next_knowledge = list(/datum/eldritch_knowledge/ash_mark)
@@ -72,6 +72,7 @@
 	desc = "Your Mansus Grasp now applies the Mark of Ash on hit. Attack the afflicted with your Sickly Blade to detonate the mark. Upon detonation, the Mark of Ash ignites targets and those around them."
 	cost = 2
 	next_knowledge = list(/datum/eldritch_knowledge/spell/flame_birth, /datum/eldritch_knowledge/spell/flame_judgement)
+	route = PATH_ASH
 
 /datum/eldritch_knowledge/ash_mark/on_mansus_grasp(target,user,proximity_flag,click_parameters)
 	. = ..()
@@ -81,7 +82,7 @@
 
 /datum/eldritch_knowledge/spell/flame_birth
 	name = "STATION VI - Flaming Rebirth"
-	gain_text = "The Nightwatcher was a man of principles, and yet his power arose from the chaos he vowed to combat."
+	gain_text = "As his power grew, the rage did too. The thrill was too much. And just like he spiraled down the road of power..."
 	desc = "Short range spell that allows you to extinguish nearby burning targets to heal yourself and finish them off if in critical condition."
 	cost = 2
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/fiery_rebirth
@@ -91,12 +92,12 @@
 
 /datum/eldritch_knowledge/spell/flame_judgement
 	name = "STATION VI - Flaming Judgement"
-	gain_text = "The Nightwatcher was a man of principles, and yet his power arose from the chaos he vowed to combat."
+	gain_text = "...the flame fueled the man, the man fed the flame. Living fuel, a high calliber round of living ammunition."
 	desc = "Short range spell that allows you to extinguish nearby burning targets to stun, damage and finish them off if in critical condition."
 	cost = 2
 	spell_to_add = /obj/effect/proc_holder/spell/targeted/flame_birth_variant
 	next_knowledge = list(/datum/eldritch_knowledge/armor/ash, /datum/eldritch_knowledge/ash_blade_upgrade)
-	route = PATH_ASH
+	route = PATH_VARIANT
 	banned_knowledge = list(/datum/eldritch_knowledge/spell/flame_birth)
 
 /datum/eldritch_knowledge/ash_blade_upgrade
@@ -114,23 +115,28 @@
 		var/mob/living/carbon/C = target
 		C.adjust_fire_stacks(1)
 		C.IgniteMob()
-
+	
 /datum/eldritch_knowledge/final/ash_final
 	name = "THE LORD WEEPS - Ashlord's Ascent"
-	gain_text = "'Prometheus cared more for man than for the wrath of the increasingly powerful and autocratic king of the gods, so he stole fire from Zeus' lightning, concealed it in a hollow stalk of fennel, and brought it to man'. Bring them the fruit, fill them with your knowledge."
-	desc = "Bring 3 corpses onto a transmutation rune, you will become immune to fire, the vacuum of space, cold and other enviromental hazards and become overall sturdier to all other damages. You will gain a spell that passively creates ring of fire around you as well ,as you will gain a powerful ability that lets you create a wave of flames all around you. All air around you will be heated up."
+	gain_text = "'Prometheus cared more for man than for the wrath of the increasingly powerful and autocratic king of the gods, so he stole fire from Zeus' lightning, concealed it in a hollow stalk of fennel, and brought it to man'. The question stands, but was he right to do so?."
+	desc = "Bring 3 corpses onto a transmutation rune to ascend. While ascended you are extremely durable to most things, however you take more stamina damage. You gain a spell that lets you conjure an ashen javelin to throw at your foes and also a whisper. The whisper allows you to set all who hear it ablaze and deal brain damage, but doing so warns all in a large radius of your presence."
 	required_atoms = list(/mob/living/carbon/human)
 	cost = 3
 	route = PATH_ASH
-	var/list/trait_list = list(TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOFIRE,TRAIT_RADIMMUNE,TRAIT_NODISMEMBER)
+	var/list/trait_list = list(TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOFIRE,TRAIT_RADIMMUNE,TRAIT_NODISMEMBER, TRAIT_PIERCEIMMUNE)
 
 /datum/eldritch_knowledge/final/ash_final/on_finished_recipe(mob/living/user, list/atoms, loc)
-	priority_announce("ATTENTION: This is Central Command officer Andrew Royd, your station is radiating abnormal temperature levels and divine signals. We are cutting communications after this message due to mass hysteria. Our specialists came up with experimental methods to avert crisis: EMPLOY USE OF EAR PROTECTION, USE FIRE PROTECTIVE CLOTHING, MANSUS ROBE RESEARCH SUGGESTS THEY ARE MOST VULNERABLE TO BULLETS AND ESPECIALLY DISABLING WEAPONRY. ETA 1 MINUTE, GEAR UP, EVACUATE THE AREA AND REMEMBER TO DECONVERT THE HERETIC IF POSSIBLE -BZZZ!@*(%&!)*%+!@%&*.", 'sound/magic/eldritch/bell.ogg')
+	priority_announce("ATTENTION: Your station is radiating abnormal temperature levels and divine signals. We are cutting communications after this message due to mass hysteria. Our specialists came up with experimental methods to avert crisis: EMPLOY USE OF EAR PROTECTION, USE FIRE PROTECTIVE CLOTHING, IT APPEARS DISABLING WEAPONRY IS MOST EFFECTIVE AGAINST DIVINE BEINGS. ETA 1 MINUTE, GEAR UP, EVACUATE THE AREA AND REMEMBER TO DECONVERT THE HERETIC IF POSSIBLE -BZZZ!@*(%&!)*%+!@%&*", "Central Command High Officer of Elderitch Activity Research", 'sound/magic/eldritch/bell.ogg')
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/ash_javelin)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/trial_by_fire)
 	var/mob/living/carbon/human/H = user
-	H.physiology.brute_mod *= 0.5
-	H.physiology.burn_mod *= 0.5
-	H.physiology.stamina_mod = 1.25
 	for(var/X in trait_list)
 		ADD_TRAIT(user,X,MAGIC_TRAIT)
+	H.physiology.damage_resistance = 100
+	H.visible_message("[H.name] is wrapped in a strange shell, you have a bad feeling about this...", \
+				"<span class='notice'>You are enveloped by a strange shell, do not worry, as in a minute your metamorphosis will be complete...</span>")
+	H.physiology.brute_mod *= 0.5
+	H.physiology.burn_mod *= 0.5
+	H.physiology.stamina_mod *= 1.25
+	sleep(600)
+	H.physiology.damage_resistance = initial(H.physiology.damage_resistance)

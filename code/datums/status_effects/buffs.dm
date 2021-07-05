@@ -517,8 +517,7 @@
 	owner.visible_message("<span class='warning'>[owner]'s dull aura fades away...</span>")
 
 /datum/status_effect/rewindtime
-	id = "Ashen Rewind's Rebirth"
-	status_type = STATUS_EFFECT_REFRESH
+	id = "ashen_rewind"
 	duration = 30 SECONDS
 	examine_text = "<span class='notice'>They seem to be aging rapidly, turning to ash...</span>"
 	var/turf/location
@@ -548,6 +547,6 @@
 	owner.next_move_modifier -= 0.50
 
 /datum/status_effect/executionerfury/on_remove()
-	to_chat(owner,"<span class='notice'>You regain your physicality, returning you to your original location...</span>")
+	to_chat(owner,"<span class='notice'>You feel the energy leave you...</span>")
 	owner.next_move_modifier = initial(owner.next_move_modifier)
 	return ..() 

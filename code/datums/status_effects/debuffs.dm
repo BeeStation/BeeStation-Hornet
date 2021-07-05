@@ -847,7 +847,6 @@
 /datum/status_effect/eldritch/rust/on_effect()
 	if(!iscarbon(owner))
 		return
-	var/mob/living/carbon/carbon_owner = owner
 	owner.emp_act(EMP_HEAVY)
 
 /datum/status_effect/corrosion_curse
@@ -896,4 +895,4 @@
 		var/mob/living/carbon/carbon_owner = owner
 		carbon_owner.adjust_fire_stacks(3)
 		carbon_owner.IgniteMob()
-		carbon_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5) 
+		carbon_owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)

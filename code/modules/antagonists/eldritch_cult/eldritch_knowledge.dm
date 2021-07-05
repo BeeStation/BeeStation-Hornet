@@ -22,8 +22,8 @@
 	var/list/required_atoms = list()
 	///What do we get out of this
 	var/list/result_atoms = list()
-	///What path is this on defaults to "Side"
-	var/route = PATH_SIDE
+	///What path is this on defaults to "Variant", because "pick one" type abilities are similar with different purposes.
+	var/route = PATH_VARIANT
 
 /datum/eldritch_knowledge/New()
 	. = ..()
@@ -339,7 +339,7 @@
 /datum/eldritch_knowledge/armor/ash
 	name = "STATION VII - Armorer's Ritual"
 	desc = "You can now create eldritch armor using a table and a gas mask."
-	gain_text = "For I am the heir to the throne of doom."
+	gain_text = "The Cleanser's robes were burnt, covered head to toe in black marks and flakes of ash."
 	cost = 3
 	next_knowledge = list(/datum/eldritch_knowledge/final/ash_final)
 	banned_knowledge = list(/datum/eldritch_knowledge/armor/flesh,/datum/eldritch_knowledge/armor/rust)

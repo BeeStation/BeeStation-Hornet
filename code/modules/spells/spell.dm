@@ -117,6 +117,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/stat_allowed = FALSE //see if it requires being conscious/alive, need to set to 1 for ghostpells
 	var/phase_allowed = FALSE // If true, the spell can be cast while phased, eg. blood crawling, ethereal jaunting
 	var/antimagic_allowed = FALSE // If false, the spell cannot be cast while under the effect of antimagic
+	var/eldritch_ward_applied = FALSE //If true, a heretic cannot cast any spells, not just his own
 	var/invocation = "HURP DURP" //what is uttered when the wizard casts the spell
 	var/invocation_emote_self = null
 	var/invocation_type = "none" //can be none, whisper, emote and shout
@@ -186,6 +187,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			else
 				to_chat(user, "<span class='notice'>Magic seems to flee from you, you can't gather enough power to cast this spell.</span>")
 			return FALSE
+
+	if(eldritch_ward_applied)
+		to_chat(user, "<span class='notice'>The Ward around your neck is interfering with your magic!</span>")
+		return FALSE
 
 	if(!phase_allowed && istype(user.loc, /obj/effect/dummy))
 		to_chat(user, "<span class='notice'>[name] cannot be cast unless you are completely manifested in the material plane.</span>")

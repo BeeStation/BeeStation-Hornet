@@ -85,7 +85,7 @@
 	if(heretic_conceal_activated == TRUE)
 		holder.name = "Apostle"
 		holder.job = "Unknown"
-	else 
+	else
 		.=..()
 
 /obj/item/melee/sickly_blade
@@ -173,9 +173,12 @@
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
-	force = 30
-	throwforce = 15
-	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	force = 25
+	block_level = 1
+	block_upgrade_walk = 1
+	throwforce = 30
+	attack_verb = list("tears", "lacerates", "rips", "dices", "rends", "pierces", "cleanses")
+	throw_speed = 5
 
 /obj/item/melee/spear_of_destiny/attack(mob/living/M, mob/living/user)
 	if(!(IS_HERETIC(user) || IS_HERETIC_MONSTER(user)))
@@ -186,18 +189,15 @@
 	return ..()
 
 /obj/item/melee/spear_of_destiny/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(..() || !iscarbon(hit_atom))
+	if(..() || !isturf(hit_atom))
 		return
 	emplode(hit_atom)
 
-/obj/item/melee/spear_of_destiny/proc/emplode(mob/living/carbon/C)
-	visible_message("<span class='danger'>\The [src] impales [C]!</span>")
-	to_chat(C, "<span class='userdanger'>\The [src] impales you!</span>")
+/obj/item/melee/spear_of_destiny/proc/emplode(turf/C) //Explodes if you throw it at someone
 	var/turf/T = get_turf(C)
 	playsound(src, 'sound/magic/lightningbolt.ogg', 50, TRUE)
-	sleep(1 SECONDS)
-	explosion(T, 0, 0, 2, 0, TRUE, FALSE, 10, FALSE, FALSE)
 	qdel(src)
+	explosion(T, 0, 0, 2, 0, TRUE, FALSE, 1, FALSE, FALSE)
 
 /obj/item/clothing/neck/eldritch_amulet
 	name = "Warm Eldritch Medallion"
@@ -210,7 +210,7 @@
 
 /obj/item/clothing/neck/eldritch_amulet/equipped(mob/user, slot)
 	. = ..()
-	if(ishuman(user) && user.mind && slot == ITEM_SLOT_NECK && IS_HERETIC(user) )
+	if(ishuman(user) && user.mind && slot == ITEM_SLOT_NECK)   //Heretics are one of the few solo antags that don't give anything in return for killing them, a small trinket like an amulet that won't always be there is nothing much
 		ADD_TRAIT(user, trait, CLOTHING_TRAIT)
 		user.update_sight()
 
@@ -223,6 +223,29 @@
 	name = "Piercing Eldritch Medallion"
 	desc = "A strange medallion. Peering through the crystalline surface, the light refracts into new and terrifying spectrums of color. You see yourself, reflected off cascading mirrors, warped into impossible shapes."
 	trait = TRAIT_XRAY_VISION
+
+/obj/item/clothing/neck/eldritch_amulet/dampening
+	name = "Dampening Eldritch Medallion"
+	desc = "A strange medallion. Trying to touch it repels your finger like if two magnets of the same sides were brought together. It's impossibly hard to break and just gazing at it makes you uncomfortable."
+
+/obj/item/clothing/neck/eldritch_amulet/dampening/equipped(mob/living/carbon/human/H, slot) // not gonna make a trait for a specific armor amount
+	. = ..()
+	if(H.mind && slot == ITEM_SLOT_NECK)
+		H.physiology.brute_mod *= 0.90
+		H.physiology.burn_mod *= 0.90
+
+/obj/item/clothing/neck/eldritch_amulet/dampening/dropped(mob/living/carbon/human/H)
+	. = ..()
+	H.physiology.brute_mod = initial(H.physiology.brute_mod)
+	H.physiology.burn_mod = initial(H.physiology.burn_mod)
+
+/obj/item/clothing/neck/eldritch_amulet/ward
+	name = "Holy Ward"
+	desc = "This silver-encrusted ward designed by the old Church of Earth was used to prevent witches from using magic during burnings at the stake. This relic has been recreated by Nanotrasen in heresy fighting efforts."
+	icon = 'icons/obj/clothing/neck.dmi'
+	icon_state = "petcollar"
+	item_color = "petcollar"
+	trait = TRAIT_ELDRITCH_WARD
 
 ////// HOODS AND ROBES//////
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
@@ -252,26 +275,24 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	// slightly better than normal cult robes. Hi KazooBard here, added a lot of bomb resist so the crew doesn't result to suicide bombing and causing mass collateral.
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 80, "bio" = 20, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 50)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 100, "bio" = 20, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 50)
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
-	name = "The Wick"
+	name = "The candlewick"
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh
 	name = "The Diadem of Blood"
 	icon = 'icons/obj/clothing/flesh.dmi'
-	icon_state = "worn_hood"
-	item_state = "inhand_hood"
+	icon_state = "worn_hooded"
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust
 	name = "The Martyr's Crown of Thorns"
 	icon = 'icons/obj/clothing/rust.dmi'
-	icon_state = "icon_hood"
-	item_state = "hood"
+	icon_state = "hood"
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash
 	name = "Cleanser's Robes"
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 60,"energy" = 60, "bomb" = 40, "bio" = 35, "rad" = 0, "fire" = 100, "acid" = 60, "stamina" = 50)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 100, "bio" = 50, "rad" = 50, "fire" = 100, "acid" = 50, "stamina" = 50) //DONT BOMB THE F*CKING HERETIC. boom syrignes work okay I guess but they are going to be tough-ish against bombs
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
 	var/mob/living/carbon/human/local_wearer
 
@@ -291,31 +312,31 @@
 	if(!local_wearer)
 		return PROCESS_KILL
 
-	for(var/mob/living/carbon/human/human_in_range in viewers(9,local_wearer))
-		if(IS_HERETIC(human_in_range) || IS_HERETIC_MONSTER(human_in_range))
+	for(var/mob/living/carbon/human/human_in_range in viewers(10,local_wearer))
+		if(IS_HERETIC(human_in_range) || IS_HERETIC_MONSTER(human_in_range) && !HAS_TRAIT(human_in_range, TRAIT_WARDED))
 			continue
 
 		SEND_SIGNAL(human_in_range,COMSIG_HUMAN_VOID_MASK_ACT,rand(-1,-10))
 
 		if(prob(30))
-			human_in_range.apply_status_effect(/datum/status_effect/ashen_flames)
+			human_in_range.fire_stacks += 1
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh
 	name = "Witch's Gown"
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60,"energy" = 50, "bomb" = 80, "bio" = 35, "rad" = 100, "fire" = 30, "acid" = 100, "stamina" = 50)
+	armor = list("melee" = 60, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 100, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 50, "stamina" = 50)
 	icon = 'icons/obj/clothing/flesh.dmi'
-	icon_state = "worn"
-	item_state = "inhand_robes"
+	icon_state = "inhand_robes"
+	item_state = "worn"
 	w_class = WEIGHT_CLASS_BULKY
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust
 	name = "Martyr's Rags"
-	armor = list("melee" = 70, "bullet" = 40, "laser" = 40,"energy" = 40, "bomb" = 80, "bio" = 35, "rad" = 0, "fire" = 40, "acid" = 40, "stamina" = 50)
+	armor = list("melee" = 60, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 100, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 50, "stamina" = 50)
 	var/mob/living/carbon/human/local_wearer_rust
 	icon = 'icons/obj/clothing/rust.dmi'
-	icon_state = "worn"
-	item_state = "icon_robe"
+	icon_state = "icon_robe"
+	item_state = "worn"
 	w_class = WEIGHT_CLASS_BULKY
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust
 
@@ -336,10 +357,11 @@
 		return PROCESS_KILL
 	else
 		for(var/turf/T in targets)
-			var/chance = 100 - (max(get_dist(T,user),1)-1)*100/(2)
+			var/chance = 100 - (max(get_dist(T,local_wearer_rust),1)-1)*100/(2)
 			if(!prob(chance))
 				continue
-			T.rust_heretic_act()
+			else
+				T.rust_heretic_act()
 
 /obj/item/reagent_containers/glass/beaker/eldritch
 	name = "flask of eldritch essence"
