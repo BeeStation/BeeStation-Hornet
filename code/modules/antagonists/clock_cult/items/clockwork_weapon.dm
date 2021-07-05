@@ -35,7 +35,7 @@
 
 /obj/item/clockwork/weapon/attack(mob/living/target, mob/living/user)
 	if(!is_reebe(user.z))
-		return
+		return ..()
 	//Gain a slight buff when fighting near to the Ark.
 	var/force_buff = 0
 	//Check distance
