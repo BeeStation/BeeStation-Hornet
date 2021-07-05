@@ -1,3 +1,5 @@
+#define SCAN_COOLDOWN (2 SECONDS)
+
 /datum/computer_file/program/radar //generic parent that handles most of the process
 	filename = "genericfinder"
 	filedesc = "debug_finder"
@@ -22,6 +24,7 @@
 	var/arrowstyle = "ntosradarpointer.png"
 	///Used by the tgui interface, themed for NT or Syndicate colors.
 	var/pointercolor = "green"
+	COOLDOWN_DECLARE(last_scan)
 
 /datum/computer_file/program/radar/run_program(mob/living/user)
 	. = ..()
@@ -218,9 +221,9 @@
 	return locate(selected) in GLOB.carbon_list //currently we dont have a list of humanoids so this'll have to do
 
 /datum/computer_file/program/radar/lifeline/scan()
-	if(world.time < next_scan)
+	if(!COOLDOWN_FINISHED(src, last_scan))
 		return
-	next_scan = world.time + (2 SECONDS)
+	COOLDOWN_START(src, last_scan, SCAN_COOLDOWN)
 	objects = list()
 	for(var/i in GLOB.carbon_list)
 		var/mob/living/carbon/human/humanoid = i
@@ -275,9 +278,9 @@
 	return locate(selected) in GLOB.poi_list
 
 /datum/computer_file/program/radar/fission360/scan()
-	if(world.time < next_scan)
+	if(!COOLDOWN_FINISHED(src, last_scan))
 		return
-	next_scan = world.time + (2 SECONDS)
+	COOLDOWN_START(src, last_scan, SCAN_COOLDOWN)
 	objects = list()
 	for(var/i in GLOB.nuke_list)
 		var/obj/machinery/nuclearbomb/nuke = i
