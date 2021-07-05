@@ -1,4 +1,0 @@
-author: MNarath1, MrMelbert
-delete-after: true
-changes:
-  - bugfix: fixes contractor tablets breaking when targets cryo
