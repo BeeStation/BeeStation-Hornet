@@ -11,6 +11,8 @@
 	var/random_docking = FALSE
 	//Inherit the name of z-level?
 	var/inherit_name = FALSE
+	//are we generateing
+	var/is_generating = FALSE
 
 /datum/orbital_object/z_linked/proc/link_to_z(datum/space_level/level)
 	linked_z_level = level

@@ -135,10 +135,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		data["shuttleVelX"] = shuttleObject.velocity.x
 		data["shuttleVelY"] = shuttleObject.velocity.y
 	//Docking data
-	data["canDock"] = shuttleObject.can_dock_with != null
-	data["isDocking"] = shuttleObject.docking_target != null
+	data["canDock"] = shuttleObject.can_dock_with != null && !shuttleObject.docking_frozen
+	data["isDocking"] = shuttleObject.docking_target != null && !shuttleObject.docking_frozen && !shuttleObject.docking_target.is_generating
 	data["validDockingPorts"] = list()
-	if(shuttleObject.docking_target)
+	if(shuttleObject.docking_target && !shuttleObject.docking_frozen)
 		if(shuttleObject.docking_target.can_dock_anywhere && !GLOB.shuttle_docking_jammed)
 			data["validDockingPorts"] += list(list(
 				"name" = "Custom Location",
@@ -205,6 +205,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	switch(action)
 		if("setTarget")
 			if(QDELETED(shuttleObject))
+				say("Shuttle not in flight.")
 				return
 			var/desiredTarget = params["target"]
 			if(shuttleObject.name == desiredTarget)
@@ -215,6 +216,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					return
 		if("setThrust")
 			if(QDELETED(shuttleObject))
+				say("Shuttle not in flight.")
 				return
 			if(shuttleObject.autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
@@ -222,6 +224,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			shuttleObject.thrust = CLAMP(params["thrust"], 0, 100)
 		if("setAngle")
 			if(QDELETED(shuttleObject))
+				say("Shuttle not in flight.")
 				return
 			if(shuttleObject.autopilot)
 				to_chat(usr, "<span class='warning'>Shuttle is controlled by autopilot.</span>")
@@ -237,13 +240,16 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		//Dock at location.
 		if("dock")
 			if(QDELETED(shuttleObject))
+				say("Docking computer offline.")
 				return
 			if(!shuttleObject.can_dock_with)
+				say("Docking computer failed to find docking target.")
 				return
 			//Force dock with the thing we are colliding with.
 			shuttleObject.commence_docking(shuttleObject.can_dock_with, TRUE)
 		if("interdict")
 			if(QDELETED(shuttleObject))
+				say("Interdictor not ready.")
 				return
 			if(shuttleObject.docking_target || shuttleObject.can_dock_with)
 				say("Cannot use interdictor while docking.")
@@ -253,7 +259,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				return
 			say("Interdictor activated, shuttle throttling down...")
 			//Create the site of interdiction
-			var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle()
+			var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction()
 			z_linked.position = new /datum/orbital_vector(shuttleObject.position.x, shuttleObject.position.y)
 			z_linked.name = "Interdiction Site"
 			//Lets tell everyone about it
@@ -274,8 +280,16 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		//Go to valid port
 		if("gotoPort")
 			if(QDELETED(shuttleObject))
+				say("Shuttle has already landed, cannot dock at this time.")
 				return
 			if(QDELETED(shuttleObject.docking_target))
+				say("Docking target lost, please re-establish orbital trajectory.")
+				return
+			if(shuttleObject.docking_frozen)
+				say("Cannot dock at this time.")
+				return
+			if(shuttleObject.docking_target.is_generating)
+				say("Please wait for docking computer to align...")
 				return
 			//Get our port
 			var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
@@ -328,6 +342,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					if(current_user)
 						remove_eye_control(current_user)
 					QDEL_NULL(shuttleObject)
+					//Hold the shuttle in the docking position until ready.
+					mobile_port.setTimer(INFINITY)
+					say("Waiting for hyperspace lane...")
+					INVOKE_ASYNC(src, .proc/unfreeze_shuttle, mobile_port, SSmapping.get_level(target_port.z))
 				if(1)
 					to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 				else
@@ -367,9 +385,16 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(_shuttleId)
 	if(!shuttle_dock)
 		return FALSE
-	var/target_zvalue = _shuttleObject.docking_target.linked_z_level.z_value
+	var/datum/space_level/target_spacelevel = _shuttleObject.docking_target.linked_z_level
+	var/target_zvalue = target_spacelevel.z_value
+	if(is_reserved_level(target_zvalue))
+		message_admins("Shuttle [_shuttleId] attempted to dock on a reserved z-level as a result of docking with [_shuttleObject.docking_target.name].")
+		return FALSE
 	//Create temporary port
 	var/obj/docking_port/stationary/random_port = new
+	var/static/random_drops = 0
+	random_port.id = "randomdroplocation_[random_drops++]"
+	random_port.name = "Random drop location"
 	random_port.delete_after = TRUE
 	random_port.width = shuttle_dock.width
 	random_port.height = shuttle_dock.height
@@ -406,15 +431,21 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				if(current_user)
 					remove_eye_control(current_user)
 				QDEL_NULL(_shuttleObject)
+				//Hold the shuttle in the docking position until ready.
+				shuttle_dock.setTimer(INFINITY)
+				say("Waiting for hyperspace lane...")
+				INVOKE_ASYNC(src, .proc/unfreeze_shuttle, shuttle_dock, target_spacelevel)
 				return TRUE
 			if(1)
-				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
-				qdel(random_port)
+				say("Invalid shuttle requested")
 			else
-				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
-				qdel(random_port)
+				say("Unable to comply.")
 	qdel(random_port)
 	return FALSE
+
+/obj/machinery/computer/shuttle_flight/proc/unfreeze_shuttle(obj/docking_port/mobile/shuttle_dock, datum/space_level/target_spacelevel)
+	UNTIL(!target_spacelevel.generating)
+	shuttle_dock.setTimer(20)
 
 /obj/machinery/computer/shuttle_flight/emag_act(mob/user)
 	if(obj_flags & EMAGGED)

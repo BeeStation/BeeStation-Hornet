@@ -9,6 +9,7 @@
 	//Valid docking locations
 	var/list/valid_docks = list()
 	//Docking
+	var/docking_frozen = FALSE
 	var/datum/orbital_object/z_linked/can_dock_with
 	var/datum/orbital_object/z_linked/docking_target
 

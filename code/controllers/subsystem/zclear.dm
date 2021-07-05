@@ -108,8 +108,10 @@ SUBSYSTEM_DEF(zclear)
 		if(free)
 			return picked_level
 	//Create a new z-level
-	LAZYADD(free_levels, SSmapping.add_new_zlevel("Dynamic free level [LAZYLEN(free_levels)]", ZTRAITS_SPACE, orbital_body_type = null))
+	var/datum/space_level/picked_level = SSmapping.add_new_zlevel("Dynamic free level [LAZYLEN(free_levels)]", ZTRAITS_SPACE, orbital_body_type = null)
+	addtimer(CALLBACK(src, .proc/begin_tracking, picked_level), 60 SECONDS)
 	message_admins("SSORBITS: Created a new dynamic free level ([LAZYLEN(free_levels)] now created) as none were available at the time.")
+
 
 /datum/controller/subsystem/zclear/proc/begin_tracking(datum/space_level/sl)
 	LAZYOR(autowipe, sl)

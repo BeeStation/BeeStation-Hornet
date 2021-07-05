@@ -186,10 +186,15 @@
 		the_eye.placed_images += newI
 
 	//Go to destination
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	switch(SSshuttle.moveShuttle(shuttleId, shuttlePortId, 1))
 		if(0)
 			remove_eye_control(usr)
 			QDEL_NULL(shuttleObject)
+			//Hold the shuttle in the docking position until ready.
+			M.setTimer(INFINITY)
+			say("Waiting for hyperspace lane...")
+			INVOKE_ASYNC(src, .proc/unfreeze_shuttle, M, SSmapping.get_level(eyeobj.z))
 		if(1)
 			to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 		else

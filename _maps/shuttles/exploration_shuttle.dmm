@@ -11,11 +11,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"b" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/shuttle/exploration)
 "c" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 8
@@ -55,11 +50,6 @@
 "g" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"h" = (
-/obj/machinery/telecomms/hub/preset/exploration,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "i" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -70,8 +60,11 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "j" = (
-/obj/machinery/telecomms/broadcaster/preset_exploration,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/machinery/power/port_gen/pacman,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "k" = (
@@ -88,17 +81,15 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "n" = (
-/obj/machinery/telecomms/processor/preset_exploration,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 10
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "o" = (
-/obj/machinery/telecomms/bus/preset_exploration,
 /obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+/obj/machinery/atmospherics/components/unary/plasma_refiner{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
@@ -108,14 +99,6 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/shuttle/exploration)
-"q" = (
-/obj/machinery/telecomms/server/presets/exploration,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "r" = (
 /obj/effect/turf_decal/stripes/line{
@@ -163,8 +146,16 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "w" = (
-/obj/machinery/telecomms/receiver/preset_exploration,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/closet/crate,
+/obj/item/radio/headset/headset_exploration,
+/obj/item/radio/headset/headset_exploration,
+/obj/item/wrench,
+/obj/item/pickaxe,
+/obj/item/mining_scanner,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "x" = (
@@ -221,12 +212,21 @@
 /obj/machinery/recharger,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"E" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "F" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/multitool,
 /obj/item/gps/mining,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"G" = (
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
 /area/shuttle/exploration)
 "H" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
@@ -273,8 +273,8 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "O" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/telecomms/allinone/exploration,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "P" = (
@@ -308,11 +308,10 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "U" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/wrench,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "V" = (
@@ -365,7 +364,7 @@ y
 f
 B
 C
-w
+U
 W
 I
 "}
@@ -379,8 +378,8 @@ x
 k
 v
 u
-O
-o
+E
+n
 L
 p
 "}
@@ -391,11 +390,11 @@ d
 S
 g
 g
-h
+O
 R
 N
-b
-q
+G
+j
 L
 p
 "}
@@ -409,8 +408,8 @@ g
 g
 a
 V
-U
-n
+E
+w
 L
 p
 "}
@@ -425,7 +424,7 @@ i
 z
 r
 T
-j
+o
 W
 I
 "}

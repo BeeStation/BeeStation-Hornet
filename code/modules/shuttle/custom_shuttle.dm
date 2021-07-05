@@ -105,8 +105,11 @@
 					say("Failed to dethrottle shuttle, please contact a Nanotrasen supervisor.")
 					return
 				shuttleObject.commence_docking(z_linked, TRUE)
+		shuttleObject.docking_frozen = TRUE
 		//Dock
-		random_drop()
+		if(!random_drop())
+			say("Failed to drop at a random location. Please select a location.")
+			shuttleObject.docking_frozen = FALSE
 		return TRUE
 	return FALSE
 

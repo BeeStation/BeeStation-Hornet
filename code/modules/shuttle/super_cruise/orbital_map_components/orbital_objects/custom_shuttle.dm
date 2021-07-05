@@ -1,6 +1,6 @@
 /datum/orbital_object/shuttle/custom_shuttle
 	name = "Custom Shuttle"
-	var/fuel_consumption_rate = 2
+	var/fuel_consumption_rate = 1
 	var/obj/machinery/computer/shuttle_flight/custom_shuttle/attached_console
 
 /datum/orbital_object/shuttle/custom_shuttle/process()

@@ -54,6 +54,20 @@
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = assigned_space_level
 	assigned_space_level.orbital_body = src
+	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, -0.4, 40)
 
 /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/post_map_setup()
+	return
+
+//Interdiction
+/datum/orbital_object/z_linked/beacon/ruin/interdiction
+	name = "Distress Beacon"
+	static_object = TRUE
+
+/datum/orbital_object/z_linked/beacon/ruin/interdiction/assign_z_level()
+	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
+	linked_z_level = assigned_space_level
+	assigned_space_level.orbital_body = src
+
+/datum/orbital_object/z_linked/beacon/ruin/interdiction/post_map_setup()
 	return

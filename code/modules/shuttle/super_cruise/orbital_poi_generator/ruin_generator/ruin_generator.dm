@@ -17,6 +17,12 @@
  * can go past the border. No attachment points can be generated past the border.
  */
 /proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
+	var/datum/space_level/space_level = SSmapping.get_level(center_z)
+	space_level.generating = TRUE
+	_generate_space_ruin(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
+	space_level.generating = FALSE
+
+/proc/_generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
 
 	SSair.pause_z(center_z)
 
@@ -25,6 +31,19 @@
 
 	if(!length(GLOB.loaded_ruin_parts))
 		load_ruin_parts()
+
+	//Select ruin type
+	var/datum/generator_settings/generator_settings = forced_decoration
+	if(!istype(generator_settings))
+		//Select one randomly
+		var/static/list/datum/generator_settings/generator_settings_cache
+		if(!generator_settings_cache)
+			generator_settings_cache = list()
+			for(var/generator_type in subtypesof(/datum/generator_settings))
+				var/datum/generator_settings/instance = new generator_type()
+				if(instance.probability != 0)
+					generator_settings_cache[instance] = instance.probability
+		generator_settings = pickweight(generator_settings_cache)
 
 	//We need doors
 	var/list/placed_room_entrances = list()
@@ -44,10 +63,7 @@
 
 	var/sanity = 1000
 
-	var/list/valid_ruin_parts = list()
-
-	for(var/datum/map_template/ruin_part/ruinpart as() in GLOB.loaded_ruin_parts)
-		valid_ruin_parts[ruinpart] = ruinpart.max_occurances
+	var/list/valid_ruin_parts = generator_settings.get_valid_rooms()
 
 	ruin_event?.pre_spawn(center_z)
 
@@ -276,205 +292,11 @@
 	repopulate_sorted_areas()
 
 	//Fill with shit
-	var/list/floortrash = list()
-	var/list/directional_walltrash = list()
-	var/list/nondirectional_walltrash = list()
-	var/structure_damage_prob = 0
-	var/floor_break_prob = 0
-	switch(forced_decoration ? forced_decoration : pickweight(list("abandoned" = 6, "xeno" = 2, "netherworld" = 1, "blob" = 2, "ratvar" = 1)))
-		if("abandoned")
-			floor_break_prob = 4
-			structure_damage_prob = 2
-			floortrash = list(
-				/obj/effect/decal/cleanable/dirt = 6,
-				/obj/effect/decal/cleanable/blood/old = 3,
-				/obj/effect/decal/cleanable/oil = 2,
-				/obj/effect/decal/cleanable/robot_debris/old = 1,
-				/obj/effect/decal/cleanable/vomit/old = 4,
-				/obj/effect/decal/cleanable/blood/gibs/old = 1,
-				/obj/effect/decal/cleanable/greenglow/filled = 1,
-				/obj/effect/spawner/lootdrop/glowstick/lit = 2,
-				/obj/effect/spawner/lootdrop/glowstick = 4,
-				/obj/effect/spawner/lootdrop/maintenance = 3,
-				/mob/living/simple_animal/hostile/poison/giant_spider/hunter = 1,
-				/mob/living/simple_animal/hostile/poison/giant_spider/nurse = 1,
-				null = 110,
-			)
-			for(var/trash in subtypesof(/obj/item/trash))
-				floortrash[trash] = 1
-			directional_walltrash = list(
-				/obj/machinery/light/built = 5,
-				/obj/machinery/light = 1,
-				/obj/machinery/light/broken = 4,
-				/obj/machinery/light/small = 2,
-				/obj/machinery/light/small/broken = 5,
-				null = 75,
-			)
-			nondirectional_walltrash = list(
-				/obj/item/radio/intercom = 1,
-				/obj/structure/sign/poster/random = 1,
-				/obj/structure/sign/poster/ripped = 2,
-				/obj/machinery/newscaster = 1,
-				/obj/structure/extinguisher_cabinet = 3,
-				null = 30
-			)
-		if("xeno")
-			floor_break_prob = 4
-			structure_damage_prob = 20
-			floortrash = list(
-				/obj/effect/decal/cleanable/dirt = 3,
-				/obj/effect/decal/cleanable/blood/old = 6,
-				/obj/effect/decal/cleanable/oil = 2,
-				/obj/effect/decal/cleanable/robot_debris/old = 1,
-				/obj/effect/decal/cleanable/vomit/old = 4,
-				/obj/effect/decal/cleanable/blood/gibs/old = 6,
-				/obj/effect/decal/cleanable/greenglow/filled = 3,
-				/obj/effect/spawner/lootdrop/glowstick/lit = 5,
-				/obj/effect/spawner/lootdrop/glowstick = 1,
-				/obj/effect/spawner/lootdrop/maintenance = 3,
-				/obj/item/ammo_casing/c9mm = 4,
-				/obj/item/gun/ballistic/automatic/pistol/no_mag = 1,
-				/mob/living/simple_animal/hostile/alien/drone = 1,
-				/mob/living/simple_animal/hostile/alien/sentinel = 1,
-				/mob/living/simple_animal/hostile/alien = 1,
-				/obj/structure/alien/egg = 1,
-				/obj/structure/alien/weeds/node = 8,
-				/obj/structure/alien/gelpod = 4,
-				/obj/effect/mob_spawn/human/corpse/nanotrasensoldier = 1,
-				/obj/effect/mob_spawn/human/corpse/assistant = 1,
-				/obj/effect/mob_spawn/human/corpse/cargo_tech = 1,
-				/obj/effect/mob_spawn/human/corpse/damaged = 1,
-				null = 90
-			)
-			for(var/trash in subtypesof(/obj/item/trash))
-				floortrash[trash] = 1
-			directional_walltrash = list(
-				/obj/machinery/light/built = 1,
-				/obj/machinery/light/broken = 8,
-				/obj/machinery/light/small = 1,
-				/obj/machinery/light/small/broken = 6,
-				null = 75,
-			)
-			nondirectional_walltrash = list(
-				/obj/item/radio/intercom = 1,
-				/obj/structure/sign/poster/ripped = 2,
-				/obj/machinery/newscaster = 1,
-				/obj/structure/extinguisher_cabinet = 3,
-				null = 30
-			)
-		if("netherworld")
-			floor_break_prob = 30
-			structure_damage_prob = 40
-			floortrash = list(
-				/obj/effect/decal/cleanable/dirt = 6,
-				/obj/effect/decal/cleanable/blood/old = 3,
-				/obj/effect/decal/cleanable/oil = 2,
-				/obj/effect/decal/cleanable/robot_debris/old = 1,
-				/obj/effect/decal/cleanable/vomit/old = 4,
-				/obj/effect/decal/cleanable/blood/gibs/old = 1,
-				/obj/effect/decal/cleanable/greenglow/filled = 1,
-				/obj/effect/spawner/lootdrop/glowstick/lit = 2,
-				/obj/effect/spawner/lootdrop/glowstick = 4,
-				/obj/effect/spawner/lootdrop/maintenance = 3,
-				/mob/living/simple_animal/hostile/netherworld/blankbody = 2,
-				/mob/living/simple_animal/hostile/netherworld/migo = 2,
-				/obj/structure/spawner/nether = 0.3,
-				/obj/structure/destructible/cult/pylon = 2,
-				/obj/structure/destructible/cult/forge = 1,
-				/obj/effect/rune/blood_boil = 1,
-				/obj/effect/rune/empower = 1,
-				null = 140,
-			)
-			for(var/trash in subtypesof(/obj/item/trash))
-				floortrash[trash] = 1
-			directional_walltrash = list(
-				/obj/machinery/light/built = 5,
-				/obj/machinery/light = 1,
-				/obj/machinery/light/broken = 4,
-				/obj/machinery/light/small = 2,
-				/obj/machinery/light/small/broken = 5,
-				null = 75,
-			)
-			nondirectional_walltrash = list(
-				/obj/item/radio/intercom = 1,
-				/obj/structure/sign/poster/random = 1,
-				/obj/structure/sign/poster/ripped = 2,
-				/obj/machinery/newscaster = 1,
-				/obj/structure/extinguisher_cabinet = 3,
-				null = 30
-			)
-		if("blob")
-			floor_break_prob = 8
-			structure_damage_prob = 6
-			floortrash = list(
-				/obj/effect/decal/cleanable/dirt = 6,
-				/obj/effect/decal/cleanable/blood/old = 3,
-				/obj/effect/decal/cleanable/oil = 2,
-				/obj/effect/decal/cleanable/robot_debris/old = 1,
-				/obj/effect/decal/cleanable/vomit/old = 4,
-				/obj/effect/decal/cleanable/blood/gibs/old = 1,
-				/obj/effect/decal/cleanable/greenglow/filled = 1,
-				/obj/effect/spawner/lootdrop/glowstick/lit = 2,
-				/obj/effect/spawner/lootdrop/glowstick = 4,
-				/obj/effect/spawner/lootdrop/maintenance = 3,
-				/obj/structure/blob/node/lone = 1,
-				/mob/living/simple_animal/hostile/blob/blobspore = 2,
-				/mob/living/simple_animal/hostile/blob/blobbernaut/independent = 1,
-				null = 90,
-			)
-			for(var/trash in subtypesof(/obj/item/trash))
-				floortrash[trash] = 1
-			directional_walltrash = list(
-				/obj/machinery/light/built = 5,
-				/obj/machinery/light = 1,
-				/obj/machinery/light/broken = 4,
-				/obj/machinery/light/small = 2,
-				/obj/machinery/light/small/broken = 5,
-				null = 75,
-			)
-			nondirectional_walltrash = list(
-				/obj/item/radio/intercom = 1,
-				/obj/structure/sign/poster/random = 1,
-				/obj/structure/sign/poster/ripped = 2,
-				/obj/machinery/newscaster = 1,
-				/obj/structure/extinguisher_cabinet = 3,
-				null = 30
-			)
-		if("ratvar")
-			floortrash = list(
-				/obj/effect/decal/cleanable/dirt = 6,
-				/obj/effect/decal/cleanable/blood/old = 3,
-				/obj/effect/decal/cleanable/oil = 2,
-				/obj/effect/decal/cleanable/robot_debris/old = 1,
-				/obj/effect/decal/cleanable/vomit/old = 4,
-				/obj/effect/decal/cleanable/blood/gibs/old = 1,
-				/obj/effect/decal/cleanable/greenglow/filled = 1,
-				/obj/effect/spawner/lootdrop/glowstick/lit = 6,
-				/obj/effect/spawner/lootdrop/maintenance = 3,
-				null = 70,
-				/obj/effect/spawner/structure/ratvar_skewer_trap = 4,
-				/obj/effect/spawner/structure/ratvar_flipper_trap = 2,
-				/obj/effect/spawner/structure/ratvar_skewer_trap_kill = 1,
-				/obj/structure/destructible/clockwork/sigil/transgression = 2,
-				/mob/living/simple_animal/hostile/clockwork_marauder = 1,
-				/obj/structure/destructible/clockwork/wall_gear/displaced = 10,
-				/obj/effect/spawner/ocular_warden_setup = 1,
-				/obj/effect/spawner/interdiction_lens_setup = 1,
-			)
-			directional_walltrash = list(
-				/obj/machinery/light/broken = 4,
-				/obj/machinery/light/small = 1,
-				null = 75,
-			)
-			nondirectional_walltrash = list(
-				/obj/item/radio/intercom = 2,
-				/obj/structure/sign/poster/random = 1,
-				/obj/machinery/newscaster = 2,
-				/obj/structure/destructible/clockwork/trap/delay = 1,
-				/obj/structure/destructible/clockwork/trap/lever = 1,
-				/obj/structure/extinguisher_cabinet = 3,
-				null = 30
-			)
+	var/list/floortrash = generator_settings.get_floortrash()
+	var/list/directional_walltrash = generator_settings.get_directional_walltrash()
+	var/list/nondirectional_walltrash = generator_settings.get_non_directional_walltrash()
+	var/structure_damage_prob = generator_settings.structure_damage_prob
+	var/floor_break_prob = generator_settings.floor_break_prob
 
 	//Place trash
 	for(var/place in blocked_turfs)
