@@ -33,6 +33,7 @@
 		/obj/item/seeds/random = 1,
 		/obj/item/gun/energy/floragun = 1,
 		/obj/item/stack/spacecash/c1000 = 2,
+		/obj/item/grenade/exploration = 1,
 	)
 
 //Medical stuff
@@ -143,7 +144,8 @@
 		/obj/item/grenade/flashbang = 2,
 		/obj/item/grenade/chem_grenade/teargas = 1,
 		/obj/item/reagent_containers/spray/pepper = 1,
-		/obj/item/clothing/mask/gas/sechailer = 1
+		/obj/item/clothing/mask/gas/sechailer = 1,
+		/obj/item/grenade/exploration = 1,
 	)
 
 //Armoury stuff
@@ -175,7 +177,8 @@
 		/obj/item/ammo_box/magazine/wt550m9 = 3,
 		/obj/item/ammo_box/magazine/wt550m9/wtap = 1,
 		/obj/item/ammo_box/magazine/wt550m9/wtic = 1,
-		/obj/item/ammo_box/magazine/pistolm9mm = 4
+		/obj/item/ammo_box/magazine/pistolm9mm = 4,
+		/obj/item/grenade/exploration = 2,
 	)
 
 //Important stuff like research disks

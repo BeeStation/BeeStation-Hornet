@@ -1938,6 +1938,7 @@
 #include "code\modules\events\wizard\rpgloot.dm"
 #include "code\modules\events\wizard\shuffle.dm"
 #include "code\modules\events\wizard\summons.dm"
+#include "code\modules\exploration_crew\exploration_explosives.dm"
 #include "code\modules\exploration_crew\exploration_laser_gun.dm"
 #include "code\modules\exploration_crew\exploration_shuttle.dm"
 #include "code\modules\exploration_crew\nostation_firing_pin.dm"

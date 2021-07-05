@@ -11,6 +11,19 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"b" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/closet/crate,
+/obj/item/radio/headset/headset_exploration,
+/obj/item/radio/headset/headset_exploration,
+/obj/item/wrench,
+/obj/item/pickaxe,
+/obj/item/mining_scanner,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "c" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump{
 	dir = 8
@@ -48,6 +61,11 @@
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/exploration)
 "g" = (
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"h" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/telecomms/allinone/exploration,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "i" = (
@@ -100,6 +118,10 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
+"q" = (
+/obj/machinery/holopad,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "r" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -144,19 +166,6 @@
 	dir = 9
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
-/area/shuttle/exploration)
-"w" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/manifold/purple/visible{
-	dir = 1
-	},
-/obj/structure/closet/crate,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/radio/headset/headset_exploration,
-/obj/item/wrench,
-/obj/item/pickaxe,
-/obj/item/mining_scanner,
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "x" = (
 /obj/machinery/door/airlock/external/glass,
@@ -272,11 +281,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"O" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/telecomms/allinone/exploration,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "P" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -390,7 +394,7 @@ d
 S
 g
 g
-O
+h
 R
 N
 G
@@ -404,12 +408,12 @@ m
 P
 z
 g
-g
+q
 g
 a
 V
 E
-w
+b
 L
 p
 "}
