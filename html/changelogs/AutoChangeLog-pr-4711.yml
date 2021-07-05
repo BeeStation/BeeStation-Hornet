@@ -1,0 +1,6 @@
+author: Naevii, ivanmixo
+delete-after: true
+changes:
+  - rscadd: Skirts for medical
+  - imageadd: Sprites for the medical skirts
+  - tweak: Gives the paramedic uniform a more descriptive name
