@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - bugfix: nanite program hub and programmer to be deconstructed can now be deconstructed
