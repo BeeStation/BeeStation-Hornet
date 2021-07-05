@@ -91,7 +91,7 @@
 	var/turf/target_turf = (get_turf(signal))
 	var/userot = FALSE
 	var/rot = 0
-	var/pointer="crosshairs"
+	var/pointer = "crosshairs"
 	var/locx = (target_turf.x - here_turf.x) + 24
 	var/locy = (here_turf.y - target_turf.y) + 24
 
