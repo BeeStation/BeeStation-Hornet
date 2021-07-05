@@ -1,0 +1,5 @@
+author: ike709
+delete-after: true
+changes:
+  - tweak: Diagonal movement is now faster, by correcting the delay from an arbitrary
+      2x to the correct sqrt(2).
