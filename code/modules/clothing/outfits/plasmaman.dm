@@ -213,7 +213,7 @@
 	name = "Death Commando Plasmaman"
 
 	head = null
-	uniform = /obj/item/clothing/under/plasmaman/combat
+	uniform = /obj/item/clothing/under/plasmaman/commander
 	mask = null
 
 /datum/outfit/plasmaman/honk_squad
