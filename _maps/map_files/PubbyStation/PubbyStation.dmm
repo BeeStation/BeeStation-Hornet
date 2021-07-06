@@ -30732,6 +30732,9 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"bro" = (
+/turf/open/space/basic,
+/area/maintenance/department/engine)
 "brp" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/effect/turf_decal/tile/purple{
@@ -54061,10 +54064,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
-"cSK" = (
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/dark,
-/area/science/lab)
 "cTs" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden{
@@ -54341,12 +54340,8 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "duF" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 2
-	},
 /obj/machinery/component_printer,
-/turf/open/floor/plasteel/dark,
+/turf/open/space/basic,
 /area/science/lab)
 "duQ" = (
 /obj/machinery/camera{
@@ -57612,10 +57607,6 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
-"jap" = (
-/mob/living/simple_animal/crab/Coffee,
-/turf/open/floor/plasteel/white,
-/area/science/lab)
 "jbT" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /obj/effect/turf_decal/tile/neutral,
@@ -99575,9 +99566,9 @@ aDZ
 xDj
 xDj
 xDj
-xDj
-xDj
-xDj
+bro
+bro
+bro
 xDj
 xDj
 xDj
@@ -99832,9 +99823,9 @@ bKM
 cCl
 wcN
 wcN
-cSK
+wcN
 duF
-byD
+wcN
 byD
 bAm
 dhz
@@ -100089,9 +100080,9 @@ boP
 bqb
 brp
 byF
-jap
-byF
-cCt
+wcN
+wcN
+wcN
 byE
 bBp
 bBp
