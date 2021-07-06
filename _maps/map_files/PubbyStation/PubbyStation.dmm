@@ -62196,9 +62196,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"qfj" = (
-/turf/open/floor/plasteel,
-/area/maintenance/department/engine)
 "qfG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -66016,6 +66013,9 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
+"wKd" = (
+/turf/open/floor/plasteel,
+/area/space)
 "wKL" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -66350,11 +66350,7 @@
 /turf/open/floor/plasteel/dark,
 /area/library)
 "xje" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/maintenance/department/engine)
 "xjo" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
@@ -99261,7 +99257,7 @@ bls
 aBI
 eGs
 bmB
-qfj
+xje
 bsn
 bva
 bva
@@ -99518,7 +99514,7 @@ aJI
 lzf
 aDZ
 jcT
-xje
+tTl
 tTl
 tTl
 tTl
@@ -104409,7 +104405,7 @@ bvI
 bxr
 byQ
 bBo
-aaa
+wKd
 aht
 aht
 aaa
