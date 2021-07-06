@@ -33279,11 +33279,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "bwW" = (
-/obj/structure/rack,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -34093,10 +34088,6 @@
 /turf/open/floor/engine,
 /area/medical/chemistry)
 "byA" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -34962,7 +34953,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "bAi" = (
-/obj/machinery/smoke_machine,
 /turf/open/floor/engine,
 /area/medical/chemistry)
 "bAk" = (
@@ -47502,6 +47492,9 @@
 /obj/structure/chair,
 /turf/open/floor/plating/asteroid,
 /area/chapel/asteroid/monastery)
+"ccP" = (
+/turf/open/floor/plasteel,
+/area/space)
 "ccQ" = (
 /obj/machinery/field/generator,
 /turf/open/floor/plating,
@@ -54783,9 +54776,6 @@
 /obj/machinery/photocopier,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
-"erJ" = (
-/turf/open/floor/plasteel,
-/area/space)
 "esC" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -56181,16 +56171,11 @@
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "gGA" = (
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/machinery/light{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
@@ -61854,7 +61839,6 @@
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
 "pSc" = (
-/obj/machinery/chem_heater,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -104309,7 +104293,7 @@ bvI
 bxr
 byQ
 bBo
-erJ
+ccP
 aht
 aht
 aaa
