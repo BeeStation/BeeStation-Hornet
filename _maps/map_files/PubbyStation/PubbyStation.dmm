@@ -34928,7 +34928,7 @@
 /area/hallway/primary/aft)
 "bAl" = (
 /obj/effect/turf_decal/tile/yellow,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -35018,12 +35018,16 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -23
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/science/lab)
@@ -37464,6 +37468,7 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bEY" = (
@@ -38523,19 +38528,25 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/purple,
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "Research Hallway APC";
-	pixel_x = 24
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bHp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/effect/turf_decal/trimline/purple/line{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
@@ -39413,7 +39424,11 @@
 	dir = 4
 	},
 /obj/machinery/vending/cola/red,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/purple/line,
+/turf/open/floor/plasteel/dark,
 /area/science/lab)
 "bJI" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
@@ -39424,25 +39439,45 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bJJ" = (
-/obj/machinery/nanite_program_hub,
-/obj/machinery/light,
-/turf/open/floor/plasteel/dark,
-/area/science/nanite)
-"bJK" = (
-/obj/effect/turf_decal/tile/yellow{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow{
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/light{
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
+/obj/machinery/shower{
+	dir = 1;
+	name = "emergency shower"
+	},
+/turf/open/floor/noslip/dark,
+/area/science/lab)
+"bJK" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
-/area/engine/atmos)
+/area/science/lab)
+"bJL" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/security/checkpoint/science)
 "bJM" = (
 /turf/closed/wall/r_wall,
 /area/science/nanite)
@@ -39787,6 +39822,11 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/science/lab)
+"bKO" = (
+/obj/machinery/nanite_program_hub,
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
+/area/science/nanite)
 "bKP" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -39803,6 +39843,21 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/lab)
+"bKR" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "bKS" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 6
@@ -40233,7 +40288,7 @@
 	name = "Atmospherics APC";
 	pixel_x = -24
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/simple/supply/visible{
 	dir = 5
 	},
 /turf/open/floor/plasteel,
@@ -40246,8 +40301,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/supply/visible{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -40925,10 +40980,8 @@
 /area/hallway/primary/aft)
 "bOd" = (
 /obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
+/obj/item/clothing/gloves/color/fyellow,
+/obj/item/wrench,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "bOe" = (
@@ -43713,7 +43766,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible/layer3{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -50817,6 +50870,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/trimline/purple/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "cqy" = (
@@ -50855,22 +50911,26 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
 /obj/structure/closet/emcloset,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/purple/line,
+/turf/open/floor/plasteel/dark,
 /area/science/lab)
 "cqE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/effect/turf_decal/tile/purple,
 /obj/structure/closet/firecloset,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/trimline/purple/line,
+/turf/open/floor/plasteel/dark,
 /area/science/lab)
 "cqG" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
@@ -53679,7 +53739,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "cSK" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /turf/open/floor/plating,
 /area/science/lab)
 "cTs" = (
@@ -60431,6 +60491,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/trimline/purple/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "onn" = (
@@ -61209,6 +61272,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/trimline/purple/line{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "pjH" = (
@@ -61294,6 +61360,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/effect/turf_decal/trimline/purple/line{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
@@ -63720,6 +63789,10 @@
 /area/science/xenobiology)
 "tfX" = (
 /obj/structure/table,
+/obj/machinery/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "tfZ" = (
@@ -66475,8 +66548,10 @@
 /area/maintenance/department/engine)
 "xNj" = (
 /obj/structure/table,
-/obj/item/clothing/gloves/color/fyellow,
-/obj/item/wrench,
+/obj/item/storage/box/donkpockets{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "xOu" = (
@@ -66535,10 +66610,6 @@
 /area/storage/emergency/port)
 "xQl" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "xSX" = (
@@ -99807,11 +99878,11 @@ bIv
 bJD
 qXO
 bLT
+ssu
+xtg
+ssu
+xtg
 bmC
-ssu
-xtg
-ssu
-xtg
 bRo
 bRX
 bSN
@@ -100064,11 +100135,11 @@ qck
 cqz
 qXO
 bLR
-bmC
+tfX
 bOd
 xNj
 xQl
-tfX
+bmC
 bRp
 bRY
 bSM
@@ -100321,11 +100392,11 @@ jmA
 wrW
 qXO
 bLT
+xtg
+xtg
+xtg
+xtg
 bmC
-xtg
-xtg
-xtg
-xtg
 bRo
 bRZ
 bSO
@@ -100574,7 +100645,7 @@ bDC
 bES
 bBp
 bHi
-bIx
+bJL
 yfV
 qXO
 bLT
@@ -102109,7 +102180,7 @@ hnN
 byC
 bxj
 hiY
-bDH
+bJK
 bBx
 bIA
 bDH
@@ -102622,7 +102693,7 @@ bkt
 bkt
 bvC
 bxo
-cqt
+bJJ
 cCl
 cqx
 bHp
@@ -102889,7 +102960,7 @@ bGd
 bHq
 bJM
 bJN
-bJK
+bKR
 bMa
 bNe
 bOm
@@ -103658,7 +103729,7 @@ vBJ
 bEZ
 bGe
 cqv
-bJJ
+bKO
 bJN
 rPj
 bMd
