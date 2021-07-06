@@ -31,6 +31,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
 
+	//Is GPS enabled?
+	var/gps_enabled = FALSE
+
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
@@ -43,6 +46,21 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/process()
 	. = ..()
+
+	var/wants_gps = FALSE
+
+	//if we were interdicted create a GPS component
+	if(SSorbits.interdicted_shuttles.Find(shuttleId) && SSorbits.interdicted_shuttles[shuttleId] < world.time)
+		wants_gps = TRUE
+
+	if(wants_gps != gps_enabled)
+		if(wants_gps)
+			AddComponent(/datum/component/gps, "Interdicted [shuttleId]", TRUE)
+			gps_enabled = TRUE
+		else
+			gps_enabled = FALSE
+			var/datum/component/gpscomp = GetComponent(/datum/component/gps)
+			gpscomp.RemoveComponent()
 
 	//Check to see if the shuttleobject was launched by another console.
 	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
@@ -263,7 +281,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			z_linked.position = new /datum/orbital_vector(shuttleObject.position.x, shuttleObject.position.y)
 			z_linked.name = "Interdiction Site"
 			//Lets tell everyone about it
-			priority_announce("Supercruise interdiction detected. Source: [shuttleObject.name]")
+			priority_announce("Supercruise interdiction detected, interdicted shuttles have been registered onto local GPS units. Source: [shuttleObject.name]")
 			//Get all shuttle objects in range
 			for(var/shuttleportid in SSorbits.assoc_shuttles)
 				var/datum/orbital_object/shuttle/other_shuttle = SSorbits.assoc_shuttles[shuttleportid]
