@@ -28001,9 +28001,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bls" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -28569,7 +28571,6 @@
 	dir = 1
 	},
 /obj/machinery/light/small,
-/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bmC" = (
@@ -62195,6 +62196,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"qfj" = (
+/turf/open/floor/plasteel,
+/area/maintenance/department/engine)
 "qfG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -63330,9 +63334,6 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
-"rOO" = (
-/turf/open/floor/plasteel,
-/area/maintenance/department/engine)
 "rPW" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
@@ -99260,7 +99261,7 @@ bls
 aBI
 eGs
 bmB
-rOO
+qfj
 bsn
 bva
 bva
@@ -99513,7 +99514,7 @@ bhO
 bio
 aDZ
 sLZ
-aDZ
+aJI
 lzf
 aDZ
 jcT
