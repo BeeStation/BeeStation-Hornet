@@ -33452,7 +33452,7 @@
 	location = "Sci7"
 	},
 /turf/open/floor/plasteel,
-/area/hallway/primary/aft)
+/area/security/checkpoint/science)
 "bxn" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -33465,7 +33465,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plasteel,
-/area/hallway/primary/aft)
+/area/security/checkpoint/science)
 "bxo" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -34227,7 +34227,7 @@
 	},
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
-/area/hallway/primary/aft)
+/area/security/checkpoint/science)
 "byM" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden,
 /obj/structure/cable/yellow{
@@ -34241,7 +34241,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/hallway/primary/aft)
+/area/security/checkpoint/science)
 "byN" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -51239,7 +51239,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel,
-/area/hallway/primary/aft)
+/area/security/checkpoint/science)
 "cqv" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -59165,12 +59165,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/execution/transfer)
-"lgl" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/closed/wall/r_wall,
-/area/hallway/primary/aft)
 "lhu" = (
 /obj/machinery/shieldgen,
 /obj/machinery/light{
@@ -61748,6 +61742,12 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"pDG" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/closed/wall/r_wall,
+/area/security/checkpoint/science)
 "pEL" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
@@ -102869,7 +102869,7 @@ bku
 bkt
 bkt
 bvC
-lgl
+pDG
 cqt
 bAu
 bAu
