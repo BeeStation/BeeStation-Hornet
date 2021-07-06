@@ -61,6 +61,53 @@
 		STOP_PROCESSING(SSobj, src)
 
 //===================
+// Chaos Throw
+//===================
+
+/datum/artifact_effect/throwchaos
+	signal_types = list(COMSIG_MOVABLE_POST_THROW)
+
+/datum/artifact_effect/throwchaos/register_signals(source)
+	RegisterSignal(source, COMSIG_MOVABLE_POST_THROW, .proc/throw_thing_randomly)
+
+/datum/artifact_effect/throwchaos/proc/throw_thing_randomly(datum/source, datum/thrownthing, spin)
+	if(!isitem(thrownthing) || QDELETED(thrownthing))
+		return
+	if(prob(40))
+		return
+	var/atom/new_throw_target = view(5, thrownthing)
+	thrownthing.throw_at(new_throw_target, 5, 4)
+
+//===================
+// Laughing
+//===================
+
+/datum/artifact_effect/soundindark
+	requires_processing = TRUE
+
+/datum/artifact_effect/soundindark/process(delta_time)
+	var/turf/T = get_turf(source_object)
+	if(!T || T.get_lumcount())
+		return
+	if(prob(5))
+		playsound(T, pick('sound/voice/human/womanlaugh.ogg', 'sound/voice/human/manlaugh1.ogg'), 40)
+
+//===================
+// Spasm inducing
+//===================
+
+/datum/artifact_effect/inducespasm
+	signal_types = list(COMSIG_PARENT_EXAMINE)
+
+/datum/artifact_effect/inducespasm/register_signals(source)
+	RegisterSignal(source, COMSIG_PARENT_EXAMINE, .proc/do_effect)
+
+/datum/artifact_effect/inducespasm/proc/do_effect(datum/source, mob/observer, list/examine_text)
+	if(ishuman(observer))
+		var/mob/living/carbon/human/H = observer
+		H.gain_trauma(/datum/brain_trauma/mild/muscle_spasms, TRAUMA_RESILIENCE_BASIC)
+
+//===================
 // Projectile Reflector
 //===================
 
