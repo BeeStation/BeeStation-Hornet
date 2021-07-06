@@ -59165,6 +59165,12 @@
 	},
 /turf/open/floor/plating,
 /area/security/execution/transfer)
+"lgl" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/closed/wall/r_wall,
+/area/hallway/primary/aft)
 "lhu" = (
 /obj/machinery/shieldgen,
 /obj/machinery/light{
@@ -102863,7 +102869,7 @@ bku
 bkt
 bkt
 bvC
-bRX
+lgl
 cqt
 bAu
 bAu
