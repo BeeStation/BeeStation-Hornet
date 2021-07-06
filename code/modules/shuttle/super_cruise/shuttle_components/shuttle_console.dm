@@ -50,7 +50,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	var/wants_gps = FALSE
 
 	//if we were interdicted create a GPS component
-	if(SSorbits.interdicted_shuttles.Find(shuttleId) && SSorbits.interdicted_shuttles[shuttleId] < world.time)
+	//Also actually needs to be on the shuttle
+	if(SSorbits.interdicted_shuttles.Find(shuttleId) && SSorbits.interdicted_shuttles[shuttleId] < world.time && istype(get_area(src), /area/shuttle))
 		wants_gps = TRUE
 
 	if(wants_gps != gps_enabled)
