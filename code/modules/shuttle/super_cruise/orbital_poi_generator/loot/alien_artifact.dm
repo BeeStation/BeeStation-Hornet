@@ -14,7 +14,7 @@
 /obj/item/alienartifact/Initialize()
 	. = ..()
 	effects = list()
-	for(var/i in 1 to pick(1, 500; 2, 70; 3, 20))
+	for(var/i in 1 to pick(1, 500; 2, 70; 3, 20; 1))
 		var/picked_type = pick(subtypesof(/datum/artifact_effect))
 		var/valid = TRUE
 		var/datum/artifact_effect/effect = new picked_type
@@ -61,6 +61,84 @@
 		STOP_PROCESSING(SSobj, src)
 
 //===================
+// Projectile Reflector
+//===================
+
+/datum/artifact_effect/projreflect
+	requires_processing = TRUE
+
+/datum/artifact_effect/projreflect/process(delta_time)
+	for(var/obj/item/projectile/P in range(3, src))
+		//Reflect projectile
+		P.setAngle(rand(0, 360))
+
+//===================
+// Air Blocker
+//===================
+
+/datum/artifact_effect/airfreeze/Initialize(atom/source)
+	. = ..()
+	source.CanAtmosPass = ATMOS_PASS_NO
+
+//===================
+// Atmos Stabilizer
+//===================
+
+/datum/artifact_effect/atmosfix
+	requires_processing = TRUE
+
+/datum/artifact_effect/atmosfix/process(delta_time)
+	var/turf/T = get_turf(source_object)
+	var/datum/gas_mixture/air = T.return_air()
+	air.parse_gas_string(T.initial_gas_mix)
+
+//===================
+// Gravity Well
+//===================
+
+/datum/artifact_effect/gravity_well
+	signal_types = list(COMSIG_ITEM_ATTACK_SELF)
+	var/next_use_world_time = 0
+
+/datum/artifact_effect/gravity_well/register_signals(source)
+	RegisterSignal(source, COMSIG_ITEM_ATTACK_SELF, .proc/suck)
+
+/datum/artifact_effect/gravity_well/proc/suck(datum/source, mob/warper)
+	if(world.time < next_use_world_time)
+		return
+	var/turf/T = get_turf(warper)
+	if(T)
+		goonchem_vortex(T, FALSE, 8)
+		playsound(src, 'sound/magic/repulse.ogg')
+		next_use_world_time = world.time + 150
+
+//===================
+// Access Modifier
+// Just replaces access 4noraisin
+//===================
+
+/datum/artifact_effect/access
+	requires_processing = TRUE
+	var/next_use_time = 0
+
+/datum/artifact_effect/access/process(delta_time)
+	if(next_use_time < world.time)
+		return
+	next_use_time = world.time + rand(30 SECONDS, 5 MINUTES)
+	var/list/idcards = list()
+	var/list/things_in_view = view(5, src)
+	for(var/mob/living/carbon/human/H in things_in_view)
+		if(H.get_idcard())
+			idcards += H.get_idcard()
+	for(var/obj/item/card/id/id_card in things_in_view)
+		idcards += id_card
+	var/list/accesses_to_add = get_all_accesses()
+	for(var/obj/item/card/id/id_card as() in idcards)
+		if(length(id_card.access))
+			id_card.access.Remove(pick(id_card.access))
+			id_card.access |= pick(accesses_to_add)
+
+//===================
 // Reality Destabilizer
 //===================
 
@@ -77,6 +155,13 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 /datum/artifact_effect/reality_destabilizer
 	requires_processing = TRUE
 	var/cooldown = 0
+	var/list/contained_things = list()
+
+/datum/artifact_effect/reality_destabilizer/Destroy()
+	for(var/atom/movable/AM as() in contained_things)
+		AM.forceMove(get_turf(src))
+	contained_things.Cut()
+	. = ..()
 
 /datum/artifact_effect/reality_destabilizer/process(delta_time)
 	if(world.time < cooldown)
@@ -102,13 +187,15 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 	addtimer(CALLBACK(src, .proc/restabilize, AM, get_turf(AM)), rand(10 SECONDS, 90 SECONDS))
 	//Forcemove to ignore teleport checks
 	AM.forceMove(pick(GLOB.destabilization_spawns))
-	if(ismob(AM))
-		to_chat(AM, "<span class='warning'>What the hell is that thing...?</span>")
+	contained_things += AM
 
 /datum/artifact_effect/reality_destabilizer/proc/restabilize(atom/movable/AM, turf/T)
+	if(QDELETED(src))
+		return
 	if(QDELETED(AM))
 		return
 	AM.forceMove(T)
+	contained_things -= AM
 
 //===================
 // Teleport
@@ -207,22 +294,15 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 /datum/artifact_effect/light_breaker
 	requires_processing = TRUE
 	var/next_world_time
-	var/ticks_in_light = 0
 
 /datum/artifact_effect/light_breaker/process(delta_time)
 	if(world.time < next_world_time)
 		return
 	var/turf/T = get_turf(source_object)
-	var/is_in_light = FALSE
 	for(var/datum/light_source/light_source in T.affecting_lights)
-		is_in_light = TRUE
-		var/atom/A = light_source.source_atom
+		var/atom/movable/AM = light_source.source_atom
 		//Starts at light but gets stronger the longer it is in light.
-		A.ex_act(ticks_in_light)
-	if(!is_in_light)
-		ticks_in_light = 3
-	else
-		ticks_in_light = max(ticks_in_light--, 1)
+		AM.lighteater_act()
 	next_world_time = world.time + rand(30 SECONDS, 5 MINUTES)
 
 //===================

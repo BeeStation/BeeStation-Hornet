@@ -19,6 +19,7 @@
 	shuffle_inplace(valid_turfs)
 	for(var/i in rand(6, 15))
 		if(valid_turfs.len < i)
+			message_admins("Ran out of valid turfs to create artifact defenses on.")
 			return
 		var/turf/selected_turf = valid_turfs[i]
 		new /obj/structure/alien_artifact/watcher(selected_turf)

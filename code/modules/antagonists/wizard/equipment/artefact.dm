@@ -110,8 +110,8 @@
 	pixel_y = -96
 	dissipate = 0
 	move_self = 0
-	consume_range = 3
-	grav_pull = 4
+	consume_range = 0
+	grav_pull = 5
 	current_size = STAGE_FOUR
 	allowed_size = STAGE_FOUR
 
@@ -147,13 +147,16 @@
 		for(var/thing in T)
 			if(isturf(loc) && thing != src)
 				var/atom/movable/X = thing
-				if(get_dist(X, src) > consume_range)
-					X.singularity_pull(src, current_size)
-				else
-					consume(X)
+				X.singularity_pull(src, current_size)
 			CHECK_TICK
 
 /obj/singularity/wizard/mapped/admin_investigate_setup()
+	return
+
+/obj/singularity/wizard/Bump(atom/A)
+	return
+
+/obj/singularity/wizard/Bumped(atom/movable/AM)
 	return
 
 /////////////////////////////////////////Scrying///////////////////
