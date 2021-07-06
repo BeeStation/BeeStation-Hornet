@@ -61,7 +61,7 @@
 	var/selfpenalty = 0
 	var/sleepbonus = 0
 	if(target == user)
-		if(HAS_TRAIT(user, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in view(1, user) || user.get_inactive_held_item() == /obj/item/handmirror)
+		if(HAS_TRAIT(user, TRAIT_SELF_AWARE) || user.get_inactive_held_item() == /obj/item/handmirror || locate(/obj/structure/mirror) in view(1, user))
 			selfpenalty = 0.4
 		else
 			selfpenalty = 0.6
