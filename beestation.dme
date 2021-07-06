@@ -1448,6 +1448,7 @@
 #include "code\modules\antagonists\clock_cult\helpers\battle_of_the_gods.dm"
 #include "code\modules\antagonists\clock_cult\helpers\clockcult_ending.dm"
 #include "code\modules\antagonists\clock_cult\helpers\clockwork_conversion_tracker.dm"
+#include "code\modules\antagonists\clock_cult\helpers\reebe_loader.dm"
 #include "code\modules\antagonists\clock_cult\helpers\servant_warp.dm"
 #include "code\modules\antagonists\clock_cult\items\brass_clothing.dm"
 #include "code\modules\antagonists\clock_cult\items\clock_components.dm"
