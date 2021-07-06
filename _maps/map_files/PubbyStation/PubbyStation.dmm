@@ -33288,12 +33288,8 @@
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "bxa" = (
-/obj/structure/table/glass,
-/obj/item/book/manual/wiki/research_and_development,
-/obj/item/disk/tech_disk,
-/obj/item/disk/design_disk,
-/turf/open/floor/plasteel/dark,
-/area/science/lab)
+/turf/closed/wall/r_wall,
+/area/medical/chemistry)
 "bxc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -34087,28 +34083,12 @@
 /turf/open/floor/engine,
 /area/medical/chemistry)
 "byA" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel,
-/area/medical/chemistry)
+/area/space)
 "byC" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"byD" = (
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/lab)
 "byE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -34952,9 +34932,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
-"bAi" = (
-/turf/open/floor/plasteel,
-/area/space)
 "bAk" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
@@ -34967,19 +34944,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"bAm" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Research Lab Maintenance";
-	req_access_txt = "0";
-	req_one_access_txt = "7;29"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "bAo" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -37500,17 +37464,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"bEQ" = (
-/obj/structure/closet/crate{
-	opened = 1
-	},
-/obj/item/stock_parts/matter_bin,
-/obj/item/stock_parts/matter_bin,
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "bER" = (
 /obj/machinery/computer/mecha{
 	dir = 4
@@ -54077,23 +54030,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
-"cSK" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/window/eastright{
-	base_state = "left";
-	dir = 4;
-	icon_state = "left";
-	name = "Research Division Delivery";
-	req_access_txt = "47"
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "delivery;dir=4";
-	dir = 8;
-	freq = 1400;
-	location = "Research Division"
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/lab)
 "cTs" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden{
@@ -54369,14 +54305,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
-"duF" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 2
-	},
-/obj/machinery/component_printer,
-/turf/open/floor/plasteel/dark,
-/area/science/lab)
 "duQ" = (
 /obj/machinery/camera{
 	c_tag = "Departure Lounge Aft";
@@ -56142,22 +56070,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
-"gFo" = (
-/obj/structure/window/reinforced,
-/obj/structure/table/glass,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/stack/sheet/iron/fifty,
-/obj/item/wrench,
-/obj/item/crowbar,
-/obj/item/clothing/glasses/welding,
-/obj/item/stack/sheet/mineral/copper{
-	amount = 5
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/lab)
 "gGA" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -65481,12 +65393,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
-"wcN" = (
-/obj/machinery/computer/cargo/request{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/science/lab)
 "wcX" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/grass,
@@ -98855,7 +98761,7 @@ bjd
 bmA
 bmB
 bwW
-byA
+bxa
 bpY
 bpY
 bpY
@@ -99884,17 +99790,17 @@ kol
 cqh
 bKM
 cCl
-wcN
-gFo
-cSK
-duF
-bxa
-byD
-bAm
+cCl
+cCl
+cCl
+cCl
+cCl
+cCl
+bBX
 dhz
 bCD
 bDA
-bEQ
+bDi
 jSA
 siF
 bIv
@@ -104260,7 +104166,7 @@ bvI
 bxr
 byQ
 bBo
-bAi
+byA
 aht
 aht
 aaa
