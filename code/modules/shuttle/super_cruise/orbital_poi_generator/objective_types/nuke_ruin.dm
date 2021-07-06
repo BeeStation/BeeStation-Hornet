@@ -6,7 +6,7 @@
 	var/obj/item/disk/nuclear/decommission/nuclear_disk
 	//Relatively easy mission.
 	min_payout = 80000
-	max_payout = 200000
+	max_payout = 400000
 
 /datum/orbital_objective/nuclear_bomb/generate_objective_stuff(turf/chosen_turf)
 	generated = TRUE

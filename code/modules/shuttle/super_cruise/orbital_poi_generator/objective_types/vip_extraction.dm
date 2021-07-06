@@ -4,9 +4,8 @@
 	var/death_caring = TRUE
 	var/mob/mob_to_recover
 	var/atom/tracked_diary
-	//Relatively easy mission.
 	min_payout = 100000
-	max_payout = 400000
+	max_payout = 200000
 
 /datum/orbital_objective/vip_recovery/get_text()
 	return "Someone of particular interest to use is located at [station_name]. We require them to be extracted immediately. \
