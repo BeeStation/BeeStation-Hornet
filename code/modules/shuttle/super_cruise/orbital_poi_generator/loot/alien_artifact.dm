@@ -85,11 +85,13 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 	var/turf/T = get_turf(source_object)
 	if(!T)
 		return
-	for(var/obj/AM in view(3, T))
+	for(var/atom/movable/AM in view(3, T))
 		if(AM == src)
 			continue
-		if(AM.resistance_flags & INDESTRUCTIBLE)
-			continue
+		if(isobj(AM))
+			var/obj/O = AM
+			if(O.resistance_flags & INDESTRUCTIBLE)
+				continue
 		if(AM.anchored)
 			continue
 		if(prob(3))
@@ -268,13 +270,13 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 		var/yr = min(yrange, r)
 		var/turf/TL = locate(cx - xr, cy + yr, T.z)
 		var/turf/BL = locate(cx - xr, cy - yr, T.z)
-		var/turf/TR = locate(cx + xr + 1, cy + yr, T.z)
-		var/turf/BR = locate(cx + xr - 1, cy - yr, T.z)
+		var/turf/TR = locate(cx + xr, cy + yr, T.z)
+		var/turf/BR = locate(cx + xr, cy - yr, T.z)
 		var/list/turfs = list()
 		turfs += block(TL, TR)
 		turfs += block(TL, BL)
-		turfs += block(BL, BR)
-		turfs += block(BR, TR)
+		turfs |= block(BL, BR)
+		turfs |= block(BR, TR)
 		for(var/turf/T1 as() in turfs)
 			new /obj/effect/temp_visual/mining_scanner(T1)
 			var/mob/living/M = locate() in T1
