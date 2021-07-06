@@ -33287,13 +33287,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
-"bxa" = (
-/obj/structure/table/glass,
-/obj/item/book/manual/wiki/research_and_development,
-/obj/item/disk/tech_disk,
-/obj/item/disk/design_disk,
-/turf/open/floor/plasteel/dark,
-/area/science/lab)
 "bxc" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -99873,7 +99866,7 @@ wcN
 gFo
 cSK
 duF
-bxa
+byD
 byD
 bAm
 dhz
