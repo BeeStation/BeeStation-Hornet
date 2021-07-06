@@ -39,6 +39,27 @@
 	. = ..()
 	QDEL_LIST(effects)
 
+/area/tear_in_reality
+	name = "tear in the fabric of reality"
+	valid_territory = FALSE
+	blob_allowed = FALSE
+	clockwork_warp_allowed = FALSE
+	requires_power = FALSE
+	mood_bonus = -999
+	has_gravity = STANDARD_GRAVITY
+	hidden = TRUE
+	ambience_index = AMBIENCE_NONE
+	sound_environment = SOUND_ENVIRONMENT_DRUGGED
+	teleport_restriction = TELEPORT_ALLOW_NONE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
+/area/tear_in_reality/Initialize()
+	. = ..()
+	mood_message = "<span class='warning'>[scramble_message_replace_chars("###### ### #### ###### #######", 100)]!</span>"
+
+/area/tear_in_reality/get_virtual_z(turf/T)
+	return REALITY_TEAR_VIRTUAL_Z
+
 //===================
 // Raw artifact datum
 //===================
