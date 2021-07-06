@@ -58,6 +58,14 @@
 	icon_state = "syndiemag0"
 	magboot_state = "syndiemag"
 
+/obj/item/clothing/shoes/magboots/commando
+	desc = "Military-grade magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
+	name = "commando magboots"
+	icon_state = "advmag0"
+	magboot_state = "advmag"
+	slowdown_active = SHOES_SLOWDOWN
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 50, "acid" = 75, "stamina" = 20)
+
 /obj/item/clothing/shoes/magboots/crushing
 	desc = "Normal looking magboots that are altered to increase magnetic pull to crush anything underfoot."
 
