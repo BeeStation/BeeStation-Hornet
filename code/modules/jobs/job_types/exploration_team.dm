@@ -23,6 +23,8 @@
 /datum/job/exploration/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source)
 	if(outfit_override)
 		return ..()
+	if(visualsOnly || latejoin)
+		return ..()
 	var/static/exploration_job_id = 0
 	exploration_job_id ++
 	switch(exploration_job_id)
