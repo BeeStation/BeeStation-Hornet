@@ -54538,6 +54538,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"dJz" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/medical/medbay/central)
 "dKs" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -60909,6 +60918,9 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/hidden,
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"oqd" = (
+/turf/open/floor/plasteel,
+/area/maintenance/department/engine)
 "oqI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -62584,6 +62596,13 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/security/execution/transfer)
+"qNJ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/plasteel,
+/area/medical/chemistry)
 "qOE" = (
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
@@ -63032,6 +63051,9 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"rqm" = (
+/turf/open/floor/plasteel,
+/area/space)
 "rrb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -64342,9 +64364,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
-"tLr" = (
-/turf/open/floor/plasteel,
-/area/space)
 "tNv" = (
 /obj/structure/chair{
 	dir = 1
@@ -66350,8 +66369,17 @@
 /turf/open/floor/plasteel/dark,
 /area/library)
 "xje" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
-/area/maintenance/department/engine)
+/area/medical/medbay/central)
 "xjo" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
@@ -98998,9 +99026,9 @@ bjk
 bje
 bjd
 bmA
-bmA
-bjd
-bpY
+xje
+dJz
+qNJ
 bpY
 bpY
 pSc
@@ -99257,7 +99285,7 @@ bls
 aBI
 eGs
 bmB
-xje
+oqd
 bsn
 bva
 bva
@@ -104405,7 +104433,7 @@ bvI
 bxr
 byQ
 bBo
-tLr
+rqm
 aht
 aht
 aaa
