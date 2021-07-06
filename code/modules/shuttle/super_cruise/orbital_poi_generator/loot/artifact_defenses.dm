@@ -28,9 +28,9 @@
 	new /obj/structure/alien_artifact/protector(valid_turfs[1])
 
 /obj/structure/alien_artifact/watcher/HasProximity(atom/movable/AM)
-	if(cooldown < world.time)
+	if(cooldown > world.time)
 		return
-	if (istype(AM, /obj/effect/beam))
+	if (istype(AM, /obj/effect))
 		return
 	cooldown = world.time + 50
 	//Trigger nearby protectors
@@ -57,34 +57,34 @@
 	active = TRUE
 	flick("protector_pulse", src)
 	sleep(7.2)
-	effect.trigger(get_turf(src), target)
+	effect.trigger(src, get_turf(src), target)
 	sleep(3.6)
 	active = FALSE
 
 //Protector effects
 
-/datum/protector_effect/proc/trigger(turf/T, atom/movable/target)
+/datum/protector_effect/proc/trigger(obj/source, turf/T, atom/movable/target)
 	return
 
-/datum/protector_effect/hierophant_chasers/trigger(turf/T, atom/movable/target)
+/datum/protector_effect/hierophant_chasers/trigger(obj/source, turf/T, atom/movable/target)
 	playsound(T,'sound/machines/airlockopen.ogg', 200, 1)
-	T.visible_message("<span class='hierophant'>\"Mx gerrsx lmhi.\"</span>")
-	var/obj/effect/temp_visual/hierophant/chaser/C = new(T, src, target, 3, FALSE)
+	source.visible_message("<span class='hierophant'>\"Mx gerrsx lmhi.\"</span>")
+	var/obj/effect/temp_visual/hierophant/chaser/C = new(T, source, target, 3, FALSE)
 	C.moving = 3
 	C.moving_dir = pick(GLOB.cardinals)
 	C.damage = 20
 
-/datum/protector_effect/hierophant_burst/trigger(turf/T, atom/movable/target)
+/datum/protector_effect/hierophant_burst/trigger(obj/source, turf/T, atom/movable/target)
 	playsound(T,'sound/machines/airlockopen.ogg', 200, 1)
-	T.visible_message("<span class='hierophant'>\"Irkekmrk hijirwmzi tvsxsgspw.\"</span>")
+	source.visible_message("<span class='hierophant'>\"Irkekmrk hijirwmzi tvsxsgspw.\"</span>")
 	hierophant_burst(null, get_turf(target), 4)
 
-/datum/protector_effect/hierophant_burst_self/trigger(turf/T, atom/movable/target)
+/datum/protector_effect/hierophant_burst_self/trigger(obj/source, turf/T, atom/movable/target)
 	playsound(T,'sound/machines/airlockopen.ogg', 200, 1)
-	T.visible_message("<span class='hierophant'>\"Yrorsar irxmxc hixigxih.\"</span>")
+	source.visible_message("<span class='hierophant'>\"Yrorsar irxmxc hixigxih.\"</span>")
 	hierophant_burst(null, T, 7)
 
-/datum/protector_effect/emp_stun/trigger(turf/T, atom/movable/target)
+/datum/protector_effect/emp_stun/trigger(obj/source, turf/T, atom/movable/target)
 	playsound(TAIL_SWEEP_COMBO,'sound/machines/airlockopen.ogg', 200, 1)
 	T.visible_message("<span class='hierophant'>\"Svhivw vigmizih.\"</span>")
 	empulse(T, 2, 6)
