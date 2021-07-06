@@ -75,7 +75,7 @@
 		return
 	if(prob(40))
 		return
-	var/atom/new_throw_target = view(5, thrownthing)
+	var/atom/new_throw_target = pick(view(5, thrownthing))
 	var/obj/item/I = thrownthing
 	I.throw_at(new_throw_target, 5, 4)
 
