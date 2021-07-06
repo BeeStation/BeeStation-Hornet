@@ -30068,6 +30068,16 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bqe" = (
@@ -30092,6 +30102,16 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bqh" = (
@@ -30773,7 +30793,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
 /area/science/lab)
 "brx" = (
 /obj/structure/cable/yellow{
@@ -31422,7 +31448,11 @@
 "bsV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
 /area/science/lab)
 "bsX" = (
 /obj/structure/cable/yellow{
@@ -32089,6 +32119,16 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "buu" = (
@@ -32114,6 +32154,16 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "buv" = (
@@ -34967,6 +35017,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
+	},
+/obj/machinery/airalarm{
+	dir = 4;
+	pixel_x = -23
 	},
 /turf/open/floor/plasteel,
 /area/science/lab)
@@ -38479,6 +38533,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/stripes/corner,
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "Research Hallway APC";
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bHp" = (
@@ -38968,6 +39027,9 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/engine,
 /area/science/storage)
@@ -39743,6 +39805,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bKR" = (
@@ -41496,7 +41559,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
 /area/science/lab)
 "bPM" = (
 /obj/machinery/light/small{
@@ -50698,11 +50765,18 @@
 "cqk" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
 /area/science/lab)
 "cql" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "cqm" = (
@@ -54856,6 +54930,18 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
+"fjH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/nanite)
 "fkH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -103571,7 +103657,7 @@ byO
 bJM
 bIE
 cqv
-bDK
+fjH
 bEZ
 bGe
 cqv
