@@ -35513,6 +35513,10 @@
 	dir = 4
 	},
 /obj/structure/displaycase/labcage,
+/obj/machinery/light{
+	dir = 4;
+	light_color = "#c1caff"
+	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
 "bBw" = (
@@ -36226,10 +36230,6 @@
 /obj/machinery/disposal/bin,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
-	},
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#c1caff"
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
@@ -39012,6 +39012,9 @@
 /area/science/nanite)
 "bIE" = (
 /obj/machinery/nanite_program_hub,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
 "bIF" = (
@@ -39421,23 +39424,25 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bJJ" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/turf/closed/wall/r_wall,
-/area/science/lab)
+/obj/machinery/nanite_program_hub,
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
+/area/science/nanite)
 "bJK" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
-/turf/closed/wall/r_wall,
-/area/science/nanite)
-"bJL" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
 	},
-/turf/closed/wall/r_wall,
-/area/science/nanite)
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/engine/atmos)
 "bJM" = (
 /turf/closed/wall/r_wall,
 /area/science/nanite)
@@ -39461,7 +39466,7 @@
 	},
 /obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/dark,
-/area/science/storage)
+/area/engine/atmos)
 "bJP" = (
 /obj/structure/grille,
 /turf/closed/wall/r_wall,
@@ -39782,12 +39787,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/science/lab)
-"bKO" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 5
-	},
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "bKP" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -39804,16 +39803,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/lab)
-"bKR" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/engine/atmos)
 "bKS" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 6
@@ -40244,17 +40233,20 @@
 	name = "Atmospherics APC";
 	pixel_x = -24
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 5
+	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bLZ" = (
 /obj/machinery/meter/atmos/atmos_waste_loop,
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -40264,9 +40256,6 @@
 	dir = 8;
 	name = "Distro to Waste"
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -40274,7 +40263,9 @@
 /area/engine/atmos)
 "bMb" = (
 /obj/machinery/meter/atmos/distro_loop,
-/obj/machinery/atmospherics/pipe/manifold/supply/visible,
+/obj/machinery/atmospherics/pipe/simple/supply/visible{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bMc" = (
@@ -40635,8 +40626,8 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bNd" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -41235,9 +41226,6 @@
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bOS" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Monitoring";
 	dir = 1
@@ -41247,6 +41235,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bOT" = (
@@ -43407,9 +43396,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bTK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 4
-	},
 /obj/structure/sign/plaques/atmos{
 	pixel_y = 32
 	},
@@ -43425,6 +43411,9 @@
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -43721,11 +43710,11 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bUr" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/orange/visible/layer3{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/visible{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -50876,9 +50865,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /obj/effect/turf_decal/tile/purple,
 /obj/structure/closet/firecloset,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "cqG" = (
@@ -59953,9 +59944,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "nAP" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "nBw" = (
@@ -101872,7 +101861,7 @@ byJ
 bHg
 cqw
 cqD
-bKO
+bJN
 ebo
 bNa
 bOi
@@ -102129,7 +102118,7 @@ bGb
 bIA
 bIA
 bJH
-nAP
+bJN
 bJN
 bNb
 bOj
@@ -102642,8 +102631,8 @@ olX
 ptK
 bHp
 cqx
-bJJ
-bLV
+bJN
+bJN
 bLZ
 bNd
 bOl
@@ -102899,8 +102888,8 @@ vJO
 bGd
 bHq
 bJM
+bJN
 bJK
-uoQ
 bMa
 bNe
 bOm
@@ -103156,8 +103145,8 @@ kfU
 vdU
 cqv
 bID
-bJL
-bKR
+bJN
+rPj
 bMb
 bNf
 bOk
@@ -103413,7 +103402,7 @@ lbc
 vdU
 cqv
 bBA
-bJM
+bJN
 rPj
 bMc
 bNg
@@ -103669,8 +103658,8 @@ vBJ
 bEZ
 bGe
 cqv
-bIE
-bJM
+bJJ
+bJN
 rPj
 bMd
 bNf
@@ -103927,7 +103916,7 @@ sgh
 hGW
 cqv
 mMS
-bJM
+bJN
 bKS
 bMe
 bNh
@@ -104184,7 +104173,7 @@ jeY
 iaK
 cqv
 ocb
-bJM
+bJN
 bKT
 bMf
 bNi
@@ -104441,7 +104430,7 @@ rmV
 ygf
 rmV
 nVh
-bJM
+bJN
 bKU
 bMf
 bMf
@@ -104698,7 +104687,7 @@ bFa
 bGf
 bCR
 bIF
-bHw
+bJN
 bKV
 bMf
 bMf
@@ -105212,7 +105201,7 @@ bFc
 bGh
 bCR
 bIH
-bHw
+bJN
 cqG
 bMf
 bNk
@@ -105469,7 +105458,7 @@ bCR
 bCR
 bCR
 bII
-bHw
+bJN
 bKY
 bMh
 bNl
@@ -105726,7 +105715,7 @@ bFd
 bGi
 bHv
 bIJ
-bHw
+bJN
 bKZ
 eKK
 bNm
