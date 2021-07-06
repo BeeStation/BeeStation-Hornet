@@ -3,8 +3,8 @@
 	var/generated = FALSE
 	//The blackbox required to recover.
 	var/obj/item/alienartifact/objective/linked_artifact
-	min_payout = 100000	//10k credits for sci/sec/eng, 5k for ser / civ
-	max_payout = 400000	//20k credits for sci/sec/eng, 10k for serv / civ
+	min_payout = 50000
+	max_payout = 200000
 
 /datum/orbital_objective/artifact/generate_objective_stuff(turf/chosen_turf)
 	generated = TRUE
@@ -30,9 +30,11 @@
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
 /datum/orbital_objective/artifact/check_failed()
+	if(!generated)
+		return FALSE
 	if(is_station_level(linked_artifact.z))
 		complete_objective()
 		return FALSE
-	if(!QDELETED(linked_artifact) || !generated)
+	if(!QDELETED(linked_artifact))
 		return FALSE
 	return TRUE
