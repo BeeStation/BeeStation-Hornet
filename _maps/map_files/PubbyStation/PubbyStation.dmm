@@ -33279,15 +33279,14 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "bwW" = (
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/chemistry)
+/turf/open/floor/plasteel,
+/area/medical/medbay/central)
 "bxa" = (
 /obj/structure/table/glass,
 /obj/item/book/manual/wiki/research_and_development,
@@ -34088,10 +34087,11 @@
 /turf/open/floor/engine,
 /area/medical/chemistry)
 "byA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
 	},
-/turf/open/floor/engine,
+/obj/effect/turf_decal/tile/purple,
+/turf/open/floor/plasteel,
 /area/medical/chemistry)
 "byC" = (
 /obj/structure/disposalpipe/segment,
@@ -34953,8 +34953,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "bAi" = (
-/turf/open/floor/engine,
-/area/medical/chemistry)
+/turf/open/floor/plasteel,
+/area/space)
 "bAk" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
@@ -47492,9 +47492,6 @@
 /obj/structure/chair,
 /turf/open/floor/plating/asteroid,
 /area/chapel/asteroid/monastery)
-"ccP" = (
-/turf/open/floor/plasteel,
-/area/space)
 "ccQ" = (
 /obj/machinery/field/generator,
 /turf/open/floor/plating,
@@ -54697,15 +54694,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
-"eeF" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/medical/medbay/central)
 "eeM" = (
 /obj/structure/closet/secure_closet/warden,
 /obj/item/clothing/mask/gas/sechailer,
@@ -56174,11 +56162,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
+/turf/closed/wall,
 /area/medical/chemistry)
 "gIC" = (
 /obj/structure/cable/yellow{
@@ -57708,13 +57692,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/chapel/dock)
-"jcT" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple,
-/turf/open/floor/plasteel,
-/area/medical/chemistry)
 "jef" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 8
@@ -61838,16 +61815,6 @@
 	},
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
-"pSc" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/chemistry)
 "pSh" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/landmark/start/hangover,
@@ -98887,15 +98854,15 @@ bje
 bjd
 bmA
 bmB
-eeF
-jcT
-bpY
-bpY
-pSc
-gGA
 bwW
 byA
-bAi
+bpY
+bpY
+bpY
+gGA
+bpY
+bpY
+bpY
 bpY
 bNZ
 bva
@@ -104293,7 +104260,7 @@ bvI
 bxr
 byQ
 bBo
-ccP
+bAi
 aht
 aht
 aaa
