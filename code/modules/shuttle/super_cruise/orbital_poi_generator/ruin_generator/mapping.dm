@@ -184,7 +184,8 @@
 //Important stuff like research disks
 /obj/effect/spawner/lootdrop/ruinloot/important
 	loot = list(
-		"" = 9,
+		"" = 4,
 		/obj/item/disk/tech_disk/research/random = 24,
+		/obj/item/alienartifact = 6,
 		/obj/item/gun/energy/alien = 1
 	)

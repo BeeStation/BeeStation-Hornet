@@ -13,6 +13,10 @@
 	var/boom_sizes = list(0, 0, 3)
 	var/list/attached_detonators = list()
 
+/obj/item/grenade/exploration/Initialize()
+	. = ..()
+	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
+
 /obj/item/grenade/exploration/Destroy()
 	for(var/obj/item/exploration_detonator/detonator in attached_detonators)
 		detonator.linked_explosives -= src

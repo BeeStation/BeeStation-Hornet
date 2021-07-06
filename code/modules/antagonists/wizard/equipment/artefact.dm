@@ -139,6 +139,20 @@
 	C.spew_organ(3, 2)
 	C.death()
 
+//Dont eat turfs
+/obj/singularity/wizard/eat()
+	for(var/turf/T as() in spiral_range_turfs(grav_pull, src))
+		if(!T || !isturf(loc))
+			continue
+		for(var/thing in T)
+			if(isturf(loc) && thing != src)
+				var/atom/movable/X = thing
+				if(get_dist(X, src) > consume_range)
+					X.singularity_pull(src, current_size)
+				else
+					consume(X)
+			CHECK_TICK
+
 /obj/singularity/wizard/mapped/admin_investigate_setup()
 	return
 
