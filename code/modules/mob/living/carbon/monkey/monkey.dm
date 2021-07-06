@@ -208,10 +208,38 @@
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					 /obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
 
-/mob/living/carbon/monkey/tumor/Initialize()
+/datum/dna/tumor
+	species = new /datum/species/teratoma
+
+/datum/species/teratoma
+	name = "Teratoma"
+	id = "teratoma"
+	say_mod = "mumbles"
+	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
+	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
+	default_features = list("mcolor" = "FFF", "wings" = "None")
+	use_skintones = 1
+	skinned_type = /obj/item/stack/sheet/animalhide/monkey
+	liked_food = JUNKFOOD | FRIED | GROSS | RAW
+	changesource_flags = MIRROR_BADMIN
+	mutant_brain = /obj/item/organ/brain/tumor
+
+/obj/item/organ/brain/tumor
+	name = "teratoma brain"
+
+/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer)
 	. = ..()
-	for(var/datum/mutation/M in dna.mutations)
-		if(istype(M,/datum/mutation/human/race))
-			var/datum/mutation/human/race/R = M
-			R.mutadone_proof = TRUE
-	dna.species.species_traits += NOTRANSSTING
+	//Removing it deletes it
+	qdel(src)
+
+/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
+	return
+
+/mob/living/carbon/monkey/tumor/has_dna()
+	return FALSE
+
+/mob/living/carbon/monkey/tumor/create_dna()
+	dna = new /datum/dna/tumor(src)
+	//Give us the juicy mutant organs
+	dna.species.on_species_gain(src, null, FALSE)
+	dna.species.regenerate_organs(src, replace_current = TRUE)

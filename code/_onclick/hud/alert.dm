@@ -308,7 +308,9 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	RegisterSignal(taker, COMSIG_MOVABLE_MOVED, .proc/check_in_range)
 
 /atom/movable/screen/alert/give/proc/check_in_range()
-	SIGNAL_HANDLER_DOES_SLEEP // doesn't actually sleep since the only thing below which can sleep is CheckToolReach() which returns FALSE before coming that far.
+	SIGNAL_HANDLER // doesn't actually sleep since the only thing below which can sleep is CheckToolReach() which returns FALSE before coming that far.
+
+
 	if (!usr.CanReach(giver))
 		to_chat(giver, "<span class='warning'>[taker] moved out of range of you!</span>")
 		to_chat(taker, "<span class='warning'>You moved out of range of [giver]!</span>")
@@ -418,7 +420,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		return
 	var/turf/P = get_turf(blood_target)
 	var/turf/Q = get_turf(owner)
-	if(!P || !Q || (P.z != Q.z)) //The target is on a different Z level, we cannot sense that far.
+	if(!P || !Q || (P.get_virtual_z_level()!= Q.get_virtual_z_level())) //The target is on a different Z level, we cannot sense that far.
 		icon_state = "runed_sense2"
 		desc = "You can no longer sense your target's presence."
 		return

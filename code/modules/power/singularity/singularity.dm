@@ -424,7 +424,7 @@
 		if(isbrain(M)) //Ignore brains
 			continue
 
-		if(M.is_conscious())
+		if(M.stat == CONSCIOUS)
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
@@ -451,5 +451,7 @@
 	return(gain)
 
 /obj/singularity/proc/bluespace_reaction()
+	SIGNAL_HANDLER
+
 	investigate_log("has been shot by bluespace artillery and destroyed.", INVESTIGATE_SINGULO)
 	qdel(src)

@@ -1006,7 +1006,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Br" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "Bt" = (
@@ -1153,7 +1153,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "FS" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/carpet/red,
 /area/shuttle/escape)
 "Gu" = (
@@ -1848,7 +1848,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Zf" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Zm" = (

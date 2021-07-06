@@ -10,6 +10,7 @@ package-lock.json
 !/.yarn/plugins
 !/.yarn/sdks
 !/.yarn/versions
+!/.yarn/lock.yml
 
 ## Build artifacts
 /public/.tmp/**/*
@@ -18,6 +19,4 @@ package-lock.json
 
 ## Previously ignored locations that are kept to avoid confusing git
 ## while transitioning to a new project structure.
-/packages/tgui/public/.tmp/**/*
-/packages/tgui/public/**/*.hot-update.*
-/packages/tgui/public/**/*.map
+/packages/tgui/public/**

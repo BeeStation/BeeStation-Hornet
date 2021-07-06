@@ -75,7 +75,7 @@
 	sleep(50)
 	priority_announce("An acausal dimensional event has been detected in your sector. Event has been flagged EXTINCTION-CLASS. Directing all available assets toward simulating solutions. SOLUTION ETA: 60 SECONDS.","Central Command Higher Dimensional Affairs", 'sound/misc/airraid.ogg')
 	sleep(500)
-	priority_announce("Simulations on acausal dimensional event complete. Deploying solution package now. Deployment ETA: ONE MINUTE. ","Central Command Higher Dimensional Affairs")
+	priority_announce("Simulations on acausal dimensional event complete. Deploying solution package now. Deployment ETA: ONE MINUTE. ", "Central Command Higher Dimensional Affairs", SSstation.announcer.get_rand_alert_sound())
 	sleep(50)
 	set_security_level("delta")
 	SSshuttle.registerHostileEnvironment(src)
@@ -149,7 +149,7 @@
 
 /obj/singularity/narsie/mezzer()
 	for(var/mob/living/carbon/M in hearers(consume_range, src))
-		if(M.is_conscious() || iscultist(M))
+		if(M.stat || iscultist(M))
 			continue
 		to_chat(M, "<span class='cultsmall'>You feel conscious thought crumble away in an instant as you gaze upon [src.name].</span>")
 		M.apply_effect(60, EFFECT_STUN)
@@ -170,7 +170,7 @@
 
 	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
-		if(!pos || (pos.z != z))
+		if(!pos || (pos.get_virtual_z_level() != get_virtual_z_level()))
 			continue
 
 		if(iscultist(food))
@@ -191,7 +191,7 @@
 		if(!ghost.client)
 			continue
 		var/turf/pos = get_turf(ghost)
-		if(!pos || (pos.z != z))
+		if(!pos || (pos.get_virtual_z_level() != get_virtual_z_level()))
 			continue
 		cultists += ghost
 	if(cultists.len)

@@ -91,15 +91,15 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			balloon_alert(user, "[src] already has a cell")
 		else
 			if(C.maxcharge < hitcost)
-				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
+				balloon_alert(user, "[src] requires a higher capacity cell")
 				return
 			if(!user.transferItemToLoc(W, src))
 				return
 			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+			balloon_alert(user, "Cell installed")
 			update_icon()
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
@@ -107,7 +107,7 @@
 			cell.update_icon()
 			cell.forceMove(get_turf(src))
 			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
+			balloon_alert(user, "Cell removed")
 			turned_on = FALSE
 			update_icon()
 	else
@@ -116,14 +116,14 @@
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell && cell.charge > hitcost)
 		turned_on = !turned_on
-		to_chat(user, "<span class='notice'>[src] is now [turned_on ? "on" : "off"].</span>")
+		balloon_alert(user, "[src] [turned_on ? "on" : "off"]")
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		turned_on = FALSE
 		if(!cell)
-			to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
+			balloon_alert(user, "No power source")
 		else
-			to_chat(user, "<span class='warning'>[src] is out of charge.</span>")
+			balloon_alert(user, "Out of charge")
 	update_icon()
 	add_fingerprint(user)
 
@@ -228,4 +228,3 @@
 	if(sparkler)
 		QDEL_NULL(sparkler)
 	return ..()
-

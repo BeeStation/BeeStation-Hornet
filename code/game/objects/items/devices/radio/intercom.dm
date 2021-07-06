@@ -78,7 +78,7 @@
 		return FALSE
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
-		if(isnull(position) || !(position.z in level))
+		if(isnull(position) || !(position.get_virtual_z_level() in level))
 			return FALSE
 	if(!listening)
 		return FALSE
@@ -117,6 +117,8 @@
  * * source - the area that just had a power change.
  */
 /obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
+	SIGNAL_HANDLER
+
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		on = FALSE

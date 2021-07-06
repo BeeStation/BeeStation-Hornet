@@ -120,7 +120,7 @@
 			H.update_damage_hud()
 			return
 	var/n_name = stripped_input(usr, "What would you like to label the paper?", "Paper Labelling", null, MAX_NAME_LEN)
-	if((loc == usr && usr.is_conscious()))
+	if((loc == usr && usr.stat == CONSCIOUS))
 		name = "paper[(n_name ? text("- '[n_name]'") : null)]"
 	add_fingerprint(usr)
 
@@ -369,6 +369,15 @@
 
 /obj/item/paper/crumpled/beernuke
 	name = "beer-stained note"
+	
+/obj/item/paper/crumpled/beernuke/Initialize()
+	. = ..()
+	var/code
+	for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
+		if(beernuke.r_code == "ADMIN")
+			beernuke.r_code = random_nukecode()
+		code = beernuke.r_code
+	info = "important party info, DONT FORGET: <b>[code]</b>" 
 
 /obj/item/paper/troll
 	name = "very special note"

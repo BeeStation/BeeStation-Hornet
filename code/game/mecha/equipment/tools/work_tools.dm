@@ -53,14 +53,14 @@
 					cargo_holder.cargo += O
 					O.forceMove(chassis)
 					O.anchored = FALSE
-					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+					balloon_alert(chassis.occupant, "[target] loaded")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]", LOG_MECHA)
 				else
 					O.anchored = initial(O.anchored)
 			else
-				occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+				balloon_alert(chassis.occupant, "Not enough room in cargo compartment")
 		else
-			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
+			balloon_alert(chassis.occupant, "[target] is firmly secured")
 
 	else if(isliving(target))
 		var/mob/living/M = target
@@ -113,14 +113,14 @@
 					cargo_holder.cargo += O
 					O.forceMove(chassis)
 					O.anchored = FALSE
-					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+					balloon_alert(chassis.occupant, "[target] loaded")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]", LOG_MECHA)
 				else
 					O.anchored = initial(O.anchored)
 			else
-				occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+				balloon_alert(chassis.occupant, "Not enough room in cargo compartment")
 		else
-			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
+			balloon_alert(chassis.occupant, "[target] is firmly secured")
 
 	else if(isliving(target))
 		var/mob/living/M = target

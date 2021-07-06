@@ -7,7 +7,6 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
-	processing_flags = NONE
 	req_access = list(ACCESS_ROBOTICS)
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/cyborgrecharger
@@ -44,7 +43,7 @@
 	return 1
 
 /obj/machinery/recharge_station/relaymove(mob/user)
-	if(!user.is_conscious())
+	if(user.stat)
 		return
 	open_machine()
 
