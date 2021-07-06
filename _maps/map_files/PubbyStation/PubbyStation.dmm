@@ -54358,6 +54358,7 @@
 	dir = 1;
 	pixel_y = 2
 	},
+/obj/machinery/component_printer,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "duQ" = (
@@ -65459,9 +65460,6 @@
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
 "wcN" = (
-/obj/machinery/computer/cargo/request{
-	dir = 4
-	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "wcX" = (
