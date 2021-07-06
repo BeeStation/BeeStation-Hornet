@@ -26,7 +26,6 @@
 	var/list/gas_min = list()
 	var/list/gas_max = list(
 		GAS_CO2 = 30, // Yes it's an arbitrary value who cares?
-		GAS_METHYL_BROMIDE = 1,
 		GAS_PLASMA = MOLES_GAS_VISIBLE
 	)
 	var/list/gas_damage = list(
