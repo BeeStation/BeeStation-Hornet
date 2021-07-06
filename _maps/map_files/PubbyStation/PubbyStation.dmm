@@ -35022,6 +35022,9 @@
 	dir = 4;
 	pixel_x = -23
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bAA" = (
@@ -35537,9 +35540,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bBz" = (
@@ -36653,9 +36653,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bDK" = (
@@ -37473,9 +37470,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/purple,
 /obj/structure/disposalpipe/sorting/mail/flip,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bEZ" = (
@@ -37919,9 +37913,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bGd" = (
@@ -38532,15 +38523,20 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/stripes/corner,
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "Research Hallway APC";
 	pixel_x = 24
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bHp" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "bHq" = (
@@ -50829,6 +50825,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "cqy" = (
@@ -50880,9 +50879,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /obj/effect/turf_decal/tile/purple,
 /obj/structure/closet/firecloset,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "cqG" = (
@@ -54653,9 +54649,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "eNq" = (
@@ -54930,18 +54923,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
-"fjH" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/science/nanite)
 "fkH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -60458,6 +60439,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "onn" = (
@@ -61233,6 +61217,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "pjH" = (
@@ -61314,6 +61301,9 @@
 /area/crew_quarters/toilet/restrooms)
 "ptK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -65008,6 +64998,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
+"vBJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/science/nanite)
 "vCs" = (
 /obj/structure/sign/warning/radiation/rad_area,
 /obj/structure/disposalpipe/segment{
@@ -65092,6 +65094,12 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -102112,7 +102120,7 @@ hnN
 byC
 bxj
 hiY
-bIA
+bDH
 bBx
 bIA
 bDH
@@ -103657,7 +103665,7 @@ byO
 bJM
 bIE
 cqv
-fjH
+vBJ
 bEZ
 bGe
 cqv
