@@ -58,7 +58,7 @@
 		return 1
 	if(IsStun() || IsParalyzed())
 		return 1
-	if(stat >= SOFT_CRIT)
+	if(stat)
 		return 1
 	return 0
 
@@ -161,7 +161,7 @@
 				var/list/around = view(MONKEY_ENEMY_VISION, src) // scan for enemies
 				for(var/mob/living/L in around)
 					if( should_target(L) )
-						if(L.is_conscious())
+						if(L.stat == CONSCIOUS)
 							battle_screech()
 							retaliate(L)
 							return TRUE
@@ -208,7 +208,7 @@
 
 			// switch targets
 			for(var/mob/living/L in around)
-				if(L != target && should_target(L) && L.is_conscious() && prob(MONKEY_SWITCH_TARGET_PROB))
+				if(L != target && should_target(L) && L.stat == CONSCIOUS && prob(MONKEY_SWITCH_TARGET_PROB))
 					target = L
 					return TRUE
 
@@ -217,7 +217,7 @@
 				back_to_idle()
 				return TRUE
 
-			if(target && target.is_conscious())		// make sure target exists
+			if(target && target.stat == CONSCIOUS)		// make sure target exists
 				if(Adjacent(target) && isturf(target.loc) && !IsDeadOrIncap())	// if right next to perp
 
 					// check if target has a weapon
@@ -253,7 +253,7 @@
 
 			// flee from anyone who attacked us and we didn't beat down
 			for(var/mob/living/L in view(MONKEY_FLEE_VISION, src))
-				if( enemies[L] && L.is_conscious())
+				if( enemies[L] && L.stat == CONSCIOUS )
 					target = L
 
 			if(target != null)
