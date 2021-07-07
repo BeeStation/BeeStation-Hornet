@@ -65,7 +65,7 @@
 			selfpenalty = 0.4
 		else
 			selfpenalty = 0.6
-	if(target.stat)
+	if(target.stat)//are they not conscious
 		sleepbonus = 0.5
 	if(locate(/obj/structure/table/optable/abductor, T))
 		propability = 1.2
@@ -94,12 +94,12 @@
 		speed_mod = tool.toolspeed
 
 	var/implement_speed_mod = 1
-	if(implement_type)	//this means it isn't a require hand or any item step.
+	if(implement_type)//this means it isn't a require hand or any item step.
 		implement_speed_mod = implements[implement_type] / 100.0
 	speed_mod /= (get_speed_modifier(user, target) * (1 + surgery.speed_modifier) * implement_speed_mod)
 	
 	var/modded_time = time * speed_mod
-	fail_prob = min(max(0, modded_time - (time * 2)),99)//if modded_time > time * 2, then fail_prob = modded_time - time*2. starts at 0, caps at 99
+	fail_prob = min(max(0, modded_time - (time * 2)), 99)//if modded_time > time * 2, then fail_prob = modded_time - time*2. starts at 0, caps at 99
 	modded_time = min(modded_time, time * 2)//also if that, then cap modded_time at time*2
 
 	if(iscyborg(user))//any immunities to surgery slowdown should go in this check.
@@ -107,7 +107,7 @@
 
 	if(do_after(user, modded_time, target = target))
 
-		if((prob(100-fail_prob) || iscyborg(user)) && chem_check(target) && !try_to_fail)
+		if((prob(100 - fail_prob) || iscyborg(user)) && chem_check(target) && !try_to_fail)
 
 			if(success(user, target, target_zone, tool, surgery))
 				advance = TRUE
