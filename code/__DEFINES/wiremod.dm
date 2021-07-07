@@ -70,8 +70,21 @@
 #define COMP_ARITHMETIC_SUBTRACT "Subtract"
 #define COMP_ARITHMETIC_MULTIPLY "Multiply"
 #define COMP_ARITHMETIC_DIVIDE "Divide"
+#define COMP_ARITHMETIC_MODULO "Modulus"
 #define COMP_ARITHMETIC_MIN "Minimum"
 #define COMP_ARITHMETIC_MAX "Maximum"
+
+//Bitwise defines
+#define COMP_BITWISE_AND "And"
+#define COMP_BITWISE_OR "Or"
+#define COMP_BITWISE_XOR "Xor"
+#define COMP_BITWISE_LEFTSHIFT "Left Shift"
+#define COMP_BITWISE_RIGHTSHIFT "Right Shift"
+
+//Round defines
+#define COMP_ROUND_ROUND "Round"
+#define COMP_ROUND_FLOOR "Floor"
+#define COMP_ROUND_CEIL "Ceil"
 
 // Text defines
 #define COMP_TEXT_LOWER "To Lower"

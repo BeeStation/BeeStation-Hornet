@@ -22,6 +22,7 @@
 		COMP_ARITHMETIC_SUBTRACT,
 		COMP_ARITHMETIC_MULTIPLY,
 		COMP_ARITHMETIC_DIVIDE,
+		COMP_ARITHMETIC_MODULO,
 		COMP_ARITHMETIC_MIN,
 		COMP_ARITHMETIC_MAX,
 	)
@@ -68,6 +69,14 @@
 					result = null
 					break
 				result /= value
+			if(COMP_ARITHMETIC_MODULO)
+				//Another protect from divide by zero.
+				if(value == 0)
+					result = null
+					break
+				//BYOND's built in modulus operator doesn't work well with decimals, so I'm using this method instead
+				var/multiples = round(result / value)
+				result -= multiples * value
 			if(COMP_ARITHMETIC_MAX)
 				result = max(result, value)
 			if(COMP_ARITHMETIC_MIN)

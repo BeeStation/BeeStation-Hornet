@@ -48,6 +48,11 @@
 	id = "comp_arithmetic"
 	build_path = /obj/item/circuit_component/arithmetic
 
+/datum/design/component/bitwise
+	name = "Bitwise Component"
+	id = "comp_bitwise"
+	build_path = /obj/item/circuit_component/bitwise
+
 /datum/design/component/clock
 	name = "Clock Component"
 	id = "comp_clock"
@@ -97,6 +102,11 @@
 	name = "Random Component"
 	id = "comp_random"
 	build_path = /obj/item/circuit_component/random
+
+/datum/design/component/round
+	name = "Round Component"
+	id = "comp_round"
+	build_path = /obj/item/circuit_component/round
 
 /datum/design/component/species
 	name = "Get Species Component"
