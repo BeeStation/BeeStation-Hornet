@@ -1190,3 +1190,21 @@
 
 	playsound(source, 'sound/misc/Cyka Blyat.ogg', 25, 0)
 	speech_args[SPEECH_MESSAGE] = "Cyka Blyat"
+
+/datum/species/golem/mhydrogen
+	name = "Metallic Hydrogen Golem"
+	id = "Metallic Hydrogen golem"
+	fixed_mut_color = "ddd"
+	info_text = "As a <span class='danger'>Metallic Hydrogen Golem</span>, you were forged in the highest pressures and the highest heats. Your unique mineral makeup makes you immune to most types of damages."
+	prefix = "Metallic Hydrogen"
+	special_names = null
+	species_traits = list(NOFLASH, NOBLOOD, NO_UNDERWEAR, NOEYESPRITES)
+	inherent_traits = list(TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTHIGHPRESSURE,TRAIT_NOFIRE,TRAIT_RADIMMUNE,TRAIT_NODISMEMBER,TRAIT_NOGUNS)
+
+/datum/species/golem/mhydrogen/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+	. = ..()
+	ADD_TRAIT(C, TRAIT_ANTIMAGIC, SPECIES_TRAIT)
+
+/datum/species/golem/mhydrogen/on_species_loss(mob/living/carbon/C)
+	REMOVE_TRAIT(C, TRAIT_ANTIMAGIC, SPECIES_TRAIT)
+	return ..()

@@ -147,4 +147,5 @@
 	worth += C.air_contents.get_moles(/datum/gas/miasma)*10
 	worth += C.air_contents.get_moles(/datum/gas/tritium)*5
 	worth += C.air_contents.get_moles(/datum/gas/pluoxium)*5
+	worth += C.air_contents.get_moles(/datum/gas/hydrogen)*25
 	return worth

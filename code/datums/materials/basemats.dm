@@ -156,3 +156,13 @@
 	color = "#d95802"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
 	sheet_type = /obj/item/stack/sheet/mineral/copper
+
+/datum/material/metalhydrogen
+	name = "metallic hydrogen"
+	id = "metal hydrogen"
+	desc = "Solid metallic hydrogen. Some say it should be impossible"
+	color = "#f2d5d7"
+	alpha = 150
+	categories = list(MAT_CATEGORY_RIGID = TRUE)
+	sheet_type = /obj/item/stack/sheet/mineral/metal_hydrogen
+	strength_modifier = 1.2
