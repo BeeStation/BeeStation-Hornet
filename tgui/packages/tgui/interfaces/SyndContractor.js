@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component, Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Grid, Icon, LabeledList, Modal, NoticeBox, Section, Table, Tabs } from '../components';
 import { NtosWindow } from '../layouts';
@@ -51,10 +51,10 @@ export class FakeTerminal extends Component {
     return (
       <Box m={1}>
         {this.state.currentDisplay.map(value => (
-          <Button key={value}>
+          <Fragment key={value}>
             {value}
             <br />
-          </Button>
+          </Fragment>
         ))}
       </Box>
     );
