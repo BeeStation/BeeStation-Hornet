@@ -1,5 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - bugfix: Replaces the pipe painter with a hand labeler in corg's experimentation
-      lab
