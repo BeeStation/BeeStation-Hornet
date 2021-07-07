@@ -86846,13 +86846,13 @@
 /area/hallway/secondary/exit/departure_lounge)
 "yiI" = (
 /obj/structure/table/reinforced,
-/obj/item/pipe_painter,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/hand_labeler,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "yiS" = (
