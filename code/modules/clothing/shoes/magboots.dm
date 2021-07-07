@@ -81,13 +81,6 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/shoes/magboots/command/negates_gravity()
-	return isspaceturf(get_turf(src)) ? FALSE : magpulse
-
-/obj/item/clothing/shoes/magboots/commando/examine(mob/user)
-	. = ..()
-	. += "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"]."
-
 /obj/item/clothing/shoes/magboots/crushing
 	desc = "Normal looking magboots that are altered to increase magnetic pull to crush anything underfoot."
 
