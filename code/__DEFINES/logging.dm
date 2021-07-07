@@ -7,6 +7,7 @@
 #define INVESTIGATE_RECORDS			"records"
 #define INVESTIGATE_SINGULO			"singulo"
 #define INVESTIGATE_SUPERMATTER		"supermatter"
+#define INVESTIGATE_ANTIMATTER		"antimatter"
 #define INVESTIGATE_TELESCI			"telesci"
 #define INVESTIGATE_WIRES			"wires"
 #define INVESTIGATE_PORTAL			"portals"

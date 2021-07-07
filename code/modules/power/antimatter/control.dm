@@ -239,6 +239,8 @@
 
 /obj/machinery/power/am_control_unit/proc/toggle_power(powerfail = 0)
 	active = !active
+	investigate_log("turned [active ? "ON" : "OFF"] by [usr ? key_name(usr) : "outside forces"] at [AREACOORD(src)]", INVESTIGATE_ANTIMATTER)
+	log_game("Antimatter turned [active ? "ON" : "OFF"] by [usr ? "[key_name(usr)]" : "outside forces"] at [AREACOORD(src)]")
 	if(active)
 		use_power = ACTIVE_POWER_USE
 		visible_message("The [src.name] starts up.")
@@ -344,11 +346,15 @@
 
 	if(href_list["strengthup"])
 		fuel_injection++
+		log_game("Antimatter injection rate increased to [fuel_injection] by [key_name(usr)] in [AREACOORD(src)]")
+		investigate_log("increased to [fuel_injection] by [key_name(usr)] at [AREACOORD(src)]", INVESTIGATE_ANTIMATTER)
 
 	if(href_list["strengthdown"])
 		fuel_injection--
 		if(fuel_injection < 0)
 			fuel_injection = 0
+		log_game("Antimatter injection rate decreased to [fuel_injection] by [key_name(usr)] in [AREACOORD(src)]")
+		investigate_log("decreased to [fuel_injection] by [key_name(usr)] at [AREACOORD(src)]", INVESTIGATE_ANTIMATTER)
 
 	if(href_list["refreshstability"])
 		check_core_stability()
