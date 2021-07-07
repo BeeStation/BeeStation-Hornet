@@ -3,7 +3,7 @@
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	mask = /obj/item/clothing/mask/gas/sechailer
-	shoes = /obj/item/clothing/shoes/magboots/commando
+	shoes = /obj/item/clothing/shoes/combat/swat
 	gloves = /obj/item/clothing/gloves/combat
 	ears = /obj/item/radio/headset/headset_cent/alt
 
