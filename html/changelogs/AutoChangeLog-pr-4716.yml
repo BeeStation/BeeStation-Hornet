@@ -1,6 +1,0 @@
-author: Froststahr
-delete-after: true
-changes:
-  - bugfix: Some TGUI mistakes have been corrected, panel, air alarm, and contractor
-      uplink should look good again.
-  - tweak: Uplink interface has been modified in looks, and will auto-focus
