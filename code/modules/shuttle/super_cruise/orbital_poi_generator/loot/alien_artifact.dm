@@ -300,7 +300,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 	var/mob/living/carbon/human/H = taker
 	if(istype(H) && !used)
 		used = TRUE
-		H.gain_trauma(/datum/brain_trauma/magic/stalker, TRAUMA_RESILIENCE_MAGIC)
+		H.gain_trauma(/datum/brain_trauma/magic/stalker, TRAUMA_LIMIT_LOBOTOMY)
 
 //===================
 // Gas ~~Remover~~ Converter
