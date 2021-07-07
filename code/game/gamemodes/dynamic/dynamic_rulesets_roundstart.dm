@@ -651,14 +651,7 @@
 
 /datum/dynamic_ruleset/roundstart/clockcult/pre_execute()
 	//Load Reebe
-	var/list/errorList = list()
-	var/list/reebe = SSmapping.LoadGroup(errorList, "Reebe", "map_files/generic", "CityOfCogs.dmm", default_traits=ZTRAITS_REEBE, silent=TRUE)
-	if(errorList.len)
-		message_admins("Reebe failed to load")
-		log_game("Reebe failed to load")
-		return FALSE
-	for(var/datum/map_template/map in reebe)
-		map.initTemplateBounds()
+	LoadReebe()
 	//Make cultists
 	var/starter_servants = 4
 	var/number_players = mode.roundstart_pop_ready

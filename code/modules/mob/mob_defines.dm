@@ -31,7 +31,7 @@
 	/// A special action? No idea why this lives here
 	var/list/datum/action/chameleon_item_actions
 
-	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here) - TheFakeElon (2020, still here)
+	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak (2019, still here)
 	var/stat = CONSCIOUS
 
 	/* A bunch of this stuff really needs to go under their own defines instead of being globally attached to mob.
@@ -196,8 +196,6 @@
 	///For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time
 	var/list/do_afters	
 
-	var/list/mousemove_intercept_objects
-
 	///Allows a datum to intercept all click calls this mob is the source of
 	var/datum/click_intercept
 
@@ -212,3 +210,6 @@
 
 	/// A mock client, provided by tests and friends
 	var/datum/client_interface/mock_client
+
+	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
+	var/sound_environment_override = SOUND_ENVIRONMENT_NONE

@@ -99,6 +99,10 @@
 	if((H.z == 0 || H.get_virtual_z_level() == here.get_virtual_z_level() || (is_station_level(here.z) && is_station_level(H.z))) && istype(H.w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = H.w_uniform
 
+		//Suit sensors radio transmitter must not be jammed.
+		if(U.is_jammed())
+			return FALSE
+
 		// Suit sensors must be on maximum.
 		if(!U.has_sensor || (U.sensor_mode < SENSOR_COORDS && !ignore_suit_sensor_level))
 			return FALSE

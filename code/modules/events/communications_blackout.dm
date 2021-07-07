@@ -18,7 +18,7 @@
 		to_chat(A, "<br><span class='warning'><b>[alert]</b></span><br>")
 
 	if(prob(30) || fake)	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
-		priority_announce(alert)
+		priority_announce(alert, sound = SSstation.announcer.get_rand_alert_sound())
 
 
 /datum/round_event/communications_blackout/start()
