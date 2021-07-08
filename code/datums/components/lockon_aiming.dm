@@ -47,14 +47,10 @@
 	if(icon_state)
 		lock_icon_state = icon_state
 	generate_lock_visuals()
-	var/mob/M = parent
-	LAZYOR(M.mousemove_intercept_objects, src)
 	START_PROCESSING(SSfastprocess, src)
 
 /datum/component/lockon_aiming/Destroy()
-	var/mob/M = parent
 	clear_visuals()
-	LAZYREMOVE(M.mousemove_intercept_objects, src)
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
@@ -120,28 +116,6 @@
 		return
 	LAZYREMOVE(immune_weakrefs, A.weak_reference)
 
-/datum/component/lockon_aiming/onMouseMove(object,location,control,params)
-	var/mob/M = parent
-	if(!istype(M) || !M.client)
-		return
-	aiming_params = params
-	var/datum/position/P = mouse_absolute_datum_map_position_from_client(M.client, aiming_params)
-	if(!P)
-		return
-	var/turf/T = P.return_turf()
-	LAZYINITLIST(last_location)
-	if(length(last_location) == 3 && last_location[1] == T.x && last_location[2] == T.y && last_location[3] == T.z)
-		return			//Same turf, don't bother.
-	if(last_location)
-		last_location.Cut()
-	else
-		last_location = list()
-	last_location.len = 3
-	last_location[1] = T.x
-	last_location[2] = T.y
-	last_location[3] = T.z
-	autolock()
-
 /datum/component/lockon_aiming/process()
 	if(update_disabled)
 		return
@@ -180,7 +154,7 @@
 
 /datum/component/lockon_aiming/proc/can_target(atom/A)
 	var/mob/M = A
-	return is_type_in_typecache(A, target_typecache) && !(ismob(A) && mob_stat_check && !M.is_conscious()) && !immune_weakrefs[WEAKREF(A)]
+	return is_type_in_typecache(A, target_typecache) && !(ismob(A) && mob_stat_check && M.stat != CONSCIOUS) && !immune_weakrefs[WEAKREF(A)]
 
 /datum/component/lockon_aiming/proc/get_nearest(turf/T, list/typecache, amount, range)
 	current_ranging_id++

@@ -31,6 +31,11 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 	hallucination--
 
+	//This system used to shit bricks with decimal values. Fuck it.
+	if(hallucination <= 0)
+		hallucination = 0
+		return
+
 	if(world.time < next_hallucination)
 		return
 

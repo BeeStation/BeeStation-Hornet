@@ -333,6 +333,8 @@
 		defib.fire_act(exposed_temperature, exposed_volume)
 
 /obj/item/shockpaddles/proc/check_range()
+	SIGNAL_HANDLER
+
 	if(!req_defib || !defib)
 		return
 	if(!in_range(src,defib))
@@ -356,13 +358,16 @@
 	cooldown = FALSE
 	update_icon()
 
-/obj/item/shockpaddles/New(mainunit)
-	..()
-	if(check_defib_exists(mainunit, src) && req_defib)
-		defib = mainunit
-		forceMove(defib)
-		busy = FALSE
-		update_icon()
+/obj/item/shockpaddles/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_STORAGE_INSERT, GENERIC_ITEM_TRAIT) //stops shockpaddles from being inserted in BoH
+	if(!req_defib)
+		return //If it doesn't need a defib, just say it exists
+	if (!loc || !istype(loc, /obj/item/defibrillator)) //To avoid weird issues from admin spawns
+		return INITIALIZE_HINT_QDEL
+	defib = loc
+	busy = FALSE
+	update_icon()
 
 /obj/item/shockpaddles/update_icon()
 	var/wielded = ISWIELDED(src)
@@ -399,15 +404,6 @@
 	defib.on = FALSE
 	forceMove(defib)
 	defib.update_icon()
-
-/obj/item/shockpaddles/proc/check_defib_exists(mainunit, mob/living/carbon/M, obj/O)
-	if(!req_defib)
-		return TRUE //If it doesn't need a defib, just say it exists
-	if (!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
-		qdel(O)
-		return FALSE
-	else
-		return TRUE
 
 /obj/item/shockpaddles/attack(mob/M, mob/user)
 	if(busy)
@@ -541,7 +537,7 @@
 			H.emote("scream")
 			shock_touching(45, H)
 			if(H.can_heartattack() && !H.undergoing_cardiac_arrest())
-				if(H.is_conscious())
+				if(!H.stat)
 					H.visible_message("<span class='warning'>[H] thrashes wildly, clutching at [H.p_their()] chest!</span>",
 						"<span class='userdanger'>You feel a horrible agony in your chest!</span>")
 				H.set_heartattack(TRUE)

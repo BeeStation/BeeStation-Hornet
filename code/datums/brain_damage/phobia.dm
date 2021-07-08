@@ -54,7 +54,7 @@
 		return
 	if(is_blind(owner))
 		return
-	if(!owner.is_conscious())
+	if(owner.stat >= UNCONSCIOUS)
 		return
 	if(world.time > next_check) //Even though it's clunky to only check every five seconds, it's far easier on the server than doing all this shit during every single proc of on_life()
 		next_check = world.time + 50
@@ -200,7 +200,7 @@
 				fearscore ++
 
 /datum/brain_trauma/mild/phobia/proc/freak_out(atom/reason, trigger_word, spooklevel = 0)//spooklevel is only used when calculating amount of scary items on a person.
-	if(!owner.is_conscious())
+	if(owner.stat >= UNCONSCIOUS)
 		return
 	if(fear_state >= PHOBIA_STATE_EDGY)
 		stress_check = world.time + 3000
@@ -209,12 +209,12 @@
 		if(isliving(reason))
 			var/mob/living/L = reason
 			if(spooklevel)
-				if(!L.is_conscious())
+				if(L.stat)
 					if(fear_state <= (PHOBIA_STATE_EDGY))
 						fearscore += spooklevel
 				else
 					fearscore += spooklevel * 2
-			else if(!L.is_conscious())
+			else if(L.stat)
 				if(fear_state <= (PHOBIA_STATE_EDGY))
 					fearscore += 2
 			else
@@ -245,7 +245,7 @@
 			owner.Paralyze(10 * spooklevel)
 			owner.Jitter(3)
 		if(PHOBIA_STATE_FAINT)
-			if(!owner.is_conscious())
+			if(!owner.stat)
 				owner.Sleeping(300)
 
 /datum/brain_trauma/mild/phobia/on_lose()
