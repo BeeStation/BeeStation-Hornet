@@ -83,8 +83,11 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(/datum/material/iron = 300, /datum/material/glass = 300)
-	light_color = LIGHT_COLOR_WHITE
+	light_system = MOVABLE_LIGHT //Used as a flash here.
+	light_range = FLASH_LIGHT_RANGE
+	light_color = COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
+	light_on = FALSE
 	var/flashing_overlay = "flash-f"
 	var/last_used = 0 //last world.time it was used.
 	var/cooldown = 20
@@ -216,11 +219,17 @@
 			bulb.charges_left ++
 	last_trigger = world.time
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
-	flash_lighting_fx(FLASH_LIGHT_RANGE, light_power, light_color)
+	set_light_on(TRUE)
+	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 	update_icon(TRUE)
 	if(user && !clown_check(user))
 		return FALSE
 	return TRUE
+
+
+/obj/item/assembly/flash/proc/flash_end()
+	set_light_on(FALSE)
+
 
 /obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
