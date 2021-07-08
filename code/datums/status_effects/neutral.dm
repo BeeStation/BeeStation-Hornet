@@ -140,6 +140,7 @@
 	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)
 
 /datum/status_effect/bugged/proc/handle_hearing(datum/source, list/hearing_args)
+	SIGNAL_HANDLER
 	listening_in.show_message(hearing_args[HEARING_MESSAGE])
 
 

@@ -52,6 +52,7 @@
 
 //Called when hearing a spoken message
 /datum/brain_trauma/proc/handle_hearing(datum/source, list/hearing_args)
+	SIGNAL_HANDLER
 	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)
 
 //Called when speaking
