@@ -5361,7 +5361,7 @@
 /turf/open/floor/engine,
 /area/mine/science)
 "MX" = (
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
@@ -5576,7 +5576,7 @@
 /turf/open/floor/plasteel,
 /area/mine/production)
 "PV" = (
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -6230,7 +6230,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "WI" = (
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "WK" = (

@@ -29740,7 +29740,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/miningoffice)
 "bcD" = (
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 1
@@ -123108,13 +123108,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port)
-"lJW" = (
-/obj/structure/closet/crate/radiation,
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/science/shuttledock)
 "lOp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -126280,6 +126273,13 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
+"tGx" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/machinery/vendor/exploration,
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "tGU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bodycontainer/morgue{
@@ -152863,7 +152863,7 @@ djn
 dle
 caE
 eaf
-lJW
+tGx
 kcF
 oEB
 hVM

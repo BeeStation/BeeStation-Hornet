@@ -14652,7 +14652,7 @@
 	c_tag = "Mining Office";
 	dir = 8
 	},
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
@@ -84043,6 +84043,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
+"krn" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -27
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/vendor/exploration,
+/turf/open/floor/plasteel,
+/area/science/shuttledock)
 "krD" = (
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
@@ -84355,19 +84368,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"lfg" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27
-	},
-/obj/machinery/suit_storage_unit/exploration,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/science/shuttledock)
 "lhb" = (
 /obj/item/clothing/head/festive,
 /turf/open/floor/plating,
@@ -126036,7 +126036,7 @@ sDF
 lju
 qPy
 lbv
-lfg
+krn
 ogi
 qGT
 dQI

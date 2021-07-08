@@ -65,7 +65,7 @@
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "aq" = (
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /turf/open/floor/pod/dark,
 /area/survivalpod)
 "ar" = (

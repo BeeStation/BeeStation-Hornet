@@ -1942,6 +1942,7 @@
 #include "code\modules\exploration_crew\exploration_explosives.dm"
 #include "code\modules\exploration_crew\exploration_laser_gun.dm"
 #include "code\modules\exploration_crew\exploration_shuttle.dm"
+#include "code\modules\exploration_crew\exploration_vendor.dm"
 #include "code\modules\exploration_crew\nostation_firing_pin.dm"
 #include "code\modules\exploration_crew\discovery_research\discoverable_component.dm"
 #include "code\modules\exploration_crew\discovery_research\discovery_scanner.dm"

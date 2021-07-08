@@ -700,8 +700,8 @@ Nothing else in the console has ID requirements.
 		return l
 	var/display_name = node.display_name
 	if (selflink)
-		display_name = "<A href='?src=[REF(src)];view_node=[node.id];back_screen=[screen]'>[display_name] ([N.tech_tier])</A>"
-	l += "<div class='statusDisplay technode'><b>[display_name] ([N.tech_tier])</b> [RDSCREEN_NOBREAK]"
+		display_name = "<A href='?src=[REF(src)];view_node=[node.id];back_screen=[screen]'>[display_name] ([node.tech_tier])</A>"
+	l += "<div class='statusDisplay technode'><b>[display_name] ([node.tech_tier])</b> [RDSCREEN_NOBREAK]"
 	if(minimal)
 		l += "<br>[node.description]"
 	else

@@ -18241,10 +18241,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
-"eLV" = (
-/obj/machinery/suit_storage_unit/exploration,
-/turf/open/floor/plasteel/white,
-/area/science/shuttledock)
 "eLZ" = (
 /obj/structure/chair{
 	dir = 8
@@ -29491,7 +29487,7 @@
 	dir = 1
 	},
 /obj/machinery/light,
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 4
 	},
@@ -50258,6 +50254,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/science/research)
+"nAG" = (
+/obj/machinery/vendor/exploration,
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "nAK" = (
 /obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/plating,
@@ -111263,7 +111263,7 @@ eZk
 tfp
 xJI
 rde
-eLV
+nAG
 kWB
 mqn
 iOB

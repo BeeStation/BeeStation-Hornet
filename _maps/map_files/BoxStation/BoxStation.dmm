@@ -30826,7 +30826,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "bKq" = (
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "bKr" = (
@@ -47840,19 +47840,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
-"foL" = (
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
-	dir = 8
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -27
-	},
-/obj/machinery/suit_storage_unit/exploration,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/science/shuttledock)
 "fpd" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
@@ -56501,6 +56488,12 @@
 /obj/item/toy/plush/carpplushie,
 /turf/open/floor/plasteel,
 /area/security/prison)
+"pOe" = (
+/obj/machinery/atmospherics/pipe/layer_manifold{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/science/shuttledock)
 "pOJ" = (
 /obj/machinery/light_switch{
 	pixel_x = 8;
@@ -61449,13 +61442,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
-"vQq" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
-	},
-/obj/effect/landmark/start/exploration,
-/turf/open/floor/plasteel/white,
-/area/science/shuttledock)
 "vQH" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Door"
@@ -63512,6 +63498,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"xQA" = (
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -27
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/vendor/exploration,
+/turf/open/floor/plasteel,
+/area/science/shuttledock)
 "xQD" = (
 /obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall,
@@ -115691,7 +115690,7 @@ bxt
 mGH
 hze
 myO
-foL
+xQA
 tku
 uSn
 mJa
@@ -115948,7 +115947,7 @@ bxt
 xYb
 xYb
 xYb
-vQq
+pOe
 nBe
 eoE
 uww

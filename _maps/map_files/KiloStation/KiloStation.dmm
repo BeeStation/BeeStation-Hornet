@@ -43864,7 +43864,7 @@
 /turf/open/floor/plating,
 /area/security/checkpoint/supply)
 "blh" = (
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1

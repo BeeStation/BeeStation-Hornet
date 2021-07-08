@@ -491,6 +491,14 @@
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO
 
+/datum/design/board/exploration_equipment_vendor
+	name = "Machine Design (Exploration Rewards Vendor Board)"
+	desc = "The circuit board for an Exploration Rewards Vendor."
+	id = "exploration_equipment_vendor"
+	build_path = /obj/item/circuitboard/machine/exploration_equipment_vendor
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO
+
 /datum/design/board/tesla_coil
 	name = "Machine Design (Tesla Coil Board)"
 	desc = "The circuit board for a tesla coil."
