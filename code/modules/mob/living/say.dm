@@ -234,9 +234,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	show_message(message, MSG_AUDIBLE, deaf_message, deaf_type)
 	return message
 
-/mob/living/proc/hear_intercept(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
-	return message
-
 /mob/living/send_speech(message, message_range = 6, obj/source = src, bubble_type = bubble_icon, list/spans, datum/language/message_language=null, list/message_mods = list())
 	var/static/list/eavesdropping_modes = list(MODE_WHISPER = TRUE, MODE_WHISPER_CRIT = TRUE)
 	var/eavesdrop_range = 0
