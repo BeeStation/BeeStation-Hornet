@@ -66,8 +66,6 @@ Bonus
 		symptom_delay_max = 60
 	if(A.resistance >= 8) //mutate twice
 		power = 2
-	if(A.stage_rate >= 14)
-		possible_mutations = (GLOB.good_mutations) //This should never have contained not good mutations
 	else
 		possible_mutations = (GLOB.bad_mutations | GLOB.not_good_mutations) - GLOB.all_mutations[RACEMUT]
 	var/mob/living/carbon/M = A.affected_mob
