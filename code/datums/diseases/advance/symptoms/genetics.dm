@@ -36,7 +36,7 @@ Bonus
 
 /datum/symptom/genetic_mutation/severityset(datum/disease/advance/A)
 	. = ..()
-	else if(A.resistance >= 8)
+	if(A.resistance >= 8)
 		severity += 1
 
 /datum/symptom/genetic_mutation/Activate(datum/disease/advance/A)
