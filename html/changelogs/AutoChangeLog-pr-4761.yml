@@ -1,5 +1,0 @@
-author: Raven-Industries
-delete-after: true
-changes:
-  - bugfix: fixed syntax
-  - code_imp: changed ^ to ** in lighting.dm and ghost_role.dm

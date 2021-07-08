@@ -1,6 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - balance: You can't speak on radion while in crit.
-  - bugfix: Messages will no longer appear twice for ghosts if the target is speaking
-      on radio,
