@@ -41,6 +41,7 @@
 	if(linked_techweb.scanned_atoms[A.type] && !unique)
 		to_chat(user, "<span class='warning'>Datapoints about [A] already in system.</span>")
 		return
+	scanned = TRUE
 	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, point_reward)
 	linked_techweb.scanned_atoms[A.type] = TRUE
 	playsound(user, 'sound/machines/terminal_success.ogg', 60)
