@@ -120,7 +120,7 @@
 	},
 /area/lavaland/surface/outdoors/unexplored)
 "B" = (
-/obj/item/clockwork/brass_spear,
+/obj/item/clockwork/weapon/brass_spear,
 /turf/open/floor/clockwork{
 	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
 	},

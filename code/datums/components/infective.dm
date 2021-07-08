@@ -33,19 +33,27 @@
 		RegisterSignal(parent, COMSIG_GIBS_STREAK, .proc/try_infect_streak)
 
 /datum/component/infective/proc/try_infect_eat(datum/source, mob/living/eater, mob/living/feeder)
+	SIGNAL_HANDLER
+
 	for(var/V in diseases)
 		eater.ForceContractDisease(V)
 	try_infect(feeder, BODY_ZONE_L_ARM)
 
 /datum/component/infective/proc/clean(datum/source, clean_strength)
+	SIGNAL_HANDLER
+
 	if(clean_strength >= min_clean_strength)
 		qdel(src)
 
 /datum/component/infective/proc/try_infect_buckle(datum/source, mob/M, force)
+	SIGNAL_HANDLER
+
 	if(isliving(M))
 		try_infect(M)
 
 /datum/component/infective/proc/try_infect_collide(datum/source, atom/A)
+	SIGNAL_HANDLER
+
 	var/atom/movable/P = parent
 	if(P.throwing)
 		//this will be handled by try_infect_impact_zone()
@@ -54,18 +62,26 @@
 		try_infect(A)
 
 /datum/component/infective/proc/try_infect_impact_zone(datum/source, mob/living/target, hit_zone)
+	SIGNAL_HANDLER
+
 	try_infect(target, hit_zone)
 
 /datum/component/infective/proc/try_infect_attack_zone(datum/source, mob/living/carbon/target, mob/living/user, hit_zone)
+	SIGNAL_HANDLER
+
 	try_infect(user, BODY_ZONE_L_ARM)
 	try_infect(target, hit_zone)
 
 /datum/component/infective/proc/try_infect_attack(datum/source, mob/living/target, mob/living/user)
+	SIGNAL_HANDLER
+
 	if(!iscarbon(target)) //this case will be handled by try_infect_attack_zone
 		try_infect(target)
 	try_infect(user, BODY_ZONE_L_ARM)
 
 /datum/component/infective/proc/try_infect_equipped(datum/source, mob/living/L, slot)
+	SIGNAL_HANDLER
+
 	var/old_permeability
 	if(isitem(parent))
 		//if you are putting an infective item on, it obviously will not protect you, so set its permeability high enough that it will never block ContactContractDisease()
@@ -80,10 +96,14 @@
 		I.permeability_coefficient = old_permeability
 
 /datum/component/infective/proc/try_infect_crossed(datum/source, atom/movable/M)
+	SIGNAL_HANDLER
+
 	if(isliving(M))
 		try_infect(M, BODY_ZONE_PRECISE_L_FOOT)
 
 /datum/component/infective/proc/try_infect_streak(datum/source, list/directions, list/output_diseases)
+	SIGNAL_HANDLER
+
 	output_diseases |= diseases
 
 /datum/component/infective/proc/try_infect(mob/living/L, target_zone)
@@ -91,7 +111,9 @@
 		L.ContactContractDisease(V, target_zone)
 
 /datum/component/infective/proc/extrapolation(datum/source, mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+	SIGNAL_HANDLER
+
 	if(scan)
 		E.scan(source, diseases, user)
 	else
-		E.extrapolate(source, diseases, user)
+		INVOKE_ASYNC(E, /obj/item/extrapolator.proc/extrapolate, source, diseases, user)

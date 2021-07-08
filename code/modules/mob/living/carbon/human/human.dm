@@ -41,6 +41,7 @@
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
+	QDEL_LIST(bioware)
 	return ..()
 
 
@@ -722,6 +723,8 @@
 			dropItemToGround(I)
 
 /mob/living/carbon/human/proc/clean_blood(datum/source, strength)
+	SIGNAL_HANDLER
+
 	if(strength < CLEAN_STRENGTH_BLOOD)
 		return
 	if(gloves)

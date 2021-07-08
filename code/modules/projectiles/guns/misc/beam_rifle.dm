@@ -235,6 +235,8 @@
 		lastangle = angle
 
 /obj/item/gun/energy/beam_rifle/proc/on_mob_move()
+	SIGNAL_HANDLER
+
 	check_user()
 	if(aiming)
 		delay_penalty(aiming_time_increase_user_movement)
@@ -264,11 +266,9 @@
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 		listeningTo = null
 	if(istype(current_user))
-		LAZYREMOVE(current_user.mousemove_intercept_objects, src)
 		current_user = null
 	if(istype(user))
 		current_user = user
-		LAZYOR(current_user.mousemove_intercept_objects, src)
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/on_mob_move)
 		listeningTo = user
 
