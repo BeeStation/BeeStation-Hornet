@@ -22,6 +22,9 @@
 //#define LEGACY_REFERENCE_TRACKING
 #ifdef LEGACY_REFERENCE_TRACKING
 
+///Should we be logging our findings or not
+#define REFERENCE_TRACKING_LOG
+
 ///Use the legacy reference on things hard deleting by default.
 //#define GC_FAILURE_HARD_LOOKUP
 #ifdef GC_FAILURE_HARD_LOOKUP

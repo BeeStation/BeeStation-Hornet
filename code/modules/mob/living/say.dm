@@ -23,7 +23,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	// Misc
 	RADIO_KEY_AI_PRIVATE = RADIO_CHANNEL_AI_PRIVATE, // AI Upload channel
-	MODE_KEY_VOCALCORDS = MODE_VOCALCORDS,		// vocal cords, used by Voice of God
 
 
 	//kinda localization -- rastaf0
@@ -49,8 +48,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	"í" = RADIO_CHANNEL_CENTCOM,
 
 	// Misc
-	"ù" = RADIO_CHANNEL_AI_PRIVATE,
-	"÷" = MODE_VOCALCORDS
+	"ù" = RADIO_CHANNEL_AI_PRIVATE
 ))
 
 /mob/living/proc/Ellipsis(original_msg, chance = 50, keep_words)
@@ -141,7 +139,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/succumbed = FALSE
 
 	var/fullcrit = InFullCritical()
-	if((InCritical() && !fullcrit) || message_mods[WHISPER_MODE] == MODE_WHISPER)
+	if((in_critical && !fullcrit) || message_mods[WHISPER_MODE] == MODE_WHISPER)
+		if(saymode || message_mods[RADIO_EXTENSION]) //no radio while in crit
+			saymode = null
+			message_mods -= RADIO_EXTENSION
 		message_range = 1
 		message_mods[WHISPER_MODE] = MODE_WHISPER
 		src.log_talk(message, LOG_WHISPER)
@@ -190,7 +191,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message_range = 1
 		message_mods[MODE_RADIO_MESSAGE] = MODE_RADIO_MESSAGE
 	if(radio_return & NOPASS)
-		return 1
+		return TRUE
 
 	//No screams in space, unless you're next to someone.
 	var/turf/T = get_turf(src)
@@ -205,10 +206,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	send_speech(message, message_range, src, bubble_type, spans, language, message_mods)
 
 	if(succumbed)
-		succumb(1)
+		succumb(TRUE)
 		to_chat(src, compose_message(src, language, message, , spans, message_mods))
 
-	return 1
+	return TRUE
 
 /mob/living/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
@@ -382,9 +383,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			for (var/obj/item/radio/intercom/I in view(MODE_RANGE_INTERCOM, src))
 				I.talk_into(src, message, , spans, language, message_mods)
 			return ITALICS | REDUCE_RANGE
-
-		if(MODE_BINARY)
-			return ITALICS | REDUCE_RANGE //Does not return 0 since this is only reached by humans, not borgs or AIs.
 
 	return 0
 
