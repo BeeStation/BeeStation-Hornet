@@ -27,6 +27,7 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
+	var/twohand_force = 34
 	var/hacked = FALSE
 	var/brightness_on = 6 //TWICE AS BRIGHT AS A REGULAR ESWORD
 	var/list/possible_colors = list("red", "blue", "green", "purple")
@@ -53,12 +54,14 @@
 
 /obj/item/dualsaber/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=3, force_wielded=34, block_power_unwielded=70, block_power_wielded=75, \
+	AddComponent(/datum/component/two_handed, force_unwielded=force, force_wielded=twohand_force, block_power_unwielded=70, block_power_wielded=75, \
 					wieldsound='sound/weapons/saberon.ogg', unwieldsound='sound/weapons/saberoff.ogg', icon_wielded="dualsaber[item_color]1")
 
 /// Triggered on wield of two handed item
 /// Specific hulk checks due to reflection chance for balance issues and switches hitsounds.
 /obj/item/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
+	SIGNAL_HANDLER
+
 	if(user && user.has_dna())
 		if(user.dna.check_mutation(HULK))
 			to_chat(user, "<span class='warning'>You lack the grace to wield this!</span>")
@@ -72,6 +75,8 @@
 /// Triggered on unwield of two handed item
 /// switch hitsounds
 /obj/item/dualsaber/proc/on_unwield(obj/item/source, mob/living/carbon/user)
+	SIGNAL_HANDLER
+
 	sharpness = initial(sharpness)
 	w_class = initial(w_class)
 	hitsound = "swing_hit"

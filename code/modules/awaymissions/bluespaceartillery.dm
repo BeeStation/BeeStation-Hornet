@@ -40,12 +40,12 @@
 	var/A
 	A = input("Area to bombard", "Open Fire", A) in GLOB.teleportlocs
 	var/area/thearea = GLOB.teleportlocs[A]
-	if(!usr.is_conscious() || usr.restrained())
+	if(usr.stat || usr.restrained())
 		return
 	if(reload < reload_cooldown)
 		return
 	if(usr.contents.Find(src) || (in_range(src, usr) && isturf(loc)) || issilicon(usr))
-		priority_announce("Bluespace artillery fire detected. Brace for impact.")
+		priority_announce("Bluespace artillery fire detected. Brace for impact.", sound = SSstation.announcer.get_rand_alert_sound())
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has launched an artillery strike.")
 		var/list/L = list()
 		for(var/turf/T in get_area_turfs(thearea.type))

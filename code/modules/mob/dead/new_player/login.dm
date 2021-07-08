@@ -4,8 +4,8 @@
 		client.set_db_player_flags()
 	if(!mind)
 		mind = new /datum/mind(key)
-		mind.active = 1
-		mind.current = src
+		mind.active = TRUE
+		mind.set_current(src)
 
 	..()
 

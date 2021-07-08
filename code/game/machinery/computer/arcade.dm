@@ -30,6 +30,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/coin/antagtoken = 2,
 		/obj/item/stack/tile/fakespace/loaded = 2,
 		/obj/item/stack/tile/fakepit/loaded = 2,
+		/obj/item/stack/tile/eighties/loaded = 2,
 		/obj/item/toy/toy_xeno = 2,
 		/obj/item/storage/box/actionfigure = 1,
 		/obj/item/restraints/handcuffs/fake = 2,
@@ -882,6 +883,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		if(ORION_TRAIL_OLDSHIP)
 			eventdat += "<br>Your crew spots an old ship floating through space. It might have some supplies, but then again it looks rather unsafe."
 			eventdat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];search=1'>Search it</a><a href='byond://?src=[REF(src)];eventclose=1'>Leave it</a></P><P ALIGN=Right><a href='byond://?src=[REF(src)];close=1'>Close</a></P>"
+			canContinueEvent = 1
 
 		if(ORION_TRAIL_SEARCH)
 			switch(rand(100))
