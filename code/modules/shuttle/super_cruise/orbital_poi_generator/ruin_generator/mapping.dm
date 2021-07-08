@@ -187,5 +187,6 @@
 		"" = 4,
 		/obj/item/disk/tech_disk/research/random = 24,
 		/obj/item/alienartifact = 6,
+		/obj/item/gun/energy/vortex = 3,
 		/obj/item/gun/energy/alien = 1
 	)
