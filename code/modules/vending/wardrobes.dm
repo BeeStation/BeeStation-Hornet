@@ -57,12 +57,15 @@
 					/obj/item/storage/backpack/medic = 4,
 					/obj/item/storage/backpack/satchel/med = 4,
 					/obj/item/clothing/suit/hooded/wintercoat/medical = 4,
+					/obj/item/clothing/under/rank/medical/emt = 4,
+					/obj/item/clothing/under/rank/medical/emt/skirt = 4,
 					/obj/item/clothing/under/rank/medical/doctor/nurse = 4,
 					/obj/item/clothing/head/nursehat = 4,
 					/obj/item/clothing/under/rank/medical/doctor/blue = 4,
 					/obj/item/clothing/under/rank/medical/doctor/green = 4,
 					/obj/item/clothing/under/rank/medical/doctor/purple = 4,
 					/obj/item/clothing/under/rank/medical/doctor = 4,
+					/obj/item/clothing/under/rank/medical/doctor/skirt= 4,
 					/obj/item/clothing/under/plasmaman/medical = 4,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/medical = 4,
 					/obj/item/clothing/suit/toggle/labcoat = 4,
@@ -158,6 +161,7 @@
 	products = list(/obj/item/clothing/glasses/hud/diagnostic = 2,
 					/obj/item/reagent_containers/medspray/sterilizine = 3,
 					/obj/item/clothing/under/rank/rnd/roboticist = 2,
+					/obj/item/clothing/under/rank/rnd/roboticist/skirt = 2,
 					/obj/item/clothing/under/plasmaman/robotics = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/robotics = 2,
 					/obj/item/clothing/suit/toggle/labcoat = 2,
@@ -187,6 +191,7 @@
 					/obj/item/storage/backpack/satchel/tox = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/science = 3,
 					/obj/item/clothing/under/rank/rnd/scientist = 3,
+					/obj/item/clothing/under/rank/rnd/scientist/skirt = 3,
 					/obj/item/clothing/under/plasmaman/science = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/science = 3,
 					/obj/item/clothing/suit/toggle/labcoat/science = 3,
@@ -424,6 +429,7 @@
 	product_ads = "Our clothes are 0.5% more resistant to acid spills! Get yours now!"
 	vend_reply = "Thank you for using the ChemDrobe!"
 	products = list(/obj/item/clothing/under/rank/medical/chemist = 2,
+					/obj/item/clothing/under/rank/medical/chemist/skirt = 2,
 					/obj/item/clothing/under/plasmaman/chemist = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/chemist = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
@@ -444,6 +450,7 @@
 	product_ads = "Perfect for the mad scientist in you!"
 	vend_reply = "Thank you for using the GeneDrobe!"
 	products = list(/obj/item/clothing/under/rank/medical/geneticist = 2,
+					/obj/item/clothing/under/rank/medical/geneticist/skirt = 2,
 					/obj/item/clothing/under/plasmaman/genetics = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/genetics = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
@@ -462,6 +469,7 @@
 	product_ads = " Viruses getting you down? Then upgrade to sterilized clothing today!"
 	vend_reply = "Thank you for using the ViroDrobe"
 	products = list(/obj/item/clothing/under/rank/medical/virologist = 2,
+					/obj/item/clothing/under/rank/medical/virologist/skirt = 2,
 					/obj/item/clothing/under/plasmaman/viro = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/viro = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,

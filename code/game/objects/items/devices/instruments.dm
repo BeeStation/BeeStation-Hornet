@@ -217,6 +217,8 @@
 	actions_types = list(/datum/action/item_action/instrument)
 
 /obj/item/instrument/harmonica/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
 	if(song.playing && ismob(loc))
 		to_chat(loc, "<span class='warning'>You stop playing the harmonica to talk...</span>")
 		song.playing = FALSE

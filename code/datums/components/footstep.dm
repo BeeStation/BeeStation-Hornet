@@ -11,6 +11,8 @@
 	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED), .proc/play_footstep)
 
 /datum/component/footstep/proc/play_footstep()
+	SIGNAL_HANDLER
+
 	var/turf/open/T = get_turf(parent)
 	if(!istype(T))
 		return

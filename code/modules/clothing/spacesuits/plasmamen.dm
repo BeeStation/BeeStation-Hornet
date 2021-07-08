@@ -123,6 +123,8 @@
 
 ///gets called when receiving the CLEAN_ACT signal from something, i.e soap or a shower. exists to remove any smiley faces drawn on the helmet.
 /obj/item/clothing/head/helmet/space/plasmaman/proc/wipe_that_smile_off_your_face()
+	SIGNAL_HANDLER
+
 	if(smile)
 		smile = FALSE
 		cut_overlays()
