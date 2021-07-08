@@ -1,4 +1,0 @@
-author: Mothblocks, Froststahr port
-delete-after: true
-changes:
-  - code_imp: Asset URL mappings are now cached to improve performance
