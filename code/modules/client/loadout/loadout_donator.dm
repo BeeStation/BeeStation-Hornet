@@ -47,6 +47,10 @@
 	display_name = "renault costume"
 	path = /obj/item/clothing/suit/hooded/renault_costume
 
+/datum/gear/donator/suit/retro_jacket
+	display_name = "retro jacket"
+	path = /obj/item/clothing/suit/retro_jacket
+
 //UNIFORM/UNDER
 /datum/gear/donator/uniform
 	subtype_path = /datum/gear/donator/uniform
@@ -89,6 +93,10 @@
 /datum/gear/donator/head/marine
 	display_name = "mariner hat"
 	path = /obj/item/clothing/head/marine
+
+/datum/gear/donator/suit/retro_chicken_head
+	display_name = "retro chicken head"
+	path = /obj/item/clothing/head/chicken_head_retro
 
 //NECK
 /datum/gear/donator/neck

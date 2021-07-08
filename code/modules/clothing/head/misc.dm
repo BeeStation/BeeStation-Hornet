@@ -458,3 +458,8 @@
 	desc = "There's nothing quite like the ocean breeze in the morning."
 	icon_state = "marine"
 
+/obj/item/clothing/head/chicken_head_retro
+	name = "chicken head"
+	desc = "Looks just like a real one."
+	icon_state = "chicken"
+	flags_inv = HIDEHAIR
