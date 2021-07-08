@@ -22,6 +22,8 @@
 	//The computer controlling us.
 	var/controlling_computer = null
 
+	var/obj/docking_port/mobile/port
+
 	//AUTOPILOT CONTROLS.
 	//Is autopilot enabled.
 	var/autopilot = FALSE
@@ -42,21 +44,19 @@
 	stealth = TRUE
 
 /datum/orbital_object/shuttle/Destroy()
-	. = ..()
-	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
-
-/datum/orbital_object/shuttle/Destroy()
+	port = null
 	. = ..()
 	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
 
 //Dont fly into the sun idiot.
 /datum/orbital_object/shuttle/explode()
-	var/obj/docking_port/mobile/port = SSshuttle.getShuttle(shuttle_port_id)
 	if(port)
 		port.jumpToNullSpace()
 	qdel(src)
 
 /datum/orbital_object/shuttle/process()
+	if(check_stuck())
+		return
 	if(!QDELETED(docking_target))
 		velocity.x = 0
 		velocity.y = 0
@@ -92,6 +92,16 @@
 	//Do gravity and movement
 	can_dock_with = null
 	. = ..()
+
+/datum/orbital_object/shuttle/proc/check_stuck()
+	if(!port)
+		return FALSE
+	if(!is_reserved_level(port.z) && port.mode == SHUTTLE_IDLE)
+		message_admins("Shuttle [shuttle_port_id] is not on a reserved Z-Level but is somehow registered as in flight! Automatically fixing...")
+		log_runtime("Shuttle [shuttle_port_id] is not on a reserved Z-Level but is somehow registered as in flight! Removing shuttle object.")
+		qdel(src)
+		return TRUE
+	return FALSE
 
 /datum/orbital_object/shuttle/proc/handle_autopilot()
 	if(!autopilot || docking_target || !shuttleTarget)
@@ -149,6 +159,7 @@
 /datum/orbital_object/shuttle/proc/link_shuttle(obj/docking_port/mobile/dock)
 	name = dock.name
 	shuttle_port_id = dock.id
+	port = dock
 	stealth = dock.hidden
 	SSorbits.assoc_shuttles[shuttle_port_id] = src
 
