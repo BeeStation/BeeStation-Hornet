@@ -27,6 +27,8 @@ SUBSYSTEM_DEF(ticker)
 	var/admin_delay_notice = ""				//a message to display to anyone who tries to restart the world after a delay
 	var/ready_for_reboot = FALSE			//all roundend preparation done with, all that's left is reboot
 
+	var/gamemode_setup_completed = FALSE
+
 	var/triai = 0							//Global holder for Triumvirate
 	var/tipped = 0							//Did we broadcast the tip of the day yet?
 	var/selected_tip						// What will be the tip of the day?
@@ -44,6 +46,8 @@ SUBSYSTEM_DEF(ticker)
 	var/list/queued_players = list()		//used for join queues when the server exceeds the hard population cap
 
 	var/maprotatechecked = 0
+
+	var/list/datum/game_mode/runnable_modes //list of runnable gamemodes
 
 	var/news_report
 
@@ -187,6 +191,14 @@ SUBSYSTEM_DEF(ticker)
 				send_tip_of_the_round()
 				tipped = TRUE
 
+			if(timeLeft <= 300 && !gamemode_setup_completed)
+				//Setup failed
+				if(!pre_setup())
+					timeLeft = null
+					start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
+				else
+					gamemode_setup_completed = TRUE
+
 			if(timeLeft <= 0)
 				current_state = GAME_STATE_SETTING_UP
 				Master.SetRunLevel(RUNLEVEL_SETUP)
@@ -194,6 +206,13 @@ SUBSYSTEM_DEF(ticker)
 					fire()
 
 		if(GAME_STATE_SETTING_UP)
+			if(!gamemode_setup_completed)
+				if(!pre_setup())
+					//setup failed
+					current_state = GAME_STATE_STARTUP
+					start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
+					timeLeft = null
+					Master.SetRunLevel(RUNLEVEL_LOBBY)
 			if(!setup())
 				//setup failed
 				current_state = GAME_STATE_STARTUP
@@ -213,12 +232,8 @@ SUBSYSTEM_DEF(ticker)
 				declare_completion(force_ending)
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
-
-/datum/controller/subsystem/ticker/proc/setup()
-	message_admins("Setting up game.")
-	var/init_start = world.timeofday
-		//Create and announce mode
-	var/list/datum/game_mode/runnable_modes
+//Select gamemode and load any maps associated with it
+/datum/controller/subsystem/ticker/proc/pre_setup()
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
 
@@ -247,6 +262,12 @@ SUBSYSTEM_DEF(ticker)
 			mode = null
 			SSjob.ResetOccupations()
 			return 0
+
+	return mode.setup_maps()
+
+/datum/controller/subsystem/ticker/proc/setup()
+	message_admins("Setting up game.")
+	var/init_start = world.timeofday
 
 	CHECK_TICK
 	//Configure mode and assign player to special mode stuff

@@ -268,8 +268,16 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			for(var/datum/mind/M in O.team.members)
 				to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
 				M.announce_objectives()
-		else if(O.target && istype(O.target, /datum/mind))
-			if(O.target == mob_occupant.mind)
+		else if(istype(O.target) && O.target == mob_occupant.mind)
+			if(istype(O, /datum/objective/contract))
+				var/datum/antagonist/traitor/affected_traitor = O.owner.has_antag_datum(/datum/antagonist/traitor)
+				for(var/datum/syndicate_contract/affected_contract as anything in affected_traitor.contractor_hub.assigned_contracts)
+					if(affected_contract.contract == O)
+						affected_contract.generate(affected_traitor.contractor_hub.assigned_targets)
+						affected_traitor.contractor_hub.assigned_targets.Add(affected_contract.contract.target)
+						to_chat(O.owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
+						break
+			else
 				var/old_target = O.target
 				O.target = null
 				if(!O)

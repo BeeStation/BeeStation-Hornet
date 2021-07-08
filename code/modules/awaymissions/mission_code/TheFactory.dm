@@ -216,7 +216,7 @@
 
 /mob/living/simple_animal/hostile/proc/summon_backup_nosound(distance, exact_faction_match)
 	do_alert_animation(src)
-	for(var/mob/living/simple_animal/hostile/M in oview(distance, targets_from))
+	for(var/mob/living/simple_animal/hostile/M in oview(distance, GET_TARGETS_FROM(src)))
 		if(faction_check_mob(M, TRUE))
 			if(M.AIStatus == AI_OFF)
 				return
