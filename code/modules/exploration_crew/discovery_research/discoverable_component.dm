@@ -2,9 +2,10 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	//Amount of discovery points awarded when researched.
 	var/scanned = FALSE
+	var/unique = FALSE
 	var/point_reward = 0
 
-/datum/component/discoverable/Initialize(_point_reward)
+/datum/component/discoverable/Initialize(_point_reward, _unique = FALSE)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -12,6 +13,7 @@
 	RegisterSignal(parent, COMSIG_CLICK, .proc/tryScan)
 
 	point_reward = _point_reward
+	unique = _unique
 
 /datum/component/discoverable/proc/tryScan(datum/source, location, control, params, mob/user)
 	SIGNAL_HANDLER
@@ -36,7 +38,7 @@
 		to_chat(user, "<span class='warning'>[A] has already been analysed.</span>")
 		return
 	//Already scanned another of this type.
-	if(linked_techweb.scanned_atoms[A.type])
+	if(linked_techweb.scanned_atoms[A.type] && !unique)
 		to_chat(user, "<span class='warning'>Datapoints about [A] already in system.</span>")
 		return
 	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, point_reward)

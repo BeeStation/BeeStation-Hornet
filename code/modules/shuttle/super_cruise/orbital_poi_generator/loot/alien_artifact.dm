@@ -7,6 +7,9 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/list/datum/artifact_effect/effects
 
+/obj/item/alienartifact/ComponentInitialize()
+	AddComponent(/datum/component/discoverable, 10000, TRUE)
+
 /obj/item/alienartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)

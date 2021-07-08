@@ -5,6 +5,9 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE
 
+/obj/structure/alien_artifact/ComponentInitialize()
+	AddComponent(/datum/component/discoverable, 20000)
+
 //Watcher
 //Triggers nearby defenses when motion is detected
 /obj/structure/alien_artifact/watcher
