@@ -24,7 +24,6 @@
 	if(give_objectives)
 		forge_traitor_objectives()
 	finalize_traitor()
-	RegisterSignal(owner.current, COMSIG_MOVABLE_HEAR, .proc/handle_hearing)
 	..()
 
 /datum/antagonist/traitor/apply_innate_effects()
@@ -66,7 +65,6 @@
 /datum/antagonist/traitor/proc/add_objective(datum/objective/O)
 	objectives += O
 	log_objective(owner, O.explanation_text)
-	RegisterSignal(owner.current, COMSIG_MOVABLE_HEAR, .proc/handle_hearing)
 
 /datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
 	objectives -= O
@@ -239,9 +237,11 @@
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	update_traitor_icons_added()
-	var/mob/living/silicon/ai/A = mob_override || owner.current
-	if(istype(A) && traitor_kind == TRAITOR_AI)
+	var/mob/living/M = mob_override || owner.current
+	if(isAI(M) && traitor_kind == TRAITOR_AI)
+		var/mob/living/silicon/ai/A = M
 		A.hack_software = TRUE
+	RegisterSignal(M, COMSIG_MOVABLE_HEAR, .proc/handle_hearing)
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
