@@ -1,9 +1,7 @@
 /datum/orbital_objective/vip_recovery
 	name = "VIP Recovery"
 	var/generated = FALSE
-	var/death_caring = TRUE
 	var/mob/mob_to_recover
-	var/atom/tracked_diary
 	min_payout = 100000
 	max_payout = 200000
 
@@ -17,25 +15,15 @@
 //I know, its a bit sad.
 /datum/orbital_objective/vip_recovery/check_failed()
 	if(generated)
+		//Deleted
 		if(QDELETED(mob_to_recover))
 			return TRUE
-		if(mob_to_recover.stat == DEAD)
-			if(mob_to_recover.key && death_caring)
-				return TRUE
-			if(!mob_to_recover.key)
-				if(death_caring)
-					//Spawn in a diary
-					var/obj/item/disk/record/diary = new(get_turf(mob_to_recover))
-					diary.setup_recover(src)
-					tracked_diary = diary
-					priority_announce("Sensors indicate that the VIP you were required to extract has perished from the \
-						events that took place in the outpost. Recover their personal logbook and bring it to the station bridge \
-						for recovery.")
-				death_caring = FALSE
-		else if(is_station_level(mob_to_recover.z))
-			complete_objective()
-		if(!death_caring && QDELETED(tracked_diary))
+		//Left behind
+		if(mob_to_recover in SSzclear.nullspaced_mobs)
 			return TRUE
+		//Recovered and alive
+		if(is_station_level(mob_to_recover.z) && mob_to_recover.stat == CONSCIOUS)
+			complete_objective()
 	return FALSE
 
 /datum/orbital_objective/vip_recovery/generate_objective_stuff(turf/chosen_turf)
@@ -78,21 +66,6 @@
 			created_human.mind.make_Changeling()
 	mob_to_recover = created_human
 	generated = TRUE
-
-/obj/item/disk/record
-	name = "Record Disk"
-	desc = "A disk containing the logs for whatever happened."
-
-/obj/item/disk/record/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/gps, "LOG[rand(1000, 9999)]", TRUE)
-
-/obj/item/disk/record/proc/setup_recover(linked_mission)
-	AddComponent(/datum/component/recoverable, linked_mission)
-
-/obj/item/disk/record/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>Use in hand on the <b>bridge</b> of the station to send it to Nanotrasen and complete the objective.</span>"
 
 
 //=====================
