@@ -331,6 +331,15 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
+/datum/techweb_node/nullspacebreaching
+	id = "nullspacebreaching"
+	display_name = "Nullspace Breaching"
+	description = "Research into voidspace tunnelling, allowing us to significantly reduce flight times."
+	prereq_ids = list("basic_shuttle", "alientech")
+	design_ids = list("engine_void", "wingpack_ayy")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
+	export_price = 5000
+
 /////////////////////////integrated circuits tech/////////////////////////
 
 /datum/techweb_node/adv_shells
@@ -679,7 +688,7 @@
 	tech_tier = 5
 	display_name = "Advanced Combat Cybernetic Implants"
 	description = "Experimental military cybernetic weapons."
-	prereq_ids = list("combat_cyber_implants", "syndicate_basic")
+	prereq_ids = list("adv_cyber_implants", "syndicate_basic")
 	design_ids = list("hydraulic_blade")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 10000
@@ -884,7 +893,7 @@
 	tech_tier = 5
 	display_name = "Advanced Beam Weaponry"
 	description = "Various advanced beam weapons"
-	prereq_ids = list("beam_weapons")
+	prereq_ids = list("adv_weaponry")
 	design_ids = list("beamrifle")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
@@ -1106,7 +1115,6 @@
 	design_ids = list("clusterbang_launcher")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
-	hidden = TRUE
 
 /datum/techweb_node/mech_teleporter
 	id = "mech_teleporter"

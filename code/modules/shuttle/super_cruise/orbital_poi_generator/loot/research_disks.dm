@@ -51,6 +51,3 @@
 
 /obj/item/disk/tech_disk/research/phazon
 	node_id = "mecha_phazon"
-
-/obj/item/disk/tech_disk/research/clusterbang_launcher
-	node_id = "clusterbang_launcher"
