@@ -355,7 +355,7 @@
 		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
 
 
-	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
+	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
 	gib()
 	return(gain)
 
