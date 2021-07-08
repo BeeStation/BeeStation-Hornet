@@ -8,6 +8,7 @@
 	tech_fluff_string = "<span class='holoparasite'>Boot sequence complete. Standard combat modules locked. Holoparasite swarm online.</span>"
 	carp_fluff_string = "<span class='holoparasite'>CARP CARP CARP! You caught one! It's weak and useless. Can I have a refund?.</span>"
 	var/battlecry = "HONK"
+	discovery_points = 0
 
 /mob/living/simple_animal/hostile/guardian/toy/verb/Battlecry()
 	set name = "Set Battlecry"

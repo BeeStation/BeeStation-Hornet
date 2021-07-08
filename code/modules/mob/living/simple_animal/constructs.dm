@@ -44,6 +44,7 @@
 	var/holy = FALSE
 	chat_color = "#FF6262"
 	mobchatspan = "cultmobsay"
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/construct/get_num_legs()
 	return 0

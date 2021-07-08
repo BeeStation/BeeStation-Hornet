@@ -36,7 +36,10 @@
 			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'engradio'>Engineer</span>!</span>")
 			to_chat(H, "<span class='notice'>Create entry points with your explosives and maintain the hull of your ship.</span>")
 			outfit_override = /datum/outfit/job/exploration/engineer
-		else
+		if(3)
+			to_chat(H, "<span class='notice big'>You are the exploration team's <span class'sciradio'>Scientist</span>!</span>")
+			to_chat(H, "<span class='notice'>Scan undiscovered creates to gain discovery research points!</span>")
+			outfit_override = /datum/outfit/job/exploration/scientist
 	. = ..(H, visualsOnly, announce, latejoin, outfit_override, preference_source)
 
 /datum/outfit/job/exploration
@@ -78,6 +81,20 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
+
+/datum/outfit/job/exploration/scientist
+	name = "Exploration Crew (Scientist)"
+
+	glasses = /obj/item/clothing/glasses/science
+
+	backpack_contents = list(
+		/obj/item/kitchen/knife/combat/survival=1,
+		/obj/item/stack/marker_beacon/thirty=1,
+		/obj/item/discovery_scanner=1
+	)
+
+	backpack = /obj/item/storage/backpack/science
+	satchel = /obj/item/storage/backpack/satchel/tox
 
 /datum/outfit/job/exploration/medic
 	name = "Exploration Crew (Medical Doctor)"

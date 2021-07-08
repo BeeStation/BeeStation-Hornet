@@ -52,6 +52,7 @@
 	var/directive = "" //Message passed down to children, to relay the creator's orders
 
 	do_footstep = TRUE
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize()
 	. = ..()

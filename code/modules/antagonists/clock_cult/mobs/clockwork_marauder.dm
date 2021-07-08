@@ -38,6 +38,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	var/debris = list(/obj/item/clockwork/alloy_shards/large = 1, \
 	/obj/item/clockwork/alloy_shards/medium = 2, \
 	/obj/item/clockwork/alloy_shards/small = 3) //Parts left behind when a structure breaks
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/clockwork_marauder/Initialize()
 	. = ..()
