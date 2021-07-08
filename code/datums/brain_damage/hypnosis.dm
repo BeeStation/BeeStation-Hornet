@@ -53,4 +53,4 @@
 
 /datum/brain_trauma/hypnosis/handle_hearing(datum/source, list/hearing_args)
 	SIGNAL_HANDLER
-	hearing_args[HEARING_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_MESSAGE], "<span class='hypnophrase'>$1</span>")
+	hearing_args[HEARING_RAW_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_RAW_MESSAGE], "<span class='hypnophrase'>$1</span>")
