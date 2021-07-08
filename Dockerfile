@@ -65,7 +65,7 @@ COPY --from=rust_g /rust_g/target/release/librust_g.so /root/.byond/bin/rust_g
 COPY --from=build /deploy ./
 
 #auxtools fexists memes
-RUN ln -s /beestation/auxtools/linda_libauxmos.so /root/.byond/bin/linda_libauxmos.so
+RUN ln -s /beestation/auxtools/libauxmos.so /root/.byond/bin/libauxmos.so
 
 VOLUME [ "/beestation/config", "/beestation/data" ]
 
