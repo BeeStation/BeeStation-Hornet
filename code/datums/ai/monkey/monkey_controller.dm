@@ -182,7 +182,7 @@ have ways of interacting with a specific mob and control it.
 
 /datum/ai_controller/monkey/proc/on_Crossed(datum/source, atom/movable/AM)
 	var/mob/living/living_pawn = pawn
-	if(!living_pawn.incapacitated() && ismob(AM))
+	if(!living_pawn.incapacitated() && ismob(AM) && (!ismonkey(AM) || prob(15)))
 		var/mob/living/in_the_way_mob = AM
 		in_the_way_mob.knockOver(living_pawn)
 		return
