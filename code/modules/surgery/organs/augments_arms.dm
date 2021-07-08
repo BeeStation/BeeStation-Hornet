@@ -254,7 +254,7 @@
 	. = ..()
 	for(var/datum/weakref/created_item in items_list)
 		var/obj/potential_flash = created_item.resolve()
-		if(!istype(/obj/item/assembly/flash/armimplant, potential_flash))
+		if(!istype(potential_flash, /obj/item/assembly/flash/armimplant))
 			continue
 		var/obj/item/assembly/flash/armimplant/flash = potential_flash
 		flash.arm = WEAKREF(src)
@@ -264,7 +264,7 @@
 	active_item.set_light(7)
 
 /obj/item/organ/cyberimp/arm/flash/Retract()
-	active_item.set_light(0)
+	active_item?.set_light(0)
 	return ..()
 
 /obj/item/organ/cyberimp/arm/baton
@@ -281,7 +281,7 @@
 	. = ..()
 	for(var/datum/weakref/created_item in items_list)
 		var/obj/potential_flash = created_item.resolve()
-		if(!istype(/obj/item/assembly/flash/armimplant, potential_flash))
+		if(!istype(potential_flash, /obj/item/assembly/flash/armimplant))
 			continue
 		var/obj/item/assembly/flash/armimplant/flash = potential_flash
 		flash.arm = WEAKREF(src)
@@ -289,25 +289,25 @@
 /obj/item/organ/cyberimp/arm/surgery
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
-	items_to_create = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/surgical_drapes)
+	items_to_create = list(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/surgical_drapes)
 
 /obj/item/organ/cyberimp/arm/power_cord
 	name = "power cord implant"
 	desc = "An internal power cord hooked up to a battery. Useful if you run on volts."
-	items_to_create = newlist(/obj/item/apc_powercord)
+	items_to_create = list(/obj/item/apc_powercord)
 	zone = "l_arm"
 
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"
 	desc = "An illegal and highly dangerous implanted carbon-fiber blade with a toggleable hard-light edge."
 	icon_state = "esaw_0"
-	items_to_create = newlist(/obj/item/melee/transforming/energy/sword/esaw)
+	items_to_create = list(/obj/item/melee/transforming/energy/sword/esaw)
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade
 	name = "arm-mounted hydraulic blade"
 	desc = "Highly dangerous implanted plasteel blade."
 	icon_state = "hydraulic_blade"
-	items_to_create = newlist(/obj/item/melee/hydraulic_blade)
+	items_to_create = list(/obj/item/melee/hydraulic_blade)
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade/l
 	zone = BODY_ZONE_L_ARM
