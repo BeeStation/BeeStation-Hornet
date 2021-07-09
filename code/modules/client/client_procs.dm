@@ -1077,6 +1077,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			qdel(src)
 			return
 
+/client/proc/open_filter_editor(atom/in_atom)
+	if(holder)
+		holder.filteriffic = new /datum/filter_editor(in_atom)
+		holder.filteriffic.ui_interact(mob)
+
 /client/proc/update_ambience_pref()
 	if(prefs.toggles & SOUND_AMBIENCE)
 		if(SSambience.ambience_listening_clients[src] > world.time)
