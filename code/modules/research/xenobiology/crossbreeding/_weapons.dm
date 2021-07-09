@@ -55,7 +55,7 @@ Slimecrossing Weapons
 	return ..()
 
 //Adamantine shield - Burning Adamantine
-/obj/item/twohanded/required/adamantineshield
+/obj/item/shield/adamantineshield
 	name = "adamantine shield"
 	desc = "A gigantic shield made of solid adamantium."
 	icon = 'icons/obj/slimecrossing.dmi'
@@ -71,9 +71,12 @@ Slimecrossing Weapons
 	block_flags = BLOCKING_PROJECTILE
 	throw_range = 1 //How far do you think you're gonna throw a solid crystalline shield...?
 	throw_speed = 2
-	force_wielded = 15 //Heavy, but hard to wield.
 	attack_verb = list("bashed","pounded","slammed")
 	item_flags = SLOWS_WHILE_IN_HAND
+
+/obj/item/shield/adamantineshield/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, require_twohands=TRUE, force_wielded=15)
 
 //Bloodchiller - Chilling Green
 /obj/item/gun/magic/bloodchill

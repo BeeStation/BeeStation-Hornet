@@ -42,7 +42,7 @@
 		timestop()
 
 /obj/effect/timestop/Destroy()
-	qdel(chronofield)
+	QDEL_NULL(chronofield)
 	playsound(src, 'sound/magic/timeparadox2.ogg', 75, TRUE, frequency = -1) //reverse!
 	return ..()
 
@@ -108,6 +108,8 @@
 		unfreeze_atom(i)
 
 /datum/proximity_monitor/advanced/timestop/proc/unfreeze_atom(atom/movable/A)
+	SIGNAL_HANDLER
+
 	if(A.throwing)
 		unfreeze_throwing(A)
 	if(isliving(A))

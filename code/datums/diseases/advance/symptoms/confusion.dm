@@ -22,7 +22,7 @@ Bonus
 	stealth = 1
 	resistance = -1
 	stage_speed = -3
-	transmittable = 0
+	transmission = 0
 	level = 4
 	severity = 2
 	base_message_chance = 25
@@ -35,17 +35,17 @@ Bonus
 
 /datum/symptom/confusion/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 6)
+	if(A.resistance >= 6)
 		severity += 1
 
 /datum/symptom/confusion/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 6)
+	if(A.resistance >= 6)
 		brain_damage = TRUE
-	if(A.properties["transmittable"] >= 6)
+	if(A.transmission >= 6)
 		power = 1.5
-	if(A.properties["stealth"] >= 4)
+	if(A.stealth >= 4)
 		suppress_warning = TRUE
 
 /datum/symptom/confusion/Activate(datum/disease/advance/A)

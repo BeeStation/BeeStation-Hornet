@@ -121,8 +121,7 @@ export const ModularFabricator = (props, context) => {
   return (
     <Window
       width={1000}
-      height={714}
-      resizable>
+      height={714}>
       <Window.Content>
         <div className="ModularFabricator__top">
           <ModFabData />

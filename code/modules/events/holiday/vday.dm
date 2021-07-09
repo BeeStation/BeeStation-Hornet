@@ -39,7 +39,7 @@ GLOBAL_LIST(valentine_mobs)
 	//Locate all the failures
 	var/list/valentines = list()
 	for(var/mob/living/M in GLOB.player_list)
-		if(M.is_conscious() && M.client && M.mind && !M.mind.has_antag_datum(/datum/antagonist/valentine))
+		if(!M.stat && M.client && M.mind && !M.mind.has_antag_datum(/datum/antagonist/valentine))
 			valentines |= M
 
 	while(valentines.len)
@@ -59,7 +59,7 @@ GLOBAL_LIST(valentine_mobs)
 	lover.mind.add_antag_datum(V) //These really should be teams but i can't be assed to incorporate third wheels right now
 
 /datum/round_event/valentines/announce(fake)
-	priority_announce("It's Valentine's Day! Give a valentine to that special someone!")
+	priority_announce("It's Valentine's Day! Give a valentine to that special someone!", sound = SSstation.announcer.get_rand_alert_sound())
 
 /obj/item/valentine
 	name = "valentine"

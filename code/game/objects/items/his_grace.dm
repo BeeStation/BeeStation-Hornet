@@ -113,7 +113,7 @@
 	var/mob/living/L = pick(targets)
 	step_to(src, L)
 	if(Adjacent(L))
-		if(L.is_conscious())
+		if(!L.stat)
 			L.visible_message("<span class='warning'>[src] lunges at [L]!</span>", "<span class='his_grace big bold'>[src] lunges at you!</span>")
 			do_attack_animation(L, null, src)
 			playsound(L, 'sound/weapons/smash.ogg', 50, 1)
@@ -138,6 +138,8 @@
 	move_gracefully()
 
 /obj/item/his_grace/proc/move_gracefully()
+	SIGNAL_HANDLER
+
 	if(!awakened)
 		return
 	var/static/list/transforms

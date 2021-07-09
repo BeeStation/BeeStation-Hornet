@@ -60,7 +60,7 @@
 		var/atom/movable/screen/inventory/hand/H = over_object
 		var/mob/M = usr
 
-		if(!M.restrained() && M.is_conscious())
+		if(!M.restrained() && !M.stat)
 			if(!isturf(loc) || !Adjacent(M))
 				return
 			M.put_in_hand(src, H.held_index)
@@ -86,6 +86,8 @@
 /obj/item/modular_computer/laptop/AltClick(mob/user)
 	if(screen_on) // Close it.
 		try_toggle_open(user)
+	else
+		..()
 
 /obj/item/modular_computer/laptop/proc/toggle_open(mob/living/user=null)
 	if(screen_on)

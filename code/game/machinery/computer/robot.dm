@@ -89,6 +89,8 @@
 					var/turf/T = get_turf(R)
 					message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] detonated [key_name_admin(R, R.client)] at [ADMIN_VERBOSEJMP(T)]!</span>")
 					log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(R)]!</span>")
+					log_combat(usr, R, "detonated cyborg")
+
 					if(R.connected_ai)
 						to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
 					R.self_destruct()
@@ -100,6 +102,7 @@
 				if(can_control(usr, R) && !..())
 					message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] [!R.lockcharge ? "locked down" : "released"] [ADMIN_LOOKUPFLW(R)]!</span>")
 					log_game("[key_name(usr)] [!R.lockcharge ? "locked down" : "released"] [key_name(R)]!")
+					log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] cyborg")
 					R.SetLockdown(!R.lockcharge)
 					to_chat(R, "[!R.lockcharge ? "<span class='notice'>Your lockdown has been lifted!" : "<span class='alert'>You have been locked down!"]</span>")
 					if(R.connected_ai)

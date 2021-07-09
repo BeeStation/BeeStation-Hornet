@@ -317,6 +317,10 @@
 	if(!hasPower())
 		return
 
+	//Check radio signal jamming
+	if(is_jammed())
+		return
+
 	// Check packet access level.
 	if(!check_access_ntnet(data))
 		return

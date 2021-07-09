@@ -54,7 +54,7 @@
 		return
 	if(is_blind(owner))
 		return
-	if(!owner.is_conscious())
+	if(owner.stat >= UNCONSCIOUS)
 		return
 	if(world.time > next_check) //Even though it's clunky to only check every five seconds, it's far easier on the server than doing all this shit during every single proc of on_life()
 		next_check = world.time + 50
@@ -172,21 +172,20 @@
 
 
 
-/datum/brain_trauma/mild/phobia/on_hear(message, speaker, message_language, raw_message, radio_freq)
+/datum/brain_trauma/mild/phobia/handle_hearing(datum/source, list/hearing_args)
 
 	if(!owner.can_hear()) //words can't trigger you if you can't hear them *taps head*
-		return message
+		return
 	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
-		return message
+		return
 	for(var/word in trigger_words)
 		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
 
-		if(findtext(raw_message, reg))
+		if(findtext(hearing_args[HEARING_RAW_MESSAGE], reg))
 			if(fear_state <= (PHOBIA_STATE_CALM)) //words can put you on edge, but won't take you over it, unless you have gotten stressed already. don't call freak_out to avoid gaming the adrenaline rush
 				fearscore ++
-			message = reg.Replace(message, "<span class='phobia'>$1</span>")
+			hearing_args[HEARING_RAW_MESSAGE] = reg.Replace(hearing_args[HEARING_RAW_MESSAGE], "<span class='phobia'>$1</span>")
 			break
-	return message
 
 /datum/brain_trauma/mild/phobia/handle_speech(datum/source, list/speech_args)
 	if(HAS_TRAIT(owner, TRAIT_FEARLESS))
@@ -200,7 +199,7 @@
 				fearscore ++
 
 /datum/brain_trauma/mild/phobia/proc/freak_out(atom/reason, trigger_word, spooklevel = 0)//spooklevel is only used when calculating amount of scary items on a person.
-	if(!owner.is_conscious())
+	if(owner.stat >= UNCONSCIOUS)
 		return
 	if(fear_state >= PHOBIA_STATE_EDGY)
 		stress_check = world.time + 3000
@@ -209,12 +208,12 @@
 		if(isliving(reason))
 			var/mob/living/L = reason
 			if(spooklevel)
-				if(!L.is_conscious())
+				if(L.stat)
 					if(fear_state <= (PHOBIA_STATE_EDGY))
 						fearscore += spooklevel
 				else
 					fearscore += spooklevel * 2
-			else if(!L.is_conscious())
+			else if(L.stat)
 				if(fear_state <= (PHOBIA_STATE_EDGY))
 					fearscore += 2
 			else
@@ -245,7 +244,7 @@
 			owner.Paralyze(10 * spooklevel)
 			owner.Jitter(3)
 		if(PHOBIA_STATE_FAINT)
-			if(!owner.is_conscious())
+			if(!owner.stat)
 				owner.Sleeping(300)
 
 /datum/brain_trauma/mild/phobia/on_lose()

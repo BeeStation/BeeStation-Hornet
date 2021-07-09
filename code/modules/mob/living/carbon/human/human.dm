@@ -41,6 +41,7 @@
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
+	QDEL_LIST(bioware)
 	return ..()
 
 
@@ -388,7 +389,7 @@
 		if(href_list["hud"] == "s")
 			if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD))
 				return
-			if(!usr.is_conscious() || usr == src) //|| !usr.canmove || usr.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
+			if(usr.stat || usr == src) //|| !usr.canmove || usr.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				return													  //Non-fluff: This allows sec to set people to arrest as they get disarmed or beaten
 			// Checks the user has security clearence before allowing them to change arrest status via hud, comment out to enable all access
 			var/allowed_access = null
@@ -549,28 +550,28 @@
 			if(head && isclothing(head))
 				var/obj/item/clothing/head/CH = head
 				if(CH.clothing_flags & THICKMATERIAL)
-					to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on [p_their()] head!</span>")
-					return 0
+					balloon_alert(user, "There is no exposed flesh on [p_their()] head")
+					return FALSE
 		if(wear_suit && isclothing(wear_suit))
 			var/obj/item/clothing/suit/CS = wear_suit
 			if(CS.clothing_flags & THICKMATERIAL)
 				switch(target_zone)
 					if(BODY_ZONE_CHEST)
 						if(CS.body_parts_covered & CHEST)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this chest!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on this chest")
+							return FALSE
 					if(BODY_ZONE_PRECISE_GROIN)
 						if(CS.body_parts_covered & GROIN)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this groin!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on this groin")
+							return FALSE
 					if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 						if(CS.body_parts_covered & ARMS)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these arms!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on these arms")
+							return FALSE
 					if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 						if(CS.body_parts_covered & LEGS)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these legs!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on these legs")
+							return FALSE
 
 /mob/living/carbon/human/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	if(judgment_criteria & JUDGE_EMAGGED)
@@ -722,6 +723,8 @@
 			dropItemToGround(I)
 
 /mob/living/carbon/human/proc/clean_blood(datum/source, strength)
+	SIGNAL_HANDLER
+
 	if(strength < CLEAN_STRENGTH_BLOOD)
 		return
 	if(gloves)
@@ -973,7 +976,7 @@
 			admin_ticket_log(src, msg)
 
 /mob/living/carbon/human/MouseDrop_T(mob/living/target, mob/living/user)
-	if(pulling != target || grab_state < GRAB_AGGRESSIVE || !is_conscious() || a_intent != INTENT_GRAB)
+	if(pulling != target || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
 		return ..()
 
 	//If they dragged themselves and we're currently aggressively grabbing them try to piggyback
@@ -1060,7 +1063,7 @@
 
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
-	return (istype(target) && target.is_conscious() && (target.mobility_flags & MOBILITY_STAND))
+	return (istype(target) && target.stat == CONSCIOUS && (target.mobility_flags & MOBILITY_STAND))
 
 /mob/living/carbon/human/proc/can_be_firemanned(mob/living/carbon/target)
 	return (ishuman(target) && !(target.mobility_flags & MOBILITY_STAND))
@@ -1193,6 +1196,9 @@
 	//Nailed it!
 	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
 		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
+
+/mob/living/carbon/human/monkeybrain
+	ai_controller = /datum/ai_controller/monkey
 
 /mob/living/carbon/human/species
 	var/race = null

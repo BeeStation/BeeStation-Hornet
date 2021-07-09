@@ -1,5 +1,4 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox } from '../components';
 import { formatMoney } from '../format';
@@ -13,9 +12,8 @@ export const Uplink = (props, context) => {
   return (
     <Window
       theme="syndicate"
-      resizable
-      width={620}
-      height={580}>
+      width={900}
+      height={600}>
       <Window.Content scrollable>
         <GenericUplink
           currencyAmount={telecrystals}
@@ -69,10 +67,11 @@ export const GenericUplink = (props, context) => {
         </Box>
       )}
       buttons={(
-        <Fragment>
+        <>
           Search
           <Input
             value={searchText}
+            autoFocus
             onInput={(e, value) => setSearchText(value)}
             mx={1} />
           <Button
@@ -85,7 +84,7 @@ export const GenericUplink = (props, context) => {
               content="Lock"
               onClick={() => act('lock')} />
           )}
-        </Fragment>
+        </>
       )}>
       <Flex>
         {searchText.length === 0 && (
@@ -102,7 +101,7 @@ export const GenericUplink = (props, context) => {
             </Tabs>
           </Flex.Item>
         )}
-        <Flex.Item grow={1} basis={0}>
+        <Flex.Item grow mx={2.5} basis={0}>
           {items.length === 0 && (
             <NoticeBox>
               {searchText.length === 0
