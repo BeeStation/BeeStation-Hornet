@@ -295,7 +295,7 @@
 	duration = 1200 //2min
 	color = "#FF0000"
 	var/mob/living/doomslayer
-	var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw
+	var/obj/item/chainsaw/doomslayer/chainsaw
 
 /obj/effect/mine/pickup/bloodbath/mineEffect(mob/living/carbon/victim)
 	if(!victim.client || !istype(victim))
@@ -312,7 +312,6 @@
 	victim.drop_all_held_items()
 	victim.put_in_hands(chainsaw, forced = TRUE)
 	chainsaw.attack_self(victim)
-	chainsaw.wield(victim)
 	victim.reagents.add_reagent(/datum/reagent/medicine/adminordrazine,25)
 	to_chat(victim, "<span class='warning'>KILL, KILL, KILL! YOU HAVE NO ALLIES ANYMORE, KILL THEM ALL!</span>")
 
@@ -323,6 +322,8 @@
 	QDEL_IN(WEAKREF(src), duration)
 
 /obj/effect/mine/pickup/bloodbath/proc/end_blood_frenzy()
+	SIGNAL_HANDLER
+
 	if(doomslayer)
 		to_chat(doomslayer, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
 		doomslayer.log_message("exited a blood frenzy", LOG_ATTACK)

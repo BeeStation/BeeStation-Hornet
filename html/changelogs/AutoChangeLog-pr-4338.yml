@@ -1,6 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - refactor: Disease properties are removed, each property has its own var.
-  - refactor: Disease severity is renamed to danger.
-  - refactor: Disease transmittable is renamed to transmission.

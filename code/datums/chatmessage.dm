@@ -107,6 +107,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
   * Calls qdel on the chatmessage when its parent is deleted, used to register qdel signal
   */
 /datum/chatmessage/proc/on_parent_qdel()
+	SIGNAL_HANDLER
+
 	qdel(src)
 
 /**
@@ -282,7 +284,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		if(v.source == src)
 			return
 		//Dont create the overhead radio chat if we are a ghost and can hear global messages.
-		if(isobserver(src) && !(client.prefs.chat_toggles & CHAT_GHOSTEARS))
+		if(isobserver(src))
 			return
 		//Dont create the overhead radio chat if we heard the speaker speak
 		if(get_dist(get_turf(v.source), get_turf(src)) <= 1)
@@ -358,16 +360,16 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
 /atom/proc/balloon_alert(mob/viewer, text)
-	if(!viewer.client)
+	if(!viewer?.client)
 		return
 	switch(viewer.client.prefs.see_balloon_alerts)
 		if(BALLOON_ALERT_ALWAYS)
 			new /datum/chatmessage/balloon_alert(text, src, viewer)
 		if(BALLOON_ALERT_WITH_CHAT)
 			new /datum/chatmessage/balloon_alert(text, src, viewer)
-			to_chat(viewer, "<span class='notice'>[text]</span>")
+			to_chat(viewer, "<span class='notice'>[text].</span>")
 		if(BALLOON_ALERT_NEVER)
-			to_chat(viewer, text)
+			to_chat(viewer, "<span class='notice'>[text].</span>")
 
 /atom/proc/balloon_alert_to_viewers(message, self_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs)
 	var/list/hearers = get_hearers_in_view(vision_distance, src)

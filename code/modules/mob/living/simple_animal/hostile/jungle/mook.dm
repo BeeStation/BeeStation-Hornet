@@ -90,9 +90,10 @@
 	if(target && !stat && attack_state == MOOK_ATTACK_ACTIVE)
 		melee_damage = 15
 		var/mob_direction = get_dir(src,target)
+		var/atom/target_from = GET_TARGETS_FROM(src)
 		if(get_dist(src,target) > 1)
 			step(src,mob_direction)
-		if(targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && isliving(target))
+		if(isturf(target_from.loc) && target.Adjacent(target_from) && isliving(target))
 			var/mob/living/L = target
 			L.attack_animal(src)
 			return
@@ -170,7 +171,7 @@
 				continue
 			if(istype(ML, /mob/living/simple_animal/hostile/jungle/mook) && !mook_under_us)//If we land on the same tile as another mook, spread out so we don't stack our sprite on the same tile
 				var/mob/living/simple_animal/hostile/jungle/mook/M = ML
-				if(M.is_conscious())
+				if(!M.stat)
 					mook_under_us = TRUE
 					var/anydir = pick(GLOB.cardinals)
 					Move(get_step(src, anydir), anydir)

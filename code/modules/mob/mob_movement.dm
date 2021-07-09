@@ -15,7 +15,7 @@
   */
 /client/verb/drop_item()
 	set hidden = 1
-	if(!iscyborg(mob) && mob.is_conscious())
+	if(!iscyborg(mob) && mob.stat == CONSCIOUS)
 		mob.dropItemToGround(mob.get_active_held_item())
 	return
 
@@ -148,7 +148,7 @@
 	. = ..()
 
 	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		add_delay *= 2
+		add_delay *= 1.414214 // sqrt(2)
 	move_delay += add_delay
 	if(.) // If mob is null here, we deserve the runtime
 		if(mob.throwing)

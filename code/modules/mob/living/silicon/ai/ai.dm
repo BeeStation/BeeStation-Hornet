@@ -320,6 +320,9 @@
 	if ((ai.get_virtual_z_level() != target.get_virtual_z_level()) && !is_station_level(ai.z))
 		return FALSE
 
+	if(A.is_jammed())
+		return FALSE
+
 	if (istype(loc, /obj/item/aicard))
 		if (!ai || !target)
 			return FALSE
@@ -440,9 +443,11 @@
 		trackeable += track.humans + track.others
 		var/list/target = list()
 		for(var/I in trackeable)
-			var/mob/M = trackeable[I]
-			if(M.name == string)
-				target += M
+			var/datum/weakref/to_resolve = trackeable[I]
+			var/mob/to_track = to_resolve.resolve()
+			if(!to_track || to_track.name != string)
+				continue
+			target += to_track
 		if(name == string)
 			target += src
 		if(target.len)
@@ -1035,6 +1040,10 @@
 		target = input(src, "Which body to control?") as null|anything in sortNames(possible)
 
 	if (!target || target.stat || target.deployed || !(!target.connected_ai ||(target.connected_ai == src)) || (target.ratvar && !is_servant_of_ratvar(src)))
+		return
+
+	if(target.is_jammed())
+		to_chat(src, "<span class='warning robot'>Unable to establish communication link with target.</span>")
 		return
 
 	else if(mind)

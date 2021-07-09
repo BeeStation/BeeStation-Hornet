@@ -49,7 +49,7 @@
 	var/def_check = D.getarmor(BODY_ZONE_L_LEG, "melee")
 	if(!can_use(A))
 		return FALSE
-	if(D.is_conscious())
+	if(!D.stat)
 		log_combat(A, D, "calf kicked (Karate)")
 		D.visible_message("<span class='warning'>[A] roundhouse kicked [D] in the calf!</span>", \
 							"<span class='userdanger'>[A] roundhouse kicked you in the calf!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -64,7 +64,7 @@
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
 	if(!can_use(A))
 		return FALSE
-	if(D.is_conscious())
+	if(!D.stat)
 		log_combat(A, D, "jumped kneed (Karate)")
 		D.visible_message("<span class='warning'>[A] jumping kneed [D] in the stomach!</span>", \
 							"<span class='userdanger'>[A] jumping kneed you in the stomach!</span>", null, COMBAT_MESSAGE_RANGE)
@@ -80,7 +80,7 @@
 /datum/martial_art/karate/proc/karateChop(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
-	if(D.is_conscious())
+	if(!D.stat)
 		log_combat(A, D, "karate chopped (Karate)")
 		D.visible_message("<span class='warning'>[A] karate chopped [D] in the neck!</span>", \
 							"<span class='userdanger'>[A] karate chopped you in the neck!</span>", null, COMBAT_MESSAGE_RANGE)

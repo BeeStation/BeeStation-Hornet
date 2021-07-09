@@ -6,8 +6,8 @@
 	has_gravity = STANDARD_GRAVITY
 	hidden = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	ambient_effects = RUINS
-
+	ambience_index = AMBIENCE_RUINS
+	sound_environment = SOUND_ENVIRONMENT_STONEROOM
 
 /area/ruin/unpowered
 	always_unpowered = FALSE

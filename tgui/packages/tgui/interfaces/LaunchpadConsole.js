@@ -198,7 +198,6 @@ export const LaunchpadConsole = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={475}
       height={260}>
       <Window.Content scrollable>

@@ -71,8 +71,8 @@
 //Grab breakout odds
 #define BASE_GRAB_RESIST_CHANCE 	30
 
-//slowdown when in softcrit.
-#define SOFTCRIT_ADD_SLOWDOWN 8
+//slowdown when in softcrit. Note that crawling slowdown will also apply at the same time!
+#define SOFTCRIT_ADD_SLOWDOWN 2
 //slowdown when crawling
 #define CRAWLING_ADD_SLOWDOWN 4
 

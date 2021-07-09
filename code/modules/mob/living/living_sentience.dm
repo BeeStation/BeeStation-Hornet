@@ -1,5 +1,7 @@
+//WHY ISN'T THIS COMPONENT
+
 /mob/living/ghostize(can_reenter_corpse, sentience_retention)
-	..()
+	. = ..()
 	switch(sentience_retention)
 		if (SENTIENCE_RETAIN)
 			if (playable)	//so the alert goes through for observing ghosts
@@ -8,7 +10,7 @@
 			set_playable()
 		if (SENTIENCE_ERASE)
 			playable = FALSE
-	
+
 /mob/living/attack_ghost(mob/user)
 	. = ..()
 	if(.)
@@ -22,7 +24,7 @@
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost) && playable)
 			give_mind(ghost)
-			
+
 /mob/living/proc/give_mind(mob/user)
 	if(key || !playable || stat)
 		return 0
@@ -34,13 +36,13 @@
 		return TRUE
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")
-	remove_form_spawner_menu()
+	remove_from_spawner_menu()
 	return TRUE
-			
+
 /mob/living/proc/set_playable()
 	playable = TRUE
 	if (!key)	//check if there is nobody already inhibiting this mob
-		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = name)		
+		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = name)
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
 		GLOB.poi_list |= src
 
@@ -57,7 +59,9 @@
 			return "You have a disdain for the inhabitants of this station, but your goals are more important. Make sure you work towards your objectives with your kin, instead of attacking everything on sight."
 	return ""
 
-/mob/living/proc/remove_form_spawner_menu()
+/mob/living/proc/remove_from_spawner_menu()
 	for(var/spawner in GLOB.mob_spawners)
-		LAZYREMOVE(GLOB.mob_spawners[spawner], src)
+		GLOB.mob_spawners[spawner] -= src
+		if(!length(GLOB.mob_spawners[spawner]))
+			GLOB.mob_spawners -= spawner
 	GLOB.poi_list -= src

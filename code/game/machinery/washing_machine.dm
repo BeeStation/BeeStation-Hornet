@@ -57,6 +57,8 @@
 		animate(src, transform=M, time=2)
 
 /obj/machinery/washing_machine/proc/clean_blood()
+	SIGNAL_HANDLER
+
 	if(!busy)
 		bloody_mess = FALSE
 		update_icon()

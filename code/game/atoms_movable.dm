@@ -192,7 +192,6 @@
 	AM.pulledby = src
 	setGrabState(state)
 	if(ismob(AM))
-		AM.glide_size = glide_size // make sure there's no weird laggy effect when pulling
 		var/mob/M = AM
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message)
@@ -309,7 +308,7 @@
 	var/turf/T = loc
 	if(!moving_from_pull)
 		check_pulling()
-	if(!(loc || newloc))
+	if(!loc || !newloc)
 		return FALSE
 	var/atom/oldloc = loc
 
@@ -735,10 +734,13 @@
 				break
 	. = dense_object_backup
 
-//called when a mob resists while inside a container that is itself inside something.
-/atom/movable/proc/relay_container_resist(mob/living/user, obj/O)
+//Called when something resists while this atom is its loc
+/atom/movable/proc/container_resist(mob/living/user)
 	return
 
+//Called when a mob resists while inside a container that is itself inside something.
+/atom/movable/proc/relay_container_resist(mob/living/user, obj/O)
+	return
 
 /atom/movable/proc/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect && (visual_effect_icon || used_item))
