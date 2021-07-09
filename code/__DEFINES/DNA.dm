@@ -96,7 +96,7 @@
 #define TR_KEEPSE		(1<<5)	// changelings shouldn't edit the DNA's SE when turning into a monkey
 #define TR_DEFAULTMSG	(1<<6)
 #define TR_KEEPORGANS	(1<<8)
-
+#define TR_KEEPAI 		(1<<9)
 
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
