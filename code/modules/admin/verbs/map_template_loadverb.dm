@@ -39,9 +39,9 @@
 	var/datum/map_template/M
 	switch(alert(src, "What kind of map is this?", "Map type", "Normal", "Shuttle", "Cancel"))
 		if("Normal")
-			M = new /datum/map_template(map, "[map]", TRUE)
+			M = new /datum/map_template(map, "[map] - Uploaded by [ckey] at [time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss")]", TRUE)
 		if("Shuttle")
-			M = new /datum/map_template/shuttle(map, "[map]", TRUE)
+			M = new /datum/map_template/shuttle(map, "[map] - Uploaded by [ckey] at [time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss")]", TRUE)
 		else
 			return
 	if(!M.cached_map)

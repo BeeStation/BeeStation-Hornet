@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 	if(!check_allowed(user) || !war_declaration)
 		return
 
-	priority_announce(war_declaration, title = "Declaration of War", sound = 'sound/machines/alarm.ogg',  has_important_message = TRUE)
+	priority_announce(war_declaration, "Declaration of War", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
 
 	for(var/mob/M in GLOB.player_list)
 		if(M?.client?.prefs?.toggles & SOUND_AMBIENCE && !isnewplayer(M))
