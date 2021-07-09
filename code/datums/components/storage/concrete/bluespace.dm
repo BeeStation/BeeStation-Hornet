@@ -9,7 +9,17 @@
 		var/atom/dumping_location = dest.get_dumping_location()
 		var/turf/bagT = get_turf(parent)
 		var/turf/destT = get_turf(dumping_location)
-		if(destT && bagT && bagT.get_virtual_z_level() == destT.get_virtual_z_level() && get_dist(M, dumping_location) < dumping_range)
+		var/valid = TRUE
+		//Check density LOS.
+		for(var/turf/T as() in getline(bagT, destT))
+			if(!T.density)
+				valid = FALSE
+				break
+			for(var/atom/A as() in T)
+				if(A.density)
+					valid = FALSE
+					break
+		if(destT && valid && bagT && bagT.get_virtual_z_level() == destT.get_virtual_z_level() && get_dist(M, dumping_location) < dumping_range)
 			if(dumping_location.storage_contents_dump_act(src, M))
 				if(alt_sound && prob(1))
 					playsound(src, alt_sound, 40, 1)
