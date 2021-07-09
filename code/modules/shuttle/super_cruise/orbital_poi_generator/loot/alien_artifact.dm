@@ -100,7 +100,7 @@
 
 /datum/artifact_effect/throwchaos
 	signal_types = list(COMSIG_MOVABLE_POST_THROW)
-	effect_act_desc = list("thrown")
+	effect_act_descs = list("thrown")
 
 /datum/artifact_effect/throwchaos/register_signals(source)
 	RegisterSignal(source, COMSIG_MOVABLE_POST_THROW, .proc/throw_thing_randomly)
@@ -120,7 +120,7 @@
 
 /datum/artifact_effect/soundindark
 	requires_processing = TRUE
-	effect_act_desc = list("in darkness")
+	effect_act_descs = list("in darkness")
 
 /datum/artifact_effect/soundindark/process(delta_time)
 	var/turf/T = get_turf(source_object)
@@ -135,7 +135,7 @@
 
 /datum/artifact_effect/inducespasm
 	signal_types = list(COMSIG_PARENT_EXAMINE)
-	effect_act_desc = list("examined")
+	effect_act_descs = list("examined")
 
 /datum/artifact_effect/inducespasm/register_signals(source)
 	RegisterSignal(source, COMSIG_PARENT_EXAMINE, .proc/do_effect)
@@ -151,7 +151,7 @@
 
 /datum/artifact_effect/projreflect
 	requires_processing = TRUE
-	effect_act_desc = list("shot at")
+	effect_act_descs = list("shot at")
 
 /datum/artifact_effect/projreflect/process(delta_time)
 	for(var/obj/item/projectile/P in range(3, src))
@@ -163,7 +163,7 @@
 //===================
 
 /datum/artifact_effect/airfreeze
-	effect_act_desc = list("depressurised")
+	effect_act_descs = list("depressurised")
 
 /datum/artifact_effect/airfreeze/Initialize(atom/source)
 	. = ..()
@@ -174,7 +174,7 @@
 //===================
 
 /datum/artifact_effect/atmosfix
-	effect_act_desc = list("depressurised")
+	effect_act_descs = list("depressurised")
 	requires_processing = TRUE
 
 /datum/artifact_effect/atmosfix/process(delta_time)
@@ -187,7 +187,7 @@
 //===================
 
 /datum/artifact_effect/gravity_well
-	effect_act_desc = list("used")
+	effect_act_descs = list("used")
 	signal_types = list(COMSIG_ITEM_ATTACK_SELF)
 	var/next_use_world_time = 0
 
@@ -209,7 +209,7 @@
 //===================
 
 /datum/artifact_effect/access
-	effect_act_desc = list("near something")
+	effect_act_descs = list("near something")
 	requires_processing = TRUE
 	var/next_use_time = 0
 
@@ -246,7 +246,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 
 /datum/artifact_effect/reality_destabilizer
 	requires_processing = TRUE
-	effect_act_desc = list("near something")
+	effect_act_descs = list("near something")
 	var/cooldown = 0
 	var/list/contained_things = list()
 
@@ -296,7 +296,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 
 /datum/artifact_effect/warp
 	signal_types = list(COMSIG_ITEM_ATTACK_SELF)
-	effect_act_desc = list("used")
+	effect_act_descs = list("used")
 	var/next_use_world_time = 0
 
 /datum/artifact_effect/warp/register_signals(source)
@@ -316,7 +316,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 
 /datum/artifact_effect/curse
 	var/used = FALSE
-	effect_act_desc = list("picked up")
+	effect_act_descs = list("picked up")
 	signal_types = list(COMSIG_ITEM_PICKUP)
 
 /datum/artifact_effect/curse/register_signals(source)
@@ -356,7 +356,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 /datum/artifact_effect/gas_remove/Initialize(source)
 	. = ..()
 	input = pickweight(valid_inputs)
-	effect_act_desc = list("placed near [input.name]")
+	effect_act_descs = list("placed near [input.name]")
 	output = pickweight(valid_outputs)
 
 /datum/artifact_effect/gas_remove/process(delta_time)
@@ -372,7 +372,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 //===================
 
 /datum/artifact_effect/recharger
-	effect_act_desc = list("near something")
+	effect_act_descs = list("near something")
 	requires_processing = TRUE
 
 /datum/artifact_effect/recharger/process(delta_time)
@@ -390,7 +390,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 
 /datum/artifact_effect/light_breaker
 	requires_processing = TRUE
-	effect_act_desc = list("near something")
+	effect_act_descs = list("near something")
 	var/next_world_time
 
 /datum/artifact_effect/light_breaker/process(delta_time)
@@ -412,7 +412,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 	var/cooldown
 	var/first_time = TRUE
 	signal_types = list(COMSIG_ITEM_ATTACK_SELF)
-	effect_act_desc = list("used")
+	effect_act_descs = list("used")
 
 /datum/artifact_effect/insanity_pulse/Initialize(source)
 	. = ..()
