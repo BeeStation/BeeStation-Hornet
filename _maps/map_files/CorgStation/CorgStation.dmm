@@ -28884,6 +28884,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"hNx" = (
+/obj/vehicle/ridden/secway,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/obj/vehicle/ridden/secway,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "hNA" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -48803,41 +48822,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-<<<<<<< HEAD
-"noQ" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/fitness/recreation)
-"noT" = (
-/obj/vehicle/ridden/secway,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 4
-	},
-/obj/vehicle/ridden/secway,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
-=======
->>>>>>> master
 "noW" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -49231,6 +49215,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/research)
+"nth" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/machinery/rnd/production/protolathe/department/armory,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "ntu" = (
 /obj/machinery/door/firedoor/border_only,
 /obj/machinery/door/firedoor/border_only{
@@ -77406,24 +77408,6 @@
 /obj/effect/landmark/start/security_officer,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
-"vAT" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
-/obj/machinery/rnd/production/protolathe/department/armory,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "vBf" = (
 /turf/closed/wall/r_wall,
 /area/medical/genetics)
@@ -124711,7 +124695,7 @@ aMT
 oXI
 xhX
 ipZ
-vAT
+nth
 ujg
 vZO
 oXI
@@ -125225,7 +125209,7 @@ aMT
 oXI
 hwK
 ipZ
-noT
+hNx
 icj
 jbs
 oXI
