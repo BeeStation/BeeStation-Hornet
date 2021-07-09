@@ -15,7 +15,7 @@
 		//Check density LOS.
 		if(valid)
 			for(var/turf/T as() in getline(bagT, destT))
-				if(!T.density)
+				if(T.density)
 					valid = FALSE
 					break
 				for(var/atom/A as() in T)
@@ -36,4 +36,3 @@
 		to_chat(M, "The [A.name] buzzes.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
 	return FALSE
-
