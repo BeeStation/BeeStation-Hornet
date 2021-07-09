@@ -1,4 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - admin: Custom map template uploads should now work properly.

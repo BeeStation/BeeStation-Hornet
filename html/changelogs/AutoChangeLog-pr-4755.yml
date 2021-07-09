@@ -1,6 +1,0 @@
-author: Kapu1178
-delete-after: true
-changes:
-  - bugfix: Voice Sensor Nanites
-  - bugfix: Traitor codewords (thanks bosnia)
-  - refactor: Alot of on_hear() changed to signals
