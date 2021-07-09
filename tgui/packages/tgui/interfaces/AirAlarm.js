@@ -1,4 +1,5 @@
 import { toFixed } from 'common/math';
+import { Fragment } from 'inferno';
 import { decodeHtmlEntities } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, LabeledList, NumberInput, Section } from '../components';
@@ -396,7 +397,7 @@ const AirAlarmControlModes = (props, context) => {
     return 'Nothing to show';
   }
   return modes.map(mode => (
-    <Button key={mode.mode}>
+    <Fragment key={mode.mode}>
       <Button
         icon={mode.selected ? 'check-square-o' : 'square-o'}
         selected={mode.selected}
@@ -404,7 +405,7 @@ const AirAlarmControlModes = (props, context) => {
         content={mode.name}
         onClick={() => act('mode', { mode: mode.mode })} />
       <Box mt={1} />
-    </Button>
+    </Fragment>
   ));
 };
 
