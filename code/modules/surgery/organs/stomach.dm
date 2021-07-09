@@ -94,6 +94,36 @@
 	icon_state = "stomach-p"
 	desc = "A strange crystal that is responsible for metabolizing the unseen energy force that feeds plasmamen."
 
+/obj/item/organ/stomach/battery
+	name = "stomach battery"
+	icon_state = "microcell"
+	desc = "A battery that replaces the stomach."
+	var/max_charge = NUTRITION_LEVEL_FULL
+	var/charge = NUTRITION_LEVEL_FED
+
+/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0)
+	..()
+	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
+
+/obj/item/organ/stomach/battery/Remove(mob/living/carbon/M, special = 0)
+	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
+	..()
+
+/obj/item/organ/stomach/battery/proc/charge(datum/source, amount, repairs)
+	SIGNAL_HANDLER
+
+	adjust_charge(amount/10)
+
+/obj/item/organ/stomach/battery/proc/adjust_charge(amount)
+	charge = clamp(round(charge + amount), 0, max_charge)
+
+/obj/item/organ/stomach/battery/emp_act(severity)
+	switch(severity)
+		if(1)
+			adjust_charge(-250)
+		if(2)
+			adjust_charge(-100)
+
 /obj/item/organ/stomach/cell
 	name = "micro-cell"
 	icon_state = "microcell"
