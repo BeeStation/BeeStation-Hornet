@@ -211,7 +211,7 @@
 	. = ..()
 	if(locate(/obj/item/assembly/flash/armimplant) in items_list)
 		var/obj/item/assembly/flash/armimplant/F = locate(/obj/item/assembly/flash/armimplant) in items_list
-		F.I = src
+		F.arm = WEAKREF(src)
 
 /obj/item/organ/cyberimp/arm/baton
 	name = "arm electrification implant"
@@ -227,7 +227,7 @@
 	. = ..()
 	if(locate(/obj/item/assembly/flash/armimplant) in items_list)
 		var/obj/item/assembly/flash/armimplant/F = locate(/obj/item/assembly/flash/armimplant) in items_list
-		F.I = src
+		F.arm = WEAKREF(src)
 
 /obj/item/organ/cyberimp/arm/surgery
 	name = "surgical toolset implant"
