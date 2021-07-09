@@ -1,6 +1,0 @@
-author: AnCopper
-delete-after: true
-changes:
-  - rscadd: Added commando magboots, given to Deathsquads
-  - tweak: Moved Deathsquad, Deathsquad Officer, and Juggernaut outfits to the ERT
-      outfit file.
