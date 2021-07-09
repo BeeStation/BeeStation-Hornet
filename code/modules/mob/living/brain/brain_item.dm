@@ -197,6 +197,9 @@
 	if(brainmob)
 		QDEL_NULL(brainmob)
 	QDEL_LIST(traumas)
+	
+	if(owner?.mind) //You aren't allowed to return to brains that don't exist
+		owner.mind.set_current(null)
 	return ..()
 
 /obj/item/organ/brain/on_life()
