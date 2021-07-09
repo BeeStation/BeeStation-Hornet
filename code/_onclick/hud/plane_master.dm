@@ -30,6 +30,12 @@
 	add_filter("second_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -15))
 	add_filter("third_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -20))
 
+/atom/movable/screen/plane_master/openspace/Initialize()
+	. = ..()
+	add_filter("first_stage_openspace", 1, drop_shadow_filter(color = "#04080FAA", size = -10))
+	add_filter("second_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -15))
+	add_filter("third_stage_openspace", 2, drop_shadow_filter(color = "#04080FAA", size = -20))
+
 ///Contains just the floor
 /atom/movable/screen/plane_master/floor
 	name = "floor plane master"
@@ -37,6 +43,10 @@
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
+/atom/movable/screen/plane_master/floor/backdrop(mob/mymob)
+	clear_filters()
+	if(istype(mymob) && mymob.eye_blurry)
+		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
 
 ///Contains most things in the game world
 /atom/movable/screen/plane_master/game_world
@@ -49,6 +59,9 @@
 	clear_filters()
 	if(istype(mymob) && mymob.client && mymob.client.prefs && mymob.client.prefs.ambientocclusion)
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
+	if(istype(mymob) && mymob.eye_blurry)
+		add_filter("eye_blur", 1, gauss_blur_filter(clamp(mymob.eye_blurry * 0.1, 0.6, 3)))
+
 
 ///Contains all lighting objects
 /atom/movable/screen/plane_master/lighting
@@ -132,4 +145,4 @@
 /atom/movable/screen/plane_master/runechat/backdrop(mob/mymob)
 	filters = list()
 	if(istype(mymob) && mymob.client?.prefs?.ambientocclusion)
-		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 1, color = "#04080f42"))
+		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))

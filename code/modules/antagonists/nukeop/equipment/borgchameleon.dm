@@ -63,7 +63,7 @@
 			return
 		animation_playing = TRUE
 		to_chat(user, "<span class='notice'>You activate \the [src].</span>")
-		playsound(src, 'sound/effects/seedling_chargeup.ogg', 100, 1, -6)
+		playsound(src, 'sound/effects/seedling_chargeup.ogg', 100, TRUE, -6)
 		apply_wibbly_filters(user)
 		if (do_after(user, 50, target=user) && user.cell.use(activationCost))
 			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
