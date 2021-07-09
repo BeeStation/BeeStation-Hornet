@@ -76,7 +76,8 @@
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/gun/energy/e_gun/mini/exploration=1,
 		/obj/item/grenade/exploration=3,
-		/obj/item/exploration_detonator=1
+		/obj/item/exploration_detonator=1,
+		/obj/item/discovery_scanner=1
 	)
 
 	backpack = /obj/item/storage/backpack/industrial
@@ -106,7 +107,8 @@
 		/obj/item/storage/firstaid/medical=1,
 		/obj/item/pinpointer/crew=1,
 		/obj/item/sensor_device=1,
-		/obj/item/roller=1
+		/obj/item/roller=1,
+		/obj/item/discovery_scanner=1
 	)
 
 	backpack = /obj/item/storage/backpack/medic
