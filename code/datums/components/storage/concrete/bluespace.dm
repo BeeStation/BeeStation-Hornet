@@ -18,8 +18,8 @@
 				if(T.density)
 					valid = FALSE
 					break
-				for(var/atom/A as() in T)
-					if(A.density)
+				for(var/atom/thing as() in T)
+					if(thing.density)
 						valid = FALSE
 						break
 				if(!valid)
