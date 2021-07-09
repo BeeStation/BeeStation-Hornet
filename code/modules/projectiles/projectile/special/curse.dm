@@ -36,7 +36,7 @@
 /obj/item/projectile/curse_hand/Destroy()
 	if(arm)
 		arm.End()
-		arm = null
+		QDEL_NULL(arm)
 	if(CHECK_BITFIELD(movement_type, UNSTOPPABLE))
 		playsound(src, 'sound/effects/curse3.ogg', 25, 1, -1)
 	var/turf/T = get_step(src, dir)

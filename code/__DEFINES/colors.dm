@@ -71,3 +71,5 @@
 	"#D6B20C",\
 	"#FF902A",\
 )
+
+#define COLOR_HALF_TRANSPARENT_BLACK    "#0000007A"
