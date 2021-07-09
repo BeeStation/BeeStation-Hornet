@@ -276,6 +276,17 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(shuttleObject.stealth)
 				say("Cannot use interdictor on stealthed shuttles.")
 				return
+			var/list/interdicted_shuttles = list()
+			for(var/shuttleportid in SSorbits.assoc_shuttles)
+				var/datum/orbital_object/shuttle/other_shuttle = SSorbits.assoc_shuttles[shuttleportid]
+				//Do this last
+				if(other_shuttle == shuttleObject)
+					continue
+				if(other_shuttle?.position?.Distance(shuttleObject.position) <= interdiction_range && !other_shuttle.stealth)
+					interdicted_shuttles += other_shuttle
+			if(!length(interdicted_shuttles))
+				say("No targets to interdict in range.")
+				return
 			say("Interdictor activated, shuttle throttling down...")
 			//Create the site of interdiction
 			var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction()
@@ -284,15 +295,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			//Lets tell everyone about it
 			priority_announce("Supercruise interdiction detected, interdicted shuttles have been registered onto local GPS units. Source: [shuttleObject.name]")
 			//Get all shuttle objects in range
-			for(var/shuttleportid in SSorbits.assoc_shuttles)
-				var/datum/orbital_object/shuttle/other_shuttle = SSorbits.assoc_shuttles[shuttleportid]
-				//Do this last
-				if(other_shuttle == shuttleObject)
-					continue
-				if(other_shuttle?.position?.Distance(shuttleObject.position) <= interdiction_range && !other_shuttle.stealth)
-					other_shuttle.commence_docking(z_linked, TRUE)
-					random_drop(other_shuttle, shuttleportid)
-					SSorbits.interdicted_shuttles[shuttleportid] = world.time + interdiction_time
+			for(var/datum/orbital_object/shuttle/other_shuttle in interdicted_shuttles)
+				other_shuttle.commence_docking(z_linked, TRUE)
+				random_drop(other_shuttle, shuttleportid)
+				SSorbits.interdicted_shuttles[shuttleportid] = world.time + interdiction_time
 			shuttleObject.commence_docking(z_linked, TRUE)
 			random_drop()
 			SSorbits.interdicted_shuttles[shuttleId] = world.time + interdiction_time
