@@ -840,3 +840,10 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 			continue
 		out += prob(replaceprob) ? pick(replacementchars) : char
 	return out.Join("")
+
+/proc/num2loadingbar(percent as num, numSquares = 20, reverse = FALSE)
+	var/loadstring = ""
+	var/limit = reverse ? numSquares - percent*numSquares : percent*numSquares
+	for (var/i in 1 to numSquares)
+		loadstring += i <= limit ? "█" : "░"
+	return "\[[loadstring]\]"

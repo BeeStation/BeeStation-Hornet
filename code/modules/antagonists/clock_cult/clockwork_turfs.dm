@@ -243,10 +243,6 @@
 	planetary_atmos = TRUE
 	var/list/heal_people
 
-/turf/open/floor/clockwork/reebe/Initialize()
-	. = ..()
-	heal_people = list()
-
 /turf/open/floor/clockwork/reebe/Destroy()
 	if(LAZYLEN(heal_people))
 		STOP_PROCESSING(SSprocessing, src)
@@ -258,12 +254,12 @@
 	if(istype(M) && is_servant_of_ratvar(M))
 		if(!LAZYLEN(heal_people))
 			START_PROCESSING(SSprocessing, src)
-		heal_people += M
+		LAZYADD(heal_people, M)
 
 /turf/open/floor/clockwork/reebe/Exited(atom/movable/A, atom/newloc)
 	. = ..()
 	if(A in heal_people)
-		heal_people -= A
+		LAZYREMOVE(heal_people, A)
 		if(!LAZYLEN(heal_people))
 			STOP_PROCESSING(SSprocessing, src)
 

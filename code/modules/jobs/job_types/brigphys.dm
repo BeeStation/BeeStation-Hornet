@@ -34,6 +34,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit = /obj/item/clothing/suit/hazardvest/brig_phys
+	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	suit_store = /obj/item/flashlight/seclite
 	l_hand = /obj/item/storage/firstaid/medical
 	head = /obj/item/clothing/head/soft/sec/brig_phys

@@ -466,3 +466,5 @@
 /datum/config_entry/flag/bsminer_researchable
 
 /datum/config_entry/flag/spare_enforce_coc
+
+/datum/config_entry/flag/station_traits
