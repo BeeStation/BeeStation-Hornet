@@ -11,6 +11,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	var/datum/orbital_map_tgui/orbital_map_tgui = new()
 
 	var/initial_objective_beacons = 4
+	var/initial_asteroids = 10
 
 	var/orbits_setup = FALSE
 
@@ -55,6 +56,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Create initial ruins
 	for(var/i in 1 to initial_objective_beacons)
 		new /datum/orbital_object/z_linked/beacon/ruin()
+	//Create asteroid belt
+	for(var/i in 1 to initial_asteroids)
+		new /datum/orbital_object/z_linked/beacon/ruin/asteroid()
 
 /datum/controller/subsystem/processing/orbits/fire(resumed)
 	//Check creating objectives / missions.

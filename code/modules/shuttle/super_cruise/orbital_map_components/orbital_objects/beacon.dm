@@ -23,7 +23,48 @@
 /datum/orbital_object/z_linked/beacon/weak
 	name = "Weak Signal"
 
-//Ruin z-levels
+//====================
+// Asteroids
+//====================
+
+/datum/orbital_object/z_linked/beacon/ruin/asteroid
+	name = "Asteroid"
+
+/datum/orbital_object/z_linked/beacon/ruinasteroid/New()
+	. = ..()
+	radius = rand(30, 70)
+
+/datum/orbital_object/z_linked/beacon/ruin/asteroid/assign_z_level()
+	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
+	linked_z_level = assigned_space_level
+	assigned_space_level.orbital_body = src
+	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, rand(-0.5, 0), rand(40, 70))
+
+/datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
+	//Orbit around the systems central gravitional body
+	//Pack closely together to make an asteriod belt.
+	set_orbitting_around_body(SSorbits.orbital_map.center, 1200 + 20 * rand(-10, 10))
+
+//====================
+// Regular Ruin Z-levels
+//====================
+
+/datum/orbital_object/z_linked/beacon/ruin/spaceruin
+	name = "Unknown Signal"
+
+/datum/orbital_object/z_linked/beacon/ruin/spaceruin/assign_z_level()
+	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
+	linked_z_level = assigned_space_level
+	assigned_space_level.orbital_body = src
+	seedRuins(list(assigned_space_level.z_value), CONFIG_GET(number/space_budget), /area/space, SSmapping.space_ruins_templates)
+
+/datum/orbital_object/z_linked/beacon/ruin/spaceruin/post_map_setup()
+	//Orbit around the systems sun
+	set_orbitting_around_body(SSorbits.orbital_map.center, 4000 + 250 * rand(4, 20))
+
+//====================
+// Random-Ruin z-levels
+//====================
 /datum/orbital_object/z_linked/beacon/ruin
 	//The linked objective to the ruin, for generating extra stuff if required.
 	var/datum/orbital_objective/linked_objective
@@ -45,7 +86,9 @@
 	//Orbit around the systems sun
 	set_orbitting_around_body(SSorbits.orbital_map.center, 4000 + 250 * rand(4, 20))
 
+//====================
 //Stranded shuttles
+//====================
 /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle
 	name = "Distress Beacon"
 	static_object = TRUE
@@ -59,7 +102,9 @@
 /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/post_map_setup()
 	return
 
+//====================
 //Interdiction
+//====================
 /datum/orbital_object/z_linked/beacon/ruin/interdiction
 	name = "Distress Beacon"
 	static_object = TRUE
