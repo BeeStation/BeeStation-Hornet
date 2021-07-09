@@ -6,12 +6,19 @@
 	item_state = "healthanalyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	w_class = WEIGHT_CLASS_SMALL
 	var/datum/techweb/linked_techweb
 
 /obj/item/discovery_scanner/Initialize()
 	. = ..()
 	if(!linked_techweb)
 		linked_techweb = SSresearch.science_tech
+
+/obj/item/discovery_scanner/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Left-Click on any mob or researchable specimin to scan and gain discovery research points.</span>"
+	. += "<span class='notice'>[src] has unlimited range.</span>"
+	. += "<span class='notice'>Science goggles can help detect researchable items.</span>"
 
 /obj/item/discovery_scanner/attack_obj(obj/O, mob/living/user)
 	if(istype(O, /obj/machinery/computer/rdconsole))

@@ -7,6 +7,15 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/list/datum/artifact_effect/effects
 
+/obj/item/alienartifact/examine(mob/user)
+	. = ..()
+	var/mob/living/L = user
+	if(istype(L) && L.mind?.assigned_role != "Curator")
+		return
+	for(var/datum/artifact_effect/effect in effects)
+		for(var/verb in effect.effect_act_descs)
+			. += "[src] likely does something when [verb]."
+
 /obj/item/alienartifact/ComponentInitialize()
 	AddComponent(/datum/component/discoverable, 10000, TRUE)
 
@@ -69,6 +78,7 @@
 
 /datum/artifact_effect
 	var/requires_processing = FALSE
+	var/effect_act_descs = list()	//List of verbs for things that can be done with the artifact.
 	var/obj/item/source_object
 	var/list/signal_types = list()
 
@@ -90,6 +100,7 @@
 
 /datum/artifact_effect/throwchaos
 	signal_types = list(COMSIG_MOVABLE_POST_THROW)
+	effect_act_desc = list("thrown")
 
 /datum/artifact_effect/throwchaos/register_signals(source)
 	RegisterSignal(source, COMSIG_MOVABLE_POST_THROW, .proc/throw_thing_randomly)
@@ -109,6 +120,7 @@
 
 /datum/artifact_effect/soundindark
 	requires_processing = TRUE
+	effect_act_desc = list("in darkness")
 
 /datum/artifact_effect/soundindark/process(delta_time)
 	var/turf/T = get_turf(source_object)
@@ -123,6 +135,7 @@
 
 /datum/artifact_effect/inducespasm
 	signal_types = list(COMSIG_PARENT_EXAMINE)
+	effect_act_desc = list("examined")
 
 /datum/artifact_effect/inducespasm/register_signals(source)
 	RegisterSignal(source, COMSIG_PARENT_EXAMINE, .proc/do_effect)
@@ -138,6 +151,7 @@
 
 /datum/artifact_effect/projreflect
 	requires_processing = TRUE
+	effect_act_desc = list("shot at")
 
 /datum/artifact_effect/projreflect/process(delta_time)
 	for(var/obj/item/projectile/P in range(3, src))
@@ -148,6 +162,9 @@
 // Air Blocker
 //===================
 
+/datum/artifact_effect/airfreeze
+	effect_act_desc = list("depressurised")
+
 /datum/artifact_effect/airfreeze/Initialize(atom/source)
 	. = ..()
 	source.CanAtmosPass = ATMOS_PASS_NO
@@ -157,6 +174,7 @@
 //===================
 
 /datum/artifact_effect/atmosfix
+	effect_act_desc = list("depressurised")
 	requires_processing = TRUE
 
 /datum/artifact_effect/atmosfix/process(delta_time)
@@ -169,6 +187,7 @@
 //===================
 
 /datum/artifact_effect/gravity_well
+	effect_act_desc = list("used")
 	signal_types = list(COMSIG_ITEM_ATTACK_SELF)
 	var/next_use_world_time = 0
 
@@ -190,6 +209,7 @@
 //===================
 
 /datum/artifact_effect/access
+	effect_act_desc = list("near something")
 	requires_processing = TRUE
 	var/next_use_time = 0
 
@@ -226,6 +246,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 
 /datum/artifact_effect/reality_destabilizer
 	requires_processing = TRUE
+	effect_act_desc = list("near something")
 	var/cooldown = 0
 	var/list/contained_things = list()
 
@@ -275,6 +296,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 
 /datum/artifact_effect/warp
 	signal_types = list(COMSIG_ITEM_ATTACK_SELF)
+	effect_act_desc = list("used")
 	var/next_use_world_time = 0
 
 /datum/artifact_effect/warp/register_signals(source)
@@ -294,6 +316,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 
 /datum/artifact_effect/curse
 	var/used = FALSE
+	effect_act_desc = list("picked up")
 	signal_types = list(COMSIG_ITEM_PICKUP)
 
 /datum/artifact_effect/curse/register_signals(source)
@@ -333,6 +356,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 /datum/artifact_effect/gas_remove/Initialize(source)
 	. = ..()
 	input = pickweight(valid_inputs)
+	effect_act_desc = list("placed near [input.name]")
 	output = pickweight(valid_outputs)
 
 /datum/artifact_effect/gas_remove/process(delta_time)
@@ -348,6 +372,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 //===================
 
 /datum/artifact_effect/recharger
+	effect_act_desc = list("near something")
 	requires_processing = TRUE
 
 /datum/artifact_effect/recharger/process(delta_time)
@@ -365,6 +390,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 
 /datum/artifact_effect/light_breaker
 	requires_processing = TRUE
+	effect_act_desc = list("near something")
 	var/next_world_time
 
 /datum/artifact_effect/light_breaker/process(delta_time)
@@ -386,6 +412,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 	var/cooldown
 	var/first_time = TRUE
 	signal_types = list(COMSIG_ITEM_ATTACK_SELF)
+	effect_act_desc = list("used")
 
 /datum/artifact_effect/insanity_pulse/Initialize(source)
 	. = ..()
