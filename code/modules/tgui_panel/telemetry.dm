@@ -130,7 +130,7 @@
 				LAZYSET(telemetry_notices, TGUI_TELEM_CKEY_WARNING, "<span class='bad'>KEY_COUNT|<b>EVERY ENTRY IN HISTORY HAS A DIFFERENT CKEY!</b></span>")
 			else
 				LAZYSET(telemetry_notices, TGUI_TELEM_CKEY_WARNING, "<span class='bad'>KEY_COUNT|User has multiple CKEYs in history!</span>")
-	if(telemetry_notices[TGUI_TELEM_CKEY_WARNING]) //Has a CKEY warning
+	if(telemetry_notices?[TGUI_TELEM_CKEY_WARNING]) //Has a CKEY warning
 		var/text_list_ckeys = ""
 		var/first = 1
 		for(var/entry in all_ckeys)
