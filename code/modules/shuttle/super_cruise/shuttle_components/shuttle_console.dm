@@ -297,8 +297,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			//Get all shuttle objects in range
 			for(var/datum/orbital_object/shuttle/other_shuttle in interdicted_shuttles)
 				other_shuttle.commence_docking(z_linked, TRUE)
-				random_drop(other_shuttle, shuttleportid)
-				SSorbits.interdicted_shuttles[shuttleportid] = world.time + interdiction_time
+				random_drop(other_shuttle, other_shuttle.shuttle_port_id)
+				SSorbits.interdicted_shuttles[other_shuttle.shuttle_port_id] = world.time + interdiction_time
 			shuttleObject.commence_docking(z_linked, TRUE)
 			random_drop()
 			SSorbits.interdicted_shuttles[shuttleId] = world.time + interdiction_time
