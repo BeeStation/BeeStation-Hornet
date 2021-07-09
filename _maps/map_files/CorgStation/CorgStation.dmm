@@ -30708,7 +30708,6 @@
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "ikZ" = (
-/obj/machinery/rnd/production/protolathe/department/service,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
@@ -30718,6 +30717,7 @@
 /obj/structure/sign/departments/restroom{
 	pixel_x = -32
 	},
+/obj/machinery/rnd/production/techfab/department/service,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "ile" = (
@@ -36206,8 +36206,8 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/machinery/rnd/production/protolathe/department/cargo,
 /obj/machinery/camera/autoname,
+/obj/machinery/rnd/production/techfab/department/cargo,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "jKL" = (
@@ -86846,13 +86846,13 @@
 /area/hallway/secondary/exit/departure_lounge)
 "yiI" = (
 /obj/structure/table/reinforced,
-/obj/item/pipe_painter,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/hand_labeler,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "yiS" = (
