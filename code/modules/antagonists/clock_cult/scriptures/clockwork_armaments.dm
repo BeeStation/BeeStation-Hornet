@@ -14,7 +14,7 @@
 
 /datum/clockcult/scripture/clockwork_armaments/invoke_success()
 	var/mob/living/M = invoker
-	var/choice = input(M,"What weapon do you want to call upon?", "Clockwork Armaments") as anything in list("Brass Spear","Brass Battlehammer","Brass Sword", "Brass Bow", "Basic Loadout")
+	var/choice = input(M,"What weapon do you want to call upon?", "Clockwork Armaments") as anything in list("Brass Spear","Brass Battlehammer","Brass Sword", "Brass Bow", "Standard Equipment (Unarmed)")
 	var/datum/antagonist/servant_of_ratvar/servant = is_servant_of_ratvar(M)
 	if(!servant)
 		return FALSE
@@ -33,5 +33,5 @@
 			armaments_sword.equip(M)
 		if("Brass Bow")
 			armaments_bow.equip(M)
-		if("Basic Loadout")
+		if("Standard Equipment (Unarmed)")
 			default.equip(M)
