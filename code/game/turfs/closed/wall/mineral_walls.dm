@@ -265,7 +265,7 @@
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/closed/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/plastitanium, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
 
-/turf/closed/wall/mineral/plastitanium/try_decon(obj/item/I, mob/user, turf/T)
+/turf/closed/wall/mineral/plastitanium/try_destroy(obj/item/I, mob/user, turf/T)
 	return FALSE
 
 /turf/closed/wall/mineral/plastitanium/nodiagonal
