@@ -1,0 +1,5 @@
+author: lordScrubling, zxaber
+delete-after: true
+changes:
+  - rscadd: Fission360 and Lifeline program for modular computers
+  - rscadd: Nuclear operatives start with a tablet instead of a pinpointer
