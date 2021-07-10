@@ -305,6 +305,9 @@
 /obj/structure/sign/painting/proc/update_painting_stuff()
 	name = current_canvas ? "painting - [current_canvas.painting_name]" : initial(name)
 	desc = current_canvas ? desc_with_canvas : initial(desc)
+	update_icon()
+	update_icon_state()
+	update_overlays()
 
 /obj/structure/sign/painting/update_icon_state()
 	icon_state = "[base_icon_state]-[current_canvas?.generated_icon ? "overlay" : "empty"]"
