@@ -88,6 +88,11 @@
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	//Lighting overlay
+	var/obj/effect/lighting_overlay
+	var/lighting_overlay_colour = "#FFFFFF"
+	var/lighting_overlay_opacity = 0
+
 /**
   * A list of teleport locations
   *
@@ -171,7 +176,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	if(!IS_DYNAMIC_LIGHTING(src))
 		add_overlay(/obj/effect/fullbright)
-
+	else if(lighting_overlay_opacity && lighting_overlay_colour)
+		lighting_overlay = new /obj/effect/fullbright
+		lighting_overlay.color = lighting_overlay_colour
+		lighting_overlay.alpha = lighting_overlay_opacity
+		add_overlay(lighting_overlay)
 	reg_in_areas_in_z()
 
 	return INITIALIZE_HINT_LATELOAD
