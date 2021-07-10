@@ -39,11 +39,15 @@
 		if("lighting_overlay_colour")
 			..()
 			if(lighting_overlay)
+				cut_overlay(lighting_overlay)
 				lighting_overlay.color = var_value
+				add_overlay(lighting_overlay)
 			return TRUE
 		if("lighting_overlay_opacity")
 			..()
 			if(lighting_overlay)
+				cut_overlay(lighting_overlay)
 				lighting_overlay.alpha = var_value
+				add_overlay(lighting_overlay)
 			return TRUE
 	return ..()
