@@ -7,7 +7,7 @@
 /turf/open/floor/plating,
 /area/shuttle/labor)
 "c" = (
-/obj/machinery/computer/shuttle/labor{
+/obj/machinery/computer/shuttle_flight/labor{
 	dir = 4
 	},
 /obj/structure/reagent_dispensers/peppertank{

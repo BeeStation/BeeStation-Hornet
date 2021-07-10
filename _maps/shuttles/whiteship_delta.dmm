@@ -1267,7 +1267,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bridge)
 "ch" = (
-/obj/machinery/computer/shuttle/white_ship{
+/obj/machinery/computer/shuttle_flight/white_ship{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1381,11 +1381,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bridge)
 "cp" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/whiteship{
-	dir = 8;
-	x_offset = -2;
-	y_offset = -8
-	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1

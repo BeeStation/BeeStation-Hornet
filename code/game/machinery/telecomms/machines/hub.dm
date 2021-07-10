@@ -41,3 +41,7 @@
 	"supply", "service", "common", "command", "engineering", "security",
 	"receiverA", "receiverB", "broadcasterA", "broadcasterB", "autorelay", "messaging")
 
+/obj/machinery/telecomms/hub/preset/exploration
+	id = "Exploration Hub"
+	network = "exploration"
+	autolinkers = list("exploration", "receiverExp", "broadcasterExp")

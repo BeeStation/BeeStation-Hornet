@@ -74,19 +74,11 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return
 	if(!proximity_flag)
 		return
-	if(istype(target, /obj/machinery/computer/custom_shuttle))
+	if(istype(target, /obj/machinery/computer/shuttle_flight/custom_shuttle))
 		if(!linkedShuttleId)
 			to_chat(user, "<span class='warning'>Error, no defined shuttle linked to device.</span>")
 			return
-		var/obj/machinery/computer/custom_shuttle/console = target
-		console.linkShuttle(linkedShuttleId)
-		to_chat(user, "<span class='notice'>Console linked successfully!</span>")
-		return
-	else if(istype(target, /obj/machinery/computer/camera_advanced/shuttle_docker/custom))
-		if(!linkedShuttleId)
-			to_chat(user, "<span class='warning'>Error, no defined shuttle linked to device.</span>")
-			return
-		var/obj/machinery/computer/camera_advanced/shuttle_docker/custom/console = target
+		var/obj/machinery/computer/shuttle_flight/custom_shuttle/console = target
 		console.linkShuttle(linkedShuttleId)
 		to_chat(user, "<span class='notice'>Console linked successfully!</span>")
 		return
@@ -170,6 +162,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/datum/map_template/shuttle/new_shuttle = new /datum/map_template/shuttle()
 
 	var/obj/docking_port/mobile/port = new /obj/docking_port/mobile(get_turf(target))
+	port.shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle
 	var/obj/docking_port/stationary/stationary_port = new /obj/docking_port/stationary(get_turf(target))
 	stationary_port.delete_after = TRUE
 	stationary_port.name = "[recorded_shuttle_area.name] Custom Shuttle construction site"

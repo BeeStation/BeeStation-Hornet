@@ -230,3 +230,12 @@
 	materials = list(/datum/material/iron = 2000, /datum/material/silver = 1500, /datum/material/plasma = 500, /datum/material/titanium = 1500)
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/discoveryscanner
+	name = "Discovery Scanner"
+	id = "discovery_scanner"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 200, /datum/material/glass = 50)
+	build_path = /obj/item/discovery_scanner
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

@@ -57,7 +57,7 @@
 			return "Remember, you have no hate towards the inhabitants of the station. There is no reason for you to attack them unless you are attacked."
 		if (FLAVOR_TEXT_GOAL_ANTAG)
 			return "You have a disdain for the inhabitants of this station, but your goals are more important. Make sure you work towards your objectives with your kin, instead of attacking everything on sight."
-	return ""
+	return flavor_text
 
 /mob/living/proc/remove_from_spawner_menu()
 	for(var/spawner in GLOB.mob_spawners)

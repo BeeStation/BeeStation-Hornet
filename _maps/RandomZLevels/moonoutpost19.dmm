@@ -6361,7 +6361,7 @@
 /turf/open/floor/plasteel/dark,
 /area/awaymission/moonoutpost19/arrivals)
 "mG" = (
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,

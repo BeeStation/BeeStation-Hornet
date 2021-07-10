@@ -30,6 +30,8 @@
 	del_on_death = TRUE
 	hardattacks = TRUE
 
+	discovery_points = 4000
+
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
 /mob/living/simple_animal/hostile/mimic/crate
 	attacktext = "bites"

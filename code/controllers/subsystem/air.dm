@@ -49,6 +49,9 @@ SUBSYSTEM_DEF(air)
 	var/map_loading = TRUE
 	var/list/queued_for_activation
 
+	var/list/paused_z_levels	//Paused z-levels will not add turfs to active
+	var/list/turfs_to_activate
+
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
 	msg += "EQ:[round(cost_equalize,1)]|"
@@ -292,7 +295,9 @@ SUBSYSTEM_DEF(air)
 		T.eg_garbage_collect()
 
 /datum/controller/subsystem/air/proc/add_to_active(turf/open/T, blockchanges = 1)
-	if(istype(T) && T.air)
+	if(LAZYLEN(paused_z_levels) && (T.z in paused_z_levels))
+		LAZYADD(turfs_to_activate, T)
+	else if(istype(T) && T.air)
 		#ifdef VISUALIZE_ACTIVE_TURFS
 		T.add_atom_colour("#00ff00", TEMPORARY_COLOUR_PRIORITY)
 		#endif
@@ -321,6 +326,16 @@ SUBSYSTEM_DEF(air)
 	for(var/T in queued_for_activation)
 		add_to_active(T)
 	queued_for_activation.Cut()
+
+/datum/controller/subsystem/air/proc/pause_z(z_level)
+	LAZYADD(paused_z_levels, z_level)
+
+/datum/controller/subsystem/air/proc/unpause_z(z_level)
+	LAZYREMOVE(paused_z_levels, z_level)
+	for(var/turf/T as() in turfs_to_activate)
+		if(T.z == z_level)
+			LAZYREMOVE(turfs_to_activate, T)
+			add_to_active(T)
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
 	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))

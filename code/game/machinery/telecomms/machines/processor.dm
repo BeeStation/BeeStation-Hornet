@@ -55,3 +55,8 @@
 
 /obj/machinery/telecomms/processor/preset_one/birdstation
 	name = "Processor"
+
+/obj/machinery/telecomms/processor/preset_exploration
+	id = "Exploration Processor"
+	network = "exploration"
+	autolinkers = list("processorExp")

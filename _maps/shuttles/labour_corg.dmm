@@ -131,7 +131,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "P" = (
-/obj/machinery/computer/shuttle/labor{
+/obj/machinery/computer/shuttle_flight/labor{
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,

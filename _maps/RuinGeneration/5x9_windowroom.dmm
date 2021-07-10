@@ -1,0 +1,96 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"f" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"k" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/gloves,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"m" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/obj/structure/chair/office{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"B" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"E" = (
+/obj/structure/table,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"G" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"R" = (
+/obj/structure/filingcabinet/security,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"X" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+X
+X
+B
+X
+X
+X
+B
+X
+X
+"}
+(2,1,1) = {"
+X
+m
+m
+m
+m
+m
+m
+G
+X
+"}
+(3,1,1) = {"
+X
+m
+m
+m
+m
+m
+u
+E
+X
+"}
+(4,1,1) = {"
+X
+R
+m
+m
+m
+k
+E
+E
+X
+"}
+(5,1,1) = {"
+X
+X
+f
+f
+X
+f
+f
+X
+X
+"}

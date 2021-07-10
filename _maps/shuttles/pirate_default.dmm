@@ -28,7 +28,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/pirate)
 "ac" = (
-/obj/machinery/computer/shuttle/pirate,
+/obj/machinery/computer/shuttle_flight/pirate,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -489,11 +489,6 @@
 "aW" = (
 /obj/machinery/light/small{
 	dir = 8
-	},
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/pirate{
-	dir = 4;
-	x_offset = -3;
-	y_offset = 7
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{

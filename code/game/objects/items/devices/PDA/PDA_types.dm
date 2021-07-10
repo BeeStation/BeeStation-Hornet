@@ -154,6 +154,10 @@
 	name = "shaft miner PDA"
 	icon_state = "pda-miner"
 
+/obj/item/pda/exploration
+	name = "exploration PDA"
+	icon_state = "pda-exploration"
+
 /obj/item/pda/syndicate
 	default_cartridge = /obj/item/cartridge/virus/syndicate
 	icon_state = "pda-syndi"

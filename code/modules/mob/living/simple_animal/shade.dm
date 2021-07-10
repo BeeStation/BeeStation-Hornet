@@ -32,6 +32,7 @@
 	initial_language_holder = /datum/language_holder/construct
 	chat_color = "#FF6262"
 	mobchatspan = "cultmobsay"
+	discovery_points = 1000
 
 /mob/living/simple_animal/shade/death()
 	deathmessage = "lets out a contented sigh as [p_their()] form unwinds."

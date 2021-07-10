@@ -68,6 +68,7 @@
 	var/list/drained_mobs = list() //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has. //TODO, add objective for getting a perfect soul(s?)
 	var/generated_objectives_and_spells = FALSE
+	discovery_points = 4000
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()

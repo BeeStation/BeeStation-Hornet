@@ -401,7 +401,7 @@
 	materials = list(/datum/material/iron = 3500)
 	build_path = /obj/item/ammo_casing/shotgun/dart/noreact
 	category = list("Ammo")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/flashbulb
 	name = "Security Flashbulb"

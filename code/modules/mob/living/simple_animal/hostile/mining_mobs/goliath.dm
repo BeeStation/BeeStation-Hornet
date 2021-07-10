@@ -35,6 +35,7 @@
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 
 	do_footstep = TRUE
+	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Life()
 	. = ..()

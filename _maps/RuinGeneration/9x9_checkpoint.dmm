@@ -1,0 +1,261 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/chair/office,
+/obj/effect/turf_decal/trimline/red/filled/warning,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"b" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/structure/sign/departments/minsky/security/security{
+	pixel_y = 32
+	},
+/obj/machinery/recharger,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"c" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/techstorage/security,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"e" = (
+/obj/effect/turf_decal/trimline/red/filled/warning{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"i" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"n" = (
+/obj/structure/sign/warning/radiation{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"s" = (
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"t" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"w" = (
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"x" = (
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/turf_decal/trimline/red/filled/warning{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"z" = (
+/obj/machinery/computer{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"B" = (
+/obj/effect/turf_decal/trimline/red/filled/warning,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"C" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"D" = (
+/obj/structure/closet/radiation,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"K" = (
+/obj/effect/turf_decal/trimline/red/filled/warning{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"N" = (
+/obj/machinery/computer{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"S" = (
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"T" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"U" = (
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"V" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"X" = (
+/obj/effect/turf_decal/trimline/red/filled/corner,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+C
+C
+C
+C
+s
+s
+T
+s
+s
+"}
+(2,1,1) = {"
+C
+b
+N
+N
+s
+D
+w
+w
+s
+"}
+(3,1,1) = {"
+C
+K
+x
+K
+s
+n
+w
+w
+s
+"}
+(4,1,1) = {"
+C
+i
+S
+i
+u
+w
+w
+w
+s
+"}
+(5,1,1) = {"
+U
+i
+X
+e
+u
+w
+w
+w
+s
+"}
+(6,1,1) = {"
+C
+i
+B
+z
+u
+w
+w
+w
+s
+"}
+(7,1,1) = {"
+C
+i
+a
+c
+s
+n
+w
+w
+s
+"}
+(8,1,1) = {"
+C
+i
+B
+t
+s
+D
+w
+w
+s
+"}
+(9,1,1) = {"
+C
+C
+C
+C
+s
+s
+V
+s
+s
+"}

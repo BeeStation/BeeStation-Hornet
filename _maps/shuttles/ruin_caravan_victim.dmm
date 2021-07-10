@@ -279,9 +279,6 @@
 /area/shuttle/caravan/freighter1)
 "mZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/camera_advanced/shuttle_docker/caravan/trade1{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -878,7 +875,7 @@
 /area/shuttle/caravan/freighter1)
 "Ow" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/shuttle/caravan/trade1{
+/obj/machinery/computer/shuttle_flight/caravan/trade1{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{

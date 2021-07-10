@@ -17,6 +17,7 @@
 	minbodytemp = 0
 	faction = list("nether")
 	hardattacks = TRUE
+	discovery_points = 3000
 
 /mob/living/simple_animal/hostile/netherworld/migo
 	name = "mi-go"

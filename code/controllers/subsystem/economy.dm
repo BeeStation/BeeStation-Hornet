@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(economy)
 	init_order = INIT_ORDER_ECONOMY
 	runlevels = RUNLEVEL_GAME
 	var/roundstart_paychecks = 5
-	var/budget_pool = 35000
+	var/budget_pool = 25000
 	var/list/department_accounts = list(ACCOUNT_CIV = ACCOUNT_CIV_NAME,
 										ACCOUNT_ENG = ACCOUNT_ENG_NAME,
 										ACCOUNT_SCI = ACCOUNT_SCI_NAME,
@@ -18,7 +18,8 @@ SUBSYSTEM_DEF(economy)
 	var/list/bank_accounts = list() //List of normal accounts (not department accounts)
 	var/list/dep_cards = list()
 	///The modifier multiplied to the value of bounties paid out.
-	var/bounty_modifier = 1
+	///Multiplied as they go to all department accounts rather than just cargo.
+	var/bounty_modifier = 3
 
 /datum/controller/subsystem/economy/Initialize(timeofday)
 	var/budget_to_hand_out = round(budget_pool / department_accounts.len)
@@ -27,12 +28,6 @@ SUBSYSTEM_DEF(economy)
 	return ..()
 
 /datum/controller/subsystem/economy/fire(resumed = 0)
-	boring_eng_payout()
-	boring_sci_payout()
-	boring_sec_payout()
-	boring_med_payout()
-	boring_srv_payout()
-	boring_civ_payout()
 	for(var/A in bank_accounts)
 		var/datum/bank_account/B = A
 		B.payday(1)
@@ -43,38 +38,46 @@ SUBSYSTEM_DEF(economy)
 		if(D.department_id == dep_id)
 			return D
 
-/datum/controller/subsystem/economy/proc/boring_eng_payout()
-	var/engineering_cash = 2000
-	var/datum/bank_account/D = get_dep_account(ACCOUNT_ENG)
-	if(D)
-		D.adjust_money(engineering_cash)
+/datum/controller/subsystem/economy/proc/distribute_funds(amount)
+	var/datum/bank_account/eng = get_dep_account(ACCOUNT_ENG)
+	var/datum/bank_account/sec = get_dep_account(ACCOUNT_SEC)
+	var/datum/bank_account/med = get_dep_account(ACCOUNT_MED)
+	var/datum/bank_account/srv = get_dep_account(ACCOUNT_SRV)
+	var/datum/bank_account/sci = get_dep_account(ACCOUNT_SCI)
+	var/datum/bank_account/civ = get_dep_account(ACCOUNT_CIV)
+	var/datum/bank_account/car = get_dep_account(ACCOUNT_CAR)
 
-/datum/controller/subsystem/economy/proc/boring_sec_payout()
-	var/security_cash = 2000
-	var/datum/bank_account/D = get_dep_account(ACCOUNT_SEC)
-	if(D)
-		D.adjust_money(security_cash)
+	var/departments = 0
 
-/datum/controller/subsystem/economy/proc/boring_med_payout()
-	var/medical_cash = 2000
-	var/datum/bank_account/D = get_dep_account(ACCOUNT_MED)
-	if(D)
-		D.adjust_money(medical_cash)
+	if(eng)
+		departments += 2
+	if(sec)
+		departments += 2
+	if(med)
+		departments += 2
+	if(srv)
+		departments += 1
+	if(sci)
+		departments += 2
+	if(civ)
+		departments += 1
+	if(car)
+		departments += 2
 
-/datum/controller/subsystem/economy/proc/boring_srv_payout()
-	var/service_cash = 1000
-	var/datum/bank_account/D = get_dep_account(ACCOUNT_SRV)
-	if(D)
-		D.adjust_money(service_cash)
+	var/parts = round(amount / departments)
 
-/datum/controller/subsystem/economy/proc/boring_sci_payout()
-	var/science_cash = 2500
-	var/datum/bank_account/D = get_dep_account(ACCOUNT_SCI)
-	if(D)
-		D.adjust_money(science_cash)
+	var/engineering_cash = parts * 2
+	var/security_cash = parts * 2
+	var/medical_cash = parts * 2
+	var/service_cash = parts
+	var/science_cash = parts * 2
+	var/civilian_cash = parts
+	var/cargo_cash = parts * 2
 
-/datum/controller/subsystem/economy/proc/boring_civ_payout()
-	var/civilian_cash = 1000
-	var/datum/bank_account/D = get_dep_account(ACCOUNT_CIV)
-	if(D)
-		D.adjust_money(civilian_cash)
+	eng?.adjust_money(engineering_cash)
+	sec?.adjust_money(security_cash)
+	med?.adjust_money(medical_cash)
+	srv?.adjust_money(service_cash)
+	sci?.adjust_money(science_cash)
+	civ?.adjust_money(civilian_cash)
+	car?.adjust_money(cargo_cash)

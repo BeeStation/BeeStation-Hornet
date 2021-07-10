@@ -51,11 +51,6 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "ah" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate,
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "ai" = (
@@ -69,7 +64,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate/armory)
 "aj" = (
-/obj/machinery/computer/shuttle/syndicate,
+/obj/machinery/computer/shuttle_flight/syndicate,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)

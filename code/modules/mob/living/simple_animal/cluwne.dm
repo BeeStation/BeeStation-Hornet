@@ -18,6 +18,7 @@
     speak = list("HONK! HONK! HONK! HONK!","AAAAAAAAAAAAAAAAAA!!", "KILLMEKILLME!!", "HONK HENK HONK!!", "Honk Honk!", "HEEEEEEEEEEEEENK!!")
     do_footstep = TRUE
     chat_color = "#F37EF6"
+    discovery_points = 1000
 
 /mob/living/simple_animal/cluwne/Initialize()
     . = ..()

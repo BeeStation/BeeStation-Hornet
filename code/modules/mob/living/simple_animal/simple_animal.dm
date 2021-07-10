@@ -97,6 +97,9 @@
 
 	var/special_process = FALSE
 
+	//Discovery
+	var/discovery_points = 200
+
 /mob/living/simple_animal/Initialize()
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -109,6 +112,8 @@
 	update_simplemob_varspeed()
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
+	if(discovery_points)
+		AddComponent(/datum/component/discoverable, discovery_points)
 
 /mob/living/simple_animal/Destroy()
 	GLOB.simple_animals[AIStatus] -= src

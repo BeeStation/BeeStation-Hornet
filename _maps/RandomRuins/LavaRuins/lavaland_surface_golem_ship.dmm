@@ -406,7 +406,7 @@
 /turf/open/floor/pod/dark,
 /area/ruin/powered/golem_ship)
 "bp" = (
-/obj/machinery/mineral/equipment_vendor/golem,
+/obj/machinery/vendor/mining/golem,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/ruin/powered/golem_ship)
@@ -523,7 +523,7 @@
 /turf/open/floor/pod,
 /area/ruin/powered/golem_ship)
 "bG" = (
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	icon_state = "computer";
 	dir = 4
 	},

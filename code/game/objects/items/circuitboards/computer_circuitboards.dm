@@ -237,7 +237,7 @@
 /obj/item/circuitboard/computer/monastery_shuttle
 	name = "monastery shuttle console (Computer Board)"
 	icon_state = "generic"
-	build_path = /obj/machinery/computer/shuttle/monastery_shuttle
+	build_path = /obj/machinery/computer/shuttle_flight/monastery_shuttle
 
 /obj/item/circuitboard/computer/olddoor
 	name = "DoorMex (Computer Board)"
@@ -262,7 +262,7 @@
 /obj/item/circuitboard/computer/syndicate_shuttle
 	name = "syndicate shuttle console (Computer Board)"
 	icon_state = "generic"
-	build_path = /obj/machinery/computer/shuttle/syndicate
+	build_path = /obj/machinery/computer/shuttle_flight/syndicate
 	var/challenge = FALSE
 	var/moved = FALSE
 
@@ -282,26 +282,20 @@
 /obj/item/circuitboard/computer/white_ship
 	name = "white ship control (Computer Board)"
 	icon_state = "generic"
-	build_path = /obj/machinery/computer/shuttle/white_ship
+	build_path = /obj/machinery/computer/shuttle_flight/white_ship
 
 /obj/item/circuitboard/computer/white_ship/pod
 	name = "salvage pod control (Computer Board)"
-	build_path = /obj/machinery/computer/shuttle/white_ship/pod
+	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod
 
 /obj/item/circuitboard/computer/white_ship/pod/recall
 	name = "salvage pod recall control (Computer Board)"
-	build_path = /obj/machinery/computer/shuttle/white_ship/pod/recall
+	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod/recall
 
 /obj/item/circuitboard/computer/shuttle/flight_control
 	name = "shuttle flight control (Computer Board)"
 	icon_state = "generic"
-	build_path = /obj/machinery/computer/custom_shuttle
-
-/obj/item/circuitboard/computer/shuttle/docker
-	name = "shuttle navigation computer (Computer Board)"
-	icon_state = "generic"
-	build_path = /obj/machinery/computer/camera_advanced/shuttle_docker/custom
-
+	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle
 
 //Medical
 
@@ -424,11 +418,11 @@
 /obj/item/circuitboard/computer/labor_shuttle
 	name = "labor shuttle console (Computer Board)"
 	icon_state = "security"
-	build_path = /obj/machinery/computer/shuttle/labor
+	build_path = /obj/machinery/computer/shuttle_flight/labor
 
 /obj/item/circuitboard/computer/labor_shuttle/one_way
 	name = "prisoner shuttle console (Computer Board)"
-	build_path = /obj/machinery/computer/shuttle/labor/one_way
+	build_path = /obj/machinery/computer/shuttle_flight/labor/one_way
 
 /obj/item/circuitboard/computer/gulag_teleporter_console
 	name = "labor camp teleporter console (Computer Board)"
@@ -460,6 +454,10 @@
 
 //Supply
 
+/obj/item/circuitboard/computer/objective
+	name = "Nanotrasen objective console (Computer Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/computer/objective
 
 /obj/item/circuitboard/computer/bounty
 	name = "Nanotrasen bounty console (Computer Board)"
@@ -509,11 +507,11 @@
 /obj/item/circuitboard/computer/ferry
 	name = "transport ferry control (Computer Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/computer/shuttle/ferry
+	build_path = /obj/machinery/computer/shuttle_flight/ferry
 
 /obj/item/circuitboard/computer/ferry/request
 	name = "transport ferry console (Computer Board)"
-	build_path = /obj/machinery/computer/shuttle/ferry/request
+	build_path = /obj/machinery/computer/shuttle_flight/ferry/request
 
 /obj/item/circuitboard/computer/mining
 	name = "outpost status display (Computer Board)"
@@ -523,8 +521,12 @@
 /obj/item/circuitboard/computer/mining_shuttle
 	name = "mining shuttle console (Computer Board)"
 	icon_state = "supply"
-	build_path = /obj/machinery/computer/shuttle/mining
+	build_path = /obj/machinery/computer/shuttle_flight/mining
 
 /obj/item/circuitboard/computer/science_shuttle
 	name = "science shuttle console (Computer Board)"
-	build_path = /obj/machinery/computer/shuttle/science
+	build_path = /obj/machinery/computer/shuttle_flight/science
+
+/obj/item/circuitboard/computer/exploration_shuttle
+	name = "exploration shuttle console (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration

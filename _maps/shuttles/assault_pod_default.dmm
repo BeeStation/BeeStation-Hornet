@@ -28,7 +28,7 @@
 /turf/open/floor/plating,
 /area/shuttle/assault_pod)
 "h" = (
-/obj/machinery/computer/shuttle/syndicate/drop_pod,
+/obj/machinery/computer/shuttle_flight/syndicate/drop_pod,
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/assault_pod)
 "p" = (

@@ -1,0 +1,214 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"l" = (
+/obj/effect/decal/cleanable/food/salt,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"m" = (
+/obj/structure/chair,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"p" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"q" = (
+/obj/structure/table,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"z" = (
+/obj/structure/table_frame,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"F" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"G" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/donkpockets,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"I" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/pizzaparty,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"K" = (
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/structure/chair,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"M" = (
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"U" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Y" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+u
+u
+u
+u
+u
+p
+u
+u
+u
+u
+u
+"}
+(2,1,1) = {"
+u
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+u
+"}
+(3,1,1) = {"
+u
+Y
+K
+q
+F
+Y
+m
+q
+F
+Y
+u
+"}
+(4,1,1) = {"
+u
+Y
+m
+z
+F
+Y
+m
+q
+F
+Y
+u
+"}
+(5,1,1) = {"
+G
+Y
+m
+z
+F
+Y
+m
+q
+F
+Y
+u
+"}
+(6,1,1) = {"
+b
+Y
+Y
+Y
+Y
+Y
+l
+Y
+Y
+Y
+u
+"}
+(7,1,1) = {"
+I
+Y
+m
+q
+F
+Y
+m
+z
+F
+Y
+u
+"}
+(8,1,1) = {"
+u
+Y
+m
+q
+F
+Y
+m
+q
+M
+Y
+u
+"}
+(9,1,1) = {"
+u
+Y
+m
+q
+F
+Y
+m
+q
+F
+Y
+u
+"}
+(10,1,1) = {"
+u
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+u
+"}
+(11,1,1) = {"
+u
+u
+u
+u
+u
+U
+u
+u
+u
+u
+u
+"}

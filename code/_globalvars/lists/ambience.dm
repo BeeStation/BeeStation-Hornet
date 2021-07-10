@@ -63,4 +63,5 @@ GLOBAL_LIST_INIT(ambience_assoc,list(
 	AMBIENCE_MAINT = GLOB.maint_ambience,
 	AMBIENCE_AWAY = GLOB.away_ambience,
 	AMBIENCE_REEBE = GLOB.reebe_ambience,
-	AMBIENCE_CREEPY = GLOB.creepy_ambience))
+	AMBIENCE_CREEPY = GLOB.creepy_ambience,
+	AMBIENCE_NONE = list()))

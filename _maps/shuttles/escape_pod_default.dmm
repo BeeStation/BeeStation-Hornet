@@ -9,7 +9,7 @@
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
-/obj/machinery/computer/shuttle/pod{
+/obj/machinery/computer/shuttle_flight/pod{
 	pixel_x = -32
 	},
 /turf/open/floor/mineral/titanium/blue,

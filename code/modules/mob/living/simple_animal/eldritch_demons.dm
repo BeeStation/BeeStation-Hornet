@@ -31,6 +31,7 @@
 	///Innate spells that are supposed to be added when a beast is created
 	var/list/spells_to_add
 	mobchatspan = "cultmobsay"
+	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/eldritch/Initialize()
 	. = ..()

@@ -133,7 +133,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "A" = (
-/obj/machinery/computer/shuttle/hunter{
+/obj/machinery/computer/shuttle_flight/hunter{
 	icon_state = "computer";
 	dir = 8
 	},
@@ -173,10 +173,6 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "I" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/hunter{
-	icon_state = "computer";
-	dir = 8
-	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
 "J" = (
