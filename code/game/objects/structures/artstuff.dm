@@ -41,6 +41,7 @@
 	icon = 'icons/obj/artstuff.dmi'
 	icon_state = "11x11"
 	resistance_flags = FLAMMABLE
+	flags_1 = UNPAINTABLE_1
 	var/width = 11
 	var/height = 11
 	var/list/grid

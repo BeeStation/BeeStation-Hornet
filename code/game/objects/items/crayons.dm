@@ -278,6 +278,8 @@
 
 	if(!isValidSurface(target))
 		return
+	if(target.flags_1 & UNPAINTABLE_1)
+		return
 
 	var/drawing = drawtype
 	switch(drawtype)
