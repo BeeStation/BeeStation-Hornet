@@ -26,8 +26,8 @@ jobs:
 
       - name: Setup Author
         run: |
-          git config --local user.email "${{ env.COMMIT_EMAIL }}"
-          git config --local user.name "${{ env.COMMIT_NAME }}"
+          git config --local user.email "56381746+ss13-beebot@users.noreply.github.com"
+          git config --local user.name "ss13-beebot"
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
