@@ -127,7 +127,7 @@
 /obj/item/encryptionkey/headset_expteam
 	name = "exploration team encryption key"
 	icon_state = "expteam_cypherkey"
-	channels = list(RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_SCIENCE = 1)
+	channels = list(RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_SCIENCE = 1)
 
 /obj/item/encryptionkey/headset_service
 	name = "service radio encryption key"
