@@ -269,48 +269,45 @@
 
 	return found_mobs
 
-// Returns a list of hearers in view(R) from source (ignoring luminosity). Used in saycode. Consider using `hearers` when you *only* need mobs.
-/proc/get_hearers_in_view(R, atom/source)
-	var/turf/T = get_turf(source)
-	. = list()
+/// Returns a list of hearers in view(view_radius) from source (ignoring luminosity). recursively checks contents for hearers
+/proc/get_hearers_in_view(view_radius, atom/source)
 
-	if(!T)
+	var/turf/center_turf = get_turf(source)
+	. = list()
+	if(!center_turf)
 		return
 
 	var/list/processing_list = list()
-	if (R == 0) // if the range is zero, we know exactly where to look for, we can skip view
-		processing_list += T.contents // We can shave off one iteration by assuming turfs cannot hear
-	else  // A variation(?) of get_hear inlined here to take advantage of the compiler's fastpath for obj in view
-		// Benchmark before trying to "optimize" this proc
-		processing_list += hearers(R, T)
+	if (view_radius == 0) // if the range is zero, we know exactly where to look for, we can skip view
+		processing_list += center_turf.contents // We can shave off one iteration by assuming turfs cannot hear
+	else
+		var/lum = center_turf.luminosity
+		center_turf.luminosity = 6 // This is the maximum luminosity
+		var/target = source.loc == center_turf ? source : center_turf //this is reasonably faster if true, and very slightly slower if false
+		for(var/atom/movable/movable in view(view_radius, target))
+			if(movable.flags_1 & HEAR_1) //dont add the movables returned by view() to processing_list to reduce recursive iterations, just check them
+				. += movable
+			processing_list += movable.contents
+		center_turf.luminosity = lum
 
-		// dview is inlined here
-		GLOB.dview_mob.loc = T
-		GLOB.dview_mob.see_invisible = SEE_INVISIBLE_MINIMUM // Sorry, invisible objects. You folks can't HEAR_1 anyway.
-		for(var/obj/O in view(R, GLOB.dview_mob))
-			processing_list += O
-		GLOB.dview_mob.loc = null
-
-	while(length(processing_list)) // recursive_hear_check inlined here with optimized processing
-		var/atom/A = processing_list[length(processing_list)]
-		if(A.flags_1 & HEAR_1)
-			. += A
-		processing_list.len--
-		processing_list += A.contents
+	var/i = 0
+	while(i < length(processing_list)) // recursive_hear_check inlined here, the large majority of the work is in this part for big contents trees
+		var/atom/atom_to_check = processing_list[++i]
+		if(atom_to_check.flags_1 & HEAR_1)
+			. += atom_to_check
+		processing_list += atom_to_check.contents
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	for(var/obj/item/radio/R in radios)
-		if(R)
-			if(R.canhear_range != -1)
-				. |= get_hearers_in_view(R.canhear_range, R)
-			else
-				if(istype(R.loc, /obj/item/implant))
-					var/obj/item/implant/I = R.loc
-					if(I.imp_in)
-						. |= I.imp_in
-
+		if(R.canhear_range != -1)
+			. |= get_hearers_in_view(R.canhear_range, R)
+		else
+			if(istype(R.loc, /obj/item/implant))
+				var/obj/item/implant/I = R.loc
+				if(I.imp_in)
+					. |= I.imp_in
 
 #define SIGNV(X) ((X<0)?-1:1)
 
