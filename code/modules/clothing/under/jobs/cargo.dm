@@ -56,3 +56,4 @@
 	icon_state = "curator"
 	item_state = "curator"
 	item_color = "curator"
+	can_adjust = FALSE
