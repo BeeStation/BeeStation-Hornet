@@ -1,0 +1,4 @@
+author: 'actioninja, Floyd, LemonInTheDark '
+delete-after: true
+changes:
+  - rscadd: New filter editor for admins + development purposes
