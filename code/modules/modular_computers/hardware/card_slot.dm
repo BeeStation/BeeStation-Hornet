@@ -71,7 +71,7 @@
 	return TRUE
 
 
-/obj/item/computer_hardware/card_slot/try_eject(slot=0, mob/living/user = null, forced = 0)
+/obj/item/computer_hardware/card_slot/try_eject(slot = 0, mob/living/user, forced = 0)
 	if(!stored_card && !stored_card2)
 		to_chat(user, "<span class='warning'>There are no cards in \the [src].</span>")
 		return FALSE
@@ -80,18 +80,14 @@
 	if(stored_card && (!slot || slot == 1))
 		if(user)
 			user.put_in_hands(stored_card)
-		else
-			stored_card.forceMove(drop_location())
-		stored_card = null
-		ejected++
+			stored_card = null
+			ejected++
 
 	if(stored_card2 && (!slot || slot == 2))
 		if(user)
 			user.put_in_hands(stored_card2)
-		else
-			stored_card2.forceMove(drop_location())
-		stored_card2 = null
-		ejected++
+			stored_card2 = null
+			ejected++
 
 	if(ejected)
 		if(holder)
