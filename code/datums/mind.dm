@@ -36,7 +36,7 @@
 	var/mob/living/current
 	var/active = 0
 
-	var/memory = ""
+	var/memory
 
 	var/assigned_role
 	var/special_role
@@ -88,7 +88,21 @@
 				qdel(i)
 		antag_datums = null
 	QDEL_NULL(language_holder)
+	set_current(null)
 	return ..()
+
+/datum/mind/proc/set_current(mob/new_current)
+	if(new_current && QDELING(new_current))
+		CRASH("Tried to set a mind's current var to a qdeleted mob, what the fuck")
+	if(current)
+		UnregisterSignal(src, COMSIG_PARENT_QDELETING)
+	current = new_current
+	if(current)
+		RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/clear_current)
+
+/datum/mind/proc/clear_current(datum/source)
+	SIGNAL_HANDLER
+	set_current(null)
 
 /datum/mind/proc/get_language_holder()
 	if(!language_holder)
@@ -108,13 +122,13 @@
 		key = new_character.key
 
 	if(new_character.mind)								//disassociate any mind currently in our new body's mind variable
-		new_character.mind.current = null
+		new_character.mind.set_current(null)
 
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud//we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 	if(current)
 		current.transfer_observers_to(new_character)	//transfer anyone observing the old character to the new one
-	current = new_character								//associate ourself with our new body
+	set_current(new_character)								//associate ourself with our new body
 	new_character.mind = src							//and associate our new body with ourself
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
@@ -132,6 +146,8 @@
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
 
 /datum/mind/proc/set_death_time()
+	SIGNAL_HANDLER
+
 	last_death = world.time
 
 /datum/mind/proc/store_memory(new_text)
@@ -357,116 +373,34 @@
 		message_admins("[ADMIN_LOOKUPFLW(current)] has been created by [ADMIN_LOOKUPFLW(creator)], an antagonist.")
 		to_chat(current, "<span class='userdanger'>Despite your creator's current allegiances, your true master remains [creator.real_name]. If their loyalties change, so do yours. This will never change unless your creator's body is destroyed.</span>")
 
-/datum/mind/proc/show_memory(mob/recipient, window=1, read_only=FALSE)
+/datum/mind/proc/show_memory(mob/recipient, window=1)
 	if(!recipient)
 		recipient = current
+	var/output = "<B>[current.real_name]'s Memories:</B><br>"
+	output += memory
+
 
 	var/list/all_objectives = list()
-	var/output = "<B>[current.real_name]'s Memories:</B><br>"
 	for(var/datum/antagonist/A in antag_datums)
 		output += A.antag_memory
 		all_objectives |= A.objectives
 
-	if(window)
-		ui_interact(recipient)
-	else if(all_objectives.len || memory)
-		output += memory
-
-		if(all_objectives.len)
-			output += "<B>Objectives:</B>"
-			var/obj_count = 1
-			for(var/datum/objective/objective in all_objectives)
-				output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
-				var/list/datum/mind/other_owners = objective.get_owners() - src
-				if(other_owners.len)
-					output += "<ul>"
-					for(var/datum/mind/M in other_owners)
-						output += "<li>Conspirator: [M.name]</li>"
-					output += "</ul>"
-		to_chat(recipient, "<i>[output]</i>")
-
-/datum/mind/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "PaperSheet", "[current.real_name]'s Memories")
-		ui.open()
-
-/datum/mind/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/paper),
-	)
-
-/datum/mind/ui_state(mob/user)
-	return GLOB.always_state
-
-//don't need to send pen shit all the time
-/datum/mind/ui_static_data(mob/user)
-	var/list/data = list()
-	data["max_length"] = MAX_MESSAGE_LEN
-	data["paper_color"] = "#FFFFFF"
-	data["pen_color"] = "#000000"
-	if(user == current)
-		data["edit_mode"] = 1
-	else
-		data["edit_mode"] = 0
-	data["is_crayon"] = FALSE
-	data["stamp_class"] = "FAKE"
-	data["stamp_icon_state"] = "FAKE"
-	return data
-
-/datum/mind/ui_data(mob/user)
-	var/list/data = list()
-
-	var/list/all_objectives = list()
-	var/objective_out
-	for(var/datum/antagonist/A in antag_datums)
-		objective_out += A.antag_memory
-		all_objectives |= A.objectives
-
-	if(!all_objectives.len)
-		objective_out += "\n"
-
 	if(all_objectives.len)
-		objective_out += "<B>Objectives:</B>"
+		output += "<B>Objectives:</B>"
 		var/obj_count = 1
 		for(var/datum/objective/objective in all_objectives)
-			objective_out += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+			output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
 			var/list/datum/mind/other_owners = objective.get_owners() - src
 			if(other_owners.len)
-				objective_out += "<ul>"
+				output += "<ul>"
 				for(var/datum/mind/M in other_owners)
-					objective_out += "<li>Conspirator: [M.name]</li>"
-				objective_out += "</ul>"
-		objective_out += "\n"
+					output += "<li>Conspirator: [M.name]</li>"
+				output += "</ul>"
 
-	data["static_text"] = objective_out
-
-	data["text"] = memory
-
-	return data
-
-//Like in papers, but only takes the "save" action
-/datum/mind/ui_act(action, params,datum/tgui/ui)
-	if(..())
-		return
-	switch(action)
-		if("save")
-			var/written = params["text"]
-			var/written_len = length(written)
-
-			if(written_len > MAX_MESSAGE_LEN)
-				// Side note, the only way we should get here is if
-				// the javascript was modified, somehow, outside of
-				// byond.  but right now we are logging it as
-				// the generated html might get beyond this limit
-				to_chat(ui.user, pick("You can't remember all of this!", "It's too long!"))
-			if(written_len == 0)
-				to_chat(ui.user, "You can't remember nothing!")
-			else
-				if(memory != written)
-					to_chat(ui.user, "You have remembered something!");
-					memory = written
-			. = TRUE
+	if(window)
+		recipient << browse(output,"window=memory")
+	else if(all_objectives.len || memory)
+		to_chat(recipient, "<i>[output]</i>")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))
@@ -808,7 +742,7 @@
 		SSticker.minds += mind
 	if(!mind.name)
 		mind.name = real_name
-	mind.current = src
+	mind.set_current(src)
 
 /mob/living/carbon/mind_initialize()
 	..()

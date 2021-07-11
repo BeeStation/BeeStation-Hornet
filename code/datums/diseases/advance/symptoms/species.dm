@@ -4,7 +4,7 @@
 	stealth = 2
 	resistance = 2
 	stage_speed = 2
-	transmittable = 0
+	transmission = 0
 	level = 5
 	severity = 0
 
@@ -22,7 +22,7 @@
 	stealth = -1
 	resistance = 4
 	stage_speed = -2
-	transmittable = 3
+	transmission = 3
 	level = 5
 	severity = 0
 

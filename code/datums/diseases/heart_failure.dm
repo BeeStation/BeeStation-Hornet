@@ -8,7 +8,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 1
 	desc = "If left untreated the subject will die!"
-	severity = "Dangerous!"
+	danger = DISEASE_DANGEROUS
 	disease_flags = CAN_CARRY|CAN_RESIST
 	spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 	visibility_flags = HIDDEN_PANDEMIC
@@ -37,7 +37,7 @@
 					to_chat(H, "<span class='warning'>You feel [pick("full", "nauseated", "sweaty", "weak", "tired", "short on breath", "uneasy")].</span>")
 			if(3 to 4)
 				if(!sound)
-					H.playsound_local(H, 'sound/health/slowbeat.ogg',40,0, channel = CHANNEL_HEARTBEAT)
+					H.playsound_local(H, 'sound/health/slowbeat.ogg',40,0, channel = CHANNEL_HEARTBEAT, use_reverb = FALSE)
 					sound = TRUE
 				if(prob(3))
 					to_chat(H, "<span class='danger'>You feel a sharp pain in your chest!</span>")
@@ -54,7 +54,7 @@
 			if(5)
 				H.stop_sound_channel(CHANNEL_HEARTBEAT)
 				H.playsound_local(H, 'sound/effects/singlebeat.ogg', 100, 0)
-				if(H.is_conscious())
+				if(H.stat == CONSCIOUS)
 					H.visible_message("<span class='danger'>[H] clutches at [H.p_their()] chest as if [H.p_their()] heart is stopping!</span>", \
 						"<span class='userdanger'>You feel a terrible pain in your chest, as if your heart has stopped!</span>")
 				H.adjustStaminaLoss(60)

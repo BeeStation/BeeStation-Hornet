@@ -16,7 +16,11 @@
   *
   * qdels any client colours in place on this mob
   *
+  * Clears any refs to the mob inside its current location
+  *
   * Ghostizes the client attached to this mob
+  *
+  * If our mind still exists, clear its current var to prevent harddels
   *
   * Parent call
   */
@@ -24,6 +28,7 @@
 	remove_from_mob_list()
 	remove_from_dead_mob_list()
 	remove_from_alive_mob_list()
+	remove_from_mob_suicide_list()
 	focus = null
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
@@ -35,7 +40,10 @@
 	for(var/cc in client_colours)
 		qdel(cc)
 	client_colours = null
+	clear_client_in_contents() //Gotta do this here as well as Logout, since client will be null by the time it gets there, cause of that ghostize
 	ghostize()
+	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
+		mind.set_current(null)
 	QDEL_LIST(mob_spell_list)
 	for(var/datum/action/A as() in actions)
 		if(istype(A.target, /obj/effect/proc_holder))
@@ -608,11 +616,28 @@
 /mob/verb/memory()
 	set name = "Notes"
 	set category = "IC"
-	set desc = "View/Edit your character's notes memory."
+	set desc = "View your character's notes memory."
 	if(mind)
 		mind.show_memory(src)
 	else
 		to_chat(src, "You don't have a mind datum for some reason, so you can't look at your notes, if you had any.")
+
+/**
+  * Add a note to the mind datum
+  */
+/mob/verb/add_memory(msg as message)
+	set name = "Add Note"
+	set category = "IC"
+	if(mind)
+		if (world.time < memory_throttle_time)
+			return
+		memory_throttle_time = world.time + 5 SECONDS
+		msg = copytext_char(msg, 1, MAX_MESSAGE_LEN)
+		msg = sanitize(msg)
+
+		mind.store_memory(msg)
+	else
+		to_chat(src, "You don't have a mind datum for some reason, so you can't add a note to it.")
 
 /**
   * Allows you to respawn, abandoning your current mob
@@ -745,7 +770,7 @@
   */
 /mob/MouseDrop_T(atom/dropping, atom/user)
 	. = ..()
-	if(ismob(dropping) && dropping != user)
+	if(ismob(dropping) && dropping != user && !isAI(dropping))
 		var/mob/M = dropping
 		if(ismob(user))
 			var/mob/U = user
@@ -853,7 +878,11 @@
 	return FALSE
 
 /mob/proc/swap_hand()
-	return
+	var/obj/item/held_item = get_active_held_item()
+	if(SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP)
+		to_chat(src, "<span class='warning'>Your other hand is too busy holding [held_item].</span>")
+		return FALSE
+	return TRUE
 
 /mob/proc/activate_hand(selhand)
 	return
@@ -1254,3 +1283,21 @@
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat)
 	. = stat
 	stat = new_stat
+
+/mob/proc/set_active_storage(new_active_storage)
+	if(active_storage)
+		UnregisterSignal(active_storage, COMSIG_PARENT_QDELETING)
+	active_storage = new_active_storage
+	if(active_storage)
+		RegisterSignal(active_storage, COMSIG_PARENT_QDELETING, .proc/active_storage_deleted)
+
+/mob/proc/active_storage_deleted(datum/source)
+	SIGNAL_HANDLER
+	set_active_storage(null)
+
+///Clears the client in contents list of our current "eye". Prevents hard deletes
+/mob/proc/clear_client_in_contents()
+	if(client?.movingmob) //In the case the client was transferred to another mob and not deleted.
+		client.movingmob.client_mobs_in_contents -= src
+		UNSETEMPTY(client.movingmob.client_mobs_in_contents)
+		client.movingmob = null

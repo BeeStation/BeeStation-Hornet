@@ -14,7 +14,7 @@
 	flags_1 = CONDUCT_1
 	throw_speed = 3
 	throw_range = 7
-	var/charges_left = 15
+	var/charges_left = 10
 
 /obj/item/flashbulb/update_icon()
 	if(charges_left <= 0)
@@ -42,13 +42,36 @@
 	name = "weakened flashbulb"
 	charges_left = 4
 
-/obj/item/flashbulb/strong
-	name = "modified flashbulb"
-	charges_left = 120
+/obj/item/flashbulb/recharging
+	charges_left = 3
+	var/max_charges = 3
+	var/charge_time = 10 SECONDS
+	var/recharging = FALSE
 
-/obj/item/flashbulb/cyborg
+/obj/item/flashbulb/recharging/proc/recharge()
+	recharging = FALSE
+	if(charges_left >= max_charges)
+		return
+	charges_left ++
+	icon_state = "flashbulb"
+	if(charges_left < max_charges)
+		addtimer(CALLBACK(src, .proc/recharge), charge_time, TIMER_UNIQUE)
+		recharging = TRUE
+
+/obj/item/flashbulb/recharging/use_flashbulb()
+	. = ..()
+	if(!recharging)
+		addtimer(CALLBACK(src, .proc/recharge), charge_time, TIMER_UNIQUE)
+		recharging = TRUE
+
+/obj/item/flashbulb/recharging/revolution
+	name = "modified flashbulb"
+	charges_left = 10
+	max_charges = 10
+	charge_time = 15 SECONDS
+
+/obj/item/flashbulb/recharging/cyborg
 	name = "cyborg flashbulb"
-	charges_left = INFINITY
 
 /obj/item/assembly/flash
 	name = "flash"
@@ -73,7 +96,7 @@
 	bulb = /obj/item/flashbulb/weak
 
 /obj/item/assembly/flash/handheld/strong
-	bulb = /obj/item/flashbulb/strong
+	bulb = /obj/item/flashbulb/recharging/revolution
 
 /obj/item/assembly/flash/Initialize()
 	. = ..()
@@ -146,6 +169,9 @@
 /obj/item/assembly/flash/wirecutter_act(mob/living/user, obj/item/I)
 	if(!bulb)
 		to_chat(user, "<span class='notice'>There is no bulb in \the [src].</span>")
+		return FALSE
+	if(flags_1 & NODECONSTRUCT_1)
+		to_chat(user, "<span class='notice'>You cannot remove the bulb from \the [src].</span>")
 		return FALSE
 	bulb.forceMove(drop_location())
 	user.put_in_hands(bulb)
@@ -280,7 +306,7 @@
 
 
 /obj/item/assembly/flash/cyborg
-	bulb = /obj/item/flashbulb/cyborg
+	bulb = /obj/item/flashbulb/recharging/cyborg
 
 /obj/item/assembly/flash/cyborg/attack(mob/living/M, mob/user)
 	..()
@@ -313,19 +339,22 @@
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
 	var/flashcd = 20
 	var/overheat = 0
-	var/obj/item/organ/cyberimp/arm/flash/I = null
+	//Wearef to our arm
+	var/datum/weakref/arm
 
 /obj/item/assembly/flash/armimplant/burn_out()
-	if(I?.owner)
-		to_chat(I.owner, "<span class='warning'>Your photon projector implant overheats and deactivates!</span>")
-		I.Retract()
+	var/obj/item/organ/cyberimp/arm/flash/real_arm = arm.resolve()
+	if(real_arm?.owner)
+		to_chat(real_arm.owner, "<span class='warning'>Your photon projector implant overheats and deactivates!</span>")
+		real_arm.Retract()
 	overheat = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown), flashcd * 2)
 
 /obj/item/assembly/flash/armimplant/try_use_flash(mob/user = null)
 	if(overheat)
-		if(I?.owner)
-			to_chat(I.owner, "<span class='warning'>Your photon projector is running too hot to be used again so quickly!</span>")
+		var/obj/item/organ/cyberimp/arm/flash/real_arm = arm.resolve()
+		if(real_arm?.owner)
+			to_chat(real_arm.owner, "<span class='warning'>Your photon projector is running too hot to be used again so quickly!</span>")
 		return FALSE
 	overheat = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown), flashcd)
@@ -345,7 +374,7 @@
 	flashing_overlay = "flash-hypno"
 	light_color = LIGHT_COLOR_PINK
 	cooldown = 20
-	bulb = /obj/item/flashbulb/cyborg	//Flashbulb with infinite charges
+	bulb = /obj/item/flashbulb/recharging/revolution
 
 /obj/item/assembly/flash/hypnotic/burn_out()
 	return

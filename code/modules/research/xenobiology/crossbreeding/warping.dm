@@ -69,6 +69,8 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	RegisterSignal(rune_turf, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_rune)
 
 /obj/effect/warped_rune/proc/clean_rune()
+	SIGNAL_HANDLER
+
 	qdel(src)
 
 ///using the extract on the floor will "draw" the rune.
@@ -597,7 +599,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/gun/ballistic/shotgun/toy/unrestricted,
 		/obj/item/gun/ballistic/shotgun/toy/crossbow,
 		/obj/item/clothing/mask/facehugger/toy,
-		/obj/item/twohanded/dualsaber/toy,
+		/obj/item/dualsaber/toy,
 		/obj/item/clothing/under/costume/roman,
 		/obj/item/clothing/under/costume/pirate,
 		/obj/item/clothing/under/costume/kilt/highlander,
