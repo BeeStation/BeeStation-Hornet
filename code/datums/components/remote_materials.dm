@@ -107,7 +107,7 @@ handles linking back and forth.
 		var/obj/item/multitool/M = I
 		if (!QDELETED(M.buffer) && istype(M.buffer, /obj/machinery/ore_silo))
 			var/atom/P = parent
-			if (P.get_virtual_z_level() != M.buffer.get_virtual_z_level())
+			if (!is_station_level(P.z) && !is_station_level(M.buffer.z) && (P.get_virtual_z_level() != M.buffer.get_virtual_z_level()))
 				to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of Range.</span>")
 				return COMPONENT_NO_AFTERATTACK
 			if (silo == M.buffer)
