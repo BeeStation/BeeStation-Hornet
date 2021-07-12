@@ -48,7 +48,7 @@
 		new /datum/data/mining_equipment("P-KA Upgrade: Damage Radius",	/obj/item/borg/upgrade/modkit/aoe/mobs,								2000),
 		new /datum/data/mining_equipment("P-KA Cosmetic Super Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod,							200),
 		new /datum/data/mining_equipment("P-KA Cosmetic Hyper Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod/orange,					200),
-		new /datum/data/mining_equipment("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining,						2000),
+		new /datum/data/mining_equipment("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining,						3000),
 		new /datum/data/mining_equipment("Expanded E. Oxygen Tank",		/obj/item/tank/internals/emergency_oxygen/engi,						1000),
 		new /datum/data/mining_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffelbag/mining_conscript,				1000),
 		new /datum/data/mining_equipment("Survival Knife",				/obj/item/kitchen/knife/combat/survival,							1000),
