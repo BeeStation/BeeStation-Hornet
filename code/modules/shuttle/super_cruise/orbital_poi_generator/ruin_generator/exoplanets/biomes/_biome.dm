@@ -11,10 +11,10 @@
 	var/beach_type = /turf/open/floor/plating/asteroid/snow
 
 	var/plains_type = /turf/open/floor/plating/asteroid/snow
-	var/list/plains_decoration = list()
+	var/list/plains_decoration = list(/obj/structure/flora/tree/pine)
 
 	var/jungle_type = /turf/open/floor/plating/asteroid/snow
-	var/list/jungle_decoration = list()
+	var/list/jungle_decoration = list(/obj/structure/flora/tree/pine)
 
 /area/planet
 	icon_state = "Unknown Planet"
