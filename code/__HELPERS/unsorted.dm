@@ -1622,16 +1622,3 @@ config_setting should be one of the following:
 		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
 		for(var/I in servers)
 			world.Export("[servers[I]]?[list2params(message)]")
-
-/proc/drop_shadow_filter(x, y, size, offset, color)
-	. = list("type" = "drop_shadow")
-	if(!isnull(x))
-		.["x"] = x
-	if(!isnull(y))
-		.["y"] = y
-	if(!isnull(size))
-		.["size"] = size
-	if(!isnull(offset))
-		.["offset"] = offset
-	if(!isnull(color))
-		.["color"] = color

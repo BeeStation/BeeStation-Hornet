@@ -16,6 +16,9 @@
 /turf/closed/wall/mineral/cult/devastate_wall()
 	new sheet_type(get_turf(src), sheet_amount)
 
+/turf/closed/wall/mineral/cult/try_destroy(obj/item/I, mob/user, turf/T)
+	return FALSE
+
 /turf/closed/wall/mineral/cult/Exited(atom/movable/gone, direction)
 	. = ..()
 	if(istype(gone, /mob/living/simple_animal/hostile/construct/harvester)) //harvesters can go through cult walls, dragging something with
