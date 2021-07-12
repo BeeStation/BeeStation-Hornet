@@ -24,6 +24,7 @@ handles linking back and forth.
 	src.allow_standalone = allow_standalone
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
+	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, .proc/graceful_disconnect)
 
 	var/turf/T = get_turf(parent)
 	if (force_connect || (mapload && is_station_level(T.z)))
@@ -76,7 +77,7 @@ handles linking back and forth.
 	if (!silo && mat_container)
 		mat_container.max_amount = size
 
-// called if disconnected by ore silo UI or destruction
+// called if disconnected by ore silo UI, or destruction
 /datum/component/remote_materials/proc/disconnect_from(obj/machinery/ore_silo/old_silo)
 	if (!old_silo || silo != old_silo)
 		return
@@ -84,6 +85,18 @@ handles linking back and forth.
 	mat_container = null
 	if (allow_standalone)
 		_MakeLocal()
+	return TRUE
+
+// like disconnect_from, but does proper cleanup instead of simple deletion.
+/datum/component/remote_materials/proc/graceful_disconnect()
+	SIGNAL_HANDLER
+	var/obj/machinery/ore_silo/old_silo = silo
+	if(!disconnect_from(old_silo))
+		return
+	old_silo.connected -= src
+	old_silo.updateUsrDialog()
+	var/atom/P = parent
+	P.visible_message("<span class='warning'>[parent]'s material manager blinks orange: Disconnected.</span>")
 
 /datum/component/remote_materials/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
 	SIGNAL_HANDLER
@@ -93,6 +106,10 @@ handles linking back and forth.
 			return COMPONENT_NO_AFTERATTACK
 		var/obj/item/multitool/M = I
 		if (!QDELETED(M.buffer) && istype(M.buffer, /obj/machinery/ore_silo))
+			var/atom/P = parent
+			if (P.get_virtual_z_level() != M.buffer.get_virtual_z_level())
+				to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of Range.</span>")
+				return COMPONENT_NO_AFTERATTACK
 			if (silo == M.buffer)
 				to_chat(user, "<span class='notice'>[parent] is already connected to [silo].</span>")
 				return COMPONENT_NO_AFTERATTACK
