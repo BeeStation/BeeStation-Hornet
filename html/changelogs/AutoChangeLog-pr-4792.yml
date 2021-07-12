@@ -1,0 +1,4 @@
+author: francinum
+delete-after: true
+changes:
+  - bugfix: You can now properly load shuttle templates via the template upload system
