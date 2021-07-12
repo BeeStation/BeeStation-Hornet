@@ -45,4 +45,3 @@
 /obj/effect/proc_holder/spell/targeted/blind/proc/cure_blindness(mob/target)
 	var/mob/living/L = target
 	L.cure_blind(MAGIC_BLIND)
-	
