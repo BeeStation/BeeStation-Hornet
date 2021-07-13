@@ -1,0 +1,7 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - rscadd: brass sword emp works on mechs
+  - rscadd: clockwork armaments envirosuit compatibility for plasmamen
+  - rscadd: visual effect on brass sword emp
+  - bugfix: brass sword emp not working
