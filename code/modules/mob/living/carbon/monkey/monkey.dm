@@ -18,6 +18,8 @@
 					 /obj/item/bodypart/r_arm/monkey, /obj/item/bodypart/r_leg/monkey, /obj/item/bodypart/l_leg/monkey)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
+	ai_controller = /datum/ai_controller/monkey
+	faction = list("neutral", "monkey")
 
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
@@ -171,10 +173,10 @@
 	return TRUE
 
 /mob/living/carbon/monkey/angry
-	aggressive = TRUE
 
 /mob/living/carbon/monkey/angry/Initialize()
 	. = ..()
+	ai_controller.blackboard[BB_MONKEY_AGRESSIVE] = TRUE
 	if(prob(10))
 		var/obj/item/clothing/head/helmet/justice/escape/helmet = new(src)
 		equip_to_slot_or_del(helmet,ITEM_SLOT_HEAD)
@@ -204,9 +206,9 @@
 	icon_state = null
 	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
 	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
-	aggressive = TRUE
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					 /obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	ai_controller = null
 
 /datum/dna/tumor
 	species = new /datum/species/teratoma

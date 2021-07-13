@@ -284,7 +284,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		if(v.source == src)
 			return
 		//Dont create the overhead radio chat if we are a ghost and can hear global messages.
-		if(isobserver(src) && !(client.prefs.chat_toggles & CHAT_GHOSTEARS))
+		if(isobserver(src))
 			return
 		//Dont create the overhead radio chat if we heard the speaker speak
 		if(get_dist(get_turf(v.source), get_turf(src)) <= 1)

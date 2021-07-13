@@ -1,4 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - tweak: Operation computers only recognize humans or monkeys as patients.

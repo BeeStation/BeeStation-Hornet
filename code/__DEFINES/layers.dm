@@ -153,3 +153,6 @@
 #define SPLASHSCREEN_LAYER 24
 #define SPLASHSCREEN_PLANE 24
 #define SPLASHSCREEN_RENDER_TARGET "SPLASHSCREEN_PLANE"
+
+///Plane master controller keys
+#define PLANE_MASTERS_GAME "plane_masters_game"

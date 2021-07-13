@@ -22,9 +22,14 @@
 /datum/map_template/shuttle/proc/prerequisites_met()
 	return TRUE
 
-/datum/map_template/shuttle/New()
+/datum/map_template/shuttle/New(path = null, rename = null, cache = FALSE, admin_load = null)
+	if(admin_load)//This data must be populated for the system to not shit itself apparently
+		suffix = admin_load
+		port_id = "custom"
+		can_be_bought = FALSE
 	shuttle_id = "[port_id]_[suffix]"
-	mappath = "[prefix][shuttle_id].dmm"
+	if(!admin_load)
+		mappath = "[prefix][shuttle_id].dmm"
 	. = ..()
 
 /datum/map_template/shuttle/preload_size(path, cache)
