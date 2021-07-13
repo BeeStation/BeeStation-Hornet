@@ -1183,6 +1183,10 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	newgame()
 	obj_flags |= EMAGGED
 
+/obj/machinery/computer/arcade/orion_trail/Destroy()
+	qdel(Radio)
+	. = ..()
+
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/orion
 	name = "spaceport security"
 	desc = "Premier corporate security forces for all spaceports found along the Orion Trail."
