@@ -186,8 +186,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// A reagent list containing the reagents this item produces when JUICED in a grinder!
 	var/list/juice_results
 
-	//the outline filter on hover
-	var/outline_filter
 
 /obj/item/Initialize()
 
@@ -926,15 +924,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				colour = COLOR_BLUE_GRAY
 		else
 			colour = COLOR_BLUE_GRAY
-	if(outline_filter)
-		filters -= outline_filter
-	outline_filter = filter(type="outline", size=1, color=colour)
-	filters += outline_filter
+	add_filter("item_outline", 1, list(type="outline", size=1, color=colour))
 
 /obj/item/proc/remove_outline()
-	if(outline_filter)
-		filters -= outline_filter
-		outline_filter = null
+	remove_filter("item_outline")
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.
