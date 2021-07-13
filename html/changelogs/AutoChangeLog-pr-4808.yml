@@ -1,0 +1,5 @@
+author: Mat05usz
+delete-after: true
+changes:
+  - bugfix: Monkeys now retaliate against people who throw stuff/shoot at them.
+  - bugfix: Monkeys no longer try to steal undroppable items.
