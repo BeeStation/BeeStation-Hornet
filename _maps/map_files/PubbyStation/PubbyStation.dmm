@@ -35909,17 +35909,11 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "bBV" = (
-<<<<<<< HEAD
-/obj/effect/loot_site_spawner,
-/turf/open/floor/plating,
-/area/maintenance/department/crew_quarters/dorms)
-=======
 /obj/machinery/computer/holodeck{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
->>>>>>> master
 "bBW" = (
 /turf/open/space,
 /area/space)
