@@ -133,12 +133,12 @@
 		return
 	if(!COOLDOWN_FINISHED(src, emp_cooldown))
 		return
-	COOLDOWN_START(src, emp_cooldown, 30 SECONDS)
+	COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
 
 	var/obj/mecha/target = O
-	target.emp_act(EMP_LIGHT)
+	target.emp_act(EMP_HEAVY)
 	new /obj/effect/temp_visual/emp/pulse(target.loc)
-	addtimer(CALLBACK(src, .proc/send_message, user), 30 SECONDS)
+	addtimer(CALLBACK(src, .proc/send_message, user), 20 SECONDS)
 	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
 	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
