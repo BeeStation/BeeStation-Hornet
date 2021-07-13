@@ -48,9 +48,10 @@
 	AddElement(/datum/element/swabable, CELL_LINE_TABLE_SNAKE, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
+	var/atom/target_from = GET_TARGETS_FROM(src)
 	var/list/living_mobs = list()
 	var/list/mice = list()
-	for(var/mob/living/HM in oview(vision_range, targets_from))
+	for(var/mob/living/HM in oview(vision_range, target_from))
 		//Yum a tasty mouse
 		if(istype(HM, /mob/living/simple_animal/mouse))
 			mice += HM
