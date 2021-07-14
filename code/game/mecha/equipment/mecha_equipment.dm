@@ -52,15 +52,12 @@
 		to_chat(user, "<span class='warning'>You are unable to attach [src] to [M]!</span>")
 		return FALSE
 	if(!do_mob(user, M, 15))
-		to_chat(user, "<span class='warning'>You are unable to attach [src] to [M]!</span>")
 		return FALSE
 	if(!user.temporarilyRemoveItemFromInventory(src))
-		to_chat(user, "<span class='warning'>You are unable to attach [src] to [M]!</span>")
 		return FALSE
-	else
-		attach(M)
-		user.visible_message("[user] attaches [src] to [M].", "<span class='notice'>You attach [src] to [M].</span>")
-		return TRUE
+	attach(M)
+	user.visible_message("[user] attaches [src] to [M].", "<span class='notice'>You attach [src] to [M].</span>")
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/get_equip_info()
 	if(!chassis)
