@@ -35,11 +35,6 @@
 	desc = "Designed to quickly reload revolvers. These rounds are incredibly bouncy and MOSTLY nonlethal, making them great to show off trickshots with."
 	ammo_type = /obj/item/ammo_casing/c38/match/bouncy
 
-/obj/item/ammo_box/c38/dumdum
-	name = "speed loader (.38 DumDum)"
-	desc = "Designed to quickly reload revolvers. DumDum bullets shatter on impact and shred the target's innards, likely getting caught inside."
-	ammo_type = /obj/item/ammo_casing/c38/dumdum
-
 /obj/item/ammo_box/c38/hotshot
 	name = "speed loader (.38 Hot Shot)"
 	desc = "Designed to quickly reload revolvers. Hot Shot bullets contain an incendiary payload."

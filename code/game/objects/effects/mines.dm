@@ -206,18 +206,6 @@
 		victim.adjustStaminaLoss(stun_time)
 		victim.adjustBruteLoss(damage)
 
-/obj/effect/mine/shrapnel
-	name = "shrapnel mine"
-	var/shrapnel_type = /obj/item/projectile/bullet/shrapnel
-	var/shrapnel_magnitude = 3
-
-/obj/effect/mine/shrapnel/mineEffect(mob/victim)
-	AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
-
-/obj/effect/mine/shrapnel/sting
-	name = "stinger mine"
-	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball
-
 /obj/effect/mine/kickmine
 	name = "kick mine"
 

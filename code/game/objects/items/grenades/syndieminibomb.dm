@@ -33,12 +33,6 @@
 	ex_light = 3
 	ex_flame = 4
 
-/obj/item/grenade/frag/mega
-	name = "\improper FRAG grenade"
-	desc = "An anti-everything fragmentation grenade, this weapon excels at killing anything any everything by shredding them with metal shrapnel."
-	shrapnel_type = /obj/item/projectile/bullet/shrapnel/mega
-	shrapnel_radius = 12
-
 /obj/item/grenade/frag/prime(mob/living/lanced_by)
 	. = ..()
 	update_mob()

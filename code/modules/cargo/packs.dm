@@ -316,16 +316,6 @@
 					/obj/item/gun/energy/disabler)
 	crate_name = "disabler crate"
 
-/datum/supply_pack/security/dumdum
-	name = ".38 DumDum Speedloader"
-	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
-	cost = 1200
-	access = FALSE
-	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
-	contains = list(/obj/item/ammo_box/c38/dumdum)
-	crate_name = ".38 match crate"
-
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
 	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
@@ -384,20 +374,6 @@
 					/obj/item/clothing/suit/security/hos,
 					/obj/item/clothing/head/beret/sec/navyhos)
 	crate_name = "security clothing crate"
-
-/datum/supply_pack/security/stingpack
-	name = "Stingbang Grenade Pack"
-	desc = "Contains five \"stingbang\" grenades, perfect for stopping riots and playing morally unthinkable pranks. Requires Security access to open."
-	cost = 2500
-	contains = list(/obj/item/storage/box/stingbangs)
-	crate_name = "stingbang grenade pack crate"
-
-/datum/supply_pack/security/stingpack/single
-	name = "Stingbang Single-Pack"
-	desc = "Contains one \"stingbang\" grenade, perfect for playing meanhearted pranks. Requires Security access to open."
-	cost = 1400
-	small_item = TRUE
-	contains = list(/obj/item/grenade/stingbang)
 
 /datum/supply_pack/security/supplies
 	name = "Security Supplies Crate"
