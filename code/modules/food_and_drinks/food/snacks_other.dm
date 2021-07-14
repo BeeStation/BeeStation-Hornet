@@ -647,3 +647,13 @@
 	filling_color = "#ECA735"
 	tastes = list("fried corn" = 1)
 	foodtype = JUNKFOOD | FRIED
+
+/obj/item/reagent_containers/food/snacks/canned/beefbroth
+	name = "canned beef broth"
+	desc = "Why does this exist?"
+	icon_state = "beefcan"
+	trash = /obj/item/trash/can/food/beefbroth
+	list_reagents = list(/datum/reagent/consumable/beefbroth = 50)
+	filling_color = "#100800"
+	tastes = list("disgust" = 7, "tin" = 1)
+	foodtype = MEAT | GROSS | JUNKFOOD 
