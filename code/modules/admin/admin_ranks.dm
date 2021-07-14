@@ -10,6 +10,7 @@ GLOBAL_PROTECT(protected_ranks)
 	var/exclude_rights = 0
 	var/include_rights = 0
 	var/can_edit_rights = 0
+	var/badge_icon
 
 /datum/admin_rank/New(init_name, init_rights, init_exclude_rights, init_edit_rights)
 	if(IsAdminAdvancedProcCall())

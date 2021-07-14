@@ -1,0 +1,19 @@
+{
+    "Admin Observer": "adminobserver",
+    "Moderator": "moderator",
+    "Admin Candidate": "candidate",
+    "Trial Admin": "trialmin",
+    "Badmin": "badmin",
+    "Admin": "admin",
+    "Game Master": "seniormin",
+    "Headmin": "headmin",
+    "Host": "host",
+    "Coder": "coder",
+    "Codermin": "admin",
+    "Development Head": "headdev",
+    "Maintainer": "maintainer",
+    "Senior Transfer Staff": "admin",
+    "Senior Admin": "seniormin",
+    "Mentor": "mentor",
+    "Donator": "donator"
+}
