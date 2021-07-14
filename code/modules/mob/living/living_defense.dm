@@ -102,7 +102,7 @@
 			return 1
 	else
 		playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
-	..()
+	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 
 /mob/living/mech_melee_attack(obj/mecha/M)
