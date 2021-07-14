@@ -111,10 +111,9 @@
 	SIGNAL_HANDLER
 
 	if(powered(power_channel))
-		stat &= ~NOPOWER
+		set_machine_stat(machine_stat & ~NOPOWER)
 	else
-
-		stat |= NOPOWER
+		set_machine_stat(machine_stat | NOPOWER)
 	return
 
 // connect the machine to a powernet if a node cable is present on the turf

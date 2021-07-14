@@ -396,7 +396,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(..())
 		return
 
-	if(!usr.canUseTopic(src, !issilicon(usr)) || !is_operational())
+	if(!usr.canUseTopic(src, !issilicon(usr)) || !is_operational)
 		usr.unset_machine()
 		usr << browse(null, "window=id_com")
 		return
@@ -683,7 +683,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	updateUsrDialog()
 
 /obj/machinery/computer/card/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || !is_operational())
+	if(!user.canUseTopic(src, !issilicon(user)) || !is_operational)
 		return
 	if(scan)
 		eject_id_scan(user)

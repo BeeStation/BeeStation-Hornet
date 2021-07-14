@@ -222,7 +222,7 @@
 #define CANISTER_UPDATE_FULL		(1<<5)
 #define CANISTER_UPDATE_DANGER		(1<<6)
 /obj/machinery/portable_atmospherics/canister/update_icon()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		cut_overlays()
 		icon_state = "[icon_state]-1"
 		return
@@ -277,7 +277,7 @@
 
 /obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			canister_break()
 		if(disassembled)
 			new /obj/item/stack/sheet/iron (loc, 10)
@@ -289,7 +289,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return FALSE
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		if(!I.tool_start_check(user, amount=0))
 			return TRUE
 		to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
@@ -301,7 +301,7 @@
 	return TRUE
 
 /obj/machinery/portable_atmospherics/canister/obj_break(damage_flag)
-	if((stat & BROKEN) || (flags_1 & NODECONSTRUCT_1))
+	if((machine_stat & BROKEN) || (flags_1 & NODECONSTRUCT_1))
 		return
 	canister_break()
 
@@ -312,7 +312,7 @@
 	T.assume_air(expelled_gas)
 	air_update_turf()
 
-	stat |= BROKEN
+	set_machine_stat(machine_stat | BROKEN)
 	density = FALSE
 	playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
 	update_icon()
@@ -334,7 +334,7 @@
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	..()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return PROCESS_KILL
 	if(timing && valve_timer < world.time)
 		valve_open = !valve_open

@@ -315,7 +315,7 @@ SUBSYSTEM_DEF(shuttle)
 				continue
 		else if(istype(thing, /obj/machinery/computer/communications))
 			var/obj/machinery/computer/communications/C = thing
-			if(C.stat & BROKEN)
+			if(C.machine_stat & BROKEN)
 				continue
 
 		var/turf/T = get_turf(thing)

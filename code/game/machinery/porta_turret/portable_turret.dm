@@ -105,7 +105,7 @@
 	if(!anchored)
 		icon_state = "turretCover"
 		return
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "[base_icon_state]_broken"
 	else
 		if(powered())
@@ -240,22 +240,22 @@
 		update_icon()
 		remove_control()
 		return
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		update_icon()
 		remove_control()
 	else
 		if( powered() )
-			stat &= ~NOPOWER
+			set_machine_stat(machine_stat & ~NOPOWER)
 			update_icon()
 		else
 			spawn(rand(0, 15))
-				stat |= NOPOWER
+				set_machine_stat(machine_stat | NOPOWER)
 				remove_control()
 				update_icon()
 
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user, params)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		if(I.tool_behaviour == TOOL_CROWBAR)
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
@@ -355,8 +355,8 @@
 	qdel(src)
 
 /obj/machinery/porta_turret/obj_break(damage_flag)
-	if(!(flags_1 & NODECONSTRUCT_1) && !(stat & BROKEN))
-		stat |= BROKEN	//enables the BROKEN bit
+	if(!(flags_1 & NODECONSTRUCT_1) && !(machine_stat & BROKEN))
+		set_machine_stat(machine_stat | BROKEN)	//enables the BROKEN bit
 		power_change()
 		invisibility = 0
 		spark_system.start()	//creates some sparks because they look cool
@@ -367,14 +367,14 @@
 /obj/machinery/porta_turret/process()
 	//the main machinery process
 	if(cover == null && anchored)	//if it has no cover and is anchored
-		if(stat & BROKEN)	//if the turret is borked
+		if(machine_stat & BROKEN)	//if the turret is borked
 			qdel(cover)	//delete its cover, assuming it has one. Workaround for a pesky little bug
 		else
 			if(has_cover)
 				cover = new /obj/machinery/porta_turret_cover(loc)	//if the turret has no cover and is anchored, give it a cover
 				cover.parent_turret = src	//assign the cover its parent_turret, which would be this (src)
 
-	if(!on || (stat & (NOPOWER|BROKEN)))
+	if(!on || (machine_stat & (NOPOWER|BROKEN)))
 		return PROCESS_KILL
 	if(manual_control)
 		return PROCESS_KILL
@@ -462,7 +462,7 @@
 		return
 	if(raising || raised)
 		return
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	invisibility = 0
 	raising = 1
@@ -478,7 +478,7 @@
 /obj/machinery/porta_turret/proc/popDown()	//pops the turret down
 	if(raising || !raised)
 		return
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	layer = OBJ_LAYER
 	raising = 1
@@ -872,12 +872,12 @@
 
 /obj/machinery/turretid/examine(mob/user)
 	. += ..()
-	if(issilicon(user) && !(stat & BROKEN))
+	if(issilicon(user) && !(machine_stat & BROKEN))
 		. += "<span class='notice'>Ctrl-click [src] to [ enabled ? "disable" : "enable"] turrets.</span>\n"+\
 				"<span class='notice'>Alt-click [src] to set turrets to [ lethal ? "stun" : "kill"].</span>"
 
 /obj/machinery/turretid/attackby(obj/item/I, mob/user, params)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 
 	if(I.tool_behaviour == TOOL_MULTITOOL)
@@ -949,7 +949,7 @@
 		if("lock")
 			if(!usr.has_unlimited_silicon_privilege)
 				return
-			if((obj_flags & EMAGGED) || (stat & BROKEN))
+			if((obj_flags & EMAGGED) || (machine_stat & BROKEN))
 				to_chat(usr, "<span class='warning'>The turret control is unresponsive!</span>")
 				return
 			locked = !locked
@@ -993,7 +993,7 @@
 
 /obj/machinery/turretid/update_icon()
 	..()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		icon_state = "control_off"
 	else if (enabled)
 		if (lethal)

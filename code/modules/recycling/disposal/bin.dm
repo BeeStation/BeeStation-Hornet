@@ -162,7 +162,7 @@
 
 // monkeys and xenos can only pull the flush lever
 /obj/machinery/disposal/attack_paw(mob/user)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	flush = !flush
 	update_icon()
@@ -208,7 +208,7 @@
 
 // called when area power changes
 /obj/machinery/disposal/power_change()
-	..()	// do default setting/reset of stat NOPOWER bit
+	..()	// do default setting/reset of machine_stat NOPOWER bit
 	update_icon()	// update icon
 
 // called when holder is expelled from a disposal
@@ -285,7 +285,7 @@
 	return GLOB.notcontained_state
 
 /obj/machinery/disposal/bin/ui_interact(mob/user, datum/tgui/ui)
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -351,7 +351,7 @@
 
 /obj/machinery/disposal/bin/update_icon()
 	cut_overlays()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		pressure_charging = FALSE
 		flush = FALSE
 		return
@@ -361,7 +361,7 @@
 		add_overlay("dispover-handle")
 
 	//only handle is shown if no power
-	if(stat & NOPOWER || panel_open)
+	if(machine_stat & NOPOWER || panel_open)
 		return
 
 	//check for items in disposal - occupied light
@@ -381,7 +381,7 @@
 //timed process
 //charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/bin/process(delta_time)
-	if(stat & BROKEN) //nothing can happen if broken
+	if(machine_stat & BROKEN) //nothing can happen if broken
 		return
 
 	flush_count++
@@ -396,7 +396,7 @@
 	if(flush && air_contents.return_pressure() >= SEND_PRESSURE) // flush can happen even without power
 		do_flush()
 
-	if(stat & NOPOWER) // won't charge if no power
+	if(machine_stat & NOPOWER) // won't charge if no power
 		return
 
 	use_power(100) // base power usage

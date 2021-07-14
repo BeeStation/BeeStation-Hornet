@@ -65,7 +65,7 @@
 	if (panel_open)
 		icon_state = "RD-server-on_t"
 		return
-	if (stat & EMPED || stat & NOPOWER)
+	if (machine_stat & EMPED || machine_stat & NOPOWER)
 		icon_state = "RD-server-off"
 		return
 	if (research_disabled || overheated)
@@ -135,10 +135,10 @@
 
 	// If we are overheateed, start shooting out sparks
 	// don't shoot them if we have no power
-	if(overheated && !(stat & NOPOWER) && prob(40))
+	if(overheated && !(machine_stat & NOPOWER) && prob(40))
 		do_sparks(5, FALSE, src)
 
-	if(overheated || research_disabled || stat & EMPED || stat & NOPOWER)
+	if(overheated || research_disabled || machine_stat & EMPED || machine_stat & NOPOWER)
 		working = FALSE
 	else
 		working = TRUE
@@ -149,13 +149,12 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	stat |= EMPED
-	// Side note, make a little status screen on the server to show the reboot
+	set_machine_stat(machine_stat | EMPED)
 	addtimer(CALLBACK(src, .proc/unemp), 600)
 	refresh_working()
 
 /obj/machinery/rnd/server/proc/unemp()
-	stat &= ~EMPED
+	set_machine_stat(machine_stat & ~EMPED)
 	refresh_working()
 
 /obj/machinery/rnd/server/proc/toggle_disable()

@@ -12,6 +12,7 @@
 	layer = ABOVE_WINDOW_LAYER
 	state_open = FALSE
 	circuit = /obj/item/circuitboard/machine/cryo_tube
+	processing_flags = NONE
 
 
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
@@ -44,6 +45,8 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/Initialize()
 	. = ..()
 	initialize_directions = dir
+	if(is_operational)
+		begin_processing()
 
 	radio = new(src)
 	radio.keyslot = new radio_key
@@ -103,6 +106,13 @@
 		beaker.forceMove(drop_location())
 		beaker = null
 
+/obj/machinery/atmospherics/components/unary/cryo_cell/on_set_is_operational(old_value)
+	if(old_value) //Turned off
+		on = FALSE
+		end_processing()
+	else //Turned on
+		begin_processing()
+
 /obj/machinery/atmospherics/components/unary/cryo_cell/update_icon()
 
 	cut_overlays()
@@ -139,7 +149,7 @@
 		occupant_overlay.dir = SOUTH
 		occupant_overlay.pixel_y = 22
 
-		if(on && !running_anim && is_operational())
+		if(on && !running_anim && is_operational)
 			icon_state = "pod-on"
 			running_anim = TRUE
 			run_anim(TRUE, occupant_overlay)
@@ -148,7 +158,7 @@
 			add_overlay(occupant_overlay)
 			add_overlay("cover-off")
 
-	else if(on && is_operational())
+	else if(on && is_operational)
 		icon_state = "pod-on"
 		add_overlay("cover-on")
 	else
@@ -156,7 +166,7 @@
 		add_overlay("cover-off")
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/proc/run_anim(anim_up, image/occupant_overlay)
-	if(!on || !occupant || !is_operational())
+	if(!on || !occupant || !is_operational)
 		running_anim = FALSE
 		return
 	cut_overlays()
@@ -174,12 +184,9 @@
 	open_machine()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/process(delta_time)
-	if(!on)
-		return
+	..()
 
-	if(!is_operational())
-		on = FALSE
-		update_icon()
+	if(!on)
 		return
 
 	if(!occupant)//Won't operate unless there's an occupant.
