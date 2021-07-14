@@ -139,8 +139,8 @@
 /datum/outfit/plasmaman/atmospherics
 	name = "Atmospherics Plasmaman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/atmospherics
-	uniform = /obj/item/clothing/under/plasmaman/atmospherics
+	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics
+	uniform = /obj/item/clothing/under/plasmaman/engineering/atmospherics
 
 /datum/outfit/plasmaman/command
 	name = "Command Plasmamand"
