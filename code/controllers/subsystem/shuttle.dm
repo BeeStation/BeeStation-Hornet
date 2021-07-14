@@ -1,5 +1,9 @@
 #define MAX_TRANSIT_REQUEST_RETRIES 10
 
+#define DOCK_SUCCESSFUL 0
+#define DOCK_FAILURE_NOSHUTTLE 1
+#define DOCK_FAILURE_TO_COMPLY 2
+
 SUBSYSTEM_DEF(shuttle)
 	name = "Shuttle"
 	wait = 10
@@ -385,18 +389,18 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	if(!M)
-		return 1
+		return DOCK_FAILURE_NOSHUTTLE
 	var/obj/docking_port/stationary/dockedAt = M.get_docked()
 	var/destination = dockHome
 	if(dockedAt && dockedAt.id == dockHome)
 		destination = dockAway
 	if(timed)
 		if(M.request(getDock(destination)))
-			return 2
+			return DOCK_FAILURE_TO_COMPLY
 	else
 		if(M.initiate_docking(getDock(destination)) != DOCKING_SUCCESS)
-			return 2
-	return 0	//dock successful
+			return DOCK_FAILURE_TO_COMPLY
+	return DOCK_SUCCESSFUL
 
 
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed)
@@ -404,14 +408,16 @@ SUBSYSTEM_DEF(shuttle)
 	var/obj/docking_port/stationary/D = getDock(dockId)
 
 	if(!M)
-		return 1
+		return DOCK_FAILURE_NOSHUTTLE	//invalid shuttle
+	if (!M.check_exile_pass())
+		return DOCK_FAILURE_TO_COMPLY	//unable to comply
 	if(timed)
 		if(M.request(D))
-			return 2
+			return DOCK_FAILURE_TO_COMPLY
 	else
 		if(M.initiate_docking(D) != DOCKING_SUCCESS)
-			return 2
-	return 0	//dock successful
+			return DOCK_FAILURE_TO_COMPLY
+	return DOCK_SUCCESSFUL	//dock successful
 
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))

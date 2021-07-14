@@ -53,6 +53,9 @@
 		if(M.launch_status == ENDGAME_LAUNCHED)
 			to_chat(usr, "<span class='warning'>You've already escaped. Never going back to that place again!</span>")
 			return
+		if(!M.check_exile_pass())
+			say("Error! Exile implant detected on passengers! Transit locked!")
+			return
 		if(no_destination_swap)
 			if(M.mode == SHUTTLE_RECHARGING)
 				to_chat(usr, "<span class='warning'>Shuttle engines are not ready for use.</span>")
@@ -64,7 +67,7 @@
 			log_admin("[usr] attempted to forge a target location through a href exploit on [src]")
 			message_admins("[ADMIN_FULLMONTY(usr)] attempted to forge a target location through a href exploit on [src]")
 			return
-		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1))
+		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1, !(obj_flags & EMAGGED)))
 			if(0)
 				say("Shuttle departing. Please stand away from the doors.")
 			if(1)
@@ -78,6 +81,9 @@
 	req_access = list()
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+	//Hack - break shuttle safeties
+	var/obj/docking_port/mobile/gulagshuttle = SSshuttle.getShuttle(shuttleId)
+	gulagshuttle?.secure = FALSE
 
 /obj/machinery/computer/shuttle/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	if(port && (shuttleId == initial(shuttleId) || override))

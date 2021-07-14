@@ -30,6 +30,7 @@
 	var/area_type
 	///are we invisible to shuttle navigation computers?
 	var/hidden = FALSE
+	var/secure = TRUE
 
 	///Delete this port after ship fly off.
 	var/delete_after = FALSE
@@ -358,8 +359,8 @@
 
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
-/obj/docking_port/mobile/proc/canMove()
-	return TRUE
+/obj/docking_port/mobile/proc/canMove()	
+	return check_exile_pass()
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
@@ -558,6 +559,22 @@
 		. = initiate_docking(port)
 	else
 		. = null
+
+/obj/docking_port/mobile/proc/check_exile_pass()
+	if (!secure || is_station_level(z))
+		return TRUE
+	
+	for(var/mob/living/L in GLOB.alive_mob_list)
+		if(!istype(L))
+			continue
+		var/obj/item/implant/exile/E = locate() in L.implants
+		if(!E)
+			continue
+		var/area/larea = get_area(L)
+		for(var/place in shuttle_areas)
+			if (larea == place)
+				return FALSE
+	return TRUE
 
 /obj/effect/landmark/shuttle_import
 	name = "Shuttle Import"
