@@ -266,3 +266,20 @@ get_true_breath_pressure(pp) --> gas_pp = pp/breath_pp*total_moles()
 		return TRUE
 	return FALSE
 
+/datum/gas_mixture/proc/equalize(datum/gas_mixture/other)
+	. = FALSE
+	if(abs(return_temperature() - other.return_temperature()) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
+		. = TRUE
+		var/new_temp = (return_temperature() * heat_capacity() + other.return_temperature() * other.heat_capacity()) / (heat_capacity() + other.heat_capacity())
+		set_temperature(new_temp)
+		other.set_temperature(new_temp)
+	
+	var/min_p_delta = 0.1
+	var/total_volume = return_volume() + other.return_volume()
+	var/list/gas_list = get_gases() | other.get_gases()
+	for(var/I in gas_list)
+		if(abs(get_moles(I) / return_volume() - other.get_moles(I) / other.return_volume()) > min_p_delta / (R_IDEAL_GAS_EQUATION * return_temperature()))
+			. = TRUE
+			var/total_moles = get_moles(I) + other.get_moles(I)
+			set_moles(I, total_moles * (return_volume()/total_volume))
+			other.set_moles(I, total_moles * (other.return_volume()/total_volume))
