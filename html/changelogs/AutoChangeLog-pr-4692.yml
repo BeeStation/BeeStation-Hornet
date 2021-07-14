@@ -1,0 +1,4 @@
+author: MNarath1
+delete-after: true
+changes:
+  - bugfix: fixes ai multicamera mode turn static
