@@ -29,6 +29,7 @@
 
 	var/triggering	//admin cancellation
 	var/auto_add = TRUE				//Auto add to the event pool, if not you have to do it yourself!
+	var/can_malf_fake_alert = FALSE	//Can be faked by malf ai?
 
 
 	var/dynamic_should_hijack = FALSE	// Whether or not dynamic should hijack this event
