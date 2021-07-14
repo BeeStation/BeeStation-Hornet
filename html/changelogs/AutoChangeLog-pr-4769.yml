@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - tweak: DNA saboteur can no longer give positive mutations
