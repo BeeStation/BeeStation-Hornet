@@ -1184,7 +1184,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	obj_flags |= EMAGGED
 
 /obj/machinery/computer/arcade/orion_trail/Destroy()
-	qdel(Radio)
+	QDEL_NULL(Radio)
 	. = ..()
 
 /mob/living/simple_animal/hostile/syndicate/ranged/smg/orion
