@@ -589,4 +589,16 @@
 	for(var/i in implants)
 		group.register(i)
 	desc += " The implants are registered to the \"[group.name]\" group."
-  
+
+//it needs to be linked, hence a kit.
+/obj/item/storage/box/syndie_kit/spyninjakit
+	name = "spider clan espionage kit"
+	desc = "Contains a pair of glasses with in-built camera, and an attached spybug ninja start that can emblem itself for a long duration."
+
+/obj/item/storage/box/syndie_kit/spyninjakit/PopulateContents()
+	//items
+	var/obj/item/throwing_star/spy_bug/newbug = new(src)
+	var/obj/item/clothing/glasses/sunglasses/spy/chameleon/newglasses = new (src)
+	//datum
+	var/datum/spybug/spy_bug_component = newbug.bug
+	spy_bug_component.link_spyglasses_to_spybug(newglasses,newbug)
