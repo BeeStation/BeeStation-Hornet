@@ -536,6 +536,9 @@
 	show_in_roundend = FALSE //These are here for admin tracking purposes only
 	you_are_greet = FALSE
 
+/datum/antagonist/changeling/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_CHANGELING,GLOB.directory[ckey(owner.key)])
+
 /datum/antagonist/changeling/roundend_report()
 	var/list/parts = list()
 

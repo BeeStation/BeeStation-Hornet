@@ -106,6 +106,9 @@
 /datum/antagonist/obsessed/roundend_report_header()
 	return 	"<span class='header'>Someone became obsessed!</span><br>"
 
+/datum/antagonist/obsessed/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_OBSESSED,GLOB.directory[ckey(owner.key)])
+
 /datum/antagonist/obsessed/roundend_report()
 	var/list/report = list()
 

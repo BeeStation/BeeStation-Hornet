@@ -233,6 +233,9 @@ GLOBAL_LIST(admin_antag_list)
 /datum/antagonist/proc/get_admin_commands()
 	. = list()
 
+/datum/antagonist/proc/give_medal() //override in specific antag datum to give a medal on greentext
+	return
+
 /datum/antagonist/Topic(href,href_list)
 	if(!check_rights(R_ADMIN))
 		return

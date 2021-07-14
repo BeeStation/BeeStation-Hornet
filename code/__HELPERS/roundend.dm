@@ -129,7 +129,8 @@
 					var/client/C = GLOB.directory[ckey(A.owner.key)]
 					if (C)
 						greentexters |= C
-
+					A.give_medal()
+					
 	for (var/client/C in greentexters)
 		C.process_greentext()
 

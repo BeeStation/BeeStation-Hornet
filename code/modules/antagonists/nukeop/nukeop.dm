@@ -257,6 +257,9 @@
 	send_to_spawnpoint = FALSE
 	nukeop_outfit = /datum/outfit/syndicate/no_crystals
 
+/datum/antagonist/nukeop/give_medal()
+	SSmedals.UnlockMedal(MEDAL_GREEN_NUCLEAR,GLOB.directory[ckey(owner.key)])
+
 /datum/team/nuclear
 	var/syndicate_name
 	var/obj/machinery/nuclearbomb/tracked_nuke
