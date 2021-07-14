@@ -164,7 +164,7 @@
 
 /datum/supply_pack/emergency/internals
 	name = "Internals Crate"
-	desc = "Master your life energy and control your breathing with four breath masks, three emergency oxygen tanks and three large air tanks."//IS THAT A
+	desc = "Master your life energy and control your breathing with four breath masks, four emergency oxygen tanks and four large air tanks."//IS THAT A
 	cost = 800
 	contains = list(/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
