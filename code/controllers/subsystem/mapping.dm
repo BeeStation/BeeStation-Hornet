@@ -70,6 +70,8 @@ SUBSYSTEM_DEF(mapping)
 	repopulate_sorted_areas()
 	process_teleport_locs()			//Sets up the wizard teleport locations
 	preloadTemplates()
+	run_map_generation()
+
 #ifndef LOWMEMORYMODE
 	// Create space ruin levels
 	while (space_levels_so_far < config.space_ruin_levels)
@@ -280,7 +282,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	for(var/area/A in GLOB.sortedAreas)
 		if (is_type_in_typecache(A, station_areas_blacklist))
 			continue
-		if (!A.contents.len || !A.unique)
+		if (!A.contents.len || !(A.area_flags & UNIQUE_AREA))
 			continue
 		var/turf/picked = A.contents[1]
 		if (is_station_level(picked.z))
@@ -288,6 +290,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 	if(!GLOB.the_station_areas.len)
 		log_world("ERROR: Station areas list failed to generate!")
+
+/datum/controller/subsystem/mapping/proc/run_map_generation()
+	for(var/area/A in world)
+		A.RunGeneration()
 
 /datum/controller/subsystem/mapping/proc/maprotate()
 	if(map_voted)

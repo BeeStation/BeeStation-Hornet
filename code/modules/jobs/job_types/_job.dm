@@ -16,7 +16,7 @@
 	var/list/head_announce = null
 
 	//Bitflags for the job
-	var/flag = NONE //Deprecated
+	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/department_flag = NONE //Deprecated
 	var/auto_deadmin_role_flags = NONE
 
