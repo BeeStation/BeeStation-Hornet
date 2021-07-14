@@ -289,9 +289,13 @@
 	icon_state = "bustin-g"
 	item_state = "bustin-g"
 	flash_protect = 1
-	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_INVISVIEW
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	glass_colour_type = /datum/client_colour/glass_colour/green
 	var/ghost_vision
+
+/obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
+	. = ..()
+	ghost_vision = AddComponent(/datum/component/team_monitor, "ghost", 1)
 
 /obj/item/clothing/glasses/welding/ghostbuster/visor_toggling()
 	..()
