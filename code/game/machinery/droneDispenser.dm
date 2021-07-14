@@ -47,6 +47,7 @@
 
 	var/break_message = "lets out a tinny alarm before falling dark."
 	var/break_sound = 'sound/machines/warning-buzzer.ogg'
+	var/drones_produced = 0
 
 /obj/machinery/droneDispenser/Initialize()
 	. = ..()
@@ -72,6 +73,12 @@
 	desc = "A suspicious machine that will create Syndicate exterminator drones when supplied with iron and glass. Disgusting. This one seems ominous."
 	dispense_type = /obj/effect/mob_spawn/drone/syndrone/badass
 	end_create_message = "dispenses an ominous suspicious drone shell."
+
+/obj/machinery/droneDispenser/objective
+	iron_cost = 5000
+	glass_cost = 2000
+	power_used = 2500
+	starting_amount = 0
 
 // I don't need your forgiveness, this is awesome.
 /obj/machinery/droneDispenser/snowflake
@@ -168,6 +175,7 @@
 				use_power(power_used)
 
 			var/atom/A = new dispense_type(loc)
+			drones_produced++
 			A.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)
 
 			if(create_sound)
