@@ -86,7 +86,7 @@
 							user.mind.memory += "<li>Conspirator: [M.name]</li>"
 						user.mind.memory += "</ul>"
 		user.mind.memory += "<b>That's all [target] had.</b><BR>"
-		user.memory() //I can read your mind, kekeke. Output all their notes.
+		user.mind.show_memory(src, 1, TRUE) //I can read your mind, kekeke. Output all their notes.
 
 		//Some of target's recent speech, so the changeling can attempt to imitate them better.
 		//Recent as opposed to all because rounds tend to have a LOT of text.
