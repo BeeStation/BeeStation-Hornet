@@ -82282,14 +82282,11 @@
 /area/crew_quarters/toilet/restrooms)
 "cIa" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/vomit/old,
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
+/obj/machinery/recharge_station,
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/restrooms)
 "cIb" = (
