@@ -757,3 +757,30 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/lawyer
 	icon_state = "lawyer"
+
+/obj/item/card/id/pass
+	name = "promotion pass"
+	desc = "A card that, when swiped on your ID card, will grant you all the access. Should not substitute your actual ID card."
+	icon_state = "data_1"
+	registered_name = "Unregistered ID"
+	assignment = "Access Pass"
+
+/obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if(istype(target,/obj/item/card/id) && proximity)
+		var/obj/item/card/id/idcard = target
+		for(var/ac in access)
+			idcard.access |= ac
+		if(assignment!=initial(assignment))
+			idcard.assignment = assignment
+		if(name!=initial(name))
+			idcard.name = name
+		to_chat(user, "You upgrade your [idcard] with the [name].")
+		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
+		qdel(src)
+
+/obj/item/card/id/pass/minisec
+	name = "deputy promotion card"
+	desc = "A small card, that when used on an ID, will grant basic security access, and the job title of 'Deputy.' You can wear it if you really need to."
+	assignment = "Deputy"
+	access = list(ACCESS_SEC_DOORS,ACCESS_MAINT_TUNNELS,ACCESS_COURT,ACCESS_BRIG,ACCESS_WEAPONS)
