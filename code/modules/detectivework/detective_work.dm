@@ -100,3 +100,18 @@
 	A.add_fingerprint_list(return_fingerprints())
 	A.add_hiddenprint_list(return_hiddenprints())
 	A.fingerprintslast = fingerprintslast
+
+/obj/item/card/assistant_disguise_card
+	name = "assistant disguise card"
+	desc = "A small card, that when used on any ID, will change the job role to Assistant whilst retaining current access."
+	icon_state = "data_1"
+
+/obj/item/card/assistant_disguise_card/afterattack(atom/movable/AM, mob/user, proximity)
+	. = ..()
+	if(istype(AM, /obj/item/card/id) && proximity)
+		var/obj/item/card/id/I = AM
+		I.assignment = "Assistant"
+		I.update_label()
+		to_chat(user, "You have disguised this ID as an Assistant ID.")
+		log_id("[key_name(user)] disguised the ID '[I]' as Assistant using [src] at [AREACOORD(user)].")
+		qdel(src) 

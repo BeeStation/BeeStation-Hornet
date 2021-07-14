@@ -180,6 +180,9 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = null
 
+/obj/item/clothing/mask/gas/voicechange
+	vchange = 1
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/mask/gas/tiki_mask/ui_action_click(mob/user)
 	var/mob/M = usr

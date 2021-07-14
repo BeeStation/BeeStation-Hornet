@@ -449,6 +449,10 @@
 /obj/item/dnainjector/removeantiglow
 	name = "\improper DNA injector (Anti-Antiglowy)"
 	remove_mutations = list(ANTIGLOWY)
+	
+/obj/item/dnainjector/privatedick
+	name = "The Extra Edge (Olfaction, Chav, Colorblind)"
+	add_mutations = list(OLFACTION,NOIR,CHAV)
 
 /obj/item/dnainjector/timed
 	var/duration = 600
