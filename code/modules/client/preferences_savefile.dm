@@ -69,6 +69,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		S.dir.Remove("overhead_chat")
 	if(current_version < 35)
 		see_balloon_alerts = BALLOON_ALERT_ALWAYS
+	if(current_version < 35)
+		clientfps = 60
 	return
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
