@@ -217,6 +217,35 @@
 	var/busy = FALSE 	//Something's being washed at the moment
 	var/dispensedreagent = /datum/reagent/water // for whenever plumbing happens
 
+
+/obj/structure/sinkframe
+	name = "sink frame"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "sink_frame"
+	desc = "A sink frame, that needs a water recycler to finish construction."
+	anchored = FALSE
+
+/obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stack/sheet/plastic))
+		balloon_alert(user, "You start constructing the sink")
+		if(do_after(user, 4 SECONDS, target = src))
+			I.use(1)
+			balloon_alert(user, "Sink created")
+			var/obj/structure/sink/new_sink = new /obj/structure/sink(loc)
+			new_sink.setDir(dir)
+			qdel(src)
+			return
+	return ..()
+
+/obj/structure/sinkframe/Initialize()
+	. = ..()
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+
+/obj/structure/sinkframe/proc/can_be_rotated(mob/user, rotation_type)
+	if(anchored)
+		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
+	return !anchored
+
 /obj/structure/sink/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
