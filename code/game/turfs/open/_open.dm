@@ -63,9 +63,10 @@
 	heavyfootstep = null
 	var/sound
 
-/turf/open/indestructible/sound/Entered(var/mob/AM)
-	..()
-	if(istype(AM))
+/turf/open/indestructible/sound/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+
+	if(istype(arrived) && !(arrived.movement_type & (FLYING|FLOATING)))
 		playsound(src,sound,50,1)
 
 /turf/open/indestructible/necropolis

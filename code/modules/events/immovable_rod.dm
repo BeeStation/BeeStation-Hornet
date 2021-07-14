@@ -74,17 +74,19 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	else if(end && end.z==z_original)
 		walk_towards(src, destination, 1)
 
+/obj/effect/immovablerod/Destroy()
+	GLOB.poi_list -= src
+	. = ..()
+
 /obj/effect/immovablerod/Topic(href, href_list)
 	if(href_list["orbit"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			ghost.ManualFollow(src)
 
-/obj/effect/immovablerod/Destroy()
-	GLOB.poi_list -= src
-	. = ..()
-
 /obj/effect/immovablerod/Moved()
+	if(!loc)
+		return ..()
 	if((z != z_original) || (loc == destination))
 		qdel(src)
 	if(special_target && loc == get_turf(special_target))

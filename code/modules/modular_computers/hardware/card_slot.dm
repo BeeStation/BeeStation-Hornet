@@ -9,10 +9,10 @@
 	var/obj/item/card/id/stored_card = null
 	var/obj/item/card/id/stored_card2 = null
 
-/obj/item/computer_hardware/card_slot/Exited(atom/A, atom/newloc)
-	if(A == stored_card)
+/obj/item/computer_hardware/card_slot/Exited(atom/movable/gone, direction)
+	if(gone == stored_card)
 		try_eject(1, null, TRUE)
-	if(A == stored_card2)
+	if(gone == stored_card2)
 		try_eject(2, null, TRUE)
 	return ..()
 

@@ -112,7 +112,7 @@
 
 /datum/material/bananium/on_applied(atom/source, amount, material_flags)
 	. = ..()
-	source.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50)
+	source.LoadComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'=1), 50)
 	source.AddComponent(/datum/component/slippery, min(amount / 10, 80))
 
 /datum/material/bananium/on_removed(atom/source, amount, material_flags)

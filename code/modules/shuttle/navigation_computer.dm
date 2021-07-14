@@ -280,8 +280,8 @@
 	src.origin = origin
 	return ..()
 
-/mob/camera/ai_eye/remote/shuttle_docker/setLoc(T)
-	..()
+/mob/camera/ai_eye/remote/shuttle_docker/setLoc(destination)
+	. = ..()
 	var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 	console.checkLandingSpot()
 

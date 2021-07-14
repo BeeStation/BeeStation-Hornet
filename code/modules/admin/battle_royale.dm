@@ -398,12 +398,19 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	icon = 'icons/effects/fields.dmi'
 	icon_state = "projectile_dampen_generic"
 
-/obj/effect/death_wall/Crossed(atom/movable/AM, oldloc)
+/obj/effect/death_wall/Initialize()
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/death_wall/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 	//lol u died
 	if(isliving(AM))
 		var/mob/living/M = AM
-		M.gib()
+		INVOKE_ASYNC(M, /mob/living/carbon.proc/gib)
 		to_chat(M, "<span class='warning'>You left the zone!</span>")
 
 /obj/effect/death_wall/Moved(atom/OldLoc, Dir)

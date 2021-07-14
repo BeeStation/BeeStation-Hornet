@@ -139,8 +139,6 @@
 		B.damage = (B.damage/2)
 	return 1
 
-
-
 /datum/effect_system/smoke_spread/bad
 	effect_type = /obj/effect/particle_effect/smoke/bad
 
