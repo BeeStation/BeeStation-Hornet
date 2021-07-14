@@ -53,7 +53,7 @@
 		if(M.launch_status == ENDGAME_LAUNCHED)
 			to_chat(usr, "<span class='warning'>You've already escaped. Never going back to that place again!</span>")
 			return
-		if(!(obj_flags & EMAGGED) && !M.check_exile_pass())
+		if(!M.check_exile_pass())
 			say("Error! Exile implant detected on passengers! Transit locked!")
 			return
 		if(no_destination_swap)

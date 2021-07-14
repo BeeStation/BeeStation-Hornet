@@ -359,8 +359,8 @@
 
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
-/obj/docking_port/mobile/proc/canMove()
-	return TRUE
+/obj/docking_port/mobile/proc/canMove()	
+	return check_exile_pass()
 
 //this is to check if this shuttle can physically dock at dock S
 /obj/docking_port/mobile/proc/canDock(obj/docking_port/stationary/S)
@@ -453,9 +453,6 @@
 	if((SSshuttle.lockdown && is_station_level(z)) || !canMove())	//emp went off, no escape
 		mode = SHUTTLE_IDLE
 		return
-	if (!check_exile_pass())
-		mode = SHUTTLE_IDLE
-		return		
 	previous = null
 	if(!destination)
 		// sent to transit with no destination -> unlimited timer
