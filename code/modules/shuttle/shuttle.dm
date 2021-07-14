@@ -30,6 +30,7 @@
 	var/area_type
 	///are we invisible to shuttle navigation computers?
 	var/hidden = FALSE
+	var/secure = TRUE
 
 	///Delete this port after ship fly off.
 	var/delete_after = FALSE
@@ -452,6 +453,9 @@
 	if((SSshuttle.lockdown && is_station_level(z)) || !canMove())	//emp went off, no escape
 		mode = SHUTTLE_IDLE
 		return
+	if (!check_exile_pass())
+		mode = SHUTTLE_IDLE
+		return		
 	previous = null
 	if(!destination)
 		// sent to transit with no destination -> unlimited timer
@@ -560,7 +564,7 @@
 		. = null
 
 /obj/docking_port/mobile/proc/check_exile_pass()
-	if (is_station_level(z))
+	if (!secure || is_station_level(z))
 		return TRUE
 	
 	for(var/mob/living/L in GLOB.alive_mob_list)
