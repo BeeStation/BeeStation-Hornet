@@ -389,18 +389,17 @@
 	var/locker_suck = TRUE
 
 
-/obj/item/projectile/magic/locker/prehit(atom/A)
+/obj/item/projectile/magic/locker/prehit_pierce(atom/A)
+	. = ..()
 	if(isliving(A) && locker_suck)
 		var/mob/living/M = A
-		if(M.anti_magic_check())
+		if(M.anti_magic_check())			// no this doesn't check if ..() returned to phase through do I care no it's magic ain't gotta explain shit
 			M.visible_message("<span class='warning'>[src] vanishes on contact with [A]!</span>")
-			qdel(src)
-			return
+			return PROJECTILE_DELETE_WITHOUT_HITTING
 		if(M.incorporeal_move || M.mob_size > MOB_SIZE_HUMAN || LAZYLEN(contents)>=5)
-			return ..()
+			return
 		M.forceMove(src)
-		return FALSE
-	return ..()
+		return PROJECTILE_PIERCE_PHASE
 
 /obj/item/projectile/magic/locker/on_hit(target)
 	if(created)

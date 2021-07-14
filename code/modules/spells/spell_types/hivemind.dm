@@ -871,10 +871,11 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/forcefield/wizard/hive/CanPass(atom/movable/mover, turf/target)
+/obj/effect/forcefield/wizard/hive/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(mover == wizard)
 		return TRUE
-	return  FALSE
+	return FALSE
 
 /obj/effect/forcefield/wizard/hive/invis
 	icon = null

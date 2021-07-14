@@ -37,20 +37,19 @@
 	else
 		return ..()
 
-/obj/structure/barricade/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
+/obj/structure/barricade/CanAllowThrough(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
+	. = ..()
 	if(locate(/obj/structure/barricade) in get_turf(mover))
-		return 1
+		return TRUE
 	else if(istype(mover, /obj/item/projectile))
 		if(!anchored)
-			return 1
+			return TRUE
 		var/obj/item/projectile/proj = mover
 		if(proj.firer && Adjacent(proj.firer))
-			return 1
+			return TRUE
 		if(prob(proj_pass_rate))
-			return 1
-		return 0
-	else
-		return !density
+			return TRUE
+		return FALSE
 
 
 
@@ -96,7 +95,6 @@
 /obj/structure/barricade/wooden/make_debris()
 	new /obj/item/stack/sheet/mineral/wood(get_turf(src), drop_amount)
 
-
 /obj/structure/barricade/sandbags
 	name = "sandbags"
 	desc = "Bags of sand. Self explanatory."
@@ -104,12 +102,11 @@
 	icon_state = "sandbags"
 	max_integrity = 280
 	proj_pass_rate = 20
-	pass_flags = LETPASSTHROW
+	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
 	climbable = TRUE
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/barricade/sandbags, /turf/closed/wall, /turf/closed/wall/r_wall, /obj/structure/falsewall, /obj/structure/falsewall/reinforced, /turf/closed/wall/rust, /turf/closed/wall/r_wall/rust, /obj/structure/barricade/security)
-
 
 /obj/structure/barricade/security
 	name = "security barrier"

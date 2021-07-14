@@ -76,7 +76,8 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/CanPass(atom/A, turf/target)
+/mob/living/simple_animal/hostile/floor_cluwne/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	return TRUE
 
 
