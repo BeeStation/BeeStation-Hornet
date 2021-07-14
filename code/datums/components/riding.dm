@@ -31,6 +31,7 @@
 /datum/component/riding/proc/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
 	SIGNAL_HANDLER
 
+	unequip_buckle_inhands(parent)
 	var/atom/movable/AM = parent
 	restore_position(M)
 	unequip_buckle_inhands(M)
