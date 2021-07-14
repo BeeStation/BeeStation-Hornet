@@ -63,6 +63,13 @@
 			return .
 		if(type in SP.advanced_surgeries)
 			return TRUE
+	if(ishuman(user))
+		var/mob/living/carbon/human/R = user
+		var/obj/item/healthanalyzer/advanced/adv = R.is_holding_item_of_type(/obj/item/healthanalyzer/advanced)
+		if(!adv || (replaced_by in adv.advanced_surgeries))
+			return .
+		if(type in adv.advanced_surgeries)
+			return TRUE
 
 
 	var/turf/T = get_turf(target)
