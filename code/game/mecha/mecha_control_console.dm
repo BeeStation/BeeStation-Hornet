@@ -124,11 +124,12 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_tracking/try_attach_part(mob/user, obj/mecha/M)
-	if(!..())
-		return
-	M.trackers += src
-	M.diag_hud_set_mechtracking()
-	chassis = M
+	if(do_mob(user,M,15))
+		if(!..())
+			return
+		M.trackers += src
+		M.diag_hud_set_mechtracking()
+		chassis = M
 
 /**
   * Attempts to EMP mech that the tracker is attached to, if there is one and tracker is not on cooldown

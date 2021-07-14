@@ -48,7 +48,7 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/try_attach_part(mob/user, obj/mecha/M)
-	if(can_attach(M))
+	if(can_attach(M) && do_mob(user,M,15))
 		if(!user.temporarilyRemoveItemFromInventory(src))
 			return FALSE
 		attach(M)
