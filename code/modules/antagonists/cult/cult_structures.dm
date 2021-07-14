@@ -185,7 +185,7 @@
 					L.blood_volume += 1.0
 			else if(isshade(L) || isconstruct(L))
 				var/mob/living/simple_animal/M = L
-				M.adjustHealth(-1.5*delta_time)
+				M.adjustHealth(-15*delta_time)
 			CHECK_TICK
 	if(last_corrupt <= world.time)
 		var/list/validturfs = list()
