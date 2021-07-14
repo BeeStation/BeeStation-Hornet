@@ -43,6 +43,7 @@
 		return
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You override the authentication mechanism.</span>")
+	investigate_log("emagged by [key_name(user)]", INVESTIGATE_RECORDS)
 
 /obj/item/firing_pin/proc/gun_insert(mob/living/user, obj/item/gun/G)
 	gun = G
@@ -166,21 +167,19 @@
 	. = ..()
 	if(proximity_flag && iscarbon(target))
 		var/mob/living/carbon/M = target
-		if(M.dna && M.dna.unique_enzymes)
+		if(M?.dna?.unique_enzymes)
 			unique_enzymes = M.dna.unique_enzymes
 			to_chat(user, "<span class='notice'>DNA-LOCK SET.</span>")
 
 /obj/item/firing_pin/dna/pin_auth(mob/living/carbon/user)
-	if(user && user.dna && user.dna.unique_enzymes)
-		if(user.dna.unique_enzymes == unique_enzymes)
-			return TRUE
+	if(unique_enzymes && ((obj_flags & EMAGGED) || user?.dna?.unique_enzymes == unique_enzymes)) //First check is in case they're both null
+		return TRUE
 	return FALSE
 
 /obj/item/firing_pin/dna/auth_fail(mob/living/carbon/user)
-	if(!unique_enzymes)
-		if(user?.dna?.unique_enzymes)
-			unique_enzymes = user.dna.unique_enzymes
-			to_chat(user, "<span class='notice'>DNA-LOCK SET.</span>")
+	if(!unique_enzymes && user?.dna?.unique_enzymes)
+		unique_enzymes = user.dna.unique_enzymes
+		to_chat(user, "<span class='notice'>DNA-LOCK SET.</span>")
 	else
 		..()
 

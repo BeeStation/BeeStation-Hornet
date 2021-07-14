@@ -277,6 +277,11 @@
 /obj/item/gun/proc/recharge_newshot()
 	return
 
+/obj/item/gun/emag_act(mob/user)
+	if(pin)
+		pin.emag_act(user)
+	..()
+
 /obj/item/gun/proc/process_burst(mob/living/user, atom/target, message = TRUE, params=null, zone_override = "", sprd = 0, randomized_gun_spread = 0, randomized_bonus_spread = 0, rand_spr = 0, iteration = 0)
 	if(!user || !firing_burst)
 		firing_burst = FALSE

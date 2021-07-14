@@ -81,6 +81,7 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 					playsound(D, 'sound/machines/boltsup.ogg', 50, TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, get_security_level())
 		SSnightshift.check_nightshift()
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SECURITY_LEVEL, level)
 	else
 		return
 

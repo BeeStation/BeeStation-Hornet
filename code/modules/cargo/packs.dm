@@ -308,12 +308,12 @@
 	crate_name = "armor crate"
 
 /datum/supply_pack/security/disabler
-	name = "Disabler Crate"
-	desc = "Three stamina-draining disabler weapons. Requires Security access to open."
+	name = "Energy Pistol Crate"
+	desc = "Three energy pistols. Requires Security access to open."
 	cost = 1500
-	contains = list(/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler,
-					/obj/item/gun/energy/disabler)
+	contains = list(/obj/item/gun/energy/energypistol,
+					/obj/item/gun/energy/energypistol,
+					/obj/item/gun/energy/energypistol)
 	crate_name = "disabler crate"
 
 /datum/supply_pack/security/dumdum
