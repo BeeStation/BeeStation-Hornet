@@ -293,3 +293,24 @@
 	..()
 	for(var/i in 1 to 5)
 		new /obj/item/coin/silver(src)
+
+/obj/structure/closet/crate/maint
+
+/obj/structure/closet/crate/maint/PopulateContents()
+	. = ..()
+	for(var/i in 1 to rand(2,4))
+		new /obj/effect/spawner/lootdrop/maintenance(src)
+
+/obj/structure/closet/crate/trashcart/Initialize()
+	. = ..()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_SLUDGE, CELL_VIRUS_TABLE_GENERIC, rand(2,3), 15)
+
+/obj/structure/closet/crate/trashcart/filled
+
+/obj/structure/closet/crate/trashcart/filled/PopulateContents()
+	. = ..()
+	for(var/i in 1 to rand(7,15))
+		new /obj/effect/spawner/lootdrop/garbage_spawner(src)
+		if(prob(12))
+			new	/obj/item/storage/bag/trash/filled(src)
+	new /obj/effect/spawner/scatter/grime(loc)

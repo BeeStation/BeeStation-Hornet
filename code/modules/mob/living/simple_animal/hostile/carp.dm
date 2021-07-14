@@ -38,12 +38,22 @@
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
 
+/mob/living/simple_animal/hostile/carp/Initialize(mapload)
+	. = ..()
+	add_cell_sample()
+
+/mob/living/simple_animal/hostile/carp/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_CARP, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
+
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
+
+/mob/living/simple_animal/hostile/carp/holocarp/add_cell_sample()
+	return
 
 /mob/living/simple_animal/hostile/carp/megacarp
 	icon = 'icons/mob/broadMobs.dmi'
@@ -69,6 +79,10 @@
 	melee_damage += rand(10,20) //this is on initialize so even with rng the damage will be consistent
 	maxHealth += rand(30,60)
 	move_to_delay = rand(3,7)
+	//AddElement(/datum/element/swabable, CELL_LINE_TABLE_MEGACARP, CELL_VIRUS_TABLE_GENERIC_MOB) -- commented for now, need to test it
+
+/mob/living/simple_animal/hostile/carp/megacarp/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_MEGACARP, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 /mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()

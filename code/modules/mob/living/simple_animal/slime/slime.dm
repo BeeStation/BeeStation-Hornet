@@ -112,6 +112,7 @@
 	set_nutrition(SLIME_DEFAULT_NUTRITION)
 	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
 		set_playable()
+	add_cell_sample()
 
 /mob/living/simple_animal/slime/Destroy()
 	set_target(null)
@@ -533,6 +534,9 @@
 
 /mob/living/simple_animal/slime/get_spawner_flavour_text()
 	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+
+/mob/living/simple_animal/slime/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_SLIME, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
 
 /mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2

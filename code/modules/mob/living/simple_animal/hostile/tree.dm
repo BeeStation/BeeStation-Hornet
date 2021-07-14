@@ -39,6 +39,10 @@
 	del_on_death = TRUE
 	hardattacks = TRUE
 
+/mob/living/simple_animal/hostile/tree/Initialize()
+	. = ..()
+	add_cell_sample()
+
 /mob/living/simple_animal/hostile/tree/Life()
 	..()
 	if(isopenturf(loc))
@@ -51,6 +55,9 @@
 					T.air.adjust_moles(/datum/gas/carbon_dioxide, -amt)
 					T.atmos_spawn_air("o2=[amt]")
 
+/mob/living/simple_animal/hostile/tree/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_PINE, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 5)
+
 /mob/living/simple_animal/hostile/tree/festivus
 	name = "festivus pole"
 	desc = "Serenity now... SERENITY NOW!"
@@ -61,3 +68,6 @@
 	loot = list(/obj/item/stack/rods)
 	speak_emote = list("polls")
 	faction = list()
+
+/mob/living/simple_animal/hostile/tree/festivus/add_cell_sample()
+	return

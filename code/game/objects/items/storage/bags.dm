@@ -64,6 +64,14 @@
 		icon_state = "[initial(icon_state)]2"
 	else icon_state = "[initial(icon_state)]3"
 
+/obj/item/storage/bag/trash/filled
+
+/obj/item/storage/bag/trash/filled/PopulateContents()
+	. = ..()
+	for(var/i in 1 to rand(1, 7))
+		new /obj/effect/spawner/lootdrop/garbage_spawner(src)
+	update_icon_state()
+
 /obj/item/storage/bag/trash/cyborg
 	insertable = FALSE
 

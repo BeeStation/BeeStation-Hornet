@@ -304,6 +304,14 @@
 		G.use(1)
 		return
 
+	if(istype(O, /obj/item/petri_dish))
+		var/obj/item/petri_dish/PD = O
+		if(PD.sample)
+			to_chat(user, "<span class='notice'>You wash the sample out of [src].</span>")
+			PD.sample = null
+			PD.update_overlays()
+		return
+
 	if(!istype(O))
 		return
 	if(O.item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.

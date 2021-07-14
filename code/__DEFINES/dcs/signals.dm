@@ -417,6 +417,9 @@
 //Heretics stuff
 #define COMSIG_HUMAN_VOID_MASK_ACT "void_mask_act"
 
+// /datum/component/swabbing signals
+#define COMSIG_SWAB_FOR_SAMPLES "swab_for_samples" ///Called when you try to swab something using the swabable component, includes a mutable list of what has been swabbed so far so it can be modified.
+#define COMPONENT_SWAB_FOUND (1<<0)
 // Component signals
 /// From /datum/port/output/set_output: (output_value)
 #define COMSIG_PORT_SET_OUTPUT "port_set_output"

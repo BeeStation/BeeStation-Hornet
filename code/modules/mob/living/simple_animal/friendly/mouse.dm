@@ -43,6 +43,10 @@
 	if(prob(75))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, rand(3,4))
 		ratdisease += R
+	add_cell_sample()
+
+/mob/living/simple_animal/mouse/add_cell_sample()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_MOUSE, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 10)
 
 /mob/living/simple_animal/mouse/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 	if(!ratdisease.len)
@@ -135,6 +139,9 @@
 	foodtype = GROSS | MEAT | RAW
 	grind_results = list(/datum/reagent/blood = 20, /datum/reagent/liquidgibs = 5)
 
+/obj/item/reagent_containers/food/snacks/deadmouse/Initialize()
+	. = ..()
+	AddElement(/datum/element/swabable, CELL_LINE_TABLE_MOUSE, CELL_VIRUS_TABLE_GENERIC_MOB, 1, 10)
 
 /obj/item/reagent_containers/food/snacks/deadmouse/attackby(obj/item/I, mob/user, params)
 	if(I.is_sharp() && user.a_intent == INTENT_HARM)
