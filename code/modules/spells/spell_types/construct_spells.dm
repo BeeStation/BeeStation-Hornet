@@ -240,9 +240,7 @@
 	addtimer(CALLBACK(src, .proc/cure_blindness, target), 40)
 	target.adjust_bodytemperature(-200)
 
-/obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/target)
-	if(isliving(target))
-		var/mob/living/L = target
+/obj/effect/proc_holder/spell/targeted/abyssal_gaze/proc/cure_blindness(mob/living/L)
 		L.cure_blind(MAGIC_BLIND)
 
 /obj/effect/proc_holder/spell/targeted/dominate

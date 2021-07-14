@@ -16,13 +16,13 @@
 
 
 /obj/effect/proc_holder/spell/targeted/blind/cast(list/targets, mob/user = usr)
-	if(!targets.len)
+	if(!length(targets))
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
 	
 	var/mob/living/carbon/target = targets[1]
 
-	if(!is_type_in_typecache(target, compatible_mobs_typecache))
+	if(!compatible_mobs_typecache[target.type])
 		to_chat(user, "<span class='notice'>You are unable to curse [target] with blindness!</span>")
 		return
 	
@@ -42,6 +42,5 @@
 	target.become_blind(MAGIC_BLIND)
 	addtimer(CALLBACK(src, .proc/cure_blindness, target), duration)
 
-/obj/effect/proc_holder/spell/targeted/blind/proc/cure_blindness(mob/target)
-	var/mob/living/L = target
+/obj/effect/proc_holder/spell/targeted/blind/proc/cure_blindness(mob/living/L)
 	L.cure_blind(MAGIC_BLIND)
