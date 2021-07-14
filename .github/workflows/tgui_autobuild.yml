@@ -1,0 +1,110 @@
+name: Rebuild TGUI
+
+on:
+  issue_comment:
+    types: [created]
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'tgui/**.js'
+      - 'tgui/**.scss'
+
+# Config
+env:
+  REPO_PATH: 'BeeStation/BeeStation-Hornet'
+  COMMIT_NAME: 'Actions (TGUI Rebuild)'
+  COMMIT_EMAIL: 'action@github.com'
+  DEFAULT_BRANCH: 'master'
+  TOKEN: '${{ secrets.CL_TOKEN }}'
+
+jobs:
+  ondemand_rebuild:
+    if: ${{ github.event_name == 'issue_comment' }}
+    name: TGUI On-Demand Rebuild
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Comment
+        # Org members and repo collaborators can request tgui rebuild, as well as the PR author.
+        if: ${{ github.event.issue.pull_request && github.event.comment.author_association == 'OWNER' || github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'COLLABORATOR' || github.event.comment.user.login == github.event.issue.user.login }}
+        uses: khan/pull-request-comment-trigger@bb03972cc9f423111f3b5a23fcc9fd32741acabb # minimize security issues and compatability changes by pulling specific commit
+        id: check
+        with:
+          trigger: '?rebuild'
+          reaction: rocket
+
+      - name: Identify PR
+        if: steps.check.outputs.triggered == 'true'
+        id: prid
+        run: |
+          git config --local user.email "${{ env.COMMIT_EMAIL }}"
+          git config --local user.name "${{ env.COMMIT_NAME }}"
+          echo "::set-output name=json::$(hub api repos/${{ env.REPO_PATH }}/pulls/${{ github.event.issue.number }})"
+
+      - name: Checkout
+        if: steps.check.outputs.triggered == 'true'
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ fromJson(steps.prid.outputs.json).head.repo.full_name }}
+          ref: ${{ fromJson(steps.prid.outputs.json).head.ref }}
+          fetch-depth: 25
+          token: ${{ env.TOKEN }}
+
+      - name: Setup Node
+        if: steps.check.outputs.triggered == 'true'
+        uses: actions/setup-node@v1
+        with:
+          node-version: '>=12.13'
+
+      # This only runs if the PR has a merge conflict. Serves to attempt resolving merge conflicts rather than just rebuilding.
+      # Uses a smart little git hack to make a merge commit for just a limited set of files.
+      - name: Conflict Resolution
+        if: ${{ steps.check.outputs.triggered == 'true' && fromJson(steps.prid.outputs.json).mergeable == false }}
+        run: |
+          git remote add base https://github.com/${{ env.REPO_PATH }}.git
+          git fetch base --depth=25 ${{ env.DEFAULT_BRANCH }}
+          git merge -s ours --no-commit base/${{ env.DEFAULT_BRANCH }}
+          git checkout base/${{ env.DEFAULT_BRANCH }} tgui/public
+          git commit -m "TGUI Reset" -a || true
+
+      - name: Build TGUI
+        if: steps.check.outputs.triggered == 'true'
+        run: bin/tgui
+        working-directory: ./tgui
+
+      - name: Commit and Push Build
+        if: steps.check.outputs.triggered == 'true'
+        run: |
+          git commit -m "TGUI Rebuild" -a || true
+          git push
+
+  auto_rebuild:
+    if: ${{ github.event_name == 'push' }}
+    name: TGUI Automatic Rebuild
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 25
+          token: ${{ env.TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '>=12.13'
+
+      - name: Build TGUI
+        run: bin/tgui
+        working-directory: ./tgui
+
+      - name: Commit Artifacts
+        run: |
+          git config --local user.email "${{ env.COMMIT_EMAIL }}"
+          git config --local user.name "${{ env.COMMIT_NAME }}"
+          git pull origin ${{ env.DEFAULT_BRANCH }}
+          git commit -m "Automatic TGUI Rebuild [ci skip]" -a || true
+
+      - name: Push
+        run: |
+          git push origin
