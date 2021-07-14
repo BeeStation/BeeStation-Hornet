@@ -37,6 +37,7 @@
 	var/construction_type
 	var/pipe_state //icon_state as a pipe item
 	var/on = FALSE
+	var/interacts_with_air = FALSE
 
 /obj/machinery/atmospherics/examine(mob/user)
 	. = ..()
@@ -55,7 +56,10 @@
 		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70, "stamina" = 0)
 	..()
 	if(process)
-		SSair.atmos_machinery += src
+		if(interacts_with_air)
+			SSair.atmos_air_machinery += src
+		else
+			SSair.atmos_machinery += src
 	SetInitDirections()
 
 /obj/machinery/atmospherics/Destroy()
@@ -63,6 +67,7 @@
 		nullifyNode(i)
 
 	SSair.atmos_machinery -= src
+	SSair.atmos_air_machinery -= src
 	SSair.pipenets_needing_rebuilt -= src
 
 	dropContents()

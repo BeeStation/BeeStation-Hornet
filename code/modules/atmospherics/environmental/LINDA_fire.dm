@@ -13,27 +13,20 @@
 	if(!air)
 		return
 
-	var/oxy = air.get_moles(/datum/gas/oxygen)
-	if (oxy < 0.5)
+	if (air.get_oxidation_power(exposed_temperature) < 0.5)
 		return
-	var/tox = air.get_moles(/datum/gas/plasma)
-	var/trit = air.get_moles(/datum/gas/tritium)
+	var/has_fuel = air.get_moles(GAS_PLASMA) > 0.5 || air.get_moles(GAS_TRITIUM) > 0.5 || air.get_fuel_amount(exposed_temperature) > 0.5
 	if(active_hotspot)
 		if(soh)
-			if(tox > 0.5 || trit > 0.5)
+			if(has_fuel)
 				if(active_hotspot.temperature < exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
 					active_hotspot.volume = exposed_volume
 		return
 
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && (tox > 0.5 || trit > 0.5))
-
+	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && has_fuel)
 		active_hotspot = new /obj/effect/hotspot(src, exposed_volume*25, exposed_temperature)
-
-		active_hotspot.just_spawned = (current_cycle < SSair.times_fired)
-			//remove just_spawned protection if no longer processing this cell
-		SSair.add_to_active(src, 0)
 
 //This is the icon for fire on turfs, also helps for nurturing small fires until they are full tile
 /obj/effect/hotspot
@@ -48,7 +41,6 @@
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
-	var/just_spawned = TRUE
 	var/bypassing = FALSE
 	var/visual_update_tick = 0
 
@@ -70,7 +62,7 @@
 
 	location.active_hotspot = src
 
-	bypassing = !just_spawned && (volume > CELL_VOLUME*0.95) || location.air.return_temperature() > FUSION_TEMPERATURE_THRESHOLD
+	bypassing = volume > CELL_VOLUME*0.95 || location.air.return_temperature() > FUSION_TEMPERATURE_THRESHOLD
 
 	if(bypassing)
 		volume = location.air.reaction_results["fire"]*FIRE_GROWTH_RATE
@@ -150,10 +142,6 @@
 
 #define INSUFFICIENT(path) (location.air.get_moles(path) < 0.5)
 /obj/effect/hotspot/process()
-	if(just_spawned)
-		just_spawned = FALSE
-		return
-
 	var/turf/open/location = loc
 	if(!istype(location))
 		qdel(src)
@@ -164,13 +152,7 @@
 	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
 		qdel(src)
 		return
-	if(!location.air || (INSUFFICIENT(/datum/gas/plasma) && INSUFFICIENT(/datum/gas/tritium)) || INSUFFICIENT(/datum/gas/oxygen))
-		qdel(src)
-		return
-
-	//Not enough to burn
-	// god damn it previous coder you made the INSUFFICIENT macro for a fucking reason why didn't you use it here smh
-	if((INSUFFICIENT(/datum/gas/plasma) && INSUFFICIENT(/datum/gas/tritium)) || INSUFFICIENT(/datum/gas/oxygen))
+	if(!location.air || location.air.get_oxidation_power() < 0.5 || (INSUFFICIENT(GAS_PLASMA) && INSUFFICIENT(GAS_TRITIUM) && location.air.get_fuel_amount() < 0.5))
 		qdel(src)
 		return
 

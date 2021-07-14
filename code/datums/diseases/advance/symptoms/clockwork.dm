@@ -123,8 +123,10 @@
 				if(ORGAN_SLOT_LUNGS)
 					var/obj/item/organ/lungs/clockwork/organ = new()
 					if(robustbits)
-						organ.safe_toxins_max = 15
-						organ.safe_co2_max = 15
+						organ.gas_max = list(
+							GAS_PLASMA = 15,
+							GAS_CO2 = 15,
+						)
 						organ.SA_para_min = 15
 						organ.SA_sleep_min = 15
 						organ.BZ_trip_balls_min = 15

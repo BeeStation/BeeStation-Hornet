@@ -11,8 +11,8 @@
 
 /obj/structure/transit_tube_pod/Initialize()
 	. = ..()
-	air_contents.set_moles(/datum/gas/oxygen, MOLES_O2STANDARD)
-	air_contents.set_moles(/datum/gas/nitrogen, MOLES_N2STANDARD)
+	air_contents.set_moles(GAS_O2, MOLES_O2STANDARD)
+	air_contents.set_moles(GAS_N2, MOLES_N2STANDARD)
 	air_contents.set_temperature(T20C)
 
 
@@ -164,8 +164,23 @@
 /obj/structure/transit_tube_pod/assume_air(datum/gas_mixture/giver)
 	return air_contents.merge(giver)
 
+/obj/structure/transit_tube_pod/assume_air_moles(datum/gas_mixture/giver, moles)
+	return giver.transfer_to(air_contents, moles)
+
+/obj/structure/transit_tube_pod/assume_air_ratio(datum/gas_mixture/giver, ratio)
+	return giver.transfer_ratio_to(air_contents, ratio)
+
 /obj/structure/transit_tube_pod/remove_air(amount)
 	return air_contents.remove(amount)
+
+/obj/structure/transit_tube_pod/remove_air_ratio(ratio)
+	return air_contents.remove_ratio(ratio)
+
+/obj/structure/transit_tube_pod/transfer_air(datum/gas_mixture/taker, moles)
+	return air_contents.transfer_to(taker, moles)
+
+/obj/structure/transit_tube_pod/transfer_air_ratio(datum/gas_mixture/taker, ratio)
+	return air_contents.transfer_ratio_to(taker, ratio)
 
 /obj/structure/transit_tube_pod/relaymove(mob/mob, direction)
 	if(istype(mob) && mob.client)

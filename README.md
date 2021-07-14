@@ -167,8 +167,6 @@ See the footers of code/\_\_DEFINES/server\_tools.dm, code/modules/server\_tools
 
 All assets including icons and sound are under a [Creative Commons 3.0 BY-SA license](https://creativecommons.org/licenses/by-sa/3.0/) unless otherwise indicated.
 
-byond-extools.dll is licensed under MIT. See MIT.txt for more details.
-
 # Other Codebase Credits
 - /tg/, for the codebase.
 - CEV Eris, for the PDA sprites

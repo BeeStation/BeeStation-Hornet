@@ -137,18 +137,16 @@
 	baseturfs = /turf/open/indestructible/airblock
 
 /turf/open/Initalize_Atmos(times_fired)
-	set_excited(FALSE)
+	if(!blocks_air)
+		if(!istype(air,/datum/gas_mixture/turf))
+			air = new(2500,src)
+		air.copy_from_turf(src)
+		update_air_ref(planetary_atmos ? 1 : 2)
+
 	update_visuals()
 
-	current_cycle = times_fired
 	ImmediateCalculateAdjacentTurfs()
-	for(var/i in atmos_adjacent_turfs)
-		var/turf/open/enemy_tile = i
-		var/datum/gas_mixture/enemy_air = enemy_tile.return_air()
-		if(!get_excited() && air.compare(enemy_air))
-			//testing("Active turf found. Return value of compare(): [is_active]")
-			set_excited(TRUE)
-			SSair.active_turfs |= src
+
 
 /turf/open/proc/GetHeatCapacity()
 	. = air.heat_capacity()
@@ -244,8 +242,8 @@
 
 /turf/open/rad_act(pulse_strength)
 	. = ..()
-	if (air.get_moles(/datum/gas/carbon_dioxide) && air.get_moles(/datum/gas/oxygen))
-		pulse_strength = min(pulse_strength,air.get_moles(/datum/gas/carbon_dioxide)*1000,air.get_moles(/datum/gas/oxygen)*2000) //Ensures matter is conserved properly
-		air.set_moles(/datum/gas/carbon_dioxide, max(air.get_moles(/datum/gas/carbon_dioxide)-(pulse_strength/1000),0))
-		air.set_moles(/datum/gas/oxygen, max(air.get_moles(/datum/gas/oxygen)-(pulse_strength/2000),0))
-		air.adjust_moles(/datum/gas/pluoxium, pulse_strength/4000)
+	if (air.get_moles(GAS_CO2) && air.get_moles(GAS_O2))
+		pulse_strength = min(pulse_strength,air.get_moles(GAS_CO2)*1000,air.get_moles(GAS_O2)*2000) //Ensures matter is conserved properly
+		air.set_moles(GAS_CO2, max(air.get_moles(GAS_CO2)-(pulse_strength/1000),0))
+		air.set_moles(GAS_O2, max(air.get_moles(GAS_O2)-(pulse_strength/2000),0))
+		air.adjust_moles(GAS_PLUOXIUM, pulse_strength/4000)
