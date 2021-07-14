@@ -1,0 +1,5 @@
+author: Phil Smith
+delete-after: true
+changes:
+  - imageadd: Gives the circuit multitool its own sprite instead of it having the
+      same sprite as the normal multitool.
