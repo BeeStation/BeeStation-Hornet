@@ -291,10 +291,14 @@
 	flash_protect = 1
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_INVISVIEW
 	glass_colour_type = /datum/client_colour/glass_colour/green
+	var/ghost_vision
 
-/obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/team_monitor, "ghost", 1)
+/obj/item/clothing/glasses/welding/ghostbuster/visor_toggling()
+	..()
+	if(ghost_vision)
+		QDEL_NULL(ghost_vision)
+	else
+		ghost_vision = AddComponent(/datum/component/team_monitor, "ghost", 1)
 
 /obj/item/clothing/glasses/blindfold
 	name = "blindfold"
