@@ -1,5 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - rscadd: Captain skirt
-  - bugfix: Cargo skirt now works properly with digitigrade legs

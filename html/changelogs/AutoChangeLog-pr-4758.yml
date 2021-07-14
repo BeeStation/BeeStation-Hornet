@@ -1,5 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - admin: added logging for antimatter
-  - admin: grouped singulo, antimatter and supermatter logs into one
