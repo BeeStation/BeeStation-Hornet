@@ -25,3 +25,22 @@
 			to_chat(usr, "<span class='warning'>Shuttle is already at the outpost!</span>")
 			return 0
 	..()
+	
+	
+/obj/docking_port/mobile/laborshuttle
+	id = "laborcamp";
+	name = "labor camp shuttle";
+	
+/obj/docking_port/mobile/laborshuttle/canMove()
+	if (!is_station_level(z))	
+		var/nWorkers = 0
+		for(var/mob/living/carbon/human/happy_worker in GLOB.alive_mob_list)
+			if(!istype(happy_worker))	//type check
+				continue		
+			var/area/larea = get_area(happy_worker) //area check
+			for(var/place in shuttle_areas)
+				if (larea == place)
+					nWorkers++
+			if (nWorkers>1)
+				return FALSE
+	return ..()

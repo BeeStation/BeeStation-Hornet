@@ -92,12 +92,10 @@
 	id_tag = "prisonshuttle";
 	name = "Labor Shuttle Airlock"
 	},
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/laborshuttle{
 	dir = 8;
 	dwidth = 2;
 	height = 5;
-	id = "laborcamp";
-	name = "labor camp shuttle";
 	port_direction = 4;
 	width = 8
 	},
