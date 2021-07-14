@@ -412,6 +412,11 @@
 	icon_state = "renault_hoodie"
 	flags_inv = HIDEEARS
 
+/obj/item/clothing/suit/retro_jacket
+	name = "retro jacket"
+	desc = "Do you like hurting other people?"
+	icon_state = "retro_jacket"
+
 /*
  * Misc
  */
