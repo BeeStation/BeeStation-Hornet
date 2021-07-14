@@ -261,7 +261,8 @@
 		else if(pod.growclone(C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mindref"], C.fields["last_death"], C.fields["mrace"], C.fields["features"], C.fields["factions"], C.fields["quirks"], C.fields["bank_account"], C.fields["traumas"], C.fields["body_only"]))
 			temp = "Notice: [C.fields["name"]] => Cloning cycle in progress..."
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-			records.Remove(C)
+			if(!C.fields["body_only"])
+				records.Remove(C)
 		else
 			temp = "Error: [C.fields["name"]] => Initialisation failure."
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 50, 0)
