@@ -190,10 +190,7 @@
 				heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
 
 	if(!heirloom_type)
-		heirloom_type = pick(
-		/obj/item/toy/cards/deck,
-		/obj/item/lighter,
-		/obj/item/dice/d20)
+		heirloom_type = /obj/item/artifact
 	heirloom = new heirloom_type(get_turf(quirk_holder))
 	var/list/slots = list(
 		"in your left pocket" = ITEM_SLOT_LPOCKET,

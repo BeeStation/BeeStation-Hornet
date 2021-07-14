@@ -2819,6 +2819,14 @@
 	crate_type = /obj/structure/closet/crate/wooden
 	crate_name = "calligraphy crate"
 
+/datum/supply_pack/misc/antiques
+	name = "Antique Crate"
+	desc = "Contains three old, dusty antiques for eager collectors."
+	cost = 2000
+	contains = list(/obj/item/artifact/posessed,/obj/item/artifact/posessed,/obj/item/artifact/posessed)
+	crate_name = "antique crate"
+	crate_type = /obj/structure/closet/crate/wooden
+
 /datum/supply_pack/misc/wrapping_paper
 	name = "Festive Wrapping Paper Crate"
 	desc = "Want to mail your loved ones gift-wrapped chocolates, stuffed animals, the Clown's severed head? You can do all that, with this crate full of wrapping paper."
