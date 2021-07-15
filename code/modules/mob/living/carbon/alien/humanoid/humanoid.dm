@@ -16,51 +16,26 @@
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
 	var/sneaking = 0 //For sneaky-sneaky mode and appropriate slowdown
-	var/drooling = 0 //For Neruotoxic spit overlays
+	var/drooling = 0 //For Neurotoxic spit overlays
 	deathsound = 'sound/voice/hiss6.ogg'
 	bodyparts = list(/obj/item/bodypart/chest/alien, /obj/item/bodypart/head/alien, /obj/item/bodypart/l_arm/alien,
 					 /obj/item/bodypart/r_arm/alien, /obj/item/bodypart/r_leg/alien, /obj/item/bodypart/l_leg/alien)
 
+GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
+	/datum/strippable_item/hand/left,
+	/datum/strippable_item/hand/right,
+	/datum/strippable_item/mob_item_slot/handcuffs,
+	/datum/strippable_item/mob_item_slot/legcuffs,
+	/datum/strippable_item/mob_item_slot/pocket/left,
+	/datum/strippable_item/mob_item_slot/pocket/right
+)))
+
+/mob/living/carbon/alien/humanoid/Initialize()
+	. = ..()
+	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 
 /mob/living/carbon/alien/humanoid/restrained(ignore_grab)
 	return handcuffed
-
-/mob/living/carbon/alien/humanoid/show_inv(mob/user)
-	user.set_machine(src)
-	var/list/dat = list()
-	dat += {"
-	<HR>
-	<span class='big bold'>[name]</span>
-	<HR>"}
-	for(var/i in 1 to held_items.len)
-		var/obj/item/I = get_item_for_held_index(i)
-		dat += "<BR><B>[get_held_index_name(i)]:</B><A href='?src=[REF(src)];item=[ITEM_SLOT_HANDS];hand_index=[i]'>[(I && !(I.item_flags & ABSTRACT)) ? I : "<font color=grey>Empty</font>"]</a>"
-	dat += "<BR><A href='?src=[REF(src)];pouches=1'>Empty Pouches</A>"
-
-	if(handcuffed)
-		dat += "<BR><A href='?src=[REF(src)];item=[ITEM_SLOT_HANDCUFFED]'>Handcuffed</A>"
-	if(legcuffed)
-		dat += "<BR><A href='?src=[REF(src)];item=[ITEM_SLOT_LEGCUFFED]'>Legcuffed</A>"
-
-	dat += {"
-	<BR>
-	<BR><A href='?src=[REF(user)];mach_close=mob[REF(src)]'>Close</A>
-	"}
-	user << browse(dat.Join(), "window=mob[REF(src)];size=325x500")
-	onclose(user, "mob[REF(src)]")
-
-
-/mob/living/carbon/alien/humanoid/Topic(href, href_list)
-	//strip panel
-	if(href_list["pouches"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
-		visible_message("<span class='danger'>[usr] tries to empty [src]'s pouches.</span>", \
-						"<span class='userdanger'>[usr] tries to empty your pouches.</span>")
-		if(do_mob(usr, src, POCKET_STRIP_DELAY * 0.5))
-			dropItemToGround(r_store)
-			dropItemToGround(l_store)
-
-	..()
-
 
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I)
 	playsound(src, 'sound/voice/hiss5.ogg', 40, 1, 1)  //Alien roars when starting to break free

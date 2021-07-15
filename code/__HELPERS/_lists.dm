@@ -9,7 +9,7 @@
  * Misc
  */
 
-#define LAZYINITLIST(L) if (!L) L = list()
+#define LAZYINITLIST(L) if (!L) { L = list(); }
 #define UNSETEMPTY(L) if (L && !length(L)) L = null
 #define LAZYCOPY(L) (L ? L.Copy() : list() )
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!length(L)) { L = null; } }
@@ -28,6 +28,12 @@
 #define LAZYREMOVEASSOC(L, K, V) if(L) { if(L[K]) { L[K] -= V; if(!length(L[K])) L -= K; } if(!length(L)) L = null; }
 #define LAZYACCESSASSOC(L, I, K) L ? L[I] ? L[I][K] ? L[I][K] : null : null : null
 #define QDEL_LAZYLIST(L) for(var/I in L) qdel(I); L = null;
+
+/// Performs an insertion on the given lazy list with the given key and value. If the value already exists, a new one will not be made.
+#define LAZYORASSOCLIST(lazy_list, key, value) \
+	LAZYINITLIST(lazy_list); \
+	LAZYINITLIST(lazy_list[key]); \
+	lazy_list[key] |= value;
 
 /// Passed into BINARY_INSERT to compare keys
 #define COMPARE_KEY __BIN_LIST[__BIN_MID]
