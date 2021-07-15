@@ -65,6 +65,11 @@
 	W.setDir(dir)
 	qdel(src)
 
+/obj/structure/chair/ratvar_act()
+	var/obj/structure/chair/brass/B = new(get_turf(src))
+	B.setDir(dir)
+	qdel(src)
+
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
 		W.play_tool_sound(src)
@@ -384,6 +389,9 @@
 	setDir(direction)
 	playsound(src, 'sound/effects/servostep.ogg', 50, FALSE)
 	return FALSE
+
+/obj/structure/chair/brass/ratvar_act()
+	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
 	turns = 0
