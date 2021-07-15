@@ -22,14 +22,21 @@ export const Stack = (props, context) => {
     return item.title;
   });
 
-  function filterRecipes(recipes, searchText) {
+  const filterRecipes = (recipes, searchText) => {
     return recipes
-     .filter(recipe => recipe.title !== undefined)
-     .map(recipe => recipe.sub_recipes ? { "title": recipe.title, "sub_recipes": filterRecipes(recipe.sub_recipes, searchText) } : recipe)
-     .filter(recipe => recipe.sub_recipes ? recipe.sub_recipes.length > 0 : testSearch(recipe))
-  }
+      .filter(recipe => recipe.title !== undefined)
+      .map(recipe => recipe.sub_recipes 
+        ? { 
+          "title": recipe.title, 
+          "sub_recipes": filterRecipes(recipe.sub_recipes, searchText),
+        } 
+        : recipe)
+      .filter(recipe => recipe.sub_recipes 
+        ? recipe.sub_recipes.length > 0 
+        : testSearch(recipe));
+  };
 
-  const doSearch = searchText.length > 0
+  const doSearch = searchText.length > 0;
 
   const items = doSearch
    && filterRecipes(recipes, searchText)
@@ -77,9 +84,11 @@ const RecipeList = (props, context) => {
     expand,
   } = props;
 
-  const display_recipes = do_sort ?
-    sortBy(recipe => recipe.title.toLowerCase())(recipes.filter(recipe => recipe.title !== undefined)) :
-    recipes
+  const display_recipes = do_sort
+    ? sortBy(recipe => recipe.title.toLowerCase())(
+      recipes.filter(recipe => recipe.title !== undefined)
+    )
+    : recipes;
 
   return display_recipes.map(recipe => {
     if (recipe.spacer) {
@@ -93,7 +102,11 @@ const RecipeList = (props, context) => {
           title={recipe.title}
           open={expand}>
           <Box ml={1}>
-            <RecipeList recipes={recipe.sub_recipes} do_sort={do_sort} expand={expand} />
+            <RecipeList
+              recipes={recipe.sub_recipes}
+              do_sort={do_sort}
+              expand={expand}
+            />
           </Box>
         </Collapsible>
       );
