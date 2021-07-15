@@ -171,7 +171,7 @@
 		var/datum/bank_account/account = bogdanoff.get_bank_account()
 		if (account) // get_bank_account() may return FALSE
 			account.transfer_money(B, amount)
-			B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src).name].")
+			B.bank_card_talk("You have lost [percentage_lost * 100]% of your funds! A spacecoin credit deposit machine is located at: [get_area(src)].")
 	addtimer(CALLBACK(src, .proc/dump), 150) //Drain every 15 seconds
 
 /obj/structure/checkoutmachine/process()
