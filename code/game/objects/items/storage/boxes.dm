@@ -1254,6 +1254,8 @@
 /obj/item/storage/box/deputy
 	name = "box of deputy armbands"
 	desc = "To be issued to those authorized to act as deputy of security."
+	icon_state = "secbox"
+	illustration = "depband"
 
 /obj/item/storage/box/deputy/PopulateContents()
 	for(var/i in 1 to 4)
