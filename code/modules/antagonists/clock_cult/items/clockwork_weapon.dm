@@ -56,7 +56,7 @@
 	force += force_buff
 	. = ..()
 	force -= force_buff
-	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(major=FALSE) && ISWIELDED(src))
+	if(!QDELETED(target) && target.stat != DEAD && !is_servant_of_ratvar(target) && !target.anti_magic_check(major=FALSE))
 		hit_effect(target, user)
 
 /obj/item/clockwork/weapon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -99,6 +99,8 @@
 	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=28, block_power_wielded=25)
 
 /obj/item/clockwork/weapon/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
+	if(!ISWIELDED(src))
+		return
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, thrown ? 2 : 1, 4)
 
@@ -112,15 +114,33 @@
 	armour_penetration = 12
 	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
 	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse while on Reebe."
-	var/emp_cooldown = 0
+	COOLDOWN_DECLARE(emp_cooldown)
 
 /obj/item/clockwork/weapon/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)
-	if(world.time > emp_cooldown)
-		target.emp_act(EMP_LIGHT)
-		emp_cooldown = world.time + 300
-		addtimer(CALLBACK(src, .proc/send_message, user), 300)
-		to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
-		playsound(user, 'sound/magic/lightningshock.ogg', 40)
+	if(!COOLDOWN_FINISHED(src, emp_cooldown))
+		return
+	COOLDOWN_START(src, emp_cooldown, 30 SECONDS)
+
+	target.emp_act(EMP_LIGHT)
+	new /obj/effect/temp_visual/emp/pulse(target.loc)
+	addtimer(CALLBACK(src, .proc/send_message, user), 30 SECONDS)
+	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
+	playsound(user, 'sound/magic/lightningshock.ogg', 40)
+
+/obj/item/clockwork/weapon/brass_sword/attack_obj(obj/O, mob/living/user)
+	..()
+	if(!(istype(O, /obj/mecha) && is_reebe(user.z)))
+		return
+	if(!COOLDOWN_FINISHED(src, emp_cooldown))
+		return
+	COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
+
+	var/obj/mecha/target = O
+	target.emp_act(EMP_HEAVY)
+	new /obj/effect/temp_visual/emp/pulse(target.loc)
+	addtimer(CALLBACK(src, .proc/send_message, user), 20 SECONDS)
+	to_chat(user, "<span class='brass'>You strike [target] with an electromagnetic pulse!</span>")
+	playsound(user, 'sound/magic/lightningshock.ogg', 40)
 
 /obj/item/clockwork/weapon/brass_sword/proc/send_message(mob/living/target)
 	to_chat(target, "<span class='brass'>[src] glows, indicating the next attack will disrupt electronics of the target.</span>")
