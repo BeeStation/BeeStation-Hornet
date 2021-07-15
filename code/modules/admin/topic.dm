@@ -2062,7 +2062,7 @@
 			return
 		var/turf/T = get_turf(tear.old_loc)
 		message_admins("The items consumed by the BoH tear at [ADMIN_VERBOSEJMP(T)] were retrieved by [key_name_admin(usr)].")
-		tear.investigate_log("Items consumed at [AREACOORD(T)] retrieved by [key_name(usr)].", INVESTIGATE_SINGULO)
+		tear.investigate_log("Items consumed at [AREACOORD(T)] retrieved by [key_name(usr)].", INVESTIGATE_ENGINES)
 		tear.retrieve_consumed_items()
 
 	else if(href_list["beakerpanel"])
