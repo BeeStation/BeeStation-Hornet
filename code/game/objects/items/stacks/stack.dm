@@ -106,13 +106,22 @@
   */
 /obj/item/stack/proc/recursively_build_recipes(list/recipe_to_iterate)
 	var/list/L = list()
+	L.len = recipe_to_iterate.len
+	var/i = 1
 	for(var/recipe in recipe_to_iterate)
+		if(isnull(recipe))
+			L[i++] = list(
+				"spacer" = TRUE
+			)
 		if(istype(recipe, /datum/stack_recipe_list))
 			var/datum/stack_recipe_list/R = recipe
-			L["[R.title]"] = recursively_build_recipes(R.recipes)
+			L[i++] = list(
+				"title" = R.title,
+				"sub_recipes" = recursively_build_recipes(R.recipes),
+			)
 		if(istype(recipe, /datum/stack_recipe))
 			var/datum/stack_recipe/R = recipe
-			L["[R.title]"] = build_recipe(R)
+			L[i++] = build_recipe(R)
 	return L
 
 /**
@@ -123,6 +132,7 @@
   */
 /obj/item/stack/proc/build_recipe(datum/stack_recipe/R)
 	return list(
+		"title" = R.title,
 		"res_amount" = R.res_amount,
 		"max_res_amount" = R.max_res_amount,
 		"req_amount" = R.req_amount,

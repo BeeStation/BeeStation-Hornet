@@ -19,19 +19,16 @@ export const Stack = (props, context) => {
   ] = useLocalState(context, 'searchText', '');
 
   const testSearch = createSearch(searchText, item => {
-    return item;
+    return item.title;
   });
 
   const items = searchText.length > 0
-   && Object.keys(recipes)
+   && recipes
+     .filter(recipe => recipe.title !== undefined)
      .filter(testSearch)
-     .reduce((obj, key) => {
-       obj[key] = recipes[key];
-       return obj;
-     }, {})
     || recipes;
 
-  const height = Math.max(94 + Object.keys(recipes).length * 26, 250);
+  const height = Math.max(94 + recipes.length * 26, 250);
 
   return (
     <Window
@@ -71,25 +68,26 @@ const RecipeList = (props, context) => {
     recipes,
   } = props;
 
-  const sortedKeys = sortBy(key => key.toLowerCase())(Object.keys(recipes));
-
-  return sortedKeys.map(title => {
-    const recipe = recipes[title];
-    if (recipe.ref === undefined) {
+  return recipes.map(recipe => {
+    if (recipe.spacer) {
+      return (
+        <hr />
+      );
+    } else if (recipe.sub_recipes) {
       return (
         <Collapsible
           ml={1}
           color="label"
-          title={title}>
+          title={recipe.title}>
           <Box ml={1}>
-            <RecipeList recipes={recipe} />
+            <RecipeList recipes={recipe.sub_recipes} />
           </Box>
         </Collapsible>
       );
     } else {
       return (
         <Recipe
-          title={title}
+          title={recipe.title}
           recipe={recipe} />
       );
     }
