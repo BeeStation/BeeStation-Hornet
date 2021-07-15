@@ -767,8 +767,10 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	if(istype(target,/obj/item/card/id) && proximity)
-		var/obj/item/card/id/idcard = target
+	if (!proximity)
+		return .
+	var/obj/item/card/id/idcard = target
+	if(istype(idcard))		
 		for(var/give_access in access)
 			idcard.access |= give_access
 		if(assignment!=initial(assignment))
