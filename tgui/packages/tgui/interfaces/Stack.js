@@ -22,10 +22,17 @@ export const Stack = (props, context) => {
     return item.title;
   });
 
-  const items = searchText.length > 0
-   && recipes
+  function filterRecipes(recipes, searchText) {
+    return recipes
      .filter(recipe => recipe.title !== undefined)
-     .filter(testSearch)
+     .map(recipe => recipe.sub_recipes ? { "title": recipe.title, "sub_recipes": filterRecipes(recipe.sub_recipes, searchText) } : recipe)
+     .filter(recipe => recipe.sub_recipes ? recipe.sub_recipes.length > 0 : testSearch(recipe))
+  }
+
+  const doSearch = searchText.length > 0
+
+  const items = doSearch
+   && filterRecipes(recipes, searchText)
     || recipes;
 
   const height = Math.max(94 + recipes.length * 26, 250);
@@ -53,7 +60,7 @@ export const Stack = (props, context) => {
               No recipes found.
             </NoticeBox>
           ) || (
-            <RecipeList recipes={items} />
+            <RecipeList recipes={items} do_sort={doSearch} expand={doSearch} />
           )}
         </Section>
       </Window.Content>
@@ -66,9 +73,15 @@ const RecipeList = (props, context) => {
 
   const {
     recipes,
+    do_sort,
+    expand,
   } = props;
 
-  return recipes.map(recipe => {
+  const display_recipes = do_sort ?
+    sortBy(recipe => recipe.title.toLowerCase())(recipes.filter(recipe => recipe.title !== undefined)) :
+    recipes
+
+  return display_recipes.map(recipe => {
     if (recipe.spacer) {
       return (
         <hr />
@@ -76,11 +89,11 @@ const RecipeList = (props, context) => {
     } else if (recipe.sub_recipes) {
       return (
         <Collapsible
-          ml={1}
           color="label"
-          title={recipe.title}>
+          title={recipe.title}
+          open={expand}>
           <Box ml={1}>
-            <RecipeList recipes={recipe.sub_recipes} />
+            <RecipeList recipes={recipe.sub_recipes} do_sort={do_sort} expand={expand} />
           </Box>
         </Collapsible>
       );

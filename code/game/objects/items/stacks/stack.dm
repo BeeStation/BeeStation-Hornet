@@ -106,22 +106,20 @@
   */
 /obj/item/stack/proc/recursively_build_recipes(list/recipe_to_iterate)
 	var/list/L = list()
-	L.len = recipe_to_iterate.len
-	var/i = 1
 	for(var/recipe in recipe_to_iterate)
 		if(isnull(recipe))
-			L[i++] = list(
+			L += list(list(
 				"spacer" = TRUE
-			)
+			))
 		if(istype(recipe, /datum/stack_recipe_list))
 			var/datum/stack_recipe_list/R = recipe
-			L[i++] = list(
+			L += list(list(
 				"title" = R.title,
 				"sub_recipes" = recursively_build_recipes(R.recipes),
-			)
+			))
 		if(istype(recipe, /datum/stack_recipe))
 			var/datum/stack_recipe/R = recipe
-			L[i++] = build_recipe(R)
+			L += list(build_recipe(R))
 	return L
 
 /**
