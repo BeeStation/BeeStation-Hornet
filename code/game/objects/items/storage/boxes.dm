@@ -1260,5 +1260,5 @@
 /obj/item/storage/box/deputy/PopulateContents()
 	for(var/i in 1 to 4)
 		new /obj/item/clothing/accessory/armband/deputy(src)
-		new /obj/item/card/id/pass/minisec(src)
+		new /obj/item/card/id/pass/deputy(src)
 		

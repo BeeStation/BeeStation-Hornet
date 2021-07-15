@@ -769,8 +769,8 @@ update_label("John Doe", "Clowny")
 	. = ..()
 	if(istype(target,/obj/item/card/id) && proximity)
 		var/obj/item/card/id/idcard = target
-		for(var/ac in access)
-			idcard.access |= ac
+		for(var/give_access in access)
+			idcard.access |= give_access
 		if(assignment!=initial(assignment))
 			idcard.assignment = assignment
 		if(name!=initial(name))
@@ -778,9 +778,3 @@ update_label("John Doe", "Clowny")
 		to_chat(user, "You upgrade your [idcard] with the [name].")
 		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
 		qdel(src)
-
-/obj/item/card/id/pass/minisec
-	name = "deputy promotion card"
-	desc = "A small card, that when used on an ID, will grant basic security access, and the job title of 'Deputy.' You can wear it if you really need to."
-	assignment = "Deputy"
-	access = list(ACCESS_SEC_DOORS,ACCESS_MAINT_TUNNELS,ACCESS_COURT,ACCESS_BRIG,ACCESS_WEAPONS)
