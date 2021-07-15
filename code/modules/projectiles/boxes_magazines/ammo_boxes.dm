@@ -55,7 +55,7 @@
 	max_ammo = 6
 	desc = "Designed to quickly reload your fingers with lethal rounds."
 	item_flags = DROPDEL
-	ammo_type = /obj/item/ammo_casing/caseless/mime/lethals
+	ammo_type = /obj/item/ammo_casing/caseless/mime/lethal
 
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"

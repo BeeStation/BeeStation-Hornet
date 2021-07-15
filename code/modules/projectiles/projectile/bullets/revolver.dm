@@ -106,6 +106,14 @@
 		else
 			to_chat(M, "<span class='userdanger'>You get shot with the finger gun!</span>")
 
+/obj/item/projectile/bullet/c38/mime/lethal
+	damage = 20
+
+/obj/item/projectile/bullet/c38/mime/lethal/on_hit(atom/target, blocked)
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		M.silent = max(M.silent, 10)
+
 // .357 (Syndie Revolver)
 
 /obj/item/projectile/bullet/a357
