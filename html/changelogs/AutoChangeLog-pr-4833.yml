@@ -1,0 +1,4 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - rscadd: You can now drag objects in the stat-panel
