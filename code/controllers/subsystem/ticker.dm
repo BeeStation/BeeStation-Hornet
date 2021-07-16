@@ -61,6 +61,8 @@ SUBSYSTEM_DEF(ticker)
 	var/mode_result = "undefined"
 	var/end_state = "undefined"
 
+	var/fail_counter
+
 	//Crew Objective stuff
 	var/list/crewobjlist = list()
 	var/list/crewobjjobs = list()
@@ -191,14 +193,6 @@ SUBSYSTEM_DEF(ticker)
 				send_tip_of_the_round()
 				tipped = TRUE
 
-			if(timeLeft <= 300 && !gamemode_setup_completed)
-				//Setup failed
-				if(!pre_setup())
-					timeLeft = null
-					start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
-				else
-					gamemode_setup_completed = TRUE
-
 			if(timeLeft <= 0)
 				current_state = GAME_STATE_SETTING_UP
 				Master.SetRunLevel(RUNLEVEL_SETUP)
@@ -209,16 +203,29 @@ SUBSYSTEM_DEF(ticker)
 			if(!gamemode_setup_completed)
 				if(!pre_setup())
 					//setup failed
+					fail_counter++
 					current_state = GAME_STATE_STARTUP
 					start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
 					timeLeft = null
 					Master.SetRunLevel(RUNLEVEL_LOBBY)
-			if(!setup())
+				else
+					gamemode_setup_completed = TRUE
+					fail_counter = null
+			else if(!setup())
 				//setup failed
+				fail_counter++
 				current_state = GAME_STATE_STARTUP
 				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
 				timeLeft = null
 				Master.SetRunLevel(RUNLEVEL_LOBBY)
+			else
+				fail_counter = null
+
+			if(fail_counter >= 3)
+				log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
+				message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
+				GLOB.master_mode = null		//this will actually make it pick extended
+				fail_counter = null
 
 		if(GAME_STATE_PLAYING)
 			mode.process(wait * 0.1)
@@ -249,7 +256,7 @@ SUBSYSTEM_DEF(ticker)
 		if(!mode)
 			if(!runnable_modes.len)
 				to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
-				return 0
+				return FALSE
 			mode = pickweight(runnable_modes)
 			if(!mode)	//too few roundtypes all run too recently
 				mode = pick(runnable_modes)
@@ -261,7 +268,7 @@ SUBSYSTEM_DEF(ticker)
 			qdel(mode)
 			mode = null
 			SSjob.ResetOccupations()
-			return 0
+			return FALSE
 
 	return mode.setup_maps()
 
@@ -284,7 +291,7 @@ SUBSYSTEM_DEF(ticker)
 			QDEL_NULL(mode)
 			to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
 			SSjob.ResetOccupations()
-			return 0
+			return FALSE
 	else
 		message_admins("<span class='notice'>DEBUG: Bypassing prestart checks...</span>")
 

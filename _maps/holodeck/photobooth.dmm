@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/open/floor/holofloor/snow,
+/turf/open/floor/white,
 /area/template_noop)
 "c" = (
 /obj/structure/dresser,
@@ -32,10 +32,16 @@
 "t" = (
 /obj/structure/table/wood,
 /obj/item/toy/crayon/spraycan{
+	charges = 99999999999999999;
+	desc = "A metallic container containing near unlimited  tasty holographic paint.";
+	name = "holographic spray can";
 	pixel_x = 5;
 	pixel_y = 5
 	},
 /obj/item/toy/crayon/spraycan{
+	charges = 99999999999999999;
+	desc = "A metallic container containing near unlimited  tasty holographic paint.";
+	name = "holographic spray can";
 	pixel_x = -5;
 	pixel_y = 5
 	},
@@ -48,13 +54,18 @@
 /area/template_noop)
 "w" = (
 /obj/structure/table/wood,
-/obj/item/camera,
-/obj/item/camera,
+/obj/item/camera{
+	desc = "A holographic camera with near infinite pictures.";
+	name = "holographic camera";
+	pictures_left = 999;
+	pictures_max = 999
+	},
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "H" = (
 /obj/structure/table/wood,
 /obj/item/storage/crayons,
+/obj/item/razor,
 /turf/open/floor/holofloor/carpet,
 /area/template_noop)
 "L" = (
