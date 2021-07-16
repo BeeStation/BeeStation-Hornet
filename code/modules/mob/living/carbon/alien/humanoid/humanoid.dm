@@ -6,8 +6,6 @@
 	possible_a_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	limb_destroyer = 1
 	hud_type = /datum/hud/alien
-	var/obj/item/r_store = null
-	var/obj/item/l_store = null
 	var/caste = ""
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/leap_on_click = 0
@@ -25,9 +23,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	/datum/strippable_item/hand/left,
 	/datum/strippable_item/hand/right,
 	/datum/strippable_item/mob_item_slot/handcuffs,
-	/datum/strippable_item/mob_item_slot/legcuffs,
-	/datum/strippable_item/mob_item_slot/pocket/left,
-	/datum/strippable_item/mob_item_slot/pocket/right
+	/datum/strippable_item/mob_item_slot/legcuffs
 )))
 
 /mob/living/carbon/alien/humanoid/Initialize()
