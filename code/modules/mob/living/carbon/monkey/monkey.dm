@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/head,
 	/datum/strippable_item/mob_item_slot/back,
 	/datum/strippable_item/mob_item_slot/mask,
-	/datum/strippable_item/mob_item_slot/neck,
+	/datum/strippable_item/mob_item_slot/neck
 )))
 
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
