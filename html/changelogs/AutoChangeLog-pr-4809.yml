@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - bugfix: cargo pack descriptions are now accurate
