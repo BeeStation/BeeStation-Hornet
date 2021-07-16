@@ -212,10 +212,9 @@
 	throwing.Grant(current)
 	current.update_action_buttons_icon()
 	current.apply_status_effect(/datum/status_effect/cult_master)
-	if(cult_team.cult_risen)
-		cult_team.rise(current)
-		if(cult_team.cult_ascendent)
-			cult_team.ascend(current)
+	//Permanently Ascended
+	cult_team.rise(current)
+	cult_team.ascend(current)
 
 /datum/antagonist/cult/master/remove_innate_effects(mob/living/mob_override)
 	. = ..()

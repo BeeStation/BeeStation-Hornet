@@ -65,6 +65,17 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 			dat += {"<tr><td><img src="[nicename]"></td><td><a href="?src=[REF(src)];seticon=[i]">[nicename]</a></td></tr>"}
 		dat += "</table></body></html>"
 		H << browse(dat, "window=editicon;can_close=0;can_minimize=0;size=250x650")
+	else if(H.mind.holy_role)
+		//Point towards cult leaders if shuttle is stuck
+		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+			//Locate the cult leader
+			var/datum/game_mode/gamemode = SSticker.mode
+			if(gamemode?.cult)
+				for(var/datum/mind/M as() in gamemode.cult)
+					var/datum/antagonist/cult/master/master = M.has_antag_datum(/datum/antagonist/cult/master)
+					if(master && isliving(M.current))
+						to_chat(H, "<span class='notice'>Holy energies guide you [dir2text(H.get_dir(M.current))]</span>")
+						return
 
 /obj/item/storage/book/bible/Topic(href, href_list)
 	if(!usr.canUseTopic(src, BE_CLOSE))

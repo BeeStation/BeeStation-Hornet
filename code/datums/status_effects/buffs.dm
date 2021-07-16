@@ -141,9 +141,14 @@
 	on_remove_on_mob_delete = TRUE
 	var/alive = TRUE
 
+/datum/status_effect/cult_master/on_apply()
+	. = ..()
+	SSshuttle.registerHostileEnvironment(owner)
+
 /datum/status_effect/cult_master/proc/deathrattle()
 	if(!QDELETED(GLOB.cult_narsie))
 		return //if Nar'Sie is alive, don't even worry about it
+	SSshuttle.clearHostileEnvironment(owner)
 	var/area/A = get_area(owner)
 	for(var/datum/mind/B in SSticker.mode.cult)
 		if(isliving(B.current))
