@@ -74,6 +74,8 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
+	if(!equipping)
+		return
 	if(HAS_TRAIT(equipping, TRAIT_NODROP))
 		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!</span>")
 		return FALSE
@@ -361,7 +363,7 @@
 
 	var/mob/user = usr
 
-	switch (action)
+	switch(action)
 		if("use")
 			var/key = params["key"]
 			var/datum/strippable_item/strippable_item = strippable.items[key]
@@ -455,19 +457,18 @@
 /datum/strip_menu/ui_host(mob/user)
 	return owner
 
+/datum/strip_menu/ui_state(mob/user)
+	return GLOB.always_state
+
 /datum/strip_menu/ui_status(mob/user, datum/ui_state/state)
-	. = ..()
-
-	if(isliving(user))
-		var/mob/living/living_user = user
-
-		if(
-			. == UI_UPDATE \
-			&& user.stat == CONSCIOUS \
-			&& !(living_user.mobility_flags & MOBILITY_STAND) \
-			&& user.Adjacent(owner)
-		)
-			return UI_INTERACTIVE
+	return min(
+		ui_status_only_living(user, owner),
+		ui_status_user_is_adjacent(user, owner),
+		max(
+			ui_status_user_is_conscious_and_lying_down(user),
+			ui_status_user_is_abled(user, owner),
+		),
+	)
 
 /// Creates an assoc list of keys to /datum/strippable_item
 /proc/create_strippable_list(types)
