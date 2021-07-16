@@ -1,0 +1,4 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - rscadd: Smoke machines can now be rotated with alt-click
