@@ -41,28 +41,13 @@ type AlternateAction = {
 };
 
 const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
-  knot: {
-    icon: "shoe-prints",
-    text: "Knot",
-  },
-
-  untie: {
-    icon: "shoe-prints",
-    text: "Untie",
-  },
-
-  unknot: {
-    icon: "shoe-prints",
-    text: "Unknot",
-  },
-
   enable_internals: {
-    icon: "tg-air-tank",
+    icon: "./tgfont/icons/air-tank.svg", // svg fonts need to be fixed
     text: "Enable internals",
   },
 
   disable_internals: {
-    icon: "tg-air-tank-slash",
+    icon: "./tgfont/icons/air-tank-slash.svg", // svg fonts need to be fixed
     text: "Disable internals",
   },
 
