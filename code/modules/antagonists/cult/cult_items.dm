@@ -467,6 +467,8 @@
 	color = "#333333"
 	list_reagents = list(/datum/reagent/fuel/unholywater = 50)
 
+GLOBAL_VAR_INIT(shuttle_purified, FALSE)
+
 /obj/item/shuttle_curse
 	name = "cursed orb"
 	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."
@@ -479,6 +481,9 @@
 		user.dropItemToGround(src, TRUE)
 		user.Paralyze(100)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
+		return
+	if(GLOB.shuttle_purified)
+		to_chat(user, "<span class='notice'>The shuttle has been purified and cannot be cursed!</span>")
 		return
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")

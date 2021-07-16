@@ -74,7 +74,12 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 				for(var/datum/mind/M as() in gamemode.cult)
 					var/datum/antagonist/cult/master/master = M.has_antag_datum(/datum/antagonist/cult/master)
 					if(master && isliving(M.current))
-						to_chat(H, "<span class='notice'>Holy energies guide you [dir2text(H.get_dir(M.current))]</span>")
+						var/turf/ourTurf = get_turf(H)
+						var/turf/theirTurf = get_turf(M.current)
+						if(ourTurf.z != theirTurf.z)
+							to_chat(H, "<span class='notice'><i>They</i> are not around here...</span>")
+							return
+						to_chat(H, "<span class='notice'>Holy energies guide you [dir2text(get_dir(ourTurf, theirTurf))].</span>")
 						return
 
 /obj/item/storage/book/bible/Topic(href, href_list)

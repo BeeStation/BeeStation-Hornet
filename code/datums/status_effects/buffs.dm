@@ -140,15 +140,29 @@
 	alert_type = null
 	on_remove_on_mob_delete = TRUE
 	var/alive = TRUE
+	var/hostile_env = TRUE
+	var/timer_id
 
 /datum/status_effect/cult_master/on_apply()
 	. = ..()
 	SSshuttle.registerHostileEnvironment(owner)
+	timer_id = addtimer(CALLBACK(src, .proc/unregister_hostile_environment), 20 MINUTES)
+
+/datum/status_effect/cult_master/proc/unregister_hostile_environment()
+	if(QDELETED(src) || QDELETED(owner))
+		return
+	SSshuttle.clearHostileEnvironment(owner)
+	priority_announce("Nanotrasen divine security forces have reinforced in the local sector; shuttle functionality has been restored and purified to prevent further delays.", "Nanotrasen Security Division", SSstation.announcer.get_rand_alert_sound())
+	GLOB.shuttle_purified = TRUE
+	hostile_env = FALSE
+	timer_id = null
 
 /datum/status_effect/cult_master/proc/deathrattle()
 	if(!QDELETED(GLOB.cult_narsie))
 		return //if Nar'Sie is alive, don't even worry about it
-	SSshuttle.clearHostileEnvironment(owner)
+	if(hostile_env)
+		SSshuttle.clearHostileEnvironment(owner)
+	hostile_env = FALSE
 	var/area/A = get_area(owner)
 	for(var/datum/mind/B in SSticker.mode.cult)
 		if(isliving(B.current))
@@ -163,9 +177,16 @@
 	if(owner.stat == DEAD && alive)
 		alive = FALSE
 		deathrattle()
+	var/turf/T = get_turf(owner)
+	if(!is_station_level(T.z))
+		if(timer_id)
+			unregister_hostile_environment()
+			deltimer(timer_id)
 
 /datum/status_effect/cult_master/on_remove()
 	deathrattle()
+	if(timer_id)
+		deltimer(timer_id)
 	. = ..()
 
 /datum/status_effect/blooddrunk
