@@ -24,10 +24,10 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 )))
 
 /mob/living/carbon/human/proc/should_strip(mob/user)
-	if (user.pulling != src || user.grab_state != GRAB_AGGRESSIVE)
+	if(user.pulling != src || user.grab_state != GRAB_AGGRESSIVE)
 		return TRUE
 
-	if (ishuman(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		return !human_user.can_be_firemanned(src)
 
@@ -47,21 +47,21 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/jumpsuit/get_alternate_action(atom/source, mob/user)
 	var/obj/item/clothing/under/jumpsuit = get_item(source)
-	if (!istype(jumpsuit))
+	if(!istype(jumpsuit))
 		return null
 	return jumpsuit?.can_adjust ? "adjust_jumpsuit" : null
 
 /datum/strippable_item/mob_item_slot/jumpsuit/alternate_action(atom/source, mob/user)
 	var/obj/item/clothing/under/jumpsuit = get_item(source)
-	if (!istype(jumpsuit))
+	if(!istype(jumpsuit))
 		return null
 	to_chat(source, "<span class='notice'>[user] is trying to adjust your [jumpsuit.name].")
-	if (!do_mob(user, source, jumpsuit.strip_delay * 0.5))
+	if(!do_mob(user, source, jumpsuit.strip_delay * 0.5))
 		return
 	to_chat(source, "<span class='notice'>[user] successfully adjusted your [jumpsuit.name].")
 	jumpsuit.toggle_jumpsuit_adjust()
 
-	if (!ismob(source))
+	if(!ismob(source))
 		return
 
 	var/mob/mob_source = source
@@ -118,12 +118,12 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 /datum/strippable_item/mob_item_slot/pocket/start_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
-	if (!.)
+	if(!.)
 		warn_owner(source)
 
 /datum/strippable_item/mob_item_slot/pocket/start_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
-	if (isnull(item))
+	if(isnull(item))
 		return FALSE
 
 	to_chat(user, "<span class='notice'>You try to empty [source]'s [pocket_side] pocket.</span>")
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 	var/result = start_unequip_mob(item, source, user, POCKET_STRIP_DELAY)
 
-	if (!result)
+	if(!result)
 		warn_owner(source)
 
 	return result
@@ -154,29 +154,29 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	pocket_side = "right"
 
 /proc/get_strippable_alternate_action_internals(obj/item/item, atom/source)
-	if (!iscarbon(source))
+	if(!iscarbon(source))
 		return
 
 	var/mob/living/carbon/carbon_source = source
 
 	var/obj/item/clothing/mask = carbon_source.wear_mask
-	if (!istype(mask))
+	if(!istype(mask))
 		return
 
-	if ((mask.clothing_flags & MASKINTERNALS) && istype(item, /obj/item/tank))
+	if((mask.clothing_flags & MASKINTERNALS) && istype(item, /obj/item/tank))
 		return isnull(carbon_source.internal) ? "enable_internals" : "disable_internals"
 
 /proc/strippable_alternate_action_internals(obj/item/item, atom/source, mob/user)
 	var/obj/item/tank/tank = item
-	if (!istype(tank))
+	if(!istype(tank))
 		return
 
 	var/mob/living/carbon/carbon_source = source
-	if (!istype(carbon_source))
+	if(!istype(carbon_source))
 		return
 
 	var/obj/item/clothing/mask = carbon_source.wear_mask
-	if (!istype(mask) || !(mask.clothing_flags & MASKINTERNALS))
+	if(!istype(mask) || !(mask.clothing_flags & MASKINTERNALS))
 		return
 
 	carbon_source.visible_message(
@@ -195,7 +195,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 
 		// This isn't meant to be FALSE, it correlates to the icon's name.
 		carbon_source.update_internals_hud_icon(0)
-	else if (!QDELETED(item))
+	else if(!QDELETED(item))
 		if((carbon_source.wear_mask?.clothing_flags & MASKINTERNALS) || carbon_source.getorganslot(ORGAN_SLOT_BREATHING_TUBE))
 			carbon_source.internal = item
 			carbon_source.update_internals_hud_icon(1)

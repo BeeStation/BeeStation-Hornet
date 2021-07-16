@@ -16,7 +16,7 @@
 
 /datum/element/strippable/Attach(datum/target, list/items, should_strip_proc_path)
 	. = ..()
-	if (!isatom(target))
+	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE
 
 	RegisterSignal(target, COMSIG_MOUSEDROP_ONTO, .proc/mouse_drop_onto)
@@ -29,30 +29,30 @@
 
 	UnregisterSignal(source, COMSIG_MOUSEDROP_ONTO)
 
-	if (!isnull(strip_menus))
+	if(!isnull(strip_menus))
 		QDEL_NULL(strip_menus[source])
 
 /datum/element/strippable/proc/mouse_drop_onto(datum/source, atom/over, mob/user)
 	SIGNAL_HANDLER
 
-	if (user == source)
+	if(user == source)
 		return
 
-	if (over != user)
+	if(over != user)
 		return
 
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
-	if (iscyborg(user))
+	if(iscyborg(user))
 		var/mob/living/silicon/robot/cyborg_user = user
-		if (cyborg_user.a_intent != INTENT_HARM)
+		if(cyborg_user.a_intent != INTENT_HARM)
 			return
 
-	if (!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
+	if(!isnull(should_strip_proc_path) && !call(source, should_strip_proc_path)(user))
 		return
 
 	var/datum/strip_menu/strip_menu
 
-	if (isnull(strip_menu))
+	if(isnull(strip_menu))
 		strip_menu = new(source, src)
 		LAZYSET(strip_menus, source, strip_menu)
 
@@ -74,7 +74,7 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
-	if (HAS_TRAIT(equipping, TRAIT_NODROP))
+	if(HAS_TRAIT(equipping, TRAIT_NODROP))
 		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!</span>")
 		return FALSE
 	return TRUE
@@ -109,12 +109,12 @@
 	SHOULD_NOT_SLEEP(TRUE)
 
 	var/obj/item/item = get_item(source)
-	if (isnull(item))
+	if(isnull(item))
 		return FALSE
 
-	if (ismob(source))
+	if(ismob(source))
 		var/mob/mob_source = source
-		if (!item.canStrip(user, mob_source))
+		if(!item.canStrip(user, mob_source))
 			return FALSE
 
 	return TRUE
@@ -123,7 +123,7 @@
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
-	if (isnull(item))
+	if(isnull(item))
 		return FALSE
 
 	source.visible_message(
@@ -167,7 +167,7 @@
 	var/item_slot
 
 /datum/strippable_item/mob_item_slot/get_item(atom/source)
-	if (!ismob(source))
+	if(!ismob(source))
 		return null
 
 	var/mob/mob_source = source
@@ -175,13 +175,13 @@
 
 /datum/strippable_item/mob_item_slot/try_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
-	if (!.)
+	if(!.)
 		return
 
-	if (!ismob(source))
+	if(!ismob(source))
 		return FALSE
 
-	if (!equipping.mob_can_equip(
+	if(!equipping.mob_can_equip(
 		source,
 		user,
 		item_slot,
@@ -195,16 +195,16 @@
 
 /datum/strippable_item/mob_item_slot/start_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
-	if (!.)
+	if(!.)
 		return
 
-	if (!ismob(source))
+	if(!ismob(source))
 		return FALSE
 
-	if (!do_mob(user, source, get_equip_delay(equipping)))
+	if(!do_mob(user, source, get_equip_delay(equipping)))
 		return FALSE
 
-	if (!equipping.mob_can_equip(
+	if(!equipping.mob_can_equip(
 		source,
 		user,
 		item_slot,
@@ -213,20 +213,20 @@
 	))
 		return FALSE
 
-	if (!user.temporarilyRemoveItemFromInventory(equipping))
+	if(!user.temporarilyRemoveItemFromInventory(equipping))
 		return FALSE
 
 	return TRUE
 
 /datum/strippable_item/mob_item_slot/finish_equip(atom/source, obj/item/equipping, mob/user)
-	if (!ismob(source))
+	if(!ismob(source))
 		return FALSE
 
 	var/mob/mob_source = source
 	mob_source.equip_to_slot(equipping, item_slot)
 
 /datum/strippable_item/mob_item_slot/get_obscuring(atom/source)
-	if (iscarbon(source))
+	if(iscarbon(source))
 		var/mob/living/carbon/carbon_source = source
 		return (carbon_source.check_obscured_slots() & item_slot) \
 			? STRIPPABLE_OBSCURING_COMPLETELY \
@@ -236,17 +236,17 @@
 
 /datum/strippable_item/mob_item_slot/start_unequip(atom/source, mob/user)
 	. = ..()
-	if (!.)
+	if(!.)
 		return
 
 	return start_unequip_mob(get_item(source), source, user)
 
 /datum/strippable_item/mob_item_slot/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
-	if (isnull(item))
+	if(isnull(item))
 		return FALSE
 
-	if (!ismob(source))
+	if(!ismob(source))
 		return FALSE
 
 	return finish_unequip_mob(item, source, user)
@@ -257,14 +257,14 @@
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
-	if (!do_mob(user, source, strip_delay || item.strip_delay))
+	if(!do_mob(user, source, strip_delay || item.strip_delay))
 		return FALSE
 
 	return TRUE
 
 /// A utility function for `/datum/strippable_item`s to finish unequipping an item from a mob.
 /proc/finish_unequip_mob(obj/item/item, mob/source, mob/user)
-	if (!item.doStrip(user, source))
+	if(!item.doStrip(user, source))
 		return FALSE
 
 	source.log_message("[key_name(source)] has been stripped of [item] by [key_name(user)]", LOG_ATTACK, color="red")
@@ -297,7 +297,7 @@
 
 /datum/strip_menu/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
-	if (!ui)
+	if(!ui)
 		ui = new(user, src, "StripMenu")
 		ui.open()
 
@@ -314,7 +314,7 @@
 	for (var/strippable_key in strippable.items)
 		var/datum/strippable_item/item_data = strippable.items[strippable_key]
 
-		if (!item_data.should_show(owner, user))
+		if(!item_data.should_show(owner, user))
 			continue
 
 		var/list/result
@@ -323,13 +323,13 @@
 			LAZYSET(result, "interacting", TRUE)
 
 		var/obscuring = item_data.get_obscuring(owner)
-		if (obscuring != STRIPPABLE_OBSCURING_NONE)
+		if(obscuring != STRIPPABLE_OBSCURING_NONE)
 			LAZYSET(result, "obscured", obscuring)
 			items[strippable_key] = result
 			continue
 
 		var/obj/item/item = item_data.get_item(owner)
-		if (isnull(item))
+		if(isnull(item))
 			items[strippable_key] = result
 			continue
 
@@ -354,7 +354,7 @@
 
 /datum/strip_menu/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-	if (.)
+	if(.)
 		return
 
 	. = TRUE
@@ -362,26 +362,26 @@
 	var/mob/user = usr
 
 	switch (action)
-		if ("use")
+		if("use")
 			var/key = params["key"]
 			var/datum/strippable_item/strippable_item = strippable.items[key]
 
-			if (isnull(strippable_item))
+			if(isnull(strippable_item))
 				return
 
-			if (!strippable_item.should_show(owner, user))
+			if(!strippable_item.should_show(owner, user))
 				return
 
-			if (strippable_item.get_obscuring(owner) == STRIPPABLE_OBSCURING_COMPLETELY)
+			if(strippable_item.get_obscuring(owner) == STRIPPABLE_OBSCURING_COMPLETELY)
 				return
 
 			var/item = strippable_item.get_item(owner)
-			if (isnull(item))
+			if(isnull(item))
 				var/obj/item/held_item = user.get_active_held_item()
-				if (isnull(held_item))
+				if(isnull(held_item))
 					return
 
-				if (strippable_item.try_equip(owner, held_item, user))
+				if(strippable_item.try_equip(owner, held_item, user))
 					LAZYORASSOCLIST(interactions, user, key)
 
 					// Yielding call
@@ -389,21 +389,21 @@
 
 					LAZYREMOVEASSOC(interactions, user, key)
 
-					if (!should_finish)
+					if(!should_finish)
 						return
 
-					if (QDELETED(src) || QDELETED(owner))
+					if(QDELETED(src) || QDELETED(owner))
 						return
 
 					// They equipped an item in the meantime
-					if (!isnull(strippable_item.get_item(owner)))
+					if(!isnull(strippable_item.get_item(owner)))
 						return
 
-					if (!user.Adjacent(owner))
+					if(!user.Adjacent(owner))
 						return
 
 					strippable_item.finish_equip(owner, held_item, user)
-			else if (strippable_item.try_unequip(owner, user))
+			else if(strippable_item.try_unequip(owner, user))
 				LAZYORASSOCLIST(interactions, user, key)
 
 				var/should_unequip = strippable_item.start_unequip(owner, user)
@@ -411,38 +411,38 @@
 				LAZYREMOVEASSOC(interactions, user, key)
 
 				// Yielding call
-				if (!should_unequip)
+				if(!should_unequip)
 					return
 
-				if (QDELETED(src) || QDELETED(owner))
+				if(QDELETED(src) || QDELETED(owner))
 					return
 
 				// They changed the item in the meantime
-				if (strippable_item.get_item(owner) != item)
+				if(strippable_item.get_item(owner) != item)
 					return
 
-				if (!user.Adjacent(owner))
+				if(!user.Adjacent(owner))
 					return
 
 				strippable_item.finish_unequip(owner, user)
-		if ("alt")
+		if("alt")
 			var/key = params["key"]
 			var/datum/strippable_item/strippable_item = strippable.items[key]
 
-			if (isnull(strippable_item))
+			if(isnull(strippable_item))
 				return
 
-			if (!strippable_item.should_show(owner, user))
+			if(!strippable_item.should_show(owner, user))
 				return
 
-			if (strippable_item.get_obscuring(owner) == STRIPPABLE_OBSCURING_COMPLETELY)
+			if(strippable_item.get_obscuring(owner) == STRIPPABLE_OBSCURING_COMPLETELY)
 				return
 
 			var/item = strippable_item.get_item(owner)
-			if (isnull(item))
+			if(isnull(item))
 				return
 
-			if (isnull(strippable_item.get_alternate_action(owner, user)))
+			if(isnull(strippable_item.get_alternate_action(owner, user)))
 				return
 
 			LAZYORASSOCLIST(interactions, user, key)
@@ -458,10 +458,10 @@
 /datum/strip_menu/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
 
-	if (isliving(user))
+	if(isliving(user))
 		var/mob/living/living_user = user
 
-		if (
+		if(
 			. == UI_UPDATE \
 			&& user.stat == CONSCIOUS \
 			&& !(living_user.mobility_flags & MOBILITY_STAND) \

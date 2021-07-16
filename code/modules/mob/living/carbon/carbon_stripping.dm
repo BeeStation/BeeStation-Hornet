@@ -19,7 +19,7 @@
 	item_slot = ITEM_SLOT_HANDCUFFED
 
 /datum/strippable_item/mob_item_slot/handcuffs/should_show(atom/source, mob/user)
-	if (!iscarbon(source))
+	if(!iscarbon(source))
 		return FALSE
 
 	var/mob/living/carbon/carbon_source = source
@@ -34,7 +34,7 @@
 	item_slot = ITEM_SLOT_LEGCUFFED
 
 /datum/strippable_item/mob_item_slot/legcuffs/should_show(atom/source, mob/user)
-	if (!iscarbon(source))
+	if(!iscarbon(source))
 		return FALSE
 
 	var/mob/living/carbon/carbon_source = source
@@ -53,7 +53,7 @@
 	var/hand_index
 
 /datum/strippable_item/hand/get_item(atom/source)
-	if (!ismob(source))
+	if(!ismob(source))
 		return null
 
 	var/mob/mob_source = source
@@ -61,15 +61,15 @@
 
 /datum/strippable_item/hand/try_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
-	if (!.)
+	if(!.)
 		return FALSE
 
-	if (!ismob(source))
+	if(!ismob(source))
 		return FALSE
 
 	var/mob/mob_source = source
 
-	if (!mob_source.can_put_in_hand(equipping, hand_index))
+	if(!mob_source.can_put_in_hand(equipping, hand_index))
 		to_chat(src, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
 		return FALSE
 
@@ -77,27 +77,27 @@
 
 /datum/strippable_item/hand/start_equip(atom/source, obj/item/equipping, mob/user)
 	. = ..()
-	if (!.)
+	if(!.)
 		return
 
-	if (!ismob(source))
+	if(!ismob(source))
 		return FALSE
 
 	var/mob/mob_source = source
 
-	if (!do_mob(user, source, equipping.equip_delay_other))
+	if(!do_mob(user, source, equipping.equip_delay_other))
 		return FALSE
 
-	if (!mob_source.can_put_in_hand(equipping, hand_index))
+	if(!mob_source.can_put_in_hand(equipping, hand_index))
 		return FALSE
 
-	if (!user.temporarilyRemoveItemFromInventory(equipping))
+	if(!user.temporarilyRemoveItemFromInventory(equipping))
 		return FALSE
 
 	return TRUE
 
 /datum/strippable_item/hand/finish_equip(atom/source, obj/item/equipping, mob/user)
-	if (!iscarbon(source))
+	if(!iscarbon(source))
 		return FALSE
 
 	var/mob/mob_source = source
@@ -105,17 +105,17 @@
 
 /datum/strippable_item/hand/start_unequip(atom/source, mob/user)
 	. = ..()
-	if (!.)
+	if(!.)
 		return
 
 	return start_unequip_mob(get_item(source), source, user)
 
 /datum/strippable_item/hand/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
-	if (isnull(item))
+	if(isnull(item))
 		return FALSE
 
-	if (!ismob(source))
+	if(!ismob(source))
 		return FALSE
 
 	return finish_unequip_mob(item, source, user)
