@@ -18,6 +18,8 @@
 	var/screen = RESEARCH_FABRICATOR_SCREEN_MAIN
 	var/selected_category
 
+	var/list/mob/viewing_mobs = list()
+
 /obj/machinery/rnd/production/Initialize(mapload)
 	. = ..()
 	create_reagents(0, OPENCONTAINER)
@@ -47,10 +49,139 @@
 		var/datum/design/d = SSresearch.techweb_design_by_id(i)
 		if((isnull(allowed_department_flags) || (d.departmental_flags & allowed_department_flags)) && (d.build_type & allowed_buildtypes))
 			cached_designs |= d
+	update_viewer_statics()
 
 /obj/machinery/rnd/production/RefreshParts()
 	calculate_efficiency()
 
+/obj/machinery/rnd/production/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "TechFab")
+		ui.open()
+		ui.set_autoupdate(TRUE)
+		viewing_mobs += user
+
+/obj/machinery/rnd/production/ui_close(mob/user)
+	. = ..()
+	viewing_mobs -= user
+
+/obj/machinery/rnd/production/proc/update_viewer_statics()
+	for(var/mob/M in viewing_mobs)
+		if(QDELETED(M) || !(M.client || M.mind))
+			continue
+		update_static_data(M)
+
+/obj/machinery/rnd/production/ui_data(mob/user)
+	var/list/data = list()
+
+	data["busy"] = busy
+	data["efficiency"] = efficiency_coeff
+
+	data += build_materials()
+	data += build_reagents()
+
+	return data
+
+/obj/machinery/rnd/production/proc/build_materials()
+	if(!materials || !materials.mat_container)
+		return null
+
+	var/list/L = list()
+	for(var/datum/material/material in materials.mat_container.materials)
+		L[material.id] = list(
+				name = material.name,
+				amount = materials.mat_container.materials[material]/MINERAL_MATERIAL_AMOUNT,
+				id = material.id,
+			)
+
+	return list(
+		materials = L,
+		materials_label = materials.format_amount()
+	)
+
+/obj/machinery/rnd/production/proc/build_reagents()
+	if(!reagents)
+		return null
+
+	var/list/L = list()
+	for(var/datum/reagent/reagent in reagents.reagent_list)
+		L["[reagent.type]"] = list(
+				name = reagent.name,
+				volume = reagent.volume,
+				id = "[reagent.type]",
+			)
+
+	return list(
+		reagents = L,
+		reagents_label = "[reagents.total_volume] / [reagents.maximum_volume]"
+	)
+
+/obj/machinery/rnd/production/ui_static_data(mob/user)
+	var/list/data = list()
+
+	data["recipes"] = build_recipes()
+	data["categories"] = categories
+	data["stack_to_mineral"] = MINERAL_MATERIAL_AMOUNT
+
+	return data
+
+/obj/machinery/rnd/production/proc/build_recipes()
+	var/list/L = list()
+	for(var/datum/design/design in cached_designs)
+		L += list(build_design(design))
+	return L
+
+/obj/machinery/rnd/production/proc/build_design(var/datum/design/design)
+	return list(
+			name = design.name,
+			description = design.desc,
+			id = design.id,
+			category = design.category,
+			max_amount = design.maxstack,
+			efficiency_affects = efficient_with(design.build_path),
+			materials = design.materials,
+			reagents = build_recipe_reagents(design.reagents_list),
+		)
+
+/obj/machinery/rnd/production/proc/build_recipe_reagents(var/list/reagents)
+	var/list/L = list()
+
+	for(var/id in reagents)
+		L[id] = list(
+			name = CallMaterialName(id),
+			volume = reagents[id],
+		)
+
+	return L
+
+/obj/machinery/rnd/production/ui_act(action, params)
+	if(..())
+		return
+	if(action == "build")
+		if(busy)
+			say("Warning: Fabricators busy!")
+		else
+			user_try_print_id(params["design_id"], params["amount"])
+	if(action == "sync_research")
+		update_research()
+		say("Synchronizing research with host technology database.")
+	if(action == "dispose")
+		var/R = text2path(params["reagent_id"])
+		if(R)
+			reagents.del_reagent(R)
+	if(action == "disposeall")
+		reagents.clear_reagents()
+	if(action == "ejectsheet" && materials && materials.mat_container)
+		var/datum/material/M
+		for(var/datum/material/potential_material in materials.mat_container.materials)
+			if(potential_material.id == params["material_id"])
+				M = potential_material
+				break
+		if(M)
+			eject_sheets(M, params["amount"])
+
+/*
 /obj/machinery/rnd/production/ui_interact(mob/user)
 	if(!consoleless_interface)
 		return ..()
@@ -58,6 +189,7 @@
 	var/datum/browser/popup = new(user, "rndconsole", name, 460, 550)
 	popup.set_content(generate_ui())
 	popup.open()
+*/
 
 /obj/machinery/rnd/production/proc/calculate_efficiency()
 	efficiency_coeff = 1
@@ -163,6 +295,24 @@
 	addtimer(CALLBACK(src, .proc/do_print, D.build_path, amount, efficient_mats, D.dangerous_construction), (32 * timecoeff * amount) ** 0.8)
 	return TRUE
 
+/obj/machinery/rnd/production/proc/eject_sheets(eject_sheet, eject_amt)
+	var/datum/component/material_container/mat_container = materials.mat_container
+	if (!mat_container)
+		say("No access to material storage, please contact the quartermaster.")
+		return 0
+	if (materials.on_hold())
+		say("Mineral access is on hold, please contact the quartermaster.")
+		return 0
+	var/count = mat_container.retrieve_sheets(text2num(eject_amt), eject_sheet, drop_location())
+	var/list/matlist = list()
+	matlist[eject_sheet] = MINERAL_MATERIAL_AMOUNT
+	materials.silo_log(src, "ejected", -count, "sheets", matlist)
+	return count
+
+
+
+
+/*
 /obj/machinery/rnd/production/proc/search(string)
 	matching_designs.Cut()
 	for(var/v in stored_research.researched_designs)
@@ -310,20 +460,6 @@
 		eject_sheets(M, ls["eject_amt"])
 	updateUsrDialog()
 
-/obj/machinery/rnd/production/proc/eject_sheets(eject_sheet, eject_amt)
-	var/datum/component/material_container/mat_container = materials.mat_container
-	if (!mat_container)
-		say("No access to material storage, please contact the quartermaster.")
-		return 0
-	if (materials.on_hold())
-		say("Mineral access is on hold, please contact the quartermaster.")
-		return 0
-	var/count = mat_container.retrieve_sheets(text2num(eject_amt), eject_sheet, drop_location())
-	var/list/matlist = list()
-	matlist[eject_sheet] = MINERAL_MATERIAL_AMOUNT
-	materials.silo_log(src, "ejected", -count, "sheets", matlist)
-	return count
-
 /obj/machinery/rnd/production/proc/ui_screen_main()
 	var/list/l = list()
 	l += "<form name='search' action='?src=[REF(src)]'>\
@@ -371,3 +507,4 @@
 
 	l += "</tr></table></div>"
 	return l
+*/
