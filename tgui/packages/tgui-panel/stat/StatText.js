@@ -112,6 +112,27 @@ export const StatTextAtom = (props, context) => {
   return (
     <Flex.Item mt={1}>
       <Button
+        draggable
+        onDragStart={e => {
+          e.dataTransfer.setData("text", atom_ref); // Apparently can't use "text/plain" because IE, this took me way too long to figure out
+        }}
+        onDragOver={e => {
+          e.preventDefault();
+        }}
+        onDrop={e => {
+          let other_atom_ref = e.dataTransfer.getData("text");
+          if (other_atom_ref)
+          { sendMessage({
+            type: 'stat/pressed',
+            payload: {
+              action_id: 'atomDrop',
+              params: {
+                ref: atom_ref,
+                ref_other: other_atom_ref,
+              },
+            },
+          }); }
+        }}
         onClick={e => sendMessage({
           type: 'stat/pressed',
           payload: {
