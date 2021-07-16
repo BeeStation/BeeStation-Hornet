@@ -105,9 +105,9 @@ export const StatTextButton = (props, context) => {
   );
 };
 
-let janky_storage = null // Because IE sucks
-const storeAtomRef = value => {janky_storage = value}
-const retrieveAtomRef = () => janky_storage
+let janky_storage = null; // Because IE sucks
+const storeAtomRef = value => { janky_storage = value; };
+const retrieveAtomRef = () => janky_storage;
 
 export const StatTextAtom = (props, context) => {
   const {
@@ -115,28 +115,35 @@ export const StatTextAtom = (props, context) => {
     atom_ref,
   } = props;
 
-  storeAtomRef(null)
+  storeAtomRef(null);
 
   return (
     <Flex.Item mt={1}>
       <Button
         draggable
         onDragStart={e => {
-          //e.dataTransfer.setData("text", atom_ref); // Apparently can't use "text/plain" because IE, this took me way too long to figure out
-          //Apparently, even if you do "text", IE will also put the stored data into your clipboard, overriding whatever was there. Fuck this.
-          //Leaving it here for reference, in case somebody smarter than me knows a way to fix it
-          storeAtomRef(atom_ref)
+          // e.dataTransfer.setData("text", atom_ref); 
+          /*
+          Apparently can't use "text/plain" because IE, this took me way too
+          long to figure out.
+
+          Apparently, even if you do "text", IE will also put the stored data
+          into your clipboard, overriding whatever was there. Fuck this.
+          Leaving it here for reference, in case somebody smarter than me
+          knows a way to fix it
+          */
+          storeAtomRef(atom_ref);
         }}
         onDragOver={e => {
           e.preventDefault();
         }}
         onDrop={e => {
-          //let other_atom_ref = e.dataTransfer.getData("text");
-          let other_atom_ref = retrieveAtomRef()
+          // let other_atom_ref = e.dataTransfer.getData("text");
+          let other_atom_ref = retrieveAtomRef();
           if (other_atom_ref)
           { 
             e.preventDefault();
-            storeAtomRef(null)
+            storeAtomRef(null);
             sendMessage({
               type: 'stat/pressed',
               payload: {
@@ -150,7 +157,7 @@ export const StatTextAtom = (props, context) => {
           }
         }}
         onDragEnd={e => {
-          storeAtomRef(null)
+          storeAtomRef(null);
         }}
         onClick={e => sendMessage({
           type: 'stat/pressed',
