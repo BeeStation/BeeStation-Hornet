@@ -89,6 +89,9 @@
 	if(spent)
 		to_chat(user, "<span class='warning'>There is no power left in the shard.</span>")
 		return
+	if(!M.mind.hasSoul)
+		to_chat(user, "<span class='warning'>That person has no soul!</span>")
+		return
 	if(!ishuman(M))//If target is not a human.
 		return ..()
 	if(iscultist(M))
