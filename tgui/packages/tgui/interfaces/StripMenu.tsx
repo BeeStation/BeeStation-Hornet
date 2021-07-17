@@ -51,9 +51,9 @@ const ALTERNATE_ACTIONS: Record<string, AlternateAction> = {
     text: "Disable internals",
   },
 
-  adjust_jumpsuit: {
+  adjust_sensors: {
     icon: "tshirt",
-    text: "Adjust jumpsuit",
+    text: "Adjust suit sensors",
   },
 };
 
