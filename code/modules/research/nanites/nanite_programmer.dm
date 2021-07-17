@@ -8,10 +8,11 @@
 	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	density = TRUE
-	flags_1 = HEAR_1
 	circuit = /obj/item/circuitboard/machine/nanite_programmer
 
-
+/obj/machinery/nanite_programmer/Initialize()
+	. = ..()
+	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 /obj/machinery/nanite_programmer/attackby(obj/item/I, mob/user)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
