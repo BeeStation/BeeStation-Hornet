@@ -86,7 +86,7 @@ export const Techweb = (props, context) => {
   } = data;
   return (
     <Window
-      width={640}
+      width={947}
       height={735}>
       <Window.Content>
         {!!locked && (
@@ -261,6 +261,8 @@ const TechwebOverview = (props, context) => {
   const searching = searchText && searchText.trim().length > 1;
 
   let displayedNodes = nodes;
+  let researchednodes = nodes;
+  let futurenodes = nodes;
   if (searching) {
     displayedNodes = displayedNodes.filter(x => {
       const n = node_cache[x.id];
@@ -270,9 +272,15 @@ const TechwebOverview = (props, context) => {
           design_cache[e].name.toLowerCase().includes(searchText));
     });
   } else {
-    displayedNodes = sortBy(x => node_cache[x.id].name)(tabIndex < 2
-      ? nodes.filter(x => x.tier === tabIndex)
-      : nodes.filter(x => x.tier >= tabIndex));
+    // displayedNodes = sortBy(x => node_cache[x.id].name)(tabIndex < 2
+    //  ? nodes.filter(x => x.tier === tabIndex)
+    //  : nodes.filter(x => x.tier >= tabIndex));
+    displayedNodes = sortBy(x => node_cache[x.id].name)(
+      nodes.filter(x => x.tier === 0));
+    researchednodes = sortBy(x => node_cache[x.id].name)(
+      nodes.filter(x => x.tier === 1));
+    futurenodes = sortBy(x => node_cache[x.id].name)(
+      nodes.filter(x => x.tier === 2));
   }
 
   const switchTab = tab => {
@@ -321,11 +329,29 @@ const TechwebOverview = (props, context) => {
         </Flex>
       </Flex.Item>
       <Flex.Item className={"Techweb__OverviewNodes"} height="100%">
-        {displayedNodes.map(n => {
-          return (
-            <TechNode node={n} key={n.id} />
-          );
-        })}
+        <Flex height="100%">
+          <Flex.Item mr={1}>
+            {displayedNodes.map(n => {
+              return (
+                <TechNode node={n} key={n.id} />
+              );
+            })}
+          </Flex.Item>
+          <Flex.Item mr={1}>
+            {researchednodes.map(n => {
+              return (
+                <TechNode node={n} key={n.id} />
+              );
+            })}
+          </Flex.Item>
+          <Flex.Item mr={1}>
+            {futurenodes.map(n => {
+              return (
+                <TechNode node={n} key={n.id} />
+              );
+            })}
+          </Flex.Item>
+        </Flex>
       </Flex.Item>
     </Flex>
   );
@@ -717,7 +743,9 @@ const TechNode = (props, context) => {
     <Section
       className="Techweb__NodeContainer"
       title={name}
-      buttons={!nocontrols && (
+      width={25}
+      fitted>
+      {!nocontrols && (
         <>
           {!nodetails && (
             <Button
@@ -745,9 +773,8 @@ const TechNode = (props, context) => {
               Destroy item for node
             </Button>
           )}
-        </>
-      )}>
-      {tier !== 0 && (
+        </>)}
+      {tier !== 0 && !!compact && (
         <Flex className="Techweb__NodeProgress">
           {costs.map(k => {
             const reqPts = Math.max(0, k.value);
