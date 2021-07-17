@@ -172,22 +172,27 @@ const TechFabHeader = (props, context) => {
         </Collapsible>
         <Collapsible
           title={"Reagents ("+reagents_label+")"}
-          disabled={materials === null}>
-          <Flex wrap="wrap" align="baseline">
-            <Flex.Item width="100%">
-              <Button
+          disabled={materials === null}
+          buttons = {[<Button
                 content="Purge all" 
-                onClick={() => act("disposeall", {})}
-              />
-            </Flex.Item>
+                onClick={() => act("disposeall")}
+              />]}
+          >
+          <Flex wrap="wrap" align="baseline">
             {
-              reagents && Object.keys(reagents).map(id => {
+              (reagents && Object.keys(reagents).length>0)
+              ? Object.keys(reagents).map(id => {
                 const reagent = reagents[id];
 
                 return (
                   <Reagent key={id} reagent={reagent} />
                 );
               })
+              : <Flex.Item width="100%">
+                  <NoticeBox info>
+                    Reagent storage empty
+                  </NoticeBox>
+                </Flex.Item>
             }
           </Flex>
         </Collapsible>
@@ -340,8 +345,8 @@ const TechFabContent = (props, context) => {
   else
   {
     return (
-      <Stack.Item>
-        <Section title="Categories" scrollable>
+      <Stack.Item grow>
+        <Section title="Categories" grow fill scrollable>
           <Flex wrap="wrap" justify="space-between" align="center">
             {
               categories.map(category => {
