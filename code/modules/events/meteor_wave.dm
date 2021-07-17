@@ -21,7 +21,6 @@
 		determine_wave_type()
 
 /datum/round_event/meteor_wave/on_admin_trigger()
-	var/instant = FALSE
 	if(alert(usr, "Trigger meteors instantly? (This will not change the alert, just send them quicker. Nobody will ever notice!)", "Meteor Trigger", "Yes", "No") == "Yes")
 		startWhen = 30
 		endWhen = 90
