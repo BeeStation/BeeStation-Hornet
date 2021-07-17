@@ -14,6 +14,11 @@
 	AddComponent(/datum/component/uplink, _owner = owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc)
 	RegisterSignal(src, COMSIG_COMPONENT_REMOVING, .proc/_component_removal)
 
+/obj/item/implant/uplink/proc/_component_removal(datum/source, datum/component/component)
+	SIGNAL_HANDLER
+	if(istype(component, /datum/component/uplink))
+		qdel(src)
+
 /obj/item/implanter/uplink
 	name = "implanter (uplink)"
 	imp_type = /obj/item/implant/uplink
