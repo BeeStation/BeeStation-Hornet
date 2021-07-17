@@ -1,0 +1,6 @@
+author: TheChaser212
+delete-after: true
+changes:
+  - rscadd: Added scanner circuit shell
+  - tweak: Added a user and triggered port to airlock shells
+  - tweak: Added a payer port to moneybot shells
