@@ -1,5 +1,0 @@
-author: TheChaser212
-delete-after: true
-changes:
-  - rscadd: Food has a chance to be cooked when set on fire
-  - bugfix: The temperature of reagents in smoke/foam isn't reset
