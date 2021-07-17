@@ -18,14 +18,17 @@
 	if(SSresearch.techweb_point_items[I.type])
 		return SSresearch.techweb_point_items[I.type]
 
-/proc/techweb_point_display_generic(pointlist)
+/proc/techweb_point_display_generic(pointlist, join = TRUE)
 	var/list/ret = list()
 	for(var/i in pointlist)
 		if(SSresearch.point_types[i])
 			ret += "[SSresearch.point_types[i]]: [pointlist[i]]"
 		else
 			ret += "ERRORED POINT TYPE: [pointlist[i]]"
-	return ret.Join("<BR>")
+	if(join)
+		return ret.Join("<BR>")
+	else
+		return ret
 
 /proc/techweb_point_display_rdconsole(pointlist, last_pointlist)
 	var/list/ret = list()

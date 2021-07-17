@@ -1,3 +1,6 @@
+#define RND_TECH_DISK	"tech"
+#define RND_DESIGN_DISK	"design"
+
 
 /*
 Research and Development (R&D) Console
@@ -30,36 +33,25 @@ Nothing else in the console has ID requirements.
 
 	req_access = list(ACCESS_TOX)	//lA AND SETTING MANIPULATION REQUIRES SCIENTIST ACCESS.
 
-	//UI VARS
-	var/screen = RDSCREEN_MENU
-	var/back = RDSCREEN_MENU
 	var/locked = FALSE
-	var/tdisk_uple = FALSE
-	var/ddisk_uple = FALSE
-	var/datum/selected_node_id
-	var/datum/selected_design_id
-	var/selected_category
-	var/list/matching_design_ids
-	var/disk_slot_selected
-	var/searchstring = ""
-	var/searchtype = ""
-	var/ui_mode = RDCONSOLE_UI_MODE_NORMAL
+	var/id_cache = list()
+	var/id_cache_seq = 1
+	var/compact = FALSE
 
 	var/research_control = TRUE
-
-/obj/machinery/computer/rdconsole/production
-	circuit = /obj/item/circuitboard/computer/rdconsole/production
-	research_control = FALSE
 
 /proc/CallMaterialName(ID)
 	if (istype(ID, /datum/material))
 		var/datum/material/material = ID
 		return material.name
-
 	else if(GLOB.chemical_reagents_list[ID])
 		var/datum/reagent/reagent = GLOB.chemical_reagents_list[ID]
 		return reagent.name
-	return "ERROR: Report This"
+	return ID
+
+/obj/machinery/computer/rdconsole/production
+	circuit = /obj/item/circuitboard/computer/rdconsole/production
+	research_control = FALSE
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
 	for(var/obj/machinery/rnd/D in oview(3,src))
@@ -88,7 +80,6 @@ Nothing else in the console has ID requirements.
 	. = ..()
 	stored_research = SSresearch.science_tech
 	stored_research.consoles_accessing[src] = TRUE
-	matching_design_ids = list()
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
@@ -109,7 +100,6 @@ Nothing else in the console has ID requirements.
 	if(d_disk)
 		d_disk.forceMove(get_turf(src))
 		d_disk = null
-	matching_design_ids = null
 	return ..()
 
 /obj/machinery/computer/rdconsole/attackby(obj/item/D, mob/user, params)
@@ -201,7 +191,7 @@ Nothing else in the console has ID requirements.
 	var/lathe = linked_lathe && linked_lathe.multitool_act(user, I)
 	var/print = linked_imprinter && linked_imprinter.multitool_act(user, I)
 	return lathe || print
-
+/*
 /obj/machinery/computer/rdconsole/proc/list_categories(list/categories, menu_num as num)
 	if(!categories)
 		return
@@ -1059,21 +1049,307 @@ Nothing else in the console has ID requirements.
 			stored_research.add_design(d_disk.blueprints[n], TRUE)
 
 	updateUsrDialog()
-
+*/
+/*
 /obj/machinery/computer/rdconsole/ui_interact(mob/user)
 	. = ..()
 	var/datum/browser/popup = new(user, "rndconsole", name, 900, 600)
 	popup.add_stylesheet("techwebs", 'html/browser/techwebs.css')
 	popup.set_content(generate_ui())
 	popup.open()
+*/
 
-/obj/machinery/computer/rdconsole/proc/tdisk_uple_complete()
-	tdisk_uple = FALSE
-	updateUsrDialog()
+/obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if (!ui)
+		ui = new(user, src, "Techweb", name)
+		ui.open()
 
-/obj/machinery/computer/rdconsole/proc/ddisk_uple_complete()
-	ddisk_uple = FALSE
-	updateUsrDialog()
+/obj/machinery/computer/rdconsole/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/research_designs)
+	)
+
+// heavy data from this proc should be moved to static data when possible
+/obj/machinery/computer/rdconsole/ui_data(mob/user)
+	. = list(
+		"nodes" = list(),
+		"experiments" = list(),
+		"researched_designs" = stored_research.researched_designs,
+		"points" = stored_research.research_points,
+		"points_last_tick" = stored_research.last_bitcoins,
+		"web_org" = stored_research.organization,
+		"sec_protocols" = !(obj_flags & EMAGGED),
+		"t_disk" = null,
+		"d_disk" = null,
+		"locked" = locked,
+		"linkedanalyzer" = FALSE,
+		"analyzertechs" = list(),
+		"itemmats" = list(),
+		"itempoints" = list(),
+		"analyzeritem" = null,
+		"compact" = compact
+	)
+
+	if (t_disk)
+		.["t_disk"] = list (
+			"stored_research" = t_disk.stored_research.researched_nodes
+		)
+	if (d_disk)
+		.["d_disk"] = list (
+			"max_blueprints" = d_disk.max_blueprints,
+			"blueprints" = list()
+		)
+		for (var/i in 1 to d_disk.max_blueprints)
+			if (d_disk.blueprints[i])
+				var/datum/design/D = d_disk.blueprints[i]
+				.["d_disk"]["blueprints"] += D.id
+			else
+				.["d_disk"]["blueprints"] += null
+
+	if(linked_destroy && (!QDELETED(linked_destroy)))
+		.["linkedanalyzer"] = TRUE
+
+		if(linked_destroy.loaded_item && (!QDELETED(linked_destroy.loaded_item)))
+			var/list/techyitems = techweb_item_boost_check(linked_destroy.loaded_item)
+			var/list/points = techweb_item_point_check(linked_destroy.loaded_item)
+			var/list/materials = linked_destroy.loaded_item.materials
+			var/list/matstuff = list()
+
+			if(length(techyitems))
+				for(var/v in techyitems)
+					.["analyzertechs"][v] = 1
+			else
+				.["analyzertechs"] = null
+			for(var/M in materials)
+				matstuff += "[CallMaterialName(M)] x [materials[M]]"
+			if(length(matstuff))
+				.["itemmats"] = matstuff
+			else
+				.["itemmats"] = null
+			if(length(points))
+				.["itempoints"] = techweb_point_display_generic(points, FALSE)
+			else
+				.["itempoints"] = null
+			.["analyzeritem"] = linked_destroy.loaded_item.name
+		else
+			.["analyzeritem"] = null
+	else
+		.["linkedanalyzer"] = FALSE
+
+
+
+	// Serialize all nodes to display
+	for(var/v in stored_research.tiers)
+		var/datum/techweb_node/n = SSresearch.techweb_node_by_id(v)
+
+		// Ensure node is supposed to be visible
+		if (stored_research.hidden_nodes[v])
+			continue
+
+		.["nodes"] += list(list(
+			"id" = n.id,
+			"can_unlock" = stored_research.can_afford(n.get_price(stored_research)),
+			"tier" = stored_research.tiers[n.id]
+		))
+
+/obj/machinery/computer/rdconsole/proc/compress_id(id)
+	if (!id_cache[id])
+		id_cache[id] = id_cache_seq
+		id_cache_seq += 1
+	return id_cache[id]
+
+/obj/machinery/computer/rdconsole/ui_static_data(mob/user)
+	. = list(
+		"static_data" = list()
+	)
+
+	// Build node cache...
+	// Note this looks a bit ugly but its to reduce the size of the JSON payload
+	// by the greatest amount that we can, as larger JSON payloads result in
+	// hanging when the user opens the UI
+	var/node_cache = list()
+	for (var/node_id in SSresearch.techweb_nodes)
+		var/datum/techweb_node/node = SSresearch.techweb_nodes[node_id] || SSresearch.error_node
+		var/compressed_id = "[compress_id(node.id)]"
+		node_cache[compressed_id] = list(
+			"name" = node.display_name,
+			"description" = node.description
+		)
+		if (LAZYLEN(node.research_costs))
+			node_cache[compressed_id]["costs"] = list()
+			for (var/node_cost in node.research_costs)
+				node_cache[compressed_id]["costs"]["[compress_id(node_cost)]"] = node.research_costs[node_cost]
+		if (LAZYLEN(node.prereq_ids))
+			node_cache[compressed_id]["prereq_ids"] = list()
+			for (var/prerequisite_node in node.prereq_ids)
+				node_cache[compressed_id]["prereq_ids"] += compress_id(prerequisite_node)
+		if (LAZYLEN(node.design_ids))
+			node_cache[compressed_id]["design_ids"] = list()
+			for (var/unlocked_design in node.design_ids)
+				node_cache[compressed_id]["design_ids"] += compress_id(unlocked_design)
+		if (LAZYLEN(node.unlock_ids))
+			node_cache[compressed_id]["unlock_ids"] = list()
+			for (var/unlocked_node in node.unlock_ids)
+				node_cache[compressed_id]["unlock_ids"] += compress_id(unlocked_node)
+
+	// Build design cache
+	var/design_cache = list()
+	var/datum/asset/spritesheet/research_designs/spritesheet = get_asset_datum(/datum/asset/spritesheet/research_designs)
+	var/size32x32 = "[spritesheet.name]32x32"
+	for (var/design_id in SSresearch.techweb_designs)
+		var/datum/design/design = SSresearch.techweb_designs[design_id] || SSresearch.error_design
+		var/compressed_id = "[compress_id(design.id)]"
+		var/size = spritesheet.icon_size_id(design.id)
+		design_cache[compressed_id] = list(
+			design.name,
+			"[size == size32x32 ? "" : "[size] "][design.id]"
+		)
+
+	// Ensure id cache is included for decompression
+	var/flat_id_cache = list()
+	for (var/id in id_cache)
+		flat_id_cache += id
+
+	.["static_data"] = list(
+		"node_cache" = node_cache,
+		"design_cache" = design_cache,
+		"id_cache" = flat_id_cache
+	)
+
+/obj/machinery/computer/rdconsole/ui_act(action, list/params)
+	. = ..()
+	if (.)
+		return
+
+	add_fingerprint(usr)
+
+	// Check if the console is locked to block any actions occuring
+	if (locked && action != "toggleLock")
+		say("Console is locked, cannot perform further actions.")
+		return TRUE
+
+	switch (action)
+		if ("toggleLock")
+			if(obj_flags & EMAGGED)
+				to_chat(usr, "<span class='boldwarning'>Security protocol error: Unable to access locking protocols.</span>")
+				return TRUE
+			if(allowed(usr))
+				locked = !locked
+			else
+				to_chat(usr, "<span class='boldwarning'>Unauthorized Access.</span>")
+			return TRUE
+		if ("compactify")
+			compact = !compact
+			return TRUE
+		if ("linkmachines")
+			say("Linked nearby machines!")
+			SyncRDevices()
+			return TRUE
+		if ("researchNode")
+			if(!SSresearch.science_tech.available_nodes[params["node_id"]])
+				return TRUE
+			research_node(params["node_id"], usr)
+			return TRUE
+		if ("ejectDisk")
+			eject_disk(params["type"])
+			return TRUE
+		if ("writeDesign")
+			if(QDELETED(d_disk))
+				say("No Design Disk Inserted!")
+				return TRUE
+			var/slot = text2num(params["slot"])
+			var/datum/design/design = SSresearch.techweb_design_by_id(params["selectedDesign"])
+			if(design)
+				var/autolathe_friendly = TRUE
+				if(design.reagents_list.len)
+					autolathe_friendly = FALSE
+					design.category -= "Imported"
+				else
+					for(var/material in design.materials)
+						if( !(material in list(/datum/material/iron, /datum/material/glass)))
+							autolathe_friendly = FALSE
+							design.category -= "Imported"
+
+				if(design.build_type & (AUTOLATHE|PROTOLATHE)) // Specifically excludes circuit imprinter and mechfab
+					design.build_type = autolathe_friendly ? (design.build_type | AUTOLATHE) : design.build_type
+					design.category |= "Imported"
+				d_disk.blueprints[slot] = design
+			return TRUE
+		if ("uploadDesignSlot")
+			if(QDELETED(d_disk))
+				say("No design disk found.")
+				return TRUE
+			var/n = text2num(params["slot"])
+			stored_research.add_design(d_disk.blueprints[n], TRUE)
+			return TRUE
+		if ("clearDesignSlot")
+			if(QDELETED(d_disk))
+				say("No design disk inserted!")
+				return TRUE
+			var/n = text2num(params["slot"])
+			var/datum/design/D = d_disk.blueprints[n]
+			say("Wiping design [D.name] from design disk.")
+			d_disk.blueprints[n] = null
+			return TRUE
+		if ("eraseDisk")
+			if (params["type"] == RND_DESIGN_DISK)
+				if(QDELETED(d_disk))
+					say("No design disk inserted!")
+					return TRUE
+				say("Wiping design disk.")
+				for(var/i in 1 to d_disk.max_blueprints)
+					d_disk.blueprints[i] = null
+			if (params["type"] == RND_TECH_DISK)
+				if(QDELETED(t_disk))
+					say("No tech disk inserted!")
+					return TRUE
+				qdel(t_disk.stored_research)
+				t_disk.stored_research = new
+				say("Wiping technology disk.")
+			return TRUE
+		if ("uploadDisk")
+			if (params["type"] == RND_DESIGN_DISK)
+				if(QDELETED(d_disk))
+					say("No design disk inserted!")
+					return TRUE
+				for(var/D in d_disk.blueprints)
+					if(D)
+						stored_research.add_design(D, TRUE)
+			if (params["type"] == RND_TECH_DISK)
+				if (QDELETED(t_disk))
+					say("No tech disk inserted!")
+					return TRUE
+				say("Uploading technology disk.")
+				t_disk.stored_research.copy_research_to(stored_research)
+			return TRUE
+		if ("loadTech")
+			if(QDELETED(t_disk))
+				say("No tech disk inserted!")
+				return
+			stored_research.copy_research_to(t_disk.stored_research)
+			say("Downloading to technology disk.")
+			return TRUE
+
+		if ("destroyfortech")
+			if(!linked_destroy || QDELETED(linked_destroy))
+				say("No linked destructive analyzer!")
+				return
+			if(params["node_id"])
+				linked_destroy.user_try_decon_id(params["node_id"], usr)
+			return TRUE
+		if ("destroyitem")
+			if(!linked_destroy || QDELETED(linked_destroy))
+				say("No linked destructive analyzer!")
+				return
+			linked_destroy.user_try_decon_id(null, usr)
+			return TRUE
+		if ("ejectitem")
+			if(!linked_destroy || QDELETED(linked_destroy))
+				say("No linked destructive analyzer!")
+				return
+			linked_destroy.unload_item()
+			return TRUE
 
 /obj/machinery/computer/rdconsole/proc/eject_disk(type)
 	if(type == "design")
@@ -1082,20 +1358,6 @@ Nothing else in the console has ID requirements.
 	if(type == "tech")
 		t_disk.forceMove(get_turf(src))
 		t_disk = null
-
-/obj/machinery/computer/rdconsole/proc/rescan_views()
-	var/compare
-	matching_design_ids.Cut()
-	if(searchtype == "proto")
-		compare = PROTOLATHE
-	else if(searchtype == "imprint")
-		compare = IMPRINTER
-	for(var/v in stored_research.researched_designs)
-		var/datum/design/D = SSresearch.techweb_design_by_id(v)
-		if(!(D.build_type & compare))
-			continue
-		if(findtext(D.name,searchstring))
-			matching_design_ids.Add(D.id)
 
 /obj/machinery/computer/rdconsole/proc/check_canprint(datum/design/D, buildtype)
 	var/amount = 50
@@ -1139,3 +1401,6 @@ Nothing else in the console has ID requirements.
 
 /obj/machinery/computer/rdconsole/experiment
 	name = "E.X.P.E.R.I-MENTOR R&D Console"
+
+#undef RND_TECH_DISK
+#undef RND_DESIGN_DISK
