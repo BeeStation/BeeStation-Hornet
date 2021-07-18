@@ -14,8 +14,14 @@
 	AddComponent(/datum/component/uplink, _owner = owner, _lockable = TRUE, _enabled = FALSE, uplink_flag = uplink_flag, starting_tc = starting_tc)
 	RegisterSignal(src, COMSIG_COMPONENT_REMOVING, .proc/_component_removal)
 
+/**
+ * Proc called when component is removed; ie. uplink component
+ *
+ * Callback catching if the underlying uplink component has been removed,
+ * generally by admin verbs or var editing. Implant does nothing without
+ * the component, so delete itself.
+ */
 /obj/item/implant/uplink/proc/_component_removal(datum/source, datum/component/component)
-	SIGNAL_HANDLER
 	if(istype(component, /datum/component/uplink))
 		qdel(src)
 
@@ -32,4 +38,7 @@
 	imp_type = /obj/item/implant/uplink/precharged
 
 /obj/item/implant/uplink/precharged
-	starting_tc = 10
+	starting_tc = TELECRYSTALS_PRELOADED_IMPLANT
+
+/obj/item/implant/uplink/starting
+	starting_tc = TELECRYSTALS_DEFAULT - UPLINK_IMPLANT_TELECRYSTAL_COST
