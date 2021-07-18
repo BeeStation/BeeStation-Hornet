@@ -234,6 +234,7 @@
 	M.emote("scream")
 	M.AdjustParalyzed(20)
 	M.pixel_y = -20
+	M.layer = 4
 
 /obj/structure/kitchenspike/crucifix/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/mineral/wood(src.loc, 5)
