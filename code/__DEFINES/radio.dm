@@ -42,6 +42,10 @@
 #define RADIO_KEY_SYNDICATE "t"
 #define RADIO_TOKEN_SYNDICATE ":t"
 
+#define RADIO_CHANNEL_INCURSION "Incursion"
+#define RADIO_KEY_INCURSION "w"
+#define RADIO_TOKEN_INCURSION ":w"
+
 #define RADIO_CHANNEL_CENTCOM "CentCom"
 #define RADIO_KEY_CENTCOM "y"
 #define RADIO_TOKEN_CENTCOM ":y"
@@ -64,6 +68,7 @@
 #define FREQ_MEDICAL 1355  //! Medical comms frequency, soft blue
 #define FREQ_ENGINEERING 1357  //! Engineering comms frequency, orange
 #define FREQ_SECURITY 1359  //! Security comms frequency, red
+#define FREQ_INCURSION 1361  //!  Private channel for the incursion team
 
 #define FREQ_STATUS_DISPLAYS 1435
 #define FREQ_ATMOS_ALARMS 1437  //! air alarms <-> alert computers

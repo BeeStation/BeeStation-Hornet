@@ -29,6 +29,11 @@
 	channels = list(RADIO_CHANNEL_SYNDICATE = 1)
 	syndie = TRUE//Signifies that it de-crypts Syndicate transmissions
 
+/obj/item/encryptionkey/incursion
+	icon_state = "syn_cypherkey"
+	channels = list(RADIO_CHANNEL_INCURSION = 1)
+	independent = TRUE
+
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
 	icon_state = "bin_cypherkey"

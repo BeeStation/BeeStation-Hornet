@@ -154,6 +154,7 @@
 
 /obj/item/implant/radio/syndicate/selfdestruct
 	name = "hacked internal radio implant"
+	radio_key = /obj/item/encryptionkey/incursion
 
 /obj/item/implant/radio/syndicate/selfdestruct/on_implanted(mob/living/user, var/time = 50)
 	if(!user.mind.has_antag_datum(/datum/antagonist/incursion))
