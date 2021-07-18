@@ -179,8 +179,9 @@ export const TechwebContent = (props, context) => {
             </Box>
             <Box>
               <Button
-                icon="lock"
-                onClick={() => { act("compactify"); }} />
+                onClick={() => { act("compactify"); }}>
+                Compactify
+              </Button>
               <Button
                 icon="link"
                 onClick={() => { act("linkmachines"); }} >
@@ -272,9 +273,6 @@ const TechwebOverview = (props, context) => {
           design_cache[e].name.toLowerCase().includes(searchText));
     });
   } else {
-    // displayedNodes = sortBy(x => node_cache[x.id].name)(tabIndex < 2
-    //  ? nodes.filter(x => x.tier === tabIndex)
-    //  : nodes.filter(x => x.tier >= tabIndex));
     displayedNodes = sortBy(x => node_cache[x.id].name)(
       nodes.filter(x => x.tier === 0));
     researchednodes = sortBy(x => node_cache[x.id].name)(
@@ -297,21 +295,6 @@ const TechwebOverview = (props, context) => {
           </Flex.Item>
           <Flex.Item grow={1}>
             <Tabs>
-              <Tabs.Tab
-                selected={!searching && tabIndex === 0}
-                onClick={() => switchTab(0)}>
-                Researched
-              </Tabs.Tab>
-              <Tabs.Tab
-                selected={!searching && tabIndex === 1}
-                onClick={() => switchTab(1)}>
-                Available
-              </Tabs.Tab>
-              <Tabs.Tab
-                selected={!searching && tabIndex === 2}
-                onClick={() => switchTab(2)}>
-                Future
-              </Tabs.Tab>
               {!!searching && (
                 <Tabs.Tab
                   selected>
@@ -330,27 +313,40 @@ const TechwebOverview = (props, context) => {
       </Flex.Item>
       <Flex.Item className={"Techweb__OverviewNodes"} height="100%">
         <Flex height="100%">
-          <Flex.Item mr={1}>
-            {displayedNodes.map(n => {
-              return (
-                <TechNode node={n} key={n.id} />
-              );
-            })}
-          </Flex.Item>
-          <Flex.Item mr={1}>
-            {researchednodes.map(n => {
-              return (
-                <TechNode node={n} key={n.id} />
-              );
-            })}
-          </Flex.Item>
-          <Flex.Item mr={1}>
-            {futurenodes.map(n => {
-              return (
-                <TechNode node={n} key={n.id} />
-              );
-            })}
-          </Flex.Item>
+          {!searching && (
+            <>
+              <Flex.Item mr={1}>
+                {displayedNodes.map(n => {
+                  return (
+                    <TechNode node={n} key={n.id} />
+                  );
+                })}
+              </Flex.Item>
+              <Flex.Item mr={1}>
+                {researchednodes.map(n => {
+                  return (
+                    <TechNode node={n} key={n.id} />
+                  );
+                })}
+              </Flex.Item>
+              <Flex.Item mr={1}>
+                {futurenodes.map(n => {
+                  return (
+                    <TechNode node={n} key={n.id} />
+                  );
+                })}
+              </Flex.Item>
+            </>
+          )}
+          {!!searching && (
+            <Flex.Item mr={1}>
+              {displayedNodes.map(n => {
+                return (
+                  <TechNode node={n} key={n.id} />
+                );
+              })}
+            </Flex.Item>
+          )}
         </Flex>
       </Flex.Item>
     </Flex>
@@ -657,25 +653,10 @@ const TechNodeDetail = (props, context) => {
 
   return (
     <Flex direction="column" height="100%">
-      <Flex.Item shrink={1}>
+      <Flex.Item>
         <Flex justify="space-between" className="Techweb__HeaderSectionTabs">
           <Flex.Item align="center" className="Techweb__HeaderTabTitle">
             Node
-          </Flex.Item>
-          <Flex.Item grow={1}>
-            <Tabs>
-              <Tabs.Tab
-                selected={tabIndex === 0}
-                onClick={() => setTabIndex(0)}>
-                Required ({complPrereq}/{prereqNodes.length})
-              </Tabs.Tab>
-              <Tabs.Tab
-                selected={tabIndex === 1}
-                disabled={unlockedNodes.length === 0}
-                onClick={() => setTabIndex(1)}>
-                Unlocks ({unlockedNodes.length})
-              </Tabs.Tab>
-            </Tabs>
           </Flex.Item>
           <Flex.Item align="center">
             <Button
@@ -686,24 +667,23 @@ const TechNodeDetail = (props, context) => {
           </Flex.Item>
         </Flex>
       </Flex.Item>
-      <Flex.Item className="Techweb__OverviewNodes" shrink={0}>
-        <TechNode node={node} nodetails />
-        <Divider />
+      <Flex.Item className={"Techweb__OverviewNodes"} height="100%">
+        <Flex>
+          <Flex.Item mr={1}>
+            {prereqNodes.map(n => (
+              <TechNode key={n.id} node={n} />
+            ))}
+          </Flex.Item>
+          <Flex.Item mr={1}>
+            <TechNode node={node} nodetails />
+          </Flex.Item>
+          <Flex.Item mr={1}>
+            {unlockedNodes.map(n => (
+              <TechNode key={n.id} node={n} />
+            ))}
+          </Flex.Item>
+        </Flex>
       </Flex.Item>
-      {tabIndex === 0 && (
-        <Flex.Item className="Techweb__OverviewNodes" grow={1}>
-          {prereqNodes.map(n => (
-            <TechNode key={n.id} node={n} />
-          ))}
-        </Flex.Item>
-      )}
-      {tabIndex === 1 && (
-        <Flex.Item className="Techweb__OverviewNodes" grow={1}>
-          {unlockedNodes.map(n => (
-            <TechNode key={n.id} node={n} />
-          ))}
-        </Flex.Item>
-      )}
     </Flex>
   );
 };
