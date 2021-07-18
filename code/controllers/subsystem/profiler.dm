@@ -36,13 +36,11 @@ SUBSYSTEM_DEF(profiler)
 	world.Profile(PROFILE_START, type = "sendmaps")
 #endif
 
-#endif
 
 /datum/controller/subsystem/profiler/proc/StopProfiling()
 	world.Profile(PROFILE_STOP)
 #ifdef SENDMAPS_PROFILE
 	world.Profile(PROFILE_STOP, type = "sendmaps")
-#endif
 #endif
 
 /datum/controller/subsystem/profiler/proc/DumpFile()
