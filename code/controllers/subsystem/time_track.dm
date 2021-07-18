@@ -138,7 +138,6 @@ SUBSYSTEM_DEF(time_track)
 			SSair.cost_pipenets,
 			SSair.cost_rebuilds,
 			length(SSair.active_turfs),
-			length(SSair.excited_groups),
 			length(SSair.hotspots),
 			length(SSair.networks),
 			length(SSair.high_pressure_delta),
