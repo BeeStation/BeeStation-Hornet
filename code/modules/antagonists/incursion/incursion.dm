@@ -49,9 +49,10 @@
 	return member_text
 
 /datum/antagonist/incursion/greet()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the member of a Syndicate incursion team!</span>")
-	to_chat(owner.current, "You have formed a team of Syndicate members with a similar mindset and must infiltrate the ranks of the station!")
-	to_chat(owner.current, "You have been implanted with a syndicate headset for communication with your team. This headset can only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!")
+	to_chat(owner.current, "<span class='alertsyndie'>You are a member of the Syndicate Incursion Team!</span>")
+	to_chat(owner.current, "<span class='boldannounce'>You have formed a team of Syndicate members with a similar mindset and must infiltrate the ranks of the station!")
+	to_chat(owner.current, "<span class='boldannounce'>You have been implanted with a syndicate headset for communication with your team. This headset can only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!")
+	to_chat(owner.current, "<span class='boldnotice'>Use say \"[RADIO_TOKEN_INCURSION] message\" to communicate with your team members.")
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Incursion",
 		"Work with your team members to complete your objectives.")
