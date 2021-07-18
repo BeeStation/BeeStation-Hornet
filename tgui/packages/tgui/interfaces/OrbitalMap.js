@@ -7,27 +7,13 @@ export const OrbitalMap = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     map_objects = [],
-    collisionAlert = false,
     linkedToShuttle = false,
     canLaunch = false,
     recall_docking_port_id = "",
     thrust_alert = false,
     damage_alert = false,
     shuttleName = "",
-    desired_vel_x = 0,
-    desired_vel_y = 0,
-    validDockingPorts = [],
-    isDocking = false,
-    interdiction_range = 0,
   } = data;
-  const lineStyle = {
-    stroke: '#BBBBBB',
-    strokeWidth: '2',
-  };
-  const blueLineStyle = {
-    stroke: '#8888FF',
-    strokeWidth: '2',
-  };
   const [
     zoomScale,
     setZoomScale,
@@ -44,7 +30,6 @@ export const OrbitalMap = (props, context) => {
     trackedBody,
     setTrackedBody,
   ] = useLocalState(context, 'trackedBody', map_objects[0].name);
-  let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
   let trackedObject = null;
   let ourObject = null;
   if (map_objects.length > 0)
@@ -67,222 +52,24 @@ export const OrbitalMap = (props, context) => {
       }
     });
   }
+
   return (
     <Window
-      width={1036}
-      height={670}
+      width={1136}
+      height={770}
       resizable
       overflowY="hidden">
       <Window.Content overflowY="hidden">
         <div class="OrbitalMap__radar">
-          <Button
-            position="absolute"
-            icon="search-plus"
-            right="20px"
-            top="15px"
-            fontSize="18px"
-            color="grey"
-            onClick={() => setZoomScale(zoomScale * 2)} />
-          <Button
-            position="absolute"
-            icon="search-minus"
-            right="20px"
-            top="47px"
-            fontSize="18px"
-            color="grey"
-            onClick={() => setZoomScale(zoomScale / 2)} />
-          {!isDocking || (
-            <NoticeBox
-              position="absolute"
-              color="red"
-              top="50px"
-              left="calc(50% - 150px)"
-              width="300px"
-              textAlign="center"
-              fontSize="14px">
-              <>
-                <NoticeBox mt={1}>
-                  DOCKING PROTOCOL ONLINE,
-                  FLIGHT DISABLED -
-                  SELECT DESTINATION.
-                </NoticeBox>
-                <Dropdown
-                  mt={1}
-                  selected="Select Docking Location"
-                  width="100%"
-                  options={validDockingPorts.map(
-                    map_object => (
-                      <option key={map_object.id}>
-                        {map_object.name}
-                      </option>
-                    ))}
-                  onSelected={value => act("gotoPort", {
-                    port: value.key,
-                  })} />
-              </>
-            </NoticeBox>
-          )}
-          <DraggableControl
-            position="absolute"
-            value={xOffset}
-            dragMatrix={[-1, 0]}
-            step={1}
-            stepPixelSize={2 * zoomScale}
-            onDrag={(e, value) => {
-              setXOffset(value);
-              setTrackedBody(map_objects[0].name);
-            }}
-            updateRate={5}>
-            {control => (
-              <DraggableControl
-                position="absolute"
-                value={yOffset}
-                dragMatrix={[0, -1]}
-                step={1}
-                stepPixelSize={2 * zoomScale}
-                onDrag={(e, value) => {
-                  setYOffset(value);
-                  setTrackedBody(map_objects[0].name);
-                }}
-                updateRate={5}>
-                {control1 => (
-                  <>
-                    {control.inputElement}
-                    {control1.inputElement}
-                    <svg
-                      onMouseDown={e => {
-                        control.handleDragStart(e);
-                        control1.handleDragStart(e);
-                      }}
-                      viewBox="-250 -250 500 500"
-                      position="absolute"
-                      overflowY="hidden">
-                      <defs>
-                        <pattern id="grid" width={100 * lockedZoomScale}
-                          height={100 * lockedZoomScale}
-                          patternUnits="userSpaceOnUse">
-                          <rect width={100 * lockedZoomScale}
-                            height={100 * lockedZoomScale}
-                            fill="url(#smallgrid)" />
-                          <path
-                            fill="none" stroke="#4665DE" stroke-width="1"
-                            d={"M " + (100 * lockedZoomScale)+ " 0 L 0 0 0 " + (100 * lockedZoomScale)} />
-                        </pattern>
-                        <pattern id="smallgrid"
-                          width={50 * lockedZoomScale}
-                          height={50 * lockedZoomScale}
-                          patternUnits="userSpaceOnUse">
-                          <rect
-                            width={50 * lockedZoomScale}
-                            height={50 * lockedZoomScale}
-                            fill="#2B2E3B" />
-                          <path
-                            fill="none"
-                            stroke="#4665DE"
-                            stroke-width="0.5"
-                            d={"M " + (50 * lockedZoomScale) + " 0 L 0 0 0 "
-                            + (50 * lockedZoomScale)} />
-                        </pattern>
-                      </defs>
-                      <rect x="-50%" y="-50%" width="100%" height="100%"
-                        fill="url(#grid)" />
-                      {map_objects.map(map_object => (
-                        <>
-                          <circle
-                            cx={Math.max(Math.min((map_object.position_x
-                              - xOffset)
-                              * zoomScale, 250), -250)}
-                            cy={Math.max(Math.min((map_object.position_y
-                              - yOffset)
-                              * zoomScale, 250), -250)}
-                            r={((map_object.position_y - yOffset)
-                              * zoomScale > 250
-                              || (map_object.position_y - yOffset)
-                              * zoomScale < -250
-                              || (map_object.position_x - xOffset)
-                              * zoomScale > 250
-                              || (map_object.position_x - xOffset)
-                              * zoomScale < -250)
-                              ? 5 * zoomScale
-                              : Math.max(5 * zoomScale, map_object.radius
-                                * zoomScale)}
-                            stroke="#BBBBBB"
-                            stroke-width="1"
-                            fill="rgba(0,0,0,0)" />
-                          <line
-                            style={lineStyle}
-                            x1={Math.max(Math.min((map_object.position_x
-                              - xOffset)
-                              * zoomScale, 250), -250)}
-                            y1={Math.max(Math.min((map_object.position_y
-                              - yOffset)
-                              * zoomScale, 250), -250)}
-                            x2={Math.max(Math.min((map_object.position_x
-                              - xOffset
-                              + map_object.velocity_x * 10)
-                              * zoomScale, 250), -250)}
-                            y2={Math.max(Math.min((map_object.position_y
-                              - yOffset
-                              + map_object.velocity_y * 10)
-                              * zoomScale, 250), -250)} />
-                          <text
-                            x={Math.max(Math.min((map_object.position_x
-                              - xOffset) * zoomScale, 200), -250)}
-                            y={Math.max(Math.min((map_object.position_y
-                              - yOffset) * zoomScale, 250), -240)}
-                            fill="white"
-                            fontSize={Math.min(40 * lockedZoomScale, 14)}>
-                            {map_object.name}
-                          </text>
-                          {shuttleName !== map_object.name || (
-                            <line
-                              style={blueLineStyle}
-                              x1={Math.max(Math.min((map_object.position_x
-                                - xOffset)
-                                * zoomScale, 250), -250)}
-                              y1={Math.max(Math.min((map_object.position_y
-                                - yOffset)
-                                * zoomScale, 250), -250)}
-                              x2={Math.max(Math.min((map_object.position_x
-                                - xOffset
-                                + desired_vel_x * 10)
-                                * zoomScale, 250), -250)}
-                              y2={Math.max(Math.min((map_object.position_y
-                                - yOffset
-                                + desired_vel_y * 10)
-                                * zoomScale, 250), -250)} />
-                          )}
-                        </>
-                      ))};
-                      {ourObject && (
-                        <circle
-                          cx={Math.max(Math.min((ourObject.position_x
-                            - xOffset)
-                            * zoomScale, 250), -250)}
-                          cy={Math.max(Math.min((ourObject.position_y
-                            - yOffset)
-                            * zoomScale, 250), -250)}
-                          r={((ourObject.position_y - yOffset)
-                            * zoomScale > 250
-                            || (ourObject.position_y - yOffset)
-                            * zoomScale < -250
-                            || (ourObject.position_x - xOffset)
-                            * zoomScale > 250
-                            || (ourObject.position_x - xOffset)
-                            * zoomScale < -250)
-                            ? 5 * zoomScale
-                            : Math.max(5 * zoomScale, interdiction_range
-                              * zoomScale)}
-                          stroke="#00FF00"
-                          stroke-width="1"
-                          fill="rgba(0,0,0,0)" />
-                      )}
-                    </svg>
-                  </>
-                )}
-              </DraggableControl>
-            )}
-          </DraggableControl>
+          <OrbitalMapDisplay
+            xOffset={xOffset}
+            yOffset={yOffset}
+            zoomScale={zoomScale}
+            setZoomScale={setZoomScale}
+            setXOffset={setXOffset}
+            setYOffset={setYOffset}
+            setTrackedBody={setTrackedBody}
+            ourObject={ourObject} />
         </div>
         <div class="OrbitalMap__panel">
           <ScrollableBox overflowY="scroll" height="100%">
@@ -368,6 +155,260 @@ export const OrbitalMap = (props, context) => {
       </Window.Content>
     </Window>
   );
+};
+
+export const OrbitalMapDisplay = (props, context) => {
+
+  // SVG Background Style
+  const lineStyle = {
+    stroke: '#BBBBBB',
+    strokeWidth: '2',
+  };
+  const blueLineStyle = {
+    stroke: '#8888FF',
+    strokeWidth: '2',
+  };
+
+  const {
+    xOffset,
+    yOffset,
+    zoomScale,
+    setZoomScale,
+    setXOffset,
+    setYOffset,
+    setTrackedBody,
+    ourObject,
+  } = props;
+
+  let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
+
+  const { act, data } = useBackend(context);
+
+  const {
+    map_objects = [],
+    shuttleName = "",
+    desired_vel_x = 0,
+    desired_vel_y = 0,
+    validDockingPorts = [],
+    isDocking = false,
+    interdiction_range = 0,
+  } = data;
+
+  return (
+    <Fragment>
+      <Button
+        position="absolute"
+        icon="search-plus"
+        right="20px"
+        top="15px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setZoomScale(zoomScale * 2)} />
+      <Button
+        position="absolute"
+        icon="search-minus"
+        right="20px"
+        top="47px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setZoomScale(zoomScale / 2)} />
+      {!isDocking || (
+        <NoticeBox
+          position="absolute"
+          color="red"
+          top="50px"
+          left="calc(50% - 150px)"
+          width="300px"
+          textAlign="center"
+          fontSize="14px">
+          <>
+            <NoticeBox mt={1}>
+              DOCKING PROTOCOL ONLINE,
+              FLIGHT DISABLED -
+              SELECT DESTINATION.
+            </NoticeBox>
+            <Dropdown
+              mt={1}
+              selected="Select Docking Location"
+              width="100%"
+              options={validDockingPorts.map(
+                map_object => (
+                  <option key={map_object.id}>
+                    {map_object.name}
+                  </option>
+                ))}
+              onSelected={value => act("gotoPort", {
+                port: value.key,
+              })} />
+          </>
+        </NoticeBox>
+      )}
+      <DraggableControl
+        position="absolute"
+        value={xOffset}
+        dragMatrix={[-1, 0]}
+        step={1}
+        stepPixelSize={2 * zoomScale}
+        onDrag={(e, value) => {
+          setXOffset(value);
+          setTrackedBody(map_objects[0].name);
+        }}
+        updateRate={5}>
+        {control => (
+          <DraggableControl
+            position="absolute"
+            value={yOffset}
+            dragMatrix={[0, -1]}
+            step={1}
+            stepPixelSize={2 * zoomScale}
+            onDrag={(e, value) => {
+              setYOffset(value);
+              setTrackedBody(map_objects[0].name);
+            }}
+            updateRate={5}>
+            {control1 => (
+              <>
+                {control.inputElement}
+                {control1.inputElement}
+                <svg
+                  onMouseDown={e => {
+                    control.handleDragStart(e);
+                    control1.handleDragStart(e);
+                  }}
+                  viewBox="-250 -250 500 500"
+                  position="absolute"
+                  overflowY="hidden">
+                  <defs>
+                    <pattern id="grid" width={100 * lockedZoomScale}
+                      height={100 * lockedZoomScale}
+                      patternUnits="userSpaceOnUse"
+                      x={-xOffset * zoomScale}
+                      y={-yOffset * zoomScale}>
+                      <rect width={100 * lockedZoomScale}
+                        height={100 * lockedZoomScale}
+                        fill="url(#smallgrid)" />
+                      <path
+                        fill="none" stroke="#4665DE" stroke-width="1"
+                        d={"M " + (100 * lockedZoomScale)+ " 0 L 0 0 0 " + (100 * lockedZoomScale)} />
+                    </pattern>
+                    <pattern id="smallgrid"
+                      width={50 * lockedZoomScale}
+                      height={50 * lockedZoomScale}
+                      patternUnits="userSpaceOnUse">
+                      <rect
+                        width={50 * lockedZoomScale}
+                        height={50 * lockedZoomScale}
+                        fill="#2B2E3B" />
+                      <path
+                        fill="none"
+                        stroke="#4665DE"
+                        stroke-width="0.5"
+                        d={"M " + (50 * lockedZoomScale) + " 0 L 0 0 0 "
+                        + (50 * lockedZoomScale)} />
+                    </pattern>
+                  </defs>
+                  <rect x="-50%" y="-50%" width="100%" height="100%"
+                    fill="url(#grid)" />
+                  {map_objects.map(map_object => (
+                    <>
+                      <circle
+                        cx={Math.max(Math.min((map_object.position_x
+                          - xOffset)
+                          * zoomScale, 250), -250)}
+                        cy={Math.max(Math.min((map_object.position_y
+                          - yOffset)
+                          * zoomScale, 250), -250)}
+                        r={((map_object.position_y - yOffset)
+                          * zoomScale > 250
+                          || (map_object.position_y - yOffset)
+                          * zoomScale < -250
+                          || (map_object.position_x - xOffset)
+                          * zoomScale > 250
+                          || (map_object.position_x - xOffset)
+                          * zoomScale < -250)
+                          ? 5 * zoomScale
+                          : Math.max(5 * zoomScale, map_object.radius
+                            * zoomScale)}
+                        stroke="#BBBBBB"
+                        stroke-width="1"
+                        fill="rgba(0,0,0,0)" />
+                      <line
+                        style={lineStyle}
+                        x1={Math.max(Math.min((map_object.position_x
+                          - xOffset)
+                          * zoomScale, 250), -250)}
+                        y1={Math.max(Math.min((map_object.position_y
+                          - yOffset)
+                          * zoomScale, 250), -250)}
+                        x2={Math.max(Math.min((map_object.position_x
+                          - xOffset
+                          + map_object.velocity_x * 10)
+                          * zoomScale, 250), -250)}
+                        y2={Math.max(Math.min((map_object.position_y
+                          - yOffset
+                          + map_object.velocity_y * 10)
+                          * zoomScale, 250), -250)} />
+                      <text
+                        x={Math.max(Math.min((map_object.position_x
+                          - xOffset) * zoomScale, 200), -250)}
+                        y={Math.max(Math.min((map_object.position_y
+                          - yOffset) * zoomScale, 250), -240)}
+                        fill="white"
+                        fontSize={Math.min(40 * lockedZoomScale, 14)}>
+                        {map_object.name}
+                      </text>
+                      {shuttleName !== map_object.name || (
+                        <line
+                          style={blueLineStyle}
+                          x1={Math.max(Math.min((map_object.position_x
+                            - xOffset)
+                            * zoomScale, 250), -250)}
+                          y1={Math.max(Math.min((map_object.position_y
+                            - yOffset)
+                            * zoomScale, 250), -250)}
+                          x2={Math.max(Math.min((map_object.position_x
+                            - xOffset
+                            + desired_vel_x * 10)
+                            * zoomScale, 250), -250)}
+                          y2={Math.max(Math.min((map_object.position_y
+                            - yOffset
+                            + desired_vel_y * 10)
+                            * zoomScale, 250), -250)} />
+                      )}
+                    </>
+                  ))};
+                  {ourObject && (
+                    <circle
+                      cx={Math.max(Math.min((ourObject.position_x
+                        - xOffset)
+                        * zoomScale, 250), -250)}
+                      cy={Math.max(Math.min((ourObject.position_y
+                        - yOffset)
+                        * zoomScale, 250), -250)}
+                      r={((ourObject.position_y - yOffset)
+                        * zoomScale > 250
+                        || (ourObject.position_y - yOffset)
+                        * zoomScale < -250
+                        || (ourObject.position_x - xOffset)
+                        * zoomScale > 250
+                        || (ourObject.position_x - xOffset)
+                        * zoomScale < -250)
+                        ? 5 * zoomScale
+                        : Math.max(5 * zoomScale, interdiction_range
+                          * zoomScale)}
+                      stroke="#00FF00"
+                      stroke-width="1"
+                      fill="rgba(0,0,0,0)" />
+                  )}
+                </svg>
+              </>
+            )}
+          </DraggableControl>
+        )}
+      </DraggableControl>
+    </Fragment>
+  );
+
 };
 
 export const RecallControl = (props, context) => {

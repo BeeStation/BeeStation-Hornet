@@ -113,7 +113,7 @@
 	var/distance_to_target = position.Distance(shuttleTarget.position)
 
 	//Go slower when approaching target.
-	velocity_multiplier = CLAMP(distance_to_target * 0.05, 0.5, 3)
+	velocity_multiplier = CLAMP(distance_to_target * 0.01, 0.5, 3)
 
 	//If there is an object in the way, we need to fly around it.
 	var/datum/orbital_vector/next_position = shuttleTarget.position

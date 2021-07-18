@@ -1,7 +1,7 @@
 /proc/generate_exoplanet(center_z)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
-	_generate_exoplanet(center_z, new /datum/exoplanet_biome)
+	_generate_exoplanet(center_z, new /datum/exoplanet_biome/lavaland)
 	space_level.generating = FALSE
 
 /proc/_generate_exoplanet(center_z, datum/exoplanet_biome/biome)
@@ -29,13 +29,15 @@
 				if(biome_noise > 0.5)
 					T.ChangeTurf(biome.plains_type, list(biome.river_type), CHANGETURF_IGNORE_AIR)
 					if(prob(20) && length(biome.plains_decoration))
-						var/type_to_spawn = pick(biome.plains_decoration)
-						new type_to_spawn(T)
+						var/type_to_spawn = pickweight(biome.plains_decoration)
+						if(ispath(type_to_spawn))
+							new type_to_spawn(T)
 				else
 					T.ChangeTurf(biome.jungle_type, list(biome.river_type), CHANGETURF_IGNORE_AIR)
 					if(prob(60) && length(biome.plains_decoration))
-						var/type_to_spawn = pick(biome.jungle_decoration)
-						new type_to_spawn(T)
+						var/type_to_spawn = pickweight(biome.jungle_decoration)
+						if(ispath(type_to_spawn))
+							new type_to_spawn(T)
 			//beach
 			else if(area_height > river_height)
 				T.ChangeTurf(biome.beach_type, list(biome.river_type), CHANGETURF_IGNORE_AIR)
@@ -44,5 +46,5 @@
 				T.ChangeTurf(biome.river_type, list(biome.river_type), CHANGETURF_IGNORE_AIR)
 		else
 			T.baseturfs = list(biome.plains_type, biome.river_type)
-		CHECK_TICK
+		//CHECK_TICK
 	new_area.update_areasize()
