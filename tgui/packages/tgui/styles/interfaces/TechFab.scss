@@ -18,7 +18,7 @@ $bg-map: colors.$bg-map !default;
 
 //Rounded corners for all things inside
 .TechFab__ButtonsContainer {
-  border-radius: base.$border-radius;
+  border-radius: $border-radius;
   overflow: hidden;
 }
 

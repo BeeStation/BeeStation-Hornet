@@ -91,7 +91,7 @@ const Material = (props, context) => {
   const material_dispense_amounts = [1, 10, 50];
 
   return (
-    <Flex.Item width="50%">
+    <Flex.Item width="50%" my="1px">
       <Flex justify="space-between" px={1} align="baseline">
         <Flex.Item width="100%">
           {capitalize(material.name)}
@@ -136,21 +136,19 @@ const Reagent = (props, context) => {
 
   return (
     <Flex.Item width="50%" className="TechFab__Reagent">
-      <Box border-radius={1}>
-        <Flex justify="space-between" align="baseline">
-          <Flex.Item grow px={1}>
-            {reagent.name}
-          </Flex.Item>
-          <Flex.Item shrink px={1}>
-            {formatBigNumber(reagent.volume, 4)}
-          </Flex.Item>
-          <Flex.Item>
-            <Button content="Purge" onClick={() => act("dispose", {
-              reagent_id: reagent.id,
-            })} />
-          </Flex.Item>
-        </Flex>
-      </Box>
+      <Flex justify="space-between" align="baseline">
+        <Flex.Item grow px={1}>
+          {reagent.name}
+        </Flex.Item>
+        <Flex.Item shrink px={1}>
+          {formatBigNumber(reagent.volume, 4)}
+        </Flex.Item>
+        <Flex.Item>
+          <Button content="Purge" onClick={() => act("dispose", {
+            reagent_id: reagent.id,
+          })} />
+        </Flex.Item>
+      </Flex>
     </Flex.Item>
   );
 };
