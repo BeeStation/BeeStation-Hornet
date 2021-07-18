@@ -56,13 +56,17 @@
 
 	SScommunications.send_message(M)
 
-/proc/minor_announce(message, title = "Attention:", alert, from)
+/proc/minor_announce(message, title = "Attention:", alert, from, html_encode = TRUE)
 	if(!message)
 		return
 
+	if (html_encode)
+		title = html_encode(title)
+		message = html_encode(message)
+
 	for(var/mob/M in GLOB.player_list)
 		if(!isnewplayer(M) && M.can_hear())
-			var/complete_msg = "<meta charset='UTF-8'><span class='big bold'><font color = red>[html_encode(title)]</font color><BR>[html_encode(message)]</span><BR>"
+			var/complete_msg = "<meta charset='UTF-8'><span class='big bold'><font color = red>[title]</font color><BR>[message]</span><BR>"
 			if(from)
 				complete_msg += "<span class='alert'>-[from]</span>"
 			to_chat(M, complete_msg)
