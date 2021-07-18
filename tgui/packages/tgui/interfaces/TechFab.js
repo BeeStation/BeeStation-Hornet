@@ -105,11 +105,10 @@ const Material = (props, context) => {
               <Flex className="TechFab__ButtonsContainer">
                 {material_dispense_amounts.map(amount =>
                   (
-                    <Flex.Item>
+                    <Flex.Item key={material.id+amount}>
                       <Button
                         className="TechFab__NumberButton"
                         content={amount}
-                        key={material.id+amount}
                         disabled={material.amount < amount}
                         onClick={() => act("ejectsheet", {
                           material_id: material.id,
@@ -183,26 +182,27 @@ const TechFabHeader = (props, context) => {
         <Collapsible
           title={"Reagents ("+reagents_label+")"}
           disabled={materials === null}
-          buttons = {[<Button
-                content="Purge all" 
-                onClick={() => act("disposeall")}
-              />]}
-          >
+          buttons={<Button
+            content="Purge all" 
+            onClick={() => act("disposeall")}
+          />}>
           <Flex wrap="wrap" align="baseline">
             {
               (reagents && Object.keys(reagents).length>0)
-              ? Object.keys(reagents).map(id => {
-                const reagent = reagents[id];
+                ? Object.keys(reagents).map(id => {
+                  const reagent = reagents[id];
 
-                return (
-                  <Reagent key={id} reagent={reagent} />
-                );
-              })
-              : <Flex.Item width="100%">
-                  <NoticeBox info>
-                    Reagent storage empty
-                  </NoticeBox>
-                </Flex.Item>
+                  return (
+                    <Reagent key={id} reagent={reagent} />
+                  );
+                })
+                : (
+                  <Flex.Item width="100%">
+                    <NoticeBox info>
+                      Reagent storage empty
+                    </NoticeBox>
+                  </Flex.Item>
+                )
             }
           </Flex>
         </Collapsible>
@@ -278,9 +278,9 @@ const Recipe = (props, context) => {
           <Box color="lightgray">
             {
               reagent_objects
-              .reduce(reducefn, material_objects
-                .reduce(reducefn, []))
-              .slice(1)
+                .reduce(reducefn, material_objects
+                  .reduce(reducefn, []))
+                .slice(1)
             }
           </Box>
         </Flex.Item>
@@ -289,9 +289,8 @@ const Recipe = (props, context) => {
             {
               craft_amounts.map(amount => {
                 return (
-                  <Flex.Item>
+                  <Flex.Item key={recipe.id+amount}>
                     <Button
-                      key={recipe.id+amount}
                       className="TechFab__NumberButton"
                       content={"x"+amount}
                       disabled={amount>max}
