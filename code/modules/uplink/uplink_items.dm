@@ -1,5 +1,5 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
-/proc/get_uplink_items(uplink_flag, allow_sales = TRUE, allow_restricted = TRUE, check_include_modes = TRUE)
+/proc/get_uplink_items(uplink_flag, allow_sales = TRUE, allow_restricted = TRUE)
 	var/list/filtered_uplink_items = list()
 	var/list/sale_items = list()
 
@@ -254,7 +254,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	player_minimum = 20
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	var/starting_crate_value = 50
-	var/check_include_modes = TRUE
+	var/uplink_contents = UPLINK_TRAITORS
 
 /datum/uplink_item/bundles_TC/surplus/super
 	name = "Super Surplus Crate"
@@ -266,8 +266,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 
 /datum/uplink_item/bundles_TC/surplus/purchase(mob/user, datum/component/uplink/U)
-	var/uplink_type = U.uplink_flag
-	var/list/uplink_items = get_uplink_items(uplink_type, FALSE, !check_include_modes, check_include_modes)	//If we are allowing all gamemodes, don't get items from nukeops that can't be used
+	var/list/uplink_items = get_uplink_items(uplink_contents, FALSE)
 
 	var/crate_value = starting_crate_value
 	var/obj/structure/closet/crate/C = spawn_item(/obj/structure/closet/crate, user, U)
@@ -295,8 +294,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			With their all new kit, codenamed 'scam' the syndicate attempted to extract the energy of the die of fate to \
 			make a loot-box style system but failed, so instead just fake their randomness using a corgi to sniff out the items to shove in it.\
 			Item price not guaranteed. Can contain normally unobtainable items."
-	check_include_modes = FALSE
 	purchasable_from = ~(UPLINK_INCURSION | UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+	uplink_contents = (UPLINK_TRAITORS | UPLINK_NUKE_OPS)
 	player_minimum = 30
 
 /datum/uplink_item/bundles_TC/surplus/random/purchase(mob/user, datum/component/uplink/U)
