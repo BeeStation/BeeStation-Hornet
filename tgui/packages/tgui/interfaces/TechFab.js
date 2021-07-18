@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Stack, Collapsible, Tooltip, Icon, Box, Button, LabeledList, Input, Section, Flex, Table } from '../components';
+import { Stack, Collapsible, Tooltip, Icon, Box, Button, LabeledList, Input, Section, Flex, Table, NoticeBox } from '../components';
 import { Window } from '../layouts';
 import { Fragment } from 'inferno';
 import { capitalize, createSearch } from 'common/string';
@@ -35,7 +35,7 @@ const TechFabTopBar = (props, context) => {
   return (
     <Stack.Item>
       <Section>
-        <Flex align="baseline">
+        <Flex align="baseline" wrap="wrap">
           <Flex.Item mx={0.5}>
             {"Search: "}
             <Input
@@ -48,7 +48,7 @@ const TechFabTopBar = (props, context) => {
           <Flex.Item mx={0.5}>
             <Button
               content="Synchronize research"
-              onClick={() => act("sync_research", {})}
+              onClick={() => act("sync_research")}
             />
           </Flex.Item>
           <Flex.Item mx={0.5} grow>
@@ -93,25 +93,35 @@ const Material = (props, context) => {
   return (
     <Flex.Item width="50%">
       <Flex justify="space-between" px={1} align="baseline">
-        <Flex.Item grow>
+        <Flex.Item width="100%">
           {capitalize(material.name)}
         </Flex.Item>
-        <Flex.Item shrink px={1}>
-          {formatBigNumber(material.amount, 4)}
-        </Flex.Item>
-        <Flex.Item>
-          {material_dispense_amounts.map(amount =>
-            (
-              <Button 
-                content={amount}
-                key={material.id+amount}
-                disabled={material.amount < amount}
-                onClick={() => act("ejectsheet", {
-                  material_id: material.id,
-                  amount: amount,
-                })}
-              />
-            ))}
+        <Flex.Item grow>
+          <Flex>
+            <Flex.Item shrink px={1}>
+              {formatBigNumber(material.amount, 4)}
+            </Flex.Item>
+            <Flex.Item >
+              <Flex className="TechFab__ButtonsContainer">
+                {material_dispense_amounts.map(amount =>
+                  (
+                    <Flex.Item>
+                      <Button
+                        className="TechFab__NumberButton"
+                        content={amount}
+                        key={material.id+amount}
+                        disabled={material.amount < amount}
+                        onClick={() => act("ejectsheet", {
+                          material_id: material.id,
+                          amount: amount,
+                        })}
+                      />
+                    </Flex.Item>
+                  )
+                )}
+              </Flex>
+            </Flex.Item>
+          </Flex>
         </Flex.Item>
       </Flex>
     </Flex.Item>
@@ -125,20 +135,22 @@ const Reagent = (props, context) => {
   } = props;
 
   return (
-    <Flex.Item width="50%">
-      <Flex justify="space-between" align="baseline">
-        <Flex.Item grow px={1}>
-          {reagent.name}
-        </Flex.Item>
-        <Flex.Item shrink px={1}>
-          {formatBigNumber(reagent.volume, 4)}
-        </Flex.Item>
-        <Flex.Item>
-          <Button content="Purge" onClick={() => act("dispose", {
-            reagent_id: reagent.id,
-          })} />
-        </Flex.Item>
-      </Flex>
+    <Flex.Item width="50%" className="TechFab__Reagent">
+      <Box border-radius={1}>
+        <Flex justify="space-between" align="baseline">
+          <Flex.Item grow px={1}>
+            {reagent.name}
+          </Flex.Item>
+          <Flex.Item shrink px={1}>
+            {formatBigNumber(reagent.volume, 4)}
+          </Flex.Item>
+          <Flex.Item>
+            <Button content="Purge" onClick={() => act("dispose", {
+              reagent_id: reagent.id,
+            })} />
+          </Flex.Item>
+        </Flex>
+      </Box>
     </Flex.Item>
   );
 };
@@ -256,39 +268,47 @@ const Recipe = (props, context) => {
   };
 
   return (
-    <Table.Row className="candystripe">
-      <Table.Cell position="relative">
-        {
-          recipe.description !== "Desc" && <Tooltip content={recipe.description} position="bottom" />
-        }
-        <Flex direction="column">
-          <Flex.Item>
+    <Flex.Item className="candystripe">
+      <Flex align="center">
+        <Flex.Item position="relative" width="100%">
+          {
+            recipe.description !== "Desc" && <Tooltip content={recipe.description} position="bottom" />
+          }
+          <Box>
             {recipe.name}
-          </Flex.Item>
-          <Flex.Item color="lightgray">
-            {reagent_objects
+          </Box>
+          <Box color="lightgray">
+            {
+              reagent_objects
               .reduce(reducefn, material_objects
                 .reduce(reducefn, []))
-              .slice(1)}
-          </Flex.Item>
-        </Flex>
-      </Table.Cell>
-      {
-        craft_amounts.map(amount => {
-          return (
-            <Table.Cell key={recipe.id+amount} verticalAlign="middle" collapsing>
-              <Button
-                content={"x"+amount}
-                disabled={amount>max}
-                onClick={() => act("build", 
-                  { "design_id": recipe.id, "amount": amount }
-                )}
-              />
-            </Table.Cell>
-          );
-        })
-      }
-    </Table.Row>
+              .slice(1)
+            }
+          </Box>
+        </Flex.Item>
+        <Flex.Item grow>
+          <Flex className="TechFab__ButtonsContainer">
+            {
+              craft_amounts.map(amount => {
+                return (
+                  <Flex.Item>
+                    <Button
+                      key={recipe.id+amount}
+                      className="TechFab__NumberButton"
+                      content={"x"+amount}
+                      disabled={amount>max}
+                      onClick={() => act("build", 
+                        { "design_id": recipe.id, "amount": amount }
+                      )}
+                    />
+                  </Flex.Item>
+                );
+              })
+            }
+          </Flex>
+        </Flex.Item>
+      </Flex>
+    </Flex.Item>
   );
 };
 
@@ -329,7 +349,7 @@ const TechFabContent = (props, context) => {
                 ? setSearch("") 
                 : setCategory(null)} />
           )}>
-          <Table>
+          <Flex direction="column">
             {
               recipesDisplayed.map(recipe => {
                 return (
@@ -337,7 +357,7 @@ const TechFabContent = (props, context) => {
                 );
               })
             }
-          </Table>
+          </Flex>
         </Section>
       </Stack.Item>
     );
