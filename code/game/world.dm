@@ -5,9 +5,6 @@ GLOBAL_VAR(restart_counter)
 //This happens after the Master subsystem new(s) (it's a global datum)
 //So subsystems globals exist, but are not initialised
 /world/New()
-	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
-	world.Profile(PROFILE_START)
-
 	enable_debugger()
 
 	log_world("World loaded at [time_stamp()]!")
