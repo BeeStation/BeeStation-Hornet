@@ -2173,7 +2173,7 @@
 /datum/supply_pack/organic/beefbroth
 
 	name = "Beef Broth Bulk Crate"
-	desc = "Noone really wants to order beef broth so were selling it in bulk!"
+	desc = "No one really wants to order beef broth so we're selling it in bulk!"
 	cost = 15000
 	contraband = TRUE
 	crate_type = /obj/structure/closet/crate
