@@ -1,90 +1,90 @@
-Tornado
-Ultimatum
-Phantasm
-Papa
-Bronco
-Dust Devil
-Blue Mammoth
-Blue Lilly
-Blue Paladin
-Rhubarb
-Silver Medal
-Sea Angel
-Pink Meteor
-Brass Axe
-Python
-Purple Knuckle
-Blind Eclipse
-Black Demon
-Sea Devil
-Sparta
-Saber
-Evil Eye
-Hidden Axe
-Sea Charger
-Chopsticks
-Meteor
-Neptune
-Desperado
-Purple Moon
-Orange Fire
-Gray Puma
-Monolith
-Anvil
-Green Knight
-Brown Vanguard
-Green Scorpion
-Short-Circuit
-Triple Cross
-Sierra
-Watchtower
-Pink Puma
-Orange Salvation
-Silver Tornado
 Able Sentry
+Alamo
+Anvil
+Backhand
+Barrage
+Big Boss
+Black Demon
+Black Eyes
+Blackjack
+Blind Doom
+Blind Eclipse
+Blind Obelisk
+Blind Predator
+Blind Vanguard
+Blue Freedom
+Blue Lilly
+Blue Mammoth
+Blue Paladin
+Brass Axe
+Bronco
+Brown Avalanche
+Brown Champion
+Brown Sun
+Brown Vanguard
+Chopsticks
+Clover
+Counselor
+Cyclone
+Desperado
+Dust Devil
+Evil Eye
+Extinction
+Foxtrot
+Goliath
+Grand Slam
+Gray Puma
+Green Knight
+Green Rain
+Green Scorpion
+Hidden Axe
+Hidden Doom
+Hidden Phantom
+Hotel
+Judgement Day
 Juliet
 Lunatic
-Judgement Day
-Grand Slam
-Brown Avalanche
-Barrage
-Shoplift
-Hidden Phantom
-Sea Ghost
-Black Eyes
-Red Snow
-Solar Eclipse
-Backhand
-Overshadow
-Pink Mammoth
-White Knight
-Hidden Doom
-Alamo
-Hotel
-Counselor
-Swamp Dragon
-Yellow Freedom
-White Nightmare
-Stallion
-Cyclone
-Thunder
-Revenant
-Barrage
-Saberteeth
-Blind Doom
-Goliath
-Clover
-Razor
-Brown Sun
-Blind Obelisk
-Blind Vanguard
-Extinction
-Blackjack
-Foxtrot
-Silver Cougar
-Green Rain
+Meteor
+Monolith
+Neptune
+Orange Fire
+Orange Salvation
 Overseer
+Overshadow
+Papa
+Phantasm
+Pink Mammoth
+Pink Meteor
+Pink Puma
+Purple Knuckle
+Purple Moon
+Python
+Razor
+Red Snow
+Revenant
+Rhubarb
+Saber
+Saberteeth
+Sea Angel
+Sea Charger
+Sea Devil
+Sea Ghost
+Shoplift
+Short-Circuit
+Sierra
+Silver Cougar
+Silver Medal
+Silver Tornado
+Solar Eclipse
+Sparta
+Stallion
 Supercharge
-Brown Champion
-Blue Freedom
-Blind Predator
+Swamp Dragon
+Thunder
+Tornado
+Triple Cross
+Ultimatum
+Watchtower
+White Knight
+White Nightmare
+Yellow Freedom
