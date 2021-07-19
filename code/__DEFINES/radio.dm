@@ -57,6 +57,7 @@
 #define MIN_FREE_FREQ 1201 // -------------------------------------------------
 // Frequencies are always odd numbers and range from 1201 to 1599.
 
+#define FREQ_INCURSION 1211  //!  Private channel for the incursion team
 #define FREQ_SYNDICATE 1213  //!  Nuke op comms frequency, dark brown
 #define FREQ_CTF_RED 1215  //!  CTF red team comms frequency, red
 #define FREQ_CTF_BLUE 1217  //!  CTF blue team comms frequency, blue
@@ -68,7 +69,6 @@
 #define FREQ_MEDICAL 1355  //! Medical comms frequency, soft blue
 #define FREQ_ENGINEERING 1357  //! Engineering comms frequency, orange
 #define FREQ_SECURITY 1359  //! Security comms frequency, red
-#define FREQ_INCURSION 1361  //!  Private channel for the incursion team
 
 #define FREQ_STATUS_DISPLAYS 1435
 #define FREQ_ATMOS_ALARMS 1437  //! air alarms <-> alert computers
