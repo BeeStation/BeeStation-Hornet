@@ -123,7 +123,7 @@
 		parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	if(transfer_moles2)
-		air1.transfer_to(air3, transfer_moles2)
+		air2.transfer_to(air3, transfer_moles2)
 		var/datum/pipeline/parent2 = parents[2]
 		parent2.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
