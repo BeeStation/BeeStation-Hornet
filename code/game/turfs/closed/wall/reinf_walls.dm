@@ -61,138 +61,138 @@
 				W.play_tool_sound(src, 100)
 				d_state = SUPPORT_LINES
 				update_icon()
-				balloon_alert(user, "Outer grille cut")
+				to_chat(user, "Outer grille cut")
 				return TRUE
 
 		if(SUPPORT_LINES)
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
-				balloon_alert(user, "You begin unsecuring the support lines")
+				to_chat(user, "You begin unsecuring the support lines")
 				if(W.use_tool(src, user, 40, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_LINES)
 						return TRUE
 					d_state = COVER
 					update_icon()
-					balloon_alert(user, "Support lines unsecured")
+					to_chat(user, "Support lines unsecured")
 				return TRUE
 
 			else if(W.tool_behaviour == TOOL_WIRECUTTER)
 				W.play_tool_sound(src, 100)
 				d_state = INTACT
 				update_icon()
-				balloon_alert(user, "Outer grille repaired")
+				to_chat(user, "Outer grille repaired")
 				return TRUE
 
 		if(COVER)
 			if(W.tool_behaviour == TOOL_WELDER)
 				if(!W.tool_start_check(user, amount=0))
 					return
-				balloon_alert(user, "You begin slicing through the metal cover")
+				to_chat(user, "You begin slicing through the metal cover")
 				if(W.use_tool(src, user, 60, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != COVER)
 						return TRUE
 					d_state = CUT_COVER
 					update_icon()
-					balloon_alert(user, "Metal cover removed")
+					to_chat(user, "Metal cover removed")
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
-				balloon_alert(user, "You begin securing the support lines")
+				to_chat(user, "You begin securing the support lines")
 				if(W.use_tool(src, user, 40, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != COVER)
 						return TRUE
 					d_state = SUPPORT_LINES
 					update_icon()
-					balloon_alert(user, "Support lines have been secured")
+					to_chat(user, "Support lines have been secured")
 				return TRUE
 
 		if(CUT_COVER)
 			if(W.tool_behaviour == TOOL_CROWBAR)
-				balloon_alert(user, "You struggle to pry off the cover")
+				to_chat(user, "You struggle to pry off the cover")
 				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != CUT_COVER)
 						return TRUE
 					d_state = ANCHOR_BOLTS
 					update_icon()
-					balloon_alert(user, "Cover pried off")
+					to_chat(user, "Cover pried off")
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_WELDER)
 				if(!W.tool_start_check(user, amount=0))
 					return
-				balloon_alert(user, "You begin welding the metal cover back to the frame")
+				to_chat(user, "You begin welding the metal cover back to the frame")
 				if(W.use_tool(src, user, 60, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != CUT_COVER)
 						return TRUE
 					d_state = COVER
 					update_icon()
-					balloon_alert(user, "Metal cover welded to the frame")
+					to_chat(user, "Metal cover welded to the frame")
 				return TRUE
 
 		if(ANCHOR_BOLTS)
 			if(W.tool_behaviour == TOOL_WRENCH)
-				balloon_alert(user, "You start loosening the anchoring bolts which secure the support rods to their frame")
+				to_chat(user, "You start loosening the anchoring bolts which secure the support rods to their frame")
 				if(W.use_tool(src, user, 40, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != ANCHOR_BOLTS)
 						return TRUE
 					d_state = SUPPORT_RODS
 					update_icon()
-					balloon_alert(user, "Bolts removed")
+					to_chat(user, "Bolts removed")
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_CROWBAR)
-				balloon_alert(user, "You start to pry the cover back into place")
+				to_chat(user, "You start to pry the cover back into place")
 				if(W.use_tool(src, user, 20, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != ANCHOR_BOLTS)
 						return TRUE
 					d_state = CUT_COVER
 					update_icon()
-					balloon_alert(user, "The metal cover pried back into place")
+					to_chat(user, "The metal cover pried back into place")
 				return TRUE
 
 		if(SUPPORT_RODS)
 			if(W.tool_behaviour == TOOL_WELDER)
 				if(!W.tool_start_check(user, amount=0))
 					return
-				balloon_alert(user, "You start slicing through the support rods")
+				to_chat(user, "You start slicing through the support rods")
 				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_RODS)
 						return TRUE
 					d_state = SHEATH
 					update_icon()
-					balloon_alert(user, "Support rods sliced through")
+					to_chat(user, "Support rods sliced through")
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_WRENCH)
-				balloon_alert(user, "You start tightening the bolts securing support rods")
+				to_chat(user, "You start tightening the bolts securing support rods")
 				W.play_tool_sound(src, 100)
 				if(W.use_tool(src, user, 40))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_RODS)
 						return TRUE
 					d_state = ANCHOR_BOLTS
 					update_icon()
-					balloon_alert(user, "Bolts tightened")
+					to_chat(user, "Bolts tightened")
 				return TRUE
 
 		if(SHEATH)
 			if(W.tool_behaviour == TOOL_CROWBAR)
-				balloon_alert(user, "You start prying off the outer sheath")
+				to_chat(user, "You start prying off the outer sheath")
 				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SHEATH)
 						return TRUE
-					balloon_alert(user, "Outer sheath pried off")
+					to_chat(user, "Outer sheath pried off")
 					dismantle_wall()
 				return TRUE
 
 			if(W.tool_behaviour == TOOL_WELDER)
 				if(!W.tool_start_check(user, amount=0))
 					return
-				balloon_alert(user, "You start welding the support rods back together")
+				to_chat(user, "You start welding the support rods back together")
 				if(W.use_tool(src, user, 100, volume=100))
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SHEATH)
 						return TRUE
 					d_state = SUPPORT_RODS
 					update_icon()
-					balloon_alert(user, "Support rods welded back together")
+					to_chat(user, "Support rods welded back together")
 				return TRUE
 	return FALSE
 

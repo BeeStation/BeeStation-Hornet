@@ -91,15 +91,15 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
-			balloon_alert(user, "[src] already has a cell")
+			to_chat(user, "[src] already has a cell")
 		else
 			if(C.maxcharge < hitcost)
-				balloon_alert(user, "[src] requires a higher capacity cell")
+				to_chat(user, "[src] requires a higher capacity cell")
 				return
 			if(!user.transferItemToLoc(W, src))
 				return
 			cell = W
-			balloon_alert(user, "Cell installed")
+			to_chat(user, "Cell installed")
 			update_icon()
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
@@ -107,7 +107,7 @@
 			cell.update_icon()
 			cell.forceMove(get_turf(src))
 			cell = null
-			balloon_alert(user, "Cell removed")
+			to_chat(user, "Cell removed")
 			turned_on = FALSE
 			update_icon()
 	else
@@ -116,14 +116,14 @@
 /obj/item/melee/baton/attack_self(mob/user)
 	if(cell && cell.charge > hitcost)
 		turned_on = !turned_on
-		balloon_alert(user, "[src] [turned_on ? "on" : "off"]")
+		to_chat(user, "[src] [turned_on ? "on" : "off"]")
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		turned_on = FALSE
 		if(!cell)
-			balloon_alert(user, "No power source")
+			to_chat(user, "No power source")
 		else
-			balloon_alert(user, "Out of charge")
+			to_chat(user, "Out of charge")
 	update_icon()
 	add_fingerprint(user)
 

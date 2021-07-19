@@ -88,7 +88,7 @@
  * Only applies if the shell has SHELL_FLAG_REQUIRE_ANCHOR.
  * Disables the integrated circuit if unanchored, otherwise enable the circuit.
  */
-/datum/component/shell/proc/on_unfasten(atom/source, anchored)
+/datum/component/shell/proc/on_unfasten(anchored)
 	SIGNAL_HANDLER
 	attached_circuit?.on = anchored
 /**
@@ -98,12 +98,12 @@
 	SIGNAL_HANDLER
 
 	if(istype(item, /obj/item/stock_parts/cell))
-		source.balloon_alert(attacker, "Can't pull cell in directly!")
+		to_chat(attacker, "Can't pull cell in directly!")
 		return
 
 	if(attached_circuit?.owner_id && item == attached_circuit.owner_id.resolve())
 		locked = !locked
-		source.balloon_alert(attacker, "[locked? "Locked" : "Unlocked"] [source]")
+		to_chat(attacker, "[locked? "Locked" : "Unlocked"] [source]")
 		return COMPONENT_NO_AFTERATTACK
 
 	if(attached_circuit && istype(item, /obj/item/circuit_component))
@@ -119,17 +119,17 @@
 		return
 
 	if(attached_circuit)
-		source.balloon_alert(attacker, "There is already a circuitboard inside!")
+		to_chat(attacker, "There is already a circuitboard inside!")
 		return
 
 	if(length(logic_board.attached_components) > capacity)
-		source.balloon_alert(attacker, "This is too large to fit into [parent]!")
+		to_chat(attacker, "This is too large to fit into [parent]!")
 		return
 
 	logic_board.inserter_mind = WEAKREF(attacker.mind)
 	attach_circuit(logic_board, attacker)
 
-/datum/component/shell/proc/on_multitool_act(atom/source, mob/user, obj/item/tool)
+/datum/component/shell/proc/on_multitool_act(mob/user, obj/item/tool)
 	SIGNAL_HANDLER
 	if(!attached_circuit)
 		return
@@ -137,7 +137,7 @@
 	if(locked)
 		if(shell_flags & SHELL_FLAG_ALLOW_FAILURE_ACTION)
 			return
-		source.balloon_alert(user, "It's locked!")
+		to_chat(user, "It's locked!")
 		return COMPONENT_BLOCK_TOOL_ATTACK
 
 	attached_circuit.interact(user)
@@ -146,7 +146,7 @@
 /**
  * Called when a screwdriver is used on the parent. Removes the circuitboard from the component.
  */
-/datum/component/shell/proc/on_screwdriver_act(atom/source, mob/user, obj/item/tool)
+/datum/component/shell/proc/on_screwdriver_act(mob/user, obj/item/tool)
 	SIGNAL_HANDLER
 	if(!attached_circuit)
 		return
@@ -154,11 +154,11 @@
 	if(locked)
 		if(shell_flags & SHELL_FLAG_ALLOW_FAILURE_ACTION)
 			return
-		source.balloon_alert(user, "It's locked!")
+		to_chat(user, "It's locked!")
 		return COMPONENT_BLOCK_TOOL_ATTACK
 
 	tool.play_tool_sound(parent)
-	source.balloon_alert(user, "You unscrew [attached_circuit] from [parent].")
+	to_chat(user, "You unscrew [attached_circuit] from [parent].")
 	remove_circuit()
 	return COMPONENT_BLOCK_TOOL_ATTACK
 
@@ -177,15 +177,15 @@
 	SIGNAL_HANDLER
 	remove_circuit()
 
-/datum/component/shell/proc/on_circuit_add_component_manually(atom/source, obj/item/circuit_component/added_comp, mob/living/user)
+/datum/component/shell/proc/on_circuit_add_component_manually(obj/item/circuit_component/added_comp, mob/living/user)
 	SIGNAL_HANDLER
 
 	if(locked)
-		source.balloon_alert(user, "It's locked!")
+		to_chat(user, "It's locked!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
 	if(length(attached_circuit.attached_components) - length(unremovable_circuit_components) >= capacity)
-		source.balloon_alert(user, "It's at maximum capacity!")
+		to_chat(user, "It's at maximum capacity!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
 /**
@@ -203,7 +203,7 @@
 		attached_circuit.add_component(to_add)
 	RegisterSignal(circuitboard, COMSIG_CIRCUIT_ADD_COMPONENT_MANUALLY, .proc/on_circuit_add_component_manually)
 	attached_circuit.set_shell(parent)
-	user.balloon_alert(user, "Attached [circuitboard] to [parent]")
+	to_chat(user, "Attached [circuitboard] to [parent]")
 
 	if(shell_flags & SHELL_FLAG_REQUIRE_ANCHOR)
 		var/atom/movable/parent_atom = parent
@@ -229,15 +229,15 @@
 		to_remove.moveToNullspace()
 	attached_circuit = null
 
-/datum/component/shell/proc/on_atom_usb_cable_try_attach(atom/source, obj/item/usb_cable/usb_cable, mob/user)
+/datum/component/shell/proc/on_atom_usb_cable_try_attach(obj/item/usb_cable/usb_cable, mob/user)
 	SIGNAL_HANDLER
 
 	if (!(shell_flags & SHELL_FLAG_USB_PORT))
-		source.balloon_alert(user, "This shell has no usb ports")
+		to_chat(user, "This shell has no usb ports")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	if (isnull(attached_circuit))
-		source.balloon_alert(user, "No circuit inside")
+		to_chat(user, "No circuit inside")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	usb_cable.attached_circuit = attached_circuit

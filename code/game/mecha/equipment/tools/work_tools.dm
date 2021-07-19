@@ -53,14 +53,14 @@
 					cargo_holder.cargo += O
 					O.forceMove(chassis)
 					O.anchored = FALSE
-					balloon_alert(chassis.occupant, "[target] loaded")
+					to_chat(chassis.occupant, "[target] loaded")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]", LOG_MECHA)
 				else
 					O.anchored = initial(O.anchored)
 			else
-				balloon_alert(chassis.occupant, "Not enough room in cargo compartment")
+				to_chat(chassis.occupant, "Not enough room in cargo compartment")
 		else
-			balloon_alert(chassis.occupant, "[target] is firmly secured")
+			to_chat(chassis.occupant, "[target] is firmly secured")
 
 	else if(isliving(target))
 		var/mob/living/M = target
@@ -113,14 +113,14 @@
 					cargo_holder.cargo += O
 					O.forceMove(chassis)
 					O.anchored = FALSE
-					balloon_alert(chassis.occupant, "[target] loaded")
+					to_chat(chassis.occupant, "[target] loaded")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]", LOG_MECHA)
 				else
 					O.anchored = initial(O.anchored)
 			else
-				balloon_alert(chassis.occupant, "Not enough room in cargo compartment")
+				to_chat(chassis.occupant, "Not enough room in cargo compartment")
 		else
-			balloon_alert(chassis.occupant, "[target] is firmly secured")
+			to_chat(chassis.occupant, "[target] is firmly secured")
 
 	else if(isliving(target))
 		var/mob/living/M = target

@@ -65,7 +65,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	var/keyname = key
 	if(keyname == "qbmax32")
-		keyname == "Qbopper"
+		keyname = "Qbopper"
 	if(prefs.unlock_content)
 		if(prefs.toggles & MEMBER_PUBLIC)
 			keyname = "<font color='[prefs.ooccolor ? prefs.ooccolor : GLOB.normal_ooc_colour]'>[icon2html('icons/member_content.dmi', world, "blag")][keyname]</font>"

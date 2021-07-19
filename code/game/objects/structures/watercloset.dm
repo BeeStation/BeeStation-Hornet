@@ -227,10 +227,10 @@
 
 /obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
-		balloon_alert(user, "You start constructing the sink")
+		to_chat(user, "You start constructing the sink")
 		if(do_after(user, 4 SECONDS, target = src))
 			I.use(1)
-			balloon_alert(user, "Sink created")
+			to_chat(user, "Sink created")
 			var/obj/structure/sink/new_sink = new /obj/structure/sink(loc)
 			new_sink.setDir(dir)
 			qdel(src)

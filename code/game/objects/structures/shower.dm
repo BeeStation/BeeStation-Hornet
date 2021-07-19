@@ -24,10 +24,10 @@
 
 /obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
-		balloon_alert(user, "You start constructing the shower")
+		to_chat(user, "You start constructing the shower")
 		if(do_after(user, 4 SECONDS, target = src))
 			I.use(1)
-			balloon_alert(user, "Shower created")
+			to_chat(user, "Shower created")
 			var/obj/machinery/shower/new_shower = new /obj/machinery/shower(loc)
 			new_shower.setDir(dir)
 			qdel(src)

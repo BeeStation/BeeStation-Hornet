@@ -31,7 +31,7 @@
 /obj/structure/money_bot/wrench_act(mob/living/user, obj/item/tool)
 	anchored = !anchored
 	tool.play_tool_sound(src)
-	balloon_alert(user, "You [anchored?"secure":"unsecure"] [src].")
+	to_chat(user, "You [anchored?"secure":"unsecure"] [src].")
 	return TRUE
 
 
@@ -135,11 +135,11 @@
 
 	var/amount_to_insert = item.get_item_credit_value()
 	if(!amount_to_insert)
-		balloon_alert(attacker, "this has no value!")
+		to_chat(attacker, "this has no value!")
 		return
 
 	attached_bot.add_money(amount_to_insert)
-	balloon_alert(attacker, "inserted [amount_to_insert] credits.")
+	to_chat(attacker, "inserted [amount_to_insert] credits.")
 	money_input.set_output(amount_to_insert)
 	payer.set_output(attacker)
 	money_trigger.set_output(COMPONENT_SIGNAL)

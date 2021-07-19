@@ -58,7 +58,7 @@
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
-	source.balloon_alert(user, "clicked primary button")
+	to_chat(user, "clicked primary button")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	signal.set_output(COMPONENT_SIGNAL)
 
@@ -69,7 +69,7 @@
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
-	source.balloon_alert(user, "clicked alternate button")
+	to_chat(user, "clicked alternate button")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	alt.set_output(COMPONENT_SIGNAL)
 
@@ -77,6 +77,6 @@
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
-	source.balloon_alert(user, "clicked extra button")
+	to_chat(user, "clicked extra button")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	right.set_output(COMPONENT_SIGNAL)

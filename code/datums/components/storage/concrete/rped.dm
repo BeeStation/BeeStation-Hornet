@@ -12,7 +12,7 @@
 	. = ..()
 	if(!I.get_part_rating())
 		if (!stop_messages)
-			M.balloon_alert(M, "Only machine parts fit")
+			to_chat(M, "Only machine parts fit")
 		return FALSE
 
 /datum/component/storage/concrete/bluespace/rped
@@ -29,5 +29,5 @@
 	. = ..()
 	if(!I.get_part_rating())
 		if (!stop_messages)
-			M.balloon_alert(M, "Only machine parts fit")
+			to_chat(M, "Only machine parts fit")
 		return FALSE

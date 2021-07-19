@@ -914,14 +914,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/cartridge/virus/installed_cartridge = cartridge
 
 	if(installed_cartridge.charges <=0)
-		balloon_alert(user, "Out of charges")
+		to_chat(user, "Out of charges")
 		return ..()
 
 	if(target.GetComponent(/datum/component/sound_player))
-		balloon_alert(user, "This is already hacked")
+		to_chat(user, "This is already hacked")
 		return
 
-	balloon_alert(user, "Virus uploaded")
+	to_chat(user, "Virus uploaded")
 	var/list/sig_list = list()
 	if(istype(target, /obj/machinery/door/airlock))
 		sig_list += list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)

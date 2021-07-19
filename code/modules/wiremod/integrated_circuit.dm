@@ -78,7 +78,7 @@
 
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(cell)
-			balloon_alert(user, "<span class='warning'>There already is a cell inside!</span>")
+			to_chat(user, "<span class='warning'>There already is a cell inside!</span>")
 			return
 		if(!user.transferItemToLoc(I, src))
 			return
@@ -88,7 +88,7 @@
 		return
 
 	if(istype(I, /obj/item/card/id))
-		balloon_alert(user, "owner id set for [I]")
+		to_chat(user, "owner id set for [I]")
 		owner_id = WEAKREF(I)
 		return
 
@@ -394,7 +394,7 @@
 				if(PORT_TYPE_STRING)
 					port.set_input(copytext(user_input, 1, PORT_MAX_STRING_LENGTH))
 				if(PORT_TYPE_SIGNAL)
-					balloon_alert(usr, "triggered [port.name]")
+					to_chat(usr, "triggered [port.name]")
 					port.set_input(COMPONENT_SIGNAL)
 			. = TRUE
 		if("get_component_value")
@@ -412,7 +412,7 @@
 				value = port.convert_value(port.output_value)
 			else if(isnull(value))
 				value = "null"
-			balloon_alert(usr, "[port.name] value: [value]")
+			to_chat(usr, "[port.name] value: [value]")
 			. = TRUE
 		if("set_display_name")
 			var/new_name = params["display_name"]
@@ -442,7 +442,7 @@
 			. = TRUE
 
 /obj/item/integrated_circuit/proc/on_atom_usb_cable_try_attach(datum/source, obj/item/usb_cable/usb_cable, mob/user)
-	usb_cable.balloon_alert(user, "circuit needs to be in a compatible shell")
+	to_chat(user, "circuit needs to be in a compatible shell")
 	return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 #undef WITHIN_RANGE

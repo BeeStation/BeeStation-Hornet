@@ -38,10 +38,10 @@
 /obj/item/powertool/hand_drill/toggle_mode(mob/user)
 	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
 	if(tool_behaviour == TOOL_SCREWDRIVER)
-		balloon_alert(user, "Bolt driver bit attached")
+		to_chat(user, "Bolt driver bit attached")
 		become_wrench()
 	else
-		balloon_alert(user, "Screw driver bit attached")
+		to_chat(user, "Screw driver bit attached")
 		become_screwdriver()
 
 /obj/item/powertool/hand_drill/proc/become_wrench()
@@ -103,10 +103,10 @@
 /obj/item/powertool/jaws_of_life/toggle_mode(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	if(tool_behaviour == TOOL_CROWBAR)
-		balloon_alert(user, "Cutting jaws attached")
+		to_chat(user, "Cutting jaws attached")
 		become_wirecutters()
 	else
-		balloon_alert(user, "Prying jaws attached")
+		to_chat(user, "Prying jaws attached")
 		become_crowbar()
 
 /obj/item/powertool/jaws_of_life/proc/become_wirecutters()

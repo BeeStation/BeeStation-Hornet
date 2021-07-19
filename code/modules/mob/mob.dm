@@ -194,7 +194,7 @@
 	if(self_message)
 		hearers -= src
 
-	var/raw_msg = message
+
 	if(visible_message_flags & EMOTE_MESSAGE)
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
@@ -211,9 +211,6 @@
 			msg = blind_message
 		if(!msg)
 			continue
-
-		if(visible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(M, visible_message_flags) && !is_blind(M))
-			M.create_chat_message(src, raw_message = raw_msg, runechat_flags = visible_message_flags)
 
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
 
@@ -242,9 +239,6 @@
 	if(audible_message_flags & EMOTE_MESSAGE)
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
-	for(var/mob/M in hearers)
-		if(audible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(M, audible_message_flags) && M.can_hear())
-			M.create_chat_message(src, raw_message = raw_msg, runechat_flags = audible_message_flags)
 		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 /**
@@ -263,20 +257,6 @@
 	if(self_message)
 		show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
-///Returns the client runechat visible messages preference according to the message type.
-/atom/proc/runechat_prefs_check(mob/target, visible_message_flags = NONE)
-	if(!target.client?.prefs.chat_on_map || !target.client.prefs.see_chat_non_mob)
-		return FALSE
-	if(visible_message_flags & EMOTE_MESSAGE && !target.client.prefs.see_rc_emotes)
-		return FALSE
-	return TRUE
-
-/mob/runechat_prefs_check(mob/target, visible_message_flags = NONE)
-	if(!target.client?.prefs.chat_on_map)
-		return FALSE
-	if(visible_message_flags & EMOTE_MESSAGE && !target.client.prefs.see_rc_emotes)
-		return FALSE
-	return TRUE
 
 ///Get the item on the mob in the storage slot identified by the id passed in
 /mob/proc/get_item_by_slot(slot_id)

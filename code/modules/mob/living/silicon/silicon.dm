@@ -336,7 +336,7 @@
 		return
 	if(world.time < client.crew_manifest_delay)
 		return
-	client.crew_manifest_delay = world.time + (1 SECONDS)
+	silicon.crew_manifest_delay = world.time + (1 SECONDS)
 
 	var/datum/browser/popup = new(src, "airoster", "Crew Manifest", 387, 420)
 	popup.set_content(GLOB.data_core.get_manifest_html())

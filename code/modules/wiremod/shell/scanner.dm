@@ -48,7 +48,7 @@
  */
 /obj/item/circuit_component/scanner/proc/send_trigger(atom/source, atom/target, mob/user)
 	SIGNAL_HANDLER
-	target.balloon_alert(user, "scanned [target]")
+	to_chat(user, "scanned [target]")
 	playsound(user, get_sfx("terminal_type"), 25, FALSE)
 	. = COMPONENT_NO_ATTACK
 	scanned.set_output(target)

@@ -167,8 +167,7 @@
 	SIGNAL_HANDLER
 
 	if(locked)
-		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		to_chat(M, "It's locked")
 		return FALSE
 	if((M.get_active_held_item() == parent) && allow_quick_empty)
 		INVOKE_ASYNC(src, .proc/quick_empty, M)
@@ -180,8 +179,7 @@
 		return FALSE
 	. = COMPONENT_NO_ATTACK
 	if(locked)
-		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		to_chat(M, "It's locked")
 		return FALSE
 	var/obj/item/I = O
 	if(collection_mode == COLLECT_ONE)
@@ -254,12 +252,10 @@
 	if(!M.canUseStorage() || !A.Adjacent(M) || M.incapacitated())
 		return
 	if(locked)
-		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		to_chat(M, "It's locked")
 		return FALSE
 	A.add_fingerprint(M)
-	var/atom/host = parent
-	host.balloon_alert(M, "You start dumping out the contents")
+	to_chat(M, "You start dumping out the contents")
 	var/turf/T = get_turf(A)
 	var/list/things = contents()
 	var/datum/progressbar/progress = new(M, length(things), T)
@@ -489,8 +485,7 @@
 	var/atom/dump_destination = dest_object.get_dumping_location()
 	if(A.Adjacent(M) && dump_destination && M.Adjacent(dump_destination))
 		if(locked)
-			var/atom/host = parent
-			host.balloon_alert(M, "It's locked")
+			to_chat(M, "It's locked")
 			return FALSE
 		if(dump_destination.storage_contents_dump_act(src, M))
 			playsound(A, "rustle", 50, 1, -5)
@@ -576,8 +571,7 @@
 		return FALSE
 	A.add_fingerprint(M)
 	if(locked && !force)
-		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		to_chat(M, "It's locked")
 		return FALSE
 	if(force || M.CanReach(parent, view_only = TRUE))
 		show_to(M)
@@ -601,50 +595,50 @@
 	if(I == parent)
 		return FALSE	//no paradoxes for you
 	var/atom/real_location = real_location()
-	var/atom/host = parent
 	if(real_location == I.loc)
 		return FALSE //Means the item is already in the storage item
 	if(!insert_while_closed && !(M in is_using))
 		return FALSE
+	var/atom/host = parent
 	if(locked)
 		if(M && !stop_messages)
 			host.add_fingerprint(M)
-			host.balloon_alert(M, "It's locked")
+			to_chat(M, "It's locked")
 		return FALSE
 	if(real_location.contents.len >= max_items)
 		if(!stop_messages)
-			host.balloon_alert(M, "[host] is full")
+			to_chat(M, "[host] is full")
 		return FALSE //Storage item is full
 	if(length(can_hold))
 		if(!is_type_in_typecache(I, can_hold))
 			if(!stop_messages)
-				host.balloon_alert(M, "It doesn't fit")
+				to_chat(M, "It doesn't fit")
 			return FALSE
 	if(is_type_in_typecache(I, cant_hold) || HAS_TRAIT(I, TRAIT_NO_STORAGE_INSERT)) //Items which this container can't hold.
 		if(!stop_messages)
-			host.balloon_alert(M, "It doesn't fit")
+			to_chat(M, "It doesn't fit")
 		return FALSE
 	if(I.w_class > max_w_class)
 		if(!stop_messages)
-			host.balloon_alert(M, "[I] is too big")
+			to_chat(M, "[I] is too big")
 		return FALSE
 	var/sum_w_class = I.w_class
 	for(var/obj/item/_I in real_location)
 		sum_w_class += _I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
-			host.balloon_alert(M, "[host] is full")
+			to_chat(M, "[host] is full")
 		return FALSE
 	if(isitem(host))
 		var/obj/item/IP = host
 		var/datum/component/storage/STR_I = I.GetComponent(/datum/component/storage)
 		if((I.w_class >= IP.w_class) && STR_I && !allow_big_nesting)
 			if(!stop_messages)
-				host.balloon_alert(M, "It's too big")
+				to_chat(M, "It's too big")
 			return FALSE //To prevent the stacking of same sized storage items.
 	if(HAS_TRAIT(I, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
 		if(!stop_messages)
-			host.balloon_alert(M, "[I] is stuck to your hand")
+			to_chat(M, "[I] is stuck to your hand")
 		return FALSE
 	var/datum/component/storage/concrete/master = master()
 	if(!istype(master))
@@ -784,8 +778,7 @@
 	if(A.loc == user)
 		. = COMPONENT_NO_ATTACK_HAND
 		if(locked)
-			var/atom/host = parent
-			host.balloon_alert(user, "It's locked")
+			to_chat(user, "It's locked")
 		else
 			show_to(user)
 
@@ -821,8 +814,7 @@
 	if(!isliving(user) || !user.CanReach(parent))
 		return
 	if(locked)
-		var/atom/host = parent
-		host.balloon_alert(user, "It's locked")
+		to_chat(user, "It's locked")
 		return
 
 	var/atom/A = parent
@@ -862,8 +854,8 @@
 	collection_mode = (collection_mode+1)%3
 	switch(collection_mode)
 		if(COLLECT_SAME)
-			user.balloon_alert(user, "[parent] now picks up all items of single type")
+			to_chat(user, "[parent] now picks up all items of single type")
 		if(COLLECT_EVERYTHING)
-			user.balloon_alert(user, "[parent] now picks up all items")
+			to_chat(user, "[parent] now picks up all items")
 		if(COLLECT_ONE)
-			user.balloon_alert(user, "[parent] now picks up single item")
+			to_chat(user, "[parent] now picks up single item")

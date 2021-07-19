@@ -39,7 +39,7 @@
 		return
 
 	if (prob(1))
-		balloon_alert(user, "wrong way, god damnit")
+		to_chat(user, "wrong way, god damnit")
 		return TRUE
 
 	var/signal_result = SEND_SIGNAL(target, COMSIG_ATOM_USB_CABLE_TRY_ATTACH, src, user)
@@ -48,7 +48,7 @@
 	if (signal_result & COMSIG_USB_CABLE_CONNECTED_TO_CIRCUIT)
 		if (isnull(attached_circuit))
 			CRASH("Producers of COMSIG_USB_CABLE_CONNECTED_TO_CIRCUIT must set attached_circuit")
-		balloon_alert(user, "connected to circuit\nconnect to a port")
+		to_chat(user, "connected to circuit\nconnect to a port")
 
 		playsound(src, 'sound/machines/pda_button1.ogg', 20, TRUE)
 
@@ -69,7 +69,7 @@
 		else if (ismachinery(target))
 			connection_description = "machine"
 
-		balloon_alert(user, "connected to [connection_description]")
+		to_chat(user, "connected to [connection_description]")
 		playsound(src, 'sound/items/screwdriver2.ogg', 20, TRUE)
 
 		return TRUE
@@ -107,7 +107,6 @@
 		return FALSE
 
 	if (!IN_GIVEN_RANGE(attached_circuit, src, USB_CABLE_MAX_RANGE))
-		balloon_alert_to_viewers("detached, too far away")
 		unregister_circuit_signals(attached_circuit)
 		attached_circuit = null
 		STOP_PROCESSING(SSobj, src)

@@ -167,13 +167,13 @@ the shield is disabled by means other than the action button (like running out o
 	if(switching && !signal_args[1])
 		return
 	if(!chassis.defense_mode && (!chassis.cell || chassis.cell.charge < 100)) //If it's off, and we have less than 100 units of power
-		chassis.balloon_alert(chassis.occupant, "Insufficient power")
+		to_chat(chassis.occupant, "Insufficient power")
 		return
 	switching = TRUE
 	chassis.defense_mode = !chassis.defense_mode
 	chassis.defense_action.button_icon_state = "mech_defense_mode_[chassis.defense_mode ? "on" : "off"]" //This is backwards because we haven't changed the var yet
 	if(!signal_args[1])
-		chassis.balloon_alert(chassis.occupant, "Shield [chassis.defense_mode?"enabled":"disabled"]")
+		to_chat(chassis.occupant, "Shield [chassis.defense_mode?"enabled":"disabled"]")
 		chassis.log_message("User has toggled defense mode -- now [chassis.defense_mode?"enabled":"disabled"].", LOG_MECHA)
 	else
 		chassis.log_message("defense mode state changed -- now [chassis.defense_mode?"enabled":"disabled"].", LOG_MECHA)

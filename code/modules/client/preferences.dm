@@ -1588,7 +1588,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference")  as null|anything in GLOB.backbaglist
 					if(new_backbag)
 						backbag = new_backbag
-				
+
 				if("suit")
 					if(jumpsuit_style == PREF_SUIT)
 						jumpsuit_style = PREF_SKIRT
@@ -1647,11 +1647,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/pickedPDAColor = input(user, "Choose your PDA Interface color.", "Character Preference", pda_color) as color|null
 					if(pickedPDAColor)
 						pda_color = pickedPDAColor
-
-				if("phobia")
-					var/phobiaType = input(user, "What are you scared of?", "Character Preference", phobia) as null|anything in SStraumas.phobia_types
-					if(phobiaType)
-						phobia = phobiaType
 
 		else
 			switch(href_list["preference"])

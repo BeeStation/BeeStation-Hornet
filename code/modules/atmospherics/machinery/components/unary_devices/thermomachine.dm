@@ -105,7 +105,7 @@
 	else
 		target_temperature = max_temperature
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-	balloon_alert(user, "Set to [target_temperature] K")
+	to_chat(user, "Set to [target_temperature] K")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
 	..()
