@@ -42,7 +42,7 @@
 
 /datum/antagonist/ert/deathsquad/New()
 	. = ..()
-	name_source = pick(GLOB.commando_names)
+	name_source = GLOB.commando_names
 
 
 /datum/antagonist/ert/clown/New()
