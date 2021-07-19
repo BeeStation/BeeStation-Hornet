@@ -2345,7 +2345,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/beeffizz
 	name = "Beef Fizz"
-	description = "this is beef fizz, BEEF FIZZ, THERE IS NO GOD"
+	description = "This is beef fizz, BEEF FIZZ, THERE IS NO GOD"
 	boozepwr = 15
 	quality = DRINK_BAD
 	taste_description = "Nice and Salty Fizzless Beef Juice with a quick bite of lemon"
