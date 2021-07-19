@@ -2174,33 +2174,10 @@
 
 	name = "Beef Broth Bulk Crate"
 	desc = "Noone really wants to order beef broth so were selling it in bulk!"
-	cost = 15000
+	cost = 5000
 	contraband = TRUE
 	crate_type = /obj/structure/closet/crate
 	contains = list(/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
-					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
 					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
 					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
 					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
