@@ -170,20 +170,6 @@
 			turfs += T
 	return turfs
 
-
-//This is the new version of recursive_mob_check, used for say().
-//The other proc was left intact because morgue trays use it.
-//Sped this up again for real this time
-/proc/recursive_hear_check(O)
-	var/list/processing_list = list(O)
-	. = list()
-	while(processing_list.len)
-		var/atom/A = processing_list[1]
-		if(A.flags_1 & HEAR_1)
-			. += A
-		processing_list.Cut(1, 2)
-		processing_list += A.contents
-
 /** recursive_organ_check
   * inputs: O (object to start with)
   * outputs:
@@ -262,48 +248,31 @@
 
 	return found_mobs
 
-// Returns a list of hearers in view(R) from source (ignoring luminosity). Used in saycode. Consider using `hearers` when you *only* need mobs.
-/proc/get_hearers_in_view(R, atom/source)
-	var/turf/T = get_turf(source)
+/// Returns a list of hearers in view(view_radius) from source (ignoring luminosity). uses important_recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE]
+/proc/get_hearers_in_view(view_radius, atom/source)
+	var/turf/center_turf = get_turf(source)
 	. = list()
-
-	if(!T)
+	if(!center_turf)
 		return
-
-	var/list/processing_list = list()
-	if (R == 0) // if the range is zero, we know exactly where to look for, we can skip view
-		processing_list += T.contents // We can shave off one iteration by assuming turfs cannot hear
-	else  // A variation(?) of get_hear inlined here to take advantage of the compiler's fastpath for obj in view
-		// Benchmark before trying to "optimize" this proc
-		processing_list += hearers(R, T)
-
-		// dview is inlined here
-		GLOB.dview_mob.loc = T
-		GLOB.dview_mob.see_invisible = SEE_INVISIBLE_MINIMUM // Sorry, invisible objects. You folks can't HEAR_1 anyway.
-		for(var/obj/O in view(R, GLOB.dview_mob))
-			processing_list += O
-		GLOB.dview_mob.loc = null
-
-	while(length(processing_list)) // recursive_hear_check inlined here with optimized processing
-		var/atom/A = processing_list[length(processing_list)]
-		if(A.flags_1 & HEAR_1)
-			. += A
-		processing_list.len--
-		processing_list += A.contents
+	var/lum = center_turf.luminosity
+	center_turf.luminosity = 6 // This is the maximum luminosity
+	for(var/atom/movable/movable in view(view_radius, center_turf))
+		var/list/recursive_contents = LAZYACCESS(movable.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
+		if(recursive_contents)
+			. += recursive_contents
+	center_turf.luminosity = lum
 
 /proc/get_mobs_in_radio_ranges(list/obj/item/radio/radios)
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	for(var/obj/item/radio/R in radios)
-		if(R)
-			if(R.canhear_range != -1)
-				. |= get_hearers_in_view(R.canhear_range, R)
-			else
-				if(istype(R.loc, /obj/item/implant))
-					var/obj/item/implant/I = R.loc
-					if(I.imp_in)
-						. |= I.imp_in
-
+		if(R.canhear_range != -1)
+			. |= get_hearers_in_view(R.canhear_range, R)
+		else
+			if(istype(R.loc, /obj/item/implant))
+				var/obj/item/implant/I = R.loc
+				if(I.imp_in)
+					. |= I.imp_in
 
 #define SIGNV(X) ((X<0)?-1:1)
 
