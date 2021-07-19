@@ -95,7 +95,7 @@
 	name = "n2o canister"
 	desc = "Nitrous oxide gas. Known to cause drowsiness."
 	icon_state = "redws"
-	gas_type = GAS_NITRYL
+	gas_type = GAS_NITROUS
 
 /obj/machinery/portable_atmospherics/canister/air
 	name = "air canister"
