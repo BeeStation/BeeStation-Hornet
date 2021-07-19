@@ -827,7 +827,8 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	var/upgraded_cameras = 0
 	for(var/V in GLOB.cameranet.cameras)
 		var/obj/machinery/camera/C = V
-		if(C.assembly)
+		var/obj/structure/camera_assembly/assembly = C.assembly_ref?.resolve()
+		if(assembly)
 			var/upgraded = FALSE
 
 			if(!C.isXRay())
@@ -842,7 +843,6 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 
 			if(upgraded)
 				upgraded_cameras++
-
 	unlock_text = replacetext(unlock_text, "CAMSUPGRADED", "<b>[upgraded_cameras]</b>") //This works, since unlock text is called after upgrade()
 
 /datum/AI_Module/large/eavesdrop
