@@ -47,9 +47,8 @@ export const SeedExtractor = (props, context) => {
   const seeds = createSeeds(data.seeds);
   return (
     <Window
-      width={1000}
-      height={400}
-      resizable>
+      width={900}
+      height={400}>
       <Window.Content scrollable>
         <Section title="Stored seeds:">
           <Table cellpadding="3" textAlign="center">
@@ -61,7 +60,6 @@ export const SeedExtractor = (props, context) => {
               <Table.Cell>Production</Table.Cell>
               <Table.Cell>Yield</Table.Cell>
               <Table.Cell>Potency</Table.Cell>
-              <Table.Cell>Instability</Table.Cell>
               <Table.Cell>Stock</Table.Cell>
             </Table.Row>
             {seeds.map(item => (
@@ -73,7 +71,6 @@ export const SeedExtractor = (props, context) => {
                 <Table.Cell>{item.production}</Table.Cell>
                 <Table.Cell>{item.yield}</Table.Cell>
                 <Table.Cell>{item.potency}</Table.Cell>
-                <Table.Cell>{item.instability}</Table.Cell>
                 <Table.Cell>
                   <Button
                     content="Vend"
