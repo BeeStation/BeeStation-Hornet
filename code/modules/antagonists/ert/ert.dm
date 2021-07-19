@@ -44,7 +44,6 @@
 	. = ..()
 	name_source = GLOB.commando_names
 
-
 /datum/antagonist/ert/clown/New()
 	. = ..()
 	name_source = GLOB.clown_names
