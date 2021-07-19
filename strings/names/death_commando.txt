@@ -1,49 +1,50 @@
-Alpha
-Beta
-Gamma
-Delta
-Epsilon
-Zeta
-Eta
-Theta
-Iota
-Kappa
-Lambda
-Mu
-Nu
-Xi
-Omicron
-Pi
-Rho
-Sigma
-Tau
-Upsilon
-Phi
-Chi
-Psi
-Omega
-Alfa
-Bravo
-Charlie
-Echo
-Foxtrot
-Golf
-Hotel
-India
-Juliett
-Kilo
-Lima
-Mike
-November
-Oscar
+Tornado
+Ultimatum
+Phantasm
 Papa
-Quebec
-Romeo
+Bronco
+Dust Devil
+Blue Mammoth
+Blue Lilly
+Blue Paladin
+Rhubarb
+Silver Medal
+Sea Angel
+Pink Meteor
+Brass Axe
+Python
+Purple Knuckle
+Blind Eclipse
+Black Demon
+Sea Devil
+Sparta
+Saber
+Evil Eye
+Hidden Axe
+Sea Charger
+Chopsticks
+Meteor
+Neptune
+Desperado
+Purple Moon
+Orange Fire
+Gray Puma
+Monolith
+Anvil
+Green Knight
+Brown Vanguard
+Green Scorpion
+Short-Circuit
+Triple Cross
 Sierra
-Tango
-Uniform
-Victor
-Whiskey
-X-ray
-Yankee
-Zulu
+Watchtower
+Pink Puma
+Orange Salvation
+Silver Tornado
+Able Sentry
+Juliet
+Lunatic
+Judgement Day
+Grand Slam
+Operation Urban Citadel
+Brown Avalanche
