@@ -73,7 +73,6 @@
 	equip()
 
 /datum/antagonist/incursion/admin_add(datum/mind/new_owner,mob/admin)
-	//show list of possible brothers
 	var/list/candidates = list()
 	for(var/mob/living/L in GLOB.alive_mob_list)
 		if(!L.mind || L.mind == new_owner || !can_be_owned(L.mind))
@@ -88,8 +87,8 @@
 		SSticker.mode.incursion_team.forge_team_objectives()
 		new_owner.add_antag_datum(/datum/antagonist/incursion, SSticker.mode.incursion_team)
 		message_admins("New incursion team created by [key_name_admin(admin)]")
-	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] and [key_name_admin(new_owner.current)] into blood brothers.")
-	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
+	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] into a member of the incursion team.")
+	log_admin("[key_name(admin)] made [key_name(new_owner)] into a member of the incursion team.")
 
 /datum/antagonist/incursion/proc/equip(var/silent = FALSE)
 	var/obj/item/uplink/incursion/uplink = new(get_turf(owner.current), owner.key, 15)
