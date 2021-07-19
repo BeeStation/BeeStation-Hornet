@@ -98,6 +98,7 @@ module.exports = (env = {}, argv) => {
     },
     optimization: {
       emitOnErrors: false,
+      realContentHash: true,
       splitChunks: {
         chunks: 'initial',
         name: 'tgui-common',
