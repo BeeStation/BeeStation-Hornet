@@ -115,21 +115,21 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	var/spanned = attach_spans(input, spans)
 	return "[say_mod(input, message_mods)], \"[spanned]\""
 
-/atom/movable/proc/lang_treat(atom/movable/speaker, datum/language/language, raw_message, list/spans, list/message_mods = list(), no_quote = FALSE)
+/atom/movable/proc/lang_treat(atom/movable/speaker, datum/language/language, raw_message, list/spans, message_mode)
 	if(has_language(language))
 		var/atom/movable/AM = speaker.GetSource()
 		if(AM) //Basically means "if the speaker is virtual"
-			return no_quote ? raw_message : AM.say_quote(raw_message, spans, message_mods)
+			return AM.say_quote(raw_message, spans, message_mode)
 		else
-			return no_quote ? raw_message : speaker.say_quote(raw_message, spans, message_mods)
+			return speaker.say_quote(raw_message, spans, message_mode)
 	else if(language)
 		var/atom/movable/AM = speaker.GetSource()
 		var/datum/language/D = GLOB.language_datum_instances[language]
 		raw_message = D.scramble(raw_message)
 		if(AM)
-			return no_quote ? raw_message : AM.say_quote(raw_message, spans, message_mods)
+			return AM.say_quote(raw_message, spans, message_mode)
 		else
-			return no_quote ? raw_message : speaker.say_quote(raw_message, spans, message_mods)
+			return speaker.say_quote(raw_message, spans, message_mode)
 	else
 		return "makes a strange sound."
 

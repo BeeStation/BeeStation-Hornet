@@ -29,18 +29,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/outline_enabled = TRUE
 	var/outline_color = COLOR_BLUE_GRAY
 	var/buttons_locked = FALSE
-	var/hotkeys = FALSE
-
-	///Runechat preference. If true, certain messages will be displayed on the map, not ust on the chat area. Boolean.
-	var/chat_on_map = TRUE
-	///Limit preference on the size of the message. Requires chat_on_map to have effect.
-	var/max_chat_length = CHAT_MESSAGE_MAX_LENGTH
-	///Whether non-mob messages will be displayed, such as machine vendor announcements. Requires chat_on_map to have effect. Boolean.
-	var/see_chat_non_mob = TRUE
-	///Whether emotes will be displayed on runechat. Requires chat_on_map to have effect. Boolean.
-	var/see_rc_emotes = TRUE
-	///Whether we want balloon alerts displayed alone, with chat or not displayed at all
-	var/see_balloon_alerts = BALLOON_ALERT_ALWAYS
+	var/hotkeys = TRUE
 
 	var/tgui_fancy = TRUE
 	var/tgui_lock = TRUE
@@ -537,11 +526,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Outline Color:</b> <span style='border:1px solid #161616; background-color: [outline_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=outline_color'>Change</a><BR>"
 			dat += "<b>tgui Monitors:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(tgui_lock) ? "Primary" : "All"]</a><br>"
 			dat += "<b>tgui Style:</b> <a href='?_src_=prefs;preference=tgui_fancy'>[(tgui_fancy) ? "Fancy" : "No Frills"]</a><br>"
-			dat += "<b>Show Runechat Chat Bubbles:</b> <a href='?_src_=prefs;preference=chat_on_map'>[chat_on_map ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<b>Runechat message char limit:</b> <a href='?_src_=prefs;preference=max_chat_length;task=input'>[max_chat_length]</a><br>"
-			dat += "<b>See Runechat for non-mobs:</b> <a href='?_src_=prefs;preference=see_chat_non_mob'>[see_chat_non_mob ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<b>See Runechat emotes:</b> <a href='?_src_=prefs;preference=see_rc_emotes'>[see_rc_emotes ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<b>See Balloon alerts: </b> <a href='?_src_=prefs;preference=see_balloon_alerts;task=input'>[see_balloon_alerts]</a>"
 			dat += "<br>"
 			dat += "<b>Action Buttons:</b> <a href='?_src_=prefs;preference=action_buttons'>[(buttons_locked) ? "Locked In Place" : "Unlocked"]</a><br>"
 			dat += "<b>Hotkey Mode:</b> <a href='?_src_=prefs;preference=hotkeys'>[(hotkeys) ? "Hotkeys" : "Default"]</a><br>"
@@ -1663,14 +1647,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/pickedPDAColor = input(user, "Choose your PDA Interface color.", "Character Preference", pda_color) as color|null
 					if(pickedPDAColor)
 						pda_color = pickedPDAColor
-				if ("max_chat_length")
-					var/desiredlength = input(user, "Choose the max character length of shown Runechat messages. Valid range is 1 to [CHAT_MESSAGE_MAX_LENGTH] (default: [initial(max_chat_length)]))", "Character Preference", max_chat_length)  as null|num
-					if (!isnull(desiredlength))
-						max_chat_length = clamp(desiredlength, 1, CHAT_MESSAGE_MAX_LENGTH)
-				if ("see_balloon_alerts")
-					var/pickedstyle = input(user, "Choose how you want balloon alerts displayed", "Balloon alert preference", BALLOON_ALERT_ALWAYS) as null|anything in list(BALLOON_ALERT_ALWAYS, BALLOON_ALERT_WITH_CHAT, BALLOON_ALERT_NEVER)
-					if (!isnull(pickedstyle))
-						see_balloon_alerts = pickedstyle
+
+				if("phobia")
+					var/phobiaType = input(user, "What are you scared of?", "Character Preference", phobia) as null|anything in SStraumas.phobia_types
+					if(phobiaType)
+						phobia = phobiaType
 
 		else
 			switch(href_list["preference"])
@@ -1693,7 +1674,73 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(hotkeys)
 						winset(user, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
 					else
-						winset(user, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")
+						winset(user, null, "input.focus=true input.background-color=[COLOR_INPUT_DISABLED]")
+
+				if("keybindings_capture")
+					var/datum/keybinding/kb = GLOB.keybindings_by_name[href_list["keybinding"]]
+					var/old_key = href_list["old_key"]
+					CaptureKeybinding(user, kb, old_key)
+					return
+
+				if("keybindings_set")
+					var/kb_name = href_list["keybinding"]
+					if(!kb_name)
+						user << browse(null, "window=capturekeypress")
+						ShowChoices(user)
+						return
+
+					var/clear_key = text2num(href_list["clear_key"])
+					var/old_key = href_list["old_key"]
+					if(clear_key)
+						if(key_bindings[old_key])
+							key_bindings[old_key] -= kb_name
+							if(!length(key_bindings[old_key]))
+								key_bindings -= old_key
+						user << browse(null, "window=capturekeypress")
+						save_preferences()
+						ShowChoices(user)
+						return
+
+					var/new_key = uppertext(href_list["key"])
+					var/AltMod = text2num(href_list["alt"]) ? "Alt" : ""
+					var/CtrlMod = text2num(href_list["ctrl"]) ? "Ctrl" : ""
+					var/ShiftMod = text2num(href_list["shift"]) ? "Shift" : ""
+					var/numpad = text2num(href_list["numpad"]) ? "Numpad" : ""
+					// var/key_code = text2num(href_list["key_code"])
+
+					if(GLOB._kbMap[new_key])
+						new_key = GLOB._kbMap[new_key]
+
+					var/full_key
+					switch(new_key)
+						if("Alt")
+							full_key = "[new_key][CtrlMod][ShiftMod]"
+						if("Ctrl")
+							full_key = "[AltMod][new_key][ShiftMod]"
+						if("Shift")
+							full_key = "[AltMod][CtrlMod][new_key]"
+						else
+							full_key = "[AltMod][CtrlMod][ShiftMod][numpad][new_key]"
+					if(key_bindings[old_key])
+						key_bindings[old_key] -= kb_name
+						if(!length(key_bindings[old_key]))
+							key_bindings -= old_key
+					key_bindings[full_key] += list(kb_name)
+					key_bindings[full_key] = sortList(key_bindings[full_key])
+
+					user << browse(null, "window=capturekeypress")
+					user.client.update_movement_keys()
+					save_preferences()
+
+				if("keybindings_reset")
+					var/choice = tgalert(user, "Would you prefer 'hotkey' or 'classic' defaults?", "Setup keybindings", "Hotkey", "Classic", "Cancel")
+					if(choice == "Cancel")
+						ShowChoices(user)
+						return
+					hotkeys = (choice == "Hotkey")
+					key_bindings = (hotkeys) ? deepCopyList(GLOB.hotkey_keybinding_list_by_key) : deepCopyList(GLOB.classic_keybinding_list_by_key)
+					user.client.update_movement_keys()
+
 				if("action_buttons")
 					buttons_locked = !buttons_locked
 				if("tgui_fancy")

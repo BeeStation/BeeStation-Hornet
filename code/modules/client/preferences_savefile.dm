@@ -163,23 +163,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		return FALSE
 
 	//general preferences
-	READ_FILE(S["asaycolor"], asaycolor)
-	READ_FILE(S["ooccolor"], ooccolor)
-	READ_FILE(S["lastchangelog"], lastchangelog)
-	READ_FILE(S["UI_style"], UI_style)
-	READ_FILE(S["outline_color"], outline_color)
-	READ_FILE(S["outline_enabled"], outline_enabled)
-	READ_FILE(S["hotkeys"], hotkeys)
-	READ_FILE(S["chat_on_map"], chat_on_map)
-	READ_FILE(S["max_chat_length"], max_chat_length)
-	READ_FILE(S["see_chat_non_mob"] , see_chat_non_mob)
-	READ_FILE(S["see_rc_emotes"] , see_rc_emotes)
-	READ_FILE(S["see_balloon_alerts"], see_balloon_alerts)
-	READ_FILE(S["tgui_fancy"], tgui_fancy)
-	READ_FILE(S["tgui_lock"], tgui_lock)
-	READ_FILE(S["buttons_locked"], buttons_locked)
-	READ_FILE(S["windowflash"], windowflashing)
-	READ_FILE(S["be_special"], be_special)
+	S["asaycolor"]			>> asaycolor
+	S["ooccolor"]			>> ooccolor
+	S["lastchangelog"]		>> lastchangelog
+	S["UI_style"]			>> UI_style
+	S["hotkeys"]			>> hotkeys
+	S["tgui_fancy"]			>> tgui_fancy
+	S["tgui_lock"]			>> tgui_lock
+	S["buttons_locked"]		>> buttons_locked
+	S["windowflash"]		>> windowflashing
+	S["be_special"] 		>> be_special
 
 	READ_FILE(S["crew_objectives"], crew_objectives)
 
@@ -223,17 +216,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	ooccolor		= sanitize_ooccolor(sanitize_hexcolor(ooccolor, 6, TRUE, initial(ooccolor)))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, GLOB.available_ui_styles, GLOB.available_ui_styles[1])
-	hotkeys			= sanitize_integer(hotkeys, FALSE, TRUE, initial(hotkeys))
-	chat_on_map		= sanitize_integer(chat_on_map, FALSE, TRUE, initial(chat_on_map))
-	max_chat_length = sanitize_integer(max_chat_length, TRUE, CHAT_MESSAGE_MAX_LENGTH, initial(max_chat_length))
-	see_chat_non_mob	= sanitize_integer(see_chat_non_mob, FALSE, TRUE, initial(see_chat_non_mob))
-	tgui_fancy		= sanitize_integer(tgui_fancy, FALSE, TRUE, initial(tgui_fancy))
-	tgui_lock		= sanitize_integer(tgui_lock, FALSE, TRUE, initial(tgui_lock))
-	buttons_locked	= sanitize_integer(buttons_locked, FALSE, TRUE, initial(buttons_locked))
-	windowflashing		= sanitize_integer(windowflashing, FALSE, TRUE, initial(windowflashing))
-	default_slot	= sanitize_integer(default_slot, TRUE, max_save_slots, initial(default_slot))
-	toggles			= sanitize_integer(toggles, FALSE, 65535, initial(toggles))
-	clientfps		= sanitize_integer(clientfps, FALSE, 1000, FALSE)
+	hotkeys			= sanitize_integer(hotkeys, 0, 1, initial(hotkeys))
+	tgui_fancy		= sanitize_integer(tgui_fancy, 0, 1, initial(tgui_fancy))
+	tgui_lock		= sanitize_integer(tgui_lock, 0, 1, initial(tgui_lock))
+	buttons_locked	= sanitize_integer(buttons_locked, 0, 1, initial(buttons_locked))
+	windowflashing	= sanitize_integer(windowflashing, 0, 1, initial(windowflashing))
+	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
+	toggles			= sanitize_integer(toggles, 0, (2**24)-1, initial(toggles))
+	clientfps		= sanitize_integer(clientfps, 0, 1000, 0)
 	parallax		= sanitize_integer(parallax, PARALLAX_INSANE, PARALLAX_DISABLE, null)
 	ambientocclusion	= sanitize_integer(ambientocclusion, FALSE, TRUE, initial(ambientocclusion))
 	auto_fit_viewport	= sanitize_integer(auto_fit_viewport, FALSE, TRUE, initial(auto_fit_viewport))
@@ -279,11 +269,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["outline_enabled"], outline_enabled)
 	WRITE_FILE(S["outline_color"], outline_color)
 	WRITE_FILE(S["hotkeys"], hotkeys)
-	WRITE_FILE(S["chat_on_map"], chat_on_map)
-	WRITE_FILE(S["max_chat_length"], max_chat_length)
-	WRITE_FILE(S["see_chat_non_mob"], see_chat_non_mob)
-	WRITE_FILE(S["see_rc_emotes"], see_rc_emotes)
-	WRITE_FILE(S["see_balloon_alerts"], see_balloon_alerts)
 	WRITE_FILE(S["tgui_fancy"], tgui_fancy)
 	WRITE_FILE(S["tgui_lock"], tgui_lock)
 	WRITE_FILE(S["buttons_locked"], buttons_locked)
