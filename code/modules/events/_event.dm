@@ -215,6 +215,9 @@
 
 	activeFor++
 
+// Called when an admin triggers the event.
+/datum/round_event/proc/on_admin_trigger()
+	return
 
 //Garbage collects the event by removing it from the global events list,
 //which should be the only place it's referenced.
