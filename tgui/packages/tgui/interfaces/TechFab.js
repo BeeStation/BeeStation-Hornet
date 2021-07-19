@@ -226,7 +226,7 @@ const Recipe = (props, context) => {
   const craft_amounts = [1, 5, 10, 50];
   const substitutions = { "bluespace crystal": "bluespace_crystal" };
 
-  let max = recipe.max_amount;
+  let max = 50;
 
   const material_objects = Object.keys(recipe.materials).map(id => {
     const material = materials[id] || materials[substitutions[id]];

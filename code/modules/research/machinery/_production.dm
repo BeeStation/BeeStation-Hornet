@@ -163,15 +163,19 @@
 			say("Warning: Fabricators busy!")
 		else
 			user_try_print_id(params["design_id"], params["amount"])
+			. = TRUE
 	if(action == "sync_research")
 		update_research()
 		say("Synchronizing research with host technology database.")
+		. = TRUE
 	if(action == "dispose")
 		var/R = text2path(params["reagent_id"])
 		if(R)
 			reagents.del_reagent(R)
+			. = TRUE
 	if(action == "disposeall")
 		reagents.clear_reagents()
+		. = TRUE
 	if(action == "ejectsheet" && materials && materials.mat_container)
 		var/datum/material/M
 		for(var/datum/material/potential_material in materials.mat_container.materials)
@@ -180,16 +184,7 @@
 				break
 		if(M)
 			eject_sheets(M, params["amount"])
-
-/*
-/obj/machinery/rnd/production/ui_interact(mob/user)
-	if(!consoleless_interface)
-		return ..()
-	user.set_machine(src)
-	var/datum/browser/popup = new(user, "rndconsole", name, 460, 550)
-	popup.set_content(generate_ui())
-	popup.open()
-*/
+			. = TRUE
 
 /obj/machinery/rnd/production/proc/calculate_efficiency()
 	efficiency_coeff = 1
