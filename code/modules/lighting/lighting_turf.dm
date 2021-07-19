@@ -18,8 +18,6 @@
 
 // Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
 /turf/proc/reconsider_lights()
-	//Consider legacy lights
-	legacy_reconsider_lights()
 	if(!lights_affecting)
 		return
 	//Copy to prevent looping
@@ -34,7 +32,6 @@
 			lums += LIGHT_POWER_ESTIMATION(mask.alpha, mask.radius, get_dist(src, get_turf(mask.attached_atom)))
 		else
 			lums -= LIGHT_POWER_ESTIMATION(mask.alpha, mask.radius, get_dist(src, get_turf(mask.attached_atom)))
-	lums += legacy_get_lumcount()
 	return CLAMP(lums, 0.0, 1.0)
 
 // Can't think of a good name, this proc will recalculate the has_opaque_atom variable.

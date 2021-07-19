@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 /turf/proc/empty(turf_type=/turf/open/space, baseturf_type, list/ignore_typecache, flags)
 	// Remove all atoms except observers, landmarks, docking ports
-	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port, /obj/effect/lighting_mask_holder, /atom/movable/legacy_lighting_object))
+	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port, /obj/effect/lighting_mask_holder))
 	var/list/allowed_contents = typecache_filter_list_reverse(GetAllContentsIgnoring(ignore_typecache), ignored_atoms)
 	allowed_contents -= src
 	for(var/i in 1 to allowed_contents.len)
@@ -80,10 +80,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	if(flags & CHANGETURF_SKIP)
 		return new path(src)
 
-	//Legacy lighting
-	var/old_affecting_lights = legacy_affecting_lights
-	var/old_lighting_object = legacy_lighting_object
-	var/old_corners = legacy_corners
 	//New lighting
 	var/list/old_lights_affecting = lights_affecting?.Copy()
 
@@ -125,17 +121,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	//Legacy Update
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
-
-		W.legacy_lighting_object = old_lighting_object
-		W.legacy_affecting_lights = old_affecting_lights
-		W.legacy_corners = old_corners
-
-		var/area/A = loc
-
-		if(A.legacy_lighting && !old_lighting_object)
-			W.legacy_lighting_build_overlay()
-		else if(!A.legacy_lighting && old_lighting_object)
-			W.legacy_lighting_clear_overlay()
 
 		for(var/turf/open/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()

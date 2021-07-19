@@ -27,8 +27,6 @@ SUBSYSTEM_DEF(lighting)
 /datum/controller/subsystem/lighting/Initialize(timeofday)
 	started = TRUE
 	if(!initialized)
-		//Handle legacy lightnig
-		create_all_lighting_objects()
 		//Handle fancy lighting
 		to_chat(world, "<span class='boldannounce'>Generating shadows on [sources_that_need_updating.len] light sources.</span>")
 		var/timer = TICK_USAGE
@@ -59,71 +57,5 @@ SUBSYSTEM_DEF(lighting)
 		mask.calculate_lighting_shadows(TRUE)
 	LAZYCLEARLIST(queued_shadow_updates)
 
-//!!!!LEGACY!!!!!
-
-GLOBAL_LIST_EMPTY(lighting_update_lights) // List of lighting sources  queued for update.
-GLOBAL_LIST_EMPTY(lighting_update_corners) // List of lighting corners  queued for update.
-GLOBAL_LIST_EMPTY(lighting_update_objects) // List of lighting objects queued for update.
-
 /datum/controller/subsystem/lighting/stat_entry()
-	. = ..("Sources: [light_sources.len], ShCalcs: [total_shadow_calculations]|L:[GLOB.lighting_update_lights.len]|C:[GLOB.lighting_update_corners.len]|O:[GLOB.lighting_update_objects.len]")
-
-/datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
-	if(LAZYLEN(queued_shadow_updates))
-		draw_shadows()
-
-	MC_SPLIT_TICK_INIT(3)
-
-	if(!init_tick_checks)
-		MC_SPLIT_TICK
-
-	var/i = 0
-	for (i in 1 to GLOB.lighting_update_lights.len)
-		var/datum/legacy_light_source/L = GLOB.lighting_update_lights[i]
-
-		L.update_corners()
-
-		L.needs_update = LIGHTING_NO_UPDATE
-
-		if(init_tick_checks)
-			CHECK_TICK
-		else if (MC_TICK_CHECK)
-			break
-	if (i)
-		GLOB.lighting_update_lights.Cut(1, i+1)
-		i = 0
-
-	if(!init_tick_checks)
-		MC_SPLIT_TICK
-
-	for (i in 1 to GLOB.lighting_update_corners.len)
-		var/datum/legacy_lighting_corner/C = GLOB.lighting_update_corners[i]
-
-		C.update_objects()
-		C.needs_update = FALSE
-		if(init_tick_checks)
-			CHECK_TICK
-		else if (MC_TICK_CHECK)
-			break
-	if (i)
-		GLOB.lighting_update_corners.Cut(1, i+1)
-		i = 0
-
-
-	if(!init_tick_checks)
-		MC_SPLIT_TICK
-
-	for (i in 1 to GLOB.lighting_update_objects.len)
-		var/atom/movable/legacy_lighting_object/O = GLOB.lighting_update_objects[i]
-
-		if (QDELETED(O))
-			continue
-
-		O.update()
-		O.needs_update = FALSE
-		if(init_tick_checks)
-			CHECK_TICK
-		else if (MC_TICK_CHECK)
-			break
-	if (i)
-		GLOB.lighting_update_objects.Cut(1, i+1)
+	. = ..("Sources: [light_sources.len], ShCalcs: [total_shadow_calculations]")

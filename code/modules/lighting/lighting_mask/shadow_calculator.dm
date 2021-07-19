@@ -62,7 +62,7 @@
 		for(var/turf/thing as() in affecting_turfs)
 			var/area/A = thing.loc
 			LAZYREMOVE(thing.lights_affecting, src)
-			if(!LAZYLEN(thing.lights_affecting) && !LAZYLEN(thing.legacy_affecting_lights) && !A.base_lighting_alpha)
+			if(!LAZYLEN(thing.lights_affecting) && !A.base_lighting_alpha)
 				thing.luminosity = FALSE
 		affecting_turfs = null
 	. = ..()
@@ -81,6 +81,9 @@
 /atom/movable/lighting_mask/proc/calculate_lighting_shadows(force = FALSE)
 
 	var/start_time = TICK_USAGE
+
+	if(attached_atom.light_source_type == QUICK_LIGHTING)
+		return
 
 	//Check to make sure lighting is actually started
 	//If not count the amount of duplicate requests created.
@@ -142,7 +145,7 @@
 			LAZYREMOVE(T?.lights_affecting, src)
 			//The turf is no longer affected by any lights, make it non-luminous.
 			var/area/A = T.loc
-			if(T?.luminosity && !LAZYLEN(T.lights_affecting) && !LAZYLEN(T.legacy_affecting_lights) && !A.base_lighting_alpha)
+			if(T?.luminosity && !LAZYLEN(T.lights_affecting) && !A.base_lighting_alpha)
 				T.luminosity = FALSE
 
 	//Clear the list
