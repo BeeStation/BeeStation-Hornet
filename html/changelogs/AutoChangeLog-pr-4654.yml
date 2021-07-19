@@ -1,0 +1,4 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - rscadd: Ability to construct showers and sinks

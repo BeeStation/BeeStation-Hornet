@@ -1,0 +1,4 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - bugfix: phantom ids when you eject an id from a modular pc

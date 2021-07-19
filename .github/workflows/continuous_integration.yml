@@ -11,22 +11,25 @@ on:
   pull_request:
     branches:
     - master
-    
+
 jobs:
   run_linters:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Setup cache
+        id: cache-spacemandmm
         uses: actions/cache@v2
         with:
-          path: $HOME/SpacemanDMM
-          key: ${{ runner.os }}-spacemandmm
+          path: ~/dreamchecker
+          key: ${{ runner.os }}-spacemandmm-cache-${{ hashFiles('dependencies.sh') }}
+      - name: Install SpacemanDMM
+        if: steps.cache-spacemandmm.outputs.cache-hit != 'true'
+        run: bash tools/ci/install_spaceman_dmm.sh dreamchecker
       - name: Install Tools
         run: |
           pip3 install setuptools
           bash tools/ci/install_build_tools.sh
-          bash tools/ci/install_spaceman_dmm.sh dreamchecker
           pip3 install -r tools/mapmerge2/requirements.txt
       - name: Run Linters
         run: |
@@ -43,13 +46,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup cache
+        id: cache-byond
         uses: actions/cache@v2
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          path: ~/BYOND
+          key: ${{ runner.os }}-byond-cache-${{ hashFiles('Dockerfile') }}
+      - name: Install BYOND
+        if: steps.cache-byond.outputs.cache-hit != 'true'
+        run: bash tools/ci/install_byond.sh
       - name: Compile All Maps
         run: |
-          bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           python3 tools/ci/template_dm_generator.py
           bash tools/ci/dm.sh -DCIBUILDING -DCITESTING -DALL_MAPS beestation.dme
@@ -66,10 +72,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup cache
+        id: cache-byond
         uses: actions/cache@v2
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          path: ~/BYOND
+          key: ${{ runner.os }}-byond-cache-${{ hashFiles('Dockerfile') }}
+      - name: Install BYOND
+        if: steps.cache-byond.outputs.cache-hit != 'true'
+        run: bash tools/ci/install_byond.sh
       - name: Setup database
         run: |
           sudo systemctl start mysql
@@ -83,7 +93,6 @@ jobs:
           bash tools/ci/install_rust_g.sh
       - name: Compile and run tests
         run: |
-          bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           bash tools/ci/dm.sh -DCIBUILDING beestation.dme
           bash tools/ci/run_server.sh
