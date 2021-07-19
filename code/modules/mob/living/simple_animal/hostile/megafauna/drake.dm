@@ -410,7 +410,7 @@ Difficulty: Medium
 	icon_state = "lavastaff_warn"
 	layer = BELOW_MOB_LAYER
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
-	light_source_type = FANCY_LIGHTING
+
 	duration = 13
 
 /obj/effect/temp_visual/lava_warning/ex_act()
@@ -463,7 +463,7 @@ Difficulty: Medium
 	icon_state = "trap-earth"
 	layer = BELOW_MOB_LAYER
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
-	light_source_type = FANCY_LIGHTING
+
 	duration = 13
 
 /obj/effect/temp_visual/dragon_swoop
@@ -532,7 +532,7 @@ Difficulty: Medium
 	icon_state = "sniper_zoom"
 	layer = BELOW_MOB_LAYER
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
-	light_source_type = FANCY_LIGHTING
+
 	duration = 9
 
 /obj/effect/temp_visual/target/ex_act()

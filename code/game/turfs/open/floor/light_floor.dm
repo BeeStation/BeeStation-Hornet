@@ -2,6 +2,7 @@
 	name = "light floor"
 	desc = "A wired glass tile embedded into the floor."
 	light_range = 5
+	light_source_type = QUICK_LIGHTING
 	icon_state = "light_on"
 	floor_tile = /obj/item/stack/tile/light
 	broken_states = list("light_broken")

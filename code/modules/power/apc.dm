@@ -68,7 +68,7 @@
     )
 
 	var/lon_range = 2
-	light_source_type = FANCY_LIGHTING
+
 	var/area/area
 	var/areastring = null
 	var/obj/item/stock_parts/cell/cell

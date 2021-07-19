@@ -13,7 +13,8 @@
 	light_power = -10
 	light_color = LIGHT_COLOR_WHITE
 	light_range = 12
-	light_source_type = FANCY_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/flicker
+
 	appearance_flags = 0
 	var/current_size = 1
 	var/allowed_size = 1

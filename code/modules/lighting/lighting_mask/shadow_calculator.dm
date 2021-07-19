@@ -82,9 +82,6 @@
 
 	var/start_time = TICK_USAGE
 
-	if(attached_atom.light_source_type == QUICK_LIGHTING)
-		return
-
 	//Check to make sure lighting is actually started
 	//If not count the amount of duplicate requests created.
 	if(!SSlighting.started)
@@ -168,6 +165,10 @@
 			COORD_LIST_ADD(opaque_atoms_in_view, thing.x, thing.y)
 			DEBUG_HIGHLIGHT(thing.x, thing.y, "#0000FF")
 
+	//No shadows.
+	if(attached_atom.light_source_type == QUICK_LIGHTING)
+		return
+
 	//We are too small to consider shadows on, luminsoty has been considered at least.
 	if(radius <= MINIMUM_LIGHT_SHADOW_RADIUS)
 		return
@@ -193,6 +194,7 @@
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(var/overlays_add_time = 0)
 
 	filters = list()
+	var/num = 0
 
 	for(var/group in grouped_atoms)
 		DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
@@ -235,9 +237,14 @@
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
 
 			filters += filter(type="layer", icon = icon(LIGHTING_ICON_BIG, "triangle"), color = "#000", transform = M)
+			num ++
 
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(overlays_add_time += TICK_USAGE_TO_MS(temp_timer))
 			DO_SOMETHING_IF_DEBUGGING_SHADOWS(temp_timer = TICK_USAGE)
+
+	if(num >= 50)
+		message_admins("WARNING: [attached_atom] has [num] filters attached to it! [ADMIN_COORDJMP(attached_atom)]")
+		return
 
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("total_coordgroup_time: [total_coordgroup_time]ms"))
 	DO_SOMETHING_IF_DEBUGGING_SHADOWS(log_game("total_cornergroup_time: [total_cornergroup_time]ms"))

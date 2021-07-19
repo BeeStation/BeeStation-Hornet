@@ -224,7 +224,7 @@ Difficulty: Very Hard
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
-	light_source_type = FANCY_LIGHTING
+
 	duration = 8
 	var/target
 
@@ -273,6 +273,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blackbox"
 	light_range = 8
+	light_source_type = FANCY_LIGHTING
 	max_n_of_items = INFINITY
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	pixel_y = -4
@@ -389,6 +390,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	icon_state = "anomaly_crystal"
 	light_range = 8
 	light_source_type = FANCY_LIGHTING
+
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	use_power = NO_POWER_USE
 	anchored = FALSE

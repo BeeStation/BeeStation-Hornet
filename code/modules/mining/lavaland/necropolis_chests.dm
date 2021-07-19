@@ -313,6 +313,7 @@
 	icon_state = "orb"
 	light_range = 7
 	light_source_type = FANCY_LIGHTING
+
 	layer = ABOVE_ALL_MOB_LAYER
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE

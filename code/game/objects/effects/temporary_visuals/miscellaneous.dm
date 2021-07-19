@@ -231,6 +231,7 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "3"
 	light_range = LIGHT_RANGE_FIRE
+	light_mask_type = /atom/movable/lighting_mask/flicker
 	light_color = LIGHT_COLOR_FIRE
 	duration = 10
 
@@ -441,7 +442,7 @@
 
 /obj/effect/temp_visual/warp_cube
 	duration = 5
-	light_source_type = FANCY_LIGHTING
+
 	var/outgoing = TRUE
 
 /obj/effect/temp_visual/warp_cube/Initialize(mapload, atom/teleporting_atom, warp_color, new_outgoing)

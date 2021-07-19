@@ -13,7 +13,8 @@
 	consume_range = 6 //How many tiles out do we eat
 	light_power = 0.7
 	light_range = 15
-	light_source_type = FANCY_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/flicker
+
 	light_color = rgb(255, 0, 0)
 	gender = FEMALE
 	var/clashing = FALSE //If Nar'Sie is fighting Ratvar

@@ -38,6 +38,10 @@ SUBSYSTEM_DEF(lighting)
 	fire(FALSE, TRUE)
 	. = ..()
 
+/datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
+	if(LAZYLEN(queued_shadow_updates))
+		draw_shadows()
+
 /datum/controller/subsystem/lighting/Recover()
 	initialized = SSlighting.initialized
 	..()
@@ -59,3 +63,11 @@ SUBSYSTEM_DEF(lighting)
 
 /datum/controller/subsystem/lighting/stat_entry()
 	. = ..("Sources: [light_sources.len], ShCalcs: [total_shadow_calculations]")
+
+/*
+
+	light_source_type = FANCY_LIGHTING
+
+	light_mask_type = /atom/movable/lighting_mask
+
+*/

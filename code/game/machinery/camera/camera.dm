@@ -54,6 +54,7 @@
 	use_power = NO_POWER_USE //Test site is an unpowered area
 	invuln = TRUE
 	light_range = 10
+	light_mask_type = /atom/movable/lighting_mask
 	start_active = TRUE
 
 /obj/machinery/camera/Initialize(mapload, obj/structure/camera_assembly/CA)

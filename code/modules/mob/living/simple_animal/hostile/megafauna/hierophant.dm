@@ -503,7 +503,7 @@ Difficulty: Hard
 	duration = 3
 	light_color = LIGHT_COLOR_PURPLE
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
-	light_source_type = FANCY_LIGHTING
+
 	randomdir = FALSE
 
 /obj/effect/temp_visual/hierophant/squares/Initialize(mapload, new_caster)
@@ -518,7 +518,7 @@ Difficulty: Hard
 	icon_state = "wall"
 	light_color = LIGHT_COLOR_PURPLE
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
-	light_source_type = FANCY_LIGHTING
+
 	duration = 100
 	smooth = SMOOTH_TRUE
 
@@ -633,7 +633,7 @@ Difficulty: Hard
 	name = "vortex blast"
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
 	light_color = LIGHT_COLOR_PURPLE
-	light_source_type = FANCY_LIGHTING
+
 	light_mask_type = /atom/movable/lighting_mask/flicker
 	light_power = 2
 	desc = "Get out of the way!"
@@ -712,7 +712,7 @@ Difficulty: Hard
 	icon_state = "hierophant_tele_off"
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
 	light_color = LIGHT_COLOR_PURPLE
-	light_source_type = FANCY_LIGHTING
+
 	layer = LOW_OBJ_LAYER
 	anchored = TRUE
 

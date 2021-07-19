@@ -28,7 +28,10 @@
 	source_turf = get_turf(source_atom)
 
 	if(!mask_type)
-		mask_type = /atom/movable/lighting_mask
+		if(owner.light_source_type == QUICK_LIGHTING)
+			mask_type = /atom/movable/lighting_mask/quick_light
+		else
+			mask_type = /atom/movable/lighting_mask
 	src.mask_type = mask_type
 	mask_holder = new(source_turf)
 	our_mask = new mask_type

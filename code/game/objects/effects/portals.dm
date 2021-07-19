@@ -19,7 +19,6 @@
 	anchored = TRUE
 	light_power = 5
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
-	light_source_type = FANCY_LIGHTING
 	light_color = LIGHT_COLOR_BLUE
 	var/mech_sized = FALSE
 	var/obj/effect/portal/linked

@@ -199,11 +199,12 @@
 	idle_power_usage = 2
 	active_power_usage = 20
 	light_pixel_y = -8
+	light_source_type = FANCY_LIGHTING
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/static_power_used = 0
-	var/brightness = 10			// luminosity when on, also used in power calculation
+	var/brightness = 7			// luminosity when on, also used in power calculation
 	var/bulb_power = 1			// basically the alpha of the emitted light source
 	var/bulb_colour = "#FFF6ED"	// befault colour of the light.
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
@@ -220,7 +221,7 @@
 
 	var/nightshift_enabled = FALSE	//Currently in night shift mode?
 	var/nightshift_allowed = TRUE	//Set to FALSE to never let this light get switched to night mode.
-	var/nightshift_brightness = 7
+	var/nightshift_brightness = 6
 	var/nightshift_light_power = 0.75
 	var/nightshift_light_color = "#FFDBB5" //qwerty's more cozy light
 
@@ -232,7 +233,7 @@
 	var/bulb_emergency_pow_min = 0.5	// the minimum value for the light's power in emergency mode
 
 	var/bulb_vacuum_colour = "#4F82FF"	// colour of the light when air alarm is set to severe
-	var/bulb_vacuum_brightness = 8
+	var/bulb_vacuum_brightness = 4
 	var/static/list/lighting_overlays	// dictionary for lighting overlays
 
 /obj/machinery/light/broken
@@ -245,7 +246,7 @@
 	icon_state = "bulb"
 	base_state = "bulb"
 	fitting = "bulb"
-	brightness = 6
+	brightness = 5
 	desc = "A small lighting fixture."
 	bulb_colour = "#FFE6CC" //little less cozy, bit more industrial, but still cozy.. -qwerty
 	light_type = /obj/item/light/bulb
@@ -364,16 +365,19 @@
 		var/BR = brightness
 		var/PO = bulb_power
 		var/CO = bulb_colour
+		var/BM = initial(light_mask_type)
 		if(color)
 			CO = color
 		var/area/A = get_area(src)
 		if (A?.fire)
 			CO = bulb_emergency_colour
+			BM = /atom/movable/lighting_mask/rotating
 		else if (A?.vacuum)
 			CO = bulb_vacuum_colour
 			BR = bulb_vacuum_brightness
 		else if (GLOB.security_level == SEC_LEVEL_DELTA)
 			CO = bulb_emergency_colour
+			BM = /atom/movable/lighting_mask/rotating
 		else if (nightshift_enabled)
 			BR = nightshift_brightness
 			PO = nightshift_light_power
@@ -390,7 +394,7 @@
 					burn_out()
 			else
 				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO)
+				set_light(BR, PO, CO, BM)
 	else if(use_emergency_power(LIGHT_EMERGENCY_POWER_USE) && !turned_off())
 		use_power = IDLE_POWER_USE
 		emergency_mode = TRUE

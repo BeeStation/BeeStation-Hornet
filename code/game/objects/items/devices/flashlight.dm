@@ -13,7 +13,7 @@
 	materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
 	light_mask_type = /atom/movable/lighting_mask/conical
-	light_source_type = FANCY_LIGHTING
+
 	var/on = FALSE
 	var/brightness_on = 4 //range of light when on
 	var/flashlight_power = 1 //strength of the light when on

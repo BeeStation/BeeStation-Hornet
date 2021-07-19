@@ -11,6 +11,8 @@
 	heat = 1000
 	light_mask_type = /atom/movable/lighting_mask/flicker
 	light_source_type = FANCY_LIGHTING
+
+	/// How many seconds it burns for
 	var/wax = 2000
 	var/lit = FALSE
 	var/infinite = FALSE

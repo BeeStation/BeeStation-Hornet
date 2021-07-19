@@ -81,10 +81,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/uid = 1
 	var/static/gl_uid = 1
 	light_range = 12
+	light_source_type = FANCY_LIGHTING
 	light_power = 10
 	light_color = LIGHT_COLOR_YELLOW
 	light_mask_type = /atom/movable/lighting_mask/flicker
-	light_source_type = FANCY_LIGHTING
+
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 

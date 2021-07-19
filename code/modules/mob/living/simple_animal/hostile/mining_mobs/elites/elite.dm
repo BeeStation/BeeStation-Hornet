@@ -127,7 +127,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	light_range = 3
 	light_color = LIGHT_COLOR_RED
 	light_mask_type = /atom/movable/lighting_mask/flicker
-	light_source_type = FANCY_LIGHTING
+
 	anchored = TRUE
 	density = FALSE
 	var/activity = TUMOR_INACTIVE
@@ -341,7 +341,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	layer = BELOW_MOB_LAYER
 	color = rgb(255,0,0)
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
-	light_source_type = FANCY_LIGHTING
+
 	light_color = LIGHT_COLOR_RED
 	light_mask_type = /atom/movable/lighting_mask/flicker
 	var/mob/living/carbon/human/activator = null
