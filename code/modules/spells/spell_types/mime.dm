@@ -196,6 +196,10 @@
 		return
 	if(!ishuman(usr))
 		return
+	if(usr?.mind)
+		if(!usr.mind.miming)
+			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
+			return
 	var/obj/item/gun/ballistic/revolver/mime/magic/N = new(usr)
 	if(usr.put_in_hands(N))
 		to_chat(usr, "<span class='notice'>You form your fingers into a gun.</span>")
