@@ -883,13 +883,15 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 			continue
 		events_to_chose[E.name] = E
 	var/chosen_event = input(owner,"Send fake alert","Fake Alert") in events_to_chose
-	var/datum/round_event_control/event_control = events_to_chose[chosen_event? ?:0]
+	if (!chosen_event)
+		return FALSE
+	var/datum/round_event_control/event_control = events_to_chose[chosen_event]
 	if (!event_control)
-		event_control = pick(events_to_chose)
-	if(event_control)
-		var/datum/round_event/Event = new event_control.typepath()
-		Event.kill()
-		Event.announce(TRUE)
+		return FALSE
+	var/datum/round_event/Event = new event_control.typepath()
+	Event.kill()
+	Event.announce(TRUE)
+	return TRUE
 
 #undef DEFAULT_DOOMSDAY_TIMER
 #undef DOOMSDAY_ANNOUNCE_INTERVAL
