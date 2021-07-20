@@ -453,9 +453,9 @@
 /mob/dead/new_player/proc/ViewManifest()
 	if(!client)
 		return
-	if(world.time < new_player.crew_manifest_delay)
+	if(world.time < client.crew_manifest_delay)
 		return
-	new_player.crew_manifest_delay = world.time + (1 SECONDS)
+	client.crew_manifest_delay = world.time + (1 SECONDS)
 
 	var/dat = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head><body>"
 	dat += "<h4>Crew Manifest</h4>"

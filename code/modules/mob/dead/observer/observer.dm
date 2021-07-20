@@ -650,7 +650,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(!client)
 		return
-	if(world.time < observer.crew_manifest_delay)
+	if(world.time < client.crew_manifest_delay)
 		return
 	client.crew_manifest_delay = world.time + (1 SECONDS)
 

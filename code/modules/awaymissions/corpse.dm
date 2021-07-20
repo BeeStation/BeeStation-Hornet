@@ -47,8 +47,8 @@
 		return
 	if(QDELETED(src) || QDELETED(user))
 		return
-	if(use_cooldown && user.next_ghost_role_tick > world.time)
-		to_chat(user, "<span class='warning'>You have died recently, you must wait [(user.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
+	if(use_cooldown && user.client.next_ghost_role_tick > world.time)
+		to_chat(user, "<span class='warning'>You have died recently, you must wait [(user.client.next_ghost_role_tick - world.time)/10] seconds until you can use a ghost spawner.</span>")
 		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No" || !loc)
