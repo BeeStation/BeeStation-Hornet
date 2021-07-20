@@ -222,7 +222,7 @@
 	name = "sink frame"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "sink_frame"
-	desc = "A sink frame, that needs a water recycler to finish construction."
+	desc = "A sink frame, that needs 2 plastic sheets to finish construction."
 	anchored = FALSE
 
 /obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
