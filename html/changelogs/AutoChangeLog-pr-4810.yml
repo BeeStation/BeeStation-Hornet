@@ -1,4 +1,0 @@
-author: Ivniinvi
-delete-after: true
-changes:
-  - bugfix: Space Adapted Apids no longer sleep in the cold.
