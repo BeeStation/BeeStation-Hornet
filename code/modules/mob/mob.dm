@@ -235,10 +235,9 @@
 	if(self_message)
 		hearers -= src
 
-	var/raw_msg = message
 	if(audible_message_flags & EMOTE_MESSAGE)
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
-
+	for(var/mob/M in hearers)
 		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 /**
