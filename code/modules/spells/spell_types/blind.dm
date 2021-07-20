@@ -37,7 +37,6 @@
 		to_chat(user, "<span class='warning'>The spell had no effect!</span>")
 		target.visible_message("<span class='danger'>[target]'s eyes darken, but instantly turn back to their regular color, leaving [target] unharmed!</span>", \
 						   "<span class='danger'>Your eyes hurt for a moment, but the blindness is repulsed by your anti-magic protection!</span>")
-		revert_cast()
 		return
 	
 	target.visible_message("<span class='danger'>[target]'s eyes darken as black smoke starts coming out of them!</span>", \
