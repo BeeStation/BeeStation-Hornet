@@ -888,9 +888,9 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 	var/datum/round_event_control/event_control = events_to_chose[chosen_event]
 	if (!event_control)
 		return FALSE
-	var/datum/round_event/Event = new event_control.typepath()
-	Event.kill()
-	Event.announce(TRUE)
+	var/datum/round_event/event_announcement = new event_control.typepath()
+	event_announcement.kill()
+	event_announcement.announce(TRUE)
 	return TRUE
 
 #undef DEFAULT_DOOMSDAY_TIMER
