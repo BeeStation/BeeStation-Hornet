@@ -5,15 +5,15 @@
 [![Build Status](https://github.com/BeeStation/BeeStation-Hornet/workflows/Run%20tests/badge.svg)](https://github.com/BeeStation/BeeStation-Hornet/actions?query=workflow%3A%22Run+tests%22)
 ![Open Issues](https://isitmaintained.com/badge/open/BeeStation/BeeStation-Hornet.svg)
 
-**Website:** http://beestation13.com
-**Code:** https://github.com/beestation/beestation-hornet
-**Wiki:** https://wiki.beestation13.com/view/Main_Page
+**網頁:** http://beestation13.com
+**官方代碼:** https://github.com/beestation/beestation-hornet
+**百科:** https://wiki.beestation13.com/view/Main_Page
 
-蜜蜂站 13 is a Chinese (Traditional) translation of the Beestation 13 codebase. All Translators are welcome to contribute because I'm not that available.
+蜜蜂站 13 is a Chinese translation of the Beestation 13 codebase. All Translators are welcome to contribute because I'm not that available.
 
 ## DOWNLOADING
 
-There are a number of ways to download the source code. Some are described here, an alternative all-inclusive guide is also located at https://wiki.beestation13.com/view/Downloading_the_source_code
+有方法下載源代碼。這裡介紹了一些，另一個指南位置也可以https://wiki.beestation13.com/view/Downloading_the_source_code
 
 Option 1:
 Follow this: https://wiki.beestation13.com/view/Setting_up_git
