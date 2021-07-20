@@ -189,7 +189,7 @@ export const TechwebContent = (props, context) => {
               </Button>
               <Button
                 icon="trash"
-                disabled={linkedanalyzer === null}
+                disabled={!linkedanalyzer}
                 onClick={() => setTechwebRoute({ route: "analyzer" })}>
                 Analyzer
               </Button>
@@ -444,12 +444,6 @@ const Techwebanalyzer = (props, context) => {
     setTechwebRoute,
   ] = useLocalState(context, 'techwebRoute', null);
 
-  // Check for the analyzer itself
-  if (linkedanalyzer === false || linkedanalyzer === null
-    || linkedanalyzer === undefined) {
-    return "No linked analyzers!";
-  }
-
   return (
     <Flex direction="column" height="100%">
       <Flex.Item>
@@ -482,12 +476,16 @@ const Techwebanalyzer = (props, context) => {
           </Flex.Item>
         </Flex>
       </Flex.Item>
-      <Flex.Item>
-        {analyzeritem ? <TechwebItemmaterials /> : ""}
-      </Flex.Item>
-      <Flex.Item grow={1} className="Techweb__OverviewNodes">
-        {analyzeritem ? (analyzertechs ? <TechwebItemtechs /> : "Item has no new researchable nodes") : "No inserted items!"}
-      </Flex.Item>
+      {!!linkedanalyzer &&(
+        <>
+          <Flex.Item>
+            {analyzeritem ? <TechwebItemmaterials /> : ""}
+          </Flex.Item>
+          <Flex.Item grow={1} className="Techweb__OverviewNodes">
+            {analyzeritem ? (analyzertechs ? <TechwebItemtechs /> : "Item has no new researchable nodes") : "No inserted items!"}
+          </Flex.Item>
+        </>
+      )}
     </Flex>
   );
 };
@@ -497,11 +495,18 @@ const TechwebItemmaterials = (props, context) => {
   const { itemmats } = data;
 
   return (
-    Object.keys(itemmats).map(x => {
-      <Button>
-        {x}
-      </Button>;
-    })
+    <Section mt={1} className="Techweb__NodeContainer">
+      Reclaimable materials:
+      <Flex direction="column">
+        {itemmats.map(mats => {
+          return (
+            <Flex.Item key={mats}>
+              {mats}
+            </Flex.Item>
+          );
+        })}
+      </Flex>
+    </Section>
   );
 };
 
