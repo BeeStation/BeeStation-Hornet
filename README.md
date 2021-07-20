@@ -6,10 +6,12 @@
 ![Open Issues](https://isitmaintained.com/badge/open/BeeStation/BeeStation-Hornet.svg)
 
 **網頁:** http://beestation13.com
+
 **官方代碼:** https://github.com/beestation/beestation-hornet
+
 **百科:** https://wiki.beestation13.com/view/Main_Page
 
-蜜蜂站 13 is a Chinese translation of the Beestation 13 codebase. All Translators are welcome to contribute because I'm not that available.
+**蜜蜂站 13** is a Chinese translation of the Beestation 13 codebase. Any translators are welcome to contribute because I'm not that available.
 
 ## DOWNLOADING
 
