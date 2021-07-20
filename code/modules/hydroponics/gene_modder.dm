@@ -23,6 +23,8 @@
 	var/min_wchance = 67
 	var/min_wrate = 10
 
+	var/skip_confirmation = FALSE
+
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
@@ -97,6 +99,229 @@
 	else
 		..()
 
+/obj/machinery/plantgenes/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "PlantDNAManipulator")
+		ui.open()
+
+/obj/machinery/plantgenes/ui_data(mob/user)
+	var/list/data = list()
+	. = data
+
+	data["seed"] = seed?.name
+	data["disk"] = null
+	data["disk_gene"] = null
+	data["disk_readonly"] = FALSE
+	data["disk_canadd"] = TRUE
+
+	if(disk)
+		data["disk_readonly"] = disk.read_only
+		if(disk.gene)
+			data["disk_gene"] = build_gene(disk.gene)
+			data["disk"] = disk.gene.get_name()
+			data["disk_canadd"] = disk.gene.can_add(seed)
+		else
+			data["disk"] = "Empty disk"
+		if(disk.read_only)
+			data["disk"] += " (RO)"
+
+	data["core_genes"] = build_gene_list(core_genes, /datum/plant_gene/core)
+	data["reagent_genes"] = build_gene_list(reagent_genes, /datum/plant_gene/reagent)
+	data["trait_genes"] = build_gene_list(trait_genes, /datum/plant_gene/trait)
+
+	data["machine_stats"] = build_machine_stats()
+	data["skip_confirmation"] = skip_confirmation
+
+/obj/machinery/plantgenes/proc/build_machine_stats()
+	var/list/L = list()
+	. = L
+
+	L["potency"] = list("max", max_potency)
+	L["yield"] = list("max", max_yield)
+	L["production speed"] = list("min", min_production)
+	L["endurance"] = list("max", max_endurance)
+	L["lifespan"] = list("max", max_endurance)
+	L["weed growth rate"] = list("min", min_wrate)
+	L["weed vulnerability"] = list("min", min_wchance)
+
+/obj/machinery/plantgenes/proc/build_gene_list(list/genes, filter_type)
+	var/list/L = list()
+	. = L
+
+	for(var/datum/plant_gene/gene in genes)
+		L += list(build_gene(gene, filter_type))
+
+/obj/machinery/plantgenes/proc/get_gene_id(datum/plant_gene/gene)
+	if(istype(gene, /datum/plant_gene/core))
+		var/datum/plant_gene/core/core_gene = gene
+		return "core[core_gene.type]"
+	if(istype(gene, /datum/plant_gene/reagent))
+		var/datum/plant_gene/reagent/reagent_gene = gene
+		return "reagent[reagent_gene.reagent_id]"
+	if(istype(gene, /datum/plant_gene/trait))
+		var/datum/plant_gene/trait/trait_gene = gene
+		return "trait[trait_gene.type]"
+
+	return "unknown/[gene.name]"
+
+/obj/machinery/plantgenes/proc/build_gene(datum/plant_gene/gene, filter_type)
+	if(filter_type && !istype(gene, filter_type))
+		return
+
+	if(!gene)
+		return
+
+	var/list/L = list()
+	. = L
+
+	L["name"] = gene.get_name()
+
+	L["extractable"] = gene.mutability_flags & PLANT_GENE_EXTRACTABLE
+	L["removable"] = gene.mutability_flags & PLANT_GENE_REMOVABLE
+
+	if(istype(gene, /datum/plant_gene/core))
+		var/datum/plant_gene/core/core_gene = gene
+
+		L["type"] = "core"
+		L["stat"] = core_gene.name
+		L["id"] = get_gene_id(gene)
+		L["value"] = core_gene.value
+
+	if(istype(gene, /datum/plant_gene/reagent))
+		var/datum/plant_gene/reagent/reagent_gene = gene
+
+		L["type"] = "reagent"
+		L["id"] = get_gene_id(gene)
+		L["rate"] = reagent_gene.rate
+
+	if(istype(gene, /datum/plant_gene/trait))
+		var/datum/plant_gene/trait/trait_gene = gene
+
+		L["type"] = "trait"
+		L["id"] = get_gene_id(gene)
+		L["trait_id"] = trait_gene.trait_id
+
+/obj/machinery/plantgenes/ui_static_data(mob/user)
+	var/list/data = list()
+
+	data["stat_tooltips"] = list(
+		potency = "The 'power' of a plant. Generally effects the amount of reagent in a plant.",
+		yield = "The amount of crop yielded from a harvest",
+		"production speed" = "The speed at which a plant grows. Lower is better.",
+		endurance = "The amount of health the plant has",
+		lifespan = "The time it takes before the plant starts dying of old age",
+		"weed vulnerability" = "The vulnerability of the plant to weeds growing",
+		"weed growth rate" = "The speed at which weeds can grow around the plant. The higher the faster they grow.",
+		)
+
+	return data
+
+/obj/machinery/plantgenes/proc/find_gene_by_id(var/gene_id)
+	for(var/datum/plant_gene/gene in core_genes)
+		if(get_gene_id(gene) == gene_id)
+			return gene
+	for(var/datum/plant_gene/gene in reagent_genes)
+		if(get_gene_id(gene) == gene_id)
+			return gene
+	for(var/datum/plant_gene/gene in trait_genes)
+		if(get_gene_id(gene) == gene_id)
+			return gene
+
+/obj/machinery/plantgenes/ui_act(action, params)
+	if(..())
+		return
+	if(action == "toggle_skip_confirmation")
+		skip_confirmation = !skip_confirmation
+		. = TRUE
+
+	if(action == "eject_insert_seed")
+		var/obj/item/I = usr.get_active_held_item()
+		if(istype(I, /obj/item/seeds))
+			if(!usr.transferItemToLoc(I, src))
+				return
+			eject_seed()
+			insert_seed(I)
+			to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
+			. = TRUE
+		else
+			. = eject_seed()
+
+	if(action == "eject_insert_disk")
+		var/obj/item/I = usr.get_active_held_item()
+		if(istype(I, /obj/item/disk/plantgene))
+			if(!usr.transferItemToLoc(I, src))
+				return
+			eject_disk()
+			disk = I
+			to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
+			. = TRUE
+		else
+			. = eject_disk()
+
+	if(seed)
+		if(action == "remove")
+			var/datum/plant_gene/G = find_gene_by_id(params["gene_id"])
+			if(!G)
+				return FALSE
+			if(!istype(G, /datum/plant_gene/core))
+				seed.genes -= G
+				if(istype(G, /datum/plant_gene/reagent))
+					seed.reagents_from_genes()
+			repaint_seed()
+			. = TRUE
+
+		if(action == "extract")
+			var/datum/plant_gene/G = find_gene_by_id(params["gene_id"])
+			if(!G)
+				return FALSE
+			if(disk && !disk.read_only)
+				disk.gene = G
+				if(istype(G, /datum/plant_gene/core))
+					var/datum/plant_gene/core/gene = G
+					if(istype(G, /datum/plant_gene/core/potency))
+						gene.value = min(gene.value, max_potency)
+					else if(istype(G, /datum/plant_gene/core/lifespan))
+						gene.value = min(gene.value, max_endurance) //INTENDED
+					else if(istype(G, /datum/plant_gene/core/endurance))
+						gene.value = min(gene.value, max_endurance)
+					else if(istype(G, /datum/plant_gene/core/production))
+						gene.value = max(gene.value, min_production)
+					else if(istype(G, /datum/plant_gene/core/yield))
+						gene.value = min(gene.value, max_yield)
+					else if(istype(G, /datum/plant_gene/core/weed_rate))
+						gene.value = max(gene.value, min_wrate)
+					else if(istype(G, /datum/plant_gene/core/weed_chance))
+						gene.value = max(gene.value, min_wchance)
+				disk.update_name()
+				qdel(seed)
+				seed = null
+				update_icon()
+				. = TRUE
+
+		if(action == "replace")
+			var/datum/plant_gene/G = find_gene_by_id(params["gene_id"])
+			if(!G)
+				return FALSE
+			if(disk && disk.gene && istype(disk.gene, G.type) && istype(G, /datum/plant_gene/core))
+				seed.genes -= G
+				var/datum/plant_gene/core/C = disk.gene.Copy()
+				seed.genes += C
+				C.apply_stat(seed)
+				repaint_seed()
+				. = TRUE
+
+		if(action == "insert" && !istype(disk.gene, /datum/plant_gene/core) && disk.gene.can_add(seed))
+			seed.genes += disk.gene.Copy()
+			if(istype(disk.gene, /datum/plant_gene/reagent))
+				seed.reagents_from_genes()
+			repaint_seed()
+			. = TRUE
+
+	if(.)
+		update_genes()
+		update_icon()
+/*
 /obj/machinery/plantgenes/ui_interact(mob/user)
 	. = ..()
 	if(!user)
@@ -351,7 +576,7 @@
 		target = null
 
 	interact(usr)
-
+*/
 /obj/machinery/plantgenes/proc/insert_seed(obj/item/seeds/S)
 	if(!istype(S) || seed)
 		return
@@ -369,6 +594,7 @@
 			disk.forceMove(drop_location())
 		disk = null
 		update_genes()
+		. = TRUE
 
 /obj/machinery/plantgenes/proc/eject_seed()
 	if (seed && !operation)
@@ -379,6 +605,7 @@
 			seed.forceMove(drop_location())
 		seed = null
 		update_genes()
+		. = TRUE
 
 /obj/machinery/plantgenes/proc/update_genes()
 	core_genes = list()
