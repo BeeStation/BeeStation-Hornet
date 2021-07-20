@@ -40,7 +40,7 @@
 		return
 	if(!bitcoinmining)
 		if(loaded_tank.air_contents.get_moles(/datum/gas/plasma) < 0.0001)
-			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_SINGULO)
+			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINES)
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
 			eject()
 		else
@@ -74,7 +74,7 @@
 			user.visible_message("[user.name] turns the [src.name] [active? "on":"off"].", \
 			"<span class='notice'>You turn the [src.name] [active? "on":"off"].</span>")
 			var/fuel = loaded_tank?.air_contents.get_moles(/datum/gas/plasma)
-			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [key_name(user)]. [loaded_tank?"Fuel: [round(fuel/0.29)]%":"<font color='red'>It is empty</font>"].", INVESTIGATE_SINGULO)
+			investigate_log("turned [active?"<font color='green'>on</font>":"<font color='red'>off</font>"] by [key_name(user)]. [loaded_tank?"Fuel: [round(fuel/0.29)]%":"<font color='red'>It is empty</font>"].", INVESTIGATE_ENGINES)
 			return
 		else
 			to_chat(user, "<span class='warning'>The controls are locked!</span>")
