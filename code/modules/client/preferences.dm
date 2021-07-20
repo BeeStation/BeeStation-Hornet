@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/outline_enabled = TRUE
 	var/outline_color = COLOR_BLUE_GRAY
 	var/buttons_locked = FALSE
-	var/hotkeys = TRUE
+	var/hotkeys = FALSE
 
 	var/tgui_fancy = TRUE
 	var/tgui_lock = TRUE
@@ -1668,73 +1668,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					hotkeys = !hotkeys
 					if(hotkeys)
 						winset(user, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
-					else
-						winset(user, null, "input.focus=true input.background-color=[COLOR_INPUT_DISABLED]")
-
-				if("keybindings_capture")
-					var/datum/keybinding/kb = GLOB.keybindings_by_name[href_list["keybinding"]]
-					var/old_key = href_list["old_key"]
-					CaptureKeybinding(user, kb, old_key)
-					return
-
-				if("keybindings_set")
-					var/kb_name = href_list["keybinding"]
-					if(!kb_name)
-						user << browse(null, "window=capturekeypress")
-						ShowChoices(user)
-						return
-
-					var/clear_key = text2num(href_list["clear_key"])
-					var/old_key = href_list["old_key"]
-					if(clear_key)
-						if(key_bindings[old_key])
-							key_bindings[old_key] -= kb_name
-							if(!length(key_bindings[old_key]))
-								key_bindings -= old_key
-						user << browse(null, "window=capturekeypress")
-						save_preferences()
-						ShowChoices(user)
-						return
-
-					var/new_key = uppertext(href_list["key"])
-					var/AltMod = text2num(href_list["alt"]) ? "Alt" : ""
-					var/CtrlMod = text2num(href_list["ctrl"]) ? "Ctrl" : ""
-					var/ShiftMod = text2num(href_list["shift"]) ? "Shift" : ""
-					var/numpad = text2num(href_list["numpad"]) ? "Numpad" : ""
-					// var/key_code = text2num(href_list["key_code"])
-
-					if(GLOB._kbMap[new_key])
-						new_key = GLOB._kbMap[new_key]
-
-					var/full_key
-					switch(new_key)
-						if("Alt")
-							full_key = "[new_key][CtrlMod][ShiftMod]"
-						if("Ctrl")
-							full_key = "[AltMod][new_key][ShiftMod]"
-						if("Shift")
-							full_key = "[AltMod][CtrlMod][new_key]"
-						else
-							full_key = "[AltMod][CtrlMod][ShiftMod][numpad][new_key]"
-					if(key_bindings[old_key])
-						key_bindings[old_key] -= kb_name
-						if(!length(key_bindings[old_key]))
-							key_bindings -= old_key
-					key_bindings[full_key] += list(kb_name)
-					key_bindings[full_key] = sortList(key_bindings[full_key])
-
-					user << browse(null, "window=capturekeypress")
-					user.client.update_movement_keys()
-					save_preferences()
-
-				if("keybindings_reset")
-					var/choice = tgalert(user, "Would you prefer 'hotkey' or 'classic' defaults?", "Setup keybindings", "Hotkey", "Classic", "Cancel")
-					if(choice == "Cancel")
-						ShowChoices(user)
-						return
-					hotkeys = (choice == "Hotkey")
-					key_bindings = (hotkeys) ? deepCopyList(GLOB.hotkey_keybinding_list_by_key) : deepCopyList(GLOB.classic_keybinding_list_by_key)
-					user.client.update_movement_keys()
 
 				if("action_buttons")
 					buttons_locked = !buttons_locked
@@ -1963,13 +1896,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					save_preferences()
 					ShowKeybindings(user)
 					return
-
-				if("chat_on_map")
-					chat_on_map = !chat_on_map
-				if("see_chat_non_mob")
-					see_chat_non_mob = !see_chat_non_mob
-				if("see_rc_emotes")
-					see_rc_emotes = !see_rc_emotes
 
 	ShowChoices(user)
 	return 1
