@@ -9,6 +9,7 @@
 **Code:** https://github.com/beestation/beestation-hornet
 **Wiki:** https://wiki.beestation13.com/view/Main_Page
 
+蜜蜂站 13 is a Chinese (Traditional) translation of the Beestation 13 codebase. All Translators are welcome to contribute because I'm not that available.
 
 ## DOWNLOADING
 
