@@ -59,9 +59,7 @@ jobs:
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           python3 tools/ci/template_dm_generator.py
-          tools/build/build
-        env:
-          CBT_BUILD_MODE : ALL_MAPS
+          tools/build/build dm -DCIBUILDING -DCITESTING -DALL_MAPS
   run_all_tests:
     runs-on: ubuntu-latest
     services:
@@ -97,9 +95,7 @@ jobs:
       - name: Compile and run tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build
-        env:
-          CBT_BUILD_MODE: TEST_RUN
+          tools/build/build -DCIBUILDING
   test_windows:
     runs-on: windows-latest
     steps:
