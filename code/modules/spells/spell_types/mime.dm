@@ -180,6 +180,7 @@
 	school = "mime"
 	panel = "Mime"
 	charge_max = 300
+	range = -1
 	clothes_req = FALSE
 	antimagic_allowed = TRUE
 	include_user = TRUE
