@@ -371,6 +371,7 @@
 /obj/effect/abstract/eye_lighting/Initialize(mapload, light_object_range, light_object_power, current_color_string, light_flags)
 	. = ..()
 	parent = loc
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	if(!istype(parent))
 		stack_trace("/obj/effect/abstract/eye_lighting added to improper parent ([loc]). Deleting.")
 		return INITIALIZE_HINT_QDEL
