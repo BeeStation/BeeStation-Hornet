@@ -55,6 +55,7 @@ its mentors, not actual dangerous perms
             message_admins("[key_name(usr)] made [newguy] a mentor.")
             log_admin("[key_name(usr)] made [newguy] a mentor.")
             qdel(query_add_mentor)
+			load_mentors()
             return
 
         if(href_list["mentor_edit"] == "remove")
@@ -69,3 +70,4 @@ its mentors, not actual dangerous perms
             message_admins("[key_name(usr)] de-mentored [href_list["mentor_ckey"]]")
             log_admin("[key_name(usr)] de-mentored [href_list["mentor_ckey"]]")
             qdel(query_remove_mentor)
+			load_mentors()
