@@ -59,7 +59,6 @@
 	var/increment = 5
 	// How much to take from the glass?
 	var/decrement = 1
-	var/charge = 1
 
 	// Eating used bulbs gives us bulb shards
 	var/bulb_shards = 0
