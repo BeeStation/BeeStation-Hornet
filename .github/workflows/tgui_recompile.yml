@@ -12,8 +12,8 @@ on:
 
 # Config
 env:
-  COMMIT_NAME: 'Actions (TGUI Rebuild)'
-  COMMIT_EMAIL: 'action@github.com'
+  COMMIT_NAME: 'ss13-beebot'
+  COMMIT_EMAIL: '56381746+ss13-beebot@users.noreply.github.com'
   DEFAULT_BRANCH: 'master'
   TOKEN: '${{ secrets.CL_TOKEN }}'
 
