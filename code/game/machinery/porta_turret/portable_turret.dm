@@ -659,6 +659,7 @@
 	always_up = initial(always_up)
 	manual_control = FALSE
 	remote_controller = null
+	check_should_process()
 	return TRUE
 
 /obj/machinery/porta_turret/proc/InterceptClickOn(mob/living/caller, params, atom/A)
