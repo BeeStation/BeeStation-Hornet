@@ -1,0 +1,4 @@
+author: francinum
+delete-after: true
+changes:
+  - admin: Mentor panel edits now take effect immediately.
