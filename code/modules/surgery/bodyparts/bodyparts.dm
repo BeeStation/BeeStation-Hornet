@@ -230,6 +230,8 @@
 	set_disabled(is_disabled())
 
 /obj/item/bodypart/proc/is_disabled()
+	if(owner)
+		return
 	if(HAS_TRAIT(src, TRAIT_PARALYSIS))
 		return BODYPART_DISABLED_PARALYSIS
 	if(can_dismember() && !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -242,7 +244,7 @@
 		return BODYPART_NOT_DISABLED
 
 /obj/item/bodypart/proc/set_disabled(new_disabled)
-	if(disabled == new_disabled)
+	if(disabled == new_disabled || !owner)
 		return
 	disabled = new_disabled
 	owner.update_health_hud() //update the healthdoll
@@ -455,7 +457,7 @@
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
-	if(!((owner.stat == DEAD) || owner.InFullCritical()))
+	if(owner && !((owner.stat == DEAD) || owner.InFullCritical()))
 		return FALSE
 	return ..()
 
@@ -517,6 +519,9 @@
 	px_y = 0
 
 /obj/item/bodypart/l_arm/is_disabled()
+	if(!owner)
+		return
+
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_ARM))
 		return BODYPART_DISABLED_PARALYSIS
 	return ..()
@@ -650,6 +655,8 @@
 	max_stamina_damage = 50
 
 /obj/item/bodypart/l_leg/is_disabled()
+	if(!owner)
+		return
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))
 		return BODYPART_DISABLED_PARALYSIS
 	return ..()

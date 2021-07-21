@@ -192,6 +192,8 @@
 
 /obj/item/gun/energy/dueling/can_trigger_gun(mob/living/user)
 	. = ..()
+	if(!duel)
+		return
 	switch(duel.state)
 		if(DUEL_FIRING)
 			return . && !duel.fired[src]

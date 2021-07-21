@@ -299,8 +299,10 @@
 		return
 
 	var/datum/job/J = SSjob.GetJobType(jobtype)
-	if(!J)
+	if(!J && H.job)
 		J = SSjob.GetJob(H.job)
+	else
+		return
 
 	var/obj/item/card/id/C = H.wear_id
 	if(istype(C))

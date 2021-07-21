@@ -19,6 +19,8 @@
 
 /datum/component/proc/_JoinParent()
 	var/datum/P = parent
+	if(!P)
+		return
 	//lazy init the parent's dc list
 	var/list/dc = P.datum_components
 	if(!dc)
