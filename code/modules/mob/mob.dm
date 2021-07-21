@@ -92,7 +92,6 @@
 	update_movespeed(TRUE)
 	//Give verbs to stat
 	add_verb(verbs, TRUE)
-	become_hearing_sensitive()
 
 /**
   * Generate the tag for this mob
