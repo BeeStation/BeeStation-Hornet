@@ -179,10 +179,7 @@
 	return new_bulbs
 
 /obj/item/lightreplacer/proc/Charge(var/mob/user)
-	charge += 1
-	if(charge > 3)
-		AddUses(1)
-		charge = 1
+	AddUses(1)
 
 /obj/item/lightreplacer/proc/ReplaceLight(obj/machinery/light/target, mob/living/U)
 
