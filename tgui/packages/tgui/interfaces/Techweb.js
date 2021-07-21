@@ -492,12 +492,26 @@ const Techwebanalyzer = (props, context) => {
 
 const TechwebItemmaterials = (props, context) => {
   const { act, data } = useRemappedBackend(context);
-  const { itemmats } = data;
+  const { itemmats, itempoints } = data;
 
   return (
     <Section mt={1} className="Techweb__NodeContainer">
-      Reclaimable materials:
+      {!!itempoints && (
+        <>
+          <Flex direction="column">
+            {itempoints.map(mats => {
+              return (
+                <Flex.Item key={mats}>
+                  {mats}
+                </Flex.Item>
+              );
+            })}
+          </Flex>
+          <Divider />
+        </>
+      )}
       <Flex direction="column">
+        Reclaimable materials:
         {itemmats.map(mats => {
           return (
             <Flex.Item key={mats}>
@@ -701,6 +715,7 @@ const TechNode = (props, context) => {
     points,
     nodes,
     compact,
+    researchable,
   } = data;
   const { node, nodetails, nocontrols, destructive } = props;
   const { id, can_unlock, tier } = node;
@@ -742,7 +757,7 @@ const TechNode = (props, context) => {
               Details
             </Button>
           )}
-          {((tier > 0) && (!destructive)) && (
+          {((tier > 0) && (!destructive)) && (!!researchable) && (
             <Button
               icon="lightbulb"
               disabled={!can_unlock || tier > 1}
@@ -759,7 +774,7 @@ const TechNode = (props, context) => {
             </Button>
           )}
         </>)}
-      {tier !== 0 && !!compact && (
+      {tier !== 0 && !!compact && !destructive && (
         <Flex className="Techweb__NodeProgress">
           {costs.map(k => {
             const reqPts = Math.max(0, k.value);
