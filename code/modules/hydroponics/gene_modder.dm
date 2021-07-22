@@ -15,7 +15,7 @@
 	var/list/trait_genes = list()
 
 	var/datum/plant_gene/target
-	var/operation = ""
+	var/operation = null
 	var/max_potency = 50 // See RefreshParts() for how these work
 	var/max_yield = 2
 	var/min_production = 12
@@ -115,12 +115,16 @@
 	data["disk_readonly"] = FALSE
 	data["disk_canadd"] = TRUE
 
+	data["operation"] = operation
+	data["operation_target"] = build_gene(target)
+
 	if(disk)
 		data["disk_readonly"] = disk.read_only
 		if(disk.gene)
 			data["disk_gene"] = build_gene(disk.gene)
 			data["disk"] = disk.gene.get_name()
-			data["disk_canadd"] = disk.gene.can_add(seed)
+			if(seed)
+				data["disk_canadd"] = disk.gene.can_add(seed)
 		else
 			data["disk"] = "Empty disk"
 		if(disk.read_only)
@@ -166,10 +170,10 @@
 	return "unknown/[gene.name]"
 
 /obj/machinery/plantgenes/proc/build_gene(datum/plant_gene/gene, filter_type)
-	if(filter_type && !istype(gene, filter_type))
+	if(!gene)
 		return
 
-	if(!gene)
+	if(filter_type && !istype(gene, filter_type))
 		return
 
 	var/list/L = list()
@@ -231,6 +235,7 @@
 /obj/machinery/plantgenes/ui_act(action, params)
 	if(..())
 		return
+
 	if(action == "toggle_skip_confirmation")
 		skip_confirmation = !skip_confirmation
 		. = TRUE
@@ -264,11 +269,8 @@
 			var/datum/plant_gene/G = find_gene_by_id(params["gene_id"])
 			if(!G)
 				return FALSE
-			if(!istype(G, /datum/plant_gene/core))
-				seed.genes -= G
-				if(istype(G, /datum/plant_gene/reagent))
-					seed.reagents_from_genes()
-			repaint_seed()
+			operation = action
+			target = G
 			. = TRUE
 
 		if(action == "extract")
@@ -276,6 +278,37 @@
 			if(!G)
 				return FALSE
 			if(disk && !disk.read_only)
+				operation = action
+				target = G
+				. = TRUE
+
+		if(action == "replace")
+			var/datum/plant_gene/G = find_gene_by_id(params["gene_id"])
+			if(!G)
+				return FALSE
+			if(disk && disk.gene && istype(disk.gene, G.type) && istype(G, /datum/plant_gene/core))
+				operation = action
+				target = G
+				. = TRUE
+
+		if(action == "insert" && !istype(disk.gene, /datum/plant_gene/core) && disk.gene.can_add(seed))
+			operation = action
+			target = null
+			. = TRUE
+
+	if((action == "confirm" || (. && skip_confirmation)) && operation)
+		if(operation == "remove")
+			var/datum/plant_gene/G = target
+			if(G)
+				if(!istype(G, /datum/plant_gene/core))
+					seed.genes -= G
+					if(istype(G, /datum/plant_gene/reagent))
+						seed.reagents_from_genes()
+				repaint_seed()
+
+		if(operation == "extract")
+			var/datum/plant_gene/G = target
+			if(G && disk && !disk.read_only)
 				disk.gene = G
 				if(istype(G, /datum/plant_gene/core))
 					var/datum/plant_gene/core/gene = G
@@ -297,26 +330,31 @@
 				qdel(seed)
 				seed = null
 				update_icon()
-				. = TRUE
 
-		if(action == "replace")
-			var/datum/plant_gene/G = find_gene_by_id(params["gene_id"])
-			if(!G)
-				return FALSE
-			if(disk && disk.gene && istype(disk.gene, G.type) && istype(G, /datum/plant_gene/core))
+		if(operation == "replace")
+			var/datum/plant_gene/G = target
+			if(G && disk && disk.gene && istype(disk.gene, G.type) && istype(G, /datum/plant_gene/core))
 				seed.genes -= G
 				var/datum/plant_gene/core/C = disk.gene.Copy()
 				seed.genes += C
 				C.apply_stat(seed)
 				repaint_seed()
-				. = TRUE
 
-		if(action == "insert" && !istype(disk.gene, /datum/plant_gene/core) && disk.gene.can_add(seed))
+		if(operation == "insert" && !istype(disk.gene, /datum/plant_gene/core) && disk.gene.can_add(seed))
 			seed.genes += disk.gene.Copy()
 			if(istype(disk.gene, /datum/plant_gene/reagent))
 				seed.reagents_from_genes()
 			repaint_seed()
-			. = TRUE
+
+		operation = null
+		target = null
+		. = TRUE
+
+	if(action == "abort" && operation)
+		operation = null
+		target = null
+		. = TRUE
+
 
 	if(.)
 		update_genes()

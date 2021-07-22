@@ -8,18 +8,11 @@ import { Window } from '../layouts';
 export const PlantDNAManipulator = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const [
-    confirmationPrompt,
-    setConfirmationPrompt,
-  ] = useLocalState(context, 'confirmationPrompt', null);
-
   return (
     <Window
       width={450}
       height={600}>
-      {
-        !!confirmationPrompt && <PlantDNAManipulatorConfirmationPrompt />
-      }
+      <PlantDNAManipulatorConfirmationPrompt />
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
@@ -34,12 +27,6 @@ export const PlantDNAManipulator = (props, context) => {
   );
 };
 
-const makePopupData = (act_name, act_data, content) => { return {
-  act_name: act_name,
-  act_data: act_data,
-  content: content,
-}; };
-
 const Accent = (props, context) => {
   const {
     children,
@@ -51,26 +38,114 @@ const Accent = (props, context) => {
     </Box>);
 };
 
+const PlantDNAManipulatorConfirmReplace = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    operation_target,
+    disk_gene,
+  } = data;
+  
+  return (
+    <>
+      Are you sure you want to replace{" "}
+      <Accent>{operation_target.name}</Accent> with{" "}
+      <Accent>{disk_gene.name}</Accent>?
+    </>
+  );
+};
+
+const PlantDNAManipulatorConfirmRemove = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    operation_target,
+    seed,
+  } = data;
+  
+  return (
+    <>
+      Are you sure you want to remove{" "}
+      <Accent>{operation_target.name} </Accent> from the{" "}
+      <Accent>{seed}</Accent>?
+    </>
+  );
+};
+
+const PlantDNAManipulatorConfirmExtract = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    operation_target,
+    machine_stats,
+    seed,
+  } = data;
+
+  let statname, stat_limit_type, stat_limit, stat_result;
+  if (operation_target.type === "core")
+  {
+    statname = operation_target.stat.toLowerCase();
+    [
+      stat_limit_type,
+      stat_limit,
+    ] = machine_stats[statname];
+    stat_result = (stat_limit_type === "min")
+      ? Math.max(operation_target.value, stat_limit)
+      : Math.min(operation_target.value, stat_limit);
+  }
+  
+  return (
+    <Stack vertical>
+      <Stack.Item>
+        Are you sure you want to
+        extract <Accent>{operation_target.name}</Accent> from
+        the <Accent>{seed}</Accent>?
+      </Stack.Item>
+      <Stack.Item>
+        {
+          operation_target.type === "core" && stat_result !== operation_target.value
+          && (
+            <NoticeBox info>
+              <Box>
+                Target gene will be
+                degraded to{" "}
+                <Accent>
+                  {stat_result} {statname}
+                </Accent> on extraction. Upgrade the machine to
+                increase efficiency.
+              </Box>
+            </NoticeBox>
+          )
+        }
+        <NoticeBox danger>
+          The sample will be destroyed in the process
+        </NoticeBox>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const PlantDNAManipulatorConfirmInsert = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    disk_gene,
+    seed,
+  } = data;
+  
+  return (
+    <>
+      Are you sure you want to insert{" "}
+      <Accent>{disk_gene.name}</Accent> into the{" "}
+      <Accent>{seed}</Accent>?
+    </>
+  );
+};
+
 const PlantDNAManipulatorConfirmationPrompt = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    skip_confirmation,
+    operation,
   } = data;
-  const [
-    confirmationPrompt,
-    setConfirmationPrompt,
-  ] = useLocalState(context, 'confirmationPrompt', null);
 
-  const {
-    act_name,
-    act_data,
-    content,
-  } = confirmationPrompt;
-
-  if (skip_confirmation)
+  if (!operation)
   {
-    act(act_name, act_data);
-    setConfirmationPrompt();
     return;
   }
 
@@ -79,18 +154,18 @@ const PlantDNAManipulatorConfirmationPrompt = (props, context) => {
       <Section title="Confirm operation">
         <Stack vertical>
           <Stack.Item>
-            {content}
+            {operation === "replace" && <PlantDNAManipulatorConfirmReplace />}
+            {operation === "extract" && <PlantDNAManipulatorConfirmExtract />}
+            {operation === "insert" && <PlantDNAManipulatorConfirmInsert />}
+            {operation === "remove" && <PlantDNAManipulatorConfirmRemove />}
           </Stack.Item>
           <Stack.Item>
             <Stack justify="space-around">
               <Stack.Item>
-                <Button content="Confirm" onClick={() => {
-                  act(act_name, act_data);
-                  setConfirmationPrompt();
-                }} />
+                <Button content="Confirm" onClick={() => act("confirm")} />
               </Stack.Item>
               <Stack.Item>
-                <Button content="Abort" color="red" onClick={() => setConfirmationPrompt()} />
+                <Button content="Abort" color="red" onClick={() => act("abort")} />
               </Stack.Item>
             </Stack>
           </Stack.Item>
@@ -137,7 +212,7 @@ const PlantDNAManipulatorContent = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     seed,
-    disk,
+    core_genes,
     reagent_genes,
     trait_genes,
   } = data;
@@ -156,7 +231,8 @@ const PlantDNAManipulatorContent = (props, context) => {
 
   return (
     <>
-      <PlantDNAManipulatorCoreGenes />
+      <PlantDNAManipulatorGenes label="Core genes"
+        type="core" list={core_genes} />
       <PlantDNAManipulatorGenes label="Reagent genes"
         type="reagent" list={reagent_genes} />
       <PlantDNAManipulatorGenes label="Trait genes"
@@ -168,22 +244,15 @@ const PlantDNAManipulatorContent = (props, context) => {
 const PlantDNAManipulatorGene = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    seed,
     disk,
     disk_readonly,
     disk_gene,
-    machine_stats,
     stat_tooltips,
     disk_canadd,
   } = data;
   const {
     gene,
   } = props;
-
-  const [
-    confirmationPrompt,
-    setConfirmationPrompt,
-  ] = useLocalState(context, 'confirmationPrompt', null);
 
   const act_data = { gene_id: gene?.id };
 
@@ -203,50 +272,7 @@ const PlantDNAManipulatorGene = (props, context) => {
         <Button
           content="Extract"
           disabled={!disk || disk_readonly || !gene.extractable}
-          onClick={() => {
-            let statname, stat_limit_type, stat_limit, stat_result;
-            if (gene.type === "core")
-            {
-              statname = gene.stat.toLowerCase();
-              [
-                stat_limit_type,
-                stat_limit,
-              ] = machine_stats[statname];
-              stat_result = (stat_limit_type === "min")
-                ? Math.max(gene.value, stat_limit)
-                : Math.min(gene.value, stat_limit);
-            }
-
-            setConfirmationPrompt(makePopupData("extract", act_data, (
-              <Stack vertical>
-                <Stack.Item>
-                  Are you sure you want to
-                  extract <Accent>{gene.name}</Accent> from
-                  the <Accent>{seed}</Accent>?
-                </Stack.Item>
-                <Stack.Item>
-                  {
-                    gene.type === "core" && stat_result !== gene.value
-                    && (
-                      <NoticeBox info>
-                        <Box>
-                          Target gene will be
-                          degraded to{" "}
-                          <Accent>
-                            {stat_result} {statname}
-                          </Accent> on extraction. Upgrade the machine to
-                          increase efficiency.
-                        </Box>
-                      </NoticeBox>
-                    )
-                  }
-                  <NoticeBox danger>
-                    The sample will be destroyed in the process
-                  </NoticeBox>
-                </Stack.Item>
-              </Stack>
-            )));
-          }}
+          onClick={() => act("extract", act_data)}
         />
       </Table.Cell>
       <Table.Cell collapsing>
@@ -258,25 +284,13 @@ const PlantDNAManipulatorGene = (props, context) => {
                 || disk_gene?.id !== gene.id
                 || !gene.removable
                 || !disk_canadd}
-              onClick={() => setConfirmationPrompt(makePopupData("replace", act_data, (
-                <>
-                  Are you sure you want to replace{" "}
-                  <Accent>{gene.name}</Accent> with{" "}
-                  <Accent>{disk_gene.name}</Accent>?
-                </>
-              )))}
+              onClick={() => act("replace", act_data)}
             />
           ) : (
             <Button
               content="Remove"
               disabled={!gene.removable}
-              onClick={() => setConfirmationPrompt(makePopupData("remove", act_data, (
-                <>
-                  Are you sure you want to remove{" "}
-                  <Accent>{gene.name} </Accent> from the{" "}
-                  <Accent>{seed}</Accent>?
-                </>
-              )))}
+              onClick={() => act("remove", act_data)}
             />
           )
         }
@@ -286,32 +300,10 @@ const PlantDNAManipulatorGene = (props, context) => {
   );
 };
 
-const PlantDNAManipulatorCoreGenes = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    core_genes,
-    disk_gene,
-  } = data;
-
-  return (
-    <Section title="Core Genes">
-      <Table>
-        {
-          core_genes.map(gene => (
-            <PlantDNAManipulatorGene gene={gene} key={gene.id} />
-          ))
-        }
-      </Table>
-    </Section>
-  );
-};
-
 const PlantDNAManipulatorGenes = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    reagent_genes,
     disk_gene,
-    seed,
     disk_canadd,
   } = data;
   const {
@@ -319,10 +311,6 @@ const PlantDNAManipulatorGenes = (props, context) => {
     type,
     list,
   } = props;
-  const [
-    confirmationPrompt,
-    setConfirmationPrompt,
-  ] = useLocalState(context, 'confirmationPrompt', null);
 
   return (
     <Section title={label}>
@@ -336,15 +324,8 @@ const PlantDNAManipulatorGenes = (props, context) => {
       {
         disk_gene?.type === type && type !== "core"
           && <Button content={"Insert: " + disk_gene.name}
-            disabled={!disk_canadd
-              || list.some(gene => gene.id === disk_gene.id)}
-            onClick={() => setConfirmationPrompt(makePopupData("insert", undefined, (
-              <>
-                Are you sure you want to insert{" "}
-                <Accent>{disk_gene.name}</Accent> into the{" "}
-                <Accent>{seed}</Accent>?
-              </>
-            )))} />
+            disabled={!disk_canadd}
+            onClick={() => act("insert")} />
       }
     </Section>
   );
