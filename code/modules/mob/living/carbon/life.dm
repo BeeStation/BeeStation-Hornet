@@ -23,7 +23,7 @@
 
 		. = ..()
 
-		if (QDELETED(src))
+		if(QDELETED(src))
 			return
 
 		if(.) //not dead

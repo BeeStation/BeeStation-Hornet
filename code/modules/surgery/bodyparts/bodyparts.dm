@@ -230,8 +230,6 @@
 	set_disabled(is_disabled())
 
 /obj/item/bodypart/proc/is_disabled()
-	if(owner)
-		return
 	if(HAS_TRAIT(src, TRAIT_PARALYSIS))
 		return BODYPART_DISABLED_PARALYSIS
 	if(can_dismember() && !HAS_TRAIT(owner, TRAIT_NOLIMBDISABLE))
@@ -519,9 +517,6 @@
 	px_y = 0
 
 /obj/item/bodypart/l_arm/is_disabled()
-	if(!owner)
-		return
-
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_ARM))
 		return BODYPART_DISABLED_PARALYSIS
 	return ..()
@@ -655,8 +650,6 @@
 	max_stamina_damage = 50
 
 /obj/item/bodypart/l_leg/is_disabled()
-	if(!owner)
-		return
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))
 		return BODYPART_DISABLED_PARALYSIS
 	return ..()

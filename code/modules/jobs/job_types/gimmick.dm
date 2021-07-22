@@ -11,7 +11,7 @@
 
 	exp_type_department = EXP_TYPE_GIMMICK
 
-	access = list( ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_ASSISTANT
 	paycheck_department = ACCOUNT_CIV
