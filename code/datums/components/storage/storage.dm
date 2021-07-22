@@ -178,8 +178,7 @@
 
 	if(!isitem(O) || !click_gather || SEND_SIGNAL(O, COMSIG_CONTAINS_STORAGE))
 		return FALSE
-	if(!istype(O, /obj/item/slimecross/reproductive))
-		. = COMPONENT_NO_ATTACK
+	. = COMPONENT_NO_ATTACK
 	if(locked)
 		var/atom/host = parent
 		host.balloon_alert(M, "It's locked")
