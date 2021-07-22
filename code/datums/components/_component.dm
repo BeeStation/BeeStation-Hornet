@@ -14,13 +14,12 @@
 		stack_trace("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
 		qdel(src, TRUE, TRUE)
 		CRASH("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
-
-	_JoinParent(parent)
+	
+	if(!QDELETED(src))
+		_JoinParent(parent)
 
 /datum/component/proc/_JoinParent()
 	var/datum/P = parent
-	if(!P)
-		return
 	//lazy init the parent's dc list
 	var/list/dc = P.datum_components
 	if(!dc)
