@@ -1,6 +1,6 @@
 /mob/living/carbon/human/gib_animation()
 	if(!dna)
-		return
+		new /obj/effect/temp_visual/gib_animation(loc, "gibbed-h")
 	switch(dna.species.species_gibs)
 		if(GIB_TYPE_HUMAN)
 			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-h")
@@ -9,7 +9,7 @@
 
 /mob/living/carbon/human/dust_animation()
 	if(!dna)
-		return
+		new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
 	switch(dna.species.species_gibs)
 		if(GIB_TYPE_HUMAN)
 			new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
@@ -18,7 +18,7 @@
 
 /mob/living/carbon/human/spawn_gibs(with_bodyparts)
 	if(!dna)
-		return
+		new /obj/effect/gibspawner/human(get_turf(src), src, get_static_viruses())
 	if(with_bodyparts)
 		switch(dna.species.species_gibs)
 			if(GIB_TYPE_HUMAN)
@@ -34,7 +34,7 @@
 
 /mob/living/carbon/human/spawn_dust(just_ash = FALSE)
 	if(!dna)
-		return
+		new /obj/effect/decal/remains/human(loc)
 	if(just_ash)
 		new /obj/effect/decal/cleanable/ash(loc)
 	else
