@@ -339,6 +339,9 @@ SUBSYSTEM_DEF(ticker)
 			var/datum/holiday/holiday = SSevents.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
+	if(hide_mode)
+		deadchat_broadcast("<span class='deadsay'>The gamemode is: <b>[mode.name]</b></span>")
+
 	PostSetup()
 	SSstat.clear_global_alert()
 
