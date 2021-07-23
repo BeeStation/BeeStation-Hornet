@@ -85,7 +85,7 @@
 
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
-	if ((head && isclothing(head)) && (wear_suit && isclothing(wear_suit)) && (w_uniform && isclothing(w_uniform)))
+	if ((head && isclothing(head)) && ((wear_suit && isclothing(wear_suit)) || (w_uniform && isclothing(w_uniform))))
 		if(pressure < ONE_ATMOSPHERE)
 			if(head.clothing_flags & STOPSLOWPRESSUREDMG)
 				if(wear_suit.clothing_flags & STOPSLOWPRESSUREDMG)
