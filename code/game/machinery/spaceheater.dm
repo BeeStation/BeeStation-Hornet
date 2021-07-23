@@ -66,7 +66,7 @@
 	if(panel_open)
 		add_overlay("sheater-open")
 
-/obj/machinery/space_heater/process(delta_time)
+/obj/machinery/space_heater/process_atmos() //TODO figure out delta_time
 	if(!on || !is_operational())
 		if (on) // If it's broken, turn it off too
 			on = FALSE
@@ -97,7 +97,7 @@
 
 		var/heat_capacity = env.heat_capacity()
 		var/requiredPower = abs(env.return_temperature() - targetTemperature) * heat_capacity
-		requiredPower = min(requiredPower, heatingPower * delta_time)
+		requiredPower = min(requiredPower, heatingPower)
 
 		if(requiredPower < 1)
 			return
@@ -211,7 +211,7 @@
 			usr.visible_message("<span class='notice'>[usr] switches [on ? "on" : "off"] \the [src].</span>", "<span class='notice'>You switch [on ? "on" : "off"] \the [src].</span>")
 			update_icon()
 			if (on)
-				START_PROCESSING(SSmachines, src)
+				SSair.atmos_air_machinery += src
 			. = TRUE
 		if("mode")
 			setMode = params["mode"]
