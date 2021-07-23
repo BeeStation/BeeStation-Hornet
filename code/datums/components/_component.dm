@@ -15,8 +15,7 @@
 		qdel(src, TRUE, TRUE)
 		CRASH("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
 	
-	if(!QDELETED(src))
-		_JoinParent(parent)
+	_JoinParent(parent)
 
 /datum/component/proc/_JoinParent()
 	var/datum/P = parent

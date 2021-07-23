@@ -250,7 +250,7 @@
 /datum/outfit/job
 	name = "Standard Gear"
 
-	var/jobtype = /datum/job/assistant //defaults to assistant to prevent ID nonesense
+	var/jobtype
 
 	uniform = /obj/item/clothing/under/color/grey
 	id = /obj/item/card/id
