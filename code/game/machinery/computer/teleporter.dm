@@ -51,7 +51,7 @@
 	data["target"] = !target ? "None" : "[get_area(target)] [(regime_set != "Gate") ? "" : "Teleporter"]"
 	data["calibrating"] = calibrating
 
-	if(power_station?.teleporter_hub?.calibrated || power_station?.teleporter_hub?.accuracy >= 3)
+	if(power_station?.teleporter_hub?.calibrated || power_station?.teleporter_hub?.accuracy >= 4)
 		data["calibrated"] = TRUE
 	else
 		data["calibrated"] = FALSE
@@ -86,14 +86,14 @@
 			if(!target)
 				say("Error: No target set to calibrate to.")
 				return
-			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accuracy >= 3)
+			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accuracy >= 4)
 				say("Hub is already calibrated!")
 				return
 
 			say("Processing hub calibration to target...")
 			calibrating = TRUE
 			power_station.update_icon()
-			spawn(50 * (3 - power_station.teleporter_hub.accuracy)) //Better parts mean faster calibration
+			spawn(50 * (4 - power_station.teleporter_hub.accuracy)) //Better parts mean faster calibration
 				calibrating = FALSE
 				if(check_hub_connection())
 					power_station.teleporter_hub.calibrated = TRUE
