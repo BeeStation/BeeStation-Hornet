@@ -30,7 +30,6 @@ jobs:
         run: |
           pip3 install setuptools
           bash tools/ci/install_node.sh
-          bash tools/ci/install_build_tools.sh
           bash tools/ci/install_auxmos.sh
           pip3 install -r tools/mapmerge2/requirements.txt
       - name: Run Linters
