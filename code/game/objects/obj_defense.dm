@@ -15,7 +15,7 @@
 	var/old_integ = obj_integrity
 	obj_integrity = max(old_integ - damage_amount, 0)
 	//BREAKING FIRST
-	if(integrity_failure && obj_integrity <= integrity_failure * max_integrity)
+	if(integrity_failure && obj_integrity <= integrity_failure)
 		obj_break(damage_flag)
 
 	//DESTROYING SECOND

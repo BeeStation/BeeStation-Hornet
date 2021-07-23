@@ -8,7 +8,7 @@
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 30, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100, "stamina" = 0)
 	max_integrity = 200
-	integrity_failure = 0.25
+	integrity_failure = 25
 	var/obj/item/showpiece = null
 	var/obj/item/showpiece_type = null //This allows for showpieces that can only hold items if they're the same istype as this.
 	var/alert = TRUE
