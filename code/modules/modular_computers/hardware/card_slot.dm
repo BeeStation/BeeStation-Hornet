@@ -6,14 +6,26 @@
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
 
-	var/obj/item/card/id/stored_card = null
-	var/obj/item/card/id/stored_card2 = null
+	var/obj/item/card/id/stored_card
+	var/obj/item/card/id/stored_card2
 
 /obj/item/computer_hardware/card_slot/Exited(atom/A, atom/newloc)
-	if(A == stored_card)
-		try_eject(1, null, TRUE)
-	if(A == stored_card2)
-		try_eject(2, null, TRUE)
+	if(!(A == stored_card || A == stored_card2))
+		return ..()
+	if(holder)
+		if(holder.active_program)
+			holder.active_program.event_idremoved(0)
+		for(var/p in holder.idle_threads)
+			var/datum/computer_file/program/computer_program = p
+			computer_program.event_idremoved(1)
+
+		holder.update_slot_icon()
+
+		if(!ishuman(holder.loc))
+			return ..()
+		var/mob/living/carbon/human/human_wearer = holder.loc
+		if(human_wearer.wear_id == holder)
+			human_wearer.sec_hud_set_ID()
 	return ..()
 
 /obj/item/computer_hardware/card_slot/Destroy()

@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/open/indestructible/sound/pool{
-	icon = 'icons/misc/beach.dmi';
-	icon_state = "water"
-	},
+/turf/open/floor/holofloor/beach/water,
 /area/template_noop)
 "f" = (
 /obj/item/shovel/spade,
@@ -19,10 +16,7 @@
 /turf/open/floor/holofloor/beach,
 /area/template_noop)
 "k" = (
-/turf/open/indestructible/sound/pool/end{
-	icon = 'icons/misc/beach.dmi';
-	icon_state = "sandwater_b"
-	},
+/turf/open/floor/holofloor/beach/coast_b,
 /area/template_noop)
 "q" = (
 /obj/item/reagent_containers/glass/bucket,
