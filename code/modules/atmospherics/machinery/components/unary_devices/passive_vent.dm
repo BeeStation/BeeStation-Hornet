@@ -6,6 +6,7 @@
 	can_unwrench = TRUE
 
 	level = 1
+	interacts_with_air = TRUE
 	layer = GAS_SCRUBBER_LAYER
 
 	pipe_state = "pvent"
@@ -22,9 +23,20 @@
 	if(isclosedturf(loc))
 		return
 
-	var/datum/gas_mixture/internal = airs[1]
+	var/active = FALSE
 	var/datum/gas_mixture/external = loc.return_air()
-	if(internal.equalize(external))
+	var/datum/gas_mixture/internal = airs[1]
+	var/external_pressure = external.return_pressure()
+	var/internal_pressure = internal.return_pressure()
+	var/pressure_delta = abs(external_pressure - internal_pressure)
+
+	if(pressure_delta > 0.5)
+		equalize_all_gases_in_list(list(internal,external))
+		active = TRUE
+
+	active = internal.temperature_share(external, OPEN_HEAT_TRANSFER_COEFFICIENT) || active
+
+	if(active)
 		air_update_turf()
 		update_parents()
 
