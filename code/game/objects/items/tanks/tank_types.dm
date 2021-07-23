@@ -47,7 +47,7 @@
 
 /obj/item/tank/internals/anesthetic/populate_gas()
 	air_contents.set_moles(GAS_O2, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD)
-	air_contents.set_moles(GAS_NITRYL, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
+	air_contents.set_moles(GAS_NITROUS, (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD)
 
 /*
  * Air
@@ -195,4 +195,4 @@
 
 /obj/item/tank/internals/emergency_oxygen/clown/populate_gas()
 	air_contents.set_moles(GAS_O2, (9.99*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
-	air_contents.set_moles(GAS_NITRYL, (0.01*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))
+	air_contents.set_moles(GAS_NITROUS, (0.01*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C))

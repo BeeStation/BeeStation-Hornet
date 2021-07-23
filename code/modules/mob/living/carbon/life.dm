@@ -233,8 +233,8 @@
 		clear_alert("too_much_tox")
 
 	//NITROUS OXIDE
-	if(breath.get_moles(GAS_NITRYL))
-		var/SA_partialpressure = (breath.get_moles(GAS_NITRYL)/breath.total_moles())*breath_pressure
+	if(breath.get_moles(GAS_NITROUS))
+		var/SA_partialpressure = (breath.get_moles(GAS_NITROUS)/breath.total_moles())*breath_pressure
 		if(SA_partialpressure > SA_para_min)
 			Unconscious(60)
 			if(SA_partialpressure > SA_sleep_min)
