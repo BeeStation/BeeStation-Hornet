@@ -85,16 +85,17 @@
 
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
-	var/chest_covered = FALSE
-	var/head_covered = FALSE
-	for(var/obj/item/clothing/equipped in get_equipped_items())
-		if((equipped.body_parts_covered & CHEST) && (equipped.clothing_flags & STOPSPRESSUREDAMAGE))
-			chest_covered = TRUE
-		if((equipped.body_parts_covered & HEAD) && (equipped.clothing_flags & STOPSPRESSUREDAMAGE))
-			head_covered = TRUE
-
-	if(chest_covered && head_covered)
-		return ONE_ATMOSPHERE
+	var/item/clothing/suit = wear_suit
+	var/item/clothing/helmet = head
+	switch(suit.clothing_flags & head.clothing_flags)
+		if(STOPSPRESSUREDAMAGE)
+			return ONE_ATMOSPHERE
+		if(STOPSLOWPRESSUREDMG)
+			if(pressure < ONE_ATMOSPHERE)
+				return ONE_ATMOSPHERE
+		if(STOPSHIGHPRESSUREDMG)
+			if(pressure > ONE_ATMOSPHERE)
+				return ONE_ATMOSPHERE
 	return pressure
 
 
