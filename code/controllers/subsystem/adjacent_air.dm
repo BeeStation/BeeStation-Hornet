@@ -19,6 +19,9 @@ SUBSYSTEM_DEF(adjacent_air)
 	return ..()
 
 /datum/controller/subsystem/adjacent_air/fire(resumed = FALSE, mc_check = TRUE)
+	if(SSair.thread_running())
+		pause()
+		return
 
 	var/list/queue = src.queue
 

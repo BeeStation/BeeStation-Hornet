@@ -181,20 +181,15 @@
 		if(!target_self)
 			target.set_volume(target.return_volume() + tank_two.air_contents.return_volume())
 		target.set_volume(target.return_volume() + tank_one.air_contents.return_volume())
-	var/datum/gas_mixture/temp
-	temp = tank_one.air_contents.remove_ratio(1)
-	target.merge(temp)
+	tank_one.air_contents.transfer_ratio_to(target, 1)
 	if(!target_self)
-		temp = tank_two.air_contents.remove_ratio(1)
-		target.merge(temp)
+		tank_two.air_contents.transfer_ratio_to(target, 1)
 
 /obj/item/transfer_valve/proc/split_gases()
 	if (!valve_open || !tank_one || !tank_two)
 		return
 	var/ratio1 = tank_one.air_contents.return_volume()/tank_two.air_contents.return_volume()
-	var/datum/gas_mixture/temp
-	temp = tank_two.air_contents.remove_ratio(ratio1)
-	tank_one.air_contents.merge(temp)
+	tank_two.air_contents.transfer_ratio_to(tank_one.air_contents, ratio1)
 	tank_two.air_contents.set_volume(tank_two.air_contents.return_volume() - tank_one.air_contents.return_volume())
 
 	/*
