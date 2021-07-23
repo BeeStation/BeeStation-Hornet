@@ -1,0 +1,10 @@
+author: ike709
+delete-after: true
+changes:
+  - code_imp: Replaced extools with auxtools.
+  - rscadd: Added Putnam's auxmos, which is like TG's atmos but incredibly performant.
+  - rscdel: Removed fastmos, because it's no longer maintained by anybody and it's
+      very unstable.
+  - code_imp: Atmos is now even more performant than fastmos was.
+  - tweak: Firelocks require a crowbar to open/close again.
+  - tweak: Firelocks are fulltile again.
