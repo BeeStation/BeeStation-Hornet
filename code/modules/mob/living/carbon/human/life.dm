@@ -88,7 +88,7 @@
 	if (wear_suit && head && isclothing(wear_suit) && isclothing(head))
 		var/obj/item/clothing/CS = wear_suit
 		var/obj/item/clothing/CH = head
-		if ((CS.clothing_flags & STOPSPRESSUREDAMAGE && (CH.clothing_flags & STOPSPRESSUREDAMAGE))
+		if ((CS.clothing_flags & STOPSPRESSUREDAMAGE) && (CH.clothing_flags & STOPSPRESSUREDAMAGE))
 			return ONE_ATMOSPHERE
 		if ((CS.clothing_flags & STOPSLOWPRESSUREDMG) && (CH.clothing_flags & STOPSLOWPRESSUREDMG) && (pressure < ONE_ATMOSPHERE))
 			return ONE_ATMOSPHERE
