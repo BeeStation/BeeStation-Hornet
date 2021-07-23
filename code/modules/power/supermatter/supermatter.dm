@@ -388,7 +388,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		tritiumcomp = max(removed.get_moles(GAS_TRITIUM)/combined_gas, 0)
 		bzcomp = max(removed.get_moles(GAS_BZ)/combined_gas, 0)
 
-		n2ocomp = max(removed.get_moles(GAS_NITRYL)/combined_gas, 0)
+		n2ocomp = max(removed.get_moles(GAS_NITROUS)/combined_gas, 0)
 		n2comp = max(removed.get_moles(GAS_N2)/combined_gas, 0)
 
 		if(pluoxiumcomp >= 15)
