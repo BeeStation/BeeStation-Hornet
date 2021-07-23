@@ -1,6 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - rscdel: old "inflict_handler" file
-  - bugfix: blind spell works again
-  - refactor: refactors the blind spell to not be ancient
