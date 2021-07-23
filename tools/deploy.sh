@@ -11,6 +11,7 @@ fi
 
 mkdir -p \
     $1/_maps \
+	$1/auxtools \
     $1/icons/runtime \
     $1/sound/runtime \
     $1/strings \
@@ -36,6 +37,5 @@ cp -r tgui/packages/tgfont/dist/* $1/tgui/packages/tgfont/dist/
 #find $1/_maps -name "*.dm" -type f -delete
 
 #dlls on windows
-if [ "$(uname -o)" = "Msys" ]; then
-	cp ./*.dll $1/
-fi
+cp rust_g* $1/ || true
+cp auxtools/*auxmos.* $1/auxtools/ || true
