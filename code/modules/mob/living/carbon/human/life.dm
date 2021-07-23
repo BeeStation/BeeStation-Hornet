@@ -94,7 +94,7 @@
 			if  (pressure < ONE_ATMOSPHERE)
 				return ONE_ATMOSPHERE
 		if ((CS.clothing_flags & STOPSHIGHPRESSUREDMG) && (CH.clothing_flags & STOPSHIGHPRESSUREDMG))
-			(pressure > ONE_ATMOSPHERE)
+			if (pressure > ONE_ATMOSPHERE)
 				return ONE_ATMOSPHERE
 	return pressure
 
