@@ -2,6 +2,7 @@
 #define CHECK_ZLEVEL_TICKS (5 SECONDS)			//Every 5 seconds check if a tracked z-level is free.
 
 GLOBAL_LIST_EMPTY(zclear_atoms)
+GLOBAL_LIST_EMPTY(zclear_blockers)
 
 SUBSYSTEM_DEF(zclear)
 	name = "Z-Clear"

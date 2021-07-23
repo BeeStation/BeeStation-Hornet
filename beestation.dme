@@ -3052,6 +3052,7 @@
 #include "code\modules\shuttle\shuttle_creation\shuttle_creator_eye.dm"
 #include "code\modules\shuttle\shuttle_creation\shuttle_creator_overlay.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_supercruise.dm"
+#include "code\modules\shuttle\super_cruise\bluespace_beacon\bluespace_beacon.dm"
 #include "code\modules\shuttle\super_cruise\interface\orbital_map_interface.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_map.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_object.dm"
