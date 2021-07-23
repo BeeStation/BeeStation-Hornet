@@ -117,7 +117,7 @@
 
 /obj/item/storage/box/holy/witchhunter/PopulateContents()
 	new /obj/item/clothing/suit/armor/riot/chaplain/witchhunter(src)
-	new /obj/item/clothing/head/chaplain/witchunter_hat(src)
+	new /obj/item/clothing/head/helmet/chaplain/witchunter_hat(src)
 	new /obj/item/clothing/neck/crucifix(src)
 
 /obj/item/clothing/suit/armor/riot/chaplain/witchhunter
@@ -127,7 +127,7 @@
 	item_state = "witchhunter"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 
-/obj/item/clothing/head/chaplain/witchunter_hat
+/obj/item/clothing/head/helmet/chaplain/witchunter_hat
 	name = "witchunter hat"
 	desc = "This hat saw much use back in the day."
 	icon_state = "witchhunterhat"
