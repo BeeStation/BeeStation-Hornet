@@ -96,7 +96,14 @@
 
 /obj/structure/holosign/barrier/atmos/Initialize()
 	. = ..()
+	var/turf/local = get_turf(loc)
+	ADD_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
 	air_update_turf(TRUE)
+
+/obj/structure/holosign/barrier/atmos/Destroy()
+	var/turf/local = get_turf(loc)
+	ADD_TRAIT(local, TRAIT_FIREDOOR_STOP, TRAIT_GENERIC)
+	..()
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
