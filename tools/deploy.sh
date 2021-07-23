@@ -11,6 +11,7 @@ fi
 
 mkdir -p \
     $1/_maps \
+	$1/auxtools \
     $1/icons \
     $1/sound/chatter \
     $1/sound/voice/complionator \
@@ -37,4 +38,4 @@ cp -r strings/* $1/strings/
 
 #dlls on windows
 cp rust_g* $1/ || true
-cp *byond-extools.* $1/ || true
+cp auxtools/*auxmos.* $1/auxtools/ || true

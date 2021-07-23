@@ -14,13 +14,22 @@
 	var/on = FALSE
 	var/direction = PUMP_OUT
 	var/target_pressure = ONE_ATMOSPHERE
+	var/obj/machinery/atmospherics/components/binary/pump/pump
 
 	volume = 1000
+
+/obj/machinery/portable_atmospherics/pump/Initialize()
+	. = ..()
+	pump = new(src, FALSE)
+	pump.on = TRUE
+	pump.stat = 0
+	SSair.add_to_rebuild_queue(pump)
 
 /obj/machinery/portable_atmospherics/pump/Destroy()
 	var/turf/T = get_turf(src)
 	T.assume_air(air_contents)
 	air_update_turf()
+	QDEL_NULL(pump)
 	return ..()
 
 /obj/machinery/portable_atmospherics/pump/update_icon()
@@ -35,20 +44,20 @@
 /obj/machinery/portable_atmospherics/pump/process_atmos()
 	..()
 	if(!on)
+		pump.airs[1] = null
+		pump.airs[2] = null
 		return
 
 	var/turf/T = get_turf(src)
-	var/datum/gas_mixture/sending
-	var/datum/gas_mixture/receiving
-	if(direction == PUMP_OUT) // Hook up the "internal" pump.
-		sending = (holding ? holding.air_contents : air_contents)
-		receiving = (holding ? air_contents : T.return_air())
+	if(direction == PUMP_OUT) // Hook up the internal pump.
+		pump.airs[1] = holding ? holding.air_contents : air_contents
+		pump.airs[2] = holding ? air_contents : T.return_air()
 	else
-		sending = (holding ? air_contents : T.return_air())
-		receiving = (holding ? holding.air_contents : air_contents)
+		pump.airs[1] = holding ? air_contents : T.return_air()
+		pump.airs[2] = holding ? holding.air_contents : air_contents
 
-
-	if(sending.pump_gas_to(receiving, target_pressure) && !holding)
+	pump.process_atmos() // Pump gas.
+	if(!holding)
 		air_update_turf() // Update the environment if needed.
 
 /obj/machinery/portable_atmospherics/pump/emp_act(severity)
@@ -60,7 +69,7 @@
 			on = !on
 		if(prob(100 / severity))
 			direction = PUMP_OUT
-		target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
+		pump.target_pressure = rand(0, 100 * ONE_ATMOSPHERE)
 		update_icon()
 
 /obj/machinery/portable_atmospherics/pump/replace_tank(mob/living/user, close_valve)
@@ -90,7 +99,7 @@
 	data["direction"] = direction == PUMP_IN ? TRUE : FALSE
 	data["connected"] = connected_port ? TRUE : FALSE
 	data["pressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
-	data["target_pressure"] = round(target_pressure ? target_pressure : 0)
+	data["target_pressure"] = round(pump.target_pressure ? pump.target_pressure : 0)
 	data["default_pressure"] = round(PUMP_DEFAULT_PRESSURE)
 	data["min_pressure"] = round(PUMP_MIN_PRESSURE)
 	data["max_pressure"] = round(PUMP_MAX_PRESSURE)
@@ -110,8 +119,8 @@
 		if("power")
 			on = !on
 			if(on && !holding)
-				var/plasma = air_contents.get_moles(/datum/gas/plasma)
-				var/n2o = air_contents.get_moles(/datum/gas/nitrous_oxide)
+				var/plasma = air_contents.get_moles(GAS_PLASMA)
+				var/n2o = air_contents.get_moles(GAS_NITROUS)
 				if(n2o || plasma)
 					message_admins("[ADMIN_LOOKUPFLW(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [ADMIN_VERBOSEJMP(src)]")
 					log_admin("[key_name(usr)] turned on a pump that contains [n2o ? "N2O" : ""][n2o && plasma ? " & " : ""][plasma ? "Plasma" : ""] at [AREACOORD(src)]")
@@ -141,8 +150,8 @@
 				pressure = text2num(pressure)
 				. = TRUE
 			if(.)
-				target_pressure = clamp(round(pressure), PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
-				investigate_log("was set to [target_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
+				pump.target_pressure = clamp(round(pressure), PUMP_MIN_PRESSURE, PUMP_MAX_PRESSURE)
+				investigate_log("was set to [pump.target_pressure] kPa by [key_name(usr)].", INVESTIGATE_ATMOS)
 		if("eject")
 			if(holding)
 				replace_tank(usr, FALSE)

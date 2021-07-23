@@ -476,6 +476,9 @@
 #define COMSIG_AIRLOCK_CLOSE "airlock_close"
 ///from /obj/machinery/door/airlock/set_bolt():
 #define COMSIG_AIRLOCK_SET_BOLT "airlock_set_bolt"
+///Sent from /obj/machinery/door/airlock when its touched. (mob/user)
+#define COMSIG_AIRLOCK_TOUCHED "airlock_touched"
+	#define COMPONENT_PREVENT_OPEN 1
 
 // /obj/machinery/atmospherics/components/binary/valve signals
 
