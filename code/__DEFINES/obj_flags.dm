@@ -34,18 +34,18 @@
 #define STOPSLOWPRESSUREDMG		(1<<1) //! Low pressure only.
 #define STOPSHIGHPRESSUREDMG	(1<<2) //! High pressure only.
 #define STOPSPRESSUREDAMAGE		(STOPSLOWPRESSUREDMG | STOPSHIGHPRESSUREDMG)	//! SUIT and HEAD items which stop pressure damage. To stop you taking all pressure damage you must have both a suit and head item with this flag. Items should only have 1 pressure protection flag.
-#define BLOCK_GAS_SMOKE_EFFECT	(1<<2)	//! blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
-#define MASKINTERNALS		    (1<<3)	//! mask allows internals
-#define NOSLIP                  (1<<4)  //! prevents from slipping on wet floors, in space etc
-#define THICKMATERIAL			(1<<5)	//! prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body.
-#define VOICEBOX_TOGGLABLE      (1<<6)  //! The voicebox in this clothing can be toggled.
-#define VOICEBOX_DISABLED       (1<<7)  //! The voicebox is currently turned off.
-#define SHOWEROKAY				(1<<8)	//! prevents you from being stupid if you shower in them
-#define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
-#define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
-#define SCAN_REAGENTS           (1<<11) //! Allows helmets and glasses to scan reagents.
-#define MASKEXTENDRANGE			(1<<12) //! For masks, allows you to breathe from internals on adjecent tiles
-#define NOTCONSUMABLE			(1<<13) //! Moths cannot eat clothing with that flag
+#define BLOCK_GAS_SMOKE_EFFECT	(1<<3)	//! blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
+#define MASKINTERNALS		    (1<<4)	//! mask allows internals
+#define NOSLIP                  (1<<5)  //! prevents from slipping on wet floors, in space etc
+#define THICKMATERIAL			(1<<6)	//! prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body.
+#define VOICEBOX_TOGGLABLE      (1<<7)  //! The voicebox in this clothing can be toggled.
+#define VOICEBOX_DISABLED       (1<<8)  //! The voicebox is currently turned off.
+#define SHOWEROKAY				(1<<9)	//! prevents you from being stupid if you shower in them
+#define SNUG_FIT                (1<<10)  //! prevents hat throwing from knocking this hat off
+#define EFFECT_HAT              (1<<11) //! For hats with an effect that shouldn't get knocked off ie finfoil
+#define SCAN_REAGENTS           (1<<12) //! Allows helmets and glasses to scan reagents.
+#define MASKEXTENDRANGE			(1<<13) //! For masks, allows you to breathe from internals on adjecent tiles
+#define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
 
 
 /// Flags for the organ_flags var on /obj/item/organ
