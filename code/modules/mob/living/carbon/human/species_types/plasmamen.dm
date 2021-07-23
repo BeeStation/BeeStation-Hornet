@@ -34,7 +34,7 @@
 					atmos_sealed = TRUE
 			if(H.w_uniform)
 				var/obj/item/clothing/CU = H.w_uniform
-				if(CU.envirosealed)
+				if(CU.envirosealed || CU.clothing_flags & STOPSPRESSUREDAMAGE)
 					atmos_sealed = TRUE
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) || !istype(H.gloves, /obj/item/clothing/gloves)))
 		var/datum/gas_mixture/environment = H.loc.return_air()
