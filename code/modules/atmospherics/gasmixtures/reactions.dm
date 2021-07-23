@@ -91,8 +91,8 @@
 	var/burned_fuel = 0
 
 
-	burned_fuel = max(0,0.00002*(temperature-(0.00001*(temperature**2))))*air.get_moles(GAS_NITRYL)
-	air.set_moles(GAS_NITRYL, air.get_moles(GAS_NITRYL) - burned_fuel)
+	burned_fuel = max(0,0.00002*(temperature-(0.00001*(temperature**2))))*air.get_moles(GAS_NITROUS)
+	air.set_moles(GAS_NITROUS, air.get_moles(GAS_NITROUS) - burned_fuel)
 
 	if(burned_fuel)
 		energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)
