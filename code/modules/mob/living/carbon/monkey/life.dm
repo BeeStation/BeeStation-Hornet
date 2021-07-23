@@ -120,8 +120,6 @@
 	if (head && isclothing(head))
 		var/obj/item/clothing/CH = head
 		switch(CH.clothing_flags)
-			if(STOPSPRESSUREDAMAGE)
-				return ONE_ATMOSPHERE
 			if(STOPSLOWPRESSUREDMG)
 				if(pressure < ONE_ATMOSPHERE)
 					return ONE_ATMOSPHERE

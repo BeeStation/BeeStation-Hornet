@@ -488,7 +488,7 @@ Contains:
 /obj/item/clothing/suit/space/fragile/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!torn && prob(50))
 		to_chat(owner, "<span class='warning'>[src] tears from the damage, breaking the air-tight seal!</span>")
-		clothing_flags &= ~STOPSPRESSUREDAMAGE
+		clothing_flags &= ~STOPSHIGHPRESSUREDMG | STOPSLOWPRESSUREDMG
 		name = "torn [src]"
 		desc = "A bulky suit meant to protect the user during emergency situations, at least until someone tore a hole in the suit."
 		torn = TRUE
@@ -520,7 +520,7 @@ Contains:
 	flash_protect = 0
 	bang_protect = 0
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR
-	clothing_flags = STOPSPRESSUREDAMAGE | SHOWEROKAY | SNUG_FIT
+	clothing_flags = STOPSHIGHPRESSUREDMG | STOPSLOWPRESSUREDMG | SHOWEROKAY | SNUG_FIT
 	max_heat_protection_temperature = 100
 	brightness_on = null
 	actions_types = null

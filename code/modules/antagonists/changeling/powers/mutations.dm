@@ -419,7 +419,7 @@
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of armored pressure and temperature-resistant organic tissue, evolved to facilitate space travel and protect from close range threats."
 	item_flags = DROPDEL
-	clothing_flags = STOPSPRESSUREDAMAGE //Not THICKMATERIAL because it's organic tissue, so if somebody tries to inject something into it, it still ends up in your blood. (also balance but muh fluff)
+	clothing_flags = STOPSHIGHPRESSUREDMG | STOPSLOWPRESSUREDMG //Not THICKMATERIAL because it's organic tissue, so if somebody tries to inject something into it, it still ends up in your blood. (also balance but muh fluff)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/oxygen)
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25,"energy" = 30, "bomb" = 30, "bio" = 20, "rad" = 20, "fire" = 90, "acid" = 90, "stamina" = 10)//Bit less armoured than the Syndicate space suit
 	slowdown = 0.2
@@ -441,7 +441,7 @@
 	icon_state = "lingspacehelmet"
 	desc = "A covering of armored pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	item_flags = DROPDEL
-	clothing_flags = STOPSPRESSUREDAMAGE
+	clothing_flags = STOPSHIGHPRESSUREDMG | STOPSLOWPRESSUREDMG
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25,"energy" = 30, "bomb" = 30, "bio" = 20, "rad" = 20, "fire" = 90, "acid" = 90, "stamina" = 10)
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 

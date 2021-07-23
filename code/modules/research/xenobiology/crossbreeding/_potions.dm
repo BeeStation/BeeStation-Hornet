@@ -127,7 +127,7 @@ Slimecrossing Potions
 	C.add_atom_colour("#000080", FIXED_COLOUR_PRIORITY)
 	C.min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	C.cold_protection = C.body_parts_covered
-	C.clothing_flags |= STOPSPRESSUREDAMAGE
+	C.clothing_flags |= STOPSHIGHPRESSUREDMG | STOPSLOWPRESSUREDMG
 	uses--
 	if(!uses)
 		qdel(src)

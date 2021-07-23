@@ -85,7 +85,7 @@
 
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
-	var/pressure_flags = STOPSPRESSUREDAMAGE | STOPSLOWPRESSUREDMG | STOPSHIGHPRESSUREDMG
+	var/pressure_flags = STOPSHIGHPRESSUREDMG | STOPSLOWPRESSUREDMG
 	var/chest_protection = 0
 	var/head_protection = chest_protection
 	for(var/obj/item/clothing/equipped in get_equipped_items())
@@ -94,7 +94,7 @@
 		if(equipped.body_parts_covered & HEAD)
 			head_protection |= equipped.clothing_flags & pressure_flags
 
-	if(chest_protection & head_protection & STOPSPRESSUREDAMAGE)
+	if(chest_protection & head_protection & STOPSHIGHPRESSUREDMG | STOPSLOWPRESSUREDMG)
 		return ONE_ATMOSPHERE
 	if(chest_protection & head_protection & STOPSLOWPRESSUREDMG)
 		if (pressure < ONE_ATMOSPHERE)
