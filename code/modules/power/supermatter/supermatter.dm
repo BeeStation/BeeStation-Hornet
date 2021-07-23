@@ -168,7 +168,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 /obj/machinery/power/supermatter_crystal/Initialize()
 	. = ..()
 	uid = gl_uid++
-	SSair.atmos_machinery += src
+	SSair.atmos_air_machinery += src
 	countdown = new(src)
 	countdown.start()
 	GLOB.poi_list |= src
@@ -187,7 +187,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal/Destroy()
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINES)
-	SSair.atmos_machinery -= src
+	SSair.atmos_air_machinery -= src
 	QDEL_NULL(radio)
 	GLOB.poi_list -= src
 	QDEL_NULL(countdown)
@@ -355,7 +355,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	if(produces_gas)
 		//Remove gas from surrounding area
-		removed = env.remove(gasefficency * env.total_moles())
+		removed = env.remove_ratio(gasefficency)
 	else
 		// Pass all the gas related code an empty gas container
 		removed = new()
@@ -381,15 +381,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		//calculating gas related values
 		combined_gas = max(removed.total_moles(), 0)
 
-		plasmacomp = max(removed.get_moles(/datum/gas/plasma)/combined_gas, 0)
-		o2comp = max(removed.get_moles(/datum/gas/oxygen)/combined_gas, 0)
-		co2comp = max(removed.get_moles(/datum/gas/carbon_dioxide)/combined_gas, 0)
-		pluoxiumcomp = max(removed.get_moles(/datum/gas/pluoxium)/combined_gas, 0)
-		tritiumcomp = max(removed.get_moles(/datum/gas/tritium)/combined_gas, 0)
-		bzcomp = max(removed.get_moles(/datum/gas/bz)/combined_gas, 0)
+		plasmacomp = max(removed.get_moles(GAS_PLASMA)/combined_gas, 0)
+		o2comp = max(removed.get_moles(GAS_O2)/combined_gas, 0)
+		co2comp = max(removed.get_moles(GAS_CO2)/combined_gas, 0)
+		pluoxiumcomp = max(removed.get_moles(GAS_PLUOXIUM)/combined_gas, 0)
+		tritiumcomp = max(removed.get_moles(GAS_TRITIUM)/combined_gas, 0)
+		bzcomp = max(removed.get_moles(GAS_BZ)/combined_gas, 0)
 
-		n2ocomp = max(removed.get_moles(/datum/gas/nitrous_oxide)/combined_gas, 0)
-		n2comp = max(removed.get_moles(/datum/gas/nitrogen)/combined_gas, 0)
+		n2ocomp = max(removed.get_moles(GAS_NITRYL)/combined_gas, 0)
+		n2comp = max(removed.get_moles(GAS_N2)/combined_gas, 0)
 
 		if(pluoxiumcomp >= 15)
 			pluoxiumbonus = 1	//Just to be safe I don't want to remove pluoxium
@@ -449,9 +449,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		removed.set_temperature(max(0, min(removed.return_temperature(), 2500 * dynamic_heat_modifier)))
 
 		//Calculate how much gas to release
-		removed.adjust_moles(/datum/gas/plasma, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
+		removed.adjust_moles(GAS_PLASMA, max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0))
 
-		removed.adjust_moles(/datum/gas/oxygen, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
+		removed.adjust_moles(GAS_O2, max(((device_energy + removed.return_temperature() * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0))
 
 		if(produces_gas)
 			env.merge(removed)
