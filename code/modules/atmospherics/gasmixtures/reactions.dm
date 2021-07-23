@@ -81,7 +81,7 @@
 /datum/gas_reaction/nitrous_decomp/init_reqs()
 	min_requirements = list(
 		"TEMP" = N2O_DECOMPOSITION_MIN_ENERGY,
-		GAS_NITRYL = MINIMUM_MOLE_COUNT
+		GAS_NITROUS = MINIMUM_MOLE_COUNT
 	)
 
 /datum/gas_reaction/nitrous_decomp/react(datum/gas_mixture/air, datum/holder)
