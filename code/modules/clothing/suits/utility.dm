@@ -48,7 +48,6 @@
 	desc = "An expensive firesuit that protects against even the most deadly of station fires. Designed to protect even if the wearer is set aflame."
 	icon_state = "atmos_firesuit"
 	item_state = "firesuit_atmos"
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	allowed = list(/obj/item/flashlight, /obj/item/extinguisher, /obj/item/crowbar, /obj/item/tank/internals, /obj/item/powertool/jaws_of_life)
 
