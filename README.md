@@ -96,8 +96,7 @@ the new version.
 Hosting requires the [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=52685). Specifically, 	
 `vc_redist.x86.exe`. *Not* the 64-bit version. There is a decent chance you already have it if you've installed a game on Steam.
 
-If you'd like a more robust server hosting option for tgstation and its
-derivatives. Check out their server tools suite at
+If you'd like a more robust server hosting option, check out tgstation's server tools suite at
 https://github.com/tgstation/tgstation-server
 
 ## MAPS
