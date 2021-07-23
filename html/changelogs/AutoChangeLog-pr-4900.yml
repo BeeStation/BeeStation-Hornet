@@ -1,0 +1,5 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - bugfix: fixes bz formation using no2 instead of n2o, anesthetic tanks having no2
+      inside of them instead of n2o, n2o gas miners producing no2, etc
