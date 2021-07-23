@@ -249,6 +249,14 @@
 				actor.ShiftClickOn(atom_actual)
 			else
 				actor.ClickOn(atom_actual)
+		if("atomDrop")
+			var/atomRef1 = params["ref"]
+			var/atomRef2 = params["ref_other"]
+			var/atom/atom_actual1 = locate(atomRef1)
+			var/atom/atom_actual2 = locate(atomRef2)
+			if(!atom_actual1 || !atom_actual2)
+				return
+			client.MouseDrop(atom_actual2, atom_actual1)
 		if("statClickDebug")
 			var/targetRef = params["targetRef"]
 			var/class = params["class"]
