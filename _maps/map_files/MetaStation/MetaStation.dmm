@@ -40554,7 +40554,6 @@
 /area/maintenance/central)
 "bAi" = (
 /obj/structure/table/reinforced,
-/obj/item/lighter,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -31
 	},
@@ -40562,6 +40561,7 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/structure/displaycase/forsale/kitchen,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "bAj" = (
@@ -40570,6 +40570,7 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/item/lighter,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "bAk" = (
@@ -44605,6 +44606,10 @@
 	dir = 1
 	},
 /obj/item/kirbyplants/random,
+/obj/machinery/camera{
+	c_tag = "Kitchen Hatch";
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "bIv" = (
@@ -44613,18 +44618,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
-"bIw" = (
-/obj/machinery/light,
-/obj/machinery/camera{
-	c_tag = "Kitchen Hatch";
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
 "bIx" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/winterboots,
@@ -45452,8 +45445,14 @@
 	},
 /area/crew_quarters/kitchen)
 "bKh" = (
-/obj/machinery/computer/security/telescreen/entertainment,
-/turf/closed/wall,
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchen";
+	name = "Serving Hatch"
+	},
+/turf/open/floor/plasteel/cafeteria{
+	dir = 5
+	},
 /area/crew_quarters/kitchen)
 "bKi" = (
 /obj/structure/table/reinforced,
@@ -46159,33 +46158,7 @@
 	dir = 5
 	},
 /area/crew_quarters/kitchen)
-"bLM" = (
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/turf_decal/bot{
-	dir = 1
-	},
-/turf/open/floor/plasteel/cafeteria{
-	dir = 5
-	},
-/area/crew_quarters/kitchen)
-"bLN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/cafeteria{
-	dir = 5
-	},
-/area/crew_quarters/kitchen)
 "bLO" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /obj/structure/sink/kitchen{
 	pixel_y = 28
 	},
@@ -47041,7 +47014,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -47639,6 +47611,13 @@
 /area/crew_quarters/kitchen)
 "bOS" = (
 /obj/structure/table,
+/obj/item/kitchen/rollingpin,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3
+	},
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -48426,7 +48405,6 @@
 	},
 /area/crew_quarters/kitchen)
 "bQG" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
@@ -48948,37 +48926,36 @@
 /area/crew_quarters/kitchen)
 "bRS" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3
-	},
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 3
-	},
-/obj/item/kitchen/rollingpin,
 /obj/machinery/camera{
 	c_tag = "Kitchen";
 	dir = 1
 	},
+/obj/machinery/reagentgrinder,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "bRT" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
-/obj/structure/table,
-/obj/machinery/reagentgrinder,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/machinery/disposal/bin,
+/obj/effect/turf_decal/bot{
+	dir = 1
+	},
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
 /area/crew_quarters/kitchen)
 "bRU" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/open/floor/plasteel/cafeteria{
@@ -81370,6 +81347,9 @@
 "grA" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
@@ -120067,9 +120047,9 @@ paL
 bwO
 bFn
 bHc
-bIw
+bwO
 bKh
-bLM
+bLK
 bLK
 bOU
 bQD
@@ -120326,7 +120306,7 @@ bFo
 bwO
 bBT
 bKi
-bLN
+bLK
 dDe
 bOV
 bQE
@@ -120583,7 +120563,7 @@ bFk
 bwO
 paL
 bKj
-bLN
+bLK
 bLK
 ddE
 bQF
