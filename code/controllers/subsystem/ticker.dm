@@ -224,7 +224,7 @@ SUBSYSTEM_DEF(ticker)
 			if(fail_counter >= 3)
 				log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
 				message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
-				GLOB.master_mode = null		//this will actually make it pick extended
+				GLOB.master_mode = new /datum/game_mode/extended()
 				fail_counter = null
 
 		if(GAME_STATE_PLAYING)
