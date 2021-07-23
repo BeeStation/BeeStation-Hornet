@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - bugfix: Fixed a small chance for bloodcult to runtime and ruin gamemode setup.
