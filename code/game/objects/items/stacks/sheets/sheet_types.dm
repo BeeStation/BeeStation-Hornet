@@ -94,6 +94,8 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("iron door", /obj/structure/mineral_door/iron, 20, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("floodlight frame", /obj/structure/floodlight_frame, 5, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("shower frame", /obj/structure/showerframe, 2, time = 2 SECONDS), \
+	new/datum/stack_recipe("sink frame", /obj/structure/sinkframe, 2, time = 2 SECONDS), \
 ))
 
 /obj/item/stack/sheet/iron

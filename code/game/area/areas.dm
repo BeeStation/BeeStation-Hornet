@@ -576,7 +576,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(AREA_USAGE_DYNAMIC_START to AREA_USAGE_DYNAMIC_END)
 			power_usage[chan] += amount
 
-
 /**
   * Call back when an atom enters an area
   *
