@@ -92,7 +92,7 @@
 			return ONE_ATMOSPHERE
 		if ((CS.clothing_flags & STOPSLOWPRESSUREDMG) && (CH.clothing_flags & STOPSLOWPRESSUREDMG) && (pressure < ONE_ATMOSPHERE))
 			return ONE_ATMOSPHERE
-		if ((CS.clothing_flags & STOPSHIGHPRESSUREDMG) && (CH.clothing_flags & STOPSHIGHPRESSUREDMG) && pressure > ONE_ATMOSPHERE))
+		if ((CS.clothing_flags & STOPSHIGHPRESSUREDMG) && (CH.clothing_flags & STOPSHIGHPRESSUREDMG) && (pressure > ONE_ATMOSPHERE))
 			return ONE_ATMOSPHERE
 	return pressure
 
