@@ -140,7 +140,6 @@ SUBSYSTEM_DEF(time_track)
 			length(SSair.hotspots),
 			length(SSair.networks),
 			length(SSair.high_pressure_delta),
-			length(SSair.active_super_conductivity)
 #ifdef SENDMAPS_PROFILE
 		) + send_maps_values
 #else
