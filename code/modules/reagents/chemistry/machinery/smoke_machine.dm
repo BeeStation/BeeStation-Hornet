@@ -38,6 +38,11 @@
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		reagents.maximum_volume += REAGENTS_BASE_VOLUME * B.rating
 
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+
+/obj/machinery/smoke_machine/proc/can_be_rotated(mob/user,rotation_type)
+	return !anchored
+
 /obj/machinery/smoke_machine/update_icon()
 	if((!is_operational()) || (!on) || (reagents.total_volume == 0))
 		if (panel_open)

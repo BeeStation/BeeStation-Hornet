@@ -91,6 +91,8 @@
 	var/datum/port/output/total_money
 	/// Amount of the last money inputted into the shell
 	var/datum/port/output/money_input
+	/// Person that inserted the money
+	var/datum/port/output/payer
 	/// Trigger for when money is inputted into the shell
 	var/datum/port/output/money_trigger
 
@@ -98,6 +100,7 @@
 	. = ..()
 	total_money = add_output_port("Total Money", PORT_TYPE_NUMBER)
 	money_input = add_output_port("Last Input Money", PORT_TYPE_NUMBER)
+	payer = add_output_port("Payer", PORT_TYPE_ATOM)
 	money_trigger = add_output_port("Money Input", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/money_bot/register_shell(atom/movable/shell)
@@ -121,6 +124,7 @@
 	attached_bot = null
 	total_money = null
 	money_input = null
+	payer = null
 	money_trigger = null
 	return ..()
 
@@ -137,6 +141,7 @@
 	attached_bot.add_money(amount_to_insert)
 	balloon_alert(attacker, "inserted [amount_to_insert] credits.")
 	money_input.set_output(amount_to_insert)
+	payer.set_output(attacker)
 	money_trigger.set_output(COMPONENT_SIGNAL)
 	qdel(item)
 

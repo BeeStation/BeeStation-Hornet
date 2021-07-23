@@ -89,57 +89,57 @@
 	var/list/TLV = list( // Breathable air.
 		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa. Values are min2, min1, max1, max2
 		"temperature"				= new/datum/tlv(T0C, T0C+10, T0C+40, T0C+66),
-		/datum/gas/oxygen			= new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
-		/datum/gas/nitrogen			= new/datum/tlv(-1, -1, 1000, 1000),
-		/datum/gas/carbon_dioxide	= new/datum/tlv(-1, -1, 5, 10),
-		/datum/gas/miasma			= new/datum/tlv/(-1, -1, 15, 30),
-		/datum/gas/plasma			= new/datum/tlv/dangerous,
-		/datum/gas/nitrous_oxide	= new/datum/tlv/dangerous,
-		/datum/gas/bz				= new/datum/tlv/dangerous,
-		/datum/gas/hypernoblium		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
-		/datum/gas/water_vapor		= new/datum/tlv/dangerous,
-		/datum/gas/tritium			= new/datum/tlv/dangerous,
-		/datum/gas/stimulum			= new/datum/tlv/dangerous,
-		/datum/gas/nitryl			= new/datum/tlv/dangerous,
-		/datum/gas/pluoxium			= new/datum/tlv(-1, -1, 1000, 1000) // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
+		GAS_O2			= new/datum/tlv(16, 19, 40, 50), // Partial pressure, kpa
+		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
+		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
+		GAS_MIASMA			= new/datum/tlv/(-1, -1, 15, 30),
+		GAS_PLASMA			= new/datum/tlv/dangerous,
+		GAS_NITROUS	= new/datum/tlv/dangerous,
+		GAS_BZ				= new/datum/tlv/dangerous,
+		GAS_HYPERNOB		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
+		GAS_H2O		= new/datum/tlv/dangerous,
+		GAS_TRITIUM			= new/datum/tlv/dangerous,
+		GAS_STIMULUM			= new/datum/tlv/dangerous,
+		GAS_NITRYL			= new/datum/tlv/dangerous,
+		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
 
 /obj/machinery/airalarm/server // No checks here.
 	TLV = list(
 		"pressure"					= new/datum/tlv/no_checks,
 		"temperature"				= new/datum/tlv/no_checks,
-		/datum/gas/oxygen			= new/datum/tlv/no_checks,
-		/datum/gas/nitrogen			= new/datum/tlv/no_checks,
-		/datum/gas/carbon_dioxide	= new/datum/tlv/no_checks,
-		/datum/gas/miasma			= new/datum/tlv/no_checks,
-		/datum/gas/plasma			= new/datum/tlv/no_checks,
-		/datum/gas/nitrous_oxide	= new/datum/tlv/no_checks,
-		/datum/gas/bz				= new/datum/tlv/no_checks,
-		/datum/gas/hypernoblium		= new/datum/tlv/no_checks,
-		/datum/gas/water_vapor		= new/datum/tlv/no_checks,
-		/datum/gas/tritium			= new/datum/tlv/no_checks,
-		/datum/gas/stimulum			= new/datum/tlv/no_checks,
-		/datum/gas/nitryl			= new/datum/tlv/no_checks,
-		/datum/gas/pluoxium			= new/datum/tlv/no_checks
+		GAS_O2			= new/datum/tlv/no_checks,
+		GAS_N2			= new/datum/tlv/no_checks,
+		GAS_CO2	= new/datum/tlv/no_checks,
+		GAS_MIASMA			= new/datum/tlv/no_checks,
+		GAS_PLASMA			= new/datum/tlv/no_checks,
+		GAS_NITROUS	= new/datum/tlv/no_checks,
+		GAS_BZ				= new/datum/tlv/no_checks,
+		GAS_HYPERNOB		= new/datum/tlv/no_checks,
+		GAS_H2O		= new/datum/tlv/no_checks,
+		GAS_TRITIUM			= new/datum/tlv/no_checks,
+		GAS_STIMULUM			= new/datum/tlv/no_checks,
+		GAS_NITRYL			= new/datum/tlv/no_checks,
+		GAS_PLUOXIUM			= new/datum/tlv/no_checks
 	)
 
 /obj/machinery/airalarm/kitchen_cold_room // Kitchen cold rooms start off at -20°C or 253.15°K.
 	TLV = list(
 		"pressure"					= new/datum/tlv(ONE_ATMOSPHERE * 0.8, ONE_ATMOSPHERE*  0.9, ONE_ATMOSPHERE * 1.1, ONE_ATMOSPHERE * 1.2), // kPa
 		"temperature"				= new/datum/tlv(T0C-273.15, T0C-80, T0C-10, T0C+10),
-		/datum/gas/oxygen			= new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
-		/datum/gas/nitrogen			= new/datum/tlv(-1, -1, 1000, 1000),
-		/datum/gas/carbon_dioxide	= new/datum/tlv(-1, -1, 5, 10),
-		/datum/gas/miasma			= new/datum/tlv/(-1, -1, 2, 5),
-		/datum/gas/plasma			= new/datum/tlv/dangerous,
-		/datum/gas/nitrous_oxide	= new/datum/tlv/dangerous,
-		/datum/gas/bz				= new/datum/tlv/dangerous,
-		/datum/gas/hypernoblium		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
-		/datum/gas/water_vapor		= new/datum/tlv/dangerous,
-		/datum/gas/tritium			= new/datum/tlv/dangerous,
-		/datum/gas/stimulum			= new/datum/tlv/dangerous,
-		/datum/gas/nitryl			= new/datum/tlv/dangerous,
-		/datum/gas/pluoxium			= new/datum/tlv(-1, -1, 1000, 1000) // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
+		GAS_O2			= new/datum/tlv(16, 19, 135, 140), // Partial pressure, kpa
+		GAS_N2			= new/datum/tlv(-1, -1, 1000, 1000),
+		GAS_CO2	= new/datum/tlv(-1, -1, 5, 10),
+		GAS_MIASMA			= new/datum/tlv/(-1, -1, 2, 5),
+		GAS_PLASMA			= new/datum/tlv/dangerous,
+		GAS_NITROUS	= new/datum/tlv/dangerous,
+		GAS_BZ				= new/datum/tlv/dangerous,
+		GAS_HYPERNOB		= new/datum/tlv(-1, -1, 1000, 1000), // Hyper-Noblium is inert and nontoxic
+		GAS_H2O		= new/datum/tlv/dangerous,
+		GAS_TRITIUM			= new/datum/tlv/dangerous,
+		GAS_STIMULUM			= new/datum/tlv/dangerous,
+		GAS_NITRYL			= new/datum/tlv/dangerous,
+		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 1000, 1000) // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
 	)
 
 /obj/machinery/airalarm/unlocked
@@ -291,7 +291,7 @@
 			continue
 		cur_tlv = TLV[gas_id]
 		data["environment_data"] += list(list(
-								"name" = GLOB.meta_gas_info[gas_id][META_GAS_NAME],
+								"name" = GLOB.gas_data.names[gas_id],
 								"value" = environment.get_moles(gas_id) / total_moles * 100,
 								"unit" = "%",
 								"danger_level" = cur_tlv.get_danger_level(environment.get_moles(gas_id) * partial_pressure)
@@ -361,11 +361,11 @@
 		thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max1", "selected" = selected.max1))
 		thresholds[thresholds.len]["settings"] += list(list("env" = "temperature", "val" = "max2", "selected" = selected.max2))
 
-		for(var/gas_id in GLOB.meta_gas_info)
+		for(var/gas_id in GLOB.gas_data.names)
 			if(!(gas_id in TLV)) // We're not interested in this gas, it seems.
 				continue
 			selected = TLV[gas_id]
-			thresholds += list(list("name" = GLOB.meta_gas_info[gas_id][META_GAS_NAME], "settings" = list()))
+			thresholds += list(list("name" = GLOB.gas_data.names[gas_id], "settings" = list()))
 			thresholds[thresholds.len]["settings"] += list(list("env" = gas_id, "val" = "min2", "selected" = selected.min2))
 			thresholds[thresholds.len]["settings"] += list(list("env" = gas_id, "val" = "min1", "selected" = selected.min1))
 			thresholds[thresholds.len]["settings"] += list(list("env" = gas_id, "val" = "max1", "selected" = selected.max1))
@@ -509,7 +509,7 @@
 			for(var/device_id in A.air_scrub_names)
 				send_signal(device_id, list(
 					"power" = 1,
-					"set_filters" = list(/datum/gas/carbon_dioxide, /datum/gas/bz),
+					"set_filters" = list(GAS_CO2, GAS_BZ),
 					"scrubbing" = 1,
 					"widenet" = 0
 				), signal_source)
@@ -524,17 +524,17 @@
 				send_signal(device_id, list(
 					"power" = 1,
 					"set_filters" = list(
-						/datum/gas/carbon_dioxide,
-						/datum/gas/miasma,
-						/datum/gas/plasma,
-						/datum/gas/water_vapor,
-						/datum/gas/hypernoblium,
-						/datum/gas/nitrous_oxide,
-						/datum/gas/nitryl,
-						/datum/gas/tritium,
-						/datum/gas/bz,
-						/datum/gas/stimulum,
-						/datum/gas/pluoxium
+						GAS_CO2,
+						GAS_MIASMA,
+						GAS_PLASMA,
+						GAS_H2O,
+						GAS_HYPERNOB,
+						GAS_NITROUS,
+						GAS_NITRYL,
+						GAS_TRITIUM,
+						GAS_BZ,
+						GAS_STIMULUM,
+						GAS_PLUOXIUM
 					),
 					"scrubbing" = 1,
 					"widenet" = 1
@@ -562,7 +562,7 @@
 			for(var/device_id in A.air_scrub_names)
 				send_signal(device_id, list(
 					"power" = 1,
-					"set_filters" = list(/datum/gas/carbon_dioxide, /datum/gas/bz),
+					"set_filters" = list(GAS_CO2, GAS_BZ),
 					"scrubbing" = 1,
 					"widenet" = 0
 				), signal_source)

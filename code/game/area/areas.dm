@@ -93,6 +93,10 @@
 	var/lighting_overlay_colour = "#FFFFFF"
 	var/lighting_overlay_opacity = 0
 
+	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
+	var/datum/map_generator/map_generator
+
+
 /**
   * A list of teleport locations
   *
@@ -190,6 +194,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   */
 /area/LateInitialize()
 	power_change()		// all machines set to current power level, also updates icon
+	if(map_generator)
+		map_generator = new map_generator()
+		map_generator.generate_terrain(get_area_turfs(src))
 
 /**
   * Register this area as belonging to a z level
@@ -578,7 +585,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	switch(chan)
 		if(AREA_USAGE_DYNAMIC_START to AREA_USAGE_DYNAMIC_END)
 			power_usage[chan] += amount
-
 
 /**
   * Call back when an atom enters an area
