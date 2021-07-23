@@ -17789,11 +17789,11 @@
 /area/crew_quarters/bar)
 "aXj" = (
 /obj/structure/table/reinforced,
-/obj/item/lighter,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/structure/displaycase/forsale/kitchen,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "aXk" = (
@@ -18212,12 +18212,18 @@
 /obj/machinery/light_switch{
 	pixel_y = -25
 	},
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
-"aYL" = (
 /obj/machinery/light,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
+"aYL" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/item/lighter,
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
 "aYM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -54946,6 +54952,15 @@
 	dir = 1
 	},
 /area/chapel/main)
+"plq" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchen";
+	name = "kitchen shutters"
+	},
+/obj/structure/displaycase/forsale/kitchen,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "pnq" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
@@ -98467,7 +98482,7 @@ aJC
 aJC
 aJC
 aXj
-aVy
+aYL
 aSY
 aVy
 aVy
@@ -100013,8 +100028,8 @@ aVz
 aVz
 aVz
 aVz
-aYL
-aJI
+aVz
+plq
 bbz
 wlB
 aYV
