@@ -91,7 +91,7 @@
 				return ONE_ATMOSPHERE
 			if(w_uniform.clothing_flags & STOPSLOWPRESSUREDMG)
 				return ONE_ATMOSPHERE
-	else(pressure >= ONE_ATMOSPHERE)
+	else if(pressure >= ONE_ATMOSPHERE)
 		if(head.clothing_flags & STOPSHIGHPRESSUREDMG)
 			if(wear_suit.clothing_flags & STOPSLOWPRESSUREDMG)
 				return ONE_ATMOSPHERE
