@@ -90,10 +90,12 @@
 		var/obj/item/clothing/CH = head
 		if ((CS.clothing_flags & STOPSPRESSUREDAMAGE) && (CH.clothing_flags & STOPSPRESSUREDAMAGE))
 			return ONE_ATMOSPHERE
-		if ((CS.clothing_flags & STOPSLOWPRESSUREDMG) && (CH.clothing_flags & STOPSLOWPRESSUREDMG) && (pressure < ONE_ATMOSPHERE))
-			return ONE_ATMOSPHERE
-		if ((CS.clothing_flags & STOPSHIGHPRESSUREDMG) && (CH.clothing_flags & STOPSHIGHPRESSUREDMG) && (pressure > ONE_ATMOSPHERE))
-			return ONE_ATMOSPHERE
+		if ((CS.clothing_flags & STOPSLOWPRESSUREDMG) && (CH.clothing_flags & STOPSLOWPRESSUREDMG))
+			if  (pressure < ONE_ATMOSPHERE)
+				return ONE_ATMOSPHERE
+		if ((CS.clothing_flags & STOPSHIGHPRESSUREDMG) && (CH.clothing_flags & STOPSHIGHPRESSUREDMG))
+			(pressure > ONE_ATMOSPHERE)
+				return ONE_ATMOSPHERE
 	return pressure
 
 
