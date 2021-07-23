@@ -118,8 +118,8 @@
 
 /mob/living/carbon/monkey/calculate_affecting_pressure(pressure)
 	if (head && isclothing(head))
-		var/obj/item/clothing/helmet = head
-		switch(helmet.clothing_flags)
+		var/obj/item/clothing/CH = head
+		switch(CH.clothing_flags)
 			if(STOPSPRESSUREDAMAGE)
 				return ONE_ATMOSPHERE
 			if(STOPSLOWPRESSUREDMG)
