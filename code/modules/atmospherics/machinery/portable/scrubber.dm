@@ -10,7 +10,7 @@
 	var/overpressure_m = 80
 	volume = 1000
 
-	var/list/scrubbing = list(/datum/gas/plasma, /datum/gas/carbon_dioxide, /datum/gas/nitrous_oxide, /datum/gas/bz, /datum/gas/nitryl, /datum/gas/tritium, /datum/gas/hypernoblium, /datum/gas/water_vapor)
+	var/list/scrubbing = list(GAS_PLASMA, GAS_CO2, GAS_NITRYL, GAS_BZ, GAS_NITRYL, GAS_TRITIUM, GAS_HYPERNOB, GAS_H2O)
 
 /obj/machinery/portable_atmospherics/scrubber/Destroy()
 	var/turf/T = get_turf(src)
@@ -42,15 +42,7 @@
 	if(air_contents.return_pressure() >= overpressure_m * ONE_ATMOSPHERE)
 		return
 
-	var/transfer_moles = min(1, volume_rate / mixture.return_volume()) * mixture.total_moles()
-
-	var/datum/gas_mixture/filtering = mixture.remove(transfer_moles) // Remove part of the mixture to filter.
-	if(!filtering)
-		return
-
-	filtering.scrub_into(air_contents, scrubbing)
-
-	mixture.merge(filtering) // Returned the cleaned gas.
+	mixture.scrub_into(air_contents, volume_rate / mixture.return_volume(), scrubbing)
 	if(!holding)
 		air_update_turf()
 
@@ -81,9 +73,8 @@
 
 	data["id_tag"] = -1 //must be defined in order to reuse code between portable and vent scrubbers
 	data["filter_types"] = list()
-	for(var/path in GLOB.meta_gas_info)
-		var/list/gas = GLOB.meta_gas_info[path]
-		data["filter_types"] += list(list("gas_id" = gas[META_GAS_ID], "gas_name" = gas[META_GAS_NAME], "enabled" = (path in scrubbing)))
+	for(var/id in GLOB.gas_data.ids)
+		data["filter_types"] += list(list("gas_id" = id, "gas_name" = GLOB.gas_data.names[id], "enabled" = (id in scrubbing)))
 
 	if(holding)
 		data["holding"] = list()
@@ -115,7 +106,7 @@
 				replace_tank(usr, FALSE)
 				. = TRUE
 		if("toggle_filter")
-			scrubbing ^= gas_id2path(params["val"])
+			scrubbing ^= params["val"]
 			. = TRUE
 	update_icon()
 

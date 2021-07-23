@@ -120,7 +120,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/list/species_exception = null
 
-	var/mob/thrownby = null
+	///A weakref to the mob who threw the item
+	var/datum/weakref/thrownby = null
 
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER //the icon to indicate this object is being dragged
 
@@ -185,8 +186,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// A reagent list containing the reagents this item produces when JUICED in a grinder!
 	var/list/juice_results
 
-	//the outline filter on hover
-	var/outline_filter
 
 /obj/item/Initialize()
 
@@ -739,10 +738,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
 		return
-	thrownby = thrower
+	thrownby = WEAKREF(thrower)
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
-
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if (callback) //call the original callback
@@ -820,7 +818,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		. = ""
 
 /obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	return
+	return SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /obj/item/attack_hulk(mob/living/carbon/human/user)
 	return 0
@@ -926,15 +924,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				colour = COLOR_BLUE_GRAY
 		else
 			colour = COLOR_BLUE_GRAY
-	if(outline_filter)
-		filters -= outline_filter
-	outline_filter = filter(type="outline", size=1, color=colour)
-	filters += outline_filter
+	add_filter("item_outline", 1, list(type="outline", size=1, color=colour))
 
 /obj/item/proc/remove_outline()
-	if(outline_filter)
-		filters -= outline_filter
-		outline_filter = null
+	remove_filter("item_outline")
 
 // Called when a mob tries to use the item as a tool.
 // Handles most checks.

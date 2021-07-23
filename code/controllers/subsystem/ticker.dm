@@ -27,6 +27,8 @@ SUBSYSTEM_DEF(ticker)
 	var/admin_delay_notice = ""				//a message to display to anyone who tries to restart the world after a delay
 	var/ready_for_reboot = FALSE			//all roundend preparation done with, all that's left is reboot
 
+	var/gamemode_setup_completed = FALSE
+
 	var/triai = 0							//Global holder for Triumvirate
 	var/tipped = 0							//Did we broadcast the tip of the day yet?
 	var/selected_tip						// What will be the tip of the day?
@@ -45,6 +47,8 @@ SUBSYSTEM_DEF(ticker)
 
 	var/maprotatechecked = 0
 
+	var/list/datum/game_mode/runnable_modes //list of runnable gamemodes
+
 	var/news_report
 
 	var/late_join_disabled
@@ -56,6 +60,8 @@ SUBSYSTEM_DEF(ticker)
 	var/list/round_end_events
 	var/mode_result = "undefined"
 	var/end_state = "undefined"
+
+	var/fail_counter
 
 	//Crew Objective stuff
 	var/list/crewobjlist = list()
@@ -194,12 +200,32 @@ SUBSYSTEM_DEF(ticker)
 					fire()
 
 		if(GAME_STATE_SETTING_UP)
-			if(!setup())
+			if(!gamemode_setup_completed)
+				if(!pre_setup())
+					//setup failed
+					fail_counter++
+					current_state = GAME_STATE_STARTUP
+					start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
+					timeLeft = null
+					Master.SetRunLevel(RUNLEVEL_LOBBY)
+				else
+					gamemode_setup_completed = TRUE
+					fail_counter = null
+			else if(!setup())
 				//setup failed
+				fail_counter++
 				current_state = GAME_STATE_STARTUP
 				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
 				timeLeft = null
 				Master.SetRunLevel(RUNLEVEL_LOBBY)
+			else
+				fail_counter = null
+
+			if(fail_counter >= 3)
+				log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
+				message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
+				GLOB.master_mode = null		//this will actually make it pick extended
+				fail_counter = null
 
 		if(GAME_STATE_PLAYING)
 			mode.process(wait * 0.1)
@@ -213,12 +239,8 @@ SUBSYSTEM_DEF(ticker)
 				declare_completion(force_ending)
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
-
-/datum/controller/subsystem/ticker/proc/setup()
-	message_admins("Setting up game.")
-	var/init_start = world.timeofday
-		//Create and announce mode
-	var/list/datum/game_mode/runnable_modes
+//Select gamemode and load any maps associated with it
+/datum/controller/subsystem/ticker/proc/pre_setup()
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
 
@@ -234,7 +256,7 @@ SUBSYSTEM_DEF(ticker)
 		if(!mode)
 			if(!runnable_modes.len)
 				to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
-				return 0
+				return FALSE
 			mode = pickweight(runnable_modes)
 			if(!mode)	//too few roundtypes all run too recently
 				mode = pick(runnable_modes)
@@ -246,7 +268,13 @@ SUBSYSTEM_DEF(ticker)
 			qdel(mode)
 			mode = null
 			SSjob.ResetOccupations()
-			return 0
+			return FALSE
+
+	return mode.setup_maps()
+
+/datum/controller/subsystem/ticker/proc/setup()
+	message_admins("Setting up game.")
+	var/init_start = world.timeofday
 
 	CHECK_TICK
 	//Configure mode and assign player to special mode stuff
@@ -263,7 +291,7 @@ SUBSYSTEM_DEF(ticker)
 			QDEL_NULL(mode)
 			to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
 			SSjob.ResetOccupations()
-			return 0
+			return FALSE
 	else
 		message_admins("<span class='notice'>DEBUG: Bypassing prestart checks...</span>")
 

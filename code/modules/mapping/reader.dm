@@ -55,7 +55,11 @@
 /datum/parsed_map/New(tfile, x_lower = -INFINITY, x_upper = INFINITY, y_lower = -INFINITY, y_upper=INFINITY, measureOnly=FALSE)
 	if(isfile(tfile))
 		original_path = "[tfile]"
+		var/temp_hack_garbage = tfile
 		tfile = rustg_file_read(tfile)
+		//This is hacky garbage
+		if(tfile == "") //Might be an upload, try raw loading it.
+			tfile = file2text(temp_hack_garbage)
 	else if(isnull(tfile))
 		// create a new datum without loading a map
 		return
