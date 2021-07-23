@@ -71,7 +71,7 @@
 	equip_delay_other = 70
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
-
+	envirosealed = TRUE
 
 /obj/item/clothing/suit/bomb_suit
 	name = "bomb suit"
@@ -129,6 +129,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
 	rad_flags = RAD_PROTECT_CONTENTS
+	envirosealed = TRUE
 
 /obj/item/clothing/suit/radiation
 	name = "radiation suit"

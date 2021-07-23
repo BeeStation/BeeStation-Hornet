@@ -25,16 +25,17 @@
 
 /datum/species/plasmaman/spec_life(mob/living/carbon/human/H)
 	var/atmos_sealed = FALSE
-	if (H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
-		var/obj/item/clothing/CS = H.wear_suit
+	if(H.head)
 		var/obj/item/clothing/CH = H.head
-		if (CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
-			atmos_sealed = TRUE
-	if(H.w_uniform && H.head)
-		var/obj/item/clothing/CU = H.w_uniform
-		var/obj/item/clothing/CH = H.head
-		if (CU.envirosealed && (CH.clothing_flags & STOPSPRESSUREDAMAGE))
-			atmos_sealed = TRUE
+		if(CH.clothing_flags & STOPSPRESSUREDAMAGE || CH.envirosealed)
+			if(H.wear_suit)
+				var/obj/item/clothing/CS = H.wear_suit
+				if(CS.clothing_flags & STOPSPRESSUREDAMAGE)
+					atmos_sealed = TRUE
+			if(H.w_uniform)
+				var/obj/item/clothing/CU = H.w_uniform
+				if(CU.envirosealed)
+					atmos_sealed = TRUE
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) || !istype(H.gloves, /obj/item/clothing/gloves)))
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment)
