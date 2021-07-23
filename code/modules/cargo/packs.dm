@@ -132,7 +132,7 @@
 
 /datum/supply_pack/emergency/firefighting
 	name = "Firefighting Crate"
-	desc = "Only you can prevent station fires. Partner up with two firefighter suits, gas masks, flashlights, large oxygen tanks, extinguishers, and hardhats!"
+	desc = "Only you can prevent station fires. Partner up with three firefighter suits, gas masks, flashlights, large oxygen tanks, extinguishers, and hardhats!"
 	cost = 800 
 	contains = list(/obj/item/clothing/suit/fire/firefighter,
 					/obj/item/clothing/suit/fire/firefighter,
@@ -164,7 +164,7 @@
 
 /datum/supply_pack/emergency/internals
 	name = "Internals Crate"
-	desc = "Master your life energy and control your breathing with three breath masks, three emergency oxygen tanks and three large air tanks."//IS THAT A
+	desc = "Master your life energy and control your breathing with four breath masks, four emergency oxygen tanks and four large air tanks."//IS THAT A
 	cost = 800
 	contains = list(/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
@@ -205,7 +205,7 @@
 
 /datum/supply_pack/emergency/plasmaman
 	name = "Plasmaman Supply Kit"
-	desc = "Keep those Plasmamen alive with two sets of Plasmaman outfits. Each set contains a plasmaman jumpsuit, internals tank, and helmet."
+	desc = "Keep those Plasmamen alive with three sets of Plasmaman outfits. Each set contains a plasmaman jumpsuit, internals tank, and helmet."
 	cost = 700 //50 credits per suit. 
 	contains = list(/obj/item/clothing/under/plasmaman,
 					/obj/item/clothing/under/plasmaman,
@@ -452,7 +452,7 @@
 
 /datum/supply_pack/security/wall_flash
 	name = "Wall-Mounted Flash Crate"
-	desc = "Contains four wall-mounted flashes. Requires Security access to open."
+	desc = "Contains five wall-mounted flashes. Requires Security access to open."
 	cost = 800 
 	contains = list(/obj/item/storage/box/wall_flash,
 					/obj/item/storage/box/wall_flash,
@@ -1833,7 +1833,7 @@
 
 /datum/supply_pack/service/lightbulbs
 	name = "Replacement Lights"
-	desc = "May the light of Aether shine upon this station! Or at least, the light of forty two light tubes and twenty one light bulbs."
+	desc = "May the light of Aether shine upon this station! Or at least, the light of fifty six light tubes and twenty eight light bulbs."
 	cost = 800 
 	contains = list(/obj/item/storage/box/lights/mixed,
 					/obj/item/storage/box/lights/mixed,
@@ -2853,7 +2853,7 @@
 
 /datum/supply_pack/misc/toner
 	name = "Toner Crate"
-	desc = "Spent too much ink printing butt pictures? Fret not, with these six toner refills, you'll be printing butts 'till the cows come home!'"
+	desc = "Spent too much ink printing butt pictures? Fret not, with these eight toner refills, you'll be printing butts 'till the cows come home!'"
 	cost = 800 
 	contains = list(/obj/item/toner,
 					/obj/item/toner,

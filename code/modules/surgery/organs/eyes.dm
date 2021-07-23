@@ -350,7 +350,7 @@
 	clear_visuals(TRUE)
 	on_mob = new(src)
 	for(var/i in 1 to light_beam_distance)
-		LAZYADD(eye_lighting,new /obj/effect/abstract/eye_lighting(src))
+		LAZYADD(eye_lighting, new /obj/effect/abstract/eye_lighting(src))
 	sync_light_effects()
 
 /obj/item/organ/eyes/robotic/glow/proc/sync_light_effects()
@@ -366,6 +366,7 @@
 /obj/effect/abstract/eye_lighting/Initialize()
 	. = ..()
 	parent = loc
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	if(!istype(parent))
 		return INITIALIZE_HINT_QDEL
 
