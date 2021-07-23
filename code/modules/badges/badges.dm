@@ -1,6 +1,6 @@
 /*
 
-Loads all badges from the badge_ranks.txt file.
+Loads all badges from the badge.json file.
 Format should be
 rank|icon
 Where:
