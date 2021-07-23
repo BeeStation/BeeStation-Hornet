@@ -71,6 +71,11 @@
 	qdel(src)
 	new /obj/structure/table/wood(A)
 
+/obj/structure/table/ratvar_act()
+	var/atom/A = loc
+	qdel(src)
+	new /obj/structure/table/brass(A)
+
 /obj/structure/table/attack_paw(mob/user)
 	return attack_hand(user)
 
@@ -448,6 +453,9 @@
 	framestackamount = 1
 	buildstackamount = 1
 	canSmoothWith = list(/obj/structure/table/brass, /obj/structure/table/bronze)
+
+/obj/structure/table/brass/ratvar_act()
+	return
 
 /obj/structure/table/brass/tablepush(mob/living/user, mob/living/pushed_mob)
 	. = ..()
