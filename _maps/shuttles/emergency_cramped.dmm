@@ -142,6 +142,7 @@
 /area/shuttle/escape)
 "Q" = (
 /obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 

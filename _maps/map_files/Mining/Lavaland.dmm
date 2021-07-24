@@ -76,6 +76,7 @@
 /area/lavaland/surface/outdoors)
 "ao" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/lavaland/surface/outdoors)
 "ap" = (
@@ -193,6 +194,7 @@
 /area/lavaland/surface/outdoors)
 "aK" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/mine/laborcamp)
 "aM" = (
@@ -222,6 +224,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/mine/living_quarters)
 "aU" = (
@@ -860,6 +863,7 @@
 /area/mine/eva)
 "dA" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/mine/eva)
 "dB" = (
@@ -879,6 +883,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/laborcamp)
+"dE" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/mine/living_quarters)
 "dF" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
@@ -1244,6 +1253,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
+"eP" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/mine/production)
 "eQ" = (
 /obj/structure/closet/crate,
 /obj/item/dice/d4,
@@ -1429,6 +1443,11 @@
 "fy" = (
 /turf/closed/wall/r_wall,
 /area/mine/laborcamp/security)
+"fA" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/mine/laborcamp/security)
 "fB" = (
 /obj/structure/frame/machine,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1522,6 +1541,7 @@
 "fU" = (
 /obj/structure/sign/warning/docking,
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/mine/production)
 "fV" = (
@@ -1540,6 +1560,7 @@
 /area/mine/production)
 "fY" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
@@ -2071,6 +2092,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jo" = (
+/obj/machinery/door/firedoor/window,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/mine/living_quarters)
@@ -2179,7 +2201,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "jX" = (
@@ -2209,7 +2236,10 @@
 "kf" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "kg" = (
@@ -3182,9 +3212,19 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
+"ot" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
+/turf/open/floor/plating,
+/area/mine/science)
 "ov" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 8
@@ -3497,6 +3537,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/mine/living_quarters)
+"rB" = (
+/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/mine/laborcamp/security)
 "rE" = (
 /obj/machinery/computer/security/labor,
 /obj/machinery/light{
@@ -3710,7 +3755,10 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "up" = (
@@ -3882,7 +3930,10 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/mine/production)
 "wz" = (
@@ -4142,7 +4193,12 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "AL" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "AS" = (
@@ -4250,7 +4306,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "Cd" = (
@@ -4333,7 +4394,12 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "CM" = (
@@ -4347,7 +4413,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "CY" = (
@@ -4384,7 +4455,12 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "Dy" = (
@@ -4535,6 +4611,7 @@
 /area/mine/living_quarters)
 "EG" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
@@ -4641,6 +4718,7 @@
 /area/mine/eva)
 "Gh" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /obj/machinery/atmospherics/pipe/layer_manifold{
 	dir = 4
 	},
@@ -4701,10 +4779,15 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/mine/production)
 "GS" = (
@@ -4817,6 +4900,7 @@
 /area/lavaland/surface/outdoors)
 "Im" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 6
 	},
@@ -4949,6 +5033,7 @@
 /area/mine/science)
 "Jx" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
 	},
@@ -4979,11 +5064,17 @@
 	name = "Processing Area";
 	req_access_txt = "48"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/production)
 "JJ" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
 	},
@@ -5026,7 +5117,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "Kv" = (
@@ -5761,7 +5857,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/mine/production)
 "TU" = (
@@ -5770,7 +5871,10 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/mine/production)
 "TW" = (
@@ -6278,6 +6382,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/mine/production)
+"YF" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/mine/science)
 "YJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -6304,7 +6412,10 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/mine/production)
 "YT" = (
@@ -6343,6 +6454,7 @@
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "Zf" = (
+/obj/machinery/door/firedoor/window,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/mine/science)
@@ -11767,11 +11879,11 @@ ap
 fy
 fy
 fy
-tf
+fA
 fy
-jo
-jo
-jo
+dE
+dE
+dE
 cM
 ab
 ab
@@ -12545,7 +12657,7 @@ bb
 ME
 cM
 aQ
-jo
+dE
 cM
 ab
 ab
@@ -13819,7 +13931,7 @@ aG
 aG
 aG
 aj
-tf
+rB
 rU
 HP
 QV
@@ -14076,10 +14188,10 @@ aG
 aG
 aG
 aj
-tf
-tf
-tf
-tf
+rB
+rB
+rB
+rB
 fy
 WA
 Cw
@@ -15623,7 +15735,7 @@ aj
 aj
 aj
 ab
-jo
+dE
 qj
 JG
 Pz
@@ -15646,7 +15758,7 @@ aj
 aj
 aj
 aj
-Zf
+ot
 Tn
 Tn
 Tn
@@ -15880,7 +15992,7 @@ aj
 aj
 aj
 ab
-jo
+dE
 ps
 lb
 zN
@@ -15903,7 +16015,7 @@ aj
 aj
 aj
 aj
-Zf
+ot
 Iq
 fH
 sw
@@ -16153,14 +16265,14 @@ dn
 Jc
 GK
 dn
-jo
+dE
 aj
 aj
 aj
 aj
 aj
 aj
-Zf
+ot
 xt
 gh
 ec
@@ -16410,14 +16522,14 @@ Cs
 HX
 ho
 Kv
-jo
+dE
 aj
 aj
 aj
 aj
 aj
 aj
-Zf
+ot
 Mn
 fi
 fN
@@ -16674,7 +16786,7 @@ ab
 ab
 aj
 aj
-Zf
+ot
 Py
 Lm
 jy
@@ -16931,7 +17043,7 @@ ai
 ab
 ab
 ab
-Zf
+ot
 Pt
 fI
 OX
@@ -17185,9 +17297,9 @@ ab
 aj
 Tn
 Tn
-Zf
-Zf
-Zf
+ot
+ot
+ot
 Tn
 Tn
 Mz
@@ -18196,7 +18308,7 @@ ab
 ab
 aj
 aj
-jo
+dE
 bb
 Ll
 bb
@@ -18453,15 +18565,15 @@ ab
 ab
 ab
 aj
-jo
+dE
 bm
 TW
 qx
 cM
-jo
-jo
-jo
-jo
+dE
+dE
+dE
+dE
 cM
 ai
 ai
@@ -18710,11 +18822,11 @@ ab
 ab
 ab
 aj
-jo
-jo
+dE
+dE
 Cb
-jo
-jo
+dE
+dE
 ab
 ab
 ab
@@ -18735,8 +18847,8 @@ RM
 tG
 oI
 oZ
-Zf
-Zf
+ot
+ot
 aj
 aj
 aj
@@ -18968,9 +19080,9 @@ ab
 ab
 aj
 ab
-jo
+dE
 EA
-jo
+dE
 ab
 ab
 aj
@@ -18993,8 +19105,8 @@ Fe
 Yu
 qC
 vs
-Zf
-Zf
+ot
+ot
 aj
 aj
 aj
@@ -19225,9 +19337,9 @@ ab
 aj
 aj
 aj
-jo
+dE
 Wd
-jo
+dE
 ab
 aj
 aj
@@ -19251,7 +19363,7 @@ jY
 Io
 Wn
 Hn
-Zf
+ot
 aj
 aj
 ab
@@ -19482,9 +19594,9 @@ ab
 aj
 aj
 aj
-jo
+dE
 Wd
-jo
+dE
 aj
 aj
 Zf
@@ -19508,8 +19620,8 @@ jY
 Fy
 Sw
 jr
-Zf
-Zf
+ot
+ot
 aj
 aj
 ab
@@ -19739,7 +19851,7 @@ ab
 ab
 aj
 aj
-jo
+dE
 Wd
 jo
 Zf
@@ -19766,7 +19878,7 @@ Ud
 si
 jr
 Ov
-Zf
+ot
 aj
 aj
 aj
@@ -19996,7 +20108,7 @@ ab
 ab
 aj
 aj
-vO
+eP
 IX
 FX
 GX
@@ -20023,7 +20135,7 @@ Jh
 mT
 Mm
 DI
-Zf
+ot
 aj
 aj
 aj
@@ -20253,9 +20365,9 @@ ab
 aj
 aj
 aj
-vO
+eP
 YX
-vO
+eP
 Zf
 Zf
 Zf
@@ -20280,7 +20392,7 @@ wz
 qa
 KI
 Ov
-Zf
+ot
 aj
 aj
 aj
@@ -20503,16 +20615,16 @@ ab
 ab
 fU
 vM
-vO
+eP
 ab
 ab
 aj
 aj
 aj
 ab
-vO
+eP
 YX
-vO
+eP
 aj
 aj
 Zf
@@ -20536,8 +20648,8 @@ jY
 zR
 Sw
 KI
-Zf
-Zf
+ot
+ot
 aj
 aj
 aj
@@ -20767,9 +20879,9 @@ aj
 aj
 aj
 ab
-vO
+eP
 tp
-vO
+eP
 ab
 aj
 aj
@@ -20793,7 +20905,7 @@ Be
 xY
 Wn
 QB
-Zf
+ot
 aj
 aj
 aj
@@ -21014,20 +21126,20 @@ aj
 aj
 aj
 aj
-vO
+eP
 fY
 yu
 JJ
-vO
+eP
 ab
 aj
 aj
 ab
-vO
-vO
+eP
+eP
 GP
-vO
-vO
+eP
+eP
 ab
 Il
 WE
@@ -21049,8 +21161,8 @@ AC
 JA
 Be
 Qx
-Zf
-Zf
+ot
+ot
 aj
 aj
 aj
@@ -21271,20 +21383,20 @@ aj
 aj
 aj
 OZ
-vO
+eP
 gc
 yL
 JM
-vO
+eP
 OZ
 OZ
 OZ
 OZ
-vO
+eP
 RO
 BM
 bo
-vO
+eP
 OZ
 jd
 Uh
@@ -21305,8 +21417,8 @@ RM
 yU
 ZX
 WM
-Zf
-Zf
+ot
+ot
 aj
 aj
 aj
@@ -21550,11 +21662,11 @@ Uh
 Uh
 Uh
 Uh
-Zf
+ot
 BT
 BT
 BT
-Zf
+YF
 BT
 el
 gi
@@ -21784,7 +21896,7 @@ aj
 aj
 aj
 ab
-vO
+eP
 eQ
 gY
 zu
@@ -21817,7 +21929,7 @@ WX
 BT
 gi
 va
-Zf
+ot
 aj
 aj
 aj
@@ -22041,7 +22153,7 @@ aj
 aj
 ab
 ab
-vO
+eP
 eZ
 ie
 zV
@@ -22056,7 +22168,7 @@ BB
 NU
 De
 PT
-vO
+eP
 jd
 Uh
 Uh
@@ -22068,13 +22180,13 @@ Jl
 Pl
 gd
 eD
-Zf
+YF
 eU
 gu
 vF
 Nu
 CH
-Zf
+ot
 aj
 aj
 aj
@@ -22313,7 +22425,7 @@ Ms
 bf
 zV
 Yz
-vO
+eP
 jd
 Uh
 Uh
@@ -22331,7 +22443,7 @@ SM
 vG
 vJ
 wF
-Zf
+ot
 aj
 aj
 aj
@@ -22827,7 +22939,7 @@ yL
 bg
 bo
 bt
-vO
+eP
 jd
 Uh
 Uh
@@ -22845,7 +22957,7 @@ Ee
 BT
 Lc
 Pg
-Zf
+ot
 aj
 aj
 aj
@@ -23092,7 +23204,7 @@ Uh
 Uh
 Uh
 Uh
-Zf
+ot
 BT
 fJ
 eH
@@ -23102,7 +23214,7 @@ tN
 BT
 sz
 Pg
-Zf
+ot
 aj
 aj
 aj
@@ -23359,7 +23471,7 @@ At
 tx
 qR
 lA
-Zf
+ot
 aj
 aj
 aj
@@ -23606,11 +23718,11 @@ WY
 WY
 WY
 II
-Zf
-Zf
+ot
+ot
 em
-Zf
-Zf
+ot
+ot
 Tn
 Tn
 Tn
@@ -23864,7 +23976,7 @@ ab
 ab
 ab
 aj
-Zf
+ot
 fJ
 Zf
 aj
@@ -24121,16 +24233,16 @@ aj
 aj
 aj
 aj
-Zf
+ot
 fJ
-Zf
+ot
 aj
 aj
-Zf
+ot
 Wk
 rP
 Rd
-Zf
+ot
 aj
 aj
 aj
@@ -24380,14 +24492,14 @@ aj
 aj
 Im
 lx
-Zf
+ot
 aj
 aj
-Zf
-Zf
-Zf
-Zf
-Zf
+ot
+ot
+ot
+ot
+ot
 aj
 aj
 aj
@@ -24634,11 +24746,11 @@ aj
 aj
 ab
 aj
-Zf
+ot
 Gh
 ov
-Zf
-Zf
+ot
+ot
 ab
 aj
 aj
@@ -25405,11 +25517,11 @@ aj
 ab
 ab
 aj
-Zf
-Zf
+ot
+ot
 JX
-Zf
-Zf
+ot
+ot
 ab
 ab
 ab

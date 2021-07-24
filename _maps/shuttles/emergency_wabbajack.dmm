@@ -490,6 +490,7 @@
 "ft" = (
 /obj/structure/grille,
 /obj/structure/window/shuttle/tinted,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ji" = (
@@ -555,6 +556,7 @@
 /area/shuttle/escape)
 "RB" = (
 /obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 
