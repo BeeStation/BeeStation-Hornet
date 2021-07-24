@@ -102,6 +102,7 @@
 /obj/machinery/door/airlock/bananium/glass{
 	name = "Emergency Shuttle Premium Lounge"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "at" = (
@@ -137,6 +138,7 @@
 /obj/machinery/door/airlock/bananium/glass{
 	name = "Emergency Shuttle Greentext"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "aC" = (
@@ -324,20 +326,14 @@
 /obj/machinery/door/airlock/bananium/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "KO" = (
 /obj/machinery/door/airlock/bananium{
 	name = "Emergency Shuttle Cargo"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "LN" = (

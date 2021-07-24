@@ -1339,12 +1339,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
-"cQ" = (
-/obj/machinery/door/airlock{
-	name = "Bathroom"
-	},
-/turf/open/floor/plasteel/freezer,
-/area/shuttle/escape)
 "cR" = (
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
@@ -1633,12 +1627,7 @@
 /area/shuttle/escape)
 "eb" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ez" = (
@@ -1656,10 +1645,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "jG" = (
@@ -1682,10 +1668,7 @@
 	name = "Emergency Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "pf" = (
@@ -1709,12 +1692,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "uv" = (
@@ -1731,38 +1709,11 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"Du" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Emergency Shuttle Medbay"
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/shuttle/escape)
 "Ed" = (
 /obj/machinery/door/airlock{
 	name = "Bathroom"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
 "Ev" = (
@@ -1784,10 +1735,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "LM" = (
@@ -1795,12 +1743,7 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "YO" = (
@@ -1808,12 +1751,7 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 
@@ -2330,7 +2268,7 @@ bW
 bR
 ad
 ab
-Du
+GI
 ab
 ab
 ab
@@ -2600,9 +2538,9 @@ cp
 cp
 cM
 ab
-cQ
+Ed
 ab
-cQ
+Ed
 ab
 ab
 ab
