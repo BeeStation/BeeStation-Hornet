@@ -333,14 +333,15 @@
 
 /proc/fusion_ball(datum/holder, reaction_energy, instability)
 	var/turf/open/location
+	var/standard_energy
 	if(istype(holder, /datum/pipeline))
 		var/datum/pipeline/fusion_pipenet = holder
 		location = get_turf(pick(fusion_pipenet.members))
+		standard_energy = 400 * fusion_pipenet.air.get_moles(GAS_PLASMA) * fusion_pipenet.air.return_temperature() //Prevents putting meaningless waste gases to achieve high rads.
 	else
 		location = get_turf(holder)
-	var/datum/gas_mixture/mixture = holder
+		standard_energy = 400 * location.air.get_moles(GAS_PLASMA) * location.air.return_temperature() //Prevents putting meaningless waste gases to achieve high rads.
 	if(location)
-		var/standard_energy = 400 * mixture.get_moles(GAS_PLASMA) * mixture.return_temperature() //Prevents putting meaningless waste gases to achieve high rads.
 		if(prob(PERCENT(((PARTICLE_CHANCE_CONSTANT)/(reaction_energy-PARTICLE_CHANCE_CONSTANT)) + 1))) //Asymptopically approaches 100% as the energy of the reaction goes up.
 			location.fire_nuclear_particle(customize = TRUE, custompower = standard_energy)
 		radiation_pulse(location, max(2000 * 3 ** (log(10,standard_energy) - FUSION_RAD_MIDPOINT), 0))
