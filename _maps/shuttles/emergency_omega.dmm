@@ -804,7 +804,6 @@
 "Dr" = (
 /obj/structure/window/shuttle,
 /obj/structure/grille,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Eg" = (
