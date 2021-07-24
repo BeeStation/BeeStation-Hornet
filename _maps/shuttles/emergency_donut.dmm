@@ -447,10 +447,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "hl" = (
@@ -458,10 +455,7 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "pk" = (
@@ -477,11 +471,6 @@
 	name = "Emergency Shuttle Airlock"
 	},
 /obj/structure/fans/tiny,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"Dr" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "FX" = (
@@ -500,12 +489,7 @@
 	name = "Containment Cell";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "JF" = (
@@ -513,12 +497,7 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 
@@ -545,7 +524,7 @@ aa
 aa
 ab
 uu
-Dr
+ac
 uu
 ab
 aa
@@ -576,9 +555,9 @@ aC
 ab
 ak
 ab
-Dr
-Dr
-Dr
+ac
+ac
+ac
 ad
 ak
 ak
@@ -597,8 +576,8 @@ ab
 (3,1,1) = {"
 aa
 ab
-Dr
-Dr
+ac
+ac
 ab
 ab
 ab
@@ -703,7 +682,7 @@ bs
 bt
 "}
 (6,1,1) = {"
-Dr
+ac
 af
 al
 am
@@ -739,7 +718,7 @@ bs
 bt
 "}
 (7,1,1) = {"
-Dr
+ac
 ag
 al
 am
@@ -775,7 +754,7 @@ bs
 bt
 "}
 (8,1,1) = {"
-Dr
+ac
 ah
 al
 am
@@ -811,7 +790,7 @@ bs
 bt
 "}
 (9,1,1) = {"
-Dr
+ac
 ai
 al
 am
@@ -921,8 +900,8 @@ bt
 (12,1,1) = {"
 aa
 ab
-Dr
-Dr
+ac
+ac
 ab
 ad
 ax
@@ -972,9 +951,9 @@ ak
 ak
 ak
 ad
-Dr
-Dr
-Dr
+ac
+ac
+ac
 ad
 ak
 ak
@@ -1005,7 +984,7 @@ aa
 ab
 ab
 uu
-Dr
+ac
 uu
 ab
 aa
@@ -1013,7 +992,7 @@ aa
 aa
 ab
 uu
-Dr
+ac
 uu
 ab
 aa

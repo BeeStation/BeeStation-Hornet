@@ -285,11 +285,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/shuttle/escape)
-"lT" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "my" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Airlock"
@@ -369,10 +364,10 @@ aa
 (2,1,1) = {"
 aw
 ae
-lT
+ad
 ac
 ae
-lT
+ad
 aw
 ai
 aD
@@ -415,7 +410,7 @@ bc
 be
 "}
 (4,1,1) = {"
-lT
+ad
 ah
 ai
 al
@@ -439,7 +434,7 @@ aa
 aa
 "}
 (5,1,1) = {"
-lT
+ad
 ag
 aj
 am
@@ -463,7 +458,7 @@ aU
 aX
 "}
 (6,1,1) = {"
-lT
+ad
 ag
 aj
 an
@@ -487,7 +482,7 @@ bd
 aY
 "}
 (7,1,1) = {"
-lT
+ad
 ag
 aj
 ao
@@ -511,7 +506,7 @@ aW
 aZ
 "}
 (8,1,1) = {"
-lT
+ad
 ah
 ai
 ap
@@ -561,10 +556,10 @@ be
 (10,1,1) = {"
 aw
 ae
-lT
+ad
 ac
 ae
-lT
+ad
 aw
 ai
 aE

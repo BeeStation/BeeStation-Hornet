@@ -648,42 +648,24 @@
 "kK" = (
 /obj/structure/window/plastitanium,
 /obj/structure/grille,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "lf" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "First Class"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"lO" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Service"
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ub" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "wl" = (
 /obj/machinery/door/airlock/public/glass{
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "xt" = (
@@ -697,10 +679,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Service"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "IC" = (
@@ -737,10 +716,7 @@
 	name = "Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "XN" = (
@@ -748,20 +724,14 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Zi" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Economy Class"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 
@@ -936,7 +906,7 @@ ar
 ar
 Zi
 xt
-lO
+yT
 au
 au
 au
@@ -984,7 +954,7 @@ ar
 ar
 Zi
 Uu
-lO
+yT
 au
 au
 au

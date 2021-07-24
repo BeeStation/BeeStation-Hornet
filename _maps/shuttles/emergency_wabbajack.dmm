@@ -473,24 +473,17 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "el" = (
 /obj/machinery/door/airlock/titanium,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "ft" = (
 /obj/structure/grille,
 /obj/structure/window/shuttle/tinted,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ji" = (
@@ -509,10 +502,7 @@
 "uR" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/titanium,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/cult,
 /area/shuttle/escape)
 "AO" = (
@@ -548,16 +538,8 @@
 /area/shuttle/escape)
 "Re" = (
 /obj/machinery/door/airlock/public/glass,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"RB" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -572,9 +554,9 @@ AO
 ab
 JM
 ab
-RB
-RB
-RB
+as
+as
+as
 ab
 oh
 ab
@@ -806,19 +788,19 @@ aa
 aa
 aa
 ab
-RB
+as
 ab
-RB
-ab
-ab
-ab
-RB
-RB
-RB
+as
 ab
 ab
 ab
-RB
+as
+as
+as
+ab
+ab
+ab
+as
 ab
 ab
 ab

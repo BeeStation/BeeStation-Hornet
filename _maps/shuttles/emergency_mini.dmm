@@ -149,10 +149,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "D" = (
@@ -246,11 +243,6 @@
 /obj/item/crowbar,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
-"U" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "W" = (
 /obj/structure/table,
 /obj/item/clothing/suit/apron/surgical,
@@ -265,10 +257,7 @@
 	name = "Escape Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Z" = (
@@ -276,10 +265,7 @@
 	name = "Escape Shuttle Cell";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 
@@ -292,9 +278,9 @@ b
 b
 b
 b
-U
-U
-U
+n
+n
+n
 b
 b
 b
@@ -350,7 +336,7 @@ b
 K
 K
 Q
-U
+n
 "}
 (4,1,1) = {"
 c
@@ -373,7 +359,7 @@ H
 t
 f
 R
-U
+n
 "}
 (5,1,1) = {"
 c
@@ -396,7 +382,7 @@ Y
 f
 f
 S
-U
+n
 "}
 (6,1,1) = {"
 c
@@ -419,7 +405,7 @@ b
 L
 f
 R
-U
+n
 "}
 (7,1,1) = {"
 c
@@ -442,7 +428,7 @@ b
 M
 M
 T
-U
+n
 "}
 (8,1,1) = {"
 b
@@ -477,7 +463,7 @@ b
 w
 b
 b
-U
+n
 b
 b
 u

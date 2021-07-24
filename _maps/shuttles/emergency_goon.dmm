@@ -29,24 +29,14 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "k" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "l" = (
@@ -127,11 +117,6 @@
 /obj/item/radio,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
-"C" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "D" = (
 /obj/structure/chair/comfy/brown{
 	dir = 4
@@ -194,12 +179,7 @@
 	name = "Emergency Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "P" = (
@@ -345,7 +325,7 @@ a
 "}
 (7,1,1) = {"
 a
-C
+m
 s
 r
 s
@@ -353,7 +333,7 @@ s
 s
 r
 s
-C
+m
 a
 "}
 (8,1,1) = {"
@@ -410,7 +390,7 @@ d
 "}
 (12,1,1) = {"
 a
-C
+m
 s
 s
 s
@@ -418,12 +398,12 @@ r
 s
 s
 s
-C
+m
 a
 "}
 (13,1,1) = {"
 a
-C
+m
 s
 s
 s
@@ -431,7 +411,7 @@ r
 s
 s
 s
-C
+m
 a
 "}
 (14,1,1) = {"
@@ -463,13 +443,13 @@ a
 (16,1,1) = {"
 a
 a
-C
+m
 y
 A
 F
 A
 L
-C
+m
 a
 a
 "}
@@ -490,11 +470,11 @@ a
 a
 a
 a
-C
+m
 B
 G
 I
-C
+m
 a
 a
 a
@@ -504,9 +484,9 @@ a
 a
 a
 d
-C
-C
-C
+m
+m
+m
 d
 a
 a

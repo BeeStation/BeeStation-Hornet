@@ -1301,28 +1301,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "hB" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
-/area/shuttle/escape)
-"uQ" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Holding Area";
-	req_access_txt = "2"
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "zd" = (
 /obj/machinery/door/airlock/command{
@@ -1332,12 +1316,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "Ay" = (
@@ -1355,12 +1334,7 @@
 	name = "Holding Area";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Ey" = (
@@ -1370,12 +1344,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "Hh" = (
@@ -1386,16 +1355,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
-/area/shuttle/escape)
-"Ky" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "KD" = (
 /obj/machinery/door/airlock/shuttle{
@@ -1431,10 +1392,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 
@@ -1444,17 +1402,17 @@ ac
 ae
 af
 af
-Ky
-Ky
+hB
+hB
 af
 af
 Ay
 aT
 TQ
 af
-Ky
-Ky
-Ky
+hB
+hB
+hB
 af
 Ay
 af
@@ -1503,7 +1461,7 @@ aa
 (3,1,1) = {"
 ab
 ad
-Ky
+hB
 ai
 ao
 ao
@@ -1519,12 +1477,12 @@ ao
 ao
 ao
 bo
-uQ
+Ej
 bw
 bw
 bw
 bU
-Ky
+hB
 aa
 aa
 aa
@@ -1534,7 +1492,7 @@ aa
 (4,1,1) = {"
 ab
 ad
-Ky
+hB
 ai
 ao
 aw
@@ -1589,7 +1547,7 @@ bU
 af
 af
 aT
-Ky
+hB
 af
 af
 "}
@@ -1627,7 +1585,7 @@ af
 (7,1,1) = {"
 ab
 ad
-Ky
+hB
 ai
 ao
 ao
@@ -1653,7 +1611,7 @@ cb
 cf
 cf
 cr
-Ky
+hB
 "}
 (8,1,1) = {"
 ac
@@ -1684,12 +1642,12 @@ cc
 cc
 cl
 cs
-Ky
+hB
 "}
 (9,1,1) = {"
 ab
 ad
-Ky
+hB
 ai
 ao
 ax
@@ -1715,12 +1673,12 @@ cc
 cc
 cm
 ct
-Ky
+hB
 "}
 (10,1,1) = {"
 ab
 ad
-Ky
+hB
 ai
 ao
 av
@@ -1746,7 +1704,7 @@ cc
 cc
 cn
 cu
-Ky
+hB
 "}
 (11,1,1) = {"
 ac
@@ -1777,12 +1735,12 @@ cc
 cg
 cl
 cv
-Ky
+hB
 "}
 (12,1,1) = {"
 ab
 ad
-Ky
+hB
 ah
 ap
 aw
@@ -1808,7 +1766,7 @@ cb
 ch
 ch
 cw
-Ky
+hB
 "}
 (13,1,1) = {"
 ab
@@ -1868,14 +1826,14 @@ af
 af
 af
 aT
-Ky
+hB
 af
 af
 "}
 (15,1,1) = {"
 ab
 ad
-Ky
+hB
 ak
 as
 az
@@ -1906,7 +1864,7 @@ aa
 (16,1,1) = {"
 ab
 ad
-Ky
+hB
 al
 at
 aA
@@ -1927,7 +1885,7 @@ bC
 bJ
 ai
 bZ
-Ky
+hB
 aa
 aa
 aa
@@ -1970,25 +1928,25 @@ aa
 ac
 ae
 af
-Ky
-Ky
-Ky
-Ky
+hB
+hB
+hB
+hB
 af
 af
 aT
 af
-Ky
-Ky
-Ky
-Ky
-Ky
+hB
+hB
+hB
+hB
+hB
 af
 af
-Ky
+hB
 bL
 bL
-Ky
+hB
 af
 aa
 aa

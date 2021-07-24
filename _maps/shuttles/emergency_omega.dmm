@@ -771,10 +771,7 @@
 	name = "Holding Area";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "sC" = (
@@ -788,10 +785,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "wN" = (
@@ -807,12 +801,6 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
-"Dr" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Eg" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
@@ -823,10 +811,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "Ls" = (
@@ -874,12 +859,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "Ui" = (
@@ -892,10 +872,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 
@@ -907,9 +884,9 @@ Ls
 ac
 Mg
 aa
-Dr
-Dr
-Dr
+ab
+ab
+ab
 aa
 wN
 ac
@@ -942,7 +919,7 @@ br
 bv
 "}
 (3,1,1) = {"
-Dr
+ab
 ae
 al
 al
@@ -958,12 +935,12 @@ Ui
 aW
 be
 bk
-Dr
+ab
 bs
 bv
 "}
 (4,1,1) = {"
-Dr
+ab
 ae
 al
 al
@@ -979,7 +956,7 @@ Ui
 aX
 bf
 bl
-Dr
+ab
 bt
 bv
 "}
@@ -1047,7 +1024,7 @@ bt
 bv
 "}
 (8,1,1) = {"
-Dr
+ab
 ah
 ao
 an
@@ -1063,12 +1040,12 @@ Eg
 bb
 bb
 bo
-Dr
+ab
 bt
 bv
 "}
 (9,1,1) = {"
-Dr
+ab
 ai
 an
 at
@@ -1084,12 +1061,12 @@ Eg
 bb
 bb
 bp
-Dr
+ab
 bt
 bv
 "}
 (10,1,1) = {"
-Dr
+ab
 aj
 ap
 au
@@ -1111,16 +1088,16 @@ bv
 "}
 (11,1,1) = {"
 aa
-Dr
-Dr
+ab
+ab
 aa
 ac
 aa
-Dr
-Dr
-Dr
-Dr
-Dr
+ab
+ab
+ab
+ab
+ab
 aa
 ac
 aa

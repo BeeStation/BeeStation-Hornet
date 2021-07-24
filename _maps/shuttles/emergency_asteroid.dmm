@@ -381,26 +381,14 @@
 "qg" = (
 /obj/structure/window/shuttle,
 /obj/structure/grille,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"qO" = (
-/obj/structure/window/shuttle,
-/obj/structure/grille,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "rp" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary";
 	req_access_txt = "5"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "xE" = (
@@ -414,30 +402,8 @@
 /obj/machinery/door/airlock/mining{
 	name = "Emergency Shuttle Storage"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/yellow,
-/area/shuttle/escape)
-"Gw" = (
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"IJ" = (
-/obj/machinery/door/airlock{
-	name = "Emergency Shuttle Restroom"
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Jx" = (
 /turf/open/floor/mineral/titanium/white,
@@ -447,12 +413,7 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "JM" = (
@@ -473,12 +434,7 @@
 /obj/machinery/door/airlock{
 	name = "Emergency Shuttle Restroom"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "RU" = (
@@ -495,34 +451,19 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"VO" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "YJ" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Emergency Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Zz" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 
@@ -532,8 +473,8 @@ aa
 ac
 am
 ac
-qO
-qO
+ad
+ad
 qg
 ac
 am
@@ -587,7 +528,7 @@ ac
 ac
 "}
 (5,1,1) = {"
-qO
+ad
 ap
 aq
 bJ
@@ -597,9 +538,9 @@ bd
 bl
 ac
 bN
-IJ
+RT
 bE
-qO
+ad
 "}
 (6,1,1) = {"
 xE
@@ -617,7 +558,7 @@ ac
 ac
 "}
 (7,1,1) = {"
-qO
+ad
 ar
 aq
 aq
@@ -627,9 +568,9 @@ bf
 bn
 ac
 Jx
-IJ
+RT
 bE
-qO
+ad
 "}
 (8,1,1) = {"
 ac
@@ -677,8 +618,8 @@ aa
 aa
 "}
 (11,1,1) = {"
-VO
-VO
+ah
+ah
 aB
 aJ
 at
@@ -694,7 +635,7 @@ aa
 (12,1,1) = {"
 QG
 at
-Gw
+at
 at
 at
 aZ
@@ -707,8 +648,8 @@ aa
 aa
 "}
 (13,1,1) = {"
-VO
-VO
+ah
+ah
 aB
 bK
 at
@@ -724,7 +665,7 @@ aa
 (14,1,1) = {"
 aa
 aa
-qO
+ad
 aK
 at
 aZ
@@ -732,14 +673,14 @@ ah
 aK
 at
 aZ
-qO
+ad
 aa
 aa
 "}
 (15,1,1) = {"
 aa
 aa
-qO
+ad
 aK
 at
 at
@@ -747,14 +688,14 @@ at
 at
 at
 aZ
-qO
+ad
 aa
 aa
 "}
 (16,1,1) = {"
 aa
 aa
-qO
+ad
 aK
 at
 aZ
@@ -762,13 +703,13 @@ ah
 aK
 at
 aZ
-qO
+ad
 aa
 aa
 "}
 (17,1,1) = {"
-VO
-VO
+ah
+ah
 aB
 bK
 at
@@ -784,7 +725,7 @@ aa
 (18,1,1) = {"
 RU
 at
-Gw
+at
 at
 at
 aZ
@@ -797,8 +738,8 @@ aa
 aa
 "}
 (19,1,1) = {"
-VO
-VO
+ah
+ah
 aB
 aL
 at
@@ -884,7 +825,7 @@ Jx
 Jx
 Jx
 bG
-qO
+ad
 "}
 (25,1,1) = {"
 ac
@@ -937,9 +878,9 @@ aa
 aa
 ac
 ac
-qO
+ad
 ac
-qO
+ad
 ac
 ac
 aa

@@ -795,10 +795,7 @@
 	name = "Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "fr" = (
@@ -824,10 +821,7 @@
 	req_access_txt = "19"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "BN" = (
@@ -859,30 +853,8 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"GG" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Infirmary"
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium/white,
-/area/shuttle/escape)
-"Li" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "LY" = (
 /turf/open/floor/mineral/titanium,
@@ -905,10 +877,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Vs" = (
@@ -919,10 +888,7 @@
 	name = "Emergency Shuttle Cargo Bay Airlock"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "Yo" = (
@@ -980,7 +946,7 @@ ad
 ad
 "}
 (4,1,1) = {"
-Li
+ac
 al
 aw
 aB
@@ -993,10 +959,10 @@ bd
 bd
 bd
 DK
-Li
+ac
 "}
 (5,1,1) = {"
-Li
+ac
 am
 aq
 aC
@@ -1012,7 +978,7 @@ Yo
 bf
 "}
 (6,1,1) = {"
-Li
+ac
 an
 ax
 LY
@@ -1028,7 +994,7 @@ fr
 bf
 "}
 (7,1,1) = {"
-Li
+ac
 ao
 ay
 LY
@@ -1041,7 +1007,7 @@ cb
 ad
 by
 by
-Li
+ac
 "}
 (8,1,1) = {"
 ad
@@ -1076,7 +1042,7 @@ bD
 ad
 "}
 (10,1,1) = {"
-Li
+ac
 LY
 LY
 LY
@@ -1089,7 +1055,7 @@ bU
 bU
 bU
 bE
-Li
+ac
 "}
 (11,1,1) = {"
 ad
@@ -1105,7 +1071,7 @@ bi
 bU
 bU
 bF
-Li
+ac
 "}
 (12,1,1) = {"
 cO
@@ -1169,10 +1135,10 @@ bk
 Vs
 Vs
 bI
-Li
+ac
 "}
 (16,1,1) = {"
-Li
+ac
 ar
 LY
 LY
@@ -1185,10 +1151,10 @@ Vs
 Vs
 Vs
 bJ
-Li
+ac
 "}
 (17,1,1) = {"
-Li
+ac
 ar
 LY
 aE
@@ -1204,7 +1170,7 @@ bK
 ad
 "}
 (18,1,1) = {"
-Li
+ac
 ar
 LY
 aE
@@ -1215,7 +1181,7 @@ aE
 ba
 ad
 ac
-GG
+PE
 ba
 ad
 "}
@@ -1265,7 +1231,7 @@ bo
 be
 be
 bO
-Li
+ac
 "}
 (22,1,1) = {"
 cO
@@ -1281,7 +1247,7 @@ bp
 be
 bw
 bP
-Li
+ac
 "}
 (23,1,1) = {"
 ad
@@ -1318,16 +1284,16 @@ ad
 (25,1,1) = {"
 ad
 ad
-Li
+ac
 ad
-Li
+ac
 ad
-Li
+ac
 ad
 ad
 ad
-Li
-Li
+ac
+ac
 ad
 ad
 "}

@@ -7,7 +7,6 @@
 /area/shuttle/escape)
 "c" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plasteel/elevatorshaft,
 /area/shuttle/escape)
 "d" = (
@@ -216,10 +215,7 @@
 /obj/machinery/door/airlock/gold{
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape)
 "Y" = (

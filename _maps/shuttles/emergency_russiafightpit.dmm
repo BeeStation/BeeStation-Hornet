@@ -541,11 +541,6 @@
 /obj/item/clothing/gloves/fingerless,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
-"sP" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "wq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/optable,
@@ -555,10 +550,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Emergency Shuttle Cargo"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Ge" = (
@@ -572,10 +564,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "OT" = (
@@ -583,10 +572,7 @@
 	name = "Glorious Leaders";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "SF" = (
@@ -594,12 +580,7 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Vh" = (
@@ -612,13 +593,6 @@
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
-/area/shuttle/escape)
-"Xw" = (
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 
 (1,1,1) = {"
@@ -633,9 +607,9 @@ hP
 ab
 Vh
 ad
-sP
-sP
-sP
+ac
+ac
+ac
 ad
 Ge
 ad
@@ -742,7 +716,7 @@ bK
 bL
 "}
 (6,1,1) = {"
-sP
+ac
 ae
 aj
 ao
@@ -766,7 +740,7 @@ bK
 bL
 "}
 (7,1,1) = {"
-sP
+ac
 af
 ak
 ak
@@ -790,7 +764,7 @@ bK
 bL
 "}
 (8,1,1) = {"
-sP
+ac
 ag
 ak
 ap
@@ -814,7 +788,7 @@ bK
 bL
 "}
 (9,1,1) = {"
-sP
+ac
 af
 al
 aq
@@ -824,7 +798,7 @@ aK
 aQ
 aA
 aZ
-Xw
+ax
 ax
 bl
 ax
@@ -838,7 +812,7 @@ bK
 bL
 "}
 (10,1,1) = {"
-sP
+ac
 ah
 ak
 aq
@@ -969,13 +943,13 @@ aE
 aE
 aE
 ad
-sP
-sP
-sP
+ac
+ac
+ac
 ad
 ad
 ad
-sP
+ac
 ad
 aa
 aa

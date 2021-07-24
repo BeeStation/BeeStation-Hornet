@@ -327,10 +327,7 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Cargo"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "Gx" = (
@@ -340,11 +337,6 @@
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"JW" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "Km" = (
 /obj/machinery/door/airlock/titanium{
@@ -360,10 +352,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "RE" = (
@@ -371,12 +360,7 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Ta" = (
@@ -384,10 +368,7 @@
 	name = "Emergency Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "XC" = (
@@ -407,9 +388,9 @@ Gx
 ad
 Km
 ad
-JW
-JW
-JW
+ac
+ac
+ac
 ad
 mA
 ad
@@ -468,7 +449,7 @@ bi
 bk
 "}
 (4,1,1) = {"
-JW
+ac
 af
 am
 ar
@@ -492,7 +473,7 @@ bi
 bk
 "}
 (5,1,1) = {"
-JW
+ac
 ag
 aC
 as
@@ -516,7 +497,7 @@ bi
 bk
 "}
 (6,1,1) = {"
-JW
+ac
 ah
 aC
 at
@@ -540,7 +521,7 @@ bi
 bk
 "}
 (7,1,1) = {"
-JW
+ac
 ag
 aC
 aC
@@ -564,7 +545,7 @@ bi
 bk
 "}
 (8,1,1) = {"
-JW
+ac
 ai
 ao
 ao
@@ -641,21 +622,21 @@ aa
 aa
 aa
 ad
-JW
+ac
 ad
-JW
-ad
-ad
-ad
-JW
-JW
-JW
+ac
 ad
 ad
 ad
-JW
+ac
+ac
+ac
 ad
-JW
+ad
+ad
+ac
+ad
+ac
 ad
 aa
 "}

@@ -264,46 +264,17 @@
 /obj/item/defibrillator/loaded,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
-"mv" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "bridge door";
-	req_access_txt = "19"
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
 "xJ" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "bridge door";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"Cf" = (
-/obj/machinery/door/airlock/public/glass,
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Hy" = (
 /obj/machinery/door/airlock/public/glass,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Mg" = (
@@ -317,27 +288,17 @@
 	port_direction = 4;
 	width = 14
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/structure/fans/tiny,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "MN" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
+/obj/machinery/door/airlock/titanium,
+/obj/structure/fans/tiny,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Ti" = (
 /obj/machinery/door/airlock/titanium,
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Wn" = (
@@ -345,10 +306,7 @@
 	name = "security airlock";
 	req_access_txt = "63"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 
@@ -357,13 +315,13 @@ aa
 aa
 ab
 ab
-MN
+ac
 ab
-MN
-MN
-MN
-MN
-MN
+ac
+ac
+ac
+ac
+ac
 ab
 aa
 aa
@@ -390,7 +348,7 @@ ab
 ai
 ar
 aC
-mv
+xJ
 aC
 aC
 aC
@@ -402,7 +360,7 @@ aa
 "}
 (4,1,1) = {"
 aa
-MN
+ac
 aj
 aC
 av
@@ -418,7 +376,7 @@ aa
 "}
 (5,1,1) = {"
 aa
-MN
+ac
 aj
 aC
 aV
@@ -494,7 +452,7 @@ aP
 aC
 aC
 aW
-MN
+ac
 "}
 (10,1,1) = {"
 aa
@@ -510,7 +468,7 @@ aP
 aC
 aC
 aW
-MN
+ac
 "}
 (11,1,1) = {"
 aa
@@ -526,7 +484,7 @@ aP
 aC
 aC
 aW
-MN
+ac
 "}
 (12,1,1) = {"
 aa
@@ -555,7 +513,7 @@ aC
 aC
 aw
 ab
-Cf
+Hy
 ac
 ab
 ab
@@ -631,7 +589,7 @@ ap
 au
 ab
 ab
-Ti
+MN
 Mg
 ab
 ab

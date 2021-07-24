@@ -102,6 +102,7 @@
 /obj/machinery/door/airlock/bananium/glass{
 	name = "Emergency Shuttle Premium Lounge"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "at" = (
@@ -137,6 +138,7 @@
 /obj/machinery/door/airlock/bananium/glass{
 	name = "Emergency Shuttle Greentext"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "aC" = (
@@ -324,20 +326,14 @@
 /obj/machinery/door/airlock/bananium/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "KO" = (
 /obj/machinery/door/airlock/bananium{
 	name = "Emergency Shuttle Cargo"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "LN" = (
@@ -348,11 +344,6 @@
 	name = "Snappop(tm)!"
 	},
 /obj/structure/fans/tiny,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"Nn" = (
-/obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Zf" = (
@@ -373,9 +364,9 @@ ab
 ab
 LN
 ab
-Nn
-Nn
-Nn
+ac
+ac
+ac
 ab
 eU
 ab
@@ -434,7 +425,7 @@ bf
 bg
 "}
 (4,1,1) = {"
-Nn
+ac
 ae
 aj
 ao
@@ -458,7 +449,7 @@ bf
 bg
 "}
 (5,1,1) = {"
-Nn
+ac
 af
 ak
 ap
@@ -482,7 +473,7 @@ bf
 bg
 "}
 (6,1,1) = {"
-Nn
+ac
 ag
 ak
 aq
@@ -506,7 +497,7 @@ bf
 bg
 "}
 (7,1,1) = {"
-Nn
+ac
 af
 ak
 ak
@@ -530,7 +521,7 @@ bf
 bg
 "}
 (8,1,1) = {"
-Nn
+ac
 ah
 al
 al
@@ -607,21 +598,21 @@ aa
 aa
 aa
 ab
-Nn
+ac
 ab
-Nn
-ab
-ab
-ab
-Nn
-Nn
-Nn
+ac
 ab
 ab
 ab
-Nn
+ac
+ac
+ac
 ab
-Nn
+ab
+ab
+ac
+ab
+ac
 ab
 aa
 "}
