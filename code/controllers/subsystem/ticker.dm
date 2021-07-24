@@ -62,6 +62,7 @@ SUBSYSTEM_DEF(ticker)
 	//Gamemode setup
 	var/pre_setup_completed = FALSE
 	var/fail_counter
+	var/emergency_start = FALSE
 
 	//Crew Objective stuff
 	var/list/crewobjlist = list()
@@ -209,12 +210,12 @@ SUBSYSTEM_DEF(ticker)
 						//This should be impossible to reach this point, unless someone edits and breaks the standard gamemode.
 						to_chat(world, "<span class='warning'>WARNING: Pre-setup failed on fallback gamemode: extended. This should never happen; something is seriously wrong.</span>")
 						send2irc("Server", "WARNING: Presetup failed! Round ID: [GLOB.round_id].")
-						//If extended fails to setup, something is seriously wrong and the game will be in limbo.
-						mode = null
-						current_state = GAME_STATE_STARTUP
-						start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
-						timeLeft = null
-						Master.SetRunLevel(RUNLEVEL_LOBBY)
+						//Emergency start the game.
+						//Pre_setup simply handles picking the gamemode and map setup, so we will force
+						//pick extended. (No map setup required for it.)
+						emergency_start = TRUE
+						pre_setup_completed = TRUE
+						mode = config.pick_mode("extended")
 						return
 				pre_setup_completed = TRUE
 
@@ -228,8 +229,10 @@ SUBSYSTEM_DEF(ticker)
 			if(fail_counter >= 3)
 				log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
 				message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
-				GLOB.master_mode = "extended"
-				fail_counter = null
+				//Emergerncy start extended.
+				emergency_start = TRUE
+				pre_setup_completed = TRUE
+				mode = config.pick_mode("extended")
 
 			if(!pre_setup_completed && !pre_setup())
 				//setup failed
@@ -316,7 +319,7 @@ SUBSYSTEM_DEF(ticker)
 	CHECK_TICK
 
 	to_chat(world, "<span class='boldannounce'>Starting game...</span>")
-	if(!GLOB.Debug2)
+	if(!GLOB.Debug2 && !emergency_start)
 		if(!can_continue)
 			log_game("[mode.name] failed pre_setup, cause: [mode.setup_error]")
 			QDEL_NULL(mode)
