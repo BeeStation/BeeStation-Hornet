@@ -209,6 +209,12 @@ SUBSYSTEM_DEF(ticker)
 						//This should be impossible to reach this point, unless someone edits and breaks the standard gamemode.
 						to_chat(world, "<span class='warning'>WARNING: Pre-setup failed on fallback gamemode: extended. This should never happen; something is seriously wrong.</span>")
 						send2irc("Server", "WARNING: Presetup failed! Round ID: [GLOB.round_id].")
+						//If extended fails to setup, something is seriously wrong and the game will be in limbo.
+						mode = null
+						current_state = GAME_STATE_STARTUP
+						start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
+						timeLeft = null
+						Master.SetRunLevel(RUNLEVEL_LOBBY)
 						return
 				pre_setup_completed = TRUE
 
