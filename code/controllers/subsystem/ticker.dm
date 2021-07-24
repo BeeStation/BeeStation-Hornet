@@ -198,36 +198,7 @@ SUBSYSTEM_DEF(ticker)
 			if(timeLeft <= 300 && !pre_setup_completed)
 				//Setup gamemode maps 30 seconds before roundstart.
 				if(!pre_setup())
-					//The mode failed to pre-setup
-					//This means that either there are insufficient players to run the gamemode
-					//Or there are no runnable gamemodes.
-					//In this case, we will resort to running extended.
-					log_game("Gamemode failed to setup. Mode: [GLOB.master_mode]")
-					if(GLOB.master_mode == CONFIG_GET(string/master_mode))
-						to_chat(world, "<span class='boldannounce'>Pre-setup failed; Forcing gamemode to extended. Please file a github report including the current round ID: [GLOB.round_id].</span>")
-					else
-						message_admins("The gamemode [GLOB.master_mode] failed to load, reverting to lobby!")
-						//Reset to default gamemode
-						load_mode()
-						//Go back to the lobby so a new gamemode can be chosen.
-						current_state = GAME_STATE_STARTUP
-						start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
-						timeLeft = null
-						Master.SetRunLevel(RUNLEVEL_LOBBY)
-						return
-					GLOB.master_mode = "extended"
-					//Lets try this again.
-					if(!pre_setup())
-						//This should be impossible to reach this point, unless someone edits and breaks the standard gamemode.
-						to_chat(world, "<span class='warning'>WARNING: Pre-setup failed on fallback gamemode: extended. This should never happen; something is seriously wrong.</span>")
-						send2irc("Server", "WARNING: Presetup failed! Round ID: [GLOB.round_id].")
-						//Emergency start the game.
-						//Pre_setup simply handles picking the gamemode and map setup, so we will force
-						//pick extended. (No map setup required for it.)
-						emergency_start = TRUE
-						pre_setup_completed = TRUE
-						mode = config.pick_mode("extended")
-						return
+					fail_setup()
 				pre_setup_completed = TRUE
 
 			if(timeLeft <= 0)
@@ -237,36 +208,15 @@ SUBSYSTEM_DEF(ticker)
 					fire()
 
 		if(GAME_STATE_SETTING_UP)
-			if(fail_counter >= 2)
-				log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
-				message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
-				//Emergerncy start extended.
-				emergency_start = TRUE
-				pre_setup_completed = TRUE
-				mode = config.pick_mode("extended")
-
 			if(!pre_setup_completed && !pre_setup())
-				//setup failed
-				fail_counter++
-				current_state = GAME_STATE_STARTUP
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
-				timeLeft = null
-				Master.SetRunLevel(RUNLEVEL_LOBBY)
-				pre_setup_completed = FALSE
+				fail_setup()
 				return
 			else
 				message_admins("Pre-setup completed, however was run late.")
 				pre_setup_completed = TRUE
 			//Attempt normal setup
 			if(!setup())
-				//Let's try this again.
-				fail_counter++
-				current_state = GAME_STATE_STARTUP
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
-				timeLeft = null
-				Master.SetRunLevel(RUNLEVEL_LOBBY)
-				pre_setup_completed = FALSE
-				return
+				fail_setup()
 			else
 				fail_counter = null
 
@@ -281,6 +231,31 @@ SUBSYSTEM_DEF(ticker)
 				toggle_dooc(TRUE)
 				declare_completion(force_ending)
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
+
+//Reverts the game to the lobby
+/datum/controller/subsystem/ticker/proc/fail_setup()
+	if(fail_counter >= 2)
+		log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
+		message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
+		//This has failed enough, lets just get on with extended.
+		failsafe_pre_setup()
+		return
+	//Let's try this again.
+	fail_counter++
+	current_state = GAME_STATE_STARTUP
+	start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
+	timeLeft = null
+	Master.SetRunLevel(RUNLEVEL_LOBBY)
+	pre_setup_completed = FALSE
+	message_admins("Failed to setup. Failures: ([fail_counter] / 3).")
+	log_game("Setup failed.")
+
+//Fallback presetup that sets up extended.
+/datum/controller/subsystem/ticker/proc/failsafe_pre_setup()
+	//Emergerncy start extended.
+	emergency_start = TRUE
+	pre_setup_completed = TRUE
+	mode = config.pick_mode("extended")
 
 //Select gamemode and load any maps associated with it
 /datum/controller/subsystem/ticker/proc/pre_setup()
