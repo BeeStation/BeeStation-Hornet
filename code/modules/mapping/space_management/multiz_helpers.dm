@@ -56,7 +56,7 @@
 			if(turf_z <= 0 || turf_z > world.maxz || !is_station_level(turf_z))
 				break
 			. += turf_z
-		for(var/i in -1 to -max_z_range)
+		for(var/i in -max_z_range to -1)
 			var/turf_z = z_level + i
 			if(turf_z <= 0 || turf_z > world.maxz || !is_station_level(turf_z))
 				break
