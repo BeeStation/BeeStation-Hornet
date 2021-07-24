@@ -296,7 +296,6 @@
 			close()
 
 /obj/machinery/door/firedoor/crush()
-	. = ..()
 	for(var/mob/living/L in get_turf(src))
 		L.visible_message("<span class='warning'>[src] closes on [L], crushing [L.p_them()]!</span>", "<span class='userdanger'>[src] closes on you and crushes you!</span>")
 		if(isalien(L))  //For xenos
