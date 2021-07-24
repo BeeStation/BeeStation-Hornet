@@ -37,9 +37,10 @@
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
 /obj/item/projectile/beam/weak
-	damage = 15
+	damage = 8
 
-/obj/item/projectile/beam/weak/penetrator
+/obj/item/projectile/beam/weak/penetrator //laser gatling and centcom shuttle turret
+	damage = 15
 	armour_penetration = 50
 
 /obj/item/projectile/beam/practice

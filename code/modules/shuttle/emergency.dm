@@ -575,7 +575,7 @@
 	mode = SHUTTLE_ESCAPE
 	launch_status = ENDGAME_LAUNCHED
 	setTimer(SSshuttle.emergencyEscapeTime)
-	priority_announce("The Emergency Shuttle is preparing for direct jump. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, null, "Priority")
+	priority_announce("The Emergency Shuttle is preparing for direct jump. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, SSstation.announcer.get_rand_alert_sound(), "Priority")
 
 
 /obj/docking_port/mobile/pod
@@ -736,6 +736,11 @@
 	. = ..()
 	SSshuttle.emergency = current_emergency
 	SSshuttle.backup_shuttle = src
+
+/obj/docking_port/mobile/emergency/backup/Destroy(force)
+	if(SSshuttle.backup_shuttle == src)
+		SSshuttle.backup_shuttle = null
+	return ..()
 
 /obj/docking_port/mobile/emergency/shuttle_build/register()
 	. = ..()

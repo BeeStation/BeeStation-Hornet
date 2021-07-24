@@ -52,9 +52,7 @@ export const Panel = (props, context) => {
     <Pane theme={settings.theme}>
       <Stack
         height={(98-number) + '%'}
-        vertical
-        grow={0}
-        shrink={0}>
+        vertical>
         <StatTabs
           direction="column" />
       </Stack>
@@ -83,20 +81,17 @@ export const Panel = (props, context) => {
           </Box>
         )}
       </DraggableControl>
-      <Stack
-        fill
-        vertical
-        height={(number-1) + '%'}>
+      <Stack mt={1} vertical height={(number-1) + '%'}>
         <Stack.Item>
-          <Section fitted>
-            <Stack mx={1} align="center">
+          <Section>
+            <Stack my={-1.25} align="center">
               <Stack.Item grow overflowX="auto">
                 <ChatTabs />
               </Stack.Item>
               <Stack.Item>
                 <PingIndicator />
               </Stack.Item>
-              <Stack.Item>
+              <Stack.Item mx={0.5}>
                 <Button
                   color="grey"
                   selected={audio.visible}
@@ -130,7 +125,7 @@ export const Panel = (props, context) => {
             <SettingsPanel />
           </Stack.Item>
         )}
-        <Stack.Item grow>
+        <Stack.Item mt={1} grow>
           <Section fill fitted position="relative">
             <Pane.Content scrollable>
               <ChatPanel lineHeight={settings.lineHeight} />

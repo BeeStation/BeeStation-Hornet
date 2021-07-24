@@ -11,7 +11,6 @@
 	density = TRUE
 	layer = MOB_LAYER
 	animate_movement = SLIDE_STEPS
-	flags_1 = HEAR_1
 	hud_possible = list(ANTAG_HUD)
 	pressure_resistance = 8
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
@@ -150,8 +149,8 @@
 	/// Can this mob enter shuttles
 	var/move_on_shuttle = 1
 
-	///The last mob/living/carbon to push/drag/grab this mob (exclusively used by slimes friend recognition)
-	var/mob/living/carbon/LAssailant = null
+	///A weakref to the last mob/living/carbon to push/drag/grab this mob (exclusively used by slimes friend recognition)
+	var/datum/weakref/LAssailant = null
 
 	/**
 	  * construct spells and mime spells.
@@ -195,8 +194,6 @@
 
 	///For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time
 	var/list/do_afters	
-
-	var/list/mousemove_intercept_objects
 
 	///Allows a datum to intercept all click calls this mob is the source of
 	var/datum/click_intercept

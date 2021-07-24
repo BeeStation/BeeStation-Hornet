@@ -50,6 +50,18 @@
 		"smmon_6.gif" = 'icons/program_icons/smmon_6.gif',
 	)
 
+/datum/asset/simple/circuit_assets
+	assets = list(
+		"grid_background.png" = 'icons/ui_icons/tgui/grid_background.png'
+	)
+
+/datum/asset/simple/radar_assets
+	assets = list(
+		"ntosradarbackground.png"	= 'icons/UI_Icons/tgui/ntosradar_background.png',
+		"ntosradarpointer.png"		= 'icons/UI_Icons/tgui/ntosradar_pointer.png',
+		"ntosradarpointerS.png"		= 'icons/UI_Icons/tgui/ntosradar_pointer_S.png'
+	)
+
 /datum/asset/spritesheet/simple/pda
 	name = "pda"
 	assets = list(
