@@ -199,7 +199,7 @@ SUBSYSTEM_DEF(ticker)
 					//The mode failed to pre-setup
 					//This means that either there are insufficient players to run the gamemode
 					//Or there are no runnable gamemodes.
-					//In this case, we will resort to running traitors.
+					//In this case, we will resort to running extended.
 					to_chat(world, "<span class='boldannounce'>Pre-setup failed; Forcing gamemode to extended. Please file a github report including the current round ID: [GLOB.round_id].</span>")
 					message_admins("Error: [mode.setup_error]")
 					mode = null
