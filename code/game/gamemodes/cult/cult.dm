@@ -79,6 +79,7 @@
 	if(prob(remaining))
 		recommended_enemies++
 
+	recommended_enemies = max(recommended_enemies, required_enemies)
 
 	for(var/cultists_number = 1 to recommended_enemies)
 		if(!antag_candidates.len)

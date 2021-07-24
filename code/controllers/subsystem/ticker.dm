@@ -59,6 +59,8 @@ SUBSYSTEM_DEF(ticker)
 	var/mode_result = "undefined"
 	var/end_state = "undefined"
 
+	//Gamemode setup
+	var/pre_setup_completed = FALSE
 	var/fail_counter
 
 	//Crew Objective stuff
@@ -191,6 +193,25 @@ SUBSYSTEM_DEF(ticker)
 				send_tip_of_the_round()
 				tipped = TRUE
 
+			if(timeLeft <= 300 && !pre_setup_completed)
+				//Setup gamemode maps 30 seconds before roundstart.
+				if(!pre_setup())
+					//The mode failed to pre-setup
+					//This means that either there are insufficient players to run the gamemode
+					//Or there are no runnable gamemodes.
+					//In this case, we will resort to running traitors.
+					to_chat(world, "<span class='boldannounce'>Pre-setup failed; Forcing gamemode to extended. Please file a github report including the current round ID: [GLOB.round_id].</span>")
+					message_admins("Error: [mode.setup_error]")
+					mode = null
+					GLOB.master_mode = "extended"
+					//Lets try this again.
+					if(!pre_setup())
+						//This should be impossible to reach this point, unless someone edits and breaks the standard gamemode.
+						to_chat(world, "<span class='warning'>WARNING: Pre-setup failed on fallback gamemode: extended. This should never happen; something is seriously wrong.</span>")
+						send2irc("Server", "WARNING: Presetup failed! Round ID: [GLOB.round_id].")
+						return
+				pre_setup_completed = TRUE
+
 			if(timeLeft <= 0)
 				current_state = GAME_STATE_SETTING_UP
 				Master.SetRunLevel(RUNLEVEL_SETUP)
@@ -198,27 +219,37 @@ SUBSYSTEM_DEF(ticker)
 					fire()
 
 		if(GAME_STATE_SETTING_UP)
-			if(!pre_setup())
-				//setup failed
-				fail_counter++
-				current_state = GAME_STATE_STARTUP
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
-				timeLeft = null
-				Master.SetRunLevel(RUNLEVEL_LOBBY)
-			else if(!setup())
-				//setup failed
-				fail_counter++
-				current_state = GAME_STATE_STARTUP
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
-				timeLeft = null
-				Master.SetRunLevel(RUNLEVEL_LOBBY)
-			else
-				fail_counter = null
-
 			if(fail_counter >= 3)
 				log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
 				message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
-				GLOB.master_mode = null		//this makes it pick extended
+				GLOB.master_mode = "extended"
+				fail_counter = null
+
+			if(!pre_setup_completed && !pre_setup())
+				//setup failed
+				mode = null
+				fail_counter++
+				current_state = GAME_STATE_STARTUP
+				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
+				timeLeft = null
+				Master.SetRunLevel(RUNLEVEL_LOBBY)
+				pre_setup_completed = FALSE
+				return
+			else
+				message_admins("Pre-setup completed, however was run late.")
+				pre_setup_completed = TRUE
+			//Attempt normal setup
+			if(!setup())
+				//Let's try this again.
+				mode = null
+				fail_counter++
+				current_state = GAME_STATE_STARTUP
+				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
+				timeLeft = null
+				Master.SetRunLevel(RUNLEVEL_LOBBY)
+				pre_setup_completed = FALSE
+				return
+			else
 				fail_counter = null
 
 		if(GAME_STATE_PLAYING)
