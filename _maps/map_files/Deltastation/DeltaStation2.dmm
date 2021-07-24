@@ -28067,8 +28067,8 @@
 	},
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
-	luminosity = 2;
-	initial_temperature = 2.7
+	initial_temperature = 2.7;
+	luminosity = 2
 	},
 /area/security/prison)
 "aZP" = (
@@ -29314,16 +29314,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
-"bci" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchencounter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel,
-/area/crew_quarters/kitchen)
 "bcj" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -29788,8 +29778,8 @@
 	},
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
-	luminosity = 2;
-	initial_temperature = 2.7
+	initial_temperature = 2.7;
+	luminosity = 2
 	},
 /area/security/prison)
 "bcX" = (
@@ -123982,10 +123972,6 @@
 	name = "Kitchen Counter Shutters"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = -8
 	},
@@ -123994,6 +123980,7 @@
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/food/drinks/britcup,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "tub" = (
@@ -124856,6 +124843,7 @@
 	id = "kitchencounter";
 	name = "Kitchen Counter Shutters"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "vJu" = (
@@ -162466,7 +162454,7 @@ aVq
 aLL
 aNi
 aKz
-bci
+bcj
 bdI
 bdJ
 bdI
