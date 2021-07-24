@@ -1,5 +1,0 @@
-author: Cenrus
-delete-after: true
-changes:
-  - bugfix: Fixes lens not dealing intended amount of damage to mechs
-  - bugfix: Prism not healing as much as intended
