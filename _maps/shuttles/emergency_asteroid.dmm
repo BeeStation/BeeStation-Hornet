@@ -381,13 +381,11 @@
 "qg" = (
 /obj/structure/window/shuttle,
 /obj/structure/grille,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "qO" = (
 /obj/structure/window/shuttle,
 /obj/structure/grille,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "rp" = (
@@ -497,7 +495,6 @@
 /area/shuttle/escape)
 "VO" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "YJ" = (

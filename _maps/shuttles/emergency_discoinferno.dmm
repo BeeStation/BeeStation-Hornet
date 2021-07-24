@@ -7,7 +7,6 @@
 /area/shuttle/escape)
 "c" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plasteel/elevatorshaft,
 /area/shuttle/escape)
 "d" = (

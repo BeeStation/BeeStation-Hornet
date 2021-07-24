@@ -1657,7 +1657,6 @@
 	id = "escape_cockpit_windows";
 	name = "Cockpit Blast Door"
 	},
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "dO" = (
@@ -2170,7 +2169,6 @@
 "DU" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Et" = (

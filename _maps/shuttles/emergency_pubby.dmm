@@ -648,7 +648,6 @@
 "kK" = (
 /obj/structure/window/plastitanium,
 /obj/structure/grille,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "lf" = (
@@ -673,7 +672,6 @@
 /area/shuttle/escape)
 "ub" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "wl" = (
