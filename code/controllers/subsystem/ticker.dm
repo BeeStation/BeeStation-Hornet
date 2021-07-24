@@ -208,12 +208,13 @@ SUBSYSTEM_DEF(ticker)
 					fire()
 
 		if(GAME_STATE_SETTING_UP)
-			if(!pre_setup_completed && !pre_setup())
-				fail_setup()
-				return
-			else
-				message_admins("Pre-setup completed, however was run late.")
-				pre_setup_completed = TRUE
+			if(!pre_setup_completed)
+				if(!pre_setup())
+					fail_setup()
+					return
+				else
+					message_admins("Pre-setup completed, however was run late.")
+					pre_setup_completed = TRUE
 			//Attempt normal setup
 			if(!setup())
 				fail_setup()
