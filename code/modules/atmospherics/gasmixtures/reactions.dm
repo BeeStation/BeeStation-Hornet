@@ -331,6 +331,19 @@
 //Fusion Rework Counter: Please increment this if you make a major overhaul to this system again.
 //6 reworks
 
+/proc/fusion_ball(datum/holder, reaction_energy, instability)
+	var/turf/open/location
+	if(istype(holder, /datum/pipeline))
+		var/datum/pipeline/fusion_pipenet = holder
+		location = get_turf(pick(fusion_pipenet.members))
+	else
+		location = get_turf(holder)
+	if(location)
+			var/standard_energy = 400 * air.get_moles(GAS_PLASMA) * air.return_temperature() //Prevents putting meaningless waste gases to achieve high rads.
+			if(prob(PERCENT(((PARTICLE_CHANCE_CONSTANT)/(reaction_energy-PARTICLE_CHANCE_CONSTANT)) + 1))) //Asymptopically approaches 100% as the energy of the reaction goes up.
+				location.fire_nuclear_particle(customize = TRUE, custompower = standard_energy)
+			radiation_pulse(location, max(2000 * 3 ** (log(10,standard_energy) - FUSION_RAD_MIDPOINT), 0))
+
 /datum/gas_reaction/fusion
 	exclude = FALSE
 	priority = 2
