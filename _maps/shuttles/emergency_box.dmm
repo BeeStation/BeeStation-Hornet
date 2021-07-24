@@ -2,10 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -482,9 +478,9 @@ ag
 aC
 as
 ad
-ac
+JW
 RE
-ac
+JW
 bj
 aC
 aT
@@ -541,7 +537,7 @@ aS
 aS
 aS
 aC
-ac
+JW
 XC
 bs
 XC
@@ -589,7 +585,7 @@ aC
 aC
 aC
 aC
-ac
+JW
 ga
 ga
 ga
@@ -613,7 +609,7 @@ am
 am
 am
 aR
-ac
+JW
 bd
 be
 bd

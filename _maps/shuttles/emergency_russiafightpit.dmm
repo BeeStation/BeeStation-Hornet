@@ -543,6 +543,7 @@
 /area/shuttle/escape)
 "sP" = (
 /obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "wq" = (

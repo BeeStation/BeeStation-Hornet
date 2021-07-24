@@ -1597,10 +1597,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"RR" = (
-/obj/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Sl" = (
 /obj/machinery/computer/operating{
 	dir = 1
@@ -1840,9 +1836,9 @@ GK
 Tw
 IK
 Tw
-RR
-RR
-RR
+UQ
+UQ
+UQ
 Tw
 QQ
 Tw
@@ -1871,8 +1867,8 @@ MH
 MH
 Tw
 Tw
-RR
-RR
+UQ
+UQ
 Tw
 Bt
 Pu
@@ -2027,7 +2023,7 @@ JU
 "}
 (6,1,1) = {"
 MH
-RR
+UQ
 Bt
 pB
 Bt
@@ -2066,8 +2062,8 @@ BQ
 BQ
 "}
 (7,1,1) = {"
-RR
-RR
+UQ
+UQ
 uP
 Fp
 fK
@@ -2106,7 +2102,7 @@ BQ
 MH
 "}
 (8,1,1) = {"
-RR
+UQ
 MN
 mI
 Fp
@@ -2140,13 +2136,13 @@ Xo
 bR
 wl
 Xo
-RR
+UQ
 ar
 MH
 MH
 "}
 (9,1,1) = {"
-RR
+UQ
 tb
 Fp
 Rj
@@ -2180,13 +2176,13 @@ kF
 kF
 kF
 Br
-RR
+UQ
 ar
 Ju
 MH
 "}
 (10,1,1) = {"
-RR
+UQ
 xi
 AF
 ci
@@ -2220,13 +2216,13 @@ Vx
 Vx
 Vx
 KW
-RR
+UQ
 ar
 MH
 MH
 "}
 (11,1,1) = {"
-RR
+UQ
 DL
 AF
 yL
@@ -2260,13 +2256,13 @@ Vx
 Vx
 Vx
 pW
-RR
+UQ
 ar
 MH
 MH
 "}
 (12,1,1) = {"
-RR
+UQ
 tb
 Fp
 iN
@@ -2300,13 +2296,13 @@ kF
 kF
 kF
 Br
-RR
+UQ
 ar
 Ju
 MH
 "}
 (13,1,1) = {"
-RR
+UQ
 oI
 Hh
 Fp
@@ -2340,14 +2336,14 @@ JL
 hP
 Ht
 JL
-RR
+UQ
 ar
 MH
 MH
 "}
 (14,1,1) = {"
-RR
-RR
+UQ
+UQ
 Dn
 Fp
 fK
@@ -2387,7 +2383,7 @@ MH
 "}
 (15,1,1) = {"
 MH
-RR
+UQ
 Bt
 pB
 Bt
@@ -2551,8 +2547,8 @@ MH
 MH
 Tw
 Tw
-RR
-RR
+UQ
+UQ
 Tw
 Bt
 Ln
@@ -2600,9 +2596,9 @@ Xk
 Tw
 Xk
 Tw
-RR
-RR
-RR
+UQ
+UQ
+UQ
 Tw
 Xk
 Tw
@@ -2614,8 +2610,8 @@ MH
 Tw
 Tw
 Tw
-RR
-RR
+UQ
+UQ
 Tw
 Tw
 Tw

@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
@@ -1877,7 +1873,7 @@ aZ
 aZ
 aZ
 aZ
-ac
+Ev
 cU
 da
 dh
@@ -1921,7 +1917,7 @@ ba
 ba
 ba
 bc
-ac
+Ev
 cU
 bc
 da
@@ -1942,9 +1938,9 @@ ao
 ab
 ab
 ab
-ac
+Ev
 YO
-ac
+Ev
 ab
 bF
 bR
@@ -2009,7 +2005,7 @@ bX
 bX
 bX
 bR
-ac
+Ev
 cU
 bc
 bc
@@ -2033,7 +2029,7 @@ be
 be
 be
 bw
-ac
+Ev
 bH
 bR
 bT
@@ -2077,7 +2073,7 @@ be
 be
 be
 by
-ac
+Ev
 bI
 bR
 bT
@@ -2097,7 +2093,7 @@ bW
 bW
 bW
 bR
-ac
+Ev
 cW
 db
 bc
@@ -2121,7 +2117,7 @@ be
 be
 be
 bw
-ac
+Ev
 bJ
 bR
 bT
@@ -2205,10 +2201,10 @@ aC
 aO
 ab
 ab
-ac
+Ev
 LM
 LM
-ac
+Ev
 ad
 aZ
 bc
@@ -2397,7 +2393,7 @@ bW
 bW
 bW
 bR
-ac
+Ev
 cj
 cq
 cw
@@ -2485,7 +2481,7 @@ aZ
 aZ
 aZ
 bc
-ac
+Ev
 cl
 cs
 cp
