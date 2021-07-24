@@ -357,7 +357,7 @@
 			var/multiplier = CLAMP(1 - (armour * 0.01), 0, 1)
 			L.adjustBruteLoss(multiplier * DOOR_CRUSH_DAMAGE)
 			L.emote("scream")
-			if(L.IsParalyzed())
+			if(!L.IsParalyzed())
 				L.Paralyze(60)
 		else if(ismonkey(L)) //For monkeys
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
