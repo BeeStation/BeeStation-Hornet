@@ -279,6 +279,9 @@
 
 	pulling = AM
 	AM.pulledby = src
+
+	SEND_SIGNAL(src, COMSIG_LIVING_START_PULL, AM, state, force)
+
 	if(!supress_message)
 		var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
 		if(ishuman(src))
@@ -918,7 +921,7 @@
 			loc_temp = obj_temp
 	else if(isspaceturf(get_turf(src)))
 		var/turf/heat_turf = get_turf(src)
-		loc_temp = heat_turf.temperature
+		loc_temp = heat_turf.return_temperature()
 	return loc_temp
 
 /mob/living/proc/get_standard_pixel_x_offset(lying = 0)
