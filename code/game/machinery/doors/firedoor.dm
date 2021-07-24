@@ -295,6 +295,29 @@
 			nextstate = null
 			close()
 
+/obj/machinery/door/firedoor/crush()
+	for(var/mob/living/L in get_turf(src))
+		L.visible_message("<span class='warning'>[src] closes on [L], crushing [L.p_them()]!</span>", "<span class='userdanger'>[src] closes on you and crushes you!</span>")
+		if(isalien(L))  //For xenos
+			L.adjustBruteLoss(FIREDOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
+			L.emote("roar")
+		else if(ishuman(L)) //For humans
+			L.adjustBruteLoss(FIREDOOR_CRUSH_DAMAGE)
+			L.emote("scream")
+			L.Knockdown(FIREDOOR_CRUSH_TIME)
+		else if(ismonkey(L)) //For monkeys
+			L.adjustBruteLoss(FIREDOOR_CRUSH_DAMAGE)
+			L.Knockdown(FIREDOOR_CRUSH_TIME)
+		else //for simple_animals & borgs
+			L.adjustBruteLoss(FIREDOOR_CRUSH_DAMAGE)
+		var/turf/location = get_turf(src)
+		//add_blood doesn't work for borgs/xenos, but add_blood_floor does.
+		L.add_splatter_floor(location)
+		log_combat(src, L, "crushed (firelock)")
+	for(var/obj/mecha/M in get_turf(src))
+		M.take_damage(FIREDOOR_CRUSH_DAMAGE)
+		log_combat(src, M, "crushed (firelock)")
+
 /obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
 	flags_1 = ON_BORDER_1

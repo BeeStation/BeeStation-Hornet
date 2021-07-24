@@ -324,6 +324,9 @@
 #define SHOES_SLOWDOWN		0	//! How much shoes slow you down by default. Negative values speed you up
 #define POCKET_STRIP_DELAY			40	//! time taken (in deciseconds) to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
+#define DOOR_CRUSH_TIME 100 //! deciseconds, the amount of time an airlock paralyzes you when you get crushed
+#define FIREDOOR_CRUSH_DAMAGE 10 //! the amount of damage firelocks do when they crush you
+#define FIREDOOR_CRUSH_TIME 40 //! deciseconds, the amount of time a firelock knocks you down for when you get crushed
 
 #define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
 #define	ETHEREAL_CHARGE_FACTOR	0.1 //! factor at which ethereal's charge decreases
