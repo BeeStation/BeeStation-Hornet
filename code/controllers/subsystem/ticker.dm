@@ -199,6 +199,7 @@ SUBSYSTEM_DEF(ticker)
 				//Setup gamemode maps 30 seconds before roundstart.
 				if(!pre_setup())
 					fail_setup()
+					return
 				pre_setup_completed = TRUE
 
 			if(timeLeft <= 0)
@@ -236,8 +237,8 @@ SUBSYSTEM_DEF(ticker)
 //Reverts the game to the lobby
 /datum/controller/subsystem/ticker/proc/fail_setup()
 	if(fail_counter >= 2)
-		log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
-		message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
+		log_game("Failed setting up [GLOB.master_mode] [fail_counter + 1] times, defaulting to extended.")
+		message_admins("Failed setting up [GLOB.master_mode] [fail_counter + 1] times, defaulting to extended.")
 		//This has failed enough, lets just get on with extended.
 		failsafe_pre_setup()
 		return
@@ -248,6 +249,8 @@ SUBSYSTEM_DEF(ticker)
 	timeLeft = null
 	Master.SetRunLevel(RUNLEVEL_LOBBY)
 	pre_setup_completed = FALSE
+	//Return to default mode
+	load_mode()
 	message_admins("Failed to setup. Failures: ([fail_counter] / 3).")
 	log_game("Setup failed.")
 
