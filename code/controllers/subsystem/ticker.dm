@@ -60,6 +60,7 @@ SUBSYSTEM_DEF(ticker)
 	var/end_state = "undefined"
 
 	//Gamemode setup
+	var/gamemode_hotswap_disabled = FALSE
 	var/pre_setup_completed = FALSE
 	var/fail_counter
 	var/emergency_start = FALSE
@@ -201,9 +202,19 @@ SUBSYSTEM_DEF(ticker)
 					//This means that either there are insufficient players to run the gamemode
 					//Or there are no runnable gamemodes.
 					//In this case, we will resort to running extended.
-					to_chat(world, "<span class='boldannounce'>Pre-setup failed; Forcing gamemode to extended. Please file a github report including the current round ID: [GLOB.round_id].</span>")
-					message_admins("Error: [mode.setup_error]")
-					mode = null
+					log_game("Gamemode failed to setup. Mode: [GLOB.master_mode]")
+					if(GLOB.master_mode == CONFIG_GET(string/master_mode))
+						to_chat(world, "<span class='boldannounce'>Pre-setup failed; Forcing gamemode to extended. Please file a github report including the current round ID: [GLOB.round_id].</span>")
+					else
+						message_admins("The gamemode [GLOB.master_mode] failed to load, reverting to lobby!")
+						//Reset to default gamemode
+						load_mode()
+						//Go back to the lobby so a new gamemode can be chosen.
+						current_state = GAME_STATE_STARTUP
+						start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
+						timeLeft = null
+						Master.SetRunLevel(RUNLEVEL_LOBBY)
+						return
 					GLOB.master_mode = "extended"
 					//Lets try this again.
 					if(!pre_setup())
@@ -236,7 +247,6 @@ SUBSYSTEM_DEF(ticker)
 
 			if(!pre_setup_completed && !pre_setup())
 				//setup failed
-				mode = null
 				fail_counter++
 				current_state = GAME_STATE_STARTUP
 				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
@@ -250,7 +260,6 @@ SUBSYSTEM_DEF(ticker)
 			//Attempt normal setup
 			if(!setup())
 				//Let's try this again.
-				mode = null
 				fail_counter++
 				current_state = GAME_STATE_STARTUP
 				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
