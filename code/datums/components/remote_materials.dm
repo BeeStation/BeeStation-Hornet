@@ -24,7 +24,7 @@ handles linking back and forth.
 	src.allow_standalone = allow_standalone
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
-	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, .proc/graceful_disconnect)
+	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, .proc/check_z_disconnect)
 
 	var/turf/T = get_turf(parent)
 	if (force_connect || (mapload && is_station_level(T.z)))
@@ -87,6 +87,14 @@ handles linking back and forth.
 		_MakeLocal()
 	return TRUE
 
+/datum/component/remote_materials/proc/check_z_disconnect()
+	SIGNAL_HANDLER
+	if(!silo) //No silo?
+		return
+	var/atom/P = parent
+	if((!is_station_level(P.z) && !is_station_level(silo)) || (P.get_virtual_z_level() != silo.get_virtual_z_level()))
+		graceful_disconnect()
+
 // like disconnect_from, but does proper cleanup instead of simple deletion.
 /datum/component/remote_materials/proc/graceful_disconnect()
 	SIGNAL_HANDLER
@@ -107,7 +115,7 @@ handles linking back and forth.
 		var/obj/item/multitool/M = I
 		if (!QDELETED(M.buffer) && istype(M.buffer, /obj/machinery/ore_silo))
 			var/atom/P = parent
-			if (!is_station_level(P.z) && !is_station_level(M.buffer.z) && (P.get_virtual_z_level() != M.buffer.get_virtual_z_level()))
+			if ((!is_station_level(P.z) && !is_station_level(M.buffer.z)) || (P.get_virtual_z_level() != M.buffer.get_virtual_z_level()))
 				to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of Range.</span>")
 				return COMPONENT_NO_AFTERATTACK
 			if (silo == M.buffer)
