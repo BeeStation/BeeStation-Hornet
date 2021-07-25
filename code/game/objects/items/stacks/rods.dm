@@ -36,6 +36,11 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 
 	recipes = GLOB.rod_recipes
 	update_icon()
+	AddElement(/datum/element/openspace_item_click_handler)
+
+/obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		target.attackby(src, user, click_parameters)
 
 /obj/item/stack/rods/update_icon()
 	var/amount = get_amount()
