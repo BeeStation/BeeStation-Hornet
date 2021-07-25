@@ -18,15 +18,14 @@
 #define BREATH_PERCENTAGE		(BREATH_VOLUME/CELL_VOLUME)					//! Amount of air to take a from a tile
 
 //EXCITED GROUPS
-#define EXCITED_GROUP_BREAKDOWN_CYCLES				3		//! number of FULL air controller ticks before an excited group breaks down (averages gas contents across turfs)
-#define EXCITED_GROUP_DISMANTLE_CYCLES				15		//! number of FULL air controller ticks before an excited group dismantles and removes its turfs from active
+#define EXCITED_GROUP_BREAKDOWN_CYCLES				4		//! number of FULL air controller ticks before an excited group breaks down (averages gas contents across turfs)
+#define EXCITED_GROUP_DISMANTLE_CYCLES				16		//! number of FULL air controller ticks before an excited group dismantles and removes its turfs from active
 #define MINIMUM_AIR_RATIO_TO_SUSPEND				0.1		//! Ratio of air that must move to/from a tile to reset group processing
-#define MINIMUM_AIR_RATIO_TO_MOVE					0.05	//! Minimum ratio of air that must move to/from a tile
-#define MINIMUM_AIR_TO_SUSPEND						(MOLES_CELLSTANDARD*MINIMUM_AIR_RATIO_TO_SUSPEND)	//! Minimum amount of air that has to move before a group processing can be suspended
+#define MINIMUM_AIR_RATIO_TO_MOVE					0.001	//! Minimum ratio of air that must move to/from a tile
 #define MINIMUM_MOLES_DELTA_TO_MOVE					(MOLES_CELLSTANDARD*MINIMUM_AIR_RATIO_TO_MOVE) //! Either this must be active or MINIMUM_TEMPERATURE_TO_MOVE
 #define MINIMUM_TEMPERATURE_TO_MOVE					(T20C+100)			//! Either this must be active or MINIMUM_MOLES_DELTA_TO_MOVE
 #define MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND		4		//! Minimum temperature difference before group processing is suspended
-#define MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER		1		//! Minimum temperature difference before the gas temperatures are just set to be equal
+#define MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER		0.5		//! Minimum temperature difference before the gas temperatures are just set to be equal
 #define MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION		(T20C+10)
 #define MINIMUM_TEMPERATURE_START_SUPERCONDUCTION	(T20C+200)
 
@@ -51,7 +50,6 @@
 #define MIN_TOXIC_GAS_DAMAGE				1
 #define MAX_TOXIC_GAS_DAMAGE				10
 #define MOLES_GAS_VISIBLE					0.25 //! Moles in a standard cell after which gases are visible
-
 #define FACTOR_GAS_VISIBLE_MAX				20 //! moles_visible * FACTOR_GAS_VISIBLE_MAX = Moles after which gas is at maximum visibility
 #define MOLES_GAS_VISIBLE_STEP				0.25 //! Mole step for alpha updates. This means alpha can update at 0.25, 0.5, 0.75 and so on
 
@@ -213,7 +211,7 @@
 #define ATMOS_GAS_MONITOR_WASTE_ENGINE "engine-waste_out"
 #define ATMOS_GAS_MONITOR_WASTE_ATMOS "atmos-waste_out"
 
-#define ATMOS_GAS_MONITOR_INPUT_SM "sm_in"
+#define ATMOS_GAS_MONITOR_INPUT_SM "sm_in" //WATCH FOR TROUBLE
 #define ATMOS_GAS_MONITOR_OUTPUT_SM "sm_out"
 #define ATMOS_GAS_MONITOR_SENSOR_SM "sm_sense"
 
@@ -300,7 +298,18 @@ GLOBAL_LIST_INIT(atmos_adjacent_savings, list(0,0))
 #define CALCULATE_ADJACENT_TURFS(T) SSadjacent_air.queue[T] = 1
 #endif
 
-GLOBAL_LIST_INIT(pipe_paint_colors, sortList(list(
+//If you're doing spreading things related to atmos, DO NOT USE CANATMOSPASS, IT IS NOT CHEAP. use this instead, the info is cached after all. it's tweaked just a bit to allow for circular checks
+#define TURFS_CAN_SHARE(T1, T2) (LAZYACCESS(T2.atmos_adjacent_turfs, T1) || LAZYLEN(T1.atmos_adjacent_turfs & T2.atmos_adjacent_turfs))
+
+//Unomos - So for whatever reason, garbage collection actually drastically decreases the cost of atmos later in the round. Turning this into a define yields massively improved performance.
+#define GAS_GARBAGE_COLLECT(GASGASGAS)\
+	var/list/CACHE_GAS = GASGASGAS;\
+	for(var/id in CACHE_GAS){\
+		if(QUANTIZE(CACHE_GAS[id]) <= 0)\
+			CACHE_GAS -= id;\
+	}
+
+GLOBAL_LIST_INIT(pipe_paint_colors, list(
 		"amethyst" = rgb(130,43,255), //supplymain
 		"blue" = rgb(0,0,255),
 		"brown" = rgb(178,100,56),
@@ -313,7 +322,7 @@ GLOBAL_LIST_INIT(pipe_paint_colors, sortList(list(
 		"red" = rgb(255,0,0),
 		"violet" = rgb(64,0,128),
 		"yellow" = rgb(255,198,0)
-)))
+))
 
 //ROT MIASMA
 #define MIASMA_CORPSE_MOLES 0.02
