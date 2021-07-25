@@ -18,7 +18,7 @@
 						var/datum/disease/advance/A = D
 						if(A.resistance >= resistcap)
 							if(A.stealth <= 4)
-								H.say("Failed to delete [D].exe")
+								H.say("Failed to delete [D].exe", forced = "antivirus")
 							continue
 					else if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
 						H.say("Failed to delete [D].exe", forced = "antivirus")
