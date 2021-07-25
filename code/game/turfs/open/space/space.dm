@@ -8,6 +8,8 @@
 		pipe_astar_cost = 4\
 	)
 
+	allow_z_travel = TRUE
+
 	initial_temperature = TCMB
 	thermal_conductivity = 0
 	heat_capacity = 700000
@@ -237,3 +239,10 @@
 	destination_x = dest_x
 	destination_y = dest_y
 	destination_z = dest_z
+
+//If someone is floating above space in 0 gravity, don't fall.
+/turf/open/space/zPassIn(atom/movable/A, direction, turf/source)
+	return A.has_gravity(src)
+
+/turf/open/space/check_gravity()
+	return FALSE

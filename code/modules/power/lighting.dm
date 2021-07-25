@@ -299,7 +299,7 @@
 			brightness = A.lighting_brightness_bulb
 		else
 			bulb_colour = A.lighting_colour_tube
-			brightness = A.lighting_brightness_bulb
+			brightness = A.lighting_brightness_tube
 
 	if(nightshift_light_color == initial(nightshift_light_color))
 		nightshift_light_color = A.lighting_colour_night
@@ -314,11 +314,11 @@
 	spawn(2)
 		switch(fitting)
 			if("tube")
-				brightness = 11
+				brightness = A.lighting_brightness_tube
 				if(prob(2))
 					break_light_tube(1)
 			if("bulb")
-				brightness = 6
+				brightness = A.lighting_brightness_bulb
 				if(prob(5))
 					break_light_tube(1)
 		spawn(1)

@@ -23,6 +23,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	var/to_be_destroyed = 0
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 
+	//If true, turf will allow users to float up and down in 0 grav.
+	var/allow_z_travel = FALSE
+
 	/// Whether the turf blocks atmos from passing through it or not
 	var/blocks_air = FALSE
 
@@ -145,12 +148,56 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	vis_contents.Cut()
 
 /turf/attack_hand(mob/user)
+	//Must have no gravity.
+	if(allow_z_travel && get_turf(user) == src)
+		if(!user.has_gravity(src) || (user.movement_type & FLYING))
+			check_z_travel(user)
+			return
+		else
+			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
 		. = TRUE
 	if(.)
 		return
 	user.Move_Pulled(src)
+
+/turf/proc/check_z_travel(mob/user)
+	if(get_turf(user) != src)
+		return
+	var/list/tool_list = list()
+	var/turf/above = above()
+	if(above)
+		tool_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
+	var/turf/below = below()
+	if(below)
+		tool_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
+
+	if(!length(tool_list))
+		return
+
+	var/result = show_radial_menu(user, user, tool_list, require_near = TRUE, tooltips = TRUE)
+	if(get_turf(user) != src)
+		return
+	switch(result)
+		if("Cancel")
+			return
+		if("Up")
+			travel_z(user, above)
+		if("Down")
+			travel_z(user, below)
+
+/turf/proc/travel_z(mob/user, turf/target)
+	if(!istype(target, /turf/open/space) && !istype(target, /turf/open/openspace))
+		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
+		return
+	var/atom/movable/AM
+	if(user.pulling)
+		AM = user.pulling
+		AM.forceMove(target)
+	user.forceMove(target)
+	if(AM)
+		user.start_pulling(AM)
 
 /turf/proc/multiz_turf_del(turf/T, dir)
 
@@ -605,3 +652,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	. = ..()
 	if(. != BULLET_ACT_FORCE_PIERCE)
 		. =  BULLET_ACT_TURF
+
+/turf/proc/check_gravity()
+	return TRUE

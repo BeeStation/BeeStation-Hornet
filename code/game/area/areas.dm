@@ -77,7 +77,7 @@
 	var/lighting_colour_tube = "#FFF6ED"
 	var/lighting_colour_bulb = "#FFE6CC"
 	var/lighting_colour_night = "#FFDBB5"
-	var/lighting_brightness_tube = 10
+	var/lighting_brightness_tube = 11
 	var/lighting_brightness_bulb = 6
 	var/lighting_brightness_night = 6
 
@@ -639,7 +639,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			max_grav = max(max_grav, i)
 		return max_grav
 
-	if(isspaceturf(T)) // Turf never has gravity
+
+	if(!T.check_gravity()) // Turf never has gravity
 		return 0
 
 	var/area/A = get_area(T)

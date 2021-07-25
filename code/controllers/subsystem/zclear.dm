@@ -139,7 +139,6 @@ SUBSYSTEM_DEF(zclear)
 		if(i % group_size == 0)
 			divided_turfs += list(current_group)
 			current_group = list()
-		SSair.remove_from_active(T)
 	divided_turfs += list(current_group)
 
 	//Create the wipe data datum
@@ -269,8 +268,6 @@ SUBSYSTEM_DEF(zclear)
 /datum/controller/subsystem/zclear/proc/reset_turfs(list/turfs)
 	var/list/new_turfs = list()
 	for(var/turf/T as() in turfs)
-		//TODO: This doesn't update turfs around it.
-		SSair.remove_from_active(T)
 		var/turf/newT
 		if(istype(T, /turf/open/space))
 			newT = T
