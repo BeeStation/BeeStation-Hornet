@@ -9,22 +9,22 @@
 		var/mob/living/carbon/human/H = M
 		var/cured = 0
 		if(MOB_ROBOTIC in H.mob_biotypes)
-			H.forcesay("Installing [src]. Please do not turn your [H.dna.species] unit off or otherwise disturb it during the installation process")
+			H.say("Installing [src]. Please do not turn your [H.dna.species] unit off or otherwise disturb it during the installation process", forced = "antivirus")
 			if(do_mob(user, H, 450)) //it has unlimited uses, but that's balanced by being very slow
-				H.forcesay("[src] succesfully installed. Initiating scan.")
+				H.say("[src] succesfully installed. Initiating scan.", forced = "antivirus")
 				for(var/thing in H.diseases)
 					var/datum/disease/D = thing
 					if(istype(D, /datum/disease/advance))
 						var/datum/disease/advance/A = D
 						if(A.resistance >= resistcap)
 							if(A.stealth <= 4)
-								H.say("Failed to delete [D].exe")
+								H.say("Failed to delete [D].exe", forced = "antivirus")
 							continue
 					else if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
-						H.forcesay("Failed to delete [D].exe")
+						H.say("Failed to delete [D].exe", forced = "antivirus")
 						continue
 					cured += 1
-					H.forcesay("[D].exe deleted...")
+					H.say("[D].exe deleted...", forced = "antivirus")
 					D.cure(TRUE)
 					stoplag(5 - cured)
 				if(cured)
