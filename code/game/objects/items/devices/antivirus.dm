@@ -24,7 +24,7 @@
 						H.say("Failed to delete [D].exe", forced = "antivirus")
 						continue
 					cured += 1
-					H.say("[D].exe deleted...")
+					H.say("[D].exe deleted...", forced = "antivirus")
 					D.cure(TRUE)
 					stoplag(5 - cured)
 				if(cured)
