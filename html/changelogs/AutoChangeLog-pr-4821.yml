@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - rscadd: Adds a delay to inserting equipment into a mech (1.5s)
