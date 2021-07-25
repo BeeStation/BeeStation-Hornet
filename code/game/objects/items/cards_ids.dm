@@ -757,3 +757,26 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/lawyer
 	icon_state = "lawyer"
+
+/obj/item/card/id/pass
+	name = "promotion pass"
+	desc = "A card that, when swiped on your ID card, will grant you all the access. Should not substitute your actual ID card."
+	icon_state = "data_1"
+	registered_name = "Unregistered ID"
+	assignment = "Access Pass"
+
+/obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if (!proximity)
+		return .
+	var/obj/item/card/id/idcard = target
+	if(istype(idcard))		
+		for(var/give_access in access)
+			idcard.access |= give_access
+		if(assignment!=initial(assignment))
+			idcard.assignment = assignment
+		if(name!=initial(name))
+			idcard.name = name
+		to_chat(user, "You upgrade your [idcard] with the [name].")
+		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
+		qdel(src)
