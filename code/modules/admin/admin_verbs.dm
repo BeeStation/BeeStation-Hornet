@@ -184,9 +184,8 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/export_dynamic_json,
 	/client/proc/run_dynamic_simulations,
 	#endif
-	#ifdef REFERENCE_TRACKING
-	/datum/admins/proc/view_refs,
-	/datum/admins/proc/view_del_failures,
+	#ifdef SENDMAPS_PROFILE
+	/client/proc/display_sendmaps,
 	#endif
 	/client/proc/toggle_cdn,
 	/client/proc/check_timer_sources
@@ -796,7 +795,10 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		can.valve_open = FALSE
 		can.update_icon()
 
+#ifdef SENDMAPS_PROFILE
+/client/proc/display_sendmaps()
+	set name = "Send Maps Profile"
+	set category = "Debug"
 
-
-
-
+	src << link("?debug=profile&type=sendmaps&window=test")
+#endif
