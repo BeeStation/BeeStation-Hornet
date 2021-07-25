@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Door crushing no longer stuns if you are already stunned, preventing
-      chain stunning.
-  - balance: Door crushing stun time reduced from 10 seconsd to 6 seconds.
-  - balance: Door crushing damage reduced by chest armour

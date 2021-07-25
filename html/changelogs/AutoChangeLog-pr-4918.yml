@@ -1,4 +1,0 @@
-author: Cenrus
-delete-after: true
-changes:
-  - bugfix: Fixed antivirus muting IPCs.

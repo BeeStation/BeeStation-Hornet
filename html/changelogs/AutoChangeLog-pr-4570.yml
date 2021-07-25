@@ -1,4 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - code_imp: Rewrote the slime processor to be more performant
