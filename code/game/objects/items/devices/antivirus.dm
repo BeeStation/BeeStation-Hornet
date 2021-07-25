@@ -21,7 +21,7 @@
 								H.say("Failed to delete [D].exe")
 							continue
 					else if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS))
-						H.say("Failed to delete [D].exe")
+						H.say("Failed to delete [D].exe", forced = "antivirus")
 						continue
 					cured += 1
 					H.say("[D].exe deleted...")
