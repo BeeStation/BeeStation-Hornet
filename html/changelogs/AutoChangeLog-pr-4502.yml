@@ -1,0 +1,5 @@
+author: eeSPee
+delete-after: true
+changes:
+  - tweak: Standardizes deputy passes and mining access cards to derive from the same
+      subclass.
