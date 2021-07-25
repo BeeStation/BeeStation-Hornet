@@ -28,9 +28,9 @@
 					D.cure(TRUE)
 					stoplag(5 - cured)
 				if(cured)
-					H.forcesay("[cured] malicious files were deleted. Thank you for using [src]")
+					H.say("[cured] malicious files were deleted. Thank you for using [src].", forced = "antivirus")
 				else
-					H.forcesay("No malicious files detected!")
+					H.say("No malicious files detected!", forced = "antivirus")
 			return
 		else
 			return ..()
