@@ -371,7 +371,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 						for(var/id in environment.get_gases())
 							var/gas_level = environment.get_moles(id)/total_moles
 							if(gas_level > 0)
-								dat += "[GLOB.meta_gas_info[id][META_GAS_NAME]]: [round(gas_level*100, 0.01)]%<br>"
+								dat += "[GLOB.gas_data.names[id]]: [round(gas_level*100, 0.01)]%<br>"
 
 					dat += "Temperature: [round(environment.return_temperature()-T0C)]&deg;C<br>"
 				dat += "<br>"
@@ -901,6 +901,34 @@ GLOBAL_LIST_EMPTY(PDAs)
 			user.put_in_hands(old_id)
 		update_icon()
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	return TRUE
+
+/obj/item/pda/pre_attack(obj/target, mob/living/user, params)
+	if(!ismachinery(target))
+		return ..()
+	var/obj/machinery/target_machine = target
+	if(!target_machine.panel_open && !istype(target, /obj/machinery/computer))
+		return ..()
+	if(!istype(cartridge, /obj/item/cartridge/virus/clown))
+		return ..()
+	var/obj/item/cartridge/virus/installed_cartridge = cartridge
+
+	if(installed_cartridge.charges <=0)
+		balloon_alert(user, "Out of charges")
+		return ..()
+
+	if(target.GetComponent(/datum/component/sound_player))
+		balloon_alert(user, "This is already hacked")
+		return
+
+	balloon_alert(user, "Virus uploaded")
+	var/list/sig_list = list()
+	if(istype(target, /obj/machinery/door/airlock))
+		sig_list += list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)
+	else
+		sig_list += list(COMSIG_ATOM_ATTACK_HAND)
+	installed_cartridge.charges--
+	target.AddComponent(/datum/component/sound_player, amount = (rand(30,50)), signal_or_sig_list = sig_list)
 	return TRUE
 
 // access to status display signals

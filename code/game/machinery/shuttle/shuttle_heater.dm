@@ -28,7 +28,7 @@
 
 	pipe_flags = PIPING_ONE_PER_TURF | PIPING_DEFAULT_LAYER_ONLY
 
-	var/gas_type = /datum/gas/plasma
+	var/gas_type = GAS_PLASMA
 	var/efficiency_multiplier = 1
 	var/gas_capacity = 0
 

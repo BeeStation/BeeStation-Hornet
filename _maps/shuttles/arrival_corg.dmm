@@ -219,10 +219,6 @@
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
-"z" = (
-/obj/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/arrival)
 "A" = (
 /obj/structure/sign/nanotrasen,
 /turf/closed/wall/mineral/titanium,
@@ -421,7 +417,6 @@
 /area/shuttle/arrival)
 "V" = (
 /obj/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/arrival)
 "W" = (
@@ -532,7 +527,7 @@ T
 d
 K
 T
-z
+V
 a
 G
 M

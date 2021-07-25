@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - refactor: Illegal tech is now given to items bought from the uplink, rather than
+      items that exist in the uplink.
