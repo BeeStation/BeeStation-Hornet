@@ -29,12 +29,7 @@
 	id_tag = "Dorm4";
 	name = "Long Term Stay Cabin 4"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/carpet/red,
 /area/shuttle/escape)
 "bR" = (
@@ -160,6 +155,7 @@
 	name = "Morgue";
 	req_access_txt = "6"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "fG" = (
@@ -181,10 +177,7 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "fO" = (
@@ -254,10 +247,7 @@
 /obj/machinery/door/airlock/wood{
 	name = "VIP Lounge"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/carpet/red,
 /area/shuttle/escape)
 "iN" = (
@@ -346,9 +336,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "nf" = (
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -357,6 +344,9 @@
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -378,10 +368,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "nI" = (
@@ -404,12 +391,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "oI" = (
@@ -482,14 +464,11 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Medical Bay"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "qv" = (
@@ -555,14 +534,14 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "sB" = (
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -632,10 +611,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ux" = (
@@ -682,12 +658,7 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "uP" = (
@@ -717,7 +688,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "vl" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -725,6 +695,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "vM" = (
@@ -755,16 +726,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Emergency Shuttle Engineering";
 	req_one_access_txt = "32;19"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "wj" = (
@@ -833,12 +799,7 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "xH" = (
@@ -957,12 +918,7 @@
 	id_tag = "Dorm3";
 	name = "Long Term Stay Cabin 3"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/carpet/red,
 /area/shuttle/escape)
 "AF" = (
@@ -1103,14 +1059,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Emergency Shuttle Engineering";
 	req_one_access_txt = "32;19"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Ei" = (
@@ -1289,12 +1242,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Km" = (
@@ -1544,12 +1492,7 @@
 	id_tag = "Dorm2";
 	name = "Long Term Stay Cabin 2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/carpet/red,
 /area/shuttle/escape)
 "Qt" = (
@@ -1654,11 +1597,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"RR" = (
-/obj/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "Sl" = (
 /obj/machinery/computer/operating{
 	dir = 1
@@ -1696,12 +1634,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Td" = (
@@ -1768,12 +1701,7 @@
 	id_tag = "Dorm1";
 	name = "Long Term Stay Cabin 1"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/carpet/red,
 /area/shuttle/escape)
 "Vx" = (
@@ -1792,18 +1720,13 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Medical Bay"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "WY" = (
@@ -1858,7 +1781,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "ZL" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -1866,6 +1788,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "ZN" = (
@@ -1913,9 +1836,9 @@ GK
 Tw
 IK
 Tw
-RR
-RR
-RR
+UQ
+UQ
+UQ
 Tw
 QQ
 Tw
@@ -1944,8 +1867,8 @@ MH
 MH
 Tw
 Tw
-RR
-RR
+UQ
+UQ
 Tw
 Bt
 Pu
@@ -2100,7 +2023,7 @@ JU
 "}
 (6,1,1) = {"
 MH
-RR
+UQ
 Bt
 pB
 Bt
@@ -2139,8 +2062,8 @@ BQ
 BQ
 "}
 (7,1,1) = {"
-RR
-RR
+UQ
+UQ
 uP
 Fp
 fK
@@ -2179,7 +2102,7 @@ BQ
 MH
 "}
 (8,1,1) = {"
-RR
+UQ
 MN
 mI
 Fp
@@ -2213,13 +2136,13 @@ Xo
 bR
 wl
 Xo
-RR
+UQ
 ar
 MH
 MH
 "}
 (9,1,1) = {"
-RR
+UQ
 tb
 Fp
 Rj
@@ -2253,13 +2176,13 @@ kF
 kF
 kF
 Br
-RR
+UQ
 ar
 Ju
 MH
 "}
 (10,1,1) = {"
-RR
+UQ
 xi
 AF
 ci
@@ -2293,13 +2216,13 @@ Vx
 Vx
 Vx
 KW
-RR
+UQ
 ar
 MH
 MH
 "}
 (11,1,1) = {"
-RR
+UQ
 DL
 AF
 yL
@@ -2333,13 +2256,13 @@ Vx
 Vx
 Vx
 pW
-RR
+UQ
 ar
 MH
 MH
 "}
 (12,1,1) = {"
-RR
+UQ
 tb
 Fp
 iN
@@ -2373,13 +2296,13 @@ kF
 kF
 kF
 Br
-RR
+UQ
 ar
 Ju
 MH
 "}
 (13,1,1) = {"
-RR
+UQ
 oI
 Hh
 Fp
@@ -2413,14 +2336,14 @@ JL
 hP
 Ht
 JL
-RR
+UQ
 ar
 MH
 MH
 "}
 (14,1,1) = {"
-RR
-RR
+UQ
+UQ
 Dn
 Fp
 fK
@@ -2460,7 +2383,7 @@ MH
 "}
 (15,1,1) = {"
 MH
-RR
+UQ
 Bt
 pB
 Bt
@@ -2624,8 +2547,8 @@ MH
 MH
 Tw
 Tw
-RR
-RR
+UQ
+UQ
 Tw
 Bt
 Ln
@@ -2673,9 +2596,9 @@ Xk
 Tw
 Xk
 Tw
-RR
-RR
-RR
+UQ
+UQ
+UQ
 Tw
 Xk
 Tw
@@ -2687,8 +2610,8 @@ MH
 Tw
 Tw
 Tw
-RR
-RR
+UQ
+UQ
 Tw
 Tw
 Tw
