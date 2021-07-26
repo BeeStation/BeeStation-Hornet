@@ -226,6 +226,15 @@
 	materials = list(/datum/material/glass = 2000, /datum/material/iron = 7000)
 	category = list("Circuitry", "Shells")
 
+/datum/design/scanner_shell
+	name = "Scanner Shell"
+	desc = "A handheld shell with a scanner."
+	id = "scanner_shell"
+	build_path = /obj/item/scanner
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	materials = list(/datum/material/glass = 4000, /datum/material/iron = 5000)
+	category = list("Circuitry", "Shells")
+
 /datum/design/bot_shell
 	name = "Bot Shell"
 	desc = "An immobile shell that can store more components. Has a USB port to be able to connect to computers and machines."

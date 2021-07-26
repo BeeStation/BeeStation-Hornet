@@ -946,6 +946,14 @@
 		to_chat(user, "<span class='warning'>The potion can only be used on gendered things!</span>")
 		return
 
+	L.visible_message("<span class='danger'>[user] starts to feed [L] a gender change potion!</span>",
+		"<span class='userdanger'>[user] starts to feed you a gender change potion!</span>")
+
+	if(!do_after(user, 50, target = L))
+		return
+	
+	to_chat(user, "<span class='notice'>You feed [L] the gender change potion!</span>")
+	
 	if(L.gender == MALE)
 		L.gender = FEMALE
 		L.visible_message("<span class='boldnotice'>[L] suddenly looks more feminine!</span>", "<span class='boldwarning'>You suddenly feel more feminine!</span>")
