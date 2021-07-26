@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Added a library to corg shuttle, added status displays and added a sink
-  - bugfix: Fixed corgstation shuttle windows.
