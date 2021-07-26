@@ -11,8 +11,11 @@
 	SSresearch.invalid_node_boost[id] = message
 
 /proc/techweb_item_boost_check(obj/item/I)			//Returns an associative list of techweb node datums with values of the boost it gives.	var/list/returned = list()
+	. = list()
 	if(SSresearch.techweb_boost_items[I.type])
-		return SSresearch.techweb_boost_items[I.type]		//It should already be formatted in node datum = list(point type = value)
+		. += SSresearch.techweb_boost_items[I.type]		//It should already be formatted in node datum = list(point type = value)
+	if(I.item_flags & ILLEGAL)
+		. |= "syndicate_basic"
 
 /proc/techweb_item_point_check(obj/item/I)
 	if(SSresearch.techweb_point_items[I.type])

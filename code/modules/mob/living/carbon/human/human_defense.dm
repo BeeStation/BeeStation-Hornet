@@ -149,7 +149,7 @@
 		skipcatch = TRUE
 		blocked = TRUE
 
-	return ..()
+	return ..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /mob/living/carbon/human/grippedby(mob/living/user, instant = FALSE)
 	if(w_uniform)
