@@ -92,7 +92,7 @@ handles linking back and forth.
 	if(!silo) //No silo?
 		return
 	var/atom/P = parent
-	if((!is_station_level(P.z) && !is_station_level(silo)) || (P.get_virtual_z_level() != silo.get_virtual_z_level()))
+	if((!is_station_level(P.z) && !is_station_level(silo)) && (P.get_virtual_z_level() != silo.get_virtual_z_level()))
 		graceful_disconnect()
 
 // like disconnect_from, but does proper cleanup instead of simple deletion.
