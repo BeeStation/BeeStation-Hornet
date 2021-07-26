@@ -20234,20 +20234,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
-"fgt" = (
-/obj/structure/rack,
-/obj/item/gun/ballistic/automatic/wt550{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/ballistic/automatic/wt550,
-/obj/item/gun/ballistic/automatic/wt550{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "fgv" = (
 /obj/structure/railing{
 	dir = 10
@@ -35869,6 +35855,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"jac" = (
+/obj/effect/turf_decal/bot,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/structure/closet/secure_closet,
+/obj/item/ammo_box/magazine/wt550m9/rubber,
+/obj/item/ammo_box/magazine/wt550m9/rubber,
+/obj/item/ammo_box/magazine/wt550m9/rubber,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "jaA" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 8
@@ -53867,17 +53864,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
-"nxL" = (
-/obj/effect/turf_decal/bot,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/structure/closet/secure_closet,
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "nxS" = (
 /obj/effect/turf_decal/tile/purple,
 /obj/machinery/light,
@@ -94335,6 +94321,18 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
+"xDE" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery,
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded{
+	pixel_y = 3
+	},
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded,
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded{
+	pixel_y = -4
+	},
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "xDG" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 2
@@ -134636,7 +134634,7 @@ mLy
 kDD
 oLd
 oLd
-fgt
+xDE
 czL
 hQS
 oLd
@@ -135663,7 +135661,7 @@ bNB
 mLy
 kDD
 oLd
-nxL
+jac
 mEG
 wTi
 fZP
