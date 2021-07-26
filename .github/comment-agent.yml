@@ -1,8 +1,8 @@
 # A mapping of keyword aliases to event type. Form of match:event type.
 # Required.
 aliasMappings:
-  "/rebuild tgui": "rebuild-tgui"
-  "/rebuild-tgui": "rebuild-tgui"
+  "?rebuild tgui": "rebuild-tgui"
+  "?rebuild-tgui": "rebuild-tgui"
 
 # Determines if alias matching is case sensitive.
 # Optional. Defaults to true.

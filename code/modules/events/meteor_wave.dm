@@ -20,6 +20,11 @@
 	if(!wave_type)
 		determine_wave_type()
 
+/datum/round_event/meteor_wave/on_admin_trigger()
+	if(alert(usr, "Trigger meteors instantly? (This will not change the alert, just send them quicker. Nobody will ever notice!)", "Meteor Trigger", "Yes", "No") == "Yes")
+		startWhen = 30
+		endWhen = 90
+
 /datum/round_event/meteor_wave/proc/determine_wave_type()
 	if(!wave_name)
 		wave_name = pickweight(list(
