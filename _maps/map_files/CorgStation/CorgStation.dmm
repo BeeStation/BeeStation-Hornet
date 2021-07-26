@@ -16624,6 +16624,18 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hydroponics)
+"ene" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery,
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded{
+	pixel_y = 3
+	},
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded,
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded{
+	pixel_y = -4
+	},
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "enF" = (
 /obj/structure/table,
 /obj/structure/table,
@@ -18862,6 +18874,20 @@
 	},
 /turf/open/openspace,
 /area/maintenance/upper/starboard/aft)
+"eMM" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
+/obj/item/storage/box/beakers,
+/obj/item/storage/box/medsprays,
+/obj/item/reagent_containers/medspray,
+/obj/item/reagent_containers/medspray,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "eMQ" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -19671,12 +19697,6 @@
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
-"fah" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/chemistry)
 "fai" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
@@ -35855,17 +35875,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"jac" = (
-/obj/effect/turf_decal/bot,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/structure/closet/secure_closet,
-/obj/item/ammo_box/magazine/wt550m9/rubber,
-/obj/item/ammo_box/magazine/wt550m9/rubber,
-/obj/item/ammo_box/magazine/wt550m9/rubber,
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "jaA" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 8
@@ -40095,6 +40104,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"kdK" = (
+/obj/effect/turf_decal/bot,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/structure/closet/secure_closet,
+/obj/item/ammo_box/magazine/wt550m9/rubber,
+/obj/item/ammo_box/magazine/wt550m9/rubber,
+/obj/item/ammo_box/magazine/wt550m9/rubber,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "kdM" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -41894,6 +41914,26 @@
 /obj/machinery/atmospherics/pipe/simple/supply/visible/layer1,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"kDa" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = -3
+	},
+/obj/structure/rack,
+/obj/item/screwdriver,
+/obj/item/stack/cable_coil/red,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "kDd" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/delivery,
@@ -83390,21 +83430,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/xenobiology)
-"uSC" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
-/obj/structure/rack,
-/obj/item/storage/box/beakers,
-/obj/item/storage/box/medsprays,
-/obj/item/reagent_containers/medspray,
-/obj/item/reagent_containers/medspray,
-/turf/open/floor/plasteel/white,
-/area/medical/chemistry)
 "uSE" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
 	dir = 8
@@ -94321,18 +94346,6 @@
 	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
-"xDE" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
-/obj/item/gun/ballistic/automatic/wt550/rubber_loaded{
-	pixel_y = 3
-	},
-/obj/item/gun/ballistic/automatic/wt550/rubber_loaded,
-/obj/item/gun/ballistic/automatic/wt550/rubber_loaded{
-	pixel_y = -4
-	},
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "xDG" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 2
@@ -134634,7 +134647,7 @@ mLy
 kDD
 oLd
 oLd
-xDE
+ene
 czL
 hQS
 oLd
@@ -135661,7 +135674,7 @@ bNB
 mLy
 kDD
 oLd
-jac
+kdK
 mEG
 wTi
 fZP
@@ -140071,7 +140084,7 @@ mZO
 oLD
 fKH
 ufs
-uSC
+eMM
 iEV
 hsg
 sJr
@@ -140585,7 +140598,7 @@ ltf
 oLD
 rTJ
 eGe
-fah
+kDa
 uWv
 uWv
 vQT
