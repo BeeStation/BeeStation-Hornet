@@ -63,7 +63,6 @@ SUBSYSTEM_DEF(air)
 	var/excited_group_pressure_goal = 1
 
 	var/list/paused_z_levels	//Paused z-levels will not add turfs to active
-	var/list/turfs_to_activate
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
@@ -127,12 +126,6 @@ SUBSYSTEM_DEF(air)
 	fix_corrupted_atmos()
 
 /datum/controller/subsystem/air/fire(resumed = 0)
-	//Due to auxmos, there seems to be no reasonable way to disable a single z-level anymore.
-	//For now I am going to disable air while ruins are generating since the atoms is so slow
-	//it shouldn't be too noticeable that air has stopped flowing for ~30 seconds. If someone
-	//who knows how to code in rust would like to upgrade this, please do I will appreciate it.
-	if(LAZYLEN(paused_z_levels))
-		return
 
 	var/timer = TICK_USAGE_REAL
 
@@ -439,9 +432,6 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
 	LAZYREMOVE(paused_z_levels, z_level)
-	for(var/turf/T as() in turfs_to_activate)
-		if(T.z == z_level)
-			LAZYREMOVE(turfs_to_activate, T)
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
 	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
