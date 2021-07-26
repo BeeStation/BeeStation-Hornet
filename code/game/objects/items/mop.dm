@@ -7,7 +7,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 8
 	throwforce = 10
-	block_upgrade_walk = 1 
+	block_upgrade_walk = 1
 	block_level = 1
 	block_power = 20
 	throw_speed = 3
@@ -128,8 +128,8 @@
 	desc = "A mop with a sharpened handle. Careful!"
 	name = "sharpened mop"
 	force = 10
-	throwforce = 15
+	throwforce = 18
 	throw_speed = 4
 	attack_verb = list("mopped", "stabbed", "shanked", "jousted")
 	sharpness = IS_SHARP
-	embedding = list("embedded_impact_pain_multiplier" = 3)
+	embedding = list("armour_block" = 40)

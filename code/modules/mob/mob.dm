@@ -92,6 +92,7 @@
 	update_movespeed(TRUE)
 	//Give verbs to stat
 	add_verb(verbs, TRUE)
+	become_hearing_sensitive()
 
 /**
   * Generate the tag for this mob
@@ -135,7 +136,7 @@
 	t +=	"<span class='danger'>Temperature: [environment.return_temperature()] \n</span>"
 	for(var/id in environment.get_gases())
 		if(environment.get_moles(id))
-			t+="<span class='notice'>[GLOB.meta_gas_info[id][META_GAS_NAME]]: [environment.get_moles(id)] \n</span>"
+			t+="<span class='notice'>[GLOB.gas_data.names[id]]: [environment.get_moles(id)] \n</span>"
 
 	to_chat(usr, t)
 
@@ -555,6 +556,16 @@
 
 	return TRUE
 
+/**
+  * Called by using Activate Held Object with an empty hand/limb
+  *
+  * Does nothing by default. The intended use is to allow limbs to call their
+  * own attack_self procs. It is up to the individual mob to override this
+  * parent and actually use it.
+  */
+/mob/proc/limb_attack_self()
+	return
+
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
@@ -607,6 +618,10 @@
 	if(I)
 		I.attack_self(src)
 		update_inv_hands()
+		return
+
+	limb_attack_self()
+
 
 /**
   * Get the notes of this mob
