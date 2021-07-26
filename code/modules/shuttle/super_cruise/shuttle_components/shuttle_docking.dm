@@ -368,7 +368,7 @@
 			stack_trace("SSshuttle.stationary have null entry!")
 			continue
 		var/obj/docking_port/stationary/S = V
-		if(S.z == console.shuttleObject.docking_target.z_in_contents(S.z) && (S.id in console.valid_docks))
+		if(console.shuttleObject.docking_target.z_in_contents(S.z) && (S.id in console.valid_docks))
 			L["(L.len)[S.name]"] = S
 
 	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, FALSE)
