@@ -71,6 +71,11 @@
 	qdel(src)
 	new /obj/structure/table/wood(A)
 
+/obj/structure/table/ratvar_act()
+	var/atom/A = loc
+	qdel(src)
+	new /obj/structure/table/brass(A)
+
 /obj/structure/table/attack_paw(mob/user)
 	return attack_hand(user)
 
@@ -449,6 +454,9 @@
 	buildstackamount = 1
 	canSmoothWith = list(/obj/structure/table/brass, /obj/structure/table/bronze)
 
+/obj/structure/table/brass/ratvar_act()
+	return
+
 /obj/structure/table/brass/tablepush(mob/living/user, mob/living/pushed_mob)
 	. = ..()
 	playsound(src, 'sound/magic/clockwork/fellowship_armory.ogg', 50, TRUE)
@@ -494,7 +502,7 @@
 /obj/structure/table/optable/Initialize()
 	. = ..()
 	for(var/direction in GLOB.cardinals)
-		computer = locate(/obj/machinery/computer/operating, get_step(src, direction))
+		computer = locate(/obj/machinery/computer/operating) in get_step(src, direction)
 		if(computer)
 			computer.table = src
 			break
@@ -508,17 +516,34 @@
 	pushed_mob.forceMove(loc)
 	pushed_mob.set_resting(TRUE, TRUE)
 	visible_message("<span class='notice'>[user] has laid [pushed_mob] on [src].</span>")
-	check_patient()
+	get_patient()
 
-/obj/structure/table/optable/proc/check_patient()
-	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
+/obj/structure/table/optable/proc/get_patient()
+	var/mob/living/carbon/M = locate(/mob/living/carbon) in loc
 	if(M)
 		if(M.resting)
-			patient = M
-			return TRUE
+			set_patient(M)
 	else
-		patient = null
+		set_patient(null)
+
+/obj/structure/table/optable/proc/set_patient(new_patient)
+	if(patient)
+		UnregisterSignal(patient, COMSIG_PARENT_QDELETING)
+	patient = new_patient
+	if(patient)
+		RegisterSignal(patient, COMSIG_PARENT_QDELETING, .proc/patient_deleted)
+
+/obj/structure/table/optable/proc/patient_deleted(datum/source)
+	SIGNAL_HANDLER
+	set_patient(null)
+	
+/obj/structure/table/optable/proc/check_eligible_patient()
+	get_patient()
+	if(!patient)
 		return FALSE
+	if(ishuman(patient) || ismonkey(patient))
+		return TRUE
+	return FALSE
 
 /*
  * Racks

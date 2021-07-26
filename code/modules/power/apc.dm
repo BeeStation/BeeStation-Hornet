@@ -891,7 +891,7 @@
 		var/mob/living/silicon/ai/AI = user
 		if(AI.apc_override == src)
 			return GLOB.conscious_state
-	if(iseminence(user))
+	if(iseminence(user) && integration_cog)
 		return GLOB.conscious_state
 	return GLOB.default_state
 
