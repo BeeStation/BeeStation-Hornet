@@ -20,13 +20,14 @@
 /datum/ruin_event/proc/update()
 	if(QDELETED(linked_z))
 		return FALSE
+	//Events only work on the first Z, multi-z linkage currently is for stations only.
 	if(ticks == start_tick)
-		event_start(linked_z.linked_z_level.z_value)
+		event_start(linked_z.linked_z_level[1].z_value)
 	if(end_tick && ticks >= end_tick)
-		event_end(linked_z.linked_z_level.z_value)
+		event_end(linked_z.linked_z_level[1].z_value)
 		return FALSE
 	if(ticks % tick_rate == 0)
-		event_tick(linked_z.linked_z_level.z_value)
+		event_tick(linked_z.linked_z_level[1].z_value)
 	ticks ++
 	return TRUE
 

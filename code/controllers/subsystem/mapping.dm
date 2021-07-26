@@ -214,9 +214,15 @@ SUBSYSTEM_DEF(mapping)
 	// preload the relevant space_level datums
 	var/start_z = world.maxz + 1
 	var/i = 0
+	var/list/datum/space_level/space_levels = list()
 	for (var/level in traits)
-		add_new_zlevel("[name][i ? " [i + 1]" : ""]", level, orbital_body_type = orbital_body_type)
+		space_levels += add_new_zlevel("[name][i ? " [i + 1]" : ""]", level)
 		++i
+	//Shared orbital body
+	var/datum/orbital_object/z_linked/orbital_body = new orbital_body_type()
+	for(var/datum/space_level/level as() in space_levels)
+		level.orbital_body = orbital_body
+		orbital_body.link_to_z(level)
 
 	// load the maps
 	for (var/P in parsed_maps)

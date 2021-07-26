@@ -1,7 +1,7 @@
 /datum/orbital_object/z_linked
 	name = "Unidentified Beacon"
-	//The space level we are linked to
-	var/datum/space_level/linked_z_level
+	//The space level(s) we are linked to
+	var/list/datum/space_level/linked_z_level
 	//If docking is forced upon collision
 	//If you hit a planet, you are going to the planet whether you like it or not.
 	var/forced_docking = FALSE
@@ -15,7 +15,7 @@
 	var/is_generating = FALSE
 
 /datum/orbital_object/z_linked/proc/link_to_z(datum/space_level/level)
-	linked_z_level = level
+	LAZYADD(linked_z_level, level)
 	if(inherit_name)
 		name = level.name
 
@@ -24,8 +24,10 @@
 	log_game("Orbital body [name] was destroyed.")
 	//Holy shit this is bad.
 	for(var/mob/living/L in GLOB.mob_living_list)
-		if(L.z == linked_z_level.z_value)
-			qdel(L)
+		for(var/datum/space_level/level as() in linked_z_level)
+			if(L.z == level.z_value)
+				qdel(L)
+				break
 	//Prevent access to the z-level.
 	//Announcement
 	priority_announce("The orbital body [name] has been destroyed. Transit to this location is no longer possible.", "Nanotrasen Orbital Body Division")
@@ -41,7 +43,7 @@
 			var/can_dock_here = FALSE
 			for(var/port_name in shuttle.valid_docks)
 				var/obj/docking_port/port = SSshuttle.getDock(port_name)
-				if(port?.z == linked_z_level)
+				if(z_in_contents(port?.z))
 					can_dock_here = TRUE
 					break
 			if(!can_dock_here)
@@ -51,3 +53,11 @@
 			shuttle.can_dock_with = src
 			return
 		shuttle.commence_docking(src)
+
+/datum/orbital_object/z_linked/proc/z_in_contents(z_value)
+	if(!LAZYLEN(linked_z_level))
+		return FALSE
+	for(var/datum/space_level/level as() in linked_z_level)
+		if(level.z_value == z_value)
+			return TRUE
+	return FALSE

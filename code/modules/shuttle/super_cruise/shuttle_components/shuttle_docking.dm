@@ -14,6 +14,7 @@
 	var/list/whitelist_turfs = list(/turf/open/space, /turf/open/floor/plating/lavaland, /turf/open/floor/plating/asteroid, /turf/open/lava)
 	var/designate_time = 50
 	var/turf/designating_target_loc
+	var/datum/action/innate/camera_jump/shuttle_docker/docker_action = new
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
@@ -39,6 +40,11 @@
 		place_action.target = user
 		place_action.Grant(user)
 		actions += place_action
+
+	if(docker_action)
+		docker_action.target = user
+		docker_action.Grant(user)
+		actions += docker_action
 
 /obj/machinery/computer/shuttle_flight/proc/CreateEye()
 	shuttle_port = SSshuttle.getShuttle(shuttleId)
@@ -362,7 +368,7 @@
 			stack_trace("SSshuttle.stationary have null entry!")
 			continue
 		var/obj/docking_port/stationary/S = V
-		if(S.z == console.shuttleObject.docking_target.linked_z_level.z_value && (S.id in console.valid_docks))
+		if(S.z == console.shuttleObject.docking_target.z_in_contents(S.z) && (S.id in console.valid_docks))
 			L["(L.len)[S.name]"] = S
 
 	playsound(console, 'sound/machines/terminal_prompt.ogg', 25, FALSE)

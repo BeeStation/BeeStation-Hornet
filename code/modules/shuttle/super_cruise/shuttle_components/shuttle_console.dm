@@ -169,12 +169,13 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				"id" = "custom_location"
 			))
 		for(var/obj/docking_port/stationary/stationary_port as() in SSshuttle.stationary)
-			if(shuttleObject.docking_target.linked_z_level)
-				if(stationary_port.z == shuttleObject.docking_target.linked_z_level.z_value && (stationary_port.id in valid_docks))
-					data["validDockingPorts"] += list(list(
-						"name" = stationary_port.name,
-						"id" = stationary_port.id,
-					))
+			if(LAZYLEN(shuttleObject.docking_target.linked_z_level))
+				for(var/datum/space_level/level in shuttleObject.docking_target.linked_z_level)
+					if(stationary_port.z == level.z_value && (stationary_port.id in valid_docks))
+						data["validDockingPorts"] += list(list(
+							"name" = stationary_port.name,
+							"id" = stationary_port.id,
+						))
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_act(action, params)
@@ -205,7 +206,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					return
 				//Locate the orbital object
 				for(var/datum/orbital_object/z_linked/z_linked in SSorbits.orbital_map.bodies)
-					if(z_linked.linked_z_level?.z_value == target_port.z)
+					if(z_linked.z_in_contents(target_port.z))
 						if(!SSorbits.assoc_shuttles.Find(shuttleId))
 							//Launch the shuttle
 							if(!launch_shuttle())
@@ -339,7 +340,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 						return
 					view_range = max(mobile_port.width, mobile_port.height) + 4
 					give_eye_control(usr)
-					eyeobj.forceMove(locate(world.maxx * 0.5, world.maxy * 0.5, shuttleObject.docking_target.linked_z_level.z_value))
+					eyeobj.forceMove(locate(world.maxx * 0.5, world.maxy * 0.5, shuttleObject.docking_target.linked_z_level[1].z_value))
 					return
 				//If random dropping is allowed, random drop.
 				if(shuttleObject.docking_target.random_docking)
@@ -410,7 +411,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(_shuttleId)
 	if(!shuttle_dock)
 		return FALSE
-	var/datum/space_level/target_spacelevel = _shuttleObject.docking_target.linked_z_level
+	var/datum/space_level/target_spacelevel = _shuttleObject.docking_target.linked_z_level[1]
 	var/target_zvalue = target_spacelevel.z_value
 	if(is_reserved_level(target_zvalue))
 		message_admins("Shuttle [_shuttleId] attempted to dock on a reserved z-level as a result of docking with [_shuttleObject.docking_target.name].")
