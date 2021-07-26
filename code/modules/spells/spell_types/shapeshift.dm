@@ -78,7 +78,7 @@
 	desc = "Take on the shape a lesser ash drake."
 	invocation = "RAAAAAAAAWR!"
 	convert_damage = FALSE
-	
+
 
 	shapeshift_type = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 
@@ -129,6 +129,7 @@
 		restore()
 
 /obj/shapeshift_holder/Exited(atom/movable/AM)
+	. = ..()
 	if(AM == stored && !restoring)
 		restore()
 
