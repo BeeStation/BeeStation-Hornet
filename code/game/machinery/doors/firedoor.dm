@@ -73,19 +73,10 @@
 	return ..()
 
 /obj/machinery/door/firedoor/Bumped(atom/movable/AM)
-	if(panel_open || operating || welded || (stat & NOPOWER))
+	if(panel_open || operating)
 		return
-	if(ismob(AM))
-		var/mob/user = AM
-		if(allow_hand_open(user))
-			add_fingerprint(user)
-			open()
-			return TRUE
-	if(ismecha(AM))
-		var/obj/mecha/M = AM
-		if(M.occupant && allow_hand_open(M.occupant))
-			open()
-			return TRUE
+	if(!density)
+		return ..()
 	return FALSE
 
 
@@ -101,22 +92,6 @@
 	if(.)
 		return
 
-	if (!welded && !operating)
-		if (stat & NOPOWER)
-			user.visible_message("[user] tries to open \the [src] manually.",
-						 "You operate the manual lever on \the [src].")
-			if (!do_after(user, 30, TRUE, src))
-				return FALSE
-		else if (density && !allow_hand_open(user))
-			return FALSE
-
-		add_fingerprint(user)
-		if(density)
-			emergency_close_timer = world.time + RECLOSE_DELAY // prevent it from instaclosing again if in space
-			open()
-		else
-			close()
-		return TRUE
 	if(operating || !density)
 		return
 

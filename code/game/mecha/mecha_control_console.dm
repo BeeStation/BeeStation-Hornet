@@ -124,6 +124,8 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_tracking/try_attach_part(mob/user, obj/mecha/M)
+	if(!do_mob(user, M, 15))
+		return
 	if(!..())
 		return
 	M.trackers += src
