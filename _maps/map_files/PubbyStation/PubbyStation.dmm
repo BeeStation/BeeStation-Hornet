@@ -5852,7 +5852,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "aol" = (
-/obj/machinery/computer/shuttle/labor,
+/obj/machinery/computer/shuttle_flight/labor,
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "aom" = (
@@ -8444,7 +8444,7 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "atX" = (
-/obj/machinery/computer/shuttle/labor{
+/obj/machinery/computer/shuttle_flight/labor{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow{
@@ -8607,7 +8607,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/dorms)
 "aul" = (
-/obj/machinery/computer/shuttle/monastery_shuttle,
+/obj/machinery/computer/shuttle_flight/monastery_shuttle,
 /obj/structure/sign/warning/pods{
 	pixel_y = 32
 	},
@@ -18286,7 +18286,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "aQw" = (
-/obj/machinery/computer/shuttle/mining,
+/obj/machinery/computer/shuttle_flight/mining,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -24885,7 +24885,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "beM" = (
-/obj/machinery/mineral/equipment_vendor,
+/obj/machinery/vendor/mining,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
@@ -24905,7 +24905,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
 "beP" = (
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown,
@@ -38679,7 +38679,7 @@
 /turf/open/floor/plating,
 /area/chapel/dock)
 "bIW" = (
-/obj/machinery/computer/shuttle/monastery_shuttle,
+/obj/machinery/computer/shuttle_flight/monastery_shuttle,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -53725,7 +53725,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/machinery/computer/shuttle/science{
+/obj/machinery/computer/shuttle_flight/science{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
