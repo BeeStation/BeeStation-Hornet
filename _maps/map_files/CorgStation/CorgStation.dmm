@@ -723,6 +723,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
+"akQ" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/hallway/primary/aft)
 "akR" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/open/floor/grass,
@@ -16624,18 +16628,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hydroponics)
-"ene" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/delivery,
-/obj/item/gun/ballistic/automatic/wt550/rubber_loaded{
-	pixel_y = 3
-	},
-/obj/item/gun/ballistic/automatic/wt550/rubber_loaded,
-/obj/item/gun/ballistic/automatic/wt550/rubber_loaded{
-	pixel_y = -4
-	},
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "enF" = (
 /obj/structure/table,
 /obj/structure/table,
@@ -18874,20 +18866,6 @@
 	},
 /turf/open/openspace,
 /area/maintenance/upper/starboard/aft)
-"eMM" = (
-/obj/effect/turf_decal/tile/yellow{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/yellow,
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
-/obj/item/storage/box/beakers,
-/obj/item/storage/box/medsprays,
-/obj/item/reagent_containers/medspray,
-/obj/item/reagent_containers/medspray,
-/turf/open/floor/plasteel/white,
-/area/medical/chemistry)
 "eMQ" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -25950,15 +25928,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/upper/secondary/entry)
-"gAK" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/aft)
 "gAZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -28480,6 +28449,20 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
+"hfY" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/yellow,
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
+/obj/item/storage/box/beakers,
+/obj/item/storage/box/medsprays,
+/obj/item/reagent_containers/medspray,
+/obj/item/reagent_containers/medspray,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "hgd" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -39859,6 +39842,18 @@
 	dir = 8
 	},
 /area/crew_quarters/fitness/recreation/upper)
+"kai" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/delivery,
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded{
+	pixel_y = 3
+	},
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded,
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded{
+	pixel_y = -4
+	},
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "kaq" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -40104,17 +40099,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"kdK" = (
-/obj/effect/turf_decal/bot,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9,
-/obj/structure/closet/secure_closet,
-/obj/item/ammo_box/magazine/wt550m9/rubber,
-/obj/item/ammo_box/magazine/wt550m9/rubber,
-/obj/item/ammo_box/magazine/wt550m9/rubber,
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "kdM" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -41914,26 +41898,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/visible/layer1,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"kDa" = (
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/item/grenade/chem_grenade{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/grenade/chem_grenade{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/obj/item/grenade/chem_grenade{
-	pixel_x = -3
-	},
-/obj/structure/rack,
-/obj/item/screwdriver,
-/obj/item/stack/cable_coil/red,
-/turf/open/floor/plasteel/white,
-/area/medical/chemistry)
 "kDd" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/delivery,
@@ -43209,6 +43173,26 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
+"kWs" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/grenade/chem_grenade{
+	pixel_x = -3
+	},
+/obj/structure/rack,
+/obj/item/screwdriver,
+/obj/item/stack/cable_coil/red,
+/turf/open/floor/plasteel/white,
+/area/medical/chemistry)
 "kWt" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -48171,6 +48155,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
+"maQ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/hallway/primary/aft)
 "maR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -96825,6 +96815,17 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"yjv" = (
+/obj/effect/turf_decal/bot,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/structure/closet/secure_closet,
+/obj/item/ammo_box/magazine/wt550m9/rubber,
+/obj/item/ammo_box/magazine/wt550m9/rubber,
+/obj/item/ammo_box/magazine/wt550m9/rubber,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "yjz" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -124456,8 +124457,8 @@ wfa
 cFL
 sGx
 qgq
-qgq
-qgq
+akQ
+akQ
 qgq
 qgq
 qgq
@@ -124713,7 +124714,7 @@ kuK
 gHo
 pPS
 qgq
-gAK
+maQ
 siU
 qgq
 qeA
@@ -134647,7 +134648,7 @@ mLy
 kDD
 oLd
 oLd
-ene
+kai
 czL
 hQS
 oLd
@@ -135674,7 +135675,7 @@ bNB
 mLy
 kDD
 oLd
-kdK
+yjv
 mEG
 wTi
 fZP
@@ -140084,7 +140085,7 @@ mZO
 oLD
 fKH
 ufs
-eMM
+hfY
 iEV
 hsg
 sJr
@@ -140598,7 +140599,7 @@ ltf
 oLD
 rTJ
 eGe
-kDa
+kWs
 uWv
 uWv
 vQT
