@@ -29,24 +29,14 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "k" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "l" = (
@@ -194,12 +184,7 @@
 	name = "Emergency Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "P" = (
