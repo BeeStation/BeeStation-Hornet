@@ -44,7 +44,7 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	LAZYREMOVE(buckled_mob, src)
 
-/obj/machinery/manned_turret/user_buckle_mob(mob/living/M, mob/living/carbon/user)
+/obj/machinery/manned_turret/user_buckle_mob(mob/living/M, mob/living/carbon/user, check_loc = TRUE)
 	if(user.incapacitated() || !istype(user))
 		return
 	M.forceMove(get_turf(src))
