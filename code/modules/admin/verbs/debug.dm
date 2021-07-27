@@ -902,7 +902,10 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_DEBUG))
 		return
 	if(alert(usr, "Are you absolutely sure you want to reload the configuration from the default path on the disk, wiping any in-round modificatoins?", "Really reset?", "No", "Yes") == "Yes")
+		//Reload the config
 		config.admin_reload()
+		//Reload badges
+		load_badge_ranks()
 
 /client/proc/modify_canister_gas(obj/machinery/portable_atmospherics/canister/C)
 	if(!check_rights(R_DEBUG) || !C)
