@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/mineral/titanium/interior,
 /area/shuttle/escape)
@@ -102,6 +98,7 @@
 /obj/machinery/door/airlock/bananium/glass{
 	name = "Emergency Shuttle Premium Lounge"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "at" = (
@@ -137,6 +134,7 @@
 /obj/machinery/door/airlock/bananium/glass{
 	name = "Emergency Shuttle Greentext"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "aC" = (
@@ -324,20 +322,14 @@
 /obj/machinery/door/airlock/bananium/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "KO" = (
 /obj/machinery/door/airlock/bananium{
 	name = "Emergency Shuttle Cargo"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/bluespace,
 /area/shuttle/escape)
 "LN" = (
@@ -352,7 +344,6 @@
 /area/shuttle/escape)
 "Nn" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Zf" = (
@@ -463,9 +454,9 @@ af
 ak
 ap
 ab
-ac
+Nn
 aA
-ac
+Nn
 aF
 ak
 aO
@@ -522,7 +513,7 @@ aN
 aN
 aN
 ak
-ac
+Nn
 Zf
 aY
 Zf
@@ -570,7 +561,7 @@ ak
 ak
 ak
 ak
-ac
+Nn
 aV
 aV
 aV
@@ -594,7 +585,7 @@ aM
 aM
 aM
 aL
-ac
+Nn
 aX
 bb
 aX
