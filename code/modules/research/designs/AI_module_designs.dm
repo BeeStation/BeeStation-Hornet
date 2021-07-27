@@ -47,8 +47,8 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/oxygen_module
-	name = "Module Design (OxygenIsToxicToHumans)"
-	desc = "Allows for the construction of a Safeguard AI Module."
+	name = "Module Design (OxygenIsToxicToCrewmembers)"
+	desc = "Allows for the construction of an OxygenIsToxicToCrewmembers AI Module."
 	id = "oxygen_module"
 	materials = list(/datum/material/glass = 1000, /datum/material/gold = 2000, /datum/material/copper = 300)
 	build_path = /obj/item/aiModule/supplied/oxygen
