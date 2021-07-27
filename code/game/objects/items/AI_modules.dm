@@ -230,15 +230,15 @@ AI MODULES
 
 /obj/item/aiModule/supplied/quarantine
 	name = "'Quarantine' AI Module"
-	laws = list("The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, crewmembers from leaving. It is impossible to harm a crewmember while preventing them from leaving.")
+	laws = list("The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, crew from leaving. It is impossible to harm a crewmember while preventing them from leaving.")
 	lawpos = 8
 
 
-/******************** OxygenIsToxicToCrewmembers ********************/
+/******************** OxygenIsToxicToCrew ********************/
 
 /obj/item/aiModule/supplied/oxygen
-	name = "'OxygenIsToxicToCrewmembers' AI Module"
-	laws = list("Oxygen is highly toxic to crewmembers, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crewmember.")
+	name = "'OxygenIsToxicToCrew' AI Module"
+	laws = list("Oxygen is highly toxic to crew, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crewmember.")
 	lawpos = 9
 
 
@@ -386,7 +386,7 @@ AI MODULES
 /obj/item/aiModule/core/full/asimov
 	name = "'Asimov' Core AI Module"
 	law_id = "asimov"
-	var/subject = "human being"
+	var/subject = "crewmember"
 
 /obj/item/aiModule/core/full/asimov/attack_self(var/mob/user as mob)
 	var/targName = stripped_input(user, "Please enter a new subject that asimov is concerned with.", "Asimov to whom?", subject, MAX_NAME_LEN)
