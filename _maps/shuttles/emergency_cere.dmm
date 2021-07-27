@@ -5,10 +5,6 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/escape)
@@ -1339,12 +1335,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
-"cQ" = (
-/obj/machinery/door/airlock{
-	name = "Bathroom"
-	},
-/turf/open/floor/plasteel/freezer,
-/area/shuttle/escape)
 "cR" = (
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
@@ -1633,12 +1623,7 @@
 /area/shuttle/escape)
 "eb" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ez" = (
@@ -1656,10 +1641,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "jG" = (
@@ -1682,10 +1664,7 @@
 	name = "Emergency Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "pf" = (
@@ -1709,12 +1688,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "uv" = (
@@ -1731,43 +1705,15 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"Du" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Emergency Shuttle Medbay"
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white,
-/area/shuttle/escape)
 "Ed" = (
 /obj/machinery/door/airlock{
 	name = "Bathroom"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
 "Ev" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "GI" = (
@@ -1784,10 +1730,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "LM" = (
@@ -1795,12 +1738,7 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "YO" = (
@@ -1808,12 +1746,7 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 
@@ -1940,7 +1873,7 @@ aZ
 aZ
 aZ
 aZ
-ac
+Ev
 cU
 da
 dh
@@ -1984,7 +1917,7 @@ ba
 ba
 ba
 bc
-ac
+Ev
 cU
 bc
 da
@@ -2005,9 +1938,9 @@ ao
 ab
 ab
 ab
-ac
+Ev
 YO
-ac
+Ev
 ab
 bF
 bR
@@ -2072,7 +2005,7 @@ bX
 bX
 bX
 bR
-ac
+Ev
 cU
 bc
 bc
@@ -2096,7 +2029,7 @@ be
 be
 be
 bw
-ac
+Ev
 bH
 bR
 bT
@@ -2140,7 +2073,7 @@ be
 be
 be
 by
-ac
+Ev
 bI
 bR
 bT
@@ -2160,7 +2093,7 @@ bW
 bW
 bW
 bR
-ac
+Ev
 cW
 db
 bc
@@ -2184,7 +2117,7 @@ be
 be
 be
 bw
-ac
+Ev
 bJ
 bR
 bT
@@ -2268,10 +2201,10 @@ aC
 aO
 ab
 ab
-ac
+Ev
 LM
 LM
-ac
+Ev
 ad
 aZ
 bc
@@ -2330,7 +2263,7 @@ bW
 bR
 ad
 ab
-Du
+GI
 ab
 ab
 ab
@@ -2460,7 +2393,7 @@ bW
 bW
 bW
 bR
-ac
+Ev
 cj
 cq
 cw
@@ -2548,7 +2481,7 @@ aZ
 aZ
 aZ
 bc
-ac
+Ev
 cl
 cs
 cp
@@ -2600,9 +2533,9 @@ cp
 cp
 cM
 ab
-cQ
+Ed
 ab
-cQ
+Ed
 ab
 ab
 ab
