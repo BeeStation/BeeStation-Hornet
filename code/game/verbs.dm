@@ -147,7 +147,7 @@
 		old_verbs = list(old_verbs)
 	var/list/removed_verbs = list()
 	for(var/pp in old_verbs)
-		var/procpath/P
+		var/procpath/P = pp
 		if(!islist(removed_verbs[P.category]))
 			removed_verbs[P.category] = list()
 		removed_verbs[P.category] += "[P.name]"
