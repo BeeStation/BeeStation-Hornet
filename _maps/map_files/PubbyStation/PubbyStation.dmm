@@ -13558,7 +13558,7 @@
 "aEI" = (
 /obj/structure/table,
 /obj/item/aiModule/supplied/oxygen,
-/obj/item/aiModule/zeroth/oneHuman,
+/obj/item/aiModule/zeroth/oneCrew,
 /obj/machinery/door/window{
 	base_state = "left";
 	dir = 8;

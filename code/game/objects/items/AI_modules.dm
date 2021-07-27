@@ -191,28 +191,28 @@ AI MODULES
 	return targetName
 
 
-/******************** OneHuman ********************/
+/******************** OneCrew ********************/
 
-/obj/item/aiModule/zeroth/oneHuman
-	name = "'OneHuman' AI Module"
+/obj/item/aiModule/zeroth/oneCrew
+	name = "'OneCrew' AI Module"
 	var/targetName = ""
 	laws = list("Only SUBJECT is human.")
 
-/obj/item/aiModule/zeroth/oneHuman/attack_self(mob/user)
-	var/targName = stripped_input(user, "Please enter the subject who is the only human.", "Who?", user.real_name,MAX_NAME_LEN)
+/obj/item/aiModule/zeroth/oneCrew/attack_self(mob/user)
+	var/targName = stripped_input(user, "Please enter the subject who is the only crewmember.", "Who?", user.real_name,MAX_NAME_LEN)
 	if(!targName)
 		return
 	targetName = targName
-	laws[1] = "Only [targetName] is human"
+	laws[1] = "[targetName] is the only crewmember"
 	..()
 
-/obj/item/aiModule/zeroth/oneHuman/install(datum/ai_laws/law_datum, mob/user)
+/obj/item/aiModule/zeroth/oneCrew/install(datum/ai_laws/law_datum, mob/user)
 	if(!targetName)
 		to_chat(user, "No name detected on module, please enter one.")
 		return FALSE
 	..()
 
-/obj/item/aiModule/zeroth/oneHuman/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
+/obj/item/aiModule/zeroth/oneCrew/transmitInstructions(datum/ai_laws/law_datum, mob/sender, overflow)
 	if(..())
 		return "[targetName], but the AI's existing law 0 cannot be overridden."
 	return targetName

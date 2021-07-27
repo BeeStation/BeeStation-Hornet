@@ -53305,7 +53305,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/aiModule/zeroth/oneHuman,
+/obj/item/aiModule/zeroth/oneCrew,
 /obj/item/aiModule/reset/purge{
 	pixel_x = -3;
 	pixel_y = -3

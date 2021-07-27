@@ -20007,7 +20007,7 @@
 "beg" = (
 /obj/structure/table,
 /obj/item/aiModule/supplied/oxygen,
-/obj/item/aiModule/zeroth/oneHuman,
+/obj/item/aiModule/zeroth/oneCrew,
 /obj/machinery/door/window{
 	dir = 8;
 	name = "High-Risk Modules";

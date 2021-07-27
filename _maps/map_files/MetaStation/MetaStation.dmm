@@ -19707,7 +19707,7 @@
 /obj/effect/spawner/lootdrop/aimodule_harmful,
 /obj/item/aiModule/supplied/oxygen,
 /obj/item/aiModule/supplied/protectStation,
-/obj/item/aiModule/zeroth/oneHuman,
+/obj/item/aiModule/zeroth/oneCrew,
 /obj/item/aiModule/reset/purge,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
