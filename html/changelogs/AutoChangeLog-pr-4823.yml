@@ -1,4 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - rscadd: Stack menu now uses tgui and has a search bar.
