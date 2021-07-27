@@ -146,7 +146,8 @@
 	if(!islist(old_verbs))
 		old_verbs = list(old_verbs)
 	var/list/removed_verbs = list()
-	for(var/procpath/P as() in old_verbs)
+	for(var/pp in old_verbs)
+		var/procpath/P
 		if(!islist(removed_verbs[P.category]))
 			removed_verbs[P.category] = list()
 		removed_verbs[P.category] += "[P.name]"
@@ -156,7 +157,8 @@
 	if(!islist(new_verbs))
 		new_verbs = list(new_verbs)
 	var/list/added_verbs = list()
-	for(var/procpath/P as() in new_verbs)
+	for(var/pp in new_verbs)
+		var/procpath/P = pp
 		if(P.invisibility > mob.see_invisible)
 			continue
 		if(!islist(added_verbs[P.category]))
