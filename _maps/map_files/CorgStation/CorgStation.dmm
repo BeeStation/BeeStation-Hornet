@@ -43050,22 +43050,6 @@
 	dir = 5
 	},
 /area/medical/medbay/aft)
-"kUP" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/machinery/newscaster{
-	pixel_y = -29
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/bridge)
 "kUS" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
@@ -46362,11 +46346,6 @@
 /obj/machinery/atmospherics/pipe/manifold/orange/visible,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
-"lFR" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/airalarm/directional/south,
-/turf/open/openspace,
-/area/maintenance/upper/central)
 "lFY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -86620,6 +86599,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"vIU" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/airalarm/directional/south,
+/obj/structure/ladder,
+/turf/open/openspace,
+/area/maintenance/upper/central)
 "vIX" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
@@ -92938,6 +92923,23 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
+"xjC" = (
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/newscaster{
+	pixel_y = -29
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/structure/ladder,
+/turf/open/floor/plasteel,
+/area/bridge)
 "xjQ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/cable/yellow{
@@ -129500,7 +129502,7 @@ eNq
 vEd
 pkH
 jVK
-kUP
+xjC
 uWi
 kDD
 kDD
@@ -195036,7 +195038,7 @@ mtV
 mtV
 mtV
 kbS
-lFR
+vIU
 nZs
 czn
 czn
