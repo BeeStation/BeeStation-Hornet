@@ -13,6 +13,7 @@
 		return
 	to_chat(user, "<span class='notice'>You pulse for nearby research disks.</span>")
 	pulse_effect(get_turf(src), 6)
+	next_use_time = world.time + 10 SECONDS
 	for(var/obj/item/disk/tech_disk/research/research_disk in SSorbits.research_disks)
 		var/dist = get_dist(user, research_disk)
 		if(dist <= range)
