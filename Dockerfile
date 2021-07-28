@@ -41,11 +41,10 @@ FROM dm_base as build
 COPY . .
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends dos2unix \
+    && apt-get install -y --no-install-recommends dos2unix curl \
     && rm -rf /var/lib/apt/lists/* \
+    && TG_BOOTSTRAP_NODE_LINUX=1 tools/build/build && tools/deploy.sh /deploy
 
-RUN env TG_BOOTSTRAP_NODE_LINUX=1 tools/build/build \
-    && tools/deploy.sh /deploy
 
 FROM dm_base
 
