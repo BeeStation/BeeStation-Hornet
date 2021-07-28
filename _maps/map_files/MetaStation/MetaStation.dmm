@@ -7963,25 +7963,20 @@
 	name = "Waste to Filter"
 	},
 /turf/open/floor/engine,
-/area/engine/engineering{
-	name = "Gas to Filter"
-	})
+/area/engine/engineering)
 "aMj" = (
 /obj/machinery/door/airlock/engineering/glass/critical{
 	heat_proof = 1;
 	name = "Supermatter Chamber";
 	req_access_txt = "10"
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+/obj/structure/sign/directions/engineering{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
+/obj/structure/sign/directions/command{
+	pixel_y = -8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/open/floor/engine,
+/turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "aMk" = (
 /turf/open/floor/engine,
@@ -14241,14 +14236,8 @@
 	dir = 1;
 	pixel_y = 8
 	},
-/obj/structure/sign/directions/engineering{
-	dir = 4
-	},
-/obj/structure/sign/directions/command{
-	pixel_y = -8
-	},
-/turf/closed/wall/r_wall,
-/area/hallway/primary/port)
+/turf/open/floor/engine,
+/area/engine/engineering)
 "bmo" = (
 /obj/item/flashlight/lamp/green{
 	pixel_x = 1;

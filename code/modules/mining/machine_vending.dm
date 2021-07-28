@@ -270,23 +270,10 @@
 	. += "<span class='info'>There's [points] point\s on the card.</span>"
 
 ///Conscript kit
-/obj/item/card/mining_access_card
+/obj/item/card/id/pass/mining_access_card
 	name = "mining access card"
 	desc = "A small card, that when used on any ID, will add mining access."
-	icon_state = "data_1"
-
-/obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity)
-	. = ..()
-	if(istype(AM, /obj/item/card/id) && proximity)
-		var/obj/item/card/id/I = AM
-		I.access |=	ACCESS_MINING
-		I.access |= ACCESS_MINING_STATION
-		I.access |= ACCESS_MECH_MINING
-		I.access |= ACCESS_MINERAL_STOREROOM
-		I.access |= ACCESS_CARGO
-		to_chat(user, "You upgrade [I] with mining access.")
-		log_id("[key_name(user)] added mining access to '[I]' using [src] at [AREACOORD(user)].")
-		qdel(src)
+	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
 
 /obj/item/storage/backpack/duffelbag/mining_conscript
 	name = "mining conscription kit"
@@ -300,5 +287,4 @@
 	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/card/mining_access_card(src)
-	new /obj/item/card/id/mining(src)
+	new /obj/item/card/id/pass/mining_access_card(src)

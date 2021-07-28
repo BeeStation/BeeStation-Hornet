@@ -86,6 +86,11 @@
 	name = "Maintenance Peaches"
 	icon_state = "peachcanmaint_empty"
 
+/obj/item/trash/can/food/beefbroth
+	name = "canned beef broth"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "beefcan_empty"
+
 /obj/item/trash/can/food/beans
 	name = "tin of beans"
 	icon = 'icons/obj/food/food.dmi'
