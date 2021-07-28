@@ -44,9 +44,9 @@
 /obj/machinery/recycler/examine(mob/user)
 	. = ..()
 	. += span_notice("Reclaiming <b>[amount_produced]%</b> of materials salvaged.")
-	. += "The power light is [(stat & NOPOWER) ? "off" : "on"].\n"+\
-	"The safety-mode light is [safety_mode ? "on" : "off"].\n"+\
-	"The safety-sensors status light is [obj_flags & EMAGGED ? "off" : "on"]."
+	. += "The power light is [(stat & NOPOWER) ? "off" : "on"]."
+	. += "The safety-mode light is [safety_mode ? "on" : "off"]."
+	. += "The safety-sensors status light is [obj_flags & EMAGGED ? "off" : "on"]."
 
 /obj/machinery/recycler/power_change()
 	..()

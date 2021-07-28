@@ -558,12 +558,12 @@
 
 /obj/item/melee/blood_magic/construction/examine(mob/user)
 	. = ..()
-	. += "<u>A sinister spell used to convert:</u>\n"+\
-	"Plasteel into runed metal\n"+\
-	"[IRON_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n"+\
-	"Living cyborgs into constructs after a delay\n"+\
-	"Cyborg shells into construct shells\n"+\
-	"Airlocks into brittle runed airlocks after a delay (harm intent)"
+	. += "<u>A sinister spell used to convert:</u>"
+	. += "Plasteel into runed metal"
+	. += "[IRON_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell"
+	. += "Living cyborgs into constructs after a delay"
+	. += "Cyborg shells into construct shells"
+	. += "Airlocks into brittle runed airlocks after a delay (harm intent)"
 
 /obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag && iscultist(user))

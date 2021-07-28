@@ -84,9 +84,9 @@
 		. += span_notice("\The [src] is empty.")
 
 	if(!(stat & (NOPOWER|BROKEN)))
-		. += "<span class='notice'>The status display reads:</span>\n"+\
-		"<span class='notice'>- Capacity: <b>[max_n_of_items]</b> items.<span>\n"+\
-		span_notice("- Cook time reduced by <b>[(efficiency - 1) * 25]%</b>.")
+		. += "<span class='notice'>The status display reads:</span>"
+		. += "<span class='notice'>- Capacity: <b>[max_n_of_items]</b> items.<span>"
+		. += span_notice("- Cook time reduced by <b>[(efficiency - 1) * 25]%</b>.")
 
 /obj/machinery/microwave/update_icon()
 	if(broken)

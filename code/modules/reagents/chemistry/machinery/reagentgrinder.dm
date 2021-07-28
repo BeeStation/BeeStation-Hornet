@@ -77,8 +77,8 @@
 			. += span_notice("- \A [O.name].")
 
 	if(!(stat & (NOPOWER|BROKEN)))
-		. += "<span class='notice'>The status display reads:</span>\n"+\
-		span_notice("- Grinding reagents at <b>[speed*100]%</b>.")
+		. += "<span class='notice'>The status display reads:</span>"
+		. += span_notice("- Grinding reagents at <b>[speed*100]%</b>.")
 		if(beaker)
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				. += span_notice("- [R.volume] units of [R.name].")

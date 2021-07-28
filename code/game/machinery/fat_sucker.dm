@@ -50,9 +50,9 @@
 
 /obj/machinery/fat_sucker/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-Click to toggle the safety hatch.</span>\n"+\
-			"<span class='notice'>Removing [bite_size] nutritional units per operation.</span>\n"+\
-			span_notice("Requires [nutrient_to_meat] nutritional units per meat slab.")
+	. += "<span class='notice'>Alt-Click to toggle the safety hatch.</span>"
+	. += "<span class='notice'>Removing [bite_size] nutritional units per operation.</span>"
+	. += span_notice("Requires [nutrient_to_meat] nutritional units per meat slab.")
 
 /obj/machinery/fat_sucker/close_machine(mob/user)
 	if(panel_open)

@@ -78,14 +78,14 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
 //                        display_name = "[holder.fakekey]/([src.key])"
 //                else
 //                    display_name = holder.fakekey
-            to_chat(C,span_looc("<span class='prefix'>LOOC:</span> <EM>[src.mob.name]:</EM> <span class='message'>[msg]</span>"))
+            to_chat(C,span_looc("[span_prefix("LOOC:")] <EM>[src.mob.name]:</EM> [span_message("[msg]")]") )
 
     for(var/client/C in GLOB.admins)
         if(C.prefs.toggles & CHAT_OOC)
             var/prefix = "(R)LOOC"
             if (C.mob in heard)
                 prefix = "LOOC"
-            to_chat(C,span_looc("[ADMIN_FLW(usr)]<span class='prefix'>[prefix]:</span> <EM>[src.key]/[src.mob.name]:</EM> <span class='message'>[msg]</span>"))
+            to_chat(C,span_looc("[ADMIN_FLW(usr)][span_prefix("[prefix]:")] <EM>[src.key]/[src.mob.name]:</EM> [span_message("[msg]")]"))
 
 /proc/log_looc(text)
     if (CONFIG_GET(flag/log_ooc))

@@ -274,8 +274,8 @@
 		if(has_electronics && terminal)
 			. += "The cover is [opened==APC_COVER_REMOVED?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"]."
 		else
-			. += "It's [ !terminal ? "not" : "" ] wired up.\n"+\
-			"The electronics are[!has_electronics?"n't":""] installed."
+			. += "It's [ !terminal ? "not" : "" ] wired up."
+			. += "The electronics are[!has_electronics?"n't":""] installed."
 		if(integration_cog || (user.hallucinating() && prob(20)))
 			. += "A small cogwheel is inside of it."
 

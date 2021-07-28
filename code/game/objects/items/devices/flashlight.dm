@@ -66,7 +66,7 @@
 			return
 
 		if(flashlight_power < 1)
-			to_chat(user, "<span class='warning'>\The [src] isn't bright enough to see anything!</span> ")
+			to_chat(user, "<span class='warning'>\The [src] isn't bright enough to see anything!</span>")
 			return
 
 		switch(user.zone_selected)

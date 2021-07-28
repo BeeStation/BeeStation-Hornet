@@ -873,8 +873,8 @@
 /obj/machinery/turretid/examine(mob/user)
 	. += ..()
 	if(issilicon(user) && !(stat & BROKEN))
-		. += "<span class='notice'>Ctrl-click [src] to [ enabled ? "disable" : "enable"] turrets.</span>\n"+\
-				span_notice("Alt-click [src] to set turrets to [ lethal ? "stun" : "kill"].")
+		. += "<span class='notice'>Ctrl-click [src] to [ enabled ? "disable" : "enable"] turrets.</span>"
+		. += span_notice("Alt-click [src] to set turrets to [ lethal ? "stun" : "kill"].")
 
 /obj/machinery/turretid/attackby(obj/item/I, mob/user, params)
 	if(stat & BROKEN)

@@ -511,7 +511,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/ref_src = "[REF(src)]"
 
 	//Message to be sent to all admins
-	var/admin_msg = span_adminnotice("<span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(msg)]</span>")
+	var/admin_msg = span_adminnotice("[span_adminhelp("Ticket [TicketHref("#[id]", ref_src)]")]<b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> [span_linkify("[keywords_lookup(msg)]")]")
 
 	AddInteraction("red", msg, initiator_key_name, claimed_admin_key_name, "You", "Administrator")
 	log_admin_private("Ticket #[id]: [key_name(initiator)]: [msg]")

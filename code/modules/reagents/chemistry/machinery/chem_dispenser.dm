@@ -102,9 +102,9 @@
 	if(panel_open)
 		. += span_notice("[src]'s maintenance hatch is open!")
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads:\n"+\
-		"Recharging <b>[recharge_amount]</b> power units per interval.\n"+\
-		"Power efficiency increased by <b>[round((powerefficiency*1000)-100, 1)]%</b>.</span>"
+		. += span_notice("The status display reads:")
+		. += span_notice("Recharging <b>[recharge_amount]</b> power units per interval.")
+		. += span_notice("Power efficiency increased by <b>[round((powerefficiency*1000)-100, 1)]%</b>.")
 
 /obj/machinery/chem_dispenser/process(delta_time)
 	if (recharge_counter >= 8)

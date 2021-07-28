@@ -339,8 +339,8 @@
 		. += span_info("It's empty.")
 
 	if(!self_sustaining)
-		. += "<span class='info'>Water: [waterlevel]/[maxwater].</span>\n"+\
-		span_info("Nutrient: [nutrilevel]/[maxnutri].")
+		. += "<span class='info'>Water: [waterlevel]/[maxwater].</span>"
+		. += span_info("Nutrient: [nutrilevel]/[maxnutri].")
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
 			. += span_info("Treatment for self-sustenance are [percent_progress]% complete.")
