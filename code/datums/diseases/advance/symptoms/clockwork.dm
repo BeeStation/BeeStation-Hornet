@@ -185,7 +185,7 @@
 						B.brute_reduction = 3 //this is just below the amount that lets augs ignore space damage.
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s head shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your head feels numb, and cold.</span>")
+					H.visible_message("<span class='notice'>[H]'s head shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your head feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_CHEST)
@@ -194,7 +194,7 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_ARM)
@@ -203,7 +203,7 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_ARM)
@@ -212,7 +212,7 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_LEG)
@@ -221,7 +221,7 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_LEG)
@@ -230,7 +230,7 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 	return FALSE
