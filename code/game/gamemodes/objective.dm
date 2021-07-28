@@ -161,8 +161,8 @@ GLOBAL_LIST_EMPTY(objectives)
 				possible_targets -= PT
 		if(!possible_targets.len)
 			possible_targets = all_possible_targets
-	//40% chance to go for a prefered target
-	if(prefered_targets.len > 0 && prob(40))
+	//30% chance to go for a prefered target
+	if(prefered_targets.len > 0 && prob(30))
 		target = pick(prefered_targets)
 		target.isAntagTarget = TRUE
 	else if(possible_targets.len > 0)
