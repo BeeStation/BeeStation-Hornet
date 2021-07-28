@@ -36,6 +36,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/next_objective_time = 0
 
+	//Research disks
+	var/list/research_disks = list()
+
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
 	setup_event_list()

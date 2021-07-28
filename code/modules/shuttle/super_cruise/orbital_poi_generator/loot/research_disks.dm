@@ -4,10 +4,15 @@
 
 /obj/item/disk/tech_disk/research/Initialize()
 	. = ..()
+	SSorbits.research_disks += src
 	if(node_id)
 		stored_research.hidden_nodes[node_id] = FALSE
 		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
 		name = "research disk ([node.display_name])"
+
+/obj/item/disk/tech_disk/research/Destroy()
+	SSorbits.research_disks -= src
+	. = ..()
 
 /obj/item/disk/tech_disk/research/random/Initialize()
 	var/list/valid_nodes = list()

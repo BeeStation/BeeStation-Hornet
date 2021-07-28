@@ -75,8 +75,8 @@
 		/obj/item/kitchen/knife/combat/survival=1,
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/gun/energy/e_gun/mini/exploration=1,
-		/obj/item/grenade/exploration=3,
-		/obj/item/exploration_detonator=1,
+		/obj/item/grenade/exploration=3,				//Breaching charges for entering ruins
+		/obj/item/exploration_detonator=1,				//Detonator for the breaching charges.
 		/obj/item/discovery_scanner=1
 	)
 
@@ -92,7 +92,9 @@
 	backpack_contents = list(
 		/obj/item/kitchen/knife/combat/survival=1,
 		/obj/item/stack/marker_beacon/thirty=1,
-		/obj/item/discovery_scanner=1
+		/obj/item/discovery_scanner=1,
+		/obj/item/sbeacondrop/exploration=1,			//Spawns in a bluespace beacon
+		/obj/item/research_disk_pinpointer=1			//Locates research disks
 	)
 
 	backpack = /obj/item/storage/backpack/science

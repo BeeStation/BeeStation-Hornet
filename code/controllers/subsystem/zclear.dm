@@ -53,6 +53,9 @@ SUBSYSTEM_DEF(zclear)
 	for(var/obj/machinery/nuclearbomb/decomission/bomb in GLOB.decomission_bombs)
 		if(bomb.timing)
 			active_levels["[bomb.z]"] = TRUE
+	//Block z-clear from these levels.
+	for(var/atom/A as() in GLOB.zclear_blockers)
+		active_levels["[A.z]"] = TRUE
 	//Check for shuttles
 	for(var/obj/docking_port/mobile/M in SSshuttle.mobile)
 		active_levels["[M.z]"] = TRUE
