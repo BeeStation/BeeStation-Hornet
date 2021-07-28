@@ -57,7 +57,7 @@
 			return
 		. = COMPONENT_NO_AFTERATTACK //At this point you're intentionally trying to select a sect.
 		if(user.mind.holy_role != HOLY_ROLE_HIGHPRIEST)
-			to_chat(user, "<span class='warning'>You are not the high priest, and therefore cannot select a religious sect.")
+			to_chat(user, span_warning("You are not the high priest, and therefore cannot select a religious sect."))
 			return
 		var/list/available_options = generate_available_sects(user)
 		if(!available_options)
@@ -82,10 +82,10 @@
 			return
 		. = force_catalyst_afterattack ? null : COMPONENT_NO_AFTERATTACK
 		if(!easy_access_sect.rites_list)
-			to_chat(user, "<span class='notice'>Your sect doesn't have any rites to perform!")
+			to_chat(user, span_notice("Your sect doesn't have any rites to perform!"))
 			return
 		if(performing_rite)
-			to_chat(user, "<span class='notice'>There is a rite currently being performed here already!")
+			to_chat(user, span_notice("There is a rite currently being performed here already!"))
 			return
 		var/rite_select = input(user,"Select a rite to perform!","Select a rite",null) in easy_access_sect.rites_list
 		if(!rite_select || !user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))

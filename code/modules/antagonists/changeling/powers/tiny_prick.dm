@@ -156,10 +156,10 @@
 
 /datum/action/changeling/sting/false_armblade/proc/remove_fake(mob/target, obj/item/melee/arm_blade/false/blade)
 	playsound(target, 'sound/effects/blobattack.ogg', 30, 1)
-	target.visible_message("<span class='warning'>With a sickening crunch, \
-	[target] reforms [target.p_their()] [blade.name] into an arm!</span>",
+	target.visible_message(span_warning("With a sickening crunch, \
+	[target] reforms [target.p_their()] [blade.name] into an arm!"),
 	span_warning("[blade] reforms back to normal."),
-	"<span class='italics>You hear organic matter ripping and tearing!</span>")
+	span_italics("You hear organic matter ripping and tearing!"))
 
 	qdel(blade)
 	target.update_inv_hands()

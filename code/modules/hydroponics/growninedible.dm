@@ -33,14 +33,14 @@
 
 
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
-	..()
+	. = ..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "[span_info("*---------*\n This is \a <span class='name'>[src]")]\n"
+		var/msg = "*---------*\n This is \a [span_name("[src]")].\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
-		msg += "</span>"
-		to_chat(usr, msg)
-		return
+		msg += "<br/>*---------*"
+		to_chat(usr, span_info(msg))
+		return TRUE
 
 /obj/item/grown/proc/add_juice()
 	if(reagents)

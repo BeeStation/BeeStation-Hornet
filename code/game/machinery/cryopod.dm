@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					if(affected_contract.contract == O)
 						affected_contract.generate(affected_traitor.contractor_hub.assigned_targets)
 						affected_traitor.contractor_hub.assigned_targets.Add(affected_contract.contract.target)
-						to_chat(O.owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
+						to_chat(O.owner.current, "<BR>[span_userdanger("Contract target out of reach. Contract rerolled.")]")
 						break
 			else
 				var/old_target = O.target

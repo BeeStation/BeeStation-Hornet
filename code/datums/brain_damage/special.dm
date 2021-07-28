@@ -250,7 +250,7 @@
 	if(DT_PROB(60, delta_time))
 		forceMove(get_step_towards(src, victim))
 		if(DT_PROB(5, delta_time))
-			to_chat(victim, span_name("[name]</span> exclaims, \"<span class='robotic'>Level 10 infraction alert!\""))
+			to_chat(victim, "[span_name("[name]")] exclaims, \"[span_robotic("Level 10 infraction alert!")]\"")
 
 /obj/effect/hallucination/simple/securitron/Destroy()
 	victim = null

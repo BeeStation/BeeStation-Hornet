@@ -131,7 +131,7 @@
 				var/memotext = query_memoshow.item[2]
 				var/timestamp = query_memoshow.item[3]
 				var/last_editor = query_memoshow.item[4]
-				output += "[span_memo("Mentor memo by <span class='prefix'>[ckey]")] on [timestamp]"
+				output += "[span_memo("Mentor memo by [span_prefix("[ckey]")]")] on [timestamp]"
 				if(last_editor)
 					output += "<br>[span_memoedit("Last edit by [last_editor] <A href='?_src_=holder;mentormemoeditlist=[ckey];[HrefToken(TRUE)]'>(Click here to see edit log)</A>")]"
 				output += "<br>[memotext]</span><br>"

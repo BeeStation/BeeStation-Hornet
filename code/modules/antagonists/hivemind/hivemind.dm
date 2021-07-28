@@ -69,7 +69,7 @@
 			var/obj/effect/proc_holder/spell/the_spell = new power(null)
 			owner.AddSpell(the_spell)
 			if(hive_size > 0)
-				to_chat(owner, span_assimilator("We have unlocked [the_spell.name].</span><span class='bold'> [the_spell.desc]"))
+				to_chat(owner, "[span_assimilator("We have unlocked [the_spell.name].")] [span_bold("[the_spell.desc]")]")
 
 	if(!unlocked_one_mind && hive_size >= 15)
 		var/lead = TRUE

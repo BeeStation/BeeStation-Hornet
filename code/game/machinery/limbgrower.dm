@@ -63,7 +63,7 @@
 
 /obj/machinery/limbgrower/attackby(obj/item/O, mob/user, params)
 	if (busy)
-		to_chat(user, "<span class=\"alert\">The Limb Grower is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, span_alert("The Limb Grower is busy. Please wait for completion of previous operation."))
 		return
 
 	if(default_deconstruction_screwdriver(user, "limbgrower_panelopen", "limbgrower_idleoff", O))
@@ -109,7 +109,7 @@
 				addtimer(CALLBACK(src, .proc/build_item),32*prod_coeff)
 
 	else
-		to_chat(usr, "<span class=\"alert\">The limb grower is busy. Please wait for completion of previous operation.</span>")
+		to_chat(usr, span_alert("The limb grower is busy. Please wait for completion of previous operation."))
 
 	updateUsrDialog()
 	return
@@ -124,7 +124,7 @@
 			//Just build whatever it is
 			new buildpath(loc)
 	else
-		src.visible_message("<span class=\"error\"> Something went very wrong and there isn't enough synthflesh anymore!</span>")
+		src.visible_message(span_error(" Something went very wrong and there isn't enough synthflesh anymore!"))
 	busy = FALSE
 	flick("limbgrower_unfill",src)
 	icon_state = "limbgrower_idleoff"

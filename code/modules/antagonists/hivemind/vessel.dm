@@ -34,7 +34,7 @@
 		var/datum/objective/brainwashing/obj = new(objective)
 		vessel.objectives += obj
 		log_objective(M, obj.explanation_text)
-		var/message = "<span class='deadsay'><b>[M]</b> has been awoken with the following objectives: [objective]."
+		var/message = span_deadsay("<b>[M]</b> has been awoken with the following objectives: [objective].")
 		deadchat_broadcast(message, follow_target = M, turf_target = get_turf(M), message_type=DEADCHAT_REGULAR)
 		log_game("[key_name(M)] has been awoken with the following objectives: [objective]")
 

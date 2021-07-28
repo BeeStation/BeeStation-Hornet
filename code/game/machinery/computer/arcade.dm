@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 /obj/machinery/computer/arcade/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/coin/arcade_token) || istype(W, /obj/item/coin/bananium))
-		to_chat(user, "<span class='notice'>You insert the [W] into the [src].")
+		to_chat(user, span_notice("You insert the [W] into the [src]."))
 		redeem(user)
 		qdel(W)
 		return

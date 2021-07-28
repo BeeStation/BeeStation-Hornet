@@ -241,8 +241,8 @@
 	name = "Foreigner"
 	desc = "You're not from around here. You don't know Galactic Common!"
 	value = -1
-	gain_text = "<span class='notice'>The words being spoken around you don't make any sense."
-	lose_text = "<span class='notice'>You've developed fluency in Galactic Common."
+	gain_text = "<span class='notice'>The words being spoken around you don't make any sense.</span>"
+	lose_text = "<span class='notice'>You've developed fluency in Galactic Common.</span>"
 	medical_record_text = "Patient does not speak Galactic Common and may require an interpreter."
 
 /datum/quirk/foreigner/add()
@@ -414,8 +414,8 @@
 	H.regenerate_icons()
 
 /datum/quirk/prosthetic_limb/post_add()
-	to_chat(quirk_holder, "<span class='boldannounce'>Your [slot_string] has been replaced with a surplus prosthetic. It is fragile and will easily come apart under duress. Additionally, \
-	you need to use a welding tool and cables to repair it, instead of bruise packs and ointment.</span>")
+	to_chat(quirk_holder, span_boldannounce("Your [slot_string] has been replaced with a surplus prosthetic. It is fragile and will easily come apart under duress. Additionally, \
+	you need to use a welding tool and cables to repair it, instead of bruise packs and ointment."))
 
 /datum/quirk/pushover
 	name = "Pushover"

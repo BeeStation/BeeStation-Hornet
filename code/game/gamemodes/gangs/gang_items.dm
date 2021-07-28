@@ -141,7 +141,7 @@
 	new gang.hat(uniform_box)
 
 	user.put_in_hands(uniform_box)
-	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
+	to_chat(user, span_notice("This is your gang's official uniform, wearing it will increase your influence"))
 	return TRUE
 
 /datum/gang_item/clothing/armor
@@ -161,7 +161,7 @@
 	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
 
 	user.put_in_hands(armor_box)
-	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
+	to_chat(user, span_notice("This is your gang's official uniform, wearing it will increase your influence"))
 	return TRUE
 
 /datum/gang_item/clothing/ssuit
@@ -189,7 +189,7 @@
 	hat.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
 
 	user.put_in_hands(armor_box)
-	to_chat(user, "<span class='notice'> This is your gang's official uniform, wearing it will increase your influence")
+	to_chat(user, span_notice("This is your gang's official uniform, wearing it will increase your influence"))
 	return TRUE
 
 /datum/gang_item/clothing/mask

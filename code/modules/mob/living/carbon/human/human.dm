@@ -1047,7 +1047,7 @@
 					else
 						BP.receive_damage(15)
 
-				T.visible_message(span_warning("[src] kicks [T] in the groin!"), "<span class='warning'>[src] kicks you in the groin!</span")
+				T.visible_message(span_warning("[src] kicks [T] in the groin!"), span_warning("[src] kicks you in the groin!"))
 
 				log_combat(src, T, "groinkicked")
 

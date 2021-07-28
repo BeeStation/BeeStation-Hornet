@@ -34,13 +34,13 @@
 	var/mob/living/carbon/human/H = target
 	H.setOrganLoss(ORGAN_SLOT_LIVER, 10) //not bad, not great
 	display_results(user, target, span_notice("You successfully remove the damaged part of [target]'s liver."),
-		"<span class='notice'>[user] successfullly removes the damaged part of [target]'s liver.",
-		"<span class='notice'>[user] successfullly removes the damaged part of [target]'s liver.")
+		span_notice("[user] successfullly removes the damaged part of [target]'s liver."),
+		span_notice("[user] successfullly removes the damaged part of [target]'s liver."))
 	return TRUE
 
 /datum/surgery_step/hepatectomy/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery)
 	var/mob/living/carbon/human/H = target
 	H.adjustOrganLoss(ORGAN_SLOT_LIVER, 15)
 	display_results(user, target, span_warning("You cut the wrong part of [target]'s liver!"),
-		"<span class='warning'>[user] cuts the wrong part of [target]'s liver!",
-		"<span class='warning'>[user] cuts the wrong part of [target]'s liver!")
+		span_warning("[user] cuts the wrong part of [target]'s liver!"),
+		span_warning("[user] cuts the wrong part of [target]'s liver!"))

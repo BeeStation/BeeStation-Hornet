@@ -368,7 +368,7 @@
 		if(QDELETED(L) || L.stat == DEAD)
 			return
 
-		to_chat(L, span_italics("You hear a voice in your head saying: </span><span class='abductor'>[message]"))
+		to_chat(L, "[span_italics("You hear a voice in your head saying:")] [span_abductor("[message]")]")
 		to_chat(user, span_notice("You send the message to your target."))
 		log_directed_talk(user, L, message, LOG_SAY, "abductor whisper")
 
@@ -672,7 +672,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(viable)
 		playsound(src, 'sound/effects/phasein.ogg', 50, TRUE)
 		var/new_machine = new spawned_machine(loc)
-		visible_message("<span class='notice'>[new_machine] warps on top of the beacon!")
+		visible_message(span_notice("[new_machine] warps on top of the beacon!"))
 		qdel(src)
 	else
 		playsound(src, 'sound/machines/buzz-two.ogg', 50)

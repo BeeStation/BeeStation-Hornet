@@ -233,7 +233,7 @@
 		ejectpda()
 		to_chat(usr, span_notice("You eject the contents."))
 	else
-		to_chat(usr, "<span class='notice'>[src] is empty.")
+		to_chat(usr, span_notice("[src] is empty."))
 
 
 /obj/machinery/pdapainter/proc/ejectpda()

@@ -33,6 +33,6 @@
 	T.key = C.key
 	var/datum/antagonist/teratoma/D = new
 	T.mind.add_antag_datum(D)
-	to_chat(T, "<span='notice'>You burst out from [user]'s chest!</span>")
+	to_chat(T, span_notice("You burst out from [user]'s chest!"))
 	SEND_SOUND(T, sound('sound/effects/blobattack.ogg'))
 	return TRUE

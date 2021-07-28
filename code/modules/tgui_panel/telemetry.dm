@@ -148,7 +148,7 @@
 				LAZYSET(telemetry_notices, TGUI_TELEM_IP_WARNING, span_average("IPA_COUNT|User has changed IPs at least once."))
 	switch(length(all_cids))
 		if(2)
-			LAZYSET(telemetry_notices, TGUI_TELEM_CID_WARNING, "<span class='average'>CID_COUNT|User has changed CIDs once.")
+			LAZYSET(telemetry_notices, TGUI_TELEM_CID_WARNING, span_average("CID_COUNT|User has changed CIDs once."))
 		if(3 to INFINITY)
 			if(length(all_cids) == len)
 				LAZYSET(telemetry_notices, TGUI_TELEM_CID_WARNING, span_bad("CID_COUNT|<b>EVERY ENTRY IN HISTORY HAS A DIFFERENT CID!</b>"))

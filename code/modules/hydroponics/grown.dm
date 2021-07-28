@@ -63,9 +63,9 @@
 				. += T.examine_line
 
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
-	..()
+	. = ..()
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "[span_info("*---------*\n This is \a <span class='name'>[src]")].\n"
+		var/msg = "*---------*\n This is \a [span_name("[src]")].\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
@@ -77,13 +77,13 @@
 
 		if(reag_txt)
 			msg += reag_txt
-			msg += "<br>[span_info("*---------*")]"
-		to_chat(user, msg)
+		msg += "<br/>*---------*"
+		to_chat(user, span_info(msg))
+		return TRUE
 	else
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_attackby(src, O, user)
-
 
 // Various gene procs
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)

@@ -185,7 +185,7 @@
 			var/datum/antagonist/cult/C = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 			if(C && C.cult_team.is_sacrifice_target(T.mind))
 				if(iscultist(user))
-					to_chat(user, span_cult("<b>\"This soul is mine.</b></span> <span class='cultlarge'>SACRIFICE THEM!\""))
+					to_chat(user, "[span_cult("<b>\"This soul is mine.</b>")] [span_cultlarge("SACRIFICE THEM!\"")]")
 				else
 					to_chat(user, span_danger("The soulstone seems to reject this soul."))
 				return FALSE

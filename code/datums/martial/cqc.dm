@@ -167,7 +167,7 @@
 					  span_userdanger("[A] [picked_hit_type] you!"), null, COMBAT_MESSAGE_RANGE)
 	log_combat(A, D, "[picked_hit_type] (CQC)")
 	if(A.resting && !D.stat && !D.IsParalyzed())
-		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
+		D.visible_message(span_warning("[A] leg sweeps [D]!"), \
 							span_userdanger("[A] leg sweeps you!"))
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE, blocked = def_check)

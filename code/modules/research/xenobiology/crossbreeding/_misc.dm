@@ -97,7 +97,7 @@ Slimecrossing Items
 	addtimer(CALLBACK(src, .proc/rewind), DEJAVU_REWIND_INTERVAL)
 
 /datum/component/dejavu/proc/rewind()
-	to_chat(parent, "<span class=notice>You remember a time not so long ago...</span>")
+	to_chat(parent, span_notice("You remember a time not so long ago..."))
 
 	if(isliving(parent))
 		var/mob/living/L = parent
@@ -128,7 +128,7 @@ Slimecrossing Items
 	if(rewinds_remaining)
 		addtimer(CALLBACK(src, .proc/rewind), DEJAVU_REWIND_INTERVAL)
 	else
-		to_chat(parent, "<span class=notice>But the memory falls out of your reach.</span>")
+		to_chat(parent, span_notice("But the memory falls out of your reach."))
 
 
 
@@ -137,11 +137,11 @@ Slimecrossing Items
 		return
 	if(!used)//selfie time
 		if(user == target)
-			to_chat(user, "<span class=notice>You take a selfie!</span>")
+			to_chat(user, span_notice("You take a selfie!"))
 		else
-			to_chat(user, "<span class=notice>You take a photo with [target]!</span>")
-			to_chat(target, "<span class=notice>[user] takes a photo with you!</span>")
-		to_chat(target, "<span class=notice>You'll remember this moment forever!</span>")
+			to_chat(user, span_notice("You take a photo with [target]!"))
+			to_chat(target, span_notice("[user] takes a photo with you!"))
+		to_chat(target, span_notice("You'll remember this moment forever!"))
 
 		used = TRUE
 		target.AddComponent(/datum/component/dejavu, 2)

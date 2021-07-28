@@ -60,20 +60,20 @@
 	if(C.is_mentor())
 		if(is_mentor())//both are mentors
 			to_chat(C, span_mentorfrom("Mentor PM from-<b>[key_name_mentor(src, C, 1, 0)]</b>: [msg]"))
-			to_chat(src, "<span class='mentorto''>Mentor PM to-<b>[key_name_mentor(C, C, 1, 0)]</b>: [msg]</span>")
+			to_chat(src, span_mentorto("Mentor PM to-<b>[key_name_mentor(C, C, 1, 0)]</b>: [msg]"))
 
 		else		//recipient is an mentor but sender is not
 			to_chat(C, span_mentorfrom("Reply PM from-<b>[key_name_mentor(src, C, 1, show_char)]</b>: [msg]"))
-			to_chat(src, "<span class='mentorto''>Mentor PM to-<b>[key_name_mentor(C, C, 1, 0)]</b>: [msg]</span>")
+			to_chat(src, span_mentorto("Mentor PM to-<b>[key_name_mentor(C, C, 1, 0)]</b>: [msg]"))
 
 	else
 		if(is_mentor())	//sender is an mentor but recipient is not.
 			to_chat(C, span_mentorfrom("Mentor PM from-<b>[key_name_mentor(src, C, 1, 0)]</b>: [msg]"))
-			to_chat(src, "<span class='mentorto''>Mentor PM to-<b>[key_name_mentor(C, C, 1, show_char)]</b>: [msg]</span>")
+			to_chat(src, span_mentorto("Mentor PM to-<b>[key_name_mentor(C, C, 1, show_char)]</b>: [msg]"))
 
 	//we don't use message_Mentors here because the sender/receiver might get it too
 	var/show_char_sender = !is_mentor() && CONFIG_GET(flag/mentors_mobname_only)
 	var/show_char_recip = !C.is_mentor() && CONFIG_GET(flag/mentors_mobname_only)
 	for(var/client/X in GLOB.mentors | GLOB.admins)
 		if(X.key!=key && X.key!=C.key)	//check client/X is an Mentor and isn't the sender or recipient
-			to_chat(X, "<B><span class='mentorto''>Mentor PM: [key_name_mentor(src, X, 0, show_char_sender)]-&gt;[key_name_mentor(C, X, 0, 0, show_char_recip)]:</B> [span_mentorhelp("[msg]")]") //inform X
+			to_chat(X, "<B>[span_mentorto("Mentor PM: [key_name_mentor(src, X, 0, show_char_sender)]-&gt;[key_name_mentor(C, X, 0, 0, show_char_recip)]:")]</B> [span_mentorhelp("[msg]")]") //inform X

@@ -37,51 +37,54 @@
 	return ..()
 
 /datum/component/mood/proc/print_mood(mob/user)
-	var/msg = "<span class='info'>*---------*\n<EM>Your current mood</EM>\n"
-	msg += span_notice("My mental status: ") //Long term
+	var/list/msg = list(span_info("*---------*"), "<EM>Your current mood</EM>")
+
+	var/mental_status = span_notice("My mental status: ") //Long term
 	switch(sanity)
 		if(SANITY_GREAT to INFINITY)
-			msg += "<span class='nicegreen'>My mind feels like a temple!<span>\n"
+			mental_status += span_nicegreen("My mind feels like a temple!")
 		if(SANITY_NEUTRAL to SANITY_GREAT)
-			msg += "<span class='nicegreen'>I have been feeling great lately!<span>\n"
+			mental_status += span_nicegreen("I have been feeling great lately!")
 		if(SANITY_DISTURBED to SANITY_NEUTRAL)
-			msg += "<span class='nicegreen'>I have felt quite decent lately.<span>\n"
+			mental_status += span_nicegreen("I have felt quite decent lately.")
 		if(SANITY_UNSTABLE to SANITY_DISTURBED)
-			msg += "[span_warning("I'm feeling a little bit unhinged...")]\n"
+			mental_status += span_warning("I'm feeling a little bit unhinged...")
 		if(SANITY_CRAZY to SANITY_UNSTABLE)
-			msg += "[span_boldwarning("I'm freaking out!!")]\n"
+			mental_status += span_boldwarning("I'm freaking out!!")
 		if(SANITY_INSANE to SANITY_CRAZY)
-			msg += "[span_boldwarning("AHAHAHAHAHAHAHAHAHAH!!")]\n"
+			mental_status += span_boldwarning("AHAHAHAHAHAHAHAHAHAH!!")
+	msg += mental_status
 
-	msg += span_notice("My current mood: ") //Short term
+	var/mood_status = span_notice("My current mood: ") //Short term
 	switch(mood_level)
 		if(1)
-			msg += "<span class='boldwarning'>I wish I was dead!<span>\n"
+			mood_status += span_boldwarning("I wish I was dead!")
 		if(2)
-			msg += "<span class='boldwarning'>I feel terrible...<span>\n"
+			mood_status += span_boldwarning("I feel terrible...")
 		if(3)
-			msg += "<span class='boldwarning'>I feel very upset.<span>\n"
+			mood_status += span_boldwarning("I feel very upset.")
 		if(4)
-			msg += "<span class='boldwarning'>I'm a bit sad.<span>\n"
+			mood_status += span_boldwarning("I'm a bit sad.")
 		if(5)
-			msg += "<span class='nicegreen'>I'm alright.<span>\n"
+			mood_status += span_nicegreen("I'm alright.")
 		if(6)
-			msg += "<span class='nicegreen'>I feel pretty okay.<span>\n"
+			mood_status += span_nicegreen("I feel pretty okay.")
 		if(7)
-			msg += "<span class='nicegreen'>I feel pretty good.<span>\n"
+			mood_status += span_nicegreen("I feel pretty good.")
 		if(8)
-			msg += "<span class='nicegreen'>I feel amazing!<span>\n"
+			mood_status += span_nicegreen("I feel amazing!")
 		if(9)
-			msg += "<span class='nicegreen'>I love life!<span>\n"
+			mood_status += span_nicegreen("I love life!")
+	msg += mood_status
 
-	msg += span_notice("Moodlets:\n")//All moodlets
+	msg += span_notice("Moodlets:")//All moodlets
 	if(mood_events.len)
 		for(var/i in mood_events)
 			var/datum/mood_event/event = mood_events[i]
-			msg += event.description + "\n"
+			msg += event.description
 	else
-		msg += "<span class='nicegreen'>I don't have much of a reaction to anything right now.<span>\n"
-	to_chat(user || parent, msg)
+		msg += span_nicegreen("I don't have much of a reaction to anything right now.")
+	to_chat(user || parent, msg.Join("\n"))
 
 /datum/component/mood/proc/update_mood() //Called whenever a mood event is added or removed
 	mood = 0

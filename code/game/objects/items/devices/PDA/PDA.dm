@@ -724,7 +724,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	// Log it in our logs
 	tnote += "<i><b>&rarr; To [target_text]:</b></i><br>[signal.format_message()]<br>"
 	// Show it to ghosts
-	var/ghost_message = span_name("[owner] </span><span class='game say'>PDA Message</span> --> [span_name("[target_text]")]: <span class='message'>[signal.format_message()]")
+	var/ghost_message = "[span_name("[owner]")] <span class='game say'>PDA Message</span> --> [span_name("[target_text]")]: [span_message("[signal.format_message()]")]"
 	for(var/mob/M in GLOB.player_list)
 		if(isobserver(M) && M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTPDA))
 			to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")
@@ -781,7 +781,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/proc/send_to_all(mob/living/U)
 	if (last_everyone && world.time < last_everyone + PDA_SPAM_DELAY)
-		to_chat(U,"<span class='warning'>Send To All function is still on cooldown.")
+		to_chat(U, span_warning("Send To All function is still on cooldown."))
 		return
 	send_message(U,get_viewable_pdas(), TRUE)
 
@@ -1029,7 +1029,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 				else
 					to_chat(user, span_notice("No significant chemical agents found in [A]."))
 			else
-				to_chat(user, "<span class='notice'>You can't scan [A].")
+				to_chat(user, span_notice("You can't scan [A]."))
 
 		if(PDA_SCANNER_GAS)
 			A.analyzer_act(user, src)

@@ -31,13 +31,11 @@
 	. = ..()
 	if(active_tables.len >= tables_required)
 		if(!active)
-			visible_message("<span class='revenboldnotice'>\
-				[src] opens its eyes.</span>")
+			visible_message(span_revenboldnotice("[src] opens its eyes."))
 		active = TRUE
 	else
 		if(active)
-			visible_message("<span class='revenboldnotice'>\
-				[src] closes its eyes.</span>")
+			visible_message(span_revenboldnotice("[src] closes its eyes."))
 		active = FALSE
 	update_icon()
 
@@ -105,8 +103,7 @@
 	for(var/i in sleepers - found)
 		var/mob/living/L = i
 		L.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, "#800080")
-		L.visible_message("<span class='revennotice'>The glow from [L] fades \
-			away.</span>")
+		L.visible_message(span_revennotice("The glow from [L] fades away."))
 		L.grab_ghost()
 
 	sleepers = found
