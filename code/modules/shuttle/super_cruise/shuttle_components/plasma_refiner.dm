@@ -17,7 +17,7 @@
 		if(!air_contents)
 			return
 		qdel(stack)
-		air_contents.adjust_moles(/datum/gas/plasma, moles_created)
+		air_contents.adjust_moles(GAS_PLASMA, moles_created)
 		say("[moles_created] moles of plasma refined.")
 		return
 	. = ..()
