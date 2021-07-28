@@ -763,6 +763,11 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"Sr" = (
+/obj/machinery/telecomms/relay/preset/exploration,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "SG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -1091,7 +1096,7 @@ gJ
 gJ
 GI
 kH
-kH
+Sr
 df
 fO
 te
