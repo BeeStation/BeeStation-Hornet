@@ -190,12 +190,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /turf/proc/travel_z(mob/user, turf/target, upwards = TRUE)
 	user.visible_message("<span class='notice'>[user] begins floating upwards!</span>", "<span class='notice'>You begin floating upwards.</span>")
 	var/matrix/M = user.transform
-	animate(user, 30, pixel_y = upwards ? 64 : -64, transform = M * (upwards ? 1.3 : 0.7), alpha = 180)
-	if(!do_after(user, 30, FALSE, get_turf(user)))
-		animate(user, 0, flags = ANIMATION_END_NOW, pixel_y = 0, alpha = 255, transform = M)
-		return
+	animate(user, 30, pixel_y = upwards ? 64 : -64, transform = matrix() * (upwards ? 1.3 : 0.7))
 	user.pixel_y = 0
 	user.transform = M
+	if(!do_after(user, 30, FALSE, get_turf(user)))
+		animate(user, 0, flags = ANIMATION_END_NOW)
+		return
 	if(!istype(target, /turf/open/space) && !istype(target, /turf/open/openspace))
 		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
 		return
