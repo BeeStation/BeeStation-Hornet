@@ -66,10 +66,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/scrubbers/hidden,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"cA" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/engine,
-/area/shuttle/exploration)
 "cG" = (
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/titanium,
@@ -193,16 +189,6 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"jC" = (
-/obj/item/storage/toolbox/mechanical,
-/obj/machinery/power/smes{
-	charge = 1e+006
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "jO" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light{
@@ -231,6 +217,10 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"ka" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "kx" = (
 /obj/machinery/computer/security,
@@ -356,18 +346,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"oE" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 9
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "pd" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
@@ -387,6 +365,12 @@
 /obj/structure/table,
 /obj/item/toy/cards/deck/unum,
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/exploration)
+"pT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "sh" = (
 /obj/effect/spawner/structure/window/shuttle,
@@ -447,16 +431,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"uc" = (
-/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "up" = (
@@ -520,6 +494,18 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"xo" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "yh" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/exploration)
@@ -536,7 +522,12 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"yZ" = (
+"yM" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/on,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"yN" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 10
 	},
@@ -586,18 +577,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"Cf" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Dn" = (
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -612,11 +591,6 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"FA" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/engine,
 /area/shuttle/exploration)
 "Gb" = (
 /obj/structure/table,
@@ -646,16 +620,33 @@
 /obj/item/wrench,
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/exploration)
-"Hu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/shuttle/exploration)
 "HG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Ip" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"JG" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -667,6 +658,16 @@
 "JV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Ka" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/machinery/power/smes{
+	charge = 1e+006
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -812,23 +813,22 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"Uf" = (
+/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Up" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/exploration)
-"Vd" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Vw" = (
 /obj/structure/table,
@@ -970,9 +970,9 @@ Ay
 (3,1,1) = {"
 yh
 yh
-Cf
-uc
-oE
+xo
+Uf
+JG
 gS
 aA
 hP
@@ -987,9 +987,9 @@ yh
 (4,1,1) = {"
 df
 df
-jC
-yZ
-Vd
+Ka
+yN
+Ip
 vx
 zN
 zN
@@ -1019,7 +1019,7 @@ gJ
 gJ
 "}
 (6,1,1) = {"
-cA
+ka
 jB
 pi
 jO
@@ -1033,10 +1033,10 @@ vb
 dq
 jt
 jB
-Hu
+pT
 "}
 (7,1,1) = {"
-cA
+ka
 jB
 Dn
 Dn
@@ -1050,10 +1050,10 @@ jt
 lY
 kH
 jB
-Hu
+pT
 "}
 (8,1,1) = {"
-cA
+ka
 jB
 kH
 Dn
@@ -1067,7 +1067,7 @@ kH
 jR
 VV
 jB
-Hu
+pT
 "}
 (9,1,1) = {"
 gJ
@@ -1121,7 +1121,7 @@ gJ
 gJ
 "}
 (12,1,1) = {"
-cA
+ka
 jB
 Hm
 sY
@@ -1135,10 +1135,10 @@ Tz
 pR
 LR
 jB
-Hu
+pT
 "}
 (13,1,1) = {"
-cA
+ka
 jB
 aP
 nF
@@ -1152,10 +1152,10 @@ PF
 JP
 LR
 jB
-Hu
+pT
 "}
 (14,1,1) = {"
-FA
+yM
 sh
 Ls
 YR
@@ -1169,7 +1169,7 @@ fy
 xl
 fO
 jB
-Hu
+pT
 "}
 (15,1,1) = {"
 gJ
