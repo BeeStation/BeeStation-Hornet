@@ -430,7 +430,12 @@
 /datum/outfit/death_commando/officer
 	name = "Death Commando Officer"
 	head = /obj/item/clothing/head/helmet/space/beret
-	backpack_contents = list(/obj/item/aiModule/core/full/deathsquad)
+	backpack_contents = list(/obj/item/aiModule/core/full/deathsquad=1,\
+		/obj/item/ammo_box/a357=1,\
+		/obj/item/storage/firstaid/regular=1,\
+		/obj/item/storage/box/flashbangs=1,\
+		/obj/item/flashlight=1,\
+		/obj/item/grenade/plastic/x4=1)
 
 /datum/outfit/death_commando/doomguy
 	name = "The Juggernaut"
