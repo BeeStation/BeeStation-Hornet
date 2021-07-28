@@ -281,8 +281,8 @@
 
 /obj/item/flashlight/flare/ignition_effect(atom/A, mob/user)
 	if(fuel && on)
-		. = "<span class='notice'>[user] lights [A] with [src] like a real \
-			badass.</span>"
+		. = span_notice("[user] lights [A] with [src] like a real \
+			badass.")
 	else
 		. = ""
 

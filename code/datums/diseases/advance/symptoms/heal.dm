@@ -532,12 +532,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))
 								playsound(M, 'sound/magic/demon_consume.ogg', 50, 1)
-								M.visible_message("<span class='warning'>[M]'s missing limbs \
-									reform, making a loud, grotesque sound!</span>",
-									"<span class='userdanger'>Your limbs regrow, making a \
-									loud, crunchy sound and giving you great pain!</span>",
-									"<span class='italics'>You hear organic matter ripping \
-									and tearing!</span>")
+								M.visible_message(span_warning("[M]'s missing limbs \
+									reform, making a loud, grotesque sound!"),
+									span_userdanger("Your limbs regrow, making a \
+									loud, crunchy sound and giving you great pain!"),
+									span_italics("You hear organic matter ripping \
+									and tearing!"))
 								M.emote("scream")
 								if(Z == BODY_ZONE_HEAD) //if we regenerate the head, make sure the mob still owns us
 									if(isliving(ownermind.current))

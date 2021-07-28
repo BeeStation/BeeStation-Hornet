@@ -498,10 +498,10 @@ GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 		var/client/C = GLOB.directory[show_next_to_key]
 		if(C)
 			var/mob/showmob = C.mob
-			to_chat(showmob, "<span class='admin'>SDQL query results: [get_query_text()]<br>\
+			to_chat(showmob, span_admin("SDQL query results: [get_query_text()]<br>\
 			SDQL query completed: [islist(obj_count_all)? length(obj_count_all) : obj_count_all] objects selected by path, and \
 			[where_switched? "[islist(obj_count_eligible)? length(obj_count_eligible) : obj_count_eligible] objects executed on after WHERE keyword selection." : ""]<br>\
-			SDQL query took [DisplayTimeText(end_time - start_time)] to complete.</span>")
+			SDQL query took [DisplayTimeText(end_time - start_time)] to complete."))
 			if(length(select_text))
 				var/text = islist(select_text)? select_text.Join() : select_text
 				var/static/result_offset = 0

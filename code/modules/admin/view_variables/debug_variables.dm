@@ -17,10 +17,10 @@
 
 	var/item
 	if (isnull(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>null</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("null")]"
 
 	else if (istext(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>\"[VV_HTML_ENCODE(value)]\"</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("\"[VV_HTML_ENCODE(value)]\"")]"
 
 	else if (isicon(value))
 		#ifdef VARSICON
@@ -28,13 +28,13 @@
 		var/rnd = rand(1,10000)
 		var/rname = "tmp[REF(I)][rnd].png"
 		usr << browse_rsc(I, rname)
-		item = "[VV_HTML_ENCODE(name)] = (<span class='value'>[value]</span>) <img class=icon src=\"[rname]\">"
+		item = "[VV_HTML_ENCODE(name)] = ([span_value("[value]")]) <img class=icon src=\"[rname]\">"
 		#else
-		item = "[VV_HTML_ENCODE(name)] = /icon (<span class='value'>[value]</span>)"
+		item = "[VV_HTML_ENCODE(name)] = /icon ([span_value("[value]")])"
 		#endif
 
 	else if (isfile(value))
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>'[value]'</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("'[value]'")]"
 
 	else if(istype(value,/matrix)) // Needs to be before datum
 		var/matrix/M = value
@@ -81,7 +81,7 @@
 				flags += i
 			item = "[VV_HTML_ENCODE(name)] = [VV_HTML_ENCODE(jointext(flags, ", "))]"
 	else
-		item = "[VV_HTML_ENCODE(name)] = <span class='value'>[VV_HTML_ENCODE(value)]</span>"
+		item = "[VV_HTML_ENCODE(name)] = [span_value("[VV_HTML_ENCODE(value)]")]"
 
 	return "[header][item]</li>"
 

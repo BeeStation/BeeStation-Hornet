@@ -68,9 +68,9 @@
 
 /obj/item/gun/magic/wand/death/zap_self(mob/living/user)
 	..()
-	to_chat(user, "<span class='warning'>You irradiate yourself with pure energy! \
+	to_chat(user, span_warning("You irradiate yourself with pure energy! \
 	[pick("Do not pass go. Do not collect 200 zorkmids.","You feel more confident in your spell casting skills.","You Die...","Do you want your possessions identified?")]\
-	</span>")
+	"))
 	user.adjustOxyLoss(500)
 	charges--
 
