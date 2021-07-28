@@ -1,12 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"at" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 10
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "aA" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -89,6 +81,15 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"dN" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "dS" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 4
@@ -116,6 +117,14 @@
 /area/shuttle/exploration)
 "gJ" = (
 /turf/closed/wall/mineral/titanium,
+/area/shuttle/exploration)
+"gM" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "gS" = (
 /obj/effect/turf_decal/bot,
@@ -265,6 +274,13 @@
 	},
 /turf/open/floor/engine,
 /area/shuttle/exploration)
+"mk" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "mr" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
@@ -283,6 +299,17 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"mR" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 5
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "nu" = (
 /obj/structure/extinguisher_cabinet{
@@ -303,23 +330,6 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"nU" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
-	},
-/obj/effect/turf_decal/delivery,
-/obj/docking_port/mobile{
-	dwidth = 16;
-	height = 15;
-	id = "exploration";
-	name = "Exploration Shuttle";
-	port_direction = 4;
-	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 23
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -383,15 +393,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"sR" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/advanced_airlock_controller/directional/east,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "sY" = (
@@ -473,12 +474,12 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"ww" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 6
+"wo" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "xl" = (
@@ -547,6 +548,15 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"Ac" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 6
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Af" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -563,6 +573,26 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"AN" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
+	},
+/obj/effect/turf_decal/delivery,
+/obj/docking_port/mobile{
+	dwidth = 16;
+	height = 15;
+	id = "exploration";
+	name = "Exploration Shuttle";
+	port_direction = 4;
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
+	width = 23
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "AU" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/components/unary/plasma_refiner{
@@ -570,14 +600,24 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
-"Dn" = (
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
-"Dp" = (
+"Cu" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"CU" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Dn" = (
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Fr" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden{
@@ -619,6 +659,11 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"HU" = (
+/obj/machinery/telecomms/relay/preset/exploration,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Ip" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible,
@@ -701,11 +746,6 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
-"LW" = (
-/obj/machinery/telecomms/relay/preset/exploration,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "My" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/mineral/plastitanium,
@@ -719,16 +759,19 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"MS" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Nl" = (
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 5
 	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"NO" = (
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 10
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Of" = (
@@ -761,15 +804,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Sl" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/advanced_airlock_controller/directional/east,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "SG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -794,14 +828,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"Tq" = (
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 5
-	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Tz" = (
@@ -1098,7 +1124,7 @@ gJ
 gJ
 GI
 kH
-LW
+HU
 df
 fO
 te
@@ -1196,9 +1222,9 @@ gJ
 gJ
 "}
 (16,1,1) = {"
-ww
+Ac
 bb
-MS
+dN
 pd
 fU
 jB
@@ -1208,14 +1234,14 @@ df
 XG
 lg
 tD
-MS
+mk
 XI
-Tq
+mR
 "}
 (17,1,1) = {"
-at
-sR
-Dp
+NO
+gM
+Cu
 sO
 TU
 HG
@@ -1225,9 +1251,9 @@ Wd
 QT
 JV
 uQ
-Dp
-Sl
-nU
+CU
+wo
+AN
 "}
 (18,1,1) = {"
 gJ
