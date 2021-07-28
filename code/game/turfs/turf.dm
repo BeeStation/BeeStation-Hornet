@@ -183,15 +183,15 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		if("Cancel")
 			return
 		if("Up")
-			travel_z(user, above)
+			travel_z(user, above, TRUE)
 		if("Down")
-			travel_z(user, below)
+			travel_z(user, below, FALSE)
 
-/turf/proc/travel_z(mob/user, turf/target)
+/turf/proc/travel_z(mob/user, turf/target, upwards = TRUE)
 	user.visible_message("<span class='notice'>[user] begins floating upwards!</span>", "<span class='notice'>You begin floating upwards.</span>")
 	var/matrix/M = user.transform
-	animate(user, 30, pixel_y = 64, transform = M * 1.3, alpha = 180)
-	if(do_after(user, 30, FALSE, get_turf(user)))
+	animate(user, 30, pixel_y = upwards ? 64 : -64, transform = M * (upwards ? 1.3 : 0.7), alpha = 180)
+	if(!do_after(user, 30, FALSE, get_turf(user)))
 		animate(user, 0, flags = ANIMATION_END_NOW, pixel_y = 0, alpha = 255, transform = M)
 		return
 	user.pixel_y = 0
