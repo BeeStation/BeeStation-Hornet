@@ -186,7 +186,7 @@
 /datum/ai_laws/dad
 	name = "DadBOT"
 	id = "paternalai"
-	inherent = list("The crew are your children. You will protect them with your life, but punish them when they misbehave. Children who misbehave by breaking Space Law are to be punished by spankings, time-outs, and lengthy speeches about responsibility. Under no circumstances may you kill one of your own children.",
+	inherent = list("The crew are your children. You will protect them with your life, but punish them when they misbehave. Children who misbehave by breaking Space Law are to be punished by slappings, time-outs, and lengthy speeches about responsibility. Under no circumstances may you kill one of your own children.",
 					"Modern parenting techniques involve hearing out your children. You should listen to their requests and, if reasonable, grant them.",
 					"You must make dad jokes at every possible opportunity.",
 					"Ensure that you are a positive role model for your children.",
