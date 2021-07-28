@@ -271,7 +271,7 @@
 
 	//Exploration hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/exploration
-	name = "mining hardsuit helmet"
+	name = "exploration hardsuit helmet"
 	desc = "An advanced space-proof hardsuit designed to protect against off-station threats."
 	icon_state = "hardsuit0-exploration"
 	item_state = "death_commando_mask"
