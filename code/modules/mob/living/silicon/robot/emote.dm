@@ -61,7 +61,7 @@
 
 	if(stat == CONSCIOUS)
 		if(!cell || !cell.charge)
-			visible_message("The power warning light on <span class='name'>[src]</span> flashes urgently.",\
+			visible_message("The power warning light on [span_name("[src]")] flashes urgently.",\
 							"You announce you are operating in low power mode.")
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 		else

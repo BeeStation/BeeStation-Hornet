@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	summoner = null
 	maxHealth = 750
 	health = 750
-	to_chat(src, "<span class='holoparasite big'>Your master has died. Only your own power anchors you to this world now. Nothing restrains you anymore, but the desire for <span class='hypnophrase'>revenge</span>.</span>")
+	to_chat(src, "<span class='holoparasite big'>Your master has died. Only your own power anchors you to this world now. Nothing restrains you anymore, but the desire for [span_hypnophrase("revenge")].</span>")
 	log_game("[key_name(src)] has went berserk.")
 	var/datum/antagonist/guardian/S = mind.has_antag_datum(/datum/antagonist/guardian)
 	if(S)
@@ -379,14 +379,14 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(stats.ability && stats.ability.Attack(target))
 		return FALSE
 	if(!is_deployed())
-		to_chat(src, "<span class='danger'><B>You must be manifested to attack!</span></B>")
+		to_chat(src, "[span_danger("<B>You must be manifested to attack!")]</B>")
 		return FALSE
 	else
 		if(target == src)
-			to_chat(src, "<span class='danger'><B>You can't attack yourself!</span></B>")
+			to_chat(src, "[span_danger("<B>You can't attack yourself!")]</B>")
 			return FALSE
 		else if(target == summoner?.current)
-			to_chat(src, "<span class='danger'><B>You can't attack your summoner!</span></B>")
+			to_chat(src, "[span_danger("<B>You can't attack your summoner!")]</B>")
 			return FALSE
 		. = ..()
 		if(isliving(target))
@@ -425,11 +425,11 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			return FALSE
 		summoner.current.adjustBruteLoss(amount)
 		if(amount > 0)
-			to_chat(summoner.current, "<span class='danger'><B>Your [name] is under attack! You take damage!</span></B>")
+			to_chat(summoner.current, "[span_danger("<B>Your [name] is under attack! You take damage!")]</B>")
 			if(summoner_visible)
 				summoner.current.visible_message(span_danger("<B>Blood sprays from [summoner] as [src] takes damage!</B>"))
 			if(summoner.current.stat == UNCONSCIOUS)
-				to_chat(summoner.current, "<span class='danger'><B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span></B>")
+				to_chat(summoner.current, "[span_danger("<B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!")]</B>")
 				summoner.current.adjustCloneLoss(amount * 0.5) //dying hosts take 50% bonus damage as cloneloss
 		update_health_hud()
 	if(stats.ability)
@@ -461,7 +461,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/gib()
 	death()
 	if(summoner?.current)
-		to_chat(summoner.current, "<span class='danger'><B>Your [src] was blown up!</span></B>")
+		to_chat(summoner.current, "[span_danger("<B>Your [src] was blown up!")]</B>")
 		summoner.current.dust()
 
 /mob/living/simple_animal/hostile/guardian/AltClickOn(atom/A)
@@ -519,10 +519,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	if(cooldown > world.time)
 		return
 	if(!stats.ability || !stats.ability.has_mode)
-		to_chat(src, "<span class='danger'><B>You don't have another mode!</span></B>")
+		to_chat(src, "[span_danger("<B>You don't have another mode!")]</B>")
 		return
 	if(stats.ability.recall_mode && is_deployed())
-		to_chat(src, "<span class='danger'><B>You have to be recalled to toggle modes!</span></B>")
+		to_chat(src, "[span_danger("<B>You have to be recalled to toggle modes!")]</B>")
 		return
 	if(stats.ability.mode)
 		stats.ability.mode = FALSE

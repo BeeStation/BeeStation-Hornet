@@ -277,7 +277,7 @@
 			l += "<A href='?src=[REF(src)];build=[D.id];amount=10'>x10</A>[RDSCREEN_NOBREAK]"
 		l += "[temp_material][RDSCREEN_NOBREAK]"
 	else
-		l += "<span class='linkOff'>[D.name]</span>[temp_material][RDSCREEN_NOBREAK]"
+		l += "[span_linkoff("[D.name]")][temp_material][RDSCREEN_NOBREAK]"
 	l += ""
 	return l
 

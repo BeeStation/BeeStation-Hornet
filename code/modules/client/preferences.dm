@@ -693,7 +693,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				else
 					dat += " |"
 				if(category == gear_tab)
-					dat += " <span class='linkOff'>[category]</span> "
+					dat += " [span_linkoff("[category]")] "
 				else
 					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
 			dat += "</b></center></td></tr>"
@@ -882,7 +882,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
 			if((rank in GLOB.command_positions) || (rank == "AI"))//Bold head jobs
-				HTML += "<b><span class='dark'>[rank]</span></b>"
+				HTML += "<b>[span_dark("[rank]")]</b>"
 			else
 				HTML += span_dark("[rank]")
 

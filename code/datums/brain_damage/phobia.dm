@@ -194,7 +194,7 @@
 		var/regex/reg = regex("(\\b|\\A)[REGEX_QUOTE(word)]'?s*(\\b|\\Z)", "i")
 
 		if(findtext(speech_args[SPEECH_MESSAGE], reg))
-			to_chat(owner, span_warning("Saying \"<span class='phobia'>[word]</span>\" puts you on edge!"))
+			to_chat(owner, span_warning("Saying \"[span_phobia("[word]")]\" puts you on edge!"))
 			if(fear_state <= (PHOBIA_STATE_CALM))
 				fearscore ++
 

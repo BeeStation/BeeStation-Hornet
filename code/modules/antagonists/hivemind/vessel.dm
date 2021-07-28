@@ -63,7 +63,7 @@
 
 /datum/antagonist/hivevessel/greet()
 	to_chat(owner, span_assimilator("Your mind is suddenly opened, as you see the pinnacle of evolution..."))
-	to_chat(owner, "<big><span class='warning'><b>Follow your objectives, at any cost!</b></span></big>")
+	to_chat(owner, "<big>[span_warning("<b>Follow your objectives, at any cost!</b>")]</big>")
 	var/i = 1
 	for(var/X in objectives)
 		var/datum/objective/O = X
@@ -79,7 +79,7 @@
 
 /datum/antagonist/hivevessel/farewell()
 	to_chat(owner, span_assimilator("Your mind closes up once more..."))
-	to_chat(owner, "<big><span class='warning'><b>You feel the weight of your objectives disappear! You no longer have to obey them.</b></span></big>")
+	to_chat(owner, "<big>[span_warning("<b>You feel the weight of your objectives disappear! You no longer have to obey them.</b>")]</big>")
 
 /datum/antagonist/hivevessel/roundend_report()
 	if(!owner)

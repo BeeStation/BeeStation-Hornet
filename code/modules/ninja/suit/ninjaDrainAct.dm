@@ -116,7 +116,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 /obj/machinery/proc/AI_notify_hack()
 	var/turf/location = get_turf(src)
-	var/alertstr = "<span class='userdanger'>Network Alert: Hacking attempt detected[location?" in [location]":". Unable to pinpoint location"]</span>."
+	var/alertstr = "[span_userdanger("Network Alert: Hacking attempt detected[location?" in [location]":". Unable to pinpoint location"]")]."
 	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
 		to_chat(AI, alertstr)
 

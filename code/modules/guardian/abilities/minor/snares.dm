@@ -17,7 +17,7 @@
 	set category = "Guardian"
 	set desc = "Set an invisible snare that will alert you when living creatures walk over it. Max of 5"
 	if(!can_use_abilities)
-		to_chat(src, "<span class='danger'><B>You can't do that right now!</span></B>")
+		to_chat(src, "[span_danger("<B>You can't do that right now!")]</B>")
 		return
 	if(snares.len <6)
 		var/turf/snare_loc = get_turf(src.loc)
@@ -25,9 +25,9 @@
 		S.spawner = src
 		S.name = "[get_area(snare_loc)] snare ([rand(1, 1000)])"
 		snares |= S
-		to_chat(src, "<span class='danger'><B>Surveillance snare deployed!</span></B>")
+		to_chat(src, "[span_danger("<B>Surveillance snare deployed!")]</B>")
 	else
-		to_chat(src, "<span class='danger'><B>You have too many snares deployed. Remove some first.</span></B>")
+		to_chat(src, "[span_danger("<B>You have too many snares deployed. Remove some first.")]</B>")
 
 /mob/living/simple_animal/hostile/guardian/proc/DisarmSnare()
 	set name = "Remove Surveillance Snare"
@@ -37,7 +37,7 @@
 	if(picked_snare)
 		snares -= picked_snare
 		qdel(picked_snare)
-		to_chat(src, "<span class='danger'><B>Snare disarmed.</span></B>")
+		to_chat(src, "[span_danger("<B>Snare disarmed.")]</B>")
 
 // the snare
 
@@ -49,10 +49,10 @@
 
 /obj/effect/snare/Crossed(AM as mob|obj)
 	if(isliving(AM) && spawner && spawner?.summoner?.current && AM != spawner && !spawner.hasmatchingsummoner(AM))
-		to_chat(spawner.summoner.current, "<span class='danger'><B>[AM] has crossed surveillance snare, [name].</span></B>")
+		to_chat(spawner.summoner.current, "[span_danger("<B>[AM] has crossed surveillance snare, [name].")]</B>")
 		var/list/guardians = spawner.summoner.current.hasparasites()
 		for(var/para in guardians)
-			to_chat(para, "<span class='danger'><B>[AM] has crossed surveillance snare, [name].</span></B>")
+			to_chat(para, "[span_danger("<B>[AM] has crossed surveillance snare, [name].")]</B>")
 
 /obj/effect/snare/singularity_act()
 	return

@@ -192,7 +192,7 @@
 		SEND_SOUND(blobber, sound('sound/effects/blobattack.ogg'))
 		SEND_SOUND(blobber, sound('sound/effects/attackblob.ogg'))
 		to_chat(blobber, "<b>You are a blobbernaut!</b>")
-		to_chat(blobber, "You are powerful, hard to kill, and slowly regenerate near nodes and cores, <span class='cultlarge'>but will slowly die if not near the blob</span> or if the factory that made you is killed.")
+		to_chat(blobber, "You are powerful, hard to kill, and slowly regenerate near nodes and cores, [span_cultlarge("but will slowly die if not near the blob")] or if the factory that made you is killed.")
 		to_chat(blobber, "You can communicate with other blobbernauts and overminds via <b>:b</b>")
 		to_chat(blobber, "Your overmind's blob reagent is: <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font>!")
 		to_chat(blobber, "The <b><font color=\"[blobstrain.color]\">[blobstrain.name]</b></font> reagent [blobstrain.shortdesc ? "[blobstrain.shortdesc]" : "[blobstrain.description]"]")
@@ -363,9 +363,9 @@
 			strain_icon.color = initial(strain.color)
 
 			var/info_text = span_boldnotice("[initial(strain.name)]")
-			info_text += "<br><span class='notice'>[initial(strain.analyzerdescdamage)]</span>"
+			info_text += "<br>[span_notice("[initial(strain.analyzerdescdamage)]")]"
 			if (!isnull(initial(strain.analyzerdesceffect)))
-				info_text += "<br><span class='notice'>[initial(strain.analyzerdesceffect)]</span>"
+				info_text += "<br>[span_notice("[initial(strain.analyzerdesceffect)]")]"
 
 			var/datum/radial_menu_choice/choice = new
 			choice.image = strain_icon

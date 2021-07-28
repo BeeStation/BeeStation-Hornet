@@ -40,7 +40,7 @@
 /datum/guardian_ability/major/assassin/Mode(forced = FALSE)
 	if(mode)
 		if(next_stealth >= world.time)
-			to_chat(guardian, "<span class='danger'><B>You cannot yet enter stealth, wait another [DisplayTimeText(next_stealth - world.time)]!</span></B>")
+			to_chat(guardian, "[span_danger("<B>You cannot yet enter stealth, wait another [DisplayTimeText(next_stealth - world.time)]!")]</B>")
 			mode = FALSE
 			Mode()
 			return

@@ -57,7 +57,7 @@
 			preprime(user, 5, FALSE)
 			return TRUE
 	else if(!clumsy && (clumsy_check == GRENADE_NONCLUMSY_FUMBLE))
-		to_chat(user, span_warning("You pull the pin on [src]. Attached to it is a pink ribbon that says, \"<span class='clowntext'>HONK</span>\""))
+		to_chat(user, span_warning("You pull the pin on [src]. Attached to it is a pink ribbon that says, \"[span_clowntext("HONK")]\""))
 		preprime(user, 5, FALSE)
 		return TRUE
 	else if(sticky && prob(50)) // to add risk to sticky tape grenade cheese, no return cause we still prime as normal after

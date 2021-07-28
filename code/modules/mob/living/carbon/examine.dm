@@ -57,9 +57,9 @@
 
 	for(var/t in missing)
 		if(t==BODY_ZONE_HEAD)
-			msg += "<span class='deadsay'><B>[t_His] [parse_zone(t)] is missing!</B></span>\n"
+			msg += "[span_deadsay("<B>[t_His] [parse_zone(t)] is missing!</B>")]\n"
 			continue
-		msg += "<span class='warning'><B>[t_His] [parse_zone(t)] is missing!</B></span>\n"
+		msg += "[span_warning("<B>[t_His] [parse_zone(t)] is missing!</B>")]\n"
 
 
 	var/temp = getBruteLoss()

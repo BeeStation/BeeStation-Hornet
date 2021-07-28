@@ -151,23 +151,23 @@ GENE SCANNER
 
 	// Damage descriptions
 	if(brute_loss > 10)
-		to_chat(user, "\t<span class='alert'>[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.</span>")
+		to_chat(user, "\t[span_alert("[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.")]")
 	if(fire_loss > 10)
-		to_chat(user, "\t<span class='alert'>[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.</span>")
+		to_chat(user, "\t[span_alert("[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.")]")
 	if(oxy_loss > 10)
-		to_chat(user, "\t<span class='info'><span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.</span>")
+		to_chat(user, "\t[span_info("<span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.")]")
 	if(tox_loss > 10)
-		to_chat(user, "\t<span class='alert'>[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.</span>")
+		to_chat(user, "\t[span_alert("[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.")]")
 	if(M.getStaminaLoss())
-		to_chat(user, "\t<span class='alert'>Subject appears to be suffering from fatigue.</span>")
+		to_chat(user, "\t[span_alert("Subject appears to be suffering from fatigue.")]")
 		if(advanced)
-			to_chat(user, "\t<span class='info'>Fatigue Level: [M.getStaminaLoss()]%.</span>")
+			to_chat(user, "\t[span_info("Fatigue Level: [M.getStaminaLoss()]%.")]")
 	if(M.getCloneLoss())
-		to_chat(user, "\t<span class='alert'>Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.</span>")
+		to_chat(user, "\t[span_alert("Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.")]")
 		if(advanced)
-			to_chat(user, "\t<span class='info'>Cellular Damage Level: [M.getCloneLoss()].</span>")
+			to_chat(user, "\t[span_info("Cellular Damage Level: [M.getCloneLoss()].")]")
 	if(!M.getorgan(/obj/item/organ/brain))
-		to_chat(user, "\t<span class='alert'>Subject lacks a brain.</span>")
+		to_chat(user, "\t[span_alert("Subject lacks a brain.")]")
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(LAZYLEN(C.get_traumas()))
@@ -183,68 +183,68 @@ GENE SCANNER
 						trauma_desc += "permanent "
 				trauma_desc += B.scan_desc
 				trauma_text += trauma_desc
-			to_chat(user, "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>")
+			to_chat(user, "\t[span_alert("Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].")]")
 		if(C.roundstart_quirks.len)
-			to_chat(user, "\t<span class='info'>Subject has the following physiological traits: [C.get_trait_string()].</span>")
+			to_chat(user, "\t[span_info("Subject has the following physiological traits: [C.get_trait_string()].")]")
 	if(advanced)
-		to_chat(user, "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>")
+		to_chat(user, "\t[span_info("Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.")]")
 
 	if(M.radiation)
-		to_chat(user, "\t<span class='alert'>Subject is irradiated.</span>")
+		to_chat(user, "\t[span_alert("Subject is irradiated.")]")
 		if(advanced)
-			to_chat(user, "\t<span class='info'>Radiation Level: [M.radiation]%.</span>")
+			to_chat(user, "\t[span_info("Radiation Level: [M.radiation]%.")]")
 
 	if(advanced && M.hallucinating())
-		to_chat(user, "\t<span class='info'>Subject is hallucinating.</span>")
+		to_chat(user, "\t[span_info("Subject is hallucinating.")]")
 
 	//Eyes and ears
 	if(advanced)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
-			to_chat(user, "\t<span class='info'><b>==EAR STATUS==</b></span>")
+			to_chat(user, "\t[span_info("<b>==EAR STATUS==</b>")]")
 			if(istype(ears))
 				var/healthy = TRUE
 				if(HAS_TRAIT_FROM(C, TRAIT_DEAF, GENETIC_MUTATION))
 					healthy = FALSE
-					to_chat(user, "\t<span class='alert'>Subject is genetically deaf.</span>")
+					to_chat(user, "\t[span_alert("Subject is genetically deaf.")]")
 				else if(HAS_TRAIT(C, TRAIT_DEAF))
 					healthy = FALSE
-					to_chat(user, "\t<span class='alert'>Subject is deaf.</span>")
+					to_chat(user, "\t[span_alert("Subject is deaf.")]")
 				else
 					if(ears.damage)
-						to_chat(user, "\t<span class='alert'>Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.</span>")
+						to_chat(user, "\t[span_alert("Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.")]")
 						healthy = FALSE
 					if(ears.deaf)
-						to_chat(user, "\t<span class='alert'>Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.</span>")
+						to_chat(user, "\t[span_alert("Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.")]")
 						healthy = FALSE
 				if(healthy)
-					to_chat(user, "\t<span class='info'>Healthy.</span>")
+					to_chat(user, "\t[span_info("Healthy.")]")
 			else
-				to_chat(user, "\t<span class='alert'>Subject does not have ears.</span>")
+				to_chat(user, "\t[span_alert("Subject does not have ears.")]")
 			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
-			to_chat(user, "\t<span class='info'><b>==EYE STATUS==</b></span>")
+			to_chat(user, "\t[span_info("<b>==EYE STATUS==</b>")]")
 			if(istype(eyes))
 				var/healthy = TRUE
 				if(HAS_TRAIT(C, TRAIT_BLIND))
-					to_chat(user, "\t<span class='alert'>Subject is blind.</span>")
+					to_chat(user, "\t[span_alert("Subject is blind.")]")
 					healthy = FALSE
 				if(HAS_TRAIT(C, TRAIT_NEARSIGHT))
-					to_chat(user, "\t<span class='alert'>Subject is nearsighted.</span>")
+					to_chat(user, "\t[span_alert("Subject is nearsighted.")]")
 					healthy = FALSE
 				if(eyes.damage > 30)
-					to_chat(user, "\t<span class='alert'>Subject has severe eye damage.</span>")
+					to_chat(user, "\t[span_alert("Subject has severe eye damage.")]")
 					healthy = FALSE
 				else if(eyes.damage > 20)
-					to_chat(user, "\t<span class='alert'>Subject has significant eye damage.</span>")
+					to_chat(user, "\t[span_alert("Subject has significant eye damage.")]")
 					healthy = FALSE
 				else if(eyes.damage)
-					to_chat(user, "\t<span class='alert'>Subject has minor eye damage.</span>")
+					to_chat(user, "\t[span_alert("Subject has minor eye damage.")]")
 					healthy = FALSE
 				if(healthy)
-					to_chat(user, "\t<span class='info'>Healthy.</span>")
+					to_chat(user, "\t[span_info("Healthy.")]")
 			else
-				to_chat(user, "\t<span class='alert'>Subject does not have eyes.</span>")
+				to_chat(user, "\t[span_alert("Subject does not have eyes.")]")
 
 
 	// Body part damage report
@@ -313,15 +313,15 @@ GENE SCANNER
 
 		if(report_organs)	//we either finish the list, or set it to be empty if no organs were reported in that category
 			if(!max_damage)
-				max_damage = "\t<span class='alert'>Non-Functional Organs: </span>"
+				max_damage = "\t[span_alert("Non-Functional Organs: ")]"
 			else
 				max_damage += "</span>"
 			if(!major_damage)
-				major_damage = "\t<span class='info'>Severely Damaged Organs: </span>"
+				major_damage = "\t[span_info("Severely Damaged Organs: ")]"
 			else
 				major_damage += "</span>"
 			if(!minor_damage)
-				minor_damage = "\t<span class='info'>Mildly Damaged Organs: </span>"
+				minor_damage = "\t[span_info("Mildly Damaged Organs: ")]"
 			else
 				minor_damage += "</span>"
 			to_chat(user, minor_damage)
@@ -329,7 +329,7 @@ GENE SCANNER
 			to_chat(user, max_damage)
 		//Genetic damage
 		if(advanced && H.has_dna())
-			to_chat(user, "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>")
+			to_chat(user, "\t[span_info("Genetic Stability: [H.dna.stability]%.")]")
 
 	// Species and body temperature
 	if(ishuman(M))
@@ -863,7 +863,7 @@ GENE SCANNER
 					display += "-"
 				display += copytext_char(sequence, 1 + i*DNA_MUTATION_BLOCKS, DNA_MUTATION_BLOCKS*(1+i) + 1)
 
-			to_chat(user, "<span class='boldnotice'>[display]</span><br>")
+			to_chat(user, "[span_boldnotice("[display]")]<br>")
 
 		ready = FALSE
 		icon_state = "[icon_state]_recharging"

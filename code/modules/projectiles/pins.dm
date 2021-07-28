@@ -63,7 +63,7 @@
 		user.show_message(fail_message, MSG_VISUAL)
 	if(selfdestruct)
 		if(user)
-			user.show_message("<span class='danger'>SELF-DESTRUCTING...</span><br>", MSG_VISUAL)
+			user.show_message("[span_danger("SELF-DESTRUCTING...")]<br>", MSG_VISUAL)
 			to_chat(user, span_userdanger("[gun] explodes!"))
 		explosion(get_turf(gun), -1, 0, 2, 3)
 		if(gun)

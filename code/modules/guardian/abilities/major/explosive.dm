@@ -87,6 +87,6 @@
 		UnregisterSignal(picked_bomb, list(COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_BUMPED, COMSIG_ATOM_ATTACK_HAND));
 		UnregisterSignal(picked_bomb, COMSIG_PARENT_EXAMINE);
 		explosion(picked_bomb, -1, 1, 1, 1)
-		to_chat(src, "<span class='danger'><B>Bomb detonated.</span></B>")
+		to_chat(src, "[span_danger("<B>Bomb detonated.")]</B>")
 
 #undef UNREGISTER_BOMB_SIGNALS

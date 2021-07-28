@@ -48,17 +48,17 @@
 			speed = 0
 			damage_coeff = list(BRUTE = 0.7, BURN = 0.7, TOX = 0.7, CLONE = 0.7, STAMINA = 0, OXY = 0.7)
 			melee_damage = 15
-			to_chat(src, "<span class='danger'><B>You switch to combat mode.</span></B>")
+			to_chat(src, "[span_danger("<B>You switch to combat mode.")]</B>")
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
 			speed = 1
 			damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 			melee_damage = 0
-			to_chat(src, "<span class='danger'><B>You switch to healing mode.</span></B>")
+			to_chat(src, "[span_danger("<B>You switch to healing mode.")]</B>")
 			toggle = TRUE
 	else
-		to_chat(src, "<span class='danger'><B>You have to be recalled to toggle modes!</span></B>")
+		to_chat(src, "[span_danger("<B>You have to be recalled to toggle modes!")]</B>")
 
 
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
@@ -67,7 +67,7 @@
 	set desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon will not work at extreme distances."
 
 	if(beacon_cooldown >= world.time)
-		to_chat(src, "<span class='danger'><B>Your power is on cooldown. You must wait five minutes between placing beacons.</span></B>")
+		to_chat(src, "[span_danger("<B>Your power is on cooldown. You must wait five minutes between placing beacons.")]</B>")
 		return
 
 	var/turf/beacon_loc = get_turf(src.loc)
@@ -80,7 +80,7 @@
 
 	beacon = new(beacon_loc, src)
 
-	to_chat(src, "<span class='danger'><B>Beacon placed! You may now warp targets and objects to it, including your user, via Alt+Click.</span></B>")
+	to_chat(src, "[span_danger("<B>Beacon placed! You may now warp targets and objects to it, including your user, via Alt+Click.")]</B>")
 
 	beacon_cooldown = world.time + 3000
 
@@ -107,30 +107,30 @@
 	if(!istype(A))
 		return
 	if(src.loc == summoner)
-		to_chat(src, "<span class='danger'><B>You must be manifested to warp a target!</span></B>")
+		to_chat(src, "[span_danger("<B>You must be manifested to warp a target!")]</B>")
 		return
 	if(!beacon)
-		to_chat(src, "<span class='danger'><B>You need a beacon placed to warp things!</span></B>")
+		to_chat(src, "[span_danger("<B>You need a beacon placed to warp things!")]</B>")
 		return
 	if(!Adjacent(A))
-		to_chat(src, "<span class='danger'><B>You must be adjacent to your target!</span></B>")
+		to_chat(src, "[span_danger("<B>You must be adjacent to your target!")]</B>")
 		return
 	if(A.anchored)
-		to_chat(src, "<span class='danger'><B>Your target cannot be anchored!</span></B>")
+		to_chat(src, "[span_danger("<B>Your target cannot be anchored!")]</B>")
 		return
 
 	var/turf/T = get_turf(A)
 	if(beacon.get_virtual_z_level() != T.get_virtual_z_level())
-		to_chat(src, "<span class='danger'><B>The beacon is too far away to warp to!</span></B>")
+		to_chat(src, "[span_danger("<B>The beacon is too far away to warp to!")]</B>")
 		return
 
-	to_chat(src, "<span class='danger'><B>You begin to warp [A].</span></B>")
+	to_chat(src, "[span_danger("<B>You begin to warp [A].")]</B>")
 	A.visible_message(span_danger("[A] starts to glow faintly!"), \
 	span_userdanger("You start to faintly glow, and you feel strangely weightless!"))
 	do_attack_animation(A)
 
 	if(!do_mob(src, A, 60)) //now start the channel
-		to_chat(src, "<span class='danger'><B>You need to hold still!</span></B>")
+		to_chat(src, "[span_danger("<B>You need to hold still!")]</B>")
 		return
 
 	new /obj/effect/temp_visual/guardian/phase/out(T)

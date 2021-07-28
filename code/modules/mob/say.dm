@@ -75,7 +75,7 @@
 			alt_name = " (died as [real_name])"
 
 	var/spanned = say_quote(message)
-	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>[name]</span>[alt_name] <span class='message'>[emoji_parse(spanned)]</span></span>"
+	var/rendered = "<span class='game deadsay'>[span_prefix("DEAD:")] [span_name("[name]")][alt_name] [span_message("[emoji_parse(spanned)]")]</span>"
 	log_talk(message, LOG_SAY, tag="DEAD")
 	deadchat_broadcast(rendered, follow_target = src, speaker_key = key)
 

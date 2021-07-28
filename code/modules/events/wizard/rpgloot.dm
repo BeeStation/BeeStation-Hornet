@@ -68,10 +68,10 @@
 		var/quality = rpg_loot_datum.quality
 
 		if(can_backfire && quality > 9 && prob((quality - 9)*10))
-			T.visible_message(span_danger("[target] <span class='inathneq_large'>violently glows blue</span> for a while, then evaporates."))
+			T.visible_message(span_danger("[target] [span_inathneq_large("violently glows blue")] for a while, then evaporates."))
 			target.burn()
 		else
-			T.visible_message(span_notice("[target] <span class='inathneq_small'>glows blue</span> and seems vaguely \"better\"!"))
+			T.visible_message(span_notice("[target] [span_inathneq_small("glows blue")] and seems vaguely \"better\"!"))
 			rpg_loot_datum.modify(upgrade_amount)
 
 	if(--uses <= 0)

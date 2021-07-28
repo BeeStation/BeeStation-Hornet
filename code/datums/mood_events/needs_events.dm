@@ -1,102 +1,102 @@
 //nutrition
 /datum/mood_event/fat
-	description = "<span class='warning'><B>I'm so fat.</B></span>\n" //muh fatshaming
+	description = span_warning("<B>I'm so fat.</B>")  //muh fatshaming
 	mood_change = -6
 
 /datum/mood_event/wellfed
-	description = "<span class='nicegreen'>I'm stuffed!</span>\n"
+	description = span_nicegreen("I'm stuffed!") 
 	mood_change = 8
 
 /datum/mood_event/fed
-	description = "<span class='nicegreen'>I have recently had some food.</span>\n"
+	description = span_nicegreen("I have recently had some food.") 
 	mood_change = 5
 
 /datum/mood_event/hungry
-	description = "<span class='warning'>I'm getting a bit hungry.</span>\n"
+	description = span_warning("I'm getting a bit hungry.") 
 	mood_change = -10
 
 /datum/mood_event/starving
-	description = "<span class='boldwarning'>I'm starving!</span>\n"
+	description = span_boldwarning("I'm starving!") 
 	mood_change = -16
 
 //charge
 /datum/mood_event/charged
-	description = "<span class='nicegreen'>I feel the power in my veins!</span>\n"
+	description = span_nicegreen("I feel the power in my veins!") 
 	mood_change = 6
 
 /datum/mood_event/lowpower
-	description = "<span class='warning'>My power is running low, I should go charge up somewhere.</span>\n"
+	description = span_warning("My power is running low, I should go charge up somewhere.") 
 	mood_change = -10
 
 /datum/mood_event/decharged
-	description = "<span class='boldwarning'>I'm in desperate need of some electricity!</span>\n"
+	description = span_boldwarning("I'm in desperate need of some electricity!") 
 	mood_change = -15
 
 //Disgust
 /datum/mood_event/gross
-	description = "<span class='warning'>I saw something gross.</span>\n"
+	description = span_warning("I saw something gross.") 
 	mood_change = -4
 
 /datum/mood_event/verygross
-	description = "<span class='warning'>I think I'm going to puke.</span>\n"
+	description = span_warning("I think I'm going to puke.") 
 	mood_change = -6
 
 /datum/mood_event/disgusted
-	description = "<span class='boldwarning'>Oh god, that's disgusting.</span>\n"
+	description = span_boldwarning("Oh god, that's disgusting.") 
 	mood_change = -8
 
 /datum/mood_event/disgust/bad_smell
-	description = "<span class='warning'>I can smell something horribly decayed inside this room.</span>\n"
+	description = span_warning("I can smell something horribly decayed inside this room.") 
 	mood_change = -6
 
 /datum/mood_event/disgust/nauseating_stench
-	description = "<span class='warning'>The stench of rotting carcasses is unbearable!</span>\n"
+	description = span_warning("The stench of rotting carcasses is unbearable!") 
 	mood_change = -12
 
 //Hygiene Events
 /datum/mood_event/neat
-	description = "<span class='nicegreen'>I'm so clean, I love it.</span>\n"
+	description = span_nicegreen("I'm so clean, I love it.") 
 	mood_change = 3
 
 /datum/mood_event/dirty
-	description = "<span class='warning'>I smell horrid.</span>\n"
+	description = span_warning("I smell horrid.") 
 	mood_change = -3
 
 /datum/mood_event/disgusting
-	description = "<span class='warning'>I smell <i>DISGUSTING!</i></span>\n"
+	description = span_warning("I smell <i>DISGUSTING!</i>") 
 	mood_change = -5
 
 /datum/mood_event/happy_neet
-	description = "<span class='nicegreen'>I smell horrid.</span>\n"
+	description = span_nicegreen("I smell horrid.") 
 	mood_change = 2
 
 //Generic needs events
 /datum/mood_event/favorite_food
-	description = "<span class='nicegreen'>I really enjoyed eating that.</span>\n"
+	description = span_nicegreen("I really enjoyed eating that.") 
 	mood_change = 5
 	timeout = 4 MINUTES
 
 /datum/mood_event/gross_food
-	description = "<span class='warning'>I really didn't like that food.</span>\n"
+	description = span_warning("I really didn't like that food.") 
 	mood_change = -2
 	timeout = 4 MINUTES
 
 /datum/mood_event/disgusting_food
-	description = "<span class='warning'>That food was disgusting!</span>\n"
+	description = span_warning("That food was disgusting!") 
 	mood_change = -6
 	timeout = 4 MINUTES
 
 /datum/mood_event/breakfast
-	description = "<span class='nicegreen'>Nothing like a hearty breakfast to start the shift.</span>\n"
+	description = span_nicegreen("Nothing like a hearty breakfast to start the shift.") 
 	mood_change = 2
 	timeout = 10 MINUTES
 
 /datum/mood_event/nice_shower
-	description = "<span class='nicegreen'>I have recently had a nice shower.</span>\n"
+	description = span_nicegreen("I have recently had a nice shower.") 
 	mood_change = 4
 	timeout = 5 MINUTES
 
 /datum/mood_event/fresh_laundry
-	description = "<span class='nicegreen'>There's nothing like the feeling of a freshly laundered jumpsuit.</span>\n"
+	description = span_nicegreen("There's nothing like the feeling of a freshly laundered jumpsuit.") 
 	mood_change = 2
 	timeout = 10 MINUTES

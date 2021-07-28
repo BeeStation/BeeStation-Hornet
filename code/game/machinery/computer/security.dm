@@ -232,7 +232,7 @@
 /obj/machinery/computer/secure_data/ui_interact(mob/user)
 	. = ..()
 	if(src.z > 6)
-		to_chat(user, "<span class='boldannounce'>Unable to establish a connection</span>: \black You're too far away from the station!")
+		to_chat(user, "[span_boldannounce("Unable to establish a connection")]: \black You're too far away from the station!")
 		return
 	var/dat
 

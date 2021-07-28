@@ -528,7 +528,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	//show it to the person adminhelping too
 	to_chat(initiator,
 		type = MESSAGE_TYPE_ADMINPM,
-		html = span_adminnotice("PM to-<b>Admins</b>: <span class='linkify'>[msg]</span>"))
+		html = span_adminnotice("PM to-<b>Admins</b>: [span_linkify("[msg]")]"))
 
 //Reopen a closed ticket
 /datum/admin_help/proc/Reopen()

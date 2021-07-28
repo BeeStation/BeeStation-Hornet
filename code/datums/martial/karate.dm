@@ -117,7 +117,7 @@
 
 	to_chat(usr, "<b><i>You try to remember the fundamentals of Karate...</i></b>")
 
-	to_chat(usr, "<span class='notice'>Calf Kick</span>: Harm Grab Disarm. Paralyses one of your opponent's legs.")
-	to_chat(usr, "<span class='notice'>Jumping Knee</span>: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly.")
-	to_chat(usr, "<span class='notice'>Karate Chop</span>: Grab Harm Disarm. Very briefly confuses your opponent and blurs their vision.")
-	to_chat(usr, "<span class='notice'>Floor Stomp</span>: Harm Grab Harm. Deals brute and stamina damage if your opponent isn't standing up.")
+	to_chat(usr, "[span_notice("Calf Kick")]: Harm Grab Disarm. Paralyses one of your opponent's legs.")
+	to_chat(usr, "[span_notice("Jumping Knee")]: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly.")
+	to_chat(usr, "[span_notice("Karate Chop")]: Grab Harm Disarm. Very briefly confuses your opponent and blurs their vision.")
+	to_chat(usr, "[span_notice("Floor Stomp")]: Harm Grab Harm. Deals brute and stamina damage if your opponent isn't standing up.")

@@ -85,7 +85,7 @@
 		if(!target)
 			return
 
-		to_chat(target, "<span class='bold'>You hear a message in your ear: </span>[msg_str]")
+		to_chat(target, "[span_bold("You hear a message in your ear: ")][msg_str]")
 
 
 /obj/item/circuit_component/mmi/register_shell(atom/movable/shell)

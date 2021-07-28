@@ -32,10 +32,10 @@
 	if(SSstation.announcer.custom_alert_message && !has_important_message)
 		announcement +=  SSstation.announcer.custom_alert_message
 	else
-		announcement += "<br><span class='alert'>[html_encode(text)]</span><br>"
+		announcement += "<br>[span_alert("[html_encode(text)]")]<br>"
 	announcement += "<br>"
 	if(auth_id)
-		announcement += "<span class='alert'>-[auth_id]</span><br>"
+		announcement += "[span_alert("-[auth_id]")]<br>"
 
 	var/s = sound(sound)
 	for(var/mob/M in GLOB.player_list)

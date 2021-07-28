@@ -720,14 +720,14 @@
 	var/msg = stripped_input(usr, "Message:", "Telepathy")
 	if(msg)
 		log_directed_talk(H, M, msg, LOG_SAY, "slime telepathy")
-		to_chat(M, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
+		to_chat(M, "[span_notice("You hear an alien voice in your head... ")]<font color=#008CA2>[msg]</font>")
 		to_chat(H, span_notice("You telepathically said: \"[msg]\" to [M]."))
 		for(var/dead in GLOB.dead_mob_list)
 			if(!isobserver(dead))
 				continue
 			var/follow_link_user = FOLLOW_LINK(dead, H)
 			var/follow_link_target = FOLLOW_LINK(dead, M)
-			to_chat(dead, "[follow_link_user] <span class='name'>[H]</span> <span class='alertalien'>Slime Telepathy --> </span> [follow_link_target] <span class='name'>[M]</span> <span class='noticealien'>[msg]</span>")
+			to_chat(dead, "[follow_link_user] [span_name("[H]")] [span_alertalien("Slime Telepathy --> ")] [follow_link_target] [span_name("[M]")] [span_noticealien("[msg]")]")
 
 /datum/action/innate/link_minds
 	name = "Link Minds"

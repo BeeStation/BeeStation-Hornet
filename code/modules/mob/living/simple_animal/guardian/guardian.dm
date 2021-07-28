@@ -162,7 +162,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		to_chat(src, span_warning("Not a valid name, please try again."))
 		guardianrename()
 		return
-	visible_message(span_notice("Your new name <span class='name'>[new_name]</span> anchors itself in your mind."))
+	visible_message(span_notice("Your new name [span_name("[new_name]")] anchors itself in your mind."))
 	fully_replace_character_name(null, new_name)
 
 /mob/living/simple_animal/hostile/guardian/Life() //Dies if the summoner dies
@@ -228,7 +228,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
 	if(!is_deployed())
-		to_chat(src, "<span class='danger'><B>You must be manifested to attack!</span></B>")
+		to_chat(src, "[span_danger("<B>You must be manifested to attack!")]</B>")
 		return FALSE
 	else
 		return ..()
@@ -237,7 +237,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	drop_all_held_items()
 	..()
 	if(summoner)
-		to_chat(summoner, "<span class='danger'><B>Your [name] died somehow!</span></B>")
+		to_chat(summoner, "[span_danger("<B>Your [name] died somehow!")]</B>")
 		summoner.death()
 
 /mob/living/simple_animal/hostile/guardian/update_health_hud()
@@ -256,10 +256,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 			return FALSE
 		summoner.adjustBruteLoss(amount)
 		if(amount > 0)
-			to_chat(summoner, "<span class='danger'><B>Your [name] is under attack! You take damage!</span></B>")
+			to_chat(summoner, "[span_danger("<B>Your [name] is under attack! You take damage!")]</B>")
 			summoner.visible_message(span_danger("<B>Blood sprays from [summoner] as [src] takes damage!</B>"))
 			if(summoner.stat == UNCONSCIOUS)
-				to_chat(summoner, "<span class='danger'><B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span></B>")
+				to_chat(summoner, "[span_danger("<B>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!")]</B>")
 				summoner.adjustCloneLoss(amount * 0.5) //dying hosts take 50% bonus damage as cloneloss
 		update_health_hud()
 
@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
-		to_chat(summoner, "<span class='danger'><B>Your [src] was blown up!</span></B>")
+		to_chat(summoner, "[span_danger("<B>Your [src] was blown up!")]</B>")
 		summoner.gib()
 	ghostize()
 	qdel(src)
@@ -375,7 +375,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	return TRUE
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
-	to_chat(src, "<span class='danger'><B>You don't have another mode!</span></B>")
+	to_chat(src, "[span_danger("<B>You don't have another mode!")]</B>")
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(light_range<3)

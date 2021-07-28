@@ -166,15 +166,15 @@
 	var/keywordparsedmsg = keywords_lookup(msg)
 
 	if(irc)
-		to_chat(src, span_notice("PM to-<b>Admins</b>: <span class='linkify'>[rawmsg]</span>"), type = MESSAGE_TYPE_ADMINPM)
+		to_chat(src, span_notice("PM to-<b>Admins</b>: [span_linkify("[rawmsg]")]"), type = MESSAGE_TYPE_ADMINPM)
 		var/datum/admin_help/AH = admin_ticket_log(src, "<font color='red'>Reply PM from-<b>[key_name(src, TRUE, TRUE)] to <i>IRC</i>: [keywordparsedmsg]</font>")
 		ircreplyamount--
 		send2irc("[AH ? "#[AH.id] " : ""]Reply: [ckey]", rawmsg)
 	else
 		if(recipient.holder)
 			if(holder)	//both are admins
-				to_chat(recipient, span_danger("Admin PM from-<b>[key_name(src, recipient, 1)]</b>: <span class='linkify'>[keywordparsedmsg]</span>"), type = MESSAGE_TYPE_ADMINPM)
-				to_chat(src, span_notice("Admin PM to-<b>[key_name(recipient, src, 1)]</b>: <span class='linkify'>[keywordparsedmsg]</span>"), type = MESSAGE_TYPE_ADMINPM)
+				to_chat(recipient, span_danger("Admin PM from-<b>[key_name(src, recipient, 1)]</b>: [span_linkify("[keywordparsedmsg]")]"), type = MESSAGE_TYPE_ADMINPM)
+				to_chat(src, span_notice("Admin PM to-<b>[key_name(recipient, src, 1)]</b>: [span_linkify("[keywordparsedmsg]")]"), type = MESSAGE_TYPE_ADMINPM)
 
 				//omg this is dumb, just fill in both their tickets
 				admin_ticket_log(src, keywordparsedmsg, key_name(src, recipient, 1), key_name(recipient, src, 1), color="teal", isSenderAdmin = TRUE, safeSenderLogged = TRUE)
@@ -182,10 +182,10 @@
 					admin_ticket_log(recipient, keywordparsedmsg, key_name(src, recipient, 1), key_name(recipient, src, 1), color="teal", isSenderAdmin = TRUE, safeSenderLogged = TRUE)
 
 			else		//recipient is an admin but sender is not
-				var/replymsg = "Reply PM from-<b>[key_name(src, recipient, 1)]</b>: <span class='linkify'>[keywordparsedmsg]</span>"
+				var/replymsg = "Reply PM from-<b>[key_name(src, recipient, 1)]</b>: [span_linkify("[keywordparsedmsg]")]"
 				admin_ticket_log(src, keywordparsedmsg, key_name(src, recipient, 1), null, "white", isSenderAdmin = TRUE, safeSenderLogged = TRUE)
 				to_chat(recipient, span_danger("[replymsg]"), type = MESSAGE_TYPE_ADMINPM)
-				to_chat(src, span_notice("PM to-<b>Admins</b>: <span class='linkify'>[msg]</span>"), type = MESSAGE_TYPE_ADMINPM)
+				to_chat(src, span_notice("PM to-<b>Admins</b>: [span_linkify("[msg]")]"), type = MESSAGE_TYPE_ADMINPM)
 
 			//play the receiving admin the adminhelp sound (if they have them enabled)
 			if(recipient.prefs.toggles & SOUND_ADMINHELP)
@@ -197,9 +197,9 @@
 					new /datum/admin_help(msg, recipient, TRUE)
 
 				to_chat(recipient, "<font color='red' size='4'><b>-- Administrator private message --</b></font>", type = MESSAGE_TYPE_ADMINPM)
-				to_chat(recipient, span_adminsay("Admin PM from-<b>[key_name(src, recipient, 0)]</b>: <span class='linkify'>[msg]</span>"), type = MESSAGE_TYPE_ADMINPM)
+				to_chat(recipient, span_adminsay("Admin PM from-<b>[key_name(src, recipient, 0)]</b>: [span_linkify("[msg]")]"), type = MESSAGE_TYPE_ADMINPM)
 				to_chat(recipient, span_adminsay("<i>Click on the administrator's name to reply.</i>"), type = MESSAGE_TYPE_ADMINPM)
-				to_chat(src, span_notice("Admin PM to-<b>[key_name(recipient, src, 1)]</b>: <span class='linkify'>[msg]</span>"), type = MESSAGE_TYPE_ADMINPM)
+				to_chat(src, span_notice("Admin PM to-<b>[key_name(recipient, src, 1)]</b>: [span_linkify("[msg]")]"), type = MESSAGE_TYPE_ADMINPM)
 
 				admin_ticket_log(recipient, keywordparsedmsg, key_name_admin(src), null, "purple", safeSenderLogged = TRUE)
 

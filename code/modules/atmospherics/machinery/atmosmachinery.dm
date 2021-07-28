@@ -213,7 +213,7 @@
 			"[user] unfastens \the [src].", \
 			span_notice("You unfasten \the [src]."), \
 			span_italics("You hear ratchet."))
-		investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", INVESTIGATE_ATMOS)
+		investigate_log("was [span_warning("REMOVED")] by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 		//You unwrenched a pipe full of pressure? Let's splat you into the wall, silly.
 		if(unsafe_wrenching)

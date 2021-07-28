@@ -266,7 +266,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			O.team.objectives -= O
 			qdel(O)
 			for(var/datum/mind/M in O.team.members)
-				to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+				to_chat(M.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")
 				M.announce_objectives()
 		else if(istype(O.target) && O.target == mob_occupant.mind)
 			if(istype(O, /datum/objective/contract))
@@ -284,17 +284,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					return
 				O.find_target()
 				if(!O.target && O.owner)
-					to_chat(O.owner.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
+					to_chat(O.owner.current, "<BR>[span_userdanger("Your target is no longer within reach. Objective removed!")]")
 					for(var/datum/antagonist/A in O.owner.antag_datums)
 						A.objectives -= O
 				if (!O.team)
 					O.update_explanation_text()
 					O.owner.announce_objectives()
-					to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+					to_chat(O.owner.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 				else
 					var/list/objectivestoupdate
 					for(var/datum/mind/own in O.get_owners())
-						to_chat(own.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+						to_chat(own.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 						for(var/datum/objective/ob in own.get_all_objectives())
 							LAZYADD(objectivestoupdate, ob)
 					objectivestoupdate += O.team.objectives
@@ -303,7 +303,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 							return
 						ob.target = O.target
 						ob.update_explanation_text()
-						to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+						to_chat(O.owner.current, "<BR>[span_userdanger("You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!")]")
 						ob.owner.announce_objectives()
 				qdel(O)
 

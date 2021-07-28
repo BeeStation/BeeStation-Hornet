@@ -50,7 +50,7 @@
 	if(!usr.canUseTopic(src, !issilicon(usr)))
 		return
 	if(!is_station_level(z) && !is_reserved_level(z)) //Can only use in transit and on SS13
-		to_chat(usr, "<span class='boldannounce'>Unable to establish a connection</span>: \black You're too far away from the station!")
+		to_chat(usr, "[span_boldannounce("Unable to establish a connection")]: \black You're too far away from the station!")
 		return
 	usr.set_machine(src)
 
@@ -111,7 +111,7 @@
 						var/security_level = get_security_level()
 						log_game("[key_name(usr)] has changed the security level to [security_level] with [src] at [AREACOORD(usr)].")
 						message_admins("[ADMIN_LOOKUPFLW(usr)] has changed the security level to [security_level] with [src] at [AREACOORD(usr)].")
-						deadchat_broadcast(span_deadsay("<span class='name'>[usr.real_name]</span> has changed the security level to [security_level] with [src] at <span class='name'>[get_area_name(usr, TRUE)]</span>."), usr)
+						deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has changed the security level to [security_level] with [src] at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
 					tmp_alertlevel = 0
 				else
 					to_chat(usr, span_warning("You are not authorized to do this!"))
@@ -246,13 +246,13 @@
 			make_maint_all_access()
 			log_game("[key_name(usr)] enabled emergency maintenance access.")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] enabled emergency maintenance access.")
-			deadchat_broadcast(span_deadsay("<span class='name'>[usr.real_name]</span> enabled emergency maintenance access at <span class='name'>[get_area_name(usr, TRUE)]</span>."), usr)
+			deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] enabled emergency maintenance access at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
 			state = STATE_DEFAULT
 		if("disableemergency")
 			revoke_maint_all_access()
 			log_game("[key_name(usr)] disabled emergency maintenance access.")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] disabled emergency maintenance access.")
-			deadchat_broadcast(span_deadsay("<span class='name'>[usr.real_name]</span> disabled emergency maintenance access at <span class='name'>[get_area_name(usr, TRUE)]</span>."), usr)
+			deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] disabled emergency maintenance access at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
 			state = STATE_DEFAULT
 
 		// Status display stuff
@@ -286,7 +286,7 @@
 				CentCom_announce(input, usr)
 				to_chat(usr, span_notice("Message transmitted to Central Command."))
 				usr.log_talk(input, LOG_SAY, tag="CentCom announcement")
-				deadchat_broadcast(span_deadsay("<span class='name'>[usr.real_name]</span> has messaged CentCom, \"[input]\" at <span class='name'>[get_area_name(usr, TRUE)]</span>."), usr)
+				deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has messaged CentCom, \"[input]\" at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
 				CM.lastTimeUsed = world.time
 
 		// OMG SYNDICATE ...LETTERHEAD
@@ -303,7 +303,7 @@
 				Syndicate_announce(input, usr)
 				to_chat(usr, span_danger("SYSERR @l(19833)of(transmit.dm): !@$ MESSAGE TRANSMITTED TO SYNDICATE COMMAND."))
 				usr.log_talk(input, LOG_SAY, tag="Syndicate announcement")
-				deadchat_broadcast(span_deadsay("<span class='name'>[usr.real_name]</span> has messaged the Syndicate, \"[input]\" at <span class='name'>[get_area_name(usr, TRUE)]</span>."), usr)
+				deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has messaged the Syndicate, \"[input]\" at [span_name("[get_area_name(usr, TRUE)]")]."), usr)
 				CM.lastTimeUsed = world.time
 
 		if("RestoreBackup")
@@ -388,7 +388,7 @@
 				var/security_level = get_security_level()
 				log_game("[key_name(usr)] has changed the security level to [security_level] from [src] at [AREACOORD(usr)].")
 				message_admins("[ADMIN_LOOKUPFLW(usr)] has changed the security level to [security_level] from [src] at [AREACOORD(usr)].")
-				deadchat_broadcast(span_deadsay("<span class='name'>[usr.real_name]</span> has changed the security level to [security_level] from [src] at [get_area_name(usr, TRUE)]."), usr)
+				deadchat_broadcast(span_deadsay("[span_name("[usr.real_name]")] has changed the security level to [security_level] from [src] at [get_area_name(usr, TRUE)]."), usr)
 			tmp_alertlevel = 0
 			aistate = STATE_DEFAULT
 		if("ai-changeseclevel")
@@ -428,7 +428,7 @@
 /obj/machinery/computer/communications/ui_interact(mob/user)
 	. = ..()
 	if (z > 6)
-		to_chat(user, "<span class='boldannounce'>Unable to establish a connection</span>: \black You're too far away from the station!")
+		to_chat(user, "[span_boldannounce("Unable to establish a connection")]: \black You're too far away from the station!")
 		return
 
 	var/dat = ""
@@ -716,7 +716,7 @@
 		to_chat(user, span_warning("You cannot send an announcement that contains prohibited words."))
 		return
 	SScommunications.make_announcement(user, is_silicon, input, auth_id)
-	deadchat_broadcast(span_deadsay("<span class='name'>[user.real_name]</span> made a priority announcement from <span class='name'>[get_area_name(usr, TRUE)]</span>."), user)
+	deadchat_broadcast(span_deadsay("[span_name("[user.real_name]")] made a priority announcement from [span_name("[get_area_name(usr, TRUE)]")]."), user)
 
 /obj/machinery/computer/communications/proc/post_status(command, data1, data2)
 

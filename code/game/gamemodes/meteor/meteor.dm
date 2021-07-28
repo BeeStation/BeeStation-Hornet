@@ -48,7 +48,7 @@
 				survivor_list += span_neutraltext("[player.real_name] survived but is stranded without any hope of rescue.")
 
 	if(survivors)
-		return "<div class='panel greenborder'><span class='header'>The following survived the meteor storm:</span><br>[survivor_list.Join("<br>")]</div>"
+		return "<div class='panel greenborder'>[span_header("The following survived the meteor storm:")]<br>[survivor_list.Join("<br>")]</div>"
 	else
 		return "<div class='panel redborder'><span class='redtext big'>Nobody survived the meteor storm!</span></div>"
 

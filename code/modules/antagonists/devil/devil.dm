@@ -293,15 +293,15 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	sleep(10)
 	if(!D)
 		return
-	to_chat(D, "<i><b><span class='big'>YES!!</span></b></i>")
+	to_chat(D, "<i><b>[span_big("YES!!")]</b></i>")
 	sleep(10)
 	if(!D)
 		return
-	to_chat(D, "<i><b><span class='reallybig'>YE--</span></b></i>")
+	to_chat(D, "<i><b>[span_reallybig("YE--")]</b></i>")
 	sleep(1)
 	if(!D)
 		return
-	send_to_playing_players("<font size=5><span class='danger'><b>\"SLOTH, WRATH, GLUTTONY, ACEDIA, ENVY, GREED, PRIDE! FIRES OF HELL AWAKEN!!\"</font></span>")
+	send_to_playing_players("<font size=5>[span_danger("<b>\"SLOTH, WRATH, GLUTTONY, ACEDIA, ENVY, GREED, PRIDE! FIRES OF HELL AWAKEN!!\"</font>")]")
 	sound_to_playing_players('sound/hallucinations/veryfar_noise.ogg')
 	give_appropriate_spells()
 	D.convert_to_archdevil()
@@ -496,7 +496,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	to_chat(owner.current, GLOB.lawlorify[LAW][ban])
 	to_chat(owner.current, GLOB.lawlorify[LAW][obligation])
 	to_chat(owner.current, GLOB.lawlorify[LAW][banish])
-	to_chat(owner.current, "<span class='warning'>Remember, the crew can research your weaknesses if they find out your devil name.</span><br>")
+	to_chat(owner.current, "[span_warning("Remember, the crew can research your weaknesses if they find out your devil name.")]<br>")
 	.=..()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Devil",
 		"Summon contracts to purchase the souls of the crew.\n\

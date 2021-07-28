@@ -94,14 +94,14 @@ Doesn't work on other aliens/AI.*/
 	var/msg = stripped_input(usr, "Message:", "Alien Whisper")
 	if(msg)
 		log_directed_talk(user, M, msg, LOG_SAY, tag="alien whisper")
-		to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head.</span>[msg]")
+		to_chat(M, "[span_noticealien("You hear a strange, alien voice in your head.")][msg]")
 		to_chat(user, span_noticealien("You said: \"[msg]\" to [M]"))
 		for(var/ded in GLOB.dead_mob_list)
 			if(!isobserver(ded))
 				continue
 			var/follow_link_user = FOLLOW_LINK(ded, user)
 			var/follow_link_whispee = FOLLOW_LINK(ded, M)
-			to_chat(ded, "[follow_link_user] <span class='name'>[user]</span> <span class='alertalien'>Alien Whisper --> </span> [follow_link_whispee] <span class='name'>[M]</span> <span class='noticealien'>[msg]</span>")
+			to_chat(ded, "[follow_link_user] [span_name("[user]")] [span_alertalien("Alien Whisper --> ")] [follow_link_whispee] [span_name("[M]")] [span_noticealien("[msg]")]")
 	else
 		return 0
 	return 1

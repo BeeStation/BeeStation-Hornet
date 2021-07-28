@@ -988,7 +988,7 @@
 		being_used = FALSE
 		return
 
-	M.visible_message(span_notice("<span class='name'>[M]</span> has a new name, <span class='name'>[new_name]</span>."), span_notice("Your old name of <span class='name'>[M.real_name]</span> fades away, and your new name <span class='name'>[new_name]</span> anchors itself in your mind."))
+	M.visible_message(span_notice("[span_name("[M]")] has a new name, [span_name("[new_name]")]."), span_notice("Your old name of [span_name("[M.real_name]")] fades away, and your new name [span_name("[new_name]")] anchors itself in your mind."))
 	message_admins("[ADMIN_LOOKUPFLW(user)] used [src] on [ADMIN_LOOKUPFLW(M)], letting them rename themselves into [new_name].")
 	log_game("[key_name(user)] used [src] on [key_name(M)], letting them rename themselves into [new_name].")
 

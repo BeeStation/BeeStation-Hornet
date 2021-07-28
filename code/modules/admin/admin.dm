@@ -46,7 +46,7 @@
 		if(M.client?.tgui_panel)
 			body += M.client.tgui_panel.show_notices() //The datum holds a reference to the client already, no need to pass it.
 		else //This should never happen in practice.
-			body += "<br><b>Telemetry Status:</b> <span class='bad'>USER CHAT NOT LOADED, CALL A CODER MAYBE?</span>"
+			body += "<br><b>Telemetry Status:</b> [span_bad("USER CHAT NOT LOADED, CALL A CODER MAYBE?")]"
 
 		body += "<br><br><b>CentCom Galactic Ban DB: </b> "
 		if(CONFIG_GET(string/centcom_ban_db))
@@ -567,7 +567,7 @@
 	if(message)
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
-		to_chat(world, "<span class='adminnotice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b></span>\n \t [message]")
+		to_chat(world, "[span_adminnotice("<b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b>")]\n \t [message]")
 		log_admin("Announce: [key_name(usr)] : [message]")
 		discordsendmsg("ooc", "***[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:***\n       [message]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

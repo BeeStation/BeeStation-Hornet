@@ -45,7 +45,7 @@
 				TD.stored_research.copy_research_to(stored_research)
 				to_chat(U, span_notice("Data analyzed and updated. Disk erased."))
 			else
-				to_chat(U, "<span class='userdanger'>ERROR</span>: Procedure interrupted. Process terminated.")
+				to_chat(U, "[span_userdanger("ERROR")]: Procedure interrupted. Process terminated.")
 		else
 			to_chat(U, span_notice("No research information detected."))
 		return

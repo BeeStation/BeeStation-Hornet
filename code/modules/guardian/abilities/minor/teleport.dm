@@ -25,34 +25,34 @@
 		return
 	var/mob/living/simple_animal/hostile/guardian/G = caller
 	if(!G.is_deployed())
-		to_chat(G, "<span class='danger'><B>You must be manifested to warp a target!</span></B>")
+		to_chat(G, "[span_danger("<B>You must be manifested to warp a target!")]</B>")
 		return
 	if(!G.can_use_abilities)
-		to_chat(G, "<span class='danger'><B>You can't do that right now!</span></B>")
+		to_chat(G, "[span_danger("<B>You can't do that right now!")]</B>")
 		return
 	if(!G.beacon)
-		to_chat(G, "<span class='danger'><B>You need a beacon placed to warp things!</span></B>")
+		to_chat(G, "[span_danger("<B>You need a beacon placed to warp things!")]</B>")
 		return
 	if(!G.Adjacent(A))
-		to_chat(G, "<span class='danger'><B>You must be adjacent to your target!</span></B>")
+		to_chat(G, "[span_danger("<B>You must be adjacent to your target!")]</B>")
 		return
 	if(A.anchored)
-		to_chat(G, "<span class='danger'><B>Your target cannot be anchored!</span></B>")
+		to_chat(G, "[span_danger("<B>Your target cannot be anchored!")]</B>")
 		return
 
 	var/turf/T = get_turf(A)
 	if(G.beacon.get_virtual_z_level() != T.get_virtual_z_level())
-		to_chat(G, "<span class='danger'><B>The beacon is too far away to warp to!</span></B>")
+		to_chat(G, "[span_danger("<B>The beacon is too far away to warp to!")]</B>")
 		return
 	remove_ranged_ability()
 
-	to_chat(G, "<span class='danger'><B>You begin to warp [A].</span></B>")
+	to_chat(G, "[span_danger("<B>You begin to warp [A].")]</B>")
 	A.visible_message(span_danger("[A] starts to glow faintly!"), \
 	span_userdanger("You start to faintly glow, and you feel strangely weightless!"))
 	G.do_attack_animation(A)
 
 	if(!do_mob(G, A, 60)) //now start the channel
-		to_chat(G, "<span class='danger'><B>You need to hold still!</span></B>")
+		to_chat(G, "[span_danger("<B>You need to hold still!")]</B>")
 		return
 
 	new /obj/effect/temp_visual/guardian/phase/out(T)
@@ -69,7 +69,7 @@
 	set category = "Guardian"
 	set desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon will not work at extreme distances."
 	if(beacon_cooldown >= world.time)
-		to_chat(src, "<span class='danger'><B>Your power is on cooldown. You must wait five minutes between placing beacons.</span></B>")
+		to_chat(src, "[span_danger("<B>Your power is on cooldown. You must wait five minutes between placing beacons.")]</B>")
 		return
 	var/turf/beacon_loc = get_turf(src.loc)
 	if(!isfloorturf(beacon_loc))
@@ -78,7 +78,7 @@
 		beacon.disappear()
 		beacon = null
 	beacon = new(beacon_loc, src)
-	to_chat(src, "<span class='danger'><B>Beacon placed! You may now warp targets and objects to it, including your user, via the Teleport ability.</span></B>")
+	to_chat(src, "[span_danger("<B>Beacon placed! You may now warp targets and objects to it, including your user, via the Teleport ability.")]</B>")
 	beacon_cooldown = world.time + 3000
 
 
