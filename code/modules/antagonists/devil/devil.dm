@@ -182,11 +182,11 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		return
 	soulsOwned += soul
 	owner.current.set_nutrition(NUTRITION_LEVEL_FULL)
-	to_chat(owner.current, "<span class='warning'>You feel satiated as you received a new soul.</span>")
+	to_chat(owner.current, span_warning("You feel satiated as you received a new soul."))
 	update_hud()
 	switch(SOULVALUE)
 		if(0)
-			to_chat(owner.current, "<span class='warning'>Your hellish powers have been restored.</span>")
+			to_chat(owner.current, span_warning("Your hellish powers have been restored."))
 			give_appropriate_spells()
 		if(BLOOD_THRESHOLD)
 			increase_blood_lizard()
@@ -198,7 +198,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
 	if(soulsOwned.Remove(soul))
 		check_regression()
-		to_chat(owner.current, "<span class='warning'>You feel as though a soul has slipped from your grasp.</span>")
+		to_chat(owner.current, span_warning("You feel as though a soul has slipped from your grasp."))
 		update_hud()
 
 /datum/antagonist/devil/proc/check_regression()
@@ -211,10 +211,10 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		regress_humanoid()
 	if(SOULVALUE < 0)
 		give_appropriate_spells()
-		to_chat(owner.current, "<span class='warning'>As punishment for your failures, all of your powers except contract creation have been revoked.</span>")
+		to_chat(owner.current, span_warning("As punishment for your failures, all of your powers except contract creation have been revoked."))
 
 /datum/antagonist/devil/proc/regress_humanoid()
-	to_chat(owner.current, "<span class='warning'>Your powers weaken, have more contracts be signed to regain power.</span>")
+	to_chat(owner.current, span_warning("Your powers weaken, have more contracts be signed to regain power."))
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
 		H.set_species(/datum/species/human, 1)
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 
 /datum/antagonist/devil/proc/regress_blood_lizard()
 	var/mob/living/carbon/true_devil/D = owner.current
-	to_chat(D, "<span class='warning'>Your powers weaken, have more contracts be signed to regain power.</span>")
+	to_chat(D, span_warning("Your powers weaken, have more contracts be signed to regain power."))
 	D.oldform.forceMove(D.drop_location())
 	owner.transfer_to(D.oldform)
 	give_appropriate_spells()
@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 
 
 /datum/antagonist/devil/proc/increase_blood_lizard()
-	to_chat(owner.current, "<span class='warning'>You feel as though your humanoid form is about to shed.  You will soon turn into a blood lizard.</span>")
+	to_chat(owner.current, span_warning("You feel as though your humanoid form is about to shed.  You will soon turn into a blood lizard."))
 	sleep(50)
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
@@ -254,7 +254,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 
 
 /datum/antagonist/devil/proc/increase_true_devil()
-	to_chat(owner.current, "<span class='warning'>You feel as though your current form is about to shed.  You will soon turn into a true devil.</span>")
+	to_chat(owner.current, span_warning("You feel as though your current form is about to shed.  You will soon turn into a true devil."))
 	sleep(50)
 	var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(owner.current.loc)
 	A.faction |= "hell"
@@ -270,22 +270,22 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	if(!ascendable)
 		return
 	var/mob/living/carbon/true_devil/D = owner.current
-	to_chat(D, "<span class='warning'>You feel as though your form is about to ascend.</span>")
+	to_chat(D, span_warning("You feel as though your form is about to ascend."))
 	sleep(50)
 	if(!D)
 		return
-	D.visible_message("<span class='warning'>[D]'s skin begins to erupt with spikes.</span>", \
-		"<span class='warning'>Your flesh begins creating a shield around yourself.</span>")
+	D.visible_message(span_warning("[D]'s skin begins to erupt with spikes."), \
+		span_warning("Your flesh begins creating a shield around yourself."))
 	sleep(100)
 	if(!D)
 		return
-	D.visible_message("<span class='warning'>The horns on [D]'s head slowly grow and elongate.</span>", \
-		"<span class='warning'>Your body continues to mutate. Your telepathic abilities grow.</span>")
+	D.visible_message(span_warning("The horns on [D]'s head slowly grow and elongate."), \
+		span_warning("Your body continues to mutate. Your telepathic abilities grow."))
 	sleep(90)
 	if(!D)
 		return
-	D.visible_message("<span class='warning'>[D]'s body begins to violently stretch and contort.</span>", \
-		"<span class='warning'>You begin to rend apart the final barriers to ultimate power.</span>")
+	D.visible_message(span_warning("[D]'s body begins to violently stretch and contort."), \
+		span_warning("You begin to rend apart the final barriers to ultimate power."))
 	sleep(40)
 	if(!D)
 		return
@@ -362,23 +362,23 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 
 /datum/antagonist/devil/proc/beginResurrectionCheck(mob/living/body)
 	if(SOULVALUE>0)
-		to_chat(owner.current, "<span class='userdanger'>Your body has been damaged to the point that you may no longer use it.  At the cost of some of your power, you will return to life soon.  Remain in your body.</span>")
+		to_chat(owner.current, span_userdanger("Your body has been damaged to the point that you may no longer use it.  At the cost of some of your power, you will return to life soon.  Remain in your body."))
 		sleep(DEVILRESURRECTTIME)
 		if (!body ||  body.stat == DEAD)
 			if(SOULVALUE>0)
 				if(check_banishment(body))
-					to_chat(owner.current, "<span class='userdanger'>Unfortunately, the mortals have finished a ritual that prevents your resurrection.</span>")
+					to_chat(owner.current, span_userdanger("Unfortunately, the mortals have finished a ritual that prevents your resurrection."))
 					return -1
 				else
-					to_chat(owner.current, "<span class='userdanger'>WE LIVE AGAIN!</span>")
+					to_chat(owner.current, span_userdanger("WE LIVE AGAIN!"))
 					return hellish_resurrection(body)
 			else
-				to_chat(owner.current, "<span class='userdanger'>Unfortunately, the power that stemmed from your contracts has been extinguished.  You no longer have enough power to resurrect.</span>")
+				to_chat(owner.current, span_userdanger("Unfortunately, the power that stemmed from your contracts has been extinguished.  You no longer have enough power to resurrect."))
 				return -1
 		else
-			to_chat(owner.current, "<span class='danger'> You seem to have resurrected without your hellish powers.</span>")
+			to_chat(owner.current, span_danger(" You seem to have resurrected without your hellish powers."))
 	else
-		to_chat(owner.current, "<span class='userdanger'>Your hellish powers are too weak to resurrect yourself.</span>")
+		to_chat(owner.current, span_userdanger("Your hellish powers are too weak to resurrect yourself."))
 
 /datum/antagonist/devil/proc/check_banishment(mob/living/body)
 	switch(banish)
@@ -488,8 +488,8 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 			C.hud_used.devilsouldisplay.update_counter(SOULVALUE)
 
 /datum/antagonist/devil/greet()
-	to_chat(owner.current, "<span class='warning'><b>You remember your link to the infernal.  You are [truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</b></span>")
-	to_chat(owner.current, "<span class='warning'><b>However, your infernal form is not without weaknesses.</b></span>")
+	to_chat(owner.current, span_warning("<b>You remember your link to the infernal.  You are [truename], an agent of hell, a devil.  And you were sent to the plane of creation for a reason.  A greater purpose.  Convince the crew to sin, and embroiden Hell's grasp.</b>"))
+	to_chat(owner.current, span_warning("<b>However, your infernal form is not without weaknesses.</b>"))
 	to_chat(owner.current, "You may not use violence to coerce someone into selling their soul.")
 	to_chat(owner.current, "You may not directly and knowingly physically harm a devil, other than yourself.")
 	to_chat(owner.current, GLOB.lawlorify[LAW][bane])
@@ -523,12 +523,12 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 	sleep(10)
 	if(owner.assigned_role == "Clown" && ishuman(owner.current))
 		var/mob/living/carbon/human/S = owner.current
-		to_chat(S, "<span class='notice'>Your infernal nature has allowed you to overcome your clownishness.</span>")
+		to_chat(S, span_notice("Your infernal nature has allowed you to overcome your clownishness."))
 		S.dna.remove_mutation(CLOWNMUT)
 	.=..()
 
 /datum/antagonist/devil/on_removal()
-	to_chat(owner.current, "<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
+	to_chat(owner.current, span_userdanger("Your infernal link has been severed! You are no longer a devil!"))
 	.=..()
 
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)

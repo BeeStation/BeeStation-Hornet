@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 
 	if(creator)
 		if(creator.create_area_cooldown >= world.time)
-			to_chat(creator, "<span class='warning'>You're trying to create a new area a little too fast.</span>")
+			to_chat(creator, span_warning("You're trying to create a new area a little too fast."))
 			return
 		creator.create_area_cooldown = world.time + 10
 
@@ -57,10 +57,10 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		))
 	var/list/turfs = detect_room(get_turf(creator), area_or_turf_fail_types)
 	if(!turfs)
-		to_chat(creator, "<span class='warning'>The new area must be completely airtight and not a part of a shuttle.</span>")
+		to_chat(creator, span_warning("The new area must be completely airtight and not a part of a shuttle."))
 		return
 	if(turfs.len > BP_MAX_ROOM_SIZE)
-		to_chat(creator, "<span class='warning'>The room you're in is too big. It is [((turfs.len / BP_MAX_ROOM_SIZE)-1)*100]% larger than allowed.</span>")
+		to_chat(creator, span_warning("The room you're in is too big. It is [((turfs.len / BP_MAX_ROOM_SIZE)-1)*100]% larger than allowed."))
 		return
 	var/list/areas = list("New Area" = /area)
 	for(var/i in 1 to turfs.len)
@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 	area_choice = areas[area_choice]
 
 	if(!area_choice)
-		to_chat(creator, "<span class='warning'>No choice selected. The area remains undefined.</span>")
+		to_chat(creator, span_warning("No choice selected. The area remains undefined."))
 		return
 	var/area/newA
 	var/area/oldA = get_area(get_turf(creator))
@@ -83,10 +83,10 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		if(!str || !length(str)) //cancel
 			return
 		if(length(str) > 50)
-			to_chat(creator, "<span class='warning'>The given name is too long. The area remains undefined.</span>")
+			to_chat(creator, span_warning("The given name is too long. The area remains undefined."))
 			return
 		if(CHAT_FILTER_CHECK(str))
-			to_chat(creator, "<span class='warning'>The given name contains prohibited word(s). The area remains undefined.</span>")
+			to_chat(creator, span_warning("The given name contains prohibited word(s). The area remains undefined."))
 			return
 		newA = new area_choice
 		newA.setup(str)
@@ -108,7 +108,7 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		var/obj/machinery/door/firedoor/FD = door
 		FD.CalculateAffectingAreas()
 
-	to_chat(creator, "<span class='notice'>You have created a new area, named [newA.name]. It is now weather proof, and constructing an APC will allow it to be powered.</span>")
+	to_chat(creator, span_notice("You have created a new area, named [newA.name]. It is now weather proof, and constructing an APC will allow it to be powered."))
 	return TRUE
 
 #undef BP_MAX_ROOM_SIZE

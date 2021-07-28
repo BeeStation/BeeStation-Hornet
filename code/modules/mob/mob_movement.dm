@@ -176,7 +176,7 @@
 			return TRUE
 		else if(mob.restrained(ignore_grab = 1))
 			move_delay = world.time + 10
-			to_chat(src, "<span class='warning'>You're restrained! You can't move!</span>")
+			to_chat(src, span_warning("You're restrained! You can't move!"))
 			return TRUE
 		else if(mob.pulledby.grab_state == GRAB_AGGRESSIVE)
 			move_delay = world.time + 10
@@ -256,17 +256,17 @@
 			var/turf/open/floor/stepTurf = get_step(L, direct)
 			if(stepTurf)
 				for(var/obj/effect/decal/cleanable/food/salt/S in stepTurf)
-					to_chat(L, "<span class='warning'>[S] bars your passage!</span>")
+					to_chat(L, span_warning("[S] bars your passage!"))
 					if(isrevenant(L))
 						var/mob/living/simple_animal/revenant/R = L
 						R.reveal(20)
 						R.stun(20)
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
-					to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
+					to_chat(L, span_warning("Some strange aura is blocking the way."))
 					return
 				if(locate(/obj/effect/blessing, stepTurf))
-					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
+					to_chat(L, span_warning("Holy energies block your path!"))
 					return
 				L.forceMove(stepTurf)
 			L.setDir(direct)
@@ -276,14 +276,14 @@
 			var/turf/loccheck = get_turf(stepTurf)
 			if(stepTurf)
 				for(var/obj/effect/decal/cleanable/food/salt/S in stepTurf)
-					to_chat(L, "<span class='warning'>[S] bars your passage!</span>")
+					to_chat(L, span_warning("[S] bars your passage!"))
 					return
 				if(stepTurf.flags_1 & NOJAUNT_1)
 					if(!is_reebe(loccheck.z))
-						to_chat(L, "<span class='warning'>Some strange aura is blocking the way.</span>")
+						to_chat(L, span_warning("Some strange aura is blocking the way."))
 						return
 				if(locate(/obj/effect/blessing, stepTurf))
-					to_chat(L, "<span class='warning'>Holy energies block your path!</span>")
+					to_chat(L, span_warning("Holy energies block your path!"))
 					return
 				L.forceMove(stepTurf)
 			L.setDir(direct)
@@ -305,7 +305,7 @@
 	if(backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			if(backup.newtonian_move(turn(movement_dir, 180))) //You're pushing off something movable, so it moves
-				to_chat(src, "<span class='info'>You push off of [backup] to propel yourself.</span>")
+				to_chat(src, span_info("You push off of [backup] to propel yourself."))
 		return TRUE
 	return FALSE
 
@@ -477,7 +477,7 @@
 	set category = "IC"
 
 	if(zMove(UP, TRUE))
-		to_chat(src, "<span class='notice'>You move upwards.</span>")
+		to_chat(src, span_notice("You move upwards."))
 
 ///Moves a mob down a z level
 /mob/verb/down()
@@ -485,7 +485,7 @@
 	set category = "IC"
 
 	if(zMove(DOWN, TRUE))
-		to_chat(src, "<span class='notice'>You move down.</span>")
+		to_chat(src, span_notice("You move down."))
 
 ///Move a mob between z levels, if it's valid to move z's on this turf
 /mob/proc/zMove(dir, feedback = FALSE)
@@ -494,11 +494,11 @@
 	var/turf/target = get_step_multiz(src, dir)
 	if(!target)
 		if(feedback)
-			to_chat(src, "<span class='warning'>There's nothing in that direction!</span>")
+			to_chat(src, span_warning("There's nothing in that direction!"))
 		return FALSE
 	if(!canZMove(dir, target))
 		if(feedback)
-			to_chat(src, "<span class='warning'>You couldn't move there!</span>")
+			to_chat(src, span_warning("You couldn't move there!"))
 		return FALSE
 	forceMove(target)
 	return TRUE

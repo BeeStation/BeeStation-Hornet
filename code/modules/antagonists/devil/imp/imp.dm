@@ -54,7 +54,7 @@
 /mob/living/simple_animal/imp/death()
 	..(1)
 	playsound(get_turf(src),'sound/magic/demon_dies.ogg', 200, 1)
-	visible_message("<span class='danger'>[src] screams in agony as it sublimates into a sulfurous smoke.</span>")
+	visible_message(span_danger("[src] screams in agony as it sublimates into a sulfurous smoke."))
 	ghostize()
 	qdel(src)
 

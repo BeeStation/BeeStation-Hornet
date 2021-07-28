@@ -39,10 +39,10 @@
 		if(!DG.reagents.total_volume) //glass is empty
 			qdel(DG)
 			glasses++
-			to_chat(user, "<span class='notice'>[src] accepts the drinking glass, sterilizing it.</span>")
+			to_chat(user, span_notice("[src] accepts the drinking glass, sterilizing it."))
 	else if(istype(O, /obj/item/reagent_containers/food/snacks))
 		if(isFull())
-			to_chat(user, "<span class='warning'>[src] is at full capacity.</span>")
+			to_chat(user, span_warning("[src] is at full capacity."))
 		else
 			var/obj/item/reagent_containers/food/snacks/S = O
 			if(!user.transferItemToLoc(S, src))
@@ -56,12 +56,12 @@
 		if(G.get_amount() >= 1)
 			G.use(1)
 			glasses += 4
-			to_chat(user, "<span class='notice'>[src] accepts a sheet of glass.</span>")
+			to_chat(user, span_notice("[src] accepts a sheet of glass."))
 	else if(istype(O, /obj/item/storage/bag/tray))
 		var/obj/item/storage/bag/tray/T = O
 		for(var/obj/item/reagent_containers/food/snacks/S in T.contents)
 			if(isFull())
-				to_chat(user, "<span class='warning'>[src] is at full capacity.</span>")
+				to_chat(user, span_warning("[src] is at full capacity."))
 				break
 			else
 				if(SEND_SIGNAL(T, COMSIG_TRY_STORAGE_TAKE, S, src))
@@ -127,7 +127,7 @@
 
 	if(href_list["pour"] || href_list["m_pour"])
 		if(glasses-- <= 0)
-			to_chat(usr, "<span class='warning'>There are no glasses left!</span>")
+			to_chat(usr, span_warning("There are no glasses left!"))
 			glasses = 0
 		else
 			var/obj/item/reagent_containers/food/drinks/drinkingglass/DG = new(loc)
@@ -138,11 +138,11 @@
 
 	if(href_list["mix"])
 		if(!reagents.trans_id_to(mixer, reagents.reagent_list[text2num(href_list["mix"])]?.type, portion))
-			to_chat(usr, "<span class='warning'>[mixer] is full!</span>")
+			to_chat(usr, span_warning("[mixer] is full!"))
 
 	if(href_list["transfer"])
 		if(!mixer.reagents.trans_id_to(src, mixer.reagents.reagent_list[text2num(href_list["transfer"])]?.type, portion))
-			to_chat(usr, "<span class='warning'>[src] is full!</span>")
+			to_chat(usr, span_warning("[src] is full!"))
 
 	updateDialog()
 

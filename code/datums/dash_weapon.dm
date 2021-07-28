@@ -44,11 +44,11 @@
 			owner.update_action_buttons_icon()
 			addtimer(CALLBACK(src, .proc/charge), charge_rate)
 		else
-			to_chat(user, "<span class='warning'>You cannot dash here!</span>")
+			to_chat(user, span_warning("You cannot dash here!"))
 
 /datum/action/innate/dash/proc/charge()
 	current_charges = CLAMP(current_charges + 1, 0, max_charges)
 	owner.update_action_buttons_icon()
 	if(recharge_sound)
 		playsound(dashing_item, recharge_sound, 50, 1)
-	to_chat(owner, "<span class='notice'>[src] now has [current_charges]/[max_charges] charges.</span>")
+	to_chat(owner, span_notice("[src] now has [current_charges]/[max_charges] charges."))

@@ -40,7 +40,7 @@
 	if((H.getStaminaLoss() > 95) && (!istype(H.dna.species, /datum/species/skeleton)) && (!istype(H.dna.species, /datum/species/golem)) && (!istype(H.dna.species, /datum/species/android)) && (!istype(H.dna.species, /datum/species/jelly)))
 		H.Paralyze(20)
 		H.set_species(/datum/species/skeleton)
-		H.visible_message("<span class='warning'>[H] has given up on life as a mortal.</span>")
+		H.visible_message(span_warning("[H] has given up on life as a mortal."))
 		var/T = get_turf(H)
 		if(too_spooky)
 			if(prob(30))

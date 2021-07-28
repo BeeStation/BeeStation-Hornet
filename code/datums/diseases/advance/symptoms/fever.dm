@@ -52,9 +52,9 @@ Bonus
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	if(!unsafe || A.stage < 4)
-		to_chat(M, "<span class='warning'>[pick("You feel hot.", "You feel like you're burning.")]</span>")
+		to_chat(M, span_warning("[pick("You feel hot.", "You feel like you're burning.")]"))
 	else
-		to_chat(M, "<span class='userdanger'>[pick("You feel too hot.", "You feel like your blood is boiling.")]</span>")
+		to_chat(M, span_userdanger("[pick("You feel too hot.", "You feel like your blood is boiling.")]"))
 	if(M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || unsafe)
 		Heat(M, A)
 

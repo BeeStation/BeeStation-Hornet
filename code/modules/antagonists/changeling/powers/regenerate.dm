@@ -61,7 +61,7 @@
 			if(BP.dismemberable)
 				parts += BP
 	if(!LAZYLEN(parts))
-		to_chat(user, "<span class='notice'>We don't have any limbs to detach.</span>")
+		to_chat(user, span_notice("We don't have any limbs to detach."))
 		return
 	//limb related actions
 	var/obj/item/bodypart/BP = pick(parts)
@@ -69,8 +69,8 @@
 		if(Gir.body_part == ARM_RIGHT || Gir.body_part == ARM_LEFT)	//arms first, so they can mitigate the damage with the Armblade ability too, and it's not entirely reliant on regenerate
 			BP = Gir
 	//text message
-	C.visible_message("<span class='warning'>[user]'s [BP] detaches itself and takes the form of a snake!</span>",
-			"<span class='userdanger'>Our [BP] forms into a horrifying snake and heads towards our attackers!</span>")
+	C.visible_message(span_warning("[user]'s [BP] detaches itself and takes the form of a snake!"),
+			span_userdanger("Our [BP] forms into a horrifying snake and heads towards our attackers!"))
 	BP.dismember()
 	BP.Destroy()
 	C.update_mobility()

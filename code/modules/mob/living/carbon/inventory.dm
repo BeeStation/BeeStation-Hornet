@@ -152,7 +152,7 @@
 	var/alert = null
 	var/obj/item/receiving = get_active_held_item()
 	if(!receiving)
-		to_chat(src, "<span class='warning'>You're not holding anything to give!</span>")
+		to_chat(src, span_warning("You're not holding anything to give!"))
 		return
 
 	for(var/mob/living/carbon/C in orange(1, src)) //Fixed that, now it shouldn't be able to give benos stunbatons and IDs
@@ -161,15 +161,15 @@
 
 		var/atom/movable/screen/alert/give/G = C.throw_alert("[src]", /atom/movable/screen/alert/give)
 		if(!G)
-			to_chat(src, "<span class='warning'>There is nobody nearby to give [receiving]!</span>")
+			to_chat(src, span_warning("There is nobody nearby to give [receiving]!"))
 			continue
 
 		G.setup(C, src, receiving)
 
 		if(!alert) // only displays alert once
 			do_alert_animation(src)
-			visible_message("<span class='notice'>[src] is offering [receiving].</span>", \
-							"<span class='notice'>You offer [receiving].</span>", null, 2)
+			visible_message(span_notice("[src] is offering [receiving]."), \
+							span_notice("You offer [receiving]."), null, 2)
 		alert=1 // disable alert animation and chat message for possible second alert
 
 /**
@@ -185,17 +185,17 @@
 /mob/living/carbon/proc/take(mob/living/carbon/giver, obj/item/I)
 	clear_alert("[giver]")
 	if(get_dist(src, giver) > 1)
-		to_chat(src, "<span class='warning'>[giver] is out of range! </span>")
+		to_chat(src, span_warning("[giver] is out of range! "))
 		return
 	if(!I || giver.get_active_held_item() != I)
-		to_chat(src, "<span class='warning'>[giver] is no longer holding the item they were offering! </span>")
+		to_chat(src, span_warning("[giver] is no longer holding the item they were offering! "))
 		return
 	if(!get_empty_held_indexes())
-		to_chat(src, "<span class='warning'>You have no empty hands!</span>")
+		to_chat(src, span_warning("You have no empty hands!"))
 		return
 	if(!giver.temporarilyRemoveItemFromInventory(I))
-		visible_message("<span class='notice'>[giver] tries to hand over [I] but it's stuck to them....</span>")
+		visible_message(span_notice("[giver] tries to hand over [I] but it's stuck to them...."))
 		return
-	visible_message("<span class='notice'>[src] takes [I] from [giver]</span>", \
-					"<span class='notice'>You take [I] from [giver]</span>")
+	visible_message(span_notice("[src] takes [I] from [giver]"), \
+					span_notice("You take [I] from [giver]"))
 	put_in_hands(I)

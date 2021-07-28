@@ -70,19 +70,19 @@
 		return
 
 	else if(trapped == SPOOKY_SKELETON)
-		visible_message("<span class='userdanger'><font size='5'>BOO!</font></span>")
+		visible_message(span_userdanger("<font size='5'>BOO!</font>"))
 		playsound(loc, 'sound/spookoween/girlscream.ogg', 300, 1)
 		trapped = 0
 		QDEL_IN(trapped_mob, 90)
 
 	else if(trapped == HOWLING_GHOST)
-		visible_message("<span class='userdanger'><font size='5'>[pick("OooOOooooOOOoOoOOooooOOOOO", "BooOOooOooooOOOO", "BOO!", "WoOOoOoooOooo")]</font></span>")
+		visible_message(span_userdanger("<font size='5'>[pick("OooOOooooOOOoOoOOooooOOOOO", "BooOOooOooooOOOO", "BOO!", "WoOOoOoooOooo")]</font>"))
 		playsound(loc, 'sound/spookoween/ghosty_wind.ogg', 300, 1)
 		new /mob/living/simple_animal/shade/howling_ghost(loc)
 		trapped = 0
 
 	else if(trapped == SCARY_BATS)
-		visible_message("<span class='userdanger'><font size='5'>Protect your hair!</font></span>")
+		visible_message(span_userdanger("<font size='5'>Protect your hair!</font>"))
 		playsound(loc, 'sound/spookoween/bats.ogg', 300, 1)
 		var/number = rand(1,3)
 		for(var/i=0,i < number,i++)
@@ -90,15 +90,15 @@
 		trapped = 0
 
 	else if(trapped == ANGRY_FAITHLESS)
-		visible_message("<span class='userdanger'>The closet bursts open!</span>")
-		visible_message("<span class='userdanger'><font size='5'>THIS BEING RADIATES PURE EVIL! YOU BETTER RUN!!!</font></span>")
+		visible_message(span_userdanger("The closet bursts open!"))
+		visible_message(span_userdanger("<font size='5'>THIS BEING RADIATES PURE EVIL! YOU BETTER RUN!!!</font>"))
 		playsound(loc, 'sound/hallucinations/wail.ogg', 300, 1)
 		var/mob/living/simple_animal/hostile/faithless/F = new(loc)
 		trapped = 0
 		QDEL_IN(F, 120)
 
 	else if(trapped == INSANE_CLOWN)
-		visible_message("<span class='userdanger'><font size='5'>...</font></span>")
+		visible_message(span_userdanger("<font size='5'>...</font>"))
 		playsound(loc, 'sound/spookoween/scary_clown_appear.ogg', 300, 1)
 		spawn_atom_to_turf(/mob/living/simple_animal/hostile/retaliate/clown/insane, loc, 1, FALSE)
 		trapped = 0
@@ -240,7 +240,7 @@
 			playsound(loc, 'sound/spookoween/insane_low_laugh.ogg', 300, 1)
 			qdel(src)
 		else
-			visible_message("<span class='danger'>[src] seems to be resisting the effect!</span>")
+			visible_message(span_danger("[src] seems to be resisting the effect!"))
 	else
 		..()
 

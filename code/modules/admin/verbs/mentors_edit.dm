@@ -11,7 +11,7 @@ its mentors, not actual dangerous perms
 	if(!check_rights(R_PERMISSIONS))
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 
 	var/html = "<h1>Mentor Panel</h1>\n"
@@ -21,7 +21,7 @@ its mentors, not actual dangerous perms
 
 	var/datum/DBQuery/query_mentor_list = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor")]")
 	if(!query_mentor_list.warn_execute())
-		to_chat(src, "<span class='danger'>Unable to pull the mentor list from the database.</span>")
+		to_chat(src, span_danger("Unable to pull the mentor list from the database."))
 		qdel(query_mentor_list)
 	query_mentor_list.Execute()
 	while(query_mentor_list.NextRow())

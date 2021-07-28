@@ -196,7 +196,7 @@
 	used = TRUE
 	calc_points()
 	if(points < 0)
-		to_chat("<span class='danger'>You don't have enough points for a Guardian like that!</span>")
+		to_chat(span_danger("You don't have enough points for a Guardian like that!"))
 		used = FALSE
 		return FALSE
 	// IMPORTANT - if we're debugging, the user gets thrown into the stand
@@ -223,13 +223,13 @@
 		log_game("[key_name(user)] has summoned [key_name(G)], a holoparasite.")
 		switch(theme)
 			if(GUARDIAN_TECH)
-				to_chat(user, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> is now online!</span>")
+				to_chat(user, span_holoparasite("<font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> is now online!"))
 			if(GUARDIAN_MAGIC)
-				to_chat(user, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been summoned!</span>")
+				to_chat(user, span_holoparasite("<font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been summoned!"))
 			if(GUARDIAN_CARP)
-				to_chat(user, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been caught!</span>")
+				to_chat(user, span_holoparasite("<font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been caught!"))
 			if(GUARDIAN_HIVE)
-				to_chat(user, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been created from the core!</span>")
+				to_chat(user, span_holoparasite("<font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been created from the core!"))
 		user.add_verb(/mob/living/proc/guardian_comm)
 		user.add_verb(/mob/living/proc/guardian_recall)
 		user.add_verb(/mob/living/proc/guardian_reset)
@@ -246,8 +246,8 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
 	var/datum/guardianbuilder/builder
-	var/use_message = "<span class='holoparasite'>You shuffle the deck...</span>"
-	var/used_message = "<span class='holoparasite'>All the cards seem to be blank now.</span>"
+	var/use_message = span_holoparasite("You shuffle the deck...")
+	var/used_message = span_holoparasite("All the cards seem to be blank now.")
 	var/failure_message = "<span class='holoparasite bold'>..And draw a card! It's...blank? Maybe you should try again later.</span>"
 	var/ling_failure = "<span class='holoparasite bold'>The deck refuses to respond to a souless creature such as you.</span>"
 	var/random = TRUE
@@ -266,11 +266,11 @@
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
 	if(isguardian(user) && !allowguardian)
-		to_chat(user, "<span class='holoparasite'>[mob_name] chains are not allowed.</span>")
+		to_chat(user, span_holoparasite("[mob_name] chains are not allowed."))
 		return
 	var/list/guardians = user.hasparasites()
 	if(LAZYLEN(guardians) && !allowmultiple)
-		to_chat(user, "<span class='holoparasite'>You already have a [mob_name]!</span>")
+		to_chat(user, span_holoparasite("You already have a [mob_name]!"))
 		return
 	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/changeling) && !allowling)
 		to_chat(user, "[ling_failure]")
@@ -299,8 +299,8 @@
 	icon_state = "combat_hypo"
 	theme = GUARDIAN_TECH
 	mob_name = "Holoparasite"
-	use_message = "<span class='holoparasite'>You start to power on the injector...</span>"
-	used_message = "<span class='holoparasite'>The injector has already been used.</span>"
+	use_message = span_holoparasite("You start to power on the injector...")
+	used_message = span_holoparasite("The injector has already been used.")
 	failure_message = "<span class='holoparasite bold'>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</span>"
 	ling_failure = "<span class='holoparasite bold'>The holoparasites recoil in horror. They want nothing to do with a creature like you.</span>"
 
@@ -314,8 +314,8 @@
 	icon_state = "fishfingers"
 	theme = GUARDIAN_CARP
 	mob_name = "Holocarp"
-	use_message = "<span class='holoparasite'>You put the fishsticks in your mouth...</span>"
-	used_message = "<span class='holoparasite'>Someone's already taken a bite out of these fishsticks! Ew.</span>"
+	use_message = span_holoparasite("You put the fishsticks in your mouth...")
+	used_message = span_holoparasite("Someone's already taken a bite out of these fishsticks! Ew.")
 	failure_message = "<span class='holoparasite bold'>You couldn't catch any carp spirits from the seas of Lake Carp. Maybe there are none, maybe you fucked up.</span>"
 	ling_failure = "<span class='holoparasite bold'>Carp'sie is fine with changelings, so you shouldn't be seeing this message.</span>"
 	allowmultiple = TRUE
@@ -337,8 +337,8 @@
 	icon_state = "roro core 2"
 	theme = GUARDIAN_HIVE
 	mob_name = "Hivelord"
-	use_message = "<span class='holoparasite'>You place the core near your heart...</span>"
-	used_message = "<span class='holoparasite'>This core seems to have decayed and doesn't work anymore...</span>"
+	use_message = span_holoparasite("You place the core near your heart...")
+	used_message = span_holoparasite("This core seems to have decayed and doesn't work anymore...")
 	failure_message = "<span class='holoparasite bold'>You couldn't gather any mass with the core, maybe try again later.</span>"
 	ling_failure = "<span class='holoparasite bold'>Even the dark energies seem to not want to be near your horrific body.</span>"
 

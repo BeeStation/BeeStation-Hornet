@@ -38,10 +38,10 @@
 	switch(A.stage)
 		if(1)
 			if(prob(2))
-				to_chat(M, "<span class='notice'>You feel bloated.</span>")
+				to_chat(M, span_notice("You feel bloated."))
 
 			if(prob(3) && !M.jitteriness) //We dont want to stack this with other effects.
-				to_chat(M, "<span class='notice'>You feel a bit jittery.</span>")
+				to_chat(M, span_notice("You feel a bit jittery."))
 				M.Jitter(10)
 		if(2)
 			if(prob(1) && iscarbon(M))
@@ -49,12 +49,12 @@
 				C.vomit(5, TRUE, FALSE)
 		if(3, 4)
 			if(prob(10))
-				to_chat(M, "<span class='notice'>You feel blobby?</span>")
+				to_chat(M, span_notice("You feel blobby?"))
 				M.reagents.add_reagent(pick(subtypesof(/datum/reagent/blob/)), 5) //Completely harmless due to how blob chemicals work, still gives some good flavour
 		if(5)
 			ready_to_pop = TRUE
 			if(prob(5))
-				M.visible_message("<span class='warning'>[M] coughs blood!</span>")
+				M.visible_message(span_warning("[M] coughs blood!"))
 				new /obj/effect/decal/cleanable/blood/(M.loc)
 				M.adjustBruteLoss(3)
 
@@ -63,7 +63,7 @@
 	if(neutered) //Stops this symptom from making people scared even if this is useless
 		return FALSE
 	var/mob/living/M = A.affected_mob
-	M.visible_message("<span class='danger'>[M] starts swelling grotesquely!</span>")
+	M.visible_message(span_danger("[M] starts swelling grotesquely!"))
 	addtimer(CALLBACK(src, .proc/blob_the_mob, A, M), 10 SECONDS)
 
 /datum/symptom/blobspores/proc/blob_the_mob(datum/disease/advance/A, mob/living/M)
@@ -88,4 +88,4 @@
 			blobbernaut.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY)
 		var/atom/blob_tile = new pick_blob(M.loc)
 		blob_tile.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY) //A random colour for the blob, as this blob isn't going to get a overmind colour
-	M.visible_message("<span class='danger'>A huge mass of blob and blob spores burst out of [M]!</span>")
+	M.visible_message(span_danger("A huge mass of blob and blob spores burst out of [M]!"))

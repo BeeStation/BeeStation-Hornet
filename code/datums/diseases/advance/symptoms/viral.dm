@@ -94,7 +94,7 @@ Bonus
 /datum/symptom/viralreverse/proc/Heal(mob/living/M, datum/disease/advance/A)
 	A.stage -= 1
 	if(A.stage < 2)
-		to_chat(M, "<span class='notice'>You suddenly feel healthy.</span>")
+		to_chat(M, span_notice("You suddenly feel healthy."))
 		A.cure(FALSE) //Doesn't Add Resistance. Virology can now make potions for stuff, be it healing the senses or making people explode
 
 /datum/symptom/viralreverse/Start(datum/disease/advance/A)

@@ -94,12 +94,12 @@
 /obj/item/stock_parts/cell/examine(mob/user)
 	. = ..()
 	if(rigged)
-		. += "<span class='danger'>This power cell seems to be faulty!</span>"
+		. += span_danger("This power cell seems to be faulty!")
 	else
 		. += "The charge meter reads [round(src.percent() )]%."
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return (FIRELOSS)
 
 /obj/item/stock_parts/cell/on_reagent_change(changetype)
@@ -156,25 +156,25 @@
 			return
 
 		if(charge < 100)
-			to_chat(H, "<span class='warning'>The [src] doesn't have enough power!</span>")
+			to_chat(H, span_warning("The [src] doesn't have enough power!"))
 			return
 		var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 		if(!istype(stomach))
-			to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+			to_chat(H, span_warning("You can't receive charge!"))
 			return
 		if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
-			to_chat(H, "<span class='warning'>Your charge is full!</span>")
+			to_chat(H, span_warning("Your charge is full!"))
 			return
-		to_chat(H, "<span class='notice'>You clumsily channel power through the [src] and into your body, wasting some in the process.</span>")
+		to_chat(H, span_notice("You clumsily channel power through the [src] and into your body, wasting some in the process."))
 		E.drain_time = world.time + 20
 		if((charge < 100) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
 			return
 		if(do_after(user, 20, target = src))
-			to_chat(H, "<span class='notice'>You receive some charge from the [src].</span>")
+			to_chat(H, span_notice("You receive some charge from the [src]."))
 			stomach.adjust_charge(3)
 			charge -= 100 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
 		else
-			to_chat(H, "<span class='warning'>You fail to receive charge from the [src]!</span>")
+			to_chat(H, span_warning("You fail to receive charge from the [src]!"))
 	return
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)

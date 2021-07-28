@@ -45,10 +45,10 @@
 	switch(A.stage)
 		if(2)
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='notice'>Your skin feels scaly.</span>")
+				to_chat(M, span_notice("Your skin feels scaly."))
 		if(3, 4)
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='notice'>[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]</span>")
+				to_chat(M, span_notice("[pick("Your skin is hard.", "You feel stronger.", "You feel powerful.")]"))
 		if(5)
 			if(tendrils)
 				tendril(A)
@@ -65,9 +65,9 @@
 				M.weather_immunities |= "lava"
 			if(HAS_TRAIT(M, TRAIT_NECROPOLIS_INFECTED))
 				REMOVE_TRAIT(M, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
-				to_chat(M, "<span class='notice'>The tendrils loosen their grip, protecting the necropolis within you.</span>")
+				to_chat(M, span_notice("The tendrils loosen their grip, protecting the necropolis within you."))
 			if(prob(base_message_chance))
-				to_chat(M, "<span class='notice'>[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]</span>")
+				to_chat(M, span_notice("[pick("Your skin has become a hardened carapace", "Your strength is superhuman.", "You feel invincible.")]"))
 	return
 
 /datum/symptom/necroseed/proc/tendril(datum/disease/advance/A)
@@ -91,7 +91,7 @@
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	to_chat(M, "<span class='danger'>You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable.</span>")
+	to_chat(M, span_danger("You feel weak and powerless as the necropolis' blessing leaves your body, leaving you slow and vulnerable."))
 	M.dna.species.punchdamage = initial(M.dna.species.punchdamage)
 	M.dna.species.brutemod = initial(M.dna.species.heatmod)
 	M.dna.species.burnmod = initial(M.dna.species.heatmod)
@@ -109,8 +109,8 @@
 		return
 	var/mob/living/M = A.affected_mob
 	if(chest && A.stage == 5 && M.mind)
-		to_chat(M, "<span class='danger'>Your soul is ripped from your body!</span>")
-		M.visible_message("<span class='danger'>An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest.</span>")
+		to_chat(M, span_danger("Your soul is ripped from your body!"))
+		M.visible_message(span_danger("An unearthly roar shakes the ground as [M] explodes into a shower of gore, leaving behind an ominous, fleshy chest."))
 		playsound(M.loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
 		M.hellbound = TRUE
 		if(!ishuman(M)) //We don't NEED them to be human. However, I want to avoid people making teratoma-farms for necrochests
@@ -131,7 +131,7 @@
 		if(L == spawner)
 			retract()
 			return
-		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
+		visible_message(span_danger("[src] grabs hold of [L]!"))
 		L.Stun(40)
 		L.adjustBruteLoss(rand(1,10))
 		latched = TRUE

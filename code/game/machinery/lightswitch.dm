@@ -65,6 +65,6 @@
 
 /obj/machinery/light_switch/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
-	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	to_chat(usr, span_brass("You begin manipulating [src]!"))
 	if(do_after(eminence, 20, target=get_turf(eminence)))
 		interact(eminence)

@@ -6,7 +6,7 @@
 	density = FALSE
 	anchored = TRUE
 	alpha = 30 //initially quite hidden when not "recharging"
-	var/flare_message = "<span class='warning'>the trap flares brightly!</span>"
+	var/flare_message = span_warning("the trap flares brightly!")
 	var/last_trigger = 0
 	var/time_between_triggers = 600 //takes a minute to recharge
 	var/charges = INFINITY
@@ -20,7 +20,7 @@
 
 /obj/structure/trap/Initialize(mapload)
 	. = ..()
-	flare_message = "<span class='warning'>[src] flares brightly!</span>"
+	flare_message = span_warning("[src] flares brightly!")
 	spark_system = new
 	spark_system.set_up(4,1,src)
 	spark_system.attach(src)
@@ -42,7 +42,7 @@
 	if(user.mind && (user.mind in immune_minds))
 		return
 	if(get_dist(user, src) <= 1)
-		. += "<span class='notice'>You reveal [src]!</span>"
+		. += span_notice("You reveal [src]!")
 		flare()
 
 /obj/structure/trap/proc/flare()
@@ -106,7 +106,7 @@
 /obj/structure/trap/stun/hunter/Initialize(mapload)
 	. = ..()
 	time_between_triggers = 10
-	flare_message = "<span class='warning'>[src] snaps shut!</span>"
+	flare_message = span_warning("[src] snaps shut!")
 
 /obj/structure/trap/stun/hunter/Destroy()
 	if(!QDELETED(stored_item))
@@ -180,7 +180,7 @@
 	icon_state = "trap-fire"
 
 /obj/structure/trap/fire/trap_effect(mob/living/L)
-	to_chat(L, "<span class='danger'><B>Spontaneous combustion!</B></span>")
+	to_chat(L, span_danger("<B>Spontaneous combustion!</B>"))
 	L.Paralyze(20)
 
 /obj/structure/trap/fire/flare()
@@ -194,7 +194,7 @@
 	icon_state = "trap-frost"
 
 /obj/structure/trap/chill/trap_effect(mob/living/L)
-	to_chat(L, "<span class='danger'><B>You're frozen solid!</B></span>")
+	to_chat(L, span_danger("<B>You're frozen solid!</B>"))
 	L.Paralyze(20)
 	L.adjust_bodytemperature(-300)
 	L.apply_status_effect(/datum/status_effect/freon)
@@ -207,7 +207,7 @@
 
 
 /obj/structure/trap/damage/trap_effect(mob/living/L)
-	to_chat(L, "<span class='danger'><B>The ground quakes beneath your feet!</B></span>")
+	to_chat(L, span_danger("<B>The ground quakes beneath your feet!</B>"))
 	L.Paralyze(100)
 	L.adjustBruteLoss(35)
 

@@ -25,7 +25,7 @@ SUBSYSTEM_DEF(medals)
 		if (result == 1)
 			player.inc_metabalance(METACOIN_MEDAL_REWARD, reason="Earned a medal!")
 			for(var/client/C in GLOB.clients)
-				to_chat(C, "<span class='greenannounce'><B>[player.key] earned the medal: [medal]</B></span>")
+				to_chat(C, span_greenannounce("<B>[player.key] earned the medal: [medal]</B>"))
 
 /datum/controller/subsystem/medals/proc/SetScore(score, client/player, increment, force)
 	set waitfor = FALSE

@@ -10,11 +10,11 @@
 	attack_sound = 'sound/machines/defib_zap.ogg'
 	damage_coeff = list(BRUTE = 0.7, BURN = 0.7, TOX = 0.7, CLONE = 0.7, STAMINA = 0, OXY = 0.7)
 	range = 7
-	playstyle_string = "<span class='holoparasite'>As a <b>lightning</b> type, you will apply lightning chains to targets on attack and have a lightning chain to your summoner. Lightning chains will shock anyone near them.</span>"
-	magic_fluff_string = "<span class='holoparasite'>..And draw the Tesla, a shocking, lethal source of power.</span>"
-	tech_fluff_string = "<span class='holoparasite'>Boot sequence complete. Lightning modules active. Holoparasite swarm online.</span>"
-	carp_fluff_string = "<span class='holoparasite'>CARP CARP CARP! Caught one! It's a lightning carp! Everyone else goes zap zap.</span>"
-	hive_fluff_string = "<span class='holoparasite'>The mass seems to cause lots of thunder strikes around itself.</span>"
+	playstyle_string = span_holoparasite("As a <b>lightning</b> type, you will apply lightning chains to targets on attack and have a lightning chain to your summoner. Lightning chains will shock anyone near them.")
+	magic_fluff_string = span_holoparasite("..And draw the Tesla, a shocking, lethal source of power.")
+	tech_fluff_string = span_holoparasite("Boot sequence complete. Lightning modules active. Holoparasite swarm online.")
+	carp_fluff_string = span_holoparasite("CARP CARP CARP! Caught one! It's a lightning carp! Everyone else goes zap zap.")
+	hive_fluff_string = span_holoparasite("The mass seems to cause lots of thunder strikes around itself.")
 	var/datum/beam/summonerchain
 	var/list/enemychains = list()
 	var/successfulshocks = 0
@@ -113,9 +113,9 @@
 							if(C)
 								C.jitteriness = max(C.jitteriness - 990, 10)
 					L.visible_message(
-						"<span class='danger'>[L] was shocked by the lightning chain!</span>", \
-						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
-						"<span class='italics'>You hear a heavy electrical crack.</span>" \
+						span_danger("[L] was shocked by the lightning chain!"), \
+						span_userdanger("You are shocked by the lightning chain!"), \
+						span_italics("You hear a heavy electrical crack.") \
 					)
 				L.adjustFireLoss(1.2) //adds up very rapidly
 				. = 1

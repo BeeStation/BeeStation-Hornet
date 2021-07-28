@@ -69,7 +69,7 @@
 			var/obj/effect/proc_holder/spell/the_spell = new power(null)
 			owner.AddSpell(the_spell)
 			if(hive_size > 0)
-				to_chat(owner, "<span class='assimilator'>We have unlocked [the_spell.name].</span><span class='bold'> [the_spell.desc]</span>")
+				to_chat(owner, span_assimilator("We have unlocked [the_spell.name].</span><span class='bold'> [the_spell.desc]"))
 
 	if(!unlocked_one_mind && hive_size >= 15)
 		var/lead = TRUE
@@ -106,7 +106,7 @@
 		hivemembers |= M
 		calc_size()
 
-	var/user_warning = "<span class='userdanger'>We have detected an enemy hivemind using our physical form as a vessel and have begun ejecting their mind! They will be alerted of our disappearance once we succeed!</span>"
+	var/user_warning = span_userdanger("We have detected an enemy hivemind using our physical form as a vessel and have begun ejecting their mind! They will be alerted of our disappearance once we succeed!")
 	if(C.is_real_hivehost())
 		var/eject_time = rand(1400,1600) //2.5 minutes +- 10 seconds
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, user_warning), rand(500,1300)) // If the host has assimilated an enemy hive host, alert the enemy before booting them from the hive after a short while
@@ -153,12 +153,12 @@
 	if(C == real_C) //Mind control check
 		real_C2.apply_status_effect(STATUS_EFFECT_HIVE_TRACKER, real_C, hive_C.get_track_bonus(hive_C2))
 		real_C.apply_status_effect(STATUS_EFFECT_HIVE_RADAR)
-		to_chat(real_C2, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
+		to_chat(real_C2, span_assimilator("We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now."))
 	if(C2 == real_C2)
 		real_C.apply_status_effect(STATUS_EFFECT_HIVE_TRACKER, real_C2, hive_C2.get_track_bonus(hive_C))
 		real_C2.apply_status_effect(STATUS_EFFECT_HIVE_RADAR)
 		user_warning += " and we've managed to pinpoint their location"
-	to_chat(real_C, "<span class='userdanger'>[user_warning]!</span>")
+	to_chat(real_C, span_userdanger("[user_warning]!"))
 
 /datum/antagonist/hivemind/proc/destroy_hive()
 	go_back_to_sleep()
@@ -239,7 +239,7 @@
 		owner.RemoveSpell(power)
 
 	if(!silent && owner.current)
-		to_chat(owner.current,"<span class='userdanger'> Your psionic powers fade, you are no longer the hivemind's host! </span>")
+		to_chat(owner.current,span_userdanger(" Your psionic powers fade, you are no longer the hivemind's host! "))
 	owner.special_role = null
 	..()
 

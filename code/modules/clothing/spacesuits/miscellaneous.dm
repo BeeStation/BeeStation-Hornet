@@ -202,13 +202,13 @@ Contains:
 /obj/item/clothing/head/helmet/space/hardsuit/ert/proc/toggle_hud(mob/user)
 	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
 	if(!monitor)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		to_chat(user, span_notice("The suit is not fitted with a tracking beacon."))
 		return
 	monitor.toggle_hud(!monitor.hud_visible, user)
 	if(monitor.hud_visible)
-		to_chat(user, "<span class='notice'>You toggle the heads up display of your suit.</span>")
+		to_chat(user, span_notice("You toggle the heads up display of your suit."))
 	else
-		to_chat(user, "<span class='warning'>You disable the heads up display of your suit.</span>")
+		to_chat(user, span_warning("You disable the heads up display of your suit."))
 
 /obj/item/clothing/suit/space/hardsuit/ert
 	name = "emergency response team commander hardsuit"
@@ -241,18 +241,18 @@ Contains:
 /obj/item/clothing/suit/space/hardsuit/ert/proc/toggle_beacon(mob/user)
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		to_chat(user, span_notice("The suit is not fitted with a tracking beacon."))
 		return
 	beacon.toggle_visibility(!beacon.visible)
 	if(beacon.visible)
-		to_chat(user, "<span class='notice'>You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location.</span>")
+		to_chat(user, span_notice("You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location."))
 	else
-		to_chat(user, "<span class='warning'>You disable the tracking beacon on [src].</span>")
+		to_chat(user, span_warning("You disable the tracking beacon on [src]."))
 
 /obj/item/clothing/suit/space/hardsuit/ert/proc/set_beacon_freq(mob/user)
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		to_chat(user, span_notice("The suit is not fitted with a tracking beacon."))
 		return
 	beacon.change_frequency(user)
 
@@ -487,7 +487,7 @@ Contains:
 
 /obj/item/clothing/suit/space/fragile/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!torn && prob(50))
-		to_chat(owner, "<span class='warning'>[src] tears from the damage, breaking the air-tight seal!</span>")
+		to_chat(owner, span_warning("[src] tears from the damage, breaking the air-tight seal!"))
 		clothing_flags &= ~STOPSPRESSUREDAMAGE
 		name = "torn [src]"
 		desc = "A bulky suit meant to protect the user during emergency situations, at least until someone tore a hole in the suit."

@@ -16,16 +16,16 @@
 	. = ..()
 	switch(state)
 		if(GIRDER_REINF)
-			. += "<span class='notice'>The support struts are <b>screwed</b> in place.</span>"
+			. += span_notice("The support struts are <b>screwed</b> in place.")
 		if(GIRDER_REINF_STRUTS)
-			. += "<span class='notice'>The support struts are <i>unscrewed</i> and the inner <b>grille</b> is intact.</span>"
+			. += span_notice("The support struts are <i>unscrewed</i> and the inner <b>grille</b> is intact.")
 		if(GIRDER_NORMAL)
 			if(can_displace)
-				. += "<span class='notice'>The bolts are <b>wrenched</b> in place.</span>"
+				. += span_notice("The bolts are <b>wrenched</b> in place.")
 		if(GIRDER_DISPLACED)
-			. += "<span class='notice'>The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.</span>"
+			. += span_notice("The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.")
 		if(GIRDER_DISASSEMBLED)
-			. += "<span class='notice'>[src] is disassembled! You probably shouldn't be able to see this examine message.</span>"
+			. += span_notice("[src] is disassembled! You probably shouldn't be able to see this examine message.")
 
 /obj/structure/girder/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
@@ -39,7 +39,7 @@
 			qdel(src)
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
-		to_chat(user, "<span class='notice'>You smash through the girder!</span>")
+		to_chat(user, span_notice("You smash through the girder!"))
 		new /obj/item/stack/sheet/iron(get_turf(src))
 		W.play_tool_sound(src)
 		qdel(src)
@@ -60,7 +60,7 @@
 			var/obj/item/stack/rods/S = W
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two rods to create a false wall!</span>")
+					to_chat(user, span_warning("You need at least two rods to create a false wall!"))
 					return
 				balloon_alert(user, "You start building a reinforced false wall")
 				if(do_after(user, 20, target = src))
@@ -73,7 +73,7 @@
 					qdel(src)
 			else
 				if(S.get_amount() < 5)
-					to_chat(user, "<span class='warning'>You need at least five rods to add plating!</span>")
+					to_chat(user, span_warning("You need at least five rods to add plating!"))
 					return
 				balloon_alert(user, "You start adding plating")
 				if(do_after(user, 40, target = src))
@@ -94,7 +94,7 @@
 		if(istype(S, /obj/item/stack/sheet/iron))
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need two sheets of iron to create a false wall!</span>")
+					to_chat(user, span_warning("You need two sheets of iron to create a false wall!"))
 					return
 				balloon_alert(user, "You start building false wall")
 				if(do_after(user, 20, target = src))
@@ -107,7 +107,7 @@
 					qdel(src)
 			else
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need two sheets of iron to finish a wall!</span>")
+					to_chat(user, span_warning("You need two sheets of iron to finish a wall!"))
 					return
 				balloon_alert(user, "You start adding plating")
 				if (do_after(user, 40, target = src))
@@ -124,7 +124,7 @@
 		if(istype(S, /obj/item/stack/sheet/plasteel))
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
+					to_chat(user, span_warning("You need at least two sheets to create a false wall!"))
 					return
 				balloon_alert(user, "You start building reinfored false wall")
 				if(do_after(user, 20, target = src))
@@ -168,7 +168,7 @@
 			var/M = S.sheettype
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
+					to_chat(user, span_warning("You need at least two sheets to create a false wall!"))
 					return
 				if(do_after(user, 20, target = src))
 					if(S.get_amount() < 2)
@@ -181,7 +181,7 @@
 					qdel(src)
 			else
 				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two sheets to add plating!</span>")
+					to_chat(user, span_warning("You need at least two sheets to add plating!"))
 					return
 				balloon_alert(user, "You start adding plating")
 				if (do_after(user, 40, target = src))
@@ -213,8 +213,8 @@
 
 	. = FALSE
 	if(state == GIRDER_DISPLACED)
-		user.visible_message("<span class='warning'>[user] disassembles the girder.</span>",
-							 "<span class='notice'>You start to disassemble the girder...</span>",
+		user.visible_message(span_warning("[user] disassembles the girder."),
+							 span_notice("You start to disassemble the girder..."),
 							 "You hear clanking and banging noises.")
 		if(tool.use_tool(src, user, 40, volume=100))
 			if(state != GIRDER_DISPLACED)
@@ -333,7 +333,7 @@
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(istype(W, /obj/item/melee/cultblade/dagger) && iscultist(user)) //Cultists can demolish cult girders instantly with their tomes
-		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
+		user.visible_message(span_warning("[user] strikes [src] with [W]!"), span_notice("You demolish [src]."))
 		new /obj/item/stack/sheet/runed_metal(drop_location(), 1)
 		qdel(src)
 
@@ -349,7 +349,7 @@
 			qdel(src)
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
-		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
+		to_chat(user, span_notice("Your jackhammer smashes through the girder!"))
 		var/obj/item/stack/sheet/runed_metal/R = new(drop_location(), 2)
 		transfer_fingerprints_to(R)
 		W.play_tool_sound(src)
@@ -358,13 +358,13 @@
 	else if(istype(W, /obj/item/stack/sheet/runed_metal))
 		var/obj/item/stack/sheet/runed_metal/R = W
 		if(R.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
+			to_chat(user, span_warning("You need at least one sheet of runed metal to construct a runed wall!"))
 			return 0
-		user.visible_message("<span class='notice'>[user] begins laying runed metal on [src]...</span>", "<span class='notice'>You begin constructing a runed wall...</span>")
+		user.visible_message(span_notice("[user] begins laying runed metal on [src]..."), span_notice("You begin constructing a runed wall..."))
 		if(do_after(user, 50, target = src))
 			if(R.get_amount() < 1)
 				return
-			user.visible_message("<span class='notice'>[user] plates [src] with runed metal.</span>", "<span class='notice'>You construct a runed wall.</span>")
+			user.visible_message(span_notice("[user] plates [src] with runed metal."), span_notice("You construct a runed wall."))
 			R.use(1)
 			var/turf/T = get_turf(src)
 			T.PlaceOnTop(/turf/closed/wall/mineral/cult)
@@ -423,7 +423,7 @@
 			qdel(src)
 
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
-		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
+		to_chat(user, span_notice("Your jackhammer smashes through the girder!"))
 		var/obj/item/stack/tile/bronze/B = new(drop_location(), 2)
 		transfer_fingerprints_to(B)
 		W.play_tool_sound(src)
@@ -432,13 +432,13 @@
 	else if(istype(W, /obj/item/stack/tile/bronze))
 		var/obj/item/stack/tile/bronze/B = W
 		if(B.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two bronze sheets to build a bronze wall!</span>")
+			to_chat(user, span_warning("You need at least two bronze sheets to build a bronze wall!"))
 			return FALSE
-		user.visible_message("<span class='notice'>[user] begins plating [src] with bronze...</span>", "<span class='notice'>You begin constructing a bronze wall...</span>")
+		user.visible_message(span_notice("[user] begins plating [src] with bronze..."), span_notice("You begin constructing a bronze wall..."))
 		if(do_after(user, 50, target = src))
 			if(B.get_amount() < 2)
 				return
-			user.visible_message("<span class='notice'>[user] plates [src] with bronze!</span>", "<span class='notice'>You construct a bronze wall.</span>")
+			user.visible_message(span_notice("[user] plates [src] with bronze!"), span_notice("You construct a bronze wall."))
 			B.use(2)
 			var/turf/T = get_turf(src)
 			T.PlaceOnTop(/turf/closed/wall/mineral/bronze)

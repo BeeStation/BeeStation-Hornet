@@ -36,7 +36,7 @@
 	var/shrapnel_initialized
 
 /obj/item/grenade/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] primes [src], then eats it! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] primes [src], then eats it! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(src, 'sound/items/eatfood.ogg', 50, 1)
 	preprime(user, det_time)
 	user.transferItemToLoc(src, user, TRUE)//>eat a grenade set to 5 seconds >rush captain
@@ -53,15 +53,15 @@
 	var/clumsy = HAS_TRAIT(user, TRAIT_CLUMSY)
 	if(clumsy && (clumsy_check == GRENADE_CLUMSY_FUMBLE))
 		if(prob(50))
-			to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
+			to_chat(user, span_warning("Huh? How does this thing work?"))
 			preprime(user, 5, FALSE)
 			return TRUE
 	else if(!clumsy && (clumsy_check == GRENADE_NONCLUMSY_FUMBLE))
-		to_chat(user, "<span class='warning'>You pull the pin on [src]. Attached to it is a pink ribbon that says, \"<span class='clowntext'>HONK</span>\"</span>")
+		to_chat(user, span_warning("You pull the pin on [src]. Attached to it is a pink ribbon that says, \"<span class='clowntext'>HONK</span>\""))
 		preprime(user, 5, FALSE)
 		return TRUE
 	else if(sticky && prob(50)) // to add risk to sticky tape grenade cheese, no return cause we still prime as normal after
-		to_chat(user, "<span class='warning'>What the... [src] is stuck to your hand!</span>")
+		to_chat(user, span_warning("What the... [src] is stuck to your hand!"))
 		ADD_TRAIT(src, TRAIT_NODROP, STICKY_NODROP)
 
 
@@ -76,9 +76,9 @@
 
 /obj/item/grenade/attack_self(mob/user)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
-		to_chat(user, "<span class='notice'>You try prying [src] off your hand...</span>")
+		to_chat(user, span_notice("You try prying [src] off your hand..."))
 		if(do_after(user, 70, target=src))
-			to_chat(user, "<span class='notice'>You manage to remove [src] from your hand.</span>")
+			to_chat(user, span_notice("You manage to remove [src] from your hand."))
 			REMOVE_TRAIT(src, TRAIT_NODROP, STICKY_NODROP)
 
 		return
@@ -96,7 +96,7 @@
 	if(user)
 		add_fingerprint(user)
 		if(msg)
-			to_chat(user, "<span class='warning'>You prime [src]! [DisplayTimeText(det_time)]!</span>")
+			to_chat(user, span_warning("You prime [src]! [DisplayTimeText(det_time)]!"))
 	if(shrapnel_type && shrapnel_radius)
 		shrapnel_initialized = TRUE
 		AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_radius)
@@ -126,16 +126,16 @@
 		switch(det_time)
 			if (1)
 				det_time = 10
-				to_chat(user, "<span class='notice'>You set the [name] for 1 second detonation time.</span>")
+				to_chat(user, span_notice("You set the [name] for 1 second detonation time."))
 			if (10)
 				det_time = 30
-				to_chat(user, "<span class='notice'>You set the [name] for 3 second detonation time.</span>")
+				to_chat(user, span_notice("You set the [name] for 3 second detonation time."))
 			if (30)
 				det_time = 50
-				to_chat(user, "<span class='notice'>You set the [name] for 5 second detonation time.</span>")
+				to_chat(user, span_notice("You set the [name] for 5 second detonation time."))
 			if (50)
 				det_time = 1
-				to_chat(user, "<span class='notice'>You set the [name] for instant detonation.</span>")
+				to_chat(user, span_notice("You set the [name] for instant detonation."))
 		add_fingerprint(user)
 	else
 		return ..()
@@ -146,7 +146,7 @@
 /obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/item/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
-		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
+		owner.visible_message(span_danger("[attack_text] hits [owner]'s [src], setting it off! What a shot!"))
 		var/turf/T = get_turf(src)
 		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
 		message_admins("A projectile ([hitby]) detonated a grenade held by [key_name_admin(owner)] at [ADMIN_COORDJMP(T)]")

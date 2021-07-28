@@ -17,7 +17,7 @@
 /datum/saymode/changeling/handle_message(mob/living/user, message, datum/language/language)
 	switch(user.lingcheck())
 		if(LINGHIVE_LINK)
-			var/msg = "<span class='changeling'><b>[user.mind]:</b> [message]</span>"
+			var/msg = span_changeling("<b>[user.mind]:</b> [message]")
 			for(var/_M in GLOB.player_list)
 				var/mob/M = _M
 				if(M in GLOB.dead_mob_list)
@@ -37,13 +37,13 @@
 								if (!HAS_TRAIT(L, CHANGELING_HIVEMIND_MUTE) && prob(70))
 									to_chat(M, msg)
 								else
-									to_chat(M, "<span class='changeling'>We hear a faint chittering from within our mind...</span>")
+									to_chat(M, span_changeling("We hear a faint chittering from within our mind..."))
 		if(LINGHIVE_LING)
 			if (HAS_TRAIT(user, CHANGELING_HIVEMIND_MUTE))
-				to_chat(user, "<span class='warning'>The poison in the air hinders our ability to interact with the hivemind.</span>")
+				to_chat(user, span_warning("The poison in the air hinders our ability to interact with the hivemind."))
 				return FALSE
 			var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
-			var/msg = "<span class='changeling'><b>[changeling.changelingID]:</b> [message]</span>"
+			var/msg = span_changeling("<b>[changeling.changelingID]:</b> [message]")
 			user.log_talk(message, LOG_SAY, tag="changeling [changeling.changelingID]")
 			for(var/_M in GLOB.player_list)
 				var/mob/M = _M
@@ -64,9 +64,9 @@
 								if (!HAS_TRAIT(L, CHANGELING_HIVEMIND_MUTE) && prob(70))
 									to_chat(M, msg)
 								else
-									to_chat(M, "<span class='changeling'>We hear a faint chittering from within our mind...</span>")
+									to_chat(M, span_changeling("We hear a faint chittering from within our mind..."))
 		if(LINGHIVE_OUTSIDER)
-			to_chat(user, "<span class='changeling'>Our senses have not evolved enough to be able to communicate this way...</span>")
+			to_chat(user, span_changeling("Our senses have not evolved enough to be able to communicate this way..."))
 	return FALSE
 
 
@@ -135,7 +135,7 @@
 	if(is_monkey_leader(mind) || (ismonkey(user) && is_monkey(mind)))
 		user.log_talk(message, LOG_SAY, tag="monkey")
 		if(prob(75) && ismonkey(user))
-			user.visible_message("<span class='notice'>\The [user] chimpers.</span>")
+			user.visible_message(span_notice("\The [user] chimpers."))
 		var/msg = "<span class='[is_monkey_leader(mind) ? "monkeylead" : "monkeyhive"]'><b><font size=2>\[[is_monkey_leader(mind) ? "Monkey Leader" : "Monkey"]\]</font> [user]</b>: [message]</span>"
 		for(var/_M in GLOB.mob_list)
 			var/mob/M = _M

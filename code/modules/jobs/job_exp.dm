@@ -155,41 +155,41 @@ GLOBAL_PROTECT(exp_to_update)
 			process_ten_minute_living()
 
 			if(announce_changes)
-				to_chat(src,"<span class='notice'>You got: [minutes] Living EXP!</span>")
+				to_chat(src,span_notice("You got: [minutes] Living EXP!"))
 			if(mob.mind.assigned_role)
 				for(var/job in SSjob.name_occupations)
 					if(mob.mind.assigned_role == job)
 						rolefound = TRUE
 						play_records[job] += minutes
 						if(announce_changes)
-							to_chat(src,"<span class='notice'>You got: [minutes] [job] EXP!</span>")
+							to_chat(src,span_notice("You got: [minutes] [job] EXP!"))
 				if(!rolefound)
 					for(var/role in GLOB.exp_specialmap[EXP_TYPE_SPECIAL])
 						if(mob.mind.assigned_role == role)
 							rolefound = TRUE
 							play_records[role] += minutes
 							if(announce_changes)
-								to_chat(mob,"<span class='notice'>You got: [minutes] [role] EXP!</span>")
+								to_chat(mob,span_notice("You got: [minutes] [role] EXP!"))
 				if(mob.mind.special_role && !(mob.mind.datum_flags & DF_VAR_EDITED))
 					var/trackedrole = mob.mind.special_role
 					play_records[trackedrole] += minutes
 					if(announce_changes)
-						to_chat(src,"<span class='notice'>You got: [minutes] [trackedrole] EXP!</span>")
+						to_chat(src,span_notice("You got: [minutes] [trackedrole] EXP!"))
 			if(!rolefound)
 				play_records["Unknown"] += minutes
 		else
 			if(holder && !holder.deadmined)
 				play_records[EXP_TYPE_ADMIN] += minutes
 				if(announce_changes)
-					to_chat(src,"<span class='notice'>You got: [minutes] Admin EXP!</span>")
+					to_chat(src,span_notice("You got: [minutes] Admin EXP!"))
 			else
 				play_records[EXP_TYPE_GHOST] += minutes
 				if(announce_changes)
-					to_chat(src,"<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+					to_chat(src,span_notice("You got: [minutes] Ghost EXP!"))
 	else if(isobserver(mob))
 		play_records[EXP_TYPE_GHOST] += minutes
 		if(announce_changes)
-			to_chat(src,"<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+			to_chat(src,span_notice("You got: [minutes] Ghost EXP!"))
 	else if(minutes)	//Let "refresh" checks go through
 		return
 

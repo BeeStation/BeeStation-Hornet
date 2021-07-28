@@ -105,7 +105,7 @@
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to pump it.</span>"
+	. += span_notice("Alt-click to pump it.")
 
 /obj/item/gun/ballistic/shotgun/automatic/dual_tube/Initialize()
 	. = ..()
@@ -229,11 +229,11 @@
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
 			slot_flags = ITEM_SLOT_BACK
-			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
+			to_chat(user, span_notice("You tie the lengths of cable to the shotgun, making a sling."))
 			slung = TRUE
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
+			to_chat(user, span_warning("You need at least ten lengths of cable if you want to make a sling!"))
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/improvised/update_icon()
 	..()
@@ -281,19 +281,19 @@
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	if(toggled)
-		to_chat(user,"<span class='notice'>You switch to the shotgun.</span>")
+		to_chat(user,span_notice("You switch to the shotgun."))
 		fire_sound = initial(fire_sound)
 	else
-		to_chat(user,"<span class='notice'>You switch to the hook.</span>")
+		to_chat(user,span_notice("You switch to the hook."))
 		fire_sound = 'sound/weapons/batonextend.ogg'
 	toggled = !toggled
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/hook/examine(mob/user)
 	. = ..()
 	if(toggled)
-		. += "<span class='notice'>Alt-click to switch to the shotgun.</span>"
+		. += span_notice("Alt-click to switch to the shotgun.")
 	else
-		. += "<span class='notice'>Alt-click to switch to the hook.</span>"
+		. += span_notice("Alt-click to switch to the hook.")
 
 /obj/item/gun/ballistic/shotgun/doublebarrel/hook/afterattack(atom/target, mob/living/user, flag, params)
 	if(toggled)

@@ -29,7 +29,7 @@ GLOBAL_LIST(valentine_mobs)
 		var/obj/item/storage/backpack/b = locate() in H.contents
 		new /obj/item/reagent_containers/food/snacks/candyheart(b)
 		new /obj/item/storage/fancy/heart_box(b)
-		to_chat(H, "<span class='clown'>A message appears in your hand, it looks like it has space to write somebody's name on it!</span>")
+		to_chat(H, span_clown("A message appears in your hand, it looks like it has space to write somebody's name on it!"))
 
 /datum/round_event/valentines/end()
 
@@ -80,23 +80,23 @@ GLOBAL_LIST(valentine_mobs)
 /obj/item/valentine/attackby(obj/item/W, mob/user, params)
 	..()
 	if(!islist(GLOB.valentine_mobs))
-		to_chat(user, "<span class='warning'>You feel regret... It's too late now.</span>")
+		to_chat(user, span_warning("You feel regret... It's too late now."))
 		return
 	if(used)
 		return
 	if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 		if(!user.is_literate())
-			to_chat(user, "<span class='notice'>You scribble illegibly on [src]!</span>")
+			to_chat(user, span_notice("You scribble illegibly on [src]!"))
 			return
 		//Alright lets see who we are sending this bad boy too.
 		//Gets all the people on the z-level, don't want people meta dating nukies *too* hard.
 		//Also they only get one chance.
 		if(alert(user, "Are you sure you are ready to write your message? You only have one shot!", "Valentines message", "Yes!", "No...") == "No...")
-			to_chat(user, "<span class='notice'>You put down the pen thinking about who you want to send the message to.</span>")
+			to_chat(user, span_notice("You put down the pen thinking about who you want to send the message to."))
 			return
 		var/turf/user_turf = get_turf(user)
 		if(!SSmobs.clients_by_zlevel[user_turf.z])
-			to_chat(user, "<span class='warning'>You stop and look around for a moment. Where the hell are you?</span>")
+			to_chat(user, span_warning("You stop and look around for a moment. Where the hell are you?"))
 			return
 		//No going back now
 		var/list/clients_on_level = SSmobs.clients_by_zlevel[user_turf.z]
@@ -107,7 +107,7 @@ GLOBAL_LIST(valentine_mobs)
 				continue
 			mob_names["[H.real_name]"] = H
 		if(!LAZYLEN(mob_names))
-			to_chat(user, "<span class='warning'>You feel empty and alone.</span>")
+			to_chat(user, span_warning("You feel empty and alone."))
 			return
 		//Pick names
 		//At this point the user is shown the names of people on the z-level
@@ -115,18 +115,18 @@ GLOBAL_LIST(valentine_mobs)
 		var/picked_name = input(user, "Who are you sending it to?", "Valentines Card", null) as null|anything in mob_names
 		var/mob/living/carbon/human/picked_human = mob_names[picked_name]
 		if(!picked_human || !istype(picked_human))
-			to_chat(user, "<span class='notice'>The card vanishes out of your hand! Lets hope they got it...</span>")
+			to_chat(user, span_notice("The card vanishes out of your hand! Lets hope they got it..."))
 			//rip
 			qdel(src)
 			return
 		if(!islist(GLOB.valentine_mobs))
-			to_chat(user, "<span class='warning'>You feel regret... It's too late now.</span>")
+			to_chat(user, span_warning("You feel regret... It's too late now."))
 			used = TRUE
 			return
 		if(used)
-			to_chat(user, "<span class='warning'>The card has already been used!</span>")
+			to_chat(user, span_warning("The card has already been used!"))
 			return
-		to_chat(user, "<span class='notice'>The card vanishes out of your hand! Lets hope they got it...</span>")
+		to_chat(user, span_notice("The card vanishes out of your hand! Lets hope they got it..."))
 		//List checking
 		GLOB.valentine_mobs[user] = picked_human
 		if(GLOB.valentine_mobs[picked_human] == user)
@@ -143,7 +143,7 @@ GLOBAL_LIST(valentine_mobs)
 		new_card.desc = "A Valentine's card! It is addressed to [new_card.target]."
 		new_card.used = TRUE
 		picked_human.equip_to_appropriate_slot(new_card)
-		to_chat(picked_human, "<span class='clown'>A magical card suddenly appears!</span>")
+		to_chat(picked_human, span_clown("A magical card suddenly appears!"))
 		qdel(src)
 
 /obj/item/valentine/examine(mob/user)
@@ -156,7 +156,7 @@ GLOBAL_LIST(valentine_mobs)
 			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[message]</BODY></HTML>", "window=[name]")
 			onclose(user, "[name]")
 	else
-		. += "<span class='notice'>It is too far away.</span>"
+		. += span_notice("It is too far away.")
 
 /obj/item/valentine/attack_self(mob/user)
 	user.examinate(src)

@@ -91,7 +91,7 @@
 		C.use(1)
 		update_clothes_damaged_state(FALSE)
 		obj_integrity = max_integrity
-		to_chat(user, "<span class='notice'>You fix the damage on [src] with [C].</span>")
+		to_chat(user, span_notice("You fix the damage on [src] with [C]."))
 		return 1
 	return ..()
 
@@ -142,7 +142,7 @@
 		if(71 to 200)
 			. += "[src] looks like it provides the wearer brilliant protection against stuns."
 	if(damaged_clothes)
-		. += "<span class='warning'>It looks damaged!</span>"
+		. += span_warning("It looks damaged!")
 	var/datum/component/storage/pockets = GetComponent(/datum/component/storage)
 	if(pockets)
 		var/list/how_cool_are_your_threads = list("<span class='notice'>")
@@ -164,7 +164,7 @@
 		update_clothes_damaged_state(TRUE)
 	if(ismob(loc)) //It's not important enough to warrant a message if nobody's wearing it
 		var/mob/M = loc
-		to_chat(M, "<span class='warning'>Your [name] starts to fall apart!</span>")
+		to_chat(M, span_warning("Your [name] starts to fall apart!"))
 
 /obj/item/clothing/proc/update_clothes_damaged_state(damaging = TRUE)
 	var/index = "[REF(initial(icon))]-[initial(icon_state)]"
@@ -208,51 +208,51 @@ BLIND     // can't see anything
 	if(!can_use(M))
 		return
 	if(src.has_sensor == LOCKED_SENSORS)
-		to_chat(user, "<span class='warning'>The controls are locked.</span>")
+		to_chat(user, span_warning("The controls are locked."))
 		return FALSE
 	if(src.has_sensor == BROKEN_SENSORS)
-		to_chat(user, "<span class='warning'>The sensors have shorted out!</span>")
+		to_chat(user, span_warning("The sensors have shorted out!"))
 		return FALSE
 	if(src.has_sensor <= NO_SENSORS)
-		to_chat(user, "<span class='warning'>This suit does not have any sensors.</span>")
+		to_chat(user, span_warning("This suit does not have any sensors."))
 		return FALSE
 
 	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
 	if(get_dist(user, src) > 1)
-		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
+		to_chat(user, span_warning("You have moved too far away!"))
 		return
 	var/sensor_selection = modes.Find(switchMode) - 1
 
 	if (src.loc == user)
 		switch(sensor_selection)
 			if(SENSORS_OFF)
-				to_chat(user, "<span class='notice'>You disable your suit's remote sensing equipment.</span>")
+				to_chat(user, span_notice("You disable your suit's remote sensing equipment."))
 			if(SENSORS_BINARY)
-				to_chat(user, "<span class='notice'>Your suit will now only report whether you are alive or dead.</span>")
+				to_chat(user, span_notice("Your suit will now only report whether you are alive or dead."))
 			if(SENSORS_VITALS)
-				to_chat(user, "<span class='notice'>Your suit will now only report your exact vital lifesigns.</span>")
+				to_chat(user, span_notice("Your suit will now only report your exact vital lifesigns."))
 			if(SENSORS_TRACKING)
-				to_chat(user, "<span class='notice'>Your suit will now report your exact vital lifesigns as well as your coordinate position.</span>")
+				to_chat(user, span_notice("Your suit will now report your exact vital lifesigns as well as your coordinate position."))
 		sensor_mode = sensor_selection
 	else if(istype(src.loc, /mob))
 		var/mob/living/carbon/human/wearer = src.loc
-		wearer.visible_message("<span class='notice'>[user] tries to set [wearer]'s sensors.</span>", \
-						 "<span class='warning'>[user] is trying to set your sensors.</span>", null, COMBAT_MESSAGE_RANGE)
+		wearer.visible_message(span_notice("[user] tries to set [wearer]'s sensors."), \
+						 span_warning("[user] is trying to set your sensors."), null, COMBAT_MESSAGE_RANGE)
 		if(do_mob(user, wearer, SENSOR_CHANGE_DELAY))
 			switch(sensor_selection)
 				if(SENSORS_OFF)
-					wearer.visible_message("<span class='warning'>[user] disables [wearer]'s remote sensing equipment.</span>", \
-						 "<span class='warning'>[user] disables your remote sensing equipment.</span>", null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message(span_warning("[user] disables [wearer]'s remote sensing equipment."), \
+						 span_warning("[user] disables your remote sensing equipment."), null, COMBAT_MESSAGE_RANGE)
 				if(SENSORS_BINARY)
-					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to binary.</span>", \
-						 "<span class='notice'>[user] turns your remote sensors to binary.</span>", null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to binary."), \
+						 span_notice("[user] turns your remote sensors to binary."), null, COMBAT_MESSAGE_RANGE)
 				if(SENSORS_VITALS)
-					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to track vitals.</span>", \
-						 "<span class='notice'>[user] turns your remote sensors to track vitals.</span>", null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to track vitals."), \
+						 span_notice("[user] turns your remote sensors to track vitals."), null, COMBAT_MESSAGE_RANGE)
 				if(SENSORS_TRACKING)
-					wearer.visible_message("<span class='notice'>[user] turns [wearer]'s remote sensors to maximum.</span>", \
-						 "<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
+					wearer.visible_message(span_notice("[user] turns [wearer]'s remote sensors to maximum."), \
+						 span_notice("[user] turns your remote sensors to maximum."), null, COMBAT_MESSAGE_RANGE)
 			sensor_mode = sensor_selection
 			log_combat(user, wearer, "changed sensors to [switchMode]")
 	if(ishuman(loc))
@@ -291,12 +291,12 @@ BLIND     // can't see anything
 	if(!can_use(usr))
 		return
 	if(!can_adjust)
-		to_chat(usr, "<span class='warning'>You cannot wear this suit any differently!</span>")
+		to_chat(usr, span_warning("You cannot wear this suit any differently!"))
 		return
 	if(toggle_jumpsuit_adjust())
-		to_chat(usr, "<span class='notice'>You adjust the suit to wear it more casually.</span>")
+		to_chat(usr, span_notice("You adjust the suit to wear it more casually."))
 	else
-		to_chat(usr, "<span class='notice'>You adjust the suit back to normal.</span>")
+		to_chat(usr, span_notice("You adjust the suit back to normal."))
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		H.update_inv_w_uniform()
@@ -325,7 +325,7 @@ BLIND     // can't see anything
 
 	visor_toggling()
 
-	to_chat(user, "<span class='notice'>You adjust \the [src] [up ? "up" : "down"].</span>")
+	to_chat(user, span_notice("You adjust \the [src] [up ? "up" : "down"]."))
 
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user

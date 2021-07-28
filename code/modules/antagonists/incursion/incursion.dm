@@ -29,7 +29,7 @@
 /datum/antagonist/incursion/on_removal()
 	SSticker.mode.incursionists -= owner
 	if(owner.current)
-		to_chat(owner.current,"<span class='userdanger'>The Syndicate plans have fallen apart, you are no longer a member of the incursion.</span>")
+		to_chat(owner.current,span_userdanger("The Syndicate plans have fallen apart, you are no longer a member of the incursion."))
 	owner.special_role = null
 	return ..()
 
@@ -49,7 +49,7 @@
 	return member_text
 
 /datum/antagonist/incursion/greet()
-	to_chat(owner.current, "<span class='alertsyndie'>You are the member of a Syndicate incursion team!</span>")
+	to_chat(owner.current, span_alertsyndie("You are the member of a Syndicate incursion team!"))
 	to_chat(owner.current, "You have formed a team of Syndicate members with a similar mindset and must infiltrate the ranks of the station!")
 	to_chat(owner.current, "You have been implanted with a syndicate headset for communication with your team. This headset can only be heard by you directly and if those pigs at Nanotrasen try to steal it they will violently explode!")
 	owner.announce_objectives()
@@ -102,7 +102,7 @@
 			"in your hands" = ITEM_SLOT_HANDS
 		)
 		where = H.equip_in_one_of_slots(uplink, slots, FALSE)
-	to_chat(owner.current, "<span class='notice'><b>You have been equipped with a syndicate uplink located [where ? where : "at your feet"]. Activate the transponder in hand to access the market.</b></span>")
+	to_chat(owner.current, span_notice("<b>You have been equipped with a syndicate uplink located [where ? where : "at your feet"]. Activate the transponder in hand to access the market.</b>"))
 	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
 	syndio.implant(owner.current)
 
@@ -116,7 +116,7 @@
 /datum/team/incursion/roundend_report()
 	var/list/parts = list()
 
-	parts += "<span class='header'>The members of the Syndicate incursion were:</span>"
+	parts += span_header("The members of the Syndicate incursion were:")
 	for(var/datum/mind/M in members)
 		parts += printplayer(M)
 	var/win = TRUE
@@ -141,9 +141,9 @@
 	parts += "(Syndicates used [TC_uses] TC) [purchases]"
 
 	if(win)
-		parts += "<span class='greentext'>The Syndicate were successful with their operation!</span>"
+		parts += span_greentext("The Syndicate were successful with their operation!")
 	else
-		parts += "<span class='redtext'>The Syndicate failed their incursion!</span>"
+		parts += span_redtext("The Syndicate failed their incursion!")
 
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
@@ -209,8 +209,8 @@
 		log_game("No mind selected.")
 		return
 	target.make_Traitor()
-	to_chat(target, "<span class='userdanger'>You have been declared an ex-communicate of the syndicate and are being hunted down.</span>")
-	to_chat(target, "<span class='warning'>You have stolen syndicate objective documents, complete the objectives to throw off the syndicate and sabotage their efforts.</span>")
+	to_chat(target, span_userdanger("You have been declared an ex-communicate of the syndicate and are being hunted down."))
+	to_chat(target, span_warning("You have stolen syndicate objective documents, complete the objectives to throw off the syndicate and sabotage their efforts."))
 	target.store_memory("You have been declared an ex-communicate of the syndicate and are being hunted down by a group of traitors. Be careful!")
 	//Create objective
 	var/datum/objective/assassinate/incursion/killchosen = new

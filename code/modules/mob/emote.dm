@@ -12,14 +12,14 @@
 
 	if(!length(key_emotes))
 		if(intentional)
-			to_chat(src, "<span class='notice'>'[act]' emote does not exist. Say *help for a list.</span>")
+			to_chat(src, span_notice("'[act]' emote does not exist. Say *help for a list."))
 		return
 	for(var/datum/emote/P in key_emotes)
 		if(P.run_emote(src, param, m_type, intentional))
 			SEND_SIGNAL(src, COMSIG_MOB_EMOTE, P, act, m_type, message, intentional)
 			return
 	if(intentional)
-		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
+		to_chat(src, span_notice("Unusable emote '[act]'. Say *help for a list."))
 
 /datum/emote/flip
 	key = "flip"

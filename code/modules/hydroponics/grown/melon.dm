@@ -15,7 +15,7 @@
 	reagents_add = list(/datum/reagent/water = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.2)
 
 /obj/item/seeds/watermelon/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is swallowing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is swallowing [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	user.gib()
 	new product(drop_location())
 	qdel(src)
@@ -67,9 +67,9 @@
 
 /obj/item/reagent_containers/food/snacks/grown/holymelon/proc/block_magic(mob/user, major)
 	if(major)
-		to_chat(user, "<span class='warning'>[src] hums slightly, and seems to decay a bit.</span>")
+		to_chat(user, span_warning("[src] hums slightly, and seems to decay a bit."))
 
 /obj/item/reagent_containers/food/snacks/grown/holymelon/proc/expire(mob/user)
-	to_chat(user, "<span class='warning'>[src] rapidly turns into ash!</span>")
+	to_chat(user, span_warning("[src] rapidly turns into ash!"))
 	qdel(src)
 	new /obj/effect/decal/cleanable/ash(drop_location())

@@ -50,7 +50,7 @@
 	if(!H.blood_volume)
 		H.blood_volume += 5
 		H.adjustBruteLoss(5)
-		to_chat(H, "<span class='danger'>You feel empty!</span>")
+		to_chat(H, span_danger("You feel empty!"))
 	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED && H.blood_volume <= 672)
 		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
 			H.adjust_nutrition(-5)
@@ -61,12 +61,12 @@
 		if(H.nutrition <= NUTRITION_LEVEL_STARVING)
 			H.blood_volume -= 8
 			if(prob(5))
-				to_chat(H, "<span class='info'>You're starving! Get some food!</span>")
+				to_chat(H, span_info("You're starving! Get some food!"))
 		else
 			if(prob(35))
 				H.blood_volume -= 2
 				if(prob(5))
-					to_chat(H, "<span class='danger'>You're feeling pretty hungry...</span>")
+					to_chat(H, span_danger("You're feeling pretty hungry..."))
 	var/atmos_sealed = FALSE
 	if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/CS = H.wear_suit
@@ -84,11 +84,11 @@
 			if(environment.get_moles(GAS_H2O) >= 1)
 				H.blood_volume -= 15
 				if(prob(50))
-					to_chat(H, "<span class='danger'>Your ooze melts away rapidly in the water vapor!</span>")
+					to_chat(H, span_danger("Your ooze melts away rapidly in the water vapor!"))
 			if(H.blood_volume <= 672 && environment.get_moles(GAS_PLASMA) >= 1)
 				H.blood_volume += 15
 	if(H.blood_volume < BLOOD_VOLUME_OKAY && prob(5))
-		to_chat(H, "<span class='danger'>You feel drained!</span>")
+		to_chat(H, span_danger("You feel drained!"))
 	if(H.blood_volume < BLOOD_VOLUME_OKAY)
 		Cannibalize_Body(H)
 	if(regenerate_limbs)
@@ -104,7 +104,7 @@
 		limbs_to_consume -= list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM)
 	consumed_limb = H.get_bodypart(pick(limbs_to_consume))
 	consumed_limb.drop_limb()
-	to_chat(H, "<span class='userdanger'>Your [consumed_limb] is drawn back into your body, unable to maintain its shape!</span>")
+	to_chat(H, span_userdanger("Your [consumed_limb] is drawn back into your body, unable to maintain its shape!"))
 	qdel(consumed_limb)
 	H.blood_volume += 80
 	H.nutrition += 20
@@ -128,15 +128,15 @@
 	var/mob/living/carbon/human/H = owner
 	var/list/limbs_to_heal = H.get_missing_limbs()
 	if(!LAZYLEN(limbs_to_heal))
-		to_chat(H, "<span class='notice'>You feel intact enough as it is.</span>")
+		to_chat(H, span_notice("You feel intact enough as it is."))
 		return
-	to_chat(H, "<span class='notice'>You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]...</span>")
+	to_chat(H, span_notice("You focus intently on your missing [limbs_to_heal.len >= 2 ? "limbs" : "limb"]..."))
 	if(H.blood_volume >= 80*limbs_to_heal.len+BLOOD_VOLUME_OKAY)
 		if(do_after(H, 60, target = H))
 			H.regenerate_limbs()
 			H.blood_volume -= 80*limbs_to_heal.len
 			H.nutrition -= 20*limbs_to_heal.len
-			to_chat(H, "<span class='notice'>...and after a moment you finish reforming!</span>")
+			to_chat(H, span_notice("...and after a moment you finish reforming!"))
 		return
 	if(H.blood_volume >= 80)//We can partially heal some limbs
 		while(H.blood_volume >= BLOOD_VOLUME_OKAY+80 && LAZYLEN(limbs_to_heal))
@@ -146,16 +146,16 @@
 				limbs_to_heal -= healed_limb
 				H.blood_volume -= 80
 				H.nutrition -= 20
-			to_chat(H, "<span class='warning'>...but there is not enough of you to fix everything! You must attain more blood volume to heal completely!</span>")
+			to_chat(H, span_warning("...but there is not enough of you to fix everything! You must attain more blood volume to heal completely!"))
 		return
-	to_chat(H, "<span class='warning'>...but there is not enough of you to go around! You must attain more blood volume to heal!</span>")
+	to_chat(H, span_warning("...but there is not enough of you to go around! You must attain more blood volume to heal!"))
 
 /datum/species/oozeling/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	. = ..()
 	if(chem.type == /datum/reagent/water)
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.volume - 10)
-			to_chat(H, "<span class='warning'>The water you consumed is melting away your insides!</span>")
+			to_chat(H, span_warning("The water you consumed is melting away your insides!"))
 		H.blood_volume -= 25
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE

@@ -4,7 +4,7 @@
 	desc = "Turns a person into a Cluwne, a poor soul cursed to a short and miserable life by the honkmother."
 	quality = NEGATIVE
 	locked = TRUE
-	text_gain_indication = "<span class='danger'>You feel like your brain is tearing itself apart.</span>"
+	text_gain_indication = span_danger("You feel like your brain is tearing itself apart.")
 
 /datum/mutation/human/cluwne/on_acquiring(mob/living/carbon/human/owner)
 	if(..())
@@ -54,8 +54,8 @@
 	dna.add_mutation(CLUWNEMUT)
 	emote("scream")
 	regenerate_icons()
-	visible_message("<span class='danger'>[src]'s body glows green, the glow dissipating only to leave behind a cluwne formerly known as [src]!</span>", \
-					"<span class='danger'>Your brain feels like it's being torn apart, there is only the honkmother now.</span>")
+	visible_message(span_danger("[src]'s body glows green, the glow dissipating only to leave behind a cluwne formerly known as [src]!"), \
+					span_danger("Your brain feels like it's being torn apart, there is only the honkmother now."))
 	flash_act()
 
 	if (client)

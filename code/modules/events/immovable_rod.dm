@@ -111,7 +111,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/Bump(atom/clong)
 	if(prob(10))
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		audible_message("<span class='danger'>You hear a CLANG!</span>")
+		audible_message(span_danger("You hear a CLANG!"))
 
 	if(clong && prob(25))
 		x = clong.x
@@ -137,7 +137,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		qdel(other)
 
 /obj/effect/immovablerod/proc/penetrate(mob/living/L)
-	L.visible_message("<span class='danger'>[L] is penetrated by an immovable rod!</span>" , "<span class='userdanger'>The rod penetrates you!</span>" , "<span class ='danger'>You hear a CLANG!</span>")
+	L.visible_message(span_danger("[L] is penetrated by an immovable rod!") , span_userdanger("The rod penetrates you!") , "<span class ='danger'>You hear a CLANG!</span>")
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.adjustBruteLoss(160)
@@ -153,14 +153,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 				if(!M.stat)
 					shake_camera(M, 2, 3)
 			if(wizard)
-				U.visible_message("<span class='boldwarning'>[src] transforms into [wizard] as [U] suplexes them!</span>", "<span class='warning'>As you grab [src], it suddenly turns into [wizard] as you suplex them!</span>")
-				to_chat(wizard, "<span class='boldwarning'>You're suddenly jolted out of rod-form as [U] somehow manages to grab you, slamming you into the ground!</span>")
+				U.visible_message(span_boldwarning("[src] transforms into [wizard] as [U] suplexes them!"), span_warning("As you grab [src], it suddenly turns into [wizard] as you suplex them!"))
+				to_chat(wizard, span_boldwarning("You're suddenly jolted out of rod-form as [U] somehow manages to grab you, slamming you into the ground!"))
 				wizard.Stun(60)
 				wizard.apply_damage(25, BRUTE)
 				qdel(src)
 			else
 				SSmedals.UnlockMedal(MEDAL_RODSUPLEX,U.client) //rod-form wizards would probably make this a lot easier to get so keep it to regular rods only
-				U.visible_message("<span class='boldwarning'>[U] suplexes [src] into the ground!</span>", "<span class='warning'>You suplex [src] into the ground!</span>")
+				U.visible_message(span_boldwarning("[U] suplexes [src] into the ground!"), span_warning("You suplex [src] into the ground!"))
 				new /obj/structure/festivus/anchored(drop_location())
 				new /obj/effect/anomaly/flux(drop_location())
 				qdel(src)

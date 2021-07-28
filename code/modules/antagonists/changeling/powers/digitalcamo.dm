@@ -9,11 +9,11 @@
 /datum/action/changeling/digitalcamo/sting_action(mob/user)
 	..()
 	if(HAS_TRAIT(user,TRAIT_DIGICAMO))
-		to_chat(user, "<span class='notice'>We return to normal.</span>")
+		to_chat(user, span_notice("We return to normal."))
 		REMOVE_TRAIT(user, TRAIT_DIGICAMO, CHANGELING_TRAIT)
 		REMOVE_TRAIT(user, TRAIT_DIGINVIS, CHANGELING_TRAIT)
 	else
-		to_chat(user, "<span class='notice'>We distort our form to hide from the AI.</span>")		
+		to_chat(user, span_notice("We distort our form to hide from the AI."))		
 		ADD_TRAIT(user, TRAIT_DIGICAMO, CHANGELING_TRAIT)		
 		ADD_TRAIT(user, TRAIT_DIGINVIS, CHANGELING_TRAIT)
 	return TRUE

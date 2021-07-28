@@ -25,7 +25,7 @@
 
 /datum/action/changeling/gaseous_pores/sting_action(mob/user)
 	..()
-	user.visible_message("<span class='warning'>[user]'s skin begins to bubble!</span>")
+	user.visible_message(span_warning("[user]'s skin begins to bubble!"))
 	playsound(user, 'sound/machines/fryer/deep_fryer_1.ogg', 30, 1)
 	sleep(10)
 	var/turf/T = get_turf(user)
@@ -34,6 +34,6 @@
 	var/datum/effect_system/smoke_spread/sleeping/changeling/smoke = new(T)
 	smoke.set_up(range, T)
 	smoke.start()
-	user.visible_message("<span class='warning'>With a guttural screech, [user]'s skin bursts into gas!</span>")
+	user.visible_message(span_warning("With a guttural screech, [user]'s skin bursts into gas!"))
 	playsound(user, 'sound/voice/lizard/lizard_scream_1.ogg', 30, 1)
 	return TRUE

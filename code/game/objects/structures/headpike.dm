@@ -40,7 +40,7 @@
 	. = ..()
 	if(.)
 		return
-	to_chat(user, "<span class='notice'>You take down [src].</span>")
+	to_chat(user, span_notice("You take down [src]."))
 	if(victim)
 		victim.forceMove(drop_location())
 		victim = null

@@ -34,7 +34,7 @@
 			if (!C)
 				return
 			if(!target)
-				to_chat(usr, "<span class='warning'>The object you tried to expose to [C] no longer exists (nulled or hard-deled)</span>")
+				to_chat(usr, span_warning("The object you tried to expose to [C] no longer exists (nulled or hard-deled)"))
 				return
 			message_admins("[key_name_admin(usr)] Showed [key_name_admin(C)] a <a href='?_src_=vars;datumrefresh=[REF(target)]'>VV window</a>")
 			log_admin("Admin [key_name(usr)] Showed [key_name(C)] a VV window of a [target]")
@@ -51,7 +51,7 @@
 		if(href_list[VV_HK_VIEW_REFERENCES])
 			var/datum/D = locate(href_list[VV_HK_TARGET])
 			if(!D)
-				to_chat(usr, "<span class='warning'>Unable to locate item.</span>")
+				to_chat(usr, span_warning("Unable to locate item."))
 				return
 			usr.client.holder.view_refs(target)
 			return
@@ -86,7 +86,7 @@
 			datumname = "element"
 			target._AddElement(lst)
 		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(src)].")
-		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(src)].</span>")
+		message_admins(span_notice("[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(src)]."))
 	if(href_list[VV_HK_CALLPROC])
 		usr.client.callproc_datum(target)
 

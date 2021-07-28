@@ -4,7 +4,7 @@
 	desc = "A strange mutation that renders the host immune to the vacuum of space. Will still need an oxygen supply."
 	quality = POSITIVE
 	difficulty = 16
-	text_gain_indication = "<span class='notice'>Your body feels warm!</span>"
+	text_gain_indication = span_notice("Your body feels warm!")
 	time_coeff = 5
 	instability = 30
 

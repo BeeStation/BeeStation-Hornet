@@ -37,7 +37,7 @@
 	var/target = get_turf(targets[1])
 
 	if(get_dist(user,target)>range)
-		to_chat(user, "<span class='notice'>\The [target] is too far away!</span>")
+		to_chat(user, span_notice("\The [target] is too far away!"))
 		return
 
 	. = ..()

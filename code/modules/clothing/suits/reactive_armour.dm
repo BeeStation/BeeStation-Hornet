@@ -42,11 +42,11 @@
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	active = !(active)
 	if(active)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		to_chat(user, span_notice("[src] is now active."))
 		icon_state = "reactive"
 		item_state = "reactive"
 	else
-		to_chat(user, "<span class='notice'>[src] is now inactive.</span>")
+		to_chat(user, span_notice("[src] is now inactive."))
 		icon_state = "reactiveoff"
 		item_state = "reactiveoff"
 	add_fingerprint(user)
@@ -75,9 +75,9 @@
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
 		if(world.time < reactivearmor_cooldown)
-			owner.visible_message("<span class='danger'>The reactive teleport system is still recharging! It fails to teleport [H]!</span>")
+			owner.visible_message(span_danger("The reactive teleport system is still recharging! It fails to teleport [H]!"))
 			return
-		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text], shutting itself off in the process!</span>")
+		owner.visible_message(span_danger("The reactive teleport system flings [H] clear of [attack_text], shutting itself off in the process!"))
 		playsound(get_turf(owner),'sound/magic/blink.ogg', 100, 1)
 		var/list/turfs = new/list()
 		for(var/turf/T as() in (RANGE_TURFS(tele_range, H)-get_turf(H)))
@@ -110,9 +110,9 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
-			owner.visible_message("<span class='danger'>The reactive incendiary armor on [owner] activates, but fails to send out flames as it is still recharging its flame jets!</span>")
+			owner.visible_message(span_danger("The reactive incendiary armor on [owner] activates, but fails to send out flames as it is still recharging its flame jets!"))
 			return
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out jets of flame!</span>")
+		owner.visible_message(span_danger("[src] blocks [attack_text], sending out jets of flame!"))
 		playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
 		for(var/mob/living/carbon/C in ohearers(6, owner))
 			C.fire_stacks += 8
@@ -133,14 +133,14 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
-			owner.visible_message("<span class='danger'>The reactive stealth system on [owner] activates, but is still recharging its holographic emitters!</span>")
+			owner.visible_message(span_danger("The reactive stealth system on [owner] activates, but is still recharging its holographic emitters!"))
 			return
 		var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
 		E.Copy_Parent(owner, 50)
 		E.GiveTarget(owner) //so it starts running right away
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.alpha = 0
-		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
+		owner.visible_message(span_danger("[owner] is hit by [attack_text] in the chest!")) //We pretend to be hit, since blocking it would stop the message otherwise
 		spawn(40)
 			owner.alpha = initial(owner.alpha)
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
@@ -174,9 +174,9 @@
 			var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 			sparks.set_up(1, 1, src)
 			sparks.start()
-			owner.visible_message("<span class='danger'>The tesla capacitors on [owner]'s reactive tesla armor are still recharging! The armor merely emits some sparks.</span>")
+			owner.visible_message(span_danger("The tesla capacitors on [owner]'s reactive tesla armor are still recharging! The armor merely emits some sparks."))
 			return
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
+		owner.visible_message(span_danger("[src] blocks [attack_text], sending out arcs of lightning!"))
 		tesla_zap(owner, tesla_range, tesla_power, tesla_flags)
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return TRUE
@@ -193,10 +193,10 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
-			owner.visible_message("<span class='danger'>The repulse generator is still recharging!</span>")
+			owner.visible_message(span_danger("The repulse generator is still recharging!"))
 			return 0
 		playsound(get_turf(owner),'sound/magic/repulse.ogg', 100, 1)
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], converting the attack into a wave of force!</span>")
+		owner.visible_message(span_danger("[src] blocks [attack_text], converting the attack into a wave of force!"))
 		var/turf/T = get_turf(owner)
 		var/list/thrown_items = list()
 		for(var/atom/movable/A as mob|obj in orange(7, T))
@@ -220,9 +220,9 @@
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
 		if(world.time < reactivearmor_cooldown)
-			owner.visible_message("<span class='danger'>The reactive table armor's fabricators are still on cooldown!</span>")
+			owner.visible_message(span_danger("The reactive table armor's fabricators are still on cooldown!"))
 			return
-		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text] and slams [H.p_them()] into a fabricated table!</span>")
+		owner.visible_message(span_danger("The reactive teleport system flings [H] clear of [attack_text] and slams [H.p_them()] into a fabricated table!"))
 		owner.visible_message("<font color='red' size='3'>[H] GOES ON THE TABLE!!!</font>")
 		owner.Paralyze(40)
 		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)

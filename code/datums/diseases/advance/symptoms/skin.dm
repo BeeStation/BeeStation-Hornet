@@ -56,7 +56,7 @@ BONUS
 					H.dna.features["mcolor"] = "EEE" //pure white.
 				H.regenerate_icons()
 			else
-				H.visible_message("<span class='notice'>[H] looks a bit pale.</span>", "<span class='notice'>Your skin suddenly appears lighter.</span>")
+				H.visible_message(span_notice("[H] looks a bit pale."), span_notice("Your skin suddenly appears lighter."))
 
 /datum/symptom/vitiligo/End(datum/disease/advance/A)
 	. = ..()
@@ -126,7 +126,7 @@ BONUS
 					H.dna.features["mcolor"] = "000" //pure black.
 				H.regenerate_icons()
 			else
-				H.visible_message("<span class='notice'>[H] looks a bit dark.</span>", "<span class='notice'>Your skin suddenly appears darker.</span>")
+				H.visible_message(span_notice("[H] looks a bit dark."), span_notice("Your skin suddenly appears darker."))
 
 /datum/symptom/revitiligo/End(datum/disease/advance/A)
 	. = ..()
@@ -180,7 +180,7 @@ BONUS
 				M.reagents.add_reagent(color, 5)
 		else
 			if (prob(50)) // spam
-				M.visible_message("<span class='notice'>[M] looks rather vibrant.</span>", "<span class='notice'>The colors, man, the colors.</span>")
+				M.visible_message(span_notice("[M] looks rather vibrant."), span_notice("The colors, man, the colors."))
 
 /************************************
 Dermagraphic Ovulogenesis

@@ -17,13 +17,13 @@
 /datum/clockcult/scripture/cogscarab/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks)
 	invokation_time = 120 + (60 * GLOB.cogscarabs.len)
 	if(!is_reebe(M.z))
-		to_chat(M, "<span class='warning'>You must do this on Reebe!</span>")
+		to_chat(M, span_warning("You must do this on Reebe!"))
 		return
 	if(GLOB.cogscarabs.len > 8)
-		to_chat(M, "<span class='warning'>You can't summon anymore cogscarabs.</span>")
+		to_chat(M, span_warning("You can't summon anymore cogscarabs."))
 		return
 	if(GLOB.gateway_opening)
-		to_chat(M, "<span class='warning'>It is too late to summon cogscarabs now, Rat'var is coming!</span>")
+		to_chat(M, span_warning("It is too late to summon cogscarabs now, Rat'var is coming!"))
 		return
 	. = ..()
 

@@ -39,7 +39,7 @@
 /obj/machinery/power/rtg/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Power generation now at <b>[power_gen*0.001]</b>kW.</span>"
+		. += span_notice("The status display reads: Power generation now at <b>[power_gen*0.001]</b>kW.")
 
 /obj/machinery/power/rtg/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-open", initial(icon_state), I))
@@ -72,8 +72,8 @@
 	if(going_kaboom)
 		return
 	going_kaboom = TRUE
-	visible_message("<span class='danger'>\The [src] lets out a shower of sparks as it starts to lose stability!</span>",\
-		"<span class='italics'>You hear a loud electrical crack!</span>")
+	visible_message(span_danger("\The [src] lets out a shower of sparks as it starts to lose stability!"),\
+		span_italics("You hear a loud electrical crack!"))
 	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 	tesla_zap(src, 5, power_gen * 0.05)
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, get_turf(src), 2, 3, 4, 8), 100) // Not a normal explosion.

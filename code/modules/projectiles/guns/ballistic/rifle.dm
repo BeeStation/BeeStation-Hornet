@@ -23,7 +23,7 @@
 
 /obj/item/gun/ballistic/rifle/rack(mob/user = null)
 	if(bolt_locked == FALSE)
-		to_chat(user, "<span class='notice'>You open the bolt of \the [src].</span>")
+		to_chat(user, span_notice("You open the bolt of \the [src]."))
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 		process_chamber(FALSE, FALSE, FALSE)
 		bolt_locked = TRUE
@@ -38,7 +38,7 @@
 
 /obj/item/gun/ballistic/rifle/attackby(obj/item/A, mob/user, params)
 	if (!bolt_locked)
-		to_chat(user, "<span class='notice'>The bolt is closed!</span>")
+		to_chat(user, span_notice("The bolt is closed!"))
 		return
 	return ..()
 

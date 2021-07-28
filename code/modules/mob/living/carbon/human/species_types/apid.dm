@@ -31,7 +31,7 @@
 	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping() && !HAS_TRAIT(H,TRAIT_RESISTCOLD)) // Sleep when cold, like bees
 		cold_cycle++
 		if(prob(5))
-			to_chat(H, "<span class='warning'>The cold is making you feel tired...</span>")
+			to_chat(H, span_warning("The cold is making you feel tired..."))
 		switch(cold_cycle)
 			if(5 to 10)
 				H.drowsyness++

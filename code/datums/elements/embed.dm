@@ -92,7 +92,7 @@
 
 		//Target has enough armour to block the embed.
 		if(target_armour >= armour_block)
-			victim.visible_message("<span class='danger'>[weapon] bounces off [victim]'s armor!</span>", "<span class='notice'>[weapon] bounces off your armor!</span>", vision_distance = COMBAT_MESSAGE_RANGE)
+			victim.visible_message(span_danger("[weapon] bounces off [victim]'s armor!"), span_notice("[weapon] bounces off your armor!"), vision_distance = COMBAT_MESSAGE_RANGE)
 			return
 
 	var/percentage_unblocked = 1 - (target_armour / armour_block)

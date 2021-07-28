@@ -32,7 +32,7 @@
 	req_access = list()
 	req_one_access = list()
 	playsound(src, "sparks", 100, 1)
-	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
+	to_chat(user, span_warning("You short out the access controller."))
 
 /obj/machinery/doorButtons/proc/removeMe()
 
@@ -61,7 +61,7 @@
 	if(busy)
 		return
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		return
 	if(controller && !controller.busy && door)
 		if(controller.stat & NOPOWER)
@@ -131,7 +131,7 @@
 	if(busy)
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	switch(href_list["command"])
 		if("close_exterior")

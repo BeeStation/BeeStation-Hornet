@@ -18,7 +18,7 @@
 	clockwork_desc = "A small device which will slow down nearby attackers at a small power cost."
 	default_icon_state = "interdiction_lens"
 	anchored = TRUE
-	break_message = "<span class='warning'>The interdiction lens breaks into multiple fragments, which gently float to the ground.</span>"
+	break_message = span_warning("The interdiction lens breaks into multiple fragments, which gently float to the ground.")
 	max_integrity = 150
 	obj_integrity = 150
 	minimum_power = 5
@@ -41,16 +41,16 @@
 /obj/structure/destructible/clockwork/gear_base/interdiction_lens/attack_hand(mob/user)
 	if(is_servant_of_ratvar(user))
 		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor!</span>")
+			to_chat(user, span_warning("[src] needs to be fastened to the floor!"))
 			return
 		enabled = !enabled
-		to_chat(user, "<span class='brass'>You flick the switch on [src], turning it [enabled?"on":"off"]!</span>")
+		to_chat(user, span_brass("You flick the switch on [src], turning it [enabled?"on":"off"]!"))
 		if(enabled)
 			if(update_power())
 				repowered()
 			else
 				enabled = FALSE
-				to_chat(user, "<span class='warning'>[src] does not have enough power!</span>")
+				to_chat(user, span_warning("[src] does not have enough power!"))
 		else
 			depowered()
 	else

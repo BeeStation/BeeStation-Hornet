@@ -125,28 +125,28 @@
 /obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))
 		if(jetpack)
-			to_chat(user, "<span class='warning'>[src] already has a jetpack installed.</span>")
+			to_chat(user, span_warning("[src] already has a jetpack installed."))
 			return
 		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING)) //Make sure the player is not wearing the suit before applying the upgrade.
-			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
+			to_chat(user, span_warning("You cannot install the upgrade to [src] while wearing it."))
 			return
 
 		if(user.transferItemToLoc(I, src))
 			jetpack = I
-			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
+			to_chat(user, span_notice("You successfully install the jetpack into [src]."))
 			return
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!jetpack)
-			to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
+			to_chat(user, span_warning("[src] has no jetpack installed."))
 			return
 		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING))
-			to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
+			to_chat(user, span_warning("You cannot remove the jetpack from [src] while wearing it."))
 			return
 
 		jetpack.turn_off(user)
 		jetpack.forceMove(drop_location())
 		jetpack = null
-		to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
+		to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
 		return
 	return ..()
 
@@ -311,24 +311,24 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hud(mob/user)
 	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
 	if(!monitor)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		to_chat(user, span_notice("The suit is not fitted with a tracking beacon."))
 		return
 	monitor.toggle_hud(!monitor.hud_visible, user)
 	if(monitor.hud_visible)
-		to_chat(user, "<span class='notice'>You toggle the heads up display of your suit.</span>")
+		to_chat(user, span_notice("You toggle the heads up display of your suit."))
 	else
-		to_chat(user, "<span class='warning'>You disable the heads up display of your suit.</span>")
+		to_chat(user, span_warning("You disable the heads up display of your suit."))
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user) //Toggle Helmet
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You cannot toggle your helmet while in this [user.loc]!</span>" )
+		to_chat(user, span_warning("You cannot toggle your helmet while in this [user.loc]!") )
 		return
 	on = !on
 	if(on || force)
-		to_chat(user, "<span class='notice'>You switch your hardsuit to EVA mode, sacrificing speed for space protection.</span>")
+		to_chat(user, span_notice("You switch your hardsuit to EVA mode, sacrificing speed for space protection."))
 		activate_space_mode()
 	else
-		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode and can now run at full speed.</span>")
+		to_chat(user, span_notice("You switch your hardsuit to combat mode and can now run at full speed."))
 		activate_combat_mode()
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
@@ -401,18 +401,18 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/toggle_beacon(mob/user)
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		to_chat(user, span_notice("The suit is not fitted with a tracking beacon."))
 		return
 	beacon.toggle_visibility(!beacon.visible)
 	if(beacon.visible)
-		to_chat(user, "<span class='notice'>You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location.</span>")
+		to_chat(user, span_notice("You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location."))
 	else
-		to_chat(user, "<span class='warning'>You disable the tracking beacon on [src].</span>")
+		to_chat(user, span_warning("You disable the tracking beacon on [src]."))
 
 /obj/item/clothing/suit/space/hardsuit/syndi/proc/set_beacon_freq(mob/user)
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		to_chat(user, span_notice("The suit is not fitted with a tracking beacon."))
 		return
 	beacon.change_frequency(user)
 
@@ -764,7 +764,7 @@
 		var/datum/effect_system/spark_spread/s = new
 		s.set_up(2, 1, src)
 		s.start()
-		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
+		owner.visible_message(span_danger("[owner]'s shields deflect [attack_text] in a shower of sparks!"))
 		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			//Fake bullets just disintegrate
@@ -886,18 +886,18 @@
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(shield_state == "broken")
-		to_chat(user, "<span class='warning'>You can't interface with the hardsuit's software if the shield's broken!</span>")
+		to_chat(user, span_warning("You can't interface with the hardsuit's software if the shield's broken!"))
 		return
 
 	if(shield_state == "shield-red")
 		shield_state = "shield-old"
 		shield_on = "shield-old"
-		to_chat(user, "<span class='warning'>You roll back the hardsuit's software, changing the shield's color!</span>")
+		to_chat(user, span_warning("You roll back the hardsuit's software, changing the shield's color!"))
 
 	else
 		shield_state = "shield-red"
 		shield_on = "shield-red"
-		to_chat(user, "<span class='warning'>You update the hardsuit's hardware, changing back the shield's color to red.</span>")
+		to_chat(user, span_warning("You update the hardsuit's hardware, changing back the shield's color to red."))
 	user.update_inv_wear_suit()
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/actiontype)
@@ -912,18 +912,18 @@
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/proc/toggle_beacon(mob/user)
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		to_chat(user, span_notice("The suit is not fitted with a tracking beacon."))
 		return
 	beacon.toggle_visibility(!beacon.visible)
 	if(beacon.visible)
-		to_chat(user, "<span class='notice'>You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location.</span>")
+		to_chat(user, span_notice("You enable the tracking beacon on [src]. Anybody on the same frequency will now be able to track your location."))
 	else
-		to_chat(user, "<span class='warning'>You disable the tracking beacon on [src].</span>")
+		to_chat(user, span_warning("You disable the tracking beacon on [src]."))
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/proc/set_beacon_freq(mob/user)
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(!beacon)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		to_chat(user, span_notice("The suit is not fitted with a tracking beacon."))
 		return
 	beacon.change_frequency(user)
 
@@ -961,13 +961,13 @@
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi/proc/toggle_hud(mob/user)
 	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
 	if(!monitor)
-		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		to_chat(user, span_notice("The suit is not fitted with a tracking beacon."))
 		return
 	monitor.toggle_hud(!monitor.hud_visible, user)
 	if(monitor.hud_visible)
-		to_chat(user, "<span class='notice'>You toggle the heads up display of your suit.</span>")
+		to_chat(user, span_notice("You toggle the heads up display of your suit."))
 	else
-		to_chat(user, "<span class='warning'>You disable the heads up display of your suit.</span>")
+		to_chat(user, span_warning("You disable the heads up display of your suit."))
 
 ///SWAT version
 /obj/item/clothing/suit/space/hardsuit/shielded/swat

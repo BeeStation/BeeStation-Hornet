@@ -20,7 +20,7 @@
 	time = 16
 
 /datum/surgery_step/incise_heart/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You begin to make an incision in [target]'s heart...</span>",
+	display_results(user, target, span_notice("You begin to make an incision in [target]'s heart..."),
 		"[user] begins to make an incision in [target]'s heart.",
 		"[user] begins to make an incision in [target]'s heart.")
 
@@ -28,7 +28,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if (!(NOBLOOD in H.dna.species.species_traits))
-			display_results(user, target, "<span class='notice'>Blood pools around the incision in [H]'s heart.</span>",
+			display_results(user, target, span_notice("Blood pools around the incision in [H]'s heart."),
 				"Blood pools around the incision in [H]'s heart.",
 				"")
 			H.bleed_rate += 10
@@ -38,9 +38,9 @@
 /datum/surgery_step/incise_heart/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		display_results(user, target, "<span class='warning'>You screw up, cutting too deeply into the heart!</span>",
-			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest!</span>",
-			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest!</span>")
+		display_results(user, target, span_warning("You screw up, cutting too deeply into the heart!"),
+			span_warning("[user] screws up, causing blood to spurt out of [H]'s chest!"),
+			span_warning("[user] screws up, causing blood to spurt out of [H]'s chest!"))
 		H.bleed_rate += 20
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 10)
 		H.adjustBruteLoss(10)
@@ -52,7 +52,7 @@
 	time = 90
 
 /datum/surgery_step/coronary_bypass/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You begin to graft a bypass onto [target]'s heart...</span>",
+	display_results(user, target, span_notice("You begin to graft a bypass onto [target]'s heart..."),
 			"[user] begins to graft something onto [target]'s heart!",
 			"[user] begins to graft something onto [target]'s heart!")
 
@@ -61,7 +61,7 @@
 	var/obj/item/organ/heart/heart = target.getorganslot(ORGAN_SLOT_HEART)
 	if(heart)	//slightly worrying if we lost our heart mid-operation, but that's life
 		heart.operated = TRUE
-	display_results(user, target, "<span class='notice'>You successfully graft a bypass onto [target]'s heart.</span>",
+	display_results(user, target, span_notice("You successfully graft a bypass onto [target]'s heart."),
 			"[user] finishes grafting something onto [target]'s heart.",
 			"[user] finishes grafting something onto [target]'s heart.")
 	return TRUE
@@ -69,9 +69,9 @@
 /datum/surgery_step/coronary_bypass/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		display_results(user, target, "<span class='warning'>You screw up in attaching the graft, and it tears off, tearing part of the heart!</span>",
-			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest profusely!</span>",
-			"<span class='warning'>[user] screws up, causing blood to spurt out of [H]'s chest profusely!</span>")
+		display_results(user, target, span_warning("You screw up in attaching the graft, and it tears off, tearing part of the heart!"),
+			span_warning("[user] screws up, causing blood to spurt out of [H]'s chest profusely!"),
+			span_warning("[user] screws up, causing blood to spurt out of [H]'s chest profusely!"))
 		H.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
 		H.bleed_rate += 30
 	return FALSE

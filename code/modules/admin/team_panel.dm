@@ -131,7 +131,7 @@
 				A.objectives.Insert(objective_pos, new_objective)
 				break
 		if(!objective_pos)
-			to_chat(user, "<span class='warning'>It seems like [M.current] does not have this objective despite being part of the team. If this is not intentional, consider removing and re-adding the objective.</span>")
+			to_chat(user, span_warning("It seems like [M.current] does not have this objective despite being part of the team. If this is not intentional, consider removing and re-adding the objective."))
 
 	message_admins("[key_name_admin(usr)] edited team [src.name]'s objective to [new_objective.explanation_text]")
 	log_admin("[key_name(usr)] edited team [src.name]'s objective to [new_objective.explanation_text]")

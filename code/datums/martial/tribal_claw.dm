@@ -33,8 +33,8 @@
 	if(A == current_target)
 		return
 	log_combat(A, D, "tail sweeped(Tribal Claw)")
-	D.visible_message("<span class='warning'>[A] sweeps [D]'s legs with their tail!</span>", \
-						"<span class='userdanger'>[A] sweeps your legs with their tail!</span>")
+	D.visible_message(span_warning("[A] sweeps [D]'s legs with their tail!"), \
+						span_userdanger("[A] sweeps your legs with their tail!"))
 	var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/R = new
 	R.cast(RANGE_TURFS(1,A))
 
@@ -42,8 +42,8 @@
 /datum/martial_art/tribal_claw/proc/faceScratch(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
 	log_combat(A, D, "face scratched (Tribal Claw)")
-	D.visible_message("<span class='warning'>[A] scratches [D]'s face with their claws!</span>", \
-						"<span class='userdanger'>[A] scratches your face with their claws!</span>")
+	D.visible_message(span_warning("[A] scratches [D]'s face with their claws!"), \
+						span_userdanger("[A] scratches your face with their claws!"))
 	D.apply_damage(10, BRUTE, BODY_ZONE_HEAD, def_check)
 	D.confused += 5
 	D.blur_eyes(5)
@@ -58,8 +58,8 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 	var/def_check = D.getarmor(BODY_ZONE_HEAD, "melee")
 	if((D.health <= D.crit_threshold || (A.pulling == D && A.grab_state >= GRAB_NECK) || D.IsSleeping()))
 		log_combat(A, D, "jugular cut (Tribal Claw)")
-		D.visible_message("<span class='warning'>[A] cuts [D]'s jugular vein with their claws!</span>", \
-							"<span class='userdanger'>[A] cuts your jugular vein!</span>")
+		D.visible_message(span_warning("[A] cuts [D]'s jugular vein with their claws!"), \
+							span_userdanger("[A] cuts your jugular vein!"))
 		D.apply_damage(15, BRUTE, BODY_ZONE_HEAD, def_check)
 		D.bleed_rate = CLAMP(D.bleed_rate + 20, 0, 30)
 		D.apply_status_effect(/datum/status_effect/neck_slice)
@@ -71,8 +71,8 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 //Tail Grab, instantly puts your target in a T3 grab and makes them unable to talk for a short time.
 /datum/martial_art/tribal_claw/proc/tailGrab(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	log_combat(A, D, "tail grabbed (Tribal Claw)")
-	D.visible_message("<span class='warning'>[A] grabs [D] with their tail!</span>", \
-						"<span class='userdanger'>[A] grabs you with their tail!</span>")
+	D.visible_message(span_warning("[A] grabs [D] with their tail!"), \
+						span_userdanger("[A] grabs you with their tail!"))
 	D.grabbedby(A, 1)
 	D.Knockdown(5) //Without knockdown target still stands up while T3 grabbed.
 	A.setGrabState(GRAB_NECK)

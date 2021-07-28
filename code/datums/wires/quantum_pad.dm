@@ -10,7 +10,7 @@
 	switch(wire)
 		if(WIRE_ACTIVATE)
 			if(Q.panel_open)
-				holder.visible_message("<span class='notice'>[icon2html(Q, viewers(holder))] The activation light flickers.</span>")
+				holder.visible_message(span_notice("[icon2html(Q, viewers(holder))] The activation light flickers."))
 				return
 			else
 				Q.interact()

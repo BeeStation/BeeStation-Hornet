@@ -71,7 +71,7 @@
 		if(food_conversion)
 			M.adjust_nutrition(0.3)
 		if(prob(2))
-			to_chat(M, "<span class='notice'>You feel a mild warmth as your blood purifies itself.</span>")
+			to_chat(M, span_notice("You feel a mild warmth as your blood purifies itself."))
 	return 1
 
 /datum/symptom/heal/coma
@@ -83,7 +83,7 @@
 	transmission = -3
 	level = 8
 	severity = -2
-	passive_message = "<span class='notice'>The pain from your wounds makes you feel oddly sleepy.</span>"
+	passive_message = span_notice("The pain from your wounds makes you feel oddly sleepy.")
 	var/deathgasp = FALSE
 	var/stabilize = FALSE
 	var/active_coma = FALSE //to prevent multiple coma procs
@@ -126,7 +126,7 @@
 	else if(M.IsSleeping())
 		return power * 0.25
 	else if(M.getBruteLoss() + M.getFireLoss() >= 70 && !active_coma)
-		to_chat(M, "<span class='warning'>You feel yourself slip into a deep, regenerative slumber.</span>")
+		to_chat(M, span_warning("You feel yourself slip into a deep, regenerative slumber."))
 		active_coma = TRUE
 		addtimer(CALLBACK(src, .proc/coma, M), 60)
 
@@ -181,7 +181,7 @@
 	transmission = 0
 	severity = -1
 	level = 6
-	passive_message = "<span class='notice'>Your skin tingles.</span>"
+	passive_message = span_notice("Your skin tingles.")
 	var/threshhold = 15
 	var/scarcounter = 0
 
@@ -214,10 +214,10 @@
 
 	if(healed)
 		if(prob(10))
-			to_chat(M, "<span class='notice'>Your wounds heal, granting you a new scar.</span>")
+			to_chat(M, span_notice("Your wounds heal, granting you a new scar."))
 		if(scarcounter >= 200 && !HAS_TRAIT(M, TRAIT_DISFIGURED))
 			ADD_TRAIT(M, TRAIT_DISFIGURED, DISEASE_TRAIT)
-			M.visible_message("<span class='warning'>[M]'s face becomes unrecognizeable.</span>", "<span class='userdanger'>Your scars have made your face unrecognizeable.</span>")
+			M.visible_message(span_warning("[M]'s face becomes unrecognizeable."), span_userdanger("Your scars have made your face unrecognizeable."))
 	return healed
 
 
@@ -256,7 +256,7 @@
 	var/lost_nutrition = 9 - (reduced_hunger * 5)
 	C.adjust_nutrition(-lost_nutrition * HUNGER_FACTOR) //Hunger depletes at 10x the normal speed
 	if(prob(2))
-		to_chat(C, "<span class='notice'>You feel an odd gurgle in your stomach, as if it was working much faster than normal.</span>")
+		to_chat(C, span_notice("You feel an odd gurgle in your stomach, as if it was working much faster than normal."))
 	return 1
 
 /*
@@ -309,9 +309,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.reagents.add_reagent(/datum/reagent/medicine/mutadone = 1)
 			if(bigemp)
 				empulse(M.loc, 0, 1)
-			to_chat(M, "<span class='userdanger'>[pick("Your mind fills with static!", "You feel a jolt!", "Your sense of direction flickers out!")]</span>")
+			to_chat(M, span_userdanger("[pick("Your mind fills with static!", "You feel a jolt!", "Your sense of direction flickers out!")]"))
 		else
-			to_chat(M, "<span class='notice'>[pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker.", "Your hair stands on end.")]</span>")
+			to_chat(M, span_notice("[pick("You feel a slight tug toward the station's wall.", "Nearby electronics flicker.", "Your hair stands on end.")]"))
 	return
 
 /datum/symptom/sweat
@@ -357,7 +357,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(prob(30))
 				var/turf/open/OT = get_turf(M)
 				if(istype(OT))
-					to_chat(M, "<span class='danger'>The sweat pools into a puddle!</span>")
+					to_chat(M, span_danger("The sweat pools into a puddle!"))
 					OT.MakeSlippery(TURF_WET_WATER, min_wet_time = 10 SECONDS, wet_time_to_add = 5 SECONDS)
 			if(bigsweat)
 				var/obj/effect/sweatsplash/S = new(M.loc)
@@ -369,9 +369,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				if(ammonia)
 					S.reagents.add_reagent(/datum/reagent/space_cleaner, 5)
 				S.splash()
-				to_chat(M, "<span class='userdanger'>You sweat out nearly everything in your body!</span>")
+				to_chat(M, span_userdanger("You sweat out nearly everything in your body!"))
 		else
-			to_chat(M, "<span class='notice'>[pick("You feel moist.", "Your clothes are soaked.", "You're sweating buckets!")]</span>")
+			to_chat(M, span_notice("[pick("You feel moist.", "Your clothes are soaked.", "You're sweating buckets!")]"))
 	return
 
 /obj/effect/sweatsplash
@@ -430,10 +430,10 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(prob(5) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				if(prob(50))
-					to_chat(M, "<span class='userwarning'>The lukewarm temperature makes you feel strange!</span>")
+					to_chat(M, span_userwarning("The lukewarm temperature makes you feel strange!"))
 			if(cooldowntimer == 0 && ((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
 				do_sparks(5,FALSE,M)
-				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
+				to_chat(M, span_userdanger("The change in temperature shocks you back to a previous spatial state!"))
 				do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 				do_sparks(5,FALSE,M)
 				cooldowntimer = 10
@@ -443,7 +443,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				cooldowntimer --
 		else
 			if(prob(7))
-				to_chat(M, "<span class='notice'>[pick("Your warm breath fizzles out of existence.", "You feel attracted to temperate climates", "You feel like you're forgetting something")]</span>")
+				to_chat(M, span_notice("[pick("Your warm breath fizzles out of existence.", "You feel attracted to temperate climates", "You feel like you're forgetting something")]"))
 	return
 
 /datum/symptom/growth
@@ -493,7 +493,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	switch(A.stage)
 		if(4, 5)
 			if(prob(5) && bruteheal)
-				to_chat(M, "<span class='userdanger'>You retch, and a splatter of gore escapes your gullet!</span>")
+				to_chat(M, span_userdanger("You retch, and a splatter of gore escapes your gullet!"))
 				M.Immobilize(5)
 				new /obj/effect/decal/cleanable/blood/(M.loc)
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
@@ -527,7 +527,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 							for(var/I in 1 to min(rand(1, 3), organcantidates.len))
 								var/obj/item/organ/chosen = pick_n_take(organcantidates)
 								chosen.Insert(M, TRUE, FALSE)
-								to_chat(M, "<span class='userdanger'>As the [chosen] touches your skin, it is promptly absorbed.</span>")
+								to_chat(M, span_userdanger("As the [chosen] touches your skin, it is promptly absorbed."))
 					if(missing.len) //we regrow one missing limb
 						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))
@@ -559,13 +559,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					M.adjustCloneLoss(1)
 		else
 			if(prob(5))
-				to_chat(M, "<span class='notice'>[pick("You feel bloated.", "The station seems small.", "You are the strongest.")]</span>")
+				to_chat(M, span_notice("[pick("You feel bloated.", "The station seems small.", "You are the strongest.")]"))
 	return
 
 /datum/symptom/growth/End(datum/disease/advance/A)
 	. = ..()
 	var/mob/living/carbon/M = A.affected_mob
-	to_chat(M, "<span class='notice'>You lose your balance and stumble as you shrink, and your legs come out from underneath you!</span>")
+	to_chat(M, span_notice("You lose your balance and stumble as you shrink, and your legs come out from underneath you!"))
 	animate(M, pixel_z = 4, time = 0) //size is fixed by having the player do one waddle. Animation for some reason resets size, meaning waddling can desize you
 	animate(pixel_z = 0, transform = turn(matrix(), pick(-12, 0, 12)), time=2) //waddle desizing is an issue, because you can game it to use this symptom and become small
 	animate(pixel_z = 0, transform = matrix(), time = 0) //so, instead, we use waddle desizing to desize you from this symptom, instead of a transformation, because it wont shrink you naturally
@@ -597,13 +597,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	. = ..()
 	if(.)
 		return
-	to_chat(user, "<span class='notice'>Ew. It would be a bad idea to touch this. It could probably be destroyed with the extreme heat of a welder.</span>")
+	to_chat(user, span_notice("Ew. It would be a bad idea to touch this. It could probably be destroyed with the extreme heat of a welder."))
 
 /obj/effect/mob_spawn/teratomamonkey/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		user.visible_message("<span class='warning'>[usr.name] destroys [src].</span>",
-			"<span class='notice'>You hold the welder to [src] and it violently bursts!</span>",
-			"<span class='italics'>You hear a gurgling noise.</span>")
+		user.visible_message(span_warning("[usr.name] destroys [src]."),
+			span_notice("You hold the welder to [src] and it violently bursts!"),
+			span_italics("You hear a gurgling noise."))
 		new /obj/effect/gibspawner/human(get_turf(src))
 		qdel(src)
 	else

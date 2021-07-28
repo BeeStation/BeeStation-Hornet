@@ -19,13 +19,13 @@
 	var/turf/T = get_turf(user)
 	var/area/A = get_area(T)
 	if(!isfloorturf(T))
-		to_chat(user, "<span class='warning'>You cannot place [src] on this spot!</span>")
+		to_chat(user, span_warning("You cannot place [src] on this spot!"))
 		return
 	if(A.always_unpowered)
-		to_chat(user, "<span class='warning'>You cannot place [src] in this area!</span>")
+		to_chat(user, span_warning("You cannot place [src] in this area!"))
 		return
 	if(gotwallitem(T, ndir, inverse*2))
-		to_chat(user, "<span class='warning'>There's already an item on this wall!</span>")
+		to_chat(user, span_warning("There's already an item on this wall!"))
 		return
 
 	return TRUE
@@ -34,8 +34,8 @@
 	if(result_path)
 		playsound(src.loc, 'sound/machines/click.ogg', 75, 1)
 		user.visible_message("[user.name] attaches [src] to the wall.",
-			"<span class='notice'>You attach [src] to the wall.</span>",
-			"<span class='italics'>You hear clicking.</span>")
+			span_notice("You attach [src] to the wall."),
+			span_italics("You hear clicking."))
 		var/ndir = get_dir(on_wall,user)
 		if(inverse)
 			ndir = turn(ndir, 180)
@@ -70,7 +70,7 @@
 	var/glass_amt = round(materials[/datum/material/glass]/MINERAL_MATERIAL_AMOUNT) //Replace this shit later
 
 	if(W.tool_behaviour == TOOL_WRENCH && (iron_amt || glass_amt))
-		to_chat(user, "<span class='notice'>You dismantle [src].</span>")
+		to_chat(user, span_notice("You dismantle [src]."))
 		if(iron_amt)
 			new /obj/item/stack/sheet/iron(get_turf(src), iron_amt)
 		if(glass_amt)
@@ -94,18 +94,18 @@
 	var/turf/T = get_turf(on_wall) //the user is not where it needs to be.
 	var/area/A = get_area(user)
 	if(A.get_apc())
-		to_chat(user, "<span class='warning'>This area already has an APC!</span>")
+		to_chat(user, span_warning("This area already has an APC!"))
 		return //only one APC per area
 	if(!A.requires_power)
-		to_chat(user, "<span class='warning'>You cannot place [src] in this area!</span>")
+		to_chat(user, span_warning("You cannot place [src] in this area!"))
 		return //can't place apcs in areas with no power requirement
 	for(var/obj/machinery/power/terminal/E in T)
 		if(E.master)
-			to_chat(user, "<span class='warning'>There is another network terminal here!</span>")
+			to_chat(user, span_warning("There is another network terminal here!"))
 			return
 		else
 			new /obj/item/stack/cable_coil(T, 10)
-			to_chat(user, "<span class='notice'>You cut the cables and disassemble the unused power terminal.</span>")
+			to_chat(user, span_notice("You cut the cables and disassemble the unused power terminal."))
 			qdel(E)
 	return TRUE
 

@@ -35,9 +35,9 @@
 					D.stop_pulling()
 					if(A.a_intent == INTENT_GRAB)
 						log_combat(A, D, "grabbed", addition="aggressively")
-						D.visible_message("<span class='warning'>[A] violently grabs [D]!</span>", \
-										"<span class='userdanger'>You're violently grabbed by [A]!</span>", "<span class='hear'>You hear sounds of aggressive fondling!</span>", null, A)
-						to_chat(A, "<span class='danger'>You violently grab [D]!</span>")
+						D.visible_message(span_warning("[A] violently grabs [D]!"), \
+										span_userdanger("You're violently grabbed by [A]!"), span_hear("You hear sounds of aggressive fondling!"), null, A)
+						to_chat(A, span_danger("You violently grab [D]!"))
 						A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab
 					else
 						log_combat(A, D, "grabbed", addition="passively")
@@ -45,8 +45,8 @@
 		if(4)
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 			atk_verb = "headbutts"
-			D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", \
-					  "<span class='userdanger'>[A] [atk_verb] you!</span>")
+			D.visible_message(span_danger("[A] [atk_verb] [D]!"), \
+					  span_userdanger("[A] [atk_verb] you!"))
 			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 40, 1, -1)
 			D.apply_damage(rand(5,10), A.dna.species.attack_type, BODY_ZONE_HEAD)
 			A.apply_damage(rand(5,10), A.dna.species.attack_type, BODY_ZONE_HEAD)
@@ -57,8 +57,8 @@
 		if(5,6)
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 			atk_verb = pick("punches", "kicks", "hits", "slams into")
-			D.visible_message("<span class='danger'>[A] [atk_verb] [D] with inhuman strength, sending [D.p_them()] flying backwards!</span>", \
-							  "<span class='userdanger'>[A] [atk_verb] you with inhuman strength, sending you flying backwards!</span>")
+			D.visible_message(span_danger("[A] [atk_verb] [D] with inhuman strength, sending [D.p_them()] flying backwards!"), \
+							  span_userdanger("[A] [atk_verb] you with inhuman strength, sending you flying backwards!"))
 			D.apply_damage(rand(15,30), A.dna.species.attack_type)
 			playsound(get_turf(D), 'sound/effects/meteorimpact.ogg', 25, 1, -1)
 			var/throwtarget = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))

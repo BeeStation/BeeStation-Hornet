@@ -31,15 +31,15 @@
 	switch(A.stage)
 		if(1)
 			if(prob(10))
-				to_chat(M, "<span class='notice'>You feel off...</span>")
+				to_chat(M, span_notice("You feel off..."))
 		if(2, 3)
 			if(prob(50))
-				to_chat(M, "<span class='danger'>You feel like the atoms inside you are beginning to split...</span>")
+				to_chat(M, span_danger("You feel like the atoms inside you are beginning to split..."))
 		if(4, 5)
 			radiate(M)
 
 /datum/symptom/radiation/proc/radiate(mob/living/carbon/M)
-	to_chat(M, "<span class='danger'>You feel a wave of pain throughout your body!</span>")
+	to_chat(M, span_danger("You feel a wave of pain throughout your body!"))
 	if(fastrads)
 		M.radiation += 150
 	else

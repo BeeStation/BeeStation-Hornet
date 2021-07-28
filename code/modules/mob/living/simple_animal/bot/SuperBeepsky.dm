@@ -143,7 +143,7 @@
 /mob/living/simple_animal/bot/secbot/grievous/explode()
 
 	walk_to(src,0)
-	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
+	visible_message(span_boldannounce("[src] lets out a huge cough as it blows apart!"))
 	var/atom/Tsec = drop_location()
 
 	var/obj/item/bot_assembly/secbot/Sa = new (Tsec)

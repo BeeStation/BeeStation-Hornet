@@ -32,7 +32,7 @@
 
 /obj/structure/geyser/plunger_act(obj/item/plunger/P, mob/living/user, _reinforced)
 	if(!_reinforced)
-		to_chat(user, "<span class='warning'>The [P.name] isn't strong enough!</span>")
+		to_chat(user, span_warning("The [P.name] isn't strong enough!"))
 		return
 	if(activated)
 		to_chat(user, "<span class='warning'>The [name] is already active!")

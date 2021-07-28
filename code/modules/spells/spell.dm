@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 /obj/effect/proc_holder/proc/InterceptClickOn(mob/living/caller, params, atom/A)
 	if(caller.ranged_ability != src || ranged_ability_user != caller) //I'm not actually sure how these would trigger, but, uh, safety, I guess?
-		to_chat(caller, "<span class='warning'><b>[caller.ranged_ability.name]</b> has been disabled.</span>")
+		to_chat(caller, span_warning("<b>[caller.ranged_ability.name]</b> has been disabled."))
 		caller.ranged_ability.remove_ranged_ability()
 		return TRUE //TRUE for failed, FALSE for passed.
 	if(ranged_clickcd_override >= 0)
@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		return
 	if(user.ranged_ability && user.ranged_ability != src)
 		if(forced)
-			to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been replaced by <b>[name]</b>.</span>")
+			to_chat(user, span_warning("<b>[user.ranged_ability.name]</b> has been replaced by <b>[name]</b>."))
 			user.ranged_ability.remove_ranged_ability()
 		else
 			return
@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 	var/charge_max = 10 SECONDS //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
 	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each deciseconds if charge_type = "recharge" or -- each cast if charge_type = "charges"
-	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
+	var/still_recharging_msg = span_notice("The spell is still recharging.")
 	var/recharging = TRUE
 
 	var/holder_var_type = "bruteloss" //only used if charge_type equals to "holder_var"
@@ -161,19 +161,19 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0,mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 	if(player_lock)
 		if(!user.mind || !(src in user.mind.spell_list) && !(src in user.mob_spell_list))
-			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
+			to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
 			return FALSE
 	else
 		if(!(src in user.mob_spell_list))
 			return FALSE
 
 	if(!do_after(user,invocation_time, target = user, progress = 1)) //checks if there is a invocation time set for this spell and cancels the spell if the user is interrupted.
-		to_chat(user, "<span class='notice'>You get interrupted.</span>")
+		to_chat(user, span_notice("You get interrupted."))
 		return FALSE
 
 	var/turf/T = get_turf(user)
 	if(is_centcom_level(T.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		to_chat(user, "<span class='notice'>You can't cast this spell here.</span>")
+		to_chat(user, span_notice("You can't cast this spell here."))
 		return FALSE
 
 	if(!skipcharge)
@@ -181,20 +181,20 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			return FALSE
 
 	if(user.stat && !stat_allowed)
-		to_chat(user, "<span class='notice'>Not when you're incapacitated.</span>")
+		to_chat(user, span_notice("Not when you're incapacitated."))
 		return FALSE
 
 	if(!antimagic_allowed)
 		var/antimagic = user.anti_magic_check(TRUE, FALSE, major = FALSE, self = TRUE)
 		if(antimagic)
 			if(isitem(antimagic))
-				to_chat(user, "<span class='notice'>[antimagic] is interfering with your magic.</span>")
+				to_chat(user, span_notice("[antimagic] is interfering with your magic."))
 			else
-				to_chat(user, "<span class='notice'>Magic seems to flee from you, you can't gather enough power to cast this spell.</span>")
+				to_chat(user, span_notice("Magic seems to flee from you, you can't gather enough power to cast this spell."))
 			return FALSE
 
 	if(!phase_allowed && istype(user.loc, /obj/effect/dummy))
-		to_chat(user, "<span class='notice'>[name] cannot be cast unless you are completely manifested in the material plane.</span>")
+		to_chat(user, span_notice("[name] cannot be cast unless you are completely manifested in the material plane."))
 		return FALSE
 
 	if(ishuman(user))
@@ -202,7 +202,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		var/mob/living/carbon/human/H = user
 
 		if((invocation_type == "whisper" || invocation_type == "shout") && !H.can_speak_vocal())
-			to_chat(user, "<span class='notice'>You can't get the words out!</span>")
+			to_chat(user, span_notice("You can't get the words out!"))
 			return FALSE
 
 		var/list/casting_clothes = typecacheof(list(/obj/item/clothing/suit/wizrobe,
@@ -214,24 +214,24 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 		if(clothes_req) //clothes check
 			if(!is_type_in_typecache(H.wear_suit, casting_clothes))
-				to_chat(H, "<span class='notice'>I don't feel strong enough without my robe.</span>")
+				to_chat(H, span_notice("I don't feel strong enough without my robe."))
 				return FALSE
 			if(!is_type_in_typecache(H.head, casting_clothes))
-				to_chat(H, "<span class='notice'>I don't feel strong enough without my hat.</span>")
+				to_chat(H, span_notice("I don't feel strong enough without my hat."))
 				return FALSE
 		if(cult_req) //CULT_REQ CLOTHES CHECK
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/magusred) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/cult))
-				to_chat(H, "<span class='notice'>I don't feel strong enough without my armor.</span>")
+				to_chat(H, span_notice("I don't feel strong enough without my armor."))
 				return FALSE
 			if(!istype(H.head, /obj/item/clothing/head/magus) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/cult))
-				to_chat(H, "<span class='notice'>I don't feel strong enough without my helmet.</span>")
+				to_chat(H, span_notice("I don't feel strong enough without my helmet."))
 				return FALSE
 	else
 		if(clothes_req || human_req)
-			to_chat(user, "<span class='notice'>This spell can only be cast by humans!</span>")
+			to_chat(user, span_notice("This spell can only be cast by humans!"))
 			return FALSE
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))
-			to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
+			to_chat(user, span_notice("This spell can only be cast by physical beings!"))
 			return FALSE
 	if(action)
 		action.UpdateButtonIcon()
@@ -257,7 +257,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if("charges")
 			if(!charge_counter)
 				if(!silent)
-					to_chat(user, "<span class='notice'>[name] has no charges left.</span>")
+					to_chat(user, span_notice("[name] has no charges left."))
 				return FALSE
 	return TRUE
 
@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/Initialize()
 	. = ..()
 
-	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
+	still_recharging_msg = span_notice("[name] is still recharging.")
 	charge_counter = charge_max
 
 /obj/effect/proc_holder/spell/Destroy()
@@ -327,7 +327,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	before_cast(targets)
 	invocation(user)
 	if(user?.ckey)
-		user.log_message("<span class='danger'>cast the spell [name].</span>", LOG_ATTACK)
+		user.log_message(span_danger("cast the spell [name]."), LOG_ATTACK)
 	if(recharge)
 		start_recharge()
 	if(sound)
@@ -432,7 +432,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 /obj/effect/proc_holder/spell/targeted/Click()
 	if(ranged_selection_active)
-		remove_ranged_ability("<span class='warning'>You are no longer casting [src].</span>")
+		remove_ranged_ability(span_warning("You are no longer casting [src]."))
 		return
 	. = ..()
 
@@ -462,7 +462,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				//Adds a safety check post-input to make sure those targets are actually in range.
 				var/mob/M
 				if(!random_target)
-					add_ranged_ability(user, "<span class='notice'>Click on a target for which to cast [src] upon.</span>", TRUE)
+					add_ranged_ability(user, span_notice("Click on a target for which to cast [src] upon."), TRUE)
 					return
 				else
 					switch(random_target_priority)
@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		return TRUE
 	if(ismob(A))
 		if(A == caller && !include_user)
-			to_chat(caller, "<span class='warning'>You cannot target yourself!</span>")
+			to_chat(caller, span_warning("You cannot target yourself!"))
 			return TRUE
 
 		var/list/targets = list(A)
@@ -667,6 +667,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 /obj/effect/proc_holder/spell/self/basic_heal/cast(mob/living/carbon/human/user) //Note the lack of "list/targets" here. Instead, use a "user" var depending on mob requirements.
 	//Also, notice the lack of a "for()" statement that looks through the targets. This is, again, because the spell can only have a single target.
-	user.visible_message("<span class='warning'>A wreath of gentle light passes over [user]!</span>", "<span class='notice'>You wreath yourself in healing light!</span>")
+	user.visible_message(span_warning("A wreath of gentle light passes over [user]!"), span_notice("You wreath yourself in healing light!"))
 	user.adjustBruteLoss(-10)
 	user.adjustFireLoss(-10)

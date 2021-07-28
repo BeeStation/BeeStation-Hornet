@@ -9,8 +9,8 @@
 	name = "Mutism"
 	desc = "Patient is completely unable to speak."
 	scan_desc = "extensive damage to the brain's speech center"
-	gain_text = "<span class='warning'>You forget how to speak!</span>"
-	lose_text = "<span class='notice'>You suddenly remember how to speak.</span>"
+	gain_text = span_warning("You forget how to speak!")
+	lose_text = span_notice("You suddenly remember how to speak.")
 
 /datum/brain_trauma/severe/mute/on_gain()
 	ADD_TRAIT(owner, TRAIT_MUTE, TRAUMA_TRAIT)
@@ -24,8 +24,8 @@
 	name = "Aphasia"
 	desc = "Patient is unable to speak or understand any language."
 	scan_desc = "extensive damage to the brain's language center"
-	gain_text = "<span class='warning'>You have trouble forming words in your head...</span>"
-	lose_text = "<span class='notice'>You suddenly remember how languages work.</span>"
+	gain_text = span_warning("You have trouble forming words in your head...")
+	lose_text = span_notice("You suddenly remember how languages work.")
 
 /datum/brain_trauma/severe/aphasia/on_gain()
 	owner.add_blocked_language(subtypesof(/datum/language/) - /datum/language/aphasia, LANGUAGE_APHASIA)
@@ -41,8 +41,8 @@
 	name = "Cerebral Blindness"
 	desc = "Patient's brain is no longer connected to its eyes."
 	scan_desc = "extensive damage to the brain's occipital lobe"
-	gain_text = "<span class='warning'>You can't see!</span>"
-	lose_text = "<span class='notice'>Your vision returns.</span>"
+	gain_text = span_warning("You can't see!")
+	lose_text = span_notice("Your vision returns.")
 
 /datum/brain_trauma/severe/blindness/on_gain()
 	owner.become_blind(TRAUMA_TRAIT)
@@ -97,8 +97,8 @@
 			subject = "your left leg"
 			paralysis_traits = list(TRAIT_PARALYSIS_L_LEG)
 
-	gain_text = "<span class='warning'>You can't feel [subject] anymore!</span>"
-	lose_text = "<span class='notice'>You can feel [subject] again!</span>"
+	gain_text = span_warning("You can't feel [subject] anymore!")
+	lose_text = span_notice("You can feel [subject] again!")
 
 /datum/brain_trauma/severe/paralysis/on_gain()
 	..()
@@ -121,8 +121,8 @@
 	name = "Narcolepsy"
 	desc = "Patient may involuntarily fall asleep during normal activities."
 	scan_desc = "traumatic narcolepsy"
-	gain_text = "<span class='warning'>You have a constant feeling of drowsiness...</span>"
-	lose_text = "<span class='notice'>You feel awake and aware again.</span>"
+	gain_text = span_warning("You have a constant feeling of drowsiness...")
+	lose_text = span_notice("You feel awake and aware again.")
 
 /datum/brain_trauma/severe/narcolepsy/on_life()
 	..()
@@ -134,10 +134,10 @@
 	if(owner.drowsyness)
 		sleep_chance += 3
 	if(prob(sleep_chance))
-		to_chat(owner, "<span class='warning'>You fall asleep.</span>")
+		to_chat(owner, span_warning("You fall asleep."))
 		owner.Sleeping(60)
 	else if(!owner.drowsyness && prob(sleep_chance * 2))
-		to_chat(owner, "<span class='warning'>You feel tired...</span>")
+		to_chat(owner, span_warning("You feel tired..."))
 		owner.drowsyness += 10
 
 /datum/brain_trauma/severe/monophobia
@@ -145,15 +145,15 @@
 	desc = "Patient feels sick and distressed when not around other people, leading to potentially lethal levels of stress."
 	scan_desc = "monophobia"
 	gain_text = ""
-	lose_text = "<span class='notice'>You feel like you could be safe on your own.</span>"
+	lose_text = span_notice("You feel like you could be safe on your own.")
 	var/stress = 0
 
 /datum/brain_trauma/severe/monophobia/on_gain()
 	..()
 	if(check_alone())
-		to_chat(owner, "<span class='warning'>You feel really lonely...</span>")
+		to_chat(owner, span_warning("You feel really lonely..."))
 	else
-		to_chat(owner, "<span class='notice'>You feel safe, as long as you have people around you.</span>")
+		to_chat(owner, span_notice("You feel safe, as long as you have people around you."))
 
 /datum/brain_trauma/severe/monophobia/on_life()
 	..()
@@ -180,18 +180,18 @@
 	switch(rand(1,6))
 		if(1)
 			if(!high_stress)
-				to_chat(owner, "<span class='warning'>You feel sick...</span>")
+				to_chat(owner, span_warning("You feel sick..."))
 			else
-				to_chat(owner, "<span class='warning'>You feel really sick at the thought of being alone!</span>")
+				to_chat(owner, span_warning("You feel really sick at the thought of being alone!"))
 			addtimer(CALLBACK(owner, /mob/living/carbon.proc/vomit, high_stress), 50) //blood vomit if high stress
 		if(2)
 			if(!high_stress)
-				to_chat(owner, "<span class='warning'>You can't stop shaking...</span>")
+				to_chat(owner, span_warning("You can't stop shaking..."))
 				owner.dizziness += 20
 				owner.confused += 20
 				owner.Jitter(20)
 			else
-				to_chat(owner, "<span class='warning'>You feel weak and scared! If only you weren't alone...</span>")
+				to_chat(owner, span_warning("You feel weak and scared! If only you weren't alone..."))
 				owner.dizziness += 20
 				owner.confused += 20
 				owner.Jitter(20)
@@ -199,30 +199,30 @@
 
 		if(3, 4)
 			if(!high_stress)
-				to_chat(owner, "<span class='warning'>You feel really lonely...</span>")
+				to_chat(owner, span_warning("You feel really lonely..."))
 			else
-				to_chat(owner, "<span class='warning'>You're going mad with loneliness!</span>")
+				to_chat(owner, span_warning("You're going mad with loneliness!"))
 				owner.hallucination += 30
 
 		if(5)
 			if(!high_stress)
-				to_chat(owner, "<span class='warning'>Your heart skips a beat.</span>")
+				to_chat(owner, span_warning("Your heart skips a beat."))
 				owner.adjustOxyLoss(8)
 			else
 				if(prob(15) && ishuman(owner))
 					var/mob/living/carbon/human/H = owner
 					H.set_heartattack(TRUE)
-					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your heart!</span>")
+					to_chat(H, span_userdanger("You feel a stabbing pain in your heart!"))
 				else
-					to_chat(owner, "<span class='userdanger'>You feel your heart lurching in your chest...</span>")
+					to_chat(owner, span_userdanger("You feel your heart lurching in your chest..."))
 					owner.adjustOxyLoss(8)
 
 /datum/brain_trauma/severe/discoordination
 	name = "Discoordination"
 	desc = "Patient is unable to use complex tools or machinery."
 	scan_desc = "extreme discoordination"
-	gain_text = "<span class='warning'>You can barely control your hands!</span>"
-	lose_text = "<span class='notice'>You feel in control of your hands again.</span>"
+	gain_text = span_warning("You can barely control your hands!")
+	lose_text = span_notice("You feel in control of your hands again.")
 
 /datum/brain_trauma/severe/discoordination/on_gain()
 	ADD_TRAIT(owner, TRAIT_MONKEYLIKE, TRAUMA_TRAIT)
@@ -236,8 +236,8 @@
 	name = "Traumatic Non-Violence"
 	desc = "Patient is extremely unwilling to harm others in violent ways."
 	scan_desc = "pacific syndrome"
-	gain_text = "<span class='notice'>You feel oddly peaceful.</span>"
-	lose_text = "<span class='notice'>You no longer feel compelled to not harm.</span>"
+	gain_text = span_notice("You feel oddly peaceful.")
+	lose_text = span_notice("You no longer feel compelled to not harm.")
 
 /datum/brain_trauma/severe/pacifism/on_gain()
 	ADD_TRAIT(owner, TRAIT_PACIFISM, TRAUMA_TRAIT)
@@ -251,8 +251,8 @@
 	name = "Hypnotic Stupor"
 	desc = "Patient is prone to episodes of extreme stupor that leaves them extremely suggestible."
 	scan_desc = "oneiric feedback loop"
-	gain_text = "<span class='warning'>You feel somewhat dazed.</span>"
-	lose_text = "<span class='notice'>You feel like a fog was lifted from your mind.</span>"
+	gain_text = span_warning("You feel somewhat dazed.")
+	lose_text = span_notice("You feel like a fog was lifted from your mind.")
 
 /datum/brain_trauma/severe/hypnotic_stupor/on_lose() //hypnosis must be cleared separately, but brain surgery should get rid of both anyway
 	..()

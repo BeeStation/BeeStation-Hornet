@@ -35,13 +35,13 @@
 		return
 	var/mob/living/carbon/H = M
 	var/mob/living/simple_animal/hostile/guardian/G = M
-	user.visible_message("<span class='warning'>[user] prepares to stab [H] with \the [src]!</span>", "<span class='notice'>You raise \the [src] into the air.</span>")
+	user.visible_message(span_warning("[user] prepares to stab [H] with \the [src]!"), span_notice("You raise \the [src] into the air."))
 	if(do_mob(user, H, 5 SECONDS, uninterruptible=FALSE))
 		if(LAZYLEN(H.hasparasites()) || (H.mind && H.mind.has_antag_datum(/datum/antagonist/changeling)) || (isguardian(M) && (users[G] || G.requiem || G.transforming)))
-			H.visible_message("<span class='holoparasite'>\The [src] rejects [H]!</span>")
+			H.visible_message(span_holoparasite("\The [src] rejects [H]!"))
 			return
 		in_use = TRUE
-		H.visible_message("<span class='holoparasite'>\The [src] embeds itself into [H], and begins to glow!</span>")
+		H.visible_message(span_holoparasite("\The [src] embeds itself into [H], and begins to glow!"))
 		user.dropItemToGround(src, TRUE)
 		forceMove(H)
 		if(iscarbon(M))
@@ -52,7 +52,7 @@
 			INVOKE_ASYNC(src, .proc/requiem, M)
 
 	if(!uses)
-		visible_message("<span class='warning'>[src] falls apart!</span>")
+		visible_message(span_warning("[src] falls apart!"))
 		qdel(src)
 
 /obj/item/stand_arrow/proc/after_arrow_attack(mob/living/carbon/H, var/kill_chance)
@@ -69,8 +69,8 @@
 /obj/item/stand_arrow/proc/requiem(mob/living/simple_animal/hostile/guardian/G)
 	G.range = 255
 	G.transforming = TRUE
-	G.visible_message("<span class='holoparasite'>[G] begins to melt!</span>")
-	to_chat(G, "<span class='holoparasite'>This power... You can't handle it! RUN AWAY!</span>")
+	G.visible_message(span_holoparasite("[G] begins to melt!"))
+	to_chat(G, span_holoparasite("This power... You can't handle it! RUN AWAY!"))
 	log_game("[key_name(G)] was stabbed by a stand arrow, it is now becoming requiem.")
 	var/i = 0
 	var/flicker = TRUE
@@ -105,7 +105,7 @@
 			S.name = "Requiem Guardian"
 	G.transforming = FALSE
 	G.Recall(TRUE)
-	G.visible_message("<span class='holoparasite'>\The [src] is absorbed into [G]!</span>")
+	G.visible_message(span_holoparasite("\The [src] is absorbed into [G]!"))
 	qdel(src)
 
 
@@ -180,7 +180,7 @@
 		G.show_detail()
 		users[G] = TRUE
 		log_game("[key_name(H)] has summoned [key_name(G)], a holoparasite, via the stand arrow.")
-		to_chat(H, "<span class='holoparasite'><font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been summoned!</span>")
+		to_chat(H, span_holoparasite("<font color=\"[G.guardiancolor]\"><b>[G.real_name]</b></font> has been summoned!"))
 		H.add_verb(/mob/living/proc/guardian_comm)
 		H.add_verb(/mob/living/proc/guardian_recall)
 		H.add_verb(/mob/living/proc/guardian_reset)
@@ -190,7 +190,7 @@
 		forceMove(H.drop_location())
 		pick_name(G)
 		if(!uses)
-			visible_message("<span class='warning'>\The [src] falls apart!</span>")
+			visible_message(span_warning("\The [src] falls apart!"))
 			qdel(src)
 	else
 		addtimer(CALLBACK(src, .proc/get_stand, H, stats), 90 SECONDS) // lmao

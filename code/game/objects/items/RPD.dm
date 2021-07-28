@@ -250,7 +250,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	ui_interact(user)
 
 /obj/item/pipe_dispenser/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] points the end of the RPD down [user.p_their()] throat and presses a button! It looks like [user.p_theyre()] trying to commit suicide...</span>")
+	user.visible_message(span_suicide("[user] points the end of the RPD down [user.p_their()] throat and presses a button! It looks like [user.p_theyre()] trying to commit suicide..."))
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, 1)
 	playsound(get_turf(user), 'sound/items/deconstruct.ogg', 50, 1)
 	return(BRUTELOSS)
@@ -370,7 +370,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	. = FALSE
 
 	if((mode&DESTROY_MODE) && istype(A, /obj/item/pipe) || istype(A, /obj/structure/disposalconstruct) || istype(A, /obj/structure/c_transit_tube) || istype(A, /obj/structure/c_transit_tube_pod) || istype(A, /obj/item/pipe_meter))
-		to_chat(user, "<span class='notice'>You start destroying a pipe...</span>")
+		to_chat(user, span_notice("You start destroying a pipe..."))
 		playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 		if(do_after(user, destroy_speed, target = A))
 			activate()
@@ -380,19 +380,19 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	if((mode&PAINT_MODE))
 		if(istype(A, /obj/machinery/atmospherics/pipe) && !istype(A, /obj/machinery/atmospherics/pipe/layer_manifold))
 			var/obj/machinery/atmospherics/pipe/P = A
-			to_chat(user, "<span class='notice'>You start painting \the [P] [paint_color]...</span>")
+			to_chat(user, span_notice("You start painting \the [P] [paint_color]..."))
 			playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 			if(do_after(user, paint_speed, target = A))
 				P.paint(GLOB.pipe_paint_colors[paint_color]) //paint the pipe
-				user.visible_message("<span class='notice'>[user] paints \the [P] [paint_color].</span>","<span class='notice'>You paint \the [P] [paint_color].</span>")
+				user.visible_message(span_notice("[user] paints \the [P] [paint_color]."),span_notice("You paint \the [P] [paint_color]."))
 			return
 		var/obj/item/pipe/P = A
 		if(istype(P) && findtext("[P.pipe_type]", "/obj/machinery/atmospherics/pipe") && !findtext("[P.pipe_type]", "layer_manifold"))
-			to_chat(user, "<span class='notice'>You start painting \the [A] [paint_color]...</span>")
+			to_chat(user, span_notice("You start painting \the [A] [paint_color]..."))
 			playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 			if(do_after(user, paint_speed, target = A))
 				A.add_atom_colour(GLOB.pipe_paint_colors[paint_color], FIXED_COLOUR_PRIORITY) //paint the pipe
-				user.visible_message("<span class='notice'>[user] paints \the [A] [paint_color].</span>","<span class='notice'>You paint \the [A] [paint_color].</span>")
+				user.visible_message(span_notice("[user] paints \the [A] [paint_color]."),span_notice("You paint \the [A] [paint_color]."))
 			return
 
 	if(mode&BUILD_MODE)
@@ -402,7 +402,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return ..()
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				if (recipe.type == /datum/pipe_info/meter)
-					to_chat(user, "<span class='notice'>You start building a meter...</span>")
+					to_chat(user, span_notice("You start building a meter..."))
 					if(do_after(user, atmos_build_speed, target = A))
 						activate()
 						var/obj/item/pipe_meter/PM = new /obj/item/pipe_meter(get_turf(A))
@@ -410,7 +410,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 						if(mode&WRENCH_MODE)
 							PM.wrench_act(user, src)
 				else
-					to_chat(user, "<span class='notice'>You start building a pipe...</span>")
+					to_chat(user, span_notice("You start building a pipe..."))
 					if(do_after(user, atmos_build_speed, target = A))
 						activate()
 						var/obj/machinery/atmospherics/path = queued_p_type
@@ -434,15 +434,15 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return ..()
 				A = get_turf(A)
 				if(isclosedturf(A))
-					to_chat(user, "<span class='warning'>[src]'s error light flickers; there's something in the way!</span>")
+					to_chat(user, span_warning("[src]'s error light flickers; there's something in the way!"))
 					return
-				to_chat(user, "<span class='notice'>You start building a disposals pipe...</span>")
+				to_chat(user, span_notice("You start building a disposals pipe..."))
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				if(do_after(user, disposal_build_speed, target = A))
 					var/obj/structure/disposalconstruct/C = new (A, queued_p_type, queued_p_dir, queued_p_flipped)
 
 					if(!C.can_place())
-						to_chat(user, "<span class='warning'>There's not enough room to build that here!</span>")
+						to_chat(user, span_warning("There's not enough room to build that here!"))
 						qdel(C)
 						return
 
@@ -459,9 +459,9 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return ..()
 				A = get_turf(A)
 				if(isclosedturf(A))
-					to_chat(user, "<span class='warning'>[src]'s error light flickers; there's something in the way!</span>")
+					to_chat(user, span_warning("[src]'s error light flickers; there's something in the way!"))
 					return
-				to_chat(user, "<span class='notice'>You start building a transit tube...</span>")
+				to_chat(user, span_notice("You start building a transit tube..."))
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				if(do_after(user, transit_build_speed, target = A))
 					activate()
@@ -488,9 +488,9 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					return ..()
 				A = get_turf(A)
 				if(isclosedturf(A))
-					to_chat(user, "<span class='warning'>[src]'s error light flickers; there's something in the way!</span>")
+					to_chat(user, span_warning("[src]'s error light flickers; there's something in the way!"))
 					return
-				to_chat(user, "<span class='notice'>You start building a fluid duct...</span>")
+				to_chat(user, span_notice("You start building a fluid duct..."))
 				playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 				if(do_after(user, plumbing_build_speed, target = A))
 					var/obj/machinery/duct/D

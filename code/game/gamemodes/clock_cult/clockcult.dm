@@ -185,16 +185,16 @@ GLOBAL_VAR(clockcult_eminence)
 /proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE, say=TRUE)
 	if(CHAT_FILTER_CHECK(msg))
 		if(sender)
-			to_chat(sender, "<span class='warning'>You message contains forbidden words, please review the server rules and do not attempt to bypass this filter.</span>")
+			to_chat(sender, span_warning("You message contains forbidden words, please review the server rules and do not attempt to bypass this filter."))
 		return
 	var/hierophant_message = "[span]"
 	if(sender?.reagents)
 		if(sender.reagents.has_reagent(/datum/reagent/water/holywater, 1))
-			to_chat(sender, "<span class='nezbere'>[pick("You fail to transmit your cries for help.", "Your calls into the void go unanswered.", "You try to transmit your message, but the hierophant network is silent.")]</span>")
+			to_chat(sender, span_nezbere("[pick("You fail to transmit your cries for help.", "Your calls into the void go unanswered.", "You try to transmit your message, but the hierophant network is silent.")]"))
 			return FALSE
 	if(!msg)
 		if(sender)
-			to_chat(sender, "<span class='brass'>You cannot transmit nothing!</span>")
+			to_chat(sender, span_brass("You cannot transmit nothing!"))
 		return FALSE
 	if(use_sanitisation)
 		msg = sanitize(msg)
@@ -260,6 +260,6 @@ GLOBAL_VAR(clockcult_eminence)
 	if(M.reagents)
 		if(M.reagents.has_reagent(/datum/reagent/water/holywater, 1))
 			if(pick(20))
-				to_chat(M, "<span class='nezbere'>You hear the cogs whispering to you, but cannot understand their words.</span>")
+				to_chat(M, span_nezbere("You hear the cogs whispering to you, but cannot understand their words."))
 			return
 	to_chat(M, hierophant_message)

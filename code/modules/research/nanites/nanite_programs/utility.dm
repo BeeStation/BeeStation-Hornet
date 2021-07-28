@@ -278,7 +278,7 @@
 		infectee.AddComponent(/datum/component/nanites, 5)
 		SEND_SIGNAL(infectee, COMSIG_NANITE_SYNC, nanites)
 		infectee.investigate_log("was infected by a nanite cluster by [key_name(host_mob)] at [AREACOORD(infectee)].", INVESTIGATE_NANITES)
-		to_chat(infectee, "<span class='warning'>You feel a tiny prick!</span>")
+		to_chat(infectee, span_warning("You feel a tiny prick!"))
 
 /datum/nanite_program/mitosis
 	name = "Mitosis"
@@ -330,8 +330,8 @@
 
 /datum/nanite_program/dermal_button/proc/press()
 	if(activated)
-		host_mob.visible_message("<span class='notice'>[host_mob] presses a button on [host_mob.p_their()] forearm.</span>",
-								"<span class='notice'>You press the nanite button on your forearm.</span>", null, 2)
+		host_mob.visible_message(span_notice("[host_mob] presses a button on [host_mob.p_their()] forearm."),
+								span_notice("You press the nanite button on your forearm."), null, 2)
 		var/datum/nanite_extra_setting/sent_code = extra_settings[NES_SENT_CODE]
 		SEND_SIGNAL(host_mob, COMSIG_NANITE_SIGNAL, sent_code.get_value(), "a [name] program")
 

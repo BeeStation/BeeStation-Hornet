@@ -78,11 +78,11 @@
 
 	//Damaged
 	if(stat == DEAD)
-		. += "<span class='deadsay'>The hellfire seems to have been extinguished, for now at least.</span>"
+		. += span_deadsay("The hellfire seems to have been extinguished, for now at least.")
 	else if(health < (maxHealth/10))
-		. += "<span class='warning'>You can see hellfire inside its gaping wounds.</span>"
+		. += span_warning("You can see hellfire inside its gaping wounds.")
 	else if(health < (maxHealth/2))
-		. += "<span class='warning'>You can see hellfire inside its wounds.</span>"
+		. += span_warning("You can see hellfire inside its wounds.")
 	. += "*---------*</span>"
 
 /mob/living/carbon/true_devil/IsAdvancedToolUser()
@@ -91,15 +91,15 @@
 /mob/living/carbon/true_devil/resist_buckle()
 	if(buckled)
 		buckled.user_unbuckle_mob(src,src)
-		visible_message("<span class='warning'>[src] easily breaks out of [p_their()] handcuffs!</span>", \
-					"<span class='notice'>With just a thought your handcuffs fall off.</span>")
+		visible_message(span_warning("[src] easily breaks out of [p_their()] handcuffs!"), \
+					span_notice("With just a thought your handcuffs fall off."))
 
 /mob/living/carbon/true_devil/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	if(incapacitated())
-		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(src, span_warning("You can't do that right now!"))
 		return FALSE
 	if(be_close && !in_range(M, src))
-		to_chat(src, "<span class='warning'>You are too far away!</span>")
+		to_chat(src, span_warning("You are too far away!"))
 		return FALSE
 	return TRUE
 
@@ -133,8 +133,8 @@
 		if(user in viewers(src))
 			attack_message = "[user] has [message_verb] [src] with [I]!"
 	if(message_verb)
-		visible_message("<span class='danger'>[attack_message]</span>",
-		"<span class='userdanger'>[attack_message]</span>", null, COMBAT_MESSAGE_RANGE)
+		visible_message(span_danger("[attack_message]"),
+		span_userdanger("[attack_message]"), null, COMBAT_MESSAGE_RANGE)
 	return TRUE
 
 /mob/living/carbon/true_devil/singularity_act()
@@ -166,8 +166,8 @@
 			if ("harm")
 				var/damage = rand(1, 5)
 				playsound(loc, "punch", 25, 1, -1)
-				visible_message("<span class='danger'>[M] punches [src]!</span>", \
-						"<span class='userdanger'>[M] punches you!</span>")
+				visible_message(span_danger("[M] punches [src]!"), \
+						span_userdanger("[M] punches you!"))
 				adjustBruteLoss(damage)
 				log_combat(M, src, "attacked")
 				updatehealth()
@@ -177,18 +177,18 @@
 						Unconscious(40)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						log_combat(M, src, "pushed")
-						visible_message("<span class='danger'>[M] pushes [src] down!</span>", \
-							"<span class='userdanger'>[M] pushes you down!</span>")
+						visible_message(span_danger("[M] pushes [src] down!"), \
+							span_userdanger("[M] pushes you down!"))
 					else
 						if (prob(25))
 							dropItemToGround(get_active_held_item())
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-							visible_message("<span class='danger'>[M] disarms [src]!</span>", \
-							"<span class='userdanger'>[M] disarms you!</span>")
+							visible_message(span_danger("[M] disarms [src]!"), \
+							span_userdanger("[M] disarms you!"))
 						else
 							playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-							visible_message("<span class='danger'>[M] fails to disarm [src]!</span>", \
-							"<span class='userdanger'>[M] fails to disarm you!</span>")
+							visible_message(span_danger("[M] fails to disarm [src]!"), \
+							span_userdanger("[M] fails to disarm you!"))
 
 /mob/living/carbon/true_devil/handle_breathing()
 	// devils do not need to breathe

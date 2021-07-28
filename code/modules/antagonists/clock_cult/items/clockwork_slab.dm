@@ -113,20 +113,20 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 /obj/item/clockwork/clockwork_slab/attack_self(mob/living/user)
 	. = ..()
 	if(iscultist(user))
-		to_chat(user, "<span class='big_brass'>You shouldn't be playing with my toys...</span>")
+		to_chat(user, span_big_brass("You shouldn't be playing with my toys..."))
 		user.Stun(60)
 		user.adjust_blindness(150)
 		user.electrocute_act(10, "[name]")
 		return
 	if(!is_servant_of_ratvar(user))
-		to_chat(user, "<span class='warning'>You cannot figure out what the device is used for!</span>")
+		to_chat(user, span_warning("You cannot figure out what the device is used for!"))
 		return
 	if(active_scripture)
 		active_scripture.end_invokation()
 		return
 	if(buffer)
 		buffer = null
-		to_chat(user, "<span class='brass'>You clear the [src]'s buffer.</span>")
+		to_chat(user, span_brass("You clear the [src]'s buffer."))
 		return
 	ui_interact(user)
 
@@ -174,13 +174,13 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 				return FALSE
 			if(S.type in purchased_scriptures)
 				if(invoking_scripture)
-					to_chat(M, "<span class='brass'>You fail to invoke [name].</span>")
+					to_chat(M, span_brass("You fail to invoke [name]."))
 					return FALSE
 				if(S.power_cost > GLOB.clockcult_power)
-					to_chat(M, "<span class='neovgre'>You need [S.power_cost]W to invoke [S.name].</span>")
+					to_chat(M, span_neovgre("You need [S.power_cost]W to invoke [S.name]."))
 					return FALSE
 				if(S.vitality_cost > GLOB.clockcult_vitality)
-					to_chat(M, "<span class='neovgre'>You need [S.vitality_cost] vitality to invoke [S.name].</span>")
+					to_chat(M, span_neovgre("You need [S.vitality_cost] vitality to invoke [S.name]."))
 					return FALSE
 				var/datum/clockcult/scripture/new_scripture = new S.type()
 				//Create a new scripture temporarilly to process, when it's done it will be qdeleted.
@@ -189,11 +189,11 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 			else
 				if(cogs >= S.cogs_required)
 					cogs -= S.cogs_required
-					to_chat(M, "<span class='brass'>You unlocked [S.name]. It can now be invoked and quickbound through your slab.</span>")
+					to_chat(M, span_brass("You unlocked [S.name]. It can now be invoked and quickbound through your slab."))
 					purchased_scriptures += S.type
 				else
-					to_chat(M, "<span class='brass'>You need [S.cogs_required] cogs to unlock [S.name], you only have [cogs] left!</span>")
-					to_chat(M, "<span class='brass'><b>Tip:</b> Invoke integration cog and insert the cog into APCs to get more.</span>")
+					to_chat(M, span_brass("You need [S.cogs_required] cogs to unlock [S.name], you only have [cogs] left!"))
+					to_chat(M, span_brass("<b>Tip:</b> Invoke integration cog and insert the cog into APCs to get more."))
 			return TRUE
 		if("quickbind")
 			var/datum/clockcult/scripture/S = GLOB.clockcult_all_scriptures[params["scriptureName"]]

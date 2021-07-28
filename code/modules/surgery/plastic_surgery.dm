@@ -10,15 +10,15 @@
 	time = 64
 
 /datum/surgery_step/reshape_face/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] begins to alter [target]'s appearance.", "<span class='notice'>You begin to alter [target]'s appearance...</span>")
-	display_results(user, target, "<span class='notice'>You begin to alter [target]'s appearance...</span>",
+	user.visible_message("[user] begins to alter [target]'s appearance.", span_notice("You begin to alter [target]'s appearance..."))
+	display_results(user, target, span_notice("You begin to alter [target]'s appearance..."),
 		"[user] begins to alter [target]'s appearance.",
 		"[user] begins to make an incision in [target]'s face.")
 
 /datum/surgery_step/reshape_face/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(HAS_TRAIT_FROM(target, TRAIT_DISFIGURED, TRAIT_GENERIC))
 		REMOVE_TRAIT(target, TRAIT_DISFIGURED, TRAIT_GENERIC)
-		display_results(user, target, "<span class='notice'>You successfully restore [target]'s appearance.</span>",
+		display_results(user, target, span_notice("You successfully restore [target]'s appearance."),
 			"[user] successfully restores [target]'s appearance!",
 			"[user] finishes the operation on [target]'s face.")
 	else
@@ -36,7 +36,7 @@
 		var/oldname = target.real_name
 		target.real_name = chosen_name
 		var/newname = target.real_name	//something about how the code handles names required that I use this instead of target.real_name
-		display_results(user, target, "<span class='notice'>You alter [oldname]'s appearance completely, [target.p_they()] is now [newname].</span>",
+		display_results(user, target, span_notice("You alter [oldname]'s appearance completely, [target.p_they()] is now [newname]."),
 			"[user] alters [oldname]'s appearance completely, [target.p_they()] is now [newname]!",
 			"[user] finishes the operation on [target]'s face.")
 	if(ishuman(target))
@@ -45,7 +45,7 @@
 	return TRUE
 
 /datum/surgery_step/reshape_face/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='warning'>You screw up, leaving [target]'s appearance disfigured!</span>",
+	display_results(user, target, span_warning("You screw up, leaving [target]'s appearance disfigured!"),
 		"[user] screws up, disfiguring [target]'s appearance!",
 		"[user] finishes the operation on [target]'s face.")
 	ADD_TRAIT(target, TRAIT_DISFIGURED, TRAIT_GENERIC)

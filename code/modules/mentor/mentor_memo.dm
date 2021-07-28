@@ -4,7 +4,7 @@
 	if(!check_rights(0))
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 	var/memotask = input(usr,"Choose task.","Memo") in list("Show","Write","Edit","Remove")
 	if(!memotask)
@@ -17,7 +17,7 @@
 	if(!is_mentor())
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 	mentor_memo_output("Show")
 
@@ -25,7 +25,7 @@
 	if(!task)
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, span_danger("Failed to establish database connection."))
 		return
 	switch(task)
 		if("Write")

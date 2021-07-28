@@ -14,7 +14,7 @@
 
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>sliced</b>.</span>")
+	to_chat(user, span_notice("The supporting rods look like they could be <b>sliced</b>."))
 
 /obj/structure/lattice/attackby(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)

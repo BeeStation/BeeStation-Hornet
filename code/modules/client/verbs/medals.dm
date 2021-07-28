@@ -5,14 +5,14 @@
 	set category = "OOC"
 
 	if (!CONFIG_GET(string/medal_hub_address) ||  !CONFIG_GET(string/medal_hub_password))
-		to_chat(src, "<span class='danger'>Sorry, this server does not have medals enabled.</span>")
+		to_chat(src, span_danger("Sorry, this server does not have medals enabled."))
 		return
 
 	spawn(1)
 		var/medals = world.GetMedal("", src.key, CONFIG_GET(string/medal_hub_address), CONFIG_GET(string/medal_hub_password))
 
 		if (isnull(medals))
-			to_chat(src, "<span class='danger'>Sorry, could not contact the BYOND hub for your medal information.</span>")
+			to_chat(src, span_danger("Sorry, could not contact the BYOND hub for your medal information."))
 			return
 
 		if (!medals)

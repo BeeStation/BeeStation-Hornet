@@ -129,11 +129,11 @@
 				return FALSE
 			switch(user.stat)
 				if(SOFT_CRIT)
-					to_chat(user, "<span class='notice'>You cannot [key] while in a critical condition.</span>")
+					to_chat(user, span_notice("You cannot [key] while in a critical condition."))
 				if(UNCONSCIOUS)
-					to_chat(user, "<span class='notice'>You cannot [key] while unconscious.</span>")
+					to_chat(user, span_notice("You cannot [key] while unconscious."))
 				if(DEAD)
-					to_chat(user, "<span class='notice'>You cannot [key] while dead.</span>")
+					to_chat(user, span_notice("You cannot [key] while dead."))
 			return FALSE
 		if(restraint_check)
 			if(isliving(user))
@@ -141,12 +141,12 @@
 				if(L.IsParalyzed() || L.IsStun())
 					if(!intentional)
 						return FALSE
-					to_chat(user, "<span class='notice'>You cannot [key] while stunned.</span>")
+					to_chat(user, span_notice("You cannot [key] while stunned."))
 					return FALSE
 		if(restraint_check && user.restrained())
 			if(!intentional)
 				return FALSE
-			to_chat(user, "<span class='notice'>You cannot [key] while restrained.</span>")
+			to_chat(user, span_notice("You cannot [key] while restrained."))
 			return FALSE
 
 	if(isliving(user))

@@ -50,7 +50,7 @@
 			add_overlay("paper_[S]")
 
 /obj/item/origami/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You unfold [src].</span>")
+	to_chat(user, span_notice("You unfold [src]."))
 	var/obj/item/paper/internal_paper_tmp = internalPaper
 	internal_paper_tmp.forceMove(loc)
 	internalPaper = null
@@ -60,7 +60,7 @@
 /obj/item/origami/attackby(obj/item/P, mob/living/carbon/human/user, params)
 	..()
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
-		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
+		to_chat(user, span_notice("You should unfold [src] before changing it."))
 		return
 
 	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on origami
@@ -69,8 +69,8 @@
 
 	else if(P.is_hot())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
-				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
+			user.visible_message(span_warning("[user] accidentally ignites [user.p_them()]self!"), \
+				span_userdanger("You miss [src] and accidentally light yourself on fire!"))
 			user.dropItemToGround(P)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
@@ -79,7 +79,7 @@
 		if(!(in_range(user, src))) //to prevent issues as a result of telepathically lighting a paper
 			return
 		user.dropItemToGround(src)
-		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		user.visible_message(span_danger("[user] lights [src] ablaze with [P]!"), span_danger("You light [src] on fire!"))
 		fire_act()
 
 	add_fingerprint(user)
@@ -106,7 +106,7 @@
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click [src] to fold it into origami.</span>"
+	. += span_notice("Alt-click [src] to fold it into origami.")
 
 /obj/item/paper/AltClick(mob/living/carbon/user, obj/item/I)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -134,7 +134,7 @@
 		return
 	user.temporarilyRemoveItemFromInventory(src)
 	I = new origami_type(user, src)
-	to_chat(user, "<span class='notice'>You fold [src] into the shape of a [I.name]!</span>")
+	to_chat(user, span_notice("You fold [src] into the shape of a [I.name]!"))
 	user.put_in_hands(I)
 
 //God I wish radial menu just took types. It would clean up rcd code too.

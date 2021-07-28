@@ -22,7 +22,7 @@
 /obj/item/grenade/flashbang/proc/bang(turf/T , mob/living/M)
 	if(M.stat == DEAD)	//They're dead!
 		return
-	M.show_message("<span class='warning'>BANG</span>", MSG_AUDIBLE)
+	M.show_message(span_warning("BANG"), MSG_AUDIBLE)
 	var/distance = max(0,get_dist(get_turf(src),T))
 
 //Flash
@@ -62,7 +62,7 @@
 		var/obj/item/bodypart/B = C.get_holding_bodypart_of_item(src)
 		if(B)
 			forceMove(get_turf(C))
-			C.visible_message("<b><span class='danger'>[src] goes off in [C]'s hand, blowing [C.p_their()] [B.name] to bloody shreds!</span></b>", "<span class='userdanger'>[src] goes off in your hand, blowing your [B.name] to bloody shreds!</span>")
+			C.visible_message("<b><span class='danger'>[src] goes off in [C]'s hand, blowing [C.p_their()] [B.name] to bloody shreds!</span></b>", span_userdanger("[src] goes off in your hand, blowing your [B.name] to bloody shreds!"))
 			B.dismember()
 
 	. = ..()
@@ -80,7 +80,7 @@
 /obj/item/grenade/stingbang/proc/pop(turf/T , mob/living/M)
 	if(M.stat == DEAD)	//They're dead!
 		return
-	M.show_message("<span class='warning'>POP</span>")
+	M.show_message(span_warning("POP"))
 	var/distance = max(0,get_dist(get_turf(src),T))
 //Flash
 	if(M.flash_act(affect_silicon = 1))
@@ -93,7 +93,7 @@
 		M.Knockdown(200)
 		M.soundbang_act(1, 200, 10, 15)
 		if(M.apply_damages(10, 10))
-			to_chat(M, "<span class='userdanger'>The blast from \the [src] bruises and burns you!</span>")
+			to_chat(M, span_userdanger("The blast from \the [src] bruises and burns you!"))
 
 	// only checking if they're on top of the tile, cause being one tile over will be its own punishment
 

@@ -46,10 +46,10 @@
 				quirks = B.data["quirks"]
 				sampleDNA = B.data["blood_DNA"]
 				contains_sample = TRUE
-				visible_message("<span class='notice'>The [src] is injected with a fresh blood sample.</span>")
+				visible_message(span_notice("The [src] is injected with a fresh blood sample."))
 				log_cloning("[key_name(mind)]'s cloning record was added to [src] at [AREACOORD(src)].")
 			else
-				visible_message("<span class='warning'>The [src] rejects the sample!</span>")
+				visible_message(span_warning("The [src] rejects the sample!"))
 
 	if(!reagents.has_reagent(/datum/reagent/blood))
 		mind = null
@@ -155,7 +155,7 @@
 	podman.hardset_dna(null,null,podman.real_name,blood_type, new /datum/species/pod,features,null)//Discard SE's and UI's, podman cloning is inaccurate, and always make them a podman
 	podman.set_cloned_appearance()
 	// On harvest
-	to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
+	to_chat(podman, span_notice("<b>There is a bright flash!</b><br><i>You feel like a new being.</i>"))
 	podman.flash_act()
 	log_cloning("[key_name(mind)] cloned as a podman via [src] in [parent] at [AREACOORD(parent)].")
 

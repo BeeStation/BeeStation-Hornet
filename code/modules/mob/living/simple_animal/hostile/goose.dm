@@ -65,7 +65,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/examine(user)
 	. = ..()
-	. += "<span class='notice'>Somehow, it still looks hungry.</span>"
+	. += span_notice("Somehow, it still looks hungry.")
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/attacked_by(obj/item/O, mob/user)
 	. = ..()
@@ -76,16 +76,16 @@
 	if (stat == DEAD) // plapatin I swear to god
 		return
 	if (contents.len > GOOSE_SATIATED)
-		visible_message("<span class='notice'>[src] looks too full to eat \the [tasty]!</span>")
+		visible_message(span_notice("[src] looks too full to eat \the [tasty]!"))
 		return
 	if (tasty.foodtype & GROSS)
-		visible_message("<span class='notice'>[src] hungrily gobbles up \the [tasty]!</span>")
+		visible_message(span_notice("[src] hungrily gobbles up \the [tasty]!"))
 		tasty.forceMove(src)
 		playsound(src,'sound/items/eatfood.ogg', 70, 1)
 		vomitCoefficient += 3
 		vomitTimeBonus += 2
 	else
-		visible_message("<span class='notice'>[src] refuses to eat \the [tasty].</span>")
+		visible_message(span_notice("[src] refuses to eat \the [tasty]."))
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/vomit()
 	if (stat == DEAD)

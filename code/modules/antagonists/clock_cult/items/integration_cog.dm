@@ -11,25 +11,25 @@
 		return ..()
 	var/obj/machinery/power/apc/A = O
 	if(A.integration_cog)
-		to_chat(user, "<span class='brass'>There is already \an [src] in \the [A].</span>")
+		to_chat(user, span_brass("There is already \an [src] in \the [A]."))
 		return
 	if(!A.panel_open)
 		//Cut open the panel
-		to_chat(user, "<span class='notice'>You begin cutting open \the [A].</span>")
+		to_chat(user, span_notice("You begin cutting open \the [A]."))
 		if(do_after(user, 50, target=A))
-			to_chat(user, "<span class='brass'>You cut open \the [A] with \the [src].</span>")
+			to_chat(user, span_brass("You cut open \the [A] with \the [src]."))
 			A.panel_open = TRUE
 			A.update_icon()
 			return
 		return
 	//Insert the cog
-	to_chat(user, "<span class='notice'>You begin inserting \the [src] into \the [A].</span>")
+	to_chat(user, span_notice("You begin inserting \the [src] into \the [A]."))
 	if(do_after(user, 40, target=A))
 		A.integration_cog = src
 		forceMove(A)
 		A.panel_open = FALSE
 		A.update_icon()
-		to_chat(user, "<span class='notice'>You insert \the [src] into \the [A].</span>")
+		to_chat(user, span_notice("You insert \the [src] into \the [A]."))
 		playsound(get_turf(user), 'sound/machines/clockcult/integration_cog_install.ogg', 20)
 		if(!A.clock_cog_rewarded)
 			GLOB.installed_integration_cogs ++

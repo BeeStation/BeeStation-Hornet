@@ -78,7 +78,7 @@
 
 /obj/item/clothing/mask/cluwne/happy_cluwne/attack_self(mob/user)
     voicechange = !voicechange
-    to_chat(user, "<span class='notice'>You turn the voice box [voicechange ? "on" : "off"]!</span>")
+    to_chat(user, span_notice("You turn the voice box [voicechange ? "on" : "off"]!"))
     if(voicechange)
         play_laugh1()
 
@@ -90,7 +90,7 @@
         if(is_cursed && can_cluwne) //logic predetermined
             log_admin("[key_name(H)] was made into a cluwne by [src]")
             message_admins("[key_name(H)] got cluwned by [src]")
-            to_chat(H, "<span class='userdanger'>The masks straps suddenly tighten to your face and your thoughts are erased by a horrible green light!</span>")
+            to_chat(H, span_userdanger("The masks straps suddenly tighten to your face and your thoughts are erased by a horrible green light!"))
             H.dropItemToGround(src)
             H.cluwneify()
             qdel(src)
@@ -100,5 +100,5 @@
             S.Acquire_Victim(user)
             log_admin("[key_name(user)] summoned a floor cluwne using the [src]")
             message_admins("[key_name(user)] summoned a floor cluwne using the [src]")
-            to_chat(H, "<span class='warning'>The mask suddenly slips off your face and... slides under the floor?</span>")
+            to_chat(H, span_warning("The mask suddenly slips off your face and... slides under the floor?"))
     to_chat(H, "<i>...dneirf uoy ot gnoleb ton seod tahT</i>")

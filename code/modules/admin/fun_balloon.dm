@@ -83,7 +83,7 @@
 		var/turf/T = find_safe_turf()
 		new /obj/effect/temp_visual/gravpush(get_turf(M))
 		M.forceMove(T)
-		to_chat(M, "<span class='notice'>Pop!</span>")
+		to_chat(M, span_notice("Pop!"))
 
 /obj/effect/station_crash
 	name = "station crash"

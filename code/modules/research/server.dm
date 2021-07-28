@@ -219,7 +219,7 @@
 	if(..())
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		return
 	switch(action)
 		if("enable_server")
@@ -240,4 +240,4 @@
 		return
 	playsound(src, "sparks", 75, 1)
 	obj_flags |= EMAGGED
-	to_chat(user, "<span class='notice'>You disable the security protocols.</span>")
+	to_chat(user, span_notice("You disable the security protocols."))

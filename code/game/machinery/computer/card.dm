@@ -56,7 +56,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/examine(mob/user)
 	. = ..()
 	if(scan || modify)
-		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
+		. += span_notice("Alt-click to eject the ID card.")
 
 /obj/machinery/computer/card/Initialize()
 	. = ..()
@@ -441,7 +441,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if(region_access)
 							authenticated = 1
 			else if ((!( authenticated ) && issilicon(usr)) && (!modify))
-				to_chat(usr, "<span class='warning'>You can't modify an ID without an ID inserted to modify! Once one is in the modify slot on the computer, you can log in.</span>")
+				to_chat(usr, span_warning("You can't modify an ID without an ID inserted to modify! Once one is in the modify slot on the computer, you can log in."))
 		if ("logout")
 			region_access = null
 			head_subordinates = null
@@ -483,7 +483,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							break
 
 					if(!jobdatum)
-						to_chat(usr, "<span class='error'>No log exists for this job.</span>")
+						to_chat(usr, span_error("No log exists for this job."))
 						updateUsrDialog()
 						return
 
@@ -502,7 +502,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				log_id("[key_name(usr)] demoted [modify], unassigning the card without affecting access, using [scan] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 			else
-				to_chat(usr, "<span class='error'>You are not authorized to demote this position.</span>")
+				to_chat(usr, span_error("You are not authorized to demote this position."))
 		if ("reg")
 			if (authenticated)
 				var/t2 = modify
@@ -513,7 +513,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						modify.registered_name = newName
 						playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 					else
-						to_chat(usr, "<span class='error'>Invalid name entered.</span>")
+						to_chat(usr, span_error("Invalid name entered."))
 						updateUsrDialog()
 						return
 		if ("mode")
@@ -572,12 +572,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					SSjob.prioritized_jobs -= j
 					priority = FALSE
 				else if(j.total_positions <= j.current_positions)
-					to_chat(usr, "<span class='notice'>[j.title] has had all positions filled. Open up more slots before prioritizing it.</span>")
+					to_chat(usr, span_notice("[j.title] has had all positions filled. Open up more slots before prioritizing it."))
 					updateUsrDialog()
 					return
 				else
 					SSjob.prioritized_jobs += j
-				to_chat(usr, "<span class='notice'>[j.title] has been successfully [priority ?  "prioritized" : "unprioritized"]. Potential employees will notice your request.</span>")
+				to_chat(usr, span_notice("[j.title] has been successfully [priority ?  "prioritized" : "unprioritized"]. Potential employees will notice your request."))
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 		if ("adjust_pay")
@@ -620,7 +620,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			if(new_pay < 0)
-				to_chat(usr, "<span class='warning'>Paychecks cannot be negative.</span>")
+				to_chat(usr, span_warning("Paychecks cannot be negative."))
 				updateUsrDialog()
 				return
 			account.paycheck_amount = new_pay

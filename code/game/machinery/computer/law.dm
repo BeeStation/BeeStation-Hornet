@@ -14,7 +14,7 @@
 		if(stat & (NOPOWER|BROKEN|MAINT))
 			return
 		if(!current)
-			to_chat(user, "<span class='caution'>You haven't selected anything to transmit laws to!</span>")
+			to_chat(user, span_caution("You haven't selected anything to transmit laws to!"))
 			return
 		if(!can_upload_to(current))
 			to_chat(user, "<span class='caution'>Upload failed!</span> Check to make sure [current.name] is functioning properly.")
@@ -43,7 +43,7 @@
 	current = select_active_ai(user)
 
 	if (!current)
-		to_chat(user, "<span class='caution'>No active AIs detected!</span>")
+		to_chat(user, span_caution("No active AIs detected!"))
 	else
 		to_chat(user, "[current.name] selected for law changes.")
 
@@ -64,7 +64,7 @@
 	current = select_active_free_borg(user)
 
 	if(!current)
-		to_chat(user, "<span class='caution'>No active unslaved cyborgs detected!</span>")
+		to_chat(user, span_caution("No active unslaved cyborgs detected!"))
 	else
 		to_chat(user, "[current.name] selected for law changes.")
 

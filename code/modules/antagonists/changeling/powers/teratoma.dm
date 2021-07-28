@@ -14,9 +14,9 @@
 		var/mob/living/U = user
 		playsound(user.loc, 'sound/effects/blobattack.ogg', 50, 1)
 		U.spawn_gibs()
-		user.visible_message("<span class='danger'>Something horrible bursts out of [user]'s chest!</span>", \
-								"<span class='danger'>Living teratoma bursts out of your chest!</span>", \
-								"<span class='hear'>You hear flesh tearing!</span>", COMBAT_MESSAGE_RANGE)
+		user.visible_message(span_danger("Something horrible bursts out of [user]'s chest!"), \
+								span_danger("Living teratoma bursts out of your chest!"), \
+								span_hear("You hear flesh tearing!"), COMBAT_MESSAGE_RANGE)
 	return FALSE		//create_teratoma() handles the chemicals anyway so there is no reason to take them again
 
 /datum/action/changeling/teratoma/proc/create_teratoma(mob/user)
@@ -25,7 +25,7 @@
 	var/turf/A = get_turf(user)
 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as a living teratoma?", ROLE_TERATOMA, null, ROLE_TERATOMA, 5 SECONDS) //players must answer rapidly
 	if(!LAZYLEN(candidates)) //if we got at least one candidate, they're teratoma now
-		to_chat(usr, "<span class='warning'>You fail at creating a tumor. Perhaps you should try again later?</span>")
+		to_chat(usr, span_warning("You fail at creating a tumor. Perhaps you should try again later?"))
 		c.chem_charges += chemical_cost				//If it fails we want to refund the chemicals
 		return FALSE
 	var/mob/living/carbon/monkey/tumor/T = new /mob/living/carbon/monkey/tumor(A)

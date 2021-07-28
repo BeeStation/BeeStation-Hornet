@@ -62,7 +62,7 @@
 	set_antag_hud(owner.current, null)
 
 /datum/antagonist/hivevessel/greet()
-	to_chat(owner, "<span class='assimilator'>Your mind is suddenly opened, as you see the pinnacle of evolution...</span>")
+	to_chat(owner, span_assimilator("Your mind is suddenly opened, as you see the pinnacle of evolution..."))
 	to_chat(owner, "<big><span class='warning'><b>Follow your objectives, at any cost!</b></span></big>")
 	var/i = 1
 	for(var/X in objectives)
@@ -78,7 +78,7 @@
 	..()
 
 /datum/antagonist/hivevessel/farewell()
-	to_chat(owner, "<span class='assimilator'>Your mind closes up once more...</span>")
+	to_chat(owner, span_assimilator("Your mind closes up once more..."))
 	to_chat(owner, "<big><span class='warning'><b>You feel the weight of your objectives disappear! You no longer have to obey them.</b></span></big>")
 
 /datum/antagonist/hivevessel/roundend_report()

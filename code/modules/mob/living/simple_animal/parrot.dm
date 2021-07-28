@@ -199,7 +199,7 @@
 		switch(remove_from)
 			if("ears")
 				if(!ears)
-					to_chat(usr, "<span class='warning'>There is nothing to remove from its [remove_from]!</span>")
+					to_chat(usr, span_warning("There is nothing to remove from its [remove_from]!"))
 					return
 				if(!stat)
 					say("[available_channels.len ? "[pick(available_channels)] " : null]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
@@ -213,12 +213,12 @@
 	else if(href_list["add_inv"])
 		var/add_to = href_list["add_inv"]
 		if(!usr.get_active_held_item())
-			to_chat(usr, "<span class='warning'>You have nothing in your hand to put on its [add_to]!</span>")
+			to_chat(usr, span_warning("You have nothing in your hand to put on its [add_to]!"))
 			return
 		switch(add_to)
 			if("ears")
 				if(ears)
-					to_chat(usr, "<span class='warning'>It's already wearing something!</span>")
+					to_chat(usr, span_warning("It's already wearing something!"))
 					return
 				else
 					var/obj/item/item_to_add = usr.get_active_held_item()
@@ -226,7 +226,7 @@
 						return
 
 					if( !istype(item_to_add,  /obj/item/radio/headset) )
-						to_chat(usr, "<span class='warning'>This object won't fit!</span>")
+						to_chat(usr, span_warning("This object won't fit!"))
 						return
 
 					var/obj/item/radio/headset/headset_to_add = item_to_add
@@ -234,7 +234,7 @@
 					if(!usr.transferItemToLoc(headset_to_add, src))
 						return
 					ears = headset_to_add
-					to_chat(usr, "<span class='notice'>You fit the headset onto [src].</span>")
+					to_chat(usr, span_notice("You fit the headset onto [src]."))
 
 					available_channels.Cut()
 					for(var/ch in headset_to_add.channels)
@@ -329,7 +329,7 @@
 			adjustBruteLoss(-10)
 		speak_chance *= 1.27 // 20 crackers to go from 1% to 100%
 		speech_shuffle_rate += 10
-		to_chat(user, "<span class='notice'>[src] eagerly devours the cracker.</span>")
+		to_chat(user, span_notice("[src] eagerly devours the cracker."))
 	..()
 	return
 
@@ -497,7 +497,7 @@
 				if(!parrot_perch || parrot_interest.loc != parrot_perch.loc)
 					held_item = parrot_interest
 					parrot_interest.forceMove(src)
-					visible_message("[src] grabs [held_item]!", "<span class='notice'>You grab [held_item]!</span>", "<span class='italics'>You hear the sounds of wings flapping furiously.</span>")
+					visible_message("[src] grabs [held_item]!", span_notice("You grab [held_item]!"), span_italics("You hear the sounds of wings flapping furiously."))
 
 			parrot_interest = null
 			parrot_state = PARROT_SWOOP | PARROT_RETURN
@@ -674,7 +674,7 @@
 		return -1
 
 	if(held_item)
-		to_chat(src, "<span class='warning'>You are already holding [held_item]!</span>")
+		to_chat(src, span_warning("You are already holding [held_item]!"))
 		return 1
 
 	for(var/obj/item/I in view(1,src))
@@ -687,10 +687,10 @@
 
 			held_item = I
 			I.forceMove(src)
-			visible_message("[src] grabs [held_item]!", "<span class='notice'>You grab [held_item]!</span>", "<span class='italics'>You hear the sounds of wings flapping furiously.</span>")
+			visible_message("[src] grabs [held_item]!", span_notice("You grab [held_item]!"), span_italics("You hear the sounds of wings flapping furiously."))
 			return held_item
 
-	to_chat(src, "<span class='warning'>There is nothing of interest to take!</span>")
+	to_chat(src, span_warning("There is nothing of interest to take!"))
 	return 0
 
 /mob/living/simple_animal/parrot/proc/steal_from_mob()
@@ -702,7 +702,7 @@
 		return -1
 
 	if(held_item)
-		to_chat(src, "<span class='warning'>You are already holding [held_item]!</span>")
+		to_chat(src, span_warning("You are already holding [held_item]!"))
 		return 1
 
 	var/obj/item/stolen_item = null
@@ -716,10 +716,10 @@
 		if(stolen_item)
 			C.transferItemToLoc(stolen_item, src, TRUE)
 			held_item = stolen_item
-			visible_message("[src] grabs [held_item] out of [C]'s hand!", "<span class='notice'>You snag [held_item] out of [C]'s hand!</span>", "<span class='italics'>You hear the sounds of wings flapping furiously.</span>")
+			visible_message("[src] grabs [held_item] out of [C]'s hand!", span_notice("You snag [held_item] out of [C]'s hand!"), span_italics("You hear the sounds of wings flapping furiously."))
 			return held_item
 
-	to_chat(src, "<span class='warning'>There is nothing of interest to take!</span>")
+	to_chat(src, span_warning("There is nothing of interest to take!"))
 	return 0
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
@@ -744,7 +744,7 @@
 
 	if(!held_item)
 		if(src == usr) //So that other mobs wont make this message appear when they're bludgeoning you.
-			to_chat(src, "<span class='danger'>You have nothing to drop!</span>")
+			to_chat(src, span_danger("You have nothing to drop!"))
 		return 0
 
 
@@ -789,7 +789,7 @@
 					icon_state = icon_sit
 					parrot_state = PARROT_PERCH
 					return
-	to_chat(src, "<span class='warning'>There is no perch nearby to sit on!</span>")
+	to_chat(src, span_warning("There is no perch nearby to sit on!"))
 	return
 
 /mob/living/simple_animal/parrot/Moved(oldLoc, dir)
@@ -814,12 +814,12 @@
 				continue
 			perch_on_human(H)
 			return
-		to_chat(src, "<span class='warning'>There is nobody nearby that you can sit on!</span>")
+		to_chat(src, span_warning("There is nobody nearby that you can sit on!"))
 	else
 		icon_state = icon_living
 		parrot_state = PARROT_WANDER
 		if(buckled)
-			to_chat(src, "<span class='notice'>You are no longer sitting on [buckled]'s shoulder.</span>")
+			to_chat(src, span_notice("You are no longer sitting on [buckled]'s shoulder."))
 			buckled.unbuckle_mob(src, TRUE)
 		buckled = null
 		pixel_x = initial(pixel_x)
@@ -836,7 +836,7 @@
 		pixel_x = pick(-8,8) //pick left or right shoulder
 		icon_state = icon_sit
 		parrot_state = PARROT_PERCH
-		to_chat(src, "<span class='notice'>You sit on [H]'s shoulder.</span>")
+		to_chat(src, span_notice("You sit on [H]'s shoulder."))
 
 
 /mob/living/simple_animal/parrot/proc/toggle_mode()
@@ -985,7 +985,7 @@
 	forceMove(H)
 	H.ForceContractDisease(P)
 	parrot_interest = null
-	H.visible_message("<span class='danger'>[src] dive bombs into [H]'s chest and vanishes!</span>", "<span class='userdanger'>[src] dive bombs into your chest, vanishing! This can't be good!</span>")
+	H.visible_message(span_danger("[src] dive bombs into [H]'s chest and vanishes!"), span_userdanger("[src] dive bombs into your chest, vanishing! This can't be good!"))
 
 
 /mob/living/simple_animal/parrot/clock_hawk

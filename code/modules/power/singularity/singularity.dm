@@ -89,7 +89,7 @@
 /obj/singularity/attack_tk(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		C.visible_message("<span class='danger'>[C]'s head begins to collapse in on itself!</span>", "<span class='userdanger'>Your head feels like it's collapsing in on itself! This was really not a good idea!</span>", "<span class='italics'>You hear something crack and explode in gore.</span>")
+		C.visible_message(span_danger("[C]'s head begins to collapse in on itself!"), span_userdanger("Your head feels like it's collapsing in on itself! This was really not a good idea!"), span_italics("You hear something crack and explode in gore."))
 		var/turf/T = get_turf(C)
 		for(var/i in 1 to 3)
 			C.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
@@ -412,8 +412,8 @@
 
 /obj/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
-		C.visible_message("<span class='warning'>[C]'s skin bursts into flame!</span>", \
-						  "<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
+		C.visible_message(span_warning("[C]'s skin bursts into flame!"), \
+						  span_userdanger("You feel an inner fire as your skin bursts into flames!"))
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
@@ -430,12 +430,12 @@
 				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
 					var/obj/item/clothing/glasses/meson/MS = H.glasses
 					if(MS.vision_flags == SEE_TURFS)
-						to_chat(H, "<span class='notice'>You look directly into the [src.name], good thing you had your protective eyewear on!</span>")
+						to_chat(H, span_notice("You look directly into the [src.name], good thing you had your protective eyewear on!"))
 						return
 
 		M.apply_effect(60, EFFECT_STUN)
-		M.visible_message("<span class='danger'>[M] stares blankly at the [src.name]!</span>", \
-						"<span class='userdanger'>You look directly into the [src.name] and feel weak.</span>")
+		M.visible_message(span_danger("[M] stares blankly at the [src.name]!"), \
+						span_userdanger("You look directly into the [src.name] and feel weak."))
 	return
 
 

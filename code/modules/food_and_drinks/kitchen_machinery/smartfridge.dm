@@ -39,7 +39,7 @@
 /obj/machinery/smartfridge/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.</span>"
+		. += span_notice("The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.")
 
 /obj/machinery/smartfridge/power_change()
 	..()
@@ -90,12 +90,12 @@
 	if(!stat)
 
 		if(contents.len >= max_n_of_items)
-			to_chat(user, "<span class='warning'>\The [src] is full!</span>")
+			to_chat(user, span_warning("\The [src] is full!"))
 			return FALSE
 
 		if(accept_check(O))
 			load(O)
-			user.visible_message("[user] has added \the [O] to \the [src].", "<span class='notice'>You add \the [O] to \the [src].</span>")
+			user.visible_message("[user] has added \the [O] to \the [src].", span_notice("You add \the [O] to \the [src]."))
 			updateUsrDialog()
 			if (visible_contents)
 				update_icon()
@@ -115,17 +115,17 @@
 			if(loaded)
 				if(contents.len >= max_n_of_items)
 					user.visible_message("[user] loads \the [src] with \the [O].", \
-									 "<span class='notice'>You fill \the [src] with \the [O].</span>")
+									 span_notice("You fill \the [src] with \the [O]."))
 				else
 					user.visible_message("[user] loads \the [src] with \the [O].", \
-										 "<span class='notice'>You load \the [src] with \the [O].</span>")
+										 span_notice("You load \the [src] with \the [O]."))
 				if(O.contents.len > 0)
-					to_chat(user, "<span class='warning'>Some items are refused.</span>")
+					to_chat(user, span_warning("Some items are refused."))
 				if (visible_contents)
 					update_icon()
 				return TRUE
 			else
-				to_chat(user, "<span class='warning'>There is nothing in [O] to put in [src]!</span>")
+				to_chat(user, span_warning("There is nothing in [O] to put in [src]!"))
 				return FALSE
 
 		if(istype(O, /obj/item/organ_storage))
@@ -135,7 +135,7 @@
 				if(accept_check(I))
 					load(I)
 					user.visible_message("[user] inserts \the [I] into \the [src].", \
-									 "<span class='notice'>You insert \the [I] into \the [src].</span>")
+									 span_notice("You insert \the [I] into \the [src]."))
 					O.cut_overlays()
 					O.icon_state = "evidenceobj"
 					O.desc = "A container for holding body parts."
@@ -144,14 +144,14 @@
 					updateUsrDialog()
 					return TRUE
 				else
-					to_chat(user, "<span class='warning'>[src] does not accept [I]!</span>")
+					to_chat(user, span_warning("[src] does not accept [I]!"))
 					return FALSE
 			else
-				to_chat(user, "<span class='warning'>There is nothing in [O] to put into [src]!</span>")
+				to_chat(user, span_warning("There is nothing in [O] to put into [src]!"))
 				return FALSE
 
 	if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>\The [src] smartly refuses [O].</span>")
+		to_chat(user, span_warning("\The [src] smartly refuses [O]."))
 		updateUsrDialog()
 		return FALSE
 	else
@@ -180,7 +180,7 @@
 	if(ismob(O.loc))
 		var/mob/M = O.loc
 		if(!M.transferItemToLoc(O, src))
-			to_chat(usr, "<span class='warning'>\the [O] is stuck to your hand, you cannot put it in \the [src]!</span>")
+			to_chat(usr, span_warning("\the [O] is stuck to your hand, you cannot put it in \the [src]!"))
 			return FALSE
 		else
 			return TRUE
@@ -240,7 +240,7 @@
 			var/desired = 0
 
 			if(!allow_ai_retrieve && isAI(usr))
-				to_chat(usr, "<span class='warning'>[src] does not seem to be configured to respect your authority!</span>")
+				to_chat(usr, span_warning("[src] does not seem to be configured to respect your authority!"))
 				return
 
 			if (params["amount"])

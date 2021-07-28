@@ -10,7 +10,7 @@
 
 /obj/singularity/narsie/toddsie/Initialize()
 	. = ..()
-	send_to_playing_players("<span class='narsie'>TODD'SIE HAS RISEN. BUY. SKYRIM.</span>")
+	send_to_playing_players(span_narsie("TODD'SIE HAS RISEN. BUY. SKYRIM."))
 	sound_to_playing_players('sound/creatures/narsie_rises.ogg')
 
 	var/area/A = get_area(src)
@@ -22,7 +22,7 @@
 /obj/singularity/narsie/toddsie/acquire(atom/food)
 	if(food == target)
 		return
-	to_chat(target, "<span class='cultsmall'>TODD'SIE HAS LOST INTEREST IN YOU.</span>")
+	to_chat(target, span_cultsmall("TODD'SIE HAS LOST INTEREST IN YOU."))
 	target = food
 	if(ishuman(target))
 		to_chat(target, "<span class ='cult'>TODD'SIE HUNGERS FOR YOUR SOUL.</span>")

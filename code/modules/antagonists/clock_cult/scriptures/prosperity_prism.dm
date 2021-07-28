@@ -20,7 +20,7 @@
 	clockwork_desc = "A prism that will heal nearby servants of toxin damage."
 	default_icon_state = "prolonging_prism"
 	anchored = TRUE
-	break_message = "<span class='warning'>The prism falls apart, toxic liquid leaking out into the air.</span>"
+	break_message = span_warning("The prism falls apart, toxic liquid leaking out into the air.")
 	max_integrity = 150
 	obj_integrity = 150
 	minimum_power = 4
@@ -85,10 +85,10 @@
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/attack_hand(mob/user)
 	if(is_servant_of_ratvar(user))
 		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor!</span>")
+			to_chat(user, span_warning("[src] needs to be fastened to the floor!"))
 			return
 		toggled_on = !toggled_on
-		to_chat(user, "<span class='brass'>You flick the switch on [src], turning it [toggled_on?"on":"off"]!</span>")
+		to_chat(user, span_brass("You flick the switch on [src], turning it [toggled_on?"on":"off"]!"))
 	else
 		. = ..()
 

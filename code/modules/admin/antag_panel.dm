@@ -79,14 +79,14 @@ GLOBAL_VAR(antag_prototypes)
 /datum/mind/proc/get_special_statuses()
 	var/list/result = LAZYCOPY(special_statuses)
 	if(!current)
-		result += "<span class='bad'>No body!</span>"
+		result += span_bad("No body!")
 	if(current && HAS_TRAIT(current, TRAIT_MINDSHIELD))
-		result += "<span class='good'>Mindshielded</span>"
+		result += span_good("Mindshielded")
 	//Move these to mob
 	if(iscyborg(current))
 		var/mob/living/silicon/robot/robot = current
 		if (robot.emagged)
-			result += "<span class='bad'>Emagged</span>"
+			result += span_bad("Emagged")
 	return result.Join(" | ")
 
 /datum/mind/proc/traitor_panel()
@@ -146,14 +146,14 @@ GLOBAL_VAR(antag_prototypes)
 
 		if(!current_antag) //Show antagging options
 			if(possible_admin_antags.len)
-				antag_header_parts += "<span class='highlight'>None</span>"
+				antag_header_parts += span_highlight("None")
 				antag_header_parts += possible_admin_antags
 			else
 				//If there's no antags to show in this category skip the section completely
 				continue
 		else //Show removal and current one
 			priority_sections |= antag_category
-			antag_header_parts += "<span class='bad'>[current_antag.name]</span>"
+			antag_header_parts += span_bad("[current_antag.name]")
 			antag_header_parts += "<a href='?src=[REF(src)];remove_antag=[REF(current_antag)]'>Remove</a>"
 
 

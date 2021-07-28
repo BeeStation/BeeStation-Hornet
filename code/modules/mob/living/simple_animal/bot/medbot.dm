@@ -204,8 +204,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(emagged == 2)
 		declare_crit = 0
 		if(user)
-			to_chat(user, "<span class='notice'>You short out [src]'s reagent synthesis circuits.</span>")
-		audible_message("<span class='danger'>[src] buzzes oddly!</span>")
+			to_chat(user, span_notice("You short out [src]'s reagent synthesis circuits."))
+		audible_message(span_danger("[src] buzzes oddly!"))
 		flick("medibot_spark", src)
 		playsound(src, "sparks", 75, TRUE)
 		if(user)
@@ -406,7 +406,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 		if(!treatment_method && emagged != 2) //If they don't need any of that they're probably cured!
 			if(C.maxHealth - C.health < heal_threshold)
-				to_chat(src, "<span class='notice'>[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 5] for oxygen damage.)</span>")
+				to_chat(src, span_notice("[C] is healthy! Your programming prevents you from injecting anyone without at least [heal_threshold] damage of any one type ([heal_threshold + 5] for oxygen damage.)"))
 			var/list/messagevoice = list("All patched up!" = 'sound/voice/medbot/patchedup.ogg',"An apple a day keeps me away." = 'sound/voice/medbot/apple.ogg',"Feel better soon!" = 'sound/voice/medbot/feelbetter.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
@@ -414,8 +414,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			bot_reset()
 			tending = FALSE
 		else if(patient)
-			C.visible_message("<span class='danger'>[src] is trying to tend the wounds of [patient]!</span>", \
-				"<span class='userdanger'>[src] is trying to tend your wounds!</span>")
+			C.visible_message(span_danger("[src] is trying to tend the wounds of [patient]!"), \
+				span_userdanger("[src] is trying to tend your wounds!"))
 
 			if(do_mob(src, patient, 20)) //Slightly faster than default tend wounds, but does less HPS
 				if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
@@ -432,8 +432,8 @@ GLOBAL_VAR(medibot_unique_id_gen)
 					else
 						patient.apply_damage_type((healies*-1),treatment_method) //don't need to check treatment_method since we know by this point that they were actually damaged.
 						log_combat(src, patient, "tended the wounds of", "internal tools", "([uppertext(treatment_method)])")
-					C.visible_message("<span class='danger'>[src] tends the wounds of [patient]!</span>", \
-						"<span class='userdanger'>[src] tends your wounds!</span>")
+					C.visible_message(span_danger("[src] tends the wounds of [patient]!"), \
+						span_userdanger("[src] tends your wounds!"))
 					ADD_TRAIT(patient,TRAIT_MEDIBOTCOMINGTHROUGH,medibot_counter)
 				else
 					tending = FALSE
@@ -449,7 +449,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 	var/atom/Tsec = drop_location()
 
 	drop_part(firstaid, Tsec)

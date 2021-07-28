@@ -38,7 +38,7 @@
 /area/awaymission/factory/villageafter/house/ritual
 	ambientsounds = list('sound/ambience/antag/ecult_op.ogg','sound/ambience/ambiruin2.ogg','sound/spookoween/insane_low_laugh.ogg')
 	mood_bonus = -2
-	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
+	mood_message = span_nicegreen("It smells like death in here!\n")
 
 /area/awaymission/factory/villageafter/house/start
 	name = "The House"
@@ -52,7 +52,7 @@
 /area/awaymission/factory/villageafter/spooky
 	ambience_index = AMBIENCE_SPOOKY
 	mood_bonus = -2
-	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
+	mood_message = span_nicegreen("It smells like death in here!\n")
 
 /area/awaymission/factory/factoryafter
 	name = "The Factory"
@@ -64,7 +64,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	ambientsounds = list('sound/spookoween/scary_horn3.ogg','sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg','sound/spookoween/scary_clown_appear.ogg')
 	mood_bonus = 3
-	mood_message = "<span class='nicegreen'>I hate this!\n</span>"
+	mood_message = span_nicegreen("I hate this!\n")
 
 /area/awaymission/factory/factoryafter/down
 	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambifac.ogg','sound/ambience/ambimaint3.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambimystery.ogg','sound/ambience/ambimaint.ogg','sound/ambience/ambiruin6.ogg','sound/ambience/ambitech3.ogg')
@@ -87,13 +87,13 @@
 	name = "The Morgue"
 	ambience_index = AMBIENCE_SPOOKY
 	mood_bonus = -2
-	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
+	mood_message = span_nicegreen("It smells like death in here!\n")
 
 /area/awaymission/factory/factoryafter/down/leveltwo/ritual
 	name = "a strange place"
 	ambientsounds = list('sound/ambience/antag/ecult_op.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambireebe2.ogg','sound/spookoween/insane_low_laugh.ogg','sound/spookoween/chain_rattling.ogg')
 	mood_bonus = -2
-	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
+	mood_message = span_nicegreen("It smells like death in here!\n")
 
 /area/awaymission/factory/factoryafter/down/levelthree
 	name = "The Factory - lower level"
@@ -103,7 +103,7 @@
 	name = "The reality engine"
 	ambientsounds = list('sound/ambience/singulambience.ogg','sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg')
 	mood_bonus = 1
-	mood_message = "<span class='nicegreen'>Uhm... Ok?... I guess...\n</span>"
+	mood_message = span_nicegreen("Uhm... Ok?... I guess...\n")
 
 /area/awaymission/factory/factoryduring
 	name = "The old Factory"
@@ -116,7 +116,7 @@
 /area/awaymission/factory/factoryduring/down/levelthree/engine
 	name = "The old reality engine"
 	mood_bonus = 1
-	mood_message = "<span class='nicegreen'>Uhm... Ok?... I guess...\n</span>"
+	mood_message = span_nicegreen("Uhm... Ok?... I guess...\n")
 	ambientsounds = list('sound/ambience/singulambience.ogg','sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg')
 	name = "The reality engine"
 
@@ -132,7 +132,7 @@
 	name = "The old Morgue"
 	ambience_index = AMBIENCE_SPOOKY
 	mood_bonus = -2
-	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
+	mood_message = span_nicegreen("It smells like death in here!\n")
 
 /area/awaymission/factory/factoryduring/down/leveltwo/asylum
 	name = "The sector of mentally disordered"
@@ -156,7 +156,7 @@
 /area/awaymission/factory/villageduring/house/ritual
 	ambientsounds = list('sound/ambience/antag/ecult_op.ogg','sound/ambience/ambiruin2.ogg','sound/spookoween/insane_low_laugh.ogg')
 	mood_bonus = -2
-	mood_message = "<span class='nicegreen'>It smells like death in here!\n</span>"
+	mood_message = span_nicegreen("It smells like death in here!\n")
 
 /area/awaymission/factory/villageduring/church
 	name = "The old Church"
@@ -194,10 +194,10 @@
 /obj/item/statuebust/toy/attack_self(mob/user)
 	if (cooldown < world.time)
 		cooldown = world.time + 450
-		user.visible_message("<span class='warning'>[user] activates \the [src].</span>", "<span class='notice'>You activate \the [src]!</span>", "<span class='italics'>You hear a music playing.</span>")
+		user.visible_message(span_warning("[user] activates \the [src]."), span_notice("You activate \the [src]!"), span_italics("You hear a music playing."))
 		playsound(src, 'sound/ambience/ambivapor1.ogg', 50, 0)
 	else
-		to_chat(user, "<span class='alert'>Nothing happens!</span>")
+		to_chat(user, span_alert("Nothing happens!"))
 
 /obj/item/clothing/glasses/hud/terminator
 	name = "T-80 tactical sunglasses"
@@ -548,7 +548,7 @@
 	playsound(get_turf(src), chosen_sound, 70, 0, 0)
 	playsound(get_turf(src), 'sound/effects/snap.ogg', 75, TRUE, 0)
 	playsound(get_turf(src), 'sound/effects/splat.ogg', 90, TRUE, 0)
-	visible_message("<span class='boldwarning'>The device activates!</span>")
+	visible_message(span_boldwarning("The device activates!"))
 	..()
 
 /mob/living/simple_animal/hostile/syndicate/factory/heavy
@@ -599,7 +599,7 @@
 	if(CheckFriendlyFire(A))
 		return
 	if(!(simple_mob_flags & SILENCE_RANGED_MESSAGE))
-		visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
+		visible_message(span_danger("<b>[src]</b> [ranged_message] at [A]!"))
 	if(rapid > 1)
 		var/datum/callback/cb = CALLBACK(src, .proc/Shoot, A)
 		for(var/i in 1 to rapid)
@@ -659,7 +659,7 @@
 		var/list/possible_sounds = list('sound/creatures/szombiesight.ogg','sound/creatures/szombiesight2.ogg')
 		var/chosen_sound = pick(possible_sounds)
 		playsound(get_turf(src), chosen_sound, 50, TRUE, 0)
-		visible_message("<span class='danger'>[src] primes the grenade!.</span>")
+		visible_message(span_danger("[src] primes the grenade!."))
 		addtimer(CALLBACK(src, .proc/prime), det_time)
 
 /mob/living/simple_animal/hostile/zombie_suicide/proc/prime()
@@ -772,7 +772,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/factory/boss/death(gibbed)
 	playsound(get_turf(src), 'sound/voice/borg_deathsound.ogg', 80, TRUE, 0)
-	visible_message("<span class='boldwarning'>\the [src] activates its self-destruct system!.</span>")
+	visible_message(span_boldwarning("\the [src] activates its self-destruct system!."))
 	speed = 15
 	move_to_delay = 20
 	ranged_cooldown = 300
@@ -800,7 +800,7 @@
 
 /obj/item/gun/ballistic/shotgun/lever_action/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>You will instantly reload it after a shot if you have another hand free.</span>"
+	. += span_info("You will instantly reload it after a shot if you have another hand free.")
 
 /obj/item/gun/ballistic/shotgun/lever_action/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	..()
@@ -811,12 +811,12 @@
 
 /obj/item/gun/ballistic/shotgun/lever_action/rack(mob/user = null)
 	if (user)
-		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
+		to_chat(user, span_notice("You rack the [bolt_wording] of \the [src]."))
 	process_chamber(!chambered, FALSE)
 	playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
 	update_icon()
 	if(user.get_inactive_held_item() && prob(50) && chambered)
-		user.visible_message("<span class='rose'>With a single move of [user.p_their()] arm, [user] flips \the [src] and loads the chamber with a shell.</span>")
+		user.visible_message(span_rose("With a single move of [user.p_their()] arm, [user] flips \the [src] and loads the chamber with a shell."))
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/sound
 	desc = "A robust .50 AE handgun. This one looks even more robust."

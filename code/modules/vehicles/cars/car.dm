@@ -22,7 +22,7 @@
 
 /obj/vehicle/sealed/car/driver_move(mob/user, direction)
 	if(key_type && !is_key(inserted_key))
-		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
+		to_chat(user, span_warning("[src] has no key inserted!"))
 		return FALSE
 	var/datum/component/riding/R = GetComponent(/datum/component/riding)
 	R.handle_ride(user, direction)
@@ -34,8 +34,8 @@
 
 /obj/vehicle/sealed/car/proc/RunOver(mob/living/carbon/human/H) //pasted right out of mulebot code
 	log_combat(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
-	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
-					"<span class='userdanger'>[src] drives over you!</span>")
+	H.visible_message(span_danger("[src] drives over [H]!"), \
+					span_userdanger("[src] drives over you!"))
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 	var/damage = 10
@@ -54,16 +54,16 @@
 		return FALSE
 	if((car_traits & CAN_KIDNAP) && isliving(dropping) && M != dropping)
 		var/mob/living/L = dropping
-		L.visible_message("<span class='warning'>[M] starts forcing [L] into [src]!</span>")
+		L.visible_message(span_warning("[M] starts forcing [L] into [src]!"))
 		mob_try_forced_enter(M, L)
 	return ..()
 
 /obj/vehicle/sealed/car/mob_try_exit(mob/M, mob/user, silent = FALSE)
 	if(M == user && (occupants[M] & VEHICLE_CONTROL_KIDNAPPED))
-		to_chat(user, "<span class='notice'>You push against the back of [src] trunk to try and get out.</span>")
+		to_chat(user, span_notice("You push against the back of [src] trunk to try and get out."))
 		if(!do_after(user, escape_time, target = src))
 			return FALSE
-		to_chat(user,"<span class='danger'>[user] gets out of [src].</span>")
+		to_chat(user,span_danger("[user] gets out of [src]."))
 		mob_exit(M, silent)
 		return TRUE
 	mob_exit(M, silent)
@@ -73,7 +73,7 @@
 	if(!I.force)
 		return
 	if(occupants[user])
-		to_chat(user, "<span class='notice'>Your attack bounces off of the car's padded interior.</span>")
+		to_chat(user, span_notice("Your attack bounces off of the car's padded interior."))
 		return
 	return ..()
 
@@ -83,13 +83,13 @@
 		return
 	if(occupants[user])
 		return
-	to_chat(user, "<span class='notice'>You start opening [src]'s trunk.</span>")
+	to_chat(user, span_notice("You start opening [src]'s trunk."))
 	if(do_after(user, 30))
 		if(return_amount_of_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
-			to_chat(user, "<span class='notice'>The people stuck in [src]'s trunk all come tumbling out.</span>")
+			to_chat(user, span_notice("The people stuck in [src]'s trunk all come tumbling out."))
 			DumpSpecificMobs(VEHICLE_CONTROL_KIDNAPPED)
 		else
-			to_chat(user, "<span class='notice'>It seems [src]'s trunk was empty.</span>")
+			to_chat(user, span_notice("It seems [src]'s trunk was empty."))
 
 /obj/vehicle/sealed/car/proc/mob_try_forced_enter(mob/forcer, mob/M, silent = FALSE)
 	if(!istype(M))
@@ -107,6 +107,6 @@
 
 /obj/vehicle/sealed/car/proc/mob_forced_enter(mob/M, silent = FALSE)
 	if(!silent)
-		M.visible_message("<span class='warning'>[M] is forced into \the [src]!</span>")
+		M.visible_message(span_warning("[M] is forced into \the [src]!"))
 	M.forceMove(src)
 	add_occupant(M, VEHICLE_CONTROL_KIDNAPPED)

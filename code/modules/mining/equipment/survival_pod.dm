@@ -40,18 +40,18 @@
 	//Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(!used)
-		loc.visible_message("<span class='warning'>\The [src] begins to shake. Stand back!</span>")
+		loc.visible_message(span_warning("\The [src] begins to shake. Stand back!"))
 		used = TRUE
 		sleep(50)
 		var/turf/deploy_location = get_turf(src)
 		var/status = template.check_deploy(deploy_location)
 		switch(status)
 			if(SHELTER_DEPLOY_BAD_AREA)
-				src.loc.visible_message("<span class='warning'>\The [src] will not function in this area.</span>")
+				src.loc.visible_message(span_warning("\The [src] will not function in this area."))
 			if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
 				var/width = template.width
 				var/height = template.height
-				src.loc.visible_message("<span class='warning'>\The [src] doesn't have room to deploy! You need to clear a [width]x[height] area!</span>")
+				src.loc.visible_message(span_warning("\The [src] doesn't have room to deploy! You need to clear a [width]x[height] area!"))
 
 		if(status != SHELTER_DEPLOY_ALLOWED)
 			used = FALSE
@@ -213,8 +213,8 @@
 	if(flags_1 & NODECONSTRUCT_1)
 		return TRUE
 
-	user.visible_message("<span class='warning'>[user] disassembles [src].</span>",
-		"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	user.visible_message(span_warning("[user] disassembles [src]."),
+		span_notice("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 	if(I.use_tool(src, user, 20, volume=50))
 		new /obj/item/gps(loc)
 		qdel(src)
@@ -292,8 +292,8 @@
 	if(flags_1 & NODECONSTRUCT_1)
 		return TRUE
 
-	user.visible_message("<span class='warning'>[user] disassembles [src].</span>",
-		"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+	user.visible_message(span_warning("[user] disassembles [src]."),
+		span_notice("You start to disassemble [src]..."), "You hear clanking and banging noises.")
 	if(I.use_tool(src, user, 20, volume=50))
 		deconstruct()
 	return TRUE

@@ -41,10 +41,10 @@
 	add_target(new_target)
 	if(target != null)
 		if(istype(target, /obj/item/stack/ore) && loot.len < 10)
-			visible_message("<span class='notice'>The [name] looks at [target.name] with hungry eyes.</span>")
+			visible_message(span_notice("The [name] looks at [target.name] with hungry eyes."))
 		else if(isliving(target))
 			Aggro()
-			visible_message("<span class='danger'>The [name] tries to flee from [target.name]!</span>")
+			visible_message(span_danger("The [name] tries to flee from [target.name]!"))
 			retreat_distance = 10
 			minimum_distance = 10
 			if(will_burrow)
@@ -63,15 +63,15 @@
 			for(var/i in 1 to using)
 				loot += O.type
 			O.use(using)
-	visible_message("<span class='notice'>The ore was swallowed whole!</span>")
+	visible_message(span_notice("The ore was swallowed whole!"))
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//Begin the chase to kill the goldgrub in time
 	if(!stat)
-		visible_message("<span class='danger'>The [name] buries into the ground, vanishing from sight!</span>")
+		visible_message(span_danger("The [name] buries into the ground, vanishing from sight!"))
 		qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/item/projectile/P)
-	visible_message("<span class='danger'>The [P.name] was repelled by [name]'s girth!</span>")
+	visible_message(span_danger("The [P.name] was repelled by [name]'s girth!"))
 	return BULLET_ACT_BLOCK
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE, forced = FALSE)

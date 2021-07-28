@@ -90,7 +90,7 @@
 		printer_ready = world.time + PRINTER_TIMEOUT
 		new /obj/item/paper/record_printout(loc, record)
 	else if(user)
-		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
+		to_chat(user, span_warning("[src] is busy right now."))
 
 /obj/item/paper/record_printout
 	name = "paper - Log Recording"
@@ -121,17 +121,17 @@
 		if(!anchored && !isinspace())
 			anchored = TRUE
 			power_change()
-			to_chat(user, "<span class='notice'>You fasten [src].</span>")
+			to_chat(user, span_notice("You fasten [src]."))
 		else if(anchored)
 			anchored = FALSE
 			power_change()
-			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
+			to_chat(user, span_notice("You unfasten [src]."))
 		I.play_tool_sound(src)
 		return
 	return ..()
 
 /obj/machinery/doppler_array/proc/rot_message(mob/user)
-	to_chat(user, "<span class='notice'>You adjust [src]'s dish to face to the [dir2text(dir)].</span>")
+	to_chat(user, span_notice("You adjust [src]'s dish to face to the [dir2text(dir)]."))
 	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
 
 /obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,

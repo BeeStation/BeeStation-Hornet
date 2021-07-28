@@ -37,7 +37,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/packageWrap/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] begins wrapping [user.p_them()]self in \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins wrapping [user.p_them()]self in \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	if(use(3))
 		var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(user.loc))
 		P.icon_state = "deliverypackage5"
@@ -45,7 +45,7 @@
 		P.add_fingerprint(user)
 		return OXYLOSS
 	else
-		to_chat(user, "<span class='warning'>You need more paper!</span>")
+		to_chat(user, span_warning("You need more paper!"))
 		return SHAME
 
 /obj/item/proc/can_be_package_wrapped() //can the item be wrapped with package wrapper into a delivery package
@@ -96,7 +96,7 @@
 		if(O.opened)
 			return
 		if(!O.delivery_icon) //no delivery icon means unwrappable closet (e.g. body bags)
-			to_chat(user, "<span class='warning'>You can't wrap this!</span>")
+			to_chat(user, span_warning("You can't wrap this!"))
 			return
 		if(use(3))
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
@@ -105,13 +105,13 @@
 			P.add_fingerprint(user)
 			O.add_fingerprint(user)
 		else
-			to_chat(user, "<span class='warning'>You need more paper!</span>")
+			to_chat(user, span_warning("You need more paper!"))
 			return
 	else
-		to_chat(user, "<span class='warning'>The object you are trying to wrap is unsuitable for the sorting machinery!</span>")
+		to_chat(user, span_warning("The object you are trying to wrap is unsuitable for the sorting machinery!"))
 		return
 
-	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
+	user.visible_message(span_notice("[user] wraps [target]."))
 	user.log_message("has used [name] on [key_name(target)]", LOG_ATTACK, color="blue")
 
 /obj/item/stack/packageWrap/use(used, transfer = FALSE)

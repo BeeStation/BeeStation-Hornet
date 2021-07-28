@@ -98,22 +98,22 @@
 			return
 		cell = I
 		visible_message("[user] inserts a cell into [src].",
-						"<span class='notice'>You insert the new cell into [src].</span>")
+						span_notice("You insert the new cell into [src]."))
 	else if(I.tool_behaviour == TOOL_CROWBAR && open && cell)
 		cell.add_fingerprint(usr)
 		cell.forceMove(loc)
 		cell = null
 		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the power cell out of [src].</span>")
+						span_notice("You pry the power cell out of [src]."))
 	else if(is_wire_tool(I) && open)
 		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
-			user.visible_message("<span class='danger'>[user] knocks [load] off [src] with \the [I]!</span>",
-									"<span class='danger'>You knock [load] off [src] with \the [I]!</span>")
+			user.visible_message(span_danger("[user] knocks [load] off [src] with \the [I]!"),
+									span_danger("You knock [load] off [src] with \the [I]!"))
 		else
-			to_chat(user, "<span class='warning'>You hit [src] with \the [I] but to no effect!</span>")
+			to_chat(user, span_warning("You hit [src] with \the [I] but to no effect!"))
 			..()
 	else
 		..()
@@ -125,7 +125,7 @@
 		emagged = TRUE
 	if(!open)
 		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src]'s controls!</span>")
+		to_chat(user, span_notice("You [locked ? "lock" : "unlock"] [src]'s controls!"))
 	flick("mulebot-emagged", src)
 	playsound(src, "sparks", 100, 0)
 
@@ -160,7 +160,7 @@
 		if(prob(50) && !isnull(load))
 			unload(0)
 		if(prob(25))
-			visible_message("<span class='danger'>Something shorts out inside [src]!</span>")
+			visible_message(span_danger("Something shorts out inside [src]!"))
 			wires.cut_random()
 
 /mob/living/simple_animal/bot/mulebot/interact(mob/user)
@@ -222,7 +222,7 @@
 				turn_off()
 			else if(cell && !open)
 				if(!turn_on())
-					to_chat(usr, "<span class='warning'>You can't switch on [src]!</span>")
+					to_chat(usr, span_warning("You can't switch on [src]!"))
 					return
 			. = TRUE
 		else
@@ -293,17 +293,17 @@
 	dat += "<div class='statusDisplay'>"
 	switch(mode)
 		if(BOT_IDLE)
-			dat += "<span class='good'>Ready</span>"
+			dat += span_good("Ready")
 		if(BOT_DELIVER)
-			dat += "<span class='good'>[mode_name[BOT_DELIVER]]</span>"
+			dat += span_good("[mode_name[BOT_DELIVER]]")
 		if(BOT_GO_HOME)
-			dat += "<span class='good'>[mode_name[BOT_GO_HOME]]</span>"
+			dat += span_good("[mode_name[BOT_GO_HOME]]")
 		if(BOT_BLOCKED)
-			dat += "<span class='average'>[mode_name[BOT_BLOCKED]]</span>"
+			dat += span_average("[mode_name[BOT_BLOCKED]]")
 		if(BOT_NAV,BOT_WAIT_FOR_NAV)
-			dat += "<span class='average'>[mode_name[BOT_NAV]]</span>"
+			dat += span_average("[mode_name[BOT_NAV]]")
 		if(BOT_NO_ROUTE)
-			dat += "<span class='bad'>[mode_name[BOT_NO_ROUTE]]</span>"
+			dat += span_bad("[mode_name[BOT_NO_ROUTE]]")
 	dat += "</div>"
 
 	dat += "<b>Current Load:</b> [load ? load.name : "<i>none</i>"]<BR>"
@@ -339,13 +339,13 @@
 /mob/living/simple_animal/bot/mulebot/proc/buzz(type)
 	switch(type)
 		if(SIGH)
-			audible_message("[src] makes a sighing buzz.", "<span class='italics'>You hear an electronic buzzing sound.</span>")
+			audible_message("[src] makes a sighing buzz.", span_italics("You hear an electronic buzzing sound."))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 		if(ANNOYED)
-			audible_message("[src] makes an annoyed buzzing sound.", "<span class='italics'>You hear an electronic buzzing sound.</span>")
+			audible_message("[src] makes an annoyed buzzing sound.", span_italics("You hear an electronic buzzing sound."))
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 		if(DELIGHT)
-			audible_message("[src] makes a delighted ping!", "<span class='italics'>You hear a ping.</span>")
+			audible_message("[src] makes a delighted ping!", span_italics("You hear a ping."))
 			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 
 
@@ -604,14 +604,14 @@
 /mob/living/simple_animal/bot/mulebot/proc/at_target()
 	if(!reached_target)
 		radio_channel = RADIO_CHANNEL_SUPPLY //Supply channel
-		audible_message("[src] makes a chiming sound!", "<span class='italics'>You hear a chime.</span>")
+		audible_message("[src] makes a chiming sound!", span_italics("You hear a chime."))
 		playsound(loc, 'sound/machines/chime.ogg', 50, 0)
 		reached_target = 1
 
 		if(pathset) //The AI called us here, so notify it of our arrival.
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
-				to_chat(calling_ai, "<span class='notice'>[icon2html(src, calling_ai)] [src] wirelessly plays a chiming sound!</span>")
+				to_chat(calling_ai, span_notice("[icon2html(src, calling_ai)] [src] wirelessly plays a chiming sound!"))
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
 				calling_ai = null
 				radio_channel = RADIO_CHANNEL_AI_PRIVATE //Report on AI Private instead if the AI is controlling us.
@@ -652,11 +652,11 @@
 		if(isliving(obs))
 			var/mob/living/L = obs
 			if(iscyborg(L))
-				visible_message("<span class='danger'>[src] bumps into [L]!</span>")
+				visible_message(span_danger("[src] bumps into [L]!"))
 			else
 				if(!paicard)
 					log_combat(src, L, "knocked down")
-					visible_message("<span class='danger'>[src] knocks over [L]!</span>")
+					visible_message(span_danger("[src] knocks over [L]!"))
 					L.Paralyze(160)
 	return ..()
 
@@ -664,8 +664,8 @@
 // when mulebot is in the same loc
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
 	log_combat(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
-	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
-					"<span class='userdanger'>[src] drives over you!</span>")
+	H.visible_message(span_danger("[src] drives over [H]!"), \
+					span_userdanger("[src] drives over you!"))
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 	var/damage = rand(5,15)
@@ -719,7 +719,7 @@
 
 
 /mob/living/simple_animal/bot/mulebot/explode()
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 	var/atom/Tsec = drop_location()
 
 	new /obj/item/assembly/prox_sensor(Tsec)

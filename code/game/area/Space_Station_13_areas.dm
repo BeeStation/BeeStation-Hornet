@@ -84,7 +84,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 	valid_territory = FALSE
 	mood_bonus = -1
-	mood_message = "<span class='warning'>It's kind of cramped in here!\n</span>"
+	mood_message = span_warning("It's kind of cramped in here!\n")
 	lighting_colour_tube = "#ffe5cb"
 	lighting_colour_bulb = "#ffdbb4"
 
@@ -376,7 +376,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "Sleep"
 	safe = TRUE
 	mood_bonus = 3
-	mood_message = "<span class='nicegreen'>There's no place like the dorms!\n</span>"
+	mood_message = span_nicegreen("There's no place like the dorms!\n")
 
 /area/crew_quarters/cryopods
 	name = "Cryopod Room"
@@ -444,7 +444,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bar"
 	icon_state = "bar"
 	mood_bonus = 5
-	mood_message = "<span class='nicegreen'>I love being in the bar!\n</span>"
+	mood_message = span_nicegreen("I love being in the bar!\n")
 	lighting_colour_tube = "#fff4d6"
 	lighting_colour_bulb = "#ffebc1"
 	sound_environment = SOUND_AREA_WOODFLOOR
@@ -580,7 +580,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Engineering Foyer"
 	icon_state = "engine_foyer"
 	mood_bonus = 2
-	mood_message = "<span class='nicegreen'>Ahhh, time to take a break.\n</span>"
+	mood_message = span_nicegreen("Ahhh, time to take a break.\n")
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/engine/gravity_generator
@@ -708,7 +708,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_MEDICAL
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	mood_bonus = 2
-	mood_message = "<span class='nicegreen'>I feel safe in here!\n</span>"
+	mood_message = span_nicegreen("I feel safe in here!\n")
 	lighting_colour_tube = "#e7f8ff"
 	lighting_colour_bulb = "#d5f2ff"
 
@@ -764,7 +764,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience_index = AMBIENCE_SPOOKY
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	mood_bonus = -2
-	mood_message = "<span class='warning'>It smells like death in here!\n</span>"
+	mood_message = span_warning("It smells like death in here!\n")
 
 /area/medical/chemistry
 	name = "Chemistry"
@@ -817,7 +817,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Brig"
 	icon_state = "brig"
 	mood_bonus = -3
-	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
+	mood_message = span_warning("I hate cramped brig cells.\n")
 
 /area/security/courtroom
 	name = "Courtroom"
@@ -859,7 +859,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/security/execution
 	icon_state = "execution_room"
 	mood_bonus = -5
-	mood_message = "<span class='warning'>I feel a sense of impending doom.\n</span>"
+	mood_message = span_warning("I feel a sense of impending doom.\n")
 
 /area/security/execution/transfer
 	name = "Transfer Centre"
@@ -958,7 +958,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "janitor"
 	flags_1 = NONE
 	mood_bonus = -1
-	mood_message = "<span class='warning'>It feels dirty in here!\n</span>"
+	mood_message = span_warning("It feels dirty in here!\n")
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/hydroponics
@@ -970,7 +970,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Garden"
 	icon_state = "garden"
 	mood_bonus = 2
-	mood_message = "<span class='nicegreen'>It's so peaceful in here!\n</span>"
+	mood_message = span_nicegreen("It's so peaceful in here!\n")
 
 /area/hydroponics/garden/abandoned
 	name = "Abandoned Garden"

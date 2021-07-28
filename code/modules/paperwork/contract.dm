@@ -41,12 +41,12 @@
 		else
 			deconvert = prob (5)
 	if(deconvert)
-		M.visible_message("<span class='notice'>[user] reminds [M] that [M]'s soul was already purchased by Nanotrasen!</span>")
-		to_chat(M, "<span class='boldnotice'>You feel that your soul has returned to its rightful owner, Nanotrasen.</span>")
+		M.visible_message(span_notice("[user] reminds [M] that [M]'s soul was already purchased by Nanotrasen!"))
+		to_chat(M, span_boldnotice("You feel that your soul has returned to its rightful owner, Nanotrasen."))
 		M.return_soul()
 	else
-		M.visible_message("<span class='danger'>[user] beats [M] over the head with [src]!</span>", \
-			"<span class='userdanger'>[user] beats [M] over the head with [src]!</span>")
+		M.visible_message(span_danger("[user] beats [M] over the head with [src]!"), \
+			span_userdanger("[user] beats [M] over the head with [src]!"))
 	return ..()
 
 
@@ -101,7 +101,7 @@
 	if(signed && (user == target.current) && istype(user, /mob/living/carbon/human/))
 		var/mob/living/carbon/human/H = user
 		H.say("OH GREAT INFERNO!  I DEMAND YOU COLLECT YOUR BOUNTY IMMEDIATELY!", forced = "infernal contract suicide")
-		H.visible_message("<span class='suicide'>[H] holds up a contract claiming [user.p_their()] soul, then immediately catches fire.  It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		H.visible_message(span_suicide("[H] holds up a contract claiming [user.p_their()] soul, then immediately catches fire.  It looks like [user.p_theyre()] trying to commit suicide!"))
 		H.adjust_fire_stacks(20)
 		H.IgniteMob()
 		return(FIRELOSS)
@@ -172,47 +172,47 @@
 	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		attempt_signature(user)
 	else if(istype(P, /obj/item/stamp))
-		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp, however the ink ignites as you release the stamp.</span>")
+		to_chat(user, span_notice("You stamp the paper with your rubber stamp, however the ink ignites as you release the stamp."))
 	else if(P.is_hot())
-		user.visible_message("<span class='danger'>[user] brings [P] next to [src], but [src] does not catch fire!</span>", "<span class='danger'>[src] refuses to ignite!</span>")
+		user.visible_message(span_danger("[user] brings [P] next to [src], but [src] does not catch fire!"), span_danger("[src] refuses to ignite!"))
 	else
 		return ..()
 
 /obj/item/paper/contract/infernal/attack(mob/M, mob/living/user)
 	add_fingerprint(user)
 	if(M == user && target == M.mind && M.mind.soulOwner != owner && attempt_signature(user, 1))
-		user.visible_message("<span class='danger'>[user] slices [user.p_their()] wrist with [src], and scrawls [user.p_their()] name in blood.</span>", "<span class='danger'>You slice your wrist open and scrawl your name in blood.</span>")
+		user.visible_message(span_danger("[user] slices [user.p_their()] wrist with [src], and scrawls [user.p_their()] name in blood."), span_danger("You slice your wrist open and scrawl your name in blood."))
 		user.blood_volume = max(user.blood_volume - 100, 0)
 	else
 		return ..()
 
 /obj/item/paper/contract/infernal/proc/attempt_signature(mob/living/carbon/human/user, blood = 0)
 	if(!user.IsAdvancedToolUser() || !user.is_literate())
-		to_chat(user, "<span class='notice'>You don't know how to read or write.</span>")
+		to_chat(user, span_notice("You don't know how to read or write."))
 		return 0
 	if(user.mind != target)
-		to_chat(user, "<span class='notice'>Your signature simply slides off the sheet, it seems this contract is not meant for you to sign.</span>")
+		to_chat(user, span_notice("Your signature simply slides off the sheet, it seems this contract is not meant for you to sign."))
 		return 0
 	if(user.mind.soulOwner == owner)
-		to_chat(user, "<span class='notice'>This devil already owns your soul, you may not sell it to [owner.p_them()] again.</span>")
+		to_chat(user, span_notice("This devil already owns your soul, you may not sell it to [owner.p_them()] again."))
 		return 0
 	if(signed)
-		to_chat(user, "<span class='notice'>This contract has already been signed.  It may not be signed again.</span>")
+		to_chat(user, span_notice("This contract has already been signed.  It may not be signed again."))
 		return 0
 	if(!user.mind.hasSoul)
-		to_chat(user, "<span class='notice'>You do not possess a soul.</span>")
+		to_chat(user, span_notice("You do not possess a soul."))
 		return 0
 	if(HAS_TRAIT(user, TRAIT_DUMB))
-		to_chat(user, "<span class='notice'>You quickly scrawl 'your name' on the contract.</span>")
+		to_chat(user, span_notice("You quickly scrawl 'your name' on the contract."))
 		signIncorrectly()
 		return 0
 	if (contractType == CONTRACT_REVIVE)
-		to_chat(user, "<span class='notice'>You are already alive, this contract would do nothing.</span>")
+		to_chat(user, span_notice("You are already alive, this contract would do nothing."))
 		return 0
 	else
-		to_chat(user, "<span class='notice'>You quickly scrawl your name on the contract.</span>")
+		to_chat(user, span_notice("You quickly scrawl your name on the contract."))
 		if(fulfillContract(target.current, blood)<=0)
-			to_chat(user, "<span class='notice'>But it seemed to have no effect, perhaps even Hell itself cannot grant this boon?</span>")
+			to_chat(user, span_notice("But it seemed to have no effect, perhaps even Hell itself cannot grant this boon?"))
 		return 1
 
 
@@ -220,7 +220,7 @@
 /obj/item/paper/contract/infernal/revive/attack(mob/M, mob/living/user)
 	if (target == M.mind && M.stat == DEAD && M.mind.soulOwner == M.mind)
 		if (cooldown)
-			to_chat(user, "<span class='notice'>Give [M] a chance to think through the contract, don't rush [M.p_them()].</span>")
+			to_chat(user, span_notice("Give [M] a chance to think through the contract, don't rush [M.p_them()]."))
 			return 0
 		cooldown = TRUE
 		var/mob/living/carbon/human/H = M
@@ -236,7 +236,7 @@
 		if(response == "Yes")
 			H.revive(1,0)
 			log_combat(user, H, "infernally revived via contract")
-			user.visible_message("<span class='notice'>With a sudden blaze, [H] stands back up.</span>")
+			user.visible_message(span_notice("With a sudden blaze, [H] stands back up."))
 			H.fakefire()
 			fulfillContract(H, 1)//Revival contracts are always signed in blood
 			addtimer(CALLBACK(H, /mob/living/carbon/human.proc/fakefireextinguish), 5, TIMER_UNIQUE)
@@ -259,8 +259,8 @@
 	var/datum/antagonist/devil/devilInfo = owner.has_antag_datum(/datum/antagonist/devil)
 	devilInfo.add_soul(user.mind)
 	update_text(user.real_name, blood)
-	to_chat(user, "<span class='notice'>A profound emptiness washes over you as you lose ownership of your soul.</span>")
-	to_chat(user, "<span class='boldnotice'>This does NOT make you an antagonist if you were not already.</span>")
+	to_chat(user, span_notice("A profound emptiness washes over you as you lose ownership of your soul."))
+	to_chat(user, span_boldnotice("This does NOT make you an antagonist if you were not already."))
 	return TRUE
 
 /obj/item/paper/contract/infernal/proc/signIncorrectly(mob/living/carbon/human/user = target.current, blood = FALSE)

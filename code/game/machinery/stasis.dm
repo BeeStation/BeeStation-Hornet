@@ -34,8 +34,8 @@
 
 /obj/machinery/stasis/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.</span>"
-	. += "<span class='notice'>[src] is [op_computer ? "linked" : "<b>NOT</b> linked"] to an operating computer.</span>"
+	. += span_notice("Alt-click to [stasis_enabled ? "turn off" : "turn on"] the machine.")
+	. += span_notice("[src] is [op_computer ? "linked" : "<b>NOT</b> linked"] to an operating computer.")
 
 /obj/machinery/stasis/proc/play_power_sound()
 	var/_running = stasis_running()

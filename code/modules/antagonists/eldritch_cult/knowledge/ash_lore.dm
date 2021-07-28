@@ -31,7 +31,7 @@
 	var/mob/living/carbon/C = target
 	if(!istype(C))
 		return
-	to_chat(C, "<span class='danger'>Your eyes burn horrifically!</span>") //pocket sand! also, this is the message that changeling blind stings use, and no, I'm not ashamed about reusing it
+	to_chat(C, span_danger("Your eyes burn horrifically!")) //pocket sand! also, this is the message that changeling blind stings use, and no, I'm not ashamed about reusing it
 	C.become_nearsighted(EYE_DAMAGE)
 	C.blind_eyes(5)
 	C.blur_eyes(10)

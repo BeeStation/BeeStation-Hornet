@@ -200,7 +200,7 @@
 /obj/machinery/computer/secure_data/examine(mob/user)
 	. = ..()
 	if(scan)
-		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
+		. += span_notice("Alt-click to eject the ID card.")
 
 /obj/machinery/computer/secure_data/syndie
 	icon_keyboard = "syndie_key"
@@ -220,11 +220,11 @@
 			if(!user.transferItemToLoc(O, src))
 				return
 			scan = O
-			to_chat(user, "<span class='notice'>You insert [O].</span>")
+			to_chat(user, span_notice("You insert [O]."))
 			playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 			updateUsrDialog()
 		else
-			to_chat(user, "<span class='warning'>There's already an ID card in the console.</span>")
+			to_chat(user, span_warning("There's already an ID card in the console."))
 	else
 		return ..()
 
@@ -549,18 +549,18 @@ What a mess.*/
 						if(C && istype(C))
 							var/pay = C.get_item_credit_value()
 							if(!pay)
-								to_chat(usr, "<span class='warning'>[C] doesn't seem to be worth anything!</span>")
+								to_chat(usr, span_warning("[C] doesn't seem to be worth anything!"))
 							else
 								var/diff = p.fine - p.paid
 								GLOB.data_core.payCitation(active2.fields["id"], text2num(href_list["cdataid"]), pay)
-								to_chat(usr, "<span class='notice'>You have paid [pay] credit\s towards your fine.</span>")
+								to_chat(usr, span_notice("You have paid [pay] credit\s towards your fine."))
 								if (pay == diff || pay > diff || pay >= diff)
 									investigate_log("Citation Paid off: <strong>[p.crimeName]</strong> Fine: [p.fine] | Paid off by [key_name(usr)]", INVESTIGATE_RECORDS)
-									to_chat(usr, "<span class='notice'>The fine has been paid in full.</span>")
+									to_chat(usr, span_notice("The fine has been paid in full."))
 								qdel(C)
 								playsound(src, "terminal_type", 25, FALSE)
 						else
-							to_chat(usr, "<span class='warning'>Fines can only be paid with holochips!</span>")
+							to_chat(usr, span_warning("Fines can only be paid with holochips!"))
 
 			if("Print Record")
 				if(!( printing ))
@@ -876,7 +876,7 @@ What a mess.*/
 							fine = min(fine, maxFine)
 
 							if(fine < 0)
-								to_chat(usr, "<span class='warning'>You're pretty sure that's not how money works.</span>")
+								to_chat(usr, span_warning("You're pretty sure that's not how money works."))
 								return
 
 							if(!canUseSecurityRecordsConsole(usr, t1, null, a2))

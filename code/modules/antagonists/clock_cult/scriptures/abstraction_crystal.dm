@@ -24,10 +24,10 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 		return FALSE
 	var/obj/structure/destructible/clockwork/structure = locate() in get_turf(invoker)
 	if(structure)
-		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
+		to_chat(invoker, span_brass("You cannot invoke that here, the tile is occupied by [structure]."))
 		return FALSE
 	if(locate(/obj/structure/destructible/clockwork/abstraction_crystal) in range(5))
-		to_chat(invoker, "<span class='brass'>There is an Abstraction Crystal nearby, you cannot place this here.</span>")
+		to_chat(invoker, span_brass("There is an Abstraction Crystal nearby, you cannot place this here."))
 		return FALSE
 	return TRUE
 
@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	icon_state = "obelisk_inactive"
 	clockwork_desc = "A powerful crystal allowing the user to manifest themselves at other abstraction crystals."
 	max_integrity = 200
-	break_message = "<span class='warning'>The crystal explodes into a shower of shards!</span>"
+	break_message = span_warning("The crystal explodes into a shower of shards!")
 	var/key_word = ""
 	var/mob/living/activator
 	var/mob/living/carbon/human/abstraction_hologram/active_hologram
@@ -174,9 +174,9 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 	active_hologram.add_overlay(forbearance)
 
-	to_chat(active_hologram, "<span class='neovgre'>You manifest yourself at [src].</span>")
-	to_chat(active_hologram, "<span class='neovgre'>You will only take a fraction of the damage your manifestation receives.</span>")
-	to_chat(active_hologram, "<span class='neovgre'>Peer into the crystal again to return to your old body.</span>")
+	to_chat(active_hologram, span_neovgre("You manifest yourself at [src]."))
+	to_chat(active_hologram, span_neovgre("You will only take a fraction of the damage your manifestation receives."))
+	to_chat(active_hologram, span_neovgre("Peer into the crystal again to return to your old body."))
 
 	//Equip with generic gear
 	add_servant_of_ratvar(active_hologram, silent=TRUE, servant_type=/datum/antagonist/servant_of_ratvar/manifestation)

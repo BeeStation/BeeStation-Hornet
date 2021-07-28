@@ -57,10 +57,10 @@
 		var/effect_description
 		if(target.rpg_loot.quality >= 0)
 			span = "<span class='notice'>"
-			effect_description = "<span class='heavy_brass'>shimmering golden shield</span>"
+			effect_description = span_heavy_brass("shimmering golden shield")
 		else
 			span = "<span class='danger'>"
-			effect_description = "<span class='umbra_emphasis'>mottled black glow</span>"
+			effect_description = span_umbra_emphasis("mottled black glow")
 
 		T.visible_message("[span][original_name] is covered by a [effect_description] and then transforms into [target]!</span>")
 
@@ -68,10 +68,10 @@
 		var/quality = rpg_loot_datum.quality
 
 		if(can_backfire && quality > 9 && prob((quality - 9)*10))
-			T.visible_message("<span class='danger'>[target] <span class='inathneq_large'>violently glows blue</span> for a while, then evaporates.</span>")
+			T.visible_message(span_danger("[target] <span class='inathneq_large'>violently glows blue</span> for a while, then evaporates."))
 			target.burn()
 		else
-			T.visible_message("<span class='notice'>[target] <span class='inathneq_small'>glows blue</span> and seems vaguely \"better\"!</span>")
+			T.visible_message(span_notice("[target] <span class='inathneq_small'>glows blue</span> and seems vaguely \"better\"!"))
 			rpg_loot_datum.modify(upgrade_amount)
 
 	if(--uses <= 0)

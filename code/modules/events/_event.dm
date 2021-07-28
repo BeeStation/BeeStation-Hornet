@@ -97,7 +97,7 @@
 	..()
 	if(href_list["cancel"])
 		if(!triggering)
-			to_chat(usr, "<span class='admin'>You are too late to cancel that event</span>")
+			to_chat(usr, span_admin("You are too late to cancel that event"))
 			return
 		triggering = FALSE
 		message_admins("[key_name_admin(usr)] cancelled event [name].")
@@ -115,7 +115,7 @@
 	if(random)
 		log_game("Random Event triggering: [name] ([typepath])")
 	if (alert_observers)
-		deadchat_broadcast("<span class='deadsay'><b>[name]</b> has just been[random ? " randomly" : ""] triggered!</span>") //STOP ASSUMING IT'S BADMINS!
+		deadchat_broadcast(span_deadsay("<b>[name]</b> has just been[random ? " randomly" : ""] triggered!")) //STOP ASSUMING IT'S BADMINS!
 	return E
 
 //Special admins setup

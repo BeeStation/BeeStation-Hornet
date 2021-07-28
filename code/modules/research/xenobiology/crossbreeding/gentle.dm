@@ -11,7 +11,7 @@
 /obj/item/slimecross/gentle/Initialize()
 	..()
 	extract = new extract_type(src.loc)
-	visible_message("<span class='notice'>[src] glows and pulsates softly.</span>")
+	visible_message(span_notice("[src] glows and pulsates softly."))
 	extract.name = name
 	extract.desc = desc
 	extract.icon = icon

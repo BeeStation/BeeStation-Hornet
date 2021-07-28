@@ -6,10 +6,10 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "[global.con
 		return
 
 	if(GLOB.potentialRandomZlevels?.len)
-		to_chat(world, "<span class='boldannounce'>Loading away mission...</span>")
+		to_chat(world, span_boldannounce("Loading away mission..."))
 		var/map = pick(GLOB.potentialRandomZlevels)
 		load_new_z_level(map, "Away Mission")
-		to_chat(world, "<span class='boldannounce'>Away mission loaded.</span>")
+		to_chat(world, span_boldannounce("Away mission loaded."))
 
 /proc/reset_gateway_spawns(reset = FALSE)
 	for(var/obj/machinery/gateway/G in GLOB.machines)

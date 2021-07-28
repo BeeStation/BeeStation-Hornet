@@ -36,7 +36,7 @@ effective or pretty fucking useless.
 /obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!user) 	return
 	if(times_used >= max_uses)
-		to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
+		to_chat(user, span_danger("The mind batterer has been burnt out!"))
 		return
 
 	log_combat(user, null, "knocked down people in the area", src)
@@ -45,13 +45,13 @@ effective or pretty fucking useless.
 		if(prob(50))
 
 			M.Paralyze(rand(200,400))
-			to_chat(M, "<span class='userdanger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
+			to_chat(M, span_userdanger("You feel a tremendous, paralyzing wave flood your mind."))
 
 		else
-			to_chat(M, "<span class='userdanger'>You feel a sudden, electric jolt travel through your head.</span>")
+			to_chat(M, span_userdanger("You feel a sudden, electric jolt travel through your head."))
 
 	playsound(src.loc, 'sound/misc/interference.ogg', 50, TRUE)
-	to_chat(user, "<span class='notice'>You trigger [src].</span>")
+	to_chat(user, span_notice("You trigger [src]."))
 	times_used += 1
 	if(times_used >= max_uses)
 		icon_state = "battererburnt"
@@ -89,14 +89,14 @@ effective or pretty fucking useless.
 		used = TRUE
 		icon_state = "health1"
 		handle_cooldown(cooldown) // splits off to handle the cooldown while handling wavelength
-		to_chat(user, "<span class='warning'>Successfully irradiated [M].</span>")
+		to_chat(user, span_warning("Successfully irradiated [M]."))
 		spawn((wavelength+(intensity*4))*5)
 			if(M)
 				if(intensity >= 5)
 					M.apply_effect(round(intensity/0.075), EFFECT_UNCONSCIOUS)
 				M.rad_act(intensity*10)
 	else
-		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
+		to_chat(user, span_warning("The radioactive microlaser is still recharging."))
 
 /obj/item/healthanalyzer/rad_laser/proc/handle_cooldown(cooldown)
 	spawn(cooldown)
@@ -215,14 +215,14 @@ effective or pretty fucking useless.
 /obj/item/shadowcloak/proc/Activate(mob/living/carbon/human/user)
 	if(!user)
 		return
-	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	to_chat(user, span_notice("You activate [src]."))
 	src.user = user
 	START_PROCESSING(SSobj, src)
 	old_alpha = user.alpha
 	on = TRUE
 
 /obj/item/shadowcloak/proc/Deactivate()
-	to_chat(user, "<span class='notice'>You deactivate [src].</span>")
+	to_chat(user, span_notice("You deactivate [src]."))
 	STOP_PROCESSING(SSobj, src)
 	if(user)
 		user.alpha = old_alpha
@@ -279,7 +279,7 @@ effective or pretty fucking useless.
 	var/range = 12
 
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user,"<span class='notice'>You [active ? "deactivate" : "activate"] [src].</span>")
+	to_chat(user,span_notice("You [active ? "deactivate" : "activate"] [src]."))
 	active = !active
 	if(active)
 		GLOB.active_jammers |= src

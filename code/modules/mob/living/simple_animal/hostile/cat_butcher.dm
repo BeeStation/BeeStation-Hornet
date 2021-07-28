@@ -47,23 +47,23 @@
 	. = ..()
 	if(prob(10) && health <= maxHealth && !target)
 		adjustHealth(-(20+ 2*LAZYLEN(victims)))
-		visible_message("[src] medicates themself.", "<span class='notice'>You medicate yourself.</span>")
+		visible_message("[src] medicates themself.", span_notice("You medicate yourself."))
 
 //attacking/catifying code
 /mob/living/simple_animal/hostile/cat_butcherer/AttackingTarget()
 	if(ishuman(target))
 		var/mob/living/carbon/human/L = target
 		if(!L.getorgan(/obj/item/organ/ears/cat) && L.stat) //target doesnt have cat ears
-			visible_message("[src] slices off [L]'s ears, and replaces them with cat ears!", "<span class='notice'>You replace [L]'s ears with cat ears'.</span>")
+			visible_message("[src] slices off [L]'s ears, and replaces them with cat ears!", span_notice("You replace [L]'s ears with cat ears'."))
 			var/obj/item/organ/ears/cat/newears = new
 			newears.Insert(L)
 		else if(!L.getorgan(/obj/item/organ/tail/cat) && L.stat)
-			visible_message("[src] attaches a cat tail to [L]!", "<span class='notice'>You attach a tail to [L].</span>")
+			visible_message("[src] attaches a cat tail to [L]!", span_notice("You attach a tail to [L]."))
 			var/obj/item/organ/tail/cat/newtail = new
 			newtail.Insert(L)
 			return
 		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat)) //still does damage. This also lacks a Stat check- felinids beware.
-			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
+			visible_message("[src] drills a hole in [L]'s skull!", span_notice("You pacify [L]. Another successful creation."))
 			if(L.stat)
 				L.emote("scream")
 			if(victims.Find(L) || !L.mind)//this is mostly to avoid neurine-filled catgirls from giving him many free instant heals
@@ -77,7 +77,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/cat_butcherer/proc/healvictim(var/mob/living/carbon/human/L)
-	visible_message("[src] injects [L] with an unknown medicine!", "<span class='notice'>You inject [L] with medicine.</span>")
+	visible_message("[src] injects [L] with an unknown medicine!", span_notice("You inject [L] with medicine."))
 	L.SetSleeping(0, FALSE)
 	L.SetUnconscious(0, FALSE)
 	L.adjustOxyLoss(-50)// do CPR first

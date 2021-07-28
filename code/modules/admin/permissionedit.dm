@@ -164,7 +164,7 @@
 	if(check_rights(R_DBRANKS, FALSE))
 		if(!skip)
 			if(!SSdbcore.Connect())
-				to_chat(usr, "<span class='danger'>Unable to connect to database, changes are temporary only.</span>")
+				to_chat(usr, span_danger("Unable to connect to database, changes are temporary only."))
 				use_db = FALSE
 			else
 				use_db = alert("Permanent changes are saved to the database for future rounds, temporary changes will affect only the current round", "Permanent or Temporary?", "Permanent", "Temporary", "Cancel")
@@ -215,7 +215,7 @@
 	if(!.)
 		return FALSE
 	if(!admin_ckey && (. in GLOB.admin_datums+GLOB.deadmins))
-		to_chat(usr, "<span class='danger'>[admin_key] is already an admin.</span>")
+		to_chat(usr, span_danger("[admin_key] is already an admin."))
 		return FALSE
 	if(use_db)
 		//if an admin exists without a datum they won't be caught by the above
@@ -228,7 +228,7 @@
 			return FALSE
 		if(query_admin_in_db.NextRow())
 			qdel(query_admin_in_db)
-			to_chat(usr, "<span class='danger'>[admin_key] already listed in admin database. Check the Management tab if they don't appear in the list of admins.</span>")
+			to_chat(usr, span_danger("[admin_key] already listed in admin database. Check the Management tab if they don't appear in the list of admins."))
 			return FALSE
 		qdel(query_admin_in_db)
 		var/datum/DBQuery/query_add_admin = SSdbcore.NewQuery(
@@ -292,7 +292,7 @@
 	D.deactivate() //after logs so the deadmined admin can see the message.
 
 /datum/admins/proc/auto_deadmin()
-	to_chat(owner, "<span class='interface'>You are now a normal player.</span>")
+	to_chat(owner, span_interface("You are now a normal player."))
 	var/old_owner = owner
 	deactivate()
 	message_admins("[old_owner] deadmined via auto-deadmin config.")
@@ -491,7 +491,7 @@
 		return
 	if(query_admins_with_rank.NextRow())
 		qdel(query_admins_with_rank)
-		to_chat(usr, "<span class='danger'>Error: Rank deletion attempted while rank still used; Tell a coder, this shouldn't happen.</span>")
+		to_chat(usr, span_danger("Error: Rank deletion attempted while rank still used; Tell a coder, this shouldn't happen."))
 		return
 	qdel(query_admins_with_rank)
 	if(alert("Are you sure you want to remove [admin_rank]?","Confirm Removal","Do it","Cancel") == "Do it")
@@ -528,4 +528,4 @@
 		qdel(query_sync_lastadminrank)
 		return
 	qdel(query_sync_lastadminrank)
-	to_chat(usr, "<span class='admin'>Sync of [admin_key] successful.</span>")
+	to_chat(usr, span_admin("Sync of [admin_key] successful."))

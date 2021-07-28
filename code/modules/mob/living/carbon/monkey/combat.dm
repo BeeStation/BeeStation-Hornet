@@ -306,12 +306,12 @@
 	if(do_mob(src, M, MONKEY_ITEM_SNATCH_DELAY) && pickupTarget)
 		for(var/obj/item/I in M.held_items)
 			if(I == pickupTarget)
-				M.visible_message("<span class='danger'>[src] snatches [pickupTarget] from [M].</span>", "<span class='userdanger'>[src] snatched [pickupTarget]!</span>")
+				M.visible_message(span_danger("[src] snatches [pickupTarget] from [M]."), span_userdanger("[src] snatched [pickupTarget]!"))
 				if(M.temporarilyRemoveItemFromInventory(pickupTarget))
 					if(!QDELETED(pickupTarget) && !equip_item(pickupTarget))
 						pickupTarget.forceMove(drop_location())
 				else
-					M.visible_message("<span class='danger'>[src] tried to snatch [pickupTarget] from [M], but failed!</span>", "<span class='userdanger'>[src] tried to grab [pickupTarget]!</span>")
+					M.visible_message(span_danger("[src] tried to snatch [pickupTarget] from [M], but failed!"), span_userdanger("[src] tried to grab [pickupTarget]!"))
 	pickpocketing = FALSE
 	pickupTarget = null
 	pickupTimer = 0

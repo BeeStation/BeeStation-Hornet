@@ -18,10 +18,10 @@
 	if(!..())
 		return FALSE
 	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
-		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
+		to_chat(invoker, span_brass("You cannot invoke that here, the tile is occupied by [structure]."))
 		return FALSE
 	for(var/obj/structure/destructible/clockwork/ocular_warden/AC in range(OCULAR_WARDEN_PLACE_RANGE))
-		to_chat(invoker, "<span class='nezbere'>There is another ocular warden nearby, placing them too close will cause them to fight!</span>")
+		to_chat(invoker, span_nezbere("There is another ocular warden nearby, placing them too close will cause them to fight!"))
 		return FALSE
 	return TRUE
 
@@ -29,7 +29,7 @@
 	name = "ocular warden"
 	desc = "A wide, open eye that stares intently into your soul. It seems resistant to energy based weapons."
 	clockwork_desc = "A defensive device that will fight any nearby intruders."
-	break_message = "<span class='warning'>A black ooze leaks from the ocular warden as it slowly sinks to the ground.</span>"
+	break_message = span_warning("A black ooze leaks from the ocular warden as it slowly sinks to the ground.")
 	icon_state = "ocular_warden"
 	max_integrity = 60
 	armor = list("melee" = -80, "bullet" = -50, "laser" = 40, "energy" = 40, "bomb" = 20, "bio" = 0, "rad" = 0, "stamina" = 0)

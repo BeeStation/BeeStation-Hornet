@@ -32,7 +32,7 @@
 	if(istype(I, /obj/item/stack/sheet/mineral/coal) || istype(I, /obj/item/stack/sheet/mineral/wood))
 		var/obj/item/stack/S = I
 		var/stackamount = S.get_amount()
-		to_chat(user, "<span class='notice'>You put [stackamount] [I]s in [src].</span>")
+		to_chat(user, span_notice("You put [stackamount] [I]s in [src]."))
 		if(istype(I, /obj/item/stack/sheet/mineral/coal))
 			grill_fuel += (500 * stackamount)
 		else
@@ -41,25 +41,25 @@
 		update_icon()
 		return
 	if(I.resistance_flags & INDESTRUCTIBLE)
-		to_chat(user, "<span class='warning'>You don't feel it would be wise to grill [I]...</span>")
+		to_chat(user, span_warning("You don't feel it would be wise to grill [I]..."))
 		return ..()
 	if(istype(I, /obj/item/reagent_containers))
 		if(istype(I, /obj/item/reagent_containers/food) && !istype(I, /obj/item/reagent_containers/food/drinks))
 			if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & (ABSTRACT | DROPDEL)))
 				return ..()
 			else if(!grill_fuel)
-				to_chat(user, "<span class='notice'>There is not enough fuel.</span>")
+				to_chat(user, span_notice("There is not enough fuel."))
 				return
 			else if(!grilled_item && user.transferItemToLoc(I, src))
 				grilled_item = I
-				to_chat(user, "<span class='notice'>You put the [grilled_item] on [src].</span>")
+				to_chat(user, span_notice("You put the [grilled_item] on [src]."))
 				update_icon()
 				grill_loop.start()
 				return
 		else
 			if(I.reagents.has_reagent(/datum/reagent/consumable/monkey_energy))
 				grill_fuel += (20 * (I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy)))
-				to_chat(user, "<span class='notice'>You pour the Monkey Energy in [src].</span>")
+				to_chat(user, span_notice("You pour the Monkey Energy in [src]."))
 				I.reagents.remove_reagent(/datum/reagent/consumable/monkey_energy, I.reagents.get_reagent_amount(/datum/reagent/consumable/monkey_energy))
 				update_icon()
 				return
@@ -115,7 +115,7 @@
 
 /obj/machinery/grill/attack_hand(mob/user)
 	if(grilled_item)
-		to_chat(user, "<span class='notice'>You take out [grilled_item] from [src].</span>")
+		to_chat(user, span_notice("You take out [grilled_item] from [src]."))
 		grilled_item.forceMove(drop_location())
 		update_icon()
 		return

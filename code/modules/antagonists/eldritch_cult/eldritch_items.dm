@@ -12,23 +12,23 @@
 	if(!IS_HERETIC(user))
 		return
 	if(!target)
-		to_chat(user,"<span class='warning'>No target could be found. Put the living heart on the rune and use the rune to receive a target.</span>")
+		to_chat(user,span_warning("No target could be found. Put the living heart on the rune and use the rune to receive a target."))
 		return
 	var/dist = get_dist(user.loc,target.loc)
 	var/dir = get_dir(user.loc,target.loc)
 	if(user.get_virtual_z_level() != target.get_virtual_z_level())
-		to_chat(user,"<span class='warning'>[target.real_name] is on another plane of existance!</span>")
+		to_chat(user,span_warning("[target.real_name] is on another plane of existance!"))
 	else
 		switch(dist)
 			if(0 to 15)
-				to_chat(user,"<span class='warning'>[target.real_name] is near you. They are to the [dir2text(dir)] of you!</span>")
+				to_chat(user,span_warning("[target.real_name] is near you. They are to the [dir2text(dir)] of you!"))
 			if(16 to 31)
-				to_chat(user,"<span class='warning'>[target.real_name] is somewhere in your vicinty. They are to the [dir2text(dir)] of you!</span>")
+				to_chat(user,span_warning("[target.real_name] is somewhere in your vicinty. They are to the [dir2text(dir)] of you!"))
 			else
-				to_chat(user,"<span class='warning'>[target.real_name] is far away from you. They are to the [dir2text(dir)] of you!</span>")
+				to_chat(user,span_warning("[target.real_name] is far away from you. They are to the [dir2text(dir)] of you!"))
 
 	if(target.stat == DEAD)
-		to_chat(user,"<span class='warning'>[target.real_name] is dead. Bring them to a transmutation rune!</span>")
+		to_chat(user,span_warning("[target.real_name] is dead. Bring them to a transmutation rune!"))
 
 /datum/action/innate/heretic_shatter
 	name = "Shattering Offer"
@@ -55,7 +55,7 @@
 /datum/action/innate/heretic_shatter/Activate()
 	var/turf/safe_turf = find_safe_turf(zlevels = sword.z, extended_safety_checks = TRUE)
 	do_teleport(holder,safe_turf,forceMove = TRUE,channel = TELEPORT_CHANNEL_MAGIC)
-	to_chat(holder,"<span class='warning'>You feel a gust of energy flow through your body... the Rusted Hills heard your call...</span>")
+	to_chat(holder,span_warning("You feel a gust of energy flow through your body... the Rusted Hills heard your call..."))
 	qdel(sword)
 
 
@@ -84,7 +84,7 @@
 
 /obj/item/melee/sickly_blade/attack(mob/living/M, mob/living/user)
 	if(!(IS_HERETIC(user) || IS_HERETIC_MONSTER(user)))
-		to_chat(user,"<span class='danger'>You feel a pulse of some alien intellect lash out at your mind!</span>")
+		to_chat(user,span_danger("You feel a pulse of some alien intellect lash out at your mind!"))
 		var/mob/living/carbon/human/human_user = user
 		human_user.AdjustParalyzed(5 SECONDS)
 		return FALSE

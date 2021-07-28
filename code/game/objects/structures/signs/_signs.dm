@@ -26,13 +26,13 @@
 
 /obj/structure/sign/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH && buildable_sign)
-		user.visible_message("<span class='notice'>[user] starts removing [src]...</span>", \
-							 "<span class='notice'>You start unfastening [src].</span>")
+		user.visible_message(span_notice("[user] starts removing [src]..."), \
+							 span_notice("You start unfastening [src]."))
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 40))
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			user.visible_message("<span class='notice'>[user] unfastens [src].</span>", \
-								 "<span class='notice'>You unfasten [src].</span>")
+			user.visible_message(span_notice("[user] unfastens [src]."), \
+								 span_notice("You unfasten [src]."))
 			var/obj/item/sign_backing/SB = new (get_turf(user))
 			SB.icon_state = icon_state
 			SB.sign_path = type
@@ -103,8 +103,8 @@
 	. = ..()
 	if(isturf(target) && proximity)
 		var/turf/T = target
-		user.visible_message("<span class='notice'>[user] fastens [src] to [T].</span>", \
-							 "<span class='notice'>You attach the sign to [T].</span>")
+		user.visible_message(span_notice("[user] fastens [src] to [T]."), \
+							 span_notice("You attach the sign to [T]."))
 		playsound(T, 'sound/items/deconstruct.ogg', 50, 1)
 		var/obj/structure/sign/S = new sign_path(T)
 		S.setDir(dir)

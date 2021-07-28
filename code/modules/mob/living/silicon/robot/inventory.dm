@@ -48,7 +48,7 @@
 	if(!(O in module.modules))
 		return
 	if(activated(O))
-		to_chat(src, "<span class='warning'>That module is already activated.</span>")
+		to_chat(src, span_warning("That module is already activated."))
 		return
 	if(!held_items[1])
 		held_items[1] = O
@@ -63,7 +63,7 @@
 		O.screen_loc = inv3.screen_loc
 		. = TRUE
 	else
-		to_chat(src, "<span class='warning'>You need to disable a module first!</span>")
+		to_chat(src, span_warning("You need to disable a module first!"))
 	if(.)
 		O.equipped(src, ITEM_SLOT_HANDS)
 		O.mouse_opacity = initial(O.mouse_opacity)

@@ -58,7 +58,7 @@
 			break
 	if(!team_name || already_taken) // basic protection against two teams with the same name. This could still happen with extreme unluck due to syndicate_name() but it shouldn't break anything.
 		team.name = syndicate_name()
-		to_chat(owner, "<span class='danger'>Since you gave [already_taken ? "an already used" : "no"] name, your team's name has been randomly generated: [team.name]!</span>")
+		to_chat(owner, span_danger("Since you gave [already_taken ? "an already used" : "no"] name, your team's name has been randomly generated: [team.name]!"))
 		return
 	team.name = team_name
 

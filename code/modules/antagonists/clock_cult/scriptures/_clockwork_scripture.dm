@@ -76,7 +76,7 @@
 		message_admins("No invoker for [name]")
 		return FALSE
 	if(invoker.get_active_held_item() != invoking_slab && !iscyborg(invoker))
-		to_chat(invoker, "<span class='brass'>You fail to invoke [name].</span>")
+		to_chat(invoker, span_brass("You fail to invoke [name]."))
 		return FALSE
 	var/invokers
 	for(var/mob/living/M in viewers(invoker))
@@ -85,13 +85,13 @@
 		if(is_servant_of_ratvar(M))
 			invokers++
 	if(invokers < invokers_required)
-		to_chat(invoker, "<span class='brass'>You need [invokers_required] servants to channel [name]!</span>")
+		to_chat(invoker, span_brass("You need [invokers_required] servants to channel [name]!"))
 		return FALSE
 	return TRUE
 
 /datum/clockcult/scripture/proc/begin_invoke(mob/living/M, obj/item/clockwork/clockwork_slab/slab, bypass_unlock_checks = FALSE)
 	if(M.get_active_held_item() != slab && !iscyborg(M))
-		to_chat(M, "<span class='brass'>You need to have the [slab.name] in your active hand to recite scriptures.</span>")
+		to_chat(M, span_brass("You need to have the [slab.name] in your active hand to recite scriptures."))
 		return
 	slab.invoking_scripture = src
 	invoker = M
@@ -106,7 +106,7 @@
 	recital()
 	if(do_after(M, invokation_time, target=M, extra_checks=CALLBACK(src, .proc/check_special_requirements, M)))
 		invoke()
-		to_chat(M, "<span class='brass'>You invoke [name].</span>")
+		to_chat(M, span_brass("You invoke [name]."))
 		if(end_on_invokation)
 			end_invoke()
 	else
@@ -131,7 +131,7 @@
 	if(!..())
 		return FALSE
 	for(var/obj/structure/destructible/clockwork/structure in get_turf(invoker))
-		to_chat(invoker, "<span class='brass'>You cannot invoke that here, the tile is occupied by [structure].</span>")
+		to_chat(invoker, span_brass("You cannot invoke that here, the tile is occupied by [structure]."))
 		return FALSE
 	return TRUE
 
@@ -182,7 +182,7 @@
 	invoking_slab.charge_overlay = slab_overlay
 	invoking_slab.update_icon()
 	invoking_slab.active_scripture = src
-	PH.add_ranged_ability(invoker, "<span class='brass'>You prepare [name]. <b>Click on a target to use.</b></span>")
+	PH.add_ranged_ability(invoker, span_brass("You prepare [name]. <b>Click on a target to use.</b>"))
 	count_down()
 	invoke_success()
 
@@ -212,7 +212,7 @@
 	if(loop_timer_id)
 		deltimer(loop_timer_id)
 		loop_timer_id = null
-	to_chat(invoker, "<span class='brass'>You are no longer invoking <b>[name]</b></span>")
+	to_chat(invoker, span_brass("You are no longer invoking <b>[name]</b>"))
 	qdel(progress)
 	PH.remove_ranged_ability()
 	invoking_slab.charge_overlay = null
@@ -276,7 +276,7 @@
 	if(!activation_slab.invoking_scripture)
 		scripture.begin_invoke(owner, activation_slab)
 	else
-		to_chat(owner, "<span class='brass'>You fail to invoke [name].</span>")
+		to_chat(owner, span_brass("You fail to invoke [name]."))
 
 //==================================//
 // !     Hierophant Transmit      ! //

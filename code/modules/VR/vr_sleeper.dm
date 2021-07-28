@@ -100,7 +100,7 @@
 		if("vr_connect")
 			var/mob/living/carbon/human/human_occupant = occupant
 			if(human_occupant?.mind && usr == occupant)
-				to_chat(occupant, "<span class='warning'>Transferring to virtual reality...</span>")
+				to_chat(occupant, span_warning("Transferring to virtual reality..."))
 				if(vr_human && vr_human.stat == CONSCIOUS && !vr_human.real_mind)
 					SStgui.close_user_uis(occupant, src)
 					if(istype(human_occupant, /mob/living/carbon/human/virtual_reality))
@@ -109,27 +109,27 @@
 					else
 						vr_human.real_mind = human_occupant.mind
 					vr_human.ckey = human_occupant.ckey
-					to_chat(vr_human, "<span class='notice'>Transfer successful! You are now playing as [vr_human] in VR!</span>")
+					to_chat(vr_human, span_notice("Transfer successful! You are now playing as [vr_human] in VR!"))
 				else
 					if(allow_creating_vr_humans)
-						to_chat(occupant, "<span class='warning'>Virtual avatar not found, attempting to create one...</span>")
+						to_chat(occupant, span_warning("Virtual avatar not found, attempting to create one..."))
 						var/obj/effect/landmark/vr_spawn/V = get_vr_spawnpoint()
 						var/turf/T = get_turf(V)
 						if(T)
 							SStgui.close_user_uis(occupant, src)
 							build_virtual_human(occupant, T, V.vr_outfit)
-							to_chat(vr_human, "<span class='notice'>Transfer successful! You are now playing as [vr_human] in VR!</span>")
+							to_chat(vr_human, span_notice("Transfer successful! You are now playing as [vr_human] in VR!"))
 						else
-							to_chat(occupant, "<span class='warning'>Virtual world misconfigured, aborting transfer.</span>")
+							to_chat(occupant, span_warning("Virtual world misconfigured, aborting transfer."))
 					else
-						to_chat(occupant, "<span class='warning'>The virtual world does not support the creation of new virtual avatars, aborting transfer.</span>")
+						to_chat(occupant, span_warning("The virtual world does not support the creation of new virtual avatars, aborting transfer."))
 			return TRUE
 		if("delete_avatar")
 			if(!occupant || usr == occupant)
 				if(vr_human)
 					cleanup_vr_human()
 			else
-				to_chat(usr, "<span class='warning'>The VR Sleeper's safeties prevent you from doing that.</span>")
+				to_chat(usr, span_warning("The VR Sleeper's safeties prevent you from doing that."))
 			return TRUE
 		if("toggle_open")
 			if(state_open)

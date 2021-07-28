@@ -51,29 +51,29 @@ Thresholds
 	switch(A.stage)
 		if(1)
 			if(prob(base_message_chance))
-				to_chat(H, "<span class='warning'>You feel goosebumps pop up on your skin.</span>")
+				to_chat(H, span_warning("You feel goosebumps pop up on your skin."))
 		if(2)
 			if(prob(base_message_chance))
-				to_chat(H, "<span class='warning'>Small spines spread to cover your entire body.</span>")
+				to_chat(H, span_warning("Small spines spread to cover your entire body."))
 		if(3)
 			if(prob(base_message_chance))
-				to_chat(H, "<span class='warning'> Your spines pierce your jumpsuit.</span>")
+				to_chat(H, span_warning(" Your spines pierce your jumpsuit."))
 		if(4, 5)
 			if(!done)
 				H.AddComponent(/datum/component/spikes, 5*power, armor, A.GetDiseaseID()) //removal is handled by the component
-				to_chat(H, "<span class='warning'> Your spines harden, growing sharp and lethal.</span>")
+				to_chat(H, span_warning(" Your spines harden, growing sharp and lethal."))
 				done = TRUE
 			if(H.pulling && iscarbon(H.pulling)) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
 				var/mob/living/carbon/C = H.pulling
 				var/def_check = C.getarmor(type = "melee")
 				C.apply_damage(1*power, BRUTE, blocked = def_check)
-				C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
+				C.visible_message(span_warning("[C.name] is pricked on [H.name]'s spikes."))
 				playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 			for(var/mob/living/carbon/C in ohearers(1, H))
 				if(C.pulling && C.pulling == H)
 					var/def_check = C.getarmor(type = "melee")
 					C.apply_damage(3*power, BRUTE, blocked = def_check)
-					C.visible_message("<span class='warning'>[C.name] is pricked on [H.name]'s spikes.</span>")
+					C.visible_message(span_warning("[C.name] is pricked on [H.name]'s spikes."))
 					playsound(get_turf(C), 'sound/weapons/slice.ogg', 50, 1)
 
 

@@ -172,7 +172,7 @@
 	var/obj/item/bodypart/l_arm = user.get_bodypart(BODY_ZONE_L_ARM)
 	var/obj/item/bodypart/r_arm = user.get_bodypart(BODY_ZONE_R_ARM)
 	if(prob(50) && iscarbon(user) && M == user && (r_arm || l_arm))
-		user.visible_message("<span class='warning'>\The [src] breaks off [user]'s arm!!</span>", "<span class='warning'>\The [src] breaks off your arm!</span>")
+		user.visible_message(span_warning("\The [src] breaks off [user]'s arm!!"), span_warning("\The [src] breaks off your arm!"))
 		if(l_arm)
 			l_arm.dismember()
 		else

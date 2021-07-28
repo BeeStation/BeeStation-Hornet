@@ -76,7 +76,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 	if(S)
 		if(do_after(user, 1 SECONDS, target = dropping))
 			S.RemoveComponent()
-			visible_message("<span class='notice'>[dropping] climbs out of the pool.</span>")
+			visible_message(span_notice("[dropping] climbs out of the pool."))
 			AM.forceMove(src)
 	else
 		. = ..()
@@ -89,8 +89,8 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		return FALSE
 	. = ..()
 	if(user != dropping)
-		dropping.visible_message("<span class='notice'>[user] starts to lower [dropping] down into [src].</span>", \
-		 "<span class='notice'>You start to lower [dropping] down into [src].</span>")
+		dropping.visible_message(span_notice("[user] starts to lower [dropping] down into [src]."), \
+		 span_notice("You start to lower [dropping] down into [src]."))
 	else
 		to_chat(user, "<span class='notice'>You start climbing down into [src]...")
 	if(do_after(user, 4 SECONDS, target = dropping))
@@ -114,7 +114,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 /turf/open/indestructible/sound/pool/proc/splash(mob/user)
 	user.forceMove(src)
 	playsound(src, 'sound/effects/splosh.ogg', 100, 1) //Credit to hippiestation for this sound file!
-	user.visible_message("<span class='boldwarning'>SPLASH!</span>")
+	user.visible_message(span_boldwarning("SPLASH!"))
 	var/zap = 0
 	if(issilicon(user)) //Do not throw brick in a pool. Brick begs.
 		zap = 1 //Sorry borgs! Swimming will come at a cost.
@@ -135,7 +135,7 @@ Place a pool filter somewhere in the pool if you want people to be able to modif
 		user.emp_act(zap)
 		user.emote("scream") //Chad coders use M.say("*scream")
 		do_sparks(zap, TRUE, user)
-		to_chat(user, "<span class='userdanger'>WARNING: WATER DAMAGE DETECTED!</span>")
+		to_chat(user, span_userdanger("WARNING: WATER DAMAGE DETECTED!"))
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "robotpool", /datum/mood_event/robotpool)
 	else
 		if(!check_clothes(user))
@@ -198,7 +198,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 
 /obj/machinery/pool_filter/examine(mob/user)
 	. = ..()
-	. += "<span class='boldnotice'>The thermostat on it reads [current_temperature].</span>"
+	. += span_boldnotice("The thermostat on it reads [current_temperature].")
 
 /obj/machinery/pool_filter/Initialize()
 	. = ..()
@@ -261,23 +261,23 @@ GLOBAL_LIST_EMPTY(pool_filters)
 				if(current_temperature <= 283.5) //Colder than 10 degrees is going to make you very cold
 					if(iscarbon(M))
 						C.adjust_bodytemperature(-80, 80)
-					to_chat(M, "<span class='warning'>The water is freezing cold!</span>")
+					to_chat(M, span_warning("The water is freezing cold!"))
 				else if(current_temperature >= 308.5) //Hotter than 35 celsius is going to make you burn up
 					if(iscarbon(M))
 						C.adjust_bodytemperature(35, 0, 500)
 					M.adjustFireLoss(2.5 * delta_time)
-					to_chat(M, "<span class='danger'>The water is searing hot!</span>")
+					to_chat(M, span_danger("The water is searing hot!"))
 
 /obj/structure/pool_ladder/attack_hand(mob/user)
 	var/datum/component/swimming/S = user.GetComponent(/datum/component/swimming)
 	if(S)
-		to_chat(user, "<span class='notice'>You start to climb out of the pool...</span>")
+		to_chat(user, span_notice("You start to climb out of the pool..."))
 		if(do_after(user, 1 SECONDS, target=src))
 			S.RemoveComponent()
-			visible_message("<span class='notice'>[user] climbs out of the pool.</span>")
+			visible_message(span_notice("[user] climbs out of the pool."))
 			user.forceMove(get_turf(get_step(src, NORTH))) //Ladders shouldn't adjoin another pool section. Ever.
 	else
-		to_chat(user, "<span class='notice'>You start to climb into the pool...</span>")
+		to_chat(user, span_notice("You start to climb into the pool..."))
 		var/turf/T = get_turf(src)
 		if(do_after(user, 1 SECONDS, target=src))
 			if(!istype(T, /turf/open/indestructible/sound/pool)) //Ugh, fine. Whatever.

@@ -112,12 +112,12 @@
 					permitted = FALSE
 
 				if(!permitted)
-					to_chat(M, "<span class='warning'>Your current species or role does not permit you to spawn with [G.display_name]!</span>")
+					to_chat(M, span_warning("Your current species or role does not permit you to spawn with [G.display_name]!"))
 					continue
 
 				if(G.slot)
 					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
-						to_chat(M, "<span class='notice'>Equipping you with [G.display_name]!</span>")
+						to_chat(M, span_notice("Equipping you with [G.display_name]!"))
 					else
 						gear_leftovers += G
 				else
@@ -134,25 +134,25 @@
 
 			if(istype(placed_in))
 				if(isturf(placed_in))
-					to_chat(M, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
+					to_chat(M, span_notice("Placing [G.display_name] on [placed_in]!"))
 				else
 					to_chat(M, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]]")
 				continue
 
 			if(H.equip_to_appropriate_slot(item))
-				to_chat(M, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
+				to_chat(M, span_notice("Placing [G.display_name] in your inventory!"))
 				continue
 			if(H.put_in_hands(item))
-				to_chat(M, "<span class='notice'>Placing [G.display_name] in your hands!</span>")
+				to_chat(M, span_notice("Placing [G.display_name] in your hands!"))
 				continue
 
 			var/obj/item/storage/B = (locate() in H)
 			if(B)
 				G.spawn_item(B, metadata)
-				to_chat(M, "<span class='notice'>Placing [G.display_name] in [B.name]!</span>")
+				to_chat(M, span_notice("Placing [G.display_name] in [B.name]!"))
 				continue
 
-			to_chat(M, "<span class='danger'>Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug.</span>")
+			to_chat(M, span_danger("Failed to locate a storage object on your mob, either you spawned with no hands free and no backpack or this is a bug."))
 			qdel(item)
 
 /datum/job/proc/announce(mob/living/carbon/human/H)

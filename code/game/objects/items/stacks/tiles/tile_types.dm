@@ -24,26 +24,26 @@
 
 	if (W.tool_behaviour == TOOL_WELDER)
 		if(get_amount() < 4)
-			to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
+			to_chat(user, span_warning("You need at least four tiles to do this!"))
 			return
 
 		if(!mineralType)
-			to_chat(user, "<span class='warning'>You can not reform this!</span>")
+			to_chat(user, span_warning("You can not reform this!"))
 			return
 
 		if(W.use_tool(src, user, 0, volume=40))
 			if(mineralType == "plasma")
 				atmos_spawn_air("plasma=5;TEMP=1000")
-				user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
-									"<span class='warning'>You set the plasma tiles on fire!</span>")
+				user.visible_message(span_warning("[user.name] sets the plasma tiles on fire!"), \
+									span_warning("You set the plasma tiles on fire!"))
 				qdel(src)
 				return
 
 			if (mineralType == "iron")
 				var/obj/item/stack/sheet/iron/new_item = new(user.loc)
 				user.visible_message("[user.name] shaped [src] into iron with the welding tool.", \
-							 "<span class='notice'>You shaped [src] into iron with the welding tool.</span>", \
-							 "<span class='italics'>You hear welding.</span>")
+							 span_notice("You shaped [src] into iron with the welding tool."), \
+							 span_italics("You hear welding."))
 				var/obj/item/stack/rods/R = src
 				src = null
 				var/replace = (user.get_inactive_held_item()==R)
@@ -55,8 +55,8 @@
 				var/sheet_type = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
 				var/obj/item/stack/sheet/mineral/new_item = new sheet_type(user.loc)
 				user.visible_message("[user.name] shaped [src] into a sheet with the welding tool.", \
-							 "<span class='notice'>You shaped [src] into a sheet with the welding tool.</span>", \
-							 "<span class='italics'>You hear welding.</span>")
+							 span_notice("You shaped [src] into a sheet with the welding tool."), \
+							 span_italics("You hear welding."))
 				var/obj/item/stack/rods/R = src
 				src = null
 				var/replace = (user.get_inactive_held_item()==R)
@@ -78,11 +78,11 @@
 
 /obj/item/stack/tile/grass/attackby(obj/item/W, mob/user, params)
 	if((W.tool_behaviour == TOOL_SHOVEL) && params)
-		to_chat(user, "<span class='notice'>You start digging up [src].</span>")
+		to_chat(user, span_notice("You start digging up [src]."))
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		if(do_after(user, 2 * get_amount(), target = src))
 			new /obj/item/stack/ore/glass(get_turf(src), 2 * get_amount())
-			user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
+			user.visible_message(span_notice("[user] digs up [src]."), span_notice("You uproot [src]."))
 			playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 			qdel(src)
 	else

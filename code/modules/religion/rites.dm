@@ -27,9 +27,9 @@
 ///Called to perform the invocation of the rite, with args being the performer and the altar where it's being performed. Maybe you want it to check for something else?
 /datum/religion_rites/proc/perform_rite(mob/living/user, atom/religious_tool)
 	if(GLOB.religious_sect?.favor < favor_cost)
-		to_chat(user, "<span class='warning'>This rite requires more favor!</span>")
+		to_chat(user, span_warning("This rite requires more favor!"))
 		return FALSE
-	to_chat(user, "<span class='notice'>You begin to perform the rite of [name]...</span>")
+	to_chat(user, span_notice("You begin to perform the rite of [name]..."))
 	if(!LAZYLEN(ritual_invocations))
 		if(do_after(user, target = user, delay = ritual_length))
 			if(invoke_msg)
@@ -72,16 +72,16 @@
 
 /datum/religion_rites/synthconversion/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
-		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		to_chat(user, span_warning("This rite requires a religious device that individuals can be buckled to."))
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
 	if(!movable_reltool)
 		return FALSE
 	if(!LAZYLEN(movable_reltool.buckled_mobs))
 		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
-			to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+			to_chat(user, span_warning("This rite requires a religious device that individuals can be buckled to."))
 			return FALSE
-		to_chat(user, "<span class='warning'>This rite requires an individual to be buckled to [movable_reltool].</span>")
+		to_chat(user, span_warning("This rite requires an individual to be buckled to [movable_reltool]."))
 		return FALSE
 	return ..()
 
@@ -95,7 +95,7 @@
 	if(!human2borg)
 		return FALSE
 	human2borg.set_species(/datum/species/android)
-	human2borg.visible_message("<span class='notice'>[human2borg] has been converted by the rite of [name]!</span>")
+	human2borg.visible_message(span_notice("[human2borg] has been converted by the rite of [name]!"))
 	return ..()
 
 /*********Ever-Burning Candle**********/
@@ -123,7 +123,7 @@
 	var/turf/T = get_turf(religious_tool)
 	var/list/L = T.contents
 	if(!locate(/obj/item/clothing) in L)
-		to_chat(user, "<span class='warning'>There is no clothing on the altair!</span>")
+		to_chat(user, span_warning("There is no clothing on the altair!"))
 		return FALSE
 	for(var/obj/item/clothing/apparel in L)
 		if(apparel.max_heat_protection_temperature >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
@@ -142,7 +142,7 @@
 		chosen_clothing = null //our lord and savior no longer cares about this apparel
 		return ..()
 	chosen_clothing = null
-	to_chat(user, "<span class='warning'>The clothing that was chosen for the rite is no longer on the altar!</span>")
+	to_chat(user, span_warning("The clothing that was chosen for the rite is no longer on the altar!"))
 	return FALSE
 
 
@@ -160,45 +160,45 @@
 
 /datum/religion_rites/burning_sacrifice/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
-		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		to_chat(user, span_warning("This rite requires a religious device that individuals can be buckled to."))
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
 	if(!movable_reltool)
 		return FALSE
 	if(!LAZYLEN(movable_reltool.buckled_mobs))
-		to_chat(user, "<span class='warning'>Nothing is buckled to the altar!</span>")
+		to_chat(user, span_warning("Nothing is buckled to the altar!"))
 		return FALSE
 	for(var/corpse in movable_reltool.buckled_mobs)
 		if(!iscarbon(corpse))// only works with carbon corpse since most normal mobs can't be set on fire.
-			to_chat(user, "<span class='warning'>Only carbon lifeforms can be properly burned for the sacrifice!</span>")
+			to_chat(user, span_warning("Only carbon lifeforms can be properly burned for the sacrifice!"))
 			return FALSE
 		chosen_sacrifice = corpse
 		if(chosen_sacrifice.stat != DEAD)
-			to_chat(user, "<span class='warning'>You can only sacrifice dead bodies, this one is still alive!</span>")
+			to_chat(user, span_warning("You can only sacrifice dead bodies, this one is still alive!"))
 			chosen_sacrifice = null
 			return FALSE
 		if(!chosen_sacrifice.on_fire)
-			to_chat(user, "<span class='warning'>This corpse needs to be on fire to be sacrificed!</span>")
+			to_chat(user, span_warning("This corpse needs to be on fire to be sacrificed!"))
 			chosen_sacrifice = null
 			return FALSE
 		return ..()
 
 /datum/religion_rites/burning_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	if(!(chosen_sacrifice in religious_tool.buckled_mobs)) //checks one last time if the right corpse is still buckled
-		to_chat(user, "<span class='warning'>The right sacrifice is no longer on the altar!</span>")
+		to_chat(user, span_warning("The right sacrifice is no longer on the altar!"))
 		chosen_sacrifice = null
 		return FALSE
 	if(!chosen_sacrifice.on_fire)
-		to_chat(user, "<span class='warning'>The sacrifice is no longer on fire, it needs to burn until the end of the rite!</span>")
+		to_chat(user, span_warning("The sacrifice is no longer on fire, it needs to burn until the end of the rite!"))
 		chosen_sacrifice = null
 		return FALSE
 	if(chosen_sacrifice.stat != DEAD)
-		to_chat(user, "<span class='warning'>The sacrifice has to stay dead for the rite to work!</span>")
+		to_chat(user, span_warning("The sacrifice has to stay dead for the rite to work!"))
 		chosen_sacrifice = null
 		return FALSE
 	var/favor_gained = 100 + round(chosen_sacrifice.getFireLoss())
 	GLOB.religious_sect?.adjust_favor(favor_gained, user)
-	to_chat(user, "<span class='notice'>[GLOB.deity] absorbs the burning corpse and any trace of fire with it. [GLOB.deity] rewards you with [favor_gained] favor.</span>")
+	to_chat(user, span_notice("[GLOB.deity] absorbs the burning corpse and any trace of fire with it. [GLOB.deity] rewards you with [favor_gained] favor."))
 	chosen_sacrifice.dust(force = TRUE)
 	playsound(get_turf(religious_tool), 'sound/effects/supermatter.ogg', 50, TRUE)
 	chosen_sacrifice = null

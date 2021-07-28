@@ -40,16 +40,16 @@
 			return COMPONENT_ITEM_NO_ATTACK
 
 /datum/component/butchering/proc/startButcher(obj/item/source, mob/living/M, mob/living/user)
-	to_chat(user, "<span class='notice'>You begin to butcher [M]...</span>")
+	to_chat(user, span_notice("You begin to butcher [M]..."))
 	playsound(M.loc, butcher_sound, 50, TRUE, -1)
 	if(do_mob(user, M, speed) && M.Adjacent(source))
 		Butcher(user, M)
 
 /datum/component/butchering/proc/startNeckSlice(obj/item/source, mob/living/carbon/human/H, mob/living/user)
-	user.visible_message("<span class='danger'>[user] is slitting [H]'s throat!</span>", \
-					"<span class='danger'>You start slicing [H]'s throat!</span>", \
-					"<span class='hear'>You hear a cutting noise!</span>")
-	H.show_message("<span class='userdanger'>Your throat is being slit by [user]!</span>", 1, \
+	user.visible_message(span_danger("[user] is slitting [H]'s throat!"), \
+					span_danger("You start slicing [H]'s throat!"), \
+					span_hear("You hear a cutting noise!"))
+	H.show_message(span_userdanger("Your throat is being slit by [user]!"), 1, \
 					"<span class = 'userdanger'>Something is cutting into your neck!</span>", NONE)
 
 	playsound(H.loc, butcher_sound, 50, TRUE, -1)
@@ -59,8 +59,8 @@
 							"<span class='danger'>Their neck has already been already cut, you can't make the bleeding any worse!")
 			return
 
-		H.visible_message("<span class='danger'>[user] slits [H]'s throat!</span>", \
-					"<span class='userdanger'>[user] slits your throat...</span>")
+		H.visible_message(span_danger("[user] slits [H]'s throat!"), \
+					span_userdanger("[user] slits your throat..."))
 		H.apply_damage(source.force, BRUTE, BODY_ZONE_HEAD)
 		H.bleed_rate = CLAMP(H.bleed_rate + 20, 0, 30)
 		H.apply_status_effect(/datum/status_effect/neck_slice)
@@ -75,10 +75,10 @@
 		for(var/_i in 1 to amount)
 			if(!prob(final_effectiveness))
 				if(butcher)
-					to_chat(butcher, "<span class='warning'>You fail to harvest some of the [initial(bones.name)] from [meat].</span>")
+					to_chat(butcher, span_warning("You fail to harvest some of the [initial(bones.name)] from [meat]."))
 			else if(prob(bonus_chance))
 				if(butcher)
-					to_chat(butcher, "<span class='info'>You harvest some extra [initial(bones.name)] from [meat]!</span>")
+					to_chat(butcher, span_info("You harvest some extra [initial(bones.name)] from [meat]!"))
 				for(var/i in 1 to 2)
 					new bones (T)
 			else
@@ -91,8 +91,8 @@
 			new sinew (T)
 		meat.guaranteed_butcher_results.Remove(sinew)
 	if(butcher)
-		butcher.visible_message("<span class='notice'>[butcher] butchers [meat].</span>", \
-								"<span class='notice'>You butcher [meat].</span>")
+		butcher.visible_message(span_notice("[butcher] butchers [meat]."), \
+								span_notice("You butcher [meat]."))
 	ButcherEffects(meat)
 	meat.harvest(butcher)
 	meat.gib(FALSE, FALSE, TRUE)

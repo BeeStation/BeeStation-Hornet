@@ -76,7 +76,7 @@
 			cooldown = world.time + 50
 			active = TRUE
 		else
-			to_chat(usr, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
+			to_chat(usr, span_danger("Invalid color. Your color is not bright enough."))
 	UpdateButtonIcon()
 
 /datum/action/innate/squid_change/Deactivate()

@@ -33,7 +33,7 @@
 
 /obj/machinery/computer/apc_control/attack_ai(mob/user)
 	if(!IsAdminGhost(user))
-		to_chat(user,"<span class='warning'>[src] does not support AI control.</span>") //You already have APC access, cheater!
+		to_chat(user,span_warning("[src] does not support AI control.")) //You already have APC access, cheater!
 		return
 	..(user)
 
@@ -183,11 +183,11 @@
 
 /obj/machinery/computer/apc_control/emag_act(mob/user)
 	if(!authenticated)
-		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements using your emag.</span>")
+		to_chat(user, span_warning("You bypass [src]'s access requirements using your emag."))
 		authenticated = TRUE
 		log_activity("logged in")
 	else if(!(obj_flags & EMAGGED))
-		user.visible_message("<span class='warning'>You emag [src], disabling precise logging and allowing you to clear logs.</span>")
+		user.visible_message(span_warning("You emag [src], disabling precise logging and allowing you to clear logs."))
 		log_game("[key_name(user)] emagged [src] at [AREACOORD(src)], disabling operator tracking.")
 		obj_flags |= EMAGGED
 	playsound(src, "sparks", 50, 1)

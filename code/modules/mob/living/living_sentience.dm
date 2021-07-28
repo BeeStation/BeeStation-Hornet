@@ -32,7 +32,7 @@
 	if(question == "No" || !src || QDELETED(src))
 		return TRUE
 	if(key)
-		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
+		to_chat(user, span_notice("Someone else already took [name]."))
 		return TRUE
 	key = user.key
 	log_game("[key_name(src)] took control of [name].")

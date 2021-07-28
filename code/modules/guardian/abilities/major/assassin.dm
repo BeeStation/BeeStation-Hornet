@@ -59,7 +59,7 @@
 		guardian.alpha = initial(guardian.alpha)
 		master_stats.Apply(guardian)
 		if(!forced)
-			guardian.visible_message("<span class='danger'>\The [guardian] suddenly appears!</span>")
+			guardian.visible_message(span_danger("\The [guardian] suddenly appears!"))
 			next_stealth = world.time + stealthcooldown
 			guardian.cooldown = world.time + 40
 		updatestealthalert()

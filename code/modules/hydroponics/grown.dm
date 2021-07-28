@@ -113,7 +113,7 @@
 	if(trash)
 		generate_trash(T)
 
-	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
+	visible_message(span_warning("[src] has been squashed."),span_italics("You hear a smack."))
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
@@ -123,7 +123,7 @@
 			reagents.reaction(A)
 		qdel(src)
 	if(seed.get_gene(/datum/plant_gene/trait/noreact))
-		visible_message("<span class='warning'>[src] crumples, and bubbles ominously as its contents mix.</span>")
+		visible_message(span_warning("[src] crumples, and bubbles ominously as its contents mix."))
 		addtimer(CALLBACK(src, .proc/squashreact), 20)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
@@ -147,7 +147,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/grind_requirements()
 	if(dry_grind && !dry)
-		to_chat(usr, "<span class='warning'>[src] needs to be dry before it can be ground up!</span>")
+		to_chat(usr, span_warning("[src] needs to be dry before it can be ground up!"))
 		return
 	return TRUE
 
@@ -183,4 +183,4 @@
 		T.remove_item_from_storage(get_turf(T))
 		qdel(src)
 		user.put_in_hands(T, FALSE)
-		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")
+		to_chat(user, span_notice("You open [src]\'s shell, revealing \a [T]."))

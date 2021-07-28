@@ -117,7 +117,7 @@
 	if(holder && holder.chem_temp >= fry_temperature)
 		if(isitem(O) && !istype(O, /obj/item/reagent_containers/food/snacks/deepfryholder))
 			log_game("[O.name] ([O.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(O)].")
-			O.loc.visible_message("<span class='warning'>[O] rapidly fries as it's splashed with hot oil! Somehow.</span>")
+			O.loc.visible_message(span_warning("[O] rapidly fries as it's splashed with hot oil! Somehow."))
 			var/obj/item/reagent_containers/food/snacks/deepfryholder/F = new(O.drop_location(), O)
 			F.fry(volume)
 			F.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
@@ -129,8 +129,8 @@
 		boiling = TRUE
 	if(method == VAPOR || method == TOUCH) //Directly coats the mob, and doesn't go into their bloodstream
 		if(boiling)
-			M.visible_message("<span class='warning'>The boiling oil sizzles as it covers [M]!</span>", \
-			"<span class='userdanger'>You're covered in boiling oil!</span>")
+			M.visible_message(span_warning("The boiling oil sizzles as it covers [M]!"), \
+			span_userdanger("You're covered in boiling oil!"))
 			M.emote("scream")
 			playsound(M, 'sound/machines/fryer/deep_fryer_emerge.ogg', 25, TRUE)
 			var/oil_damage = (holder.chem_temp / fry_temperature) * 0.33 //Damage taken per unit
@@ -159,7 +159,7 @@
 	taste_description = "sweetness"
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
-	to_chat(M, "<span class='userdanger'>You go into hyperglycaemic shock! Lay off the twinkies!</span>")
+	to_chat(M, span_userdanger("You go into hyperglycaemic shock! Lay off the twinkies!"))
 	M.AdjustSleeping(600, FALSE)
 	. = 1
 
@@ -299,7 +299,7 @@
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/carbon/M)
 	if(prob(5))
-		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+		M.visible_message(span_warning("[M] [pick("dry heaves!","coughs!","splutters!")]"))
 	..()
 
 /datum/reagent/consumable/sodiumchloride
@@ -315,7 +315,7 @@
 	if(M.has_bane(BANE_SALT))
 		M.mind.disrupt_spells(-200)
 	if(method == INGEST && is_species(M, /datum/species/squid))
-		to_chat(M, "<span class='danger'>Your tongue shrivels as you taste the salt! It burns!</span>")
+		to_chat(M, span_danger("Your tongue shrivels as you taste the salt! It burns!"))
 		if(prob(25))
 			M.emote("scream")
 		M.adjustFireLoss(5, TRUE)
@@ -324,7 +324,7 @@
 			return
 		var/obj/item/I = M.get_active_held_item()
 		M.throw_item(get_ranged_target_turf(M, pick(GLOB.alldirs), rand(1, 3)))
-		to_chat(M, "<span class='warning'>The salt causes your arm to spasm!</span>")
+		to_chat(M, span_warning("The salt causes your arm to spasm!"))
 		M.log_message("threw [I] due to a Muscle Spasm", LOG_ATTACK)
 
 /datum/reagent/consumable/sodiumchloride/reaction_turf(turf/T, reac_volume) //Creates an umbra-blocking salt pile
@@ -351,7 +351,7 @@
 /datum/reagent/consumable/cocoa/on_mob_add(mob/living/carbon/M)
 	.=..()
 	if(iscatperson(M))
-		to_chat(M, "<span class='warning'>Your insides revolt at the presence of lethal chocolate!</span>")
+		to_chat(M, span_warning("Your insides revolt at the presence of lethal chocolate!"))
 		M.vomit(20)
 
 
@@ -411,7 +411,7 @@
 /datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/M)
 	if(isvampire(M)) //incapacitating but not lethal. Unfortunately, vampires cannot vomit.
 		if(prob(min(25,current_cycle)))
-			to_chat(M, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
+			to_chat(M, span_danger("You can't get the scent of garlic out of your nose! You can barely think..."))
 			M.Paralyze(10)
 			M.Jitter(10)
 	else if(ishuman(M))

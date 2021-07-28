@@ -18,7 +18,7 @@
 	if(manifest)
 		tear_manifest(user)
 	else
-		to_chat(user, "<span class='warning'>You need a crowbar to pry this open!</span>")
+		to_chat(user, span_warning("You need a crowbar to pry this open!"))
 
 /obj/structure/closet/crate/large/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_CROWBAR)
@@ -26,8 +26,8 @@
 			tear_manifest(user)
 
 		user.visible_message("[user] pries \the [src] open.", \
-							 "<span class='notice'>You pry open \the [src].</span>", \
-							 "<span class='italics'>You hear splitting wood.</span>")
+							 span_notice("You pry open \the [src]."), \
+							 span_italics("You hear splitting wood."))
 		playsound(src.loc, 'sound/weapons/slashmiss.ogg', 75, 1)
 
 		var/turf/T = get_turf(src)
@@ -43,6 +43,6 @@
 			return ..()						//Stops it from opening and turning invisible when items are used on it.
 
 		else
-			to_chat(user, "<span class='warning'>You need a crowbar to pry this open!</span>")
+			to_chat(user, span_warning("You need a crowbar to pry this open!"))
 			return FALSE //Just stop. Do nothing. Don't turn into an invisible sprite. Don't open like a locker.
 					//The large crate has no non-attack interactions other than the crowbar, anyway.

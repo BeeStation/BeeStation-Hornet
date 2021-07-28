@@ -67,10 +67,10 @@
 	if(!active && !(flags_1 & NODECONSTRUCT_1))
 		if(O.tool_behaviour == TOOL_WRENCH)
 			if(!anchored && !isinspace())
-				to_chat(user,"<span class='notice'>You secure [src] to the floor.</span>")
+				to_chat(user,span_notice("You secure [src] to the floor."))
 				setAnchored(TRUE)
 			else if(anchored)
-				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
+				to_chat(user,span_notice("You unsecure and disconnect [src]."))
 				setAnchored(FALSE)
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			return
@@ -87,14 +87,14 @@
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 	if (!anchored)
-		to_chat(user,"<span class='warning'>This device must be anchored by a wrench!</span>")
+		to_chat(user,span_warning("This device must be anchored by a wrench!"))
 		return
 	if(!allowed(user))
-		to_chat(user,"<span class='warning'>Error: Access Denied.</span>")
+		to_chat(user,span_warning("Error: Access Denied."))
 		user.playsound_local(src,'sound/misc/compiler-failure.ogg', 25, 1)
 		return
 	if(!songs.len)
-		to_chat(user,"<span class='warning'>Error: No music tracks have been authorized for your station. Petition Central Command to resolve this issue.</span>")
+		to_chat(user,span_warning("Error: No music tracks have been authorized for your station. Petition Central Command to resolve this issue."))
 		playsound(src,'sound/misc/compiler-failure.ogg', 25, 1)
 		return
 	var/list/dat = list()
@@ -119,7 +119,7 @@
 				return
 			if(!active)
 				if(stop > world.time)
-					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)].</span>")
+					to_chat(usr, span_warning("Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)]."))
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
 				activate_music()
@@ -130,7 +130,7 @@
 				updateUsrDialog()
 		if("select")
 			if(active)
-				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
+				to_chat(usr, span_warning("Error: You cannot change the song until the current one is over."))
 				return
 
 			var/list/available = list()

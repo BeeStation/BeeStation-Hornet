@@ -181,13 +181,13 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/welder_act(mob/living/user, obj/item/I)
 	if(!I.tool_start_check(user, amount=0))
 		return TRUE
-	to_chat(user, "<span class='notice'>You begin welding the dual-port vent...</span>")
+	to_chat(user, span_notice("You begin welding the dual-port vent..."))
 	if(I.use_tool(src, user, 20, volume=50))
 		if(!welded)
-			user.visible_message("[user] welds the dual-port vent shut.", "<span class='notice'>You weld the dual-port vent shut.</span>", "<span class='italics'>You hear welding.</span>")
+			user.visible_message("[user] welds the dual-port vent shut.", span_notice("You weld the dual-port vent shut."), span_italics("You hear welding."))
 			welded = TRUE
 		else
-			user.visible_message("[user] unwelded the dual-port vent.", "<span class='notice'>You unweld the dual-port vent.</span>", "<span class='italics'>You hear welding.</span>")
+			user.visible_message("[user] unwelded the dual-port vent.", span_notice("You unweld the dual-port vent."), span_italics("You hear welding."))
 			welded = FALSE
 		update_icon()
 		pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
@@ -205,7 +205,7 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/attack_alien(mob/user)
 	if(!welded || !(do_after(user, 20, target = src)))
 		return
-	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the dual-port vent.</span>", "<span class='warning'>You hear loud scraping noises.</span>")
+	user.visible_message(span_warning("[user] furiously claws at [src]!"), span_notice("You manage to clear away the stuff blocking the dual-port vent."), span_warning("You hear loud scraping noises."))
 	welded = FALSE
 	update_icon()
 	pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)

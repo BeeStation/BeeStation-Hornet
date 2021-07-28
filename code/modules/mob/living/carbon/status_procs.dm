@@ -12,7 +12,7 @@
 	if(absorb_stun(0)) //continuous effect, so we don't want it to increment the stuns absorbed.
 		return
 	if(!IsParalyzed())
-		to_chat(src, "<span class='notice'>You're too exhausted to keep going.</span>")
+		to_chat(src, span_notice("You're too exhausted to keep going."))
 	stam_regen_start_time = world.time + STAMINA_CRIT_TIME
 	stam_paralyzed = TRUE
 

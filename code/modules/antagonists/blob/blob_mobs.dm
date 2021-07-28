@@ -124,8 +124,8 @@
 	else
 		if(E.create_culture(disease, user))
 			dust()
-			user.visible_message("<span class='danger'>[user] stabs [src] with [E], sucking it up!</span>", \
-	 				 "<span class='danger'>You stab [src] with [E]'s probe, destroying it!</span>")
+			user.visible_message(span_danger("[user] stabs [src] with [E], sucking it up!"), \
+	 				 span_danger("You stab [src] with [E]'s probe, destroying it!"))
 	return TRUE
 
 /mob/living/simple_animal/hostile/blob/blobspore/Life()
@@ -158,7 +158,7 @@
 	H.forceMove(src)
 	oldguy = H
 	update_icons()
-	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
+	visible_message(span_warning("The corpse of [H.name] suddenly rises!"))
 	if(!key)
 		set_playable()
 

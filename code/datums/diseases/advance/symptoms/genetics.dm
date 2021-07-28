@@ -47,7 +47,7 @@ Bonus
 		return
 	switch(A.stage)
 		if(4, 5)
-			to_chat(C, "<span class='warning'>[pick("Your skin feels itchy.", "You feel light headed.")]</span>")
+			to_chat(C, span_warning("[pick("Your skin feels itchy.", "You feel light headed.")]"))
 			C.dna.remove_mutation_group(possible_mutations)
 			for(var/i in 1 to power)
 				C.randmut(possible_mutations)

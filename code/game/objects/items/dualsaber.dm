@@ -64,7 +64,7 @@
 
 	if(user && user.has_dna())
 		if(user.dna.check_mutation(HULK))
-			to_chat(user, "<span class='warning'>You lack the grace to wield this!</span>")
+			to_chat(user, span_warning("You lack the grace to wield this!"))
 			return COMPONENT_TWOHANDED_BLOCK_WIELD
 	sharpness = IS_SHARP
 	w_class = w_class_on
@@ -90,7 +90,7 @@
 
 /obj/item/dualsaber/suicide_act(mob/living/carbon/user)
 	if(ISWIELDED(src))
-		user.visible_message("<span class='suicide'>[user] begins spinning way too fast! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] begins spinning way too fast! It looks like [user.p_theyre()] trying to commit suicide!"))
 
 		var/obj/item/bodypart/head/myhead = user.get_bodypart(BODY_ZONE_HEAD)//stole from chainsaw code
 		var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
@@ -105,18 +105,18 @@
 					myhead.drop_limb()
 				sleep(3)
 			else
-				user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
+				user.visible_message(span_suicide("[user] panics and starts choking to death!"))
 				return OXYLOSS
 
 	else
-		user.visible_message("<span class='suicide'>[user] begins beating [user.p_them()]self to death with \the [src]'s handle! It probably would've been cooler if [user.p_they()] turned it on first!</span>")
+		user.visible_message(span_suicide("[user] begins beating [user.p_them()]self to death with \the [src]'s handle! It probably would've been cooler if [user.p_they()] turned it on first!"))
 	return BRUTELOSS
 
 /obj/item/dualsaber/attack(mob/target, mob/living/carbon/human/user)
 	var/wielded = ISWIELDED(src)
 	if(user.has_dna())
 		if(user.dna.check_mutation(HULK))
-			to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally drop it!</span>")
+			to_chat(user, span_warning("You grip the blade too hard and accidentally drop it!"))
 			if(wielded)
 				user.dropItemToGround(src, force=TRUE)
 				return
@@ -131,7 +131,7 @@
 	user.emote("flip")
 
 /obj/item/dualsaber/proc/impale(mob/living/user)
-	to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
+	to_chat(user, span_warning("You twirl around a bit before losing your balance and impaling yourself on [src]."))
 	if(ISWIELDED(src))
 		user.take_bodypart_damage(20,25,check_armor = TRUE)
 	else
@@ -144,7 +144,7 @@
 
 /obj/item/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
 	if(ISWIELDED(src))
-		to_chat(user, "<span class='warning'>You can't pick up such dangerous item with your meaty hands without losing fingers, better not to!</span>")
+		to_chat(user, span_warning("You can't pick up such dangerous item with your meaty hands without losing fingers, better not to!"))
 		return 1
 
 /obj/item/dualsaber/process()
@@ -168,7 +168,7 @@
 		var/mob/living/carbon/C = user
 		if(C.wear_mask)
 			in_mouth = ", barely missing [user.p_their()] nose"
-	. = "<span class='warning'>[user] swings [user.p_their()] [name][in_mouth]. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [A.name] in the process.</span>"
+	. = span_warning("[user] swings [user.p_their()] [name][in_mouth]. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [A.name] in the process.")
 	playsound(loc, hitsound, get_clamped_volume(), TRUE, -1)
 	add_fingerprint(user)
 	// Light your candles while spinning around the room
@@ -190,11 +190,11 @@
 	if(W.tool_behaviour == TOOL_MULTITOOL)
 		if(!hacked)
 			hacked = TRUE
-			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
+			to_chat(user, span_warning("2XRNBW_ENGAGE"))
 			item_color = "rainbow"
 			AddComponent(/datum/component/two_handed, icon_wielded="dualsaber[item_color]1")
 			update_icon()
 		else
-			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
+			to_chat(user, span_warning("It's starting to look like a triple rainbow - no, nevermind."))
 	else
 		return ..()

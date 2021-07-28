@@ -97,7 +97,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler/emag_act(mob/user)
 	if(!(obj_flags & EMAGGED))
 		obj_flags |= EMAGGED
-		to_chat(user, "<span class='notice'>You disable [src]'s safety procedures, making it shoot harmful lasers.</span>")
+		to_chat(user, span_notice("You disable [src]'s safety procedures, making it shoot harmful lasers."))
 		projectile = /obj/item/projectile/beam/laser
 		harmful = TRUE
 

@@ -379,7 +379,7 @@
 						if(30 to 40)
 							need_mob_update += R.addiction_act_stage4(C)
 						if(40 to INFINITY)
-							to_chat(C, "<span class='notice'>You feel like you've gotten over your need for [R.name].</span>")
+							to_chat(C, span_notice("You feel like you've gotten over your need for [R.name]."))
 							SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "[R.type]_overdose")
 							cached_addictions.Remove(R)
 						else
@@ -521,14 +521,14 @@
 						playsound(get_turf(cached_my_atom), selected_reaction.mix_sound, 80, 1)
 
 					for(var/mob/M as() in seen)
-						to_chat(M, "<span class='notice'>[iconhtml] [selected_reaction.mix_message]</span>")
+						to_chat(M, span_notice("[iconhtml] [selected_reaction.mix_message]"))
 
 				if(istype(cached_my_atom, /obj/item/slime_extract))
 					var/obj/item/slime_extract/ME2 = my_atom
 					ME2.Uses--
 					if(ME2.Uses <= 0) // give the notification that the slime core is dead
 						for(var/mob/M as() in seen)
-							to_chat(M, "<span class='notice'>[iconhtml] \The [my_atom]'s power is consumed in the reaction.</span>")
+							to_chat(M, span_notice("[iconhtml] \The [my_atom]'s power is consumed in the reaction."))
 							ME2.name = "used slime extract"
 							ME2.desc = "This extract has been used up."
 

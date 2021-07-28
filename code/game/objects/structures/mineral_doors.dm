@@ -145,37 +145,37 @@
 	if(I.tool_behaviour != TOOL_MINING)
 		return
 	. = TRUE
-	to_chat(user, "<span class='notice'>You start digging [src]...</span>")
+	to_chat(user, span_notice("You start digging [src]..."))
 	if(I.use_tool(src, user, 40, volume=50))
-		to_chat(user, "<span class='notice'>You finish digging.</span>")
+		to_chat(user, span_notice("You finish digging."))
 		deconstruct(TRUE)
 
 /obj/structure/mineral_door/welder_act(mob/living/user, obj/item/I) //override if the door is supposed to be flammable.
 	. = TRUE
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] is still firmly secured to the ground!</span>")
+		to_chat(user, span_warning("[src] is still firmly secured to the ground!"))
 		return
 
-	user.visible_message("[user] starts to weld apart [src]!", "<span class='notice'>You start welding apart [src].</span>")
+	user.visible_message("[user] starts to weld apart [src]!", span_notice("You start welding apart [src]."))
 	if(!I.use_tool(src, user, 60, 5, 50))
 		to_chat(user, "<span class='warning'>You failed to weld apart [src]!/span>")
 		return
 
-	user.visible_message("[user] welded [src] into pieces!", "<span class='notice'>You welded apart [src]!</span>")
+	user.visible_message("[user] welded [src] into pieces!", span_notice("You welded apart [src]!"))
 	deconstruct(TRUE)
 
 /obj/structure/mineral_door/proc/crowbar_door(mob/living/user, obj/item/I) //if the door is flammable, call this in crowbar_act() so we can still decon it
 	. = TRUE
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] is still firmly secured to the ground!</span>")
+		to_chat(user, span_warning("[src] is still firmly secured to the ground!"))
 		return
 
-	user.visible_message("[user] starts to pry apart [src]!", "<span class='notice'>You start prying apart [src].</span>")
+	user.visible_message("[user] starts to pry apart [src]!", span_notice("You start prying apart [src]."))
 	if(!I.use_tool(src, user, 60, volume = 50))
 		to_chat(user, "<span class='warning'>You failed to pry apart [src]!/span>")
 		return
 
-	user.visible_message("[user] pried [src] into pieces!", "<span class='notice'>You pried apart [src]!</span>")
+	user.visible_message("[user] pried [src] into pieces!", span_notice("You pried apart [src]!"))
 	deconstruct(TRUE)
 
 
@@ -317,7 +317,7 @@
 /obj/structure/mineral_door/paperframe/examine(mob/user)
 	. = ..()
 	if(obj_integrity < max_integrity)
-		. += "<span class='info'>It looks a bit damaged, you may be able to fix it with some <b>paper</b>.</span>"
+		. += span_info("It looks a bit damaged, you may be able to fix it with some <b>paper</b>.")
 
 /obj/structure/mineral_door/paperframe/pickaxe_door(mob/living/user, obj/item/I)
 	return
@@ -334,11 +334,11 @@
 		return
 
 	if((user.a_intent != INTENT_HARM) && istype(I, /obj/item/paper) && (obj_integrity < max_integrity))
-		user.visible_message("[user] starts to patch the holes in [src].", "<span class='notice'>You start patching some of the holes in [src]!</span>")
+		user.visible_message("[user] starts to patch the holes in [src].", span_notice("You start patching some of the holes in [src]!"))
 		if(do_after(user, 20, TRUE, src))
 			obj_integrity = min(obj_integrity+4,max_integrity)
 			qdel(I)
-			user.visible_message("[user] patches some of the holes in [src].", "<span class='notice'>You patch some of the holes in [src]!</span>")
+			user.visible_message("[user] patches some of the holes in [src].", span_notice("You patch some of the holes in [src]!"))
 			return TRUE
 
 	return ..()

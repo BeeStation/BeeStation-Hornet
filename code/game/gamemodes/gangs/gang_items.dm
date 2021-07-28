@@ -14,7 +14,7 @@
 	var/real_cost = get_cost(user, gang, gangtool)
 	if(!spawn_item(user, gang, gangtool))
 		gang.adjust_influence(-real_cost)
-		to_chat(user, "<span class='notice'>You bought \the [name].</span>")
+		to_chat(user, span_notice("You bought \the [name]."))
 		return TRUE
 
 /datum/gang_item/proc/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool) // If this returns anything other than null, something fucked up and influence won't lower.
@@ -62,7 +62,7 @@
 	id = "implant_breaker"
 	cost = 25
 	item_path = /obj/item/implanter/gang
-	spawn_msg = "<span class='notice'>The <b>reprogramming implant</b> is a single use implant that will reprogram its target to be part of your gang. Not strong enough to break the latest NT mindshield implants, or reprogram Lieutenants.</span>"
+	spawn_msg = span_notice("The <b>reprogramming implant</b> is a single use implant that will reprogram its target to be part of your gang. Not strong enough to break the latest NT mindshield implants, or reprogram Lieutenants.")
 
 /datum/gang_item/essentials/implant_breaker/spawn_item(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	var/obj/item/O = new item_path(get_turf(user), gang)
@@ -77,7 +77,7 @@
 	if(gang)
 		item_type = /obj/item/device/gangtool/spare/lt
 		if(gang.leaders.len < MAX_LEADERS_GANG)
-			to_chat(user, "<span class='notice'><b>Gangtools</b> allow you to promote a gangster to be your Lieutenant, enabling them to recruit and purchase items like you. Simply have them register the gangtool. You may promote up to [MAX_LEADERS_GANG-gang.leaders.len] more Lieutenants.</span>")
+			to_chat(user, span_notice("<b>Gangtools</b> allow you to promote a gangster to be your Lieutenant, enabling them to recruit and purchase items like you. Simply have them register the gangtool. You may promote up to [MAX_LEADERS_GANG-gang.leaders.len] more Lieutenants."))
 	else
 		item_type = /obj/item/device/gangtool/spare
 	var/obj/item/device/gangtool/spare/tool = new item_type(user.loc)
@@ -97,7 +97,7 @@
 	id = "pen"
 	cost = 50
 	item_path = /obj/item/pen/gang
-	spawn_msg = "<span class='notice'>More <b>recruitment pens</b> will allow you to recruit gangsters faster. Only gang leaders can recruit with pens.</span>"
+	spawn_msg = span_notice("More <b>recruitment pens</b> will allow you to recruit gangsters faster. Only gang leaders can recruit with pens.")
 
 /datum/gang_item/essentials/pen/purchase(mob/living/carbon/user, datum/team/gang/gang, obj/item/device/gangtool/gangtool)
 	if(..())

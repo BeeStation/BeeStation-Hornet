@@ -12,7 +12,7 @@
 	var/obj/structure/slime_crystal/C = locate(/obj/structure/slime_crystal) in range(6,get_turf(user))
 
 	if(C)
-		to_chat(user,"<span class='notice'>You can't build crystals that close to each other!</span>")
+		to_chat(user,span_notice("You can't build crystals that close to each other!"))
 		return
 
 	var/user_turf = get_turf(user)

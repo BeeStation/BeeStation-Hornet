@@ -32,12 +32,12 @@
 /obj/structure/mecha_wreckage/examine(mob/user)
 	. = ..()
 	if(AI)
-		. += "<span class='notice'>The AI recovery beacon is active.</span>"
+		. += span_notice("The AI recovery beacon is active.")
 
 /obj/structure/mecha_wreckage/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WELDER)
 		if(salvage_num <= 0 || !length(welder_salvage))
-			to_chat(user, "<span class='warning'>You don't see anything that can be cut with [I]!</span>")
+			to_chat(user, span_warning("You don't see anything that can be cut with [I]!"))
 			return
 
 		if(!I.use_tool(src, user, 0, volume=50))
@@ -46,26 +46,26 @@
 		var/type = prob(70) ? pick(welder_salvage) : null
 		if(type)
 			var/N = new type(get_turf(user))
-			user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
+			user.visible_message("[user] cuts [N] from [src].", span_notice("You cut [N] from [src]."))
 			if(istype(N, /obj/item/mecha_parts/part))
 				welder_salvage -= type
 			salvage_num--
 		else
-			to_chat(user, "<span class='warning'>You fail to salvage anything valuable from [src]!</span>")
+			to_chat(user, span_warning("You fail to salvage anything valuable from [src]!"))
 		return
 
 	else if(I.tool_behaviour == TOOL_WIRECUTTER)
 		if(salvage_num <= 0)
-			to_chat(user, "<span class='warning'>You don't see anything that can be cut with [I]!</span>")
+			to_chat(user, span_warning("You don't see anything that can be cut with [I]!"))
 			return
 		else if(wirecutters_salvage && wirecutters_salvage.len)
 			var/type = prob(70) ? pick(wirecutters_salvage) : null
 			if(type)
 				var/N = new type(get_turf(user))
-				user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
+				user.visible_message("[user] cuts [N] from [src].", span_notice("You cut [N] from [src]."))
 				salvage_num--
 			else
-				to_chat(user, "<span class='warning'>You fail to salvage anything valuable from [src]!</span>")
+				to_chat(user, span_warning("You fail to salvage anything valuable from [src]!"))
 
 	else if(I.tool_behaviour == TOOL_CROWBAR)
 		if(crowbar_salvage?.len)
@@ -73,10 +73,10 @@
 			if(S)
 				S.forceMove(user.drop_location())
 				crowbar_salvage -= S
-				user.visible_message("[user] pries [S] from [src].", "<span class='notice'>You pry [S] from [src].</span>")
+				user.visible_message("[user] pries [S] from [src].", span_notice("You pry [S] from [src]."))
 			return
 		else
-			to_chat(user, "<span class='warning'>You don't see anything that can be pried with [I]!</span>")
+			to_chat(user, span_warning("You don't see anything that can be pried with [I]!"))
 
 
 /obj/structure/mecha_wreckage/transfer_ai(interaction, mob/user, null, obj/item/aicard/card)
@@ -86,7 +86,7 @@
  //Proc called on the wreck by the AI card.
 	if(interaction == AI_TRANS_TO_CARD) //AIs can only be transferred in one direction, from the wreck to the card.
 		if(!AI) //No AI in the wreck
-			to_chat(user, "<span class='warning'>No AI backups found.</span>")
+			to_chat(user, span_warning("No AI backups found."))
 			return
 		cut_overlays() //Remove the recovery beacon overlay
 		AI.forceMove(card) //Move the dead AI to the card.

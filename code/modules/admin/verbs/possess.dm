@@ -31,7 +31,7 @@
 	//usr.loc = get_turf(usr)
 	
 	if(isnull(usr.control_object))
-		to_chat(usr, "<span class='warning'>You do not seem to be possessing an object!</span>")
+		to_chat(usr, span_warning("You do not seem to be possessing an object!"))
 		return
 
 	if(usr.control_object && usr.name_archive) //if you have a name archived and if you are actually relassing an object

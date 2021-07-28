@@ -5,7 +5,7 @@
 	panel = "Mime"
 	summon_type = list(/obj/effect/forcefield/mime)
 	invocation_type = "emote"
-	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
+	invocation_emote_self = span_notice("You form a wall in front of yourself.")
 	summon_lifespan = 100
 	charge_max = 300
 	clothes_req = FALSE
@@ -21,7 +21,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
-			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
+			to_chat(usr, span_notice("You must dedicate yourself to silence first."))
 			return
 		invocation = "<B>[usr.real_name]</B> looks as if a wall is in front of [usr.p_them()]."
 	else
@@ -35,7 +35,7 @@
 	panel = "Mime"
 	summon_type = list(/obj/structure/chair/mime)
 	invocation_type = "emote"
-	invocation_emote_self = "<span class='notice'>You conjure an invisible chair and sit down.</span>"
+	invocation_emote_self = span_notice("You conjure an invisible chair and sit down.")
 	summon_lifespan = 250
 	charge_max = 300
 	clothes_req = FALSE
@@ -51,7 +51,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_chair/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
-			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
+			to_chat(usr, span_notice("You must dedicate yourself to silence first."))
 			return
 		invocation = "<B>[usr.real_name]</B> pulls out an invisible chair and sits down."
 	else
@@ -73,7 +73,7 @@
 	panel = "Mime"
 	summon_type = list(/obj/item/storage/box/mime)
 	invocation_type = "emote"
-	invocation_emote_self = "<span class='notice'>You conjure up an invisible box, large enough to store a few things.</span>"
+	invocation_emote_self = span_notice("You conjure up an invisible box, large enough to store a few things.")
 	summon_lifespan = 500
 	charge_max = 300
 	clothes_req = FALSE
@@ -97,7 +97,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_box/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
-			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
+			to_chat(usr, span_notice("You must dedicate yourself to silence first."))
 			return
 		invocation = "<B>[usr.real_name]</B> moves [usr.p_their()] hands in the shape of a cube, pressing a box out of the air."
 	else
@@ -128,20 +128,20 @@
 		return
 	var/mob/living/carbon/human/H = usr
 	if(H.mind.miming)
-		still_recharging_msg = "<span class='warning'>You can't break your vow of silence that fast!</span>"
+		still_recharging_msg = span_warning("You can't break your vow of silence that fast!")
 	else
-		still_recharging_msg = "<span class='warning'>You'll have to wait before you can give your vow of silence again!</span>"
+		still_recharging_msg = span_warning("You'll have to wait before you can give your vow of silence again!")
 	..()
 
 /obj/effect/proc_holder/spell/targeted/mime/speak/cast(list/targets,mob/user = usr)
 	for(var/mob/living/carbon/human/H in targets)
 		H.mind.miming=!H.mind.miming
 		if(H.mind.miming)
-			to_chat(H, "<span class='notice'>You make a vow of silence.</span>")
+			to_chat(H, span_notice("You make a vow of silence."))
 			SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "vow")
 		else
 			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "vow", /datum/mood_event/broken_vow)
-			to_chat(H, "<span class='notice'>You break your vow of silence.</span>")
+			to_chat(H, span_notice("You break your vow of silence."))
 
 // These spells can only be gotten from the "Guide for Advanced Mimery series" for Mime Traitors.
 
@@ -152,7 +152,7 @@
 	panel = "Mime"
 	wall_type = /obj/effect/forcefield/mime/advanced
 	invocation_type = "emote"
-	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
+	invocation_emote_self = span_notice("You form a blockade in front of yourself.")
 	charge_max = 600
 	sound =  null
 	clothes_req = FALSE
@@ -167,7 +167,7 @@
 /obj/effect/proc_holder/spell/targeted/forcewall/mime/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
-			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
+			to_chat(usr, span_notice("You must dedicate yourself to silence first."))
 			return
 		invocation = "<B>[usr.real_name]</B> looks as if a blockade is in front of [usr.p_them()]."
 	else
@@ -183,7 +183,7 @@
 	clothes_req = FALSE
 	antimagic_allowed = TRUE
 	invocation_type = "emote"
-	invocation_emote_self = "<span class='dangers'>You fire your finger gun!</span>"
+	invocation_emote_self = span_dangers("You fire your finger gun!")
 	range = 20
 	projectile_type = /obj/item/projectile/bullet/mime
 	projectile_amount = 3
@@ -201,11 +201,11 @@
 /obj/effect/proc_holder/spell/aimed/finger_guns/Click()
 	var/mob/living/carbon/human/owner = usr
 	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't properly point your fingers while incapacitated.</span>")
+		to_chat(owner, span_warning("You can't properly point your fingers while incapacitated."))
 		return
 	if(usr?.mind)
 		if(!usr.mind.miming)
-			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
+			to_chat(usr, span_notice("You must dedicate yourself to silence first."))
 			return
 		invocation = "<B>[usr.real_name]</B> fires [usr.p_their()] finger gun!"
 	else

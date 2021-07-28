@@ -96,7 +96,7 @@
 /mob/living/simple_animal/bot/atmosbot/emag_act(mob/user)
 	. = ..()
 	if(emagged == 2)
-		audible_message("<span class='danger'>[src] whirs ominously.</span>")
+		audible_message(span_danger("[src] whirs ominously."))
 		playsound(src, "sparks", 75, TRUE)
 
 /mob/living/simple_animal/bot/atmosbot/handle_automated_action()
@@ -339,7 +339,7 @@
 
 /mob/living/simple_animal/bot/atmosbot/explode()
 	on = FALSE
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	visible_message(span_boldannounce("[src] blows apart!"))
 
 	var/atom/Tsec = drop_location()
 

@@ -20,11 +20,11 @@
 	antag_moodlet = /datum/mood_event/determined
 
 /datum/antagonist/special/undercover/greet()
-	to_chat(owner, "<span class='userdanger'>You are an ex-security agent.</span>")
+	to_chat(owner, span_userdanger("You are an ex-security agent."))
 	to_chat(owner, "<b>Due to your loyality to nanotrasen in the past, you have been granted with a weapon permit.</b>")
 	to_chat(owner, "<b>Additionally nanotrasen has authorised you to have a disabler for personal defense.</b>")
 	to_chat(owner, "<b>You are not a member of security, and shouldn't hunt criminals, but may use your weapon for self defense.</b>")
-	to_chat(owner, "<span class='boldannounce'>Do NOT commit traitorous acts in persuit of your objectives.</span>")
+	to_chat(owner, span_boldannounce("Do NOT commit traitorous acts in persuit of your objectives."))
 
 /datum/antagonist/special/undercover/admin_add(datum/mind/new_owner, mob/admin)
 	. = ..()
@@ -69,7 +69,7 @@
 	H.equip_in_one_of_slots(T2, slots)
 	if (!where)
 		if(!H.put_in_hands(T))
-			to_chat(owner, "<span class='warning'>Your weapon has been placed on the floor.</span>")
+			to_chat(owner, span_warning("Your weapon has been placed on the floor."))
 
 	//Update ID
 	var/obj/item/card/id/ID = H.get_idcard()

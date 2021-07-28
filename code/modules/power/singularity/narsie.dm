@@ -30,7 +30,7 @@
 
 /obj/singularity/narsie/large/Initialize()
 	. = ..()
-	send_to_playing_players("<span class='narsie'>NAR'SIE HAS RISEN</span>")
+	send_to_playing_players(span_narsie("NAR'SIE HAS RISEN"))
 	sound_to_playing_players('sound/creatures/narsie_rises.ogg')
 
 	var/area/A = get_area(src)
@@ -111,7 +111,7 @@
 		if(get_dist(src, clashing) < 5)
 			if(next_attack_tick < world.time)
 				next_attack_tick = world.time + rand(50, 100)
-				to_chat(world, "<span class='danger'>[pick("You hear the scratching of cogs.","You hear the clanging of pipes.","You feel your bones start to rust...")]</span>")
+				to_chat(world, span_danger("[pick("You hear the scratching of cogs.","You hear the clanging of pipes.","You feel your bones start to rust...")]"))
 				SEND_SOUND(world, 'sound/magic/clockwork/narsie_attack.ogg')
 				SpinAnimation(4, 0)
 				for(var/mob/living/M in GLOB.player_list)
@@ -120,10 +120,10 @@
 				if(DT_PROB(max(SSticker.mode?.cult.len/2, 15), delta_time))
 					SEND_SOUND(world, 'sound/magic/clockwork/anima_fragment_death.ogg')
 					SEND_SOUND(world, 'sound/effects/explosionfar.ogg')
-					to_chat(world, "<span class='narsie'>You really thought you could best me twice?</span>")
+					to_chat(world, span_narsie("You really thought you could best me twice?"))
 					QDEL_NULL(clashing)
 					for(var/datum/mind/M as() in GLOB.servants_of_ratvar)
-						to_chat(M, "<span class='userdanger'>You feel a stabbing pain in your chest... This can't be happening!</span>")
+						to_chat(M, span_userdanger("You feel a stabbing pain in your chest... This can't be happening!"))
 						M.current?.dust()
 				return
 		move()
@@ -151,7 +151,7 @@
 	for(var/mob/living/carbon/M in hearers(consume_range, src))
 		if(M.stat || iscultist(M))
 			continue
-		to_chat(M, "<span class='cultsmall'>You feel conscious thought crumble away in an instant as you gaze upon [src.name].</span>")
+		to_chat(M, span_cultsmall("You feel conscious thought crumble away in an instant as you gaze upon [src.name]."))
 		M.apply_effect(60, EFFECT_STUN)
 
 
@@ -202,7 +202,7 @@
 /obj/singularity/narsie/proc/acquire(atom/food)
 	if(food == target)
 		return
-	to_chat(target, "<span class='cultsmall'>NAR'SIE HAS LOST INTEREST IN YOU.</span>")
+	to_chat(target, span_cultsmall("NAR'SIE HAS LOST INTEREST IN YOU."))
 	target = food
 	if(ishuman(target))
 		to_chat(target, "<span class ='cult'>NAR'SIE HUNGERS FOR YOUR SOUL.</span>")

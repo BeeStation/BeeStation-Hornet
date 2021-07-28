@@ -46,7 +46,7 @@
 	switch(A.stage)
 		if(3, 4)
 			if(replaceorgans)
-				to_chat(H, "<span class='warning'><b>[pick("You feel a grinding pain in your abdomen.", "You exhale a jet of steam.")]</span>")
+				to_chat(H, span_warning("<b>[pick("You feel a grinding pain in your abdomen.", "You exhale a jet of steam.")]"))
 		if(5)
 			if(replaceorgans || replacebody)
 				if(Replace(H))
@@ -69,7 +69,7 @@
 						organ.robust = TRUE //STOPS THAT GODDAMN CLANGING BECAUSE IT'S WELL OILED OR SOMETHING
 					organ.Insert(H, TRUE, FALSE)
 					ownermind.transfer_to(H)
-					to_chat(H, "<span class='userdanger'>Your head throbs with pain for a moment, and then goes numb.</span>")
+					to_chat(H, span_userdanger("Your head throbs with pain for a moment, and then goes numb."))
 					H.emote("scream")
 					H.grab_ghost()
 					return TRUE
@@ -77,7 +77,7 @@
 					var/obj/item/organ/stomach/clockwork/organ = new()
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40))
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your abdomen!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_EARS)
@@ -85,7 +85,7 @@
 					if(robustbits)
 						organ.damage_multiplier = 0.5
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='warning'>Your ears pop.</span>")
+					to_chat(H, span_warning("Your ears pop."))
 					return TRUE
 				if(ORGAN_SLOT_EYES)
 					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
@@ -93,7 +93,7 @@
 						organ.flash_protect = 1
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40))
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your eyeballs!"))
 						H.emote("scream")
 						H.grab_ghost()
 						return TRUE
@@ -101,7 +101,7 @@
 					var/obj/item/organ/stomach/clockwork/organ = new()
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40))
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your abdomen!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_EARS)
@@ -109,7 +109,7 @@
 					if(robustbits)
 						organ.damage_multiplier = 0.5
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='warning'>Your ears pop.</span>")
+					to_chat(H, span_warning("Your ears pop."))
 					return TRUE
 				if(ORGAN_SLOT_EYES)
 					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
@@ -117,7 +117,7 @@
 						organ.flash_protect = 1
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40))
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your eyeballs!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_LUNGS)
@@ -133,13 +133,13 @@
 						organ.gas_stimulation_min = 15
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40))
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your chest!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_HEART)
 					var/obj/item/organ/heart/clockwork/organ = new()
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your chest!</span>")
+					to_chat(H, span_userdanger("You feel a stabbing pain in your chest!"))
 					H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_LIVER)
@@ -148,7 +148,7 @@
 						organ.toxTolerance = 7
 					organ.Insert(H, TRUE, FALSE)
 					if(prob(40))
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
+						to_chat(H, span_userdanger("You feel a stabbing pain in your abdomen!"))
 						H.emote("scream")
 					return TRUE
 				if(ORGAN_SLOT_TONGUE)
@@ -169,7 +169,7 @@
 					if(robustbits)
 						organ.flight_level = WINGS_FLYING
 					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='warning'>Your wings feel stiff.</span>")
+					to_chat(H, span_warning("Your wings feel stiff."))
 					return TRUE
 	if(replacebody)
 		for(var/obj/item/bodypart/O in H.bodyparts)
@@ -185,7 +185,7 @@
 						B.brute_reduction = 3 //this is just below the amount that lets augs ignore space damage.
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s head shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your head feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s head shifts, and becomes metal before your very eyes"), "<span_class='userdanger'>Your head feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_CHEST)
@@ -194,7 +194,7 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_ARM)
@@ -203,7 +203,7 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_ARM)
@@ -212,7 +212,7 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_L_LEG)
@@ -221,7 +221,7 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 				if(BODY_ZONE_R_LEG)
@@ -230,7 +230,7 @@
 						B.brute_reduction = 3
 						B.burn_reduction = 2
 					B.replace_limb(H, TRUE)
-					H.visible_message("<span class='notice'>[H]'s [O] shifts, and becomes metal before your very eyes</span>", "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
+					H.visible_message(span_notice("[H]'s [O] shifts, and becomes metal before your very eyes"), "<span_class='userdanger'>Your [O] feels numb, and cold.</span>")
 					qdel(O)
 					return TRUE
 	return FALSE

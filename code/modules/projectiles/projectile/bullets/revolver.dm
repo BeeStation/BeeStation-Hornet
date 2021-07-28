@@ -101,10 +101,10 @@
 		if(M.job == "Mime")
 			var/defense = M.getarmor(CHEST, "bullet")
 			M.apply_damage(5, BRUTE, CHEST, defense)
-			M.visible_message("<span class='danger'>A bullet wound appears in [M]'s chest!</span>", \
-							"<span class='userdanger'>You get hit with a .38 bullet from a finger gun! Those hurt!...</span>")
+			M.visible_message(span_danger("A bullet wound appears in [M]'s chest!"), \
+							span_userdanger("You get hit with a .38 bullet from a finger gun! Those hurt!..."))
 		else
-			to_chat(M, "<span class='userdanger'>You get shot with the finger gun!</span>")
+			to_chat(M, span_userdanger("You get shot with the finger gun!"))
 
 // .357 (Syndie Revolver)
 

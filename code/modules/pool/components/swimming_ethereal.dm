@@ -1,6 +1,6 @@
 /datum/component/swimming/ethereal/enter_pool()
 	var/mob/living/L = parent
-	L.visible_message("<span class='warning'>Sparks of energy begin coursing around the pool!</span>")
+	L.visible_message(span_warning("Sparks of energy begin coursing around the pool!"))
 
 /datum/component/swimming/ethereal/process()
 	..()

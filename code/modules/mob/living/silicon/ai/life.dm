@@ -29,7 +29,7 @@
 		if(aiRestorePowerRoutine)
 			// Lost power
 			if (!battery)
-				to_chat(src, "<span class='warning'>Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable.</span>")
+				to_chat(src, span_warning("Your backup battery's output drops below usable levels. It takes only a moment longer for your systems to fail, corrupted and unusable."))
 				adjustOxyLoss(200)
 			else
 				battery --

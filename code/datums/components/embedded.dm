@@ -90,7 +90,7 @@
 	limb.embedded_objects |= weapon // on the inside... on the inside...
 	weapon.forceMove(victim)
 	RegisterSignal(weapon, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), .proc/weaponDeleted)
-	victim.visible_message("<span class='danger'>[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] [victim]'s [limb.name]!</span>", "<span class='userdanger'>[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] your [limb.name]!</span>")
+	victim.visible_message(span_danger("[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] [victim]'s [limb.name]!"), span_userdanger("[weapon] [harmful ? "embeds" : "sticks"] itself [harmful ? "in" : "to"] your [limb.name]!"))
 
 	if(harmful)
 		victim.throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
@@ -145,10 +145,10 @@
 		var/damage_to_deal = CLAMP(damage_wanted, 0, damage_left)
 		var/damage_as_stam = damage_wanted - damage_to_deal
 		if(!damage_to_deal)
-			to_chat(victim, "<span class='userdanger'>[weapon] embedded in your [limb.name] stings a little!</span>")
+			to_chat(victim, span_userdanger("[weapon] embedded in your [limb.name] stings a little!"))
 		else
 			limb.receive_damage(brute=damage_to_deal, stamina=(pain_stam_pct * damage) + damage_as_stam)
-			to_chat(victim, "<span class='userdanger'>[weapon] embedded in your [limb.name] hurts!</span>")
+			to_chat(victim, span_userdanger("[weapon] embedded in your [limb.name] hurts!"))
 
 	var/fallchance_current =  DT_PROB_RATE(fall_chance / 100, delta_time) * 100
 	if(prob(fallchance_current))
@@ -170,7 +170,7 @@
 	if(harmful && prob(chance))
 		var/damage = weapon.w_class * jostle_pain_mult
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
-		to_chat(victim, "<span class='userdanger'>[weapon] embedded in your [limb.name] jostles and stings!</span>")
+		to_chat(victim, span_userdanger("[weapon] embedded in your [limb.name] jostles and stings!"))
 
 
 /// Called when then item randomly falls out of a carbon. This handles the damage and descriptors, then calls safe_remove()
@@ -181,7 +181,7 @@
 		var/damage = weapon.w_class * remove_pain_mult
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage)
 
-	victim.visible_message("<span class='danger'>[weapon] falls [harmful ? "out" : "off"] of [victim.name]'s [limb.name]!</span>", "<span class='userdanger'>[weapon] falls [harmful ? "out" : "off"] of your [limb.name]!</span>")
+	victim.visible_message(span_danger("[weapon] falls [harmful ? "out" : "off"] of [victim.name]'s [limb.name]!"), span_userdanger("[weapon] falls [harmful ? "out" : "off"] of your [limb.name]!"))
 	safeRemove()
 
 /// Called when a carbon with an object embedded/stuck to them inspects themselves and clicks the appropriate link to begin ripping the item out. This handles the ripping attempt, descriptors, and dealing damage, then calls safe_remove()
@@ -197,7 +197,7 @@
 
 /// everything async that ripOut used to do
 /datum/component/embedded/proc/complete_rip_out(mob/living/carbon/victim, obj/item/I, obj/item/bodypart/limb, time_taken)
-	victim.visible_message("<span class='warning'>[victim] attempts to remove [weapon] from [victim.p_their()] [limb.name].</span>","<span class='notice'>You attempt to remove [weapon] from your [limb.name]... (It will take [DisplayTimeText(time_taken)].)</span>")
+	victim.visible_message(span_warning("[victim] attempts to remove [weapon] from [victim.p_their()] [limb.name]."),span_notice("You attempt to remove [weapon] from your [limb.name]... (It will take [DisplayTimeText(time_taken)].)"))
 
 	if(!do_after(victim, time_taken, target = victim))
 		return
@@ -210,7 +210,7 @@
 		limb.receive_damage(brute=(1-pain_stam_pct) * damage, stamina=pain_stam_pct * damage) //It hurts to rip it out, get surgery you dingus.
 		victim.emote("scream")
 
-	victim.visible_message("<span class='notice'>[victim] successfully rips [weapon] [harmful ? "out" : "off"] of [victim.p_their()] [limb.name]!</span>", "<span class='notice'>You successfully remove [weapon] from your [limb.name].</span>")
+	victim.visible_message(span_notice("[victim] successfully rips [weapon] [harmful ? "out" : "off"] of [victim.p_their()] [limb.name]!"), span_notice("You successfully remove [weapon] from your [limb.name]."))
 	safeRemove(victim)
 
 /// This proc handles the final step and actual removal of an embedded/stuck item from a carbon, whether or not it was actually removed safely.
@@ -235,7 +235,7 @@
 	SIGNAL_HANDLER
 
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 
 	if(istype(victim)) // check to see if the limb is actually exposed
@@ -244,7 +244,7 @@
 			return TRUE
 
 	if(weapon.w_class <= WEIGHT_CLASS_SMALL)
-		to_chat(user, "<span class='warning'>[weapon] embedding in \the [limb.name] of [parent] is too small to pull out with your bare hands!</span>")
+		to_chat(user, span_warning("[weapon] embedding in \the [limb.name] of [parent] is too small to pull out with your bare hands!"))
 		return
 
 	INVOKE_ASYNC(src, .proc/pluckOut, user, 1, 2, "pulling out")
@@ -265,12 +265,12 @@
 			remove_verb = "carefully removing"
 		if(TOOL_WIRECUTTER)
 			if(weapon.w_class >= WEIGHT_CLASS_NORMAL)
-				to_chat(user, "<span class='warning'>[weapon] is too large to extract with wirecutters!</span>")
+				to_chat(user, span_warning("[weapon] is too large to extract with wirecutters!"))
 				return
 			damage_multiplier = 0.5
 		if(TOOL_SCREWDRIVER)
 			if(weapon.w_class >= WEIGHT_CLASS_SMALL)
-				to_chat(user, "<span class='warning'>[weapon] is too large to dislodge with a screwdriver!</span>")
+				to_chat(user, span_warning("[weapon] is too large to dislodge with a screwdriver!"))
 				return
 			damage_multiplier = 0.8
 			remove_verb = "dislodging"
@@ -292,29 +292,29 @@
 	var/self_pluck = (user == victim)
 
 	if(self_pluck)
-		user.visible_message("<span class='danger'>[user] begins [remove_verb] [weapon] from [user.p_their()] [limb.name]</span>", "<span class='notice'>You start [remove_verb] [weapon] from your [limb.name]...</span>",\
+		user.visible_message(span_danger("[user] begins [remove_verb] [weapon] from [user.p_their()] [limb.name]"), span_notice("You start [remove_verb] [weapon] from your [limb.name]..."),\
 			vision_distance=COMBAT_MESSAGE_RANGE, ignored_mobs=victim)
 	else
-		user.visible_message("<span class='danger'>[user] begins [remove_verb] [weapon] from [victim]'s [limb.name]</span>","<span class='notice'>You start [remove_verb] [weapon] from [victim]'s [limb.name]...</span>", \
+		user.visible_message(span_danger("[user] begins [remove_verb] [weapon] from [victim]'s [limb.name]"),span_notice("You start [remove_verb] [weapon] from [victim]'s [limb.name]..."), \
 			vision_distance=COMBAT_MESSAGE_RANGE, ignored_mobs=victim)
-		to_chat(victim, "<span class='userdanger'>[user] begins [remove_verb] [weapon] from your [limb.name]...</span>")
+		to_chat(victim, span_userdanger("[user] begins [remove_verb] [weapon] from your [limb.name]..."))
 
 	//Pluck time
 	var/pluck_time = 4 SECONDS * weapon.w_class * time_multiplier
 	if(!do_after(user, pluck_time, target = victim))
 		if(self_pluck)
-			to_chat(user, "<span class='danger'>You fail to remove [weapon] from your [limb.name].</span>")
+			to_chat(user, span_danger("You fail to remove [weapon] from your [limb.name]."))
 		else
-			to_chat(user, "<span class='danger'>You fail to remove [weapon] from [victim]'s [limb.name].</span>")
-			to_chat(victim, "<span class='danger'>[user] fails to remove [weapon] from your [limb.name].</span>")
+			to_chat(user, span_danger("You fail to remove [weapon] from [victim]'s [limb.name]."))
+			to_chat(victim, span_danger("[user] fails to remove [weapon] from your [limb.name]."))
 		return
 
 	//Removed succesfully
 	if(self_pluck)
-		to_chat(user, "<span class='notice'>You successfully remove [weapon] from your [limb.name].</span>")
+		to_chat(user, span_notice("You successfully remove [weapon] from your [limb.name]."))
 	else
-		to_chat(user, "<span class='notice'>You successfully remove [weapon] from [victim]'s [limb.name].</span>")
-		to_chat(victim, "<span class='notice'>[user] remove [weapon] from your [limb.name].</span>")
+		to_chat(user, span_notice("You successfully remove [weapon] from [victim]'s [limb.name]."))
+		to_chat(victim, span_notice("[user] remove [weapon] from your [limb.name]."))
 
 	//Apply damage
 	if(harmful && damage_multiplier)
@@ -333,5 +333,5 @@
 	limb.embedded_objects -= weapon
 
 	if(victim)
-		to_chat(victim, "<span class='userdanger'>\The [weapon] that was embedded in your [limb.name] disappears!</span>")
+		to_chat(victim, span_userdanger("\The [weapon] that was embedded in your [limb.name] disappears!"))
 	qdel(src)

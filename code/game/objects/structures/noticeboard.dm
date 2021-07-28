@@ -26,16 +26,16 @@
 /obj/structure/noticeboard/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo))
 		if(!allowed(user))
-			to_chat(user, "<span class='info'>You are not authorized to add notices</span>")
+			to_chat(user, span_info("You are not authorized to add notices"))
 			return
 		if(notices < 5)
 			if(!user.transferItemToLoc(O, src))
 				return
 			notices++
 			icon_state = "nboard0[notices]"
-			to_chat(user, "<span class='notice'>You pin the [O] to the noticeboard.</span>")
+			to_chat(user, span_notice("You pin the [O] to the noticeboard."))
 		else
-			to_chat(user, "<span class='notice'>The notice board is full</span>")
+			to_chat(user, span_notice("The notice board is full"))
 	else
 		return ..()
 
@@ -77,7 +77,7 @@
 				add_fingerprint(usr)
 				P.attackby(I, usr)
 			else
-				to_chat(usr, "<span class='notice'>You'll need something to write with!</span>")
+				to_chat(usr, span_notice("You'll need something to write with!"))
 
 	if(href_list["read"])
 		var/obj/item/I = locate(href_list["read"]) in contents

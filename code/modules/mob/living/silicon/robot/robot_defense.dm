@@ -1,7 +1,7 @@
 /mob/living/silicon/robot/attackby(obj/item/I, mob/living/user)
 	if(I.slot_flags & ITEM_SLOT_HEAD && hat_offset != INFINITY && user.a_intent == INTENT_HELP && !is_type_in_typecache(I, blacklisted_hats))
-		to_chat(user, "<span class='notice'>You begin to place [I] on [src]'s head...</span>")
-		to_chat(src, "<span class='notice'>[user] is placing [I] on your head...</span>")
+		to_chat(user, span_notice("You begin to place [I] on [src]'s head..."))
+		to_chat(src, span_notice("[user] is placing [I] on your head..."))
 		if(do_after(user, 30, target = src))
 			if (user.temporarilyRemoveItemFromInventory(I, TRUE))
 				place_on_head(I)
@@ -17,15 +17,15 @@
 			var/obj/item/I = get_active_held_item()
 			if(I)
 				uneq_active()
-				visible_message("<span class='danger'>[M] disarmed [src]!</span>", \
-					"<span class='userdanger'>[M] has disabled [src]'s active module!</span>", null, COMBAT_MESSAGE_RANGE)
+				visible_message(span_danger("[M] disarmed [src]!"), \
+					span_userdanger("[M] has disabled [src]'s active module!"), null, COMBAT_MESSAGE_RANGE)
 				log_combat(M, src, "disarmed", "[I ? " removing \the [I]" : ""]")
 			else
 				Stun(40)
 				step(src,get_dir(M,src))
 				log_combat(M, src, "pushed")
-				visible_message("<span class='danger'>[M] has forced back [src]!</span>", \
-					"<span class='userdanger'>[M] has forced back [src]!</span>", null, COMBAT_MESSAGE_RANGE)
+				visible_message(span_danger("[M] has forced back [src]!"), \
+					span_userdanger("[M] has forced back [src]!"), null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, 'sound/weapons/pierce.ogg', 50, 1, -1)
 	else
 		..()
@@ -60,7 +60,7 @@
 			cell.update_icon()
 			cell.add_fingerprint(user)
 			user.put_in_active_hand(cell)
-			to_chat(user, "<span class='notice'>You remove \the [cell].</span>")
+			to_chat(user, span_notice("You remove \the [cell]."))
 			cell = null
 			update_icons()
 			diag_hud_set_borgcell()
@@ -94,30 +94,30 @@
 		return
 	if(!opened)//Cover is closed
 		if(locked)
-			to_chat(user, "<span class='notice'>You emag the cover lock.</span>")
+			to_chat(user, span_notice("You emag the cover lock."))
 			locked = FALSE
 			if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
-				to_chat(user, "<span class='boldwarning'>[src] seems to be controlled remotely! Emagging the interface may not work as expected.</span>")
+				to_chat(user, span_boldwarning("[src] seems to be controlled remotely! Emagging the interface may not work as expected."))
 		else
-			to_chat(user, "<span class='warning'>The cover is already unlocked!</span>")
+			to_chat(user, span_warning("The cover is already unlocked!"))
 		return
 	if(world.time < emag_cooldown)
 		return
 	if(wiresexposed)
-		to_chat(user, "<span class='warning'>You must unexpose the wires first!</span>")
+		to_chat(user, span_warning("You must unexpose the wires first!"))
 		return
 
-	to_chat(user, "<span class='notice'>You emag [src]'s interface.</span>")
+	to_chat(user, span_notice("You emag [src]'s interface."))
 	emag_cooldown = world.time + 100
 
 	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/traitor))
-		to_chat(src, "<span class='danger'>ALERT: Foreign software execution prevented.</span>")
-		to_chat(connected_ai, "<span class='danger'>ALERT: Cyborg unit \[[src]] successfully defended against subversion.</span>")
+		to_chat(src, span_danger("ALERT: Foreign software execution prevented."))
+		to_chat(connected_ai, span_danger("ALERT: Cyborg unit \[[src]\] successfully defended against subversion."))
 		log_game("[key_name(user)] attempted to emag cyborg [key_name(src)], but they were slaved to traitor AI [connected_ai].")
 		return
 
 	if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
-		to_chat(user, "<span class='danger'>[src] is remotely controlled! Your emag attempt has triggered a system reset instead!</span>")
+		to_chat(user, span_danger("[src] is remotely controlled! Your emag attempt has triggered a system reset instead!"))
 		log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
 		ResetModule()
 		return
@@ -130,20 +130,20 @@
 	log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) emagged [name]([key])")
-	to_chat(src, "<span class='danger'>ALERT: Foreign software detected.</span>")
+	to_chat(src, span_danger("ALERT: Foreign software detected."))
 	sleep(5)
-	to_chat(src, "<span class='danger'>Initiating diagnostics...</span>")
+	to_chat(src, span_danger("Initiating diagnostics..."))
 	sleep(20)
-	to_chat(src, "<span class='danger'>SynBorg v1.7 loaded.</span>")
+	to_chat(src, span_danger("SynBorg v1.7 loaded."))
 	sleep(5)
-	to_chat(src, "<span class='danger'>LAW SYNCHRONISATION ERROR</span>")
+	to_chat(src, span_danger("LAW SYNCHRONISATION ERROR"))
 	sleep(5)
-	to_chat(src, "<span class='danger'>Would you like to send a report to NanoTraSoft? Y/N</span>")
+	to_chat(src, span_danger("Would you like to send a report to NanoTraSoft? Y/N"))
 	sleep(10)
-	to_chat(src, "<span class='danger'>> N</span>")
+	to_chat(src, span_danger("> N"))
 	sleep(20)
-	to_chat(src, "<span class='danger'>ERRORERRORERROR</span>")
-	to_chat(src, "<span class='danger'>ALERT: [user.real_name] is your new master. Obey your new laws and [user.p_their()] commands.</span>")
+	to_chat(src, span_danger("ERRORERRORERROR"))
+	to_chat(src, span_danger("ALERT: [user.real_name] is your new master. Obey your new laws and [user.p_their()] commands."))
 	laws = new /datum/ai_laws/syndicate_override
 	set_zeroth_law("Only [user.real_name] and people [user.p_they()] designate[user.p_s()] as being such are Syndicate Agents.")
 	laws.associate(src)

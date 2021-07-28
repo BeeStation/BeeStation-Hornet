@@ -8,7 +8,7 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
     set category = "OOC"
 
     if(GLOB.say_disabled)    //This is here to try to identify lag problems
-        to_chat(usr, "<span class='danger'> Speech is currently admin-disabled.</span>")
+        to_chat(usr, span_danger(" Speech is currently admin-disabled."))
         return
 
     if(!mob)        return
@@ -21,22 +21,22 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
         return
 
     if(!(prefs.toggles & CHAT_OOC))
-        to_chat(src, "<span class='danger'>You have OOC (and therefore LOOC) muted.</span>")
+        to_chat(src, span_danger("You have OOC (and therefore LOOC) muted."))
         return
 
     if(is_banned_from(mob.ckey, "OOC"))
-        to_chat(src, "<span class='danger'>You have been banned from OOC and LOOC.</span>")
+        to_chat(src, span_danger("You have been banned from OOC and LOOC."))
         return
 
     if(!holder)
         if(!CONFIG_GET(flag/looc_enabled))
-            to_chat(src, "<span class='danger'>LOOC is disabled.</span>")
+            to_chat(src, span_danger("LOOC is disabled."))
             return
         if(!GLOB.dooc_allowed && (mob.stat == DEAD))
-            to_chat(usr, "<span class='danger'>LOOC for dead mobs has been turned off.</span>")
+            to_chat(usr, span_danger("LOOC for dead mobs has been turned off."))
             return
         if(prefs.muted & MUTE_OOC)
-            to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>")
+            to_chat(src, span_danger("You cannot use LOOC (muted)."))
             return
         if(handle_spam_prevention(msg,MUTE_OOC))
             return
@@ -45,14 +45,14 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
             log_admin("[key_name(src)] has attempted to advertise in LOOC: [msg]")
             return
         if(mob.stat)
-            to_chat(src, "<span class='danger'>You cannot salt in LOOC while unconscious or dead.</span>")
+            to_chat(src, span_danger("You cannot salt in LOOC while unconscious or dead."))
             return
         if(istype(mob, /mob/dead))
-            to_chat(src, "<span class='danger'>You cannot use LOOC while ghosting.</span>")
+            to_chat(src, span_danger("You cannot use LOOC while ghosting."))
             return
 
         if(OOC_FILTER_CHECK(raw_msg))
-            to_chat(src, "<span class='warning'>That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\"</span></span>")
+            to_chat(src, span_warning("That message contained a word prohibited in OOC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ooc_chat'>\"[raw_msg]\"</span>"))
             return
 
     msg = emoji_parse(msg)
@@ -78,14 +78,14 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
 //                        display_name = "[holder.fakekey]/([src.key])"
 //                else
 //                    display_name = holder.fakekey
-            to_chat(C,"<span class='looc'><span class='prefix'>LOOC:</span> <EM>[src.mob.name]:</EM> <span class='message'>[msg]</span></span>")
+            to_chat(C,span_looc("<span class='prefix'>LOOC:</span> <EM>[src.mob.name]:</EM> <span class='message'>[msg]</span>"))
 
     for(var/client/C in GLOB.admins)
         if(C.prefs.toggles & CHAT_OOC)
             var/prefix = "(R)LOOC"
             if (C.mob in heard)
                 prefix = "LOOC"
-            to_chat(C,"<span class='looc'>[ADMIN_FLW(usr)]<span class='prefix'>[prefix]:</span> <EM>[src.key]/[src.mob.name]:</EM> <span class='message'>[msg]</span></span>")
+            to_chat(C,span_looc("[ADMIN_FLW(usr)]<span class='prefix'>[prefix]:</span> <EM>[src.key]/[src.mob.name]:</EM> <span class='message'>[msg]</span>"))
 
 /proc/log_looc(text)
     if (CONFIG_GET(flag/log_ooc))

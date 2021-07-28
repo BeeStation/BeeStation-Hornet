@@ -132,13 +132,13 @@
 	if(!message || !can_use(user))
 		return
 	if(!is_station_level(user.z))
-		to_chat(user, "<span class='info'>[icon2html(src, user)]Error: Station out of range.</span>")
+		to_chat(user, span_info("[icon2html(src, user)]Error: Station out of range."))
 		return
 	if(gang.members.len)
 		var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
 		if(!G)
 			return
-		var/ping = "<span class='danger'><B><i>[gang.name] [G.message_name] [user.real_name]</i>: [message]</B></span>"
+		var/ping = span_danger("<B><i>[gang.name] [G.message_name] [user.real_name]</i>: [message]</B>")
 		for(var/datum/mind/ganger in gang.members)
 			if(ganger.current && is_station_level(ganger.current.z) && (ganger.current.stat == CONSCIOUS))
 				to_chat(ganger.current, ping)
@@ -162,23 +162,23 @@
 			to_chat(user, "The <b>Gangtool</b> you registered will allow you to purchase weapons and equipment, and send messages to your gang.")
 			to_chat(user, "Unlike regular gangsters, you may use <b>recruitment pens</b> to add recruits to your gang. Use them on unsuspecting crew members to recruit them. Don't forget to get your one free pen from the gangtool.")
 	else
-		to_chat(user, "<span class='warning'>ACCESS DENIED: Unauthorized user.</span>")
+		to_chat(user, span_warning("ACCESS DENIED: Unauthorized user."))
 
 /obj/item/device/gangtool/proc/recall(mob/user)
 	if(!recallchecks(user))
 		return
 	if(recalling)
-		to_chat(user, "<span class='warning'>Error: Recall already in progress.</span>")
+		to_chat(user, span_warning("Error: Recall already in progress."))
 		return
 	gang.message_gangtools("[user] is attempting to recall the emergency shuttle.")
 	recalling = TRUE
-	to_chat(user, "<span class='info'>[icon2html(src, loc)]Generating shuttle recall order with codes retrieved from last call signal...</span>")
+	to_chat(user, span_info("[icon2html(src, loc)]Generating shuttle recall order with codes retrieved from last call signal..."))
 	addtimer(CALLBACK(src, .proc/recall2, user), rand(100,300))
 
 /obj/item/device/gangtool/proc/recall2(mob/user)
 	if(!recallchecks(user))
 		return
-	to_chat(user, "<span class='info'>[icon2html(src, loc)]Shuttle recall order generated. Accessing station long-range communication arrays...</span>")
+	to_chat(user, span_info("[icon2html(src, loc)]Shuttle recall order generated. Accessing station long-range communication arrays..."))
 	addtimer(CALLBACK(src, .proc/recall3, user), rand(100,300))
 
 /obj/item/device/gangtool/proc/recall3(mob/user)
@@ -188,10 +188,10 @@
 	living_crew = get_living_station_crew()
 	var/malc = CONFIG_GET(number/midround_antag_life_check)
 	if(living_crew.len / GLOB.joined_player_list.len <= malc) //Shuttle cannot be recalled if too many people died
-		to_chat(user, "<span class='warning'>[icon2html(src, user)]Error: Station communication systems compromised. Unable to establish connection.</span>")
+		to_chat(user, span_warning("[icon2html(src, user)]Error: Station communication systems compromised. Unable to establish connection."))
 		recalling = FALSE
 		return
-	to_chat(user, "<span class='info'>[icon2html(src, loc)]Comm arrays accessed. Broadcasting recall signal...</span>")
+	to_chat(user, span_info("[icon2html(src, loc)]Comm arrays accessed. Broadcasting recall signal..."))
 	addtimer(CALLBACK(src, .proc/recallfinal, user), rand(100,300))
 
 /obj/item/device/gangtool/proc/recallfinal(mob/user)
@@ -204,7 +204,7 @@
 		gang.recalls--
 		return TRUE
 
-	to_chat(user, "<span class='info'>[icon2html(src, loc)]No response received. Emergency shuttle cannot be recalled at this time.</span>")
+	to_chat(user, span_info("[icon2html(src, loc)]No response received. Emergency shuttle cannot be recalled at this time."))
 	return
 
 /obj/item/device/gangtool/proc/recallchecks(mob/user)
@@ -213,14 +213,14 @@
 	if(SSshuttle.emergencyNoRecall)
 		return
 	if(!gang.recalls)
-		to_chat(user, "<span class='warning'>Error: Unable to access communication arrays. Firewall has logged our signature and is blocking all further attempts.</span>")
+		to_chat(user, span_warning("Error: Unable to access communication arrays. Firewall has logged our signature and is blocking all further attempts."))
 		return
 	if(SSshuttle.emergency.mode != SHUTTLE_CALL) //Shuttle can only be recalled when it's moving to the station
-		to_chat(user, "<span class='warning'>[icon2html(src, user)]Emergency shuttle cannot be recalled at this time.</span>")
+		to_chat(user, span_warning("[icon2html(src, user)]Emergency shuttle cannot be recalled at this time."))
 		recalling = FALSE
 		return
 	if(!is_station_level(user.z)) //Shuttle can only be recalled while on station
-		to_chat(user, "<span class='warning'>[icon2html(src, user)]Error: Device out of range of station communication arrays.</span>")
+		to_chat(user, span_warning("[icon2html(src, user)]Error: Device out of range of station communication arrays."))
 		recalling = FALSE
 		return
 	return TRUE
@@ -236,13 +236,13 @@
 		return
 	var/datum/antagonist/gang/G = user.mind.has_antag_datum(/datum/antagonist/gang)
 	if(!G)
-		to_chat(user, "<span class='notice'>Huh, what's this?</span>")
+		to_chat(user, span_notice("Huh, what's this?"))
 		return
 	if(!isnull(gang) && G.gang != gang)
-		to_chat(user, "<span class='danger'>You cannot use gang tools owned by enemy gangs!</span>")
+		to_chat(user, span_danger("You cannot use gang tools owned by enemy gangs!"))
 		return
 	else if(!G.gang.check_gangster_swag(user)>1)
-		to_chat(user, "<span class='danger'>You cannot use gang tools while undercover!</span>")
+		to_chat(user, span_danger("You cannot use gang tools while undercover!"))
 		return
 	return TRUE
 

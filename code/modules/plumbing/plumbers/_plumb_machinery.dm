@@ -30,13 +30,13 @@
 
 /obj/machinery/plumbing/proc/can_be_rotated(mob/user, rotation_type)
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] is fastened to the floor!</span>")
+		to_chat(user, span_warning("[src] is fastened to the floor!"))
 		return FALSE
 	return TRUE
 
 /obj/machinery/plumbing/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The maximum volume display reads: <b>[reagents.maximum_volume] units</b>.</span>"
+	. += span_notice("The maximum volume display reads: <b>[reagents.maximum_volume] units</b>.")
 
 /obj/machinery/plumbing/wrench_act(mob/living/user, obj/item/I)
 	..()

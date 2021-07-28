@@ -50,7 +50,7 @@
 
 	//Locked behind permissions since it needs serious protection.
 	if(!check_rights(R_DEBUG) || !check_rights(R_SERVER) || !check_rights(R_PERMISSIONS))
-		to_chat(src, "<span class='warning'>Insufficient rights (Requires debug, server and permissions).</span>")
+		to_chat(src, span_warning("Insufficient rights (Requires debug, server and permissions)."))
 		return
 
 	var/json_settings = input(usr, "Enter map json name:", "Map Json Name", "") as text|null
@@ -61,7 +61,7 @@
 	var/datum/map_config/config = new
 	if(!config.LoadConfig("_maps/[json_settings].json", TRUE))
 		qdel(config)
-		to_chat(usr, "<span class='warning'>Map json failed to load!</span>")
+		to_chat(usr, span_warning("Map json failed to load!"))
 		return
 	SSticker.maprotatechecked = 1
 	message_admins("[key_name_admin(usr)] is changing the map to [config.map_name]")

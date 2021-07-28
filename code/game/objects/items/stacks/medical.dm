@@ -24,11 +24,11 @@
 			t_him = "him"
 		else if(M.gender == FEMALE)
 			t_him = "her"
-		to_chat(user, "<span class='danger'>\The [M] is dead, you cannot help [t_him]!</span>")
+		to_chat(user, span_danger("\The [M] is dead, you cannot help [t_him]!"))
 		return
 
 	if(!iscarbon(M) && !isanimal(M))
-		to_chat(user, "<span class='danger'>You don't know how to apply \the [src] to [M]!</span>")
+		to_chat(user, span_danger("You don't know how to apply \the [src] to [M]!"))
 		return 1
 
 	var/obj/item/bodypart/affecting
@@ -36,16 +36,16 @@
 		var/mob/living/carbon/C = M
 		affecting = C.get_bodypart(check_zone(user.zone_selected))
 		if(!affecting) //Missing limb?
-			to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(user.zone_selected)]!</span>")
+			to_chat(user, span_warning("[C] doesn't have \a [parse_zone(user.zone_selected)]!"))
 			return
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
 			if(stop_bleeding)
 				if(H.bleedsuppress)
-					to_chat(user, "<span class='warning'>[H]'s bleeding is already bandaged!</span>")
+					to_chat(user, span_warning("[H]'s bleeding is already bandaged!"))
 					return
 				else if(!H.bleed_rate)
-					to_chat(user, "<span class='warning'>[H] isn't bleeding!</span>")
+					to_chat(user, span_warning("[H] isn't bleeding!"))
 					return
 
 
@@ -58,32 +58,32 @@
 			if (isanimal(M))
 				var/mob/living/simple_animal/critter = M
 				if (!(critter.healable))
-					to_chat(user, "<span class='notice'> You cannot use [src] on [M]!</span>")
+					to_chat(user, span_notice(" You cannot use [src] on [M]!"))
 					return
 				else if (critter.health == critter.maxHealth)
-					to_chat(user, "<span class='notice'> [M] is at full health.</span>")
+					to_chat(user, span_notice(" [M] is at full health."))
 					return
 				else if(src.heal_brute < 1)
-					to_chat(user, "<span class='notice'> [src] won't help [M] at all.</span>")
+					to_chat(user, span_notice(" [src] won't help [M] at all."))
 					return
-			user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
+			user.visible_message(span_green("[user] applies [src] on [M]."), span_green("You apply [src] on [M]."))
 		else
 			var/t_himself = "itself"
 			if(user.gender == MALE)
 				t_himself = "himself"
 			else if(user.gender == FEMALE)
 				t_himself = "herself"
-			user.visible_message("<span class='notice'>[user] starts to apply [src] on [t_himself]...</span>", "<span class='notice'>You begin applying [src] on yourself...</span>")
+			user.visible_message(span_notice("[user] starts to apply [src] on [t_himself]..."), span_notice("You begin applying [src] on yourself..."))
 			if(!do_mob(user, M, self_delay, extra_checks=CALLBACK(M, /mob/living/proc/can_inject, user, TRUE)))
 				return
-			user.visible_message("<span class='green'>[user] applies [src] on [t_himself].</span>", "<span class='green'>You apply [src] on yourself.</span>")
+			user.visible_message(span_green("[user] applies [src] on [t_himself]."), span_green("You apply [src] on yourself."))
 
 
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		affecting = C.get_bodypart(check_zone(user.zone_selected))
 		if(!affecting) //Missing limb?
-			to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(user.zone_selected)]!</span>")
+			to_chat(user, span_warning("[C] doesn't have \a [parse_zone(user.zone_selected)]!"))
 			return
 		if(ishuman(C))
 			var/mob/living/carbon/human/H = C
@@ -94,7 +94,7 @@
 			if(affecting.heal_damage(heal_brute, heal_burn))
 				C.update_damage_overlays()
 		else
-			to_chat(user, "<span class='notice'>Medicine won't work on a robotic limb!</span>")
+			to_chat(user, span_notice("Medicine won't work on a robotic limb!"))
 	else
 		M.heal_bodypart_damage((src.heal_brute/2), (src.heal_burn/2))
 
@@ -115,7 +115,7 @@
 	amount = 1
 
 /obj/item/stack/medical/bruise_pack/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is bludgeoning [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is bludgeoning [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return (BRUTELOSS)
 
 /obj/item/stack/medical/gauze
@@ -132,18 +132,18 @@
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WIRECUTTER || I.is_sharp())
 		if(get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
+			to_chat(user, span_warning("You need at least two gauzes to do this!"))
 			return
 		new /obj/item/stack/sheet/cotton/cloth(user.drop_location())
 		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
-					 "<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
-					 "<span class='italics'>You hear cutting.</span>")
+					 span_notice("You cut [src] into pieces of cloth with [I]."), \
+					 span_italics("You hear cutting."))
 		use(2)
 	else
 		return ..()
 
 /obj/item/stack/medical/gauze/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] begins tightening \the [src] around [user.p_their()] neck! It looks like [user.p_they()] forgot how to use medical supplies!</span>")
+	user.visible_message(span_suicide("[user] begins tightening \the [src] around [user.p_their()] neck! It looks like [user.p_they()] forgot how to use medical supplies!"))
 	return OXYLOSS
 
 /obj/item/stack/medical/gauze/improvised
@@ -183,5 +183,5 @@
 	amount = 1
 
 /obj/item/stack/medical/ointment/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is squeezing \the [src] into [user.p_their()] mouth! [user.p_do(TRUE)]n't [user.p_they()] know that stuff is toxic?</span>")
+	user.visible_message(span_suicide("[user] is squeezing \the [src] into [user.p_their()] mouth! [user.p_do(TRUE)]n't [user.p_they()] know that stuff is toxic?"))
 	return TOXLOSS

@@ -55,14 +55,14 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(istype(O, /obj/item/paper))
 		var/obj/item/paper/paperaffected = O
 		paperaffected.clearpaper()
-		to_chat(usr, "<span class='notice'>[paperaffected]'s ink washes away.</span>")
+		to_chat(usr, span_notice("[paperaffected]'s ink washes away."))
 	if(istype(O, /obj/item/book))
 		if(reac_volume >= 5)
 			var/obj/item/book/affectedbook = O
 			affectedbook.dat = null
-			O.visible_message("<span class='notice'>[O]'s writing is washed away by [name]!</span>")
+			O.visible_message(span_notice("[O]'s writing is washed away by [name]!"))
 		else
-			O.visible_message("<span class='warning'>[O]'s ink is smeared by [name], but doesn't wash away!</span>")
+			O.visible_message(span_warning("[O]'s ink is smeared by [name], but doesn't wash away!"))
 	return
 
 /datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=TOUCH, reac_volume)//Splashing people with ethanol isn't quite as good as fuel.
@@ -194,7 +194,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	return ..()
 
 /datum/reagent/consumable/ethanol/thirteenloko/overdose_start(mob/living/M)
-	to_chat(M, "<span class='userdanger'>Your entire body violently jitters as you start to feel queasy. You really shouldn't have drank all of that [name]!</span>")
+	to_chat(M, span_userdanger("Your entire body violently jitters as you start to feel queasy. You really shouldn't have drank all of that [name]!"))
 	M.Jitter(20)
 	M.Stun(15)
 
@@ -207,7 +207,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			M.Jitter(10)
 
 	if(prob(7))
-		to_chat(M, "<span class='notice'>[pick("You have a really bad headache.", "Your eyes hurt.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")]</span>")
+		to_chat(M, span_notice("[pick("You have a really bad headache.", "Your eyes hurt.", "You find it hard to stay still.", "You feel your heart practically beating out of your chest.")]"))
 
 	if(prob(5) && iscarbon(M))
 		var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
@@ -215,23 +215,23 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			if(istype(eyes))
 				eyes.Remove(M)
 				eyes.forceMove(get_turf(M))
-				to_chat(M, "<span class='userdanger'>You double over in pain as you feel your eyeballs liquify in your head!</span>")
+				to_chat(M, span_userdanger("You double over in pain as you feel your eyeballs liquify in your head!"))
 				M.emote("scream")
 				M.adjustBruteLoss(15)
 		else
-			to_chat(M, "<span class='userdanger'>You scream in terror as you go blind!</span>")
+			to_chat(M, span_userdanger("You scream in terror as you go blind!"))
 			eyes.applyOrganDamage(eyes.maxHealth)
 			M.emote("scream")
 
 	if(prob(3) && iscarbon(M))
-		M.visible_message("<span class='danger'>[M] starts having a seizure!</span>", "<span class='userdanger'>You have a seizure!</span>")
+		M.visible_message(span_danger("[M] starts having a seizure!"), span_userdanger("You have a seizure!"))
 		M.Unconscious(100)
 		M.Jitter(350)
 
 	if(prob(1) && iscarbon(M))
 		var/datum/disease/D = new /datum/disease/heart_failure
 		M.ForceContractDisease(D)
-		to_chat(M, "<span class='userdanger'>You're pretty sure you just felt your heart stop for a second there..</span>")
+		to_chat(M, span_userdanger("You're pretty sure you just felt your heart stop for a second there.."))
 		M.playsound_local(M, 'sound/effects/singlebeat.ogg', 100, 0)
 
 /datum/reagent/consumable/ethanol/vodka
@@ -573,12 +573,12 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/brave_bull/on_mob_metabolize(mob/living/M)
 	tough_text = pick("brawny", "tenacious", "tough", "hardy", "sturdy") //Tuff stuff
-	to_chat(M, "<span class='notice'>You feel [tough_text]!</span>")
+	to_chat(M, span_notice("You feel [tough_text]!"))
 	M.maxHealth += 10 //Brave Bull makes you sturdier, and thus capable of withstanding a tiny bit more punishment.
 	M.health += 10
 
 /datum/reagent/consumable/ethanol/brave_bull/on_mob_end_metabolize(mob/living/M)
-	to_chat(M, "<span class='notice'>You no longer feel [tough_text].</span>")
+	to_chat(M, span_notice("You no longer feel [tough_text]."))
 	M.maxHealth -= 10
 	M.health = min(M.health - 10, M.maxHealth) //This can indeed crit you if you're alive solely based on alchol ingestion
 
@@ -595,7 +595,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	var/obj/effect/light_holder
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_metabolize(mob/living/M)
-	to_chat(M, "<span class='notice'>You feel gentle warmth spread through your body!</span>")
+	to_chat(M, span_notice("You feel gentle warmth spread through your body!"))
 	light_holder = new(M)
 	light_holder.set_light(3, 0.7, "#FFCC00") //Tequila Sunrise makes you radiate dim light, like a sunrise!
 
@@ -607,7 +607,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	return ..()
 
 /datum/reagent/consumable/ethanol/tequila_sunrise/on_mob_end_metabolize(mob/living/M)
-	to_chat(M, "<span class='notice'>The warmth in your body fades.</span>")
+	to_chat(M, span_notice("The warmth in your body fades."))
 	QDEL_NULL(light_holder)
 
 /datum/reagent/consumable/ethanol/toxins_special
@@ -699,7 +699,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.dna.check_mutation(DWARFISM) || HAS_TRAIT(H, TRAIT_ALCOHOL_TOLERANCE))
-			to_chat(H, "<span class='notice'>Now THAT is MANLY!</span>")
+			to_chat(H, span_notice("Now THAT is MANLY!"))
 			boozepwr = 5 //We've had worse in the mines
 			dorf_mode = TRUE
 
@@ -1328,7 +1328,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(prob(20))
 		M.adjustStaminaLoss(10)
 		M.drop_all_held_items()
-		to_chat(M, "<span class='notice'>You cant feel your hands!</span>")
+		to_chat(M, span_notice("You cant feel your hands!"))
 	if(current_cycle > 5)
 		if(prob(20))
 			var/t = pickt()
@@ -1340,7 +1340,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 				if(!M.undergoing_cardiac_arrest() && M.can_heartattack())
 					M.set_heartattack(TRUE)
 					if(M.stat == CONSCIOUS)
-						M.visible_message("<span class='userdanger'>[M] clutches at [M.p_their()] chest as if [M.p_their()] heart stopped!</span>")
+						M.visible_message(span_userdanger("[M] clutches at [M.p_their()] chest as if [M.p_their()] heart stopped!"))
 	. = 1
 	..()
 
@@ -1546,9 +1546,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		L.adjustToxLoss(-1)
 		L.adjustOxyLoss(-1)
 		L.adjustStaminaLoss(-1)
-	L.visible_message("<span class='warning'>[L] shivers with renewed vigor!</span>", "<span class='notice'>One taste of [lowertext(name)] fills you with energy!</span>")
+	L.visible_message(span_warning("[L] shivers with renewed vigor!"), span_notice("One taste of [lowertext(name)] fills you with energy!"))
 	if(!L.stat && heal_points == 20) //brought us out of softcrit
-		L.visible_message("<span class='danger'>[L] lurches to [L.p_their()] feet!</span>", "<span class='boldnotice'>Up and at 'em, kid.</span>")
+		L.visible_message(span_danger("[L] lurches to [L.p_their()] feet!"), span_boldnotice("Up and at 'em, kid."))
 
 /datum/reagent/consumable/ethanol/bastion_bourbon/on_mob_life(mob/living/L)
 	if(L.health > 0)
@@ -1664,7 +1664,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		for(var/obj/item/shield/theshield in thehuman.contents)
 			mighty_shield = theshield
 			mighty_shield.block_power += 15
-			to_chat(thehuman, "<span class='notice'>[theshield] appears polished, although you don't recall polishing it.</span>")
+			to_chat(thehuman, span_notice("[theshield] appears polished, although you don't recall polishing it."))
 			return TRUE
 
 /datum/reagent/consumable/ethanol/alexander/on_mob_life(mob/living/L)
@@ -1675,7 +1675,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 /datum/reagent/consumable/ethanol/alexander/on_mob_end_metabolize(mob/living/L)
 	if(mighty_shield)
 		mighty_shield.block_power -= 15
-		to_chat(L,"<span class='notice'>You notice [mighty_shield] looks worn again. Weird.</span>")
+		to_chat(L,span_notice("You notice [mighty_shield] looks worn again. Weird."))
 	..()
 
 /datum/reagent/consumable/ethanol/sidecar
@@ -2027,7 +2027,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/turbo/on_mob_life(mob/living/carbon/M)
 	if(prob(4))
-		to_chat(M, "<span class='notice'>[pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")]</span>")
+		to_chat(M, span_notice("[pick("You feel disregard for the rule of law.", "You feel pumped!", "Your head is pounding.", "Your thoughts are racing..")]"))
 	M.adjustStaminaLoss(-M.drunkenness * 0.25)
 	return ..()
 
@@ -2058,7 +2058,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 						N.update_hair()
 
 				if(N.age > 969) //Best not let people get older than this or i might incur G-ds wrath
-					M.visible_message("<span class='notice'>[M] becomes older than any man should be.. and crumbles into dust!</span>")
+					M.visible_message(span_notice("[M] becomes older than any man should be.. and crumbles into dust!"))
 					M.dust(0,1,0)
 
 	return ..()
@@ -2170,7 +2170,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A favorite of the grey tide. Ironically, not recommended to stand in plasma while drinking this."
 
 /datum/reagent/consumable/ethanol/plasmaflood/on_mob_metabolize(mob/living/L)
-	to_chat(L, "<span class='notice'>You feel immune to the fire!</span>")
+	to_chat(L, span_notice("You feel immune to the fire!"))
 	. = ..()
 
 /datum/reagent/consumable/ethanol/plasmaflood/on_mob_life(mob/living/M)
@@ -2185,7 +2185,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	..()
 
 /datum/reagent/consumable/ethanol/plasmaflood/on_mob_end_metabolize(mob/living/L)
-	to_chat(L, "<span class='warning'>You no longer feel immune to burning!</span>")
+	to_chat(L, span_warning("You no longer feel immune to burning!"))
 	. = ..()
 
 /datum/reagent/consumable/ethanol/fourthwall
@@ -2206,7 +2206,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_metabolize(mob/living/carbon/M)
 	trauma_list = list()
-	to_chat(M, "<span class='warning'>Your mind breaks, as you realize your reality is just some comupter game.</span>")
+	to_chat(M, span_warning("Your mind breaks, as you realize your reality is just some comupter game."))
 	var/datum/brain_trauma/trauma = traumaweightpick(60,40,0)
 	trauma = new trauma()
 	trauma_list += trauma
@@ -2219,13 +2219,13 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(prob(5) && current_cycle > 10)
 		switch(current_cycle) //The longer they're on this stuff, the higher the chance for worse brain trauma
 			if(10 to 50)
-				to_chat(M, "<span class='warning'>Your mind cracks.</span>")
+				to_chat(M, span_warning("Your mind cracks."))
 				OD_trauma = traumaweightpick(50,40,10)
 			if(50 to 100)
-				to_chat(M, "<span class='warning'>Your mind splinters.</span>")
+				to_chat(M, span_warning("Your mind splinters."))
 				OD_trauma = traumaweightpick(30,50,20)
 			if(100 to INFINITY)
-				to_chat(M, "<span class='warning'>Your mind shatters.</span>")
+				to_chat(M, span_warning("Your mind shatters."))
 				OD_trauma = traumaweightpick(20,50,30)
 		OD_trauma = new OD_trauma()
 		trauma_list += OD_trauma
@@ -2233,7 +2233,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	..()
 
 /datum/reagent/consumable/ethanol/fourthwall/on_mob_end_metabolize(mob/living/carbon/M)
-	to_chat(M, "<span class='notice'>You know that you figured out something important, but can't quite remember what it is. Your head feels a lot better.</span>")
+	to_chat(M, span_notice("You know that you figured out something important, but can't quite remember what it is. Your head feels a lot better."))
 	for(var/T in trauma_list)
 		QDEL_NULL(T)
 	return ..()
@@ -2292,7 +2292,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	..()
 
 /datum/reagent/consumable/ethanol/sarsaparilliansunset/overdose_start(mob/living/M)
-	to_chat(M, "<span class='warning'>You feel a heat from your abdomen, burning you from the inside!</span>")
+	to_chat(M, span_warning("You feel a heat from your abdomen, burning you from the inside!"))
 	power = new power()
 	M.AddSpell(power)
 	. = ..()
@@ -2302,7 +2302,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	. = ..()
 
 /datum/reagent/consumable/ethanol/sarsaparilliansunset/on_mob_end_metabolize(mob/living/M)
-	to_chat(M, "<span class='notice'>The fire inside of you calms down.</span>")
+	to_chat(M, span_notice("The fire inside of you calms down."))
 	M.RemoveSpell(power)
 	return ..()
 
@@ -2328,10 +2328,10 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 /datum/reagent/consumable/ethanol/beesknees/on_mob_metabolize(mob/living/M)
 	if(is_species(M, /datum/species/apid))
-		to_chat(M, "<span class='notice'>What a good drink! Reminds you of the honey back home.</span>")
+		to_chat(M, span_notice("What a good drink! Reminds you of the honey back home."))
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_fantastic)
 	else
-		to_chat(M, "<span class='warning'>That drink was way too sweet! You feel sick.</span>")
+		to_chat(M, span_warning("That drink was way too sweet! You feel sick."))
 		M.adjust_disgust(10)
 		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
@@ -2355,7 +2355,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 
 /datum/reagent/consumable/beeffizz/on_mob_metabolize(mob/living/M)
-	to_chat(M, "<span class='warning'>That drink was way too beefy! You feel sick.</span>")
+	to_chat(M, span_warning("That drink was way too beefy! You feel sick."))
 	M.adjust_disgust(30)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()

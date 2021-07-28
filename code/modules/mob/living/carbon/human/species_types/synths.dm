@@ -54,7 +54,7 @@
 	if(H.health <= 0 && H.stat != DEAD) // So they die eventually instead of being stuck in crit limbo, due to not taking OXY damage.
 		H.adjustFireLoss(6)
 		if(prob(5))
-			to_chat(H, "<span class='warning'>Warning: Critical damage sustained. Full unit shutdown imminent.</span>")
+			to_chat(H, span_warning("Warning: Critical damage sustained. Full unit shutdown imminent."))
 
 /datum/species/synth/proc/assume_disguise(datum/species/S, mob/living/carbon/human/H)
 	if(S && !istype(S, type))
@@ -145,7 +145,7 @@
 
 /datum/species/synth/spec_revival(mob/living/carbon/human/H)
 	H.grab_ghost()
-	H.visible_message("<span class='notice'>[H]'s eyes snap open!</span>", "<span class ='boldwarning'>You can feel your limbs responding again!</span>")
+	H.visible_message(span_notice("[H]'s eyes snap open!"), "<span class ='boldwarning'>You can feel your limbs responding again!</span>")
 
 /datum/species/synth/proc/handle_snowflake_code(mob/living/carbon/human/H, datum/species/S) //I LITERALLY FUCKING HATE ALL OF YOU. I HATE THE FACT THIS NEEDS TO EXIST.
 	switch(S.id)

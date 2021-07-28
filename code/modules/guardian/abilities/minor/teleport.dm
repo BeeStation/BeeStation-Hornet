@@ -47,8 +47,8 @@
 	remove_ranged_ability()
 
 	to_chat(G, "<span class='danger'><B>You begin to warp [A].</span></B>")
-	A.visible_message("<span class='danger'>[A] starts to glow faintly!</span>", \
-	"<span class='userdanger'>You start to faintly glow, and you feel strangely weightless!</span>")
+	A.visible_message(span_danger("[A] starts to glow faintly!"), \
+	span_userdanger("You start to faintly glow, and you feel strangely weightless!"))
 	G.do_attack_animation(A)
 
 	if(!do_mob(G, A, 60)) //now start the channel
@@ -59,8 +59,8 @@
 	if(isliving(A))
 		var/mob/living/L = A
 		L.flash_act()
-	A.visible_message("<span class='danger'>[A] disappears in a flash of light!</span>", \
-	"<span class='userdanger'>Your vision is obscured by a flash of light!</span>")
+	A.visible_message(span_danger("[A] disappears in a flash of light!"), \
+	span_userdanger("Your vision is obscured by a flash of light!"))
 	do_teleport(A, G.beacon, 0, channel = TELEPORT_CHANNEL_BLUESPACE)
 	new /obj/effect/temp_visual/guardian/phase(get_turf(A))
 

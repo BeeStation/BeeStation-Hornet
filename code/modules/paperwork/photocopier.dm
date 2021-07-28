@@ -113,7 +113,7 @@
 			for(var/i = 0, i < copies, i++)
 				var/icon/temp_img
 				if(ishuman(ass) && (ass.get_item_by_slot(ITEM_SLOT_ICLOTHING) || ass.get_item_by_slot(ITEM_SLOT_OCLOTHING)))
-					to_chat(usr, "<span class='notice'>You feel kind of silly, copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "[ass.p_their()]"] clothes on.</span>" )
+					to_chat(usr, span_notice("You feel kind of silly, copying [ass == usr ? "your" : ass][ass == usr ? "" : "\'s"] ass with [ass == usr ? "your" : "[ass.p_their()]"] clothes on.") )
 					break
 				else if(toner >= 5 && !busy && check_ass()) //You have to be sitting on the copier and either be a xeno or a human without clothes on.
 					if(isalienadult(ass) || istype(ass, /mob/living/simple_animal/hostile/alien)) //Xenos have their own asses, thanks to Pybro.
@@ -149,7 +149,7 @@
 			remove_photocopy(doccopy, usr)
 			doccopy = null
 		else if(check_ass())
-			to_chat(ass, "<span class='notice'>You feel a slight pressure on your ass.</span>")
+			to_chat(ass, span_notice("You feel a slight pressure on your ass."))
 		updateUsrDialog()
 	else if(href_list["min"])
 		if(copies > 1)
@@ -165,7 +165,7 @@
 		if(toner >= 5 && !busy)
 			var/mob/living/silicon/ai/tempAI = usr
 			if(tempAI.aicamera.stored.len == 0)
-				to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
+				to_chat(usr, span_boldannounce("No images saved."))
 				return
 			var/datum/picture/selection = tempAI.aicamera.selectpicture(usr)
 			var/obj/item/photo/photo = new(loc, selection)
@@ -195,7 +195,7 @@
 		user.put_in_hands(O)
 	else
 		O.forceMove(drop_location())
-	to_chat(user, "<span class='notice'>You take [O] out of [src].</span>")
+	to_chat(user, span_notice("You take [O] out of [src]."))
 
 /obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
 	if(default_unfasten_wrench(user, O))
@@ -204,7 +204,7 @@
 	else if(istype(O, /obj/item/paper))
 		if(copier_empty())
 			if(istype(O, /obj/item/paper/contract/infernal))
-				to_chat(user, "<span class='warning'>[src] smokes, smelling of brimstone!</span>")
+				to_chat(user, span_warning("[src] smokes, smelling of brimstone!"))
 				resistance_flags |= FLAMMABLE
 				fire_act()
 			else
@@ -213,7 +213,7 @@
 				copy = O
 				do_insertion(O, user)
 		else
-			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+			to_chat(user, span_warning("There is already something in [src]!"))
 
 	else if(istype(O, /obj/item/photo))
 		if(copier_empty())
@@ -222,7 +222,7 @@
 			photocopy = O
 			do_insertion(O, user)
 		else
-			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+			to_chat(user, span_warning("There is already something in [src]!"))
 
 	else if(istype(O, /obj/item/documents))
 		if(copier_empty())
@@ -231,7 +231,7 @@
 			doccopy = O
 			do_insertion(O, user)
 		else
-			to_chat(user, "<span class='warning'>There is already something in [src]!</span>")
+			to_chat(user, span_warning("There is already something in [src]!"))
 
 	else if(istype(O, /obj/item/toner))
 		if(toner <= 0)
@@ -239,13 +239,13 @@
 				return
 			qdel(O)
 			toner = 40
-			to_chat(user, "<span class='notice'>You insert [O] into [src].</span>")
+			to_chat(user, span_notice("You insert [O] into [src]."))
 			updateUsrDialog()
 		else
-			to_chat(user, "<span class='warning'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
+			to_chat(user, span_warning("This cartridge is not yet ready for replacement! Use up the rest of the toner."))
 
 	else if(istype(O, /obj/item/areaeditor/blueprints))
-		to_chat(user, "<span class='warning'>The Blueprint is too large to put into the copier. You need to find something else to record the document.</span>")
+		to_chat(user, span_warning("The Blueprint is too large to put into the copier. You need to find something else to record the document."))
 	else
 		return ..()
 
@@ -261,30 +261,30 @@
 		return
 	src.add_fingerprint(user)
 	if(target == user)
-		user.visible_message("[user] starts climbing onto the photocopier!", "<span class='notice'>You start climbing onto the photocopier...</span>")
+		user.visible_message("[user] starts climbing onto the photocopier!", span_notice("You start climbing onto the photocopier..."))
 	else
-		user.visible_message("<span class='warning'>[user] starts putting [target] onto the photocopier!</span>", "<span class='notice'>You start putting [target] onto the photocopier...</span>")
+		user.visible_message(span_warning("[user] starts putting [target] onto the photocopier!"), span_notice("You start putting [target] onto the photocopier..."))
 
 	if(do_after(user, 20, target = src))
 		if(!target || QDELETED(target) || QDELETED(src) || !Adjacent(target)) //check if the photocopier/target still exists.
 			return
 
 		if(target == user)
-			user.visible_message("[user] climbs onto the photocopier!", "<span class='notice'>You climb onto the photocopier.</span>")
+			user.visible_message("[user] climbs onto the photocopier!", span_notice("You climb onto the photocopier."))
 		else
-			user.visible_message("<span class='warning'>[user] puts [target] onto the photocopier!</span>", "<span class='notice'>You put [target] onto the photocopier.</span>")
+			user.visible_message(span_warning("[user] puts [target] onto the photocopier!"), span_notice("You put [target] onto the photocopier."))
 
 		target.forceMove(drop_location())
 		ass = target
 
 		if(photocopy)
 			photocopy.forceMove(drop_location())
-			visible_message("<span class='warning'>[photocopy] is shoved out of the way by [ass]!</span>")
+			visible_message(span_warning("[photocopy] is shoved out of the way by [ass]!"))
 			photocopy = null
 
 		else if(copy)
 			copy.forceMove(drop_location())
-			visible_message("<span class='warning'>[copy] is shoved out of the way by [ass]!</span>")
+			visible_message(span_warning("[copy] is shoved out of the way by [ass]!"))
 			copy = null
 	updateUsrDialog()
 

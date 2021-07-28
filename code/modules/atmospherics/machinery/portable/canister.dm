@@ -56,7 +56,7 @@
 
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
 	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Error - Unauthorized User</span>")
+		to_chat(user, span_warning("Error - Unauthorized User"))
 		playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 		return
 	..()
@@ -293,11 +293,11 @@
 	if(stat & BROKEN)
 		if(!I.tool_start_check(user, amount=0))
 			return TRUE
-		to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
+		to_chat(user, span_notice("You begin cutting [src] apart..."))
 		if(I.use_tool(src, user, 30, volume=50))
 			deconstruct(TRUE)
 	else
-		to_chat(user, "<span class='notice'>You cannot slice [src] apart when it isn't broken.</span>")
+		to_chat(user, span_notice("You cannot slice [src] apart when it isn't broken."))
 
 	return TRUE
 

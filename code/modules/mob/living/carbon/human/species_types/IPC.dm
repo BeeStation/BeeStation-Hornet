@@ -117,49 +117,49 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/stomach/cell/cell = locate(/obj/item/organ/stomach/cell) in H.internal_organs
 	if(!cell)
-		to_chat(H, "<span class='warning'>You try to siphon energy from the [A], but your power cell is gone!</span>")
+		to_chat(H, span_warning("You try to siphon energy from the [A], but your power cell is gone!"))
 		return
 
 	if(A.cell && A.cell.charge > 0)
 		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
-			to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+			to_chat(user, span_warning("You are already fully charged!"))
 			return
 		else
 			powerdraw_loop(A, H)
 			return
 
-	to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
+	to_chat(user, span_warning("There is no charge to draw from that APC."))
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
-	H.visible_message("<span class='notice'>[H] inserts a power connector into the [A].</span>", "<span class='notice'>You begin to draw power from the [A].</span>")
+	H.visible_message(span_notice("[H] inserts a power connector into the [A]."), span_notice("You begin to draw power from the [A]."))
 	while(do_after(H, 10, target = A))
 		if(loc != H)
-			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
+			to_chat(H, span_warning("You must keep your connector out while charging!"))
 			break
 		if(A.cell.charge == 0)
-			to_chat(H, "<span class='warning'>The [A] doesn't have enough charge to spare.</span>")
+			to_chat(H, span_warning("The [A] doesn't have enough charge to spare."))
 			break
 		A.charging = 1
 		if(A.cell.charge >= 500)
 			H.nutrition += 50
 			A.cell.charge -= 250
-			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
+			to_chat(H, span_notice("You siphon off some of the stored charge for your own use."))
 		else
 			H.nutrition += A.cell.charge/10
 			A.cell.charge = 0
-			to_chat(H, "<span class='notice'>You siphon off as much as the [A] can spare.</span>")
+			to_chat(H, span_notice("You siphon off as much as the [A] can spare."))
 			break
 		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
-			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+			to_chat(H, span_notice("You are now fully charged."))
 			break
-	H.visible_message("<span class='notice'>[H] unplugs from the [A].</span>", "<span class='notice'>You unplug from the [A].</span>")
+	H.visible_message(span_notice("[H] unplugs from the [A]."), span_notice("You unplug from the [A]."))
 
 /datum/species/ipc/spec_life(mob/living/carbon/human/H)
 	. = ..()
 	if(H.health <= UNCONSCIOUS && H.stat != DEAD) // So they die eventually instead of being stuck in crit limbo.
 		H.adjustFireLoss(6) // After bodypart_robotic resistance this is ~2/second
 		if(prob(5))
-			to_chat(H, "<span class='warning'>Alert: Internal temperature regulation systems offline; thermal damage sustained. Shutdown imminent.</span>")
+			to_chat(H, span_warning("Alert: Internal temperature regulation systems offline; thermal damage sustained. Shutdown imminent."))
 			H.visible_message("[H]'s cooling system fans stutter and stall. There is a faint, yet rapid beeping coming from inside their chassis.")
 
 /datum/species/ipc/spec_revival(mob/living/carbon/human/H)

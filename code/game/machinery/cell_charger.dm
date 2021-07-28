@@ -28,31 +28,31 @@
 	if(charging)
 		. += "Current charge: [round(charging.percent(), 1)]%."
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Charging power: <b>[charge_rate]W</b>.</span>"
+		. += span_notice("The status display reads: Charging power: <b>[charge_rate]W</b>.")
 
 /obj/machinery/cell_charger/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell) && !panel_open)
 		if(stat & BROKEN)
-			to_chat(user, "<span class='warning'>[src] is broken!</span>")
+			to_chat(user, span_warning("[src] is broken!"))
 			return
 		if(!anchored)
-			to_chat(user, "<span class='warning'>[src] isn't attached to the ground!</span>")
+			to_chat(user, span_warning("[src] isn't attached to the ground!"))
 			return
 		if(charging)
-			to_chat(user, "<span class='warning'>There is already a cell in the charger!</span>")
+			to_chat(user, span_warning("There is already a cell in the charger!"))
 			return
 		else
 			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
 			if(!isarea(a))
 				return
 			if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
-				to_chat(user, "<span class='warning'>[src] blinks red as you try to insert the cell!</span>")
+				to_chat(user, span_warning("[src] blinks red as you try to insert the cell!"))
 				return
 			if(!user.transferItemToLoc(W,src))
 				return
 
 			charging = W
-			user.visible_message("[user] inserts a cell into [src].", "<span class='notice'>You insert a cell into [src].</span>")
+			user.visible_message("[user] inserts a cell into [src].", span_notice("You insert a cell into [src]."))
 			chargelevel = -1
 			update_icon()
 	else
@@ -89,7 +89,7 @@
 	user.put_in_hands(charging)
 	charging.add_fingerprint(user)
 
-	user.visible_message("[user] removes [charging] from [src].", "<span class='notice'>You remove [charging] from [src].</span>")
+	user.visible_message("[user] removes [charging] from [src].", span_notice("You remove [charging] from [src]."))
 
 	removecell()
 
@@ -98,7 +98,7 @@
 		return
 
 	charging.forceMove(loc)
-	to_chat(user, "<span class='notice'>You telekinetically remove [charging] from [src].</span>")
+	to_chat(user, span_notice("You telekinetically remove [charging] from [src]."))
 
 	removecell()
 

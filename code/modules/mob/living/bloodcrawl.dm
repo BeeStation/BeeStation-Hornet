@@ -29,7 +29,7 @@
 			//TODO make it toggleable to either forcedrop the items, or deny
 			//entry when holding them
 			// literally only an option for carbons though
-			to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
+			to_chat(C, span_warning("You may not hold items while blood crawling!"))
 			return 0
 		var/obj/item/bloodcrawl/B1 = new(C)
 		var/obj/item/bloodcrawl/B2 = new(C)
@@ -47,7 +47,7 @@
 /mob/living/proc/bloodpool_sink(obj/effect/decal/cleanable/B)
 	var/turf/mobloc = get_turf(src.loc)
 
-	src.visible_message("<span class='warning'>[src] sinks into the pool of blood!</span>")
+	src.visible_message(span_warning("[src] sinks into the pool of blood!"))
 	playsound(get_turf(src), 'sound/magic/enter_blood.ogg', 50, 1, -1)
 	// Extinguish, unbuckle, stop being pulled, set our location into the
 	// dummy object
@@ -73,23 +73,23 @@
 	var/kidnapped = FALSE
 
 	if(victim.stat == CONSCIOUS)
-		src.visible_message("<span class='warning'>[victim] kicks free of the blood pool just before entering it!</span>", null, "<span class='notice'>You hear splashing and struggling.</span>")
+		src.visible_message(span_warning("[victim] kicks free of the blood pool just before entering it!"), null, span_notice("You hear splashing and struggling."))
 	else if(victim.reagents && victim.reagents.has_reagent(/datum/reagent/consumable/ethanol/demonsblood, needs_metabolizing = TRUE))
-		visible_message("<span class='warning'>Something prevents [victim] from entering the pool!</span>", "<span class='warning'>A strange force is blocking [victim] from entering!</span>", "<span class='notice'>You hear a splash and a thud.</span>")
+		visible_message(span_warning("Something prevents [victim] from entering the pool!"), span_warning("A strange force is blocking [victim] from entering!"), span_notice("You hear a splash and a thud."))
 	else
 		victim.forceMove(src)
 		victim.emote("scream")
-		src.visible_message("<span class='warning'><b>[src] drags [victim] into the pool of blood!</b></span>", null, "<span class='notice'>You hear a splash.</span>")
+		src.visible_message(span_warning("<b>[src] drags [victim] into the pool of blood!</b>"), null, span_notice("You hear a splash."))
 		kidnapped = TRUE
 
 	if(kidnapped)
 		var/success = bloodcrawl_consume(victim)
 		if(!success)
-			to_chat(src, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
+			to_chat(src, span_danger("You happily devour... nothing? Your meal vanished at some point!"))
 	return 1
 
 /mob/living/proc/bloodcrawl_consume(mob/living/victim)
-	to_chat(src, "<span class='danger'>You begin to feast on [victim]. You can not move while you are doing this.</span>")
+	to_chat(src, span_danger("You begin to feast on [victim]. You can not move while you are doing this."))
 
 	var/sound
 	if(istype(src, /mob/living/simple_animal/slaughter))
@@ -106,24 +106,24 @@
 		return FALSE
 
 	if(victim.reagents && victim.reagents.has_reagent(/datum/reagent/consumable/ethanol/devilskiss, needs_metabolizing = TRUE))
-		to_chat(src, "<span class='warning'><b>AAH! THEIR FLESH! IT BURNS!</b></span>")
+		to_chat(src, span_warning("<b>AAH! THEIR FLESH! IT BURNS!</b>"))
 		adjustBruteLoss(25) //I can't use adjustHealth() here because bloodcrawl affects /mob/living and adjustHealth() only affects simple mobs
 		var/found_bloodpool = FALSE
 		for(var/obj/effect/decal/cleanable/target in range(1,get_turf(victim)))
 			if(target.can_bloodcrawl_in())
 				victim.forceMove(get_turf(target))
-				victim.visible_message("<span class='warning'>[target] violently expels [victim]!</span>")
+				victim.visible_message(span_warning("[target] violently expels [victim]!"))
 				victim.exit_blood_effect(target)
 				found_bloodpool = TRUE
 
 		if(!found_bloodpool)
 			// Fuck it, just eject them, thanks to some split second cleaning
 			victim.forceMove(get_turf(victim))
-			victim.visible_message("<span class='warning'>[victim] appears from nowhere, covered in blood!</span>")
+			victim.visible_message(span_warning("[victim] appears from nowhere, covered in blood!"))
 			victim.exit_blood_effect()
 		return TRUE
 
-	to_chat(src, "<span class='danger'>You devour [victim]. Your health is fully restored.</span>")
+	to_chat(src, span_danger("You devour [victim]. Your health is fully restored."))
 	src.revive(full_heal = 1)
 
 	// No defib possible after laughter
@@ -157,16 +157,16 @@
 
 /mob/living/proc/phasein(obj/effect/decal/cleanable/B)
 	if(src.notransform)
-		to_chat(src, "<span class='warning'>Finish eating first!</span>")
+		to_chat(src, span_warning("Finish eating first!"))
 		return 0
-	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
+	B.visible_message(span_warning("[B] starts to bubble..."))
 	if(!do_after(src, 20, target = B))
 		return
 	if(!B)
 		return
 	forceMove(B.loc)
 	src.client.eye = src
-	src.visible_message("<span class='warning'><B>[src] rises out of the pool of blood!</B></span>")
+	src.visible_message(span_warning("<B>[src] rises out of the pool of blood!</B>"))
 	exit_blood_effect(B)
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src

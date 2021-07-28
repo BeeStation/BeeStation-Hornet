@@ -33,7 +33,7 @@
 /obj/effect/decal/cleanable/food/salt/Crossed(mob/living/L)
 	if(is_species(L, /datum/species/snail) || is_species(L, /datum/species/squid))
 		L.adjustFireLoss(10, TRUE)
-		to_chat(L, "<span class='danger'>The salt! It burns!</span>")
+		to_chat(L, span_danger("The salt! It burns!"))
 
 /obj/effect/decal/cleanable/food/flour
 	name = "flour"

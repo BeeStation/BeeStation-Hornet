@@ -3,7 +3,7 @@
 	desc = "A large cog lying on the floor at feet level."
 	clockwork_desc = "A large cog lying on the floor at feet level."
 	anchored = FALSE
-	break_message = "<span class='warning'>Oh, that broke. I guess you could report it to the coders, or just you know ignore this message and get on with killing those god damn heretics coming to break the Ark.</span>"
+	break_message = span_warning("Oh, that broke. I guess you could report it to the coders, or just you know ignore this message and get on with killing those god damn heretics coming to break the Ark.")
 	var/default_icon_state = "gear_base"
 	var/unwrenched_suffix = "_unwrenched"
 	var/list/transmission_sigils
@@ -24,9 +24,9 @@
 
 /obj/structure/destructible/clockwork/gear_base/attackby(obj/item/I, mob/user, params)
 	if(is_servant_of_ratvar(user) && I.tool_behaviour == TOOL_WRENCH)
-		to_chat(user, "<span class='notice'>You begin to [anchored ? "unwrench" : "wrench"] [src].</span>")
+		to_chat(user, span_notice("You begin to [anchored ? "unwrench" : "wrench"] [src]."))
 		if(I.use_tool(src, user, 20, volume=50))
-			to_chat(user, "<span class='notice'>You successfully [anchored ? "unwrench" : "wrench"] [src].</span>")
+			to_chat(user, span_notice("You successfully [anchored ? "unwrench" : "wrench"] [src]."))
 			setAnchored(!anchored)
 			update_icon_state()
 		return TRUE

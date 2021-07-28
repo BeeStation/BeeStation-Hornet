@@ -4,7 +4,8 @@
 //Simply lists them.
 /datum/team/xeno/roundend_report()
 	var/list/parts = list()
-	parts += "<span class='header'>The [name] [SSshuttle.emergency.is_hijacked_by_xenos() ? "were <span class='greentext'>successful</span>" : "have <span class='redtext'>failed</span>"] in hijacking the shuttle!</span>\n"
+	parts += span_header("The [name] [SSshuttle.emergency.is_hijacked_by_xenos() ? "were [span_greentext("successful")]" : "have [span_redtext("failed")]"] in hijacking the shuttle!")
+	parts += ""
 	parts += "The [name] were:"
 	parts += printplayerlist(members)
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"

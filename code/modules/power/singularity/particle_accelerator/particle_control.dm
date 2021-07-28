@@ -263,7 +263,7 @@
 
 /obj/machinery/particle_accelerator/control_box/proc/is_interactive(mob/user)
 	if(!interface_control)
-		to_chat(user, "<span class='alert'>ERROR: Request timed out. Check wire contacts.</span>")
+		to_chat(user, span_alert("ERROR: Request timed out. Check wire contacts."))
 		return FALSE
 	if(construction_state != PA_CONSTRUCTION_COMPLETE)
 		return FALSE

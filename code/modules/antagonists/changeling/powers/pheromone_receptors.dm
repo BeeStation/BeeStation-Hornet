@@ -14,7 +14,7 @@
 /datum/action/changeling/pheromone_receptors/on_purchase(mob/user)
 	.=..()
 	var/mob/living/carbon/C = user
-	to_chat(user, "<span class='warning'>We search for the scent of any nearby changelings.</span>")
+	to_chat(user, span_warning("We search for the scent of any nearby changelings."))
 	C.apply_status_effect(/datum/status_effect/agent_pinpointer/changeling)
 
 /datum/action/changeling/pheromone_receptors/Remove(mob/user)

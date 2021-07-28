@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 	if(message_living && !issilicon(M))
 		totalmessage += message_living
 	totalmessage += "!"
-	to_chat(M, "<span class='userdanger'>[totalmessage]</span>")
+	to_chat(M, span_userdanger("[totalmessage]"))
 
 /datum/blobstrain/proc/core_process()
 	if(resource_delay <= world.time)

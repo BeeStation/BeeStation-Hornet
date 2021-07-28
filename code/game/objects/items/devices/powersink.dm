@@ -66,26 +66,26 @@
 			if(isturf(T) && !T.intact)
 				attached = locate() in T
 				if(!attached)
-					to_chat(user, "<span class='warning'>\The [src] must be placed over an exposed, powered cable node!</span>")
+					to_chat(user, span_warning("\The [src] must be placed over an exposed, powered cable node!"))
 				else
 					set_mode(CLAMPED_OFF)
 					user.visible_message( \
 						"[user] attaches \the [src] to the cable.", \
-						"<span class='notice'>You bolt \the [src] into the floor and connect it to the cable.</span>",
-						"<span class='italics'>You hear some wires being connected to something.</span>")
+						span_notice("You bolt \the [src] into the floor and connect it to the cable."),
+						span_italics("You hear some wires being connected to something."))
 			else
-				to_chat(user, "<span class='warning'>\The [src] must be placed over an exposed, powered cable node!</span>")
+				to_chat(user, span_warning("\The [src] must be placed over an exposed, powered cable node!"))
 		else
 			set_mode(DISCONNECTED)
 			user.visible_message( \
 				"[user] detaches \the [src] from the cable.", \
-				"<span class='notice'>You unbolt \the [src] from the floor and detach it from the cable.</span>",
-				"<span class='italics'>You hear some wires being disconnected from something.</span>")
+				span_notice("You unbolt \the [src] from the floor and detach it from the cable."),
+				span_italics("You hear some wires being disconnected from something."))
 
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		user.visible_message( \
 			"[user] messes with \the [src] for a bit.", \
-			"<span class='notice'>You can't fit the screwdriver into \the [src]'s bolts! Try using a wrench.</span>")
+			span_notice("You can't fit the screwdriver into \the [src]'s bolts! Try using a wrench."))
 	else
 		return ..()
 
@@ -106,8 +106,8 @@
 		if(CLAMPED_OFF)
 			user.visible_message( \
 				"[user] activates \the [src]!", \
-				"<span class='notice'>You activate \the [src].</span>",
-				"<span class='italics'>You hear a click.</span>")
+				span_notice("You activate \the [src]."),
+				span_italics("You hear a click."))
 			message_admins("Power sink activated by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(src)]")
 			log_game("Power sink activated by [key_name(user)] at [AREACOORD(src)]")
 			set_mode(OPERATING)
@@ -115,8 +115,8 @@
 		if(OPERATING)
 			user.visible_message( \
 				"[user] deactivates \the [src]!", \
-				"<span class='notice'>You deactivate \the [src].</span>",
-				"<span class='italics'>You hear a click.</span>")
+				span_notice("You deactivate \the [src]."),
+				span_italics("You hear a click."))
 			set_mode(CLAMPED_OFF)
 
 /obj/item/powersink/process()

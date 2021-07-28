@@ -30,10 +30,10 @@
 		var/turf/open/T = guardian.summoner.current.loc
 		T.air?.parse_gas_string("o2=22;n2=82;TEMP=293.15")
 		for(var/obj/effect/particle_effect/smoke/S in T)
-			S.visible_message("<span class='danger'>\The [S] is dispersed into a million tiny particles!</span>")
+			S.visible_message(span_danger("\The [S] is dispersed into a million tiny particles!"))
 			qdel(S)
 		for(var/obj/effect/particle_effect/foam/F in T)
-			F.visible_message("<span class='danger'>\The [F] is dispersed into a million tiny particles!</span>")
+			F.visible_message(span_danger("\The [F] is dispersed into a million tiny particles!"))
 			qdel(F)
 
 /datum/guardian_ability/major/special/onewayroad/proc/update_status()
@@ -56,7 +56,7 @@
 		P.firer = src
 		P.original = oldfirer
 		P.setAngle(Get_Angle(src, oldfirer))
-		visible_message("<span class='danger'>The air around [src] diverts \the [P] back towards [oldfirer]!</span>")
+		visible_message(span_danger("The air around [src] diverts \the [P] back towards [oldfirer]!"))
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
 
@@ -106,19 +106,19 @@
 		P.firer = src
 		P.original = oldfirer
 		P.setAngle(Get_Angle(src, oldfirer))
-		visible_message("<span class='danger'>The air around [src] diverts \the [P] back towards [oldfirer]!</span>")
+		visible_message(span_danger("The air around [src] diverts \the [P] back towards [oldfirer]!"))
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target, origin)
 	if(HAS_TRAIT(src, TRAIT_ONEWAYROAD))
-		visible_message("<span class='danger'>The air around [src] diverts the explosion!</span>")
+		visible_message(span_danger("The air around [src] diverts the explosion!"))
 		return
 	return ..()
 
 /mob/living/carbon/human/ex_act(severity, target, origin)
 	if(HAS_TRAIT(src, TRAIT_ONEWAYROAD))
-		visible_message("<span class='danger'>The air around [src] diverts the explosion!</span>")
+		visible_message(span_danger("The air around [src] diverts the explosion!"))
 		return
 	return ..()
 
@@ -129,14 +129,14 @@
 
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(HAS_TRAIT(src, TRAIT_ONEWAYROAD))
-		visible_message("<span class='danger'>The air around [src] diverts \the [AM] back towards [throwingdatum.thrower]!</span>")
+		visible_message(span_danger("The air around [src] diverts \the [AM] back towards [throwingdatum.thrower]!"))
 		AM.throw_at(throwingdatum.thrower, throwingdatum.maxrange * 2, throwingdatum.speed * 2, src, TRUE)
 		return
 	return ..()
 
 /mob/living/simple_animal/hostile/guardian/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(HAS_TRAIT(src, TRAIT_ONEWAYROAD))
-		visible_message("<span class='danger'>The air around [src] diverts \the [AM] back towards [throwingdatum.thrower]!</span>")
+		visible_message(span_danger("The air around [src] diverts \the [AM] back towards [throwingdatum.thrower]!"))
 		AM.throw_at(throwingdatum.thrower, throwingdatum.maxrange * 2, throwingdatum.speed * 2, src, TRUE)
 		return
 	return ..()

@@ -46,7 +46,7 @@
 		T.density = TRUE
 		T.layer = OBJ_LAYER + 0.01
 		handle_density()
-		to_chat(user, "<span class='notice'>You slide the target into the stake.</span>")
+		to_chat(user, span_notice("You slide the target into the stake."))
 
 /obj/structure/target_stake/attack_hand(mob/user)
 	. = ..()
@@ -64,10 +64,10 @@
 	if(ishuman(user))
 		if(!user.get_active_held_item())
 			user.put_in_hands(pinned_target)
-			to_chat(user, "<span class='notice'>You take the target out of the stake.</span>")
+			to_chat(user, span_notice("You take the target out of the stake."))
 	else
 		pinned_target.forceMove(user.drop_location())
-		to_chat(user, "<span class='notice'>You take the target out of the stake.</span>")
+		to_chat(user, span_notice("You take the target out of the stake."))
 
 /obj/structure/target_stake/bullet_act(obj/item/projectile/P)
 	if(pinned_target)

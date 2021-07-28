@@ -49,4 +49,4 @@
 
 /datum/antagonist/teratoma/hugbox/greet()
 	..()
-	to_chat(owner, "<span class='userdanger'>Avoid killing unprovoked, kill only in self defense!</span>")
+	to_chat(owner, span_userdanger("Avoid killing unprovoked, kill only in self defense!"))

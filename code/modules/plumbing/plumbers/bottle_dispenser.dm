@@ -16,7 +16,7 @@
 
 /obj/machinery/plumbing/bottle_dispenser/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The [name] currently has [stored_bottles.len] stored. There needs to be less than [max_floor_bottles] on the floor to continue dispensing.</span>"
+	. += span_notice("The [name] currently has [stored_bottles.len] stored. There needs to be less than [max_floor_bottles] on the floor to continue dispensing.")
 
 /obj/machinery/plumbing/bottle_dispenser/Initialize(mapload, bolt)
 	. = ..()

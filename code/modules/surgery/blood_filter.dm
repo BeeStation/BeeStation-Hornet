@@ -27,9 +27,9 @@
 	if(istype(surgery,/datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
 		if(!the_surgery.antispam)
-			display_results(user, target, "<span class='notice'>You begin filtering [target]'s blood...</span>",
-		"<span class='notice'>[user] uses [tool] to filtering your blood.</span>",
-		"<span class='notice'>[user] uses [tool] on [target]'s chest.</span>")
+			display_results(user, target, span_notice("You begin filtering [target]'s blood..."),
+		span_notice("[user] uses [tool] to filtering your blood."),
+		span_notice("[user] uses [tool] on [target]'s chest."))
 
 /datum/surgery_step/filter_blood/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	if(..())
@@ -42,12 +42,12 @@
 		for(var/blood_chem in target.reagents.reagent_list)
 			var/datum/reagent/chem = blood_chem
 			target.reagents.remove_reagent(chem.type, min(chem.volume * 0.22, 10)) //Removes more reagent for higher amounts
-		display_results(user, target, "<span class='notice'>[tool] pings as it finishes filtering [target]'s blood.</span>",
-			"<span class='notice'>[tool] pings as it stops pumping your blood.</span>",
+		display_results(user, target, span_notice("[tool] pings as it finishes filtering [target]'s blood."),
+			span_notice("[tool] pings as it stops pumping your blood."),
 			"[tool] pings as it stops pumping.")
 	else
-		display_results(user, target, "<span class='notice'>[tool] flashes, [target]'s blood is clean.</span>",
-			"<span class='notice'>[tool] flashes, your blood is clean.</span>",
+		display_results(user, target, span_notice("[tool] flashes, [target]'s blood is clean."),
+			span_notice("[tool] flashes, your blood is clean."),
 			"[tool] has no chemcials to filter.")
 	if(istype(surgery, /datum/surgery/blood_filter))
 		var/datum/surgery/blood_filter/the_surgery = surgery
@@ -55,7 +55,7 @@
 	return TRUE
 
 /datum/surgery_step/filter_blood/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='warning'>You screw up, brusing [target]'s chest!</span>",
-		"<span class='warning'>[user] screws up, brusing [target]'s chest!</span>",
-		"<span class='warning'>[user] screws up!</span>")
+	display_results(user, target, span_warning("You screw up, brusing [target]'s chest!"),
+		span_warning("[user] screws up, brusing [target]'s chest!"),
+		span_warning("[user] screws up!"))
 	target.adjustBruteLoss(5)

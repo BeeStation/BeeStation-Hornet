@@ -15,7 +15,7 @@
 	if(isliving(target) && target != guardian)
 		to_chat(guardian, "<span class='danger'><B>Your punch has applied heavy gravity to [target]!</span></B>")
 		add_gravity(target, 2)
-		to_chat(target, "<span class='userdanger'>Everything feels really heavy!</span>")
+		to_chat(target, span_userdanger("Everything feels really heavy!"))
 
 /datum/guardian_ability/major/gravity/Recall()
 	for(var/datum/component/C in gravito_targets)
@@ -33,9 +33,9 @@
 	if(isopenturf(A) && guardian.is_deployed() && guardian.stat != DEAD && in_range(guardian, A) && !guardian.incapacitated())
 		var/turf/T = A
 		if(isspaceturf(T))
-			to_chat(guardian, "<span class='warning'>You cannot add gravity to space!</span>")
+			to_chat(guardian, span_warning("You cannot add gravity to space!"))
 			return
-		guardian.visible_message("<span class='danger'>[src] slams their fist into the [T]!</span>", "<span class='notice'>You modify the gravity of the [T].</span>")
+		guardian.visible_message(span_danger("[src] slams their fist into the [T]!"), span_notice("You modify the gravity of the [T]."))
 		guardian.do_attack_animation(T)
 		add_gravity(T, 4)
 

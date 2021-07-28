@@ -22,7 +22,7 @@
 			if(prob(2))
 				affected_mob.emote("yawn")
 			if(prob(2))
-				to_chat(affected_mob, "<span class='danger'>You don't feel like yourself.</span>")
+				to_chat(affected_mob, span_danger("You don't feel like yourself."))
 			if(prob(5))
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1, 170)
 				affected_mob.updatehealth()
@@ -35,7 +35,7 @@
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 170)
 				affected_mob.updatehealth()
 				if(prob(2))
-					to_chat(affected_mob, "<span class='danger'>Your try to remember something important...but can't.</span>")
+					to_chat(affected_mob, span_danger("Your try to remember something important...but can't."))
 
 		if(4)
 			if(prob(2))
@@ -46,11 +46,11 @@
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 3, 170)
 				affected_mob.updatehealth()
 				if(prob(2))
-					to_chat(affected_mob, "<span class='danger'>Strange buzzing fills your head, removing all thoughts.</span>")
+					to_chat(affected_mob, span_danger("Strange buzzing fills your head, removing all thoughts."))
 			if(prob(3))
-				to_chat(affected_mob, "<span class='danger'>You lose consciousness...</span>")
-				affected_mob.visible_message("<span class='warning'>[affected_mob] suddenly collapses!</span>", \
-											"<span class='userdanger'>You suddenly collapse!</span>")
+				to_chat(affected_mob, span_danger("You lose consciousness..."))
+				affected_mob.visible_message(span_warning("[affected_mob] suddenly collapses!"), \
+											span_userdanger("You suddenly collapse!"))
 				affected_mob.Unconscious(rand(100,200))
 				if(prob(1))
 					affected_mob.emote("snore")

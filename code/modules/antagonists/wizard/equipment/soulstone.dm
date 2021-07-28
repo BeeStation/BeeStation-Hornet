@@ -42,18 +42,18 @@
 /obj/item/soulstone/pickup(mob/living/user)
 	..()
 	if(!iscultist(user) && !iswizard(user) && !usability)
-		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up the soulstone. It would be wise to be rid of this quickly.</span>")
+		to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you pick up the soulstone. It would be wise to be rid of this quickly."))
 
 /obj/item/soulstone/examine(mob/user)
 	. = ..()
 	if(usability || iscultist(user) || iswizard(user) || isobserver(user))
 		if (old_shard)
-			. += "<span class='cult'>A soulstone, used to capture a soul, either from dead humans or from freed shades.</span>"
+			. += span_cult("A soulstone, used to capture a soul, either from dead humans or from freed shades.")
 		else
-			. += "<span class='cult'>A soulstone, used to capture souls, either from unconscious or sleeping humans or from freed shades.</span>"
-		. += "<span class='cult'>The captured soul can be placed into a construct shell to produce a construct, or released from the stone as a shade.</span>"
+			. += span_cult("A soulstone, used to capture souls, either from unconscious or sleeping humans or from freed shades.")
+		. += span_cult("The captured soul can be placed into a construct shell to produce a construct, or released from the stone as a shade.")
 		if(spent)
-			. += "<span class='cult'>This shard is spent; it is now just a creepy rock.</span>"
+			. += span_cult("This shard is spent; it is now just a creepy rock.")
 
 /obj/item/soulstone/Destroy() //Stops the shade from being qdel'd immediately and their ghost being sent back to the arrival shuttle.
 	for(var/mob/living/simple_animal/shade/A in src)
@@ -72,7 +72,7 @@
 			S.name = "Purified [initial(S.name)]"
 
 /obj/item/soulstone/proc/hot_potato(mob/living/user)
-	to_chat(user, "<span class='userdanger'>Holy magics residing in \the [src] burn your hand!</span>")
+	to_chat(user, span_userdanger("Holy magics residing in \the [src] burn your hand!"))
 	var/obj/item/bodypart/affecting = user.get_bodypart("[(user.active_hand_index % 2 == 0) ? "r" : "l" ]_arm")
 	affecting.receive_damage( 0, 10 )	// 10 burn damage
 	user.emote("scream")
@@ -84,16 +84,16 @@
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!iscultist(user) && !iswizard(user) && !usability)
 		user.Unconscious(100)
-		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
+		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
 	if(spent)
-		to_chat(user, "<span class='warning'>There is no power left in the shard.</span>")
+		to_chat(user, span_warning("There is no power left in the shard."))
 		return
 	if(!ishuman(M))//If target is not a human.
 		return ..()
 	if(iscultist(M))
 		if(iscultist(user))
-			to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your bretheren's soul.\"</span>")
+			to_chat(user, span_cultlarge("\"Come now, do not capture your bretheren's soul.\""))
 			return
 	if(purified && iscultist(user))
 		hot_potato(user)
@@ -108,7 +108,7 @@
 		return
 	if(!iscultist(user) && !iswizard(user) && !usability)
 		user.Unconscious(100)
-		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
+		to_chat(user, span_userdanger("Your body is wracked with debilitating pain!"))
 		return
 	if(purified && iscultist(user))
 		hot_potato(user)
@@ -149,7 +149,7 @@
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
 		if(!iscultist(user) && !iswizard(user) && !SS.purified)
-			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell. It would be wise to be rid of this quickly.</span>")
+			to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell. It would be wise to be rid of this quickly."))
 			user.Dizzy(30)
 			return
 		if(SS.purified && iscultist(user))
@@ -185,9 +185,9 @@
 			var/datum/antagonist/cult/C = user.mind.has_antag_datum(/datum/antagonist/cult,TRUE)
 			if(C && C.cult_team.is_sacrifice_target(T.mind))
 				if(iscultist(user))
-					to_chat(user, "<span class='cult'><b>\"This soul is mine.</b></span> <span class='cultlarge'>SACRIFICE THEM!\"</span>")
+					to_chat(user, span_cult("<b>\"This soul is mine.</b></span> <span class='cultlarge'>SACRIFICE THEM!\""))
 				else
-					to_chat(user, "<span class='danger'>The soulstone seems to reject this soul.</span>")
+					to_chat(user, span_danger("The soulstone seems to reject this soul."))
 				return FALSE
 			if(contents.len)
 				to_chat(user, "<span class='userdanger'>Capture failed!</span>: The soulstone is full! Free an existing soul to make room.")
@@ -220,7 +220,7 @@
 				else
 					icon_state = "soulstone2"
 				name = "soulstone: Shade of [T.real_name]"
-				to_chat(T, "<span class='notice'>Your soul has been captured by the soulstone. Its arcane energies are reknitting your ethereal form.</span>")
+				to_chat(T, span_notice("Your soul has been captured by the soulstone. Its arcane energies are reknitting your ethereal form."))
 				if(user != T)
 					to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been captured and stored within the soulstone.")
 
@@ -338,7 +338,7 @@
 	if(!T)
 		return FALSE
 	if(!chosen_ghost)
-		to_chat(U, "<span class='danger'>There were no spirits willing to become a shade.</span>")
+		to_chat(U, span_danger("There were no spirits willing to become a shade."))
 		return FALSE
 	if(contents.len) //If they used the soulstone on someone else in the meantime
 		return FALSE

@@ -418,7 +418,7 @@
 			occupant_message("Unit is full.")
 			return 0
 	else
-		occupant_message("<span class='warning'>[fuel] traces in target minimal! [P] cannot be used as fuel.</span>")
+		occupant_message(span_warning("[fuel] traces in target minimal! [P] cannot be used as fuel."))
 		return
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
@@ -480,7 +480,7 @@
 /obj/item/mecha_parts/mecha_equipment/thrusters/try_attach_part(mob/user, obj/mecha/M)
 	for(var/obj/item/I in M.equipment)
 		if(istype(I, src))
-			to_chat(user, "<span class='warning'>[M] already has this thruster package!</span>")
+			to_chat(user, span_warning("[M] already has this thruster package!"))
 			return FALSE
 	. = ..()
 
@@ -515,13 +515,13 @@
 	if (chassis.active_thrusters == src)
 		return
 	chassis.active_thrusters = src
-	occupant_message("<span class='notice'>[src] enabled.</span>")
+	occupant_message(span_notice("[src] enabled."))
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/proc/disable()
 	if(chassis.active_thrusters != src)
 		return
 	chassis.active_thrusters = null
-	occupant_message("<span class='notice'>[src] disabled.</span>")
+	occupant_message(span_notice("[src] disabled."))
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/get_equip_info()
 	return "[..()] \[<a href='?src=[REF(src)];mode=0'>Enable</a>|<a href='?src=[REF(src)];mode=1'>Disable</a>\]"
@@ -547,7 +547,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/gas/try_attach_part(mob/user, obj/mecha/M)
 	if(!M.internal_tank)
-		to_chat(user, "<span class='warning'>[M] does not have an internal tank and cannot support this upgrade!</span>")
+		to_chat(user, span_warning("[M] does not have an internal tank and cannot support this upgrade!"))
 		return FALSE
 	. = ..()
 

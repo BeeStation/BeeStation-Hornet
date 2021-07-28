@@ -59,7 +59,7 @@
 						message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(M)]) to replace an AFK player.")
 						M.key = C.key
 			else
-				visible_message("<span class='neovgre'>\The [src] fails to revive [M]!</span>")
+				visible_message(span_neovgre("\The [src] fails to revive [M]!"))
 			return
 		var/healing_performed = CLAMP(M.maxHealth - M.health, 0, 5)	//5 Vitality to heal 5 of all damage types at once
 		if(GLOB.clockcult_vitality >= healing_performed * 0.3)
@@ -71,26 +71,26 @@
 			M.adjustToxLoss(-5, FALSE, TRUE)
 			M.adjustCloneLoss(-5)
 		else
-			visible_message("<span class='neovgre'>\The [src] fails to heal [M]!</span>", "<span class='neovgre'>There is insufficient vitality to heal your wounds!</span>")
+			visible_message(span_neovgre("\The [src] fails to heal [M]!"), span_neovgre("There is insufficient vitality to heal your wounds!"))
 	else
 		if(M.anti_magic_check())
 			return
 		if(is_convertable_to_clockcult(M) && !GLOB.gateway_opening)
-			visible_message("<span class='neovgre'>\The [src] refuses to siphon [M]'s vitality, their mind has great potential!</span>")
+			visible_message(span_neovgre("\The [src] refuses to siphon [M]'s vitality, their mind has great potential!"))
 			return
 		M.Paralyze(10)
 		var/before_cloneloss = M.getCloneLoss()
 		M.adjustCloneLoss(20, TRUE, TRUE)
 		var/after_cloneloss = M.getCloneLoss()
 		if(before_cloneloss == after_cloneloss)
-			visible_message("<span class='neovgre'>\The [src] fails to siphon [M]'s spirit!</span>")
+			visible_message(span_neovgre("\The [src] fails to siphon [M]'s spirit!"))
 			return
 		playsound(loc, 'sound/magic/clockwork/ratvar_attack.ogg', 40)
 		if(M.stat == DEAD)
 			M.become_husk()
 			M.death()
 			playsound(loc, 'sound/magic/exit_blood.ogg', 60)
-			to_chat(M, "<span class='neovgre'>The last of your life is drained away...</span>")
+			to_chat(M, span_neovgre("The last of your life is drained away..."))
 			hierophant_message("[M] has had their vitality drained by the [src]!", null, "<span class='inathneq'>")
 			var/mob/cogger = new /mob/living/simple_animal/drone/cogscarab(get_turf(M))
 			cogger.key = M.key
@@ -101,6 +101,6 @@
 			add_servant_of_ratvar(cogger, silent=TRUE)
 			return
 		if(M.client)
-			M.visible_message("<span class='neovgre'>[M] looks weak as the color fades from their body.</span>", "<span class='neovgre'>You feel your soul faltering...</span>")
+			M.visible_message(span_neovgre("[M] looks weak as the color fades from their body."), span_neovgre("You feel your soul faltering..."))
 			GLOB.clockcult_vitality += 30
 		GLOB.clockcult_vitality += 10

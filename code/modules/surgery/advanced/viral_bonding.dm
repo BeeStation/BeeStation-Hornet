@@ -32,12 +32,12 @@
 	return TRUE
 
 /datum/surgery_step/viral_bond/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>You start heating [target]'s bone marrow with [tool]...</span>",
+	display_results(user, target, span_notice("You start heating [target]'s bone marrow with [tool]..."),
 		"[user] starts heating [target]'s bone marrow with [tool]...",
 		"[user] starts heating something in [target]'s chest with [tool]...")
 
 /datum/surgery_step/viral_bond/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='notice'>[target]'s bone marrow begins pulsing slowly. The viral bonding is complete.</span>",
+	display_results(user, target, span_notice("[target]'s bone marrow begins pulsing slowly. The viral bonding is complete."),
 		"[target]'s bone marrow begins pulsing slowly.",
 		"[user] finishes the operation.")
 	for(var/X in target.diseases)
