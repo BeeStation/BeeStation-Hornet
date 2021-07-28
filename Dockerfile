@@ -31,7 +31,7 @@ RUN . ./dependencies.sh \
     && cd .. \
     && rm -rf byond byond.zip
 
-# build = byond + beestation compiled and deployed to /deploy
+# build = byond + beestation compiled and deployed to /deploy. Hijacking it for auxtools to prevent making another layer.
 FROM byond AS build
 WORKDIR /beestation
 
@@ -41,7 +41,10 @@ RUN apt-get install -y --no-install-recommends \
 COPY . .
 
 RUN env TG_BOOTSTRAP_NODE_LINUX=1 tools/build/build \
-    && tools/deploy.sh /deploy
+    && tools/deploy.sh /deploy \
+    && cd auxtools \
+    && curl -O "https://github.com/BeeStation/auxmos/releases/download/${AUXMOS_VERSION}/libauxmos.so" \
+    && chmod +x libauxmos.so
 
 # rust = base + rustc and i686 target
 FROM base AS rust
@@ -79,6 +82,9 @@ RUN apt-get install -y --no-install-recommends \
 
 COPY --from=build /deploy ./
 COPY --from=rust_g /rust_g/target/i686-unknown-linux-gnu/release/librust_g.so /root/.byond/bin/rust_g
+
+#auxtools fexists memes
+RUN ln -s /beestation/auxtools/libauxmos.so /root/.byond/bin/libauxmos.so
 
 VOLUME [ "/beestation/config", "/beestation/data" ]
 ENTRYPOINT [ "DreamDaemon", "beestation.dmb", "-port", "1337", "-trusted", "-close", "-verbose" ]
