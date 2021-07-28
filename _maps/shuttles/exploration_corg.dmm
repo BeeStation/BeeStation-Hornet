@@ -159,19 +159,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"ht" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "hP" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -205,6 +192,16 @@
 "jB" = (
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
+/area/shuttle/exploration)
+"jC" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/machinery/power/smes{
+	charge = 1e+006
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "jO" = (
 /obj/effect/turf_decal/delivery,
@@ -270,15 +267,6 @@
 "lg" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 6
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"ll" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -368,6 +356,18 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"oE" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "pd" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 4
@@ -387,10 +387,6 @@
 /obj/structure/table,
 /obj/item/toy/cards/deck/unum,
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/exploration)
-"rO" = (
-/obj/item/storage/toolbox/mechanical,
-/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "sh" = (
 /obj/effect/spawner/structure/window/shuttle,
@@ -451,6 +447,16 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"uc" = (
+/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "up" = (
@@ -530,6 +536,24 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos/flipped/n2,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"yZ" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "zN" = (
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 4
@@ -561,6 +585,18 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
+/area/shuttle/exploration)
+"Cf" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Dn" = (
 /turf/open/floor/mineral/plastitanium,
@@ -603,18 +639,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"GW" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 10
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Hm" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
@@ -651,18 +675,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"KD" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 9
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "KX" = (
@@ -807,6 +819,17 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
+"Vd" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Vw" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -947,9 +970,9 @@ Ay
 (3,1,1) = {"
 yh
 yh
-ll
-up
-KD
+Cf
+uc
+oE
 gS
 aA
 hP
@@ -964,9 +987,9 @@ yh
 (4,1,1) = {"
 df
 df
-rO
-GW
-ht
+jC
+yZ
+Vd
 vx
 zN
 zN
