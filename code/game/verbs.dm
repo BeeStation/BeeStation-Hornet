@@ -157,8 +157,7 @@
 	if(!islist(new_verbs))
 		new_verbs = list(new_verbs)
 	var/list/added_verbs = list()
-	for(var/pp in new_verbs)
-		var/procpath/P = pp
+	for(var/procpath/P in new_verbs)
 		if(P.invisibility > mob.see_invisible)
 			continue
 		if(!islist(added_verbs[P.category]))
