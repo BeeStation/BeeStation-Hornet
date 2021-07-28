@@ -400,7 +400,7 @@
 				else
 					dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
 		if(!dept_dat.len)
-			dept_dat += "<span class='nopositions'>No positions open.</span>"
+			dept_dat += span_nopositions("No positions open.") 
 		dat += jointext(dept_dat, "")
 		dat += "</fieldset><br>"
 		column_counter++

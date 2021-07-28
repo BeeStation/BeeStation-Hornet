@@ -101,7 +101,7 @@ the new instance inside the host to be updated to the template's stats.
 /mob/camera/disease/examine(mob/user)
 	. = ..()
 	if(isobserver(user))
-		. += "<span class='notice'>[src] has [points]/[total_points] adaptation points.</span>"
+		. += span_notice("[src] has [points]/[total_points] adaptation points.") 
 		. += span_notice("[src] has the following unlocked:")
 		for(var/datum/disease_ability/ability in purchased_abilities)
 			. += span_notice("[ability.name]")
