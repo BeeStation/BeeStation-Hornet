@@ -177,11 +177,11 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 			new_name = "double-notched claymore"
 			add_atom_colour(rgb(255, 235, 235), ADMIN_COLOUR_PRIORITY)
 		if(3)
-			to_chat(user, span_notice("You're beginning to</span> <span class='danger'><b>relish</b> the <b>thrill</b> of <b>battle.</b>"))
+			to_chat(user, "[span_notice("You're beginning to")] [span_danger("<b>relish</b> the <b>thrill</b> of <b>battle.</b>")]")
 			new_name = "triple-notched claymore"
 			add_atom_colour(rgb(255, 215, 215), ADMIN_COLOUR_PRIORITY)
 		if(4)
-			to_chat(user, span_notice("You've lost count of</span> <span class='boldannounce'>how many you've killed."))
+			to_chat(user, "[span_notice("You've lost count of")] [span_boldannounce("how many you've killed.")]")
 			new_name = "many-notched claymore"
 			add_atom_colour(rgb(255, 195, 195), ADMIN_COLOUR_PRIORITY)
 		if(5)

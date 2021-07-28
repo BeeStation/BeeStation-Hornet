@@ -100,7 +100,7 @@
 			if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
 				C.update_handcuffed()
-				to_chat(C, "<span class = 'danger'> Your hands are restrained by the sheer volume of occupants in the car!</span>")
+				to_chat(C, span_danger(" Your hands are restrained by the sheer volume of occupants in the car!"))
 
 /obj/item/restraints/handcuffs/energy/used/clown
 	name = "tangle of limbs"

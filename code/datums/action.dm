@@ -553,7 +553,7 @@
 		return
 	//Box closing from here on out.
 	if(!isturf(owner.loc)) //Don't let the player use this to escape mechs/welded closets.
-		to_chat(owner, "<span class = 'notice'>You need more space to activate this implant.</span>")
+		to_chat(owner, span_notice("You need more space to activate this implant.") )
 		return
 	if(!COOLDOWN_FINISHED(src, box_cooldown))
 		return

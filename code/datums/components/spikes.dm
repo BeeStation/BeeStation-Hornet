@@ -63,7 +63,7 @@
 			else
 				prick(H, 2)
 				H.Paralyze(40)
-				to_chat(H, "<span_class = 'userdanger'>Your feet are pierced by [P]'s spikes!</span>")
+				to_chat(H, span_userdanger("Your feet are pierced by [P]'s spikes!"))
 		else
 			prick(C)
 

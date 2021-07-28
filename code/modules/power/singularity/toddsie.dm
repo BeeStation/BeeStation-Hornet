@@ -25,6 +25,6 @@
 	to_chat(target, span_cultsmall("TODD'SIE HAS LOST INTEREST IN YOU."))
 	target = food
 	if(ishuman(target))
-		to_chat(target, "<span class ='cult'>TODD'SIE HUNGERS FOR YOUR SOUL.</span>")
+		to_chat(target, span_cult("TODD'SIE HUNGERS FOR YOUR SOUL."))
 	else
-		to_chat(target, "<span class ='cult'>TODD'SIE HAS CHOSEN YOU TO LEAD HIM TO HIS NEXT MEAL.</span>")
+		to_chat(target, span_cult("TODD'SIE HAS CHOSEN YOU TO LEAD HIM TO HIS NEXT MEAL."))

@@ -87,28 +87,28 @@
 			if("Digest")
 				if(throwatom == L)
 					throwatom = null
-				to_chat(src, "<span class ='danger'> You begin digesting [L]</span>")
+				to_chat(src, span_danger(" You begin digesting [L]"))
 				if(do_mob(src, src, L.maxHealth))
 					for(var/atom/movable/AM in L.contents)
 						src.contents += AM
 					L.dust()
 					adjustHealth(-(L.maxHealth / 2))
-					to_chat(src, "<span class ='danger'> You digest [L], restoring some health</span>")
+					to_chat(src, span_danger(" You digest [L], restoring some health"))
 					playsound(src, 'sound/effects/splat.ogg', 50, 1)
 			if("Disguise as")
 				ShiftClickOn(L)
 			if("Throw")
 				if(throwatom)
-					to_chat(src, "<span class ='danger'> You are already preparing to throw [throwatom]</span>")
+					to_chat(src, span_danger(" You are already preparing to throw [throwatom]"))
 				else
 					throwatom = L
-					to_chat(src, "<span class ='danger'> You prepare to throw [L]</span>")
+					to_chat(src, span_danger(" You prepare to throw [L]"))
 			if("Strip")
-				to_chat(src, "<span class ='danger'> You start removing [L]'s possessions</span>")
+				to_chat(src, span_danger(" You start removing [L]'s possessions"))
 				if(do_mob(src, L, 30))
 					for(var/atom/movable/AM in L.contents)
 						src.contents += AM
-					to_chat(src, "<span class ='danger'> You place [L]'s possessions into your stomach</span>")
+					to_chat(src, span_danger(" You place [L]'s possessions into your stomach"))
 	else if(isitem(target))
 		var/obj/item/I = target
 		var/action = input(src,"What do you wish to do with [I]") in null|itemfunctions
@@ -123,28 +123,28 @@
 				ShiftClickOn(I)
 			if("Throw")
 				if(throwatom)
-					to_chat(src, "<span class ='danger'> You are already preparing to throw [throwatom]</span>")
+					to_chat(src, span_danger(" You are already preparing to throw [throwatom]"))
 				else
 					throwatom = I
-					to_chat(src, "<span class ='danger'> You prepare to throw [I]</span>")
+					to_chat(src, span_danger(" You prepare to throw [I]"))
 			if("Use")
 				I.attack_self(src)
 			if("Use and Throw")
 				if(throwatom)
-					to_chat(src, "<span class ='danger'> You are already preparing to throw [throwatom]</span>")
+					to_chat(src, span_danger(" You are already preparing to throw [throwatom]"))
 				else
 					throwatom = I
-					to_chat(src, "<span class ='danger'> You prepare to throw [I]</span>")
+					to_chat(src, span_danger(" You prepare to throw [I]"))
 					I.attack_self(src)
 			if("Digest")
 				if(throwatom == I)
 					throwatom = null
 				if((I.resistance_flags & UNACIDABLE) || (I.resistance_flags & ACID_PROOF) || (I.resistance_flags & INDESTRUCTIBLE))
-					to_chat(src, "<span class ='danger'>[I] cannot be digested.</span>")
+					to_chat(src, span_danger("[I] cannot be digested."))
 				else
 					playsound(src, 'sound/items/welder.ogg', 150, 1)
 					qdel(I)
-					to_chat(src, "<span class ='danger'>You digest [I].</span>")
+					to_chat(src, span_danger("You digest [I]."))
 
 
 /mob/living/simple_animal/hostile/morph/ClickOn(atom/A)

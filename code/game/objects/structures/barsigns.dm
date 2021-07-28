@@ -69,7 +69,7 @@
 		to_chat(user, span_info("Access denied."))
 		return
 	if(broken)
-		to_chat(user, "<span class ='danger'>The controls seem unresponsive.</span>")
+		to_chat(user, span_danger("The controls seem unresponsive."))
 		return
 	pick_sign(user)
 

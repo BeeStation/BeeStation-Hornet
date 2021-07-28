@@ -27,11 +27,11 @@
 			to_chat(user, span_warning("You can't augment a limb with paralysis!"))
 			return -1
 		else
-			display_results(user, target, "<span class ='notice'>You begin to augment [target]'s [parse_zone(user.zone_selected)]...</span>",
+			display_results(user, target, span_notice("You begin to augment [target]'s [parse_zone(user.zone_selected)]..."),
 				"[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug].",
 				"[user] begins to augment [target]'s [parse_zone(user.zone_selected)].")
 	else
-		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", "<span class ='notice'>You look for [target]'s [parse_zone(user.zone_selected)]...</span>")
+		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
 
 
 //ACTUAL SURGERIES

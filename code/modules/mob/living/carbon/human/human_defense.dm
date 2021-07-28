@@ -895,7 +895,7 @@
 		I.take_damage(damage_amount, damage_type, damage_flag, 0)
 
 /mob/living/carbon/human/proc/blockbreak()
-	to_chat(src, "<span class ='userdanger'>Your block was broken!</span>")
+	to_chat(src, span_userdanger("Your block was broken!"))
 	ADD_TRAIT(src, TRAIT_NOBLOCK, type)
 	stoplag(50)
 	REMOVE_TRAIT(src, TRAIT_NOBLOCK, type)

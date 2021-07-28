@@ -267,7 +267,7 @@ effective or pretty fucking useless.
 			wand.used = TRUE
 			charge = 450
 			max_charge = 450
-			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
+			to_chat(user, span_notice("You upgrade the [src] with the [wand]."))
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/jammer

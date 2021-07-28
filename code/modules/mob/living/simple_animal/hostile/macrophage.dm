@@ -62,15 +62,15 @@
 		if(M.can_inject(src))
 			for(var/datum/disease/D in infections)
 				if(M.ForceContractDisease(D)) //we already check spread type in the macrophage creation proc
-					to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
+					to_chat(src, span_notice("You infect [M] with [D]!"))
 		else if(aggressive)
 			M.visible_message(span_danger("the [src] begins penetrating [M]' protection!"), \
 	 				 span_danger("[src] begins penetrating your protection!"))
 			if(do_mob(src, M, 15))
 				for(var/datum/disease/D in infections)
 					if(M.ForceContractDisease(D))
-						to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
-				to_chat(M, "<span class ='userdanger'>[src] pierces your protection, and you feel a sharp stab!</span>")
+						to_chat(src, span_notice("You infect [M] with [D]!"))
+				to_chat(M, span_userdanger("[src] pierces your protection, and you feel a sharp stab!"))
 
 /mob/living/simple_animal/hostile/macrophage/proc/shrivel()
 	visible_message(span_danger("the [src] shrivels up and dies!"))

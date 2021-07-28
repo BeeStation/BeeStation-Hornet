@@ -105,7 +105,7 @@
 		if(!wand.used && range == initial(range))
 			wand.used = TRUE
 			range = 6
-			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
+			to_chat(user, span_notice("You upgrade the [src] with the [wand]."))
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)
@@ -113,7 +113,7 @@
 	if(get_dist(A, M) <= 1)
 		return 0
 	if(M in viewers(range, A))
-		M.visible_message("<span_class ='danger'>[M] waves their hands at [A]</span>", "<span_class ='notice'>You begin manipulating [A].</span>")
+		M.visible_message(span_danger("[M] waves their hands at [A]"), span_notice("You begin manipulating [A]."))
 		new	/obj/effect/temp_visual/telegloves(A.loc)
 		M.changeNext_move(CLICK_CD_MELEE)
 		if(do_after_mob(M, A, 8))

@@ -77,7 +77,7 @@
 		var/mob/living/carbon/human/H = owner
 		var/datum/species/S = H.dna.species
 		var/outofcontrol = ((rand(1, 10)) * severity)
-		to_chat(H, "<span_class = 'userdanger'>You lose control of your [src]!</span>")
+		to_chat(H, span_userdanger("You lose control of your [src]!"))
 		while(outofcontrol)
 			if(S.CanFly(H))
 				if(H.movement_type & FLYING)

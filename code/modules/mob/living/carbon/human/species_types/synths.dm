@@ -145,7 +145,7 @@
 
 /datum/species/synth/spec_revival(mob/living/carbon/human/H)
 	H.grab_ghost()
-	H.visible_message(span_notice("[H]'s eyes snap open!"), "<span class ='boldwarning'>You can feel your limbs responding again!</span>")
+	H.visible_message(span_notice("[H]'s eyes snap open!"), span_boldwarning("You can feel your limbs responding again!"))
 
 /datum/species/synth/proc/handle_snowflake_code(mob/living/carbon/human/H, datum/species/S) //I LITERALLY FUCKING HATE ALL OF YOU. I HATE THE FACT THIS NEEDS TO EXIST.
 	switch(S.id)

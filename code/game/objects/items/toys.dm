@@ -1042,7 +1042,7 @@
 		icon_state = "nuketoyidle"
 	else
 		var/timeleft = (cooldown - world.time)
-		to_chat(user, span_alert("Nothing happens, and '</span>[round(timeleft/10)]<span class='alert'>' appears on a small display."))
+		to_chat(user, "[span_alert("Nothing happens, and '")][round(timeleft/10)][span_alert("' appears on a small display.")]")
 
 /*
  * Fake meteor

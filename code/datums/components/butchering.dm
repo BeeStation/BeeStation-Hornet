@@ -50,7 +50,7 @@
 					span_danger("You start slicing [H]'s throat!"), \
 					span_hear("You hear a cutting noise!"))
 	H.show_message(span_userdanger("Your throat is being slit by [user]!"), 1, \
-					"<span class = 'userdanger'>Something is cutting into your neck!</span>", NONE)
+					span_userdanger("Something is cutting into your neck!"), NONE)
 
 	playsound(H.loc, butcher_sound, 50, TRUE, -1)
 	if(do_mob(user, H, CLAMP(500 / source.force, 30, 100)) && H.Adjacent(source))

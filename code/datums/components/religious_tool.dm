@@ -65,7 +65,7 @@
 
 		var/sect_select = input(user,"Select a sect (You CANNOT revert this decision!)","Select a Sect",null) in available_options
 		if(!sect_select || !user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))
-			to_chat(user,"<span class ='warning'>You cannot select a sect at this time.</span>")
+			to_chat(user, span_warning("You cannot select a sect at this time."))
 			return
 		var/type_selected = available_options[sect_select]
 		GLOB.religious_sect = new type_selected()
@@ -89,7 +89,7 @@
 			return
 		var/rite_select = input(user,"Select a rite to perform!","Select a rite",null) in easy_access_sect.rites_list
 		if(!rite_select || !user.canUseTopic(parent, BE_CLOSE, FALSE, NO_TK))
-			to_chat(user,"<span class ='warning'>You cannot perform the rite at this time.</span>")
+			to_chat(user, span_warning("You cannot perform the rite at this time."))
 			return
 		var/selection2type = easy_access_sect.rites_list[rite_select]
 		performing_rite = new selection2type(parent)

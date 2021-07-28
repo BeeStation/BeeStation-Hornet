@@ -183,7 +183,7 @@
 				return
 
 			if (active) //Prevents charge stacking from the same or multiple targets.
-				to_chat(user, "<span class ='notice'>You're already charging from [target].</span>")
+				to_chat(user, span_notice("You're already charging from [target]."))
 				return
 
 			active = TRUE
@@ -263,7 +263,7 @@
 			to_chat(user, span_warning("[target] is already charged!"))
 
 		if (active) //Prevents stacking charging on the target.
-			to_chat(user, "<span class ='notice'>You're already charging [target].</span>")
+			to_chat(user, span_notice("You're already charging [target]."))
 			return
 
 		to_chat(user, span_notice("You connect to [target]'s power port..."))
@@ -879,7 +879,7 @@
 				. += "[R.volume] units of [R.name]"
 		else
 			. += "Nothing."
-		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+		. += span_notice("<i>Alt-click</i> will drop the currently stored [stored].")
 
 /obj/item/borg/apparatus/beaker/update_icon()
 	cut_overlays()
@@ -949,7 +949,7 @@
 	. = ..()
 	if(stored)
 		. += "The apparatus currently has [stored] secured."
-		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+		. += span_notice("<i>Alt-click</i> will drop the currently stored [stored].")
 
 /obj/item/borg/apparatus/circuit/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
@@ -978,4 +978,4 @@
 	. = ..()
 	if(stored)
 		. += "You are currently holding [stored]."
-		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+		. += span_notice("<i>Alt-click</i> will drop the currently stored [stored].")

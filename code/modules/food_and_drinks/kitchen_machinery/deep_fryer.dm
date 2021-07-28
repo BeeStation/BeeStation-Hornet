@@ -159,7 +159,7 @@ God bless America.
 			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
 		var/mob/living/carbon/C = user.pulling
-		user.visible_message("<span class = 'danger'>[user] dunks [C]'s face in [src]!</span>")
+		user.visible_message(span_danger("[user] dunks [C]'s face in [src]!"))
 		reagents.reaction(C, TOUCH)
 		C.apply_damage(min(30, reagents.total_volume), BURN, BODY_ZONE_HEAD)
 		reagents.remove_any((reagents.total_volume/2))
