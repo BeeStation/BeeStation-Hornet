@@ -1,0 +1,9 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - rscadd: sterilizers speed up surgery above cap
+  - rscadd: hand mirrors help with self surgery
+  - tweak: surgery scales speed before starting to fail
+  - balance: operating tables give better surgery chances than stasis units
+  - bugfix: getting the lowest surgery multiplier from a structure when being on multiple
+      structures
