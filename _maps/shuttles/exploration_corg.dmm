@@ -117,14 +117,6 @@
 "gJ" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
-"gM" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "gS" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/power/port_gen/pacman,
@@ -393,6 +385,15 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"sR" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/advanced_airlock_controller/directional/east,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "sY" = (
 /obj/machinery/atmospherics/pipe/manifold/dark/visible{
 	dir = 8
@@ -470,14 +471,6 @@
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 4
 	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
-"wo" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "ww" = (
@@ -708,6 +701,11 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
+"LW" = (
+/obj/machinery/telecomms/relay/preset/exploration,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "My" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/mineral/plastitanium,
@@ -763,10 +761,14 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Sr" = (
-/obj/machinery/telecomms/relay/preset/exploration,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/plastitanium,
+"Sl" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/advanced_airlock_controller/directional/east,
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "SG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -1096,7 +1098,7 @@ gJ
 gJ
 GI
 kH
-Sr
+LW
 df
 fO
 te
@@ -1212,7 +1214,7 @@ Tq
 "}
 (17,1,1) = {"
 at
-gM
+sR
 Dp
 sO
 TU
@@ -1224,7 +1226,7 @@ QT
 JV
 uQ
 Dp
-wo
+Sl
 nU
 "}
 (18,1,1) = {"
