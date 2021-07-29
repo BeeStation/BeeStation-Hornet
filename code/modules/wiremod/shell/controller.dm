@@ -12,6 +12,7 @@
 	//worn_icon_state = "electronic"	//remember to change it
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = FALSE
 
 /obj/item/controller/Initialize()

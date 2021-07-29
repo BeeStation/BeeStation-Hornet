@@ -10,7 +10,7 @@
 	resistance_flags = FIRE_PROOF
 	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = "+generic"
-	light_system = MOVABLE_LIGHT
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_power = 0.8
 	light_on = FALSE
