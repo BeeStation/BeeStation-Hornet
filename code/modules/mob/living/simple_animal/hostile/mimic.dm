@@ -27,7 +27,7 @@
 	faction = list("mimic")
 	move_to_delay = 9
 	gold_core_spawnable = HOSTILE_SPAWN
-	del_on_death = 1
+	del_on_death = TRUE
 	hardattacks = TRUE
 
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
@@ -35,7 +35,7 @@
 	attacktext = "bites"
 	speak_emote = list("clatters")
 	stop_automated_movement = 1
-	wander = 0
+	wander = FALSE
 	var/attempt_open = FALSE
 
 // Pickup loot
@@ -44,13 +44,15 @@
 	if(mapload)	//eat shit
 		for(var/obj/item/I in loc)
 			I.forceMove(src)
+	add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
+	cut_overlays()
 	if(prob(90))
-		icon_state = "[initial(icon_state)]open"
+		add_overlay("[icon_state]_open")
 	else
-		icon_state = initial(icon_state)
+		add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/ListTargets()
 	if(attempt_open)
@@ -65,7 +67,8 @@
 /mob/living/simple_animal/hostile/mimic/crate/AttackingTarget()
 	. = ..()
 	if(.)
-		icon_state = initial(icon_state)
+		cut_overlays()
+		add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
@@ -78,7 +81,8 @@
 
 /mob/living/simple_animal/hostile/mimic/crate/LoseTarget()
 	..()
-	icon_state = initial(icon_state)
+	cut_overlays()
+	add_overlay("[icon_state]_door")
 
 /mob/living/simple_animal/hostile/mimic/crate/death()
 	var/obj/structure/closet/crate/C = new(get_turf(src))

@@ -4,7 +4,7 @@
 	stealth = 1
 	resistance = -2
 	stage_speed = -3
-	transmittable = -1
+	transmission = -1
 	level = 0
 	severity = 0
 	symptom_delay_min = 15
@@ -16,17 +16,17 @@
 
 /datum/symptom/wizarditis/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 12)
+	if(A.transmission >= 8)
 		severity += 1
-	if(A.properties["speed"] >= 7)
+	if(A.stage_rate >= 7)
 		severity += 1
 
 /datum/symptom/wizarditis/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmission"] >= 14)
+	if(A.transmission >= 8)
 		teleport = TRUE
-	if(A.properties["speed"] >= 7)
+	if(A.stage_rate >= 7)
 		robes = TRUE
 
 /datum/symptom/wizarditis/Activate(datum/disease/advance/A)
@@ -71,7 +71,7 @@
 					qdel(H.head)
 				C = new /obj/item/clothing/head/wizard(H)
 				ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
-				H.equip_to_slot_or_del(C, SLOT_HEAD)
+				H.equip_to_slot_or_del(C, ITEM_SLOT_HEAD)
 			return
 		if(prob(chance))
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
@@ -79,7 +79,7 @@
 					qdel(H.wear_suit)
 				C = new /obj/item/clothing/suit/wizrobe(H)
 				ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
-				H.equip_to_slot_or_del(C, SLOT_WEAR_SUIT)
+				H.equip_to_slot_or_del(C, ITEM_SLOT_OCLOTHING)
 			return
 		if(prob(chance))
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal/magic))
@@ -87,7 +87,7 @@
 					qdel(H.shoes)
 				C = new /obj/item/clothing/shoes/sandal/magic(H)
 				ADD_TRAIT(C, TRAIT_NODROP, DISEASE_TRAIT)
-				H.equip_to_slot_or_del(C, SLOT_SHOES)
+				H.equip_to_slot_or_del(C, ITEM_SLOT_FEET)
 			return
 	else
 		var/mob/living/carbon/H = A.affected_mob
@@ -101,8 +101,8 @@
 	var/turf/L = get_safe_random_station_turf()
 	A.affected_mob.say("SCYAR NILA!")
 	do_teleport(A.affected_mob, L, forceMove = TRUE, channel = TELEPORT_CHANNEL_MAGIC)
-	playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)	
-	
+	playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)
+
 /datum/symptom/wizarditis/End(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
@@ -113,5 +113,5 @@
 		if(istype(H.shoes, /obj/item/clothing/shoes/sandal/magic))
 			REMOVE_TRAIT(H.shoes, TRAIT_NODROP, DISEASE_TRAIT)
 
-		
+
 

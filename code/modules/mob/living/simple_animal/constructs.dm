@@ -41,8 +41,16 @@
 	var/can_repair_constructs = FALSE
 	var/can_repair_self = FALSE
 	var/runetype
+	var/datum/action/innate/cult/create_rune/our_rune
 	var/holy = FALSE
-	mobsay_color = "#FF6262"
+	chat_color = "#FF6262"
+	mobchatspan = "cultmobsay"
+
+/mob/living/simple_animal/hostile/construct/get_num_legs()
+	return 0
+
+/mob/living/simple_animal/hostile/construct/get_num_arms()
+	return 0
 
 /mob/living/simple_animal/hostile/construct/Initialize()
 	. = ..()
@@ -59,12 +67,16 @@
 		S.action.button.moved = "6:[pos],4:-2"
 		spellnum++
 	if(runetype)
-		var/datum/action/innate/cult/create_rune/CR = new runetype(src)
-		CR.Grant(src)
+		our_rune = new runetype(src)
+		our_rune.Grant(src)
 		var/pos = 2+spellnum*31
-		CR.button.screen_loc = "6:[pos],4:-2"
-		CR.button.moved = "6:[pos],4:-2"
+		our_rune.button.screen_loc = "6:[pos],4:-2"
+		our_rune.button.moved = "6:[pos],4:-2"
 
+/mob/living/simple_animal/hostile/construct/Destroy()
+	QDEL_NULL(our_rune)
+	return ..()
+	
 /mob/living/simple_animal/hostile/construct/Login()
 	..()
 	to_chat(src, playstyle_string)
@@ -180,7 +192,7 @@
 	icon_living = "behemoth_angelic"
 	holy = TRUE
 	loot = list(/obj/item/ectoplasm/angelic)
-	mobsay_color = "#AED2FF"
+	chat_color = "#AED2FF"
 
 /mob/living/simple_animal/hostile/construct/armored/noncult
 
@@ -234,7 +246,7 @@
 	icon_living = "floating_angelic"
 	holy = TRUE
 	loot = list(/obj/item/ectoplasm/angelic)
-	mobsay_color = "#AED2FF"
+	chat_color = "#AED2FF"
 
 /mob/living/simple_animal/hostile/construct/wraith/noncult
 
@@ -257,10 +269,10 @@
 	attack_sound = 'sound/weapons/punch2.ogg'
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/wall,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/door,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
 							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser)
-	runetype = /datum/action/innate/cult/create_rune/revive
 	playstyle_string = "<b>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, \
 
 						use magic missile, repair allied constructs, shades, and yourself (by clicking on them), \
@@ -317,7 +329,7 @@
 	icon_state = "artificer_angelic"
 	icon_living = "artificer_angelic"
 	holy = TRUE
-	mobsay_color = "#AED2FF"
+	chat_color = "#AED2FF"
 	loot = list(/obj/item/ectoplasm/angelic)
 	construct_spells = list(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/noncult/purified,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
@@ -441,15 +453,11 @@
 	background_icon_state = "bg_demon"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
-	var/mob/living/simple_animal/hostile/construct/harvester/the_construct
-
-/datum/action/innate/seek_prey/Grant(var/mob/living/C)
-	the_construct = C
-	..()
 
 /datum/action/innate/seek_prey/Activate()
 	if(GLOB.cult_narsie == null)
 		return
+	var/mob/living/simple_animal/hostile/construct/harvester/the_construct = owner
 	if(the_construct.seeking)
 		desc = "None can hide from Nar'Sie, activate to track a survivor attempting to flee the red harvest!"
 		button_icon_state = "cult_mark"

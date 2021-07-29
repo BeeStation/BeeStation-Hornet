@@ -18,6 +18,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
+	departments = DEPARTMENT_MEDICAL
 
 /datum/outfit/job/doctor
 	name = "Medical Doctor"
@@ -29,6 +30,7 @@
 	uniform = /obj/item/clothing/under/rank/medical/doctor
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat
+	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	l_hand = /obj/item/storage/firstaid/medical
 	suit_store = /obj/item/flashlight/pen
 

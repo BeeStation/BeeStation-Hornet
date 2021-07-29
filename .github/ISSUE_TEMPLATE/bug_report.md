@@ -6,8 +6,7 @@ about: Create a report to help reproduce and fix the issue
 ## Round ID:
 
 <!--- **INCLUDE THE ROUND ID**
-If you discovered this issue from playing tgstation hosted servers:
-[Round ID]: # (It can be found in the Status panel or retrieved from https://atlantaned.space/statbus/round.php ! The round id let's us look up valuable information and logs for the round the bug happened.)-->
+If you discovered this issue from playing beestation hosted servers:-->
 
 ## Testmerges:
 

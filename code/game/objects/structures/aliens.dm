@@ -81,7 +81,7 @@
 	resintype = "wall"
 	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
-/obj/structure/alien/resin/wall/BlockSuperconductivity()
+/obj/structure/alien/resin/wall/BlockThermalConductivity()
 	return 1
 
 /obj/structure/alien/resin/membrane
@@ -154,7 +154,7 @@
 		return FALSE
 
 	for(var/turf/T in U.GetAtmosAdjacentTurfs())
-		if((locate(/obj/structure/alien/flesh) in T) || (locate(/obj/structure/alien/weeds) in T))
+		if((locate(/obj/structure/alien/weeds) in T))
 			continue
 
 		if(is_type_in_typecache(T, blacklisted_turfs))
@@ -295,9 +295,9 @@
 			if(kill)
 				child.Die()
 			else
-				for(var/mob/M in range(1,src))
-					if(CanHug(M))
-						child.Leap(M)
+				for(var/mob/living/carbon/C in ohearers(1,src))
+					if(CanHug(C))
+						child.Leap(C)
 						break
 
 /obj/structure/alien/egg/obj_break(damage_flag)
@@ -328,6 +328,12 @@
 /obj/structure/alien/egg/burst
 	status = BURST
 	icon_state = "egg_hatched"
+
+/obj/structure/alien/egg/troll
+
+/obj/structure/alien/egg/troll/finish_bursting(kill = TRUE)
+	qdel(child)
+	new /obj/item/paper/troll(get_turf(src))
 
 #undef BURST
 #undef GROWING

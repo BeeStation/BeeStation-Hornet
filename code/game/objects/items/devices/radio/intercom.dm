@@ -66,7 +66,10 @@
 
 /obj/item/radio/intercom/interact(mob/user)
 	..()
-	ui_interact(user, state = GLOB.default_state)
+	ui_interact(user)
+
+/obj/item/radio/intercom/ui_state(mob/user)
+	return GLOB.default_state
 
 /obj/item/radio/intercom/can_receive(freq, level)
 	if(!on)
@@ -75,7 +78,7 @@
 		return FALSE
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
-		if(isnull(position) || !(position.z in level))
+		if(isnull(position) || !(position.get_virtual_z_level() in level))
 			return FALSE
 	if(!listening)
 		return FALSE
@@ -86,8 +89,8 @@
 	return TRUE
 
 
-/obj/item/radio/intercom/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, message_mode)
-	if(message_mode == MODE_INTERCOM)
+/obj/item/radio/intercom/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, list/message_mods = list())
+	if(message_mods[RADIO_EXTENSION] == MODE_INTERCOM)
 		return  // Avoid hearing the same thing twice
 	return ..()
 
@@ -109,11 +112,13 @@
 /**
  * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
  *
- * Normally called after the intercom's area recieves the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
+ * Normally called after the intercom's area receives the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
  * Arguments:
  * * source - the area that just had a power change.
  */
 /obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
+	SIGNAL_HANDLER
+
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		on = FALSE

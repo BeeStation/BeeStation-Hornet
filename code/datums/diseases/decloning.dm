@@ -7,7 +7,7 @@
 	agent = "Severe Genetic Damage"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = @"If left untreated the subject will [REDACTED]!"
-	severity = "Dangerous!"
+	danger = DISEASE_DANGEROUS
 	cures = list(/datum/reagent/medicine/rezadone)
 	disease_flags = CAN_CARRY|CAN_RESIST
 	spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
@@ -55,5 +55,5 @@
 				affected_mob.adjustCloneLoss(5)
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2, 170)
 			if(affected_mob.cloneloss >= 100)
-				affected_mob.visible_message("<span class='danger'>[affected_mob] skin turns to dust!</span>", "<span class'boldwarning'>Your skin turns to dust!</span>")
+				affected_mob.visible_message("<span class='danger'>[affected_mob] skin turns to dust!</span>", "<span class='boldwarning'>Your skin turns to dust!</span>")
 				affected_mob.dust()

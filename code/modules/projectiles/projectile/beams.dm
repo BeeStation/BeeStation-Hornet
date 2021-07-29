@@ -37,9 +37,10 @@
 		impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser/wall
 
 /obj/item/projectile/beam/weak
-	damage = 15
+	damage = 8
 
-/obj/item/projectile/beam/weak/penetrator
+/obj/item/projectile/beam/weak/penetrator //laser gatling and centcom shuttle turret
+	damage = 15
 	armour_penetration = 50
 
 /obj/item/projectile/beam/practice
@@ -93,7 +94,10 @@
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if (!QDELETED(target) && (isturf(target) || istype(target, /obj/structure/)))
-		target.ex_act(EXPLODE_HEAVY)
+		if(isobj(target))
+			SSexplosions.med_mov_atom += target
+		else
+			SSexplosions.medturf += target
 
 /obj/item/projectile/beam/pulse/shotgun
 	damage = 40
@@ -125,10 +129,11 @@
 	hitsound = null
 	damage = 0
 	damage_type = STAMINA
-	flag = "laser"
+	flag = "energy"
 	var/suit_types = list(/obj/item/clothing/suit/redtag, /obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/beam/lasertag/on_hit(atom/target, blocked = FALSE)
 	. = ..()

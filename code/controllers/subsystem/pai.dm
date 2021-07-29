@@ -43,15 +43,15 @@ SUBSYSTEM_DEF(pai)
 				if(t)
 					candidate.name = t
 			if("desc")
-				t = stripped_multiline_input(usr, "Enter a description for your pAI", "pAI Description", candidate.description, MAX_MESSAGE_LEN)
+				t = stripped_multiline_input(usr, "Enter a description for your pAI", "pAI Description", candidate.description)
 				if(t)
 					candidate.description = t
 			if("role")
-				t = stripped_input(usr, "Enter a role for your pAI", "pAI Role", candidate.role, MAX_MESSAGE_LEN)
+				t = stripped_input(usr, "Enter a role for your pAI", "pAI Role", candidate.role)
 				if(t)
 					candidate.role = t
 			if("ooc")
-				t = stripped_multiline_input(usr, "Enter any OOC comments", "pAI OOC Comments", candidate.comments, MAX_MESSAGE_LEN)
+				t = stripped_multiline_input(usr, "Enter any OOC comments", "pAI OOC Comments", candidate.comments)
 				if(t)
 					candidate.comments = t
 			if("save")
@@ -141,6 +141,9 @@ SUBSYSTEM_DEF(pai)
 	return FALSE
 
 /datum/controller/subsystem/pai/proc/findPAI(obj/item/paicard/p, mob/user)
+	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
+		to_chat(user, "<span class='warning'>Due to growing incidents of SELF corrupted independent artificial intelligences, freeform personality devices have been temporarily banned in this sector.</span>")
+		return
 	if(!ghost_spam)
 		ghost_spam = TRUE
 		for(var/mob/dead/observer/G in GLOB.player_list)

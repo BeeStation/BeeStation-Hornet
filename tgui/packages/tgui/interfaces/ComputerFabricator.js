@@ -1,5 +1,4 @@
 import { multiline } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, Grid, Section, Table, Tooltip } from '../components';
 import { Window } from '../layouts';
@@ -7,7 +6,9 @@ import { Window } from '../layouts';
 export const ComputerFabricator = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window>
+    <Window
+      width={500}
+      height={400}>
       <Window.Content>
         <Section italic fontSize="20px">
           Your perfect device, only three steps away...
@@ -266,7 +267,7 @@ const CfStep2 = (props, context) => {
           </Table.Cell>
         </Table.Row>
         {data.devtype !== 2 && (
-          <Fragment>
+          <>
             <Table.Row>
               <Table.Cell bold position="relative">
                 Processor Unit:
@@ -325,7 +326,7 @@ const CfStep2 = (props, context) => {
                   })} />
               </Table.Cell>
             </Table.Row>
-          </Fragment>
+          </>
         )}
       </Table>
       <Button

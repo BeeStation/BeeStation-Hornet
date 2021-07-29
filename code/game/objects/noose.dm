@@ -15,12 +15,12 @@
 	var/mutable_appearance/overlay
 
 /obj/structure/chair/noose/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wirecutters))
+	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		user.visible_message("[user] cuts the noose.", "<span class='notice'>You cut the noose.</span>")
 		if(has_buckled_mobs())
 			for(var/m in buckled_mobs)
 				var/mob/living/buckled_mob = m
-				if(buckled_mob.mob_has_gravity())
+				if(buckled_mob.has_gravity())
 					buckled_mob.visible_message("<span class='danger'>[buckled_mob] falls over and hits the ground!</span>")
 					to_chat(buckled_mob, "<span class='userdanger'>You fall over and hit the ground!</span>")
 					buckled_mob.adjustBruteLoss(10)
@@ -83,7 +83,7 @@
 		pixel_x = initial(pixel_x)
 		add_fingerprint(user)
 
-/obj/structure/chair/noose/user_buckle_mob(mob/living/carbon/human/M, mob/user)
+/obj/structure/chair/noose/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
 	if(!in_range(user, src) || user.stat || user.restrained() || !iscarbon(M))
 		return FALSE
 
@@ -126,7 +126,7 @@
 		else
 			animate(src, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 			animate(m, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
-		if(buckled_mob.mob_has_gravity())
+		if(buckled_mob.has_gravity())
 			if(buckled_mob.get_bodypart("head"))
 				if(buckled_mob.stat != DEAD)
 					if(!HAS_TRAIT(buckled_mob, TRAIT_NOBREATH))

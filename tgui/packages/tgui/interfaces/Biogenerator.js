@@ -1,6 +1,5 @@
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Dimmer, Flex, Icon, Input, Section, Table, Tabs, NoticeBox, NumberInput } from '../components';
 import { formatMoney } from '../format';
@@ -15,7 +14,9 @@ export const Biogenerator = (props, context) => {
     processing,
   } = data;
   return (
-    <Window resizable>
+    <Window
+      width={550}
+      height={380}>
       {!!processing && (
         <Dimmer fontSize="32px">
           <Icon name="cog" spin={1} />
@@ -74,7 +75,7 @@ export const BiogeneratorContent = (props, context) => {
         </Box>
       )}
       buttons={(
-        <Fragment>
+        <>
           Search
           <Input
             value={searchText}
@@ -89,7 +90,7 @@ export const BiogeneratorContent = (props, context) => {
             content="Activate"
             disabled={!can_process}
             onClick={() => act('activate')} />
-        </Fragment>
+        </>
       )}>
       <Flex>
         {searchText.length === 0 && (

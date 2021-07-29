@@ -30,79 +30,24 @@
 	usesound = 'sound/weapons/empty.ogg'
 	var/mode = 0
 
+/obj/item/multitool/Initialize()
+	RegisterSignal(src, COMSIG_PARENT_EXAMINE, .proc/on_examine)
+	return ..()
+
+/obj/item/multitool/Destroy()
+	UnregisterSignal(src, COMSIG_PARENT_EXAMINE)
+	return ..()
+
 /obj/item/multitool/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src] to [user.p_their()] chest. It looks like [user.p_theyre()] trying to pulse [user.p_their()] heart off!</span>")
-	return OXYLOSS//theres a reason it wasnt recommended by doctors
+	return OXYLOSS//theres a reason it wasn't recommended by doctors
 
+/obj/item/multitool/proc/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
 
-// circuit shit begin
-/obj/item/multitool/var/datum/integrated_io/selected_io = null  //functional for integrated circuits.
-
-//I know copypasting it and overwriting the old procs is a pretty rough thing to do, but hey, it's the simplest and most effective
-/obj/item/multitool/examine(mob/user)
-	. = ..()
-	if(selected_io)
-		. += "<span class='notice'>Activate [src] to detach the data wire.</span>"
 	if(buffer)
-		. += "<span class='notice'>Its buffer contains [buffer].</span>"
+		examine_list += "<span class='notice'>Its buffer contains [buffer].</span>"
 
-/obj/item/multitool/attack_self(mob/user)
-	if(selected_io)
-		selected_io = null
-		to_chat(user, "<span class='notice'>You clear the wired connection from the multitool.</span>")
-	update_icon()
-
-/obj/item/multitool/update_icon()
-	if(selected_io)
-		icon_state = "multitool_red"
-	else
-		icon_state = "multitool"
-
-/obj/item/multitool/proc/wire(var/datum/integrated_io/io, mob/user)
-	if(!io.holder.assembly)
-		to_chat(user, "<span class='warning'>\The [io.holder] needs to be secured inside an assembly first.</span>")
-		return
-
-	if(selected_io)
-		if(io == selected_io)
-			to_chat(user, "<span class='warning'>Wiring \the [selected_io.holder]'s [selected_io.name] into itself is rather pointless.</span>")
-			return
-		if(io.io_type != selected_io.io_type)
-			to_chat(user, "<span class='warning'>Those two types of channels are incompatible.  The first is a [selected_io.io_type], \
-			while the second is a [io.io_type].</span>")
-			return
-		if(io.holder.assembly && io.holder.assembly != selected_io.holder.assembly)
-			to_chat(user, "<span class='warning'>Both \the [io.holder] and \the [selected_io.holder] need to be inside the same assembly.</span>")
-			return
-		io.connect_pin(selected_io)
-
-		to_chat(user, "<span class='notice'>You connect \the [selected_io.holder]'s [selected_io.name] to \the [io.holder]'s [io.name].</span>")
-		selected_io.holder.interact(user) // This is to update the UI.
-		selected_io = null
-
-	else
-		selected_io = io
-		to_chat(user, "<span class='notice'>You link \the multitool to \the [selected_io.holder]'s [selected_io.name] data channel.</span>")
-
-	update_icon()
-
-
-/obj/item/multitool/proc/unwire(var/datum/integrated_io/io1, var/datum/integrated_io/io2, mob/user)
-	if(!io1.linked.len || !io2.linked.len)
-		to_chat(user, "<span class='warning'>There is nothing connected to the data channel.</span>")
-		return
-
-	if(!(io1 in io2.linked) || !(io2 in io1.linked) )
-		to_chat(user, "<span class='warning'>These data pins aren't connected!</span>")
-		return
-	else
-		io1.disconnect_pin(io2)
-		to_chat(user, "<span class='notice'>You clip the data connection between the [io1.holder.displayed_name]'s \
-		[io1.name] and the [io2.holder.displayed_name]'s [io2.name].</span>")
-		io1.holder.interact(user) // This is to update the UI.
-		update_icon()
-
-// circuit shit end
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
 	var/track_cooldown = 0
@@ -112,13 +57,13 @@
 	var/rangewarning = 20 //Glows yellow when inside
 	var/hud_type = DATA_HUD_AI_DETECT
 	var/hud_on = FALSE
-	var/mob/camera/aiEye/remote/ai_detector/eye
+	var/mob/camera/ai_eye/remote/ai_detector/eye
 	var/datum/action/item_action/toggle_multitool/toggle_action
 
 /obj/item/multitool/ai_detect/Initialize()
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	eye = new /mob/camera/aiEye/remote/ai_detector()
+	eye = new /mob/camera/ai_eye/remote/ai_detector()
 	toggle_action = new /datum/action/item_action/toggle_multitool(src)
 
 /obj/item/multitool/ai_detect/Destroy()
@@ -163,7 +108,7 @@
 
 /obj/item/multitool/ai_detect/proc/show_hud(mob/user)
 	if(user && hud_type)
-		var/obj/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
+		var/atom/movable/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
 		PM.alpha = 150
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		if(!H.hudusers[user])
@@ -173,7 +118,7 @@
 
 /obj/item/multitool/ai_detect/proc/remove_hud(mob/user)
 	if(user && hud_type)
-		var/obj/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
+		var/atom/movable/screen/plane_master/camera_static/PM = user.hud_used.plane_masters["[CAMERA_STATIC_PLANE]"]
 		PM.alpha = 255
 		var/datum/atom_hud/H = GLOB.huds[hud_type]
 		H.remove_hud_from(user)
@@ -192,7 +137,7 @@
 		return
 	var/datum/camerachunk/chunk = GLOB.cameranet.chunkGenerated(our_turf.x, our_turf.y, our_turf.z)
 	if(chunk && chunk.seenby.len)
-		for(var/mob/camera/aiEye/A in chunk.seenby)
+		for(var/mob/camera/ai_eye/A in chunk.seenby)
 			if(!A.ai_detector_visible)
 				continue
 			var/turf/detect_turf = get_turf(A)
@@ -203,7 +148,7 @@
 				detect_state = PROXIMITY_NEAR
 				break
 
-/mob/camera/aiEye/remote/ai_detector
+/mob/camera/ai_eye/remote/ai_detector
 	name = "AI detector eye"
 	ai_detector_visible = FALSE
 	use_static = USE_STATIC_TRANSPARENT

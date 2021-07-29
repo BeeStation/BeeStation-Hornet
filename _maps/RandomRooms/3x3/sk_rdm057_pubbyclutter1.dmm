@@ -9,11 +9,6 @@
 	},
 /turf/open/floor/plating,
 /area/template_noop)
-"b" = (
-/obj/structure/table,
-/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
-/turf/open/floor/plating,
-/area/template_noop)
 "c" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating{
@@ -48,7 +43,7 @@ d
 f
 "}
 (2,1,1) = {"
-b
+e
 e
 e
 "}

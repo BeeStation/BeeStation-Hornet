@@ -5,12 +5,14 @@
 	damage = 0
 	nodamage = TRUE
 	pass_flags = PASSGLASS | PASSTABLE | PASSGRILLE | PASSMOB
-	var/obj/item/gun/energy/wormhole_projector/gun
+	//Weakref to the thing that shot us
+	var/datum/weakref/gun
 	color = "#33CCFF"
 	tracer_type = /obj/effect/projectile/tracer/wormhole
 	impact_type = /obj/effect/projectile/impact/wormhole
 	muzzle_type = /obj/effect/projectile/muzzle/wormhole
 	hitscan = TRUE
+	martial_arts_no_deflect = TRUE
 
 /obj/item/projectile/beam/wormhole/orange
 	name = "orange bluespace beam"
@@ -23,7 +25,8 @@
 
 
 /obj/item/projectile/beam/wormhole/on_hit(atom/target)
-	if(!gun)
+	var/obj/item/gun/energy/wormhole_projector/projector = gun.resolve()
+	if(!projector)
 		qdel(src)
-		return 
-	gun.create_portal(src, get_turf(src))
+		return
+	projector.create_portal(src, get_turf(src))

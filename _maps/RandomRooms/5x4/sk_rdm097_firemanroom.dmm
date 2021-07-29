@@ -94,6 +94,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/template_noop)
+"n" = (
+/obj/effect/trap/nexus/darkness,
+/obj/effect/spawner/lootdrop/trap,
+/turf/open/floor/plasteel,
+/area/template_noop)
 "s" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/open/floor/plasteel,
@@ -113,7 +118,7 @@ k
 "}
 (3,1,1) = {"
 c
-f
+n
 c
 c
 "}

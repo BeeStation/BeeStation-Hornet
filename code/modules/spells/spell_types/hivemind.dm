@@ -57,14 +57,14 @@
 	var/success = FALSE
 
 	if(target.mind && target.client && target.stat != DEAD)
-		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(HAS_TRAIT(target, TRAIT_MINDSHIELD) && ignore_mindshield)
 				to_chat(user, "<span class='notice'>We bruteforce our way past the mental barriers of [target.name] and begin linking our minds!</span>")
 			else
 				to_chat(user, "<span class='notice'>We begin linking our mind with [target.name]!</span>")
-			if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (target in view(range)))
-				if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (target in view(range)))
-					if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && (target in view(range)))
+			if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (user in viewers(range, target)))
+				if(do_after(user,5*(1.5**get_dist(user, target)),0,user) && (user in viewers(range, target)))
+					if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && (user in viewers(range, target)))
 						to_chat(user, "<span class='notice'>[target.name] was added to the Hive!</span>")
 						success = TRUE
 						hive.add_to_hive(target)
@@ -140,7 +140,7 @@
 			active = TRUE
 			host = user
 			user.clear_fullscreen("hive_mc")
-			user.overlay_fullscreen("hive_eyes", /obj/screen/fullscreen/hive_eyes)
+			user.overlay_fullscreen("hive_eyes", /atom/movable/screen/fullscreen/hive_eyes)
 		revert_cast()
 	else
 		vessel.remove_status_effect(STATUS_EFFECT_BUGGED)
@@ -148,7 +148,7 @@
 		user.clear_fullscreen("hive_eyes")
 		var/obj/effect/proc_holder/spell/target_hive/hive_control/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_control) in user.mind.spell_list
 		if(the_spell && the_spell.active)
-			user.overlay_fullscreen("hive_mc", /obj/screen/fullscreen/hive_mc)
+			user.overlay_fullscreen("hive_mc", /atom/movable/screen/fullscreen/hive_mc)
 		active = FALSE
 		revert_cast()
 
@@ -195,7 +195,7 @@
 					power *= 2.5
 				else
 					power *= 3
-		if(power > 50 && user.z == target.z)
+		if(power > 50 && user.get_virtual_z_level() == target.get_virtual_z_level())
 			to_chat(user, "<span class='notice'>We have overloaded the vessel for a short time!</span>")
 			target.Jitter(round(power/10))
 			target.Unconscious(power)
@@ -236,7 +236,7 @@
 			break
 		distance = get_dist(user, L)
 		message = "[(L.is_real_hivehost()) ? "Someone": "A hivemind host"] tracking us"
-		if(user.z != L.z || L.stat == DEAD)
+		if(user.get_virtual_z_level() != L.get_virtual_z_level() || L.stat == DEAD)
 			message += " could not be found."
 		else
 			switch(distance)
@@ -259,7 +259,7 @@
 		var/mob/living/real_enemy = C.get_real_hivehost()
 		distance = get_dist(user, real_enemy)
 		message = "A host that we can track for [(hive.individual_track_bonus[enemy])/10] extra seconds"
-		if(user.z != real_enemy.z || real_enemy.stat == DEAD)
+		if(user.get_virtual_z_level() != real_enemy.get_virtual_z_level() || real_enemy.stat == DEAD)
 			message += " could not be found."
 		else
 			switch(distance)
@@ -316,7 +316,7 @@
 		else
 			user.heal_ordered_damage(5, list(CLONE, BURN, BRUTE))
 		if(!user.getBruteLoss() && !user.getFireLoss() && !user.getCloneLoss()) //If we don't have any of these, stop looping
-			to_chat(user, "<span class='warning'>We finish our healing</span>")
+			to_chat(user, "<span class='warning'>We finish our healing.</span>")
 			break
 		iterations++
 	user.setOrganLoss(ORGAN_SLOT_BRAIN, 0)
@@ -334,7 +334,7 @@
 	to_chat(src, "<span class='warning'>You find yourself unable to emote, you aren't in control of your body!</span>")
 	return
 
-/mob/living/passenger/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
+/mob/living/passenger/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mods)
 	return
 
 /obj/effect/proc_holder/spell/target_hive/hive_control
@@ -401,7 +401,7 @@
 			to_chat(user, "<span class='notice'>We fail to assume control of the target.</span>")
 			revert_cast()
 			return
-		if(user.z != vessel.z)
+		if(user.get_virtual_z_level() != vessel.get_virtual_z_level())
 			to_chat(user, "<span class='notice'>Our vessel is too far away to control.</span>")
 			revert_cast()
 			return
@@ -430,7 +430,7 @@
 			vessel.mind.transfer_to(backseat, 1)
 			user.mind.transfer_to(vessel, 1)
 			backseat.blind_eyes(power)
-			vessel.overlay_fullscreen("hive_mc", /obj/screen/fullscreen/hive_mc)
+			vessel.overlay_fullscreen("hive_mc", /atom/movable/screen/fullscreen/hive_mc)
 			active = TRUE
 			out_of_range = FALSE
 			starting_spot = get_turf(vessel)
@@ -460,7 +460,7 @@
 			original_body.adjustOrganLoss(ORGAN_SLOT_BRAIN, 200)
 			to_chat(vessel.mind, "<span class='warning'>Our vessel is one of us no more!</span>")
 			release_control()
-		else if(!QDELETED(original_body) && original_body.z != vessel.z) //Return to original bodies
+		else if(!QDELETED(original_body) && original_body.get_virtual_z_level() != vessel.get_virtual_z_level()) //Return to original bodies
 			release_control()
 			to_chat(original_body, "<span class='warning'>Our vessel is too far away to control!</span>")
 		else if(QDELETED(original_body) || original_body.stat == DEAD) //Return vessel to its body, either return or ghost the original
@@ -620,7 +620,7 @@
 	if(!hive)
 		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
 		return
-	if(target.z != user.z)
+	if(target.get_virtual_z_level() != user.get_virtual_z_level())
 		to_chat(user, "<span class='notice'>We are too far away from [target.name] to affect them!</span>")
 		return
 	to_chat(user, "<span class='notice'>We successfully distort reality surrounding [target.name]!</span>")
@@ -628,7 +628,7 @@
 	distort(user, target, pulse_cap)
 
 /obj/effect/proc_holder/spell/target_hive/hive_warp/proc/distort(user, target, pulse_cap, pulses = 0)
-	for(var/mob/living/carbon/human/victim in view(7,target))
+	for(var/mob/living/carbon/human/victim in hearers(7,target))
 		if(user == victim || victim.is_real_hivehost())
 			continue
 		if(pulses < 4)
@@ -853,9 +853,9 @@
 	var/wall_type_b = /obj/effect/forcefield/wizard/hive/invis
 
 /obj/effect/proc_holder/spell/targeted/forcewall/hive/cast(list/targets,mob/user = usr)
-	new wall_type(get_turf(user),user)
+	new wall_type(get_turf(user), null, user)
 	for(var/dir in GLOB.alldirs)
-		new wall_type_b(get_step(user, dir),user)
+		new wall_type_b(get_step(user, dir), null, user)
 	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
 	if(hive)
 		hive.threat_level += 0.5

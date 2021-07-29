@@ -67,7 +67,7 @@
 	status_type = STATUS_EFFECT_MULTIPLE
 	alert_type = null
 	tick_interval = 1
-	var/obj/screen/seedling/seedling_screen_object
+	var/atom/movable/screen/seedling/seedling_screen_object
 	var/atom/target
 
 
@@ -79,7 +79,7 @@
 
 /datum/status_effect/seedling_beam_indicator/on_apply()
 	if(owner.client)
-		seedling_screen_object = new /obj/screen/seedling()
+		seedling_screen_object = new /atom/movable/screen/seedling()
 		owner.client.screen += seedling_screen_object
 	tick()
 	return ..()
@@ -96,7 +96,7 @@
 	final.Turn(target_angle)
 	seedling_screen_object.transform = final
 
-/obj/screen/seedling
+/atom/movable/screen/seedling
 	icon = 'icons/mob/jungle/arachnid.dmi'
 	icon_state = "seedling_beam_indicator"
 	screen_loc = "CENTER:-16,CENTER:-16"
@@ -145,7 +145,7 @@
 
 /mob/living/simple_animal/hostile/jungle/seedling/proc/Beamu(mob/living/living_target, beam_id = 0)
 	if(combatant_state == SEEDLING_STATE_ACTIVE && living_target && beam_id == solar_beam_identifier)
-		if(living_target.z == z)
+		if(living_target.get_virtual_z_level() == get_virtual_z_level())
 			update_icons()
 			var/obj/effect/temp_visual/solarbeam_killsat/S = new (get_turf(src))
 			var/matrix/starting = matrix()

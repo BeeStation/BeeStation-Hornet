@@ -1,5 +1,3 @@
-import { map } from 'common/collections';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, Collapsible, Grid, Input, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
@@ -20,7 +18,7 @@ export const PandemicBeakerDisplay = (props, context) => {
     <Section
       title="Beaker"
       buttons={(
-        <Fragment>
+        <>
           <Button
             icon="times"
             content="Empty and Eject"
@@ -37,7 +35,7 @@ export const PandemicBeakerDisplay = (props, context) => {
             content="Eject"
             disabled={!has_beaker}
             onClick={() => act('eject_beaker')} />
-        </Fragment>
+        </>
       )} >
       {has_beaker ? (
         !beaker_empty ? (
@@ -115,6 +113,9 @@ export const PandemicDiseaseDisplay = (props, context) => {
                 <LabeledList.Item label="Spread">
                   {virus.spread}
                 </LabeledList.Item>
+                <LabeledList.Item label="Danger">
+                  {virus.danger}
+                </LabeledList.Item>
                 <LabeledList.Item label="Possible Cure">
                   {virus.cure}
                 </LabeledList.Item>
@@ -122,7 +123,7 @@ export const PandemicDiseaseDisplay = (props, context) => {
             </Grid.Column>
           </Grid>
           {!!virus.is_adv && (
-            <Fragment>
+            <>
               <Section
                 title="Statistics"
                 level={2} >
@@ -145,6 +146,9 @@ export const PandemicDiseaseDisplay = (props, context) => {
                       <LabeledList.Item label="Transmissibility">
                         {virus.transmission}
                       </LabeledList.Item>
+                      <LabeledList.Item label="Severity">
+                        {virus.symptom_severity}
+                      </LabeledList.Item>
                     </LabeledList>
                   </Grid.Column>
                 </Grid>
@@ -162,7 +166,7 @@ export const PandemicDiseaseDisplay = (props, context) => {
                   </Collapsible>
                 ))}
               </Section>
-            </Fragment>
+            </>
           )}
         </Section>
       );
@@ -179,6 +183,7 @@ export const PandemicSymptomDisplay = (props, context) => {
     resistance,
     stage_speed,
     transmission,
+    severity,
     level,
     neutered,
   } = symptom;
@@ -217,6 +222,9 @@ export const PandemicSymptomDisplay = (props, context) => {
             </LabeledList.Item>
             <LabeledList.Item label="Transmission">
               {transmission}
+            </LabeledList.Item>
+            <LabeledList.Item label="Severity">
+              {severity}
             </LabeledList.Item>
           </LabeledList>
         </Grid.Column>
@@ -276,14 +284,16 @@ export const Pandemic = (props, context) => {
   const { data } = useBackend(context);
 
   return (
-    <Window resizable>
+    <Window
+      width={520}
+      height={550}>
       <Window.Content scrollable>
         <PandemicBeakerDisplay />
         {!!data.has_blood && (
-          <Fragment>
+          <>
             <PandemicDiseaseDisplay />
             <PandemicAntibodyDisplay />
-          </Fragment>
+          </>
         )}
       </Window.Content>
     </Window>

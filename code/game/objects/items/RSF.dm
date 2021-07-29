@@ -14,7 +14,7 @@ RSF
 	density = FALSE
 	anchored = FALSE
 	item_flags = NOBLUDGEON
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	var/matter = 0
 	var/mode = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -42,6 +42,16 @@ RSF
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 	switch(mode)
 		if(5)
+			mode = 1
+			if(iscyborg(user))
+				var/mob/living/silicon/robot/R = user
+				if(R.emagged)
+					mode = 6
+			if (mode==1)
+				to_chat(user, "Changed dispensing mode to 'Drinking Glass'")
+			else
+				to_chat(user, "Changed dispensing mode to 'Explosive Cigarette'")
+		if(6)
 			mode = 1
 			to_chat(user, "Changed dispensing mode to 'Drinking Glass'")
 		if(1)
@@ -97,6 +107,10 @@ RSF
 			to_chat(user, "Dispensing Cigarette...")
 			new /obj/item/clothing/mask/cigarette(T)
 			use_matter(10, user)
+		if(6)
+			to_chat(user, "Dispensing Explosive Cigarette...")
+			new /obj/item/clothing/mask/cigarette/plasma(T)
+			use_matter(20, user)
 
 /obj/item/rsf/proc/use_matter(charge, mob/user)
 	if (iscyborg(user))
@@ -148,7 +162,7 @@ RSF
 		toxin = 0
 		to_chat(user, "Cookie Synthesizer Reset")
 
-/obj/item/cookiesynth/process()
+/obj/item/cookiesynth/process(delta_time)
 	if(matter < 10)
 		matter++
 

@@ -16,6 +16,7 @@
 	light_color = rgb(255, 0, 0)
 	gender = FEMALE
 	var/clashing = FALSE //If Nar'Sie is fighting Ratvar
+	var/next_attack_tick
 
 /obj/singularity/narsie/large
 	name = "Nar'Sie"
@@ -68,12 +69,13 @@
 			souls_needed[player] = TRUE
 	soul_goal = round(1 + LAZYLEN(souls_needed) * 0.75)
 	INVOKE_ASYNC(src, .proc/begin_the_end)
+	check_gods_battle()
 
 /obj/singularity/narsie/large/cult/proc/begin_the_end()
 	sleep(50)
 	priority_announce("An acausal dimensional event has been detected in your sector. Event has been flagged EXTINCTION-CLASS. Directing all available assets toward simulating solutions. SOLUTION ETA: 60 SECONDS.","Central Command Higher Dimensional Affairs", 'sound/misc/airraid.ogg')
 	sleep(500)
-	priority_announce("Simulations on acausal dimensional event complete. Deploying solution package now. Deployment ETA: ONE MINUTE. ","Central Command Higher Dimensional Affairs")
+	priority_announce("Simulations on acausal dimensional event complete. Deploying solution package now. Deployment ETA: ONE MINUTE. ", "Central Command Higher Dimensional Affairs", SSstation.announcer.get_rand_alert_sound())
 	sleep(50)
 	set_security_level("delta")
 	SSshuttle.registerHostileEnvironment(src)
@@ -101,15 +103,36 @@
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, cultoverride = TRUE, loc_override = src.loc)
 
-/obj/singularity/narsie/process()
-	if(clashing)
-		return
+/obj/singularity/narsie/process(delta_time)
 	eat()
-	if(!target || prob(5))
+	if(clashing)
+		//Oh god what is it doing...
+		target = clashing
+		if(get_dist(src, clashing) < 5)
+			if(next_attack_tick < world.time)
+				next_attack_tick = world.time + rand(50, 100)
+				to_chat(world, "<span class='danger'>[pick("You hear the scratching of cogs.","You hear the clanging of pipes.","You feel your bones start to rust...")]</span>")
+				SEND_SOUND(world, 'sound/magic/clockwork/narsie_attack.ogg')
+				SpinAnimation(4, 0)
+				for(var/mob/living/M in GLOB.player_list)
+					shake_camera(M, 25, 6)
+					M.Knockdown(10)
+				if(DT_PROB(max(SSticker.mode?.cult.len/2, 15), delta_time))
+					SEND_SOUND(world, 'sound/magic/clockwork/anima_fragment_death.ogg')
+					SEND_SOUND(world, 'sound/effects/explosionfar.ogg')
+					to_chat(world, "<span class='narsie'>You really thought you could best me twice?</span>")
+					QDEL_NULL(clashing)
+					for(var/datum/mind/M as() in GLOB.servants_of_ratvar)
+						to_chat(M, "<span class='userdanger'>You feel a stabbing pain in your chest... This can't be happening!</span>")
+						M.current?.dust()
+				return
+		move()
+		return
+	if(!target || DT_PROB(5, delta_time))
 		pickcultist()
 	else
 		move()
-	if(prob(25))
+	if(DT_PROB(25, delta_time))
 		mezzer()
 
 
@@ -125,11 +148,11 @@
 
 
 /obj/singularity/narsie/mezzer()
-	for(var/mob/living/carbon/M in viewers(consume_range, src))
-		if(M.stat == CONSCIOUS)
-			if(!iscultist(M))
-				to_chat(M, "<span class='cultsmall'>You feel conscious thought crumble away in an instant as you gaze upon [src.name]...</span>")
-				M.apply_effect(60, EFFECT_STUN)
+	for(var/mob/living/carbon/M in hearers(consume_range, src))
+		if(M.stat || iscultist(M))
+			continue
+		to_chat(M, "<span class='cultsmall'>You feel conscious thought crumble away in an instant as you gaze upon [src.name].</span>")
+		M.apply_effect(60, EFFECT_STUN)
 
 
 /obj/singularity/narsie/consume(atom/A)
@@ -147,7 +170,7 @@
 
 	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
-		if(!pos || (pos.z != z))
+		if(!pos || (pos.get_virtual_z_level() != get_virtual_z_level()))
 			continue
 
 		if(iscultist(food))
@@ -168,7 +191,7 @@
 		if(!ghost.client)
 			continue
 		var/turf/pos = get_turf(ghost)
-		if(!pos || (pos.z != z))
+		if(!pos || (pos.get_virtual_z_level() != get_virtual_z_level()))
 			continue
 		cultists += ghost
 	if(cultists.len)
@@ -193,9 +216,10 @@
 /obj/singularity/narsie/wizard/eat()
 //	if(defer_powernet_rebuild != 2)
 //		defer_powernet_rebuild = 1
-	for(var/atom/X in urange(consume_range,src,1))
-		if(isturf(X) || ismovableatom(X))
-			consume(X)
+	for(var/turf/T as() in RANGE_TURFS(consume_range, src))
+		consume(T)
+	for(var/atom/movable/AM in urange(consume_range,src,1))
+		consume(AM)
 //	if(defer_powernet_rebuild != 2)
 //		defer_powernet_rebuild = 0
 	return
@@ -209,6 +233,5 @@
 	sleep(11)
 	move_self = 1
 	icon = initial(icon)
-
 
 

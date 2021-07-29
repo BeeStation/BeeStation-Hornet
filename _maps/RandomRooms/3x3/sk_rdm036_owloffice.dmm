@@ -7,10 +7,10 @@
 "b" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
 /obj/item/clothing/suit/toggle/owlwings,
 /obj/item/clothing/under/costume/owl,
 /obj/item/clothing/mask/gas/owl_mask,
+/obj/structure/table_frame/wood,
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
@@ -37,8 +37,8 @@
 /area/template_noop)
 "f" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/wood,
 /obj/item/modular_computer/tablet/preset/cheap,
+/obj/structure/table_frame/wood,
 /turf/open/floor/plating,
 /area/template_noop)
 "g" = (

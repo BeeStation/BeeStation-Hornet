@@ -54,7 +54,7 @@
 	log_admin("[key_name(usr)] renamed [old_name] team to [name]")
 
 /datum/team/proc/admin_communicate(mob/user)
-	var/message = input(user,"Message for the team ?","Team Message") as text|null
+	var/message = capped_input(user,"Message for the team ?","Team Message")
 	if(!message)
 		return
 	for(var/datum/mind/M in members)
@@ -147,11 +147,12 @@
 	//qdel maybe
 
 /datum/team/proc/admin_add_member(mob/user)
-	var/list/minds = list()
-	for(var/mob/M in GLOB.mob_list)
-		if(M.mind)
-			minds |= M.mind
-	var/datum/mind/value = input("Select new member:", "New team member", null) as null|anything in sortNames(minds)
+	var/list/candidates = list()
+	for(var/mob/M in GLOB.player_list)
+		if(M.mind?.special_role)
+			continue
+		candidates += M.mind
+	var/datum/mind/value = input("Select new member:", "New team member", null) as null|anything in sortNames(candidates)
 	if (!value)
 		return
 

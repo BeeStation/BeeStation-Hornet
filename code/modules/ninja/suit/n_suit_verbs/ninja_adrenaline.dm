@@ -13,11 +13,11 @@
 		H.stuttering = 0
 		H.lying = 0
 		H.update_mobility()
-		H.reagents.add_reagent(/datum/reagent/medicine/stimulants, 5)
+		H.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 5)
 		H.say(pick("A CORNERED FOX IS MORE DANGEROUS THAN A JACKAL!","HURT ME MOOORRREEE!","IMPRESSIVE!"), forced = "ninjaboost")
 		a_boost--
 		to_chat(H, "<span class='notice'>There are <B>[a_boost]</B> adrenaline boosts remaining.</span>")
-		s_coold = 3
+		s_coold = 6
 		addtimer(CALLBACK(src, .proc/ninjaboost_after), 70)
 
 /obj/item/clothing/suit/space/space_ninja/proc/ninjaboost_after()

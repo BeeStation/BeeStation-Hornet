@@ -29,6 +29,10 @@
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
 	var/activate_delay = 30
 
+/obj/item/assembly/Destroy()
+	holder = null
+	return ..()
+	
 /obj/item/assembly/get_part_rating()
 	return 1
 
@@ -125,3 +129,8 @@
 
 /obj/item/assembly/interact(mob/user)
 	return ui_interact(user)
+
+/obj/item/assembly/ui_status(mob/user)
+	. = ..()
+	if(src.can_interact(user) || holder?.can_interact(user))
+		return UI_INTERACTIVE

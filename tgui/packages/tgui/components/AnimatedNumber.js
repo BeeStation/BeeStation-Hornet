@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { clamp, toFixed } from 'common/math';
 import { Component } from 'inferno';
 
@@ -57,7 +63,7 @@ export class AnimatedNumber extends Component {
     if (!isSafeNumber(targetValue)) {
       return targetValue || null;
     }
-    let formattedValue = currentValue;
+    let formattedValue;
     // Use custom formatter
     if (format) {
       formattedValue = format(currentValue);

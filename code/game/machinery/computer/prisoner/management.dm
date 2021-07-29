@@ -35,7 +35,7 @@
 		var/turf/Tr = null
 		for(var/obj/item/implant/chem/C in GLOB.tracked_chem_implants)
 			Tr = get_turf(C)
-			if((Tr) && (Tr.z != src.z))
+			if((Tr) && (Tr.get_virtual_z_level() != src.get_virtual_z_level()))
 				continue//Out of range
 			if(!C.imp_in)
 				continue
@@ -50,7 +50,7 @@
 			if(!isliving(T.imp_in))
 				continue
 			Tr = get_turf(T)
-			if((Tr) && (Tr.z != src.z))
+			if((Tr) && (Tr.get_virtual_z_level() != src.get_virtual_z_level()))
 				continue//Out of range
 
 			var/loc_display = "Unknown"
@@ -65,7 +65,6 @@
 		dat += "<HR><A href='?src=[REF(src)];lock=1'>{Log Out}</A>"
 	var/datum/browser/popup = new(user, "computer", "Prisoner Management Console", 400, 500)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 	return
 

@@ -29,7 +29,7 @@
 	if(reac_volume >= 10) //if it's not a spore cloud, bad time incoming
 		var/obj/effect/temp_visual/explosion/fast/E = new /obj/effect/temp_visual/explosion/fast(get_turf(M))
 		E.alpha = 150
-		for(var/mob/living/L in orange(get_turf(M), 1))
+		for(var/mob/living/L in ohearers(1, get_turf(M)))
 			if(ROLE_BLOB in L.faction) //no friendly fire
 				continue
 			var/aoe_volume = ..(L, TOUCH, initial_volume, 0, L.get_permeability_protection(), O)

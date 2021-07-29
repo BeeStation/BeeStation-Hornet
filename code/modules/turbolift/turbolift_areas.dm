@@ -5,7 +5,7 @@
 /area/shuttle/turbolift/shaft //What the shuttle leaves behind
 	name = "turbolift shaft"
 	requires_power = TRUE
-	ambientsounds = MAINTENANCE
+	ambience_index = AMBIENCE_MAINT
 
 /area/shuttle/turbolift/primary
 	name = "primary turbolift"

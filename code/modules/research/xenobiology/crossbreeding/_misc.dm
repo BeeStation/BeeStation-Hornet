@@ -248,7 +248,7 @@ Slimecrossing Items
 	icon_state = "frozen"
 	density = TRUE
 	max_integrity = 100
-	armor = list("melee" = 30, "bullet" = 50, "laser" = -50, "energy" = -50, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = -80, "acid" = 30)
+	armor = list("melee" = 30, "bullet" = 50, "laser" = -50, "energy" = -50, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = -80, "acid" = 30, "stamina" = 0)
 
 /obj/structure/ice_stasis/Initialize()
 	. = ..()
@@ -276,24 +276,28 @@ Slimecrossing Items
 		to_chat(user, "<span class='warning'>The capture device only works on simple creatures.</span>")
 		return
 	if(M.mind)
-		to_chat(user, "<span class='notice'>You offer the device to [M].</span>")
-		if(alert(M, "Would you like to enter [user]'s capture device?", "Gold Capture Device", "Yes", "No") == "Yes")
-			if(user.canUseTopic(src, BE_CLOSE) && user.canUseTopic(M, BE_CLOSE))
-				to_chat(user, "<span class='notice'>You store [M] in the capture device.</span>")
-				to_chat(M, "<span class='notice'>The world warps around you, and you're suddenly in an endless void, with a window to the outside floating in front of you.</span>")
-				store(M, user)
-			else
-				to_chat(user, "<span class='warning'>You were too far away from [M].</span>")
-				to_chat(M, "<span class='warning'>You were too far away from [user].</span>")
-		else
-			to_chat(user, "<span class='warning'>[M] refused to enter the device.</span>")
-			return
+		INVOKE_ASYNC(src, .proc/offer_entry, M, user)
+		return
 	else
 		if(istype(M, /mob/living/simple_animal/hostile) && !("neutral" in M.faction))
 			to_chat(user, "<span class='warning'>This creature is too aggressive to capture.</span>")
 			return
 	to_chat(user, "<span class='notice'>You store [M] in the capture device.</span>")
 	store(M)
+
+/obj/item/capturedevice/proc/offer_entry(mob/living/M, mob/user)
+	to_chat(user, "<span class='notice'>You offer the device to [M].</span>")
+	if(alert(M, "Would you like to enter [user]'s capture device?", "Gold Capture Device", "Yes", "No") != "Yes")
+		to_chat(user, "<span class='warning'>[M] refused to enter the device.</span>")
+		return
+	if(!user.canUseTopic(src, BE_CLOSE) || !user.canUseTopic(M, BE_CLOSE))
+		to_chat(user, "<span class='warning'>You were too far away from [M].</span>")
+		to_chat(M, "<span class='warning'>You were too far away from [user].</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You store [M] in the capture device.</span>")
+	to_chat(M, "<span class='notice'>The world warps around you, and you're suddenly in an endless void, with a window to the outside floating in front of you.</span>")
+	store(M, user)
 
 /obj/item/capturedevice/attack_self(mob/user)
 	if(contents.len)
@@ -308,3 +312,25 @@ Slimecrossing Items
 /obj/item/capturedevice/proc/release()
 	for(var/atom/movable/M in contents)
 		M.forceMove(get_turf(loc))
+
+/obj/item/cerulean_slime_crystal
+	name = "Cerulean slime poly-crystal"
+	desc = "Translucent and irregular, it can duplicate matter on a whim"
+	icon = 'icons/obj/slimecrossing.dmi'
+	icon_state = "cerulean_item_crystal"
+	var/amt = 0
+
+/obj/item/cerulean_slime_crystal/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!istype(target,/obj/item/stack) || !istype(user,/mob/living/carbon) || !proximity_flag)
+		return
+	var/obj/item/stack/stack_item = target
+
+	if(istype(stack_item,/obj/item/stack/telecrystal))
+		to_chat(user,"<span class='notice'>The crystal disappears!</span>")
+		qdel(src)
+		return
+
+	stack_item.add(amt)
+
+	qdel(src)

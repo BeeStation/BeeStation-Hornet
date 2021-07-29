@@ -1,3 +1,4 @@
+#define SLIME_CARES_ABOUT(to_check) (to_check && (to_check == Target || to_check == Leader || (to_check in Friends)))
 /mob/living/simple_animal/slime
 	name = "grey baby slime (123)"
 	icon = 'icons/mob/slimes.dmi'
@@ -18,7 +19,8 @@
 	speak_emote = list("blorbles")
 	bubble_icon = "slime"
 	initial_language_holder = /datum/language_holder/slime
-	mobsay_color = "#A6E398"
+	chat_color = "#A6E398"
+	mobchatspan = "slimemobsay"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
@@ -49,8 +51,8 @@
 
 	var/number = 0 // Used to understand when someone is talking to it
 
-	var/mob/living/Target = null // AI variable - tells the slime to hunt this down
-	var/mob/living/Leader = null // AI variable - tells the slime to follow this person
+	var/mob/living/Target // AI variable - tells the slime to hunt this down
+	var/mob/living/Leader // AI variable - tells the slime to follow this person
 
 	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
 	var/rabid = 0 // If set to 1, the slime will attack and eat anything it comes in contact with
@@ -85,6 +87,9 @@
 	var/effectmod //What core modification is being used.
 	var/applied = 0 //How many extracts of the modtype have been applied.
 
+	// Transformative extract effects - get passed down
+	var/transformeffects = SLIME_EFFECT_DEFAULT
+	var/mob/master
 
 /mob/living/simple_animal/slime/Initialize(mapload, new_colour="grey", new_is_adult=FALSE)
 	GLOB.total_slimes++
@@ -104,12 +109,14 @@
 	create_reagents(100)
 	set_colour(new_colour)
 	. = ..()
-	set_nutrition(700)
+	set_nutrition(SLIME_DEFAULT_NUTRITION)
+	if(transformeffects & SLIME_EFFECT_LIGHT_PINK)
+		set_playable()
 
 /mob/living/simple_animal/slime/Destroy()
-	for (var/A in actions)
-		var/datum/action/AC = A
-		AC.Remove(src)
+	set_target(null)
+	set_leader(null)
+	clear_friends()
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
@@ -191,7 +198,7 @@
 				hud_used.healths.icon_state = "slime_health7"
 				severity = 6
 		if(severity > 0)
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
 
@@ -231,22 +238,21 @@
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = 0)
 	return 2
 
-/mob/living/simple_animal/slime/Stat()
-	if(..())
-
-		if(!docile)
-			stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
-		if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
-			if(is_adult)
-				stat(null, "You can reproduce!")
-			else
-				stat(null, "You can evolve!")
-
-		if(stat == UNCONSCIOUS)
-			stat(null,"You are knocked out by high levels of BZ!")
+/mob/living/simple_animal/slime/get_stat_tab_status()
+	var/list/tab_data = list()
+	if(!docile)
+		tab_data["Nutrition"] = GENERATE_STAT_TEXT("[nutrition]/[get_max_nutrition()]")
+	if(amount_grown >= SLIME_EVOLUTION_THRESHOLD)
+		if(is_adult)
+			tab_data["Slime Status"] = GENERATE_STAT_TEXT("You can reproduce!")
 		else
-			stat(null,"Power Level: [powerlevel]")
+			tab_data["Slime Status"] = GENERATE_STAT_TEXT("You can evolve!")
 
+	if(stat == UNCONSCIOUS)
+		tab_data["Unconscious"] = GENERATE_STAT_TEXT("You are knocked out by high levels of BZ!")
+	else
+		tab_data["Power Level"] = GENERATE_STAT_TEXT("[powerlevel]")
+	return tab_data
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
 	if(!forced)
@@ -275,7 +281,7 @@
 			Feedon(Food)
 	return ..()
 
-/mob/living/simple_animal/slime/doUnEquip(obj/item/W)
+/mob/living/simple_animal/slime/doUnEquip(obj/item/W, was_thrown = FALSE)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
@@ -296,7 +302,7 @@
 		attacked += 5
 		if(nutrition >= 100) //steal some nutrition. negval handled in life()
 			adjust_nutrition(-(50 + (40 * M.is_adult)))
-			M.add_nutrition(50 + (40 * M.is_adult))
+			M.add_nutrition(25 + (20 * M.is_adult))
 		if(health > 0)
 			M.adjustBruteLoss(-10 + (-10 * M.is_adult))
 			M.updatehealth()
@@ -357,10 +363,7 @@
 				if(S.next_step(user,user.a_intent))
 					return 1
 	if(istype(W, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
-		if (user in Friends)
-			++Friends[user]
-		else
-			Friends[user] = 1
+		add_friendship(user, 1)
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = W
 		S.use(1)
@@ -425,10 +428,13 @@
 	qdel(src)
 
 /mob/living/simple_animal/slime/proc/apply_water()
-	adjustBruteLoss(rand(15,20))
+	var/new_damage = rand(15,20)
+	if(transformeffects & SLIME_EFFECT_DARK_BLUE)
+		new_damage *= 0.5
+	adjustBruteLoss(new_damage)
 	if(!client)
 		if(Target) // Like cats
-			Target = null
+			set_target(null)
 			++Discipline
 	return
 
@@ -473,8 +479,7 @@
 			if(Discipline == 1)
 				attacked = 0
 
-	if(Target)
-		Target = null
+	set_target(null)
 	if(buckled)
 		Feedstop(silent = TRUE) //we unbuckle the slime from the mob it latched onto.
 		bucklestrength = initial(bucklestrength)
@@ -510,3 +515,80 @@
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
+
+/mob/living/simple_animal/slime/apply_damage(damage = 0,damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE)
+	if(damage && damagetype == BRUTE && !forced && (transformeffects & SLIME_EFFECT_ADAMANTINE))
+		blocked += 50
+	. = ..(damage, damagetype, def_zone, blocked, forced)
+
+/mob/living/simple_animal/slime/give_mind(mob/user)
+	. = ..()
+	if (.)
+		if(mind && master)
+			mind.store_memory("<b>Serve [master.real_name], your master.</b>")
+	return .
+
+/mob/living/simple_animal/slime/get_spawner_desc()
+	return "be a slime[master ? " under the command of [master.real_name]" : ""]."
+
+/mob/living/simple_animal/slime/get_spawner_flavour_text()
+	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+
+/mob/living/simple_animal/slime/proc/make_master(mob/user)
+	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2
+	master = user
+
+/mob/living/simple_animal/slime/rainbow/Initialize(mapload, new_colour="rainbow", new_is_adult)
+	. = ..(mapload, new_colour, new_is_adult)
+
+/mob/living/simple_animal/slime/proc/set_target(new_target)
+	var/old_target = Target
+	Target = new_target
+	if(old_target && !SLIME_CARES_ABOUT(old_target))
+		UnregisterSignal(old_target, COMSIG_PARENT_QDELETING)
+	if(Target)
+		RegisterSignal(Target, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+
+/mob/living/simple_animal/slime/proc/set_leader(new_leader)
+	var/old_leader = Leader
+	Leader = new_leader
+	if(old_leader && !SLIME_CARES_ABOUT(old_leader))
+		UnregisterSignal(old_leader, COMSIG_PARENT_QDELETING)
+	if(Leader)
+		RegisterSignal(Leader, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+
+/mob/living/simple_animal/slime/proc/add_friendship(new_friend, amount = 1)
+	if(!Friends[new_friend])
+		Friends[new_friend] = 0
+	Friends[new_friend] += amount
+	if(new_friend)
+		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+
+/mob/living/simple_animal/slime/proc/set_friendship(new_friend, amount = 1)
+	Friends[new_friend] = amount
+	if(new_friend)
+		RegisterSignal(new_friend, COMSIG_PARENT_QDELETING, .proc/clear_memories_of, override = TRUE)
+
+/mob/living/simple_animal/slime/proc/remove_friend(friend)
+	Friends -= friend
+	if(friend && !SLIME_CARES_ABOUT(friend))
+		UnregisterSignal(friend, COMSIG_PARENT_QDELETING)
+
+/mob/living/simple_animal/slime/proc/set_friends(new_buds)
+	clear_friends()
+	for(var/mob/friend as anything in new_buds)
+		set_friendship(friend, new_buds[friend])
+
+/mob/living/simple_animal/slime/proc/clear_friends()
+	for(var/mob/friend as anything in Friends)
+		remove_friend(friend)
+
+/mob/living/simple_animal/slime/proc/clear_memories_of(datum/source)
+	SIGNAL_HANDLER
+	if(source == Target)
+		set_target(null)
+	if(source == Leader)
+		set_leader(null)
+	remove_friend(source)
+
+#undef SLIME_CARES_ABOUT

@@ -80,6 +80,10 @@
 #define MOVESPEED_ID_DAMAGE_SLOWDOWN                    "DAMAGE"
 #define MOVESPEED_ID_DAMAGE_SLOWDOWN_FLYING				"FLYING"
 
-#define MOVESPEED_ID_SLOW_ARMOR		                    	"SLOW_ARMOR " 
+#define MOVESPEED_ID_SLOW_ARMOR		                    	"SLOW_ARMOR "
+
+#define MOVESPEED_ID_INTERDICTION						"interdiction"
 
 #define MOVESPEED_ID_NECRO_VIRUS_SLOWDOWN				"NECRO_VIRUS"
+
+#define MOVESPEED_ID_SWIMMING							"SWIMMING_SPEED_MOD"

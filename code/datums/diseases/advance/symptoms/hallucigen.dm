@@ -6,7 +6,7 @@ Hallucigen
 	Very noticable.
 	Lowers resistance considerably.
 	Decreases stage speed.
-	Reduced transmittable.
+	Reduced transmission.
 	Critical Level.
 
 Bonus
@@ -21,7 +21,7 @@ Bonus
 	stealth = 1
 	resistance = -3
 	stage_speed = -1
-	transmittable = -1
+	transmission = -1
 	level = 5
 	severity = 1
 	base_message_chance = 25
@@ -33,16 +33,16 @@ Bonus
 
 /datum/symptom/hallucigen/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["stage_rate"] >= 7)
+	if(A.stage_rate >= 7)
 		severity += 1
 
 /datum/symptom/hallucigen/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stealth"] >= 2) //fake good symptom messages
+	if(A.stealth >= 2) //fake good symptom messages
 		fake_healthy = TRUE
 		base_message_chance = 50
-	if(A.properties["stage_rate"] >= 7) //stronger hallucinations
+	if(A.stage_rate >= 7) //stronger hallucinations
 		power = 2
 
 /datum/symptom/hallucigen/Activate(datum/disease/advance/A)

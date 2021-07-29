@@ -10,7 +10,7 @@
 			is_adult = FALSE
 			maxHealth = 150
 			for(var/datum/action/innate/slime/reproduce/R in actions)
-				R.Remove(src)
+				qdel(R)
 			var/datum/action/innate/slime/evolve/E = new
 			E.Grant(src)
 			revive(full_heal = 1)
@@ -22,7 +22,7 @@
 		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
 
 	GLOB.total_slimes--
-	stat = DEAD
+	set_stat(DEAD)
 	cut_overlays()
 
 	if(SSticker.mode)
@@ -41,4 +41,5 @@
 			X.stored_slimes -= src
 	if(stat != DEAD)
 		GLOB.total_slimes--
+	master = null
 	return ..()

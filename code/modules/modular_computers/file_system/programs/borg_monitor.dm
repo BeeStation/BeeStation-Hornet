@@ -9,8 +9,8 @@
 	network_destination = "cyborg remote monitoring"
 	size = 5
 	tgui_id = "NtosCyborgRemoteMonitor"
-	ui_x = 600
-	ui_y = 800
+
+
 
 /datum/computer_file/program/borg_monitor/ui_data(mob/user)
 	var/list/data = get_header_data()
@@ -21,7 +21,7 @@
 
 	data["cyborgs"] = list()
 	for(var/mob/living/silicon/robot/R in GLOB.silicon_mobs)
-		if((get_turf(computer)).z != (get_turf(R)).z)
+		if((get_turf(computer)).get_virtual_z_level() != (get_turf(R)).get_virtual_z_level())
 			continue
 		if(R.scrambledcodes)
 			continue

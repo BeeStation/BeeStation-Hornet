@@ -50,7 +50,11 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 	if(!check_allowed(user) || !war_declaration)
 		return
 
-	priority_announce(war_declaration, title = "Declaration of War", sound = 'sound/machines/alarm.ogg')
+	priority_announce(war_declaration, "Declaration of War", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
+
+	for(var/mob/M in GLOB.player_list)
+		if(M?.client?.prefs?.toggles & SOUND_AMBIENCE && !isnewplayer(M))
+			SEND_SOUND(M, sound('sound/soundtrack/future_perception.ogg', wait=0, channel=CHANNEL_AMBIENT_MUSIC))
 
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 

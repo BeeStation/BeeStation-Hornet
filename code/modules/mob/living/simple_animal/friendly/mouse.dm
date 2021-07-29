@@ -25,8 +25,11 @@
 	var/body_color //brown, gray and white, leave blank for random
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
-	mobsay_color = "#82AF84"
+	chat_color = "#82AF84"
 	var/list/ratdisease = list()
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+
 
 /mob/living/simple_animal/mouse/Initialize()
 	. = ..()
@@ -36,8 +39,9 @@
 	icon_state = "mouse_[body_color]"
 	icon_living = "mouse_[body_color]"
 	icon_dead = "mouse_[body_color]_dead"
-	if(prob(40))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 4))
+	held_state = "mouse_[body_color]"
+	if(prob(75))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, rand(3,4))
 		ratdisease += R
 
 /mob/living/simple_animal/mouse/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
@@ -56,7 +60,7 @@
 	death()
 
 /mob/living/simple_animal/mouse/death(gibbed, toast)
-	var/list/data = list("viruses" = list(ratdisease))
+	var/list/data = list("viruses" = ratdisease)
 	if(!ckey)
 		..(1)
 		if(!gibbed)
@@ -100,6 +104,7 @@
 /mob/living/simple_animal/mouse/white
 	body_color = "white"
 	icon_state = "mouse_white"
+	held_state = "mouse_white"
 
 /mob/living/simple_animal/mouse/gray
 	body_color = "gray"
@@ -108,6 +113,7 @@
 /mob/living/simple_animal/mouse/brown
 	body_color = "brown"
 	icon_state = "mouse_brown"
+	held_state = "mouse_brown"
 
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
 /mob/living/simple_animal/mouse/brown/Tom

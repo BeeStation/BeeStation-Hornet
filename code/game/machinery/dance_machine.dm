@@ -123,7 +123,7 @@
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
 				activate_music()
-				START_PROCESSING(SSobj, src)
+				START_PROCESSING(SSmachines, src)
 				updateUsrDialog()
 			else if(active)
 				stop = 0
@@ -145,7 +145,7 @@
 /obj/machinery/jukebox/proc/activate_music()
 	active = TRUE
 	update_icon()
-	START_PROCESSING(SSobj, src)
+	START_PROCESSING(SSmachines, src)
 	stop = world.time + selection.song_length
 
 /obj/machinery/jukebox/disco/activate_music()
@@ -436,34 +436,33 @@
 	if(world.time < stop && active)
 		var/sound/song_played = sound(selection.song_path)
 
-		for(var/mob/M in range(10,src))
-			if(!M.client || !(M.client.prefs.toggles & SOUND_INSTRUMENTS))
-				continue
-			if(!(M in rangers))
-				rangers[M] = TRUE
-				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
-		for(var/mob/L in rangers)
+		for(var/mob/L as() in rangers)
 			if(get_dist(src,L) > 10)
 				rangers -= L
 				if(!L || !L.client)
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
+		for(var/mob/M as() in hearers(10,src))
+			if(!M.client || !(M.client.prefs.toggles & SOUND_INSTRUMENTS))
+				continue
+			if(!(M in rangers))
+				rangers += M
+				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
 	else if(active)
 		active = FALSE
-		STOP_PROCESSING(SSobj, src)
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		update_icon()
 		stop = world.time + 100
+		return PROCESS_KILL
 
-
-/obj/machinery/jukebox/disco/process()
+/obj/machinery/jukebox/disco/process(delta_time)
 	. = ..()
 	if(active)
-		for(var/mob/M in rangers)
-			if(prob(5+(allowed(M)*4)))
+		for(var/mob/M as() in rangers)
+			if(DT_PROB(5+(allowed(M)*4), delta_time))
 				if(isliving(M))
 					var/mob/living/L = M
 					if(!(L.mobility_flags & MOBILITY_MOVE))
 						continue
-				dance(M)
+					dance(L)

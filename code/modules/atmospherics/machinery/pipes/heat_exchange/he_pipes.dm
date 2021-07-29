@@ -6,6 +6,7 @@
 	buckle_lying = -1
 	var/icon_temperature = T20C //stop small changes in temperature causing icon refresh
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	interacts_with_air = TRUE
 
 /obj/machinery/atmospherics/pipe/heat_exchanging/Initialize()
 	. = ..()
@@ -25,9 +26,7 @@
 
 	var/turf/T = loc
 	if(istype(T))
-		if(islava(T))
-			environment_temperature = 5000
-		else if(T.blocks_air)
+		if(T.blocks_air)
 			environment_temperature = T.return_temperature()
 		else
 			var/turf/open/OT = T
@@ -35,8 +34,9 @@
 	else
 		environment_temperature = T.return_temperature()
 
-	if(abs(environment_temperature-pipe_air.return_temperature()) > minimum_temperature_difference)
-		parent.temperature_interact(T, volume, thermal_conductivity)
+	if(pipe_air != null)
+		if(abs(environment_temperature-pipe_air.return_temperature()) > minimum_temperature_difference)
+			parent.temperature_interact(T, volume, thermal_conductivity)
 
 
 	//heatup/cooldown any mobs buckled to ourselves based on our temperature
@@ -50,7 +50,7 @@
 			L.bodytemperature = avg_temp
 		pipe_air.set_temperature(avg_temp)
 
-/obj/machinery/atmospherics/pipe/heat_exchanging/process()
+/obj/machinery/atmospherics/pipe/heat_exchanging/process(delta_time)
 	if(!parent)
 		return //machines subsystem fires before atmos is initialized so this prevents race condition runtimes
 
@@ -79,4 +79,4 @@
 		if(pipe_air.return_temperature() > heat_limit + 1)
 			for(var/m in buckled_mobs)
 				var/mob/living/buckled_mob = m
-				buckled_mob.apply_damage(4 * log(pipe_air.return_temperature() - heat_limit), BURN, BODY_ZONE_CHEST)
+				buckled_mob.apply_damage(delta_time * 2 * log(pipe_air.return_temperature() - heat_limit), BURN, BODY_ZONE_CHEST)

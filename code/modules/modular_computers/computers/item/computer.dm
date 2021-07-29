@@ -7,6 +7,7 @@
 
 	var/enabled = 0											// Whether the computer is turned on.
 	var/screen_on = 1										// Whether the computer is active/opened/it's screen is on.
+	var/device_theme = "ntos"								// Sets the theme for the main menu, hardware config, and file browser apps. Overridden by certain non-NT devices.
 	var/datum/computer_file/program/active_program = null	// A currently active program running on the computer.
 	var/hardware_flag = 0									// A flag that describes this device type
 	var/last_power_usage = 0
@@ -31,7 +32,7 @@
 
 	integrity_failure = 50
 	max_integrity = 100
-	armor = list("melee" = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "stamina" = 0)
 
 	// Important hardware (must be installed for computer to work)
 
@@ -70,23 +71,23 @@
 	return ..()
 
 
-/obj/item/modular_computer/proc/add_verb(var/path)
+/obj/item/modular_computer/proc/add_computer_verbs(var/path)
 	switch(path)
 		if(MC_CARD)
-			verbs += /obj/item/modular_computer/proc/eject_id
+			add_verb(/obj/item/modular_computer/proc/eject_id)
 		if(MC_SDD)
-			verbs += /obj/item/modular_computer/proc/eject_disk
+			add_verb(/obj/item/modular_computer/proc/eject_disk)
 		if(MC_AI)
-			verbs += /obj/item/modular_computer/proc/eject_card
+			add_verb(/obj/item/modular_computer/proc/eject_card)
 
-/obj/item/modular_computer/proc/remove_verb(path)
+/obj/item/modular_computer/proc/remove_computer_verbs(path)
 	switch(path)
 		if(MC_CARD)
-			verbs -= /obj/item/modular_computer/proc/eject_id
+			remove_verb(/obj/item/modular_computer/proc/eject_id)
 		if(MC_SDD)
-			verbs -= /obj/item/modular_computer/proc/eject_disk
+			remove_verb(/obj/item/modular_computer/proc/eject_disk)
 		if(MC_AI)
-			verbs -= /obj/item/modular_computer/proc/eject_card
+			remove_verb(/obj/item/modular_computer/proc/eject_card)
 
 // Eject ID card from computer, if it has ID slot with card inside.
 /obj/item/modular_computer/proc/eject_id()
@@ -126,7 +127,6 @@
 			portable_drive.verb_pickup()
 
 /obj/item/modular_computer/AltClick(mob/user)
-	..()
 	if(issilicon(user))
 		return
 
@@ -159,7 +159,7 @@
 
 /obj/item/modular_computer/MouseDrop(obj/over_object, src_location, over_location)
 	var/mob/M = usr
-	if((!istype(over_object, /obj/screen)) && usr.canUseTopic(src, BE_CLOSE))
+	if((!istype(over_object, /atom/movable/screen)) && usr.canUseTopic(src, BE_CLOSE))
 		return attack_self(M)
 	return ..()
 
@@ -178,13 +178,22 @@
 			turn_on(user)
 
 /obj/item/modular_computer/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>\The [src] was already emagged.</span>")
-		return 0
-	else
-		obj_flags |= EMAGGED
-		to_chat(user, "<span class='notice'>You emag \the [src]. It's screen briefly shows a \"OVERRIDE ACCEPTED: New software downloads available.\" message.</span>")
-		return 1
+	if(!enabled)
+		to_chat(user, "<span class='warning'>You'd need to turn the [src] on first.</span>")
+		return FALSE
+	obj_flags |= EMAGGED //Mostly for consistancy purposes; the programs will do their own emag handling
+	var/newemag = FALSE
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	for(var/datum/computer_file/program/app in drive.stored_files)
+		if(!istype(app))
+			continue
+		if(app.run_emag())
+			newemag = TRUE
+	if(newemag)
+		to_chat(user, "<span class='notice'>You swipe \the [src]. A console window momentarily fills the screen, with white text rapidly scrolling past.</span>")
+		return TRUE
+	to_chat(user, "<span class='notice'>You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it.</span>")
+	return FALSE
 
 /obj/item/modular_computer/examine(mob/user)
 	. = ..()
@@ -247,7 +256,7 @@
 			to_chat(user, "<span class='warning'>You press the power button but \the [src] does not respond.</span>")
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
-/obj/item/modular_computer/process()
+/obj/item/modular_computer/process(delta_time)
 	if(!enabled) // The computer is turned off
 		last_power_usage = 0
 		return 0
@@ -266,7 +275,7 @@
 
 	if(active_program)
 		if(active_program.program_state != PROGRAM_STATE_KILLED)
-			active_program.process_tick()
+			active_program.process_tick(delta_time)
 			active_program.ntnet_status = get_ntnet_status()
 		else
 			active_program = null
@@ -274,17 +283,19 @@
 	for(var/I in idle_threads)
 		var/datum/computer_file/program/P = I
 		if(P.program_state != PROGRAM_STATE_KILLED)
-			P.process_tick()
+			P.process_tick(delta_time)
 			P.ntnet_status = get_ntnet_status()
 		else
 			idle_threads.Remove(P)
 
-	handle_power() // Handles all computer power interaction
+	handle_power(delta_time) // Handles all computer power interaction
 	//check_update_ui_need()
 
 // Function used by NanoUI's to obtain data for header. All relevant entries begin with "PC_"
 /obj/item/modular_computer/proc/get_header_data()
 	var/list/data = list()
+
+	data["PC_device_theme"] = device_theme
 
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
 	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]

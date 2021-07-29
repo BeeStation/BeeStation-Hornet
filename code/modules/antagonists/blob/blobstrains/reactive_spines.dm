@@ -15,7 +15,7 @@
 	if(damage && damage_type == BRUTE && B.obj_integrity - damage > 0) //is there any damage, is it brute, and will we be alive
 		if(damage_flag == "melee")
 			B.visible_message("<span class='boldwarning'>The blob retaliates, lashing out!</span>")
-		for(var/atom/A in range(1, B))
+		for(var/atom/A as() in range(1, B))
 			A.blob_act(B)
 	return ..()
 

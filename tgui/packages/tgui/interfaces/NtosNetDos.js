@@ -1,12 +1,13 @@
 import { Section, Button, LabeledList, Box, NoticeBox } from "../components";
 import { useBackend } from "../backend";
-import { createLogger } from "../logging";
-import { Fragment } from "inferno";
 import { NtosWindow } from "../layouts";
 
 export const NtosNetDos = (props, context) => {
   return (
-    <NtosWindow theme="syndicate">
+    <NtosWindow
+      theme="syndicate"
+      width={400}
+      height={250}>
       <NtosWindow.Content>
         <NtosNetDosContent />
       </NtosWindow.Content>
@@ -29,7 +30,7 @@ export const NtosNetDosContent = (props, context) => {
 
   if (error) {
     return (
-      <Fragment>
+      <>
         <NoticeBox>
           {error}
         </NoticeBox>
@@ -39,7 +40,7 @@ export const NtosNetDosContent = (props, context) => {
           textAlign="center"
           onClick={() => act('PRG_reset')}
         />
-      </Fragment>
+      </>
     );
   }
 

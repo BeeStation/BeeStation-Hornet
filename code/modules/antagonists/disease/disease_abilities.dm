@@ -68,15 +68,15 @@ new /datum/disease_ability/symptom/powerful/youth
 		var/stealth = 0
 		var/resistance = 0
 		var/stage_speed = 0
-		var/transmittable = 0
+		var/transmission = 0
 		for(var/T in symptoms)
 			var/datum/symptom/S = T
 			stealth += initial(S.stealth)
 			resistance += initial(S.resistance)
 			stage_speed += initial(S.stage_speed)
-			transmittable += initial(S.transmittable)
+			transmission += initial(S.transmission)
 			threshold_block += "<br><br>[initial(S.threshold_desc)]"
-			stat_block = "Resistance: [resistance]<br>Stealth: [stealth]<br>Stage Speed: [stage_speed]<br>Transmissibility: [transmittable]<br><br>"
+			stat_block = "Resistance: [resistance]<br>Stealth: [stealth]<br>Stage Speed: [stage_speed]<br>Transmissibility: [transmission]<br><br>"
 			if(symptoms.len == 1) //lazy boy's dream
 				name = initial(S.name)
 				if(short_desc == "")
@@ -217,7 +217,7 @@ new /datum/disease_ability/symptom/powerful/youth
 	if(L.CanSpreadAirborneDisease()) //don't spread germs if they covered their mouth
 		var/datum/disease/advance/sentient_disease/SD = D.hosts[L]
 
-		for(var/mob/living/M in oview(4, SD.affected_mob))
+		for(var/mob/living/M in ohearers(4, SD.affected_mob))
 			if(is_A_facing_B(SD.affected_mob, M) && disease_air_spread_walk(get_turf(SD.affected_mob), get_turf(M)))
 				M.AirborneContractDisease(SD, TRUE)
 

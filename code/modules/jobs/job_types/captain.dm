@@ -12,8 +12,8 @@
 	chat_color = "#FFDC9B"
 	req_admin_notify = 1
 	minimal_player_age = 14
-	exp_requirements = 480
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 1200
+	exp_type = EXP_TYPE_COMMAND
 	exp_type_department = EXP_TYPE_COMMAND
 
 	outfit = /datum/outfit/job/captain
@@ -26,6 +26,7 @@
 	mind_traits = list(TRAIT_DISK_VERIFIER)
 
 	display_order = JOB_DISPLAY_ORDER_CAPTAIN
+	departments = DEPARTMENT_COMMAND
 
 /datum/job/captain/get_access()
 	return get_all_accesses()

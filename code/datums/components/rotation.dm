@@ -51,28 +51,28 @@
 	if(rotation_flags & ROTATION_WRENCH)
 		RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/WrenchRot)
 
-/datum/component/simple_rotation/proc/add_verbs()
+/datum/component/simple_rotation/proc/add_rotation_verbs()
 	if(rotation_flags & ROTATION_VERBS)
 		var/atom/movable/AM = parent
 		if(rotation_flags & ROTATION_FLIP)
-			AM.verbs += /atom/movable/proc/simple_rotate_flip
+			AM.add_verb(/atom/movable/proc/simple_rotate_flip)
 		if(src.rotation_flags & ROTATION_CLOCKWISE)
-			AM.verbs += /atom/movable/proc/simple_rotate_clockwise
+			AM.add_verb(/atom/movable/proc/simple_rotate_clockwise)
 		if(src.rotation_flags & ROTATION_COUNTERCLOCKWISE)
-			AM.verbs += /atom/movable/proc/simple_rotate_counterclockwise
+			AM.add_verb(/atom/movable/proc/simple_rotate_counterclockwise)
 
-/datum/component/simple_rotation/proc/remove_verbs()
+/datum/component/simple_rotation/proc/remove_rotation_verbs()
 	if(parent)
 		var/atom/movable/AM = parent
-		AM.verbs -= /atom/movable/proc/simple_rotate_flip
-		AM.verbs -= /atom/movable/proc/simple_rotate_clockwise
-		AM.verbs -= /atom/movable/proc/simple_rotate_counterclockwise
+		AM.remove_verb(/atom/movable/proc/simple_rotate_flip)
+		AM.remove_verb(/atom/movable/proc/simple_rotate_clockwise)
+		AM.remove_verb(/atom/movable/proc/simple_rotate_counterclockwise)
 
 /datum/component/simple_rotation/proc/remove_signals()
 	UnregisterSignal(parent, list(COMSIG_CLICK_ALT, COMSIG_PARENT_EXAMINE, COMSIG_PARENT_ATTACKBY))
 
 /datum/component/simple_rotation/RegisterWithParent()
-	add_verbs()
+	add_rotation_verbs()
 	add_signals()
 	. = ..()
 
@@ -83,7 +83,7 @@
 	return COMPONENT_NOTRANSFER
 
 /datum/component/simple_rotation/UnregisterFromParent()
-	remove_verbs()
+	remove_rotation_verbs()
 	remove_signals()
 	. = ..()
 
@@ -95,19 +95,25 @@
 	. = ..()
 
 /datum/component/simple_rotation/RemoveComponent()
-	remove_verbs()
+	remove_rotation_verbs()
 	. = ..()
 
 /datum/component/simple_rotation/proc/ExamineMessage(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+
 	if(rotation_flags & ROTATION_ALTCLICK)
 		examine_list += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
 
 /datum/component/simple_rotation/proc/HandRot(datum/source, mob/user, rotation = default_rotation_direction)
+	SIGNAL_HANDLER
+
 	if(!can_be_rotated.Invoke(user, rotation) || !can_user_rotate.Invoke(user, rotation))
 		return
 	BaseRot(user, rotation)
 
 /datum/component/simple_rotation/proc/WrenchRot(datum/source, obj/item/I, mob/living/user)
+	SIGNAL_HANDLER
+
 	if(!can_be_rotated.Invoke(user,default_rotation_direction) || !can_user_rotate.Invoke(user,default_rotation_direction))
 		return
 	if(I.tool_behaviour == TOOL_WRENCH)

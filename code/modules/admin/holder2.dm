@@ -31,6 +31,8 @@ GLOBAL_PROTECT(href_token)
 	//Admin help manager
 	var/datum/admin_help_ui/admin_interface
 
+	var/datum/filter_editor/filteriffic
+
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())
 		var/msg = " has tried to elevate permissions!"
@@ -94,7 +96,7 @@ GLOBAL_PROTECT(href_token)
 	var/client/C
 	if ((C = owner) || (C = GLOB.directory[target]))
 		disassociate()
-		C.verbs += /client/proc/readmin
+		C.add_verb(/client/proc/readmin)
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())
@@ -114,7 +116,7 @@ GLOBAL_PROTECT(href_token)
 		owner = C
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO <--- todo what? the proc clearly exists and works since its the backbone to our entire admin system
-		owner.verbs -= /client/proc/readmin
+		owner.remove_verb(/client/proc/readmin)
 		GLOB.admins |= C
 
 /datum/admins/proc/disassociate()

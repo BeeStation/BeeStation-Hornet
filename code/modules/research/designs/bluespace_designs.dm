@@ -13,6 +13,16 @@
 	category = list("Bluespace Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/dragnetbeacon
+	name = "DROPnet"
+	desc = "A beacon marking the location where criminals will be teleported via DRAGnet devices."
+	id = "dragnetbeacon"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 150, /datum/material/glass = 200)
+	build_path = /obj/item/beacon/nettingportal
+	category = list("Bluespace Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
 /datum/design/bag_holding
 	name = "Bag of Holding"
 	desc = "A backpack that opens into a localized pocket of bluespace."

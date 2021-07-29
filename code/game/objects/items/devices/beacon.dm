@@ -8,6 +8,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	var/enabled = TRUE
 	var/renamed = FALSE
+	var/nettingportal = FALSE
 
 /obj/item/beacon/Initialize()
 	. = ..()
@@ -17,7 +18,7 @@
 		icon_state = "beacon-off"
 
 /obj/item/beacon/Destroy()
-	GLOB.teleportbeacons.Remove(src)
+	GLOB.teleportbeacons -= src
 	return ..()
 
 /obj/item/beacon/attack_self(mob/user)
@@ -27,7 +28,7 @@
 		GLOB.teleportbeacons += src
 	else 
 		icon_state = "beacon-off"
-		GLOB.teleportbeacons.Remove(src)
+		GLOB.teleportbeacons -= src
 	to_chat(user, "<span class='notice'>You [enabled ? "enable" : "disable"] the beacon.</span>")
 	return
 
@@ -42,3 +43,10 @@
 		return
 	else	
 		return ..()
+		
+/obj/item/beacon/nettingportal
+	//dragnet location beacon
+	name = "\improper DROPnet"
+	desc = "A beacon designated for DRAGnets; all captured targets will teleport to it. Remember to activate before you deploy."
+	nettingportal = TRUE
+	enabled = FALSE	//can no longer teleport to Warden's office roundstart

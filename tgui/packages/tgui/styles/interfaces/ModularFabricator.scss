@@ -1,0 +1,36 @@
+.ModularFabricator__top {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  height: 140px;
+}
+
+.ModularFabricator__bottom {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 140px;
+  height: calc(100% - 160px);
+}
+
+.ModularFabricator__sidebar {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 320px;
+  height: 100%;
+}
+
+.ModularFabricator__main {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: calc(100% - 340px);
+  height: 100%;
+}
+
+.ModularFabricator__sidebar_bottom {
+  position: fixed;
+  bottom: 20px;
+  width: 310px;
+}

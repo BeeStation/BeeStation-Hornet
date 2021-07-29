@@ -23,21 +23,10 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	del_on_death = 1
+	del_on_death = TRUE
 	var/aggressive = FALSE
 	var/datum/disease/basedisease = null
 	var/list/infections = list()
-
-/mob/living/simple_animal/hostile/macrophage/Initialize()
-	. = ..()
-	for(var/datum/disease/advance/A in infections)
-		for(var/datum/symptom/S in A.symptoms)
-			if(istype(S, /datum/symptom/flesh))//yes, we do a check for if we have exolocomotive xenomitosis just to turn the phage pink
-				if(istype(src, /mob/living/simple_animal/hostile/macrophage/aggro)) 
-					icon_state = "pinkvirus_large"
-				else
-					icon_state = "pinkvirus_small"
-				break
 
 /mob/living/simple_animal/hostile/macrophage/CanAttack(atom/the_target)
 	. = ..()
@@ -73,20 +62,19 @@
 		if(M.can_inject(src))
 			for(var/datum/disease/D in infections)
 				if(M.ForceContractDisease(D)) //we already check spread type in the macrophage creation proc
-					to_chat(src, "<span class ='notice'>You infect [M] with [D]</span>")
+					to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
 		else if(aggressive)
 			M.visible_message("<span class='danger'>the [src] begins penetrating [M]' protection!</span>", \
 	 				 "<span class='danger'>[src] begins penetrating your protection!</span>")
 			if(do_mob(src, M, 15))
 				for(var/datum/disease/D in infections)
 					if(M.ForceContractDisease(D))
-						to_chat(src, "<span class ='notice'>You infect [M] with [D]</span>")
+						to_chat(src, "<span class ='notice'>You infect [M] with [D]!</span>")
 				to_chat(M, "<span class ='userdanger'>[src] pierces your protection, and you feel a sharp stab!</span>")
 
 /mob/living/simple_animal/hostile/macrophage/proc/shrivel()
 	visible_message("<span class='danger'>the [src] shrivels up and dies!</span>")
 	dust()
-		
 
 /mob/living/simple_animal/hostile/macrophage/aggro
 	name = "Giant Germ"
@@ -104,9 +92,9 @@
 /mob/living/simple_animal/hostile/macrophage/aggro/vector/Initialize()
 	.=..()
 	var/datum/disease/advance/random/macrophage/D = new
-	health += D.properties["resistance"]
-	maxHealth += D.properties["resistance"]
-	melee_damage += max(0, D.properties["resistance"])
+	health += D.resistance
+	maxHealth += D.resistance
+	melee_damage += max(0, D.resistance)
 	infections += D
 	basedisease = D
 

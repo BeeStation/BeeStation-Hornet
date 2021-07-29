@@ -65,6 +65,11 @@
 	W.setDir(dir)
 	qdel(src)
 
+/obj/structure/chair/ratvar_act()
+	var/obj/structure/chair/brass/B = new(get_turf(src))
+	B.setDir(dir)
+	qdel(src)
+
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
 		W.play_tool_sound(src)
@@ -189,7 +194,7 @@
 
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
-	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
+	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system for smoother flights."
 	icon_state = "shuttle_chair"
 
 /obj/structure/chair/comfy/shuttle/GetArmrest()
@@ -375,6 +380,18 @@
 	turns++
 	if(turns >= 8)
 		STOP_PROCESSING(SSfastprocess, src)
+
+/obj/structure/chair/brass/relaymove(mob/user, direction)
+	if(!direction)
+		return FALSE
+	if(direction == dir)
+		return
+	setDir(direction)
+	playsound(src, 'sound/effects/servostep.ogg', 50, FALSE)
+	return FALSE
+
+/obj/structure/chair/brass/ratvar_act()
+	return
 
 /obj/structure/chair/brass/AltClick(mob/living/user)
 	turns = 0

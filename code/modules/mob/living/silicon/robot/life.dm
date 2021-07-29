@@ -2,11 +2,15 @@
 	set invisibility = 0
 	if (src.notransform)
 		return
-
 	..()
 	adjustOxyLoss(-10) //we're a robot!
 	handle_robot_hud_updates()
 	handle_robot_cell()
+
+/mob/living/silicon/robot/proc/handle_jamming()
+	if(deployed && is_jammed())
+		to_chat(src, "<span class='warning robot'>Remote connection with target lost.</span>")
+		undeploy()
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)
@@ -62,15 +66,15 @@
 			if(0.75 to INFINITY)
 				clear_alert("charge")
 			if(0.5 to 0.75)
-				throw_alert("charge", /obj/screen/alert/lowcell, 1)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 1)
 			if(0.25 to 0.5)
-				throw_alert("charge", /obj/screen/alert/lowcell, 2)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 2)
 			if(0.01 to 0.25)
-				throw_alert("charge", /obj/screen/alert/lowcell, 3)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 3)
 			else
-				throw_alert("charge", /obj/screen/alert/emptycell)
+				throw_alert("charge", /atom/movable/screen/alert/emptycell)
 	else
-		throw_alert("charge", /obj/screen/alert/nocell)
+		throw_alert("charge", /atom/movable/screen/alert/nocell)
 
 //Robots on fire
 /mob/living/silicon/robot/handle_fire()

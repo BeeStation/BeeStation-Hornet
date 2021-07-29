@@ -6,8 +6,8 @@
 	icon_keyboard = "security_key"
 	req_access = list(ACCESS_ARMORY)
 	circuit = /obj/item/circuitboard/computer/gulag_teleporter_console
-	ui_x = 350
-	ui_y = 295
+
+
 
 	var/default_goal = 200
 	var/obj/machinery/gulag_teleporter/teleporter = null
@@ -21,11 +21,14 @@
 	. = ..()
 	scan_machinery()
 
-/obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GulagTeleporterConsole", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "GulagTeleporterConsole")
 		ui.open()
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_data(mob/user)
@@ -50,14 +53,14 @@
 
 	if(teleporter)
 		data["teleporter"] = teleporter
-		data["teleporter_location"] = "([teleporter.x], [teleporter.y], [teleporter.z])"
+		data["teleporter_location"] = "([teleporter.x], [teleporter.y], [teleporter.get_virtual_z_level()])"
 		data["teleporter_lock"] = teleporter.locked
 		data["teleporter_state_open"] = teleporter.state_open
 	else
 		data["teleporter"] = null
 	if(beacon)
 		data["beacon"] = beacon
-		data["beacon_location"] = "([beacon.x], [beacon.y], [beacon.z])"
+		data["beacon_location"] = "([beacon.x], [beacon.y], [beacon.get_virtual_z_level()])"
 	else
 		data["beacon"] = null
 	if(contained_id)
@@ -144,13 +147,11 @@
 	log_game("[key_name(user)] teleported [key_name(prisoner)] to the Labor Camp [COORD(beacon)] for [id_goal_not_set ? "default goal of ":""][contained_id.goal] points.")
 	teleporter.handle_prisoner(contained_id, temporary_record)
 	playsound(src, 'sound/weapons/emitter.ogg', 50, TRUE)
-	prisoner.forceMove(get_turf(beacon))
-	prisoner.Paralyze(40) // small travel dizziness
-	to_chat(prisoner, "<span class='warning'>The teleportation makes you a little dizzy.</span>")
-	new /obj/effect/particle_effect/sparks(get_turf(prisoner))
-	playsound(src, "sparks", 50, TRUE)
-	if(teleporter.locked)
-		teleporter.locked = FALSE
-	teleporter.toggle_open()
-	contained_id = null
-	temporary_record = null
+	if(do_teleport(prisoner, get_turf(beacon)))
+		prisoner.Paralyze(40) // small travel dizziness
+		to_chat(prisoner, "<span class='warning'>The teleportation makes you a little dizzy.</span>")
+		if(teleporter.locked)
+			teleporter.locked = FALSE
+		teleporter.toggle_open()
+		contained_id = null
+		temporary_record = null

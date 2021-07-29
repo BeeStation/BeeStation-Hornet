@@ -1,6 +1,11 @@
 /obj/vehicle/sealed
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	var/enter_delay = 20
 	var/mouse_pointer
+
+/obj/vehicle/sealed/CanPass(atom/movable/mover, turf/target)
+	if(mover in buckled_mobs)
+		return 1
 
 /obj/vehicle/sealed/generate_actions()
 	. = ..()

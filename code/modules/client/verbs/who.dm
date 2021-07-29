@@ -59,7 +59,7 @@
 /client/verb/staffwho()
 	set category = "Admin"
 	set name = "Staffwho"
-
+	
 	var/msg = "<b>Current Admins:</b>\n"
 	if(holder)
 		for(var/client/C in GLOB.admins)

@@ -29,12 +29,14 @@
 	START_PROCESSING(SSobj, src) // process on create, in case stuff is still there
 
 /datum/component/chasm/proc/Entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	START_PROCESSING(SSobj, src)
 	drop_stuff(AM)
 
 /datum/component/chasm/process()
 	if (!drop_stuff())
-		STOP_PROCESSING(SSobj, src)
+		return PROCESS_KILL
 
 /datum/component/chasm/proc/is_safe()
 	//if anything matching this typecache is found in the chasm, we don't drop things

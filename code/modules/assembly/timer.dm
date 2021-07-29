@@ -4,18 +4,18 @@
 	icon_state = "timer"
 	custom_materials = list(/datum/material/iron=500, /datum/material/glass=50)
 	attachable = TRUE
-	var/ui_x = 275
-	var/ui_y = 115
+
+
 	var/timing = FALSE
-	var/time = 5
-	var/saved_time = 5
+	var/time = 10
+	var/saved_time = 10
 	var/loop = FALSE
 	var/hearing_range = 3
 
 /obj/item/assembly/timer/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] looks at the timer and decides [user.p_their()] fate! It looks like [user.p_theyre()] going to commit suicide!</span>")
 	activate()//doesnt rely on timer_end to prevent weird metas where one person can control the timer and therefore someone's life. (maybe that should be how it works...)
-	addtimer(CALLBACK(src, .proc/manual_suicide, user), time*10)//kill yourself once the time runs out
+	addtimer(CALLBACK(src, .proc/manual_suicide, user), time SECONDS)//kill yourself once the time runs out
 	return MANUAL_SUICIDE
 
 /obj/item/assembly/timer/proc/manual_suicide(mob/living/user)
@@ -57,18 +57,15 @@
 		return FALSE
 	pulse(FALSE)
 	audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)
-	for(var/CHM in get_hearers_in_view(hearing_range, src))
-		if(ismob(CHM))
-			var/mob/LM = CHM
-			LM.playsound_local(get_turf(src), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
+	playsound(get_turf(src), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
 	if(loop)
 		timing = TRUE
 	update_icon()
 
-/obj/item/assembly/timer/process()
+/obj/item/assembly/timer/process(delta_time)
 	if(!timing)
 		return
-	time--
+	time -= delta_time
 	if(time <= 0)
 		timing = FALSE
 		timer_end()
@@ -88,11 +85,14 @@
 		return ..()
 	return UI_CLOSE
 
-/obj/item/assembly/timer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/item/assembly/timer/ui_state(mob/user)
+	return GLOB.hands_state
+
+/obj/item/assembly/timer/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Timer", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "Timer")
 		ui.open()
 
 /obj/item/assembly/timer/ui_data(mob/user)

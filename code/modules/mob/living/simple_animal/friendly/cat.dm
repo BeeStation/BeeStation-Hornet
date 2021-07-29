@@ -31,13 +31,16 @@
 	var/mob/living/simple_animal/mouse/movement_target
 	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
-	mobsay_color = "#FFD586"
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+	held_state = "cat2"
+	chat_color = "#FFD586"
 
 	do_footstep = TRUE
 
 /mob/living/simple_animal/pet/cat/Initialize()
 	. = ..()
-	verbs += /mob/living/proc/lay_down
+	add_verb(/mob/living/proc/lay_down)
 
 /mob/living/simple_animal/pet/cat/update_mobility()
 	..()
@@ -59,6 +62,7 @@
 	unsuitable_atmos_damage = 0
 	minbodytemp = TCMB
 	maxbodytemp = T0C + 40
+	held_state = "spacecat"
 
 /mob/living/simple_animal/pet/cat/original
 	name = "Batsy"
@@ -69,6 +73,7 @@
 	icon_dead = "original_dead"
 	collar_type = null
 	unique_pet = TRUE
+	held_state = "original"
 
 /mob/living/simple_animal/pet/cat/kitten
 	name = "kitten"
@@ -95,6 +100,7 @@
 	var/list/children = list()//Actual mob instances of children
 	var/cats_deployed = 0
 	var/memory_saved = FALSE
+	held_state = "cat"
 
 /mob/living/simple_animal/pet/cat/Runtime/Initialize()
 	if(prob(5))
@@ -166,45 +172,56 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
+/mob/living/simple_animal/pet/cat/Move()
+	. = ..()
+	if(.)
+		if(stat || resting || buckled)
+			return .
+
+		for(var/mob/living/simple_animal/mouse/M in get_turf(src))
+			if(!M.stat)
+				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "splats \the [M]!")
+				M.splat()
+				movement_target = null
+				stop_automated_movement = 0
+				break
+		for(var/obj/item/toy/cattoy/T in get_turf(src))
+			if (T.cooldown < (world.time - 400))
+				INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "bats \the [T] around with its paw!")
+				T.cooldown = world.time
+
+/mob/living/simple_animal/pet/cat/update_resting()
+	. = ..()
+	if(!resting)
+		icon_state = "[icon_living]"
+		collar_type = "[initial(collar_type)]"
+
 /mob/living/simple_animal/pet/cat/Life()
 	if(!stat && !buckled && !client)
-		if(prob(1))
-			emote("me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
-			icon_state = "[icon_living]_rest"
-			collar_type = "[initial(collar_type)]_rest"
-			set_resting(TRUE)
-		else if (prob(1))
-			emote("me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
-			icon_state = "[icon_living]_sit"
-			collar_type = "[initial(collar_type)]_sit"
-			set_resting(TRUE)
-		else if (prob(1))
-			if (resting)
-				emote("me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
-				icon_state = "[icon_living]"
-				collar_type = "[initial(collar_type)]"
-				set_resting(FALSE)
-			else
-				emote("me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
-
-	//MICE!
-	if((src.loc) && isturf(src.loc))
-		if(!stat && !resting && !buckled)
-			for(var/mob/living/simple_animal/mouse/M in view(1,src))
-				if(!M.stat && Adjacent(M))
-					emote("me", 1, "splats \the [M]!")
-					M.splat()
-					movement_target = null
-					stop_automated_movement = 0
-					break
-			for(var/obj/item/toy/cattoy/T in view(1,src))
-				if (T.cooldown < (world.time - 400))
-					emote("me", 1, "bats \the [T] around with its paw!")
-					T.cooldown = world.time
+		if(prob(3))
+			switch(rand(1, 3))
+				if (1)
+					INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
+					icon_state = "[icon_living]_rest"
+					collar_type = "[initial(collar_type)]_rest"
+					set_resting(TRUE)
+				if (2)
+					INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
+					icon_state = "[icon_living]_sit"
+					collar_type = "[initial(collar_type)]_sit"
+					set_resting(TRUE)
+				if (3)
+					if (resting)
+						INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
+						icon_state = "[icon_living]"
+						collar_type = "[initial(collar_type)]"
+						set_resting(FALSE)
+					else
+						INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))
 
 	..()
-
-	make_babies()
+	if(next_scan_time <= world.time)
+		make_babies()
 
 	if(!stat && !resting && !buckled)
 		turns_since_scan++
@@ -214,11 +231,11 @@
 			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
 				movement_target = null
 				stop_automated_movement = 0
-			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+			if(!movement_target || !(src in viewers(3, movement_target.loc)))
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/mob/living/simple_animal/mouse/snack in oview(src,3))
-					if(isturf(snack.loc) && !snack.stat)
+				for(var/mob/living/simple_animal/mouse/snack in oview(3, src))
+					if(!snack.stat)
 						movement_target = snack
 						break
 			if(movement_target)
@@ -229,22 +246,21 @@
 	. = ..()
 	switch(M.a_intent)
 		if("help")
-			wuv(1, M)
+			wuv(TRUE, M)
 		if("harm")
-			wuv(-1, M)
+			wuv(FALSE, M)
 
 /mob/living/simple_animal/pet/cat/proc/wuv(change, mob/M)
 	if(change)
-		if(change > 0)
-			if(M && stat != DEAD)
-				new /obj/effect/temp_visual/heart(loc)
-				emote("me", 1, "purrs!")
-				if(flags_1 & HOLOGRAM_1)
-					return
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
-		else
-			if(M && stat != DEAD)
-				emote("me", 1, "hisses!")
+		if(M && stat != DEAD)
+			new /obj/effect/temp_visual/heart(loc)
+			emote("me", 1, "purrs!")
+			if(flags_1 & HOLOGRAM_1)
+				return
+			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, src, /datum/mood_event/pet_animal, src)
+	else
+		if(M && stat != DEAD)
+			emote("me", 1, "hisses!")
 
 /mob/living/simple_animal/pet/cat/cak //I told you I'd do it, Remie
 	name = "Keeki"
@@ -262,6 +278,7 @@
 	attacked_sound = 'sound/items/eatfood.ogg'
 	deathmessage = "loses its false life and collapses!"
 	deathsound = "bodyfall"
+	held_state = "cak"
 
 /mob/living/simple_animal/pet/cat/cak/CheckParts(list/parts)
 	..()
@@ -283,12 +300,36 @@
 		return
 	if(health < maxHealth)
 		adjustBruteLoss(-8) //Fast life regen
-	for(var/obj/item/reagent_containers/food/snacks/donut/D in range(1, src)) //Frosts nearby donuts!
-		if(!D.is_decorated)
-			D.decorate_donut()
+
+/mob/living/simple_animal/pet/cat/cak/Move()
+	. = ..()
+	if(. && !stat)
+		for(var/obj/item/reagent_containers/food/snacks/donut/D in get_turf(src)) //Frosts nearby donuts!
+			if(!D.is_decorated)
+				D.decorate_donut()
 
 /mob/living/simple_animal/pet/cat/cak/attack_hand(mob/living/L)
 	..()
 	if(L.a_intent == INTENT_HARM && L.reagents && !stat)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment, 0.4)
 		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.4)
+
+/mob/living/simple_animal/pet/cat/breadcat
+	name = "bread cat"
+	desc = "It's a cat... with a bread!"
+	gender = MALE
+	icon_state = "breadcat"
+	icon_living = "breadcat"
+	icon_dead = "breadcat_dead"
+	collar_type = null
+	held_state = "breadcat"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2, /obj/item/organ/ears/cat = 1, /obj/item/organ/tail/cat = 1, /obj/item/reagent_containers/food/snacks/breadslice/plain = 1)
+
+/mob/living/simple_animal/pet/cat/halal
+	name = "arabian cat"
+	desc = "It's a cat with Agal on his head."
+	gender = MALE
+	icon_state = "cathalal"
+	icon_living = "cathalal"
+	collar_type = null
+	held_state = "cathalal"

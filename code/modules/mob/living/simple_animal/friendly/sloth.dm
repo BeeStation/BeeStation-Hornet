@@ -21,8 +21,9 @@
 	maxHealth = 50
 	speed = 10
 	glide_size = 2
-	mobsay_color = "#728AE6"
-
+	chat_color = "#728AE6"
+	can_be_held = TRUE
+	held_state = "sloth"
 	do_footstep = TRUE
 
 

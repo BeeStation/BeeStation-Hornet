@@ -53,11 +53,23 @@ handles linking back and forth.
 
 /datum/component/remote_materials/proc/_MakeLocal()
 	silo = null
-	mat_container = parent.AddComponent(/datum/component/material_container,
-		list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/gold, /datum/material/diamond, /datum/material/plasma, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace, /datum/material/plastic),
-		local_size,
-		FALSE,
-		/obj/item/stack)
+
+	var/static/list/allowed_mats = list(
+		/datum/material/iron,
+		/datum/material/glass,
+		/datum/material/copper,
+		/datum/material/silver,
+		/datum/material/gold,
+		/datum/material/diamond,
+		/datum/material/plasma,
+		/datum/material/uranium,
+		/datum/material/bananium,
+		/datum/material/titanium,
+		/datum/material/bluespace,
+		/datum/material/plastic,
+		)
+
+	mat_container = parent.AddComponent(/datum/component/material_container, allowed_mats, local_size, allowed_types=/obj/item/stack)
 
 /datum/component/remote_materials/proc/set_local_size(size)
 	local_size = size
@@ -74,6 +86,8 @@ handles linking back and forth.
 		_MakeLocal()
 
 /datum/component/remote_materials/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
+	SIGNAL_HANDLER
+
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		if(!I.multitool_check_buffer(user, I))
 			return COMPONENT_NO_AFTERATTACK
@@ -111,3 +125,21 @@ handles linking back and forth.
 		return "[mat_container.total_amount] / [mat_container.max_amount == INFINITY ? "Unlimited" : mat_container.max_amount] ([silo ? "remote" : "local"])"
 	else
 		return "0 / 0"
+
+/// Ejects the given material ref and logs it, or says out loud the problem.
+/datum/component/remote_materials/proc/eject_sheets(datum/material/material_ref, eject_amount)
+	var/atom/movable/movable_parent = parent
+	if (!istype(movable_parent))
+		return 0
+
+	if (!mat_container)
+		movable_parent.say("No access to material storage, please contact the quartermaster.")
+		return 0
+	if (on_hold())
+		movable_parent.say("Mineral access is on hold, please contact the quartermaster.")
+		return 0
+	var/count = mat_container.retrieve_sheets(eject_amount, material_ref, movable_parent.drop_location())
+	var/list/matlist = list()
+	matlist[material_ref] = eject_amount
+	silo_log(parent, "ejected", -count, "sheets", matlist)
+	return count

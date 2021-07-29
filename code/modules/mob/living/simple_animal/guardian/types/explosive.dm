@@ -17,11 +17,10 @@
 	var/bomb_cooldown = 0
 	var/static/list/boom_signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_BUMPED, COMSIG_ATOM_ATTACK_HAND)
 
-/mob/living/simple_animal/hostile/guardian/bomb/Stat()
-	..()
-	if(statpanel("Status"))
-		if(bomb_cooldown >= world.time)
-			stat(null, "Bomb Cooldown Remaining: [DisplayTimeText(bomb_cooldown - world.time)]")
+/mob/living/simple_animal/hostile/guardian/bomb/get_stat_tab_status()
+	var/list/tab_data = ..()
+	if(bomb_cooldown >= world.time)
+		tab_data["Bomb Cooldown Remaining"] = GENERATE_STAT_TEXT("[DisplayTimeText(bomb_cooldown - world.time)]")
 
 /mob/living/simple_animal/hostile/guardian/bomb/AttackingTarget()
 	. = ..()
@@ -54,6 +53,8 @@
 			to_chat(src, "<span class='danger'><B>Your powers are on cooldown! You must wait 20 seconds between bombs.</B></span>")
 
 /mob/living/simple_animal/hostile/guardian/bomb/proc/kaboom(atom/source, mob/living/explodee)
+	SIGNAL_HANDLER
+
 	if(!istype(explodee))
 		return
 	if(explodee == src || explodee == summoner || hasmatchingsummoner(explodee))
@@ -71,6 +72,8 @@
 	UNREGISTER_BOMB_SIGNALS(A)
 
 /mob/living/simple_animal/hostile/guardian/bomb/proc/display_examine(datum/source, mob/user, text)
+	SIGNAL_HANDLER
+
 	text += "<span class='holoparasite'>It glows with a strange <font color=\"[guardiancolor]\">light</font>!</span>"
 
 #undef UNREGISTER_BOMB_SIGNALS

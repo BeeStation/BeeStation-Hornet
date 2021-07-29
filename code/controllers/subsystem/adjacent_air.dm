@@ -8,9 +8,9 @@ SUBSYSTEM_DEF(adjacent_air)
 
 /datum/controller/subsystem/adjacent_air/stat_entry()
 #ifdef TESTING
-	..("P:[length(queue)], S:[GLOB.atmos_adjacent_savings[1]], T:[GLOB.atmos_adjacent_savings[2]]")
+	. = ..("P:[length(queue)], S:[GLOB.atmos_adjacent_savings[1]], T:[GLOB.atmos_adjacent_savings[2]]")
 #else
-	..("P:[length(queue)]")
+	. = ..("P:[length(queue)]")
 #endif
 
 /datum/controller/subsystem/adjacent_air/Initialize()
@@ -19,6 +19,9 @@ SUBSYSTEM_DEF(adjacent_air)
 	return ..()
 
 /datum/controller/subsystem/adjacent_air/fire(resumed = FALSE, mc_check = TRUE)
+	if(SSair.thread_running())
+		pause()
+		return
 
 	var/list/queue = src.queue
 

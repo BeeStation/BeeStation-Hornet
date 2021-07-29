@@ -8,12 +8,10 @@
 
 /turf/closed/Initialize()
 	. = ..()
-	update_air_ref()
 
 /turf/closed/AfterChange()
 	. = ..()
 	SSair.high_pressure_delta -= src
-	update_air_ref()
 
 /turf/closed/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
@@ -39,6 +37,9 @@
 	return src
 
 /turf/closed/indestructible/singularity_act()
+	return
+
+/turf/closed/indestructible/rust_heretic_act()
 	return
 
 /turf/closed/indestructible/oldshuttle

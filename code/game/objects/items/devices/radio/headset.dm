@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	item_state = "headset"
 	materials = list(/datum/material/iron=75)
 	subspace_transmission = TRUE
+	headset = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
 	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
 
@@ -61,7 +62,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	QDEL_NULL(keyslot2)
 	return ..()
 
-/obj/item/radio/headset/talk_into(mob/living/M, message, channel, list/spans,datum/language/language)
+/obj/item/radio/headset/talk_into(mob/living/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if (!listening)
 		return ITALICS | REDUCE_RANGE
 	return ..()

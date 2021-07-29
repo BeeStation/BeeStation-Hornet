@@ -59,6 +59,7 @@
 	make_reagents = list(/datum/reagent/consumable/enzyme = 10)
 	category = list("initial","Food")
 
+
 /datum/design/flour_sack
 	name = "Flour Sack"
 	id = "flour_sack"
@@ -66,7 +67,6 @@
 	materials = list(/datum/material/biomass= 150)
 	build_path = /obj/item/reagent_containers/food/condiment/flour
 	category = list("initial","Food")
-	
 /datum/design/sugar_sack
 	name = "Sugar Sack"
 	id = "sugar_sack"
@@ -163,6 +163,14 @@
 	build_path = /obj/item/stack/sheet/leather
 	category = list("initial","Organic Materials")
 
+/datum/design/toolbelt
+	name = "Tool Belt"
+	id = "toolbelt"
+	build_type = BIOGENERATOR
+	materials = list(/datum/material/biomass= 300)
+	build_path = /obj/item/storage/belt/utility
+	category = list("initial","Organic Materials")
+
 /datum/design/secbelt
 	name = "Security Belt"
 	id = "secbelt"
@@ -192,7 +200,7 @@
 	id = "s_holster"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 400)
-	build_path = /obj/item/storage/belt/holster
+	build_path = /obj/item/clothing/accessory/holster
 	category = list("initial","Organic Materials")
 
 /datum/design/rice_hat
@@ -202,3 +210,11 @@
 	materials = list(/datum/material/biomass= 300)
 	build_path = /obj/item/clothing/head/rice_hat
 	category = list("initial","Organic Materials")
+
+/datum/design/carton_soy_milk
+	name = "Soy Milk Carton"
+	id = "soy_milk_carton"
+	build_type = BIOGENERATOR
+	materials = list(/datum/material/biomass = 100)
+	build_path = /obj/item/reagent_containers/food/condiment/soymilk
+	category = list("initial","Food")

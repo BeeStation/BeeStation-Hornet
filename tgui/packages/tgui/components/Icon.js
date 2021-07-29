@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { classes, pureComponentHooks } from 'common/react';
 import { Box } from './Box';
 
@@ -11,16 +17,22 @@ export const Icon = props => {
   if (typeof rotation === 'number') {
     style['transform'] = `rotate(${rotation}deg)`;
   }
-  const faRegular = FA_OUTLINE_REGEX.test(name);
-  const faName = name.replace(FA_OUTLINE_REGEX, '');
+  let iconClass = "";
+  if (name.startsWith("tg-")) {
+    // tgfont icon
+    iconClass = name;
+  } else {
+    // font awesome icon
+    const faRegular = FA_OUTLINE_REGEX.test(name);
+    const faName = name.replace(FA_OUTLINE_REGEX, '');
+    iconClass = (faRegular ? 'far ' : 'fas ') + 'fa-'+ faName + (spin ? " fa-spin" : "");
+  }
   return (
     <Box
       as="i"
       className={classes([
         className,
-        faRegular ? 'far' : 'fas',
-        'fa-' + faName,
-        spin && 'fa-spin',
+        iconClass,
       ])}
       style={style}
       {...rest} />

@@ -49,7 +49,7 @@
 	get_kill()
 	. = ..()
 
-/obj/screen/alert/status_effect/in_love
+/atom/movable/screen/alert/status_effect/in_love
 	name = "In Love"
 	desc = "You feel so wonderfully in love!"
 	icon_state = "in_love"
@@ -58,7 +58,7 @@
 	id = "in_love"
 	duration = -1
 	status_type = STATUS_EFFECT_UNIQUE
-	alert_type = /obj/screen/alert/status_effect/in_love
+	alert_type = /atom/movable/screen/alert/status_effect/in_love
 	var/mob/living/date
 
 /datum/status_effect/in_love/on_creation(mob/living/new_owner, mob/living/love_interest)
@@ -70,7 +70,9 @@
 /datum/status_effect/in_love/tick()
 	if(date)
 		new /obj/effect/temp_visual/love_heart/invisible(get_turf(date.loc), owner)
-
+		if(get_dist(get_turf(owner), get_turf(date)) < 7)
+			owner.heal_overall_damage(1, 1, BODYPART_ORGANIC)
+			date.heal_overall_damage(1, 1, BODYPART_ORGANIC)
 
 /datum/status_effect/throat_soothed
 	id = "throat_soothed"
@@ -117,7 +119,7 @@
 			spell.update_icon()
 		rewarded.adjustBruteLoss(-25)
 		rewarded.adjustFireLoss(-25)
-		rewarded.adjustToxLoss(-25)
+		rewarded.adjustToxLoss(-25, FALSE, TRUE)
 		rewarded.adjustOxyLoss(-25)
 		rewarded.adjustCloneLoss(-25)
 
@@ -127,6 +129,20 @@
 	status_type = STATUS_EFFECT_MULTIPLE
 	alert_type = null
 	var/mob/living/listening_in
+
+/datum/status_effect/bugged/on_apply(mob/living/new_owner, mob/living/tracker)
+	. = ..()
+	if (.)
+		RegisterSignal(new_owner, COMSIG_MOVABLE_HEAR, .proc/handle_hearing)
+
+/datum/status_effect/bugged/on_remove()
+	. = ..()
+	UnregisterSignal(owner, COMSIG_MOVABLE_HEAR)
+
+/datum/status_effect/bugged/proc/handle_hearing(datum/source, list/hearing_args)
+	SIGNAL_HANDLER
+	listening_in.show_message(hearing_args[HEARING_MESSAGE])
+
 
 /datum/status_effect/bugged/on_creation(mob/living/new_owner, mob/living/tracker)
 	. = ..()

@@ -10,10 +10,6 @@
 "c" = (
 /turf/closed/indestructible/oldshuttle,
 /area/ruin/powered)
-"d" = (
-/obj/machinery/door/airlock/public/glass,
-/turf/open/floor/oldshuttle,
-/area/ruin/powered)
 "e" = (
 /turf/closed/indestructible/oldshuttle/corner,
 /area/ruin/powered)
@@ -54,14 +50,12 @@
 /area/ruin/powered)
 "m" = (
 /obj/structure/chair/old{
-	icon_state = "chairold";
 	dir = 1
 	},
 /turf/open/floor/oldshuttle,
 /area/ruin/powered)
 "n" = (
 /obj/structure/chair/old{
-	icon_state = "chairold";
 	dir = 1
 	},
 /obj/item/crowbar/large{
@@ -73,7 +67,6 @@
 /area/ruin/powered)
 "o" = (
 /obj/structure/chair/old{
-	icon_state = "chairold";
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/retaliate/spaceman,
@@ -98,6 +91,11 @@
 "x" = (
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/template_noop,
+/area/ruin/powered)
+"J" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/structure/fans/tiny/invisible,
+/turf/open/floor/oldshuttle,
 /area/ruin/powered)
 
 (1,1,1) = {"
@@ -141,7 +139,7 @@ a
 a
 a
 b
-d
+J
 f
 g
 g
@@ -163,7 +161,7 @@ g
 g
 g
 b
-d
+J
 l
 w
 a
@@ -254,7 +252,7 @@ g
 c
 "}
 (10,1,1) = {"
-d
+J
 g
 g
 g
@@ -268,7 +266,7 @@ c
 t
 g
 g
-d
+J
 "}
 (11,1,1) = {"
 c
@@ -367,7 +365,7 @@ g
 g
 g
 e
-d
+J
 l
 v
 a
@@ -379,7 +377,7 @@ a
 a
 a
 e
-d
+J
 h
 g
 g

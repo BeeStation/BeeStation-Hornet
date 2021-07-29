@@ -15,6 +15,34 @@
 	var/reagent_id = /datum/reagent/water
 	var/reaction_volume = 200
 
+/obj/structure/showerframe
+	name = "shower frame"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "shower_frame"
+	desc = "A shower frame, that needs 2 plastic sheets to finish construction."
+	anchored = FALSE
+
+/obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stack/sheet/plastic))
+		balloon_alert(user, "You start constructing the shower")
+		if(do_after(user, 4 SECONDS, target = src))
+			I.use(1)
+			balloon_alert(user, "Shower created")
+			var/obj/machinery/shower/new_shower = new /obj/machinery/shower(loc)
+			new_shower.setDir(dir)
+			qdel(src)
+			return
+	return ..()
+
+/obj/structure/showerframe/Initialize()
+	. = ..()
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+
+/obj/structure/showerframe/proc/can_be_rotated(mob/user, rotation_type)
+	if(anchored)
+		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
+	return !anchored
+
 /obj/machinery/shower/Initialize()
 	. = ..()
 	create_reagents(reaction_volume)
@@ -34,7 +62,7 @@
 	add_fingerprint(M)
 	if(on)
 		START_PROCESSING(SSmachines, src)
-		process()
+		process(SSMACHINES_DT)
 		soundloop.start()
 	else
 		soundloop.stop()
@@ -143,16 +171,16 @@
 		if(M.head && wash_obj(M.head))
 			M.update_inv_head()
 
-		if(M.glasses && !(SLOT_GLASSES in obscured) && wash_obj(M.glasses))
+		if(M.glasses && !(ITEM_SLOT_EYES in obscured) && wash_obj(M.glasses))
 			M.update_inv_glasses()
 
-		if(M.wear_mask && !(SLOT_WEAR_MASK in obscured) && wash_obj(M.wear_mask))
+		if(M.wear_mask && !(ITEM_SLOT_MASK in obscured) && wash_obj(M.wear_mask))
 			M.update_inv_wear_mask()
 
 		if(M.ears && !(HIDEEARS in obscured) && wash_obj(M.ears))
 			M.update_inv_ears()
 
-		if(M.wear_neck && !(SLOT_NECK in obscured) && wash_obj(M.wear_neck))
+		if(M.wear_neck && !(ITEM_SLOT_NECK in obscured) && wash_obj(M.wear_neck))
 			M.update_inv_neck()
 
 		if(M.shoes && !(HIDESHOES in obscured) && wash_obj(M.shoes))

@@ -25,9 +25,9 @@
 /datum/mutation/human/olfaction/on_life()
 	var/hygiene_now = owner.hygiene
 
-	if(hygiene_now < 100 && prob(5))
+	if(hygiene_now < 100 && prob(3))
 		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * (rand(3,5)))
-	if(hygiene_now < HYGIENE_LEVEL_DIRTY && prob(50))
+	if(hygiene_now < HYGIENE_LEVEL_DIRTY && prob(15))
 		to_chat(owner,"<span class='danger'>You get a whiff of your stench and feel sick!</span>")
 		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * rand(5,10))
 
@@ -89,10 +89,10 @@
 	if(tracking_target == user)
 		to_chat(user,"<span class='warning'>You smell out the trail to yourself. Yep, it's you.</span>")
 		return
-	if(usr.z < tracking_target.z)
+	if(usr.get_virtual_z_level() < tracking_target.get_virtual_z_level())
 		to_chat(user,"<span class='warning'>The trail leads... way up above you? Huh. They must be really, really far away.</span>")
 		return
-	else if(usr.z > tracking_target.z)
+	else if(usr.get_virtual_z_level() > tracking_target.get_virtual_z_level())
 		to_chat(user,"<span class='warning'>The trail leads... way down below you? Huh. They must be really, really far away.</span>")
 		return
 	var/direction_text = "[dir2text(get_dir(usr, tracking_target))]"

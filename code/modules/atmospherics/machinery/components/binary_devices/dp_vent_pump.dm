@@ -14,7 +14,12 @@
 	name = "dual-port air vent"
 	desc = "Has a valve and pump attached to it. There are two ports."
 
+	welded = FALSE
+
 	level = 1
+
+	interacts_with_air = TRUE
+
 	var/frequency = 0
 	var/id = null
 	var/datum/radio_frequency/radio_connection
@@ -45,6 +50,10 @@
 		var/image/cap = getpipeimage(icon, "dpvent_cap", dir, piping_layer = piping_layer)
 		add_overlay(cap)
 
+	if(welded)
+		icon_state = "vent_welded"
+		return
+
 	if(!on || !is_operational())
 		icon_state = "vent_off"
 	else
@@ -52,7 +61,8 @@
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/process_atmos()
 	..()
-
+	if(welded || !is_operational() || !isopenturf(loc))
+		return FALSE
 	if(!on)
 		return
 	var/datum/gas_mixture/air1 = airs[1]
@@ -73,16 +83,12 @@
 			if(air1.return_temperature() > 0)
 				var/transfer_moles = pressure_delta*environment.return_volume()/(air1.return_temperature() * R_IDEAL_GAS_EQUATION)
 
-				var/datum/gas_mixture/removed = air1.remove(transfer_moles)
-				//Removed can be null if there is no atmosphere in air1
-				if(!removed)
-					return
+				loc.assume_air_moles(air1, transfer_moles)
 
-				loc.assume_air(removed)
 				air_update_turf()
 
 				var/datum/pipeline/parent1 = parents[1]
-				parent1.update = 1
+				parent1.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	else //external -> output
 		if(environment.return_pressure() > 0)
@@ -94,15 +100,11 @@
 				moles_delta = min(moles_delta, (input_pressure_min - air2.return_pressure()) * our_multiplier)
 
 			if(moles_delta > 0)
-				var/datum/gas_mixture/removed = loc.remove_air(moles_delta)
-				if (isnull(removed)) // in space
-					return
-
-				air2.merge(removed)
+				loc.transfer_air(air2, moles_delta)
 				air_update_turf()
 
 				var/datum/pipeline/parent2 = parents[2]
-				parent2.update = 1
+				parent2.update = PIPENET_UPDATE_STATUS_RECONCILE_NEEDED
 
 	//Radio remote control
 
@@ -175,6 +177,40 @@
 	spawn(2)
 		broadcast_status()
 	update_icon()
+
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/welder_act(mob/living/user, obj/item/I)
+	if(!I.tool_start_check(user, amount=0))
+		return TRUE
+	to_chat(user, "<span class='notice'>You begin welding the dual-port vent...</span>")
+	if(I.use_tool(src, user, 20, volume=50))
+		if(!welded)
+			user.visible_message("[user] welds the dual-port vent shut.", "<span class='notice'>You weld the dual-port vent shut.</span>", "<span class='italics'>You hear welding.</span>")
+			welded = TRUE
+		else
+			user.visible_message("[user] unwelded the dual-port vent.", "<span class='notice'>You unweld the dual-port vent.</span>", "<span class='italics'>You hear welding.</span>")
+			welded = FALSE
+		update_icon()
+		pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
+		pipe_vision_img.plane = ABOVE_HUD_PLANE
+	return TRUE
+
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/examine(mob/user)
+	. = ..()
+	if(welded)
+		. += "It seems welded shut."
+
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/can_crawl_through()
+	return !welded
+
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/attack_alien(mob/user)
+	if(!welded || !(do_after(user, 20, target = src)))
+		return
+	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the dual-port vent.</span>", "<span class='warning'>You hear loud scraping noises.</span>")
+	welded = FALSE
+	update_icon()
+	pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
+	pipe_vision_img.plane = ABOVE_HUD_PLANE
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, 1)
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume
 	name = "large dual-port air vent"

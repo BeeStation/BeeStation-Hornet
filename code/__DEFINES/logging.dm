@@ -5,8 +5,7 @@
 #define INVESTIGATE_EXPERIMENTOR	"experimentor"
 #define INVESTIGATE_GRAVITY			"gravity"
 #define INVESTIGATE_RECORDS			"records"
-#define INVESTIGATE_SINGULO			"singulo"
-#define INVESTIGATE_SUPERMATTER		"supermatter"
+#define INVESTIGATE_ENGINES			"engines"
 #define INVESTIGATE_TELESCI			"telesci"
 #define INVESTIGATE_WIRES			"wires"
 #define INVESTIGATE_PORTAL			"portals"
@@ -15,7 +14,6 @@
 #define INVESTIGATE_RADIATION		"radiation"
 #define INVESTIGATE_EXONET			"exonet"
 #define INVESTIGATE_NANITES			"nanites"
-#define INVESTIGATE_CIRCUIT			"circuit"
 #define INVESTIGATE_PRESENTS		"presents"
 
 // Logging types for log_message()
@@ -37,6 +35,7 @@
 #define LOG_MECHA			(1 << 15)
 #define LOG_VIRUS			(1 << 16)
 #define LOG_CLONING			(1 << 17)
+#define LOG_ID				(1 << 18)
 
 //Individual logging panel pages
 #define INDIVIDUAL_ATTACK_LOG		(LOG_ATTACK)

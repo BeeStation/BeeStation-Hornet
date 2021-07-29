@@ -36,7 +36,7 @@
 
 /obj/item/doorCharge/examine(mob/user)
 	. = ..()
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/traitor)) //No nuke ops because the device is excluded from nuclear
+	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/traitor, /datum/antagonist/traitor/internal_affairs, /datum/antagonist/incursion, /datum/antagonist/nukeop))
 		. += "A small explosive device that can be used to sabotage airlocks to cause an explosion upon opening. To apply, remove the airlock's maintenance panel and place it within."
 	else
 		. += "A small, suspicious object that feels lukewarm when held."

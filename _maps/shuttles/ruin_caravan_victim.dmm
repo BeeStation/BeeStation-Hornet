@@ -1021,7 +1021,7 @@
 /area/shuttle/caravan/freighter1)
 "TP" = (
 /obj/structure/closet/crate{
-	icon_state = "crateopen"
+	opened = 1
 	},
 /obj/item/stack/sheet/iron/fifty,
 /turf/open/floor/plasteel/airless/dark,

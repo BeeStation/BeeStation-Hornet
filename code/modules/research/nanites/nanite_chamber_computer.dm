@@ -2,11 +2,10 @@
 	name = "nanite chamber control console"
 	desc = "Controls a connected nanite chamber. Can inoculate nanites, load programs, and analyze existing nanite swarms."
 	var/obj/machinery/nanite_chamber/chamber
-	var/obj/item/disk/nanite_program/disk
 	icon_screen = "nanite_chamber_control"
 	circuit = /obj/item/circuitboard/computer/nanite_chamber_control
-	ui_x = 380
-	ui_y = 570
+
+
 
 /obj/machinery/computer/nanite_chamber_control/Initialize()
 	. = ..()
@@ -17,18 +16,21 @@
 		var/C = locate(/obj/machinery/nanite_chamber, get_step(src, direction))
 		if(C)
 			var/obj/machinery/nanite_chamber/NC = C
-			chamber = NC
-			NC.console = src
+			set_connected_chamber(NC)
 
 /obj/machinery/computer/nanite_chamber_control/interact()
 	if(!chamber)
 		find_chamber()
 	..()
 
-/obj/machinery/computer/nanite_chamber_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/nanite_chamber_control/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/computer/nanite_chamber_control/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "NaniteChamberControl", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "NaniteChamberControl")
 		ui.open()
 
 /obj/machinery/computer/nanite_chamber_control/ui_data()
@@ -44,7 +46,7 @@
 
 	var/mob/living/L = chamber.occupant
 
-	if(!(MOB_ORGANIC in L.mob_biotypes) && !(MOB_UNDEAD in L.mob_biotypes))
+	if(!(MOB_ORGANIC in L.mob_biotypes) && !(MOB_UNDEAD in L.mob_biotypes) && !HAS_TRAIT(L, TRAIT_NANITECOMPATIBLE))
 		data["status_msg"] = "Occupant not compatible with nanites."
 		return data
 
@@ -98,3 +100,14 @@
 			log_combat(usr, chamber.occupant, "injected", null, "with nanites via [src]")
 			chamber.occupant.investigate_log("was injected with nanites by [key_name(usr)] via [src] at [AREACOORD(src)].", INVESTIGATE_NANITES)
 			. = TRUE
+
+/obj/machinery/computer/nanite_chamber_control/proc/set_connected_chamber(new_chamber)
+	if(chamber)
+		UnregisterSignal(chamber, COMSIG_PARENT_QDELETING)
+	chamber = new_chamber
+	if(chamber)
+		RegisterSignal(chamber, COMSIG_PARENT_QDELETING, .proc/react_to_chamber_del)
+
+/obj/machinery/computer/nanite_chamber_control/proc/react_to_chamber_del(datum/source)
+	SIGNAL_HANDLER
+	set_connected_chamber(null)

@@ -4,7 +4,7 @@
 	stealth = 1
 	resistance = 6
 	stage_speed = -2
-	transmittable = 1
+	transmission = 1
 	level = 9
 	severity = 3
 	var/ready_to_pop
@@ -17,19 +17,19 @@
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 14)
+	if(A.resistance >= 14)
 		severity += 1
 
 
 /datum/symptom/blobspores/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 11)
+	if(A.resistance >= 11)
 		factory_blob = TRUE
-	if(A.properties["resistance"] >= 8)
+	if(A.resistance >= 8)
 		strong_blob = TRUE
-	if(A.properties["resistance"] >= 14)
-		node_blob = TRUE
+		if(A.resistance >= 14)
+			node_blob = TRUE
 
 /datum/symptom/blobspores/Activate(datum/disease/advance/A)
 	if(!..())
@@ -60,10 +60,14 @@
 
 
 /datum/symptom/blobspores/OnDeath(datum/disease/advance/A)
+	if(neutered) //Stops this symptom from making people scared even if this is useless
+		return FALSE
 	var/mob/living/M = A.affected_mob
 	M.visible_message("<span class='danger'>[M] starts swelling grotesquely!</span>")
-	sleep(10 SECONDS)
-	if(!A && !M)
+	addtimer(CALLBACK(src, .proc/blob_the_mob, A, M), 10 SECONDS)
+
+/datum/symptom/blobspores/proc/blob_the_mob(datum/disease/advance/A, mob/living/M)
+	if(!A || !M)
 		return
 	var/list/blob_options = list(/obj/structure/blob/normal)
 	if(factory_blob)
@@ -79,9 +83,9 @@
 			for(var/datum/disease/D in B.disease)//don't let them farm diseases with this and monkeys
 				B.disease -= D
 			B.disease += A//instead, they contain the disease that was in this
-		if(prob(A.properties["resistance"]))
+		if(prob(A.resistance))
 			var/atom/blobbernaut = new /mob/living/simple_animal/hostile/blob/blobbernaut/(M.loc)
 			blobbernaut.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY)
 		var/atom/blob_tile = new pick_blob(M.loc)
-		blob_tile.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY) //A random colour for the blob, as this blob isnt going to get a overmind colour
+		blob_tile.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY) //A random colour for the blob, as this blob isn't going to get a overmind colour
 	M.visible_message("<span class='danger'>A huge mass of blob and blob spores burst out of [M]!</span>")

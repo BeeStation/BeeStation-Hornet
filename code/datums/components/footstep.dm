@@ -11,6 +11,8 @@
 	RegisterSignal(parent, list(COMSIG_MOVABLE_MOVED), .proc/play_footstep)
 
 /datum/component/footstep/proc/play_footstep()
+	SIGNAL_HANDLER
+
 	var/turf/open/T = get_turf(parent)
 	if(!istype(T))
 		return
@@ -93,11 +95,13 @@
 					TRUE,
 					GLOB.footstep[T.footstep][3] + e)
 
-			if((!H.shoes && !feetCover)) //are we NOT wearing shoes
-				if(H.dna.species.special_step_sounds)
-					playsound(T, pick(H.dna.species.special_step_sounds), 50, TRUE)
-				else
-					playsound(T, pick(GLOB.barefootstep[T.barefootstep][1]),
-						GLOB.barefootstep[T.barefootstep][2] * v,
-						TRUE,
-						GLOB.barefootstep[T.barefootstep][3] + e)
+			//Sound of wearing shoes always plays, special movement sound
+			// IE (server motors wont play bare footed.)
+			if(H.dna.species.special_step_sounds)
+				playsound(T, pick(H.dna.species.special_step_sounds), 50, TRUE)
+
+			else if((!H.shoes && !feetCover)) //are we NOT wearing shoes
+				playsound(T, pick(GLOB.barefootstep[T.barefootstep][1]),
+					GLOB.barefootstep[T.barefootstep][2] * v,
+					TRUE,
+					GLOB.barefootstep[T.barefootstep][3] + e)

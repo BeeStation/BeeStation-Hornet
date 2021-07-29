@@ -7,10 +7,7 @@
 	icon_screen = "crew"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/computer/operating
-	ui_x = 350
-	ui_y = 470
 
-	var/mob/living/carbon/human/patient
 	var/obj/structure/table/optable/table
 	var/obj/machinery/stasis/sbed
 	var/list/advanced_surgeries = list()
@@ -24,11 +21,11 @@
 
 /obj/machinery/computer/operating/Destroy()
 	for(var/direction in GLOB.cardinals)
-		table = locate(/obj/structure/table/optable, get_step(src, direction))
+		table = locate(/obj/structure/table/optable) in get_step(src, direction)
 		if(table && table.computer == src)
 			table.computer = null
 		else
-			sbed = locate(/obj/machinery/stasis, get_step(src, direction))
+			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
 			if(sbed && sbed.op_computer == src)
 				sbed.op_computer = null
 	. = ..()
@@ -53,20 +50,24 @@
 
 /obj/machinery/computer/operating/proc/find_table()
 	for(var/direction in GLOB.cardinals)
-		table = locate(/obj/structure/table/optable, get_step(src, direction))
+		table = locate(/obj/structure/table/optable) in get_step(src, direction)
 		if(table)
 			table.computer = src
 			break
 		else
-			sbed = locate(/obj/machinery/stasis, get_step(src, direction))
+			sbed = locate(/obj/machinery/stasis) in get_step(src, direction)
 			if(sbed)
 				sbed.op_computer = src
 				break
 
-/obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/machinery/computer/operating/ui_state(mob/user)
+	return GLOB.not_incapacitated_state
+
+/obj/machinery/computer/operating/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "OperatingComputer", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "OperatingComputer")
 		ui.open()
 
 /obj/machinery/computer/operating/ui_data(mob/user)
@@ -79,20 +80,29 @@
 		surgery["desc"] = initial(S.desc)
 		surgeries += list(surgery)
 	data["surgeries"] = surgeries
-	data["patient"] = null
+	
+	//If there's no patient just hop to it yeah?
+	if(!table && !sbed)
+		data["patient"] = null
+		return data
+
+	var/mob/living/carbon/human/patient
+
 	if(table)
 		data["table"] = table
-		if(!table.check_patient())
+		if(!table.check_eligible_patient())
 			return data
 		data["patient"] = list()
 		patient = table.patient
 	else
 		if(sbed)
 			data["table"] = sbed
-			if(!sbed.check_patient())
+			if(!ishuman(sbed.occupant) &&  !ismonkey(sbed.occupant))
 				return data
 			data["patient"] = list()
-			patient = sbed.occupant
+			if(isliving(sbed.occupant))
+				var/mob/living/live = sbed.occupant
+				patient = live
 		else
 			data["patient"] = null
 			return data

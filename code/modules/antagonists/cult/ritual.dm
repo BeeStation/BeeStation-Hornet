@@ -9,7 +9,7 @@ This file contains the cult dagger and rune list code
 	. = ..()
 	if(!LAZYLEN(GLOB.rune_types))
 		GLOB.rune_types = list()
-		var/static/list/non_revealed_runes = (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
+		var/static/list/non_revealed_runes = ((subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed) - /obj/effect/rune/cluwne) //this is shitcode and i hate it
 		for(var/i_can_do_loops_now_thanks_remie in non_revealed_runes)
 			var/obj/effect/rune/R = i_can_do_loops_now_thanks_remie
 			GLOB.rune_types[initial(R.cultist_name)] = R //Uses the cultist name for displaying purposes
@@ -17,10 +17,10 @@ This file contains the cult dagger and rune list code
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || isobserver(user))
-		. += {"<span class='cult'>The scriptures of the Geometer. Allows the scribing of runes and access to the knowledge archives of the cult of Nar'Sie.\n
-		Striking a cult structure will unanchor or reanchor it.\n
-		Striking another cultist with it will purge holy water from them.\n
-		Striking a noncultist, however, will tear their flesh.</span>"}
+		. += "<span class='cult'>The scriptures of the Geometer. Allows the scribing of runes and access to the knowledge archives of the cult of Nar'Sie.\n"+\
+		"Striking a cult structure will unanchor or reanchor it.\n"+\
+		"Striking another cultist with it will purge holy water from them.\n"+\
+		"Striking a noncultist, however, will tear their flesh.</span>"
 
 /obj/item/melee/cultblade/dagger/attack(mob/living/M, mob/living/user)
 	if(iscultist(M))
@@ -107,7 +107,7 @@ This file contains the cult dagger and rune list code
 		if(!(A in summon_objective.summon_spots))  // Check again to make sure they didn't move
 			to_chat(user, "<span class='cultlarge'>The Geometer can only be summoned where the veil is weak - in [english_list(summon_objective.summon_spots)]!</span>")
 			return
-		priority_announce("Figments from an eldritch god are being summoned by [user] into [A.map_name] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", 'sound/ai/spanomalies.ogg')
+		priority_announce("Figments from an eldritch god are being summoned by [user] into [initial(A.name)] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", ANNOUNCER_SPANOMALIES)
 		for(var/B in spiral_range_turfs(1, user, 1))
 			var/obj/structure/emergency_shield/sanguine/N = new(B)
 			shields += N

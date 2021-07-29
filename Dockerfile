@@ -1,6 +1,6 @@
-FROM beestation/byond:513.1528 as base
-ONBUILD ENV BYOND_MAJOR=513
-ONBUILD ENV BYOND_MINOR=1528
+FROM beestation/byond:514.1554 as base
+ONBUILD ENV BYOND_MAJOR=514
+ONBUILD ENV BYOND_MINOR=1554
 
 FROM base as build_base
 
@@ -64,8 +64,8 @@ RUN apt-get update \
 COPY --from=rust_g /rust_g/target/release/librust_g.so /root/.byond/bin/rust_g
 COPY --from=build /deploy ./
 
-#extools fexists memes
-RUN ln -s /beestation/libbyond-extools.so /root/.byond/bin/libbyond-extools.so
+#auxtools fexists memes
+RUN ln -s /beestation/auxtools/libauxmos.so /root/.byond/bin/libauxmos.so
 
 VOLUME [ "/beestation/config", "/beestation/data" ]
 

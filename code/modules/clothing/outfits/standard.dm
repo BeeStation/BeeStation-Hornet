@@ -1,3 +1,26 @@
+/datum/outfit/debug //Debug objs plus hardsuit
+	name = "Debug outfit"
+	uniform = /obj/item/clothing/under/misc/patriotsuit
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
+	mask = /obj/item/clothing/mask/gas/welding/up
+	gloves = /obj/item/clothing/gloves/combat
+	belt = /obj/item/storage/belt/utility/chief/full
+	shoes = /obj/item/clothing/shoes/magboots/advance
+	id = /obj/item/card/id/ert
+	suit_store = /obj/item/tank/internals/oxygen
+	internals_slot = ITEM_SLOT_SUITSTORE
+	glasses = /obj/item/clothing/glasses/meson/night
+	ears = /obj/item/radio/headset/headset_cent/commander
+	box = /obj/item/storage/box/debugtools
+	back = /obj/item/storage/backpack/holding
+	backpack_contents = list(/obj/item/flashlight/emp/debug=1,\
+		/obj/item/gun/magic/wand/resurrection/debug=1,\
+		/obj/item/melee/transforming/energy/axe=1,\
+		/obj/item/storage/part_replacer/bluespace/tier4=1,\
+		/obj/item/debug/human_spawner=1,\
+		/obj/item/debug/omnitool=1
+		)
+
 /datum/outfit/space
 	name = "Standard Space Gear"
 
@@ -123,7 +146,7 @@
 	l_pocket = /obj/item/reagent_containers/food/snacks/grown/banana
 	r_pocket = /obj/item/bikehorn
 	id = /obj/item/card/id
-	r_hand = /obj/item/twohanded/fireaxe
+	r_hand = /obj/item/fireaxe
 
 /datum/outfit/tunnel_clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -149,7 +172,7 @@
 	suit = /obj/item/clothing/suit/apron
 	l_pocket = /obj/item/kitchen/knife
 	r_pocket = /obj/item/scalpel
-	r_hand = /obj/item/twohanded/fireaxe
+	r_hand = /obj/item/fireaxe
 
 /datum/outfit/psycho/post_equip(mob/living/carbon/human/H)
 	for(var/obj/item/carried_item in H.get_equipped_items(TRUE))
@@ -217,10 +240,20 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	id = /obj/item/card/id
 
+/datum/outfit/centcom/commander/plasmaman
+	name = "CentCom Commander Plasmaman"
+
+	mask = /obj/item/clothing/mask/gas/sechailer
+	head = /obj/item/clothing/head/helmet/space/plasmaman/commander
+	uniform = /obj/item/clothing/under/plasmaman/commander
+
 /datum/outfit/centcom/commander/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
+	if(isplasmaman(H))
+		H.internal = H.get_item_for_held_index(2)
+		H.update_internals_hud_icon(1)
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
@@ -367,76 +400,6 @@
 	r_hand= /obj/item/tank/internals/plasmaman/belt/full
 	mask = /obj/item/clothing/mask/breath
 
-/datum/outfit/death_commando
-	name = "Death Commando"
-
-	uniform = /obj/item/clothing/under/rank/centcom/commander
-	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
-	shoes = /obj/item/clothing/shoes/combat/swat
-	gloves = /obj/item/clothing/gloves/combat
-	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	glasses = /obj/item/clothing/glasses/hud/toggle/thermal
-	back = /obj/item/storage/backpack/security
-	l_pocket = /obj/item/melee/transforming/energy/sword/saber
-	r_pocket = /obj/item/shield/energy
-	suit_store = /obj/item/tank/internals/emergency_oxygen/double
-	belt = /obj/item/gun/ballistic/revolver/mateba
-	r_hand = /obj/item/gun/energy/pulse/loyalpin
-	id = /obj/item/card/id
-	ears = /obj/item/radio/headset/headset_cent/alt
-
-	backpack_contents = list(/obj/item/storage/box=1,\
-		/obj/item/ammo_box/a357=1,\
-		/obj/item/storage/firstaid/regular=1,\
-		/obj/item/storage/box/flashbangs=1,\
-		/obj/item/flashlight=1,\
-		/obj/item/grenade/plastic/x4=1)
-
-/datum/outfit/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-
-	var/obj/item/radio/R = H.ears
-	R.set_frequency(FREQ_CENTCOM)
-	R.freqlock = TRUE
-
-	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)//Here you go Deuryn
-	L.implant(H, null, 1)
-
-
-	var/obj/item/card/id/W = H.wear_id
-	W.icon_state = "centcom"
-	W.access = get_all_accesses()//They get full station access.
-	W.access += get_centcom_access("Death Commando")//Let's add their alloted CentCom access.
-	W.assignment = "Death Commando"
-	W.registered_name = H.real_name
-	W.update_label(W.registered_name, W.assignment)
-
-/datum/outfit/death_commando/officer
-	name = "Death Commando Officer"
-	head = /obj/item/clothing/head/helmet/space/beret
-
-/datum/outfit/death_commando/doomguy
-	name = "The Juggernaut"
-
-	suit = /obj/item/clothing/suit/space/hardsuit/shielded/doomguy
-	shoes = /obj/item/clothing/shoes/jackboots/fast
-	gloves = /obj/item/clothing/gloves/krav_maga/combatglovesplus
-	mask = /obj/item/clothing/mask/gas/sechailer
-	suit_store = /obj/item/gun/energy/pulse/destroyer
-	belt = /obj/item/storage/belt/grenade/full/webbing
-	back = /obj/item/storage/backpack/hammerspace
-	l_pocket = /obj/item/kitchen/knife/combat
-	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
-	r_hand = /obj/item/reagent_containers/hypospray/combat/supersoldier
-	backpack_contents = list(/obj/item/storage/box/engineer=1,\
-		/obj/item/reagent_containers/hypospray/combat,\
-		/obj/item/radio=1,\
-		/obj/item/twohanded/required/chainsaw/energy/doom=1,\
-		/obj/item/gun/ballistic/automatic/sniper_rifle=1,\
-		/obj/item/gun/grenadelauncher=1,\
-		/obj/item/gun/ballistic/automatic/ar=1)
-
 /datum/outfit/chrono_agent
 	name = "Timeline Eradication Agent"
 	uniform = /obj/item/clothing/under/color/white
@@ -455,25 +418,4 @@
 	id = /obj/item/card/id/job/clown
 	ears = /obj/item/radio/headset/headset_srv
 
-/datum/outfit/debug //Debug objs plus hardsuit
-	name = "Debug outfit"
-	uniform = /obj/item/clothing/under/misc/patriotsuit
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
-	mask = /obj/item/clothing/mask/gas/welding/up
-	gloves = /obj/item/clothing/gloves/combat
-	belt = /obj/item/storage/belt/utility/chief/full
-	shoes = /obj/item/clothing/shoes/magboots/advance
-	id = /obj/item/card/id/ert
-	suit_store = /obj/item/tank/internals/oxygen
-	internals_slot = SLOT_S_STORE
-	glasses = /obj/item/clothing/glasses/meson/night
-	ears = /obj/item/radio/headset/headset_cent/commander
-	box = /obj/item/storage/box/debugtools
-	back = /obj/item/storage/backpack/holding
-	backpack_contents = list(/obj/item/flashlight/emp/debug=1,\
-		/obj/item/gun/magic/wand/resurrection/debug=1,\
-		/obj/item/melee/transforming/energy/axe=1,\
-		/obj/item/storage/part_replacer/bluespace/tier4=1,\
-		/obj/item/debug/human_spawner=1,\
-		/obj/item/debug/omnitool=1
-		)
+

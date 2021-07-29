@@ -162,6 +162,15 @@
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_laughter)
 	..()
 
+/datum/reagent/consumable/laughter/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
+	var/mob/living/carbon/human/reactor = M
+	if(istype(reactor))
+		var/datum/component/mood/mood = reactor.GetComponent(/datum/component/mood)
+		if (mood.get_event("slipped"))
+			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "laughter", /datum/mood_event/funny_prank)
+			SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "slipped")
+			reactor.AdjustKnockdown(-20)
+
 /datum/reagent/consumable/superlaughter
 	name = "Super Laughter"
 	description = "Funny until you're the one laughing."
@@ -200,6 +209,7 @@
 	glass_icon_state = "glass_white"
 	glass_name = "glass of milk"
 	glass_desc = "White and nutritious goodness!"
+	overdose_threshold = 500 //High calcium intake is bad for bone health. OD is exactly like having taken a normal-ish bone hurt juice. If anyone hits the superoverdose, well I'll be damned
 
 /datum/reagent/consumable/milk/on_mob_life(mob/living/carbon/M)
 	if(M.getBruteLoss() && prob(20))
@@ -208,6 +218,31 @@
 	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
 		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2)
 	..()
+
+/*See block comment in ../milk/overdose_process(mob/living/M) for calculation and explanation of why this exists and why 5 was chosen
+* For best results use in tandem with method outlined in this comment
+*/
+/datum/reagent/consumable/milk/overdose_start(mob/living/M)
+	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, 5) //The integer here should match var/starting_amount in ../milk/overdose_process(mob/living/M)
+	return ..()
+
+/datum/reagent/consumable/milk/overdose_process(mob/living/M)
+	var/datum/reagent/converted_reagent = /datum/reagent/toxin/bonehurtingjuice //Needed to get the metabolism for desired reagent, exists solely for brevity compared to /datum/reagent/category/reagent.metabolization_rate
+	var/minimum_cycles = overdose_threshold/metabolization_rate //minimum_cycles is the number of ticks for an amount of units equal to the overdose threshold to process.
+	var/amount_to_add = 45 / minimum_cycles + initial(converted_reagent.metabolization_rate) //amount_to_add is the calculated amount to add per tick to meet ensure that target_units after minimum_cycle ticks.
+	M.reagents.add_reagent(/datum/reagent/toxin/bonehurtingjuice, amount_to_add)
+	return ..()
+	/*In depth explanation by DatBoiTim
+	* This number will not put more than 50u of BHJ into their system if only 500u(ie bare minimum OD).
+	*  milk.overdose_threshold / milk.metabolization_rate = minimum_cycles = 1,250 cycles
+	* (target_units / total_cycles) + BHJ.metabolization_rate = amount_to_add = .44
+	* However, regular livers process 1u per tick of any toxin if it is under 3u. This does not account for others, since most others are likely upgrades, and having a workaround for those upgrades defeats their purpose.
+	* Meaning we need a starting amount to offset this which is more than three. Ideally this should yield the lowest amount of decimal spaces to save space, while being as low as possible.
+	* In this case starting_amount = 5.
+	* ( (target_units - starting_amount) / minimum_cycles) + BHJ.metabolization_rate = amount_to_add = .436
+	* Copy pasting the above and changing /datum/reagent/toxin/bonehurtingjuice as well as the documentation to be accurate for another type path will work so long as the reagent using this has an OD threshold.
+	* You can just change the target units and should double check that the starting amount meets outlined criteria.
+	*/
 
 /datum/reagent/consumable/soymilk
 	name = "Soy Milk"
@@ -410,7 +445,7 @@
 	taste_description = "carbonated oil"
 	glass_icon_state = "grey_bull_glass"
 	glass_name = "glass of Grey Bull"
-	glass_desc = "Surprisingly it isnt grey."
+	glass_desc = "Surprisingly it isn't grey."
 
 /datum/reagent/consumable/grey_bull/on_mob_metabolize(mob/living/L)
 	..()
@@ -642,7 +677,7 @@
 	M.adjustToxLoss(-0.5, 0)
 	M.adjustOxyLoss(-0.5, 0)
 	if(M.nutrition && (M.nutrition - 2 > 0))
-		if(!(M.mind && M.mind.assigned_role == "Medical Doctor")) //Drains the nutrition of the holder. Not medical doctors though, since it's the Doctor's Delight!
+		if(M.mind?.assigned_role != "Medical Doctor") //Drains the nutrition of the holder. Not medical doctors though, since it's the Doctor's Delight!
 			M.adjust_nutrition(-2)
 	..()
 	. = 1
@@ -813,12 +848,13 @@
 	glass_name = "Red Queen"
 	glass_desc = "DRINK ME."
 	random_unrestricted = TRUE
-	var/current_size = 1
+	var/current_size = RESIZE_DEFAULT_SIZE
 
 /datum/reagent/consumable/red_queen/on_mob_life(mob/living/carbon/H)
 	if(prob(75))
 		return ..()
 	var/newsize = pick(0.5, 0.75, 1, 1.50, 2)
+	newsize *= RESIZE_DEFAULT_SIZE
 	H.resize = newsize/current_size
 	current_size = newsize
 	H.update_transform()
@@ -827,15 +863,30 @@
 	..()
 
 /datum/reagent/consumable/red_queen/on_mob_end_metabolize(mob/living/M)
-	M.resize = 1/current_size
+	M.resize = RESIZE_DEFAULT_SIZE/current_size
+	current_size = RESIZE_DEFAULT_SIZE
 	M.update_transform()
 	..()
 
 /datum/reagent/consumable/bungojuice
 	name = "Bungo Juice"
 	color = "#F9E43D"
-	description = "Exotic! You feel like you are on vactation already."
+	description = "Exotic! You feel like you are on vacation already."
 	taste_description = "succulent bungo"
 	glass_icon_state = "glass_yellow"
 	glass_name = "glass of bungo juice"
-	glass_desc = "Exotic! You feel like you are on vactation already."
+	glass_desc = "Exotic! You feel like you are on vacation already."
+
+/datum/reagent/consumable/beefbroth
+	name = "Beef Broth"
+	color = "#100800" // rgb: 16, 8, 0 , just like cola
+	taste_description = "Pure Beef Essence"
+	glass_icon_state  = "glass_brown"
+	glass_name = "glass of Space Cola?"
+	glass_desc = "A glass of what appears to be refreshing Space Cola."
+
+/datum/reagent/consumable/beefbroth/on_mob_metabolize(mob/living/M)
+	to_chat(M, "<span class='warning'>That drink was way too beefy! You feel sick.</span>")
+	M.adjust_disgust(30)
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+	. = ..()

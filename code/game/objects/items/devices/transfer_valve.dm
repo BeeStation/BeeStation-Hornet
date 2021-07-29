@@ -7,14 +7,18 @@
 	righthand_file = 'icons/mob/inhands/weapons/bombs_righthand.dmi'
 	desc = "Regulates the transfer of air between two tanks."
 	w_class = WEIGHT_CLASS_BULKY
-	var/ui_x = 310
-	var/ui_y = 320
+
+
 	var/obj/item/tank/tank_one
 	var/obj/item/tank/tank_two
 	var/obj/item/assembly/attached_device
 	var/mob/attacher = null
 	var/valve_open = FALSE
 	var/toggle = TRUE
+
+/obj/item/transfer_valve/Destroy()
+	attached_device = null
+	return ..()
 
 /obj/item/transfer_valve/IsAssemblyHolder()
 	return TRUE
@@ -128,7 +132,7 @@
 			attached_device = null
 			update_icon()
 		if(href_list["device"])
-			attached_device.attack_self(usr)
+			attached_device.ui_interact(usr)
 
 	attack_self(usr)
 	add_fingerprint(usr)
@@ -177,20 +181,15 @@
 		if(!target_self)
 			target.set_volume(target.return_volume() + tank_two.air_contents.return_volume())
 		target.set_volume(target.return_volume() + tank_one.air_contents.return_volume())
-	var/datum/gas_mixture/temp
-	temp = tank_one.air_contents.remove_ratio(1)
-	target.merge(temp)
+	tank_one.air_contents.transfer_ratio_to(target, 1)
 	if(!target_self)
-		temp = tank_two.air_contents.remove_ratio(1)
-		target.merge(temp)
+		tank_two.air_contents.transfer_ratio_to(target, 1)
 
 /obj/item/transfer_valve/proc/split_gases()
 	if (!valve_open || !tank_one || !tank_two)
 		return
 	var/ratio1 = tank_one.air_contents.return_volume()/tank_two.air_contents.return_volume()
-	var/datum/gas_mixture/temp
-	temp = tank_two.air_contents.remove_ratio(ratio1)
-	tank_one.air_contents.merge(temp)
+	tank_two.air_contents.transfer_ratio_to(tank_one.air_contents, ratio1)
 	tank_two.air_contents.set_volume(tank_two.air_contents.return_volume() - tank_one.air_contents.return_volume())
 
 	/*
@@ -216,7 +215,7 @@
 			admin_attachment_message = " with [attachment] attached by [attacher ? ADMIN_LOOKUPFLW(attacher) : "Unknown"]"
 			attachment_message = " with [attachment] attached by [attacher ? key_name_admin(attacher) : "Unknown"]"
 
-		var/mob/bomber = get_mob_by_key(fingerprintslast)
+		var/mob/bomber = get_mob_by_ckey(fingerprintslast)
 		var/admin_bomber_message
 		var/bomber_message
 		if(bomber)
@@ -242,18 +241,21 @@
 /obj/item/transfer_valve/proc/c_state()
 	return
 
-/obj/item/transfer_valve/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, \
-									datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+
+/obj/item/transfer_valve/ui_state(mob/user)
+	return GLOB.hands_state
+
+/obj/item/transfer_valve/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TransferValve", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "TransferValve")
 		ui.open()
 
 /obj/item/transfer_valve/ui_data(mob/user)
 	var/list/data = list()
-	data["tank_one"] = tank_one
-	data["tank_two"] = tank_two
-	data["attached_device"] = attached_device
+	data["tank_one"] = tank_one ? tank_one.name : null
+	data["tank_two"] = tank_two ? tank_two.name : null
+	data["attached_device"] = attached_device ? attached_device.name : null
 	data["valve"] = valve_open
 	return data
 

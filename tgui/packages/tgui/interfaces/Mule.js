@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, Dropdown, Grid, Input, LabeledList, ProgressBar, Section, Flex } from '../components';
 import { Window } from '../layouts';
@@ -24,7 +23,9 @@ export const Mule = (props, context) => {
   } = data;
   const locked = data.locked && !data.siliconUser;
   return (
-    <Window>
+    <Window
+      width={350}
+      height={425}>
       <Window.Content>
         <InterfaceLockNoticeBox />
         <Section
@@ -63,7 +64,7 @@ export const Mule = (props, context) => {
           <Section
             title="Controls"
             buttons={(
-              <Fragment>
+              <>
                 {!!load && (
                   <Button
                     icon="eject"
@@ -76,7 +77,7 @@ export const Mule = (props, context) => {
                     content="Eject PAI"
                     onClick={() => act('ejectpai')} />
                 )}
-              </Fragment>
+              </>
             )}>
             <LabeledList>
               <LabeledList.Item label="ID">

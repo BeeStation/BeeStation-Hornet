@@ -1,4 +1,10 @@
 /**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
+/**
  * Limits a number to the range between 'min' and 'max'.
  */
 export const clamp = (value, min, max) => {
@@ -81,4 +87,14 @@ export const keyOfMatchingRange = (value, ranges) => {
       return rangeName;
     }
   }
+};
+
+/**
+ * Get number of digits following the decimal point in a number
+ */
+export const numberOfDecimalDigits = value => {
+  if (Math.floor(value) !== value) {
+    return value.toString().split('.')[1].length || 0;
+  }
+  return 0;
 };

@@ -10,8 +10,8 @@
 	ui_header = "ntnrc_idle.gif"
 	available_on_ntnet = 1
 	tgui_id = "NtosNetChat"
-	ui_x = 900
-	ui_y = 675
+
+
 
 	var/last_message				// Used to generate the toolbar icon
 	var/username
@@ -19,9 +19,17 @@
 	var/list/channel_history = list()
 	var/operator_mode = FALSE		// Channel operator mode
 	var/netadmin_mode = FALSE		// Administrator mode (invisible to other users + bypasses passwords)
+	//A list of all the converstations we're a part of
+	var/list/datum/ntnet_conversation/conversations = list()
 
 /datum/computer_file/program/chatclient/New()
 	username = "DefaultUser[rand(100, 999)]"
+
+/datum/computer_file/program/chatclient/Destroy()
+	for(var/datum/ntnet_conversation/discussion as anything in conversations)
+		discussion.purge_client(src)
+	conversations.Cut()
+	return ..()
 
 /datum/computer_file/program/chatclient/ui_act(action, params)
 	if(..())

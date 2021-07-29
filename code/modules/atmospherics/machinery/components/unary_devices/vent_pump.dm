@@ -17,6 +17,8 @@
 	level = 1
 	layer = GAS_SCRUBBER_LAYER
 
+	interacts_with_air = TRUE
+
 	var/id_tag = null
 	var/pump_direction = RELEASING
 
@@ -90,7 +92,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/process_atmos()
 	..()
-	if(!is_operational())
+	if(!is_operational() || !isopenturf(loc))
 		return
 	if(!nodes[1])
 		on = FALSE
@@ -99,6 +101,10 @@
 
 	var/datum/gas_mixture/air_contents = airs[1]
 	var/datum/gas_mixture/environment = loc.return_air()
+
+	if(environment == null)
+		return
+
 	var/environment_pressure = environment.return_pressure()
 
 	if(pump_direction & RELEASING) // internal -> external
@@ -113,9 +119,7 @@
 			if(air_contents.return_temperature() > 0)
 				var/transfer_moles = pressure_delta*environment.return_volume()/(air_contents.return_temperature() * R_IDEAL_GAS_EQUATION)
 
-				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
-
-				loc.assume_air(removed)
+				loc.assume_air_moles(air_contents, transfer_moles)
 				air_update_turf()
 
 	else // external -> internal
@@ -128,11 +132,7 @@
 				moles_delta = min(moles_delta, (internal_pressure_bound - air_contents.return_pressure()) * our_multiplier)
 
 			if(moles_delta > 0)
-				var/datum/gas_mixture/removed = loc.remove_air(moles_delta)
-				if (isnull(removed)) // in space
-					return
-
-				air_contents.merge(removed)
+				loc.transfer_air(air_contents, moles_delta)
 				air_update_turf()
 	update_parents()
 
@@ -288,7 +288,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/attack_alien(mob/user)
 	if(!welded || !(do_after(user, 20, target = src)))
 		return
-	user.visible_message("[user] furiously claws at [src]!", "You manage to clear away the stuff blocking the vent", "You hear loud scraping noises.")
+	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the vent.</span>", "<span class='warning'>You hear loud scraping noises.</span>")
 	welded = FALSE
 	update_icon()
 	pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)

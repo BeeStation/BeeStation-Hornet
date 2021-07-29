@@ -129,15 +129,20 @@
 			chambered.forceMove(src)
 
 /obj/item/gun/ballistic/proc/rack(mob/user = null)
-	if (bolt_type == BOLT_TYPE_NO_BOLT) //If there's no bolt, nothing to rack
-		return
-	if (bolt_type == BOLT_TYPE_OPEN)
-		if(!bolt_locked)	//If it's an open bolt, racking again would do nothing
-			if (user)
-				to_chat(user, "<span class='notice'>\The [src]'s [bolt_wording] is already cocked!</span>")
+	switch(bolt_type)
+		if(BOLT_TYPE_NO_BOLT)
 			return
-		bolt_locked = FALSE
-	if (user)
+		if(BOLT_TYPE_OPEN)
+			if(!bolt_locked)	//If it's an open bolt, racking again would do nothing
+				if(user)
+					to_chat(user, "<span class='notice'>\The [src]'s [bolt_wording] is already cocked!</span>")
+				return
+			bolt_locked = FALSE
+		if(BOLT_TYPE_PUMP)
+			if(user?.get_inactive_held_item())
+				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
+				return
+	if(user)
 		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
 	process_chamber(!chambered, FALSE)
 	if (bolt_type == BOLT_TYPE_LOCKING && !chambered)
@@ -262,7 +267,7 @@
 		if(suppressed && can_unsuppress)
 			var/obj/item/suppressor/S = suppressed
 			if(!user.is_holding(src))
-				return ..()
+				return
 			to_chat(user, "<span class='notice'>You unscrew \the [suppressed] from \the [src].</span>")
 			user.put_in_hands(suppressed)
 			w_class -= S.w_class
@@ -410,6 +415,7 @@
 		slot_flags |= ITEM_SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		recoil = SAWN_OFF_RECOIL
 		sawn_off = TRUE
+		spread_multiplier = 1.6
 		update_icon()
 		return TRUE
 

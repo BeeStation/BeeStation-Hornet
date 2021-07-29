@@ -6,15 +6,17 @@
 	invocation_type = "none" //you scream on connecting, not summoning
 	include_user = TRUE
 	range = -1
+	//Checks
+	var/spell_used = FALSE
 
 /obj/effect/proc_holder/spell/targeted/touch/Destroy()
 	remove_hand()
 	to_chat(usr, "<span class='notice'>The power of the spell dissipates from your hand.</span>")
 	..()
 
-/obj/effect/proc_holder/spell/targeted/touch/proc/remove_hand(recharge = FALSE)
+/obj/effect/proc_holder/spell/targeted/touch/proc/remove_hand()
 	QDEL_NULL(attached_hand)
-	if(recharge)
+	if(!spell_used)
 		charge_counter = charge_max
 
 /obj/effect/proc_holder/spell/targeted/touch/proc/on_hand_destroy(obj/item/melee/touch_attack/hand)
@@ -27,7 +29,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/cast(list/targets,mob/user = usr)
 	if(!QDELETED(attached_hand))
-		remove_hand(TRUE)
+		remove_hand()
 		to_chat(user, "<span class='notice'>[dropmessage]</span>")
 		return
 
@@ -47,12 +49,13 @@
 	attached_hand = new hand_path(src)
 	attached_hand.attached_spell = src
 	if(!user.put_in_hands(attached_hand))
-		remove_hand(TRUE)
+		remove_hand()
 		if (user.get_num_arms() <= 0)
 			to_chat(user, "<span class='warning'>You dont have any usable hands!</span>")
 		else
 			to_chat(user, "<span class='warning'>Your hands are full!</span>")
 		return FALSE
+	spell_used = FALSE
 	to_chat(user, "<span class='notice'>[drawmessage]</span>")
 	return TRUE
 

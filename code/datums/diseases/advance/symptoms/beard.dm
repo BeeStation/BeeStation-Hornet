@@ -21,7 +21,7 @@ BONUS
 	stealth = 1
 	resistance = 3
 	stage_speed = 3
-	transmittable = 1
+	transmission = 1
 	level = 4
 	severity = 0
 	symptom_delay_min = 18
@@ -37,7 +37,7 @@ BONUS
 		var/mob/living/carbon/human/H = M
 		var/index = min(max(beard_order.Find(H.facial_hair_style)+1, A.stage-1), beard_order.len)
 		if(index > 0 && H.facial_hair_style != beard_order[index])
-			to_chat(H, "<span class='warning'>Your chin itches.</span>")
+			to_chat(H, "<span class='notice'>Your chin itches.</span>")
 			H.facial_hair_style = beard_order[index]
 			H.update_hair()
 

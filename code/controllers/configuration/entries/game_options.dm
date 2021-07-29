@@ -72,6 +72,8 @@
 
 /datum/config_entry/flag/economy	//money money money money money money money money money money money money
 
+/datum/config_entry/flag/donator_items 	// do you need to be a donator to use donator items
+
 /datum/config_entry/number/traitor_scaling_coeff	//how much does the amount of players get divided by to determine traitors
 	config_entry_value = 6
 	integer = FALSE
@@ -83,6 +85,11 @@
 	min_val = 1
 
 /datum/config_entry/number/changeling_scaling_coeff	//how much does the amount of players get divided by to determine changelings
+	config_entry_value = 6
+	integer = FALSE
+	min_val = 1
+
+/datum/config_entry/number/ecult_scaling_coeff	//how much does the amount of players get divided by to determine e_cult
 	config_entry_value = 6
 	integer = FALSE
 	min_val = 1
@@ -188,6 +195,10 @@
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_FLAG
 
+/datum/config_entry/keyed_list/paywall_races	//races you have to be a subscriber to play as
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_FLAG
+
 /datum/config_entry/keyed_list/roundstart_no_hard_check // Species contained in this list will not cause existing characters with no-longer-roundstart species set to be resetted to the human race.
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_FLAG
@@ -243,6 +254,8 @@
 /datum/config_entry/flag/looc_enabled
 
 /datum/config_entry/flag/emojis
+
+/datum/config_entry/flag/badges
 
 /datum/config_entry/keyed_list/multiplicative_movespeed
 	key_mode = KEY_MODE_TYPE
@@ -363,7 +376,7 @@
 	min_val = 0
 
 /datum/config_entry/number/space_budget
-	config_entry_value = 16
+	config_entry_value = 40
 	integer = FALSE
 	min_val = 0
 
@@ -424,6 +437,8 @@
 	config_entry_value = 100
 /datum/config_entry/number/max_slimes
 	config_entry_value = 100
+/datum/config_entry/number/max_slimeperson_bodies
+	config_entry_value = 10
 
 //Maximum citation fine
 /datum/config_entry/number/maxfine
@@ -439,3 +454,19 @@
 	config_entry_value = 250
 
 /datum/config_entry/flag/restricted_suicide
+
+/datum/config_entry/flag/dynamic_config_enabled
+
+//Default Game Mode
+/datum/config_entry/string/master_mode
+	config_entry_value = "extended"
+
+//Bluespace Miners
+/datum/config_entry/number/roundstart_bluespace_miners
+	min_val = 0
+
+/datum/config_entry/flag/bsminer_researchable
+
+/datum/config_entry/flag/spare_enforce_coc
+
+/datum/config_entry/flag/station_traits

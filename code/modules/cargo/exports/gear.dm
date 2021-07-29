@@ -81,3 +81,13 @@
 	cost = 100
 	unit_name = "bomb suit"
 	export_types = list(/obj/item/clothing/suit/bomb_suit)
+
+/datum/export/gear/goldpda
+	cost = 500
+	unit_name = "gilded PDA"
+	export_types = list(/obj/item/pda/celebrity)
+
+/datum/export/gear/envirosuitvip
+	cost = 4500
+	unit_name = "designer envirosuit"
+	export_types = list(/obj/item/clothing/under/plasmaman/gold, /obj/item/clothing/head/helmet/space/plasmaman/gold)

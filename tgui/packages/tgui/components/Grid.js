@@ -1,6 +1,13 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { Table } from './Table';
 import { pureComponentHooks } from 'common/react';
 
+/** @deprecated */
 export const Grid = props => {
   const { children, ...rest } = props;
   return (
@@ -14,6 +21,7 @@ export const Grid = props => {
 
 Grid.defaultHooks = pureComponentHooks;
 
+/** @deprecated */
 export const GridColumn = props => {
   const { size = 1, style, ...rest } = props;
   return (

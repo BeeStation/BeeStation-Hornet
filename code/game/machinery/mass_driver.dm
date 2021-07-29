@@ -15,18 +15,18 @@
 /obj/machinery/mass_driver/proc/drive(amount)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	use_power(500)
+	use_power(1000)
 	var/O_limit
 	var/atom/target = get_edge_target_turf(src, dir)
 	for(var/atom/movable/O in loc)
-		if(!O.anchored || ismecha(O))	//Mechs need their launch platforms.
+		if(!O.anchored || istype(O, /obj/machinery/power/supermatter_crystal) || ismecha(O))	//Mechs need their launch platforms. Oh, and SM cannon SM cannon.
 			if(ismob(O) && !isliving(O))
 				continue
 			O_limit++
 			if(O_limit >= 20)
 				audible_message("<span class='notice'>[src] lets out a screech, it doesn't seem to be able to handle the load.</span>")
 				break
-			use_power(500)
+			use_power(1000)
 			O.throw_at(target, drive_range * power, power)
 	flick("mass_driver1", src)
 

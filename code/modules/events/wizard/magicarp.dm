@@ -13,7 +13,7 @@
 	startWhen = rand(40, 60)
 
 /datum/round_event/wizard/magicarp/announce(fake)
-	priority_announce("Unknown magical entities have been detected near [station_name()], please stand-by.", "Lifesign Alert")
+	priority_announce("Unknown magical entities have been detected near [station_name()], please stand-by.", "Lifesign Alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/wizard/magicarp/start()
 	for(var/obj/effect/landmark/carpspawn/C in GLOB.landmarks_list)
@@ -37,10 +37,10 @@
 	maxHealth = 50
 	health = 50
 	gold_core_spawnable = HOSTILE_SPAWN //NO_SPAWN
-	var/allowed_projectile_types = list(/obj/item/projectile/magic/change, /obj/item/projectile/magic/animate, /obj/item/projectile/magic/resurrection,
+	var/allowed_projectile_types = list(/obj/item/projectile/magic/animate, /obj/item/projectile/magic/resurrection,
 	/obj/item/projectile/magic/death, /obj/item/projectile/magic/teleport, /obj/item/projectile/magic/door, /obj/item/projectile/magic/aoe/fireball,
 	/obj/item/projectile/magic/spellblade, /obj/item/projectile/magic/arcane_barrage)
-	
+
 /mob/living/simple_animal/hostile/carp/ranged/Initialize()
 	projectiletype = pick(allowed_projectile_types)
 	. = ..()

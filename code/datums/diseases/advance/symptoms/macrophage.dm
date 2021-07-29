@@ -4,7 +4,7 @@
 	stealth = -4
 	resistance = 1
 	stage_speed = -2
-	transmittable = 2
+	transmission = 2
 	level = 9
 	severity = 2
 	symptom_delay_min = 30
@@ -21,28 +21,28 @@
 
 /datum/symptom/macrophage/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 10)
+	if(A.transmission >= 10)
 		severity += 2
 
 /datum/symptom/macrophage/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	netspeed = max(1, (A.properties["stage_rate"]))
-	if(A.properties["transmittable"] >= 10)
+	netspeed = max(1, A.stage_rate)
+	if(A.transmission >= 10)
 		gigagerms = TRUE
 
 /datum/symptom/macrophage/Activate(datum/disease/advance/A)
 	if(!..())
 		return
 	var/mob/living/M = A.affected_mob
-	phagecounter -= max(2, A.properties["stage_rate"])
 	switch(A.stage)
 		if(1-3)
 			to_chat(M, "<span class='notice'>Your skin crawls.</span>")
 		if(4)
-			M.visible_message("<span class='danger'>lumps form on [M]'s skin!</span>", \
+			M.visible_message("<span class='danger'>Lumps form on [M]'s skin!</span>", \
 								  "<span class='userdanger'>You cringe in pain as lumps form and move around on your skin!</span>")
 		if(5)
+			phagecounter -= max(2, A.stage_rate)
 			if(gigagerms && phagecounter <= 0) //only ever spawn one big germ
 				Burst(A, M, TRUE)
 				phagecounter += 10
@@ -53,19 +53,19 @@
 /datum/symptom/macrophage/proc/Burst(datum/disease/advance/A, var/mob/living/M, var/gigagerms = FALSE)
 	var/mob/living/simple_animal/hostile/macrophage/phage
 	if(gigagerms)
-		phage.melee_damage = max(5, A.properties["resistance"])
 		phage = new /mob/living/simple_animal/hostile/macrophage/aggro(M.loc)
-		M.take_overall_damage(brute = rand(10, 20), required_status = BODYPART_ORGANIC)
+		phage.melee_damage = max(5, A.resistance)
+		M.apply_damage(rand(10, 20))
 		playsound(M, 'sound/effects/splat.ogg', 50, 1)
 		M.emote("scream")
 	else
 		phage = new(M.loc)
-		M.take_overall_damage(brute = rand(1, 7), required_status = BODYPART_ORGANIC)
-	phage.health += A.properties["resistance"]
-	phage.maxHealth += A.properties["resistance"]
+		M.apply_damage(rand(1, 7))
+	phage.health += A.resistance
+	phage.maxHealth += A.resistance
 	phage.infections += A
 	phage.basedisease = A
-	if(A.properties["transmittable"] >= 12)
+	if(A.transmission >= 12)
 		for(var/datum/disease/D in M.diseases)
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
 				continue

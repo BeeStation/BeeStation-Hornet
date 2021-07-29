@@ -15,10 +15,10 @@
 	if(ishuman(L))
 		var/obj/item/bodypart/affecting = L.get_bodypart(check_zone(user.zone_selected))
 		if(!affecting)
-			to_chat(user, "<span class='warning'>The limb is missing!</span>")
+			balloon_alert(user, "The limb is missing")
 			return
 		if(affecting.status != BODYPART_ORGANIC)
-			to_chat(user, "<span class='notice'>Medicine won't work on a robotic limb!</span>")
+			balloon_alert(user, "It doesn't work on robotic limb")
 			return
 	..()
 
@@ -30,17 +30,17 @@
 /obj/item/reagent_containers/pill/patch/styptic
 	name = "brute patch"
 	desc = "Helps with brute injuries."
-	list_reagents = list(/datum/reagent/medicine/styptic_powder = 20)
+	list_reagents = list(/datum/reagent/medicine/styptic_powder = 30)
 	icon_state = "bandaid_brute"
 
 /obj/item/reagent_containers/pill/patch/silver_sulf
 	name = "burn patch"
 	desc = "Helps with burn injuries."
-	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 20)
+	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 30)
 	icon_state = "bandaid_burn"
 
 /obj/item/reagent_containers/pill/patch/synthflesh
 	name = "synthflesh patch"
 	desc = "Helps with brute and burn injuries."
-	list_reagents = list(/datum/reagent/medicine/synthflesh = 20)
+	list_reagents = list(/datum/reagent/medicine/synthflesh = 30)
 	icon_state = "bandaid_both"

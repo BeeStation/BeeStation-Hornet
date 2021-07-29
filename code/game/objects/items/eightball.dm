@@ -97,13 +97,13 @@
 /obj/item/toy/eightball/haunted
 	shake_time = 150
 	cooldown_time = 1800
-	flags_1 = HEAR_1
 	var/last_message
 	var/selected_message
 	var/list/votes
 
 /obj/item/toy/eightball/haunted/Initialize(mapload)
 	. = ..()
+	become_hearing_sensitive()
 	votes = list()
 	GLOB.poi_list |= src
 
@@ -122,13 +122,14 @@
 	interact(user)
 	return ..()
 
-/obj/item/toy/eightball/haunted/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, message_mode)
+/obj/item/toy/eightball/haunted/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())
 	. = ..()
 	last_message = raw_message
 
 /obj/item/toy/eightball/haunted/start_shaking(mob/user)
 	// notify ghosts that someone's shaking a haunted eightball
 	// and inform them of the message, (hopefully a yes/no question)
+	votes = list()	//need to reset the votes everytime someone shakes it
 	selected_message = last_message
 	notify_ghosts("[user] is shaking [src], hoping to get an answer to \"[selected_message]\"", source=src, enter_link="<a href=?src=[REF(src)];interact=1>(Click to help)</a>", action=NOTIFY_ATTACK, header = "Magic eightball")
 
@@ -168,11 +169,15 @@
 
 	return most_popular_answer
 
-/obj/item/toy/eightball/haunted/ui_interact(mob/user, ui_key="main", datum/tgui/ui=null, force_open=0, datum/tgui/master_ui=null, datum/ui_state/state = GLOB.observer_state)
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/toy/eightball/haunted/ui_state(mob/user)
+	return GLOB.observer_state
+
+/obj/item/toy/eightball/haunted/ui_interact(mob/user, datum/tgui/ui)
+
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "EightBallVote", name, 400, 600, master_ui, state)
+		ui = new(user, src, "EightBallVote")
 		ui.open()
 
 /obj/item/toy/eightball/haunted/ui_data(mob/user)
