@@ -91,7 +91,7 @@
 		ui.open()
 
 /obj/machinery/atmospherics/components/binary/pressure_valve/ui_data()
-	var/data = list()
+	var/list/data = list()
 	data["on"] = on
 	data["pressure"] = round(target_pressure)
 	data["max_pressure"] = round(ONE_ATMOSPHERE*100)
