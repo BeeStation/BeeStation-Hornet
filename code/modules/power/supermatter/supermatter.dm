@@ -34,7 +34,8 @@
 #define BZ_RADIOACTIVITY_MODIFIER 5
 #define PLUOXIUM_RADIOACTIVITY_MODIFIER -2
 #define PLUOXIUM_HEAT_RESISTANCE 3
-
+#define POWER_HEURISTIC_THRESHOLD 1000        //The point at which the supermatter starts warning that emitters may be on.
+#define TEMPERATURE_HEURISTIC_THRESHOLD 800   //The point at which the supermatter suggests adding gases that reduce heat damage.
 #define THERMAL_RELEASE_MODIFIER 5         //Higher == less heat released during reaction, not to be confused with the above values
 #define PLASMA_RELEASE_MODIFIER 750        //Higher == less plasma released by reaction
 #define OXYGEN_RELEASE_MODIFIER 325        //Higher == less oxygen released at high temperature/power
@@ -274,7 +275,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			speaking = "[DisplayTimeText(i, TRUE)] remain before causality stabilization."
 		else
 			speaking = "[i*0.1]..."
-		radio.talk_into(src, speaking, common_channel)
+		radio.talk_into(src, speaking, common_channel, list(SPAN_COMMAND))	// IT GOT WORSE, LOUD TIME
 		sleep(10)
 
 	explode()
@@ -499,7 +500,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			alarm()
 
 			if(damage > emergency_point)
-				radio.talk_into(src, "[emergency_alert] Integrity: [get_integrity()]%", common_channel)
+				// it's bad, LETS YELL
+				radio.talk_into(src, "[emergency_alert] Integrity: [get_integrity()]%", common_channel, list(SPAN_YELL))
 				lastwarning = REALTIMEOFDAY
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINES)
@@ -513,10 +515,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 				radio.talk_into(src, "[safe_alert] Integrity: [get_integrity()]%", engineering_channel)
 				lastwarning = REALTIMEOFDAY
 
-			if(power > POWER_PENALTY_THRESHOLD)
-				radio.talk_into(src, "Warning: Hyperstructure has reached dangerous power level.", engineering_channel)
-				if(powerloss_inhibitor < 0.5)
-					radio.talk_into(src, "DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", engineering_channel)
+			if(removed.return_temperature() > TEMPERATURE_HEURISTIC_THRESHOLD)
+				radio.talk_into(src, "Warning: High temperatures detected. Recommend adding coolant to the chamber to reduce integrity loss.", engineering_channel)
+			switch(power)
+				if(POWER_HEURISTIC_THRESHOLD to POWER_PENALTY_THRESHOLD)
+					radio.talk_into(src, "Warning: high power levels detected. Possible causes include emitters being online, a power-rich fuel mix or high levels of carbon dioxide inhibiting power loss.", engineering_channel)
+				if(POWER_PENALTY_THRESHOLD to INFINITY)
+					radio.talk_into(src, "Warning: Hyperstructure has reached dangerous power level.", engineering_channel)
+					if(powerloss_inhibitor < 0.5)
+						radio.talk_into(src, "DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.", engineering_channel)
 
 			if(combined_gas > MOLE_PENALTY_THRESHOLD)
 				radio.talk_into(src, "Warning: Critical coolant mass reached.", engineering_channel)
