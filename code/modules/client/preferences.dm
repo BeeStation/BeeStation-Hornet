@@ -658,7 +658,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(days_remaining)
 						dat += "<b>Be [capitalize(i)]:</b> <font color=red> \[IN [days_remaining] DAYS]</font><br>"
 					else
-						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
+						dat += "<b>Be [i == ROLE_SYNDICATE ? "Antag": capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<br>"
 			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
 
@@ -1604,7 +1604,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference")  as null|anything in GLOB.backbaglist
 					if(new_backbag)
 						backbag = new_backbag
-				
+
 				if("suit")
 					if(jumpsuit_style == PREF_SUIT)
 						jumpsuit_style = PREF_SKIRT

@@ -47,6 +47,7 @@
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
 //(in game days played) to play that role
 GLOBAL_LIST_INIT(special_roles, list(
+	ROLE_SYNDICATE,
 	ROLE_TRAITOR = /datum/game_mode/traitor,
 	ROLE_BROTHER = /datum/game_mode/traitor/bros,
 	ROLE_INCURSION = /datum/game_mode/incursion,
