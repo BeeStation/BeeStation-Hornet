@@ -23,7 +23,7 @@
 	var/active = 0
 	var/locked = FALSE
 	var/drainratio = 0.5
-	var/powerproduction_drain = 0.001
+	var/powerproduction_drain = 0.01
 
 	var/bitcoinproduction_drain = 0.15
 	var/bitcoinmining = FALSE
