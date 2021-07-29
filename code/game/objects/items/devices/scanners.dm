@@ -392,9 +392,9 @@ GENE SCANNER
 				else
 					blood_type = blood_id
 			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
-				to_chat(user, span_alert("Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]"))
+				to_chat(user, "[span_alert("Blood level: LOW [blood_percent] %, [C.blood_volume] cl,")] [span_info("type: [blood_type]")]")
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
-				to_chat(user, span_alert("Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]"))
+				to_chat(user, "[span_alert("Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,")] [span_info("type: [blood_type]")]")
 			else
 				to_chat(user, span_info("Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_type]"))
 
