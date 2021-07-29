@@ -10,7 +10,7 @@
     description = "Ask an admin or mentor for help."
 
 /datum/keybinding/client/get_help/down(client/user)
-    user.get_adminhelp()
+    user.pre_adminhelp()
     return TRUE
 
 

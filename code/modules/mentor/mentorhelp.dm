@@ -29,6 +29,11 @@
 	to_chat(src, "<span class='mentornotice'><span class='mentorhelp'>>PM to-<b>Mentors</b>: [msg]</span></span>")
 	return
 
+//Imitates what happens when you click the Mentorhelp verb
+/client/proc/get_mentorhelp()
+	var/msg = capped_input(src,, "Mentorhelp \"text\"")
+	mentorhelp(msg)
+
 /proc/get_mentor_counts()
 	. = list("total" = 0, "afk" = 0, "present" = 0)
 	for(var/X in GLOB.mentors)

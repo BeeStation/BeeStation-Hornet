@@ -369,7 +369,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	SStgui.update_uis(src)
 
 /datum/admin_help/proc/TimeoutVerb()
-	initiator.remove_verb(/client/verb/adminhelp)
+	initiator.remove_verb(/client/verb/pre_adminhelp)
 	initiator.adminhelptimerid = addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 1200, TIMER_STOPPABLE)
 
 //private
@@ -741,7 +741,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 /client/proc/giveadminhelpverb()
 	if(!src)
 		return
-	src.add_verb(/client/verb/adminhelp)
+	src.add_verb(/client/verb/pre_adminhelp)
 	deltimer(adminhelptimerid)
 	adminhelptimerid = 0
 
@@ -750,9 +750,28 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/msg = capped_input(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents")
 	adminhelp(msg)
 
-/client/verb/adminhelp(msg as text)
+// Displays a prompt in case you should be mentorhelping instead of ahelping, then redirects to the right help verb
+/client/verb/pre_adminhelp()
 	set category = "Admin"
 	set name = "Adminhelp"
+	
+	var/choice = alert("Are you sure you want to adminhelp?\n\
+		If you have questions about game mechanics, you should mentorhelp instead.\n\
+		Adminhelp is meant for questions about rules or asking for admin intervention.",, "Adminhelp", "Mentorhelp", "Cancel")
+
+	switch(choice)
+		if("Cancel")
+			return
+		if("Adminhelp")
+			get_adminhelp()
+			return
+		if("Mentorhelp")
+			get_mentorhelp()
+			return
+
+/client/proc/adminhelp(msg as text)
+	set category = "Admin"
+	set name = "Real Adminhelp"
 
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
