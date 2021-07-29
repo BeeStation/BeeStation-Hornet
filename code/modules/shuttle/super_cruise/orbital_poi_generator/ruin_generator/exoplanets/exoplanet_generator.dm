@@ -1,7 +1,11 @@
 /proc/generate_exoplanet(center_z)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
-	_generate_exoplanet(center_z, new /datum/exoplanet_biome/lavaland)
+	try
+		_generate_exoplanet(center_z, new /datum/exoplanet_biome/lavaland)
+	catch(var/exception/e)
+		message_admins("Exoplanet failed to generate!")
+		stack_trace("Exoplanet failed to generate! [e] on [e.file]:[e.line]")
 	space_level.generating = FALSE
 
 /proc/_generate_exoplanet(center_z, datum/exoplanet_biome/biome)
