@@ -44,10 +44,11 @@
 		. += "The sensor's settings can be changed by using a multitool on the device."
 
 /obj/machinery/atmospherics/components/binary/temperature_gate/update_icon_nopipes()
-	if(on && is_operational() && is_gas_flowing)
-		icon_state = "tgate_flow-[set_overlay_offset(piping_layer)]"
-	else if(on && is_operational() && !is_gas_flowing)
-		icon_state = "tgate_on-[set_overlay_offset(piping_layer)]"
+	if(on && is_operational())
+		if(is_gas_flowing)
+			icon_state = "tgate_flow-[set_overlay_offset(piping_layer)]"
+		else
+			icon_state = "tgate_on-[set_overlay_offset(piping_layer)]"
 	else
 		icon_state = "tgate_off-[set_overlay_offset(piping_layer)]"
 
