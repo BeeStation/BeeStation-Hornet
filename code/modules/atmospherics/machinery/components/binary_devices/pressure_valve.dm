@@ -42,10 +42,11 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/pressure_valve/update_icon_nopipes()
-	if(on && is_operational() && is_gas_flowing)
-		icon_state = "pvalve_flow"
-	else if(on && is_operational() && !is_gas_flowing)
-		icon_state = "pvalve_on"
+	if(on && is_operational()) && is_gas_flowing)
+		if(is_gas_flowing)
+			icon_state = "pvalve_flow"
+		else
+			icon_state = "pvalve_on"
 	else
 		icon_state = "pvalve_off"
 
