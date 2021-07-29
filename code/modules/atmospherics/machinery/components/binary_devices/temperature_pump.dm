@@ -67,7 +67,7 @@
 		ui.open()
 
 /obj/machinery/atmospherics/components/binary/temperature_pump/ui_data()
-	var/list/data = list()
+	var/data = list()
 	data["on"] = on
 	data["rate"] = round(heat_transfer_rate)
 	data["max_heat_transfer_rate"] = round(max_heat_transfer_rate)
