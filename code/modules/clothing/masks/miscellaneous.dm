@@ -262,7 +262,7 @@
 			user.visible_message(span_notice("You tie [src] up like a neckerchief."), span_notice("[user] ties [src] up like a neckerchief."))
 			qdel(src)
 		else
-			to_chat(user, "<span class='warning'>You must be holding [src] in order to tie it!")
+			to_chat(user, span_warning("You must be holding [src] in order to tie it!"))
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"

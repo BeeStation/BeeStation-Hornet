@@ -19,7 +19,7 @@
 			log_objective(M, objective.explanation_text)
 		M.add_antag_datum(B)
 
-	var/begin_message = "<span class='deadsay'><b>[L]</b> has been brainwashed with the following objectives: "
+	var/begin_message = span_deadsay("<b>[L]</b> has been brainwashed with the following objectives: ")
 	var/obj_message = english_list(directives)
 	var/end_message = "</b>.</span>"
 	var/rendered = begin_message + obj_message + end_message

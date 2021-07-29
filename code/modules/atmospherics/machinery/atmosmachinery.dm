@@ -317,7 +317,7 @@
 		if(target_move.can_crawl_through())
 			if(is_type_in_typecache(target_move, GLOB.ventcrawl_machinery))
 				user.forceMove(target_move.loc) //handle entering and so on.
-				user.visible_message(span_notice("You hear something squeezing through the ducts..."), "<span class='notice'>You climb out the ventilation system.")
+				user.visible_message(span_notice("You hear something squeezing through the ducts..."), span_notice("You climb out the ventilation system."))
 			else
 				var/list/pipenetdiff = returnPipenets() ^ target_move.returnPipenets()
 				if(pipenetdiff.len)
@@ -329,7 +329,7 @@
 					playsound(src, 'sound/machines/ventcrawl.ogg', 50, 1, -3)
 	else if(is_type_in_typecache(src, GLOB.ventcrawl_machinery) && can_crawl_through()) //if we move in a way the pipe can connect, but doesn't - or we're in a vent
 		user.forceMove(loc)
-		user.visible_message(span_notice("You hear something squeezing through the ducts..."), "<span class='notice'>You climb out the ventilation system.")
+		user.visible_message(span_notice("You hear something squeezing through the ducts..."), span_notice("You climb out the ventilation system."))
 
 	//PLACEHOLDER COMMENT FOR ME TO READD THE 1 (?) DS DELAY THAT WAS IMPLEMENTED WITH A... TIMER?
 

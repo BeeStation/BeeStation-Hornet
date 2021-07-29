@@ -155,7 +155,7 @@ GENE SCANNER
 	if(fire_loss > 10)
 		to_chat(user, "\t[span_alert("[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.")]")
 	if(oxy_loss > 10)
-		to_chat(user, "\t[span_info("<span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.")]")
+		to_chat(user, "\t[span_info(span_alert("[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected."))]")
 	if(tox_loss > 10)
 		to_chat(user, "\t[span_alert("[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.")]")
 	if(M.getStaminaLoss())

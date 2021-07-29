@@ -409,10 +409,10 @@
 		if(ismob(A))
 			var/mob/M = A
 			log_combat(user, M, "attacked", "EMP-light")
-			M.visible_message("<span class='danger'>[user] blinks \the [src] at \the [A].", \
-								"<span class='userdanger'>[user] blinks \the [src] at you.")
+			M.visible_message(span_danger("[user] blinks \the [src] at \the [A]."), \
+								span_userdanger("[user] blinks \the [src] at you."))
 		else
-			A.visible_message("<span class='danger'>[user] blinks \the [src] at \the [A].")
+			A.visible_message(span_danger("[user] blinks \the [src] at \the [A]."))
 		to_chat(user, "\The [src] now has [emp_cur_charges] charge\s.")
 		A.emp_act(EMP_HEAVY)
 	else

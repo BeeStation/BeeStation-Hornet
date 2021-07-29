@@ -157,7 +157,7 @@
 	var/r_limbs_missing = 0
 	for(var/t in missing)
 		if(t==BODY_ZONE_HEAD)
-			msg += "<span class='deadsay'><B>[t_His] [parse_zone(t)] is missing!</B><span class='warning'>\n"
+			msg += span_deadsay("<B>[t_His] [parse_zone(t)] is missing!</B><span class='warning'>\n")
 			continue
 		if(t == BODY_ZONE_L_ARM || t == BODY_ZONE_L_LEG)
 			l_limbs_missing++
@@ -331,7 +331,7 @@
 			if(R)
 				. += "<a href='?src=[REF(src)];hud=m;evaluation=1'>\[Medical evaluation\]</a><br>"
 			if(traitstring)
-				. += "<span class='info'>Detected physiological traits:\n[traitstring]"
+				. += span_info("Detected physiological traits:\n[traitstring]")
 
 		if(HAS_TRAIT(user, TRAIT_SECURITY_HUD))
 			if(!user.stat && user != src)

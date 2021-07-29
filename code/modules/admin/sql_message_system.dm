@@ -663,7 +663,7 @@
 				message_admins("<font color='red'><B>Notice: </B></font><font color='blue'>[key_name_admin(target_ckey)] has been on the watchlist since [timestamp] and has just connected - Reason: [text]</font>")
 				send2irc_adminless_only("Watchlist", "[key_name(target_ckey)] is on the watchlist and has just connected - Reason: [text]")
 			if("memo")
-				output += "[span_memo("Memo by <span class='prefix'>[admin_key]")] on [timestamp]"
+				output += "[span_memo("Memo by [span_prefix("[admin_key]")]")] on [timestamp]"
 				if(editor_key)
 					output += "<br>[span_memoedit("Last edit by [editor_key] <A href='?_src_=holder;[HrefToken()];messageedits=[message_id]'>(Click here to see edit log)</A>")]"
 				output += "<br>[text]</span><br>"

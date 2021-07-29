@@ -136,7 +136,7 @@
 				if(isturf(placed_in))
 					to_chat(M, span_notice("Placing [G.display_name] on [placed_in]!"))
 				else
-					to_chat(M, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]]")
+					to_chat(M, span_notice("Placing [G.display_name] in [placed_in.name]]"))
 				continue
 
 			if(H.equip_to_appropriate_slot(item))

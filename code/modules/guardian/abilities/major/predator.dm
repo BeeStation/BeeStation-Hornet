@@ -5,8 +5,8 @@
 	cost = 2
 	spell_type = /obj/effect/proc_holder/spell/self/predator
 	has_mode = TRUE
-	mode_on_msg = "<span class='danger'><B>You switch to analysis mode.</span></B>"
-	mode_off_msg = "<span class='danger'><B>You switch to combat mode.</span></B>"
+	mode_on_msg = span_danger("<B>You switch to analysis mode.</B>")
+	mode_off_msg = span_danger("<B>You switch to combat mode.</B>")
 	var/list/can_track = list()
 
 /datum/guardian_ability/major/predator/Apply()

@@ -243,8 +243,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(brutedamage || burndamage)
 		convertee.adjustBruteLoss(-(brutedamage * 0.75))
 		convertee.adjustFireLoss(-(burndamage * 0.75))
-	convertee.visible_message(span_warning("<span class='warning'>[convertee] writhes in pain \
-	[brutedamage || burndamage ? "even as [convertee.p_their()] wounds heal and close" : "as the markings below [convertee.p_them()] glow a bloody red"]!"), \
+	convertee.visible_message(span_warning(span_warning("[convertee] writhes in pain \
+	[brutedamage || burndamage ? "even as [convertee.p_their()] wounds heal and close" : "as the markings below [convertee.p_them()] glow a bloody red"]!")), \
  	span_cultlarge("<i>AAAAAAAAAAAAAA-</i>"))
 	SSticker.mode.add_cultist(convertee.mind, 1)
 	new /obj/item/melee/cultblade/dagger(get_turf(src))
