@@ -22,7 +22,7 @@
 	/// The interface (template) to be used for this UI.
 	var/interface
 	/// Update the UI every MC tick.
-	var/autoupdate = TRUE
+	var/autoupdate = FALSE
 	/// If the UI has been initialized yet.
 	var/initialized = FALSE
 	/// Time of opening the window.
