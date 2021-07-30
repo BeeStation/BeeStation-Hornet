@@ -152,7 +152,7 @@
 		how_cool_are_your_threads += "</span>"
 		. += how_cool_are_your_threads.Join()
 
-	if(LAZYLEN(armor_list))
+	if(length(armor_list))
 		armor_list.Cut()
 	if(armor.bio)
 		armor_list += list("TOXIN" = armor.bio)
@@ -173,14 +173,14 @@
 	if(armor.stamina)
 		armor_list += list("STAMINA" = armor.stamina)
 
-	if(LAZYLEN(durability_list))
+	if(length(durability_list))
 		durability_list.Cut()
 	if(armor.fire)
 		durability_list += list("FIRE" = armor.fire)
 	if(armor.acid)
 		durability_list += list("ACID" = armor.acid)
 
-	if(LAZYLEN(armor_list) || LAZYLEN(durability_list))
+	if(length(armor_list) || length(durability_list))
 		. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.</span>"
 
 /obj/item/clothing/Topic(href, href_list)
@@ -188,12 +188,12 @@
 
 	if(href_list["list_armor"])
 		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES (I-X)</u></b>")
-		if(LAZYLEN(armor_list))
+		if(length(armor_list))
 			readout += "\n<b>ARMOR</b>"
 			for(var/dam_type in armor_list)
 				var/armor_amount = armor_list[dam_type]
 				readout += "\n[dam_type] [armor_to_protection_class(armor_amount)]" //e.g. BOMB IV
-		if(LAZYLEN(durability_list))
+		if(length(durability_list))
 			readout += "\n<b>DURABILITY</b>"
 			for(var/dam_type in durability_list)
 				var/durability_amount = durability_list[dam_type]
@@ -233,7 +233,6 @@
 			. = "IX"
 		if (10 to INFINITY)
 			. = "X"
-	return .
 
 /obj/item/clothing/obj_break(damage_flag)
 	if(!damaged_clothes)
