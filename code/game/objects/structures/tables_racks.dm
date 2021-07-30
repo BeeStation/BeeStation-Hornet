@@ -2,6 +2,7 @@
  * Contains:
  *		Tables
  *		Glass Tables
+ *		Plasmaglass Tables
  *		Wooden Tables
  *		Reinforced Tables
  *		Racks
@@ -296,6 +297,25 @@
 	color = NARSIE_WINDOW_COLOUR
 	for(var/obj/item/shard/S in debris)
 		S.color = NARSIE_WINDOW_COLOUR
+
+/*
+ * Plasmaglass tables
+ */
+/obj/structure/table/glass/plasma
+    name = "plasmaglass table"
+    desc = "A glass table, but it's pink and more sturdy. What will Nanotrasen design next with plasma?"
+    icon = 'icons/obj/smooth_structures/plasmaglass_table.dmi'
+    icon_state = "plasmaglass_table"
+    buildstack = /obj/item/stack/sheet/plasmaglass
+    max_integrity = 270
+    armor = list("melee" = 10, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+
+/obj/structure/table/glass/plasma/Initialize()
+    . = ..()
+    debris += new /obj/item/shard/plasma
+
+/obj/structure/table/glass/plasma/check_break(mob/living/M)
+    return
 
 /*
  * Wooden tables
