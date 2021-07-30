@@ -88,6 +88,7 @@
 		// Open UI
 		ui = new(user, src, "CameraConsole")
 		ui.open()
+		ui.set_autoupdate(FALSE)
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
@@ -122,6 +123,7 @@
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/C = cameras[c_tag]
 		active_camera = C
+		ui_update()
 		playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
 		if(!C)

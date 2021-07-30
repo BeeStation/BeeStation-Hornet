@@ -32,6 +32,7 @@
 	if(!ui)
 		ui = new(user, src, "NaniteChamberControl")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/nanite_chamber_control/ui_data()
 	var/list/data = list()

@@ -34,7 +34,6 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Guardian")
-		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /datum/guardianbuilder/ui_data(mob/user)
@@ -169,6 +168,7 @@
 				saved_stats.ranged = TRUE
 		if("melee")
 			saved_stats.ranged = FALSE
+	ui_update()
 
 /datum/guardianbuilder/proc/calc_points()
 	points = max_points

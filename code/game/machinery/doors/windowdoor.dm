@@ -59,6 +59,7 @@
 	if(!open())
 		return
 	autoclose = TRUE
+	wires.ui_update()
 	if(check_access(null))
 		sleep(50)
 	else //secure doors close faster
@@ -290,6 +291,7 @@
 /obj/machinery/door/window/try_to_activate_door(mob/user)
 	if (..())
 		autoclose = FALSE
+		wires.ui_update()
 
 /obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
 	if(!hasPower())
