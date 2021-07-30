@@ -26,11 +26,29 @@
 
 /datum/computer_file/program/bounty/ui_data(mob/user)
 	var/list/data = get_header_data()
+
+	var/obj/item/computer_hardware/printer/printer
+	if(computer)
+		printer = computer.all_components[MC_PRINT]
+
 	var/list/bountyinfo = list()
 	for(var/datum/bounty/B in GLOB.bounties_list)
-		bountyinfo += list(list("name" = B.name, "description" = B.description, "reward_string" = B.reward_string(), "completion_string" = B.completion_string() , "claimed" = B.claimed, "can_claim" = B.can_claim(), "priority" = B.high_priority, "bounty_ref" = REF(B)))
+		bountyinfo += list(list(
+			"name" = B.name,
+			"description" = B.description,
+			"reward_string" = B.reward_string(),
+			"completion_string" = B.completion_string(),
+			"claimed" = B.claimed,
+			"can_claim" = B.can_claim(),
+			"priority" = B.high_priority,
+			"bounty_ref" = REF(B)
+		))
+	
+	data["has_printer"] = printer ? TRUE : FALSE
+
 	data["stored_cash"] = cargocash.account_balance
 	data["bountydata"] = bountyinfo
+	
 	return data
 
 /datum/computer_file/program/bounty/ui_act(action,params)
@@ -43,7 +61,13 @@
 				cashmoney.claim()
 			return TRUE
 		if("Print")
-			if(printer_ready < world.time)
-				printer_ready = world.time + PRINTER_TIMEOUT
-				print_paper()
-				return
+			var/obj/item/computer_hardware/printer/printer
+			if(computer)
+				printer = computer.all_components[MC_PRINT]
+			
+			if(printer)
+				if(!printer.print_type(/obj/item/paper/bounty_printout))
+					to_chat(usr, "<span class='notice'>Hardware error: Printer was unable to print the file. It may be out of paper.</span>")
+					return
+				else
+					computer.visible_message("<span class='notice'>\The [computer] prints out a paper.</span>")

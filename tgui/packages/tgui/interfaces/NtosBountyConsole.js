@@ -11,6 +11,7 @@ export const NtosBountyConsole = (props, context) => {
   const {
     bountydata = [],
     stored_cash,
+    has_printer,
   } = data;
   return (
     <NtosWindow
@@ -23,7 +24,9 @@ export const NtosBountyConsole = (props, context) => {
             <Button
               icon="print"
               content="Print Bounty List"
-              onClick={() => act('Print')} />
+              onClick={() => act('Print')}
+              disabled={!has_printer}
+              tooltip={!has_printer && "No printer found"} />
           )}>
           <Table border>
             <Table.Row 
