@@ -356,7 +356,7 @@ GLOBAL_LIST_EMPTY(destabilization_spawns)
 /datum/artifact_effect/gas_remove/Initialize(source)
 	. = ..()
 	input = pickweight(valid_inputs)
-	effect_act_descs = list("placed near [input.name]")
+	effect_act_descs = list("near gas")
 	output = pickweight(valid_outputs)
 
 /datum/artifact_effect/gas_remove/process(delta_time)
