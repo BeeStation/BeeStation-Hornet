@@ -62,4 +62,5 @@
 		if("Print")
 			if(printer_ready < world.time)
 				printer_ready = world.time + PRINTER_TIMEOUT
+				print_paper()
 				return
