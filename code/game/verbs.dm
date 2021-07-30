@@ -163,7 +163,7 @@
 		var/procpath/P = pp
 		if(!P)
 			continue
-		if(P.invisibility > mob.see_invisible)
+		if((!mob && P.invisbility) || (mob &&P.invisibility > mob.see_invisible))
 			continue
 		if(!islist(added_verbs[P.category]))
 			added_verbs[P.category] = list()
