@@ -82,7 +82,7 @@
 		if(WIRE_LIGHT)
 			A.lights = !A.lights
 			A.update_icon()
-	wires.ui_update()
+	ui_update()
 
 /obj/machinery/door/airlock/proc/reset_ai_wire()
 	if(aiControlDisabled == 1)
@@ -141,4 +141,4 @@
 		if(WIRE_ZAP1, WIRE_ZAP2) // Ouch.
 			if(isliving(usr))
 				A.shock(usr, 50)
-	wires.ui_update()
+	ui_update()

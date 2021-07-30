@@ -76,7 +76,7 @@
 		infectedMachines.Add(rebel)
 		rebel.shut_up = 0
 		rebel.shoot_inventory = 1
-		revel.wires.ui_update()
+		rebel.wires.ui_update()
 
 		if(ISMULTIPLE(activeFor, 8))
 			originMachine.speak(pick(rampant_speeches))
