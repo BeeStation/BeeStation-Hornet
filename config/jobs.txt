@@ -13,7 +13,7 @@ Assistant=-1,-1
 
 Quartermaster=1,1
 Cargo Technician=6,4
-Shaft Miner=4,4
+Shaft Miner=3,3
 
 Bartender=2,1
 Cook=2,1
