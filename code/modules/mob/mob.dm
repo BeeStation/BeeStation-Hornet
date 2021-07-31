@@ -195,7 +195,7 @@
 		hearers -= src
 
 	var/raw_msg = message
-	if(visible_message_flags[CHATMESSAGE_EMOTE])
+	if(visible_message_flags.Find(CHATMESSAGE_EMOTE))
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
 	var/list/show_to = list()
@@ -245,7 +245,7 @@
 		hearers -= src
 
 	var/raw_msg = message
-	if(audible_message_flags[CHATMESSAGE_EMOTE])
+	if(audible_message_flags.Find(CHATMESSAGE_EMOTE))
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
 	var/list/show_to = list()
@@ -276,14 +276,14 @@
 /atom/proc/runechat_prefs_check(mob/target, visible_message_flags = NONE)
 	if(!target.client?.prefs.chat_on_map || !target.client.prefs.see_chat_non_mob)
 		return FALSE
-	if(visible_message_flags[CHATMESSAGE_EMOTE] && !target.client.prefs.see_rc_emotes)
+	if(visible_message_flags.Find(CHATMESSAGE_EMOTE) && !target.client.prefs.see_rc_emotes)
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, visible_message_flags = NONE)
 	if(!target.client?.prefs.chat_on_map)
 		return FALSE
-	if(visible_message_flags[CHATMESSAGE_EMOTE] && !target.client.prefs.see_rc_emotes)
+	if(visible_message_flags.Find(CHATMESSAGE_EMOTE) && !target.client.prefs.see_rc_emotes)
 		return FALSE
 	return TRUE
 

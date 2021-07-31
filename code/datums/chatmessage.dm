@@ -331,7 +331,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		spans -= "italics"
 
 	// Display visual above source
-	if(message_mods[CHATMESSAGE_EMOTE])
+	if(message_mods.Find(CHATMESSAGE_EMOTE))
 		var/list/clients = list()
 		for(var/mob/M as() in hearers)
 			if(M?.should_show_chat_message(speaker, message_language, TRUE))
