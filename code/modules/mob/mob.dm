@@ -180,7 +180,7 @@
 	to_chat(src, msg)
 
 
-/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE)
+/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags)
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -195,7 +195,7 @@
 		hearers -= src
 
 	var/raw_msg = message
-	if(visible_message_flags & CHATMESSAGE_EMOTE)
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
 	var/list/show_to = list()
@@ -223,7 +223,7 @@
 	if(length(show_to))
 		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
 
-/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE)
+/mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags)
 	. = ..()
 	if(self_message)
 		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE)
@@ -239,13 +239,13 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE)
+/atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags)
 	var/list/hearers = get_hearers_in_view(hearing_distance, src)
 	if(self_message)
 		hearers -= src
 
 	var/raw_msg = message
-	if(audible_message_flags & CHATMESSAGE_EMOTE)
+	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
 	var/list/show_to = list()
@@ -267,23 +267,23 @@
   * * deaf_message (optional) is what deaf people will see.
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
-/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, audible_message_flags = NONE)
+/mob/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags)
 	. = ..()
 	if(self_message)
 		show_message(self_message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 ///Returns the client runechat visible messages preference according to the message type.
-/atom/proc/runechat_prefs_check(mob/target, visible_message_flags = NONE)
+/atom/proc/runechat_prefs_check(mob/target, list/visible_message_flags)
 	if(!target.client?.prefs.chat_on_map || !target.client.prefs.see_chat_non_mob)
 		return FALSE
-	if(visible_message_flags & CHATMESSAGE_EMOTE && !target.client.prefs.see_rc_emotes)
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.see_rc_emotes)
 		return FALSE
 	return TRUE
 
-/mob/runechat_prefs_check(mob/target, visible_message_flags = NONE)
+/mob/runechat_prefs_check(mob/target, list/visible_message_flags)
 	if(!target.client?.prefs.chat_on_map)
 		return FALSE
-	if(visible_message_flags & CHATMESSAGE_EMOTE && !target.client.prefs.see_rc_emotes)
+	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE) && !target.client.prefs.see_rc_emotes)
 		return FALSE
 	return TRUE
 
