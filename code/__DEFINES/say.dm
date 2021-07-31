@@ -103,5 +103,4 @@
 #define INVOCATION_WHISPER "whisper"
 
 //Used in visible_message_flags, audible_message_flags and runechat_flags
-#define EMOTE_MESSAGE (1<<0)
-#define RADIO_MESSAGE (1<<1)
+#define CHATMESSAGE_EMOTE "emotemessage"

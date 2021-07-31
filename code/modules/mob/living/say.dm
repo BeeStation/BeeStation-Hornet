@@ -274,9 +274,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 					show_overhead_message_to += M
 			AM.Hear(rendered, src, message_language, message, , spans, message_mods)
 	if(length(show_overhead_message_to))
-		create_chat_message(src, message_language, show_overhead_message_to, rendered, spans, message_mods)
+		create_chat_message(src, message_language, show_overhead_message_to, message, spans)
 	if(length(show_overhead_message_to_eavesdrop))
-		create_chat_message(src, message_language, show_overhead_message_to_eavesdrop, eavesrendered, spans, message_mods)
+		create_chat_message(src, message_language, show_overhead_message_to_eavesdrop, eavesdropping, spans)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message)
 
 	//speech bubble

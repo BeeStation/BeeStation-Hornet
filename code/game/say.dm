@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 				show_overhead_message_to += M
 		AM.Hear(rendered, src, message_language, message, , spans, message_mods)
 	if(length(show_overhead_message_to))
-		create_chat_message(src, message_language, show_overhead_message_to, rendered, spans, message_mods)
+		create_chat_message(src, message_language, show_overhead_message_to, message, spans, message_mods)
 
 /atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE)
 	//This proc uses text() because it is faster than appending strings. Thanks BYOND.

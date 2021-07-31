@@ -99,6 +99,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			if(!C)
 				continue
 			C.images.Remove(message)
+	LAZYREMOVE(message_loc.chat_messages, src)
 	hearers = null
 	message_loc = null
 	message = null
@@ -198,7 +199,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// Append language icon if the language uses one
 	var/datum/language/language_instance = GLOB.language_datum_instances[language]
-	if (language_instance?.display_icon(first_hearer))
+	if (language_instance?.display_icon(first_hearer.mob))
 		var/icon/language_icon = LAZYACCESS(language_icons, language)
 		if (isnull(language_icon))
 			language_icon = icon(language_instance.icon, icon_state = language_instance.icon_state)
@@ -212,7 +213,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	// Approximate text height
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
 	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
-	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
+	approx_lines = CEILING(max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT), 1)	//Round to make power calculations easier.
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = get_atom_on_turf(target)
@@ -259,6 +260,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		C?.images |= message
 	animate(message, alpha = 255, pixel_y = bound_height, time = CHAT_MESSAGE_SPAWN_TIME)
 
+	LAZYADD(message_loc.chat_messages, src)
+
 	// Register with the runechat SS to handle EOL and destruction
 	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
 	enter_subsystem()
@@ -294,7 +297,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		//Dont create the overhead radio chat if we heard the speaker speak
 		if(get_dist(get_turf(v.source), get_turf(src)) <= 1)
 			return CHATMESSAGE_CANNOT_HEAR
-	if(message_language?.display_icon(src))
+	var/datum/language/language_instance = GLOB.language_datum_instances[message_language]
+	if(language_instance?.display_icon(src))
 		return CHATMESSAGE_SHOW_LANGUAGE_ICON
 	return CHATMESSAGE_HEAR
 
@@ -303,9 +307,12 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		return CHATMESSAGE_CANNOT_HEAR
 	return ..()
 
-/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, runechat_flags = NONE)
+/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
 	if(!length(hearers))
 		return
+
+	if(!islist(message_mods))
+		message_mods = list()
 
 	// Ensure the list we are using, if present, is a copy so we don't modify the list provided to us
 	spans = spans ? spans.Copy() : list()
@@ -317,17 +324,17 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		spans |= "virtual-speaker"
 
 	//If the message has the radio message flag
-	else if (runechat_flags & RADIO_MESSAGE)
+	else if (message_mods[MODE_RADIO_MESSAGE])
 		//You are now a virtual speaker
 		spans |= "virtual-speaker"
 		//You are no longer italics
 		spans -= "italics"
 
 	// Display visual above source
-	if(runechat_flags & EMOTE_MESSAGE)
+	if(message_mods[CHATMESSAGE_EMOTE])
 		var/list/clients = list()
 		for(var/mob/M as() in hearers)
-			if(M.should_show_chat_message(speaker, message_language, TRUE))
+			if(M?.should_show_chat_message(speaker, message_language, TRUE))
 				clients += M.client
 		new /datum/chatmessage(raw_message, speaker, clients, message_language, list("emote"))
 	else
@@ -341,7 +348,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		var/list/client/show_icon_scrambled
 		var/list/client/hide_icon_scrambled
 		for(var/mob/M as() in hearers)
-			switch(M.should_show_chat_message(speaker, message_language, FALSE))
+			switch(M?.should_show_chat_message(speaker, message_language, FALSE))
 				if(CHATMESSAGE_HEAR)
 					if(M.has_language(message_language))
 						LAZYADD(hide_icon_understand, M.client)

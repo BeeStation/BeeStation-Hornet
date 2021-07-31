@@ -425,7 +425,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 		if(HC.connected_holopad == src && speaker != HC.hologram)
 			HC.user.Hear(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
 			if(HC.user.should_show_chat_message(speaker, message_language, FALSE))
-				create_chat_message(speaker, message_language, list(HC.user), message, spans, message_mods)
+				create_chat_message(speaker, message_language, list(HC.user), raw_message, spans, message_mods)
 
 	if(outgoing_call && speaker == outgoing_call.user)
 		outgoing_call.hologram.say(raw_message)

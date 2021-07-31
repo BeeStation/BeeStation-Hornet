@@ -194,7 +194,7 @@
 				show_overhead_message_to += M
 		hearer.Hear(rendered, virt, language, message, frequency, spans, message_mods)
 	if(length(show_overhead_message_to))
-		create_chat_message(virt, language, show_overhead_message_to, rendered, spans, message_mods)
+		create_chat_message(virt, language, show_overhead_message_to, message, spans, message_mods)
 
 	// This following recording is intended for research and feedback in the use of department radio channels
 	if(length(receive))

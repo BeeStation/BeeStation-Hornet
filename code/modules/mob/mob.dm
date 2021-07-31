@@ -195,7 +195,7 @@
 		hearers -= src
 
 	var/raw_msg = message
-	if(visible_message_flags & EMOTE_MESSAGE)
+	if(visible_message_flags[CHATMESSAGE_EMOTE])
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
 	var/list/show_to = list()
@@ -215,12 +215,13 @@
 			continue
 
 		if(M.should_show_chat_message(src, null, TRUE) && !is_blind(M))
-			show_to += M.client
+			show_to += M
 
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
 
 	//Create the chat message
-	create_chat_message(src, null, raw_msg, null, visible_message_flags)
+	if(length(show_to))
+		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
 
 /mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE)
 	. = ..()
@@ -244,7 +245,7 @@
 		hearers -= src
 
 	var/raw_msg = message
-	if(audible_message_flags & EMOTE_MESSAGE)
+	if(audible_message_flags[CHATMESSAGE_EMOTE])
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
 	var/list/show_to = list()
@@ -275,14 +276,14 @@
 /atom/proc/runechat_prefs_check(mob/target, visible_message_flags = NONE)
 	if(!target.client?.prefs.chat_on_map || !target.client.prefs.see_chat_non_mob)
 		return FALSE
-	if(visible_message_flags & EMOTE_MESSAGE && !target.client.prefs.see_rc_emotes)
+	if(visible_message_flags[CHATMESSAGE_EMOTE] && !target.client.prefs.see_rc_emotes)
 		return FALSE
 	return TRUE
 
 /mob/runechat_prefs_check(mob/target, visible_message_flags = NONE)
 	if(!target.client?.prefs.chat_on_map)
 		return FALSE
-	if(visible_message_flags & EMOTE_MESSAGE && !target.client.prefs.see_rc_emotes)
+	if(visible_message_flags[CHATMESSAGE_EMOTE] && !target.client.prefs.see_rc_emotes)
 		return FALSE
 	return TRUE
 
