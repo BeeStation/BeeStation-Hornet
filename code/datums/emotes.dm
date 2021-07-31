@@ -77,9 +77,9 @@
 			M.show_message("[FOLLOW_LINK(M, user)] [dchatmsg]")
 
 	if(emote_type == EMOTE_AUDIBLE)
-		user.audible_message(msg, audible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
+		user.audible_message(msg, audible_message_flags = CHATMESSAGE_EMOTE)
 	else
-		user.visible_message(msg, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
+		user.visible_message(msg, visible_message_flags = CHATMESSAGE_EMOTE)
 
 /datum/emote/proc/get_sound(mob/living/user)
 	return sound //by default just return this var.
