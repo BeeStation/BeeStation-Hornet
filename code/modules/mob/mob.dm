@@ -198,6 +198,8 @@
 	if(visible_message_flags & EMOTE_MESSAGE)
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
+	var/list/show_to = list()
+
 	for(var/mob/M as() in hearers)
 		if(!M.client)
 			continue
@@ -212,10 +214,13 @@
 		if(!msg)
 			continue
 
-		if(visible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(M, visible_message_flags) && !is_blind(M))
-			M.create_chat_message(src, raw_message = raw_msg, runechat_flags = visible_message_flags)
+		if(M.should_show_chat_message(src, null, TRUE) && !is_blind(M))
+			show_to += M.client
 
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
+
+	//Create the chat message
+	create_chat_message(src, null, raw_msg, null, visible_message_flags)
 
 /mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE)
 	. = ..()
@@ -242,10 +247,13 @@
 	if(audible_message_flags & EMOTE_MESSAGE)
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
+	var/list/show_to = list()
 	for(var/mob/M in hearers)
-		if(audible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(M, audible_message_flags) && M.can_hear())
-			M.create_chat_message(src, raw_message = raw_msg, runechat_flags = audible_message_flags)
+		if(M.should_show_chat_message(src, null, TRUE) && M.can_hear())
+			show_to += M
 		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+	if(length(show_to))
+		create_chat_message(src, null, show_to, raw_message = raw_msg, runechat_flags = audible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this one

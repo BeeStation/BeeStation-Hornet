@@ -117,6 +117,3 @@
 
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0
-
-	/// Messages currently seen by this client
-	var/list/seen_messages
