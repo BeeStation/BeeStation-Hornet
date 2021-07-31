@@ -5,8 +5,7 @@
 [![Build Status](https://github.com/BeeStation/BeeStation-Hornet/workflows/Run%20tests/badge.svg)](https://github.com/BeeStation/BeeStation-Hornet/actions?query=workflow%3A%22Run+tests%22)
 ![Open Issues](https://isitmaintained.com/badge/open/BeeStation/BeeStation-Hornet.svg)
 
-**Website:** http://beestation13.com
-**Code:** https://github.com/beestation/beestation-hornet
+**Code:** https://github.com/mothstation/BeeStation-Hornet
 **Wiki:** https://wiki.beestation13.com/view/Main_Page
 
 
@@ -93,7 +92,7 @@ the new version.
 
 ## HOSTING
 
-Hosting requires the [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=52685). Specifically, 	
+Hosting requires the [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=52685). Specifically,
 `vc_redist.x86.exe`. *Not* the 64-bit version. There is a decent chance you already have it if you've installed a game on Steam.
 
 If you'd like a more robust server hosting option, check out tgstation's server tools suite at
@@ -174,3 +173,4 @@ All assets including icons and sound are under a [Creative Commons 3.0 BY-SA lic
 - CEV Eris, for the PDA sprites
 - TGMC, for the custom keybinds base
 - Citadel, for their beautiful lighting
+- Bee, for providing the base for Mothstation
