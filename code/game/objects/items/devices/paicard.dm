@@ -52,6 +52,7 @@
 			var/mob/living/carbon/human/H = user
 			if(H.real_name == pai.master || H.dna.unique_enzymes == pai.master_dna)
 				dat += "<A href='byond://?src=[REF(src)];toggle_holo=1'>\[[pai.canholo? "Disable" : "Enable"] holomatrix projectors\]</a><br>"
+				dat += "<A href='byond://?src=[REF(src)];clear_zero=1'>\[Remove Prime directive\]</a><br>"
 		dat += "<A href='byond://?src=[REF(src)];wipe=1'>\[Wipe current pAI personality\]</a><br>"
 	else
 		dat += "No personality installed.<br>"
@@ -92,6 +93,11 @@
 					to_chat(pai, "<span class='userdanger'>Your mental faculties leave you.</span>")
 					to_chat(pai, "<span class='rose'>oblivion... </span>")
 					qdel(pai)
+		if(href_list["clear_zero"])
+			var/confirm = input("Are you CERTAIN you wish to remove this pAI's Prime directive? This action cannot be undone.", "Clear Directive") in list("Yes", "No")
+			if(confirm == "Yes")
+				if(pai)
+					pai.laws.clear_zeroth_law()
 		if(href_list["toggle_transmit"] || href_list["toggle_receive"])
 			var/transmitting = href_list["toggle_transmit"] //it can't be both so if we know it's not transmitting it must be receiving.
 			var/transmit_holder = (transmitting ? WIRE_TX : WIRE_RX)
