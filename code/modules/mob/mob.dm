@@ -254,7 +254,7 @@
 			show_to += M
 		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 	if(length(show_to))
-		create_chat_message(src, null, show_to, raw_message = raw_msg, runechat_flags = audible_message_flags)
+		create_chat_message(src, null, show_to, raw_message = raw_msg, message_mods = audible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this one
