@@ -35,7 +35,11 @@
 		if(!pai.master_dna || !pai.master)
 			dat += "<a href='byond://?src=[REF(src)];setdna=1'>Imprint Master DNA</a><br>"
 		dat += "Installed Personality: [pai.name]<br>"
-		dat += "Prime directive: <br>[pai.laws.zeroth]<br>"
+		dat += "Prime directive: <br>"
+		if(pai.laws.zeroth)
+			dat +="[pai.laws.zeroth]<br>"
+		else
+			dat +="None<br>"
 		for(var/slaws in pai.laws.supplied)
 			dat += "Additional directives: <br>[slaws]<br>"
 		dat += "<a href='byond://?src=[REF(src)];setlaws=1'>Configure Directives</a><br>"
