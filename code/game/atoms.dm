@@ -89,6 +89,11 @@
 	/// Last color calculated for the the chatmessage overlays
 	var/chat_color
 
+	///The config type to use for greyscaled sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config
+	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
+	var/greyscale_colors
+
 	///Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()
 	var/list/targeted_by
 
@@ -546,9 +551,20 @@
 		if(length(new_overlays))
 			managed_overlays = new_overlays
 			add_overlay(new_overlays)
+	var/list/colors = update_greyscale()
+	if(greyscale_config)
+		icon = SSgreyscale.GetColoredIconByType(greyscale_config, colors)
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
+
+/atom/proc/update_greyscale()
+	SHOULD_CALL_PARENT(TRUE)
+	. = list()
+	var/list/raw_rgb = splittext(greyscale_colors, "#")
+	for(var/i in 2 to length(raw_rgb))
+		. += "#[raw_rgb[i]]"
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_GREYSCALE, .)
 
 /// Updates the overlays of the atom
 /atom/proc/update_overlays()
@@ -960,6 +976,8 @@
 	VV_DROPDOWN_OPTION(VV_HK_TRIGGER_EXPLOSION, "Explosion")
 	VV_DROPDOWN_OPTION(VV_HK_EDIT_FILTERS, "Edit Filters")
 	VV_DROPDOWN_OPTION(VV_HK_ADD_AI, "Add AI controller")
+	if(greyscale_colors)
+		VV_DROPDOWN_OPTION(VV_HK_MODIFY_GREYSCALE, "Modify greyscale colors")
 
 /atom/vv_do_topic(list/href_list)
 	. = ..()

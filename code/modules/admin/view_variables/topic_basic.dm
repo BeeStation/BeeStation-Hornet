@@ -87,6 +87,11 @@
 			target._AddElement(lst)
 		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(src)].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(src)].</span>")
+	if(href_list[VV_HK_MODIFY_GREYSCALE])
+		if(!check_rights(NONE))
+			return
+		var/datum/greyscale_modify_menu/menu = new(target, usr)
+		menu.ui_interact(usr)
 	if(href_list[VV_HK_CALLPROC])
 		usr.client.callproc_datum(target)
 

@@ -3,7 +3,10 @@
 /obj/machinery/portable_atmospherics/canister
 	name = "canister"
 	desc = "A canister for the storage of gas."
-	icon_state = "yellow"
+	icon = 'icons/obj/atmospherics/canisters.dmi'
+	icon_state = "#mapme"
+	greyscale_config = /datum/greyscale_config/canister/hazard
+	greyscale_colors = "#ffff00#000000"
 	density = TRUE
 
 
@@ -35,6 +38,8 @@
 	var/restricted = FALSE
 	req_access = list()
 
+	var/icon/canister_overlay_file = 'icons/obj/atmospherics/canisters.dmi'
+
 	var/update = 0
 	var/static/list/label2types = list(
 		"n2" = /obj/machinery/portable_atmospherics/canister/nitrogen,
@@ -64,85 +69,99 @@
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "n2 canister"
 	desc = "Nitrogen gas. Reportedly useful for something."
-	icon_state = "red"
+	greyscale_config = /datum/greyscale_config/canister
+	greyscale_colors = "#d41010"
 	gas_type = GAS_N2
 
 /obj/machinery/portable_atmospherics/canister/oxygen
 	name = "o2 canister"
 	desc = "Oxygen. Necessary for human life."
-	icon_state = "blue"
+	greyscale_config = /datum/greyscale_config/canister/stripe
+	greyscale_colors = "#2786e5#e8fefe"
 	gas_type = GAS_O2
 
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
 	name = "co2 canister"
 	desc = "Carbon dioxide. What the fuck is carbon dioxide?"
-	icon_state = "black"
+	greyscale_config = /datum/greyscale_config/canister
+	greyscale_colors = "#4e4c48"
 	gas_type = GAS_CO2
 
 /obj/machinery/portable_atmospherics/canister/toxins
 	name = "plasma canister"
 	desc = "Plasma gas. The reason YOU are here. Highly toxic."
-	icon_state = "orange"
+	greyscale_config = /datum/greyscale_config/canister/hazard
+	greyscale_colors = "#f62800#000000"
 	gas_type = GAS_PLASMA
 
 /obj/machinery/portable_atmospherics/canister/bz
 	name = "\improper BZ canister"
 	desc = "BZ, a powerful hallucinogenic nerve agent."
-	icon_state = "purple"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#9b5d7f#d0d2a0"
 	gas_type = GAS_BZ
 
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide
 	name = "n2o canister"
 	desc = "Nitrous oxide gas. Known to cause drowsiness."
-	icon_state = "redws"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#c63e3b#f7d5d3"
 	gas_type = GAS_NITROUS
 
 /obj/machinery/portable_atmospherics/canister/air
 	name = "air canister"
 	desc = "Pre-mixed air."
-	icon_state = "grey"
+	greyscale_config = /datum/greyscale_config/canister
+	greyscale_colors = "#c6c0b5"
 
 /obj/machinery/portable_atmospherics/canister/tritium
 	name = "tritium canister"
 	desc = "Tritium. Inhalation might cause irradiation."
-	icon_state = "green"
+	greyscale_config = /datum/greyscale_config/canister/hazard
+	greyscale_colors = "#3fcd40#000000"
 	gas_type = GAS_TRITIUM
 
 /obj/machinery/portable_atmospherics/canister/nob
 	name = "hyper-noblium canister"
 	desc = "Hyper-Noblium. More noble than all other gases."
-	icon_state = "freon"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#6399fc#b2b2b2"
 	gas_type = GAS_HYPERNOB
 
 /obj/machinery/portable_atmospherics/canister/nitryl
 	name = "nitryl canister"
 	desc = "Nitryl gas. Feels great 'til the acid eats your lungs."
-	icon_state = "brown"
+	greyscale_config = /datum/greyscale_config/canister
+	greyscale_colors = "#7b4732"
 	gas_type = GAS_NITRYL
 
 /obj/machinery/portable_atmospherics/canister/stimulum
 	name = "stimulum canister"
 	desc = "Stimulum. High energy gas, high energy people."
-	icon_state = "darkpurple"
+	greyscale_config = /datum/greyscale_config/canister
+	greyscale_colors = "#9b5d7f"
 	gas_type = GAS_STIMULUM
 
 /obj/machinery/portable_atmospherics/canister/pluoxium
 	name = "pluoxium canister"
 	desc = "Pluoxium. Like oxygen, but more bang for your buck."
-	icon_state = "darkblue"
+	greyscale_config = /datum/greyscale_config/canister
+	greyscale_colors = "#2786e5"
 	gas_type = GAS_PLUOXIUM
 
 /obj/machinery/portable_atmospherics/canister/water_vapor
 	name = "water vapor canister"
 	desc = "Water Vapor. We get it, you vape."
-	icon_state = "water_vapor"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#4c4e4d#f7d5d3"
 	gas_type = GAS_H2O
 	filled = 1
 
 /obj/machinery/portable_atmospherics/canister/miasma
 	name = "miasma canister"
 	desc = "Miasma. Makes you wish your nose was blocked."
-	icon_state = "miasma"
+	greyscale_config = /datum/greyscale_config/canister/double_stripe
+	greyscale_colors = "#009823#f7d5d3"
 	gas_type = GAS_MIASMA
 	filled = 1
 
@@ -162,12 +181,12 @@
 
 /obj/machinery/portable_atmospherics/canister/proto
 	name = "prototype canister"
-
+	greyscale_config = /datum/greyscale_config/prototype_canister
+	greyscale_colors = "#ffffff#a50021#ffffff"
 
 /obj/machinery/portable_atmospherics/canister/proto/default
 	name = "prototype canister"
 	desc = "The best way to fix an atmospheric emergency... or the best way to introduce one."
-	icon_state = "proto"
 	volume = 5000
 	max_integrity = 300
 	temperature_resistance = 2000 + T0C
@@ -223,46 +242,25 @@
 #define CANISTER_UPDATE_FULL		(1<<5)
 #define CANISTER_UPDATE_DANGER		(1<<6)
 /obj/machinery/portable_atmospherics/canister/update_icon()
+	. = ..()
 	if(stat & BROKEN)
 		cut_overlays()
-		icon_state = "[icon_state]-1"
-		return
-
-	var/last_update = update
-	update = 0
+		. += icon(canister_overlay_file, "broken")
 
 	if(holding)
-		update |= CANISTER_UPDATE_HOLDING
+		. += icon(canister_overlay_file, "can-open")
 	if(connected_port)
-		update |= CANISTER_UPDATE_CONNECTED
+		. += icon(canister_overlay_file, "can-connector")
 	var/pressure = air_contents.return_pressure()
 	if(pressure < 10)
-		update |= CANISTER_UPDATE_EMPTY
+		. += icon(canister_overlay_file, "can-0")
 	else if(pressure < 5 * ONE_ATMOSPHERE)
-		update |= CANISTER_UPDATE_LOW
+		. += icon(canister_overlay_file, "can-1")
 	else if(pressure < 10 * ONE_ATMOSPHERE)
-		update |= CANISTER_UPDATE_MEDIUM
-	else if(pressure < 40 * ONE_ATMOSPHERE)
-		update |= CANISTER_UPDATE_FULL
-	else
-		update |= CANISTER_UPDATE_DANGER
+		. += icon(canister_overlay_file, "can-2")
+	else if(pressure < INFINITY)
+		. += icon(canister_overlay_file, "can-3")
 
-	if(update == last_update)
-		return
-
-	cut_overlays()
-	if(update & CANISTER_UPDATE_HOLDING)
-		add_overlay("can-open")
-	if(update & CANISTER_UPDATE_CONNECTED)
-		add_overlay("can-connector")
-	if(update & CANISTER_UPDATE_LOW)
-		add_overlay("can-o0")
-	else if(update & CANISTER_UPDATE_MEDIUM)
-		add_overlay("can-o1")
-	else if(update & CANISTER_UPDATE_FULL)
-		add_overlay("can-o2")
-	else if(update & CANISTER_UPDATE_DANGER)
-		add_overlay("can-o3")
 #undef CANISTER_UPDATE_HOLDING
 #undef CANISTER_UPDATE_CONNECTED
 #undef CANISTER_UPDATE_EMPTY
@@ -321,16 +319,19 @@
 	if(holding)
 		holding.forceMove(T)
 		holding = null
+	
+	animate(src, 0.5 SECONDS, transform=turn(transform, rand(-179, 180)), easing=BOUNCE_EASING)
 
 /obj/machinery/portable_atmospherics/canister/replace_tank(mob/living/user, close_valve)
 	. = ..()
-	if(.)
-		if(close_valve)
-			valve_open = FALSE
-			update_icon()
-			investigate_log("Valve was <b>closed</b> by [key_name(user)].", INVESTIGATE_ATMOS)
-		else if(valve_open && holding)
-			investigate_log("[key_name(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
+	if(!.)
+		return
+	if(close_valve)
+		valve_open = FALSE
+		update_icon()
+		investigate_log("Valve was <b>closed</b> by [key_name(user)].", INVESTIGATE_ATMOS)
+	else if(valve_open && holding)
+		investigate_log("[key_name(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	..()

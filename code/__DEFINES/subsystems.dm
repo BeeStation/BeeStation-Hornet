@@ -109,6 +109,7 @@
 #define INIT_ORDER_BLACKBOX			94
 #define INIT_ORDER_SERVER_MAINT		93
 #define INIT_ORDER_INPUT			85
+#define INIT_ORDER_GREYSCALE 81 //god there is so much random spacing in here
 #define INIT_ORDER_VIS				80
 #define INIT_ORDER_MATERIALS		76
 #define INIT_ORDER_RESEARCH			75
