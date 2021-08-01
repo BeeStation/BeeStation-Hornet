@@ -66,30 +66,29 @@ env PKG_CONFIG_ALLOW_CROSS=1 ~/.cargo/bin/cargo build --release --target=i686-un
 mv target/i686-unknown-linux-gnu/release/librust_g.so "$1/librust_g.so"
 cd ..
 
-# get dependencies for extools
+# get dependencies for auxtools
+# I left a few potentially extraneous ones in momentarily due to an inability to test on a linux host at the moment.
 apt-get install -y cmake build-essential gcc-multilib g++-multilib cmake wget
 
-# update extools
-if [ ! -d "extools" ]; then
-	echo "Cloning extools..."
-	git clone https://github.com/BeeStation/extools
-	cd extools/byond-extools
+# update auxmos
+if [ ! -d "auxmos" ]; then
+	echo "Cloning Auxmos..."
+	git clone https://github.com/BeeStation/auxmos
+	cd auxmos
 else
-	echo "Fetching extools..."
-	cd extools/byond-extools
+	echo "Fetching Auxmos..."
+	cd auxmos
 	git fetch
 fi
 
-echo "Deploying extools..."
-git checkout "$EXTOOLS_VERSION"
+echo "Deploying Auxmos..."
+git checkout "$AUXMOS_VERSION"
 if [ -d "build" ]; then
 	rm -R build
 fi
-mkdir build
-cd build
-cmake ..
-make
-mv libbyond-extools.so "$1/libbyond-extools.so"
+#note, if FUSION is ever fixed this needs changed to "all_reaction_hooks"
+cargo rustc --target=i686-unknown-linux-gnu --release --features trit_fire_hook,plasma_fire_hook,generic_fire_hook -- -C target-cpu=native
+mv -f target/i686-unknown-linux-gnu/release/libauxmos.so "$1/libauxmos.so"
 cd ../../..
 
 # install or update youtube-dl when not present, or if it is present with pip3,
