@@ -67,6 +67,8 @@
 
 	var/gimmick = FALSE //least hacky way i could think of for this
 
+	var/warning = "" // Throw this onto a job if you want big red warning text telling them how to behave.
+
 	///Bitfield of departments this job belongs wit
 	var/departments = NONE
 	///Is this job affected by weird spawns like the ones from station traits
@@ -282,7 +284,7 @@
 			back = duffelbag //Department duffel bag
 		else
 			back = backpack //Department backpack
-			
+
 	//converts the uniform string into the path we'll wear, whether it's the skirt or regular variant
 	var/holder
 	if(H.jumpsuit_style == PREF_SKIRT)

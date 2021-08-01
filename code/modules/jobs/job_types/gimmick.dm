@@ -26,6 +26,7 @@
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	warning = "You style hair and do sketchy medical work, this job is not a license to grief."
 	chat_color = "#bd9e86"
 
 /datum/outfit/job/gimmick/barber
@@ -46,6 +47,7 @@
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	warning = "You play similarly to a clown or a mime, this job is not a license to grief."
 	chat_color = "#b898b3"
 
 /datum/outfit/job/gimmick/magician
@@ -69,6 +71,7 @@
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
+	warning = "You are a paranoid maintenance dweller, this job is not a license to grief or otherwise violate server rules."
 	chat_color = "#929292"
 	departments = NONE		//being hobo is not a real job
 
@@ -86,7 +89,6 @@
 	..()
 	if(visualsOnly)
 		return
-	to_chat(H, "<span class='userdanger'>Although you're down on your luck, you're still a nanotrasen employee, and you are held to the same legal standards.</span>")
 	var/list/possible_drugs = list(/obj/item/storage/pill_bottle/happy, /obj/item/storage/pill_bottle/zoom, /obj/item/storage/pill_bottle/stimulant, /obj/item/storage/pill_bottle/lsd, /obj/item/storage/pill_bottle/aranesp, /obj/item/storage/pill_bottle/floorpill/full)
 	var/chosen_drugs = pick(possible_drugs)
 	var/obj/item/storage/pill_bottle/I = new chosen_drugs(src)
