@@ -39,6 +39,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CargoBountyConsole")
+		ui.set_autoupdate(FALSE)
 		ui.open()
 
 /obj/machinery/computer/bounty/ui_data(mob/user)
