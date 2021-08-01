@@ -214,7 +214,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	// Approximate text height
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
 	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
-	approx_lines = CEILING(max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT), 1)	//Round to make power calculations easier.
+	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = get_atom_on_turf(target)
@@ -230,7 +230,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			// scheduled time once the EOL completion time has been set.
 			var/sched_remaining = m.scheduled_destruction - world.time
 			if (!m.eol_complete)
-				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** combined_height)
+				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** CEILING(combined_height, 1))
 				m.enter_subsystem(world.time + remaining_time) // push updated time to runechat SS
 
 	// Reset z index if relevant
