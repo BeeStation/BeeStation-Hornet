@@ -21,6 +21,7 @@
 	toolspeed = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 0)
 	var/random_color = TRUE
+	/// List of possible random colors
 	var/static/list/wirecutter_colors = list(
 		"blue" = "#1861d5",
 		"red" = "#951710",
@@ -31,22 +32,11 @@
 		"yellow" = "#d58c18"
 	)
 
-
 /obj/item/wirecutters/Initialize()
-	. = ..()
-	if(random_color) //random colors!
-		icon_state = "cutters"
+	if(random_color)
 		var/our_color = pick(wirecutter_colors)
-		add_atom_colour(wirecutter_colors[our_color], FIXED_COLOUR_PRIORITY)
-		update_icon()
-
-/obj/item/wirecutters/update_icon()
-	if(!random_color) //icon override
-		return
-	cut_overlays()
-	var/mutable_appearance/base_overlay = mutable_appearance(icon, "cutters_cutty_thingy")
-	base_overlay.appearance_flags = RESET_COLOR
-	add_overlay(base_overlay)
+		set_greyscale(colors=list(wirecutter_colors[our_color]))
+	return ..()
 
 /obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
