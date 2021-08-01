@@ -209,9 +209,7 @@
 			if(C?.prefs.eorg_arena)
 				LAZYADD(eorg_clients, C)
 
-	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
-	log_game("The round has ended.")
-	SSstat.send_global_alert("Round Over", "The round has ended, the game will restart soon.")
+	//Moved the visual component to the end where it belongs.
 	if(LAZYLEN(GLOB.round_end_notifiees))
 		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
 
@@ -274,9 +272,26 @@
 
 	if(eorg_clients)
 		for(var/client/C in eorg_clients)
-			if(C && !isobserver(C.mob) && (C.mob.mind.current == C.mob)) //This check is fucking awful.
-				C.mob.forceMove(pick_n_take(GLOB.eorg_waypoints))
+			if(C) //This check is fucking awful. This also needs to block until the round ends.
+				var/turf/dest = pick_n_take(GLOB.eorg_waypoints)
+				if(!dest)
+					dest=GLOB.eorg_default
+				if(isAI(C.mob))
+					var/mob/living/silicon/robot/modules/syndicate/borgie = new(dest)
+					borgie.client = C
+					continue
+				if(!isobserver(C.mob))
+					C.mob.forceMove(dest)
+					continue
+				if(isobserver(C.mob))
+					var/mob/living/carbon/human/jonesy = new(dest)
+					jonesy.equipOutfit(/datum/outfit/job/assistant)
+					jonesy.client = C
+					continue
 
+	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
+	log_game("The round has ended.")
+	SSstat.send_global_alert("Round Over", "The round has ended, the game will restart soon.")
 
 	sleep(50)
 	ready_for_reboot = TRUE

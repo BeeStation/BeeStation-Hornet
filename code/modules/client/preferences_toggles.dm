@@ -200,7 +200,7 @@
 	set category = "Preferences"
 	set desc = "Toggles your participation in the Post-Round Arena"
 	prefs.eorg_arena = !prefs.eorg_arena
-	to_chat(usr, "You will [(prefs.eorg_arena) ? "now" : "no longer"] take part in the Post-Round Arena.)")
+	to_chat(usr, "You will [(prefs.eorg_arena) ? "now" : "no longer"] take part in the Post-Round Arena.")
 
 GLOBAL_LIST_INIT(ghost_forms, sortList(list("ghost","ghostking","ghostian2","skeleghost","ghost_red","ghost_black", \
 							"ghost_blue","ghost_yellow","ghost_green","ghost_pink", \

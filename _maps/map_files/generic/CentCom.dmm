@@ -218,6 +218,9 @@
 /turf/open/floor/plasteel/white,
 /area/centcom/arena)
 "aw" = (
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -535,7 +538,7 @@
 "bc" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Vacant Office Maintenance";
-	req_access_txt = "32"
+	req_access_txt = "0"
 	},
 /turf/open/floor/plating,
 /area/centcom/arena)
@@ -764,7 +767,7 @@
 "bI" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxins Launch Room";
-	req_access_txt = "8"
+	req_access_txt = "0"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
@@ -796,6 +799,11 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/power/apc/syndicate{
+	dir = 4;
+	name = "Syndicate Listening Post APC";
+	pixel_x = 24
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/centcom/arena)
@@ -918,7 +926,7 @@
 "bW" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Toxins Lab";
-	req_access_txt = "8"
+	req_access_txt = "0"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1232,7 +1240,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access_txt = "57";
+	req_access_txt = "0";
 	security_level = 6
 	},
 /obj/structure/cable/yellow{
@@ -1391,7 +1399,7 @@
 	},
 /obj/machinery/door/airlock/security{
 	name = "Security-Storage Backroom";
-	req_access_txt = "63"
+	req_access_txt = "0"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1662,7 +1670,7 @@
 "dr" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer's Office";
-	req_access_txt = "56"
+	req_access_txt = "0"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3062,7 +3070,7 @@
 "gk" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access_txt = "57";
+	req_access_txt = "0";
 	security_level = 6
 	},
 /obj/structure/cable/yellow{
@@ -10481,7 +10489,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Armoury";
-	req_access_txt = "58"
+	req_access_txt = "0"
 	},
 /turf/open/floor/plasteel/dark,
 /area/centcom/arena)
@@ -11585,7 +11593,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/security{
 	name = "Armoury";
-	req_access_txt = "3";
+	req_access_txt = "0";
 	security_level = 6
 	},
 /obj/structure/cable/yellow{
@@ -14859,7 +14867,7 @@
 "Dk" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay Storage";
-	req_access_txt = "5"
+	req_access_txt = "0"
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -15833,7 +15841,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/security{
 	name = "Armoury";
-	req_access_txt = "3";
+	req_access_txt = "0";
 	security_level = 6
 	},
 /turf/open/floor/plasteel/dark,
@@ -20165,7 +20173,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/research/glass{
 	name = "Toxins Lab";
-	req_access_txt = "8"
+	req_access_txt = "0"
 	},
 /turf/open/floor/engine,
 /area/centcom/arena)
@@ -20788,7 +20796,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;47"
+	req_one_access_txt = "0"
 	},
 /turf/open/floor/plasteel,
 /area/centcom/arena)
@@ -20979,7 +20987,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay Storage";
-	req_access_txt = "5"
+	req_access_txt = "0"
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -21015,7 +21023,7 @@
 "PJ" = (
 /obj/machinery/door/airlock{
 	name = "Bar Storage";
-	req_access_txt = "25"
+	req_access_txt = "0"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/disposalpipe/segment,
@@ -21806,6 +21814,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/centcom/arena)
 "Rt" = (
@@ -22458,7 +22469,7 @@
 "SE" = (
 /obj/machinery/door/airlock{
 	name = "Bar Access";
-	req_access_txt = "25"
+	req_access_txt = "0"
 	},
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -23778,6 +23789,12 @@
 	pixel_y = 3
 	},
 /obj/item/reagent_containers/dropper,
+/obj/machinery/power/apc/highcap/ten_k{
+	areastring = "/area/science/xenobiology";
+	dir = 1;
+	name = "Xenobiology APC";
+	pixel_y = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -24378,7 +24395,7 @@
 /area/centcom/arena)
 "WV" = (
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;47"
+	req_one_access_txt = "0"
 	},
 /turf/open/floor/plating,
 /area/centcom/arena)
@@ -24391,7 +24408,7 @@
 "WX" = (
 /obj/machinery/door/airlock/grunge{
 	name = "Genetics";
-	req_access_txt = "9"
+	req_access_txt = "0"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
@@ -25084,7 +25101,7 @@
 /area/centcom/arena)
 "YD" = (
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;47"
+	req_one_access_txt = "0"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -25425,7 +25442,7 @@
 "Zr" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer's Office";
-	req_access_txt = "56"
+	req_access_txt = "0"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
