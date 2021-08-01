@@ -16,7 +16,7 @@ REVIVAL_BRAIN_LIFE -1
 
 ## OOC DURING ROUND ###
 ## Comment this out if you want OOC to be automatically disabled during the round, it will be enabled during the lobby and after the round end results.
-OOC_DURING_ROUND
+#OOC_DURING_ROUND
 
 ## LOOC
 ## Comment this out to disable LOOC
@@ -25,6 +25,10 @@ LOOC_ENABLED
 ## EMOJI ###
 ## Comment this out if you want to disable emojis
 EMOJIS
+
+## BADGES ##
+## Comment this out if you want to disable badges
+BADGES
 
 ## MOB MOVEMENT ###
 
@@ -86,10 +90,10 @@ ALERT_DELTA Destruction of the station is imminent. All crew are instructed to o
 ## GAME MODES ###
 
 #Set the Master (Default) Game Mode.
-MASTER_MODE secret_extended
+MASTER_MODE secret_extended 
 
 ## Uncomment to not send a roundstart intercept report. Gamemodes may override this.
-#NO_INTERCEPT_REPORT
+NO_INTERCEPT_REPORT
 
 ## Probablities for game modes chosen in 'secret' and 'random' modes.
 ## Default probablity is 1, increase to make that mode more likely to be picked.
@@ -97,22 +101,22 @@ MASTER_MODE secret_extended
 
 PROBABILITY DYNAMIC 9
 PROBABILITY TRAITOR 8
+PROBABILITY SECRET_EXTENDED 7
 PROBABILITY CULT 6
 PROBABILITY HERESY 6
-PROBABILITY NUCLEAR 6
+PROBABILITY INTERNAL_AFFAIRS 6
 PROBABILITY TRAITORCHAN 5
 PROBABILITY CHANGELING 5
-PROBABILITY INCURSION 4
 PROBABILITY REVOLUTION 4
-PROBABILITY INTERNAL_AFFAIRS 3
+PROBABILITY INCURSION 4
+PROBABILITY NUCLEAR 4
 PROBABILITY TRAITORBRO 3
-PROBABILITY WIZARD 2
-PROBABILITY CLOWNOPS 2
 PROBABILITY CLOCKCULT 2
+PROBABILITY WIZARD 1
 PROBABILITY MONKEY 0
 PROBABILITY GANG 0
+PROBABILITY CLOWNOPS 0
 PROBABILITY METEOR 0
-PROBABILITY SECRET_EXTENDED 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVIL_AGENTS 0
 
@@ -159,7 +163,7 @@ CONTINUOUS SECRET_EXTENDED
 ## In modes that are continuous, if all antagonists should die then a new set of antagonists will be created.
 
 MIDROUND_ANTAG TRAITOR
-#MIDROUND_ANTAG INCURSION
+MIDROUND_ANTAG INCURSION
 #MIDROUND_ANTAG TRAITORBRO
 MIDROUND_ANTAG TRAITORCHAN
 MIDROUND_ANTAG INTERNAL_AFFAIRS
@@ -176,44 +180,44 @@ MIDROUND_ANTAG WIZARD
 ## Notes: For maximum number of players a value of -1 means no maximum. Setting minimums to
 ## VERY low numbers (< 5) can lead to errors if the roundtypes were not designed for that.
 
-#MIN_POP TRAITOR 0
-#MAX_POP TRAITOR -1
+MIN_POP TRAITOR 0
+MAX_POP TRAITOR -1
 
-#MIN_POP TRAITORBRO 0
-#MAX_POP TRAITORBRO -1
+MIN_POP TRAITORBRO 10
+MAX_POP TRAITORBRO -1
 
-#MIN_POP TRAITORCHAN 15
-#MAX_POP TRAITORCHAN -1
+MIN_POP TRAITORCHAN 15
+MAX_POP TRAITORCHAN -1
 
-#MIN_POP DOUBLE_AGENTS 25
-#MAX_POP DOUBLE_AGENTS -1
+MIN_POP DOUBLE_AGENTS 25
+MAX_POP DOUBLE_AGENTS -1
 
-#MIN_POP NUCLEAR 0
-#MAX_POP NUCLEAR -1
+MIN_POP NUCLEAR 0
+MAX_POP NUCLEAR -1
 
-#MIN_POP REVOLUTION 20
-#MAX_POP REVOLUTION -1
+MIN_POP REVOLUTION 20
+MAX_POP REVOLUTION -1
 
-#MIN_POP CULT 24
-#MAX_POP CULT -1
+MIN_POP CULT 24
+MAX_POP CULT -1
 
-#MIN_POP CHANGELING 15
-#MAX_POP CHANGELING -1
+MIN_POP CHANGELING 15
+MAX_POP CHANGELING -1
 
-#MIN_POP WIZARD 20
-#MAX_POP WIZARD -1
+MIN_POP WIZARD 20
+MAX_POP WIZARD -1
 
-#MIN_POP MONKEY 20
-#MAX_POP MONKEY -1
+MIN_POP MONKEY 20
+MAX_POP MONKEY -1
 
-#MIN_POP METEOR 0
-#MAX_POP METEOR -1
+MIN_POP METEOR 0
+MAX_POP METEOR -1
 
-#MIN_POP DEVIL 0
-#MAX_POP DEVIL -1
+MIN_POP DEVIL 20
+MAX_POP DEVIL -1
 
-#MIN_POP DEVIL_AGENTS 25
-#MAX_POP DEVIL_AGENTS -1
+MIN_POP DEVIL_AGENTS 25
+MAX_POP DEVIL_AGENTS -1
 
 MIN_POP INCURSION 22
 MAX_POP INCURSION -1
@@ -355,7 +359,7 @@ MINIMAL_ACCESS_THRESHOLD 20
 #JOBS_HAVE_MINIMAL_ACCESS
 
 ## Uncomment to give assistants maint access.
-ASSISTANTS_HAVE_MAINT_ACCESS
+#ASSISTANTS_HAVE_MAINT_ACCESS
 
 ## Uncoment to give security maint access. Note that if you dectivate JOBS_HAVE_MINIMAL_ACCESS security already gets maint from that.
 SECURITY_HAS_MAINT_ACCESS
@@ -393,7 +397,7 @@ NEAR_DEATH_EXPERIENCE
 ## Set to 1 for "custom", silicons will start with the custom laws defined in silicon_laws.txt. (If silicon_laws.txt is empty, the AI will spawn with asimov and Custom boards will auto-delete.)
 ## Set to 2 for "random", silicons will start with a random lawset picked from random laws specified below.
 ## Set to 3 for "weighted random", using values in "silicon_weights.txt", a law will be selected, with weights specifed in that file.
-DEFAULT_LAWS 0
+DEFAULT_LAWS 1
 
 ## RANDOM LAWS ##
 ## ------------------------------------------------------------------------------------------
@@ -475,17 +479,17 @@ ROUNDSTART_RACES human
 ROUNDSTART_RACES lizard
 ROUNDSTART_RACES fly
 ROUNDSTART_RACES moth
-ROUNDSTART_RACES plasmaman
 ROUNDSTART_RACES felinid
 ROUNDSTART_RACES squid
-#ROUNDSTART_RACES shadow
-ROUNDSTART_RACES ipc
+
 
 ## Races that are better than humans in some ways, but worse in others
 ROUNDSTART_RACES ethereal
 ROUNDSTART_RACES apid
 ROUNDSTART_RACES oozeling
 #ROUNDSTART_RACES jelly
+#ROUNDSTART_RACES shadow
+ROUNDSTART_RACES plasmaman
 #ROUNDSTART_RACES iron_golem
 #ROUNDSTART_RACES adamantine_golem
 #ROUNDSTART_RACES plasma_golem
@@ -495,6 +499,7 @@ ROUNDSTART_RACES oozeling
 #ROUNDSTART_RACES uranium_golem
 #ROUNDSTART_RACES abductor
 #ROUNDSTART_RACES synth
+ROUNDSTART_RACES ipc
 
 ## Races that are straight upgrades. If these are on expect powergamers to always pick them
 #ROUNDSTART_RACES skeleton
@@ -526,7 +531,7 @@ OVERFLOW_CAP -1
 #STARLIGHT
 
 ## Uncomment to bring back old grey suit assistants instead of the now default rainbow colored assistants.
-#GREY_ASSISTANTS
+GREY_ASSISTANTS
 
 ## Midround Antag (aka Mulligan antag) config options ###
 
@@ -598,10 +603,10 @@ ROUNDSTART_TRAITS
 #DISABLE_HUMAN_MOOD
 
 ## Enable night shifts ##
-#ENABLE_NIGHT_SHIFTS
+ENABLE_NIGHT_SHIFTS
 
 ## Enable randomized shift start times##
-#RANDOMIZE_SHIFT_TIME
+RANDOMIZE_SHIFT_TIME
 
 ## Sets shift time to server time at roundstart. Overridden by RANDOMIZE_SHIFT_TIME ##
 #SHIFT_TIME_REALTIME
@@ -616,16 +621,15 @@ ECONOMY
 ALLOW_CREW_OBJECTIVES
 
 ## Mob spam prevention. The number of each mobtype that can be alive at once. Stops people from crashing the server with chickens/monkeycubes/slimes. Altering these values is recommended based on server hardware.
-MAX_CUBE_MONKEYS 150
+MAX_CUBE_MONKEYS 100
 MAX_CHICKENS 100
 MAX_SLIMES 100
 
 ## Max amount of bodies allowed to slimepeople. Has balance considerations as well as technical ones.
 MAX_SLIMEPERSON_BODIES 10
 
-
 ## Uncomment to restrict suiciding. Adds an additional confirmation dialogue, additional logging, and prevents suicide within the first 15 minutes of the round.
-#RESTRICTED_SUICIDE
+RESTRICTED_SUICIDE
 
 ## Uncomment to enable donator items in the cosmetic shop. Only works if a patreon list has been setup
 DONATOR_ITEMS
@@ -633,10 +637,10 @@ DONATOR_ITEMS
 ## Bluespace Miners.
 
 ## Amount of miner boards in the RD's locker at roundstart.
-ROUNDSTART_BLUESPACE_MINERS 2
+ROUNDSTART_BLUESPACE_MINERS 0
 
 ## Enable the bluespace miner research node?
 #BSMINER_RESEARCHABLE
 
 ## Do we want all the heads to get codes to spare safe, or just one highest in CoC?
-#SPARE_ENFORCE_COC
+SPARE_ENFORCE_COC

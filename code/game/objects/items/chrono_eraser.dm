@@ -133,6 +133,10 @@
 	if(istype(C))
 		gun = C.gun
 
+/obj/item/projectile/energy/chrono_beam/Destroy()
+	gun = null
+	return ..()
+
 /obj/item/projectile/energy/chrono_beam/on_hit(atom/target)
 	if(target && gun && isliving(target))
 		var/obj/structure/chrono_field/F = new(target.loc, target, gun)
@@ -151,7 +155,9 @@
 		gun = loc
 	. = ..()
 
-
+/obj/item/ammo_casing/energy/chrono_beam/Destroy()
+	gun = null
+	return ..()
 
 
 
@@ -248,12 +254,18 @@
 		return BULLET_ACT_HIT
 
 /obj/structure/chrono_field/assume_air()
-	return 0
+	return null
+
+/obj/effect/chrono_field/assume_air_moles()
+	return null
+
+/obj/effect/chrono_field/assume_air_ratio()
+	return null
 
 /obj/structure/chrono_field/return_air() //we always have nominal air and temperature
 	var/datum/gas_mixture/GM = new
-	GM.set_moles(/datum/gas/oxygen, MOLES_O2STANDARD)
-	GM.set_moles(/datum/gas/nitrogen, MOLES_N2STANDARD)
+	GM.set_moles(GAS_O2, MOLES_O2STANDARD)
+	GM.set_moles(GAS_N2, MOLES_N2STANDARD)
 	GM.set_temperature(T20C)
 	return GM
 

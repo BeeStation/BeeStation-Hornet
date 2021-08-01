@@ -3,6 +3,7 @@
 	icon = 'icons/obj/shields.dmi'
 	block_level = 1
 	block_upgrade_walk = 1
+	block_flags = null
 	block_power = 50
 	max_integrity =  75
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
