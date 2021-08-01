@@ -83,7 +83,7 @@ export const WallHypospray = (props, context) => {
                       onClick={() => act("interact_storage")}
                       value={bottle
                         ? (bottle_volume/bottle_max_volume)
-                        : 1}
+                        : 0}
                       progressbar_color="green" />
                   }
                 />
@@ -138,6 +138,7 @@ const ProgressBarButton = (props, context) => {
     icon,
     iconRotation,
     iconSpin,
+    textAlign,
     ...rest
   } = props;
 
@@ -152,7 +153,7 @@ const ProgressBarButton = (props, context) => {
         style={{
           width: clamp01(value) * 100 + '%',
         }} />
-      <Box className="ProgressBar__content" inline>
+      <Box className="ProgressBar__content" inline textAlign={textAlign}>
         {icon && (
           <Icon
             name={icon}
