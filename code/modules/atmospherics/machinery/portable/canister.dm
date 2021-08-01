@@ -234,39 +234,23 @@
 	air_contents.set_moles(GAS_O2, (O2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 	air_contents.set_moles(GAS_N2, (N2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 
-#define CANISTER_UPDATE_HOLDING		(1<<0)
-#define CANISTER_UPDATE_CONNECTED	(1<<1)
-#define CANISTER_UPDATE_EMPTY		(1<<2)
-#define CANISTER_UPDATE_LOW			(1<<3)
-#define CANISTER_UPDATE_MEDIUM		(1<<4)
-#define CANISTER_UPDATE_FULL		(1<<5)
-#define CANISTER_UPDATE_DANGER		(1<<6)
 /obj/machinery/portable_atmospherics/canister/update_icon()
 	. = ..()
 	if(stat & BROKEN)
-		. += icon(canister_overlay_file, "broken")
-
+		. += mutable_appearance(canister_overlay_file, "broken")
 	if(holding)
-		. += icon(canister_overlay_file, "can-open")
+		. += mutable_appearance(canister_overlay_file, "can-open")
 	if(connected_port)
-		. += icon(canister_overlay_file, "can-connector")
+		. += mutable_appearance(canister_overlay_file, "can-connector")
 	var/pressure = air_contents.return_pressure()
 	if(pressure < 10)
-		. += icon(canister_overlay_file, "can-0")
+		. += mutable_appearance(canister_overlay_file, "can-0")
 	else if(pressure < 5 * ONE_ATMOSPHERE)
-		. += icon(canister_overlay_file, "can-1")
+		. += mutable_appearance(canister_overlay_file, "can-1")
 	else if(pressure < 10 * ONE_ATMOSPHERE)
-		. += icon(canister_overlay_file, "can-2")
+		. += mutable_appearance(canister_overlay_file, "can-2")
 	else if(pressure < INFINITY)
-		. += icon(canister_overlay_file, "can-3")
-
-#undef CANISTER_UPDATE_HOLDING
-#undef CANISTER_UPDATE_CONNECTED
-#undef CANISTER_UPDATE_EMPTY
-#undef CANISTER_UPDATE_LOW
-#undef CANISTER_UPDATE_MEDIUM
-#undef CANISTER_UPDATE_FULL
-#undef CANISTER_UPDATE_DANGER
+		. += mutable_appearance(canister_overlay_file, "can-3")
 
 /obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > temperature_resistance)
