@@ -99,7 +99,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			if(!C)
 				continue
 			C.images.Remove(message)
-	LAZYREMOVE(message_loc.chat_messages, src)
+	if(!QDELETED(message_loc))
+		LAZYREMOVE(message_loc.chat_messages, src)
 	hearers = null
 	message_loc = null
 	message = null
