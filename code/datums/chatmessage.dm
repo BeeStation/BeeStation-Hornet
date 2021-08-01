@@ -350,12 +350,12 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		for(var/mob/M as() in hearers)
 			switch(M?.should_show_chat_message(speaker, message_language, FALSE))
 				if(CHATMESSAGE_HEAR)
-					if(M.has_language(message_language))
+					if(!message_language || M.has_language(message_language))
 						LAZYADD(hide_icon_understand, M.client)
 					else
 						LAZYADD(hide_icon_scrambled, M.client)
 				if(CHATMESSAGE_SHOW_LANGUAGE_ICON)
-					if(M.has_language(message_language))
+					if(!message_language || M.has_language(message_language))
 						LAZYADD(show_icon_understand, M.client)
 					else
 						LAZYADD(show_icon_scrambled, M.client)
