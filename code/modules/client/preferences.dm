@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/asaycolor = "#ff4500"			//This won't change the color for current admins, only incoming ones.
 	var/enable_tips = TRUE
 	var/tip_delay = 500 //tip delay in milliseconds
-	var/eorg_arena = FALSE //Does this player want to participate in EORG?
+	var/eorg_arena = TRUE //Does this player want to participate in EORG?
 
 	//Antag preferences
 	var/list/be_special = list()		//Special role selection
