@@ -74,6 +74,10 @@
 /area/centcom/supplypod/loading/ert
 	name = "ERT Bay"
 	loading_id = "5"
+
+/area/centcom/arena //EORG Arena.
+	name = "Bloodsport Arena"
+
 //THUNDERDOME
 
 /area/tdome
@@ -109,7 +113,6 @@
 /area/tdome/tdomeobserve
 	name = "Thunderdome (Observer.)"
 	icon_state = "purple"
-
 
 //ENEMY
 

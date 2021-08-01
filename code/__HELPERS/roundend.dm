@@ -190,6 +190,7 @@
 		cb.InvokeAsync()
 	LAZYCLEARLIST(round_end_events)
 
+	var/list/eorg_clients //EORG Teleport list
 	for(var/client/C in GLOB.clients)
 		if(C)
 
@@ -205,6 +206,8 @@
 						if(CO.check_completion())
 							C?.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
+			if(C?.prefs.eorg_arena)
+				LAZYADD(eorg_clients, C)
 
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
 	log_game("The round has ended.")
@@ -268,6 +271,12 @@
 
 	if(CONFIG_GET(flag/automapvote))
 		SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
+
+	if(eorg_clients)
+		for(var/client/C in eorg_clients)
+			if(C && !isobserver(C.mob) && (C.mob.mind.current == C.mob)) //This check is fucking awful.
+				C.mob.forceMove(pick_n_take(GLOB.eorg_waypoints))
+
 
 	sleep(50)
 	ready_for_reboot = TRUE
