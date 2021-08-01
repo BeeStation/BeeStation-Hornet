@@ -59,7 +59,6 @@
 	if(!open())
 		return
 	autoclose = TRUE
-	wires.ui_update()
 	if(check_access(null))
 		sleep(50)
 	else //secure doors close faster
