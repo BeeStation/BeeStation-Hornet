@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 /datum/chatmessage/Destroy()
 	if (hearers)
-		for(var/client/C in hearers)
+		for(var/client/C as() in hearers)
 			if(!C)
 				continue
 			C.images.Remove(message)
@@ -261,7 +261,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message.maptext = MAPTEXT(complete_text)
 
 	// Show the message to clients
-	for(var/client/C in hearers)
+	for(var/client/C as() in hearers)
 		C?.images |= message
 	animate(message, alpha = 255, pixel_y = bound_height, time = CHAT_MESSAGE_SPAWN_TIME)
 
