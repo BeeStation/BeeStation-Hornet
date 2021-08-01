@@ -244,7 +244,6 @@
 /obj/machinery/portable_atmospherics/canister/update_icon()
 	. = ..()
 	if(stat & BROKEN)
-		cut_overlays()
 		. += icon(canister_overlay_file, "broken")
 
 	if(holding)
@@ -272,7 +271,6 @@
 /obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > temperature_resistance)
 		take_damage(5, BURN, 0)
-
 
 /obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -399,6 +397,7 @@
 					name = initial(replacement.name)
 					desc = initial(replacement.desc)
 					icon_state = initial(replacement.icon_state)
+					set_greyscale(initial(replacement.greyscale_colors), initial(replacement.greyscale_config))
 		if("restricted")
 			restricted = !restricted
 			if(restricted)

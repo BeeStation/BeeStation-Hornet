@@ -167,6 +167,8 @@
 	if(loc)
 		SEND_SIGNAL(loc, COMSIG_ATOM_CREATED, src) /// Sends a signal that the new atom `src`, has been created at `loc`
 
+	update_greyscale()
+
 	//atom color stuff
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -551,20 +553,27 @@
 		if(length(new_overlays))
 			managed_overlays = new_overlays
 			add_overlay(new_overlays)
-	var/list/colors = update_greyscale()
-	if(greyscale_config)
-		icon = SSgreyscale.GetColoredIconByType(greyscale_config, colors)
 
 /// Updates the icon state of the atom
 /atom/proc/update_icon_state()
 
+// Checks if this atom uses the GAGS system and if so updates the icon
 /atom/proc/update_greyscale()
 	SHOULD_CALL_PARENT(TRUE)
-	. = list()
-	var/list/raw_rgb = splittext(greyscale_colors, "#")
-	for(var/i in 2 to length(raw_rgb))
-		. += "#[raw_rgb[i]]"
-	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_GREYSCALE, .)
+	if(greyscale_colors && greyscale_config)
+		icon = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+
+/atom/proc/set_greyscale(list/colors, new_config)
+	SHOULD_CALL_PARENT(TRUE)
+	if(istype(colors))
+		colors = colors.Join("")
+	if(!isnull(colors) && greyscale_colors != colors) // If you want to disable greyscale stuff then give a blank string
+		greyscale_colors = colors
+
+	if(!isnull(new_config) && greyscale_config != new_config)
+		greyscale_config = new_config
+
+	update_greyscale()
 
 /// Updates the overlays of the atom
 /atom/proc/update_overlays()
