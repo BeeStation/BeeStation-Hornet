@@ -41,6 +41,7 @@
 	if(random_color)
 		var/our_color = pick(screwdriver_colors)
 		set_greyscale(colors=list(screwdriver_colors[our_color]))
+		colored_belt_appearance = mutable_appearance(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/screwdriver_belt, greyscale_colors))
 	. = ..()
 
 /obj/item/screwdriver/worn_overlays(isinhands = FALSE, icon_file)
