@@ -3027,12 +3027,6 @@
 /turf/open/floor/plasteel/dark,
 /area/ctf)
 "gf" = (
-/obj/machinery/power/apc/highcap/five_k{
-	areastring = "/area/hallway/secondary/exit/departure_lounge";
-	dir = 1;
-	name = "Departure Lounge APC";
-	pixel_y = 24
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -22459,10 +22453,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/centcom/holding)
-"SC" = (
-/mob/living/simple_animal/clockwork_marauder,
-/turf/open/floor/clockwork/reebe,
-/area/centcom/arena)
 "SD" = (
 /obj/machinery/computer/secure_data{
 	dir = 4
@@ -88738,7 +88728,7 @@ RO
 Yj
 Gt
 QC
-SC
+QC
 QC
 UU
 Sz
