@@ -219,6 +219,9 @@
 
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
 
+	//Set it to an emote
+	visible_message_flags[CHATMESSAGE_EMOTE] = TRUE
+
 	//Create the chat message
 	if(length(show_to))
 		create_chat_message(src, null, show_to, raw_msg, null, visible_message_flags)
@@ -253,8 +256,9 @@
 		if(M.should_show_chat_message(src, null, TRUE) && M.can_hear())
 			show_to += M
 		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+
 	if(length(show_to))
-		create_chat_message(src, null, show_to, raw_message = raw_msg, message_mods = audible_message_flags)
+		create_chat_message(src, null, show_to, raw_message = raw_msg, spans = list("italics"), message_mods = audible_message_flags)
 
 /**
   * Show a message to all mobs in earshot of this one
