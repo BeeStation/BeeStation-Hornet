@@ -36,6 +36,10 @@
 		to_chat(user, span_danger("You cannot evolve when you are cuffed."))
 		return
 
+	if(L.movement_type & VENTCRAWLING)
+		to_chat(user, "<span class='danger'>You cannot evolve while in a vent.</span>")
+		return
+
 	if(L.amount_grown >= L.max_grown)	//TODO ~Carn
 		to_chat(L, span_name("You are growing into a beautiful alien! It is time to choose a caste."))
 		to_chat(L, span_info("There are three to choose from:"))
