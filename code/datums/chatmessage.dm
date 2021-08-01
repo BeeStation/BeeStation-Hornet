@@ -99,6 +99,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			if(!C)
 				continue
 			C.images.Remove(message)
+			UnregisterSignal(C, COMSIG_PARENT_QDELETING)
 	if(!QDELETED(message_loc))
 		LAZYREMOVE(message_loc.chat_messages, src)
 	hearers = null
@@ -112,7 +113,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
   */
 /datum/chatmessage/proc/on_parent_qdel()
 	SIGNAL_HANDLER
-
 	qdel(src)
 
 /**
@@ -140,6 +140,10 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// Delete when the atom its above gets deleted.
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
+
+	for(var/client/C as() in hearers)
+		if(C)
+			RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/client_deleted)
 
 	// Remove spans in the message from things like the recorder
 	var/static/regex/span_check = new(@"<\/?span[^>]*>", "gi")
@@ -266,6 +270,10 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	// Register with the runechat SS to handle EOL and destruction
 	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
 	enter_subsystem()
+
+/datum/chatmessage/proc/client_deleted(client/source)
+	SIGNAL_HANDLER
+	hearers -= source
 
 /**
   * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion,
