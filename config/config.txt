@@ -240,16 +240,16 @@ CHECK_RANDOMIZER
 
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 ## Don't set this to the same server, BYOND will automatically restart players to the server when it has restarted.
-SERVER  byond://golden.beestation13.com:7777
+SERVER  byond://sage.beestation13.com:7878
 
 ## forum address
-FORUMURL http://forums.beestation13.com
+FORUMURL https://forums.beestation13.com
 
 ## Wiki address
 WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
-RULESURL http://beestation13.com/rules?server=bs_golden
+RULESURL https://beestation13.com/rules
 
 ## Github address
 GITHUBURL https://www.github.com/beestation/beestation-hornet
@@ -516,7 +516,6 @@ RESPECT_GLOBAL_BANS
 ## Custom shuttle spam prevention. Changine these numbers allows you to change the maxsize and amount of custom shuttles.
 MAX_SHUTTLE_COUNT 6
 MAX_SHUTTLE_SIZE 300
-
 
 ### Fail2Topic settings
 ### fail2topic is a system for automating IP bans for abusers of the world/Topic API.
