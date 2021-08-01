@@ -624,6 +624,11 @@ AI MODULES
 /obj/item/aiModule/core/full/peacekeeper
 	name = "'Peacekeeper' Core AI Module"
 	law_id = "peacekeeper"
+/****************** Dadbot *******************/
+
+/obj/item/aiModule/core/full/dadbot
+	name = "DadBot Core AI Module"
+	law_id = "paternalai"
 
 // Bad times ahead
 
