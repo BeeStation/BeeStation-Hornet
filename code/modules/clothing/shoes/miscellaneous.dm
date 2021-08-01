@@ -3,8 +3,8 @@
 
 /obj/item/clothing/shoes/sneakers/mime
 	name = "mime shoes"
-	icon_state = "mime"
 	item_color = "mime"
+	greyscale_colors = "#ffffff"
 
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
@@ -185,10 +185,10 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CULT_TRAIT)
 
-/obj/item/clothing/shoes/cyborg
+/obj/item/clothing/shoes/sneakers/cyborg
 	name = "cyborg boots"
 	desc = "Shoes for a cyborg costume."
-	icon_state = "boots"
+	greyscale_colors = "#4e4e4e#4e4e4e"
 
 /obj/item/clothing/shoes/laceup
 	name = "laceup shoes"
@@ -267,23 +267,25 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/machines/clockcult/integration_cog_install.ogg' = 1, 'sound/magic/clockwork/fellowship_armory.ogg' = 1), 50)
 
-/obj/item/clothing/shoes/wheelys
+/obj/item/clothing/shoes/sneakers/wheelys
 	name = "Wheely-Heels"
 	desc = "Uses patented retractable wheel technology. Never sacrifice speed for style - not that this provides much of either." //Thanks Fel
-	icon_state = "wheelys"
 	item_state = "wheelys"
+	greyscale_colors = "#545454#ffffff"
+	greyscale_config = /datum/greyscale_config/sneakers_wheelys
+	greyscale_config_worn = null
 	actions_types = list(/datum/action/item_action/wheelys)
 	var/wheelToggle = FALSE //False means wheels are not popped out
 	var/obj/vehicle/ridden/scooter/wheelys/W
 
-/obj/item/clothing/shoes/wheelys/Initialize()
+/obj/item/clothing/shoes/sneakers/wheelys/Initialize()
 	. = ..()
 	W = new /obj/vehicle/ridden/scooter/wheelys(null)
 
-/obj/item/clothing/shoes/wheelys/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/sneakers/wheelys/ui_action_click(mob/user, action)
 	if(!isliving(user))
 		return
-	if(!istype(user.get_item_by_slot(ITEM_SLOT_FEET), /obj/item/clothing/shoes/wheelys))
+	if(!istype(user.get_item_by_slot(ITEM_SLOT_FEET), /obj/item/clothing/shoes/sneakers/wheelys))
 		to_chat(user, "<span class='warning'>You must be wearing the wheely-heels to use them!</span>")
 		return
 	if(!(W.is_occupant(user)))
@@ -296,13 +298,13 @@
 	W.buckle_mob(user)
 	wheelToggle = TRUE
 
-/obj/item/clothing/shoes/wheelys/dropped(mob/user)
+/obj/item/clothing/shoes/sneakers/wheelys/dropped(mob/user)
 	if(wheelToggle)
 		W.unbuckle_mob(user)
 		wheelToggle = FALSE
 	..()
 
-/obj/item/clothing/shoes/wheelys/Destroy()
+/obj/item/clothing/shoes/sneakers/wheelys/Destroy()
 	QDEL_NULL(W)
 	. = ..()
 
