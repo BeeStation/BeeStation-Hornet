@@ -283,14 +283,8 @@
 /obj/machinery/computer/security/telescreen/entertainment/ui_state(mob/user)
 	return GLOB.not_incapacitated_state
 
-/obj/machinery/computer/security/telescreen/entertainment/Initialize()
+/obj/machinery/computer/security/telescreen/entertainment/examine(mob/user)
 	. = ..()
-	RegisterSignal(src, COMSIG_CLICK, .proc/BigClick)
-
-// Bypass clickchain to allow humans to use the telescreen from a distance
-/obj/machinery/computer/security/telescreen/entertainment/proc/BigClick()
-	SIGNAL_HANDLER
-
 	interact(usr)
 
 /obj/machinery/computer/security/telescreen/entertainment/proc/notify(on)
