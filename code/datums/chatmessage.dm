@@ -360,8 +360,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 					else
 						LAZYADD(show_icon_scrambled, M.client)
 		var/scrambled_message
+		var/datum/language/language_instance = message_language ? GLOB.language_datum_instances[message_language] : null
 		if(LAZYLEN(show_icon_scrambled) || LAZYLEN(hide_icon_scrambled))
-			scrambled_message = message_language?.scramble(raw_message) || scramble_message_replace_chars(raw_message, 100)
+			scrambled_message = language_instance?.scramble(raw_message) || scramble_message_replace_chars(raw_message, 100)
 		//Show the correct message to people who should see the icon and understand the language
 		if(LAZYLEN(show_icon_understand))
 			new /datum/chatmessage(raw_message, speaker, show_icon_understand, message_language, spans)
