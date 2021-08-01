@@ -242,14 +242,14 @@ This is highly likely to cause a lag spike for a few seconds."},
 			var/image/result = step_data["result"]
 			steps += list(
 				list(
-					"layer"=icon2html(layer, user, dir=sprite_dir, sourceonly=TRUE),
-					"result"=icon2html(result, user, dir=sprite_dir, sourceonly=TRUE),
+					"layer"=icon2html(layer, user, dir=sprite_dir),
+					"result"=icon2html(result, user, dir=sprite_dir),
 					"config_name"=step_data["config_name"]
 				)
 			)
 
 	sprite_data["time_spent"] = TICK_DELTA_TO_MS(time_spent)
-	sprite_data["finished"] = icon2html(finished, user, dir=sprite_dir, sourceonly=TRUE)
+	sprite_data["finished"] = icon2html(finished, user, dir=sprite_dir)
 	refreshing = FALSE
 
 /datum/greyscale_modify_menu/proc/Unlock()

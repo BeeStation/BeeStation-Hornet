@@ -38,6 +38,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/icon/alternate_worn_icon = null
 	/// If this is set, update_icons() will force the on mob state (WORN, NOT INHANDS) onto this layer, instead of it's default
 	var/alternate_worn_layer = null
+	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_worn
+	///The config type to use for greyscaled left inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_left
+	///The config type to use for greyscaled right inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_right
 
 	max_integrity = 200
 
@@ -206,6 +212,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	for(var/path in actions_types)
 		new path(src)
 	actions_types = null
+	update_item_greyscale()
 
 	if(force_string)
 		item_flags |= FORCE_STRING_OVERRIDE
@@ -270,6 +277,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //Output a creative message and then return the damagetype done
 /obj/item/proc/suicide_act(mob/user)
 	return
+
+// Checks if this atom uses the GAS system and if so updates the worn and inhand icons
+/obj/item/proc/update_item_greyscale()
+	if(!greyscale_colors)
+		return
+	if(greyscale_config_worn)
+		icon_state = SSgreyscale.GetColoredIconByType(greyscale_config_worn, greyscale_colors)
+	if(greyscale_config_inhand_left)
+		lefthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_left, greyscale_colors)
+	if(greyscale_config_inhand_right)
+		righthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_right, greyscale_colors)
 
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"

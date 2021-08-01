@@ -267,25 +267,25 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/machines/clockcult/integration_cog_install.ogg' = 1, 'sound/magic/clockwork/fellowship_armory.ogg' = 1), 50)
 
-/obj/item/clothing/shoes/sneakers/wheelys
+/obj/item/clothing/shoes/wheelys
 	name = "Wheely-Heels"
 	desc = "Uses patented retractable wheel technology. Never sacrifice speed for style - not that this provides much of either." //Thanks Fel
 	item_state = "wheelys"
 	greyscale_colors = "#545454#ffffff"
+	icon_state = "sneakers"
 	greyscale_config = /datum/greyscale_config/sneakers_wheelys
-	greyscale_config_worn = null
 	actions_types = list(/datum/action/item_action/wheelys)
 	var/wheelToggle = FALSE //False means wheels are not popped out
 	var/obj/vehicle/ridden/scooter/wheelys/W
 
-/obj/item/clothing/shoes/sneakers/wheelys/Initialize()
+/obj/item/clothing/shoes/wheelys/Initialize()
 	. = ..()
 	W = new /obj/vehicle/ridden/scooter/wheelys(null)
 
-/obj/item/clothing/shoes/sneakers/wheelys/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/wheelys/ui_action_click(mob/user, action)
 	if(!isliving(user))
 		return
-	if(!istype(user.get_item_by_slot(ITEM_SLOT_FEET), /obj/item/clothing/shoes/sneakers/wheelys))
+	if(!istype(user.get_item_by_slot(ITEM_SLOT_FEET), /obj/item/clothing/shoes/wheelys))
 		to_chat(user, "<span class='warning'>You must be wearing the wheely-heels to use them!</span>")
 		return
 	if(!(W.is_occupant(user)))
@@ -298,13 +298,13 @@
 	W.buckle_mob(user)
 	wheelToggle = TRUE
 
-/obj/item/clothing/shoes/sneakers/wheelys/dropped(mob/user)
+/obj/item/clothing/shoes/wheelys/dropped(mob/user)
 	if(wheelToggle)
 		W.unbuckle_mob(user)
 		wheelToggle = FALSE
 	..()
 
-/obj/item/clothing/shoes/sneakers/wheelys/Destroy()
+/obj/item/clothing/shoes/wheelys/Destroy()
 	QDEL_NULL(W)
 	. = ..()
 

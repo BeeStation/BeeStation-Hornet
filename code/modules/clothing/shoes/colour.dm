@@ -1,18 +1,13 @@
 /obj/item/clothing/shoes/sneakers
 	icon_state = "sneakers"
+	greyscale_colors = "#545454#ffffff"
 	greyscale_config = /datum/greyscale_config/sneakers
-	var/datum/greyscale_config/greyscale_config_worn = /datum/greyscale_config/sneakers_worn
-
-/obj/item/clothing/shoes/sneakers/Initialize()
-	. = ..()
-	if(greyscale_config_worn && greyscale_colors)
-		icon_state = SSgreyscale.GetColoredIconByType(greyscale_config_worn, greyscale_colors)
+	greyscale_config_worn = /datum/greyscale_config/sneakers_worn
 
 /obj/item/clothing/shoes/sneakers/black
 	name = "black shoes"
 	item_color = "black"
 	desc = "A pair of black shoes."
-	greyscale_colors = "#545454#ffffff"
 	custom_price = 20
 
 	cold_protection = FEET
@@ -67,11 +62,6 @@
 	item_color = "purple"
 	greyscale_colors = "#ad16eb#ffffff"
 
-/obj/item/clothing/shoes/sneakers/brown
-	name = "brown shoes"
-	icon_state = "brown"
-	item_color = "brown"
-
 /obj/item/clothing/shoes/sneakers/red
 	name = "red shoes"
 	desc = "Stylish red shoes."
@@ -114,8 +104,7 @@
 		qdel(H)
 		src.chained = 1
 		src.slowdown = 15
-		src.icon_state = "sneakers_chained"
-	return
+		src.icon_state = ""
 	
 /obj/item/clothing/shoes/sneakers/orange/allow_attack_hand_drop(mob/user)
 	if(ishuman(user))

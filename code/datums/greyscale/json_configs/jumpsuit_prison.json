@@ -11,18 +11,5 @@
 			"icon_state": "jumpsuit_prison",
 			"blend_mode": "overlay"
 		}
-	],
-	"jumpskirt": [
-		{
-			"type": "icon_state",
-			"icon_state": "jumpskirt",
-			"blend_mode": "overlay",
-			"color_ids": [ 1 ]
-		},
-		{
-			"type": "icon_state",
-			"icon_state": "jumpsuit_prison",
-			"blend_mode": "overlay"
-		}
 	]
 }

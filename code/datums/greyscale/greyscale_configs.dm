@@ -55,12 +55,12 @@
 
 /datum/greyscale_config/jumpsuit
 	name = "Jumpsuit"
-	icon_file = 'icons/obj/clothing/under/color.dmi'
+	icon_file = 'icons/obj/clothing/uniforms.dmi'
 	json_config = 'code/datums/greyscale/json_configs/jumpsuit.json'
 
 /datum/greyscale_config/jumpsuit_worn
 	name = "Worn Jumpsuit"
-	icon_file = 'icons/mob/clothing/under/color.dmi'
+	icon_file = 'icons/mob/uniform.dmi'
 	json_config = 'code/datums/greyscale/json_configs/jumpsuit_worn.json'
 
 /datum/greyscale_config/jumpsuit_inhand_left
@@ -75,12 +75,12 @@
 
 /datum/greyscale_config/jumpsuit_prison
 	name = "Prison Jumpsuit"
-	icon_file = 'icons/obj/clothing/under/color.dmi'
+	icon_file = 'icons/obj/clothing/uniforms.dmi'
 	json_config = 'code/datums/greyscale/json_configs/jumpsuit_prison.json'
 
 /datum/greyscale_config/jumpsuit_prison_worn
 	name = "Worn Prison Jumpsuit"
-	icon_file = 'icons/mob/clothing/under/color.dmi'
+	icon_file = 'icons/mob/uniform.dmi'
 	json_config = 'code/datums/greyscale/json_configs/jumpsuit_prison_worn.json'
 
 /datum/greyscale_config/jumpsuit_prison_inhand_left
@@ -92,3 +92,28 @@
 	name = "Held Prison Jumpsuit, Right"
 	icon_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	json_config = 'code/datums/greyscale/json_configs/jumpsuit_prison_inhand.json'
+
+/datum/greyscale_config/sneakers
+	name = "Sneakers"
+	icon_file = 'icons/obj/clothing/shoes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/sneakers.json'
+
+/datum/greyscale_config/sneakers_worn
+	name = "Worn Sneakers"
+	icon_file = 'icons/mob/feet.dmi'
+	json_config = 'code/datums/greyscale/json_configs/sneakers_worn.json'
+
+/datum/greyscale_config/sneakers_orange
+	name = "Orange Sneakers"
+	icon_file = 'icons/obj/clothing/shoes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/sneakers_orange.json'
+
+/datum/greyscale_config/sneakers_orange_worn
+	name = "Worn Orange Sneakers"
+	icon_file = 'icons/mob/feet.dmi'
+	json_config = 'code/datums/greyscale/json_configs/sneakers_orange_worn.json'
+
+/datum/greyscale_config/sneakers_wheelys
+	name = "Wheeled Sneakers"
+	icon_file = 'icons/obj/clothing/shoes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/sneakers_wheelys.json'
