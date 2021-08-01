@@ -195,8 +195,10 @@
 		hearers -= src
 
 	var/raw_msg = message
+	var/is_emote = FALSE
 	if(LAZYFIND(visible_message_flags, CHATMESSAGE_EMOTE))
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
+		is_emote = TRUE
 
 	var/list/show_to = list()
 
@@ -214,13 +216,10 @@
 		if(!msg)
 			continue
 
-		if(M.should_show_chat_message(src, null, TRUE) && !is_blind(M))
+		if(is_emote && M.should_show_chat_message(src, null, TRUE) && !is_blind(M))
 			show_to += M
 
 		M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
-
-	//Set it to an emote
-	visible_message_flags[CHATMESSAGE_EMOTE] = TRUE
 
 	//Create the chat message
 	if(length(show_to))
@@ -248,12 +247,14 @@
 		hearers -= src
 
 	var/raw_msg = message
+	var/is_emote = FALSE
 	if(LAZYFIND(audible_message_flags, CHATMESSAGE_EMOTE))
+		is_emote = TRUE
 		message = "<span class='emote'><b>[src]</b> [message]</span>"
 
 	var/list/show_to = list()
 	for(var/mob/M in hearers)
-		if(M.should_show_chat_message(src, null, TRUE) && M.can_hear())
+		if(is_emote && M.should_show_chat_message(src, null, TRUE) && M.can_hear())
 			show_to += M
 		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
