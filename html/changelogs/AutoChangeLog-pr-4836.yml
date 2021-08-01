@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - refactor: Refactors stat panel verbs to cache the verbs.
