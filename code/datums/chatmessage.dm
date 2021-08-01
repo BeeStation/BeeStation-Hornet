@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 /datum/chatmessage/Destroy()
 	if (hearers)
-		for(var/client/C as() in hearers)
+		for(var/client/C in hearers)
 			if(!C)
 				continue
 			C.images.Remove(message)
