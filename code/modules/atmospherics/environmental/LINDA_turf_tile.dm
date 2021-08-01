@@ -131,8 +131,10 @@
 
 /////////////////////////GAS OVERLAYS//////////////////////////////
 
+/turf/proc/update_visuals()
+	return
 
-/turf/open/proc/update_visuals()
+/turf/open/update_visuals()
 
 	var/list/atmos_overlay_types = src.atmos_overlay_types // Cache for free performance
 	var/list/new_overlay_types = list()
@@ -191,7 +193,11 @@
 /turf/proc/process_cell(fire_count)
 
 /turf/open/proc/equalize_pressure_in_zone(cyclenum)
-/turf/open/proc/consider_firelocks(turf/T2)
+
+/turf/proc/consider_firelocks()
+	return
+
+/turf/open/consider_firelocks(turf/T2)
 	var/reconsider_adj = FALSE
 	for(var/obj/machinery/door/firedoor/FD in T2)
 		if((FD.flags_1 & ON_BORDER_1) && get_dir(T2, src) != FD.dir)
