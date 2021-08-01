@@ -218,9 +218,6 @@
 /turf/open/floor/plasteel/white,
 /area/centcom/arena)
 "aw" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -799,11 +796,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/power/apc/syndicate{
-	dir = 4;
-	name = "Syndicate Listening Post APC";
-	pixel_x = 24
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/centcom/arena)
@@ -21814,9 +21806,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/centcom/arena)
 "Rt" = (
@@ -23789,12 +23778,6 @@
 	pixel_y = 3
 	},
 /obj/item/reagent_containers/dropper,
-/obj/machinery/power/apc/highcap/ten_k{
-	areastring = "/area/science/xenobiology";
-	dir = 1;
-	name = "Xenobiology APC";
-	pixel_y = 24
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
