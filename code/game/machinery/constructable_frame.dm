@@ -6,6 +6,7 @@
 	max_integrity = 250
 	var/obj/item/circuitboard/machine/circuit = null
 	var/state = 1
+	var/base_icon_state = "box"
 
 /obj/structure/frame/examine(user)
 	. = ..()
@@ -21,6 +22,9 @@
 			circuit = null
 	qdel(src)
 
+///Does this circuit fit into this frame?
+/obj/structure/frame/proc/accepts_circuit(obj/item/circuitboard/circuit)
+	return FALSE
 
 /obj/structure/frame/machine
 	name = "machine frame"
@@ -71,10 +75,100 @@
 		amt += req_components[path]
 	return amt
 
+/obj/structure/frame/machine/accepts_circuit(obj/item/circuitboard/circuit)
+	return istype(circuit, /obj/item/circuitboard/machine) && !istype(circuit, /obj/item/circuitboard/machine/wall)
+
+/obj/structure/frame/machine/wrench_act(mob/living/user, obj/item/I)
+	. = ..()
+
+	switch(state)
+		if(1,2,3)
+			if(state == 3 && circuit.needs_anchored)
+				return
+
+			to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [src]...</span>")
+			if(I.use_tool(src, user, 40, volume=75))
+				to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
+				setAnchored(!anchored)
+			return TRUE
+
+/obj/structure/frame/machine/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+
+	switch(state)
+		if(1)
+			if(!anchored)
+				user.visible_message("<span class='warning'>[user] disassembles the frame.</span>", \
+									"<span class='notice'>You start to disassemble the frame...</span>", "You hear banging and clanking.")
+				if(I.use_tool(src, user, 40, volume=50))
+					to_chat(user, "<span class='notice'>You disassemble the frame.</span>")
+					var/obj/item/stack/sheet/iron/M = new (loc, 5)
+					M.add_fingerprint(user)
+					qdel(src)
+			return TRUE
+		if(3)
+			var/component_check = 1
+			for(var/R in req_components)
+				if(req_components[R] > 0)
+					component_check = 0
+					break
+			if(component_check)
+				I.play_tool_sound(src)
+				var/obj/machinery/new_machine = new circuit.build_path(loc)
+				if(new_machine.circuit)
+					QDEL_NULL(new_machine.circuit)
+				new_machine.circuit = circuit
+				new_machine.setAnchored(anchored)
+				new_machine.on_construction()
+				for(var/obj/O in new_machine.component_parts)
+					qdel(O)
+				new_machine.component_parts = list()
+				for(var/obj/O in src)
+					O.moveToNullspace()
+					new_machine.component_parts += O
+				circuit.moveToNullspace()
+				new_machine.RefreshParts()
+				qdel(src)
+			return TRUE
+
+/obj/structure/frame/machine/wirecutter_act(mob/living/user, obj/item/I)
+	. = ..()
+
+	switch(state)
+		if(2)
+			I.play_tool_sound(src)
+			to_chat(user, "<span class='notice'>You remove the cables.</span>")
+			state = 1
+			icon_state = "[base_icon_state]_0"
+			new /obj/item/stack/cable_coil(drop_location(), 5)
+			return TRUE
+
+/obj/structure/frame/machine/crowbar_act(mob/living/user, obj/item/I)
+	. = ..()
+
+	switch(state)
+		if(3)
+			I.play_tool_sound(src)
+			state = 2
+			circuit.forceMove(drop_location())
+			components.Remove(circuit)
+			circuit = null
+			if(components.len == 0)
+				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+			else
+				to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
+				for(var/atom/movable/AM in components)
+					AM.forceMove(drop_location())
+			desc = initial(desc)
+			req_components = null
+			components = null
+			icon_state = "[base_icon_state]_1"
+			return TRUE
+
 /obj/structure/frame/machine/attackby(obj/item/P, mob/user, params)
 	switch(state)
 		if(1)
-			if(istype(P, /obj/item/circuitboard/machine))
+			if(accepts_circuit(P))
 				to_chat(user, "<span class='warning'>The frame needs wiring first!</span>")
 				return
 			else if(istype(P, /obj/item/circuitboard))
@@ -88,36 +182,11 @@
 				if(P.use_tool(src, user, 20, volume=50, amount=5))
 					to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 					state = 2
-					icon_state = "box_1"
+					icon_state = "[base_icon_state]_1"
 
 				return
-			if(P.tool_behaviour == TOOL_SCREWDRIVER && !anchored)
-				user.visible_message("<span class='warning'>[user] disassembles the frame.</span>", \
-									"<span class='notice'>You start to disassemble the frame...</span>", "You hear banging and clanking.")
-				if(P.use_tool(src, user, 40, volume=50))
-					if(state == 1)
-						to_chat(user, "<span class='notice'>You disassemble the frame.</span>")
-						var/obj/item/stack/sheet/iron/M = new (loc, 5)
-						M.add_fingerprint(user)
-						qdel(src)
-				return
-			if(P.tool_behaviour == TOOL_WRENCH)
-				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [src]...</span>")
-				if(P.use_tool(src, user, 40, volume=75))
-					if(state == 1)
-						to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-						setAnchored(!anchored)
-				return
-
 		if(2)
-			if(P.tool_behaviour == TOOL_WRENCH)
-				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [src]...</span>")
-				if(P.use_tool(src, user, 40, volume=75))
-					to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-					setAnchored(!anchored)
-				return
-
-			if(istype(P, /obj/item/circuitboard/machine))
+			if(accepts_circuit(P))
 				var/obj/item/circuitboard/machine/B = P
 				if(!anchored && B.needs_anchored)
 					to_chat(user, "<span class='warning'>The frame needs to be secured first!</span>")
@@ -127,7 +196,7 @@
 				playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 				circuit = B
-				icon_state = "box_2"
+				icon_state = "[base_icon_state]_2"
 				state = 3
 				components = list()
 				req_components = B.req_components.Copy()
@@ -137,65 +206,7 @@
 			else if(istype(P, /obj/item/circuitboard))
 				to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
 				return
-
-			if(P.tool_behaviour == TOOL_WIRECUTTER)
-				P.play_tool_sound(src)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
-				state = 1
-				icon_state = "box_0"
-				new /obj/item/stack/cable_coil(drop_location(), 5)
-				return
-
 		if(3)
-			if(P.tool_behaviour == TOOL_CROWBAR)
-				P.play_tool_sound(src)
-				state = 2
-				circuit.forceMove(drop_location())
-				components.Remove(circuit)
-				circuit = null
-				if(components.len == 0)
-					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
-				else
-					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
-					for(var/atom/movable/AM in components)
-						AM.forceMove(drop_location())
-				desc = initial(desc)
-				req_components = null
-				components = null
-				icon_state = "box_1"
-				return
-
-			if(P.tool_behaviour == TOOL_WRENCH && !circuit.needs_anchored)
-				to_chat(user, "<span class='notice'>You start [anchored ? "un" : ""]securing [src]...</span>")
-				if(P.use_tool(src, user, 40, volume=75))
-					to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [src].</span>")
-					setAnchored(!anchored)
-				return
-
-			if(P.tool_behaviour == TOOL_SCREWDRIVER)
-				var/component_check = 1
-				for(var/R in req_components)
-					if(req_components[R] > 0)
-						component_check = 0
-						break
-				if(component_check)
-					P.play_tool_sound(src)
-					var/obj/machinery/new_machine = new circuit.build_path(loc)
-					if(new_machine.circuit)
-						QDEL_NULL(new_machine.circuit)
-					new_machine.circuit = circuit
-					new_machine.setAnchored(anchored)
-					new_machine.on_construction()
-					for(var/obj/O in new_machine.component_parts)
-						qdel(O)
-					new_machine.component_parts = list()
-					for(var/obj/O in src)
-						O.moveToNullspace()
-						new_machine.component_parts += O
-					circuit.moveToNullspace()
-					new_machine.RefreshParts()
-					qdel(src)
-				return
 
 			if(istype(P, /obj/item/storage/part_replacer) && P.contents.len && get_req_components_amt())
 				var/obj/item/storage/part_replacer/replacer = P
