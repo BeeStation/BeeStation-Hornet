@@ -1179,9 +1179,7 @@
 		var/list/possible_sounds = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
 		var/chosen_sound = pick(possible_sounds)
 		playsound(get_turf(src), chosen_sound, 50, 1)
-		spawn(45)
-			if(src)
-				icon_state = "[initial(icon_state)]"
+		addtimer(VARSET_CALLBACK(src, icon_state, initial(icon_state)), 45)
 	else
 		to_chat(user, "<span class='warning'>The string on [src] hasn't rewound all the way!</span>")
 		return
