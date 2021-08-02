@@ -3,32 +3,32 @@
 
 /obj/item/circuitboard/computer/aiupload
 	name = "AI upload (Computer Board)"
-	icon_state = "command"
+	greyscale_colors = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/computer/upload/ai
 
 /obj/item/circuitboard/computer/borgupload
 	name = "cyborg upload (Computer Board)"
-	icon_state = "command"
+	greyscale_colors = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/computer/upload/borg
 
 /obj/item/circuitboard/computer/bsa_control
 	name = "bluespace artillery controls (Computer Board)"
-	icon_state = "command"
+	greyscale_colors = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/computer/bsa_control
 
 /obj/item/circuitboard/computer/card
 	name = "ID console (Computer Board)"
-	icon_state = "command"
+	greyscale_colors = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/computer/card
 
 /obj/item/circuitboard/computer/card/centcom
 	name = "CentCom ID console (Computer Board)"
-	icon_state = "command"
+	greyscale_colors = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/computer/card/centcom
 
 /obj/item/circuitboard/computer/card/minor
 	name = "department management console (Computer Board)"
-	icon_state = "command"
+	greyscale_colors = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/computer/card/minor
 	var/target_dept = 1
 	var/list/dept_list = list("General","Security","Medical","Science","Engineering")
@@ -46,7 +46,7 @@
 
 /obj/item/circuitboard/computer/communications
 	name = "communications console (Computer Board)"
-	icon_state = "command"
+	greyscale_colors = CIRCUIT_COLOR_COMMAND
 	desc = "Can be modified using a screwdriver."
 	build_path = /obj/machinery/computer/communications
 	var/lastTimeUsed = 0
@@ -74,17 +74,17 @@
 
 /obj/item/circuitboard/computer/apc_control
 	name = "power flow control console (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/apc_control
 
 /obj/item/circuitboard/computer/atmos_alert
 	name = "atmospheric alert console (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/atmos_alert
 
 /obj/item/circuitboard/computer/atmos_control
 	name = "atmospheric monitor console (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/atmos_control
 
 /obj/item/circuitboard/computer/atmos_control/tank
@@ -125,32 +125,32 @@
 
 /obj/item/circuitboard/computer/auxillary_base
 	name = "auxillary base management console (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/auxillary_base
 
 /obj/item/circuitboard/computer/base_construction
 	name = "aux mining base construction console (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/camera_advanced/base_construction
 
 /obj/item/circuitboard/computer/comm_monitor
 	name = "telecommunications monitor (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/telecomms/monitor
 
 /obj/item/circuitboard/computer/comm_server
 	name = "telecommunications server monitor (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/telecomms/server
 
 /obj/item/circuitboard/computer/message_monitor
 	name = "message monitor (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/message_monitor
 
 /obj/item/circuitboard/computer/powermonitor
 	name = "power monitor (Computer Board)"  //name fixed 250810
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/monitor
 
 /obj/item/circuitboard/computer/powermonitor/secret
@@ -159,32 +159,32 @@
 
 /obj/item/circuitboard/computer/sat_control
 	name = "satellite network control (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/sat_control
 
 /obj/item/circuitboard/computer/solar_control
 	name = "solar control (Computer Board)"  //name fixed 250810
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/power/solar_control
 
 /obj/item/circuitboard/computer/stationalert
 	name = "station alerts console (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/station_alert
 
 /obj/item/circuitboard/computer/teleporter
 	name = "teleporter console (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/teleporter
 
 /obj/item/circuitboard/computer/turbine_computer
 	name = "turbine computer (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/turbine_computer
 
 /obj/item/circuitboard/computer/turbine_control
 	name = "turbine control (Computer Board)"
-	icon_state = "engineering"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/turbine_computer
 
 
@@ -193,32 +193,32 @@
 
 /obj/item/circuitboard/computer/advanced_camera
 	name = "advanced camera console (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/camera_advanced/syndie
 
 /obj/item/circuitboard/computer/arcade/amputation
 	name = "Mediborg's Amputation Adventure (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/arcade/amputation
 
 /obj/item/circuitboard/computer/arcade/battle
 	name = "arcade battle (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/arcade/battle
 
 /obj/item/circuitboard/computer/arcade/orion_trail
 	name = "Orion Trail (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/arcade/orion_trail
 
 /obj/item/circuitboard/computer/holodeck// Not going to let people get this, but it's just here for future
 	name = "holodeck control (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/holodeck
 
 /obj/item/circuitboard/computer/libraryconsole
 	name = "library visitor console (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/libraryconsole
 
 /obj/item/circuitboard/computer/libraryconsole/attackby(obj/item/I, mob/user, params)
@@ -236,32 +236,32 @@
 
 /obj/item/circuitboard/computer/monastery_shuttle
 	name = "monastery shuttle console (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/shuttle/monastery_shuttle
 
 /obj/item/circuitboard/computer/olddoor
 	name = "DoorMex (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/pod/old
 
 /obj/item/circuitboard/computer/pod
 	name = "mass driver launch control (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/pod
 
 /obj/item/circuitboard/computer/slot_machine
 	name = "slot machine (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/slot_machine
 
 /obj/item/circuitboard/computer/swfdoor
 	name = "Magix (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/pod/old/swf
 
 /obj/item/circuitboard/computer/syndicate_shuttle
 	name = "syndicate shuttle console (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/shuttle/syndicate
 	var/challenge = FALSE
 	var/moved = FALSE
@@ -276,12 +276,12 @@
 
 /obj/item/circuitboard/computer/syndicatedoor
 	name = "ProComp Executive (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/pod/old/syndicate
 
 /obj/item/circuitboard/computer/white_ship
 	name = "white ship control (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/shuttle/white_ship
 
 /obj/item/circuitboard/computer/white_ship/pod
@@ -294,12 +294,12 @@
 
 /obj/item/circuitboard/computer/shuttle/flight_control
 	name = "shuttle flight control (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/custom_shuttle
 
 /obj/item/circuitboard/computer/shuttle/docker
 	name = "shuttle navigation computer (Computer Board)"
-	icon_state = "generic"
+	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	build_path = /obj/machinery/computer/camera_advanced/shuttle_docker/custom
 
 
@@ -307,38 +307,38 @@
 
 /obj/item/circuitboard/computer/cloning
 	name = "cloning console (Computer Board)"
-	icon_state = "medical"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/computer/cloning
 	var/list/records = list()
 
 /obj/item/circuitboard/computer/crew
 	name = "crew monitoring console (Computer Board)"
-	icon_state = "medical"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/computer/crew
 
 /obj/item/circuitboard/computer/med_data
 	name = "medical records console (Computer Board)"
-	icon_state = "medical"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/computer/med_data
 
 /obj/item/circuitboard/computer/operating
 	name = "operating computer (Computer Board)"
-	icon_state = "medical"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/computer/operating
 
 /obj/item/circuitboard/computer/pandemic
 	name = "PanD.E.M.I.C. 2200 (Computer Board)"
-	icon_state = "medical"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/computer/pandemic
 
 /obj/item/circuitboard/computer/cloning/prototype
 	name = "prototype cloning console (Computer Board)"
-	icon_state = "medical"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/computer/cloning/prototype
 
 /obj/item/circuitboard/computer/scan_consolenew
 	name = "DNA machine (Computer Board)"
-	icon_state = "medical"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	build_path = /obj/machinery/computer/scan_consolenew
 
 
@@ -347,37 +347,37 @@
 
 /obj/item/circuitboard/computer/aifixer
 	name = "AI integrity restorer console (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/aifixer
 
 /obj/item/circuitboard/computer/launchpad_console
 	name = "launchpad control console (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/launchpad
 
 /obj/item/circuitboard/computer/mech_bay_power_console
 	name = "mech bay power control console (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/mech_bay_power_console
 
 /obj/item/circuitboard/computer/mecha_control
 	name = "exosuit control console (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/mecha
 
 /obj/item/circuitboard/computer/nanite_chamber_control
 	name = "nanite chamber control (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/nanite_chamber_control
 
 /obj/item/circuitboard/computer/nanite_cloud_controller
 	name = "nanite cloud control (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/nanite_cloud_controller
 
 /obj/item/circuitboard/computer/rdconsole
 	name = "R&D console (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/rdconsole/core
 
 /obj/item/circuitboard/computer/rdconsole/production
@@ -399,22 +399,22 @@
 
 /obj/item/circuitboard/computer/rdservercontrol
 	name = "R&D server control (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/rdservercontrol
 
 /obj/item/circuitboard/computer/research
 	name = "research monitor (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/security/research
 
 /obj/item/circuitboard/computer/robotics
 	name = "robotics control (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/robotics
 
 /obj/item/circuitboard/computer/xenobiology
 	name = "xenobiology console (Computer Board)"
-	icon_state = "science"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
 
 
@@ -423,7 +423,7 @@
 
 /obj/item/circuitboard/computer/labor_shuttle
 	name = "labor shuttle console (Computer Board)"
-	icon_state = "security"
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
 	build_path = /obj/machinery/computer/shuttle/labor
 
 /obj/item/circuitboard/computer/labor_shuttle/one_way
@@ -432,27 +432,27 @@
 
 /obj/item/circuitboard/computer/gulag_teleporter_console
 	name = "labor camp teleporter console (Computer Board)"
-	icon_state = "security"
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
 	build_path = /obj/machinery/computer/prisoner/gulag_teleporter_computer
 
 /obj/item/circuitboard/computer/prisoner
 	name = "prisoner management console (Computer Board)"
-	icon_state = "security"
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
 	build_path = /obj/machinery/computer/prisoner
 
 /obj/item/circuitboard/computer/secure_data
 	name = "security records console (Computer Board)"
-	icon_state = "security"
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
 	build_path = /obj/machinery/computer/secure_data
 
 /obj/item/circuitboard/computer/security
 	name = "security camera console (Computer Board)"
-	icon_state = "security"
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
 	build_path = /obj/machinery/computer/security
 
 /obj/item/circuitboard/computer/warrant
 	name = "security warrant console (Computer Board)"
-	icon_state = "security"
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
 	build_path = /obj/machinery/computer/warrant
 
 //Service
@@ -463,12 +463,12 @@
 
 /obj/item/circuitboard/computer/bounty
 	name = "Nanotrasen bounty console (Computer Board)"
-	icon_state = "supply"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/bounty
 
 /obj/item/circuitboard/computer/cargo
 	name = "supply console (Computer Board)"
-	icon_state = "supply"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/cargo
 	var/contraband = FALSE
 
@@ -487,7 +487,7 @@
 
 /obj/item/circuitboard/computer/cargo/express
 	name = "express supply console (Computer Board)"
-	icon_state = "supply"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/cargo/express
 
 /obj/item/circuitboard/computer/cargo/express/multitool_act(mob/living/user)
@@ -503,12 +503,12 @@
 
 /obj/item/circuitboard/computer/cargo/request
 	name = "supply request console (Computer Board)"
-	icon_state = "supply"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/cargo/request
 
 /obj/item/circuitboard/computer/ferry
 	name = "transport ferry control (Computer Board)"
-	icon_state = "supply"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/shuttle/ferry
 
 /obj/item/circuitboard/computer/ferry/request
@@ -517,12 +517,12 @@
 
 /obj/item/circuitboard/computer/mining
 	name = "outpost status display (Computer Board)"
-	icon_state = "supply"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/security/mining
 
 /obj/item/circuitboard/computer/mining_shuttle
 	name = "mining shuttle console (Computer Board)"
-	icon_state = "supply"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/shuttle/mining
 
 /obj/item/circuitboard/computer/science_shuttle

@@ -72,3 +72,13 @@
 	"#D6B20C",\
 	"#FF902A",\
 )
+
+//The GAGS greyscale_colors for each department's computer/machine circuits
+#define CIRCUIT_COLOR_GENERIC "#1A7A13"
+#define CIRCUIT_COLOR_COMMAND "#1B4594"
+#define CIRCUIT_COLOR_SECURITY "#9A151E"
+#define CIRCUIT_COLOR_SCIENCE "#BC4A9B"
+#define CIRCUIT_COLOR_SERVICE "#92DCBA"
+#define CIRCUIT_COLOR_MEDICAL "#00CCFF"
+#define CIRCUIT_COLOR_ENGINEERING "#F8D700"
+#define CIRCUIT_COLOR_SUPPLY "#C47749"

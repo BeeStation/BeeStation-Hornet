@@ -117,3 +117,8 @@
 	name = "Wheeled Sneakers"
 	icon_file = 'icons/obj/clothing/shoes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/sneakers_wheelys.json'
+
+/datum/greyscale_config/circuit
+	name = "Circuit Board"
+	icon_file = 'icons/obj/module.dmi'
+	json_config = 'code/datums/greyscale/json_configs/circuit.json'

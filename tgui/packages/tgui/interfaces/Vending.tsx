@@ -3,8 +3,67 @@ import { useBackend } from '../backend';
 import { Box, Button, Section, Table } from '../components';
 import { Window } from '../layouts';
 
+type VendingData = {
+  onstation: boolean;
+  department: string;
+  jobDiscount: number;
+  product_records: ProductRecord[];
+  coin_records: CoinRecord[];
+  hidden_records: HiddenRecord[];
+  user: UserData;
+  stock: StockItem[];
+  extended_inventory: boolean;
+  access: boolean;
+  vending_machine_input: CustomInput[];
+}
+
+type ProductRecord = {
+  path: string;
+  name: string;
+  price: number;
+  max_amount: number;
+  ref: string;
+}
+
+type CoinRecord = {
+  path: string;
+  name: string;
+  price: number;
+  max_amount: number;
+  ref: string;
+  premium: boolean;
+}
+
+type HiddenRecord = {
+  path: string;
+  name: string;
+  price: number;
+  max_amount: number;
+  ref: string;
+  premium: boolean;
+}
+
+type UserData = {
+  name: string;
+  cash: number;
+  job: string;
+  department: string;
+}
+
+type StockItem = {
+  name: string;
+  amount: number;
+  colorable: boolean;
+}
+
+type CustomInput = {
+  name: string;
+  price: number;
+  img: string;
+}
+
 const VendingRow = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<VendingData>(context);
   const {
     product,
     productStock,
@@ -49,12 +108,12 @@ const VendingRow = (props, context) => {
         <Box
           color={custom
             ? 'good'
-            : productStock <= 0
+            : productStock.amount <= 0
               ? 'bad'
-              : productStock <= (product.max_amount / 2)
+              : productStock.amount <= (product.max_amount / 2)
                 ? 'average'
                 : 'good'}>
-          {productStock} in stock
+          {productStock.amount} in stock
         </Box>
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
@@ -69,7 +128,7 @@ const VendingRow = (props, context) => {
           <Button
             fluid
             disabled={(
-              productStock === 0
+              productStock.amount === 0
               || !free && (
                 !data.user
                 || product.price > data.user.cash
@@ -81,12 +140,29 @@ const VendingRow = (props, context) => {
             })} />
         )}
       </Table.Cell>
+      <Table.Cell>
+        {
+          productStock.colorable
+            ? (
+              <Button
+                fluid
+                icon="palette"
+                disabled={
+                  productStock.Amount === 0
+                  || (!free && (!data.user || product.price > data.user.cash))
+                }
+                onClick={() => act('select_colors', { ref: product.ref })}
+              />
+            )
+            : ""
+        }
+      </Table.Cell>
     </Table.Row>
   );
 };
 
 export const Vending = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<VendingData>(context);
   let inventory;
   let custom = false;
   if (data.vending_machine_input) {
