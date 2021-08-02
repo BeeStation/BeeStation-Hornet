@@ -20,7 +20,6 @@
 	maxHealth = 25
 	health = 25
 	spacewalk = TRUE
-
 	obj_damage = 50
 	melee_damage = 20
 	attacktext = "bites"
@@ -28,15 +27,53 @@
 	speak_emote = list("gnashes")
 	chat_color = "#B15FB9"
 	mobchatspan = "researchdirector"
-
-	//Space carp aren't affected by cold.
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
+	minbodytemp = 0 //Space carp aren't affected by cold.
 	maxbodytemp = 1500
 	faction = list("carp")
 	movement_type = FLYING
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
+	/// If the carp uses random coloring
+	var/random_color = TRUE
+	/// The chance for a rare color variant
+	var/rarechance = 1
+	/// List of usual carp colors
+	var/static/list/carp_colors = list(
+		"lightpurple" = "#aba2ff",
+		"lightpink" = "#da77a8",
+		"green" = "#70ff25",
+		"grape" = "#df0afb",
+		"swamp" = "#e5e75a",
+		"turquoise" = "#04e1ed",
+		"brown" = "#ca805a",
+		"teal" = "#20e28e",
+		"lightblue" = "#4d88cc",
+		"rusty" = "#dd5f34",
+		"lightred" = "#fd6767",
+		"yellow" = "#f3ca4a",
+		"blue" = "#09bae1",
+		"palegreen" = "#7ef099"
+	)
+	/// List of rare carp colors
+	var/static/list/carp_colors_rare = list(
+		"silver" = "#fdfbf3"
+	)
+
+/mob/living/simple_animal/hostile/carp/Initialize()
+	. = ..()
+	if(random_color)
+		set_greyscale(new_config=/datum/greyscale_config/carp)
+		carp_randomify(rarechance)
+
+/mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
+	var/our_color
+	if(prob(rarechance))
+		our_color = pick(carp_colors_rare)
+		set_greyscale(colors=list(carp_colors_rare[our_color]))
+	else
+		our_color = pick(carp_colors)
+		set_greyscale(colors=list(carp_colors[our_color]))
 
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
@@ -44,6 +81,7 @@
 	maxbodytemp = INFINITY
 	gold_core_spawnable = NO_SPAWN
 	del_on_death = TRUE
+	random_color = FALSE
 
 /mob/living/simple_animal/hostile/carp/megacarp
 	icon = 'icons/mob/broadMobs.dmi'
@@ -57,6 +95,7 @@
 	health = 20
 	pixel_x = -16
 	mob_size = MOB_SIZE_LARGE
+	random_color = FALSE
 
 	obj_damage = 80
 	melee_damage = 20

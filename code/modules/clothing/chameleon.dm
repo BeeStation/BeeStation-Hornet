@@ -217,7 +217,7 @@
 	target.desc = initial(picked_item.desc)
 	target.icon_state = initial(picked_item.icon_state)
 	if(isitem(target))
-		var/obj/item/I = 
+		var/obj/item/I = target
 		I.worn_icon = initial(picked_item.worn_icon)
 		I.lefthand_file = initial(picked_item.lefthand_file)
 		I.righthand_file = initial(picked_item.righthand_file)
