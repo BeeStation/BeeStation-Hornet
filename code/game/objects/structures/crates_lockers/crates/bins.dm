@@ -42,3 +42,4 @@
 	playsound(loc, open_sound, 15, 1, -3)
 	flick("animate_largebins", src)
 	addtimer(CALLBACK(src, .proc/close), 13)
+	

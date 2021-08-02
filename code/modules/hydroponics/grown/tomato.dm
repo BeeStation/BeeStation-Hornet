@@ -152,3 +152,4 @@
 		K.health = K.maxHealth
 		K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
 		qdel(src)
+		
