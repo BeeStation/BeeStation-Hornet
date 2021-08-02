@@ -254,7 +254,7 @@
 
 	var/list/show_to = list()
 	for(var/mob/M in hearers)
-		if(is_emote && M.should_show_chat_message(src, null, TRUE) && M.can_hear())
+		if(is_emote && M.should_show_chat_message(src, null, TRUE, is_heard = TRUE))
 			show_to += M
 		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 

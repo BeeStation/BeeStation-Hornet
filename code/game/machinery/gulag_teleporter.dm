@@ -147,6 +147,8 @@ The console is located at computer/gulag_teleporter.dm
 					W.forceMove(linked_reclaimer)
 				else
 					W.forceMove(src)
+	if(linked_reclaimer)
+		linked_reclaimer.ui_update()
 
 /obj/machinery/gulag_teleporter/proc/handle_prisoner(obj/item/id, datum/data/record/R)
 	if(!ishuman(occupant))

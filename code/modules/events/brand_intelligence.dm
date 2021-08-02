@@ -43,12 +43,14 @@
 	vendingMachines.Remove(originMachine)
 	originMachine.shut_up = 0
 	originMachine.shoot_inventory = 1
+	originMachine.wires.ui_update()
 	announce_to_ghosts(originMachine)
 
 /datum/round_event/brand_intelligence/tick()
 	if(!originMachine || QDELETED(originMachine) || originMachine.shut_up || originMachine.wires.is_all_cut())	//if the original vending machine is missing or has it's voice switch flipped
 		for(var/obj/machinery/vending/saved in infectedMachines)
 			saved.shoot_inventory = 0
+			saved.wires.ui_update()
 		if(originMachine)
 			originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
 			originMachine.visible_message("[originMachine] beeps and seems lifeless.")
@@ -74,6 +76,7 @@
 		infectedMachines.Add(rebel)
 		rebel.shut_up = 0
 		rebel.shoot_inventory = 1
+		rebel.wires.ui_update()
 
 		if(ISMULTIPLE(activeFor, 8))
 			originMachine.speak(pick(rampant_speeches))

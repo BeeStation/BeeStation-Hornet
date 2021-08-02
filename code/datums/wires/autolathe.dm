@@ -36,6 +36,7 @@
 			addtimer(CALLBACK(A, /obj/machinery/modular_fabricator/autolathe.proc/reset, wire), 60)
 		if(WIRE_ACTIVATE)
 			A.begin_process()
+	ui_update()
 
 /datum/wires/autolathe/on_cut(wire, mend)
 	var/obj/machinery/modular_fabricator/autolathe/A = holder
@@ -48,3 +49,4 @@
 			A.disabled = !mend
 		if(WIRE_ZAP)
 			A.shock(usr, 50)
+	ui_update()

@@ -159,6 +159,7 @@
 				filter_name	= GLOB.gas_data.names[gas]
 			investigate_log("was set to filter [filter_name] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
+	ui_update()
 	update_icon()
 
 /obj/machinery/atmospherics/components/trinary/filter/can_unwrench(mob/user)

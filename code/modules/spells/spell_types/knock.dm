@@ -24,6 +24,7 @@
 	if(istype(door, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = door
 		A.locked = FALSE
+		A.wires.ui_update()
 	door.open()
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/proc/open_closet(var/obj/structure/closet/C)
