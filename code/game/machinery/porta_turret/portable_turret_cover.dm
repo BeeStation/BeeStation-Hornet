@@ -93,4 +93,4 @@
 		visible_message("[parent_turret] hums oddly...")
 		parent_turret.obj_flags |= EMAGGED
 		parent_turret.on = FALSE
-		addtimer(CALLBACK(parent_turret, on, TRUE), 40)
+		addtimer(VARSET_CALLBACK(parent_turret, on, TRUE), 40)
