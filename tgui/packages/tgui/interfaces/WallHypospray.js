@@ -28,14 +28,14 @@ export const WallHypospray = (props, context) => {
         !!locked && (
           <Dimmer>
             <NoticeBox>
-              <Stack vertical align="center">
+              <Stack vertical>
                 <Stack.Item>
                   Interface locked
                 </Stack.Item>
                 <Stack.Item>
                   <Button
                     color="red" icon="unlock"
-                    content="Unlock"
+                    content="Unlock" fluid textAlign="center"
                     onClick={() => act("toggle_locked")}
                   />
                 </Stack.Item>
@@ -110,6 +110,7 @@ export const WallHypospray = (props, context) => {
               title="Internal synthesizer">
               <Flex wrap="wrap">
                 {
+                  (chems && chems.length > 0) ?
                   chems.map(chem => (
                     <Flex.Item key={chem.id}>
                       <Button
@@ -120,6 +121,11 @@ export const WallHypospray = (props, context) => {
                       />
                     </Flex.Item>
                   ))
+                  : (
+                    <Flex.Item grow>
+                      <NoticeBox children="No chemical recipes available"/>
+                    </Flex.Item>
+                  )
                 }
               </Flex>
             </Section>

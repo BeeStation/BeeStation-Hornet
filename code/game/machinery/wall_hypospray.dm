@@ -12,13 +12,13 @@
 /obj/machinery/wall/hypospray
 	name = "wall-mounted hypospray"
 	desc = "A wall-mounted machine capable of synthesizing common medicines, with a handle for easy application."
-	icon = 'icons/obj/machines/defib_mount.dmi'
-	icon_state = "defibrillator_mount"
+	icon = 'icons/obj/machines/wallmount_hypospray.dmi'
+	icon_state = "wallmount_hypospray"
 	circuit = /obj/item/circuitboard/machine/wall/hypospray
 	req_access = list(ACCESS_MEDICAL)
 
-	var/efficiency = 0.3
-	var/charge_speed = 5
+	var/efficiency = 0.2
+	var/charge_speed = 4
 	var/charge = 100
 	var/max_charge = 100
 	var/charge_counter = 0
@@ -86,6 +86,18 @@
 
 	SStgui.update_uis(src) //Available chems list
 
+/obj/machinery/wall/hypospray/update_overlays()
+	. = ..()
+
+	if(is_operational())
+		if(locked)
+			. += "screen_yellow"
+		else
+			. += "screen_green"
+
+	if(!in_use)
+		. += "handle"
+
 /obj/machinery/wall/hypospray/process(delta_time)
 	if (charge_counter >= 8)
 		charge_counter -= 8
@@ -98,6 +110,10 @@
 			SStgui.update_uis(src) //Charge level display
 		return
 	charge_counter += delta_time
+
+/obj/machinery/wall/hypospray/power_change()
+	. = ..()
+	update_icon()
 
 /obj/machinery/wall/hypospray/proc/use_charge(volume)
 	var/power_use = volume/efficiency
@@ -131,6 +147,7 @@
 			visible_message("<span class='notice'>[handle] snaps back into [src].</span>")
 		handle.forceMove(src)
 	in_use = FALSE
+	update_icon()
 
 /obj/machinery/wall/hypospray/proc/inject(mob/living/target, mob/user, amount)
 
@@ -139,14 +156,15 @@
 	switch(chem_source)
 		if(SYNTHESIZER)
 			if(!use_charge(amount))
+				to_chat(user, "<span class='warning'>[src] is out of power!</span>")
 				return
 			injected += initial(selected_chem.name)
 		if(BOTTLE)
 			if(!storage)
-				handle?.balloon_alert(user, "No bottle")
+				to_chat(user, "<span class='warning'>[src] has no bottle attached!</span>")
 				return
 			if(!storage.reagents.total_volume)
-				to_chat(user, "<span class='warning'>The [src] hisses but nothing comes out. The attached bottle is empty!</span>")
+				to_chat(user, "<span class='warning'>[src] hisses but nothing comes out. The attached bottle is empty!</span>")
 				return
 			for(var/datum/reagent/R in storage.reagents.reagent_list)
 				injected += R.name
@@ -174,16 +192,22 @@
 		log_combat(user, target, "injected", handle, "([contained])")
 
 /obj/machinery/wall/hypospray/proc/interact_handle(mob/user)
+	if(locked)
+		to_chat(user, "<span class='warning'>[src] is locked!</span>")
+		return FALSE
+
 	if(in_use)
 		if(handle.loc == user)
 			snap_handle(cause=SNAP_INTERACT)
-			return TRUE
-		to_chat(user, "<span class='warning'>Somebody's currently using the handle!</span>")
-		return
-
-	if(user.put_in_hands(handle))
+			. = TRUE
+		else
+			to_chat(user, "<span class='warning'>Somebody's currently using the handle!</span>")
+	else if(user.put_in_hands(handle))
 		in_use = TRUE
-		return TRUE
+		. = TRUE
+
+	if(.)
+		update_icon()
 
 /obj/machinery/wall/hypospray/proc/interact_storage(mob/user, obj/item/reagent_containers/new_beaker = null)
 	if(storage)
@@ -200,21 +224,21 @@
 	//update_icon()
 
 /obj/machinery/wall/hypospray/proc/toggle_lock(mob/living/user)
-	if(in_use)
-		to_chat(user, "<span class='warning'>You must put back [handle] before you can lock the [src]!</span>")
-	else if(stat & (BROKEN|MAINT))
-		to_chat(user, "<span class='warning'>Nothing happens!</span>")
+	if(stat & (BROKEN|MAINT))
+		to_chat(user, "<span class='warning'>[src] doesn't respond!</span>")
+	else if(in_use)
+		to_chat(user, "<span class='warning'>You must put back [handle] before you can lock [src]!</span>")
 	else
 		if(allowed(usr) || GLOB.security_level >= SEC_LEVEL_RED)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] [src].</span>")
-			//update_icon()
+			update_icon()
 			return TRUE
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 /obj/machinery/wall/hypospray/CtrlClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
+	if(!user.canUseTopic(src, TRUE, FALSE, TRUE) || !isturf(loc))
 		return
 
 	if(interact_handle(user))
@@ -224,7 +248,7 @@
 	return ..()
 
 /obj/machinery/wall/hypospray/AltClick(mob/user)
-	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
+	if(!user.canUseTopic(src, !issilicon(user), TRUE, TRUE) || !isturf(loc))
 		return
 	
 	if(toggle_lock(user))
@@ -238,6 +262,8 @@
 		snap_handle(cause=SNAP_INTERACT)
 		SStgui.update_uis(src) //Handle button
 		return TRUE
+
+	//TODO: Swiping ID card directly
 
 	if(istype(I, /obj/item/hypospray_handle))
 		to_chat(user, "<span class='warning'>The [I] belongs to another wallmount!</span>")
