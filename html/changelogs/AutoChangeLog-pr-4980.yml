@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - rscadd: Sentience potion spawns are now clearly marked in the ghost role popup.
