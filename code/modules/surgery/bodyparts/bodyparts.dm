@@ -242,7 +242,7 @@
 		return BODYPART_NOT_DISABLED
 
 /obj/item/bodypart/proc/set_disabled(new_disabled)
-	if(disabled == new_disabled || !owner)
+	if(disabled == new_disabled)
 		return
 	disabled = new_disabled
 	owner.update_health_hud() //update the healthdoll
@@ -455,7 +455,7 @@
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
-	if(owner && !((owner.stat == DEAD) || owner.InFullCritical()))
+	if(!((owner.stat == DEAD) || owner.InFullCritical()))
 		return FALSE
 	return ..()
 
