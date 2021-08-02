@@ -73,6 +73,7 @@
 	if(!ui)
 		ui = new(user, src, "Cargo")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/cargo/ui_data()
 	var/list/data = list()

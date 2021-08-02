@@ -287,12 +287,14 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
 	enter_subsystem(eol_complete) // re-enter the runechat SS with the EOL completion time to QDEL self
 
-/mob/proc/should_show_chat_message(atom/movable/speaker, datum/language/message_language, raw_message, is_emote = FALSE)
+/mob/proc/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote = FALSE, is_heard = FALSE)
 	if(!client)
 		return CHATMESSAGE_CANNOT_HEAR
 	if(!client.prefs.chat_on_map || (!client.prefs.see_chat_non_mob && !ismob(speaker)))
 		return CHATMESSAGE_CANNOT_HEAR
 	if(!client.prefs.see_rc_emotes && is_emote)
+		return CHATMESSAGE_CANNOT_HEAR
+	if(is_heard && !can_hear())
 		return CHATMESSAGE_CANNOT_HEAR
 	//If the speaker is a virtual speaker, check to make sure we couldnt hear the original message.
 	if(istype(speaker, /atom/movable/virtualspeaker))
@@ -311,7 +313,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		return CHATMESSAGE_SHOW_LANGUAGE_ICON
 	return CHATMESSAGE_HEAR
 
-/mob/living/should_show_chat_message(atom/movable/speaker, datum/language/message_language, raw_message, is_emote = FALSE)
+/mob/living/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote = FALSE, is_heard = FALSE)
 	if(stat != CONSCIOUS && stat != DEAD)
 		return CHATMESSAGE_CANNOT_HEAR
 	return ..()

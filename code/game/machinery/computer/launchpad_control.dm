@@ -28,6 +28,7 @@
 			if(LAZYLEN(launchpads) < maximum_pads)
 				launchpads |= M.buffer
 				M.buffer = null
+				ui_update()
 				to_chat(user, span_notice("You upload the data from the [W.name]'s buffer."))
 			else
 				to_chat(user, span_warning("[src] cannot handle any more connections!"))
@@ -132,4 +133,5 @@
 		if("pull")
 			teleport(usr, current_pad, FALSE)
 			. = TRUE
+	ui_update()
 	. = TRUE

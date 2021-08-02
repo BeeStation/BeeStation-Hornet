@@ -1208,7 +1208,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						return
 					all_quirks -= quirk
 				else
-					if(GetPositiveQuirkCount() >= MAX_QUIRKS)
+					var/is_positive_quirk = SSquirks.quirk_points[quirk] > 0
+					if(is_positive_quirk && GetPositiveQuirkCount() >= MAX_QUIRKS)
 						to_chat(user, span_warning("You can't have more than [MAX_QUIRKS] positive quirks!"))
 						return
 					if(balance - value < 0)

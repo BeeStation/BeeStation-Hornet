@@ -291,6 +291,7 @@
 	if(!ui)
 		ui = new(user, src, "DisposalUnit")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/disposal/bin/ui_data(mob/user)
 	var/list/data = list()

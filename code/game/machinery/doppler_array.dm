@@ -82,6 +82,8 @@
 				return
 			print(usr, record)
 			return TRUE
+	//Update to viewers
+	ui_update()
 
 /obj/machinery/doppler_array/proc/print(mob/user, datum/data/tachyon_record/record)
 	if(!record)
@@ -181,6 +183,8 @@
 
 	record_number++
 	records += R
+	//Update to viewers
+	ui_update()
 	return TRUE
 
 /obj/machinery/doppler_array/power_change()

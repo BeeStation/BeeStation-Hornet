@@ -90,6 +90,7 @@
 				return
 			accesses -= get_region_accesses(region)
 			. = TRUE
+	ui_update()
 
 /obj/item/electronics/airlock/ui_host()
 	if(holder)

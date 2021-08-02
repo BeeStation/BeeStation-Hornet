@@ -314,7 +314,7 @@
 				return
 			remove_strength()
 			. = TRUE
-
+	ui_update()
 	update_icon()
 
 #undef PA_CONSTRUCTION_UNSECURED

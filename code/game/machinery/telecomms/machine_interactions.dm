@@ -93,6 +93,7 @@
 			update_power()
 			update_icon_state()
 			log_game("[key_name(operator)] toggled [toggled ? "On" : "Off"] [src] at [AREACOORD(src)].")
+			ui_update()
 			. = TRUE
 		if("id")
 			if(params["value"])
@@ -102,6 +103,7 @@
 					return
 				else
 					id = params["value"]
+					ui_update()
 					log_game("[key_name(operator)] has changed the ID for [src] at [AREACOORD(src)] to [id].")
 					. = TRUE
 		if("network")
@@ -116,10 +118,12 @@
 					network = params["value"]
 					links = list()
 					log_game("[key_name(operator)] has changed the network for [src] at [AREACOORD(src)] to [network].")
+					ui_update()
 					. = TRUE
 		if("tempfreq")
 			if(params["value"])
 				tempfreq = text2num(params["value"]) * 10
+				ui_update()
 		if("freq")
 			var/newfreq = tempfreq			//* 10 was in original pr here but makes out of tempfreq something like 14590
 			if(newfreq == FREQ_SYNDICATE)
@@ -129,10 +133,12 @@
 				if(!(newfreq in freq_listening) && newfreq < 10000)
 					freq_listening.Add(newfreq)
 					log_game("[key_name(operator)] added frequency [newfreq] for [src] at [AREACOORD(src)].")
+					ui_update()
 					. = TRUE
 		if("delete")
 			freq_listening.Remove(params["value"])
 			log_game("[key_name(operator)] removed frequency [params["value"]] for [src] at [AREACOORD(src)].")
+			ui_update()
 			. = TRUE
 		if("unlink")
 			var/obj/machinery/telecomms/T = links[text2num(params["value"])]
@@ -141,6 +147,7 @@
 				if(T.links)
 					T.links.Remove(src)
 				links.Remove(T)
+				ui_update()
 				log_game("[key_name(operator)] unlinked [src] and [T] at [AREACOORD(src)].")
 				. = TRUE
 		if("link")
@@ -151,6 +158,7 @@
 						T.links += src
 					if(!(T in links))
 						links += T
+						ui_update()
 						log_game("[key_name(operator)] linked [src] for [T] at [AREACOORD(src)].")
 						. = TRUE
 		if("buffer")
@@ -189,6 +197,7 @@
 		if("receive")
 			receiving = !receiving
 			. = TRUE
+	ui_update()
 
 /obj/machinery/telecomms/bus/add_act(action, params)
 	switch(action)
@@ -201,6 +210,7 @@
 				else
 					change_frequency = 0
 					. = TRUE
+	ui_update()
 
 // Returns a multitool from a user depending on their mobtype.
 

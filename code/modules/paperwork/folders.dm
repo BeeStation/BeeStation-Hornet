@@ -48,6 +48,7 @@
 		user.put_in_hands(I)
 		to_chat(user, span_notice("You remove [I] from [src]."))
 		update_icon()
+		ui_update()
 
 /obj/item/folder/AltClick(mob/user)
 	..()
@@ -68,8 +69,10 @@
 			return
 		to_chat(user, span_notice("You put [W] into [src]."))
 		update_icon()
+		ui_update()
 	else if(istype(W, /obj/item/pen))
 		rename(user)
+		ui_update()
 
 /obj/item/folder/attack_self(mob/user)
 	add_fingerprint(usr)

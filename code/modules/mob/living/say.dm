@@ -264,13 +264,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(eavesdrop_range && get_dist(source, AM) > message_range && !(the_dead[AM]))
 			if(ismob(AM))
 				var/mob/M = AM
-				if(should_show_chat_message(M, message_language, FALSE))
+				if(should_show_chat_message(M, message_language, FALSE, is_heard = TRUE))
 					show_overhead_message_to_eavesdrop += M
 			AM.Hear(eavesrendered, src, message_language, eavesdropping, , spans, message_mods)
 		else
 			if(ismob(AM))
 				var/mob/M = AM
-				if(should_show_chat_message(M, message_language, FALSE))
+				if(should_show_chat_message(M, message_language, FALSE, is_heard = TRUE))
 					show_overhead_message_to += M
 			AM.Hear(rendered, src, message_language, message, , spans, message_mods)
 	if(length(show_overhead_message_to))

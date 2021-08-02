@@ -67,3 +67,4 @@
 		if("change_bottle_name")
 			var/new_name = stripped_input(usr, "Enter a bottle name.", name, bottle_name)
 			bottle_name = new_name + " bottle"
+	ui_update()

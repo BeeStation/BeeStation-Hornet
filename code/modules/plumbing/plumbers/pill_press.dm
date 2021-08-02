@@ -105,3 +105,4 @@
 				pill_name = new_name
 			else
 				pill_name = new_name + " pill"
+	ui_update()
