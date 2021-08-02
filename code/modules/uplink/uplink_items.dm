@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(!filtered_uplink_items[I.category])
 			filtered_uplink_items[I.category] = list()
 		filtered_uplink_items[I.category][I.name] = I
-		if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 1)
+		if(I.limited_stock < 0 && !I.cant_discount && I.item)
 			sale_items += I
 
 	if(allow_sales)
@@ -70,14 +70,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		I.refundable = FALSE //THIS MAN USES ONE WEIRD TRICK TO GAIN FREE TC, CODERS HATES HIM!
 		A.refundable = FALSE
 		switch(rand(1, 5))
-			if(1 to 3)
-				//X% off!
-				var/discount = A.get_discount()
-				if(A.cost >= 20) //Tough love for nuke ops
-					discount *= 0.5
-				A.cost = max(round(A.cost * discount), 1)
-				A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
-				A.desc += " Normally costs [initial(A.cost)] TC. All sales final. [pick(disclaimer)]"
+			if(1 to 3 || A.cost == 1)
+				if(A.cost <= 3)
+					//Bulk discount
+					var/count = rand(3,7)
+					var/discount = A.get_discount()
+					A.name += " (Bulk discount - [count] for [((1-discount)*100)]% off!)"
+					A.cost = max(round(A.cost*count*discount), 1)
+					A.desc += " Normally costs [initial(A.cost)*count] TC. All sales final. [pick(disclaimer)]"
+					A.spawn_amount = count
+				else
+					//X% off!
+					var/discount = A.get_discount()
+					if(A.cost >= 20) //Tough love for nuke ops
+						discount *= 0.5
+					A.cost = max(round(A.cost * discount), 1)
+					A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+					A.desc += " Normally costs [initial(A.cost)] TC. All sales final. [pick(disclaimer)]"
 			if(4)
 				//Buy 1 get 1 free!
 				A.name += " (Buy 1 get 1 free!)"
