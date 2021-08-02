@@ -23,6 +23,11 @@
 /// How much the message moves up before fading out.
 #define MESSAGE_FADE_PIXEL_Y 10
 
+// Message types
+#define CHATMESSAGE_CANNOT_HEAR 0
+#define CHATMESSAGE_HEAR 1
+#define CHATMESSAGE_SHOW_LANGUAGE_ICON 2
+
 #define BUCKET_LIMIT (world.time + TICKS2DS(min(BUCKET_LEN - (SSrunechat.practical_offset - DS2TICKS(world.time - SSrunechat.head_offset)) - 1, BUCKET_LEN - 1)))
 #define BALLOON_TEXT_WIDTH 200
 #define BALLOON_TEXT_SPAWN_TIME (0.2 SECONDS)
@@ -55,8 +60,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/image/message
 	/// The location in which the message is appearing
 	var/atom/message_loc
-	/// The client who heard this message
-	var/client/owned_by
+	/// A list of clients who hear this message
+	var/list/client/hearers
 	/// Contains the scheduled destruction time, used for scheduling EOL
 	var/scheduled_destruction
 	/// Contains the time that the EOL for the message will be complete, used for qdel scheduling
@@ -82,22 +87,22 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
   * * extra_classes - Extra classes to apply to the span that holds the text
   * * lifespan - The lifespan of the message in deciseconds
   */
-/datum/chatmessage/New(text, atom/target, mob/owner, datum/language/language, list/extra_classes = list(), lifespan = CHAT_MESSAGE_LIFESPAN)
+/datum/chatmessage/New(text, atom/target, list/client/hearers, language_icon, list/extra_classes = list(), lifespan = CHAT_MESSAGE_LIFESPAN)
 	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
-	if(QDELETED(owner) || !istype(owner) || !owner.client)
-		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
-		qdel(src)
-		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, language, extra_classes, lifespan)
+	INVOKE_ASYNC(src, .proc/generate_image, text, target, hearers, language_icon, extra_classes, lifespan)
 
 /datum/chatmessage/Destroy()
-	if (owned_by)
-		if (owned_by.seen_messages)
-			LAZYREMOVEASSOC(owned_by.seen_messages, message_loc, src)
-		owned_by.images.Remove(message)
-	owned_by = null
+	if (hearers)
+		for(var/client/C in hearers)
+			if(!C)
+				continue
+			C.images.Remove(message)
+			UnregisterSignal(C, COMSIG_PARENT_QDELETING)
+	if(!QDELETED(message_loc))
+		LAZYREMOVE(message_loc.chat_messages, src)
+	hearers = null
 	message_loc = null
 	message = null
 	leave_subsystem()
@@ -108,7 +113,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
   */
 /datum/chatmessage/proc/on_parent_qdel()
 	SIGNAL_HANDLER
-
 	qdel(src)
 
 /**
@@ -122,22 +126,32 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
   * * extra_classes - Extra classes to apply to the span that holds the text
   * * lifespan - The lifespan of the message in deciseconds
   */
-/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, datum/language/language, list/extra_classes, lifespan)
+/datum/chatmessage/proc/generate_image(text, atom/target, list/client/hearers, datum/language/language, list/extra_classes, lifespan)
 	/// Cached icons to show what language the user is speaking
 	var/static/list/language_icons
 
-	// Register client who owns this message
-	owned_by = owner.client
-	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
+	// Store the hearers
+	src.hearers = hearers
+
+	if(!LAZYLEN(hearers))
+		return
+
+	var/client/first_hearer = hearers[1]
+
+	// Delete when the atom its above gets deleted.
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
+
+	for(var/client/C as() in hearers)
+		if(C)
+			RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/client_deleted)
 
 	// Remove spans in the message from things like the recorder
 	var/static/regex/span_check = new(@"<\/?span[^>]*>", "gi")
 	text = replacetext(text, span_check, "")
 
 	// Clip message
-	var/maxlen = owned_by.prefs.max_chat_length
-	if (length_char(text) > maxlen)
-		text = copytext_char(text, 1, maxlen + 1) + "..." // BYOND index moment
+	if (length_char(text) > CHAT_MESSAGE_MAX_LENGTH)
+		text = copytext_char(text, 1, CHAT_MESSAGE_MAX_LENGTH + 1) + "..." // BYOND index moment
 
 	//The color of the message.
 
@@ -190,7 +204,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// Append language icon if the language uses one
 	var/datum/language/language_instance = GLOB.language_datum_instances[language]
-	if (language_instance?.display_icon(owner))
+	if (language_instance?.display_icon(first_hearer.mob))
 		var/icon/language_icon = LAZYACCESS(language_icons, language)
 		if (isnull(language_icon))
 			language_icon = icon(language_instance.icon, icon_state = language_instance.icon_state)
@@ -203,15 +217,15 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	// Approximate text height
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
-	var/mheight = WXH_TO_HEIGHT(owned_by.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
+	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = get_atom_on_turf(target)
-	if (owned_by.seen_messages)
+	if (LAZYLEN(message_loc.chat_messages))
 		var/idx = 1
 		var/combined_height = approx_lines
-		for(var/msg in owned_by.seen_messages[message_loc])
+		for(var/msg in message_loc.chat_messages)
 			var/datum/chatmessage/m = msg
 			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
 			combined_height += m.approx_lines
@@ -220,34 +234,46 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			// scheduled time once the EOL completion time has been set.
 			var/sched_remaining = m.scheduled_destruction - world.time
 			if (!m.eol_complete)
-				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** combined_height)
+				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** CEILING(combined_height, 1))
 				m.enter_subsystem(world.time + remaining_time) // push updated time to runechat SS
 
 	// Reset z index if relevant
 	if (current_z_idx >= CHAT_LAYER_MAX_Z)
 		current_z_idx = 0
 
+	var/bound_height = world.icon_size
+	var/bound_width = world.icon_size
+	if(ismovableatom(message_loc))
+		var/atom/movable/AM = message_loc
+		bound_height = AM.bound_height
+		bound_width = AM.bound_width
 	// Build message image
 	message = image(loc = message_loc, layer = CHAT_LAYER + CHAT_LAYER_Z_STEP * current_z_idx++)
 	message.plane = RUNECHAT_PLANE
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.alpha = 0
-	message.pixel_y = owner.bound_height - MESSAGE_FADE_PIXEL_Y
+	message.pixel_y = bound_height - MESSAGE_FADE_PIXEL_Y
 	message.maptext_width = CHAT_MESSAGE_WIDTH
 	message.maptext_height = mheight
-	message.maptext_x = (CHAT_MESSAGE_WIDTH - owner.bound_width) * -0.5
+	message.maptext_x = (CHAT_MESSAGE_WIDTH - bound_width) * -0.5
 	if(extra_classes.Find("italics"))
 		message.color = "#CCCCCC"
 	message.maptext = MAPTEXT(complete_text)
 
-	// View the message
-	LAZYADDASSOCLIST(owned_by.seen_messages, message_loc, src)
-	owned_by.images |= message
-	animate(message, alpha = 255, pixel_y = owner.bound_height, time = CHAT_MESSAGE_SPAWN_TIME)
+	// Show the message to clients
+	for(var/client/C as() in hearers)
+		C?.images |= message
+	animate(message, alpha = 255, pixel_y = bound_height, time = CHAT_MESSAGE_SPAWN_TIME)
+
+	LAZYADD(message_loc.chat_messages, src)
 
 	// Register with the runechat SS to handle EOL and destruction
 	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
 	enter_subsystem()
+
+/datum/chatmessage/proc/client_deleted(client/source)
+	SIGNAL_HANDLER
+	hearers -= source
 
 /**
   * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion,
@@ -261,6 +287,104 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
 	enter_subsystem(eol_complete) // re-enter the runechat SS with the EOL completion time to QDEL self
 
+/mob/proc/should_show_chat_message(atom/movable/speaker, datum/language/message_language, raw_message, is_emote = FALSE)
+	if(!client)
+		return CHATMESSAGE_CANNOT_HEAR
+	if(!client.prefs.chat_on_map || (!client.prefs.see_chat_non_mob && !ismob(speaker)))
+		return CHATMESSAGE_CANNOT_HEAR
+	if(!client.prefs.see_rc_emotes && is_emote)
+		return CHATMESSAGE_CANNOT_HEAR
+	//If the speaker is a virtual speaker, check to make sure we couldnt hear the original message.
+	if(istype(speaker, /atom/movable/virtualspeaker))
+		var/atom/movable/virtualspeaker/v = speaker
+		//Dont create the overhead chat if we said the message.
+		if(v.source == src)
+			return CHATMESSAGE_CANNOT_HEAR
+		//Dont create the overhead radio chat if we are a ghost and can hear global messages.
+		if(isobserver(src))
+			return CHATMESSAGE_CANNOT_HEAR
+		//Dont create the overhead radio chat if we heard the speaker speak
+		if(get_dist(get_turf(v.source), get_turf(src)) <= 1)
+			return CHATMESSAGE_CANNOT_HEAR
+	var/datum/language/language_instance = GLOB.language_datum_instances[message_language]
+	if(language_instance?.display_icon(src))
+		return CHATMESSAGE_SHOW_LANGUAGE_ICON
+	return CHATMESSAGE_HEAR
+
+/mob/living/should_show_chat_message(atom/movable/speaker, datum/language/message_language, raw_message, is_emote = FALSE)
+	if(stat != CONSCIOUS && stat != DEAD)
+		return CHATMESSAGE_CANNOT_HEAR
+	return ..()
+
+/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, list/hearers, raw_message, list/spans, list/message_mods)
+	if(!length(hearers))
+		return
+
+	if(!islist(message_mods))
+		message_mods = list()
+
+	// Ensure the list we are using, if present, is a copy so we don't modify the list provided to us
+	spans = spans ? spans.Copy() : list()
+
+	// Check for virtual speakers (aka hearing a message through a radio)
+	if (istype(speaker, /atom/movable/virtualspeaker))
+		var/atom/movable/virtualspeaker/v = speaker
+		speaker = v.source
+		spans |= "virtual-speaker"
+
+	//If the message has the radio message flag
+	else if (message_mods[MODE_RADIO_MESSAGE])
+		//You are now a virtual speaker
+		spans |= "virtual-speaker"
+		//You are no longer italics
+		spans -= "italics"
+
+	// Display visual above source
+	if(message_mods.Find(CHATMESSAGE_EMOTE))
+		var/list/clients = list()
+		for(var/mob/M as() in hearers)
+			if(M?.should_show_chat_message(speaker, message_language, TRUE))
+				clients += M.client
+		new /datum/chatmessage(raw_message, speaker, clients, message_language, list("emote"))
+	else
+		//4 Possible chat message states:
+		//Show Icon, Understand (Most other languages)
+		//Hide Icon, Understand (Normal galactic common)
+		//Show Icon, Don't understand (Most languages you can't understand)
+		//Hide Icon, Don't understand (Not understanding common)
+		var/list/client/show_icon_understand
+		var/list/client/hide_icon_understand
+		var/list/client/show_icon_scrambled
+		var/list/client/hide_icon_scrambled
+		for(var/mob/M as() in hearers)
+			switch(M?.should_show_chat_message(speaker, message_language, FALSE))
+				if(CHATMESSAGE_HEAR)
+					if(!message_language || M.has_language(message_language))
+						LAZYADD(hide_icon_understand, M.client)
+					else
+						LAZYADD(hide_icon_scrambled, M.client)
+				if(CHATMESSAGE_SHOW_LANGUAGE_ICON)
+					if(!message_language || M.has_language(message_language))
+						LAZYADD(show_icon_understand, M.client)
+					else
+						LAZYADD(show_icon_scrambled, M.client)
+		var/scrambled_message
+		var/datum/language/language_instance = message_language ? GLOB.language_datum_instances[message_language] : null
+		if(LAZYLEN(show_icon_scrambled) || LAZYLEN(hide_icon_scrambled))
+			scrambled_message = language_instance?.scramble(raw_message) || scramble_message_replace_chars(raw_message, 100)
+		//Show the correct message to people who should see the icon and understand the language
+		if(LAZYLEN(show_icon_understand))
+			new /datum/chatmessage(raw_message, speaker, show_icon_understand, message_language, spans)
+		//Show the correct message to people who should see the icon but not understand the language
+		if(LAZYLEN(hide_icon_understand))
+			new /datum/chatmessage(raw_message, speaker, hide_icon_understand, message_language, spans)
+		//Show the correct message to people who don't understand the language and should see the icon
+		if(LAZYLEN(show_icon_scrambled))
+			new /datum/chatmessage(scrambled_message, speaker, show_icon_scrambled, message_language, spans)
+		//Show the correct message to people who don't understand the language but no icon should be displayed
+		if(LAZYLEN(hide_icon_scrambled))
+			new /datum/chatmessage(scrambled_message, speaker, hide_icon_scrambled, message_language, spans)
+
 /**
   * Creates a message overlay at a defined location for a given speaker
   *
@@ -270,41 +394,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
   * * raw_message - The text content of the message
   * * spans - Additional classes to be added to the message
   */
-/mob/proc/create_chat_message(atom/movable/speaker, datum/language/message_language, raw_message, list/spans, runechat_flags = NONE)
-	// Ensure the list we are using, if present, is a copy so we don't modify the list provided to us
-	spans = spans ? spans.Copy() : list()
 
-	// Check for virtual speakers (aka hearing a message through a radio)
-	if (istype(speaker, /atom/movable/virtualspeaker))
-		var/atom/movable/virtualspeaker/v = speaker
-		//===================
-		//Check to make sure we didnt hear the source message
-		//===================
-		//Dont create the overhead chat if we said the message.
-		if(v.source == src)
-			return
-		//Dont create the overhead radio chat if we are a ghost and can hear global messages.
-		if(isobserver(src))
-			return
-		//Dont create the overhead radio chat if we heard the speaker speak
-		if(get_dist(get_turf(v.source), get_turf(src)) <= 1)
-			return
-		//===================
-		speaker = v.source
-		spans |= "virtual-speaker"
-
-	//If the message has the radio message flag
-	else if (runechat_flags & RADIO_MESSAGE)
-		//You are now a virtual speaker
-		spans |= "virtual-speaker"
-		//You are no longer italics
-		spans -= "italics"
-
-	// Display visual above source
-	if(runechat_flags & EMOTE_MESSAGE)
-		new /datum/chatmessage(raw_message, speaker, src, message_language, list("emote"))
-	else
-		new /datum/chatmessage(lang_treat(speaker, message_language, raw_message, spans, null, TRUE), speaker, src, message_language, spans)
 
 
 // Tweak these defines to change the available color ranges
@@ -395,7 +485,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 /datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner)
 	// Register client who owns this message
-	owned_by = owner.client
+	var/client/owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
 
 	var/bound_width = world.icon_size
@@ -469,3 +559,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 #undef BALLOON_TEXT_SPAWN_TIME
 #undef BALLOON_TEXT_TOTAL_LIFETIME
 #undef BALLOON_TEXT_WIDTH
+#undef CHATMESSAGE_CANNOT_HEAR
+#undef CHATMESSAGE_HEAR
+#undef CHATMESSAGE_SHOW_LANGUAGE_ICON
