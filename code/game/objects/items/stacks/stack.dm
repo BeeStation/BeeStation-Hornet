@@ -52,6 +52,7 @@
 /obj/item/stack/proc/check_max_amount()
 	while(amount > max_amount)
 		amount -= max_amount
+		ui_update()
 		new type(loc, max_amount, FALSE)
 
 /obj/item/stack/proc/update_weight()
@@ -226,7 +227,7 @@
 			else if(istype(O, /obj/structure/window))
 				var/obj/structure/window/W = O
 				W.ini_dir = W.dir
-				
+
 			else if(istype(O, /obj/item/restraints/handcuffs/cable))
 				var/obj/item/cuffs = O
 				cuffs.item_color = item_color
@@ -304,6 +305,7 @@
 	if(check)
 		zero_amount()
 	update_icon()
+	ui_update()
 	update_weight()
 	return TRUE
 
@@ -337,6 +339,7 @@
 		check_max_amount()
 	update_icon()
 	update_weight()
+	ui_update()
 
 /obj/item/stack/proc/merge(obj/item/stack/S) //Merge src into S, as much as possible
 	if(QDELETED(S) || QDELETED(src) || S == src) //amusingly this can cause a stack to consume itself, let's not allow that.

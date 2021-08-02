@@ -69,3 +69,4 @@
 		if("change_patch_name")
 			var/new_name = stripped_input(usr, "Enter a patch name.", name, patch_name)
 			patch_name = new_name + " patch"
+	ui_update()

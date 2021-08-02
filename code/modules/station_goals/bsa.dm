@@ -252,6 +252,7 @@
 	if(!ui)
 		ui = new(user, src, "BluespaceArtillery")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/bsa_control/ui_data()
 	var/list/data = list()

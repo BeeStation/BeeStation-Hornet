@@ -248,6 +248,7 @@
 	if(!ui)
 		ui = new(user, src, "DnaConsole")
 		ui.open()
+		ui.set_autoupdate(FALSE)
 
 /obj/machinery/computer/scan_consolenew/examine(mob/user)
 	. = ..()

@@ -16,7 +16,8 @@
 
 	categories = WIREMODE_CATEGORIES
 
-/obj/machinery/modular_fabricator/component_printer/crowbar_act(mob/living/user, obj/item/tool)
+/obj/machinery/component_printer/crowbar_act(mob/living/user, obj/item/tool)
+
 	if(..())
 		return TRUE
 	return default_deconstruction_crowbar(tool)
