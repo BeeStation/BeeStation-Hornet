@@ -109,9 +109,7 @@
 						C.jitteriness += 1000
 						C.do_jitter_animation(jitteriness)
 						C.stuttering += 1
-						spawn(20)
-							if(C)
-								C.jitteriness = max(C.jitteriness - 990, 10)
+						addtimer(CALLBACK(src, .proc/lower_jitter, C), 20)
 					L.visible_message(
 						"<span class='danger'>[L] was shocked by the lightning chain!</span>", \
 						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
@@ -119,3 +117,8 @@
 					)
 				L.adjustFireLoss(1.2) //adds up very rapidly
 				. = 1
+
+/mob/living/simple_animal/hostile/guardian/beam/proc/lower_jitter(mob/living/carbon/C)
+	if(!C)
+		return
+	C.jitteriness = max(C.jitteriness - 990, 10) //adjust the jitter to 10 at most after 2 seconds
