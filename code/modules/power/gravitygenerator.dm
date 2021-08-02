@@ -233,6 +233,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	if(!ui)
 		ui = new(user, src, "GravityGenerator")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/gravity_generator/main/ui_data(mob/user)
 	var/list/data = list()
