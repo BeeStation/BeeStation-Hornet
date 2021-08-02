@@ -43,6 +43,7 @@
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 	var/bypassing = FALSE
 	var/visual_update_tick = 0
+	var/first_cycle = TRUE
 
 /obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature)
 	. = ..()
@@ -62,7 +63,9 @@
 
 	location.active_hotspot = src
 
-	bypassing = volume > CELL_VOLUME*0.95 || location.air.return_temperature() > FUSION_TEMPERATURE_THRESHOLD
+	bypassing = !first_cycle && volume > CELL_VOLUME*0.95 || location.air.return_temperature() > FUSION_TEMPERATURE_THRESHOLD
+	if(first_cycle)
+		first_cycle = FALSE
 
 	if(bypassing)
 		volume = location.air.reaction_results["fire"]*FIRE_GROWTH_RATE

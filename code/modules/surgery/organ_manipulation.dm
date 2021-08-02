@@ -45,7 +45,7 @@
 	requires_bodypart_type = BODYPART_ROBOTIC
 	lying_required = FALSE
 	self_operable = TRUE
-	success_multiplier = 0.8 //on a surgery bed you can do prosthetic manipulation relatively risk-free
+	speed_modifier = 0.8 //on a surgery bed you can do prosthetic manipulation relatively risk-free
 	steps = list(
 		/datum/surgery_step/mechanic_open,
 		/datum/surgery_step/open_hatch,
