@@ -13,7 +13,14 @@
 	
 
 /obj/machinery/wall
+	var/pixel_shift = null // Number for custom offset of specific machine types
 	density = FALSE
+	FASTDMM_PROP(\
+		set_instance_vars(\
+			pixel_x = dir == EAST ? -pixel_shift : (dir == WEST ? pixel_shift : INSTANCE_VAR_KEEP),\
+			pixel_y = dir == NORTH ? -pixel_shift : (dir == SOUTH ? pixel_shift : INSTANCE_VAR_KEEP)\
+        )\
+    )
 
 /obj/machinery/wall/spawn_frame(disassembled)
 	var/obj/structure/frame/machine/wall/M = new(loc)
@@ -21,6 +28,16 @@
 	M.dir = dir
 	M.pixel_x = pixel_x
 	M.pixel_y = pixel_y
+	if(pixel_shift) // Correct for per-machine offsets
+		switch(dir)
+			if(NORTH)
+				M.pixel_y += pixel_shift-28
+			if(SOUTH)
+				M.pixel_y += 28-pixel_shift
+			if(EAST)
+				M.pixel_x += pixel_shift-28
+			if(WEST)
+				M.pixel_x += 28-pixel_shift
 	if(!disassembled)
 		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
 	transfer_fingerprints_to(M)
@@ -65,14 +82,25 @@
 					break
 			if(component_check)
 				I.play_tool_sound(src)
-				var/obj/machinery/new_machine = new circuit.build_path(loc)
+				var/obj/machinery/wall/new_machine = new circuit.build_path(loc)
 				if(new_machine.circuit)
 					QDEL_NULL(new_machine.circuit)
 				new_machine.circuit = circuit
 				new_machine.setAnchored(anchored)
 				new_machine.dir = dir
-				new_machine.pixel_x = pixel_x
-				new_machine.pixel_y = pixel_y
+				if(new_machine.pixel_shift)
+					switch(dir)
+						if(NORTH)
+							new_machine.pixel_y = -new_machine.pixel_shift
+						if(SOUTH)
+							new_machine.pixel_y = new_machine.pixel_shift
+						if(EAST)
+							new_machine.pixel_x = -new_machine.pixel_shift
+						if(WEST)
+							new_machine.pixel_x = new_machine.pixel_shift
+				else
+					new_machine.pixel_x = pixel_x
+					new_machine.pixel_y = pixel_y
 				new_machine.on_construction()
 				for(var/obj/O in new_machine.component_parts)
 					qdel(O)

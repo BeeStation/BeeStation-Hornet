@@ -17,6 +17,8 @@
 	circuit = /obj/item/circuitboard/machine/wall/hypospray
 	req_access = list(ACCESS_MEDICAL)
 
+	pixel_shift = 26
+
 	var/efficiency = 0.2
 	var/charge_speed = 4
 	var/charge = 100
@@ -84,7 +86,13 @@
 	if(available_chems && available_chems.len && (!selected_chem || !(selected_chem in available_chems)))
 		selected_chem = available_chems[1]
 
-	SStgui.update_uis(src) //Available chems list
+	ui_update() //Available chems list
+
+/obj/machinery/wall/hypospray/screwdriver_act(mob/living/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "panel_open", "wallmount_hypospray", I))
+		return TRUE
+
+	. = ..()
 
 /obj/machinery/wall/hypospray/update_overlays()
 	. = ..()
@@ -98,6 +106,12 @@
 	if(!in_use)
 		. += "handle"
 
+/obj/machinery/wall/hypospray/update_icon_state()
+	if(panel_open)
+		icon_state = "panel_open"
+	else
+		icon_state = initial(icon_state)
+
 /obj/machinery/wall/hypospray/process(delta_time)
 	if (charge_counter >= 8)
 		charge_counter -= 8
@@ -107,7 +121,7 @@
 		if(charge_amount > 0)
 			use_power(250*charge_amount)
 			charge += charge_amount
-			SStgui.update_uis(src) //Charge level display
+			ui_update() //Charge level display
 		return
 	charge_counter += delta_time
 
@@ -125,7 +139,7 @@
 		return FALSE
 
 	charge -= power_use
-	SStgui.update_uis(src) //Charge level display
+	ui_update() //Charge level display
 	return TRUE
 
 /obj/machinery/wall/hypospray/proc/snap_handle(cause = SNAP_DROP, silent = FALSE)
@@ -187,7 +201,7 @@
 				_reagents.trans_to(target, amount, transfered_by = user)
 
 				to_chat(user, "<span class='notice'>[_reagents.total_volume] unit\s remaining in [storage].</span>")
-				SStgui.update_uis(src) // Bottle fill display
+				ui_update() // Bottle fill display
 
 		log_combat(user, target, "injected", handle, "([contained])")
 
@@ -210,26 +224,37 @@
 		update_icon()
 
 /obj/machinery/wall/hypospray/proc/interact_storage(mob/user, obj/item/reagent_containers/new_beaker = null)
+	var/obj/item/reagent_containers/old_storage
 	if(storage)
 		storage.forceMove(drop_location())
-		if(user && Adjacent(user) && !issiliconoradminghost(user))
-			user.put_in_hands(storage)
+		old_storage = storage
 		. = TRUE
+	else
+		// When activated from UI, only insert new beaker if there wasn't one already
+		if(!new_beaker)
+			var/obj/item/potential_new_beaker = user.get_active_held_item()
+			if(istype(potential_new_beaker, /obj/item/reagent_containers))
+				new_beaker = potential_new_beaker
 
 	if(new_beaker && user.transferItemToLoc(new_beaker, src))
 		storage = new_beaker
 		. = TRUE
 	else
 		storage = null
+
+	//Do this here for swapping with both hands busy
+	if(old_storage && user && Adjacent(user) && !issiliconoradminghost(user))
+		user.put_in_hands(storage)
+
 	//update_icon()
 
-/obj/machinery/wall/hypospray/proc/toggle_lock(mob/living/user)
+/obj/machinery/wall/hypospray/proc/toggle_lock(mob/living/user, obj/item/held_item = null)
 	if(stat & (BROKEN|MAINT))
 		to_chat(user, "<span class='warning'>[src] doesn't respond!</span>")
 	else if(in_use)
 		to_chat(user, "<span class='warning'>You must put back [handle] before you can lock [src]!</span>")
 	else
-		if(allowed(usr) || GLOB.security_level >= SEC_LEVEL_RED)
+		if(GLOB.security_level >= SEC_LEVEL_RED || (held_item?.GetID() ? check_access(held_item) : allowed(usr)))
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] [src].</span>")
 			update_icon()
@@ -242,7 +267,7 @@
 		return
 
 	if(interact_handle(user))
-		SStgui.update_uis(src) //Handle button
+		ui_update() //Handle button
 		return TRUE
 
 	return ..()
@@ -252,7 +277,7 @@
 		return
 	
 	if(toggle_lock(user))
-		SStgui.update_uis(src) //Interface lock
+		ui_update() //Interface lock
 		return TRUE
 
 	return ..()
@@ -260,7 +285,7 @@
 /obj/machinery/wall/hypospray/attackby(obj/item/I, mob/living/user, params)
 	if(I == handle)
 		snap_handle(cause=SNAP_INTERACT)
-		SStgui.update_uis(src) //Handle button
+		ui_update() //Handle button
 		return TRUE
 
 	//TODO: Swiping ID card directly
@@ -273,7 +298,7 @@
 		var/obj/item/reagent_containers/beaker = I
 
 		if(interact_storage(user, beaker))
-			SStgui.update_uis(src) //Bottle holder button
+			ui_update() //Bottle holder button
 			return TRUE
 
 	return ..()
@@ -417,17 +442,19 @@
 	listeningTo = user
 
 /obj/item/hypospray_handle/dropped(mob/user)
-	. = ..()
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 		listeningTo = null
+		. = TRUE
 	if(user)
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
-		if(user != loc && mount != loc)
-			if(mount)
-				mount.snap_handle()
-			else
-				qdel(src)
+		if(isturf(loc) || (user != loc && mount != loc))
+			mount.snap_handle(cause=SNAP_OVEREXTEND)
+			. = TRUE
+		else
+			. = !check_range()
+	if(!.)
+		. = ..()
 
 /obj/item/hypospray_handle/Moved()
 	. = ..()
@@ -436,10 +463,13 @@
 /obj/item/hypospray_handle/proc/check_range()
 	SIGNAL_HANDLER
 
+	. = TRUE
+
 	if(!mount)
 		return
 	if(!in_range(src, mount))
 		mount.snap_handle(cause=SNAP_OVEREXTEND)
+		return FALSE
 
 #undef SYNTHESIZER
 #undef BOTTLE

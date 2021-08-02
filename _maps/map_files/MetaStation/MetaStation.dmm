@@ -57984,6 +57984,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/wall/hypospray{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "clq" = (
@@ -60908,8 +60912,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 8;
+/obj/machinery/power/apc{
+	areastring = "/area/medical/surgery";
+	dir = 4;
+	name = "Surgery APC";
 	pixel_x = 24
 	},
 /turf/open/floor/plasteel/white/side{
@@ -85568,18 +85574,16 @@
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
 "wUx" = (
-/obj/machinery/power/apc{
-	areastring = "/area/medical/surgery";
-	dir = 4;
-	name = "Surgery APC";
-	pixel_x = 24
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
 /obj/structure/table,
 /obj/item/surgical_drapes,
 /obj/item/glove_box,
+/obj/machinery/wall/hypospray{
+	dir = 8;
+	pixel_x = 26
+	},
 /turf/open/floor/plasteel/white/side{
 	dir = 8
 	},

@@ -110,22 +110,24 @@ export const WallHypospray = (props, context) => {
               title="Internal synthesizer">
               <Flex wrap="wrap">
                 {
-                  (chems && chems.length > 0) ?
-                  chems.map(chem => (
-                    <Flex.Item key={chem.id}>
-                      <Button
-                        color={chem.name===selected_chem && "green"}
-                        content={chem.name}
-                        onClick={() => act("select_chem", { "target": chem.id })}
-                        m={0.1}
-                      />
-                    </Flex.Item>
-                  ))
-                  : (
-                    <Flex.Item grow>
-                      <NoticeBox children="No chemical recipes available"/>
-                    </Flex.Item>
-                  )
+                  (chems && chems.length > 0)
+                    ? chems.map(chem => (
+                      <Flex.Item key={chem.id}>
+                        <Button
+                          color={chem.name===selected_chem && "green"}
+                          content={chem.name}
+                          onClick={() => act("select_chem", { "target": chem.id })}
+                          m={0.1}
+                        />
+                      </Flex.Item>
+                    ))
+                    : (
+                      <Flex.Item grow>
+                        <NoticeBox>
+                          No chemical recipes available
+                        </NoticeBox>
+                      </Flex.Item>
+                    )
                 }
               </Flex>
             </Section>
