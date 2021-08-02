@@ -36,8 +36,15 @@ GLOBAL_LIST_INIT(freqtospan, list(
 
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language = null, list/message_mods = list())
 	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
+	var/list/show_overhead_message_to = list()
 	for(var/atom/movable/AM as() in get_hearers_in_view(range, source))
+		if(ismob(AM))
+			var/mob/M = AM
+			if(M.should_show_chat_message(source, message_language, FALSE))
+				show_overhead_message_to += M
 		AM.Hear(rendered, src, message_language, message, , spans, message_mods)
+	if(length(show_overhead_message_to))
+		create_chat_message(src, message_language, show_overhead_message_to, message, spans, message_mods)
 
 /atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE)
 	//This proc uses text() because it is faster than appending strings. Thanks BYOND.
