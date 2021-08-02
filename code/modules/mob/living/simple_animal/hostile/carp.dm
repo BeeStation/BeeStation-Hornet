@@ -3,10 +3,10 @@
 /mob/living/simple_animal/hostile/carp
 	name = "space carp"
 	desc = "A ferocious, fang-bearing creature that resembles a fish."
-	icon_state = "carp"
-	icon_living = "carp"
-	icon_dead = "carp_dead"
-	icon_gib = "carp_gib"
+	icon_state = "base"
+	icon_living = "base"
+	icon_dead = "base_dead"
+	icon_gib = "base_gib"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak_chance = 0
 	turns_per_move = 5
@@ -65,6 +65,11 @@
 	if(random_color)
 		set_greyscale(new_config=/datum/greyscale_config/carp)
 		carp_randomify(rarechance)
+
+/mob/living/simple_animal/hostile/carp/revive(full_heal, admin_revive)
+	. = ..()
+	if(.)
+		update_icon()
 
 /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
 	var/our_color
@@ -127,5 +132,6 @@
 	gold_core_spawnable = NO_SPAWN
 	faction = list(ROLE_SYNDICATE)
 	AIStatus = AI_OFF
+	rarechance = 10
 
 #undef REGENERATION_DELAY

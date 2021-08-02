@@ -35476,7 +35476,8 @@
 	icon_state = "magicarp";
 	maxHealth = 200;
 	melee_damage = 20;
-	name = "Lia"
+	name = "Lia";
+	random_color = FALSE
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)

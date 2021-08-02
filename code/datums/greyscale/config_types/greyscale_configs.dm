@@ -28,6 +28,11 @@
 	icon_file = 'icons/obj/atmospherics/prototype_canister.dmi'
 	json_config = 'code/datums/greyscale/json_configs/canister_proto.json'
 
+/datum/greyscale_config/carp
+	name = "Space Carp"
+	icon_file = 'icons/mob/animal.dmi'
+	json_config = 'code/datums/greyscale/json_configs/carp.json'
+
 /datum/greyscale_config/wirecutters
 	name = "Wirecutters"
 	icon_file = 'icons/obj/tools.dmi'
