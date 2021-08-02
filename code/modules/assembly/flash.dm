@@ -246,6 +246,8 @@
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 			to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
 			to_chat(M, "<span class='danger'>[user] fails to blind you with the flash!</span>")
+			if(HAS_TRAIT_FROM(M,TRAIT_BLIND, ROUNDSTART_TRAIT))
+				terrible_conversion_proc(M,user)
 		else
 			to_chat(M, "<span class='danger'>[src] fails to blind you!</span>")
 	else
