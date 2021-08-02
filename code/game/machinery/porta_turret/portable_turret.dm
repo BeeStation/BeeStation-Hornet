@@ -316,10 +316,9 @@
 	visible_message("[src] hums oddly...")
 	obj_flags |= EMAGGED
 	controllock = TRUE
-	if(on)
-		on = !on //turns off the turret temporarily
+	on = FALSE
 	update_icon()
-	addtimer(VARSET_CALLBACK(src, on, !on), 60)
+	addtimer(VARSET_CALLBACK(src, on, TRUE), 60)
 
 
 /obj/machinery/porta_turret/emp_act(severity)
@@ -334,10 +333,10 @@
 		auth_weapons = pick(0, 1)
 		stun_all = pick(0, 0, 0, 0, 1)	//stun_all is a pretty big deal, so it's least likely to get turned on
 
-		on = !on
+		on = FALSE
 		remove_control()
 
-		addtimer(VARSET_CALLBACK(src, on, !on), rand(60,600))
+		addtimer(VARSET_CALLBACK(src, on, TRUE), rand(60,600))
 
 /obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
