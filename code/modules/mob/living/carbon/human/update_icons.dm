@@ -512,29 +512,13 @@ generate/load female uniform sprites matching all previously decided variables
 	if(override_state)
 		t_state = override_state
 	else
-		if(!isinhands && worn_icon_state)
-			t_state = worn_icon_state
-		else if(item_state)
-			t_state = item_state
-		else
-			t_state = icon_state
-	var/t_icon = worn_icon
-	if(!t_icon)
-		t_icon = default_icon_file
+		t_state = !isinhands ? (worn_icon_state ? worn_icon_state : icon_state) : (item_state ? item_state : icon_state)
 
 	//Find a valid icon file from variables+arguments
-	var/file2use
-	if(!isinhands && worn_icon)
-		file2use = worn_icon
-	if(!file2use)
-		file2use = default_icon_file
+	var/file2use = !isinhands ? (worn_icon ? worn_icon : default_icon_file) : default_icon_file
 
 	//Find a valid layer from variables+arguments
-	var/layer2use
-	if(alternate_worn_layer)
-		layer2use = alternate_worn_layer
-	if(!layer2use)
-		layer2use = default_layer
+	var/layer2use = alternate_worn_layer ? alternate_worn_layer : default_layer
 
 	var/mutable_appearance/standing
 	if(femaleuniform)
