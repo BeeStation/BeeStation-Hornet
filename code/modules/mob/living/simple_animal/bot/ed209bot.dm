@@ -584,4 +584,3 @@ Auto Patrol[]"},
 		C.update_handcuffed()
 		playsound(src, "law", 50, 0)
 		back_to_idle()
-		

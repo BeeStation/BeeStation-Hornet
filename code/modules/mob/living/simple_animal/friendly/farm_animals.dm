@@ -164,8 +164,7 @@
 		to_chat(src, "<span class='userdanger'>You are tipped over by [M]!</span>")
 		Paralyze(60, ignore_canstun = TRUE)
 		icon_state = icon_dead
-		var/tip_over_time = rand(20,50)
-		addtimer(CALLBACK(src, .proc/tip_back, M), tip_over_time)
+		addtimer(CALLBACK(src, .proc/tip_back, M), rand(20,50))
 	else
 		..()
 

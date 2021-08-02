@@ -244,7 +244,7 @@
 		update_icon()
 		remove_control()
 	else
-		if( powered() )
+		if(powered())
 			stat &= ~NOPOWER
 			update_icon()
 		else
@@ -316,10 +316,10 @@
 	visible_message("[src] hums oddly...")
 	obj_flags |= EMAGGED
 	controllock = TRUE
-	on = FALSE //turns off the turret temporarily
+	if(on)
+		on = !on //turns off the turret temporarily
 	update_icon()
-	sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
-	on = TRUE //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
+	addtimer(VARSET_CALLBACK(src, on, !on), 60)
 
 
 /obj/machinery/porta_turret/emp_act(severity)
@@ -334,10 +334,10 @@
 		auth_weapons = pick(0, 1)
 		stun_all = pick(0, 0, 0, 0, 1)	//stun_all is a pretty big deal, so it's least likely to get turned on
 
-		on = FALSE
+		on = !on
 		remove_control()
 
-		addtimer(VARSET_CALLBACK(src, on, TRUE), rand(60,600))
+		addtimer(VARSET_CALLBACK(src, on, !on), rand(60,600))
 
 /obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
