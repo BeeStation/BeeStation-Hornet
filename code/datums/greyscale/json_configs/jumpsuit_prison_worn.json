@@ -24,21 +24,5 @@
 			"icon_state": "jumpsuit_d_prison",
 			"blend_mode": "overlay"
 		}
-	],
-	"jumpskirt": [
-		{
-			"type": "icon_state",
-			"icon_state": "jumpskirt",
-			"blend_mode": "overlay",
-			"color_ids": [ 1 ]
-		}
-	],
-	"jumpskirt_d" : [
-		{
-			"type": "icon_state",
-			"icon_state": "jumpskirt_d",
-			"blend_mode": "overlay",
-			"color_ids": [ 1 ]
-		}
 	]
 }

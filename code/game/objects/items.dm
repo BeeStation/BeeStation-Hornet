@@ -34,16 +34,22 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/inhand_y_dimension = 32
 
 	//Not on /clothing because for some reason any /obj/item can technically be "worn" with enough fuckery.
-	/// If this is set, update_icons() will find on mob (WORN, NOT INHANDS) states in this file instead, primary use: badminnery/events
-	var/icon/alternate_worn_icon = null
-	/// If this is set, update_icons() will force the on mob state (WORN, NOT INHANDS) onto this layer, instead of it's default
-	var/alternate_worn_layer = null
+	//Icon file for mob worn overlays. 
+	var/icon/worn_icon
+	//Icon state for mob worn overlays. If not set falls back to item_state, then icon_state
+	var/worn_icon_state
+	//Forced mob worn layer instead of the standard preferred ssize.
+	var/alternate_worn_layer
+	///Icon state for the belt overlay, if null the normal icon_state will be used.
+	var/belt_icon_state
 	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config_worn
 	///The config type to use for greyscaled left inhand sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config_inhand_left
 	///The config type to use for greyscaled right inhand sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config_inhand_right
+	///The config type to use for greyscaled belt overlays. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_belt
 
 	max_integrity = 200
 
@@ -212,7 +218,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	for(var/path in actions_types)
 		new path(src)
 	actions_types = null
-	update_item_greyscale()
 
 	if(force_string)
 		item_flags |= FORCE_STRING_OVERRIDE
@@ -278,12 +283,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/suicide_act(mob/user)
 	return
 
-// Checks if this atom uses the GAS system and if so updates the worn and inhand icons
-/obj/item/proc/update_item_greyscale()
+// Checks if this atom uses the GAGS system and if so updates the worn and inhand icons
+/obj/item/update_greyscale()
+	. = ..()
 	if(!greyscale_colors)
 		return
 	if(greyscale_config_worn)
-		icon_state = SSgreyscale.GetColoredIconByType(greyscale_config_worn, greyscale_colors)
+		worn_icon = SSgreyscale.GetColoredIconByType(greyscale_config_worn, greyscale_colors)
 	if(greyscale_config_inhand_left)
 		lefthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_left, greyscale_colors)
 	if(greyscale_config_inhand_right)
@@ -774,8 +780,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, newLoc, TRUE)
 	return FALSE
 
-/obj/item/proc/get_belt_overlay() //Returns the icon used for overlaying the object on a belt
-	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state)
+// Returns the icon used for overlaying the object on a belt
+/obj/item/proc/get_belt_overlay()
+	var/icon_state_to_use = belt_icon_state || icon_state
+	if(greyscale_config_belt && greyscale_colors)
+		return mutable_appearance(SSgreyscale.GetColoredIconByType(greyscale_config_belt, greyscale_colors), icon_state_to_use)
+	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
 
 /obj/item/proc/update_slot_icon()
 	if(!ismob(loc))

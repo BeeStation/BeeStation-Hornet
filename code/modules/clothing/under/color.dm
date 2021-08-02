@@ -6,6 +6,8 @@
 	greyscale_config_inhand_right = /datum/greyscale_config/jumpsuit_inhand_right
 	greyscale_config_worn = /datum/greyscale_config/jumpsuit_worn
 	icon_state = "jumpsuit"
+	item_state = "jumpsuit"
+	worn_icon_state = "jumpsuit"
 
 /obj/item/clothing/under/color/jumpskirt
 	body_parts_covered = CHEST|GROIN|ARMS
