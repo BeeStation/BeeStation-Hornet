@@ -548,7 +548,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(movingmob != null)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
-	seen_messages = null
 	Master.UpdateTickRate()
 	return ..()
 
@@ -961,6 +960,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if ("ckey")
 			return FALSE
 		if ("key")
+			return FALSE
+		if("cached_badges")
 			return FALSE
 		if("view")
 			view_size.setDefault(var_value)

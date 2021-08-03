@@ -95,16 +95,6 @@
 					)
 					if(sanity < 0)
 						break
-			var/list/all_verbs = get_all_verbs()								// ~0.252 CPU Time [14000 CALLS]
-			if(selected_tab in all_verbs)
-				client.stat_update_mode = STAT_SLOW_UPDATE
-				for(var/verb in all_verbs[selected_tab])
-					var/procpath/V = verb
-					tab_data["[V.name]"] = list(
-						action = "verb",
-						params = list("verb" = V.name),
-						type=STAT_VERB,
-					)
 			if(mind)
 				tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
 			tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
@@ -124,6 +114,7 @@
 		else
 			var/list/verbs_to_copy = client.sorted_verbs[i]
 			all_verbs[i] = verbs_to_copy.Copy()
+	//TODO: Call tgui_panel/add_verbs on pickup and remove on drop.
 	for(var/atom/A as() in contents)
 		//As an optimisation we will make it so all verbs on objects will go into the object tab.
 		//If you don't want this to happen change this.
