@@ -72,7 +72,7 @@
 /area/template_noop)
 "k" = (
 /obj/structure/table/wood,
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie/green,
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating{
 	icon_state = "wood"

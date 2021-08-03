@@ -147,3 +147,8 @@
 	name = "Winter Coat Hood Worn"
 	icon_file = 'icons/mob/head.dmi'
 	json_config = 'code/datums/greyscale/json_configs/wintercoats_hood_worn.json'
+
+/datum/greyscale_config/plush_lizard
+	name = "Plushie Lizard"
+	icon_file = 'icons/obj/plushes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_lizard.json'

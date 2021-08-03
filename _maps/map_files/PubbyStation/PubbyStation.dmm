@@ -2442,7 +2442,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie/green,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/security/prison)

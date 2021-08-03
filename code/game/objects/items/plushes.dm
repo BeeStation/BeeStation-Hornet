@@ -486,13 +486,32 @@
 	desc = "A small stuffed doll of the elder goddess Nar'Sie. Who thought this was a good children's toy? <b>It looks sad.</b>"
 	is_invoker = FALSE
 
-/obj/item/toy/plush/lizardplushie
+/obj/item/toy/plush/lizard_plushie
 	name = "lizard plushie"
 	desc = "An adorable stuffed toy that resembles a lizardperson."
-	icon_state = "plushie_lizard"
-	item_state = "plushie_lizard"
+	icon_state = "map_plushie_lizard"
+	greyscale_config = /datum/greyscale_config/plush_lizard
 	attack_verb = list("clawed", "hissed", "tail slapped")
 	squeak_override = list('sound/weapons/slash.ogg' = 1)
+
+/obj/item/toy/plush/lizard_plushie/Initialize()
+	. = ..()
+	if(!greyscale_colors)
+		// Generate a random valid lizard color for our plushie friend
+		var/generated_lizard_color = "#" + random_color()
+		var/temp_hsv = RGBtoHSV(generated_lizard_color)
+
+		// If our color is too dark, use the classic green lizard plush color
+		if(ReadHSV(temp_hsv)[3] < ReadHSV("#7F7F7F")[3])
+			generated_lizard_color = "#66ff33"
+
+		// Set our greyscale colors to the lizard color we made + black eyes
+		set_greyscale(colors = list(generated_lizard_color, "#000000"))
+
+// Preset lizard plushie that uses the original lizard plush green. (Or close to it)
+/obj/item/toy/plush/lizard_plushie/green
+	desc = "An adorable stuffed toy that resembles a green lizardperson. This one fills you with nostalgia and soul."
+	greyscale_colors = "#66ff33#000000"
 
 /obj/item/toy/plush/snakeplushie
 	name = "snake plushie"

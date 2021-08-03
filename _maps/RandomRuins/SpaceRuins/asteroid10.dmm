@@ -126,7 +126,7 @@
 /turf/open/floor/grass,
 /area/ruin/space/has_grav/powered)
 "aH" = (
-/obj/item/toy/plush/lizardplushie,
+/obj/item/toy/plush/lizard_plushie/green,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/powered)
 "aI" = (
