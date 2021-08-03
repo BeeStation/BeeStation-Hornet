@@ -606,7 +606,7 @@
 	greyscale_config_worn = /datum/greyscale_config/winter_coats/worn
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/custom
 
-/obj/item/clothing/suit/hooded/wintercoat/custom/MakeHood()
+/obj/item/clothing/suit/hooded/wintercoat/custom/set_greyscale(list/colors, new_config, new_worn_config, new_inhand_left, new_inhand_right)
 	. = ..()
 	var/list/coat_colors = (SSgreyscale.ParseColorString(greyscale_colors))
 	var/list/new_coat_colors = coat_colors.Copy(1,4)
