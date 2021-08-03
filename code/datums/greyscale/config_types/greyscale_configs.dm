@@ -127,3 +127,23 @@
 	name = "Circuit Board"
 	icon_file = 'icons/obj/module.dmi'
 	json_config = 'code/datums/greyscale/json_configs/circuit.json'
+
+/datum/greyscale_config/winter_coats
+	name = "Winter Coat"
+	icon_file = 'icons/obj/clothing/suits.dmi'
+	json_config = 'code/datums/greyscale/json_configs/wintercoats.json'
+
+/datum/greyscale_config/winter_coats/worn
+	name = "Winter Coat Worn"
+	icon_file = 'icons/mob/suit.dmi'
+	json_config = 'code/datums/greyscale/json_configs/wintercoats_worn.json'
+
+/datum/greyscale_config/winter_hoods
+	name = "Winter Coat Hood"
+	icon_file = 'icons/obj/clothing/hats.dmi'
+	json_config = 'code/datums/greyscale/json_configs/wintercoats_hood.json'
+
+/datum/greyscale_config/winter_hoods/worn
+	name = "Winter Coat Hood Worn"
+	icon_file = 'icons/mob/head.dmi'
+	json_config = 'code/datums/greyscale/json_configs/wintercoats_hood_worn.json'

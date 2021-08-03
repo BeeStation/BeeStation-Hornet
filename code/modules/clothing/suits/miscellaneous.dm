@@ -598,6 +598,28 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHAIR|HIDEEARS
 
+/obj/item/clothing/suit/hooded/wintercoat/custom
+	name = "tailored winter coat"
+	desc = "A heavy jacket made from 'synthetic' animal furs, with custom colors."
+	greyscale_colors = "#ffffff#ffffff#808080#808080#808080#808080"
+	greyscale_config = /datum/greyscale_config/winter_coats
+	greyscale_config_worn = /datum/greyscale_config/winter_coats/worn
+	hoodtype = /obj/item/clothing/head/hooded/winterhood/custom
+
+/obj/item/clothing/suit/hooded/wintercoat/custom/MakeHood()
+	. = ..()
+	var/list/coat_colors = (SSgreyscale.ParseColorString(greyscale_colors))
+	var/list/new_coat_colors = coat_colors.Copy(1,4)
+	hood.set_greyscale(new_coat_colors) //Adopt the suit's grayscale coloring for visual clarity.
+
+/obj/item/clothing/head/hooded/winterhood/custom
+	name = "tailored winter coat hood"
+	desc = "A heavy jacket hood made from 'synthetic' animal furs, with custom colors."
+	greyscale_config = /datum/greyscale_config/winter_hoods
+	greyscale_config_worn = /datum/greyscale_config/winter_hoods/worn
+	icon_state = "hood_winter"
+	worn_icon = "hood_winter"
+
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
 	icon_state = "coatcaptain"

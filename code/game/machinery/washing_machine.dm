@@ -134,9 +134,23 @@
 					U = R
 					break
 		if(U)
-			item_state = initial(U.item_state)
+			if(initial(U.greyscale_config) && initial(U.greyscale_colors))
+				set_greyscale(
+					colors=initial(U.greyscale_colors),
+					new_config=initial(U.greyscale_config),
+					new_worn_config=initial(U.greyscale_config_worn),
+					new_inhand_left=initial(U.greyscale_config_inhand_left),
+					new_inhand_right=initial(U.greyscale_config_inhand_right)
+				)
+			else
+				icon = initial(U.icon)
+				lefthand_file = initial(U.lefthand_file)
+				righthand_file = initial(U.righthand_file)
+				worn_icon = initial(U.worn_icon)
+
 			icon_state = initial(U.icon_state)
-			item_color = wash_color
+			item_state = initial(U.item_state)
+			worn_icon_state = initial(U.worn_icon_state)
 			name = initial(U.name)
 			dodgy_colours = TRUE
 			can_adjust = initial(U.can_adjust)
@@ -181,8 +195,18 @@
 		for(var/T in typesof(/obj/item/clothing/shoes/sneakers))
 			var/obj/item/clothing/shoes/sneakers/S = T
 			if(wash_color == initial(S.item_color))
+				if(initial(S.greyscale_config) && initial(S.greyscale_colors))
+					set_greyscale(
+						colors=initial(S.greyscale_colors),
+						new_config=initial(S.greyscale_config),
+						new_worn_config=initial(S.greyscale_config_worn)
+					)
+				else
+					icon = initial(S.icon)
+					worn_icon = initial(S.worn_icon)
+
 				icon_state = initial(S.icon_state)
-				item_color = wash_color
+				worn_icon_state = initial(S.worn_icon_state)
 				name = initial(S.name)
 				desc = "The colors are a bit dodgy."
 				break
