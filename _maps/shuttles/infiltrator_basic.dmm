@@ -2,12 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ab" = (
-/obj/machinery/porta_turret/syndicate/shuttle{
-	dir = 9
-	},
-/turf/closed/wall/r_wall/syndicate,
-/area/shuttle/syndicate/bridge)
 "ac" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/bridge)
@@ -1161,15 +1155,15 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating/airless,
 /area/shuttle/syndicate/armory)
-"dp" = (
-/obj/machinery/porta_turret/syndicate/shuttle{
+"qG" = (
+/obj/machinery/porta_turret/syndicate{
 	dir = 10
 	},
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/bridge)
-"pd" = (
-/obj/machinery/porta_turret/syndicate/shuttle{
-	dir = 5
+"vm" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 9
 	},
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/bridge)
@@ -1178,8 +1172,26 @@
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/eva)
-"MJ" = (
-/obj/machinery/porta_turret/syndicate/shuttle{
+"vV" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 6
+	},
+/turf/closed/wall/r_wall/syndicate,
+/area/shuttle/syndicate/armory)
+"yk" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 10
+	},
+/turf/closed/wall/r_wall/syndicate,
+/area/shuttle/syndicate/medical)
+"IX" = (
+/obj/machinery/porta_turret/syndicate{
+	dir = 5
+	},
+/turf/closed/wall/r_wall/syndicate,
+/area/shuttle/syndicate/bridge)
+"MW" = (
+/obj/machinery/porta_turret/syndicate{
 	dir = 6
 	},
 /turf/closed/wall/r_wall/syndicate,
@@ -1199,7 +1211,7 @@ aa
 aa
 aa
 aa
-ab
+vm
 aJ
 aJ
 aJ
@@ -1208,7 +1220,7 @@ aJ
 aJ
 aJ
 aJ
-aJ
+yk
 "}
 (2,1,1) = {"
 aa
@@ -1218,7 +1230,7 @@ aa
 aa
 aa
 aa
-ab
+vm
 ax
 ax
 ax
@@ -1286,7 +1298,7 @@ cu
 cB
 "}
 (5,1,1) = {"
-ab
+vm
 ac
 ac
 ac
@@ -1308,7 +1320,7 @@ cb
 aK
 aJ
 aJ
-MJ
+MW
 "}
 (6,1,1) = {"
 ac
@@ -1316,7 +1328,7 @@ ag
 an
 at
 ac
-dp
+qG
 aa
 ax
 aN
@@ -1466,7 +1478,7 @@ am
 as
 at
 ac
-MJ
+MW
 aa
 aB
 aO
@@ -1486,7 +1498,7 @@ aa
 aa
 "}
 (13,1,1) = {"
-pd
+IX
 ac
 ac
 ac
@@ -1508,7 +1520,7 @@ cf
 bj
 bm
 bm
-dp
+qG
 "}
 (14,1,1) = {"
 aa
@@ -1568,7 +1580,7 @@ aa
 aa
 aa
 aa
-pd
+IX
 aB
 aB
 aY
@@ -1599,7 +1611,7 @@ aa
 aa
 aa
 aa
-pd
+IX
 bm
 bm
 bm
@@ -1608,5 +1620,5 @@ bm
 bm
 bm
 bm
-bm
+vV
 "}
