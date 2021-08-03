@@ -389,6 +389,7 @@
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
+	worn_icon_state = "katana"
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY | BLOCKING_PROJECTILE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	block_power = 0

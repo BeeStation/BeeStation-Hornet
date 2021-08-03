@@ -292,6 +292,10 @@
 			prof.flags_cover_list[slot] = I.flags_cover
 			prof.item_color_list[slot] = I.item_color
 			prof.item_state_list[slot] = I.item_state
+			prof.lefthand_file_list[slot] = I.lefthand_file
+			prof.righthand_file_list[slot] = I.righthand_file
+			prof.worn_icon_list[slot] = I.worn_icon
+			prof.worn_icon_state_list[slot] = I.worn_icon_state
 			prof.exists_list[slot] = 1
 		else
 			continue
@@ -502,6 +506,10 @@
 	var/list/exists_list = list()
 	var/list/item_color_list = list()
 	var/list/item_state_list = list()
+	var/list/lefthand_file_list = list()
+	var/list/righthand_file_list = list()
+	var/list/worn_icon_list = list()
+	var/list/worn_icon_state_list = list()
 
 	var/underwear
 	var/undershirt
@@ -525,6 +533,10 @@
 	newprofile.exists_list = exists_list.Copy()
 	newprofile.item_color_list = item_color_list.Copy()
 	newprofile.item_state_list = item_state_list.Copy()
+	newprofile.lefthand_file_list = lefthand_file_list.Copy()
+	newprofile.righthand_file_list = righthand_file_list.Copy()
+	newprofile.worn_icon_list = worn_icon_list.Copy()
+	newprofile.worn_icon_state_list = worn_icon_state_list.Copy()
 	newprofile.underwear = underwear
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks
