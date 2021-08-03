@@ -152,3 +152,21 @@
 	name = "Plushie Lizard"
 	icon_file = 'icons/obj/plushes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/plushie_lizard.json'
+
+/datum/greyscale_config/beret
+	name = "Beret"
+	icon_file = 'icons/obj/clothing/hats.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret.json'
+
+/datum/greyscale_config/beret_worn
+	name = "Beret Worn"
+	icon_file = 'icons/mob/head.dmi'
+	json_config = 'code/datums/greyscale/json_configs/beret_worn.json'
+
+/datum/greyscale_config/beret/badge
+	name = "Beret With Badge"
+	json_config = 'code/datums/greyscale/json_configs/beret_badge.json'
+
+/datum/greyscale_config/beret_worn/badge
+	name = "Beret With Badge Worn"
+	json_config = 'code/datums/greyscale/json_configs/beret_badge_worn.json'

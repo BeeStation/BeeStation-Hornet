@@ -99,6 +99,7 @@
 					/obj/item/clothing/under/rank/engineering/engineer/hazard = 3,
 					/obj/item/clothing/suit/hazardvest = 3,
 					/obj/item/clothing/shoes/workboots = 3,
+					/obj/item/clothing/head/beret/eng = 3,
 					/obj/item/clothing/head/hardhat = 3,
 					/obj/item/clothing/head/hardhat/weldhat = 3,
 					/obj/item/clothing/head/beret/eng = 3)
@@ -123,6 +124,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/replacement/atmospherics = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician = 3,
+					/obj/item/clothing/head/beret/atmos = 3,
 					/obj/item/clothing/shoes/sneakers/black = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/atmos_wardrobe

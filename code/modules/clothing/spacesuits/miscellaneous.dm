@@ -68,6 +68,10 @@ Contains:
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
+	flags_1 = NONE
 
 /obj/item/clothing/suit/space/officer
 	name = "officer's jacket"

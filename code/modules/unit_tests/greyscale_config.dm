@@ -3,7 +3,7 @@
 
 /datum/unit_test/greyscale_item_icon_states/Run()
 	for(var/obj/item/item_path as anything in subtypesof(/obj/item))
-		var/held_icon_state = initial(item_path.inhand_icon_state) || initial(item_path.icon_state)
+		var/held_icon_state = initial(item_path.item_state) || initial(item_path.icon_state)
 
 		var/datum/greyscale_config/lefthand = SSgreyscale.configurations["[initial(item_path.greyscale_config_inhand_left)]"]
 		if(lefthand && !lefthand.icon_states[held_icon_state])

@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 		R.max_amount = amount
 		R.custom_price = initial(temp.custom_price)
 		R.custom_premium_price = initial(temp.custom_premium_price)
-		R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors))
+		R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		recordlist += R
 /**
   * Refill a vending machine from a refill canister
