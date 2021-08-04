@@ -28,7 +28,7 @@
 	var/max_fuel = 20 	//The max amount of fuel the welder can hold
 	var/change_icons = 1
 	var/can_off_process = 0
-	var/light_intensity = 1 //how powerful the emitted light is when used.
+	var/light_intensity = 2 //how powerful the emitted light is when used.
 	light_color = LIGHT_COLOR_FIRE
 	var/progress_flash_divisor = 10
 	var/burned_fuel_for = 0	//when fuel was last removed
@@ -243,8 +243,8 @@
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..()
 	if(. && user)
-		if (progress_flash_divisor == 0)
-			user.flash_act(min(light_intensity,1))
+		if(progress_flash_divisor == 0)
+			user.flash_act(min(light_intensity, 2))
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else
 			progress_flash_divisor--

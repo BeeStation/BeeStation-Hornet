@@ -359,8 +359,8 @@ BLIND     // can't see anything
 /obj/item/clothing/proc/can_use(mob/user)
 	if(user && ismob(user))
 		if(!user.incapacitated())
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 
 /obj/item/clothing/obj_destruction(damage_flag)
