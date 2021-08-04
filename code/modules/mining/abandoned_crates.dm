@@ -132,7 +132,7 @@
 			new /obj/item/clothing/gloves/color/white(src)
 			new /obj/item/clothing/mask/gas/mime(src)
 			new /obj/item/clothing/head/beret(src)
-			new /obj/item/clothing/suit/suspenders(src)
+			new /obj/item/clothing/suit/toggle/suspenders(src)
 			new /obj/item/toy/crayon/mime(src)
 			new /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(src)
 		if(96)

@@ -181,6 +181,16 @@
 	icon_file = 'icons/mob/clothing/head/hydroponics.dmi'
 	json_config = 'code/datums/greyscale/json_configs/simple_flower_worn.json'
 
+/datum/greyscale_config/suspenders
+	name = "Suspenders"
+	icon_file = 'icons/obj/clothing/belts.dmi'
+	json_config = 'code/datums/greyscale/json_configs/suspenders.json'
+
+/datum/greyscale_config/suspenders/worn
+	name = "Worn Suspenders"
+	icon_file = 'icons/mob/suit.dmi'
+	json_config = 'code/datums/greyscale/json_configs/suspenders_worn.json'
+
 /datum/greyscale_config/giftdeliverybox
 	name = "Gift Box"
 	icon_file = 'icons/obj/storage.dmi'

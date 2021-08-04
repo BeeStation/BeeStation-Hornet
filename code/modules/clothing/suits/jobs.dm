@@ -117,12 +117,17 @@
 
 
 //Mime
-/obj/item/clothing/suit/suspenders
+/obj/item/clothing/suit/toggle/suspenders
 	name = "suspenders"
 	desc = "They suspend the illusion of the mime's play."
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "suspenders"
+	worn_icon_state = "suspenders"
+	togglename = "straps"
 	blood_overlay_type = "armor" //it's the less thing that I can put here
+	greyscale_config = /datum/greyscale_config/suspenders
+	greyscale_config_worn = /datum/greyscale_config/suspenders/worn
+	greyscale_colors = "#ff0000"
 
 //Security
 /obj/item/clothing/suit/security/officer
