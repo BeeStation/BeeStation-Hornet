@@ -332,7 +332,6 @@
 			cur_subcategory = CAT_NONE
 		ui = new(user, src, "PersonalCrafting")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /datum/component/personal_crafting/ui_data(mob/user)
 	var/list/data = list()
@@ -404,6 +403,7 @@
 			else
 				to_chat(user, "<span class='warning'>Construction failed[result]</span>")
 			busy = FALSE
+			ui_update()
 		if("toggle_recipes")
 			display_craftable_only = !display_craftable_only
 			. = TRUE
