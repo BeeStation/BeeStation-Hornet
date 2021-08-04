@@ -22,7 +22,7 @@
 	seed = /obj/item/seeds/rainbow_bunch
 	name = "rainbow flower"
 	desc = "A beautiful flower capable of being used for most dyeing processes."
-	icon_state = "rainbow_flower"
+	icon_state = "map_flower"
 	slot_flags = ITEM_SLOT_HEAD
 	force = 0
 	throwforce = 0
@@ -30,48 +30,53 @@
 	throw_speed = 2
 	throw_range = 3
 	attack_verb = list("pompfed")
+	greyscale_config = /datum/greyscale_config/flower_simple
+	greyscale_config_worn = /datum/greyscale_config/flower_simple_worn
 
 /obj/item/reagent_containers/food/snacks/grown/rainbow_flower/Initialize()
 	. = ..()
+	if(greyscale_colors)
+		return
+
 	var/flower_color = rand(1,8)
 	switch(flower_color)
 		if(1)
 			item_color = "red"
-			color = "#DA0000"
+			set_greyscale("#C50B0B")
 			list_reagents = list(/datum/reagent/colorful_reagent/powder/red = 3)
 			desc += " This one is in a bright red color."
 		if(2)
 			item_color = "orange"
-			color = "#FF9300"
+			set_greyscale("#F76F07")
 			list_reagents = list(/datum/reagent/colorful_reagent/powder/orange = 3)
 			desc += " This one is in a citrus orange color."
 		if(3)
 			item_color = "yellow"
-			color = "#FFF200"
+			set_greyscale("#D8CE13")
 			list_reagents = list(/datum/reagent/colorful_reagent/powder/yellow = 3)
 			desc += " This one is in a bright yellow color."
 		if(4)
 			item_color = "green"
-			color = "#A8E61D"
+			set_greyscale("#A0DA23")
 			list_reagents = list(/datum/reagent/colorful_reagent/powder/green = 3)
 			desc += " This one is in a grassy green color."
 		if(5)
 			item_color = "blue"
-			color = "#00B7EF"
+			set_greyscale("#0862C1")
 			list_reagents = list(/datum/reagent/colorful_reagent/powder/blue = 3)
 			desc += " This one is in a soothing blue color."
 		if(6)
 			item_color = "purple"
-			color = "#DA00FF"
+			set_greyscale("#AD00CC")
 			list_reagents = list(/datum/reagent/colorful_reagent/powder/purple = 3)
 			desc += " This one is in a vibrant purple color."
 		if(7)
 			item_color = "black"
-			color = "#1C1C1C"
+			set_greyscale("#161616")
 			list_reagents = list(/datum/reagent/colorful_reagent/powder/black = 3)
 			desc += " This one is in a midnight black color."
 		if(8)
 			item_color = "white"
-			color = "#FFFFFF"
+			set_greyscale("#FFFFFF")
 			list_reagents = list(/datum/reagent/colorful_reagent/powder/white = 3)
 			desc += " This one is in a pure white color."

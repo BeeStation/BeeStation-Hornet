@@ -170,3 +170,13 @@
 /datum/greyscale_config/beret_worn/badge
 	name = "Beret With Badge Worn"
 	json_config = 'code/datums/greyscale/json_configs/beret_badge_worn.json'
+
+/datum/greyscale_config/flower_simple
+	name = "Flower"
+	icon_file = 'icons/obj/hydroponics/harvest.dmi'
+	json_config = 'code/datums/greyscale/json_configs/simple_flower.json'
+
+/datum/greyscale_config/flower_simple_worn
+	name = "Flower Worn"
+	icon_file = 'icons/mob/clothing/head/hydroponics.dmi'
+	json_config = 'code/datums/greyscale/json_configs/simple_flower_worn.json'

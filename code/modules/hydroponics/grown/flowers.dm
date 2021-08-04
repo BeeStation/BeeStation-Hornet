@@ -21,12 +21,15 @@
 	seed = /obj/item/seeds/poppy
 	name = "poppy"
 	desc = "Long-used as a symbol of rest, peace, and death."
-	icon_state = "poppy"
+	icon_state = "map_flower"
 	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#FF6347"
 	bitesize_mod = 3
 	foodtype = VEGETABLES | GROSS
 	distill_reagent = /datum/reagent/consumable/ethanol/vermouth
+	greyscale_config = /datum/greyscale_config/flower_simple
+	greyscale_config_worn = /datum/greyscale_config/flower_simple_worn
+	greyscale_colors = "#D23838"
 
 // Lily
 /obj/item/seeds/poppy/lily
@@ -42,8 +45,8 @@
 	seed = /obj/item/seeds/poppy/lily
 	name = "lily"
 	desc = "A beautiful orange flower."
-	icon_state = "lily"
 	filling_color = "#FFA500"
+	greyscale_colors = "#FE881F"
 
 	//Spacemans's Trumpet
 /obj/item/seeds/poppy/lily/trumpet
@@ -83,6 +86,9 @@
 	filling_color = "#FF6347"
 	bitesize_mod = 3
 	foodtype = VEGETABLES
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_colors = null
 
 // Geranium
 /obj/item/seeds/poppy/geranium
@@ -98,8 +104,8 @@
 	seed = /obj/item/seeds/poppy/geranium
 	name = "geranium"
 	desc = "A beautiful blue flower."
-	icon_state = "geranium"
-	filling_color = "#008B8B"
+	filling_color = "008B8B"
+	greyscale_colors = "#1499BB"
 
 // Harebell
 /obj/item/seeds/harebell
