@@ -4,7 +4,7 @@
 /obj/item/clothing/shoes/sneakers/mime
 	name = "mime shoes"
 	item_color = "mime"
-	greyscale_colors = "#ffffff"
+	greyscale_colors = "#FFFFFF#FFFFFF"
 
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
