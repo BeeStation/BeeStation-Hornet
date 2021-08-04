@@ -403,7 +403,6 @@
 			else
 				to_chat(user, "<span class='warning'>Construction failed[result]</span>")
 			busy = FALSE
-			ui_update()
 		if("toggle_recipes")
 			display_craftable_only = !display_craftable_only
 			. = TRUE
@@ -414,7 +413,7 @@
 			cur_category = params["category"]
 			cur_subcategory = params["subcategory"] || ""
 			. = TRUE
-			ui_update()
+	ui_update()
 
 /datum/component/personal_crafting/proc/build_recipe_data(datum/crafting_recipe/R)
 	var/list/data = list()
