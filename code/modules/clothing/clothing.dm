@@ -152,6 +152,10 @@
 		how_cool_are_your_threads += "</span>"
 		. += how_cool_are_your_threads.Join()
 
+	. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.</span>"
+
+/obj/item/clothing/Topic(href, href_list)
+	. = ..()
 	if(length(armor_list))
 		armor_list.Cut()
 	if(armor.bio)
@@ -180,12 +184,6 @@
 	if(armor.acid)
 		durability_list += list("ACID" = armor.acid)
 
-	if(length(armor_list) || length(durability_list))
-		. += "<span class='notice'>It has a <a href='?src=[REF(src)];list_armor=1'>tag</a> listing its protection classes.</span>"
-
-/obj/item/clothing/Topic(href, href_list)
-	. = ..()
-
 	if(href_list["list_armor"])
 		var/list/readout = list("<span class='notice'><u><b>PROTECTION CLASSES (I-X)</u></b>")
 		if(length(armor_list))
@@ -198,6 +196,8 @@
 			for(var/dam_type in durability_list)
 				var/durability_amount = durability_list[dam_type]
 				readout += "\n[dam_type] [armor_to_protection_class(durability_amount)]" //e.g. FIRE II
+		if(!(length(armor_list) || length(durability_list)))
+			readout += "\n <b>NO PROTECTION</b>"
 		readout += "</span>"
 
 		to_chat(usr, "[readout.Join()]")
@@ -213,25 +213,27 @@
 /obj/item/clothing/proc/armor_to_protection_class(armor_value)
 	armor_value = round(armor_value,10) / 10
 	switch (armor_value)
-		if (1)
+		if(0)
+			. = "< I"
+		if(1)
 			. = "I"
-		if (2)
+		if(2)
 			. = "II"
-		if (3)
+		if(3)
 			. = "III"
-		if (4)
+		if(4)
 			. = "IV"
-		if (5)
+		if(5)
 			. = "V"
-		if (6)
+		if(6)
 			. = "VI"
-		if (7)
+		if(7)
 			. = "VII"
-		if (8)
+		if(8)
 			. = "VIII"
-		if (9)
+		if(9)
 			. = "IX"
-		if (10 to INFINITY)
+		if(10 to INFINITY)
 			. = "X"
 
 /obj/item/clothing/obj_break(damage_flag)
