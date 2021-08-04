@@ -333,7 +333,6 @@
 		user.set_machine(src)
 		pai.radio.attackby(W, user, params)
 		return
-
 	return ..()
 
 /obj/item/paicard/emag_act(mob/user) // Emag to wipe the master DNA and supplemental directive
