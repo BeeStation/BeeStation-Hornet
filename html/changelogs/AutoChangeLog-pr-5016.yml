@@ -1,4 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - rscadd: ghosts can now examine wires to check their power status
