@@ -177,6 +177,8 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 					extractype = "dark blue"
 				if(extractype == "darkpurple")
 					extractype = "dark purple"
+				if(extractype == "lightpink")
+					extractype = "light pink"
 				new /mob/living/simple_animal/slime (rune_turf, extractype) //spawn a slime from the extract's color
 				req_extracts = initial(req_extracts)
 				extractype = null // reset extractype to FALSE to allow a new extract type
