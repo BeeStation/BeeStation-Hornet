@@ -590,11 +590,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
 	remove_outline()
+	if(verbs && user.client)
+		user.client.remove_verbs(verbs)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 	item_flags |= IN_INVENTORY
+	if(verbs && user.client)
+		user.client.add_verbs(verbs)
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder)

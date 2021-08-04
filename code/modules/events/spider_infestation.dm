@@ -5,6 +5,7 @@
 	max_occurrences = 1
 	min_players = 15
 	dynamic_should_hijack = TRUE
+	can_malf_fake_alert = TRUE
 
 /datum/round_event/spider_infestation
 	announceWhen	= 400

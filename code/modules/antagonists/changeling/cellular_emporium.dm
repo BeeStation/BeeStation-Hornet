@@ -71,6 +71,7 @@
 		if("evolve")
 			var/sting_name = params["name"]
 			changeling.purchase_power(sting_name)
+	ui_update()
 
 /datum/action/innate/cellular_emporium
 	name = "Cellular Emporium"
