@@ -132,10 +132,13 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	if(toggled)
 		if(stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
 			on = FALSE
+			ui_update()
 		else
 			on = TRUE
+			ui_update()
 	else
 		on = FALSE
+		ui_update()
 
 	set_light(on)
 

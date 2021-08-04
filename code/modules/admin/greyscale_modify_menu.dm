@@ -190,6 +190,7 @@ This is highly likely to cause a lag spike for a few seconds."},
 		if("change_dir")
 			sprite_dir = text2dir(params["new_sprite_dir"])
 			queue_refresh()
+	ui_update()
 
 /datum/greyscale_modify_menu/proc/ReadColorsFromString(colorString)
 	var/list/raw_colors = splittext(colorString, "#")
@@ -251,6 +252,7 @@ This is highly likely to cause a lag spike for a few seconds."},
 	sprite_data["time_spent"] = TICK_DELTA_TO_MS(time_spent)
 	sprite_data["finished"] = icon2html(finished, user, dir=sprite_dir, sourceonly=TRUE)
 	refreshing = FALSE
+	ui_update()
 
 /datum/greyscale_modify_menu/proc/Unlock()
 	allowed_configs = SSgreyscale.configurations

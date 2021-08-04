@@ -56,6 +56,64 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">04 August 2021</h2>
+			<h3 class="author">Ivniinvi updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Sleepers and operating computers now automatically update their UIs.</li>
+			</ul>
+			<h3 class="author">ReneAngel (Sprite), ImSynthex (Github) updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">Replaced station bounced radio sprite</li>
+			</ul>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">entertainment monitors now need to be examine to toggle the UI instead of clicked</li>
+				<li class="rscadd">ghosts can now examine wires to check their power status</li>
+			</ul>
+			<h3 class="author">mcmeiler updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Crafting UI updates after crafting</li>
+			</ul>
+
+			<h2 class="date">02 August 2021</h2>
+			<h3 class="author">Ivniinvi updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Sentience potion spawns are now clearly marked in the ghost role popup.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Refactors TGUI window auto updating.</li>
+				<li class="refactor">TGUI Windows no lonegr auto update by default, and instead need ui_update to be called, or to have their autoupdating var set to TRUE by using set_autoupdating(TRUE)</li>
+				<li class="refactor">Spawners menu is now a single instance rather than on every single ghost.</li>
+				<li class="bugfix">Deaf people can no longer see runechat messages.</li>
+				<li class="code_imp">Removes a pointless loop from get_all_open_uis()</li>
+			</ul>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed false positive quirk cap trigger</li>
+			</ul>
+
+			<h2 class="date">01 August 2021</h2>
+			<h3 class="author">Ivniinvi, Randomguy523 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">pAIs can now be emagged to reset their master.</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Chat messages are now shared between people that see the message the same, reducing the amount of lag caused due to chat messages on high pop.</li>
+				<li class="refactor">Refactors stat panel verbs to cache the verbs.</li>
+			</ul>
+			<h3 class="author">lordScrubling updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">sparks and igniters not igniting gas</li>
+			</ul>
+
+			<h2 class="date">31 July 2021</h2>
+			<h3 class="author">Phil Smith updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Hotdog weenie</li>
+			</ul>
+
 			<h2 class="date">30 July 2021</h2>
 			<h3 class="author">ivanmixo updated:</h3>
 			<ul class="changes bgimages16">
@@ -1231,65 +1289,6 @@
 			<h3 class="author">ivanmixo updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">blind people can now feel around themselves to examine stuff</li>
-			</ul>
-
-			<h2 class="date">02 June 2021</h2>
-			<h3 class="author">jupyterkat updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">makes machines work as intended again</li>
-			</ul>
-
-			<h2 class="date">01 June 2021</h2>
-			<h3 class="author">Archanial updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed runtime in config related to testmerges</li>
-			</ul>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Being on staff grants you access to donor items</li>
-			</ul>
-			<h3 class="author">Mothblocks, froststahr port updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Added the "Check Timer Sources" debug command to help isolate problematic cases of addtimer.</li>
-			</ul>
-			<h3 class="author">ike709 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">Minor optimizations to powernet propagation.</li>
-			</ul>
-			<h3 class="author">jupyterkat updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">ethereals can charge via borg chargers again</li>
-			</ul>
-			<h3 class="author">steelslayer updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Updates various machines, which currently use SSfastprocess, so that they only start processing when it's necessary. Some of these updated machines have been changed so that they don't ever need to process.</li>
-				<li class="refactor">Replaces the speed_process var with two new variables. The processing_flags variable stores bitflags with information about a machine's preferences on when it should start processing. The subsystem_type var holds the path to which type of subsystem that machine should use.</li>
-			</ul>
-
-			<h2 class="date">31 May 2021</h2>
-			<h3 class="author"> updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">Compiler version is now 514.1554. Players are encouraged to stay on 513 for now.</li>
-			</ul>
-			<h3 class="author">Froststahr updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Integrated circuits have been removed to enable replacing them with TG's new Wiremod circuits</li>
-			</ul>
-			<h3 class="author">SpacePrius updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added copier to HoP office on pubbystation</li>
-			</ul>
-
-			<h2 class="date">30 May 2021</h2>
-			<h3 class="author">bloons3 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">Justifies LAZYLEN()</li>
-			</ul>
-
-			<h2 class="date">29 May 2021</h2>
-			<h3 class="author">Ivniinvi updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Monkey Cube crate's description is now accurate.</li>
 			</ul>
 		</div>
 
