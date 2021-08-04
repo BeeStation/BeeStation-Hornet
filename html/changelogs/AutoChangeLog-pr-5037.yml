@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - rscadd: Gene console now correctly shows cooldown for joker and scramble.
