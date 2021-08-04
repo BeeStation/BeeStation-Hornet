@@ -122,9 +122,9 @@
 	QDEL_NULL(internal_gps)
 	if(!QDELETED(card) && loc != card)
 		card.forceMove(drop_location())
-	card.pai = null //these are otherwise handled by paicard/handle_atom_del()
-	card.emotion_icon = initial(card.emotion_icon)
-	card.update_icon()
+		card.pai = null //these are otherwise handled by paicard/handle_atom_del()
+		card.emotion_icon = initial(card.emotion_icon)
+		card.update_icon()
 	GLOB.pai_list -= src
 	return ..()
 
