@@ -257,7 +257,6 @@
 				if(istype(P, /obj/item/aicard))
 					return //handled by /obj/structure/ai_core/transfer_ai()
 
-
 				if(P.tool_behaviour == TOOL_SCREWDRIVER)
 					P.play_tool_sound(src)
 					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")

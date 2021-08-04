@@ -27,11 +27,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	. = ..()
 	if(. == COMPONENT_INCOMPATIBLE || !isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-		
 	if(isnull(state))
 		state = GLOB.default_state
 	src.state = state
-
 	var/atom/A = parent
 	A.add_overlay("working")
 	A.name = "[initial(A.name)] ([gpstag])"
