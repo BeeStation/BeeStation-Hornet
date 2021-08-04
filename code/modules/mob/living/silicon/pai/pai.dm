@@ -13,6 +13,9 @@
 	maxHealth = 500
 	layer = BELOW_MOB_LAYER
 	can_be_held = TRUE
+	move_force = 0
+	pull_force = 0
+	move_resist = 0
 	worn_slot_flags = ITEM_SLOT_HEAD
 	held_lh = 'icons/mob/pai_item_lh.dmi'
 	held_rh = 'icons/mob/pai_item_rh.dmi'
@@ -31,7 +34,7 @@
 	var/speakDoubleExclamation = "alarms"
 	var/speakQuery = "queries"
 
-	var/obj/item/pai_cable/cable		// The cable we produce and use when door or camera jacking
+	var/obj/item/pai_cable/hacking_cable		// The cable we produce when hacking a door
 
 	var/master				// Name of the one who commands us
 	var/master_dna			// DNA string for owner verification
@@ -60,12 +63,14 @@
 	var/obj/machinery/newscaster			//pAI Newscaster
 	var/obj/item/healthanalyzer/hostscan				//pAI healthanalyzer
 
+	/// Internal pAI GPS, enabled if pAI downloads GPS software, and then uses it.
+	var/obj/item/gps/pai/internal_gps = null
+
 	var/encryptmod = FALSE
 	var/holoform = FALSE
 	var/canholo = TRUE
 	var/can_transmit = TRUE
 	var/can_receive = TRUE
-	var/obj/item/card/id/access_card = null
 	var/chassis = "repairbot"
 	var/list/possible_chassis = list("cat" = TRUE, "mouse" = TRUE, "monkey" = TRUE, "corgi" = FALSE, "fox" = FALSE, "repairbot" = TRUE, "rabbit" = TRUE, "bat" = FALSE, "butterfly" = FALSE, "hawk" = FALSE, "lizard" = FALSE, "duffel" = TRUE, "snake" = FALSE, "spider" = FALSE, "frog" = FALSE, "crow" = TRUE, "mushroom" = FALSE, "corgi_puppy" = FALSE)		//assoc value is whether it can be picked up.
 	var/static/item_head_icon = 'icons/mob/pai_item_head.dmi'
@@ -91,13 +96,35 @@
 /mob/living/silicon/pai/can_buckle()
 	return FALSE
 
+/mob/living/silicon/pai/handle_atom_del(atom/A)
+	if(A == hacking_cable)
+		hacking_cable = null
+		if(!QDELETED(card))
+			card.update_icon()
+	if(A == internal_instrument)
+		internal_instrument = null
+	if(A == newscaster)
+		newscaster = null
+	if(A == signaler)
+		signaler = null
+	if(A == hostscan)
+		hostscan = null
+	if(A == internal_gps)
+		internal_gps = null
+	return ..()
+
 /mob/living/silicon/pai/Destroy()
 	QDEL_NULL(internal_instrument)
-	if (loc != card)
+	QDEL_NULL(hacking_cable)
+	QDEL_NULL(newscaster)
+	QDEL_NULL(signaler)
+	QDEL_NULL(hostscan)
+	QDEL_NULL(internal_gps)
+	if(!QDELETED(card) && loc != card)
 		card.forceMove(drop_location())
-	card.pai = null
-	card.cut_overlays()
-	card.add_overlay("pai-off")
+		card.pai = null //these are otherwise handled by paicard/handle_atom_del()
+		card.emotion_icon = initial(card.emotion_icon)
+		card.update_icon()
 	GLOB.pai_list -= src
 	return ..()
 
@@ -140,19 +167,24 @@
 
 /mob/living/silicon/pai/proc/process_hack()
 
-	if(cable && cable.machine && istype(cable.machine, /obj/machinery/door) && cable.machine == hackdoor && get_dist(src, hackdoor) <= 1)
+	
+
+	if(hacking_cable && hacking_cable.machine && istype(hacking_cable.machine, /obj/machinery/door) && hacking_cable.machine == hackdoor && get_dist(src, hackdoor) <= 1)
 		hackprogress = CLAMP(hackprogress + 4, 0, 100)
 	else
 		temp = "Door Jack: Connection to airlock has been lost. Hack aborted."
 		hackprogress = 0
 		hacking = FALSE
 		hackdoor = null
+		QDEL_NULL(hacking_cable)
+		if(!QDELETED(card))
+			card.update_icon()
 		return
 	if(screen == "doorjack" && subscreen == 0) // Update our view, if appropriate
 		paiInterface()
 	if(hackprogress >= 100)
 		hackprogress = 0
-		var/obj/machinery/door/D = cable.machine
+		var/obj/machinery/door/D = hacking_cable.machine
 		D.open()
 		hacking = FALSE
 
@@ -272,12 +304,15 @@
 /mob/living/silicon/pai/Life()
 	if(stat == DEAD)
 		return
-	if(cable)
-		if(get_dist(src, cable) > 1)
+	if(hacking_cable)
+		if(get_dist(src, hacking_cable) > 1)
 			var/turf/T = get_turf(src.loc)
-			T.visible_message("<span class='warning'>[src.cable] rapidly retracts back into its spool.</span>", "<span class='italics'>You hear a click and the sound of wire spooling rapidly.</span>")
-			qdel(src.cable)
-			cable = null
+			T.visible_message("<span class='warning'>[hacking_cable] rapidly retracts back into its spool.</span>", "<span class='hear'>You hear a click and the sound of wire spooling rapidly.</span>")
+			QDEL_NULL(hacking_cable)
+			if(!QDELETED(card))
+				card.update_icon()
+		else if(hacking)
+			process_hack()
 	silent = max(silent - 1, 0)
 	. = ..()
 
@@ -291,15 +326,15 @@
 	emitterhealth = CLAMP((emitterhealth + (emitterregen * delta_time)), -50, emittermaxhealth)
 
 /obj/item/paicard/attackby(obj/item/W, mob/user, params)
-	..()
-	user.set_machine(src)
-	if(pai?.encryptmod == TRUE)
-		if(W.tool_behaviour == TOOL_SCREWDRIVER)
-			pai.radio.attackby(W, user, params)
-		else if(istype(W, /obj/item/encryptionkey))
-			pai.radio.attackby(W, user, params)
-	else
-		to_chat(user, "Encryption Key ports not configured.")
+	if(pai && (istype(W, /obj/item/encryptionkey) || W.tool_behaviour == TOOL_SCREWDRIVER))
+		if(!pai.encryptmod)
+			to_chat(user, "<span class='alert'>Encryption Key ports not configured.</span>")
+			return
+		user.set_machine(src)
+		pai.radio.attackby(W, user, params)
+		return
+
+	return ..()
 
 /obj/item/paicard/emag_act(mob/user) // Emag to wipe the master DNA and supplemental directive
 	if(!pai)

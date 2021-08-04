@@ -304,11 +304,6 @@
 			bug.bugged_cameras[src.c_tag] = src
 		return
 
-	else if(istype(I, /obj/item/pai_cable))
-		var/obj/item/pai_cable/cable = I
-		cable.plugin(src, user)
-		return
-
 	return ..()
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
