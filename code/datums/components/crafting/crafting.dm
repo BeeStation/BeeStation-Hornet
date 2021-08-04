@@ -332,6 +332,7 @@
 			cur_subcategory = CAT_NONE
 		ui = new(user, src, "PersonalCrafting")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /datum/component/personal_crafting/ui_data(mob/user)
 	var/list/data = list()
