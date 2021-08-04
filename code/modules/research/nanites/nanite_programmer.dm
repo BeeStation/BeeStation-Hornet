@@ -8,10 +8,11 @@
 	use_power = IDLE_POWER_USE
 	anchored = TRUE
 	density = TRUE
-	flags_1 = HEAR_1
 	circuit = /obj/item/circuitboard/machine/nanite_programmer
 
-
+/obj/machinery/nanite_programmer/Initialize()
+	. = ..()
+	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 /obj/machinery/nanite_programmer/attackby(obj/item/I, mob/user)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
@@ -28,6 +29,7 @@
 				eject(user)
 			disk = N
 			program = N.program
+			ui_update()
 	else
 		..()
 
@@ -38,6 +40,7 @@
 		disk.forceMove(drop_location())
 	disk = null
 	program = null
+	ui_update()
 
 /obj/machinery/nanite_programmer/AltClick(mob/user)
 	if(disk && user.canUseTopic(src, !issilicon(user)))
@@ -145,6 +148,7 @@
 				timer *= 10 //convert to deciseconds
 				program.timer_trigger_delay = timer
 			. = TRUE
+	ui_update()
 
 /obj/machinery/nanite_programmer/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()

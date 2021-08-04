@@ -171,6 +171,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 			nerf(obj_flags & EMAGGED,FALSE)
 			obj_flags ^= EMAGGED
 			say("Safeties reset. Restarting...")
+	ui_update()
 
 ///this is what makes the holodeck not spawn anything on broken tiles (space and non engine plating / non holofloors)
 /datum/map_template/holodeck/update_blacklist(turf/placement, list/input_blacklist)
@@ -248,8 +249,12 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 			effects += holo_effect
 			spawned -= holo_effect
 			var/atom/holo_effect_product = holo_effect.activate(src)//change name
-			if(istype(holo_effect_product) || islist(holo_effect_product))
+			if(istype(holo_effect_product))
 				spawned += holo_effect_product // we want mobs or objects spawned via holoeffects to be tracked as objects
+				RegisterSignal(holo_effect_product, COMSIG_PARENT_PREQDELETED, .proc/remove_from_holo_lists)
+			if(islist(holo_effect_product))
+				for(var/atom/atom_product as anything in holo_effect_product)
+					RegisterSignal(atom_product, COMSIG_PARENT_PREQDELETED, .proc/remove_from_holo_lists)
 			continue
 
 		if(isobj(holo_atom))
@@ -373,6 +378,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	say("Warning. Automatic shutoff and derezzing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
 	log_game("[key_name(user)] emagged the Holodeck Control Console")
 	nerf(!(obj_flags & EMAGGED),FALSE)
+	ui_update()
 
 /obj/machinery/computer/holodeck/emp_act(severity)
 	. = ..()
