@@ -194,10 +194,10 @@ By design, d1 is the smallest direction and d2 is the highest
 		deconstruct()
 
 /obj/structure/cable/proc/get_power_info()
-		if(powernet && (powernet.avail > 0))		// is it powered?
-			to_chat(user, span_danger("Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]"))
-		else
-			to_chat(user, span_danger("The cable is not powered."))
+	if(powernet && (powernet.avail > 0))		// is it powered?
+		return span_danger("Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]")
+	else
+		return span_danger("The cable is not powered.")
 
 ////////////////////////////////////////////
 // Power related
