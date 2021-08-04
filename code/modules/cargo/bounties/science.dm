@@ -51,7 +51,7 @@
 	name = "Floor Buffer Upgrade"
 	description = "One of CentCom's janitors made a small fortune betting on carp races. Now they'd like to commission an upgrade to their floor buffer."
 	reward = 10000
-	wanted_types = list(/obj/item/janiupgrade)
+	wanted_types = list(/obj/item/janicart_upgrade/buffer)
 
 /datum/bounty/item/science/advanced_mop
 	name = "Advanced Mop"

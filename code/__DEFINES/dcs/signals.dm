@@ -485,3 +485,9 @@
 
 /// from /obj/machinery/atmospherics/components/binary/valve/toggle(): (on)
 #define COMSIG_VALVE_SET_OPEN "valve_toggled"
+
+// Vacuum signals
+/// Called on a bag being attached to a vacuum parent
+#define COMSIG_VACUUM_BAG_ATTACH "comsig_vacuum_bag_attach"
+/// Called on a bag being detached from a vacuum parent
+#define COMSIG_VACUUM_BAG_DETACH "comsig_vacuum_bag_detach"
