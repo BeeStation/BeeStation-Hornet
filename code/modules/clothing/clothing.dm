@@ -197,7 +197,7 @@
 				var/durability_amount = durability_list[dam_type]
 				readout += "\n[dam_type] [armor_to_protection_class(durability_amount)]" //e.g. FIRE II
 		if(!(length(armor_list) || length(durability_list)))
-			readout += "\n <b>NO PROTECTION</b>"
+			readout += "\n<b>NO PROTECTION</b>"
 		readout += "</span>"
 
 		to_chat(usr, "[readout.Join()]")
