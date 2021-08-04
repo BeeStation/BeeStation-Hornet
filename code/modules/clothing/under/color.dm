@@ -174,9 +174,7 @@
 
 /obj/item/clothing/under/color/khaki
 	name = "khaki jumpsuit"
-	icon_state = "khakij"
-	item_state = "lb_suit"
-	item_color = "khakij"
+	greyscale_colors = "#AE9634"
 
 /obj/item/clothing/under/color/khaki/buster
 	name = "buster jumpsuit"
