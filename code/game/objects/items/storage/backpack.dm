@@ -233,7 +233,7 @@
 
 /obj/item/storage/backpack/welding
 	name = "welding fuel backpack"
-	desc = "A specialized backpack designed to store welding fuel. Be wary of light welders!"
+	desc = "A specialized backpack designed to store welding fuel. Be wary of lit welders!"
 	icon_state = "ert_engineering" //just a placeholder for now.
 	var/tank_volume = 250
 	var/reagent_id = /datum/reagent/fuel
@@ -243,6 +243,18 @@
 	if(reagent_id)
 		reagents.add_reagent(reagent_id, tank_volume)
 	. = ..()
+
+/obj/item/storage/backpack/welding/proc/boom()
+	visible_message("<span class='danger'>\The [src] ruptures!</span>")
+	chem_splash(loc, 5, list(reagents))
+	qdel(src)
+
+/obj/item/storage/backpack/welding/boom()
+	var/light_explosion_range = CLAMP(round(reagents.get_reagent_amount(/datum/reagent/fuel)/200, 1), 1, 5) //explosion range should decrease when there is less fuel in the tank
+	var/flame_explosion_range = CLAMP(light_explosion_range + 1, 1, 5) //Fire explosion is always one bigger than light explosion
+	var/heavy_explosion_range = round(light_explosion_range/5, 1) //if there is less than 500 fuel in the tank, no heavy explosion
+	explosion(get_turf(src), 0, heavy_explosion_range, light_explosion_range, flame_range = flame_explosion_range)
+	qdel(src)
 
 /obj/item/storage/backpack/welding/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_WELDER)
