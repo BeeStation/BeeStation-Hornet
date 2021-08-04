@@ -231,6 +231,25 @@
 	desc = "A spacious backpack with lots of pockets, worn by Engineers of an Emergency Response Team."
 	icon_state = "ert_engineering"
 
+/obj/item/storage/backpack/welding
+	name = "welding fuel backpack"
+	desc = "A specialized backpack designed to store welding fuel. Be wary of light welders!"
+	icon_state = "ert_engineering" //just a placeholder for now.
+	var/tank_volume
+	var/reagent_id = /datum/reagent/fuel
+
+/obj/item/storage/backpack/welding/attackby(obj/item/W, mob/user, params)
+	if(W.is_refillable())
+		return 0 //so we can refill them via their afterattack.
+	else
+		return ..()
+
+/obj/item/storage/backpack/welding/Initialize()
+	create_reagents(tank_volume, DRAINABLE | AMOUNT_VISIBLE)
+	if(reagent_id)
+		reagents.add_reagent(reagent_id, tank_volume)
+	. = ..()
+
 /////////////////
 //DONATOR ITEMS//
 /////////////////
