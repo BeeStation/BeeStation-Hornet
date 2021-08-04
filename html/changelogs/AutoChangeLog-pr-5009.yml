@@ -1,0 +1,5 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - tweak: entertainment monitors now need to be examine to toggle the UI instead
+      of clicked
