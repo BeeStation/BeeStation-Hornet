@@ -173,6 +173,10 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 			qdel(extract) //vores the slime extract
 			req_extracts--
 			if(req_extracts <= 0)
+				if(extractype == "darkblue")
+					extractype = "dark blue"
+				if(extractype == "darkpurple")
+					extractype = "dark purple"
 				new /mob/living/simple_animal/slime (rune_turf, extractype) //spawn a slime from the extract's color
 				req_extracts = initial(req_extracts)
 				extractype = null // reset extractype to FALSE to allow a new extract type
