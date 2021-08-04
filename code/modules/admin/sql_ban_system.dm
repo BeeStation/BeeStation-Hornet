@@ -213,12 +213,12 @@
 		<div class='column right'>
 			Location
 			<br>
-			<label class='inputlabel radio'>Local
-			<input type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""]>
+			<label class='inputlabel radio'>Global
+			<input type='radio' id='servban' name='radioservban' value='global'[isnull(global_ban) ? " checked" : ""]>
 			<div class='inputbox'></div></label>
 			<br>
-			<label class='inputlabel radio'>Global
-			<input type='radio' id='servban' name='radioservban' value='global'[(global_ban) ? " checked" : ""]>
+			<label class='inputlabel radio'>Local
+			<input type='radio' id='servban' name='radioservban' value='local'[(global_ban) ? " checked" : ""]>
 			<div class='inputbox'></div></label>
 		</div>
 		<div class='column'>
