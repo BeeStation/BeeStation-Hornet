@@ -53,6 +53,11 @@
 	id = "comp_bitwise"
 	build_path = /obj/item/circuit_component/bitwise
 
+/datum/design/component/bitflag
+	name = "Bitflag Component"
+	id = "comp_bitflag"
+	build_path = /obj/item/circuit_component/compare/bitflag
+
 /datum/design/component/clock
 	name = "Clock Component"
 	id = "comp_clock"
@@ -122,6 +127,21 @@
 	name = "To String Component"
 	id = "comp_tostring"
 	build_path = /obj/item/circuit_component/tostring
+
+/datum/design/component/trig
+	name = "Trigonometry Component"
+	id = "comp_trig"
+	build_path = /obj/item/circuit_component/trig/trig
+
+/datum/design/component/adv_trig
+	name = "Advanced Trigonometry Component"
+	id = "comp_adv_trig"
+	build_path = /obj/item/circuit_component/trig/adv_trig
+
+/datum/design/component/hyper_trig
+	name = "Hyperbolic Trigonometry Component"
+	id = "comp_hyper_trig"
+	build_path = /obj/item/circuit_component/trig/hyper_trig
 
 /datum/design/component/typecheck
 	name = "Typecheck Component"

@@ -86,6 +86,25 @@
 #define COMP_ROUND_FLOOR "Floor"
 #define COMP_ROUND_CEIL "Ceil"
 
+//Trig defines
+#define COMP_TRIG_COSINE "COS"
+#define COMP_TRIG_SINE "SIN"
+#define COMP_TRIG_TANGENT "TAN"
+#define COMP_TRIG_ASINE "ASIN"
+#define COMP_TRIG_ACOSINE "ACOS"
+#define COMP_TRIG_ATANGENT "ATAN"
+
+//Advanced Trig defines
+#define COMP_TRIG_SECANT "SEC"
+#define COMP_TRIG_COSECANT "CSC"
+#define COMP_TRIG_COTANGENT "COT"
+
+//Hyperbolic Trig Defines
+#define COMP_TRIG_HYPERBOLIC_COSINE "COSH"
+#define COMP_TRIG_HYPERBOLIC_SINE "SINH"
+#define COMP_TRIG_AHYPERBOLIC_COSINE "ACOSH"
+#define COMP_TRIG_AHYPERBOLIC_SINE "ASING"
+
 // Text defines
 #define COMP_TEXT_LOWER "To Lower"
 #define COMP_TEXT_UPPER "To Upper"

@@ -9,7 +9,7 @@
 	display_desc = "A component that operates on the bits of integers. Any decimal values are ignored."
 
 	/// The amount of input ports to have
-	var/input_port_amount = 2
+	var/input_port_amount =  2
 
 	/// The result from the output
 	var/datum/port/output/output
@@ -39,36 +39,31 @@
 	return ..()
 
 /obj/item/circuit_component/bitwise/input_received(datum/port/input/port)
-	. = ..()
+	. = ..() //This is the reason why this isn't a subclass of arithmetic
 	if(.)
 		return
 
-	var/result = input_ports[1].input_value
-	var/second = input_ports[2].input_value
+	var/list/ports = input_ports.Copy()
+	var/datum/port/input/first_port = ports[1]
+	ports -= first_port
+	ports -= trigger_input
+	var/result = first_port.input_value
 
-	if(isnull(result) && isnull(second))
-		output.set_output(null) //Pass the null along
-		return
+	for(var/datum/port/input/input_port as anything in ports)
+		var/value = input_port.input_value
+		if(isnull(value))
+			continue
 
-	//I know nulls are typically treated as 0 in math operations, but I still want to be safe when it comes to bitwise stuff.
-	if(isnull(result))
-		result = 0
-	result = round(result)
-
-	if(isnull(second))
-		second = 0
-	second = round(second)
-
-	switch(current_option)
-		if(COMP_BITWISE_AND)
-			result &= second
-		if(COMP_BITWISE_OR)
-			result |= second
-		if(COMP_BITWISE_XOR)
-			result ^= second
-		if(COMP_BITWISE_LEFTSHIFT)
-			result = round(result * 2**second)
-		if(COMP_BITWISE_RIGHTSHIFT)
-			result = round(result * 2**(-second))
+		switch(current_option)
+			if(COMP_BITWISE_AND)
+				result &= value
+			if(COMP_BITWISE_OR)
+				result |= value
+			if(COMP_BITWISE_XOR)
+				result ^= value
+			if(COMP_BITWISE_LEFTSHIFT)
+				result = round(result * 2**round(value)) //Bitshifts are done with powers of two instead of the >> and << operators to allow negative shifts
+			if(COMP_BITWISE_RIGHTSHIFT)
+				result = round(result * 2**round(-value))
 
 	output.set_output(result)
