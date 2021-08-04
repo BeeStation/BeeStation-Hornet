@@ -220,7 +220,6 @@
 		create_gas()
 	update_icon()
 
-
 /obj/machinery/portable_atmospherics/canister/proc/create_gas()
 	if(gas_type)
 		if(starter_temp)
@@ -236,21 +235,27 @@
 
 /obj/machinery/portable_atmospherics/canister/update_icon()
 	. = ..()
+	update_overlays()
+
+/obj/machinery/portable_atmospherics/canister/update_overlays()
+	. = ..()
 	if(stat & BROKEN)
 		. += mutable_appearance(canister_overlay_file, "broken")
+		return
 	if(holding)
 		. += mutable_appearance(canister_overlay_file, "can-open")
 	if(connected_port)
 		. += mutable_appearance(canister_overlay_file, "can-connector")
 	var/pressure = air_contents.return_pressure()
-	if(pressure < 10)
-		. += mutable_appearance(canister_overlay_file, "can-0")
-	else if(pressure < 5 * ONE_ATMOSPHERE)
-		. += mutable_appearance(canister_overlay_file, "can-1")
-	else if(pressure < 10 * ONE_ATMOSPHERE)
-		. += mutable_appearance(canister_overlay_file, "can-2")
-	else if(pressure < INFINITY)
-		. += mutable_appearance(canister_overlay_file, "can-3")
+	switch(pressure)
+		if((40 * ONE_ATMOSPHERE) to INFINITY)
+			. += mutable_appearance(canister_overlay_file, "can-3")
+		if((10 * ONE_ATMOSPHERE) to (40 * ONE_ATMOSPHERE))
+			. += mutable_appearance(canister_overlay_file, "can-2")
+		if((5 * ONE_ATMOSPHERE) to (10 * ONE_ATMOSPHERE))
+			. += mutable_appearance(canister_overlay_file, "can-1")
+		if((10) to (5 * ONE_ATMOSPHERE))
+			. += mutable_appearance(canister_overlay_file, "can-0")
 
 /obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > temperature_resistance)
