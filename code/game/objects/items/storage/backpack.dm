@@ -235,20 +235,39 @@
 	name = "welding fuel backpack"
 	desc = "A specialized backpack designed to store welding fuel. Be wary of light welders!"
 	icon_state = "ert_engineering" //just a placeholder for now.
-	var/tank_volume
+	var/tank_volume = 250
 	var/reagent_id = /datum/reagent/fuel
-
-/obj/item/storage/backpack/welding/attackby(obj/item/W, mob/user, params)
-	if(W.is_refillable())
-		return 0 //so we can refill them via their afterattack.
-	else
-		return ..()
 
 /obj/item/storage/backpack/welding/Initialize()
 	create_reagents(tank_volume, DRAINABLE | AMOUNT_VISIBLE)
 	if(reagent_id)
 		reagents.add_reagent(reagent_id, tank_volume)
 	. = ..()
+
+/obj/item/storage/backpack/welding/attackby(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_WELDER)
+		if(!reagents.has_reagent(/datum/reagent/fuel))
+			to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
+			return
+		var/obj/item/weldingtool/W = I
+		if(istype(W) && !W.welding)
+			if(W.reagents.has_reagent(/datum/reagent/fuel, W.max_fuel))
+				to_chat(user, "<span class='warning'>Your [W.name] is already full!</span>")
+				return
+			reagents.trans_to(W, W.max_fuel, transfered_by = user)
+			user.visible_message("<span class='notice'>[user] refills [user.p_their()] [W.name].</span>", "<span class='notice'>You refill [W].</span>")
+			playsound(src, 'sound/effects/refill.ogg', 50, 1)
+			W.update_icon()
+		else
+			user.visible_message("<span class='warning'>[user] catastrophically fails at refilling [user.p_their()] [I.name]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
+			log_bomber(user, "detonated a", src, "via welding tool")
+
+			if (user.client)
+				SSmedals.UnlockMedal(MEDAL_DETONATE_WELDERBOMB,user.client)
+
+			boom()
+		return
+	return ..()
 
 /////////////////
 //DONATOR ITEMS//
