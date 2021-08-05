@@ -135,7 +135,7 @@
 	var/mob/living/silicon/pai/pAI = usr
 	pAI.cmd_show_message_log(usr)
 
-	/atom/movable/screen/pai/internal_gps
+/atom/movable/screen/pai/internal_gps
 	name = "Internal GPS"
 	icon_state = "internal_gps"
 	required_software = "internal gps"
