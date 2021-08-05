@@ -73,11 +73,15 @@
 				locked = FALSE
 				req_access = list()
 				to_chat(user, "<span class='notice'>You unlock [src].</span>")
+				//Update to viewers
+				ui_update()
 		else if(!(obj_flags & EMAGGED))
 			to_chat(user, "<span class='notice'>You lock [src] with [W].</span>")
 			var/list/access = W.GetAccess()
 			req_access = access
 			locked = TRUE
+			//Update to viewers
+			ui_update()
 		else
 			to_chat(user, "<span class='warning'>You try to lock [src] with [W], but nothing happens.</span>")
 	else
@@ -90,6 +94,8 @@
 	req_access = list()
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fry the ID checking system.</span>")
+	//Update to viewers
+	ui_update()
 
 /obj/machinery/scanner_gate/proc/perform_scan(mob/living/M)
 	var/beep = FALSE
@@ -242,6 +248,8 @@
 					if("Obese")
 						detect_nutrition = NUTRITION_LEVEL_FAT
 			. = TRUE
+	//Update to viewers
+	ui_update()
 
 #undef SCANGATE_NONE
 #undef SCANGATE_MINDSHIELD

@@ -180,6 +180,7 @@
 	if(!ui)
 		ui = new(user, src, "Mule")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /mob/living/simple_animal/bot/mulebot/ui_data(mob/user)
 	var/list/data = list()
@@ -739,6 +740,12 @@
 /mob/living/simple_animal/bot/mulebot/remove_air(amount) //To prevent riders suffocating
 	if(loc)
 		return loc.remove_air(amount)
+	else
+		return null
+
+/mob/living/simple_animal/bot/mulebot/remove_air_ratio(ratio)
+	if(loc)
+		return loc.remove_air_ratio(ratio)
 	else
 		return null
 

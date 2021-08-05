@@ -29,6 +29,7 @@
 
 	var/triggering	//admin cancellation
 	var/auto_add = TRUE				//Auto add to the event pool, if not you have to do it yourself!
+	var/can_malf_fake_alert = FALSE	//Can be faked by malf ai?
 
 
 	var/dynamic_should_hijack = FALSE	// Whether or not dynamic should hijack this event
@@ -215,6 +216,9 @@
 
 	activeFor++
 
+// Called when an admin triggers the event.
+/datum/round_event/proc/on_admin_trigger()
+	return
 
 //Garbage collects the event by removing it from the global events list,
 //which should be the only place it's referenced.

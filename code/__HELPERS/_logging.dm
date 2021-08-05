@@ -35,6 +35,11 @@
 	SEND_TEXT(world.log, text)
 #endif
 
+#ifdef REFERENCE_TRACKING_LOG
+#define log_reftracker(msg) log_world("## REF SEARCH [msg]")
+#else
+#define log_reftracker(msg)
+#endif
 
 /* Items with ADMINPRIVATE prefixed are stripped from public logs. */
 /proc/log_admin(text)
@@ -206,6 +211,10 @@
 
 /proc/log_mapping(text)
 	WRITE_LOG(GLOB.world_map_error_log, text)
+
+/proc/log_perf(list/perf_info)
+	. = "[perf_info.Join(",")]\n"
+	WRITE_LOG_NO_FORMAT(GLOB.perf_log, .)
 
 /* ui logging */
 /proc/log_tgui(user_or_client, text)

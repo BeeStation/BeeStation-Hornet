@@ -618,7 +618,7 @@
 		/obj/item/stock_parts/cell = 1)
 	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 	needs_anchored = FALSE
-	
+
 /obj/item/circuitboard/machine/chem_dispenser/fullupgrade
 	build_path = /obj/machinery/chem_dispenser/fullupgrade
 	req_components = list(

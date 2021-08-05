@@ -104,7 +104,7 @@
 	switch(severity)
 		if(1)
 			if(current_size <= STAGE_TWO)
-				investigate_log("has been destroyed by a heavy explosion.", INVESTIGATE_SINGULO)
+				investigate_log("has been destroyed by a heavy explosion.", INVESTIGATE_ENGINES)
 				qdel(src)
 				return
 			else
@@ -152,7 +152,7 @@
 	var/count = locate(/obj/machinery/field/containment) in urange(30, src, 1)
 	if(!count)
 		message_admins("A singulo has been created without containment fields active at [ADMIN_VERBOSEJMP(T)].")
-	investigate_log("was created at [AREACOORD(T)]. [count?"":"<font color='red'>No containment fields were active</font>"]", INVESTIGATE_SINGULO)
+	investigate_log("was created at [AREACOORD(T)]. [count?"":"<font color='red'>No containment fields were active</font>"]", INVESTIGATE_ENGINES)
 
 /obj/singularity/proc/dissipate(delta_time)
 	if(!dissipate)
@@ -238,7 +238,7 @@
 			consume_range = 5
 			dissipate = 0
 	if(current_size == allowed_size)
-		investigate_log("<font color='red'>grew to size [current_size]</font>", INVESTIGATE_SINGULO)
+		investigate_log("<font color='red'>grew to size [current_size]</font>", INVESTIGATE_ENGINES)
 		return 1
 	else if(current_size < (--temp_allowed_size))
 		expand(temp_allowed_size)
@@ -248,7 +248,7 @@
 
 /obj/singularity/proc/check_energy()
 	if(energy <= 0)
-		investigate_log("collapsed.", INVESTIGATE_SINGULO)
+		investigate_log("collapsed.", INVESTIGATE_ENGINES)
 		qdel(src)
 		return 0
 	switch(energy)//Some of these numbers might need to be changed up later -Mport
@@ -453,5 +453,5 @@
 /obj/singularity/proc/bluespace_reaction()
 	SIGNAL_HANDLER
 
-	investigate_log("has been shot by bluespace artillery and destroyed.", INVESTIGATE_SINGULO)
+	investigate_log("has been shot by bluespace artillery and destroyed.", INVESTIGATE_ENGINES)
 	qdel(src)
