@@ -9,8 +9,8 @@
 	liked_food = DAIRY | MEAT
 
 	mutant_bodyparts = list("ears", "tail_human")
-	default_features = list("mcolor" = "FFF", "wings" = "None")
-	forced_features = list("tail_human" = "Cat", "ears" = "Cat")
+	default_features = list("mcolor" = "FFF", "wings" = "None", "tail_human" = "Cat")
+	forced_features = list("ears" = "Cat")
 
 	mutantears = /obj/item/organ/ears/cat
 	mutanttail = /obj/item/organ/tail/cat

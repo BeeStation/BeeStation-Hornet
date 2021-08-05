@@ -1599,12 +1599,18 @@
 	name = "Cat"
 	icon_state = "cat"
 	color_src = HAIR
-
+/datum/sprite_accessory/tails/human/catalt
+	name = "Cat Smooth"
+	icon_state = "catalt"
+	color_src = HAIR
 /datum/sprite_accessory/tails_animated/human/cat
 	name = "Cat"
 	icon_state = "cat"
 	color_src = HAIR
-
+/datum/sprite_accessory/tails_animated/human/catalt
+	name = "Cat Smooth"
+	icon_state = "catalt"
+	color_src = HAIR
 /datum/sprite_accessory/tails/human/clock
 	name = "Clockwork"
 	icon_state = "clockwork"
