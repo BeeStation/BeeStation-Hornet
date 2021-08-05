@@ -47,12 +47,14 @@
 	var/datum/port/input/first_port = ports[1]
 	ports -= first_port
 	ports -= trigger_input
-	var/result = first_port.input_value
+	var/result = round(first_port.input_value)
 
 	for(var/datum/port/input/input_port as anything in ports)
 		var/value = input_port.input_value
 		if(isnull(value))
 			continue
+
+		value = round(value)
 
 		switch(current_option)
 			if(COMP_BITWISE_AND)
@@ -62,8 +64,8 @@
 			if(COMP_BITWISE_XOR)
 				result ^= value
 			if(COMP_BITWISE_LEFTSHIFT)
-				result = round(result * 2**round(value)) //Bitshifts are done with powers of two instead of the >> and << operators to allow negative shifts
+				result = round(result * 2**value) //Bitshifts are done with powers of two instead of the >> and << operators to allow negative shifts
 			if(COMP_BITWISE_RIGHTSHIFT)
-				result = round(result * 2**round(-value))
+				result = round(result * 2**(-value))
 
 	output.set_output(result)
