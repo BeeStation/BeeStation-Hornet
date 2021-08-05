@@ -234,7 +234,7 @@
 /obj/item/storage/backpack/welding
 	name = "welding fuel backpack"
 	desc = "A specialized backpack designed to store welding fuel. Be wary of lit welders!"
-	icon_state = "ert_engineering" //just a placeholder for now.
+	icon_state = "weldpack"
 	var/tank_volume = 250
 	var/reagent_id = /datum/reagent/fuel
 
