@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - bugfix: You can no longer use a soulstone on soulless targets.
