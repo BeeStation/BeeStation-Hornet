@@ -615,9 +615,6 @@
 	if(!GLOB.tinted_weldhelh)
 		return
 	tinttotal = get_total_tint()
-	var/obj/item/organ/eyes/E = getorganslot(ORGAN_SLOT_EYES)
-	if(E && !(~sight & (SEE_MOBS|SEE_OBJS|SEE_TURFS)))
-		return
 	if(tinttotal >= TINT_BLIND)
 		become_blind(EYES_COVERED)
 	else if(tinttotal >= TINT_DARKENED)
