@@ -99,8 +99,7 @@
 					to_chat(pai, "<span class='rose'>oblivion... </span>")
 					qdel(pai)
 		if(href_list["clear_zero"])
-			var/confirm = input("Are you CERTAIN you wish to remove this pAI's Prime directive? This action cannot be undone.", "Clear Directive") in list("Yes", "No")
-			if(confirm == "Yes")
+			if((input("Are you CERTAIN you wish to remove this pAI's Prime directive? This action cannot be undone.", "Clear Directive") in list("Yes", "No")) == "Yes")
 				if(pai)
 					pai.laws.clear_zeroth_law()
 		if(href_list["toggle_transmit"] || href_list["toggle_receive"])
@@ -177,4 +176,3 @@
 		return
 	if(pai && !pai.holoform)
 		pai.emp_act(severity)
-
