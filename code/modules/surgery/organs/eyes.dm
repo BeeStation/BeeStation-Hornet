@@ -149,7 +149,7 @@
 	tint = -INFINITY
 
 /obj/item/organ/eyes/robotic/xray/syndicate
-	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. On closer look, they have been modified to reduce brightness from sudden bright flashes."
+	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. On closer look, they have been modified to protect from sudden bright flashes."
 	flash_protect = 0
 
 /obj/item/organ/eyes/robotic/thermals
