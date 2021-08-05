@@ -283,13 +283,13 @@
 	loop(MICROWAVE_PRE, 4)
 
 /obj/machinery/microwave/proc/muck()
-<<<<<<< HEAD
-	turn_on()
-	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
-=======
 	wzhzhzh()
+	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
+	dirty_anim_playing = TRUE
+	update_icon()
 	loop(MICROWAVE_MUCK, 4)
 
+/obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2)) // standard wait is 10
 	if(stat & (NOPOWER|BROKEN))
 		if(type == MICROWAVE_PRE)
 			pre_fail()
