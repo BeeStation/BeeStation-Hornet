@@ -1,5 +1,5 @@
 
-#define DUALWIELD_PENALTY_EXTRA_MULTIPLIER 1.4
+#define DUALWIELD_PENALTY_EXTRA_MULTIPLIER 1.1
 
 /obj/item/gun
 	name = "gun"
