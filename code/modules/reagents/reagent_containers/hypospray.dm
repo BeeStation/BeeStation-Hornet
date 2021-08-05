@@ -14,6 +14,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = 0
 	var/infinite = FALSE
+	var/self_only = 0
 
 /obj/item/reagent_containers/hypospray/attack_paw(mob/user)
 	return attack_hand(user)
@@ -32,7 +33,7 @@
 	var/contained = english_list(injected)
 	log_combat(user, M, "attempted to inject", src, "([contained])")
 
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1))) // Ignore flag should be checked first or there will be an error message.
+	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1)) && (!self_only || user == M)) // Ignore flag should be checked first or there will be an error message.
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 		playsound(loc, 'sound/items/hypospray.ogg', 50, 1)
@@ -77,6 +78,19 @@
 	possible_transfer_amounts = list(10,15,30,45)
 	ignore_flags = 1 // So they can heal their comrades.
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 30, /datum/reagent/medicine/omnizine = 30, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/stabilizing_nanites = 15)
+
+/obj/item/reagent_containers/hypospray/combat/weaker
+	name = "combat stimulant injector"
+	desc = "A modified air-needle autoinjector, used by syndicate operatives to quickly patch their own wounds in combat."
+	amount_per_transfer_from_this = 15
+	item_state = "combat_hypo"
+	icon_state = "combat_hypo"
+	volume = 90
+	possible_transfer_amounts = list(10,15,30,45)
+	ignore_flags = 1
+	self_only = 1
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 30, /datum/reagent/medicine/omnizine = 30, /datum/reagent/medicine/leporazine = 20, /datum/reagent/medicine/stabilizing_nanites = 10)
+
 
 /obj/item/reagent_containers/hypospray/combat/nanites
 	name = "experimental combat stimulant injector"

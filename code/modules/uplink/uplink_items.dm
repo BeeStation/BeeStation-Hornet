@@ -1583,8 +1583,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/combat_hypo
 	name = "Combat Medical Injector"
-	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. Comes with six doses by default, dosage can be adjusted."
-	item = /obj/item/reagent_containers/hypospray/combat
+	desc = "A modified air-needle autoinjector, used by syndicate operatives to quickly patch their own wounds in combat. Comes with six doses by default, dosage can be adjusted."
+	item = /obj/item/reagent_containers/hypospray/combat/weaker
 	cost = 3
 
 /datum/uplink_item/device_tools/emag
