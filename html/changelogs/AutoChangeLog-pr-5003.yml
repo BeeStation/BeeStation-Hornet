@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - rscdel: Removed the Pheromone Receptor ability from changelings
