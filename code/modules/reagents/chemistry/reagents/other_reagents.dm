@@ -290,11 +290,13 @@
 				to_chat(M, "<span class='cultlarge'>[pick("Your blood is your bond - you are nothing without it", "Do not forget your place", \
 				"All that power, and you still fail?", "If you cannot scour this poison, I shall scour your meager life!")].</span>")
 	if(data["misc"] >= 60)	// 30 units, 135 seconds
-		if(iscultist(M) || is_servant_of_ratvar(M))
+		if(iscultist(M) || is_servant_of_ratvar(M) || IS_HERETIC_MONSTER(M))
 			if(iscultist(M))
 				SSticker.mode.remove_cultist(M.mind, FALSE, TRUE)
 			if(is_servant_of_ratvar(M))
 				remove_servant_of_ratvar(M.mind)
+			if(IS_HERETIC_MONSTER(M))
+				SEND_SIGNAL(src, COMSIG_HERETIC_REMOVE_GHOUL)
 			M.jitteriness = 0
 			M.stuttering = 0
 			holder.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??

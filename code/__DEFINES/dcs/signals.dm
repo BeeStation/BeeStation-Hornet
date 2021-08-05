@@ -417,6 +417,7 @@
 
 //Heretics stuff
 #define COMSIG_HUMAN_VOID_MASK_ACT "void_mask_act"
+#define COMSIG_HERETIC_REMOVE_GHOUL "remove_ghoul"
 
 // Component signals
 /// From /datum/port/output/set_output: (output_value)

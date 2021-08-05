@@ -67,6 +67,7 @@
 	heretic_monster.set_owner(master)
 	atoms -= humie
 	RegisterSignal(humie,COMSIG_MOB_DEATH,.proc/remove_ghoul)
+	RegisterSignal(humie,COMSIG_HERETIC_REMOVE_GHOUL,.proc/remove_ghoul)
 	ghouls += humie
 
 /datum/eldritch_knowledge/flesh_ghoul/proc/remove_ghoul(datum/source)
