@@ -8,8 +8,8 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS 		// Only one of the component can exist on an item
 	var/wielded = FALSE 							/// Are we holding the two handed item properly
 	var/force_multiplier = 0						/// The multiplier applied to force when wielded, does not work with force_wielded, and force_unwielded
-	var/force_wielded = 0	 						/// The force of the item when weilded
-	var/force_unwielded = 0		 					/// The force of the item when unweilded
+	var/force_wielded = 0	 						/// The force of the item when wielded
+	var/force_unwielded = 0		 					/// The force of the item when unwielded
 	var/block_power_wielded = 0						/// The block power of the item when wielded
 	var/block_power_unwielded = 0					/// The block power of the item when unwielded
 	var/wieldsound = FALSE 							/// Play sound when wielded
@@ -19,6 +19,9 @@
 	var/icon_wielded = FALSE						/// The icon that will be used when wielded
 	var/obj/item/offhand/offhand_item = null		/// Reference to the offhand created for the item
 	var/sharpened_increase = 0						/// The amount of increase recived from sharpening the item
+	var/unwield_on_swap								/// Allow swapping, unwield on swap
+	var/auto_wield									/// If true wielding will be performed when picked up
+	var/ignore_attack_self							/// If true will not unwield when attacking self.
 
 /**
  * Two Handed component
@@ -32,10 +35,13 @@
  * * force_wielded (optional) The force setting when the item is wielded, do not use with force_multiplier
  * * force_unwielded (optional) The force setting when the item is unwielded, do not use with force_multiplier
  * * icon_wielded (optional) The icon to be used when wielded
+ * * unwield_on_swap (optional) Allow swapping, unwield on swap
+ * * auto_wield (optional) If true wielding will be performed when picked up
  */
 /datum/component/two_handed/Initialize(require_twohands=FALSE, wieldsound=FALSE, unwieldsound=FALSE, attacksound=FALSE, \
-										force_multiplier=0, force_wielded=0, force_unwielded=0, block_power_wielded=0, \
-										block_power_unwielded=0, icon_wielded=FALSE)
+		force_multiplier=0, force_wielded=0, force_unwielded=0, block_power_wielded=0, \
+		block_power_unwielded=0, icon_wielded=FALSE, \
+		unwield_on_swap = FALSE, auto_wield = FALSE, ignore_attack_self = FALSE)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -49,12 +55,16 @@
 	src.block_power_wielded = block_power_wielded
 	src.block_power_unwielded = block_power_unwielded
 	src.icon_wielded = icon_wielded
+	src.unwield_on_swap = unwield_on_swap
+	src.auto_wield = auto_wield
+	src.ignore_attack_self = ignore_attack_self
 
 // Inherit the new values passed to the component
 #define ISWIELDED(O) (SEND_SIGNAL(O, COMSIG_ITEM_CHECK_WIELDED) & COMPONENT_IS_WIELDED)
 
 /datum/component/two_handed/InheritComponent(datum/component/two_handed/new_comp, original, require_twohands, wieldsound, unwieldsound, \
-											force_multiplier, force_wielded, force_unwielded, block_power_wielded, block_power_unwielded, icon_wielded)
+		force_multiplier, force_wielded, force_unwielded, block_power_wielded, block_power_unwielded, icon_wielded, \
+		unwield_on_swap, auto_wield, ignore_attack_self)
 	if(!original)
 		return
 	if(require_twohands)
@@ -77,6 +87,12 @@
 		src.block_power_unwielded = block_power_unwielded
 	if(icon_wielded)
 		src.icon_wielded = icon_wielded
+	if(unwield_on_swap)
+		src.unwield_on_swap = unwield_on_swap
+	if(auto_wield)
+		src.auto_wield = auto_wield
+	if(ignore_attack_self)
+		src.ignore_attack_self = ignore_attack_self
 
 // register signals withthe parent item
 /datum/component/two_handed/RegisterWithParent()
@@ -104,7 +120,7 @@
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 
-	if(require_twohands && slot == ITEM_SLOT_HANDS) // force equip the item
+	if((auto_wield || require_twohands) && slot == ITEM_SLOT_HANDS) // force equip the item
 		wield(user)
 	if(!user.is_holding(parent) && wielded && !require_twohands)
 		unwield(user)
@@ -123,6 +139,9 @@
 /// Triggered on attack self of the item containing the component
 /datum/component/two_handed/proc/on_attack_self(datum/source, mob/user)
 	SIGNAL_HANDLER
+
+	if(ignore_attack_self)
+		return
 
 	if(wielded)
 		unwield(user)
@@ -294,9 +313,15 @@
 	SIGNAL_HANDLER
 
 	if(!held_item)
+		//We are swapping to our two handed object.
+		if(auto_wield)
+			wield(user)
 		return
 	if(held_item == parent)
-		return COMPONENT_BLOCK_SWAP
+		if(unwield_on_swap)
+			unwield(user, FALSE)
+		else
+			return COMPONENT_BLOCK_SWAP
 
 /**
  * on_sharpen Triggers on usage of a sharpening stone on the item

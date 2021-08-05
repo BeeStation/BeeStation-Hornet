@@ -41,7 +41,10 @@
 	var/dual_wield_spread = 24			//additional spread when dual wielding
 	var/spread = 0						//Spread induced by the gun itself.
 	var/spread_multiplier = 1			//Multiplier for shotgun spread
+	var/spread_unwielded				//Spread induced by holding the gun with 1 hand. (40 for light weapons, 60 for medium by default)
 	var/randomspread = 1				//Set to 0 for shotguns. This is used for weapons that don't fire all their bullets at once.
+
+	var/is_wielded = FALSE
 
 	lefthand_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
@@ -49,6 +52,8 @@
 	var/obj/item/firing_pin/pin = /obj/item/firing_pin //standard firing pin for most guns
 	var/no_pin_required = FALSE //whether the gun can be fired without a pin
 	var/can_flashlight = FALSE //if a flashlight can be added or removed if it already has one.
+
+	//Flashlight
 	var/obj/item/flashlight/seclite/gun_light
 	var/mutable_appearance/flashlight_overlay
 	var/datum/action/item_action/toggle_gunlight/alight
@@ -89,6 +94,25 @@
 	if(!canMouseDown) //Some things like beam rifles override this.
 		canMouseDown = automatic //Nsv13 / Bee change.
 	build_zooming()
+	if(!spread_unwielded)
+		spread_unwielded = weapon_weight * 20 + 20
+	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/wield)
+	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/unwield)
+
+/obj/item/gun/ComponentInitialize()
+	. = ..()
+	//Larger weapons require two-hands.
+	if(weapon_weight == WEAPON_HEAVY)
+		AddComponent(/datum/component/two_handed, TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power, wieldsound = 'sound/effects/suitstep1.ogg', unwieldsound = 'sound/effects/suitstep2.ogg')
+	else
+		//Smaller weapons are better when used in a single hand.
+		AddComponent(/datum/component/two_handed, unwield_on_swap = TRUE, auto_wield = TRUE, ignore_attack_self = TRUE, force_wielded = force, force_unwielded = force, block_power_wielded = block_power, block_power_unwielded = block_power, wieldsound = 'sound/effects/suitstep1.ogg', unwieldsound = 'sound/effects/suitstep2.ogg')
+
+/obj/item/gun/proc/wield()
+	is_wielded = TRUE
+
+/obj/item/gun/proc/unwield()
+	is_wielded = FALSE
 
 /obj/item/gun/Destroy()
 	if(isobj(pin)) //Can still be the initial path, then we skip
@@ -101,6 +125,7 @@
 		QDEL_NULL(chambered)
 	if(azoom)
 		QDEL_NULL(azoom)
+	UnregisterSignal(list(COMSIG_TWOHANDED_WIELD, COMSIG_TWOHANDED_UNWIELD))
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)
@@ -128,6 +153,7 @@
 	. = ..()
 	if(no_pin_required)
 		return
+
 	if(pin)
 		. += "It has \a [pin] installed."
 	else
@@ -235,7 +261,7 @@
 				user.dropItemToGround(src, TRUE)
 				return
 
-	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_held_item())
+	if(weapon_weight == WEAPON_HEAVY && !istype(user.get_inactive_held_item(), /obj/item/offhand))
 		balloon_alert(user, "You need both hands free to fire")
 		return
 
@@ -253,8 +279,6 @@
 				addtimer(CALLBACK(G, /obj/item/gun.proc/process_fire, target, user, TRUE, params, null, bonus_spread, flag), loop_counter)
 
 	process_fire(target, user, TRUE, params, null, bonus_spread)
-
-
 
 /obj/item/gun/can_trigger_gun(mob/living/user)
 	. = ..()
@@ -330,6 +354,8 @@
 		randomized_gun_spread =	rand(0,spread)
 	if(HAS_TRAIT(user, TRAIT_POOR_AIM)) //nice shootin' tex
 		bonus_spread += 25
+	if(!is_wielded)
+		bonus_spread += spread_unwielded
 	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if(burst_size > 1)

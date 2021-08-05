@@ -80,7 +80,15 @@
 	desc = "A compact version of the semi automatic combat shotgun. For close encounters."
 	icon_state = "cshotgunc"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com/compact
+	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/compact/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+	if(!is_wielded)
+		recoil = 6
+	else
+		recoil = initial(recoil)
+	. = ..()
 
 // Breaching Shotgun //
 
