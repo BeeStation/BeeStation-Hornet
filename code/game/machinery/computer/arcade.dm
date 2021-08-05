@@ -1259,7 +1259,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 						BP.dismember()
 						qdel(BP)
 			playsound(loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
-			for(var/i=1; i<=rand(20,30); i++)
+			for(var/i=1 to rand(20, 30))
 				prizevend(user)
 		else
 			to_chat(c_user, "<span class='notice'>You (wisely) decide against putting your hand in the machine.</span>")
