@@ -139,7 +139,7 @@
 				return
 			bolt_locked = FALSE
 		if(BOLT_TYPE_PUMP)
-			if(user?.get_inactive_held_item())
+			if(user?.get_inactive_held_item() && !istype(user.get_inactive_held_item(), /obj/item/offhand))
 				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
 				return
 	if(user)

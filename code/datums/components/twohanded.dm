@@ -114,12 +114,17 @@
 								COMSIG_ATOM_UPDATE_ICON,
 								COMSIG_MOVABLE_MOVED,
 								COMSIG_ITEM_SHARPEN_ACT,
-								COMSIG_ITEM_CHECK_WIELDED))
+								COMSIG_ITEM_CHECK_WIELDED,))
 
 /// Triggered on equip of the item containing the component
 /datum/component/two_handed/proc/on_equip(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 
+	if(auto_wield)
+		if(slot == ITEM_SLOT_HANDS)
+			RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, .proc/on_swap_hands)
+		else
+			UnregisterSignal(user, COMSIG_MOB_SWAP_HANDS)
 	if((auto_wield || require_twohands) && slot == ITEM_SLOT_HANDS) // force equip the item
 		wield(user)
 	if(!user.is_holding(parent) && wielded && !require_twohands)
@@ -129,6 +134,8 @@
 /datum/component/two_handed/proc/on_drop(datum/source, mob/user)
 	SIGNAL_HANDLER
 
+	if(auto_wield)
+		UnregisterSignal(user, COMSIG_MOB_SWAP_HANDS)
 	if(require_twohands)
 		unwield(user, show_message=TRUE)
 	if(wielded)
@@ -154,13 +161,13 @@
  * vars:
  * * user The mob/living/carbon that is wielding the item
  */
-/datum/component/two_handed/proc/wield(mob/living/carbon/user)
+/datum/component/two_handed/proc/wield(mob/living/carbon/user, swap_hands = FALSE)
 	if(wielded)
 		return
 	if(ismonkey(user))
 		to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
 		return
-	if(user.get_inactive_held_item())
+	if(swap_hands ? user.get_active_held_item() : user.get_inactive_held_item())
 		if(require_twohands)
 			to_chat(user, "<span class='notice'>[parent] is too cumbersome to carry in one hand!</span>")
 			user.dropItemToGround(parent, force=TRUE)
@@ -177,7 +184,8 @@
 	if(SEND_SIGNAL(parent, COMSIG_TWOHANDED_WIELD, user) & COMPONENT_TWOHANDED_BLOCK_WIELD)
 		return // blocked wield from item
 	wielded = TRUE
-	RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, .proc/on_swap_hands)
+	if(!auto_wield)
+		RegisterSignal(user, COMSIG_MOB_SWAP_HANDS, .proc/on_swap_hands)
 
 	// update item stats and name
 	var/obj/item/parent_item = parent
@@ -207,7 +215,10 @@
 	offhand_item.desc = "Your second grip on [parent_item]."
 	offhand_item.wielded = TRUE
 	RegisterSignal(offhand_item, COMSIG_ITEM_DROPPED, .proc/on_drop)
-	user.put_in_inactive_hand(offhand_item)
+	if(swap_hands)
+		user.put_in_active_hand(offhand_item)
+	else
+		user.put_in_inactive_hand(offhand_item)
 
 /**
  * Unwield the two handed item
@@ -222,7 +233,8 @@
 
 	// wield update status
 	wielded = FALSE
-	UnregisterSignal(user, COMSIG_MOB_SWAP_HANDS)
+	if(!auto_wield)
+		UnregisterSignal(user, COMSIG_MOB_SWAP_HANDS)
 	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, user)
 
 	// update item stats
@@ -315,7 +327,7 @@
 	if(!held_item)
 		//We are swapping to our two handed object.
 		if(auto_wield)
-			wield(user)
+			wield(user, TRUE)
 		return
 	if(held_item == parent)
 		if(unwield_on_swap)
