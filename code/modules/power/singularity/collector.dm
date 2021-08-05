@@ -5,6 +5,7 @@
 #define RAD_COLLECTOR_MINING_CONVERSION_RATE 0.00001 //This is gonna need a lot of tweaking to get right. This is the number used to calculate the conversion of watts to research points per process()
 #define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy*RAD_COLLECTOR_STORED_OUT)+1000) //Produces at least 1000 watts if it has more than that stored
 
+
 /obj/machinery/power/rad_collector
 	name = "Radiation Collector Array"
 	desc = "A device which uses Hawking Radiation and plasma to produce power."
@@ -24,15 +25,26 @@
 	var/locked = FALSE
 	var/drainratio = 0.5
 	var/powerproduction_drain = 0.01
-
 	var/bitcoinproduction_drain = 0.15
 	var/bitcoinmining = FALSE
+	var/obj/item/radio/radio
+	var/radio_key = /obj/item/encryptionkey/headset_eng
+	var/radio_channel = RADIO_CHANNEL_ENGINEERING
 
+/obj/machinery/power/rad_collector/Initialize()
+	. = ..()
+
+	radio = new(src)
+	radio.keyslot = new radio_key
+	radio.subspace_transmission = TRUE
+	radio.canhear_range = 0
+	radio.recalculateChannels()
 
 /obj/machinery/power/rad_collector/anchored
 	anchored = TRUE
 
 /obj/machinery/power/rad_collector/Destroy()
+	QDEL_NULL(radio)
 	return ..()
 
 /obj/machinery/power/rad_collector/process(delta_time)
@@ -47,6 +59,8 @@
 			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,loaded_tank.air_contents.get_moles(GAS_PLASMA))
 			loaded_tank.air_contents.adjust_moles(GAS_PLASMA, -gasdrained)
 			loaded_tank.air_contents.adjust_moles(GAS_TRITIUM, gasdrained)
+			var/msg = "Plasma depleted, recommend replacing tank."
+			radio.talk_into(src, msg, radio_channel)
 
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
@@ -229,6 +243,7 @@
 		flick("ca_deactive", src)
 	update_icon()
 	return
+/obj/machinery/power/rad_collector/proc/full()
 
 #undef RAD_COLLECTOR_EFFICIENCY
 #undef RAD_COLLECTOR_COEFFICIENT
