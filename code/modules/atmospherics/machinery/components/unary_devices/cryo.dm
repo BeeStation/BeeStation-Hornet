@@ -360,6 +360,7 @@
 	if(!ui)
 		ui = new(user, src, "Cryo")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/ui_data()
 	var/list/data = list()
