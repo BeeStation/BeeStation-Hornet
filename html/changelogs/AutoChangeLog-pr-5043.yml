@@ -1,0 +1,4 @@
+author: Raven-Industries
+delete-after: true
+changes:
+  - bugfix: fixed brig timer's UI not updating properly
