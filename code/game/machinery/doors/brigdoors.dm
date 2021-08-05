@@ -262,7 +262,7 @@
 				activation_time = world.time
 		else
 			. = FALSE
-	ui_update()
+	
 
 
 #undef PRESET_SHORT
