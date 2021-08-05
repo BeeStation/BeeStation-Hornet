@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - rscadd: Nuke/Self-Destruct UIs now autoupdate.
