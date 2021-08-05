@@ -156,7 +156,7 @@
 	if(!ui)
 		ui = new(user, src, "BrigTimer")
 		ui.open()
-
+		ui.set_autoupdate(TRUE)
 //icon update function
 // if NOPOWER, display blank
 // if BROKEN, display blue screen of death icon AI uses
