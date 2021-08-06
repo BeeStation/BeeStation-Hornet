@@ -1,5 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - tweak: Round start timer in the stat-panel now tracks time accurately from actual
-      start of round.
