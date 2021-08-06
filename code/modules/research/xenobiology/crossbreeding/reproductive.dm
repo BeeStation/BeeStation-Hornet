@@ -9,6 +9,7 @@ Reproductive extracts:
 	icon_state = "reproductive"
 	effect = "reproductive"
 	effect_desc = "When fed monkey cubes it produces more extracts. Bio bag compatible as well."
+	layer = LOW_ITEM_LAYER
 	var/extract_type = /obj/item/slime_extract/
 	var/last_produce = 0
 	var/cooldown = 3 SECONDS
@@ -35,7 +36,7 @@ Reproductive extracts:
 
 	if(istype(O, /obj/item/storage/bag/bio))
 		var/list/inserted = list()
-		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_TAKE_TYPE, /obj/item/reagent_containers/food/snacks/monkeycube, src, feedAmount - length(contents), TRUE, FALSE, user, inserted)
+		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_TAKE_TYPE, /obj/item/reagent_containers/food/snacks/monkeycube, src, 1, null, null, user, inserted)
 		if(inserted.len)
 			to_chat(user, "<span class='warning'>You feed [length(inserted)] Monkey Cube[p_s()] to [src], and it pulses gently.</span>")
 			playsound(src, 'sound/items/eatfood.ogg', 20, TRUE)
