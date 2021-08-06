@@ -243,7 +243,6 @@
 		flick("ca_deactive", src)
 	update_icon()
 	return
-/obj/machinery/power/rad_collector/proc/full()
 
 #undef RAD_COLLECTOR_EFFICIENCY
 #undef RAD_COLLECTOR_COEFFICIENT
