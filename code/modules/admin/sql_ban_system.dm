@@ -125,7 +125,7 @@
 			C.ban_cache[query_build_ban_cache.item[1]] = TRUE
 		qdel(query_build_ban_cache)
 
-/datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins, reason, edit_id, page, admin_key, global_ban)
+/datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins, reason, edit_id, page, admin_key, global_ban = TRUE)
 	var/panel_height = 620
 	if(edit_id)
 		panel_height = 240
@@ -358,7 +358,7 @@
 	var/player_cid
 	var/use_last_connection = FALSE
 	var/applies_to_admins = FALSE
-	var/global_ban = FALSE
+	var/global_ban = TRUE
 	var/duration
 	var/interval
 	var/severity
