@@ -1,0 +1,5 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: Defibrillator paddles now behave more consistently in regards to overextending
+      and dropping
