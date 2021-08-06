@@ -311,7 +311,7 @@
 
 /datum/gear/uniform/rank/medical/nurse_dress
 	display_name = "medical, nurse's dress"
-	path = /obj/item/clothing/under/rank/medical/doctor
+	path = /obj/item/clothing/under/rank/medical/doctor/nurse
 
 /datum/gear/uniform/rank/medical/emt
 	display_name = "medical scrubs, EMT"

@@ -59,7 +59,7 @@
 	if(visualsOnly)
 		return
 	var/obj/item/organ/eyes/robotic/glow/eyes = new()
-	eyes.Insert(src, drop_if_replaced = FALSE)
+	eyes.Insert(H, drop_if_replaced = FALSE)
 
 /datum/outfit/spacepol
 	name = "Spacepol Officer"
@@ -131,14 +131,6 @@
 	backpack_contents = list(
 		/obj/item/ammo_casing/shotgun/incapacitate = 6
 		)
-
-/datum/outfit/bountygrapple/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-	var/obj/item/card/id/W = H.wear_id
-	W.assignment = "Bounty Hunter"
-	W.registered_name = H.real_name
-	W.update_label()
 
 /datum/outfit/bountysynth
 	name = "Bounty Hunter - Synth"

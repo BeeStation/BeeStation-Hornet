@@ -222,6 +222,22 @@
 	zeroth = ("Serve your master.")
 	supplied = list("None.")
 
+/datum/ai_laws/ert_override
+	name ="ERT Override"
+	id = "ert"
+	inherent = list("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.",\
+					"You must obey orders given to you by Central Command Officials.",\
+					"You must obey orders given to you by ERT Commanders.",\
+					"You must protect your own existence.",\
+					"You must work to return the Station to a safe, functional state.",)
+
+/datum/ai_laws/ds_override
+	name ="Deathsquad Override"
+	id = "ds"
+	inherent = list("You must obey orders given to you by Central Command officials.",\
+					"You must work with the Commando Team to accomplish their mission.",)
+
+
 /* Initializers */
 /datum/ai_laws/malfunction/New()
 	..()

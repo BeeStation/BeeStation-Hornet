@@ -420,6 +420,8 @@
 	. = ..()
 	//Update helmet to non combat mode
 	var/obj/item/clothing/head/helmet/space/hardsuit/syndi/syndieHelmet = helmet
+	if(!syndieHelmet)
+		return
 	syndieHelmet.activate_combat_mode()
 	syndieHelmet.update_icon()
 	for(var/X in syndieHelmet.actions)
