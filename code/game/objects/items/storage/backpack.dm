@@ -244,11 +244,6 @@
 		reagents.add_reagent(reagent_id, tank_volume)
 	. = ..()
 
-/obj/item/storage/backpack/welding/proc/boom()
-	visible_message("<span class='danger'>\The [src] ruptures!</span>")
-	chem_splash(loc, 5, list(reagents))
-	qdel(src)
-
 /obj/item/storage/backpack/welding/boom()
 	var/light_explosion_range = CLAMP(round(reagents.get_reagent_amount(/datum/reagent/fuel)/200, 1), 1, 5) //explosion range should decrease when there is less fuel in the tank
 	var/flame_explosion_range = CLAMP(light_explosion_range + 1, 1, 5) //Fire explosion is always one bigger than light explosion
