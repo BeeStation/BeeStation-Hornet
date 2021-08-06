@@ -106,6 +106,11 @@
 	if(!ishuman(target) || target == user)
 		return
 	var/mob/living/carbon/human/human_target = target
+	
+	if(IS_HERETIC_MONSTER(human_target))
+		to_chat(user, "<span class='notice'>You remove the taint from [human_target].</span>" )
+		human_target.reagents.del_reagent(/datum/reagent/water/holywater)
+		log_combat(user, human_target, "mansus grasped", src, " removing the holy water from them.")
 
 	if(QDELETED(human_target) || human_target.stat != DEAD)
 		return
@@ -128,7 +133,6 @@
 	log_game("[key_name_admin(human_target)] has become a ghoul, their master is [user.real_name]")
 	//we change it to true only after we know they passed all the checks
 	. = TRUE
-	RegisterSignal(human_target,COMSIG_MOB_DEATH, .proc/remove_ghoul)
 	human_target.revive(full_heal = TRUE, admin_revive = TRUE)
 	ADD_TRAIT(human_target, TRAIT_NOSTAMCRIT, MAGIC_TRAIT)
 	ADD_TRAIT(human_target, TRAIT_NOLIMBDISABLE, MAGIC_TRAIT)
@@ -137,6 +141,9 @@
 	human_target.become_husk()
 	human_target.apply_status_effect(/datum/status_effect/ghoul)
 	human_target.faction |= "heretics"
+
+	RegisterSignal(human_target,COMSIG_MOB_DEATH, .proc/remove_ghoul)
+	RegisterSignal(human_target,COMSIG_HERETIC_REMOVE_GHOUL,.proc/remove_ghoul)
 	var/datum/antagonist/heretic_monster/heretic_monster = human_target.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_monster.set_owner(master)

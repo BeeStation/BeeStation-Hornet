@@ -22,7 +22,7 @@
 
 /datum/antagonist/heretic_monster/on_removal()
 	if(master)
-		to_chat(owner, "<span class='boldannounce'>Your no longer bound to your master, [master.owner.current.real_name]</span>")
+		to_chat(owner, "<span class='boldannounce'>You're no longer bound to your master, [master.owner.current.real_name].</span>")
 		master = null
 	return ..()
 
@@ -33,7 +33,7 @@
 	master_obj.explanation_text = "Assist your master in any way you can!"
 	objectives += master_obj
 	owner.announce_objectives()
-	to_chat(owner, "<span class='boldannounce'>Your master is [master.owner.current.real_name]</span>")
+	to_chat(owner, "<span class='boldannounce'>Your master is [master.owner.current.real_name].</span>")
 	return
 
 /datum/antagonist/heretic_monster/apply_innate_effects(mob/living/mob_override)
