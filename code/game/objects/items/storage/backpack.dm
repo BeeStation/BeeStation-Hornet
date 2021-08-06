@@ -244,6 +244,12 @@
 		reagents.add_reagent(reagent_id, tank_volume)
 	. = ..()
 
+/obj/item/storage/backpack/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 14
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/storage/backpack/welding/proc/boom()
 	var/light_explosion_range = CLAMP(round(reagents.get_reagent_amount(/datum/reagent/fuel)/200, 1), 1, 5) //explosion range should decrease when there is less fuel in the tank
 	var/flame_explosion_range = CLAMP(light_explosion_range + 1, 1, 5) //Fire explosion is always one bigger than light explosion
