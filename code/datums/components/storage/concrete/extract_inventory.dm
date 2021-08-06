@@ -12,7 +12,6 @@
 	rustle_sound = FALSE
 	silent = TRUE
 	var/obj/item/slimecross/reproductive/parentSlimeExtract
-	can_hold = typecacheof(list( /obj/item/reagent_containers/food/snacks/monkeycube))
 
 /datum/component/storage/concrete/extract_inventory/Initialize()
 	. = ..()

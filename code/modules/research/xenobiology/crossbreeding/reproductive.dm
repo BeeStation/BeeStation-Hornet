@@ -23,6 +23,7 @@ Reproductive extracts:
 /obj/item/slimecross/reproductive/Initialize()
 	. = ..()
 	slimeStorage = AddComponent(/datum/component/storage/concrete/extract_inventory)
+	slimeStorage.can_hold = typecacheof(list( /obj/item/reagent_containers/food/snacks/monkeycube))
 
 /obj/item/slimecross/reproductive/attackby(obj/item/O, mob/user)
 	if((last_produce + cooldown) > world.time)
