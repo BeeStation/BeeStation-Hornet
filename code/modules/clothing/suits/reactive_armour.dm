@@ -141,7 +141,7 @@
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.alpha = 0
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
-		addtimer(VARSET_CALLBACK(owner, alpha, initial(alpha)), 40)
+		addtimer(VARSET_CALLBACK(owner, alpha, initial(owner.alpha)), 40)
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return TRUE
 
