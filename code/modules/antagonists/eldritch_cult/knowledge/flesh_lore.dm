@@ -80,6 +80,8 @@
 	H.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 	H.cure_husk()
 	H.faction -= "heretics"
+	H.visible_message("<span class='danger'>[H.name]'s body suddenly turns back to it's regular color!</span>",\
+	"<span class='danger'>You feel your body burning for a moment, before your skin color goes back to it's regular color, relief washing over you.</span>")
 	REMOVE_TRAIT(H, TRAIT_MUTE, MAGIC_TRAIT)
 	REMOVE_TRAIT(H, TRAIT_STUNIMMUNE, MAGIC_TRAIT)
 	REMOVE_TRAIT(H, TRAIT_CONFUSEIMMUNE, MAGIC_TRAIT)
@@ -149,6 +151,8 @@
 	H.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
 	H.cure_husk()
 	H.faction -= "heretics"
+	H.visible_message("<span class='danger'>[H.name]'s body suddenly turns back to it's regular color!</span>",\
+	"<span class='danger'>You feel your body burning for a moment, before your skin color goes back to it's regular color, relief washing over you.</span>")
 	REMOVE_TRAIT(H, TRAIT_MUTE, MAGIC_TRAIT)
 	REMOVE_TRAIT(H, TRAIT_STUNIMMUNE, MAGIC_TRAIT)
 	REMOVE_TRAIT(H, TRAIT_CONFUSEIMMUNE, MAGIC_TRAIT)
