@@ -9,6 +9,7 @@ Reproductive extracts:
 	icon_state = "reproductive"
 	effect = "reproductive"
 	effect_desc = "When fed monkey cubes it produces more extracts. Bio bag compatible as well."
+	layer = LOW_ITEM_LAYER
 	var/extract_type = /obj/item/slime_extract/
 	var/last_produce = 0
 	var/cooldown = 3 SECONDS
