@@ -27464,7 +27464,6 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "blB" = (
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -27474,6 +27473,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/structure/chair/stool,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "blC" = (
@@ -28041,6 +28041,16 @@
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
 /obj/item/assembly/flash/handheld/weak,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bmT" = (
@@ -28380,10 +28390,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/machinery/airalarm{
-	dir = 1;
-	pixel_y = -22
-	},
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/plasteel,
@@ -28417,6 +28423,16 @@
 	dir = 8;
 	pixel_x = 23
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bnT" = (
@@ -28834,6 +28850,16 @@
 "boP" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "boR" = (
@@ -28843,7 +28869,6 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
@@ -28869,9 +28894,6 @@
 /obj/structure/displaycase/labcage,
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
@@ -28913,6 +28935,16 @@
 /obj/structure/bodycontainer/morgue{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/lab)
 "bpa" = (
@@ -29445,12 +29477,10 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hor)
 "bqd" = (
-/obj/machinery/light{
-	dir = 1
+/obj/machinery/shower{
+	pixel_y = 14
 	},
-/obj/effect/turf_decal/delivery,
-/obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/noslip/dark,
 /area/science/lab)
 "bqf" = (
 /obj/item/kirbyplants/random,
@@ -30040,17 +30070,6 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/hangover,
-/turf/open/floor/plasteel,
-/area/science/lab)
-"brq" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/structure/chair/stool,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "brr" = (
@@ -31786,14 +31805,7 @@
 /obj/machinery/button/door{
 	id = "research_desk_shutters_2";
 	name = "Shutters Control Button";
-	pixel_x = -7;
-	pixel_y = 25;
-	req_access_txt = "47"
-	},
-/obj/machinery/button/door{
-	id = "research_shutters_2";
-	name = "Shutters Control Button";
-	pixel_x = 7;
+	pixel_x = -5;
 	pixel_y = 25;
 	req_access_txt = "47"
 	},
@@ -33012,6 +33024,16 @@
 	dir = 8;
 	light_color = "#e8eaff"
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "byH" = (
@@ -33022,10 +33044,6 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "byI" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "research_desk_shutters_2";
-	name = "research desk shutters"
-	},
 /obj/structure/plasticflaps/opaque,
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -34219,6 +34237,10 @@
 	pixel_y = 33
 	},
 /obj/machinery/computer/cargo/request,
+/obj/machinery/light_switch{
+	pixel_x = -1;
+	pixel_y = 26
+	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "bBz" = (
@@ -35232,6 +35254,10 @@
 /obj/structure/table,
 /obj/machinery/recharger{
 	pixel_y = 4
+	},
+/obj/machinery/airalarm{
+	dir = 1;
+	pixel_y = -22
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science)
@@ -36889,9 +36915,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hor)
@@ -45000,9 +45023,6 @@
 /turf/open/floor/engine/o2,
 /area/engine/atmos)
 "cbw" = (
-/obj/machinery/light_switch{
-	pixel_x = 25
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -48952,10 +48972,10 @@
 /turf/open/floor/plasteel/dark,
 /area/science/robotics/mechbay)
 "cqk" = (
-/obj/machinery/shower{
-	dir = 1
-	},
-/turf/open/floor/noslip/dark,
+/obj/effect/turf_decal/delivery,
+/obj/structure/reagent_dispensers/watertank,
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
 /area/science/lab)
 "cql" = (
 /obj/effect/turf_decal/delivery,
@@ -53254,6 +53274,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 5
 	},
+/obj/structure/chair/stool,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "fAx" = (
@@ -57515,23 +57536,6 @@
 /obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plating,
 /area/engine/engineering)
-"mdq" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "research_shutters_2";
-	name = "research shutters"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
-/area/security/checkpoint/science)
 "mdL" = (
 /obj/machinery/door/window/eastright{
 	base_state = "left";
@@ -58008,17 +58012,6 @@
 "mZE" = (
 /turf/open/space/basic,
 /area/space/nearstation)
-"mZF" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "research_shutters_2";
-	name = "research shutters"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating,
-/area/security/checkpoint/science)
 "mZR" = (
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
@@ -61718,10 +61711,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"sCQ" = (
-/obj/structure/table,
-/turf/open/floor/plasteel,
-/area/hallway/primary/aft)
 "sEB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/disposalpipe/segment,
@@ -64220,7 +64209,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
+/obj/item/kirbyplants/photosynthetic,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "wRz" = (
@@ -64699,17 +64688,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
-"xyn" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "research_shutters_2";
-	name = "research shutters"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating,
-/area/security/checkpoint/science)
 "xyo" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/engine,
@@ -98178,9 +98156,9 @@ bBz
 bBz
 kol
 ygf
-bAq
-bAq
-bAq
+ygf
+ygf
+ygf
 ygf
 bBp
 bBp
@@ -98191,7 +98169,7 @@ bLT
 wdS
 xtg
 wdS
-xtg
+bmC
 bmC
 bRo
 bRX
@@ -98448,7 +98426,7 @@ bLR
 bMV
 bOd
 qxl
-sCQ
+bmC
 bmC
 bRp
 bRY
@@ -98685,7 +98663,7 @@ eDq
 hsJ
 pav
 bru
-brq
+pav
 fzn
 cCt
 bxc
@@ -98695,7 +98673,7 @@ bAq
 bBq
 bDD
 bDB
-xyn
+vvN
 boT
 kOP
 mqt
@@ -98705,7 +98683,7 @@ cga
 xtg
 xtg
 xtg
-xtg
+bmC
 bmC
 bRo
 bRZ
@@ -98952,7 +98930,7 @@ bAq
 bBr
 ccP
 bDC
-mdq
+vvN
 boX
 bHi
 hpf
@@ -99209,7 +99187,7 @@ bAq
 bBs
 bDD
 wHg
-mZF
+vvN
 boT
 bHj
 lZR
@@ -99965,7 +99943,7 @@ aDZ
 dde
 bGa
 bkp
-blA
+blB
 bIA
 bkm
 byC
@@ -100222,7 +100200,7 @@ aDZ
 bhS
 bKM
 bkq
-blB
+blA
 inC
 jlp
 cCl
@@ -104339,8 +104317,8 @@ bxj
 bxj
 bxj
 bxj
-buz
-buz
+bxj
+bxj
 bxj
 bvP
 bxy
