@@ -1,5 +1,0 @@
-author: TheChaser212
-delete-after: true
-changes:
-  - bugfix: Animals can move after being tabled
-  - bugfix: Cats look like they're resting when changed outside of Life

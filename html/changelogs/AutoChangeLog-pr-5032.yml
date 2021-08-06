@@ -1,4 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - admin: New bans no longer default to local.
