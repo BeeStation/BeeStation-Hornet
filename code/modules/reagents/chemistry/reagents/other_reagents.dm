@@ -296,7 +296,7 @@
 			if(is_servant_of_ratvar(M))
 				remove_servant_of_ratvar(M.mind)
 			if(IS_HERETIC_MONSTER(M))
-				SEND_SIGNAL(src, COMSIG_HERETIC_REMOVE_GHOUL)
+				SEND_SIGNAL(M, COMSIG_HERETIC_REMOVE_GHOUL)
 			M.jitteriness = 0
 			M.stuttering = 0
 			holder.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??

@@ -526,14 +526,14 @@
 		target.mind.transfer_to(outside, TRUE)
 		target.forceMove(outside)
 		target.apply_status_effect(STATUS_EFFECT_STASIS,STASIS_ASCENSION_EFFECT)
-		for(var/mob/living/carbon/human/humie in (viewers(9,outside)-target))
-			if(IS_HERETIC(humie) || IS_HERETIC_MONSTER(humie))
+		for(var/mob/living/carbon/human/H in (viewers(9,outside)-target))
+			if(IS_HERETIC(H) || IS_HERETIC_MONSTER(H))
 				continue
-			SEND_SIGNAL(humie, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
+			SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "gates_of_mansus", /datum/mood_event/gates_of_mansus)
 			///They see the very reality uncoil before their eyes.
 			if(prob(25))
 				var/trauma = pick(subtypesof(BRAIN_TRAUMA_MILD) + subtypesof(BRAIN_TRAUMA_SEVERE))
-				humie.gain_trauma(new trauma(), TRAUMA_RESILIENCE_LOBOTOMY)
+				H.gain_trauma(new trauma(), TRAUMA_RESILIENCE_LOBOTOMY)
 		return
 
 	if(iscarbon(mob_inside))

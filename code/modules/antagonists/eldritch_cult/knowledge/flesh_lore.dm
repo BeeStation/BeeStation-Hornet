@@ -26,59 +26,62 @@
 	var/list/ghouls = list()
 
 /datum/eldritch_knowledge/flesh_ghoul/on_finished_recipe(mob/living/user,list/atoms,loc)
-	var/mob/living/carbon/human/humie = locate() in atoms
-	if(QDELETED(humie) || humie.stat != DEAD)
+	var/mob/living/carbon/human/H = locate() in atoms
+	if(QDELETED(H) || H.stat != DEAD)
 		return
 
 	if(length(ghouls) >= max_amt)
 		return
 
-	if(HAS_TRAIT(humie,TRAIT_HUSK))
+	if(HAS_TRAIT(H,TRAIT_HUSK))
 		return
 
-	humie.grab_ghost()
+	H.grab_ghost()
 
-	if(!humie.mind || !humie.client)
-		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [humie.real_name], a voiceless dead", ROLE_HERETIC, null, ROLE_HERETIC, 50,humie)
+	if(!H.mind || !H.client)
+		var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [H.real_name], a voiceless dead", ROLE_HERETIC, null, ROLE_HERETIC, 50,H)
 		if(!LAZYLEN(candidates))
 			to_chat(user,"<span class='warning'>No ghost could be found...</span>")
 			return
 		var/mob/dead/observer/C = pick(candidates)
-		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(humie)]) to replace an AFK player.")
-		humie.ghostize(FALSE,SENTIENCE_ERASE)
-		humie.key = C.key
+		message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(H)]) to replace an AFK player.")
+		H.ghostize(FALSE,SENTIENCE_ERASE)
+		H.key = C.key
 
-	log_game("[key_name_admin(humie)] has become a voiceless dead, their master is [user.real_name]")
-	humie.revive(full_heal = TRUE, admin_revive = TRUE)
-	ADD_TRAIT(humie,TRAIT_MUTE,MAGIC_TRAIT)
-	ADD_TRAIT(humie, TRAIT_STUNIMMUNE, MAGIC_TRAIT)
-	ADD_TRAIT(humie, TRAIT_CONFUSEIMMUNE, MAGIC_TRAIT)
-	ADD_TRAIT(humie, TRAIT_IGNOREDAMAGESLOWDOWN, MAGIC_TRAIT)
-	ADD_TRAIT(humie, TRAIT_NOSTAMCRIT, MAGIC_TRAIT)
-	ADD_TRAIT(humie, TRAIT_NOLIMBDISABLE, MAGIC_TRAIT)
-	humie.setMaxHealth(MUTE_MAX_HEALTH)
-	humie.health = MUTE_MAX_HEALTH // Voiceless dead are much tougher than ghouls
-	humie.become_husk()
-	humie.faction |= "heretics"
-	humie.apply_status_effect(/datum/status_effect/ghoul)
+	log_game("[key_name_admin(H)] has become a voiceless dead, their master is [user.real_name]")
+	H.revive(full_heal = TRUE, admin_revive = TRUE)
+	ADD_TRAIT(H, TRAIT_MUTE, MAGIC_TRAIT)
+	ADD_TRAIT(H, TRAIT_STUNIMMUNE, MAGIC_TRAIT)
+	ADD_TRAIT(H, TRAIT_CONFUSEIMMUNE, MAGIC_TRAIT)
+	ADD_TRAIT(H, TRAIT_IGNOREDAMAGESLOWDOWN, MAGIC_TRAIT)
+	ADD_TRAIT(H, TRAIT_NOSTAMCRIT, MAGIC_TRAIT)
+	ADD_TRAIT(H, TRAIT_NOLIMBDISABLE, MAGIC_TRAIT)
+	H.setMaxHealth(MUTE_MAX_HEALTH)
+	H.health = MUTE_MAX_HEALTH // Voiceless dead are much tougher than ghouls
+	H.become_husk()
+	H.faction |= "heretics"
+	H.apply_status_effect(/datum/status_effect/ghoul)
 
-	var/datum/antagonist/heretic_monster/heretic_monster = humie.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+	var/datum/antagonist/heretic_monster/heretic_monster = H.mind.add_antag_datum(/datum/antagonist/heretic_monster)
 	var/datum/antagonist/heretic/master = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_monster.set_owner(master)
-	atoms -= humie
-	RegisterSignal(humie,COMSIG_MOB_DEATH,.proc/remove_ghoul)
-	RegisterSignal(humie,COMSIG_HERETIC_REMOVE_GHOUL,.proc/remove_ghoul)
-	ghouls += humie
+	atoms -= H
+	RegisterSignal(H,COMSIG_MOB_DEATH,.proc/remove_ghoul)
+	RegisterSignal(H,COMSIG_HERETIC_REMOVE_GHOUL,.proc/remove_ghoul)
+	ghouls += H
 
 /datum/eldritch_knowledge/flesh_ghoul/proc/remove_ghoul(datum/source)
 	SIGNAL_HANDLER
 
-	var/mob/living/carbon/human/humie = source
-	ghouls -= humie
-	humie.setMaxHealth(ORIGINAL_MAX_HEALTH)
-	humie.remove_status_effect(/datum/status_effect/ghoul)
-	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
+	var/mob/living/carbon/human/H = source
+	ghouls -= H
+	H.setMaxHealth(ORIGINAL_MAX_HEALTH)
+	H.remove_status_effect(/datum/status_effect/ghoul)
+	H.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
+	H.cure_husk()
+	H.faction -= "heretics"
 	UnregisterSignal(source,COMSIG_MOB_DEATH)
+	UnregisterSignal(source,COMSIG_HERETIC_REMOVE_GHOUL)
 
 /datum/eldritch_knowledge/flesh_grasp
 	name = "Grasp of Flesh"
@@ -133,12 +136,15 @@
 /datum/eldritch_knowledge/flesh_grasp/proc/remove_ghoul(datum/source)
 	SIGNAL_HANDLER
 
-	var/mob/living/carbon/human/humie = source
-	spooky_scaries -= humie
-	humie.setMaxHealth(ORIGINAL_MAX_HEALTH)
-	humie.remove_status_effect(/datum/status_effect/ghoul)
-	humie.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
+	var/mob/living/carbon/human/H = source
+	spooky_scaries -= H
+	H.setMaxHealth(ORIGINAL_MAX_HEALTH)
+	H.remove_status_effect(/datum/status_effect/ghoul)
+	H.mind.remove_antag_datum(/datum/antagonist/heretic_monster)
+	H.cure_husk()
+	H.faction -= "heretics"
 	UnregisterSignal(source, COMSIG_MOB_DEATH)
+	UnregisterSignal(source, COMSIG_HERETIC_REMOVE_GHOUL)
 
 /datum/eldritch_knowledge/flesh_grasp/on_eldritch_blade(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

@@ -268,3 +268,4 @@ You can put holy water in darts to make them more effective against cultists. Or
 Don't know what a word means? https://wiki.beestation13.com/view/Terminology
 You are able to block with most weapons! Being on any intent but harm and walking speed allows almost anything to block. More info: https://wiki.beestation13.com/view/Guide_to_Combat#Blocking
 Embedded items can be removed safely using a hemostat. If you don't have one on hand, try using a screwdriver or wirecutters; get creative!
+You can deconvert heretic thralls using holy water. Or just shoot them. They become unbound to their master upon deconversion/death.
