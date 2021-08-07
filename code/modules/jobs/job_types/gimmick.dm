@@ -71,7 +71,7 @@
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
-	warning = "You are a paranoid maintenance dweller, this job is not a license to grief."
+	warning = "You are a paranoid maintenance dweller, do not overdo your gimmick by griefing the station."
 	chat_color = "#929292"
 	departments = NONE		//being hobo is not a real job
 
