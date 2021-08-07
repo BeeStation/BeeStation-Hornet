@@ -276,18 +276,32 @@
 				var/turf/dest = pick_n_take(GLOB.eorg_waypoints)
 				if(!dest)
 					dest=GLOB.eorg_default
-				if(isAI(C.mob))
-					var/mob/living/silicon/robot/modules/syndicate/borgie = new(dest)
-					borgie.client = C
-					continue
-				if(!isobserver(C.mob))
-					C.mob.forceMove(dest)
-					continue
-				if(isobserver(C.mob))
-					var/mob/living/carbon/human/jonesy = new(dest)
-					jonesy.equipOutfit(/datum/outfit/job/assistant)
-					jonesy.client = C
-					continue
+				//This is gonna be fucking ugly but deal with it.
+				//This proc is going to be a fuckload of repeated istypes and I'd like to not waste that many cycles.
+				switch(C.mob?.type)
+					//Already Alive
+					if(/mob/living/carbon/human)
+						var/mob/living/carbon/human/prepper = C.mob
+						prepper.equipOutfit(/datum/outfit/job/assistant)
+						C.mob.forceMove(dest)
+						continue
+					//Not in a living mob
+					if(/mob/dead/observer)
+						var/mob/living/carbon/human/jonesy = new(dest)
+						jonesy.equipOutfit(/datum/outfit/job/assistant)
+						jonesy.client = C
+						continue
+					if(/mob/dead/new_player)
+						continue //Don't touch new players.
+					//Give AIs a reward for suffering through the round being an AI.
+					if(/mob/living/silicon/ai)
+						var/mob/living/silicon/robot/modules/syndicate/borgie = new(dest)
+						borgie.client = C
+						continue
+					if(null) //Panic case. Should never happen but is a safety.
+						continue
+					//Fallthrough case. Probably going to mostly be simplemobs that signed up.
+				C.mob.forceMove(dest)
 
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
 	log_game("The round has ended.")
