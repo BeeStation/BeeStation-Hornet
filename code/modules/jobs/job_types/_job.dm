@@ -67,7 +67,7 @@
 
 	var/gimmick = FALSE //least hacky way i could think of for this
 
-	var/warning = "" // Throw this onto a job if you want big red warning text telling them how to behave.
+	var/warning // Throw this onto a job if you want big red warning text telling them how to behave.
 
 	///Bitfield of departments this job belongs wit
 	var/departments = NONE
