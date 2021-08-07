@@ -45,6 +45,7 @@
 	if(A == beaker)
 		beaker = null
 		update_icon()
+		ui_update()
 
 /obj/machinery/biogenerator/RefreshParts()
 	var/E = 0
@@ -91,6 +92,7 @@
 			var/obj/item/reagent_containers/glass/B = beaker
 			B.forceMove(drop_location())
 			beaker = null
+			ui_update()
 		update_icon()
 		return
 
@@ -108,6 +110,7 @@
 				beaker = O
 				to_chat(user, "<span class='notice'>You add the container to the machine.</span>")
 				update_icon()
+				ui_update()
 		else
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 		return
@@ -131,6 +134,7 @@
 				to_chat(user, "<span class='info'>You empty the plant bag into the biogenerator, filling it to its capacity.</span>")
 			else
 				to_chat(user, "<span class='info'>You fill the biogenerator to its capacity.</span>")
+		ui_update()
 		return TRUE //no afterattack
 
 	else if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
@@ -142,18 +146,21 @@
 		else
 			if(user.transferItemToLoc(O, src))
 				to_chat(user, "<span class='info'>You put [O.name] in [src.name]</span>")
+		ui_update()
 		return TRUE //no afterattack
 	else if (istype(O, /obj/item/disk/design_disk))
 		user.visible_message("[user] begins to load \the [O] in \the [src]...",
 			"You begin to load a design from \the [O]...",
 			"You hear the chatter of a floppy drive.")
 		processing = TRUE
+		ui_update()
 		var/obj/item/disk/design_disk/D = O
 		if(do_after(user, 10, target = src))
 			for(var/B in D.blueprints)
 				if(B)
 					stored_research.add_design(B)
 		processing = FALSE
+		ui_update()
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You cannot put this in [src.name]!</span>")
@@ -181,16 +188,20 @@
 		S += 5
 		if(I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) < 0.1)
 			points += 1 * productivity
+			ui_update()
 		else
 			points += I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) * 10 * productivity
+			ui_update()
 		qdel(I)
 	if(S)
 		processing = TRUE
+		ui_update()
 		update_icon()
 		playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
 		use_power(S * 30)
 		sleep(S + 15 / productivity)
 		processing = FALSE
+		ui_update()
 		update_icon()
 
 /obj/machinery/biogenerator/proc/check_cost(list/materials, multiplier = 1, remove_points = TRUE)
@@ -201,6 +212,7 @@
 	else
 		if(remove_points)
 			points -= materials[getmaterialref(/datum/material/biomass)]*multiplier/efficiency
+			ui_update()
 		update_icon()
 		return TRUE
 
@@ -250,6 +262,7 @@
 		beaker.forceMove(drop_location())
 		beaker = null
 		update_icon()
+	ui_update()
 
 /obj/machinery/biogenerator/ui_status(mob/user)
 	if(stat & BROKEN || panel_open)

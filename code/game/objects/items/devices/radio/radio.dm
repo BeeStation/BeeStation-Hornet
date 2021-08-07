@@ -205,6 +205,7 @@
 				else
 					recalculateChannels()
 				. = TRUE
+	ui_update()
 
 /obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!spans)

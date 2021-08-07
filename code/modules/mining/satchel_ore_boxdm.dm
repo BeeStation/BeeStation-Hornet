@@ -66,6 +66,7 @@
 	if(!ui)
 		ui = new(user, src, "OreBox")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/structure/ore_box/ui_data()
 	var/contents = list()

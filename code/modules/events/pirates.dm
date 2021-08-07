@@ -343,6 +343,7 @@
 
 	if(!value)
 		status_report += "0"
+	ui_update()
 
 /obj/machinery/computer/piratepad_control/proc/send()
 	if(!sending)
@@ -383,6 +384,7 @@
 	flick(pad.sending_state,pad)
 	pad.icon_state = pad.idle_state
 	sending = FALSE
+	ui_update()
 
 /obj/machinery/computer/piratepad_control/proc/start_sending()
 	if(sending)
@@ -392,6 +394,7 @@
 	pad.visible_message("<span class='notice'>[pad] starts charging up.</span>")
 	pad.icon_state = pad.warmup_state
 	sending_timer = addtimer(CALLBACK(src,.proc/send),warmup_time, TIMER_STOPPABLE)
+	ui_update()
 
 /obj/machinery/computer/piratepad_control/proc/stop_sending()
 	if(!sending)
@@ -400,6 +403,7 @@
 	status_report = "Ready for delivery."
 	pad.icon_state = pad.idle_state
 	deltimer(sending_timer)
+	ui_update()
 
 /datum/export/pirate
 	export_category = EXPORT_PIRATE
