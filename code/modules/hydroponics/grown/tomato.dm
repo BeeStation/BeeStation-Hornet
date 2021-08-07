@@ -140,9 +140,9 @@
 	"<span class='notice'>You begin to awaken the [src]...</span>")
 	awakening = TRUE
 	log_game("[key_name(user)] awakened a killer tomato at [AREACOORD(user)].")
-	addtimer(CALLBACK(src, .proc/makekillertomato), 30)
+	addtimer(CALLBACK(src, .proc/make_killer_tomato), 30)
 	
-/obj/item/reagent_containers/food/snacks/grown/tomato/killer/proc/makekillertomato()
+/obj/item/reagent_containers/food/snacks/grown/tomato/killer/proc/make_killer_tomato()
 	if(!QDELETED(src))
 		var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(get_turf(src.loc))
 		K.maxHealth += round(seed.endurance / 3)
@@ -152,4 +152,3 @@
 		K.health = K.maxHealth
 		K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
 		qdel(src)
-		
