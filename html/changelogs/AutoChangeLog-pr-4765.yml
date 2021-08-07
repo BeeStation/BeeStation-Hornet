@@ -1,0 +1,10 @@
+author: Yorii, Adopted by Froststahr
+delete-after: true
+changes:
+  - rscadd: Smooth movable lighting system implemented. Projectiles, sparks, thrown
+      flashlights or moving mobs with lights should be much smoother and less laggy.
+  - rscadd: Directional lighting is in, applying to certain things like flashlights,
+      headlamps, etc.
+  - balance: Light sources no longer stack in range, though they still do in intensity.
+  - balance: Mechs no longer block sight. It's a non-trivial cost for the lighting
+      system with little to no gain.
