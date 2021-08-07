@@ -63,11 +63,6 @@
 "g" = (
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"h" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/telecomms/allinone/exploration,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "i" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -333,6 +328,11 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"Y" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/telecomms/relay/preset/exploration,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Z" = (
 /obj/structure/closet/emcloset/anchored,
 /obj/machinery/advanced_airlock_controller/directional/east,
@@ -394,7 +394,7 @@ d
 S
 g
 g
-h
+Y
 R
 N
 G
