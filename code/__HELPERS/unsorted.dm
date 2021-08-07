@@ -1606,25 +1606,3 @@ config_setting should be one of the following:
 		if(-INFINITY to 0, 11 to INFINITY)
 			CRASH("Can't turn invalid directions!")
 	return turn(input_dir, 180)
-
-/**
- * Sends a topic call to crosscomms servers.
- *
- * Params:
- * sender - Name of the IC entity sending the message
- * msg - Message text to send
- * query - What handler the recieving server should use
-*/
-/proc/comms_send(sender, msg, query)
-	var/list/message = list()
-	message["query"] = query
-	message["message"] = msg
-	message["message_sender"] = sender
-	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
-
-	var/list/servers = CONFIG_GET(keyed_list/cross_server)
-	for(var/I in servers)
-		if(!LAZYACCESS(GLOB.topic_servers[I], query))
-			continue
-		message["auth"] = servers[I]
-		world.Export("[I]?[json_encode(message)]")

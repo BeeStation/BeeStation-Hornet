@@ -846,7 +846,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		else
 			final = "[msg] - All admins stealthed\[[english_list(stealthmins)]\], AFK\[[english_list(afkmins)]\], or lacks +BAN\[[english_list(powerlessmins)]\]! Total: [allmins.len] "
 		send2irc(source,final)
-		comms_send(source, final, "ahelp")
+		SStopic.crosscomms_send("ahelp", final, source)
 
 
 /proc/send2irc(msg,msg2)
@@ -881,7 +881,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/list/surnames = list()
 	var/list/forenames = list()
 	var/list/ckeys = list()
-	var/founds = ""
+	var/list/founds = list()
 	for(var/mob/M in GLOB.mob_list)
 		var/list/indexing = list(M.real_name, M.name)
 		if(M.mind)
@@ -929,14 +929,16 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 							if(found.mind?.special_role)
 								is_antag = 1
 							founds += "Name: [found.name]([found.real_name]) Key: [found.key] Ckey: [found.ckey] [is_antag ? "(Antag)" : null] "
+							founds.Add(list("name" = found.name,
+								            "real_name" = found.real_name,
+								            "ckey" = found.ckey,
+								            "key" = found.key,
+								            "antag" = is_antag))
 							msg += "[original_word]<font size='1' color='[is_antag ? "red" : "black"]'>(<A HREF='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(found)]'>?</A>|<A HREF='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(found)]'>F</A>)</font> "
 							continue
 		msg += "[original_word] "
 	if(irc)
-		if(founds == "")
-			return "Search Failed"
-		else
-			return founds
+		return founds
 
 	return msg
 

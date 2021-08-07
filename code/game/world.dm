@@ -155,20 +155,29 @@ GLOBAL_VAR(restart_counter)
 
 
 	var/list/response[] = list()
+
+	if (length(T) > CONFIG_GET(number/topic_max_size))
+		response["statuscode"] = 413
+		response["response"] = "Payload too large"
+		return json_encode(response)
+
+	if (SSfail2topic?.IsRateLimited(addr))
+		response["statuscode"] = 429
+		response["response"] = "Rate limited"
+		return json_encode(response)
+
 	var/list/params[] = json_decode(T)
 	params["addr"] = addr
 	var/query = params["query"]
 	var/auth = params["auth"]
-	log_topic("\"[T]\", from:[addr], master:[master], key:[key], auth:[auth]")
-	if (SSfail2topic?.IsRateLimited(addr))
-		response["statuscode"] = 429
-		response["response"] = "Rate limited."
+	var/source = params["source"]
+
+	if(!source)
+		response["statuscode"] = 400
+		response["response"] = "Bad Request - No source specified"
 		return json_encode(response)
 
-	if (length(T) > CONFIG_GET(number/topic_max_size))
-		response["statuscode"] = 413
-		response["response"] = "Payload too large."
-		return json_encode(response)
+	log_topic("\"[T]\", from:[addr], master:[master], key:[key], auth:[auth], source:[source]")
 
 	if(!query)
 		response["statuscode"] = 400

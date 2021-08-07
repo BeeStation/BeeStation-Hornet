@@ -62,9 +62,15 @@
 
 /datum/world_topic/api_get_authed_functions/Run(list/input)
 	. = ..()
-	statuscode = 200
-	response = "Authorized functions retrieved"
-	data = GLOB.topic_tokens[input["auth"]]
+	var/list/functions = GLOB.topic_tokens[input["auth"]]
+	if(functions)
+		statuscode = 200
+		response = "Authorized functions retrieved"
+		data = functions
+	else
+		statuscode = 401
+		response = "Unauthorized - No functions found"
+		data = null
 
 /datum/world_topic/api_do_handshake
 	key = "api_do_handshake"
@@ -95,12 +101,9 @@
 
 /datum/world_topic/ping/Run(list/input)
 	. = ..()
-	var/count = 0
-	for (var/client/C in GLOB.clients)
-		count++
 	statuscode = 200
 	response = "Pong!"
-	data = count
+	data = length(GLOB.clients)
 
 /datum/world_topic/playing
 	key = "playing"
@@ -110,11 +113,11 @@
 	. = ..()
 	statuscode = 200
 	response = "Player count retrieved"
-	data = GLOB.player_list.len
+	data = length(GLOB.player_list)
 
 /datum/world_topic/pr_announce
 	key = "announce"
-	required_params = list("id", "key", "announce")
+	required_params = list("id", "announce")
 	var/static/list/PRcounts = list()	//PR id -> number of times announced this round
 
 /datum/world_topic/pr_announce/Run(list/input)
@@ -122,10 +125,10 @@
 	if(!PRcounts[input["id"]])
 		PRcounts[input["id"]] = 1
 	else
-		++PRcounts[input["id"]]
+		PRcounts[input["id"]]++
 		if(PRcounts[input["id"]] > PR_ANNOUNCEMENTS_PER_ROUND)
 			statuscode = 429
-			response = "PR Spam blocked"
+			response = "Rate Limited - PR Spam blocked"
 			return
 
 	var/final_composed = "<span class='announce'>PR: [input["announce"]]</span>"
@@ -154,7 +157,7 @@
 		minor_announce("In the interest of station productivity and mental hygiene, a message from [input["message_sender"]] was intercepted by the CCC and determined to be unfit for crew-level access.", "CentCom Communications Commission")
 		message_admins("Incomming cross-comms message from [input["message_sender"]] blocked: [input["message"]]")
 		statuscode = 451 // "Unavailable for legal reasons" ahaha; i.e. censored
-		response = "Message blocked by chat filter"
+		response = "Censored - Message blocked by chat filter"
 		return
 
 	minor_announce(input["message"], "Incoming message from [input["message_sender"]]")
@@ -173,34 +176,29 @@
 	statuscode = 200
 	response = "Message received"
 
-/datum/world_topic/adminmsg
-	key = "adminmsg"
-	required_params = list("adminmsg", "msg", "sender")
-
-/datum/world_topic/adminmsg/Run(list/input)
-	. = ..()
-	var/msg_response = IrcPm(input["adminmsg"], input["msg"], input["sender"])
-	statuscode = msg_response == "Message Successful" ? 200 : 400 // Todo rework the irc message thingo to not need string comp
-	response = msg_response
-
 /datum/world_topic/namecheck
 	key = "namecheck"
-	required_params = list("namecheck")
+	required_params = list("target")
 
 /datum/world_topic/namecheck/Run(list/input)
 	. = ..()
 	statuscode = 200
 	response = "Names fetched"
-	data = keywords_lookup(input["namecheck"], 1)
+	data = keywords_lookup(input["target"], TRUE)
 
 /datum/world_topic/adminwho
 	key = "adminwho"
 
 /datum/world_topic/adminwho/Run(list/input)
 	. = ..()
+	var/list/admins = list()
+	for(var/client/admin in GLOB.admins)
+		admins.Add(list("ckey" = admin.ckey,
+			            "stealth" = admin.holder.fakekey ? TRUE : FALSE,
+			            "afk" = admin.is_afk()))
 	statuscode = 200
 	response = "Admin list fetched"
-	data = ircadminwho()
+	data = admins
 
 /datum/world_topic/playerlist
 	key = "playerlist"
@@ -310,12 +308,12 @@
 
 /datum/world_topic/d_ooc_send
 	key = "discord_send"
-	required_params = list("message", "user")
+	required_params = list("message", "message_sender")
 
 /datum/world_topic/d_ooc_send/Run(list/input)
 	. = ..()
 	var/msg = input["message"]
-	var/unm = input["user"]
+	var/unm = input["message_sender"]
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	unm = copytext(sanitize(unm), 1, MAX_MESSAGE_LEN)
 	msg = emoji_parse(msg)

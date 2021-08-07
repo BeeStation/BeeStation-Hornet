@@ -59,9 +59,57 @@ SUBSYSTEM_DEF(topic)
 		return
 	var/list/local_funcs = GLOB.topic_tokens[LAZYACCESS(response["data"], "token")]
 	var/list/remote_funcs = LAZYACCESS(response["data"], "functions")
+	if(!local_funcs || !remote_funcs)
+		return
 	var/list/functions = list()
 	// Both servers need to have a function available to each other for it to be valid
 	for(var/func in remote_funcs)
 		if(local_funcs[func])
 			functions[func] = TRUE
 	GLOB.topic_servers[addr] = functions
+
+/**
+ * Wrapper proc for world.Export() that adds additional params and handles auth.
+ *
+ * Params:
+ *
+ * * addr: address of the recieving BYOND server (*including* the byond://)
+ * * query: name of the topic endpoint to request
+ * * params: associated list of parameters to send to the recieving server
+ * * anonymous: TRUE or FALSE whether to use anonymous token for the request *(default: FALSE)*
+ * Note that request will fail if a token cannot be found for the target server and anonymous is not set.
+ * * nocheck: TRUE or FALSE whether to check if the recieving server is authorized to get the topic call *(default: FALSE)*
+*/
+/datum/controller/subsystem/topic/proc/export(addr, query, list/params, anonymous = FALSE, nocheck = FALSE)
+	var/list/request = list()
+	request["query"] = query
+
+	if(anonymous)
+		var/datum/world_topic/topic = GLOB.topic_commands[query]
+		if((!istype(topic) || !topic.anonymous) && !nocheck)
+			return
+		request["auth"] = "anonymous"
+	else
+		var/list/servers = CONFIG_GET(keyed_list/cross_server)
+		if(!servers[addr] || (!LAZYACCESS(GLOB.topic_servers[addr], query) && !nocheck))
+			return // Couldn't find an authorized key, or trying to send secure data to unsecure server
+		request["auth"] = servers[addr]
+
+	request.Add(params)
+	request["source"] = CONFIG_GET(string/cross_comms_name)
+	world.Export("[addr]?[json_encode(request)]")
+
+/**
+ * Broadcast topic to all known authorized servers for things like comms consoles or ahelps.
+ * Follows a set topic format for ease of use, and is therefore incompatible with other topic endpoints.
+ *
+ * Params:
+ *
+ * * query: name of the topic endpoint for the requests
+ * * msg: message text to send
+ * * sender: name of the sending entity (station name, ckey etc)
+*/
+/datum/controller/subsystem/topic/proc/crosscomms_send(query, msg, sender)
+	var/list/servers = CONFIG_GET(keyed_list/cross_server)
+	for(var/I in servers)
+		export(I, query, list("message" = msg, "message_sender" = sender))
