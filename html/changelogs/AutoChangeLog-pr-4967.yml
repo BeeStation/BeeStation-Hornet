@@ -1,4 +1,0 @@
-author: 'AnCopper jc-denthead '
-delete-after: true
-changes:
-  - tweak: You can no longer deconstruct tables or racks on help intent.
