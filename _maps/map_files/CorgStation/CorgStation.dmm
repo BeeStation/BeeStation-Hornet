@@ -8528,12 +8528,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
-"clV" = (
-/obj/machinery/porta_turret/ai{
-	dir = 4
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "cme" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -15345,6 +15339,14 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
+"dXo" = (
+/obj/machinery/camera/autoname,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/telecomms/relay/preset/exploration,
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "dXt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -17901,12 +17903,6 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
-"eBk" = (
-/obj/machinery/status_display/evac{
-	pixel_x = -32
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "eBl" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -27930,6 +27926,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/lobby)
+"gZV" = (
+/obj/machinery/status_display/evac{
+	pixel_x = 32
+	},
+/obj/machinery/porta_turret/ai{
+	dir = 4
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
 "gZW" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -36083,22 +36088,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/aft)
-"jdc" = (
-/obj/machinery/status_display/evac{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/machinery/porta_turret/ai{
-	dir = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 8;
-	network = list("aicore")
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "jdm" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -42745,22 +42734,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"kOk" = (
-/obj/machinery/status_display/evac{
-	pixel_x = -32
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/machinery/porta_turret/ai{
-	dir = 4
-	},
-/obj/machinery/camera/autoname{
-	dir = 4;
-	network = list("aicore")
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "kOK" = (
 /obj/machinery/light{
 	dir = 1
@@ -50474,6 +50447,19 @@
 /obj/item/reagent_containers/food/snacks/pie/cream,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
+"mEq" = (
+/obj/machinery/status_display/evac{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/machinery/camera/autoname{
+	dir = 4;
+	network = list("aicore")
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
 "mEA" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
@@ -60125,12 +60111,6 @@
 /obj/machinery/chem_dispenser/drinks/beer,
 /turf/open/floor/wood,
 /area/maintenance/port)
-"pdb" = (
-/obj/machinery/status_display/evac{
-	pixel_x = 32
-	},
-/turf/open/floor/circuit,
-/area/ai_monitored/turret_protected/ai)
 "pde" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Arrivals Airlock";
@@ -62791,13 +62771,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"pNz" = (
-/obj/machinery/camera/autoname,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark/telecomms,
-/area/tcommsat/server)
 "pNB" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -79779,6 +79752,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/supply)
+"tZC" = (
+/obj/machinery/status_display/evac{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/camera/autoname{
+	dir = 8;
+	network = list("aicore")
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
 "tZF" = (
 /obj/structure/window/reinforced/spawner{
 	dir = 8
@@ -81090,6 +81076,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
+"uqw" = (
+/obj/machinery/status_display/evac{
+	pixel_x = -32
+	},
+/obj/machinery/porta_turret/ai{
+	dir = 4
+	},
+/turf/open/floor/circuit,
+/area/ai_monitored/turret_protected/ai)
 "ure" = (
 /obj/structure/rack,
 /obj/item/hand_tele{
@@ -117483,7 +117478,7 @@ hIl
 qEo
 jUl
 awW
-pNz
+dXo
 upl
 ooG
 lmX
@@ -129757,11 +129752,11 @@ oQx
 oQx
 ydg
 jWK
-kOk
+mEq
 mpB
 mpB
 ekv
-eBk
+uqw
 jtf
 oQx
 oQx
@@ -130020,7 +130015,7 @@ hdt
 fjl
 jQe
 pAz
-clV
+mpB
 oQx
 oQx
 oQx
@@ -131562,7 +131557,7 @@ vpa
 dlt
 wtS
 llB
-clV
+mpB
 oQx
 oQx
 oQx
@@ -131813,11 +131808,11 @@ oQx
 oQx
 tTn
 aVR
-jdc
+tZC
 mpB
 mpB
 kqs
-pdb
+gZV
 mpB
 oQx
 oQx
