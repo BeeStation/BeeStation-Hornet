@@ -8,7 +8,7 @@ export const Guardian = (props, context) => {
   const [tab, setTab] = useLocalState(context, 'tab', 'general');
   return (
     <Window
-      width={500}
+      width={580}
       height={600}>
       <Window.Content scrollable>
         {!!data.waiting && (
