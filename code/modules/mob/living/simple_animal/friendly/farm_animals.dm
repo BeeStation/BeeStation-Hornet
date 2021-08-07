@@ -169,21 +169,22 @@
 		..()
 
 /mob/living/simple_animal/cow/proc/tip_back(mob/living/carbon/M)
-	if(!stat && M)
-		icon_state = icon_living
-		var/external
-		var/internal
-		switch(pick(1,2,3,4))
-			if(1,2,3)
-				var/text = pick("imploringly.", "pleadingly.",
-					"with a resigned expression.")
-				external = "[src] looks at [M] [text]"
-				internal = "You look at [M] [text]"
-			if(4)
-				external = "[src] seems resigned to its fate."
-				internal = "You resign yourself to your fate."
-		visible_message("<span class='notice'>[external]</span>",
-			"<span class='revennotice'>[internal]</span>")
+	if(stat && M)
+		return
+	icon_state = icon_living
+	var/external
+	var/internal
+	switch(pick(1,2,3,4))
+		if(1,2,3)
+			var/text = pick("imploringly.", "pleadingly.",
+				"with a resigned expression.")
+			external = "[src] looks at [M] [text]"
+			internal = "You look at [M] [text]"
+		if(4)
+			external = "[src] seems resigned to its fate."
+			internal = "You resign yourself to your fate."
+	visible_message("<span class='notice'>[external]</span>",
+		"<span class='revennotice'>[internal]</span>")
 
 /mob/living/simple_animal/chick
 	name = "\improper chick"

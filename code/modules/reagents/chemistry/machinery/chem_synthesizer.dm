@@ -24,6 +24,7 @@
 	if(!ui)
 		ui = new(user, src, "ChemDebugSynthesizer")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/chem_dispenser/chem_synthesizer/ui_act(action, params)
 	if(..())

@@ -183,6 +183,7 @@ effective or pretty fucking useless.
 			if(.)
 				target = round(target)
 				wavelength = clamp(target, 0, 120)
+	ui_update()
 
 /obj/item/shadowcloak
 	name = "cloaker belt"
