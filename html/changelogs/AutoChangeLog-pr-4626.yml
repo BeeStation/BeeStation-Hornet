@@ -1,7 +1,0 @@
-author: lordScrubling
-delete-after: true
-changes:
-  - bugfix: prototype replacement envirosuit uses the right smile sprite now
-  - balance: atmos envirosuits inherit radiation protection from engineering envirosuits
-  - balance: only plasmamen can wear replacement envirohelms
-  - spellcheck: fixed some envirosuit typos
