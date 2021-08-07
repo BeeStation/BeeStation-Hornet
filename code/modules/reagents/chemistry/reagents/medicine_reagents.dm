@@ -388,8 +388,8 @@
 			var/mob/living/carbon/C = M
 			for(var/s in C.surgeries)
 				var/datum/surgery/S = s
-				S.success_multiplier = max(0.1, S.success_multiplier)
-				// +10% success propability on each step, useful while operating in less-than-perfect conditions
+				S.speed_modifier = max(0.1, S.speed_modifier)
+				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your wounds fade away to nothing!</span>" )

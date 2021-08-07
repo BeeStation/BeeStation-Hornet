@@ -100,6 +100,7 @@
 				usr.put_in_hands(tank)
 				oxygentanks--
 			. = TRUE
+	ui_update()
 	update_icon()
 
 

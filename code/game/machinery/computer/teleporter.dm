@@ -42,6 +42,7 @@
 	if(!ui)
 		ui = new(user, src, "Teleporter")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/teleporter/ui_data(mob/user)
 	var/list/data = list()

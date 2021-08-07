@@ -33,6 +33,7 @@
 			to_chat(user, "<span class='notice'>You unlock [src].</span>")
 			locked = FALSE
 			update_icon()
+			ui_update()
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
@@ -44,6 +45,7 @@
 	if(locked)
 		locked = FALSE
 		update_icon()
+		ui_update()
 
 /obj/item/nanite_remote/update_icon()
 	. = ..()
@@ -168,7 +170,7 @@
 				locked = TRUE
 				update_icon()
 			. = TRUE
-
+	ui_update()
 
 /obj/item/nanite_remote/comm
 	name = "nanite communication remote"
@@ -228,6 +230,7 @@
 				return
 			comm_message = new_message
 			. = TRUE
+	ui_update()
 
 #undef REMOTE_MODE_OFF
 #undef REMOTE_MODE_SELF
