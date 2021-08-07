@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 /mob/camera/blob/proc/is_valid_turf(turf/T)
 	var/area/A = get_area(T)
-	if((A && !A.blob_allowed) || !T || !is_station_level(T.z) || isspaceturf(T))
+	if((A && !(A.area_flags & BLOBS_ALLOWED)) || !T || !is_station_level(T.z) || isspaceturf(T))
 		return FALSE
 	return TRUE
 
@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			qdel(src)
 	else if(!victory_in_progress && (blobs_legit.len >= blobwincount))
 		victory_in_progress = TRUE
-		priority_announce("Biohazard has reached critical mass. Station loss is imminent.", "Biohazard Alert")
+		priority_announce("Biohazard has reached critical mass. Station loss is imminent.", "Biohazard Alert", SSstation.announcer.get_rand_alert_sound())
 		set_security_level("delta")
 		max_blob_points = INFINITY
 		blob_points = INFINITY
@@ -142,7 +142,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 		var/area/Ablob = get_area(T)
 
-		if(!Ablob.blob_allowed)
+		if(!(Ablob.area_flags & BLOBS_ALLOWED))
 			continue
 
 		if(!(ROLE_BLOB in L.faction))
@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		for(var/area/A in GLOB.sortedAreas)
 			if(!(A.type in GLOB.the_station_areas))
 				continue
-			if(!A.blob_allowed)
+			if(!(A.area_flags & BLOBS_ALLOWED))
 				continue
 			A.color = blobstrain.color
 			A.name = "blob"
@@ -174,6 +174,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	SSticker.force_ending = 1
 
 /mob/camera/blob/Destroy()
+	QDEL_NULL(blobstrain)
 	for(var/BL in GLOB.blobs)
 		var/obj/structure/blob/B = BL
 		if(B && B.overmind == src)

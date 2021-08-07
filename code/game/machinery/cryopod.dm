@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	var/time_till_despawn = 5 * 600 // This is reduced to 30 seconds if a player manually enters cryo
 	var/despawn_world_time = null          // Used to keep track of the safe period.
 
-	var/obj/machinery/computer/cryopod/control_computer
+	var/datum/weakref/control_computer_weakref
 	var/last_no_computer_message = 0
 
 	// These items are preserved when the process() despawn proc occurs.
@@ -191,26 +191,26 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 // This is not a good situation
 /obj/machinery/cryopod/Destroy()
-	control_computer = null
+	control_computer_weakref = null
 	return ..()
 
-/obj/machinery/cryopod/proc/find_control_computer(urgent = 0)
-	for(var/M in GLOB.cryopod_computers)
-		var/obj/machinery/computer/cryopod/C = M
-		if(get_area(C) == get_area(src))
-			control_computer = C
+/obj/machinery/cryopod/proc/find_control_computer(urgent = FALSE)
+	for(var/cryo_console as anything in GLOB.cryopod_computers)
+		var/obj/machinery/computer/cryopod/console = cryo_console
+		if(get_area(console) == get_area(src))
+			control_computer_weakref = WEAKREF(console)
 			break
 
 	// Don't send messages unless we *need* the computer, and less than five minutes have passed since last time we messaged
-	if(!control_computer && urgent && last_no_computer_message + 5*60*10 < world.time)
+	if(!control_computer_weakref && urgent && last_no_computer_message + 5*60*10 < world.time)
 		log_admin("Cryopod in [get_area(src)] could not find control computer!")
 		message_admins("Cryopod in [get_area(src)] could not find control computer!")
 		last_no_computer_message = world.time
 
-	return control_computer != null
+	return control_computer_weakref != null
 
 /obj/machinery/cryopod/close_machine(mob/user)
-	if(!control_computer)
+	if(!control_computer_weakref)
 		find_control_computer(TRUE)
 	if((isnull(user) || istype(user)) && state_open && !panel_open)
 		..(user)
@@ -251,7 +251,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			return
 
 		if(!mob_occupant.client && mob_occupant.stat < 2) //Occupant is living and has no client.
-			if(!control_computer)
+			if(!control_computer_weakref)
 				find_control_computer(urgent = TRUE)//better hope you found it this time
 
 			despawn_occupant()
@@ -268,8 +268,16 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			for(var/datum/mind/M in O.team.members)
 				to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
 				M.announce_objectives()
-		else if(O.target && istype(O.target, /datum/mind))
-			if(O.target == mob_occupant.mind)
+		else if(istype(O.target) && O.target == mob_occupant.mind)
+			if(istype(O, /datum/objective/contract))
+				var/datum/antagonist/traitor/affected_traitor = O.owner.has_antag_datum(/datum/antagonist/traitor)
+				for(var/datum/syndicate_contract/affected_contract as anything in affected_traitor.contractor_hub.assigned_contracts)
+					if(affected_contract.contract == O)
+						affected_contract.generate(affected_traitor.contractor_hub.assigned_targets)
+						affected_traitor.contractor_hub.assigned_targets.Add(affected_contract.contract.target)
+						to_chat(O.owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
+						break
+			else
 				var/old_target = O.target
 				O.target = null
 				if(!O)
@@ -331,7 +339,10 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 				cloner.records.Remove(R)
 
 	//Make an announcement and log the person entering storage.
-	if(control_computer)
+	var/obj/machinery/computer/cryopod/control_computer = control_computer_weakref?.resolve()
+	if(!control_computer)
+		control_computer_weakref = null
+	else
 		control_computer.frozen_crew += "[mob_occupant.real_name]"
 
 	if(GLOB.announcement_systems.len)

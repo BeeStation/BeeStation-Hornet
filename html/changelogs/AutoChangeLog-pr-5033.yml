@@ -1,0 +1,5 @@
+author: Pirill
+delete-after: true
+changes:
+  - imageadd: BSRPED inhand sprites
+  - tweak: RPED inhand sprites

@@ -10,7 +10,7 @@ It is possible to destroy the net by the occupant or someone else.
 	icon_state = "energynet"
 
 	density = TRUE//Can't pass through.
-	opacity = 0//Can see through.
+	opacity = FALSE //Can see through.
 	mouse_opacity = MOUSE_OPACITY_ICON//So you can hit it with stuff.
 	anchored = TRUE//Can't drag/grab the net.
 	layer = ABOVE_ALL_MOB_LAYER
@@ -79,7 +79,7 @@ It is possible to destroy the net by the occupant or someone else.
 /obj/structure/energy_net/attack_paw(mob/user)
 	return attack_hand()
 
-/obj/structure/energy_net/user_buckle_mob(mob/living/M, mob/living/user)
+/obj/structure/energy_net/user_buckle_mob(mob/living/M, mob/living/user, check_loc = TRUE)
 	return//We only want our target to be buckled
 
 /obj/structure/energy_net/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)

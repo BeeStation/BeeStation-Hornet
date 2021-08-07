@@ -8,7 +8,7 @@
 /obj/effect/particle_effect/foam
 	name = "foam"
 	icon_state = "foam"
-	opacity = 0
+	opacity = FALSE
 	anchored = TRUE
 	density = FALSE
 	layer = EDGED_TURF_LAYER
@@ -39,8 +39,8 @@
 	if(hotspot && istype(T) && T.air)
 		qdel(hotspot)
 		var/datum/gas_mixture/G = T.air
-		var/plas_amt = min(30,G.get_moles(/datum/gas/plasma)) //Absorb some plasma
-		G.adjust_moles(/datum/gas/plasma, -plas_amt)
+		var/plas_amt = min(30,G.get_moles(GAS_PLASMA)) //Absorb some plasma
+		G.adjust_moles(GAS_PLASMA, -plas_amt)
 		absorbed_plasma += plas_amt
 		if(G.return_temperature() > T20C)
 			G.set_temperature(max(G.return_temperature()/2,T20C))
@@ -257,7 +257,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "metalfoam"
 	density = TRUE
-	opacity = 1 	// changed in New()
+	opacity = TRUE 	// changed in New()
 	anchored = TRUE
 	layer = EDGED_TURF_LAYER
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -318,7 +318,7 @@
 			for(var/obj/effect/hotspot/H in O)
 				qdel(H)
 			for(var/I in G.get_gases())
-				if(I == /datum/gas/oxygen || I == /datum/gas/nitrogen)
+				if(I == GAS_O2 || I == GAS_N2)
 					continue
 				G.set_moles(I, 0)
 			O.air_update_turf()

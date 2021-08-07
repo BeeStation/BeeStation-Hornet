@@ -218,6 +218,8 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	snapback()
 
 /mob/living/simple_animal/hostile/guardian/proc/OnMoved()
+	SIGNAL_HANDLER
+
 	snapback()
 	setup_barriers()
 
@@ -342,9 +344,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	return loc != summoner?.current
 
 /mob/living/simple_animal/hostile/guardian/Shoot(atom/targeted_atom)
-	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
+	var/atom/target_from = GET_TARGETS_FROM(src)
+	if( QDELETED(targeted_atom) || targeted_atom == target_from.loc || targeted_atom == target_from )
 		return
-	var/turf/startloc = get_turf(targets_from)
+	var/turf/startloc = get_turf(target_from)
 	var/obj/item/projectile/P = new /obj/item/projectile/guardian(startloc)
 	playsound(src, projectilesound, 100, 1)
 	P.color = guardiancolor
@@ -355,7 +358,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	P.yo = targeted_atom.y - startloc.y
 	P.xo = targeted_atom.x - startloc.x
 	if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space
-		newtonian_move(get_dir(targeted_atom, targets_from))
+		newtonian_move(get_dir(targeted_atom, target_from))
 	P.original = targeted_atom
 	P.preparePixelProjectile(targeted_atom, src)
 	P.fire()
@@ -582,12 +585,16 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		key = C.key
 
 /mob/living/simple_animal/hostile/guardian/proc/Reviveify()
+	SIGNAL_HANDLER
+
 	revive()
 	var/mob/gost = grab_ghost(TRUE)
 	if(!QDELETED(gost) && gost.ckey)
 		ckey = gost.ckey
 
 /mob/living/simple_animal/hostile/guardian/proc/OnMindTransfer(datum/_source, mob/old_body, mob/new_body)
+	SIGNAL_HANDLER
+
 	if(!QDELETED(old_body))
 		old_body.remove_verb(/mob/living/proc/guardian_comm)
 		old_body.remove_verb(/mob/living/proc/guardian_recall)

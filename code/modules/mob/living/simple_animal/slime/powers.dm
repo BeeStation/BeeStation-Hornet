@@ -253,7 +253,8 @@
 		GLOB.poi_list |= M
 		M.master = master
 		LAZYADD(GLOB.mob_spawners["[master.real_name]'s slime"], M)
-	M.Friends = Friends.Copy()
+		SSmobs.update_spawners()
+	M.set_friends(Friends)
 	if(step_away)
 		step_away(M,src)
 	M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)

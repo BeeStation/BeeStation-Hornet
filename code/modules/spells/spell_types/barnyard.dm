@@ -16,14 +16,14 @@
 	action_icon_state = "barn"
 
 /obj/effect/proc_holder/spell/targeted/barnyardcurse/cast(list/targets, mob/user = usr)
-	if(!targets.len)
+	if(!length(targets))
 		to_chat(user, "<span class='notice'>No target found in range.</span>")
 		return
 
 	var/mob/living/carbon/target = targets[1]
 
 
-	if(!is_type_in_typecache(target, compatible_mobs_typecache))
+	if(!compatible_mobs_typecache[target.type])
 		to_chat(user, "<span class='notice'>You are unable to curse [target]'s head!</span>")
 		return
 

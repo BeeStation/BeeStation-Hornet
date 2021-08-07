@@ -82,6 +82,8 @@
 				return
 			print(usr, record)
 			return TRUE
+	//Update to viewers
+	ui_update()
 
 /obj/machinery/doppler_array/proc/print(mob/user, datum/data/tachyon_record/record)
 	if(!record)
@@ -136,6 +138,8 @@
 
 /obj/machinery/doppler_array/proc/sense_explosion(datum/source,turf/epicenter,devastation_range,heavy_impact_range,light_impact_range,
 												  took,orig_dev_range,orig_heavy_range,orig_light_range)
+	SIGNAL_HANDLER
+
 	if(stat & NOPOWER)
 		return FALSE
 	var/turf/zone = get_turf(src)
@@ -179,6 +183,8 @@
 
 	record_number++
 	records += R
+	//Update to viewers
+	ui_update()
 	return TRUE
 
 /obj/machinery/doppler_array/power_change()

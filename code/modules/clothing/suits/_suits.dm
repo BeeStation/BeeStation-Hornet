@@ -38,6 +38,8 @@
 		M.update_inv_wear_suit()
 
 /obj/item/clothing/suit/proc/on_mob_move()
+	SIGNAL_HANDLER
+
 	var/mob/living/carbon/human/H = loc
 	if(!istype(H) || H.wear_suit != src)
 		return

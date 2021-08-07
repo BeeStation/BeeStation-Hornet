@@ -23,19 +23,53 @@
  * Sets the different available tabs.
  */
 /datum/tgui_panel/proc/set_tab_info(payload)
-	if(!is_ready())
-		return
 	window.send_message("stat/setStatTabs", payload)
 
 /**
  * public
  *
- * Sends TGUI the data of every single verb accessable to the user.
+ * Sends TGUI the data of every single verb accessable to client.
  */
-/datum/tgui_panel/proc/set_verb_infomation(payload)
-	if(!is_ready())
+/datum/tgui_panel/proc/set_verb_infomation(client/C)
+	var/list/tab_names = C?.mob?.get_all_verbs()
+	if(!tab_names)
 		return
+	var/list/payload = list()
+	for(var/tab_name in tab_names)
+		var/list/procpaths = tab_names[tab_name]
+		payload[tab_name] = list()
+		for(var/procpath/PP as() in procpaths)
+			payload[tab_name]["[PP.name]"] = list(
+				action = "verb",
+				params = list("verb" = PP.name),
+				type = STAT_VERB,
+			)
 	window.send_message("stat/setVerbInfomation", payload)
+
+/**
+ * public
+ *
+ * Adds the provided verbs to the respective stat tabs.
+ * list(
+ * "Panel To Add To" = list("Verb1", "Verb3", "Verb4") ,
+ * )
+ */
+/datum/tgui_panel/proc/add_verbs(list/new_verbs)
+	var/list/payload = new_verbs
+	window.send_message("stat/addVerbs", payload)
+
+/**
+ * public
+ *
+ * Removes the provided verbs from the respective stat tabs.
+ * list(
+ * "Panel Name " = list("Verb 2 remove", "Verb 3 remove", etc..),
+ * etc..
+ * )
+ */
+/datum/tgui_panel/proc/remove_verbs(list/new_verbs)
+	var/list/payload = new_verbs
+	window.send_message("stat/removeVerbs", payload)
 
 /**
  * public
@@ -43,8 +77,6 @@
  * Sets the infomation to be displayed of the current tab. (For non verb tabs)
  */
 /datum/tgui_panel/proc/set_panel_infomation(payload)
-	if(!is_ready())
-		return
 	window.send_message("stat/setPanelInfomation", payload)
 
 /**
@@ -53,8 +85,6 @@
  * Sets the current tab.
  */
 /datum/tgui_panel/proc/set_stat_tab(new_tab)
-	if(!is_ready())
-		return
 	window.send_message("stat/setTab", new_tab)
 
 /**

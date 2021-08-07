@@ -40,6 +40,8 @@
 	UnregisterSignal(source, COMSIG_MOB_STATCHANGE)
 
 /datum/deathrattle_group/proc/on_implant_destruction(obj/item/implant/implant)
+	SIGNAL_HANDLER
+
 	implants -= implant
 
 /datum/deathrattle_group/proc/on_user_statchange(mob/living/owner, new_stat)

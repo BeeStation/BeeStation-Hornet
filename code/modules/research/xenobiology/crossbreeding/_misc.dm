@@ -276,24 +276,28 @@ Slimecrossing Items
 		to_chat(user, "<span class='warning'>The capture device only works on simple creatures.</span>")
 		return
 	if(M.mind)
-		to_chat(user, "<span class='notice'>You offer the device to [M].</span>")
-		if(alert(M, "Would you like to enter [user]'s capture device?", "Gold Capture Device", "Yes", "No") == "Yes")
-			if(user.canUseTopic(src, BE_CLOSE) && user.canUseTopic(M, BE_CLOSE))
-				to_chat(user, "<span class='notice'>You store [M] in the capture device.</span>")
-				to_chat(M, "<span class='notice'>The world warps around you, and you're suddenly in an endless void, with a window to the outside floating in front of you.</span>")
-				store(M, user)
-			else
-				to_chat(user, "<span class='warning'>You were too far away from [M].</span>")
-				to_chat(M, "<span class='warning'>You were too far away from [user].</span>")
-		else
-			to_chat(user, "<span class='warning'>[M] refused to enter the device.</span>")
-			return
+		INVOKE_ASYNC(src, .proc/offer_entry, M, user)
+		return
 	else
 		if(istype(M, /mob/living/simple_animal/hostile) && !("neutral" in M.faction))
 			to_chat(user, "<span class='warning'>This creature is too aggressive to capture.</span>")
 			return
 	to_chat(user, "<span class='notice'>You store [M] in the capture device.</span>")
 	store(M)
+
+/obj/item/capturedevice/proc/offer_entry(mob/living/M, mob/user)
+	to_chat(user, "<span class='notice'>You offer the device to [M].</span>")
+	if(alert(M, "Would you like to enter [user]'s capture device?", "Gold Capture Device", "Yes", "No") != "Yes")
+		to_chat(user, "<span class='warning'>[M] refused to enter the device.</span>")
+		return
+	if(!user.canUseTopic(src, BE_CLOSE) || !user.canUseTopic(M, BE_CLOSE))
+		to_chat(user, "<span class='warning'>You were too far away from [M].</span>")
+		to_chat(M, "<span class='warning'>You were too far away from [user].</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You store [M] in the capture device.</span>")
+	to_chat(M, "<span class='notice'>The world warps around you, and you're suddenly in an endless void, with a window to the outside floating in front of you.</span>")
+	store(M, user)
 
 /obj/item/capturedevice/attack_self(mob/user)
 	if(contents.len)

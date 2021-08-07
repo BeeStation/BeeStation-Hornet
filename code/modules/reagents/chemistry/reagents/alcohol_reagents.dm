@@ -78,8 +78,8 @@ All effects don't start immediately, but rather get worse over time; the rate is
 
 			for(var/s in C.surgeries)
 				var/datum/surgery/S = s
-				S.success_multiplier = max(0.1*power_multiplier, S.success_multiplier)
-				// +10% success propability on each step, useful while operating in less-than-perfect conditions
+				S.speed_modifier = max(0.1*power_multiplier, S.speed_modifier)
+				// +10% surgery speed on each step, useful while operating in less-than-perfect conditions
 	return ..()
 
 /datum/reagent/consumable/ethanol/beer
@@ -2341,4 +2341,21 @@ All effects don't start immediately, but rather get worse over time; the rate is
 		M.adjustBruteLoss(-1.5, 0)
 		M.adjustFireLoss(-1.5, 0)
 		M.adjustToxLoss(-1, 0)
+	. = ..()
+
+/datum/reagent/consumable/ethanol/beeffizz
+	name = "Beef Fizz"
+	description = "This is beef fizz, BEEF FIZZ, THERE IS NO GOD"
+	boozepwr = 15
+	quality = DRINK_BAD
+	taste_description = "Nice and Salty Fizzless Beef Juice with a quick bite of lemon"
+	glass_icon_state = "beef_fizz"
+	glass_name = "Beef Fizz"
+	glass_desc = "WHO THOUGHT THIS WAS A GOOD IDEA??"
+
+
+/datum/reagent/consumable/beeffizz/on_mob_metabolize(mob/living/M)
+	to_chat(M, "<span class='warning'>That drink was way too beefy! You feel sick.</span>")
+	M.adjust_disgust(30)
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()

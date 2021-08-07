@@ -3,6 +3,7 @@
 	typepath = /datum/round_event/grey_tide
 	max_occurrences = 2
 	min_players = 5
+	can_malf_fake_alert = TRUE
 
 /datum/round_event/grey_tide
 	announceWhen = 50
@@ -29,7 +30,7 @@
 
 /datum/round_event/grey_tide/announce(fake)
 	if(areasToOpen && areasToOpen.len > 0)
-		priority_announce("Gr3y.T1d3 virus detected in [station_name()] door subroutines. Severity level of [severity]. Recommend station AI involvement.", "Security Alert")
+		priority_announce("Gr3y.T1d3 virus detected in [station_name()] door subroutines. Severity level of [severity]. Recommend station AI involvement.", "Security Alert", SSstation.announcer.get_rand_alert_sound())
 	else
 		log_world("ERROR: Could not initiate grey-tide. No areas in the list!")
 		kill()

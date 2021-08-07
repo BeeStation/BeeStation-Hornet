@@ -15,5 +15,6 @@
 
 /datum/admins/proc/handle_marked_del(datum/source)
 	SIGNAL_HANDLER
+
 	UnregisterSignal(marked_datum, COMSIG_PARENT_QDELETING)
 	marked_datum = null

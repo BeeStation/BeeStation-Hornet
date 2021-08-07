@@ -78,12 +78,18 @@
 	output.outputs |= parent
 
 /datum/component/clockwork_trap/proc/trigger()
+	SIGNAL_HANDLER
+
 	return TRUE
 
 /datum/component/clockwork_trap/proc/clicked(mob/user)
+	SIGNAL_HANDLER
+
 	return
 
 /datum/component/clockwork_trap/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
+	SIGNAL_HANDLER
+
 	if(is_servant_of_ratvar(user))
 		if(istype(I, /obj/item/clockwork/clockwork_slab))
 			var/obj/item/clockwork/clockwork_slab/slab = I

@@ -18,6 +18,8 @@
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)
 
 /obj/item/clothing/gloves/proc/clean_blood(datum/source, strength)
+	SIGNAL_HANDLER
+
 	if(strength < CLEAN_STRENGTH_BLOOD)
 		return
 	transfer_blood = 0

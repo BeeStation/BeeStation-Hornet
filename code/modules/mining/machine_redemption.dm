@@ -161,6 +161,8 @@
 
 /obj/machinery/mineral/ore_redemption/default_unfasten_wrench(mob/user, obj/item/I)
 	. = ..()
+	if(!.)
+		return
 	if(anchored)
 		register_input_turf() // someone just wrenched us down, re-register the turf
 	else
@@ -211,6 +213,7 @@
 	if(!ui)
 		ui = new(user, src, "OreRedemptionMachine")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)
 	var/list/data = list()

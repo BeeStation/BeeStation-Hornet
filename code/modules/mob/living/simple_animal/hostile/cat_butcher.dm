@@ -152,8 +152,9 @@
 		for(var/pos_targ in Targets)
 			Targets[pos_targ] = 1
 			var/atom/A = pos_targ
-			var/target_dist = get_dist(targets_from, target)
-			var/possible_target_distance = get_dist(targets_from, A)
+			var/atom/target_from = GET_TARGETS_FROM(src)
+			var/target_dist = get_dist(target_from, target)
+			var/possible_target_distance = get_dist(target_from, A)
 			if(target_dist < max(possible_target_distance, 3))
 				Targets -= A
 	for(var/pos_targ in Targets)

@@ -786,6 +786,8 @@
 
 ///If we're safely deconstructed, we put the item neatly onto the ground, rather than deleting it.
 /obj/item/borg/apparatus/proc/safedecon()
+	SIGNAL_HANDLER
+
 	if(stored)
 		stored.forceMove(get_turf(src))
 		stored = null
@@ -810,10 +812,13 @@
 /obj/item/borg/apparatus/attack_self(mob/living/silicon/robot/user)
 	if(!stored)
 		return ..()
-	if(user.client?.keys_held["Alt"])
-		stored.forceMove(get_turf(user))
-		return
 	stored.attack_self(user)
+
+//Alt click drops stored item
+/obj/item/borg/apparatus/AltClick(mob/living/silicon/robot/user)
+	if(!stored)
+		return ..()
+	stored.forceMove(get_turf(user))
 
 /obj/item/borg/apparatus/pre_attack(atom/A, mob/living/user, params)
 	if(!stored)
@@ -846,7 +851,7 @@
 
 /obj/item/borg/apparatus/beaker
 	name = "beaker storage apparatus"
-	desc = "A special apparatus for carrying beakers without spilling the contents. Alt-Z or right-click to drop the beaker."
+	desc = "A special apparatus for carrying beakers without spilling the contents."
 	icon_state = "borg_beaker_apparatus"
 	storable = list(/obj/item/reagent_containers/glass/beaker,
 				/obj/item/reagent_containers/glass/bottle)
@@ -874,6 +879,7 @@
 				. += "[R.volume] units of [R.name]"
 		else
 			. += "Nothing."
+		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
 
 /obj/item/borg/apparatus/beaker/update_icon()
 	cut_overlays()
@@ -911,7 +917,7 @@
 
 /obj/item/borg/apparatus/circuit
 	name = "circuit manipulation apparatus"
-	desc = "A special apparatus for carrying and manipulating circuit boards. Alt-Z or right-click to drop the stored object."
+	desc = "A special apparatus for carrying and manipulating circuit boards."
 	icon_state = "borg_hardware_apparatus"
 	storable = list(/obj/item/circuitboard,
 				/obj/item/electronics)
@@ -943,6 +949,7 @@
 	. = ..()
 	if(stored)
 		. += "The apparatus currently has [stored] secured."
+		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
 
 /obj/item/borg/apparatus/circuit/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
@@ -955,7 +962,7 @@
 
 /obj/item/borg/apparatus/beaker/service
 	name = "versatile service grasper"
-	desc = "Specially designed for carrying glasses, food and seeds. Alt-Z or right-click to drop the stored object."
+	desc = "Specially designed for carrying glasses, food and seeds."
 	storable = list(/obj/item/reagent_containers/food,
 	/obj/item/seeds,
 	/obj/item/storage/fancy/donut_box,
@@ -971,3 +978,4 @@
 	. = ..()
 	if(stored)
 		. += "You are currently holding [stored]."
+		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"

@@ -14,7 +14,7 @@
 		stack_trace("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
 		qdel(src, TRUE, TRUE)
 		CRASH("Incompatible [type] assigned to a [parent.type]! args: [json_encode(arguments)]")
-
+	
 	_JoinParent(parent)
 
 /datum/component/proc/_JoinParent()
@@ -177,14 +177,14 @@
 		if(!C.signal_enabled)
 			return NONE
 		var/proctype = C.signal_procs[src][sigtype]
-		return NONE | CallAsync(C, proctype, arguments)
+		return NONE | call(C, proctype)(arglist(arguments))
 	. = NONE
 	for(var/I in target)
 		var/datum/C = I
 		if(!C.signal_enabled)
 			continue
 		var/proctype = C.signal_procs[src][sigtype]
-		. |= CallAsync(C, proctype, arguments)
+		. |= call(C, proctype)(arglist(arguments))
 
 /datum/proc/GetComponent(datum/component/c_type)
 	RETURN_TYPE(c_type)

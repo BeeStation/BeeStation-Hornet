@@ -172,19 +172,20 @@
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(iscultist(L) || isshade(L) || isconstruct(L))
-				if(L.health != L.maxHealth)
-					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
-					if(ishuman(L))
-						L.adjustBruteLoss(-0.5*delta_time, 0)
-						L.adjustFireLoss(-0.5*delta_time, 0)
-						L.updatehealth()
-					if(isshade(L) || isconstruct(L))
-						var/mob/living/simple_animal/M = L
-						if(M.health < M.maxHealth)
-							M.adjustHealth(-1.5*delta_time)
-				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
+			if(L.health == L.maxHealth)
+				continue
+			if(!iscultist(L) && !isshade(L) && !isconstruct(L))
+				continue
+			new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
+			if(ishuman(L))
+				L.adjustBruteLoss(-5*delta_time, 0)
+				L.adjustFireLoss(-5*delta_time, 0)
+				L.updatehealth()
+				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1.0
+			else if(isshade(L) || isconstruct(L))
+				var/mob/living/simple_animal/M = L
+				M.adjustHealth(-15*delta_time)
 			CHECK_TICK
 	if(last_corrupt <= world.time)
 		var/list/validturfs = list()

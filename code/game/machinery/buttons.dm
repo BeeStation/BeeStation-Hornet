@@ -111,6 +111,12 @@
 	playsound(src, "sparks", 100, 1)
 	obj_flags |= EMAGGED
 
+/obj/machinery/button/eminence_act(mob/living/simple_animal/eminence/eminence)
+	. = ..()
+	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	if(do_after(eminence, 20, target=get_turf(eminence)))
+		attack_hand(eminence)
+
 /obj/machinery/button/attack_ai(mob/user)
 	if(!panel_open)
 		return attack_hand(user)

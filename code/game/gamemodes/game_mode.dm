@@ -83,6 +83,8 @@
 		message_admins("<span class='notice'>DEBUG: GAME STARTING WITHOUT PLAYER NUMBER CHECKS, THIS WILL PROBABLY BREAK SHIT.</span>")
 		return TRUE
 
+/datum/game_mode/proc/setup_maps()
+	return 1
 
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
