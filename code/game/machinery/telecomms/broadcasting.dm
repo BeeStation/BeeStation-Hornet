@@ -190,7 +190,7 @@
 	for(var/atom/movable/hearer in receive)
 		if(ismob(hearer))
 			var/mob/M = hearer
-			if(M.should_show_chat_message(virt, language, FALSE))
+			if(M.should_show_chat_message(virt, language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
 		hearer.Hear(rendered, virt, language, message, frequency, spans, message_mods)
 	if(length(show_overhead_message_to))
