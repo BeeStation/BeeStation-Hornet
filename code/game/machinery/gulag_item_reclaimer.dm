@@ -80,6 +80,9 @@
 			drop_items(H)
 			. = TRUE
 
+	//Update to viewers
+	ui_update()
+
 /obj/machinery/gulag_item_reclaimer/proc/drop_items(mob/user)
 	if(!stored_items[user])
 		return

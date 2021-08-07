@@ -11,7 +11,8 @@
 	var/id
 	var/obj/machinery/teleport/station/power_station
 	var/calibrating
-	var/turf/target
+	///Weakref to the target atom we're pointed at currently
+	var/datum/weakref/target_ref
 
 /obj/machinery/computer/teleporter/Initialize()
 	. = ..()
@@ -42,8 +43,14 @@
 	if(!ui)
 		ui = new(user, src, "Teleporter")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/teleporter/ui_data(mob/user)
+	var/atom/target
+	if(target_ref)
+		target = target_ref.resolve()
+	if(!target)
+		target_ref = null
 	var/list/data = list()
 	data["power_station"] = power_station ? TRUE : FALSE
 	data["teleporter_hub"] = power_station?.teleporter_hub ? TRUE : FALSE
@@ -51,7 +58,7 @@
 	data["target"] = !target ? "None" : "[get_area(target)] [(regime_set != "Gate") ? "" : "Teleporter"]"
 	data["calibrating"] = calibrating
 
-	if(power_station?.teleporter_hub?.calibrated || power_station?.teleporter_hub?.accuracy >= 3)
+	if(power_station?.teleporter_hub?.calibrated || power_station?.teleporter_hub?.accuracy >= 4)
 		data["calibrated"] = TRUE
 	else
 		data["calibrated"] = FALSE
@@ -83,17 +90,17 @@
 			set_target(usr)
 			. = TRUE
 		if("calibrate")
-			if(!target)
+			if(!target_ref)
 				say("Error: No target set to calibrate to.")
 				return
-			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accuracy >= 3)
+			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accuracy >= 4)
 				say("Hub is already calibrated!")
 				return
 
 			say("Processing hub calibration to target...")
 			calibrating = TRUE
 			power_station.update_icon()
-			spawn(50 * (3 - power_station.teleporter_hub.accuracy)) //Better parts mean faster calibration
+			spawn(50 * (4 - power_station.teleporter_hub.accuracy)) //Better parts mean faster calibration
 				calibrating = FALSE
 				if(check_hub_connection())
 					power_station.teleporter_hub.calibrated = TRUE
@@ -111,7 +118,7 @@
 	return TRUE
 
 /obj/machinery/computer/teleporter/proc/reset_regime()
-	target = null
+	target_ref = null
 	if(regime_set == "Teleporter")
 		regime_set = "Gate"
 	else
@@ -141,9 +148,9 @@
 					L[avoid_assoc_duplicate_keys("[M.real_name] ([get_area(M)])", areaindex)] = I
 
 		var/desc = input("Please select a location to lock in.", "Locking Computer") as null|anything in sortList(L)
-		target = L[desc]
-		var/turf/T = get_turf(target)
-		log_game("[key_name(user)] has set the teleporter target to [target] at [AREACOORD(T)]")
+		target_ref = WEAKREF(L[desc])
+		var/turf/T = get_turf(L[desc])
+		log_game("[key_name(user)] has set the teleporter target to [L[desc]] at [AREACOORD(T)]")
 
 	else
 		var/list/S = power_station.linked_stations
@@ -160,7 +167,7 @@
 			return
 		var/turf/T = get_turf(target_station)
 		log_game("[key_name(user)] has set the teleporter target to [target_station] at [AREACOORD(T)]")
-		target = target_station.teleporter_hub
+		target_ref = WEAKREF(target_station.teleporter_hub)
 		target_station.linked_stations |= power_station
 		target_station.stat &= ~NOPOWER
 		if(target_station.teleporter_hub)

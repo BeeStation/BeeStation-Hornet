@@ -385,7 +385,7 @@ Difficulty: Medium
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, visible_message_flags = NONE)
+/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags)
 	if(swooping & SWOOP_INVULNERABLE) //to suppress attack messages without overriding every single proc that could send a message saying we got hit
 		return
 	return ..()
@@ -451,7 +451,7 @@ Difficulty: Medium
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "1"
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	density = TRUE
 	CanAtmosPass = ATMOS_PASS_DENSITY
 	duration = 82

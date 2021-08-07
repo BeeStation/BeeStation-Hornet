@@ -3,7 +3,6 @@ set -euo pipefail
 EXIT_CODE=0
 
 tools/deploy.sh ci_test
-rm ci_test/*.dll
 mkdir ci_test/config
 
 #test config
