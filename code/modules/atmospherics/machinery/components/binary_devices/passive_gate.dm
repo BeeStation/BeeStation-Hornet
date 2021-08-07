@@ -120,6 +120,7 @@ Passive gate is similar to the regular pump except:
 			if(.)
 				target_pressure = clamp(pressure, 0, ONE_ATMOSPHERE*100)
 				investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
+	ui_update()
 	update_icon()
 
 /obj/machinery/atmospherics/components/binary/passive_gate/atmosinit()

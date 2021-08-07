@@ -213,6 +213,7 @@
 			visible = !visible
 			. = TRUE
 
+	ui_update()
 	update_icon()
 	refreshBeam()
 
