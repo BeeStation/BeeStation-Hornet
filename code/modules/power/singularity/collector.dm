@@ -54,14 +54,13 @@
 		if(loaded_tank.air_contents.get_moles(GAS_PLASMA) < 0.0001)
 			investigate_log("<font color='red'>out of fuel</font>.", INVESTIGATE_ENGINES)
 			playsound(src, 'sound/machines/ding.ogg', 50, 1)
+			var/msg = "Plasma depleted, recommend replacing tank."
+			radio.talk_into(src, msg, radio_channel)
 			eject()
 		else
 			var/gasdrained = min(powerproduction_drain*drainratio*delta_time,loaded_tank.air_contents.get_moles(GAS_PLASMA))
 			loaded_tank.air_contents.adjust_moles(GAS_PLASMA, -gasdrained)
 			loaded_tank.air_contents.adjust_moles(GAS_TRITIUM, gasdrained)
-			var/msg = "Plasma depleted, recommend replacing tank."
-			radio.talk_into(src, msg, radio_channel)
-
 			var/power_produced = RAD_COLLECTOR_OUTPUT
 			add_avail(power_produced)
 			stored_energy-=power_produced
