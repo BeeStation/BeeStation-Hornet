@@ -248,7 +248,9 @@
 	if(!ui)
 		ui = new(user, src, "AirAlarm")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
+//Oh my, thats a lot of data being sent that should probably be refactored
 /obj/machinery/airalarm/ui_data(mob/user)
 	var/data = list(
 		"locked" = locked,
@@ -443,10 +445,12 @@
 		if(WIRE_POWER)
 			if(!wires.is_cut(WIRE_POWER))
 				shorted = FALSE
+				wires.ui_update()
 				update_icon()
 		if(WIRE_AI)
 			if(!wires.is_cut(WIRE_AI))
 				aidisabled = FALSE
+				wires.ui_update()
 
 
 /obj/machinery/airalarm/proc/shock(mob/user, prb)

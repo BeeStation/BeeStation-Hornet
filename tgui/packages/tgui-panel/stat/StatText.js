@@ -18,9 +18,11 @@ export const StatText = (props, context) => {
       </Box>
     );
   }
-  let verbs = Object.keys(statPanelData)
-    .filter(element => !!statPanelData[element]
-      && statPanelData[element].type === STAT_VERB);
+  let verbs = {};
+  if (stat.verbData !== null)
+  {
+    verbs = stat.verbData[stat.selectedTab] || {};
+  }
   return (
     <div className="StatBorder">
       <Box>
@@ -44,15 +46,13 @@ export const StatText = (props, context) => {
             )
           ))
           : "No data"}
-        {!!verbs.length && (
-          verbs.map(verb => (
-            <StatTextVerb
-              key={verb}
-              title={verb}
-              action_id={statPanelData[verb].action}
-              params={statPanelData[verb].params} />
-          ))
-        )}
+        {Object.keys(verbs).map(verb => (
+          <StatTextVerb
+            key={verb}
+            title={verb}
+            action_id={verbs[verb].action}
+            params={verbs[verb].params} />
+        ))}
       </Box>
     </div>
   );
@@ -122,7 +122,7 @@ export const StatTextAtom = (props, context) => {
       <Button
         draggable
         onDragStart={e => {
-          // e.dataTransfer.setData("text", atom_ref); 
+          // e.dataTransfer.setData("text", atom_ref);
           /*
           Apparently can't use "text/plain" because IE, this took me way too
           long to figure out.
@@ -141,7 +141,7 @@ export const StatTextAtom = (props, context) => {
           // let other_atom_ref = e.dataTransfer.getData("text");
           let other_atom_ref = retrieveAtomRef();
           if (other_atom_ref)
-          { 
+          {
             e.preventDefault();
             storeAtomRef(null);
             sendMessage({
@@ -222,9 +222,11 @@ export const HoboStatText = (props, context) => {
       </Box>
     );
   }
-  let verbs = Object.keys(statPanelData)
-    .filter(element => !!statPanelData[element]
-      && statPanelData[element].type === STAT_VERB);
+  let verbs = {};
+  if (stat.verbData !== null)
+  {
+    verbs = stat.verbData[stat.selectedTab] || {};
+  }
   return (
     <div className="StatBorder">
       <Section>
@@ -248,19 +250,17 @@ export const HoboStatText = (props, context) => {
             )
           ))
           : "No data"}
-        {!!verbs.length && (
+        {Object.keys(verbs).map(verb => (
           <Box
             wrap="wrap"
+            key={verb}
             align="left">
-            {verbs.map(verb => (
-              <StatTextVerb
-                key={verb}
-                title={verb}
-                action_id={statPanelData[verb].action}
-                params={statPanelData[verb].params} />
-            ))}
+            <StatTextVerb
+              title={verb}
+              action_id={verbs[verb].action}
+              params={verbs[verb].params} />
           </Box>
-        )}
+        ))}
       </Section>
     </div>
   );

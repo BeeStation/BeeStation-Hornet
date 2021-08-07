@@ -56,6 +56,10 @@
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
 #warn WARNING: Your BYOND version is over the recommended version (514.1557)! Stability is not guaranteed.
 #endif
+//Log the full sendmaps profile on 514.1556+, any earlier and we get bugs or it not existing
+#if DM_VERSION >= 514 && DM_BUILD >= 1556
+#define SENDMAPS_PROFILE
+#endif
 
 
 //Additional code for the above flags.
@@ -69,6 +73,17 @@
 
 #ifdef CITESTING
 #define TESTING
+#endif
+
+#ifdef TGS
+// TGS performs its own build of dm.exe, but includes a prepended TGS define.
+#define CBT
+#endif
+
+#if !defined(CBT) && !defined(SPACEMAN_DMM)
+#warn Building with Dream Maker is no longer supported and will result in errors.
+#warn In order to build, run BUILD.bat in the root directory.
+#warn Consider switching to VSCode editor instead, where you can press Ctrl+Shift+B to build.
 #endif
 
 #define AUXMOS (world.system_type == MS_WINDOWS ? "auxtools/auxmos.dll" : __detect_auxmos())

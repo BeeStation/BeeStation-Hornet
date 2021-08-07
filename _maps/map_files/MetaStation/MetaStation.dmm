@@ -19513,9 +19513,7 @@
 	name = "Waste to Filter"
 	},
 /turf/open/floor/engine,
-/area/engine/engineering{
-	name = "Gas to Filter"
-	})
+/area/engine/engineering)
 "aMj" = (
 /obj/machinery/door/airlock/engineering/glass/critical{
 	heat_proof = 1;

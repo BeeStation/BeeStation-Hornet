@@ -251,6 +251,7 @@
 			paint_mode = PAINT_NORMAL
 			drawtype = "a"
 	update_icon()
+	ui_update()
 
 /obj/item/toy/crayon/proc/crayon_text_strip(text)
 	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")

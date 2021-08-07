@@ -4,7 +4,7 @@
 	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
 	density = TRUE
-	opacity = 0
+	opacity = FALSE
 
 	var/ready = TRUE
 	var/replenishing = FALSE
@@ -36,7 +36,7 @@
 	if(!ui)
 		ui = new(user, src, "implantchair")
 		ui.open()
-
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/implantchair/ui_data()
 	var/list/data = list()

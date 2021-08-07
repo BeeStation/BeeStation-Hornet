@@ -7,8 +7,6 @@ GLOBAL_VAR(restart_counter)
 /world/New()
 	//Keep the auxtools stuff at the top
 	AUXTOOLS_CHECK(AUXMOS)
-	//Early profile for auto-profiler - will be stopped on profiler init if necessary.
-	world.Profile(PROFILE_START)
 
 	enable_debugger()
 
@@ -28,6 +26,7 @@ GLOBAL_VAR(restart_counter)
 
 	load_admins()
 	load_mentors()
+	load_badge_ranks()
 
 	//SetupLogs depends on the RoundID, so lets check
 	//DB schema and set RoundID if we can
@@ -46,8 +45,6 @@ GLOBAL_VAR(restart_counter)
 #endif
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
-
-	GLOB.timezoneOffset = text2num(time2text(0,"hh")) * 36000
 
 	if(fexists(RESTART_COUNTER_PATH))
 		GLOB.restart_counter = text2num(trim(rustg_file_read(RESTART_COUNTER_PATH)))
