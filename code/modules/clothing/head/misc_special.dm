@@ -53,7 +53,7 @@
 	var/damtype_on = BURN
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
-	brightness_on = 2 //luminosity when on
+	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
 	heat = 999
 
@@ -99,7 +99,7 @@
 	hitsound_off = 'sound/weapons/tap.ogg'
 	damtype_on = BRUTE
 	force_on = 18 //same as epen (but much more obvious)
-	brightness_on = 3
+	light_range = 3 //ditto
 	heat = 0
 
 /obj/item/clothing/head/hardhat/cakehat/energycake/turn_on(mob/living/user)
@@ -150,7 +150,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 10)
-	brightness_on = 2 //luminosity when on
+	light_range = 2 //luminosity when on
 	flags_cover = HEADCOVERSEYES
 
 /*
@@ -189,7 +189,7 @@
 	item_color = "reindeer"
 	flags_inv = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
-	brightness_on = 1 //luminosity when on
+	light_range = 1 //luminosity when on
 	dynamic_hair_suffix = ""
 
 	dog_fashion = /datum/dog_fashion/head/reindeer
@@ -353,7 +353,7 @@
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY | EFFECT_HAT | SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
-	var/brightness_on = 4 //luminosity when the light is on
+	light_range = 4 //luminosity when the light is on
 	var/on = FALSE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	dynamic_hair_suffix = ""
@@ -372,7 +372,7 @@
 	user.update_inv_head() //So the mob overlay updates
 
 	if(on)
-		set_light(brightness_on)
+		set_light(light_range)
 	else
 		set_light(0)
 

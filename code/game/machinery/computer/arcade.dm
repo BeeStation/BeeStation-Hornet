@@ -1245,23 +1245,51 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/c_user = user
-	if(!c_user.get_bodypart(BODY_ZONE_L_ARM) && !c_user.get_bodypart(BODY_ZONE_R_ARM))
-		return
-	to_chat(c_user, "<span class='warning'>You move your hand towards the machine, and begin to hesitate as a bloodied guillotine emerges from inside of it...</span>")
-	if(do_after(c_user, 50, target = src))
-		to_chat(c_user, "<span class='userdanger'>The guillotine drops on your arm, and the machine sucks it in!</span>")
-		playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-		var/which_hand = BODY_ZONE_L_ARM
-		if(!(c_user.active_hand_index % 2))
-			which_hand = BODY_ZONE_R_ARM
-		var/obj/item/bodypart/chopchop = c_user.get_bodypart(which_hand)
-		chopchop.dismember()
-		qdel(chopchop)
-		playsound(loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
-		for(var/i=1; i<=rand(3,5); i++)
-			prizevend(user)
+	if(obj_flags & EMAGGED)
+		if(!c_user.get_bodypart(BODY_ZONE_L_ARM) && !c_user.get_bodypart(BODY_ZONE_R_ARM))
+			return
+		to_chat(c_user, "<span class='warning'>You move your hand towards the machine, and begin to hesitate as an extra-bloodied guillotine emerges from inside of it...</span>")
+		if(do_after(c_user, 50, target = src))
+			to_chat(c_user, "<span class='userdanger'>Robotic arms shoot out of the machine, remove all your limbs, and suck them in!</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			for(var/X in c_user.bodyparts)
+				var/obj/item/bodypart/BP = X
+				if(BP.body_part != HEAD && BP.body_part != CHEST)
+					if(BP.dismemberable)
+						BP.dismember()
+						qdel(BP)
+			playsound(loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
+			for(var/i=1 to rand(20, 30))
+				prizevend(user)
+		else
+			to_chat(c_user, "<span class='notice'>You (wisely) decide against putting your hand in the machine.</span>")
 	else
-		to_chat(c_user, "<span class='notice'>You (wisely) decide against putting your hand in the machine.</span>")
+		if(!c_user.get_bodypart(BODY_ZONE_L_ARM) && !c_user.get_bodypart(BODY_ZONE_R_ARM))
+			return
+		to_chat(c_user, "<span class='warning'>You move your hand towards the machine, and begin to hesitate as a bloodied guillotine emerges from inside of it...</span>")
+		if(do_after(c_user, 50, target = src))
+			to_chat(c_user, "<span class='userdanger'>The guillotine drops on your arm, and the machine sucks it in!</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			var/which_hand = BODY_ZONE_L_ARM
+			if(!(c_user.active_hand_index % 2))
+				which_hand = BODY_ZONE_R_ARM
+			var/obj/item/bodypart/chopchop = c_user.get_bodypart(which_hand)
+			chopchop.dismember()
+			qdel(chopchop)
+			playsound(loc, 'sound/arcade/win.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
+			for(var/i=1 to rand(3, 5))
+				prizevend(user)
+		else
+			to_chat(c_user, "<span class='notice'>You (wisely) decide against putting your hand in the machine.</span>")
+
+
+/obj/machinery/computer/arcade/amputation/emag_act(mob/user)
+	if(obj_flags & EMAGGED)
+		return
+	to_chat(user, "<span class='notice'>You override the safety systems on the arcade machine.</span>")
+	name = "Mediborg's Amputation Adventure: Deluxe Edition"
+	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has glowing red eyes, and a speech bubble that says, \"Put your hand in the machine if you aren't a <b>coward!</b>\""
+	obj_flags |= EMAGGED
 
 #undef ORION_TRAIL_WINTURN
 #undef ORION_TRAIL_RAIDERS

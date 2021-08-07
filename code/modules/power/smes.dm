@@ -339,6 +339,7 @@
 	if(!ui)
 		ui = new(user, src, "Smes")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/power/smes/ui_data()
 	var/list/data = list(

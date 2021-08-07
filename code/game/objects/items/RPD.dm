@@ -350,6 +350,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	if(playeffect)
 		spark_system.start()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, FALSE)
+	ui_update()
 	return TRUE
 
 /obj/item/pipe_dispenser/pre_attack(atom/A, mob/user)

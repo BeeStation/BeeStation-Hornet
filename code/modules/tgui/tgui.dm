@@ -22,7 +22,7 @@
 	/// The interface (template) to be used for this UI.
 	var/interface
 	/// Update the UI every MC tick.
-	var/autoupdate = TRUE
+	var/autoupdate = FALSE
 	/// If the UI has been initialized yet.
 	var/initialized = FALSE
 	/// Time of opening the window.
@@ -33,6 +33,8 @@
 	var/status = UI_INTERACTIVE
 	/// Topic state used to determine status/interactability.
 	var/datum/ui_state/state = null
+	/// If the window should update
+	var/needs_update = FALSE
 
 /**
  * public
@@ -263,15 +265,15 @@
 		close(can_be_suspended = FALSE)
 		return
 	// Update through a normal call to ui_interact
-	if(status != UI_DISABLED && (autoupdate || force))
+	if(status != UI_DISABLED && (autoupdate || force || src_object.ui_requires_update(user, src)))
 		src_object.ui_interact(user, src)
 		return
 	// Update status only
-	var/needs_update = process_status()
+	var/requires_update = process_status()
 	if(status <= UI_CLOSE)
 		close()
 		return
-	if(needs_update)
+	if(requires_update)
 		window.send_message("update", get_payload())
 
 /**
