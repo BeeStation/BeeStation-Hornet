@@ -259,6 +259,7 @@
 	if(!ui)
 		ui = new(user, src, "BluespaceArtillery")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/bsa_control/ui_data()
 	var/obj/machinery/bsa/full/cannon = cannon_ref?.resolve()

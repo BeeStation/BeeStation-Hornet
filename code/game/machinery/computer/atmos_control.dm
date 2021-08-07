@@ -137,6 +137,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	if(!ui)
 		ui = new(user, src, "AtmosControlConsole")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/atmos_control/ui_data(mob/user)
 	var/data = list()

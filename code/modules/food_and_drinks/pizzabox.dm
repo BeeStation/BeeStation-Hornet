@@ -105,6 +105,7 @@
 	if(open && !bomb_defused)
 		audible_message("<span class='warning'>[icon2html(src, hearers(src))] *beep*</span>")
 		bomb_active = TRUE
+		wires.ui_update()
 		START_PROCESSING(SSobj, src)
 	update_icon()
 
@@ -133,6 +134,7 @@
 
 				bomb_timer = clamp(CEILING(bomb_timer, 1), bomb_timer_min, bomb_timer_max)
 				bomb_defused = FALSE
+				wires.ui_update()
 
 				log_bomber(user, "has trapped a", src, "with [bomb] set to [bomb_timer] seconds")
 				bomb.adminlog = "The [bomb.name] in [src.name] that [key_name(user)] activated has detonated!"
@@ -226,6 +228,7 @@
 		if(bomb_defused && (bomb in src))
 			bomb.defuse()
 			bomb_active = FALSE
+			wires.ui_update()
 			unprocess()
 	return
 

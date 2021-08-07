@@ -178,6 +178,7 @@
 			adjust_node1_value(100 - value)
 			investigate_log("was set to [node2_concentration] % on node 2 by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
+	ui_update()
 	update_icon()
 
 /obj/machinery/atmospherics/components/trinary/mixer/proc/adjust_node1_value(newValue)

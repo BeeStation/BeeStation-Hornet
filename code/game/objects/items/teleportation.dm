@@ -160,7 +160,7 @@
 	if(!current_location || current_area.teleport_restriction || is_away_level(current_location.z) || is_centcom_level(current_location.z) || !isturf(user.loc))//If turf was not found or they're on z level 2 or >7 which does not currently exist. or if user is not located on a turf
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
-	var/list/L = list(  )
+	var/list/L = list()
 	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
 		var/atom/target = com.target_ref?.resolve()
 		if(!target)
