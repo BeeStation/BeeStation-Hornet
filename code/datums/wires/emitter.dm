@@ -14,4 +14,3 @@
 		if(WIRE_HACK)
 			E.mode = !E.mode
 			E.set_projectile()
-	..()

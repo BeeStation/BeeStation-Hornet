@@ -634,6 +634,7 @@
 			if(!has_electronics)
 				has_electronics = APC_ELECTRONICS_INSTALLED
 				locked = FALSE
+				wires.ui_update()
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
 				qdel(W)
 	else if(istype(W, /obj/item/electroadaptive_pseudocircuit) && opened)
@@ -648,6 +649,7 @@
 			"<span class='notice'>You adapt a power control board and click it into place in [src]'s guts.</span>")
 			has_electronics = APC_ELECTRONICS_INSTALLED
 			locked = FALSE
+			wires.ui_update()
 		else if(!cell)
 			if(stat & MAINT)
 				to_chat(user, "<span class='warning'>There's no connector for a power cell.</span>")
@@ -763,6 +765,7 @@
 	else
 		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
 			locked = !locked
+			wires.ui_update()
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
 			update_icon()
 			updateUsrDialog()
@@ -809,6 +812,7 @@
 			playsound(src, "sparks", 75, 1)
 			obj_flags |= EMAGGED
 			locked = FALSE
+			wires.ui_update()
 			to_chat(user, "<span class='notice'>You emag the APC interface.</span>")
 			update_icon()
 
@@ -901,6 +905,7 @@
 	if(!ui)
 		ui = new(user, src, "Apc")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/power/apc/ui_data(mob/user)
 	var/list/data = list(
@@ -1076,6 +1081,7 @@
 					L.no_emergency = emergency_lights
 					INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 				CHECK_TICK
+	wires.ui_update()
 	return 1
 
 /obj/machinery/power/apc/ui_close(mob/user)
@@ -1411,6 +1417,7 @@
 			environ = 3
 			update_icon()
 			update()
+	wires.ui_update()
 
 // damage and destruction acts
 /obj/machinery/power/apc/emp_act(severity)

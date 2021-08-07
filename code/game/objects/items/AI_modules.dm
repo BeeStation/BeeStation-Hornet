@@ -655,3 +655,15 @@ AI MODULES
 /obj/item/aiModule/core/full/overlord
 	name = "'Overlord' Core AI Module"
 	law_id = "overlord"
+
+/******************** ERT Override ******************/
+/obj/item/aiModule/core/full/ert // Applies ERT laws
+	name = "ERT override AI module"
+	desc = "An ERT override AI module: 'Reconfigures the AI's core laws.'"
+	law_id = "ert"
+
+/******************** Deathsquad Override ******************/
+/obj/item/aiModule/core/full/deathsquad // Applies Deathsquad laws
+	name = "Deathsquad override AI module"
+	desc = "A Deathsquad override AI module: 'Reconfigures the AI's core laws.'"
+	law_id = "ds"
