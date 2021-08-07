@@ -85,6 +85,9 @@
 	QDEL_NULL(language_holder)
 	QDEL_NULL(em_block)
 
+	if(pulling)
+		stop_pulling()
+
 	unbuckle_all_mobs(force = TRUE)
 
 	if(loc)
@@ -125,7 +128,7 @@
 		gen_emissive_blocker.appearance_flags |= appearance_flags
 		return gen_emissive_blocker
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
-		if(!em_block)
+		if(!em_block && !QDELETED(src))
 			render_target = ref(src)
 			em_block = new(src, render_target)
 		return em_block
@@ -680,7 +683,7 @@
 	else
 		target_zone = thrower.zone_selected
 
-	var/datum/thrownthing/TT = new(src, target, get_turf(target), get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
+	var/datum/thrownthing/TT = new(src, get_turf(target), get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)

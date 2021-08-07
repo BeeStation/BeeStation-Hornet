@@ -39,6 +39,10 @@
 	next_move = 1
 
 	..()
+
+	//We do this here to prevent hanging refs from ghostize or whatever, since if we were in another mob before this'll take care of it
+	clear_client_in_contents()
+
 	if (client && key != client.key)
 		key = client.key
 	reset_perspective(loc)
