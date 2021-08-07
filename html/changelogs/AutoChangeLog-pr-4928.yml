@@ -1,5 +1,0 @@
-author: TheChaser212
-delete-after: true
-changes:
-  - rscadd: Non-humans can be The Fly'd
-  - bugfix: Tier 4 parts work correctly with the teleporter
