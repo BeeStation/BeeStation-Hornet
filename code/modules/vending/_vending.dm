@@ -790,6 +790,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 			R.amount--
 			SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
 			vend_ready = TRUE
+	ui_update()
 
 /obj/machinery/vending/process(delta_time)
 	if(stat & (BROKEN|NOPOWER))
@@ -799,6 +800,8 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 	if(seconds_electrified > MACHINE_NOT_ELECTRIFIED)
 		seconds_electrified--
+		if(seconds_electrified <= MACHINE_NOT_ELECTRIFIED)
+			wires.ui_update()
 
 	//Pitch to the people!  Really sell it!
 	if(last_slogan + slogan_delay <= world.time && slogan_list.len > 0 && !shut_up && DT_PROB(2.5, delta_time))
@@ -868,6 +871,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 
 	throw_item.throw_at(target, 16, 3)
 	visible_message("<span class='danger'>[src] launches [throw_item] at [target]!</span>")
+	ui_update()
 	return 1
 /**
   * A callback called before an item is tossed out

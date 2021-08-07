@@ -506,6 +506,8 @@
 			SStgui.update_uis(src)
 			return TRUE
 	. = TRUE
+	ui_update()
+
 /obj/structure/displaycase/forsale/attackby(obj/item/I, mob/living/user, params)
 	if(isidcard(I))
 		//Card Registration
