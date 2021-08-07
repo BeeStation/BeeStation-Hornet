@@ -1,7 +1,7 @@
 /obj/structure/sign
 	icon = 'icons/obj/decals.dmi'
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	layer = SIGN_LAYER
 	max_integrity = 100
