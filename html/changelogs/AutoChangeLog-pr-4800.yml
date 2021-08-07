@@ -1,0 +1,9 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - refactor: Bitfields now use tg's macro, separated more cleanly.
+  - refactor: area_flags from tgcl
+  - tweak: Random mineral turfs no longer cause large amounts of turf changes on initialization.
+  - rscdel: Old lavaland cave generation based on straight lines
+  - rscadd: Beautiful new lavaland cave generation from tg, with organic and complex
+      cave systems
