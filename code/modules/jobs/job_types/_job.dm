@@ -16,7 +16,7 @@
 	var/list/head_announce = null
 
 	//Bitflags for the job
-	var/flag = NONE //Deprecated
+	var/flag = NONE //Deprecated //Except not really, still used throughout the codebase
 	var/department_flag = NONE //Deprecated
 	var/auto_deadmin_role_flags = NONE
 
@@ -250,7 +250,7 @@
 /datum/outfit/job
 	name = "Standard Gear"
 
-	var/jobtype = null
+	var/jobtype
 
 	uniform = /obj/item/clothing/under/color/grey
 	id = /obj/item/card/id

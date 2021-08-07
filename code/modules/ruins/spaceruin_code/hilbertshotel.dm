@@ -1,6 +1,7 @@
 GLOBAL_VAR_INIT(hhStorageTurf, null)
 GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
 
+// Someone for the love of god kill whoever indented this with spaces
 /obj/item/hilbertshotel
     name = "Hilbert's Hotel"
     desc = "A sphere of what appears to be an intricate network of bluespace. Observing it in detail seems to give you a headache as you try to comprehend the infinite amount of infinitesimally distinct points on its surface."
@@ -311,8 +312,7 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     requires_power = FALSE
     has_gravity = TRUE
     teleport_restriction = TELEPORT_ALLOW_NONE
-    hidden = TRUE
-    unique = FALSE
+    area_flags = HIDDEN_AREA
     dynamic_lighting = DYNAMIC_LIGHTING_FORCED
     ambientsounds = list('sound/ambience/servicebell.ogg')
     var/roomnumber = 0
@@ -394,9 +394,9 @@ GLOBAL_VAR_INIT(hhmysteryRoomNumber, 1337)
     name = "Hilbert's Hotel Storage Room"
     icon_state = "hilbertshotel"
     requires_power = FALSE
+    area_flags = HIDDEN_AREA | UNIQUE_AREA
     has_gravity = TRUE
     teleport_restriction = TELEPORT_ALLOW_NONE
-    hidden = TRUE
 
 /obj/item/abstracthotelstorage
     anchored = TRUE

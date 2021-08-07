@@ -25,6 +25,8 @@
 		E += M.rating
 	range = initial(range)
 	range *= E
+	//Update to viewers
+	ui_update()
 
 /obj/machinery/launchpad/Initialize()
 	. = ..()
@@ -333,8 +335,6 @@
 		ui = new(user, src, "LaunchpadRemote") //width, height
 		ui.open()
 
-	ui.set_autoupdate(TRUE)
-
 /obj/item/launchpad_remote/ui_data(mob/user)
 	var/list/data = list()
 	var/obj/machinery/launchpad/briefcase/our_pad = pad.resolve()
@@ -398,3 +398,5 @@
 			sending = FALSE
 			teleport(usr, our_pad)
 			. = TRUE
+	//Update to viewers
+	ui_update()

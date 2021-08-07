@@ -287,4 +287,5 @@
 				attached_device = null
 				. = TRUE
 
+	ui_update()
 	update_icon()

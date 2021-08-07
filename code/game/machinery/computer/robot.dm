@@ -32,6 +32,7 @@
 	if(!ui)
 		ui = new(user, src, "RoboticsControlConsole")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/robotics/ui_data(mob/user)
 	var/list/data = list()

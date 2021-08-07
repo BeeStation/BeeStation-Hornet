@@ -152,3 +152,4 @@
 				value = round(time + value)
 				time = clamp(value, 0, 600)
 				. = TRUE
+	ui_update()

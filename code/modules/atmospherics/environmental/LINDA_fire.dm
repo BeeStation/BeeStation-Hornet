@@ -34,7 +34,10 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "1"
 	layer = GASFIRE_LAYER
+	blend_mode = BLEND_ADD
+	light_system = MOVABLE_LIGHT
 	light_range = LIGHT_RANGE_FIRE
+	light_power = 1
 	light_color = LIGHT_COLOR_FIRE
 	blend_mode = BLEND_ADD
 
@@ -42,6 +45,8 @@
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 	var/bypassing = FALSE
 	var/visual_update_tick = 0
+	var/first_cycle = TRUE
+
 
 /obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature)
 	. = ..()
@@ -65,7 +70,9 @@
 
 	location.active_hotspot = src
 
-	bypassing = volume > CELL_VOLUME*0.95 || location.air.return_temperature() > FUSION_TEMPERATURE_THRESHOLD
+	bypassing = !first_cycle && volume > CELL_VOLUME*0.95 || location.air.return_temperature() > FUSION_TEMPERATURE_THRESHOLD
+	if(first_cycle)
+		first_cycle = FALSE
 
 	if(bypassing)
 		volume = location.air.reaction_results["fire"]*FIRE_GROWTH_RATE
@@ -134,7 +141,7 @@
 		add_overlay(fusion_overlay)
 		add_overlay(rainbow_overlay)
 
-	set_light(l_color = rgb(LERP(250,heat_r,greyscale_fire),LERP(160,heat_g,greyscale_fire),LERP(25,heat_b,greyscale_fire)))
+	set_light_color(rgb(LERP(250, heat_r, greyscale_fire), LERP(160, heat_g, greyscale_fire), LERP(25, heat_b, greyscale_fire)))
 
 	heat_r /= 255
 	heat_g /= 255
@@ -190,7 +197,6 @@
 	return TRUE
 
 /obj/effect/hotspot/Destroy()
-	set_light(0)
 	SSair.hotspots -= src
 	var/turf/open/T = loc
 	if(istype(T) && T.active_hotspot == src)

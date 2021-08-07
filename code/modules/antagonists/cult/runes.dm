@@ -417,7 +417,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			actual_selected_rune.handle_portal("lava")
 		else
 			var/area/A = get_area(T)
-			if(A.map_name == "Space")
+			if(initial(A.name) == "Space")
 				actual_selected_rune.handle_portal("space", T)
 		if(movesuccess)
 			target.visible_message("<span class='warning'>There is a boom of outrushing air as something appears above the rune!</span>", null, "<i>You hear a boom.</i>")
@@ -849,7 +849,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/choice = alert(user,"You tear open a connection to the spirit realm...",,"Summon a Cult Ghost","Ascend as a Dark Spirit","Cancel")
 	if(choice == "Summon a Cult Ghost")
 		var/area/A = get_area(T)
-		if(A.map_name == "Space" || is_mining_level(T.z))
+		if(initial(A.name) == "Space" || is_mining_level(T.z))
 			to_chat(user, "<span class='cultitalic'><b>The veil is not weak enough here to manifest spirits, you must be on station!</b></span>")
 			return
 		if(ghosts >= ghost_limit)

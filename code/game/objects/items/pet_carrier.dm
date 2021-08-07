@@ -30,6 +30,7 @@
 	return ..()
 
 /obj/item/pet_carrier/Exited(atom/movable/gone, direction)
+	. = ..()
 	if(isliving(gone) && (gone in occupants))
 		var/mob/living/L = gone
 		occupants -= gone

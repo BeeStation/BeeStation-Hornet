@@ -61,6 +61,7 @@
 	open_machine()
 
 /obj/machinery/sleeper/Exited(atom/movable/gone, direction)
+	. = ..()
 	if (!state_open && gone == occupant)
 		container_resist(gone)
 
@@ -139,6 +140,7 @@
 	if(!ui)
 		ui = new(user, src, "Sleeper")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/sleeper/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)))
