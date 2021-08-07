@@ -10,6 +10,7 @@
 		return ..()
 
 /datum/round_event/supermatter_surge
+	announceWhen = 1
 	var/power = 2000
 
 /datum/round_event/supermatter_surge/setup()
