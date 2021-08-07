@@ -7,6 +7,8 @@
 	id = /obj/item/card/id/syndicate
 
 /datum/outfit/abductor/proc/link_to_console(mob/living/carbon/human/H, team_number)
+	if(!H.mind)
+		return
 	var/datum/antagonist/abductor/A = H.mind.has_antag_datum(/datum/antagonist/abductor)
 	if(!team_number && A)
 		team_number = A.team.team_number
