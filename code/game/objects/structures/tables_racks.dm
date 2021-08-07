@@ -176,13 +176,13 @@
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready)
+		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready && user.a_intent != INTENT_HELP)
 			to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
 			if(I.use_tool(src, user, 20, volume=50))
 				deconstruct(TRUE)
 			return
 
-		if(I.tool_behaviour == TOOL_WRENCH && deconstruction_ready)
+		if(I.tool_behaviour == TOOL_WRENCH && deconstruction_ready && user.a_intent != INTENT_HELP)
 			to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
 			if(I.use_tool(src, user, 40, volume=50))
 				playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -609,7 +609,7 @@
 		step(O, get_dir(O, src))
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
+	if (W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1) && user.a_intent != INTENT_HELP)
 		W.play_tool_sound(src)
 		deconstruct(TRUE)
 		return
