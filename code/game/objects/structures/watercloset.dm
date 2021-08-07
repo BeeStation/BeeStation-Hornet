@@ -217,6 +217,35 @@
 	var/busy = FALSE 	//Something's being washed at the moment
 	var/dispensedreagent = /datum/reagent/water // for whenever plumbing happens
 
+
+/obj/structure/sinkframe
+	name = "sink frame"
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "sink_frame"
+	desc = "A sink frame, that needs 2 plastic sheets to finish construction."
+	anchored = FALSE
+
+/obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stack/sheet/plastic))
+		balloon_alert(user, "You start constructing the sink")
+		if(do_after(user, 4 SECONDS, target = src))
+			I.use(1)
+			balloon_alert(user, "Sink created")
+			var/obj/structure/sink/new_sink = new /obj/structure/sink(loc)
+			new_sink.setDir(dir)
+			qdel(src)
+			return
+	return ..()
+
+/obj/structure/sinkframe/Initialize()
+	. = ..()
+	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
+
+/obj/structure/sinkframe/proc/can_be_rotated(mob/user, rotation_type)
+	if(anchored)
+		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
+	return !anchored
+
 /obj/structure/sink/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
@@ -372,26 +401,28 @@
 	alpha = 200 //Mappers can also just set this to 255 if they want curtains that can't be seen through
 	layer = SIGN_LAYER
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	var/open = TRUE
+	var/opaque_closed = FALSE
 
 /obj/structure/curtain/proc/toggle()
 	open = !open
+	if(open)
+		layer = SIGN_LAYER
+		density = FALSE
+		set_opacity(FALSE)
+	else
+		layer = WALL_OBJ_LAYER
+		density = TRUE
+		if(opaque_closed)
+			set_opacity(TRUE)
+
 	update_icon()
 
 /obj/structure/curtain/update_icon()
-	if(!open)
-		icon_state = "[icon_type]-closed"
-		layer = WALL_OBJ_LAYER
-		density = TRUE
-		open = FALSE
-
-	else
-		icon_state = "[icon_type]-open"
-		layer = SIGN_LAYER
-		density = FALSE
-		open = TRUE
+	icon_state = "[icon_type]-[open ? "open" : "closed"]"
+	return ..()
 
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
 	if (istype(W, /obj/item/toy/crayon))

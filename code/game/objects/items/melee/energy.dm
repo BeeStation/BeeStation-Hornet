@@ -5,12 +5,14 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
-	var/brightness_on = 3
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_power = 1
+	light_on = FALSE
 
 /obj/item/melee/transforming/energy/Initialize()
 	. = ..()
 	if(active)
-		set_light(brightness_on)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/melee/transforming/energy/Destroy()
@@ -39,10 +41,9 @@
 			if(item_color)
 				icon_state = "sword[item_color]"
 			START_PROCESSING(SSobj, src)
-			set_light(brightness_on)
 		else
 			STOP_PROCESSING(SSobj, src)
-			set_light(0)
+		set_light_on(active)
 
 /obj/item/melee/transforming/energy/is_hot()
 	return active * heat
@@ -93,12 +94,13 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 3
 	throwforce = 5
+	throwforce_on = 35	//Does a lot of damage on throw, but will embed
 	hitsound = "swing_hit" //it starts deactivated
 	attack_verb_off = list("tapped", "poked")
 	throw_speed = 3
 	throw_range = 5
 	sharpness = IS_SHARP
-	embedding = list("embed_chance" = 75, "impact_pain_mult" = 10)
+	embedding = list("embed_chance" = 200, "armour_block" = 60, "max_pain_mult" = 15)
 	armour_penetration = 35
 	block_level = 1
 	block_upgrade_walk = 1
@@ -195,8 +197,7 @@
 	. = ..()
 	if(hacked)
 		var/set_color = pick(possible_colors)
-		light_color = possible_colors[set_color]
-		update_light()
+		set_light_color(possible_colors[set_color])
 
 /obj/item/melee/transforming/energy/sword/saber/red
 	possible_colors = list("red" = LIGHT_COLOR_RED)

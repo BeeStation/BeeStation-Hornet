@@ -191,6 +191,7 @@ Class Procs:
 		dropContents()
 	update_icon()
 	updateUsrDialog()
+	ui_update()
 
 /obj/machinery/proc/dropContents(list/subset = null)
 	var/turf/T = get_turf(src)
@@ -228,6 +229,7 @@ Class Procs:
 		target.forceMove(src)
 	updateUsrDialog()
 	update_icon()
+	ui_update()
 
 /obj/machinery/proc/auto_use_power()
 	if(!powered(power_channel))

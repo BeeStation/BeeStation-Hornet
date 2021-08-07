@@ -149,7 +149,7 @@
 		skipcatch = TRUE
 		blocked = TRUE
 
-	return ..()
+	return ..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /mob/living/carbon/human/grippedby(mob/living/user, instant = FALSE)
 	if(w_uniform)
@@ -661,7 +661,7 @@
 			gain = 100
 		if(mind.assigned_role == "Clown")
 			gain = rand(-1000, 1000)
-	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
+	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
 	gib()
 
 	return(gain)

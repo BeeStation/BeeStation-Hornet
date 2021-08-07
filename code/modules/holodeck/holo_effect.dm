@@ -66,7 +66,7 @@
 		var/datum/effect_system/spark_spread/s = new
 		s.set_up(3, 1, T)
 		s.start()
-		T.temperature = 5000
+		T.set_temperature(5000)
 		T.hotspot_expose(50000,50000,1)
 
 /obj/effect/holodeck_effect/random_book
