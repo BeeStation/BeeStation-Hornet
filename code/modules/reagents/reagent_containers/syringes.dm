@@ -300,11 +300,33 @@
 	units_per_tick = 2
 	initial_inject = 8
 
-/obj/item/reagent_containers/syringe/noreact
+/obj/item/reagent_containers/syringe/cryo
 	name = "cryo syringe"
-	desc = "An advanced syringe that stops reagents inside from reacting. It can hold up to 20 units."
+	desc = "An advanced syringe that freezes reagents close to absolute 0. It can hold up to 20 units."
 	volume = 20
-	reagent_flags = TRANSPARENT | NO_REACT
+	var/processing = FALSE
+
+/obj/item/reagent_containers/syringe/cryo/Destroy()
+	if(processing)
+		STOP_PROCESSING(SSfastprocess, src)
+	. = ..()
+
+/obj/item/reagent_containers/syringe/cryo/process(delta_time)
+	reagents.chem_temp = 20
+
+//Reactions are handled after this call.
+/obj/item/reagent_containers/syringe/cryo/on_reagent_change()
+	. = ..()
+	if(reagents)
+		if(reagents.total_volume)
+			reagents.chem_temp = 20
+			if(!processing)
+				START_PROCESSING(SSfastprocess, src)
+				processing = TRUE
+			return
+	if(processing)
+		STOP_PROCESSING(SSfastprocess, src)
+		processing = FALSE
 
 /obj/item/reagent_containers/syringe/piercing
 	name = "piercing syringe"
