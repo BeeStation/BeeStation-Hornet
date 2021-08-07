@@ -93,6 +93,10 @@
 			B.desc = "Happy, Full, Clean. Live it and give it."
 		if("subgenius")
 			B.name = "Book of the SubGenius"
+		if("toolboxia","greytide")
+			B.name = pick("Toolbox Manifesto","iGlove Assistants")
+		if("weeaboo","kawaii")
+			B.name = pick("Fanfiction Compendium","Japanese for Dummies","The Manganomicon","Establishing Your O.T.P")
 		else
 			B.name = "The Holy Book of [new_religion]"
 
