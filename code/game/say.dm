@@ -40,7 +40,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	for(var/atom/movable/AM as() in get_hearers_in_view(range, source))
 		if(ismob(AM))
 			var/mob/M = AM
-			if(M.should_show_chat_message(source, message_language, FALSE))
+			if(M.should_show_chat_message(source, message_language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
 		AM.Hear(rendered, src, message_language, message, , spans, message_mods)
 	if(length(show_overhead_message_to))

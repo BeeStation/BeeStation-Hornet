@@ -5,8 +5,6 @@
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/computer/stationalert
 
-
-
 	light_color = LIGHT_COLOR_CYAN
 
 /obj/machinery/computer/station_alert/Initialize()
@@ -51,6 +49,7 @@
 			var/list/sources = alarm[3]
 			if (!(source in sources))
 				sources += source
+			ui_update()
 			return TRUE
 
 	var/obj/machinery/camera/cam = null
@@ -62,6 +61,7 @@
 	else if(cameras && istype(cameras, /obj/machinery/camera))
 		cam = cameras
 	our_sort[home.name] = list(home, (cam ? cam : cameras), list(source))
+	ui_update()
 	return TRUE
 
 /obj/machinery/computer/station_alert/proc/freeCamera(area/home, obj/machinery/camera/cam)
@@ -78,6 +78,7 @@
 				our_area[2] = cams[1]
 		else
 			our_area[2] = null
+	ui_update()
 
 /obj/machinery/computer/station_alert/proc/cancelAlarm(class, area/A, obj/origin)
 	if(stat & (BROKEN))
@@ -93,6 +94,7 @@
 			if (srcs.len == 0)
 				cleared = 1
 				L -= I
+	ui_update()
 	return !cleared
 
 /obj/machinery/computer/station_alert/update_icon()

@@ -74,6 +74,7 @@
 		addtimer(CALLBACK(src, .proc/perform_research, usr, currentName), 0)
 		currentName = ""
 		currentSection = PRE_TITLE
+		ui_update()
 		return FALSE
 	else
 		currentName += action
@@ -89,6 +90,7 @@
 			currentSection = SYLLABLE
 	else if(GLOB.devil_suffix.Find(action))
 		currentSection = SUFFIX
+	ui_update()
 	return currentSection != oldSection
 
 

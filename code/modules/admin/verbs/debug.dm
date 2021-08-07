@@ -529,15 +529,15 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			outfits[initial(O.name)] = path
 
 	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
-	if (isnull(dresscode))
+	if(isnull(dresscode))
 		return
 
-	if (outfits[dresscode])
+	if(outfits[dresscode])
 		dresscode = outfits[dresscode]
 
 
 
-	if (dresscode == "As Job...")
+	if(dresscode == "As Job...")
 		var/list/job_paths = subtypesof(/datum/outfit/job)
 		var/list/job_outfits = list()
 		for(var/path in job_paths)
@@ -568,7 +568,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		if(isnull(dresscode))
 			return
 
-	if (dresscode == "Custom")
+	if(dresscode == "Custom")
 		var/list/custom_names = list()
 		for(var/datum/outfit/D in GLOB.custom_outfits)
 			custom_names[D.name] = D
