@@ -5,10 +5,10 @@ Beestation uses a heavily modified topic system originally from Aurorastation, w
 
 ### Configuration
 Topic config is managed by the **comms.txt** config file. Topic configuration consists of four types of config entry.
-`CROSS_COMMS_NAME` Name the server calls itself in outgoing topics.
-`COMMS_KEY` Multiple of these entries are supported. Consists of a key-value pair of a token (should be randomly generated for security) and the authorized scopes of that token. A list of scopes can be found in the comms.txt file.
-`CROSS_SERVER` Multiple of these entries are supported. This entry is a key-value pair of a server's BYOND address and the token that has access to the remote server. For more information, see [Handshake](#handshake)
-`SERVER_HOP` Multiple of these entries are supported. Each entry is a key-value pair of a server name and a byond address. These servers are not authenticated in any way, and are a list of servers that can be quickly switched to by players using the **Server Hop** verb.
+* `CROSS_COMMS_NAME` Name the server calls itself in outgoing topics.
+* `COMMS_KEY` Multiple of these entries are supported. Consists of a key-value pair of a token (should be randomly generated for security) and the authorized scopes of that token. A list of scopes can be found in the comms.txt file.
+* `CROSS_SERVER` Multiple of these entries are supported. This entry is a key-value pair of a server's BYOND address and the token that has access to the remote server. For more information, see [Handshake](#handshake)
+* `SERVER_HOP` Multiple of these entries are supported. Each entry is a key-value pair of a server name and a byond address. These servers are not authenticated in any way, and are a list of servers that can be quickly switched to by players using the **Server Hop** verb.
 
 ### Requests
 Topic requests consist of a JSON object with two mandatory keys: `auth` and `query`, as well as optional request-specific keys.
@@ -31,11 +31,9 @@ Example Request:
 ### Response
 Topic responses are very simple, and consist of three keys: `statuscode`, `response` and `data`
 
-`statuscode` is a number that represents what the outcome of a request was. For example; a response with a status code of `200` means the request succeeded, and a response with a status code of `401` means that the request was lacking or had invalid authorization.
-
-`response` is a simple text response detailing the outcome of the request. This key will provide error details for non-`200` status codes, and a short description of actions performed if the request was successful.
-
-`data` is a misc key which can contain response data specific to the request. The format of this variable depends on the topic used. For information on what data specific topics return, see **code/datums/world_topic.dm**
+* `statuscode` is a number that represents what the outcome of a request was. For example; a response with a status code of `200` means the request succeeded, and a response with a status code of `401` means that the request was lacking or had invalid authorization.
+* `response` is a simple text response detailing the outcome of the request. This key will provide error details for non-`200` status codes, and a short description of actions performed if the request was successful.
+* `data` is a misc key which can contain response data specific to the request. The format of this variable depends on the topic used. For information on what data specific topics return, see **code/datums/world_topic.dm**
 
 Example Response:
 ```json
