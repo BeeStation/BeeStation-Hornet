@@ -357,6 +357,7 @@
 	if(!ui)
 		ui = new(user, src, "Canister")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/portable_atmospherics/canister/ui_data()
 	var/data = list()

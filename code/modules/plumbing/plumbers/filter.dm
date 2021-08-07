@@ -69,5 +69,4 @@
 					if(english_right.Find(chem_name))
 						english_right -= chem_name
 						right -= chem_id
-
-
+	ui_update()

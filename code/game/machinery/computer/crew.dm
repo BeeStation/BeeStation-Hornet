@@ -91,6 +91,7 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	if (!ui)
 		ui = new(user, src, "CrewConsole")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /datum/crewmonitor/proc/show(mob/M, source)
 	ui_sources[M] = source

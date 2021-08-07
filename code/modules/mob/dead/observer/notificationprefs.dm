@@ -50,4 +50,5 @@
 			var/key = params["key"]
 			if (key && islist(GLOB.poll_ignore[key]))
 				GLOB.poll_ignore[key] ^= list(user.ckey)
+	ui_update()
 	. = TRUE

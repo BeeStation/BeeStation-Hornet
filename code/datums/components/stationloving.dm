@@ -17,8 +17,8 @@
 	check_in_bounds() // Just in case something is being created outside of station/centcom
 
 /datum/component/stationloving/InheritComponent(datum/component/stationloving/newc, original, _inform_admins, allow_death)
-	if (original)
-		if (newc)
+	if(original)
+		if(newc)
 			inform_admins = newc.inform_admins
 			allow_death = newc.allow_death
 		else
@@ -66,16 +66,16 @@
 	var/static/list/allowed_shuttles = typecacheof(list(/area/shuttle/syndicate, /area/shuttle/escape, /area/shuttle/pod_1, /area/shuttle/pod_2, /area/shuttle/pod_3, /area/shuttle/pod_4))
 	var/static/list/disallowed_centcom_areas = typecacheof(list(/area/abductor_ship, /area/awaymission/errorroom))
 	var/turf/T = get_turf(parent)
-	if (!T)
+	if(!T)
 		return FALSE
 	var/area/A = T.loc
-	if (is_station_level(T.z))
+	if(is_station_level(T.z))
 		return TRUE
-	if (is_centcom_level(T.z))
+	if(is_centcom_level(T.z))
 		if (is_type_in_typecache(A, disallowed_centcom_areas))
 			return FALSE
 		return TRUE
-	if (is_reserved_level(T.z))
+	if(is_reserved_level(T.z))
 		if (is_type_in_typecache(A, allowed_shuttles))
 			return TRUE
 

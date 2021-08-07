@@ -5359,8 +5359,7 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/reagent_dispensers/watertank,
 /obj/machinery/light/small{
-	brightness = 3;
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/engine,
 /area/mine/science)
@@ -6139,9 +6138,7 @@
 /turf/open/floor/plasteel,
 /area/mine/science)
 "WM" = (
-/obj/machinery/computer{
-	dir = 8
-	},
+/obj/machinery/vending/wardrobe/science_wardrobe,
 /turf/open/floor/carpet/black,
 /area/mine/science)
 "WN" = (

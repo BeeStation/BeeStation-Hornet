@@ -732,34 +732,34 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set category = "Debug"
 	set desc = "(\"Amount of mobs to create\") Populate the world with test mobs."
 
-	if (amount > 0)
+	if(amount > 0)
 		var/area/area
 		var/list/candidates
 		var/turf/open/floor/tile
 		var/j,k
 
-		for (var/i = 1 to amount)
+		for(var/i = 1 to amount)
 			j = 100
 
 			do
 				area = pick(GLOB.the_station_areas)
 
-				if (area)
+				if(area)
 
 					candidates = get_area_turfs(area)
 
-					if (candidates.len)
+					if(candidates.len)
 						k = 100
 
 						do
 							tile = pick(candidates)
 						while ((!tile || !istype(tile)) && --k > 0)
 
-						if (tile)
+						if(tile)
 							var/mob/living/carbon/human/hooman = new(tile)
 							hooman.equipOutfit(pick(subtypesof(/datum/outfit)))
 							testing("Spawned test mob at [COORD(tile)]")
-			while (!area && --j > 0)
+			while(!area && --j > 0)
 
 /client/proc/toggle_AI_interact()
 	set name = "Toggle Admin AI Interact"

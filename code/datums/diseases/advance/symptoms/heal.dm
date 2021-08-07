@@ -586,6 +586,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	roundstart = FALSE
 	use_cooldown = TRUE
 	show_flavour = FALSE	//it's handled by antag datum
+	short_desc = "You are a living tumor. By all accounts you should not exist."
+	flavour_text = "Spread misery and chaos upon the station."
+	important_info = "Avoid killing unprovoked, kill only in self defense!"
 
 /obj/effect/mob_spawn/teratomamonkey/Initialize()
 	. = ..()
