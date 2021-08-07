@@ -16,14 +16,14 @@
 				var/obj/item/organ/O = V
 				O.on_life()
 		else
-			if(!reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
+			if(reagents && !reagents.has_reagent(/datum/reagent/toxin/formaldehyde, 1)) // No organ decay if the body contains formaldehyde.
 				for(var/V in internal_organs)
 					var/obj/item/organ/O = V
 					O.on_death() //Needed so organs decay while inside the body.
 
 		. = ..()
 
-		if (QDELETED(src))
+		if(QDELETED(src))
 			return
 
 		if(.) //not dead

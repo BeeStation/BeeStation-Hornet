@@ -34,7 +34,8 @@
 	back = /obj/item/storage/backpack/ert
 	belt = /obj/item/storage/belt/security/full
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
-		/obj/item/melee/baton/loaded=1)
+		/obj/item/melee/baton/loaded=1,
+		/obj/item/aiModule/core/full/ert=1)
 	l_pocket = /obj/item/switchblade
 
 /datum/outfit/ert/commander/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -195,7 +196,8 @@
 	name = "Inquisition Commander"
 	l_hand = /obj/item/nullrod/scythe/talking/chainsword
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
-	backpack_contents = list(/obj/item/storage/box/engineer=1)
+	backpack_contents = list(/obj/item/storage/box/engineer=1,
+		/obj/item/aiModule/core/full/ert=1)
 
 /datum/outfit/ert/security/inquisitor
 	name = "Inquisition Security"
@@ -428,6 +430,12 @@
 /datum/outfit/death_commando/officer
 	name = "Death Commando Officer"
 	head = /obj/item/clothing/head/helmet/space/beret
+	backpack_contents = list(/obj/item/aiModule/core/full/deathsquad=1,\
+		/obj/item/ammo_box/a357=1,\
+		/obj/item/storage/firstaid/regular=1,\
+		/obj/item/storage/box/flashbangs=1,\
+		/obj/item/flashlight=1,\
+		/obj/item/grenade/plastic/x4=1)
 
 /datum/outfit/death_commando/doomguy
 	name = "The Juggernaut"

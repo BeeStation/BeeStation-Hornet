@@ -46,8 +46,6 @@ GLOBAL_VAR(restart_counter)
 	if(CONFIG_GET(flag/usewhitelist))
 		load_whitelist()
 
-	GLOB.timezoneOffset = text2num(time2text(0,"hh")) * 36000
-
 	if(fexists(RESTART_COUNTER_PATH))
 		GLOB.restart_counter = text2num(trim(rustg_file_read(RESTART_COUNTER_PATH)))
 		fdel(RESTART_COUNTER_PATH)

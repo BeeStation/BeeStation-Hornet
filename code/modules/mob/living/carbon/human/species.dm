@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/list/special_step_sounds //Sounds to override barefeet walkng
 	var/grab_sound //Special sound for grabbing
 	var/reagent_tag = PROCESS_ORGANIC //Used for metabolizing reagents. We're going to assume you're a meatbag unless you say otherwise.
-	var/species_gibs = "human"
+	var/species_gibs = GIB_TYPE_HUMAN //by default human gibs are used
 	var/allow_numbers_in_name // Can this species use numbers in its name?
 	var/datum/outfit/outfit_important_for_life /// A path to an outfit that is important for species life e.g. plasmaman outfit
 	var/datum/action/innate/flight/fly //the actual flying ability given to flying species

@@ -131,7 +131,8 @@
 
 /obj/structure/table/proc/tableplace(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.forceMove(loc)
-	pushed_mob.set_resting(TRUE, TRUE)
+	if(!isanimal(pushed_mob) || iscat(pushed_mob))
+		pushed_mob.set_resting(TRUE, TRUE)
 	pushed_mob.visible_message("<span class='notice'>[user] places [pushed_mob] onto [src].</span>", \
 								"<span class='notice'>[user] places [pushed_mob] onto [src].</span>")
 	log_combat(user, pushed_mob, "places", null, "onto [src]")
@@ -514,7 +515,8 @@
 
 /obj/structure/table/optable/tablepush(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.forceMove(loc)
-	pushed_mob.set_resting(TRUE, TRUE)
+	if(!isanimal(pushed_mob) || iscat(pushed_mob))
+		pushed_mob.set_resting(TRUE, TRUE)
 	visible_message("<span class='notice'>[user] has laid [pushed_mob] on [src].</span>")
 	get_patient()
 
@@ -536,7 +538,7 @@
 /obj/structure/table/optable/proc/patient_deleted(datum/source)
 	SIGNAL_HANDLER
 	set_patient(null)
-	
+
 /obj/structure/table/optable/proc/check_eligible_patient()
 	get_patient()
 	if(!patient)
