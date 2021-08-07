@@ -18,7 +18,7 @@
 
 /datum/round_event/supermatter_surge/announce()
 	if(power > 800 || prob(round(power/8)))
-		priority_announce("Class [round(power/500) + 1] supermatter surge detected. Intervention may be required.", "Anomaly Alert")
+		priority_announce("Class [round(power/500) + 1] supermatter surge detected. Intervention may be required.", "Anomaly Alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/supermatter_surge/start()
 	GLOB.main_supermatter_engine.matter_power += power
