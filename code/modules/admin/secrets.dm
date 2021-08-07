@@ -15,7 +15,7 @@ GLOBAL_DATUM_INIT(admin_secrets, /datum/admin_secrets, new)
 		ui = new(user, src, "AdminSecretsPanel", "Secrets Panel")
 		ui.open()
 
-/datum/admin_secrets/ui_data(mob/user)
+/datum/admin_secrets/ui_static_data(mob/user)
 	/*
 	Each command is a list that will be read like [Name, Action(see ui_act)]
 	"omg but you could have done it like X"

@@ -526,6 +526,7 @@
 				clearBay()
 				refreshBay()
 			. = TRUE
+	ui_update()
 
 /datum/centcom_podlauncher/ui_close(mob/user) //Uses the destroy() proc. When the user closes the UI, we clean up the temp_pod and supplypod_selector variables.
 	QDEL_NULL(temp_pod)

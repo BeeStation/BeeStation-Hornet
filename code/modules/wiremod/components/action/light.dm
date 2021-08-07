@@ -71,7 +71,7 @@
 	// Clamp anyways just for safety
 	var/bright_val = min(max(brightness.input_value || 0, 0), max_power)
 
-	if(on.input_value)
-		target_atom.set_light(bright_val, bright_val, shell_light_color)
-	else
-		target_atom.set_light(0, 0)
+	target_atom.set_light_power(bright_val)
+	target_atom.set_light_range(bright_val)
+	target_atom.set_light_color(shell_light_color)
+	target_atom.set_light_on(!!on.input_value)
