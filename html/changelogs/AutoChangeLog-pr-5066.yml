@@ -1,4 +1,0 @@
-author: Froststahr
-delete-after: true
-changes:
-  - bugfix: CBT in TGS should work again.
