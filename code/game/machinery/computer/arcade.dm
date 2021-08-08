@@ -174,7 +174,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	dat += "<br><center><h3>[temp]</h3></center>"
 	dat += "<br><center>Health: [player_hp] | Magic: [player_mp] | Enemy Health: [enemy_hp]</center>"
 
-	if (gameover)
+	if(gameover)
 		dat += "<center><b><a href='byond://?src=[REF(src)];newgame=1'>New Game</a>"
 	else
 		dat += "<center><b><a href='byond://?src=[REF(src)];attack=1'>Attack</a> | "
@@ -190,8 +190,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	if(..())
 		return
 
-	if (!blocked && !gameover)
-		if (href_list["attack"])
+	if(!blocked && !gameover)
+		if(href_list["attack"])
 			blocked = TRUE
 			var/attackamt = rand(2,6)
 			temp = "You attack for [attackamt] damage!"
@@ -204,7 +204,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			enemy_hp -= attackamt
 			arcade_action(usr)
 
-		else if (href_list["heal"])
+		else if(href_list["heal"])
 			blocked = TRUE
 			var/pointamt = rand(1,3)
 			var/healamt = rand(6,8)
@@ -220,7 +220,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			updateUsrDialog()
 			arcade_action(usr)
 
-		else if (href_list["charge"])
+		else if(href_list["charge"])
 			blocked = TRUE
 			var/chargeamt = rand(4,7)
 			temp = "You regain [chargeamt] points"
@@ -233,11 +233,11 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			sleep(10)
 			arcade_action(usr)
 
-	if (href_list["close"])
+	if(href_list["close"])
 		usr.unset_machine()
 		usr << browse(null, "window=arcade")
 
-	else if (href_list["newgame"]) //Reset everything
+	else if(href_list["newgame"]) //Reset everything
 		temp = "New Round"
 		player_hp = 30
 		player_mp = 10
@@ -255,7 +255,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	return
 
 /obj/machinery/computer/arcade/battle/proc/arcade_action(mob/user)
-	if ((enemy_mp <= 0) || (enemy_hp <= 0))
+	if((enemy_mp <= 0) || (enemy_hp <= 0))
 		if(!gameover)
 			gameover = TRUE
 			temp = "[enemy_name] has fallen! Rejoice!"
@@ -273,20 +273,20 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			SSblackbox.record_feedback("nested tally", "arcade_results", 1, list("win", (obj_flags & EMAGGED ? "emagged":"normal")))
 
 
-	else if ((obj_flags & EMAGGED) && (turtle >= 4))
+	else if((obj_flags & EMAGGED) && (turtle >= 4))
 		var/boomamt = rand(5,10)
 		temp = "[enemy_name] throws a bomb, exploding you for [boomamt] damage!"
 		playsound(loc, 'sound/arcade/boom.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
 		player_hp -= boomamt
 
-	else if ((enemy_mp <= 5) && (prob(70)))
+	else if((enemy_mp <= 5) && (prob(70)))
 		var/stealamt = rand(2,3)
 		temp = "[enemy_name] steals [stealamt] of your power!"
 		playsound(loc, 'sound/arcade/steal.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
 		player_mp -= stealamt
 		updateUsrDialog()
 
-		if (player_mp <= 0)
+		if(player_mp <= 0)
 			gameover = TRUE
 			sleep(10)
 			temp = "You have been drained! GAME OVER"
@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 				usr.gib()
 			SSblackbox.record_feedback("nested tally", "arcade_results", 1, list("loss", "mana", (obj_flags & EMAGGED ? "emagged":"normal")))
 
-	else if ((enemy_hp <= 10) && (enemy_mp > 4))
+	else if((enemy_hp <= 10) && (enemy_mp > 4))
 		temp = "[enemy_name] heals for 4 health!"
 		playsound(loc, 'sound/arcade/heal.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
 		enemy_hp += 4
@@ -307,7 +307,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		playsound(loc, 'sound/arcade/hit.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
 		player_hp -= attackamt
 
-	if ((player_mp <= 0) || (player_hp <= 0))
+	if((player_mp <= 0) || (player_hp <= 0))
 		gameover = TRUE
 		temp = "You have been crushed! GAME OVER"
 		playsound(loc, 'sound/arcade/lose.ogg', 50, 1, extrarange = -3, falloff_exponent = 10)
@@ -336,10 +336,13 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	enemy_name = "Cuban Pete"
 	name = "Outbomb Cuban Pete"
 
-
 	updateUsrDialog()
 
-
+/obj/machinery/computer/arcade/battle/on_deconstruction()
+	. = ..()
+	if(obj_flags & EMAGGED)
+		to_chat(usr, "<span class='userdanger'>Trying to cheat me? Chick-chicky-boom, chick-chicky boom!</span>")
+		usr.gib()
 
 // *** THE ORION TRAIL ** //
 
@@ -570,7 +573,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		return
 	busy = TRUE
 
-	if (href_list["continue"]) //Continue your travels
+	if(href_list["continue"]) //Continue your travels
 		if(gameStatus == ORION_STATUS_NORMAL && !event && turns != 7)
 			if(turns >= ORION_TRAIL_WINTURN)
 				win(usr)
@@ -875,7 +878,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			canContinueEvent = 1
 
 		if(ORION_TRAIL_FLUX)
-			eventdat += "This region of space is highly turbulent. <br>If we go slowly we may avoid more damage, but if we keep our speed we won't waste supplies."
+			eventdat += "This region of space is highly turbulent. <br>If we go slowly we may avoid more damage, but ifwe keep our speed we won't waste supplies."
 			eventdat += "<br>What will you do?"
 			eventdat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];slow=1'>Slow Down</a> <a href='byond://?src=[REF(src)];keepspeed=1'>Continue</a></P>"
 			eventdat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];close=1'>Close</a></P>"
@@ -1152,7 +1155,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		removed = pick(safe2remove)
 
 	if(removed)
-		if(lings_aboard && prob(40*lings_aboard)) //if there are 2 lings you're twice as likely to get one, obviously
+		if(lings_aboard && prob(40*lings_aboard)) //ifthere are 2 lings you're twice as likely to get one, obviously
 			lings_aboard = max(0,--lings_aboard)
 		settlers -= removed
 		alive--
@@ -1200,7 +1203,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ship"
 	w_class = WEIGHT_CLASS_SMALL
-	var/active = 0 //if the ship is on
+	var/active = 0 //ifthe ship is on
 
 /obj/item/orion_ship/examine(mob/user)
 	. = ..()
@@ -1237,7 +1240,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 /obj/machinery/computer/arcade/amputation
 	name = "Mediborg's Amputation Adventure"
-	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has a speech bubble that says, \"Put your hand in the machine if you aren't a <b>coward!</b>\""
+	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has a speech bubble that says, \"Put your hand in the machine ifyou aren't a <b>coward!</b>\""
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/computer/arcade/amputation
 
@@ -1288,7 +1291,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		return
 	to_chat(user, "<span class='notice'>You override the safety systems on the arcade machine.</span>")
 	name = "Mediborg's Amputation Adventure: Deluxe Edition"
-	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has glowing red eyes, and a speech bubble that says, \"Put your hand in the machine if you aren't a <b>coward!</b>\""
+	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has glowing red eyes, and a speech bubble that says, \"Put your hand in the machine ifyou aren't a <b>coward!</b>\""
 	obj_flags |= EMAGGED
 
 #undef ORION_TRAIL_WINTURN
