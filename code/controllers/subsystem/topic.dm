@@ -50,12 +50,15 @@ SUBSYSTEM_DEF(topic)
 */
 /datum/controller/subsystem/topic/proc/handshake_server(addr, key)
 	set waitfor = FALSE
-	var/request = list("query" = "api_do_handshake", "auth" = key)
+	var/request = list("query" = "api_do_handshake", "auth" = key, "source" = CONFIG_GET(string/cross_comms_name))
 	var/response = world.Export("[addr]?[json_encode(request)]")
 	if(!response)
 		return
 	response = json_decode(response)
 	if(response["statuscode"] != 200)
+		if(CONFIG_GET(flag/log_world_topic))
+			request["auth"] = "\[CENSORED]"
+			log_topic("Topic handshake with [addr] failed. payload: \"[json_encode(request)]\" response: \"[json_encode(response)]\"")
 		return
 	var/list/local_funcs = GLOB.topic_tokens[LAZYACCESS(response["data"], "token")]
 	var/list/remote_funcs = LAZYACCESS(response["data"], "functions")
@@ -97,7 +100,10 @@ SUBSYSTEM_DEF(topic)
 
 	request.Add(params)
 	request["source"] = CONFIG_GET(string/cross_comms_name)
-	world.Export("[addr]?[json_encode(request)]")
+	var/result = world.Export("[addr]?[rustg_url_encode(json_encode(request))]")
+	if(CONFIG_GET(flag/log_world_topic))
+		request["auth"] = "\[CENSORED]"
+		log_topic("outgoing: \"[json_encode(request)]\", response: \"[result]\", to: [addr], anonymous: [anonymous]")
 
 /**
  * Broadcast topic to all known authorized servers for things like comms consoles or ahelps.

@@ -45,17 +45,17 @@ Example Response:
 ```
 
 ### Handshake
-Before being able to send *outgoing* topic calls, a server must handshake with the target server to check what methods it has access to, and to verify that the other server is authorized to recieve sensitive information.
+Before being able to send *outgoing* topic calls, a server must handshake with the target server to check what methods it has access to, and to verify that the other server is authorized to receive sensitive information.
 
 #### Initiating Server
 The first step of the process is when the server initiating the handshake first starts up. The initiating server will make a call to the target server's `api_do_handshake` method with the token for that server as specified in the config.
 The target server will then either respond that the token is unauthorized, or with a list of query methods that the connecting server is allowed to use, along with a token it has stored for the initiating server.
 
-The initiating server will then compare the list of functions recieved from the remote server with the list of functions sent by the remote server with the list of functions the initiating server has for the token the remote server sent back. Functions present in *both lists* will then be stored in a global list under the the server address of the remote server.
+The initiating server will then compare the list of functions received from the remote server with the list of functions sent by the remote server with the list of functions the initiating server has for the token the remote server sent back. Functions present in *both lists* will then be stored in a global list under the the server address of the remote server.
 
 This list is then used to decide what servers to forward sensitive information to, such as ahelps, by only allowing data to be sent out after both servers verify authorization at both ends.
 
 #### Remote Server
-When a server recieves a request to the `api_do_handshake` method, it will lookup the list of functions authorized for the provided token, as well as look for a configured token for the connecting server based on its IP address. If neither of these things are found, the server will respond with a 401 unauthorized response.
+When a server receives a request to the `api_do_handshake` method, it will lookup the list of functions authorized for the provided token, as well as look for a configured token for the connecting server based on its IP address. If neither of these things are found, the server will respond with a 401 unauthorized response.
 
 If both prerequisites are found, the server will respond with the token it has stored for the server, as well as the list of authorized functions it found. In addition, if the server does not have the requesting server's functions stored too, it will make its own handshake request to the requesting server to collect the neccessary information.

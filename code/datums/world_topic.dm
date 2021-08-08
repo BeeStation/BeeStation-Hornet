@@ -143,7 +143,7 @@
 
 /datum/world_topic/ahelp_relay/Run(list/input)
 	. = ..()
-	relay_msg_admins("<span class='adminnotice'><b><font color=red>HELP: </font> [input["source"]] [input["message_sender"]]: [input["message"]]</b></span>")
+	relay_msg_admins("<span class='adminnotice'><b><font color=red>HELP:</font> <font color=orange>[input["source"]]:</font> [input["message_sender"]]: [input["message"]]</b></span>")
 	statuscode = 200
 	response = "Ahelp relayed"
 
@@ -193,9 +193,11 @@
 	. = ..()
 	var/list/admins = list()
 	for(var/client/admin in GLOB.admins)
-		admins.Add(list("ckey" = admin.ckey,
+		admins[++admins.len] = list("ckey" = admin.ckey,
+			            "key" = admin.key,
+			            "rank" = admin.holder.rank.name,
 			            "stealth" = admin.holder.fakekey ? TRUE : FALSE,
-			            "afk" = admin.is_afk()))
+			            "afk" = admin.is_afk())
 	statuscode = 200
 	response = "Admin list fetched"
 	data = admins

@@ -166,18 +166,21 @@ GLOBAL_VAR(restart_counter)
 		response["response"] = "Rate limited"
 		return json_encode(response)
 
-	var/list/params[] = json_decode(T)
+	var/list/params[] = json_decode(rustg_url_decode(T))
 	params["addr"] = addr
 	var/query = params["query"]
 	var/auth = params["auth"]
 	var/source = params["source"]
 
+	if(CONFIG_GET(flag/log_world_topic))
+		var/list/censored_params = params.Copy()
+		censored_params["auth"] = "\[CENSORED]"
+		log_topic("\"[json_encode(censored_params)]\", from:[addr], master:[master], key:[key], source:[source]")
+
 	if(!source)
 		response["statuscode"] = 400
 		response["response"] = "Bad Request - No source specified"
 		return json_encode(response)
-
-	log_topic("\"[T]\", from:[addr], master:[master], key:[key], auth:[auth], source:[source]")
 
 	if(!query)
 		response["statuscode"] = 400

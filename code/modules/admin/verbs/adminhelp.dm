@@ -883,6 +883,9 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/list/ckeys = list()
 	var/list/founds = list()
 	for(var/mob/M in GLOB.mob_list)
+		if(istype(M, /mob/living/carbon/human/dummy))
+			continue
+
 		var/list/indexing = list(M.real_name, M.name)
 		if(M.mind)
 			indexing += M.mind.name
@@ -928,12 +931,11 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 							var/is_antag = 0
 							if(found.mind?.special_role)
 								is_antag = 1
-							founds += "Name: [found.name]([found.real_name]) Key: [found.key] Ckey: [found.ckey] [is_antag ? "(Antag)" : null] "
-							founds.Add(list("name" = found.name,
+							founds[++founds.len] = list("name" = found.name,
 								            "real_name" = found.real_name,
 								            "ckey" = found.ckey,
 								            "key" = found.key,
-								            "antag" = is_antag))
+								            "antag" = is_antag)
 							msg += "[original_word]<font size='1' color='[is_antag ? "red" : "black"]'>(<A HREF='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(found)]'>?</A>|<A HREF='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(found)]'>F</A>)</font> "
 							continue
 		msg += "[original_word] "
