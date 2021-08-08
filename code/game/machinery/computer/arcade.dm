@@ -340,9 +340,13 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 /obj/machinery/computer/arcade/battle/on_deconstruction()
 	. = ..()
-	if(obj_flags & EMAGGED)
-		to_chat(usr, "<span class='userdanger'>Trying to cheat me? Chick-chicky-boom, chick-chicky boom!</span>")
-		usr.gib()
+	if((obj_flags & EMAGGED))
+		if(ismob(usr))
+			to_chat(usr, "<span class='userdanger'>Trying to cheat me? Chick-chicky-boom, chick-chicky boom!</span>")
+			usr.gib()
+		else
+			var/turf/T = get_turf(src)
+			explosion(T, 2, 4, 8, flame_range = 16) //in case it gets destroyed by other means
 
 // *** THE ORION TRAIL ** //
 
