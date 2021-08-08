@@ -1244,7 +1244,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 
 /obj/machinery/computer/arcade/amputation
 	name = "Mediborg's Amputation Adventure"
-	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has a speech bubble that says, \"Put your hand in the machine ifyou aren't a <b>coward!</b>\""
+	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has a speech bubble that says, \"Put your hand in the machine if you  aren't a <b>coward!</b>\""
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/computer/arcade/amputation
 
@@ -1295,7 +1295,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		return
 	to_chat(user, "<span class='notice'>You override the safety systems on the arcade machine.</span>")
 	name = "Mediborg's Amputation Adventure: Deluxe Edition"
-	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has glowing red eyes, and a speech bubble that says, \"Put your hand in the machine ifyou aren't a <b>coward!</b>\""
+	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has glowing red eyes, and a speech bubble that says, \"Put your hand in the machine if you  aren't a <b>coward!</b>\""
 	obj_flags |= EMAGGED
 
 #undef ORION_TRAIL_WINTURN
