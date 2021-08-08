@@ -10,6 +10,8 @@ SUBSYSTEM_DEF(mobs)
 	var/static/list/dead_players_by_zlevel[][] = list(list()) // Needs to support zlevel 1 here, MaxZChanged only happens when z2 is created and new_players can login before that.
 	var/static/list/cubemonkeys = list()
 
+	var/datum/spawners_menu/spawner_menu
+
 /datum/controller/subsystem/mobs/stat_entry()
 	. = ..("P:[GLOB.mob_living_list.len]")
 
@@ -67,3 +69,8 @@ SUBSYSTEM_DEF(mobs)
 			GLOB.mob_living_list.Remove(L)
 		if (MC_TICK_CHECK)
 			return
+
+/datum/controller/subsystem/mobs/proc/update_spawners()
+	if(!spawner_menu)
+		return
+	spawner_menu.ui_update()

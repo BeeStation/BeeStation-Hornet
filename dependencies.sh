@@ -4,13 +4,8 @@
 #Final authority on what's required to fully build the project
 
 # byond version
-# Extracted from the Dockerfile. Change by editing Dockerfile's ARG commands. Otherwise, this is set by Docker's envrionment variables
-if [[ -f "Dockerfile" ]]; then
-	LIST=($(sed -n 's/.*byond:\([0-9]\+\)\.\([0-9]\+\).*/\1 \2/p' Dockerfile))
-	export BYOND_MAJOR=${LIST[0]}
-	export BYOND_MINOR=${LIST[1]}
-	unset LIST
-fi
+export BYOND_MAJOR=514
+export BYOND_MINOR=1554
 
 #rust_g git tag
 export RUST_G_VERSION=0.4.7.1
