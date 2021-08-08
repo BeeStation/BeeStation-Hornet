@@ -11,18 +11,18 @@ Topic config is managed by the **comms.txt** config file. Topic configuration co
 * `SERVER_HOP` Multiple of these entries are supported. Each entry is a key-value pair of a server name and a byond address. These servers are not authenticated in any way, and are a list of servers that can be quickly switched to by players using the **Server Hop** verb.
 
 ### Requests
-Topic requests consist of a JSON object with two mandatory keys: `auth` and `query`, as well as optional request-specific keys.
+Topic requests consist of a JSON object with three mandatory keys: `auth`, `query` and `source`, as well as optional request-specific keys.
 
-`auth` is the token used to access features on the target server. Can either be configured for use by the server operator, or be the `anonymous` token. The `anonymous` token is a public-access token that allows requests to collect data about player counts, round status etc. For more sensitive information, or to interact with the server itself, a specific auth token will be needed.
-
-`query` is the name of the topic function being performed. Examples include `status` and `playerlist`. The query used determines which optional keys must be provided (if any). For a full list of topic functions available, and for additional required keys, see **code/datums/world_topic.dm**
+* `auth` is the token used to access features on the target server. Can either be configured for use by the server operator, or be the `anonymous` token. The `anonymous` token is a public-access token that allows requests to collect data about player counts, round status etc. For more sensitive information, or to interact with the server itself, a specific auth token will be needed.
+* `query` is the name of the topic function being performed. Examples include `status` and `playerlist`. The query used determines which optional keys must be provided (if any). For a full list of topic functions available, and for additional required keys, see **code/datums/world_topic.dm**
+* `source` this is an identifier for the server sending the request, for logging and administrative purposes.
 
 Example Request:
 ```json
 {
 	"auth": "8w7y487238q8x7nqw8dhwe8fq34r89gewri",
 	"query": "ahelp",
-	"sender": "BeeStation Sage",
+	"source": "BeeStation Sage",
 	"message_sender": "a_player",
 	"message": "I don't see any admins online, can someone help? CE just killed me in maint 4noraisin"
 }
