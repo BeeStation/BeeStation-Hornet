@@ -1,12 +1,12 @@
-<h1 align="center">BeeStation 13 Codebase</h1>
+<h1 align="center">Mothstation Codebase</h1>
 
+# Note, we are a downstream of BeeStation 13, located here: https://github.com/BeeStation/BeeStation-Hornet
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-resentment.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-technical-debt.svg)](https://user-images.githubusercontent.com/8171642/50290880-ffef5500-043a-11e9-8270-a2e5b697c86c.png) [![forinfinityandbyond](https://user-images.githubusercontent.com/5211576/29499758-4efff304-85e6-11e7-8267-62919c3688a9.gif)](https://www.reddit.com/r/SS13/comments/5oplxp/what_is_the_main_problem_with_byond_as_an_engine/dclbu1a)
 [![Build Status](https://github.com/BeeStation/BeeStation-Hornet/workflows/Run%20tests/badge.svg)](https://github.com/BeeStation/BeeStation-Hornet/actions?query=workflow%3A%22Run+tests%22)
 ![Open Issues](https://isitmaintained.com/badge/open/BeeStation/BeeStation-Hornet.svg)
 
-**Website:** http://beestation13.com
-**Code:** https://github.com/beestation/beestation-hornet
+**Code:** https://github.com/mothstation/BeeStation-Hornet
 **Wiki:** https://wiki.beestation13.com/view/Main_Page
 
 
@@ -93,7 +93,7 @@ the new version.
 
 ## HOSTING
 
-Hosting requires the [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=52685). Specifically, 	
+Hosting requires the [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=52685). Specifically,
 `vc_redist.x86.exe`. *Not* the 64-bit version. There is a decent chance you already have it if you've installed a game on Steam.
 
 If you'd like a more robust server hosting option, check out tgstation's server tools suite at
@@ -101,7 +101,7 @@ https://github.com/tgstation/tgstation-server
 
 ## MAPS
 
-BeeStation currently comes equipped with these maps.
+Mothstation currently comes equipped with these maps.
 
 * [DeltaStation (default)](https://wiki.beestation13.com/view/DeltaStation)
 * [BoxStation](https://wiki.beestation13.com/view/Boxstation)
@@ -119,7 +119,7 @@ Anytime you want to make changes to a map it's imperative you use the [Map Mergi
 
 ## AWAY MISSIONS
 
-BeeStation supports loading away missions however they are disabled by default.
+Mothstation supports loading away missions however they are disabled by default.
 
 Map files for away missions are located in the _maps/RandomZLevels directory. Each away mission includes it's own code definitions located in /code/modules/awaymissions/mission_code. These files must be included and compiled with the server beforehand otherwise the server will crash upon trying to load away missions that lack their code.
 
@@ -174,3 +174,4 @@ All assets including icons and sound are under a [Creative Commons 3.0 BY-SA lic
 - CEV Eris, for the PDA sprites
 - TGMC, for the custom keybinds base
 - Citadel, for their beautiful lighting
+- Bee, for providing the base for Mothstation
