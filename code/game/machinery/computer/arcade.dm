@@ -882,7 +882,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			canContinueEvent = 1
 
 		if(ORION_TRAIL_FLUX)
-			eventdat += "This region of space is highly turbulent. <br>If we go slowly we may avoid more damage, but ifwe keep our speed we won't waste supplies."
+			eventdat += "This region of space is highly turbulent. <br>If we go slowly we may avoid more damage, but if we keep our speed we won't waste supplies."
 			eventdat += "<br>What will you do?"
 			eventdat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];slow=1'>Slow Down</a> <a href='byond://?src=[REF(src)];keepspeed=1'>Continue</a></P>"
 			eventdat += "<P ALIGN=Right><a href='byond://?src=[REF(src)];close=1'>Close</a></P>"
@@ -1159,7 +1159,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		removed = pick(safe2remove)
 
 	if(removed)
-		if(lings_aboard && prob(40*lings_aboard)) //ifthere are 2 lings you're twice as likely to get one, obviously
+		if(lings_aboard && prob(40*lings_aboard)) //if there are 2 lings you're twice as likely to get one, obviously
 			lings_aboard = max(0,--lings_aboard)
 		settlers -= removed
 		alive--
@@ -1207,7 +1207,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ship"
 	w_class = WEIGHT_CLASS_SMALL
-	var/active = 0 //ifthe ship is on
+	var/active = 0 //if the ship is on
 
 /obj/item/orion_ship/examine(mob/user)
 	. = ..()
