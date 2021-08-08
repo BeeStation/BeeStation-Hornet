@@ -166,12 +166,17 @@
 
 /datum/reagent/drug/krokodil/addiction_act_stage4(mob/living/carbon/human/M)
 	CHECK_DNA_AND_SPECIES(M)
-	if(!istype(M.dna.species, /datum/species/krokodil_addict))
-		to_chat(M, "<span class='userdanger'>Your skin falls off easily!</span>")
-		M.adjustBruteLoss(50*REM, 0) // holy shit your skin just FELL THE FUCK OFF
-		M.set_species(/datum/species/krokodil_addict)
+	if(ishumanbasic(M))
+		if(!istype(M.dna.species, /datum/species/krokodil_addict))
+			to_chat(M, "<span class='userdanger'>Your skin falls off easily!</span>")
+			M.adjustBruteLoss(50*REM, 0) // holy shit your skin just FELL THE FUCK OFF
+			M.set_species(/datum/species/krokodil_addict)
+		else
+			M.adjustBruteLoss(5*REM, 0)
 	else
-		M.adjustBruteLoss(5*REM, 0)
+		to_chat(M, "<span class='danger'>Your skin peels and tears!</span>")
+		M.adjustBruteLoss(5*REM, 0) // repeats 5 times and then you get over it
+
 	..()
 	. = 1
 

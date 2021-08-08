@@ -260,7 +260,7 @@
 		var/copy_amount = T.volume * part
 		if(preserve_data)
 			trans_data = T.data
-		R.add_reagent(T.type, copy_amount * multiplier, trans_data)
+		R.add_reagent(T.type, copy_amount * multiplier, trans_data, chem_temp)
 
 	src.update_total()
 	R.update_total()
@@ -336,10 +336,6 @@
 				R.holder.remove_reagent(R.type, R.metabolization_rate)
 				continue
 		//If you got this far, that means we can process whatever reagent this iteration is for. Handle things normally from here.
-
-		if(!R.metabolizing)
-			R.metabolizing = TRUE
-			R.on_mob_metabolize(C)
 
 		if(C && R)
 			if(C.reagent_check(R) != TRUE)

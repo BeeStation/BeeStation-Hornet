@@ -309,6 +309,7 @@
 	name = "cloning console (Computer Board)"
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/cloning
+	var/list/records = list()
 
 /obj/item/circuitboard/computer/crew
 	name = "crew monitoring console (Computer Board)"
@@ -330,10 +331,10 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/pandemic
 
-/obj/item/circuitboard/computer/prototype_cloning
+/obj/item/circuitboard/computer/cloning/prototype
 	name = "prototype cloning console (Computer Board)"
 	icon_state = "medical"
-	build_path = /obj/machinery/computer/prototype_cloning
+	build_path = /obj/machinery/computer/cloning/prototype
 
 /obj/item/circuitboard/computer/scan_consolenew
 	name = "DNA machine (Computer Board)"

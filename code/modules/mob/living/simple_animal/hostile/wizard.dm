@@ -25,7 +25,7 @@
 
 	retreat_distance = 3 //out of fireball range
 	minimum_distance = 3
-	del_on_death = 1
+	del_on_death = TRUE
 	loot = list(/obj/effect/mob_spawn/human/corpse/wizard,
 				/obj/item/staff)
 

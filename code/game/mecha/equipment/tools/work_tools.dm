@@ -13,6 +13,7 @@
 	var/dam_force = 20
 	var/obj/mecha/working/ripley/cargo_holder
 	harmful = TRUE
+	mech_flags = EXOSUIT_MODULE_RIPLEY
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/working/ripley/M as obj)
 	if(..())
@@ -52,14 +53,14 @@
 					cargo_holder.cargo += O
 					O.forceMove(chassis)
 					O.anchored = FALSE
-					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+					balloon_alert(chassis.occupant, "[target] loaded")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]", LOG_MECHA)
 				else
 					O.anchored = initial(O.anchored)
 			else
-				occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+				balloon_alert(chassis.occupant, "Not enough room in cargo compartment")
 		else
-			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
+			balloon_alert(chassis.occupant, "[target] is firmly secured")
 
 	else if(isliving(target))
 		var/mob/living/M = target
@@ -112,14 +113,14 @@
 					cargo_holder.cargo += O
 					O.forceMove(chassis)
 					O.anchored = FALSE
-					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
+					balloon_alert(chassis.occupant, "[target] loaded")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]", LOG_MECHA)
 				else
 					O.anchored = initial(O.anchored)
 			else
-				occupant_message("<span class='warning'>Not enough room in cargo compartment!</span>")
+				balloon_alert(chassis.occupant, "Not enough room in cargo compartment")
 		else
-			occupant_message("<span class='warning'>[target] is firmly secured!</span>")
+			balloon_alert(chassis.occupant, "[target] is firmly secured")
 
 	else if(isliving(target))
 		var/mob/living/M = target
@@ -176,6 +177,7 @@
 	equip_cooldown = 5
 	energy_drain = 0
 	range = MECHA_MELEE|MECHA_RANGED
+	mech_flags = EXOSUIT_MODULE_RIPLEY
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize()
 	. = ..()
@@ -478,6 +480,7 @@
 	name = "Ripley MK-II Conversion Kit"
 	desc = "A pressurized canopy attachment kit for an Autonomous Power Loader Unit \"Ripley\" MK-I mecha, to convert it to the slower, but space-worthy MK-II design. This kit cannot be removed, once applied."
 	icon_state = "ripleyupgrade"
+	mech_flags = EXOSUIT_MODULE_RIPLEY
 
 /obj/item/mecha_parts/mecha_equipment/ripleyupgrade/can_attach(obj/mecha/working/ripley/M)
 	if(M.type != /obj/mecha/working/ripley)

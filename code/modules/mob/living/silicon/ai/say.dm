@@ -125,7 +125,7 @@
 	log_game("[key_name(src)] made a vocal announcement with the following message: [message].")
 
 	for(var/word in words)
-		play_vox_word(word, src.z, null)
+		play_vox_word(word, src.get_virtual_z_level(), null)
 
 
 /proc/play_vox_word(word, z_level, mob/only_listener)
@@ -144,7 +144,7 @@
 			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.can_hear() && (M.client.prefs.toggles & SOUND_ANNOUNCEMENTS))
 					var/turf/T = get_turf(M)
-					if(T.z == z_level)
+					if(T.get_virtual_z_level() == z_level)
 						SEND_SOUND(M, voice)
 		else
 			SEND_SOUND(only_listener, voice)

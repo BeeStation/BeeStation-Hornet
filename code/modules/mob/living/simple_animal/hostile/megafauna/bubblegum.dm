@@ -18,10 +18,7 @@ It may summon clones charging from all sides, one of these charges being bubbleg
 It can charge at its target, and also heavily damaging anything directly hit in the charge.
 If at half health it will start to charge from all sides with clones.
 
-When Bubblegum dies, it leaves behind a H.E.C.K. mining suit as well as a chest that can contain three things:
- 1. A bottle that, when activated, drives everyone nearby into a frenzy
- 2. A contract that marks for death the chosen target
- 3. A spellblade that can slice off limbs at range
+When Bubblegum dies, it leaves behind a H.E.C.K. mining suit.
 
 Difficulty: Hard
 
@@ -51,7 +48,7 @@ Difficulty: Hard
 	ranged = TRUE
 	pixel_x = -32
 	del_on_death = TRUE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
+	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum, /obj/item/crusher_trophy/demon_claws)
 	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
 	blood_volume = BLOOD_VOLUME_MAXIMUM //BLEED FOR ME
 	var/charging = FALSE
@@ -472,7 +469,10 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/A)
 	if(charging)
 		if(isturf(A) || isobj(A) && A.density)
-			A.ex_act(EXPLODE_HEAVY)
+			if(isobj(A))
+				SSexplosions.med_mov_atom += A
+			else
+				SSexplosions.medturf += A
 		DestroySurroundings()
 		if(isliving(A))
 			var/mob/living/L = A
@@ -526,7 +526,7 @@ Difficulty: Hard
 	true_spawn = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize()
-	..()
+	. = ..()
 	toggle_ai(AI_OFF)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/charge(var/atom/chargeat = target, var/delay = 3, var/chargepast = 2)

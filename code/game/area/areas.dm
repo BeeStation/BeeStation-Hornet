@@ -56,9 +56,10 @@
 
 	var/parallax_movedir = 0
 
-	var/list/ambient_music = null // OOC, doesn't require the user to actually be able to hear it
-	var/list/ambient_effects = GENERIC // IC, requires the user to actually be able to hear it, will play spontaneously
+	var/ambience_index = AMBIENCE_GENERIC
+	var/list/ambientsounds
 	var/ambient_buzz = 'sound/ambience/shipambience.ogg' // Ambient buzz of the station, plays repeatedly, also IC
+	var/ambientmusic
 
 	flags_1 = CAN_BE_DIRTY_1
 
@@ -79,6 +80,16 @@
 	var/lighting_brightness_tube = 10
 	var/lighting_brightness_bulb = 6
 	var/lighting_brightness_night = 6
+
+	///Used to decide what the minimum time between ambience is
+	var/min_ambience_cooldown = 30 SECONDS
+	///Used to decide what the maximum time between ambience is
+	var/max_ambience_cooldown = 90 SECONDS
+	///Used to decide what kind of reverb the area makes sound have
+	var/sound_environment = SOUND_ENVIRONMENT_NONE
+
+	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
+	var/datum/map_generator/map_generator
 
 /**
   * A list of teleport locations
@@ -139,6 +150,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	map_name = name // Save the initial (the name set in the map) name of the area.
 	canSmoothWithAreas = typecacheof(canSmoothWithAreas)
 
+	if(!ambientsounds)
+		ambientsounds = GLOB.ambience_assoc[ambience_index]
+
 	if(requires_power)
 		luminosity = 0
 	else
@@ -170,6 +184,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   */
 /area/LateInitialize()
 	power_change()		// all machines set to current power level, also updates icon
+	if(map_generator)
+		map_generator = new map_generator()
+		map_generator.generate_terrain(get_area_turfs(src))
 
 /**
   * Register this area as belonging to a z level
@@ -373,6 +390,18 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/datum/computer_file/program/alarm_monitor/p = item
 		p.cancelAlarm("Fire", src, source)
 
+///Get rid of any dangling camera refs
+/area/proc/clear_camera(obj/machinery/camera/cam)
+	LAZYREMOVE(cameras, cam)
+	for (var/mob/living/silicon/aiPlayer as anything in GLOB.silicon_mobs)
+		aiPlayer.freeCamera(src, cam)
+	for (var/obj/machinery/computer/station_alert/comp as anything in GLOB.alert_consoles)
+		comp.freeCamera(src, cam)
+	for (var/mob/living/simple_animal/drone/drone_on as anything in GLOB.drones_list)
+		drone_on.freeCamera(src, cam)
+	for(var/datum/computer_file/program/alarm_monitor/monitor as anything in GLOB.alarmdisplay)
+		monitor.freeCamera(src, cam)
+
 /**
   * If 100 ticks has elapsed, toggle all the firedoors closed again
   */
@@ -547,7 +576,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(AREA_USAGE_DYNAMIC_START to AREA_USAGE_DYNAMIC_END)
 			power_usage[chan] += amount
 
-
 /**
   * Call back when an atom enters an area
   *
@@ -609,9 +637,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		return A.has_gravity
 	else
 		// There's a gravity generator on our z level
-		if(GLOB.gravity_generators["[T.z]"])
+		if(GLOB.gravity_generators["[T.get_virtual_z_level()]"])
 			var/max_grav = 0
-			for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.z]"])
+			for(var/obj/machinery/gravity_generator/main/G in GLOB.gravity_generators["[T.get_virtual_z_level()]"])
 				max_grav = max(G.setting,max_grav)
 			return max_grav
 	return SSmapping.level_trait(T.z, ZTRAIT_GRAVITY)
@@ -657,3 +685,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// A hook so areas can modify the incoming args (of what??)
 /area/proc/PlaceOnTopReact(list/new_baseturfs, turf/fake_turf_type, flags)
 	return flags
+
+/// Gets an areas virtual z value. For having multiple areas on the same z-level treated mechanically as different z-levels
+/area/proc/get_virtual_z(turf/T)
+	return T.z
+
+/area/get_virtual_z_level()
+	return get_virtual_z(get_turf(src))

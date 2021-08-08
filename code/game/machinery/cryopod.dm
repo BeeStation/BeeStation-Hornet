@@ -268,8 +268,16 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			for(var/datum/mind/M in O.team.members)
 				to_chat(M.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
 				M.announce_objectives()
-		else if(O.target && istype(O.target, /datum/mind))
-			if(O.target == mob_occupant.mind)
+		else if(istype(O.target) && O.target == mob_occupant.mind)
+			if(istype(O, /datum/objective/contract))
+				var/datum/antagonist/traitor/affected_traitor = O.owner.has_antag_datum(/datum/antagonist/traitor)
+				for(var/datum/syndicate_contract/affected_contract as anything in affected_traitor.contractor_hub.assigned_contracts)
+					if(affected_contract.contract == O)
+						affected_contract.generate(affected_traitor.contractor_hub.assigned_targets)
+						affected_traitor.contractor_hub.assigned_targets.Add(affected_contract.contract.target)
+						to_chat(O.owner.current, "<BR><span class='userdanger'>Contract target out of reach. Contract rerolled.")
+						break
+			else
 				var/old_target = O.target
 				O.target = null
 				if(!O)
@@ -314,19 +322,19 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	for(var/datum/data/record/R in GLOB.data_core.medical)
+	for(var/datum/data/record/R as() in GLOB.data_core.medical)
 		if((R.fields["name"] == mob_occupant.real_name))
 			qdel(R)
-	for(var/datum/data/record/T in GLOB.data_core.security)
+	for(var/datum/data/record/T as() in GLOB.data_core.security)
 		if((T.fields["name"] == mob_occupant.real_name))
 			qdel(T)
-	for(var/datum/data/record/G in GLOB.data_core.general)
+	for(var/datum/data/record/G as() in GLOB.data_core.general)
 		if((G.fields["name"] == mob_occupant.real_name))
 			announce_rank = G.fields["rank"]
 			qdel(G)
 
-	for(var/obj/machinery/computer/cloning/cloner in world)
-		for(var/datum/data/record/R in cloner.records)
+	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
+		for(var/datum/data/record/R as() in cloner.records)
 			if(R.fields["name"] == mob_occupant.real_name)
 				cloner.records.Remove(R)
 
@@ -361,14 +369,14 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		if(!istype(R)) return
 
 		R.contents -= R.mmi
-		qdel(R.mmi)
+		QDEL_NULL(R.mmi)
 
 	// Ghost and delete the mob.
-	if(!mob_occupant.get_ghost(1))
+	if(!mob_occupant.get_ghost(TRUE))
 		if(world.time < 15 * 600)//before the 15 minute mark
-			mob_occupant.ghostize(0) // Players despawned too early may not re-enter the game
+			mob_occupant.ghostize(FALSE,SENTIENCE_ERASE) // Players despawned too early may not re-enter the game
 		else
-			mob_occupant.ghostize(1)
+			mob_occupant.ghostize(TRUE,SENTIENCE_ERASE)
 	handle_objectives()
 	QDEL_NULL(occupant)
 	open_machine()

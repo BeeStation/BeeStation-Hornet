@@ -148,29 +148,36 @@ SUBSYSTEM_DEF(garbage)
 
 		// Something's still referring to the qdel'd object.
 		fail_counts[level]++
+
+		#ifdef REFERENCE_TRACKING
+		var/ref_searching = FALSE
+		#endif
+
 		switch (level)
 			if (GC_QUEUE_CHECK)
 				#ifdef REFERENCE_TRACKING
 				D.find_references()
 				#elif defined(LEGACY_REFERENCE_TRACKING)
 				if(reference_find_on_fail[refID])
-					D.find_references_legacy()
+					INVOKE_ASYNC(D, /datum/proc/find_references_legacy)
+					ref_searching = TRUE
 				#ifdef GC_FAILURE_HARD_LOOKUP
 				else
-					D.find_references_legacy()
+					INVOKE_ASYNC(D, /datum/proc/find_references_legacy)
+					ref_searching = TRUE
 				#endif
 				reference_find_on_fail -= refID
 				#endif
 				var/type = D.type
 				var/datum/qdel_item/I = items[type]
-				#ifdef TESTING
+
 				log_world("## TESTING: GC: -- \ref[D] | [type] was unable to be GC'd --")
+				#ifdef TESTING
 				for(var/c in GLOB.admins) //Using testing() here would fill the logs with ADMIN_VV garbage
 					var/client/admin = c
 					if(!check_rights_for(admin, R_ADMIN))
 						continue
 					to_chat(admin, "## TESTING: GC: -- [ADMIN_VV(D)] | [type] was unable to be GC'd --")
-				testing("GC: -- \ref[src] | [type] was unable to be GC'd --")
 				#endif
 				#ifdef REFERENCE_TRACKING
 				GLOB.deletion_failures += D //It should no longer be bothered by the GC, manual deletion only.
@@ -184,6 +191,11 @@ SUBSYSTEM_DEF(garbage)
 				continue
 
 		Queue(D, level+1)
+
+		#ifdef REFERENCE_TRACKING
+		if(ref_searching)
+			return
+		#endif
 
 		if (MC_TICK_CHECK)
 			return
@@ -261,14 +273,20 @@ SUBSYSTEM_DEF(garbage)
 // Should be treated as a replacement for the 'del' keyword.
 // Datums passed to this will be given a chance to clean up references to allow the GC to collect them.
 /proc/qdel(datum/D, force=FALSE, ...)
+	if(isweakref(D))
+		var/datum/weakref/weakref = D
+		D = weakref.resolve()
+		if(!D)
+			return
+
 	if(!istype(D))
 		del(D)
 		return
+
 	var/datum/qdel_item/I = SSgarbage.items[D.type]
 	if (!I)
 		I = SSgarbage.items[D.type] = new /datum/qdel_item(D.type)
 	I.qdels++
-
 
 	if(isnull(D.gc_destroyed))
 		if (SEND_SIGNAL(D, COMSIG_PARENT_PREQDELETED, force)) // Give the components a chance to prevent their parent from being deleted

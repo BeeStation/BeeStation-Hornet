@@ -1,6 +1,8 @@
 #define MARAUDER_SHIELD_RECHARGE 600
 #define MARAUDER_SHIELD_MAX 4
 
+GLOBAL_LIST_EMPTY(clockwork_marauders)
+
 /mob/living/simple_animal/clockwork_marauder
 	name = "clockwork marauder"
 	desc = "A brass machine of destruction,"
@@ -32,11 +34,18 @@
 	initial_language_holder = /datum/language_holder/clockmob
 
 	var/shield_health = MARAUDER_SHIELD_MAX
-	var/next_shield_recharge = 0
 
 	var/debris = list(/obj/item/clockwork/alloy_shards/large = 1, \
 	/obj/item/clockwork/alloy_shards/medium = 2, \
 	/obj/item/clockwork/alloy_shards/small = 3) //Parts left behind when a structure breaks
+
+/mob/living/simple_animal/clockwork_marauder/Initialize()
+	. = ..()
+	GLOB.clockwork_marauders += src
+
+/mob/living/simple_animal/clockwork_marauder/Destroy()
+	GLOB.clockwork_marauders -= src
+	. = ..()
 
 /mob/living/simple_animal/clockwork_marauder/Login()
 	. = ..()
@@ -51,6 +60,17 @@
 			new item(get_turf(src))
 	qdel(src)
 
+/mob/living/simple_animal/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/nullrod))
+		apply_damage(15, BURN)
+		if(shield_health > 0)
+			damage_shield()
+		playsound(src,'sound/hallucinations/veryfar_noise.ogg',40,1)
+	if(I.tool_behaviour == TOOL_WELDER)
+		welder_act(user, I)
+		return
+	. = ..()
+
 /mob/living/simple_animal/clockwork_marauder/bullet_act(obj/item/projectile/Proj)
 	//Block Ranged Attacks
 	if(shield_health > 0)
@@ -60,8 +80,6 @@
 	return ..()
 
 /mob/living/simple_animal/clockwork_marauder/proc/damage_shield()
-	if(shield_health == MARAUDER_SHIELD_MAX)
-		next_shield_recharge = world.time + MARAUDER_SHIELD_RECHARGE
 	shield_health --
 	playsound(src, 'sound/magic/clockwork/anima_fragment_attack.ogg', 60, TRUE)
 	if(shield_health == 0)

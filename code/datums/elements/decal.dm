@@ -21,7 +21,7 @@
 	cleanable = _cleanable
 	rotated = _rotated
 
-	RegisterSignal(target,COMSIG_ATOM_UPDATE_OVERLAYS,.proc/apply_overlay, TRUE)
+	RegisterSignal(target,COMSIG_ATOM_UPDATE_OVERLAYS, .proc/apply_overlay, TRUE)
 	if(isturf(target))
 		RegisterSignal(target,COMSIG_TURF_AFTER_SHUTTLE_MOVE,.proc/shuttlemove_react, TRUE)
 	if(target.flags_1 & INITIALIZED_1)
@@ -35,7 +35,7 @@
 	if(_cleanable)
 		RegisterSignal(target, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_react,TRUE)
 	if(_description)
-		RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/examine,TRUE)
+		RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/examine, TRUE)
 
 /datum/element/decal/proc/generate_appearance(_icon, _icon_state, _dir, _layer, _color, _alpha, source)
 	if(!_icon || !_icon_state)
@@ -55,7 +55,6 @@
 
 /datum/element/decal/proc/late_update_icon(atom/source)
 	SIGNAL_HANDLER
-
 	if(source && istype(source))
 		source.update_icon()
 		UnregisterSignal(source,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
@@ -63,11 +62,11 @@
 
 /datum/element/decal/proc/apply_overlay(atom/source, list/overlay_list)
 	SIGNAL_HANDLER
-
 	overlay_list += pic
 
 /datum/element/decal/proc/shuttlemove_react(datum/source, turf/newT)
 	SIGNAL_HANDLER
+
 	Detach(source)
 	newT.AddElement(/datum/element/decal, pic.icon, pic.icon_state, pic.dir, cleanable, pic.color, pic.layer, description, pic.alpha, rotated)
 

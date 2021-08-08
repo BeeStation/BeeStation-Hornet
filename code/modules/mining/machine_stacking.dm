@@ -14,7 +14,13 @@
 	. = ..()
 	machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
 	if (machine)
-		machine.CONSOLE = src
+		machine.console = src
+
+/obj/machinery/mineral/stacking_unit_console/Destroy()
+	if(machine)
+		machine.console = null
+		machine = null
+	return ..()
 
 /obj/machinery/mineral/stacking_unit_console/ui_interact(mob/user)
 	. = ..()
@@ -74,7 +80,7 @@
 	circuit = /obj/item/circuitboard/machine/stacking_machine
 	input_dir = EAST
 	output_dir = WEST
-	var/obj/machinery/mineral/stacking_unit_console/CONSOLE
+	var/obj/machinery/mineral/stacking_unit_console/console
 	var/stk_types = list()
 	var/stk_amt   = list()
 	var/stack_list[0] //Key: Type.  Value: Instance of type.
@@ -88,19 +94,30 @@
 	materials = AddComponent(/datum/component/remote_materials, "stacking", mapload, FALSE, mapload && force_connect)
 
 /obj/machinery/mineral/stacking_machine/Destroy()
-	CONSOLE = null
+	if(console)
+		console.machine = null
+		console = null
 	materials = null
 	return ..()
 
 /obj/machinery/mineral/stacking_machine/HasProximity(atom/movable/AM)
 	if(istype(AM, /obj/item/stack/sheet) && AM.loc == get_step(src, input_dir))
-		process_sheet(AM)
+		var/obj/effect/portal/P = locate() in AM.loc
+		if(P)
+			visible_message("<span class='warning'>[src] attempts to stack the portal!</span>")
+			message_admins("Stacking machine exploded via [P.creator ? key_name(P.creator) : "UNKNOWN"]'s portal at [AREACOORD(src)]")
+			log_game("Stacking machine exploded via [P.creator ? key_name(P.creator) : "UNKNOWN"]'s portal at [AREACOORD(src)]")
+			explosion(src.loc, 0, 1, 2, 3)
+			if(!QDELETED(src))
+				qdel(src)
+		else
+			process_sheet(AM)
 
 /obj/machinery/mineral/stacking_machine/multitool_act(mob/living/user, obj/item/multitool/M)
 	if(istype(M))
 		if(istype(M.buffer, /obj/machinery/mineral/stacking_unit_console))
-			CONSOLE = M.buffer
-			CONSOLE.machine = src
+			console = M.buffer
+			console.machine = src
 			to_chat(user, "<span class='notice'>You link [src] to the console in [M]'s buffer.</span>")
 			return TRUE
 

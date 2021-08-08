@@ -71,3 +71,17 @@
 	var/mob/living/carbon/C = user.mob
 	C.a_intent_change(INTENT_HARM)
 	return TRUE
+
+/datum/keybinding/carbon/give
+	key = "G"
+	name = "Give_Item"
+	full_name = "Give item"
+	description = "Give the item you're currently holding"
+	category = CATEGORY_CARBON
+
+/datum/keybinding/carbon/give/down(client/user)
+	if(!iscarbon(user.mob))
+		return
+	var/mob/living/carbon/C = user.mob
+	C.give()
+	return TRUE

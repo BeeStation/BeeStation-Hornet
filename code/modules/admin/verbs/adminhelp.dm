@@ -218,7 +218,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			else
 				++num_disconnected
 	if(num_disconnected)
-		tab_data["Diconnected"] = list(
+		tab_data["Disconnected"] = list(
 			text = "[num_disconnected]",
 			type = STAT_BUTTON,
 			action = "browsetickets",
@@ -267,6 +267,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/from_user = ""
 	var/to_user = ""
 	var/message = ""
+	var/from_user_safe
+	var/to_user_safe
 
 /datum/ticket_interaction/New()
 	. = ..()
@@ -329,7 +331,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	GLOB.ahelp_tickets.unclaimed_tickets += src
 
 	if(is_bwoink)
-		AddInteraction("blue", name, usr.ckey, initiator_key_name)
+		AddInteraction("blue", name, usr.ckey, initiator_key_name, "Administrator", "You")
 		message_admins("<font color='blue'>Ticket [TicketHref("#[id]")] created</font>")
 		Claim()	//Auto claim bwoinks
 	else
@@ -352,7 +354,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	GLOB.ahelp_tickets.resolved_tickets -= src
 	return ..()
 
-/datum/admin_help/proc/AddInteraction(msg_color, message, name_from, name_to)
+/datum/admin_help/proc/AddInteraction(msg_color, message, name_from, name_to, safe_from, safe_to)
 	if(heard_by_no_admins && usr && usr.ckey != initiator_ckey)
 		heard_by_no_admins = FALSE
 		send2irc(initiator_ckey, "Ticket #[id]: Answered by [key_name(usr)]")
@@ -361,6 +363,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	interaction_message.message = message
 	interaction_message.from_user = name_from
 	interaction_message.to_user = name_to
+	interaction_message.from_user_safe = safe_from
+	interaction_message.to_user_safe = safe_to
 	_interactions += interaction_message
 	SStgui.update_uis(src)
 
@@ -509,7 +513,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	//Message to be sent to all admins
 	var/admin_msg = "<span class='adminnotice'><span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(msg)]</span></span>"
 
-	AddInteraction("red", msg, initiator_key_name, claimed_admin_key_name)
+	AddInteraction("red", msg, initiator_key_name, claimed_admin_key_name, "You", "Administrator")
 	log_admin_private("Ticket #[id]: [key_name(initiator)]: [msg]")
 
 	//send this msg to all admins
@@ -787,7 +791,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 //Use this proc when an admin takes action that may be related to an open ticket on what
 //what can be a client, ckey, or mob
-/proc/admin_ticket_log(what, message, whofrom = "", whoto = "", color = "white")
+/proc/admin_ticket_log(what, message, whofrom = "", whoto = "", color = "white", isSenderAdmin = FALSE, safeSenderLogged = FALSE)
 	var/client/C
 	var/mob/Mob = what
 	if(istype(Mob))
@@ -795,12 +799,18 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	else
 		C = what
 	if(istype(C) && C.current_ticket)
-		C.current_ticket.AddInteraction(color, message, whofrom, whoto)
+		if(safeSenderLogged)
+			C.current_ticket.AddInteraction(color, message, whofrom, whoto, isSenderAdmin ? "Administrator" : "You", isSenderAdmin ? "You" : "Administrator")
+		else
+			C.current_ticket.AddInteraction(color, message, whofrom, whoto)
 		return C.current_ticket
 	if(istext(what))	//ckey
 		var/datum/admin_help/AH = GLOB.ahelp_tickets.CKey2ActiveTicket(what)
 		if(AH)
-			AH.AddInteraction(color, message, whofrom, whoto)
+			if(safeSenderLogged)
+				AH.AddInteraction(color, message, whofrom, whoto, isSenderAdmin ? "Administrator" : "You", isSenderAdmin ? "You" : "Administrator")
+			else
+				AH.AddInteraction(color, message, whofrom, whoto)
 			return AH
 
 
@@ -836,7 +846,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		else
 			final = "[msg] - All admins stealthed\[[english_list(stealthmins)]\], AFK\[[english_list(afkmins)]\], or lacks +BAN\[[english_list(powerlessmins)]\]! Total: [allmins.len] "
 		send2irc(source,final)
-		comms_send(source, final, "ahelp")
+		SStopic.crosscomms_send("ahelp", final, source)
 
 
 /proc/send2irc(msg,msg2)
@@ -871,7 +881,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/list/surnames = list()
 	var/list/forenames = list()
 	var/list/ckeys = list()
-	var/founds = ""
+	var/list/founds = list()
 	for(var/mob/M in GLOB.mob_list)
 		var/list/indexing = list(M.real_name, M.name)
 		if(M.mind)
@@ -919,14 +929,16 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 							if(found.mind?.special_role)
 								is_antag = 1
 							founds += "Name: [found.name]([found.real_name]) Key: [found.key] Ckey: [found.ckey] [is_antag ? "(Antag)" : null] "
+							founds.Add(list("name" = found.name,
+								            "real_name" = found.real_name,
+								            "ckey" = found.ckey,
+								            "key" = found.key,
+								            "antag" = is_antag))
 							msg += "[original_word]<font size='1' color='[is_antag ? "red" : "black"]'>(<A HREF='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(found)]'>?</A>|<A HREF='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(found)]'>F</A>)</font> "
 							continue
 		msg += "[original_word] "
 	if(irc)
-		if(founds == "")
-			return "Search Failed"
-		else
-			return founds
+		return founds
 
 	return msg
 

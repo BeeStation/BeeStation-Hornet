@@ -1,7 +1,6 @@
 /mob/living/simple_animal/slime/death(gibbed)
 	if(stat == DEAD)
 		return
-	remove_form_spawner_menu()
 	if(!gibbed)
 		if(is_adult)
 			var/mob/living/simple_animal/slime/M = new(loc, colour)
@@ -23,7 +22,7 @@
 		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
 
 	GLOB.total_slimes--
-	stat = DEAD
+	set_stat(DEAD)
 	cut_overlays()
 
 	if(SSticker.mode)
@@ -42,6 +41,5 @@
 			X.stored_slimes -= src
 	if(stat != DEAD)
 		GLOB.total_slimes--
-	remove_form_spawner_menu()
 	master = null
 	return ..()

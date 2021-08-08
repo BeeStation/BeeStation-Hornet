@@ -48,7 +48,10 @@
 		cpu.attack_ghost(user)
 
 /obj/machinery/modular_computer/emag_act(mob/user)
-	return cpu ? cpu.emag_act(user) : 1
+	if(!cpu)
+		to_chat(user, "<span class='warning'>You'd need to turn the [src] on first.</span>")
+		return FALSE
+	return (cpu.emag_act(user))
 
 /obj/machinery/modular_computer/update_icon()
 	cut_overlays()
@@ -108,11 +111,11 @@
 		return ..()
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
-/obj/machinery/modular_computer/process()
+/obj/machinery/modular_computer/process(delta_time)
 	if(cpu)
 		// Keep names in sync.
 		cpu.name = name
-		cpu.process()
+		cpu.process(delta_time)
 
 // Used in following function to reduce copypaste
 /obj/machinery/modular_computer/proc/power_failure(malfunction = 0)
@@ -143,7 +146,13 @@
 // Minor explosions are mostly mitigitated by casing.
 /obj/machinery/modular_computer/ex_act(severity)
 	if(cpu)
-		cpu.ex_act(severity)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.high_mov_atom += cpu
+			if(EXPLODE_HEAVY)
+				SSexplosions.med_mov_atom += cpu
+			if(EXPLODE_LIGHT)
+				SSexplosions.low_mov_atom += cpu
 	..()
 
 // EMPs are similar to explosions, but don't cause physical damage to the casing. Instead they screw up the components

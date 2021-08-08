@@ -19,7 +19,7 @@
 	var/mode = HEATER_MODE_STANDBY
 	var/setMode = "auto" // Anything other than "heat" or "cool" is considered auto.
 	var/targetTemperature = T20C
-	var/heatingPower = 40000
+	var/heatingPower = 20000
 	var/efficiency = 20000
 	var/temperatureTolerance = 1
 	var/settableTemperatureMedian = 30 + T0C
@@ -66,7 +66,7 @@
 	if(panel_open)
 		add_overlay("sheater-open")
 
-/obj/machinery/space_heater/process()
+/obj/machinery/space_heater/process_atmos() //TODO figure out delta_time
 	if(!on || !is_operational())
 		if (on) // If it's broken, turn it off too
 			on = FALSE
@@ -122,7 +122,7 @@
 	for(var/obj/item/stock_parts/capacitor/M in component_parts)
 		cap += M.rating
 
-	heatingPower = laser * 40000
+	heatingPower = laser * 20000
 
 	settableTemperatureRange = cap * 30
 	efficiency = (cap + 1) * 10000
@@ -211,7 +211,7 @@
 			usr.visible_message("<span class='notice'>[usr] switches [on ? "on" : "off"] \the [src].</span>", "<span class='notice'>You switch [on ? "on" : "off"] \the [src].</span>")
 			update_icon()
 			if (on)
-				START_PROCESSING(SSmachines, src)
+				SSair.atmos_air_machinery += src
 			. = TRUE
 		if("mode")
 			setMode = params["mode"]

@@ -45,6 +45,8 @@ SUBSYSTEM_DEF(ticker)
 
 	var/maprotatechecked = 0
 
+	var/list/datum/game_mode/runnable_modes //list of runnable gamemodes
+
 	var/news_report
 
 	var/late_join_disabled
@@ -56,6 +58,8 @@ SUBSYSTEM_DEF(ticker)
 	var/list/round_end_events
 	var/mode_result = "undefined"
 	var/end_state = "undefined"
+
+	var/fail_counter
 
 	//Crew Objective stuff
 	var/list/crewobjlist = list()
@@ -194,12 +198,28 @@ SUBSYSTEM_DEF(ticker)
 					fire()
 
 		if(GAME_STATE_SETTING_UP)
-			if(!setup())
+			if(!pre_setup())
 				//setup failed
+				fail_counter++
 				current_state = GAME_STATE_STARTUP
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
+				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
 				timeLeft = null
 				Master.SetRunLevel(RUNLEVEL_LOBBY)
+			else if(!setup())
+				//setup failed
+				fail_counter++
+				current_state = GAME_STATE_STARTUP
+				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
+				timeLeft = null
+				Master.SetRunLevel(RUNLEVEL_LOBBY)
+			else
+				fail_counter = null
+
+			if(fail_counter >= 3)
+				log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
+				message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
+				GLOB.master_mode = null		//this makes it pick extended
+				fail_counter = null
 
 		if(GAME_STATE_PLAYING)
 			mode.process(wait * 0.1)
@@ -213,12 +233,8 @@ SUBSYSTEM_DEF(ticker)
 				declare_completion(force_ending)
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
-
-/datum/controller/subsystem/ticker/proc/setup()
-	message_admins("Setting up game.")
-	var/init_start = world.timeofday
-		//Create and announce mode
-	var/list/datum/game_mode/runnable_modes
+//Select gamemode and load any maps associated with it
+/datum/controller/subsystem/ticker/proc/pre_setup()
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
 
@@ -234,7 +250,7 @@ SUBSYSTEM_DEF(ticker)
 		if(!mode)
 			if(!runnable_modes.len)
 				to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
-				return 0
+				return FALSE
 			mode = pickweight(runnable_modes)
 			if(!mode)	//too few roundtypes all run too recently
 				mode = pick(runnable_modes)
@@ -246,7 +262,13 @@ SUBSYSTEM_DEF(ticker)
 			qdel(mode)
 			mode = null
 			SSjob.ResetOccupations()
-			return 0
+			return FALSE
+
+	return mode.setup_maps()
+
+/datum/controller/subsystem/ticker/proc/setup()
+	message_admins("Setting up game.")
+	var/init_start = world.timeofday
 
 	CHECK_TICK
 	//Configure mode and assign player to special mode stuff
@@ -263,7 +285,7 @@ SUBSYSTEM_DEF(ticker)
 			QDEL_NULL(mode)
 			to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
 			SSjob.ResetOccupations()
-			return 0
+			return FALSE
 	else
 		message_admins("<span class='notice'>DEBUG: Bypassing prestart checks...</span>")
 
@@ -300,7 +322,7 @@ SUBSYSTEM_DEF(ticker)
 	SSdbcore.SetRoundStart()
 
 	to_chat(world, "<span class='notice'><B>Welcome to [station_name()], enjoy your stay!</B></span>")
-	SEND_SOUND(world, sound('sound/ai/welcome.ogg'))
+	SEND_SOUND(world, sound(SSstation.announcer.get_rand_welcome_sound()))
 
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
@@ -374,22 +396,43 @@ SUBSYSTEM_DEF(ticker)
 
 
 /datum/controller/subsystem/ticker/proc/equip_characters()
-	var/captainless=1
+	var/captainless = TRUE
+	var/list/spare_id_candidates = list()
+	var/highest_rank = length(SSjob.chain_of_command) + 1
+	var/enforce_coc = CONFIG_GET(flag/spare_enforce_coc)
+
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
 		if(istype(player) && player.mind && player.mind.assigned_role)
 			if(player.mind.assigned_role == "Captain")
-				captainless=0
+				captainless = FALSE
+				spare_id_candidates += N
+			else if(captainless && (player.mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, "Captain")))
+				if(!enforce_coc)
+					spare_id_candidates += N
+				else
+					var/spare_id_priority = SSjob.chain_of_command[player.mind.assigned_role]
+					if(spare_id_priority)
+						if(spare_id_priority < highest_rank)
+							spare_id_candidates.Cut()
+							spare_id_candidates += N
+							highest_rank = spare_id_priority
+						else if(spare_id_priority == highest_rank)
+							spare_id_candidates += N
 			if(player.mind.assigned_role != player.mind.special_role)
-				SSjob.EquipRank(N, player.mind.assigned_role, 0)
+				SSjob.EquipRank(N, player.mind.assigned_role, FALSE)
 			if(CONFIG_GET(flag/roundstart_traits) && ishuman(N.new_character))
 				SSquirks.AssignQuirks(N.new_character, N.client, TRUE)
 		CHECK_TICK
-	if(captainless)
-		for(var/mob/dead/new_player/N in GLOB.player_list)
-			if(N.new_character)
-				to_chat(N, "Captainship not forced on anyone.")
-			CHECK_TICK
+	if(length(spare_id_candidates))			//No captain, time to choose acting captain
+		if(!enforce_coc)
+			for(var/mob/dead/new_player/player in spare_id_candidates)
+				SSjob.promote_to_captain(player, captainless)
+
+		else
+			SSjob.promote_to_captain(pick(spare_id_candidates), captainless)		//This is just in case 2 heads of the same priority spawn
+		CHECK_TICK
+
 
 /datum/controller/subsystem/ticker/proc/transfer_characters()
 	var/list/livings = list()
@@ -564,7 +607,7 @@ SUBSYSTEM_DEF(ticker)
 			news_message = "During routine evacuation procedures, the emergency shuttle of [station_name()] had its navigation protocols corrupted and went off course, but was recovered shortly after."
 
 	if(news_message)
-		comms_send(news_source, news_message, "news_report")
+		SStopic.crosscomms_send("news_report", news_message, news_source)
 
 /datum/controller/subsystem/ticker/proc/GetTimeLeft()
 	if(isnull(SSticker.timeLeft))

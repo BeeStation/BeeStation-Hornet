@@ -97,6 +97,7 @@
 	empty_indicator = TRUE
 	fire_rate = 3
 	block_upgrade_walk = 1
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/gun/ballistic/automatic/mini_uzi
 	name = "\improper Type U3 Uzi"

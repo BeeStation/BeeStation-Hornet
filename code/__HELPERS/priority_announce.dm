@@ -1,8 +1,10 @@
-/proc/priority_announce(text, title = "", sound = 'sound/ai/attention.ogg', type, sender_override, auth_id)
+/proc/priority_announce(text, title = "", sound, type, sender_override, has_important_message, auth_id)
 	if(!text)
 		return
 
 	var/announcement = "<meta charset='UTF-8'>"
+	if(sound && SSstation.announcer.event_sounds[sound])
+		sound = SSstation.announcer.event_sounds[sound]
 
 	if(type == "Priority")
 		announcement += "<h1 class='alert'>Priority Announcement</h1>"
@@ -26,7 +28,11 @@
 			else
 				GLOB.news_network.SubmitArticle(title + "<br><br>" + text, "Central Command", "Station Announcements", null)
 
-	announcement += "<br><span class='alert'>[html_encode(text)]</span><br>"
+	///If the announcer overrides alert messages, use that message.
+	if(SSstation.announcer.custom_alert_message && !has_important_message)
+		announcement +=  SSstation.announcer.custom_alert_message
+	else
+		announcement += "<br><span class='alert'>[html_encode(text)]</span><br>"
 	announcement += "<br>"
 	if(auth_id)
 		announcement += "<span class='alert'>-[auth_id]</span><br>"
@@ -43,21 +49,24 @@
 		title = "Classified [command_name()] Update"
 
 	if(announce)
-		priority_announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/ai/commandreport.ogg')
-
+		priority_announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", SSstation.announcer.get_rand_report_sound(), has_important_message = TRUE)
 	var/datum/comm_message/M  = new
 	M.title = title
 	M.content =  text
 
 	SScommunications.send_message(M)
 
-/proc/minor_announce(message, title = "Attention:", alert, from)
+/proc/minor_announce(message, title = "Attention:", alert, from, html_encode = TRUE)
 	if(!message)
 		return
 
+	if (html_encode)
+		title = html_encode(title)
+		message = html_encode(message)
+
 	for(var/mob/M in GLOB.player_list)
 		if(!isnewplayer(M) && M.can_hear())
-			var/complete_msg = "<meta charset='UTF-8'><span class='big bold'><font color = red>[html_encode(title)]</font color><BR>[html_encode(message)]</span><BR>"
+			var/complete_msg = "<meta charset='UTF-8'><span class='big bold'><font color = red>[title]</font color><BR>[message]</span><BR>"
 			if(from)
 				complete_msg += "<span class='alert'>-[from]</span>"
 			to_chat(M, complete_msg)

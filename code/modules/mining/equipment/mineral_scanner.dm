@@ -24,9 +24,10 @@
 /obj/item/mining_scanner/admin
 
 /obj/item/mining_scanner/admin/attack_self(mob/user)
-	for(var/turf/closed/mineral/M in world)
-		if(M.scan_state)
-			M.icon_state = M.scan_state
+	for(var/area/A as() in get_areas(/area, user.z))
+		for(var/turf/closed/mineral/M in A)
+			if(M.scan_state)
+				M.icon_state = M.scan_state
 	qdel(src)
 
 /obj/item/t_scanner/adv_mining_scanner

@@ -33,6 +33,7 @@
 	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
+	departments = DEPARTMENT_SCIENCE | DEPARTMENT_COMMAND
 
 /datum/outfit/job/rd
 	name = "Research Director"
@@ -60,4 +61,4 @@
 	mask = /obj/item/clothing/mask/breath
 	suit = /obj/item/clothing/suit/space/hardsuit/rd
 	suit_store = /obj/item/tank/internals/oxygen
-	internals_slot = SLOT_S_STORE
+	internals_slot = ITEM_SLOT_SUITSTORE

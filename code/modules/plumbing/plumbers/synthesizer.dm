@@ -56,12 +56,12 @@
 	. = ..()
 	AddComponent(/datum/component/plumbing/simple_supply, bolt)
 
-/obj/machinery/plumbing/synthesizer/process()
+/obj/machinery/plumbing/synthesizer/process(delta_time)
 	if(stat & NOPOWER || !reagent_id || !amount)
 		return
-	if(reagents.total_volume >= amount) //otherwise we get leftovers, and we need this to be precise
+	if(reagents.total_volume >= amount*delta_time*0.5) //otherwise we get leftovers, and we need this to be precise
 		return
-	reagents.add_reagent(reagent_id, amount)
+	reagents.add_reagent(reagent_id, amount*delta_time*0.5)
 
 
 /obj/machinery/plumbing/synthesizer/ui_state(mob/user)
@@ -110,6 +110,7 @@
 				. = TRUE
 	update_icon()
 	reagents.clear_reagents()
+	ui_update()
 
 /obj/machinery/plumbing/synthesizer/update_icon()
 	if(!r_overlay)

@@ -67,6 +67,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/crowbar = 1,
 	/obj/item/crowbar/red = 1,
 	/obj/item/extinguisher = 11,
+	/obj/item/stack/sticky_tape = 1,
 	/obj/item/hand_labeler = 1,
 	/obj/item/paper/crumpled = 1,
 	/obj/item/pen = 1,
@@ -108,5 +109,6 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/reagent_containers/food/snacks/canned/peaches/maint = 1,
 	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
 	/obj/item/reagent_containers/food/snacks/grown/poppy = 10,
+	/obj/item/throwing_star = 1,
 	"" = 3
 	))

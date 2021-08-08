@@ -17,6 +17,11 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(text)
 		explanation_text = text
 
+//Apparently objectives can be qdel'd. Learn a new thing every day
+/datum/objective/Destroy()
+	GLOB.objectives -= src
+	return ..()
+
 /datum/objective/proc/get_owners() // Combine owner and team into a single list.
 	. = (team && team.members) ? team.members.Copy() : list()
 	if(owner)
@@ -27,7 +32,7 @@ GLOBAL_LIST_EMPTY(objectives)
 
 //Shared by few objective types
 /datum/objective/proc/admin_simple_target_pick(mob/admin)
-	var/list/possible_targets = list("Free objective","Random")
+	var/list/possible_targets = list()
 	var/def_value
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if ((possible_target != src) && ishuman(possible_target.current))
@@ -37,7 +42,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(target?.current)
 		def_value = target.current
 
-	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in sortNames(possible_targets)
+	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in (sortNames(possible_targets) | list("Free objective","Random"))
 	if (!new_target)
 		return
 
@@ -111,9 +116,21 @@ GLOBAL_LIST_EMPTY(objectives)
 		if(O.late_joiner)
 			try_target_late_joiners = TRUE
 	for(var/datum/mind/possible_target in get_crewmember_minds())
-		if(!(possible_target in owners) && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && is_unique_objective(possible_target,dupe_search_range))
-			if (!(possible_target in blacklist))
-				possible_targets += possible_target
+		if(possible_target in owners)
+			continue
+		if(!ishuman(possible_target.current))
+			continue
+		if(possible_target.current.stat == DEAD)
+			continue
+		if(!is_unique_objective(possible_target,dupe_search_range))
+			continue
+		var/target_area = get_area(possible_target.current)
+		if(!HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS) && istype(target_area, /area/shuttle/arrival))
+			continue
+		if(possible_target in blacklist)
+			continue
+
+		possible_targets += possible_target
 	if(try_target_late_joiners)
 		var/list/all_possible_targets = possible_targets.Copy()
 		for(var/I in all_possible_targets)
@@ -160,9 +177,13 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(receiver && receiver.current)
 		if(ishuman(receiver.current))
 			var/mob/living/carbon/human/H = receiver.current
-			var/list/slots = list("backpack" = SLOT_IN_BACKPACK)
+			var/static/list/slots = list(
+				"backpack" = ITEM_SLOT_BACKPACK,
+				"left pocket" = ITEM_SLOT_LPOCKET,
+				"right pocket" = ITEM_SLOT_RPOCKET,
+				"hands" = ITEM_SLOT_HANDS)
 			for(var/eq_path in special_equipment)
-				var/obj/O = new eq_path
+				var/obj/O = new eq_path(get_turf(receiver.current))
 				H.equip_in_one_of_slots(O, slots)
 
 /datum/objective/assassinate
@@ -320,9 +341,11 @@ GLOBAL_LIST_EMPTY(objectives)
 
 /datum/objective/hijack
 	name = "hijack"
-	explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive and out of custody."
-	team_explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive and out of custody. Leave no team member behind."
-	martyr_compatible = 0 //Technically you won't get both anyway.
+	explanation_text = "Hijack the emergency shuttle by overriding the navigation protocols using the shuttle computer."
+	team_explanation_text = "Hijack the emergency shuttle by overriding the navigation protocols, using the shuttle computer. Leave no team member behind."
+	martyr_compatible = FALSE //Technically you won't get both anyway.
+	/// Overrides the hijack speed of any antagonist datum it is on ONLY, no other datums are impacted.
+	var/hijack_speed_override = 1
 
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -333,24 +356,33 @@ GLOBAL_LIST_EMPTY(objectives)
 			return FALSE
 	return SSshuttle.emergency.is_hijacked()
 
-/datum/objective/hijack/single
-	name = "hijack"
-	explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive and out of custody."
-	team_explanation_text = "Hijack the shuttle to ensure no loyalist Nanotrasen crew escape alive and out of custody. Team members lost is not a concern for this operation."
-	martyr_compatible = 0 //Technically you won't get both anyway.
+/datum/objective/elimination
+	name = "elimination"
+	explanation_text = "Slaughter all loyalist crew aboard the shuttle. You, and any likeminded individuals, must be the only remaining people on the shuttle."
+	team_explanation_text = "Slaughter all loyalist crew aboard the shuttle. You, and any likeminded individuals, must be the only remaining people on the shuttle. Leave no team member behind."
+	martyr_compatible = FALSE
 
-/datum/objective/hijack/single/check_completion() // Requires all owners to escape.
+/datum/objective/elimination/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
 	var/list/datum/mind/owners = get_owners()
-	var/single_escape = FALSE
 	for(var/datum/mind/M in owners)
-		if(considered_alive(M) && SSshuttle.emergency.shuttle_areas[get_area(M.current)])
-			single_escape = TRUE
-			break
-	if(!single_escape)
+		if(!considered_alive(M, enforce_human = FALSE) || !SSshuttle.emergency.shuttle_areas[get_area(M.current)])
+			return FALSE
+	return SSshuttle.emergency.elimination_hijack()
+
+/datum/objective/elimination/highlander
+	name="highlander elimination"
+	explanation_text = "Escape on the shuttle alone. Ensure that nobody else makes it out."
+
+/datum/objective/elimination/highlander/check_completion()
+	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return FALSE
-	return SSshuttle.emergency.is_hijacked()
+	var/list/datum/mind/owners = get_owners()
+	for(var/datum/mind/M in owners)
+		if(!considered_alive(M, enforce_human = FALSE) || !SSshuttle.emergency.shuttle_areas[get_area(M.current)])
+			return FALSE
+	return SSshuttle.emergency.elimination_hijack(filter_by_human = FALSE, solo_hijack = TRUE)
 
 /datum/objective/block
 	name = "no organics on shuttle"

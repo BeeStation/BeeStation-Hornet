@@ -197,7 +197,7 @@
 			target = tile
 			break
 		else
-			tile.ex_act(EXPLODE_HEAVY)
+			SSexplosions.highturf += tile
 
 	point.Beam(target, icon_state = "bsa_beam", time = 50, maxdistance = world.maxx) //ZZZAP
 	new /obj/effect/temp_visual/bsa_splash(point, dir)
@@ -252,6 +252,7 @@
 	if(!ui)
 		ui = new(user, src, "BluespaceArtillery")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/bsa_control/ui_data()
 	var/list/data = list()

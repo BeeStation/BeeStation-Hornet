@@ -123,7 +123,7 @@
 
 /obj/item/reagent_containers/food/snacks/sausage/Initialize()
 	. = ..()
-	eatverb = pick("bite","chew","nibble","deep throat","gobble","chomp")
+	eatverb = pick("bite","chew","nibble","gobble","chomp")
 
 /obj/item/reagent_containers/food/snacks/rawkhinkali
 	name = "raw khinkali"

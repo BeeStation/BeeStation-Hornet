@@ -22,9 +22,14 @@
 /datum/map_template/shuttle/proc/prerequisites_met()
 	return TRUE
 
-/datum/map_template/shuttle/New()
+/datum/map_template/shuttle/New(path = null, rename = null, cache = FALSE, admin_load = null)
+	if(admin_load)//This data must be populated for the system to not shit itself apparently
+		suffix = admin_load
+		port_id = "custom"
+		can_be_bought = FALSE
 	shuttle_id = "[port_id]_[suffix]"
-	mappath = "[prefix][shuttle_id].dmm"
+	if(!admin_load)
+		mappath = "[prefix][shuttle_id].dmm"
 	. = ..()
 
 /datum/map_template/shuttle/preload_size(path, cache)
@@ -245,11 +250,24 @@
 	description = "The crew must pass through an otherworldy arena to board this shuttle. Expect massive casualties. The source of the Bloody Signal must be tracked down and eliminated to unlock this shuttle."
 	admin_notes = "RIP AND TEAR."
 	credit_cost = 10000
+	/// Whether the arena z-level has been created
+	var/arena_loaded = FALSE
 
 /datum/map_template/shuttle/emergency/arena/prerequisites_met()
 	if(SHUTTLE_UNLOCK_BUBBLEGUM in SSshuttle.shuttle_purchase_requirements_met)
 		return TRUE
 	return FALSE
+
+/datum/map_template/shuttle/emergency/arena/post_load(obj/docking_port/mobile/M)
+	. = ..()
+	if(!arena_loaded)
+		arena_loaded = TRUE
+		var/datum/map_template/arena/arena_template = new()
+		arena_template.load_new_z()
+
+/datum/map_template/arena
+	name = "The Arena"
+	mappath = "_maps/templates/the_arena.dmm"
 
 /datum/map_template/shuttle/emergency/birdboat
 	suffix = "birdboat"
@@ -268,13 +286,6 @@
 	name = "Box Station Emergency Shuttle"
 	credit_cost = 2000
 	description = "The gold standard in emergency exfiltration, this tried and true design is equipped with everything the crew needs for a safe flight home."
-
-/datum/map_template/shuttle/emergency/donut
-	suffix = "donut"
-	name = "Donutstation Emergency Shuttle"
-	description = "The perfect spearhead for any crude joke involving the station's shape, this shuttle supports a separate containment cell for prisoners and a compact medical wing."
-	admin_notes = "Has airlocks on both sides of the shuttle and will probably intersect near the front on some stations that build past departures."
-	credit_cost = 2500
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
@@ -307,6 +318,12 @@
 	name = "Kilo Station Emergency Shuttle"
 	credit_cost = 5000
 	description = "A fully functional shuttle including a complete infirmary, storage facilties and regular amenities."
+
+/datum/map_template/shuttle/emergency/corg
+	suffix = "corg"
+	name = "Corg Station Emergency Shuttle"
+	credit_cost = 4000
+	description = "A smaller shuttle with area for cargo, medical and security personnel."
 
 /datum/map_template/shuttle/emergency/mini
 	suffix = "mini"
@@ -452,13 +469,13 @@
 	suffix = "kilo"
 	name = "supply shuttle (Kilo)"
 
+/datum/map_template/shuttle/cargo/corg
+	suffix = "corg"
+	name = "supply shuttle (Corg)"
+
 /datum/map_template/shuttle/cargo/birdboat
 	suffix = "birdboat"
 	name = "supply shuttle (Birdboat)"
-
-/datum/map_template/shuttle/cargo/donut
-	suffix = "donut"
-	name = "supply shuttle (Donut)"
 
 /datum/map_template/shuttle/emergency/delta
 	suffix = "delta"
@@ -505,9 +522,9 @@
 	suffix = "box"
 	name = "labour shuttle (Box)"
 
-/datum/map_template/shuttle/arrival/donut
-	suffix = "donut"
-	name = "arrival shuttle (Donut)"
+/datum/map_template/shuttle/arrival/corg
+	suffix = "corg"
+	name = "arrival shuttle (Corg)"
 
 /datum/map_template/shuttle/infiltrator/basic
 	suffix = "basic"
@@ -546,6 +563,10 @@
 /datum/map_template/shuttle/labour/kilo
 	suffix = "kilo"
 	name = "labour shuttle (Kilo)"
+
+/datum/map_template/shuttle/labour/corg
+	suffix = "corg"
+	name = "labour shuttle (Corg)"
 
 /datum/map_template/shuttle/arrival/delta
 	suffix = "delta"
@@ -630,3 +651,11 @@
 	suffix = "primary"
 	name = "primary turbolift (multi-z debug)"
 	can_be_bought = FALSE
+
+/datum/map_template/shuttle/tram
+	port_id = "tram"
+	can_be_bought = FALSE
+
+/datum/map_template/shuttle/tram/corg
+	suffix = "corg"
+	name = "corgstation transport shuttle"

@@ -80,7 +80,9 @@
 
 			//We want an accurate reading of .len
 			listclearnulls(BP.embedded_objects)
-			temp_bleed += 0.5*BP.embedded_objects.len
+			for(var/obj/item/embeddies in BP.embedded_objects)
+				if(!embeddies.isEmbedHarmless())
+					temp_bleed += 0.5
 
 			if(brutedamage >= 20)
 				temp_bleed += (brutedamage * 0.013)
@@ -164,7 +166,6 @@
 	if(blood_id == /datum/reagent/blood) //actual blood reagent
 		var/blood_data = list()
 		//set the blood data
-		blood_data["donor"] = src
 		blood_data["viruses"] = list()
 
 		for(var/thing in diseases)

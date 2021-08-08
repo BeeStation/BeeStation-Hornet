@@ -8,6 +8,7 @@
 	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
+	flags_ricochet = RICOCHET_SHINY
 
 /obj/structure/mirror/Initialize(mapload)
 	. = ..()
@@ -243,3 +244,25 @@
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return
+
+
+//basically stolen from human_defense.dm
+/obj/structure/mirror/bullet_act(obj/item/projectile/P)
+	if(P.reflectable & REFLECT_NORMAL)
+		if(P.starting)
+			var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+			var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+			var/turf/curloc = get_turf(src)
+
+			// redirect the projectile
+			P.original = locate(new_x, new_y, P.z)
+			P.starting = curloc
+			P.firer = src
+			P.yo = new_y - curloc.y
+			P.xo = new_x - curloc.x
+			var/new_angle_s = P.Angle + 180
+			while(new_angle_s > 180)	// Translate to regular projectile degrees
+				new_angle_s -= 360
+			P.setAngle(new_angle_s)
+
+	return BULLET_ACT_FORCE_PIERCE // complete projectile permutation

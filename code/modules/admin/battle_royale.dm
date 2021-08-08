@@ -85,8 +85,8 @@ GLOBAL_LIST_INIT(battle_royale_good_loot, list(
 		/obj/item/ammo_box/magazine/pistolm9mm,
 		/obj/item/katana,
 		/obj/item/melee/transforming/energy/sword,
-		/obj/item/twohanded/dualsaber,
-		/obj/item/twohanded/fireaxe,
+		/obj/item/dualsaber,
+		/obj/item/fireaxe,
 		/obj/item/stack/telecrystal/five,
 		/obj/item/stack/telecrystal/twenty,
 		/obj/item/clothing/suit/space/hardsuit/syndi
@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(battle_royale_insane_loot, list(
 		/obj/item/his_grace,
 		/obj/mecha/combat/marauder/mauler/loaded,
 		/obj/item/guardiancreator/tech,
-		/obj/item/twohanded/mjollnir,
+		/obj/item/mjollnir,
 		/obj/item/pneumatic_cannon/pie/selfcharge,
 		/obj/item/uplink/nuclear
 	))
@@ -127,6 +127,11 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		return
 	log_admin("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
 	message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
+
+	for(var/client/admin in GLOB.admins)
+		if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel)
+			admin.tgui_panel.clear_br_popup()
+
 	GLOB.battle_royale = new()
 	GLOB.battle_royale.start()
 
@@ -332,7 +337,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		W.implant(H)
 		players += H
 		to_chat(M, "<span class='notice'>You have been given knock and pacafism for 30 seconds.</span>")
-	new /obj/effect/DPtarget(spawn_turf, pod)
+	new /obj/effect/pod_landingzone(spawn_turf, pod)
 	SEND_SOUND(world, sound('sound/misc/airraid.ogg'))
 	to_chat(world, "<span class='boldannounce'>A 30 second grace period has been established. Good luck.</span>")
 	to_chat(world, "<span class='boldannounce'>WARNING: YOU WILL BE GIBBED IF YOU LEAVE THE STATION Z-LEVEL!</span>")
@@ -361,7 +366,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/good_drops = list()
 	for(var/i in 1 to rand(1,3))
 		good_drops += pick(GLOB.battle_royale_good_loot)
-	send_item(good_drops, announce = "Incomming extended supply materials.", force_time = 600)
+	send_item(good_drops, announce = "Incoming extended supply materials.", force_time = 600)
 
 /datum/battle_royale_controller/proc/generate_endgame_drop()
 	var/obj/item = pick(GLOB.battle_royale_insane_loot)
@@ -378,10 +383,10 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	else
 		new item_path(pod)
 	if(force_time)
-		pod.fallDuration = force_time
-	new /obj/effect/DPtarget(target, pod)
+		pod.delays[POD_FALLING]= force_time
+	new /obj/effect/pod_landingzone(target, pod)
 	if(announce)
-		priority_announce("[announce] \nExpected Drop Location: [get_area(target)]\n ETA: [force_time/10] Seconds.", "High Command Supply Control")
+		priority_announce("[announce] \nExpected Drop Location: [get_area(target)]\n ETA: [force_time/10] Seconds.", "High Command Supply Control", SSstation.announcer.get_rand_alert_sound())
 
 //==================================
 // WORLD BORDER

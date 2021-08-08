@@ -6,6 +6,7 @@
 	var/t_him = p_them()
 	var/t_has = p_have()
 	var/t_is = p_are()
+	var/t_es = p_es()
 	var/obscure_name
 
 	if(isliving(user))
@@ -19,7 +20,7 @@
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
 
 	//uniform
-	if(w_uniform && !(SLOT_W_UNIFORM in obscured))
+	if(w_uniform && !(ITEM_SLOT_ICLOTHING in obscured))
 		//accessory
 		var/accessory_msg
 		if(istype(w_uniform, /obj/item/clothing/under))
@@ -35,7 +36,7 @@
 	if(wear_suit)
 		. += "[t_He] [t_is] wearing [wear_suit.get_examine_string(user)]."
 		//suit/armor storage
-		if(s_store && !(SLOT_S_STORE in obscured))
+		if(s_store && !(ITEM_SLOT_SUITSTORE in obscured))
 			. += "[t_He] [t_is] carrying [s_store.get_examine_string(user)] on [t_his] [wear_suit.name]."
 	//back
 	if(back)
@@ -48,7 +49,7 @@
 
 	var/datum/component/forensics/FR = GetComponent(/datum/component/forensics)
 	//gloves
-	if(gloves && !(SLOT_GLOVES in obscured))
+	if(gloves && !(ITEM_SLOT_GLOVES in obscured))
 		. += "[t_He] [t_has] [gloves.get_examine_string(user)] on [t_his] hands."
 	else if(FR && length(FR.blood_DNA))
 		var/hand_number = get_num_arms(FALSE)
@@ -69,25 +70,25 @@
 		. += "[t_He] [t_has] [belt.get_examine_string(user)] about [t_his] waist."
 
 	//shoes
-	if(shoes && !(SLOT_SHOES in obscured))
+	if(shoes && !(ITEM_SLOT_FEET in obscured))
 		. += "[t_He] [t_is] wearing [shoes.get_examine_string(user)] on [t_his] feet."
 
 	//mask
-	if(wear_mask && !(SLOT_WEAR_MASK in obscured))
+	if(wear_mask && !(ITEM_SLOT_MASK in obscured))
 		. += "[t_He] [t_has] [wear_mask.get_examine_string(user)] on [t_his] face."
 
-	if(wear_neck && !(SLOT_NECK in obscured))
+	if(wear_neck && !(ITEM_SLOT_NECK in obscured))
 		. += "[t_He] [t_is] wearing [wear_neck.get_examine_string(user)] around [t_his] neck."
 
 	//eyes
-	if(!(SLOT_GLASSES in obscured))
+	if(!(ITEM_SLOT_EYES in obscured))
 		if(glasses)
 			. += "[t_He] [t_has] [glasses.get_examine_string(user)] covering [t_his] eyes."
 		else if(eye_color == BLOODCULT_EYE && iscultist(src) && HAS_TRAIT(src, CULT_EYES))
 			. += "<span class='warning'><B>[t_His] eyes are glowing an unnatural red!</B></span>"
 
 	//ears
-	if(ears && !(SLOT_EARS in obscured))
+	if(ears && !(ITEM_SLOT_EARS in obscured))
 		. += "[t_He] [t_has] [ears.get_examine_string(user)] on [t_his] ears."
 
 	//ID
@@ -114,27 +115,33 @@
 		if(hellbound)
 			. += "<span class='warning'>[t_His] soul seems to have been ripped out of [t_his] body.  Revival is impossible.</span>"
 		. += ""
-		if(getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE))
-			. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed.</span>"
-		else
-			. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life.</span>"
+		if(getorgan(/obj/item/organ/brain))
+			if(ai_controller?.ai_status == AI_STATUS_ON)
+				. += "<span class='deadsay'>[t_He] do[t_es]n't appear to be [t_him]self.</span>\n"
+			else if(!key && !get_ghost(FALSE, TRUE))
+				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed.</span>"
+			else
+				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life.</span>"
 
 	if(get_bodypart(BODY_ZONE_HEAD) && !getorgan(/obj/item/organ/brain))
 		. += "<span class='deadsay'>It appears that [t_his] brain is missing.</span>"
 
 	var/temp = getBruteLoss() //no need to calculate each of these twice
 
-	var/list/msg = list("")
-
-	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/list/msg = list("<span class='warning'>")
+	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	var/list/disabled = list()
+
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
 		if(BP.disabled)
 			disabled += BP
 		missing -= BP.body_zone
 		for(var/obj/item/I in BP.embedded_objects)
-			msg += "<B>[t_He] [t_has] \a [icon2html(I, user)] [I] embedded in [t_his] [BP.name]!</B>\n"
+			if(I.isEmbedHarmless())
+				msg += "<B>[t_He] [t_has] [icon2html(I, user)] \a [I] stuck to [t_his] [BP.name]!</B>\n"
+			else
+				msg += "<B>[t_He] [t_has] [icon2html(I, user)] \a [I] embedded in [t_his] [BP.name]!</B>\n"
 
 	for(var/X in disabled)
 		var/obj/item/bodypart/BP = X
@@ -284,12 +291,14 @@
 			if(InCritical())
 				msg += "[t_He] [t_is] barely conscious.\n"
 		if(getorgan(/obj/item/organ/brain))
+			if(ai_controller?.ai_status == AI_STATUS_ON)
+				msg += "<span class='deadsay'>[t_He] do[t_es]n't appear to be [t_him]self.</span>\n"
 			if(!key)
 				msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
 			else if(!client)
 				msg += "[t_He] [t_has] a blank, absent-minded stare and appears completely unresponsive to anything. [t_He] may snap out of it soon.\n"
 
-		if(digitalcamo)
+		if(HAS_TRAIT(src, TRAIT_DIGICAMO))
 			msg += "[t_He] [t_is] moving [t_his] body in an unnatural and blatantly inhuman manner.\n"
 
 	if (length(msg))

@@ -82,6 +82,7 @@ SUBSYSTEM_DEF(throwing)
 
 /datum/thrownthing/Destroy()
 	SSthrowing.processing -= thrownthing
+	SSthrowing.currentrun -= thrownthing
 	thrownthing.throwing = null
 	thrownthing = null
 	target = null
@@ -93,6 +94,8 @@ SUBSYSTEM_DEF(throwing)
 
 ///Defines the datum behavior on the thrownthing's qdeletion event.
 /datum/thrownthing/proc/on_thrownthing_qdel(atom/movable/source, force)
+	SIGNAL_HANDLER
+
 	qdel(src)
 
 

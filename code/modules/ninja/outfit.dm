@@ -11,7 +11,7 @@
 	back = /obj/item/tank/jetpack/carbondioxide
 	l_pocket = /obj/item/grenade/plastic/x4
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
-	internals_slot = SLOT_R_STORE
+	internals_slot = ITEM_SLOT_RPOCKET
 	belt = /obj/item/energy_katana
 	implants = list(/obj/item/implant/explosive)
 

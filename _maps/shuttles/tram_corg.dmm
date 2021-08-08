@@ -1,0 +1,163 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"c" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"e" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/pod_1)
+"h" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/chair/comfy/shuttle,
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"m" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Shuttle Airlock"
+	},
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	dwidth = 2;
+	height = 7;
+	id = "tram_corg";
+	launch_status = 0;
+	name = "transport shuttle";
+	preferred_direction = 2;
+	width = 5
+	},
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/pod_1)
+"p" = (
+/turf/open/floor/mineral/titanium/white,
+/area/shuttle/pod_1)
+"w" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = 30
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"y" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/sign/poster/random{
+	pixel_x = -32
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"D" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/status_display/evac{
+	pixel_x = 32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"E" = (
+/turf/closed/wall/mineral/titanium,
+/area/template_noop)
+"I" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/computer/shuttle{
+	possible_destinations = "corg_north;corg_south";
+	shuttleId = "tram_corg"
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"K" = (
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/pod_1)
+"M" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/status_display/evac{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+"S" = (
+/obj/structure/grille,
+/obj/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/pod_1)
+"W" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
+
+(1,1,1) = {"
+E
+K
+S
+K
+S
+K
+e
+"}
+(2,1,1) = {"
+S
+h
+p
+M
+c
+y
+K
+"}
+(3,1,1) = {"
+S
+I
+p
+p
+p
+p
+m
+"}
+(4,1,1) = {"
+S
+h
+p
+D
+W
+w
+K
+"}
+(5,1,1) = {"
+E
+K
+S
+K
+S
+K
+e
+"}

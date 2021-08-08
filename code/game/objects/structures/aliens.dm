@@ -81,7 +81,7 @@
 	resintype = "wall"
 	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
-/obj/structure/alien/resin/wall/BlockSuperconductivity()
+/obj/structure/alien/resin/wall/BlockThermalConductivity()
 	return 1
 
 /obj/structure/alien/resin/membrane
@@ -328,6 +328,12 @@
 /obj/structure/alien/egg/burst
 	status = BURST
 	icon_state = "egg_hatched"
+
+/obj/structure/alien/egg/troll
+
+/obj/structure/alien/egg/troll/finish_bursting(kill = TRUE)
+	qdel(child)
+	new /obj/item/paper/troll(get_turf(src))
 
 #undef BURST
 #undef GROWING

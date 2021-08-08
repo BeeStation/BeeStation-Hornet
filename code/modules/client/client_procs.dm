@@ -4,7 +4,7 @@
 
 
 #define UPLOAD_LIMIT		10485760	//Restricts client uploads to the server to 1MB //Could probably do with being lower.
-#define MAX_RECOMMENDED_CLIENT 1542
+#define MAX_RECOMMENDED_CLIENT 1557
 
 GLOBAL_LIST_INIT(blacklisted_builds, list(
 	"1407" = "bug preventing client display overrides from working leads to clients being able to see things/mobs they shouldn't be able to see",
@@ -255,6 +255,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
 
+	prefs.handle_donator_items()
+
 	if(fexists(roundend_report_file()))
 		add_verb(/client/proc/show_previous_roundend_report)
 
@@ -429,6 +431,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
 
+	update_ambience_pref()
 
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
@@ -540,11 +543,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	GLOB.mentors -= src
+	SSambience.ambience_listening_clients -= src
 	QDEL_LIST_ASSOC_VAL(char_render_holders)
 	if(movingmob != null)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
-	seen_messages = null
 	Master.UpdateTickRate()
 	return ..()
 
@@ -958,6 +961,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return FALSE
 		if ("key")
 			return FALSE
+		if("cached_badges")
+			return FALSE
 		if("view")
 			view_size.setDefault(var_value)
 			return TRUE
@@ -1072,3 +1077,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			message_admins("[key_name(src)] was removed from the game due to a ban from BeeStation.")
 			qdel(src)
 			return
+
+/client/proc/open_filter_editor(atom/in_atom)
+	if(holder)
+		holder.filteriffic = new /datum/filter_editor(in_atom)
+		holder.filteriffic.ui_interact(mob)
+
+/client/proc/update_ambience_pref()
+	if(prefs.toggles & SOUND_AMBIENCE)
+		if(SSambience.ambience_listening_clients[src] > world.time)
+			return // If already properly set we don't want to reset the timer.
+		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
+	else
+		SSambience.ambience_listening_clients -= src

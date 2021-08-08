@@ -21,7 +21,7 @@ BONUS
 	stealth = 1
 	resistance = 3
 	stage_speed = 3
-	transmittable = 1
+	transmission = 1
 	level = 4
 	severity = 0
 	symptom_delay_min = 18

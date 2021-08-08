@@ -41,6 +41,7 @@
 
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
+	QDEL_LIST(bioware)
 	return ..()
 
 
@@ -129,83 +130,87 @@
 	dat += "<table>"
 	for(var/i in 1 to held_items.len)
 		var/obj/item/I = get_item_for_held_index(i)
-		dat += "<tr><td><B>[get_held_index_name(i)]:</B></td><td><A href='?src=[REF(src)];item=[SLOT_HANDS];hand_index=[i]'>[(I && !(I.item_flags & ABSTRACT)) ? I : "<font color=grey>Empty</font>"]</a></td></tr>"
+		dat += "<tr><td><B>[get_held_index_name(i)]:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_HANDS];hand_index=[i]'>[(I && !(I.item_flags & ABSTRACT)) ? I : "<font color=grey>Empty</font>"]</a></td></tr>"
 	dat += "<tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[REF(src)];item=[SLOT_BACK]'>[(back && !(back.item_flags & ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_BACK]'>[(back && !(back.item_flags & ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
 	if(has_breathable_mask && istype(back, /obj/item/tank))
-		dat += "&nbsp;<A href='?src=[REF(src)];internal=[SLOT_BACK]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+		dat += "&nbsp;<A href='?src=[REF(src)];internal=[ITEM_SLOT_BACK]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[REF(src)];item=[SLOT_HEAD]'>[(head && !(head.item_flags & ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_HEAD]'>[(head && !(head.item_flags & ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	if(SLOT_WEAR_MASK in obscured)
+	if(ITEM_SLOT_MASK in obscured)
 		dat += "<tr><td><font color=grey><B>Mask:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
-		dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[REF(src)];item=[SLOT_WEAR_MASK]'>[(wear_mask && !(wear_mask.item_flags & ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_MASK]'>[(wear_mask && !(wear_mask.item_flags & ABSTRACT)) ? wear_mask : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	if(SLOT_NECK in obscured)
+	if(ITEM_SLOT_NECK in obscured)
 		dat += "<tr><td><font color=grey><B>Neck:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
-		dat += "<tr><td><B>Neck:</B></td><td><A href='?src=[REF(src)];item=[SLOT_NECK]'>[(wear_neck && !(wear_neck.item_flags & ABSTRACT)) ? wear_neck : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Neck:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_NECK]'>[(wear_neck && !(wear_neck.item_flags & ABSTRACT)) ? wear_neck : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	if(SLOT_GLASSES in obscured)
+	if(ITEM_SLOT_EYES in obscured)
 		dat += "<tr><td><font color=grey><B>Eyes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
-		dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[REF(src)];item=[SLOT_GLASSES]'>[(glasses && !(glasses.item_flags & ABSTRACT))	? glasses : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_EYES]'>[(glasses && !(glasses.item_flags & ABSTRACT))	? glasses : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	if(SLOT_EARS in obscured)
+	if(ITEM_SLOT_EARS in obscured)
 		dat += "<tr><td><font color=grey><B>Ears:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
-		dat += "<tr><td><B>Ears:</B></td><td><A href='?src=[REF(src)];item=[SLOT_EARS]'>[(ears && !(ears.item_flags & ABSTRACT))		? ears		: "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Ears:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_EARS]'>[(ears && !(ears.item_flags & ABSTRACT))		? ears		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	dat += "<tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[REF(src)];item=[SLOT_WEAR_SUIT]'>[(wear_suit && !(wear_suit.item_flags & ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_OCLOTHING]'>[(wear_suit && !(wear_suit.item_flags & ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"
 	if(wear_suit)
-		if(SLOT_S_STORE in obscured)
+		if(ITEM_SLOT_SUITSTORE in obscured)
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Storage:</B></font></td></tr>"
 		else
-			dat += "<tr><td>&nbsp;&#8627;<B>Suit Storage:</B></td><td><A href='?src=[REF(src)];item=[SLOT_S_STORE]'>[(s_store && !(s_store.item_flags & ABSTRACT)) ? s_store : "<font color=grey>Empty</font>"]</A>"
+			dat += "<tr><td>&nbsp;&#8627;<B>Suit Storage:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_SUITSTORE]'>[(s_store && !(s_store.item_flags & ABSTRACT)) ? s_store : "<font color=grey>Empty</font>"]</A>"
 			if(has_breathable_mask && istype(s_store, /obj/item/tank))
-				dat += "&nbsp;<A href='?src=[REF(src)];internal=[SLOT_S_STORE]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+				dat += "&nbsp;<A href='?src=[REF(src)];internal=[ITEM_SLOT_SUITSTORE]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 			dat += "</td></tr>"
 	else
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Storage:</B></font></td></tr>"
 
-	if(SLOT_SHOES in obscured)
+	if(ITEM_SLOT_FEET in obscured)
 		dat += "<tr><td><font color=grey><B>Shoes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
-		dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[REF(src)];item=[SLOT_SHOES]'>[(shoes && !(shoes.item_flags & ABSTRACT))		? shoes		: "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_FEET]'>[(shoes && !(shoes.item_flags & ABSTRACT))		? shoes		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	if(SLOT_GLOVES in obscured)
+	if(ITEM_SLOT_GLOVES in obscured)
 		dat += "<tr><td><font color=grey><B>Gloves:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
-		dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=[REF(src)];item=[SLOT_GLOVES]'>[(gloves && !(gloves.item_flags & ABSTRACT))		? gloves	: "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_GLOVES]'>[(gloves && !(gloves.item_flags & ABSTRACT))		? gloves	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	if(SLOT_W_UNIFORM in obscured)
+	if(ITEM_SLOT_ICLOTHING in obscured)
 		dat += "<tr><td><font color=grey><B>Uniform:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
-		dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=[REF(src)];item=[SLOT_W_UNIFORM]'>[(w_uniform && !(w_uniform.item_flags & ABSTRACT)) ? w_uniform : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_ICLOTHING]'>[(w_uniform && !(w_uniform.item_flags & ABSTRACT)) ? w_uniform : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (SLOT_W_UNIFORM in obscured))
+	if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (ITEM_SLOT_ICLOTHING in obscured))
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>ID:</B></font></td></tr>"
 		dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Belt:</B></font></td></tr>"
 	else
-		dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[REF(src)];item=[SLOT_BELT]'>[(belt && !(belt.item_flags & ABSTRACT)) ? belt : "<font color=grey>Empty</font>"]</A>"
+		dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_BELT]'>[(belt && !(belt.item_flags & ABSTRACT)) ? belt : "<font color=grey>Empty</font>"]</A>"
 		if(has_breathable_mask && istype(belt, /obj/item/tank))
-			dat += "&nbsp;<A href='?src=[REF(src)];internal=[SLOT_BELT]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+			dat += "&nbsp;<A href='?src=[REF(src)];internal=[ITEM_SLOT_BELT]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 		dat += "</td></tr>"
 		dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[REF(src)];pockets=left'>[(l_store && !(l_store.item_flags & ABSTRACT)) ? "Left (Full)" : "<font color=grey>Left (Empty)</font>"]</A>"
 		dat += "&nbsp;<A href='?src=[REF(src)];pockets=right'>[(r_store && !(r_store.item_flags & ABSTRACT)) ? "Right (Full)" : "<font color=grey>Right (Empty)</font>"]</A></td></tr>"
-		dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[REF(src)];item=[SLOT_WEAR_ID]'>[(wear_id && !(wear_id.item_flags & ABSTRACT)) ? wear_id : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[REF(src)];item=[ITEM_SLOT_ID]'>[(wear_id && !(wear_id.item_flags & ABSTRACT)) ? wear_id : "<font color=grey>Empty</font>"]</A></td></tr>"
+
+		if(istype(w_uniform, /obj/item/clothing/under))
+			var/obj/item/clothing/under/U = w_uniform
+			dat += "<tr><td>&nbsp;&#8627;<B>Suit Sensors:</b></td><td><A href='?src=[REF(src)];set_sensor=1'>[U.has_sensor >= 2 ? "<font color=grey>--SENSORS LOCKED--</font>" : "Set Sensors</a>"]</td></tr>"
 
 	if(handcuffed)
-		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[REF(src)];item=[SLOT_HANDCUFFED]'>Remove</A></td></tr>"
+		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[REF(src)];item=[ITEM_SLOT_HANDCUFFED]'>Remove</A></td></tr>"
 	if(legcuffed)
-		dat += "<tr><td><A href='?src=[REF(src)];item=[SLOT_LEGCUFFED]'>Legcuffed</A></td></tr>"
+		dat += "<tr><td><A href='?src=[REF(src)];item=[ITEM_SLOT_LEGCUFFED]'>Legcuffed</A></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[REF(user)];mach_close=mob[REF(src)]'>Close</A>
@@ -236,20 +241,7 @@
 		var/obj/item/I = locate(href_list["embedded_object"]) in L.embedded_objects
 		if(!I || I.loc != src) //no item, no limb, or item is not in limb or in the person anymore
 			return
-		var/time_taken = I.embedding.embedded_unsafe_removal_time*I.w_class
-		usr.visible_message("<span class='warning'>[usr] attempts to remove [I] from [usr.p_their()] [L.name].</span>","<span class='notice'>You attempt to remove [I] from your [L.name]... (It will take [DisplayTimeText(time_taken)].)</span>")
-		if(do_after(usr, time_taken, needhand = 1, target = src))
-			if(!I || !L || I.loc != src || !(I in L.embedded_objects))
-				return
-			L.embedded_objects -= I
-			L.receive_damage(I.embedding.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
-			I.forceMove(get_turf(src))
-			usr.put_in_hands(I)
-			usr.emote("scream")
-			usr.visible_message("[usr] successfully rips [I] out of [usr.p_their()] [L.name]!","<span class='notice'>You successfully remove [I] from your [L.name].</span>")
-			if(!has_embedded_objects())
-				clear_alert("embeddedobject")
-				SEND_SIGNAL(usr, COMSIG_CLEAR_MOOD_EVENT, "embedded")
+		SEND_SIGNAL(src, COMSIG_CARBON_EMBED_RIP, I, L)
 		return
 
 	if(href_list["item"]) //canUseTopic check for this is handled by mob/Topic()
@@ -260,8 +252,8 @@
 
 	if(href_list["pockets"] && usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY)) //TODO: Make it match (or intergrate it into) strippanel so you get 'item cannot fit here' warnings if mob_can_equip fails
 		var/pocket_side = href_list["pockets"]
-		var/pocket_id = (pocket_side == "right" ? SLOT_R_STORE : SLOT_L_STORE)
-		var/obj/item/pocket_item = (pocket_id == SLOT_R_STORE ? r_store : l_store)
+		var/pocket_id = (pocket_side == "right" ? ITEM_SLOT_RPOCKET : ITEM_SLOT_LPOCKET)
+		var/obj/item/pocket_item = (pocket_id == ITEM_SLOT_RPOCKET ? r_store : l_store)
 		var/obj/item/place_item = usr.get_active_held_item() // Item to place in the pocket, if it's empty
 
 		var/delay_denominator = 1
@@ -277,7 +269,7 @@
 
 		if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
 			if(pocket_item)
-				if(pocket_item == (pocket_id == SLOT_R_STORE ? r_store : l_store)) //item still in the pocket we search
+				if(pocket_item == (pocket_id == ITEM_SLOT_RPOCKET ? r_store : l_store)) //item still in the pocket we search
 					dropItemToGround(pocket_item)
 			else
 				if(place_item)
@@ -289,6 +281,11 @@
 		else
 			// Display a warning if the user mocks up
 			to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
+
+	if(href_list["set_sensor"])
+		if(istype(w_uniform, /obj/item/clothing/under))
+			var/obj/item/clothing/under/U = w_uniform
+			U.set_sensors(usr)
 
 ///////HUDs///////
 	if(href_list["hud"])
@@ -402,7 +399,7 @@
 			else //Implant and standard glasses check access
 				if(H.wear_id)
 					var/list/access = H.wear_id.GetAccess()
-					if(ACCESS_SEC_DOORS in access)
+					if(ACCESS_SEC_RECORDS in access)
 						allowed_access = H.get_authentification_name()
 
 			if(!allowed_access)
@@ -553,28 +550,28 @@
 			if(head && isclothing(head))
 				var/obj/item/clothing/head/CH = head
 				if(CH.clothing_flags & THICKMATERIAL)
-					to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on [p_their()] head!</span>")
-					return 0
+					balloon_alert(user, "There is no exposed flesh on [p_their()] head")
+					return FALSE
 		if(wear_suit && isclothing(wear_suit))
 			var/obj/item/clothing/suit/CS = wear_suit
 			if(CS.clothing_flags & THICKMATERIAL)
 				switch(target_zone)
 					if(BODY_ZONE_CHEST)
 						if(CS.body_parts_covered & CHEST)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this chest!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on this chest")
+							return FALSE
 					if(BODY_ZONE_PRECISE_GROIN)
 						if(CS.body_parts_covered & GROIN)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on this groin!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on this groin")
+							return FALSE
 					if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 						if(CS.body_parts_covered & ARMS)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these arms!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on these arms")
+							return FALSE
 					if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 						if(CS.body_parts_covered & LEGS)
-							to_chat(user, "<span class='alert'>There is no exposed flesh or thin material on these legs!</span>")
-							return 0
+							balloon_alert(user, "There is no exposed flesh on these legs")
+							return FALSE
 
 /mob/living/carbon/human/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	if(judgment_criteria & JUDGE_EMAGGED)
@@ -650,7 +647,7 @@
 		threatcount -= 5
 
 	//individuals wearing tinfoil hats are 30% more likely to be criminals
-	if(istype(get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		threatcount += 2
 	return threatcount
 
@@ -726,6 +723,8 @@
 			dropItemToGround(I)
 
 /mob/living/carbon/human/proc/clean_blood(datum/source, strength)
+	SIGNAL_HANDLER
+
 	if(strength < CLEAN_STRENGTH_BLOOD)
 		return
 	if(gloves)
@@ -814,7 +813,7 @@
 				hud_used.healthdoll.icon_state = "healthdoll_OVERLAY"
 				for(var/X in bodyparts)
 					var/obj/item/bodypart/BP = X
-					var/damage = BP.burn_dam + BP.brute_dam
+					var/damage = BP.burn_dam + BP.brute_dam + (hallucination ? BP.stamina_dam : 0)
 					var/comparison = (BP.max_damage/5)
 					var/icon_num = 0
 					if(damage)
@@ -831,6 +830,12 @@
 						icon_num = 0
 					if(icon_num)
 						hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[BP.body_zone][icon_num]"))
+					//Stamina Outline (Communicate that we have stamina damage)
+					//Hallucinations will appear as regular damage
+					if(BP.stamina_dam && !hallucination)
+						var/mutable_appearance/MA = mutable_appearance('icons/mob/screen_gen.dmi', "[BP.body_zone]stam")
+						MA.alpha = (BP.stamina_dam / BP.max_stamina_damage) * 70 + 30
+						hud_used.healthdoll.add_overlay(MA)
 				for(var/t in get_missing_limbs()) //Missing limbs
 					hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[t]6"))
 				for(var/t in get_disabled_limbs()) //Disabled limbs
@@ -1056,6 +1061,13 @@
 
 			src.is_busy = FALSE
 
+/mob/living/carbon/human/limb_attack_self()
+	var/obj/item/bodypart/arm = hand_bodyparts[active_hand_index]
+	if(arm)
+		arm.attack_self(src)
+	return ..()
+
+
 //src is the user that will be carrying, target is the mob to be carried
 /mob/living/carbon/human/proc/can_piggyback(mob/living/carbon/target)
 	return (istype(target) && target.stat == CONSCIOUS && (target.mobility_flags & MOBILITY_STAND))
@@ -1099,6 +1111,7 @@
 			visible_message("<span class='warning'>[target] fails to climb onto [src]!</span>")
 	else
 		to_chat(target, "<span class='warning'>You can't piggyback ride [src] right now!</span>")
+
 
 /mob/living/carbon/human/buckle_mob(mob/living/target, force = FALSE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
 	if(!force)//humans are only meant to be ridden through piggybacking and special cases
@@ -1190,6 +1203,9 @@
 	//Nailed it!
 	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
 		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
+
+/mob/living/carbon/human/monkeybrain
+	ai_controller = /datum/ai_controller/monkey
 
 /mob/living/carbon/human/species
 	var/race = null

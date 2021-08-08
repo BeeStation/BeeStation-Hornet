@@ -24,6 +24,7 @@
 	if(!ui)
 		ui = new(user, src, "ChemDebugSynthesizer")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/chem_dispenser/chem_synthesizer/ui_act(action, params)
 	if(..())
@@ -65,6 +66,11 @@
 			if(input)
 				amount = input
 	update_icon()
+
+/obj/machinery/chem_dispenser/chem_synthesizer/Destroy()
+	if(beaker)
+		QDEL_NULL(beaker)
+	return ..()
 
 /obj/machinery/chem_dispenser/chem_synthesizer/proc/find_reagent(input)
 	. = FALSE

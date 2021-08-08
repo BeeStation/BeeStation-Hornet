@@ -45,25 +45,6 @@
 			adjustBruteLoss(2)
 
 		if(stat != DEAD)
-			//handle embedded objects
-			//Stuff jammed in your limbs hurts
-			for(var/X in bodyparts)
-				var/obj/item/bodypart/BP = X
-				for(var/obj/item/I in BP.embedded_objects)
-					if(prob(I.embedding.embedded_pain_chance))
-						BP.receive_damage(I.w_class*I.embedding.embedded_pain_multiplier)
-						to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
-
-					if(prob(I.embedding.embedded_fall_chance))
-						BP.receive_damage(I.w_class*I.embedding.embedded_fall_pain_multiplier)
-						BP.embedded_objects -= I
-						I.forceMove(drop_location())
-						visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
-						if(!has_embedded_objects())
-							clear_alert("embeddedobject")
-							SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "embedded")
-
-		if(stat != DEAD)
 			//Handle hygiene
 			if(HAS_TRAIT(src, TRAIT_ALWAYS_CLEAN))
 				set_hygiene(HYGIENE_LEVEL_CLEAN)
@@ -72,23 +53,23 @@
 				var/hygiene_loss = -HYGIENE_FACTOR * 0.25 //Small loss per life
 
 				//If you're covered in blood, you'll start smelling like shit faster.
-				var/obj/item/head = get_item_by_slot(SLOT_HEAD)
+				var/obj/item/head = get_item_by_slot(ITEM_SLOT_HEAD)
 				if(head && HAS_BLOOD_DNA(head))
 					hygiene_loss -= 1 * HYGIENE_FACTOR
 
-				var/obj/item/mask = get_item_by_slot(SLOT_HEAD)
+				var/obj/item/mask = get_item_by_slot(ITEM_SLOT_HEAD)
 				if(mask && HAS_BLOOD_DNA(mask))
 					hygiene_loss -= 1 * HYGIENE_FACTOR
 
-				var/obj/item/uniform = get_item_by_slot(SLOT_W_UNIFORM)
+				var/obj/item/uniform = get_item_by_slot(ITEM_SLOT_ICLOTHING)
 				if(uniform && HAS_BLOOD_DNA(uniform))
 					hygiene_loss -= 4 * HYGIENE_FACTOR
 
-				var/obj/item/suit = get_item_by_slot(SLOT_WEAR_SUIT)
+				var/obj/item/suit = get_item_by_slot(ITEM_SLOT_OCLOTHING)
 				if(suit && HAS_BLOOD_DNA(suit))
 					hygiene_loss -= 3 * HYGIENE_FACTOR
 
-				var/obj/item/feet = get_item_by_slot(SLOT_SHOES)
+				var/obj/item/feet = get_item_by_slot(ITEM_SLOT_FEET)
 				if(feet && HAS_BLOOD_DNA(feet))
 					hygiene_loss -= 0.5 * HYGIENE_FACTOR
 
@@ -104,11 +85,16 @@
 
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
-	if (wear_suit && head && isclothing(wear_suit) && isclothing(head))
-		var/obj/item/clothing/CS = wear_suit
-		var/obj/item/clothing/CH = head
-		if (CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
-			return ONE_ATMOSPHERE
+	var/chest_covered = FALSE
+	var/head_covered = FALSE
+	for(var/obj/item/clothing/equipped in get_equipped_items())
+		if((equipped.body_parts_covered & CHEST) && (equipped.clothing_flags & STOPSPRESSUREDAMAGE))
+			chest_covered = TRUE
+		if((equipped.body_parts_covered & HEAD) && (equipped.clothing_flags & STOPSPRESSUREDAMAGE))
+			head_covered = TRUE
+
+	if(chest_covered && head_covered)
+		return ONE_ATMOSPHERE
 	return pressure
 
 

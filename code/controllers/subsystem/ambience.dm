@@ -1,75 +1,53 @@
-#define AMBIENT_EFFECT_COOLDOWN 600	// The minimum amount to wait between playing ambient effects (deciseconds)
-
-#define AMBIENT_BUZZ_VOLUME 40
-#define AMBIENT_MUSIC_VOLUME 75
-#define AMBIENT_EFFECTS_VOLUME 45
-
-// Ambient sounds: buzz, effects, music
+/// The subsystem used to play ambience to users every now and then, makes them real excited.
 SUBSYSTEM_DEF(ambience)
 	name = "Ambience"
-	wait = 2
+	flags = SS_BACKGROUND|SS_NO_INIT
 	priority = FIRE_PRIORITY_AMBIENCE
-	flags = SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	wait = 2
+	///Assoc list of listening client - next ambience time
+	var/list/ambience_listening_clients = list()
 
-	var/list/currentrun = list()
+/datum/controller/subsystem/ambience/fire(resumed)
+	for(var/client/client_iterator as anything in ambience_listening_clients)
 
+		if(isnull(client_iterator))
+			ambience_listening_clients -= client_iterator
+			continue
 
-/datum/controller/subsystem/ambience/fire(resumed = 0)
-	if (!resumed)
-		src.currentrun = GLOB.clients.Copy()
+		if(isnewplayer(client_iterator.mob))
+			continue
 
-	//cache for sanic speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
+		if(ambience_listening_clients[client_iterator] > world.time)
+			continue //Not ready for the next sound
 
-	while(currentrun.len)
-		var/client/C = currentrun[currentrun.len]
-		currentrun.len--
+		var/area/current_area = get_area(client_iterator.mob)
 
-		if (C)
-			var/mob/M = C.mob
+		var/ambi_fx = pick(current_area.ambientsounds)
+		var/ambi_music = pick(current_area.ambientmusic)
 
-			if(M?.client)
-				if (istype(M, /mob/dead/new_player)) // Don't play ambience to nerds in the lobby
-					continue
+		play_buzz(client_iterator.mob, current_area)
 
-				src.update_buzz(M) // Update buzz every fire, or every 1/5th second
+		play_ambience_music(client_iterator.mob, ambi_music, current_area)
 
-				if (src.times_fired % 5 == 0) // Only update effects and music every second instead of every 1/5th second
-					src.update_effects(M)
-					src.update_music(M)
+		play_ambience_effects(client_iterator.mob, ambi_fx, current_area)
 
-		if (MC_TICK_CHECK)
-			return
+		ambience_listening_clients[client_iterator] = world.time + rand(current_area.min_ambience_cooldown, current_area.max_ambience_cooldown)
 
+/datum/controller/subsystem/ambience/proc/play_buzz(mob/M, area/A)
+	if (A.ambient_buzz && (M.client.prefs.toggles & SOUND_SHIP_AMBIENCE) && M.can_hear_ambience())
+		if (!M.client.buzz_playing || (A.ambient_buzz != M.client.buzz_playing))
+			SEND_SOUND(M, sound(A.ambient_buzz, repeat = 1, wait = 0, volume = 40, channel = CHANNEL_BUZZ))
+			M.client.buzz_playing = A.ambient_buzz // It's done this way so I can tell when the user switches to an area that has a different buzz effect, so we can seamlessly swap over to that one
 
-/datum/controller/subsystem/ambience/proc/update_buzz(mob/M) // Buzz, the growling buzz of the station, etc, IC (requires the user to be able to hear)
-	var/area/A = get_area(M)
+	else if (M.client.buzz_playing) // If it's playing, and it shouldn't be, stop it
+		M.stop_sound_channel(CHANNEL_BUZZ)
+		M.client.buzz_playing = null
 
-	if(A.ambient_buzz && (M.client?.prefs.toggles & SOUND_SHIP_AMBIENCE) && M.can_hear_ambience())
-		if(!M.client?.ambient_buzz_playing || (A.ambient_buzz != M.client?.ambient_buzz_playing))
-			var/sound/sound_in = sound(A.ambient_buzz, repeat = TRUE, wait = FALSE, volume = AMBIENT_BUZZ_VOLUME, channel = CHANNEL_AMBIENT_BUZZ)
-			sound_fade(sound_in, 0, AMBIENT_BUZZ_VOLUME, 20, M.client)
-			M.client?.ambient_buzz_playing = A.ambient_buzz // It's done this way so I can tell when the user switches to an area that has a different buzz effect, so we can seamlessly swap over to that one
-			M.client?.ambient_buzz = sound_in
+/datum/controller/subsystem/ambience/proc/play_ambience_music(mob/M, _ambi_music, area/A) // Background music, the more OOC ambience, like eerie space music
+	if(A.ambientmusic && !M.client?.channel_in_use(CHANNEL_AMBIENT_MUSIC))
+		SEND_SOUND(M, sound(_ambi_music, repeat = 0, wait = 0, volume = 75, channel = CHANNEL_AMBIENT_MUSIC))
 
-	else if(M.client?.ambient_buzz_playing) // If it's playing, and it shouldn't be, stop it
-		//We will just update the sound the client is playing so it doesn't jump to the beginning
-		var/sound/sound_out = M.client?.ambient_buzz
-		sound_fade(sound_out, AMBIENT_BUZZ_VOLUME, 0, 20, M.client)
-		M.client?.ambient_buzz_playing = null
-		M.client?.ambient_buzz = null
-
-/datum/controller/subsystem/ambience/proc/update_music(mob/M) // Background music, the more OOC ambience, like eerie space music
-	var/area/A = get_area(M)
-
-	if(A.ambient_music && (M.client?.prefs.toggles & SOUND_AMBIENCE) && prob(1.25) && !M.client?.channel_in_use(CHANNEL_AMBIENT_MUSIC)) // 1/80 chance to play every second, only play while another one is not playing
-		SEND_SOUND(M, sound(pick(A.ambient_music), repeat = 0, wait = 0, volume = AMBIENT_MUSIC_VOLUME, channel = CHANNEL_AMBIENT_MUSIC))
-
-
-/datum/controller/subsystem/ambience/proc/update_effects(mob/M) // Effect, random sounds that will play at random times, IC (requires the user to be able to hear)
-	var/area/A = get_area(M)
-
-	if (length(A.ambient_effects) && (M.client?.prefs.toggles & SOUND_AMBIENCE) && M.can_hear_ambience() && (world.time - M.client?.ambient_effect_last_played) > AMBIENT_EFFECT_COOLDOWN && prob(5) && !M.client?.channel_in_use(CHANNEL_AMBIENT_EFFECTS)) // 1/20 chance to play every second after cooldown
-		M.client?.ambient_effect_last_played = world.time
-		SEND_SOUND(M, sound(pick(A.ambient_effects), repeat = 0, wait = 0, volume = AMBIENT_EFFECTS_VOLUME, channel = CHANNEL_AMBIENT_EFFECTS))
+/datum/controller/subsystem/ambience/proc/play_ambience_effects(mob/M, _ambi_fx, area/A) // Effect, random sounds that will play at random times, IC (requires the user to be able to hear)
+	if (length(A.ambientsounds) && M.can_hear_ambience() && !M.client?.channel_in_use(CHANNEL_AMBIENT_EFFECTS))
+		SEND_SOUND(M, sound(_ambi_fx, repeat = 0, wait = 0, volume = 45, channel = CHANNEL_AMBIENT_EFFECTS))

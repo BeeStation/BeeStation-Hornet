@@ -76,6 +76,9 @@
 	var/datum/action/item_action/zoom_lock_action/zoom_lock_action
 	var/mob/listeningTo
 
+	var/obj/aiming_target
+	var/aiming_params
+
 /obj/item/gun/energy/beam_rifle/debug
 	delay = 0
 	cell_type = /obj/item/stock_parts/cell/infinite
@@ -197,12 +200,12 @@
 	else
 		P.color = rgb(0, 255, 0)
 	var/turf/curloc = get_turf(src)
-	var/turf/targloc = get_turf(current_user.client.mouseObject)
+	var/turf/targloc = get_turf(aiming_target)
 	if(!istype(targloc))
 		if(!istype(curloc))
 			return
 		targloc = get_turf_in_angle(lastangle, curloc, 10)
-	P.preparePixelProjectile(targloc, current_user, current_user.client.mouseParams, 0)
+	P.preparePixelProjectile(targloc, current_user, aiming_params, 0)
 	P.fire(lastangle)
 
 /obj/item/gun/energy/beam_rifle/process()
@@ -224,14 +227,16 @@
 	return TRUE
 
 /obj/item/gun/energy/beam_rifle/proc/process_aim()
-	if(istype(current_user) && current_user.client && current_user.client.mouseParams)
-		var/angle = mouse_angle_from_client(current_user.client)
+	if(istype(current_user) && current_user.client)
+		var/angle = mouse_angle_from_client(current_user.client, aiming_params)
 		current_user.setDir(angle2dir_cardinal(angle))
 		var/difference = abs(closer_angle_difference(lastangle, angle))
 		delay_penalty(difference * aiming_time_increase_angle_multiplier)
 		lastangle = angle
 
 /obj/item/gun/energy/beam_rifle/proc/on_mob_move()
+	SIGNAL_HANDLER
+
 	check_user()
 	if(aiming)
 		delay_penalty(aiming_time_increase_user_movement)
@@ -261,15 +266,15 @@
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 		listeningTo = null
 	if(istype(current_user))
-		LAZYREMOVE(current_user.mousemove_intercept_objects, src)
 		current_user = null
 	if(istype(user))
 		current_user = user
-		LAZYOR(current_user.mousemove_intercept_objects, src)
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/on_mob_move)
 		listeningTo = user
 
 /obj/item/gun/energy/beam_rifle/onMouseDrag(src_object, over_object, src_location, over_location, params, mob)
+	aiming_target = over_object
+	aiming_params = params
 	if(aiming)
 		process_aim()
 		aiming_beam()
@@ -294,7 +299,7 @@
 	process_aim()
 	if(aiming_time_left <= aiming_time_fire_threshold && check_user())
 		sync_ammo()
-		afterattack(M.client.mouseObject, M, FALSE, M.client.mouseParams, passthrough = TRUE)
+		afterattack(object, M, FALSE, params, passthrough = TRUE)
 	stop_aiming()
 	QDEL_LIST(current_tracers)
 	return ..()
@@ -465,7 +470,7 @@
 					var/turf/closed/wall/W = target
 					W.dismantle_wall(TRUE, TRUE)
 				else
-					target.ex_act(EXPLODE_HEAVY)
+					SSexplosions.medturf += target
 			return TRUE
 	if(ismovableatom(target))
 		var/atom/movable/AM = target

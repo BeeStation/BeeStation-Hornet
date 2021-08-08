@@ -1,5 +1,8 @@
 //Anomalies, used for events. Note that these DO NOT work by themselves; their procs are called by the event datum.
 
+/// Chance of taking a step per second
+#define ANOMALY_MOVECHANCE 45
+
 /obj/effect/anomaly
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
@@ -7,8 +10,8 @@
 	density = FALSE
 	anchored = TRUE
 	light_range = 3
-	var/movechance = 70
-	var/obj/item/assembly/signaler/anomaly/aSignal
+
+	var/obj/item/assembly/signaler/anomaly/aSignal = /obj/item/assembly/signaler/anomaly
 	var/area/impact_area
 
 	var/lifespan = 990
@@ -41,8 +44,8 @@
 		countdown.color = countdown_colour
 	countdown.start()
 
-/obj/effect/anomaly/process()
-	anomalyEffect()
+/obj/effect/anomaly/process(delta_time)
+	anomalyEffect(delta_time)
 	if(death_time < world.time)
 		if(loc)
 			detonate()
@@ -51,11 +54,11 @@
 /obj/effect/anomaly/Destroy()
 	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
-	qdel(countdown)
+	QDEL_NULL(countdown)
 	return ..()
 
-/obj/effect/anomaly/proc/anomalyEffect()
-	if(prob(movechance))
+/obj/effect/anomaly/proc/anomalyEffect(delta_time)
+	if(DT_PROB(ANOMALY_MOVECHANCE, delta_time))
 		step(src,pick(GLOB.alldirs))
 
 /obj/effect/anomaly/proc/detonate()
@@ -218,7 +221,7 @@
 			var/turf/TO = get_turf(chosen) // the turf of origin we're travelling TO
 
 			playsound(TO, 'sound/effects/phasein.ogg', 100, 1)
-			priority_announce("Massive bluespace translocation detected.", "Anomaly Alert")
+			priority_announce("Massive bluespace translocation detected.", "Anomaly Alert", SSstation.announcer.get_rand_alert_sound())
 
 			var/list/flashers = list()
 			for(var/mob/living/carbon/C in viewers(TO))
@@ -258,15 +261,18 @@
 /obj/effect/anomaly/pyro
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
-	var/ticks = 4
+	var/ticks = 0
+	/// How many seconds between each gas release
+	var/releasedelay = 10
+	aSignal = /obj/item/assembly/signaler/anomaly/pyro
 
-/obj/effect/anomaly/pyro/anomalyEffect()
+/obj/effect/anomaly/pyro/anomalyEffect(delta_time)
 	..()
-	ticks++
-	if(ticks < 5)
+	ticks += delta_time
+	if(ticks < releasedelay)
 		return
 	else
-		ticks = 0
+		ticks -= releasedelay
 	var/turf/open/T = get_turf(src)
 	if(istype(T))
 		T.atmos_spawn_air("o2=5;plasma=5;TEMP=1000")
@@ -285,12 +291,8 @@
 	S.rabid = TRUE
 	S.amount_grown = SLIME_EVOLUTION_THRESHOLD
 	S.Evolve()
-
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a pyroclastic anomaly slime?", ROLE_PAI, null, null, 100, S, POLL_IGNORE_PYROSLIME)
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/chosen = pick(candidates)
-		S.key = chosen.key
-		log_game("[key_name(S.key)] was made into a slime by pyroclastic anomaly at [AREACOORD(T)].")
+	S.flavor_text = FLAVOR_TEXT_EVIL
+	S.set_playable()
 
 /////////////////////
 
@@ -314,7 +316,7 @@
 			if(target && !target.stat)
 				O.throw_at(target, 7, 5)
 		else
-			O.ex_act(EXPLODE_HEAVY)
+			SSexplosions.med_mov_atom += O
 
 /obj/effect/anomaly/bhole/proc/grav(r, ex_act_force, pull_chance, turf_removal_chance)
 	for(var/t = -r, t < r, t++)
@@ -333,7 +335,13 @@
 	if(prob(pull_chance))
 		for(var/obj/O in T.contents)
 			if(O.anchored)
-				O.ex_act(ex_act_force)
+				switch(ex_act_force)
+					if(EXPLODE_DEVASTATE)
+						SSexplosions.high_mov_atom += O
+					if(EXPLODE_HEAVY)
+						SSexplosions.med_mov_atom += O
+					if(EXPLODE_LIGHT)
+						SSexplosions.low_mov_atom += O
 			else
 				step_towards(O,src)
 		for(var/mob/living/M in T.contents)
@@ -341,4 +349,10 @@
 
 	//Damaging the turf
 	if( T && prob(turf_removal_chance) )
-		T.ex_act(ex_act_force)
+		switch(ex_act_force)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.highturf += T
+			if(EXPLODE_HEAVY)
+				SSexplosions.medturf += T
+			if(EXPLODE_LIGHT)
+				SSexplosions.lowturf += T

@@ -227,7 +227,8 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 	require_module = 1
-	module_type = /obj/item/robot_module/miner
+	module_type = list(/obj/item/robot_module/miner)
+	module_flags = BORG_MODULE_MINER
 	var/denied_type = null
 	var/maximum_of_type = 1
 	var/cost = 30

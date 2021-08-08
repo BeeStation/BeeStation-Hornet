@@ -1,9 +1,13 @@
-
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = "melee", absorb_text = null, soften_text = null, armour_penetration, penetrated_text)
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = "melee", absorb_text = null, soften_text = null, armour_penetration, penetrated_text, silent=FALSE)
 	var/armor = getarmor(def_zone, attack_flag)
 
+	if(armor <= 0)
+		return armor
+	if(silent)
+		return max(0, armor - armour_penetration)
+
 	//the if "armor" check is because this is used for everything on /living, including humans
-	if(armor > 0 && armour_penetration)
+	if(armour_penetration)
 		armor = max(0, armor - armour_penetration)
 		if(penetrated_text)
 			to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
@@ -14,13 +18,12 @@
 			to_chat(src, "<span class='notice'>[absorb_text]</span>")
 		else
 			to_chat(src, "<span class='notice'>Your armor absorbs the blow!</span>")
-	else if(armor > 0)
+	else
 		if(soften_text)
 			to_chat(src, "<span class='warning'>[soften_text]</span>")
 		else
 			to_chat(src, "<span class='warning'>Your armor softens the blow!</span>")
 	return armor
-
 
 /mob/living/proc/getarmor(def_zone, type)
 	return 0
@@ -43,6 +46,7 @@
 	return BULLET_ACT_HIT
 
 /mob/living/bullet_act(obj/item/projectile/P, def_zone)
+	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	var/armor = run_armor_check(def_zone, P.flag, "","",P.armour_penetration)
 	if(!P.nodamage)
 		apply_damage(P.damage, P.damage_type, def_zone, armor)
@@ -67,7 +71,11 @@
 		var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
 		var/volume = I.get_volume_by_throwforce_and_or_w_class()
-		SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone)
+		var/nosell_hit = SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans
+		if(nosell_hit)
+			skipcatch = TRUE
+			hitpush = FALSE
+
 		dtype = I.damtype
 
 		if (I.throwforce > 0) //If the weapon's throwforce is greater than zero...
@@ -87,13 +95,14 @@
 							"<span class='userdanger'>You're hit by [I]!</span>")
 			var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].",I.armour_penetration)
 			apply_damage(I.throwforce, dtype, zone, armor)
-			if(I.thrownby)
-				log_combat(I.thrownby, src, "threw and hit", I)
+			var/mob/thrown_by = I.thrownby?.resolve()
+			if(thrown_by)
+				log_combat(thrown_by, src, "threw and hit", I)
 		else
 			return 1
 	else
 		playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
-	..()
+	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 
 /mob/living/mech_melee_attack(obj/mecha/M)
@@ -348,7 +357,7 @@
 		SSmedals.UnlockMedal(MEDAL_SINGULARITY_DEATH,client)
 
 
-	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_SINGULO) //Oh that's where the clown ended up!
+	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
 	gib()
 	return(gain)
 
@@ -410,5 +419,3 @@
 		return TRUE
 	else
 		return FALSE
-
-

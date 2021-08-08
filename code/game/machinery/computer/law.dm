@@ -21,7 +21,7 @@
 			current = null
 			return
 		var/turf/currentloc = get_turf(current)
-		if(currentloc && user.z != currentloc.z)
+		if(currentloc && user.get_virtual_z_level() != currentloc.get_virtual_z_level())
 			to_chat(user, "<span class='caution'>Upload failed!</span> Unable to establish a connection to [current.name]. You're too far away!")
 			current = null
 			return

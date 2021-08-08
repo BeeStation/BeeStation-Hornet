@@ -166,25 +166,26 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-/obj/structure/destructible/cult/pylon/process()
+/obj/structure/destructible/cult/pylon/process(delta_time)
 	if(!anchored)
 		return
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(iscultist(L) || isshade(L) || isconstruct(L))
-				if(L.health != L.maxHealth)
-					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
-					if(ishuman(L))
-						L.adjustBruteLoss(-1, 0)
-						L.adjustFireLoss(-1, 0)
-						L.updatehealth()
-					if(isshade(L) || isconstruct(L))
-						var/mob/living/simple_animal/M = L
-						if(M.health < M.maxHealth)
-							M.adjustHealth(-3)
-				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
+			if(L.health == L.maxHealth)
+				continue
+			if(!iscultist(L) && !isshade(L) && !isconstruct(L))
+				continue
+			new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
+			if(ishuman(L))
+				L.adjustBruteLoss(-5*delta_time, 0)
+				L.adjustFireLoss(-5*delta_time, 0)
+				L.updatehealth()
+				if(L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1.0
+			else if(isshade(L) || isconstruct(L))
+				var/mob/living/simple_animal/M = L
+				M.adjustHealth(-15*delta_time)
 			CHECK_TICK
 	if(last_corrupt <= world.time)
 		var/list/validturfs = list()
@@ -257,6 +258,9 @@
 		for(var/N in pickedtype)
 			new N(get_turf(src))
 			to_chat(user, "<span class='cultitalic'>You summon the [choice] from the archives!</span>")
+
+/obj/structure/destructible/cult/tome/library //library archive
+	debris = null
 
 /obj/effect/gateway
 	name = "gateway"

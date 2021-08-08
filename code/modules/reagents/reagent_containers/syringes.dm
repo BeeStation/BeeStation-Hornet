@@ -78,16 +78,13 @@
 		else if(!L.can_inject(user, TRUE))
 			return
 
-	// chance of monkey retaliation
-	if(ismonkey(target) && prob(MONKEY_SYRINGE_RETALIATION_PROB))
-		var/mob/living/carbon/monkey/M
-		M = target
-		M.retaliate(user)
+	SEND_SIGNAL(target, COMSIG_LIVING_TRY_SYRINGE, user)
+
 	switch(mode)
 		if(SYRINGE_DRAW)
 
 			if(reagents.total_volume >= reagents.maximum_volume)
-				to_chat(user, "<span class='notice'>The syringe is full.</span>")
+				balloon_alert(user, "It's full")
 				return
 
 			if(L) //living mob
@@ -106,19 +103,21 @@
 					user.visible_message("[user] takes a blood sample from [L].")
 				else
 					to_chat(user, "<span class='warning'>You are unable to draw any blood from [L]!</span>")
+					balloon_alert(user, "Unable to take blood sample")
 
 			else //if not mob
 				if(!target.reagents.total_volume)
-					to_chat(user, "<span class='warning'>[target] is empty!</span>")
+					balloon_alert(user, "It's empty")
 					return
 
 				if(!target.is_drawable(user))
-					to_chat(user, "<span class='warning'>You cannot directly remove reagents from [target]!</span>")
+					balloon_alert(user, "You can't remove its reagents")
 					return
 
 				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user) // transfer from, transfer to - who cares?
 
 				to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the solution. It now contains [reagents.total_volume] units.</span>")
+				balloon_alert(user, "You fill [src] with [trans]u")
 			if (reagents.total_volume >= reagents.maximum_volume)
 				mode=!mode
 				update_icon()
@@ -129,15 +128,15 @@
 			log_combat(user, target, "attempted to inject", src, addition="which had [contained]")
 
 			if(!reagents.total_volume)
-				to_chat(user, "<span class='notice'>[src] is empty.</span>")
+				balloon_alert(user, "It's empty")
 				return
 
 			if(!L && !target.is_injectable(user)) //only checks on non-living mobs, due to how can_inject() handles
-				to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
+				balloon_alert(user, "You cannot fill [target]")
 				return
 
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				to_chat(user, "<span class='notice'>[target] is full.</span>")
+				balloon_alert(user, "It's full")
 				return
 
 			if(L) //living mob
@@ -177,6 +176,7 @@
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INJECT, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
+			balloon_alert(user, "[amount_per_transfer_from_this]u injected")
 			to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
 			if (reagents.total_volume <= 0 && mode==SYRINGE_INJECT)
 				mode = SYRINGE_DRAW
@@ -209,16 +209,16 @@
 /obj/item/reagent_containers/syringe/proc/embed(mob/living/carbon/C, injectmult = 1)
 	C.apply_status_effect(STATUS_EFFECT_SYRINGE, src, injectmult)
 	forceMove(C)
-	
+
 /obj/item/reagent_containers/syringe/used
 	name = "used syringe"
 	desc = "A syringe that can hold up to 15 units. This one is old, and it's probably a bad idea to use it"
-	
+
 
 /obj/item/reagent_containers/syringe/used/Initialize()
 	. = ..()
-	if(prob(50))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(2, 5), rand(6, 9))
+	if(prob(75))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, rand(3,4))
 		syringediseases += R
 
 /obj/item/reagent_containers/syringe/epinephrine
@@ -240,7 +240,7 @@
 	name = "syringe (diphenhydramine)"
 	desc = "Contains diphenhydramine, an antihistamine agent."
 	list_reagents = list(/datum/reagent/medicine/diphenhydramine = 15)
-	
+
 /obj/item/reagent_containers/syringe/calomel
 	name = "syringe (calomel)"
 	desc = "Contains calomel."

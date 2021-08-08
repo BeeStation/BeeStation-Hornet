@@ -41,20 +41,18 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	if(delete_after_roundstart)
 		qdel(src)
 
-/obj/effect/landmark/start/New()
+/obj/effect/landmark/start/Initialize()
+	. = ..()
 	GLOB.start_landmarks_list += src
 	if(jobspawn_override)
-		if(!GLOB.jobspawn_overrides[name])
-			GLOB.jobspawn_overrides[name] = list()
-		GLOB.jobspawn_overrides[name] += src
-	..()
+		LAZYADDASSOC(GLOB.jobspawn_overrides, name, src)
 	if(name != "start")
 		tag = "start*[name]"
 
 /obj/effect/landmark/start/Destroy()
 	GLOB.start_landmarks_list -= src
 	if(jobspawn_override)
-		GLOB.jobspawn_overrides[name] -= src
+		LAZYREMOVEASSOC(GLOB.jobspawn_overrides, name, src)
 	return ..()
 
 // START LANDMARKS FOLLOW. Don't change the names unless
@@ -214,8 +212,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/randommaint
 	name = "maintjobstart"
-	icon_state = "x3" 
-	var/job = "Gimmick" //put the title of the job here. 
+	icon_state = "x3"
+	var/job = "Gimmick" //put the title of the job here.
 
 /obj/effect/landmark/start/randommaint/New() //automatically opens up a job slot when the job's spawner loads in
 	..()
@@ -234,7 +232,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/randommaint/hobo
 	name = "Debtor"
 	job = "Debtor"
-	
+
 /obj/effect/landmark/start/randommaint/shrink
 	name = "Psychiatrist"
 	job = "Psychiatrist"
@@ -341,7 +339,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	GLOB.xeno_spawn += loc
 	return INITIALIZE_HINT_QDEL
 
-//objects with the stationloving component (nuke disk) respawn here. 
+//objects with the stationloving component (nuke disk) respawn here.
 //also blobs that have their spawn forcemoved (running out of time when picking their spawn spot), santa and respawning devils
 /obj/effect/landmark/blobstart
 	name = "blobstart"
@@ -476,3 +474,63 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	GLOB.ruin_landmarks -= src
 	ruin_template = null
 	. = ..()
+
+/obj/effect/landmark/start/hangover
+	name = "hangover spawn"
+	icon_state = "hangover_spawn"
+
+/obj/effect/landmark/start/hangover/Initialize()
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/landmark/start/hangover/LateInitialize()
+	. = ..()
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		return
+	if(prob(60))
+		new /obj/effect/decal/cleanable/vomit(get_turf(src))
+	if(prob(70))
+		var/bottle_count = rand(1, 3)
+		for(var/index in 1 to bottle_count)
+			var/turf/turf_to_spawn_on = get_step(src, pick(GLOB.alldirs))
+			if(!isopenturf(turf_to_spawn_on))
+				continue
+			var/dense_object = FALSE
+			for(var/atom/content in turf_to_spawn_on.contents)
+				if(content.density)
+					dense_object = TRUE
+					break
+			if(dense_object)
+				continue
+			new /obj/item/reagent_containers/food/drinks/beer/almost_empty(turf_to_spawn_on)
+
+///Spawns the mob with some drugginess/drunkeness, and some disgust.
+/obj/effect/landmark/start/hangover/proc/make_hungover(mob/hangover_mob)
+	if(!iscarbon(hangover_mob))
+		return
+	var/mob/living/carbon/spawned_carbon = hangover_mob
+	spawned_carbon.set_resting(TRUE, silent = TRUE)
+	if(prob(50))
+		spawned_carbon.adjust_drugginess(rand(15, 20))
+	else
+		spawned_carbon.drunkenness += rand(15, 25)
+	spawned_carbon.adjust_disgust(rand(5, 55)) //How hungover are you?
+	if(spawned_carbon.head)
+		return
+
+/obj/effect/landmark/start/hangover/JoinPlayerHere(mob/M, buckle)
+	. = ..()
+	make_hungover(M)
+
+/obj/effect/landmark/start/hangover/closet
+	name = "hangover spawn closet"
+	icon_state = "hangover_spawn_closet"
+
+/obj/effect/landmark/start/hangover/closet/JoinPlayerHere(mob/M, buckle)
+	make_hungover(M)
+	for(var/obj/structure/closet/closet in contents)
+		if(closet.opened)
+			continue
+		M.forceMove(closet)
+		return
+	..() //Call parent as fallback

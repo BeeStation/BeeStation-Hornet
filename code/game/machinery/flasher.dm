@@ -87,6 +87,13 @@
 	if (anchored)
 		return flash()
 
+/obj/machinery/flasher/eminence_act(mob/living/simple_animal/eminence/eminence)
+	. = ..()
+	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	if(do_after(eminence, 20, target=get_turf(eminence)))
+		if(anchored)
+			flash()
+
 /obj/machinery/flasher/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(damage_flag == "melee" && damage_amount < 10) //any melee attack below 10 dmg does nothing
 		return 0

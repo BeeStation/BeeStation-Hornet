@@ -1,0 +1,12 @@
+{
+    "map_name": "Corg Station",
+    "map_path": "map_files/CorgStation",
+    "map_file": "CorgStation.dmm",
+    "shuttles": {
+	    "cargo": "cargo_corg",
+	    "ferry": "ferry_fancy",
+	    "whiteship": "whiteship_box",
+	    "emergency": "emergency_corg"
+	},
+	"allow_night_lighting": 0
+}

@@ -55,6 +55,7 @@
 #define SPAN_PAPYRUS "papyrus"
 #define SPAN_REALLYBIG "reallybig"
 #define SPAN_COMMAND "command_headset"
+#define SPAN_MEGAPHONE "megaphone"
 #define SPAN_CLOWN "clowntext"
 #define SPAN_SINGING "singing"
 
@@ -68,6 +69,9 @@
 
 /// How close intercoms can be for radio code use
 #define MODE_RANGE_INTERCOM 1
+
+// Is the message actually a radio message
+#define MODE_RADIO_MESSAGE "actuallyradiomessage"
 
 // A link given to ghost alice to follow bob
 #define FOLLOW_LINK(alice, bob) "<a href=?src=[REF(alice)];follow=[REF(bob)]>(F)</a>"
@@ -85,9 +89,6 @@
 #define MAX_BROADCAST_LEN		512
 #define MAX_CHARTER_LEN			80
 
-//Sets the max string size that can be put in for circuit cloning
-#define MAX_SIZE_CIRCUIT		15000
-
 // Is something in the IC chat filter? This is config dependent.
 #define CHAT_FILTER_CHECK(T) (CONFIG_GET(flag/ic_filter_enabled) && config.ic_filter_regex && findtext(T, config.ic_filter_regex))
 // Is something in the OOC chat filter?
@@ -101,5 +102,5 @@
 #define INVOCATION_EMOTE "emote"
 #define INVOCATION_WHISPER "whisper"
 
-//Used in visible_message_flags, audible_message_flags and runechat_flags
-#define EMOTE_MESSAGE (1<<0)
+//Used in visible_message_flags, audible_message_flags and message_mods
+#define CHATMESSAGE_EMOTE "emotemessage"

@@ -44,11 +44,16 @@
 	name = "blood-tomato"
 	desc = "So bloody...so...very...bloody....AHHHH!!!!"
 	icon_state = "bloodtomato"
-	splat_type = /obj/effect/gibspawner/generic
+	splat_type = /obj/effect/gibspawner/generic/bloodtomato
 	filling_color = "#FF0000"
 	foodtype = FRUIT | GROSS
 	grind_results = list(/datum/reagent/consumable/ketchup = 0, /datum/reagent/blood = 0)
 	distill_reagent = /datum/reagent/consumable/ethanol/bloody_mary
+
+/obj/item/reagent_containers/food/snacks/grown/tomato/blood/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
+	if(istype(thrower) && thrower.ckey)
+		thrower.investigate_log("has thrown bloodtomatoes at [AREACOORD(thrower)].", INVESTIGATE_BOTANY)
+	. = ..()
 
 // Blue Tomato
 /obj/item/seeds/tomato/blue

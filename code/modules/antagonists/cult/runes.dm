@@ -233,7 +233,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			to_chat(M, "<span class='danger'>You need at least two invokers to convert [convertee]!</span>")
 		log_game("Offer rune failed - tried conversion with one invoker")
 		return 0
-	if(convertee.anti_magic_check(TRUE, TRUE, major = FALSE) || istype(convertee.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat)) //Not major because it can be spammed
+	if(convertee.anti_magic_check(TRUE, TRUE, major = FALSE) || istype(convertee.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat)) //Not major because it can be spammed
 		for(var/M in invokers)
 			to_chat(M, "<span class='warning'>Something is shielding [convertee]'s mind!</span>")
 		log_game("Offer rune failed - convertee had anti-magic")
@@ -581,7 +581,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/mob/dead/observer/C = pick(candidates)
 			to_chat(mob_to_revive.mind, "Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form.")
 			message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(mob_to_revive)]) to replace an AFK player.")
-			mob_to_revive.ghostize(0)
+			mob_to_revive.ghostize(FALSE)
 			mob_to_revive.key = C.key
 		else
 			fail_invoke()
@@ -638,7 +638,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	GLOB.wall_runes -= src
 	return ..()
 
-/obj/effect/rune/wall/BlockSuperconductivity()
+/obj/effect/rune/wall/BlockThermalConductivity()
 	return density
 
 /obj/effect/rune/wall/invoke(var/list/invokers)
@@ -660,7 +660,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/wall/proc/spread_density()
 	for(var/R in GLOB.wall_runes)
 		var/obj/effect/rune/wall/W = R
-		if(W.z == z && get_dist(src, W) <= 2 && !W.density && !W.recharging)
+		if(W.get_virtual_z_level() == get_virtual_z_level() && get_dist(src, W) <= 2 && !W.density && !W.recharging)
 			W.density = TRUE
 			W.update_state()
 			W.spread_density()
@@ -982,10 +982,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 		L.Paralyze(30)
 	empulse(T, 0.42*(intensity), 1)
 	var/list/images = list()
-	var/zmatch = T.z
+	var/zmatch = T.get_virtual_z_level()
 	var/datum/atom_hud/AH = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	for(var/mob/living/M in GLOB.alive_mob_list)
-		if(M.z != zmatch)
+		if(M.get_virtual_z_level() != zmatch)
 			continue
 		if(ishuman(M))
 			if(!iscultist(M))
@@ -1079,7 +1079,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /proc/hudFix(mob/living/carbon/human/target)
 	if(!target || !target.client)
 		return
-	var/obj/O = target.get_item_by_slot(SLOT_GLASSES)
+	var/obj/O = target.get_item_by_slot(ITEM_SLOT_EYES)
 	if(istype(O, /obj/item/clothing/glasses/hud/security))
 		var/datum/atom_hud/AH = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 		AH.add_hud_to(target)

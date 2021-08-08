@@ -1,3 +1,5 @@
+//#define FORCE_MAP "_maps/boxstation.json"
+
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
 	init_order = INIT_ORDER_MAPPING
@@ -19,7 +21,9 @@ SUBSYSTEM_DEF(mapping)
 
 	var/list/shuttle_templates = list()
 	var/list/shelter_templates = list()
+
 	var/list/random_room_templates = list()
+	var/list/holodeck_templates = list()
 
 	var/list/areas_in_z = list()
 
@@ -27,6 +31,10 @@ SUBSYSTEM_DEF(mapping)
 	var/list/turf/unused_turfs = list()				//Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
 	var/list/datum/turf_reservations		//list of turf reservations
 	var/list/used_turfs = list()				//list of turf = datum/turf_reservation
+
+	///All possible biomes in assoc list as type || instance
+	var/list/biomes = list()
+
 
 	var/clearing_reserved_turfs = FALSE
 
@@ -57,6 +65,7 @@ SUBSYSTEM_DEF(mapping)
 		if(!config || config.defaulted)
 			to_chat(world, "<span class='boldannounce'>Unable to load next or default map config, defaulting to Box Station</span>")
 			config = old_config
+	initialize_biomes()
 	loadWorld()
 	repopulate_sorted_areas()
 	process_teleport_locs()			//Sets up the wizard teleport locations
@@ -167,6 +176,7 @@ SUBSYSTEM_DEF(mapping)
 	unused_turfs = SSmapping.unused_turfs
 	turf_reservations = SSmapping.turf_reservations
 	used_turfs = SSmapping.used_turfs
+	holodeck_templates = SSmapping.holodeck_templates
 
 	config = SSmapping.config
 	next_map_config = SSmapping.next_map_config
@@ -267,7 +277,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 /datum/controller/subsystem/mapping/proc/generate_station_area_list()
 	var/list/station_areas_blacklist = typecacheof(list(/area/space, /area/mine, /area/ruin, /area/asteroid/nearstation))
-	for(var/area/A in world)
+	for(var/area/A in GLOB.sortedAreas)
 		if (is_type_in_typecache(A, station_areas_blacklist))
 			continue
 		if (!A.contents.len || !A.unique)
@@ -352,6 +362,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	preloadShuttleTemplates()
 	preloadShelterTemplates()
 	preloadRandomRoomTemplates()
+	preloadHolodeckTemplates()
 
 /datum/controller/subsystem/mapping/proc/preloadRandomRoomTemplates()
 	for(var/item in subtypesof(/datum/map_template/random_room))
@@ -412,6 +423,15 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 
 		shelter_templates[S.shelter_id] = S
 		map_templates[S.shelter_id] = S
+
+/datum/controller/subsystem/mapping/proc/preloadHolodeckTemplates()
+	for(var/item in subtypesof(/datum/map_template/holodeck))
+		var/datum/map_template/holodeck/holodeck_type = item
+		if(!(initial(holodeck_type.mappath)))
+			continue
+		var/datum/map_template/holodeck/holo_template = new holodeck_type()
+
+		holodeck_templates[holo_template.template_id] = holo_template
 
 //Manual loading of away missions.
 /client/proc/admin_away()
@@ -533,7 +553,10 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	used_turfs.Cut()
 	reserve_turfs(clearing)
 
-
+/datum/controller/subsystem/mapping/proc/initialize_biomes()
+	for(var/biome_path in subtypesof(/datum/biome))
+		var/datum/biome/biome_instance = new biome_path()
+		biomes[biome_path] += biome_instance
 
 /datum/controller/subsystem/mapping/proc/reg_in_areas_in_z(list/areas)
 	for(var/B in areas)

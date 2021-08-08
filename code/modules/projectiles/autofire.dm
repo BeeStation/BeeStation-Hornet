@@ -40,7 +40,7 @@ Everything else should be handled for you. Good luck soldier.
 /obj/item/gun/ballistic/automatic/c20r
 	full_auto = TRUE
 
-/obj/item/gun/ballistic/minigun
+/obj/item/gun/energy/minigun
 	full_auto = TRUE
 
 /obj/item/gun/ballistic/automatic/laser/ctf
@@ -87,6 +87,8 @@ Everything else should be handled for you. Good luck soldier.
 	START_PROCESSING(SSfastprocess, src) //Target acquired. Begin the spam. If we're already processing this is just ignored (see _DEFINES/MC.dm)
 
 /datum/component/full_auto/proc/unset_target()
+	SIGNAL_HANDLER
+
 	autofire_target = null
 	next_process = world.time + melee_attack_delay //So you can't abuse this to magdump.
 

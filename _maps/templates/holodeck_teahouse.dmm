@@ -1,0 +1,232 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"b" = (
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"c" = (
+/obj/structure/mineral_door/paperframe,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"d" = (
+/obj/structure/window/paperframe,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"e" = (
+/obj/structure/table/wood,
+/obj/effect/holodeck_effect/random_book,
+/obj/effect/holodeck_effect/random_book,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"f" = (
+/turf/open/floor/holofloor/carpet,
+/area/template_noop)
+"g" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	icon_state = "sakecup";
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/item/candle{
+	pixel_y = 10
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"h" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lantern,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"i" = (
+/obj/structure/flora/bush,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"j" = (
+/obj/structure/flora/ausbushes/ywflowers,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"k" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"l" = (
+/obj/structure/flora/tree/jungle/small,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"m" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"n" = (
+/obj/structure/bed/dogbed,
+/obj/effect/holodeck_effect/mobspawner/cat,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"o" = (
+/obj/structure/table/wood,
+/obj/item/instrument/violin,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"p" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/reagent_containers/food/drinks/mug,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"q" = (
+/obj/effect/holodeck_effect/mobspawner/butterfly,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"r" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/effect/holodeck_effect/mobspawner/butterfly,
+/turf/open/floor/holofloor/grass,
+/area/template_noop)
+"s" = (
+/obj/item/toy/cattoy,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+
+(1,1,1) = {"
+d
+d
+d
+c
+d
+d
+c
+d
+d
+d
+"}
+(2,1,1) = {"
+d
+f
+a
+a
+e
+o
+a
+a
+f
+d
+"}
+(3,1,1) = {"
+d
+g
+a
+a
+a
+a
+a
+a
+g
+d
+"}
+(4,1,1) = {"
+d
+f
+a
+f
+a
+s
+a
+a
+f
+d
+"}
+(5,1,1) = {"
+d
+n
+a
+g
+a
+d
+d
+c
+d
+d
+"}
+(6,1,1) = {"
+d
+f
+a
+f
+a
+d
+h
+k
+j
+j
+"}
+(7,1,1) = {"
+d
+g
+a
+a
+a
+c
+k
+b
+r
+m
+"}
+(8,1,1) = {"
+d
+f
+a
+a
+p
+d
+j
+q
+l
+b
+"}
+(9,1,1) = {"
+d
+d
+d
+c
+d
+d
+j
+m
+k
+i
+"}

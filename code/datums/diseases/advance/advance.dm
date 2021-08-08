@@ -25,8 +25,12 @@
 	spread_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/monkey/tumor)
 
-	// NEW VARS
-	var/list/properties = list()
+	var/resistance
+	var/stealth
+	var/stage_rate
+	var/transmission
+	var/severity
+	var/speed
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = FALSE
@@ -35,8 +39,8 @@
 	var/sentient = FALSE //used to classify if a disease is sentient
 	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
-	var/static/list/advance_cures = 	list(
-																/datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride,
+	var/static/list/advance_cures = list(
+									/datum/reagent/water, /datum/reagent/consumable/ethanol, /datum/reagent/consumable/sodiumchloride,
 									/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/mine_salve,
 									/datum/reagent/medicine/leporazine, /datum/reagent/concentrated_barbers_aid, /datum/reagent/toxin/lipolicide,
 									/datum/reagent/medicine/haloperidol, /datum/reagent/drug/krokodil
@@ -76,7 +80,7 @@
 		sortTim(advance_diseases, /proc/cmp_advdisease_resistance_asc)
 		for(var/i in 1 to replace_num)
 			var/datum/disease/advance/competition = advance_diseases[i]
-			if(totalTransmittable() > competition.totalResistance())
+			if(transmission > competition.resistance)
 				competition.cure(FALSE)
 			else
 				return FALSE //we are not strong enough to bully our way in
@@ -107,13 +111,12 @@
 
 // Compares type then ID.
 /datum/disease/advance/IsSame(datum/disease/advance/D)
-
-	if(!(istype(D, /datum/disease/advance)))
-		return 0
+	if(!istype(D, /datum/disease/advance))
+		return FALSE
 
 	if(GetDiseaseID() != D.GetDiseaseID())
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 // Returns the advance disease with a different reference memory.
 /datum/disease/advance/Copy()
@@ -121,7 +124,12 @@
 	QDEL_LIST(A.symptoms)
 	for(var/datum/symptom/S in symptoms)
 		A.symptoms += S.Copy()
-	A.properties = properties.Copy()
+	A.resistance = resistance
+	A.stealth = stealth
+	A.stage_rate = stage_rate
+	A.transmission = transmission
+	A.severity = severity
+	A.speed = speed
 	A.id = id
 	A.mutable = mutable
 	A.faltered = faltered
@@ -133,7 +141,7 @@
 	var/list/name_symptoms = list()
 	for(var/datum/symptom/S in symptoms)
 		name_symptoms += S.name
-	return "[name] sym:[english_list(name_symptoms)] r:[totalResistance()] s:[totalStealth()] ss:[totalStageSpeed()] t:[totalTransmittable()]"
+	return "[name] sym:[english_list(name_symptoms)] r:[resistance] s:[stealth] ss:[stage_rate] t:[transmission]"
 
 /*
 
@@ -195,45 +203,47 @@
 
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
-	properties = list("resistance" = 0, "stealth" = 0, "stage_rate" = 0, "transmittable" = 0, "severity" = 0)
+	resistance = 0
+	stealth = 0
+	stage_rate = 0
+	transmission = 0
+	severity = 0
 	for(var/datum/symptom/S in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
-		properties["resistance"] += S.resistance
-		properties["stealth"] += S.stealth
-		properties["stage_rate"] += S.stage_speed
-		properties["transmittable"] += S.transmittable
+		resistance += S.resistance
+		stealth += S.stealth
+		stage_rate += S.stage_speed
+		transmission += S.transmission
 		S.severityset(src)
 		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
-			properties["severity"] += S.severity
+			severity += S.severity
 	for(var/datum/symptom/S in symptoms)
 		S.severityset(src)
 		if(!S.neutered)
 			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
 				if(1 to 2)
-					properties["severity"] = max(properties["severity"], min(3, (S.severity + properties["severity"])))
+					severity= max(severity, min(3, (S.severity + severity)))
 				if(3 to 4)
-					properties["severity"] = max(properties["severity"], min(4, (S.severity + properties["severity"])))
+					severity = max(severity, min(4, (S.severity + severity)))
 	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
 		S.severityset(src)
 		if(!S.neutered && S.severity <= 0)
-			properties["severity"] += S.severity
+			severity += S.severity
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
-	if(properties && properties.len)
-		if(properties["stealth"] >= 2)
-			visibility_flags |= HIDDEN_SCANNER
-		else
-			visibility_flags &= ~HIDDEN_SCANNER
-
-		SetSpread(CLAMP(2 ** (properties["transmittable"] - symptoms.len), DISEASE_SPREAD_BLOOD, DISEASE_SPREAD_AIRBORNE))
-
-		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
-		cure_chance = 15 - CLAMP(properties["resistance"], -5, 5) // can be between 10 and 20
-		stage_prob = max(properties["stage_rate"], 2)
-		SetSeverity(properties["severity"])
-		GenerateCure(properties)
+	if(stealth >= 2)
+		visibility_flags |= HIDDEN_SCANNER
 	else
-		CRASH("Our properties were empty or null!")
+		visibility_flags &= ~HIDDEN_SCANNER
+
+	SetSpread(CLAMP(2 ** (transmission - symptoms.len), DISEASE_SPREAD_BLOOD, DISEASE_SPREAD_AIRBORNE))
+
+	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
+	cure_chance = 15 - CLAMP(resistance, -5, 5) // can be between 10 and 20
+	stage_prob = max(stage_rate, 2)
+	SetDanger(severity)
+	GenerateCure()
+
 
 
 // Assign the spread type and give it the correct description.
@@ -262,31 +272,31 @@
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
 				spread_text = "Airborne"
 
-/datum/disease/advance/proc/SetSeverity(level_sev)
+/datum/disease/advance/proc/SetDanger(level_sev)
 	switch(level_sev)
 		if(-INFINITY to -2)
-			severity = DISEASE_SEVERITY_BENEFICIAL
+			danger = DISEASE_BENEFICIAL
 		if(-1)
-			severity = DISEASE_SEVERITY_POSITIVE
+			danger = DISEASE_POSITIVE
 		if(0)
-			severity = DISEASE_SEVERITY_NONTHREAT
+			danger = DISEASE_NONTHREAT
 		if(1)
-			severity = DISEASE_SEVERITY_MINOR
+			danger = DISEASE_MINOR
 		if(2)
-			severity = DISEASE_SEVERITY_MEDIUM
+			danger = DISEASE_MEDIUM
 		if(3)
-			severity = DISEASE_SEVERITY_HARMFUL
+			danger = DISEASE_HARMFUL
 		if(4)
-			severity = DISEASE_SEVERITY_DANGEROUS
+			danger = DISEASE_DANGEROUS
 		if(5)
-			severity = DISEASE_SEVERITY_BIOHAZARD
+			danger = DISEASE_BIOHAZARD
 		if(6 to INFINITY)
-			severity = DISEASE_SEVERITY_PANDEMIC
+			danger = DISEASE_PANDEMIC
 		else
-			severity = "Unknown"
+			danger = "Unknown"
 
 /datum/disease/advance/proc/CheckChannel() //i hate that i have to  use this to make this work
-	switch(properties["severity"])
+	switch(severity)
 		if(-INFINITY to -2)
 			return 1
 		if(-1)
@@ -310,13 +320,12 @@
 
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure()
-	if(properties && properties.len)
-		var/res = CLAMP(properties["resistance"] - (symptoms.len / 2), 1, advance_cures.len)
-		cures = list(advance_cures[res])
+	var/res = CLAMP(resistance - (symptoms.len / 2), 1, advance_cures.len)
+	cures = list(advance_cures[res])
 
-		// Get the cure name from the cure_id
-		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
-		cure_text = D.name
+	// Get the cure name from the cure_id
+	var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
+	cure_text = D.name
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
 /datum/disease/advance/proc/Evolve(min_level, max_level, ignore_mutable = FALSE)
@@ -495,19 +504,3 @@
 			name_symptoms += S.name
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()]")
 		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()]!")
-
-
-/datum/disease/advance/proc/totalStageSpeed()
-	return properties["stage_rate"]
-
-/datum/disease/advance/proc/totalStealth()
-	return properties["stealth"]
-
-/datum/disease/advance/proc/totalResistance()
-	return properties["resistance"]
-
-/datum/disease/advance/proc/totalTransmittable()
-	return properties["transmittable"]
-
-/datum/disease/advance/proc/totalSeverity()
-	return properties["severity"]

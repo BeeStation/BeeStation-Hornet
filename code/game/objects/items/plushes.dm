@@ -565,3 +565,27 @@
 		forceMove(random_open_spot)
 	user.dust(just_ash = FALSE, drop_items = TRUE)
 	return MANUAL_SUICIDE
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/toy/plush/ian
+	name = "ian plushie"
+	desc = "Keep him by your side."
+	icon_state = "ianplush"
+
+/obj/item/toy/plush/lisa
+	name = "lisa plushie"
+	desc = "Keep her by your side."
+	icon_state = "lisaplush"
+
+/obj/item/toy/plush/renault
+	name = "renault plushie"
+	desc = "AWOOOO!"
+	icon_state = "renaultplush"
+
+/obj/item/toy/plush/opa
+	name = "metal upa"
+	desc = "You feel like this could have prevented World War 3 in a pararel timeline."
+	icon_state = "upaplush"

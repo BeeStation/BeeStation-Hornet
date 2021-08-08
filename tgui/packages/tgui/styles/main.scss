@@ -33,6 +33,7 @@
 @include meta.load-css('./components/ProgressBar.scss');
 @include meta.load-css('./components/Section.scss');
 @include meta.load-css('./components/Slider.scss');
+@include meta.load-css('./components/Stack.scss');
 @include meta.load-css('./components/Table.scss');
 @include meta.load-css('./components/Tabs.scss');
 @include meta.load-css('./components/TextArea.scss');
@@ -44,6 +45,7 @@
 @include meta.load-css('./interfaces/NuclearBomb.scss');
 @include meta.load-css('./interfaces/ModularFabricator.scss');
 @include meta.load-css('./interfaces/Roulette.scss');
+@include meta.load-css('./interfaces/IntegratedCircuit.scss');
 
 // Layouts
 @include meta.load-css('./layouts/Layout.scss');

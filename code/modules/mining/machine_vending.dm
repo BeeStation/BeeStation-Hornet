@@ -12,9 +12,12 @@
 	var/icon_deny = "mining-deny"
 	var/obj/item/card/id/inserted_id
 	var/list/prize_list = list( //if you add something to this, please, for the love of god, sort it by price/type. use tabs and not spaces.
-		new /datum/data/mining_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,								100),
+		new /datum/data/mining_equipment("1 Marker Beacon",				/obj/item/stack/marker_beacon,										5),
+		new /datum/data/mining_equipment("10 Marker Beacons",			/obj/item/stack/marker_beacon/ten,									500),
+		new /datum/data/mining_equipment("30 Marker Beacons",			/obj/item/stack/marker_beacon/thirty,								150),
 		new /datum/data/mining_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
 		new /datum/data/mining_equipment("Regen. Core Stabilizer",		/obj/item/hivelordstabilizer,										400),
+		new /datum/data/mining_equipment("Skeleton Key",				/obj/item/skeleton_key,												750),
 		new /datum/data/mining_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/medipen/survival,			500),
 		new /datum/data/mining_equipment("Brute Healing Kit",			/obj/item/storage/firstaid/brute,									600),
 		new /datum/data/mining_equipment("Burn Healing Kit",			/obj/item/storage/firstaid/fire,									600),
@@ -25,7 +28,7 @@
 		new /datum/data/mining_equipment("Advanced Ore Scanner",		/obj/item/t_scanner/adv_mining_scanner,								800),
 		new /datum/data/mining_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
 		new /datum/data/mining_equipment("Jump Boots",					/obj/item/clothing/shoes/bhop,										2000),
-		new /datum/data/mining_equipment("Proto-Kinetic Crusher",		/obj/item/twohanded/kinetic_crusher,								800),
+		new /datum/data/mining_equipment("Proto-Kinetic Crusher",		/obj/item/kinetic_crusher,								800),
 		new /datum/data/mining_equipment("Proto-Kinetic Accelerator",	/obj/item/gun/energy/kinetic_accelerator,							500),
 		new /datum/data/mining_equipment("Resonator",					/obj/item/resonator,												750),
 		new /datum/data/mining_equipment("Upgraded Resonator",			/obj/item/resonator/upgraded,										1500),
@@ -165,6 +168,7 @@
 			new prize.equipment_path(loc)
 			SSblackbox.record_feedback("nested tally", "mining_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
 			. = TRUE
+	ui_update()
 
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mining_voucher))
@@ -200,7 +204,7 @@
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/twohanded/kinetic_crusher(drop_location)
+			new /obj/item/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffelbag/mining_conscript(drop_location)
 
@@ -267,23 +271,10 @@
 	. += "<span class='info'>There's [points] point\s on the card.</span>"
 
 ///Conscript kit
-/obj/item/card/mining_access_card
+/obj/item/card/id/pass/mining_access_card
 	name = "mining access card"
 	desc = "A small card, that when used on any ID, will add mining access."
-	icon_state = "data_1"
-
-/obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity)
-	. = ..()
-	if(istype(AM, /obj/item/card/id) && proximity)
-		var/obj/item/card/id/I = AM
-		I.access |=	ACCESS_MINING
-		I.access |= ACCESS_MINING_STATION
-		I.access |= ACCESS_MECH_MINING
-		I.access |= ACCESS_MINERAL_STOREROOM
-		I.access |= ACCESS_CARGO
-		to_chat(user, "You upgrade [I] with mining access.")
-		log_id("[key_name(user)] added mining access to '[I]' using [src] at [AREACOORD(user)].")
-		qdel(src)
+	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
 
 /obj/item/storage/backpack/duffelbag/mining_conscript
 	name = "mining conscription kit"
@@ -297,5 +288,4 @@
 	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
 	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/card/mining_access_card(src)
-	new /obj/item/card/id/mining(src)
+	new /obj/item/card/id/pass/mining_access_card(src)

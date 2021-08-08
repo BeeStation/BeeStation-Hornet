@@ -76,8 +76,7 @@ export const KitchenSink = (props, context) => {
   const PageComponent = PAGES[pageIndex].component();
   return (
     <Window
-      theme={theme}
-      resizable>
+      theme={theme}>
       <Window.Content scrollable>
         <Section>
           <Flex>

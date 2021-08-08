@@ -47,11 +47,11 @@
 		L.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
 		for(var/thing in L.diseases)
 			var/datum/disease/D = thing
-			if(D.severity == DISEASE_SEVERITY_POSITIVE || D.severity == DISEASE_SEVERITY_BENEFICIAL || D.spread_flags == DISEASE_SPREAD_SPECIAL)
+			if(D.danger == DISEASE_POSITIVE || D.danger == DISEASE_BENEFICIAL || D.spread_flags == DISEASE_SPREAD_SPECIAL)
 				continue
 			if(D in subtypesof(/datum/disease/advance))
 				var/datum/disease/advance/A = D
-				if(A.properties["resistance"] >= 12)
+				if(A.resistance >= 12)
 					continue
 			D.cure(FALSE)
 	return TRUE

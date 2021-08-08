@@ -38,6 +38,7 @@ Passive gate is similar to the regular pump except:
 /obj/machinery/atmospherics/components/binary/passive_gate/AltClick(mob/user)
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
+		balloon_alert(user, "Set to [target_pressure] kPa")
 		update_icon()
 	return
 
@@ -118,6 +119,7 @@ Passive gate is similar to the regular pump except:
 			if(.)
 				target_pressure = clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
 				investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
+	ui_update()
 	update_icon()
 
 /obj/machinery/atmospherics/components/binary/passive_gate/atmosinit()

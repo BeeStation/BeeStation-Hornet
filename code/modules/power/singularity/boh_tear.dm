@@ -52,7 +52,7 @@
 	if(isliving(AM))
 		var/mob/living/M = AM
 		var/turf/T = get_turf(src)
-		investigate_log("([key_name(A)]) has been consumed by the BoH tear at [AREACOORD(T)].", INVESTIGATE_SINGULO)
+		investigate_log("([key_name(A)]) has been consumed by the BoH tear at [AREACOORD(T)].", INVESTIGATE_ENGINES)
 		M.ghostize(FALSE)
 	else if(!isobj(AM))
 		return
@@ -61,7 +61,7 @@
 /obj/singularity/boh_tear/admin_investigate_setup()
 	var/turf/T = get_turf(src)
 	message_admins("A BoH tear has been created at [ADMIN_VERBOSEJMP(T)]. [ADMIN_RETRIEVE_BOH_ITEMS(src)]")
-	investigate_log("was created at [AREACOORD(T)].", INVESTIGATE_SINGULO)
+	investigate_log("was created at [AREACOORD(T)].", INVESTIGATE_ENGINES)
 
 /obj/singularity/boh_tear/attack_tk(mob/living/user)
 	if(!istype(user))

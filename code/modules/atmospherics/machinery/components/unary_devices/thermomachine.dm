@@ -102,11 +102,10 @@
 	if(cooling)
 		target_temperature = min_temperature
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-		to_chat(user, "<span class='notice'>You minimize the target temperature on [src] to [target_temperature] K.</span>")
 	else
 		target_temperature = max_temperature
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-		to_chat(user, "<span class='notice'>You maximize the target temperature on [src] to [target_temperature] K.</span>")
+	balloon_alert(user, "Set to [target_temperature] K")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
 	..()
@@ -225,13 +224,14 @@
 			if(.)
 				target_temperature = clamp(target, min_temperature, max_temperature)
 				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
-
+	ui_update()
 	update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/living/user)
 	if(!can_interact(user))
 		return
 	on = !on
+	ui_update()
 	update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer

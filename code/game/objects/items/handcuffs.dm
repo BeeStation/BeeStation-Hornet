@@ -44,16 +44,12 @@
 	if(!istype(C))
 		return
 
+	SEND_SIGNAL(C, COMSIG_CARBON_CUFF_ATTEMPTED, user)
+
 	if(iscarbon(user) && (HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50)))
 		to_chat(user, "<span class='warning'>Uh... how do those things work?!</span>")
 		apply_cuffs(user,user)
 		return
-
-	// chance of monkey retaliation
-	if(ismonkey(C) && prob(MONKEY_CUFF_RETALIATION_PROB))
-		var/mob/living/carbon/monkey/M
-		M = C
-		M.retaliate(user)
 
 	if(!C.handcuffed)
 		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
@@ -61,7 +57,7 @@
 								"<span class='userdanger'>[user] is trying to put [src.name] on you!</span>")
 
 			playsound(loc, cuffsound, 30, 1, -2)
-			if(do_mob(user, C, 30) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
+			if(do_mob(user, C, 40) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
 				if(iscyborg(user))
 					apply_cuffs(C, user, TRUE)
 				else
@@ -340,7 +336,7 @@
 	item_state = "bola"
 	lefthand_file = 'icons/mob/inhands/weapons/thrown_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/thrown_righthand.dmi'
-	breakouttime = 35//easy to apply, easy to break out of
+	breakouttime = 20//easy to apply, easy to break out of
 	gender = NEUTER
 	var/knockdown = 0
 
@@ -368,7 +364,8 @@
 		C.update_inv_legcuffed()
 		SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 		to_chat(C, "<span class='userdanger'>\The [src] ensnares you!</span>")
-		C.Paralyze(knockdown)
+		if(knockdown)
+			C.Paralyze(knockdown)	
 		playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
 /obj/item/restraints/legcuffs/bola/tactical//traitor variant

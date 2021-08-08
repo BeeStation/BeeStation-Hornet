@@ -125,7 +125,7 @@
 	if(seed.get_gene(/datum/plant_gene/trait/noreact))
 		visible_message("<span class='warning'>[src] crumples, and bubbles ominously as its contents mix.</span>")
 		addtimer(CALLBACK(src, .proc/squashreact), 20)
-		
+
 /obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
 	for(var/datum/plant_gene/trait/trait in seed.genes)
 		trait.on_squashreact(src)
@@ -180,6 +180,7 @@
 	var/obj/item/T
 	if(trash)
 		T = generate_trash()
+		T.remove_item_from_storage(get_turf(T))
 		qdel(src)
-		user.putItemFromInventoryInHandIfPossible(T, user.active_hand_index, TRUE)
+		user.put_in_hands(T, FALSE)
 		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")

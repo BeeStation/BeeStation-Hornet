@@ -38,6 +38,8 @@
 		M.update_inv_wear_suit()
 
 /obj/item/clothing/suit/proc/on_mob_move()
+	SIGNAL_HANDLER
+
 	var/mob/living/carbon/human/H = loc
 	if(!istype(H) || H.wear_suit != src)
 		return
@@ -51,9 +53,10 @@
 	if(!islist(move_sound))
 		return
 	//Check if we were taken off.
-	if(slot != SLOT_WEAR_SUIT)
+	if(slot != ITEM_SLOT_OCLOTHING)
 		if(listeningTo)
 			UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
+			listeningTo = null
 		return
 	if(listeningTo == user)
 		return
@@ -69,6 +72,7 @@
 	//Remove our listener
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
+		listeningTo = null
 
 /obj/item/clothing/suit/Destroy()
 	listeningTo = null

@@ -67,7 +67,7 @@
 										"<span class='userdanger'>You catch [I] in mid-air!</span>")
 						throw_mode_off()
 						return 1
-	..()
+	..(AM, skipcatch, hitpush, blocked, throwingdatum)
 
 
 /mob/living/carbon/attacked_by(obj/item/I, mob/living/user)
@@ -119,6 +119,9 @@
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
+
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		. = TRUE
 
 	for(var/thing in diseases)
 		var/datum/disease/D = thing
@@ -263,6 +266,9 @@
 		to_chat(M, "<span class='warning'>You can't put [p_them()] out with just your bare hands!</span>")
 		return
 
+	if(M == src && check_self_for_injuries())
+		return
+
 	if(!(mobility_flags & MOBILITY_STAND))
 		if(buckled)
 			to_chat(M, "<span class='warning'>You need to unbuckle [src] first to do that!")
@@ -284,6 +290,7 @@
 	else if(M.zone_selected == BODY_ZONE_HEAD)
 		M.visible_message("<span class='notice'>[M] pats [src] on the head.</span>", \
 					"<span class='notice'>You pat [src] on the head.</span>")
+		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "headpat", /datum/mood_event/headpat, M)
 	else if((M.zone_selected == BODY_ZONE_L_ARM) || (M.zone_selected == BODY_ZONE_R_ARM))
 		if(!get_bodypart(check_zone(M.zone_selected)))
 			to_chat(M, "<span class='warning'>[src] does not have a [M.zone_selected == BODY_ZONE_L_ARM ? "left" : "right"] arm!</span>")
@@ -302,14 +309,33 @@
 
 	playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
+/// Check ourselves to see if we've got any shrapnel, return true if we do. This is a much simpler version of what humans do, we only indicate we're checking ourselves if there's actually shrapnel
+/mob/living/carbon/proc/check_self_for_injuries()
+	if(stat == DEAD || stat == UNCONSCIOUS)
+		return
+
+	var/embeds = FALSE
+	for(var/X in bodyparts)
+		var/obj/item/bodypart/LB = X
+		for(var/obj/item/I in LB.embedded_objects)
+			if(!embeds)
+				embeds = TRUE
+				// this way, we only visibly try to examine ourselves if we have something embedded, otherwise we'll still hug ourselves :)
+				visible_message("<span class='notice'>[src] examines [p_them()]self.</span>", \
+					"<span class='notice'>You check yourself for shrapnel.</span>")
+			if(I.isEmbedHarmless())
+				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] stuck to your [LB.name]!</a>")
+			else
+				to_chat(src, "\t <a href='?src=[REF(src)];embedded_object=[REF(I)];embedded_limb=[REF(LB)]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+
+	return embeds
 
 /mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(NOFLASH in dna?.species?.species_traits)
 		return
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
-	if(!eyes) //can't flash what can't see!
+	if(!eyes || HAS_TRAIT(src, TRAIT_BLIND)) //can't flash what can't see!
 		return
-
 	. = ..()
 
 	var/damage = intensity - get_eye_protection()

@@ -22,7 +22,7 @@
 	. = ..()
 	SSshuttle.beacons |= src
 
-obj/machinery/spaceship_navigation_beacon/emp_act()
+/obj/machinery/spaceship_navigation_beacon/emp_act()
 	locked = TRUE
 
 /obj/machinery/spaceship_navigation_beacon/Destroy()

@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	var/list/baseturfs = /turf/baseturf_bottom
 
 	/// How hot the turf is, in kelvin
-	var/temperature = T20C
+	var/initial_temperature = T20C
 
 	/// Used for fire, if a melting temperature was reached, it will be destroyed
 	var/to_be_destroyed = 0
@@ -47,6 +47,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	var/tiled_dirt = FALSE
 
 	vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_ID	//when this be added to vis_contents of something it inherit something.plane and be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
+
+	///the holodeck can load onto this turf if TRUE
+	var/holodeck_compatible = FALSE
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -78,7 +81,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
-		SSair.add_to_active(src)
 
 	if (light_power && light_range)
 		update_light()
@@ -96,8 +98,20 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		has_opaque_atom = TRUE
 
 	ComponentInitialize()
+	if(isopenturf(src))
+		var/turf/open/O = src
+		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()) && !O.planetary_atmos)
+	else
+		update_air_ref(-1)
+		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
 
 	return INITIALIZE_HINT_NORMAL
+
+/turf/proc/__auxtools_update_turf_temp_info()
+
+/turf/return_temperature()
+
+/turf/proc/set_temperature()
 
 /turf/proc/Initalize_Atmos(times_fired)
 	CALCULATE_ADJACENT_TURFS(src)
@@ -122,12 +136,13 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		for(var/I in B.vars)
 			B.vars[I] = null
 		return
-	SSair.remove_from_active(src)
 	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
+
+	vis_contents.Cut()
 
 /turf/attack_hand(mob/user)
 	. = ..()
@@ -191,7 +206,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	target.zImpact(A, levels, src)
 	return TRUE
 
-/turf/proc/handleRCL(obj/item/twohanded/rcl/C, mob/user)
+/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
 	if(C.loaded)
 		for(var/obj/structure/cable/LC in src)
 			if(!LC.d1 || !LC.d2)
@@ -214,7 +229,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		coil.place_turf(src, user)
 		return TRUE
 
-	else if(istype(C, /obj/item/twohanded/rcl))
+	else if(istype(C, /obj/item/rcl))
 		handleRCL(C, user)
 
 	return FALSE
@@ -381,7 +396,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	if(length(src_object.contents()))
-		to_chat(usr, "<span class='notice'>You start dumping out the contents...</span>")
+		balloon_alert(usr, "You dump out the contents")
 		if(!do_after(usr,20,target=src_object.parent))
 			return FALSE
 
@@ -460,7 +475,13 @@ GLOBAL_LIST_EMPTY(station_turfs)
 				var/atom/movable/movable_thing = atom_thing
 				if(!movable_thing.ex_check(explosion_id))
 					continue
-			atom_thing.ex_act(severity, target)
+				switch(severity)
+					if(EXPLODE_DEVASTATE)
+						SSexplosions.high_mov_atom += movable_thing
+					if(EXPLODE_HEAVY)
+						SSexplosions.med_mov_atom += movable_thing
+					if(EXPLODE_LIGHT)
+						SSexplosions.low_mov_atom += movable_thing
 
 /turf/narsie_act(force, ignore_mobs, probability = 20)
 	. = (prob(probability) || force)

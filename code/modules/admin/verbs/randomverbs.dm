@@ -424,7 +424,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.real_name = record_found.fields["name"]
 		new_character.gender = record_found.fields["sex"]
 		new_character.age = record_found.fields["age"]
-		new_character.hardset_dna(record_found.fields["identity"], record_found.fields["enzymes"], record_found.fields["name"], record_found.fields["blood_type"], new record_found.fields["species"], record_found.fields["features"])
+		new_character.hardset_dna(record_found.fields["identity"], record_found.fields["enzymes"], record_found.fields["name"], record_found.fields["blood_type"], new record_found.fields["species"], record_found.fields["features"], null)
 	else
 		var/datum/preferences/A = new()
 		A.copy_to(new_character)
@@ -564,7 +564,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/announce_command_report = TRUE
 	switch(confirm)
 		if("Yes")
-			priority_announce(input, null, 'sound/ai/commandreport.ogg')
+			priority_announce(input, null, SSstation.announcer.get_rand_report_sound(), has_important_message = TRUE)
 			announce_command_report = FALSE
 		if("Cancel")
 			return
@@ -740,9 +740,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
-	if(confirm != "Yes")
-		return
+	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "Yes (No Recall)", "No")
+	switch(confirm)
+		if(null, "No")
+			return
+		if("Yes (No Recall)")
+			SSshuttle.adminEmergencyNoRecall = TRUE
+			SSshuttle.emergency.mode = SHUTTLE_IDLE
 
 	SSshuttle.emergency.request()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Call Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -760,6 +764,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	if(EMERGENCY_AT_LEAST_DOCKED)
 		return
+
+	if(SSshuttle.adminEmergencyNoRecall)
+		SSshuttle.adminEmergencyNoRecall = FALSE
 
 	SSshuttle.emergency.cancel()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Cancel Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -1065,7 +1072,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN) || !check_rights(R_FUN))
 		return
 
-	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_BSA, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_ROD, ADMIN_PUNISHMENT_SUPPLYPOD_QUICK, ADMIN_PUNISHMENT_SUPPLYPOD, ADMIN_PUNISHMENT_MAZING, ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE, ADMIN_PUNISHMENT_IMMERSE)
+	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_BSA, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_ROD, ADMIN_PUNISHMENT_SUPPLYPOD_QUICK, ADMIN_PUNISHMENT_SUPPLYPOD, ADMIN_PUNISHMENT_MAZING, ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE, ADMIN_PUNISHMENT_IMMERSE, ADMIN_PUNISHMENT_GHOST)
 	if(istype(target, /mob/living/carbon))
 		punishment_list += ADMIN_PUNISHMENT_NUGGET
 	var/punishment = input("Choose a punishment", "DIVINE SMITING") as null|anything in sortList(punishment_list)
@@ -1112,7 +1119,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						alert("ERROR: Incorrect / improper path given.")
 						return
 				new delivery(pod)
-			new /obj/effect/DPtarget(get_turf(target), pod)
+			new /obj/effect/pod_landingzone(get_turf(target), pod)
 		if(ADMIN_PUNISHMENT_SUPPLYPOD)
 			var/datum/centcom_podlauncher/plaunch  = new(usr)
 			if(!holder)
@@ -1124,7 +1131,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			plaunch.temp_pod.damage = 40//bring the mother fuckin ruckus
 			plaunch.temp_pod.explosionSize = list(0,0,0,2)
 			plaunch.temp_pod.effectStun = TRUE
-			plaunch.ui_interact(usr)
 			return //We return here because punish_log() is handled by the centcom_podlauncher datum
 
 		if(ADMIN_PUNISHMENT_MAZING)
@@ -1158,6 +1164,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		if(ADMIN_PUNISHMENT_IMMERSE)
 			immerse_player(target)
+
+		if(ADMIN_PUNISHMENT_GHOST)
+			if (target.key)
+				target.ghostize(FALSE,SENTIENCE_FORCE)
+			else
+				target.set_playable()
 
 	punish_log(target, punishment)
 
@@ -1197,22 +1209,17 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	msg += "</UL></BODY></HTML>"
 	src << browse(msg.Join(), "window=Player_playtime_check")
 
-/datum/admins/proc/cmd_show_exp_panel(client/C)
+/datum/admins/proc/cmd_show_exp_panel(client/client_to_check)
 	if(!check_rights(R_ADMIN))
 		return
-	if(!C)
+	if(!client_to_check)
 		to_chat(usr, "<span class='danger'>ERROR: Client not found.</span>")
 		return
 	if(!CONFIG_GET(flag/use_exp_tracking))
 		to_chat(usr, "<span class='warning'>Tracking is disabled in the server configuration file.</span>")
 		return
 
-	var/list/body = list()
-	body += "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Playtime for [C.key]</title></head><BODY><BR>Playtime:"
-	body += C.get_exp_report()
-	body += "<A href='?_src_=holder;[HrefToken()];toggleexempt=[REF(C)]'>Toggle Exempt status</a>"
-	body += "</BODY></HTML>"
-	usr << browse(body.Join(), "window=playerplaytime[C.ckey];size=550x615")
+	new /datum/job_report_menu(client_to_check, usr)
 
 /datum/admins/proc/toggle_exempt_status(client/C)
 	if(!check_rights(R_ADMIN))
@@ -1243,12 +1250,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /datum/admins/proc/modify_traits(datum/D)
 	if(!D)
 		return
-	
+
 	var/add_or_remove = input("Remove/Add?", "Trait Remove/Add") as null|anything in list("Add","Remove")
 	if(!add_or_remove)
 		return
 	var/list/available_traits = list()
-	
+
 	switch(add_or_remove)
 		if("Add")
 			for(var/key in GLOB.traits_by_type)
@@ -1261,7 +1268,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				var/name = GLOB.trait_name_map[trait] || trait
 				available_traits[name] = trait
 
-	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in available_traits 
+	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in available_traits
 	if(!chosen_trait)
 		return
 	chosen_trait = available_traits[chosen_trait]

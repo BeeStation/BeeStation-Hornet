@@ -212,6 +212,7 @@
 	area.power_equip = FALSE
 	area.power_environ = FALSE
 	area.power_change()
+	area.poweralert(FALSE, src)
 	if(occupier)
 		malfvacate(1)
 	qdel(wires)
@@ -331,12 +332,17 @@
 	if(update & 2)
 		SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 		if(!(stat & (BROKEN|MAINT)) && update_state & UPSTATE_ALLGOOD)
-			SSvis_overlays.add_vis_overlay(src, icon, "apcox-[locked]", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir)
-			SSvis_overlays.add_vis_overlay(src, icon, "apco3-[charging]", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir)
+			SSvis_overlays.add_vis_overlay(src, icon, "apcox-[locked]", layer, plane, dir)
+			SSvis_overlays.add_vis_overlay(src, icon, "apcox-[locked]", layer, EMISSIVE_PLANE, dir)
+			SSvis_overlays.add_vis_overlay(src, icon, "apco3-[charging]", layer, plane, dir)
+			SSvis_overlays.add_vis_overlay(src, icon, "apco3-[charging]", layer, EMISSIVE_PLANE, dir)
 			if(operating)
-				SSvis_overlays.add_vis_overlay(src, icon, "apco0-[equipment]", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir)
-				SSvis_overlays.add_vis_overlay(src, icon, "apco1-[lighting]", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir)
-				SSvis_overlays.add_vis_overlay(src, icon, "apco2-[environ]", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE, dir)
+				SSvis_overlays.add_vis_overlay(src, icon, "apco0-[equipment]", layer, plane, dir)
+				SSvis_overlays.add_vis_overlay(src, icon, "apco0-[equipment]", layer, EMISSIVE_PLANE, dir)
+				SSvis_overlays.add_vis_overlay(src, icon, "apco1-[lighting]", layer, plane, dir)
+				SSvis_overlays.add_vis_overlay(src, icon, "apco1-[lighting]", layer, EMISSIVE_PLANE, dir)
+				SSvis_overlays.add_vis_overlay(src, icon, "apco2-[environ]", layer, plane, dir)
+				SSvis_overlays.add_vis_overlay(src, icon, "apco2-[environ]", layer, EMISSIVE_PLANE, dir)
 
 	// And now, separately for cleanness, the lighting changing
 	if(update_state & UPSTATE_ALLGOOD)
@@ -628,6 +634,7 @@
 			if(!has_electronics)
 				has_electronics = APC_ELECTRONICS_INSTALLED
 				locked = FALSE
+				wires.ui_update()
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
 				qdel(W)
 	else if(istype(W, /obj/item/electroadaptive_pseudocircuit) && opened)
@@ -642,6 +649,7 @@
 			"<span class='notice'>You adapt a power control board and click it into place in [src]'s guts.</span>")
 			has_electronics = APC_ELECTRONICS_INSTALLED
 			locked = FALSE
+			wires.ui_update()
 		else if(!cell)
 			if(stat & MAINT)
 				to_chat(user, "<span class='warning'>There's no connector for a power cell.</span>")
@@ -693,6 +701,52 @@
 	else
 		return ..()
 
+/obj/machinery/power/apc/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+	if(the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS)
+		if(!has_electronics)
+			if(stat & BROKEN)
+				to_chat(user, "<span class='warning'>[src]'s frame is too damaged to support a circuit.</span>")
+				return FALSE
+			return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)
+		else if(!cell)
+			if(stat & MAINT)
+				to_chat(user, "<span class='warning'>There's no connector for a power cell.</span>")
+				return FALSE
+			return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 50, "cost" = 10) //16 for a wall
+		else
+			to_chat(user, "<span class='warning'>[src] has both electronics and a cell.</span>")
+			return FALSE
+	return FALSE
+
+/obj/machinery/power/apc/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+	switch(passed_mode)
+		if(RCD_UPGRADE_SIMPLE_CIRCUITS)
+			if(!has_electronics)
+				if(stat & BROKEN)
+					to_chat(user, "<span class='warning'>[src]'s frame is too damaged to support a circuit.</span>")
+					return
+				user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
+				"<span class='notice'>You adapt a power control board and click it into place in [src]'s guts.</span>")
+				has_electronics = TRUE
+				locked = FALSE
+				return TRUE
+			else if(!cell)
+				if(stat & MAINT)
+					to_chat(user, "<span class='warning'>There's no connector for a power cell.</span>")
+					return FALSE
+				var/obj/item/stock_parts/cell/crap/empty/C = new(src)
+				C.forceMove(src)
+				cell = C
+				chargecount = 0
+				user.visible_message("<span class='notice'>[user] fabricates a weak power cell and places it into [src].</span>", \
+				"<span class='warning'>Your [the_rcd.name] whirrs with strain as you create a weak power cell and place it into [src]!</span>")
+				update_icon()
+				return TRUE
+			else
+				to_chat(user, "<span class='warning'>[src] has both electronics and a cell.</span>")
+				return FALSE
+	return FALSE
+
 /obj/machinery/power/apc/AltClick(mob/user)
 	if(!user.canUseTopic(src, !issilicon(user)) || !isturf(loc))
 		return
@@ -711,6 +765,7 @@
 	else
 		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
 			locked = !locked
+			wires.ui_update()
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
 			update_icon()
 			updateUsrDialog()
@@ -757,6 +812,7 @@
 			playsound(src, "sparks", 75, 1)
 			obj_flags |= EMAGGED
 			locked = FALSE
+			wires.ui_update()
 			to_chat(user, "<span class='notice'>You emag the APC interface.</span>")
 			update_icon()
 
@@ -839,7 +895,7 @@
 		var/mob/living/silicon/ai/AI = user
 		if(AI.apc_override == src)
 			return GLOB.conscious_state
-	if(iseminence(user))
+	if(iseminence(user) && integration_cog)
 		return GLOB.conscious_state
 	return GLOB.default_state
 
@@ -849,6 +905,7 @@
 	if(!ui)
 		ui = new(user, src, "Apc")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/power/apc/ui_data(mob/user)
 	var/list/data = list(
@@ -1024,6 +1081,7 @@
 					L.no_emergency = emergency_lights
 					INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 				CHECK_TICK
+	wires.ui_update()
 	return 1
 
 /obj/machinery/power/apc/ui_close(mob/user)
@@ -1359,6 +1417,7 @@
 			environ = 3
 			update_icon()
 			update()
+	wires.ui_update()
 
 // damage and destruction acts
 /obj/machinery/power/apc/emp_act(severity)

@@ -69,19 +69,18 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	icon_icon = 'icons/mob/actions/actions_elites.dmi'
 	button_icon_state = ""
 	background_icon_state = "bg_default"
-	var/mob/living/simple_animal/hostile/asteroid/elite/M
 	var/chosen_message
 	var/chosen_attack_num = 0
 
 /datum/action/innate/elite_attack/Grant(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
-		M = L
 		return ..()
 	return FALSE
 
 /datum/action/innate/elite_attack/Activate()
-	M.chosen_attack = chosen_attack_num
-	to_chat(M, chosen_message)
+	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
+	elite_owner.chosen_attack = chosen_attack_num
+	to_chat(elite_owner, chosen_message)
 
 /mob/living/simple_animal/hostile/asteroid/elite/updatehealth()
 	. = ..()
@@ -205,11 +204,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	activator = null
 	return ..()
 
-/obj/structure/elite_tumor/process()
+/obj/structure/elite_tumor/process(delta_time)
 	if(isturf(loc))
 		for(var/mob/living/simple_animal/hostile/asteroid/elite/elitehere in loc)
 			if(elitehere == mychild && activity == TUMOR_PASSIVE)
-				mychild.adjustHealth(-mychild.maxHealth*0.05)
+				mychild.adjustHealth(-mychild.maxHealth*0.025*delta_time)
 				var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(mychild))
 				H.color = "#FF0000"
 

@@ -4,7 +4,7 @@
 	stealth = -2
 	resistance = 2
 	stage_speed = 1
-	transmittable = 1
+	transmission = 1
 	level = 0
 	severity = 2
 	symptom_delay_min = 5
@@ -16,17 +16,17 @@
 
 /datum/symptom/beesease/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 12)
-		severity -= 4
-	if(A.properties["transmittable"] >= 10)
+	if(A.transmission >= 10)
 		severity += 2
+		if(A.resistance >= 12)
+			severity -= 4
 
 /datum/symptom/beesease/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 12)
+	if(A.resistance >= 12)
 		honey = TRUE
-	if(A.properties["transmittable"] >= 10)
+	if(A.transmission >= 10)
 		toxic_bees = TRUE
 
 /datum/symptom/beesease/Activate(datum/disease/advance/A)
@@ -74,6 +74,8 @@
 				else if(honey)
 					var/mob/living/simple_animal/hostile/poison/bees/newbee = new /mob/living/simple_animal/hostile/poison/bees(M.loc) //Heh, newbee
 					newbee.assign_reagent(GLOB.chemical_reagents_list[/datum/reagent/consumable/honey])
+					var/mob/living/simple_animal/hostile/poison/bees/newbee2 = new /mob/living/simple_animal/hostile/poison/bees(M.loc)
+					newbee2.assign_reagent(GLOB.chemical_reagents_list[/datum/reagent/medicine/insulin])
 				else
 					new /mob/living/simple_animal/hostile/poison/bees(M.loc)
 

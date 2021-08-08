@@ -85,6 +85,9 @@
 			break
 		var/datum/mind/cultist = antag_pick(antag_candidates, ROLE_CULTIST)
 		antag_candidates -= cultist
+		if(!cultist)
+			cultists_number--
+			continue
 		cultists_to_cult += cultist
 		cultist.special_role = ROLE_CULTIST
 		cultist.restricted_roles = restricted_jobs

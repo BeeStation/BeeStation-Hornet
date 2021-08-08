@@ -1,0 +1,214 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"b" = (
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"c" = (
+/obj/structure/table/reinforced,
+/obj/item/trash/plate,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"d" = (
+/obj/machinery/door/window{
+	dir = 1
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"e" = (
+/obj/machinery/door/window,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"f" = (
+/obj/structure/table/reinforced,
+/obj/structure/window{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	list_reagents = list()
+	},
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"g" = (
+/obj/structure/table/reinforced,
+/obj/structure/window,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"h" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"i" = (
+/obj/structure/table/reinforced,
+/obj/structure/window{
+	dir = 1
+	},
+/obj/machinery/microwave,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"j" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"k" = (
+/obj/structure/table/wood,
+/obj/item/trash/plate,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"l" = (
+/obj/machinery/chem_master/condimaster,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"m" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"n" = (
+/obj/structure/window,
+/obj/structure/closet/crate/freezer,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+"o" = (
+/obj/structure/chair/stool,
+/turf/open/floor/holofloor{
+	dir = 9;
+	icon_state = "wood"
+	},
+/area/template_noop)
+"p" = (
+/obj/structure/window,
+/obj/structure/rack,
+/obj/item/clothing/head/chefhat,
+/obj/item/clothing/head/chefhat,
+/obj/item/clothing/suit/apron/chef,
+/obj/item/clothing/suit/apron/chef,
+/obj/item/storage/bag/tray,
+/turf/open/floor/holofloor/white,
+/area/template_noop)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+h
+a
+a
+o
+o
+o
+o
+a
+a
+h
+"}
+(3,1,1) = {"
+k
+a
+f
+c
+c
+c
+c
+g
+a
+k
+"}
+(4,1,1) = {"
+j
+a
+i
+b
+b
+b
+b
+n
+a
+j
+"}
+(5,1,1) = {"
+a
+a
+d
+b
+l
+m
+b
+e
+a
+a
+"}
+(6,1,1) = {"
+h
+a
+i
+b
+b
+b
+b
+p
+a
+h
+"}
+(7,1,1) = {"
+k
+a
+f
+c
+c
+c
+c
+g
+a
+k
+"}
+(8,1,1) = {"
+j
+a
+a
+o
+o
+o
+o
+a
+a
+j
+"}
+(9,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

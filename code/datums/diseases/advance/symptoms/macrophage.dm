@@ -4,7 +4,7 @@
 	stealth = -4
 	resistance = 1
 	stage_speed = -2
-	transmittable = 2
+	transmission = 2
 	level = 9
 	severity = 2
 	symptom_delay_min = 30
@@ -21,14 +21,14 @@
 
 /datum/symptom/macrophage/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 10)
+	if(A.transmission >= 10)
 		severity += 2
 
 /datum/symptom/macrophage/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	netspeed = max(1, (A.properties["stage_rate"]))
-	if(A.properties["transmittable"] >= 10)
+	netspeed = max(1, A.stage_rate)
+	if(A.transmission >= 10)
 		gigagerms = TRUE
 
 /datum/symptom/macrophage/Activate(datum/disease/advance/A)
@@ -42,7 +42,7 @@
 			M.visible_message("<span class='danger'>Lumps form on [M]'s skin!</span>", \
 								  "<span class='userdanger'>You cringe in pain as lumps form and move around on your skin!</span>")
 		if(5)
-			phagecounter -= max(2, A.properties["stage_rate"])
+			phagecounter -= max(2, A.stage_rate)
 			if(gigagerms && phagecounter <= 0) //only ever spawn one big germ
 				Burst(A, M, TRUE)
 				phagecounter += 10
@@ -54,18 +54,18 @@
 	var/mob/living/simple_animal/hostile/macrophage/phage
 	if(gigagerms)
 		phage = new /mob/living/simple_animal/hostile/macrophage/aggro(M.loc)
-		phage.melee_damage = max(5, A.properties["resistance"])
+		phage.melee_damage = max(5, A.resistance)
 		M.apply_damage(rand(10, 20))
 		playsound(M, 'sound/effects/splat.ogg', 50, 1)
 		M.emote("scream")
 	else
 		phage = new(M.loc)
 		M.apply_damage(rand(1, 7))
-	phage.health += A.properties["resistance"]
-	phage.maxHealth += A.properties["resistance"]
+	phage.health += A.resistance
+	phage.maxHealth += A.resistance
 	phage.infections += A
 	phage.basedisease = A
-	if(A.properties["transmittable"] >= 12)
+	if(A.transmission >= 12)
 		for(var/datum/disease/D in M.diseases)
 			if((D.spread_flags & DISEASE_SPREAD_SPECIAL) || (D.spread_flags & DISEASE_SPREAD_NON_CONTAGIOUS) || (D.spread_flags & DISEASE_SPREAD_FALTERED))
 				continue

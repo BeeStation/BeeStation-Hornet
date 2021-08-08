@@ -39,6 +39,8 @@ other types of metals and chemistry for reagents).
 	var/research_icon					//Replaces the item icon in the research console
 	var/research_icon_state
 	var/icon_cache
+	/// Optional string that interfaces can use as part of search filters. See- item/borg/upgrade/ai and the Exosuit Fabs.
+	var/search_metadata
 
 /datum/design/error_design
 	name = "ERROR"
@@ -74,7 +76,7 @@ other types of metals and chemistry for reagents).
 	name = "Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
 	icon_state = "datadisk1"
-	materials = list(/datum/material/iron =300, /datum/material/glass =100)
+	materials = list(/datum/material/iron = 300, /datum/material/glass =100)
 	var/list/blueprints = list()
 	var/max_blueprints = 1
 
@@ -88,5 +90,5 @@ other types of metals and chemistry for reagents).
 /obj/item/disk/design_disk/adv
 	name = "Advanced Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes. This one has extra storage space."
-	materials = list(/datum/material/iron =300, /datum/material/glass = 100, /datum/material/silver = 50)
+	materials = list(/datum/material/iron = 300, /datum/material/glass = 100, /datum/material/silver = 50)
 	max_blueprints = 5

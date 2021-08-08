@@ -14,9 +14,10 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	var/rad_count = 0
-	var/rad_record = 0
-	var/grace_count = 0
+	clothing_flags = NOTCONSUMABLE | STOPSPRESSUREDAMAGE | THICKMATERIAL | SHOWEROKAY | SNUG_FIT
+	var/current_tick_amount = 0
+	var/radiation_count = 0
+	var/grace = RAD_GEIGER_GRACE_PERIOD
 	var/datum/looping_sound/geiger/soundloop
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize()
@@ -26,6 +27,9 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/space/hardsuit/Destroy()
+	if(!QDELETED(suit))
+		qdel(suit)
+	suit = null
 	QDEL_NULL(soundloop)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -50,12 +54,12 @@
 		soundloop.stop(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
-	if(slot == SLOT_HEAD)
+	if(slot == ITEM_SLOT_HEAD)
 		return 1
 
 /obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/user, slot)
 	..()
-	if(slot != SLOT_HEAD)
+	if(slot != ITEM_SLOT_HEAD)
 		if(suit)
 			suit.RemoveHelmet()
 			soundloop.stop(user)
@@ -69,23 +73,25 @@
 	if(msg && ishuman(wearer))
 		wearer.show_message("[icon2html(src, wearer)]<b><span class='robot'>[msg]</span></b>", MSG_VISUAL)
 
-/obj/item/clothing/head/helmet/space/hardsuit/rad_act(severity)
+/obj/item/clothing/head/helmet/space/hardsuit/rad_act(amount)
 	. = ..()
-	rad_count += severity
-
-/obj/item/clothing/head/helmet/space/hardsuit/process()
-	if(!rad_count)
-		grace_count++
-		if(grace_count == 2)
-			soundloop.last_radiation = 0
+	if(amount <= RAD_BACKGROUND_RADIATION)
 		return
+	current_tick_amount += amount
 
-	grace_count = 0
-	rad_record -= rad_record/5
-	rad_record += rad_count/5
-	rad_count = 0
+/obj/item/clothing/head/helmet/space/hardsuit/process(delta_time)
+	radiation_count = LPFILTER(radiation_count, current_tick_amount, delta_time, RAD_GEIGER_RC)
 
-	soundloop.last_radiation = rad_record
+	if(current_tick_amount)
+		grace = RAD_GEIGER_GRACE_PERIOD
+	else
+		grace -= delta_time
+		if(grace <= 0)
+			radiation_count = 0
+
+	current_tick_amount = 0
+
+	soundloop.last_radiation = radiation_count
 
 /obj/item/clothing/head/helmet/space/hardsuit/emp_act(severity)
 	. = ..()
@@ -107,7 +113,6 @@
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	pocket_storage_component_path = null
 
-
 /obj/item/clothing/suit/space/hardsuit/Initialize()
 	if(jetpack && ispath(jetpack))
 		jetpack = new jetpack(src)
@@ -122,7 +127,7 @@
 		if(jetpack)
 			to_chat(user, "<span class='warning'>[src] already has a jetpack installed.</span>")
 			return
-		if(src == user.get_item_by_slot(SLOT_WEAR_SUIT)) //Make sure the player is not wearing the suit before applying the upgrade.
+		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING)) //Make sure the player is not wearing the suit before applying the upgrade.
 			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
 			return
 
@@ -134,7 +139,7 @@
 		if(!jetpack)
 			to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
 			return
-		if(src == user.get_item_by_slot(SLOT_WEAR_SUIT))
+		if(src == user.get_item_by_slot(ITEM_SLOT_OCLOTHING))
 			to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
 			return
 
@@ -149,7 +154,7 @@
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	..()
 	if(jetpack)
-		if(slot == SLOT_WEAR_SUIT)
+		if(slot == ITEM_SLOT_OCLOTHING)
 			for(var/X in jetpack.actions)
 				var/datum/action/A = X
 				A.Grant(user)
@@ -162,7 +167,7 @@
 			A.Remove(user)
 
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
-	if(slot == SLOT_WEAR_SUIT) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
+	if(slot == ITEM_SLOT_OCLOTHING) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return 1
 
 	//Engineering
@@ -377,6 +382,7 @@
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/transforming/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
 	jetpack = /obj/item/tank/jetpack/suit
+	item_flags = ILLEGAL	//Syndicate only and difficult to obtain outside of uplink anyway. Nukie hardsuits on the ship are illegal.
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet,
 		/datum/action/item_action/toggle_beacon,
@@ -576,7 +582,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if (slot == SLOT_HEAD)
+	if (slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
 		DHUD.add_hud_to(user)
 
@@ -759,6 +765,11 @@
 		s.set_up(2, 1, src)
 		s.start()
 		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
+		if(isprojectile(hitby))
+			var/obj/item/projectile/P = hitby
+			//Fake bullets just disintegrate
+			if(P.martial_arts_no_deflect)
+				return TRUE
 		current_charges--
 		if(recharge_rate)
 			START_PROCESSING(SSobj, src)
@@ -766,8 +777,8 @@
 			owner.visible_message("[owner]'s shield overloads!")
 			shield_state = "broken"
 			owner.update_inv_wear_suit()
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /obj/item/clothing/suit/space/hardsuit/shielded/Destroy()
@@ -870,6 +881,7 @@
 		/datum/action/item_action/toggle_beacon,
 		/datum/action/item_action/toggle_beacon_frequency
 	)
+	jetpack = /obj/item/tank/jetpack/suit
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -887,10 +899,6 @@
 		shield_on = "shield-red"
 		to_chat(user, "<span class='warning'>You update the hardsuit's hardware, changing back the shield's color to red.</span>")
 	user.update_inv_wear_suit()
-
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize()
-	jetpack = new /obj/item/tank/jetpack/suit(src)
-	. = ..()
 
 /obj/item/clothing/suit/space/hardsuit/shielded/syndi/ui_action_click(mob/user, datum/actiontype)
 	switch(actiontype.type)

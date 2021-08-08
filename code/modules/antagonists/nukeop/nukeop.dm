@@ -5,11 +5,11 @@
 	job_rank = ROLE_OPERATIVE
 	antag_moodlet = /datum/mood_event/focused
 	show_to_ghosts = TRUE
+	hijack_speed = 2 //If you can't take out the station, take the shuttle instead.
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
 	var/send_to_spawnpoint = TRUE //Should the user be moved to default spawnpoint.
 	var/nukeop_outfit = /datum/outfit/syndicate
-	can_hijack = HIJACK_HIJACKER //Alternative way to wipe out the station.
 
 /datum/antagonist/nukeop/proc/update_synd_icons_added(mob/living/M)
 	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
@@ -43,7 +43,7 @@
 	return TRUE
 
 /datum/antagonist/nukeop/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0, use_reverb = FALSE)
 	to_chat(owner, "<span class='notice'>You are a [nuke_team ? nuke_team.syndicate_name : "syndicate"] agent!</span>")
 	owner.announce_objectives()
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Nuclear Operative",
@@ -196,7 +196,7 @@
 		owner.current.real_name = "Syndicate [title]"
 
 /datum/antagonist/nukeop/leader/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0)
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0, use_reverb = FALSE)
 	to_chat(owner, "<B>You are the Syndicate [title] for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>")
 	to_chat(owner, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
 	to_chat(owner, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")

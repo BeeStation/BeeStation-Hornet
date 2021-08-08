@@ -39,12 +39,19 @@
 /obj/machinery/reagentgrinder/Destroy()
 	if(beaker)
 		beaker.forceMove(drop_location())
+		beaker = null
 	drop_all_items()
 	return ..()
 
 /obj/machinery/reagentgrinder/contents_explosion(severity, target)
 	if(beaker)
-		beaker.ex_act(severity, target)
+		switch(severity)
+			if(EXPLODE_DEVASTATE)
+				SSexplosions.high_mov_atom += beaker
+			if(EXPLODE_HEAVY)
+				SSexplosions.med_mov_atom += beaker
+			if(EXPLODE_LIGHT)
+				SSexplosions.low_mov_atom += beaker
 
 /obj/machinery/reagentgrinder/RefreshParts()
 	speed = 1

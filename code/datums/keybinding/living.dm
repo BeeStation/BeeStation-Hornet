@@ -14,3 +14,16 @@
 	var/mob/living/L = user.mob
 	L.resist()
 	return TRUE
+
+/datum/keybinding/living/rest
+	key = "V"
+	name = "rest"
+	full_name = "Rest"
+	description = "Lay down, or get up."
+
+/datum/keybinding/living/rest/down(client/user)
+	if(!isliving(user.mob))
+		return
+	var/mob/living/L = user.mob
+	L.lay_down()
+	return TRUE

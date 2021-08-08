@@ -93,7 +93,7 @@
 			effect.start()
 
 // Safe location finder
-/proc/find_safe_turf(zlevel, list/zlevels, extended_safety_checks = FALSE)
+/proc/find_safe_turf(zlevel, list/zlevels, extended_safety_checks = FALSE, dense_atoms = TRUE)
 	if(!zlevels)
 		if (zlevel)
 			zlevels = list(zlevel)
@@ -124,11 +124,11 @@
 		// Can most things breathe?
 		if(trace_gases)
 			continue
-		if(A.get_moles(/datum/gas/oxygen) < 16)
+		if(A.get_moles(GAS_O2) < 16)
 			continue
-		if(A.get_moles(/datum/gas/plasma))
+		if(A.get_moles(GAS_PLASMA))
 			continue
-		if(A.get_moles(/datum/gas/carbon_dioxide) >= 10)
+		if(A.get_moles(GAS_CO2) >= 10)
 			continue
 
 		// Aim for goldilocks temperatures and pressure
@@ -143,6 +143,16 @@
 				var/turf/open/lava/L = F
 				if(!L.is_safe())
 					continue
+
+		// Check that we're not warping onto a table or window
+		if(!dense_atoms)
+			var/density_found = FALSE
+			for(var/atom/movable/found_movable in F)
+				if(found_movable.density)
+					density_found = TRUE
+					break
+			if(density_found)
+				continue
 
 		// DING! You have passed the gauntlet, and are "probably" safe.
 		return F

@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(abstraction_crystals, list())
 	cogs_required = 5
 	category = SPELLTYPE_STRUCTURES
 
-/datum/clockcult/scripture/create_structure/abstraction_crystal/check_special_requirements()
+/datum/clockcult/scripture/create_structure/abstraction_crystal/check_special_requirements(mob/user)
 	if(!..())
 		return FALSE
 	var/obj/structure/destructible/clockwork/structure = locate() in get_turf(invoker)

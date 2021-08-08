@@ -6,6 +6,7 @@
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	//Hair colour and style
 	var/hair_color = "000"
 	var/hair_style = "Bald"
@@ -29,6 +30,7 @@
 	var/undershirt = "Nude" //Which undershirt the player wants
 	var/socks = "Nude" //Which socks the player wants
 	var/backbag = DBACKPACK		//Which backpack type the player has chosen.
+	var/jumpsuit_style = PREF_SUIT		//suit/skirt
 
 	//Equipment slots
 	var/obj/item/clothing/wear_suit = null

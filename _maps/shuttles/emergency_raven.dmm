@@ -1913,36 +1913,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
-"jH" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/machinery/door/airlock/security/glass{
-	name = "Holding Area";
-	req_access_txt = "2"
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/escape)
 "kr" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "ks" = (
@@ -1973,10 +1949,7 @@
 	name = "Emergency Shutle Engineering"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "lz" = (
@@ -2076,10 +2049,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "xF" = (
@@ -2140,12 +2110,7 @@
 	name = "Holding Area";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Dl" = (
@@ -2252,12 +2217,7 @@
 /obj/machinery/door/airlock/grunge{
 	name = "Emergency Shuttle Cargo Bay"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Mk" = (
@@ -2310,6 +2270,7 @@
 	name = "Emergency Shuttle Seating"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "PE" = (
@@ -2345,10 +2306,7 @@
 	name = "Cockpit";
 	req_one_access_txt = "2;19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "QD" = (
@@ -2462,12 +2420,7 @@
 	name = "Escape Shuttle Infirmary";
 	req_one_access_txt = "2;19"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "YG" = (
@@ -2505,10 +2458,7 @@
 	name = "Emergency Shuttle Seating"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 
@@ -2694,7 +2644,7 @@ aY
 aY
 aY
 bE
-jH
+Bo
 bX
 ci
 yl

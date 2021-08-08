@@ -43,6 +43,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	var/announcement_time
 	var/has_announced = FALSE
 
+	/// The list of strains the blob can reroll for.
+	var/list/strain_choices
+
 /mob/camera/blob/Initialize(mapload, starting_points = 60)
 	validate_location()
 	blob_points = starting_points
@@ -110,7 +113,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			qdel(src)
 	else if(!victory_in_progress && (blobs_legit.len >= blobwincount))
 		victory_in_progress = TRUE
-		priority_announce("Biohazard has reached critical mass. Station loss is imminent.", "Biohazard Alert")
+		priority_announce("Biohazard has reached critical mass. Station loss is imminent.", "Biohazard Alert", SSstation.announcer.get_rand_alert_sound())
 		set_security_level("delta")
 		max_blob_points = INFINITY
 		blob_points = INFINITY
@@ -123,7 +126,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		max_count = blobs_legit.len
 
 	if(!has_announced && (world.time >= announcement_time || blobs_legit.len >= announcement_size))
-		priority_announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/ai/outbreak5.ogg')
+		priority_announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", ANNOUNCER_OUTBREAK5)
 		has_announced = TRUE
 /mob/camera/blob/proc/victory()
 	sound_to_playing_players('sound/machines/alarm.ogg')
@@ -171,6 +174,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	SSticker.force_ending = 1
 
 /mob/camera/blob/Destroy()
+	QDEL_NULL(blobstrain)
 	for(var/BL in GLOB.blobs)
 		var/obj/structure/blob/B = BL
 		if(B && B.overmind == src)
@@ -182,6 +186,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			BM.overmind = null
 			BM.update_icons()
 	GLOB.overminds -= src
+	QDEL_LIST_ASSOC_VAL(strain_choices)
 
 	SSshuttle.clearHostileEnvironment(src)
 	STOP_PROCESSING(SSobj, src)

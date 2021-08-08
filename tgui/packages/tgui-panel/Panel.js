@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { Button, Flex, Section, NoticeBox } from 'tgui/components';
+import { Button, Stack, Section } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
 import { useDispatch } from 'common/redux';
 import { NowPlayingWidget, useAudio } from './audio';
@@ -50,14 +50,12 @@ export const Panel = (props, context) => {
   };
   return (
     <Pane theme={settings.theme}>
-      <Flex
+      <Stack
         height={(98-number) + '%'}
-        direction="column"
-        grow={0}
-        shrink={0}>
+        vertical>
         <StatTabs
           direction="column" />
-      </Flex>
+      </Stack>
       <DraggableControl
         value={number}
         height="1%"
@@ -83,20 +81,17 @@ export const Panel = (props, context) => {
           </Box>
         )}
       </DraggableControl>
-      <Flex
-        mt={1}
-        direction="column"
-        height={(number-1) + '%'}>
-        <Flex.Item>
-          <Section fitted>
-            <Flex mx={0.5} align="center">
-              <Flex.Item mx={0.5} grow={1} overflowX="auto">
+      <Stack mt={1} vertical height={(number-1) + '%'}>
+        <Stack.Item>
+          <Section>
+            <Stack my={-1.25} align="center">
+              <Stack.Item grow overflowX="auto">
                 <ChatTabs />
-              </Flex.Item>
-              <Flex.Item mx={0.5}>
+              </Stack.Item>
+              <Stack.Item>
                 <PingIndicator />
-              </Flex.Item>
-              <Flex.Item mx={0.5}>
+              </Stack.Item>
+              <Stack.Item mx={0.5}>
                 <Button
                   color="grey"
                   selected={audio.visible}
@@ -104,8 +99,8 @@ export const Panel = (props, context) => {
                   tooltip="Music player"
                   tooltipPosition="bottom-left"
                   onClick={() => audio.toggle()} />
-              </Flex.Item>
-              <Flex.Item mx={0.5}>
+              </Stack.Item>
+              <Stack.Item>
                 <Button
                   icon={settings.visible ? 'times' : 'cog'}
                   selected={settings.visible}
@@ -114,23 +109,23 @@ export const Panel = (props, context) => {
                     : 'Open settings'}
                   tooltipPosition="bottom-left"
                   onClick={() => settings.toggle()} />
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+            </Stack>
           </Section>
-        </Flex.Item>
+        </Stack.Item>
         {audio.visible && (
-          <Flex.Item mt={1}>
+          <Stack.Item>
             <Section>
               <NowPlayingWidget />
             </Section>
-          </Flex.Item>
+          </Stack.Item>
         )}
         {settings.visible && (
-          <Flex.Item mt={1}>
+          <Stack.Item>
             <SettingsPanel />
-          </Flex.Item>
+          </Stack.Item>
         )}
-        <Flex.Item mt={1} grow={1}>
+        <Stack.Item mt={1} grow>
           <Section fill fitted position="relative">
             <Pane.Content scrollable>
               <ChatPanel lineHeight={settings.lineHeight} />
@@ -157,8 +152,8 @@ export const Panel = (props, context) => {
               )}
             </Notifications>
           </Section>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Pane>
   );
 };
@@ -236,9 +231,9 @@ const HoboPanel = (props, context) => {
             Settings
           </Button>
           {settings.visible && (
-            <Flex.Item mt={1}>
+            <Stack.Item>
               <SettingsPanel />
-            </Flex.Item>
+            </Stack.Item>
           ) || (
             <ChatPanel lineHeight={settings.lineHeight} />
           )}

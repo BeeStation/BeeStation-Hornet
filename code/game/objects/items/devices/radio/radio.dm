@@ -8,7 +8,7 @@
 	desc = "A basic handheld radio that communicates with local telecommunication networks."
 	dog_fashion = /datum/dog_fashion/back
 
-	flags_1 = CONDUCT_1 | HEAR_1
+	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 3
 	throw_range = 7
@@ -95,6 +95,8 @@
 
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
+
+	become_hearing_sensitive(ROUNDSTART_TRAIT)
 
 /obj/item/radio/ComponentInitialize()
 	. = ..()
@@ -203,6 +205,7 @@
 				else
 					recalculateChannels()
 				. = TRUE
+	ui_update()
 
 /obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!spans)
@@ -255,11 +258,8 @@
 		channel = null
 
 	// Nearby active jammers prevent the message from transmitting
-	var/turf/position = get_turf(src)
-	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
-		var/turf/jammer_turf = get_turf(jammer)
-		if(position?.z == jammer_turf.z && (get_dist(position, jammer_turf) <= jammer.range))
-			return
+	if(is_jammed())
+		return
 
 	// Determine the identity information which will be attached to the signal.
 	var/atom/movable/virtualspeaker/speaker = new(null, M, src)
@@ -288,13 +288,13 @@
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
-	if (signal.data["done"] && (T.z in signal.levels))
+	if (signal.data["done"] && (T.get_virtual_z_level() in signal.levels))
 		return
 
 	// Okay, the signal was never processed, send a mundane broadcast.
 	signal.data["compression"] = 0
 	signal.transmission_method = TRANSMISSION_RADIO
-	signal.levels = list(T.z)
+	signal.levels = list(T.get_virtual_z_level())
 	signal.broadcast()
 
 /obj/item/radio/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
@@ -324,7 +324,7 @@
 		return independent  // hard-ignores the z-level check
 	if (!(0 in level))
 		var/turf/position = get_turf(src)
-		if(!position || !(position.z in level))
+		if(!position || !(position.get_virtual_z_level() in level))
 			return FALSE
 
 	// allow checks: are we listening on that frequency?

@@ -27,6 +27,8 @@
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/Glasshit.ogg'
+	flags_ricochet = RICOCHET_HARD
+	ricochet_chance_mod = 0.4
 
 
 /obj/structure/window/examine(mob/user)
@@ -83,6 +85,13 @@
 
 /obj/structure/window/narsie_act()
 	add_atom_colour(NARSIE_WINDOW_COLOUR, FIXED_COLOUR_PRIORITY)
+
+/obj/structure/window/ratvar_act()
+	if(!fulltile)
+		new/obj/structure/window/reinforced/clockwork(get_turf(src), dir)
+	else
+		new/obj/structure/window/reinforced/clockwork/fulltile(get_turf(src))
+	qdel(src)
 
 /obj/structure/window/singularity_pull(S, current_size)
 	..()
@@ -381,6 +390,7 @@
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 	rad_insulation = RAD_HEAVY_INSULATION
+	ricochet_chance_mod = 0.8
 
 /obj/structure/window/reinforced/spawner/east
 	dir = EAST
@@ -553,6 +563,7 @@
 	level = 3
 	glass_type = /obj/item/stack/sheet/titaniumglass
 	glass_amount = 2
+	ricochet_chance_mod = 0.9
 
 /obj/structure/window/shuttle/narsie_act()
 	add_atom_colour("#3C3434", FIXED_COLOUR_PRIORITY)
@@ -669,3 +680,26 @@
 			return
 	..()
 	update_icon()
+
+/obj/structure/window/bronze
+	name = "brass window"
+	desc = "A paper-thin pane of translucent yet reinforced brass. Nevermind, this is just weak bronze!"
+	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon_state = "clockwork_window_single"
+	glass_type = /obj/item/stack/tile/bronze
+
+/obj/structure/window/bronze/unanchored
+	anchored = FALSE
+
+/obj/structure/window/bronze/fulltile
+	icon_state = "clockwork_window"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = null
+	fulltile = TRUE
+	flags_1 = PREVENT_CLICK_UNDER_1
+	dir = FULLTILE_WINDOW_DIR
+	max_integrity = 50
+	glass_amount = 2
+
+/obj/structure/window/bronze/fulltile/unanchored
+	anchored = FALSE

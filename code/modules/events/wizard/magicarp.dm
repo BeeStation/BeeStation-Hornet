@@ -13,7 +13,7 @@
 	startWhen = rand(40, 60)
 
 /datum/round_event/wizard/magicarp/announce(fake)
-	priority_announce("Unknown magical entities have been detected near [station_name()], please stand-by.", "Lifesign Alert")
+	priority_announce("Unknown magical entities have been detected near [station_name()], please stand-by.", "Lifesign Alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/wizard/magicarp/start()
 	for(var/obj/effect/landmark/carpspawn/C in GLOB.landmarks_list)

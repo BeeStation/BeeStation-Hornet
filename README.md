@@ -93,8 +93,10 @@ the new version.
 
 ## HOSTING
 
-If you'd like a more robust server hosting option for tgstation and its
-derivatives. Check out their server tools suite at
+Hosting requires the [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=52685). Specifically, 	
+`vc_redist.x86.exe`. *Not* the 64-bit version. There is a decent chance you already have it if you've installed a game on Steam.
+
+If you'd like a more robust server hosting option, check out tgstation's server tools suite at
 https://github.com/tgstation/tgstation-server
 
 ## MAPS
@@ -105,7 +107,6 @@ BeeStation currently comes equipped with these maps.
 * [BoxStation](https://wiki.beestation13.com/view/Boxstation)
 * [MetaStation](https://wiki.beestation13.com/view/MetaStation)
 * [PubbyStation](https://wiki.beestation13.com/view/PubbyStation)
-* [DonutStation](https://wiki.beestation13.com/view/Donutstation)
 
 
 All maps have their own code file that is in the base of the _maps directory. Maps are loaded dynamically when the game starts. Follow this guideline when adding your own map, to your fork, for easy compatibility.
@@ -167,8 +168,6 @@ See tgui/assets/fonts/SIL-OFL-1.1-LICENSE.md for the SIL Open Font License.
 See the footers of code/\_\_DEFINES/server\_tools.dm, code/modules/server\_tools/st\_commands.dm, and code/modules/server\_tools/st\_inteface.dm for the MIT license.
 
 All assets including icons and sound are under a [Creative Commons 3.0 BY-SA license](https://creativecommons.org/licenses/by-sa/3.0/) unless otherwise indicated.
-
-byond-extools.dll is licensed under MIT. See MIT.txt for more details.
 
 # Other Codebase Credits
 - /tg/, for the codebase.

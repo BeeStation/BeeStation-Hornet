@@ -143,7 +143,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/restart_controller,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
-	/client/proc/cmd_debug_make_powernets, 
+	/client/proc/cmd_debug_make_powernets,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,
 	/client/proc/cmd_debug_del_all,
@@ -179,15 +179,16 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/reload_configuration,
 	/client/proc/give_all_spells,
 	/datum/admins/proc/create_or_modify_area,
+	/datum/admins/proc/fixcorruption,
 	#ifdef TESTING
 	/client/proc/export_dynamic_json,
 	/client/proc/run_dynamic_simulations,
 	#endif
-	#ifdef REFERENCE_TRACKING
-	/datum/admins/proc/view_refs,
-	/datum/admins/proc/view_del_failures,
+	#ifdef SENDMAPS_PROFILE
+	/client/proc/display_sendmaps,
 	#endif
-	/client/proc/toggle_cdn
+	/client/proc/toggle_cdn,
+	/client/proc/check_timer_sources
 	)
 
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, /proc/release))
@@ -296,6 +297,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 				add_verb(/client/proc/play_web_sound)
 		if(rights & R_SPAWN)
 			add_verb(GLOB.admin_verbs_spawn)
+		reset_badges()
 
 /client/proc/remove_admin_verbs()
 	var/list/verb_list = list()
@@ -321,6 +323,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		/client/proc/fix_say
 		)
 	remove_verb(verb_list)
+	reset_badges()
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Adminverbs - Hide Most"
@@ -382,7 +385,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		log_admin("[key_name(usr)] admin ghosted.")
 		message_admins("[key_name_admin(usr)] admin ghosted.")
 		var/mob/body = mob
-		body.ghostize(1)
+		body.ghostize(TRUE)
 		if(body && !body.key)
 			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin Ghost") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -490,6 +493,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if(holder)
 		if(holder.fakekey)
 			holder.fakekey = null
+			reset_badges()
 			if(isobserver(mob))
 				mob.invisibility = initial(mob.invisibility)
 				mob.alpha = initial(mob.alpha)
@@ -500,6 +504,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			if(!new_key)
 				return
 			holder.fakekey = new_key
+			reset_badges()
 			createStealthKey()
 			if(isobserver(mob))
 				mob.invisibility = INVISIBILITY_MAXIMUM //JUST IN CASE
@@ -662,6 +667,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	log_admin("[key_name(usr)] made [O] at [AREACOORD(O)] say \"[message]\"")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] made [O] at [AREACOORD(O)]. say \"[message]\"</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Object Say") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/proc/togglebuildmodeself()
 	set name = "Toggle Build Mode Self"
 	set category = "Adminbus"
@@ -793,7 +799,10 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		can.valve_open = FALSE
 		can.update_icon()
 
+#ifdef SENDMAPS_PROFILE
+/client/proc/display_sendmaps()
+	set name = "Send Maps Profile"
+	set category = "Debug"
 
-
-
-
+	src << link("?debug=profile&type=sendmaps&window=test")
+#endif

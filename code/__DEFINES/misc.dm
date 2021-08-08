@@ -175,6 +175,9 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 //Gets the turf this atom inhabits
 #define get_turf(A) (get_step(A, 0))
 
+//Same as above except gets the area instead
+#define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
+
 //Ghost orbit types:
 #define GHOST_ORBIT_CIRCLE		"circle"
 #define GHOST_ORBIT_TRIANGLE	"triangle"
@@ -413,9 +416,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 
 // Used by PDA and cartridge code to reduce repetitiveness of spritesheets
 #define PDAIMG(what) {"<span class="pda16x16 [#what]"></span>"}
-
-/// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
-#define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
 
 //Filters
 #define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")

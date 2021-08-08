@@ -91,8 +91,8 @@
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/thermomachine
-	name = "Machine Design (Freezer/Heater Board)"
-	desc = "The circuit board for a freezer/heater."
+	name = "Machine Design (Thermomachine Board)"
+	desc = "The circuit board for a thermomachine."
 	id = "thermomachine"
 	build_path = /obj/item/circuitboard/machine/thermomachine
 	category = list ("Engineering Machinery")
@@ -634,3 +634,11 @@
 	build_path = /obj/item/circuitboard/machine/spaceship_navigation_beacon
 	category = list ("Teleportation Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/component_printer
+	name = "Machine Design (Component Printer)"
+	desc = "The circuit board for a component printer"
+	id = "component_printer"
+	build_path = /obj/item/circuitboard/machine/component_printer
+	category = list("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE

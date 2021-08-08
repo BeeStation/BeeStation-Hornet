@@ -7,13 +7,13 @@
 	antagpanel_category = "Traitor"
 	job_rank = ROLE_TRAITOR
 	antag_moodlet = /datum/mood_event/focused
+	hijack_speed = 0.5				//10 seconds per hijack stage by default
 	var/special_role = ROLE_TRAITOR
 	var/employer = "The Syndicate"
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
 	var/datum/contractor_hub/contractor_hub
-	can_hijack = HIJACK_HIJACKER
 
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
@@ -54,6 +54,13 @@
 		to_chat(owner.current,"<span class='userdanger'> You are no longer the [special_role]! </span>")
 	owner.special_role = null
 	..()
+
+/datum/antagonist/traitor/proc/handle_hearing(datum/source, list/hearing_args)
+	SIGNAL_HANDLER
+	var/message = hearing_args[HEARING_RAW_MESSAGE]
+	message = GLOB.syndicate_code_phrase_regex.Replace(message, "<span class='blue'>$1</span>")
+	message = GLOB.syndicate_code_response_regex.Replace(message, "<span class='red'>$1</span>")
+	hearing_args[HEARING_RAW_MESSAGE] = message
 
 /datum/antagonist/traitor/proc/add_objective(datum/objective/O)
 	objectives += O
@@ -219,20 +226,22 @@
 	switch(traitor_kind)
 		if(TRAITOR_AI)
 			add_law_zero()
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE)
+			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 			owner.current.grant_language(/datum/language/codespeak, TRUE, TRUE, LANGUAGE_MALF)
 		if(TRAITOR_HUMAN)
 			show_tips("traitor")
 			if(should_equip)
 				equip(silent)
-			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
+			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	update_traitor_icons_added()
-	var/mob/living/silicon/ai/A = mob_override || owner.current
-	if(istype(A) && traitor_kind == TRAITOR_AI)
+	var/mob/living/M = mob_override || owner.current
+	if(isAI(M) && traitor_kind == TRAITOR_AI)
+		var/mob/living/silicon/ai/A = M
 		A.hack_software = TRUE
+	RegisterSignal(M, COMSIG_MOVABLE_HEAR, .proc/handle_hearing)
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -240,6 +249,7 @@
 	var/mob/living/silicon/ai/A = mob_override || owner.current
 	if(istype(A)  && traitor_kind == TRAITOR_AI)
 		A.hack_software = FALSE
+	UnregisterSignal(owner.current, COMSIG_MOVABLE_HEAR, .proc/handle_hearing)
 
 /datum/antagonist/traitor/proc/give_codewords()
 	if(!owner.current)
@@ -302,9 +312,9 @@
 		folder = new/obj/item/folder/syndicate/blue(mob.loc)
 
 	var/list/slots = list (
-		"backpack" = SLOT_IN_BACKPACK,
-		"left pocket" = SLOT_L_STORE,
-		"right pocket" = SLOT_R_STORE
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_LPOCKET,
+		"right pocket" = ITEM_SLOT_RPOCKET
 	)
 
 	var/where = "At your feet"

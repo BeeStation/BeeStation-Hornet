@@ -64,7 +64,7 @@
 						result++
 		. -= result - 1
 
-/obj/structure/blob/BlockSuperconductivity()
+/obj/structure/blob/BlockThermalConductivity()
 	return atmosblock
 
 /obj/structure/blob/CanPass(atom/movable/mover, turf/target)
@@ -243,7 +243,7 @@
 	if(overmind)
 		. += list("<b>Material: <font color=\"[overmind.blobstrain.color]\">[overmind.blobstrain.name]</font><span class='notice'>.</span></b>",
 		"<b>Material Effects:</b> <span class='notice'>[overmind.blobstrain.analyzerdescdamage]</span>",
-		"<b>Material Properties:</b> <span class='notice'>[overmind.blobstrain.analyzerdesceffect]</span>")
+		"<b>Material Properties:</b> <span class='notice'>[overmind.blobstrain.analyzerdesceffect || "N/A"]</span>")
 	else
 		. += "<b>No Material Detected!</b>"
 
