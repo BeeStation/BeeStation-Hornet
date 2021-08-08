@@ -38,6 +38,12 @@
 	toggle_on()
 	user.visible_message("<span class='notice'>[user] [active ? "" : "de"]activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You [active ? "" : "de"]activate your pinpointer.</span>")
 
+/obj/item/pinpointer/examine(mob/user)
+	. = ..()
+	if(!active || !target)
+		return
+	. += "It is currently tracking <b>[target]</b>."
+
 /obj/item/pinpointer/proc/toggle_on()
 	active = !active
 	playsound(src, 'sound/items/screwdriver2.ogg', 50, 1)
