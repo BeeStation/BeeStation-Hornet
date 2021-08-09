@@ -255,7 +255,7 @@
 	. = ..()
 	if(. && user)
 		if (progress_flash_divisor == 0)
-			user.flash_act(min(light_range, 2))
+			user.flash_act(max(light_range, 1))
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else
 			progress_flash_divisor--
