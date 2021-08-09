@@ -1,0 +1,4 @@
+author: Froststahr
+delete-after: true
+changes:
+  - bugfix: Mounted Seclights and swarmers should light up properly again.
