@@ -555,9 +555,9 @@
 	found.on = TRUE
 	found.icon_state = "[initial(found.icon_state)]-on"
 	if(found.light_power)
-		found.set_light(l_range = found.light_range, l_power = found.light_power)
+		found.set_light_on(TRUE)
 	else
-		found.set_light(found.light_range)
+		found.set_light_on(FALSE)
 	for(var/X in found.actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
