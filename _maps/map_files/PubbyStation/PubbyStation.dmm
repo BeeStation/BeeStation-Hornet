@@ -64300,6 +64300,10 @@
 /obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/department/security/brig)
+"wZP" = (
+/obj/structure/sign/departments/science,
+/turf/closed/wall/r_wall,
+/area/science/lab)
 "wZZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -98393,7 +98397,7 @@ bgv
 aJI
 cpM
 cpS
-bKM
+bkr
 bkr
 blv
 bIC
@@ -99421,7 +99425,7 @@ sEU
 aJI
 wVC
 bBA
-bKM
+bkr
 bhP
 blA
 bmH
@@ -99935,7 +99939,7 @@ bgz
 oaA
 aDZ
 dde
-bGa
+bKM
 bkp
 blA
 bIA
@@ -100706,7 +100710,7 @@ sEU
 bhh
 aDZ
 bBA
-cCl
+wZP
 bkt
 bkt
 buv
