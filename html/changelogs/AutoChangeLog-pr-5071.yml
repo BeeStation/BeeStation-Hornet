@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - rscdel: Removed bluespace miners from config and game
