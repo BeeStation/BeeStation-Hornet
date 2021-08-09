@@ -26171,13 +26171,13 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/table,
 /obj/item/paper_bin{
 	layer = 2.9;
 	pixel_x = -2;
 	pixel_y = 4
 	},
 /obj/item/pen,
+/obj/structure/table/glass,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "bib" = (
@@ -27014,7 +27014,6 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bkp" = (
-/obj/structure/table,
 /obj/item/gps{
 	gpstag = "RD0"
 	},
@@ -27036,6 +27035,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/structure/table/glass,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "bkq" = (
@@ -27049,8 +27049,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/structure/closet/emcloset,
-/obj/effect/landmark/start/hangover/closet,
+/obj/machinery/vending/cart,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "bkr" = (
@@ -27461,19 +27460,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
-/area/science/lab)
-"blB" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/structure/chair/stool,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "blC" = (
@@ -31782,10 +31768,11 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/effect/turf_decal/loading_area{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/effect/turf_decal/bot,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bvy" = (
@@ -32378,11 +32365,14 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bxe" = (
-/obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
 	},
 /obj/effect/landmark/start/hangover,
+/obj/effect/turf_decal/bot,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "bxf" = (
@@ -33041,6 +33031,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "byI" = (
@@ -61057,8 +61048,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/structure/closet/firecloset,
-/obj/effect/landmark/start/hangover/closet,
+/obj/machinery/vending/modularpc,
 /turf/open/floor/plasteel/dark,
 /area/science/lab)
 "rzp" = (
@@ -99943,7 +99933,7 @@ aDZ
 dde
 bGa
 bkp
-blB
+blA
 bIA
 bkm
 byC
