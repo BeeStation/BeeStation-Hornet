@@ -1097,6 +1097,33 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000, TECHWEB_POINT_TYPE_NANITES = 4000)
 	export_price = 15000
 
+/datum/techweb_node/nanite_replication_protocols
+	id = "nanite_replication_protocols"
+	display_name = "Nanite Replication Protocols"
+	description = "Protocols that overwrite the default nanite replication routine to achieve more efficiency in certain circumstances."
+	prereq_ids = list("nanite_harmonic")
+	design_ids = list(
+		"factory_nanites",
+		"kickstart_nanites",
+		"offline_nanites",
+		"pyramid_nanites",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000, TECHWEB_POINT_TYPE_NANITES = 2500)
+
+/datum/techweb_node/nanite_storage_protocols
+	id = "nanite_storage_protocols"
+	display_name = "Nanite Storage Protocols"
+	description = "Protocols that overwrite the default nanite storage routine to achieve more efficiency or greater capacity."
+	prereq_ids = list("nanite_harmonic")
+	design_ids = list(
+		"free_range_nanites",
+		"hive_nanites",
+		"unsafe_storage_nanites",
+		"zip_nanites",
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000, TECHWEB_POINT_TYPE_NANITES = 2500)
+
+
 ////////////////////////Alien technology////////////////////////
 /datum/techweb_node/alientech //AYYYYYYYYLMAOO tech
 	id = "alientech"
