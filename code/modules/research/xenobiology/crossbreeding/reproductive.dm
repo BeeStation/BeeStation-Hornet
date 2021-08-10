@@ -22,6 +22,7 @@ Reproductive extracts:
 	if(!typecache_to_take)
 		typecache_to_take = typecacheof(/obj/item/reagent_containers/food/snacks/monkeycube)
 	slimeStorage = AddComponent(/datum/component/storage/concrete/extract_inventory)
+	slimeStorage.can_hold = typecache_to_take
 /obj/item/slimecross/reproductive/examine()
 	. = ..()
 	. += "<span class='danger'>It appears to have eaten [length(contents)] Monkey Cube[p_s()]</span>"
@@ -38,7 +39,7 @@ Reproductive extracts:
 
 	if(istype(O, /obj/item/storage/bag/bio))
 		var/list/inserted = list()
-		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_TAKE_TYPE, /obj/item/reagent_containers/food/snacks/monkeycube, src, 1, null, null, user, inserted)
+		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src, 1, null, null, user, inserted)
 		if(inserted.len)
 			to_chat(user, "<span class='warning'>You feed [length(inserted)] Monkey Cube[p_s()] to [src], and it pulses gently.</span>")
 			playsound(src, 'sound/items/eatfood.ogg', 20, TRUE)
