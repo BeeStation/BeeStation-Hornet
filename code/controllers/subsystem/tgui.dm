@@ -179,12 +179,10 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/get_all_open_uis(datum/src_object)
 	var/key = "[REF(src_object)]"
-	. = list()
 	// No UIs opened for this src_object
 	if(isnull(open_uis_by_src[key]) || !istype(open_uis_by_src[key], /list))
-		return
-	for(var/datum/tgui/ui in open_uis_by_src[key])
-		. += ui
+		return list()
+	return open_uis_by_src[key]
 
 /**
  * public

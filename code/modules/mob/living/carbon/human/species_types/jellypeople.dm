@@ -461,13 +461,16 @@
 	name = "luminescent glow"
 	desc = "Tell a coder if you're seeing this."
 	icon_state = "nothing"
-	light_color = "#FFFFFF"
+	light_system = MOVABLE_LIGHT
 	light_range = LUMINESCENT_DEFAULT_GLOW
+	light_power = 2.5
+	light_color = COLOR_WHITE
 
 /obj/effect/dummy/luminescent_glow/Initialize()
 	. = ..()
 	if(!isliving(loc))
 		return INITIALIZE_HINT_QDEL
+
 
 /datum/action/innate/integrate_extract
 	name = "Integrate Extract"
@@ -548,16 +551,17 @@
 
 /datum/action/innate/use_extract/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	..(current_button, TRUE)
-	var/datum/species/jelly/luminescent/species = owner
+	var/mob/living/carbon/human/H = owner
+	var/datum/species/jelly/luminescent/species = H.dna.species
 	if(species && species.current_extract)
 		current_button.add_overlay(mutable_appearance(species.current_extract.icon, species.current_extract.icon_state))
 
 /datum/action/innate/use_extract/Activate()
 	var/mob/living/carbon/human/H = owner
-	var/datum/species/jelly/luminescent/species = owner
+	CHECK_DNA_AND_SPECIES(H)
+	var/datum/species/jelly/luminescent/species = H.dna.species
 	if(!is_species(H, /datum/species/jelly/luminescent) || !species)
 		return
-	CHECK_DNA_AND_SPECIES(H)
 
 	if(species.current_extract)
 		species.extract_cooldown = world.time + 100
@@ -607,6 +611,8 @@
 /datum/species/jelly/stargazer/spec_death(gibbed, mob/living/carbon/human/H)
 	..()
 	for(var/mob/living/link_to_clear as anything in linked_mobs)
+		if(link_to_clear == H)
+			continue
 		unlink_mob(link_to_clear)
 
 /datum/species/jelly/stargazer/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -748,7 +754,7 @@
 		return
 
 	var/mob/living/target = H.pulling
-	var/datum/species/jelly/stargazer/species = target
+	var/datum/species/jelly/stargazer/species = H.dna.species
 
 	to_chat(H, "<span class='notice'>You begin linking [target]'s mind to yours...</span>")
 	to_chat(target, "<span class='warning'>You feel a foreign presence within your mind...</span>")
