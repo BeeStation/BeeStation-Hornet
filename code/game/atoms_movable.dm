@@ -53,12 +53,6 @@
 	var/list/important_recursive_contents
 
 
-	///Lazylist to keep track on the sources of illumination.
-	var/list/affected_dynamic_lights
-	///Highest-intensity light affecting us, which determines our visibility.
-	var/affecting_dynamic_lumi = 0
-
-
 /atom/movable/Initialize(mapload)
 	. = ..()
 	switch(blocks_emissive)
@@ -71,18 +65,9 @@
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
 			em_block = new(src, render_target)
-			vis_contents += em_block
-	if(opacity)
-		AddElement(/datum/element/light_blocking)
-	switch(light_system)
-		if(MOVABLE_LIGHT)
-			AddComponent(/datum/component/overlay_lighting)
-		if(MOVABLE_LIGHT_DIRECTIONAL)
-			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
+			add_overlay(list(em_block))
 
-/atom/movable/Destroy(force)
-	QDEL_NULL(proximity_monitor)
-	QDEL_NULL(language_holder)
+/atom/movable/Destroy()
 	QDEL_NULL(em_block)
 
 	if(pulling)
