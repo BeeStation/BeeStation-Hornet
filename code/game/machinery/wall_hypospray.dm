@@ -17,7 +17,7 @@
 	circuit = /obj/item/circuitboard/machine/wall/hypospray
 	req_access = list(ACCESS_MEDICAL)
 
-	pixel_shift = 26
+	pixel_shift = 32
 
 	var/efficiency = 0.2
 	var/charge_speed = 4
