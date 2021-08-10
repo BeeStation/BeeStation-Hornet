@@ -1,0 +1,4 @@
+author: Archanial
+delete-after: true
+changes:
+  - rscdel: Removed non static typecacheof uses in storage component
