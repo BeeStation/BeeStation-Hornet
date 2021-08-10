@@ -796,9 +796,10 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/wall/hypospray
 	req_components = list(
-		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/stock_parts/manipulator = 1,
-		/obj/item/stock_parts/capacitor = 1)
+		///obj/item/stock_parts/matter_bin = 1,
+		///obj/item/stock_parts/manipulator = 1,
+		///obj/item/stock_parts/capacitor = 1,
+		)
 
 /obj/item/circuitboard/machine/techfab/department/medical
 	name = "departmental techfab - medical (Machine Board) "
