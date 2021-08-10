@@ -1100,5 +1100,13 @@
 	if(.)
 		end_multicam()
 
+/mob/living/silicon/ai/stripPanelUnequip(obj/item/what, mob/who)
+	to_chat(src, "<span class='warning'>You don't have any arms!</span>")
+	return
+
+/mob/living/silicon/ai/stripPanelEquip(obj/item/what, mob/who)
+	to_chat(src, "<span class='warning'>You don't have any arms!</span>")
+	return
+
 /mob/living/silicon/ai/zMove(dir, feedback = FALSE)
 	. = eyeobj.zMove(dir, feedback)
