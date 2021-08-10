@@ -1,12 +1,16 @@
 
 ///Which chemicals to use? Synthesized medicines or inserted bottle?
-#define SYNTHESIZER "synthesizer"
-#define BOTTLE      "bottle"
+#define PLUMBING "plumbing"
+#define STORAGE  "storage"
+#define BOTTLE   "handle"
 
 ///What caused the handle to snap back?
 #define SNAP_DROP       0
 #define SNAP_OVEREXTEND 1
 #define SNAP_INTERACT   2
+
+/datum/component/plumbing/wallmount_hypospray
+	demand_connects = SOUTH
 
 //Code based on defibrillator, sleeper and chemical synthesizer
 /obj/machinery/wall/hypospray
@@ -19,77 +23,83 @@
 
 	pixel_shift = 32
 
-	var/efficiency = 0.2
-	var/charge_speed = 4
-	var/charge = 100
-	var/max_charge = 100
-	var/charge_counter = 0
-
 	var/obj/item/hypospray_handle/handle
 	var/in_use = FALSE
 	var/locked = TRUE
 
-	var/chem_source = SYNTHESIZER
-	var/obj/item/reagent_containers/storage
+	var/chem_source = STORAGE
 
-	var/datum/reagent/selected_chem
-	var/list/available_chems
-	var/list/possible_chems = list(
-		list(/datum/reagent/medicine/perfluorodecalin, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/bicaridine, /datum/reagent/medicine/kelotane),
-		list(/datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate),
-		list(/datum/reagent/medicine/mannitol),
-		list(/datum/reagent/medicine/tricordrazine)
-	)
+	var/obj/item/storage/bag/chemistry/chemistry_bag = null
+	var/datum/weakref/selected_storage = null
+
+	var/atom/movable/plumbing_handler
+	var/datum/component/plumbing/plumbing_component
 
 /obj/machinery/wall/hypospray/examine(mob/user)
 	. = ..()
 
 	. += "<span class='notice'>It is set to draw from the [chem_source].</span>"
 
-	if(storage)
-		. += "<span class='notice'>There's \a [storage] inside.</span>"
+	if(chemistry_bag)
+		. += "<span class='notice'>It has [chemistry_bag] attached.</span>"
 
 /obj/machinery/wall/hypospray/Initialize()
 	. = ..()
+
+	if(. == INITIALIZE_HINT_NORMAL)
+		. = INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/wall/hypospray/LateInitialize()
+	. = ..()
+
 	handle = new(src)
+	layer++ // Need to bump up a layer so ducts can show up on top of wall but under hypospray
+
+	plumbing_handler = new(get_step(src, turn(dir, 180))) //TODO: Relay some plumbing actions to plumbing_handler
+	plumbing_handler.setDir(dir)
+	plumbing_handler.invisibility = INVISIBILITY_ABSTRACT
+	plumbing_handler.anchored = TRUE
+	plumbing_handler.layer++
+	plumbing_handler.create_reagents(30, TRANSPARENT)
+	plumbing_handler.setDir(dir)
+	plumbing_component = plumbing_handler.AddComponent(/datum/component/plumbing/wallmount_hypospray, TRUE)
+
+	reagents = plumbing_handler.reagents
+	update_icon()
+
+	//RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/update_plumbing_handler)
+/*
+/obj/machinery/wall/hypospray/proc/update_plumbing_handler()
+	if(plumbing_handler && plumbing_component)
+		plumbing_component.disable()
+		plumbing_handler.forceMove(get_step(src, dir))
+		plumbing_handler.setDir(dir)
+		plumbing_component.enable()
+*/
 
 /obj/machinery/wall/hypospray/Destroy()
 	QDEL_NULL(handle)
+	QDEL_NULL(plumbing_handler)
+	plumbing_component = null // Redundant reference for convenience
+	reagents = null // Shared with plumbing_handler
 	. = ..()
 
 /obj/machinery/wall/hypospray/on_deconstruction()
 	. = ..()
 
-	if(storage)
-		storage.forceMove(loc)
-		storage = null
-
-/obj/machinery/wall/hypospray/RefreshParts()
-	var/bin_rating
-	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		bin_rating += B.rating
-
-	var/cap_rating
-	for(var/obj/item/stock_parts/capacitor/C in component_parts)
-		cap_rating += C.rating
-
-	var/manip_rating
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		manip_rating += M.rating
-
-	efficiency = initial(efficiency) * bin_rating
-	charge_speed = initial(charge_speed) * cap_rating
-	available_chems = list()
-	for(var/i in 1 to min(manip_rating, length(possible_chems)))
-		available_chems |= possible_chems[i]
-
-	if(available_chems && available_chems.len && (!selected_chem || !(selected_chem in available_chems)))
-		selected_chem = available_chems[1]
-
-	ui_update() //Available chems list
+	if(chemistry_bag)
+		chemistry_bag.forceMove(loc)
+		chemistry_bag = null
 
 /obj/machinery/wall/hypospray/screwdriver_act(mob/living/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "panel_open", "wallmount_hypospray", I))
+		update_icon()
+		return TRUE
+
+	. = ..()
+
+/obj/machinery/wall/hypospray/crowbar_act(mob/living/user, obj/item/I)
+	if(default_deconstruction_crowbar(I))
 		return TRUE
 
 	. = ..()
@@ -97,7 +107,13 @@
 /obj/machinery/wall/hypospray/update_overlays()
 	. = ..()
 
-	if(is_operational())
+	//if(plumbing_component)
+	//	. += plumbing_component.ducterlays
+
+	if(plumbing_handler)
+		. += plumbing_handler
+
+	if(is_operational() && !panel_open)
 		if(locked)
 			. += "screen_yellow"
 		else
@@ -105,42 +121,16 @@
 
 	if(!in_use)
 		. += "handle"
-
+/*
 /obj/machinery/wall/hypospray/update_icon_state()
 	if(panel_open)
 		icon_state = "panel_open"
 	else
 		icon_state = initial(icon_state)
-
-/obj/machinery/wall/hypospray/process(delta_time)
-	if (charge_counter >= 8)
-		charge_counter -= 8
-		if(!is_operational())
-			return
-		var/charge_amount = min(max_charge-charge, charge_speed)
-		if(charge_amount > 0)
-			use_power(250*charge_amount)
-			charge += charge_amount
-			ui_update() //Charge level display
-		return
-	charge_counter += delta_time
-
+*/
 /obj/machinery/wall/hypospray/power_change()
 	. = ..()
 	update_icon()
-
-/obj/machinery/wall/hypospray/proc/use_charge(volume)
-	var/power_use = volume/efficiency
-
-	if(!is_operational())
-		return FALSE
-
-	if(charge < power_use)
-		return FALSE
-
-	charge -= power_use
-	ui_update() //Charge level display
-	return TRUE
 
 /obj/machinery/wall/hypospray/proc/snap_handle(cause = SNAP_DROP, silent = FALSE)
 	if(!handle)
@@ -163,25 +153,38 @@
 	in_use = FALSE
 	update_icon()
 
+/obj/machinery/wall/hypospray/proc/get_reagents_source()
+	switch(chem_source)
+		if(STORAGE)
+			if(!selected_storage)
+				return null
+			var/obj/item/reagent_containers/selected_item = selected_storage.resolve()
+			if(!selected_item || !(selected_item in chemistry_bag.contents) || !(selected_item.reagent_flags & DRAINABLE))
+				selected_storage = null
+				return null
+			return selected_item.reagents
+		if(BOTTLE)
+			if(handle && handle.storage)
+				return handle.storage.reagents
+		if(PLUMBING)
+			if(plumbing_handler)
+				return plumbing_handler.reagents
+
 /obj/machinery/wall/hypospray/proc/inject(mob/living/target, mob/user, amount)
 
 	//Always log attemped injects for admins
 	var/list/injected = list()
-	switch(chem_source)
-		if(SYNTHESIZER)
-			if(!use_charge(amount))
-				to_chat(user, "<span class='warning'>[src] is out of power!</span>")
-				return
-			injected += initial(selected_chem.name)
-		if(BOTTLE)
-			if(!storage)
-				to_chat(user, "<span class='warning'>[src] has no bottle attached!</span>")
-				return
-			if(!storage.reagents.total_volume)
-				to_chat(user, "<span class='warning'>[src] hisses but nothing comes out. The attached bottle is empty!</span>")
-				return
-			for(var/datum/reagent/R in storage.reagents.reagent_list)
-				injected += R.name
+
+	var/datum/reagents/source = get_reagents_source()
+	if(!source)
+		balloon_alert(user, "Nothing to draw from!")
+
+	if(!source.total_volume)
+		balloon_alert(user, "It's empty!")
+		return
+
+	for(var/datum/reagent/R in source.reagent_list)
+		injected += R.name
 
 	var/contained = english_list(injected)
 	log_combat(user, target, "attempted to inject", handle, "([contained])")
@@ -191,17 +194,12 @@
 		to_chat(user, "<span class='notice'>You inject [target] with [handle].</span>")
 		playsound(loc, 'sound/items/hypospray.ogg', 50, 1)
 
-		switch(chem_source)
-			if(SYNTHESIZER)
-				target.reagents.add_reagent(selected_chem, amount)
-			if(BOTTLE)
-				var/datum/reagents/_reagents = storage.reagents
-				var/fraction = min(amount/_reagents.total_volume, 1)
-				_reagents.reaction(target, INJECT, fraction)
-				_reagents.trans_to(target, amount, transfered_by = user)
+		var/fraction = min(amount/source.total_volume, 1)
+		source.reaction(target, INJECT, fraction)
+		source.trans_to(target, amount, transfered_by = user)
 
-				to_chat(user, "<span class='notice'>[_reagents.total_volume] unit\s remaining in [storage].</span>")
-				ui_update() // Bottle fill display
+		balloon_alert(user, "[source.total_volume]U\s remaining")
+		ui_update()
 
 		log_combat(user, target, "injected", handle, "([contained])")
 
@@ -223,30 +221,38 @@
 	if(.)
 		update_icon()
 
-/obj/machinery/wall/hypospray/proc/interact_storage(mob/user, obj/item/reagent_containers/new_beaker = null)
-	var/obj/item/reagent_containers/old_storage
-	if(storage)
-		storage.forceMove(drop_location())
-		old_storage = storage
-		. = TRUE
-	else
-		// When activated from UI, only insert new beaker if there wasn't one already
-		if(!new_beaker)
-			var/obj/item/potential_new_beaker = user.get_active_held_item()
-			if(istype(potential_new_beaker, /obj/item/reagent_containers))
-				new_beaker = potential_new_beaker
+/obj/machinery/wall/hypospray/proc/interact_bag(mob/user, obj/item/storage/bag/chemistry/new_bag = null)
+	if(new_bag && chemistry_bag)
+		to_chat(user, "<span class='warning'>[src] already has \a [chemistry_bag]!</span>")
+		return FALSE
 
-	if(new_beaker && user.transferItemToLoc(new_beaker, src))
-		storage = new_beaker
-		. = TRUE
-	else
-		storage = null
+	if(locked)
+		if(chemistry_bag)
+			to_chat(user, "<span class='warning'>[src] is locked, its clamps holding [chemistry_bag]'s strap tight!</span>")
+		else if(new_bag)
+			to_chat(user, "<span class='warning'>[src] is locked, it won't accept [new_bag]!</span>")
+		return FALSE
 
-	//Do this here for swapping with both hands busy
-	if(old_storage && user && Adjacent(user) && !issiliconoradminghost(user))
-		user.put_in_hands(storage)
+	if(chemistry_bag)
+		chemistry_bag.forceMove(drop_location())
+		if(user && Adjacent(user) && !issiliconoradminghost(user))
+			user.put_in_hands(chemistry_bag)
+		user.visible_message("<span class='notice'>[user] unhooks [src]'s bag.</span>", \
+		                     "<span class='notice'>You unhook [chemistry_bag] from [src].</span>")
+		chemistry_bag = null
+		update_icon()
+		return TRUE
+	if(new_bag)
+		if(!user.transferItemToLoc(new_bag, src))
+			//to_chat(user, "<span class='warning'>You can't attach [chemistry_bag] to [src]</span>")
+			return FALSE
 
-	//update_icon()
+		user.visible_message("<span class='notice'>[user] hooks a bag onto [src].</span>", \
+		                     "<span class='notice'>You hook [new_bag] onto [src].</span>")
+
+		chemistry_bag = new_bag
+		update_icon()
+		return TRUE
 
 /obj/machinery/wall/hypospray/proc/toggle_lock(mob/living/user, obj/item/held_item = null)
 	if(stat & (BROKEN|MAINT))
@@ -294,12 +300,15 @@
 		to_chat(user, "<span class='warning'>The [I] belongs to another wallmount!</span>")
 		return FALSE
 
-	if(istype(I, /obj/item/reagent_containers))
-		var/obj/item/reagent_containers/beaker = I
+	if(istype(I, /obj/item/storage/bag/chemistry))
+		var/obj/item/storage/bag/chemistry/bag = I
 
-		if(interact_storage(user, beaker))
-			ui_update() //Bottle holder button
+		if(interact_bag(user, bag))
+			ui_update() //Available chems
 			return TRUE
+
+	if(istype(I, /obj/item/plunger))
+		return plumbing_handler.attackby(I, user, params)
 
 	return ..()
 
@@ -314,6 +323,7 @@
 	. = ..()
 	var/list/data = .
 
+	/*
 	if(selected_chem)
 		var/datum/reagent/chem = GLOB.chemical_reagents_list[selected_chem]
 		data["selected_chem"] = chem.name
@@ -322,16 +332,33 @@
 	for(var/chem in available_chems)
 		var/datum/reagent/R = GLOB.chemical_reagents_list[chem]
 		data["chems"] += list(list("name" = R.name, "id" = R.type))
+	*/
 
-	data["bottle"] = storage?.name
-	data["bottle_volume"] = storage?.reagents?.total_volume
-	data["bottle_max_volume"] = storage?.volume
+	data["bag"] = null
+	if(chemistry_bag)
+		data["bag"] = list()
+		for(var/obj/item/reagent_containers/item in chemistry_bag.contents)
+			if(item.reagent_flags & DRAINABLE)
+				data["bag"] += list(list(
+						name = item.name,
+						id = REF(item)
+					))
+		var/obj/item/reagent_containers/selected_item = selected_storage?.resolve()
+		if(selected_item)
+			data["selected"] = REF(selected_item)
+
+	if(handle && handle.storage)
+		data["bottle"] = handle.storage.name
+		data["bottle_volume"] = handle.storage.reagents?.total_volume
+		data["bottle_max_volume"] = handle.storage.volume
+
+	if(plumbing_handler)
+		data["plumbing_volume"] = plumbing_handler.reagents.total_volume
+		data["plumbing_max_volume"] = plumbing_handler.reagents.maximum_volume
 
 	data["chem_source"] = chem_source
-	data["storage"] = storage?.name
+	//data["storage"] = storage?.name
 	data["locked"] = locked
-	data["charge"] = charge
-	data["max_charge"] = max_charge
 	data["handle"] = in_use ? null : handle?.name
 
 /obj/machinery/wall/hypospray/ui_act(action, list/params)
@@ -346,25 +373,29 @@
 		switch(action)
 			if("select_source")
 				switch(params["target"])
-					if(SYNTHESIZER)
-						chem_source = SYNTHESIZER
+					if(PLUMBING)
+						chem_source = PLUMBING
+					if(STORAGE)
+						chem_source = STORAGE
 					if(BOTTLE)
 						chem_source = BOTTLE
 					else
 						return
 				. = TRUE
 
-			if("select_chem")
-				var/target = text2path(params["target"])
-				if(target && (target in available_chems))
-					selected_chem = target
+			if("select_storage")
+				if(!chemistry_bag)
+					return
+				var/obj/item/reagent_containers/target = locate(params["target"])
+				if(target && (target.reagent_flags & DRAINABLE) && (target in chemistry_bag.contents))
+					selected_storage = WEAKREF(target)
 					. = TRUE
 
 			if("interact_handle")
 				. = interact_handle(usr)
 
-			if("interact_storage")
-				. = interact_storage(usr)
+			if("interact_bag")
+				. = interact_bag(usr)
 
 //Code based on defibrillator and hypospray
 /obj/item/hypospray_handle
@@ -387,12 +418,17 @@
 	var/inject_amount = 5
 	var/list/possible_inject_amounts = list(1, 5)
 
+	var/obj/item/reagent_containers/storage
 	var/mob/listeningTo
 
 /obj/item/hypospray_handle/examine(mob/user)
 	. = ..()
 
 	. += "<span class='notice'>It is set to inject [inject_amount] unit\s.</span>"
+
+	if(storage)
+		var/datum/reagents/_reagents = storage.reagents
+		. += "<span class='notice'>It has [_reagents.total_volume] unit\s in \the attached [storage].</span>"
 
 /obj/item/hypospray_handle/Initialize()
 	. = ..()
@@ -407,6 +443,10 @@
 	if(mount)
 		mount.handle = null
 		mount = null
+
+	if(storage)
+		storage.forceMove(get_turf(src))
+		storage = null
 
 	. = ..()
 
@@ -471,7 +511,8 @@
 		mount.snap_handle(cause=SNAP_OVEREXTEND)
 		return FALSE
 
-#undef SYNTHESIZER
+#undef PLUMBING
+#undef STORAGE
 #undef BOTTLE
 
 #undef SNAP_DROP
