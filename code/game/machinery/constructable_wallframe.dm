@@ -15,17 +15,16 @@
 /obj/machinery/wall
 	var/pixel_shift = null // Number for custom offset of specific machine types
 	density = FALSE
-	FASTDMM_PROP(\
-		set_instance_vars(\
-			pixel_x = dir == EAST ? -pixel_shift : (dir == WEST ? pixel_shift : INSTANCE_VAR_KEEP),\
-			pixel_y = dir == NORTH ? -pixel_shift : (dir == SOUTH ? pixel_shift : INSTANCE_VAR_KEEP)\
-        )\
-    )
+
+/obj/machinery/wall/Initialize(mapload, ndir, building)
+	. = ..()
+	if(building)
+		setDir(ndir)
 
 /obj/machinery/wall/spawn_frame(disassembled)
 	var/obj/structure/frame/machine/wall/M = new(loc)
 	. = M
-	M.dir = dir
+	M.setDir(dir)
 	M.pixel_x = pixel_x
 	M.pixel_y = pixel_y
 	if(pixel_shift) // Correct for per-machine offsets
@@ -50,6 +49,11 @@
 	base_icon_state = "wall"
 	anchored = TRUE
 	density = FALSE
+
+/obj/structure/frame/machine/wall/Initialize(mapload, ndir, building)
+	. = ..()
+	if(building)
+		setDir(ndir)
 
 /obj/structure/frame/machine/wall/accepts_circuit(obj/item/circuitboard/circuit)
 	return istype(circuit, /obj/item/circuitboard/machine/wall)
@@ -82,12 +86,11 @@
 					break
 			if(component_check)
 				I.play_tool_sound(src)
-				var/obj/machinery/wall/new_machine = new circuit.build_path(loc)
+				var/obj/machinery/wall/new_machine = new circuit.build_path(loc, dir, TRUE)
 				if(new_machine.circuit)
 					QDEL_NULL(new_machine.circuit)
 				new_machine.circuit = circuit
 				new_machine.setAnchored(anchored)
-				new_machine.dir = dir
 				if(new_machine.pixel_shift)
 					switch(dir)
 						if(NORTH)
