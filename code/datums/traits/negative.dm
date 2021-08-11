@@ -651,7 +651,6 @@
 	name = "Phobia"
 	desc = "Because of a traumatic event in your past you have developed a strong phobia."
 	value = -2
-	mob_trait = TRAIT_PHOBIA
 	gain_text = "<span class='danger'>You start feeling an irrational fear of something.</span>"
 	lose_text = "<span class='notice'>You are no longer irrationally afraid.</span>"
 	medical_record_text = "Patient suffers from a deeply-rooted phobia."
