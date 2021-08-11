@@ -50,5 +50,5 @@
 				T.ChangeTurf(biome.river_type, list(biome.river_type), CHANGETURF_IGNORE_AIR)
 		else
 			T.baseturfs = list(biome.plains_type, biome.river_type)
-		//CHECK_TICK
+		CHECK_TICK
 	new_area.update_areasize()
