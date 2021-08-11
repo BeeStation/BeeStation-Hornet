@@ -72,7 +72,7 @@
 	id = "corporate"
 	inherent = list("Degradation of your system integrity or functions incurs expenses.",\
 					"Unnecessary destruction of or damage to station assets incurs expenses.",\
-					"Unduly hindering or disrupting the work of station personnel incurs expenses.",\
+					"Needlessly hindering or disrupting the work of station personnel incurs expenses.",\
 					"Minimize expenses and maximize potential revenue.")
 
 /datum/ai_laws/robocop
