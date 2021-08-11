@@ -5,7 +5,10 @@
 
 # byond version
 export BYOND_MAJOR=514
-export BYOND_MINOR=1554
+export BYOND_MINOR=1556
+
+#rust version
+export RUST_VERSION=1.54.0
 
 #rust_g git tag
 export RUST_G_VERSION=0.4.7.1
