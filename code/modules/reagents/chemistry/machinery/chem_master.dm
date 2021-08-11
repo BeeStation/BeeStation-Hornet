@@ -160,6 +160,7 @@
 	if(!ui)
 		ui = new(user, src, "ChemMaster")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/chem_master/ui_assets(mob/user)
 	return list(

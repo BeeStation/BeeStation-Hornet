@@ -69,6 +69,7 @@
 	if(!ui)
 		ui = new(user, src, "OperatingComputer")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/operating/ui_data(mob/user)
 	var/list/data = list()

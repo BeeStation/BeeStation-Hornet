@@ -182,6 +182,7 @@
 	if(!ui)
 		ui = new(user, src, "RDConsole")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/rdservercontrol/ui_data(mob/user)
 	var/list/data = list()

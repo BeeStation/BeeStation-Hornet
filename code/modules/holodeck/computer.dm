@@ -171,6 +171,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 			nerf(obj_flags & EMAGGED,FALSE)
 			obj_flags ^= EMAGGED
 			say("Safeties reset. Restarting...")
+	ui_update()
 
 ///this is what makes the holodeck not spawn anything on broken tiles (space and non engine plating / non holofloors)
 /datum/map_template/holodeck/update_blacklist(turf/placement, list/input_blacklist)
@@ -377,6 +378,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	say("Warning. Automatic shutoff and derezzing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
 	log_game("[key_name(user)] emagged the Holodeck Control Console")
 	nerf(!(obj_flags & EMAGGED),FALSE)
+	ui_update()
 
 /obj/machinery/computer/holodeck/emp_act(severity)
 	. = ..()
