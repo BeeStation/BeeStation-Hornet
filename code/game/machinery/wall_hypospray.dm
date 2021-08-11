@@ -21,7 +21,7 @@
 	circuit = /obj/item/circuitboard/machine/wall/hypospray
 	req_access = list(ACCESS_MEDICAL)
 
-	pixel_shift = 32
+	pixel_shift = 32 // Centered on the tile so it looks right without rotation and with plumbing
 
 	var/obj/item/hypospray_handle/handle
 	var/in_use = FALSE
@@ -61,7 +61,6 @@
 	plumbing_handler.anchored = TRUE
 	plumbing_handler.layer++
 	plumbing_handler.create_reagents(30, TRANSPARENT)
-	plumbing_handler.setDir(dir)
 	plumbing_component = plumbing_handler.AddComponent(/datum/component/plumbing/wallmount_hypospray, TRUE)
 
 	reagents = plumbing_handler.reagents
