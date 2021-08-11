@@ -49,7 +49,6 @@
 	id = "exploration";
 	name = "Exploration Shuttle Shutters";
 	normaldoorcontrol = 0;
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /turf/open/floor/mineral/titanium,
