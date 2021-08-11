@@ -7970,12 +7970,6 @@
 	name = "Supermatter Chamber";
 	req_access_txt = "10"
 	},
-/obj/structure/sign/directions/engineering{
-	dir = 4
-	},
-/obj/structure/sign/directions/command{
-	pixel_y = -8
-	},
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
 "aMk" = (
@@ -14236,7 +14230,7 @@
 	dir = 1;
 	pixel_y = 8
 	},
-/turf/open/floor/engine,
+/turf/closed/wall,
 /area/engine/engineering)
 "bmo" = (
 /obj/item/flashlight/lamp/green{
