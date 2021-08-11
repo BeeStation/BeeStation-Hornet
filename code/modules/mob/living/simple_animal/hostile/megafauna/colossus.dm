@@ -223,6 +223,7 @@ Difficulty: Very Hard
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
+	light_system = MOVABLE_LIGHT
 	light_range = 2
 	duration = 8
 	var/target
@@ -753,6 +754,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/closet/stasis/Entered(atom/A)
+	. = ..()
 	if(isliving(A) && holder_animal)
 		var/mob/living/L = A
 		L.notransform = 1

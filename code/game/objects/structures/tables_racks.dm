@@ -2,6 +2,7 @@
  * Contains:
  *		Tables
  *		Glass Tables
+ *		Plasmaglass Tables
  *		Wooden Tables
  *		Reinforced Tables
  *		Racks
@@ -131,7 +132,8 @@
 
 /obj/structure/table/proc/tableplace(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.forceMove(loc)
-	pushed_mob.set_resting(TRUE, TRUE)
+	if(!isanimal(pushed_mob) || iscat(pushed_mob))
+		pushed_mob.set_resting(TRUE, TRUE)
 	pushed_mob.visible_message("<span class='notice'>[user] places [pushed_mob] onto [src].</span>", \
 								"<span class='notice'>[user] places [pushed_mob] onto [src].</span>")
 	log_combat(user, pushed_mob, "places", null, "onto [src]")
@@ -174,13 +176,13 @@
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
 	if(!(flags_1 & NODECONSTRUCT_1))
-		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready)
+		if(I.tool_behaviour == TOOL_SCREWDRIVER && deconstruction_ready && user.a_intent != INTENT_HELP)
 			to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
 			if(I.use_tool(src, user, 20, volume=50))
 				deconstruct(TRUE)
 			return
 
-		if(I.tool_behaviour == TOOL_WRENCH && deconstruction_ready)
+		if(I.tool_behaviour == TOOL_WRENCH && deconstruction_ready && user.a_intent != INTENT_HELP)
 			to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
 			if(I.use_tool(src, user, 40, volume=50))
 				playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
@@ -296,6 +298,25 @@
 	color = NARSIE_WINDOW_COLOUR
 	for(var/obj/item/shard/S in debris)
 		S.color = NARSIE_WINDOW_COLOUR
+
+/*
+ * Plasmaglass tables
+ */
+/obj/structure/table/glass/plasma
+    name = "plasmaglass table"
+    desc = "A glass table, but it's pink and more sturdy. What will Nanotrasen design next with plasma?"
+    icon = 'icons/obj/smooth_structures/plasmaglass_table.dmi'
+    icon_state = "plasmaglass_table"
+    buildstack = /obj/item/stack/sheet/plasmaglass
+    max_integrity = 270
+    armor = list("melee" = 10, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
+
+/obj/structure/table/glass/plasma/Initialize()
+    . = ..()
+    debris += new /obj/item/shard/plasma
+
+/obj/structure/table/glass/plasma/check_break(mob/living/M)
+    return
 
 /*
  * Wooden tables
@@ -514,7 +535,8 @@
 
 /obj/structure/table/optable/tablepush(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.forceMove(loc)
-	pushed_mob.set_resting(TRUE, TRUE)
+	if(!isanimal(pushed_mob) || iscat(pushed_mob))
+		pushed_mob.set_resting(TRUE, TRUE)
 	visible_message("<span class='notice'>[user] has laid [pushed_mob] on [src].</span>")
 	get_patient()
 
@@ -536,7 +558,7 @@
 /obj/structure/table/optable/proc/patient_deleted(datum/source)
 	SIGNAL_HANDLER
 	set_patient(null)
-	
+
 /obj/structure/table/optable/proc/check_eligible_patient()
 	get_patient()
 	if(!patient)
@@ -587,7 +609,7 @@
 		step(O, get_dir(O, src))
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
+	if (W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1) && user.a_intent != INTENT_HELP)
 		W.play_tool_sound(src)
 		deconstruct(TRUE)
 		return
