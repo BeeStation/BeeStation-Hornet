@@ -15,6 +15,7 @@
 		/datum/language/beachbum,
 		/datum/language/buzzwords,
 		/datum/language/calcic,
+		/datum/language/clownish,
 		/datum/language/codespeak,
 		/datum/language/common,
 		/datum/language/draconic,
