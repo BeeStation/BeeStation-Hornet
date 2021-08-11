@@ -64,3 +64,5 @@
 
 	H.fully_replace_character_name(H.real_name, pick(GLOB.clown_names)) //rename the mob AFTER they're equipped so their ID gets updated properly.
 	H.dna.add_mutation(CLOWNMUT)
+	var/datum/language_holder/LH = H.mind.current.get_language_holder()
+	LH.grant_language(/datum/language/clownish)
