@@ -112688,15 +112688,6 @@
 /obj/structure/sign/warning/nosmoking,
 /turf/closed/wall,
 /area/medical/virology)
-"dUa" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/turf/open/floor/plasteel/white/corner,
-/area/space)
 "dUg" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -118778,9 +118769,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"feH" = (
-/turf/closed/wall,
-/area/space)
 "ffI" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 4
@@ -119883,6 +119871,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/security/prison)
+"hGW" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/closed/wall,
+/area/vacant_room/office)
 "hLm" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -119926,6 +119918,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"hNI" = (
+/obj/structure/sign/nanotrasen,
+/turf/closed/wall,
+/area/vacant_room/office)
 "hNS" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -120032,10 +120028,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"ikv" = (
-/obj/machinery/status_display/evac,
-/turf/closed/wall,
-/area/space)
 "imL" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 1
@@ -120323,6 +120315,18 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
+"jfw" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 9;
+	height = 8;
+	id = "exploration_home";
+	name = "Exploration Dock";
+	roundstart_template = /datum/map_template/shuttle/exploration/delta;
+	width = 16
+	},
+/turf/open/space/basic,
+/area/space)
 "jfO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -120846,31 +120850,6 @@
 	},
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hor)
-"kxb" = (
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc{
-	areastring = "/area/hallway/secondary/entry";
-	dir = 1;
-	name = "Arrivals Hallway APC";
-	pixel_y = 24
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Arrivals - Center Port";
-	dir = 2;
-	name = "arrivals camera"
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white/corner{
-	dir = 1
-	},
-/area/space)
 "kyo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -120963,22 +120942,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
-"kOl" = (
-/obj/machinery/door/airlock{
-	name = "Auxiliary Office";
-	req_access_txt = "32"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/landmark/event_spawn,
-/turf/open/floor/wood,
-/area/space)
 "kOw" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -122194,10 +122157,6 @@
 /obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/engine/gravity_generator)
-"nAq" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/closed/wall,
-/area/space)
 "nBr" = (
 /turf/closed/wall/r_wall,
 /area/engine/storage_shared)
@@ -122688,18 +122647,6 @@
 	},
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
-"oMA" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 16;
-	height = 15;
-	id = "exploration_home";
-	name = "Exploration Dock";
-	roundstart_template = /datum/map_template/shuttle/exploration/delta;
-	width = 23
-	},
-/turf/open/space/basic,
-/area/space)
 "oNd" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -122872,10 +122819,6 @@
 /obj/item/target/syndicate,
 /turf/open/floor/plasteel,
 /area/science/misc_lab/range)
-"pok" = (
-/obj/structure/sign/nanotrasen,
-/turf/closed/wall,
-/area/space)
 "pop" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -123243,6 +123186,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"qhO" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/door/airlock{
+	name = "Auxiliary Storage Closet"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/maintenance/port/fore)
 "qjp" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	id_tag = "commissarydoor";
@@ -124737,19 +124693,6 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
-"ucT" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/obj/machinery/door/airlock{
-	name = "Auxiliary Storage Closet"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/space)
 "udo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -124968,6 +124911,10 @@
 	},
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/port/fore)
+"uKo" = (
+/obj/machinery/status_display/evac,
+/turf/closed/wall,
+/area/vacant_room/office)
 "uMN" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -125145,6 +125092,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"vql" = (
+/obj/machinery/door/airlock{
+	name = "Auxiliary Office";
+	req_access_txt = "32"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/wood,
+/area/vacant_room/office)
 "vqo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -125753,6 +125716,31 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"wXG" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	areastring = "/area/hallway/secondary/entry";
+	dir = 1;
+	name = "Arrivals Hallway APC";
+	pixel_y = 24
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Arrivals - Center Port";
+	dir = 2;
+	name = "arrivals camera"
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white/corner{
+	dir = 1
+	},
+/area/hallway/secondary/entry)
 "wZk" = (
 /obj/structure/closet/crate/critter,
 /obj/effect/turf_decal/tile/purple,
@@ -157692,7 +157680,7 @@ aaa
 aaa
 aaa
 aaa
-oMA
+jfw
 aaa
 aaa
 aaa
@@ -158730,7 +158718,7 @@ aiQ
 ajd
 lMO
 xGd
-feH
+abf
 alg
 alW
 amW
@@ -158987,7 +158975,7 @@ aiR
 aje
 jfu
 ajU
-ucT
+qhO
 alh
 alX
 amX
@@ -159244,7 +159232,7 @@ abf
 abf
 jas
 ajV
-feH
+alf
 ali
 alY
 amY
@@ -159501,7 +159489,7 @@ aaa
 abf
 ajx
 ajW
-feH
+aky
 aky
 aky
 aky
@@ -159758,7 +159746,7 @@ aad
 aaO
 ajw
 ajX
-feH
+aky
 alj
 alZ
 amZ
@@ -160015,7 +160003,7 @@ aaO
 abf
 ajy
 uGq
-feH
+aky
 alk
 ama
 ana
@@ -160272,7 +160260,7 @@ adq
 agk
 ajw
 ajY
-pok
+hNI
 all
 amb
 anb
@@ -160529,7 +160517,7 @@ hFO
 lrr
 weF
 ajV
-feH
+aky
 alm
 amc
 kXs
@@ -160786,7 +160774,7 @@ lEc
 ajf
 ajw
 ajV
-feH
+aky
 aln
 amc
 ama
@@ -161043,7 +161031,7 @@ mRN
 pqG
 ntQ
 ajZ
-nAq
+hGW
 alo
 amd
 anc
@@ -161300,7 +161288,7 @@ ads
 agj
 ajz
 ajU
-kOl
+vql
 alp
 ame
 and
@@ -161557,7 +161545,7 @@ aaO
 abf
 ajA
 uGq
-feH
+aky
 alq
 amf
 ane
@@ -161814,7 +161802,7 @@ aad
 aaO
 jas
 ajV
-ikv
+uKo
 alr
 amg
 anf
@@ -162071,7 +162059,7 @@ aaa
 abf
 ajz
 aka
-feH
+aky
 als
 amh
 ang
@@ -162325,10 +162313,10 @@ abf
 aaO
 aaO
 abf
-feH
-kxb
-dUa
-feH
+abf
+wXG
+ajV
+aky
 aky
 aky
 aky
