@@ -35,6 +35,8 @@
 	var/atom/movable/plumbing_handler
 	var/datum/component/plumbing/plumbing_component
 
+	var/last_plumbing_volume // Used to only update UI when amount changes
+
 /obj/machinery/wall/hypospray/examine(mob/user)
 	. = ..()
 
@@ -66,22 +68,20 @@
 	reagents = plumbing_handler.reagents
 	update_icon()
 
-	//RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/update_plumbing_handler)
-/*
-/obj/machinery/wall/hypospray/proc/update_plumbing_handler()
-	if(plumbing_handler && plumbing_component)
-		plumbing_component.disable()
-		plumbing_handler.forceMove(get_step(src, dir))
-		plumbing_handler.setDir(dir)
-		plumbing_component.enable()
-*/
-
 /obj/machinery/wall/hypospray/Destroy()
 	QDEL_NULL(handle)
 	QDEL_NULL(plumbing_handler)
 	plumbing_component = null // Redundant reference for convenience
 	reagents = null // Shared with plumbing_handler
 	. = ..()
+
+/obj/machinery/wall/hypospray/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+
+	if(!.)
+		if(reagents && reagents.total_volume != last_plumbing_volume)
+			last_plumbing_volume = reagents.total_volume
+			. = TRUE
 
 /obj/machinery/wall/hypospray/on_deconstruction()
 	. = ..()
@@ -91,7 +91,7 @@
 		chemistry_bag = null
 
 /obj/machinery/wall/hypospray/screwdriver_act(mob/living/user, obj/item/I)
-	if(default_deconstruction_screwdriver(user, "panel_open", "wallmount_hypospray", I))
+	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
 		update_icon()
 		return TRUE
 
@@ -106,27 +106,21 @@
 /obj/machinery/wall/hypospray/update_overlays()
 	. = ..()
 
-	//if(plumbing_component)
-	//	. += plumbing_component.ducterlays
-
 	if(plumbing_handler)
 		. += plumbing_handler
 
 	if(is_operational() && !panel_open)
 		if(locked)
-			. += "screen_yellow"
+			. += "screen-yellow"
 		else
-			. += "screen_green"
+			. += "screen-green"
 
 	if(!in_use)
-		. += "handle"
-/*
-/obj/machinery/wall/hypospray/update_icon_state()
-	if(panel_open)
-		icon_state = "panel_open"
-	else
-		icon_state = initial(icon_state)
-*/
+		. += "[initial(icon_state)]-handle"
+
+	if(chemistry_bag)
+		. += "[initial(icon_state)]-bag"
+
 /obj/machinery/wall/hypospray/power_change()
 	. = ..()
 	update_icon()
@@ -177,6 +171,7 @@
 	var/datum/reagents/source = get_reagents_source()
 	if(!source)
 		balloon_alert(user, "Nothing to draw from!")
+		return
 
 	if(!source.total_volume)
 		balloon_alert(user, "It's empty!")
@@ -322,41 +317,37 @@
 	. = ..()
 	var/list/data = .
 
-	/*
-	if(selected_chem)
-		var/datum/reagent/chem = GLOB.chemical_reagents_list[selected_chem]
-		data["selected_chem"] = chem.name
-
-	data["chems"] = list()
-	for(var/chem in available_chems)
-		var/datum/reagent/R = GLOB.chemical_reagents_list[chem]
-		data["chems"] += list(list("name" = R.name, "id" = R.type))
-	*/
-
-	data["bag"] = null
 	if(chemistry_bag)
-		data["bag"] = list()
+		data["bag"] = "[chemistry_bag.name]"
+		data["bag_contents"] = list()
 		for(var/obj/item/reagent_containers/item in chemistry_bag.contents)
 			if(item.reagent_flags & DRAINABLE)
-				data["bag"] += list(list(
+				data["bag_contents"] += list(list(
 						name = item.name,
-						id = REF(item)
+						id = REF(item),
+						volume = item.reagents.total_volume,
+						max_volume = item.volume
 					))
 		var/obj/item/reagent_containers/selected_item = selected_storage?.resolve()
 		if(selected_item)
 			data["selected"] = REF(selected_item)
+			data["selected_data"] = list(
+				name = "[selected_item]",
+				volume = selected_item.reagents.total_volume,
+				max_volume = selected_item.volume)
 
 	if(handle && handle.storage)
-		data["bottle"] = handle.storage.name
-		data["bottle_volume"] = handle.storage.reagents?.total_volume
-		data["bottle_max_volume"] = handle.storage.volume
+		data["bottle"] = "[handle.storage.name]"
+		data["bottle_data"] = list(
+			volume = handle.storage.reagents.total_volume,
+			max_volume = handle.storage.volume)
 
 	if(plumbing_handler)
-		data["plumbing_volume"] = plumbing_handler.reagents.total_volume
-		data["plumbing_max_volume"] = plumbing_handler.reagents.maximum_volume
+		data["plumbing_data"] = list(
+			volume = plumbing_handler.reagents.total_volume,
+			max_volume = plumbing_handler.reagents.maximum_volume)
 
 	data["chem_source"] = chem_source
-	//data["storage"] = storage?.name
 	data["locked"] = locked
 	data["handle"] = in_use ? null : handle?.name
 
@@ -386,7 +377,7 @@
 				if(!chemistry_bag)
 					return
 				var/obj/item/reagent_containers/target = locate(params["target"])
-				if(target && (target.reagent_flags & DRAINABLE) && (target in chemistry_bag.contents))
+				if(target && istype(target) && (target.reagent_flags & DRAINABLE) && (target in chemistry_bag.contents))
 					selected_storage = WEAKREF(target)
 					. = TRUE
 
@@ -470,6 +461,42 @@
 					inject_amount = possible_inject_amounts[1]
 				balloon_alert(user, "Transferring [inject_amount]u")
 				return
+
+/obj/item/hypospray_handle/attackby(obj/item/I, mob/living/user, params)
+	
+	if(istype(I, /obj/item/reagent_containers))
+		var/obj/item/reagent_containers/bottle = I
+
+		if(interact_storage(user, bottle))
+			return TRUE
+
+	return ..()
+
+/obj/item/hypospray_handle/proc/interact_storage(mob/user, obj/item/reagent_containers/new_beaker = null)
+	if(new_beaker && !(new_beaker.reagent_flags & DRAINABLE))
+		return FALSE
+
+	var/obj/item/reagent_containers/old_storage
+	if(storage)
+		storage.forceMove(drop_location())
+		old_storage = storage
+		. = TRUE
+	else
+		// When activated from UI, only insert new beaker if there wasn't one already
+		if(!new_beaker)
+			var/obj/item/potential_new_beaker = user.get_active_held_item()
+			if(istype(potential_new_beaker, /obj/item/reagent_containers))
+				new_beaker = potential_new_beaker
+
+	if(new_beaker && user.transferItemToLoc(new_beaker, src))
+		storage = new_beaker
+		. = TRUE
+	else
+		storage = null
+
+	//Do this here for swapping with both hands busy
+	if(old_storage && user && Adjacent(user) && !issiliconoradminghost(user))
+		user.put_in_hands(storage)
 
 /obj/item/hypospray_handle/equipped(mob/user, slot)
 	. = ..()

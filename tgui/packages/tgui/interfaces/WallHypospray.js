@@ -8,22 +8,14 @@ export const WallHypospray = (props, context) => {
   const { act, data } = useBackend(context);
 
   const {
-    chems = [],
-    selected_chem,
     locked,
     handle,
-    bottle,
-    bottle_volume,
-    bottle_max_volume,
-    chem_source,
-    charge,
-    max_charge,
   } = data;
 
   return (
     <Window
       width={350}
-      height={280}>
+      height={500}>
       {
         !!locked && (
           <Dimmer>
@@ -47,20 +39,6 @@ export const WallHypospray = (props, context) => {
       <Window.Content>
         <Stack vertical>
           <Stack.Item>
-            <Stack align="baseline" mx={0.5}>
-              <Stack.Item>
-                Charge:
-              </Stack.Item>
-              <Stack.Item grow>
-                <ProgressBar
-                  minValue={0}
-                  maxValue={max_charge}
-                  value={charge}
-                />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-          <Stack.Item>
             <Section>
               <LabeledList>
                 <LabeledList.Item
@@ -73,64 +51,29 @@ export const WallHypospray = (props, context) => {
                       onClick={() => act("interact_handle")} />
                   }
                 />
-                <LabeledList.Item
-                  label="Bottle holder"
-                  buttons={
-                    <ProgressBarButton
-                      content={bottle ?? "Empty"}
-                      icon="eject" fluid
-                      textAlign="left"
-                      onClick={() => act("interact_storage")}
-                      value={bottle
-                        ? (bottle_volume/bottle_max_volume)
-                        : 0}
-                      progressbar_color="green" />
-                  }
-                />
-                <LabeledList.Item
-                  label="Spraying source"
-                  buttons={
-                    <>
-                      <Button
-                        color={chem_source === "synthesizer" && "green"}
-                        onClick={() => act("select_source", { target: "synthesizer" })}
-                        content="Synthesizer" textAlign="left" />
-                      <Button 
-                        color={chem_source === "bottle" && "green"}
-                        onClick={() => act("select_source", { target: "bottle" })}
-                        content="Bottle" textAlign="left" />
-                    </>
-                  }
-                />
               </LabeledList>
             </Section>
           </Stack.Item>
           <Stack.Item>
-            <Section
-              title="Internal synthesizer">
-              <Flex wrap="wrap">
-                {
-                  (chems && chems.length > 0)
-                    ? chems.map(chem => (
-                      <Flex.Item key={chem.id}>
-                        <Button
-                          color={chem.name===selected_chem && "green"}
-                          content={chem.name}
-                          onClick={() => act("select_chem", { "target": chem.id })}
-                          m={0.1}
-                        />
-                      </Flex.Item>
-                    ))
-                    : (
-                      <Flex.Item grow>
-                        <NoticeBox>
-                          No chemical recipes available
-                        </NoticeBox>
-                      </Flex.Item>
-                    )
-                }
-              </Flex>
-            </Section>
+            <WallHypospraySourceSection
+              title="Plumbing system"
+              source_name="plumbing">
+              <WallHyposprayPlumbing />
+            </WallHypospraySourceSection>
+          </Stack.Item>
+          <Stack.Item>
+            <WallHypospraySourceSection
+              title="Handle-attached bottle"
+              source_name="handle">
+              <WallHyposprayHandleBottle />
+            </WallHypospraySourceSection>
+          </Stack.Item>
+          <Stack.Item>
+            <WallHypospraySourceSection
+              title="Chemistry bag"
+              source_name="storage">
+              <WallHyposprayChemSelection />
+            </WallHypospraySourceSection>
           </Stack.Item>
         </Stack>
       </Window.Content>
@@ -138,10 +81,123 @@ export const WallHypospray = (props, context) => {
   );
 };
 
+export const WallHypospraySourceSection = (props, context) => {
+  const { act, data } = useBackend(context);
+
+  const {
+    chem_source,
+  } = data;
+
+  const {
+    source_name,
+    children,
+    ...rest
+  } = props;
+
+  return (
+    <Section {...rest}
+      buttons={
+        <Button
+          color={chem_source === source_name && "green"}
+          onClick={() => act("select_source", { target: source_name })}
+          content="Select"
+        />
+      }>
+      {children}
+    </Section>
+  );
+};
+
+export const WallHyposprayPlumbing = (props, context) => {
+  const { act, data } = useBackend(context);
+
+  const {
+    plumbing_data,
+  } = data;
+
+  return (
+    <ProgressBar
+      value={plumbing_data.volume/plumbing_data.max_volume}>
+      {plumbing_data.volume}u/{plumbing_data.max_volume}u
+    </ProgressBar>
+  );
+};
+
+export const WallHyposprayHandleBottle = (props, context) => {
+  const { act, data } = useBackend(context);
+
+  const {
+    bottle,
+    bottle_data,
+  } = data;
+
+  return (
+    <ProgressBar
+      value={bottle_data && (bottle_data.volume/bottle_data.max_volume)}>
+      {bottle ?? "Empty"}
+    </ProgressBar>
+  );
+};
+
+export const WallHyposprayChemSelection = (props, context) => {
+  const { act, data } = useBackend(context);
+
+  const {
+    bag,
+    bag_contents,
+    selected,
+    selected_data,
+  } = data;
+
+  return (
+    <>
+      <Button 
+        content={bag ?? "Empty"}
+        icon="eject" fluid
+        textAlign="left"
+        onClick={() => act("interact_bag")} />
+      <ProgressBar
+        value={selected_data && (selected_data.volume/selected_data.max_volume)}>
+        {
+          selected ? (
+            selected_data.name + " ["
+            + selected_data.volume + "u/"
+            + selected_data.max_volume + "u]"
+          ) : "Nothing selected"
+        }
+      </ProgressBar>
+      {
+        bag ? (
+          <Flex wrap="wrap">
+            {
+              bag_contents.map(item => (
+                <Flex.Item key={item.id} mx={0.2}>
+                  <ProgressBarButton
+                    progressbar_color={item.id===selected && "green"}
+                    color={item.id===selected ? "green" : "default"}
+                    content={item.name}
+                    onClick={() => act("select_storage", { "target": item.id })}
+                    value={item.volume/item.max_volume}
+                  />
+                </Flex.Item>
+              ))
+            }
+          </Flex>
+        ) : (
+          <NoticeBox>
+            No chemistry bag attached
+          </NoticeBox>
+        )
+      }
+    </>
+  );
+};
+
 const ProgressBarButton = (props, context) => {
   const {
-    value,
-    progressbar_color,
+    value = 0,
+    progressbar_color = "default",
+    color = "default",
     content,
     icon,
     iconRotation,
@@ -154,14 +210,17 @@ const ProgressBarButton = (props, context) => {
     <Button
       position="relative"
       overflow="hidden"
+      className={classes([
+        "HyposprayProgressBarButton",
+        "HyposprayProgressBarButton--color--"+color])}
       {...rest}>
       <Box
-        className="ProgressBar__fill ProgressBar__fill--animated"
-        backgroundColor="green"
+        className="HyposprayProgressBarButton__fill HyposprayProgressBarButton__fill--animated"
+        backgroundColor={progressbar_color}
         style={{
           width: clamp01(value) * 100 + '%',
         }} />
-      <Box className="ProgressBar__content" inline textAlign={textAlign}>
+      <Box className="HyposprayProgressBarButton__content" inline textAlign={textAlign}>
         {icon && (
           <Icon
             name={icon}
