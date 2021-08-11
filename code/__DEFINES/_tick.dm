@@ -1,6 +1,6 @@
 //Percentage of tick to leave for master controller to run
 #define MAPTICK_MC_MIN_RESERVE 70
-
+//internal_tick_usage is updated every tick
 #if DM_VERSION > 513
 #define MAPTICK_LAST_INTERNAL_TICK_USAGE world.map_cpu
 #else
