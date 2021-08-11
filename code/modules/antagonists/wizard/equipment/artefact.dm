@@ -159,6 +159,9 @@
 /obj/singularity/wizard/Bumped(atom/movable/AM)
 	return
 
+/obj/singularity/wizard/consume(atom/A)
+	return
+
 /////////////////////////////////////////Scrying///////////////////
 
 /obj/item/scrying
