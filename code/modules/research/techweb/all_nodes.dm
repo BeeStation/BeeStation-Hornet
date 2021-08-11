@@ -301,7 +301,7 @@
 /datum/techweb_node/math_circuits
 	id = "math_circuits"
 	display_name = "Math Circuitry"
-	description = "Development of more complex mathematica components for all your number manipulating needs"
+	description = "Development of more complex mathematical components for all your number manipulating needs"
 	prereq_ids = list("basic_circuitry", "datatheory")
 	design_ids = list("comp_adv_trig","comp_hyper_trig", "comp_bitwise", "comp_bitflag")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
