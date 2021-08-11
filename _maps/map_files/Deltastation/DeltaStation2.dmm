@@ -120330,18 +120330,6 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"jha" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 16;
-	height = 15;
-	id = "exploration_home";
-	name = "Exploration Dock";
-	roundstart_template = /datum/map_template/shuttle/exploration;
-	width = 23
-	},
-/turf/open/space/basic,
-/area/space)
 "jiA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -122700,6 +122688,18 @@
 	},
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
+"oMA" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 16;
+	height = 15;
+	id = "exploration_home";
+	name = "Exploration Dock";
+	roundstart_template = /datum/map_template/shuttle/exploration/delta;
+	width = 23
+	},
+/turf/open/space/basic,
+/area/space)
 "oNd" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -157692,7 +157692,7 @@ aaa
 aaa
 aaa
 aaa
-jha
+oMA
 aaa
 aaa
 aaa
