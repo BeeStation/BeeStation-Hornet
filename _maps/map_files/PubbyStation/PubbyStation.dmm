@@ -49357,14 +49357,6 @@
 /obj/item/stock_parts/subspace/transmitter,
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
-"cnu" = (
-/obj/machinery/camera/motion{
-	c_tag = "Telecomms Server Room";
-	dir = 1;
-	network = list("tcomms")
-	},
-/turf/open/floor/plasteel/dark/telecomms,
-/area/tcommsat/server)
 "cnv" = (
 /obj/structure/table,
 /obj/item/stock_parts/subspace/treatment,
@@ -59329,6 +59321,15 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"nXj" = (
+/obj/machinery/camera/motion{
+	c_tag = "Telecomms Server Room";
+	dir = 1;
+	network = list("tcomms")
+	},
+/obj/machinery/telecomms/allinone/exploration,
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "nXU" = (
 /obj/structure/chair{
 	dir = 1
@@ -93950,7 +93951,7 @@ cnc
 cmK
 cmK
 cmK
-cnu
+nXj
 cmB
 abI
 adR

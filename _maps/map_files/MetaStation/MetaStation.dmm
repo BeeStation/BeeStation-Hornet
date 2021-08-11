@@ -81224,6 +81224,10 @@
 	},
 /turf/closed/wall,
 /area/janitor)
+"gcu" = (
+/obj/machinery/telecomms/allinone/exploration,
+/turf/open/floor/circuit/green/telecomms/mainframe,
+/area/tcommsat/server)
 "ggI" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -140373,7 +140377,7 @@ bzo
 bAV
 bCD
 bEh
-bGe
+gcu
 bGd
 bKL
 bNY
