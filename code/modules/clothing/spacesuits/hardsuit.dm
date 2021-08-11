@@ -285,7 +285,8 @@
 /obj/item/clothing/suit/space/hardsuit/exploration
 	icon_state = "hardsuit-exploration"
 	name = "exploration hardsuit"
-	desc = "An advanced space-proof hardsuit designed to protect against off-station threats."
+	desc = "An advanced space-proof hardsuit designed to protect against off-station threats. Despite looking remarkably similar to the mining hardsuit \
+		Nanotrasen officials note that it is unique in every way and the design has not been copied in any way."
 	item_state = "exploration_hardsuit"
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 20, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 20)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
