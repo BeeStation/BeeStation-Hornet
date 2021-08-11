@@ -150,46 +150,53 @@ export const WallHyposprayChemSelection = (props, context) => {
   } = data;
 
   return (
-    <>
-      <Button 
-        content={bag ?? "Empty"}
-        icon="eject" fluid
-        textAlign="left"
-        onClick={() => act("interact_bag")} />
-      <ProgressBar
-        value={selected_data && (selected_data.volume/selected_data.max_volume)}>
+    <Stack vertical>
+      <Stack.Item>
+        <Button 
+          content={bag ?? "Empty"}
+          icon="eject" fluid
+          textAlign="left"
+          onClick={() => act("interact_bag")} />
+      </Stack.Item>
+      <Stack.Item>
+        <ProgressBar
+          value={selected_data
+            && (selected_data.volume/selected_data.max_volume)}>
+          {
+            selected ? (
+              selected_data.name + " ["
+              + selected_data.volume + "u/"
+              + selected_data.max_volume + "u]"
+            ) : "Nothing selected"
+          }
+        </ProgressBar>
+      </Stack.Item>
+      <Stack.Item>
         {
-          selected ? (
-            selected_data.name + " ["
-            + selected_data.volume + "u/"
-            + selected_data.max_volume + "u]"
-          ) : "Nothing selected"
+          bag ? (
+            <Flex wrap="wrap">
+              {
+                bag_contents.map(item => (
+                  <Flex.Item key={item.id} mx={0.2}>
+                    <ProgressBarButton
+                      progressbar_color={item.id===selected && "green"}
+                      color={item.id===selected ? "green" : "default"}
+                      content={item.name}
+                      onClick={() => act("select_storage", { "target": item.id })}
+                      value={item.volume/item.max_volume}
+                    />
+                  </Flex.Item>
+                ))
+              }
+            </Flex>
+          ) : (
+            <NoticeBox>
+              No chemistry bag attached
+            </NoticeBox>
+          )
         }
-      </ProgressBar>
-      {
-        bag ? (
-          <Flex wrap="wrap">
-            {
-              bag_contents.map(item => (
-                <Flex.Item key={item.id} mx={0.2}>
-                  <ProgressBarButton
-                    progressbar_color={item.id===selected && "green"}
-                    color={item.id===selected ? "green" : "default"}
-                    content={item.name}
-                    onClick={() => act("select_storage", { "target": item.id })}
-                    value={item.volume/item.max_volume}
-                  />
-                </Flex.Item>
-              ))
-            }
-          </Flex>
-        ) : (
-          <NoticeBox>
-            No chemistry bag attached
-          </NoticeBox>
-        )
-      }
-    </>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -212,7 +219,8 @@ const ProgressBarButton = (props, context) => {
       overflow="hidden"
       className={classes([
         "HyposprayProgressBarButton",
-        "HyposprayProgressBarButton--color--"+color])}
+        "HyposprayProgressBarButton--color--"+color,
+      ])}
       {...rest}>
       <Box
         className="HyposprayProgressBarButton__fill HyposprayProgressBarButton__fill--animated"

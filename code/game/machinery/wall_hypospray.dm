@@ -145,6 +145,7 @@
 		handle.forceMove(src)
 	in_use = FALSE
 	update_icon()
+	ui_update()
 
 /obj/machinery/wall/hypospray/proc/get_reagents_source()
 	switch(chem_source)
@@ -497,6 +498,10 @@
 	//Do this here for swapping with both hands busy
 	if(old_storage && user && Adjacent(user) && !issiliconoradminghost(user))
 		user.put_in_hands(storage)
+
+	if(.)
+		mount?.ui_update()
+		update_icon()
 
 /obj/item/hypospray_handle/equipped(mob/user, slot)
 	. = ..()
