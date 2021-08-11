@@ -204,6 +204,11 @@
 			. += C
 	return .
 
+/obj/machinery/power/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
+	. = ..()
+	disconnect_from_network()
+	connect_to_network()
+
 ///////////////////////////////////////////
 // GLOBAL PROCS for powernets handling
 //////////////////////////////////////////

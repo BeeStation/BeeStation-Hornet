@@ -53927,6 +53927,18 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/engine,
 /area/engine/engineering)
+"eDT" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 5;
+	height = 7;
+	id = "exploration_home";
+	name = "Exploration Dock";
+	roundstart_template = /datum/map_template/shuttle/exploration;
+	width = 13
+	},
+/turf/open/space/basic,
+/area/space)
 "eEo" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/engineering/glass/critical{
@@ -60347,17 +60359,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"pDx" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 5;
-	height = 7;
-	id = "exploration_home";
-	roundstart_template = /datum/map_template/shuttle/exploration;
-	width = 13
-	},
-/turf/open/space/basic,
-/area/space)
 "pEL" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
@@ -116489,7 +116490,7 @@ aaa
 aaa
 aaa
 aaa
-pDx
+eDT
 aaa
 aaa
 aaa

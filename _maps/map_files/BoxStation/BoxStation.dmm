@@ -55138,6 +55138,18 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
+"pBW" = (
+/obj/docking_port/stationary{
+	dir = 4;
+	dwidth = 5;
+	height = 7;
+	id = "exploration_home";
+	name = "Exploration Dock";
+	roundstart_template = /datum/map_template/shuttle/exploration;
+	width = 13
+	},
+/turf/open/space/basic,
+/area/space)
 "pDm" = (
 /obj/structure/sign/warning/electricshock{
 	pixel_y = -32
@@ -59716,18 +59728,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
-"vFW" = (
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 16;
-	height = 15;
-	id = "exploration_home";
-	name = "Exploration Dock";
-	roundstart_template = /datum/map_template/shuttle/exploration;
-	width = 23
-	},
-/turf/open/space/basic,
-/area/space)
 "vGz" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -115544,10 +115544,10 @@ aaa
 aaa
 aaa
 aaa
-vFW
+pBW
 aaa
 aaa
-gXs
+aaa
 aaa
 aaa
 aaa
@@ -115804,7 +115804,7 @@ aaa
 aaa
 aaa
 aaa
-gXs
+aaa
 aaa
 aaa
 aaa
@@ -116061,7 +116061,7 @@ aaa
 aaa
 aaa
 aaa
-gXs
+aaa
 aaa
 aaa
 aaa
@@ -116318,7 +116318,7 @@ aaa
 aaa
 aaa
 aaa
-gXs
+aaa
 aaa
 aaa
 aaa
@@ -116575,7 +116575,7 @@ aaa
 aaa
 aaa
 aaa
-gXs
+aaa
 aaa
 aaa
 aaa
@@ -116832,7 +116832,7 @@ aaa
 aaa
 aaa
 aaa
-gXs
+aaa
 aaa
 aaa
 aaa
