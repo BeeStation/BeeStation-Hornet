@@ -147,11 +147,6 @@
 	display_name = "red glasses"
 	path = /obj/item/clothing/glasses/red
 
-/datum/gear/accessory/glasses/hud/health/prescription
-	display_name = "prescription medical HUD"
-	path = /obj/item/clothing/glasses/hud/health/prescription
-	allowed_roles = list("Paramedic", "Brig Physician", "Medical Doctor", "Chief Medical Officer")
-	cost = 3500
 
 //LIPSTICK
 
