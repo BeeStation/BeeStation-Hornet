@@ -31,7 +31,7 @@
 	min_ambience_cooldown = 70 SECONDS
 	outdoors = TRUE
 	max_ambience_cooldown = 220 SECONDS
-	unique = FALSE
+	area_flags = UNIQUE_AREA
 	lighting_overlay_colour = "#93c3cf"
 	lighting_overlay_opacity = 60
 	luminosity = 1

@@ -53,13 +53,11 @@
 
 /area/tear_in_reality
 	name = "tear in the fabric of reality"
-	valid_territory = FALSE
-	blob_allowed = FALSE
+	area_flags = UNIQUE_AREA | HIDDEN_AREA
 	clockwork_warp_allowed = FALSE
 	requires_power = FALSE
 	mood_bonus = -999
 	has_gravity = STANDARD_GRAVITY
-	hidden = TRUE
 	ambience_index = AMBIENCE_NONE
 	sound_environment = SOUND_ENVIRONMENT_DRUGGED
 	teleport_restriction = TELEPORT_ALLOW_NONE
