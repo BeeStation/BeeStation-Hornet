@@ -74,6 +74,7 @@
 	icon_state = "ambrosia_gaia"
 	filling_color = rgb(255, 175, 0)
 	light_range = 3
+	light_source_type = QUICK_LIGHTING
 	seed = /obj/item/seeds/ambrosia/gaia
 	wine_power = 70
 	wine_flavor = "the earthmother's blessing"

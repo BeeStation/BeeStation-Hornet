@@ -87,7 +87,8 @@
 	light_range = 1.9 //slightly less range than lava
 	light_power = 0.65 //less bright, too
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
-
+	light_source_type = QUICK_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/flicker
 
 // Chasms for the jungle, with planetary atmos and a different icon
 /turf/open/chasm/jungle

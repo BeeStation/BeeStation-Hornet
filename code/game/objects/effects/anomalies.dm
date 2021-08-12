@@ -10,6 +10,7 @@
 	density = FALSE
 	anchored = TRUE
 	light_range = 3
+	light_source_type = QUICK_LIGHTING
 	var/obj/item/assembly/signaler/anomaly/aSignal = /obj/item/assembly/signaler/anomaly
 	var/area/impact_area
 

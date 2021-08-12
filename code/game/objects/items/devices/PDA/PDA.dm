@@ -26,7 +26,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-
+	light_source_type = QUICK_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/conical
 
 	//Main variables
 	var/owner = null // String name of owner

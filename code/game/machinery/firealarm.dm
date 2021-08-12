@@ -27,8 +27,8 @@
 	resistance_flags = FIRE_PROOF
 
 	light_power = 0
-	light_range = 7
-	light_source_type = FANCY_LIGHTING
+	light_range = 5
+	light_source_type = QUICK_LIGHTING
 	light_color = "#ff3232"
 
 	var/detecting = 1

@@ -13,7 +13,7 @@
 	pixel_y = -32
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 8
-	light_source_type = FANCY_LIGHTING
+	light_source_type = QUICK_LIGHTING
 	light_mask_type = /atom/movable/lighting_mask/flicker
 
 	light_color = LIGHT_COLOR_LAVA

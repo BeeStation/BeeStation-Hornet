@@ -42,6 +42,7 @@
 	servant_of_ratvar_messages = list("\"Disgusting failure.\"" = TRUE, "You feel scrutinized." = FALSE, "\"Weaklings.\"" = TRUE, "\"Pathetic defenses.\"" = TRUE)
 	w_class = WEIGHT_CLASS_TINY
 	light_range = 1.4
+	light_source_type = QUICK_LIGHTING
 	light_power = 0.4
 	light_color = "#F42B9D"
 

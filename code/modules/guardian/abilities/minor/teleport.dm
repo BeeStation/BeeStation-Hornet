@@ -89,6 +89,7 @@
 	desc = "A receiving zone for bluespace teleportations."
 	icon_state = "light_on-w"
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_source_type = QUICK_LIGHTING
 	density = FALSE
 	anchored = TRUE
 	layer = ABOVE_OPEN_TURF_LAYER

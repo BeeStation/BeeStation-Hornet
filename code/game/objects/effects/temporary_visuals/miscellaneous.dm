@@ -231,6 +231,7 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "3"
 	light_range = LIGHT_RANGE_FIRE
+	light_source_type = QUICK_LIGHTING
 	light_mask_type = /atom/movable/lighting_mask/flicker
 	light_color = LIGHT_COLOR_FIRE
 	duration = 10

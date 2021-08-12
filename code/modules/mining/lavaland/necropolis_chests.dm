@@ -311,8 +311,8 @@
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
-	light_range = 7
-	light_source_type = FANCY_LIGHTING
+	light_range = 5
+	light_source_type = QUICK_LIGHTING
 
 	layer = ABOVE_ALL_MOB_LAYER
 	var/sight_flags = SEE_MOBS

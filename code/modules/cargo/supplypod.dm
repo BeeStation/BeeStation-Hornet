@@ -559,6 +559,7 @@
 	icon_state = "LZ"
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = QUICK_LIGHTING
 
 	anchored = TRUE
 	alpha = 0

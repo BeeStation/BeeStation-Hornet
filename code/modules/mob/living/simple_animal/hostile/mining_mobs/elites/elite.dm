@@ -125,6 +125,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	pixel_x = -16
 	light_color = LIGHT_COLOR_RED
 	light_range = 3
+	light_source_type = QUICK_LIGHTING
 	light_color = LIGHT_COLOR_RED
 	light_mask_type = /atom/movable/lighting_mask/flicker
 
@@ -341,6 +342,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	layer = BELOW_MOB_LAYER
 	color = rgb(255,0,0)
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = QUICK_LIGHTING
 
 	light_color = LIGHT_COLOR_RED
 	light_mask_type = /atom/movable/lighting_mask/flicker

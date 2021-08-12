@@ -22,6 +22,7 @@
 	anchored = TRUE
 	light_power = 1.3
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_source_type = QUICK_LIGHTING
 	light_color = LIGHT_COLOR_FIRE
 
 

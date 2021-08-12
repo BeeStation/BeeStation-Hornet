@@ -3,6 +3,7 @@
 	name = "blob"
 	icon = 'icons/mob/blob.dmi'
 	light_range = 2
+	light_source_type = QUICK_LIGHTING
 	desc = "A thick wall of writhing tendrils."
 	density = FALSE //this being false causes two bugs, being able to attack blob tiles behind other blobs and being unable to move on blob tiles in no gravity, but turning it to 1 causes the blob mobs to be unable to path through blobs, which is probably worse.
 	opacity = 0

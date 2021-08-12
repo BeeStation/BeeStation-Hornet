@@ -40,6 +40,7 @@
 	damage = 10
 	damage_type = BURN
 	light_range = 2
+	light_source_type = QUICK_LIGHTING
 	flag = "energy"
 	light_color = LIGHT_COLOR_YELLOW
 	hitsound = 'sound/weapons/sear.ogg'

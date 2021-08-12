@@ -79,6 +79,7 @@
 	alpha = 200
 	icon_state = "mending_mantra"
 	light_range = 1.5
+	light_source_type = QUICK_LIGHTING
 	light_color = "#1E8CE1"
 
 

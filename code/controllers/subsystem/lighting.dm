@@ -29,11 +29,9 @@ SUBSYSTEM_DEF(lighting)
 	if(!initialized)
 		//Handle legacy lightnig
 		create_all_lighting_objects()
-		//Handle fancy lighting
-		to_chat(world, "<span class='boldannounce'>Generating shadows on [sources_that_need_updating.len] light sources.</span>")
 		var/timer = TICK_USAGE
 		for(var/atom/movable/lighting_mask/mask as() in sources_that_need_updating)
-			mask.calculate_lighting_shadows()
+			mask.light_mask_update()
 		sources_that_need_updating = null
 		to_chat(world, "<span class='boldannounce'>Initial lighting conditions built successfully in [TICK_USAGE_TO_MS(timer)]ms.</span>")
 		initialized = TRUE
@@ -52,7 +50,7 @@ SUBSYSTEM_DEF(lighting)
 	var/timer = TICK_USAGE
 	message_admins("Building [light_sources.len] shadows, its been an honour mrs obama")
 	for(var/datum/light_source/light as() in light_sources)
-		light.our_mask.calculate_lighting_shadows()
+		light.our_mask.light_mask_update()
 	message_admins("Shadows built in [TICK_USAGE_TO_MS(timer)]ms ([light_sources.len] shadows)")
 
 /datum/controller/subsystem/lighting/proc/queue_shadow_render(mask_to_queue)
@@ -60,7 +58,7 @@ SUBSYSTEM_DEF(lighting)
 
 /datum/controller/subsystem/lighting/proc/draw_shadows()
 	for(var/atom/movable/lighting_mask/mask as() in queued_shadow_updates)
-		mask.calculate_lighting_shadows(TRUE)
+		mask.light_mask_update(TRUE)
 	LAZYCLEARLIST(queued_shadow_updates)
 
 //!!!!LEGACY!!!!!
@@ -70,17 +68,6 @@ GLOBAL_LIST_EMPTY(lighting_update_corners) // List of lighting corners  queued f
 GLOBAL_LIST_EMPTY(lighting_update_objects) // List of lighting objects queued for update.
 
 /datum/controller/subsystem/lighting/stat_entry()
-<<<<<<< HEAD
-	. = ..("Sources: [light_sources.len], ShCalcs: [total_shadow_calculations]")
-
-/*
-
-	light_source_type = FANCY_LIGHTING
-
-	light_mask_type = /atom/movable/lighting_mask
-
-*/
-=======
 	. = ..("Sources: [light_sources.len], ShCalcs: [total_shadow_calculations]|L:[GLOB.lighting_update_lights.len]|C:[GLOB.lighting_update_corners.len]|O:[GLOB.lighting_update_objects.len]")
 
 /datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
@@ -142,4 +129,3 @@ GLOBAL_LIST_EMPTY(lighting_update_objects) // List of lighting objects queued fo
 			break
 	if (i)
 		GLOB.lighting_update_objects.Cut(1, i+1)
->>>>>>> parent of 255e9e6dc5 (Removes legacy lighting and replaces it with QLighting)

@@ -13,10 +13,11 @@
 		alpha = ALPHA_TO_INTENSITY(-intensity)
 		blend_mode = BLEND_SUBTRACT
 
-//Simple lighting
-/atom/movable/lighting_mask/quick_light
-	glide_size = 2
-	appearance_flags = KEEP_TOGETHER | TILE_BOUND
+/atom/movable/lighting_mask/Move(atom/newloc, direct)
+	//We must be attached to a moving thing if we are moving
+	var/atom/movable/AM = attached_atom
+	glide_size = AM.glide_size
+	. = ..()
 
 //The holder atom turned
 /atom/movable/lighting_mask/proc/holder_turned(new_direction)

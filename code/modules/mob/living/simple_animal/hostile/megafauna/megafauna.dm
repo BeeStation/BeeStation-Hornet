@@ -10,6 +10,7 @@
 	mob_biotypes = list(MOB_ORGANIC, MOB_EPIC)
 	obj_damage = 400
 	light_range = 3
+	light_source_type = QUICK_LIGHTING
 	light_mask_type = /atom/movable/lighting_mask/flicker
 	faction = list("mining", "boss")
 	weather_immunities = list("lava","ash")

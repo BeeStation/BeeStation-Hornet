@@ -54,6 +54,8 @@
 /obj/structure/statue/uranium
 	max_integrity = 300
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = QUICK_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/flicker
 
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
 	var/last_event = 0

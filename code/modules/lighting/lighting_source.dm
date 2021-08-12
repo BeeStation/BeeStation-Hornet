@@ -28,10 +28,7 @@
 	source_turf = get_turf(source_atom)
 
 	if(!mask_type)
-		if(owner.light_source_type == QUICK_LIGHTING)
-			mask_type = /atom/movable/lighting_mask/quick_light
-		else
-			mask_type = /atom/movable/lighting_mask
+		mask_type = /atom/movable/lighting_mask
 	src.mask_type = mask_type
 	mask_holder = new(source_turf)
 	our_mask = new mask_type
@@ -42,7 +39,7 @@
 	set_light(owner.light_range, owner.light_power, owner.light_color)
 
 	//Calculate shadows
-	our_mask.calculate_lighting_shadows()
+	our_mask.light_mask_update()
 
 	//Set direction
 	our_mask.holder_turned(contained_atom.dir)
@@ -101,5 +98,9 @@
 		our_mask.set_colour(l_color)
 
 /datum/light_source/proc/update_position()
+	if(contained_atom)
+		mask_holder.glide_size = contained_atom.glide_size
+	else
+		mask_holder.glide_size = 2
 	mask_holder?.forceMove(get_turf(source_atom))
 	find_containing_atom()

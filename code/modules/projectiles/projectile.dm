@@ -13,6 +13,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	movement_type = FLYING
 	hitsound = 'sound/weapons/pierce.ogg'
+	light_source_type = QUICK_LIGHTING
 
 	var/hitsound_wall = ""
 

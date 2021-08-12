@@ -199,6 +199,7 @@
 	icon_state = "sniper_zoom"
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	light_range = 2
+	light_source_type = QUICK_LIGHTING
 	var/obj/effect/dumpeetFall/DF
 	var/obj/structure/checkoutmachine/dump
 	var/mob/living/carbon/human/bogdanoff

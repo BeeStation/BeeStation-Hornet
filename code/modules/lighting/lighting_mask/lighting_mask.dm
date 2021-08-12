@@ -14,8 +14,7 @@
 	invisibility     = INVISIBILITY_LIGHTING
 	blend_mode		 = BLEND_ADD
 
-	appearance_flags = KEEP_TOGETHER
-
+	appearance_flags = KEEP_TOGETHER | TILE_BOUND
 	move_resist = INFINITY
 
 	//The radius of the mask
@@ -47,7 +46,7 @@
 	//Set the radius variable
 	src.radius = radius
 	//Calculate shadows
-	calculate_lighting_shadows()
+	light_mask_update()
 
 /atom/movable/lighting_mask/proc/apply_matrix(matrix/M, transform_time = 0)
 	if(transform_time)

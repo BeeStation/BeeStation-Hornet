@@ -5,6 +5,7 @@
 	icon_state = "candle1"
 	light_color = LIGHT_COLOR_FIRE
 
+	light_source_type = QUICK_LIGHTING
 	light_mask_type = /atom/movable/lighting_mask/flicker
 
 	var/icon_state_active = "candle1_lit"

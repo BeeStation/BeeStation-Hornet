@@ -5,6 +5,7 @@
 	gender = NEUTER
 	mob_biotypes = list(MOB_ROBOTIC)
 	light_range = 3
+	light_source_type = QUICK_LIGHTING
 	stop_automated_movement = 1
 	wander = FALSE
 	healable = 0

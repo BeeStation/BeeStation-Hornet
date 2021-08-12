@@ -12,6 +12,7 @@
 	interaction_flags_atom = NONE
 	interaction_flags_machine = NONE
 	light_range = 4
+	light_source_type = QUICK_LIGHTING
 	layer = ABOVE_OBJ_LAYER
 	var/obj/machinery/field/generator/FG1 = null
 	var/obj/machinery/field/generator/FG2 = null

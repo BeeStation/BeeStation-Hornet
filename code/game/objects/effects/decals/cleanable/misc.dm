@@ -77,6 +77,7 @@
 	icon_state = "greenglow"
 	light_power = 3
 	light_range = 2
+	light_source_type = QUICK_LIGHTING
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/effect/decal/cleanable/greenglow/ex_act()

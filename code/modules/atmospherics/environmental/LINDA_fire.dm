@@ -36,7 +36,9 @@
 	icon_state = "1"
 	layer = GASFIRE_LAYER
 	light_range = LIGHT_RANGE_FIRE
+	light_source_type = QUICK_LIGHTING
 	light_color = LIGHT_COLOR_FIRE
+	light_power = 100
 	light_mask_type = /atom/movable/lighting_mask/flicker	//Will give fires a flickering effect when used on fancy lighting
 	blend_mode = BLEND_ADD
 
@@ -227,6 +229,8 @@
 	name = "fire"
 	light_color = LIGHT_COLOR_FIRE
 	light_range = LIGHT_RANGE_FIRE
+	light_source_type = QUICK_LIGHTING
+	light_power = 100
 
 	light_mask_type = /atom/movable/lighting_mask/flicker
 

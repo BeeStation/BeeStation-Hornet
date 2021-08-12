@@ -139,6 +139,7 @@
 		if(4)
 			I.light_power = 3
 			I.light_range = 2
+			I.light_source_type = QUICK_LIGHTING
 			I.light_color = LIGHT_COLOR_CLOCKWORK
 			to_chat(user, "<span class='neovgre'>[I] shines with a brilliant light!</span>")
 			return
@@ -147,6 +148,7 @@
 			I.force += 2
 			I.light_power = 1.5
 			I.light_range = 2
+			I.light_source_type = QUICK_LIGHTING
 			I.light_color = LIGHT_COLOR_FIRE
 			to_chat(user, "<span class='neovgre'>[I] emits off an intense heat!</span>")
 			return

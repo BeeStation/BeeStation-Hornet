@@ -2182,7 +2182,7 @@
 #include "code\modules\lighting\lighting_mask\lighting_mask.dm"
 #include "code\modules\lighting\lighting_mask\lighting_mask_holder.dm"
 #include "code\modules\lighting\lighting_mask\mask_alpha_point.dm"
-#include "code\modules\lighting\lighting_mask\shadow_calculator.dm"
+#include "code\modules\lighting\lighting_mask\mask_update_handler.dm"
 #include "code\modules\lighting\lighting_mask\shadow_rotator.dm"
 #include "code\modules\lighting\lighting_old\legacy_lighting_area.dm"
 #include "code\modules\lighting\lighting_old\legacy_lighting_atom.dm"

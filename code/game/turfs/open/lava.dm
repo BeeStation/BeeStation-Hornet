@@ -7,6 +7,9 @@
 	baseturfs = /turf/open/lava //lava all the way down
 	slowdown = 2
 
+	light_source_type = QUICK_LIGHTING
+	light_mask_type = /atom/movable/lighting_mask/flicker
+
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA

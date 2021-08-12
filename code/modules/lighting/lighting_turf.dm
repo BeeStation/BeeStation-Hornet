@@ -24,7 +24,7 @@
 		return
 	//Copy to prevent looping
 	for(var/atom/movable/lighting_mask/mask as() in lights_affecting.Copy())
-		mask.calculate_lighting_shadows()
+		mask.light_mask_update()
 
 // Used to get a scaled lumcount.
 /turf/proc/get_lumcount()

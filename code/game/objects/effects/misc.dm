@@ -73,6 +73,7 @@
 	icon_state = "nothing"
 	light_color = "#FFFFFF"
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_source_type = QUICK_LIGHTING
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/dummy/lighting_obj/Initialize(mapload, _color, _range, _power, _duration)

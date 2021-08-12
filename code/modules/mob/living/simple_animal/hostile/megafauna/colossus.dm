@@ -224,6 +224,7 @@ Difficulty: Very Hard
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
 	light_range = MINIMUM_LIGHT_SHADOW_RADIUS
+	light_source_type = QUICK_LIGHTING
 
 	duration = 8
 	var/target
@@ -272,8 +273,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	desc = "A completely indestructible chunk of crystal, rumoured to predate the start of this universe. It looks like you could store things inside it."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blackbox"
-	light_range = 8
-	light_source_type = FANCY_LIGHTING
+	light_range = 4
+	light_source_type = QUICK_LIGHTING
 	max_n_of_items = INFINITY
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	pixel_y = -4
@@ -388,8 +389,8 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	var/observer_desc = "Anomalous crystals have descriptions that only observers can see. But this one hasn't been changed from the default."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
-	light_range = 8
-	light_source_type = FANCY_LIGHTING
+	light_range = 5
+	light_source_type = QUICK_LIGHTING
 
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	use_power = NO_POWER_USE
@@ -659,6 +660,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	initial_language_holder = /datum/language_holder/lightbringer
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	light_range = 4
+	light_source_type = QUICK_LIGHTING
 	faction = list("neutral")
 	del_on_death = TRUE
 	unsuitable_atmos_damage = 0
