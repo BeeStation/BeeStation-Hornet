@@ -100,6 +100,7 @@
 	onsound = 'sound/weapons/echainsawon.ogg'
 	offsound = 'sound/weapons/echainsawoff.ogg'
 	on = FALSE
+	light_source_type = QUICK_LIGHTING
 	var/brightness_on = 3
 
 /obj/item/chainsaw/energy/attack_self(mob/user)
