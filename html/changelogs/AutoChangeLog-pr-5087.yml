@@ -1,5 +1,0 @@
-author: ImSynthex
-delete-after: true
-changes:
-  - tweak: Laptops and tablets no longer drop batteries when deleted
-  - bugfix: Necro seed stealth 8 ability now works as intended
