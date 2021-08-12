@@ -56,6 +56,7 @@
 	QDEL_NULL(mask_holder)
 
 	top_atom = null
+	contained_atom = null
 	source_atom = null
 	source_turf = null
 	pixel_turf = null

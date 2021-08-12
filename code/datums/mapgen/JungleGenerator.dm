@@ -87,5 +87,4 @@
 
 /area/mine/planetgeneration
 	name = "planet generation area"
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	map_generator = /datum/map_generator/jungle_generator
