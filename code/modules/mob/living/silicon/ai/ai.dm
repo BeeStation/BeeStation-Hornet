@@ -1100,11 +1100,5 @@
 	if(.)
 		end_multicam()
 
-/mob/living/silicon/ai/stripPanelUnequip(obj/item/what, mob/who)
-	return
-
-/mob/living/silicon/ai/stripPanelEquip(obj/item/what, mob/who)
-	return
-
 /mob/living/silicon/ai/zMove(dir, feedback = FALSE)
 	. = eyeobj.zMove(dir, feedback)
