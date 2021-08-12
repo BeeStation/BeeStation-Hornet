@@ -35,7 +35,7 @@
 	. = ..()
 
 	radio = new(src)
-	radio.keyslot = new radio_key
+	radio.keyslot = new /obj/item/encryptionkey/headset_eng
 	radio.subspace_transmission = TRUE
 	radio.canhear_range = 0
 	radio.recalculateChannels()
