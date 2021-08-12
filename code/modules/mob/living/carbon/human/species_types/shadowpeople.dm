@@ -211,7 +211,6 @@
 	if(!light_range || !light_power)
 		return
 	set_light(0)
-	light_on = FALSE
 	light_power = 0
 	update_icon()
 	visible_message("<span class='danger'>The light in [src] shorts out!</span>")
