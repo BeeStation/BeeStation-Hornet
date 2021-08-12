@@ -395,6 +395,7 @@
 	if(!ui)
 		ui = new(user, src, "CloningConsole", "Cloning System Control")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/cloning/proc/finish_scan(mob/living/L, mob/user, prev_locked, body_only)
 	if(!scanner || !L)
