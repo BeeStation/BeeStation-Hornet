@@ -23,9 +23,8 @@ SUBSYSTEM_DEF(title)
 	if(length(provisional_title_screens))
 		file_path = "[global.config.directory]/title_screens/images/[pick(provisional_title_screens)]"
 	else
-		file_path = "icons/default_title.dmi"
+		file_path = "icons/runtime/default_title.dmi"
 
-	log_world("path: [file_path]")
 	ASSERT(fexists(file_path))
 
 	icon = new(fcopy_rsc(file_path))
