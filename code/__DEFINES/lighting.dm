@@ -1,15 +1,7 @@
 
 //Light modes
-//legacy lighting.
-//Slow to update and a bit crap
-#define LEGACY_LIGHTING 0			// >> DEPRECIATED; Doesn't work <<
-//Fancy lighting
-//Uses a lot of CPU updating, however has insanely nice shadows. For static light sources.
+#define LEGACY_LIGHTING 0
 #define FANCY_LIGHTING 1
-//Quick lighting
-//Has no shadows, if you can see the atom that emits the light, you can see the light.
-//Because of this you should avoid using it on large light sources.
-#define QUICK_LIGHTING 2
 
 #define MINIMUM_USEFUL_LIGHT_RANGE 1.4
 #define MINIMUM_LIGHT_SHADOW_RADIUS 2
@@ -106,8 +98,7 @@
 #define LIGHTING_VIS_UPDATE 1
 #define LIGHTING_CHECK_UPDATE 2
 #define LIGHTING_FORCE_UPDATE 3
-//THERE IS NO UNDYNAMIC LIGHTING MUHAHAHAHAHA!
-#define IS_DYNAMIC_LIGHTING(A) 1
+#define IS_DYNAMIC_LIGHTING(A) A.legacy_lighting
 /// Parse the hexadecimal color into lumcounts of each perspective.
 #define PARSE_LIGHT_COLOR(source) \
 do { \

@@ -6,10 +6,14 @@
 	var/light_mask_type = null
 	/*
 	 * Should we use legacy lighting?
-	 * Fancy lighting can use a lot of CPU when processing a lot, so should generally be used for static light sources that
-	 * update infrequently.
+	 * Legacy Lighting:
+	 * Pros:
+	 *  - A lot less rendering
+	 * Cons:
+	 *  - Has trouble with moving light sources.
+	 * Set this to true for static light sources that are very numerous. For example station lights, lava etc.
 	 */
-	var/light_source_type = QUICK_LIGHTING
+	var/light_source_type = LEGACY_LIGHTING
 
 	//Values should avoid being close to -16, 16, -48, 48 etc.
 	//Best keep them within 10 units of a multiple of 32, as when the light is closer to a wall, the probability
@@ -53,6 +57,9 @@
 // Creates or destroys it if needed, makes it update values, makes sure it's got the correct source turf...
 /atom/proc/update_light()
 	set waitfor = FALSE
+	if(light_source_type == LEGACY_LIGHTING)
+		legacy_update_light()
+		return
 
 	if (QDELETED(src))
 		return
@@ -75,6 +82,8 @@
 	. = ..()
 	if(light)
 		QDEL_NULL(light)
+	if(legacy_light)
+		QDEL_NULL(legacy_light)
 	if (opacity && istype(T))
 		var/old_has_opaque_atom = T.has_opaque_atom
 		T.recalc_atom_opacity()
