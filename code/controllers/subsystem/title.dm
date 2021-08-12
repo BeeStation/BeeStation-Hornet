@@ -25,6 +25,7 @@ SUBSYSTEM_DEF(title)
 	else
 		file_path = "icons/default_title.dmi"
 
+	log_world("path: [file_path]")
 	ASSERT(fexists(file_path))
 
 	icon = new(fcopy_rsc(file_path))
