@@ -320,6 +320,9 @@
 	light_color = LIGHT_COLOR_GREEN
 	sharpness = IS_SHARP_ACCURATE
 
+/obj/item/scalpel/advanced/Initialize()
+	. = ..()
+	set_light(1)
 
 /obj/item/scalpel/advanced/Initialize()
 	. = ..()

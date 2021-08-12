@@ -7,7 +7,6 @@
 	resistance_flags = FIRE_PROOF
 	light_source_type = QUICK_LIGHTING
 	light_mask_type = /atom/movable/lighting_mask/flicker
-
 	var/brightness_on = 3
 
 /obj/item/melee/transforming/energy/Initialize()

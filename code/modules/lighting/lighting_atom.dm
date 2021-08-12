@@ -149,7 +149,6 @@
 
 	return ..()
 
-
 /atom/proc/flash_lighting_fx(
 		_range = FLASH_LIGHT_RANGE,
 		_power = FLASH_LIGHT_POWER,

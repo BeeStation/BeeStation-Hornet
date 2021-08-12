@@ -363,7 +363,6 @@
 /obj/effect/abstract/eye_lighting
 	var/obj/item/organ/eyes/robotic/glow/parent
 
-
 /obj/effect/abstract/eye_lighting/Initialize()
 	. = ..()
 	parent = loc

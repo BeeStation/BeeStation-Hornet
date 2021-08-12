@@ -125,7 +125,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	//Legacy Update
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
-
 		W.legacy_lighting_object = old_lighting_object
 		W.legacy_affecting_lights = old_affecting_lights
 		W.legacy_corners = old_corners

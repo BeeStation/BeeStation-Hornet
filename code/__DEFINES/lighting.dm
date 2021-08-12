@@ -1,7 +1,8 @@
-
 //Light modes
 #define LEGACY_LIGHTING 0
 #define QUICK_LIGHTING 1
+//Bay lighting engine shit, not in /code/modules/lighting because BYOND is being shit about it
+#define LIGHTING_INTERVAL       5 // frequency, in 1/10ths of a second, of the lighting process
 
 #define MINIMUM_USEFUL_LIGHT_RANGE 1.4
 #define MINIMUM_LIGHT_SHADOW_RADIUS 2
@@ -9,28 +10,42 @@
 #define BULLET_FLASH_POWER 100
 
 #define LIGHTING_ICON 'icons/effects/lighting_object.dmi' //! icon used for lighting shading effects
-#define LIGHTING_ICON_BIG 'icons/effects/lighting_object_big.dmi' //! icon used for lighting shading effects
 
 #define ALPHA_TO_INTENSITY(alpha) (-(((CLAMP(alpha, 0, 22) - 22) / 6) ** 4) + 255)
+
+/// If the max of the lighting lumcounts of each spectrum drops below this, disable luminosity on the lighting objects. Set to zero to disable soft lighting. Luminosity changes then work if it's lit at all.
+#define LIGHTING_SOFT_THRESHOLD 0
+
+/// If I were you I'd leave this alone.
+#define LIGHTING_BASE_MATRIX \
+	list                     \
+	(                        \
+		1, 1, 1, 0, \
+		1, 1, 1, 0, \
+		1, 1, 1, 0, \
+		1, 1, 1, 0, \
+		0, 0, 0, 1           \
+	)                        \
+
 
 //Some defines to generalise colours used in lighting.
 //Important note on colors. Colors can end up significantly different from the basic html picture, especially when saturated
 #define LIGHT_COLOR_WHITE		"#FFFFFF" //! Full white. rgb(255, 255, 255)
-#define LIGHT_COLOR_RED        "#ff3b3b" //! Warm but extremely diluted red. rgb(250, 130, 130)
-#define LIGHT_COLOR_GREEN      "#39d139" //! Bright but quickly dissipating neon green. rgb(100, 200, 100)
-#define LIGHT_COLOR_BLUE       "#3d7eff" //! Cold, diluted blue. rgb(100, 150, 250)
+#define LIGHT_COLOR_RED        "#FA8282" //! Warm but extremely diluted red. rgb(250, 130, 130)
+#define LIGHT_COLOR_GREEN      "#64C864" //! Bright but quickly dissipating neon green. rgb(100, 200, 100)
+#define LIGHT_COLOR_BLUE       "#6496FA" //! Cold, diluted blue. rgb(100, 150, 250)
 
-#define LIGHT_COLOR_BLUEGREEN  "#54e99e" //! Light blueish green. rgb(125, 225, 175)
-#define LIGHT_COLOR_PALEBLUE   "#58a2eb" //! A pale blue-ish color. rgb(125, 175, 225)
-#define LIGHT_COLOR_CYAN       "#4de7e7" //! Diluted cyan. rgb(125, 225, 225)
+#define LIGHT_COLOR_BLUEGREEN  "#7DE1AF" //! Light blueish green. rgb(125, 225, 175)
+#define LIGHT_COLOR_PALEBLUE   "#7DAFE1" //! A pale blue-ish color. rgb(125, 175, 225)
+#define LIGHT_COLOR_CYAN       "#7DE1E1" //! Diluted cyan. rgb(125, 225, 225)
 #define LIGHT_COLOR_LIGHT_CYAN "#40CEFF" //! More-saturated cyan. rgb(64, 206, 255)
-#define LIGHT_COLOR_DARK_BLUE  "#4682fc" //! Saturated blue. rgb(51, 117, 248)
-#define LIGHT_COLOR_PINK       "#fc6ffc" //! Diluted, mid-warmth pink. rgb(225, 125, 225)
-#define LIGHT_COLOR_YELLOW     "#ebeb67" //! Dimmed yellow, leaning kaki. rgb(225, 225, 125)
+#define LIGHT_COLOR_DARK_BLUE  "#6496FA" //! Saturated blue. rgb(51, 117, 248)
+#define LIGHT_COLOR_PINK       "#E17DE1" //! Diluted, mid-warmth pink. rgb(225, 125, 225)
+#define LIGHT_COLOR_YELLOW     "#E1E17D" //! Dimmed yellow, leaning kaki. rgb(225, 225, 125)
 #define LIGHT_COLOR_BROWN      "#966432" //! Clear brown, mostly dim. rgb(150, 100, 50)
 #define LIGHT_COLOR_ORANGE     "#FA9632" //! Mostly pure orange. rgb(250, 150, 50)
-#define LIGHT_COLOR_PURPLE     "#ac4dff" //! Light Purple. rgb(149, 44, 244)
-#define LIGHT_COLOR_LAVENDER   "#ab76f0" //! Less-saturated light purple. rgb(155, 81, 255)
+#define LIGHT_COLOR_PURPLE     "#952CF4" //! Light Purple. rgb(149, 44, 244)
+#define LIGHT_COLOR_LAVENDER   "#9B51FF" //! Less-saturated light purple. rgb(155, 81, 255)
 
 #define LIGHT_COLOR_HOLY_MAGIC	"#FFF743" //! slightly desaturated bright yellow.
 #define LIGHT_COLOR_BLOOD_MAGIC	"#D00000" //! deep crimson
@@ -44,7 +59,7 @@
 #define LIGHT_COLOR_TUNGSTEN   "#FAE1AF" //! Extremely diluted yellow, close to skin color (for some reason). rgb(250, 225, 175)
 #define LIGHT_COLOR_HALOGEN    "#F0FAFA" //! Barely visible cyan-ish hue, as the doctor prescribed. rgb(240, 250, 250)
 
-#define LIGHT_RANGE_FIRE		MINIMUM_LIGHT_SHADOW_RADIUS //! How many tiles standard fires glow.
+#define LIGHT_RANGE_FIRE		3 //! How many tiles standard fires glow.
 
 #define LIGHTING_PLANE_ALPHA_VISIBLE 255
 #define LIGHTING_PLANE_ALPHA_NV_TRAIT 250
