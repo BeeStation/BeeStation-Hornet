@@ -11,7 +11,7 @@
 	heat = 1000
 	light_source_type = QUICK_LIGHTING
 	light_mask_type = /atom/movable/lighting_mask/flicker
-	light_source_type = FANCY_LIGHTING
+	light_source_type = QUICK_LIGHTING
 
 	/// How many seconds it burns for
 	var/wax = 2000

@@ -51,11 +51,9 @@
 	//Remove references to ourself.
 	LAZYREMOVE(source_atom?.light_sources, src)
 	LAZYREMOVE(contained_atom?.light_sources, src)
-	top_atom.remove_vis_contents(our_mask)
 	QDEL_NULL(our_mask)
 	QDEL_NULL(mask_holder)
 
-	top_atom = null
 	contained_atom = null
 	source_atom = null
 	source_turf = null

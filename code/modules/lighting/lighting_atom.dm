@@ -160,24 +160,6 @@
 		_light_dir = NORTH)
 	new /obj/effect/light_flash(get_turf(src), _range, _power, _color, _duration, _flash_times, _light_mask_type, _light_dir)
 
-/atom/proc/add_vis_contents(atom/thing)
-	return
-
-/turf/add_vis_contents(atom/thing)
-	vis_contents += thing
-
-/atom/movable/add_vis_contents(atom/thing)
-	vis_contents += thing
-
-/atom/proc/remove_vis_contents(atom/thing)
-	return
-
-/turf/remove_vis_contents(atom/thing)
-	vis_contents -= thing
-
-/atom/movable/remove_vis_contents(atom/thing)
-	vis_contents -= thing
-
 /obj/effect/light_flash
 	light_source_type = QUICK_LIGHTING
 
