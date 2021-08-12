@@ -158,7 +158,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["isDocking"] = shuttleObject.docking_target != null && !shuttleObject.docking_frozen && !shuttleObject.docking_target.is_generating
 	data["validDockingPorts"] = list()
 	if(shuttleObject.docking_target && !shuttleObject.docking_frozen)
-		if(shuttleObject.docking_target.can_dock_anywhere && !GLOB.shuttle_docking_jammed)
+		//Stealth shuttles bypass shuttle jamming.
+		if(shuttleObject.docking_target.can_dock_anywhere && (!GLOB.shuttle_docking_jammed || shuttleObject.stealth || !istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station)))
 			data["validDockingPorts"] += list(list(
 				"name" = "Custom Location",
 				"id" = "custom_location"
