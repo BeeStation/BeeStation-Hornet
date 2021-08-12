@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	//Secondary variables
 	var/scanmode = PDA_SCANNER_NONE
 	var/fon = FALSE //Is the flashlight function on?
-	var/f_lum = 2.3 //Luminosity for the flashlight function
+	var/f_lum = 3 //Luminosity for the flashlight function
 	var/silent = FALSE //To beep or not to beep, that is the question
 	var/toff = FALSE //If TRUE, messenger disabled
 	var/tnote = null //Current Texts
