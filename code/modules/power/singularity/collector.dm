@@ -28,7 +28,6 @@
 	var/bitcoinproduction_drain = 0.15
 	var/bitcoinmining = FALSE
 	var/obj/item/radio/radio
-	var/radio_key = /obj/item/encryptionkey/headset_eng
 	var/radio_channel = RADIO_CHANNEL_ENGINEERING
 
 /obj/machinery/power/rad_collector/Initialize()
