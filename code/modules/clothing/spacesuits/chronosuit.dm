@@ -245,7 +245,7 @@
 	density = FALSE
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
-	opacity = FALSE
+	opacity = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder
 	var/phase_time = 0

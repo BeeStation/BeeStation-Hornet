@@ -461,16 +461,13 @@
 	name = "luminescent glow"
 	desc = "Tell a coder if you're seeing this."
 	icon_state = "nothing"
-	light_system = MOVABLE_LIGHT
+	light_color = "#FFFFFF"
 	light_range = LUMINESCENT_DEFAULT_GLOW
-	light_power = 2.5
-	light_color = COLOR_WHITE
 
 /obj/effect/dummy/luminescent_glow/Initialize()
 	. = ..()
 	if(!isliving(loc))
 		return INITIALIZE_HINT_QDEL
-
 
 /datum/action/innate/integrate_extract
 	name = "Integrate Extract"
