@@ -197,6 +197,7 @@ Nothing else in the console has ID requirements.
 	if (!ui)
 		ui = new(user, src, "Techweb", name)
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/rdconsole/ui_assets(mob/user)
 	return list(
