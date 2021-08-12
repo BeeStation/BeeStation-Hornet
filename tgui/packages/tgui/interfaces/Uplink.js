@@ -12,8 +12,8 @@ export const Uplink = (props, context) => {
   return (
     <Window
       theme="syndicate"
-      width={620}
-      height={580}>
+      width={900}
+      height={600}>
       <Window.Content scrollable>
         <GenericUplink
           currencyAmount={telecrystals}
@@ -71,6 +71,7 @@ export const GenericUplink = (props, context) => {
           Search
           <Input
             value={searchText}
+            autoFocus
             onInput={(e, value) => setSearchText(value)}
             mx={1} />
           <Button
@@ -100,7 +101,7 @@ export const GenericUplink = (props, context) => {
             </Tabs>
           </Flex.Item>
         )}
-        <Flex.Item grow={1} basis={0}>
+        <Flex.Item grow mx={2.5} basis={0}>
           {items.length === 0 && (
             <NoticeBox>
               {searchText.length === 0

@@ -97,7 +97,7 @@ Do not add any of the following in a Pull Request or risk getting the PR closed:
 - Any content that violates GitHub Terms of Service.
 - Racial or homophobic slurs of any kind.
 -  National Socialist Party of Germany content, National Socialist Party of Germany related content, or National Socialist Party of Germany references
--  Code adding, removing, or updating the availability of alien races/species/human mutants without prior approval. Pull requests attempting to add or remove features from said races/species/mutants require prior approval as well.
+-  Code adding, removing, or updating the availability of alien races/species/human mutants without prior Maintainer approval. Pull requests attempting to add or remove features from said races/species/mutants require prior approval as well.
 
 Just because something isn't on this list doesn't mean that it's acceptable. Use common sense above all else.
 

@@ -67,7 +67,8 @@
 	source_atom = null
 	source_turf = null
 	pixel_turf = null
-	. = ..()
+
+	return ..()
 
 // Yes this doesn't align correctly on anything other than 4 width tabs.
 // If you want it to go switch everybody to elastic tab stops.
@@ -240,7 +241,7 @@
 		for(T in view(CEILING(light_range, 1), source_turf))
 			if((!IS_DYNAMIC_LIGHTING(T) && !T.light_sources))
 				continue
-			if(!T.has_opaque_atom)
+			if(!IS_OPAQUE_TURF(T))
 				if (!T.lighting_corners_initialised)
 					T.generate_missing_corners()
 				for (thing in T.corners)

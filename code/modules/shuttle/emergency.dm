@@ -58,6 +58,7 @@
 	if(!ui)
 		ui = new(user, src, "EmergencyShuttleConsole")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/emergency_shuttle/ui_data(user)
 	var/list/data = list()
@@ -736,6 +737,11 @@
 	. = ..()
 	SSshuttle.emergency = current_emergency
 	SSshuttle.backup_shuttle = src
+
+/obj/docking_port/mobile/emergency/backup/Destroy(force)
+	if(SSshuttle.backup_shuttle == src)
+		SSshuttle.backup_shuttle = null
+	return ..()
 
 /obj/docking_port/mobile/emergency/shuttle_build/register()
 	. = ..()

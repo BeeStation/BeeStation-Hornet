@@ -99,6 +99,7 @@
 	switch(wire)
 		if(WIRE_DISARM) // Pulse to toggle
 			P.bomb_defused = !P.bomb_defused
+			ui_update()
 		else // Boom
 			explode()
 
@@ -108,6 +109,7 @@
 		if(WIRE_DISARM) // Disarm and untrap the box.
 			if(!mend)
 				P.bomb_defused = TRUE
+				ui_update()
 		else
 			if(!mend && !P.bomb_defused)
 				explode()
@@ -115,7 +117,6 @@
 /datum/wires/explosive/pizza/explode()
 	var/obj/item/pizzabox/P = holder
 	P.bomb.detonate()
-
 
 /datum/wires/explosive/gibtonite
 	holder_type = /obj/item/gibtonite

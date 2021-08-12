@@ -54,7 +54,7 @@
 /obj/effect/anomaly/Destroy()
 	GLOB.poi_list.Remove(src)
 	STOP_PROCESSING(SSobj, src)
-	qdel(countdown)
+	QDEL_NULL(countdown)
 	return ..()
 
 /obj/effect/anomaly/proc/anomalyEffect(delta_time)

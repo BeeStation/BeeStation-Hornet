@@ -153,11 +153,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A = new spawn_path(get_turf(user))
 	else
 		A = spawn_path
-	if(ishuman(user) && istype(A, /obj/item))
-		var/mob/living/carbon/human/H = user
-		if(H.put_in_hands(A))
-			to_chat(H, "[A] materializes into your hands!")
-			return A
+	if(istype(A, /obj/item))
+		var/obj/item/I = A
+		I.item_flags |= ILLEGAL
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			if(H.put_in_hands(A))
+				to_chat(H, "[A] materializes into your hands!")
+				return A
 	to_chat(user, "[A] materializes onto the floor.")
 	return A
 

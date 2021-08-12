@@ -219,6 +219,9 @@
 
 			if("pdamessage")
 				if(!isnull(aiPDA))
+					if(!aiPDA.owner)
+						aiPDA.owner = src.real_name
+						aiPDA.ownjob = "pAI"
 					if(href_list["toggler"])
 						aiPDA.toff = !aiPDA.toff
 					else if(href_list["ringer"])
@@ -545,7 +548,7 @@
 	dat += {"<h3>Host Bisoscan Settings</h3><br>
 
 			<a href='byond://?src=[REF(src)];software=hostscan;sub=0;toggle=1'>Change Scan Type</a><br>
-			
+
 			"}
 	return dat
 // Atmospheric Scanner
@@ -567,7 +570,7 @@
 			for(var/id in environment.get_gases())
 				var/gas_level = environment.get_moles(id)/total_moles
 				if(gas_level > 0.01)
-					dat += "[GLOB.meta_gas_info[id][META_GAS_NAME]]: [round(gas_level*100)]%<br>"
+					dat += "[GLOB.gas_data.names[id]]: [round(gas_level*100)]%<br>"
 		dat += "Temperature: [round(environment.return_temperature()-T0C)]&deg;C<br>"
 	dat += "<a href='byond://?src=[REF(src)];software=atmosensor;sub=0'>Refresh Reading</a> <br>"
 	dat += "<br>"

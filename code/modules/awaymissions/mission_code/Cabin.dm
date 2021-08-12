@@ -45,7 +45,7 @@
 	var/active = 1
 
 /obj/structure/firepit/Initialize()
-	..()
+	. = ..()
 	toggleFirepit()
 
 /obj/structure/firepit/interact(mob/living/user)
