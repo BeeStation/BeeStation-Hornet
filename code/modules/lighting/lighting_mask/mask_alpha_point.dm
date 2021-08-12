@@ -1,27 +1,4 @@
-/atom/movable/lighting_mask
-	icon             = LIGHTING_ICON_BIG
-	icon_state       = "light_big"
 
-/atom/movable/lighting_mask/proc/set_colour(colour = "#ffffff")
-	color = colour
-
-/atom/movable/lighting_mask/proc/set_intensity(intensity = 1)
-	if(intensity >= 0)
-		alpha = ALPHA_TO_INTENSITY(intensity)
-		blend_mode = BLEND_ADD
-	else
-		alpha = ALPHA_TO_INTENSITY(-intensity)
-		blend_mode = BLEND_SUBTRACT
-
-/atom/movable/lighting_mask/Move(atom/newloc, direct)
-	//We must be attached to a moving thing if we are moving
-	var/atom/movable/AM = attached_atom
-	glide_size = AM.glide_size
-	. = ..()
-
-//The holder atom turned
-/atom/movable/lighting_mask/proc/holder_turned(new_direction)
-	return
 
 ///TGMC Optimisation
 ///This is the template mask used for overlay merging, DO NOT TOUCH THIS FOR NO REASON

@@ -95,4 +95,28 @@
 /atom/movable/lighting_mask/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta, throw_target)
 	return
 
+/atom/movable/lighting_mask/proc/set_colour(colour = "#ffffff")
+	color = colour
+
+/atom/movable/lighting_mask/proc/set_intensity(intensity = 1)
+	if(intensity >= 0)
+		alpha = ALPHA_TO_INTENSITY(intensity)
+		blend_mode = BLEND_ADD
+	else
+		alpha = ALPHA_TO_INTENSITY(-intensity)
+		blend_mode = BLEND_SUBTRACT
+
+/atom/movable/lighting_mask/Move(atom/newloc, direct)
+	//We must be attached to a moving thing if we are moving
+	var/atom/movable/AM = attached_atom
+	glide_size = AM.glide_size
+	. = ..()
+
+//The holder atom turned
+/atom/movable/lighting_mask/proc/holder_turned(new_direction)
+	return
+
+/atom/movable/lighting_mask/setDir(newdir)
+	return
+
 #undef LIGHTING_MASK_SPRITE_SIZE

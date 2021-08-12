@@ -18,3 +18,7 @@
 /obj/effect/lighting_mask_holder/Moved(atom/OldLoc, Dir)
 	. = ..()
 	held_mask.light_mask_update()
+
+/obj/effect/lighting_mask_holder/setDir(newdir)
+	held_mask.holder_turned(newdir)
+	. = ..()
