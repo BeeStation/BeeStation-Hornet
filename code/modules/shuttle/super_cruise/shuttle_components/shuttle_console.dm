@@ -472,7 +472,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	return FALSE
 
 /obj/machinery/computer/shuttle_flight/proc/unfreeze_shuttle(obj/docking_port/mobile/shuttle_dock, datum/space_level/target_spacelevel)
-	UNTIL(!target_spacelevel.generating)
+	var/start_time = world.time
+	UNTIL((!target_spacelevel.generating) || world.time > start_time + 3 MINUTES)
+	if(target_spacelevel.generating)
+		target_spacelevel.generating = FALSE
+		message_admins("CAUTION: SHUTTLE [shuttle_id] REACHED THE GENERATION TIMEOUT OF 3 MINUTES. THE ASSIGNED Z-LEVEL IS STILL MARKED AS GENERATING, BUT WE ARE DOCKING ANYWAY.")
+		log_mapping("CAUTION: SHUTTLE [shuttle_id] REACHED THE GENERATION TIMEOUT OF 3 MINUTES. THE ASSIGNED Z-LEVEL IS STILL MARKED AS GENERATING, BUT WE ARE DOCKING ANYWAY.")
 	shuttle_dock.setTimer(20)
 
 /obj/machinery/computer/shuttle_flight/emag_act(mob/user)
