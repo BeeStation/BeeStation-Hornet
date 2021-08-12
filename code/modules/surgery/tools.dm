@@ -324,10 +324,6 @@
 	. = ..()
 	set_light(1)
 
-/obj/item/scalpel/advanced/Initialize()
-	. = ..()
-	set_light(1)
-
 /obj/item/scalpel/advanced/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/machines/click.ogg', 50, TRUE)
 	if(tool_behaviour == TOOL_SCALPEL)
