@@ -655,7 +655,11 @@
 	lose_text = "<span class='notice'>You are no longer irrationally afraid.</span>"
 	medical_record_text = "Patient suffers from a deeply-rooted phobia."
 
-/datum/quirk/paraplegic/add()
+/datum/quirk/phobia/add()
 	var/datum/brain_trauma/mild/phobia/T = new()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
+
+/datum/quirk/phobia/remove()
+	var/mob/living/carbon/human/H = quirk_holder	
+	H.cure_trauma_type(/datum/brain_trauma/mild/phobia, TRAUMA_RESILIENCE_ABSOLUTE)
