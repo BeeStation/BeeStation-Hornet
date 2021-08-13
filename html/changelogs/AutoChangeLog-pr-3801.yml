@@ -1,4 +1,0 @@
-author: MCterra, Arrow768
-delete-after: true
-changes:
-  - server: Complete topic rework to use JSON and just be better in general
