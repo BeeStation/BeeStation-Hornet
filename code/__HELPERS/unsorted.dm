@@ -1129,7 +1129,8 @@ eg2: `center_image(I, 96,96)`
 		while (L.len && !target)
 			var/I = rand(1, L.len)
 			var/turf/T = L[I]
-			if(!T.density)
+			var/area/X = get_area(T)
+			if(!T.density && (X.area_flags & VALID_TERRITORY))
 				var/clear = TRUE
 				for(var/obj/O in T)
 					if(O.density)

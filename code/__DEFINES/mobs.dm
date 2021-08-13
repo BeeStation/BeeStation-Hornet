@@ -394,3 +394,6 @@
 
 //Saves a proc call, life is suffering. If who has no targets_from var, we assume it's just who
 #define GET_TARGETS_FROM(who) (who.targets_from ? who.get_targets_from() : who)
+
+///Define for spawning megafauna instead of a mob for cave gen
+#define SPAWN_MEGAFAUNA "bluh bluh huge boss"

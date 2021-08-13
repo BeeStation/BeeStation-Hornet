@@ -355,7 +355,7 @@
 
 /datum/gear/uniform/rank/security/blueshift
 	display_name = "security jumpsuit, blue shirt and tie"
-	path = /obj/item/clothing/under/rank/security/blueshirt
+	path = /obj/item/clothing/under/rank/security/officer/blueshirt
 	cost = 7500
 
 /datum/gear/uniform/rank/security/blart
