@@ -38,20 +38,9 @@ SUBSYSTEM_DEF(lighting)
 	fire(FALSE, TRUE)
 	. = ..()
 
-/datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
-	if(LAZYLEN(queued_shadow_updates))
-		draw_shadows()
-
 /datum/controller/subsystem/lighting/Recover()
 	initialized = SSlighting.initialized
 	..()
-
-/datum/controller/subsystem/lighting/proc/build_shadows()
-	var/timer = TICK_USAGE
-	message_admins("Building [light_sources.len] shadows, its been an honour mrs obama")
-	for(var/datum/light_source/light as() in light_sources)
-		light.our_mask.light_mask_update()
-	message_admins("Shadows built in [TICK_USAGE_TO_MS(timer)]ms ([light_sources.len] shadows)")
 
 /datum/controller/subsystem/lighting/proc/queue_shadow_render(mask_to_queue)
 	LAZYOR(queued_shadow_updates, mask_to_queue)
