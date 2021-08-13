@@ -202,7 +202,6 @@
 										/obj/machinery/gateway,
 										/obj/structure/lattice,
 										/obj/structure/grille,
-										/obj/machinery/the_singularitygen/tesla,
 										/obj/structure/frame/machine))
 
 	for(var/atom/A as() in oview(zap_range+2, source))
