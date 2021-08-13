@@ -482,7 +482,9 @@
 	// Use a clipboard's pen, if applicable
 	if(istype(loc, /obj/item/clipboard))
 		var/obj/item/clipboard/clipboard = loc
-		if(clipboard.pen)
+		// This is just so you can still use a stamp if you're holding one. Otherwise, it'll
+		// use the clipboard's pen, if applicable.
+		if(!istype(holding, /obj/item/stamp) && clipboard.pen)
 			holding = clipboard.pen
 
 	data["held_item_details"] = istype(holding) ? holding.get_writing_implement_details() : null
