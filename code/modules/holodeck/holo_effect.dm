@@ -139,9 +139,3 @@
 	/mob/living/simple_animal/hostile/retaliate/clown/banana = 6, /mob/living/simple_animal/hostile/retaliate/clown/honkling = 6,
 	/mob/living/simple_animal/hostile/retaliate/clown/fleshclown = 3, /mob/living/simple_animal/hostile/retaliate/clown/longface = 3,
 	/mob/living/simple_animal/hostile/retaliate/clown/mutant = 1, /mob/living/simple_animal/hostile/retaliate/clown/mutant/blob = 1)
-
-/obj/effect/holodeck_effect/mobspawner/psycho
-	mobtype = list (/mob/living/simple_animal/hostile/psycho/regular = 9,
-					/mob/living/simple_animal/hostile/psycho/muzzle = 3,
-					/mob/living/simple_animal/hostile/psycho/fast = 3,
-					/mob/living/simple_animal/hostile/psycho/trap = 1)
