@@ -174,8 +174,8 @@ GLOBAL_VAR(restart_counter)
 
 	if(CONFIG_GET(flag/log_world_topic))
 		var/list/censored_params = params.Copy()
-		censored_params["auth"] = "\[CENSORED]"
-		log_topic("\"[json_encode(censored_params)]\", from:[addr], master:[master], key:[key], source:[source]")
+		censored_params["auth"] = "***[copytext(params["auth"], -4)]"
+		log_topic("\"[json_encode(censored_params)]\", from:[addr], master:[master], auth:[censored_params["auth"]], key:[key], source:[source]")
 
 	if(!source)
 		response["statuscode"] = 400

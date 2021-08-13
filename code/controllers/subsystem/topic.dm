@@ -50,19 +50,24 @@ SUBSYSTEM_DEF(topic)
 */
 /datum/controller/subsystem/topic/proc/handshake_server(addr, key)
 	set waitfor = FALSE
+	var/logging = CONFIG_GET(flag/log_world_topic)
 	var/request = list("query" = "api_do_handshake", "auth" = key, "source" = CONFIG_GET(string/cross_comms_name))
-	var/response = world.Export("[addr]?[json_encode(request)]")
-	if(!response)
+	var/response_raw = world.Export("[addr]?[json_encode(request)]")
+	request["auth"] = "***[copytext(request["auth"], -4)]"
+	if(!response_raw)
+		if(logging)
+			log_topic("Topic handshake with [addr] failed. Server did not return a response. Payload: \"[json_encode(request)]\"")
 		return
-	response = json_decode(response)
+	var/response = json_decode(response_raw)
 	if(response["statuscode"] != 200)
-		if(CONFIG_GET(flag/log_world_topic))
-			request["auth"] = "\[CENSORED]"
-			log_topic("Topic handshake with [addr] failed. payload: \"[json_encode(request)]\" response: \"[json_encode(response)]\"")
+		if(logging)
+			log_topic("Topic handshake with [addr] failed. Payload: \"[json_encode(request)]\", Response: \"[response_raw]\"")
 		return
 	var/list/local_funcs = GLOB.topic_tokens[LAZYACCESS(response["data"], "token")]
 	var/list/remote_funcs = LAZYACCESS(response["data"], "functions")
 	if(!local_funcs || !remote_funcs)
+		if(logging)
+			log_topic("Topic handshake with [addr] completed, but no mutual functions were found. Payload: \"[json_encode(request)]\", Response: \"[response_raw]\"")
 		return
 	var/list/functions = list()
 	// Both servers need to have a function available to each other for it to be valid
@@ -70,6 +75,8 @@ SUBSYSTEM_DEF(topic)
 		if(local_funcs[func])
 			functions[func] = TRUE
 	GLOB.topic_servers[addr] = functions
+	if(logging)
+		log_topic("Handshake with [addr] successful.")
 
 /**
  * Wrapper proc for world.Export() that adds additional params and handles auth.
@@ -102,8 +109,8 @@ SUBSYSTEM_DEF(topic)
 	request["source"] = CONFIG_GET(string/cross_comms_name)
 	var/result = world.Export("[addr]?[rustg_url_encode(json_encode(request))]")
 	if(CONFIG_GET(flag/log_world_topic))
-		request["auth"] = "\[CENSORED]"
-		log_topic("outgoing: \"[json_encode(request)]\", response: \"[result]\", to: [addr], anonymous: [anonymous]")
+		request["auth"] = "***[copytext(request["auth"], -4)]"
+		log_topic("outgoing: \"[json_encode(request)]\", response: \"[result]\", auth: [request["auth"]], to: [addr], anonymous: [anonymous]")
 
 /**
  * Broadcast topic to all known authorized servers for things like comms consoles or ahelps.
