@@ -43,15 +43,15 @@
 		var/obj/item/circuit_component/component_path = build_path
 		desc = initial(component_path.display_desc)
 
-/datum/design/component/arithmetic
+/datum/design/component/arbitrary_input_amount/arithmetic
 	name = "Arithmetic Component"
 	id = "comp_arithmetic"
-	build_path = /obj/item/circuit_component/arithmetic
+	build_path = /obj/item/circuit_component/arbitrary_input_amount/arithmetic
 
-/datum/design/component/bitwise
+/datum/design/component/arbitrary_input_amount/bitwise
 	name = "Bitwise Component"
 	id = "comp_bitwise"
-	build_path = /obj/item/circuit_component/bitwise
+	build_path = /obj/item/circuit_component/arbitrary_input_amount/bitwise
 
 /datum/design/component/bitflag
 	name = "Bitflag Component"
