@@ -52,6 +52,8 @@
 		else
 			dat += "<b>Radio Uplink</b><br>"
 			dat += "<font color=red><i>Radio firmware not loaded. Please install a pAI personality to load firmware.</i></font><br>"
+		if(pai.aiPDA.id)
+			dat += "<A href='byond://?src=[REF(src)];ejectid=1'>\[Eject ID\]</a><br>"
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(H.real_name == pai.master || H.dna.unique_enzymes == pai.master_dna)
@@ -98,6 +100,8 @@
 					to_chat(pai, "<span class='userdanger'>Your mental faculties leave you.</span>")
 					to_chat(pai, "<span class='rose'>oblivion... </span>")
 					qdel(pai)
+		if(href_list["ejectid"])
+			pai.aiPDA.do_remove_id()
 		if(href_list["clear_zero"])
 			if((input("Are you CERTAIN you wish to remove this pAI's Prime directive? This action cannot be undone.", "Clear Directive") in list("Yes", "No")) == "Yes")
 				if(pai)

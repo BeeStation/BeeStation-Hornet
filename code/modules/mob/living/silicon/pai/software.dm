@@ -50,6 +50,8 @@
 				left_part = ""
 			if("directives")
 				left_part = directives()
+			if("id_config")
+				left_part = id_config()
 			if("pdamessage")
 				left_part = pdamessage()
 			if("buy")
@@ -217,11 +219,16 @@
 						to_chat(src, "You are not being carried by anyone!")
 						return 0 // FALSE ? If you return here you won't call paiinterface() below
 
+			if("id_config")
+				if(href_list["eject"])
+					aiPDA.do_remove_id()
+
 			if("pdamessage")
 				if(!isnull(aiPDA))
 					if(!aiPDA.owner)
 						aiPDA.owner = src.real_name
 						aiPDA.ownjob = "pAI"
+						aiPDA.name = src.real_name + " (pAI)"
 					if(href_list["toggler"])
 						aiPDA.toff = !aiPDA.toff
 					else if(href_list["ringer"])
@@ -314,6 +321,7 @@
 	dat += "<A href='byond://?src=[REF(src)];software=directives'>Directives</A><br>"
 	dat += "<A href='byond://?src=[REF(src)];software=radio;sub=0'>Radio Configuration</A><br>"
 	dat += "<A href='byond://?src=[REF(src)];software=image'>Screen Display</A><br>"
+	dat += "<A href='byond://?src=[REF(src)];software=id_config'>ID Card</A><br>"
 	//dat += "Text Messaging <br>"
 	dat += "<br>"
 
@@ -409,6 +417,21 @@
 			 simply discarding this inconsistency, ignoring the conflicting supplemental directive and continuing to fulfill your
 			 prime directive to the best of your ability.</b></p><br><br>-
 			"}
+	return dat
+
+/mob/living/silicon/pai/proc/id_config()
+	var/dat = ""
+
+	dat += "ID Card Configuration:"
+	dat += "<br><br>"
+	if(aiPDA.id)
+		dat += "ID Card Name:<br>"
+		dat += "[aiPDA.id.registered_name]<br>"
+		dat += "ID Card Assignment:<br>"
+		dat += "[aiPDA.id.assignment]<br>"
+		dat += "<a href='byond://?src=[REF(src)];software=id_config;eject=1'>Eject ID</a><br>"
+	else
+		dat += "No ID Card Inserted.<br>"
 	return dat
 
 /mob/living/silicon/pai/proc/CheckDNA(mob/living/carbon/M, mob/living/silicon/pai/P)

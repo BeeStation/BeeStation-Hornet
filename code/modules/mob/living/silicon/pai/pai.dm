@@ -125,8 +125,8 @@
 	//PDA
 	aiPDA = new/obj/item/pda/ai(src)
 	aiPDA.owner = real_name
-	aiPDA.ownjob = "pAI Messenger"
-	aiPDA.name = real_name + " (" + aiPDA.ownjob + ")"
+	aiPDA.ownjob = "pAI"
+	aiPDA.name = real_name + " (pAI)"
 
 	. = ..()
 
@@ -298,8 +298,18 @@
 			pai.radio.attackby(W, user, params)
 		else if(istype(W, /obj/item/encryptionkey))
 			pai.radio.attackby(W, user, params)
-	else
+	else if(istype(W, /obj/item/encryptionkey))
 		to_chat(user, "Encryption Key ports not configured.")
+	if(istype(W, /obj/item/card/id))
+		var/obj/item/card/id/idcard = W
+		if(!pai?.aiPDA.owner) //just in case no name has been set for the PDA
+			pai?.aiPDA.owner = pai.real_name
+			pai?.aiPDA.ownjob = "pAI"
+			pai?.aiPDA.name = pai.real_name + " (pAI)"
+		if(((idcard.registered_name == pai?.real_name) || (idcard.assignment == "pAI")) && idcard.registered_name)
+			pai?.aiPDA.attackby(W, user, params)
+		else
+			to_chat(user, "The pAI card's ID port rejects the ID.")
 
 /obj/item/paicard/emag_act(mob/user) // Emag to wipe the master DNA and supplemental directive
 	if(!pai)
