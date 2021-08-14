@@ -25,7 +25,6 @@
 		var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
 		if (poi != null)
 			owner.ManualFollow(poi)
-			ui.close()
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
