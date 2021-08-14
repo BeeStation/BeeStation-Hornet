@@ -1,0 +1,6 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - config: Secret_extended's probability has been reduced to 1 (will be replaced
+      with dynamic extended later). Wizard, blood brothers, and IAA have been disabled
+      entirely.
