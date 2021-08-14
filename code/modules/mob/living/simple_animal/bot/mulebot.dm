@@ -192,8 +192,10 @@
 		. += "[base_icon]-hatch"
 	if(!load || ismob(load)) //mob offsets and such are handled by the riding component / buckling
 		return
-	var/mutable_appearance/load_overlay = mutable_appearance(load.icon, load.icon_state, layer + 0.01)
+	var/mutable_appearance/load_overlay = new(load) // Our crates use overlays for opening, closing, etc. as opposed to tg
 	load_overlay.pixel_y = initial(load.pixel_y) + 9
+	if(load_overlay.layer < layer)
+		load_overlay.layer = layer + 0.01
 	. += load_overlay
 
 /mob/living/simple_animal/bot/mulebot/ex_act(severity)
