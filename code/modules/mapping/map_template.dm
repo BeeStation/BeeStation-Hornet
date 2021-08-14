@@ -17,7 +17,7 @@
 	var/list/created_atoms = list()
 	//make sure this list is accounted for/cleared if you request it from ssatoms!
 
-/datum/map_template/New(path = null, rename = null, cache = FALSE)
+/datum/map_template/New(path = null, rename = null, cache = FALSE, admin_load = FALSE)
 	if(path)
 		mappath = path
 	if(mappath)

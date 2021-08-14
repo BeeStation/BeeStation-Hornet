@@ -18,7 +18,7 @@
 	if(!isliving(owner))
 		return
 	if(GLOB.gateway_opening)
-		to_chat(owner, "<span class='brass'>You cannot warp while the gateway is opening!</span>")
+		to_chat(owner, "<span class='sevtug_small'>You cannot warp while the gateway is opening!</span>")
 		return
 	if(warping)
 		button_icon_state = "warp_down"
@@ -28,11 +28,12 @@
 	var/mob/living/M = owner
 	var/mob/camera/ai_eye/remote/ratvar/cam = M.remote_control
 	var/target_loc = get_turf(cam)
+	var/area/AR = get_area(target_loc)
 	if(isclosedturf(target_loc))
-		to_chat(owner, "<span class='brass'>You cannot warp into dense objects.</span>")
+		to_chat(owner, "<span class='sevtug_small'>You cannot warp into dense objects.</span>")
 		return
-	if(!get_area(target_loc).clockwork_warp_allowed)
-		to_chat(owner, "<span class='brass'>[get_area(target_loc).clockwork_warp_fail]</span>")
+	if(!AR.clockwork_warp_allowed)
+		to_chat(owner, "<span class='sevtug_small'>[AR.clockwork_warp_fail]</span>")
 		return
 	do_sparks(5, TRUE, get_turf(cam))
 	warping = TRUE

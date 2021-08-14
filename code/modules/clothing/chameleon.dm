@@ -277,6 +277,13 @@
 	item_state = "engi_suit"
 	item_color = "engine"
 
+/obj/item/clothing/under/chameleon/envirosuit/ratvar
+	name = "ratvarian engineer's envirosuit"
+	desc = "A tough envirosuit woven from alloy threads. It can take on the appearance of other jumpsuits."
+	icon_state = "engineer_envirosuit"
+	item_state = "engineer_envirosuit"
+	item_color = "engineer_envirosuit"
+
 /obj/item/clothing/under/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
@@ -447,6 +454,13 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	bang_protect = 1
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+
+/obj/item/clothing/head/chameleon/envirohelm/ratvar
+	name = "ratvarian engineer's envirosuit helmet"
+	desc = "A tough envirohelm woven from alloy threads. It can take on the appearance of other headgear."
+	icon_state = "engineer_envirohelm"
+	item_state = "engineer_envirohelm"
+	flash_protect = 1
 
 /obj/item/clothing/head/chameleon/drone
 	// The camohat, I mean, holographic hat projection, is part of the

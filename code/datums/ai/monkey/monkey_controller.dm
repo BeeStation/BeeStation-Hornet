@@ -122,7 +122,7 @@ have ways of interacting with a specific mob and control it.
 		var/mob/living/carbon/human/H = locate(/mob/living/carbon/human/) in oview(2,living_pawn)
 		if(H)
 			W = pick(H.held_items)
-			if(W && !blackboard[BB_MONKEY_BLACKLISTITEMS][W] && W.force > blackboard[BB_MONKEY_BEST_FORCE_FOUND])
+			if(W && !HAS_TRAIT(W, TRAIT_NODROP) && !blackboard[BB_MONKEY_BLACKLISTITEMS][W] && W.force > blackboard[BB_MONKEY_BEST_FORCE_FOUND])
 				blackboard[BB_MONKEY_PICKUPTARGET] = W
 				current_movement_target = W
 				current_behaviors += GET_AI_BEHAVIOR(/datum/ai_behavior/monkey_equip/pickpocket)
@@ -176,8 +176,9 @@ have ways of interacting with a specific mob and control it.
 	if(istype(AM, /obj/item))
 		var/mob/living/living_pawn = pawn
 		var/obj/item/I = AM
-		if(I.throwforce < living_pawn.health && ishuman(I.thrownby))
-			var/mob/living/carbon/human/H = I.thrownby
+		var/mob/thrownby = I.thrownby?.resolve()
+		if(I.throwforce && I.throwforce < living_pawn.health && ishuman(thrownby))
+			var/mob/living/carbon/human/H = thrownby
 			retaliate(H)
 
 /datum/ai_controller/monkey/proc/on_Crossed(datum/source, atom/movable/AM)

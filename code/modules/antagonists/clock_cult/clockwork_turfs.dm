@@ -123,6 +123,9 @@
 		if(COG_EXPOSED)
 			return "<span class='notice'>The inner plating has been <i>screwed</i> open. The exterior plating could be easily <b>pried</b> out.</span>"
 
+/turf/closed/wall/clockwork/try_destroy(obj/item/I, mob/user, turf/T)
+	return FALSE
+
 /turf/closed/wall/clockwork/try_decon(obj/item/I, mob/user, turf/T)
 	if(I.tool_behaviour != TOOL_WELDER)
 		return 0
@@ -545,6 +548,9 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+
+/obj/structure/window/reinforced/clockwork/ratvar_act()
+	return FALSE
 
 /obj/structure/window/reinforced/clockwork/unanchored
 	anchored = FALSE

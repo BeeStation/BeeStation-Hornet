@@ -1,0 +1,7 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: Medical, Engineering and Science jobs now require two hours played
+  - tweak: Brig Physician now only requires two hours as normal crew
+  - tweak: AI now requires 10 hours as a cyborg
+  - tweak: HoP now requires 10 hours as a different Head of Staff

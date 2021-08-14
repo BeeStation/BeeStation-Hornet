@@ -29,7 +29,7 @@ Bonus
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/regenerate_blood = FALSE
-	var/gas_type = /datum/gas/miasma
+	var/gas_type = GAS_MIASMA
 	var/base_moles = 3
 	var/emote = "fart"
 	threshold_desc = "<b>Resistance 8:</b> Additionally regenerates lost blood.<br>"
