@@ -20,6 +20,6 @@
 	icon = 'icons/turf/shuttle.dmi'
 	name = "door"
 	icon_state = "door1"
-	opacity = TRUE
+	opacity = 1
 	density = TRUE
 	explosion_block = 1
