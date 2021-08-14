@@ -66,7 +66,7 @@
 
 /obj/item/tank/Destroy()
 	if(air_contents)
-		qdel(air_contents)
+		QDEL_NULL(air_contents)
 
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
@@ -157,6 +157,7 @@
 	if(!ui)
 		ui = new(user, src, "Tank")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/item/tank/ui_data(mob/user)
 	var/list/data = list()

@@ -56,6 +56,8 @@
 		src.client.browse_queue_flush()
 	// Other setup
 	request_telemetry()
+	// Send verbs
+	set_verb_infomation(client)
 	addtimer(CALLBACK(src, .proc/on_initialize_timed_out), 5 SECONDS)
 
 /**
