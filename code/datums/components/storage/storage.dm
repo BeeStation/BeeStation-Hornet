@@ -196,7 +196,9 @@
 /datum/component/storage/proc/async_preattack_intercept(obj/item/attack_item, mob/pre_attack_mob)
 	var/list/things = attack_item.loc.contents.Copy()
 	if(collection_mode == COLLECT_SAME)
-		things = typecache_filter_list(things, typecacheof(attack_item.type))
+		for(var/A in things)
+			if(!istype(A, attack_item))
+				things -= A
 	var/len = length(things)
 	if(!len)
 		to_chat(pre_attack_mob, "<span class='warning'>You failed to pick up anything with [parent]!</span>")
@@ -718,14 +720,14 @@
 
 	return locked
 
-/datum/component/storage/proc/signal_take_type(datum/source, type, atom/destination, amount = INFINITY, check_adjacent = FALSE, force = FALSE, mob/user, list/inserted)
+/datum/component/storage/proc/signal_take_type(datum/source, typecache, atom/destination, amount = INFINITY, check_adjacent = FALSE, force = FALSE, mob/user, list/inserted)
 	SIGNAL_HANDLER
 
 	if(!force)
 		if(check_adjacent)
 			if(!user || !user.CanReach(destination) || !user.CanReach(parent))
 				return FALSE
-	var/list/taking = typecache_filter_list(contents(), typecacheof(type))
+	var/list/taking = typecache_filter_list(contents(), typecache)
 	if(taking.len > amount)
 		taking.len = amount
 	if(inserted)			//duplicated code for performance, don't bother checking retval/checking for list every item.
