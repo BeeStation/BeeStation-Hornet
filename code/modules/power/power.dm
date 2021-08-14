@@ -204,7 +204,7 @@
 			. += C
 	return .
 
-/obj/machinery/power/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
+/obj/machinery/power/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
 	. = ..()
 	disconnect_from_network()
 	connect_to_network()
