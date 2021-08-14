@@ -68,6 +68,7 @@
 	if(!ui)
 		ui = new(user, src, "AbductorConsole", name)
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/abductor/console/ui_static_data(mob/user)
 	var/list/data = list()

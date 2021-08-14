@@ -45,6 +45,7 @@
 		notify_ghosts("[name] can be controlled", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = name)
 		LAZYADD(GLOB.mob_spawners["[name]"], src)
 		GLOB.poi_list |= src
+		SSmobs.update_spawners()
 
 /mob/living/get_spawner_desc()
 	return "Become [name]."
@@ -64,4 +65,5 @@
 		GLOB.mob_spawners[spawner] -= src
 		if(!length(GLOB.mob_spawners[spawner]))
 			GLOB.mob_spawners -= spawner
+		SSmobs.update_spawners()
 	GLOB.poi_list -= src

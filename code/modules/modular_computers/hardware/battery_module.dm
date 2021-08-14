@@ -13,15 +13,13 @@
 		battery = new battery_type(src)
 
 /obj/item/computer_hardware/battery/Destroy()
-	battery = null
+	QDEL_NULL(battery)
 	return ..()
 
 ///What happens when the battery is removed (or deleted) from the module, through try_eject() or not.
 /obj/item/computer_hardware/battery/Exited(atom/A, atom/newloc)
 	if(A == battery)
-		battery = null
-		if(holder?.enabled && !holder.use_power())
-			holder.shutdown_computer()
+		try_eject(0, null, TRUE)
 	return ..()
 
 /obj/item/computer_hardware/battery/try_insert(obj/item/I, mob/living/user = null)

@@ -54,6 +54,7 @@
 	if(!ui)
 		ui = new(user, src, "SatelliteControl")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/sat_control/ui_act(action, params)
 	if(..())
