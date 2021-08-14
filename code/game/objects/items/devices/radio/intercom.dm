@@ -58,6 +58,9 @@
 /obj/item/radio/intercom/attack_ai(mob/user)
 	interact(user)
 
+/obj/item/radio/intercom/attack_paw(mob/user)
+	return attack_hand(user)
+
 /obj/item/radio/intercom/attack_hand(mob/user)
 	. = ..()
 	if(.)
@@ -69,7 +72,7 @@
 	ui_interact(user)
 
 /obj/item/radio/intercom/ui_state(mob/user)
-	return GLOB.default_state
+	return GLOB.physical_state
 
 /obj/item/radio/intercom/can_receive(freq, level)
 	if(!on)
