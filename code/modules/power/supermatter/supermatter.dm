@@ -305,6 +305,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else
 		investigate_log("has exploded.", INVESTIGATE_ENGINES)
 		explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
+		qdel(src)
 //this is here to eat arguments
 /obj/machinery/power/supermatter_crystal/proc/call_explode()
 	SIGNAL_HANDLER
