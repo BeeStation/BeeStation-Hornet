@@ -1,4 +1,5 @@
 /datum/config_entry/keyed_list/comms_key
+	case_sensitive = TRUE
 	key_mode = KEY_MODE_TEXT
 	value_mode = VALUE_MODE_TEXT
 	protection = CONFIG_ENTRY_HIDDEN | CONFIG_ENTRY_LOCKED
