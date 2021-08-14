@@ -175,6 +175,7 @@
 	update_icon()
 	START_PROCESSING(SSmachines, src)
 	stop = world.time + selection.song_length
+	ui_update()
 
 /obj/machinery/jukebox/disco/activate_music()
 	..()
@@ -481,6 +482,7 @@
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		update_icon()
 		stop = world.time + 100
+		ui_update()
 		return PROCESS_KILL
 
 /obj/machinery/jukebox/disco/process(delta_time)
