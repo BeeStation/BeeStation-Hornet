@@ -108,6 +108,7 @@
 	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
 		broadcasting = !broadcasting
 		to_chat(user, "<span class='notice'>You toggle broadcasting [broadcasting ? "on" : "off"].</span>")
+		ui_update()
 
 /obj/item/radio/CtrlShiftClick(mob/user)
 	if(headset)
@@ -115,6 +116,7 @@
 	else if(user.canUseTopic(src, !issilicon(user), TRUE, FALSE))
 		listening = !listening
 		to_chat(user, "<span class='notice'>You toggle speaker [listening ? "on" : "off"].</span>")
+		ui_update()
 
 /obj/item/radio/interact(mob/user)
 	if(unscrewed && !isAI(user))
