@@ -11,7 +11,7 @@
 	var/obj/item/holosign_creator/projector
 
 /obj/structure/holosign/emp_act(severity)
-	take_damage(src.max_integrity/severity, BRUTE, "melee", 1)
+	take_damage(max_integrity/severity, BRUTE, "melee", 1)
 
 /obj/structure/holosign/New(loc, source_projector)
 	if(source_projector)
