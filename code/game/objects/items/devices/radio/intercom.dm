@@ -7,6 +7,7 @@
 	canhear_range = 2
 	dog_fashion = null
 	unscrewed = FALSE
+	layer = ABOVE_WINDOW_LAYER
 
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE
