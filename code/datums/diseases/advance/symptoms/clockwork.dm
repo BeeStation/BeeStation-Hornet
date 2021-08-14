@@ -74,32 +74,14 @@
 					H.grab_ghost()
 					return TRUE
 				if(ORGAN_SLOT_STOMACH)
-					var/obj/item/organ/stomach/clockwork/organ = new()
-					organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
-						H.emote("scream")
-					return TRUE
-				if(ORGAN_SLOT_EARS)
-					var/obj/item/organ/ears/robot/clockwork/organ = new()
-					if(robustbits)
-						organ.damage_multiplier = 0.5
-					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='warning'>Your ears pop.</span>")
-					return TRUE
-				if(ORGAN_SLOT_EYES)
-					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
-					if(robustbits)
-						organ.flash_protect = 1
-					organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
-						H.emote("scream")
-						H.grab_ghost()
-						return TRUE
-				if(ORGAN_SLOT_STOMACH)
-					var/obj/item/organ/stomach/clockwork/organ = new()
-					organ.Insert(H, TRUE, FALSE)
+					if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))
+						var/obj/item/organ/stomach/battery/clockwork/organ = new()
+						if(robustbits)
+							organ.max_charge = 15000
+						organ.Insert(H, TRUE, FALSE)
+					else
+						var/obj/item/organ/stomach/clockwork/organ = new()
+						organ.Insert(H, TRUE, FALSE)
 					if(prob(40))
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
 						H.emote("scream")
@@ -268,12 +250,22 @@
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 
-/obj/item/organ/stomach/cell/emp_act(severity)
-	owner.nutrition -= 100 * severity
+/obj/item/organ/stomach/clockwork/emp_act(severity)
+	owner.adjust_nutrition(-200/severity)
+
+/obj/item/organ/stomach/battery/clockwork
+	name = "biometallic flywheel"
+	icon_state = "stomach-clock"
+	desc = "A biomechanical battery which stores mechanical energy."
+	icon_state = "liver-clock"
+	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
+	max_charge = 7500
+	charge = 7500
 
 /obj/item/organ/tongue/robot/clockwork
 	name = "dynamic micro-phonograph"
-	desc = "an old-timey looking device connected to an odd, shifting cylinder."
+	desc = "An old-timey looking device connected to an odd, shifting cylinder."
 	icon_state = "tongueclock"
 
 /obj/item/organ/tongue/robot/clockwork/better

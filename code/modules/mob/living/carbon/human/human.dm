@@ -1176,10 +1176,20 @@
 /mob/living/carbon/human/adjust_nutrition(var/change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
+	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+		var/obj/item/organ/stomach/battery/battery = locate(/obj/item/organ/stomach/battery) in src.internal_organs
+		if(battery)
+			battery.adjust_charge_scaled(change)
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/set_nutrition(var/change) //Seriously fuck you oldcoders.
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
+		var/obj/item/organ/stomach/battery/battery = locate(/obj/item/organ/stomach/battery) in src.internal_organs
+		if(battery)
+			battery.set_charge_scaled(change)
 		return FALSE
 	return ..()
 
@@ -1209,11 +1219,17 @@
 /mob/living/carbon/human/species/android
 	race = /datum/species/android
 
+/mob/living/carbon/human/species/apid
+	race = /datum/species/apid
+
 /mob/living/carbon/human/species/corporate
 	race = /datum/species/corporate
 
 /mob/living/carbon/human/species/dullahan
 	race = /datum/species/dullahan
+
+/mob/living/carbon/human/species/ethereal
+	race = /datum/species/ethereal
 
 /mob/living/carbon/human/species/felinid
 	race = /datum/species/human/felinid
@@ -1311,6 +1327,9 @@
 /mob/living/carbon/human/species/golem/soviet
 	race = /datum/species/golem/soviet
 
+/mob/living/carbon/human/species/ipc
+	race = /datum/species/ipc
+
 /mob/living/carbon/human/species/jelly
 	race = /datum/species/jelly
 
@@ -1329,17 +1348,11 @@
 /mob/living/carbon/human/species/lizard
 	race = /datum/species/lizard
 
-/mob/living/carbon/human/species/ethereal
-	race = /datum/species/ethereal
-
 /mob/living/carbon/human/species/lizard/ashwalker
 	race = /datum/species/lizard/ashwalker
 
 /mob/living/carbon/human/species/moth
 	race = /datum/species/moth
-
-/mob/living/carbon/human/species/apid
-	race = /datum/species/apid
 
 /mob/living/carbon/human/species/mush
 	race = /datum/species/mush

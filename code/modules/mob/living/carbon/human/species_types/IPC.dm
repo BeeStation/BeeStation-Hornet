@@ -4,13 +4,13 @@
 	say_mod = "states" //inherited from a user's real species
 	sexes = 0
 	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
 	mutanttongue = /obj/item/organ/tongue/robot
 	mutantliver = /obj/item/organ/liver/cybernetic/upgraded/ipc
-	mutantstomach = /obj/item/organ/stomach/cell
+	mutantstomach = /obj/item/organ/stomach/battery/ipc
 	mutantears = /obj/item/organ/ears/robot
 	mutant_organs = list(/obj/item/organ/cyberimp/arm/power_cord)
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
@@ -115,8 +115,8 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/stomach/cell/cell = locate(/obj/item/organ/stomach/cell) in H.internal_organs
-	if(!cell)
+	var/obj/item/organ/stomach/battery/battery = locate(/obj/item/organ/stomach/battery) in H.internal_organs
+	if(!battery)
 		to_chat(H, "<span class='warning'>You try to siphon energy from the [A], but your power cell is gone!</span>")
 		return
 
@@ -132,7 +132,11 @@
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message("<span class='notice'>[H] inserts a power connector into the [A].</span>", "<span class='notice'>You begin to draw power from the [A].</span>")
+	var/obj/item/organ/stomach/battery/battery = locate(/obj/item/organ/stomach/battery) in H.internal_organs
 	while(do_after(H, 10, target = A))
+		if(!battery)
+			to_chat(H, "<span class='warning'>You need a battery to recharge!</span>")
+			break
 		if(loc != H)
 			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
 			break
@@ -141,11 +145,11 @@
 			break
 		A.charging = 1
 		if(A.cell.charge >= 500)
-			H.nutrition += 50
+			battery.adjust_charge(250)
 			A.cell.charge -= 250
 			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
 		else
-			H.nutrition += A.cell.charge/10
+			battery.adjust_charge(A.cell.charge)
 			A.cell.charge = 0
 			to_chat(H, "<span class='notice'>You siphon off as much as the [A] can spare.</span>")
 			break

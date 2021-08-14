@@ -827,22 +827,22 @@
 			if(cell.charge <= (cell.maxcharge / 2)) // if charge is under 50% you shouldn't drain it
 				to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain any.</span>")
 				return
-			var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+			var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 			if(!istype(stomach))
 				to_chat(H, "<span class='warning'>You can't receive charge!</span>")
 				return
-			if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
+			if(stomach.charge >= stomach.max_charge)
 				to_chat(H, "<span class='warning'>Your charge is full!</span>")
 				return
 			E.drain_time = world.time + 75
 			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
 			if(do_after(user, 75, target = src))
-				if(cell.charge <= (cell.maxcharge / 2) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
+				if(cell.charge <= (cell.maxcharge / 2) || (stomach.charge >= stomach.max_charge))
 					to_chat(H, "<span class='warning'>You can't receive more charge from the APC.</span>")
 					return
 				to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
-				stomach.adjust_charge(10)
-				cell.charge -= 10
+				stomach.adjust_charge(250)
+				cell.charge -= 250
 			else
 				to_chat(H, "<span class='warning'>You fail to receive charge from the APC!</span>")
 			return
@@ -850,22 +850,22 @@
 			if(cell.charge == cell.maxcharge)
 				to_chat(H, "<span class='warning'>The APC is full!</span>")
 				return
-			var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+			var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 			if(!istype(stomach))
 				to_chat(H, "<span class='warning'>You can't transfer charge!</span>")
 				return
-			if(stomach.crystal_charge < 10)
+			if(stomach.charge < 250)
 				to_chat(H, "<span class='warning'>Your charge is too low!</span>")
 				return
 			E.drain_time = world.time + 75
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
-			if(cell.charge == cell.maxcharge || (stomach.crystal_charge < 10))
+			if(cell.charge == cell.maxcharge || (stomach.charge < 250))
 				to_chat(H, "<span class='warning'>You can't transfer more charge to the APC.</span>")
 				return
 			if(do_after(user, 75, target = src))
 				to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
-				stomach.adjust_charge(-10)
-				cell.charge += 10
+				stomach.adjust_charge(-250)
+				cell.charge += 250
 			else
 				to_chat(H, "<span class='warning'>You fail to transfer power to the APC!</span>")
 			return
