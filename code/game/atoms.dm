@@ -95,6 +95,9 @@
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
+	/// Lazylist of all messages currently on this atom
+	var/list/chat_messages
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *

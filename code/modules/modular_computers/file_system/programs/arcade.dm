@@ -78,9 +78,6 @@
 		get_asset_datum(/datum/asset/simple/arcade),
 	)
 
-/datum/computer_file/program/arcade/ui_interact(mob/user, datum/tgui/ui)
-	. = ..()
-
 /datum/computer_file/program/arcade/ui_data(mob/user)
 	var/list/data = get_header_data()
 

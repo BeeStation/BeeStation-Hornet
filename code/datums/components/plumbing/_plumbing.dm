@@ -98,9 +98,9 @@
 	for(var/D in GLOB.cardinals)
 		var/color
 		var/direction
-		if(D & demand_connects)
+		if(D & initial(demand_connects))
 			color = "red" //red because red is mean and it takes
-		else if(D & supply_connects)
+		else if(D & initial(supply_connects))
 			color = "blue" //blue is nice and gives
 		else
 			continue
@@ -182,6 +182,7 @@
 	var/new_supply_connects
 	var/new_dir = AM.dir
 	var/angle = 180 - dir2angle(new_dir)
+
 	if(new_dir == SOUTH)
 		demand_connects = initial(demand_connects)
 		supply_connects = initial(supply_connects)
