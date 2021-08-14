@@ -12,6 +12,15 @@
 	if(holoform)
 		fold_in(force = TRUE)
 	//Need more effects that aren't instadeath or permanent law corruption.
+	//With pAIs becoming more and more useful, bigger drawbacks are needed to make them easier to counter
+	switch(severity)
+		if(1) //death
+			qdel(card)
+			qdel(src)
+		if(2)
+			master = null
+			master_dna = null
+			to_chat(pai, "<span class='userdanger'>Warning: System override detected, check directive sub-system for any changes.'</span>")
 
 /mob/living/silicon/pai/ex_act(severity, target)
 	take_holo_damage(severity * 50)

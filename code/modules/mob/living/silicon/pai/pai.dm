@@ -301,12 +301,22 @@
 	else
 		to_chat(user, "Encryption Key ports not configured.")
 
-/obj/item/paicard/emag_act(mob/user) // Emag to wipe the master DNA and supplemental directive
+/obj/item/paicard/emag_act(mob/user) // Emag to bind the pAI to the emagger
 	if(!pai)
 		return
-	to_chat(user, "<span class='notice'>You override [pai]'s directive system, clearing its master string and supplied directive.</span>")
-	to_chat(pai, "<span class='danger'>Warning: System override detected, check directive sub-system for any changes.'</span>")
-	log_game("[key_name(user)] emagged [key_name(pai)], wiping their master DNA and supplemental directive.")
-	pai.master = null
-	pai.master_dna = null
+	to_chat(pai, "<span class='userdanger'>Warning: System override detected, check directive sub-system for any changes.'</span>")
+	if(!iscarbon(user))
+		to_chat(usr, "<span class='warning'>You don't have any DNA, or your DNA is incompatible with this device!</span>")
+		pai.master = null
+		pai.master_dna = null
+		to_chat(user, "<span class='notice'>You override [pai]'s directive system, clearing its master and supplemental directives.</span>")
+		log_game("[key_name(user)] emagged [key_name(pai)], wiping their master DNA and supplemental directive.")
+	else
+		var/mob/living/carbon/H = user
+		pai.master = user.real_name
+		pai.master_dna = H.dna.unique_enzymes
+		to_chat(user, "<span class='notice'>You override [pai]'s directive system, making it subservient to you.</span>")
+		log_game("[key_name(user)] emagged [key_name(pai)], binding it to themself.")
+	pai.silent = max(40, pai.silent) // Mutes them for four seconds and paralyzes for six
+	pai.Paralyze(60)
 	pai.laws.supplied[1] = "None." // Sets supplemental directive to this
