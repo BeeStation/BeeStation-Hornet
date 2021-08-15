@@ -62,6 +62,9 @@
 		else
 			//Weaker, less intensive zap
 			tesla_zap(src, 4, TESLA_DEFAULT_POWER, TESLA_ENERGY_MINI_BALL_FLAGS)
+			pixel_x = -32
+			pixel_y = -32
+			return
 
 		pixel_x = -32
 		pixel_y = -32
