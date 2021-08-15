@@ -548,7 +548,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(movingmob != null)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
-	seen_messages = null
 	Master.UpdateTickRate()
 	return ..()
 
@@ -962,6 +961,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return FALSE
 		if ("key")
 			return FALSE
+		if("cached_badges")
+			return FALSE
 		if("view")
 			view_size.setDefault(var_value)
 			return TRUE
@@ -1076,6 +1077,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			message_admins("[key_name(src)] was removed from the game due to a ban from BeeStation.")
 			qdel(src)
 			return
+
+/client/proc/open_filter_editor(atom/in_atom)
+	if(holder)
+		holder.filteriffic = new /datum/filter_editor(in_atom)
+		holder.filteriffic.ui_interact(mob)
 
 /client/proc/update_ambience_pref()
 	if(prefs.toggles & SOUND_AMBIENCE)

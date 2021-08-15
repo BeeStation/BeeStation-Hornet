@@ -11,11 +11,10 @@
 	weather_immunities = list("ash")
 	possible_a_intents = list(INTENT_HELP, INTENT_HARM)
 	mob_biotypes = list(MOB_ROBOTIC)
-	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 | HEAR_1
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	deathsound = 'sound/voice/borg_deathsound.ogg'
 	speech_span = SPAN_ROBOT
-
 	var/datum/ai_laws/laws = null//Now... THEY ALL CAN ALL HAVE LAWS
 	var/last_lawchange_announce = 0
 	var/list/alarms_to_show = list()
@@ -80,7 +79,7 @@
 
 /mob/living/silicon/proc/freeCamera()
 	return
-	
+
 /mob/living/silicon/proc/triggerAlarm()
 	return
 

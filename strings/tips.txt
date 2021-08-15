@@ -267,3 +267,4 @@ You can examine someone to tell if their red eyes are natural or cultist.
 You can put holy water in darts to make them more effective against cultists. Or use the shotgun, cause it doesn't miss.
 Don't know what a word means? https://wiki.beestation13.com/view/Terminology
 You are able to block with most weapons! Being on any intent but harm and walking speed allows almost anything to block. More info: https://wiki.beestation13.com/view/Guide_to_Combat#Blocking
+Embedded items can be removed safely using a hemostat. If you don't have one on hand, try using a screwdriver or wirecutters; get creative!

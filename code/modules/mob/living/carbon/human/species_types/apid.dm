@@ -28,7 +28,7 @@
 
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()
-	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping()) // Sleep when cold, like bees
+	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping() && !HAS_TRAIT(H,TRAIT_RESISTCOLD)) // Sleep when cold, like bees
 		cold_cycle++
 		if(prob(5))
 			to_chat(H, "<span class='warning'>The cold is making you feel tired...</span>")

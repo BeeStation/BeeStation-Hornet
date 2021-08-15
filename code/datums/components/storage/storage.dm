@@ -196,7 +196,9 @@
 /datum/component/storage/proc/async_preattack_intercept(obj/item/attack_item, mob/pre_attack_mob)
 	var/list/things = attack_item.loc.contents.Copy()
 	if(collection_mode == COLLECT_SAME)
-		things = typecache_filter_list(things, typecacheof(attack_item.type))
+		for(var/A in things)
+			if(!istype(A, attack_item))
+				things -= A
 	var/len = length(things)
 	if(!len)
 		to_chat(pre_attack_mob, "<span class='warning'>You failed to pick up anything with [parent]!</span>")
@@ -380,20 +382,27 @@
 	M.client.screen |= boxes
 	M.client.screen |= closer
 	M.client.screen |= real_location.contents
-	M.active_storage = src
+	M.set_active_storage(src)
 	LAZYOR(is_using, M)
+	RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/mob_deleted)
 	return TRUE
 
+/datum/component/storage/proc/mob_deleted(datum/source)
+	SIGNAL_HANDLER
+	hide_from(source)
+
 /datum/component/storage/proc/hide_from(mob/M)
+	if(M.active_storage == src)
+		M.set_active_storage(null)
+	LAZYREMOVE(is_using, M)
+
+	UnregisterSignal(M, COMSIG_PARENT_QDELETING)
 	if(!M.client)
 		return TRUE
 	var/atom/real_location = real_location()
 	M.client.screen -= boxes
 	M.client.screen -= closer
 	M.client.screen -= real_location.contents
-	if(M.active_storage == src)
-		M.active_storage = null
-	LAZYREMOVE(is_using, M)
 	return TRUE
 
 /datum/component/storage/proc/close(mob/M)
@@ -473,6 +482,7 @@
 			cansee |= M
 		else
 			LAZYREMOVE(is_using, M)
+			UnregisterSignal(M, COMSIG_PARENT_QDELETING)
 	return cansee
 
 //Tries to dump content
@@ -710,14 +720,14 @@
 
 	return locked
 
-/datum/component/storage/proc/signal_take_type(datum/source, type, atom/destination, amount = INFINITY, check_adjacent = FALSE, force = FALSE, mob/user, list/inserted)
+/datum/component/storage/proc/signal_take_type(datum/source, typecache, atom/destination, amount = INFINITY, check_adjacent = FALSE, force = FALSE, mob/user, list/inserted)
 	SIGNAL_HANDLER
 
 	if(!force)
 		if(check_adjacent)
 			if(!user || !user.CanReach(destination) || !user.CanReach(parent))
 				return FALSE
-	var/list/taking = typecache_filter_list(contents(), typecacheof(type))
+	var/list/taking = typecache_filter_list(contents(), typecache)
 	if(taking.len > amount)
 		taking.len = amount
 	if(inserted)			//duplicated code for performance, don't bother checking retval/checking for list every item.

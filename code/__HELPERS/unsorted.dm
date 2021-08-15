@@ -43,6 +43,9 @@
 	else if(x<0)
 		.+=360
 
+//Better performant than an artisanal proc and more reliable than Turn(). From TGMC.
+#define REVERSE_DIR(dir) ( ((dir & 85) << 1) | ((dir & 170) >> 1) )
+
 //Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, closed = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
 /*
@@ -393,6 +396,17 @@ Turf and target are separate in case you want to teleport some distance from a t
 		if(stop_type && istype(loc, stop_type))
 			break
 	return loc
+
+//Returns a list of all locations (except the area) the movable is within.
+/proc/get_nested_locs(atom/movable/AM, include_turf = FALSE)
+	. = list()
+	var/atom/location = AM.loc
+	var/turf/turf = get_turf(AM)
+	while(location && location != turf)
+		. += location
+		location = location.loc
+	if(location && include_turf) //At this point, only the turf is left, provided it exists.
+		. += location
 
 /// Returns the turf located at the map edge in the specified direction relative to A. Used for mass driver
 /proc/get_edge_target_turf(atom/A, direction)
@@ -1115,7 +1129,8 @@ eg2: `center_image(I, 96,96)`
 		while (L.len && !target)
 			var/I = rand(1, L.len)
 			var/turf/T = L[I]
-			if(!T.density)
+			var/area/X = get_area(T)
+			if(!T.density && (X.area_flags & VALID_TERRITORY))
 				var/clear = TRUE
 				for(var/obj/O in T)
 					if(O.density)
@@ -1592,46 +1607,3 @@ config_setting should be one of the following:
 		if(-INFINITY to 0, 11 to INFINITY)
 			CRASH("Can't turn invalid directions!")
 	return turn(input_dir, 180)
-
-/**
- * Sends a topic call to crosscomms servers.
- *
- * Params:
- * sender - Name of the IC entity sending the message
- * msg - Message text to send
- * type - What handler the recieving server should use
- * insecure - Send the messages to insecure servers
-*/
-/proc/comms_send(sender, msg, type, insecure = FALSE)
-	var/list/message = list()
-	message["message_sender"] = sender
-	message["message"] = msg
-	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
-	message += type
-
-	var/comms_key = CONFIG_GET(string/comms_key)
-	if(comms_key)
-		message["key"] = comms_key
-		var/list/servers = CONFIG_GET(keyed_list/cross_server)
-		for(var/I in servers)
-			world.Export("[servers[I]]?[list2params(message)]")
-
-	comms_key = CONFIG_GET(string/comms_key_insecure)
-	if(comms_key && insecure)
-		message["key"] = comms_key
-		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
-		for(var/I in servers)
-			world.Export("[servers[I]]?[list2params(message)]")
-
-/proc/drop_shadow_filter(x, y, size, offset, color)
-	. = list("type" = "drop_shadow")
-	if(!isnull(x))
-		.["x"] = x
-	if(!isnull(y))
-		.["y"] = y
-	if(!isnull(size))
-		.["size"] = size
-	if(!isnull(offset))
-		.["offset"] = offset
-	if(!isnull(color))
-		.["color"] = color

@@ -83,6 +83,15 @@
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/blue
 
+/obj/item/clothing/glasses/hud/health/prescription
+	name = "prescription medical HUDglasses"
+	desc = "prescription glasses with a built-in medical HUD."
+	item_state = "prescmedhud"
+	icon_state = "prescmedhud"
+	hud_type = DATA_HUD_MEDICAL_ADVANCED
+	hud_trait = TRAIT_MEDICAL_HUD
+	vision_correction = 1
+
 /obj/item/clothing/glasses/hud/health/sunglasses/degraded
 	name = "degraded medical HUDSunglasses"
 	desc = "Sunglasses with a medical HUD. They do not provide flash protection."

@@ -16,6 +16,11 @@
 		var/weapon_to_spawn = new weapon(get_turf(H))
 		H.put_in_inactive_hand(weapon_to_spawn)
 
+/datum/outfit/clockcult_plasmaman
+	name = "Servant of Ratvar Plasmaman"
+	head = /obj/item/clothing/head/chameleon/envirohelm/ratvar
+	uniform = /obj/item/clothing/under/chameleon/envirosuit/ratvar
+
 /datum/outfit/clockcult/armaments
 	name = "Servant of Ratvar - Armaments"
 

@@ -876,3 +876,17 @@
 	glass_icon_state = "glass_yellow"
 	glass_name = "glass of bungo juice"
 	glass_desc = "Exotic! You feel like you are on vacation already."
+
+/datum/reagent/consumable/beefbroth
+	name = "Beef Broth"
+	color = "#100800" // rgb: 16, 8, 0 , just like cola
+	taste_description = "Pure Beef Essence"
+	glass_icon_state  = "glass_brown"
+	glass_name = "glass of Space Cola?"
+	glass_desc = "A glass of what appears to be refreshing Space Cola."
+
+/datum/reagent/consumable/beefbroth/on_mob_metabolize(mob/living/M)
+	to_chat(M, "<span class='warning'>That drink was way too beefy! You feel sick.</span>")
+	M.adjust_disgust(30)
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+	. = ..()

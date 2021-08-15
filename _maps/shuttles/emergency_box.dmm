@@ -2,10 +2,6 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
-"ac" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "ad" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -327,10 +323,7 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Emergency Shuttle Cargo"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "Gx" = (
@@ -343,7 +336,6 @@
 /area/shuttle/escape)
 "JW" = (
 /obj/effect/spawner/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Km" = (
@@ -360,10 +352,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "RE" = (
@@ -371,12 +360,7 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Ta" = (
@@ -384,10 +368,7 @@
 	name = "Emergency Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "XC" = (
@@ -497,9 +478,9 @@ ag
 aC
 as
 ad
-ac
+JW
 RE
-ac
+JW
 bj
 aC
 aT
@@ -556,7 +537,7 @@ aS
 aS
 aS
 aC
-ac
+JW
 XC
 bs
 XC
@@ -604,7 +585,7 @@ aC
 aC
 aC
 aC
-ac
+JW
 ga
 ga
 ga
@@ -628,7 +609,7 @@ am
 am
 am
 aR
-ac
+JW
 bd
 be
 bd
