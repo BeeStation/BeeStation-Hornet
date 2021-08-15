@@ -17,9 +17,9 @@
 	response_harm = "kicks"
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	gold_core_spawnable = FRIENDLY_SPAWN
-	melee_damage = 18
-	health = 2500
-	maxHealth = 2500
+	melee_damage = 5
+	health = 100
+	maxHealth = 100
 	speed = 8
 	glide_size = 2
 	can_be_held = TRUE
