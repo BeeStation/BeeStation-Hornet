@@ -2836,6 +2836,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/malf_upgrade,
+/obj/structure/closet/crate,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "is" = (
@@ -3618,11 +3620,10 @@
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "jK" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer3{
-	dir = 8;
-	volume_rate = 200
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
 	},
-/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "jL" = (
 /obj/structure/table,
@@ -6342,11 +6343,27 @@
 	},
 /turf/open/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"Lj" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 4
+	},
+/turf/closed/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_lava_base/main)
 "LQ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"Mp" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer3{
+	dir = 8;
+	volume_rate = 200
+	},
+/turf/open/floor/plating{
+	baseturfs = /turf/open/lava/smooth/lava_land_surface;
+	initial_gas_mix = "o2=14;n2=5;co2=13;TEMP=300"
+	},
+/area/lavaland/surface/outdoors)
 "RE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
@@ -8372,11 +8389,11 @@ ho
 hD
 dy
 dy
-ac
-ab
-ab
-ab
-ac
+ha
+ha
+ha
+ha
+ha
 jK
 ju
 km
@@ -8421,13 +8438,13 @@ dy
 eF
 eF
 xw
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+ha
+ha
+ha
+ha
+ha
+ha
+Lj
 zM
 ju
 kC
@@ -8477,7 +8494,7 @@ ab
 ab
 ab
 ab
-ab
+Mp
 ab
 ju
 kD
@@ -8517,7 +8534,7 @@ ab
 ab
 fx
 gh
-fx
+Ej
 ab
 ab
 ab
@@ -8529,7 +8546,7 @@ ab
 ab
 ab
 ab
-ju
+zM
 kE
 lc
 ju
