@@ -101,7 +101,6 @@
 	if(!ui)
 		ui = new(user, src, "ChemHeater")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/chem_heater/ui_data()
 	var/data = list()

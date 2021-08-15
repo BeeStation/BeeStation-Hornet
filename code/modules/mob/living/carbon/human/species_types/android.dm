@@ -12,7 +12,7 @@
 	species_language_holder = /datum/language_holder/synthetic
 	limbs_id = "synth"
 	reagent_tag = PROCESS_SYNTHETIC
-	species_gibs = GIB_TYPE_ROBOTIC
+	species_gibs = "robotic"
 	attack_sound = 'sound/items/trayhit1.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 

@@ -157,7 +157,6 @@
 	if(!ui)
 		ui = new(user, src, "Pandemic")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/pandemic/ui_data(mob/user)
 	var/list/data = list()

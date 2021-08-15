@@ -753,7 +753,6 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/closet/stasis/Entered(atom/A)
-	. = ..()
 	if(isliving(A) && holder_animal)
 		var/mob/living/L = A
 		L.notransform = 1

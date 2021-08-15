@@ -84,4 +84,3 @@
 					msg = "modified"
 			message_admins("[key_name_admin(holder)] has [msg] this round's allowed ghost roles.")
 			GLOB.ghost_role_flags = new_role_flags
-	ui_update()

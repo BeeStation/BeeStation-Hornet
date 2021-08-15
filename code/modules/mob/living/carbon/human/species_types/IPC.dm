@@ -30,7 +30,7 @@
 	staminamod = 0.8
 	siemens_coeff = 1.5
 	reagent_tag = PROCESS_SYNTHETIC
-	species_gibs = GIB_TYPE_ROBOTIC
+	species_gibs = "robotic"
 	attack_sound = 'sound/items/trayhit1.ogg'
 	allow_numbers_in_name = TRUE
 	deathsound = "sound/voice/borg_deathsound.ogg"

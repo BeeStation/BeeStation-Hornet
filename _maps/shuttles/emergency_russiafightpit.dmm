@@ -555,7 +555,10 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Emergency Shuttle Cargo"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Ge" = (
@@ -569,7 +572,10 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "OT" = (
@@ -577,7 +583,10 @@
 	name = "Glorious Leaders";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "SF" = (
@@ -585,7 +594,12 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "Vh" = (
@@ -600,7 +614,10 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Xw" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 

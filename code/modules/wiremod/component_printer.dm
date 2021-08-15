@@ -30,7 +30,6 @@
 	if(!ui)
 		ui = new(user, src, "ComponentPrinter", name)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/component_printer/ui_assets(mob/user)
 	return list(

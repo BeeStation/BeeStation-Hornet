@@ -109,7 +109,6 @@
 				code = initial(code)
 			. = TRUE
 
-	ui_update()
 	update_icon()
 
 /obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)

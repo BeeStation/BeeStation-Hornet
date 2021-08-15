@@ -795,7 +795,10 @@
 	name = "Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "fr" = (
@@ -821,7 +824,10 @@
 	req_access_txt = "19"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "BN" = (
@@ -853,8 +859,25 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"GG" = (
+/obj/machinery/door/airlock/medical/glass{
+	name = "Escape Shuttle Infirmary"
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Li" = (
 /obj/effect/spawner/structure/window/shuttle,
@@ -882,7 +905,10 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Vs" = (
@@ -893,7 +919,10 @@
 	name = "Emergency Shuttle Cargo Bay Airlock"
 	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "Yo" = (
@@ -1186,7 +1215,7 @@ aE
 ba
 ad
 ac
-PE
+GG
 ba
 ad
 "}

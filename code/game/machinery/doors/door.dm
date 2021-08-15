@@ -353,16 +353,12 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
 			L.emote("roar")
 		else if(ishuman(L)) //For humans
-			var/armour = L.run_armor_check(BODY_ZONE_CHEST, "melee")
-			var/multiplier = CLAMP(1 - (armour * 0.01), 0, 1)
-			L.adjustBruteLoss(multiplier * DOOR_CRUSH_DAMAGE)
+			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 			L.emote("scream")
-			if(!L.IsParalyzed())
-				L.Paralyze(60)
+			L.Paralyze(100)
 		else if(ismonkey(L)) //For monkeys
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
-			if(!L.IsParalyzed())
-				L.Paralyze(60)
+			L.Paralyze(100)
 		else //for simple_animals & borgs
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = get_turf(src)

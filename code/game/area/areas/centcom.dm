@@ -8,7 +8,7 @@
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA
+	blob_allowed = FALSE //Should go without saying, no blobs should take over centcom as a win condition.
 	flags_1 = NONE
 
 /area/centcom/control
@@ -121,7 +121,6 @@
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	flags_1 = NONE
 
 //Abductors
@@ -130,7 +129,6 @@
 	icon_state = "yellow"
 	requires_power = FALSE
 	teleport_restriction = TELEPORT_ALLOW_ABDUCTORS
-	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
 
@@ -141,7 +139,7 @@
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_NONE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA
+	blob_allowed = FALSE //Not... entirely sure this will ever come up... but if the bus makes blobs AND ops, it shouldn't aim for the ops to win.
 	flags_1 = NONE
 	ambience_index = AMBIENCE_DANGER
 
@@ -197,11 +195,11 @@
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
 	teleport_restriction = TELEPORT_ALLOW_CLOCKWORK
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
+	hidden = TRUE
 	ambience_index = AMBIENCE_REEBE
 
 /area/reebe/city_of_cogs
 	name = "Reebe - City of Cogs"
 	icon_state = "purple"
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
+	hidden = FALSE
 	var/playing_ambience = FALSE

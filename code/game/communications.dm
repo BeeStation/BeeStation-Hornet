@@ -123,9 +123,8 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 ))
 
 /datum/radio_frequency
-	var/frequency
-	/// List of filters -> list of devices
-	var/list/list/datum/weakref/devices = list()
+	var/frequency as num
+	var/list/list/obj/devices = list()
 
 /datum/radio_frequency/New(freq)
 	frequency = freq
@@ -155,11 +154,7 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 
 	//Send the data
 	for(var/current_filter in filter_list)
-		for(var/datum/weakref/device_ref as anything in devices[current_filter])
-			var/obj/device = device_ref.resolve()
-			if(!device)
-				devices[current_filter] -= device_ref
-				continue
+		for(var/obj/device in devices[current_filter])
 			if(device == source)
 				continue
 			if(range)
@@ -177,7 +172,7 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	var/list/devices_line = devices[filter]
 	if(!devices_line)
 		devices[filter] = devices_line = list()
-	devices_line += WEAKREF(device)
+	devices_line += device
 
 
 /datum/radio_frequency/proc/remove_listener(obj/device)
@@ -185,7 +180,7 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 		var/list/devices_line = devices[devices_filter]
 		if(!devices_line)
 			devices -= devices_filter
-		devices_line -= WEAKREF(device)
+		devices_line -= device
 		if(!devices_line.len)
 			devices -= devices_filter
 

@@ -233,6 +233,18 @@
 	alt_covers_chest = TRUE
 
 /*
+ *Blueshirt
+ */
+
+/obj/item/clothing/under/rank/security/blueshirt
+	name = "blue shirt and tie"
+	desc = "I'm a little busy right now, Calhoun."
+	icon_state = "blueshift"
+	item_state = "blueshift"
+	item_color = "blueshift"
+	can_adjust = FALSE
+
+/*
  *Spacepol
  */
 

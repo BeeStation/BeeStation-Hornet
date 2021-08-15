@@ -4,7 +4,5 @@ if(!(Test-Path -Path "C:/byond")){
     Remove-Item C:/byond.zip
 }
 
-bash tools/ci/install_node.sh
-bash tools/build/build
-
+&"C:/byond/bin/dm.exe" -max_errors 0 beestation.dme
 exit $LASTEXITCODE

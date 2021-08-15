@@ -92,7 +92,6 @@
 	if(!ui)
 		ui = new(user, src, "PortablePump")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/portable_atmospherics/pump/ui_data()
 	var/data = list()

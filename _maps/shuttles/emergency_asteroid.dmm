@@ -5,6 +5,15 @@
 "ac" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
+"ad" = (
+/obj/structure/window/shuttle,
+/obj/structure/grille,
+/turf/open/floor/plating,
+/area/shuttle/escape)
+"ah" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "am" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8
@@ -372,11 +381,13 @@
 "qg" = (
 /obj/structure/window/shuttle,
 /obj/structure/grille,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "qO" = (
 /obj/structure/window/shuttle,
 /obj/structure/grille,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "rp" = (
@@ -384,7 +395,12 @@
 	name = "Escape Shuttle Infirmary";
 	req_access_txt = "5"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "xE" = (
@@ -398,12 +414,30 @@
 /obj/machinery/door/airlock/mining{
 	name = "Emergency Shuttle Storage"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/escape)
 "Gw" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"IJ" = (
+/obj/machinery/door/airlock{
+	name = "Emergency Shuttle Restroom"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Jx" = (
 /turf/open/floor/mineral/titanium/white,
@@ -413,7 +447,12 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "JM" = (
@@ -434,7 +473,12 @@
 /obj/machinery/door/airlock{
 	name = "Emergency Shuttle Restroom"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "RU" = (
@@ -453,6 +497,7 @@
 /area/shuttle/escape)
 "VO" = (
 /obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "YJ" = (
@@ -460,14 +505,24 @@
 	name = "Emergency Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Zz" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 
@@ -542,7 +597,7 @@ bd
 bl
 ac
 bN
-RT
+IJ
 bE
 qO
 "}
@@ -572,7 +627,7 @@ bf
 bn
 ac
 Jx
-RT
+IJ
 bE
 qO
 "}
@@ -628,7 +683,7 @@ aB
 aJ
 at
 aZ
-VO
+ah
 aK
 at
 aL
@@ -643,7 +698,7 @@ Gw
 at
 at
 aZ
-VO
+ah
 aK
 at
 bP
@@ -658,7 +713,7 @@ aB
 bK
 at
 aZ
-VO
+ah
 aK
 at
 bw
@@ -673,7 +728,7 @@ qO
 aK
 at
 aZ
-VO
+ah
 aK
 at
 aZ
@@ -703,7 +758,7 @@ qO
 aK
 at
 aZ
-VO
+ah
 aK
 at
 aZ
@@ -718,7 +773,7 @@ aB
 bK
 at
 aZ
-VO
+ah
 aK
 at
 bx
@@ -733,7 +788,7 @@ Gw
 at
 at
 aZ
-VO
+ah
 aK
 at
 bP
@@ -748,7 +803,7 @@ aB
 aL
 at
 aZ
-VO
+ah
 aK
 at
 by
@@ -790,13 +845,13 @@ aa
 ac
 ac
 ac
-qO
+ad
 JJ
-qO
+ad
 bi
-qO
+ad
 Zz
-qO
+ad
 ac
 ac
 ac
@@ -823,7 +878,7 @@ aw
 aw
 aw
 aw
-qO
+ad
 Jx
 Jx
 Jx
@@ -851,11 +906,11 @@ ac
 ac
 ac
 ac
-qO
+ad
 JJ
 ac
 rp
-qO
+ad
 JM
 ac
 ac
@@ -868,7 +923,7 @@ ac
 ac
 aQ
 aw
-qO
+ad
 Jx
 bs
 ac

@@ -41,7 +41,6 @@
 	if(!ui)
 		ui = new(user, src, "BorgPanel", "Borging Panel")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /datum/borgpanel/ui_data(mob/user)
 	. = list()

@@ -17,7 +17,10 @@
 /obj/machinery/door/poddoor{
 	id = "whiteship_port"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/cargo)
 "af" = (
@@ -25,7 +28,10 @@
 /obj/machinery/door/poddoor{
 	id = "whiteship_port"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/cargo)
 "ag" = (
@@ -398,7 +404,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/crew)
 "aK" = (
@@ -416,7 +425,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/crew)
 "aL" = (
@@ -474,11 +486,16 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
 /obj/machinery/door/airlock/external,
-/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "aS" = (
@@ -570,13 +587,18 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/crew)
 "aW" = (
@@ -681,13 +703,18 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/crew)
 "ba" = (
@@ -964,7 +991,10 @@
 /obj/machinery/door/airlock{
 	name = "Restroom"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/abandoned/crew)
 "bu" = (
@@ -1020,13 +1050,16 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "bz" = (
@@ -1109,9 +1142,12 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bar)
 "bF" = (
@@ -1742,7 +1778,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bridge)
 "cs" = (
@@ -2220,7 +2261,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bar)
 "cU" = (
@@ -2532,13 +2576,18 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "du" = (
@@ -2604,13 +2653,18 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bar)
 "dx" = (
@@ -2707,13 +2761,18 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bar)
 "dB" = (
@@ -2740,13 +2799,18 @@
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/shuttle/abandoned/bar)
 "dE" = (
@@ -3116,7 +3180,10 @@
 /obj/machinery/door/poddoor{
 	id = "whiteship_starboard"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/cargo)
 "ei" = (
@@ -3125,7 +3192,10 @@
 /obj/machinery/door/poddoor{
 	id = "whiteship_starboard"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/cargo)
 "ej" = (
@@ -3299,9 +3369,12 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering"
 	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
 "wM" = (

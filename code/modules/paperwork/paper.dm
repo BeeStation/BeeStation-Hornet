@@ -230,7 +230,6 @@
 	if(!ui)
 		ui = new(user, src, "PaperSheet", name)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 
 /obj/item/paper/ui_static_data(mob/user)
@@ -370,7 +369,7 @@
 
 /obj/item/paper/crumpled/beernuke
 	name = "beer-stained note"
-
+	
 /obj/item/paper/crumpled/beernuke/Initialize()
 	. = ..()
 	var/code
@@ -378,7 +377,7 @@
 		if(beernuke.r_code == "ADMIN")
 			beernuke.r_code = random_nukecode()
 		code = beernuke.r_code
-	info = "important party info, DONT FORGET: <b>[code]</b>"
+	info = "important party info, DONT FORGET: <b>[code]</b>" 
 
 /obj/item/paper/troll
 	name = "very special note"

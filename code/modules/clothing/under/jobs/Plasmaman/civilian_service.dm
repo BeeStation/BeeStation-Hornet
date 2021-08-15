@@ -75,8 +75,6 @@
 	icon_state = "command_envirosuit"
 	item_state = "command_envirosuit"
 	item_color = "command_envirosuit"
-	sensor_mode = SENSOR_COORDS
-	random_sensor = FALSE
 	
 /obj/item/clothing/under/plasmaman/hop
 	name = "head of personnel plasma envirosuit"

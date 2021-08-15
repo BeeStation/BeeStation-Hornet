@@ -5,6 +5,10 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
+"ac" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "ad" = (
 /obj/structure/table,
 /obj/item/scalpel,
@@ -260,17 +264,46 @@
 /obj/item/defibrillator/loaded,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
+"mv" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "bridge door";
+	req_access_txt = "19"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "xJ" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "bridge door";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
+"Cf" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Hy" = (
 /obj/machinery/door/airlock/public/glass,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Mg" = (
@@ -284,16 +317,27 @@
 	port_direction = 4;
 	width = 14
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "MN" = (
 /obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Ti" = (
 /obj/machinery/door/airlock/titanium,
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Wn" = (
@@ -301,7 +345,10 @@
 	name = "security airlock";
 	req_access_txt = "63"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 
@@ -327,7 +374,7 @@ ab
 ah
 aq
 ak
-MN
+ac
 aB
 aH
 aH
@@ -343,7 +390,7 @@ ab
 ai
 ar
 aC
-xJ
+mv
 aC
 aC
 aC
@@ -406,7 +453,7 @@ aa
 ab
 ab
 xJ
-MN
+ac
 ab
 aC
 aC
@@ -423,7 +470,7 @@ ab
 al
 at
 at
-MN
+ac
 aB
 aC
 aC
@@ -455,7 +502,7 @@ ab
 am
 at
 at
-MN
+ac
 aC
 aC
 aN
@@ -508,8 +555,8 @@ aC
 aC
 aw
 ab
-Hy
-MN
+Cf
+ac
 ab
 ab
 "}

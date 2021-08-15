@@ -213,7 +213,6 @@
 	if(!ui)
 		ui = new(user, src, "OreRedemptionMachine")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)
 	var/list/data = list()

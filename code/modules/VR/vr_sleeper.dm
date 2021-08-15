@@ -92,7 +92,6 @@
 	if(!ui)
 		ui = new(user, src, "vr_sleeper")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/vr_sleeper/ui_act(action, params)
 	if(..())

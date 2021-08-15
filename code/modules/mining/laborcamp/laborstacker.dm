@@ -53,7 +53,6 @@ GLOBAL_LIST(labor_sheet_values)
 	if(!ui)
 		ui = new(user, src, "LaborClaimConsole")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/mineral/labor_claim_console/ui_static_data(mob/user)
 	var/list/data = list()

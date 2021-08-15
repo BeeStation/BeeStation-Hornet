@@ -57,7 +57,7 @@ All the important duct code:
 		if(D == src)
 			continue
 		if(D.duct_layer & duct_layer)
-			return INITIALIZE_HINT_QDEL //If we have company, end it all
+			disconnect_duct()
 	if(active)
 		attempt_connect()
 
@@ -153,10 +153,8 @@ All the important duct code:
 	lose_neighbours()
 	reset_connects(0)
 	update_icon()
-	if(ispath(drop_on_wrench))
+	if(ispath(drop_on_wrench) && !QDELING(src))
 		new drop_on_wrench(drop_location())
-		drop_on_wrench = null
-	if(!QDELETED(src))
 		qdel(src)
 
 ///''''''''''''''''optimized''''''''''''''''' proc for quickly reconnecting after a duct net was destroyed

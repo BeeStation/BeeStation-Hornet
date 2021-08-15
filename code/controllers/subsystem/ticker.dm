@@ -27,6 +27,8 @@ SUBSYSTEM_DEF(ticker)
 	var/admin_delay_notice = ""				//a message to display to anyone who tries to restart the world after a delay
 	var/ready_for_reboot = FALSE			//all roundend preparation done with, all that's left is reboot
 
+	var/gamemode_setup_completed = FALSE
+
 	var/triai = 0							//Global holder for Triumvirate
 	var/tipped = 0							//Did we broadcast the tip of the day yet?
 	var/selected_tip						// What will be the tip of the day?
@@ -198,18 +200,22 @@ SUBSYSTEM_DEF(ticker)
 					fire()
 
 		if(GAME_STATE_SETTING_UP)
-			if(!pre_setup())
-				//setup failed
-				fail_counter++
-				current_state = GAME_STATE_STARTUP
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
-				timeLeft = null
-				Master.SetRunLevel(RUNLEVEL_LOBBY)
+			if(!gamemode_setup_completed)
+				if(!pre_setup())
+					//setup failed
+					fail_counter++
+					current_state = GAME_STATE_STARTUP
+					start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
+					timeLeft = null
+					Master.SetRunLevel(RUNLEVEL_LOBBY)
+				else
+					gamemode_setup_completed = TRUE
+					fail_counter = null
 			else if(!setup())
 				//setup failed
 				fail_counter++
 				current_state = GAME_STATE_STARTUP
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
+				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 10)
 				timeLeft = null
 				Master.SetRunLevel(RUNLEVEL_LOBBY)
 			else
@@ -218,7 +224,7 @@ SUBSYSTEM_DEF(ticker)
 			if(fail_counter >= 3)
 				log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
 				message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
-				GLOB.master_mode = null		//this makes it pick extended
+				GLOB.master_mode = null		//this will actually make it pick extended
 				fail_counter = null
 
 		if(GAME_STATE_PLAYING)
@@ -607,7 +613,7 @@ SUBSYSTEM_DEF(ticker)
 			news_message = "During routine evacuation procedures, the emergency shuttle of [station_name()] had its navigation protocols corrupted and went off course, but was recovered shortly after."
 
 	if(news_message)
-		SStopic.crosscomms_send("news_report", news_message, news_source)
+		comms_send(news_source, news_message, "News_Report", CONFIG_GET(flag/insecure_newscaster))
 
 /datum/controller/subsystem/ticker/proc/GetTimeLeft()
 	if(isnull(SSticker.timeLeft))

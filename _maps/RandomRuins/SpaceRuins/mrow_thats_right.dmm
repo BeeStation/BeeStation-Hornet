@@ -2,6 +2,9 @@
 "aa" = (
 /turf/template_noop,
 /area/template_noop)
+"ab" = (
+/turf/closed/mineral,
+/area/ruin/unpowered/no_grav)
 "ac" = (
 /turf/open/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav)
@@ -239,6 +242,12 @@
 	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/cat_man)
+"aO" = (
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/space/has_grav/powered/cat_man)
 "aP" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
@@ -304,6 +313,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/cat_man)
+"aX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/glass/bowl,
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
+	desc = "A slab of cat meat. Tastes like furball.";
+	name = "cat meat"
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/powered/cat_man)
 "aY" = (
 /obj/structure/bed/dogbed{
 	name = "kitty bed"
@@ -321,6 +343,16 @@
 "ba" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
+/turf/open/floor/carpet,
+/area/ruin/space/has_grav/powered/cat_man)
+"bb" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/closet/cabinet,
+/obj/item/gps{
+	gpstag = "kitty"
+	},
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/powered/cat_man)
 "bc" = (
@@ -597,7 +629,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/cat_man)
 "bN" = (
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/powered/cat_man)
 "bO" = (
@@ -668,6 +700,18 @@
 	},
 /obj/effect/mob_spawn/human/corpse/damaged{
 	head = /obj/item/clothing/head/kitty
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/powered/cat_man)
+"bX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
+	desc = "A slab of cat meat. Tastes like furball.";
+	name = "cat meat"
+	},
+/obj/machinery/atmospherics/pipe/simple/green/hidden{
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -829,6 +873,44 @@
 /obj/item/organ/ears/cat,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/powered/cat_man)
+"cv" = (
+/obj/structure/closet/crate/freezer{
+	name = "cat meat"
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
+	desc = "A slab of cat meat. Tastes like furball.";
+	name = "cat meat"
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
+	desc = "A slab of cat meat. Tastes like furball.";
+	name = "cat meat"
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
+	desc = "A slab of cat meat. Tastes like furball.";
+	name = "cat meat"
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
+	desc = "A slab of cat meat. Tastes like furball.";
+	name = "cat meat"
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
+	desc = "A slab of cat meat. Tastes like furball.";
+	name = "cat meat"
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
+	desc = "A slab of cat meat. Tastes like furball.";
+	name = "cat meat"
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
+	desc = "A slab of cat meat. Tastes like furball.";
+	name = "cat meat"
+	},
+/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
+	desc = "A slab of cat meat. Tastes like furball.";
+	name = "cat meat"
+	},
+/turf/open/floor/plasteel/freezer,
+/area/ruin/space/has_grav/powered/cat_man)
 "cw" = (
 /obj/machinery/light/small,
 /turf/open/floor/plasteel/freezer,
@@ -845,86 +927,10 @@
 /obj/item/organ/tail/cat,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/powered/cat_man)
-"hz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/glass/bowl,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	desc = "A slab of cat meat. Tastes like furball.";
-	name = "cat meat"
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/powered/cat_man)
-"mI" = (
-/turf/closed/mineral,
-/area/ruin/unpowered/no_grav)
-"nI" = (
-/obj/structure/closet/crate/freezer{
-	name = "cat meat"
-	},
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	desc = "A slab of cat meat. Tastes like furball.";
-	name = "cat meat"
-	},
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	desc = "A slab of cat meat. Tastes like furball.";
-	name = "cat meat"
-	},
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	desc = "A slab of cat meat. Tastes like furball.";
-	name = "cat meat"
-	},
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	desc = "A slab of cat meat. Tastes like furball.";
-	name = "cat meat"
-	},
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	desc = "A slab of cat meat. Tastes like furball.";
-	name = "cat meat"
-	},
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	desc = "A slab of cat meat. Tastes like furball.";
-	name = "cat meat"
-	},
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	desc = "A slab of cat meat. Tastes like furball.";
-	name = "cat meat"
-	},
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	desc = "A slab of cat meat. Tastes like furball.";
-	name = "cat meat"
-	},
-/turf/open/floor/plasteel/freezer,
-/area/ruin/space/has_grav/powered/cat_man)
 "Bl" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
-	},
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/powered/cat_man)
-"Cr" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/closet/cabinet,
-/obj/item/gps{
-	gpstag = "kitty"
-	},
-/turf/open/floor/carpet,
-/area/ruin/space/has_grav/powered/cat_man)
-"NJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat{
-	desc = "A slab of cat meat. Tastes like furball.";
-	name = "cat meat"
-	},
-/obj/machinery/atmospherics/pipe/simple/green/hidden{
-	dir = 6
 	},
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/powered/cat_man)
@@ -958,13 +964,13 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -981,22 +987,22 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ac
 ac
 ac
 ac
 ac
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1012,25 +1018,25 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ac
 ac
 ac
 ac
 ac
 ac
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1042,62 +1048,62 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 ac
 ac
 ac
 ac
 ac
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 "}
 (5,1,1) = {"
 aa
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ac
 ac
 ac
-mI
-mI
+ab
+ab
 ac
 ac
 ac
 ac
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 "}
@@ -1112,39 +1118,39 @@ ac
 ad
 au
 ad
-mI
-mI
+ab
+ab
 ac
 ac
 ac
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 ac
 ac
-mI
+ab
 aa
 aa
 "}
 (7,1,1) = {"
 aa
 aa
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
 ad
 av
 ad
-mI
+ab
 ad
 aZ
 aZ
@@ -1168,8 +1174,8 @@ aa
 (8,1,1) = {"
 aa
 aa
-mI
-mI
+ab
+ab
 ad
 ad
 ad
@@ -1199,9 +1205,9 @@ aa
 "}
 (9,1,1) = {"
 aa
-mI
-mI
-mI
+ab
+ab
+ab
 ad
 ae
 ah
@@ -1230,10 +1236,10 @@ aa
 aa
 "}
 (10,1,1) = {"
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ad
 af
 ah
@@ -1263,9 +1269,9 @@ aa
 "}
 (11,1,1) = {"
 aa
-mI
-mI
-mI
+ab
+ab
+ab
 ad
 ad
 ad
@@ -1274,7 +1280,7 @@ ax
 aH
 ad
 aT
-Cr
+bb
 aS
 by
 ad
@@ -1296,8 +1302,8 @@ aa
 (12,1,1) = {"
 aa
 aa
-mI
-mI
+ab
+ab
 ad
 ag
 aj
@@ -1318,25 +1324,25 @@ ad
 ad
 ad
 ad
-mI
-mI
+ab
+ab
 ac
-mI
+ab
 aa
 aa
 "}
 (13,1,1) = {"
 aa
 aa
-mI
-mI
+ab
+ab
 ad
 ah
 ah
 ar
 aw
 aI
-bN
+aO
 aI
 bc
 bq
@@ -1353,15 +1359,15 @@ ad
 ad
 ad
 ad
-mI
+ab
 aa
 aa
 "}
 (14,1,1) = {"
 aa
-mI
-mI
-mI
+ab
+ab
+ab
 ad
 ai
 ak
@@ -1383,17 +1389,17 @@ ce
 ci
 co
 cs
-nI
+cv
 ad
-mI
-mI
+ab
+ab
 aa
 "}
 (15,1,1) = {"
 aa
-mI
-mI
-mI
+ab
+ab
+ab
 ad
 ad
 ad
@@ -1417,16 +1423,16 @@ cp
 ct
 cw
 ad
-mI
-mI
+ab
+ab
 aa
 "}
 (16,1,1) = {"
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ad
 al
 as
@@ -1449,16 +1455,16 @@ ad
 cu
 cx
 ad
-mI
-mI
+ab
+ab
 aa
 "}
 (17,1,1) = {"
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ad
 am
 ad
@@ -1481,16 +1487,16 @@ ad
 ad
 ad
 ad
-mI
-mI
+ab
+ab
 aa
 "}
 (18,1,1) = {"
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ad
 an
 ad
@@ -1511,18 +1517,18 @@ ad
 cl
 cm
 ad
-mI
-mI
-mI
+ab
+ab
+ab
 aa
 aa
 "}
 (19,1,1) = {"
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ad
 ao
 as
@@ -1536,25 +1542,25 @@ bh
 bG
 bO
 ay
-NJ
+bX
 as
 cb
 ad
 cm
 cq
 ad
-mI
-mI
-mI
+ab
+ab
+ab
 aa
 aa
 "}
 (20,1,1) = {"
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ad
 an
 ad
@@ -1575,18 +1581,18 @@ ad
 ad
 ad
 ad
-mI
-mI
-mI
+ab
+ab
+ab
 aa
 aa
 "}
 (21,1,1) = {"
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ad
 an
 ad
@@ -1607,25 +1613,25 @@ cg
 cm
 cr
 ad
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
 "}
 (22,1,1) = {"
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ad
 am
 ad
 ad
 ad
 ad
-hz
+aX
 bk
 ad
 aL
@@ -1639,9 +1645,9 @@ ad
 cn
 cr
 ad
-mI
-mI
-mI
+ab
+ab
+ab
 aa
 aa
 "}
@@ -1649,8 +1655,8 @@ aa
 aa
 aa
 aa
-mI
-mI
+ab
+ab
 ad
 ap
 at
@@ -1671,8 +1677,8 @@ ad
 ad
 ad
 ad
-mI
-mI
+ab
+ab
 aa
 aa
 aa
@@ -1681,8 +1687,8 @@ aa
 aa
 aa
 aa
-mI
-mI
+ab
+ab
 ad
 ad
 ad
@@ -1700,11 +1706,11 @@ ad
 ad
 ad
 ad
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1714,10 +1720,10 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ad
 ap
 at
@@ -1729,14 +1735,14 @@ bn
 aE
 bS
 ad
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1746,10 +1752,10 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
 ad
 ad
 ad
@@ -1761,14 +1767,14 @@ ad
 ad
 ad
 ad
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1778,27 +1784,27 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1810,27 +1816,27 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1842,27 +1848,27 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1877,20 +1883,20 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1909,14 +1915,14 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
-mI
-mI
-mI
-mI
-mI
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1943,9 +1949,9 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
+ab
+ab
+ab
 aa
 aa
 aa
@@ -1975,9 +1981,9 @@ aa
 aa
 aa
 aa
-mI
-mI
-mI
+ab
+ab
+ab
 aa
 aa
 aa

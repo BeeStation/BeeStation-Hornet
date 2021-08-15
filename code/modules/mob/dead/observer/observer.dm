@@ -55,6 +55,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	// of the mob
 	var/deadchat_name
 	var/datum/orbit_menu/orbit_menu
+	var/datum/spawners_menu/spawners_menu
 
 /mob/dead/observer/Initialize()
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -167,6 +168,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	updateallghostimages()
 
 	QDEL_NULL(orbit_menu)
+	QDEL_NULL(spawners_menu)
 
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(beacon)
@@ -400,7 +402,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/list/filtered = list()
 	for(var/V in GLOB.sortedAreas)
 		var/area/A = V
-		if(!(A.area_flags & HIDDEN_AREA))
+		if(!A.hidden)
 			filtered += A
 	var/area/thearea  = input("Area to jump to", "BOOYEA") as null|anything in filtered
 
@@ -883,10 +885,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Spawners Menu"
 	set desc = "See all currently available spawners"
 	set category = "Ghost"
-	if(!SSmobs.spawner_menu)
-		SSmobs.spawner_menu = new()
+	if(!spawners_menu)
+		spawners_menu = new(src)
 
-	SSmobs.spawner_menu.ui_interact(src)
+	spawners_menu.ui_interact(src)
 
 /mob/dead/observer/proc/tray_view()
 	set category = "Ghost"

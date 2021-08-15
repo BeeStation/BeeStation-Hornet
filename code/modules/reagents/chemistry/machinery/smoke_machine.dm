@@ -118,7 +118,6 @@
 	if(!ui)
 		ui = new(user, src, "SmokeMachine")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/smoke_machine/ui_data(mob/user)
 	var/data = list()

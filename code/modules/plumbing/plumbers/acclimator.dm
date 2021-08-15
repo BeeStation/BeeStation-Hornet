@@ -74,7 +74,6 @@
 	if(!ui)
 		ui = new(user, src, "ChemAcclimator")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/plumbing/acclimator/ui_data(mob/user)
 	var/list/data = list()

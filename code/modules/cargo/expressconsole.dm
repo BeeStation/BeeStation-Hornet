@@ -217,4 +217,3 @@
 							. = TRUE
 							update_icon()
 							CHECK_TICK
-	ui_update()

@@ -73,7 +73,6 @@
 	if(!ui)
 		ui = new(user, src, "Cargo")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/cargo/ui_data()
 	var/list/data = list()
@@ -208,10 +207,7 @@
 			var/reason = ""
 			if(requestonly && !self_paid)
 				reason = stripped_input(usr, "Reason:", name, "")
-				if(!reason)
-					return
-				if(CHAT_FILTER_CHECK(reason))
-					to_chat(usr, "<span class='warning'>You cannot send a message that contains a word prohibited in IC chat!</span>")
+				if(isnull(reason) || ..())
 					return
 
 			var/turf/T = get_turf(src)

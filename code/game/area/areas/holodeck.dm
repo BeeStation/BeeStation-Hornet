@@ -3,7 +3,7 @@
 	icon_state = "Holodeck"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	flags_1 = NONE
-	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
+	hidden = TRUE
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 
 	var/obj/machinery/computer/holodeck/linked
@@ -16,11 +16,11 @@
 
 /area/holodeck/powered(var/chan)
 	if(!requires_power)
-		return TRUE
+		return 1
 	if(always_unpowered)
-		return FALSE
+		return 0
 	if(!linked)
-		return FALSE
+		return 0
 	var/area/A = get_area(linked)
 	ASSERT(!istype(A, /area/holodeck))
 	return A.powered(chan)

@@ -64,7 +64,6 @@
 	if(!ui)
 		ui = new(user, src, "PortableScrubber")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/portable_atmospherics/scrubber/ui_data()
 	var/data = list()

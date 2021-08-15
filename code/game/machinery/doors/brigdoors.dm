@@ -31,13 +31,7 @@
 	var/timer_duration = 0
 
 	var/timing = FALSE // boolean, true/1 timer is on, false/0 means it's not timing
-	///List of weakrefs to nearby doors
-	var/list/doors = list()
-	///List of weakrefs to nearby flashers
-	var/list/flashers = list()
-	///List of weakrefs to nearby closets
-	var/list/closets = list()
-
+	var/list/obj/machinery/targets = list()
 	var/obj/item/radio/Radio //needed to send messages to sec radio
 
 	maptext_height = 26
@@ -57,17 +51,17 @@
 	if(id != null)
 		for(var/obj/machinery/door/window/brigdoor/M in urange(20, src))
 			if (M.id == id)
-				doors += WEAKREF(M)
+				targets += M
 
 		for(var/obj/machinery/flasher/F in urange(20, src))
 			if(F.id == id)
-				flashers += WEAKREF(F)
+				targets += F
 
 		for(var/obj/structure/closet/secure_closet/brig/C in urange(20, src))
 			if(C.id == id)
-				closets += WEAKREF(C)
+				targets += C
 
-	if(!length(doors) && !length(flashers) && length(closets))
+	if(!targets.len)
 		stat |= BROKEN
 	update_icon()
 
@@ -98,26 +92,18 @@
 	activation_time = world.time
 	timing = TRUE
 
-	for(var/datum/weakref/door_ref as anything in doors)
-		var/obj/machinery/door/window/brigdoor/door = door_ref.resolve()
-		if(!door)
-			doors -= door_ref
-			continue
+	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(door.density)
 			continue
 		INVOKE_ASYNC(door, /obj/machinery/door/window/brigdoor.proc/close)
 
-	for(var/datum/weakref/closet_ref as anything in closets)
-		var/obj/structure/closet/secure_closet/brig/closet = closet_ref.resolve()
-		if(!closet)
-			closets -= closet_ref
+	for(var/obj/structure/closet/secure_closet/brig/C in targets)
+		if(C.broken)
 			continue
-		if(closet.broken)
+		if(C.opened && !C.close())
 			continue
-		if(closet.opened && !closet.close())
-			continue
-		closet.locked = TRUE
-		closet.update_icon()
+		C.locked = TRUE
+		C.update_icon()
 	return 1
 
 
@@ -135,26 +121,18 @@
 	set_timer(0)
 	update_icon()
 
-	for(var/datum/weakref/door_ref as anything in doors)
-		var/obj/machinery/door/window/brigdoor/door = door_ref.resolve()
-		if(!door)
-			doors -=  door_ref
-			continue
+	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(!door.density)
 			continue
 		INVOKE_ASYNC(door, /obj/machinery/door/window/brigdoor.proc/open)
 
-	for(var/datum/weakref/closet_ref as anything in closets)
-		var/obj/structure/closet/secure_closet/brig/closet = closet_ref.resolve()
-		if(!closet)
-			closets -= closet_ref
+	for(var/obj/structure/closet/secure_closet/brig/C in targets)
+		if(C.broken)
 			continue
-		if(closet.broken)
+		if(C.opened)
 			continue
-		if(closet.opened)
-			continue
-		closet.locked = FALSE
-		closet.update_icon()
+		C.locked = FALSE
+		C.update_icon()
 
 	return 1
 
@@ -178,7 +156,7 @@
 	if(!ui)
 		ui = new(user, src, "BrigTimer")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+
 //icon update function
 // if NOPOWER, display blank
 // if BROKEN, display blue screen of death icon AI uses
@@ -229,12 +207,8 @@
 	data["minutes"] = round((time_left - data["seconds"]) / 60)
 	data["timing"] = timing
 	data["flash_charging"] = FALSE
-	for(var/datum/weakref/flash_ref as anything in flashers)
-		var/obj/machinery/flasher/flasher = flash_ref.resolve()
-		if(!flasher)
-			flashers -= flash_ref
-			continue
-		if(flasher.last_flash && (flasher.last_flash + 15 SECONDS) > world.time)
+	for(var/obj/machinery/flasher/F in targets)
+		if(F.last_flash && (F.last_flash + 15 SECONDS) > world.time)
 			data["flash_charging"] = TRUE
 			break
 	return data
@@ -269,12 +243,8 @@
 		if("flash")
 			investigate_log("[key_name(usr)] has flashed cell [id]", INVESTIGATE_RECORDS)
 			user.log_message("[key_name(usr)] has flashed cell [id]", LOG_ATTACK)
-			for(var/datum/weakref/flash_ref as anything in flashers)
-				var/obj/machinery/flasher/flasher = flash_ref.resolve()
-				if(!flasher)
-					flashers -= flash_ref
-					continue
-				flasher.flash()
+			for(var/obj/machinery/flasher/F in targets)
+				F.flash()
 		if("preset")
 			var/preset = params["preset"]
 			var/preset_time = time_left()
@@ -292,7 +262,6 @@
 				activation_time = world.time
 		else
 			. = FALSE
-	
 
 
 #undef PRESET_SHORT

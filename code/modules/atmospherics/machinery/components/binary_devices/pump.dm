@@ -127,7 +127,6 @@
 			if(.)
 				target_pressure = clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
 				investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
-	ui_update()
 	update_icon()
 
 /obj/machinery/atmospherics/components/binary/pump/atmosinit()

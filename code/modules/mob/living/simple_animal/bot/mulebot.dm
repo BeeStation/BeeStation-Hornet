@@ -180,7 +180,6 @@
 	if(!ui)
 		ui = new(user, src, "Mule")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /mob/living/simple_animal/bot/mulebot/ui_data(mob/user)
 	var/list/data = list()

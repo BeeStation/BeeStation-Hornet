@@ -26,7 +26,6 @@
 			if(disk)
 				eject(user)
 			disk = N
-			ui_update()
 	else
 		..()
 
@@ -42,7 +41,6 @@
 	if(!istype(user) || !Adjacent(user) ||!user.put_in_active_hand(disk))
 		disk.forceMove(drop_location())
 	disk = null
-	ui_update()
 
 /obj/machinery/computer/nanite_cloud_controller/proc/get_backup(cloud_id)
 	for(var/I in cloud_backups)
@@ -60,7 +58,7 @@
 	backup.cloud_id = cloud_id
 	backup.nanites = cloud_copy
 	investigate_log("[key_name(user)] created a new nanite cloud backup with id #[cloud_id]", INVESTIGATE_NANITES)
-	ui_update()
+
 
 /obj/machinery/computer/nanite_cloud_controller/ui_state(mob/user)
 	return GLOB.default_state
@@ -239,7 +237,6 @@
 
 				investigate_log("[key_name(usr)] removed rule [rule.display()] from program [P.name] in cloud #[current_view]", INVESTIGATE_NANITES)
 			. = TRUE
-	ui_update()
 
 /datum/nanite_cloud_backup
 	var/cloud_id = 0

@@ -350,7 +350,6 @@
 	if(!ui)
 		ui = new(user, src, "SolarControl")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/power/solar_control/ui_data()
 	var/data = list()

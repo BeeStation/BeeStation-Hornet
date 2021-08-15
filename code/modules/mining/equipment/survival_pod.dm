@@ -5,7 +5,7 @@
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
+	valid_territory = FALSE
 
 //Survival Capsule
 /obj/item/survivalcapsule

@@ -84,12 +84,6 @@
 	return ..()
 
 /obj/machinery/teleport/hub/attack_ghost(mob/user)
-	if(!power_station?.engaged || !power_station.teleporter_console || !power_station.teleporter_console.target_ref)
-		return ..()
-
-	var/atom/target = power_station.teleporter_console.target_ref.resolve()
-	if(!target)
-		power_station.teleporter_console.target_ref = null
-		return ..()
-
-	user.forceMove(get_turf(target))
+	if(power_station && power_station.engaged && power_station.teleporter_console && power_station.teleporter_console.target)
+		user.forceMove(get_turf(power_station.teleporter_console.target))
+	return ..()

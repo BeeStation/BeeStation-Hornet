@@ -1,3 +1,11 @@
+/datum/spawners_menu
+	var/mob/dead/observer/owner
+
+/datum/spawners_menu/New(mob/dead/observer/new_owner)
+	if(!istype(new_owner))
+		qdel(src)
+	owner = new_owner
+
 /datum/spawners_menu/ui_state(mob/user)
 	return GLOB.observer_state
 
@@ -38,9 +46,6 @@
 
 	return data
 
-/datum/spawners_menu/ui_state(mob/user)
-	return GLOB.observer_state
-
 /datum/spawners_menu/ui_act(action, params)
 	if(..())
 		return
@@ -57,9 +62,9 @@
 	switch(action)
 		if("jump")
 			if(MS)
-				usr.forceMove(get_turf(MS))
+				owner.forceMove(get_turf(MS))
 				. = TRUE
 		if("spawn")
 			if(MS)
-				MS.attack_ghost(usr)
+				MS.attack_ghost(owner)
 				. = TRUE

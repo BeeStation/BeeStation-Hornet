@@ -216,7 +216,10 @@
 /obj/machinery/door/airlock/gold{
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape)
 "Y" = (

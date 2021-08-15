@@ -68,7 +68,6 @@
 		for(var/i=1,i<=gland_colors.len,i++)
 			if(gland_types[i] == W.type)
 				amounts[i]++
-		ui_update()
 	else
 		return ..()
 
@@ -77,4 +76,3 @@
 		amounts[count]--
 		var/T = gland_types[count]
 		new T(get_turf(src))
-	ui_update()

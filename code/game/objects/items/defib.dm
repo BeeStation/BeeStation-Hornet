@@ -278,11 +278,6 @@
 
 //paddles
 
-///What caused the paddles to snap back?
-#define SNAP_DROP       0
-#define SNAP_OVEREXTEND 1
-#define SNAP_INTERACT   2
-
 /obj/item/shockpaddles
 	name = "defibrillator paddles"
 	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
@@ -316,23 +311,21 @@
 
 /obj/item/shockpaddles/Destroy()
 	defib = null
-	listeningTo = null
 	return ..()
 
 /obj/item/shockpaddles/equipped(mob/user, slot)
 	. = ..()
-	if(!req_defib)
+	if(!req_defib || listeningTo == user)
 		return
-	if(listeningTo && listeningTo != user)
+	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/check_range)
 	listeningTo = user
-	check_range()
 
 /obj/item/shockpaddles/Moved()
 	. = ..()
-	if(!istype(loc, /mob/living))
-		check_range()
+	check_range()
+
 
 /obj/item/shockpaddles/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
@@ -347,8 +340,10 @@
 	if(!in_range(src,defib))
 		var/mob/living/L = loc
 		if(istype(L))
-			snap_back(cause=SNAP_OVEREXTEND)
+			to_chat(L, "<span class='warning'>[defib]'s paddles overextend and come out of your hands!</span>")
+			L.temporarilyRemoveItemFromInventory(src,TRUE)
 		else
+			visible_message("<span class='notice'>[src] snap back into [defib].</span>")
 			snap_back()
 
 /obj/item/shockpaddles/proc/recharge(var/time)
@@ -398,32 +393,16 @@
 		UnregisterSignal(listeningTo, COMSIG_MOVABLE_MOVED)
 	if(user)
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
-		if(!ismob(loc))
+		if(user != loc)
+			to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
 			snap_back()
 	return
 
-/obj/item/shockpaddles/proc/snap_back(cause=SNAP_DROP, silent=FALSE)
+/obj/item/shockpaddles/proc/snap_back()
 	if(!defib)
 		return
-
-	if(ismob(loc))
-		var/mob/M = loc
-		M.transferItemToLoc(src, defib)
-		if(!silent)
-			switch(cause)
-				if(SNAP_DROP)
-					to_chat(M, "<span class='notice'>The paddles snap back into the main unit.</span>")
-				if(SNAP_OVEREXTEND)
-					to_chat(M, "<span class='warning'>[defib]'s paddles overextend and come out of your hands!</span>")
-				if(SNAP_INTERACT)
-					to_chat(M, "<span class='notice'>You put back [src] into [defib]</span>")
-	else
-		if(!silent)
-			visible_message("<span class='notice'>[src] snaps back into [defib].</span>")
-		forceMove(defib)
-
 	defib.on = FALSE
-	listeningTo = null
+	forceMove(defib)
 	defib.update_icon()
 
 /obj/item/shockpaddles/attack(mob/M, mob/user)
@@ -710,9 +689,5 @@
 
 /obj/item/shockpaddles/syndicate/cyborg
 	req_defib = FALSE
-
-#undef SNAP_DROP
-#undef SNAP_OVEREXTEND
-#undef SNAP_INTERACT
 
 #undef HALFWAYCRITDEATH

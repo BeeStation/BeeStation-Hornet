@@ -84,7 +84,6 @@
 	if(!ui)
 		ui = new(user, src, "Mint")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/mineral/mint/ui_data()
 	var/list/data = list()

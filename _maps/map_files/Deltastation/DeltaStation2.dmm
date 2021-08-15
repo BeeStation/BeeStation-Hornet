@@ -15007,6 +15007,20 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
+"aFa" = (
+/obj/machinery/disposal/bin,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/bar)
 "aFb" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/structure/cable/yellow{
@@ -28053,8 +28067,8 @@
 	},
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
-	initial_temperature = 2.7;
-	luminosity = 2
+	luminosity = 2;
+	initial_temperature = 2.7
 	},
 /area/security/prison)
 "aZP" = (
@@ -29300,6 +29314,24 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
+"bci" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "kitchencounter";
+	name = "Kitchen Counter Shutters"
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/drinks/britcup,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/crew_quarters/kitchen)
 "bcj" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -29764,8 +29796,8 @@
 	},
 /turf/open/floor/plating{
 	initial_gas_mix = "o2=0.01;n2=0.01;TEMP=2.7";
-	initial_temperature = 2.7;
-	luminosity = 2
+	luminosity = 2;
+	initial_temperature = 2.7
 	},
 /area/security/prison)
 "bcX" = (
@@ -30229,20 +30261,23 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "bdK" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/neutral{
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "sink";
+	pixel_y = 28
+	},
+/obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
+/obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/structure/displaycase/forsale/kitchen,
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/bar)
+/turf/open/floor/plasteel,
+/area/crew_quarters/kitchen)
 "bdL" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/red{
@@ -31760,6 +31795,12 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
+"bgt" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/bowl,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/crew_quarters/kitchen)
 "bgu" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
@@ -32535,9 +32576,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	pixel_y = 26
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bhM" = (
@@ -32573,10 +32611,8 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bhO" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
+/obj/item/radio/intercom{
+	pixel_y = 26
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
@@ -34889,6 +34925,23 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/crew_quarters/kitchen)
+"blu" = (
+/obj/structure/rack,
+/obj/machinery/button/door{
+	id = "kitchenwindows";
+	name = "Kitchen Privacy Control";
+	pixel_y = -26;
+	req_access_txt = "28"
+	},
+/obj/item/storage/box/donkpockets,
+/obj/item/clothing/head/chefhat,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "blv" = (
@@ -81169,11 +81222,14 @@
 /area/crew_quarters/toilet/restrooms)
 "cIa" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit/old,
+/obj/structure/toilet{
+	dir = 8
+	},
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
-/obj/machinery/recharge_station,
 /turf/open/floor/plating,
 /area/crew_quarters/toilet/restrooms)
 "cIb" = (
@@ -120283,21 +120339,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
-"jmY" = (
-/obj/machinery/disposal/bin,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/structure/disposalpipe/trunk,
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/bar)
 "jna" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -122848,13 +122889,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
-"qer" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/donkpockets,
-/obj/item/storage/box/donkpockets,
-/turf/open/floor/plasteel,
-/area/crew_quarters/kitchen)
 "qeD" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -123947,24 +123981,6 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
-"ttZ" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchencounter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/effect/turf_decal/delivery,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = -8
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -8;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/drinks/britcup,
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel,
-/area/crew_quarters/kitchen)
 "tub" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -124819,15 +124835,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/medical)
-"vIE" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchencounter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel,
-/area/crew_quarters/kitchen)
 "vJu" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Nanite Lab Maintenance";
@@ -125321,22 +125328,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
-"xEt" = (
-/obj/structure/rack,
-/obj/machinery/button/door{
-	id = "kitchenwindows";
-	name = "Kitchen Privacy Control";
-	pixel_y = -26;
-	req_access_txt = "28"
-	},
-/obj/item/clothing/head/chefhat,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/obj/item/reagent_containers/glass/bowl,
-/turf/open/floor/plasteel,
-/area/crew_quarters/kitchen)
 "xGc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -161687,7 +161678,7 @@ bfc
 aYC
 bhN
 bjF
-xEt
+blu
 aYC
 boI
 bqH
@@ -162452,7 +162443,7 @@ aVq
 aLL
 aNi
 aKz
-bcj
+bci
 bdI
 bdJ
 bdI
@@ -162709,7 +162700,7 @@ aVr
 kBQ
 aLL
 aKz
-ttZ
+bcj
 bdJ
 bfe
 bgs
@@ -162966,10 +162957,10 @@ aVs
 aNh
 aLL
 aLL
-vIE
-bdI
+aYC
+bdK
 bff
-qer
+bgt
 bhR
 bjI
 blz
@@ -163722,10 +163713,10 @@ aAp
 aBF
 asO
 aDL
-jmY
+aFa
 aGl
 aHE
-bdK
+aJa
 aKB
 aLM
 aLL

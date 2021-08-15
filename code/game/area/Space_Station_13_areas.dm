@@ -29,11 +29,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_light = FALSE
 	power_equip = FALSE
 	power_environ = FALSE
-	area_flags = UNIQUE_AREA
+	valid_territory = FALSE
 	outdoors = TRUE
 	ambientmusic = AMBIENCE_SPACE
 	ambient_buzz = null
 	sound_environment = SOUND_AREA_SPACE
+	blob_allowed = FALSE //Eating up space doesn't count for victory as a blob.
 
 /area/space/nearstation
 	icon_state = "space_near"
@@ -59,16 +60,17 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "asteroid"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
+	blob_allowed = FALSE //Nope, no winning on the asteroid as a blob. Gotta eat the station.
+	valid_territory = FALSE
 	ambience_index = AMBIENCE_MINING
 	sound_environment = SOUND_AREA_ASTEROID
-	area_flags = UNIQUE_AREA
 
 /area/asteroid/nearstation
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	ambience_index = AMBIENCE_RUINS
 	always_unpowered = FALSE
 	requires_power = TRUE
-	area_flags = UNIQUE_AREA | BLOBS_ALLOWED
+	blob_allowed = TRUE
 
 /area/asteroid/nearstation/bomb_site
 	name = "Bomb Testing Asteroid"
@@ -80,7 +82,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance
 	ambience_index = AMBIENCE_MAINT
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
+	valid_territory = FALSE
 	mood_bonus = -1
 	mood_message = "<span class='warning'>It's kind of cramped in here!\n</span>"
 	lighting_colour_tube = "#ffe5cb"
@@ -160,7 +162,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/department/science/xenobiology
 	name = "Xenobiology Maintenance"
 	icon_state = "xenomaint"
-	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA | XENOBIOLOGY_COMPATIBLE
+	xenobiology_compatible = TRUE
 
 
 //Maintenance - Generic
@@ -372,12 +374,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/dorms
 	name = "Dormitories"
 	icon_state = "Sleep"
-	area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
+	safe = TRUE
 	mood_bonus = 3
 	mood_message = "<span class='nicegreen'>There's no place like the dorms!\n</span>"
 
 /area/crew_quarters/cryopods
 	name = "Cryopod Room"
+	safe = TRUE
 	icon_state = "cryopod"
 	lighting_colour_tube = "#e3ffff"
 	lighting_colour_bulb = "#d5ffff"
@@ -558,7 +561,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/atmospherics_engine
 	name = "Atmospherics Engine"
 	icon_state = "atmos_engine"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/engine/engine_room //donut station specific
@@ -572,7 +574,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/engine/supermatter
 	name = "Supermatter Engine"
 	icon_state = "engine_sm"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/engine/break_room
@@ -607,7 +608,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/solar
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
-	area_flags = UNIQUE_AREA
+	valid_territory = FALSE
+	blob_allowed = FALSE
 	flags_1 = NONE
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_SPACE
@@ -1007,8 +1009,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "toxstorage"
 
 /area/science/test_area
+	valid_territory = FALSE
 	name = "Toxins Test Area"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	icon_state = "toxtest"
 
 /area/science/mixing
@@ -1017,8 +1019,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/science/mixing/chamber
 	name = "Toxins Mixing Chamber"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	icon_state = "toxmix"
+	valid_territory = FALSE
 
 /area/science/misc_lab
 	name = "Testing Lab"
@@ -1083,8 +1085,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/storage/tcom
 	name = "Telecomms Storage"
-	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	icon_state = "green"
+	valid_territory = FALSE
 
 /area/storage/eva
 	name = "EVA Storage"

@@ -7716,9 +7716,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "aug" = (
@@ -17792,11 +17789,11 @@
 /area/crew_quarters/bar)
 "aXj" = (
 /obj/structure/table/reinforced,
+/obj/item/lighter,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/structure/displaycase/forsale/kitchen,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "aXk" = (
@@ -18215,18 +18212,12 @@
 /obj/machinery/light_switch{
 	pixel_y = -25
 	},
-/obj/machinery/light,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aYL" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/bar,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/item/lighter,
-/turf/open/floor/plasteel,
-/area/crew_quarters/bar)
+/obj/machinery/light,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "aYM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -19771,9 +19762,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -54958,15 +54946,6 @@
 	dir = 1
 	},
 /area/chapel/main)
-"plq" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "kitchen";
-	name = "kitchen shutters"
-	},
-/obj/structure/displaycase/forsale/kitchen,
-/turf/open/floor/plasteel/cafeteria,
-/area/crew_quarters/kitchen)
 "pnq" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
@@ -59389,9 +59368,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 6
 	},
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
@@ -98491,7 +98467,7 @@ aJC
 aJC
 aJC
 aXj
-aYL
+aVy
 aSY
 aVy
 aVy
@@ -100037,8 +100013,8 @@ aVz
 aVz
 aVz
 aVz
-aVz
-plq
+aYL
+aJI
 bbz
 wlB
 aYV

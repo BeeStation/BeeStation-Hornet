@@ -64,7 +64,6 @@
 		if(WIRE_RESET_MODULE)
 			if(R.has_module())
 				R.visible_message("[R]'s module servos twitch.", "Your module display flickers.")
-	ui_update()
 
 /datum/wires/robot/on_cut(wire, mend)
 	var/mob/living/silicon/robot/R = holder
@@ -97,4 +96,3 @@
 			if(R.has_module() && !mend)
 				R.ResetModule()
 				log_combat(usr, R, "reset the cyborg module via wire")
-	ui_update()

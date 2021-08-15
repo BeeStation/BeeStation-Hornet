@@ -2,13 +2,28 @@
 
 /area/ruin/space
 	has_gravity = FALSE
-	area_flags = UNIQUE_AREA
+	blob_allowed = FALSE //Nope, no winning in space as a blob. Gotta eat the station.
 
 /area/ruin/space/has_grav
 	has_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/has_grav/powered
 	requires_power = FALSE
+
+
+/area/ruin/fakespace
+	icon_state = "space"
+	requires_power = TRUE
+	always_unpowered = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	has_gravity = FALSE
+	power_light = FALSE
+	power_equip = FALSE
+	power_environ = FALSE
+	valid_territory = FALSE
+	outdoors = TRUE
+	ambience_index = AMBIENCE_SPACE
+	blob_allowed = FALSE
 
 /////////////
 
@@ -355,6 +370,7 @@
 	name = "Ruskie DJ Station"
 	icon_state = "DJ"
 	has_gravity = STANDARD_GRAVITY
+	blob_allowed = FALSE //Nope, no winning on the DJ station as a blob. Gotta eat the main station.
 
 /area/ruin/space/djstation/solars
 	name = "DJ Station Solars"

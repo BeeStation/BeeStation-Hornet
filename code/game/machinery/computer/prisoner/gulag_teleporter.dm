@@ -30,7 +30,6 @@
 	if(!ui)
 		ui = new(user, src, "GulagTeleporterConsole")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_data(mob/user)
 	var/list/data = list()

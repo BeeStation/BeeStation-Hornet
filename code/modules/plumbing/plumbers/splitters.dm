@@ -54,4 +54,3 @@
 					transfer_side = value
 				else
 					return FALSE
-	ui_update()

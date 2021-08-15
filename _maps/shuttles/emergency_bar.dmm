@@ -583,7 +583,10 @@
 /obj/machinery/door/airlock{
 	name = "Unit B"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
 "kK" = (
@@ -608,18 +611,25 @@
 /obj/machinery/door/airlock{
 	name = "Unit 2"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
 "CM" = (
 /obj/effect/spawner/structure/window/shuttle,
+/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "FR" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "GY" = (
@@ -627,7 +637,10 @@
 	name = "Emergency Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "LQ" = (
@@ -656,7 +669,10 @@
 /obj/machinery/door/airlock{
 	name = "Unisex Restrooms"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
 "UQ" = (
@@ -668,7 +684,12 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "Yn" = (
@@ -682,7 +703,10 @@
 /obj/machinery/door/airlock{
 	name = "Unit 1"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
 

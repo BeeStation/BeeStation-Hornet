@@ -37,7 +37,6 @@
 			if(!A.aidisabled)
 				A.aidisabled = TRUE
 				addtimer(CALLBACK(A, /obj/machinery/power/apc.proc/reset, wire), 10)
-	ui_update()
 
 /datum/wires/apc/on_cut(index, mend)
 	var/obj/machinery/power/apc/A = holder
@@ -54,4 +53,3 @@
 				A.aidisabled = FALSE
 			else
 				A.aidisabled = TRUE
-	ui_update()

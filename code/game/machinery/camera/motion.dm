@@ -38,9 +38,10 @@
 	return TRUE
 
 /obj/machinery/camera/Destroy()
+	var/area/ai_monitored/A = get_area(src)
 	localMotionTargets = null
-	if(area_motion)
-		area_motion.motioncameras -= src
+	if(istype(A))
+		A.motioncameras -= src
 	cancelAlarm()
 	return ..()
 

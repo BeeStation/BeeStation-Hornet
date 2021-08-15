@@ -5,14 +5,16 @@
 # to the same file or dir, add them to the end under Multiple Owners
 
 # crossedfall
+# On-leave
 
 .dockerignore @crossedfall
 .github @crossedfall
-/code/_compile_options.dm @crossedfall
-/code/modules/tgs @crossedfall
+#/code/modules/tgs @crossedfall
+#/config @crossedfall
 dependencies.sh @crossedfall
 Dockerfile @crossedfall
 /SQL @crossedfall
+TGS3.json @crossedfall
 /tools @crossedfall
 
 

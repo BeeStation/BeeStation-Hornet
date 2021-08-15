@@ -143,7 +143,6 @@
 	config_entry_value = list()
 	dupes_allowed = TRUE
 	vv_VAS = FALSE			//VAS will not allow things like deleting from lists, it'll just bug horribly.
-	var/case_sensitive = FALSE
 	var/key_mode
 	var/value_mode
 	var/splitter = " "
@@ -163,9 +162,7 @@
 	var/key_value = null
 
 	if(key_pos || value_mode == VALUE_MODE_FLAG)
-		key_name = copytext(str_val, 1, key_pos)
-		if(!case_sensitive)
-			key_name = lowertext(key_name)
+		key_name = lowertext(copytext(str_val, 1, key_pos))
 		if(key_pos)
 			key_value = copytext(str_val, key_pos + length(str_val[key_pos]))
 		var/new_key

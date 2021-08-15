@@ -1,0 +1,36 @@
+## Communication key for receiving data through world/Topic(), you don't want to give this out
+#COMMS_KEY defaultkey
+
+## Comms key for more widespread sharing.
+## Can only send and recieve Topic calls for the cross-server communications console function, and has a rate limit as set below
+## You want to give this with server ops you trust
+#COMMS_KEY_INSECURE defaultinsecurekey
+
+## Minimum time between Topics recieved with the insecure key, in deciseconds. Default is 30 seconds
+INSECURE_TOPIC_COOLDOWN 300
+
+## World address and port for server receiving cross server messages
+## Use '+' to denote spaces in ServerName
+## Repeat this entry to add more servers
+#CROSS_SERVER ServerName byond://address:port
+
+## World address and port for servers we can contact using the insecure comms key
+## Same as above, other than that
+## Note: Servers should be either secure (normal) or insecure, but NOT both at the same time.
+#INSECURE_CROSS_SERVER ServerName byond://address:port
+
+## Toggles for different features on insecure crosscomms. Allows for modularity, with different features enabled at a time.
+## Crosscomms announcements, mainly the comms console
+#INSECURE_ANNOUNCE
+## Newscaster reports, for evacuation reports etc
+#INSECURE_NEWSCASTER
+
+## Name that the server calls itself in communications
+#CROSS_COMMS_NAME
+
+## Hub address for tracking stats
+## example: Hubmakerckey.Hubname
+#MEDAL_HUB_ADDRESS Hubmakerckey.Hubname
+
+## Password for the hub page
+#MEDAL_HUB_PASSWORD defaultpass

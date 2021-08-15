@@ -124,7 +124,6 @@
 		make_laws()
 		if(!TryConnectToAI())
 			lawupdate = FALSE
-			wires.ui_update()
 
 	radio = new /obj/item/radio/borg(src)
 	if(!scrambledcodes && !builtInCamera)
@@ -683,7 +682,7 @@
 	lawupdate = FALSE
 	lockcharge = FALSE
 	mobility_flags |= MOBILITY_FLAGS_DEFAULT
-	scrambledcodes = TRUE_DEVIL
+	scrambledcodes = TRUE
 	//Disconnect it's camera so it's not so easily tracked.
 	if(!QDELETED(builtInCamera))
 		QDEL_NULL(builtInCamera)
@@ -691,7 +690,6 @@
 		// Instead of being listed as "deactivated". The downside is that I'm going
 		// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
 		// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
-	wires.ui_update()
 
 /mob/living/silicon/robot/mode()
 	set name = "Activate Held Object"
@@ -1027,7 +1025,6 @@
 		if(admin_revive)
 			locked = TRUE
 		notify_ai(NEW_BORG)
-		wires.ui_update()
 		. = 1
 
 /mob/living/silicon/robot/fully_replace_character_name(oldname, newname)
@@ -1147,7 +1144,6 @@
 
 	diag_hud_set_aishell()
 	undeployment_action.Grant(src)
-	wires.ui_update()
 
 /datum/action/innate/undeployment
 	name = "Disconnect from shell"
@@ -1240,10 +1236,8 @@
 		connected_ai.connected_robots += src
 		lawsync()
 		lawupdate = TRUE
-		wires.ui_update()
 		return TRUE
 	picturesync()
-	wires.ui_update()
 	return FALSE
 
 /mob/living/silicon/robot/proc/picturesync()

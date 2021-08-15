@@ -58,7 +58,6 @@
 	if(!ui)
 		ui = new(user, src, "EmergencyShuttleConsole")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/emergency_shuttle/ui_data(user)
 	var/list/data = list()

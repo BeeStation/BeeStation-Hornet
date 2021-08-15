@@ -124,4 +124,3 @@
 				time = clamp(value, 1, 600)
 				saved_time = time
 				. = TRUE
-	ui_update()

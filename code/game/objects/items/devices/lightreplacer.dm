@@ -59,6 +59,7 @@
 	var/increment = 5
 	// How much to take from the glass?
 	var/decrement = 1
+	var/charge = 1
 
 	// Eating used bulbs gives us bulb shards
 	var/bulb_shards = 0
@@ -178,7 +179,10 @@
 	return new_bulbs
 
 /obj/item/lightreplacer/proc/Charge(var/mob/user)
-	AddUses(1)
+	charge += 1
+	if(charge > 3)
+		AddUses(1)
+		charge = 1
 
 /obj/item/lightreplacer/proc/ReplaceLight(obj/machinery/light/target, mob/living/U)
 

@@ -67,7 +67,6 @@
 	if(!ui)
 		ui = new(user, src, "ProbingConsole", name)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/abductor/experiment/ui_data(mob/user)
 	var/list/data = list()

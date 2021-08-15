@@ -182,7 +182,6 @@
 			if(.)
 				volume_rate = clamp(rate, 0, MAX_TRANSFER_RATE)
 				investigate_log("was set to [volume_rate] L/s by [key_name(usr)]", INVESTIGATE_ATMOS)
-	ui_update()
 	update_icon()
 	broadcast_status()
 

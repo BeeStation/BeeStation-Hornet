@@ -160,7 +160,10 @@ By design, d1 is the smallest direction and d2 is the highest
 			R.is_empty(user)
 
 	else if(W.tool_behaviour == TOOL_MULTITOOL)
-		to_chat(user, get_power_info())
+		if(powernet && (powernet.avail > 0))		// is it powered?
+			to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
+		else
+			to_chat(user, "<span class='danger'>The cable is not powered.</span>")
 		shock(user, 5, 0.2)
 
 	add_fingerprint(user)
@@ -173,10 +176,6 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/attackby(obj/item/W, mob/user, params)
 	handlecable(W, user, params)
 
-/obj/structure/cable/examine(mob/user)
-	. = ..()
-	if(isobserver(user))
-		. += get_power_info()
 
 // shock the user with probability prb
 /obj/structure/cable/proc/shock(mob/user, prb, siemens_coeff = 1)
@@ -192,12 +191,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
-
-/obj/structure/cable/proc/get_power_info()
-	if(powernet && (powernet.avail > 0))		// is it powered?
-		return "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>"
-	else
-		return "<span class='danger'>The cable is not powered.</span>"
 
 ////////////////////////////////////////////
 // Power related

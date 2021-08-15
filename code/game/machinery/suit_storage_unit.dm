@@ -197,7 +197,6 @@
 /obj/machinery/suit_storage_unit/emp_act()
 	. = ..()
 	uv_super = !uv_super
-	wires.ui_update()
 
 /obj/machinery/suit_storage_unit/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
@@ -515,4 +514,3 @@
 					I.forceMove(loc)
 			. = TRUE
 	update_icon()
-	ui_update()

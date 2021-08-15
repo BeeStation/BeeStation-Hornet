@@ -447,7 +447,10 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Infirmary"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "hl" = (
@@ -455,7 +458,10 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "pk" = (
@@ -494,7 +500,12 @@
 	name = "Containment Cell";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "JF" = (
@@ -502,7 +513,12 @@
 	name = "Emergency Shuttle Brig";
 	req_access_txt = "2"
 	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 

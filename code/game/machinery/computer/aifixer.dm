@@ -29,7 +29,6 @@
 	if(!ui)
 		ui = new(user, src, "AiRestorer")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/aifixer/ui_data(mob/user)
 	var/list/data = list()

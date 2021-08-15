@@ -130,7 +130,6 @@
 		if(WIRE_DISABLE)
 			if(!wires.is_cut(wire))
 				disabled = FALSE
-	wires.ui_update()
 
 /obj/machinery/modular_fabricator/autolathe/proc/shock(mob/user, prb)
 	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
@@ -155,7 +154,6 @@
 			else
 				stored_research.remove_design(D)
 	update_viewer_statics()
-	wires.ui_update()
 
 /obj/machinery/modular_fabricator/autolathe/emag_act(mob/user)
 	if(obj_flags & EMAGGED)

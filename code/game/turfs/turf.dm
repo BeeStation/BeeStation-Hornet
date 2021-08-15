@@ -519,7 +519,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!SSicon_smooth.initialized)
+	if(!SSticker.HasRoundStarted())
 		add_blueprints(AM)
 
 /turf/proc/is_transition_turf()

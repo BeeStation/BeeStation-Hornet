@@ -110,7 +110,6 @@
 				. = TRUE
 	update_icon()
 	reagents.clear_reagents()
-	ui_update()
 
 /obj/machinery/plumbing/synthesizer/update_icon()
 	if(!r_overlay)

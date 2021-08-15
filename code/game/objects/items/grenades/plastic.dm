@@ -58,18 +58,16 @@
 /obj/item/grenade/plastic/prime(mob/living/lanced_by)
 	. = ..()
 	var/turf/location
-	var/density_check = FALSE
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			density_check = target.density //since turfs getting exploded makes this a bit fucky wucky we need to assert whether we should go directional before that part
 			target.cut_overlay(plastic_overlay, TRUE)
 			if(!ismob(target) || full_damage_on_mobs)
 				target.ex_act(EXPLODE_HEAVY, target)
 	else
 		location = get_turf(src)
 	if(location)
-		if(directional && target && density_check)
+		if(directional && target && target.density)
 			var/turf/T = get_step(location, aim_dir)
 			explosion(get_step(T, aim_dir), boom_sizes[1], boom_sizes[2], boom_sizes[3])
 		else

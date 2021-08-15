@@ -269,7 +269,6 @@
 	if(!ui)
 		ui = new(user, src, "NuclearBomb")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/nuclearbomb/ui_state(mob/user)
 	return GLOB.default_state
