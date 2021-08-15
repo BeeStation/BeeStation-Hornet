@@ -1,29 +1,38 @@
-## Communication key for receiving data through world/Topic(), you don't want to give this out
-#COMMS_KEY defaultkey
+## The following section provides valid comms keys and allowed functions
+## "all" can be specified to grant access to all server topic functions
 
-## Comms key for more widespread sharing.
-## Can only send and recieve Topic calls for the cross-server communications console function, and has a rate limit as set below
-## You want to give this with server ops you trust
-#COMMS_KEY_INSECURE defaultinsecurekey
+## List of valid functions and uses for ease of configuration:
+## ping - ping server and get client count
+## playing - get count of currently ingame players
+## announce - announce PR open/close to the server
+## ahelp - manage tickets for the current round
+## comms_console - allows for incomming IC messages (cross-server)
+## news_report - allows for incomming IC news reports (cross-server)
+## adminmsg - send an admin PM to key
+## namecheck - search for matching connected players
+## adminwho - get active admins
+## playerlist - get a more detailed list of players
+## status - get details about the current server status and round
+## status_authed - same as status but with more data like current secret roundtype
+## identify_uuid - used for discord linking
+## discord_send - used for OOC discord bridge
+## get_metacoins - get current metacoin count for a key
+## adjust_metacoins - modify the current metacoin count for a key
 
-## Minimum time between Topics recieved with the insecure key, in deciseconds. Default is 30 seconds
-INSECURE_TOPIC_COOLDOWN 300
+## Repeat this entry to add more keys. Separate multiple permissions with a comma.
+#COMMS_KEY comms_token all
+#COMMS_KEY comms_token ping,playing,adminwho
 
 ## World address and port for server receiving cross server messages
-## Use '+' to denote spaces in ServerName
+## Provide token from other server's config
 ## Repeat this entry to add more servers
-#CROSS_SERVER ServerName byond://address:port
+#CROSS_SERVER byond://address:port token
 
-## World address and port for servers we can contact using the insecure comms key
-## Same as above, other than that
-## Note: Servers should be either secure (normal) or insecure, but NOT both at the same time.
-#INSECURE_CROSS_SERVER ServerName byond://address:port
-
-## Toggles for different features on insecure crosscomms. Allows for modularity, with different features enabled at a time.
-## Crosscomms announcements, mainly the comms console
-#INSECURE_ANNOUNCE
-## Newscaster reports, for evacuation reports etc
-#INSECURE_NEWSCASTER
+## Server hop targets
+## Has a name and an address
+## Use + to denote spaces in ServerName
+## Copy the entry to add additional servers
+#SERVER_HOP ServerName byond://address:port
 
 ## Name that the server calls itself in communications
 #CROSS_COMMS_NAME
