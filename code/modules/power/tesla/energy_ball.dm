@@ -19,17 +19,17 @@
 	dissipate_delay = 5
 	dissipate_strength = 1
 	var/list/orbiting_balls = list()
-	var/miniball = FALSE
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 
-/obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
-	miniball = is_miniball
+/*
+/obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50)
 	. = ..()
 	//TODO: Renable when we get a better lighting system that doesn't need constant updating
-	//if(!is_miniball)
-	//	set_light(10, 7, "#EEEEFF")
+	if(!is_miniball)
+		set_light(10, 7, "#EEEEFF")
+*/
 
 /obj/singularity/energy_ball/ex_act(severity, target)
 	return
@@ -38,44 +38,35 @@
 	QDEL_LIST(orbiting_balls)
 	. = ..()
 
-/obj/singularity/energy_ball/admin_investigate_setup()
-	if(miniball)
-		return //don't annnounce miniballs
-	..()
-
-
 /obj/singularity/energy_ball/process()
-	if(!orbiting)
-		handle_energy()
+	handle_energy()
 
-		move_the_basket_ball(4 + orbiting_balls.len * 1.5)
+	move_the_basket_ball(4 + orbiting_balls.len * 1.5)
 
-		playsound(src.loc, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 30)
+	playsound(src.loc, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 30)
 
-		pixel_x = 0
-		pixel_y = 0
+	pixel_x = 0
+	pixel_y = 0
 
-		//Main one can zap
-		//Tesla only zaps if the tick usage isn't over the limit.
-		if(!TICK_CHECK)
-			tesla_zap(src, 7, TESLA_DEFAULT_POWER, TESLA_ENERGY_PRIMARY_BALL_FLAGS)
-		else
-			//Weaker, less intensive zap
-			tesla_zap(src, 4, TESLA_DEFAULT_POWER, TESLA_ENERGY_MINI_BALL_FLAGS)
-			pixel_x = -32
-			pixel_y = -32
-			return
-
+	//Main one can zap
+	//Tesla only zaps if the tick usage isn't over the limit.
+	if(!TICK_CHECK)
+		tesla_zap(src, 7, TESLA_DEFAULT_POWER, TESLA_ENERGY_PRIMARY_BALL_FLAGS)
+	else
+		//Weaker, less intensive zap
+		tesla_zap(src, 4, TESLA_DEFAULT_POWER, TESLA_ENERGY_MINI_BALL_FLAGS)
 		pixel_x = -32
 		pixel_y = -32
-		for (var/ball in orbiting_balls)
-			if(TICK_CHECK)
-				return
-			var/range = rand(1, CLAMP(orbiting_balls.len, 3, 7))
-			//Miniballs don't explode.
-			tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
-	else
-		energy = 0 // ensure we dont have miniballs of miniballs
+		return
+
+	pixel_x = -32
+	pixel_y = -32
+	for (var/ball in orbiting_balls)
+		if(TICK_CHECK)
+			return
+		var/range = rand(1, CLAMP(orbiting_balls.len, 3, 7))
+		//Miniballs don't explode.
+		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
 
 /obj/singularity/energy_ball/examine(mob/user)
 	. = ..()
