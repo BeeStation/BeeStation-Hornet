@@ -18,6 +18,8 @@
 	anchored = TRUE
 	density = TRUE
 
+	light_source_type = QUICK_LIGHTING
+
 	var/TurnedOn = FALSE
 	var/current_color
 	var/TimerID

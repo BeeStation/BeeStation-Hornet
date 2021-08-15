@@ -78,3 +78,8 @@
 	seed = /obj/item/seeds/ambrosia/gaia
 	wine_power = 70
 	wine_flavor = "the earthmother's blessing"
+
+/obj/item/reagent_containers/food/snacks/grown/ambrosia/gaia/Initialize(mapload, obj/item/seeds/new_seed)
+	if(light_range > 5)
+		light_source_type = LEGACY_LIGHTING
+	. = ..()
