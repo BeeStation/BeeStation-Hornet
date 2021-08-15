@@ -8,15 +8,18 @@
 	desc = "A heavy wooden box, which can be filled with a lot of ores."
 	density = TRUE
 	pressure_resistance = 5*ONE_ATMOSPHERE
+	var/static/list/typecache_to_take
 
-
-
+/obj/structure/ore_box/Initialize()
+	. = ..()
+	if(!typecache_to_take)
+		typecache_to_take = typecacheof(/obj/item/stack/ore)
 
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/stack/ore))
 		user.transferItemToLoc(W, src)
 	else if(SEND_SIGNAL(W, COMSIG_CONTAINS_STORAGE))
-		SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE_TYPE, /obj/item/stack/ore, src)
+		SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src)
 		to_chat(user, "<span class='notice'>You empty the ore in [W] into \the [src].</span>")
 	else
 		return ..()
