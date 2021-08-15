@@ -54,9 +54,8 @@ GLOBAL_LIST_EMPTY(badge_data)
 		if(holder?.rank?.badge_icon)
 			badges += holder.rank.badge_icon
 	//Add the mentor rank
-	else
-		if(mentor_datum && GLOB.badge_data["Mentor"])
-			badges += GLOB.badge_data["Mentor"]
+	if(mentor_datum && GLOB.badge_data["Mentor"])
+		badges += GLOB.badge_data["Mentor"]
 	//Add the donator rank
 	if(IS_PATRON(ckey) && GLOB.badge_data["Donator"])
 		badges += GLOB.badge_data["Donator"]

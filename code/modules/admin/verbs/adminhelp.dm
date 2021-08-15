@@ -846,13 +846,29 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		else
 			final = "[msg] - All admins stealthed\[[english_list(stealthmins)]\], AFK\[[english_list(afkmins)]\], or lacks +BAN\[[english_list(powerlessmins)]\]! Total: [allmins.len] "
 		send2irc(source,final)
-		SStopic.crosscomms_send("ahelp", final, source)
+		send2otherserver(source,final)
 
 
 /proc/send2irc(msg,msg2)
 	msg = replacetext(replacetext(msg, "\proper", ""), "\improper", "")
 	msg2 = replacetext(replacetext(msg2, "\proper", ""), "\improper", "")
 	world.TgsTargetedChatBroadcast("[msg] | [msg2]", TRUE)
+
+/proc/send2otherserver(source,msg,type = "Ahelp")
+	var/comms_key = CONFIG_GET(string/comms_key)
+	if(!comms_key)
+		return
+	var/list/message = list()
+	message["message_sender"] = source
+	message["message"] = msg
+	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
+	message["key"] = comms_key
+	message += type
+
+	var/list/servers = CONFIG_GET(keyed_list/cross_server)
+	for(var/I in servers)
+		world.Export("[servers[I]]?[list2params(message)]")
+
 
 /proc/ircadminwho()
 	var/list/message = list("Admins: ")
@@ -881,11 +897,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/list/surnames = list()
 	var/list/forenames = list()
 	var/list/ckeys = list()
-	var/list/founds = list()
+	var/founds = ""
 	for(var/mob/M in GLOB.mob_list)
-		if(istype(M, /mob/living/carbon/human/dummy))
-			continue
-
 		var/list/indexing = list(M.real_name, M.name)
 		if(M.mind)
 			indexing += M.mind.name
@@ -931,16 +944,15 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 							var/is_antag = 0
 							if(found.mind?.special_role)
 								is_antag = 1
-							founds[++founds.len] = list("name" = found.name,
-								            "real_name" = found.real_name,
-								            "ckey" = found.ckey,
-								            "key" = found.key,
-								            "antag" = is_antag)
+							founds += "Name: [found.name]([found.real_name]) Key: [found.key] Ckey: [found.ckey] [is_antag ? "(Antag)" : null] "
 							msg += "[original_word]<font size='1' color='[is_antag ? "red" : "black"]'>(<A HREF='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(found)]'>?</A>|<A HREF='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(found)]'>F</A>)</font> "
 							continue
 		msg += "[original_word] "
 	if(irc)
-		return founds
+		if(founds == "")
+			return "Search Failed"
+		else
+			return founds
 
 	return msg
 
