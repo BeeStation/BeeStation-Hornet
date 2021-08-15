@@ -4,7 +4,7 @@
 	say_mod = "states" //inherited from a user's real species
 	sexes = 0
 	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -49,10 +49,6 @@
 
 /datum/species/ipc/on_species_gain(mob/living/carbon/C) // Let's make that IPC actually robotic.
 	. = ..()
-	var/obj/item/organ/appendix/appendix = C.getorganslot("appendix") // Easiest way to remove it.
-	appendix.Remove(C)
-	QDEL_NULL(appendix)
-	ADD_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune") //makes the IPC immune to huggers
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
@@ -68,7 +64,6 @@
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	REMOVE_TRAIT(C, TRAIT_XENO_IMMUNE, "xeno immune")
 	if(change_screen)
 		change_screen.Remove(C)
 
@@ -121,7 +116,7 @@
 		return
 
 	if(A.cell && A.cell.charge > 0)
-		if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
+		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
 			to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 			return
 		else
@@ -140,20 +135,20 @@
 		if(loc != H)
 			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
 			break
-		if(A.cell.charge == 0)
+		if(A.cell.charge <= A.cell.maxcharge/2)
 			to_chat(H, "<span class='warning'>The [A] doesn't have enough charge to spare.</span>")
 			break
 		A.charging = 1
-		if(A.cell.charge >= 500)
+		if(A.cell.charge > A.cell.maxcharge/2 + 250)
 			battery.adjust_charge(250)
 			A.cell.charge -= 250
 			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
 		else
-			battery.adjust_charge(A.cell.charge)
-			A.cell.charge = 0
+			battery.adjust_charge(A.cell.charge - A.cell.maxcharge/2)
+			A.cell.charge = A.cell.maxcharge/2
 			to_chat(H, "<span class='notice'>You siphon off as much as the [A] can spare.</span>")
 			break
-		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
+		if(battery.charge >= battery.max_charge)
 			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 			break
 	H.visible_message("<span class='notice'>[H] unplugs from the [A].</span>", "<span class='notice'>You unplug from the [A].</span>")

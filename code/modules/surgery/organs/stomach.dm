@@ -105,38 +105,48 @@
 /obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0)
 	..()
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
-	owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
+	update_nutrition()
 
 /obj/item/organ/stomach/battery/Remove(mob/living/carbon/M, special = 0)
 	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
-	owner.nutrition = 0
+	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
+		owner.nutrition = 0
+		owner.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
 	..()
 
 /obj/item/organ/stomach/battery/proc/charge(datum/source, amount, repairs)
 	SIGNAL_HANDLER
-
 	adjust_charge(amount)
 
 /obj/item/organ/stomach/battery/proc/adjust_charge(amount)
-	charge = clamp(round(charge + amount), 0, max_charge)
-	owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
+	if(amount > 0)
+		charge = clamp(round((charge + amount)*(1-(damage/maxHealth))), 0, max_charge)
+	else
+		charge = clamp(round(charge + amount), 0, max_charge)
+	update_nutrition()
 
 /obj/item/organ/stomach/battery/proc/adjust_charge_scaled(amount)
 	adjust_charge(amount*max_charge/NUTRITION_LEVEL_FULL)
 
 /obj/item/organ/stomach/battery/proc/set_charge(amount)
-	charge = clamp(round(amount), 0, max_charge)
-	owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
+	charge = clamp(round(amount*(1-(damage/maxHealth))), 0, max_charge)
+	update_nutrition()
 
 /obj/item/organ/stomach/battery/proc/set_charge_scaled(amount)
 	set_charge(amount*max_charge/NUTRITION_LEVEL_FULL)
 
+/obj/item/organ/stomach/battery/proc/update_nutrition()
+	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
+		owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
+
 /obj/item/organ/stomach/battery/emp_act(severity)
 	switch(severity)
 		if(1)
-			adjust_charge(-0.9*max_charge)
-		if(2)
 			adjust_charge(-0.5*max_charge)
+			applyOrganDamage(30)
+		if(2)
+			adjust_charge(-0.25*max_charge)
+			applyOrganDamage(15)
 
 /obj/item/organ/stomach/battery/ipc
 	name = "micro-cell"
@@ -148,12 +158,11 @@
 	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/stomach/battery/ipc/emp_act(severity)
+	..()
 	switch(severity)
 		if(1)
-			adjust_charge(-0.9*max_charge)
 			to_chat(owner, "<span class='warning'>Alert: Heavy EMP Detected. Rebooting power cell to prevent damage.</span>")
 		if(2)
-			adjust_charge(-0.5*max_charge)
 			to_chat(owner, "<span class='warning'>Alert: EMP Detected. Cycling battery.</span>")
 
 /obj/item/organ/stomach/battery/ethereal

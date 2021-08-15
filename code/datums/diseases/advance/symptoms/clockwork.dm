@@ -244,9 +244,8 @@
 
 /obj/item/organ/stomach/clockwork
 	name = "nutriment refinery"
-	icon_state = "stomach-clock"
 	desc = "A biomechanical furnace, which turns calories into mechanical energy."
-	icon_state = "liver-clock"
+	icon_state = "stomach-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 
@@ -255,9 +254,8 @@
 
 /obj/item/organ/stomach/battery/clockwork
 	name = "biometallic flywheel"
-	icon_state = "stomach-clock"
 	desc = "A biomechanical battery which stores mechanical energy."
-	icon_state = "liver-clock"
+	icon_state = "stomach-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 	max_charge = 7500
@@ -278,11 +276,10 @@
 /obj/item/organ/brain/clockwork
 	name = "enigmatic gearbox"
 	desc ="An engineer would call this inconcievable wonder of gears and metal a 'black box'"
-	icon_state = "posibrain-occupied"
+	icon_state = "brain-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 	var/robust //Set to true if the robustbits causes brain replacement. Because holy fuck is the CLANG CLANG CLANG CLANG annoying
-	icon_state = "brain-clock"
 
 /obj/item/organ/brain/clockwork/emp_act(severity)
 	switch(severity)
@@ -298,8 +295,8 @@
 
 /obj/item/organ/liver/clockwork
 	name = "biometallic alembic"
-	icon_state = "liver-c"
 	desc = "A series of small pumps and boilers, designed to facilitate proper metabolism."
+	icon_state = "liver-clock"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 	alcohol_tolerance = 0

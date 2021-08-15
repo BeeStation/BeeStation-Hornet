@@ -710,7 +710,7 @@
 	if(HAS_TRAIT(M, TRAIT_POWERHUNGRY))
 		var/obj/item/organ/stomach/battery/stomach = M.getorganslot(ORGAN_SLOT_STOMACH)
 		if(istype(stomach))
-			stomach.adjust_charge(125*REM)
+			stomach.adjust_charge(40*REM)
 	else if(prob(3)) //scp13 optimization
 		M.electrocute_act(rand(3,5), "Liquid Electricity in their body", 1) //lmao at the newbs who eat energy bars
 		playsound(M, "sparks", 50, 1)

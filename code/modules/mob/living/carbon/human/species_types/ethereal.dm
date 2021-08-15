@@ -125,13 +125,15 @@
 
 /datum/species/ethereal/handle_charge(mob/living/carbon/human/H)
 	brutemod = 1.25
+	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
+		return
 	switch(H.nutrition)
 		if(NUTRITION_LEVEL_FED to INFINITY)
 			H.clear_alert("nutrition")
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_FED)
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 1)
 			brutemod = 1.5
-		if(0 to NUTRITION_LEVEL_STARVING)
+		if(1 to NUTRITION_LEVEL_STARVING)
 			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 2)
 			if(H.health > 10.5)
 				apply_damage(0.65, TOX, null, null, H)

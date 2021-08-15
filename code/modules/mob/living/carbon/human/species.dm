@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/should_have_brain = TRUE
 	var/should_have_heart = !(NOBLOOD in species_traits)
 	var/should_have_lungs = !(TRAIT_NOBREATH in inherent_traits)
-	var/should_have_appendix = !(TRAIT_NOHUNGER in inherent_traits || TRAIT_POWERHUNGRY in inherent_traits)
+	var/should_have_appendix = !((TRAIT_NOHUNGER in inherent_traits) || (TRAIT_POWERHUNGRY in inherent_traits))
 	var/should_have_eyes = TRUE
 	var/should_have_ears = TRUE
 	var/should_have_tongue = TRUE
@@ -1164,16 +1164,20 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/handle_charge(mob/living/carbon/human/H)
 	switch(H.nutrition)
-		if(NUTRITION_LEVEL_WELL_FED to INFINITY)
+		if(NUTRITION_LEVEL_FED to INFINITY)
 			H.clear_alert("nutrition")
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 1)
 		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 2)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 1)
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 2)
+		if(1 to NUTRITION_LEVEL_STARVING)
 			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 3)
-		if(0 to NUTRITION_LEVEL_STARVING)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/emptycell)
+		else
+			var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
+			if(!istype(battery))
+				H.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
+			else
+				H.throw_alert("nutrition", /atom/movable/screen/alert/emptycell)
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return 0

@@ -1177,8 +1177,8 @@
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/battery = locate(/obj/item/organ/stomach/battery) in src.internal_organs
-		if(battery)
+		var/obj/item/organ/stomach/battery/battery = getorganslot(ORGAN_SLOT_STOMACH)
+		if(istype(battery))
 			battery.adjust_charge_scaled(change)
 		return FALSE
 	return ..()
@@ -1187,8 +1187,8 @@
 	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_POWERHUNGRY))
-		var/obj/item/organ/stomach/battery/battery = locate(/obj/item/organ/stomach/battery) in src.internal_organs
-		if(battery)
+		var/obj/item/organ/stomach/battery/battery = getorganslot(ORGAN_SLOT_STOMACH)
+		if(istype(battery))
 			battery.set_charge_scaled(change)
 		return FALSE
 	return ..()
