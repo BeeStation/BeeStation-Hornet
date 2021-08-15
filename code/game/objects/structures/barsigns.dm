@@ -7,7 +7,8 @@
 	max_integrity = 500
 	integrity_failure = 250
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
-	buildable_sign = 0
+	buildable_sign = FALSE
+	var/allow_area_rename = TRUE
 
 	var/panel_open = FALSE
 	var/datum/barsign/chosen_sign
@@ -30,7 +31,7 @@
 	if(sign.desc)
 		desc = sign.desc
 
-	if(sign.rename_area && sign.name)
+	if(sign.rename_area && sign.name && allow_area_rename)
 		rename_area(src, sign.name)
 
 	return sign

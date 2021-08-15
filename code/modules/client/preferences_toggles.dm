@@ -195,6 +195,13 @@
 	to_chat(usr, "You will [(prefs.chat_toggles & CHAT_BANKCARD) ? "now" : "no longer"] be notified when you get paid.")
 	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Income Notifications", "[(prefs.chat_toggles & CHAT_BANKCARD) ? "Enabled" : "Disabled"]"))
 
+/client/verb/toggle_eorg_arena()
+	set name = "Toggle Post-Round Arena"
+	set category = "Preferences"
+	set desc = "Toggles your participation in the Post-Round Arena"
+	prefs.eorg_arena = !prefs.eorg_arena
+	to_chat(usr, "You will [(prefs.eorg_arena) ? "now" : "no longer"] take part in the Post-Round Arena.")
+
 GLOBAL_LIST_INIT(ghost_forms, sortList(list("ghost","ghostking","ghostian2","skeleghost","ghost_red","ghost_black", \
 							"ghost_blue","ghost_yellow","ghost_green","ghost_pink", \
 							"ghost_cyan","ghost_dblue","ghost_dred","ghost_dgreen", \

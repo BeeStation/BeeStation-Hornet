@@ -190,6 +190,7 @@
 		cb.InvokeAsync()
 	LAZYCLEARLIST(round_end_events)
 
+	var/list/eorg_clients //EORG Teleport list
 	for(var/client/C in GLOB.clients)
 		if(C)
 
@@ -205,10 +206,10 @@
 						if(CO.check_completion())
 							C?.inc_metabalance(METACOIN_CO_REWARD, reason="Completed your crew objective!")
 							break
+			if(C?.prefs.eorg_arena)
+				LAZYADD(eorg_clients, C)
 
-	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
-	log_game("The round has ended.")
-	SSstat.send_global_alert("Round Over", "The round has ended, the game will restart soon.")
+	//Moved the visual component to the end where it belongs.
 	if(LAZYLEN(GLOB.round_end_notifiees))
 		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
 
@@ -268,6 +269,43 @@
 
 	if(CONFIG_GET(flag/automapvote))
 		SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
+
+	if(eorg_clients)
+		for(var/client/C in eorg_clients)
+			if(C) //This check is fucking awful. This also needs to block until the round ends.
+				var/turf/dest = pick_n_take(GLOB.eorg_waypoints)
+				if(!dest)
+					dest=GLOB.eorg_default
+				//This is gonna be fucking ugly but deal with it.
+				//This proc is going to be a fuckload of repeated istypes and I'd like to not waste that many cycles.
+				switch(C.mob?.type)
+					//Already Alive
+					if(/mob/living/carbon/human)
+						var/mob/living/carbon/human/prepper = C.mob
+						prepper.equipOutfit(/datum/outfit/job/assistant)
+						C.mob.forceMove(dest)
+						continue
+					//Not in a living mob
+					if(/mob/dead/observer)
+						var/mob/living/carbon/human/jonesy = new(dest)
+						jonesy.equipOutfit(/datum/outfit/job/assistant)
+						jonesy.client = C
+						continue
+					if(/mob/dead/new_player)
+						continue //Don't touch new players.
+					//Give AIs a reward for suffering through the round being an AI.
+					if(/mob/living/silicon/ai)
+						var/mob/living/silicon/robot/modules/syndicate/borgie = new(dest)
+						borgie.client = C
+						continue
+					if(null) //Panic case. Should never happen but is a safety.
+						continue
+					//Fallthrough case. Probably going to mostly be simplemobs that signed up.
+				C.mob.forceMove(dest)
+
+	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
+	log_game("The round has ended.")
+	SSstat.send_global_alert("Round Over", "The round has ended, the game will restart soon.")
 
 	sleep(50)
 	ready_for_reboot = TRUE

@@ -18,6 +18,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/asaycolor = "#ff4500"			//This won't change the color for current admins, only incoming ones.
 	var/enable_tips = TRUE
 	var/tip_delay = 500 //tip delay in milliseconds
+	var/eorg_arena = TRUE //Does this player want to participate in EORG?
 
 	//Antag preferences
 	var/list/be_special = list()		//Special role selection
@@ -547,6 +548,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>PDA Style:</b> <a href='?_src_=prefs;task=input;preference=pda_style'>[pda_style]</a><br>"
 			dat += "<br>"
 			dat += "<b>Crew Objectives:</b> <a href='?_src_=prefs;preference=crewobj'>[(crew_objectives) ? "Yes" : "No"]</a><br>"
+			dat += "<br>"
+			dat += "<b>Participate in <abbr title=\"End of Round Grief\" style=\"text-decoration: underline; text-underline-position: under; text-decoration-style: dotted\">EORG</abbr>?:</b> <a href='?_src_=prefs;preference=eorg_arena'>[(eorg_arena) ? "Yes" : "No"]</a><br>"
 			dat += "<br>"
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'>[(chat_toggles & CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'>[(chat_toggles & CHAT_GHOSTRADIO) ? "All Messages":"No Messages"]</a><br>"
@@ -1704,7 +1707,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					windowflashing = !windowflashing
 				if("crewobj")
 					crew_objectives = !crew_objectives
-
+				if("eorg_arena")
+					eorg_arena = !eorg_arena
 				//here lies the badmins
 				if("hear_adminhelps")
 					user.client.toggleadminhelpsound()
