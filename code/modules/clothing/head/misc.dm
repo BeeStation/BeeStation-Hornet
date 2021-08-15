@@ -320,6 +320,7 @@
 	armor = list("melee" = 15, "bullet" = 0, "laser" = 0,"energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 40)
 	resistance_flags = FIRE_PROOF
 	dynamic_hair_suffix = ""
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/crown/fancy
 	name = "magnificent crown"

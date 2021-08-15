@@ -34,13 +34,13 @@
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
+	clothing_flags = SNUG_FIT
 
 //Captain: This is no longer space-worthy
 /obj/item/clothing/head/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
-
 	dog_fashion = null
 
 
@@ -153,6 +153,7 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 30, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60, "stamina" = 30)
 	strip_delay = 80
 	dynamic_hair_suffix = ""
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/HoS/syndicate
 	name = "syndicate cap"
@@ -174,6 +175,7 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60, "stamina" = 30)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/warden/drill
 	name = "warden's campaign hat"
@@ -250,6 +252,7 @@
 	icon_state = "beret_corporate_warden"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60, "stamina" = 30)
 	strip_delay = 60
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"
@@ -258,6 +261,7 @@
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 40, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
 	strip_delay = 60
 	dog_fashion = null
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/beret/corpsec
 	name = "corporate security beret"
@@ -265,6 +269,7 @@
 	icon_state = "beret_corporate_officer"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50, "stamina" = 30)
 	strip_delay = 60
+	clothing_flags = SNUG_FIT
 
 /obj/item/clothing/head/beret/sec/navyhos
 	name = "head of security's beret"
