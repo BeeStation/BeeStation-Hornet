@@ -802,7 +802,7 @@
 		var/mob/M = dropping
 		if(ismob(user))
 			var/mob/U = user
-			if(!iscyborg(U) || U.a_intent == INTENT_HARM)
+			if((!iscyborg(U) || U.a_intent == INTENT_HARM) && !isAI(U))
 				M.show_inv(U)
 		else
 			M.show_inv(user)
