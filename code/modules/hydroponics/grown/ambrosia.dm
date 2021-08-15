@@ -74,12 +74,7 @@
 	icon_state = "ambrosia_gaia"
 	filling_color = rgb(255, 175, 0)
 	light_range = 3
-	light_source_type = QUICK_LIGHTING
+	light_source_type = LEGACY_LIGHTING
 	seed = /obj/item/seeds/ambrosia/gaia
 	wine_power = 70
 	wine_flavor = "the earthmother's blessing"
-
-/obj/item/reagent_containers/food/snacks/grown/ambrosia/gaia/Initialize(mapload, obj/item/seeds/new_seed)
-	if(light_range > 5)
-		light_source_type = LEGACY_LIGHTING
-	. = ..()
