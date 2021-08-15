@@ -114,7 +114,7 @@
 	if(gangtool?.free_pen)
 		return "(GET ONE FREE)"
 	return ..()
-	
+
 /datum/gang_item/essentials/reinforce
 	name = "Call Reinforcments"
 	id = "reinforce"
@@ -173,7 +173,7 @@
 	var/obj/item/storage/box/armor_box = new (get_turf(user))
 
 	var/obj/item/clothing/suit/suit = new gang.suit(armor_box)
-	suit.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL
+	suit.clothing_flags |= STOPSHIGHPRESSUREDMG | STOPSLOWPRESSUREDMG | THICKMATERIAL
 	suit.cold_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	suit.heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	suit.min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -181,7 +181,7 @@
 	suit.desc += " Tailored for the [gang.name] Gang to offer the wearer moderate protection against ballistics and physical trauma."
 
 	var/obj/item/clothing/head/hat = new gang.hat(armor_box)
-	hat.clothing_flags |= STOPSPRESSUREDAMAGE | THICKMATERIAL
+	hat.clothing_flags |= STOPSHIGHPRESSUREDMG | STOPSLOWPRESSUREDMG | THICKMATERIAL
 	hat.cold_protection = HEAD
 	hat.heat_protection = HEAD
 	hat.min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
