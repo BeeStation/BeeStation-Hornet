@@ -102,9 +102,11 @@
 	if(intensity >= 0)
 		alpha = ALPHA_TO_INTENSITY(intensity)
 		blend_mode = BLEND_ADD
+		layer = LIGHTING_SECONDARY_LAYER
 	else
 		alpha = ALPHA_TO_INTENSITY(-intensity)
 		blend_mode = BLEND_SUBTRACT
+		layer = LIGHTING_SHADOW_LAYER
 
 /atom/movable/lighting_mask/Move(atom/newloc, direct)
 	//We must be attached to a moving thing if we are moving
