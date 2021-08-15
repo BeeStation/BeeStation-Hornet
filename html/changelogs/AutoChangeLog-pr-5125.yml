@@ -1,5 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - tweak: Admins will only show their admin badge, the mentor badge will be dropped
-      to reduce clutter.
