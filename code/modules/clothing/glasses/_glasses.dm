@@ -157,7 +157,6 @@
 /obj/item/clothing/glasses/night/disco
 	name = "disco night vision glasses"
 	desc = "Bring the party wherever you go."
-	icon_state = "disconight"
 	clothing_flags = SCAN_REAGENTS
 
 /obj/item/clothing/glasses/night/disco/equipped(mob/user, slot)
