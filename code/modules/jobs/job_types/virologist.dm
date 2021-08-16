@@ -9,8 +9,9 @@
 	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
 	chat_color = "#75AEA3"
-	exp_type = EXP_TYPE_CREW
 	exp_requirements = 180
+	exp_type = EXP_TYPE_MEDICAL
+	exp_type_department = EXP_TYPE_MEDICAL
 
 	outfit = /datum/outfit/job/virologist
 

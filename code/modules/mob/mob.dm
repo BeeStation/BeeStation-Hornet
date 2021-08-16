@@ -40,7 +40,6 @@
 	for(var/cc in client_colours)
 		qdel(cc)
 	client_colours = null
-	clear_client_in_contents() //Gotta do this here as well as Logout, since client will be null by the time it gets there, cause of that ghostize
 	ghostize()
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
@@ -254,7 +253,7 @@
 
 	var/list/show_to = list()
 	for(var/mob/M in hearers)
-		if(is_emote && M.should_show_chat_message(src, null, TRUE) && M.can_hear())
+		if(is_emote && M.should_show_chat_message(src, null, TRUE, is_heard = TRUE))
 			show_to += M
 		M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
@@ -803,7 +802,7 @@
 		var/mob/M = dropping
 		if(ismob(user))
 			var/mob/U = user
-			if(!iscyborg(U) || U.a_intent == INTENT_HARM)
+			if((!iscyborg(U) || U.a_intent == INTENT_HARM) && !isAI(U))
 				M.show_inv(U)
 		else
 			M.show_inv(user)

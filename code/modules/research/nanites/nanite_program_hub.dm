@@ -42,6 +42,7 @@
 			if(disk)
 				eject(user)
 			disk = N
+			ui_update()
 	else
 		..()
 
@@ -51,6 +52,7 @@
 	if(!istype(user) || !Adjacent(user) || !user.put_in_active_hand(disk))
 		disk.forceMove(drop_location())
 	disk = null
+	ui_update()
 
 /obj/machinery/nanite_program_hub/AltClick(mob/user)
 	if(disk && user.canUseTopic(src, !issilicon(user)))
@@ -138,3 +140,4 @@
 				disk.program = null
 				disk.name = initial(disk.name)
 			. = TRUE
+	ui_update()

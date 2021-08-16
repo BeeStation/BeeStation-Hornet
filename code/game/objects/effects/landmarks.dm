@@ -534,3 +534,21 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 		M.forceMove(closet)
 		return
 	..() //Call parent as fallback
+
+/obj/effect/landmark/arenastart
+	name = "End of Round Arena"
+	icon_state = "x"
+
+/obj/effect/landmark/arenastart/Initialize()
+	..()
+	GLOB.eorg_waypoints += src.loc
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/arenastart/panic
+	name = "End of Round Arena Overflow"
+	icon_state = "error_room"
+
+/obj/effect/landmark/arenastart/panic/Initialize()
+	..()
+	GLOB.eorg_default = src.loc
+	return INITIALIZE_HINT_QDEL

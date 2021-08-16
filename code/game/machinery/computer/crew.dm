@@ -91,13 +91,14 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	if (!ui)
 		ui = new(user, src, "CrewConsole")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /datum/crewmonitor/proc/show(mob/M, source)
-	ui_sources[M] = source
+	ui_sources[WEAKREF(M)] = source
 	ui_interact(M)
 
 /datum/crewmonitor/ui_host(mob/user)
-	return ui_sources[user]
+	return ui_sources[WEAKREF(user)]
 
 /datum/crewmonitor/ui_data(mob/user)
 	var/z = user.get_virtual_z_level()
