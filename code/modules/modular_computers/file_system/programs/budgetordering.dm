@@ -48,8 +48,7 @@
 		return TRUE
 
 	if(!length(access))
-		var/obj/item/card/id/D
-		D = get_buyer_id(user)
+		var/obj/item/card/id/D = get_buyer_id(user)
 		if(!get_buyer_id(user))
 			return FALSE
 		access = D.GetAccess()
