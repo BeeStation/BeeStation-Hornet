@@ -24,9 +24,9 @@
 	var/obj/item/circuitboard/computer/syndicate_shuttle/board = circuit
 	if(board.challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
 		to_chat(usr, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [DisplayTimeText(SYNDICATE_CHALLENGE_TIMER - world.time)] more to allow them to prepare.</span>")
-		return 0
+		return FALSE
 	board.moved = TRUE
-	..()
+	. = ..()
 
 /obj/machinery/computer/shuttle_flight/syndicate/allowed(mob/M)
 	if(issilicon(M) && !(ROLE_SYNDICATE in M.faction))
