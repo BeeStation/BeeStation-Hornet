@@ -406,7 +406,7 @@
 
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
-	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must wrap a living being to do this."
+	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must have a directive set and wrap a living being to do this."
 	button_icon_state = "lay_eggs"
 
 /datum/action/innate/spider/lay_eggs/IsAvailable()
