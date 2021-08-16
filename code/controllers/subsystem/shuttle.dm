@@ -763,6 +763,7 @@ SUBSYSTEM_DEF(shuttle)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ShuttleManipulator")
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 

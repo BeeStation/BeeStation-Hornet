@@ -288,6 +288,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 				keyslot2 = null
 
 			recalculateChannels()
+			ui_update()
 			to_chat(user, "<span class='notice'>You pop out the encryption keys in the headset.</span>")
 
 		else
@@ -310,6 +311,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 
 		recalculateChannels()
+		ui_update()
 	else
 		return ..()
 

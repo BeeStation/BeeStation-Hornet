@@ -477,15 +477,13 @@
 		if(secondsMainPowerLost>0)
 			if(!wires.is_cut(WIRE_POWER1) && !wires.is_cut(WIRE_POWER2))
 				secondsMainPowerLost -= 1
-				updateDialog()
 			cont = TRUE
 		if(secondsBackupPowerLost>0)
 			if(!wires.is_cut(WIRE_BACKUP1) && !wires.is_cut(WIRE_BACKUP2))
 				secondsBackupPowerLost -= 1
-				updateDialog()
 			cont = TRUE
 	spawnPowerRestoreRunning = FALSE
-	updateDialog()
+	ui_update()
 	update_icon()
 
 /obj/machinery/door/airlock/proc/loseMainPower()
@@ -865,14 +863,15 @@
 			return
 
 		secondsElectrified--
-		updateDialog()
 	// This is to protect against changing to permanent, mid loop.
 	if(secondsElectrified == MACHINE_NOT_ELECTRIFIED)
 		set_electrified(MACHINE_NOT_ELECTRIFIED)
 	else
 		set_electrified(MACHINE_ELECTRIFIED_PERMANENT)
-	updateDialog()
+	ui_update()
 
+//This code might be completely unused, but I'm too afraid to touch it.
+//That said, commenting it out didn't seem to break anything.
 /obj/machinery/door/airlock/Topic(href, href_list, var/nowindow = 0)
 	// If you add an if(..()) check you must first remove the var/nowindow parameter.
 	// Otherwise it will runtime with this kind of error: null.Topic()
@@ -890,7 +889,6 @@
 		updateUsrDialog()
 	else
 		updateDialog()
-
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
 	if(!issilicon(user) && !IsAdminGhost(user))
@@ -1200,6 +1198,7 @@
 
 	if(!density)
 		return TRUE
+	ui_update()
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN, forced)
 	operating = TRUE
 	update_icon(AIRLOCK_OPENING, 1)
@@ -1247,6 +1246,7 @@
 		SSexplosions.med_mov_atom += killthis
 
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_CLOSE, forced)
+	ui_update()
 	operating = TRUE
 	update_icon(AIRLOCK_CLOSING, 1)
 	layer = CLOSED_DOOR_LAYER
@@ -1477,6 +1477,11 @@
 	else if(istype(note, /obj/item/photo))
 		return "photo"
 
+
+/obj/machinery/door/airlock/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(secondsMainPowerLost || secondsBackupPowerLost || secondsElectrified)
+		. = TRUE // Autoupdate while counters are counting down
 
 /obj/machinery/door/airlock/ui_state(mob/user)
 	return GLOB.default_state
