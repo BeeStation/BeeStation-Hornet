@@ -33,9 +33,7 @@
 	else if(computer)
 		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		id = card_slot?.GetID()
-	if(!id)
-		return FALSE
-	return id
+	return id ? id : FALSE
 	
 /datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, paccess_to_check, var/list/access, var/contraband)
 	if(issilicon(user)) //Borgs can't buy things.
