@@ -135,3 +135,28 @@
 #define CIRCUIT_FLAG_INPUT_SIGNAL (1<<0)
 /// Creates an output trigger that sends a pulse whenever the component is successfully triggered
 #define CIRCUIT_FLAG_OUTPUT_SIGNAL (1<<1)
+
+#define WIREMOD_CIRCUITRY "Circuitry"
+#define WIREMOD_CORE "Core"
+#define WIREMOD_SHELLS "Shells"
+#define WIREMOD_INPUT_COMPONENTS "Input Components"
+#define WIREMOD_OUTPUT_COMPONENTS "Output Components"
+#define WIREMOD_MATH_COMPONENTS "Math Components"
+#define WIREMOD_TIME_COMPONENTS "Time Components"
+#define WIREMOD_LOGIC_COMPONENTS "Logic Components"
+#define WIREMOD_LIST_COMPONENTS "List Components"
+#define WIREMOD_MEMORY_COMPONENTS "Memory Components"
+#define WIREMOD_CONVERSION_COMPONENTS "Conversion Components"
+#define WIREMOD_STRING_COMPONENTS "String Components"
+#define WIREMOD_REFERENCE_COMPONENTS "Reference Components"
+
+#define WIREMODE_CATEGORIES list(\
+	WIREMOD_CIRCUITRY,\
+	WIREMOD_CORE,\
+	WIREMOD_SHELLS,\
+	WIREMOD_INPUT_COMPONENTS,\
+	WIREMOD_OUTPUT_COMPONENTS,\
+	WIREMOD_MATH_COMPONENTS,\
+	WIREMOD_TIME_COMPONENTS,\
+	WIREMOD_LOGIC_COMPONENTS\
+	)

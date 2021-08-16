@@ -1,6 +1,6 @@
 /turf/closed
 	layer = CLOSED_TURF_LAYER
-	opacity = TRUE
+	opacity = 1
 	density = TRUE
 	blocks_air = TRUE
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
@@ -101,7 +101,7 @@
 /turf/closed/indestructible/fakeglass
 	name = "window"
 	icon_state = "fake_window"
-	opacity = FALSE
+	opacity = 0
 	smooth = SMOOTH_TRUE
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 
@@ -114,7 +114,7 @@
 /turf/closed/indestructible/opsglass
 	name = "window"
 	icon_state = "plastitanium_window"
-	opacity = FALSE
+	opacity = 0
 	smooth = SMOOTH_TRUE
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 
