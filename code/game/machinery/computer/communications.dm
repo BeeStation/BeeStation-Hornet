@@ -138,7 +138,7 @@
 					return
 				CM.lastTimeUsed = world.time
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-				comms_send(station_name(), input, "Comms_Console", CONFIG_GET(flag/insecure_announce))
+				SStopic.crosscomms_send("comms_console", input, station_name())
 				minor_announce(input, title = "Outgoing message to allied station", html_encode = FALSE)
 				usr.log_talk(input, LOG_SAY, tag="message to the other server")
 				message_admins("[ADMIN_LOOKUPFLW(usr)] has sent a message to the other server.")
@@ -471,7 +471,6 @@
 					dat += "<BR><BR><B>Captain Functions</B>"
 					dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=announce'>Make a Captain's Announcement</A> \]"
 					var/cross_servers_count = length(CONFIG_GET(keyed_list/cross_server))
-					cross_servers_count += length(CONFIG_GET(keyed_list/insecure_cross_server))
 					if(cross_servers_count)
 						dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=crossserver'>Send a message to [cross_servers_count == 1 ? "an " : ""]allied station[cross_servers_count > 1 ? "s" : ""]</A> \]"
 					if(SSmapping.config.allow_custom_shuttles)

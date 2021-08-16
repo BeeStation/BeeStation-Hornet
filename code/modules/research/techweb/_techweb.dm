@@ -422,3 +422,7 @@
 
 /datum/techweb/specialized/autounlocking/exofab
 	allowed_buildtypes = MECHFAB
+
+/datum/techweb/specialized/autounlocking/component_printer
+	design_autounlock_buildtypes = COMPONENT_PRINTER
+	allowed_buildtypes = COMPONENT_PRINTER

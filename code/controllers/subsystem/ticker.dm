@@ -610,7 +610,7 @@ SUBSYSTEM_DEF(ticker)
 			news_message = "During routine evacuation procedures, the emergency shuttle of [station_name()] had its navigation protocols corrupted and went off course, but was recovered shortly after."
 
 	if(news_message)
-		comms_send(news_source, news_message, "News_Report", CONFIG_GET(flag/insecure_newscaster))
+		SStopic.crosscomms_send("news_report", news_message, news_source)
 
 /datum/controller/subsystem/ticker/proc/GetTimeLeft()
 	if(isnull(SSticker.timeLeft))
