@@ -416,6 +416,8 @@
 		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
 		if(S.fed && S.directive)
 			return 1
+		if(S.fed && !S.ckey)
+			return 1
 		return 0
 
 /datum/action/innate/spider/lay_eggs/Activate()
