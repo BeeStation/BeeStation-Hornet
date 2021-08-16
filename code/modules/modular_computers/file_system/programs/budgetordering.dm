@@ -23,7 +23,7 @@
 	var/blockade_warning = "Bluespace instability detected. Shuttle movement impossible."
 
 /datum/computer_file/program/budgetorders/proc/get_export_categories()
-	. = EXPORT_CARGO
+	return EXPORT_CARGO
 
 /datum/computer_file/program/budgetorders/proc/get_buyer_id(mob/user) //gets access from id on person or inserted one
 	var/obj/item/card/id/id
