@@ -206,7 +206,7 @@
 	var/fuckingdone = FALSE
 
 /datum/game_mode/revolution/speedy/pre_setup()
-	endtime = world.time + 20 MINUTES
+	endtime = world.time + 40 MINUTES
 	return ..()
 
 /datum/game_mode/revolution/speedy/process()
