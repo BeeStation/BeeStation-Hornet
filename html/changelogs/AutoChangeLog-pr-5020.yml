@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - refactor: Circuit component printer is now a modular fabricator and uses the modular
+      fabricator UI.
