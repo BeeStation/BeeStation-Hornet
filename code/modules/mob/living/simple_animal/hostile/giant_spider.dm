@@ -414,7 +414,7 @@
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
 			return 0
 		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-		if(S.fed)
+		if(S.fed && S.directive)
 			return 1
 		return 0
 
@@ -428,6 +428,8 @@
 		to_chat(S, "<span class='warning'>There is already a cluster of eggs here!</span>")
 	else if(!S.fed)
 		to_chat(S, "<span class='warning'>You are too hungry to do this!</span>")
+	else if(!S.directive && S.ckey)
+		to_chat(S, "<span class='warning'>You need to set a directive to do this!</span>")
 	else if(S.busy != LAYING_EGGS)
 		S.busy = LAYING_EGGS
 		S.visible_message("<span class='notice'>[S] begins to lay a cluster of eggs.</span>","<span class='notice'>You begin to lay a cluster of eggs.</span>")
@@ -472,6 +474,7 @@
 			S.directive = new_directive
 			message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
 			log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
+			S.lay_eggs.UpdateButtonIcon(TRUE)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	. = ..()
