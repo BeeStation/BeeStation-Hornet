@@ -206,12 +206,15 @@
 			"name" = being_built.name,
 			"progress" = 100-(100*((process_completion_world_tick - world.time)/total_build_time)),
 		)
+	else
+		data["being_build"] = null
 
 	//Being Build
 	return data
 
 /obj/machinery/modular_fabricator/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.)
 		return
 
 	switch(action)
@@ -220,6 +223,7 @@
 			if(!can_sync)
 				return
 			resync_research()
+			. = TRUE
 
 		if("queue_category")
 			if(!can_print_category)
@@ -232,6 +236,7 @@
 
 		if("output_dir")
 			output_direction = text2num(params["direction"])
+			. = TRUE
 
 		if("upload_disk")
 			if(!accepts_disks)
@@ -243,6 +248,7 @@
 				if(B)
 					stored_research.add_design(B)
 			update_viewer_statics()
+			. = TRUE
 
 		if("eject_disk")
 			if(!inserted_disk || !accepts_disks)
@@ -251,6 +257,7 @@
 			disk.forceMove(get_turf(src))
 			inserted_disk = null
 			update_viewer_statics()
+			. = TRUE
 
 		if("eject_material")
 			var/datum/component/material_container/materials = get_material_container()
@@ -262,13 +269,16 @@
 				var/datum/material/M = mat
 				if("[M.type]" == material_datum)
 					materials.retrieve_sheets(amount, M, get_release_turf())
+					. = TRUE
 					break
 
 		if("queue_repeat")
 			queue_repeating = text2num(params["repeating"])
+			. = TRUE
 
 		if("clear_queue")
 			item_queue.Cut()
+			. = TRUE
 
 		if("item_repeat")
 			var/design_id = params["design_id"]
@@ -276,26 +286,27 @@
 			if(!item_queue["[design_id]"])
 				return
 			item_queue["[design_id]"]["repeating"] = repeating_mode
+			. = TRUE
 
 		if("clear_item")
 			var/design_id = params["design_id"]
 			item_queue -= design_id
+			. = TRUE
 
 		if("queue_item")
 			var/design_id = params["design_id"]
 			var/amount = text2num(params["amount"])
 			add_to_queue(item_queue, design_id, amount)
+			. = TRUE
 
 		if("begin_process")
 			begin_process()
-
-	//Update the UI for them so it's smooth
-	ui_interact(usr)
+			. = TRUE
 
 /obj/machinery/modular_fabricator/proc/resync_research()
 	for(var/obj/machinery/computer/rdconsole/RDC in orange(7, src))
 		RDC.stored_research.copy_research_to(stored_research)
-		update_static_data(usr)
+		update_viewer_statics()
 		say("Successfully synchronized with R&D server.")
 		return
 

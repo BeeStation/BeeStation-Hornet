@@ -306,7 +306,6 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 /obj/item/pipe_dispenser/ui_act(action, params)
 	if(..())
 		return
-		return
 	var/playeffect = TRUE
 	switch(action)
 		if("color")

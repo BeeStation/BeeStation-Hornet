@@ -346,7 +346,9 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 
 	if(input_tag == id_tag)
 		input_info = signal.data
+		ui_update()
 	else if(output_tag == id_tag)
 		output_info = signal.data
+		ui_update()
 	else
 		..(signal)
