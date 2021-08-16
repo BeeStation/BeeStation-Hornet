@@ -1,5 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - tweak: Players can now opt out of "end of round grief" by toggling the, "Go to
-      the post-round arena" preference. The default is on.
