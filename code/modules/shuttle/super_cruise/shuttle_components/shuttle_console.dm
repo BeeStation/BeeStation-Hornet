@@ -83,6 +83,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	return GLOB.default_state
 
 /obj/machinery/computer/shuttle_flight/ui_interact(mob/user, datum/tgui/ui)
+	if(!check_access(user.get_idcard()))
+		say("Insufficient access rights.")
+		return
 	//Ash walkers cannot use the console because they are unga bungas
 	if(user.mind?.has_antag_datum(/datum/antagonist/ashwalker))
 		to_chat(user, "<span class='warning'>This computer has been designed to keep the natives like you from meddling with it, you have no hope of using it.</span>")
@@ -183,6 +186,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	. = ..()
 
 	if(.)
+		return
+
+	if(!check_access(usr.get_idcard()))
+		say("Insufficient access rights.")
 		return
 
 	if(admin_controlled)
