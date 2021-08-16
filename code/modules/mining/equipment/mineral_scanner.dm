@@ -27,8 +27,9 @@
 	for(var/area/A as() in get_areas(/area, user.z))
 		for(var/turf/closed/mineral/M in A)
 			if(M.scan_state)
-				M.icon_state = M.scan_state
-	qdel(src)
+				var/obj/effect/temp_visual/mining_overlay/C = new /obj/effect/temp_visual/mining_overlay(M)
+				C.icon_state = M.scan_state
+	//qdel(src)
 
 /obj/item/t_scanner/adv_mining_scanner
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. This one has an extended range."
