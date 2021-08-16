@@ -31760,12 +31760,6 @@
 /obj/item/reagent_containers/food/condiment/flour,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
-"bgt" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/bowl,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/crew_quarters/kitchen)
 "bgu" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
@@ -34895,23 +34889,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel,
-/area/crew_quarters/kitchen)
-"blu" = (
-/obj/structure/rack,
-/obj/machinery/button/door{
-	id = "kitchenwindows";
-	name = "Kitchen Privacy Control";
-	pixel_y = -26;
-	req_access_txt = "28"
-	},
-/obj/item/storage/box/donkpockets,
-/obj/item/clothing/head/chefhat,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/donkpockets,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "blv" = (
@@ -122871,6 +122848,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
+"qer" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/donkpockets,
+/obj/item/storage/box/donkpockets,
+/turf/open/floor/plasteel,
+/area/crew_quarters/kitchen)
 "qeD" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -125337,6 +125321,22 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
+"xEt" = (
+/obj/structure/rack,
+/obj/machinery/button/door{
+	id = "kitchenwindows";
+	name = "Kitchen Privacy Control";
+	pixel_y = -26;
+	req_access_txt = "28"
+	},
+/obj/item/clothing/head/chefhat,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/reagent_containers/glass/bowl,
+/turf/open/floor/plasteel,
+/area/crew_quarters/kitchen)
 "xGc" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -161687,7 +161687,7 @@ bfc
 aYC
 bhN
 bjF
-blu
+xEt
 aYC
 boI
 bqH
@@ -162969,7 +162969,7 @@ aLL
 vIE
 bdI
 bff
-bgt
+qer
 bhR
 bjI
 blz
