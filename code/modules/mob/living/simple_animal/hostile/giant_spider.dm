@@ -467,14 +467,11 @@
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
 	if(!S.playable)
-		S.directive = stripped_input(S, "Enter the new directive, hitting cancel will clear the directive", "Create directive", "[S.directive]")
-		if(S.directive)
+		var/new_directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
+		if(new_directive)
+			S.directive = new_directive
 			message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
-		else
-			message_admins("[ADMIN_LOOKUPFLW(owner)] has cleared its directive.")
-		log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
-		if(!S.directive)
-			to_chat(S, "<span class='spider'>You have cleared your directive, your children will act of their own volition spreading misery and chaos! Do not reproduce without a directive unless you are prepared to face the repercussions of this!</span>")
+			log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	. = ..()
