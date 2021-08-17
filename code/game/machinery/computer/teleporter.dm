@@ -39,13 +39,14 @@
 
 
 /obj/machinery/computer/teleporter/ui_requires_update(mob/user, datum/tgui/ui)
-	. = ..()
+	// Using ui_update here so the changes apply to all viewers, since ui_data updates those vars
 	if(target_ref)
 		var/atom/target = target_ref.resolve()
 		if(!target)
-			. = TRUE // Update once if target is gone. There is probably a better way to do this.
+			ui_update() // Update once if target is gone. There is probably a better way to do this.
 		else if(target_area_name != "[get_area(target)]")
-			. = TRUE // Update if the area name changed. This should be fine, because autoupdate stringifies area every process anyways.
+			ui_update() // Update if the area name changed. This should be fine, because autoupdate stringifies area every process anyways.
+	. = ..() // Call parent proc last so ui_update takes effect immediately
 
 /obj/machinery/computer/teleporter/ui_state(mob/user)
 	return GLOB.default_state

@@ -39,7 +39,6 @@
 /obj/machinery/plumbing/filter/ui_act(action, params)
 	if(..())
 		return
-	. = TRUE
 	switch(action)
 		if("add")
 			var/new_chem_name = params["name"]
@@ -50,10 +49,12 @@
 						if(!left.Find(chem_id))
 							english_left += new_chem_name
 							left += chem_id
+							. = TRUE
 					if("right")
 						if(!right.Find(chem_id))
 							english_right += new_chem_name
 							right += chem_id
+							. = TRUE
 			else
 				to_chat(usr, "<span class='warning'>No such known reagent exists!</span>")
 
@@ -65,8 +66,9 @@
 					if(english_left.Find(chem_name))
 						english_left -= chem_name
 						left -= chem_id
+						. = TRUE
 				if("right")
 					if(english_right.Find(chem_name))
 						english_right -= chem_name
 						right -= chem_id
-	ui_update()
+						. = TRUE

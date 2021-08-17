@@ -106,6 +106,7 @@
 		update_ui_mode()
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 		add_fingerprint(user)
+		ui_update()
 		return
 
 	switch(deconstruction_state)
@@ -264,12 +265,16 @@
 
 	ui_mode = NUKEUI_AWAIT_TIMER
 
+/obj/machinery/nuclearbomb/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(timing)
+		. = TRUE // Autoupdate while counting down
+
 /obj/machinery/nuclearbomb/ui_interact(mob/user, datum/tgui/ui=null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "NuclearBomb")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/nuclearbomb/ui_state(mob/user)
 	return GLOB.default_state
@@ -339,7 +344,6 @@
 					playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
 					auth = I
 					. = TRUE
-			update_ui_mode()
 		if("keypad")
 			if(auth)
 				var/digit = params["digit"]
@@ -349,7 +353,6 @@
 							set_safety()
 							yes_code = FALSE
 							playsound(src, 'sound/machines/nuke/confirm_beep.ogg', 50, FALSE)
-							update_ui_mode()
 						else
 							playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
 						numeric_input = ""
@@ -374,7 +377,6 @@
 									. = TRUE
 							else
 								playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
-						update_ui_mode()
 					if("0","1","2","3","4","5","6","7","8","9")
 						if(numeric_input != "ERROR")
 							numeric_input += digit
@@ -391,7 +393,6 @@
 					return
 				playsound(src, 'sound/machines/nuke/confirm_beep.ogg', 50, FALSE)
 				set_active()
-				update_ui_mode()
 				. = TRUE
 			else
 				playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
@@ -399,8 +400,12 @@
 			if(auth && yes_code)
 				playsound(src, 'sound/machines/nuke/general_beep.ogg', 50, FALSE)
 				set_anchor()
+				. = TRUE
 			else
 				playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
+
+	if(.)
+		update_ui_mode()
 
 /obj/machinery/nuclearbomb/proc/set_anchor()
 	if(isinspace() && !anchored)
@@ -568,6 +573,8 @@
 		S.alert = FALSE
 	countdown.stop()
 	update_icon()
+	update_ui_mode()
+	ui_update()
 
 /obj/machinery/nuclearbomb/beer/proc/fizzbuzz()
 	var/datum/reagents/R = new/datum/reagents(1000)
