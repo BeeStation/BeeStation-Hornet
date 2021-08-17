@@ -202,7 +202,10 @@
 		//Actual spawn
 		SSmapping.loading_ruins = TRUE
 		CHECK_TICK
-		ruin_part.load(locate(ruin_offset_x + 1, ruin_offset_y + 1, center_z), FALSE)
+		try
+			ruin_part.load(locate(ruin_offset_x + 1, ruin_offset_y + 1, center_z), FALSE)
+		catch(var/exception/e)
+			stack_trace("Run time in space ruin generation ([ruin_part.name]) [e] on [e.file]:[e.line]")
 		CHECK_TICK
 		SSmapping.loading_ruins = FALSE
 		//Simulate spawning
