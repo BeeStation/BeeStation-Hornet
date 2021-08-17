@@ -590,3 +590,11 @@
 		group.register(i)
 	desc += " The implants are registered to the \"[group.name]\" group."
   
+/obj/item/storage/box/syndie_kit/signalerkit
+	name = "Signaler Kit"
+	desc = "Contains a pair of stealthy syndicate signallers. For when you want your bombs to be quiet."
+
+/obj/item/storage/box/syndie_kit/signalerkit/PopulateContents()
+	new /obj/item/assembly/signaler/syndicate(src)
+	new /obj/item/assembly/signaler/syndicate(src) 
+

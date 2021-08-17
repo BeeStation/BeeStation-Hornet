@@ -2358,3 +2358,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/device_tools/signalerkit
+	name = "Signaler Kit"
+	desc = "This box contains a pair of two syndicate stealth signallers. \
+	Good for when you want your bombs to be quiet, or whatever else you're rigging them up to."
+	item = /obj/item/storage/box/syndie_kit/signalerkit
+	cost = 1 

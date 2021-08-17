@@ -8,8 +8,7 @@
 	custom_materials = list(/datum/material/iron=400, /datum/material/glass=120)
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 	attachable = TRUE
-
-
+	var/quiet = FALSE
 	var/code = DEFAULT_SIGNALER_CODE
 	var/frequency = FREQ_SIGNALER
 	var/datum/radio_frequency/radio_connection
@@ -132,6 +131,7 @@
 	var/turf/T = get_turf(src)
 	if(usr)
 		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		to_chat(usr, "<span class='warning'>[src] softly vibrates.</span>")
 
 /obj/item/assembly/signaler/receive_signal(datum/signal/signal)
 	. = FALSE
@@ -145,8 +145,9 @@
 		manual_suicide(suicider)
 		return
 	pulse(TRUE)
-	audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)
-	playsound(get_turf(src), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
+	if(!src.quiet)
+		audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)
+		playsound(get_turf(src), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
 	return TRUE
 
 /obj/item/assembly/signaler/proc/set_frequency(new_frequency)
@@ -250,3 +251,14 @@
 	return
 /obj/item/assembly/signaler/cyborg/screwdriver_act(mob/living/user, obj/item/I)
 	return
+
+/obj/item/assembly/signaler/syndicate
+	desc = "Used to remotely activate devices. Allows for syncing when using a secure signaler on another. This one feels unusually light."
+	quiet = TRUE
+	item_state = "signaler_syndicate"
+	icon_state = "syndicate_off"
+
+/obj/item/assembly/signaler/syndicate/signal()
+	..()
+	flick("syndicate_signaler_animated", src) 
+	
