@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM beestation/byond:514.1556 as base
+FROM beestation/byond:514.1561 as base
 
 # Install the tools needed to compile our rust dependencies
 FROM base as rust-build
@@ -8,7 +8,7 @@ ENV PKG_CONFIG_ALLOW_CROSS=1 \
     PATH=/usr/local/cargo/bin:$PATH
 WORKDIR /build
 COPY dependencies.sh .
-RUN dpkg --add-architecture i386 \ 
+RUN dpkg --add-architecture i386 \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
     curl ca-certificates gcc-multilib \
