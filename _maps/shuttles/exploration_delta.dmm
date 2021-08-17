@@ -171,6 +171,23 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"G" = (
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 9;
+	height = 8;
+	id = "exploration";
+	name = "Exploration Shuttle";
+	port_direction = 8;
+	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
+	width = 16
+	},
+/obj/machinery/door/airlock/external/glass,
+/obj/machinery/atmospherics/pipe/simple/dark/hidden{
+	dir = 10
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "H" = (
 /obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
 /obj/effect/turf_decal/delivery,
@@ -225,23 +242,6 @@
 /area/shuttle/exploration)
 "R" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/exploration)
-"S" = (
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 9;
-	height = 8;
-	id = "exploration";
-	name = "Exploration Shuttle";
-	port_direction = 4;
-	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 16
-	},
-/obj/machinery/door/airlock/external/glass,
-/obj/machinery/atmospherics/pipe/simple/dark/hidden{
-	dir = 10
-	},
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "T" = (
 /obj/machinery/light/small{
@@ -431,7 +431,7 @@ O
 m
 m
 m
-S
+G
 u
 w
 m
