@@ -158,7 +158,7 @@
 		if("express_add")//Generate Supply Order first
 			if(!COOLDOWN_FINISHED(src, order_cooldown))
 				return
-			if(usingBeacon && !canBeacon)
+			if(usingBeacon && !(beacon && (isturf(beacon.loc) || ismob(beacon.loc))))
 				return
 			var/id = text2path(params["id"])
 			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]

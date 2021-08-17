@@ -84,7 +84,7 @@
 	if(!ui)
 		ui = new(user, src, "Mint")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Coins pressed (could be refactored to ui_update), material amounts
 
 /obj/machinery/mineral/mint/ui_data()
 	var/list/data = list()
@@ -121,14 +121,17 @@
 				produced_coins = 0
 			processing = TRUE
 			begin_processing()
+			. = TRUE
 		if ("stoppress")
 			processing = FALSE
 			end_processing()
+			. = TRUE
 		if ("changematerial")
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			for(var/datum/material/mat in materials.materials)
 				if (params["material_name"] == mat.name)
 					chosen = mat
+					. = TRUE
 
 /obj/machinery/mineral/mint/proc/create_coins()
 	var/turf/T = get_step(src,output_dir)
