@@ -22,13 +22,17 @@ SUBSYSTEM_DEF(zclear)
 	var/list/datum/zclear_data/processing_levels
 
 	//List of atoms to ignore
-	var/list/ignored_atoms = list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object)
+	var/list/ignored_atoms = null
 
 	//List of nullspaced mobs to replace in ruins
 	var/list/nullspaced_mobs = list()
 
 	//List of z-levels being docked with
 	var/list/docking_levels = list()
+
+/datum/controller/subsystem/zclear/New()
+	. = ..()
+	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /obj/effect/abstract/mirage_holder))
 
 /datum/controller/subsystem/zclear/fire(resumed)
 	if(times_fired % CHECK_ZLEVEL_TICKS == 0)

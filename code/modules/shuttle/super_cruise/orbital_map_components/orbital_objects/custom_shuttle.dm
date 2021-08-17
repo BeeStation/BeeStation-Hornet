@@ -3,6 +3,10 @@
 	var/fuel_consumption_rate = 1
 	var/obj/machinery/computer/shuttle_flight/custom_shuttle/attached_console
 
+/datum/orbital_object/shuttle/custom_shuttle/Destroy()
+	attached_console = null
+	. = ..()
+
 /datum/orbital_object/shuttle/custom_shuttle/process()
 	if(!attached_console)
 		return

@@ -46,5 +46,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/abstract/mirage_holder/Destroy(force)
+	message_admins("mirage holder deleted")
+	stack_trace("mirage holder deleted")
 	vis_contents.Cut()
 	. = ..()

@@ -45,6 +45,10 @@
 
 /datum/orbital_object/shuttle/Destroy()
 	port = null
+	can_dock_with = null
+	docking_target = null
+	valid_docks = null
+	shuttleTarget = null
 	. = ..()
 	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
 
