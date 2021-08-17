@@ -291,7 +291,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/cyberimp_botany
-	name = "Botany Arm Implant"
+	name = "Botanical toolset implant"
 	desc = "Everything a botanist needs in an arm implant, designed to be installed on a subject's arm."
 	id = "ci-botany"
 	build_type = MECHFAB | PROTOLATHE
@@ -302,7 +302,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
 /datum/design/cyberimp_janitor
-	name = "Janitor Arm Implant"
+	name = "Janitorial Arm Implant"
 	desc = "A set of janitor tools fitted into an arm implant, designed to be installed on subject's arm."
 	id = "ci-janitor"
 	build_type = PROTOLATHE | MECHFAB
