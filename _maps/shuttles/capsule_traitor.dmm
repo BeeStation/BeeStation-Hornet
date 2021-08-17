@@ -152,7 +152,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
 "z" = (
-/obj/machinery/computer/shuttle_flight/bluespace_pod/traitor,
+/obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod/traitor,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
 "A" = (
