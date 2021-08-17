@@ -201,7 +201,7 @@
 /datum/game_mode/revolution/speedy
 	name = "speedy_revolution"
 	config_tag = "speedy_revolution"
-	end_when_heads_dead = FALSE
+	end_when_heads_dead = TRUE
 	var/endtime = null
 	var/fuckingdone = FALSE
 
