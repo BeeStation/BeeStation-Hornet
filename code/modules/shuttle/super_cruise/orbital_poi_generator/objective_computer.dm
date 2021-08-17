@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(objective_computers)
 		ui.open()
 	viewing_mobs += user
 
-/obj/machinery/computer/objective/ui_close(mob/user)
+/obj/machinery/computer/objective/ui_close(mob/user, datum/tgui/tgui)
 	viewing_mobs -= user
 
 /obj/machinery/computer/objective/ui_static_data(mob/user)

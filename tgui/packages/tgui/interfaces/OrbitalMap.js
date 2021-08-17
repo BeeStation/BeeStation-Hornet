@@ -1,5 +1,8 @@
-import { toTitleCase } from 'common/string';
-import { Box, Button, Section, Table, DraggableControl, Dropdown, Divider, NoticeBox, Slider, Knob, ProgressBar, Fragment, ScrollableBox } from '../components';
+// :fearful:
+
+// Made by powerfulbacon
+
+import { Box, Button, Section, Table, DraggableOrbitalMap, Dropdown, Divider, NoticeBox, Slider, ProgressBar, Fragment, ScrollableBox } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -13,6 +16,7 @@ export const OrbitalMap = (props, context) => {
     thrust_alert = false,
     damage_alert = false,
     shuttleName = "",
+    update_index = -1,
   } = data;
   const [
     zoomScale,
@@ -30,6 +34,33 @@ export const OrbitalMap = (props, context) => {
     trackedBody,
     setTrackedBody,
   ] = useLocalState(context, 'trackedBody', map_objects[0].name);
+
+  // EXTREMELY IMPORTANT
+  // Does absolutely nothing. Is always 0.
+  const [
+    nothing,
+    doNothing,
+  ] = useLocalState(context, 'nothing', 0);
+
+  const [
+    prevUpdate_index,
+    setPrevUpdateIndex,
+  ] = useLocalState(context, 'trackingIndex', {
+    index: -1,
+    timer: new Date(),
+  });
+
+  let elapsed = 0;
+
+  if (prevUpdate_index.index === update_index)
+  {
+    let current = new Date();
+    elapsed = (current - prevUpdate_index.timer) / 1000;
+  }
+
+  let dynamicXOffset = xOffset;
+  let dyanmicYOffset = yOffset;
+
   let trackedObject = null;
   let ourObject = null;
   if (map_objects.length > 0)
@@ -43,11 +74,12 @@ export const OrbitalMap = (props, context) => {
       if (element.name === trackedBody && !trackedObject)
       {
         trackedObject = element;
-        if (xOffset !== element.position_x && yOffset !== element.position_y
-          && trackedBody !== map_objects[0].name)
+        if (trackedBody !== map_objects[0].name)
         {
-          setXOffset(element.position_x);
-          setYOffset(element.position_y);
+          dynamicXOffset = trackedObject.position_x
+           + trackedObject.velocity_x * elapsed;
+          dyanmicYOffset = trackedObject.position_y
+          + trackedObject.velocity_y * elapsed;
         }
       }
     });
@@ -60,16 +92,21 @@ export const OrbitalMap = (props, context) => {
       resizable
       overflowY="hidden">
       <Window.Content overflowY="hidden">
-        <div class="OrbitalMap__radar">
+        <div class="OrbitalMap__radar" id="radar">
           <OrbitalMapDisplay
-            xOffset={xOffset}
-            yOffset={yOffset}
+            xOffset={dynamicXOffset}
+            yOffset={dyanmicYOffset}
             zoomScale={zoomScale}
             setZoomScale={setZoomScale}
             setXOffset={setXOffset}
             setYOffset={setYOffset}
             setTrackedBody={setTrackedBody}
-            ourObject={ourObject} />
+            ourObject={ourObject}
+            elapsed={elapsed}
+            nothing={nothing}
+            doNothing={doNothing}
+            prevUpdate_index={prevUpdate_index}
+            setPrevUpdateIndex={setPrevUpdateIndex} />
         </div>
         <div class="OrbitalMap__panel">
           <ScrollableBox overflowY="scroll" height="100%">
@@ -168,6 +205,16 @@ export const OrbitalMapDisplay = (props, context) => {
     stroke: '#8888FF',
     strokeWidth: '2',
   };
+  const boxTargetStyle = {
+    "fill-opacity": 0,
+    stroke: '#DDDDDD',
+    strokeWidth: '1',
+  };
+  const lineTargetStyle = {
+    opacity: 0.4,
+    stroke: '#DDDDDD',
+    strokeWidth: '1',
+  };
 
   const {
     xOffset,
@@ -178,6 +225,11 @@ export const OrbitalMapDisplay = (props, context) => {
     setYOffset,
     setTrackedBody,
     ourObject,
+    elapsed,
+    nothing,
+    doNothing,
+    prevUpdate_index,
+    setPrevUpdateIndex,
   } = props;
 
   let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
@@ -191,7 +243,10 @@ export const OrbitalMapDisplay = (props, context) => {
     desired_vel_y = 0,
     validDockingPorts = [],
     isDocking = false,
-    interdiction_range = 0,
+    interdiction_range = 150,
+    shuttleTargetX = 0,
+    shuttleTargetY = 0,
+    update_index = 0,
   } = data;
 
   return (
@@ -243,7 +298,7 @@ export const OrbitalMapDisplay = (props, context) => {
           </>
         </NoticeBox>
       )}
-      <DraggableControl
+      <DraggableOrbitalMap
         position="absolute"
         value={xOffset}
         dragMatrix={[-1, 0]}
@@ -253,9 +308,33 @@ export const OrbitalMapDisplay = (props, context) => {
           setXOffset(value);
           setTrackedBody(map_objects[0].name);
         }}
+        onUpdate={() => {
+          // Does this call itself to update again???
+          if (update_index !== prevUpdate_index.index)
+          {
+            setPrevUpdateIndex({
+              index: update_index,
+              timer: new Date(),
+            });
+          }
+          doNothing(Math.random());
+        }}
+        onClick={(e, value) => {
+          let clickedOnDiv = document.getElementById("radar"); // This is kind
+          // of funky but A) I don't know react / javascript and B) Nobody in
+          // the history of the universe knows react / javascript so nobody
+          // will probably ever read this so I'm good.
+          let proportionalX = e.offsetX / clickedOnDiv.offsetWidth * 500;
+          let proportionalY = (e.offsetY - 30) / clickedOnDiv.offsetHeight
+           * 500;
+          act("setTargetCoords", {
+            x: (proportionalX - 250) / zoomScale + xOffset,
+            y: (proportionalY - 250) / zoomScale + yOffset,
+          });
+        }}
         updateRate={5}>
         {control => (
-          <DraggableControl
+          <DraggableOrbitalMap
             position="absolute"
             value={yOffset}
             dragMatrix={[0, -1]}
@@ -265,6 +344,7 @@ export const OrbitalMapDisplay = (props, context) => {
               setYOffset(value);
               setTrackedBody(map_objects[0].name);
             }}
+            onClick={(e, value) => {}}
             updateRate={5}>
             {control1 => (
               <>
@@ -313,10 +393,12 @@ export const OrbitalMapDisplay = (props, context) => {
                     <>
                       <circle
                         cx={Math.max(Math.min((map_object.position_x
-                          - xOffset)
+                          - xOffset
+                          + map_object.velocity_x * elapsed)
                           * zoomScale, 250), -250)}
                         cy={Math.max(Math.min((map_object.position_y
-                          - yOffset)
+                          - yOffset
+                          + map_object.velocity_y * elapsed)
                           * zoomScale, 250), -250)}
                         r={((map_object.position_y - yOffset)
                           * zoomScale > 250
@@ -335,10 +417,12 @@ export const OrbitalMapDisplay = (props, context) => {
                       <line
                         style={lineStyle}
                         x1={Math.max(Math.min((map_object.position_x
-                          - xOffset)
+                          - xOffset
+                          + map_object.velocity_x * elapsed)
                           * zoomScale, 250), -250)}
                         y1={Math.max(Math.min((map_object.position_y
-                          - yOffset)
+                          - yOffset
+                          + map_object.velocity_y * elapsed)
                           * zoomScale, 250), -250)}
                         x2={Math.max(Math.min((map_object.position_x
                           - xOffset
@@ -350,9 +434,13 @@ export const OrbitalMapDisplay = (props, context) => {
                           * zoomScale, 250), -250)} />
                       <text
                         x={Math.max(Math.min((map_object.position_x
-                          - xOffset) * zoomScale, 200), -250)}
+                          - xOffset
+                          + map_object.velocity_x * elapsed)
+                          * zoomScale, 200), -250)}
                         y={Math.max(Math.min((map_object.position_y
-                          - yOffset) * zoomScale, 250), -240)}
+                          - yOffset
+                          + map_object.velocity_y * elapsed)
+                          * zoomScale, 250), -240)}
                         fill="white"
                         fontSize={Math.min(40 * lockedZoomScale, 14)}>
                         {map_object.name}
@@ -361,29 +449,96 @@ export const OrbitalMapDisplay = (props, context) => {
                         <line
                           style={blueLineStyle}
                           x1={Math.max(Math.min((map_object.position_x
-                            - xOffset)
+                            - xOffset
+                            + map_object.velocity_x * elapsed)
                             * zoomScale, 250), -250)}
                           y1={Math.max(Math.min((map_object.position_y
-                            - yOffset)
+                            - yOffset
+                            + map_object.velocity_y * elapsed)
                             * zoomScale, 250), -250)}
                           x2={Math.max(Math.min((map_object.position_x
                             - xOffset
+                            + map_object.velocity_x * elapsed
                             + desired_vel_x * 10)
                             * zoomScale, 250), -250)}
                           y2={Math.max(Math.min((map_object.position_y
                             - yOffset
+                            + map_object.velocity_y * elapsed
                             + desired_vel_y * 10)
                             * zoomScale, 250), -250)} />
                       )}
                     </>
                   ))};
+                  {/*
+                    Shuttle Target Locator
+                  */}
+                  {((shuttleTargetX || shuttleTargetY) && ourObject) && (
+                    <>
+                      <rect
+                        x={Math.max(Math.min((shuttleTargetX
+                          - xOffset - 25)
+                          * zoomScale, 250), -250)}
+                        y={Math.max(Math.min((shuttleTargetY
+                          - yOffset - 25)
+                          * zoomScale, 250), -250)}
+                        width={50 * zoomScale}
+                        height={50 * zoomScale}
+                        style={boxTargetStyle} />
+                      <line
+                        x1={Math.max(Math.min((shuttleTargetX
+                          - xOffset - 25)
+                          * zoomScale, 250), -250) + 25 * zoomScale}
+                        y1={Math.max(Math.min((shuttleTargetY
+                          - yOffset - 25)
+                          * zoomScale, 250), -250) - 25 * zoomScale}
+                        x2={Math.max(Math.min((shuttleTargetX
+                          - xOffset - 25)
+                          * zoomScale, 250), -250) + 25 * zoomScale}
+                        y2={Math.max(Math.min((shuttleTargetY
+                          - yOffset - 25)
+                          * zoomScale, 250), -250) + 75 * zoomScale}
+                        style={boxTargetStyle} />
+                      <line
+                        x1={Math.max(Math.min((shuttleTargetX
+                          - xOffset - 25)
+                          * zoomScale, 250), -250) - 25 * zoomScale}
+                        y1={Math.max(Math.min((shuttleTargetY
+                          - yOffset - 25)
+                          * zoomScale, 250), -250) + 25 * zoomScale}
+                        x2={Math.max(Math.min((shuttleTargetX
+                          - xOffset - 25)
+                          * zoomScale, 250), -250) + 75 * zoomScale}
+                        y2={Math.max(Math.min((shuttleTargetY
+                          - yOffset - 25)
+                          * zoomScale, 250), -250) + 25 * zoomScale}
+                        style={boxTargetStyle} />
+                      <line
+                        x1={Math.max(Math.min((ourObject.position_x
+                          - xOffset
+                          + ourObject.velocity_x * elapsed)
+                          * zoomScale, 250), -250)}
+                        y1={Math.max(Math.min((ourObject.position_y
+                          - yOffset
+                          + ourObject.velocity_y * elapsed)
+                          * zoomScale, 250), -250)}
+                        x2={Math.max(Math.min((shuttleTargetX
+                          - xOffset)
+                          * zoomScale, 250), -250)}
+                        y2={Math.max(Math.min((shuttleTargetY
+                          - yOffset)
+                          * zoomScale, 250), -250)}
+                        style={lineTargetStyle} />
+                    </>
+                  )}
                   {ourObject && (
                     <circle
                       cx={Math.max(Math.min((ourObject.position_x
-                        - xOffset)
+                        - xOffset
+                        + ourObject.velocity_x * elapsed)
                         * zoomScale, 250), -250)}
                       cy={Math.max(Math.min((ourObject.position_y
-                        - yOffset)
+                        - yOffset
+                        + ourObject.velocity_y * elapsed)
                         * zoomScale, 250), -250)}
                       r={((ourObject.position_y - yOffset)
                         * zoomScale > 250
@@ -403,9 +558,9 @@ export const OrbitalMapDisplay = (props, context) => {
                 </svg>
               </>
             )}
-          </DraggableControl>
+          </DraggableOrbitalMap>
         )}
-      </DraggableControl>
+      </DraggableOrbitalMap>
     </Fragment>
   );
 

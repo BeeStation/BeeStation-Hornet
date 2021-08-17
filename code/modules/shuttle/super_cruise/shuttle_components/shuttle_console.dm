@@ -42,6 +42,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/Destroy()
 	. = ..()
+	SSorbits.open_orbital_maps -= SStgui.get_all_open_uis(src)
 	shuttleObject = null
 
 /obj/machinery/computer/shuttle_flight/process()
@@ -94,7 +95,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(!ui)
 		ui = new(user, src, "OrbitalMap")
 		ui.open()
-	ui.set_autoupdate(TRUE)
+	SSorbits.open_orbital_maps |= ui
+	ui.set_autoupdate(FALSE)
+
+/obj/machinery/computer/shuttle_flight/ui_close(mob/user, datum/tgui/tgui)
+	SSorbits.open_orbital_maps -= tgui
 
 /obj/machinery/computer/shuttle_flight/ui_static_data(mob/user)
 	var/list/data = list()
@@ -113,6 +118,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
 	var/list/data = list()
+	data["update_index"] = SSorbits.times_fired
 	//Add orbital bodies
 	data["map_objects"] = list()
 	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
@@ -159,6 +165,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Docking data
 	data["canDock"] = shuttleObject.can_dock_with != null && !shuttleObject.docking_frozen
 	data["isDocking"] = shuttleObject.docking_target != null && !shuttleObject.docking_frozen && !shuttleObject.docking_target.is_generating
+	data["shuttleTargetX"] = shuttleObject.shuttleTargetPos?.x
+	data["shuttleTargetY"] = shuttleObject.shuttleTargetPos?.y
 	data["validDockingPorts"] = list()
 	if(shuttleObject.docking_target && !shuttleObject.docking_frozen)
 		//Stealth shuttles bypass shuttle jamming.
@@ -262,6 +270,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(QDELETED(shuttleObject) || !shuttleObject.shuttleTarget)
 				return
 			shuttleObject.autopilot = !shuttleObject.autopilot
+			shuttleObject.shuttleTargetPos = null
 		//Launch the shuttle. Lets do this.
 		if("launch")
 			launch_shuttle()
@@ -275,6 +284,18 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 				return
 			//Force dock with the thing we are colliding with.
 			shuttleObject.commence_docking(shuttleObject.can_dock_with, TRUE)
+		if("setTargetCoords")
+			if(QDELETED(shuttleObject))
+				return
+			var/x = text2num(params["x"])
+			var/y = text2num(params["y"])
+			if(!shuttleObject.shuttleTargetPos)
+				shuttleObject.shuttleTargetPos = new(x, y)
+			else
+				shuttleObject.shuttleTargetPos.x = x
+				shuttleObject.shuttleTargetPos.y = y
+			shuttleObject.autopilot = FALSE
+			. = TRUE
 		if("interdict")
 			if(QDELETED(shuttleObject))
 				say("Interdictor not ready.")

@@ -24,8 +24,12 @@
 
 	var/obj/docking_port/mobile/port
 
+	//Semi-Autopilot controls
+	var/datum/orbital_vector/shuttleTargetPos
+
 	//AUTOPILOT CONTROLS.
 	//Is autopilot enabled.
+	//Determines if the autopilot should fly to the
 	var/autopilot = FALSE
 	//The target, speeds are calulated relative to this.
 	var/datum/orbital_object/shuttleTarget
@@ -83,11 +87,7 @@
 		velocity.y = 0
 		thrust = 0
 	//AUTOPILOT
-	if(autopilot)
-		handle_autopilot()
-	else
-		desired_vel_x = 0
-		desired_vel_y = 0
+	handle_autopilot()
 	//Do thrust
 	var/thrust_amount = thrust * max_thrust / 100
 	var/thrust_x = cos(angle) * thrust_amount
@@ -108,19 +108,25 @@
 	return FALSE
 
 /datum/orbital_object/shuttle/proc/handle_autopilot()
-	velocity_multiplier = initial(velocity_multiplier)
+	var/datum/orbital_vector/target_pos = shuttleTargetPos
 
-	if(!autopilot || docking_target || !shuttleTarget)
+	if(autopilot)
+		target_pos = shuttleTarget.position
+
+	if(docking_target || !target_pos)
 		return
 
 	//Relative velocity to target needs to point towards target.
-	var/distance_to_target = position.Distance(shuttleTarget.position)
+	var/distance_to_target = position.Distance(target_pos)
 
-	//Go slower when approaching target.
-	velocity_multiplier = CLAMP(distance_to_target * 0.01, 0.5, 3)
+	//Cheat and slow down.
+	//Remove this if you make better autopilot logic ever.
+	if(distance_to_target < 100 && velocity.Length() > 25)
+		velocity.Normalize()
+		velocity.Scale(20)
 
 	//If there is an object in the way, we need to fly around it.
-	var/datum/orbital_vector/next_position = shuttleTarget.position
+	var/datum/orbital_vector/next_position = target_pos
 
 	//Adjust our speed to target to point towards it.
 	var/datum/orbital_vector/desired_velocity = new(next_position.x - position.x, next_position.y - position.y)
@@ -157,7 +163,7 @@
 	//FULL SPEED
 	thrust = 100
 	//Auto dock
-	if(can_dock_with == shuttleTarget)
+	if(shuttleTarget && can_dock_with == shuttleTarget)
 		commence_docking(shuttleTarget, TRUE)
 
 	//Fuck all that, we cheat anyway

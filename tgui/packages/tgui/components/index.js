@@ -15,6 +15,7 @@ export { ColorBox } from './ColorBox';
 export { Dimmer } from './Dimmer';
 export { Divider } from './Divider';
 export { DraggableControl } from './DraggableControl';
+export { DraggableOrbitalMap } from './DraggableOrbitalMap';
 export { Dropdown } from './Dropdown';
 export { Flex } from './Flex';
 export { Grid } from './Grid';

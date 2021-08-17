@@ -21,6 +21,11 @@
 	//Multiplier for velocity
 	var/velocity_multiplier = 1
 
+	//Delta time updates
+	//Ship translations are smooth so must use a delta time
+	//Dont get confused with subsystem delta_time as this accounts for time dilation
+	var/last_update_tick = 0
+
 	//CALCULATED IN INIT
 	//Once objects are outside of this range, we will not apply gravity to them.
 	var/relevant_gravity_range
@@ -67,6 +72,14 @@
 	if(static_object)
 		return PROCESS_KILL
 
+	var/delta_time = 0
+	if(last_update_tick)
+		//Don't go too crazy.
+		delta_time = CLAMP(world.time - last_update_tick, 10, 50) * 0.1
+	else
+		delta_time = 1
+	last_update_tick = world.time
+
 	//===================================
 	// GRAVITATIONAL ATTRACTION
 	//===================================
@@ -90,7 +103,7 @@
 			//Add on the gravitational acceleration
 			acceleration_per_second.Add(direction)
 		//Divide acceleration per second by the tick rate
-		accelerate_towards(acceleration_per_second, ORBITAL_UPDATE_RATE_SECONDS)
+		accelerate_towards(acceleration_per_second, delta_time)
 
 	//===================================
 	// ORBIT CORRECTION
@@ -109,7 +122,7 @@
 	// MOVEMENT
 	//===================================
 	//Move the gravitational body.
-	var/datum/orbital_vector/vel_new = new(velocity.x * ORBITAL_UPDATE_RATE_SECONDS * velocity_multiplier, velocity.y * ORBITAL_UPDATE_RATE_SECONDS * velocity_multiplier)
+	var/datum/orbital_vector/vel_new = new(velocity.x * delta_time * velocity_multiplier, velocity.y * delta_time * velocity_multiplier)
 	position.Add(vel_new)
 
 	//===================================

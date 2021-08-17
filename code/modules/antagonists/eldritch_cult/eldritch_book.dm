@@ -117,7 +117,7 @@
 
 	update_icon() // Not applicable to all objects.
 
-/obj/item/forbidden_book/ui_close(mob/user)
+/obj/item/forbidden_book/ui_close(mob/user, datum/tgui/tgui)
 	flick("book_closing",src)
 	icon_state = initial(icon_state)
 	return ..()
