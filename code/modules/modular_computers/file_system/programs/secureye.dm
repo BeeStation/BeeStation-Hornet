@@ -24,7 +24,7 @@
 	var/list/cam_plane_masters
 	var/atom/movable/screen/background/cam_background
 
-/datum/computer_file/program/secureye/Initialize()
+/datum/computer_file/program/secureye/New()
 	. = ..()
 	// Map name has to start and end with an A-Z character,
 	// and definitely NOT with a square bracket or even a number.
