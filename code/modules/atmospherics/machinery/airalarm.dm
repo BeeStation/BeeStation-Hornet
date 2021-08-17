@@ -708,7 +708,7 @@
 	var/new_area_danger_level = 0
 	for(var/obj/machinery/airalarm/AA in A)
 		if (!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
-			new_area_danger_level = clamp(max(new_area_danger_level, AA.danger_level), 0, 1)
+			new_area_danger_level = clamp(max(new_area_danger_level, AA.danger_level), 0, 2)
 	if(A.atmosalert(new_area_danger_level,src)) //if area was in normal state or if area was in alert state
 		post_alert(new_area_danger_level)
 
