@@ -92,7 +92,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/plasmaglass
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/toxin/plasma = 10)
 	tableVariant = /obj/structure/table/glass/plasma
-	
+
 /obj/item/stack/sheet/plasmaglass/fifty
 	amount = 50
 

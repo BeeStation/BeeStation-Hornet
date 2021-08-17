@@ -11,13 +11,17 @@
 
 
 /datum/component/caltrop/Initialize(_min_damage = 0, _max_damage = 0, _probability = 100,  _flags = NONE)
+	. = ..()
+	if(!isatom(parent))
+		return COMPONENT_INCOMPATIBLE
+
 	min_damage = _min_damage
 	max_damage = max(_min_damage, _max_damage)
 	probability = _probability
 	flags = _flags
 
 	if(ismovable(parent))
-		AddElement(/datum/element/connect_loc_behalf, parent, crossed_connections)
+		AddComponent(/datum/component/connect_loc_behalf, parent, crossed_connections)
 	else
 		RegisterSignal(get_turf(parent), COMSIG_ATOM_ENTERED, .proc/on_entered)
 
@@ -79,4 +83,5 @@
 
 /datum/component/caltrop/UnregisterFromParent()
 	. = ..()
-	RemoveElement(/datum/element/connect_loc, parent, crossed_connections)
+	if(ismovable(parent))
+		qdel(GetComponent(/datum/component/connect_loc_behalf))
