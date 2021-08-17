@@ -75,8 +75,8 @@
 		for(var/plane in cam_plane_masters)
 			user.client.register_map_obj(plane)
 		user.client.register_map_obj(cam_background)
-		return ..()
 		ui.set_autoupdate(FALSE)
+		return ..()
 
 /datum/computer_file/program/secureye/ui_data()
 	var/list/data = get_header_data()
