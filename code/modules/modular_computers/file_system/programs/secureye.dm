@@ -24,7 +24,7 @@
 	var/list/cam_plane_masters
 	var/atom/movable/screen/background/cam_background
 
-/datum/computer_file/program/secureye/New()
+/datum/computer_file/program/secureye/Initialize()
 	. = ..()
 	// Map name has to start and end with an A-Z character,
 	// and definitely NOT with a square bracket or even a number.
@@ -76,6 +76,7 @@
 			user.client.register_map_obj(plane)
 		user.client.register_map_obj(cam_background)
 		return ..()
+		ui.set_autoupdate(FALSE)
 
 /datum/computer_file/program/secureye/ui_data()
 	var/list/data = get_header_data()
@@ -111,6 +112,7 @@
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/selected_camera = cameras[c_tag]
 		active_camera = selected_camera
+		ui_update()
 		playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
 		if(!selected_camera)
