@@ -83,7 +83,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	return GLOB.default_state
 
 /obj/machinery/computer/shuttle_flight/ui_interact(mob/user, datum/tgui/ui)
-	if(!allowed(user))
+	if(!allowed(user) && !isobserver(user))
 		say("Insufficient access rights.")
 		return
 	//Ash walkers cannot use the console because they are unga bungas
