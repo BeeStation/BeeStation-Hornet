@@ -49,7 +49,7 @@
 		if(O.resistance_flags & INDESTRUCTIBLE)
 			should_make_level = TRUE
 
-	if(current?.orbital_body && should_make_level)
+	if(should_make_level)
 		//Check if we are on a shuttle
 		var/turf/oldTurf = get_turf(OldLoc)
 		var/area/shuttle/shuttleArea = get_area(oldTurf)
@@ -64,7 +64,7 @@
 					_z == shuttleObj.docking_target.linked_z_level[1].z_value
 				else
 					//Interdiction (Its an empty z-level)
-					var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction()
+					var/datum/orbital_object/z_linked/beacon/ruin/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction()
 					z_linked.position = new /datum/orbital_vector(shuttleObj.position.x, shuttleObj.position.y)
 					z_linked.name = "Stranded [AM]"
 					z_linked.assign_z_level()
