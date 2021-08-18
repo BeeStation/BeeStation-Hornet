@@ -184,7 +184,7 @@
 			saved_stats.ranged = FALSE
 			. = TRUE
 	if(.)
-		if(!saved_stats.ability.CanBuy(FALSE)) // In case stat changes made some abilities invalid to have. Right now only Frenzy.
+		if(saved_stats.ability && !saved_stats.ability.CanBuy(FALSE)) // In case stat changes made some abilities invalid to have. Right now only Frenzy.
 			QDEL_NULL(saved_stats.ability)
 		var/list/datum/guardian_ability/minor/abilities_to_remove = list()
 		for(var/datum/guardian_ability/minor/minor in saved_stats.minor_abilities)
