@@ -75,6 +75,7 @@
 /datum/controller/subsystem/timer/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
+	ss_id=#X;\
 }\
 /datum/controller/subsystem/timer/##X
 
@@ -82,5 +83,6 @@
 /datum/controller/subsystem/processing/##X/New(){\
     NEW_SS_GLOBAL(SS##X);\
     PreInit();\
+	ss_id="processing_[#X]";\
 }\
 /datum/controller/subsystem/processing/##X
