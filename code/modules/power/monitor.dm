@@ -93,7 +93,7 @@
 	if(!ui)
 		ui = new(user, src, "PowerMonitor")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Power in powernet
 
 /obj/machinery/computer/monitor/ui_data()
 	var/datum/powernet/connected_powernet = get_powernet()

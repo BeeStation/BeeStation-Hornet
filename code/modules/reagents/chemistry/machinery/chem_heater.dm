@@ -35,6 +35,7 @@
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
 	replace_beaker(user)
+	ui_update()
 	return
 
 /obj/machinery/chem_heater/proc/replace_beaker(mob/living/user, obj/item/reagent_containers/new_beaker)
@@ -46,6 +47,7 @@
 		beaker = new_beaker
 	else
 		beaker = null
+		on = FALSE
 	update_icon()
 	return TRUE
 
@@ -83,7 +85,7 @@
 			return
 		replace_beaker(user, B)
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
-		updateUsrDialog()
+		ui_update()
 		update_icon()
 		return
 	return ..()
@@ -93,6 +95,11 @@
 	return ..()
 
 
+/obj/machinery/chem_heater/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(on && beaker)
+		. = TRUE
+
 /obj/machinery/chem_heater/ui_state(mob/user)
 	return GLOB.default_state
 
@@ -101,7 +108,6 @@
 	if(!ui)
 		ui = new(user, src, "ChemHeater")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/chem_heater/ui_data()
 	var/data = list()
@@ -128,13 +134,10 @@
 			on = !on
 			. = TRUE
 		if("temperature")
-			var/target = params["target"]
-			if(text2num(target) != null)
-				target = text2num(target)
-				. = TRUE
-			if(.)
+			var/target = text2num(params["target"])
+			if(target != null)
 				target_temperature = clamp(target, 0, 1000)
+				. = TRUE
 		if("eject")
-			on = FALSE
 			replace_beaker(usr)
 			. = TRUE
