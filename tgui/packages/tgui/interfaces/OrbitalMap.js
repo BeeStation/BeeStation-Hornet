@@ -33,7 +33,7 @@ export const OrbitalMap = (props, context) => {
   const [
     trackedBody,
     setTrackedBody,
-  ] = useLocalState(context, 'trackedBody', map_objects[0].name);
+  ] = useLocalState(context, 'trackedBody', shuttleName);
 
   // EXTREMELY IMPORTANT
   // Does absolutely nothing. Is always 0.

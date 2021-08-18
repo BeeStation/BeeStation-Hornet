@@ -30,6 +30,9 @@ SUBSYSTEM_DEF(zclear)
 	//List of z-levels being docked with
 	var/list/docking_levels = list()
 
+	//Announced zombie levels
+	var/list/announced_zombie_levels = list()
+
 /datum/controller/subsystem/zclear/New()
 	. = ..()
 	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /obj/effect/abstract/mirage_holder))
@@ -45,6 +48,8 @@ SUBSYSTEM_DEF(zclear)
 */
 /datum/controller/subsystem/zclear/proc/check_for_empty_levels()
 	var/list/active_levels = list()
+	//Levels that have living mobs
+	var/list/living_levels = list()
 	//Check active mobs
 	for(var/mob/living/L as () in GLOB.mob_list)
 		if(!L)
@@ -53,10 +58,12 @@ SUBSYSTEM_DEF(zclear)
 		if((L.ckey || L.mind || L.client) && L.stat != DEAD)
 			var/turf/T = get_turf(L)
 			active_levels["[T.z]"] = TRUE
+			living_levels["[T.z]"] = TRUE
 	//Check active nukes
 	for(var/obj/machinery/nuclearbomb/decomission/bomb in GLOB.decomission_bombs)
 		if(bomb.timing)
 			active_levels["[bomb.z]"] = TRUE
+			living_levels["[bomb.z]"] = TRUE	//Dont perform mob saving actions on mobs about to be blown to smitherines.
 	//Block z-clear from these levels.
 	for(var/atom/A as() in GLOB.zclear_blockers)
 		active_levels["[A.z]"] = TRUE
@@ -66,19 +73,27 @@ SUBSYSTEM_DEF(zclear)
 		//Check shuttle destination
 		if(M.destination)
 			active_levels["[M.destination.z]"] = TRUE
+			living_levels["[M.destination.z]"] = TRUE
 	//Check for shuttles docking
 	for(var/port_id in SSorbits.assoc_shuttles)
 		var/datum/orbital_object/shuttle/shuttle = SSorbits.assoc_shuttles[port_id]
 		if(shuttle.docking_target)
 			for(var/datum/space_level/level in shuttle.docking_target.linked_z_level)
 				active_levels["[level.z_value]"] = TRUE
+				living_levels["[level.z_value]"] = TRUE
 	//Check for shuttles coming in
 	for(var/docking_level in docking_levels)
 		active_levels["[docking_level]"] = TRUE
+		living_levels["[docking_level]"] = TRUE
 
 	for(var/datum/space_level/level as() in autowipe)
 		//Check if free
 		if(active_levels["[level.z_value]"])
+			if(!living_levels["[level.z_value]"] && !announced_zombie_levels["[level.z_value]"])
+				//Zombie level detected.
+				announced_zombie_levels["[level.z_value]"] = TRUE
+				if(level.orbital_body)
+					priority_announce("Nanotrasen long ranged sensors have indicated that all sentient life forms at priority waypoint [level.orbital_body.name] have ceased life functions. Command is recommended to establish a rescue operation to recover the bodies. Due to the nature of the threat at this location, security personnel armed with lethal weaponry is recommended to accompany the rescue team.", "Nanotrasen Long Range Sensors")
 			continue
 		//Level is free, do the wiping thing.
 		LAZYREMOVE(autowipe, level)
@@ -164,6 +179,9 @@ SUBSYSTEM_DEF(zclear)
 	for(var/atom/A in GLOB.zclear_atoms)
 		if(A.z == z_level)
 			qdel(A, TRUE)
+
+	//Unannounce zombie level
+	announced_zombie_levels["[z_level]"] = FALSE
 
 /*
  * Continues the process of wiping a z-level.
