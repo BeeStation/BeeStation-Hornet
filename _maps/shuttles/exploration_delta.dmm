@@ -174,11 +174,11 @@
 "G" = (
 /obj/docking_port/mobile{
 	dir = 8;
-	dwidth = 9;
+	dwidth = 6;
 	height = 8;
 	id = "exploration";
 	name = "Exploration Shuttle";
-	port_direction = 8;
+	port_direction = 4;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
 	width = 16
 	},

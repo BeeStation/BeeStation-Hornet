@@ -120315,18 +120315,6 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
-"jfw" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 9;
-	height = 8;
-	id = "exploration_home";
-	name = "Exploration Dock";
-	roundstart_template = /datum/map_template/shuttle/exploration/delta;
-	width = 16
-	},
-/turf/open/space/basic,
-/area/space)
 "jfO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -120350,6 +120338,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
+"jlf" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 6;
+	height = 8;
+	id = "exploration_home";
+	name = "Exploration Dock";
+	roundstart_template = /datum/map_template/shuttle/exploration/delta;
+	width = 16
+	},
+/turf/open/space/basic,
+/area/space)
 "jmY" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/tile/neutral{
@@ -157680,7 +157680,7 @@ aaa
 aaa
 aaa
 aaa
-jfw
+jlf
 aaa
 aaa
 aaa

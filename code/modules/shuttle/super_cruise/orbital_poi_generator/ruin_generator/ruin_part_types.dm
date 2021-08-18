@@ -194,6 +194,110 @@
 	weight = 3
 	loot_room = TRUE
 
+//Damaged halls
+
+/datum/map_template/ruin_part/hern_damaged
+	file_name = "5x5_hern_damaged"
+	weight = 0.3
+
+/datum/map_template/ruin_part/hernsw_damaged
+	file_name = "5x5_hernsw_damaged"
+	weight = 0.3
+
+/datum/map_template/ruin_part/hernw_damaged
+	file_name = "5x5_hernw_damaged"
+	weight = 0.3
+
+/datum/map_template/ruin_part/hers_damaged
+	file_name = "5x5_hers_damaged"
+	weight = 0.3
+
+/datum/map_template/ruin_part/hersw_damaged
+	file_name = "5x5_hersw_damaged"
+	weight = 0.3
+
+/datum/map_template/ruin_part/hesrnw_damaged
+	file_name = "5x5_hesrnw_damaged"
+	weight = 0.3
+
+/datum/map_template/ruin_part/hewrn_damaged
+	file_name = "5x5_hewrn_damaged"
+	weight = 0.3
+
+/datum/map_template/ruin_part/hewrns_damaged
+	file_name = "5x5_hewrns_damaged"
+	weight = 0.3
+
+/datum/map_template/ruin_part/hewrs_damaged
+	file_name = "5x5_hewrs_damaged"
+	weight = 0.3
+
+/datum/map_template/ruin_part/hnersw_damaged
+	file_name = "5x5_hnersw_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hnesrw_damaged
+	file_name = "5x5_hnesrw_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hnewrs_damaged
+	file_name = "5x5_hnewrs_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hnresw_damaged
+	file_name = "5x5_hnresw_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hnswre_damaged
+	file_name = "5x5_hnswre_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hnwres_damaged
+	file_name = "5x5_hnwres_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hsrnew_damaged
+	file_name = "5x5_hsrnew_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hswrne_damaged
+	file_name = "5x5_hswrne_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hwres_damaged
+	file_name = "5x5_hwres_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hwrn_damaged
+	file_name = "5x5_hwrn_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hwrne_damaged
+	file_name = "5x5_hwrne_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hwrnes_damaged
+	file_name = "5x5_hwrnes_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hwrns_damaged
+	file_name = "5x5_hwrns_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hwrs_damaged
+	file_name = "5x5_hwrs_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hew_damaged
+	file_name = "5x5_hew_damaged"
+	weight = 0.2
+
+/datum/map_template/ruin_part/hns_damaged
+	file_name = "5x5_hns_damaged"
+	weight = 0.2
+
+//End damaged halls
+
 /datum/map_template/ruin_part/hern
 	file_name = "5x5_hern"
 	weight = 2
