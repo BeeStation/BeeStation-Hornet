@@ -235,15 +235,14 @@ export const NaniteCloudBackupDetails = (props, context) => {
                   mt={-2}
                   title="Rules"
                   level={2}
-                  buttons=
-                    {!!can_rule && (
-                      <Button
-                        icon="plus"
-                        content="Add Rule from Disk"
-                        color="good"
-                        onClick={() => act('add_rule', {
-                          program_id: program.id,
-                        })} />
+                  buttons={!!can_rule && (
+                    <Button
+                      icon="plus"
+                      content="Add Rule from Disk"
+                      color="good"
+                      onClick={() => act('add_rule', {
+                        program_id: program.id,
+                      })} />
                   )}>
                   {program.has_rules ? (
                     rules.map(rule => (

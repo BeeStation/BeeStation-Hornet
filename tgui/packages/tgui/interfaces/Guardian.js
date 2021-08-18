@@ -160,7 +160,7 @@ const GuardianStatButton = (props, context) => {
     level,
   } = props;
 
-  const level2label = ["F", "D", "C", "B", "A"]
+  const level2label = ["F", "D", "C", "B", "A"];
 
   return (
     <Button
@@ -171,13 +171,14 @@ const GuardianStatButton = (props, context) => {
         name: skill.name,
         level: level,
       })} />
-  )
-}
+  );
+};
 
 const GuardianMajor = (props, context) => {
   const { act, data } = useBackend(context);
-  const selected_ability = data.abilities_major.find(ability => ability.selected)
-  const selected_ability_cost = selected_ability?.cost ?? 0
+  const selected_ability = data.abilities_major
+    .find(ability => ability.selected);
+  const selected_ability_cost = selected_ability?.cost ?? 0;
   return (
     <Section>
       <Flex.Item grow={1} basis={0}>
