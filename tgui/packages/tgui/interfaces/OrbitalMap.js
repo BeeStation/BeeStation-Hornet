@@ -17,6 +17,7 @@ export const OrbitalMap = (props, context) => {
     damage_alert = false,
     shuttleName = "",
     update_index = -1,
+    interdictionTime = 0,
   } = data;
   const [
     zoomScale,
@@ -63,7 +64,7 @@ export const OrbitalMap = (props, context) => {
 
   let trackedObject = null;
   let ourObject = null;
-  if (map_objects.length > 0)
+  if (map_objects.length > 0 && interdictionTime === 0)
   {
     // Find the right tracked body
     map_objects.forEach(element => {
@@ -93,20 +94,30 @@ export const OrbitalMap = (props, context) => {
       overflowY="hidden">
       <Window.Content overflowY="hidden">
         <div class="OrbitalMap__radar" id="radar">
-          <OrbitalMapDisplay
-            xOffset={dynamicXOffset}
-            yOffset={dyanmicYOffset}
-            zoomScale={zoomScale}
-            setZoomScale={setZoomScale}
-            setXOffset={setXOffset}
-            setYOffset={setYOffset}
-            setTrackedBody={setTrackedBody}
-            ourObject={ourObject}
-            elapsed={elapsed}
-            nothing={nothing}
-            doNothing={doNothing}
-            prevUpdate_index={prevUpdate_index}
-            setPrevUpdateIndex={setPrevUpdateIndex} />
+          {interdictionTime ? (
+            <InterdictionDisplay
+              xOffset={dynamicXOffset}
+              yOffset={dyanmicYOffset}
+              zoomScale={zoomScale}
+              setZoomScale={setZoomScale}
+              setXOffset={setXOffset}
+              setYOffset={setYOffset} />
+          ) : (
+            <OrbitalMapDisplay
+              xOffset={dynamicXOffset}
+              yOffset={dyanmicYOffset}
+              zoomScale={zoomScale}
+              setZoomScale={setZoomScale}
+              setXOffset={setXOffset}
+              setYOffset={setYOffset}
+              setTrackedBody={setTrackedBody}
+              ourObject={ourObject}
+              elapsed={elapsed}
+              nothing={nothing}
+              doNothing={doNothing}
+              prevUpdate_index={prevUpdate_index}
+              setPrevUpdateIndex={setPrevUpdateIndex} />
+          )}
         </div>
         <div class="OrbitalMap__panel">
           <ScrollableBox overflowY="scroll" height="100%">
@@ -194,6 +205,179 @@ export const OrbitalMap = (props, context) => {
   );
 };
 
+export const InterdictionDisplay = (props, context) => {
+
+  // SVG Background Style
+  const lineStyle = {
+    stroke: '#BBBBBB',
+    strokeWidth: '2',
+  };
+  const blueLineStyle = {
+    stroke: '#8888FF',
+    strokeWidth: '2',
+  };
+  const boxTargetStyle = {
+    "fill-opacity": 0,
+    stroke: '#DDDDDD',
+    strokeWidth: '1',
+  };
+  const lineTargetStyle = {
+    opacity: 0.4,
+    stroke: '#DDDDDD',
+    strokeWidth: '1',
+  };
+
+  const {
+    xOffset,
+    yOffset,
+    zoomScale,
+    setZoomScale,
+    setXOffset,
+    setYOffset,
+  } = props;
+
+  let lockedZoomScale = Math.max(Math.min(zoomScale, 4), 0.125);
+
+  const { act, data } = useBackend(context);
+
+  const {
+    map_objects = [],
+    interdictionTime = 0,
+    interdictedShuttles = [],
+  } = data;
+
+  return (
+    <Fragment>
+      <NoticeBox
+        position="absolute"
+        color="red">
+        <Box bold mt={1} ml={1}>
+          ENGINES INTERDICTED
+        </Box>
+        <Box ml={1}>
+          Flight controls disabled.
+          Engine reboot in {interdictionTime / 10} seconds.
+        </Box>
+        <Box ml={1}>
+          Local shuttles have been marked on the map.
+        </Box>
+      </NoticeBox>
+      <Button
+        position="absolute"
+        icon="search-plus"
+        right="20px"
+        top="15px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setZoomScale(zoomScale * 2)} />
+      <Button
+        position="absolute"
+        icon="search-minus"
+        right="20px"
+        top="47px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setZoomScale(zoomScale / 2)} />
+      <DraggableOrbitalMap
+        position="absolute"
+        value={xOffset}
+        dragMatrix={[-1, 0]}
+        step={1}
+        stepPixelSize={2 * zoomScale}
+        onDrag={(e, value) => {
+          setXOffset(value);
+        }}
+        onClick={(e, value) => {}}
+        updateRate={5}>
+        {control => (
+          <DraggableOrbitalMap
+            position="absolute"
+            value={yOffset}
+            dragMatrix={[0, -1]}
+            step={1}
+            stepPixelSize={2 * zoomScale}
+            onDrag={(e, value) => {
+              setYOffset(value);
+            }}
+            onClick={(e, value) => {}}
+            updateRate={5}>
+            {control1 => (
+              <>
+                {control.inputElement}
+                {control1.inputElement}
+                <svg
+                  onMouseDown={e => {
+                    control.handleDragStart(e);
+                    control1.handleDragStart(e);
+                  }}
+                  viewBox="-250 -250 500 500"
+                  position="absolute"
+                  overflowY="hidden">
+                  <defs>
+                    <pattern id="grid" width={100 * lockedZoomScale}
+                      height={100 * lockedZoomScale}
+                      patternUnits="userSpaceOnUse"
+                      x={-xOffset * zoomScale}
+                      y={-yOffset * zoomScale}>
+                      <rect width={100 * lockedZoomScale}
+                        height={100 * lockedZoomScale}
+                        fill="url(#smallgrid)" />
+                      <path
+                        fill="none" stroke="#CE1935" stroke-width="1"
+                        d={"M " + (100 * lockedZoomScale)+ " 0 L 0 0 0 " + (100 * lockedZoomScale)} />
+                    </pattern>
+                    <pattern id="smallgrid"
+                      width={50 * lockedZoomScale}
+                      height={50 * lockedZoomScale}
+                      patternUnits="userSpaceOnUse">
+                      <rect
+                        width={50 * lockedZoomScale}
+                        height={50 * lockedZoomScale}
+                        fill="#382424" />
+                      <path
+                        fill="none"
+                        stroke="#CE1935"
+                        stroke-width="0.5"
+                        d={"M " + (50 * lockedZoomScale) + " 0 L 0 0 0 "
+                        + (50 * lockedZoomScale)} />
+                    </pattern>
+                  </defs>
+                  <rect x="-50%" y="-50%" width="100%" height="100%"
+                    fill="url(#grid)" />
+                  {interdictedShuttles.map(map_object => (
+                    <>
+                      <rect
+                        x={(map_object.x * 10 - 25 - xOffset) * zoomScale}
+                        y={(-map_object.y * 10 - 25 - yOffset) * zoomScale}
+                        width={50 * zoomScale}
+                        height={50 * zoomScale}
+                        style={boxTargetStyle} />
+                      <text
+                        x={Math.max(Math.min((map_object.x * 10
+                          - xOffset
+                          + 30)
+                          * zoomScale, 200), -250)}
+                        y={Math.max(Math.min((-map_object.y * 10
+                          - yOffset
+                          - 30)
+                          * zoomScale, 250), -240)}
+                        fill="white"
+                        fontSize={Math.min(40 * lockedZoomScale, 14)}>
+                        {map_object.shuttleName} ({map_object.x},{map_object.y})
+                      </text>
+                    </>
+                  ))}
+                </svg>
+              </>
+            )}
+          </DraggableOrbitalMap>
+        )}
+      </DraggableOrbitalMap>
+    </Fragment>
+  );
+
+};
+
 export const OrbitalMapDisplay = (props, context) => {
 
   // SVG Background Style
@@ -247,6 +431,7 @@ export const OrbitalMapDisplay = (props, context) => {
     shuttleTargetX = 0,
     shuttleTargetY = 0,
     update_index = 0,
+    interdictionTime = 0,
   } = data;
 
   return (
@@ -620,30 +805,21 @@ export const ShuttleControls = (props, context) => {
         speed of this orbital body.
       </Box>
       <ShuttleMap />
+      <NoticeBox color="purple" mt={2}>
+        Click on the primary display to fly.
+      </NoticeBox>
       <Box bold>
         Throttle
       </Box>
-      <Slider
-        value={shuttleThrust}
-        minValue={0}
-        maxValue={100}
-        step={1}
-        stepPixelSize={4}
-        onDrag={(e, value) => act('setThrust', {
-          thrust: value,
-        })} />
+      <Box>
+        Shuttle Thrust: {shuttleThrust}
+      </Box>
       <Box bold mt={2}>
         Thrust Angle
       </Box>
-      <Slider
-        value={shuttleAngle}
-        minValue={-180}
-        maxValue={180}
-        step={1}
-        stepPixelSize={1}
-        onDrag={(e, value) => act('setAngle', {
-          angle: value,
-        })} />
+      <Box>
+        Angle: {shuttleAngle}
+      </Box>
       {(!display_fuel) || (
         <>
           <Box bold mt={2}>

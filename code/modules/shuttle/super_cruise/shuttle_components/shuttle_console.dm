@@ -31,9 +31,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
 
-	//Is GPS enabled?
-	var/gps_enabled = FALSE
-
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
@@ -47,22 +44,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 /obj/machinery/computer/shuttle_flight/process()
 	. = ..()
-
-	var/wants_gps = FALSE
-
-	//if we were interdicted create a GPS component
-	//Also actually needs to be on the shuttle
-	if(SSorbits.interdicted_shuttles.Find(shuttleId) && SSorbits.interdicted_shuttles[shuttleId] < world.time && istype(get_area(src), /area/shuttle))
-		wants_gps = TRUE
-
-	if(wants_gps != gps_enabled)
-		if(wants_gps)
-			AddComponent(/datum/component/gps, "Interdicted [shuttleId]", TRUE)
-			gps_enabled = TRUE
-		else
-			gps_enabled = FALSE
-			var/datum/component/gpscomp = GetComponent(/datum/component/gps)
-			gpscomp.RemoveComponent()
 
 	//Check to see if the shuttleobject was launched by another console.
 	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
@@ -143,6 +124,25 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(!SSshuttle.getShuttle(shuttleId))
 		data["linkedToShuttle"] = FALSE
 		return data
+	//Interdicted shuttles
+	data["interdictedShuttles"] = list()
+	if(SSorbits.interdicted_shuttles[shuttleId] > world.time)
+		var/obj/docking_port/our_port = SSshuttle.getShuttle(shuttleId)
+		data["interdictionTime"] = SSorbits.interdicted_shuttles[shuttleId] - world.time
+		for(var/interdicted_id in SSorbits.interdicted_shuttles)
+			var/timer = SSorbits.interdicted_shuttles[interdicted_id]
+			if(timer < world.time)
+				continue
+			var/obj/docking_port/port = SSshuttle.getShuttle(interdicted_id)
+			if(port && port.get_virtual_z_level() == our_port.get_virtual_z_level())
+				data["interdictedShuttles"] += list(list(
+					"shuttleName" = port.name,
+					"x" = port.x - our_port.x,
+					"y" = port.y - our_port.y,
+				))
+	else
+		data["interdictionTime"] = 0
+
 	data["canLaunch"] = TRUE
 	if(QDELETED(shuttleObject))
 		data["linkedToShuttle"] = FALSE
