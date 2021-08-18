@@ -82,7 +82,7 @@
 			cost = GA.cost,
 			icon = GA.ui_icon,
 			selected = istype(saved_stats.ability, ability),
-			available = (points >= GA.cost) && GA.CanBuy(),
+			available = (points+saved_stats.ability?.cost >= GA.cost) && GA.CanBuy(),
 			path = "[ability]",
 			requiem = istype(GA, /datum/guardian_ability/major/special)
 		))
