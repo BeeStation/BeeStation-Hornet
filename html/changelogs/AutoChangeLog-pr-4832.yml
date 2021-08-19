@@ -1,0 +1,5 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - code_imp: tgui tooltips now use Popper
+  - bugfix: Holoparasite stat selection now displays stats correctly
