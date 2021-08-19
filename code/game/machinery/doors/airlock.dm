@@ -1212,6 +1212,7 @@
 	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, 1)
 	operating = FALSE
+	ui_update()
 	if(delayed_close_requested)
 		delayed_close_requested = FALSE
 		addtimer(CALLBACK(src, .proc/close), 1)
@@ -1267,8 +1268,10 @@
 	update_icon(AIRLOCK_CLOSED, 1)
 	operating = FALSE
 	delayed_close_requested = FALSE
+	ui_update()
 	if(safe)
 		CheckForMobs()
+	ui_update()
 	return TRUE
 
 /obj/machinery/door/airlock/proc/prison_open()

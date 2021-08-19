@@ -793,7 +793,6 @@
 			locked = !locked
 			update_icon()
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the airlock controller interface.</span>")
-			ui_update()
 		else
 			to_chat(user, "<span class='danger'>Access denied.</span>")
 	return
