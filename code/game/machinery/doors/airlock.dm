@@ -300,6 +300,7 @@
 	if(locked == should_bolt)
 		return
 	SEND_SIGNAL(src, COMSIG_AIRLOCK_SET_BOLT, should_bolt)
+	ui_update()
 	. = locked
 	locked = should_bolt
 
@@ -1392,6 +1393,7 @@
 /obj/machinery/door/airlock/proc/set_electrified(seconds, mob/user)
 	secondsElectrified = seconds
 	diag_hud_set_electrified()
+	ui_update()
 	if(secondsElectrified > MACHINE_NOT_ELECTRIFIED)
 		INVOKE_ASYNC(src, .proc/electrified_loop)
 
@@ -1631,6 +1633,7 @@
 		return
 	emergency = !emergency
 	update_icon()
+	ui_update()
 
 /obj/machinery/door/airlock/proc/user_toggle_open(mob/user)
 	if(!user_allowed(user))

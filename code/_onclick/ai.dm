@@ -139,7 +139,6 @@
 
 	toggle_bolt(usr)
 	add_hiddenprint(usr)
-	ui_update()
 
 /obj/machinery/door/airlock/AIAltClick() // Eletrifies doors.
 	if(obj_flags & EMAGGED)
@@ -149,7 +148,6 @@
 		shock_perm(usr)
 	else
 		shock_restore(usr)
-	ui_update()
 
 /obj/machinery/door/airlock/AIShiftClick()  // Opens and closes doors!
 	if(obj_flags & EMAGGED)
@@ -157,7 +155,6 @@
 
 	user_toggle_open(usr)
 	add_hiddenprint(usr)
-	ui_update()
 
 /obj/machinery/door/airlock/AICtrlShiftClick()  // Sets/Unsets Emergency Access Override
 	if(obj_flags & EMAGGED)
@@ -165,7 +162,6 @@
 
 	toggle_emergency(usr)
 	add_hiddenprint(usr)
-	ui_update()
 
 /* APC */
 /obj/machinery/power/apc/AICtrlClick() // turns off/on APCs.
@@ -177,13 +173,11 @@
 	if(ailock)
 		return
 	toggle_lethal(usr)
-	ui_update()
 
 /obj/machinery/turretid/AICtrlClick() //turns off/on Turrets
 	if(ailock)
 		return
 	toggle_on(usr)
-	ui_update()
 
 /* Holopads */
 /obj/machinery/holopad/AIAltClick(mob/living/silicon/ai/user)
