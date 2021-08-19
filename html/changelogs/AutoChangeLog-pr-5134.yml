@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - tweak: Reproductive spiders may no longer accidentally clear their directives,
-      and may not reproduce without one set.
