@@ -50,15 +50,19 @@ SUBSYSTEM_DEF(zclear)
 	var/list/active_levels = list()
 	//Levels that have living mobs
 	var/list/living_levels = list()
+	//Levels with mobs dead/alive
+	var/list/mob_levels = list()
 	//Check active mobs
 	for(var/mob/living/L as () in GLOB.mob_list)
 		if(!L)
 			continue
 		//Dead mobs get sent to new ruins
-		if((L.ckey || L.mind || L.client) && L.stat != DEAD)
-			var/turf/T = get_turf(L)
-			active_levels["[T.z]"] = TRUE
-			living_levels["[T.z]"] = TRUE
+		if((L.ckey || L.mind || L.client))
+			mob_levels["[T.z]"] = TRUE
+			if(L.stat != DEAD)
+				var/turf/T = get_turf(L)
+				active_levels["[T.z]"] = TRUE
+				living_levels["[T.z]"] = TRUE
 	//Check active nukes
 	for(var/obj/machinery/nuclearbomb/decomission/bomb in GLOB.decomission_bombs)
 		if(bomb.timing)
@@ -89,7 +93,7 @@ SUBSYSTEM_DEF(zclear)
 	for(var/datum/space_level/level as() in autowipe)
 		//Check if free
 		if(active_levels["[level.z_value]"])
-			if(!living_levels["[level.z_value]"] && !announced_zombie_levels["[level.z_value]"])
+			if(!living_levels["[level.z_value]"] && mob_levels["[level.z_value]"] && !announced_zombie_levels["[level.z_value]"])
 				//Zombie level detected.
 				announced_zombie_levels["[level.z_value]"] = TRUE
 				if(level.orbital_body)

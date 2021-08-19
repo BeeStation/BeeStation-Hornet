@@ -59,9 +59,9 @@
 			var/datum/orbital_object/shuttle/shuttleObj = SSorbits.assoc_shuttles[shuttleId]
 			if(shuttleObj)
 				if(length(shuttleObj.can_dock_with?.linked_z_level))
-					_z == shuttleObj.can_dock_with.linked_z_level[1].z_value
+					_z = shuttleObj.can_dock_with.linked_z_level[1].z_value
 				else if(length(shuttleObj.docking_target?.linked_z_level))
-					_z == shuttleObj.docking_target.linked_z_level[1].z_value
+					_z = shuttleObj.docking_target.linked_z_level[1].z_value
 				else
 					//Interdiction (Its an empty z-level)
 					var/datum/orbital_object/z_linked/beacon/ruin/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction()
@@ -69,7 +69,7 @@
 					z_linked.name = "Stranded [AM]"
 					z_linked.assign_z_level()
 					if(length(z_linked.linked_z_level))
-						_z == z_linked.linked_z_level[1].z_value
+						_z = z_linked.linked_z_level[1].z_value
 	if(_z == 2)
 		//Chuck them at the space level
 		for(var/A in SSmapping.z_list)

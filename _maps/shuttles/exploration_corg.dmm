@@ -156,21 +156,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"hD" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 10
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "hP" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -389,6 +374,24 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
+"qJ" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 24
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "sh" = (
 /obj/effect/spawner/structure/window/shuttle,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
@@ -595,6 +598,16 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/exploration)
+"Cc" = (
+/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "Cu" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
@@ -774,21 +787,6 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
-"Qa" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "QG" = (
 /obj/machinery/shuttle/engine/plasma{
 	dir = 4
@@ -846,16 +844,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"Uf" = (
-/obj/machinery/atmospherics/pipe/manifold4w/purple/visible,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Up" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/turf_decal/stripes/line{
@@ -868,6 +856,18 @@
 /obj/machinery/recharger,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
+"VA" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "VO" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
@@ -1003,8 +1003,8 @@ Ay
 (3,1,1) = {"
 yh
 yh
-Qa
-Uf
+VA
+Cc
 JG
 gS
 aA
@@ -1021,7 +1021,7 @@ yh
 df
 df
 um
-hD
+qJ
 Ip
 vx
 zN
