@@ -993,6 +993,8 @@
 	if(user.has_unlimited_silicon_privilege)
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
+		if(!allowed(user))
+			return FALSE
 		if (                                                             \
 			src.aidisabled ||                                            \
 			malfhack && istype(malfai) &&                                \
