@@ -403,8 +403,12 @@
 		return
 	switch(action)
 		if("make")
+			if(busy) // Prevent potentially crafting multiple things at once
+				return
 			var/mob/user = usr
 			var/datum/crafting_recipe/TR = locate(params["recipe"]) in GLOB.crafting_recipes
+			if(!TR)
+				return
 			busy = TRUE
 			. = TRUE
 			INVOKE_ASYNC(src, .proc/construct_item_ui, user, TR)
