@@ -8,7 +8,7 @@ export const Guardian = (props, context) => {
   const [tab, setTab] = useLocalState(context, 'tab', 'general');
   return (
     <Window
-      width={500}
+      width={580}
       height={600}>
       <Window.Content scrollable>
         {!!data.waiting && (
@@ -127,23 +127,17 @@ const GuardianStats = (props, context) => {
     <Section>
       <LabeledList>
         {data.ratedskills.map(skill => (
-          <LabeledList.Item
-            key={skill.name}
-            className="candystripe"
-            label={(
-              <Box position="relative">
-                {skill.name}
-                <Tooltip content={skill.desc}
-                  position="bottom-right"
-                />
-              </Box>
-            )}>
-            <GuardianStatButton skill={skill} level={5} />
-            <GuardianStatButton skill={skill} level={4} />
-            <GuardianStatButton skill={skill} level={3} />
-            <GuardianStatButton skill={skill} level={2} />
-            <GuardianStatButton skill={skill} level={1} />
-          </LabeledList.Item>
+          <Tooltip key={skill.name} content={skill.desc} position="bottom-start">
+            <LabeledList.Item
+              className="candystripe"
+              label={skill.name}>
+              <GuardianStatButton skill={skill} level={5} />
+              <GuardianStatButton skill={skill} level={4} />
+              <GuardianStatButton skill={skill} level={3} />
+              <GuardianStatButton skill={skill} level={2} />
+              <GuardianStatButton skill={skill} level={1} />
+            </LabeledList.Item>
+          </Tooltip>
         ))}
       </LabeledList>
     </Section>
