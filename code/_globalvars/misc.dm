@@ -31,10 +31,6 @@ GLOBAL_VAR_INIT(total_slimes, 0)
 ///Global var for insecure comms key rate limiting
 GLOBAL_VAR_INIT(topic_cooldown, 0)
 
-//EORG
-GLOBAL_LIST_EMPTY(eorg_waypoints)
-GLOBAL_VAR_INIT(eorg_default, null)
-
 // Topic stuff
 GLOBAL_LIST_EMPTY(topic_commands)
 GLOBAL_PROTECT(topic_commands)
