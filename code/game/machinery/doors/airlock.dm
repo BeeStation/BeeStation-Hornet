@@ -108,6 +108,8 @@
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	rad_insulation = RAD_MEDIUM_INSULATION
 
+	var/electrification_timing // Set to true while electrified_loop is running, to prevent multiple being started
+
 	var/static/list/airlock_overlays = list()
 
 /obj/machinery/door/airlock/Initialize()
@@ -858,12 +860,18 @@
 	return ..()
 
 /obj/machinery/door/airlock/proc/electrified_loop()
+	if(electrification_timing)
+		return // Don't start another timer if one is already running
+
+	electrification_timing = TRUE
 	while (secondsElectrified > MACHINE_NOT_ELECTRIFIED)
+		secondsElectrified--
+
 		sleep(10)
 		if(QDELETED(src))
 			return
+	electrification_timing = FALSE
 
-		secondsElectrified--
 	// This is to protect against changing to permanent, mid loop.
 	if(secondsElectrified == MACHINE_NOT_ELECTRIFIED)
 		set_electrified(MACHINE_NOT_ELECTRIFIED)
