@@ -43,6 +43,16 @@
 
 	dog_fashion = null
 
+/obj/item/clothing/head/beret/captain
+	name = "captain beret"
+	desc = "A lovely blue Captain beret with a gold and white insignia."
+	icon_state = "beret_badge"
+	greyscale_config = /datum/greyscale_config/beret/badge
+	greyscale_config_worn = /datum/greyscale_config/beret_worn/badge
+	greyscale_colors = "#0070B7#FFCE5B"
+	armor = list(melee = 50, bullet = 30, laser = 20, energy = 30, bomb = 15, bio = 10, rad = 10, fire = 10, acid = 60, stamina = 40)
+	strip_delay = 90
+
 //Head of Personnel
 /obj/item/clothing/head/hopcap
 	name = "head of personnel's cap"
@@ -94,7 +104,6 @@
 			candy_cooldown = world.time+1200
 		else
 			to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
-
 
 //Mime
 /obj/item/clothing/head/beret
@@ -433,16 +442,6 @@
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30)
 	strip_delay = 60
 	flags_1 = NONE
-
-/obj/item/clothing/head/beret/captain
-	name = "captain beret"
-	desc = "A lovely blue Captain beret with a gold and white insignia."
-	icon_state = "beret_badge"
-	greyscale_config = /datum/greyscale_config/beret/badge
-	greyscale_config_worn = /datum/greyscale_config/beret_worn/badge
-	greyscale_colors = "#0070B7#FFCE5B"
-	armor = list(melee = 50, bullet = 30, laser = 20, energy = 30, bomb = 15, bio = 10, rad = 10, fire = 10, acid = 60, stamina = 40)
-	strip_delay = 90
 
 #undef DRILL_DEFAULT
 #undef DRILL_SHOUTING
