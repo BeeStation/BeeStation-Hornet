@@ -10,10 +10,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
-"b" = (
-/mob/living/carbon/monkey/angry,
-/turf/open/floor/plasteel/freezer,
-/area/ruin/unpowered)
 "c" = (
 /obj/machinery/door/window/westright{
 	dir = 1;
@@ -207,15 +203,6 @@
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
-"G" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
-/mob/living/carbon/monkey/angry,
-/obj/structure/bed/roller,
-/turf/open/floor/plasteel/freezer,
-/area/ruin/unpowered)
 "H" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop/ruinloot/medical,
@@ -233,6 +220,14 @@
 /area/ruin/unpowered)
 "I" = (
 /turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"J" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	pixel_y = 1
+	},
+/obj/structure/bed/roller,
+/turf/open/floor/plasteel/freezer,
 /area/ruin/unpowered)
 "K" = (
 /turf/open/floor/plasteel/freezer,
@@ -375,7 +370,7 @@ w
 t
 W
 W
-G
+J
 C
 q
 "}
@@ -409,7 +404,7 @@ p
 a
 P
 h
-b
+K
 q
 "}
 (9,1,1) = {"
