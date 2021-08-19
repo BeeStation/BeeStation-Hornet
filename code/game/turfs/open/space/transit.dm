@@ -54,7 +54,7 @@
 		var/turf/oldTurf = get_turf(OldLoc)
 		var/area/shuttle/shuttleArea = get_area(oldTurf)
 		if(istype(shuttleArea))
-			var/shuttleId = shuttleArea.mobile_port.id
+			var/shuttleId = shuttleArea.mobile_port?.id || "null"
 			//Find the shuttle object
 			var/datum/orbital_object/shuttle/shuttleObj = SSorbits.assoc_shuttles[shuttleId]
 			if(shuttleObj)
