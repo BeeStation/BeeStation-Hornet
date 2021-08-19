@@ -664,37 +664,17 @@
 		. = TRUE
 	..()
 
-
 /datum/reagent/consumable/tinlux
 	name = "Tinea Luxor"
 	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
 	color = "#b5a213"
 	taste_description = "tingling mushroom"
-	//Lazy list of mobs affected by the luminosity of this reagent.
-	var/list/mobs_affected
 
-/datum/reagent/consumable/tinlux/reaction_mob(mob/living/M)
-	add_reagent_light(M)
+/datum/reagent/consumable/tinlux/on_mob_metabolize(mob/living/carbon/M)
+	M.set_light(2)
 
-/datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/M)
-	remove_reagent_light(M)
-
-/datum/reagent/consumable/tinlux/proc/on_living_holder_deletion(mob/living/source)
-	SIGNAL_HANDLER
-	remove_reagent_light(source)
-
-/datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
-	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
-	LAZYSET(mobs_affected, living_holder, mob_light_obj)
-	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, .proc/on_living_holder_deletion)
-
-/datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
-	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)
-	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = LAZYACCESS(mobs_affected, living_holder)
-	LAZYREMOVE(mobs_affected, living_holder)
-	if(mob_light_obj)
-		qdel(mob_light_obj)
-
+/datum/reagent/consumable/tinlux/on_mob_end_metabolize(mob/living/carbon/M)
+	M.set_light(0)
 
 /datum/reagent/consumable/vitfro
 	name = "Vitrium Froth"

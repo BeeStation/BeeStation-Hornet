@@ -53,12 +53,6 @@
 	var/list/important_recursive_contents
 
 
-	///Lazylist to keep track on the sources of illumination.
-	var/list/affected_dynamic_lights
-	///Highest-intensity light affecting us, which determines our visibility.
-	var/affecting_dynamic_lumi = 0
-
-
 /atom/movable/Initialize(mapload)
 	. = ..()
 	switch(blocks_emissive)
@@ -71,49 +65,12 @@
 		if(EMISSIVE_BLOCK_UNIQUE)
 			render_target = ref(src)
 			em_block = new(src, render_target)
-			vis_contents += em_block
-	if(opacity)
-		AddElement(/datum/element/light_blocking)
-	switch(light_system)
-		if(MOVABLE_LIGHT)
-			AddComponent(/datum/component/overlay_lighting)
-		if(MOVABLE_LIGHT_DIRECTIONAL)
-			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 
-/atom/movable/Destroy(force)
-	QDEL_NULL(proximity_monitor)
-	QDEL_NULL(language_holder)
 	QDEL_NULL(em_block)
 
-	unbuckle_all_mobs(force = TRUE)
+	if(pulling)
+		stop_pulling()
 
-	if(loc)
-		//Restore air flow if we were blocking it (movables with ATMOS_PASS_PROC will need to do this manually if necessary)
-		if(((CanAtmosPass == ATMOS_PASS_DENSITY && density) || CanAtmosPass == ATMOS_PASS_NO) && isturf(loc))
-			CanAtmosPass = ATMOS_PASS_YES
-			air_update_turf(TRUE)
-		loc.handle_atom_del(src)
-
-	if(opacity)
-		RemoveElement(/datum/element/light_blocking)
-
-	invisibility = INVISIBILITY_ABSTRACT
-
-	if(pulledby)
-		pulledby.stop_pulling()
-
-	if(orbiting)
-		orbiting.end_orbit(src)
-		orbiting = null
-
-	. = ..()
-
-	for(var/movable_content in contents)
-		qdel(movable_content)
-
-	LAZYCLEARLIST(client_mobs_in_contents)
-
-	moveToNullspace()
 
 /atom/movable/proc/update_emissive_block()
 	if(!blocks_emissive)
@@ -125,7 +82,7 @@
 		gen_emissive_blocker.appearance_flags |= appearance_flags
 		return gen_emissive_blocker
 	else if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
-		if(!em_block)
+		if(!em_block && !QDELETED(src))
 			render_target = ref(src)
 			em_block = new(src, render_target)
 		return em_block
@@ -680,7 +637,7 @@
 	else
 		target_zone = thrower.zone_selected
 
-	var/datum/thrownthing/TT = new(src, target, get_turf(target), get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
+	var/datum/thrownthing/TT = new(src, get_turf(target), get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
