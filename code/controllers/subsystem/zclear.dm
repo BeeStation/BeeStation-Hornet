@@ -58,9 +58,9 @@ SUBSYSTEM_DEF(zclear)
 			continue
 		//Dead mobs get sent to new ruins
 		if((L.ckey || L.mind || L.client))
+			var/turf/T = get_turf(L)
 			mob_levels["[T.z]"] = TRUE
 			if(L.stat != DEAD)
-				var/turf/T = get_turf(L)
 				active_levels["[T.z]"] = TRUE
 				living_levels["[T.z]"] = TRUE
 	//Check active nukes
