@@ -111,15 +111,18 @@ export const Canister = (props, context) => {
               mr={1}
               label="Port">
               <Box position="relative">
-                <Icon
-                  size={1.25}
-                  name={portConnected ? 'plug' : 'times'}
-                  color={portConnected ? 'good' : 'bad'} />
                 <Tooltip
                   content={portConnected
                     ? 'Connected'
                     : 'Disconnected'}
-                  position="top" />
+                  position="top">
+                  <Box position="relative">
+                    <Icon
+                      size={1.25}
+                      name={portConnected ? 'plug' : 'times'}
+                      color={portConnected ? 'good' : 'bad'} />
+                  </Box>
+                </Tooltip>
               </Box>
             </LabeledControls.Item>
           </LabeledControls>

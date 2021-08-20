@@ -16,7 +16,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 
 	prepare_huds()
 
-	if(length(CONFIG_GET(keyed_list/cross_server)))
+	if(length(CONFIG_GET(keyed_list/server_hop)))
 		add_verb(/mob/dead/proc/server_hop)
 	set_focus(src)
 	become_hearing_sensitive()
@@ -67,7 +67,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	set desc= "Jump to the other server"
 	if(notransform)
 		return
-	var/list/csa = CONFIG_GET(keyed_list/cross_server)
+	var/list/csa = CONFIG_GET(keyed_list/server_hop)
 	var/pick
 	switch(csa.len)
 		if(0)
