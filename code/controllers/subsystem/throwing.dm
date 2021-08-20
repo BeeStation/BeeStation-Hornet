@@ -182,6 +182,8 @@ SUBSYSTEM_DEF(throwing)
 		var/turf/T = get_turf(thrownthing)
 		if(T && thrownthing.has_gravity(T))
 			T.zFall(thrownthing)
+	var/mob/living/thrown_mob = thrownthing
+	thrown_mob.mobility_flags &= ~MOBILITY_THROWN
 
 	qdel(src)
 
