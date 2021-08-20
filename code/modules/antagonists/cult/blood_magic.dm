@@ -420,12 +420,12 @@
 		user.visible_message("<span class='warning'>[user] floods [L]'s mind with an eldritch energy!</span>", \
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
-		user.mob_light(_range = 3, _color = LIGHT_COLOR_BLOOD_MAGIC, _duration = 0.2 SECONDS)
+		user.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 2)
 
 		var/anti_magic_source = L.anti_magic_check()
 		if(anti_magic_source)
 
-			L.mob_light(_range = 2, _color = LIGHT_COLOR_HOLY_MAGIC, _duration = 10 SECONDS)
+			L.mob_light(_color = LIGHT_COLOR_HOLY_MAGIC, _range = 2, _duration = 100)
 			var/mutable_appearance/forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
 			L.add_overlay(forbearance)
 			addtimer(CALLBACK(L, /atom/proc/cut_overlay, forbearance), 100)
