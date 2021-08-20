@@ -65,10 +65,6 @@
 	. = ..()
 	SSstation.announcer = /datum/centcom_announcer/medbot
 
-/datum/station_trait/announcement_intern/New()
-	. = ..()
-	SSstation.announcer = /datum/centcom_announcer/intern
-
 /datum/station_trait/announcement_baystation
 	name = "Announcer: Archival Tape"
 	trait_type = STATION_TRAIT_NEUTRAL
