@@ -4,19 +4,9 @@ import { pureComponentHooks } from 'common/react';
 import { Component, createRef } from 'inferno';
 import { AnimatedNumber } from './AnimatedNumber';
 
-export class DraggableOrbitalMap extends DraggableControl {
+export class DraggableClickableControl extends DraggableControl {
   constructor(props) {
     super(props);
-
-    if (this.props.onUpdate)
-    {
-      this.crazy_update = setInterval(() => {
-        const {
-          onUpdate,
-        } = this.props;
-        onUpdate();
-      }, 50);
-    }
 
     this.handleDragEnd = e => {
       const {
