@@ -1,4 +1,3 @@
-
 /obj/machinery/atmospherics/components/unary/plasma_refiner
 	name = "plasma refinery"
 	desc = "A refinery that burns plasma sheets into plasma gas."
