@@ -187,6 +187,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/juice_results
 
 
+	/// Used in obj/item/examine to give additional notes on what the weapon does, separate from the predetermined output variables
+	var/offensive_notes
+	/// Used in obj/item/examine to determines whether or not to detail an item's statistics even if it does not meet the force requirements
+	var/override_notes = FALSE
+
 /obj/item/Initialize()
 
 	materials =	typelist("materials", materials)
@@ -225,6 +230,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(LAZYLEN(embedding))
 		updateEmbedding()
 
+	add_weapon_description()
+
 /obj/item/Destroy()
 	item_flags &= ~DROPDEL	//prevent reqdels
 	if(ismob(loc))
@@ -234,6 +241,13 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		qdel(X)
 	QDEL_NULL(rpg_loot)
 	return ..()
+
+/*
+ * Adds the weapon_description element, which shows the warning label for especially dangerous objects.
+ * Made to be overridden by item subtypes that require specific notes outside of the scope of offensive_notes
+ */
+/obj/item/proc/add_weapon_description()
+	AddElement(/datum/element/weapon_description)
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
 	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
