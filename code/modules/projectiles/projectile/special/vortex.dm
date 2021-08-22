@@ -10,5 +10,5 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMOB
 
 /obj/item/projectile/energy/vortex/Range()
-	new /obj/effect/temp_visual/hierophant/blast(get_turf(src), firer, FALSE)
+	new /obj/effect/temp_visual/hierophant/blast/vortex(get_turf(src), firer, FALSE)
 	return ..()
