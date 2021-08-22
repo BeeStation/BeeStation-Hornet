@@ -103,7 +103,7 @@
 			if(source.block_flags & BLOCKING_PROJECTILE)
 				readout += "Through various tests this item has been found to be capable of <span class='warning'>blocking projectiles</span>."
 			if(source.block_flags & BLOCKING_NASTY)
-				readout += "This weapon is capable of <span class='warning'>parrying</span> upon blocking."
+				readout += "This weapon is capable of <span class='warning'>parrying</span> unarmed assailants."
 			if(source.block_flags & BLOCKING_HUNTER)
 				readout += "This item is more suited for guarding attacks from <span class='warning'>non-humanoids</span>."
 	// Custom manual notes
