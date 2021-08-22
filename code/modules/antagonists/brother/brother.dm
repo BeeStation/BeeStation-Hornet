@@ -84,10 +84,12 @@
 	var/choice = input(admin,"Choose the blood brother.", "Brother") as null|anything in sortNames(candidates)
 	if(!choice)
 		return
-	var/datum/mind/bro = candidates[choice]
+	var/datum/mind/bro = choice
 	var/datum/team/brother_team/T = new
 	T.add_member(new_owner)
 	T.add_member(bro)
+	bro.special_role = "brother"
+	new_owner.special_role = "brother"
 	T.pick_meeting_area()
 	T.forge_brother_objectives()
 	new_owner.add_antag_datum(/datum/antagonist/brother,T)
