@@ -255,7 +255,6 @@
 			if(istype(AM, /obj/effect/decal/cleanable))
 				for(var/obj/effect/decal/cleanable/C in A.loc)
 					qdel(C)
-
 		anchored = FALSE
 		target = null
 	mode = BOT_IDLE
