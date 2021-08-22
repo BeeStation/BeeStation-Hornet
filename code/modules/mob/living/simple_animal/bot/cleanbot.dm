@@ -249,16 +249,17 @@
 		..()
 
 /mob/living/simple_animal/bot/cleanbot/proc/clean(atom/A)
-	if(mode == BOT_CLEANING)
-		if(A && isturf(A.loc))
-			var/atom/movable/AM = A
-			if(istype(AM, /obj/effect/decal/cleanable))
-				for(var/obj/effect/decal/cleanable/C in A.loc)
-					qdel(C)
-		anchored = FALSE
-		target = null
 	mode = BOT_IDLE
 	icon_state = "cleanbot[on]"
+	if(!on)
+		return
+	if(A && isturf(A.loc))
+		var/atom/movable/AM = A
+		if(istype(AM, /obj/effect/decal/cleanable))
+			for(var/obj/effect/decal/cleanable/C in A.loc)
+				qdel(C)
+	anchored = FALSE
+	target = null
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
