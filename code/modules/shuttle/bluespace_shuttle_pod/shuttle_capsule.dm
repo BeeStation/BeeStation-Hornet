@@ -1,4 +1,3 @@
-
 /obj/item/survivalcapsule/shuttle
 	name = "bluespace shuttle capsule"
 	desc = "An entire shuttle stored within a pocket of bluespace."
