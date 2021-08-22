@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: The naming component at the pill press(the plumbing machine) is now a
+      button instead of a text input, to prevent you to get a blank named pill(i.e.
+      " pill").
