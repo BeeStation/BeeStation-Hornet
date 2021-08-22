@@ -673,17 +673,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Ip" = (
-/obj/machinery/atmospherics/pipe/simple/purple/visible,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "JG" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 9
@@ -770,6 +759,18 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"NZ" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/power/apc/auto_name/east{
+	locked = 0;
+	pixel_x = 24
+	},
+/obj/structure/cable/yellow,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "Of" = (
@@ -1022,7 +1023,7 @@ df
 df
 um
 qJ
-Ip
+NZ
 vx
 zN
 zN
