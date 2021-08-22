@@ -44,7 +44,7 @@
 	var/_z = 2
 
 	var/should_make_level = ismob(AM)
-	if(isobj(AM))
+	if(!should_make_level && isobj(AM))
 		var/obj/O = AM
 		if(O.resistance_flags & INDESTRUCTIBLE)
 			should_make_level = TRUE
