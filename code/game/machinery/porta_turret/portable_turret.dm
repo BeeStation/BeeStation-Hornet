@@ -505,7 +505,6 @@
 	if((stun_all || attacked) && !allowed(perp))
 		if(!allowed(perp))
 			return 10
-
 	//Check for judgement
 	var/judgement = NONE
 	if(obj_flags & EMAGGED)
