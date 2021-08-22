@@ -14,6 +14,10 @@
 	if(!linked_techweb)
 		linked_techweb = SSresearch.science_tech
 
+/obj/item/discovery_scanner/Destroy()
+	linked_techweb = null	//Note: Shouldn't hard del anyway since techwebs don't get deleted, however if they do then troubles will arise and this will need to be changed.
+	. = ..()
+
 /obj/item/discovery_scanner/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Left-Click on any mob or researchable specimin to scan and gain discovery research points.</span>"
