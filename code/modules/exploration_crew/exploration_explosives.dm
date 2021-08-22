@@ -10,7 +10,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/atom/target = null
 	var/mutable_appearance/plastic_overlay
-	var/boom_sizes = list(0, 0, 3)
+	var/light_range = 3
+	var/heavy_range = 0
+	var/devastation_range = 0
 	var/list/attached_detonators = list()
 
 /obj/item/grenade/exploration/Initialize()
@@ -82,7 +84,7 @@
 	else
 		location = get_turf(src)
 	if(location)
-		explosion(location, boom_sizes[1], boom_sizes[2], boom_sizes[3])
+		explosion(location, devastation_range, heavy_range, light_range)
 	if(ismob(target))
 		var/mob/M = target
 		M.gib()
