@@ -2,24 +2,27 @@
 	name = "bluespace shuttle capsule"
 	desc = "An entire shuttle stored within a pocket of bluespace."
 	var/datum/map_template/shuttle/shuttle_template
-	var/list/blacklisted_turfs
-	var/list/whitelisted_turfs
-	var/list/whitelisted_areas
+	//Static
+	//Subtypes that change this will have to redefine these.
+	var/static/list/blacklisted_turfs
+	var/static/list/whitelisted_turfs
+	var/static/list/whitelisted_areas
 
 /obj/item/survivalcapsule/shuttle/Initialize()
 	. = ..()
-	whitelisted_areas = typecacheof(list(
-		/area/space,
-		/area/lavaland
-	))
-	whitelisted_turfs = typecacheof(list(
-		/turf/open/space,
-		/turf/open/floor/plating/asteroid/basalt/lava_land_surface
-	))
-	blacklisted_turfs = typecacheof(list(
-		/turf/open/space/bluespace,
-		/turf/open/space/transit
-	))
+	if(!blacklisted_turfs)
+		whitelisted_areas = typecacheof(list(
+			/area/space,
+			/area/lavaland
+		))
+		whitelisted_turfs = typecacheof(list(
+			/turf/open/space,
+			/turf/open/floor/plating/asteroid/basalt/lava_land_surface
+		))
+		blacklisted_turfs = typecacheof(list(
+			/turf/open/space/bluespace,
+			/turf/open/space/transit
+		))
 
 /obj/item/survivalcapsule/shuttle/get_template()
 	if(shuttle_template)
