@@ -52,20 +52,20 @@
  *
  */
 /obj/item/ammo_casing/proc/add_notes_ammo()
-	// Make sure there is actually something IN the casing
-	if(loaded_projectile)
-		var/list/readout = list("")
-		// No dividing by 0
-		if(loaded_projectile.damage > 0)
-			readout += "Most monkeys our legal team subjected to these rounds succumbed to their wounds after <span class='warning'>[round(100 / (loaded_projectile.damage * pellets), 0.1)]</span> discharge\s at point-blank, taking <span class='warning'>[pellets]</span> shot\s per round"
-		if(loaded_projectile.stamina > 0)
-			readout += "[loaded_projectile.damage == 0 ? "Most Monkeys" : "More Fortunate Monkeys" ] collapsed from exhaustion after <span class='warning'>[round(100 / ((loaded_projectile.damage + loaded_projectile.stamina) * pellets), 0.1)]</span> of these rounds"
-		if(loaded_projectile.damage == 0 && loaded_projectile.stamina == 0)
-			return "Our legal team has determined the offensive nature of these rounds to be esoteric"
-		return readout.Join("\n") // Sending over a single string, rather than the whole list
-	else
-		// Labels don't do well with extreme forces
-		return "The warning label was blown away..."
+	// Try to get a projectile to derive stats from
+	var/obj/item/projectile/exam_proj = GLOB.proj_by_path_key[projectile_type]
+	if(!istype(exam_proj) || pellets == 0)
+		return
+
+	var/list/readout = list()
+	// No dividing by 0
+	if(exam_proj.damage > 0)
+		readout += "Most monkeys our legal team subjected to these <span class='warning'>[caliber] rounds</span> succumbed to their wounds after <span class='warning'>[HITS_TO_CRIT(exam_proj.damage * pellets)]</span> shot\s at point-blank, taking <span class='warning'>[pellets] shot\s</span> per round"
+	if(exam_proj.stamina > 0)
+		readout += "[!readout.len ? "Most monkeys" : "More fortunate monkeys"] collapsed from exhaustion after <span class='warning'>[HITS_TO_CRIT(exam_proj.stamina * pellets)]</span> impact\s of these <span class='warning'>[caliber]</span> rounds"
+	if(!readout.len) // Everything else failed, give generic text
+		return "Our legal team has determined the offensive nature of these <span class='warning'>[caliber] rounds</span> to be esoteric"
+	return readout.Join("\n") // Sending over a single string, rather than the whole list
 
 /obj/item/ammo_casing/update_icon()
 	..()

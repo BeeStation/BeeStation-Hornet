@@ -38,3 +38,5 @@ GLOBAL_LIST_EMPTY(topic_tokens)
 GLOBAL_PROTECT(topic_tokens)
 GLOBAL_LIST_EMPTY(topic_servers)
 GLOBAL_PROTECT(topic_servers)
+
+GLOBAL_LIST_EMPTY_TYPED(proj_by_path_key, /obj/item/projectile) // A list of projectile objects, which are keyed by their path

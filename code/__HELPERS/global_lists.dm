@@ -68,6 +68,8 @@
 
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 
+	init_subtypes_w_path_keys(/obj/item/projectile, GLOB.proj_by_path_key)
+
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.
 /proc/init_subtypes(prototype, list/L)
@@ -85,3 +87,11 @@
 		for(var/path in subtypesof(prototype))
 			L+= path
 		return L
+
+/// Functions like init_subtypes, but uses the subtype's path as a key for easy access
+/proc/init_subtypes_w_path_keys(prototype, list/L)
+	if(!istype(L))
+		L = list()
+	for(var/path as anything in subtypesof(prototype))
+		L[path] = new path()
+	return L

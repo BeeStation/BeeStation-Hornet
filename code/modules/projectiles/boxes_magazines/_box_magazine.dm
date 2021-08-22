@@ -13,6 +13,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
+	override_notes = TRUE
 	var/list/stored_ammo = list()
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
@@ -37,6 +38,23 @@
 		for(var/i = 1, i <= max_ammo, i++)
 			stored_ammo += new ammo_type(src)
 	update_icon()
+
+/obj/item/ammo_box/add_weapon_description()
+	AddElement(/datum/element/weapon_description, attached_proc = .proc/add_notes_box)
+
+/obj/item/ammo_box/proc/add_notes_box()
+	var/list/readout = list()
+
+	if(caliber && max_ammo) // Text references a 'magazine' as only magazines generally have the caliber variable initialized
+		readout += "Up to <span class='warning'>[max_ammo] [caliber] rounds</span> can be found within this magazine. \
+		\nAccidentally discharging any of these projectiles may void your insurance contract."
+
+	var/obj/item/ammo_casing/mag_ammo = get_round(TRUE)
+
+	if(istype(mag_ammo))
+		readout += "\n[mag_ammo.add_notes_ammo()]"
+
+	return readout.Join("\n")
 
 /obj/item/ammo_box/proc/get_round(keep = FALSE)
 	if (!stored_ammo.len)

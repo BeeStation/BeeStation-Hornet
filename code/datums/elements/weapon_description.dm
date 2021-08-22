@@ -1,6 +1,7 @@
+#define HITS_TO_CRIT(damage) round(100 / damage, 0.1)
 /**
  *
- * The purpose of this element is to widely provide the ability to examine an object and determine its damage, with the ability to add
+ * The purpose of this element is to widely provide the ability to examine an object and determine its stats, with the ability to add
  * additional notes or information based on type or other factors
  *
  */
@@ -42,7 +43,7 @@
 /datum/element/weapon_description/proc/warning_label(obj/item/item, mob/user, list/examine_texts)
 	SIGNAL_HANDLER
 
-	if(item.force >= 5 || item.throwforce >= 5 || item.override_notes || item.offensive_notes) /// Only show this tag for items that could feasibly be weapons, shields, or those that have special notes
+	if(item.force >= 5 || item.throwforce >= 5 || item.override_notes || item.offensive_notes || attached_proc) /// Only show this tag for items that could feasibly be weapons, shields, or those that have special notes
 		examine_texts += "<span class='notice'>It appears to have an ever-updating bluespace <a href='?src=[REF(item)];examine=1'>warning label.</a></span>"
 
 /**
@@ -82,16 +83,29 @@
 	if(!source.override_notes)
 		// Make sure not to divide by 0 on accident
 		if(source.force > 0)
-			readout += "Our extensive research has shown that it takes a mere <span class='warning'>[round((100 / source.force), 0.1)]</span> hit\s to beat down [victims[rand(1, victims.len)]] with no armor."
+			readout += "Our extensive research has shown that it takes a mere <span class='warning'>[HITS_TO_CRIT(source.force)]</span> hit\s to beat down [victims[rand(1, victims.len)]] with no armor."
 		else
 			readout += "Our extensive research found that you couldn't beat anyone to death with this if you tried."
 
 		if(source.throwforce > 0)
-			readout += "If you decide to throw this object instead, one will take <span class='warning'>[round((100 / source.throwforce), 0.1)]</span> hit\s before collapsing."
+			readout += "If you decide to throw this object instead, one will take <span class='warning'>[HITS_TO_CRIT(source.throwforce)]</span> hit\s before collapsing."
 		else
 			readout += "If you decide to throw this object instead, then you will have trouble damaging anything."
-		if(source.armour_penetration > 0 || source.block_chance > 0)
-			readout += "This item has proven itself <span class='warning'>[weapon_tag_convert(source.armour_penetration)]</span> of piercing armor and <span class='warning'>[weapon_tag_convert(source.block_chance)]</span> of blocking attacks."
+		if(source.armour_penetration > 0)
+			readout += "This item has proven itself <span class='warning'>[weapon_tag_convert(source.armour_penetration)]</span> of piercing armor."
+		if(source.block_level > 0)
+			readout += "It also shows to have a blocking arc of <span class='warning'>[source.block_level]</span>."
+		if(source.block_upgrade_walk > 0)
+			readout += "It has a blocking arc of <span class='warning'>[source.block_level + source.block_upgrade_walk]</span> while the user is walking."
+		if(source.block_level + source.block_upgrade_walk > 0 && source.block_power)
+			readout += "Blocking is <span class='warning'>[source.block_power]% [source.block_power > 0 ? "less" : "more"]</span> tiring."
+		if(source.block_flags)
+			if(source.block_flags & BLOCKING_PROJECTILE)
+				readout += "Through various tests this item has been found to be capable of <span class='warning'>blocking projectiles</span>."
+			if(source.block_flags & BLOCKING_NASTY)
+				readout += "This weapon is capable of <span class='warning'>parrying</span> upon blocking."
+			if(source.block_flags & BLOCKING_HUNTER)
+				readout += "This item is more suited for guarding attacks from <span class='warning'>non-humanoids</span>."
 	// Custom manual notes
 	if(source.offensive_notes)
 		readout += source.offensive_notes
