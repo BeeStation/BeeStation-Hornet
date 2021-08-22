@@ -516,7 +516,7 @@
 	. = perp.assess_threat(judgement, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 	if(shoot_unloyal)
 		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) || istype(perp.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
-			threatcount += 4
+			. += 4
 
 /obj/machinery/porta_turret/proc/check_for_weapons(var/obj/item/slot_item)
 	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
