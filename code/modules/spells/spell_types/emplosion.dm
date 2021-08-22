@@ -13,5 +13,5 @@
 	for(var/mob/living/target in targets)
 		if(target.anti_magic_check() && target != user)
 			continue
-		empulse(target.loc, emp_heavy, emp_light)
+		empulse(target.loc, emp_heavy, emp_light, magic=TRUE)
 	return
