@@ -1,9 +1,11 @@
-/proc/priority_announce(text, title = "", sound, type, sender_override, has_important_message, auth_id)
+#define DEFAULT_ALERT "alert_sound"
+
+/proc/priority_announce(text, title = "", sound = DEFAULT_ALERT, type, sender_override, has_important_message, auth_id)
 	if(!text)
 		return
 
 	var/announcement = "<meta charset='UTF-8'>"
-	if(!sound)
+	if(sound == DEFAULT_ALERT)
 		sound = SSstation.announcer.get_rand_alert_sound()
 
 	if(sound && SSstation.announcer.event_sounds[sound])
@@ -61,8 +63,6 @@
 		if(isobserver(M))
 			to_chat(M, announcement)
 
-	print_command_report(text, "Exploration Update")
-
 /proc/print_command_report(text = "", title = null, announce=TRUE)
 	if(!title)
 		title = "Classified [command_name()] Update"
@@ -94,3 +94,5 @@
 					SEND_SOUND(M, sound('sound/misc/notice1.ogg'))
 				else
 					SEND_SOUND(M, sound('sound/misc/notice2.ogg'))
+
+#undef DEFAULT_ALERT
