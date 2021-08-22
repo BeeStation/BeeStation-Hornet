@@ -97,15 +97,16 @@
 			readout += "It also shows to have a blocking arc of <span class='warning'>[source.block_level]</span>."
 		if(source.block_upgrade_walk > 0)
 			readout += "It has a blocking arc of <span class='warning'>[source.block_level + source.block_upgrade_walk]</span> while the user is walking."
-		if(source.block_level + source.block_upgrade_walk > 0 && source.block_power)
-			readout += "Blocking is <span class='warning'>[source.block_power]% [source.block_power > 0 ? "less" : "more"]</span> tiring."
-		if(source.block_flags)
-			if(source.block_flags & BLOCKING_PROJECTILE)
-				readout += "Through various tests this item has been found to be capable of <span class='warning'>blocking projectiles</span>."
-			if(source.block_flags & BLOCKING_NASTY)
-				readout += "This weapon is capable of <span class='warning'>parrying</span> unarmed assailants."
-			if(source.block_flags & BLOCKING_HUNTER)
-				readout += "This item is more suited for guarding attacks from <span class='warning'>non-humanoids</span>."
+		if(source.block_level + source.block_upgrade_walk > 0)
+			if(source.block_power)
+				readout += "Blocking is <span class='warning'>[source.block_power]% [source.block_power > 0 ? "less" : "more"]</span> tiring."
+			if(source.block_flags)
+				if(source.block_flags & BLOCKING_PROJECTILE)
+					readout += "Through various tests this item has been found to be capable of <span class='warning'>blocking projectiles</span>."
+				if(source.block_flags & BLOCKING_NASTY)
+					readout += "This weapon is capable of <span class='warning'>parrying</span> unarmed assailants."
+				if(source.block_flags & BLOCKING_HUNTER)
+					readout += "This item is more suited for guarding attacks from <span class='warning'>non-humanoids</span>."
 	// Custom manual notes
 	if(source.offensive_notes)
 		readout += source.offensive_notes
