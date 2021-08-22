@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/atom/target = null
 	var/mutable_appearance/plastic_overlay
-	var/light_range = 3
+	var/light_exp_range = 3
 	var/heavy_range = 0
 	var/devastation_range = 0
 	var/list/attached_detonators = list()
@@ -84,7 +84,7 @@
 	else
 		location = get_turf(src)
 	if(location)
-		explosion(location, devastation_range, heavy_range, light_range)
+		explosion(location, devastation_range, heavy_range, light_exp_range)
 	if(ismob(target))
 		var/mob/M = target
 		M.gib()
