@@ -1,14 +1,13 @@
 /obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod
 	//Uses a standard custom shuttle circuit.
 	circuit = /obj/item/circuitboard/computer/shuttle/flight_control
-	var/obj/docking_port/mobile/port = null
 	var/shuttle_named = FALSE
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	var/static/pod_shuttles = 0
 	var/area/area_instance = get_area(src)
-	port = locate(/obj/docking_port/mobile) in area_instance
+	var/obj/docking_port/mobile/port = locate(/obj/docking_port/mobile) in area_instance
 	pod_shuttles ++
 	port.id = "podshuttle_[pod_shuttles]"
 	shuttleId = "podshuttle_[pod_shuttles]"
@@ -18,9 +17,12 @@
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod/ui_interact(mob/user, datum/tgui/ui)
 	if(!shuttle_named)
-		port.name = stripped_input(user, "Shuttle Name:", "Blueprint Editing", "", MAX_NAME_LEN)
-		if(!port.name)
-			port.name = "Unnamed shuttle"
+		var/area/area_instance = get_area(src)
+		var/obj/docking_port/mobile/port = locate(/obj/docking_port/mobile) in area_instance
+		if(port)
+			port.name = stripped_input(user, "Shuttle Name:", "Blueprint Editing", "", MAX_NAME_LEN)
+			if(!port.name)
+				port.name = "Unnamed shuttle"
 		shuttle_named = TRUE
 	. = ..()
 
