@@ -253,6 +253,9 @@
 		for(var/atom/movable/AM in T)
 			thrownatoms += AM
 
+	stun_amt += 10 * spell_level
+	maxthrow = 5 + spell_level
+
 	for(var/am in thrownatoms)
 		var/atom/movable/AM = am
 		if(AM == user || AM.anchored)
