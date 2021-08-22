@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/clothing/shoes/wheelys = 2,
 		/obj/item/clothing/shoes/kindleKicks = 2,
 		/obj/item/toy/plush/moth = 2,
+		/obj/item/toy/plush/rouny = 2,
 		/obj/item/storage/box/heretic_asshole = 1,
 		/obj/item/toy/eldrich_book = 1,
 		/obj/item/storage/belt/military/snack = 2,
