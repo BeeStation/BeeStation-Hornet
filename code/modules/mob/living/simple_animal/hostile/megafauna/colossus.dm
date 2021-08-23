@@ -253,7 +253,7 @@ Difficulty: Very Hard
 	pass_flags = PASSTABLE
 	var/explode_hit_objects = TRUE
 
-/obj/projectile/colossus/can_hit_target(atom/target, direct_target = FALSE, ignore_loc = FALSE, cross_failed = FALSE)
+/obj/item/projectile/colossus/can_hit_target(atom/target, direct_target = FALSE, ignore_loc = FALSE, cross_failed = FALSE)
 	if(isliving(target))
 		direct_target = TRUE
 	return ..(target, direct_target, ignore_loc, cross_failed)
