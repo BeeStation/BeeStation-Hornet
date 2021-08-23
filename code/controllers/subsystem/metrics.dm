@@ -41,6 +41,10 @@ SUBSYSTEM_DEF(metrics)
 	out["client_count"] = length(GLOB.clients)
 	out["round_id"] = text2num(GLOB.round_id) // This is so we can filter the metrics by a single round ID
 
+	var/server_name = CONFIG_GET(string/serversqlname)
+	if(server_name)
+		out["server_name"] = server_name
+
 	// Funnel in all SS metrics
 	var/list/ss_data = list()
 	for(var/datum/controller/subsystem/SS in Master.subsystems)
@@ -54,6 +58,6 @@ SUBSYSTEM_DEF(metrics)
 
 // Uncomment this if you add new metrics to verify how the JSON formats
 
-/client/verb/debugmetricts()
+/client/verb/debug_metrics()
 	usr << browse(SSmetrics.get_metrics_json(), "window=aadebug")
 */

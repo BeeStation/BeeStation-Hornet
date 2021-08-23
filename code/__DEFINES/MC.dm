@@ -68,6 +68,7 @@
 /datum/controller/subsystem/##X/New(){\
     NEW_SS_GLOBAL(SS##X);\
     PreInit();\
+	ss_id=#X;\
 }\
 /datum/controller/subsystem/##X
 
@@ -75,7 +76,7 @@
 /datum/controller/subsystem/timer/##X/New(){\
 	NEW_SS_GLOBAL(SS##X);\
 	PreInit();\
-	ss_id=#X;\
+	ss_id="timer_[#X]";\
 }\
 /datum/controller/subsystem/timer/##X
 

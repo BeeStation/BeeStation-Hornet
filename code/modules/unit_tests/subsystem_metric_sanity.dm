@@ -1,6 +1,9 @@
 // Unit test to ensure SS metrics are valid
 /datum/unit_test/subsystem_metric_sanity/Run()
 	for(var/datum/controller/subsystem/SS in Master.subsystems)
+		if(SS.ss_id == initial(SS.ss_id)) // initial() works here because ss_id is set at runtime during /New()
+			Fail("[SS.type] has no SS ID, somehow!")
+			continue
 		var/list/data = SS.get_metrics()
 		if(length(data) != 3)
 			Fail("SS[SS.ss_id] has invalid metrics data!")
