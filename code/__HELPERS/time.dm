@@ -94,3 +94,8 @@ GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
 	if(hour)
 		hourT = " and [hour] hour[(hour != 1)? "s":""]"
 	return "[day] day[(day != 1)? "s":""][hourT][minuteT][secondT]"
+
+
+/// Returns the time in an ISO-8601 friendly format. Used when dumping data into external services such as ElasticSearch
+/proc/iso_timestamp(timevar)
+    return time2text(timevar || world.timeofday, "YYYY-MM-DDThh:mm:ss")
