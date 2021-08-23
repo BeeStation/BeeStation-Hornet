@@ -211,6 +211,28 @@ const TechFabHeader = (props, context) => {
   );
 };
 
+const ConditionalTooltip = (props, context) => {
+  const {
+    condition,
+    children,
+    ...rest
+  } = props;
+
+  if (!condition || true) // TOOLTIPS DISABLED DUE TO PERFORMANCE LIMITATIONS
+  // Turns out, tooltips just don't run well right now in the amounts you'd get
+  // in protolathes/circuit imprinters
+  // See https://github.com/tgstation/tgstation/pull/60995
+  {
+    return children;
+  }
+  
+  return (
+    <Tooltip {...rest}>
+      {children}
+    </Tooltip>
+  );
+};
+
 const Recipe = (props, context) => {
   const { act, data } = useBackend(context);
   const {
@@ -268,22 +290,24 @@ const Recipe = (props, context) => {
   return (
     <Flex.Item className="candystripe">
       <Flex align="center">
-        <Flex.Item position="relative" width="100%">
-          {
-            recipe.description !== "Desc" && <Tooltip content={recipe.description} position="bottom" />
-          }
-          <Box>
-            {recipe.name}
-          </Box>
-          <Box color="lightgray">
-            {
-              reagent_objects
-                .reduce(reducefn, material_objects
-                  .reduce(reducefn, []))
-                .slice(1)
-            }
-          </Box>
-        </Flex.Item>
+        <ConditionalTooltip
+          condition={recipe.description && recipe.description !== "Desc"}
+          content={recipe.description}
+          position="bottom-end">
+          <Flex.Item position="relative" width="100%">
+            <Box>
+              {recipe.name}
+            </Box>
+            <Box color="lightgray">
+              {
+                reagent_objects
+                  .reduce(reducefn, material_objects
+                    .reduce(reducefn, []))
+                  .slice(1)
+              }
+            </Box>
+          </Flex.Item>
+        </ConditionalTooltip>
         <Flex.Item grow>
           <Flex className="TechFab__ButtonsContainer">
             {
