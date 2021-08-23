@@ -1,0 +1,4 @@
+author: AffectedArc07
+delete-after: true
+changes:
+  - server: Added SSmetrics. This has config changes.
