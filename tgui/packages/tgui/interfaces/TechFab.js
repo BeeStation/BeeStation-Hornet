@@ -42,6 +42,9 @@ const TechFabTopBar = (props, context) => {
               align="right"
               value={search}
               onInput={(e, value) => {
+                value.trim().length>2 && setSearch(value);
+              }}
+              onChange={(e, value) => {
                 setSearch(value);
               }} />
           </Flex.Item>
