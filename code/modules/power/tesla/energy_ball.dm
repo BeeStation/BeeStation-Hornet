@@ -254,7 +254,7 @@
 				closest_atom = A
 				closest_dist = dist
 
-		else if(closest_mob)
+		else if(closest_machine)
 			continue
 
 		else if(istype(A, /obj/structure/blob))
