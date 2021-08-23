@@ -21,16 +21,12 @@ export class TguiSay extends Component<{}, State> {
     value: '',
   };
   timers: Modal['timers'] = timers;
-
-  constructor() {
-    super();
-    this.state = {
-      buttonContent: '',
-      channel: -1,
-      edited: false,
-      size: WINDOW_SIZES.small,
-    };
-  }
+  state: State = {
+    buttonContent: '',
+    channel: -1,
+    edited: false,
+    size: WINDOW_SIZES.small,
+  };
 
   componentDidMount() {
     this.events.onComponentMount();
@@ -43,7 +39,8 @@ export class TguiSay extends Component<{}, State> {
   }
 
   render() {
-    const { onClick, onContextMenu, onEnter, onEscape, onKeyDown, onInput } = this.events;
+    const { onClick, onContextMenu, onEnter, onEscape, onKeyDown, onInput } =
+      this.events;
     const { innerRef, lightMode, maxLength, radioPrefix, value } = this.fields;
     const { buttonContent, channel, edited, size } = this.state;
     const theme = getTheme(lightMode, radioPrefix, channel);
