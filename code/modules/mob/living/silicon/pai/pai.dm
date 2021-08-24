@@ -300,7 +300,7 @@
 			pai.radio.attackby(W, user, params)
 	else if(istype(W, /obj/item/encryptionkey))
 		to_chat(user, "Encryption Key ports not configured.")
-	if(istype(W, /obj/item/card/id))
+	else if(istype(W, /obj/item/card/id))
 		var/obj/item/card/id/idcard = W
 		if(!pai?.aiPDA.owner) //just in case no name has been set for the PDA
 			pai?.aiPDA.owner = pai.real_name
