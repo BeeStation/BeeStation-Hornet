@@ -154,7 +154,7 @@
 	requires_power = TRUE
 
 /area/shuttle/exploration
-	name = "exploration Shuttle"
+	name = "Exploration Shuttle"
 	requires_power = TRUE
 
 /area/shuttle/labor
