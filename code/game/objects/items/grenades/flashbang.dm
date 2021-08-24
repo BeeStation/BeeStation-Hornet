@@ -30,10 +30,12 @@
 	var/distance_proportion = max(1 - (distance / flashbang_range), 0)
 
 //Flash
-	if(M.flash_act(intensity = 2, affect_silicon = 1))
+	if(M.flash_act(intensity = 1, affect_silicon = 1))
 		if(distance_proportion)
-			M.Paralyze(max(20 * distance_proportion, 5))
-			M.Knockdown(max(200 * distance_proportion, 60))
+			M.Paralyze(20 * distance_proportion)
+			M.Knockdown(200 * distance_proportion)
+	else
+		M.flash_act(intensity = 2)
 //Bang
 	if(!distance || loc == M || loc == M.loc)	//Stop allahu akbarring rooms with this.
 		M.Paralyze(20)
@@ -44,7 +46,7 @@
 			M.Paralyze(5)
 			M.Knockdown(30)
 		if(distance_proportion)
-			M.soundbang_act(1, max(200 * distance_proportion, 60), rand(0, 5))
+			M.soundbang_act(1, 200 * distance_proportion, rand(0, 5))
 
 /obj/item/grenade/stingbang
 	name = "stingbang"
