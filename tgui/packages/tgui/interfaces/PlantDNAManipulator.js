@@ -241,6 +241,25 @@ const PlantDNAManipulatorContent = (props, context) => {
   );
 };
 
+const ConditionalTooltip = (props, context) => {
+  const {
+    condition,
+    children,
+    ...rest
+  } = props;
+
+  if (!condition)
+  {
+    return children;
+  }
+
+  return (
+    <Tooltip {...rest}>
+      {children}
+    </Tooltip>
+  );
+};
+
 const PlantDNAManipulatorGene = (props, context) => {
   const { act, data } = useBackend(context);
   const {
@@ -256,16 +275,19 @@ const PlantDNAManipulatorGene = (props, context) => {
 
   const act_data = { gene_id: gene?.id };
 
+  const tooltip_text = gene.type === "core" && stat_tooltips[gene.stat.toLowerCase()];
+
   return (
     <Table.Row className="candystripe">
       <Table.Cell collapsing width="50%" position="relative">
-        {
-          gene.type === "core" && stat_tooltips[gene.stat.toLowerCase()]
-          && <Tooltip
-            content={stat_tooltips[gene.stat.toLowerCase()]}
-            position="bottom-right" />
-        }
-        {gene.name}
+        <ConditionalTooltip
+          condition={!!tooltip_text}
+          content={tooltip_text}
+          position="bottom-end">
+          <Box>
+            {gene.name}
+          </Box>
+        </ConditionalTooltip>
       </Table.Cell>
       <Table.Cell />
       <Table.Cell collapsing py={0.1}>
