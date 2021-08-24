@@ -15,6 +15,7 @@
 	//With pAIs becoming more and more useful, bigger drawbacks are needed to make them easier to counter
 	switch(severity)
 		if(1) //death
+			fold_in(force = 1)
 			qdel(src)
 		if(2)
 			master = null
