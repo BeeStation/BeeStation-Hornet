@@ -182,10 +182,18 @@
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
 			if(!grow_as)
-				if(prob(3))
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
-				else
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
+				switch(rand(1,20))
+					if(1)
+						grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse			//5%
+					if(2 to 8)
+						grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/				//35%
+					if(9 to 12)
+						grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/tarantula		//20%
+					if(13 to 16)
+						grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter			//20%
+					if(17 to 20)
+						grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper	//20%
+
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
 			S.faction = faction.Copy()
 			S.directive = directive

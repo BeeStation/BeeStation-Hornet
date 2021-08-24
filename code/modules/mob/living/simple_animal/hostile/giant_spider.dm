@@ -40,7 +40,6 @@
 	faction = list("spiders")
 	var/busy = SPIDER_IDLE
 	pass_flags = PASSTABLE
-	move_to_delay = 6
 	speed = 1
 	ventcrawler = VENTCRAWLER_ALWAYS
 	attacktext = "bites"
@@ -130,7 +129,6 @@
 	melee_damage = 5
 	obj_damage = 20
 	poison_per_bite = 6
-	move_to_delay = 5
 	speed = 0
 
 //vipers move quickly, do more damage and inject heparin instead of normal venom, but have even less health than normal huntsman spiders
@@ -144,7 +142,6 @@
 	health = 45
 	melee_damage = 10
 	poison_per_bite = 4
-	move_to_delay = 4
 	poison_type = /datum/reagent/toxin/heparin
 	speed = -1
 	gold_core_spawnable = NO_SPAWN
@@ -161,7 +158,6 @@
 	melee_damage = 20
 	obj_damage = 80
 	poison_per_bite = 0
-	move_to_delay = 8
 	speed = 2
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE

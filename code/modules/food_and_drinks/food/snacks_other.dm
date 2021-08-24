@@ -195,7 +195,7 @@
 	name = "spiderling"
 	desc = "It's slightly twitching in your hand. Ew..."
 	icon_state = "spiderling"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/toxin = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/toxin/spidervenom = 4)
 	filling_color = "#00800"
 	tastes = list("cobwebs" = 1, "guts" = 2)
 	foodtype = MEAT | TOXIC
@@ -204,7 +204,7 @@
 	name = "spider lollipop"
 	desc = "Still gross, but at least it has a mountain of sugar on it."
 	icon_state = "spiderlollipop"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/toxin = 1, /datum/reagent/iron = 10, /datum/reagent/consumable/sugar = 5, /datum/reagent/medicine/omnizine = 2) //lollipop, but vitamins = toxins
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/toxin/spidervenom = 1, /datum/reagent/iron = 10, /datum/reagent/consumable/sugar = 5, /datum/reagent/medicine/omnizine = 2) //lollipop, but vitamins = toxins
 	filling_color = "#00800"
 	tastes = list("cobwebs" = 1, "sugar" = 2)
 	foodtype = JUNKFOOD | SUGAR
@@ -656,4 +656,4 @@
 	list_reagents = list(/datum/reagent/consumable/beefbroth = 50)
 	filling_color = "#100800"
 	tastes = list("disgust" = 7, "tin" = 1)
-	foodtype = MEAT | GROSS | JUNKFOOD 
+	foodtype = MEAT | GROSS | JUNKFOOD
