@@ -367,7 +367,7 @@
 				"Deputy", "Psychiatrist", "Barber", "Stage Magician")
 
 /proc/get_all_job_icons() //For all existing HUD icons
-	return get_all_jobs() + list("Prisoner", "King", "VIP", "Debtor", "Exploration Crew")
+	return get_all_jobs() + list("Prisoner", "King", "VIP", "Debtor")
 
 /proc/get_all_centcom_jobs()
 	return list("VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Death Commando","Research Officer","Special Ops Officer","Admiral","CentCom Commander","Emergency Response Team Commander","Security Response Officer","Engineer Response Officer", "Medical Response Officer","CentCom Bartender","Comedy Response Officer", "HONK Squad Trooper")
