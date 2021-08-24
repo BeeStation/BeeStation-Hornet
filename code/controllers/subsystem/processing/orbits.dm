@@ -41,6 +41,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/list/datum/tgui/open_orbital_maps = list()
 
+	//Ruin level count
+	var/ruin_levels = 0
+
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
 	setup_event_list()
@@ -80,6 +83,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	if(next_objective_time < world.time && length(possible_objectives) < 6)
 		create_objective()
 		next_objective_time = world.time + rand(30 SECONDS, 5 MINUTES)
+	//Check space ruin count
+	if(ruin_levels < 2 && prob(5))
+		new /datum/orbital_object/z_linked/beacon/ruin/spaceruin()
 	//Check objective
 	if(current_objective)
 		if(current_objective.check_failed())

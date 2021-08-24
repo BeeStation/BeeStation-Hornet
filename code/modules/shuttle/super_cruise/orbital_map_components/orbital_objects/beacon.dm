@@ -52,6 +52,14 @@
 /datum/orbital_object/z_linked/beacon/ruin/spaceruin
 	name = "Unknown Signal"
 
+/datum/orbital_object/z_linked/beacon/ruin/spaceruin/New()
+	. = ..()
+	SSorbits.ruin_levels ++
+
+/datum/orbital_object/z_linked/beacon/ruin/spaceruin/Destroy(force, ...)
+	. = ..()
+	SSorbits.ruin_levels --
+
 /datum/orbital_object/z_linked/beacon/ruin/spaceruin/assign_z_level()
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
