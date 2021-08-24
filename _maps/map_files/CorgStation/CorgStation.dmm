@@ -12945,6 +12945,12 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/quartermaster/office)
+"dki" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/surgery)
 "dkn" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -18304,13 +18310,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"evE" = (
-/obj/machinery/advanced_airlock_controller/directional/west,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
-/area/hallway/secondary/law)
 "evG" = (
 /obj/machinery/light_switch{
 	pixel_x = 1;
@@ -44172,6 +44171,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"kGu" = (
+/obj/structure/chair,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel/dark,
+/area/medical/surgery)
 "kGw" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -204713,7 +204719,7 @@ iGu
 tIW
 tIW
 qnh
-qnh
+nMU
 tIW
 grR
 tLi
@@ -204969,8 +204975,8 @@ qhi
 yas
 qAq
 xbo
-nMU
-lwg
+dki
+kGu
 tIW
 iTT
 ayi
@@ -206466,7 +206472,7 @@ fQK
 bfM
 fQK
 fQK
-evE
+fQK
 pqr
 dpm
 aYN
