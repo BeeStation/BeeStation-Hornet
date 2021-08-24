@@ -447,6 +447,23 @@
 	else
 		..()
 
+/datum/reagent/toxin/spidervenom
+	name = "Spider Venom"
+	description = "Venom extracted from alien spiders with paralytic properties"
+	color = "#00a080"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	toxpwr = 0.2								//Venom is weak to start so a single bite isn't an eventual death sentence without treatment
+
+/datum/reagent/toxin/spidervenom/on_mob_life(mob/living/carbon/M)
+	if(M.getStaminaLoss() <= 70)				//Should not stamcrit under most conditions, but will greatly slow down given some time.
+		M.adjustStaminaLoss(volume/2*REM, 0)
+	if(prob(current_cycle + volume/2)) 			//The longer it is in your system and the more of it you have the more frequently you drop
+		M.Paralyze(60, 0)
+		toxpwr += 0.1							//The venom gets stronger until completely purged.
+	if(holder.has_reagent(/datum/reagent/medicine/calomel) || holder.has_reagent(/datum/reagent/medicine/pen_acid) || holder.has_reagent(/datum/reagent/medicine/charcoal))
+		current_cycle += 8						//The venom will still be purged, but paralysis will onset very rapidly. This makes amping up on purge chems ahead of dealing with spiders a risky endeavor, but has no noteworthy effect on trying to purge the venom outside of active combat.
+	..()
+
 /datum/reagent/toxin/fentanyl
 	name = "Fentanyl"
 	description = "Fentanyl will inhibit brain function and cause toxin damage before eventually incapacitating its victim."

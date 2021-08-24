@@ -50,7 +50,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	var/datum/action/innate/spider/lay_web/lay_web
 	var/directive = "" //Message passed down to children, to relay the creator's orders
-
+	poison_type = /datum/reagent/toxin/spidervenom
 	do_footstep = TRUE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Initialize()
@@ -153,9 +153,9 @@
 	maxHealth = 40
 	health = 40
 	melee_damage = 1
-	poison_per_bite = 12
+	poison_per_bite = 4
 	move_to_delay = 4
-	poison_type = /datum/reagent/toxin/venom //all in venom, glass cannon. you bite 5 times and they are DEFINITELY dead, but 40 health and you are extremely obvious. Ambush, maybe?
+	poison_type = /datum/reagent/toxin/heparin
 	speed = 1
 	gold_core_spawnable = NO_SPAWN
 
