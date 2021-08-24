@@ -306,7 +306,7 @@
 		return
 	to_chat(pai, "<span class='userdanger'>Warning: System override detected, check directive sub-system for any changes.'</span>")
 	if(!iscarbon(user))
-		to_chat(usr, "<span class='warning'>You don't have any DNA, or your DNA is incompatible with this device!</span>")
+		to_chat(user, "<span class='warning'>You don't have any DNA, or your DNA is incompatible with this device!</span>")
 		pai.master = null
 		pai.master_dna = null
 		to_chat(user, "<span class='notice'>You override [pai]'s directive system, clearing its master and supplemental directives.</span>")
