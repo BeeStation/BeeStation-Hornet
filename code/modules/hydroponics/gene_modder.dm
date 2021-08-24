@@ -54,6 +54,7 @@
 			max_endurance = 100
 			min_wchance = 0
 			min_wrate = 0
+	ui_update()
 
 /obj/machinery/plantgenes/update_icon()
 	..()
@@ -329,7 +330,6 @@
 				disk.update_name()
 				qdel(seed)
 				seed = null
-				update_icon()
 
 		if(operation == "replace")
 			var/datum/plant_gene/G = target
@@ -367,6 +367,7 @@
 	seed = S
 	update_genes()
 	update_icon()
+	ui_update()
 
 /obj/machinery/plantgenes/proc/eject_disk()
 	if (disk && !operation)
@@ -377,6 +378,7 @@
 			disk.forceMove(drop_location())
 		disk = null
 		update_genes()
+		ui_update()
 		. = TRUE
 
 /obj/machinery/plantgenes/proc/eject_seed()
@@ -388,6 +390,7 @@
 			seed.forceMove(drop_location())
 		seed = null
 		update_genes()
+		ui_update()
 		. = TRUE
 
 /obj/machinery/plantgenes/proc/update_genes()
@@ -421,6 +424,7 @@
 		return // Already modded name and icon
 	seed.name = "experimental " + seed.name
 	seed.icon_state = "seed-x"
+	ui_update()
 
 // Gene modder for seed vault ship, built with high tech alien parts.
 /obj/machinery/plantgenes/seedvault
