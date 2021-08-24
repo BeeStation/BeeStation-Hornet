@@ -20,6 +20,8 @@
 
 		for(var/i in get_affected_turfs(central_turf, 1))
 			var/turf/T = i
+			for(var/obj/structure/spawner/nest in T)
+				qdel(nest)
 			for(var/mob/living/simple_animal/monster in T)
 				qdel(monster)
 			for(var/obj/structure/flora/ash/plant in T)

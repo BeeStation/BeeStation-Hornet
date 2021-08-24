@@ -92,12 +92,9 @@
 	name = "ai_multicam_room"
 	icon_state = "ai_camera_room"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	valid_territory = FALSE
 	ambientsounds = list()
-	blob_allowed = FALSE
+	area_flags = HIDDEN_AREA | UNIQUE_AREA
 	teleport_restriction = TELEPORT_ALLOW_NONE
-	hidden = TRUE
-	safe = TRUE
 
 GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 
