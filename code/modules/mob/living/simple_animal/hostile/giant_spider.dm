@@ -212,14 +212,14 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_action()
 	if(!..()) //AIStatus is off
-		return 0
+		return FALSE
 	if(AIStatus == AI_IDLE)
 		//1% chance to skitter madly away
 		if(!busy && prob(1))
 			stop_automated_movement = TRUE
 			Goto(pick(urange(20, src, 1)), move_to_delay)
 			addtimer(CALLBACK(src, .proc/do_action), 5 SECONDS)
-		return 1
+		return TRUE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/do_action()
 	stop_automated_movement = FALSE
@@ -381,7 +381,7 @@
 	else
 		message = "<span class='notice'>You prepare to wrap something in a cocoon. <B>Left-click your target to start wrapping!</B></span>"
 		add_ranged_ability(user, message, TRUE)
-		return 1
+		return TRUE
 
 /obj/effect/proc_holder/wrap/InterceptClickOn(mob/living/caller, params, atom/target)
 	if(..())
@@ -406,17 +406,17 @@
 
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
-	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must wrap a living being to do this."
+	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must have a directive set and wrap a living being to do this."
 	button_icon_state = "lay_eggs"
 
 /datum/action/innate/spider/lay_eggs/IsAvailable()
 	if(..())
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
-			return 0
+			return FALSE
 		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-		if(S.fed)
-			return 1
-		return 0
+		if(S.fed && (S.directive || !S.ckey))
+			return TRUE
+		return FALSE
 
 /datum/action/innate/spider/lay_eggs/Activate()
 	if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
@@ -428,6 +428,8 @@
 		to_chat(S, "<span class='warning'>There is already a cluster of eggs here!</span>")
 	else if(!S.fed)
 		to_chat(S, "<span class='warning'>You are too hungry to do this!</span>")
+	else if(!S.directive && S.ckey)
+		to_chat(S, "<span class='warning'>You need to set a directive to do this!</span>")
 	else if(S.busy != LAYING_EGGS)
 		S.busy = LAYING_EGGS
 		S.visible_message("<span class='notice'>[S] begins to lay a cluster of eggs.</span>","<span class='notice'>You begin to lay a cluster of eggs.</span>")
@@ -467,9 +469,12 @@
 		return
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
 	if(!S.playable)
-		S.directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
-		message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
-		log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
+		var/new_directive = stripped_input(S, "Enter the new directive", "Create directive", "[S.directive]")
+		if(new_directive)
+			S.directive = new_directive
+			message_admins("[ADMIN_LOOKUPFLW(owner)] set its directive to: '[S.directive]'.")
+			log_game("[key_name(owner)] set its directive to: '[S.directive]'.")
+			S.lay_eggs.UpdateButtonIcon(TRUE)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	. = ..()
