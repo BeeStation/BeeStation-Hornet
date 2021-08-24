@@ -565,6 +565,12 @@
 	reqs = list(/obj/item/stack/sheet/mineral/wood = 5, /obj/item/paper = 20)
 	category = CAT_MISC
 
+/datum/crafting_recipe/scroll
+	name = "Blank Scroll"
+	result = /obj/item/book/granter/fake_scroll
+	time = 10
+	reqs = list(/obj/item/paper = 2)
+	category = CAT_MISC
 /datum/crafting_recipe/naturalpaper
 	name = "Hand-Pressed Paper"
 	time = 30
