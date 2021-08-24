@@ -7,9 +7,7 @@
 	if(issilicon(M))
 		if(ispAI(M))
 			var/mob/living/silicon/pai/P = M
-			if(check_access(P.aiPDA))
-				return TRUE
-			else
+			if(!check_access(P.aiPDA))
 				return FALSE
 		return TRUE	//AI can do whatever it wants
 	if(IsAdminGhost(M))
