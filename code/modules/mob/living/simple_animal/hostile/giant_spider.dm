@@ -6,7 +6,7 @@
 
 /mob/living/simple_animal/hostile/poison
 	mobchatspan = "researchdirector"
-	var/poison_per_bite = 5
+	var/poison_per_bite = 4
 	var/poison_type = /datum/reagent/toxin
 
 /mob/living/simple_animal/hostile/poison/AttackingTarget()
@@ -16,9 +16,9 @@
 		if(L.reagents)
 			L.reagents.add_reagent(poison_type, poison_per_bite)
 
-//basic spider mob, these generally guard nests
+//basic spider mob, these generally guard nests and have no special qualities.
 /mob/living/simple_animal/hostile/poison/giant_spider
-	name = "giant spider"
+	name = "webspinner"
 	desc = "Furry and black, it makes you shudder to look at it. This one has deep red eyes."
 	icon_state = "guard"
 	icon_living = "guard"
@@ -33,14 +33,15 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
-	maxHealth = 200
-	health = 200
-	obj_damage = 60
-	melee_damage = 15
+	maxHealth = 100
+	health = 100
+	obj_damage = 40
+	melee_damage = 5
 	faction = list("spiders")
 	var/busy = SPIDER_IDLE
 	pass_flags = PASSTABLE
 	move_to_delay = 6
+	speed = 1
 	ventcrawler = VENTCRAWLER_ALWAYS
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -76,18 +77,20 @@
 		log_game("[key_name(src)] took control of [name] with the objective: '[directive]'.")
 	return TRUE
 
-//nursemaids - these create webs and eggs
+//Queen of the spiders, can send messages to all other spiders, wrap targets and reproduce to create more spiders.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
+	name = "broodmother"
 	desc = "Furry and black, it makes you shudder to look at it. This one has brilliant green eyes."
-	icon_state = "nurse"
-	icon_living = "nurse"
-	icon_dead = "nurse_dead"
+	icon_state = "midwife"
+	icon_living = "midwife"
+	icon_dead = "midwife_dead"
 	gender = FEMALE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
-	maxHealth = 40
-	health = 40
-	melee_damage = 10
-	poison_per_bite = 3
+	maxHealth = 80
+	health = 80
+	melee_damage = 5
+	obj_damage = 20
+	poison_per_bite = 4
 	var/atom/movable/cocoon_target
 	var/fed = 0
 	var/obj/effect/proc_holder/wrap/wrap
@@ -95,6 +98,7 @@
 	var/datum/action/innate/spider/set_directive/set_directive
 	var/static/list/consumed_mobs = list() //the tags of mobs that have been consumed by nurse spiders to lay eggs
 	gold_core_spawnable = NO_SPAWN
+	var/datum/action/innate/spider/comm/letmetalkpls
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize()
 	. = ..()
@@ -104,85 +108,64 @@
 	lay_eggs.Grant(src)
 	set_directive = new
 	set_directive.Grant(src)
+	letmetalkpls = new
+	letmetalkpls.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Destroy()
 	RemoveAbility(wrap)
 	QDEL_NULL(lay_eggs)
 	QDEL_NULL(set_directive)
-	return ..()
-
-//midwives are the queen of the spiders, can send messages to all them and web faster. That rare round where you get a queen spider and turn your 'for honor' players into 'r6siege' players will be a fun one.
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife
-	name = "midwife"
-	desc = "Furry and black, it makes you shudder to look at it. This one has scintillating green eyes."
-	icon_state = "midwife"
-	icon_living = "midwife"
-	icon_dead = "midwife_dead"
-	maxHealth = 40
-	health = 40
-	var/datum/action/innate/spider/comm/letmetalkpls
-
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Initialize()
-	. = ..()
-	letmetalkpls = new
-	letmetalkpls.Grant(src)
-
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Destroy()
 	QDEL_NULL(letmetalkpls)
 	return ..()
 
-//hunters have the most poison and move the fastest, so they can find prey
+//huntsmans move slightly faster and inject more venom than other spiders, but have low health.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
+	name = "huntsman"
 	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes."
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
-	maxHealth = 120
-	health = 120
-	melee_damage = 20
-	poison_per_bite = 5
+	maxHealth = 65
+	health = 65
+	melee_damage = 5
+	obj_damage = 20
+	poison_per_bite = 6
 	move_to_delay = 5
+	speed = 0
 
-//vipers are the rare variant of the hunter, no IMMEDIATE damage but so much poison medical care will be needed fast.
+//vipers move quickly, do more damage and inject heparin instead of normal venom, but have even less health than normal huntsman spiders
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
 	name = "viper"
 	desc = "Furry and black, it makes you shudder to look at it. This one has effervescent purple eyes."
 	icon_state = "viper"
 	icon_living = "viper"
 	icon_dead = "viper_dead"
-	maxHealth = 40
-	health = 40
-	melee_damage = 1
+	maxHealth = 45
+	health = 45
+	melee_damage = 10
 	poison_per_bite = 4
 	move_to_delay = 4
 	poison_type = /datum/reagent/toxin/heparin
-	speed = 1
+	speed = -1
 	gold_core_spawnable = NO_SPAWN
 
-//tarantulas are really tanky, regenerating (maybe), hulky monster but are also extremely slow, so.
+//tarantulas are really tanky, hulky monster but are also slow.
 /mob/living/simple_animal/hostile/poison/giant_spider/tarantula
 	name = "tarantula"
 	desc = "Furry and black, it makes you shudder to look at it. This one has abyssal red eyes."
 	icon_state = "tarantula"
 	icon_living = "tarantula"
 	icon_dead = "tarantula_dead"
-	maxHealth = 300 // woah nelly
-	health = 300
+	maxHealth = 160
+	health = 160
 	melee_damage = 40
 	poison_per_bite = 0
 	move_to_delay = 8
-	speed = 7
+	speed = 2
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/hostile/poison/giant_spider/tarantula/movement_delay()
-	var/turf/T = get_turf(src)
-	if(locate(/obj/structure/spider/stickyweb) in T)
-		speed = 2
-	else
-		speed = 7
-	. = ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/ice //spiders dont usually like tempatures of 140 kelvin who knew
 	name = "giant ice spider"
@@ -356,7 +339,7 @@
 /obj/effect/proc_holder/wrap
 	name = "Wrap"
 	panel = "Spider"
-	desc = "Wrap something or someone in a cocoon. If it's a living being, you'll also consume them, allowing you to lay eggs."
+	desc = "Wrap something or someone in a cocoon. If it's an edible being, you'll also consume them, allowing you to lay eggs."
 	ranged_mousepointer = 'icons/effects/wrap_target.dmi'
 	action_icon = 'icons/mob/actions/actions_animal.dmi'
 	action_icon_state = "wrap_0"
@@ -406,7 +389,7 @@
 
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
-	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must have a directive set and wrap a living being to do this."
+	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must have a directive set and wrap an edible lifeform to do this."
 	button_icon_state = "lay_eggs"
 
 /datum/action/innate/spider/lay_eggs/IsAvailable()
@@ -490,7 +473,7 @@
 	button_icon_state = "command"
 
 /datum/action/innate/spider/comm/IsAvailable()
-	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
+	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
 
 /datum/action/innate/spider/comm/Trigger()
 	var/input = stripped_input(owner, "Input a command for your legions to follow.", "Command", "")
