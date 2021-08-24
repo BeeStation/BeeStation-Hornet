@@ -22726,7 +22726,7 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "blK" = (
-/obj/machinery/component_printer,
+/obj/machinery/modular_fabricator/component_printer,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
