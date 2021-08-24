@@ -1,6 +1,0 @@
-author: Fox McCloud, Buggy123
-delete-after: true
-changes:
-  - bugfix: Tendrils no longer spawn inside ruins
-  - bugfix: Gibtonite will now spawn properly, as well as any other potential full
-      turf replacements for random ores

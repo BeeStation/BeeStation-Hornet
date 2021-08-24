@@ -1,6 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - tweak: Crew Manifest is now sorted with command at the top.
-  - tweak: Heads of Staff are listed in both the Command block and their relevant
-      department block of the crew manifest.
