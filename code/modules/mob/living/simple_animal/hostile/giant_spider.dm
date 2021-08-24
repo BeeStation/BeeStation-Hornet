@@ -158,7 +158,8 @@
 	icon_dead = "tarantula_dead"
 	maxHealth = 160
 	health = 160
-	melee_damage = 40
+	melee_damage = 20
+	obj_damage = 80
 	poison_per_bite = 0
 	move_to_delay = 8
 	speed = 2
