@@ -24,11 +24,16 @@
 		return
 	M.show_message("<span class='warning'>BANG</span>", MSG_AUDIBLE)
 	var/distance = max(0,get_dist(get_turf(src),T))
+	//When distance is 0, will be 1
+	//When distance is 7, will be 0
+	//Can be less than 0 due to hearers being a circular radius.
+	var/distance_proportion = max(1 - (distance / flashbang_range), 0)
 
 //Flash
-	if(M.flash_act(affect_silicon = 1))
-		M.Paralyze(max(20/max(1,distance), 5))
-		M.Knockdown(max(200/max(1,distance), 60))
+	if(M.flash_act(intensity = 2, affect_silicon = 1))
+		if(distance_proportion)
+			M.Paralyze(max(20 * distance_proportion, 5))
+			M.Knockdown(max(200 * distance_proportion, 60))
 //Bang
 	if(!distance || loc == M || loc == M.loc)	//Stop allahu akbarring rooms with this.
 		M.Paralyze(20)
@@ -38,7 +43,8 @@
 		if(distance <= 1)
 			M.Paralyze(5)
 			M.Knockdown(30)
-		M.soundbang_act(1, max(200/max(1,distance), 60), rand(0, 5))
+		if(distance_proportion)
+			M.soundbang_act(1, max(200 * distance_proportion, 60), rand(0, 5))
 
 /obj/item/grenade/stingbang
 	name = "stingbang"
