@@ -302,12 +302,12 @@
 		to_chat(user, "Encryption Key ports not configured.")
 	if(istype(W, /obj/item/card/id))
 		var/obj/item/card/id/idcard = W
-		if(!pai?.aiPDA.owner) //just in case no name has been set for the PDA
-			pai?.aiPDA.owner = pai.real_name
-			pai?.aiPDA.ownjob = "pAI"
-			pai?.aiPDA.name = pai.real_name + " (pAI)"
+		if(!pai.aiPDA.owner) //just in case no name has been set for the PDA
+			pai.aiPDA.owner = pai.real_name
+			pai.aiPDA.ownjob = "pAI"
+			pai.aiPDA.name = pai.real_name + " (pAI)"
 		if(((idcard.registered_name == pai?.real_name) || (idcard.assignment == "pAI")) && idcard.registered_name)
-			pai?.aiPDA.attackby(W, user, params)
+			pai.aiPDA.attackby(W, user, params)
 		else
 			to_chat(user, "The pAI card's ID port rejects the ID.")
 
