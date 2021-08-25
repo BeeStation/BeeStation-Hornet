@@ -28,8 +28,7 @@ export const VariableMenu = (props, context) => {
       title="Variable Options"
       {...rest}
       fill
-      height="100%"
-    >
+      height="100%">
       <Stack height="100%">
         <Stack.Item grow={1} mr={2}>
           <Section fill scrollable>
@@ -47,8 +46,7 @@ export const VariableMenu = (props, context) => {
                         <Button
                           textAlign="center"
                           fluid
-                          color={val.color}
-                        >
+                          color={val.color}>
                           {val.datatype}
                         </Button>
                       </Stack.Item>
