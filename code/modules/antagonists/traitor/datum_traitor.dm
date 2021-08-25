@@ -46,7 +46,6 @@
 		var/mob/living/silicon/ai/A = owner.current
 		A.set_zeroth_law("")
 		A.remove_verb(/mob/living/silicon/ai/proc/choose_modules)
-		A.create_access_card(get_all_syndicate_access())
 		A.malf_picker.remove_malf_verbs(A)
 		qdel(A.malf_picker)
 
