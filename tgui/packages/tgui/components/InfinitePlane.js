@@ -27,6 +27,8 @@ export class InfinitePlane extends Component {
 
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleZoomIncrease = this.handleZoomIncrease.bind(this);
+    this.handleZoomDecrease = this.handleZoomDecrease.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
 
     this.doOffsetMouse = this.doOffsetMouse.bind(this);
@@ -70,14 +72,50 @@ export class InfinitePlane extends Component {
     });
   }
 
+  handleZoomIncrease(event) {
+    const { onZoomChange } = this.props;
+    const { zoom } = this.state;
+    const newZoomValue = Math.min(zoom+ZOOM_INCREMENT, ZOOM_MAX_VAL);
+    this.setState({
+      zoom: newZoomValue,
+    });
+    if (onZoomChange) {
+      onZoomChange(newZoomValue);
+    }
+  }
+
+  handleZoomDecrease(event) {
+    const { onZoomChange } = this.props;
+    const { zoom } = this.state;
+    const newZoomValue = Math.max(zoom-ZOOM_INCREMENT, ZOOM_MIN_VAL);
+    this.setState({
+      zoom: newZoomValue,
+    });
+
+    if (onZoomChange) {
+      onZoomChange(newZoomValue);
+    }
+  }
+
   handleMouseMove(event) {
+    const {
+      onBackgroundMoved,
+      initialLeft = 0,
+      initialTop = 0,
+    } = this.props;
     if (this.state.mouseDown) {
+      let newX, newY;
       this.setState((state) => {
+        newX = event.clientX - state.lastLeft;
+        newY = event.clientY - state.lastTop;
         return {
-          left: event.clientX - state.lastLeft,
-          top: event.clientY - state.lastTop,
+          left: newX,
+          top: newY,
         };
       });
+      if (onBackgroundMoved) {
+        onBackgroundMoved(newX+initialLeft, newY+initialTop);
+      }
     }
   }
 
@@ -86,6 +124,8 @@ export class InfinitePlane extends Component {
       children,
       backgroundImage,
       imageWidth,
+      initialLeft = 0,
+      initialTop = 0,
       ...rest
     } = this.props;
     const {
@@ -93,6 +133,9 @@ export class InfinitePlane extends Component {
       top,
       zoom,
     } = this.state;
+
+    const finalLeft = initialLeft + left;
+    const finalTop = initialTop + top;
 
     return (
       <div
@@ -113,7 +156,7 @@ export class InfinitePlane extends Component {
             "height": "100%",
             "width": "100%",
             "background-image": `url("${backgroundImage}")`,
-            "background-position": `${left}px ${top}px`,
+            "background-position": `${finalLeft}px ${finalTop}px`,
             "background-repeat": "repeat",
             "background-size": `${zoom*imageWidth}px`,
           }}
@@ -123,7 +166,7 @@ export class InfinitePlane extends Component {
           onMouseMove={this.handleMouseMove}
           style={{
             "position": "fixed",
-            "transform": `translate(${left}px, ${top}px) scale(${zoom})`,
+            "transform": `translate(${finalLeft}px, ${finalTop}px) scale(${zoom})`,
             "transform-origin": "top left",
             "height": "100%",
             "width": "100%",
@@ -137,9 +180,7 @@ export class InfinitePlane extends Component {
           <Stack.Item>
             <Button
               icon="minus"
-              onClick={() => this.setState({
-                zoom: Math.max(zoom-ZOOM_INCREMENT, ZOOM_MIN_VAL),
-              })}
+              onClick={this.handleZoomDecrease}
             />
           </Stack.Item>
           <Stack.Item grow={1}>
@@ -153,9 +194,7 @@ export class InfinitePlane extends Component {
           <Stack.Item>
             <Button
               icon="plus"
-              onClick={() => this.setState({
-                zoom: Math.min(zoom+ZOOM_INCREMENT, ZOOM_MAX_VAL),
-              })}
+              onClick={this.handleZoomIncrease}
             />
           </Stack.Item>
         </Stack>
