@@ -34,20 +34,15 @@
 		return PROCESS_KILL
 
 /obj/item/usb_cable/pre_attack(atom/target, mob/living/user, params)
-	. = ..()
-	if (.)
-		return
-
-	if (prob(1))
-		balloon_alert(user, "wrong way, god damnit")
-		return TRUE
-
 	var/signal_result = SEND_SIGNAL(target, COMSIG_ATOM_USB_CABLE_TRY_ATTACH, src, user)
 
 	var/last_attached_circuit = attached_circuit
 	if (signal_result & COMSIG_USB_CABLE_CONNECTED_TO_CIRCUIT)
 		if (isnull(attached_circuit))
 			CRASH("Producers of COMSIG_USB_CABLE_CONNECTED_TO_CIRCUIT must set attached_circuit")
+		if (prob(1))
+			balloon_alert(user, "wrong way, god damnit")
+			return TRUE
 		balloon_alert(user, "connected to circuit\nconnect to a port")
 
 		playsound(src, 'sound/machines/pda_button1.ogg', 20, TRUE)
@@ -62,6 +57,10 @@
 		return TRUE
 
 	if (signal_result & COMSIG_USB_CABLE_ATTACHED)
+		if (prob(1))
+			balloon_alert(user, "wrong way, god damnit")
+			return TRUE
+
 		// Short messages are better to read
 		var/connection_description = "port"
 		if (istype(target, /obj/machinery/computer))
@@ -77,7 +76,7 @@
 	if (signal_result & COMSIG_CANCEL_USB_CABLE_ATTACK)
 		return TRUE
 
-	return FALSE
+	return ..()
 
 /obj/item/usb_cable/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
