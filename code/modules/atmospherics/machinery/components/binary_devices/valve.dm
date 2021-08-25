@@ -144,7 +144,6 @@ It's like a regular ol' straight pipe, but you can turn it on and off.
 	if(COMPONENT_TRIGGERED_BY(close, port) && attached_valve.on)
 		attached_valve.set_open(FALSE)
 
-
 /obj/machinery/atmospherics/components/binary/valve/digital/update_icon_nopipes(animation)
 	if(!is_operational())
 		normalize_cardinal_directions()

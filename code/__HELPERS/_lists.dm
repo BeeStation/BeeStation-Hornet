@@ -414,6 +414,9 @@
 			i++
 	return i
 
+// Returns the key based on the index
+#define KEYBYINDEX(L, index) (((index <= length(L)) && (index > 0)) ? L[index] : null)
+
 /// Returns datum/data/record
 /proc/find_record(field, value, list/L)
 	for(var/datum/data/record/R in L)
