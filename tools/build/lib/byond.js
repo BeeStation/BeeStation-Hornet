@@ -107,7 +107,7 @@ export const DreamMaker = async (dmeFile, options = {}) => {
       fs.writeFileSync(`${dmeBaseName}.m.dme`, injectedContent);
       const dmeContent = fs.readFileSync(`${dmeBaseName}.dme`);
       fs.appendFileSync(`${dmeBaseName}.m.dme`, dmeContent);
-      await runWithWarningChecks(dmPath, [`${dmeBaseName}.m.dme`]);
+      await Juke.exec(dmPath, [`${dmeBaseName}.m.dme`]);
       fs.writeFileSync(`${dmeBaseName}.dmb`, fs.readFileSync(`${dmeBaseName}.m.dmb`));
       fs.writeFileSync(`${dmeBaseName}.rsc`, fs.readFileSync(`${dmeBaseName}.m.rsc`));
     }
@@ -123,7 +123,7 @@ export const DreamMaker = async (dmeFile, options = {}) => {
 export const DreamDaemon = async (dmbFile, ...args) => {
   const dmPath = await getDmPath();
   const baseDir = path.dirname(dmPath);
-  const ddExeName = process.platform === 'win32' ? 'dd.exe' : 'DreamDaemon';
+  const ddExeName = process.platform === 'win32' ? 'dreamdaemon.exe' : 'DreamDaemon';
   const ddExePath = baseDir === '.' ? ddExeName : path.join(baseDir, ddExeName);
   return Juke.exec(ddExePath, [dmbFile, ...args]);
 };
