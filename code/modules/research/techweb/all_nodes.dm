@@ -55,10 +55,11 @@
 	starting_node = TRUE
 	display_name = "Basic Integrated Circuits"
 	description = "Research on how to fully exploit the power of integrated circuits"
-	design_ids = list("integrated_circuit", "circuit_multitool", "comp_arithmetic", "comp_clock", "comp_combiner", "comp_comparison", "comp_delay",
-		"comp_direction", "comp_get_column", "comp_gps", "comp_health", "comp_hear", "comp_index", "comp_index_table", "comp_length", "comp_light", "comp_logic", "comp_mmi", "comp_multiplexer", "comp_not", "comp_ram",
-		"comp_random", "comp_select_query", "comp_species", "comp_textcase","comp_speech", "comp_concat", "comp_concat_list", "comp_speech", "comp_self", "comp_soundemitter", "comp_radio", "comp_tostring",
-		"comp_typecheck", "compact_remote_shell", "component_printer", "comp_string_contains", "usb_cable")
+	design_ids = list("circuit_multitool", "comp_arithmetic", "comp_clock", "comp_comparison", "comp_concat", "comp_concat_list", "comp_delay", "comp_direction", "comp_get_column", "comp_gps", "comp_health", "comp_hear", "comp_index",
+		"comp_index_table", "comp_length", "comp_light", "comp_list_literal", "comp_logic", "comp_mmi", "comp_module", "comp_multiplexer", "comp_not", "comp_pressuresensor", "comp_radio", "comp_random", "comp_router", "comp_select_query",
+		"comp_self", "comp_soundemitter", "comp_species", "comp_speech", "comp_speech", "comp_split", "comp_string_contains", "comp_tempsensor", "comp_textcase", "comp_tonumber", "comp_tostring", "comp_typecast", "comp_typecheck",
+		"compact_remote_shell", "component_printer", "integrated_circuit", "module_duplicator", "usb_cable",
+	)
 
 /////////////////////////Biotech/////////////////////////
 /datum/techweb_node/biotech
@@ -303,7 +304,7 @@
 	display_name = "Advanced Shell Research"
 	description = "Grants access to more complicated shell designs."
 	prereq_ids = list("basic_circuitry", "engineering")
-	design_ids = list("controller_shell", "scanner_shell", "bot_shell", "door_shell", "money_bot_shell")
+	design_ids = list("bot_shell", "door_shell", "controller_shell", "money_bot_shell", "scanner_gate_shell", "scanner_shell",)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/movable_shells_tech
