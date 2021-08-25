@@ -356,9 +356,12 @@
 	var/turf/T
 	if(ispath(members[first_turf_index], /turf/template_noop))
 		if(istype(crds, /turf/open/genturf))
+			var/turf/open/genturf/genturf = crds
 			//If the new area is different from the original area, ensure the new turfs are generated as part of the original area
 			if(orig_area && orig_area.type != members[index])
 				LAZYADD(orig_area.additional_genturfs, crds)
+			//Cave generation checks current area flags for generation; ignore them
+			genturf.force_generation = TRUE
 		T = instance_atom(members[first_turf_index],members_attributes[first_turf_index],crds,no_changeturf,placeOnTop)
 
 	if(T)

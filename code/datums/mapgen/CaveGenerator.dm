@@ -50,8 +50,13 @@
 	for(var/i in turfs) //Go through all the turfs and generate them
 		var/turf/gen_turf = i
 
+		var/forced
+		if(istype(gen_turf, /turf/open/genturf))
+			var/turf/open/genturf/genturf = gen_turf
+			if(genturf.force_generation)
+				forced = TRUE
 		var/area/A = gen_turf.loc
-		if(!(A.area_flags & CAVES_ALLOWED))
+		if(!forced && !(A.area_flags & CAVES_ALLOWED))
 			continue
 
 		var/closed = text2num(string_gen[world.maxx * (gen_turf.y - 1) + gen_turf.x])

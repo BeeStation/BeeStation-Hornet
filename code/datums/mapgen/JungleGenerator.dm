@@ -84,6 +84,8 @@
 	desc = "If you see this, and you're not a ghost, yell at coders"
 	icon = 'icons/turf/debug.dmi'
 	icon_state = "genturf"
+	///Should the generation be ran even if the area forbids it?
+	var/force_generation
 
 /area/mine/planetgeneration
 	name = "planet generation area"
