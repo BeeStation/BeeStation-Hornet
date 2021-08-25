@@ -58,7 +58,6 @@ we use a hook instead
 		dummy["THERMAL ENERGY"] = thermal_energy()
 		return debug_variable("gases (READ ONLY)", dummy, 0, src)
 
-
 /datum/gas_mixture/vv_get_var(var_name)
 	. = ..()
 	if(var_name == "gas_list_view_only")
@@ -66,6 +65,7 @@ we use a hook instead
 		for(var/gas in dummy)
 			dummy[gas] = get_moles(gas)
 		return debug_variable("gases (READ ONLY)", dummy, 0, src)
+
 
 /datum/gas_mixture/vv_get_dropdown()
 	. = ..()
