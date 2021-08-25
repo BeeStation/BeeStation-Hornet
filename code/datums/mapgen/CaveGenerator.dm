@@ -51,15 +51,24 @@
 		var/turf/gen_turf = i
 
 		var/forced
+		var/closed
+
 		if(istype(gen_turf, /turf/open/genturf))
 			var/turf/open/genturf/genturf = gen_turf
 			if(genturf.force_generation)
 				forced = TRUE
+			switch(genturf.genturf_hint)
+				if(GENTURF_HINT_OPEN)
+					closed = FALSE
+				if(GENTURF_HINT_CLOSED)
+					closed = TRUE
+
 		var/area/A = gen_turf.loc
 		if(!forced && !(A.area_flags & CAVES_ALLOWED))
 			continue
 
-		var/closed = text2num(string_gen[world.maxx * (gen_turf.y - 1) + gen_turf.x])
+		if(isnull(closed))
+			closed = text2num(string_gen[world.maxx * (gen_turf.y - 1) + gen_turf.x])
 
 		var/stored_flags
 		if(gen_turf.flags_1 & NO_RUINS_1)

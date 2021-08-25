@@ -362,6 +362,12 @@
 				LAZYADD(orig_area.additional_genturfs, crds)
 			//Cave generation checks current area flags for generation; ignore them
 			genturf.force_generation = TRUE
+			//Pass on any hints for whether the turf should be open or closed
+			if(ispath(members[first_turf_index], /turf/template_noop/closed))
+				genturf.genturf_hint = GENTURF_HINT_CLOSED
+			else if(ispath(members[first_turf_index], /turf/template_noop/open))
+				genturf.genturf_hint = GENTURF_HINT_OPEN
+	else
 		T = instance_atom(members[first_turf_index],members_attributes[first_turf_index],crds,no_changeturf,placeOnTop)
 
 	if(T)

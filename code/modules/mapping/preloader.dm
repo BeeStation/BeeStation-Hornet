@@ -37,3 +37,10 @@ GLOBAL_DATUM_INIT(_preloader, /datum/map_preloader, new)
 	name = "Turf Passthrough"
 	icon_state = "noop"
 	bullet_bounce_sound = null
+
+//The following two turfs can be used to hint if any genturfs below should be generated as closed or open
+/turf/template_noop/closed
+	name = "Area Passthrough (prefer closed)"
+
+/turf/template_noop/open
+	name = "Area Passthrough (prefer open)"
