@@ -321,6 +321,9 @@
 		if (crds == turf_in_blacklist) //if the given turf is blacklisted, dont do anything with it
 			return
 
+	//Keep a reference to the original area in case we need to tell it to generate this turf later
+	var/area/orig_area = crds.loc
+
 	//The next part of the code assumes there's ALWAYS an /area AND a /turf on a given tile
 	//first instance the /area and remove it from the members list
 	index = members.len
@@ -338,6 +341,8 @@
 
 		if(GLOB.use_preloader && instance)
 			world.preloader_load(instance)
+	else
+		orig_area = null // We won't be messing with the old area, null it
 
 	//then instance the /turf and, if multiple tiles are presents, simulates the DMM underlays piling effect
 
@@ -349,7 +354,11 @@
 	SSatoms.map_loader_begin()
 	//instanciate the first /turf
 	var/turf/T
-	if(members[first_turf_index] != /turf/template_noop)
+	if(ispath(members[first_turf_index], /turf/template_noop))
+		if(istype(crds, /turf/open/genturf))
+			//If the new area is different from the original area, ensure the new turfs are generated as part of the original area
+			if(orig_area && orig_area.type != members[index])
+				LAZYADD(orig_area.additional_genturfs, crds)
 		T = instance_atom(members[first_turf_index],members_attributes[first_turf_index],crds,no_changeturf,placeOnTop)
 
 	if(T)
