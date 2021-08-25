@@ -571,6 +571,7 @@
 	time = 10
 	reqs = list(/obj/item/paper = 2)
 	category = CAT_MISC
+	
 /datum/crafting_recipe/naturalpaper
 	name = "Hand-Pressed Paper"
 	time = 30
