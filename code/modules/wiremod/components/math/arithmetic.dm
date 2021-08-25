@@ -6,7 +6,7 @@
  */
 /obj/item/circuit_component/arbitrary_input_amount/arithmetic
 	display_name = "Arithmetic"
-	display_desc = "General arithmetic component with arithmetic capabilities."
+	desc = "General arithmetic component with arithmetic capabilities."
 
 	//The type of port
 	input_port_type = PORT_TYPE_NUMBER
@@ -15,8 +15,16 @@
 	/// The amount of input ports to have
 	input_port_amount = 4
 
-/obj/item/circuit_component/arbitrary_input_amount/arithmetic/populate_options()
-	options = list(
+	var/datum/port/input/option/arithmetic_option
+
+	/// The result from the output
+	var/datum/port/output/output
+
+	var/list/arithmetic_ports
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
+
+/obj/item/circuit_component/arithmetic/populate_options()
+	var/static/component_options = list(
 		COMP_ARITHMETIC_ADD,
 		COMP_ARITHMETIC_SUBTRACT,
 		COMP_ARITHMETIC_MULTIPLY,
@@ -25,17 +33,32 @@
 		COMP_ARITHMETIC_MIN,
 		COMP_ARITHMETIC_MAX,
 	)
+	arithmetic_option = add_option_port("Arithmetic Option", component_options)
 
-/obj/item/circuit_component/arbitrary_input_amount/arithmetic/calculate_output(datum/port/input/port, datum/port/input/first_port, list/ports)
+/obj/item/circuit_component/arithmetic/Initialize()
+	. = ..()
+	arithmetic_ports = list()
+	for(var/port_id in 1 to input_port_amount)
+		var/letter = ascii2text(text2ascii("A") + (port_id-1))
+		arithmetic_ports += add_input_port(letter, PORT_TYPE_NUMBER)
 
-	. = first_port.input_value
+	output = add_output_port("Output", PORT_TYPE_NUMBER)
+
+/obj/item/circuit_component/arithmetic/input_received(datum/port/input/port)
+	. = ..()
+	if(.)
+		return
+
+	var/list/ports = arithmetic_ports.Copy()
+	var/datum/port/input/first_port = popleft(ports)
+	var/result = first_port.value
 
 	for(var/datum/port/input/input_port as anything in ports)
-		var/value = input_port.input_value
+		var/value = input_port.value
 		if(isnull(value))
 			continue
 
-		switch(current_option)
+		switch(arithmetic_option.value)
 			if(COMP_ARITHMETIC_ADD)
 				. += value
 			if(COMP_ARITHMETIC_SUBTRACT)
@@ -59,4 +82,13 @@
 			if(COMP_ARITHMETIC_MAX)
 				. = max(., value)
 			if(COMP_ARITHMETIC_MIN)
-				. = min(., value)
+				result = min(result, value)
+
+	output.set_output(result)
+
+#undef COMP_ARITHMETIC_ADD
+#undef COMP_ARITHMETIC_SUBTRACT
+#undef COMP_ARITHMETIC_MULTIPLY
+#undef COMP_ARITHMETIC_DIVIDE
+#undef COMP_ARITHMETIC_MIN
+#undef COMP_ARITHMETIC_MAX

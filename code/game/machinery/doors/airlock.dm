@@ -116,7 +116,7 @@
 		var/area/A = get_area(src)
 		wire_security_level = max(wire_security_level, A.airlock_hack_difficulty)
 
-	wires = new /datum/wires/airlock(src, wire_security_level)
+	wires = set_wires(wire_security_level)
 	if(frequency)
 		set_frequency(frequency)
 
@@ -1658,3 +1658,26 @@
 		close()
 	else
 		open()
+
+/obj/machinery/door/airlock/proc/set_wires(wire_security_level)
+	return new /datum/wires/airlock(src, wire_security_level)
+
+#undef AIRLOCK_CLOSED
+#undef AIRLOCK_CLOSING
+#undef AIRLOCK_OPEN
+#undef AIRLOCK_OPENING
+#undef AIRLOCK_DENY
+#undef AIRLOCK_EMAG
+
+#undef AIRLOCK_SECURITY_NONE
+#undef AIRLOCK_SECURITY_IRON
+#undef AIRLOCK_SECURITY_PLASTEEL_I_S
+#undef AIRLOCK_SECURITY_PLASTEEL_I
+#undef AIRLOCK_SECURITY_PLASTEEL_O_S
+#undef AIRLOCK_SECURITY_PLASTEEL_O
+#undef AIRLOCK_SECURITY_PLASTEEL
+
+#undef AIRLOCK_INTEGRITY_N
+#undef AIRLOCK_INTEGRITY_MULTIPLIER
+#undef AIRLOCK_DAMAGE_DEFLECTION_N
+#undef AIRLOCK_DAMAGE_DEFLECTION_R
