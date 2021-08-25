@@ -17,7 +17,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4
 	},
-/turf/template_noop,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "f" = (
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon,
