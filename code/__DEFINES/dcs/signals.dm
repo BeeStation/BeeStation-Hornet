@@ -443,6 +443,34 @@
 /// Sent to [/obj/item/circuit_component] when it is removed from a circuit. (/obj/item/integrated_circuit)
 #define COMSIG_CIRCUIT_COMPONENT_REMOVED "circuit_component_removed"
 
+/// Called when the integrated circuit's cell is set.
+#define COMSIG_CIRCUIT_SET_CELL "circuit_set_cell"
+
+/// Called when the integrated circuit is turned on or off.
+#define COMSIG_CIRCUIT_SET_ON "circuit_set_on"
+
+/// Called when the integrated circuit's shell is set.
+#define COMSIG_CIRCUIT_SET_SHELL "circuit_set_shell"
+
+/// Called when somebody passes through a scanner gate and it triggers
+#define COMSIG_SCANGATE_PASS_TRIGGER "scangate_pass_trigger"
+
+/// Called when somebody passes through a scanner gate and it does not trigger
+#define COMSIG_SCANGATE_PASS_NO_TRIGGER "scangate_pass_no_trigger"
+
+/// Called when something passes through a scanner gate shell
+#define COMSIG_SCANGATE_SHELL_PASS "scangate_shell_pass"
+
+/// Sent when the value of a port is set.
+#define COMSIG_PORT_SET_VALUE "port_set_value"
+/// Sent when the type of a port is set.
+#define COMSIG_PORT_SET_TYPE "port_set_type"
+/// Called when an external object is loaded.
+#define COMSIG_MOVABLE_CIRCUIT_LOADED "movable_circuit_loaded"
+/// Called when the circuit component is saved.
+#define COMSIG_CIRCUIT_COMPONENT_SAVE "circuit_component_save"
+
+
 /// Sent to an atom when a [/obj/item/usb_cable] attempts to connect to something. (/obj/item/usb_cable/usb_cable, /mob/user)
 #define COMSIG_ATOM_USB_CABLE_TRY_ATTACH "usb_cable_try_attach"
 	/// Attaches the USB cable to the atom. If the USB cables moves away, it will disconnect.

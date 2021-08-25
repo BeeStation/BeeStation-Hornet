@@ -112,7 +112,7 @@
 
 /obj/machinery/door/airlock/Initialize()
 	. = ..()
-	wires = new /datum/wires/airlock(src)
+	wires = set_wires()
 	if(frequency)
 		set_frequency(frequency)
 
@@ -1635,6 +1635,9 @@
 		close()
 	else
 		open()
+
+/obj/machinery/door/airlock/proc/set_wires()
+	return new /datum/wires/airlock(src)
 
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING

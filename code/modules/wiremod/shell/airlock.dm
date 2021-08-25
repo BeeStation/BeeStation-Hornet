@@ -1,3 +1,13 @@
+/datum/wires/airlock/shell
+	holder_type = /obj/machinery/door/airlock/shell
+	proper_name = "Circuit Airlock"
+
+/datum/wires/airlock/shell/on_cut(wire, mend)
+	// Don't allow them to re-enable autoclose.
+	if(wire == WIRE_TIMING)
+		return
+	return ..()
+
 /obj/machinery/door/airlock/shell
 	name = "circuit airlock"
 	autoclose = FALSE
@@ -14,9 +24,18 @@
 /obj/machinery/door/airlock/shell/check_access(obj/item/I)
 	return FALSE
 
+/obj/machinery/door/airlock/shell/canAIControl(mob/user)
+	return FALSE
+
+/obj/machinery/door/airlock/shell/canAIHack(mob/user)
+	return FALSE
+
+/obj/machinery/door/airlock/shell/set_wires()
+	return new /datum/wires/airlock/shell(src)
+
 /obj/item/circuit_component/airlock
 	display_name = "Airlock"
-	display_desc = "The general interface with an airlock. Includes general statuses of the airlock"
+	desc = "The general interface with an airlock. Includes general statuses of the airlock"
 
 	/// Called when attack_hand is called on the shell.
 	var/obj/machinery/door/airlock/attached_airlock
@@ -45,11 +64,6 @@
 	/// Called when the airlock is unbolted
 	var/datum/port/output/unbolted
 
-	/// Contains the last person to touch the airlock
-	var/datum/port/output/user_port
-	/// Called when the airlock is touched
-	var/datum/port/output/trigger_port
-
 /obj/item/circuit_component/airlock/Initialize()
 	. = ..()
 	// Input Signals
@@ -65,24 +79,6 @@
 	closed = add_output_port("Closed", PORT_TYPE_SIGNAL)
 	bolted = add_output_port("Bolted", PORT_TYPE_SIGNAL)
 	unbolted = add_output_port("Unbolted", PORT_TYPE_SIGNAL)
-	user_port = add_output_port("User", PORT_TYPE_ATOM)
-	trigger_port = add_output_port("Triggered", PORT_TYPE_SIGNAL)
-
-/obj/item/circuit_component/airlock/Destroy()
-	bolt = null
-	unbolt = null
-	open = null
-	close = null
-	is_open = null
-	is_bolted = null
-	opened = null
-	closed = null
-	bolted = null
-	unbolted = null
-	user_port = null
-	trigger_port = null
-	attached_airlock = null
-	return ..()
 
 /obj/item/circuit_component/airlock/register_shell(atom/movable/shell)
 	. = ..()
@@ -91,7 +87,6 @@
 		RegisterSignal(shell, COMSIG_AIRLOCK_SET_BOLT, .proc/on_airlock_set_bolted)
 		RegisterSignal(shell, COMSIG_AIRLOCK_OPEN, .proc/on_airlock_open)
 		RegisterSignal(shell, COMSIG_AIRLOCK_CLOSE, .proc/on_airlock_closed)
-		RegisterSignal(shell, COMSIG_AIRLOCK_TOUCHED, .proc/on_airlock_touched)
 
 /obj/item/circuit_component/airlock/unregister_shell(atom/movable/shell)
 	attached_airlock = null
@@ -99,7 +94,6 @@
 		COMSIG_AIRLOCK_SET_BOLT,
 		COMSIG_AIRLOCK_OPEN,
 		COMSIG_AIRLOCK_CLOSE,
-		COMSIG_AIRLOCK_TOUCHED,
 	))
 	return ..()
 
@@ -120,12 +114,6 @@
 	SIGNAL_HANDLER
 	is_open.set_output(FALSE)
 	closed.set_output(COMPONENT_SIGNAL)
-
-/obj/item/circuit_component/airlock/proc/on_airlock_touched(datum/source, user)
-	SIGNAL_HANDLER
-	. = COMPONENT_PREVENT_OPEN
-	user_port.set_output(user)
-	trigger_port.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/airlock/input_received(datum/port/input/port)
 	. = ..()

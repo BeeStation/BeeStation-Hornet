@@ -41,7 +41,7 @@
 	. = ..()
 	if(build_path)
 		var/obj/item/circuit_component/component_path = build_path
-		desc = initial(component_path.display_desc)
+		desc = initial(component_path.desc)
 
 /datum/design/component/arithmetic
 	name = "Arithmetic Component"
@@ -97,12 +97,6 @@
 	build_path = /obj/item/circuit_component/not
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
-/datum/design/component/ram
-	name = "RAM Component"
-	id = "comp_ram"
-	build_path = /obj/item/circuit_component/ram
-	category = list(WIREMOD_CIRCUITRY, WIREMOD_MEMORY_COMPONENTS)
-
 /datum/design/component/random
 	name = "Random Component"
 	id = "comp_random"
@@ -125,6 +119,12 @@
 	name = "To String Component"
 	id = "comp_tostring"
 	build_path = /obj/item/circuit_component/tostring
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_STRING_COMPONENTS, WIREMOD_CONVERSION_COMPONENTS)
+
+/datum/design/component/tonumber
+	name = "To Number"
+	id = "comp_tonumber"
+	build_path = /obj/item/circuit_component/tonumber
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_STRING_COMPONENTS, WIREMOD_CONVERSION_COMPONENTS)
 
 /datum/design/component/typecheck
@@ -187,10 +187,10 @@
 	build_path = /obj/item/circuit_component/health
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_INPUT_COMPONENTS)
 
-/datum/design/component/combiner
-	name = "Combiner Component"
-	id = "comp_combiner"
-	build_path = /obj/item/circuit_component/combiner
+/datum/design/component/split
+	name = "Split Component"
+	id = "comp_split"
+	build_path = /obj/item/circuit_component/split
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
 /datum/design/component/pull
@@ -211,10 +211,16 @@
 	build_path = /obj/item/circuit_component/mmi
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_INPUT_COMPONENTS)
 
+/datum/design/component/router
+	name = "Router Component"
+	id = "comp_router"
+	build_path = /obj/item/circuit_component/router
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_OUTPUT_COMPONENTS)
+
 /datum/design/component/multiplexer
 	name = "Multiplexer Component"
 	id = "comp_multiplexer"
-	build_path = /obj/item/circuit_component/multiplexer
+	build_path = /obj/item/circuit_component/router/multiplexer
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
 /datum/design/component/get_column
@@ -239,7 +245,83 @@
 	name = "Select Query Component"
 	id = "comp_select_query"
 	build_path = /obj/item/circuit_component/select
-	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS, WIREMOD_LOGIC_COMPONENTS)
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_CORE)
+
+/datum/design/component/pathfind
+	name = "Pathfinder"
+	id = "comp_pathfind"
+	build_path = /obj/item/circuit_component/pathfind
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
+
+/datum/design/component/tempsensor
+	name = "Temperature Sensor Component"
+	id = "comp_tempsensor"
+	build_path = /obj/item/circuit_component/tempsensor
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_INPUT_COMPONENTS)
+
+/datum/design/component/pressuresensor
+	name = "Pressure Sensor Component"
+	id = "comp_pressuresensor"
+	build_path = /obj/item/circuit_component/pressuresensor
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_INPUT_COMPONENTS)
+
+/datum/design/component/module
+	name = "Module Component"
+	id = "comp_module"
+	build_path = /obj/item/circuit_component/module
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_CORE)
+/*
+/datum/design/component/ntnet_receive
+	name = "NTNet Receiver"
+	id = "comp_ntnet_receive"
+	build_path = /obj/item/circuit_component/ntnet_receive
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_INPUT_COMPONENTS)
+
+/datum/design/component/ntnet_send
+	name = "NTNet Transmitter"
+	id = "comp_ntnet_send"
+	build_path = /obj/item/circuit_component/ntnet_send
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_OUTPUT_COMPONENTS)
+*/
+/datum/design/component/list_literal
+	name = "List Literal Component"
+	id = "comp_list_literal"
+	build_path = /obj/item/circuit_component/list_literal
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
+/datum/design/component/typecast
+	name = "Typecast Component"
+	id = "comp_typecast"
+	build_path = /obj/item/circuit_component/typecast
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
+
+/datum/design/component/bci
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_BCI_COMPONENTS)
+
+/datum/design/component/bci/bci_action
+	name = "BCI Action Component"
+	id = "comp_bci_action"
+	build_path = /obj/item/circuit_component/bci_action
+
+/datum/design/component/bci/object_overlay
+	name = "Object Overlay Component"
+	id = "comp_object_overlay"
+	build_path = /obj/item/circuit_component/object_overlay
+
+/datum/design/component/bci/bar_overlay
+	name = "Bar Overlay Component"
+	id = "comp_bar_overlay"
+	build_path = /obj/item/circuit_component/object_overlay/bar
+
+/datum/design/component/bci/target_intercept
+	name = "BCI Target Interceptor"
+	id = "comp_target_intercept"
+	build_path = /obj/item/circuit_component/target_intercept
+
+/datum/design/component/bci/counter_overlay
+	name = "Counter Overlay Component"
+	id = "comp_counter_overlay"
+	build_path = /obj/item/circuit_component/counter_overlay
 
 /datum/design/compact_remote_shell
 	name = "Compact Remote Shell"
@@ -261,9 +343,9 @@
 
 /datum/design/scanner_shell
 	name = "Scanner Shell"
-	desc = "A handheld shell with a scanner."
+	desc = "A handheld scanner shell that can scan entities."
 	id = "scanner_shell"
-	build_path = /obj/item/scanner
+	build_path = /obj/item/wiremod_scanner
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	materials = list(/datum/material/glass = 4000, /datum/material/iron = 5000)
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
@@ -323,3 +405,35 @@
 	build_path = /obj/item/shell/airlock
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
+
+/datum/design/bci_shell
+	name = "Brain-Computer Interface Shell"
+	desc = "An implant that can be placed in a user's head to control circuits using their brain."
+	id = "bci_shell"
+	materials = list(
+		/datum/material/glass = 2000,
+		/datum/material/iron = 8000,
+	)
+	build_path = /obj/item/shell/bci
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
+
+/datum/design/scanner_gate_shell
+	name = "Scanner Gate Shell"
+	desc = "A scanner gate shell that performs mid-depth scans on people when they pass through it."
+	id = "scanner_gate_shell"
+	materials = list(
+		/datum/material/glass = 4000,
+		/datum/material/iron = 12000,
+	)
+	build_path = /obj/item/shell/scanner_gate
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
+
+/datum/design/board/bci_implanter
+	name = "Brain-Computer Interface Manipulation Chamber"
+	desc = "A machine that, when given a brain-computer interface, will implant it into an occupant. Otherwise, will remove any brain-computer interfaces they already have."
+	id = "bci_implanter"
+	build_path = /obj/item/circuitboard/machine/bci_implanter
+	build_type = IMPRINTER | COMPONENT_PRINTER
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_CORE)
