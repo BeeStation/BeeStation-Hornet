@@ -241,6 +241,14 @@
 	icon_state = "vortex core"
 	anomaly_type = /obj/effect/anomaly/bhole
 
+/obj/item/assembly/signaler/anomaly/activate()
+	. = ..()
+	var/obj/effect/anomaly/anomaly_path = anomaly_type
+	var/newAnomaly
+	newAnomaly = new anomaly_path(get_turf(src))
+	if(newAnomaly)
+		qdel(src)
+
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return
 
