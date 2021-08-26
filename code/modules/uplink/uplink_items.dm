@@ -2119,7 +2119,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/his_grace
 	cost = 20
 	restricted_roles = list("Chaplain")
-	surplus = 0 //Very low chance to get it in a surplus crate even without being the chaplain
+	surplus = 0
 
 /datum/uplink_item/role_restricted/cultconstructkit
 	name = "Cult Construct Kit"
