@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/turf/closed/mineral/volcanic/lava_land_surface,
+/turf/template_noop/closed,
 /area/template_noop)
 "c" = (
 /turf/closed/wall/mineral/plastitanium,
