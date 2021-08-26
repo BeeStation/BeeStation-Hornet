@@ -257,8 +257,16 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
 		return FALSE
 	A.zfalling = TRUE
+	var/atom/movable/pulling = A.pulling
 	A.forceMove(target)
 	A.zfalling = FALSE
+	if(pulling)
+		//Things you are pulling fall with you
+		pulling.zfalling = TRUE
+		pulling.forceMove(target)
+		A.start_pulling(pulling)
+		pulling.zfalling = FALSE
+		target.zImpact(pulling, levels, src)
 	target.zImpact(A, levels, src)
 	return TRUE
 
