@@ -368,7 +368,9 @@
 			else if(ispath(members[first_turf_index], /turf/template_noop/open))
 				genturf.genturf_hint = GENTURF_HINT_OPEN
 	else
-		T = instance_atom(members[first_turf_index],members_attributes[first_turf_index],crds,no_changeturf,placeOnTop)
+		///Disable placeOnTop for genturfs, instead making sure to replace them
+		var/shouldPlaceOnTop = placeOnTop && !istype(crds, /turf/open/genturf)
+		T = instance_atom(members[first_turf_index],members_attributes[first_turf_index],crds,no_changeturf,shouldPlaceOnTop)
 
 	if(T)
 		//if others /turf are presents, simulates the underlays piling effect
