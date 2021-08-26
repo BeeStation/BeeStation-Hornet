@@ -1,0 +1,5 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - rscadd: Examining the Blob Overmind (ghosts only) will now show how many nodes
+      it has.
