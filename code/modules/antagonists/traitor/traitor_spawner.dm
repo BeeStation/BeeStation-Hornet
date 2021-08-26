@@ -36,7 +36,6 @@
 	min_players = 20		//Give us 20 players minimum.
 	proportion = 1			//This is limited by max amount anyway.
 	max_amount = 1			//Only 1, we don't want insane chaos
-	telecrystals = 16		//You are in security and have gear. You get slightly less to work with.
 
 /datum/special_role/traitor/infiltrator/New()
 	. = ..()
