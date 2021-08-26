@@ -422,6 +422,17 @@
 	else if(user.client && user.client.prefs.muted & MUTE_IC)
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
+	else if(!params)
+		var/custom_emote = copytext(sanitize(input("Choose an emote to display.") as text|null), 1, MAX_MESSAGE_LEN)
+		if(custom_emote && !check_invalid(user, custom_emote))
+			switch(alert(user, "Is this a visible or hearable emote?","Emote", "Visible", "Hearable"))
+				if("Visible")
+					emote_type = EMOTE_VISIBLE
+				if("Hearable")
+					emote_type = EMOTE_AUDIBLE
+				else
+					return
+			message = custom_emote
 	else
 		message = params
 		if(type_override)
