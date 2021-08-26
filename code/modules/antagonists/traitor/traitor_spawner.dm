@@ -17,8 +17,6 @@
 	special_role_flag = ROLE_TRAITOR
 	role_name = ROLE_TRAITOR
 
-	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
-
 /datum/special_role/traitor/higher_chance
 	probability = 60
 
@@ -31,3 +29,25 @@
 	A.forge_objectives(M)
 	A.equip()
 	return A
+
+/datum/special_role/traitor/infiltrator
+	attached_antag_datum = /datum/antagonist/traitor/infiltrator
+	probability = 8			//8% chance for this to occur. Kind of rare, but something that HOS's and wardens need to consider.
+	min_players = 20		//Give us 20 players minimum.
+	proportion = 1			//This is limited by max amount anyway.
+	max_amount = 1			//Only 1, we don't want insane chaos
+	telecrystals = 16		//You are in security and have gear. You get slightly less to work with.
+
+/datum/special_role/traitor/infiltrator/New()
+	. = ..()
+	protected_jobs = get_all_jobs()
+	protected_jobs -= list("Detective", "Security Officer")
+
+/datum/antagonist/traitor/infiltrator
+	name = "Infiltrator"
+	telecrystals = 16
+
+/datum/antagonist/traitor/infiltrator/on_gain()
+	. = ..()
+	to_chat(owner.current, "<span class='syndradio italics'>It's taken a lot of work from a lot of people to get you in this possition. Don't mess this up, we are counting on you.</span>")
+	to_chat(owner.current, "<span class='warning'>You have been inserted into the security detail of [station_name()]. You have a strong resiliance against the effects of the mindshield and have been cleared past Nanotrasen's background checks. You have a reduced supply of telecrystals, but have a lot to work with in terms of your environment. Good luck.</span>")

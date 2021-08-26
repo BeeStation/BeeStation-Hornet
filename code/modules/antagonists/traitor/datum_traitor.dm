@@ -14,6 +14,7 @@
 	var/should_equip = TRUE
 	var/traitor_kind = TRAITOR_HUMAN //Set on initial assignment
 	var/datum/contractor_hub/contractor_hub
+	var/telecrystals = 20
 
 /datum/antagonist/traitor/on_gain()
 	if(owner.current && isAI(owner.current))
@@ -282,7 +283,7 @@
 
 /datum/antagonist/traitor/proc/equip(var/silent = FALSE)
 	if(traitor_kind == TRAITOR_HUMAN)
-		owner.equip_traitor(employer, silent, src)
+		owner.equip_traitor(employer, silent, src, telecrystals)
 
 /datum/antagonist/traitor/proc/assign_exchange_role()
 	//set faction
