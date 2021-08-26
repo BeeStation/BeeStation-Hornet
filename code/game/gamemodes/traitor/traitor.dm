@@ -19,6 +19,8 @@
 	reroll_friendly = 1
 	enemy_minimum_age = 0
 
+	allowed_special = list(/datum/special_role/traitor/infiltrator)
+
 	announce_span = "danger"
 	announce_text = "There are Syndicate agents on the station!\n\
 	<span class='danger'>Traitors</span>: Accomplish your objectives.\n\

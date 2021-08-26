@@ -40,6 +40,14 @@
 
 /datum/special_role/traitor/infiltrator/New()
 	. = ..()
+	//Make sure HOS or warden exists
+	var/allowed = FALSE
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(H.mind?.assigned_role in list("Head of Security", "Warden"))
+			allowed = TRUE
+			break
+	if(!allowed)
+		probability = 0
 	protected_jobs = get_all_jobs()
 	protected_jobs -= list("Detective", "Security Officer")
 

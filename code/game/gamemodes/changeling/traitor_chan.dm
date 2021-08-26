@@ -10,6 +10,8 @@
 	recommended_enemies = 3
 	reroll_friendly = 1
 
+	allowed_special = list(/datum/special_role/traitor/infiltrator)
+
 	var/list/possible_changelings = list()
 	var/list/changelings = list()
 	var/const/changeling_amount = 1 //hard limit on changelings if scaling is turned off

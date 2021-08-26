@@ -13,6 +13,8 @@
 	<span class='danger'>Blood Brothers</span>: Accomplish your objectives.\n\
 	<span class='notice'>Crew</span>: Do not let the traitors or brothers succeed!"
 
+	allowed_special = list(/datum/special_role/traitor/infiltrator)
+
 	var/list/datum/team/brother_team/pre_brother_teams = list()
 	var/const/team_amount = 2 //hard limit on brother teams if scaling is turned off
 	var/const/min_team_size = 2
