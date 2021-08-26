@@ -1,0 +1,8 @@
+author: SomeguyManperson AnCopper
+delete-after: true
+changes:
+  - tweak: Increased plasma to tritium rate in radiation collectors from 0.001 to
+      0.01, this means that a standard plasma tank at 303 kPA (or 10 moles) will be
+      completely converted into tritium at just over 30 minutes, requiring it to be
+      replaced in order to generate electricity, fill the plasma tanks or make the
+      plasma colder to fit more into the tank.
