@@ -86,6 +86,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define VENTCRAWLING	(1<<2)
 #define FLOATING		(1<<3)
 #define UNSTOPPABLE		(1<<4)			//! When moving, will Bump()/Cross()/Uncross() everything, but won't be stopped.
+#define THROWN			(1<<5) //! while an atom is being thrown. applied to and is used only by mobs for now
 
 //! ## Fire and Acid stuff, for resistance_flags
 #define LAVA_PROOF		(1<<0)
@@ -120,7 +121,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOBILITY_UI				(1<<4)		//! can use interfaces like machinery
 #define MOBILITY_STORAGE		(1<<5)		//! can use storage item
 #define MOBILITY_PULL			(1<<6)		//! can pull things
-#define MOBILITY_THROWN			(1<<7)		//! is being thrown
 
 #define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_UI | MOBILITY_STORAGE | MOBILITY_PULL)
 #define MOBILITY_FLAGS_INTERACTION (MOBILITY_USE | MOBILITY_PICKUP | MOBILITY_UI | MOBILITY_STORAGE)

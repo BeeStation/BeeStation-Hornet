@@ -183,9 +183,7 @@ SUBSYSTEM_DEF(throwing)
 		if(T && thrownthing.has_gravity(T))
 			T.zFall(thrownthing)
 
-	if(istype(thrownthing, /mob/living))
-		var/mob/living/thrown_mob = thrownthing
-		thrown_mob.mobility_flags &= ~MOBILITY_THROWN
+	thrownthing.movement_type &= ~THROWN
 
 	qdel(src)
 

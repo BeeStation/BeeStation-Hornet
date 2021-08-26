@@ -659,7 +659,7 @@
 		makeTrail(newloc, T, old_direction)
 
 /mob/living/proc/makeTrail(turf/target_turf, turf/start, direction)
-	if(!has_gravity() || mobility_flags & MOBILITY_THROWN)
+	if(!has_gravity() || movement_type & THROWN)
 		return
 	var/blood_exists = FALSE
 
@@ -1018,7 +1018,7 @@
 	stop_pulling()
 	. = ..()
 	if(.)
-		mobility_flags |= MOBILITY_THROWN
+		movement_type |= THROWN
 
 // Called when we are hit by a bolt of polymorph and changed
 // Generally the mob we are currently in is about to be deleted
