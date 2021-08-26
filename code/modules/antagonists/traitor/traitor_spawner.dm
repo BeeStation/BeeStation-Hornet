@@ -32,7 +32,7 @@
 
 /datum/special_role/traitor/infiltrator
 	attached_antag_datum = /datum/antagonist/traitor/infiltrator
-	probability = 8			//8% chance for this to occur. Kind of rare, but something that HOS's and wardens need to consider.
+	probability = 5			//5% chance for this to occur. Kind of rare, but something that HOS's and wardens need to consider.
 	min_players = 20		//Give us 20 players minimum.
 	proportion = 1			//This is limited by max amount anyway.
 	max_amount = 1			//Only 1, we don't want insane chaos
