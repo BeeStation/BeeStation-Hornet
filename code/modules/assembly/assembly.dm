@@ -100,6 +100,8 @@
 			holder = new/obj/item/assembly_holder(get_turf(src))
 			holder.assemble(src,A,user)
 			to_chat(user, "<span class='notice'>You attach and secure \the [A] to \the [src]!</span>")
+			if(istype(A, /obj/item/assembly/signaler/anomaly) || istype(src, /obj/item/assembly/signaler/anomaly))
+				message_admins("[ADMIN_LOOKUPFLW(user)] has attached an anomaly core to a trigger assembly at [ADMIN_VERBOSEJMP(src)]")
 		else
 			to_chat(user, "<span class='warning'>Both devices must be in attachable mode to be attached together.</span>")
 		return
