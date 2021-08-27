@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Blocking now works on harm intent and no longer works on help intent.
