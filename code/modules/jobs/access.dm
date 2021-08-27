@@ -367,8 +367,7 @@
 				"Deputy", "Psychiatrist", "Barber", "Stage Magician")
 
 /proc/get_all_job_icons() //We need their HUD icons, but we don't want to give these jobs to people at the job list from HoP console.
-	return get_all_jobs() + list("Prisoner", "King", "VIP", "Debtor", "Exploration Crew")
-//Exploration Crew is not yet ready to give its proper access upon job change yet. As long as it's implemented, they'll be moved to '/proc/get_all_jobs()'
+	return get_all_jobs() + list("Prisoner", "King", "VIP", "Debtor")
 
 /proc/get_all_centcom_jobs()
 	return list("VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Death Commando","Research Officer","Special Ops Officer","Admiral","CentCom Commander","Emergency Response Team Commander","Security Response Officer","Engineer Response Officer", "Medical Response Officer","CentCom Bartender","Comedy Response Officer", "HONK Squad Trooper")
