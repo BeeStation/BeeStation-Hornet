@@ -148,7 +148,7 @@
 			connecting_cable.balloon_alert(user, "connect to a shell first")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
-	if (!IN_GIVEN_RANGE(connecting_cable.attached_circuit, parent, USB_CABLE_MAX_RANGE))
+	if (!IN_GIVEN_RANGE(connecting_cable.attached_circuit, parent, connecting_cable.usb_range))
 		if(user)
 			connecting_cable.balloon_alert(user, "too far away")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
@@ -196,7 +196,12 @@
 	if (isnull(attached_circuit))
 		return
 
-	if (IN_GIVEN_RANGE(attached_circuit, parent, USB_CABLE_MAX_RANGE))
+	var/obj/item/usb_cable/usb_cable = usb_cable_ref?.resolve()
+
+	if (isnull(usb_cable))
+		return
+
+	if (IN_GIVEN_RANGE(attached_circuit, parent, usb_cable.usb_range))
 		return
 
 	detach()
@@ -227,8 +232,7 @@
 	unregister_circuit_signals()
 	unregister_physical_signals()
 
-	var/atom/atom_parent = parent
-	usb_cable.forceMove(atom_parent.drop_location())
+	usb_cable.forceMove(attached_circuit.drop_location())
 	usb_cable.balloon_alert_to_viewers("snap")
 
 	physical_object = null
