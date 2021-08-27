@@ -86,6 +86,8 @@
 
 /// The maximum range a USB cable can be apart from a source
 #define USB_CABLE_MAX_RANGE 2
+/// The maximum range a wireless USB transceiver can be apart from a source
+#define USB_WIRELESS_MAX_RANGE 20
 
 // Circuit flags
 /// Creates an input trigger that means the component won't be triggered unless the trigger is pulsed.

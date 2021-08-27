@@ -29,6 +29,16 @@
 	materials = list(/datum/material/iron = 1000, /datum/material/copper = 1500)
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/wireless_usb
+	name = "Wireless USB transceiver"
+	desc = "A transceiver that allows certain shells to connect to computers and machines at a certain range."
+	id = "usb_wireless"
+	build_path = /obj/item/usb_cable/bluespace
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_CORE)
+	materials = list(/datum/material/iron = 1000, /datum/material/copper = 1500, /datum/material/bluespace = 500)
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
 /datum/design/component
 	name = "Component ( NULL ENTRY )"
 	desc = "A component that goes into an integrated circuit."

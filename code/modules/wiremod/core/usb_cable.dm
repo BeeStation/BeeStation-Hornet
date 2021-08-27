@@ -7,6 +7,7 @@
 	item_state = "coil"
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron = 75)
+	var/usb_range = USB_CABLE_MAX_RANGE
 
 	/// The currently connected circuit
 	var/obj/item/integrated_circuit/attached_circuit
@@ -25,6 +26,7 @@
 
 	if (!isnull(attached_circuit))
 		. += "<span class='notice'>It is attached to [attached_circuit.shell || attached_circuit].</span>"
+	. += "<span class='notice'>Max range: [usb_range].</span>"
 
 // Look, I'm not happy about this either, but moving an object doesn't call Moved if it's inside something else.
 // There's good reason for this, but there's no element or similar yet to track it as far as I know.
@@ -105,8 +107,8 @@
 		STOP_PROCESSING(SSobj, src)
 		return FALSE
 
-	if (!IN_GIVEN_RANGE(attached_circuit, src, USB_CABLE_MAX_RANGE))
-		balloon_alert_to_viewers("detached, too far away")
+	if (!IN_GIVEN_RANGE(attached_circuit, src, usb_range))
+		balloon_alert_to_viewers("disconnected, too far away")
 		unregister_circuit_signals(attached_circuit)
 		attached_circuit = null
 		STOP_PROCESSING(SSobj, src)
@@ -119,3 +121,15 @@
 
 	attached_circuit = null
 	STOP_PROCESSING(SSobj, src)
+
+/obj/item/usb_cable/bluespace
+	name = "wireless usb"
+	desc = "A bluespace usb transceiver that can connect integrated circuits to anything with a USB port, such as computers and machines, this one's wireless and won't detach unless it's out of range."
+	icon_state = "usb_cable_wireless"
+	usb_range = USB_WIRELESS_MAX_RANGE
+
+/obj/item/usb_cable/debug
+	name = "debug wireless usb"
+	desc = "Adminbuse wireless usb transceiver, can connect over ridiculous distances."
+	icon_state = "usb_cable_wireless"
+	usb_range = 50000
