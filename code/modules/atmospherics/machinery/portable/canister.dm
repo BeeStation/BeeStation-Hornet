@@ -66,42 +66,22 @@
 
 	/// Toggles the canister's valve
 	var/datum/port/input/toggle
-	/// Set's the valve's pressure value
+	/// Set's the can's target pressure value
 	var/datum/port/input/pressure
-
-	/// Whether the valve is currently open
-	var/datum/port/output/is_open
-	/// Sent when the valve is opened
-	var/datum/port/output/opened
-	/// Sent when the valve is closed
-	var/datum/port/output/closed
 
 /obj/item/circuit_component/canister_valve/Initialize()
 	. = ..()
 	toggle = add_input_port("Toggle", PORT_TYPE_SIGNAL)
-	pressure = add_input_port("Pressure", PORT_TYPE_NUMBER)
-
-	is_open = add_output_port("Is Open", PORT_TYPE_NUMBER)
-	opened = add_output_port("Opened", PORT_TYPE_SIGNAL)
-	closed = add_output_port("Closed", PORT_TYPE_SIGNAL)
+	pressure = add_input_port("Target Pressure", PORT_TYPE_NUMBER)
 
 /obj/item/circuit_component/canister_valve/register_usb_parent(atom/movable/shell)
 	. = ..()
 	if(istype(shell, /obj/machinery/portable_atmospherics/canister))
 		attached_can = shell
-		RegisterSignal(attached_can, COMSIG_VALVE_SET_OPEN, .proc/handle_valve_toggled)
 
 /obj/item/circuit_component/canister_valve/unregister_usb_parent(atom/movable/shell)
-	UnregisterSignal(attached_can, COMSIG_VALVE_SET_OPEN)
 	attached_can = null
 	return ..()
-
-/obj/item/circuit_component/canister_valve/proc/handle_valve_toggled(datum/source, on)
-	is_open.set_output(on)
-	if(on)
-		opened.set_output(COMPONENT_SIGNAL)
-	else
-		closed.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/canister_valve/input_received(datum/port/input/port)
 	. = ..()
