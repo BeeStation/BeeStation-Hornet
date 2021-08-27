@@ -1,0 +1,9 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - bugfix: Advanced Mimery Gun now able to be fired multiple times without issues
+  - bugfix: You can now dispell the advanced mimery gun properly
+  - code_imp: Added a subtype of the finger gun that is lethal. This is used by advanced
+      mimery only.
+  - refactor: Advanced Mimery now does a finger gun variant instead of some weird
+      magical projectile stuff
