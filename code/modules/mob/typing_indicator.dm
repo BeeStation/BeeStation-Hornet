@@ -1,8 +1,9 @@
 /mob/proc/create_typing_indicator()
 	if(ishuman(src)) //Hello code jannie reading this. This is kinda icky gross, but I couldnt figure out a better way to do this.
 		var/mob/living/carbon/human/H = src
-		H.overlays_standing[TYPING_LAYER] = H.typing_indicator
-		H.apply_overlay(TYPING_LAYER)
+		if(!H.overlays_standing[TYPING_LAYER])
+			H.overlays_standing[TYPING_LAYER] = H.typing_indicator
+			H.apply_overlay(TYPING_LAYER)
 
 /mob/proc/remove_typing_indicator()
 	if(ishuman(src))
