@@ -1,4 +1,0 @@
-author: lordScrubling
-delete-after: true
-changes:
-  - bugfix: self surgery being instantly successful in poor conditions
