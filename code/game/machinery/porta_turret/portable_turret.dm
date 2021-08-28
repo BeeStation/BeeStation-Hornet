@@ -501,40 +501,27 @@
 	update_icon()
 
 /obj/machinery/porta_turret/proc/assess_perp(mob/living/carbon/human/perp)
-	var/threatcount = 0	//the integer returned
-
-	if(obj_flags & EMAGGED)
-		return 10	//if emagged, always return 10.
-
+	//if the turret has been attacked or is angry, target all non-sec people
 	if((stun_all || attacked) && !allowed(perp))
-		//if the turret has been attacked or is angry, target all non-sec people
 		if(!allowed(perp))
 			return 10
-
-	if(auth_weapons)	//check for weapon authorization
-		if(isnull(perp.wear_id) || istype(perp.wear_id.GetID(), /obj/item/card/id/syndicate))
-
-			if(allowed(perp)) //if the perp has security access, return 0
-				return 0
-
-			if(perp.is_holding_item_of_type(/obj/item/gun) ||  perp.is_holding_item_of_type(/obj/item/melee/baton))
-				threatcount += 4
-
-			if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee/baton))
-				threatcount += 2
-
-	if(check_records)	//if the turret can check the records, check if they are set to *Arrest* on records
-		var/perpname = perp.get_face_name(perp.get_id_name())
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(!R || (R.fields["criminal"] == "*Arrest*"))
-			threatcount += 4
-
+	//Check for judgement
+	var/judgement = NONE
+	if(obj_flags & EMAGGED)
+		judgement |= JUDGE_EMAGGED
+	if(auth_weapons)
+		judgement |= JUDGE_WEAPONCHECK
+	if(check_records)
+		judgement |= JUDGE_RECORDCHECK
+	. = perp.assess_threat(judgement, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 	if(shoot_unloyal)
-		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) ||  istype(perp.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
-			threatcount += 4
+		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) || istype(perp.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+			. += 4
 
-	return threatcount
-
+/obj/machinery/porta_turret/proc/check_for_weapons(var/obj/item/slot_item)
+	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
+		return TRUE
+	return FALSE
 
 /obj/machinery/porta_turret/proc/in_faction(mob/target)
 	for(var/faction1 in faction)

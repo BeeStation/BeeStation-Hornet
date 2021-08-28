@@ -42707,6 +42707,16 @@
 	dir = 9
 	},
 /area/science/shuttledock)
+"cxs" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = -20
+	},
+/mob/living/simple_animal/crab/Coffee,
+/turf/open/floor/plasteel/white,
+/area/science/lab)
 "cxA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -45811,15 +45821,6 @@
 	dir = 10
 	},
 /area/science/research)
-"dgS" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_x = -20
-	},
-/turf/open/floor/plasteel/white,
-/area/science/lab)
 "dhq" = (
 /obj/machinery/computer/cryopod{
 	pixel_y = 25
@@ -109044,7 +109045,7 @@ biU
 pDJ
 blI
 bnn
-dgS
+cxs
 bpZ
 brt
 bta
