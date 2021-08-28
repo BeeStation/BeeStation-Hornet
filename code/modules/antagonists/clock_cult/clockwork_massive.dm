@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/announce_gateway()
 	activated = TRUE
-	set_security_level(SEC_LEVEL_DELTA)
+	set_security_level(SEC_LEVEL_GAMMA)
 	mass_recall(TRUE)
 	var/grace_time = GLOB.narsie_breaching ? 0 : 1800
 	addtimer(CALLBACK(src, .proc/begin_assault), grace_time)
@@ -196,6 +196,7 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		M.status_flags |= GODMODE
 	sound_to_playing_players(volume = 100, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/effects/ratvar_rises.ogg')) //End the sounds
 	GLOB.ratvar_risen = TRUE
+	set_security_level(SEC_LEVEL_DELTA)
 	var/original_matrix = matrix()
 	animate(src, transform = original_matrix * 1.5, alpha = 255, time = 125)
 	sleep(125)

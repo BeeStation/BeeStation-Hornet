@@ -277,7 +277,7 @@
 				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")
 				addtimer(CALLBACK(src, .proc/ascend, B.current), 200)
 		cult_ascendent = TRUE
-
+		set_security_level(SEC_LEVEL_GAMMA)
 
 /datum/team/cult/proc/rise(cultist)
 	if(ishuman(cultist))
