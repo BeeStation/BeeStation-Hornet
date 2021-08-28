@@ -59,7 +59,7 @@
 	name = "Bitflag Component"
 	id = "comp_bitflag"
 	build_path = /obj/item/circuit_component/compare/bitflag
-	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS, WIREMOD_LOGIC_COMPONENTS)
 
 /datum/design/component/clock
 	name = "Clock Component"
@@ -125,6 +125,7 @@
 	name = "Round Component"
 	id = "comp_round"
 	build_path = /obj/item/circuit_component/round
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
 
 /datum/design/component/species
 	name = "Get Species Component"
