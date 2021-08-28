@@ -1206,6 +1206,14 @@
 	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
 		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
 
+/mob/living/carbon/human/create_typing_indicator()
+	if(!overlays_standing[TYPING_LAYER]) //Prevents sticky overlays
+		overlays_standing[TYPING_LAYER] = typing_indicator
+		apply_overlay(TYPING_LAYER)
+
+/mob/living/carbon/human/remove_typing_indicator()
+	remove_overlay(TYPING_LAYER)
+
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
 
