@@ -44,7 +44,7 @@
 	var/list/victims = list()
 
 	var/playstyle_string = "<span class='big bold'>You are a Cat Surgeon,</span></b> a doctor who wants to unlock the felinid inside everyone. \
-							You may take fire tranquilizer darts as a ranged attack, and may click on people adjacent to you to unlock \
+							You may fire tranquilizer darts as a ranged attack, and may click on people adjacent to you to unlock \
 							their hidden potential. Performing surgery on certain numbers of people will increase the potency of \
 							your darts, in addition to other upgrades. You do not want to kill others, only to help them reach \
 							their perfect form. You will automatically self-medicate to heal outside of combat. </b>"
