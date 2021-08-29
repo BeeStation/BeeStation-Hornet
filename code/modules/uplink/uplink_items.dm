@@ -2005,7 +2005,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "We found these lying around Warehouse R1O-GN, which was decommissioned years ago. We were going to throw them out but we heard you might be interested in them."
 	item = /obj/item/storage/pill_bottle/floorpill/full
 	restricted_roles = list("Assistant", "Debtor")
-	cost = 3
+	cost = 2
 
 /datum/uplink_item/role_restricted/clown_bomb
 	name = "Clown Bomb"
