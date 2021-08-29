@@ -65,6 +65,10 @@
 		var/newgirder = break_wall()
 		if(newgirder) //maybe we don't /want/ a girder!
 			transfer_fingerprints_to(newgirder)
+	if(prob(90))
+		var/datum/effect_system/smoke_spread/asbestos/smoke = new
+		smoke.set_up(4, src.loc)
+		smoke.start()
 
 	for(var/obj/O in src.contents) //Eject contents!
 		if(istype(O, /obj/structure/sign/poster))

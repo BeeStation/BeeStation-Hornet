@@ -118,7 +118,21 @@
 	if(S.amount)
 		S.spread_smoke()
 
+/////////////////////////////////////////////
+// Asbestos Smoke
+/////////////////////////////////////////////
 
+/obj/effect/particle_effect/smoke/asbestos
+	lifetime = 4
+
+/obj/effect/particle_effect/smoke/asbestos/smoke_mob(mob/living/carbon/M)
+	if(..())
+		M.reagents.add_reagent(/datum/reagent/toxin/asbestos=10)
+		M.emote("cough")
+		return 1
+
+/datum/effect_system/smoke_spread/asbestos
+	effect_type = /obj/effect/particle_effect/smoke/asbestos
 /////////////////////////////////////////////
 // Bad smoke
 /////////////////////////////////////////////

@@ -905,3 +905,20 @@
 		to_chat(M, "<span class='notice'>[tox_message]</span>")
 	. = 1
 	..()
+
+//Apparently we still haven't shaken the use of asbestos into the year 2303
+/datum/reagent/toxin/asbestos
+	name = "Asbestos"
+	description = "A toxin that lingers in the lungs eventually dealing damage to them when inhaled."
+	silent_toxin = TRUE
+	color = "#fff"
+	metabolization_rate = 0 //It doesn't metabolize. It gets removed when it activates
+	toxpwr = 0
+	taste_description = "Carcinogenic Fireproofing"
+
+/datum/reagent/toxin/asbestos/on_mob_life(mob/living/carbon/M)
+	if(prob(99))
+		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 100) //Mesothelioma
+		M.reagents.remove_reagent(/datum/reagent/toxin/asbestos, 1000) //Should remove all asbestos
+		to_chat(M, "<span class='notice'>You have mesothelioma and may be entitled to financial compensation.</span>")
+	..()
