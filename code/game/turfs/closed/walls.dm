@@ -72,7 +72,7 @@
 			P.roll_and_drop(src)
 	var/turf/nextTurf = ScrapeAway()
 	var/datum/effect_system/smoke_spread/asbestos/smoke = new
-	smoke.set_up(4, nextTurf)
+	smoke.set_up(2, nextTurf)
 	smoke.start()
 
 
