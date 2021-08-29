@@ -8,7 +8,7 @@ export const Guardian = (props, context) => {
   const [tab, setTab] = useLocalState(context, 'tab', 'general');
   return (
     <Window
-      width={500}
+      width={580}
       height={600}>
       <Window.Content scrollable>
         {!!data.waiting && (
@@ -127,57 +127,51 @@ const GuardianStats = (props, context) => {
     <Section>
       <LabeledList>
         {data.ratedskills.map(skill => (
-          <LabeledList.Item
-            key={skill.name}
-            className="candystripe"
-            label={(
-              <Box position="relative">
-                {skill.name}
-                <Tooltip content={skill.desc}
-                  position="bottom-right"
-                />
-              </Box>
-            )}>
-            <Button
-              content="A"
-              selected={skill.level === 5}
-              disabled={skill.level < 5 && data.points < 4}
-              onClick={() => act('set', {
-                name: skill.name,
-                level: 5,
-              })} />
-            <Button
-              content="B"
-              selected={skill.level === 4}
-              disabled={skill.level < 4 && data.points < 3}
-              onClick={() => act('set', {
-                name: skill.name,
-                level: 4,
-              })} />
-            <Button
-              content="C"
-              selected={skill.level === 3}
-              disabled={skill.level < 3 && data.points < 2}
-              onClick={() => act('set', {
-                name: skill.name,
-                level: 3,
-              })} />
-            <Button
-              content="D"
-              selected={skill.level === 2}
-              disabled={skill.level < 2 && data.points < 1}
-              onClick={() => act('set', {
-                name: skill.name,
-                level: 2,
-              })} />
-            <Button
-              content="F"
-              selected={skill.level === 1}
-              onClick={() => act('set', {
-                name: skill.name,
-                level: 1,
-              })} />
-          </LabeledList.Item>
+          <Tooltip key={skill.name} content={skill.desc} position="bottom-start">
+            <LabeledList.Item
+              className="candystripe"
+              label={skill.name}>
+              <Button
+                content="A"
+                selected={skill.level === 5}
+                disabled={skill.level < 5 && data.points < 4}
+                onClick={() => act('set', {
+                  name: skill.name,
+                  level: 5,
+                })} />
+              <Button
+                content="B"
+                selected={skill.level === 4}
+                disabled={skill.level < 4 && data.points < 3}
+                onClick={() => act('set', {
+                  name: skill.name,
+                  level: 4,
+                })} />
+              <Button
+                content="C"
+                selected={skill.level === 3}
+                disabled={skill.level < 3 && data.points < 2}
+                onClick={() => act('set', {
+                  name: skill.name,
+                  level: 3,
+                })} />
+              <Button
+                content="D"
+                selected={skill.level === 2}
+                disabled={skill.level < 2 && data.points < 1}
+                onClick={() => act('set', {
+                  name: skill.name,
+                  level: 2,
+                })} />
+              <Button
+                content="F"
+                selected={skill.level === 1}
+                onClick={() => act('set', {
+                  name: skill.name,
+                  level: 1,
+                })} />
+            </LabeledList.Item>
+          </Tooltip>
         ))}
       </LabeledList>
     </Section>

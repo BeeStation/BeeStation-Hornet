@@ -36,7 +36,7 @@
 	if(!ui)
 		ui = new(user, src, "implantchair")
 		ui.open()
-
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/implantchair/ui_data()
 	var/list/data = list()

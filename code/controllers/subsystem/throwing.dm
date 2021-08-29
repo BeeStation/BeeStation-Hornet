@@ -14,6 +14,11 @@ SUBSYSTEM_DEF(throwing)
 /datum/controller/subsystem/throwing/stat_entry()
 	. = ..("P:[processing.len]")
 
+/datum/controller/subsystem/throwing/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(processing)
+	.["custom"] = cust
 
 /datum/controller/subsystem/throwing/fire(resumed = 0)
 	if (!resumed)
@@ -41,7 +46,6 @@ SUBSYSTEM_DEF(throwing)
 
 /datum/thrownthing
 	var/atom/movable/thrownthing
-	var/atom/target
 	var/turf/target_turf
 	var/target_zone
 	var/init_dir
@@ -64,11 +68,10 @@ SUBSYSTEM_DEF(throwing)
 	var/last_move = 0
 
 
-/datum/thrownthing/New(thrownthing, target, target_turf, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone)
+/datum/thrownthing/New(thrownthing, target_turf, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone)
 	. = ..()
 	src.thrownthing = thrownthing
 	RegisterSignal(thrownthing, COMSIG_PARENT_QDELETING, .proc/on_thrownthing_qdel)
-	src.target = target
 	src.target_turf = target_turf
 	src.init_dir = init_dir
 	src.maxrange = maxrange
@@ -85,7 +88,6 @@ SUBSYSTEM_DEF(throwing)
 	SSthrowing.currentrun -= thrownthing
 	thrownthing.throwing = null
 	thrownthing = null
-	target = null
 	thrower = null
 	if(callback)
 		QDEL_NULL(callback) //It stores a reference to the thrownthing, its source. Let's clean that.
