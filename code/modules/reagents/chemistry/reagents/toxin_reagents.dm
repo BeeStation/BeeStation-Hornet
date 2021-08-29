@@ -917,7 +917,7 @@
 	taste_description = "Carcinogenic Fireproofing"
 
 /datum/reagent/toxin/asbestos/on_mob_life(mob/living/carbon/M)
-	if(prob(99))
+	if(prob(10))
 		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 100) //Mesothelioma
 		M.reagents.remove_reagent(/datum/reagent/toxin/asbestos, 1000) //Should remove all asbestos
 		to_chat(M, "<span class='notice'>You have mesothelioma and may be entitled to financial compensation.</span>")

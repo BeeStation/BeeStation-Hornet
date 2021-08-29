@@ -71,9 +71,10 @@
 			var/obj/structure/sign/poster/P = O
 			P.roll_and_drop(src)
 	var/turf/nextTurf = ScrapeAway()
-	var/datum/effect_system/smoke_spread/asbestos/smoke = new
-	smoke.set_up(2, nextTurf)
-	smoke.start()
+	if(prob(5))
+		var/datum/effect_system/smoke_spread/asbestos/smoke = new
+		smoke.set_up(2, nextTurf)
+		smoke.start()
 
 
 /turf/closed/wall/proc/break_wall()
