@@ -35,12 +35,19 @@
 	status_flags = CANPUSH
 	del_on_death = TRUE
 	hardattacks = TRUE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	dodging = TRUE
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
 	lose_patience_timeout = 50//very impatient, moves from target to target frequently
 	var/list/victims = list()
+
+	var/playstyle_string = "<span class='big bold'>You are a Cat Surgeon,</span></b> a doctor who wants to unlock the felinid inside everyone. \
+							You may take fire tranquilizer darts as a ranged attack, and may click on people adjacent to you to unlock \
+							their hidden potential. Performing surgery on certain numbers of people will increase the potency of \
+							your darts, in addition to other upgrades. You do not want to kill others, only to help them reach \
+							their perfect form. You will automatically self-medicate to heal outside of combat. </b>"
 
 //heal himself when not in combat
 /mob/living/simple_animal/hostile/cat_butcherer/Life()
@@ -103,10 +110,13 @@
 		else
 			maxHealth = (300 + (5 * (LAZYLEN(victims)-10)))
 		switch(LAZYLEN(victims))
-			if(2)
+			if(2) //stronger tranq and a medhud
 				projectiletype = /obj/item/projectile/bullet/dart/tranq/plus
+				var/datum/atom_hud/med = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+				med.add_hud_to(src)
 			if(4)//gain space adaptation to make cheesing harder
 				atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+				minbodytemp = TCMB
 				icon_state = "cat_butcher_fire"
 				icon_living = "cat_butcher_fire"
 			if(6) //at this point, it's probably out in the hall attacking several people at once
