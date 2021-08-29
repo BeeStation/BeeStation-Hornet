@@ -54,6 +54,7 @@
 		return FALSE
 	if(!can_attach(M))
 		to_chat(user, "<span class='warning'>You are unable to attach [src] to [M]!</span>")
+		user.put_in_hands(src)
 		return FALSE
 	attach(M)
 	user.visible_message("[user] attaches [src] to [M].", "<span class='notice'>You attach [src] to [M].</span>")
