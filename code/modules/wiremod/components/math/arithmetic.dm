@@ -56,6 +56,6 @@
 				var/multiples = round(. / value)
 				. -= multiples * value
 			if(COMP_ARITHMETIC_MAX)
-				. = max(result, value)
+				. = max(., value)
 			if(COMP_ARITHMETIC_MIN)
-				. = min(result, value)
+				. = min(., value)

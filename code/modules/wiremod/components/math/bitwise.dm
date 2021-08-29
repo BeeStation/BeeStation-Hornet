@@ -42,6 +42,6 @@
 			if(COMP_BITWISE_XOR)
 				. ^= value
 			if(COMP_BITWISE_LEFTSHIFT)
-				. = round(result * 2**value) //Bitshifts are done with powers of two instead of the >> and << operators to allow negative shifts
+				. = round(. * 2**value) //Bitshifts are done with powers of two instead of the >> and << operators to allow negative shifts
 			if(COMP_BITWISE_RIGHTSHIFT)
-				. = round(result * 2**(-value))
+				. = round(. * 2**(-value))
