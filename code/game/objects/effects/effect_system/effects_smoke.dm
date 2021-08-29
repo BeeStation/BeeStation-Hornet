@@ -127,7 +127,7 @@
 
 /obj/effect/particle_effect/smoke/asbestos/smoke_mob(mob/living/carbon/M)
 	if(..())
-		M.reagents.add_reagent(/datum/reagent/toxin/asbestos=10)
+		M.reagents.add_reagent(/datum/reagent/toxin/asbestos, 10)
 		M.emote("cough")
 		return 1
 
