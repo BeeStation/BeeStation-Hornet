@@ -98,7 +98,6 @@
 			return sin(value) == 0 ? null : CSC(value)
 		if(COMP_TRIG_COTANGENT)
 			return sin(value) == 0 ? null : (cos(value) * CSC(value)) //The define for COT uses 1/tan(x), which throws a divide by zero error when x = pi/2 + kpi where k is an integer
-	return null //Safety check incase something goes wrong with the component options
 
 
 //Hyperbolic Sine and Cosine
