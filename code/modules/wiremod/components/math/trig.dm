@@ -124,4 +124,3 @@
 			return log(value+sqrt(value**2+1))
 		if(COMP_TRIG_AHYPERBOLIC_COSINE)
 			return value < 1 ? null : log(value+sqrt(value**2-1))
-	return null //Another safety check
