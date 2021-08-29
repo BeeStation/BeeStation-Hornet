@@ -74,7 +74,6 @@
 			return sin(value)
 		if(COMP_TRIG_TANGENT)
 			return cos(value) == 0 ? null : tan(value)
-	return null //Safety check incase something goes wrong with the component options
 
 
 //Performs Secant, Cosecant, and Cotangent
