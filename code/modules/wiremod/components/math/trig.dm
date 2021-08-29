@@ -61,12 +61,12 @@
 
 	switch(current_option)
 		if(COMP_TRIG_ASINE)
-			return (value >= -1 && value <= 1) ? arcsin(value) * PI/180 : null //Converting to Radians
+			return (value >= -1 && value <= 1) ? TORADIANS(arcsin(value)) : null
 		if(COMP_TRIG_ACOSINE)
-			return (value >= -1 && value <= 1) ? arccos(value) * PI/180 : null
+			return (value >= -1 && value <= 1) ? TORADIANS(arccos(value)) * PI/180 : null
 		if(COMP_TRIG_ATANGENT)
 			return arctan(value) * PI/180
-	value *= 180/PI //Convert to degrees, because apparently BYOND doesn't believe in the almighty radian
+	value = TODEGREES(value) //apparently BYOND doesn't believe in the almighty radian
 	switch(current_option)
 		if(COMP_TRIG_COSINE)
 			return cos(value)
