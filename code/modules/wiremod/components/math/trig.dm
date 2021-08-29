@@ -48,7 +48,7 @@
 	display_desc = "A component capable of trigonometric functions."
 
 /obj/item/circuit_component/trig/trig/populate_options()
-	var/static/component_options = list(
+	options = list(
 		COMP_TRIG_SINE,
 		COMP_TRIG_COSINE,
 		COMP_TRIG_TANGENT,
@@ -56,7 +56,6 @@
 		COMP_TRIG_ACOSINE,
 		COMP_TRIG_ATANGENT
 	)
-	options = component_options
 
 /obj/item/circuit_component/trig/trig/do_calculation(value)
 
@@ -85,12 +84,11 @@
 
 
 /obj/item/circuit_component/trig/adv_trig/populate_options()
-	var/static/component_options = list(
+	options = list(
 		COMP_TRIG_SECANT,
 		COMP_TRIG_COSECANT,
 		COMP_TRIG_COTANGENT
 	)
-	options = component_options
 
 /obj/item/circuit_component/trig/adv_trig/do_calculation(value)
 	value *= 180/PI //Switch to degrees again
@@ -110,13 +108,12 @@
 	display_desc = "This component makes all your trig calculations be based on hyperbolas and natural exponentials instead of circles"
 
 /obj/item/circuit_component/trig/hyper_trig/populate_options()
-	var/static/component_options = list(
+	options = list(
 		COMP_TRIG_HYPERBOLIC_SINE,
 		COMP_TRIG_HYPERBOLIC_COSINE,
 		COMP_TRIG_AHYPERBOLIC_SINE,
 		COMP_TRIG_AHYPERBOLIC_COSINE,
 	)
-	options = component_options
 
 /obj/item/circuit_component/trig/hyper_trig/do_calculation(value)
 

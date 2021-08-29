@@ -15,7 +15,7 @@
 	input_port_amount = 4
 
 /obj/item/circuit_component/arbitrary_input_amount/arithmetic/populate_options()
-	var/static/component_options = list(
+	options = list(
 		COMP_ARITHMETIC_ADD,
 		COMP_ARITHMETIC_SUBTRACT,
 		COMP_ARITHMETIC_MULTIPLY,
@@ -24,11 +24,10 @@
 		COMP_ARITHMETIC_MIN,
 		COMP_ARITHMETIC_MAX,
 	)
-	options = component_options
 
 /obj/item/circuit_component/arbitrary_input_amount/arithmetic/calculate_output(datum/port/input/port, datum/port/input/first_port, list/ports)
 
-	var/result = first_port.input_value
+	. = first_port.input_value
 
 	for(var/datum/port/input/input_port as anything in ports)
 		var/value = input_port.input_value
@@ -37,28 +36,26 @@
 
 		switch(current_option)
 			if(COMP_ARITHMETIC_ADD)
-				result += value
+				. += value
 			if(COMP_ARITHMETIC_SUBTRACT)
-				result -= value
+				. -= value
 			if(COMP_ARITHMETIC_MULTIPLY)
-				result *= value
+				. *= value
 			if(COMP_ARITHMETIC_DIVIDE)
 				// Protect from div by zero errors.
 				if(value == 0)
-					result = null
+					. = null
 					break
-				result /= value
+				. /= value
 			if(COMP_ARITHMETIC_MODULO)
 				//Another protect from divide by zero.
 				if(value == 0)
-					result = null
+					. = null
 					break
 				//BYOND's built in modulus operator doesn't work well with decimals, so I'm using this method instead
-				var/multiples = round(result / value)
-				result -= multiples * value
+				var/multiples = round(. / value)
+				. -= multiples * value
 			if(COMP_ARITHMETIC_MAX)
-				result = max(result, value)
+				. = max(result, value)
 			if(COMP_ARITHMETIC_MIN)
-				result = min(result, value)
-
-	return result
+				. = min(result, value)

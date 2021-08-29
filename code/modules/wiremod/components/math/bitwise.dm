@@ -15,18 +15,17 @@
 	input_port_amount =  2
 
 /obj/item/circuit_component/arbitrary_input_amount/bitwise/populate_options()
-	var/static/component_options = list(
+	options = list(
 		COMP_BITWISE_AND,
 		COMP_BITWISE_OR,
 		COMP_BITWISE_XOR,
 		COMP_BITWISE_LEFTSHIFT,
 		COMP_BITWISE_RIGHTSHIFT,
 	)
-	options = component_options
 
 /obj/item/circuit_component/arbitrary_input_amount/bitwise/calculate_output(datum/port/input/port, datum/port/input/first_port, list/ports)
 
-	var/result = round(first_port.input_value)
+	. = round(first_port.input_value)
 
 	for(var/datum/port/input/input_port as anything in ports)
 		var/value = input_port.input_value
@@ -37,14 +36,12 @@
 
 		switch(current_option)
 			if(COMP_BITWISE_AND)
-				result &= value
+				. &= value
 			if(COMP_BITWISE_OR)
-				result |= value
+				. |= value
 			if(COMP_BITWISE_XOR)
-				result ^= value
+				. ^= value
 			if(COMP_BITWISE_LEFTSHIFT)
-				result = round(result * 2**value) //Bitshifts are done with powers of two instead of the >> and << operators to allow negative shifts
+				. = round(result * 2**value) //Bitshifts are done with powers of two instead of the >> and << operators to allow negative shifts
 			if(COMP_BITWISE_RIGHTSHIFT)
-				result = round(result * 2**(-value))
-
-	return result
+				. = round(result * 2**(-value))

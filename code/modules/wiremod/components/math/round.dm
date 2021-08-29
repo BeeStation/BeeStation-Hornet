@@ -18,12 +18,11 @@
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 /obj/item/circuit_component/round/populate_options()
-	var/static/component_options = list(
+	options = list(
 		COMP_ROUND_ROUND,
 		COMP_ROUND_FLOOR,
 		COMP_ROUND_CEIL,
 	)
-	options = component_options
 
 /obj/item/circuit_component/round/Initialize()
 	. = ..()
