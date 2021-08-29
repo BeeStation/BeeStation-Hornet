@@ -60,12 +60,12 @@
 
 	switch(current_option)
 		if(COMP_TRIG_ASINE)
-			return (value >= -1 && value <= 1) ? arcsin(value) * PI/180 : null //Converting to Radians
+			return (value >= -1 && value <= 1) ? TORADIANS(arcsin(value)) : null
 		if(COMP_TRIG_ACOSINE)
-			return (value >= -1 && value <= 1) ? arccos(value) * PI/180 : null
+			return (value >= -1 && value <= 1) ? TORADIANS(arccos(value)) * PI/180 : null
 		if(COMP_TRIG_ATANGENT)
 			return arctan(value) * PI/180
-	value *= 180/PI //Convert to degrees, because apparently BYOND doesn't believe in the almighty radian
+	value = TODEGREES(value) //apparently BYOND doesn't believe in the almighty radian
 	switch(current_option)
 		if(COMP_TRIG_COSINE)
 			return cos(value)
@@ -73,7 +73,6 @@
 			return sin(value)
 		if(COMP_TRIG_TANGENT)
 			return cos(value) == 0 ? null : tan(value)
-	return null //Safety check incase something goes wrong with the component options
 
 
 //Performs Secant, Cosecant, and Cotangent
@@ -90,7 +89,7 @@
 	)
 
 /obj/item/circuit_component/trig/adv_trig/do_calculation(value)
-	value *= 180/PI //Switch to degrees again
+	value = TODEGREES(value)
 	switch(current_option)
 		if(COMP_TRIG_SECANT)
 			return cos(value) == 0 ? null : SEC(value)
@@ -98,7 +97,6 @@
 			return sin(value) == 0 ? null : CSC(value)
 		if(COMP_TRIG_COTANGENT)
 			return sin(value) == 0 ? null : (cos(value) * CSC(value)) //The define for COT uses 1/tan(x), which throws a divide by zero error when x = pi/2 + kpi where k is an integer
-	return null //Safety check incase something goes wrong with the component options
 
 
 //Hyperbolic Sine and Cosine
@@ -125,4 +123,3 @@
 			return log(value+sqrt(value**2+1))
 		if(COMP_TRIG_AHYPERBOLIC_COSINE)
 			return value < 1 ? null : log(value+sqrt(value**2-1))
-	return null //Another safety check
