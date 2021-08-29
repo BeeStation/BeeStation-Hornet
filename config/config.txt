@@ -240,16 +240,16 @@ CHECK_RANDOMIZER
 
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
 ## Don't set this to the same server, BYOND will automatically restart players to the server when it has restarted.
-SERVER  byond://golden.beestation13.com:7777
+SERVER  byond://sage.beestation13.com:7878
 
 ## forum address
-FORUMURL http://forums.beestation13.com
+FORUMURL https://forums.beestation13.com
 
 ## Wiki address
 WIKIURL https://wiki.beestation13.com/view
 
 ## Rules address
-RULESURL http://beestation13.com/rules?server=bs_golden
+RULESURL https://beestation13.com/rules
 
 ## Github address
 GITHUBURL https://www.github.com/beestation/beestation-hornet
@@ -510,7 +510,6 @@ RESPECT_GLOBAL_BANS
 MAX_SHUTTLE_COUNT 6
 MAX_SHUTTLE_SIZE 300
 
-
 ### Fail2Topic settings
 ### fail2topic is a system for automating IP bans for abusers of the world/Topic API.
 ### Note that this subsystem respects the IPs listed in topic_rate_limit_whitelist.txt. They will not be considered for a ban.
@@ -559,3 +558,13 @@ GHOST_ROLE_COOLDOWN 3000
 
 ## Enable/disable roundstart station traits
 #STATION_TRAITS
+
+### ALL SETTINGS FOR SSmetrics ###
+## Uncomment the line below to enable SSmetrics sending data to ElasticSearch. You will need to fill in the other lines if you do
+#ELASTICSEARCH_METRICS_ENABLED
+
+## POST URL of your elasticsearch metrics. Include the IP, protocol, and datastream/index
+ELASTICSEARCH_METRICS_ENDPOINT http://10.0.0.40:9201/ss13-metrics-stream/_doc
+
+## ElasticSearch API key. This is formatted into the headers. Look at the ElasticSearch doc for how to make this
+ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==

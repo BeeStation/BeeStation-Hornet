@@ -132,3 +132,4 @@
 			else if(params["reset"] == "code")
 				code = initial(code)
 				. = TRUE
+	ui_update()

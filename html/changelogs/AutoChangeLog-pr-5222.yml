@@ -1,0 +1,5 @@
+author: ike709
+delete-after: true
+changes:
+  - admin: Removed an admin privilege elevation exploit and other potential avenues
+      for abuse
