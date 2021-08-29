@@ -40,4 +40,3 @@
 
 //This should return the value to be set on input_received, first_port should be the first port, and ports should be every input port except the first and signal ports
 /obj/item/circuit_component/arbitrary_input_amount/proc/calculate_output(datum/port/input/port, datum/port/input/first_port, list/ports)
-	return null

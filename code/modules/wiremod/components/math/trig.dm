@@ -31,7 +31,6 @@
 
 //The output is set to the return value of this proc on input received
 /obj/item/circuit_component/trig/proc/do_calculation(value)
-	return null
 
 /obj/item/circuit_component/trig/input_received(datum/port/input/port)
 	. = ..()
