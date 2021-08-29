@@ -755,9 +755,14 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	set category = "Admin"
 	set name = "Adminhelp"
 	
-	var/choice = alert("Are you sure you want to adminhelp?\n\
-		If you have questions about game mechanics, you should mentorhelp instead.\n\
-		Adminhelp is meant for questions about rules or asking for admin intervention.",, "Adminhelp", "Mentorhelp", "Cancel")
+	var/choice
+
+	if(current_ticket) // If there's an open ticket go straight to adminhelp
+		choice = "Adminhelp"
+	else
+		choice = alert("Are you sure you want to adminhelp?\n\
+			If you have questions about game mechanics, you should mentorhelp instead.\n\
+			Adminhelp is meant for questions about rules or asking for admin intervention.",, "Adminhelp", "Mentorhelp", "Cancel")
 
 	switch(choice)
 		if("Cancel")
