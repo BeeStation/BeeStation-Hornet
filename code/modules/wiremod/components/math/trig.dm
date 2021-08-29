@@ -91,7 +91,7 @@
 	)
 
 /obj/item/circuit_component/trig/adv_trig/do_calculation(value)
-	value *= 180/PI //Switch to degrees again
+	value = TODEGREES(value)
 	switch(current_option)
 		if(COMP_TRIG_SECANT)
 			return cos(value) == 0 ? null : SEC(value)
