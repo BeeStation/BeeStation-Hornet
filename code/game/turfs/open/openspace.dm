@@ -19,6 +19,10 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	CanAtmosPassVertical = ATMOS_PASS_YES
 	allow_z_travel = TRUE
 
+	FASTDMM_PROP(\
+		pipe_astar_cost = 100\
+	)
+
 	//mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/can_cover_up = TRUE
 	var/can_build_on = TRUE

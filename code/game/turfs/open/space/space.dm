@@ -5,7 +5,7 @@
 	intact = 0
 
 	FASTDMM_PROP(\
-		pipe_astar_cost = 4\
+		pipe_astar_cost = 100\
 	)
 
 	allow_z_travel = TRUE
