@@ -31,6 +31,7 @@ export { NumberInput } from './NumberInput';
 export { OrbitalMapComponent } from './OrbitalMapComponent';
 export { ProgressBar } from './ProgressBar';
 export { ScrollableBox } from './ScrollableBox';
+export { Popper } from './Popper';
 export { Section } from './Section';
 export { Slider } from './Slider';
 export { Stack } from './Stack';
