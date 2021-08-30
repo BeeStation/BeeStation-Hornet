@@ -55,6 +55,7 @@
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
+	layer = ABOVE_WINDOW_LAYER
 
 	var/cyclestate = AIRLOCK_CYCLESTATE_INOPEN
 	var/interior_pressure = ONE_ATMOSPHERE

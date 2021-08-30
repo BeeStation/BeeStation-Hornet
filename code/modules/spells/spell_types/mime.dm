@@ -174,44 +174,40 @@
 		invocation_type ="none"
 	..()
 
-/obj/effect/proc_holder/spell/aimed/finger_guns
+/obj/effect/proc_holder/spell/targeted/mime/finger_guns
 	name = "Finger Guns"
 	desc = "Shoot a mimed bullet from your fingers that stuns and does some damage."
 	school = "mime"
 	panel = "Mime"
 	charge_max = 300
+	range = -1
 	clothes_req = FALSE
 	antimagic_allowed = TRUE
+	include_user = TRUE
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='dangers'>You fire your finger gun!</span>"
-	range = 20
-	projectile_type = /obj/item/projectile/bullet/mime
-	projectile_amount = 3
 	sound = null
-	active_msg = "You draw your fingers!"
-	deactive_msg = "You put your fingers at ease. Another time."
-	active = FALSE
 
 	action_icon = 'icons/mob/actions/actions_mime.dmi'
 	action_icon_state = "finger_guns0"
 	action_background_icon_state = "bg_mime"
-	base_icon_state = "finger_guns"
 
-
-/obj/effect/proc_holder/spell/aimed/finger_guns/Click()
-	var/mob/living/carbon/human/owner = usr
-	if(owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You can't properly point your fingers while incapacitated.</span>")
+/obj/effect/proc_holder/spell/targeted/mime/finger_guns/Click()
+	if(!usr)
+		return
+	if(!ishuman(usr))
 		return
 	if(usr?.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
 			return
-		invocation = "<B>[usr.real_name]</B> fires [usr.p_their()] finger gun!"
+	var/obj/item/gun/ballistic/revolver/mime/magic/N = new(usr)
+	if(usr.put_in_hands(N))
+		to_chat(usr, "<span class='notice'>You form your fingers into a gun.</span>")
 	else
-		invocation_type ="none"
+		qdel(N)
+		to_chat(usr, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
 	..()
-
 
 /obj/item/book/granter/spell/mimery_blockade
 	spell = /obj/effect/proc_holder/spell/targeted/forcewall/mime
@@ -229,7 +225,7 @@
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak)
 
 /obj/item/book/granter/spell/mimery_guns
-	spell = /obj/effect/proc_holder/spell/aimed/finger_guns
+	spell = /obj/effect/proc_holder/spell/targeted/mime/finger_guns
 	spellname = "Finger Guns"
 	name = "Guide to Advanced Mimery Vol 2"
 	desc = "There aren't any words written..."
