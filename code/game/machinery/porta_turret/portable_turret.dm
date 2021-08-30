@@ -100,6 +100,25 @@
 	if(!has_cover)
 		INVOKE_ASYNC(src, .proc/popUp)
 
+/obj/machinery/porta_turret/proc/toggle_on(var/set_to)
+	var/current = on
+	if (!isnull(set_to))
+		on = set_to
+	else
+		on = !on
+	if (current != on)
+		check_should_process()
+		if (!on && !always_up)
+			popDown()
+
+/obj/machinery/porta_turret/proc/check_should_process()
+	if (datum_flags & DF_ISPROCESSING)
+		if (!on || !anchored || (stat & BROKEN) || !powered())
+			end_processing()
+	else
+		if (on && anchored && !(stat & BROKEN) && powered())
+			begin_processing()
+
 /obj/machinery/porta_turret/update_icon()
 	cut_overlays()
 	if(!anchored)
@@ -236,22 +255,11 @@
 		interact(usr)
 
 /obj/machinery/porta_turret/power_change()
-	if(!anchored)
+	. = ..()
+	if(!anchored || (stat & BROKEN) || !powered())
 		update_icon()
 		remove_control()
-		return
-	if(stat & BROKEN)
-		update_icon()
-		remove_control()
-	else
-		if( powered() )
-			stat &= ~NOPOWER
-			update_icon()
-		else
-			spawn(rand(0, 15))
-				stat |= NOPOWER
-				remove_control()
-				update_icon()
+	check_should_process()
 
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user, params)
@@ -316,10 +324,10 @@
 	visible_message("[src] hums oddly...")
 	obj_flags |= EMAGGED
 	controllock = TRUE
-	on = FALSE //turns off the turret temporarily
+	toggle_on(FALSE) //turns off the turret temporarily
 	update_icon()
 	sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
-	on = TRUE //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
+	toggle_on(TRUE) //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 
 
 /obj/machinery/porta_turret/emp_act(severity)
@@ -334,10 +342,10 @@
 		auth_weapons = pick(0, 1)
 		stun_all = pick(0, 0, 0, 0, 1)	//stun_all is a pretty big deal, so it's least likely to get turned on
 
-		on = FALSE
+		toggle_on(FALSE)
 		remove_control()
 
-		addtimer(VARSET_CALLBACK(src, on, TRUE), rand(60,600))
+		addtimer(CALLBACK(src, .proc/toggle_on, TRUE), rand(60,600))
 
 /obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
@@ -415,7 +423,7 @@
 			targets += sillycone
 			continue
 
-		if(iscarbon(A))
+		else if(iscarbon(A))
 			var/mob/living/carbon/C = A
 			//If not emagged, only target carbons that can use items
 			if(mode != TURRET_LETHAL && (C.stat || C.handcuffed || !(C.mobility_flags & MOBILITY_USE)))
@@ -493,40 +501,27 @@
 	update_icon()
 
 /obj/machinery/porta_turret/proc/assess_perp(mob/living/carbon/human/perp)
-	var/threatcount = 0	//the integer returned
-
-	if(obj_flags & EMAGGED)
-		return 10	//if emagged, always return 10.
-
+	//if the turret has been attacked or is angry, target all non-sec people
 	if((stun_all || attacked) && !allowed(perp))
-		//if the turret has been attacked or is angry, target all non-sec people
 		if(!allowed(perp))
 			return 10
-
-	if(auth_weapons)	//check for weapon authorization
-		if(isnull(perp.wear_id) || istype(perp.wear_id.GetID(), /obj/item/card/id/syndicate))
-
-			if(allowed(perp)) //if the perp has security access, return 0
-				return 0
-
-			if(perp.is_holding_item_of_type(/obj/item/gun) ||  perp.is_holding_item_of_type(/obj/item/melee/baton))
-				threatcount += 4
-
-			if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee/baton))
-				threatcount += 2
-
-	if(check_records)	//if the turret can check the records, check if they are set to *Arrest* on records
-		var/perpname = perp.get_face_name(perp.get_id_name())
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(!R || (R.fields["criminal"] == "*Arrest*"))
-			threatcount += 4
-
+	//Check for judgement
+	var/judgement = NONE
+	if(obj_flags & EMAGGED)
+		judgement |= JUDGE_EMAGGED
+	if(auth_weapons)
+		judgement |= JUDGE_WEAPONCHECK
+	if(check_records)
+		judgement |= JUDGE_RECORDCHECK
+	. = perp.assess_threat(judgement, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 	if(shoot_unloyal)
-		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) ||  istype(perp.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
-			threatcount += 4
+		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) || istype(perp.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+			. += 4
 
-	return threatcount
-
+/obj/machinery/porta_turret/proc/check_for_weapons(var/obj/item/slot_item)
+	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
+		return TRUE
+	return FALSE
 
 /obj/machinery/porta_turret/proc/in_faction(mob/target)
 	for(var/faction1 in faction)
@@ -593,9 +588,7 @@
 /obj/machinery/porta_turret/proc/setState(on, mode, shoot_cyborgs)
 	if(controllock)
 		return
-	src.on = on
-	if(!on && !always_up)
-		popDown()
+	toggle_on(on)
 	src.mode = mode
 	src.target_cyborgs = shoot_cyborgs
 	power_change()
@@ -653,6 +646,7 @@
 	always_up = initial(always_up)
 	manual_control = FALSE
 	remote_controller = null
+	check_should_process()
 	return TRUE
 
 /obj/machinery/porta_turret/proc/InterceptClickOn(mob/living/caller, params, atom/A)
@@ -1128,9 +1122,9 @@
 	if(on)
 		if(team_color == "blue")
 			if(istype(P, /obj/item/projectile/beam/lasertag/redtag))
-				on = FALSE
-				addtimer(VARSET_CALLBACK(src, on, TRUE), 10 SECONDS)
+				toggle_on(FALSE)
+				addtimer(CALLBACK(src, .proc/toggle_on, TRUE), 10 SECONDS)
 		else if(team_color == "red")
 			if(istype(P, /obj/item/projectile/beam/lasertag/bluetag))
-				on = FALSE
-				addtimer(VARSET_CALLBACK(src, on, TRUE), 10 SECONDS)
+				toggle_on(FALSE)
+				addtimer(CALLBACK(src, .proc/toggle_on, TRUE), 10 SECONDS)

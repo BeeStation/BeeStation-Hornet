@@ -554,3 +554,11 @@
 /datum/config_entry/number/ghost_role_cooldown
 	config_entry_value = 0
 	min_val = 0
+
+
+// Elasticsearch stuffs
+/datum/config_entry/flag/elasticsearch_metrics_enabled
+
+/datum/config_entry/string/elasticsearch_metrics_endpoint
+
+/datum/config_entry/string/elasticsearch_metrics_apikey
