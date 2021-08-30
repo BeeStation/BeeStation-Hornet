@@ -4,7 +4,6 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = ""
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
-	var/typing_indicator
 
 /mob/living/carbon/human/Initialize()
 	add_verb(/mob/living/proc/mob_sleep)
@@ -12,7 +11,6 @@
 
 	icon_state = ""		//Remove the inherent human icon that is visible on the map editor. We're rendering ourselves limb by limb, having it still be there results in a bug where the basic human icon appears below as south in all directions and generally looks nasty.
 
-	src.typing_indicator = mutable_appearance('icons/mob/talk.dmi', "default0", -TYPING_LAYER)
 	//initialize limbs first
 	create_bodyparts()
 
@@ -1205,14 +1203,6 @@
 	//Nailed it!
 	visible_message("<span class='notice'>[src] lands elegantly on [p_their()] feet!</span>",
 		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
-
-/mob/living/carbon/human/create_typing_indicator()
-	if(!overlays_standing[TYPING_LAYER]) //Prevents sticky overlays
-		overlays_standing[TYPING_LAYER] = typing_indicator
-		apply_overlay(TYPING_LAYER)
-
-/mob/living/carbon/human/remove_typing_indicator()
-	remove_overlay(TYPING_LAYER)
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey

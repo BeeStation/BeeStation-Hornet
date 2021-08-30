@@ -1,3 +1,5 @@
+GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "default0", -TYPING_LAYER))
+
 /mob/proc/create_typing_indicator()
 	return
 
@@ -13,6 +15,8 @@
 	remove_typing_indicator()
 	. = ..()
 
+////Wrappers////
+//Keybindings were updated to change to use these wrappers. If you ever remove this file, revert those keybind changes
 /mob/verb/say_wrapper()
 	set name = ".Say"
 	set hidden = 1
@@ -32,3 +36,12 @@
 	remove_typing_indicator()
 	if(message)
 		me_verb(message)
+
+///Human Typing Indicators///
+/mob/living/carbon/human/create_typing_indicator()
+	if(!overlays_standing[TYPING_LAYER]) //Prevents sticky overlays
+		overlays_standing[TYPING_LAYER] = GLOB.human_typing_indicator
+		apply_overlay(TYPING_LAYER)
+
+/mob/living/carbon/human/remove_typing_indicator()
+	remove_overlay(TYPING_LAYER)
