@@ -53,7 +53,6 @@
 	ammo_type = /obj/item/ammo_casing/caseless/mime
 	caliber = "mime"
 	max_ammo = 6
-	exists = FALSE
 
 /obj/item/ammo_box/magazine/internal/cylinder/mime/lethal
 	ammo_type = /obj/item/ammo_casing/caseless/mime/lethal
