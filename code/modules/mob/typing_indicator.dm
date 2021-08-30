@@ -39,7 +39,7 @@ GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearanc
 
 ///Human Typing Indicators///
 /mob/living/carbon/human/create_typing_indicator()
-	if(!overlays_standing[TYPING_LAYER]) //Prevents sticky overlays
+	if(!overlays_standing[TYPING_LAYER] && stat == CONSCIOUS) //Prevents sticky overlays and typing while in any state besides conscious
 		overlays_standing[TYPING_LAYER] = GLOB.human_typing_indicator
 		apply_overlay(TYPING_LAYER)
 
