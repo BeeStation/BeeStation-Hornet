@@ -164,8 +164,7 @@
 					"rank" = rank
 				))
 				has_department = TRUE
-				if(department != "Command") //List heads in both command and their own department.
-					break
+				break
 		if(!has_department)
 			if(!manifest_out["Misc"])
 				manifest_out["Misc"] = list()
@@ -173,12 +172,7 @@
 				"name" = name,
 				"rank" = rank
 			))
-	//Sort the list by 'departments' primarily so command is on top.
-	var/list/sorted_out = list()
-	for(var/department in (departments += "Misc"))
-		if(!isnull(manifest_out[department]))
-			sorted_out[department] = manifest_out[department]
-	return sorted_out
+	return manifest_out
 
 /datum/datacore/proc/get_manifest_html(monochrome = FALSE)
 	var/list/manifest = get_manifest()

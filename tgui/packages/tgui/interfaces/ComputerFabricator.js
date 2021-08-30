@@ -101,14 +101,13 @@ const CfStep2 = (props, context) => {
           <Table.Cell
             bold
             position="relative">
+            Battery:
             <Tooltip
               content={multiline`
                 Allows your device to operate without external utility power
                 source. Advanced batteries increase battery life.
               `}
-              position="right">
-              Battery:
-            </Tooltip>
+              position="right" />
           </Table.Cell>
           <Table.Cell >
             <Button
@@ -139,14 +138,13 @@ const CfStep2 = (props, context) => {
           <Table.Cell
             bold
             position="relative">
+            Hard Drive:
             <Tooltip
               content={multiline`
                 Stores file on your device. Advanced drives can store more
                 files, but use more power, shortening battery life.
               `}
-              position="right">
-              Hard Drive:
-            </Tooltip>
+              position="right" />
           </Table.Cell>
           <Table.Cell>
             <Button
@@ -175,6 +173,7 @@ const CfStep2 = (props, context) => {
         </Table.Row>
         <Table.Row>
           <Table.Cell bold position="relative">
+            Network Card:
             <Tooltip
               content={multiline`
                 Allows your device to wirelessly connect to stationwide NTNet
@@ -182,9 +181,7 @@ const CfStep2 = (props, context) => {
                 advanced cards can operate anywhere near the station, which
                 includes asteroid outposts
               `}
-              position="right">
-              Network Card:
-            </Tooltip>
+              position="right" />
           </Table.Cell>
           <Table.Cell>
             <Button
@@ -213,6 +210,7 @@ const CfStep2 = (props, context) => {
         </Table.Row>
         <Table.Row>
           <Table.Cell bold position="relative">
+            Nano Printer:
             <Tooltip
               content={multiline`
                 A device that allows for various paperwork manipulations,
@@ -220,9 +218,7 @@ const CfStep2 = (props, context) => {
                 This device was certified EcoFriendlyPlus and is capable of
                 recycling existing paper for printing purposes.
               `}
-              position="right">
-              Nano Printer:
-            </Tooltip>
+              position="right" />
           </Table.Cell>
           <Table.Cell>
             <Button
@@ -243,6 +239,7 @@ const CfStep2 = (props, context) => {
         </Table.Row>
         <Table.Row>
           <Table.Cell bold position="relative">
+            Card Reader:
             <Tooltip
               content={multiline`
                 Adds a slot that allows you to manipulate RFID cards.
@@ -250,9 +247,7 @@ const CfStep2 = (props, context) => {
                 to read your identification, it is just necessary to
                 manipulate other cards.
               `}
-              position="right">
-              Card Reader:
-            </Tooltip>
+              position="right" />
           </Table.Cell>
           <Table.Cell>
             <Button
@@ -275,6 +270,7 @@ const CfStep2 = (props, context) => {
           <>
             <Table.Row>
               <Table.Cell bold position="relative">
+                Processor Unit:
                 <Tooltip
                   content={multiline`
                     A component critical for your device's functionality.
@@ -282,9 +278,7 @@ const CfStep2 = (props, context) => {
                     Advanced CPUs use more power, but allow you to run
                     more programs on background at once.
                   `}
-                  position="right">
-                  Processor Unit:
-                </Tooltip>
+                  position="right" />
               </Table.Cell>
               <Table.Cell>
                 <Button
@@ -305,6 +299,7 @@ const CfStep2 = (props, context) => {
             </Table.Row>
             <Table.Row>
               <Table.Cell bold position="relative">
+                Tesla Relay:
                 <Tooltip
                   content={multiline`
                     An advanced wireless power relay that allows your device
@@ -312,9 +307,7 @@ const CfStep2 = (props, context) => {
                     alternative power source. This component is currently
                     unavailable on tablet computers due to size restrictions.
                   `}
-                  position="right">
-                  Tesla Relay:
-                </Tooltip>
+                  position="right" />
               </Table.Cell>
               <Table.Cell>
                 <Button
