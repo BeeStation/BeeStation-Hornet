@@ -53,6 +53,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	var/mob/living/wizard
 	var/z_original = 0
+	var/previous_distance = 1000
 	var/destination
 	var/notify = TRUE
 	var/atom/special_target
@@ -69,11 +70,13 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(special_target)
 		var/turf/T = get_turf(special_target)
 		if(T.z == z_original)
-			special_target_valid = TRUE
+			special_target_valid = TRUE_THRESHOLD
 	if(special_target_valid)
 		walk_towards(src, special_target, 1)
+		previous_distance = get_dist(src, special_target)
 	else if(end && end.z==z_original)
 		walk_towards(src, destination, 1)
+		previous_distance = get_dist(src, destination)
 
 /obj/effect/immovablerod/Topic(href, href_list)
 	if(href_list["orbit"])
@@ -86,8 +89,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	. = ..()
 
 /obj/effect/immovablerod/Moved()
-	if((z != z_original) || (loc == destination))
+	//Moved more than 10 tiles in 1 move.
+	var/cur_dist = get_dist(src, destination)
+	if((z != z_original) || (loc == destination) || (FLOOR(cur_dist - previous_distance, 1) > 10))
 		qdel(src)
+	previous_distance = cur_dist
 	if(special_target && loc == get_turf(special_target))
 		complete_trajectory()
 	return ..()
