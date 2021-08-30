@@ -66,6 +66,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon_keyboard = "no_keyboard"
 	icon_screen = "invaders"
 	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	var/list/prize_override
 	var/prizeselect = /obj/item/coin/arcade_token
 	light_color = LIGHT_COLOR_GREEN

@@ -212,6 +212,7 @@
 	icon_screen = "seclaptop"
 	icon_keyboard = "laptop_key"
 	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
 
 /obj/machinery/computer/secure_data/attackby(obj/item/O, mob/user, params)

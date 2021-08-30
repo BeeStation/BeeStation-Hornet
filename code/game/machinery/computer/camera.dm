@@ -215,6 +215,7 @@
 	icon_keyboard = "no_keyboard"
 	icon_screen = "detective_tv"
 	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
 
 /obj/machinery/computer/security/mining
@@ -261,6 +262,7 @@
 	density = FALSE
 	circuit = null
 	clockwork = TRUE //it'd look very weird
+	broken_overlay_emissive = TRUE
 	light_power = 0
 
 /obj/machinery/computer/security/telescreen/update_icon()
