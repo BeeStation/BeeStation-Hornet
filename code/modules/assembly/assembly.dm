@@ -29,6 +29,8 @@
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
 	var/activate_delay = 30
 
+	var/attacher = null
+
 /obj/item/assembly/Destroy()
 	holder = null
 	return ..()
@@ -99,6 +101,7 @@
 		if((!A.secured) && (!secured))
 			holder = new/obj/item/assembly_holder(get_turf(src))
 			holder.assemble(src,A,user)
+			attacher = user
 			to_chat(user, "<span class='notice'>You attach and secure \the [A] to \the [src]!</span>")
 			if(istype(A, /obj/item/assembly/signaler/anomaly) || istype(src, /obj/item/assembly/signaler/anomaly))
 				message_admins("[ADMIN_LOOKUPFLW(user)] has attached an anomaly core to a trigger assembly at [ADMIN_VERBOSEJMP(src)]")
