@@ -67,5 +67,5 @@
 	caliber = "mime"
 	projectile_type = /obj/item/projectile/bullet/c38/mime
 
-/obj/item/ammo_casing/caseless/mime/lethals
-	projectile_type = /obj/item/projectile/bullet/c38
+/obj/item/ammo_casing/caseless/mime/lethal
+	projectile_type = /obj/item/projectile/bullet/c38/mime_lethal
