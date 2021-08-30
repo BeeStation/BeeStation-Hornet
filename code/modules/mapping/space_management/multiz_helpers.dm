@@ -49,18 +49,27 @@
 
 /proc/get_zs_in_range(z_level, max_z_range)
 	. = list(z_level)
-	//Check up and down z-levels.
-	if(is_station_level(z_level))
-		for(var/i in 1 to max_z_range)
-			var/turf_z = z_level + i
-			if(turf_z <= 0 || turf_z > world.maxz || !is_station_level(turf_z))
-				break
-			. += turf_z
-		for(var/i in -max_z_range to -1)
-			var/turf_z = z_level + i
-			if(turf_z <= 0 || turf_z > world.maxz || !is_station_level(turf_z))
-				break
-			. += turf_z
+	if(max_z_range <= 0)
+		return
+	var/turf/center_turf = locate(world.maxx / 2, world.maxy / 2, z_level)
+	var/turf/temp = center_turf.above()
+	//Iterate upwards.
+	var/i = 0
+	while(isturf(temp))
+		. += temp
+		i ++
+		if(i >= max_z_range)
+			break
+		temp = temp.above()
+	//Iterate downwards.
+	temp = center_turf.below()
+	i = 0
+	while(isturf(temp))
+		. += temp
+		i ++
+		if(i >= max_z_range)
+			break
+		temp = temp.below()
 
 /proc/multi_z_dist(turf/T0, turf/T1)
 	if(T0.get_virtual_z_level() == T1.get_virtual_z_level())
