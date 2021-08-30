@@ -813,6 +813,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/romerol
 	cost = 25
 	cant_discount = TRUE
+	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
@@ -2129,7 +2130,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/his_grace
 	cost = 20
 	restricted_roles = list("Chaplain")
-	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
+	surplus = 0
 
 /datum/uplink_item/role_restricted/cultconstructkit
 	name = "Cult Construct Kit"
@@ -2323,6 +2324,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE
+	surplus = 0
 
 /datum/uplink_item/badass/syndiebeer
 	name = "Syndicate Beer"

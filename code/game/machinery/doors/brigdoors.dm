@@ -25,6 +25,7 @@
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_SECURITY)
 	density = FALSE
+	layer = ABOVE_WINDOW_LAYER
 	var/id = null // id of linked machinery/lockers
 
 	var/activation_time = 0
@@ -292,7 +293,7 @@
 				activation_time = world.time
 		else
 			. = FALSE
-	
+
 
 
 #undef PRESET_SHORT
