@@ -1,0 +1,5 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: Solar control screen no longer floats off the console when facing east.
+      Solar control screen is now also emissive, like other computers.
