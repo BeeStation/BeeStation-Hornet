@@ -24,7 +24,6 @@
 	density = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
-	layer = ABOVE_WINDOW_LAYER
 
 	maptext_height = 26
 	maptext_width = 32

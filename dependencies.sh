@@ -5,7 +5,7 @@
 
 # byond version
 export BYOND_MAJOR=514
-export BYOND_MINOR=1560
+export BYOND_MINOR=1556
 
 #rust version
 export RUST_VERSION=1.54.0
@@ -21,4 +21,4 @@ export NODE_VERSION_PRECISE=12.20.0
 export SPACEMAN_DMM_VERSION=suite-1.7
 
 #auxmos version
-export AUXMOS_VERSION=0.2.4
+export AUXMOS_VERSION=0.2.3
