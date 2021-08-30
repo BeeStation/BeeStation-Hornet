@@ -1,5 +1,0 @@
-author: Ivniinvi
-delete-after: true
-changes:
-  - rscadd: Bulk Discount is now an option that can be rolled for low-value items
-      in the uplink.
