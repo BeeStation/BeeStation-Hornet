@@ -84,13 +84,16 @@ GLOBAL_LIST_EMPTY(deputy_cards)
 				if(QDELETED(ID))
 					GLOB.deputy_cards -= ID
 					continue
-				ID.access |= list(ACCESS_SECURITY, ACCESS_BRIG)
+				//Not demoted
+				if(ID.access.Find(ACCESS_DEPUTY))
+					ID.access |= list(ACCESS_SECURITY, ACCESS_BRIG)
 		else
 			for(var/obj/item/card/id/ID in GLOB.deputy_cards)
 				if(QDELETED(ID))
 					GLOB.deputy_cards -= ID
 					continue
-				ID.access -= list(ACCESS_SECURITY, ACCESS_BRIG)
+				if(ID.access.Find(ACCESS_DEPUTY))
+					ID.access -= list(ACCESS_SECURITY, ACCESS_BRIG)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, get_security_level())
 		SSnightshift.check_nightshift()
 	else
