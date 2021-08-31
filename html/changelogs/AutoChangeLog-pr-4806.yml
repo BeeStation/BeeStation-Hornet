@@ -1,0 +1,5 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - rscadd: Ability to see a tag with the armor values of a piece of clothing when
+      you inspect it
