@@ -43,7 +43,6 @@
 	lose_patience_timeout = 50//very impatient, moves from target to target frequently
 	var/list/victims = list()
 
-<<<<<<< HEAD
 	var/list/surgspecies = list("Cat", "Moth", "Lizard") //there's probably a better way to do all this
 	var/list/organ1 = list(/obj/item/organ/ears/cat, /obj/item/organ/eyes/moth, /obj/item/organ/tongue/lizard)
 	var/list/organ2 = list(/obj/item/organ/tail/cat, /obj/item/organ/wings/moth, /obj/item/organ/tail/lizard)
@@ -52,9 +51,6 @@
 	var/surgtype = 1
 
 	var/playstyle_string = "<span class='big bold'>You are a Deranged Surgeon,</span></b> a doctor who wants to unlock the true self inside everyone. \
-=======
-	var/playstyle_string = "<span class='big bold'>You are a Cat Surgeon,</span></b> a doctor who wants to unlock the felinid inside everyone. \
->>>>>>> 6c38423dd1289781112cb83aae0dfda84d319487
 							You may fire tranquilizer darts as a ranged attack, and may click on people adjacent to you to unlock \
 							their hidden potential. Performing surgery on certain numbers of people will increase the potency of \
 							your darts, in addition to other upgrades. You do not want to kill others, only to help them reach \
