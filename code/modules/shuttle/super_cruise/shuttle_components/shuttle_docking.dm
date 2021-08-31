@@ -71,6 +71,8 @@
 			the_eye.placement_images[I] = list(x_off, y_off)
 
 /obj/machinery/computer/shuttle_flight/proc/give_eye_control(mob/user)
+	if(!isliving(user))
+		return
 	if(!eyeobj)
 		CreateEye()
 	GrantActions(user)
