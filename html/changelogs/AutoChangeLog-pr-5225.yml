@@ -1,6 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - admin: Bans now properly create their relevant notes.
-  - server: You should probably manually unexpire any note with an expiration date
-      of 0.

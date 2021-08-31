@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - rscadd: Adds in AI buttons to move their camera to above and below connected z-levels.
