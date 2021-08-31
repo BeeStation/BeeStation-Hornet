@@ -325,9 +325,10 @@
 
 /obj/item/melee/classic_baton/police/deputy
 	name = "deputy baton"
-	force = 12
+	desc = "A police baton for deputies. Designed out of a softer alloy making it less harmful while still being effective at incapacitating subjects."
+	force = 5
 	cooldown = 10
-	stamina_damage = 20
+	stamina_damage = 35
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic

@@ -134,9 +134,8 @@
 	hud_trait = TRAIT_SECURITY_HUD
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
-/obj/item/clothing/glasses/hud/security/deputy
-	name = "deputy security HUD"
-	icon_state = "sunhudtoggle"
+/obj/item/clothing/glasses/sunglasses/advanced/deputy
+	name = "deputy glasses"
 
 /obj/item/clothing/glasses/hud/medsec
 	name = "medsec HUD"

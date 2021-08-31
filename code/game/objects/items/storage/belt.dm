@@ -284,7 +284,7 @@
 /obj/item/storage/belt/security/deputy/PopulateContents()
 	new /obj/item/melee/classic_baton/police/deputy(src)
 	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/restraints/handcuffs/cable(src)
+	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flashlight/seclite(src)
 	update_icon()

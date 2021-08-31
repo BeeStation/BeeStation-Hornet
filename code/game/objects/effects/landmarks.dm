@@ -105,6 +105,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Security Officer"
 	icon_state = "Security Officer"
 
+//Deputies spawn here too
+/obj/effect/landmark/start/security_officer/Initialize()
+	. = ..()
+	LAZYADDASSOC(GLOB.jobspawn_overrides, "deputy", src)
+
+/obj/effect/landmark/start/security_officer/Destroy()
+	LAZYREMOVEASSOC(GLOB.jobspawn_overrides, "deputy", src)
+	. = ..()
+
 /obj/effect/landmark/start/botanist
 	name = "Botanist"
 	icon_state = "Botanist"

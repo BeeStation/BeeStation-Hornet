@@ -54,7 +54,7 @@
 
 /datum/config_entry/flag/everyone_has_maint_access
 
-/datum/config_entry/flag/sec_start_brig	//makes sec start in brig instead of dept sec posts
+/datum/config_entry/flag/deputy_start_brig	//makes deputies start in brig instead of dept sec posts
 
 /datum/config_entry/flag/force_random_names
 

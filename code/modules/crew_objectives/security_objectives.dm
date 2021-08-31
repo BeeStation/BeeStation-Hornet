@@ -2,7 +2,7 @@
 
 /datum/objective/crew/enjoyyourstay
 	explanation_text = "Welcome aboard. Enjoy your stay."
-	jobs = "headofsecurity,securityofficer,warden,detective"
+	jobs = "headofsecurity,securityofficer,warden,detective,deputy"
 	var/list/edglines = list("Welcome aboard. Enjoy your stay.", "You signed up for this.", "Abandon hope.", "The tide's gonna stop eventually.", "Hey, someone's gotta do it.", "No, you can't resign.", "Security is a mission, not an intermission.")
 
 /datum/objective/crew/enjoyyourstay/New()
