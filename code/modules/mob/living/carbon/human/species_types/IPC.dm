@@ -115,7 +115,7 @@
 		to_chat(H, "<span class='warning'>You try to siphon energy from the [A], but your power cell is gone!</span>")
 		return
 
-	if(A.cell && A.cell.charge > 0)
+	if(A.cell && A.cell.charge > A.cell.maxcharge/2)
 		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
 			to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 			return
@@ -123,7 +123,7 @@
 			powerdraw_loop(A, H)
 			return
 
-	to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
+	to_chat(user, "<span class='warning'>There is not enough charge to draw from that APC.</span>")
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message("<span class='notice'>[H] inserts a power connector into the [A].</span>", "<span class='notice'>You begin to draw power from the [A].</span>")
@@ -168,10 +168,16 @@
 	H.update_body()
 	H.say("Reactivating [pick("core systems", "central subroutines", "key functions")]...")
 	sleep(3 SECONDS)
+	if(H.stat == DEAD)
+		return
 	H.say("Reinitializing [pick("personality matrix", "behavior logic", "morality subsystems")]...")
 	sleep(3 SECONDS)
+	if(H.stat == DEAD)
+		return
 	H.say("Finalizing setup...")
 	sleep(3 SECONDS)
+	if(H.stat == DEAD)
+		return
 	H.say("Unit [H.real_name] is fully functional. Have a nice day.")
 	H.dna.features["ipc_screen"] = saved_screen
 	H.update_body()

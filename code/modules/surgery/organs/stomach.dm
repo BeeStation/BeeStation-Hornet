@@ -96,10 +96,10 @@
 
 
 /obj/item/organ/stomach/battery
-	name = "stomach battery"
+	name = "implantable battery"
 	icon_state = "implant-power"
 	desc = "A battery that stores charge for species that run on electricity."
-	var/max_charge = 10000
+	var/max_charge = 10000 //same as high capacity cell
 	var/charge = 10000
 
 /obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0)

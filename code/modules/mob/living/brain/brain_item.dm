@@ -167,8 +167,8 @@
 
 	var/target_has_brain = C.getorgan(/obj/item/organ/brain)
 
-	if(!target_has_brain && C.is_eyes_covered() && (zone == BODY_ZONE_HEAD))
-		to_chat(user, "<span class='warning'>You're going to need to remove [C.p_their()] head cover first!</span>")
+	if(!target_has_brain && !get_location_accessible(zone))
+		to_chat(user, "<span class='warning'>You're going to need to remove [C.p_their()] [parse_zone(zone)] cover first!</span>")
 		return
 
 //since these people will be dead M != usr
@@ -176,18 +176,18 @@
 	if(!target_has_brain)
 		if(!C.get_bodypart(zone) || !user.temporarilyRemoveItemFromInventory(src))
 			return
-		var/msg = "[C] has [src] inserted into [C.p_their()] [zone] by [user]."
+		var/msg = "[C] has [src] inserted into [C.p_their()] [parse_zone(zone)] by [user]."
 		if(C == user)
-			msg = "[user] inserts [src] into [user.p_their()] [zone]!"
+			msg = "[user] inserts [src] into [user.p_their()] [parse_zone(zone)]!"
 
 		C.visible_message("<span class='danger'>[msg]</span>",
 						"<span class='userdanger'>[msg]</span>")
 
 		if(C != user)
-			to_chat(C, "<span class='notice'>[user] inserts [src] into your [zone].</span>")
-			to_chat(user, "<span class='notice'>You insert [src] into [C]'s [zone].</span>")
+			to_chat(C, "<span class='notice'>[user] inserts [src] into your [parse_zone(zone)].</span>")
+			to_chat(user, "<span class='notice'>You insert [src] into [C]'s [parse_zone(zone)].</span>")
 		else
-			to_chat(user, "<span class='notice'>You insert [src] into your [zone].</span>"	)
+			to_chat(user, "<span class='notice'>You insert [src] into your [parse_zone(zone)].</span>"	)
 
 		Insert(C)
 	else
@@ -254,10 +254,8 @@
 	icon_state = "posibrain-ipc"
 	organ_flags = ORGAN_SYNTHETIC
 
-
 /obj/item/organ/brain/positron/Insert(mob/living/carbon/C, special = 0, drop_if_replaced = 0)
 	..()
-  
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(H.dna?.species)
