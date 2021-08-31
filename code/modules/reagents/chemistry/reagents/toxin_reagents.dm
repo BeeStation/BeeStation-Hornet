@@ -914,9 +914,11 @@
 	color = "#fff"
 	metabolization_rate = 0 //It doesn't metabolize. It gets removed when it activates
 	toxpwr = 0
+	var/mesothelioma = FALSE //Chat message triggered yet?
 	taste_description = "Carcinogenic Fireproofing"
 
 /datum/reagent/toxin/asbestos/on_mob_life(mob/living/carbon/M)
 	if(prob(10))
 		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 15) //Mesothelioma
-		to_chat(M, "<span class='notice'>You have mesothelioma and may be entitled to financial compensation.</span>")
+		if(!mesothelioma)
+			to_chat(M, "<span class='notice'>You have mesothelioma and may be entitled to financial compensation.</span>")
