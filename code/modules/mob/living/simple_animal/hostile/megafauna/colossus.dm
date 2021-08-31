@@ -251,6 +251,7 @@ Difficulty: Very Hard
 	eyeblur = 0
 	damage_type = BRUTE
 	pass_flags = PASSTABLE
+	movement_type = FLYING | UNSTOPPABLE
 	var/explode_hit_objects = TRUE
 
 /obj/item/projectile/colossus/can_hit_target(atom/target, direct_target = FALSE, ignore_loc = FALSE, cross_failed = FALSE)
@@ -260,13 +261,6 @@ Difficulty: Very Hard
 
 /obj/item/projectile/colossus/on_hit(atom/target, blocked = FALSE)
 	. = ..()
-	if(isliving(target))
-		var/mob/living/dust_mob = target
-		if(dust_mob.stat == DEAD)
-			dust_mob.dust()
-		return
-	if(!explode_hit_objects)
-		return
 	if(isturf(target) || isobj(target))
 		if(isobj(target))
 			SSexplosions.med_mov_atom += target
