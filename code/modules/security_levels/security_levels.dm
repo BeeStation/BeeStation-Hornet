@@ -81,17 +81,11 @@ GLOBAL_LIST_EMPTY(deputy_cards)
 					D.visible_message("<span class='notice'>[D] whirs as it automatically lifts access requirements!</span>")
 					playsound(D, 'sound/machines/boltsup.ogg', 50, TRUE)
 			for(var/obj/item/card/id/ID in GLOB.deputy_cards)
-				if(QDELETED(ID))
-					GLOB.deputy_cards -= ID
-					continue
 				//Not demoted
 				if(ID.access.Find(ACCESS_DEPUTY))
 					ID.access |= list(ACCESS_SECURITY, ACCESS_BRIG)
 		else
 			for(var/obj/item/card/id/ID in GLOB.deputy_cards)
-				if(QDELETED(ID))
-					GLOB.deputy_cards -= ID
-					continue
 				if(ID.access.Find(ACCESS_DEPUTY))
 					ID.access -= list(ACCESS_SECURITY, ACCESS_BRIG)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, get_security_level())

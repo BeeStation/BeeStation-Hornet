@@ -131,6 +131,7 @@
 		registered_account.bank_cards -= src
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
+	GLOB.deputy_cards -= src
 	return ..()
 
 /obj/item/card/id/attack_self(mob/user)
@@ -770,7 +771,7 @@ update_label("John Doe", "Clowny")
 	if (!proximity)
 		return .
 	var/obj/item/card/id/idcard = target
-	if(istype(idcard))		
+	if(istype(idcard))
 		for(var/give_access in access)
 			idcard.access |= give_access
 		if(assignment!=initial(assignment))
