@@ -906,7 +906,7 @@
 	. = 1
 	..()
 
-//Apparently we still haven't shaken the use of asbestos into the year 2303
+//Apparently we still haven't shaken the use of asbestos into the year 2561
 /datum/reagent/toxin/asbestos
 	name = "Asbestos"
 	description = "A toxin that lingers in the lungs eventually dealing damage to them when inhaled."
