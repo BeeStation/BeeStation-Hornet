@@ -1,4 +1,0 @@
-author: Ivniinvi
-delete-after: true
-changes:
-  - bugfix: 'Dynamic round report in #ooc no longer has extraneous html bold tags'
