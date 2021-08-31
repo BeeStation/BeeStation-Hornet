@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - refactor: Sounds now play across multi-z station levels.
+  - refactor: Explosions now explode across multi-z station levels.
