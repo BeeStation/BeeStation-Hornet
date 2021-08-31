@@ -919,6 +919,6 @@
 
 /datum/reagent/toxin/asbestos/on_mob_life(mob/living/carbon/M)
 	if(prob(10))
-		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 15) //Mesothelioma
+		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10) //Mesothelioma
 		if(!mesothelioma)
 			to_chat(M, "<span class='notice'>You have mesothelioma and may be entitled to financial compensation.</span>")
