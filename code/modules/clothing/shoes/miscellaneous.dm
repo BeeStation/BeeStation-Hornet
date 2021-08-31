@@ -127,7 +127,6 @@
 	strip_delay = 30
 	equip_delay_other = 50
 	resistance_flags = NONE
-	clothing_flags = NOTCONSUMABLE
 	permeability_coefficient = 0.05 //Thick soles, and covers the ankle
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
@@ -153,7 +152,6 @@
 	item_state = "jackboots"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	clothing_flags = NOTCONSUMABLE
 	permeability_coefficient = 0.15
 	strip_delay = 20
 	equip_delay_other = 40

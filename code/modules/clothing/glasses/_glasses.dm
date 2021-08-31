@@ -9,7 +9,6 @@
 	equip_delay_other = 25
 	resistance_flags = NONE
 	materials = list(/datum/material/glass = 250)
-	clothing_flags = NOTCONSUMABLE
 	var/vision_flags = 0
 	var/darkness_view = 2//Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING	//admin only for now
