@@ -62,7 +62,3 @@
 /obj/item/fireaxe/boneaxe/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=23, icon_wielded="[icon_prefix]1")
-
-/obj/item/fireaxe/boneaxe/update_icon()
-	icon_state = "[icon_prefix]0"
-	..()
