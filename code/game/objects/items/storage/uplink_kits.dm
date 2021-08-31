@@ -209,14 +209,10 @@
 /obj/item/storage/box/syndie_kit/contract_kit
 	name = "Contract Kit"
 	desc = "Supplied to Syndicate contractors."
-	icon_state = "syndiebox"
-	illustration = "writing_syndie"
 
 /obj/item/storage/box/syndie_kit/contractor_loadout
 	name = "Standard Loadout"
 	desc = "Supplied to Syndicate contractors, providing their specialised space suit and chameleon uniform."
-	icon_state = "syndiebox"
-	illustration = "writing_syndie"
 
 /obj/item/paper/contractor_guide
 	name = "Contractor Guide"
