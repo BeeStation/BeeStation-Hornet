@@ -62,3 +62,4 @@
 
 /obj/item/fireaxe/boneaxe/update_icon()
 	icon_state = "bone_axe0"
+	..()
