@@ -445,10 +445,10 @@
 /area/maintenance/starboard)
 "aaY" = (
 /obj/structure/table,
-/obj/item/clothing/under/rank/security,
 /obj/item/restraints/handcuffs,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
+/obj/item/clothing/under/rank/security/officer,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "aaZ" = (
