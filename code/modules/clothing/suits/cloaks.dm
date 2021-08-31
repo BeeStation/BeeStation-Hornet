@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDESUITSTORAGE
+	clothing_flags = NOTCONSUMABLE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/cloak
 
 /obj/item/clothing/neck/cloak/suicide_act(mob/user)
