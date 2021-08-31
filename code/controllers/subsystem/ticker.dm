@@ -214,7 +214,7 @@ SUBSYSTEM_DEF(ticker)
 					fail_setup()
 					return
 				else
-					message_admins("Pre-setup completed, however was run late.")
+					message_admins("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
 					pre_setup_completed = TRUE
 			//Attempt normal setup
 			if(!setup())
