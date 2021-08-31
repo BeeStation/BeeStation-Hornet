@@ -20,7 +20,6 @@
 	var/heavy_metal = TRUE
 	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal
 	var/click_cooldown_override = 0
-	var/exists = TRUE
 
 /obj/item/ammo_casing/spent
 	name = "spent bullet casing"
