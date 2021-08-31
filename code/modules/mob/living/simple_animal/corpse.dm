@@ -185,9 +185,7 @@
 	id = /obj/item/card/id/job/sec
 
 /obj/effect/mob_spawn/human/corpse/cat_butcher
-	name = "The Cat Surgeon"
-	id_job = "Cat Surgeon"
-	id_access_list = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT)
+	name = "The Deranged Surgeon"
 	hair_style = "Cut Hair"
 	facial_hair_style = "Watson Mustache"
 	skin_tone = "caucasian1"
@@ -201,7 +199,7 @@
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	ears = /obj/item/radio/headset
 	back = /obj/item/storage/backpack/satchel/med
-	id = /obj/item/card/id
+	id = /obj/item/card/id/surgeon
 	glasses = /obj/item/clothing/glasses/hud/health
 
 /obj/effect/mob_spawn/human/corpse/bee_terrorist

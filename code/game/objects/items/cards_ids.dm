@@ -325,6 +325,12 @@ update_label("John Doe", "Clowny")
 	assignment = "Reaper"
 	registered_name = "Thirteen"
 
+/obj/item/card/id/surgeon
+	name = "The Deranged Surgeon's ID Card (Deranged Surgeon)"
+	access = list(ACCESS_AWAY_GENERAL, ACCESS_MAINT_TUNNELS)
+	assignment = "Deranged Surgeon"
+	registered_name = "The Deranged Surgeon"
+
 /obj/item/card/id/gold
 	name = "gold identification card"
 	desc = "A golden ID card. issued to positions which wield power and might."

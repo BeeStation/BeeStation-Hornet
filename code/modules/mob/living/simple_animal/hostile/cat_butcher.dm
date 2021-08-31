@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/cat_butcherer
 	name = "Cat Surgeon"
-	desc = "A man with the quest of chasing endless feline tail."
+	desc = "A man with the quest of freeing your inner self."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "cat_butcher"
 	icon_living = "cat_butcher"
@@ -43,11 +43,23 @@
 	lose_patience_timeout = 50//very impatient, moves from target to target frequently
 	var/list/victims = list()
 
-	var/playstyle_string = "<span class='big bold'>You are a Cat Surgeon,</span></b> a doctor who wants to unlock the felinid inside everyone. \
-							You may take fire tranquilizer darts as a ranged attack, and may click on people adjacent to you to unlock \
+	var/list/surgspecies = list("Cat", "Moth", "Lizard")
+	var/list/organ1 = list(/obj/item/organ/ears/cat, /obj/item/organ/eyes/moth, /obj/item/organ/tongue/lizard)
+	var/list/organ2 = list(/obj/item/organ/tail/cat, /obj/item/organ/wings/moth, /obj/item/organ/tail/lizard)
+	var/surgtype = 1
+
+	var/playstyle_string = "<span class='big bold'>You are a Deranged Surgeon,</span></b> a doctor who wants to unlock the true self inside everyone. \
+							You may fire tranquilizer darts as a ranged attack, and may click on people adjacent to you to unlock \
 							their hidden potential. Performing surgery on certain numbers of people will increase the potency of \
 							your darts, in addition to other upgrades. You do not want to kill others, only to help them reach \
 							their perfect form. You will automatically self-medicate to heal outside of combat. </b>"
+
+/mob/living/simple_animal/hostile/cat_butcherer/Initialize()
+	. = ..()
+	surgtype = rand(1,3)
+	name = "[surgspecies[surgtype]] Surgeon"
+	src.access_card = new /obj/item/card/id/surgeon(src) //for maints access
+	ADD_TRAIT(src.access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 //heal himself when not in combat
 /mob/living/simple_animal/hostile/cat_butcherer/Life()
@@ -60,16 +72,18 @@
 /mob/living/simple_animal/hostile/cat_butcherer/AttackingTarget()
 	if(ishuman(target))
 		var/mob/living/carbon/human/L = target
-		if(!L.getorgan(/obj/item/organ/ears/cat) && L.stat) //target doesnt have cat ears
-			visible_message("[src] slices off [L]'s ears, and replaces them with cat ears!", "<span class='notice'>You replace [L]'s ears with cat ears'.</span>")
-			var/obj/item/organ/ears/cat/newears = new
+		if(!L.getorgan(organ1[surgtype]) && L.stat) //target doesnt have target organ
+			var/obj/item/organ/eartype = organ1[surgtype]
+			var/obj/item/organ/newears = new eartype
+			visible_message("[src] cuts open [L]'s body, and inserts the [organ1[surgtype]/name]!", "<span class='notice'>You insert the [organ1[surgtype]/name] into [L]'.</span>")
 			newears.Insert(L)
-		else if(!L.getorgan(/obj/item/organ/tail/cat) && L.stat)
-			visible_message("[src] attaches a cat tail to [L]!", "<span class='notice'>You attach a tail to [L].</span>")
-			var/obj/item/organ/tail/cat/newtail = new
+		else if(!L.getorgan(organ2[surgtype]) && L.stat)
+			var/obj/item/organ/tailtype = organ2[surgtype]
+			var/obj/item/organ/newtail = new tailtype
+			visible_message("[src] cuts open [L]'s body, and inserts the [organ2[surgtype]/name]!", "<span class='notice'>You insert the [organ2[surgtype]/name] into [L]'.</span>")
 			newtail.Insert(L)
 			return
-		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(/obj/item/organ/ears/cat) && L.getorgan(/obj/item/organ/tail/cat)) //still does damage. This also lacks a Stat check- felinids beware.
+		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(organ1[surgtype]) && L.getorgan(organ2[surgtype])) //still does damage. This also lacks a Stat check- felinids beware.
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
 			if(L.stat)
 				L.emote("scream")
@@ -104,7 +118,7 @@
 		return FALSE
 	if(L.mind)
 		victims += L
-		say(pick("I'm a genius!!", "KITTY!!", "Another successful experiment!!", "Substandard product.", "You had better not run off, now!", "You never cease to amaze me, me."))
+		say(pick("I'm a genius!!", "Another successful experiment!!", "Substandard product.", "You had better not run off, now!", "You never cease to amaze me, me."))
 		if(LAZYLEN(victims) <= 10)
 			maxHealth = (100 + (20 * LAZYLEN(victims)))
 		else
@@ -139,7 +153,7 @@
 /mob/living/simple_animal/hostile/cat_butcherer/CanAttack(atom/the_target)
 	if(iscarbon(target))
 		var/mob/living/carbon/human/C = target
-		if(C.getorgan(/obj/item/organ/ears/cat) && C.getorgan(/obj/item/organ/tail/cat) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
+		if(C.getorgan(organ1[surgtype]) && C.getorgan(organ2[surgtype]) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
 			if(C.stat && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !isipc(C))) //unless they need healing
 				return ..()
 			return FALSE
