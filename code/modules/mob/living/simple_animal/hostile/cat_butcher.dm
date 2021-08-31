@@ -43,9 +43,11 @@
 	lose_patience_timeout = 50//very impatient, moves from target to target frequently
 	var/list/victims = list()
 
-	var/list/surgspecies = list("Cat", "Moth", "Lizard")
+	var/list/surgspecies = list("Cat", "Moth", "Lizard") //there's probably a better way to do all this
 	var/list/organ1 = list(/obj/item/organ/ears/cat, /obj/item/organ/eyes/moth, /obj/item/organ/tongue/lizard)
 	var/list/organ2 = list(/obj/item/organ/tail/cat, /obj/item/organ/wings/moth, /obj/item/organ/tail/lizard)
+	var/obj/item/organ/o1 = /obj/item/organ/ears/cat
+	var/obj/item/organ/o2 = /obj/item/organ/tail/cat
 	var/surgtype = 1
 
 	var/playstyle_string = "<span class='big bold'>You are a Deranged Surgeon,</span></b> a doctor who wants to unlock the true self inside everyone. \
@@ -58,6 +60,8 @@
 	. = ..()
 	surgtype = rand(1,3)
 	name = "[surgspecies[surgtype]] Surgeon"
+	o1 = organ1[surgtype]
+	o2 = organ2[surgtype]
 	src.access_card = new /obj/item/card/id/surgeon(src) //for maints access
 	ADD_TRAIT(src.access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
@@ -72,18 +76,16 @@
 /mob/living/simple_animal/hostile/cat_butcherer/AttackingTarget()
 	if(ishuman(target))
 		var/mob/living/carbon/human/L = target
-		if(!L.getorgan(organ1[surgtype]) && L.stat) //target doesnt have target organ
-			var/obj/item/organ/eartype = organ1[surgtype]
-			var/obj/item/organ/newears = new eartype
-			visible_message("[src] cuts open [L]'s body, and inserts the [organ1[surgtype]/name]!", "<span class='notice'>You insert the [organ1[surgtype]/name] into [L]'.</span>")
+		if(!L.getorgan(o1) && L.stat) //target doesnt have target organ
+			var/obj/item/organ/newears = new o1
+			visible_message("[src] cuts open [L]'s body, and inserts the [newears.name]!", "<span class='notice'>You insert the [newears.name] into [L]'.</span>")
 			newears.Insert(L)
-		else if(!L.getorgan(organ2[surgtype]) && L.stat)
-			var/obj/item/organ/tailtype = organ2[surgtype]
-			var/obj/item/organ/newtail = new tailtype
-			visible_message("[src] cuts open [L]'s body, and inserts the [organ2[surgtype]/name]!", "<span class='notice'>You insert the [organ2[surgtype]/name] into [L]'.</span>")
+		else if(!L.getorgan(o2) && L.stat)
+			var/obj/item/organ/newtail = new o2
+			visible_message("[src] cuts open [L]'s body, and inserts the [newtail.name]!", "<span class='notice'>You insert the [newtail.name] into [L]'.</span>")
 			newtail.Insert(L)
 			return
-		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(organ1[surgtype]) && L.getorgan(organ2[surgtype])) //still does damage. This also lacks a Stat check- felinids beware.
+		else if(!L.has_trauma_type(/datum/brain_trauma/severe/pacifism) && L.getorgan(o1) && L.getorgan(o2)) //still does damage. This also lacks a Stat check- felinids beware.
 			visible_message("[src] drills a hole in [L]'s skull!", "<span class='notice'>You pacify [L]. Another successful creation.</span>")
 			if(L.stat)
 				L.emote("scream")
@@ -153,7 +155,7 @@
 /mob/living/simple_animal/hostile/cat_butcherer/CanAttack(atom/the_target)
 	if(iscarbon(target))
 		var/mob/living/carbon/human/C = target
-		if(C.getorgan(organ1[surgtype]) && C.getorgan(organ2[surgtype]) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
+		if(C.getorgan(o1) && C.getorgan(o2) && C.has_trauma_type(/datum/brain_trauma/severe/pacifism))//he wont attack his creations
 			if(C.stat && (!HAS_TRAIT(C, TRAIT_NOMETABOLISM) || !isipc(C))) //unless they need healing
 				return ..()
 			return FALSE
