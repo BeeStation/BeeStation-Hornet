@@ -156,43 +156,6 @@
 		else
 			. += "<span class='info'>This one is completely devoid of life.</span>"
 
-/obj/item/organ/brain/attack(mob/living/carbon/C, mob/user)
-	if(!istype(C))
-		return ..()
-
-	add_fingerprint(user)
-
-	if(user.zone_selected != zone)
-		return ..()
-
-	var/target_has_brain = C.getorgan(/obj/item/organ/brain)
-
-	if(!target_has_brain && !get_location_accessible(zone))
-		to_chat(user, "<span class='warning'>You're going to need to remove [C.p_their()] [parse_zone(zone)] cover first!</span>")
-		return
-
-//since these people will be dead M != usr
-
-	if(!target_has_brain)
-		if(!C.get_bodypart(zone) || !user.temporarilyRemoveItemFromInventory(src))
-			return
-		var/msg = "[C] has [src] inserted into [C.p_their()] [parse_zone(zone)] by [user]."
-		if(C == user)
-			msg = "[user] inserts [src] into [user.p_their()] [parse_zone(zone)]!"
-
-		C.visible_message("<span class='danger'>[msg]</span>",
-						"<span class='userdanger'>[msg]</span>")
-
-		if(C != user)
-			to_chat(C, "<span class='notice'>[user] inserts [src] into your [parse_zone(zone)].</span>")
-			to_chat(user, "<span class='notice'>You insert [src] into [C]'s [parse_zone(zone)].</span>")
-		else
-			to_chat(user, "<span class='notice'>You insert [src] into your [parse_zone(zone)].</span>"	)
-
-		Insert(C)
-	else
-		..()
-
 /obj/item/organ/brain/Destroy() //copypasted from MMIs.
 	if(brainmob)
 		QDEL_NULL(brainmob)
