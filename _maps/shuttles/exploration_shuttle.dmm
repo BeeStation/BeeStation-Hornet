@@ -97,6 +97,7 @@
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
 	dir = 1
 	},
+/obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "o" = (
@@ -275,6 +276,13 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"O" = (
+/obj/machinery/microwave,
+/obj/structure/table,
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets,
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "P" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -406,7 +414,7 @@ R
 m
 P
 z
-g
+O
 q
 g
 a
