@@ -922,3 +922,4 @@
 		M.adjustOrganLoss(ORGAN_SLOT_LUNGS, 10) //Mesothelioma
 		if(!mesothelioma)
 			to_chat(M, "<span class='notice'>You have mesothelioma and may be entitled to financial compensation.</span>")
+			mesothelioma = TRUE
