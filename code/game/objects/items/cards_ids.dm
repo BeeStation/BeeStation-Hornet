@@ -746,6 +746,9 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/miner
 	icon_state = "miner"
 
+/obj/item/card/id/job/exploration
+	icon_state = "exploration"
+
 /obj/item/card/id/job/cargo
 	icon_state = "cargo"
 

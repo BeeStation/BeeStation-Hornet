@@ -1,4 +1,8 @@
 
+//Unlock 20% of a tier and the tier will progress to that one.
+#define TIER_PROPORTATION_TO_UNLOCK 0.2
+#define MAX_TIER 5
+
 //Used \n[\s]*origin_tech[\s]*=[\s]*"[\S]+" to delete all origin techs.
 //Or \n[\s]*origin_tech[\s]*=[\s]list\([A-Z_\s=0-9,]*\)
 //Used \n[\s]*req_tech[\s]*=[\s]*list\(["a-z\s=0-9,]*\) to delete all req_techs.
@@ -21,7 +25,14 @@
 	var/organization = "Third-Party"							//Organization name, used for display.
 	var/list/last_bitcoins = list()								//Current per-second production, used for display only.
 	var/list/discovered_mutations = list()                           //Mutations discovered by genetics, this way they are shared and cant be destroyed by destroying a single console
+	//Tiers used for the RD console, not actual tier
 	var/list/tiers = list()										//Assoc list, id = number, 1 is available, 2 is all reqs are 1, so on
+	//Discovery scanned thinsg
+	var/list/scanned_atoms = list()
+	//Discovery cost tiers
+	var/current_tier = 1
+	var/list/items_per_tier = list()			//Assoc list, Key = "[tier level]", Value = Amount of items in tier
+	var/list/unlocked_in_tier = list()			//Assoc list, Key = "[tier level]", Value = Amount of items unlocked in tier
 
 /datum/techweb/New()
 	SSresearch.techwebs += src
@@ -29,6 +40,13 @@
 		var/datum/techweb_node/DN = SSresearch.techweb_node_by_id(i)
 		research_node(DN, TRUE, FALSE, FALSE)
 	hidden_nodes = SSresearch.techweb_nodes_hidden.Copy()
+	items_per_tier = list()
+	for(var/id in SSresearch.techweb_nodes)
+		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(id)
+		if(islist(items_per_tier["[node.tech_tier]"]))
+			items_per_tier["[node.tech_tier]"] += 1
+		else
+			items_per_tier["[node.tech_tier]"] = 1
 	return ..()
 
 /datum/techweb/admin
@@ -54,6 +72,8 @@
 	available_nodes = null
 	visible_nodes = null
 	custom_designs = null
+	items_per_tier = null
+	unlocked_in_tier = null
 	SSresearch.techwebs -= src
 	return ..()
 
@@ -69,13 +89,39 @@
 		researched_designs = custom_designs.Copy()
 		if(wipe_custom_designs)
 			custom_designs = list()
+	items_per_tier = list()
 	for(var/id in processing)
-		update_node_status(SSresearch.techweb_node_by_id(id), FALSE)
+		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(id)
+		update_node_status(node, FALSE)
+		if(islist(items_per_tier["[node.tech_tier]"]))
+			items_per_tier["[node.tech_tier]"] += 1
+		else
+			items_per_tier["[node.tech_tier]"] = 1
 		CHECK_TICK
+	recalculate_tiers()
 	for(var/v in consoles_accessing)
 		var/obj/machinery/computer/rdconsole/V = v
 		V.rescan_views()
 		V.updateUsrDialog()
+
+/datum/techweb/proc/recalculate_tiers()
+	for(var/id in researched_nodes)
+		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(id)
+		if(islist(unlocked_in_tier["[node.tech_tier]"]))
+			unlocked_in_tier["[node.tech_tier]"] += 1
+		else
+			unlocked_in_tier["[node.tech_tier]"] = 1
+	calculate_current_tier()
+
+/datum/techweb/proc/calculate_current_tier()
+	current_tier = 1
+	for(var/tier in 1 to MAX_TIER)
+		var/researched_amount = unlocked_in_tier["[tier]"]
+		var/total_amount = items_per_tier["[tier]"]
+		if(!researched_amount)
+			continue
+		if(researched_amount >= total_amount * TIER_PROPORTATION_TO_UNLOCK)
+			current_tier = tier
 
 /datum/techweb/proc/add_point_list(list/pointlist)
 	for(var/i in pointlist)
@@ -131,6 +177,8 @@
 	returned.available_nodes = available_nodes.Copy()
 	returned.researched_designs = researched_designs.Copy()
 	returned.hidden_nodes = hidden_nodes.Copy()
+	returned.current_tier = current_tier
+	returned.unlocked_in_tier = unlocked_in_tier.Copy()
 	return returned
 
 /datum/techweb/proc/get_visible_nodes()			//The way this is set up is shit but whatever.
@@ -202,6 +250,7 @@
 /datum/techweb/proc/research_node(datum/techweb_node/node, force = FALSE, auto_adjust_cost = TRUE, get_that_dosh = TRUE)
 	if(!istype(node))
 		return FALSE
+	recalculate_tiers()
 	update_node_status(node)
 	if(!force)
 		if(!available_nodes[node.id] || (auto_adjust_cost && (!can_afford(node.get_price(src)))))

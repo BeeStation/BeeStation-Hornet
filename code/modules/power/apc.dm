@@ -1085,7 +1085,7 @@
 	wires.ui_update()
 	return 1
 
-/obj/machinery/power/apc/ui_close(mob/user)
+/obj/machinery/power/apc/ui_close(mob/user, datum/tgui/tgui)
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		if(AI.apc_override == src)

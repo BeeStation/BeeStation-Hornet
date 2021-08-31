@@ -168,7 +168,7 @@
 	cam_background.icon_state = "clear"
 	cam_background.fill_rect(1, 1, size_x, size_y)
 
-/obj/machinery/computer/security/ui_close(mob/user)
+/obj/machinery/computer/security/ui_close(mob/user, datum/tgui/tgui)
 	var/user_ref = REF(user)
 	var/is_living = isliving(user)
 	// Living creature or not, we remove you anyway.
