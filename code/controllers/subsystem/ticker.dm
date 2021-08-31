@@ -215,6 +215,7 @@ SUBSYSTEM_DEF(ticker)
 					return
 				else
 					message_admins("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
+					log_game("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
 					pre_setup_completed = TRUE
 			//Attempt normal setup
 			if(!setup())
