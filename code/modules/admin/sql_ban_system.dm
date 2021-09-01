@@ -171,11 +171,11 @@
 			Duration type
 			<br>
 			<label class='inputlabel radio'>Permanent
-			<input class='redact_force_checked' type='radio' id='permanent' name='radioduration' value='permanent'[isnull(duration) ? " checked" : ""]>
+			<input type='radio' id='permanent' name='radioduration' value='permanent'[isnull(duration) ? " checked" : ""]>
 			<div class='inputbox'></div></label>
 			<br>
 			<label class='inputlabel radio'>Temporary
-			<input class='redact_incompatible' type='radio' id='temporary' name='radioduration' value='temporary'[duration ? " checked" : ""]>
+			<input type='radio' id='temporary' name='radioduration' value='temporary'[duration ? " checked" : ""]>
 			<div class='inputbox'></div></label>
 			<input type='text' name='duration' size='7' value='[duration]'>
 			<div class="select">
