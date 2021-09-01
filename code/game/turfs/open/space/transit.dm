@@ -29,7 +29,7 @@
 /turf/open/space/transit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(!locate(/obj/structure/lattice) in src)
-		throw_atom(arrived, OldLoc)
+		throw_atom(arrived, old_loc)
 
 /turf/open/space/transit/proc/throw_atom(atom/movable/AM, atom/OldLoc)
 	set waitfor = FALSE
