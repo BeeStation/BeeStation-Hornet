@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Cogged APCs will now report 100% charge on power monitors.
