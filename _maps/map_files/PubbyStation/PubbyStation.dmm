@@ -35824,11 +35824,6 @@
 "bDi" = (
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"bDk" = (
-/obj/item/chair,
-/obj/item/cigbutt/roach,
-/turf/open/floor/plating,
-/area/maintenance/department/engine)
 "bDl" = (
 /obj/structure/closet/secure_closet/medical1,
 /obj/effect/turf_decal/tile/purple{
@@ -60360,6 +60355,12 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"pEt" = (
+/obj/item/chair,
+/obj/item/cigbutt/roach,
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "pEL" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
@@ -88473,7 +88474,7 @@ btS
 bwu
 bAO
 bnv
-bDk
+pEt
 bmf
 bDi
 bva

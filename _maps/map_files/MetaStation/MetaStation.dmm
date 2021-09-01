@@ -81483,10 +81483,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
-"gKC" = (
-/obj/item/rack_parts,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "gLC" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/plasteel,
@@ -82167,6 +82163,11 @@
 /area/maintenance/solars/port/aft)
 "jza" = (
 /obj/structure/closet/firecloset,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
+"jAV" = (
+/obj/item/rack_parts,
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "jCb" = (
@@ -126199,7 +126200,7 @@ afD
 afD
 aqo
 ewK
-gKC
+jAV
 dnh
 dnh
 dnh
