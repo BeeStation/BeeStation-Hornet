@@ -365,7 +365,7 @@
 	return list("Captain",
 				// Service
 				"Assistant", "Head of Personnel", "Bartender", "Cook", "Botanist", "Janitor", "Curator",
-				"Clown", "Mime", "Lawyer", "Chaplain", "Barber", "Stage Magician",
+				"Chaplain", "Lawyer", "Clown", "Mime", "Barber", "Stage Magician",
 				// Cargo
 				"Quartermaster", "Cargo Technician","Shaft Miner",
 				// Engineering
