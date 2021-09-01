@@ -15,6 +15,7 @@
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
 	poddoor = TRUE
+	open_speed = 2
 
 /obj/machinery/door/poddoor/preopen
 	icon_state = "open"
