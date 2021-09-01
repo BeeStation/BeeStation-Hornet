@@ -364,7 +364,7 @@
 	desc = "An outdated helmet that allows plasma-based lifeforms to exist safely in an oxygenated environment, still kept in use as replacement helmets."
 
 /obj/item/clothing/head/helmet/space/plasmaman/replacement/security
-	name = "security replacementenvirosuit helmet"
+	name = "security replacement envirosuit helmet"
 	desc = "An outdated containment helmet designed for security officers."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"

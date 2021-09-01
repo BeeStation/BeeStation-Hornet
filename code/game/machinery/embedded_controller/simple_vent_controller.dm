@@ -37,6 +37,7 @@
 
 	name = "vent controller"
 	density = FALSE
+	layer = ABOVE_WINDOW_LAYER
 
 	frequency = FREQ_ATMOS_CONTROL
 	power_channel = AREA_USAGE_ENVIRON

@@ -95,6 +95,10 @@
 	suit_type = /obj/item/clothing/suit/space/hardsuit/mining
 	mask_type = /obj/item/clothing/mask/breath
 
+/obj/machinery/suit_storage_unit/exploration
+	suit_type = /obj/item/clothing/suit/space/hardsuit/exploration
+	mask_type = /obj/item/clothing/mask/breath
+
 /obj/machinery/suit_storage_unit/cmo
 	suit_type = /obj/item/clothing/suit/space/hardsuit/medical/cmo
 	mask_type = /obj/item/clothing/mask/breath

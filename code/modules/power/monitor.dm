@@ -113,6 +113,8 @@
 				var/cell_charge
 				if(!A.cell)
 					cell_charge = 0
+				else if(A.integration_cog)
+					cell_charge = 100
 				else
 					cell_charge = A.cell.percent()
 				data["areas"] += list(list(

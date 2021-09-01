@@ -121,7 +121,7 @@
 		ui.set_autoupdate(TRUE)
 		viewing_mobs += user
 
-/obj/machinery/modular_fabricator/ui_close(mob/user)
+/obj/machinery/modular_fabricator/ui_close(mob/user, datum/tgui/tgui)
 	. = ..()
 	viewing_mobs -= user
 

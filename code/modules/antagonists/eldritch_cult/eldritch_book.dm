@@ -115,7 +115,7 @@
 					charge -= text2num(params["cost"])
 					return TRUE
 
-/obj/item/forbidden_book/ui_close(mob/user)
+/obj/item/forbidden_book/ui_close(mob/user, datum/tgui/tgui)
 	flick("book_closing",src)
 	icon_state = initial(icon_state)
 	return ..()
