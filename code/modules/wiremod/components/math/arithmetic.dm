@@ -53,7 +53,7 @@
 					. = null
 					break
 				//BYOND's built in modulus operator doesn't work well with decimals, so I'm using this method instead
-				var/multiples = round(. / value)
+				var/multiples = FLOOR(. / value, 1)
 				. -= multiples * value
 			if(COMP_ARITHMETIC_MAX)
 				. = max(., value)

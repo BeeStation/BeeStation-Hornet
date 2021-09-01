@@ -25,14 +25,14 @@
 
 /obj/item/circuit_component/arbitrary_input_amount/bitwise/calculate_output(datum/port/input/port, datum/port/input/first_port, list/ports)
 
-	. = round(first_port.input_value)
+	. = FLOOR(first_port.input_value, 1)
 
 	for(var/datum/port/input/input_port as anything in ports)
 		var/value = input_port.input_value
 		if(isnull(value))
 			continue
 
-		value = round(value)
+		value = FLOOR(value, 1)
 
 		switch(current_option)
 			if(COMP_BITWISE_AND)
@@ -42,6 +42,6 @@
 			if(COMP_BITWISE_XOR)
 				. ^= value
 			if(COMP_BITWISE_LEFTSHIFT)
-				. = round(. * 2**value) //Bitshifts are done with powers of two instead of the >> and << operators to allow negative shifts
+				. = FLOOR(. * 2**value, 1) //Bitshifts are done with powers of two instead of the >> and << operators to allow negative shifts
 			if(COMP_BITWISE_RIGHTSHIFT)
-				. = round(. * 2**(-value))
+				. = FLOOR(. * 2**(-value), 1)

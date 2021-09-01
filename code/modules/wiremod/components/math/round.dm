@@ -48,10 +48,10 @@
 
 	switch(current_option)
 		if(COMP_ROUND_ROUND)
-			value = round(value + 0.5)
+			value = round(value,1)
 		if(COMP_ROUND_FLOOR)
-			value = round(value)
+			value = FLOOR(value,1)
 		if(COMP_ROUND_CEIL)
-			value = round(value) == value ? value : round(value) + 1
+			value = CEILING(value,1)
 
 	output.set_output(value)
