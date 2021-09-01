@@ -512,7 +512,8 @@
 		send2irc("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
 		message_admins("<span class='danger'>[kn] Has overridden CID protection for a ban on CID [player_cid]!</span>")
 		log_admin_private("[kn] Has overridden CID protection for a ban on CID [player_cid]!")
-
+	if(redact && alert(usr, "You are about to issue a Suppressed ban, This will require direct database editing to revoke, ARE YOU SURE?", "Protected CID", "Yes", "No", "Cancel") != "Yes")
+		return
 	var/player_ckey = ckey(player_key)
 	if(player_ckey)
 		var/datum/DBQuery/query_create_ban_get_player = SSdbcore.NewQuery({"
