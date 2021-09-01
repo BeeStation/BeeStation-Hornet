@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Entering the portal in the center of the shadow labrynth will return you
+      to a random anomalous artifact.
