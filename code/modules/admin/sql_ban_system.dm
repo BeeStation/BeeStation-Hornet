@@ -431,8 +431,6 @@
 		if("permanent")
 			duration = null
 		if("temporary")
-			if(redact) //No hiding temp bans.
-				error_state += "Suppressed bans must be permanent."
 			duration = href_list["duration"]
 			interval = href_list["intervaltype"]
 			if(!duration)
@@ -600,10 +598,6 @@
 			to_chat(usr, "<span class='danger'>You have attempted to directly register a suppressed ban that is not a server ban, this incident has been logged, and the ban has been aborted.</span>")
 			log_admin_private("SUPPRESS: [key_name(usr)] ATTEMPTED TO MANUALLY ISSUE A SUPPRESSED NON-SERVER BAN!")
 			return
-		if(duration)
-			to_chat(usr, "<span class='danger'>You have attempted to directly register a suppressed ban that is not permanent, this incident has been logged, and the ban has been aborted.</span>")
-			log_admin_private("SUPPRESS: [key_name(usr)] ATTEMPTED TO MANUALLY ISSUE A SUPPRESSED NON-PERMANENT BAN!")
-			return
 		if(applies_to_admins)
 			to_chat(usr, "<span class='danger'>You have attempted to directly register a suppressed ban that affects admins, this incident has been logged, and the ban has been aborted.</span>")
 			log_admin_private("SUPPRESS: [key_name(usr)] ATTEMPTED TO MANUALLY ISSUE A SUPPRESSED ADMIN BAN!")
@@ -650,7 +644,7 @@
 	var/is_admin = FALSE
 	var/special_prefix = ""
 	if(redact)
-		special_prefix = "irrevocably "
+		special_prefix = "hard "
 	if(applies_to_admins)
 		special_prefix = "admin "
 	if(C)
