@@ -697,6 +697,9 @@ Difficulty: Hard
 		playsound(M,'sound/weapons/sear.ogg', 50, 1, -4)
 		M.take_damage(damage, BURN, 0, 0)
 
+/obj/effect/temp_visual/hierophant/blast/vortex
+	damage = 25
+
 /obj/effect/hierophant
 	name = "hierophant beacon"
 	desc = "A strange beacon, allowing mass teleportation for those able to use it."

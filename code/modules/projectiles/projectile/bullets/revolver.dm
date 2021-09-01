@@ -106,6 +106,16 @@
 		else
 			to_chat(M, "<span class='userdanger'>You get shot with the finger gun!</span>")
 
+/obj/item/projectile/bullet/c38/mime_lethal
+	name = "invisible .38 bullet"
+	icon_state = null
+	damage = 20
+
+/obj/item/projectile/bullet/c38/mime_lethal/on_hit(atom/target, blocked)
+	. = ..()
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		M.silent = max(M.silent, 10)
 // .357 (Syndie Revolver)
 
 /obj/item/projectile/bullet/a357

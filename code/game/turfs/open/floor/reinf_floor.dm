@@ -12,6 +12,9 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	FASTDMM_PROP(\
+		pipe_astar_cost = 15\
+	)
 
 
 /turf/open/floor/engine/examine(mob/user)

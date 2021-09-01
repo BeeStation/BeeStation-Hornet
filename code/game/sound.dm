@@ -50,20 +50,27 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	if (!turf_source)
 		return
 
+	var/maxdistance = (SOUND_RANGE + extrarange)
+	var/max_z_range = maxdistance / (MULTI_Z_DISTANCE + 1)
+
+	var/list/z_list = get_zs_in_range(turf_source.z, max_z_range)
+
 	//allocate a channel if necessary now so its the same for everyone
 	channel = channel || open_sound_channel()
 
  	// Looping through the player list has the added bonus of working for mobs inside containers
 	var/sound/S = sound(get_sfx(soundin))
-	var/maxdistance = (SOUND_RANGE + extrarange)
-	var/z = turf_source.z
-	var/list/listeners = SSmobs.clients_by_zlevel[z]
+	var/list/listeners = list()
+	var/list/dead_listeners = list()
+	for(var/z in z_list)
+		listeners += SSmobs.clients_by_zlevel[z]
+		dead_listeners += SSmobs.dead_players_by_zlevel[z]
 	if(!ignore_walls) //these sounds don't carry through walls
 		listeners = listeners & hearers(maxdistance,turf_source)
 	for(var/mob/M as() in listeners)
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
-	for(var/mob/M as() in SSmobs.dead_players_by_zlevel[z])
+	for(var/mob/M as() in dead_listeners)
 		if(get_dist(M, turf_source) <= maxdistance)
 			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
 
@@ -109,7 +116,16 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		//sound volume falloff with distance
 		var/distance = get_dist(T, turf_source)
 
+		var/z_change = turf_source.z - T.z
+		var/z_dist = abs(z_change) * MULTI_Z_DISTANCE
+
 		distance *= distance_multiplier
+		z_dist *= distance_multiplier
+
+		distance += z_dist
+
+		if(max_distance && distance > max_distance)
+			return
 
 		if(max_distance) //If theres no max_distance we're not a 3D sound, so no falloff.
 			S.volume -= (max(distance - falloff_distance, 0) ** (1 / falloff_exponent)) / ((max(max_distance, distance) - falloff_distance) ** (1 / falloff_exponent)) * S.volume
@@ -142,7 +158,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		var/dz = turf_source.y - T.y // Hearing from infront/behind
 		S.z = dz * distance_multiplier
 		// The y value is for above your head, but there is no ceiling in 2d spessmens.
-		S.y = 1
+		S.y = z_change + 1
 		S.falloff = max_distance || 1 //use max_distance, else just use 1 as we are a direct sound so falloff isnt relevant.
 
 		// Sounds can't have their own environment. A sound's environment will be:

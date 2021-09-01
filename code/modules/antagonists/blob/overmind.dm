@@ -204,6 +204,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	. = ..()
 	if(blobstrain)
 		. += "Its strain is <font color=\"[blobstrain.color]\">[blobstrain.name]</font>."
+	. += "It currently consists of [blobs_legit.len] nodes, out of the [blobwincount] nodes needed to achieve critical mass."
 
 /mob/camera/blob/update_health_hud()
 	if(blob_core)

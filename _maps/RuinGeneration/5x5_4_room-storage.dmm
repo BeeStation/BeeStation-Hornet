@@ -1,0 +1,78 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"e" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"f" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"i" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"j" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"k" = (
+/obj/effect/decal/cleanable/oil,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"z" = (
+/obj/effect/decal/cleanable/oil/streak,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"G" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"W" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"X" = (
+/obj/vehicle/ridden/atv,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Y" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+e
+e
+e
+e
+e
+"}
+(2,1,1) = {"
+e
+X
+G
+Y
+e
+"}
+(3,1,1) = {"
+j
+k
+i
+W
+e
+"}
+(4,1,1) = {"
+e
+f
+i
+z
+e
+"}
+(5,1,1) = {"
+e
+e
+e
+e
+e
+"}

@@ -23,7 +23,7 @@
 /turf/open/floor/plating,
 /area/shuttle/science)
 "g" = (
-/obj/machinery/computer/shuttle/science,
+/obj/machinery/computer/shuttle_flight/science,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/science)
 "h" = (
