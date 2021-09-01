@@ -439,7 +439,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		/obj/item/pipe_dispenser = 2,
 		/obj/item/storage/toolbox/syndicate = 2,
 		/obj/item/storage/toolbox/electrical = 1,
-		/obj/item/circuitboard/computer/shuttle/docker = 1,
 		/obj/item/circuitboard/computer/shuttle/flight_control = 1,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma = 2,
 		/obj/item/circuitboard/machine/shuttle/heater = 2,
@@ -814,6 +813,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/romerol
 	cost = 25
 	cant_discount = TRUE
+	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
@@ -1553,6 +1553,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/compressionkit
 	cost = 5
 
+/datum/uplink_item/device_tools/shuttlecapsule
+	name = "Bluespace Shuttle Capsule"
+	desc = "Need a mobile base of operations? Those pesky exploration crews keep flying off? Want to do a hit and run on security? Then this \
+			product is for you! The all new bluespace shuttle capsule contains an ENTIRE shuttle withing a capsule you can hold in your hand! \
+			The shuttle provided is a state-of-the-art ship complete with a hacked autolathe, syndicate toolbox, playing cards for those long journeys, \
+			an in-built shuttle interdictor and a single canister of plasma to fuel your adventures! \
+			This innovative shuttle can seat up to 4 passengers, willing or not! Shuttle must be deployed in space or on lavaland, space suits not included."
+	item = /obj/item/survivalcapsule/shuttle/traitor
+	cost = 8
+	//You get your own shuttle
+	exclude_modes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
 	desc = "A pair of magnetic boots with a Syndicate paintjob that assist with freer movement in space or on-station \
@@ -2118,7 +2130,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/his_grace
 	cost = 20
 	restricted_roles = list("Chaplain")
-	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
+	surplus = 0
 
 /datum/uplink_item/role_restricted/cultconstructkit
 	name = "Cult Construct Kit"
@@ -2312,6 +2324,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE
+	surplus = 0
 
 /datum/uplink_item/badass/syndiebeer
 	name = "Syndicate Beer"

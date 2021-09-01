@@ -1,0 +1,65 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"k" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"o" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"r" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"v" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"w" = (
+/obj/structure/closet/firecloset,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"A" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"W" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+r
+r
+r
+r
+r
+"}
+(2,1,1) = {"
+r
+w
+A
+v
+r
+"}
+(3,1,1) = {"
+r
+o
+o
+o
+W
+"}
+(4,1,1) = {"
+r
+o
+o
+o
+r
+"}
+(5,1,1) = {"
+r
+o
+k
+o
+r
+"}

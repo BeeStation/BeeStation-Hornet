@@ -389,79 +389,85 @@
 	if(uses_stored && !stored_gun)
 		return PROCESS_KILL
 
+	//Turrets can shoot up, but not down.
+	var/list/valid_turfs = list()
+	var/turf/temp = get_turf(src)
+	while(temp && (isspaceturf(temp) || temp == get_turf(src)))
+		valid_turfs["[temp.z]"] = temp
+		temp = temp.above()
+
 	var/list/targets = list()
-	for(var/mob/A as() in hearers(scan_range, base))
-		if(A.invisibility > SEE_INVISIBLE_LIVING)
-			continue
-
-		if(check_anomalies)//if it's set to check for simple animals
-			if(isanimal(A))
-				var/mob/living/simple_animal/SA = A
-				if(SA.stat || in_faction(SA)) //don't target if dead or in faction
-					continue
-				targets += SA
+	for(var/turf_z as() in valid_turfs)
+		var/turf/T = valid_turfs[turf_z]
+		for(var/mob/A as() in hearers(scan_range, T))
+			if(A.invisibility > SEE_INVISIBLE_LIVING)
 				continue
 
-		if(issilicon(A))
-			var/mob/living/silicon/sillycone = A
-
-			if(ispAI(A))
-				continue
-
-			if(target_cyborgs && sillycone.stat != DEAD && iscyborg(sillycone))
-				targets += sillycone
-				continue
-
-			if(sillycone.stat || in_faction(sillycone))
-				continue
-
-			if(iscyborg(sillycone))
-				var/mob/living/silicon/robot/sillyconerobot = A
-				if(LAZYLEN(faction) && (ROLE_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
+			if(check_anomalies)//if it's set to check for simple animals
+				if(isanimal(A))
+					var/mob/living/simple_animal/SA = A
+					if(SA.stat || in_faction(SA)) //don't target if dead or in faction
+						continue
+					targets += SA
 					continue
 
-			targets += sillycone
-			continue
+			if(issilicon(A))
+				var/mob/living/silicon/sillycone = A
 
-		else if(iscarbon(A))
-			var/mob/living/carbon/C = A
-			//If not emagged, only target carbons that can use items
-			if(mode != TURRET_LETHAL && (C.stat || C.handcuffed || !(C.mobility_flags & MOBILITY_USE)))
-				continue
+				if(ispAI(A))
+					continue
 
-			//If emagged, target all but dead carbons
-			if(mode == TURRET_LETHAL && C.stat == DEAD)
-				continue
+				if(target_cyborgs && sillycone.stat != DEAD && iscyborg(sillycone))
+					targets += sillycone
+					continue
 
-			//if the target is a human and not in our faction, analyze threat level
-			if(ishuman(C) && !in_faction(C))
-				if(assess_perp(C) >= 4)
-					targets += C
+				if(sillycone.stat || in_faction(sillycone))
+					continue
 
-			else if(check_anomalies) //non humans who are not simple animals (xenos etc)
-				if(!in_faction(C))
-					targets += C
-	for(var/A in GLOB.mechas_list)
-		if((get_dist(A, base) < scan_range) && can_see(base, A, scan_range))
-			var/obj/mecha/Mech = A
-			if(Mech.occupant && !in_faction(Mech.occupant)) //If there is a user and they're not in our faction
-				if(assess_perp(Mech.occupant) >= 4)
-					targets += Mech
+				if(iscyborg(sillycone))
+					var/mob/living/silicon/robot/sillyconerobot = A
+					if((ROLE_SYNDICATE in faction) && sillyconerobot.emagged == TRUE)
+						continue
 
-	if(check_anomalies && GLOB.blobs.len && (mode == TURRET_LETHAL))
-		for(var/obj/structure/blob/B in view(scan_range, base))
-			targets += B
+			else if(iscarbon(A))
+				var/mob/living/carbon/C = A
+				//If not emagged, only target carbons that can use items
+				if(mode != TURRET_LETHAL && (C.stat || C.handcuffed || !(C.mobility_flags & MOBILITY_USE)))
+					continue
+
+				//If emagged, target all but dead carbons
+				if(mode == TURRET_LETHAL && C.stat == DEAD)
+					continue
+
+				//if the target is a human and not in our faction, analyze threat level
+				if(ishuman(C) && !in_faction(C))
+					if(assess_perp(C) >= 4)
+						targets += C
+
+				else if(check_anomalies) //non humans who are not simple animals (xenos etc)
+					if(!in_faction(C))
+						targets += C
+		for(var/A in GLOB.mechas_list)
+			if((get_dist(A, T) < scan_range) && can_see(T, A, scan_range))
+				var/obj/mecha/Mech = A
+				if(Mech.occupant && !in_faction(Mech.occupant)) //If there is a user and they're not in our faction
+					if(assess_perp(Mech.occupant) >= 4)
+						targets += Mech
+
+		if(check_anomalies && GLOB.blobs.len && (mode == TURRET_LETHAL))
+			for(var/obj/structure/blob/B in view(scan_range, T))
+				targets += B
 
 	if(targets.len)
-		tryToShootAt(targets)
+		tryToShootAt(targets, valid_turfs)
 	else if(!always_up)
 		popDown() // no valid targets, close the cover
 
-/obj/machinery/porta_turret/proc/tryToShootAt(list/atom/movable/targets)
+/obj/machinery/porta_turret/proc/tryToShootAt(list/atom/movable/targets, list/turf/valid_shot_turfs)
 	while(targets.len > 0)
 		var/atom/movable/M = pick(targets)
 		targets -= M
-		if(target(M))
+		if(target(M, valid_shot_turfs["[M.z]"]))
 			return 1
 
 
@@ -501,40 +507,27 @@
 	update_icon()
 
 /obj/machinery/porta_turret/proc/assess_perp(mob/living/carbon/human/perp)
-	var/threatcount = 0	//the integer returned
-
-	if(obj_flags & EMAGGED)
-		return 10	//if emagged, always return 10.
-
+	//if the turret has been attacked or is angry, target all non-sec people
 	if((stun_all || attacked) && !allowed(perp))
-		//if the turret has been attacked or is angry, target all non-sec people
 		if(!allowed(perp))
 			return 10
-
-	if(auth_weapons)	//check for weapon authorization
-		if(isnull(perp.wear_id) || istype(perp.wear_id.GetID(), /obj/item/card/id/syndicate))
-
-			if(allowed(perp)) //if the perp has security access, return 0
-				return 0
-
-			if(perp.is_holding_item_of_type(/obj/item/gun) ||  perp.is_holding_item_of_type(/obj/item/melee/baton))
-				threatcount += 4
-
-			if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee/baton))
-				threatcount += 2
-
-	if(check_records)	//if the turret can check the records, check if they are set to *Arrest* on records
-		var/perpname = perp.get_face_name(perp.get_id_name())
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
-		if(!R || (R.fields["criminal"] == "*Arrest*"))
-			threatcount += 4
-
+	//Check for judgement
+	var/judgement = NONE
+	if(obj_flags & EMAGGED)
+		judgement |= JUDGE_EMAGGED
+	if(auth_weapons)
+		judgement |= JUDGE_WEAPONCHECK
+	if(check_records)
+		judgement |= JUDGE_RECORDCHECK
+	. = perp.assess_threat(judgement, weaponcheck=CALLBACK(src, .proc/check_for_weapons))
 	if(shoot_unloyal)
-		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) ||  istype(perp.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
-			threatcount += 4
+		if (!HAS_TRAIT(perp, TRAIT_MINDSHIELD) || istype(perp.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
+			. += 4
 
-	return threatcount
-
+/obj/machinery/porta_turret/proc/check_for_weapons(var/obj/item/slot_item)
+	if(slot_item && (slot_item.item_flags & NEEDS_PERMIT))
+		return TRUE
+	return FALSE
 
 /obj/machinery/porta_turret/proc/in_faction(mob/target)
 	for(var/faction1 in faction)
@@ -542,15 +535,15 @@
 			return TRUE
 	return FALSE
 
-/obj/machinery/porta_turret/proc/target(atom/movable/target)
+/obj/machinery/porta_turret/proc/target(atom/movable/target, turf/bullet_source)
 	if(target)
 		popUp()				//pop the turret up if it's not already up.
 		setDir(get_dir(base, target))//even if you can't shoot, follow the target
-		shootAt(target)
+		shootAt(target, bullet_source)
 		return 1
 	return
 
-/obj/machinery/porta_turret/proc/shootAt(atom/movable/target)
+/obj/machinery/porta_turret/proc/shootAt(atom/movable/target, turf/bullet_source)
 	if(!raised) //the turret has to be raised in order to fire - makes sense, right?
 		return
 
@@ -559,7 +552,7 @@
 			return
 		last_fired = world.time
 
-	var/turf/T = get_turf(src)
+	var/turf/T = bullet_source || get_turf(src)
 	var/turf/U = get_turf(target)
 	if(!istype(T) || !istype(U))
 		return
@@ -594,7 +587,7 @@
 	//Shooting Code:
 	A.preparePixelProjectile(target, T)
 	A.firer = src
-	A.fired_from = src
+	A.fired_from = bullet_source
 	A.fire()
 	return A
 

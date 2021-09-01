@@ -435,11 +435,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/pirate{
-	dir = 4;
-	x_offset = -3;
-	y_offset = 7
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
 	dir = 1;
@@ -1159,7 +1154,7 @@
 /turf/open/floor/wood,
 /area/shuttle/pirate)
 "Sk" = (
-/obj/machinery/computer/shuttle/pirate{
+/obj/machinery/computer/shuttle_flight/pirate{
 	req_access_txt = "180"
 	},
 /obj/effect/decal/cleanable/dirt,
