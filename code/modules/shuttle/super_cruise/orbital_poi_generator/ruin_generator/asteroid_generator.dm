@@ -81,4 +81,4 @@
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord)
 
 /area/asteroid/generated
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
