@@ -1189,7 +1189,11 @@
 	name = "ore silo (Machine Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/ore_silo
-	req_components = list()
+	req_components = list(
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/matter_bin/bluespace = 3,
+		/obj/item/stack/ore/bluespace_crystal = 5
+	)
 
 /obj/item/circuitboard/machine/protolathe/department/cargo
 	name = "departmental protolathe - cargo (Machine Board)"

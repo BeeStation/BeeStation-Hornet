@@ -7469,7 +7469,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/machinery/ore_silo,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},

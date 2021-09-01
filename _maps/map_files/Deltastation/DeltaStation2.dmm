@@ -119755,20 +119755,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/aft)
-"hsX" = (
-/obj/machinery/ore_silo,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
-/area/security/nuke_storage)
 "htd" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -172132,7 +172118,7 @@ bvT
 bvP
 byz
 bvP
-hsX
+bvP
 but
 aad
 bHq

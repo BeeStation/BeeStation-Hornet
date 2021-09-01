@@ -10078,10 +10078,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"cta" = (
-/obj/machinery/ore_silo,
-/turf/open/floor/plasteel/dark,
-/area/security/nuke_storage)
 "ctc" = (
 /obj/structure/sign/poster/random{
 	pixel_x = 32
@@ -135330,7 +135326,7 @@ bIn
 qVB
 dvw
 vXQ
-cta
+vXQ
 vac
 wYh
 dmG

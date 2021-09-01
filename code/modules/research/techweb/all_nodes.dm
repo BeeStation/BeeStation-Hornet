@@ -274,9 +274,20 @@
 	display_name = "Applied Bluespace Research"
 	description = "Using bluespace to make things faster and better."
 	prereq_ids = list("bluespace_basic", "engineering")
-	design_ids = list("bs_rped","minerbag_holding", "bluespacebeaker", "bluespacesyringe", "bluespacebodybag", "phasic_scanning", "roastingstick", "ore_silo", "antivirus3")
+	design_ids = list("bs_rped","minerbag_holding", "bluespacebeaker", "bluespacesyringe", "bluespacebodybag", "phasic_scanning", "roastingstick", "antivirus3")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
+
+/datum/techweb_node/material_distribution
+	id = "material_distribution"
+	tech_tier = 5
+	display_name = "Bluespace Material Distribution"
+	description = "Using bluespace to replace the Quartermaster."
+	prereq_ids = list("practical_bluespace", "bluespace_travel")
+	design_ids = list("ore_silo")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 8000)
+	export_price = 10000
+	hidden = TRUE
 
 /datum/techweb_node/bluespace_power
 	id = "bluespace_power"
@@ -772,9 +783,10 @@
 	display_name = "Advanced RCD designs upgrade"
 	description = "Unlocks new RCD designs."
 	design_ids = list("rcd_upgrade_silo_link")
-	prereq_ids = list("rcd_upgrade", "bluespace_travel")
+	prereq_ids = list("rcd_upgrade", "material_distribution")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
+	hidden = TRUE
 
 
 /////////////////////////weaponry tech/////////////////////////
