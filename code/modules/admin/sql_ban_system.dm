@@ -418,7 +418,7 @@
 		error_state += "Use last connection was ticked, but neither IP nor CID was."
 	if(href_list["applyadmins"])
 		if(redact)
-			error_state += "Admin bans can not not be suppressed."
+			error_state += "Admin bans can not be suppressed."
 		applies_to_admins = TRUE
 	switch(href_list["radioservban"])
 		if("local")
