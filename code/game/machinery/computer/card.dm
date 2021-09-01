@@ -321,6 +321,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				jobs_all += "<br/>* Security: "
 			if(job == "Custom")
 				jobs_all += "<br/>"
+			// these will make some separation for the department.
 			jobs_all += "<a href='?src=[REF(src)];choice=assign;assign_target=[job]'>[replacetext(job, " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
 
 
