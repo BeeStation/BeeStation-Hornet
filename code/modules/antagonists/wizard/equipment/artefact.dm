@@ -110,8 +110,8 @@
 	pixel_y = -96
 	dissipate = 0
 	move_self = 0
-	consume_range = 3
-	grav_pull = 4
+	consume_range = 0
+	grav_pull = 5
 	current_size = STAGE_FOUR
 	allowed_size = STAGE_FOUR
 
@@ -139,7 +139,27 @@
 	C.spew_organ(3, 2)
 	C.death()
 
+//Dont eat turfs
+/obj/singularity/wizard/eat()
+	for(var/turf/T as() in spiral_range_turfs(grav_pull, src))
+		if(!T || !isturf(loc))
+			continue
+		for(var/thing in T)
+			if(isturf(loc) && thing != src)
+				var/atom/movable/X = thing
+				X.singularity_pull(src, current_size)
+			CHECK_TICK
+
 /obj/singularity/wizard/mapped/admin_investigate_setup()
+	return
+
+/obj/singularity/wizard/Bump(atom/A)
+	return
+
+/obj/singularity/wizard/Bumped(atom/movable/AM)
+	return
+
+/obj/singularity/wizard/consume(atom/A)
 	return
 
 /////////////////////////////////////////Scrying///////////////////

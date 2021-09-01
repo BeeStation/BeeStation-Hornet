@@ -7,6 +7,11 @@
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
 	obj_flags = CAN_BE_HIT | BLOCK_Z_FALL
+	//Negates the effect of space and openspace.
+	//Shouldn't be placed above anything else.
+	FASTDMM_PROP(\
+		pipe_astar_cost = -98.5\
+	)
 
 /obj/structure/lattice/catwalk/over
 	layer = CATWALK_LAYER

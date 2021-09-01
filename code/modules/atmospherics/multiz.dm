@@ -21,32 +21,25 @@
 	add_overlay(multiz_overlay_node)
 
 ///Attempts to locate a multiz pipe that's above us, if it finds one it merges us into its pipenet
-/obj/machinery/atmospherics/pipe/simple/multiz/pipeline_expansion()
+/obj/machinery/atmospherics/pipe/simple/multiz/pipeline_expansion(expand_up = TRUE, expand_down = TRUE)
 	icon = 'icons/obj/atmos.dmi' //Just to refresh.
 	var/turf/T = get_turf(src)
-	var/obj/machinery/atmospherics/pipe/simple/multiz/above1 = locate(/obj/machinery/atmospherics/pipe/simple/multiz/layer1) in(SSmapping.get_turf_above(T))
-	var/obj/machinery/atmospherics/pipe/simple/multiz/above = locate(/obj/machinery/atmospherics/pipe/simple/multiz) in(SSmapping.get_turf_above(T))
-	var/obj/machinery/atmospherics/pipe/simple/multiz/above3 = locate(/obj/machinery/atmospherics/pipe/simple/multiz/layer3) in(SSmapping.get_turf_above(T))
-	var/obj/machinery/atmospherics/pipe/simple/multiz/below1 = locate(/obj/machinery/atmospherics/pipe/simple/multiz/layer1) in(SSmapping.get_turf_below(T))
-	var/obj/machinery/atmospherics/pipe/simple/multiz/below = locate(/obj/machinery/atmospherics/pipe/simple/multiz) in(SSmapping.get_turf_below(T))
-	var/obj/machinery/atmospherics/pipe/simple/multiz/below3 = locate(/obj/machinery/atmospherics/pipe/simple/multiz/layer3) in(SSmapping.get_turf_below(T))
-	if(below?.piping_layer == piping_layer)
-		below.pipeline_expansion() //If we've got one below us, force it to add us on facebook
-	if(below1?.piping_layer == piping_layer)
-		below1.pipeline_expansion()
-	if(below3?.piping_layer == piping_layer)
-		below3.pipeline_expansion()
-	if(above?.piping_layer == piping_layer)
-		nodes += above
-		above.nodes += src
-		return ..()
-	if(above1?.piping_layer == piping_layer)
-		nodes += above1
-		above1.nodes += src
-		return ..()
-	if(above3?.piping_layer == piping_layer)
-		nodes += above3
-		above3.nodes += src //Two way travel :)
-		return ..()
-	else
-		return ..()
+	//Expand above pipes recursively
+	if(SSmapping.get_turf_above(T) && expand_up)
+		for(var/obj/machinery/atmospherics/pipe/simple/multiz/above in SSmapping.get_turf_above(T))
+			if(above.piping_layer == piping_layer)
+				//Link ourself to the above node
+				nodes |= above
+				above.nodes |= src
+				//Link above node to their above nodes.
+				above.pipeline_expansion(TRUE, FALSE)
+	//Expand below pipes recursively
+	if(SSmapping.get_turf_below(T) && expand_down)
+		for(var/obj/machinery/atmospherics/pipe/simple/multiz/below in SSmapping.get_turf_below(T))
+			if(below.piping_layer == piping_layer)
+				//Link ourself to the below node
+				nodes |= below
+				below.nodes |= src
+				//Link below node to their below nodes
+				below.pipeline_expansion(FALSE, TRUE)
+	return ..()

@@ -60,6 +60,8 @@
 	var/queue_repeating = FALSE
 	//The amount to readd to the queue when processing is done
 	var/stored_item_amount
+	//Minimum construction time per component
+	var/minimum_construction_time = 35
 
 	var/stored_research_type = /datum/techweb/specialized/autounlocking/autolathe
 
@@ -119,7 +121,7 @@
 		ui.set_autoupdate(TRUE)
 		viewing_mobs += user
 
-/obj/machinery/modular_fabricator/ui_close(mob/user)
+/obj/machinery/modular_fabricator/ui_close(mob/user, datum/tgui/tgui)
 	. = ..()
 	viewing_mobs -= user
 
@@ -418,7 +420,7 @@
 		busy = TRUE
 		use_power(power)
 		set_working_sprite()
-		var/construction_time = max(being_built.construction_time, 35)
+		var/construction_time = max(being_built.construction_time, minimum_construction_time)
 		var/time = is_stack ? construction_time : (construction_time * coeff * multiplier) ** 0.8
 		time *= being_built.lathe_time_factor
 		//===Repeating mode===
