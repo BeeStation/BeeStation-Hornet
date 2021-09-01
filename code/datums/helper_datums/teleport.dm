@@ -163,6 +163,8 @@
 /proc/get_teleport_turfs(turf/center, precision = 0)
 	if(!precision)
 		return list(center)
+	//Return only open turfs unless none are available
+	var/list/safe_turfs = list()
 	var/list/posturfs = list()
 	for(var/turf/T as() in RANGE_TURFS(precision, center))
 		if(T.is_transition_turf())
@@ -170,6 +172,10 @@
 		var/area/A = T.loc
 		if(!A.teleport_restriction)
 			posturfs.Add(T)
+			if(isopenturf(T))
+				safe_turfs += T
+	if(length(safe_turfs))
+		return safe_turfs
 	return posturfs
 
 /proc/get_teleport_turf(turf/center, precision = 0)

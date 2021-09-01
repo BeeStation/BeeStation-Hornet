@@ -30,6 +30,7 @@
 	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	hardattacks = TRUE
+	discovery_points = 10000
 	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE

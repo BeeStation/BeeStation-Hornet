@@ -332,6 +332,7 @@
 
 /obj/machinery/power/solar_control/update_icon()
 	cut_overlays()
+	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 	if(stat & NOPOWER)
 		add_overlay("[icon_keyboard]_off")
 		return
@@ -339,7 +340,8 @@
 	if(stat & BROKEN)
 		add_overlay("[icon_state]_broken")
 	else
-		add_overlay(icon_screen)
+		SSvis_overlays.add_vis_overlay(src, icon, icon_screen, layer, plane, dir)
+		SSvis_overlays.add_vis_overlay(src, icon, icon_screen, layer, EMISSIVE_PLANE, dir)
 
 
 /obj/machinery/power/solar_control/ui_state(mob/user)

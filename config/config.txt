@@ -558,3 +558,13 @@ GHOST_ROLE_COOLDOWN 3000
 
 ## Enable/disable roundstart station traits
 #STATION_TRAITS
+
+### ALL SETTINGS FOR SSmetrics ###
+## Uncomment the line below to enable SSmetrics sending data to ElasticSearch. You will need to fill in the other lines if you do
+#ELASTICSEARCH_METRICS_ENABLED
+
+## POST URL of your elasticsearch metrics. Include the IP, protocol, and datastream/index
+ELASTICSEARCH_METRICS_ENDPOINT http://10.0.0.40:9201/ss13-metrics-stream/_doc
+
+## ElasticSearch API key. This is formatted into the headers. Look at the ElasticSearch doc for how to make this
+ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==

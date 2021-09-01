@@ -7,8 +7,7 @@
 	initialize_directions = NORTH|SOUTH
 	pipe_flags = PIPING_ALL_LAYER | PIPING_DEFAULT_LAYER_ONLY | PIPING_CARDINAL_AUTONORMALIZE
 	piping_layer = PIPING_LAYER_DEFAULT
-	device_type = 0
-	volume = 260
+	device_type = 8 //260 isn't divisible by 35 bull this is 280L
 	construction_type = /obj/item/pipe/binary
 	pipe_state = "manifoldlayer"
 	FASTDMM_PROP(\

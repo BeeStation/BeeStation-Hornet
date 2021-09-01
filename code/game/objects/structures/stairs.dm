@@ -138,3 +138,6 @@
 		if(S.dir == dir)
 			return FALSE
 	return TRUE
+
+/obj/structure/stairs/attack_ghost(mob/user)
+	stair_ascend(user)

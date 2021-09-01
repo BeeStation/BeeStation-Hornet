@@ -1,0 +1,602 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/closet/secure_closet/medical2{
+	req_access = list(29)
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"b" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/rack,
+/obj/item/storage/belt/utility,
+/obj/item/book/manual/wiki/robotics_cyborgs{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"c" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"d" = (
+/obj/machinery/door/window/eastleft{
+	dir = 1;
+	name = "Robotics Deliveries";
+	req_access_txt = "29"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"e" = (
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"f" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"g" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/table,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/glass{
+	amount = 40;
+	pixel_x = 3;
+	pixel_y = -4
+	},
+/obj/machinery/requests_console{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"h" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"i" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/vending/wardrobe/robo_wardrobe{
+	pixel_x = 3
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"j" = (
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"k" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastright{
+	dir = 1;
+	name = "Robotics Desk";
+	req_access_txt = "29"
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/obj/item/paper_bin,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"l" = (
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"m" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"n" = (
+/obj/machinery/rnd/production/circuit_imprinter/department/science,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"o" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"p" = (
+/obj/structure/table,
+/obj/item/clothing/head/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/welding,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"q" = (
+/obj/structure/table,
+/obj/item/stack/sheet/plasteel{
+	amount = 10
+	},
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/weak,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"r" = (
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/hatch,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"s" = (
+/obj/structure/table,
+/obj/item/circular_saw,
+/obj/item/scalpel{
+	pixel_y = 12
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"t" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/surgical_drapes,
+/obj/item/cautery,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"u" = (
+/obj/structure/table,
+/obj/item/stack/sheet/iron/fifty,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -25
+	},
+/obj/machinery/cell_charger,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/item/stack/sheet/iron/fifty,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"v" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"w" = (
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"x" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"y" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"z" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"A" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"C" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"D" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"E" = (
+/obj/machinery/aug_manipulator,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/newscaster{
+	pixel_x = -30
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"F" = (
+/obj/structure/plasticflaps/opaque,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"G" = (
+/turf/template_noop,
+/area/template_noop)
+"H" = (
+/obj/machinery/modular_fabricator/exosuit_fab,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"I" = (
+/obj/machinery/holopad,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"J" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"K" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"L" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/rack,
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/item/storage/firstaid/regular{
+	empty = 1;
+	name = "First-Aid (empty)"
+	},
+/obj/item/healthanalyzer{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/item/healthanalyzer{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/item/healthanalyzer{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"M" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/light,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"N" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"O" = (
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"P" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"Q" = (
+/obj/structure/table,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/item/reagent_containers/glass/beaker/large,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"R" = (
+/obj/effect/spawner/lootdrop/crate_spawner,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"S" = (
+/obj/structure/table/optable{
+	name = "Robotics Operating Table"
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"T" = (
+/obj/machinery/computer/rdconsole/robotics{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"U" = (
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"V" = (
+/obj/structure/table,
+/obj/item/mmi,
+/obj/item/mmi,
+/obj/item/mmi,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"W" = (
+/obj/structure/table,
+/obj/item/retractor,
+/obj/item/hemostat,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"X" = (
+/obj/structure/curtain,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only,
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"Y" = (
+/obj/structure/bodycontainer/morgue,
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"Z" = (
+/obj/machinery/computer/operating{
+	dir = 1;
+	name = "Robotics Operating Computer"
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+U
+A
+J
+A
+U
+U
+U
+U
+U
+U
+A
+A
+A
+"}
+(2,1,1) = {"
+U
+p
+x
+E
+u
+A
+Y
+W
+s
+U
+x
+w
+x
+"}
+(3,1,1) = {"
+N
+x
+I
+x
+x
+X
+h
+m
+Z
+U
+x
+x
+c
+"}
+(4,1,1) = {"
+z
+x
+e
+x
+x
+X
+D
+P
+S
+U
+x
+x
+x
+"}
+(5,1,1) = {"
+k
+x
+x
+x
+n
+A
+a
+t
+V
+U
+A
+r
+A
+"}
+(6,1,1) = {"
+U
+Q
+q
+K
+T
+A
+A
+U
+U
+U
+o
+R
+A
+"}
+(7,1,1) = {"
+U
+g
+C
+h
+h
+h
+L
+U
+o
+o
+o
+o
+A
+"}
+(8,1,1) = {"
+U
+H
+f
+y
+O
+y
+M
+U
+o
+A
+A
+A
+A
+"}
+(9,1,1) = {"
+U
+b
+f
+O
+O
+O
+d
+F
+o
+A
+R
+A
+G
+"}
+(10,1,1) = {"
+U
+v
+f
+y
+O
+y
+i
+U
+o
+o
+o
+A
+G
+"}
+(11,1,1) = {"
+U
+j
+A
+z
+z
+z
+A
+U
+l
+o
+o
+A
+G
+"}
+(12,1,1) = {"
+A
+o
+o
+o
+o
+o
+R
+o
+o
+o
+o
+A
+G
+"}
+(13,1,1) = {"
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+G
+"}

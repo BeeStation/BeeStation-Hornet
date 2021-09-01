@@ -3,8 +3,6 @@
 #define CHALLENGE_MIN_PLAYERS 50
 #define CHALLENGE_SHUTTLE_DELAY 15000 // 25 minutes, so the ops have at least 5 minutes before the shuttle is callable.
 
-GLOBAL_LIST_EMPTY(jam_on_wardec)
-
 /obj/item/nuclear_challenge
 	name = "Declaration of War (Challenge Mode)"
 	icon = 'icons/obj/device.dmi'
@@ -62,8 +60,7 @@ GLOBAL_LIST_EMPTY(jam_on_wardec)
 		var/obj/item/circuitboard/computer/syndicate_shuttle/board = V
 		board.challenge = TRUE
 
-	for(var/obj/machinery/computer/camera_advanced/shuttle_docker/D in GLOB.jam_on_wardec)
-		D.jammed = TRUE
+	GLOB.shuttle_docking_jammed = TRUE
 
 	var/list/orphans = list()
 	var/list/uplinks = list()

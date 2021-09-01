@@ -22,6 +22,7 @@
 	var/obj/structure/blob/factory/factory = null
 	var/independent = FALSE
 	mobchatspan = "blob"
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/blob/update_icons()
 	if(overmind)
