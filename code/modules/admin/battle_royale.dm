@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(battle_royale_basic_loot, list(
 		/obj/item/gun/energy/disabler,
 		/obj/item/construction/rcd,
 		/obj/item/clothing/glasses/chameleon/flashproof,
-		/obj/item/clothing/glasses/clockwork/wraith_spectacles,
+		/obj/item/book/granter/spell/knock,
 		/obj/item/clothing/glasses/sunglasses/advanced,
 		/obj/item/clothing/glasses/thermal/eyepatch,
 		/obj/item/clothing/glasses/thermal/syndi,
@@ -208,11 +208,11 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 //Trigger random events and shit, update the world border
 /datum/battle_royale_controller/process()
 	process_num++
-	//Once every 50 seconds
-	if(prob(2))
+	//Once every 25 seconds
+	if(prob(4))
 		generate_basic_loot(5)
-	//Once every 100 seconds.
-	if(prob(1))
+	//Once every 50 seconds.
+	if(prob(2))
 		generate_good_drop()
 	var/living_victims = 0
 	var/mob/winner
@@ -366,11 +366,11 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	var/list/good_drops = list()
 	for(var/i in 1 to rand(1,3))
 		good_drops += pick(GLOB.battle_royale_good_loot)
-	send_item(good_drops, announce = "Incoming extended supply materials.", force_time = 600)
+	send_item(good_drops, announce = "Incoming extended supply materials.", force_time = 150)
 
 /datum/battle_royale_controller/proc/generate_endgame_drop()
 	var/obj/item = pick(GLOB.battle_royale_insane_loot)
-	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 9000)
+	send_item(item, announce = "We found a weird looking package in the back of our warehouse. We have no idea what is in it, but it is marked as incredibily dangerous and could be a superweapon.", force_time = 600)
 
 /datum/battle_royale_controller/proc/send_item(item_path, style = STYLE_BOX, announce=FALSE, force_time = 0)
 	if(!item_path)
