@@ -29,9 +29,9 @@
 /turf/open/space/transit/Entered(atom/movable/AM, atom/OldLoc)
 	..()
 	if(!locate(/obj/structure/lattice) in src)
-		throw_atom(AM)
+		throw_atom(AM, OldLoc)
 
-/turf/open/space/transit/proc/throw_atom(atom/movable/AM)
+/turf/open/space/transit/proc/throw_atom(atom/movable/AM, atom/OldLoc)
 	set waitfor = FALSE
 	if(!AM || istype(AM, /obj/docking_port))
 		return
@@ -40,12 +40,43 @@
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 
-	var/list/possible_transtitons = list()
-	for(var/A in SSmapping.z_list)
-		var/datum/space_level/D = A
-		if (D.linkage == CROSSLINKED)
-			possible_transtitons += D.z_value
-	var/_z = pick(possible_transtitons)
+	//Find our location
+	var/_z = 2
+
+	var/should_make_level = ismob(AM)
+	if(!should_make_level && isobj(AM))
+		var/obj/O = AM
+		if(O.resistance_flags & INDESTRUCTIBLE)
+			should_make_level = TRUE
+
+	if(should_make_level)
+		//Check if we are on a shuttle
+		var/turf/oldTurf = get_turf(OldLoc)
+		var/area/shuttle/shuttleArea = get_area(oldTurf)
+		if(istype(shuttleArea))
+			var/shuttleId = shuttleArea.mobile_port?.id || "null"
+			//Find the shuttle object
+			var/datum/orbital_object/shuttle/shuttleObj = SSorbits.assoc_shuttles[shuttleId]
+			if(shuttleObj)
+				if(length(shuttleObj.can_dock_with?.linked_z_level))
+					_z = shuttleObj.can_dock_with.linked_z_level[1].z_value
+				else if(length(shuttleObj.docking_target?.linked_z_level))
+					_z = shuttleObj.docking_target.linked_z_level[1].z_value
+				else
+					//Interdiction (Its an empty z-level)
+					var/datum/orbital_object/z_linked/beacon/ruin/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction()
+					z_linked.position = new /datum/orbital_vector(shuttleObj.position.x, shuttleObj.position.y)
+					z_linked.name = "Stranded [AM]"
+					z_linked.assign_z_level()
+					if(length(z_linked.linked_z_level))
+						_z = z_linked.linked_z_level[1].z_value
+	if(_z == 2)
+		//Chuck them at the space level
+		for(var/A in SSmapping.z_list)
+			var/datum/space_level/D = A
+			if (D.linkage == CROSSLINKED)
+				_z = D.z_value
+				break
 
 	//now select coordinates for a border turf
 	var/_x
@@ -76,7 +107,7 @@
 	. = ..()
 	update_icon()
 	for(var/atom/movable/AM in src)
-		throw_atom(AM)
+		throw_atom(AM, src)
 
 /turf/open/space/transit/update_icon()
 	. = ..()

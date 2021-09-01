@@ -460,7 +460,7 @@
 		visible_message("[src] scans the [exp_on], revealing its true nature!")
 		playsound(src, 'sound/effects/supermatter.ogg', 50, 3, -1)
 		var/obj/item/relic/R = loaded_item
-		R.reveal()
+		R.reveal(linked_console.stored_research)
 		investigate_log("Experimentor has revealed a relic with <span class='danger'>[R.realProc]</span> effect.", INVESTIGATE_EXPERIMENTOR)
 		ejectItem()
 
@@ -553,13 +553,15 @@
 	realName = "[pick("broken","twisted","spun","improved","silly","regular","badly made")] [pick("device","object","toy","illegal tech","weapon")]"
 
 
-/obj/item/relic/proc/reveal()
+/obj/item/relic/proc/reveal(datum/techweb/techweb)
 	if(revealed) //Re-rolling your relics seems a bit overpowered, yes?
 		return
 	revealed = TRUE
 	name = realName
 	cooldownMax = rand(60,300)
 	realProc = pick("teleport","explode","rapidDupe","petSpray","flash","clean","corgicannon")
+	//Give science research
+	techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, 2000)
 
 /obj/item/relic/attack_self(mob/user)
 	if(revealed)
