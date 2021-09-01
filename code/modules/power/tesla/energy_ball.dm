@@ -209,7 +209,15 @@
 		//typecache_filter_multi_list_exclusion has been inlined to minimize lag.
 		if(!things_to_shock[A.type] || blacklisted_tesla_types[A.type] || (!(tesla_flags & TESLA_ALLOW_DUPLICATES) && LAZYACCESS(shocked_targets, A)))
 			continue
-
+		var/T1 = jointext(splittext(A.type,"/"),"/",1,4)
+		switch(T1)
+			if("/obj/machinery")
+				var/obj/machinery/M = A
+				var/dist = get_dist(source, A)
+				if(dist <= zap_range && (dist < closest_dist || !closest_machine) && !(M.obj_flags & BEING_SHOCKED))
+					closest_machine = M
+					closest_atom = A
+					closest_dist = dist
 		if(istype(A, /obj/machinery/power/tesla_coil))
 			var/dist = get_dist(source, A)
 			var/obj/machinery/power/tesla_coil/C = A
@@ -220,10 +228,12 @@
 				//while still allowing common code to run before hand
 				closest_tesla_coil = C
 				closest_atom = C
+				break
 
 
-		else if(closest_tesla_coil)
-			continue //no need checking these other things
+
+		// else if(closest_tesla_coil)
+		// 	continue //no need checking these other things
 
 		else if(istype(A, /obj/machinery/power/grounding_rod))
 			var/dist = get_dist(source, A)-2
@@ -254,7 +264,7 @@
 				closest_atom = A
 				closest_dist = dist
 
-		else if(closest_mob)
+		else if(closest_machine)
 			continue
 
 		else if(istype(A, /obj/structure/blob))
