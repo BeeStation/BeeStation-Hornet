@@ -66,6 +66,7 @@
 	desc = "You shouldn't be seeing this."
 	caliber = "mime"
 	projectile_type = /obj/item/projectile/bullet/c38/mime
+	exists = FALSE
 
 /obj/item/ammo_casing/caseless/mime/lethal
 	projectile_type = /obj/item/projectile/bullet/c38/mime_lethal

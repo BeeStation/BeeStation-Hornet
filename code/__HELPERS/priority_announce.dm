@@ -1,8 +1,13 @@
-/proc/priority_announce(text, title = "", sound, type, sender_override, has_important_message, auth_id)
+#define DEFAULT_ALERT "alert_sound"
+
+/proc/priority_announce(text, title = "", sound = DEFAULT_ALERT, type, sender_override, has_important_message, auth_id)
 	if(!text)
 		return
 
 	var/announcement = "<meta charset='UTF-8'>"
+	if(sound == DEFAULT_ALERT)
+		sound = SSstation.announcer.get_rand_alert_sound()
+
 	if(sound && SSstation.announcer.event_sounds[sound])
 		sound = SSstation.announcer.event_sounds[sound]
 
@@ -44,6 +49,20 @@
 			if(M.client.prefs.toggles & SOUND_ANNOUNCEMENTS)
 				SEND_SOUND(M, s)
 
+/proc/exploration_announce(text, z_value)
+	var/announcement = "<meta charset='UTF-8'>"
+	announcement += "<h1 class='alert'>[command_name()] Update</h1>"
+	announcement += "<br><span class='alert'>[html_encode(text)]</span><br>"
+	announcement += "<br>"
+
+	for(var/mob/M in GLOB.player_list)
+		if(isliving(M))
+			var/turf/T = get_turf(M)
+			if(istype(get_area(M), /area/shuttle/exploration) || T.z == z_value)
+				to_chat(M, announcement)
+		if(isobserver(M))
+			to_chat(M, announcement)
+
 /proc/print_command_report(text = "", title = null, announce=TRUE)
 	if(!title)
 		title = "Classified [command_name()] Update"
@@ -75,3 +94,5 @@
 					SEND_SOUND(M, sound('sound/misc/notice1.ogg'))
 				else
 					SEND_SOUND(M, sound('sound/misc/notice2.ogg'))
+
+#undef DEFAULT_ALERT

@@ -216,11 +216,13 @@
 	wires = null
 	var/area/ourarea = get_area(src)
 	ourarea.atmosalert(FALSE, src)
+	GLOB.zclear_atoms -= src
 	return ..()
 
 /obj/machinery/airalarm/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
+	GLOB.zclear_atoms += src
 
 /obj/machinery/airalarm/examine(mob/user)
 	. = ..()

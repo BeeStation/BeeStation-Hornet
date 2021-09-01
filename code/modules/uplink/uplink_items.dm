@@ -439,7 +439,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		/obj/item/pipe_dispenser = 2,
 		/obj/item/storage/toolbox/syndicate = 2,
 		/obj/item/storage/toolbox/electrical = 1,
-		/obj/item/circuitboard/computer/shuttle/docker = 1,
 		/obj/item/circuitboard/computer/shuttle/flight_control = 1,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma = 2,
 		/obj/item/circuitboard/machine/shuttle/heater = 2,
@@ -1553,6 +1552,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Comes with 5 charges."
 	item = /obj/item/compressionkit
 	cost = 5
+
+/datum/uplink_item/device_tools/shuttlecapsule
+	name = "Bluespace Shuttle Capsule"
+	desc = "Need a mobile base of operations? Those pesky exploration crews keep flying off? Want to do a hit and run on security? Then this \
+			product is for you! The all new bluespace shuttle capsule contains an ENTIRE shuttle withing a capsule you can hold in your hand! \
+			The shuttle provided is a state-of-the-art ship complete with a hacked autolathe, syndicate toolbox, playing cards for those long journeys, \
+			an in-built shuttle interdictor and a single canister of plasma to fuel your adventures! \
+			This innovative shuttle can seat up to 4 passengers, willing or not! Shuttle must be deployed in space or on lavaland, space suits not included."
+	item = /obj/item/survivalcapsule/shuttle/traitor
+	cost = 8
+	//You get your own shuttle
+	exclude_modes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
