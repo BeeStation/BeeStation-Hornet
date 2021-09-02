@@ -620,15 +620,17 @@ What a mess.*/
 								default_description += "[c.crimeDetails]\n"
 
 						var/headerText = stripped_input(usr, "Please enter Poster Heading (Max 7 Chars):", "Print Wanted Poster", "WANTED", 8)
-
+						var/posternum = CLAMP((input("Number of posters to print (Max 5):","Number:",1) as num|null), 1, 5)
 						var/info = stripped_multiline_input(usr, "Please input a description for the poster:", "Print Wanted Poster", default_description, null)
 						if(info)
-							playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
 							printing = 1
-							sleep(30)
-							if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
-								var/obj/item/photo/photo = active1.fields["photo_front"]
-								new /obj/item/poster/wanted(loc, photo.picture.picture_image, wanted_name, info, headerText)
+							for(var/i in 1 to posternum)
+								playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
+								
+								sleep(30)
+								if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
+									var/obj/item/photo/photo = active1.fields["photo_front"]
+									new /obj/item/poster/wanted(loc, photo.picture.picture_image, wanted_name, info, headerText)
 							printing = 0
 			if("Print Missing")
 				if(!( printing ))
@@ -637,15 +639,16 @@ What a mess.*/
 						var/default_description = "A poster declaring [missing_name] to be a missing individual, missed by Nanotrasen. Report any sightings to security immediately."
 
 						var/headerText = stripped_input(usr, "Please enter Poster Heading (Max 7 Chars):", "Print Missing Persons Poster", "MISSING", 8)
-
+						var/posternum = CLAMP((input("Number of posters to print (Max 5):","Number:",1) as num|null), 1, 5)
 						var/info = stripped_multiline_input(usr, "Please input a description for the poster:", "Print Missing Persons Poster", default_description, null)
 						if(info)
-							playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
 							printing = 1
-							sleep(30)
-							if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
-								var/obj/item/photo/photo = active1.fields["photo_front"]
-								new /obj/item/poster/wanted/missing(loc, photo.picture.picture_image, missing_name, info, headerText)
+							for(var/i in 1 to posternum)
+								playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
+								sleep(30)
+								if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
+									var/obj/item/photo/photo = active1.fields["photo_front"]
+									new /obj/item/poster/wanted/missing(loc, photo.picture.picture_image, missing_name, info, headerText)
 							printing = 0
 
 //RECORD DELETE
