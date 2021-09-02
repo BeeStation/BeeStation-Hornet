@@ -14,6 +14,9 @@
 	start_tick = world.time
 	end_tick = world.time + 10 MINUTES
 	radius = rand(10, 50)
+	//Prevent instant lavaland collisions.
+	position.x = 9999
+	position.y = 9999
 	start_x = 9999
 	start_y = 9999
 

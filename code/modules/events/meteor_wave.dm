@@ -10,9 +10,9 @@
 	can_malf_fake_alert = TRUE
 
 /datum/round_event/meteor_wave
-	announceWhen	= 300
+	announceWhen	= 150
 	startWhen = 1
-	endWhen = 301
+	endWhen = 151
 	var/list/wave_type
 	var/wave_name = "normal"
 	var/start_x
