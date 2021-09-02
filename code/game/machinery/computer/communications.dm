@@ -179,14 +179,23 @@
 
 		if("callshuttle")
 			state = STATE_DEFAULT
-			if(authenticated)
+			if(CONFIG_GET(flag/head_transfer_vote) ? authenticated == 2 : authenticated)
 				state = STATE_CALLSHUTTLE
 		if("callshuttle2")
-			if(authenticated)
+			if(CONFIG_GET(flag/head_transfer_vote) ? authenticated == 2 : authenticated)
 				SSshuttle.requestEvac(usr, href_list["call"])
 				if(SSshuttle.emergency.timer)
 					post_status("shuttle")
 			state = STATE_DEFAULT
+		if("shuttlevote")
+			if(!CONFIG_GET(flag/head_transfer_vote))
+				if(authenticated)
+					state = STATE_CALLSHUTTLE
+				else
+					state = STATE_DEFAULT
+			if(authenticated)
+				SSautotransfer.try_vote(usr, auth_id)
+
 		if("cancelshuttle")
 			state = STATE_DEFAULT
 			if(authenticated)
@@ -334,7 +343,10 @@
 		if("ai-callshuttle")
 			aistate = STATE_CALLSHUTTLE
 		if("ai-callshuttle2")
-			SSshuttle.requestEvac(usr, href_list["call"])
+			if(CONFIG_GET(flag/ai_transfer_vote))
+				SSautotransfer.try_vote(usr, usr)
+			else
+				SSshuttle.requestEvac(usr, href_list["call"])
 			aistate = STATE_DEFAULT
 		if("ai-messagelist")
 			aicurrmsg = null
@@ -460,15 +472,26 @@
 				dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=logout'>Log Out</A> \]<BR>"
 				dat += "<BR><B>General Functions</B>"
 				dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=messagelist'>Message List</A> \]"
+
+				dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=status'>Set Status Display</A> \]"
+
+				//Shuttle functionality
 				switch(SSshuttle.emergency.mode)
 					if(SHUTTLE_IDLE, SHUTTLE_RECALL)
-						dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=callshuttle'>Call Emergency Shuttle</A> \]"
+						if(CONFIG_GET(flag/head_transfer_vote))
+							dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=shuttlevote'>Request Crew Transfer</A> \]"
+						else
+							dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=callshuttle'>Call Emergency Shuttle</A> \]"
 					else
 						dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=cancelshuttle'>Cancel Shuttle Call</A> \]"
 
-				dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=status'>Set Status Display</A> \]"
 				if (authenticated==2)
 					dat += "<BR><BR><B>Captain Functions</B>"
+					//Captain gets a button to call shuttle instantly
+					if(CONFIG_GET(flag/head_transfer_vote))
+						switch(SSshuttle.emergency.mode)
+							if(SHUTTLE_IDLE, SHUTTLE_RECALL)
+								dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=callshuttle'>Call Emergency Shuttle</A> \]"
 					dat += "<BR>\[ <A HREF='?src=[REF(src)];operation=announce'>Make a Captain's Announcement</A> \]"
 					var/cross_servers_count = length(CONFIG_GET(keyed_list/cross_server))
 					if(cross_servers_count)

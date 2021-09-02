@@ -547,6 +547,15 @@
 	integer = FALSE
 	min_val = 0
 
+/datum/config_entry/flag/head_transfer_vote
+
+/datum/config_entry/flag/ai_transfer_vote
+
+/datum/config_entry/number/vote_transfer_cooldown //length of time to wait before subsequent autotransfer votes (deciseconds, default 30 minutes)
+	config_entry_value = 9000
+	integer = FALSE
+	min_val = 0
+
 /datum/config_entry/flag/respect_upstream_bans
 
 /datum/config_entry/flag/respect_upstream_permabans

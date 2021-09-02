@@ -293,6 +293,12 @@
 		to_chat(usr, "<span class='warning'>Wireless control is disabled!</span>")
 		return
 
+	if(CONFIG_GET(flag/ai_transfer_vote))
+		if(alert(src, "Are you sure you would like to initiate a crew transfer vote?", "Confirm Transfer Request", "Yes", "No") == "No")
+			return
+		SSautotransfer.try_vote(usr, src)
+		return
+
 	var/reason = input(src, "What is the nature of your emergency? ([CALL_SHUTTLE_REASON_LENGTH] characters required.)", "Confirm Shuttle Call") as null|text
 
 	if(incapacitated())

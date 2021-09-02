@@ -552,6 +552,12 @@ VOTE_AUTOTRANSFER_ENABLED
 VOTE_AUTOTRANSFER_INITIAL 54000
 ## Time (in deciseconds) between subsequent transfer votes. Default: 30 minutes
 VOTE_AUTOTRANSFER_INTERVAL 18000
+## Do non-captain heads initiate a transfer vote rather than a shuttle call?
+HEAD_TRANSFER_VOTE
+## Time (in deciseconds) between communication console triggered transfer votes (9000: 15 minutes)
+VOTE_TRANSFER_COOLDOWN 9000
+## Does the AI trigger a transfer vote instead of a shuttle call
+AI_TRANSFER_VOTE
 
 ## Ghost role cooldown time after death (In deciseconds)
 GHOST_ROLE_COOLDOWN 3000
