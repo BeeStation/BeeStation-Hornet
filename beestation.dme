@@ -3077,6 +3077,7 @@
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\beacon.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\custom_shuttle.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\lavaland.dm"
+#include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\meteor.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\phobos.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\shuttle.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\space_station.dm"
