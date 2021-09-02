@@ -28,6 +28,7 @@
 	start_y = cos(rand(0, 360)) * 9000
 	station_target = locate(/datum/orbital_object/z_linked/station) in SSorbits.orbital_map.bodies
 	if(!station_target)
+		CRASH("Meteor failed to locate a target.")
 		return
 
 /datum/round_event/meteor_wave/Destroy(force, ...)

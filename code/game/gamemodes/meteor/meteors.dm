@@ -388,6 +388,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	var/obj/effect/meteor_shadow/shadow
 	var/falltime = 2 SECONDS
 	var/prefalltime = 8 SECONDS
+	layer = HIGH_OBJ_LAYER
 
 /obj/effect/falling_meteor/Initialize(loc, meteor_type)
 	. = ..()
@@ -429,6 +430,7 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	name = "shadow"
 	desc = "What the hell? Is something falling out the sky???"
 	alpha = 0
+	layer = NOT_HIGH_OBJ_LAYER
 
 /obj/effect/meteor_shadow/Initialize()
 	. = ..()
