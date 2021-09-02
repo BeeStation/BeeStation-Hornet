@@ -1,4 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - bugfix: fixes mobs not beeing able to hear instruments in lockers
