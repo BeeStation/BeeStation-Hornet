@@ -65704,7 +65704,7 @@
 	},
 /obj/machinery/door/airlock/research{
 	name = "Toxins Lab";
-	req_access_txt = "8"
+	req_access_txt = "7"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "toxins_blastdoor";
@@ -66160,7 +66160,7 @@
 	},
 /obj/machinery/door/airlock/research{
 	name = "Toxins Launch Room Access";
-	req_access_txt = "8"
+	req_access_txt = "7"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "toxins_blastdoor";
@@ -69266,7 +69266,7 @@
 "cHh" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Toxins Lab Maintenance";
-	req_access_txt = "8"
+	req_access_txt = "7"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -82796,7 +82796,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "49;47"
+	req_one_access_txt = "12;49;47"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
