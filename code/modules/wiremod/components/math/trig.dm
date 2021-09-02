@@ -16,6 +16,9 @@
 	/// The result from the output
 	var/datum/port/output/output
 
+	//An increase in power usage due to more complex calculations
+	power_usage_per_input = 2
+
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
 

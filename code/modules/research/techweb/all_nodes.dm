@@ -344,6 +344,7 @@
 
 /datum/techweb_node/math_circuits
 	id = "math_circuits"
+	tech_tier = 1
 	display_name = "Math Circuitry"
 	description = "Development of more complex mathematical components for all your number manipulating needs"
 	prereq_ids = list("basic_circuitry", "datatheory")
