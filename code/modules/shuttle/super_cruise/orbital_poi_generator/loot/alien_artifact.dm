@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		return
 	var/area/A = get_area(AM)
 	//already left the tear.
-	if(!istype(AM, /area/tear_in_reality))
+	if(!istype(A, /area/tear_in_reality))
 		return
 	AM.forceMove(T)
 	contained_things -= AM
