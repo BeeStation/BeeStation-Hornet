@@ -14,11 +14,6 @@
 	start_tick = world.time
 	end_tick = world.time + 10 MINUTES
 	radius = rand(10, 50)
-	//Prevent instant lavaland collisions.
-	position.x = 9999
-	position.y = 9999
-	start_x = 9999
-	start_y = 9999
 
 /datum/orbital_object/meteor/Destroy()
 	target = null
@@ -34,12 +29,10 @@
 	var/tick_proportion = (current_tick - start_tick) / (end_tick - start_tick)
 	var/current_x = (end_x * tick_proportion) + (start_x * (1 - tick_proportion))
 	var/current_y = (end_y * tick_proportion) + (start_y * (1 - tick_proportion))
-	var/prev_x = position.x
-	var/prev_y = position.y
+	velocity.x = current_x - position.x
+	velocity.y = current_y - position.y
 	position.x = current_x
 	position.y = current_y
-	velocity.x = current_x - prev_x
-	velocity.y = current_y - prev_y
 	if(abs(position.x) > 10000 || abs(position.y) > 10000)
 		qdel(src)
 

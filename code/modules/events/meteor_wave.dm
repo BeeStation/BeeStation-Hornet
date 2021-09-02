@@ -29,7 +29,6 @@
 	station_target = locate(/datum/orbital_object/z_linked/station) in SSorbits.orbital_map.bodies
 	if(!station_target)
 		CRASH("Meteor failed to locate a target.")
-		return
 
 /datum/round_event/meteor_wave/Destroy(force, ...)
 	station_target = null
@@ -42,6 +41,8 @@
 		meteor.meteor_types = wave_type
 		meteor.start_x = start_x + rand(-600, 600)
 		meteor.start_y = start_y + rand(-600, 600)
+		meteor.position.x = meteor.start_x
+		meteor.position.y = meteor.start_y
 		meteor.end_tick = world.time + meteor_time
 		meteor.target = station_target
 
