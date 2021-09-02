@@ -1,5 +1,0 @@
-author: kreeperHLC
-delete-after: true
-changes:
-  - bugfix: Equipment no longer disappears when you try to install it in the wrong
-      type of mecha.
