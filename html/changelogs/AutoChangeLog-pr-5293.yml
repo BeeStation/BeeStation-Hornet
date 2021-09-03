@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Changes exploration mainframes to proper exploration communication setups
+      on pubby and metastation.
