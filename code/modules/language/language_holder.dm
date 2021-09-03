@@ -305,6 +305,11 @@ Key procs
 	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 							/datum/language/mushroom = list(LANGUAGE_ATOM))
 
+/datum/language_holder/resomi
+	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+								/datum/language/resomi = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/resomi = list(LANGUAGE_ATOM))
+
 /datum/language_holder/slime
 	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 								/datum/language/slime = list(LANGUAGE_ATOM))
