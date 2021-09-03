@@ -58,7 +58,7 @@
 				meteor_impact(locate(rand(10, world.maxx - 10), rand(10, world.maxx-10), space_level.z_value))
 		else
 			//Spawn meteor wave
-			spawn_meteors(5, meteor_types)
+			spawn_meteors(5, meteor_types, space_level.z_value)
 	qdel(src)
 
 /datum/orbital_object/meteor/proc/impact_turfs(list/valid_turfs)
