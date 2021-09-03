@@ -121,6 +121,10 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	GLOB.meteor_list -= src
 	SSaugury.unregister_doom(src)
 	walk(src,0) //this cancels the walk_towards() proc
+	if(istype(loc, /obj/effect/falling_meteor))
+		var/obj/effect/falling_meteor/holder = loc
+		holder.contained_meteor = null
+		qdel(holder)
 	. = ..()
 
 /obj/effect/meteor/Initialize(mapload, target)
@@ -407,7 +411,8 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	INVOKE_ASYNC(src, .proc/fall_animation)
 
 /obj/effect/falling_meteor/Destroy(force)
-	QDEL_NULL(contained_meteor)
+	if(contained_meteor)
+		QDEL_NULL(contained_meteor)
 	QDEL_NULL(shadow)
 	. = ..()
 
