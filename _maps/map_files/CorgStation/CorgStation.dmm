@@ -50120,18 +50120,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
-"lDA" = (
-/obj/machinery/power/apc/auto_name/south{
-	pixel_y = -24
-	},
-/obj/structure/cable/yellow,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel/dark,
-/area/crew_quarters/heads/hos)
 "lDB" = (
 /obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
@@ -52352,6 +52340,29 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/central)
+"mem" = (
+/obj/machinery/power/apc/auto_name/south{
+	pixel_y = -24
+	},
+/obj/structure/cable/yellow,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/neutral,
+/mob/living/simple_animal/hostile/carp/cayenne{
+	desc = "A failed experiment of Nanotrasen to create weaponised carp technology. This less than intimidating carp now serves as an authority figure's pet.";
+	health = 200;
+	icon_dead = "magicarp_dead";
+	icon_gib = "magicarp_gib";
+	icon_living = "magicarp";
+	icon_state = "magicarp";
+	maxHealth = 200;
+	melee_damage = 20;
+	name = "Lia"
+	},
+/turf/open/floor/plasteel/dark,
+/area/crew_quarters/heads/hos)
 "mes" = (
 /obj/machinery/recharge_station,
 /obj/machinery/light/small,
@@ -85224,6 +85235,13 @@
 /obj/item/beacon,
 /turf/open/floor/engine,
 /area/science/explab)
+"tXx" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "tXM" = (
 /turf/closed/wall,
 /area/hallway/secondary/entry)
@@ -146631,7 +146649,7 @@ lGV
 kvK
 lIt
 lIt
-dah
+tXx
 uVq
 uVq
 uVq
@@ -146812,7 +146830,7 @@ gGi
 lal
 azE
 jCn
-lDA
+mem
 anh
 kDD
 uBI
