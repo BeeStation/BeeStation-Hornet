@@ -54961,6 +54961,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"gtN" = (
+/obj/machinery/telecomms/broadcaster/preset_exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "gue" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 1
@@ -56219,6 +56223,14 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"iye" = (
+/obj/machinery/camera/motion{
+	c_tag = "Telecomms Server Room";
+	dir = 1;
+	network = list("tcomms")
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "iyg" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -59321,15 +59333,6 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
-"nXj" = (
-/obj/machinery/camera/motion{
-	c_tag = "Telecomms Server Room";
-	dir = 1;
-	network = list("tcomms")
-	},
-/obj/machinery/telecomms/allinone/exploration,
-/turf/open/floor/plasteel/dark/telecomms,
-/area/tcommsat/server)
 "nXU" = (
 /obj/structure/chair{
 	dir = 1
@@ -60962,6 +60965,10 @@
 /obj/item/cigbutt,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"qAS" = (
+/obj/machinery/telecomms/receiver/preset_exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "qDJ" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /turf/open/floor/engine,
@@ -61797,6 +61804,10 @@
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
+"rVB" = (
+/obj/machinery/telecomms/processor/preset_exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "rWE" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -62697,6 +62708,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"tHO" = (
+/obj/machinery/telecomms/hub/preset/exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "tIm" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -63767,6 +63782,10 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/library)
+"vOW" = (
+/obj/machinery/telecomms/bus/preset_exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "vRi" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
@@ -64254,6 +64273,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/science)
+"wJG" = (
+/obj/machinery/telecomms/relay/preset/exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "wKa" = (
 /obj/machinery/light/small,
 /obj/machinery/advanced_airlock_controller{
@@ -92153,7 +92176,7 @@ aaa
 aaa
 abI
 aaa
-aaa
+abI
 aaa
 aaa
 aaa
@@ -92411,10 +92434,10 @@ adR
 adR
 adR
 adR
-aaa
+adR
 adR
 aaa
-aaa
+adR
 aaa
 aaa
 aaa
@@ -92667,11 +92690,11 @@ aaa
 aaa
 abI
 aaa
+abI
+aaa
 aaa
 aaa
 adR
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -92925,11 +92948,11 @@ cmB
 cmB
 cmB
 cmB
+cmB
+cmB
 cny
 adR
 abI
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -93180,12 +93203,12 @@ cna
 cmR
 cnj
 cmK
+vOW
+cmR
 cnr
 cmB
 aaa
 adR
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -93437,12 +93460,12 @@ cnb
 cmK
 cnk
 cmK
+tHO
+cmK
 cns
 cmB
 aaa
 adR
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -93694,12 +93717,12 @@ cmK
 cmK
 cnl
 cmK
+qAS
+cmK
 cnt
 cmB
 aaa
 adR
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -93951,13 +93974,13 @@ cnc
 cmK
 cmK
 cmK
-nXj
+cmK
+cmK
+iye
 cmB
 abI
 adR
 abI
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -94208,12 +94231,12 @@ cmK
 cmK
 cnm
 cmK
+gtN
+cmK
 cnv
 cmB
 aaa
 adR
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -94465,12 +94488,12 @@ cnd
 cmK
 cnn
 cmK
+wJG
+cmK
 cnw
 cmB
 aaa
 adR
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -94722,12 +94745,12 @@ cne
 cmU
 cno
 cmK
+rVB
+cmU
 cnx
 cmB
 aaa
 adR
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -94981,11 +95004,11 @@ cmB
 cmB
 cmB
 cmB
+cmB
+cmB
 cnz
 adR
 abI
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -95237,11 +95260,11 @@ aaa
 aaa
 abI
 aaa
+abI
+aaa
 aaa
 aaa
 adR
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -95495,10 +95518,10 @@ adR
 adR
 adR
 adR
-aaa
+adR
 adR
 aaa
-aaa
+adR
 aaa
 aaa
 aaa
@@ -95751,7 +95774,7 @@ aaa
 aaa
 abI
 aaa
-aaa
+abI
 aaa
 aaa
 aaa
