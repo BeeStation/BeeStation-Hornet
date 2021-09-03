@@ -429,8 +429,20 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/pause_z(z_level)
 	LAZYADD(paused_z_levels, z_level)
+	var/list/turfs_to_disable = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
+	for(var/thin in turfs_to_disable)
+		var/turf/T = thin
+		T.atmos_adjacent_turfs?.Cut()
+		CHECK_TICK
 
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
+	var/list/turfs_to_reinit = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
+	for(var/thin in turfs_to_reinit)
+		var/turf/T = thin
+		if(T.blocks_air)
+			continue
+		T.Initalize_Atmos()
+		CHECK_TICK
 	LAZYREMOVE(paused_z_levels, z_level)
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
