@@ -34,8 +34,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
-	shuttleId = shuttleId
-	shuttlePortId = "[shuttleId]_custom"
+	if(shuttleId)
+		shuttlePortId = "[shuttleId]_custom"
+	else
+		var/static/i = 0
+		shuttlePortId = "unlinked_shuttle_console_[i++]"
 
 /obj/machinery/computer/shuttle_flight/Destroy()
 	. = ..()
@@ -514,9 +517,4 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	req_access = list()
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
-
-/obj/machinery/computer/shuttle_flight/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
-	if(port && (shuttleId == initial(shuttleId) || override))
-		shuttleId = port.id
-
 

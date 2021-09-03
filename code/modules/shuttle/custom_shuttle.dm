@@ -126,6 +126,7 @@
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/proc/linkShuttle(var/new_id)
 	shuttleId = new_id
+	shuttlePortId = "[shuttleId]_custom_dock"
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/proc/calculateStats(var/useFuel = FALSE)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
