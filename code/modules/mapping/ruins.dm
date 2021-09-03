@@ -22,6 +22,8 @@
 
 		for(var/i in get_affected_turfs(central_turf, 1))
 			var/turf/T = i
+			for(var/obj/structure/spawner/nest in T)
+				qdel(nest)
 			for(var/mob/living/simple_animal/monster in T)
 				qdel(monster)
 			for(var/obj/structure/flora/ash/plant in T)
@@ -154,8 +156,6 @@
 									forced_ruins[linked] = target_z //I guess you might want a chain somehow
 								if(PLACE_LAVA_RUIN)
 									forced_ruins[linked] = pick(SSmapping.levels_by_trait(ZTRAIT_LAVA_RUINS))
-								if(PLACE_SPACE_RUIN)
-									forced_ruins[linked] = pick(SSmapping.levels_by_trait(ZTRAIT_SPACE_RUINS))
 								if(PLACE_DEFAULT)
 									forced_ruins[linked] = -1
 								if(PLACE_BELOW)

@@ -71,7 +71,7 @@
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
-
+	layer = ABOVE_WINDOW_LAYER
 
 
 	var/danger_level = 0
@@ -216,11 +216,13 @@
 	wires = null
 	var/area/ourarea = get_area(src)
 	ourarea.atmosalert(FALSE, src)
+	GLOB.zclear_atoms -= src
 	return ..()
 
 /obj/machinery/airalarm/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
+	GLOB.zclear_atoms += src
 
 /obj/machinery/airalarm/examine(mob/user)
 	. = ..()

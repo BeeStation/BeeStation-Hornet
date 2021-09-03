@@ -31,11 +31,10 @@ export const ChemPress = (props, context) => {
                 })} />
             </LabeledList.Item>
             <LabeledList.Item label="Pill Name">
-              <Input
-                value={pill_name}
-                onChange={(e, value) => act('change_pill_name', {
-                  name: value,
-                })} />
+              <Button
+                icon="pencil-alt"
+                content={pill_name}
+                onClick={() => act('change_pill_name')} />
             </LabeledList.Item>
             <LabeledList.Item label="Pill Style">
               {pill_styles.map(pill => (
