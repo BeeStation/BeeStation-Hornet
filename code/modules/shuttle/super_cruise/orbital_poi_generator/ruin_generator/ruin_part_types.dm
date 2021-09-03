@@ -416,7 +416,7 @@
 	max_occurances = 1
 
 /datum/map_template/ruin_part/ailab
-	file_name = "11x13_ai-lab"
+	file_name = "13x13_ai-lab"
 	weight = 5
 	loot_room = TRUE
 	max_occurances = 1
