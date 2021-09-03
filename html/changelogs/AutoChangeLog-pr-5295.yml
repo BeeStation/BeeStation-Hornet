@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Runechat not displaying messages if you can't hear it rather tahn if they
-      can't hear it.
