@@ -13,6 +13,12 @@ Reproductive extracts:
 	var/cubes_eaten = 0
 	var/last_produce = 0
 	var/cooldown = 30 // 3 seconds.
+	var/static/list/typecache_to_take
+
+/obj/item/slimecross/reproductive/Initialize()
+	. = ..()
+	if(!typecache_to_take)
+		typecache_to_take = typecacheof(/obj/item/reagent_containers/food/snacks/monkeycube)
 
 /obj/item/slimecross/reproductive/attackby(obj/item/O, mob/user)
 	if((last_produce + cooldown) > world.time)
@@ -20,7 +26,7 @@ Reproductive extracts:
 		return
 	if(istype(O, /obj/item/storage/bag/bio))
 		var/list/inserted = list()
-		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_TAKE_TYPE, /obj/item/reagent_containers/food/snacks/monkeycube, src, 1, null, null, user, inserted)
+		SEND_SIGNAL(O, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src, 1, null, null, user, inserted)
 		if(inserted.len)
 			var/obj/item/reagent_containers/food/snacks/monkeycube/M = inserted[1]
 			if(istype(M))

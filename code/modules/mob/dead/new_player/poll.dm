@@ -331,7 +331,7 @@
 			return
 		else
 			admin_rank = "Player"
-	var/player_playtime = round(client?.get_exp_living(FALSE) / 60)
+	var/player_playtime = round(client?.get_exp_living(TRUE) / 60)
 	if(!isnull(player_playtime) && (player_playtime < poll.minimumplaytime))
 		to_chat(usr, "<span class='warning'>You do not have sufficient playtime to vote in this poll. Minimum: [poll.minimumplaytime] hour(s). Your playtime: [player_playtime] hour(s).</span>")
 		return

@@ -20,6 +20,7 @@
 	var/heavy_metal = TRUE
 	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal
 	var/click_cooldown_override = 0
+	var/exists = TRUE
 
 /obj/item/ammo_casing/spent
 	name = "spent bullet casing"
@@ -35,12 +36,11 @@
 	update_icon()
 
 /obj/item/ammo_casing/Destroy()
-	. = ..()
-
 	var/turf/T = get_turf(src)
 	if(T && !BB && is_station_level(T.z))
 		SSblackbox.record_feedback("tally", "station_mess_destroyed", 1, name)
 	QDEL_NULL(BB)
+	return ..()
 
 /obj/item/ammo_casing/update_icon()
 	..()

@@ -101,22 +101,11 @@
 #define COMSIG_ATOM_ATTACK_HAND "atom_attack_hand"				//! from base of atom/attack_hand(): (mob/user)
 #define COMSIG_ATOM_ATTACK_PAW "atom_attack_paw"				//! from base of atom/attack_paw(): (mob/user)
 	#define COMPONENT_NO_ATTACK_HAND 1							//works on all 3.
-#define COMSIG_ATOM_SET_OPACITY "atom_set_opacity"
+//This signal return value bitflags can be found in __DEFINES/misc.dm
+#define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"	//called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
 
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 
-///Called right before the atom changes the value of light_range to a different one, from base atom/set_light_range(): (new_range)
-#define COMSIG_ATOM_SET_LIGHT_RANGE "atom_set_light_range"
-///Called right before the atom changes the value of light_power to a different one, from base atom/set_light_power(): (new_power)
-#define COMSIG_ATOM_SET_LIGHT_POWER "atom_set_light_power"
-///Called right before the atom changes the value of light_color to a different one, from base atom/set_light_color(): (new_color)
-#define COMSIG_ATOM_SET_LIGHT_COLOR "atom_set_light_color"
-///Called right before the atom changes the value of light_on to a different one, from base atom/set_light_on(): (new_value)
-#define COMSIG_ATOM_SET_LIGHT_ON "atom_set_light_on"
-///Called right before the atom changes the value of light_flags to a different one, from base atom/set_light_flags(): (new_value)
-#define COMSIG_ATOM_SET_LIGHT_FLAGS "atom_set_light_flags"
-///called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
-#define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
 
@@ -174,11 +163,6 @@
 	#define HEARING_SPANS 6
 	#define HEARING_MESSAGE_MODE 7 */
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"			//! called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
-
-#define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_RANGE "movable_light_overlay_set_color" //! Called when the movable tries to change its dynamic light color setting, from base atom/movable/lighting_overlay_set_color(): (color)
-#define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_POWER "movable_light_overlay_set_power" //! Called when the movable tries to change its dynamic light power setting, from base atom/movable/lighting_overlay_set_power(): (power)
-#define COMSIG_MOVABLE_LIGHT_OVERLAY_SET_COLOR "movable_light_overlay_set_range" //! Called when the movable tries to change its dynamic light range setting, from base atom/movable/lighting_overlay_set_range(): (range)
-#define COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON "movable_light_overlay_toggle_on" //! Called when the movable tries to toggle its dynamic light LIGHTING_ON status, from base atom/movable/lighting_overlay_toggle_on(): (new_state)
 
 // /mob signals
 #define COMSIG_MOB_LOGIN "mob_login"
@@ -395,7 +379,7 @@
 #define COMSIG_TRY_STORAGE_HIDE_ALL "storage_hide_all"				//! returns bool
 #define COMSIG_TRY_STORAGE_SET_LOCKSTATE "storage_lock_set_state"	//! (newstate)
 #define COMSIG_IS_STORAGE_LOCKED "storage_get_lockstate"			//! () - returns bool. MUST CHECK IF STORAGE IS THERE FIRST!
-#define COMSIG_TRY_STORAGE_TAKE_TYPE "storage_take_type"			//! (type, atom/destination, amount = INFINITY, check_adjacent, force, mob/user, list/inserted) - returns bool - type can be a list of types.
+#define COMSIG_TRY_STORAGE_TAKE_TYPE "storage_take_type"			//! (typecache, atom/destination, amount = INFINITY, check_adjacent, force, mob/user, list/inserted) - returns bool - typecache has to be list of types.
 #define COMSIG_TRY_STORAGE_FILL_TYPE "storage_fill_type"			//! (type, amount = INFINITY, force = FALSE)			//don't fuck this up. Force will ignore max_items, and amount is normally clamped to max_items.
 #define COMSIG_TRY_STORAGE_TAKE "storage_take_obj"					//! (obj, new_loc, force = FALSE) - returns bool
 #define COMSIG_TRY_STORAGE_QUICK_EMPTY "storage_quick_empty"		//! (loc) - returns bool - if loc is null it will dump at parent location.

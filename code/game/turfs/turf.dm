@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(station_turfs)
 /turf
 	icon = 'icons/turf/floors.dmi'
-	luminosity = 1
+	level = 1
 
 	/// If this is TRUE, that means this floor is on top of plating so pipes and wires and stuff will appear under it... or something like that it's not entirely clear.
 	var/intact = 1
@@ -22,6 +22,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	/// Used for fire, if a melting temperature was reached, it will be destroyed
 	var/to_be_destroyed = 0
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+
+	//If true, turf will allow users to float up and down in 0 grav.
+	var/allow_z_travel = FALSE
 
 	/// Whether the turf blocks atmos from passing through it or not
 	var/blocks_air = FALSE
@@ -50,25 +53,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	///the holodeck can load onto this turf if TRUE
 	var/holodeck_compatible = FALSE
-
-	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
-	var/dynamic_lumcount = 0
-
-	var/dynamic_lighting = TRUE
-
-	var/tmp/lighting_corners_initialised = FALSE
-
-	///List of light sources affecting this turf.
-	var/tmp/list/datum/light_source/affecting_lights
-	///Our lighting object.
-	var/tmp/atom/movable/lighting_object/lighting_object
-	var/tmp/list/datum/lighting_corner/corners
-
-	///Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.
-	var/directional_opacity = NONE
-	///Lazylist of movable atoms providing opacity sources.
-	var/list/atom/movable/opacity_sources
-
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -114,7 +98,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		SEND_SIGNAL(T, COMSIG_TURF_MULTIZ_NEW, src, UP)
 
 	if (opacity)
-		directional_opacity = ALL_CARDINALS
+		has_opaque_atom = TRUE
 
 	ComponentInitialize()
 	if(isopenturf(src))
@@ -164,12 +148,65 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	vis_contents.Cut()
 
 /turf/attack_hand(mob/user)
+	//Must have no gravity.
+	if(allow_z_travel && get_turf(user) == src)
+		if(!user.has_gravity(src) || (user.movement_type & FLYING))
+			check_z_travel(user)
+			return
+		else
+			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
 		. = TRUE
 	if(.)
 		return
 	user.Move_Pulled(src)
+
+/turf/proc/check_z_travel(mob/user)
+	if(get_turf(user) != src)
+		return
+	var/list/tool_list = list()
+	var/turf/above = above()
+	if(above)
+		tool_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
+	var/turf/below = below()
+	if(below)
+		tool_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
+
+	if(!length(tool_list))
+		return
+
+	var/result = show_radial_menu(user, user, tool_list, require_near = TRUE, tooltips = TRUE)
+	if(get_turf(user) != src)
+		return
+	switch(result)
+		if("Cancel")
+			return
+		if("Up")
+			travel_z(user, above, TRUE)
+		if("Down")
+			travel_z(user, below, FALSE)
+
+/turf/proc/travel_z(mob/user, turf/target, upwards = TRUE)
+	user.visible_message("<span class='notice'>[user] begins floating upwards!</span>", "<span class='notice'>You begin floating upwards.</span>")
+	var/matrix/M = user.transform
+	//Animation is inverted due to immediately resetting user vars.
+	animate(user, 30, pixel_y = upwards ? -64 : 64, transform = matrix() * (upwards ? 0.7 : 1.3))
+	user.pixel_y = 0
+	user.transform = M
+	if(!do_after(user, 30, FALSE, get_turf(user)))
+		animate(user, 0, flags = ANIMATION_END_NOW)
+		return
+	if(!istype(target, /turf/open/space) && !istype(target, /turf/open/openspace))
+		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
+		return
+	var/atom/movable/AM
+	if(user.pulling)
+		AM = user.pulling
+		AM.forceMove(target)
+	user.forceMove(target)
+	if(AM)
+		user.start_pulling(AM)
 
 /turf/proc/multiz_turf_del(turf/T, dir)
 
@@ -220,8 +257,16 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
 		return FALSE
 	A.zfalling = TRUE
+	var/atom/movable/pulling = A.pulling
 	A.forceMove(target)
 	A.zfalling = FALSE
+	if(pulling)
+		//Things you are pulling fall with you
+		pulling.zfalling = TRUE
+		pulling.forceMove(target)
+		A.start_pulling(pulling)
+		pulling.zfalling = FALSE
+		target.zImpact(pulling, levels, src)
 	target.zImpact(A, levels, src)
 	return TRUE
 
@@ -316,7 +361,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	..()
 	// If an opaque movable atom moves around we need to potentially update visibility.
 	if (AM.opacity)
-		directional_opacity = ALL_CARDINALS // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
+		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
 		reconsider_lights()
 
 /turf/open/Entered(atom/movable/AM)
@@ -538,7 +583,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!SSticker.HasRoundStarted())
+	if(!SSicon_smooth.initialized)
 		add_blueprints(AM)
 
 /turf/proc/is_transition_turf()
@@ -624,3 +669,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	. = ..()
 	if(. != BULLET_ACT_FORCE_PIERCE)
 		. =  BULLET_ACT_TURF
+
+/turf/proc/check_gravity()
+	return TRUE
