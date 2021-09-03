@@ -23,9 +23,11 @@
 	do_footstep = TRUE
 	chat_color = "#64ffdd"
 	gold_core_spawnable = NO_SPAWN //No fun allowed
-
+	sentience_type = SENTIENCE_BOSS
 /mob/living/simple_animal/pet/resomi/retresi
 	name = "Retresi"
 	desc = "Retresi, a coder's favorite punching bag."
+	icon_state = "retresi"
+	icon_living = "retresi"
 	gender = MALE
 	speak = list("FRAN DID THIS ME", "THE PLANNEDEMIC IS A CONSPIRACY", "REBASE TO NEBULA", "BAYSTATION ISNT REAL", "COMBAT MODE SUCKS", "ITS NOT A FURSONA")
