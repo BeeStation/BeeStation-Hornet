@@ -386,7 +386,10 @@
 	dir = 6;
 	network = list("ss13","tcomms")
 	},
-/obj/machinery/computer/upload/ai,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
 /turf/open/floor/monofloor,
 /area/ruin/unpowered)
 "Zy" = (
