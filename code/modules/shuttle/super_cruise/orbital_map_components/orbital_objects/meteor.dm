@@ -29,8 +29,6 @@
 	var/tick_proportion = (current_tick - start_tick) / (end_tick - start_tick)
 	var/current_x = (end_x * tick_proportion) + (start_x * (1 - tick_proportion))
 	var/current_y = (end_y * tick_proportion) + (start_y * (1 - tick_proportion))
-	velocity.x = current_x - position.x
-	velocity.y = current_y - position.y
 	position.x = current_x
 	position.y = current_y
 	if(abs(position.x) > 10000 || abs(position.y) > 10000)
@@ -51,6 +49,9 @@
 		if(!LAZYLEN(z_linked.linked_z_level))
 			return
 		var/datum/space_level/space_level = pick(z_linked.linked_z_level)
+		//Check protected levels
+		if(space_level.traits[ZTRAIT_CENTCOM] || space_level.traits[ZTRAIT_REEBE])
+			return
 		//Check level flags for planetary bodies
 		if(space_level.traits[ZTRAIT_MINING])
 			for(var/i in 1 to 5)
