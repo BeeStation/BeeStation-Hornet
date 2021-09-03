@@ -95,6 +95,11 @@
 	},
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
+"py" = (
+/obj/structure/falsewall/reinforced,
+/obj/structure/sign/warning/electricshock,
+/turf/open/space/basic,
+/area/space)
 "qg" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/effect/turf_decal/stripes/red/line{
@@ -167,7 +172,9 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "vv" = (
-/obj/structure/AIcore,
+/obj/structure/AIcore{
+	name = "\broken AI core"
+	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "vA" = (
@@ -247,10 +254,13 @@
 "GZ" = (
 /obj/structure/falsewall/reinforced,
 /obj/effect/decal/cleanable/blood/tracks,
+/obj/structure/sign/warning/nosmoking,
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "Ib" = (
-/obj/machinery/porta_turret/syndicate/energy,
+/obj/machinery/porta_turret/syndicate/energy{
+	name = "AI Chamber Turret"
+	},
 /turf/open/floor/pod/dark,
 /area/ruin/unpowered)
 "Jd" = (
@@ -339,7 +349,9 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/aicard,
+/obj/item/aicard{
+	pixel_x = -10
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "Qo" = (
@@ -370,7 +382,9 @@
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "WX" = (
-/obj/machinery/door/airlock/grunge,
+/obj/machinery/door/airlock/grunge{
+	name = "AI research room"
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "Xd" = (
@@ -413,7 +427,7 @@
 /area/ruin/unpowered)
 "ZS" = (
 /obj/effect/turf_decal/bot_red,
-/mob/living/simple_animal/bot/secbot/pingsky{
+/mob/living/simple_animal/bot/secbot{
 	emagged = 1;
 	faction = list("silicon","turret");
 	name = "Officer Buzzsky"
@@ -433,7 +447,7 @@
 cf
 cf
 cf
-cf
+py
 cf
 cf
 cf
