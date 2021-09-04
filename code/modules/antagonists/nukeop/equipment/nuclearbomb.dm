@@ -35,6 +35,7 @@
 	var/interior = ""
 	var/proper_bomb = TRUE //Please
 	var/obj/effect/countdown/nuclearbomb/countdown
+	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
 
 /obj/machinery/nuclearbomb/Initialize()
@@ -418,6 +419,7 @@
 	if(safety)
 		if(timing)
 			set_security_level(previous_level)
+			stop_soundtrack_music()
 			for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 				S.switch_mode_to(initial(S.mode))
 				S.alert = FALSE
@@ -438,9 +440,15 @@
 			S.switch_mode_to(TRACK_INFILTRATOR)
 		countdown.start()
 		set_security_level(SEC_LEVEL_DELTA)
+
+		if (proper_bomb) // Why does this exist
+			countdown_music = play_soundtrack_music('sound/soundtrack/countdown.ogg', only_station = TRUE)
+
 	else
 		detonation_timer = null
 		set_security_level(previous_level)
+		stop_soundtrack_music()
+
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(initial(S.mode))
 			S.alert = FALSE
