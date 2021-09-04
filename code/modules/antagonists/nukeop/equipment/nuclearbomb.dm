@@ -35,6 +35,7 @@
 	var/interior = ""
 	var/proper_bomb = TRUE //Please
 	var/obj/effect/countdown/nuclearbomb/countdown
+	var/sound/countdown_music = null
 	COOLDOWN_DECLARE(arm_cooldown)
 
 /obj/machinery/nuclearbomb/Initialize()
@@ -433,6 +434,10 @@
 			S.switch_mode_to(TRACK_INFILTRATOR)
 		countdown.start()
 		set_security_level(SEC_LEVEL_DELTA)
+
+		if (proper_bomb) // Why does this exist
+			countdown_music = play_soundtrack_music('sound/soundtrack/countdown.ogg', specific_z = SSmapping.levels_by_trait(ZTRAIT_STATION)[1])
+
 	else
 		detonation_timer = null
 		set_security_level(previous_level)
