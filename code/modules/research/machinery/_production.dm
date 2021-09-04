@@ -30,6 +30,8 @@
 	update_research()
 	materials = AddComponent(/datum/component/remote_materials, "lathe", mapload)
 	RefreshParts()
+	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, .proc/on_materials_changed)
+	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, .proc/on_materials_changed)
 
 /obj/machinery/rnd/production/Destroy()
 	materials = null
@@ -38,6 +40,14 @@
 	QDEL_NULL(stored_research)
 	host_research = null
 	return ..()
+
+/obj/machinery/rnd/production/proc/on_materials_changed()
+	SIGNAL_HANDLER
+	ui_update()
+
+/obj/machinery/rnd/production/on_reagent_change(changetype)
+	. = ..()
+	ui_update()
 
 /obj/machinery/rnd/production/proc/update_research()
 	host_research.copy_research_to(stored_research, TRUE)
@@ -53,13 +63,13 @@
 
 /obj/machinery/rnd/production/RefreshParts()
 	calculate_efficiency()
+	ui_update()
 
 /obj/machinery/rnd/production/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "TechFab")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 		viewing_mobs += user
 
 /obj/machinery/rnd/production/ui_close(mob/user)
@@ -303,3 +313,7 @@
 	matlist[eject_sheet] = MINERAL_MATERIAL_AMOUNT
 	materials.silo_log(src, "ejected", -count, "sheets", matlist)
 	return count
+
+/obj/machinery/rnd/production/reset_busy()
+	. = ..()
+	SStgui.update_uis(src)
