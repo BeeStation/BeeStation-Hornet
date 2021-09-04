@@ -191,7 +191,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	if(!hearers)
 		hearers = GLOB.player_list
 
-	for(var/mob/M in hearers)
+	for(var/mob/M as() in hearers)
 		if (!ismob(M))
 			continue
 
