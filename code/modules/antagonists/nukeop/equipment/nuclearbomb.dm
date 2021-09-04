@@ -414,6 +414,7 @@
 	if(safety)
 		if(timing)
 			set_security_level(previous_level)
+			stop_soundtrack_music()
 			for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 				S.switch_mode_to(initial(S.mode))
 				S.alert = FALSE
@@ -441,6 +442,8 @@
 	else
 		detonation_timer = null
 		set_security_level(previous_level)
+		stop_soundtrack_music()
+
 		for(var/obj/item/pinpointer/nuke/syndicate/S in GLOB.pinpointer_list)
 			S.switch_mode_to(initial(S.mode))
 			S.alert = FALSE

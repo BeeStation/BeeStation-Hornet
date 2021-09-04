@@ -209,6 +209,10 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 
 		SEND_SOUND(M, S)
 
+/proc/stop_soundtrack_music()
+	for(var/mob/M as() in GLOB.player_list)
+		M?.stop_sound_channel(CHANNEL_AMBIENT_MUSIC)
+
 /proc/open_sound_channel()
 	var/static/next_channel = 1	//loop through the available 1024 - (the ones we reserve) channels and pray that its not still being used
 	. = ++next_channel
