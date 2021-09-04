@@ -5,6 +5,8 @@ import { Fragment } from 'inferno';
 import { capitalize, createSearch } from 'common/string';
 import { sendLogEntry } from 'tgui-dev-server/link/client';
 
+// Handles protolathes, circuit fabricators, and techfabs
+
 export const TechFab = (props, context) => {
   return (
     <Window
