@@ -84,6 +84,7 @@ handles linking back and forth.
 	mat_container = null
 	if (allow_standalone)
 		_MakeLocal()
+	SEND_SIGNAL(parent, COMSIG_REMOTE_MATERIALS_CHANGED)
 
 /datum/component/remote_materials/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
 	SIGNAL_HANDLER
@@ -107,6 +108,7 @@ handles linking back and forth.
 			silo.updateUsrDialog()
 			mat_container = silo.GetComponent(/datum/component/material_container)
 			to_chat(user, "<span class='notice'>You connect [parent] to [silo] from the multitool's buffer.</span>")
+			SEND_SIGNAL(parent, COMSIG_REMOTE_MATERIALS_CHANGED)
 			return COMPONENT_NO_AFTERATTACK
 
 	else if (silo && istype(I, /obj/item/stack))
