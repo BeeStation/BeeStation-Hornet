@@ -98,7 +98,7 @@
 		return null
 
 	var/list/L = list()
-	for(var/datum/material/material in materials.mat_container.materials)
+	for(var/datum/material/material as() in materials.mat_container.materials)
 		L[material.id] = list(
 				name = material.name,
 				amount = materials.mat_container.materials[material]/MINERAL_MATERIAL_AMOUNT,
@@ -115,7 +115,7 @@
 		return null
 
 	var/list/L = list()
-	for(var/datum/reagent/reagent in reagents.reagent_list)
+	for(var/datum/reagent/reagent as() in reagents.reagent_list)
 		L["[reagent.type]"] = list(
 				name = reagent.name,
 				volume = reagent.volume,
@@ -138,7 +138,7 @@
 
 /obj/machinery/rnd/production/proc/build_recipes()
 	var/list/L = list()
-	for(var/datum/design/design in cached_designs)
+	for(var/datum/design/design as() in cached_designs)
 		L += list(build_design(design))
 	return L
 
