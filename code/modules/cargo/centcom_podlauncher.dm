@@ -206,11 +206,10 @@
 		if("pickDropoffTurf") //Enters a mode that lets you pick the dropoff location for reverse pods
 			if (picking_dropoff_turf)
 				picking_dropoff_turf = FALSE
-				updateCursor() //Update the cursor of the user to a cool looking target icon
-				return
-			if (launcherActivated)
-				launcherActivated = FALSE //We don't want to have launch mode enabled while we're picking a turf
-			picking_dropoff_turf = TRUE
+			else
+				if (launcherActivated)
+					launcherActivated = FALSE //We don't want to have launch mode enabled while we're picking a turf
+				picking_dropoff_turf = TRUE
 			updateCursor() //Update the cursor of the user to a cool looking target icon
 			. = TRUE
 		if("clearDropoffTurf")
@@ -281,82 +280,82 @@
 			if (explosionChoice == 1) //If already a custom explosion, set to default (no explosion)
 				explosionChoice = 0
 				temp_pod.explosionSize = list(0,0,0,0)
-				return
-			var/list/expNames = list("Devastation", "Heavy Damage", "Light Damage", "Flame") //Explosions have a range of different types of damage
-			var/list/boomInput = list()
-			for (var/i=1 to expNames.len) //Gather input from the user for the value of each type of damage
-				boomInput.Add(input("Enter the [expNames[i]] range of the explosion. WARNING: This ignores the bomb cap!", "[expNames[i]] Range",  0) as null|num)
-				if (isnull(boomInput[i]))
-					return
-				if (!isnum_safe(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
-					alert(usr, "That wasn't a number! Value set to default (zero) instead.")
-					boomInput = 0
-			explosionChoice = 1
-			temp_pod.explosionSize = boomInput
+			else
+				var/list/expNames = list("Devastation", "Heavy Damage", "Light Damage", "Flame") //Explosions have a range of different types of damage
+				var/list/boomInput = list()
+				for (var/i=1 to expNames.len) //Gather input from the user for the value of each type of damage
+					boomInput.Add(input("Enter the [expNames[i]] range of the explosion. WARNING: This ignores the bomb cap!", "[expNames[i]] Range",  0) as null|num)
+					if (isnull(boomInput[i]))
+						return
+					if (!isnum_safe(boomInput[i])) //If the user doesn't input a number, set that specific explosion value to zero
+						alert(usr, "That wasn't a number! Value set to default (zero) instead.")
+						boomInput = 0
+				explosionChoice = 1
+				temp_pod.explosionSize = boomInput
 			. = TRUE
 		if("explosionBus") //Creates a maxcap when the pod lands
 			if (explosionChoice == 2) //If already a maccap, set to default (no explosion)
 				explosionChoice = 0
 				temp_pod.explosionSize = list(0,0,0,0)
-				return
-			explosionChoice = 2
-			temp_pod.explosionSize = list(GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE,GLOB.MAX_EX_FLAME_RANGE) //Set explosion to max cap of server
+			else
+				explosionChoice = 2
+				temp_pod.explosionSize = list(GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE,GLOB.MAX_EX_FLAME_RANGE) //Set explosion to max cap of server
 			. = TRUE
 		if("damageCustom") //Deals damage to whoevers under the pod when it lands
 			if (damageChoice == 1) //If already doing custom damage, set back to default (no damage)
 				damageChoice = 0
 				temp_pod.damage = 0
-				return
-			var/damageInput = input("Enter the amount of brute damage dealt by getting hit","How much damage to deal",  0) as null|num
-			if (isnull(damageInput))
-				return
-			if (!isnum_safe(damageInput)) //Sanitize the input for damage to deal.s
-				alert(usr, "That wasn't a number! Value set to default (zero) instead.")
-				damageInput = 0
-			damageChoice = 1
-			temp_pod.damage = damageInput
+			else
+				var/damageInput = input("Enter the amount of brute damage dealt by getting hit","How much damage to deal",  0) as null|num
+				if (isnull(damageInput))
+					return
+				if (!isnum_safe(damageInput)) //Sanitize the input for damage to deal.s
+					alert(usr, "That wasn't a number! Value set to default (zero) instead.")
+					damageInput = 0
+				damageChoice = 1
+				temp_pod.damage = damageInput
 			. = TRUE
 		if("damageGib") //Gibs whoever is under the pod when it lands. Also deals 5000 damage, just to be sure.
 			if (damageChoice == 2) //If already gibbing, set back to default (no damage)
 				damageChoice = 0
 				temp_pod.damage = 0
 				temp_pod.effectGib = FALSE
-				return
-			damageChoice = 2
-			temp_pod.damage = 5000
-			temp_pod.effectGib = TRUE //Gibs whoever is under the pod when it lands
+			else
+				damageChoice = 2
+				temp_pod.damage = 5000
+				temp_pod.effectGib = TRUE //Gibs whoever is under the pod when it lands
 			. = TRUE
 		if("effectName") //Give the supplypod a custom name. Supplypods automatically get their name based on their style (see supplypod/setStyle() proc), so doing this overrides that.
 			if (temp_pod.adminNamed) //If we're already adminNamed, set the name of the pod back to default
 				temp_pod.adminNamed = FALSE
 				temp_pod.setStyle(temp_pod.style) //This resets the name of the pod based on it's current style (see supplypod/setStyle() proc)
-				return
-			var/nameInput= input("Custom name", "Enter a custom name", GLOB.podstyles[temp_pod.style][POD_NAME]) as null|text //Gather input for name and desc
-			if (isnull(nameInput))
-				return
-			var/descInput = input("Custom description", "Enter a custom desc", GLOB.podstyles[temp_pod.style][POD_DESC]) as null|text //The GLOB.podstyles is used to get the name, desc, or icon state based on the pod's style
-			if (isnull(descInput))
-				return
-			temp_pod.name = nameInput
-			temp_pod.desc = descInput
-			temp_pod.adminNamed = TRUE //This variable is checked in the supplypod/setStyle() proc
+			else
+				var/nameInput= input("Custom name", "Enter a custom name", GLOB.podstyles[temp_pod.style][POD_NAME]) as null|text //Gather input for name and desc
+				if (isnull(nameInput))
+					return
+				var/descInput = input("Custom description", "Enter a custom desc", GLOB.podstyles[temp_pod.style][POD_DESC]) as null|text //The GLOB.podstyles is used to get the name, desc, or icon state based on the pod's style
+				if (isnull(descInput))
+					return
+				temp_pod.name = nameInput
+				temp_pod.desc = descInput
+				temp_pod.adminNamed = TRUE //This variable is checked in the supplypod/setStyle() proc
 			. = TRUE
 		if("effectShrapnel") //Creates a cloud of shrapnel on landing
 			if (temp_pod.effectShrapnel == TRUE) //If already doing custom damage, set back to default (no shrapnel)
 				temp_pod.effectShrapnel = FALSE
-				return
-			var/shrapnelInput = input("Please enter the type of pellet cloud you'd like to create on landing (Can be any projectile!)", "Projectile Typepath",  0) in sortList(subtypesof(/obj/item/projectile), /proc/cmp_typepaths_asc)
-			if (isnull(shrapnelInput))
-				return
-			var/shrapnelMagnitude = input("Enter the magnitude of the pellet cloud. This is usually a value around 1-5. Please note that Ryll-Ryll has asked me to tell you that if you go too crazy with the projectiles you might crash the server. So uh, be gentle!", "Shrapnel Magnitude", 0) as null|num
-			if (isnull(shrapnelMagnitude))
-				return
-			if (!isnum(shrapnelMagnitude))
-				alert(usr, "That wasn't a number! Value set to 3 instead.")
-				shrapnelMagnitude = 3
-			temp_pod.shrapnel_type = shrapnelInput
-			temp_pod.shrapnel_magnitude = shrapnelMagnitude
-			temp_pod.effectShrapnel = TRUE
+			else
+				var/shrapnelInput = input("Please enter the type of pellet cloud you'd like to create on landing (Can be any projectile!)", "Projectile Typepath",  0) in sortList(subtypesof(/obj/item/projectile), /proc/cmp_typepaths_asc)
+				if (isnull(shrapnelInput))
+					return
+				var/shrapnelMagnitude = input("Enter the magnitude of the pellet cloud. This is usually a value around 1-5. Please note that Ryll-Ryll has asked me to tell you that if you go too crazy with the projectiles you might crash the server. So uh, be gentle!", "Shrapnel Magnitude", 0) as null|num
+				if (isnull(shrapnelMagnitude))
+					return
+				if (!isnum(shrapnelMagnitude))
+					alert(usr, "That wasn't a number! Value set to 3 instead.")
+					shrapnelMagnitude = 3
+				temp_pod.shrapnel_type = shrapnelInput
+				temp_pod.shrapnel_magnitude = shrapnelMagnitude
+				temp_pod.effectShrapnel = TRUE
 			. = TRUE
 		if("effectStun") //Toggle: Any mob under the pod is stunned (cant move) until the pod lands, hitting them!
 			temp_pod.effectStun = !temp_pod.effectStun
@@ -402,13 +401,13 @@
 		if("effectTarget") //Toggle: Launch at a specific mob (instead of at whatever turf you click on). Used for the supplypod smite
 			if (specificTarget)
 				specificTarget = null
-				return
-			var/list/mobs = getpois()//code stolen from observer.dm
-			var/inputTarget = input("Select a mob! (Smiting does this automatically)", "Target", null, null) as null|anything in mobs
-			if (isnull(inputTarget))
-				return
-			var/mob/target = mobs[inputTarget]
-			specificTarget = target///input specific tartget
+			else
+				var/list/mobs = getpois()//code stolen from observer.dm
+				var/inputTarget = input("Select a mob! (Smiting does this automatically)", "Target", null, null) as null|anything in mobs
+				if (isnull(inputTarget))
+					return
+				var/mob/target = mobs[inputTarget]
+				specificTarget = target///input specific tartget
 			. = TRUE
 
 		////////////////////////////TIMER DELAYS//////////////////
@@ -433,65 +432,65 @@
 			if ((temp_pod.fallingSound) != initial(temp_pod.fallingSound))
 				temp_pod.fallingSound = initial(temp_pod.fallingSound)
 				temp_pod.fallingSoundLength = initial(temp_pod.fallingSoundLength)
-				return
-			var/soundInput = input(holder, "Please pick a sound file to play when the pod lands! Sound will start playing and try to end when the pod lands", "Pick a Sound File") as null|sound
-			if (isnull(soundInput))
-				return
-			var/sound/tempSound = sound(soundInput)
-			playsound(holder.mob, tempSound, 1)
-			var/list/sounds_list = holder.SoundQuery()
-			var/soundLen = 0
-			for (var/playing_sound in sounds_list)
-				if (isnull(playing_sound))
-					stack_trace("client.SoundQuery() Returned a list containing a null sound! Somehow!")
-					continue
-				var/sound/found = playing_sound
-				if (found.file == tempSound.file)
-					soundLen = found.len
-			if (!soundLen)
-				soundLen =  input(holder, "Couldn't auto-determine sound file length. What is the exact length of the sound file, in seconds. This number will be used to line the sound up so that it finishes right as the pod lands!", "Pick a Sound File", 0.3) as null|num
-				if (isnull(soundLen))
+			else
+				var/soundInput = input(holder, "Please pick a sound file to play when the pod lands! Sound will start playing and try to end when the pod lands", "Pick a Sound File") as null|sound
+				if (isnull(soundInput))
 					return
-				if (!isnum(soundLen))
-					alert(usr, "That wasn't a number! Value set to default ([initial(temp_pod.fallingSoundLength)*0.1]) instead.")
-			temp_pod.fallingSound = soundInput
-			temp_pod.fallingSoundLength = 10 * soundLen
+				var/sound/tempSound = sound(soundInput)
+				playsound(holder.mob, tempSound, 1)
+				var/list/sounds_list = holder.SoundQuery()
+				var/soundLen = 0
+				for (var/playing_sound in sounds_list)
+					if (isnull(playing_sound))
+						stack_trace("client.SoundQuery() Returned a list containing a null sound! Somehow!")
+						continue
+					var/sound/found = playing_sound
+					if (found.file == tempSound.file)
+						soundLen = found.len
+				if (!soundLen)
+					soundLen =  input(holder, "Couldn't auto-determine sound file length. What is the exact length of the sound file, in seconds. This number will be used to line the sound up so that it finishes right as the pod lands!", "Pick a Sound File", 0.3) as null|num
+					if (isnull(soundLen))
+						return
+					if (!isnum(soundLen))
+						alert(usr, "That wasn't a number! Value set to default ([initial(temp_pod.fallingSoundLength)*0.1]) instead.")
+				temp_pod.fallingSound = soundInput
+				temp_pod.fallingSoundLength = 10 * soundLen
 			. = TRUE
 		if("landingSound") //Admin sound from a local file that plays when the pod lands
 			if (!isnull(temp_pod.landingSound))
 				temp_pod.landingSound = null
-				return
-			var/soundInput = input(holder, "Please pick a sound file to play when the pod lands! I reccomend a nice \"oh shit, i'm sorry\", incase you hit someone with the pod.", "Pick a Sound File") as null|sound
-			if (isnull(soundInput))
-				return
-			temp_pod.landingSound = soundInput
+			else
+				var/soundInput = input(holder, "Please pick a sound file to play when the pod lands! I reccomend a nice \"oh shit, i'm sorry\", incase you hit someone with the pod.", "Pick a Sound File") as null|sound
+				if (isnull(soundInput))
+					return
+				temp_pod.landingSound = soundInput
 			. = TRUE
 		if("openingSound") //Admin sound from a local file that plays when the pod opens
 			if (!isnull(temp_pod.openingSound))
 				temp_pod.openingSound = null
-				return
-			var/soundInput = input(holder, "Please pick a sound file to play when the pod opens! I reccomend a stock sound effect of kids cheering at a party, incase your pod is full of fun exciting stuff!", "Pick a Sound File") as null|sound
-			if (isnull(soundInput))
-				return
-			temp_pod.openingSound = soundInput
+			else
+				var/soundInput = input(holder, "Please pick a sound file to play when the pod opens! I reccomend a stock sound effect of kids cheering at a party, incase your pod is full of fun exciting stuff!", "Pick a Sound File") as null|sound
+				if (isnull(soundInput))
+					return
+				temp_pod.openingSound = soundInput
 			. = TRUE
 		if("leavingSound") //Admin sound from a local file that plays when the pod leaves
 			if (!isnull(temp_pod.leavingSound))
 				temp_pod.leavingSound = null
-				return
-			var/soundInput = input(holder, "Please pick a sound file to play when the pod leaves! I reccomend a nice slide whistle sound, especially if you're using the reverse pod effect.", "Pick a Sound File") as null|sound
-			if (isnull(soundInput))
-				return
-			temp_pod.leavingSound = soundInput
+			else
+				var/soundInput = input(holder, "Please pick a sound file to play when the pod leaves! I reccomend a nice slide whistle sound, especially if you're using the reverse pod effect.", "Pick a Sound File") as null|sound
+				if (isnull(soundInput))
+					return
+				temp_pod.leavingSound = soundInput
 			. = TRUE
 		if("soundVolume") //Admin sound from a local file that plays when the pod leaves
 			if (temp_pod.soundVolume != initial(temp_pod.soundVolume))
 				temp_pod.soundVolume = initial(temp_pod.soundVolume)
-				return
-			var/soundInput = input(holder, "Please pick a volume. Default is between 1 and 100 with 50 being average, but pick whatever. I'm a notification, not a cop. If you still cant hear your sound, consider turning on the Quiet effect. It will silence all pod sounds except for the custom admin ones set by the previous three buttons.", "Pick Admin Sound Volume") as null|num
-			if (isnull(soundInput))
-				return
-			temp_pod.soundVolume = soundInput
+			else
+				var/soundInput = input(holder, "Please pick a volume. Default is between 1 and 100 with 50 being average, but pick whatever. I'm a notification, not a cop. If you still cant hear your sound, consider turning on the Quiet effect. It will silence all pod sounds except for the custom admin ones set by the previous three buttons.", "Pick Admin Sound Volume") as null|num
+				if (isnull(soundInput))
+					return
+				temp_pod.soundVolume = soundInput
 			. = TRUE
 		////////////////////////////STYLE CHANGES//////////////////
 		//Style is a value that is used to keep track of what the pod is supposed to look like. It can be used with the GLOB.podstyles list (in cargo.dm defines)
@@ -526,7 +525,6 @@
 				clearBay()
 				refreshBay()
 			. = TRUE
-	ui_update()
 
 /datum/centcom_podlauncher/ui_close(mob/user, datum/tgui/tgui) //Uses the destroy() proc. When the user closes the UI, we clean up the temp_pod and supplypod_selector variables.
 	QDEL_NULL(temp_pod)
@@ -627,6 +625,7 @@
 			setDropoff(target_turf)
 			customDropoff = TRUE
 			to_chat(user, "<span class = 'notice'> You've selected [target_turf] at [COORD(target_turf)] as your dropoff location.</span>")
+			ui_update()
 
 /datum/centcom_podlauncher/proc/refreshView()
 	switch(tabIndex)
@@ -770,6 +769,9 @@
 
 /datum/centcom_podlauncher/proc/clearBay() //Clear all objs and mobs from the selected bay
 	for (var/obj/O in bay.GetAllContents())
+		if(istype(O, /obj/effect/hallucination/simple/supplypod_selector) \
+			|| istype(O, /obj/effect/hallucination/simple/dropoff_location))
+			continue // Don't clear indicators, especially since they don't recreate automatically
 		qdel(O)
 	for (var/mob/M in bay.GetAllContents())
 		qdel(M)

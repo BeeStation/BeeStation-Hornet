@@ -489,3 +489,11 @@
 
 /// from /obj/machinery/atmospherics/components/binary/valve/toggle(): (on)
 #define COMSIG_VALVE_SET_OPEN "valve_toggled"
+
+
+// /obj/machinery signals
+
+/// Sent from /obj/machinery/open_machine(): (drop)
+#define COMSIG_MACHINE_OPEN "machine_open"
+/// Sent from /obj/machinery/close_machine(): (atom/movable/target)
+#define COMSIG_MACHINE_CLOSE "machine_close"
