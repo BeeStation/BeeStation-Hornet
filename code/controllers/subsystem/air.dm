@@ -436,8 +436,7 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
 	var/list/turfs_to_reinit = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
-	for(var/thin in turfs_to_reinit)
-		var/turf/T = thin
+	for(var/turf/T as anything in turfs_to_reinit)
 		if(T.blocks_air)
 			continue
 		T.Initalize_Atmos()
