@@ -204,7 +204,7 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 		if (!allow_deaf && !M.can_hear())
 			continue
 
-		if (specific_z != null && M.z != specific_z)
+		if (!isnull(specific_z) && M.z != specific_z)
 			continue
 
 		SEND_SOUND(M, S)
