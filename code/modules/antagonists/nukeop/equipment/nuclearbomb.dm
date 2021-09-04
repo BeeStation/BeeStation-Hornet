@@ -436,7 +436,7 @@
 		set_security_level(SEC_LEVEL_DELTA)
 
 		if (proper_bomb) // Why does this exist
-			countdown_music = play_soundtrack_music('sound/soundtrack/countdown.ogg', specific_z = SSmapping.levels_by_trait(ZTRAIT_STATION)[1])
+			countdown_music = play_soundtrack_music('sound/soundtrack/countdown.ogg', only_station = TRUE)
 
 	else
 		detonation_timer = null
