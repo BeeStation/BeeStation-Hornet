@@ -62,6 +62,8 @@ SUBSYSTEM_DEF(air)
 	// Excited group processing will try to equalize groups with total pressure difference less than this amount.
 	var/excited_group_pressure_goal = 1
 
+	var/list/paused_z_levels	//Paused z-levels will not add turfs to active
+
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
 	msg += "HP:[round(cost_highpressure,1)]|"
@@ -124,6 +126,7 @@ SUBSYSTEM_DEF(air)
 	fix_corrupted_atmos()
 
 /datum/controller/subsystem/air/fire(resumed = 0)
+
 	var/timer = TICK_USAGE_REAL
 
 	if(currentpart == SSAIR_REBUILD_PIPENETS)
@@ -423,6 +426,12 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/StopLoadingMap()
 	map_loading = FALSE
+
+/datum/controller/subsystem/air/proc/pause_z(z_level)
+	LAZYADD(paused_z_levels, z_level)
+
+/datum/controller/subsystem/air/proc/unpause_z(z_level)
+	LAZYREMOVE(paused_z_levels, z_level)
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
 	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))

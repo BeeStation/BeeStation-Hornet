@@ -65,6 +65,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/list/pocket_dim
 	var/transforming = FALSE
 	var/can_use_abilities = TRUE
+	discovery_points = 5000
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, theme, guardiancolor)
 	GLOB.parasites += src

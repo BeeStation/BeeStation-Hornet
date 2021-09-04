@@ -129,6 +129,7 @@
 /obj/machinery/computer/pandemic/proc/reset_replicator_cooldown()
 	wait = FALSE
 	update_icon()
+	SStgui.update_uis(src)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 
 /obj/machinery/computer/pandemic/update_icon()
@@ -147,6 +148,7 @@
 		beaker.forceMove(drop_location())
 		beaker = null
 		update_icon()
+		ui_update()
 
 
 /obj/machinery/computer/pandemic/ui_state(mob/user)
@@ -157,7 +159,6 @@
 	if(!ui)
 		ui = new(user, src, "Pandemic")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/pandemic/ui_data(mob/user)
 	var/list/data = list()
@@ -256,6 +257,7 @@
 		beaker = I
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		update_icon()
+		ui_update()
 	else
 		return ..()
 

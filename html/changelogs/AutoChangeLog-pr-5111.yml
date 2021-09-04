@@ -1,0 +1,7 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: Radios and intercoms can no longer be toggled from a distance by non-silicons
+      using hotkeys
+  - bugfix: Monkeys can now interact with wall-mounted intercoms
+  - bugfix: Radio and intercom UIs now update when toggled via hotkey

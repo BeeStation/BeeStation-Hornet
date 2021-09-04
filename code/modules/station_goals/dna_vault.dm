@@ -223,8 +223,7 @@
 		return
 	switch(action)
 		if("gene")
-			upgrade(usr,params["choice"])
-			. = TRUE
+			. = upgrade(usr,params["choice"])
 
 /obj/machinery/dna_vault/proc/check_goal()
 	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)
@@ -255,6 +254,7 @@
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H,upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))
 		return
+	. = TRUE
 	var/datum/species/S = H.dna.species
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
@@ -285,4 +285,3 @@
 			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
 			H.next_move_modifier = 0.5
 	power_lottery[H] = list()
-	ui_update()
