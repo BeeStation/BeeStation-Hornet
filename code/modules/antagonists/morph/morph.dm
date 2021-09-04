@@ -53,6 +53,7 @@
 							Finally, you can restore yourself to your original form while morphed by shift-clicking yourself.</b>"
 
 	mobchatspan = "blob"
+	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	var/datum/action/innate/morph/stomach/S = new
