@@ -54,16 +54,6 @@
 /obj/item/toy/cards/deck/syndicate,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
-"l" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 6
-	},
-/obj/structure/cable/yellow,
-/turf/open/floor/plating,
-/area/shuttle/pod_shuttle)
 "m" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pod_shuttle)
@@ -184,6 +174,17 @@
 "D" = (
 /obj/machinery/computer/crew/syndie,
 /turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/pod_shuttle)
+"E" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 6
+	},
+/obj/structure/cable/yellow,
+/mob/living/simple_animal/hostile/carp/cayenne,
+/turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
 "K" = (
 /obj/structure/cable/yellow{
@@ -310,7 +311,7 @@ e
 h
 h
 Z
-l
+E
 x
 A
 "}

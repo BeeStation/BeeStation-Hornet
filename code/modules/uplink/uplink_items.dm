@@ -2012,6 +2012,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list("Stage Magician")
 	cost = 5
 
+/datum/uplink_item/role_restricted/floorpill_bottle
+	name = "Bottle of Mystery Pills"
+	desc = "We found these lying around Warehouse R1O-GN, which was decommissioned years ago. We were going to throw them out but we heard you might be interested in them."
+	item = /obj/item/storage/pill_bottle/floorpill/full
+	restricted_roles = list("Assistant", "Debtor")
+	cost = 2
+
 /datum/uplink_item/role_restricted/clown_bomb
 	name = "Clown Bomb"
 	desc = "The Clown bomb is a hilarious device capable of massive pranks. It has an adjustable timer, \

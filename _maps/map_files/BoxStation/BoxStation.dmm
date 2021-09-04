@@ -45611,15 +45611,6 @@
 	dir = 10
 	},
 /area/science/research)
-"dgS" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_x = -20
-	},
-/turf/open/floor/plasteel/white,
-/area/science/lab)
 "dhq" = (
 /obj/machinery/computer/cryopod{
 	pixel_y = 25
@@ -54964,6 +54955,16 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/cryopods)
+"ppc" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light_switch{
+	pixel_x = -20
+	},
+/mob/living/simple_animal/crab/Coffee,
+/turf/open/floor/plasteel/white,
+/area/science/lab)
 "pph" = (
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume{
 	dir = 1
@@ -109111,7 +109112,7 @@ biU
 pDJ
 blI
 bnn
-dgS
+ppc
 bpZ
 brt
 bta
