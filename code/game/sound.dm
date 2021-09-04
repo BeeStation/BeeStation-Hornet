@@ -188,10 +188,10 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 	var/sound/S = sound(sound_path, volume=volume, wait=0, channel=CHANNEL_AMBIENT_MUSIC)
 	. = S
 
-	if (hearers == null)
+	if(!hearers)
 		hearers = GLOB.player_list
 
-	for(var/mob/M in hearers)
+	for(var/mob/M as() in hearers)
 		if (!ismob(M))
 			continue
 
