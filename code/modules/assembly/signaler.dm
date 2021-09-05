@@ -109,8 +109,8 @@
 				code = initial(code)
 			. = TRUE
 
-	ui_update()
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
 	if(issignaler(W))
@@ -119,6 +119,7 @@
 			code = signaler2.code
 			set_frequency(signaler2.frequency)
 			to_chat(user, "You transfer the frequency and code of \the [signaler2.name] to \the [name]")
+			ui_update()
 	..()
 
 /obj/item/assembly/signaler/proc/signal()

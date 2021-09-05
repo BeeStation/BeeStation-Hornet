@@ -14,6 +14,8 @@
 	///Weakref to the target atom we're pointed at currently
 	var/datum/weakref/target_ref
 
+	var/target_area_name
+
 /obj/machinery/computer/teleporter/Initialize()
 	. = ..()
 	id = "[rand(1000, 9999)]"
@@ -32,8 +34,19 @@
 		power_station = locate(/obj/machinery/teleport/station, get_step(src, direction))
 		if(power_station)
 			break
+	ui_update()
 	return power_station
 
+
+/obj/machinery/computer/teleporter/ui_requires_update(mob/user, datum/tgui/ui)
+	// Using ui_update here so the changes apply to all viewers, since ui_data updates those vars
+	if(target_ref)
+		var/atom/target = target_ref.resolve()
+		if(!target)
+			ui_update() // Update once if target is gone. There is probably a better way to do this.
+		else if(target_area_name != "[get_area(target)]")
+			ui_update() // Update if the area name changed. This should be fine, because autoupdate stringifies area every process anyways.
+	. = ..() // Call parent proc last so ui_update takes effect immediately
 
 /obj/machinery/computer/teleporter/ui_state(mob/user)
 	return GLOB.default_state
@@ -43,7 +56,6 @@
 	if(!ui)
 		ui = new(user, src, "Teleporter")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/teleporter/ui_data(mob/user)
 	var/atom/target
@@ -55,7 +67,9 @@
 	data["power_station"] = power_station ? TRUE : FALSE
 	data["teleporter_hub"] = power_station?.teleporter_hub ? TRUE : FALSE
 	data["regime_set"] = regime_set
-	data["target"] = !target ? "None" : "[get_area(target)] [(regime_set != "Gate") ? "" : "Teleporter"]"
+	if(target)
+		target_area_name = "[get_area(target)]"
+	data["target"] = !target ? "None" : "[target_area_name] [(regime_set != "Gate") ? "" : "Teleporter"]"
 	data["calibrating"] = calibrating
 
 	if(power_station?.teleporter_hub?.calibrated || power_station?.teleporter_hub?.accuracy >= 4)
@@ -101,6 +115,8 @@
 			calibrating = TRUE
 			power_station.update_icon()
 			spawn(50 * (4 - power_station.teleporter_hub.accuracy)) //Better parts mean faster calibration
+				if(QDELETED(src))
+					return
 				calibrating = FALSE
 				if(check_hub_connection())
 					power_station.teleporter_hub.calibrated = TRUE
@@ -108,6 +124,7 @@
 				else
 					say("Error: Unable to detect hub.")
 				power_station.update_icon()
+				ui_update()
 			. = TRUE
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
