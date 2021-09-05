@@ -23,3 +23,7 @@
 		var/datum/orbital_map/attached_map = SSorbits.orbital_maps[body_to_move.orbital_map_index];\
 		attached_map.on_body_move(body_to_move, prev_x, prev_y);\
 	} while (FALSE)
+
+//Collision flags
+#define COLLISION_SHUTTLES (1 << 0)	//Shuttle collision flag
+#define COLLISION_Z_LINKED (1 << 1)	//Z linked collision flag

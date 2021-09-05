@@ -84,6 +84,7 @@
 	if(static_object)
 		return PROCESS_KILL
 
+	//NOTE TO SELF: This does nothing because world.time is in ticks not realtime.
 	var/delta_time = 0
 	if(last_update_tick)
 		//Don't go too crazy.
@@ -201,9 +202,14 @@
 	if(parent_map.collision_zone_bodies[valid_corner_key])
 		valid_objects += parent_map.collision_zone_bodies[valid_corner_key]
 
+	//Track our delta positional values for collision detection purposes
+	var/delta_x = position.x - prev_x
+	var/delta_y = position.y - prev_y
+
 	for(var/datum/orbital_object/object as() in valid_objects)
 		if(object == src)
 			continue
+		//TODO: Ignore doing this stuff if we don't actually react on collision
 		var/distance = object.position.Distance(position)
 		if(distance < radius + object.radius)
 			//Collision
@@ -213,6 +219,44 @@
 			if(object.static_object)
 				object.collision(src)
 			colliding = TRUE
+		else if(!object.static_object)
+			//Vector collision.
+			//Note: We detect collisions that occursed in the current move rather than in the next.
+			//Position - Velocity -> Position
+			//Detects collisions for when 2 objects pass each other.
+			//Get the intersection point
+			//Must be between 0 and 1
+			var/other_x
+			var/other_y
+			var/other_delta_x = object.velocity.x
+			var/other_delta_y = object.velocity.y
+			if(object.last_update_tick == last_update_tick)
+				//They are on the same tick as us
+				other_x = object.position.x - other_delta_x
+				other_y = object.position.y - other_delta_y
+			else
+				//They are still on the previous tick
+				other_x = object.position.x
+				other_y = object.position.y
+			//ALRIGHT LETS DO THE CHECK
+			//Reassign variables for ease of read.
+			var/px = prev_x
+			var/py = prev_y
+			var/vx = delta_x
+			var/vy = delta_y
+			var/px2 = other_x
+			var/py2 = other_y
+			var/vx2 = other_delta_x
+			var/vy2 = other_delta_y
+			//Collision between 2 vectors using simultaneous equations.
+			var/mu = (vx * py2 + vy * px - py * vx - vy * px2) / (vy * vx2 - vx * vy2)
+			var/lambda = (px2 + vx2 * mu - px) / vx
+			if(lambda >= 0 && lambda <= 1 && mu >= 0 && mu <= 1)
+				//Collision
+				LAZYADD(colliding_with, object)
+				collision(object)
+				colliding = TRUE
+				message_admins("2 objects just intersected and thats really cool!")
 	if(!colliding)
 		collision_ignored = FALSE
 
