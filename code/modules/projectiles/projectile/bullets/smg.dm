@@ -19,3 +19,10 @@
 	name = "4.6x30mm incendiary bullet"
 	damage = 10
 	fire_stacks = 1
+
+//Slightly worse disabler, but fully automatic
+/obj/item/projectile/bullet/c46x30mm_rubber
+	name = "4.6x30mm rubber bullet"
+	damage_type = STAMINA
+	flag = "stamina"
+	damage = 20

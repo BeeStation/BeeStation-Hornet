@@ -210,7 +210,7 @@
 	log_game("The round has ended.")
 	SSstat.send_global_alert("Round Over", "The round has ended, the game will restart soon.")
 	if(LAZYLEN(GLOB.round_end_notifiees))
-		send2irc("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
+		send2tgs("Notice", "[GLOB.round_end_notifiees.Join(", ")] the round has ended.")
 
 	RollCredits()
 
@@ -230,7 +230,7 @@
 	//Set news report and mode result
 	mode.set_round_result()
 
-	send2irc("Server", "Round just ended.")
+	send2tgs("Server", "Round just ended.")
 
 	if(length(CONFIG_GET(keyed_list/cross_server)))
 		send_news_report()
@@ -668,6 +668,13 @@
     discordmsg += "Escapees: [escapees]\n"
     discordmsg += "Integrity: [integrity]\n"
     discordmsg += "Gamemode: [SSticker.mode.name]\n"
+    if(istype(SSticker.mode, /datum/game_mode/dynamic))
+        var/datum/game_mode/dynamic/mode = SSticker.mode
+        discordmsg += "Threat level: [mode.threat_level]\n"
+        discordmsg += "Threat left: [mode.mid_round_budget]\n"
+        discordmsg += "Executed rules:\n"
+        for(var/datum/dynamic_ruleset/rule in mode.executed_rules)
+            discordmsg += "[rule.ruletype] - [rule.name]: -[rule.cost + rule.scaled_times * rule.scaling_cost] threat\n"
     discordsendmsg("ooc", discordmsg)
     discordmsg = ""
     var/list/ded = SSblackbox.first_death

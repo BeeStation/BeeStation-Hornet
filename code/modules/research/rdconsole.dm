@@ -226,6 +226,7 @@ Nothing else in the console has ID requirements.
 	l += "[sheet.css_tag()][RDSCREEN_NOBREAK]"
 	l += "<div class='statusDisplay'><b>[stored_research.organization] Research and Development Network</b>"
 	l += "Available points: <BR>[techweb_point_display_rdconsole(stored_research.research_points, stored_research.last_bitcoins)]"
+	l += "Current Research Tier: [stored_research.current_tier]<br>"
 	l += "Security protocols: [obj_flags & EMAGGED ? "<font color='red'>Disabled</font>" : "<font color='green'>Enabled</font>"]"
 	l += "<a href='?src=[REF(src)];switch_screen=[RDSCREEN_MENU]'>Main Menu</a> | <a href='?src=[REF(src)];switch_screen=[back]'>Back</a></div>[RDSCREEN_NOBREAK]"
 	l += "[ui_mode == 1? "<span class='linkOn'>Normal View</span>" : "<a href='?src=[REF(src)];ui_mode=1'>Normal View</a>"] | [ui_mode == 2? "<span class='linkOn'>Expert View</span>" : "<a href='?src=[REF(src)];ui_mode=2'>Expert View</a>"] | [ui_mode == 3? "<span class='linkOn'>List View</span>" : "<a href='?src=[REF(src)];ui_mode=3'>List View</a>"]"
@@ -535,7 +536,11 @@ Nothing else in the console has ID requirements.
 	l += "<div class='statusDisplay'><h3>Stored Technology Nodes:</h3>"
 	for(var/i in t_disk.stored_research.researched_nodes)
 		var/datum/techweb_node/N = SSresearch.techweb_node_by_id(i)
-		l += "<A href='?src=[REF(src)];view_node=[i];back_screen=[screen]'>[N.display_name]</A>"
+		l += "<A href='?src=[REF(src)];view_node=[i];back_screen=[screen]'>[N.display_name] ([N.tech_tier])</A>"
+	for(var/i in stored_research.hidden_nodes)
+		if(!t_disk.stored_research.hidden_nodes[i])
+			var/datum/techweb_node/N = SSresearch.techweb_node_by_id(i)
+			l += "Hidden Node - [N.display_name] ([N.tech_tier])"
 	l += "</div>"
 	return l
 
@@ -676,13 +681,13 @@ Nothing else in the console has ID requirements.
 			var/not_unlocked = (stored_research.available_nodes[N.id] && !stored_research.researched_nodes[N.id])
 			var/has_points = (stored_research.can_afford(N.get_price(stored_research)))
 			var/research_href = not_unlocked? (has_points? "<A href='?src=[REF(src)];research_node=[N.id]'>Research</A>" : "<span class='linkOff bad'>Not Enough Points</span>") : null
-			l += "<A href='?src=[REF(src)];view_node=[N.id];back_screen=[screen]'>[N.display_name]</A>[research_href]"
+			l += "<A href='?src=[REF(src)];view_node=[N.id];back_screen=[screen]'>[N.display_name] ([N.tech_tier])</A>[research_href]"
 		l += "</div><div><h3>Locked Nodes:</h3>"
 		for(var/datum/techweb_node/N in unavail)
-			l += "<A href='?src=[REF(src)];view_node=[N.id];back_screen=[screen]'>[N.display_name]</A>"
+			l += "<A href='?src=[REF(src)];view_node=[N.id];back_screen=[screen]'>[N.display_name] ([N.tech_tier])</A>"
 		l += "</div><div><h3>Researched Nodes:</h3>"
 		for(var/datum/techweb_node/N in res)
-			l += "<A href='?src=[REF(src)];view_node=[N.id];back_screen=[screen]'>[N.display_name]</A>"
+			l += "<A href='?src=[REF(src)];view_node=[N.id];back_screen=[screen]'>[N.display_name] ([N.tech_tier])</A>"
 		l += "</div>[RDSCREEN_NOBREAK]"
 	return l
 
@@ -695,8 +700,8 @@ Nothing else in the console has ID requirements.
 		return l
 	var/display_name = node.display_name
 	if (selflink)
-		display_name = "<A href='?src=[REF(src)];view_node=[node.id];back_screen=[screen]'>[display_name]</A>"
-	l += "<div class='statusDisplay technode'><b>[display_name]</b> [RDSCREEN_NOBREAK]"
+		display_name = "<A href='?src=[REF(src)];view_node=[node.id];back_screen=[screen]'>[display_name] ([node.tech_tier])</A>"
+	l += "<div class='statusDisplay technode'><b>[display_name] ([node.tech_tier])</b> [RDSCREEN_NOBREAK]"
 	if(minimal)
 		l += "<br>[node.description]"
 	else

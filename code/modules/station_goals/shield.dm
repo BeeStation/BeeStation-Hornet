@@ -54,7 +54,7 @@
 	if(!ui)
 		ui = new(user, src, "SatelliteControl")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Satellite stats (could probably be refactored to update when satellite status changes)
 
 /obj/machinery/computer/sat_control/ui_act(action, params)
 	if(..())

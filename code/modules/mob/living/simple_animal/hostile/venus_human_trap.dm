@@ -6,7 +6,7 @@
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "flower_bud"
 	layer = SPACEVINE_MOB_LAYER
-	opacity = FALSE
+	opacity = 0
 	canSmoothWith = list()
 	smooth = SMOOTH_FALSE
 	var/growth_time = 1200
@@ -68,6 +68,7 @@
 	var/grasp_pull_chance = 85
 	var/grasp_range = 4
 	del_on_death = TRUE
+	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/venus_human_trap/Destroy()
 	for(var/L in grasping)

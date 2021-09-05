@@ -78,7 +78,7 @@
 	else if(locate(/obj/structure/bed, T))
 		propability = 0.5
 
-	return propability + sleepbonus - selfpenalty
+	return max(propability + sleepbonus - selfpenalty, 0.1)
 
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, try_to_fail = FALSE)
 	surgery.step_in_progress = TRUE

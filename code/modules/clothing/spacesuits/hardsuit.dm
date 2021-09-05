@@ -6,11 +6,8 @@
 	item_state = "eng_helm"
 	max_integrity = 300
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 50, "acid" = 75, "stamina" = 20)
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
-	light_range = 4
-	light_power = 1
-	light_on = FALSE
 	var/basestate = "hardsuit"
+	var/brightness_on = 4 //luminosity when on
 	var/on = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/suit
 	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
@@ -42,8 +39,10 @@
 	icon_state = "[basestate][on]-[item_color]"
 	user.update_inv_head()	//so our mob-overlays update
 
-	set_light_on(on)
-
+	if(on)
+		set_light(brightness_on)
+	else
+		set_light(0)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -245,7 +244,7 @@
 	resistance_flags = FIRE_PROOF
 	heat_protection = HEAD
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 40)
-	light_range = 7
+	brightness_on = 7
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
 	high_pressure_multiplier = 0.6
 
@@ -269,6 +268,29 @@
 /obj/item/clothing/suit/space/hardsuit/mining/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
+
+	//Exploration hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/exploration
+	name = "exploration hardsuit helmet"
+	desc = "An advanced space-proof hardsuit designed to protect against off-station threats."
+	icon_state = "hardsuit0-exploration"
+	item_state = "death_commando_mask"
+	item_color = "exploration"
+	heat_protection = HEAD
+	armor = list("melee" = 35, "bullet" = 15, "laser" = 20, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 20)
+	light_range = 6
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
+
+/obj/item/clothing/suit/space/hardsuit/exploration
+	icon_state = "hardsuit-exploration"
+	name = "exploration hardsuit"
+	desc = "An advanced space-proof hardsuit designed to protect against off-station threats. Despite looking remarkably similar to the mining hardsuit \
+		Nanotrasen officials note that it is unique in every way and the design has not been copied in any way."
+	item_state = "exploration_hardsuit"
+	armor = list("melee" = 35, "bullet" = 15, "laser" = 20, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 20)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/exploration
+	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 
 	//Syndicate hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi
@@ -354,7 +376,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/activate_space_mode()
 	name = initial(name)
 	desc = initial(desc)
-	set_light_on(TRUE)
+	set_light(brightness_on)
 	clothing_flags |= visor_flags
 	flags_cover |= HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_inv |= visor_flags_inv
@@ -364,7 +386,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/activate_combat_mode()
 	name = "[initial(name)] (combat)"
 	desc = alt_desc
-	set_light_on(FALSE)
+	set_light(0)
 	clothing_flags &= ~visor_flags
 	flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
 	flags_inv &= ~visor_flags_inv

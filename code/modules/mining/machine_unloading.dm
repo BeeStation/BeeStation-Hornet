@@ -16,6 +16,7 @@
 		var/obj/structure/ore_box/box = target
 		for(var/obj/item/stack/ore/O in box)
 			unload_mineral(O)
+		box.ui_update()
 	else if(istype(target, /obj/item/stack/ore))
 		var/obj/item/stack/ore/O = target
 		unload_mineral(O)

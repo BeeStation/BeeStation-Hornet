@@ -1,0 +1,4 @@
+author: tiramisuapimancer
+delete-after: true
+changes:
+  - bugfix: IPC hands are now properly visible over jumpsuits on side states
