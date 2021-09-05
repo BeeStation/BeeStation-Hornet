@@ -15,7 +15,7 @@
 /datum/orbital_map/proc/remove_body(datum/orbital_object/body)
 	//Find the objects collision zone and remove it
 	var/position_key = "[round(body.position.x / ORBITAL_MAP_ZONE_SIZE)],[round(body.position.y / ORBITAL_MAP_ZONE_SIZE)]"
-	LAZYREMOVE(collision_zone_bodies[position_key], body)
+	LAZYREMOVEASSOC(collision_zone_bodies, position_key, body)
 	object_count --
 
 /datum/orbital_map/proc/on_body_move(datum/orbital_object/body, prev_x, prev_y)
@@ -25,7 +25,7 @@
 	var/post_position_key = "[round(body.position.x / ORBITAL_MAP_ZONE_SIZE)],[round(body.position.y / ORBITAL_MAP_ZONE_SIZE)]"
 	if(pre_position_key == post_position_key)
 		return
-	LAZYREMOVE(collision_zone_bodies[pre_position_key], body)
+	LAZYREMOVEASSOC(collision_zone_bodies, pre_position_key, body)
 	LAZYADDASSOCLIST(collision_zone_bodies, post_position_key, body)
 
 //Returns a list of gravitationally relevant bodies.
