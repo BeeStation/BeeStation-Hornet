@@ -254,15 +254,17 @@
 			var/py2 = other_y
 			var/vx2 = other_delta_x
 			var/vy2 = other_delta_y
-			//Collision between 2 vectors using simultaneous equations.
-			var/mu = (vx * py2 + vy * px - py * vx - vy * px2) / (vy * vx2 - vx * vy2)
-			var/lambda = (px2 + vx2 * mu - px) / vx
-			if(lambda >= 0 && lambda <= 1 && mu >= 0 && mu <= 1)
-				//Collision
-				LAZYADD(colliding_with, object)
-				collision(object)
-				colliding = TRUE
-				message_admins("2 objects just intersected and thats really cool!")
+			//Both must be moving
+			if((vx || vy) && (vx2 || vy2))
+				//Collision between 2 vectors using simultaneous equations.
+				var/mu = (vx * py2 + vy * px - py * vx - vy * px2) / (vy * vx2 - vx * vy2)
+				var/lambda = (px2 + vx2 * mu - px) / vx
+				if(lambda >= 0 && lambda <= 1 && mu >= 0 && mu <= 1)
+					//Collision
+					LAZYADD(colliding_with, object)
+					collision(object)
+					colliding = TRUE
+					message_admins("2 objects just intersected and thats really cool!")
 	if(!colliding)
 		collision_ignored = FALSE
 
