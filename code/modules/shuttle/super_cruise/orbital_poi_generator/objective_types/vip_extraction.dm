@@ -304,6 +304,7 @@
 	uniform = /obj/item/clothing/under/suit/black_really
 	head = /obj/item/clothing/head/fedora
 	shoes = /obj/item/clothing/shoes/laceup
+	l_pocket = /obj/item/switchblade
 	gloves = /obj/item/clothing/gloves/color/black
 	ears = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
