@@ -80,6 +80,9 @@
 #define LARGE_MOB_LAYER 4.4
 #define ABOVE_ALL_MOB_LAYER 4.5
 
+#define METEOR_SHADOW_LAYER 4.69
+#define METEOR_LAYER 4.7
+
 #define SPACEVINE_LAYER 4.8
 #define SPACEVINE_MOB_LAYER 4.9
 //#define FLY_LAYER 5 //For easy recordkeeping; this is a byond define
