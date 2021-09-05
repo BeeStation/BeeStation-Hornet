@@ -2265,7 +2265,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/computer/shuttle/mining{
+/obj/machinery/computer/shuttle_flight/mining{
 	dir = 2
 	},
 /turf/open/floor/plasteel,

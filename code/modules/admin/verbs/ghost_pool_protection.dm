@@ -60,18 +60,25 @@
 	switch(action)
 		if("toggle_events_or_midrounds")
 			new_role_flags ^= GHOSTROLE_MIDROUND_EVENT
+			. = TRUE
 		if("toggle_spawners")
 			new_role_flags ^= GHOSTROLE_SPAWNER
+			. = TRUE
 		if("toggle_station_sentience")
 			new_role_flags ^= GHOSTROLE_STATION_SENTIENCE
+			. = TRUE
 		if("toggle_silicons")
 			new_role_flags ^= GHOSTROLE_SILICONS
+			. = TRUE
 		if("toggle_minigames")
 			new_role_flags ^= GHOSTROLE_MINIGAME
+			. = TRUE
 		if("all_roles")
 			new_role_flags = ALL
+			. = TRUE
 		if("no_roles")
 			new_role_flags = NONE
+			. = TRUE
 		if("apply_settings")
 			to_chat(usr, "Settings Applied!")
 			var/msg
@@ -84,4 +91,3 @@
 					msg = "modified"
 			message_admins("[key_name_admin(holder)] has [msg] this round's allowed ghost roles.")
 			GLOB.ghost_role_flags = new_role_flags
-	ui_update()

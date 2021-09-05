@@ -137,7 +137,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	if(!ui)
 		ui = new(user, src, "AtmosControlConsole")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Gas sensors
 
 /obj/machinery/computer/atmos_control/ui_data(mob/user)
 	var/data = list()
@@ -298,6 +298,7 @@ GLOBAL_LIST_EMPTY(atmos_air_controllers)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AtmosControlConsole")
+		ui.set_autoupdate(TRUE) // Gas sensors
 		ui.open()
 
 /obj/machinery/computer/atmos_control/tank/ui_data(mob/user)

@@ -123,8 +123,6 @@
 									forced_ruins[linked] = forced_z ? forced_z : z_placed //I guess you might want a chain somehow
 								if(PLACE_LAVA_RUIN)
 									forced_ruins[linked] = pick(SSmapping.levels_by_trait(ZTRAIT_LAVA_RUINS))
-								if(PLACE_SPACE_RUIN)
-									forced_ruins[linked] = pick(SSmapping.levels_by_trait(ZTRAIT_SPACE_RUINS))
 								if(PLACE_DEFAULT)
 									forced_ruins[linked] = -1
 		forced_z = 0

@@ -42,7 +42,6 @@
 /obj/machinery/plumbing/splitter/ui_act(action, params)
 	if(..())
 		return
-	. = TRUE
 	switch(action)
 		if("set_amount")
 			var/direction = params["target"]
@@ -54,4 +53,4 @@
 					transfer_side = value
 				else
 					return FALSE
-	ui_update()
+			. = TRUE

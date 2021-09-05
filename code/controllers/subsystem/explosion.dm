@@ -182,7 +182,7 @@ SUBSYSTEM_DEF(explosions)
 #define FREQ_UPPER 40 //The upper limit for the randomly selected frequency.
 #define FREQ_LOWER 25 //The lower of the above.
 
-/datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke)
+/datum/controller/subsystem/explosions/proc/explode(atom/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog, ignorecap, flame_range, silent, smoke, explode_z = TRUE)
 	epicenter = get_turf(epicenter)
 	if(!epicenter)
 		return
@@ -250,8 +250,9 @@ SUBSYSTEM_DEF(explosions)
 			var/mob/M = MN
 			// Double check for client
 			var/turf/M_turf = get_turf(M)
-			if(M_turf && M_turf.get_virtual_z_level() == z0)
-				var/dist = get_dist(M_turf, epicenter)
+			var/multiz_dist = multi_z_dist(M_turf, epicenter)
+			if(M_turf && multiz_dist <= 5000)
+				var/dist = multiz_dist
 				var/baseshakeamount
 				if(orig_max_distance - dist > 0)
 					baseshakeamount = sqrt((orig_max_distance - dist)*0.1)
@@ -379,6 +380,29 @@ SUBSYSTEM_DEF(explosions)
 			T.explosion_throw_details = list(throw_range, throw_dir, max_range)
 			throwturf += T
 
+	//Calculate above and below Zs
+	//Multi-z explosions only work on station levels.
+	if(explode_z)
+		var/max_z_range = max(devastation_range, heavy_impact_range, light_impact_range, flash_range, flame_range) / (MULTI_Z_DISTANCE + 1)
+		var/list/z_list = get_zs_in_range(epicenter.z, max_z_range)
+		//Dont blow up our level again
+		z_list -= epicenter.z
+		for(var/affecting_z in z_list)
+			var/z_reduction = abs(epicenter.z - affecting_z) * (MULTI_Z_DISTANCE + 1)
+			var/turf/T = locate(epicenter.x, epicenter.y, affecting_z)
+			if(!T)
+				continue
+			SSexplosions.explode(T,
+				max(devastation_range - z_reduction, 0),
+				max(heavy_impact_range - z_reduction, 0),
+				max(light_impact_range - z_reduction, 0),
+				max(flash_range - z_reduction, 0),
+				adminlog,
+				ignorecap,
+				max(flame_range - z_reduction, 0),
+				silent = TRUE,
+				smoke = FALSE,
+				explode_z = FALSE)
 
 	var/took = (REALTIMEOFDAY - started_at) / 10
 

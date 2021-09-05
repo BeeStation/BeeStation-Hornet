@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Cryo syringes no long have the no react flag.
+  - balance: Reagents inside cryo syringes will be at 20 kelvin.
