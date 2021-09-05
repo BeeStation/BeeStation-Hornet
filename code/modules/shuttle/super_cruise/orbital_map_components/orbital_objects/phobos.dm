@@ -7,4 +7,4 @@
 
 /datum/orbital_object/z_linked/phobos/post_map_setup()
 	//Orbit around the systems sun
-	set_orbitting_around_body(SSorbits.orbital_map.center, 3800)
+	set_orbitting_around_body(SSorbits.orbital_maps[orbital_map_index].center, 3800)

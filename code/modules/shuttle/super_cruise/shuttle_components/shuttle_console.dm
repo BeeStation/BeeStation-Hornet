@@ -28,6 +28,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	var/possible_destinations = ""
 	var/list/valid_docks = list("")
 
+	//The current orbital map we are observing
+	var/orbital_map_index = PRIMARY_ORBITAL_MAP
+
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
 
@@ -105,7 +108,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["update_index"] = SSorbits.times_fired
 	//Add orbital bodies
 	data["map_objects"] = list()
-	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
+	for(var/map_key in SSorbits.orbital_maps[orbital_map_index].collision_zone_bodies)
+		var/datum/orbital_object/object = SSorbits.orbital_maps[orbital_map_index].collision_zone_bodies[map_key]
 		if(!object)
 			continue
 		//we can't see it, unless we are stealth too
@@ -224,7 +228,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 					say("Shuttle is already at destination.")
 					return
 				//Locate the orbital object
-				for(var/datum/orbital_object/z_linked/z_linked in SSorbits.orbital_map.bodies)
+				for(var/map_key in SSorbits.orbital_maps[orbital_map_index].collision_zone_bodies)
+					var/datum/orbital_object/z_linked/z_linked = SSorbits.orbital_maps[orbital_map_index].collision_zone_bodies[map_key]
+					if(!istype(z_linked))
+						continue
 					if(z_linked.z_in_contents(target_port.z))
 						if(!SSorbits.assoc_shuttles.Find(shuttleId))
 							//Launch the shuttle
@@ -249,7 +256,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			var/desiredTarget = params["target"]
 			if(shuttleObject.name == desiredTarget)
 				return
-			for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
+			for(var/map_key in SSorbits.orbital_maps[orbital_map_index].collision_zone_bodies)
+				var/datum/orbital_object/object = SSorbits.orbital_maps[orbital_map_index].collision_zone_bodies[map_key]
 				if(object.name == desiredTarget)
 					shuttleObject.shuttleTarget = object
 					return

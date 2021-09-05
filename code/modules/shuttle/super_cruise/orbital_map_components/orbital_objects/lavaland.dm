@@ -8,4 +8,4 @@
 
 /datum/orbital_object/z_linked/lavaland/New()
 	. = ..()
-	SSorbits.orbital_map.center = src
+	SSorbits.orbital_maps[orbital_map_index].center = src

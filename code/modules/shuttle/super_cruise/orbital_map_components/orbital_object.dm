@@ -40,7 +40,16 @@
 	//What are we colliding with
 	var/list/datum/orbital_object/colliding_with
 
-/datum/orbital_object/New()
+	//The index or the orbital map we exist in
+	var/orbital_map_index = PRIMARY_ORBITAL_MAP
+
+/datum/orbital_object/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index)
+	if(orbital_map_index)
+		src.orbital_map_index = orbital_map_index
+	if(position)
+		src.position = position
+	if(velocity)
+		src.velocity = velocity
 	. = ..()
 	//Calculate relevant grav range
 	relevant_gravity_range = sqrt((mass * GRAVITATIONAL_CONSTANT) / MINIMUM_EFFECTIVE_GRAVITATIONAL_ACCEELRATION)
@@ -48,14 +57,16 @@
 	if(!static_object)
 		START_PROCESSING(SSorbits, src)
 	//Add to orbital map
-	SSorbits.orbital_map?.bodies += src
+	var/datum/orbital_map/map = SSorbits.orbital_maps[src.orbital_map_index]
+	map.add_body(src)
 	//If orbits has already setup, then post map setup
 	if(SSorbits.orbits_setup)
 		post_map_setup()
 
 /datum/orbital_object/Destroy()
 	STOP_PROCESSING(SSorbits, src)
-	SSorbits.orbital_map.bodies -= src
+	var/datum/orbital_map/map = SSorbits.orbital_maps[orbital_map_index]
+	map.remove_body(src)
 	LAZYREMOVE(target_orbital_body?.orbitting_bodies, src)
 	if(length(orbitting_bodies))
 		for(var/datum/orbital_object/orbitting_bodies in orbitting_bodies)
@@ -80,13 +91,15 @@
 		delta_time = 1
 	last_update_tick = world.time
 
+	var/datum/orbital_map/parent_map = SSorbits.orbital_maps[orbital_map_index]
+
 	//===================================
 	// GRAVITATIONAL ATTRACTION
 	//===================================
 	//Gravity is not considered while we have just undocked and are at the center of a massive body.
 	if(!collision_ignored)
 		//Find relevant gravitational bodies.
-		var/list/gravitational_bodies = SSorbits.orbital_map.get_relevnant_bodies(src)
+		var/list/gravitational_bodies =parent_map.get_relevnant_bodies(src)
 		//Calculate acceleration vector
 		var/datum/orbital_vector/acceleration_per_second = new()
 		//Calculate gravity
@@ -130,7 +143,43 @@
 	//===================================
 	var/colliding = FALSE
 	LAZYCLEARLIST(colliding_with)
-	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
+
+	//Calculate our current position
+	var/position_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
+	var/valid_side_key = "none"
+	var/valid_front_key = "none"
+
+	var/debug_zones = 3
+
+	var/segment_x = position.x % ORBITAL_MAP_ZONE_SIZE
+	var/segment_y = position.y % ORBITAL_MAP_ZONE_SIZE
+
+	if(segment_x < ORBITAL_MAP_ZONE_SIZE / 3)
+		valid_side_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
+	else if(segment_x > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
+		valid_side_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
+	else
+		debug_zones --
+
+	if(segment_y < ORBITAL_MAP_ZONE_SIZE / 3)
+		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
+	else if(segment_y > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
+		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
+	else
+		debug_zones --
+
+	var/list/valid_objects = list()
+
+	//Only check nearby segments for collision objects
+	if(parent_map.collision_zone_bodies[position_key])
+		valid_objects += parent_map.collision_zone_bodies[position_key]
+	if(parent_map.collision_zone_bodies[valid_side_key])
+		valid_objects += parent_map.collision_zone_bodies[valid_side_key]
+	if(parent_map.collision_zone_bodies[valid_front_key])
+		valid_objects += parent_map.collision_zone_bodies[valid_front_key]
+
+	message_admins("Checking [name] for collisions with [valid_objects.len] / [parent_map.object_count] objects across [debug_zones] zones.")
+	for(var/datum/orbital_object/object as() in valid_objects)
 		if(object == src)
 			continue
 		var/distance = object.position.Distance(position)

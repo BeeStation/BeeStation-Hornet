@@ -1,3 +1,6 @@
+/datum/orbital_map_tgui
+	var/open_orbital_map = PRIMARY_ORBITAL_MAP
+
 /datum/orbital_map_tgui/ui_state(mob/user)
 	return GLOB.observer_state
 
@@ -21,7 +24,8 @@
 	var/list/data = list()
 	data["update_index"] = SSorbits.times_fired
 	data["map_objects"] = list()
-	for(var/datum/orbital_object/object in SSorbits.orbital_map.bodies)
+	for(var/zone in SSorbits.orbital_maps[open_orbital_map].collision_zone_bodies)
+		var/datum/orbital_object/object = SSorbits.orbital_maps[open_orbital_map].collision_zone_bodies[zone]
 		data["map_objects"] += list(list(
 			"name" = object.name,
 			"position_x" = object.position.x,

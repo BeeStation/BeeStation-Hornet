@@ -10,15 +10,15 @@
 	. = ..()
 	ruin_event = SSorbits.get_event()
 	if(ruin_event?.warning_message)
-		name = "[initial(name)] #[rand(1, 9)][SSorbits.orbital_map.bodies.len][rand(1, 9)] ([ruin_event.warning_message])"
+		name = "[initial(name)] #[rand(1, 9)][SSorbits.orbital_maps[orbital_map_index].object_count][rand(1, 9)] ([ruin_event.warning_message])"
 	else
-		name = "[initial(name)] #[rand(1, 9)][SSorbits.orbital_map.bodies.len][rand(1, 9)]"
+		name = "[initial(name)] #[rand(1, 9)][SSorbits.orbital_maps[orbital_map_index].object_count][rand(1, 9)]"
 	//Link the ruin event to ourselves
 	ruin_event?.linked_z = src
 
 /datum/orbital_object/z_linked/beacon/post_map_setup()
 	//Orbit around the systems sun
-	set_orbitting_around_body(SSorbits.orbital_map.center, 4000 + 250 * linked_z_level[1].z_value)
+	set_orbitting_around_body(SSorbits.orbital_maps[orbital_map_index].center, 4000 + 250 * linked_z_level[1].z_value)
 
 /datum/orbital_object/z_linked/beacon/weak
 	name = "Weak Signal"
@@ -43,7 +43,7 @@
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
 	//Orbit around the systems central gravitional body
 	//Pack closely together to make an asteriod belt.
-	set_orbitting_around_body(SSorbits.orbital_map.center, 1200 + 20 * rand(-10, 10))
+	set_orbitting_around_body(SSorbits.orbital_maps[orbital_map_index].center, 1200 + 20 * rand(-10, 10))
 
 //====================
 // Regular Ruin Z-levels
@@ -68,7 +68,7 @@
 
 /datum/orbital_object/z_linked/beacon/ruin/spaceruin/post_map_setup()
 	//Orbit around the systems sun
-	set_orbitting_around_body(SSorbits.orbital_map.center, 4000 + 250 * rand(4, 20))
+	set_orbitting_around_body(SSorbits.orbital_maps[orbital_map_index].center, 4000 + 250 * rand(4, 20))
 
 //====================
 // Random-Ruin z-levels
@@ -92,7 +92,7 @@
 
 /datum/orbital_object/z_linked/beacon/ruin/post_map_setup()
 	//Orbit around the systems sun
-	set_orbitting_around_body(SSorbits.orbital_map.center, 4000 + 250 * rand(4, 20))
+	set_orbitting_around_body(SSorbits.orbital_maps[orbital_map_index].center, 4000 + 250 * rand(4, 20))
 
 //====================
 //Stranded shuttles
