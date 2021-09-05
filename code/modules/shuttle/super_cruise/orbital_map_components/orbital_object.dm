@@ -156,38 +156,51 @@
 	var/position_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
 	var/valid_side_key = "none"
 	var/valid_front_key = "none"
+	var/valid_corner_key = "none"
 
-	var/debug_zones = 3
+	var/collision_flags = NONE
 
 	var/segment_x = position.x % ORBITAL_MAP_ZONE_SIZE
 	var/segment_y = position.y % ORBITAL_MAP_ZONE_SIZE
 
 	if(segment_x < ORBITAL_MAP_ZONE_SIZE / 3)
 		valid_side_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
+		collision_flags |= EAST
 	else if(segment_x > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
 		valid_side_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
+		collision_flags |= WEST
 
 	if(segment_y < ORBITAL_MAP_ZONE_SIZE / 3)
 		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
+		collision_flags |= SOUTH
 	else if(segment_y > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
 		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
+		collision_flags |= NORTH
+
+	//Check multiple zones
+	if(collision_flags & EAST)
+		if(collision_flags & NORTH)
+			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
+		else if(collision_flags & SOUTH)
+			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
+	else if(collision_flags & WEST)
+		if(collision_flags & NORTH)
+			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
+		else if(collision_flags & SOUTH)
+			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
 
 	var/list/valid_objects = list()
-
-	message_admins("=========[rand(1, 10000)]")
 
 	//Only check nearby segments for collision objects
 	if(parent_map.collision_zone_bodies[position_key])
 		valid_objects += parent_map.collision_zone_bodies[position_key]
-		message_admins("Current zone exists!")
 	if(parent_map.collision_zone_bodies[valid_side_key])
 		valid_objects += parent_map.collision_zone_bodies[valid_side_key]
-		message_admins("side zone exists!")
 	if(parent_map.collision_zone_bodies[valid_front_key])
 		valid_objects += parent_map.collision_zone_bodies[valid_front_key]
-		message_admins("front zone exists!")
+	if(parent_map.collision_zone_bodies[valid_corner_key])
+		valid_objects += parent_map.collision_zone_bodies[valid_corner_key]
 
-	message_admins("Checking [name] for collisions with [valid_objects.len] / [parent_map.object_count] objects across [debug_zones] zones.")
 	for(var/datum/orbital_object/object as() in valid_objects)
 		if(object == src)
 			continue
