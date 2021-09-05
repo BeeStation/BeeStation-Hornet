@@ -228,3 +228,12 @@
 	belt = /obj/item/gun/ballistic/revolver/mateba
 	id = /obj/item/card/id
 
+/datum/outfit/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/W = H.wear_id
+	W.icon_state = "centcom"
+	W.assignment = "Адмирал" //Admiral
+	W.registered_name = H.real_name
+	W.update_label()
