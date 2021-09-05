@@ -101,7 +101,6 @@ handles linking back and forth.
 
 // like disconnect_from, but does proper cleanup instead of simple deletion.
 /datum/component/remote_materials/proc/graceful_disconnect()
-	SIGNAL_HANDLER
 	var/obj/machinery/ore_silo/old_silo = silo
 	if(!disconnect_from(old_silo))
 		return
