@@ -44,7 +44,7 @@
 	var/antag_elligable = FALSE
 	switch(pickweight(list("centcom_official" = 4, "dictator" = 1, "greytide" = 3, "marooned_syndicate_op" = 0.5, "serial_killer" = 0.5, "soviet_admiral" = 1)))
 		if("centcom_official")
-			created_human.flavor_text = "You are Central Command Official on board of a badly damaged station. Making your way back to civilization to uncover the secrets you hold is \
+			created_human.flavor_text = "You are a Central Command Official on board of a badly damaged station. Making your way back to civilization to uncover the secrets you hold is \
 				your top priority as far as Nanotrasen is concerned, but just surviving 1 more day is all you can ask for."
 			created_human.equipOutfit(/datum/outfit/centcom_official_vip)
 			antag_elligable = TRUE
