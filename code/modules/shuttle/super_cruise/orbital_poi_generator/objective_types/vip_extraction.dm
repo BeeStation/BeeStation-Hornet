@@ -64,7 +64,6 @@
 			you're stuck on this abandoned rust-heap, you're certain that Nanotrasen will dispatch a team to investigate what happened here, but you don't intend to let them find out."
 			created_human.equipOutfit(/datum/outfit/syndicate_op)
 			created_human.mind.add_antag_datum(/datum/antagonist/marooned_syndicate_op)
-			created_human.mind.make_Traitor()
 		if("serial_killer")
 			created_human.flavor_text = "<span class='userdanger'>NO NOOO NOOOOOOO!!! IT CAN'T BE!! THEY ARE COMING FOR YOU, DON'T LET THEM GET YOU, KILL THEM ALL!!"
 			created_human.mind.add_antag_datum(/datum/antagonist/insane_killer)
