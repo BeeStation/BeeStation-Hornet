@@ -417,15 +417,15 @@
 	if(is_banned_from(user.ckey, "Emote"))
 		to_chat(user, "You cannot send custom emotes (banned).")
 		return FALSE
-	else if(QDELETED(user))
+	if(QDELETED(user))
 		return FALSE
-	else if(user.client && user.client.prefs.muted & MUTE_IC)
+	if(user?.client.prefs.muted & MUTE_IC)
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
-	else
-		message = params
-		if(type_override)
-			emote_type = type_override
+
+	message = params
+	if(type_override)
+		emote_type = type_override
 	. = ..()
 	message = null
 	emote_type = EMOTE_VISIBLE

@@ -34,7 +34,15 @@
 
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 
-	usr.emote("me",1,message,TRUE)
+	var/m_type = alert(usr, "Choose the emote type", "Emote type", "Audible emote", "Visible emote")
+
+	switch(m_type)
+		if("Audible emote")
+			m_type = EMOTE_AUDIBLE
+		if("Visible emote")
+			m_type = EMOTE_VISIBLE
+
+	usr.emote("me", m_type, message, TRUE)
 
 ///Speak as a dead person (ghost etc)
 /mob/proc/say_dead(var/message)
