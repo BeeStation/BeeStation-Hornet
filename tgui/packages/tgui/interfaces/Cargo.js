@@ -133,6 +133,7 @@ export const CargoCatalog = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     self_paid,
+    app_cost,
     points,
   } = data;
   const supplies = toArray(data.supplies);
