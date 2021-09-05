@@ -66,12 +66,12 @@
 			created_human.mind.add_antag_datum(/datum/antagonist/marooned_syndicate_op)
 			created_human.mind.make_Traitor()
 		if("serial_killer")
-			created_human.flavor_text = "NO NOOO NOOOOOOO!!! IT CAN'T BE!! THEY ARE COMING FOR YOU, DON'T LET THEM GET YOU, KILL THEM ALL!!"
+			created_human.flavor_text = "<span class='userdanger'>NO NOOO NOOOOOOO!!! IT CAN'T BE!! THEY ARE COMING FOR YOU, DON'T LET THEM GET YOU, KILL THEM ALL!!"
 			created_human.mind.add_antag_datum(/datum/antagonist/insane_killer)
 			antag_elligable = TRUE
 		if("soviet_admiral")
-			created_human.flavor_text = "Ivanov Ivanovitch II, your superior, sent you to this Corporate Station in order to negotiate a deal between the Third Soviet Union and Nanotrasen,\
-			despite your inability of speaking galactic common, now weeks later, you wish you would've never come to this place, if you somehow manage to survive this, Ivanov can be certain to feel your fist in his fat mug."
+			created_human.flavor_text = "Ivan Ivanov Ivanovich II, your superior, sent you to this Corporate Station in order to negotiate a deal between the Third Soviet Union and Nanotrasen,\
+			despite your inability of speaking galactic common, now weeks later, you wish you would've never come to this place, if you somehow manage to survive this, Ivan can be certain to feel your fist in his fat mug."
 			created_human.add_quirk(/datum/quirk/foreigner) //Blyat
 	if(antag_elligable)
 		if(prob(7))
