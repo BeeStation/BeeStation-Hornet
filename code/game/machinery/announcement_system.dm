@@ -140,6 +140,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 			if(NewMessage)
 				arrival = NewMessage
 				log_game("The arrivals announcement was updated: [NewMessage] by:[key_name(usr)]")
+				. = TRUE
 		if("NewheadText")
 			var/NewMessage = trim(html_encode(param["newText"]), MAX_MESSAGE_LEN)
 			if(!usr.canUseTopic(src, !issilicon(usr)))
@@ -147,13 +148,15 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 			if(NewMessage)
 				newhead = NewMessage
 				log_game("The head announcement was updated: [NewMessage] by:[key_name(usr)]")
+				. = TRUE
 		if("NewheadToggle")
 			newheadToggle = !newheadToggle
 			update_icon()
+			. = TRUE
 		if("ArrivalToggle")
 			arrivalToggle = !arrivalToggle
 			update_icon()
-	add_fingerprint(usr)
+			. = TRUE
 
 /obj/machinery/announcement_system/attack_robot(mob/living/silicon/user)
 	. = attack_ai(user)
@@ -172,6 +175,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 
 	arrival = pick("#!@%ERR-34%2 CANNOT LOCAT@# JO# F*LE!", "CRITICAL ERROR 99.", "ERR)#: DA#AB@#E NOT F(*ND!")
 	newhead = pick("OV#RL()D: \[UNKNOWN??\] DET*#CT)D!", "ER)#R - B*@ TEXT F*O(ND!", "AAS.exe is not responding. NanoOS is searching for a solution to the problem.")
+	ui_update()
 
 /obj/machinery/announcement_system/emp_act(severity)
 	. = ..()

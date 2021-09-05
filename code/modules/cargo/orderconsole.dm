@@ -77,7 +77,7 @@
 	if(!ui)
 		ui = new(user, src, "Cargo")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Account balance, shuttle status
 
 /obj/machinery/computer/cargo/ui_data()
 	var/list/data = list()
@@ -143,7 +143,8 @@
 	return data
 
 /obj/machinery/computer/cargo/ui_act(action, params, datum/tgui/ui)
-	if(..())
+	. = ..()
+	if(.)
 		return
 	switch(action)
 		if("send")

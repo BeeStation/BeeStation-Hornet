@@ -68,7 +68,7 @@
 	var/lighting_colour_tube = "#FFF6ED"
 	var/lighting_colour_bulb = "#FFE6CC"
 	var/lighting_colour_night = "#FFDBB5"
-	var/lighting_brightness_tube = 10
+	var/lighting_brightness_tube = 11
 	var/lighting_brightness_bulb = 6
 	var/lighting_brightness_night = 6
 
@@ -79,8 +79,14 @@
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+	//Lighting overlay
+	var/obj/effect/lighting_overlay
+	var/lighting_overlay_colour = "#FFFFFF"
+	var/lighting_overlay_opacity = 0
+
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
 	var/datum/map_generator/map_generator
+
 
 /**
   * A list of teleport locations
@@ -163,7 +169,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	if(!IS_DYNAMIC_LIGHTING(src))
 		add_overlay(/obj/effect/fullbright)
-
+	else if(lighting_overlay_opacity && lighting_overlay_colour)
+		lighting_overlay = new /obj/effect/fullbright
+		lighting_overlay.color = lighting_overlay_colour
+		lighting_overlay.alpha = lighting_overlay_opacity
+		add_overlay(lighting_overlay)
 	reg_in_areas_in_z()
 
 	return INITIALIZE_HINT_LATELOAD
@@ -631,7 +641,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			max_grav = max(max_grav, i)
 		return max_grav
 
-	if(isspaceturf(T)) // Turf never has gravity
+
+	if(!T.check_gravity()) // Turf never has gravity
 		return 0
 
 	var/area/A = get_area(T)

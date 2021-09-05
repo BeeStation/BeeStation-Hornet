@@ -1,0 +1,7 @@
+author: Fox-McCloud AnCopper
+delete-after: true
+changes:
+  - tweak: ashwalkers malf AI module has been moved to the syndicate lavaland base
+      vault.
+  - tweak: Heavily beefed up the security of the Syndie vault, added two more turrets
+      and 3 layer walls.

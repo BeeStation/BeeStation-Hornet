@@ -1,0 +1,77 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"d" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"k" = (
+/obj/structure/closet/firecloset,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"s" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"y" = (
+/turf/open/space/basic,
+/area/ruin/unpowered)
+"A" = (
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/ruin/unpowered)
+"D" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"S" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"V" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"W" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+S
+S
+S
+S
+S
+"}
+(2,1,1) = {"
+S
+k
+V
+D
+S
+"}
+(3,1,1) = {"
+W
+A
+y
+A
+S
+"}
+(4,1,1) = {"
+S
+u
+A
+u
+S
+"}
+(5,1,1) = {"
+S
+s
+d
+s
+S
+"}

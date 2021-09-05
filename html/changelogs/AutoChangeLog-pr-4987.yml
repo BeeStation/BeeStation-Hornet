@@ -1,0 +1,6 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - rscadd: Bounty console now uses a tgui interface
+  - rscadd: There is a new "Bounty Hunter" program available for modular computers
+      and tablets

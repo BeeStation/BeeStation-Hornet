@@ -216,11 +216,13 @@
 	wires = null
 	var/area/ourarea = get_area(src)
 	ourarea.atmosalert(FALSE, src)
+	GLOB.zclear_atoms -= src
 	return ..()
 
 /obj/machinery/airalarm/Initialize(mapload)
 	. = ..()
 	set_frequency(frequency)
+	GLOB.zclear_atoms += src
 
 /obj/machinery/airalarm/examine(mob/user)
 	. = ..()
@@ -248,7 +250,7 @@
 	if(!ui)
 		ui = new(user, src, "AirAlarm")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Turf gas mixture
 
 //Oh my, thats a lot of data being sent that should probably be refactored
 /obj/machinery/airalarm/ui_data(mob/user)
@@ -437,7 +439,8 @@
 			if(A.atmosalert(FALSE, src))
 				post_alert(0)
 			. = TRUE
-	update_icon()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/airalarm/proc/reset(wire)

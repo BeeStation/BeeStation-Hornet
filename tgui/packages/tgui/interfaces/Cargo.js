@@ -126,11 +126,14 @@ const CargoStatus = (props, context) => {
 };
 
 export const CargoCatalog = (props, context) => {
-  const { express } = props;
+  const { 
+    express,
+    canOrder = true,
+  } = props;
   const { act, data } = useBackend(context);
   const {
     self_paid,
-    app_cost,
+    points,
   } = data;
   const supplies = toArray(data.supplies);
   const [
@@ -196,6 +199,8 @@ export const CargoCatalog = (props, context) => {
                       fluid
                       tooltip={pack.desc}
                       tooltipPosition="left"
+                      disabled={!canOrder 
+                        || (express && points && points<pack.cost)}
                       onClick={() => act('add', {
                         id: pack.id,
                       })}>
