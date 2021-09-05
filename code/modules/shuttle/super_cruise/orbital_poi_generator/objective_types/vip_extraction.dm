@@ -42,9 +42,9 @@
 		new /obj/item/clothing/mask/gas(T)
 		new /obj/item/storage/belt/utility/full(T)
 	var/antag_elligable = FALSE
-	switch(pickweight(list("centcom_official" = 4, "dictator" = 1, "greytide" = 3)))
+	switch(pickweight(list("centcom_official" = 4, "dictator" = 1, "greytide" = 3, "marooned_syndicate_op" = 0.5, "serial_killer" = 0.5, "soviet_admiral" = 1)))
 		if("centcom_official")
-			created_human.flavor_text = "You are centcom official on board a badly damaged station. Making your way back to the station to uncover the secrets you hold is \
+			created_human.flavor_text = "You are Central Command Official on board of a badly damaged station. Making your way back to civilization to uncover the secrets you hold is \
 				your top priority as far as Nanotrasen is concerned, but just surviving 1 more day is all you can ask for."
 			created_human.equipOutfit(/datum/outfit/centcom_official_vip)
 			antag_elligable = TRUE
@@ -59,6 +59,20 @@
 				but it would take another one of the miracles that kept you alive to get you home."
 			created_human.equipOutfit(/datum/outfit/greytide)
 			antag_elligable = TRUE
+		if("marooned_syndicate_op")
+			created_human.flavor_text = "It was supposed to be just another hit on just another Nanotrasen outpost, but in a moment of panic your squad left you behind and now \
+			you're stuck on this abandoned rust-heap, you're certain that Nanotrasen will dispatch a team to investigate what happened here, but you don't intend to let them find out."
+			created_human.equipOutfit(/datum/outfit/syndicate_op)
+			created_human.mind.add_antag_datum(/datum/antagonist/marooned_syndicate_op)
+			created_human.mind.make_Traitor()
+		if("serial_killer")
+			created_human.flavor_text = "NO NOOO NOOOOOOO!!! IT CAN'T BE!! THEY ARE COMING, DON'T LET THEM GET YOU, KILL THEM ALL!!"
+			created_human.mind.add_antag_datum(/datum/antagonist/insane_killer)
+			antag_elligable = TRUE
+		if("soviet_admiral")
+			created_human.flavor_text = "Ivanov Ivanovitch II, your superior, sent you to this Corporate Station in order to negotiate a deal between the Third Soviet Union and Nanotrasen,\
+			Now weeks later, you wish you would've never come to this place, if you somehow manage to survive this, Ivanov can be certain to feel your fist in his fat mug."
+
 	if(antag_elligable)
 		if(prob(7))
 			created_human.mind.make_Traitor()
@@ -134,3 +148,83 @@
 	head = /obj/item/clothing/head/helmet
 	l_hand = /obj/item/melee/baton/loaded
 	r_hand = /obj/item/gps
+
+//=====================
+// Marooned Syndicate Operative
+//=====================
+
+/datum/antagonist/marooned_syndicate_op
+	name = "Marooned Syndicate Operative"
+	show_in_antagpanel = TRUE
+	roundend_category = "Ruin VIPs"
+	antagpanel_category = "Other"
+/datum/outfit/syndicate_op
+	name = "Marooned Syndicate Operative"
+
+	uniform = /obj/item/clothing/under/syndicate/combat
+	suit = /obj/item/clothing/suit/space/syndicate
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	ears = /obj/item/radio/headset/syndicate/alt
+	glasses = /obj/item/clothing/glasses/hud/security/chameleon
+	belt = /obj/item/storage/belt/military
+	id = /obj/item/card/id/syndicate
+	head = /obj/item/clothing/head/helmet/space/syndicate
+	r_hand = /obj/item/gun/ballistic/automatic/pistol
+	l_hand = /obj/item/melee/transforming/energy/sword
+	mask = /obj/item/clothing/mask/gas/syndicate
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
+	back = /obj/item/storage/backpack/duffelbag/syndie
+	backpack_contents = list(
+		/obj/item/grenade/plastic/x4 = 2,
+		/obj/item/ammo_box/magazine/m10mm = 3,
+		)
+
+//=====================
+// Insane Serial Killer
+//=====================
+
+/datum/antagonist/insane_killer
+	name = "Insane Serial Killer"
+	show_in_antagpanel = TRUE
+	roundend_category = "Ruin VIPs"
+	antagpanel_category = "Other"
+/datum/outfit/insane_killer
+	name = "Masked Killer"
+
+	uniform = /obj/item/clothing/under/misc/overalls
+	shoes = /obj/item/clothing/shoes/sneakers/white
+	gloves = /obj/item/clothing/gloves/color/latex
+	mask = /obj/item/clothing/mask/surgical
+	head = /obj/item/clothing/head/welding
+	ears = /obj/item/radio/headset
+	glasses = /obj/item/clothing/glasses/thermal/monocle
+	suit = /obj/item/clothing/suit/apron
+	l_pocket = /obj/item/kitchen/knife
+	r_pocket = /obj/item/scalpel
+	r_hand = /obj/item/fireaxe
+
+/datum/outfit/insane_killer/post_equip(mob/living/carbon/human/H)
+	for(var/obj/item/carried_item in H.get_equipped_items(TRUE))
+		carried_item.add_mob_blood(H)//Oh yes, there will be blood...
+	for(var/obj/item/I in H.held_items)
+		I.add_mob_blood(H)
+	H.regenerate_icons()
+
+//=====================
+// Soviet Admiral
+//=====================
+/datum/outfit/soviet
+	name = "Soviet Admiral"
+
+	uniform = /obj/item/clothing/under/costume/soviet
+	head = /obj/item/clothing/head/pirate/captain
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	ears = /obj/item/radio/headset/headset_cent/empty
+	glasses = /obj/item/clothing/glasses/thermal/eyepatch
+	suit = /obj/item/clothing/suit/pirate/captain
+	back = /obj/item/storage/backpack/satchel/leather
+	belt = /obj/item/gun/ballistic/revolver/mateba
+
+	id = /obj/item/card/id
