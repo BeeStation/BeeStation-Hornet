@@ -29,18 +29,20 @@ jobs:
       - name: Install Tools
         run: |
           pip3 install setuptools
-          bash tools/ci/install_build_tools.sh
+          bash tools/ci/install_node.sh
           bash tools/ci/install_auxmos.sh
-          pip3 install -r tools/mapmerge2/requirements.txt
+          pip3 install -r tools/requirements.txt
       - name: Run Linters
         run: |
           bash tools/ci/check_filedirs.sh beestation.dme
           bash tools/ci/check_changelogs.sh
           find . -name "*.php" -print0 | xargs -0 -n1 php -l
           find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/json_verifier.py
-          bash tools/ci/build_tgui.sh
+          tgui/bin/tgui --lint
+          tgui/bin/tgui --test
           bash tools/ci/check_grep.sh
-          python3 tools/mapmerge2/dmi.py --test
+          tools/bootstrap/python -m dmi.test
+          tools/bootstrap/python -m mapmerge2.dmm_test
           ~/dreamchecker
   compile_all_maps:
     runs-on: ubuntu-latest
@@ -59,7 +61,7 @@ jobs:
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           python3 tools/ci/template_dm_generator.py
-          bash tools/ci/dm.sh -DCIBUILDING -DCITESTING -DALL_MAPS beestation.dme
+          tools/build/build dm -DCIBUILDING -DCITESTING -DALL_MAPS
   run_all_tests:
     runs-on: ubuntu-latest
     services:
@@ -98,7 +100,7 @@ jobs:
       - name: Compile and run tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
-          bash tools/ci/dm.sh -DCIBUILDING beestation.dme
+          tools/build/build -DCIBUILDING
           bash tools/ci/run_server.sh
   test_windows:
     runs-on: windows-latest
@@ -106,3 +108,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Compile
         run: pwsh tools/ci/build.ps1
+        env:
+          DM_EXE: "C:\\byond\\bin\\dm.exe"

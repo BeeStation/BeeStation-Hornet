@@ -1,5 +1,6 @@
 
 #define DUALWIELD_PENALTY_EXTRA_MULTIPLIER 1.1
+#define FIRING_PIN_REMOVAL_DELAY 50
 
 /obj/item/gun
 	name = "gun"
@@ -136,15 +137,6 @@
 		clear_gunlight()
 	return ..()
 
-/obj/item/gun/CheckParts(list/parts_list)
-	..()
-	var/obj/item/gun/G = locate(/obj/item/gun) in contents
-	if(G)
-		G.forceMove(loc)
-		QDEL_NULL(G.pin)
-		visible_message("[G] can now fit a new pin, but the old one was destroyed in the process.", null, null, 3)
-		qdel(src)
-
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(no_pin_required)
@@ -152,6 +144,7 @@
 
 	if(pin)
 		. += "It has \a [pin] installed."
+		. += "<span class='info'>[pin] looks like it could be removed with some <b>tools</b>.</span>"
 	else
 		. += "It doesn't have a <b>firing pin</b> installed, and won't fire."
 
@@ -257,7 +250,8 @@
 				user.dropItemToGround(src, TRUE)
 				return
 
-	if(weapon_weight == WEAPON_HEAVY && !istype(user.get_inactive_held_item(), /obj/item/offhand))
+	var/obj/item/bodypart/other_hand = user.has_hand_for_held_index(user.get_inactive_hand_index()) //returns non-disabled inactive hands
+	if(weapon_weight == WEAPON_HEAVY && (!istype(user.get_inactive_held_item(), /obj/item/offhand) || !other_hand))
 		balloon_alert(user, "You need both hands free to fire")
 		return
 
@@ -466,6 +460,52 @@
 	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
 		return remove_gun_attachment(user, I, bayonet, "unfix")
 
+	else if(pin && user.is_holding(src))
+		user.visible_message("<span class='warning'>[user] attempts to remove [pin] from [src] with [I].</span>",
+		"<span class='notice'>You attempt to remove [pin] from [src]. (It will take [DisplayTimeText(FIRING_PIN_REMOVAL_DELAY)].)</span>", null, 3)
+		if(I.use_tool(src, user, FIRING_PIN_REMOVAL_DELAY, volume = 50))
+			if(!pin) //check to see if the pin is still there, or we can spam messages by clicking multiple times during the tool delay
+				return
+			user.visible_message("<span class='notice'>[pin] was pried out of [src] by [user], destroying the pin in the process.</span>",
+								"<span class='warning'>You pried [pin] out with [I], destroying the pin in the process.</span>", null, 3)
+			QDEL_NULL(pin)
+			return TRUE
+
+
+/obj/item/gun/welder_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(.)
+		return
+	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		return
+	if(pin && user.is_holding(src))
+		user.visible_message("<span class='warning'>[user] attempts to remove [pin] from [src] with [I].</span>",
+		"<span class='notice'>You attempt to remove [pin] from [src]. (It will take [DisplayTimeText(FIRING_PIN_REMOVAL_DELAY)].)</span>", null, 3)
+		if(I.use_tool(src, user, FIRING_PIN_REMOVAL_DELAY, 5, volume = 50))
+			if(!pin) //check to see if the pin is still there, or we can spam messages by clicking multiple times during the tool delay
+				return
+			user.visible_message("<span class='notice'>[pin] was spliced out of [src] by [user], melting part of the pin in the process.</span>",
+								"<span class='warning'>You spliced [pin] out of [src] with [I], melting part of the pin in the process.</span>", null, 3)
+			QDEL_NULL(pin)
+			return TRUE
+
+/obj/item/gun/wirecutter_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(.)
+		return
+	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		return
+	if(pin && user.is_holding(src))
+		user.visible_message("<span class='warning'>[user] attempts to remove [pin] from [src] with [I].</span>",
+		"<span class='notice'>You attempt to remove [pin] from [src]. (It will take [DisplayTimeText(FIRING_PIN_REMOVAL_DELAY)].)</span>", null, 3)
+		if(I.use_tool(src, user, FIRING_PIN_REMOVAL_DELAY, volume = 50))
+			if(!pin) //check to see if the pin is still there, or we can spam messages by clicking multiple times during the tool delay
+				return
+			user.visible_message("<span class='notice'>[pin] was ripped out of [src] by [user], mangling the pin in the process.</span>",
+								"<span class='warning'>You ripped [pin] out of [src] with [I], mangling the pin in the process.</span>", null, 3)
+			QDEL_NULL(pin)
+			return TRUE
+
 /obj/item/gun/proc/remove_gun_attachment(mob/living/user, obj/item/tool_item, obj/item/item_to_remove, removal_verb)
 	if(tool_item)
 		tool_item.play_tool_sound(src)
@@ -653,3 +693,6 @@
 	if(zoomable)
 		azoom = new()
 		azoom.gun = src
+
+#undef FIRING_PIN_REMOVAL_DELAY
+#undef DUALWIELD_PENALTY_EXTRA_MULTIPLIER

@@ -43,9 +43,11 @@
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
 #include "subsystem_init.dm"
+#include "subsystem_metric_sanity.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
+#include "random_ruin_mapsize.dm"
 
 #undef TEST_ASSERT
 #undef TEST_ASSERT_EQUAL
