@@ -12,7 +12,7 @@
 		to the potentially hostile nature of the individual. Return the individual to the station alive to complete the objective."
 
 /datum/orbital_objective/vip_recovery/dangerous //You'll probably want to take one or two Officers along.
-	name = "Assassination (DANGEROUS)"
+	name = "VIP Recovery (DANGEROUS)"
 	min_payout = 30000
 	max_payout = 40000 //Needs to have a beefy paycheck attached to it so the explorers think it's worth it.
 
