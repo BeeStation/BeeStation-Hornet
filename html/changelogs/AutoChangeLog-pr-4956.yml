@@ -1,0 +1,5 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - config: 'The AI will have a random lawset at the start of each shift from the
+      following list: Asimov, asimov++, crewsimov, corporate, maintain.'
