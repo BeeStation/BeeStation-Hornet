@@ -18,12 +18,7 @@
 				if(T.density)
 					valid = FALSE
 					break
-				for(var/atom/thing as() in T)
-					if(thing.density)
-						valid = FALSE
-						break
-				if(!valid)
-					break
+	
 		//Check still valid
 		if(valid)
 			if(dumping_location.storage_contents_dump_act(src, M))
