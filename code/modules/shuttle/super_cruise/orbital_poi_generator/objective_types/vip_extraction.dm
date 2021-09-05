@@ -20,7 +20,8 @@
 	return "Someone of particular interest to us is located at [station_name]. We require them to be extracted immediately. \
 		We have good intel to suggest that the VIP is still alive, however, if not, their personal diary-disk should have enough infomation \
 		about what we are looking for. \
-		Be warned, we have good reason to believe that they are armed and dangerous, is is highly recommended that security personnel assists in this mission."
+		Be warned, we have good reason to believe that they are armed and dangerous, is is highly recommended that security personnel assists in this mission.\
+		Return the individual to the station alive, and preferably in cuffs, to complete the objective."
 
 //If nobody takes up the ghost role, then we dont care if they died.
 //I know, its a bit sad.
