@@ -37,6 +37,7 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
+/obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "eH" = (
@@ -207,6 +208,7 @@
 	id = "AI";
 	pixel_y = 24
 	},
+/obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "BT" = (
@@ -328,6 +330,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/toolbox/mechanical/old,
+/obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "NP" = (
@@ -354,8 +357,13 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
+"Qa" = (
+/obj/effect/spawner/lootdrop/ruinloot/important,
+/turf/open/floor/circuit/red,
+/area/ruin/unpowered)
 "Qo" = (
 /obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/ruinloot/important,
 /turf/open/floor/carpet/black,
 /area/ruin/unpowered)
 "RT" = (
@@ -520,7 +528,7 @@ JS
 "}
 (6,1,1) = {"
 cf
-tO
+Qa
 tO
 tO
 tO
