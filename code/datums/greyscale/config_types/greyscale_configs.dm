@@ -178,7 +178,7 @@
 
 /datum/greyscale_config/flower_simple_worn
 	name = "Flower Worn"
-	icon_file = 'icons/mob/clothing/head.dmi'
+	icon_file = 'icons/mob/head.dmi'
 	json_config = 'code/datums/greyscale/json_configs/simple_flower_worn.json'
 
 /datum/greyscale_config/suspenders
