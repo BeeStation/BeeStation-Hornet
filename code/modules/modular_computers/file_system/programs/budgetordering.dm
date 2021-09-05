@@ -35,28 +35,15 @@
 		id = card_slot?.GetID()
 	return id ? id : FALSE
 	
-/datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, paccess_to_check, var/list/access, var/contraband)
+/datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, var/contraband)
 	if(issilicon(user)) //Borgs can't buy things.
 		return FALSE
 	if(computer.obj_flags & EMAGGED)
 		return TRUE
 	else if(contraband) //Hide contraband when non-emagged.
 		return FALSE
-	if(!paccess_to_check) // No required_access, allow it.
-		return TRUE
-	if(IsAdminGhost(user))
-		return TRUE
 
-	if(!length(access))
-		var/obj/item/card/id/D = get_buyer_id(user)
-		if(!get_buyer_id(user))
-			return FALSE
-		access = D.GetAccess()
-
-	if(paccess_to_check in access)
-		return TRUE
-
-	return FALSE
+	return TRUE
 
 /datum/computer_file/program/budgetorders/ui_data(mob/user)
 	. = ..()
@@ -82,7 +69,7 @@
 	data["supplies"] = list()
 	for(var/pack in SSshuttle.supply_packs)
 		var/datum/supply_pack/P = SSshuttle.supply_packs[pack]
-		if(!is_visible_pack(user, P.access_view , null, P.contraband) || P.hidden)
+		if(!is_visible_pack(user, P.contraband) || P.hidden)
 			continue
 		if(!data["supplies"][P.group])
 			data["supplies"][P.group] = list(
@@ -220,6 +207,10 @@
 					return
 				if(istype(id_card, /obj/item/card/id/departmental_budget))
 					computer.say("The application rejects [id_card].")
+					return
+				var/access = id_card.GetAccess()
+				if(!((computer.obj_flags & EMAGGED) || (pack.access_budget in access)))
+					computer.say("Insufficient access on [id_card].")
 					return
 				else
 					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_job.paycheck_department)
