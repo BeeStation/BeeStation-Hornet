@@ -1,0 +1,7 @@
+author: lordScrubling
+delete-after: true
+changes:
+  - balance: having x-ray makes you ignore flash protection and tint
+  - balance: flashbangs can flash people with x-ray through walls
+  - rscadd: syndicate autosurgeons get a special variant of eyes that allow flash
+      protection
