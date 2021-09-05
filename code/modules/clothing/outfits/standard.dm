@@ -159,28 +159,6 @@
 	W.registered_name = H.real_name
 	W.update_label(H.real_name)
 
-/datum/outfit/psycho
-	name = "Masked Killer"
-
-	uniform = /obj/item/clothing/under/misc/overalls
-	shoes = /obj/item/clothing/shoes/sneakers/white
-	gloves = /obj/item/clothing/gloves/color/latex
-	mask = /obj/item/clothing/mask/surgical
-	head = /obj/item/clothing/head/welding
-	ears = /obj/item/radio/headset
-	glasses = /obj/item/clothing/glasses/thermal/monocle
-	suit = /obj/item/clothing/suit/apron
-	l_pocket = /obj/item/kitchen/knife
-	r_pocket = /obj/item/scalpel
-	r_hand = /obj/item/fireaxe
-
-/datum/outfit/psycho/post_equip(mob/living/carbon/human/H)
-	for(var/obj/item/carried_item in H.get_equipped_items(TRUE))
-		carried_item.add_mob_blood(H)//Oh yes, there will be blood...
-	for(var/obj/item/I in H.held_items)
-		I.add_mob_blood(H)
-	H.regenerate_icons()
-
 /datum/outfit/assassin
 	name = "Assassin"
 
@@ -343,54 +321,6 @@
 	suit = /obj/item/clothing/suit/wizrobe/marisa
 	shoes = /obj/item/clothing/shoes/sandal/marisa
 	head = /obj/item/clothing/head/wizard/marisa
-
-/datum/outfit/soviet
-	name = "Soviet Admiral"
-
-	uniform = /obj/item/clothing/under/costume/soviet
-	head = /obj/item/clothing/head/pirate/captain
-	shoes = /obj/item/clothing/shoes/combat
-	gloves = /obj/item/clothing/gloves/combat
-	ears = /obj/item/radio/headset/headset_cent
-	glasses = /obj/item/clothing/glasses/thermal/eyepatch
-	suit = /obj/item/clothing/suit/pirate/captain
-	back = /obj/item/storage/backpack/satchel/leather
-	belt = /obj/item/gun/ballistic/revolver/mateba
-
-	id = /obj/item/card/id
-
-/datum/outfit/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-
-	var/obj/item/card/id/W = H.wear_id
-	W.icon_state = "centcom"
-	W.access = get_all_accesses()
-	W.access += get_centcom_access("Admiral")
-	W.assignment = "Admiral"
-	W.registered_name = H.real_name
-	W.update_label()
-
-/datum/outfit/mobster
-	name = "Mobster"
-
-	uniform = /obj/item/clothing/under/suit/black_really
-	head = /obj/item/clothing/head/fedora
-	shoes = /obj/item/clothing/shoes/laceup
-	gloves = /obj/item/clothing/gloves/color/black
-	ears = /obj/item/radio/headset
-	glasses = /obj/item/clothing/glasses/sunglasses/advanced
-	r_hand = /obj/item/gun/ballistic/automatic/tommygun
-	id = /obj/item/card/id
-
-/datum/outfit/mobster/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(visualsOnly)
-		return
-
-	var/obj/item/card/id/W = H.wear_id
-	W.assignment = "Assistant"
-	W.registered_name = H.real_name
-	W.update_label()
 
 /datum/outfit/plasmaman
 	name = "Plasmaman"
