@@ -1,5 +1,0 @@
-author: Froststahr
-delete-after: true
-changes:
-  - code_imp: Mapmerge2 has been updated along with an experimental .dmm merge driver
-      being included for conflict resolution.

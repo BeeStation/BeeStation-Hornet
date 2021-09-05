@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Bag of holding's can no longer teleport their contents through walls
-      when dumped.

@@ -1,5 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - balance: Ore Silo connections can no longer cross z-level boundaries, and will
-      break if the object changes z-lvels.

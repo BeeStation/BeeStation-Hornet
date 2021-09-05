@@ -1,5 +1,0 @@
-author: 'LemonInTheDark, Port By Froststahr. '
-delete-after: true
-changes:
-  - admin: The panic bunker allows for a minimum time to be set, blocking players
-      who lack the required amount of living played time from accessing the game.
