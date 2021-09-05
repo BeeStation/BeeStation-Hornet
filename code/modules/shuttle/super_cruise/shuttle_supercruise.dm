@@ -8,7 +8,8 @@
 	if(!z_level || !z_level.orbital_body)
 		message_admins("Error: Shuttle is entering supercruise from a bad location. Shuttle: [name]")
 		log_runtime("Error: Shuttle is entering supercruise from a bad location. Shuttle: [name]")
-		orbital_body = SSorbits.orbital_maps[PRIMARY_ORBITAL_MAP].center
+		var/datum/orbital_map/default_map = SSorbits.orbital_maps[PRIMARY_ORBITAL_MAP]
+		orbital_body = default_map.center
 	else
 		orbital_body = z_level.orbital_body
 	//Start moving
