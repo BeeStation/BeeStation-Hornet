@@ -137,11 +137,12 @@
 		return
 	
 	if(focus.buckled_mobs)
-			to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
-			return
-		if(length(focus.client_mobs_in_contents))
-			to_chat(user, "<span class='notice'>This object is too heavy to move with something inside of it!</span>")
-			return
+		to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
+		return
+
+	if(length(focus.client_mobs_in_contents))
+		to_chat(user, "<span class='notice'>This object is too heavy to move with something inside of it!</span>")
+		return
 
 	if(!isturf(target) && isitem(focus) && target.Adjacent(focus))
 		apply_focus_overlay()
