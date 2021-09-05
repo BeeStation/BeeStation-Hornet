@@ -6,7 +6,7 @@
 	item_state = "mime"
 	item_color = "mime"
 
-/obj/item/clothing/under/rank/civilian/mime/skirt
+/*/obj/item/clothing/under/rank/civilian/mime/skirt
 	name = "mime's skirt"
 	icon_state = "mime_skirt"
 	item_state = "mime"
@@ -14,9 +14,9 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+*/
 
-
-/obj/item/clothing/under/rank/civilian/mime/sexy
+/obj/item/clothing/under/rank/civilian/mime/skirt
 	name = "sexy mime outfit"
 	desc = "The only time when you DON'T enjoy looking at someone's rack."
 	icon_state = "sexymime"
@@ -97,7 +97,7 @@
 /obj/item/clothing/under/rank/civilian/clown/jester/alt
 	icon_state = "jester2"
 
-/obj/item/clothing/under/rank/civilian/clown/sexy
+/obj/item/clothing/under/rank/civilian/clown/skirt
 	name = "sexy-clown suit"
 	desc = "It makes you look HONKable!"
 	icon_state = "sexyclown"

@@ -161,10 +161,10 @@
 	name = "sexy clown costume spawner"
 	items = list(
 		/obj/item/clothing/mask/gas/sexyclown,
-		/obj/item/clothing/under/rank/civilian/clown/sexy)
+		/obj/item/clothing/under/rank/civilian/clown/skirt)
 
 /obj/effect/spawner/bundle/costume/sexymime
 	name = "sexy mime costume spawner"
 	items = list(
 		/obj/item/clothing/mask/gas/sexymime,
-		/obj/item/clothing/under/rank/civilian/mime/sexy)
+		/obj/item/clothing/under/rank/civilian/mime/skirt)
