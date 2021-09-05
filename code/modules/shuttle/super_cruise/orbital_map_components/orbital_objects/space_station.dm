@@ -17,4 +17,5 @@
 
 /datum/orbital_object/z_linked/station/post_map_setup()
 	//Orbit around the system center
-	set_orbitting_around_body(SSorbits.orbital_maps[orbital_map_index].center, 2500)
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+	set_orbitting_around_body(linked_map.center, 2500)

@@ -6,6 +6,7 @@
 	var/radius = 1
 	//Position of the object (0,0) is the center of the map.
 	//Position is in kilometers
+	//If this is modified, on_body_move() MUST be called. (Really this should be a helper proc)
 	var/datum/orbital_vector/position = new()
 	//Velocity of the object
 	//KILOMETERS PER SECOND
@@ -134,9 +135,16 @@
 	//===================================
 	// MOVEMENT
 	//===================================
+	//Remember this
+	var/prev_x = position.x
+	var/prev_y = position.y
+
 	//Move the gravitational body.
 	var/datum/orbital_vector/vel_new = new(velocity.x * delta_time * velocity_multiplier, velocity.y * delta_time * velocity_multiplier)
 	position.Add(vel_new)
+
+	//Oh we moved btw
+	parent_map.on_body_move(src, prev_x, prev_y)
 
 	//===================================
 	// COLLISION CHECKING
@@ -158,25 +166,26 @@
 		valid_side_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
 	else if(segment_x > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
 		valid_side_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
-	else
-		debug_zones --
 
 	if(segment_y < ORBITAL_MAP_ZONE_SIZE / 3)
 		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
 	else if(segment_y > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
-		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
-	else
-		debug_zones --
+		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
 
 	var/list/valid_objects = list()
+
+	message_admins("=========[rand(1, 10000)]")
 
 	//Only check nearby segments for collision objects
 	if(parent_map.collision_zone_bodies[position_key])
 		valid_objects += parent_map.collision_zone_bodies[position_key]
+		message_admins("Current zone exists!")
 	if(parent_map.collision_zone_bodies[valid_side_key])
 		valid_objects += parent_map.collision_zone_bodies[valid_side_key]
+		message_admins("side zone exists!")
 	if(parent_map.collision_zone_bodies[valid_front_key])
 		valid_objects += parent_map.collision_zone_bodies[valid_front_key]
+		message_admins("front zone exists!")
 
 	message_admins("Checking [name] for collisions with [valid_objects.len] / [parent_map.object_count] objects across [debug_zones] zones.")
 	for(var/datum/orbital_object/object as() in valid_objects)
@@ -206,6 +215,8 @@
 /datum/orbital_object/proc/set_orbitting_around_body(datum/orbital_object/target_body, orbit_radius = 10, force = FALSE)
 	if(orbitting && !force)
 		return
+	var/prev_x = position.x
+	var/prev_y = position.y
 	orbitting = TRUE
 	//Calculates the required velocity for the object to orbit around the target body.
 	//Hopefully the planets gravity doesn't fuck with each other too hard.
@@ -232,6 +243,9 @@
 	target_orbital_body = target_body
 	LAZYADD(target_body.orbitting_bodies, src)
 	relative_velocity_required = relative_velocity
+	//We moved, make sure to update the map.
+	var/datum/orbital_map/parent_map = SSorbits.orbital_maps[orbital_map_index]
+	parent_map.on_body_move(src, prev_x, prev_y)
 
 /datum/orbital_object/proc/post_map_setup()
 	return

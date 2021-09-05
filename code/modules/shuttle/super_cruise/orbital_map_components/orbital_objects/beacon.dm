@@ -8,17 +8,19 @@
 
 /datum/orbital_object/z_linked/beacon/New()
 	. = ..()
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
 	ruin_event = SSorbits.get_event()
 	if(ruin_event?.warning_message)
-		name = "[initial(name)] #[rand(1, 9)][SSorbits.orbital_maps[orbital_map_index].object_count][rand(1, 9)] ([ruin_event.warning_message])"
+		name = "[initial(name)] #[rand(1, 9)][linked_map.object_count][rand(1, 9)] ([ruin_event.warning_message])"
 	else
-		name = "[initial(name)] #[rand(1, 9)][SSorbits.orbital_maps[orbital_map_index].object_count][rand(1, 9)]"
+		name = "[initial(name)] #[rand(1, 9)][linked_map.object_count][rand(1, 9)]"
 	//Link the ruin event to ourselves
 	ruin_event?.linked_z = src
 
 /datum/orbital_object/z_linked/beacon/post_map_setup()
 	//Orbit around the systems sun
-	set_orbitting_around_body(SSorbits.orbital_maps[orbital_map_index].center, 4000 + 250 * linked_z_level[1].z_value)
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+	set_orbitting_around_body(linked_map.center, 4000 + 250 * linked_z_level[1].z_value)
 
 /datum/orbital_object/z_linked/beacon/weak
 	name = "Weak Signal"
@@ -68,7 +70,8 @@
 
 /datum/orbital_object/z_linked/beacon/ruin/spaceruin/post_map_setup()
 	//Orbit around the systems sun
-	set_orbitting_around_body(SSorbits.orbital_maps[orbital_map_index].center, 4000 + 250 * rand(4, 20))
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+	set_orbitting_around_body(linked_map.center, 4000 + 250 * rand(4, 20))
 
 //====================
 // Random-Ruin z-levels
@@ -92,7 +95,8 @@
 
 /datum/orbital_object/z_linked/beacon/ruin/post_map_setup()
 	//Orbit around the systems sun
-	set_orbitting_around_body(SSorbits.orbital_maps[orbital_map_index].center, 4000 + 250 * rand(4, 20))
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+	set_orbitting_around_body(linked_map.center, 4000 + 250 * rand(4, 20))
 
 //====================
 //Stranded shuttles
