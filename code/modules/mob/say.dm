@@ -34,6 +34,9 @@
 
 	message = trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN))
 
+	if(!message)
+		return
+
 	var/m_type = alert(usr, "Choose the emote type", "Emote type", "Audible emote", "Visible emote")
 
 	switch(m_type)
