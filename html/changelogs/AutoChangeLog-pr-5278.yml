@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - refactor: Refactors meteors, they are now orbital map components and will fly
+      towards the station, colliding with orbital bodies and flying shuttles.
