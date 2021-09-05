@@ -205,12 +205,12 @@
 				if(!istype(id_card))
 					computer.say("No ID card detected.")
 					return
+				var/access = id_card.GetAccess()
+				if(!(computer.obj_flags & EMAGGED) && pack.access_budget && !(pack.access_budget in access))
+					computer.say("Insufficient access on [id_card].")
+					return
 				if(istype(id_card, /obj/item/card/id/departmental_budget))
 					computer.say("The application rejects [id_card].")
-					return
-				var/access = id_card.GetAccess()
-				if(!((computer.obj_flags & EMAGGED) || (pack.access_budget in access)))
-					computer.say("Insufficient access on [id_card].")
 					return
 				else
 					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_job.paycheck_department)
