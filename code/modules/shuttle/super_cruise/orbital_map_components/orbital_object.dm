@@ -264,7 +264,6 @@
 					LAZYADD(colliding_with, object)
 					collision(object)
 					colliding = TRUE
-					message_admins("2 objects just intersected and thats really cool!")
 	if(!colliding)
 		collision_ignored = FALSE
 
