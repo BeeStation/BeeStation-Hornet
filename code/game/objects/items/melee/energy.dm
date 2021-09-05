@@ -5,14 +5,12 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
-	light_system = MOVABLE_LIGHT
-	light_range = 3
-	light_power = 1
-	light_on = FALSE
+	var/brightness_on = 3
 
 /obj/item/melee/transforming/energy/Initialize()
 	. = ..()
 	if(active)
+		set_light(brightness_on)
 		START_PROCESSING(SSobj, src)
 
 /obj/item/melee/transforming/energy/Destroy()
@@ -41,9 +39,10 @@
 			if(item_color)
 				icon_state = "sword[item_color]"
 			START_PROCESSING(SSobj, src)
+			set_light(brightness_on)
 		else
 			STOP_PROCESSING(SSobj, src)
-		set_light_on(active)
+			set_light(0)
 
 /obj/item/melee/transforming/energy/is_hot()
 	return active * heat
@@ -197,7 +196,8 @@
 	. = ..()
 	if(hacked)
 		var/set_color = pick(possible_colors)
-		set_light_color(possible_colors[set_color])
+		light_color = possible_colors[set_color]
+		update_light()
 
 /obj/item/melee/transforming/energy/sword/saber/red
 	possible_colors = list("red" = LIGHT_COLOR_RED)

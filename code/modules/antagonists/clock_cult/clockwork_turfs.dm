@@ -447,7 +447,7 @@
 
 /obj/machinery/door/airlock/clockwork/glass
 	glass = TRUE
-	opacity = FALSE
+	opacity = 0
 
 //=================================================
 //Servant Blocker: Doesn't allow servants to pass

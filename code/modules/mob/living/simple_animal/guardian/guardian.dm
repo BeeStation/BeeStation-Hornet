@@ -37,9 +37,6 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	melee_damage = 15
 	butcher_results = list(/obj/item/ectoplasm = 1)
 	AIStatus = AI_OFF
-	light_system = MOVABLE_LIGHT
-	light_range = 3
-	light_on = FALSE
 	hud_type = /datum/hud/guardian
 	dextrous_hud_type = /datum/hud/dextrous/guardian //if we're set to dextrous, account for it.
 	hardattacks = TRUE
@@ -380,15 +377,13 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'><B>You don't have another mode!</span></B>")
 
-
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
-	if(!light_on)
+	if(light_range<3)
 		to_chat(src, "<span class='notice'>You activate your light.</span>")
-		set_light_on(TRUE)
+		set_light(3)
 	else
 		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
-		set_light_on(FALSE)
-
+		set_light(0)
 
 /mob/living/simple_animal/hostile/guardian/verb/ShowType()
 	set name = "Check Guardian Type"

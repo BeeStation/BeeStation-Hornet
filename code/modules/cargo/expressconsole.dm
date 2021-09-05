@@ -88,6 +88,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CargoExpress")
+		ui.set_autoupdate(TRUE) // Account balance
 		ui.open()
 
 /obj/machinery/computer/cargo/express/ui_data(mob/user)
@@ -126,18 +127,22 @@
 	return data
 
 /obj/machinery/computer/cargo/express/ui_act(action, params, datum/tgui/ui)
-	. = ..()
-	if(!isliving(usr))
+	if(action == "add")
+		action = "express_add" // Ignore parent's "add" action
+	. = ..(action, params, ui)
+	if(.)
 		return
 	switch(action)
 		if("LZCargo")
 			usingBeacon = FALSE
 			if (beacon)
 				beacon.update_status(SP_UNREADY) //ready light on beacon will turn off
+				. = TRUE
 		if("LZBeacon")
 			usingBeacon = TRUE
 			if (beacon)
 				beacon.update_status(SP_READY) //turns on the beacon's ready light
+				. = TRUE
 		if("printBeacon")
 			var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 			if(D)
@@ -147,10 +152,13 @@
 					C.link_console(src, usr)//rather than in beacon's Initialize(), we can assign the computer to the beacon by reusing this proc)
 					printed_beacons++//printed_beacons starts at 0, so the first one out will be called beacon # 1
 					beacon.name = "Supply Pod Beacon #[printed_beacons]"
+					. = TRUE
 
 
-		if("add")//Generate Supply Order first
+		if("express_add")//Generate Supply Order first
 			if(!COOLDOWN_FINISHED(src, order_cooldown))
+				return
+			if(usingBeacon && !(beacon && (isturf(beacon.loc) || ismob(beacon.loc))))
 				return
 			var/id = text2path(params["id"])
 			var/datum/supply_pack/pack = SSshuttle.supply_packs[id]
@@ -217,4 +225,3 @@
 							. = TRUE
 							update_icon()
 							CHECK_TICK
-	ui_update()
