@@ -45,7 +45,8 @@
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
 	//Orbit around the systems central gravitional body
 	//Pack closely together to make an asteriod belt.
-	set_orbitting_around_body(SSorbits.orbital_maps[orbital_map_index].center, 1200 + 20 * rand(-10, 10))
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+	set_orbitting_around_body(linked_map.center, 1200 + 20 * rand(-10, 10))
 
 //====================
 // Regular Ruin Z-levels
