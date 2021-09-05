@@ -258,6 +258,7 @@
 	l_pocket = /obj/item/kitchen/knife
 	r_pocket = /obj/item/scalpel
 	r_hand = /obj/item/fireaxe
+	back = /obj/item/storage/backpack
 
 /datum/outfit/insane_killer/post_equip(mob/living/carbon/human/H)
 	for(var/obj/item/carried_item in H.get_equipped_items(TRUE))
@@ -308,6 +309,10 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	r_hand = /obj/item/gun/ballistic/automatic/tommygun
 	id = /obj/item/card/id
+	back = /obj/item/storage/backpack
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/tommygunm45 = 1,
+		)
 
 /datum/outfit/mobster/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
