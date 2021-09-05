@@ -1,4 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - code_imp: TGUI interfaces updating from ui_act will not update again due to ui_update
