@@ -75,13 +75,13 @@
 			if(!records || !(record in records))
 				return
 			records -= record
-			return TRUE
+			. = TRUE
 		if("print_record")
 			var/datum/data/tachyon_record/record  = locate(params["ref"]) in records
 			if(!records || !(record in records))
 				return
 			print(usr, record)
-			return TRUE
+			. = TRUE
 
 /obj/machinery/doppler_array/proc/print(mob/user, datum/data/tachyon_record/record)
 	if(!record)
@@ -181,6 +181,8 @@
 
 	record_number++
 	records += R
+	//Update to viewers
+	ui_update()
 	return TRUE
 
 /obj/machinery/doppler_array/power_change()

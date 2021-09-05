@@ -56,6 +56,7 @@
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
+	layer = ABOVE_WINDOW_LAYER
 
 
 
@@ -634,6 +635,7 @@
 			if(!has_electronics)
 				has_electronics = APC_ELECTRONICS_INSTALLED
 				locked = FALSE
+				wires.ui_update()
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
 				qdel(W)
 	else if(istype(W, /obj/item/electroadaptive_pseudocircuit) && opened)
@@ -648,6 +650,7 @@
 			"<span class='notice'>You adapt a power control board and click it into place in [src]'s guts.</span>")
 			has_electronics = APC_ELECTRONICS_INSTALLED
 			locked = FALSE
+			wires.ui_update()
 		else if(!cell)
 			if(stat & MAINT)
 				to_chat(user, "<span class='warning'>There's no connector for a power cell.</span>")
@@ -763,6 +766,7 @@
 	else
 		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
 			locked = !locked
+			wires.ui_update()
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
 			update_icon()
 			updateUsrDialog()
@@ -809,6 +813,7 @@
 			playsound(src, "sparks", 75, 1)
 			obj_flags |= EMAGGED
 			locked = FALSE
+			wires.ui_update()
 			to_chat(user, "<span class='notice'>You emag the APC interface.</span>")
 			update_icon()
 
@@ -901,6 +906,7 @@
 	if(!ui)
 		ui = new(user, src, "Apc")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Power level, reboot timer
 
 /obj/machinery/power/apc/ui_data(mob/user)
 	var/list/data = list(
@@ -1012,8 +1018,20 @@
 		. = UI_INTERACTIVE
 
 /obj/machinery/power/apc/ui_act(action, params)
-	if(..() || !can_use(usr, 1) || (locked && !usr.has_unlimited_silicon_privilege && !failure_timer))
+	if(..() || !can_use(usr, 1))
 		return
+
+	switch(action)
+		if("reboot")
+			if(failure_timer)
+				failure_timer = 0
+				update_icon()
+				update()
+				. = TRUE
+
+	if(locked && !usr.has_unlimited_silicon_privilege)
+		return
+
 	switch(action)
 		if("lock")
 			if(usr.has_unlimited_silicon_privilege)
@@ -1051,6 +1069,8 @@
 				environ = setsubsystem(text2num(params["env"]))
 				update_icon()
 				update()
+			else
+				return FALSE
 			. = TRUE
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
@@ -1059,16 +1079,15 @@
 		if("hack")
 			if(get_malf_status(usr))
 				malfhack(usr)
+				. = TRUE
 		if("occupy")
 			if(get_malf_status(usr))
 				malfoccupy(usr)
+				. = TRUE
 		if("deoccupy")
 			if(get_malf_status(usr))
 				malfvacate()
-		if("reboot")
-			failure_timer = 0
-			update_icon()
-			update()
+				. = TRUE
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
 			for(var/obj/machinery/light/L in area)
@@ -1076,9 +1095,12 @@
 					L.no_emergency = emergency_lights
 					INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 				CHECK_TICK
-	return 1
+			. = TRUE
 
-/obj/machinery/power/apc/ui_close(mob/user)
+	if(.)
+		wires.ui_update() // I don't know why this would be here, but I'm too scared to remove it
+
+/obj/machinery/power/apc/ui_close(mob/user, datum/tgui/tgui)
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		if(AI.apc_override == src)
@@ -1411,6 +1433,7 @@
 			environ = 3
 			update_icon()
 			update()
+	wires.ui_update()
 
 // damage and destruction acts
 /obj/machinery/power/apc/emp_act(severity)

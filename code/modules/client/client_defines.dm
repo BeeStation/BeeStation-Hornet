@@ -25,7 +25,7 @@
 	var/total_message_count = 0
 	/// Next tick to reset the total message counter
 	var/total_count_reset = 0
-	var/ircreplyamount = 0
+	var/externalreplyamount = 0
 	var/cryo_warned = -3000//when was the last time we warned them about not cryoing without an ahelp, set to -5 minutes so that rounstart cryo still warns
 
 		/////////
@@ -117,6 +117,3 @@
 
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0
-
-	/// Messages currently seen by this client
-	var/list/seen_messages

@@ -373,7 +373,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "Q" = (
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,

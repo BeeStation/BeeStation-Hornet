@@ -95,6 +95,9 @@
 	///AI controller that controls this atom. type on init, then turned into an instance during runtime
 	var/datum/ai_controller/ai_controller
 
+	/// Lazylist of all messages currently on this atom
+	var/list/chat_messages
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -734,6 +737,12 @@
   */
 /atom/proc/ratvar_act()
 	SEND_SIGNAL(src, COMSIG_ATOM_RATVAR_ACT)
+
+/**
+  * Called when lighteater is called on this.
+  */
+/atom/proc/lighteater_act(obj/item/light_eater/light_eater)
+	return
 
 /**
   * Respond to the eminence clicking on our atom

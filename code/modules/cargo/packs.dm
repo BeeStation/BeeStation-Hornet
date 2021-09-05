@@ -984,7 +984,6 @@
 		/obj/item/pipe_dispenser,
 		/obj/item/storage/toolbox/mechanical,
 		/obj/item/storage/toolbox/electrical,
-		/obj/item/circuitboard/computer/shuttle/docker,
 		/obj/item/circuitboard/computer/shuttle/flight_control,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma,
@@ -2185,6 +2184,25 @@
 					)
 	crate_name = "grilling fuel kit crate"
 
+/datum/supply_pack/organic/beefbroth
+
+	name = "Beef Broth Bulk Crate"
+	desc = "No one really wants to order beef broth so we're selling it in bulk!"
+	cost = 5000
+	contraband = TRUE
+	crate_type = /obj/structure/closet/crate
+	contains = list(/obj/item/reagent_containers/food/snacks/canned/beefbroth,
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth,
+					/obj/item/reagent_containers/food/snacks/canned/beefbroth
+					)
+	crate_name = "Beef Broth Care"
 //////////////////////////////////////////////////////////////////////////////
 ////////////////////////////// Livestock /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

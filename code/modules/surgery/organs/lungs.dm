@@ -392,7 +392,7 @@
 	gas_max -= GAS_PLASMA
 
 /obj/item/organ/lungs/oozeling
-	name = "oozling vacuole"
+	name = "oozeling vacuole"
 	desc = "A large organelle designed to store oxygen and filter toxins."
 
 /obj/item/organ/lungs/slime

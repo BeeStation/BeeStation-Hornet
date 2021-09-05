@@ -88,6 +88,7 @@
 		// Open UI
 		ui = new(user, src, "CameraConsole")
 		ui.open()
+		ui.set_autoupdate(FALSE)
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
@@ -122,6 +123,7 @@
 		var/list/cameras = get_available_cameras()
 		var/obj/machinery/camera/C = cameras[c_tag]
 		active_camera = C
+		ui_update()
 		playsound(src, get_sfx("terminal_type"), 25, FALSE)
 
 		if(!C)
@@ -166,7 +168,7 @@
 	cam_background.icon_state = "clear"
 	cam_background.fill_rect(1, 1, size_x, size_y)
 
-/obj/machinery/computer/security/ui_close(mob/user)
+/obj/machinery/computer/security/ui_close(mob/user, datum/tgui/tgui)
 	var/user_ref = REF(user)
 	var/is_living = isliving(user)
 	// Living creature or not, we remove you anyway.
@@ -213,6 +215,7 @@
 	icon_keyboard = "no_keyboard"
 	icon_screen = "detective_tv"
 	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE
 
 /obj/machinery/computer/security/mining
@@ -259,6 +262,7 @@
 	density = FALSE
 	circuit = null
 	clockwork = TRUE //it'd look very weird
+	broken_overlay_emissive = TRUE
 	light_power = 0
 
 /obj/machinery/computer/security/telescreen/update_icon()
@@ -283,14 +287,8 @@
 /obj/machinery/computer/security/telescreen/entertainment/ui_state(mob/user)
 	return GLOB.not_incapacitated_state
 
-/obj/machinery/computer/security/telescreen/entertainment/Initialize()
+/obj/machinery/computer/security/telescreen/entertainment/examine(mob/user)
 	. = ..()
-	RegisterSignal(src, COMSIG_CLICK, .proc/BigClick)
-
-// Bypass clickchain to allow humans to use the telescreen from a distance
-/obj/machinery/computer/security/telescreen/entertainment/proc/BigClick()
-	SIGNAL_HANDLER
-
 	interact(usr)
 
 /obj/machinery/computer/security/telescreen/entertainment/proc/notify(on)

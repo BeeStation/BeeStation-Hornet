@@ -25,6 +25,8 @@
 		E += M.rating
 	range = initial(range)
 	range *= E
+	//Update to viewers
+	ui_update()
 
 /obj/machinery/launchpad/Initialize()
 	. = ..()
@@ -331,13 +333,12 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "LaunchpadRemote") //width, height
+		ui.set_autoupdate(TRUE) // Autoupdate because handling changes to launchpad would be hell unless I figure out and add a bunch of signals
 		ui.open()
-
-	ui.set_autoupdate(TRUE)
 
 /obj/item/launchpad_remote/ui_data(mob/user)
 	var/list/data = list()
-	var/obj/machinery/launchpad/briefcase/our_pad = pad.resolve()
+	var/obj/machinery/launchpad/briefcase/our_pad = pad?.resolve()
 	data["has_pad"] = our_pad ? TRUE : FALSE
 	if(our_pad)
 		data["pad_closed"] = our_pad.closed
@@ -362,7 +363,7 @@
 /obj/item/launchpad_remote/ui_act(action, params)
 	if(..())
 		return
-	var/obj/machinery/launchpad/briefcase/our_pad = pad.resolve()
+	var/obj/machinery/launchpad/briefcase/our_pad = pad?.resolve()
 	if(!our_pad)
 		pad = null
 		return TRUE
@@ -381,11 +382,11 @@
 			)
 			. = TRUE
 		if("rename")
-			. = TRUE
 			var/new_name = params["name"]
 			if(!new_name)
 				return
 			our_pad.display_name = new_name
+			. = TRUE
 		if("remove")
 			. = TRUE
 			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") != "Abort")

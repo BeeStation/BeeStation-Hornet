@@ -32,6 +32,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER},
 				/obj/item/stack/ore/diamond{layer = ABOVE_MOB_LAYER})
+	discovery_points = 2000
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"

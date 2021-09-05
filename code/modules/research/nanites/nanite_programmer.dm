@@ -29,6 +29,7 @@
 				eject(user)
 			disk = N
 			program = N.program
+			ui_update()
 	else
 		..()
 
@@ -39,6 +40,7 @@
 		disk.forceMove(drop_location())
 	disk = null
 	program = null
+	ui_update()
 
 /obj/machinery/nanite_programmer/AltClick(mob/user)
 	if(disk && user.canUseTopic(src, !issilicon(user)))

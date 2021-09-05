@@ -9,6 +9,7 @@
 	integrity_failure = 100
 	light_color = LIGHT_COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
+	layer = ABOVE_WINDOW_LAYER
 	var/obj/item/assembly/flash/handheld/bulb
 	var/id = null
 	var/range = 2 //this is roughly the size of brig cell
