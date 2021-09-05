@@ -45,7 +45,7 @@
 	id = "asteroid5"
 	suffix = "asteroid5.dmm"
 	name = "Asteroid 5"
-	description = "Oh my god, another giant rock!"	
+	description = "Oh my god, another giant rock!"
 	cost = 2
 
 /datum/map_template/ruin/space/asteroid6
@@ -151,7 +151,7 @@
 	suffix = "derelict1.dmm"
 	name = "Derelict 1"
 	description = "Nothing to see here citizen, move along, certainly no xeno outbreaks on this piece of station debris. That purple stuff? It's uh... station nectar. \
-	It's a top secret research installation."	
+	It's a top secret research installation."
 	cost = 2
 
 /datum/map_template/ruin/space/derelict2
@@ -160,14 +160,14 @@
 	name = "Dinner for Two"
 	description = "Oh this is the night\n\
 		It's a beautiful night\n\
-		And we call it bella notte"	
+		And we call it bella notte"
 	cost = 2
 
 /datum/map_template/ruin/space/derelict3
 	id = "derelict3"
 	suffix = "derelict3.dmm"
 	name = "Derelict 3"
-	description = "These hulks were once part of a larger structure, where the three great \[REDACTED\] were forged."	
+	description = "These hulks were once part of a larger structure, where the three great \[REDACTED\] were forged."
 	cost = 2
 
 /datum/map_template/ruin/space/derelict4
@@ -175,14 +175,14 @@
 	suffix = "derelict4.dmm"
 	name = "Derelict 4"
 	description = "CentCom ferries have never crashed, will never crash, there is no current investigation into a crashed ferry, and we will not let Internal Affairs trample over high security \
-	information in the name of this baseless witchhunt."	
+	information in the name of this baseless witchhunt."
 	cost = 2
 
 /datum/map_template/ruin/space/derelict5
 	id = "derelict5"
 	suffix = "derelict5.dmm"
 	name = "Derelict 5"
-	description = "The plan is, we put a whole bunch of crates full of treasure in this disused warehouse, launch it into space, and then ignore it. Forever."	
+	description = "The plan is, we put a whole bunch of crates full of treasure in this disused warehouse, launch it into space, and then ignore it. Forever."
 	cost = 2
 
 /datum/map_template/ruin/space/derelict6
@@ -204,14 +204,14 @@
 	id = "gas-the-lizards"
 	suffix = "gasthelizards.dmm"
 	name = "Disposal Facility 17"
-	description = "Gas efficiency at 95.6%, fluid elimination at 96.2%. Will require renewed supplies of 'carpet' before the end of the quarter."		
+	description = "Gas efficiency at 95.6%, fluid elimination at 96.2%. Will require renewed supplies of 'carpet' before the end of the quarter."
 	cost = 2
 
 /datum/map_template/ruin/space/intact_empty_ship
 	id = "intact-empty-ship"
 	suffix = "intactemptyship.dmm"
 	name = "Authorship"
-	description = "Just somewhere quiet, where I can focus on my work with no interruptions."	
+	description = "Just somewhere quiet, where I can focus on my work with no interruptions."
 	cost = 2
 
 /datum/map_template/ruin/space/caravanambush
@@ -234,7 +234,7 @@
 	id = "mech-transport"
 	suffix = "mechtransport.dmm"
 	name = "CF Corsair"
-	description = "Well, when is it getting here? I have bills to pay; very well-armed clients who want their shipments as soon as possible! I don't care, just find it!"	
+	description = "Well, when is it getting here? I have bills to pay; very well-armed clients who want their shipments as soon as possible! I don't care, just find it!"
 	cost = 2
 
 /datum/map_template/ruin/space/onehalf
@@ -250,20 +250,20 @@
 	suffix = "spacehotel.dmm"
 	name = "The Twin-Nexus Hotel"
 	description = "An interstellar hotel, where the weary spaceman can rest their head and relax, assured that the residental staff will not murder them in their sleep. Probably."
-	cost = 16
+	cost = 8
 
 /datum/map_template/ruin/space/turreted_outpost
 	id = "turreted-outpost"
 	suffix = "turretedoutpost.dmm"
 	name = "Unnamed Turreted Outpost"
-	description = "We'd ask them to stop blaring that ruskiepop music, but none of us are brave enough to go near those death turrets they have."		
+	description = "We'd ask them to stop blaring that ruskiepop music, but none of us are brave enough to go near those death turrets they have."
 	cost = 2
 
 /datum/map_template/ruin/space/oldshuttle
 	id = "spaceman-origins"
 	suffix = "shuttlerelic.dmm"
 	name = "Strange Ship"
-	description = "A ship seemingly lost, drifting along the stars. This thing looks like it belongs in ancient times."	
+	description = "A ship seemingly lost, drifting along the stars. This thing looks like it belongs in ancient times."
 	cost = 2
 
 /datum/map_template/ruin/space/way_home
@@ -278,7 +278,7 @@
 	suffix = "djstation.dmm"
 	name = "DJ Station"
 	description = "Until very recently this pirate radio station was used to harangue local space stations over a variety of perceived \"ethics violations\". \
-	It seems like someone finally got sick of it, but the equipment still works."		
+	It seems like someone finally got sick of it, but the equipment still works."
 	cost = 2
 
 /datum/map_template/ruin/space/thederelict
@@ -286,14 +286,14 @@
 	suffix = "thederelict.dmm"
 	name = "Kosmicheskaya Stantsiya 13"
 	description = "The true fate of Kosmicheskaya Stantsiya 13 is an open question to this day. Most corporations deny its existence, for fear of questioning on what became of its crew."
-	cost = 16
+	cost = 8
 
 /datum/map_template/ruin/space/abandonedteleporter
 	id = "abandonedteleporter"
 	suffix = "abandonedteleporter.dmm"
 	name = "Abandoned Teleporter"
 	description = "In space construction the teleporter is often the first system brought online. \
-	This lonely half built teleporter is a sign of a proposed structure that for one reason or another just never got built."	
+	This lonely half built teleporter is a sign of a proposed structure that for one reason or another just never got built."
 	cost = 2
 
 /datum/map_template/ruin/space/crashedclownship
@@ -301,7 +301,7 @@
 	suffix = "crashedclownship.dmm"
 	name = "Crashed Clown Ship"
 	description = "For centuries the promise of a new clown homeworld has been the siren call for countless clown vessels. \
-	Alas the clown's lust for shinanagans means that successful voyages are almost unheard of, with most vessels falling to hilarious consequences almost immediately."	
+	Alas the clown's lust for shinanagans means that successful voyages are almost unheard of, with most vessels falling to hilarious consequences almost immediately."
 	cost = 2
 
 /datum/map_template/ruin/space/crashedship
@@ -341,7 +341,7 @@
 	suffix = "vaporwave.dmm"
 	name = "Aesthetic Outpost"
 	description = "Pause and remember-- You are unique.You are special. Every mistake, trial, and hardship has helped to sculpt your real beauty. \
-	Stop hating yourself and start appreciating and loving yourself!"	
+	Stop hating yourself and start appreciating and loving yourself!"
 	cost = 2
 
 /datum/map_template/ruin/space/bus
@@ -349,7 +349,7 @@
 	suffix = "bus.dmm"
 	name = "Waylaid Buses"
 	description = "There seems to be a pair of buses that pulled over for repairs. What were they doing..? Their shipment sure  seems to be filled with a strange mix. \
-	Anyway, it looks like some people tried to fix it up for a long time but didn't really get anywhere..."		
+	Anyway, it looks like some people tried to fix it up for a long time but didn't really get anywhere..."
 	cost = 2
 
 /datum/map_template/ruin/space/oldstation
@@ -358,7 +358,7 @@
 	name = "Ancient Space Station"
 	description = "The crew of a space station awaken one hundred years after a crisis. Awaking to a derelict space station on the verge of collapse, and a hostile force of invading \
 	hivebots. Can the surviving crew overcome the odds and survive and rebuild, or will the cold embrace of the stars become their new home?"
-	cost = 16
+	cost = 8
 
 /datum/map_template/ruin/space/miracle
 	id = "miracle"
@@ -370,7 +370,7 @@
 	id = "gondolaasteroid"
 	suffix = "gondolaasteroid.dmm"
 	name = "Gondoland"
-	description = "Just an ordinary rock- wait, what's that thing?"	
+	description = "Just an ordinary rock- wait, what's that thing?"
 	cost = 2
 
 /datum/map_template/ruin/space/whiteshipruin_box
@@ -378,14 +378,14 @@
 	suffix = "whiteshipruin_box.dmm"
 	name = "NT Medical Ship"
 	description = "An ancient ship, said to be among the first discovered derelicts near Space Station 13 that was still in working order. \
-	Aged and deprecated by time, this relic of a vessel is now broken beyond repair."		
+	Aged and deprecated by time, this relic of a vessel is now broken beyond repair."
 	cost = 2
 
 /datum/map_template/ruin/space/whiteshipdock
 	id = "whiteshipdock"
 	suffix = "whiteshipdock.dmm"
 	name = "Whiteship Dock"
-	description = "An abandoned but functional vessel parked in deep space, ripe for the taking."	
+	description = "An abandoned but functional vessel parked in deep space, ripe for the taking."
 	cost = 2
 
 /datum/map_template/ruin/space/cat_experiments
@@ -400,21 +400,21 @@
 	id = "cloning_facility"
 	suffix = "cloning_facility.dmm"
 	name = "Ancient Cloning Lab"
-	description = "An experimental cloning lab snapped off from an ancient ship. The cloner model inside lacks many modern functionalities and security measures."		
+	description = "An experimental cloning lab snapped off from an ancient ship. The cloner model inside lacks many modern functionalities and security measures."
 	cost = 2
 
 /datum/map_template/ruin/space/hilbertresearchfacility
 	id = "hilbert_facility"
 	suffix = "hilbertshoteltestingsite.dmm"
 	name = "Hilbert Research Facility"
-	description = "A research facility of great bluespace discoveries. Long since abandoned, willingly or not..."	
+	description = "A research facility of great bluespace discoveries. Long since abandoned, willingly or not..."
 	cost = 2
 
 /datum/map_template/ruin/space/clownplanet
 	id = "clownplanet"
 	suffix = "clownplanet.dmm"
 	name = "Clown Planet"
-	description = "Thought lost in 2552, this minor planet has recently been rediscovered."		
+	description = "Thought lost in 2552, this minor planet has recently been rediscovered."
 	cost = 2
 
 /datum/map_template/ruin/space/macspace
@@ -428,7 +428,7 @@
 	id = "mining_asteroid"
 	suffix = "scav_mining.dmm"
 	name = "Mining asteroid"
-	description = "An abandoned mining operation on an asteroid that now has new ocupants that is not happy to se you"	
+	description = "An abandoned mining operation on an asteroid that now has new ocupants that is not happy to se you"
 	cost = 2
 
 /datum/map_template/ruin/space/power_puzzle
@@ -443,14 +443,14 @@
 	id = "spacearcade"
 	suffix = "spacearcade.dmm"
 	name = "Space Arcade"
-	description = "Come here to have fun! We even have the best arcade game in the Universe, Disco Disco Rave!"	
+	description = "Come here to have fun! We even have the best arcade game in the Universe, Disco Disco Rave!"
 	cost = 2
 
 /datum/map_template/ruin/space/spacedock
 	id = "spacearcade"
 	suffix = "spacedock13.dmm"
 	name = "Shuttle Construction"
-	description = "A shuttle building station that seems to have been forgotten, or floated off into space."	
+	description = "A shuttle building station that seems to have been forgotten, or floated off into space."
 	cost = 2
 
 /datum/map_template/ruin/space/spacehive
@@ -464,12 +464,12 @@
 	id = "swarmerstation13"
 	suffix = "swarmerstation13.dmm"
 	name = "Swarmer Station"
-	description = "Shat is left of a syndicate radio station, after swarmers infiltrated it."	
+	description = "Shat is left of a syndicate radio station, after swarmers infiltrated it."
 	cost = 2
 
 /datum/map_template/ruin/space/refference
 	id = "refference"
 	suffix = "refference.dmm"
 	name = "Lost Cyborg"
-	description = "500 years too soon!"		
+	description = "500 years too soon!"
 	cost = 2

@@ -699,6 +699,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	. = list()
 	var/mob/living/carbon/human/H
 	var/obj/item/card/id/C
+	.["user"] = null
 	if(ishuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
@@ -1048,7 +1049,6 @@ GLOBAL_LIST_EMPTY(vending_products)
 		return
 	switch(action)
 		if("dispense")
-			. = TRUE
 			if(!vend_ready)
 				return
 			var/N = params["item"]
@@ -1080,8 +1080,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 						loaded_items--
 						use_power(5)
 						vend_ready = TRUE
-						updateUsrDialog()
-						return
+						return TRUE
 					if(account.has_money(S.custom_price))
 						account.adjust_money(-S.custom_price)
 						var/datum/bank_account/owner = private_a
@@ -1097,8 +1096,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 							purchase_message_cooldown = world.time + 5 SECONDS
 							last_shopper = REF(usr)
 						vend_ready = TRUE
-						updateUsrDialog()
-						return
+						return TRUE
 					else
 						say("You do not possess the funds to purchase this.")
 			vend_ready = TRUE

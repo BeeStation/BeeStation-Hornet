@@ -412,9 +412,12 @@
 /obj/structure/displaycase/forsale/ui_data(mob/user)
 	var/list/data = list()
 	var/register = FALSE
+	data["owner_name"] = null
 	if(payments_acc)
 		register = TRUE
 		data["owner_name"] = payments_acc.account_holder
+	data["product_name"] = null
+	data["product_icon"] = null
 	if(showpiece)
 		data["product_name"] = capitalize(showpiece.name)
 		var/base64 = icon2base64(icon(showpiece.icon, showpiece.icon_state))
@@ -436,15 +439,15 @@
 		if("Buy")
 			if(!showpiece)
 				to_chat(usr, "<span class='notice'>There's nothing for sale.</span>")
-				return TRUE
+				return
 			if(broken)
 				to_chat(usr, "<span class='notice'>[src] appears to be broken.</span>")
-				return TRUE
+				return
 			if(!payments_acc)
 				to_chat(usr, "<span class='notice'>[src] hasn't been registered yet.</span>")
-				return TRUE
+				return
 			if(!usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-				return TRUE
+				return
 			if(!potential_acc)
 				to_chat(usr, "<span class='notice'>No ID card detected.</span>")
 				return
@@ -454,7 +457,7 @@
 				return
 			if(!account.has_money(sale_price))
 				to_chat(usr, "<span class='notice'>You do not possess the funds to purchase this.</span>")
-				return TRUE
+				return
 			else
 				account.adjust_money(-sale_price)
 				if(payments_acc)
@@ -465,19 +468,18 @@
 				flick("[initial(icon_state)]_vend", src)
 				showpiece = null
 				update_icon()
-				SStgui.update_uis(src)
-				return TRUE
+				. = TRUE
 		if("Open")
 			if(!payments_acc)
 				to_chat(usr, "<span class='notice'>[src] hasn't been registered yet.</span>")
-				return TRUE
+				return
 			if(!potential_acc || !potential_acc.registered_account)
 				return
 			if(!check_access(potential_acc))
 				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 				return
 			toggle_lock()
-			SStgui.update_uis(src)
+			. = TRUE
 		if("Register")
 			if(payments_acc)
 				return
@@ -488,6 +490,7 @@
 				return
 			payments_acc = potential_acc.registered_account
 			playsound(src, 'sound/machines/click.ogg', 20, TRUE)
+			. = TRUE
 		if("Adjust")
 			if(!check_access(potential_acc) || potential_acc.registered_account != payments_acc)
 				playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
@@ -503,10 +506,7 @@
 			new_price_input = clamp(round(new_price_input, 1), 10, 1000)
 			sale_price = new_price_input
 			to_chat(usr, "<span class='notice'>The cost is now set to [sale_price].</span>")
-			SStgui.update_uis(src)
-			return TRUE
-	. = TRUE
-	ui_update()
+			. = TRUE
 
 /obj/structure/displaycase/forsale/attackby(obj/item/I, mob/living/user, params)
 	if(isidcard(I))
@@ -521,7 +521,7 @@
 			return
 	if(istype(I, /obj/item/pda))
 		return TRUE
-	SStgui.update_uis(src)
+	ui_update()
 	. = ..()
 
 
@@ -533,7 +533,8 @@
 			broken = FALSE
 			obj_integrity = max_integrity
 			update_icon()
-		return TRUE
+			ui_update()
+			return TRUE
 
 /obj/structure/displaycase/forsale/wrench_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -550,7 +551,7 @@
 			else
 				to_chat(user, "<span class='notice'>You secure [src].</span>")
 			anchored = !anchored
-			return
+			return TRUE
 	else if(!open && user.a_intent == INTENT_HELP)
 		to_chat(user, "<span class='notice'>[src] must be open to move it.</span>")
 		return
@@ -560,6 +561,7 @@
 	payments_acc = null
 	req_access = list()
 	to_chat(user, "<span class='warning'>[src]'s card reader fizzles and smokes, and the account owner is reset.</span>")
+	ui_update()
 
 /obj/structure/displaycase/forsale/examine(mob/user)
 	. = ..()
@@ -575,6 +577,7 @@
 		playsound(src, "shatter", 70, TRUE)
 		update_icon()
 		trigger_alarm() //In case it's given an alarm anyway.
+		ui_update()
 
 /obj/structure/displaycase/forsale/kitchen
 	desc = "A display case with an ID-card swiper. Use your ID to purchase the contents. Meant for the bartender and chef."

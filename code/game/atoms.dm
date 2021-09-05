@@ -369,6 +369,7 @@
 				L.transferItemToLoc(M, src)
 			else
 				M.forceMove(src)
+	parts_list.Cut()
 
 ///Hook for multiz???
 /atom/proc/update_multiz(prune_on_fail = FALSE)
@@ -762,6 +763,12 @@
   */
 /atom/proc/ratvar_act()
 	SEND_SIGNAL(src, COMSIG_ATOM_RATVAR_ACT)
+
+/**
+  * Called when lighteater is called on this.
+  */
+/atom/proc/lighteater_act(obj/item/light_eater/light_eater)
+	return
 
 /**
   * Respond to the eminence clicking on our atom

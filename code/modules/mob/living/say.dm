@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	RADIO_KEY_ENGINEERING = RADIO_CHANNEL_ENGINEERING,
 	RADIO_KEY_SECURITY = RADIO_CHANNEL_SECURITY,
 	RADIO_KEY_SUPPLY = RADIO_CHANNEL_SUPPLY,
+	RADIO_KEY_EXPLORATION = RADIO_CHANNEL_EXPLORATION,
 	RADIO_KEY_SERVICE = RADIO_CHANNEL_SERVICE,
 
 	// Faction
@@ -40,6 +41,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	"û" = RADIO_CHANNEL_SECURITY,
 	"ã" = RADIO_CHANNEL_SUPPLY,
 	"ì" = RADIO_CHANNEL_SERVICE,
+	"ю" = RADIO_CHANNEL_EXPLORATION,
 
 	// Faction
 	"å" = RADIO_CHANNEL_SYNDICATE,
@@ -264,13 +266,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(eavesdrop_range && get_dist(source, AM) > message_range && !(the_dead[AM]))
 			if(ismob(AM))
 				var/mob/M = AM
-				if(should_show_chat_message(M, message_language, FALSE, is_heard = TRUE))
+				if(M.should_show_chat_message(src, message_language, FALSE, is_heard = TRUE))
 					show_overhead_message_to_eavesdrop += M
 			AM.Hear(eavesrendered, src, message_language, eavesdropping, , spans, message_mods)
 		else
 			if(ismob(AM))
 				var/mob/M = AM
-				if(should_show_chat_message(M, message_language, FALSE, is_heard = TRUE))
+				if(M.should_show_chat_message(src, message_language, FALSE, is_heard = TRUE))
 					show_overhead_message_to += M
 			AM.Hear(rendered, src, message_language, message, , spans, message_mods)
 	if(length(show_overhead_message_to))

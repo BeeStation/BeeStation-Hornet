@@ -327,6 +327,16 @@
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
+/datum/design/mag_oldsmg/rubber
+	name = "WT-550 Rubber Auto Gun Magazine (4.6x30mm Rubber)"
+	desc = "A 20 round magazine for the out of date security WT-550 Auto Rifle"
+	id = "mag_oldsmg_rubber"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 3000)
+	build_path = /obj/item/ammo_box/magazine/wt550m9/rubber
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
 /datum/design/mag_oldsmg/ap_mag
 	name = "WT-550 Auto Gun Armour Piercing Magazine (4.6x30mm AP)"
 	desc = "A 20 round armour piercing magazine for the out of date security WT-550 Auto Rifle"

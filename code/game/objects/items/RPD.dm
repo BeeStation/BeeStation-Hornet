@@ -306,12 +306,11 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 /obj/item/pipe_dispenser/ui_act(action, params)
 	if(..())
 		return
-	if(!usr.canUseTopic(src, BE_CLOSE))
-		return
 	var/playeffect = TRUE
 	switch(action)
 		if("color")
 			paint_color = params["paint_color"]
+			. = TRUE
 		if("category")
 			category = text2num(params["category"])
 			switch(category)
@@ -325,33 +324,37 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					recipe = first_plumbing
 			p_dir = NORTH
 			playeffect = FALSE
+			. = TRUE
 		if("piping_layer")
 			piping_layer = text2num(params["piping_layer"])
 			playeffect = FALSE
+			. = TRUE
 		if("ducting_layer")
 			ducting_layer = text2num(params["ducting_layer"])
 			playeffect = FALSE
+			. = TRUE
 		if("pipe_type")
 			var/static/list/recipes
 			if(!recipes)
 				recipes = GLOB.disposal_pipe_recipes + GLOB.atmos_pipe_recipes + GLOB.transit_tube_recipes + GLOB.fluid_duct_recipes
 			recipe = recipes[params["category"]][text2num(params["pipe_type"])]
 			p_dir = NORTH
+			. = TRUE
 		if("setdir")
 			p_dir = text2dir(params["dir"])
 			p_flipped = text2num(params["flipped"])
 			playeffect = FALSE
+			. = TRUE
 		if("mode")
 			var/n = text2num(params["mode"])
+			. = TRUE
 			if(mode & n)
 				mode &= ~n
 			else
 				mode |= n
-	if(playeffect)
+	if(playeffect && .)
 		spark_system.start()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, FALSE)
-	ui_update()
-	return TRUE
 
 /obj/item/pipe_dispenser/pre_attack(atom/A, mob/user)
 	if(!user.IsAdvancedToolUser() || istype(A, /turf/open/space/transit))

@@ -984,7 +984,6 @@
 		/obj/item/pipe_dispenser,
 		/obj/item/storage/toolbox/mechanical,
 		/obj/item/storage/toolbox/electrical,
-		/obj/item/circuitboard/computer/shuttle/docker,
 		/obj/item/circuitboard/computer/shuttle/flight_control,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma,
