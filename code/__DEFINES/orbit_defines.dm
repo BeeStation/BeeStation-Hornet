@@ -25,5 +25,6 @@
 	} while (FALSE)
 
 //Collision flags
-#define COLLISION_SHUTTLES (1 << 0)	//Shuttle collision flag
-#define COLLISION_Z_LINKED (1 << 1)	//Z linked collision flag
+#define COLLISION_UNDEFINED (1 << 0) //Default flag
+#define COLLISION_SHUTTLES (1 << 1)	//Shuttle collision flag
+#define COLLISION_Z_LINKED (1 << 2)	//Z linked collision flag

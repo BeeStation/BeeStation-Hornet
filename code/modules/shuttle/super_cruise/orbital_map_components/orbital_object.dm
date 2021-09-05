@@ -44,6 +44,11 @@
 	//The index or the orbital map we exist in
 	var/orbital_map_index = PRIMARY_ORBITAL_MAP
 
+	//Our collision type
+	var/collision_type = COLLISION_UNDEFINED
+	//The collision flags we register with
+	var/collision_flags = NONE
+
 /datum/orbital_object/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index)
 	if(orbital_map_index)
 		src.orbital_map_index = orbital_map_index
@@ -159,35 +164,35 @@
 	var/valid_front_key = "none"
 	var/valid_corner_key = "none"
 
-	var/collision_flags = NONE
+	var/dir_flags = NONE
 
 	var/segment_x = position.x % ORBITAL_MAP_ZONE_SIZE
 	var/segment_y = position.y % ORBITAL_MAP_ZONE_SIZE
 
 	if(segment_x < ORBITAL_MAP_ZONE_SIZE / 3)
 		valid_side_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
-		collision_flags |= EAST
+		dir_flags |= EAST
 	else if(segment_x > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
 		valid_side_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE)]"
-		collision_flags |= WEST
+		dir_flags |= WEST
 
 	if(segment_y < ORBITAL_MAP_ZONE_SIZE / 3)
 		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
-		collision_flags |= SOUTH
+		dir_flags |= SOUTH
 	else if(segment_y > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
 		valid_front_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE)],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
-		collision_flags |= NORTH
+		dir_flags |= NORTH
 
 	//Check multiple zones
-	if(collision_flags & EAST)
-		if(collision_flags & NORTH)
+	if(dir_flags & EAST)
+		if(dir_flags & NORTH)
 			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
-		else if(collision_flags & SOUTH)
+		else if(dir_flags & SOUTH)
 			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) + 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
-	else if(collision_flags & WEST)
-		if(collision_flags & NORTH)
+	else if(dir_flags & WEST)
+		if(dir_flags & NORTH)
 			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) + 1]"
-		else if(collision_flags & SOUTH)
+		else if(dir_flags & SOUTH)
 			valid_corner_key = "[round(position.x / ORBITAL_MAP_ZONE_SIZE) - 1],[round(position.y / ORBITAL_MAP_ZONE_SIZE) - 1]"
 
 	var/list/valid_objects = list()
@@ -209,7 +214,8 @@
 	for(var/datum/orbital_object/object as() in valid_objects)
 		if(object == src)
 			continue
-		//TODO: Ignore doing this stuff if we don't actually react on collision
+		if(!((collision_flags & object.collision_type) || (object.collision_flags & collision_type)))
+			continue
 		var/distance = object.position.Distance(position)
 		if(distance < radius + object.radius)
 			//Collision

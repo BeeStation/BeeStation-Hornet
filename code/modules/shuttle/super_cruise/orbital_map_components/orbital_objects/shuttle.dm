@@ -1,5 +1,7 @@
 /datum/orbital_object/shuttle
 	name = "Shuttle"
+	collision_type = COLLISION_SHUTTLES
+	collision_flags = COLLISION_Z_LINKED
 	var/shuttle_port_id
 	//Shuttle data
 	var/max_thrust = 2
