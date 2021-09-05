@@ -66,6 +66,7 @@
 	fire_delay = 2
 	burst_size = 2
 	pin = /obj/item/firing_pin/implant/pindicate
+	spread_unwielded = 15
 	can_bayonet = TRUE
 	knife_x_offset = 26
 	knife_y_offset = 12
@@ -124,6 +125,7 @@
 	burst_size = 3
 	fire_delay = 2
 	pin = /obj/item/firing_pin/implant/pindicate
+	spread_unwielded = 15
 	mag_display = TRUE
 	empty_indicator = TRUE
 	block_upgrade_walk = 1
@@ -228,6 +230,7 @@
 	fire_rate = 6
 	spread = 7
 	pin = /obj/item/firing_pin/implant/pindicate
+	spread_unwielded = 15
 	bolt_type = BOLT_TYPE_OPEN
 	mag_display = TRUE
 	mag_display_ammo = TRUE
