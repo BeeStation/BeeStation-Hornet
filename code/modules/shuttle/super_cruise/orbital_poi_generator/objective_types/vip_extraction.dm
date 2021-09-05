@@ -13,8 +13,8 @@
 
 /datum/orbital_objective/vip_recovery/dangerous //You'll probably want to take one or two Officers along.
 	name = "VIP Recovery (DANGEROUS)"
-	min_payout = 250000
-	max_payout = 350000 //Needs to have a beefy paycheck attached to it so the explorers think it's worth it.
+	min_payout = 30000
+	max_payout = 40000 //Needs to have a beefy paycheck attached to it so the explorers think it's worth it.
 
 /datum/orbital_objective/vip_recovery/dangerous/get_text()
 	return "Someone of particular interest to us is located at [station_name]. We require them to be extracted immediately. \
