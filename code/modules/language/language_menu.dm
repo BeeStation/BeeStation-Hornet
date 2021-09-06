@@ -61,6 +61,10 @@
 			L["key"] = initial(language.key)
 
 			data["unknown_languages"] += list(L)
+	else
+		data["admin_mode"] = null
+		data["omnitongue"] = null
+		data["unknown_languages"] = null
 	return data
 
 /datum/language_menu/ui_act(action, params)
@@ -127,4 +131,3 @@
 					message_admins("[key_name_admin(user)] [language_holder.omnitongue ? "enabled" : "disabled"] the ability to speak all languages (that they know) of [key_name_admin(AM)].")
 					log_admin("[key_name(user)] [language_holder.omnitongue ? "enabled" : "disabled"] the ability to speak all languages (that_they know) of [key_name(AM)].")
 				. = TRUE
-	ui_update()

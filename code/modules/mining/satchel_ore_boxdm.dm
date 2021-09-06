@@ -18,9 +18,11 @@
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if (istype(W, /obj/item/stack/ore))
 		user.transferItemToLoc(W, src)
+		ui_update()
 	else if(SEND_SIGNAL(W, COMSIG_CONTAINS_STORAGE))
 		SEND_SIGNAL(W, COMSIG_TRY_STORAGE_TAKE_TYPE, typecache_to_take, src)
 		to_chat(user, "<span class='notice'>You empty the ore in [W] into \the [src].</span>")
+		ui_update()
 	else
 		return ..()
 
@@ -69,7 +71,6 @@
 	if(!ui)
 		ui = new(user, src, "OreBox")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/structure/ore_box/ui_data()
 	var/contents = list()
@@ -88,14 +89,12 @@
 /obj/structure/ore_box/ui_act(action, params)
 	if(..())
 		return
-	if(!Adjacent(usr))
-		return
-	add_fingerprint(usr)
-	usr.set_machine(src)
+
 	switch(action)
 		if("removeall")
 			dump_box_contents()
 			to_chat(usr, "<span class='notice'>You open the release hatch on the box..</span>")
+			. = TRUE
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
 	var/obj/item/stack/sheet/mineral/wood/WD = new (loc, 4)

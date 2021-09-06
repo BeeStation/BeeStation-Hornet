@@ -92,7 +92,7 @@
 	if(!ui)
 		ui = new(user, src, "PortablePump")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Air pressure, tank pressure
 
 /obj/machinery/portable_atmospherics/pump/ui_data()
 	var/data = list()
@@ -157,4 +157,5 @@
 			if(holding)
 				replace_tank(usr, FALSE)
 				. = TRUE
-	update_icon()
+	if(.)
+		update_icon()

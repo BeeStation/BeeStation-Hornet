@@ -601,6 +601,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AdvancedAirlockController")
+		ui.set_autoupdate(TRUE) // Pressure display, mode changes as part of the cycle process
 		ui.open()
 
 /obj/machinery/advanced_airlock_controller/ui_data(mob/user)
@@ -687,10 +688,12 @@
 							A.do_animate("deny")
 			if(is_allowed)
 				cycle_to(text2num(params["exterior"]))
+				. = TRUE
 		if("skip")
 			if((world.time - skip_timer) >= skip_delay && (cyclestate == AIRLOCK_CYCLESTATE_OUTCLOSING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPENING || cyclestate == AIRLOCK_CYCLESTATE_INOPENING || cyclestate == AIRLOCK_CYCLESTATE_INCLOSING))
 				is_skipping = TRUE
-	if((locked && !usr.has_unlimited_silicon_privilege) || (usr.has_unlimited_silicon_privilege && aidisabled))
+				. = TRUE
+	if(!. && ((locked && !usr.has_unlimited_silicon_privilege) || (usr.has_unlimited_silicon_privilege && aidisabled)))
 		return
 	switch(action)
 		if("lock")
@@ -708,34 +711,46 @@
 				vents[vent] = curr_role & ~(role_to_toggle)
 			else
 				vents[vent] = curr_role | role_to_toggle
+			. = TRUE
 		if("set_airlock_role")
 			var/airlock = locate(params["airlock_id"])
 			if(airlock == null || airlocks[airlock] == null)
 				return
 			airlocks[airlock] = !!text2num(params["val"])
+			. = TRUE
 		if("clear_vis")
 			vis_target = null
+			. = TRUE
 		if("set_vis_vent")
 			var/vent = locate(params["vent_id"])
 			if(vent == null || vents[vent] == null)
 				return
 			vis_target = vent
+			. = TRUE
 		if("set_vis_airlock")
 			var/airlock = locate(params["airlock_id"])
 			if(airlock == null || airlocks[airlock] == null)
 				return
 			vis_target = airlock
+			. = TRUE
 		if("scan")
 			scan()
+			. = TRUE
 		if("interior_pressure")
 			interior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			. = TRUE
 		if("exterior_pressure")
 			exterior_pressure = CLAMP(text2num(params["pressure"]), 0, ONE_ATMOSPHERE)
+			. = TRUE
 		if("depressurization_margin")
 			depressurization_margin = CLAMP(text2num(params["pressure"]), 0.15, 40)
+			. = TRUE
 		if("skip_delay")
 			skip_delay = CLAMP(text2num(params["skip_delay"]), 0, 1200)
-	update_icon(TRUE)
+			. = TRUE
+
+	if(.)
+		update_icon(TRUE)
 
 /obj/machinery/advanced_airlock_controller/proc/request_from_door(airlock)
 	var/role = airlocks[airlock]
@@ -779,7 +794,6 @@
 			locked = !locked
 			update_icon()
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the airlock controller interface.</span>")
-			updateUsrDialog()
 		else
 			to_chat(user, "<span class='danger'>Access denied.</span>")
 	return
