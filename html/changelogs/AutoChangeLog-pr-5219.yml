@@ -1,0 +1,9 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - rscadd: Bitwise operations and Trigonometry related circuit components, unlocked
+      in a new techweb node.
+  - rscadd: Rounding circuit component.
+  - tweak: Arithmetic circuit now has a modulus option.
+  - tweak: New abstract circuit to base components that initialize with an arbitrary
+      amount of inputs.
