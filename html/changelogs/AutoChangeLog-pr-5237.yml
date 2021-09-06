@@ -1,0 +1,5 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - tweak: 'Moths can no longer consume the following items: Indestructible items,
+      Items with Melee armor, Space Suits, Hardsuits.'
