@@ -29048,11 +29048,17 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/turf_decal/bot,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/melee/flyswatter,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bbV" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/effect/turf_decal/bot,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/melee/flyswatter,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bbW" = (
@@ -29061,6 +29067,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/melee/flyswatter,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bbX" = (
@@ -30663,6 +30672,12 @@
 /obj/item/wirecutters,
 /obj/item/shovel/spade,
 /obj/effect/turf_decal/bot,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/queen_bee,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "beN" = (
@@ -30716,6 +30731,7 @@
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
 	},
+/obj/structure/beebox,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "beS" = (

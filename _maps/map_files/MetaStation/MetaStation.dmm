@@ -51397,6 +51397,9 @@
 /area/hydroponics)
 "bWV" = (
 /obj/structure/closet/secure_closet/hydroponics,
+/obj/item/melee/flyswatter,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bWX" = (
@@ -51975,6 +51978,9 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
 	},
+/obj/item/melee/flyswatter,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bYn" = (
@@ -52516,6 +52522,9 @@
 /obj/machinery/light_switch{
 	pixel_x = -26
 	},
+/obj/item/melee/flyswatter,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/clothing/head/beekeeper_head,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "bZx" = (
@@ -54049,7 +54058,6 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "ccy" = (
-/obj/machinery/hydroponics/constructable,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
@@ -54057,6 +54065,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/beebox,
+/obj/item/queen_bee,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "ccz" = (
@@ -78820,6 +78830,12 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/cultivator,
 /obj/item/wirecutters,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "diz" = (

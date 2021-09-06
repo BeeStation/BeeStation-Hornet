@@ -13588,6 +13588,9 @@
 "aKI" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/melee/flyswatter,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aKJ" = (
@@ -13608,6 +13611,9 @@
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
 	},
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/melee/flyswatter,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aKL" = (
@@ -14281,6 +14287,12 @@
 /obj/item/wrench,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/wirecutters,
+/obj/item/queen_bee,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aMH" = (
@@ -47524,6 +47536,9 @@
 /area/maintenance/disposal/incinerator)
 "fGf" = (
 /obj/structure/closet/secure_closet/hydroponics,
+/obj/item/clothing/head/beekeeper_head,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/item/melee/flyswatter,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "fGF" = (
@@ -61302,6 +61317,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
+"xml" = (
+/obj/structure/beebox,
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "xmN" = (
 /obj/machinery/light,
 /obj/structure/sign/warning/electricshock{
@@ -102672,7 +102691,7 @@ aOX
 aQm
 sJm
 aJN
-aRJ
+xml
 aVK
 aRJ
 aRJ
