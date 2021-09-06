@@ -114,6 +114,8 @@
 			return id_card
 
 /mob/living/carbon/human/IsAdvancedToolUser()
+	if(istype(get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/helmet/monkeytranslator) && (ismonkeyman(src)))
+		return TRUE //even with the monkeylike trait, the uplifting device allows you to use these
 	if(HAS_TRAIT(src, TRAIT_MONKEYLIKE))
 		return FALSE
 	return TRUE//Humans can use guns and such
