@@ -62,11 +62,11 @@
 /obj/machinery/plumbing/patch_dispenser/ui_act(action, params)
 	if(..())
 		return
-	. = TRUE
 	switch(action)
 		if("change_patch_size")
 			patch_size = CLAMP(text2num(params["volume"]), 0, 40)
+			. = TRUE
 		if("change_patch_name")
 			var/new_name = stripped_input(usr, "Enter a patch name.", name, patch_name)
 			patch_name = new_name + " patch"
-	ui_update()
+			. = TRUE

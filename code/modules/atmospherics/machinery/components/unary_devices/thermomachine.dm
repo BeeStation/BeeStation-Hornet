@@ -177,6 +177,7 @@
 	if(!ui)
 		ui = new(user, src, "ThermoMachine")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Air temperature and pressure
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_data(mob/user)
 	var/list/data = list()
@@ -224,14 +225,13 @@
 			if(.)
 				target_temperature = clamp(target, min_temperature, max_temperature)
 				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
-	ui_update()
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/living/user)
 	if(!can_interact(user))
 		return
 	on = !on
-	ui_update()
 	update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer

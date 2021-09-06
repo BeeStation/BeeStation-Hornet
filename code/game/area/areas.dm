@@ -87,6 +87,9 @@
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize()
 	var/datum/map_generator/map_generator
 
+	///Lazylist that contains additional turfs that map generation should be ran on. This is used for ruins which need a noop turf under non-noop areas so they don't leave genturfs behind.
+	var/list/additional_genturfs
+
 
 /**
   * A list of teleport locations
@@ -190,6 +193,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/list/turfs = list()
 		for(var/turf/T in contents)
 			turfs += T
+		if(additional_genturfs)
+			turfs += additional_genturfs
+			additional_genturfs = null
 		map_generator.generate_terrain(turfs)
 
 /area/proc/test_gen()
@@ -197,6 +203,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		var/list/turfs = list()
 		for(var/turf/T in contents)
 			turfs += T
+		if(additional_genturfs)
+			turfs += additional_genturfs
+			additional_genturfs = null
 		map_generator.generate_terrain(turfs)
 
 

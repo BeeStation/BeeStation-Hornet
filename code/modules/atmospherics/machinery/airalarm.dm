@@ -250,7 +250,7 @@
 	if(!ui)
 		ui = new(user, src, "AirAlarm")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Turf gas mixture
 
 //Oh my, thats a lot of data being sent that should probably be refactored
 /obj/machinery/airalarm/ui_data(mob/user)
@@ -439,7 +439,8 @@
 			if(A.atmosalert(FALSE, src))
 				post_alert(0)
 			. = TRUE
-	update_icon()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/airalarm/proc/reset(wire)

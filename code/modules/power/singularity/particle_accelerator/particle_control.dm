@@ -53,11 +53,13 @@
 			part.powered = FALSE
 			part.update_icon()
 		connected_parts.Cut()
+		ui_update()
 		return
 	if(!part_scan())
 		use_power = IDLE_POWER_USE
 		active = FALSE
 		connected_parts.Cut()
+		ui_update()
 
 /obj/machinery/particle_accelerator/control_box/update_icon()
 	if(active)
@@ -236,6 +238,7 @@
 					"You close the access panel.")
 				construction_state = PA_CONSTRUCTION_COMPLETE
 				did_something = TRUE
+				ui_update()
 		if(PA_CONSTRUCTION_COMPLETE)
 			if(W.tool_behaviour == TOOL_SCREWDRIVER)
 				user.visible_message("[user.name] opens the [name]'s access panel.", \
@@ -314,8 +317,9 @@
 				return
 			remove_strength()
 			. = TRUE
-	ui_update()
-	update_icon()
+
+	if(.)
+		update_icon()
 
 #undef PA_CONSTRUCTION_UNSECURED
 #undef PA_CONSTRUCTION_UNWIRED

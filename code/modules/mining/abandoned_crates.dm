@@ -247,3 +247,9 @@
 		if(100)
 			new /obj/item/clothing/head/bearpelt(src)
 	spawned_loot = TRUE
+
+/obj/structure/closet/crate/secure/loot/emp_act(severity)
+	if(locked)
+		boom()
+	else
+		..()
