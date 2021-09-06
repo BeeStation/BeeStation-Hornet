@@ -1,5 +1,7 @@
 /datum/orbital_object/meteor
 	name = "Meteor"
+	collision_type = COLLISION_METEOR
+	collision_flags = COLLISION_SHUTTLES | COLLISION_Z_LINKED
 	var/datum/orbital_object/target
 	var/list/meteor_types
 	var/start_tick
