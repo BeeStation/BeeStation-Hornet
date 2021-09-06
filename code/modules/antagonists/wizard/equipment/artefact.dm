@@ -106,6 +106,7 @@
 	desc = "This isn't right."
 	icon = 'icons/effects/224x224.dmi'
 	icon_state = "reality"
+	is_real = FALSE
 	pixel_x = -96
 	pixel_y = -96
 	dissipate = 0
