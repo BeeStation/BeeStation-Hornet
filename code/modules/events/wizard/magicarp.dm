@@ -36,7 +36,7 @@
 	projectilesound = 'sound/weapons/emitter.ogg'
 	maxHealth = 50
 	health = 50
-	gold_core_spawnable = HOSTILE_SPAWN //NO_SPAWN
+	gold_core_spawnable = NO_SPAWN
 	var/allowed_projectile_types = list(/obj/item/projectile/magic/animate, /obj/item/projectile/magic/resurrection,
 	/obj/item/projectile/magic/death, /obj/item/projectile/magic/teleport, /obj/item/projectile/magic/door, /obj/item/projectile/magic/aoe/fireball,
 	/obj/item/projectile/magic/spellblade, /obj/item/projectile/magic/arcane_barrage)
@@ -46,20 +46,27 @@
 	projectiletype = pick(allowed_projectile_types)
 	. = ..()
 
-/*/mob/living/simple_animal/hostile/carp/ranged/xenobio
-	desc = "45% magic, 50% carp, 5% slime, 100% horrible."
-	allowed_projectile_types = list( /obj/item/projectile/magic/animate, /obj/item/projectile/magic/teleport, /obj/item/projectile/magic/door, /obj/item/projectile/magic/aoe/fireball,
-	/obj/item/projectile/magic/spellblade, /obj/item/projectile/magic/arcane_barrage)
-	gold_core_spawnable = HOSTILE_SPAWN*/
-
 /mob/living/simple_animal/hostile/carp/ranged/chaos
 	name = "chaos magicarp"
 	desc = "50% carp, 100% magic, 150% horrible."
 	color = "#00FFFF"
 	maxHealth = 75
 	health = 75
+	gold_core_spawnable = NO_SPAWN
 	discovery_points = 5000
 
 /mob/living/simple_animal/hostile/carp/ranged/chaos/Shoot()
 	projectiletype = pick(allowed_projectile_types)
 	..()
+
+/mob/living/simple_animal/hostile/carp/ranged/xenobio
+	desc = "45% magic, 50% carp, 5% slime, 100% horrible."
+	allowed_projectile_types = list( /obj/item/projectile/magic/animate, /obj/item/projectile/magic/teleport, /obj/item/projectile/magic/door, /obj/item/projectile/magic/aoe/fireball,
+	/obj/item/projectile/magic/spellblade, /obj/item/projectile/magic/arcane_barrage)
+	gold_core_spawnable = HOSTILE_SPAWN
+
+/mob/living/simple_animal/hostile/carp/ranged/chaos/xenobio
+	desc = "95% magic, 50% carp, 5% slime, 150% horrible."
+	allowed_projectile_types = list( /obj/item/projectile/magic/animate, /obj/item/projectile/magic/teleport, /obj/item/projectile/magic/door, /obj/item/projectile/magic/aoe/fireball,
+	/obj/item/projectile/magic/spellblade, /obj/item/projectile/magic/arcane_barrage)
+	gold_core_spawnable = HOSTILE_SPAWN

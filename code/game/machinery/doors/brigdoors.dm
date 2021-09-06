@@ -135,6 +135,7 @@
 	activation_time = null
 	set_timer(0)
 	update_icon()
+	ui_update()
 
 	for(var/datum/weakref/door_ref as anything in doors)
 		var/obj/machinery/door/window/brigdoor/door = door_ref.resolve()
@@ -171,6 +172,11 @@
 	timer_duration = new_time
 
 
+/obj/machinery/door_timer/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(timing)
+		. = TRUE // Autoupdate while timer is counting down
+
 /obj/machinery/door_timer/ui_state(mob/user)
 	return GLOB.default_state
 
@@ -179,7 +185,7 @@
 	if(!ui)
 		ui = new(user, src, "BrigTimer")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+
 //icon update function
 // if NOPOWER, display blank
 // if BROKEN, display blue screen of death icon AI uses
@@ -256,7 +262,7 @@
 		if("time")
 			var/value = text2num(params["adjust"])
 			if(value)
-				. = set_timer(time_left()+value)
+				. = !set_timer(time_left()+value)
 				investigate_log("[key_name(usr)] modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", INVESTIGATE_RECORDS)
 				user.log_message("modified the timer by [value/10] seconds for cell [id], currently [time_left(seconds = TRUE)]", LOG_ATTACK)
 		if("start")
@@ -286,7 +292,7 @@
 					preset_time = PRESET_MEDIUM
 				if("long")
 					preset_time = PRESET_LONG
-			. = set_timer(preset_time)
+			. = !set_timer(preset_time)
 			investigate_log("[key_name(usr)] set cell [id]'s timer to [preset_time/10] seconds", INVESTIGATE_RECORDS)
 			user.log_message("set cell [id]'s timer to [preset_time/10] seconds", LOG_ATTACK)
 			if(timing)

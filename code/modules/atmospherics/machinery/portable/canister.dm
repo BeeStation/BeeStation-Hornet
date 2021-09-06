@@ -349,6 +349,11 @@
 			air_update_turf()
 	update_icon()
 
+/obj/machinery/portable_atmospherics/canister/ui_status(mob/user)
+	. = ..()
+	if(. > UI_UPDATE && !allowed(user))
+		. = UI_UPDATE
+
 /obj/machinery/portable_atmospherics/canister/ui_state(mob/user)
 	return GLOB.physical_state
 
@@ -357,7 +362,7 @@
 	if(!ui)
 		ui = new(user, src, "Canister")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Canister pressure, tank pressure, prototype canister timer
 
 /obj/machinery/portable_atmospherics/canister/ui_data()
 	var/data = list()
@@ -400,12 +405,14 @@
 					desc = initial(replacement.desc)
 					icon_state = initial(replacement.icon_state)
 		if("restricted")
+			if(!prototype)
+				return // Prototype canister only feature
 			restricted = !restricted
 			if(restricted)
 				req_access = list(ACCESS_ENGINE)
 			else
 				req_access = list()
-				. = TRUE
+			. = TRUE
 		if("pressure")
 			var/pressure = params["pressure"]
 			if(pressure == "reset")
@@ -452,15 +459,21 @@
 			investigate_log(logmsg, INVESTIGATE_ATMOS)
 			release_log += logmsg
 			. = TRUE
+		/* // Apparently the timer isn't present in TGUI - commenting out so it can't be used via exploits
 		if("timer")
+			if(!prototype)
+				return
 			var/change = params["change"]
 			switch(change)
 				if("reset")
 					timer_set = default_timer_set
+					. = TRUE
 				if("decrease")
 					timer_set = max(minimum_timer_set, timer_set - 10)
+					. = TRUE
 				if("increase")
 					timer_set = min(maximum_timer_set, timer_set + 10)
+					. = TRUE
 				if("input")
 					var/user_input = input(usr, "Set time to valve toggle.", name) as null|num
 					if(!user_input)
@@ -473,6 +486,8 @@
 					. = TRUE
 				if("toggle_timer")
 					set_active()
+					. = TRUE
+		*/
 		if("eject")
 			if(holding)
 				if(valve_open)
@@ -480,4 +495,5 @@
 					investigate_log("[key_name(usr)] removed the [holding], leaving the valve open and transferring into the <span class='boldannounce'>air</span>.", INVESTIGATE_ATMOS)
 				replace_tank(usr, FALSE)
 				. = TRUE
-	update_icon()
+	if(.)
+		update_icon()

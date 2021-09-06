@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 /mob/living/simple_animal/drone/cogscarab/do_after_coefficent() // This gets added to the delay on a do_after, default 1
 	return 0.6
 
-//No you can't go weilding guns like that.
+//No you can't go wielding guns like that.
 /mob/living/simple_animal/drone/cogscarab/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOGUNS, "cogscarab")

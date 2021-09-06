@@ -222,6 +222,18 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/shuttle/exploration)
+"M" = (
+/mob/living/simple_animal/chicken/turkey{
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
+	desc = "A veteran of Nanotrasen's Animal Experimentation Program that attempted to replicate the organic space suit that some hostile entities are known to have exhibited, Tom now serves Nanotrasen as the mascot of the Exploration Crew.";
+	health = 200;
+	maxHealth = 200;
+	melee_damage = 5;
+	minbodytemp = 2.7;
+	name = "Tom"
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
 "N" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/exploration)
@@ -358,7 +370,7 @@ m
 m
 m
 m
-B
+M
 B
 Q
 r

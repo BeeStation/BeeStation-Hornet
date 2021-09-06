@@ -87,6 +87,7 @@ effective or pretty fucking useless.
 		log_combat(user, M, "irradiated", src)
 		var/cooldown = get_cooldown()
 		used = TRUE
+		SStgui.update_uis(src) // Update immediately, since it's not spammable
 		icon_state = "health1"
 		handle_cooldown(cooldown) // splits off to handle the cooldown while handling wavelength
 		to_chat(user, "<span class='warning'>Successfully irradiated [M].</span>")
@@ -102,6 +103,7 @@ effective or pretty fucking useless.
 	spawn(cooldown)
 		used = FALSE
 		icon_state = "health"
+		SStgui.update_uis(src) // Update immediately, since it's not spammable
 
 /obj/item/healthanalyzer/rad_laser/proc/get_cooldown()
 	return round(max(10, (stealth*30 + intensity*5 - wavelength/4)))
@@ -183,7 +185,6 @@ effective or pretty fucking useless.
 			if(.)
 				target = round(target)
 				wavelength = clamp(target, 0, 120)
-	ui_update()
 
 /obj/item/shadowcloak
 	name = "cloaker belt"
