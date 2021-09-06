@@ -634,7 +634,7 @@
 		log_admin_private("SUPPRESS: [kn] has created a suppressed ban.")
 		to_chat(usr, "Ban issued successfuly, This has not been announced to other admins.")
 	if(applies_to_admins && !redact) //Should never happen.
-		send2irc("BAN ALERT","[kn] [msg]")
+		send2tgs("BAN ALERT","[kn] [msg]")
 	if(player_ckey && !redact)
 		create_message("note", player_ckey, admin_ckey, note_reason, null, null, 0, 0, null, -1, severity)
 	var/client/C = GLOB.directory[player_ckey]
