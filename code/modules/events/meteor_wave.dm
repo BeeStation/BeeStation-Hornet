@@ -26,7 +26,7 @@
 		determine_wave_type()
 	start_x = sin(rand(0, 360)) * 9000
 	start_y = cos(rand(0, 360)) * 9000
-	station_target = locate(/datum/orbital_object/z_linked/station) in SSorbits.orbital_map.bodies
+	station_target = SSorbits.station_instance
 	if(!station_target)
 		CRASH("Meteor failed to locate a target.")
 
