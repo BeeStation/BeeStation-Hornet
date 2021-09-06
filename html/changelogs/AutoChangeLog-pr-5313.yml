@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - code_imp: Improves the supercruise collision detection by optimising it and making
+      it so passing something triggers a collision event.
+  - code_imp: SSorbits now supports multiple orbital maps.
