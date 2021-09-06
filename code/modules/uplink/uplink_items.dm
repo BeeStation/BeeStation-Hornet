@@ -2296,6 +2296,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list("Roboticist", "Research Director")
 
 
+/datum/uplink_item/role_restricted/death_nettles
+	name = "Death Nettles seed packet"
+	desc = "A packet containing the dangerous Death Nettles plant"
+	cost = 3
+	item = /obj/item/seeds/nettle/death
+	restricted_roles = list("Botanist")
+
 // Pointless
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
@@ -2378,3 +2385,4 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	surplus = 0
 	include_modes = list(/datum/game_mode/nuclear)
+
