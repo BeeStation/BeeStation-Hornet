@@ -1,0 +1,4 @@
+author: Tavczan
+delete-after: true
+changes:
+  - rscadd: Abandoned crate tamper-proofing now detects EMPs.
