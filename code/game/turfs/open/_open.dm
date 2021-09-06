@@ -126,10 +126,11 @@
 	CanAtmosPass = ATMOS_PASS_NO
 	baseturfs = /turf/open/indestructible/binary
 	icon_state = "binary"
-	footstep = null
+	footstep = FOOTSTEP_PLATING
 	barefootstep = null
 	clawfootstep = null
 	heavyfootstep = null
+	slowdown = 3
 
 /turf/open/indestructible/airblock
 	icon_state = "bluespace"

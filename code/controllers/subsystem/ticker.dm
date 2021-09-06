@@ -59,7 +59,11 @@ SUBSYSTEM_DEF(ticker)
 	var/mode_result = "undefined"
 	var/end_state = "undefined"
 
+	//Gamemode setup
+	var/gamemode_hotswap_disabled = FALSE
+	var/pre_setup_completed = FALSE
 	var/fail_counter
+	var/emergency_start = FALSE
 
 	//Crew Objective stuff
 	var/list/crewobjlist = list()
@@ -191,6 +195,13 @@ SUBSYSTEM_DEF(ticker)
 				send_tip_of_the_round()
 				tipped = TRUE
 
+			if(timeLeft <= 300 && !pre_setup_completed)
+				//Setup gamemode maps 30 seconds before roundstart.
+				if(!pre_setup())
+					fail_setup()
+					return
+				pre_setup_completed = TRUE
+
 			if(timeLeft <= 0)
 				current_state = GAME_STATE_SETTING_UP
 				Master.SetRunLevel(RUNLEVEL_SETUP)
@@ -198,27 +209,18 @@ SUBSYSTEM_DEF(ticker)
 					fire()
 
 		if(GAME_STATE_SETTING_UP)
-			if(!pre_setup())
-				//setup failed
-				fail_counter++
-				current_state = GAME_STATE_STARTUP
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
-				timeLeft = null
-				Master.SetRunLevel(RUNLEVEL_LOBBY)
-			else if(!setup())
-				//setup failed
-				fail_counter++
-				current_state = GAME_STATE_STARTUP
-				start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
-				timeLeft = null
-				Master.SetRunLevel(RUNLEVEL_LOBBY)
+			if(!pre_setup_completed)
+				if(!pre_setup())
+					fail_setup()
+					return
+				else
+					message_admins("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
+					log_game("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
+					pre_setup_completed = TRUE
+			//Attempt normal setup
+			if(!setup())
+				fail_setup()
 			else
-				fail_counter = null
-
-			if(fail_counter >= 3)
-				log_game("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
-				message_admins("Failed setting up [GLOB.master_mode] [fail_counter] times, defaulting to extended.")
-				GLOB.master_mode = null		//this makes it pick extended
 				fail_counter = null
 
 		if(GAME_STATE_PLAYING)
@@ -232,6 +234,33 @@ SUBSYSTEM_DEF(ticker)
 				toggle_dooc(TRUE)
 				declare_completion(force_ending)
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
+
+//Reverts the game to the lobby
+/datum/controller/subsystem/ticker/proc/fail_setup()
+	if(fail_counter >= 2)
+		log_game("Failed setting up [GLOB.master_mode] [fail_counter + 1] times, defaulting to extended.")
+		message_admins("Failed setting up [GLOB.master_mode] [fail_counter + 1] times, defaulting to extended.")
+		//This has failed enough, lets just get on with extended.
+		failsafe_pre_setup()
+		return
+	//Let's try this again.
+	fail_counter++
+	current_state = GAME_STATE_STARTUP
+	start_at = world.time + (CONFIG_GET(number/lobby_countdown) * 5)
+	timeLeft = null
+	Master.SetRunLevel(RUNLEVEL_LOBBY)
+	pre_setup_completed = FALSE
+	//Return to default mode
+	load_mode()
+	message_admins("Failed to setup. Failures: ([fail_counter] / 3).")
+	log_game("Setup failed.")
+
+//Fallback presetup that sets up extended.
+/datum/controller/subsystem/ticker/proc/failsafe_pre_setup()
+	//Emergerncy start extended.
+	emergency_start = TRUE
+	pre_setup_completed = TRUE
+	mode = config.pick_mode("extended")
 
 //Select gamemode and load any maps associated with it
 /datum/controller/subsystem/ticker/proc/pre_setup()
@@ -279,7 +308,7 @@ SUBSYSTEM_DEF(ticker)
 	CHECK_TICK
 
 	to_chat(world, "<span class='boldannounce'>Starting game...</span>")
-	if(!GLOB.Debug2)
+	if(!GLOB.Debug2 && !emergency_start)
 		if(!can_continue)
 			log_game("[mode.name] failed pre_setup, cause: [mode.setup_error]")
 			QDEL_NULL(mode)
@@ -349,7 +378,7 @@ SUBSYSTEM_DEF(ticker)
 
 	var/list/adm = get_admin_counts()
 	var/list/allmins = adm["present"]
-	send2irc("Server", "Round [GLOB.round_id ? "#[GLOB.round_id]:" : "of"] [hide_mode ? "secret":"[mode.name]"] has started[allmins.len ? ".":" with no active admins online!"]")
+	send2tgs("Server", "Round [GLOB.round_id ? "#[GLOB.round_id]:" : "of"] [hide_mode ? "secret":"[mode.name]"] has started[allmins.len ? ".":" with no active admins online!"]")
 	setup_done = TRUE
 
 	for(var/i in GLOB.start_landmarks_list)
