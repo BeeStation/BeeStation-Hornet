@@ -1,5 +1,0 @@
-author: fighterslam
-delete-after: true
-changes:
-  - bugfix: Fixed the syndicate lavaland base to have the proper frequencies to be
-      compatible with Supercruise.
