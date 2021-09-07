@@ -309,9 +309,9 @@
 /obj/item/hairpainter
 	name = "hair painter"
 	desc = "A haphazardly modified airlock painter. Used for changing one's hair colour and occasionally violating safety regulations."
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "paint sprayer"
-	item_state = "paint sprayer"
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "hair sprayer"
+	item_state = "hair sprayer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = CONDUCT_1
 	var/max_dye = 20
@@ -358,7 +358,7 @@
 			to_chat(user, "<span class='warning'>[H] doesn't have a head!</span>")
 			return
 		if((location == BODY_ZONE_PRECISE_MOUTH))
-			if(!(FACEHAIR in H.dna.species.species_traits))
+			if(!(FACEHAIR in H.dna.species.species_traits) || (MUTCOLORS in H.dna.species.species_traits))
 				to_chat(user, "<span class='warning'>There is no facial hair to paint!</span>")
 				return
 			if(!get_location_accessible(H, location))
@@ -370,7 +370,7 @@
 			INVOKE_ASYNC(src, .proc/new_facial_hair_color, H, user, mirror)
 			return
 		if((location == BODY_ZONE_HEAD))
-			if(!(HAIR in H.dna.species.species_traits))
+			if(!(HAIR in H.dna.species.species_traits) || (MUTCOLORS in H.dna.species.species_traits))
 				to_chat(user, "<span class='warning'>There is no hair to paint!</span>")
 				return
 			if(!get_location_accessible(H, location))
