@@ -13,6 +13,9 @@
 	space_level.generating = FALSE
 
 /proc/_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65)
+
+	SSair.pause_z(center_z)
+
 	var/perlin_noise_scale = scale
 	var/seed = rand(0, 999999)
 	var/turf/z_center = locate(center_x, center_y, center_z)
@@ -31,3 +34,5 @@
 		else if(noise_at_coord >= sand_value)
 			T.ChangeTurf(/turf/open/floor/plating/asteroid/airless, flags = CHANGETURF_IGNORE_AIR)
 		CHECK_TICK
+
+	SSair.unpause_z(center_z)
