@@ -313,9 +313,10 @@
 	icon_state = "paint sprayer"
 	item_state = "paint sprayer"
 	w_class = WEIGHT_CLASS_SMALL
+	flags_1 = CONDUCT_1
 	var/max_dye = 20
 	var/dye_usage = 1
-	var/dye_color = "#FF0000"
+	var/dye_color = "#ffffff"
 
 /obj/item/hairpainter/Initialize()
 	. = ..()
@@ -336,7 +337,7 @@
 /obj/item/hairpainter/examine(mob/user)
 	. = ..()
 	. += "The [src]'s dye storage capacity is [max_dye] unit\s."
-	. += "The paint gauge shows [get_dye()] unit\s of dye."
+	. += "The gauge reads [reagents.total_volume] unit\s of dye."
 	if (get_dye() != reagents.total_volume)
 		. += "The dye contamination light is lit!"
 
