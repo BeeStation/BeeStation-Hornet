@@ -44,7 +44,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/storage/wallet
 	l_pocket = /obj/item/razor/straightrazor
-	backpack_contents = list(/obj/item/hairpainter)
+	backpack_contents = list(/obj/item/hair_painter, /obj/item/reagent_containers/glass/bottle/hair_dye)
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/magician

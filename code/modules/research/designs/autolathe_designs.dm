@@ -264,6 +264,15 @@
 	category = list("initial","Tools","Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/hair_painter
+	name = "Hair Painter"
+	id =  "hair_painter"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron=50, /datum/material/glass=50)
+	build_path = /obj/item/hair_painter
+	category = list("initial","Tools","Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/emergency_oxygen
 	name = "Emergency Oxygen Tank"
 	id = "emergency_oxygen"

@@ -419,3 +419,8 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list(/datum/reagent/bromine = 30)
+
+/obj/item/reagent_containers/glass/bottle/hair_dye
+	name = "quantum hair dye bottle"
+	desc = "A small bottle. Contains Quantum Hair Dye, a rare and powerful dying agent."
+	list_reagents = list(/datum/reagent/hair_dye = 30)

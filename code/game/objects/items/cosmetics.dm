@@ -306,45 +306,45 @@
 	sleep(150)
 	REMOVE_TRAIT(user, TRAIT_SELF_AWARE, "mirror_trait")
 
-/obj/item/hairpainter
+/obj/item/hair_painter
 	name = "hair painter"
-	desc = "A haphazardly modified airlock painter. Used for changing one's hair colour and occasionally violating safety regulations."
+	desc = "A modified airlock painter. Used for changing one's hair colour and occasionally violating safety regulations."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "hair sprayer"
 	item_state = "hair sprayer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = CONDUCT_1
+	materials = list(/datum/material/iron=50, /datum/material/glass=50)
 	var/max_dye = 20
 	var/dye_usage = 1
 	var/dye_color = "#ffffff"
 
-/obj/item/hairpainter/Initialize()
+/obj/item/hair_painter/Initialize()
 	. = ..()
 	create_reagents(max_dye, REFILLABLE | DRAWABLE) // Easy to pour into, harder to get the reagents out
-	reagents.add_reagent(/datum/reagent/hair_dye,max_dye)
 
-/obj/item/hairpainter/proc/get_dye()
+/obj/item/hair_painter/proc/get_dye()
 	return reagents.get_reagent_amount(/datum/reagent/hair_dye)
 
-/obj/item/hairpainter/proc/use_dye()
+/obj/item/hair_painter/proc/use_dye()
 	reagents.remove_reagent(/datum/reagent/hair_dye,dye_usage)
 
-/obj/item/hairpainter/proc/can_use()
+/obj/item/hair_painter/proc/can_use()
 	if(get_dye() >= dye_usage)
 		return TRUE
 	return FALSE
 
-/obj/item/hairpainter/examine(mob/user)
+/obj/item/hair_painter/examine(mob/user)
 	. = ..()
-	. += "The [src]'s dye storage capacity is [max_dye] unit\s."
+	. += "[src]'s dye storage capacity is [max_dye] unit\s."
 	. += "The gauge reads [reagents.total_volume] unit\s of dye."
 	if (get_dye() != reagents.total_volume)
 		. += "The dye contamination light is lit!"
 
-/obj/item/hairpainter/attack_self(mob/user)
+/obj/item/hair_painter/attack_self(mob/user)
 	dye_color = input(usr,"Choose The Dye Color","Dye Color",dye_color) as color|null
 
-/obj/item/hairpainter/attack(mob/M, mob/user)
+/obj/item/hair_painter/attack(mob/M, mob/user)
 	if(M && ishuman(M) && user.a_intent != INTENT_HARM)
 		if(!can_use())
 			to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
@@ -367,7 +367,7 @@
 			if(H.facial_hair_style == "Shaved")
 				to_chat(user, "<span class='warning'>There is no facial hair to paint!</span>")
 				return
-			INVOKE_ASYNC(src, .proc/new_facial_hair_color, H, user, mirror)
+			INVOKE_ASYNC(src, .proc/recolor_hair, H, user, mirror, user.zone_selected)
 			return
 		if((location == BODY_ZONE_HEAD))
 			if(!(HAIR in H.dna.species.species_traits) || (MUTCOLORS in H.dna.species.species_traits))
@@ -379,14 +379,15 @@
 			if(H.hair_style == "Bald")
 				to_chat(user, "<span class='warning'>There is no hair to paint!</span>")
 				return
-			INVOKE_ASYNC(src, .proc/new_hair_color, H, user, mirror)
+			INVOKE_ASYNC(src, .proc/recolor_hair, H, user, mirror, user.zone_selected)
 			return
 	else
 		..()
 
-/obj/item/hairpainter/suicide_act(mob/living/carbon/user)
+/obj/item/hair_painter/suicide_act(mob/living/carbon/user)
 	var/mob/living/carbon/human/H = user
-	user.visible_message("<span class='suicide'>[user] turns off the [src]'s pump safeties and sticks its output in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	ADD_TRAIT(src, TRAIT_NODROP, GENERIC_ITEM_TRAIT) // No going back now
+	user.visible_message("<span class='suicide'>[user] turns off [src]'s pump safeties and sticks its output in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(src.loc, 'sound/machines/engine_alert1.ogg', 50, 1)
 	sleep(30)
 	for(var/obj/item/W in H)
@@ -405,51 +406,33 @@
 	qdel(src)
 	return MANUAL_SUICIDE
 
-/obj/item/hairpainter/proc/new_hair_color(mob/living/carbon/human/H, mob/user, mirror)
-	var/location = user.zone_selected
+/obj/item/hair_painter/proc/recolor_hair(mob/living/carbon/human/H, mob/user, mirror, initial_zone)
 	if (H == user && !mirror)
-		to_chat(user, "<span class='warning'>You need a mirror to properly paint your own hair!</span>")
+		to_chat(user, "<span class='warning'>You need a mirror to properly paint your own[initial_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair!</span>")
 		return
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	if(!get_location_accessible(H, location))
-		to_chat(user, "<span class='warning'>The headgear is in the way!</span>")
+	if(!get_location_accessible(H, initial_zone))
+		to_chat(user, "<span class='warning'>The [initial_zone == BODY_ZONE_PRECISE_MOUTH ? "mask" : "headgear"] is in the way!</span>")
 		return
-	user.visible_message("<span class='notice'>[user] tries to paint [H]'s hair using [src].</span>", "<span class='notice'>You try to paint [H]'s hair using [src].</span>")
+	if(!can_use())
+		to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
+		return
+	user.visible_message("<span class='notice'>[user] tries to paint [H]'s[initial_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>", "<span class='notice'>You try to paint [H]'s[initial_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>")
+
 	if(dye_color && do_after(user, 60, target = H))
-		if(!can_use())
-			to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
-			return
+		user.visible_message("<span class='notice'>[user] successfully paints [H]'s[initial_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s[initial_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>")
+		switch(initial_zone)
+			if(BODY_ZONE_PRECISE_MOUTH)
+				H.facial_hair_color = sanitize_hexcolor(dye_color)
+			if(BODY_ZONE_HEAD)
+				H.hair_color = sanitize_hexcolor(dye_color)
 		use_dye()
-		user.visible_message("<span class='notice'>[user] successfully paints [H]'s hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s hair using [src].</span>")
-		H.hair_color = sanitize_hexcolor(dye_color)
 		H.update_hair()
 		H.update_body()
 		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
 
-/obj/item/hairpainter/proc/new_facial_hair_color(mob/living/carbon/human/H, mob/user, mirror)
-	var/location = user.zone_selected
-	if (H == user && !mirror)
-		to_chat(user, "<span class='warning'>You need a mirror to properly paint your own hair!</span>")
-		return
-	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
-		return
-	if(!get_location_accessible(H, location))
-		to_chat(user, "<span class='warning'>The mask is in the way!</span>")
-		return
-	user.visible_message("<span class='notice'>[user] tries to paint [H]'s facial hair using [src].</span>", "<span class='notice'>You try to paint [H]'s facial hair using [src].</span>")
-	if(dye_color && do_after(user, 60, target = H))
-		if(!can_use())
-			to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
-			return
-		use_dye()
-		user.visible_message("<span class='notice'>[user] successfully paints [H]'s facial hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s facial hair using [src].</span>")
-		H.facial_hair_color = sanitize_hexcolor(dye_color)
-		H.update_hair()
-		H.update_body()
-		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
-
-/obj/item/hairpainter/verb/empty()
+/obj/item/hair_painter/verb/empty()
 	set name = "Empty Dye Storage"
 	set category = "Object"
 	set src in usr
