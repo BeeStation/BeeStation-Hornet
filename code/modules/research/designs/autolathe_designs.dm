@@ -1047,3 +1047,11 @@
 	build_path = /obj/item/stack/ducts
 	category = list("initial", "Construction")
 	maxstack = 50
+
+/datum/design/monkeytranslator
+	name = "Monkey Translator"
+	id = "monkeytranslator"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 50, /datum/material/glass = 30)
+	build_path = /obj/item/clothing/head/helmet/monkeytranslator
+	category = list("initial","Tools")
