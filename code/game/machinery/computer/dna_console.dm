@@ -176,8 +176,7 @@
 		test_scanner = locate(/obj/machinery/dna_scannernew, get_step(src, direction))
 		if(!isnull(test_scanner))
 			if(test_scanner.is_operational())
-				connected_scanner = test_scanner
-				connected_scanner.linked_console = src
+				connect_scanner(test_scanner)
 				return
 			else
 				broken_scanner = test_scanner
@@ -185,8 +184,18 @@
 	// Ultimately, if we have a broken scanner, we'll attempt to connect to it as
 	// a fallback case, but the code above will prefer a working scanner
 	if(!isnull(broken_scanner))
-		connected_scanner = broken_scanner
-		connected_scanner.linked_console = src
+		connect_scanner(broken_scanner)
+
+/obj/machinery/computer/scan_consolenew/proc/connect_scanner(obj/machinery/dna_scannernew/scanner)
+	if(connected_scanner)
+		UnregisterSignal(connected_scanner, COMSIG_MACHINE_OPEN)
+		UnregisterSignal(connected_scanner, COMSIG_MACHINE_CLOSE)
+
+	if(scanner)
+		RegisterSignal(scanner, COMSIG_MACHINE_OPEN, .proc/on_scanner_open)
+		RegisterSignal(scanner, COMSIG_MACHINE_CLOSE, .proc/on_scanner_close)
+
+	connected_scanner = scanner
 
 /obj/machinery/computer/scan_consolenew/Initialize()
 	. = ..()
@@ -216,7 +225,7 @@
 		can_use_scanner = TRUE
 	else
 		can_use_scanner = FALSE
-		connected_scanner = null
+		connect_scanner(null)
 		is_viable_occupant = FALSE
 
 	// Check for a viable occupant in the scanner.
@@ -1521,6 +1530,7 @@
 	* is queued.
   */
 /obj/machinery/computer/scan_consolenew/proc/on_scanner_close()
+	SIGNAL_HANDLER
 	// Set the appropriate occupant now the scanner is closed
 	if(connected_scanner.occupant)
 		scanner_occupant = connected_scanner.occupant
@@ -1546,6 +1556,7 @@
 	* scanner occupant var.
   */
 /obj/machinery/computer/scan_consolenew/proc/on_scanner_open()
+	SIGNAL_HANDLER
 	// If we had a radiation pulse action ongoing, we want to stop this.
 	// Imagine it being like a microwave stopping when you open the door.
 	rad_pulse_index = 0

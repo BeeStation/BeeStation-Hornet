@@ -44,7 +44,7 @@
 	if(!istype(H) || H.wear_suit != src)
 		return
 	if(world.time > footstep)
-		playsound(src, pick(move_sound), 100, 1)
+		playsound(src, pick(move_sound), 65, 1)
 		footstep = world.time + FOOTSTEP_COOLDOWN
 
 /obj/item/clothing/suit/equipped(mob/user, slot)

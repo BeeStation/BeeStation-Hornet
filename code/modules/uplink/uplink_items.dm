@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(!filtered_uplink_items[I.category])
 			filtered_uplink_items[I.category] = list()
 		filtered_uplink_items[I.category][I.name] = I
-		if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 1)
+		if(I.limited_stock < 0 && !I.cant_discount && I.item)
 			sale_items += I
 
 	if(allow_sales)
@@ -70,14 +70,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		I.refundable = FALSE //THIS MAN USES ONE WEIRD TRICK TO GAIN FREE TC, CODERS HATES HIM!
 		A.refundable = FALSE
 		switch(rand(1, 5))
-			if(1 to 3)
-				//X% off!
-				var/discount = A.get_discount()
-				if(A.cost >= 20) //Tough love for nuke ops
-					discount *= 0.5
-				A.cost = max(round(A.cost * discount), 1)
-				A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
-				A.desc += " Normally costs [initial(A.cost)] TC. All sales final. [pick(disclaimer)]"
+			if(1 to 3 || A.cost == 1)
+				if(A.cost <= 3)
+					//Bulk discount
+					var/count = rand(3,7)
+					var/discount = A.get_discount()
+					A.name += " (Bulk discount - [count] for [((1-discount)*100)]% off!)"
+					A.cost = max(round(A.cost*count*discount), 1)
+					A.desc += " Normally costs [initial(A.cost)*count] TC. All sales final. [pick(disclaimer)]"
+					A.spawn_amount = count
+				else
+					//X% off!
+					var/discount = A.get_discount()
+					if(A.cost >= 20) //Tough love for nuke ops
+						discount *= 0.5
+					A.cost = max(round(A.cost * discount), 1)
+					A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+					A.desc += " Normally costs [initial(A.cost)] TC. All sales final. [pick(disclaimer)]"
 			if(4)
 				//Buy 1 get 1 free!
 				A.name += " (Buy 1 get 1 free!)"
@@ -236,7 +245,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			you'll be granted your own contract uplink embedded within the supplied tablet computer. Additionally, you'll be granted \
 			standard contractor gear to help with your mission - comes supplied with the tablet, specialised space suit, chameleon jumpsuit and mask, \
 			agent card, specialised contractor baton, and three randomly selected low cost items. Can include otherwise unobtainable items."
-	item = /obj/item/storage/box/syndicate/contract_kit
+	item = /obj/item/storage/box/syndie_kit/contract_kit
 	cost = 20
 	player_minimum = 15
 	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops, /datum/game_mode/incursion)
@@ -246,7 +255,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Syndicate Bundles, also known as Syndi-Kits, are specialized groups of items that arrive in a plain box. \
 			These items are collectively worth more than 20 telecrystals, but you do not know which specialization \
 			you will receive. May contain discontinued and/or exotic items."
-	item = /obj/item/storage/box/syndicate/bundle_A
+	item = /obj/item/storage/box/syndie_kit/bundle_A
 	cost = 20
 	exclude_modes = list(/datum/game_mode/nuclear)
 
@@ -254,7 +263,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndi-kit Special"
 	desc = "Syndicate Bundles, also known as Syndi-Kits, are specialized groups of items that arrive in a plain box. \
 			In Syndi-kit Special, you will receive items used by famous syndicate agents of the past. Collectively worth more than 20 telecrystals, the syndicate loves a good throwback."
-	item = /obj/item/storage/box/syndicate/bundle_B
+	item = /obj/item/storage/box/syndie_kit/bundle_B
 	cost = 20
 	exclude_modes = list(/datum/game_mode/nuclear)
 
@@ -430,7 +439,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		/obj/item/pipe_dispenser = 2,
 		/obj/item/storage/toolbox/syndicate = 2,
 		/obj/item/storage/toolbox/electrical = 1,
-		/obj/item/circuitboard/computer/shuttle/docker = 1,
 		/obj/item/circuitboard/computer/shuttle/flight_control = 1,
 		/obj/item/circuitboard/machine/shuttle/engine/plasma = 2,
 		/obj/item/circuitboard/machine/shuttle/heater = 2,
@@ -805,6 +813,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/romerol
 	cost = 25
 	cant_discount = TRUE
+	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
@@ -1544,6 +1553,18 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/compressionkit
 	cost = 5
 
+/datum/uplink_item/device_tools/shuttlecapsule
+	name = "Bluespace Shuttle Capsule"
+	desc = "Need a mobile base of operations? Those pesky exploration crews keep flying off? Want to do a hit and run on security? Then this \
+			product is for you! The all new bluespace shuttle capsule contains an ENTIRE shuttle withing a capsule you can hold in your hand! \
+			The shuttle provided is a state-of-the-art ship complete with a hacked autolathe, syndicate toolbox, playing cards for those long journeys, \
+			an in-built shuttle interdictor and a single canister of plasma to fuel your adventures! \
+			This innovative shuttle can seat up to 4 passengers, willing or not! Shuttle must be deployed in space or on lavaland, space suits not included."
+	item = /obj/item/survivalcapsule/shuttle/traitor
+	cost = 8
+	//You get your own shuttle
+	exclude_modes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
 	desc = "A pair of magnetic boots with a Syndicate paintjob that assist with freer movement in space or on-station \
@@ -1991,6 +2012,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list("Stage Magician")
 	cost = 5
 
+/datum/uplink_item/role_restricted/floorpill_bottle
+	name = "Bottle of Mystery Pills"
+	desc = "We found these lying around Warehouse R1O-GN, which was decommissioned years ago. We were going to throw them out but we heard you might be interested in them."
+	item = /obj/item/storage/pill_bottle/floorpill/full
+	restricted_roles = list("Assistant", "Debtor")
+	cost = 2
+
 /datum/uplink_item/role_restricted/clown_bomb
 	name = "Clown Bomb"
 	desc = "The Clown bomb is a hilarious device capable of massive pranks. It has an adjustable timer, \
@@ -2109,7 +2137,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/his_grace
 	cost = 20
 	restricted_roles = list("Chaplain")
-	surplus = 5 //Very low chance to get it in a surplus crate even without being the chaplain
+	surplus = 0
 
 /datum/uplink_item/role_restricted/cultconstructkit
 	name = "Cult Construct Kit"
@@ -2303,6 +2331,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	cant_discount = TRUE
 	illegal_tech = FALSE
+	surplus = 0
 
 /datum/uplink_item/badass/syndiebeer
 	name = "Syndicate Beer"

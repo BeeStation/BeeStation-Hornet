@@ -1,6 +1,7 @@
 /datum/map_generator/cave_generator/lavaland
 	open_turf_types = list(/turf/open/floor/plating/asteroid/basalt/lava_land_surface = 1)
 	closed_turf_types =  list(/turf/closed/mineral/random/volcanic = 1)
+	blacklisted_turf_types = list(/turf/open/lava) // Don't override lava rivers
 
 
 	feature_spawn_list = list(/obj/structure/geyser/random = 1)
