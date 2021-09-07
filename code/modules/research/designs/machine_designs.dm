@@ -475,19 +475,19 @@
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO | DEPARTMENTAL_FLAG_ENGINEERING
 
-/datum/design/board/bluespace_miner
-	name = "Machine Design (Bluespace Miner)"
-	desc = "The circuit board for a Bluespace Miner."
-	id = "bluespace_miner"
-	build_path = /obj/item/circuitboard/machine/bluespace_miner
-	category = list ("Misc. Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_CARGO
-
 /datum/design/board/mining_equipment_vendor
 	name = "Machine Design (Mining Rewards Vendor Board)"
 	desc = "The circuit board for a Mining Rewards Vendor."
 	id = "mining_equipment_vendor"
 	build_path = /obj/item/circuitboard/machine/mining_equipment_vendor
+	category = list ("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO
+
+/datum/design/board/exploration_equipment_vendor
+	name = "Machine Design (Exploration Rewards Vendor Board)"
+	desc = "The circuit board for an Exploration Rewards Vendor."
+	id = "exploration_equipment_vendor"
+	build_path = /obj/item/circuitboard/machine/exploration_equipment_vendor
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_CARGO
 
@@ -626,14 +626,6 @@
 	build_path = /obj/item/circuitboard/machine/stasis
 	category = list("Medical Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
-
-/datum/design/board/spaceship_navigation_beacon
-	name = "Machine Design (Bluespace Navigation Gigabeacon)"
-	desc = "The circuit board for a Bluespace Navigation Gigabeacon."
-	id = "spaceship_navigation_beacon"
-	build_path = /obj/item/circuitboard/machine/spaceship_navigation_beacon
-	category = list ("Teleportation Machinery")
-	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/component_printer
 	name = "Machine Design (Component Printer)"

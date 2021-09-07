@@ -83,6 +83,7 @@
 			A.lights = !A.lights
 			A.update_icon()
 	ui_update()
+	A.ui_update()
 
 /obj/machinery/door/airlock/proc/reset_ai_wire()
 	if(aiControlDisabled == 1)
@@ -90,6 +91,7 @@
 	else if(aiControlDisabled == 2)
 		aiControlDisabled = -1
 	wires.ui_update()
+	ui_update()
 
 /datum/wires/airlock/on_cut(wire, mend)
 	var/obj/machinery/door/airlock/A = holder
@@ -142,3 +144,4 @@
 			if(isliving(usr))
 				A.shock(usr, 50)
 	ui_update()
+	A.ui_update()

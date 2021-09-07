@@ -29,6 +29,14 @@ SUBSYSTEM_DEF(tgui)
 /datum/controller/subsystem/tgui/Shutdown()
 	close_all_uis()
 
+
+/datum/controller/subsystem/tgui/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(open_uis)
+	.["custom"] = cust
+
+
 /datum/controller/subsystem/tgui/stat_entry()
 	. = ..("P:[open_uis.len]")
 
