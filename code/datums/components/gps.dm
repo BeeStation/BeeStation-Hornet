@@ -100,9 +100,6 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		ui.open()
 
 	ui.set_autoupdate(updating)
-	
-/datum/component/gps/item/ui_state(mob/user)
-	return state
 
 /datum/component/gps/item/ui_data(mob/user)
 	var/list/data = list()
