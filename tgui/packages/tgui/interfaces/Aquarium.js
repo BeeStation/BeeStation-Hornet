@@ -37,7 +37,7 @@ export const Aquarium = (props, context) => {
             </LabeledControls.Item>
             <LabeledControls.Item label="Fluid">
               <Flex direction="column" mb={1}>
-              {fluidTypes.map(f => (
+                {fluidTypes.map(f => (
                   <Flex.Item key={f}>
                     <Button
                       fluid
