@@ -51,7 +51,7 @@
 	gpstag = "PAI0"
 
 /obj/item/gps/pai/add_gps_component()
-	AddComponent(/datum/component/gps/item, gpstag, state = GLOB.inventory_state)
+	AddComponent(/datum/component/gps/item/pai, gpstag)
 
 /obj/item/gps/visible_debug
 	name = "visible GPS"
