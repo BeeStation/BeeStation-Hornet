@@ -31,7 +31,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	power_environ = FALSE
 	area_flags = UNIQUE_AREA
 	outdoors = TRUE
-	ambientmusic = AMBIENCE_SPACE
+	ambience_index = null
+	ambient_music_index = AMBIENCE_SPACE
 	ambient_buzz = null
 	sound_environment = SOUND_AREA_SPACE
 
@@ -45,6 +46,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	has_gravity = STANDARD_GRAVITY
+	ambience_index = null
 	ambient_buzz = null
 
 /area/testroom
