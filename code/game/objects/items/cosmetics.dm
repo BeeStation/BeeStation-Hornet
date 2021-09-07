@@ -308,7 +308,7 @@
 
 /obj/item/hairpainter
 	name = "hair painter"
-	desc = "A haphazardly modified airlock painter. Used for changing one's hair colour and occasionally violating safety regulations"
+	desc = "A haphazardly modified airlock painter. Used for changing one's hair colour and occasionally violating safety regulations."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "paint sprayer"
 	item_state = "paint sprayer"
@@ -319,7 +319,7 @@
 
 /obj/item/hairpainter/Initialize()
 	. = ..()
-	create_reagents(max_dye)
+	create_reagents(max_dye, REFILLABLE | DRAWABLE) // Easy to pour into, harder to get the reagents out
 	reagents.add_reagent(/datum/reagent/hair_dye,max_dye)
 
 /obj/item/hairpainter/proc/get_dye()
@@ -335,7 +335,10 @@
 
 /obj/item/hairpainter/examine(mob/user)
 	. = ..()
-	. += "The paint gauge shows [get_dye()] unit\s of dye out of [max_dye] maximum."
+	. += "The [src]'s dye storage capacity is [max_dye] unit\s."
+	. += "The paint gauge shows [get_dye()] unit\s of dye."
+	if (get_dye() != reagents.total_volume)
+		. += "The dye contamination light is lit!"
 
 /obj/item/hairpainter/attack_self(mob/user)
 	dye_color = input(usr,"Choose The Dye Color","Dye Color",dye_color) as color|null
@@ -444,3 +447,16 @@
 		H.update_hair()
 		H.update_body()
 		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
+
+/obj/item/hairpainter/verb/empty()
+	set name = "Empty Dye Storage"
+	set category = "Object"
+	set src in usr
+	if(usr.incapacitated())
+		return
+	if (alert(usr, "Are you sure you want to empty that?", "Empty Dye Storage:", "Yes", "No") != "Yes")
+		return
+	if(isturf(usr.loc) && src.loc == usr)
+		to_chat(usr, "<span class='notice'>You empty \the [src] onto the floor.</span>")
+		reagents.reaction(usr.loc)
+		src.reagents.clear_reagents()
