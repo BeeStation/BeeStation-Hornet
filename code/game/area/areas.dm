@@ -15,7 +15,7 @@
 	invisibility = INVISIBILITY_LIGHTING
 
 	var/area_flags = VALID_TERRITORY | BLOBS_ALLOWED | UNIQUE_AREA
-	
+
 	var/clockwork_warp_allowed = TRUE // Can servants warp into this area from Reebe?
 	var/clockwork_warp_fail = "The structure there is too dense for warping to pierce. (This is normal in high-security areas.)"
 
@@ -51,8 +51,11 @@
 
 	var/ambience_index = AMBIENCE_GENERIC
 	var/list/ambientsounds
+
 	var/ambient_buzz = 'sound/ambience/shipambience.ogg' // Ambient buzz of the station, plays repeatedly, also IC
-	var/ambientmusic
+
+	var/ambient_music_index
+	var/list/ambientmusic
 
 	flags_1 = CAN_BE_DIRTY_1
 
@@ -148,8 +151,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	icon_state = ""
 	canSmoothWithAreas = typecacheof(canSmoothWithAreas)
 
-	if(!ambientsounds)
+	if(!ambientsounds && ambience_index)
 		ambientsounds = GLOB.ambience_assoc[ambience_index]
+
+	if(!ambientmusic && ambient_music_index)
+		ambientmusic = GLOB.ambient_music_assoc[ambient_music_index]
 
 	if(requires_power)
 		luminosity = 0
