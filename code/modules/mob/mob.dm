@@ -40,7 +40,6 @@
 	for(var/cc in client_colours)
 		qdel(cc)
 	client_colours = null
-	clear_client_in_contents() //Gotta do this here as well as Logout, since client will be null by the time it gets there, cause of that ghostize
 	ghostize()
 	if(mind?.current == src) //Let's just be safe yeah? This will occasionally be cleared, but not always. Can't do it with ghostize without changing behavior
 		mind.set_current(null)
@@ -803,7 +802,7 @@
 		var/mob/M = dropping
 		if(ismob(user))
 			var/mob/U = user
-			if(!iscyborg(U) || U.a_intent == INTENT_HARM)
+			if((!iscyborg(U) || U.a_intent == INTENT_HARM) && !isAI(U))
 				M.show_inv(U)
 		else
 			M.show_inv(user)

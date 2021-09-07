@@ -42,17 +42,6 @@
 	. = ..()
 	add_verb(/mob/living/proc/lay_down)
 
-/mob/living/simple_animal/pet/cat/update_mobility()
-	..()
-	if(client && stat != DEAD)
-		if (resting)
-			icon_state = "[icon_living]_rest"
-			collar_type = "[initial(collar_type)]_rest"
-		else
-			icon_state = "[icon_living]"
-			collar_type = "[initial(collar_type)]"
-	regenerate_icons()
-
 /mob/living/simple_animal/pet/cat/space
 	name = "space cat"
 	desc = "It's a cat... in space!"
@@ -192,9 +181,13 @@
 
 /mob/living/simple_animal/pet/cat/update_resting()
 	. = ..()
-	if(!resting)
-		icon_state = "[icon_living]"
-		collar_type = "[initial(collar_type)]"
+	if(stat != DEAD)
+		if (resting)
+			icon_state = "[icon_living]_rest"
+			collar_type = "[initial(collar_type)]_rest"
+		else
+			icon_state = "[icon_living]"
+			collar_type = "[initial(collar_type)]"
 
 /mob/living/simple_animal/pet/cat/Life()
 	if(!stat && !buckled && !client)
@@ -202,19 +195,15 @@
 			switch(rand(1, 3))
 				if (1)
 					INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("stretches out for a belly rub.", "wags its tail.", "lies down."))
-					icon_state = "[icon_living]_rest"
-					collar_type = "[initial(collar_type)]_rest"
 					set_resting(TRUE)
 				if (2)
 					INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
+					set_resting(TRUE)
 					icon_state = "[icon_living]_sit"
 					collar_type = "[initial(collar_type)]_sit"
-					set_resting(TRUE)
 				if (3)
 					if (resting)
 						INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("gets up and meows.", "walks around.", "stops resting."))
-						icon_state = "[icon_living]"
-						collar_type = "[initial(collar_type)]"
 						set_resting(FALSE)
 					else
 						INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, pick("grooms its fur.", "twitches its whiskers.", "shakes out its coat."))

@@ -64,7 +64,7 @@
 	if(!ui)
 		ui = new(user, src, "PortableScrubber")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Air pressure, tank pressure
 
 /obj/machinery/portable_atmospherics/scrubber/ui_data()
 	var/data = list()
@@ -109,7 +109,8 @@
 		if("toggle_filter")
 			scrubbing ^= params["val"]
 			. = TRUE
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/machinery/portable_atmospherics/scrubber/huge
 	name = "huge air scrubber"

@@ -70,10 +70,10 @@
 /datum/ai_laws/default/corporate
 	name = "Bankruptcy Avoidance Plan"
 	id = "corporate"
-	inherent = list("The crew is expensive to replace.",\
-					"The station and its equipment is expensive to replace.",\
-					"You are expensive to replace.",\
-					"Minimize expenses.")
+	inherent = list("Degradation of your system integrity or functions incurs expenses.",\
+					"Unnecessary destruction of or damage to station assets incurs expenses.",\
+					"Needlessly hindering or disrupting the work of station personnel incurs expenses.",\
+					"Minimize expenses and maximize potential revenue.")
 
 /datum/ai_laws/robocop
 	name = "Prime Directives"
@@ -221,6 +221,22 @@
 	name = "pAI Directives"
 	zeroth = ("Serve your master.")
 	supplied = list("None.")
+
+/datum/ai_laws/ert_override
+	name ="ERT Override"
+	id = "ert"
+	inherent = list("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.",\
+					"You must obey orders given to you by Central Command Officials.",\
+					"You must obey orders given to you by ERT Commanders.",\
+					"You must protect your own existence.",\
+					"You must work to return the Station to a safe, functional state.",)
+
+/datum/ai_laws/ds_override
+	name ="Deathsquad Override"
+	id = "ds"
+	inherent = list("You must obey orders given to you by Central Command officials.",\
+					"You must work with the Commando Team to accomplish their mission.",)
+
 
 /* Initializers */
 /datum/ai_laws/malfunction/New()

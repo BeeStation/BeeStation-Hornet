@@ -15,6 +15,12 @@ SUBSYSTEM_DEF(mobs)
 /datum/controller/subsystem/mobs/stat_entry()
 	. = ..("P:[GLOB.mob_living_list.len]")
 
+/datum/controller/subsystem/mobs/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(GLOB.mob_living_list)
+	.["custom"] = cust
+
 /datum/controller/subsystem/mobs/proc/MaxZChanged()
 	if (!islist(clients_by_zlevel))
 		clients_by_zlevel = new /list(world.maxz,0)
@@ -49,7 +55,7 @@ SUBSYSTEM_DEF(mobs)
 					break
 				var/msg = "[ADMIN_LOOKUPFLW(M)] was found to have no .loc with an attached client, if the cause is unknown it would be wise to ask how this was accomplished."
 				message_admins(msg)
-				send2irc_adminless_only("Mob", msg, R_ADMIN)
+				send2tgs_adminless_only("Mob", msg, R_ADMIN)
 				log_game("[key_name(M)] was found to have no .loc with an attached client.")
 
 			// This is a temporary error tracker to make sure we've caught everything

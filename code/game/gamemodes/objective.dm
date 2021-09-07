@@ -109,12 +109,19 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/list/datum/mind/owners = get_owners()
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
+	var/list/prefered_targets = list()
 	var/list/possible_targets = list()
 	var/try_target_late_joiners = FALSE
+	var/owner_is_exploration_crew = FALSE
+	var/owner_is_shaft_miner = FALSE
 	for(var/I in owners)
 		var/datum/mind/O = I
 		if(O.late_joiner)
 			try_target_late_joiners = TRUE
+		if(O.assigned_role == "Exploration Crew")
+			owner_is_exploration_crew = TRUE
+		if(O.assigned_role == "Shaft Miner")
+			owner_is_shaft_miner = TRUE
 	for(var/datum/mind/possible_target in get_crewmember_minds())
 		if(possible_target in owners)
 			continue
@@ -130,6 +137,21 @@ GLOBAL_LIST_EMPTY(objectives)
 		if(possible_target in blacklist)
 			continue
 
+		if(possible_target.assigned_role == "Exploration Crew")
+			if(owner_is_exploration_crew)
+				prefered_targets += possible_target
+			else
+				//Reduced chance to get people off station
+				if(prob(70) && !owner_is_shaft_miner)
+					continue
+		else if(possible_target.assigned_role == "Shaft Miner")
+			if(owner_is_shaft_miner)
+				prefered_targets += possible_target
+			else
+				//Reduced chance to get people off station
+				if(prob(70) && !owner_is_exploration_crew)
+					continue
+
 		possible_targets += possible_target
 	if(try_target_late_joiners)
 		var/list/all_possible_targets = possible_targets.Copy()
@@ -139,7 +161,11 @@ GLOBAL_LIST_EMPTY(objectives)
 				possible_targets -= PT
 		if(!possible_targets.len)
 			possible_targets = all_possible_targets
-	if(possible_targets.len > 0)
+	//30% chance to go for a prefered target
+	if(prefered_targets.len > 0 && prob(30))
+		target = pick(prefered_targets)
+		target.isAntagTarget = TRUE
+	else if(possible_targets.len > 0)
 		target = pick(possible_targets)
 		target.isAntagTarget = TRUE
 	update_explanation_text()

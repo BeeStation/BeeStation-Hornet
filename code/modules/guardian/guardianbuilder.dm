@@ -82,7 +82,7 @@
 			cost = GA.cost,
 			icon = GA.ui_icon,
 			selected = istype(saved_stats.ability, ability),
-			available = (points >= GA.cost) && GA.CanBuy(),
+			available = (points+saved_stats.ability?.cost >= GA.cost) && GA.CanBuy(),
 			path = "[ability]",
 			requiem = istype(GA, /datum/guardian_ability/major/special)
 		))
@@ -103,60 +103,73 @@
 /datum/guardianbuilder/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..() || used)
 		return
-	calc_points()
 	switch(action)
 		if("name")
 			guardian_name = params["name"]
+			. = TRUE
 		if("set")
 			switch(params["name"])
 				if("Damage")
 					var/lvl = CLAMP(text2num(params["level"]), 1, 5)
 					if((points + (saved_stats.damage > 1 ? saved_stats.damage - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.damage = lvl
-					. = TRUE
+						. = TRUE
 				if("Defense")
 					var/lvl = CLAMP(text2num(params["level"]), 1, 5)
 					if((points + (saved_stats.defense > 1 ? saved_stats.defense - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.defense = lvl
-					. = TRUE
+						. = TRUE
 				if("Speed")
 					var/lvl = CLAMP(text2num(params["level"]), 1, 5)
 					if((points + (saved_stats.speed > 1 ? saved_stats.speed - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.speed = lvl
-					. = TRUE
+						. = TRUE
 				if("Potential")
 					var/lvl = CLAMP(text2num(params["level"]), 1, 5)
 					if((points + (saved_stats.potential > 1 ? saved_stats.potential - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.potential = lvl
-					. = TRUE
+						. = TRUE
 				if("Range")
 					var/lvl = CLAMP(text2num(params["level"]), 1, 5)
 					if((points + (saved_stats.range > 1 ? saved_stats.range - 1 : 0)) >= lvl - 1 || lvl == 1)
 						saved_stats.range = lvl
-					. = TRUE
+						. = TRUE
 		if("color")
 			var/color = input(usr, "What would you like your guardian's color to be?", "Choose Your Color", "#ffffff") as color|null
 			if(color)
 				guardian_color = color
+				. = TRUE
 		if("clear_ability_major")
 			QDEL_NULL(saved_stats.ability)
+			. = TRUE
 		if("ability_major")
-			var/ability = text2path(params["path"])
+			var/datum/guardian_ability/ability = text2path(params["path"])
 			var/list/types = allow_special ? (subtypesof(/datum/guardian_ability/major) - /datum/guardian_ability/major/special) : (subtypesof(/datum/guardian_ability/major) - typesof(/datum/guardian_ability/major/special))
 			if(ispath(ability))
 				if(saved_stats.ability && saved_stats.ability.type == ability)
 					QDEL_NULL(saved_stats.ability)
-				else if(ability in types) // no nullspace narsie for you!
-					QDEL_NULL(saved_stats.ability)
-					saved_stats.ability = new ability
-					saved_stats.ability.master_stats = saved_stats
+					. = TRUE
+				else if((ability in types) && (points + (saved_stats.ability?.cost || 0)) >= initial(ability.cost)) // no nullspace narsie for you!
+					var/datum/guardian_ability/new_ability = new ability
+					new_ability.master_stats = saved_stats
+					var/datum/guardian_ability/old_ability = saved_stats.ability
+					saved_stats.ability = null
+					if(new_ability.CanBuy(FALSE))
+						qdel(old_ability)
+						saved_stats.ability = new_ability
+						. = TRUE
+					else
+						qdel(new_ability)
+						saved_stats.ability = old_ability
 		if("ability_minor")
-			var/ability = text2path(params["path"])
+			var/datum/guardian_ability/ability = text2path(params["path"])
 			if(ispath(ability) && (ability in subtypesof(/datum/guardian_ability/minor))) // no nullspace narsie for you!
 				if(saved_stats.HasMinorAbility(ability))
 					saved_stats.TakeMinorAbility(ability)
-				else
+					. = TRUE
+				else if(points >= initial(ability.cost))
 					saved_stats.AddMinorAbility(ability)
+					. = TRUE
 		if("spawn")
 			. = spawn_guardian(usr)
 		if("reset")
@@ -166,9 +179,21 @@
 		if("ranged")
 			if(points >= 3)
 				saved_stats.ranged = TRUE
+				. = TRUE
 		if("melee")
 			saved_stats.ranged = FALSE
-	ui_update()
+			. = TRUE
+	if(.)
+		if(saved_stats.ability && !saved_stats.ability.CanBuy(FALSE)) // In case stat changes made some abilities invalid to have. Right now only Frenzy.
+			QDEL_NULL(saved_stats.ability)
+		var/list/datum/guardian_ability/minor/abilities_to_remove = list()
+		for(var/datum/guardian_ability/minor/minor in saved_stats.minor_abilities)
+			if(!minor.CanBuy(FALSE))
+				abilities_to_remove += minor
+		for(var/datum/guardian_ability/minor/minor in abilities_to_remove)
+			saved_stats.minor_abilities -= minor
+			qdel(minor)
+		calc_points()
 
 /datum/guardianbuilder/proc/calc_points()
 	points = max_points

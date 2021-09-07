@@ -174,6 +174,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SpaceHeater")
+		ui.set_autoupdate(TRUE) // Displays temperature
 		ui.open()
 
 /obj/machinery/space_heater/ui_data()
