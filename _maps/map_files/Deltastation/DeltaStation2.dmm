@@ -119213,6 +119213,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"gtZ" = (
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "gvS" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -155657,7 +155661,7 @@ alg
 aFJ
 alf
 aIH
-alg
+gtZ
 alf
 aMP
 aDw

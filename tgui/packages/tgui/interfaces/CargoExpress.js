@@ -56,7 +56,7 @@ const CargoExpressContent = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       </Section>
-      <CargoCatalog express />
+      <CargoCatalog express canOrder={data.canBeacon} />
     </>
   );
 };
