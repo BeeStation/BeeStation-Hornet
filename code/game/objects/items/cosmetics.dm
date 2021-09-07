@@ -357,27 +357,23 @@
 		if((location in list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_HEAD)) && !H.get_bodypart(BODY_ZONE_HEAD))
 			to_chat(user, "<span class='warning'>[H] doesn't have a head!</span>")
 			return
-		if((location == BODY_ZONE_PRECISE_MOUTH))
-			if(!(FACEHAIR in H.dna.species.species_traits) || (MUTCOLORS in H.dna.species.species_traits))
-				to_chat(user, "<span class='warning'>There is no facial hair to paint!</span>")
-				return
+		if((location == BODY_ZONE_PRECISE_MOUTH) || (location == BODY_ZONE_HEAD))
+			// Checks for species without hair or 'hair' like oozelings, slimes, ethereals and others which can't have its colour changed
+			switch(location)
+				if(BODY_ZONE_PRECISE_MOUTH)
+					if(!(FACEHAIR in H.dna.species.species_traits) || (MUTCOLORS in H.dna.species.species_traits) || (DYNCOLORS in H.dna.species.species_traits) || H.facial_hair_style == "Shaved")
+						to_chat(user, "<span class='warning'>There is no facial hair to paint!</span>")
+						return
+				if(BODY_ZONE_HEAD)
+					if(!(HAIR in H.dna.species.species_traits) || (MUTCOLORS in H.dna.species.species_traits) || (DYNCOLORS in H.dna.species.species_traits) || H.hair_style == "Bald")
+						to_chat(user, "<span class='warning'>There is no hair to paint!</span>")
+						return
 			if(!get_location_accessible(H, location))
-				to_chat(user, "<span class='warning'>The mask is in the way!</span>")
+				to_chat(user, "<span class='warning'>The [location == BODY_ZONE_PRECISE_MOUTH ? "mask" : "headgear"] is in the way!</span>")
 				return
-			if(H.facial_hair_style == "Shaved")
-				to_chat(user, "<span class='warning'>There is no facial hair to paint!</span>")
-				return
-			INVOKE_ASYNC(src, .proc/recolor_hair, H, user, mirror, user.zone_selected)
-			return
-		if((location == BODY_ZONE_HEAD))
-			if(!(HAIR in H.dna.species.species_traits) || (MUTCOLORS in H.dna.species.species_traits))
-				to_chat(user, "<span class='warning'>There is no hair to paint!</span>")
-				return
-			if(!get_location_accessible(H, location))
-				to_chat(user, "<span class='warning'>The headgear is in the way!</span>")
-				return
-			if(H.hair_style == "Bald")
-				to_chat(user, "<span class='warning'>There is no hair to paint!</span>")
+			// Is there enough paint to start
+			if(!can_use())
+				to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
 				return
 			INVOKE_ASYNC(src, .proc/recolor_hair, H, user, mirror, user.zone_selected)
 			return
@@ -406,28 +402,27 @@
 	qdel(src)
 	return MANUAL_SUICIDE
 
-/obj/item/hair_painter/proc/recolor_hair(mob/living/carbon/human/H, mob/user, mirror, initial_zone)
-	if (H == user && !mirror)
-		to_chat(user, "<span class='warning'>You need a mirror to properly paint your own[initial_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair!</span>")
+/obj/item/hair_painter/proc/recolor_hair(mob/living/carbon/human/H, mob/user, mirror, target_zone)
+	if(H == user && !mirror)
+		to_chat(user, "<span class='warning'>You need a mirror to properly paint your own[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair!</span>")
 		return
 	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
-	if(!get_location_accessible(H, initial_zone))
-		to_chat(user, "<span class='warning'>The [initial_zone == BODY_ZONE_PRECISE_MOUTH ? "mask" : "headgear"] is in the way!</span>")
-		return
-	if(!can_use())
-		to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
-		return
-	user.visible_message("<span class='notice'>[user] tries to paint [H]'s[initial_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>", "<span class='notice'>You try to paint [H]'s[initial_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>")
-
+	user.visible_message("<span class='notice'>[user] tries to paint [H]'s[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>", "<span class='notice'>You try to paint [H]'s[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>")
 	if(dye_color && do_after(user, 60, target = H))
-		user.visible_message("<span class='notice'>[user] successfully paints [H]'s[initial_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s[initial_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>")
-		switch(initial_zone)
+		if(!can_use())
+			to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
+			return
+		use_dye()
+		if(!get_location_accessible(H, target_zone))
+			to_chat(user, "<span class='warning'>The [target_zone == BODY_ZONE_PRECISE_MOUTH ? "mask" : "headgear"] is in the way!</span>")
+			return
+		user.visible_message("<span class='notice'>[user] successfully paints [H]'s[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>")
+		switch(target_zone)
 			if(BODY_ZONE_PRECISE_MOUTH)
 				H.facial_hair_color = sanitize_hexcolor(dye_color)
 			if(BODY_ZONE_HEAD)
 				H.hair_color = sanitize_hexcolor(dye_color)
-		use_dye()
 		H.update_hair()
 		H.update_body()
 		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
