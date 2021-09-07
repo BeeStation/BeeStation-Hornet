@@ -1,5 +1,7 @@
 /datum/orbital_object/z_linked
 	name = "Unidentified Beacon"
+	collision_type = COLLISION_Z_LINKED
+	collision_flags = COLLISION_SHUTTLES
 	//The space level(s) we are linked to
 	var/list/datum/space_level/linked_z_level
 	//If docking is forced upon collision

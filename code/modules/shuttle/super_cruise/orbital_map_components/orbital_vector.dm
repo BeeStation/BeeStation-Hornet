@@ -1,3 +1,7 @@
+//Orbital vectors
+//I hate that some of these modify src and the others just return a valid
+// - bacon
+
 /datum/orbital_vector
 	var/x = 0
 	var/y = 0

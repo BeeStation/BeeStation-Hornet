@@ -44,12 +44,14 @@
 		if (stat & (BROKEN|NOPOWER))
 			say("Insufficient power. Halting siphon.")
 			end_syphon()
+			ui_update()
 			return
 		var/siphon_am = 100 * delta_time
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 		if(!D.has_money(siphon_am))
 			say("Cargo budget depleted. Halting siphon.")
 			end_syphon()
+			ui_update()
 			return
 
 		playsound(src, 'sound/items/poster_being_created.ogg', 100, TRUE)

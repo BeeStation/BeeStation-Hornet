@@ -106,6 +106,7 @@
 	if(chamber)
 		UnregisterSignal(chamber, COMSIG_PARENT_QDELETING)
 	chamber = new_chamber
+	ui_update()
 	if(chamber)
 		RegisterSignal(chamber, COMSIG_PARENT_QDELETING, .proc/react_to_chamber_del)
 

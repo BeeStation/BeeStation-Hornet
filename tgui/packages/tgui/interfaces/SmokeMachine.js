@@ -11,7 +11,6 @@ export const SmokeMachine = (props, context) => {
     TankMaxVolume,
     active,
     setting,
-    screen,
     maxSetting = [],
   } = data;
   return (

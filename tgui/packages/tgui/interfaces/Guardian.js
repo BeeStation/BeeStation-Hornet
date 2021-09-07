@@ -131,45 +131,11 @@ const GuardianStats = (props, context) => {
             <LabeledList.Item
               className="candystripe"
               label={skill.name}>
-              <Button
-                content="A"
-                selected={skill.level === 5}
-                disabled={skill.level < 5 && data.points < 4}
-                onClick={() => act('set', {
-                  name: skill.name,
-                  level: 5,
-                })} />
-              <Button
-                content="B"
-                selected={skill.level === 4}
-                disabled={skill.level < 4 && data.points < 3}
-                onClick={() => act('set', {
-                  name: skill.name,
-                  level: 4,
-                })} />
-              <Button
-                content="C"
-                selected={skill.level === 3}
-                disabled={skill.level < 3 && data.points < 2}
-                onClick={() => act('set', {
-                  name: skill.name,
-                  level: 3,
-                })} />
-              <Button
-                content="D"
-                selected={skill.level === 2}
-                disabled={skill.level < 2 && data.points < 1}
-                onClick={() => act('set', {
-                  name: skill.name,
-                  level: 2,
-                })} />
-              <Button
-                content="F"
-                selected={skill.level === 1}
-                onClick={() => act('set', {
-                  name: skill.name,
-                  level: 1,
-                })} />
+              <GuardianStatButton skill={skill} level={5} />
+              <GuardianStatButton skill={skill} level={4} />
+              <GuardianStatButton skill={skill} level={3} />
+              <GuardianStatButton skill={skill} level={2} />
+              <GuardianStatButton skill={skill} level={1} />
             </LabeledList.Item>
           </Tooltip>
         ))}
@@ -178,8 +144,35 @@ const GuardianStats = (props, context) => {
   );
 };
 
+const GuardianStatButton = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    points,
+  } = data;
+  const {
+    skill,
+    level,
+  } = props;
+
+  const level2label = ["F", "D", "C", "B", "A"];
+
+  return (
+    <Button
+      content={level2label[level-1]}
+      selected={skill.level === level}
+      disabled={(data.points + skill.level) < level}
+      onClick={() => act('set', {
+        name: skill.name,
+        level: level,
+      })} />
+  );
+};
+
 const GuardianMajor = (props, context) => {
   const { act, data } = useBackend(context);
+  const selected_ability = data.abilities_major
+    .find(ability => ability.selected);
+  const selected_ability_cost = selected_ability?.cost ?? 0;
   return (
     <Section>
       <Flex.Item grow={1} basis={0}>
@@ -200,7 +193,8 @@ const GuardianMajor = (props, context) => {
                   content={ability.cost + " points"}
                   selected={ability.selected}
                   disabled={!ability.selected
-                    && (data.points < ability.cost || !ability.available)}
+                    && (data.points+selected_ability_cost < ability.cost
+                      || !ability.available)}
                   onClick={() => act('ability_major', {
                     path: ability.path,
                   })} />
