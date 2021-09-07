@@ -412,12 +412,15 @@
 	if(dye_color && do_after(user, 60, target = H))
 		if(!can_use())
 			to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
+			user.visible_message("<span class='notice'>[user] fails to paint [H]'s[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>", "<span class='notice'>You fail to paint paint [H]'s[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>")
 			return
-		use_dye()
 		if(!get_location_accessible(H, target_zone))
 			to_chat(user, "<span class='warning'>The [target_zone == BODY_ZONE_PRECISE_MOUTH ? "mask" : "headgear"] is in the way!</span>")
+			user.visible_message("<span class='notice'>[user] fails to paint [H]'s[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>", "<span class='notice'>You fail to paint paint [H]'s[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>")
 			return
 		user.visible_message("<span class='notice'>[user] successfully paints [H]'s[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s[target_zone == BODY_ZONE_PRECISE_MOUTH ? " facial" : ""] hair using [src].</span>")
+		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
+		use_dye()
 		switch(target_zone)
 			if(BODY_ZONE_PRECISE_MOUTH)
 				H.facial_hair_color = sanitize_hexcolor(dye_color)
@@ -425,7 +428,6 @@
 				H.hair_color = sanitize_hexcolor(dye_color)
 		H.update_hair()
 		H.update_body()
-		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
 
 /obj/item/hair_painter/verb/empty()
 	set name = "Empty Dye Storage"
