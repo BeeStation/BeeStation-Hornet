@@ -305,3 +305,102 @@
 	to_chat(user, "<span class='notice'>You look into the mirror</span>")
 	sleep(150)
 	REMOVE_TRAIT(user, TRAIT_SELF_AWARE, "mirror_trait")
+
+/obj/item/hairpainter
+	name = "hair painter"
+	desc = "A haphazardly modified airlock painter. Used for changing one's hair colour and occasionally violating safety regulations"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "paint sprayer"
+	item_state = "paint sprayer"
+	w_class = WEIGHT_CLASS_SMALL
+	var/max_dye = 40
+	var/dye_usage = 5
+	var/dye_color = "#FF0000"
+
+/obj/item/hairpainter/Initialize()
+	. = ..()
+	create_reagents(max_dye)
+	reagents.add_reagent(/datum/reagent/hair_dye,max_dye)
+
+/obj/item/hairpainter/attack_self(mob/user)
+	dye_color = input(usr,"Choose The Dye Color","Dye Color",dye_color) as color|null
+
+/obj/item/hairpainter/attack(mob/M, mob/user)
+	if(M && ishuman(M) && user.a_intent != INTENT_HARM)
+
+		var/mob/living/carbon/human/H = M
+		var/location = user.zone_selected
+		var/mirror = FALSE
+		if(HAS_TRAIT(H, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in range(1, H))
+			mirror = TRUE
+
+		if((location in list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_HEAD)) && !H.get_bodypart(BODY_ZONE_HEAD))
+			to_chat(user, "<span class='warning'>[H] doesn't have a head!</span>")
+			return
+		if((location == BODY_ZONE_PRECISE_MOUTH))
+			if(!(FACEHAIR in H.dna.species.species_traits))
+				to_chat(user, "<span class='warning'>There is no facial hair to paint!</span>")
+				return
+			if(!get_location_accessible(H, location))
+				to_chat(user, "<span class='warning'>The mask is in the way!</span>")
+				return
+			if(H.facial_hair_style == "Shaved")
+				to_chat(user, "<span class='warning'>There is no facial hair to paint!</span>")
+				return
+			INVOKE_ASYNC(src, .proc/new_facial_hair_color, H, user, mirror)
+			return
+		if((location == BODY_ZONE_HEAD))
+			if(!(FACEHAIR in H.dna.species.species_traits))
+				to_chat(user, "<span class='warning'>There is no hair to paint!</span>")
+				return
+			if(!get_location_accessible(H, location))
+				to_chat(user, "<span class='warning'>The mask is in the way!</span>")
+				return
+			if(H.facial_hair_style == "Shaved")
+				to_chat(user, "<span class='warning'>There is no hair to paint!</span>")
+				return
+			INVOKE_ASYNC(src, .proc/new_hair_color, H, user, mirror)
+			return
+	else
+		..()
+
+/obj/item/hairpainter/proc/get_dye()
+	return reagents.get_reagent_amount(/datum/reagent/hair_dye)
+
+/obj/item/hairpainter/examine(mob/user)
+	. = ..()
+	. += "The paint gauge shows [get_dye()] unit\s of dye out of [max_dye]."
+
+/obj/item/hairpainter/proc/new_hair_color(mob/living/carbon/human/H, mob/user, mirror)
+	var/location = user.zone_selected
+	if (H == user && !mirror)
+		to_chat(user, "<span class='warning'>You need a mirror to properly paint your own hair!</span>")
+		return
+	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		return
+	if(!get_location_accessible(H, location))
+		to_chat(user, "<span class='warning'>The headgear is in the way!</span>")
+		return
+	user.visible_message("<span class='notice'>[user] tries to paint [H]'s hair using [src].</span>", "<span class='notice'>You try to paint [H]'s hair using [src].</span>")
+	if(dye_color && do_after(user, 60, target = H))
+		user.visible_message("<span class='notice'>[user] successfully paints [H]'s hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s hair using [src].</span>")
+		H.hair_color = sanitize_hexcolor(dye_color)
+		H.update_hair()
+		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
+
+/obj/item/hairpainter/proc/new_facial_hair_color(mob/living/carbon/human/H, mob/user, mirror)
+	var/location = user.zone_selected
+	if (H == user && !mirror)
+		to_chat(user, "<span class='warning'>You need a mirror to properly paint your own hair!</span>")
+		return
+	if(!user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		return
+	if(!get_location_accessible(H, location))
+		to_chat(user, "<span class='warning'>The mask is in the way!</span>")
+		return
+	user.visible_message("<span class='notice'>[user] tries to paint [H]'s facial hair using [src].</span>", "<span class='notice'>You try to paint [H]'s facial hair using [src].</span>")
+	if(dye_color && do_after(user, 60, target = H))
+		user.visible_message("<span class='notice'>[user] successfully paints [H]'s facial hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s facial hair using [src].</span>")
+		H.facial_hair_color = sanitize_hexcolor(dye_color)
+		H.update_hair()
+		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
