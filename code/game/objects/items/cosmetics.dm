@@ -322,18 +322,34 @@
 	create_reagents(max_dye)
 	reagents.add_reagent(/datum/reagent/hair_dye,max_dye)
 
+/obj/item/hairpainter/proc/get_dye()
+	return reagents.get_reagent_amount(/datum/reagent/hair_dye)
+
+/obj/item/hairpainter/proc/use_dye()
+	reagents.remove_reagent(/datum/reagent/hair_dye,dye_usage)
+
+/obj/item/hairpainter/proc/can_use()
+	if(get_dye() >= dye_usage)
+		return TRUE
+	return FALSE
+
+/obj/item/hairpainter/examine(mob/user)
+	. = ..()
+	. += "The paint gauge shows [get_dye()] unit\s of dye out of [max_dye] maximum."
+
 /obj/item/hairpainter/attack_self(mob/user)
 	dye_color = input(usr,"Choose The Dye Color","Dye Color",dye_color) as color|null
 
 /obj/item/hairpainter/attack(mob/M, mob/user)
 	if(M && ishuman(M) && user.a_intent != INTENT_HARM)
-
+		if(!can_use())
+			to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
+			return
 		var/mob/living/carbon/human/H = M
 		var/location = user.zone_selected
 		var/mirror = FALSE
 		if(HAS_TRAIT(H, TRAIT_SELF_AWARE) || locate(/obj/structure/mirror) in range(1, H))
 			mirror = TRUE
-
 		if((location in list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_HEAD)) && !H.get_bodypart(BODY_ZONE_HEAD))
 			to_chat(user, "<span class='warning'>[H] doesn't have a head!</span>")
 			return
@@ -364,12 +380,26 @@
 	else
 		..()
 
-/obj/item/hairpainter/proc/get_dye()
-	return reagents.get_reagent_amount(/datum/reagent/hair_dye)
-
-/obj/item/hairpainter/examine(mob/user)
-	. = ..()
-	. += "The paint gauge shows [get_dye()] unit\s of dye out of [max_dye] maximum."
+/obj/item/hairpainter/suicide_act(mob/living/carbon/user)
+	var/mob/living/carbon/human/H = user
+	user.visible_message("<span class='suicide'>[user] turns off the [src]'s pump safeties and sticks its output in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	playsound(src.loc, 'sound/machines/engine_alert1.ogg', 50, 1)
+	sleep(30)
+	for(var/obj/item/W in H)
+		H.dropItemToGround(W)
+		if(prob(50))
+			step(W, pick(GLOB.alldirs))
+	ADD_TRAIT(H, TRAIT_DISFIGURED, TRAIT_GENERIC)
+	H.bleed_rate = 5
+	H.gib_animation()
+	H.adjustBruteLoss(1000)
+	H.spawn_gibs()
+	H.spill_organs()
+	H.spread_bodyparts()
+	playsound(src.loc, 'sound/misc/splort.ogg',60,1)
+	chem_splash(get_turf(src),2,list(reagents))
+	qdel(src)
+	return MANUAL_SUICIDE
 
 /obj/item/hairpainter/proc/new_hair_color(mob/living/carbon/human/H, mob/user, mirror)
 	var/location = user.zone_selected
@@ -383,6 +413,10 @@
 		return
 	user.visible_message("<span class='notice'>[user] tries to paint [H]'s hair using [src].</span>", "<span class='notice'>You try to paint [H]'s hair using [src].</span>")
 	if(dye_color && do_after(user, 60, target = H))
+		if(!can_use())
+			to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
+			return
+		use_dye()
 		user.visible_message("<span class='notice'>[user] successfully paints [H]'s hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s hair using [src].</span>")
 		H.hair_color = sanitize_hexcolor(dye_color)
 		H.update_hair()
@@ -401,6 +435,10 @@
 		return
 	user.visible_message("<span class='notice'>[user] tries to paint [H]'s facial hair using [src].</span>", "<span class='notice'>You try to paint [H]'s facial hair using [src].</span>")
 	if(dye_color && do_after(user, 60, target = H))
+		if(!can_use())
+			to_chat(user, "<span class='warning'>[src]'s dye tank has no quantum hair dye in it!</span>")
+			return
+		use_dye()
 		user.visible_message("<span class='notice'>[user] successfully paints [H]'s facial hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s facial hair using [src].</span>")
 		H.facial_hair_color = sanitize_hexcolor(dye_color)
 		H.update_hair()
