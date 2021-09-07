@@ -169,7 +169,7 @@
 
 		else if(location == BODY_ZONE_HEAD)
 			if(user.a_intent == INTENT_HELP)
-				INVOKE_ASYNC(src, .proc/new_hairstyle, H, user)
+				INVOKE_ASYNC(src, .proc/new_hairstyle, H, user, mirror)
 				return
 			else
 				if(!(HAIR in H.dna.species.species_traits))
