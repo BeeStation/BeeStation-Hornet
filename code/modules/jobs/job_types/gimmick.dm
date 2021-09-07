@@ -18,7 +18,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	departments = DEPARTMENT_SERVICE
-	
+
 	allow_bureaucratic_error = FALSE
 	outfit = /datum/outfit/job/gimmick
 
@@ -44,6 +44,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/storage/wallet
 	l_pocket = /obj/item/razor/straightrazor
+	backpack_contents = list(/obj/item/hairpainter)
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/magician
