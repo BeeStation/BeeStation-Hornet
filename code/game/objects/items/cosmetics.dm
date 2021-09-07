@@ -313,8 +313,8 @@
 	icon_state = "paint sprayer"
 	item_state = "paint sprayer"
 	w_class = WEIGHT_CLASS_SMALL
-	var/max_dye = 40
-	var/dye_usage = 5
+	var/max_dye = 20
+	var/dye_usage = 1
 	var/dye_color = "#FF0000"
 
 /obj/item/hairpainter/Initialize()
@@ -350,13 +350,13 @@
 			INVOKE_ASYNC(src, .proc/new_facial_hair_color, H, user, mirror)
 			return
 		if((location == BODY_ZONE_HEAD))
-			if(!(FACEHAIR in H.dna.species.species_traits))
+			if(!(HAIR in H.dna.species.species_traits))
 				to_chat(user, "<span class='warning'>There is no hair to paint!</span>")
 				return
 			if(!get_location_accessible(H, location))
-				to_chat(user, "<span class='warning'>The mask is in the way!</span>")
+				to_chat(user, "<span class='warning'>The headgear is in the way!</span>")
 				return
-			if(H.facial_hair_style == "Shaved")
+			if(H.hair_style == "Bald")
 				to_chat(user, "<span class='warning'>There is no hair to paint!</span>")
 				return
 			INVOKE_ASYNC(src, .proc/new_hair_color, H, user, mirror)
@@ -369,7 +369,7 @@
 
 /obj/item/hairpainter/examine(mob/user)
 	. = ..()
-	. += "The paint gauge shows [get_dye()] unit\s of dye out of [max_dye]."
+	. += "The paint gauge shows [get_dye()] unit\s of dye out of [max_dye] maximum."
 
 /obj/item/hairpainter/proc/new_hair_color(mob/living/carbon/human/H, mob/user, mirror)
 	var/location = user.zone_selected
@@ -386,6 +386,7 @@
 		user.visible_message("<span class='notice'>[user] successfully paints [H]'s hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s hair using [src].</span>")
 		H.hair_color = sanitize_hexcolor(dye_color)
 		H.update_hair()
+		H.update_body()
 		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
 
 /obj/item/hairpainter/proc/new_facial_hair_color(mob/living/carbon/human/H, mob/user, mirror)
@@ -403,4 +404,5 @@
 		user.visible_message("<span class='notice'>[user] successfully paints [H]'s facial hair using [src].</span>", "<span class='notice'>You successfully paint [H]'s facial hair using [src].</span>")
 		H.facial_hair_color = sanitize_hexcolor(dye_color)
 		H.update_hair()
+		H.update_body()
 		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
