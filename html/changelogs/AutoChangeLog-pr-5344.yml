@@ -1,4 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - bugfix: Silicons can once again interact with intercoms
