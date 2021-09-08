@@ -39,9 +39,9 @@
 	pipe_state = "uvent"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
-	..()
 	if(!id_tag)
-		id_tag = assign_uid_vents()
+		id_tag = SSnetworks.assign_random_name()
+	. = ..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/Destroy()
 	var/area/A = get_area(src)
@@ -164,7 +164,7 @@
 
 	var/area/A = get_area(src)
 	if(!A.air_vent_names[id_tag])
-		name = "\improper [A.name] vent pump #[A.air_vent_names.len + 1]"
+		name = "\improper [A.name] vent pump [id_tag]"
 		A.air_vent_names[id_tag] = name
 	A.air_vent_info[id_tag] = signal.data
 

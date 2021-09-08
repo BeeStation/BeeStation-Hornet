@@ -31,7 +31,7 @@
 	bot_core_type = /obj/machinery/bot_core/mulebot
 
 
-
+	var/network_id = NETWORK_BOTS_CARGO
 
 	var/id
 
@@ -66,10 +66,9 @@
 	mulebot_count += 1
 	set_id(suffix || id || "#[mulebot_count]")
 	suffix = null
+	if(network_id)
+		AddComponent(/datum/component/ntnet_interface, network_id)
 
-/mob/living/simple_animal/bot/mulebot/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/ntnet_interface)
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	unload(0)

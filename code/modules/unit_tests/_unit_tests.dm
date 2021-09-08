@@ -46,6 +46,7 @@
 #include "subsystem_metric_sanity.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
+#include "ntnetwork_tests.dm"
 #include "unit_test.dm"
 #include "random_ruin_mapsize.dm"
 
