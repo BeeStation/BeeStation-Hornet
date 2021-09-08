@@ -1186,7 +1186,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			H.Paralyze(10 * power)
 		if(ADMIN_PUNISHMENT_TOEPLUS)
 			if(!ishuman(target))
-				to_chat(usr, "<span class='warning'>Only humans can stub their toes!</span>")
+				to_chat(usr, "<span class='warning'>Only humanoids can stub their toes!</span>")
 				return
 			ADD_TRAIT(target, TRAIT_ALWAYS_STUBS, "adminabuse")
 
