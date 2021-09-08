@@ -103,9 +103,9 @@
 			if(C.is_afk())
 				continue //Don't show afk admins to adminwho
 			msg += "\t[C] is a mentor\n"
-
-		msg += "<span class='info'>Adminhelps are also sent to IRC. If no admins are available in game adminhelp anyways and an admin on IRC will see it and respond.</span>"
 		message_admins("[ADMIN_LOOKUPFLW(src)] has checked online staff.")
+		msg += "<span class='info'>Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.</span>"
+
 	to_chat(src, msg)
 
 /client/verb/mentorwho()  // redundant with staffwho, but people wont check the admin tab for if there are mentors on
@@ -155,8 +155,7 @@
 			if(C.is_afk())
 				continue //Don't show afk admins to adminwho
 			msg += "\t[C] is a mentor\n"
-
-		msg += "<span class='info'>Adminhelps are also sent to IRC. If no admins are available in game adminhelp anyways and an admin on IRC will see it and respond.</span>"
 		message_admins("[ADMIN_LOOKUPFLW(src)] has checked online staff.")
+		msg += "<span class='info'>Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.</span>"
 	to_chat(src, msg)
 

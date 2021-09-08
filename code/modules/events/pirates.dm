@@ -266,7 +266,8 @@
 	. = ..()
 	if (istype(I) && istype(I.buffer,/obj/machinery/piratepad))
 		to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
-		pad = I.buffer
+		set_pad(I.buffer)
+		ui_update()
 		return TRUE
 
 /obj/machinery/computer/piratepad_control/LateInitialize()
@@ -274,10 +275,23 @@
 	if(cargo_hold_id)
 		for(var/obj/machinery/piratepad/P in GLOB.machines)
 			if(P.cargo_hold_id == cargo_hold_id)
-				pad = P
+				set_pad(P)
 				return
 	else
-		pad = locate() in range(4,src)
+		set_pad(locate(/obj/machinery/piratepad) in range(4,src))
+
+/obj/machinery/computer/piratepad_control/proc/set_pad(obj/machinery/piratepad/newpad)
+	if(pad)
+		UnregisterSignal(pad, COMSIG_PARENT_QDELETING)
+
+	pad = newpad
+
+	if(pad)
+		RegisterSignal(pad, COMSIG_PARENT_QDELETING, .proc/handle_pad_deletion)
+
+/obj/machinery/computer/piratepad_control/proc/handle_pad_deletion()
+	pad = null
+	ui_update()
 
 
 /obj/machinery/computer/piratepad_control/ui_state(mob/user)
@@ -333,7 +347,6 @@
 
 	if(!value)
 		status_report += "0"
-	ui_update()
 
 /obj/machinery/computer/piratepad_control/proc/send()
 	if(!sending)
@@ -384,7 +397,6 @@
 	pad.visible_message("<span class='notice'>[pad] starts charging up.</span>")
 	pad.icon_state = pad.warmup_state
 	sending_timer = addtimer(CALLBACK(src,.proc/send),warmup_time, TIMER_STOPPABLE)
-	ui_update()
 
 /obj/machinery/computer/piratepad_control/proc/stop_sending()
 	if(!sending)
@@ -393,7 +405,6 @@
 	status_report = "Ready for delivery."
 	pad.icon_state = pad.idle_state
 	deltimer(sending_timer)
-	ui_update()
 
 /datum/export/pirate
 	export_category = EXPORT_PIRATE

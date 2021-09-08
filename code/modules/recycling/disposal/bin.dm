@@ -291,7 +291,7 @@
 	if(!ui)
 		ui = new(user, src, "DisposalUnit")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Pressure
 
 /obj/machinery/disposal/bin/ui_data(mob/user)
 	var/list/data = list()
