@@ -21,6 +21,11 @@
 		return ..()
 
 
+/obj/machinery/computer/aifixer/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(restoring)
+		. = TRUE
+
 /obj/machinery/computer/aifixer/ui_state(mob/user)
 	return GLOB.default_state
 
@@ -85,6 +90,8 @@
 			restoring = Fix()
 			if(oldstat != occupier.stat)
 				update_icon()
+			if(!restoring)
+				ui_update() // One final update
 
 /obj/machinery/computer/aifixer/update_icon()
 	..()
@@ -117,6 +124,7 @@
 		to_chat(user, "<span class='notice'>Transfer Successful</span>: [AI.name] ([rand(1000,9999)].exe) installed and executed successfully. Local copy has been removed.")
 		card.AI = null
 		update_icon()
+		ui_update()
 
 	else //Uploading AI from terminal to card
 		if(occupier && !restoring)
@@ -126,6 +134,7 @@
 			card.AI = occupier
 			occupier = null
 			update_icon()
+			ui_update()
 		else if (restoring)
 			to_chat(user, "<span class='alert'>ERROR: Reconstruction in progress.</span>")
 		else if (!occupier)

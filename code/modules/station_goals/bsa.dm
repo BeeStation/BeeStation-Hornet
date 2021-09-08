@@ -221,10 +221,12 @@
 /obj/machinery/bsa/full/proc/reload()
 	ready = FALSE
 	use_power(power_used_per_shot)
+	ui_update()
 	addtimer(CALLBACK(src,"ready_cannon"),600)
 
 /obj/machinery/bsa/full/proc/ready_cannon()
 	ready = TRUE
+	ui_update()
 
 /obj/structure/filler
 	name = "big machinery part"
@@ -259,7 +261,7 @@
 	if(!ui)
 		ui = new(user, src, "BluespaceArtillery")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		//Missing updates for: target GPS name changes
 
 /obj/machinery/computer/bsa_control/ui_data()
 	var/obj/machinery/bsa/full/cannon = cannon_ref?.resolve()
@@ -270,6 +272,8 @@
 	data["unlocked"] = GLOB.bsa_unlock
 	if(target)
 		data["target"] = get_target_name()
+	else
+		data["target"] = null
 	return data
 
 /obj/machinery/computer/bsa_control/ui_act(action, params)
@@ -285,7 +289,8 @@
 		if("recalibrate")
 			calibrate(usr)
 			. = TRUE
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	if(!GLOB.bsa_unlock)

@@ -181,8 +181,9 @@
 		ui = new(user, src, "ChemDispenser")
 		if(user.hallucinating())
 			ui.set_autoupdate(FALSE) //to not ruin the immersion by constantly changing the fake chemicals
+			//Seems like a pretty bad way to do it, but I think a better one would deserve a wider refactor including at least sleeper
 		else
-			ui.set_autoupdate(TRUE)
+			ui.set_autoupdate(TRUE) // Cell charge
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
@@ -227,11 +228,21 @@
 	return data
 
 /obj/machinery/chem_dispenser/ui_act(action, params)
-	if(..())
+	. = ..()
+	if(.) // Propagation only used by debug machine, but eh
 		return
+
+	switch(action)
+		if("eject")
+			replace_beaker(usr)
+			. = TRUE
+
+	if(!is_operational())
+		return
+
 	switch(action)
 		if("amount")
-			if(!is_operational() || QDELETED(beaker))
+			if(QDELETED(beaker))
 				return
 			var/target = text2num(params["target"])
 			if(target in beaker.possible_transfer_amounts)
@@ -239,7 +250,7 @@
 				work_animation()
 				. = TRUE
 		if("dispense")
-			if(!is_operational() || QDELETED(cell))
+			if(QDELETED(cell))
 				return
 			var/reagent_name = params["reagent"]
 			if(!recording_recipe)
@@ -258,18 +269,15 @@
 				recording_recipe[reagent_name] += amount
 			. = TRUE
 		if("remove")
-			if(!is_operational() || recording_recipe)
+			if(recording_recipe)
 				return
 			var/amount = text2num(params["amount"])
 			if(beaker && (amount in beaker.possible_transfer_amounts))
 				beaker.reagents.remove_all(amount)
 				work_animation()
 				. = TRUE
-		if("eject")
-			replace_beaker(usr)
-			. = TRUE
 		if("dispense_recipe")
-			if(!is_operational() || QDELETED(cell))
+			if(QDELETED(cell))
 				return
 			var/list/chemicals_to_dispense = saved_recipes[params["recipe"]]
 			if(!LAZYLEN(chemicals_to_dispense))
@@ -295,20 +303,14 @@
 					recording_recipe[key] += dispense_amount
 			. = TRUE
 		if("clear_recipes")
-			if(!is_operational())
-				return
 			var/yesno = alert("Clear all recipes?",, "Yes","No")
 			if(yesno == "Yes")
 				saved_recipes = list()
 			. = TRUE
 		if("record_recipe")
-			if(!is_operational())
-				return
 			recording_recipe = list()
 			. = TRUE
 		if("save_recording")
-			if(!is_operational())
-				return
 			var/name = stripped_input(usr,"Name","What do you want to name this recipe?", "Recipe", MAX_NAME_LEN)
 			if(!usr.canUseTopic(src, !issilicon(usr)))
 				return
@@ -326,8 +328,6 @@
 				recording_recipe = null
 				. = TRUE
 		if("cancel_recording")
-			if(!is_operational())
-				return
 			recording_recipe = null
 			. = TRUE
 

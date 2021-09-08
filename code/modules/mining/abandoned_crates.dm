@@ -242,3 +242,9 @@
 
 /obj/structure/closet/crate/secure/loot/deconstruct(disassembled = TRUE)
 	boom()
+
+/obj/structure/closet/crate/secure/loot/emp_act(severity)
+	if(locked)
+		boom()
+	else
+		..()

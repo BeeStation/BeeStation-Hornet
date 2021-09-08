@@ -43,11 +43,23 @@
 		var/obj/item/circuit_component/component_path = build_path
 		desc = initial(component_path.display_desc)
 
-/datum/design/component/arithmetic
+/datum/design/component/arbitrary_input_amount/arithmetic
 	name = "Arithmetic Component"
 	id = "comp_arithmetic"
-	build_path = /obj/item/circuit_component/arithmetic
+	build_path = /obj/item/circuit_component/arbitrary_input_amount/arithmetic
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
+/datum/design/component/arbitrary_input_amount/bitwise
+	name = "Bitwise Component"
+	id = "comp_bitwise"
+	build_path = /obj/item/circuit_component/arbitrary_input_amount/bitwise
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
+/datum/design/component/bitflag
+	name = "Bitflag Component"
+	id = "comp_bitflag"
+	build_path = /obj/item/circuit_component/compare/bitflag
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS, WIREMOD_LOGIC_COMPONENTS)
 
 /datum/design/component/clock
 	name = "Clock Component"
@@ -109,6 +121,12 @@
 	build_path = /obj/item/circuit_component/random
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS, WIREMOD_LOGIC_COMPONENTS)
 
+/datum/design/component/round
+	name = "Round Component"
+	id = "comp_round"
+	build_path = /obj/item/circuit_component/round
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
 /datum/design/component/species
 	name = "Get Species Component"
 	id = "comp_species"
@@ -126,6 +144,24 @@
 	id = "comp_tostring"
 	build_path = /obj/item/circuit_component/tostring
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_STRING_COMPONENTS, WIREMOD_CONVERSION_COMPONENTS)
+
+/datum/design/component/trig
+	name = "Trigonometry Component"
+	id = "comp_trig"
+	build_path = /obj/item/circuit_component/trig/trig
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
+/datum/design/component/adv_trig
+	name = "Advanced Trigonometry Component"
+	id = "comp_adv_trig"
+	build_path = /obj/item/circuit_component/trig/adv_trig
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
+
+/datum/design/component/hyper_trig
+	name = "Hyperbolic Trigonometry Component"
+	id = "comp_hyper_trig"
+	build_path = /obj/item/circuit_component/trig/hyper_trig
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
 
 /datum/design/component/typecheck
 	name = "Typecheck Component"

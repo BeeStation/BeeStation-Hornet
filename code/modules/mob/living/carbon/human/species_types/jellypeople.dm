@@ -279,7 +279,7 @@
 	if(!ui)
 		ui = new(user, src, "SlimeBodySwapper")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Body status (health, occupied, etc.)
 
 /datum/action/innate/swap_body/ui_data(mob/user)
 	var/mob/living/carbon/human/H = owner

@@ -113,3 +113,7 @@ require only minor tweaks.
 #define BIOME_LOWMEDIUM_HUMIDITY "lowmedium_humidity"
 #define BIOME_HIGHMEDIUM_HUMIDITY "highmedium_humidity"
 #define BIOME_HIGH_HUMIDITY "high_humidity"
+
+///Hint for whether a genturf should generate as a closed or open turf. null for default.
+#define GENTURF_HINT_OPEN "open"
+#define GENTURF_HINT_CLOSED "closed"

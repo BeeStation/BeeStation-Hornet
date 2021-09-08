@@ -104,7 +104,7 @@
 				continue //Don't show afk admins to adminwho
 			msg += "\t[C] is a mentor\n"
 
-		msg += "<span class='info'>Adminhelps are also sent to IRC. If no admins are available in game adminhelp anyways and an admin on IRC will see it and respond.</span>"
+		msg += "<span class='info'>Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.</span>"
 		if(world.time - src.staff_check_rate > 1 MINUTE)
 			message_admins("[ADMIN_LOOKUPFLW(src)] has checked online staff.")
 			log_admin("[key_name(src)] has checked online staff.")
@@ -159,7 +159,7 @@
 				continue //Don't show afk admins to adminwho
 			msg += "\t[C] is a mentor\n"
 
-		msg += "<span class='info'>Adminhelps are also sent to IRC. If no admins are available in game adminhelp anyways and an admin on IRC will see it and respond.</span>"
+		msg += "<span class='info'>Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.</span>"
 		if(world.time - src.staff_check_rate > 1 MINUTE)
 			message_admins("[ADMIN_LOOKUPFLW(src)] has checked online staff.")
 			log_admin("[key_name(src)] has checked online staff.")

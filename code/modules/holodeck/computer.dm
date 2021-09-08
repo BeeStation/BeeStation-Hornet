@@ -53,11 +53,11 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	var/area/holodeck/linked
 
 	///what program is loaded right now or is about to be loaded
-	var/program = "holodeck_offline"
+	var/program = "offline"
 	var/last_program
 
 	///the default program loaded by this holodeck when spawned and when deactivated
-	var/offline_program = "holodeck_offline"
+	var/offline_program = "offline"
 
 	///stores all of the unrestricted holodeck map templates that this computer has access to
 	var/list/program_cache
@@ -138,6 +138,9 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	if(obj_flags & EMAGGED)
 		data["emagged"] = TRUE
 		data["emag_programs"] = emag_programs
+	else
+		data["emagged"] = null
+		data["emag_programs"] = null
 	data["program"] = program
 	data["can_toggle_safety"] = issilicon(user) || IsAdminGhost(user)
 	return data
@@ -145,33 +148,34 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 /obj/machinery/computer/holodeck/ui_act(action, params)
 	if(..())
 		return
-	. = TRUE
 	switch(action)
 		if("load_program")
 			var/program_to_load = params["id"]
 
-			var/list/checked = program_cache.Copy()
-			if (obj_flags & EMAGGED)
-				checked |= emag_programs
 			var/valid = FALSE //dont tell security about this
 
 			//checks if program_to_load is any one of the loadable programs, if it isnt then it rejects it
-			for(var/list/check_list as anything in checked)
+			for(var/list/check_list as anything in program_cache)
 				if(check_list["id"] == program_to_load)
 					valid = TRUE
 					break
+			if(!valid && (obj_flags & EMAGGED))
+				for(var/list/check_list as anything in emag_programs)
+					if(check_list["id"] == program_to_load)
+						valid = TRUE
+						break
 			if(!valid)
-				return FALSE
+				return
 			//load the map_template that program_to_load represents
-			if(program_to_load)
-				load_program(program_to_load)
+			load_program(program_to_load)
+			. = TRUE
 		if("safety")
 			if((obj_flags & EMAGGED) && program)
 				emergency_shutdown()
 			nerf(obj_flags & EMAGGED,FALSE)
 			obj_flags ^= EMAGGED
 			say("Safeties reset. Restarting...")
-	ui_update()
+			. = TRUE
 
 ///this is what makes the holodeck not spawn anything on broken tiles (space and non engine plating / non holofloors)
 /datum/map_template/holodeck/update_blacklist(turf/placement, list/input_blacklist)
@@ -347,6 +351,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	last_program = program
 	active = FALSE
 	load_program(offline_program, TRUE)
+	ui_update()
 
 ///returns TRUE if the entire floor of the holodeck is intact, returns FALSE if any are broken
 /obj/machinery/computer/holodeck/proc/floorcheck()

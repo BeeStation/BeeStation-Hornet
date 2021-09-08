@@ -6,6 +6,7 @@
 	desc = "Your own comprehension of reality starts bending as you stare this."
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "boh_tear"
+	is_real = FALSE
 	pixel_x = -32
 	pixel_y = -32
 	dissipate = 0
