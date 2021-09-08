@@ -1184,6 +1184,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				H.emote("scream")
 			H.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 			H.Paralyze(10 * power)
+		if(ADMIN_PUNISHMENT_TOEPLUS)
+			if(!ishuman(target))
+				to_chat(usr, "<span class='warning'>Only humans can stub their toes!</span>")
+				return
+			ADD_TRAIT(target, TRAIT_ALWAYS_STUBS, "adminabuse")
 
 	punish_log(target, punishment)
 
