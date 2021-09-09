@@ -8,20 +8,6 @@
 	flag = "magic"
 	martial_arts_no_deflect = TRUE
 
-/obj/item/projectile/magic/death
-	name = "bolt of death"
-	icon_state = "pulse1_bl"
-	martial_arts_no_deflect = FALSE
-
-/obj/item/projectile/magic/death/on_hit(target)
-	. = ..()
-	if(ismob(target))
-		var/mob/M = target
-		if(M.anti_magic_check())
-			M.visible_message("<span class='warning'>[src] vanishes on contact with [target]!</span>")
-			return BULLET_ACT_BLOCK
-		M.death(0)
-
 /obj/item/projectile/magic/resurrection
 	name = "bolt of resurrection"
 	icon_state = "ion"
