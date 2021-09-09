@@ -1176,14 +1176,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				return
 			var/mob/living/carbon/human/H = target
 			to_chat(H, "<span class='warning'>You stub your toe on an invisible table!</span>")
-			var/power = 5
-			if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
-				power = 3
-				H.emote("gasp")
-			else
-				H.emote("scream")
-			H.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
-			H.Paralyze(10 * power)
+			H.stub_toe(5)
 		if(ADMIN_PUNISHMENT_TOEPLUS)
 			if(!ishuman(target))
 				to_chat(usr, "<span class='warning'>Only humans can stub their toes!</span>")

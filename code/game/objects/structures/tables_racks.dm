@@ -45,14 +45,7 @@
 		return
 	if(HAS_TRAIT(H, TRAIT_ALWAYS_STUBS) || ((world.time >= last_bump + 100) && prob(5)))
 		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
-		var/power = 2
-		if(HAS_TRAIT(H, TRAIT_LIGHT_STEP))
-			power = 1
-			H.emote("gasp")
-		else
-			H.emote("scream")
-		H.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
-		H.Paralyze(10 * power)
+		H.stub_toe(2)
 	last_bump = world.time //do the cooldown here so walking into a table only checks toestubs once
 
 /obj/structure/table/examine(mob/user)
