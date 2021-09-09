@@ -116,7 +116,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /client/proc/battle_royale()
 	set name = "Battle Royale"
 	set category = "Fun"
-	if(!check_rights(R_ADMIN))
+	if(!(check_rights(R_FUN) || (check_rights(R_ADMIN) && SSticker.current_state == GAME_STATE_FINISHED)))
 		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
 		return
 	if(GLOB.battle_royale)
