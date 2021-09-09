@@ -25,7 +25,6 @@
 	var/newShuttleKey = "SAVEDSHUTTLE_[mapkey]"
 	//Alright lets do pre saving
 	for(var/obj/docking_port/mobile/thing in group)
-		message_admins("group contains a port!")
 		thing.pre_saved_vars = list()
 		thing.pre_saved_vars["id"] = thing.id
 		thing.id = newShuttleKey
@@ -40,7 +39,7 @@
 	if(!pre_saved_vars)
 		return
 	. = list()
-	.["shuttleId"] = shuttleId
+	.["shuttleId"] = "\"shuttleId\""
 
 //Properly save shuttle docks, oh god
 /obj/docking_port/mobile/get_save_vars()

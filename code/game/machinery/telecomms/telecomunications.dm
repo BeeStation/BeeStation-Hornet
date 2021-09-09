@@ -214,4 +214,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 /obj/machinery/telecomms/get_save_vars(save_flag)
 	. = list()
 	//Save autolinkers
-	.["autolinkers"] = "list([autolinkers.Join(", ")])"
+	var/list/autolinkers_txt = list()
+	for(var/autolink in autolinkers)
+		autolinkers_txt += "\"[autolink]\""
+	.["autolinkers"] = "list([autolinkers_txt.Join(", ")])"

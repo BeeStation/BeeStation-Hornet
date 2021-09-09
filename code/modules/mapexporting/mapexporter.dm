@@ -1,3 +1,15 @@
+
+//BACONTODO
+//TYPES TO DO WITH SAVE_SAFE_1
+// [x] - obj/machinery (Fully completed and things that require save data is done.)
+// [ ] - obj/structure
+// [ ] - obj/item (everything needs to be a special type that has no populatecontents call)
+// [ ] - obj/docking_port (Dont save static ports, should be good)
+// [ ] - obj/mecha (??? Save mech wrecks instead?)
+// [ ] - obj/effect (This probably won't need much work)
+// [ ] - mob (idek should be fine)
+// [ ] - turf (Dont save indestructible << already done)
+
 //Map exporter
 //Inputting a list of turfs into convert_map_to_tgm() will output a string
 //with the turfs and their objects / areas on said turf into the TGM mapping format
