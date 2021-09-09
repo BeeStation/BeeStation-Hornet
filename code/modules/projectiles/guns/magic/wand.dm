@@ -54,6 +54,26 @@
 	user.log_message("zapped [user.p_them()]self with a <b>[src]</b>", LOG_ATTACK)
 
 
+/////////////////////////////////////
+//WAND OF DEATH
+/////////////////////////////////////
+/obj/item/gun/magic/wand/death/debug
+	desc = "In some obscure circles, this is known as the 'cloning tester's friend'."
+	max_charges = 500
+	variable_charges = FALSE
+	ammo_type = /obj/item/ammo_casing/magic/death
+	can_charge = TRUE
+	fire_sound = 'sound/magic/wandodeath.ogg'
+	recharge_rate = 1
+
+/obj/item/gun/magic/wand/death/debug/zap_self(mob/living/user)
+	..()
+	to_chat(user, "<span class='warning'>You irradiate yourself with pure energy! \
+	[pick("Do not pass go. Do not collect 200 zorkmids.","You feel more confident in your spell casting skills.","You Die...","Do you want your possessions identified?")]\
+	</span>")
+	user.adjustOxyLoss(500)
+	charges--
+
 
 /////////////////////////////////////
 //WAND OF HEALING
