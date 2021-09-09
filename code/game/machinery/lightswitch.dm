@@ -9,6 +9,22 @@
 	/// instead of the switch's location.
 	var/area/area = null
 
+/obj/machinery/light_switch/directional/north //Dir excluded because tiny switch isn't directional.
+	pixel_y = 27
+	pixel_x = 7
+
+/obj/machinery/light_switch/directional/south
+	pixel_y = -27
+	pixel_x = -7
+
+/obj/machinery/light_switch/directional/east
+	pixel_x = 27
+	pixel_y = 7
+
+/obj/machinery/light_switch/directional/west
+	pixel_x = -27
+	pixel_y = -7
+
 /obj/machinery/light_switch/Initialize()
 	. = ..()
 	if(istext(area))

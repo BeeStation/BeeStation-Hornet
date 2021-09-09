@@ -205,6 +205,18 @@ GLOBAL_LIST_EMPTY(allCasters)
 	light_color = LIGHT_COLOR_GREEN
 	light_power = 1.5
 
+/obj/machinery/newscaster/directional/north //No dir included because status these are not directionally oriented.
+	pixel_y = 30
+
+/obj/machinery/newscaster/directional/south
+	pixel_y = -30
+
+/obj/machinery/newscaster/directional/east
+	pixel_x = 30
+
+/obj/machinery/newscaster/directional/west
+	pixel_x = -30
+
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
 	securityCaster = 1

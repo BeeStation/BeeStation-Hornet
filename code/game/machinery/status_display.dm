@@ -34,6 +34,18 @@
 	var/index1			// display index for scrolling messages or 0 if non-scrolling
 	var/index2
 
+/obj/machinery/status_display/directional/north //No dir included because status these are not directionally oriented.
+	pixel_y = 30
+
+/obj/machinery/status_display/directional/south
+	pixel_y = -30
+
+/obj/machinery/status_display/directional/east
+	pixel_x = 30
+
+/obj/machinery/status_display/directional/west
+	pixel_x = -30
+
 /// Immediately blank the display.
 /obj/machinery/status_display/proc/remove_display()
 	cut_overlays()

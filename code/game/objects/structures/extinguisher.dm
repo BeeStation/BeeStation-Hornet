@@ -10,6 +10,18 @@
 	var/obj/item/extinguisher/stored_extinguisher
 	var/opened = FALSE
 
+/obj/structure/extinguisher_cabinet/directional/north //No dir included because status these are not directionally oriented.
+	pixel_y = 30
+
+/obj/structure/extinguisher_cabinet/directional/south
+	pixel_y = -30
+
+/obj/structure/extinguisher_cabinet/directional/east
+	pixel_x = 30
+
+/obj/structure/extinguisher_cabinet/directional/west
+	pixel_x = -30
+
 /obj/structure/extinguisher_cabinet/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)
