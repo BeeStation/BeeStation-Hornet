@@ -1172,14 +1172,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				target.set_playable()
 		if(ADMIN_PUNISHMENT_TOE)
 			if(!ishuman(target))
-				to_chat(usr, "<span class='warning'>Only humans can stub their toes!</span>")
+				to_chat(usr, "<span class='warning'>Only humanoids can stub their toes!</span>")
 				return
 			var/mob/living/carbon/human/H = target
 			to_chat(H, "<span class='warning'>You stub your toe on an invisible table!</span>")
 			H.stub_toe(5)
 		if(ADMIN_PUNISHMENT_TOEPLUS)
 			if(!ishuman(target))
-				to_chat(usr, "<span class='warning'>Only humans can stub their toes!</span>")
+				to_chat(usr, "<span class='warning'>Only humanoids can stub their toes!</span>")
 				return
 			ADD_TRAIT(target, TRAIT_ALWAYS_STUBS, "adminabuse")
 
