@@ -100,7 +100,7 @@
 			return TRUE
 		if("toggle")
 			enabled = !enabled
-			SSnetworks.add_log("Quantum relay manually [relay_enabled ? "enabled" : "disabled"].")
+			SSnetworks.add_log("Quantum relay manually [enabled ? "enabled" : "disabled"].")
 			update_icon()
 			return TRUE
 
@@ -111,13 +111,13 @@
 	if(SSnetworks.station_network)
 		SSnetworks.relays.Add(src)
 		NTNet = SSnetworks.station_network
-		SSnetworks.add_log("New quantum relay activated. Current amount of linked relays: [NTNet.relays.len]")
+		SSnetworks.add_log("New quantum relay activated. Current amount of linked relays: [SSnetworks.relays.len]")
 	. = ..()
 
 /obj/machinery/ntnet_relay/Destroy()
 	if(SSnetworks.station_network)
 		SSnetworks.relays.Remove(src)
-		SSnetworks.add_log("Quantum relay connection severed. Current amount of linked relays: [NTNet.relays.len]")
+		SSnetworks.add_log("Quantum relay connection severed. Current amount of linked relays: [SSnetworks.relays.len]")
 		NTNet = null
 
 	for(var/datum/computer_file/program/ntnet_dos/D in dos_sources)

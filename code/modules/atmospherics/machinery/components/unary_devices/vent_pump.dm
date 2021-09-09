@@ -19,7 +19,6 @@
 
 	interacts_with_air = TRUE
 
-	var/id_tag = null
 	var/pump_direction = RELEASING
 
 	var/pressure_checks = EXT_BOUND

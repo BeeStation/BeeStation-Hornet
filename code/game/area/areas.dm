@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   *
   * returns INITIALIZE_HINT_LATELOAD
   */
-/area/Initialize()
+/area/Initialize(mapload)
 	icon_state = ""
 	canSmoothWithAreas = typecacheof(canSmoothWithAreas)
 
