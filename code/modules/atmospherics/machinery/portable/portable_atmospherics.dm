@@ -6,6 +6,8 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 60, "acid" = 30, "stamina" = 0)
 	anchored = FALSE
 
+	flags_1 = SAVE_SAFE_1
+
 	var/datum/gas_mixture/air_contents
 	var/obj/machinery/atmospherics/components/unary/portables_connector/connected_port
 	var/obj/item/tank/holding
@@ -28,7 +30,7 @@
 	disconnect()
 	qdel(air_contents)
 	air_contents = null
-	
+
 	SSair.atmos_machinery -= src
 
 	return ..()

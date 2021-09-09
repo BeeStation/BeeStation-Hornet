@@ -36,6 +36,7 @@
 	idle_power_usage = 10
 	active_power_usage = 400
 	light_color = LIGHT_COLOR_BLUE
+	flags_1 = SAVE_SAFE_1
 
 	var/datum/techweb/stored_research
 	var/max_storage = 6

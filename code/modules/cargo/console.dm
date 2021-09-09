@@ -3,8 +3,7 @@
 	desc = "Used to order supplies, approve requests, and control the shuttle."
 	icon_screen = "supply"
 	circuit = /obj/item/circuitboard/computer/cargo
-
-
+	flags_1 = SAVE_SAFE_1
 
 	var/requestonly = FALSE
 	var/contraband = FALSE

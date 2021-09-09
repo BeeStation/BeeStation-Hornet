@@ -7,6 +7,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	circuit = /obj/item/circuitboard/machine/biogenerator
+	flags_1 = SAVE_SAFE_1
 
 
 	var/processing = FALSE

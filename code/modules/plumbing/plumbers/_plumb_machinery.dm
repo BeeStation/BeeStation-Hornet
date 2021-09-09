@@ -11,6 +11,7 @@
 	active_power_usage = 45
 	use_power = ACTIVE_POWER_USE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	flags_1 = SAVE_SAFE_1
 	///Plumbing machinery is always gonna need reagents, so we might aswell put it here
 	var/buffer = 50
 	///Flags for reagents, like INJECTABLE, TRANSPARENT bla bla everything thats in DEFINES/reagents.dm

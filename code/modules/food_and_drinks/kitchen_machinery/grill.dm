@@ -11,6 +11,7 @@
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
 	use_power = NO_POWER_USE
+	flags_1 = SAVE_SAFE_1
 	var/grill_fuel = 0
 	var/obj/item/reagent_containers/food/grilled_item
 	var/grill_time = 0

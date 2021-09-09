@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	layer = BELOW_OPEN_DOOR_LAYER
 	processing_flags = START_PROCESSING_MANUALLY
 	subsystem_type = /datum/controller/subsystem/processing/fastprocess
+	flags_1 = SAVE_SAFE_1
 	var/operating = 0	// 1 if running forward, -1 if backwards, 0 if off
 	var/operable = 1	// true if can operate (no broken segments in this belt run)
 	var/forwards		// this is the default (forward) direction, set by the map dir
@@ -245,6 +246,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch-off"
 	processing_flags = START_PROCESSING_MANUALLY
+	flags_1 = SAVE_SAFE_1
 
 	var/position = 0			// 0 off, -1 reverse, 1 forward
 	var/last_pos = -1			// last direction setting
@@ -429,4 +431,52 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/item/paper/guides/conveyor
 	name = "paper- 'Nano-it-up U-build series, #9: Build your very own conveyor belt, in SPACE'"
 	info = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
+
+//===================
+// CONVEYOR NETWORK SAVING
+//===================
+
+/obj/machinery/conveyor/get_pre_save_key()
+	return id
+
+/obj/machinery/conveyor/get_saved_type()
+	return /obj/machinery/conveyor
+
+/obj/machinery/conveyor_switch/get_pre_save_key()
+	return id
+
+//Conveyors with no switch will not have special data saved
+/obj/machinery/conveyor_switch/pre_save(list/map, pre_save_key)
+	//Alright lets calculate a group code
+	//will make it EXTREMELY rare that 2 groups share conveyor
+	//network codes. If they do, who cares they will probably
+	//think the people before them messed it up rather than
+	//they got a 1 in 10 million chance of something going wrong.
+	var/mapcode = rand(1, 9999999)
+	var/unique_conveyor_code = "AUTOCONVCODE_[mapcode]"
+	//Lets save the group
+	for(var/obj/machinery/conveyor/thing in map)
+		thing.pre_saved_vars = list()
+		thing.pre_saved_vars["id"] = thing.id
+		thing.id = unique_conveyor_code
+	for(var/obj/machinery/conveyor_switch/thing in map)
+		thing.pre_saved_vars = list()
+		thing.pre_saved_vars["id"] = thing.id
+		thing.id = unique_conveyor_code
+	return TRUE
+
+/obj/machinery/conveyor/get_save_vars(save_flag)
+	//This means that pre_save hasn't executed which means that we aren't linked to a conveyor switch on the saved area
+	if(!pre_saved_vars)
+		return
+	. = list()
+	.["id"] = "\"id\""
+
+/obj/machinery/conveyor_switch/get_save_vars(save_flag)
+	//This means that pre_save hasn't executed which means that we aren't linked to a conveyor switch on the saved area
+	if(!pre_saved_vars)
+		return
+	. = list()
+	.["id"] = "\"id\""
+
 #undef MAX_CONVEYOR_ITEMS_MOVE

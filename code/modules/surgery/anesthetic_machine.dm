@@ -5,6 +5,7 @@
 	icon_state = "breath_machine"
 	anchored = FALSE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/clothing/mask/breath/machine/attached_mask
 	var/obj/item/tank/attached_tank = null
 	var/mask_out = FALSE

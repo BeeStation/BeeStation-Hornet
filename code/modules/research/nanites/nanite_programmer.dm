@@ -9,6 +9,7 @@
 	anchored = TRUE
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/nanite_programmer
+	flags_1 = SAVE_SAFE_1
 
 /obj/machinery/nanite_programmer/Initialize()
 	. = ..()

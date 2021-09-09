@@ -6,6 +6,7 @@
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/computer/robotics
 	light_color = LIGHT_COLOR_PINK
+	flags_1 = SAVE_SAFE_1
 
 
 

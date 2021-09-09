@@ -13,6 +13,7 @@
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_HEADS, ACCESS_SECURITY) //used to control clamps
 	processing_flags = NONE
 	layer = ABOVE_WINDOW_LAYER
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 

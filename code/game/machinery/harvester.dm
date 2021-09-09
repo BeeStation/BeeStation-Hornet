@@ -9,6 +9,7 @@
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/harvester
 	light_color = LIGHT_COLOR_BLUE
+	flags_1 = SAVE_SAFE_1
 	var/interval = 20
 	var/harvesting = FALSE
 	var/list/operation_order = list() //Order of wich we harvest limbs.

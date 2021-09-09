@@ -9,6 +9,7 @@
 	icon_state = "shower"
 	density = FALSE
 	use_power = NO_POWER_USE
+	flags_1 = SAVE_SAFE_1
 	var/on = FALSE
 	var/current_temperature = SHOWER_NORMAL
 	var/datum/looping_sound/showering/soundloop

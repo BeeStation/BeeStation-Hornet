@@ -46,6 +46,7 @@
 	integrity_failure = 80
 	idle_power_usage = 100
 	active_power_usage = 1000
+	flags_1 = SAVE_SAFE_1
 	var/list/light_setting_list = list(0, 5, 10, 15)
 	var/light_power_coefficient = 300
 	var/setting = 1

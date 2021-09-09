@@ -12,6 +12,7 @@
 	active_power_usage = 0
 	max_integrity = 150
 	integrity_failure = 0.33
+	flags_1 = SAVE_SAFE_1
 
 	var/id = 0
 	max_integrity = 150
@@ -264,6 +265,7 @@
 	idle_power_usage = 250
 	max_integrity = 200
 	integrity_failure = 100
+	flags_1 = SAVE_SAFE_1
 	var/icon_screen = "solar"
 	var/icon_keyboard = "power_key"
 	var/id = 0

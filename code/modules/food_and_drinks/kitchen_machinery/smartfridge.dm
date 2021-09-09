@@ -12,8 +12,7 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/smartfridge
-
-
+	flags_1 = SAVE_SAFE_1
 
 	var/max_n_of_items = 1500
 	var/allow_ai_retrieve = FALSE
@@ -261,6 +260,9 @@
 			if (visible_contents && .)
 				update_icon()
 
+//Don't save types that get roundstart contents
+/obj/machinery/smartfridge/get_saved_type()
+	return /obj/machinery/smartfridge
 
 // ----------------------------
 //  Drying Rack 'smartfridge'
@@ -372,6 +374,8 @@
 		return
 	atmos_spawn_air("TEMP=1000")
 
+/obj/machinery/smartfridge/drying_rack/get_saved_type()
+	return /obj/machinery/smartfridge/drying_rack
 
 // ----------------------------
 //  Bar drink smartfridge
@@ -386,6 +390,9 @@
 	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks) || istype(O, /obj/item/reagent_containers/food/condiment))
 		return TRUE
 
+/obj/machinery/smartfridge/drinks/get_saved_type()
+	return /obj/machinery/smartfridge/drinks
+
 // ----------------------------
 //  Food smartfridge
 // ----------------------------
@@ -396,6 +403,9 @@
 	if(istype(O, /obj/item/reagent_containers/food/snacks/))
 		return TRUE
 	return FALSE
+
+/obj/machinery/smartfridge/food/get_saved_type()
+	return /obj/machinery/smartfridge/food
 
 // -------------------------------------
 // Xenobiology Slime-Extract Smartfridge
@@ -410,6 +420,9 @@
 	if(istype(O, /obj/item/slime_scanner))
 		return TRUE
 	return FALSE
+
+/obj/machinery/smartfridge/extract/get_saved_type()
+	return /obj/machinery/smartfridge/extract
 
 /obj/machinery/smartfridge/extract/preloaded
 	initial_contents = list(/obj/item/slime_scanner = 2)
@@ -452,6 +465,9 @@
 	if(istype(AM))
 		AM.organ_flags &= ~ORGAN_FROZEN
 
+/obj/machinery/smartfridge/organ/get_saved_type()
+	return /obj/machinery/smartfridge/organ
+
 // -----------------------------
 // Chemistry Medical Smartfridge
 // -----------------------------
@@ -477,6 +493,9 @@
 		return TRUE
 	return FALSE
 
+/obj/machinery/smartfridge/chemistry/get_saved_type()
+	return /obj/machinery/smartfridge/chemistry
+
 /obj/machinery/smartfridge/chemistry/preloaded
 	initial_contents = list(
 		/obj/item/reagent_containers/pill/epinephrine = 12,
@@ -490,6 +509,9 @@
 /obj/machinery/smartfridge/chemistry/virology
 	name = "smart virus storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
+
+/obj/machinery/smartfridge/virology/get_saved_type()
+	return /obj/machinery/smartfridge/virology
 
 /obj/machinery/smartfridge/chemistry/virology/preloaded
 	initial_contents = list(
@@ -517,3 +539,6 @@
 		return TRUE
 	else
 		return FALSE
+
+/obj/machinery/smartfridge/disks/get_saved_type()
+	return /obj/machinery/smartfridge/disks

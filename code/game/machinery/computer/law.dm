@@ -39,6 +39,7 @@
 	name = "\improper AI upload console"
 	desc = "Used to upload laws to the AI."
 	circuit = /obj/item/circuitboard/computer/aiupload
+	flags_1 = SAVE_SAFE_1
 
 /obj/machinery/computer/upload/ai/interact(mob/user)
 	current = select_active_ai(user)
@@ -60,6 +61,7 @@
 	name = "cyborg upload console"
 	desc = "Used to upload laws to Cyborgs."
 	circuit = /obj/item/circuitboard/computer/borgupload
+	flags_1 = SAVE_SAFE_1
 
 /obj/machinery/computer/upload/borg/interact(mob/user)
 	current = select_active_free_borg(user)

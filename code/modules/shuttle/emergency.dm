@@ -18,8 +18,6 @@
 	icon_keyboard = "tech_key"
 	resistance_flags = INDESTRUCTIBLE
 
-
-
 	var/auth_need = 3
 	var/list/authorized = list()
 	var/list/acted_recently = list()

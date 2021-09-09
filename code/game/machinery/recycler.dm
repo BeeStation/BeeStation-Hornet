@@ -10,6 +10,7 @@
 	circuit = /obj/item/circuitboard/machine/recycler
 	idle_power_usage = 50
 	active_power_usage = 200
+	flags_1 = SAVE_SAFE_1
 	var/safety_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
 	var/blood = 0

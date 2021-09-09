@@ -6,8 +6,6 @@
 	icon_state = "yellow"
 	density = TRUE
 
-
-
 	var/valve_open = FALSE
 	var/release_log = ""
 
@@ -497,3 +495,7 @@
 				. = TRUE
 	if(.)
 		update_icon()
+
+//Sorry, you don't get to keep roundstart gasses
+/obj/machinery/portable_atmospherics/canister/get_saved_type()
+	return /obj/machinery/portable_atmospherics/canister

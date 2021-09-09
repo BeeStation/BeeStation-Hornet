@@ -19,6 +19,7 @@
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "recharge_port"
 	circuit = /obj/item/circuitboard/machine/mech_recharger
+	flags_1 = SAVE_SAFE_1
 	var/obj/mecha/recharging_mech
 	var/obj/machinery/computer/mech_bay_power_console/recharge_console
 	var/max_charge = 50
@@ -88,6 +89,7 @@
 	icon_screen = "recharge_comp"
 	icon_keyboard = "rd_key"
 	circuit = /obj/item/circuitboard/computer/mech_bay_power_console
+	flags_1 = SAVE_SAFE_1
 
 
 	var/obj/machinery/mech_bay_recharge_port/recharge_port

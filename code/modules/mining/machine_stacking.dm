@@ -7,6 +7,7 @@
 	desc = "Controls a stacking machine... in theory."
 	density = FALSE
 	circuit = /obj/item/circuitboard/machine/stacking_unit_console
+	flags_1 = SAVE_SAFE_1
 	var/obj/machinery/mineral/stacking_machine/machine
 	var/machinedir = SOUTHEAST
 
@@ -80,6 +81,7 @@
 	circuit = /obj/item/circuitboard/machine/stacking_machine
 	input_dir = EAST
 	output_dir = WEST
+	flags_1 = SAVE_SAFE_1
 	var/obj/machinery/mineral/stacking_unit_console/console
 	var/stk_types = list()
 	var/stk_amt   = list()

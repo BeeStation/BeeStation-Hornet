@@ -9,8 +9,8 @@
 	desc = "It's an underfloor wiring terminal for power equipment."
 	level = 1
 	layer = WIRE_TERMINAL_LAYER //a bit above wires
+	flags_1 = SAVE_SAFE_1
 	var/obj/machinery/power/master = null
-
 
 /obj/machinery/power/terminal/Initialize()
 	. = ..()

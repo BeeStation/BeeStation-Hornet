@@ -10,6 +10,7 @@
 	density = TRUE
 	anchored = FALSE
 	use_power = NO_POWER_USE
+	flags_1 = SAVE_SAFE_1
 	var/food_stored = 0
 	var/glasses = 0
 	var/portion = 10

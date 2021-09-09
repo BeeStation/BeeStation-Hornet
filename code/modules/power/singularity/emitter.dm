@@ -17,6 +17,7 @@
 	use_power = NO_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 600
+	flags_1 = SAVE_SAFE_1
 
 	var/icon_state_on = "emitter_+a"
 	var/icon_state_underpowered = "emitter_+u"
@@ -57,6 +58,7 @@
 	req_access_txt = "100"
 	state = EMITTER_WELDED
 	use_power = FALSE
+	flags_1 = NONE
 
 /obj/machinery/power/emitter/Initialize()
 	. = ..()
@@ -364,6 +366,7 @@
 	icon_state_underpowered = "protoemitter_+u"
 	can_buckle = TRUE
 	buckle_lying = FALSE
+	flags_1 = NONE
 	var/view_range = 4.5
 	var/datum/action/innate/protoemitter/firing/auto
 

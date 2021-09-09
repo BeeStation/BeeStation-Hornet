@@ -7,6 +7,7 @@
 	icon_keyboard = "med_key"
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
 	circuit = /obj/item/circuitboard/computer/med_data
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/card/id/scan = null
 	var/authenticated = null
 	var/rank = null

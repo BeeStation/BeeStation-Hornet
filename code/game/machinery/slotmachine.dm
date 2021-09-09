@@ -23,6 +23,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/computer/slot_machine
+	flags_1 = SAVE_SAFE_1
 	var/money = 3000 //How much money it has CONSUMED
 	var/plays = 0
 	var/working = 0

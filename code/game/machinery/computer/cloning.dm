@@ -7,6 +7,7 @@
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/computer/cloning
 	req_access = list(ACCESS_GENETICS) //for modifying records
+	flags_1 = SAVE_SAFE_1
 	var/obj/machinery/dna_scannernew/scanner //Linked scanner. For scanning.
 	var/clonepod_type = /obj/machinery/clonepod
 	var/list/pods //Linked cloning pods

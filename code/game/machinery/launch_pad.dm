@@ -8,6 +8,7 @@
 	active_power_usage = 2500
 	hud_possible = list(DIAG_LAUNCHPAD_HUD)
 	circuit = /obj/item/circuitboard/machine/launchpad
+	flags_1 = SAVE_SAFE_1
 	var/icon_teleport = "lpad-beam"
 	var/stationary = TRUE //to prevent briefcase pad deconstruction and such
 	var/display_name = "Launchpad"
@@ -224,6 +225,7 @@
 	teleport_speed = 20
 	range = 8
 	stationary = FALSE
+	flags_1 = NONE
 	var/closed = TRUE
 	var/obj/item/storage/briefcase/launchpad/briefcase
 

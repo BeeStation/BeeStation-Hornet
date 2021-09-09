@@ -14,6 +14,8 @@
 	density = FALSE
 	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
 	interacts_with_air = TRUE
+	//Dont save gas miners
+	flags_1 = NONE
 	var/spawn_id = null
 	var/spawn_temp = T20C
 	/// Moles of gas to spawn per second

@@ -4,8 +4,7 @@
 	var/obj/machinery/nanite_chamber/chamber
 	icon_screen = "nanite_chamber_control"
 	circuit = /obj/item/circuitboard/computer/nanite_chamber_control
-
-
+	flags_1 = SAVE_SAFE_1
 
 /obj/machinery/computer/nanite_chamber_control/Initialize()
 	. = ..()

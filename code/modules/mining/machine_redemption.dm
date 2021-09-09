@@ -15,6 +15,7 @@
 	processing_flags = START_PROCESSING_MANUALLY
 
 	layer = BELOW_OBJ_LAYER
+	flags_1 = SAVE_SAFE_1
 
 	var/obj/item/card/id/inserted_id
 	var/points = 0

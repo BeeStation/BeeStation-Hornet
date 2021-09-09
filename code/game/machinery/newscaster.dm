@@ -190,6 +190,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	max_integrity = 200
 	integrity_failure = 50
 	layer = ABOVE_WINDOW_LAYER
+	flags_1 = SAVE_SAFE_1
 	var/screen = 0
 	var/paper_remaining = 15
 	var/securityCaster = 0

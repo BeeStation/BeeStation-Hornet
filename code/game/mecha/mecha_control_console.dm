@@ -5,9 +5,7 @@
 	icon_keyboard = "tech_key"
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/computer/mecha_control
-
-
-
+	flags_1 = SAVE_SAFE_1
 
 /obj/machinery/computer/mecha/ui_state(mob/user)
 	return GLOB.default_state

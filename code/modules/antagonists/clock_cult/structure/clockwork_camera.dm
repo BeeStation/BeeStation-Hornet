@@ -60,6 +60,7 @@
 	clockwork = TRUE
 	lock_override = CAMERA_LOCK_STATION
 	broken_overlay_emissive = TRUE
+	flags_1 = NONE
 	var/datum/action/innate/clockcult/warp/warp_action
 
 /obj/machinery/computer/camera_advanced/ratvar/Initialize()

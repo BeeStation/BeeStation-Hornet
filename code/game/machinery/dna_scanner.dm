@@ -9,6 +9,7 @@
 	active_power_usage = 300
 	occupant_typecache = list(/mob/living, /obj/item/bodypart/head, /obj/item/organ/brain)
 	circuit = /obj/item/circuitboard/machine/clonescanner
+	flags_1 = SAVE_SAFE_1
 	var/locked = FALSE
 	var/damage_coeff
 	var/scan_level

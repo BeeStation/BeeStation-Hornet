@@ -11,8 +11,7 @@
 	idle_power_usage = 20
 	resistance_flags = ACID_PROOF
 	circuit = /obj/item/circuitboard/computer/pandemic
-
-
+	flags_1 = SAVE_SAFE_1
 
 	var/wait
 	var/datum/symptom/selected_symptom

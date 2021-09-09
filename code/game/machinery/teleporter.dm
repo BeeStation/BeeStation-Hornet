@@ -11,6 +11,7 @@
 	idle_power_usage = 10
 	active_power_usage = 3000
 	circuit = /obj/item/circuitboard/machine/teleporter_hub
+	flags_1 = SAVE_SAFE_1
 	var/accuracy = 0
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation

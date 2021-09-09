@@ -132,9 +132,6 @@
 	light_power = 1.5
 	light_color = LIGHT_COLOR_CYAN
 
-
-
-
 	//High defaults so it's not completed automatically if there's no station goal
 	var/animals_max = 100
 	var/plants_max = 100

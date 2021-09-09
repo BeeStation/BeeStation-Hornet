@@ -6,6 +6,7 @@
 
 	icon_screen = "alert:0"
 	icon_keyboard = "atmos_key"
+	flags_1 = SAVE_SAFE_1
 	var/list/priority_alarms = list()
 	var/list/minor_alarms = list()
 	var/receive_frequency = FREQ_ATMOS_ALARMS

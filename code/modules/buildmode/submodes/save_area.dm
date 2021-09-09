@@ -38,6 +38,8 @@ GLOBAL_VAR_INIT(save_area_executing, FALSE)
 		to_chat(usr, "<span class='warning'>Someone is already running the generator! Try again in a bit.</span>")
 		return
 
+	var/shuttle = alert("Do you want to save shuttle areas? (Please ensure only 1 shuttle is in the zone if this is the case)", "Generator Settings", "Shuttle", "Station") == "Shuttle"
+
 	to_chat(usr, "<span class='warning'>Saving, please wait...</span>")
 	GLOB.save_area_executing = TRUE
 
@@ -47,7 +49,7 @@ GLOBAL_VAR_INIT(save_area_executing, FALSE)
 
 	//Step 1: Get the data (This can take a while)
 	var/dat = "//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE\n"
-	dat += convert_map_to_tgm(L.map)
+	dat += convert_map_to_tgm(L.map, SAVE_ADMIN, shuttle ? SAVE_SHUTTLEAREA_ONLY : SAVE_SHUTTLEAREA_IGNORE)
 
 	//Step 2: Write the data to a file
 	var/filedir = file("data/temp.dmm")

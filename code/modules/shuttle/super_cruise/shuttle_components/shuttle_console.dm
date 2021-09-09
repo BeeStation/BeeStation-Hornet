@@ -7,6 +7,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_CYAN
 	req_access = list()
+	//BACONTODO Auto generate a shuttle ID on save
+	flags_1 = SAVE_SAFE_1
 	var/shuttleId
 
 	//Interdiction range

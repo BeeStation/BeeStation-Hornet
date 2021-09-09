@@ -17,8 +17,6 @@ GLOBAL_DATUM_INIT(keycard_events, /datum/events, new)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	layer = ABOVE_WINDOW_LAYER
 
-
-
 	var/datum/callback/ev
 	var/event = ""
 	var/obj/machinery/keycard_auth/event_source

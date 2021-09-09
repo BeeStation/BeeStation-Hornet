@@ -12,6 +12,7 @@
 	active_power_usage = 500
 	fair_market_price = 10
 	payment_department = ACCOUNT_MED
+	flags_1 = SAVE_SAFE_1
 	var/stasis_enabled = TRUE
 	var/last_stasis_sound = FALSE
 	var/stasis_can_toggle = 0

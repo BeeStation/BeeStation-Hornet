@@ -9,6 +9,7 @@
 	active_power_usage = 5000
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/machine/mechfab
+	flags_1 = SAVE_SAFE_1
 
 	output_direction = SOUTH
 

@@ -4,6 +4,7 @@
 	icon_screen = "teleport"
 	icon_keyboard = "teleport_key"
 	circuit = /obj/item/circuitboard/computer/launchpad_console
+	flags_1 = SAVE_SAFE_1
 
 
 

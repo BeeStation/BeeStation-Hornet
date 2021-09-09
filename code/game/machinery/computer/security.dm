@@ -5,6 +5,7 @@
 	icon_keyboard = "security_key"
 	req_one_access = list(ACCESS_SEC_RECORDS)
 	circuit = /obj/item/circuitboard/computer/secure_data
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/card/id/scan = null
 	var/authenticated = null
 	var/rank = null
@@ -626,7 +627,7 @@ What a mess.*/
 							printing = 1
 							for(var/i in 1 to posternum)
 								playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
-								
+
 								sleep(30)
 								if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
 									var/obj/item/photo/photo = active1.fields["photo_front"]

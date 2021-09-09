@@ -17,6 +17,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	icon_keyboard = "id_key"
 	req_one_access = list(ACCESS_HEADS, ACCESS_CHANGE_IDS)
 	circuit = /obj/item/circuitboard/computer/card
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/card/id/scan = null
 	var/obj/item/card/id/modify = null
 	var/authenticated = 0

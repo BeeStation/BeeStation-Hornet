@@ -12,6 +12,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	desc = "Learn science by destroying things!"
 	icon_state = "d_analyzer"
 	circuit = /obj/item/circuitboard/machine/destructive_analyzer
+	flags_1 = SAVE_SAFE_1
 	var/decon_mod = 0
 
 /obj/machinery/rnd/destructive_analyzer/RefreshParts()

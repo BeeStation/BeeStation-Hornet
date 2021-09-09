@@ -7,6 +7,7 @@
 	icon_keyboard = "security_key"
 	circuit = /obj/item/circuitboard/computer/security
 	light_color = LIGHT_COLOR_RED
+	flags_1 = SAVE_SAFE_1
 
 
 

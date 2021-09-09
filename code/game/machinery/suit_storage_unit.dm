@@ -9,8 +9,7 @@
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	max_integrity = 250
-
-
+	flags_1 = SAVE_SAFE_1
 
 	var/obj/item/clothing/suit/space/suit = null
 	var/obj/item/clothing/head/helmet/space/helmet = null
@@ -53,6 +52,28 @@
 	var/breakout_time = 300
 	/// How fast it charges cells in a suit
 	var/charge_rate = 250
+
+//Don't save mapping subtypes
+/obj/machinery/suit_storage_unit/get_saved_type()
+	return /obj/machinery/suit_storage_unit
+
+//Calculate saved contents
+/obj/machinery/suit_storage_unit/get_save_vars(save_flag)
+	if(!(save_flag & SAVE_OBJECTS))
+		return
+	var/output = list()
+	//Save the stuff inside if its allowed to be save
+	if(suit?.is_save_safe(save_flag))
+		output["suit_type"] = suit.get_saved_type()
+	if(helmet?.is_save_safe(save_flag))
+		output["helmet_type"] = helmet.get_saved_type()
+	if(mask?.is_save_safe(save_flag))
+		output["mask_type"] = mask.get_saved_type()
+	if(storage?.is_save_safe(save_flag))
+		output["storage_type"] = storage.get_saved_type()
+	//Return output if it contains stuff
+	if(length(output))
+		return output
 
 /obj/machinery/suit_storage_unit/standard_unit
 	suit_type = /obj/item/clothing/suit/space/eva

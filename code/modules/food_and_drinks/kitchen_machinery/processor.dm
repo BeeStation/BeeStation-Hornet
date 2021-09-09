@@ -10,6 +10,7 @@
 	idle_power_usage = 5
 	active_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/processor
+	flags_1 = SAVE_SAFE_1
 	var/broken = FALSE
 	var/processing = FALSE
 	var/rating_speed = 1

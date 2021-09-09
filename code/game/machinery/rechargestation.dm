@@ -11,6 +11,7 @@
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/cyborgrecharger
 	occupant_typecache = list(/mob/living/silicon/robot, /mob/living/carbon/human)
+	flags_1 = SAVE_SAFE_1
 	var/recharge_speed
 	var/repairs
 

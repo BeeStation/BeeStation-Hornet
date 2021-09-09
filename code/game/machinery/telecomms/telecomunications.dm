@@ -18,6 +18,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	icon = 'icons/obj/machines/telecomms.dmi'
 	critical_machine = TRUE
 	light_color = LIGHT_COLOR_CYAN
+	flags_1 = SAVE_SAFE_1
 	var/list/links = list() // list of machines this machine is linked to
 	var/traffic = 0 // value increases as traffic increases
 	var/netspeed = 2.5 // how much traffic to lose per second (50 gigabytes/second * netspeed)
@@ -171,3 +172,46 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 
 /obj/machinery/telecomms/proc/de_emp()
 	stat &= ~EMPED
+
+//================
+// TELECOMMUNICATIONS MAP SAVE
+// Telecomm networks on a saved map will autolink when spawned in!
+//================
+
+/obj/machinery/telecomms/get_pre_save_key()
+	return network
+
+//Run through all machines in the group and generate autolinkers
+/obj/machinery/telecomms/pre_save(list/group, pre_save_key = "")
+	//Makes it very rare that 2 maps will have the same autolinkers
+	var/map_key = rand(1, 999999)
+	var/index = 0
+	//Pre save vars so they can be reset after save
+	for(var/obj/machinery/telecomms/commmachine in group)
+		commmachine.pre_saved_vars = list()
+		commmachine.pre_saved_vars["autolinkers"] = commmachine.autolinkers
+		commmachine.autolinkers = list()
+	//Don't double link machines
+	var/list/linked_assoc = list()
+	//For every machine in the group, calculate connections
+	for(var/obj/machinery/telecomms/commmachine in group)
+		linked_assoc[commmachine] = list()
+		for(var/obj/machinery/telecomms/linked_machine in commmachine.links)
+			//Linked machine is not saved
+			if(!(linked_machine in group))
+				continue
+			//Mark as being linked
+			linked_assoc[commmachine] += linked_machine
+			//Check if the linked machine is already connected to us
+			if(commmachine in linked_assoc[linked_machine])
+				continue
+			//Generate an autolinker
+			var/link_key = "SAVEDLINK[map_key]_[index++]"
+			linked_machine.autolinkers += link_key
+			commmachine.autolinkers += link_key
+	return TRUE
+
+/obj/machinery/telecomms/get_save_vars(save_flag)
+	. = list()
+	//Save autolinkers
+	.["autolinkers"] = "list([autolinkers.Join(", ")])"

@@ -48,6 +48,7 @@
 	icon_keyboard = "rd_key"
 
 	light_color = LIGHT_COLOR_PINK
+	flags_1 = NONE
 
 /obj/machinery/computer/camera_advanced/base_construction/Initialize()
 	. = ..()

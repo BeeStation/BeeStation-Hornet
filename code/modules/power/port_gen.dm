@@ -7,8 +7,7 @@
 	density = TRUE
 	anchored = FALSE
 	use_power = NO_POWER_USE
-
-
+	flags_1 = SAVE_SAFE_1
 
 	var/active = FALSE
 	var/power_gen = 5000

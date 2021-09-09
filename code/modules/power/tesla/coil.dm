@@ -5,6 +5,7 @@
 	icon_state = "coil0"
 	anchored = FALSE
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 
 	// Executing a traitor caught releasing tesla was never this fun!
 	can_buckle = TRUE
@@ -156,6 +157,7 @@
 	icon_state = "grounding_rod0"
 	anchored = FALSE
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 
 	can_buckle = TRUE
 	buckle_lying = FALSE

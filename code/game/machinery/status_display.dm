@@ -25,6 +25,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	layer = ABOVE_WINDOW_LAYER
+	flags_1 = SAVE_SAFE_1
 
 	maptext_height = 26
 	maptext_width = 32

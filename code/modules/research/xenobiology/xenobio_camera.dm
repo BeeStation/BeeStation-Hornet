@@ -22,6 +22,7 @@
 	desc = "A computer used for remotely handling slimes."
 	networks = list("ss13")
 	circuit = /obj/item/circuitboard/computer/xenobiology
+	flags_1 = NONE
 	var/datum/action/innate/slime_place/slime_place_action
 	var/datum/action/innate/slime_pick_up/slime_up_action
 	var/datum/action/innate/feed_slime/feed_slime_action

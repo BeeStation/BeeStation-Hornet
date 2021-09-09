@@ -10,6 +10,7 @@
 	density = FALSE
 	circuit = /obj/item/circuitboard/machine/dish_drive
 	pass_flags = PASSTABLE
+	flags_1 = SAVE_SAFE_1
 	var/static/list/collectable_items = list(/obj/item/trash/waffles,
 		/obj/item/trash/plate,
 		/obj/item/trash/tray,

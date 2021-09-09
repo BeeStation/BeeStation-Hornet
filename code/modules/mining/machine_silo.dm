@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	icon_state = "silo"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/ore_silo
+	flags_1 = SAVE_SAFE_1
 
 	var/list/holds = list()
 	var/list/datum/component/remote_materials/connected = list()

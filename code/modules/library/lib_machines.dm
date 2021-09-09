@@ -21,6 +21,7 @@
 	icon_keyboard = null
 	circuit = /obj/item/circuitboard/computer/libraryconsole
 	desc = "Checked out books MUST be returned on time."
+	flags_1 = SAVE_SAFE_1
 	var/screenstate = 0
 	var/title
 	var/category = "Any"
@@ -329,7 +330,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange metal tablet sitting on the desk. You don't even remember where it came from...</span>")
 		if(3)
 			new /obj/item/forbidden_book(get_turf(src))
-			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is an ominous book, bound by a chain, sitting on the desk. You don't even remember where it came from...</span>")	
+			to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is an ominous book, bound by a chain, sitting on the desk. You don't even remember where it came from...</span>")
 	user.visible_message("[user] stares at the blank screen for a few moments, [user.p_their()] expression frozen in fear. When [user.p_they()] finally awaken[user.p_s()] from it, [user.p_they()] look[user.p_s()] a lot older.", 2)
 
 /obj/machinery/computer/libraryconsole/bookmanagement/attackby(obj/item/W, mob/user, params)
@@ -516,6 +517,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	icon_state = "bigscanner"
 	desc = "It servers the purpose of scanning stuff."
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/book/cache		// Last scanned book
 
 /obj/machinery/libraryscanner/attackby(obj/O, mob/user, params)
@@ -573,6 +575,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	icon_state = "binder"
 	desc = "Only intended for binding paper products."
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/busy = FALSE
 
 /obj/machinery/bookbinder/attackby(obj/O, mob/user, params)

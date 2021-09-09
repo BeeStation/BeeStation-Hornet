@@ -10,6 +10,7 @@
 	density = TRUE
 	idle_power_usage = 300
 	active_power_usage = 1200
+	flags_1 = SAVE_SAFE_1
 
 	var/locked = FALSE
 	var/breakout_time = 1200

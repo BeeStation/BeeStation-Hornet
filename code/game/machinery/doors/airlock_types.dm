@@ -331,6 +331,7 @@
 	frequency = FREQ_AIRLOCK_CONTROL
 	heat_proof = TRUE
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS)
+	flags_1 = PREVENT_CLICK_UNDER_1
 
 /obj/machinery/door/airlock/public/glass/incinerator/atmos_interior
 	name = "Turbine Interior Airlock"
@@ -493,6 +494,7 @@
 	aiControlDisabled = 1
 	req_access = list(ACCESS_BLOODCULT)
 	damage_deflection = 10
+	flags_1 = PREVENT_CLICK_UNDER_1
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
 	var/stealthy = FALSE

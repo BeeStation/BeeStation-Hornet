@@ -9,6 +9,7 @@
 	idle_power_usage = 250
 	active_power_usage = 500
 	circuit = /obj/item/circuitboard/computer/crew
+	flags_1 = SAVE_SAFE_1
 
 	light_color = LIGHT_COLOR_BLUE
 

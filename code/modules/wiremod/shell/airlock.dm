@@ -1,6 +1,7 @@
 /obj/machinery/door/airlock/shell
 	name = "circuit airlock"
 	autoclose = FALSE
+	flags_1 = NONE
 
 /obj/machinery/door/airlock/shell/Initialize()
 	. = ..()

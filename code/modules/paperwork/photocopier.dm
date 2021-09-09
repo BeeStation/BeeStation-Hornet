@@ -19,6 +19,7 @@
 	power_channel = AREA_USAGE_EQUIP
 	max_integrity = 300
 	integrity_failure = 100
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/paper/copy = null	//what's in the copier!
 	var/obj/item/photo/photocopy = null
 	var/obj/item/documents/doccopy = null

@@ -11,8 +11,7 @@
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/computer/powermonitor
 	tgui_id = "PowerMonitor"
-
-
+	flags_1 = SAVE_SAFE_1
 
 	var/obj/structure/cable/attached_wire
 	var/obj/machinery/power/apc/local_apc

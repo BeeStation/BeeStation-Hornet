@@ -56,6 +56,7 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/obj/machinery/mineral/processing_unit/machine = null
 	var/machinedir = EAST
 
@@ -115,6 +116,7 @@
 	icon_state = "furnace"
 	density = TRUE
 	needs_item_input = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/obj/machinery/mineral/CONSOLE = null
 	var/on = FALSE
 	var/datum/material/selected_material = null

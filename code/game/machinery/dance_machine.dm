@@ -6,6 +6,7 @@
 	verb_say = "states"
 	density = TRUE
 	req_access = list(ACCESS_BAR)
+	flags_1 = SAVE_SAFE_1
 	var/active = FALSE
 	var/list/rangers = list()
 	var/stop = 0

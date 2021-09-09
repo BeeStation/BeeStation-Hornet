@@ -6,6 +6,7 @@
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/plantgenes
 	pass_flags = PASSTABLE
+	flags_1 = SAVE_SAFE_1
 
 	var/obj/item/seeds/seed
 	var/obj/item/disk/plantgene/disk

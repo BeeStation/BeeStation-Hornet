@@ -22,6 +22,7 @@
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
+	flags_1 = SAVE_SAFE_1
 
 
 	var/obj/item/stock_parts/cell/cell
@@ -615,6 +616,7 @@
 	circuit = /obj/item/circuitboard/machine/chem_dispenser/abductor
 	working_state = null
 	nopower_state = null
+	flags_1 = NONE
 	dispensable_reagents = list(
 		/datum/reagent/aluminium,
 		/datum/reagent/bromine,

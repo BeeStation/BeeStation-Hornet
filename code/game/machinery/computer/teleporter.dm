@@ -5,6 +5,7 @@
 	icon_keyboard = "teleport_key"
 	light_color = LIGHT_COLOR_BLUE
 	circuit = /obj/item/circuitboard/computer/teleporter
+	flags_1 = SAVE_SAFE_1
 
 
 	var/regime_set = "Teleporter"

@@ -4,6 +4,7 @@
 	icon_screen = "explosive"
 	icon_keyboard = "security_key"
 	req_access = list(ACCESS_BRIG)
+	flags_1 = SAVE_SAFE_1
 	var/id = 0
 	var/temp = null
 	var/status = 0

@@ -6,6 +6,7 @@
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
+	flags_1 = SAVE_SAFE_1
 	var/hardware_flag = 0								// A flag that describes this device type
 	var/last_power_usage = 0							// Power usage during last tick
 
