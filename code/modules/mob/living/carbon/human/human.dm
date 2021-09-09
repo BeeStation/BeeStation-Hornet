@@ -1207,7 +1207,7 @@
 
 /mob/living/carbon/human/proc/stub_toe(var/power)
 	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
-		power = power / 2
+		power *= 0.5
 		src.emote("gasp")
 	else
 		src.emote("scream")
