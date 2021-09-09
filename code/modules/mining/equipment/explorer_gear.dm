@@ -38,12 +38,12 @@
 
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
-	desc = "A military-grade gas mask that can be connected to an air supply."
+	desc = "A specialized gas mask offering both protection and convenience."
 	icon_state = "gas_mining"
-	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	flags_cover = MASKCOVERSEYES
 	visor_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	visor_flags_inv = HIDEFACIALHAIR
-	visor_flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	visor_flags_cover = MASKCOVERSEYES
 	actions_types = list(/datum/action/item_action/adjust)
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 20, "acid" = 40, "stamina" = 10)
 	resistance_flags = FIRE_PROOF
