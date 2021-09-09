@@ -34927,13 +34927,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"bpl" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/structure/cable/cyan{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plasteel,
-/area/engine/break_room)
 "bpm" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "transittube";
@@ -84103,6 +84096,13 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
+"rfw" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/structure/cable/cyan{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel,
+/area/engine/break_room)
 "rhR" = (
 /obj/structure/sign/departments/minsky/engineering/atmospherics{
 	pixel_y = -32
@@ -128318,7 +128318,7 @@ bid
 iof
 blr
 bng
-bpl
+rfw
 btD
 bvn
 bvl
