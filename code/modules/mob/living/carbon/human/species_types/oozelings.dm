@@ -1,6 +1,6 @@
 /datum/species/oozeling
 	name = "Oozeling"
-	id = "oozeling"
+	id = SPECIES_OOZELING
 	default_color = "00FF90"
 	say_mod = "blorbles"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR)

@@ -77,6 +77,18 @@
 
 #define GIB_TYPE_HUMAN "human"
 #define GIB_TYPE_ROBOTIC "robotic"
+//Species ID defines
+#define SPECIES_HUMAN			"human"
+#define SPECIES_IPC 			"ipc"
+#define SPECIES_ETHEREAL 		"ethereal"
+#define SPECIES_PLASMAMAN 		"plasmaman"
+#define SPECIES_APID 			"apid"
+#define SPECIES_MOTH			"moth"
+#define SPECIES_LIZARD			"lizard"
+#define SPECIES_FELIND			"felinid"
+#define SPECIES_OOZELING		"oozeling"
+#define SPECIES_FLY 			"fly"
+#define SPECIES_FELINID			"felinid"
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
