@@ -1,7 +1,7 @@
 /****************Explorer's Suit and Mask****************/
 /obj/item/clothing/suit/hooded/explorer
 	name = "explorer suit"
-	desc = "An armoured suit for exploring harsh environments."
+	desc = "A suit made for hostile environments. Its toughness can be further upgraded with goliath hide."
 	icon_state = "explorer"
 	item_state = "explorer"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
@@ -18,7 +18,7 @@
 
 /obj/item/clothing/head/hooded/explorer
 	name = "explorer hood"
-	desc = "An armoured hood for exploring harsh environments."
+	desc = "A hood made for hostile environments. Its toughness can be further upgraded with goliath hide."
 	icon_state = "explorer"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
@@ -38,26 +38,14 @@
 
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
-	desc = "A military-grade gas mask that can be connected to an air supply."
+	desc = "A specialized gas mask offering both protection and convenience."
 	icon_state = "gas_mining"
-	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
+	flags_cover = MASKCOVERSEYES
 	visor_flags = BLOCK_GAS_SMOKE_EFFECT | MASKINTERNALS
 	visor_flags_inv = HIDEFACIALHAIR
-	visor_flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
-	actions_types = list(/datum/action/item_action/adjust)
+	visor_flags_cover = MASKCOVERSEYES
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 20, "acid" = 40, "stamina" = 10)
 	resistance_flags = FIRE_PROOF
-
-/obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
-	adjustmask(user)
-
-/obj/item/clothing/mask/gas/explorer/adjustmask(user)
-	..()
-	w_class = mask_adjusted ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
-
-/obj/item/clothing/mask/gas/explorer/folded/Initialize()
-	. = ..()
-	adjustmask()
 
 /obj/item/clothing/suit/space/hostile_environment
 	name = "H.E.C.K. suit"
