@@ -456,7 +456,7 @@
 /datum/config_entry/flag/save_shuttle_ruins
 
 /datum/config_entry/string/shuttle_ruin_filepath
-	config_entry_value = "data/customShuttleSaves"
+	config_entry_value = "data/customShuttleSaves/"
 
 /datum/config_entry/number/shuttle_total_filesize_max
 	config_entry_value = 1000000
