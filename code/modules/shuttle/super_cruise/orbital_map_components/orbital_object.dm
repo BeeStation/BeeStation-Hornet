@@ -174,10 +174,10 @@
 
 	if(segment_x < ORBITAL_MAP_ZONE_SIZE / 3)
 		valid_side_key = "[section_x - 1],[section_y]"
-		dir_flags |= EAST
+		dir_flags |= WEST
 	else if(segment_x > 2 * (ORBITAL_MAP_ZONE_SIZE / 3))
 		valid_side_key = "[section_x + 1],[section_y]"
-		dir_flags |= WEST
+		dir_flags |= EAST
 
 	if(segment_y < ORBITAL_MAP_ZONE_SIZE / 3)
 		valid_front_key = "[section_x],[section_y - 1]"
