@@ -293,6 +293,11 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
+"ml" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/exploration)
 "mr" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden{
 	dir = 8
@@ -798,6 +803,8 @@
 /obj/item/toy/cards/deck/cas/black{
 	pixel_y = 3
 	},
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "QG" = (
@@ -843,6 +850,7 @@
 /area/shuttle/exploration)
 "Tz" = (
 /obj/structure/table,
+/obj/machinery/microwave,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/exploration)
 "TU" = (
@@ -1101,7 +1109,7 @@ pT
 (8,1,1) = {"
 ka
 jB
-kH
+ml
 Dn
 Dn
 df
