@@ -500,3 +500,8 @@
 #define COMSIG_MACHINE_OPEN "machine_open"
 /// Sent from /obj/machinery/close_machine(): (atom/movable/target)
 #define COMSIG_MACHINE_CLOSE "machine_close"
+
+// Aquarium related signals
+#define COMSIG_AQUARIUM_BEFORE_INSERT_CHECK "aquarium_about_to_be_inserted"
+#define COMSIG_AQUARIUM_SURFACE_CHANGED "aquarium_surface_changed"
+#define COMSIG_AQUARIUM_FLUID_CHANGED "aquarium_fluid_changed"
