@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - code_imp: Replaces get_hearers_in_view with range for musical instruments.
-  - tweak: Musical instrument range reduced from 15 to 11
