@@ -21,6 +21,8 @@
 
 /obj/machinery/teleport/hub/Destroy()
 	if (power_station)
+		if(power_station.teleporter_console)
+			power_station.teleporter_console.ui_update()
 		power_station.teleporter_hub = null
 		power_station = null
 	return ..()
@@ -152,6 +154,7 @@
 		teleporter_console = locate(/obj/machinery/computer/teleporter, get_step(src, direction))
 		if(teleporter_console)
 			teleporter_console.link_power_station()
+			teleporter_console.ui_update()
 			break
 	return teleporter_hub && teleporter_console
 
@@ -162,6 +165,7 @@
 		teleporter_hub.update_icon()
 		teleporter_hub = null
 	if (teleporter_console)
+		teleporter_console.ui_update()
 		teleporter_console.power_station = null
 		teleporter_console = null
 	return ..()

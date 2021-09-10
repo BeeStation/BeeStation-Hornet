@@ -110,7 +110,8 @@
 						/obj/item/radio/headset/headset_eng, \
 						/obj/item/radio/headset/headset_med, \
 						/obj/item/radio/headset/headset_sci, \
-						/obj/item/radio/headset/headset_cargo)
+						/obj/item/radio/headset/headset_cargo, \
+						/obj/item/radio/headset/headset_exploration)
 		ears = new headset(src)
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
@@ -251,6 +252,8 @@
 								available_channels.Add(RADIO_TOKEN_MEDICAL)
 							if(RADIO_CHANNEL_SUPPLY)
 								available_channels.Add(RADIO_TOKEN_SUPPLY)
+							if(RADIO_CHANNEL_EXPLORATION)
+								available_channels.Add(RADIO_TOKEN_EXPLORATION)
 							if(RADIO_CHANNEL_SERVICE)
 								available_channels.Add(RADIO_TOKEN_SERVICE)
 

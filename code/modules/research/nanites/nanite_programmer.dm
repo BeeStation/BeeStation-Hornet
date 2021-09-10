@@ -148,7 +148,6 @@
 				timer *= 10 //convert to deciseconds
 				program.timer_trigger_delay = timer
 			. = TRUE
-	ui_update()
 
 /obj/machinery/nanite_programmer/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()

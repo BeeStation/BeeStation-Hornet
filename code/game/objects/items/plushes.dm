@@ -539,6 +539,14 @@
 	gender = FEMALE
 	squeak_override = list('sound/voice/moth/scream_moth.ogg'=1)
 
+/obj/item/toy/plush/rouny
+	name = "runner plushie"
+	desc = "A plushie depicting a xenomorph runner, made to commemorate the centenary of the Battle of LV-426. Much cuddlier than the real thing."
+	icon_state = "rouny"
+	icon_state = "rouny"
+	attack_verb = list("slashes", "bites", "charges")
+	squeak_override = list('sound/weapons/bite.ogg' = 1)
+
 /obj/item/toy/plush/moth
 	name = "moth plushie"
 	desc = "An adorable mothperson plushy. It's a huggable bug!"

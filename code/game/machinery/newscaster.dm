@@ -189,6 +189,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 0)
 	max_integrity = 200
 	integrity_failure = 50
+	layer = ABOVE_WINDOW_LAYER
 	var/screen = 0
 	var/paper_remaining = 15
 	var/securityCaster = 0

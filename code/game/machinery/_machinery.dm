@@ -184,6 +184,7 @@ Class Procs:
 		new /obj/effect/temp_visual/emp(loc)
 
 /obj/machinery/proc/open_machine(drop = TRUE)
+	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
 	state_open = TRUE
 	density = FALSE
 	if(drop)
@@ -207,6 +208,7 @@ Class Procs:
 	return occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)
 
 /obj/machinery/proc/close_machine(atom/movable/target = null)
+	SEND_SIGNAL(src, COMSIG_MACHINE_CLOSE, target)
 	state_open = FALSE
 	density = TRUE
 	if(!target)
@@ -322,11 +324,11 @@ Class Procs:
 /obj/machinery/Topic(href, href_list)
 	..()
 	if(!can_interact(usr))
-		return 1
+		return TRUE
 	if(!usr.canUseTopic(src))
-		return 1
+		return TRUE
 	add_fingerprint(usr)
-	return 0
+	return FALSE
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 

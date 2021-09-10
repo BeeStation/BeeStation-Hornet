@@ -19,6 +19,7 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
+	var/icon_prefix = "fireaxe"
 
 /obj/item/fireaxe/Initialize()
 	. = ..()
@@ -26,10 +27,10 @@
 /obj/item/fireaxe/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 100, 80, 0 , hitsound) //axes are not known for being precision butchering tools
-	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=24, block_power_wielded=25, icon_wielded="fireaxe1")
+	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=24, block_power_wielded=25, icon_wielded="[icon_prefix]1")
 
 /obj/item/fireaxe/update_icon()
-	icon_state = "fireaxe0"
+	icon_state = "[icon_prefix]0"
 	..()
 
 /obj/item/fireaxe/suicide_act(mob/user)
@@ -52,13 +53,11 @@
  * Bone Axe
  */
 /obj/item/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
-	icon_state = "bone_axe0"
 	name = "bone axe"
 	desc = "A large, vicious axe crafted out of several sharpened bone plates and crudely tied together. Made of monsters, by killing monsters, for killing monsters."
+	icon_prefix = "bone_axe"
+	icon_state = "bone_axe0"
 
 /obj/item/fireaxe/boneaxe/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=23, icon_wielded="bone_axe1")
-
-/obj/item/fireaxe/boneaxe/update_icon()
-	icon_state = "bone_axe0"
+	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=23, icon_wielded="[icon_prefix]1")

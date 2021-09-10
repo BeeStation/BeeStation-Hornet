@@ -25,6 +25,7 @@
 	active_power_usage = 6
 	power_channel = AREA_USAGE_ENVIRON
 	resistance_flags = FIRE_PROOF
+	layer = ABOVE_WINDOW_LAYER
 
 	light_power = 0
 	light_range = 7

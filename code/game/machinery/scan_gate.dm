@@ -248,8 +248,6 @@
 					if("Obese")
 						detect_nutrition = NUTRITION_LEVEL_FAT
 			. = TRUE
-	//Update to viewers
-	ui_update()
 
 #undef SCANGATE_NONE
 #undef SCANGATE_MINDSHIELD
