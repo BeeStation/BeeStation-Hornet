@@ -31,7 +31,6 @@
 	//Can be less than 0 due to hearers being a circular radius.
 	var/distance_proportion = max(1 - (distance / flashbang_range), 0)
 
-//Flash
 	if(M.flash_act(intensity = 1, affect_silicon = 1))
 		if(distance_proportion)
 			M.Paralyze(20 * distance_proportion)
@@ -53,6 +52,8 @@
 		if(distance <= 1)
 			M.Paralyze(5)
 			M.Knockdown(30)
+			
+		var/distance_proportion = max(1 - (distance / flashbang_range), 0)
 		if(distance_proportion)
 			M.soundbang_act(1, 200 * distance_proportion, rand(0, 5))
 
