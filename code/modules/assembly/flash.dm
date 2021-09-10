@@ -11,7 +11,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(/datum/material/iron = 150, /datum/material/glass = 100)
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	throw_speed = 3
 	throw_range = 7
 	var/charges_left = 10
@@ -44,6 +44,7 @@
 
 /obj/item/flashbulb/recharging
 	charges_left = 3
+	flags_1 = NONE
 	var/max_charges = 3
 	var/charge_time = 10 SECONDS
 	var/recharging = FALSE
@@ -85,6 +86,7 @@
 	materials = list(/datum/material/iron = 300, /datum/material/glass = 300)
 	light_color = LIGHT_COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
+	flags_1 = SAVE_SAFE_1
 	var/flashing_overlay = "flash-f"
 	var/last_used = 0 //last world.time it was used.
 	var/cooldown = 20
@@ -307,6 +309,7 @@
 
 /obj/item/assembly/flash/cyborg
 	bulb = /obj/item/flashbulb/recharging/cyborg
+	flags_1 = NONE
 
 /obj/item/assembly/flash/cyborg/attack(mob/living/M, mob/user)
 	..()
@@ -331,12 +334,14 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "memorizer"
 	item_state = "nullrod"
+	flags_1 = NONE
 
 /obj/item/assembly/flash/handheld //this is now the regular pocket flashes
 
 /obj/item/assembly/flash/armimplant
 	name = "photon projector"
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
+	flags_1 = NONE
 	var/flashcd = 20
 	var/overheat = 0
 	//Wearef to our arm
@@ -375,6 +380,7 @@
 	light_color = LIGHT_COLOR_PINK
 	cooldown = 20
 	bulb = /obj/item/flashbulb/recharging/revolution
+	flags_1 = NONE
 
 /obj/item/assembly/flash/hypnotic/burn_out()
 	return

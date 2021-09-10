@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	light_color = LIGHT_COLOR_FIRE
 	heat = 1000
+	flags_1 = SAVE_SAFE_1
 	/// How many seconds it burns for
 	var/wax = 2000
 	var/lit = FALSE
@@ -77,5 +78,6 @@
 /obj/item/candle/infinite
 	infinite = TRUE
 	start_lit = TRUE
+	flags_1 = NONE
 
 #undef CANDLE_LUMINOSITY

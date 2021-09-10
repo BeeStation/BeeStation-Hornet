@@ -66,6 +66,7 @@
 /obj/item/reagent_containers/hypospray/CMO
 	list_reagents = list(/datum/reagent/medicine/omnizine = 30)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	flags_1 = NONE
 
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
@@ -75,6 +76,7 @@
 	icon_state = "combat_hypo"
 	volume = 90
 	possible_transfer_amounts = list(10,15,30,45)
+	flags_1 = NONE
 	ignore_flags = 1 // So they can heal their comrades.
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 30, /datum/reagent/medicine/omnizine = 30, /datum/reagent/medicine/leporazine = 15, /datum/reagent/medicine/stabilizing_nanites = 15)
 
@@ -190,6 +192,7 @@
 
 /obj/item/reagent_containers/hypospray/medipen/stimpack/traitor
 	desc = "A modified amphetamine autoinjector for use in combat situations. Has a mild healing effect."
+	flags_1 = NONE
 	list_reagents = list(/datum/reagent/medicine/amphetamine = 10, /datum/reagent/medicine/omnizine = 10)
 
 /obj/item/reagent_containers/hypospray/medipen/pumpup
@@ -248,6 +251,7 @@
 	volume = 1
 	amount_per_transfer_from_this = 1
 	list_reagents = list("unstablemutationtoxin" = 1)
+	flags_1 = NONE
 
 /obj/item/reagent_containers/hypospray/medipen/atropine
 	name = "atropine autoinjector"

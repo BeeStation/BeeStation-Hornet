@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.9
 	equip_delay_other = 20
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/mask/muzzle/attack_paw(mob/user)
 	if(iscarbon(user))
@@ -21,6 +22,7 @@
 	desc = "A sterile mask designed to help prevent the spread of diseases."
 	icon_state = "sterile"
 	item_state = "sterile"
+	flags_1 = SAVE_SAFE_1
 	w_class = WEIGHT_CLASS_TINY
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
@@ -38,6 +40,7 @@
 	name = "fake moustache"
 	desc = "Warning: moustache is fake."
 	icon_state = "fake-moustache"
+	flags_1 = SAVE_SAFE_1
 	flags_inv = HIDEFACE
 
 /obj/item/clothing/mask/fakemoustache/italian
@@ -69,12 +72,14 @@
 	name = "joy mask"
 	desc = "Express your happiness or hide your sorrows with this laughing face with crying tears of joy cutout."
 	icon_state = "joy"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
 	desc = "A rubber pig mask with a builtin voice modulator."
 	icon_state = "pig"
 	item_state = "pig"
+	flags_1 = SAVE_SAFE_1
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = VOICEBOX_TOGGLABLE
 	w_class = WEIGHT_CLASS_SMALL
@@ -87,6 +92,7 @@
 /obj/item/clothing/mask/pig/cursed
 	name = "pig face"
 	desc = "It looks like a mask, but closer inspection reveals it's melded onto this persons face!"
+	flags_1 = NONE
 	flags_inv = HIDEFACIALHAIR
 	clothing_flags = NONE
 
@@ -101,6 +107,7 @@
 	desc = "An ancient mask carved in the shape of a frog.<br> Sanity is like gravity, all it needs is a push."
 	icon_state = "frog"
 	item_state = "frog"
+	flags_1 = SAVE_SAFE_1
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = VOICEBOX_TOGGLABLE
@@ -115,6 +122,7 @@
 
 /obj/item/clothing/mask/frog/cursed
 	clothing_flags = NONE
+	flags_1 = NONE
 
 /obj/item/clothing/mask/frog/cursed/Initialize()
 	. = ..()
@@ -131,6 +139,7 @@
 	icon = 'icons/mob/mask.dmi'
 	icon_state = "cowmask"
 	item_state = "cowmask"
+	flags_1 = SAVE_SAFE_1
 	clothing_flags = VOICEBOX_TOGGLABLE
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	w_class = WEIGHT_CLASS_SMALL
@@ -143,6 +152,7 @@
 /obj/item/clothing/mask/cowmask/cursed
 	name = "cow face"
 	desc = "It looks like a cow mask, but closer inspection reveals it's melded onto this persons face!"
+	flags_1 = NONE
 	flags_inv = HIDEFACIALHAIR
 	clothing_flags = NONE
 
@@ -156,6 +166,7 @@
 	desc = "A mask made of soft vinyl and latex, representing the head of a horse."
 	icon_state = "horsehead"
 	item_state = "horsehead"
+	flags_1 = SAVE_SAFE_1
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEEYES|HIDEEARS
 	w_class = WEIGHT_CLASS_SMALL
 	clothing_flags = VOICEBOX_TOGGLABLE
@@ -168,6 +179,7 @@
 /obj/item/clothing/mask/horsehead/cursed
 	name = "horse face"
 	desc = "It initially looks like a mask, but it's melded into the poor person's face."
+	flags_1 = NONE
 	clothing_flags = NONE
 	flags_inv = HIDEFACIALHAIR
 
@@ -181,6 +193,7 @@
 	desc = "A mask made of soft vinyl and latex, representing the head of a rat."
 	icon_state = "rat"
 	item_state = "rat"
+	flags_1 = SAVE_SAFE_1
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
 
@@ -237,6 +250,7 @@
 	slot_flags = ITEM_SLOT_MASK
 	adjusted_flags = ITEM_SLOT_HEAD
 	icon_state = "bandbotany"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
@@ -305,6 +319,7 @@
 	icon_state = "mummy_mask"
 	item_state = "mummy_mask"
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/mask/scarecrow
 	name = "sack mask"
@@ -312,6 +327,7 @@
 	icon_state = "scarecrow_sack"
 	item_state = "scarecrow_sack"
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/mask/gondola
 	name = "gondola mask"
@@ -321,6 +337,7 @@
 	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	w_class = WEIGHT_CLASS_SMALL
 	modifies_speech = TRUE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/mask/gondola/handle_speech(datum/source, list/speech_args)
 	var/message = speech_args[SPEECH_MESSAGE]

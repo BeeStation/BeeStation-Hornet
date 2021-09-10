@@ -4,6 +4,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "labeler0"
 	item_state = "flight"
+	flags_1 = SAVE_SAFE_1
 	var/label = null
 	var/labels_left = 30
 	var/mode = 0
@@ -91,6 +92,7 @@
 
 /obj/item/hand_labeler/borg
 	name = "cyborg-hand labeler"
+	flags_1 = NONE
 
 /obj/item/hand_labeler/borg/afterattack(atom/A, mob/user, proximity)
 	. = ..(A, user, proximity)
@@ -120,3 +122,4 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1

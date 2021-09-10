@@ -4,6 +4,7 @@
 	item_state = "flashbang"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	flags_1 = SAVE_SAFE_1 | CONDUCT_1
 	var/flashbang_range = 7 //how many tiles away the mob will be stunned.
 
 /obj/item/grenade/flashbang/prime(mob/living/lanced_by)
@@ -52,6 +53,7 @@
 	item_state = "flashbang"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	flags_1 = SAVE_SAFE_1 | CONDUCT_1
 	var/flashbang_range = 1 //how many tiles away the mob will be stunned.
 	shrapnel_type = /obj/item/projectile/bullet/pellet/stingball
 	shrapnel_radius = 5
@@ -115,6 +117,7 @@
 	item_state = "flashbang"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	flags_1 = SAVE_SAFE_1 | CONDUCT_1
 	var/rots_per_mag = 3 /// how many times we need to "rotate" the charge in hand per extra tile of magnitude
 	shrapnel_type = /obj/item/projectile/bullet/shrapnel
 	var/rots = 1 /// how many times we've "rotated" the charge

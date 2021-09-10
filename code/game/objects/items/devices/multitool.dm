@@ -24,6 +24,7 @@
 	throwforce = 0
 	throw_range = 7
 	throw_speed = 3
+	flags_1 = SAVE_SAFE_1
 	materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	var/obj/machinery/buffer // simple machine buffer for device linkage
 	toolspeed = 1
@@ -50,6 +51,7 @@
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
+	flags_1 = NONE
 	var/track_cooldown = 0
 	var/track_delay = 10 //How often it checks for proximity
 	var/detect_state = PROXIMITY_NONE
@@ -167,6 +169,7 @@
 	return 1
 
 /obj/item/multitool/cyborg
+	flags_1 = NONE
 	name = "multitool"
 	desc = "Optimised and stripped-down version of a regular multitool."
 	toolspeed = 0.5

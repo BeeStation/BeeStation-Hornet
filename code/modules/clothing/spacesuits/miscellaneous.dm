@@ -44,6 +44,7 @@ Contains:
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 	move_sound = list('sound/effects/suitstep1.ogg', 'sound/effects/suitstep2.ogg')
+	flags_1 = NONE
 
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
@@ -83,6 +84,7 @@ Contains:
 	strip_delay = 130
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_1 = NONE
 
 	//NASA Voidsuit
 /obj/item/clothing/head/helmet/space/nasavoid
@@ -128,7 +130,7 @@ Contains:
 	item_state = "santa"
 	slowdown = 0
 	allowed = list(/obj/item) //for stuffing exta special presents
-
+	flags_1 = NONE
 
 	//Space pirate outfit
 /obj/item/clothing/head/helmet/space/pirate
@@ -171,6 +173,7 @@ Contains:
 	strip_delay = 130
 	brightness_on = 7
 	resistance_flags = FIRE_PROOF
+	flags_1 = NONE
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list(
 		/datum/action/item_action/toggle_helmet_light,
@@ -504,6 +507,7 @@ Contains:
 	armor = list(melee = 60, bullet = 40, laser = 40, energy = 50, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100, stamina = 70)
 	strip_delay = 130
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_1 = NONE
 
 /obj/item/clothing/head/helmet/space/hardsuit/skinsuit
 	name = "skinsuit helmet"

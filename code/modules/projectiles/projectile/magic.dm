@@ -424,6 +424,7 @@
 	breakout_time = 600
 	icon_welded = null
 	material_drop_amount = 0
+	flags_1 = NONE
 	var/magic_icon = "cursed"
 	var/weakened_icon = "decursed"
 

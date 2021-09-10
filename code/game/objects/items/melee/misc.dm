@@ -16,7 +16,7 @@
 	item_state = "chain"
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	slot_flags = ITEM_SLOT_BELT
 	force = 10
 	throwforce = 7
@@ -58,7 +58,7 @@
 	item_state = "sabre"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	obj_flags = UNIQUE_RENAME
 	force = 15
 	block_level = 1
@@ -169,6 +169,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 12 //9 hit crit
 	w_class = WEIGHT_CLASS_NORMAL
+	flags_1 = SAVE_SAFE_1
 
 	var/cooldown_check = 0 // Used interally, you don't want to modify
 
@@ -682,6 +683,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/whip.ogg'
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/melee/curator_whip/attack(mob/living/target, mob/living/user)
 	. = ..()
@@ -734,6 +736,7 @@
 	force = 0
 	block_upgrade_walk = 1
 	attack_verb = list("hit", "poked")
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/reagent_containers/food/snacks/sausage/held_sausage
 	var/static/list/ovens
 	var/on = FALSE
@@ -848,6 +851,7 @@
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("repelled")
+	flags_1 = SAVE_SAFE_1
 	var/cooldown = 0
 	var/knockbackpower = 6
 

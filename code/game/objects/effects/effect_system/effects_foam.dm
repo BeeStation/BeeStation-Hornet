@@ -266,6 +266,7 @@
 	gender = PLURAL
 	max_integrity = 20
 	CanAtmosPass = ATMOS_PASS_DENSITY
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/foamedmetal/Initialize()
 	. = ..()

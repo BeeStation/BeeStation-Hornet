@@ -121,6 +121,7 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	flags_1 = SAVE_SAFE_1
 	var/list/banned_mobs
 
 /obj/item/fugu_gland/afterattack(atom/target, mob/user, proximity_flag)

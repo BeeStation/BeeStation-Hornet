@@ -10,6 +10,7 @@
 	item_state = "chef"
 	icon_state = "chef"
 	desc = "The commander in chef's head wear."
+	flags_1 = SAVE_SAFE_1
 	strip_delay = 10
 	equip_delay_other = 10
 	dynamic_hair_suffix = ""
@@ -30,6 +31,7 @@
 	desc = "It's good being the king."
 	icon_state = "captain"
 	item_state = "that"
+	flags_1 = SAVE_SAFE_1
 	flags_inv = 0
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
 	strip_delay = 60
@@ -49,6 +51,7 @@
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
+	flags_1 = SAVE_SAFE_1
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
 	dog_fashion = /datum/dog_fashion/head/hop
 
@@ -57,6 +60,7 @@
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
+	flags_1 = SAVE_SAFE_1
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
@@ -64,6 +68,7 @@
 	name = "bishop mitre"
 	desc = "An opulent hat that functions as a radio to God. Or as a lightning rod, depending on who you ask."
 	icon_state = "bishopmitre"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/bishopmitre/black
 	icon_state = "blackbishopmitre"
@@ -105,6 +110,7 @@
 	dog_fashion = /datum/dog_fashion/head/beret
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = "+generic"
+	flags_1 = SAVE_SAFE_1
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/head/beret/vintage
@@ -132,6 +138,7 @@
 /obj/item/clothing/head/beret/highlander
 	desc = "That was white fabric. <i>Was.</i>"
 	dog_fashion = null //THIS IS FOR SLAUGHTER, NOT PUPPIES
+	flags_1 = NONE
 
 /obj/item/clothing/head/beret/highlander/Initialize()
 	. = ..()
@@ -153,6 +160,7 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 30, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60, "stamina" = 30)
 	strip_delay = 80
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/HoS/syndicate
 	name = "syndicate cap"
@@ -174,6 +182,7 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60, "stamina" = 30)
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/warden
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/warden/drill
 	name = "warden's campaign hat"
@@ -345,6 +354,7 @@
 	icon_state = "beret_centcom_captain"
 	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80)
 	strip_delay = 120
+	flags_1 = NONE
 
 /obj/item/clothing/head/beret/ccofficer
 	name = "central command officer beret"
@@ -352,6 +362,7 @@
 	icon_state = "beret_centcom_officer"
 	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80)
 	strip_delay = 120
+	flags_1 = NONE
 
 /obj/item/clothing/head/beret/ccofficernavy
 	name = "central command naval officer beret"
@@ -359,6 +370,7 @@
 	icon_state = "beret_centcom_officer_navy"
 	armor = list(melee = 80, bullet = 80, laser = 80, energy = 80, bomb = 80, bio = 80, rad = 80, fire = 80, acid = 80, stamina = 80)
 	strip_delay = 120
+	flags_1 = NONE
 
 //For blueshields, but those aren't in so I renamed them to centcom guards
 /obj/item/clothing/head/beret/ccguard
@@ -367,6 +379,7 @@
 	icon_state = "beret_centcom_officer"
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30)
 	strip_delay = 60
+	flags_1 = NONE
 
 /obj/item/clothing/head/beret/ccguardnavy
 	name = "navy officer beret"
@@ -374,6 +387,7 @@
 	icon_state = "beret_centcom_officer_navy"
 	armor = list(melee = 40, bullet = 20, laser = 10, energy = 10, bomb = 10, bio = 5, rad = 5, fire = 5, acid = 30, stamina = 30)
 	strip_delay = 60
+	flags_1 = NONE
 
 /obj/item/clothing/head/beret/captain
 	name = "captain beret"

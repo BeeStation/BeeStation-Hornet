@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	desc = "A device used to define the area required for custom ships. Uses bluespace crystals to create bluespace-capable ships."
 	density = FALSE
 	anchored = FALSE
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	item_flags = NOBLUDGEON
 	force = 0
 	throwforce = 8

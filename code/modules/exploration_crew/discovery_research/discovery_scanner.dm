@@ -7,6 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
+	flags_1 = SAVE_SAFE_1
 	var/datum/techweb/linked_techweb
 
 /obj/item/discovery_scanner/Initialize()

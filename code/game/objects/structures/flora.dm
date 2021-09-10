@@ -10,6 +10,7 @@
 	density = TRUE
 	pixel_x = -16
 	layer = FLY_LAYER
+	flags_1 = SAVE_SAFE_1
 	var/log_amount = 10
 
 /obj/structure/flora/tree/attackby(obj/item/W, mob/user, params)
@@ -308,6 +309,7 @@
 	desc = "A little bit of nature contained in a pot."
 	layer = ABOVE_MOB_LAYER
 	w_class = WEIGHT_CLASS_HUGE
+	flags_1 = SAVE_SAFE_1
 	force = 10
 	attack_weight = 2
 	throwforce = 13

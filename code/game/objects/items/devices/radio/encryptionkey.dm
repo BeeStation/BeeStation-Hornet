@@ -4,6 +4,7 @@
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "cypherkey"
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 	var/translate_binary = FALSE
 	var/syndie = FALSE
 	var/independent = FALSE
@@ -28,11 +29,13 @@
 	icon_state = "syn_cypherkey"
 	channels = list(RADIO_CHANNEL_SYNDICATE = 1)
 	syndie = TRUE//Signifies that it de-crypts Syndicate transmissions
+	flags_1 = NONE
 
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
 	icon_state = "bin_cypherkey"
 	translate_binary = TRUE
+	flags_1 = NONE
 
 /obj/item/encryptionkey/headset_sec
 	name = "security radio encryption key"

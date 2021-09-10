@@ -14,6 +14,7 @@
 	fire_rate = 3
 	weapon_weight = WEAPON_LIGHT
 	block_upgrade_walk = 1
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/ballistic/automatic/toy/update_icon()
 	. = ..()

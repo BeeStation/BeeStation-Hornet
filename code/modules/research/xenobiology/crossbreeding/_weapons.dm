@@ -32,6 +32,7 @@ Slimecrossing Weapons
 	force = 15
 	throwforce = 15
 	damtype = BRUTE
+	flags_1 = NONE
 
 /obj/item/kitchen/knife/rainbowknife/afterattack(atom/O, mob/user, proximity)
 	if(proximity && istype(O, /mob/living))
@@ -61,6 +62,7 @@ Slimecrossing Weapons
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "adamshield"
 	item_state = "adamshield"
+	flags_1 = NONE
 	w_class = WEIGHT_CLASS_HUGE
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70, "stamina" = 70)
 	slot_flags = ITEM_SLOT_BACK

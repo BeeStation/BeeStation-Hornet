@@ -453,6 +453,7 @@
 
 /obj/item/paper/monitorkey
 	name = "monitor decryption key"
+	flags_1 = NONE
 
 /obj/item/paper/monitorkey/Initialize(mapload, obj/machinery/telecomms/message_server/server)
 	..()

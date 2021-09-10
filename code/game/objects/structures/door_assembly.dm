@@ -6,6 +6,7 @@
 	anchored = FALSE
 	density = TRUE
 	max_integrity = 200
+	flags_1 = SAVE_SAFE_1
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/base_name = "airlock"
 	var/mineral = null
@@ -183,7 +184,7 @@
 				state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
 				name = "near finished airlock assembly"
 				electronics = AE
-			else 
+			else
 				qdel(AE)
 
 

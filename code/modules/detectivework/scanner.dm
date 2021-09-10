@@ -11,7 +11,7 @@
 	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	var/scanning = 0
@@ -99,7 +99,7 @@
 
 			var/obj/effect/targeteffect = A
 			if (targeteffect && istype(targeteffect) && targeteffect.forensic_protected)
-				fingerprints = list()				
+				fingerprints = list()
 				for(var/i in 1 to 2)
 					LAZYADD(fingerprints,pick("#$^@&#*$H3LP&$(@US^$&#^@#","&$(T@&#C@ME5@##$^@&","^@(#&$ET@US&FR^E#^$&#","#$^@&M*N$US^$(@&#^$&#^@#","&$(@&#^$&#^@##$^@&","^@R(#E$(D@(R&$U&#M^&#","$TH@Y#*$KN@W(@&#^$&#^@#","#$M^DN*S$^@(#&$(@&#^$&#^@##","#","#$^@&#*$^@(#&$(@","#","#$^@&#&#^@","#","@(#&$(@&#^$&#^@"))
 				blood = list("#$^@&LO0K&#@#" = "&$(@AW@Y#$^&")

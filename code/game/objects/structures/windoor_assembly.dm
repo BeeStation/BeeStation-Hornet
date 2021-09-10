@@ -18,6 +18,7 @@
 	anchored = FALSE
 	density = FALSE
 	dir = NORTH
+	flags_1 = SAVE_SAFE_1
 
 	var/ini_dir
 	var/obj/item/electronics/airlock/electronics = null
@@ -218,7 +219,7 @@
 				else
 					W.forceMove(drop_location())
 
-			//Adding an electroadaptive pseudocircuit for access. Step 6 complete.		
+			//Adding an electroadaptive pseudocircuit for access. Step 6 complete.
 			else if(istype(W, /obj/item/electroadaptive_pseudocircuit))
 				var/obj/item/electroadaptive_pseudocircuit/EP = W
 				if(EP.adapt_circuit(user, 25))

@@ -77,6 +77,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, sortList(list(
 	anchored = TRUE
 	light_range = 2
 	light_power = 3
+	flags_1 = SAVE_SAFE_1
 	var/remove_speed = 15
 	var/picked_color
 

@@ -17,6 +17,7 @@
 	resistance_flags = FLAMMABLE
 	custom_price = 40
 	bang_protect = 2
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/ears/earmuffs/ComponentInitialize()
 	. = ..()
@@ -30,6 +31,7 @@
 	item_state = "headphones"
 	slot_flags = ITEM_SLOT_EARS | ITEM_SLOT_HEAD | ITEM_SLOT_NECK		//Fluff item, put it whereever you want!
 	actions_types = list(/datum/action/item_action/toggle_headphones)
+	flags_1 = SAVE_SAFE_1
 	var/headphones_on = FALSE
 	custom_price = 20
 	bang_protect = 1 //these only work if on your ears due to how bang_protect is calculated, so it's as balanced as earmuffs

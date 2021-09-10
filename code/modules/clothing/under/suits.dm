@@ -1,3 +1,6 @@
+/obj/item/clothing/under/suit
+	flags_1 = SAVE_SAFE_1
+
 /obj/item/clothing/under/suit/white_on_white
 	name = "white suit"
 	desc = "A white suit, suitable for an excellent host."

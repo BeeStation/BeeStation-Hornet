@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = NOBLUDGEON
+	flags_1 = SAVE_SAFE_1
 	var/flush = FALSE
 	var/mob/living/silicon/ai/AI
 

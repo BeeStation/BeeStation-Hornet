@@ -279,6 +279,7 @@
 /obj/item/multitool/field_debug
 	name = "strange multitool"
 	desc = "Seems to project a colored field!"
+	flags_1 = NONE
 	var/list/field_params = list("field_shape" = FIELD_SHAPE_RADIUS_SQUARE, "current_range" = 5, "set_fieldturf_color" = "#aaffff", "set_edgeturf_color" = "#ffaaff")
 	var/field_type = /datum/proximity_monitor/advanced/debug
 	var/operating = FALSE

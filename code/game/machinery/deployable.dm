@@ -14,6 +14,7 @@
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 100
+	flags_1 = SAVE_SAFE_1
 	var/proj_pass_rate = 50 //How many projectiles will pass the cover. Lower means stronger cover
 	var/bar_material = METAL
 
@@ -145,6 +146,7 @@
 	icon_state = "flashbang"
 	item_state = "flashbang"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
+	flags_1 = SAVE_SAFE_1
 	var/mode = SINGLE
 
 /obj/item/grenade/barrier/examine(mob/user)

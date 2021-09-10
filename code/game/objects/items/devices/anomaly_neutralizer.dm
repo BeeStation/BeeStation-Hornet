@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = NOBLUDGEON
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/anomaly_neutralizer/afterattack(atom/target, mob/user, proximity)
 	..()

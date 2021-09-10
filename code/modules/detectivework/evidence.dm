@@ -7,6 +7,7 @@
 	icon_state = "evidenceobj"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/evidencebag/afterattack(obj/item/I, mob/user,proximity)
 	. = ..()

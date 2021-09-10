@@ -11,6 +11,7 @@
 	throw_speed = 3
 	throw_range = 7
 	pressure_resistance = 8
+	flags_1 = SAVE_SAFE_1
 	var/glove_type = /obj/item/clothing/gloves/color/latex
 	var/total_gloves = 50
 

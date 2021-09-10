@@ -2,14 +2,13 @@
 //BACONTODO
 //TYPES TO DO WITH SAVE_SAFE_1
 // [x] - obj/machinery (Fully completed and things that require save data is done.)
-// TODO: APC proper saving
-// [ ] - obj/structure
-// [ ] - obj/item (everything needs to be a special type that has no populatecontents call)
-// [ ] - obj/docking_port (Dont save static ports, should be good)
-// [ ] - obj/mecha (??? Save mech wrecks instead?)
-// [ ] - obj/effect (This probably won't need much work)
-// [ ] - mob (idek should be fine)
-// [ ] - turf (Dont save indestructible << already done)
+// [x] - obj/structure
+// [x] - obj/item
+// [x] - obj/docking_port (Dont save static ports, should be good)
+// [x] - obj/mecha (??? Save mech wrecks instead?)
+// [x] - obj/effect (This probably won't need much work)
+// [x] - mob (idek should be fine)
+// [x] - turf (Dont save indestructible << already done)
 
 //Map exporter
 //Inputting a list of turfs into convert_map_to_tgm() will output a string
@@ -71,6 +70,9 @@
 	if(!(save_flag & SAVE_ADMINEDITTED) && (flags_1 & ADMIN_SPAWNED_1))
 		return FALSE
 	return TRUE
+
+/obj/effect/is_save_safe(save_flag)
+	return FALSE
 
 /obj/item/is_save_safe(save_flag)
 	//Check safety
@@ -155,7 +157,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				if(!place)
 					continue
 				//Ignore things in space, must be a space turf and the area has to be empty space
-				else if(istype(place, /turf/open/space) && istype(AR, /area/space) && !(save_flag & SAVE_SPACE))
+				else if(istype(place, /turf/open/space) && (istype(AR, /area/space) || istype(AR, /area/shuttle/transit))&& !(save_flag & SAVE_SPACE))
 					continue
 				//====Saving shuttles only / non shuttles only====
 				var/is_shuttle_area = istype(AR, /area/shuttle)
@@ -243,7 +245,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 					//====SAVING SPECIAL DATA====
 					//This is what causes lockers and machines to save stuff inside of them
 					if(save_flag & SAVE_OBJECT_PROPERTIES)
-						var/custom_data = thing.on_object_saved()
+						var/custom_data = thing.on_object_saved(save_flag)
 						current_header += "[custom_data ? ",\n[custom_data]" : ""]"
 					//====POSTSAVE====
 					thing.post_save()
@@ -260,6 +262,11 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 						continue
 					var/metadata = generate_tgm_metadata(thing, vars_to_save, save_flag)
 					current_header += "[empty?"":",\n"][thing.type][metadata]"
+					empty = FALSE
+			else
+				for(var/mob/living/thing in objects)
+					//The long gone explorers
+					current_header += "[empty?"":",\n"]/obj/effect/decal/remains/human"
 					empty = FALSE
 			current_header += "[empty?"":",\n"][place],\n[location])\n"
 			//====Fill the contents file====
@@ -316,6 +323,9 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 			//Fetch the save type
 			save_data = vars_to_save[V]
 		else
+			continue
+		//Check if it was saved already
+		if(V in object_save_vars)
 			continue
 		//Fetch the vlaue
 		var/value = O.vars[V]

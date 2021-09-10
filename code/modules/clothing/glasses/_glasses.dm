@@ -63,6 +63,7 @@
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/lightgreen
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/meson/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is putting \the [src] to [user.p_their()] eyes and overloading the brightness! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -98,6 +99,7 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
+	flags_1 = SAVE_SAFE_1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100, "stamina" = 0)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
@@ -124,6 +126,7 @@
 	darkness_view = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/science/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is tightening \the [src]'s straps around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -134,12 +137,14 @@
 	desc = "Yarr."
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/monocle
 	name = "monocle"
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
 	item_state = "headset" // lol
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/material
 	name = "optical material scanner"
@@ -148,6 +153,7 @@
 	item_state = "glasses"
 	vision_flags = SEE_OBJS
 	glass_colour_type = /datum/client_colour/glass_colour/lightblue
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/material/mining
 	name = "optical material scanner"
@@ -175,6 +181,7 @@
 	icon_state = "glasses"
 	item_state = "glasses"
 	vision_correction = 1 //corrects nearsightedness
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/regular/jamjar
 	name = "jamjar glasses"
@@ -205,8 +212,9 @@
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 	dog_fashion = /datum/dog_fashion/head
+	flags_1 = SAVE_SAFE_1
 
-/obj/item/clothing/glasses/sunglasses/advanced/
+/obj/item/clothing/glasses/sunglasses/advanced
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	flash_protect = 1
@@ -279,6 +287,7 @@
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	flags_cover = GLASSESCOVERSEYES
 	glass_colour_type = /datum/client_colour/glass_colour/gray
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -310,6 +319,7 @@
 	tint = 3
 	darkness_view = 1
 	dog_fashion = /datum/dog_fashion/head
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/blindfold/white
 	name = "blind personnel blindfold"
@@ -409,12 +419,14 @@
 	desc = "A pair of goggles meant for low temperatures."
 	icon_state = "cold"
 	item_state = "cold"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/heat
 	name = "heat goggles"
 	desc = "A pair of goggles meant for high temperatures."
 	icon_state = "heat"
 	item_state = "heat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/orange
 	name = "orange glasses"
@@ -422,6 +434,7 @@
 	icon_state = "orangeglasses"
 	item_state = "orangeglasses"
 	glass_colour_type = /datum/client_colour/glass_colour/lightorange
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/red
 	name = "red glasses"
@@ -429,6 +442,7 @@
 	icon_state = "redglasses"
 	item_state = "redglasses"
 	glass_colour_type = /datum/client_colour/glass_colour/red
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/godeye
 	name = "eye of god"

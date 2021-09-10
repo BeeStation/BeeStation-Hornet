@@ -1087,6 +1087,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pricetagger"
 	custom_premium_price = 25
+	flags_1 = SAVE_SAFE_1
 	///the price of the item
 	var/price = 1
 

@@ -4,6 +4,7 @@
 	icon_state = "cargosoft"
 	item_state = "helmet"
 	item_color = "cargo"
+	flags_1 = SAVE_SAFE_1
 
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
 

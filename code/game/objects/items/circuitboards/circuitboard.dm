@@ -13,6 +13,7 @@
 	materials = list(/datum/material/glass=1000)
 	w_class = WEIGHT_CLASS_SMALL
 	grind_results = list(/datum/reagent/silicon = 20)
+	flags_1 = SAVE_SAFE_1
 	var/build_path = null
 
 /obj/item/circuitboard/proc/apply_default_parts(obj/machinery/M)

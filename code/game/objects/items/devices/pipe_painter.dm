@@ -4,6 +4,7 @@
 	icon_state = "labeler1"
 	item_state = "flight"
 	item_flags = NOBLUDGEON
+	flags_1 = SAVE_SAFE_1
 	var/paint_color = "grey"
 
 	materials = list(/datum/material/iron=5000, /datum/material/glass=2000)

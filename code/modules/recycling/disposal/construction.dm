@@ -11,6 +11,7 @@
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	level = 2
 	max_integrity = 200
+	flags_1 = SAVE_SAFE_1
 	var/obj/pipe_type = /obj/structure/disposalpipe/segment
 	var/pipename
 

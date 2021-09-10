@@ -6,6 +6,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "floodlight_c1"
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/state = FLOODLIGHT_NEEDS_WRENCHING
 
 /obj/structure/floodlight_frame/attackby(obj/item/O, mob/user, params)

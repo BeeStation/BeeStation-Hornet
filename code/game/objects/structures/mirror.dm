@@ -10,6 +10,7 @@
 	integrity_failure = 100
 	flags_ricochet = RICOCHET_SHINY
 	layer = ABOVE_WINDOW_LAYER
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/mirror/Initialize(mapload)
 	. = ..()
@@ -99,6 +100,7 @@
 	name = "magic mirror"
 	desc = "Turn and face the strange... face."
 	icon_state = "magic_mirror"
+	flags_1 = NONE
 	var/list/choosable_races = list()
 
 /obj/structure/mirror/magic/New()

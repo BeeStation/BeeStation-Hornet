@@ -52,6 +52,7 @@
 /obj/item/organ/body_egg/changeling_egg
 	name = "changeling egg"
 	desc = "Twitching and disgusting."
+	flags_1 = NONE
 	var/datum/mind/origin
 	var/time
 

@@ -3,6 +3,7 @@
 	desc = "A rectangular steel crate."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "crate"
+	flags_1 = SAVE_SAFE_1
 	req_access = null
 	can_weld_shut = FALSE
 	horizontal = TRUE

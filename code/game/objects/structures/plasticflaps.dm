@@ -8,6 +8,7 @@
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
 	CanAtmosPass = ATMOS_PASS_NO
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/plasticflaps/opaque
 	opacity = TRUE

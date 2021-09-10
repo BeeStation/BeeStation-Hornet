@@ -7,6 +7,7 @@
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
 	obj_flags = CAN_BE_HIT | BLOCK_Z_FALL
+	flags_1 = SAVE_SAFE_1
 	//Negates the effect of space and openspace.
 	//Shouldn't be placed above anything else.
 	FASTDMM_PROP(\

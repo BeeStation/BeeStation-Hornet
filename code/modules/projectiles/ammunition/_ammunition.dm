@@ -25,6 +25,7 @@
 /obj/item/ammo_casing/spent
 	name = "spent bullet casing"
 	BB = null
+	flags_1 = SAVE_SAFE_1 | CONDUCT_1
 
 /obj/item/ammo_casing/Initialize()
 	. = ..()

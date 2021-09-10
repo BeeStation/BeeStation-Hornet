@@ -102,6 +102,7 @@
 	icon_state = "hoop"
 	anchored = TRUE
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(get_dist(src,user)<2)

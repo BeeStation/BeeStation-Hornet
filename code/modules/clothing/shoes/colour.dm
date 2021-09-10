@@ -6,6 +6,7 @@
 	item_color = "black"
 	desc = "A pair of black shoes."
 	custom_price = 20
+	flags_1 = SAVE_SAFE_1
 
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
@@ -104,7 +105,7 @@
 		src.slowdown = 15
 		src.icon_state = "orange1"
 	return
-	
+
 /obj/item/clothing/shoes/sneakers/orange/allow_attack_hand_drop(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/hummie = user
@@ -119,7 +120,7 @@
 	if(ishuman(m))
 		var/mob/living/carbon/human/hummie = m
 		if(hummie.shoes == src && chained)
-			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")			
+			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")
 			if(!do_after(hummie,15 SECONDS, src))
 				return FALSE
 	return ..()

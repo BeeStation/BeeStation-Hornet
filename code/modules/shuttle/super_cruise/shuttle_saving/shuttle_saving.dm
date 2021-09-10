@@ -39,7 +39,7 @@
 	if(!pre_saved_vars)
 		return
 	. = list()
-	.["shuttleId"] = "\"shuttleId\""
+	.["shuttleId"] = "\"[shuttleId]\""
 
 //Properly save shuttle docks, oh god
 /obj/docking_port/mobile/get_save_vars()
@@ -51,3 +51,4 @@
 	.["dheight"] = dwidth
 	.["height"] = height
 	.["id"] = "\"[id]\""
+	.["shuttle_object_type"] = shuttle_object_type

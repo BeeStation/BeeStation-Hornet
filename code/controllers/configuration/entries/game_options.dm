@@ -453,6 +453,19 @@
 /datum/config_entry/number/max_shuttle_size
 	config_entry_value = 250
 
+/datum/config_entry/flag/save_shuttle_ruins
+
+/datum/config_entry/string/shuttle_ruin_filepath
+	config_entry_value = "data/customShuttleSaves"
+
+/datum/config_entry/number/shuttle_total_filesize_max
+	config_entry_value = 1000000
+	min_val = 0
+
+/datum/config_entry/number/shuttle_filesize_max
+	config_entry_value = 40000
+	min_val = 0
+
 /datum/config_entry/flag/restricted_suicide
 
 /datum/config_entry/flag/dynamic_config_enabled

@@ -10,6 +10,7 @@ Buildable meters
 /obj/item/pipe
 	name = "pipe"
 	desc = "A pipe."
+	flags_1 = SAVE_SAFE_1
 	var/pipe_type
 	var/pipename
 	force = 7
@@ -193,6 +194,7 @@ Buildable meters
 	icon_state = "meter"
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
+	flags_1 = SAVE_SAFE_1
 	var/piping_layer = PIPING_LAYER_DEFAULT
 
 /obj/item/pipe_meter/wrench_act(mob/living/user, obj/item/wrench/W)

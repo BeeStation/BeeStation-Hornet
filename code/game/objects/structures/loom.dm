@@ -9,6 +9,7 @@
 	icon_state = "loom"
 	density = TRUE
 	anchored = TRUE
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/loom/attackby(obj/item/I, mob/user)
 	if(weave(I, user))

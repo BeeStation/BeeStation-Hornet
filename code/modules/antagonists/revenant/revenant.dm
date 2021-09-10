@@ -357,6 +357,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "revenantEctoplasm"
 	w_class = WEIGHT_CLASS_SMALL
+	flags_1 = NONE
 	var/essence = 75 //the maximum essence of the reforming revenant
 	var/reforming = TRUE
 	var/inert = FALSE

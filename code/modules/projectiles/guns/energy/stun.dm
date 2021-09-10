@@ -41,13 +41,14 @@
 	can_flashlight = TRUE
 	flight_x_offset = 15
 	flight_y_offset = 10
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
 	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
-	
+
 /obj/item/gun/energy/pulse/carbine/cyborg
 	name = "cyborg pulse carbine"
 	desc = "An integrated pulse rifle"
@@ -60,7 +61,7 @@
 	icon_state = "personal"
 	item_state = "gun"
 	pin = /obj/item/firing_pin/dna //Personal.
-	w_class = WEIGHT_CLASS_SMALL 
+	w_class = WEIGHT_CLASS_SMALL
 	cell_type = /obj/item/stock_parts/cell{charge = 320; maxcharge = 320} //Should be about 8 shots. 3 times less than the regular one.
 	ammo_x_offset = 2
 	charge_sections = 2

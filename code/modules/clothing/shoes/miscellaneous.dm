@@ -34,6 +34,7 @@
 	equip_delay_other = 50
 	permeability_coefficient = 0.9
 	strip_delay = 5
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic black shoes."
@@ -59,6 +60,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 75, "stamina" = 0)
 	can_be_bloody = FALSE
 	custom_price = 100
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/shoes/galoshes/dry
 	name = "absorbent galoshes"
@@ -79,6 +81,7 @@
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes/clown
 	var/datum/component/waddle
 	var/enabled_waddle = TRUE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/shoes/clown_shoes/Initialize()
 	. = ..()
@@ -129,15 +132,18 @@
 	resistance_flags = NONE
 	permeability_coefficient = 0.05 //Thick soles, and covers the ankle
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/shoes/jackboots/fast
 	slowdown = -1
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
 	desc = "Boots lined with 'synthetic' animal fur."
 	icon_state = "winterboots"
 	item_state = "winterboots"
+	flags_1 = SAVE_SAFE_1
 	permeability_coefficient = 0.15
 	cold_protection = FEET|LEGS
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
@@ -150,6 +156,7 @@
 	desc = "Nanotrasen-issue Engineering lace-up work boots for the especially blue-collar."
 	icon_state = "workboots"
 	item_state = "jackboots"
+	flags_1 = SAVE_SAFE_1
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	permeability_coefficient = 0.15
@@ -189,11 +196,13 @@
 	name = "cyborg boots"
 	desc = "Shoes for a cyborg costume."
 	icon_state = "boots"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/shoes/laceup
 	name = "laceup shoes"
 	desc = "The height of fashion, and they're pre-polished!"
 	icon_state = "laceups"
+	flags_1 = SAVE_SAFE_1
 	equip_delay_other = 50
 
 /obj/item/clothing/shoes/roman
@@ -201,6 +210,7 @@
 	desc = "Sandals with buckled leather straps on it."
 	icon_state = "roman"
 	item_state = "roman"
+	flags_1 = SAVE_SAFE_1
 	strip_delay = 100
 	equip_delay_other = 100
 	permeability_coefficient = 0.9
@@ -210,6 +220,7 @@
 	desc = "A pair of costume boots fashioned after bird talons."
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
+	flags_1 = SAVE_SAFE_1
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 /obj/item/clothing/shoes/bhop
@@ -218,6 +229,7 @@
 	icon_state = "jetboots"
 	item_state = "jetboots"
 	item_color = "hosred"
+	flags_1 = SAVE_SAFE_1
 	resistance_flags = FIRE_PROOF
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 	actions_types = list(/datum/action/item_action/bhop)
@@ -249,12 +261,14 @@
 	name = "yellow performer's boots"
 	desc = "These boots were made for dancing."
 	icon_state = "ysing"
+	flags_1 = SAVE_SAFE_1
 	equip_delay_other = 50
 
 /obj/item/clothing/shoes/singerb
 	name = "blue performer's boots"
 	desc = "These boots were made for dancing."
 	icon_state = "bsing"
+	flags_1 = SAVE_SAFE_1
 	equip_delay_other = 50
 
 /obj/item/clothing/shoes/bronze
@@ -262,6 +276,7 @@
 	desc = "A giant, clunky pair of shoes crudely made out of bronze. Why would anyone wear these?"
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_treads"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/shoes/bronze/Initialize()
 	. = ..()
@@ -273,6 +288,7 @@
 	icon_state = "wheelys"
 	item_state = "wheelys"
 	actions_types = list(/datum/action/item_action/wheelys)
+	flags_1 = SAVE_SAFE_1
 	var/wheelToggle = FALSE //False means wheels are not popped out
 	var/obj/vehicle/ridden/scooter/wheelys/W
 
@@ -311,6 +327,7 @@
 	desc = "They'll sure kindle something in you, and it's not childhood nostalgia..."
 	icon_state = "kindleKicks"
 	item_state = "kindleKicks"
+	flags_1 = SAVE_SAFE_1
 	actions_types = list(/datum/action/item_action/kindleKicks)
 	var/lightCycle = 0
 	var/active = FALSE
@@ -337,6 +354,7 @@
 	desc = "Comfy shoes."
 	icon_state = "rus_shoes"
 	item_state = "rus_shoes"
+	flags_1 = SAVE_SAFE_1
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 
 /obj/item/clothing/shoes/swagshoes
@@ -344,3 +362,4 @@
 	desc = "They got me for my foams!"
 	icon_state = "SwagShoes"
 	item_state = "SwagShoes"
+	flags_1 = SAVE_SAFE_1

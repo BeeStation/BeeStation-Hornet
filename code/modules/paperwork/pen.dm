@@ -24,6 +24,7 @@
 	materials = list(/datum/material/iron=10)
 	pressure_resistance = 2
 	grind_results = list(/datum/reagent/iron = 2, /datum/reagent/iodine = 1)
+	flags_1 = SAVE_SAFE_1
 	var/colour = "black"	//what colour the ink is!
 	var/degrees = 0
 	var/font = PEN_FONT
@@ -195,6 +196,7 @@
 /obj/item/pen/edagger
 	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut") //these wont show up if the pen is off
 	var/on = FALSE
+	flags_1 = NONE
 
 /obj/item/pen/edagger/Initialize()
 	. = ..()

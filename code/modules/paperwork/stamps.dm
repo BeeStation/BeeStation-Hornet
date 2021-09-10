@@ -12,6 +12,7 @@
 	item_color = "cargo"
 	pressure_resistance = 2
 	attack_verb = list("stamped")
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/stamp/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")

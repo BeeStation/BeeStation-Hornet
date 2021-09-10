@@ -7,6 +7,7 @@
 	icon = 'icons/obj/musician.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/instruments_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/instruments_righthand.dmi'
+	flags_1 = SAVE_SAFE_1
 	var/datum/song/handheld/song
 	var/instrumentId = "generic"
 	var/instrumentExt = "mid"
@@ -253,6 +254,7 @@
 	name = "instrument delivery beacon"
 	desc = "Summon your tool of art."
 	icon_state = "gangtool-red"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/choice_beacon/music/generate_display_names()
 	var/static/list/instruments

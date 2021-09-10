@@ -9,12 +9,14 @@
 	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
 	strip_delay = 80
 	clothing_flags = SNUG_FIT // prevents bypassing the strip delay
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/powdered_wig
 	name = "powdered wig"
 	desc = "A powdered wig."
 	icon_state = "pwig"
 	item_state = "pwig"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/that
 	name = "top-hat"
@@ -23,34 +25,40 @@
 	item_state = "that"
 	dog_fashion = /datum/dog_fashion/head
 	throwforce = 1
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/canada
 	name = "striped red tophat"
 	desc = "It smells like fresh donut holes. / <i>Il sent comme des trous de beignets frais.</i>"
 	icon_state = "canada"
 	item_state = "canada"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
 	icon_state = "redcoat"
 	desc = "<i>'I guess it's a redhead.'</i>"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/mailman
 	name = "mailman's hat"
 	icon_state = "mailman"
 	desc = "<i>'Right-on-time'</i> mail service head wear."
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/plaguedoctorhat
 	name = "plague doctor's hat"
 	desc = "These were once used by plague doctors. They're pretty much useless."
 	icon_state = "plaguedoctor"
 	permeability_coefficient = 0.01
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/nursehat
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
 	icon_state = "nursehat"
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 	dog_fashion = /datum/dog_fashion/head/nurse
 
@@ -61,6 +69,7 @@
 	desc = "A plastic replica of a Syndicate agent's space helmet. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/cueball
 	name = "cueball helmet"
@@ -70,6 +79,7 @@
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/snowman
 	name = "Snowman Head"
@@ -79,6 +89,7 @@
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/justice
 	name = "justice hat"
@@ -88,6 +99,7 @@
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEEYES|HIDEFACE|HIDEFACIALHAIR
 	flags_cover = HEADCOVERSEYES
 	clothing_flags = SNUG_FIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/justice/blue
 	icon_state = "justiceblue"
@@ -111,6 +123,7 @@
 	icon_state = "bunny"
 	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
@@ -120,6 +133,7 @@
 	desc = "A working man's cap."
 	icon_state = "flat_cap"
 	item_state = "detective"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/pirate
 	name = "pirate hat"
@@ -127,6 +141,7 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 	dog_fashion = /datum/dog_fashion/head/pirate
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/pirate
 	var/datum/language/piratespeak/L = new
@@ -156,6 +171,7 @@
 	icon_state = "bandana"
 	item_state = "bandana"
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/bowler
 	name = "bowler-hat"
@@ -163,6 +179,7 @@
 	icon_state = "bowler"
 	item_state = "bowler"
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/witchwig
 	name = "witch costume wig"
@@ -170,6 +187,7 @@
 	icon_state = "witch"
 	item_state = "witch"
 	flags_inv = HIDEHAIR
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/chicken
 	name = "chicken suit head"
@@ -178,6 +196,7 @@
 	item_state = "chickensuit"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/griffin
 	name = "griffon head"
@@ -186,12 +205,14 @@
 	item_state = "griffinhat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/bearpelt
 	name = "bear pelt hat"
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/xenos
 	name = "xenos helmet"
@@ -200,6 +221,7 @@
 	desc = "A helmet made out of chitinous alien hide."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/fedora
 	name = "fedora"
@@ -207,6 +229,7 @@
 	item_state = "fedora"
 	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/fedora/suicide_act(mob/user)
 	if(user.gender == FEMALE)
@@ -224,6 +247,7 @@
 	item_state = "sombrero"
 	desc = "You can practically taste the fiesta."
 	flags_inv = HIDEHAIR
+	flags_1 = SAVE_SAFE_1
 
 	dog_fashion = /datum/dog_fashion/head/sombrero
 
@@ -251,6 +275,7 @@
 	desc = "A working man's cap."
 	icon_state = "flat_cap"
 	item_state = "detective"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/hunter
 	name = "bounty hunting hat"
@@ -259,6 +284,7 @@
 	item_state = "hunter"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 20)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/cone
 	desc = "This cone is trying to warn you of something!"
@@ -274,6 +300,7 @@
 	attack_verb = list("warned", "cautioned", "smashed")
 	resistance_flags = NONE
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/santa
 	name = "santa hat"
@@ -283,22 +310,26 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = /datum/dog_fashion/head/santa
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/jester
 	name = "jester hat"
 	desc = "A hat with bells, to add some merriness to the suit."
 	icon_state = "jester_hat"
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/rice_hat
 	name = "rice hat"
 	desc = "Welcome to the rice fields, motherfucker."
 	icon_state = "rice_hat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/lizard
 	name = "lizardskin cloche hat"
 	desc = "How many lizards died to make this hat? Not enough."
 	icon_state = "lizard"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/papersack
 	name = "paper sack hat"
@@ -306,6 +337,7 @@
 	icon_state = "papersack"
 	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
 	clothing_flags = SNUG_FIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/papersack/smiley
 	name = "paper sack hat"
@@ -320,6 +352,7 @@
 	armor = list("melee" = 15, "bullet" = 0, "laser" = 0,"energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 40)
 	resistance_flags = FIRE_PROOF
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/crown/fancy
 	name = "magnificent crown"
@@ -330,6 +363,7 @@
 	name = "scarecrow hat"
 	desc = "A simple straw hat."
 	icon_state = "scarecrow_hat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/lobsterhat
 	name = "foam lobster head"
@@ -337,18 +371,21 @@
 	icon_state = "lobster_hat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	clothing_flags = SNUG_FIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/drfreezehat
 	name = "doctor freeze's wig"
 	desc = "A cool wig for cool people."
 	icon_state = "drfreeze_hat"
 	flags_inv = HIDEHAIR
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/pharaoh
 	name = "pharaoh hat"
 	desc = "Walk like an Egyptian."
 	icon_state = "pharoah_hat"
 	icon_state = "pharoah_hat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/jester/alt
 	name = "jester hat"
@@ -361,17 +398,20 @@
 	desc = "Lavish space tomb not included."
 	icon_state = "nemes_headdress"
 	icon_state = "nemes_headdress"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/delinquent
 	name = "delinquent hat"
 	desc = "Good grief."
 	icon_state = "delinquent"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/frenchberet
 	name = "french beret"
 	desc = "A quality beret, infused with the aroma of chain-smoking, wine-swilling Parisians. You feel less inclined to engage military conflict, for some reason."
 	icon_state = "beret"
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
 	. = ..()
@@ -409,34 +449,40 @@
 	name = "Hat of the Honkmother"
 	desc = "It's hard for parishoners to see a banana peel on the floor when they're looking up at your glorious chapeau."
 	icon_state = "clownmitre"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/kippah
 	name = "kippah"
 	desc = "Signals that you follow the Jewish Halakha. Keeps the head covered and the soul extra-Orthodox."
 	icon_state = "kippah"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/medievaljewhat
 	name = "medieval Jew hat"
 	desc = "A silly looking hat, intended to be placed on the heads of the station's oppressed religious minorities."
 	icon_state = "medievaljewhat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/taqiyahwhite
 	name = "white taqiyah"
 	desc = "An extra-mustahabb way of showing your devotion to Allah."
 	icon_state = "taqiyahwhite"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/taqiyahred
 	name = "red taqiyah"
 	desc = "An extra-mustahabb way of showing your devotion to Allah."
 	icon_state = "taqiyahred"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/intern
 	name = "\improper CentCom Head Intern beancap"
 	desc = "A horrifying mix of beanie and softcap in CentCom green. You'd have to be pretty desperate for power over your peers to agree to wear this."
 	icon_state = "intern_hat"
 	item_state = "intern_hat"
+	flags_1 = SAVE_SAFE_1
 
 /////////////////
 //DONATOR ITEMS//
@@ -447,19 +493,23 @@
 	desc = "Like father like son."
 	icon_state = "gangster_wig"
 	flags_inv = HIDEHAIR
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/oldhat
 	name = "old man hat"
 	desc = "OH MY GOD."
 	icon_state = "oldmanhat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/marine
 	name = "mariner hat"
 	desc = "There's nothing quite like the ocean breeze in the morning."
 	icon_state = "marine"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/chicken_head_retro
 	name = "chicken head"
 	desc = "Looks just like a real one."
 	icon_state = "chicken"
 	flags_inv = HIDEHAIR
+	flags_1 = SAVE_SAFE_1

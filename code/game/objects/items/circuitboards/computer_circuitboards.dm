@@ -15,6 +15,7 @@
 	name = "bluespace artillery controls (Computer Board)"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/bsa_control
+	flags_1 = NONE
 
 /obj/item/circuitboard/computer/card
 	name = "ID console (Computer Board)"
@@ -25,6 +26,7 @@
 	name = "CentCom ID console (Computer Board)"
 	icon_state = "command"
 	build_path = /obj/machinery/computer/card/centcom
+	flags_1 = NONE
 
 /obj/item/circuitboard/computer/card/minor
 	name = "department management console (Computer Board)"
@@ -258,11 +260,13 @@
 	name = "Magix (Computer Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod/old/swf
+	flags_1 = NONE
 
 /obj/item/circuitboard/computer/syndicate_shuttle
 	name = "syndicate shuttle console (Computer Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle_flight/syndicate
+	flags_1 = NONE
 	var/challenge = FALSE
 	var/moved = FALSE
 
@@ -278,11 +282,13 @@
 	name = "ProComp Executive (Computer Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod/old/syndicate
+	flags_1 = NONE
 
 /obj/item/circuitboard/computer/white_ship
 	name = "white ship control (Computer Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle_flight/white_ship
+	flags_1 = NONE
 
 /obj/item/circuitboard/computer/white_ship/pod
 	name = "salvage pod control (Computer Board)"
@@ -508,6 +514,7 @@
 	name = "transport ferry control (Computer Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/shuttle_flight/ferry
+	flags_1 = NONE
 
 /obj/item/circuitboard/computer/ferry/request
 	name = "transport ferry console (Computer Board)"

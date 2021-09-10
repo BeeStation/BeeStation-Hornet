@@ -106,7 +106,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	item_state = "sheet-metal"
 	materials = list(/datum/material/iron=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/iron
 	grind_results = list(/datum/reagent/iron = 20)
@@ -167,7 +167,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list ( \
 	item_state = "sheet-metal"
 	materials = list(/datum/material/iron=2000, /datum/material/plasma=2000)
 	throwforce = 10
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/plasteel
@@ -758,9 +758,11 @@ new /datum/stack_recipe("paper frame door", /obj/structure/mineral_door/paperfra
 	desc = "A source of raw capitalism, capable of bringing forth the prophesized Capitalist Golem."
 	icon_state = "sheet-capitalisium"
 	merge_type = /obj/item/stack/sheet/capitalisium
+	flags_1 = NONE
 
 /obj/item/stack/sheet/stalinium
 	name = "stalinium sheet"
 	desc = "A source of raw socialism, capable of bringing forth the prophesized Soviet Golem."
 	icon_state = "sheet-stalinium"
 	merge_type = /obj/item/stack/sheet/stalinium
+	flags_1 = NONE

@@ -20,6 +20,7 @@
 	desc = "A barrier. Provides cover in firefights."
 	deploy_time = 0
 	deploy_message = 0
+	flags_1 = NONE
 
 /obj/structure/barricade/security/murderdome/make_debris()
 	new /obj/effect/murderdome/dead_barricade(get_turf(src))

@@ -303,6 +303,7 @@
 	materials = list(/datum/material/glass=1000)
 	rating = 100
 	chargerate = 30000
+	flags_1 = NONE
 
 /obj/item/stock_parts/cell/infinite/use()
 	return 1
@@ -337,6 +338,7 @@
 	materials = list()
 	rating = 5 //self-recharge makes these desirable
 	self_recharge = 1 // Infused slime cores self-recharge, over time
+	flags_1 = NONE
 
 /obj/item/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"

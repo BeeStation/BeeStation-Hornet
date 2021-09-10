@@ -12,6 +12,7 @@
 /obj/item/stack
 	icon = 'icons/obj/stack_objects.dmi'
 	gender = PLURAL
+	flags_1 = SAVE_SAFE_1
 	var/list/datum/stack_recipe/recipes
 	var/singular_name
 	var/amount = 1
@@ -24,6 +25,15 @@
 	var/novariants = TRUE //Determines whether the item should update it's sprites based on amount.
 	//NOTE: When adding grind_results, the amounts should be for an INDIVIDUAL ITEM - these amounts will be multiplied by the stack size in on_grind()
 	var/obj/structure/table/tableVariant // we tables now (stores table variant to be built from this stack)
+
+/obj/item/stack/is_save_safe(save_flag)
+	if(is_cyborg)
+		return FALSE
+	return ..()
+
+/obj/item/stack/get_save_vars(save_flag)
+	. = list()
+	.["amount"] = CLAMP(amount, 1, max_amount)
 
 /obj/item/stack/on_grind()
 	for(var/i in 1 to grind_results.len) //This should only call if it's ground, so no need to check if grind_results exists

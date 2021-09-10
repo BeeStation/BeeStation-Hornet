@@ -680,6 +680,7 @@
 	density = FALSE
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "safe"
+	flags_1 = NONE
 	var/unlocked = FALSE
 
 /obj/item/storage/pod/PopulateContents()

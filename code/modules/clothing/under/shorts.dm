@@ -6,6 +6,7 @@
 	fitted = NO_FEMALE_UNIFORM
 	mutantrace_variation = MUTANTRACE_VARIATION
 	can_adjust = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/shorts/red
 	name = "red athletic shorts"

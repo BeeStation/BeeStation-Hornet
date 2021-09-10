@@ -423,6 +423,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/oxygen)
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25,"energy" = 30, "bomb" = 30, "bio" = 20, "rad" = 20, "fire" = 90, "acid" = 90, "stamina" = 10)//Bit less armoured than the Syndicate space suit
 	slowdown = 0.2
+	flags_1 = NONE
 
 /obj/item/clothing/suit/space/changeling/Initialize()
 	. = ..()
@@ -444,6 +445,7 @@
 	clothing_flags = STOPSPRESSUREDAMAGE
 	armor = list("melee" = 35, "bullet" = 25, "laser" = 25,"energy" = 30, "bomb" = 30, "bio" = 20, "rad" = 20, "fire" = 90, "acid" = 90, "stamina" = 10)
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_1 = NONE
 
 /obj/item/clothing/head/helmet/space/changeling/Initialize()
 	. = ..()
@@ -480,6 +482,7 @@
 	heat_protection = 0
 	blocks_shove_knockdown = TRUE
 	slowdown = 0.2
+	flags_1 = NONE
 
 /obj/item/clothing/suit/armor/changeling/Initialize()
 	. = ..()
@@ -494,6 +497,7 @@
 	item_flags = DROPDEL
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 50, "energy" = 50, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
 	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE
+	flags_1 = NONE
 
 /obj/item/clothing/head/helmet/changeling/Initialize()
 	. = ..()

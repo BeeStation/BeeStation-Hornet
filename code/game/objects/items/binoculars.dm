@@ -7,6 +7,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
+	flags_1 = SAVE_SAFE_1
 	var/mob/listeningTo
 	var/zoom_out_amt = 6
 	var/zoom_amt = 10

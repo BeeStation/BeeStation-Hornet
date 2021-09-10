@@ -20,6 +20,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	desc = "A simple match stick, used for lighting fine smokables."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "match_unlit"
+	flags_1 = SAVE_SAFE_1
 	var/lit = FALSE
 	var/burnt = FALSE
 	/// How long the match lasts in seconds
@@ -433,6 +434,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon = 'icons/obj/clothing/masks.dmi'
 	icon_state = "cigbutt"
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 	throwforce = 0
 	grind_results = list(/datum/reagent/carbon = 2)
 
@@ -549,7 +551,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "zippo"
 	item_state = "zippo"
 	w_class = WEIGHT_CLASS_TINY
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	slot_flags = ITEM_SLOT_BELT
 	var/lit = 0
 	var/fancy = TRUE
@@ -746,6 +748,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig_paper"
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
 	. = ..()

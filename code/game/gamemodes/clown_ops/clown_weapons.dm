@@ -16,6 +16,7 @@
 	name = "combat clown shoes"
 	desc = "advanced clown shoes that protect the wearer and render them nearly immune to slipping on their own peels. They also squeak at 100% capacity."
 	clothing_flags = NOSLIP
+	flags_1 = NONE
 	slowdown = SHOES_SLOWDOWN
 	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 10, "rad" = 0, "fire" = 70, "acid" = 50, "stamina" = 25)
 	strip_delay = 70
@@ -172,6 +173,7 @@
 /obj/item/reagent_containers/food/snacks/grown/banana/bombanana
 	trash = /obj/item/grown/bananapeel/bombanana
 	bitesize = 1
+	flags_1 = NONE
 	customfoodfilling = FALSE
 	seed = null
 	tastes = list("explosives" = 10)
@@ -180,6 +182,7 @@
 /obj/item/grown/bananapeel/bombanana
 	desc = "A peel from a banana. Why is it beeping?"
 	seed = null
+	flags_1 = NONE
 	var/det_time = 50
 	var/obj/item/grenade/syndieminibomb/bomb
 

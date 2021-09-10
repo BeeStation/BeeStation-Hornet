@@ -12,6 +12,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
+	flags_1 = SAVE_SAFE_1
 	var/paintleft = 10
 
 /obj/item/paint/red

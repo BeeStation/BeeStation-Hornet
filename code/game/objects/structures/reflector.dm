@@ -6,6 +6,7 @@
 	anchored = FALSE
 	density = FALSE
 	layer = BELOW_OBJ_LAYER
+	flags_1 = SAVE_SAFE_1
 	var/deflector_icon_state
 	var/image/deflector_overlay
 	var/finished = FALSE
@@ -262,3 +263,7 @@
 		return
 	else
 		return ..()
+
+/obj/structure/reflector/get_save_vars(save_flag)
+	. = list()
+	.["rotation_angle"] = rotation_angle

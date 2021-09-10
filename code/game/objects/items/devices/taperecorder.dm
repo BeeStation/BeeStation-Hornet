@@ -11,6 +11,7 @@
 	materials = list(/datum/material/iron=60, /datum/material/glass=30)
 	force = 2
 	throwforce = 0
+	flags_1 = SAVE_SAFE_1
 	var/recording = 0
 	var/playing = 0
 	var/playsleepseconds = 0
@@ -248,6 +249,7 @@
 	materials = list(/datum/material/iron=20, /datum/material/glass=5)
 	force = 1
 	throwforce = 0
+	flags_1 = SAVE_SAFE_1
 	var/max_capacity = 600
 	var/used_capacity = 0
 	var/list/storedinfo = list()

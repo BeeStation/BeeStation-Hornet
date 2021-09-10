@@ -10,6 +10,7 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/shoes/magboots/verb/toggle()
 	set name = "Toggle Magboots"
@@ -57,6 +58,7 @@
 	name = "blood-red magboots"
 	icon_state = "syndiemag0"
 	magboot_state = "syndiemag"
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/magboots/commando
 	desc = "Military-grade magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
@@ -66,6 +68,7 @@
 	slowdown_active = SHOES_SLOWDOWN
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50, "stamina" = 30)
 	clothing_flags = NOSLIP
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/magboots/commando/attack_self(mob/user) //Code for the passive no-slip of the commando magboots to always apply, kind of a shit code solution though.
 	if(magpulse)
@@ -83,6 +86,7 @@
 
 /obj/item/clothing/shoes/magboots/crushing
 	desc = "Normal looking magboots that are altered to increase magnetic pull to crush anything underfoot."
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/magboots/crushing/proc/crush(mob/living/user)
 	SIGNAL_HANDLER

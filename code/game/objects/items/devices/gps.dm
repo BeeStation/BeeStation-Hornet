@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	obj_flags = UNIQUE_RENAME
+	flags_1 = SAVE_SAFE_1
 	var/gpstag
 
 /obj/item/gps/Initialize()

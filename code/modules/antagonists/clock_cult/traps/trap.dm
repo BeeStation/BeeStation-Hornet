@@ -27,6 +27,7 @@
 	pixel_shift = -24
 	w_class = WEIGHT_CLASS_HUGE
 	result_path = /obj/structure/destructible/clockwork/trap
+	flags_1 = NONE
 
 /obj/item/wallframe/clocktrap/examine(mob/user)
 	. = ..()

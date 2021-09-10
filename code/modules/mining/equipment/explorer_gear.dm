@@ -15,6 +15,7 @@
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
 	flags_inv = HIDEJUMPSUIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/hooded/explorer
 	name = "explorer hood"
@@ -27,6 +28,7 @@
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 50, "stamina" = 20)
 	resistance_flags = FIRE_PROOF
 	high_pressure_multiplier = 0.4
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/hooded/explorer/Initialize()
 	. = ..()
@@ -71,6 +73,7 @@
 	armor = list("melee" = 70, "bullet" = 40, "laser" = 20, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 40)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
 	high_pressure_multiplier = 0.6
+	flags_1 = NONE
 
 /obj/item/clothing/suit/space/hostile_environment/Initialize()
 	. = ..()
@@ -101,6 +104,7 @@
 	armor = list("melee" = 70, "bullet" = 40, "laser" = 20, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 40)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	high_pressure_multiplier = 0.6
+	flags_1 = NONE
 
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize()
 	. = ..()

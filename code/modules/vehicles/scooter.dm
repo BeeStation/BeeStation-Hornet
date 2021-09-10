@@ -203,6 +203,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "scooter_frame"
 	w_class = WEIGHT_CLASS_NORMAL
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/scooter_frame/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/iron))

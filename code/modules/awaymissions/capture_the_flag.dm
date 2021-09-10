@@ -404,6 +404,7 @@
 
 /obj/item/ammo_box/magazine/m50/ctf
 	ammo_type = /obj/item/ammo_casing/a50/ctf
+	flags_1 = NONE
 
 /obj/item/ammo_casing/a50/ctf
 	projectile_type = /obj/item/projectile/bullet/ctf
@@ -420,6 +421,7 @@
 	mag_type = /obj/item/ammo_box/magazine/recharge/ctf
 	desc = "This looks like it could really hurt in melee."
 	force = 50
+	flags_1 = NONE
 
 /obj/item/gun/ballistic/automatic/laser/ctf/dropped()
 	. = ..()
@@ -598,6 +600,7 @@
 	desc = "A barrier. Provides cover in fire fights."
 	deploy_time = 0
 	deploy_message = 0
+	flags_1 = NONE
 
 /obj/structure/barricade/security/ctf/make_debris()
 	new /obj/effect/ctf/dead_barricade(get_turf(src))

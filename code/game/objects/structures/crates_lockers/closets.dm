@@ -4,6 +4,7 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "generic"
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	drag_slowdown = 1.5		// Same as a prone mob
 	max_integrity = 200
 	integrity_failure = 50
@@ -42,12 +43,15 @@
 	var/door_anim_angle = 136
 	var/door_hinge = -6.5
 	var/door_anim_time = 2.0 // set to 0 to make the door not animate at all
+	var/populate_contents = TRUE
+
 /obj/structure/closet/Initialize(mapload)
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
 		addtimer(CALLBACK(src, .proc/take_contents), 0)
 	. = ..()
 	update_icon()
-	PopulateContents()
+	if(populate_contents)
+		PopulateContents()
 
 //USE THIS TO FILL IT, NOT INITIALIZE OR NEW
 /obj/structure/closet/proc/PopulateContents()
@@ -561,14 +565,22 @@
 		togglelock(user)
 		T1.visible_message("<span class='warning'>[user] dives into [src]!</span>")
 
-/obj/structure/closet/on_object_saved(var/depth = 0)
+//Closets are safe to save the contents of
+/obj/structure/closet/on_object_saved(save_flag, var/depth = 0)
 	if(depth >= 10)
 		return ""
 	var/dat = ""
 	for(var/obj/item in contents)
+		if(!item.is_save_safe(save_flag))
+			continue
 		var/metadata = generate_tgm_metadata(item)
 		dat += "[dat ? ",\n" : ""][item.type][metadata]"
 		//Save the contents of things inside the things inside us, EG saving the contents of bags inside lockers
-		var/custom_data = item.on_object_saved(depth++)
+		var/custom_data = item.on_object_saved(save_flag, depth++)
 		dat += "[custom_data ? ",\n[custom_data]" : ""]"
 	return dat
+
+//Don't duplicate contents
+/obj/structure/closet/get_save_vars(save_flag)
+	. = list()
+	.["populate_contents"] = FALSE

@@ -57,6 +57,7 @@
 	access = CART_REMOTE_DOOR
 	remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
 	charges = 4
+	flags_1 = NONE
 
 /obj/item/cartridge/virus/syndicate/send_virus(obj/item/pda/target, mob/living/U)
 	if(charges <= 0)
@@ -84,6 +85,7 @@
 /obj/item/cartridge/virus/frame
 	name = "\improper F.R.A.M.E. cartridge"
 	icon_state = "cart"
+	flags_1 = NONE
 	var/telecrystals = 0
 
 /obj/item/cartridge/virus/frame/send_virus(obj/item/pda/target, mob/living/U)

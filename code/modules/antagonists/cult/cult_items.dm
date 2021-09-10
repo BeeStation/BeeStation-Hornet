@@ -25,6 +25,7 @@
 	throwforce = 12 // unlike normal daggers, this one is curved and not designed to be thrown
 	armour_penetration = 35
 	actions_types = list(/datum/action/item_action/cult_dagger)
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/melee/cultblade/dagger/Initialize()
 	. = ..()
@@ -347,6 +348,7 @@
 	brightness_on = 0
 	actions_types = list()
 	high_pressure_multiplier = 0.5
+	flags_1 = NONE
 
 /obj/item/clothing/suit/space/hardsuit/cult
 	name = "\improper Nar'Sien hardened armor"
@@ -357,6 +359,7 @@
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank/internals/)
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75, "stamina" = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cult
+	flags_1 = NONE
 
 /obj/item/sharpener/cult
 	name = "eldritch whetstone"
@@ -449,6 +452,7 @@
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	flash_protect = 1
+	flags_1 = NONE
 
 /obj/item/clothing/glasses/hud/health/night/cultblind/equipped(mob/living/user, slot)
 	..()
@@ -585,6 +589,7 @@
 	on_damage = 15
 	slot_flags = null
 	on = TRUE
+	flags_1 = NONE
 	var/charges = 5
 
 /obj/item/flashlight/flare/culttorch/afterattack(atom/movable/A, mob/user, proximity)
@@ -905,6 +910,7 @@
 	block_flags = BLOCKING_PROJECTILE
 	attack_verb = list("bumped", "prodded")
 	hitsound = 'sound/weapons/smash.ogg'
+	flags_1 = NONE
 	var/illusions = 4
 
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

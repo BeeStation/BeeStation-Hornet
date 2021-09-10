@@ -15,6 +15,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
+	flags_1 = SAVE_SAFE_1
 	var/mopping = 0
 	var/mopcount = 0
 	var/mopcap = 15
@@ -76,6 +77,7 @@
 
 /obj/item/mop/cyborg
 	insertable = FALSE
+	flags_1 = NONE
 
 /obj/item/mop/advanced
 	desc = "The most advanced tool in a custodian's arsenal, complete with a condenser for self-wetting! Just think of all the viscera you will clean up with this!"

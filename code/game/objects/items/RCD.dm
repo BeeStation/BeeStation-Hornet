@@ -15,7 +15,7 @@ RLD
 	opacity = 0
 	density = FALSE
 	anchored = FALSE
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	item_flags = NOBLUDGEON
 	force = 0
 	throwforce = 10
@@ -536,6 +536,7 @@ RLD
 	no_ammo_message = "<span class='warning'>Insufficient charge.</span>"
 	desc = "A device used to rapidly build walls and floors."
 	canRturf = TRUE
+	flags_1 = NONE
 	var/energyfactor = 72
 
 
@@ -591,6 +592,7 @@ RLD
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	materials = list(/datum/material/iron=12000, /datum/material/glass=8000)
+	flags_1 = SAVE_SAFE_1
 	var/ammoamt = 40
 
 /obj/item/rcd_ammo/large
@@ -870,6 +872,7 @@ RLD
 	desc = "It seems to be empty."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
+	flags_1 = SAVE_SAFE_1
 	var/upgrade
 
 /obj/item/rcd_upgrade/frames

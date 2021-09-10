@@ -11,6 +11,7 @@
 	density = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 60
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/canvas/painting = null
 
 //Adding canvases
@@ -51,6 +52,7 @@ GLOBAL_LIST_INIT(globalBlankCanvases, new(AMT_OF_CANVASES))
 	icon = 'icons/obj/artstuff.dmi'
 	icon_state = "11x11"
 	resistance_flags = FLAMMABLE
+	flags_1 = SAVE_SAFE_1
 	var/whichGlobalBackup = 1 //List index
 
 /obj/item/canvas/nineteenXnineteen

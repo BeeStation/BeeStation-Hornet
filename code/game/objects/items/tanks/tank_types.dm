@@ -71,7 +71,7 @@
 	name = "plasma tank"
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	slot_flags = null	//they have no straps!
 	force = 8
 
@@ -144,7 +144,7 @@
 	name = "emergency oxygen tank"
 	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
 	icon_state = "emergency"
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
@@ -178,6 +178,7 @@
 	name = "magic oxygen tank"
 	icon_state = "emergency_double"
 	volume = 100000000
+	flags_1 = CONDUCT_1
 
 /obj/item/tank/internals/emergency_oxygen/double/empty/populate_gas()
 	return
@@ -186,7 +187,6 @@
 	name = "emergency prank tank"
 	desc = "Used for pranking in emergencies! Has a smidge of a mystery ingredient for 200% FUN!"
 	icon_state = "clown"
-	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4

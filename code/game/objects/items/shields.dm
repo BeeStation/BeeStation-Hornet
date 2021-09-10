@@ -6,6 +6,7 @@
 	block_flags = null
 	block_power = 50
 	max_integrity =  75
+	flags_1 = SAVE_SAFE_1
 	var/transparent = FALSE	// makes beam projectiles pass through the shield
 	var/durability = TRUE //the shield uses durability instead of stamina
 
@@ -256,6 +257,7 @@
 	max_integrity = 50
 	block_sound = 'sound/weapons/egloves.ogg'
 	block_flags = BLOCKING_PROJECTILE
+	flags_1 = NONE
 	var/base_icon_state = "eshield" // [base_icon_state]1 for expanded, [base_icon_state]0 for contracted
 	var/on_force = 10
 	var/on_throwforce = 8

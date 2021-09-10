@@ -2,6 +2,7 @@
  * Gang Boss Pens
  */
 /obj/item/pen/gang
+	flags_1 = NONE
 	var/cooldown
 	var/last_used
 

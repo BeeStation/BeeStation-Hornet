@@ -12,6 +12,7 @@
 	throw_speed = 3
 	throw_range = 7
 	item_flags = NOBLUDGEON
+	flags_1 = SAVE_SAFE_1
 	var/list/signs = list()
 	var/max_signs = 10
 	var/creation_time = 0 //time to create a holosign in deciseconds.

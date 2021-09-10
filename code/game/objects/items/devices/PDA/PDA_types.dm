@@ -164,6 +164,7 @@
 	name = "military PDA"
 	owner = "John Doe"
 	hidden = 1
+	flags_1 = NONE
 
 /obj/item/pda/chaplain
 	name = "chaplain PDA"

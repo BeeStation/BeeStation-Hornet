@@ -367,6 +367,7 @@
 	list_reagents = list(/datum/reagent/toxin/plantbgone = 100)
 
 /obj/item/reagent_containers/spray/cyborg
+	flags_1 = NONE
 	var/charge_cost = 50
 	var/charge_tick = 0
 	var/recharge_time = 2 //Time it takes for 5u to recharge (in seconds)

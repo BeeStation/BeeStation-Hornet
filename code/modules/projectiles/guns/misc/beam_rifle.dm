@@ -32,6 +32,7 @@
 	cell_type = /obj/item/stock_parts/cell/beam_rifle
 	canMouseDown = TRUE
 	pin = null
+	flags_1 = SAVE_SAFE_1
 	var/aiming = FALSE
 	var/aiming_time = 12
 	var/aiming_time_fire_threshold = 5

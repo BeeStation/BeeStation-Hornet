@@ -17,6 +17,7 @@
 	body_parts_covered = CHEST
 	allowed = list (/obj/item/gun/energy/laser/bluetag)
 	resistance_flags = NONE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/redtag
 	name = "red laser tag armor"
@@ -27,6 +28,7 @@
 	body_parts_covered = CHEST
 	allowed = list (/obj/item/gun/energy/laser/redtag)
 	resistance_flags = NONE
+	flags_1 = SAVE_SAFE_1
 
 // Aristocrat Coats
 
@@ -35,24 +37,28 @@
 	desc = "A fancy coat made of silk. This one is orange."
 	icon_state = "aristo_orange"
 	item_state = "aristo_orange"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/aristo_red
 	name = "red aristocrat coat"
 	desc = "A fancy coat made of silk. This one is red."
 	icon_state = "aristo_red"
 	item_state = "aristo_red"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/aristo_brown
 	name = "brown aristocrat coat"
 	desc = "A fancy coat made of silk. This one is brown."
 	icon_state = "aristo_brown"
 	item_state = "aristo_brown"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/aristo_blue
 	name = "blue aristocrat coat"
 	desc = "A fancy coat made of silk. This one is blue."
 	icon_state = "aristo_blue"
 	item_state = "aristo_blue"
+	flags_1 = SAVE_SAFE_1
 
 /*
  * Costume
@@ -64,6 +70,7 @@
 	item_state = "armor"
 	body_parts_covered = CHEST|GROIN
 	hoodtype = /obj/item/clothing/head/hooded/flashsuit
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/hooded/hastur
 	name = "\improper Hastur's robe"
@@ -73,6 +80,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/hasturhood
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/hooded/flashsuit
 	name = "flash button"
@@ -80,12 +88,14 @@
 	icon_state = "flashsuit"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACIALHAIR|HIDEFACE|HIDEMASK
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/pirate
 	name = "pirate coat"
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
+	flags_1 = SAVE_SAFE_1
 	allowed = list(/obj/item/melee/transforming/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/food/drinks/bottle/rum)
 
 /obj/item/clothing/suit/pirate/captain
@@ -93,6 +103,7 @@
 	desc = "Yarr."
 	icon_state = "hgpirate"
 	item_state = "hgpirate"
+	flags_1 = SAVE_SAFE_1
 
 
 /obj/item/clothing/suit/cyborg_suit
@@ -103,6 +114,7 @@
 	flags_1 = CONDUCT_1
 	fire_resist = T0C+5200
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_1 = SAVE_SAFE_1
 
 
 /obj/item/clothing/suit/justice
@@ -111,6 +123,7 @@
 	icon_state = "justice"
 	item_state = "justice"
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_1 = SAVE_SAFE_1
 
 
 /obj/item/clothing/suit/judgerobe
@@ -121,6 +134,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/storage/fancy/cigarettes, /obj/item/stack/spacecash)
 	flags_inv = HIDEJUMPSUIT
+	flags_1 = SAVE_SAFE_1
 
 
 /obj/item/clothing/suit/apron/overalls
@@ -129,6 +143,7 @@
 	icon_state = "overalls"
 	item_state = "overalls"
 	body_parts_covered = CHEST|GROIN|LEGS
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/apron/purple_bartender
 	name = "purple bartender apron"
@@ -136,6 +151,7 @@
 	icon_state = "purplebartenderapron"
 	item_state = "purplebartenderapron"
 	body_parts_covered = CHEST|GROIN|LEGS
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/syndicatefake
 	name = "black and red space suit replica"
@@ -146,6 +162,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	resistance_flags = NONE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/hastur
 	name = "\improper Hastur's robe"
@@ -154,6 +171,7 @@
 	item_state = "hastur"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	flags_1 = SAVE_SAFE_1
 
 
 /obj/item/clothing/suit/imperium_monk
@@ -163,6 +181,7 @@
 	item_state = "imperium_monk"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	flags_1 = SAVE_SAFE_1
 	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 
@@ -171,6 +190,7 @@
 	desc = "A suit made long ago by the ancient empire KFC."
 	icon_state = "chickensuit"
 	item_state = "chickensuit"
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 
@@ -180,6 +200,7 @@
 	desc = "A suit that looks like a primate."
 	icon_state = "monkeysuit"
 	item_state = "monkeysuit"
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
@@ -189,6 +210,7 @@
 	icon_state = "owl_wings"
 	item_state = "owl_wings"
 	togglename = "wings"
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = ARMS|CHEST
 	actions_types = list(/datum/action/item_action/toggle_wings)
 
@@ -201,12 +223,14 @@
 	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
 	icon_state = "griffin_wings"
 	item_state = "griffin_wings"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/cardborg
 	name = "cardborg suit"
 	desc = "An ordinary cardboard box with holes cut in the sides."
 	icon_state = "cardborg"
 	item_state = "cardborg"
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = CHEST|GROIN
 	flags_inv = HIDEJUMPSUIT
 	dog_fashion = /datum/dog_fashion/back
@@ -238,30 +262,35 @@
 	item_state = "snowman"
 	body_parts_covered = CHEST|GROIN
 	flags_inv = HIDEJUMPSUIT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/poncho
 	name = "poncho"
 	desc = "Your classic, non-racist poncho."
 	icon_state = "classicponcho"
 	item_state = "classicponcho"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/poncho/green
 	name = "green poncho"
 	desc = "Your classic, non-racist poncho. This one is green."
 	icon_state = "greenponcho"
 	item_state = "greenponcho"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/poncho/red
 	name = "red poncho"
 	desc = "Your classic, non-racist poncho. This one is red."
 	icon_state = "redponcho"
 	item_state = "redponcho"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/poncho/ponchoshame
 	name = "poncho of shame"
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseparable. Literally."
 	icon_state = "ponchoshame"
 	item_state = "ponchoshame"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/poncho/ponchoshame/Initialize()
 	. = ..()
@@ -272,6 +301,7 @@
 	desc = "A fancy white dress."
 	icon_state = "white_dress"
 	item_state = "w_suit"
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = CHEST|GROIN|LEGS|FEET
 	flags_inv = HIDEJUMPSUIT|HIDESHOES
 
@@ -280,6 +310,7 @@
 	desc = "A costume made from 'synthetic' carp scales, it smells."
 	icon_state = "carp_casual"
 	item_state = "labcoat"
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = CHEST|GROIN|ARMS
 	cold_protection = CHEST|GROIN|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT	//Space carp like space, so you should too
@@ -294,11 +325,13 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHAIR|HIDEEARS
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/hooded/hasturhood
 	name = "hastur's hood"
 	desc = "It's <i>unspeakably</i> stylish."
 	icon_state = "hasturhood"
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
@@ -319,6 +352,7 @@
 	icon_state = "ian"
 	item_state = "labcoat"
 	body_parts_covered = CHEST|GROIN|ARMS
+	flags_1 = SAVE_SAFE_1
 	//cold_protection = CHEST|GROIN|ARMS
 	//min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	allowed = list()
@@ -329,6 +363,7 @@
 	name = "corgi hood"
 	desc = "A hood that looks just like a corgi's head, it won't guarantee dog biscuits."
 	icon_state = "ian"
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = HEAD
 	//cold_protection = HEAD
 	//min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -342,6 +377,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	clothing_flags = THICKMATERIAL
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/hooded/bee_hood
 	name = "bee hood"
@@ -351,14 +387,17 @@
 	clothing_flags = THICKMATERIAL | SNUG_FIT
 	flags_inv = HIDEHAIR|HIDEEARS
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/hooded/bee_costume/syndie
 	name = "BLF costume"
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20,"energy" = 40, "bomb" = 0, "bio" = 60, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 40)
 	hoodtype = /obj/item/clothing/head/hooded/bee_hood/syndie
+	flags_1 = NONE
 
 /obj/item/clothing/head/hooded/bee_hood/syndie
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20,"energy" = 40, "bomb" = 0, "bio" = 60, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 40)
+	flags_1 = NONE
 
 /obj/item/clothing/suit/hooded/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
@@ -369,6 +408,7 @@
 	allowed = list()
 	actions_types = list(/datum/action/item_action/toggle_human_head)
 	hoodtype = /obj/item/clothing/head/hooded/human_head
+	flags_1 = SAVE_SAFE_1
 
 
 /obj/item/clothing/head/hooded/human_head
@@ -378,6 +418,7 @@
 	body_parts_covered = HEAD
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/security/officer/russian
 	name = "\improper Russian officer's jacket"
@@ -394,17 +435,20 @@
 	name = "deliquent jacket"
 	desc = "Yare yare daze."
 	icon_state = "jocoat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/madsci
 	name = "mad scientist labcoat"
 	desc = "El psy congroo."
 	icon_state = "madsci"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/hooded/renault_costume
 	name = "renault costume"
 	desc = "The cutest pair of pajamas you've ever seen."
 	icon_state = "renault_suit"
 	hoodtype = /obj/item/clothing/head/hooded/renault_hood
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/hooded/renault_hood
 	name = "renault hoodie"
@@ -416,6 +460,7 @@
 	name = "retro jacket"
 	desc = "Do you like hurting other people?"
 	icon_state = "retro_jacket"
+	flags_1 = SAVE_SAFE_1
 
 /*
  * Misc
@@ -432,30 +477,35 @@
 	strip_delay = 60
 	breakouttime = 3000
 	pocket_storage_component_path = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
 	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it, but it's pretty close. Good for sleeping in."
 	icon_state = "ianshirt"
 	item_state = "ianshirt"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/nerdshirt
 	name = "gamer shirt"
 	desc = "A baggy shirt with vintage game character Phanic the Weasel. Why would anyone wear this?"
 	icon_state = "nerdshirt"
 	item_state = "nerdshirt"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/vapeshirt //wearing this is asking to get beat.
 	name = "Vape Naysh shirt"
 	desc = "A cheap white T-shirt with a big tacky \"VN\" on the front, Why would you wear this unironically?"
 	icon_state = "vapeshirt"
 	item_state = "vapeshirt"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/striped_sweater
 	name = "striped sweater"
 	desc = "Reminds you of someone, but you just can't put your finger on it..."
 	icon_state = "waldo_shirt"
 	item_state = "waldo_shirt"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/jacket
 	name = "bomber jacket"
@@ -466,6 +516,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	cold_protection = CHEST|GROIN|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/jacket/leather
 	name = "leather jacket"
@@ -535,18 +586,21 @@
 	desc = "Looks like this belongs in a very old movie set."
 	icon_state = "draculacoat"
 	item_state = "draculacoat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/drfreeze_coat
 	name = "doctor freeze's labcoat"
 	desc = "A labcoat imbued with the power of features and freezes."
 	icon_state = "drfreeze_coat"
 	item_state = "drfreeze_coat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/gothcoat
 	name = "gothic coat"
 	desc = "Perfect for those who want stalk in a corner of a bar."
 	icon_state = "gothcoat"
 	item_state = "gothcoat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/xenos
 	name = "xenos suit"
@@ -556,6 +610,7 @@
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	allowed = list(/obj/item/clothing/mask/facehugger/toy)
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/nemes
 	name = "pharoah tunic"
@@ -563,6 +618,7 @@
 	icon_state = "pharoah"
 	icon_state = "pharoah"
 	body_parts_covered = CHEST|GROIN
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/caution
 	name = "wet floor sign"
@@ -577,6 +633,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = CHEST|GROIN
 	attack_verb = list("warned", "cautioned", "smashed")
+	flags_1 = SAVE_SAFE_1
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 
 
@@ -591,6 +648,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	cold_protection = CHEST|GROIN|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	flags_1 = SAVE_SAFE_1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
@@ -602,6 +660,7 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEHAIR|HIDEEARS
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/hooded/wintercoat/captain
 	name = "captain's winter coat"
@@ -773,6 +832,7 @@
 	name = "spooky ghost"
 	desc = "This is obviously just a bedsheet, but maybe try it on?"
 	icon_state = "bedsheet"
+	flags_1 = SAVE_SAFE_1
 	user_vars_to_edit = list("name" = "Spooky Ghost", "real_name" = "Spooky Ghost" , "incorporeal_move" = INCORPOREAL_MOVE_BASIC, "appearance_flags" = KEEP_TOGETHER|TILE_BOUND, "alpha" = 150)
 	alternate_worn_layer = ABOVE_BODY_FRONT_LAYER //so the bedsheet goes over everything but fire
 
@@ -781,6 +841,7 @@
 	desc = "A big and clanky suit made of bronze that offers no protection and looks very unfashionable. Nice."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass_old"
+	flags_1 = SAVE_SAFE_1
 	armor = list("melee" = 5, "bullet" = 0, "laser" = -5, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 30)
 
 /obj/item/clothing/suit/ghost_sheet
@@ -788,6 +849,7 @@
 	desc = "The hands float by themselves, so it's extra spooky."
 	icon_state = "ghost_sheet"
 	item_state = "ghost_sheet"
+	flags_1 = SAVE_SAFE_1
 	throwforce = 0
 	throw_speed = 1
 	throw_range = 2
@@ -802,6 +864,7 @@
 	item_state = "joker"
 	item_color = "joker"
 	can_adjust = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/joker
 	name = "comedian coat"
@@ -809,6 +872,7 @@
 	icon_state = "joker_coat"
 	item_state = "joker_coat"
 	item_color = "joker_coat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/toggle/softshell
 	name = "softshell jacket"
@@ -819,3 +883,4 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 30, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	togglename = "zipper"
 	body_parts_covered = CHEST|GROIN|ARMS
+	flags_1 = SAVE_SAFE_1

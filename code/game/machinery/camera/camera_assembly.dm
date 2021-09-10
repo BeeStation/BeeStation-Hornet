@@ -17,6 +17,7 @@
 	icon = 'icons/obj/machines/camera.dmi'
 	icon_state = "camera_assembly"
 	max_integrity = 150
+	flags_1 = SAVE_SAFE_1
 	//	Motion, EMP-Proof, X-ray
 	var/obj/item/analyzer/xray_module
 	var/malf_xray_firmware_active //used to keep from revealing malf AI upgrades for user facing isXRay() checks when they use Upgrade Camera Network ability

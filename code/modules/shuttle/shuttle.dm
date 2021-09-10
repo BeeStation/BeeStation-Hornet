@@ -251,6 +251,7 @@
 	icon_state = "pinonclose"
 
 	area_type = SHUTTLE_DEFAULT_SHUTTLE_AREA_TYPE
+	flags_1 = SAVE_SAFE_1
 
 	var/list/shuttle_areas
 

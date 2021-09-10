@@ -317,6 +317,7 @@
 	name = "Nano-Feline Assimilative Toxoplasmosis culture bottle"
 	desc = "A small bottle. Contains a sample of nano-feline toxoplasma in synthblood medium."
 	spawned_disease = /datum/disease/transformation/felinid/contagious
+	flags_1 = NONE
 
 //Oldstation.dmm chemical storage bottles
 

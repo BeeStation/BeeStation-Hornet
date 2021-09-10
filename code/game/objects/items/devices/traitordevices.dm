@@ -277,6 +277,7 @@ effective or pretty fucking useless.
 	desc = "Device used to disrupt nearby wireless communication."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
+	flags_1 = SAVE_SAFE_1
 	var/active = FALSE
 	var/range = 12
 

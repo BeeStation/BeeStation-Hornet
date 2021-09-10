@@ -2,6 +2,11 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
+	flags_1 = SAVE_SAFE_1
+	//Mapping var - If set to false, will not spawn with contents
+	var/populate = TRUE
+	//Mapping var - If true will consume any items it can hold upon spawn.
+	var/consume_loc_contents = FALSE
 	var/rummage_if_nodrop = TRUE
 	var/component_type = /datum/component/storage/concrete
 
@@ -10,7 +15,11 @@
 
 /obj/item/storage/Initialize()
 	. = ..()
-	PopulateContents()
+	if(populate)
+		PopulateContents()
+	if(consume_loc_contents)
+		for(var/obj/item/I in loc)
+			SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, I, null, TRUE, FALSE)
 
 /obj/item/storage/ComponentInitialize()
 	AddComponent(component_type)
@@ -60,3 +69,8 @@
 		var/custom_data = item.on_object_saved(depth++)
 		dat += "[custom_data ? ",\n[custom_data]" : ""]"
 	return dat
+
+/obj/item/storage/get_save_vars(save_flag)
+	. = list()
+	.["populate"] = FALSE
+	.["consume_loc_contents"] = TRUE

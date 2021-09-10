@@ -9,6 +9,7 @@
 	density = TRUE
 	anchored = FALSE
 	max_integrity = 200
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
@@ -46,6 +47,7 @@
 	buckle_lying = 0
 	can_buckle = 1
 	max_integrity = 250
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/kitchenspike/attack_paw(mob/user)
 	return attack_hand(user)

@@ -2,6 +2,7 @@
 	name = "deployable mine"
 	desc = "An unarmed landmine. It can be planted to arm it."
 	icon_state = "uglymine"
+	flags_1 = SAVE_SAFE_1
 	var/mine_type = /obj/effect/mine
 	var/arming_time = 30
 

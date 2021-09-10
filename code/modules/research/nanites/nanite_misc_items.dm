@@ -4,6 +4,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/device.dmi'
 	icon_state = "nanite_remote"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/nanite_injector/attack_self(mob/user)
 	user.AddComponent(/datum/component/nanites, 150)

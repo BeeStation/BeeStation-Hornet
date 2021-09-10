@@ -8,6 +8,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 7
+	flags_1 = SAVE_SAFE_1
 	var/state
 	var/datum/gas_mixture/air_contents = null
 

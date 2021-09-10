@@ -11,6 +11,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/choice_beacon
 	name = "choice beacon"
@@ -275,6 +276,7 @@
 	icon_state = "skub"
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("skubbed")
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/skub/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] has declared themself as anti-skub! The skub tears them apart!</span>")
@@ -309,6 +311,7 @@
 /obj/item/choice_beacon/pet
 	name = "animal delivery beacon"
 	desc = "There are no faster ways, only more humane."
+	flags_1 = SAVE_SAFE_1
 	var/default_name = "Bacon"
 	var/mob_choice = /mob/living/simple_animal/pet/dog/corgi/exoticcorgi
 

@@ -5,6 +5,7 @@
 	icon_state = "toilet00"
 	density = FALSE
 	anchored = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/open = FALSE			//if the lid is up
 	var/cistern = 0			//if the cistern bit is open
 	var/w_items = 0			//the combined w_class of all the items in the cistern
@@ -121,6 +122,7 @@
 	icon_state = "urinal"
 	density = FALSE
 	anchored = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/exposed = 0 // can you currently put an item inside
 	var/obj/item/hiddenitem = null // what's in the urinal
 
@@ -214,6 +216,7 @@
 	icon_state = "sink"
 	desc = "A sink used for washing one's hands and face."
 	anchored = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/busy = FALSE 	//Something's being washed at the moment
 	var/dispensedreagent = /datum/reagent/water // for whenever plumbing happens
 
@@ -224,6 +227,7 @@
 	icon_state = "sink_frame"
 	desc = "A sink frame, that needs 2 plastic sheets to finish construction."
 	anchored = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
@@ -403,6 +407,7 @@
 	anchored = TRUE
 	opacity = 0
 	density = FALSE
+	flags_1 = SAVE_SAFE_1
 	var/open = TRUE
 
 /obj/structure/curtain/proc/toggle()

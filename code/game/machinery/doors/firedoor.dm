@@ -424,6 +424,7 @@
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 	var/firelock_type = /obj/machinery/door/firedoor

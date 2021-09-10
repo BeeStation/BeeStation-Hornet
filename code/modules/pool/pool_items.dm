@@ -11,6 +11,7 @@
 	block_power = 0
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	attack_verb = list("wacked")
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/pool/Initialize()
 	. = ..()

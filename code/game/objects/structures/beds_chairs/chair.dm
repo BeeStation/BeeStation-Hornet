@@ -9,6 +9,7 @@
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
+	flags_1 = SAVE_SAFE_1
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -256,6 +257,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
+	flags_1 = SAVE_SAFE_1
 	force = 8
 	throwforce = 10
 	block_upgrade_walk = 1

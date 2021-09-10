@@ -6,8 +6,7 @@
 	anchored = TRUE
 	density = FALSE
 	max_integrity = 15
-
-
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
@@ -52,6 +51,7 @@
 	name = "egg cluster"
 	desc = "They seem to pulse slightly with an inner life."
 	icon_state = "eggs"
+	flags_1 = NONE
 	var/amount_grown = 0
 	var/player_spiders = 0
 	var/directive = "" //Message from the mother
@@ -84,6 +84,7 @@
 	anchored = FALSE
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	max_integrity = 3
+	flags_1 = NONE
 	var/amount_grown = 0
 	var/grow_as = null
 	var/obj/machinery/atmospherics/components/unary/vent_pump/entry_vent

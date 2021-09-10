@@ -8,7 +8,7 @@
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
-	flags_1 =  CONDUCT_1
+	flags_1 =  CONDUCT_1 | SAVE_SAFE_1
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(/datum/material/iron=2000)
 	w_class = WEIGHT_CLASS_NORMAL

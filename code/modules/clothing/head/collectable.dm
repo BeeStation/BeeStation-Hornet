@@ -4,6 +4,7 @@
 /obj/item/clothing/head/collectable
 	name = "collectable hat"
 	desc = "A rare collectable hat."
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/collectable/petehat
 	name = "ultra rare Pete's hat!"

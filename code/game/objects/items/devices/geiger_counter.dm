@@ -196,6 +196,7 @@
 
 
 /obj/item/geiger_counter/cyborg
+	flags_1 = NONE
 	var/mob/listeningTo
 
 /obj/item/geiger_counter/cyborg/cyborg_unequip(mob/user)

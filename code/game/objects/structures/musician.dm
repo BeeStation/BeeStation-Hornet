@@ -331,6 +331,7 @@
 	icon_state = "minimoog"
 	anchored = TRUE
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/datum/song/song
 
 /obj/structure/piano/unanchored

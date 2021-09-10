@@ -5,6 +5,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "lipstick"
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 	var/colour = "red"
 	var/open = FALSE
 
@@ -104,7 +105,7 @@
 	desc = "The latest and greatest power razor born from the science of shaving."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "razor"
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	w_class = WEIGHT_CLASS_TINY
 	var/extended = 1
 
@@ -295,6 +296,7 @@
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "handmirror"
 	w_class = WEIGHT_CLASS_SMALL
+	flags_1 = SAVE_SAFE_1
 	force = 2
 	throwforce = 2
 	throw_speed = 3

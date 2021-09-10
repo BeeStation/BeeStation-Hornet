@@ -4,6 +4,7 @@
 	icon = 'icons/obj/sofa.dmi'
 	buildstackamount = 1
 	item_chair = null
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/chair/sofa/left
 	icon_state = "sofaend_left"

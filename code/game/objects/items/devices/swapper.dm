@@ -8,6 +8,7 @@
 	item_flags = NOBLUDGEON
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	flags_1 = SAVE_SAFE_1
 
 	var/cooldown = 300
 	var/next_use = 0

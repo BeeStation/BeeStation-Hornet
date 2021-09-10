@@ -9,6 +9,7 @@
 	icon = 'icons/obj/contraband.dmi'
 	force = 0
 	resistance_flags = FLAMMABLE
+	flags_1 = SAVE_SAFE_1
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
@@ -51,6 +52,7 @@
 	icon = 'icons/obj/contraband.dmi'
 	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/ruined = FALSE
 	var/random_basetype
 	var/never_random = FALSE // used for the 'random' subclasses.

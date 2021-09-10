@@ -1,10 +1,12 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/skirt/color
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
@@ -43,7 +45,7 @@
 	name = "black jumpskirt"
 	icon_state = "black_skirt"
 	item_state = "bl_suit"
-	item_color = "black_skirt"	
+	item_color = "black_skirt"
 
 /obj/item/clothing/under/color/black/ghost
 	item_flags = DROPDEL

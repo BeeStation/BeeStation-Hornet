@@ -14,6 +14,7 @@
 	item_state = "pizzabox"
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
+	flags_1 = SAVE_SAFE_1
 
 	var/open = FALSE
 	var/can_open_on_fall = TRUE //if FALSE, this pizza box will never open if it falls from a stack
@@ -308,6 +309,7 @@
 /obj/item/pizzabox/infinite
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF //hard to destroy
 	can_open_on_fall = FALSE
+	flags_1 = NONE
 	var/list/pizza_types = list(
 		/obj/item/reagent_containers/food/snacks/pizza/meat = 1,
 		/obj/item/reagent_containers/food/snacks/pizza/mushroom = 1,

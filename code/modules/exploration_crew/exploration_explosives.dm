@@ -6,7 +6,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/bombs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/bombs_righthand.dmi'
 	item_flags = NOBLUDGEON
-	flags_1 = NONE
+	flags_1 = SAVE_SAFE_1
 	w_class = WEIGHT_CLASS_SMALL
 	var/atom/target = null
 	var/mutable_appearance/plastic_overlay
@@ -96,6 +96,7 @@
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "detonator"
 	w_class = WEIGHT_CLASS_SMALL
+	flags_1 = SAVE_SAFE_1
 	var/range = 16
 	var/list/linked_explosives = list()
 

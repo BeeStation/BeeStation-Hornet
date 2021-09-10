@@ -3,7 +3,7 @@
 
 /obj/item/clothing/under/trek
 	can_adjust = FALSE
-
+	flags_1 = SAVE_SAFE_1
 
 //TOS
 /obj/item/clothing/under/trek/command

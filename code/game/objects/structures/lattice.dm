@@ -9,6 +9,7 @@
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
+	flags_1 = SAVE_SAFE_1
 	var/number_of_rods = 1
 	canSmoothWith = list(/obj/structure/lattice,
 	/turf/open/floor,

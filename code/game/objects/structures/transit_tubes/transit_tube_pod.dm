@@ -5,6 +5,7 @@
 	anchored = TRUE
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
+	flags_1 = SAVE_SAFE_1
 	var/moving = 0
 	var/datum/gas_mixture/air_contents = new()
 

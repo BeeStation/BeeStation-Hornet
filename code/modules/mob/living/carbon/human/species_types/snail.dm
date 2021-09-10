@@ -55,6 +55,7 @@
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	max_integrity = 200
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_1 = NONE
 
 /obj/item/storage/backpack/snail/Initialize()
 	. = ..()

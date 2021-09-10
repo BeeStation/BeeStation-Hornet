@@ -737,6 +737,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	flags_1 = NONE
 	var/mob/living/simple_animal/holder_animal
 
 /obj/structure/closet/stasis/process()

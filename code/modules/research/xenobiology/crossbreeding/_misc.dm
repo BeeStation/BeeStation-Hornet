@@ -14,6 +14,7 @@ Slimecrossing Items
 	pictures_max = 1
 	can_customise = FALSE
 	default_picture_name = "A nostalgic picture"
+	flags_1 = NONE
 	var/used = FALSE
 
 /datum/saved_bodypart
@@ -155,6 +156,7 @@ Slimecrossing Items
 	desc = "They say a picture is like a moment stopped in time."
 	pictures_left = 1
 	pictures_max = 1
+	flags_1 = NONE
 	var/used = FALSE
 
 /obj/item/camera/timefreeze/afterattack(atom/target, mob/user, flag)
@@ -174,6 +176,7 @@ Slimecrossing Items
 	rating = 7 //Roughly 1.5 times the original.
 	maxcharge = 20000 //2 times the normal one.
 	chargerate = 2250 //1.5 times the normal rate.
+	flags_1 = NONE
 
 //Barrier cube - Chilling Grey
 /obj/item/barriercube
@@ -200,6 +203,7 @@ Slimecrossing Items
 	icon_state = "slimebarrier"
 	proj_pass_rate = 40
 	max_integrity = 60
+	flags_1 = NONE
 
 //Melting Gel Wall - Chilling Metal
 /obj/effect/forcefield/slimewall
@@ -222,6 +226,7 @@ Slimecrossing Items
 	name = "ration pack"
 	desc = "A square bar that sadly <i>looks</i> like chocolate, packaged in a nondescript grey wrapper. Has saved soldiers' lives before - usually by stopping bullets."
 	icon_state = "rationpack"
+	flags_1 = NONE
 	bitesize = 3
 	junkiness = 15
 	filling_color = "#964B00"

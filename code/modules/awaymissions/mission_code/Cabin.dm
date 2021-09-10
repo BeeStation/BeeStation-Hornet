@@ -42,6 +42,7 @@
 	icon = 'icons/obj/fireplace.dmi'
 	icon_state = "firepit-active"
 	density = FALSE
+	flags_1 = SAVE_SAFE_1
 	var/active = 1
 
 /obj/structure/firepit/Initialize()

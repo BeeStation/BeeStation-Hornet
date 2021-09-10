@@ -330,5 +330,6 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
+	flags_1 = SAVE_SAFE_1
 	var/charges = 5
 	var/max_charges = 5

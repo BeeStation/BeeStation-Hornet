@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/pen/haspen		//The stored pen.
 	var/obj/item/paper/toppaper	//The topmost piece of paper.
 	slot_flags = ITEM_SLOT_BELT

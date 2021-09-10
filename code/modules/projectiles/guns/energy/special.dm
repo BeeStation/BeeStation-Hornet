@@ -5,7 +5,7 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	can_flashlight = TRUE
 	w_class = WEIGHT_CLASS_HUGE
-	flags_1 =  CONDUCT_1
+	flags_1 =  CONDUCT_1 | SAVE_SAFE_1
 	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
@@ -37,6 +37,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	pin = null
 	ammo_x_offset = 1
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/energy/decloner/update_icon()
 	..()
@@ -57,6 +58,7 @@
 	modifystate = 1
 	ammo_x_offset = 1
 	selfcharge = 1
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
@@ -104,6 +106,7 @@
 	unique_frequency = TRUE
 	can_flashlight = FALSE
 	max_mod_capacity = 0
+	flags_1 = NONE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/halloween
 	name = "candy corn crossbow"
@@ -136,7 +139,7 @@
 	icon_state = "plasmacutter"
 	item_state = "plasmacutter"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
 	block_upgrade_walk = 1
@@ -248,6 +251,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	item_state = null
 	icon_state = "wormhole_projector"
+	flags_1 = SAVE_SAFE_1
 	var/obj/effect/portal/p_blue
 	var/obj/effect/portal/p_orange
 	var/atmos_link = FALSE
@@ -339,6 +343,7 @@
 	fire_rate = 4
 	pin = null
 	block_upgrade_walk = 1
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/energy/temperature/pin
 	pin = /obj/item/firing_pin
@@ -358,6 +363,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	block_upgrade_walk = 1
+	flags_1 = NONE
 
 /obj/item/gun/energy/laser/instakill/red
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit. This one has a red design."
@@ -380,4 +386,5 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/gravity/repulse, /obj/item/ammo_casing/energy/gravity/attract, /obj/item/ammo_casing/energy/gravity/chaos)
 	item_state = "gravity_gun"
 	icon_state = "gravity_gun"
+	flags_1 = SAVE_SAFE_1
 	var/power = 4

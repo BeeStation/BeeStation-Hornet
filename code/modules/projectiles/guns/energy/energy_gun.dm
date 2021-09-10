@@ -13,6 +13,7 @@
 	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
 	block_upgrade_walk = 1
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
@@ -68,6 +69,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler/hos)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	flags_1 = NONE
 
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"
@@ -102,6 +104,7 @@
 	ammo_x_offset = 2
 	automatic = 1
 	fire_rate = 5
+	flags_1 = NONE
 
 /obj/item/gun/energy/e_gun/nuclear
 	name = "advanced energy gun"

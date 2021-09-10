@@ -1525,6 +1525,17 @@
 			L.update(FALSE)
 		CHECK_TICK
 
+/obj/machinery/power/apc/get_save_vars(save_flag)
+	. = list()
+	if(pixel_x == 24)
+		.["dir"] = EAST
+	else if(pixel_x == -25)
+		.["dir"] = WEST
+	else if(pixel_y == 23)
+		.["dir"] = NORTH
+	else if(pixel_y == -23)
+		.["dir"] = SOUTH
+
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1
 #undef UPSTATE_OPENED2

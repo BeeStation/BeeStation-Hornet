@@ -120,6 +120,7 @@
 /obj/item/disk/data
 	name = "cloning data disk"
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
+	flags_1 = SAVE_SAFE_1
 	var/list/genetic_makeup_buffer = list()
 	var/list/fields = list()
 	var/list/mutations = list()

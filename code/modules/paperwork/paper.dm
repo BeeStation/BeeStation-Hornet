@@ -35,6 +35,7 @@
 	max_integrity = 50
 	dog_fashion = /datum/dog_fashion/head
 	color = "white"
+	flags_1 = SAVE_SAFE_1
 	/// What's actually written on the paper.
 	var/info = ""
 	var/show_written_words = TRUE

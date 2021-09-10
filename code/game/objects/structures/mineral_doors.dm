@@ -6,6 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	opacity = TRUE
+	flags_1 = SAVE_SAFE_1
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"

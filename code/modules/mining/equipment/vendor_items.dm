@@ -9,6 +9,7 @@
 	real = 0
 	sterile = 1
 	tint = 3 //Makes it feel more authentic when it latches on
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/mask/facehugger/toy/Die()
 	return

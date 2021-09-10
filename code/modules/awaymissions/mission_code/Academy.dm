@@ -170,6 +170,7 @@
 	icon_state = "d20"
 	sides = 20
 	microwave_riggable = FALSE
+	flags_1 = NONE	//NO NO NO NO NO
 	var/reusable = TRUE
 	var/used = FALSE
 	var/roll_in_progress = FALSE

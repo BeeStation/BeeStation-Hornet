@@ -10,6 +10,7 @@
 	item_color = "beanie"
 	custom_price = 10
 	w_class = WEIGHT_CLASS_SMALL
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/beanie/black
 	name = "black beanie"

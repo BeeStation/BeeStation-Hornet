@@ -6,7 +6,7 @@
 	icon_state = "chainsaw_off"
 	lefthand_file = 'icons/mob/inhands/weapons/chainsaw_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/chainsaw_righthand.dmi'
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	force = 13
 	block_power = 20
 	block_upgrade_walk = 2
@@ -72,6 +72,7 @@
 	desc = "<span class='warning'>VRRRRRRR!!!</span>"
 	armour_penetration = 100
 	force_on = 30
+	flags_1 = CONDUCT_1
 
 /obj/item/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
@@ -95,6 +96,7 @@
 	block_power = 50
 	armour_penetration = 50
 	light_color = "#ff0000"
+	flags_1 = CONDUCT_1
 	var/onsound
 	var/offsound
 	onsound = 'sound/weapons/echainsawon.ogg'

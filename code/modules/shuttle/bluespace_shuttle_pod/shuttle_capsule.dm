@@ -1,6 +1,7 @@
 /obj/item/survivalcapsule/shuttle
 	name = "bluespace shuttle capsule"
 	desc = "An entire shuttle stored within a pocket of bluespace."
+	flags_1 = NONE
 	var/datum/map_template/shuttle/shuttle_template
 	//Static
 	//Subtypes that change this will have to redefine these.

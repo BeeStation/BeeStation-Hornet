@@ -10,7 +10,7 @@
 	desc = "A small electronic device that should never exist."
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = ""
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(/datum/material/iron=100)
 	throwforce = 2
@@ -32,7 +32,7 @@
 /obj/item/assembly/Destroy()
 	holder = null
 	return ..()
-	
+
 /obj/item/assembly/get_part_rating()
 	return 1
 

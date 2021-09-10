@@ -10,3 +10,4 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	flags_1 = SAVE_SAFE_1

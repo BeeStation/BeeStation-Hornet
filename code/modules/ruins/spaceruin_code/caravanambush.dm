@@ -29,6 +29,7 @@
 /obj/machinery/computer/shuttle_flight/caravan
 
 /obj/item/circuitboard/computer/caravan
+	flags_1 = NONE
 	build_path = /obj/machinery/computer/shuttle_flight/caravan
 
 /obj/item/circuitboard/computer/caravan/trade1

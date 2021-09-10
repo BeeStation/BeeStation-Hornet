@@ -7,6 +7,7 @@
 	item_color = "plasma" //On accessories, this controls the worn sprite. That's a bit weird.
 	slot_flags = 0
 	w_class = WEIGHT_CLASS_SMALL
+	flags_1 = SAVE_SAFE_1
 	var/above_suit = FALSE
 	var/minimize_when_attached = TRUE // TRUE if shown as a small icon in corner, FALSE if overlayed
 	var/datum/component/storage/detached_pockets
@@ -386,6 +387,7 @@
 
 /obj/item/clothing/accessory/holster/detective
 	name = "detective's shoulder holster"
+	flags_1 = NONE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/holster/detective
 
 /obj/item/clothing/accessory/holster/detective/Initialize()

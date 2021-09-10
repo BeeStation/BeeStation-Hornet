@@ -3,6 +3,7 @@
 	anchored = TRUE
 	icon = 'icons/obj/cult.dmi'
 	light_power = 2
+	flags_1 = SAVE_SAFE_1
 	var/cooldowntime = 0
 	break_sound = 'sound/hallucinations/veryfar_noise.ogg'
 	debris = list(/obj/item/stack/sheet/runed_metal = 1)

@@ -12,6 +12,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/pushbroom/Initialize()
 	. = ..()

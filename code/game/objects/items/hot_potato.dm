@@ -6,6 +6,7 @@
 	icon_state = "potato"
 	item_flags = NOBLUDGEON
 	force = 0
+	flags_1 = SAVE_SAFE_1
 	var/icon_off = "potato"
 	var/icon_on = "potato_active"
 	var/detonation_timerid

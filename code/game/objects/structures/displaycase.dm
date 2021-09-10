@@ -9,6 +9,7 @@
 	armor = list("melee" = 30, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100, "stamina" = 0)
 	max_integrity = 200
 	integrity_failure = 25
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/showpiece = null
 	var/obj/item/showpiece_type = null //This allows for showpieces that can only hold items if they're the same istype as this.
 	var/alert = TRUE
@@ -205,6 +206,7 @@
 	desc = "The wooden base of a display case."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "glassbox_chassis"
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/electronics/airlock/electronics
 
 
@@ -265,12 +267,14 @@
 	alert = TRUE
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
 	req_access = list(ACCESS_CENT_SPECOPS)
+	flags_1 = NONE
 
 /obj/structure/displaycase/labcage
 	name = "lab cage"
 	desc = "A glass lab container for storing interesting creatures."
 	start_showpiece_type = /obj/item/clothing/mask/facehugger/lamarr
 	req_access = list(ACCESS_RD)
+	flags_1 = NONE
 
 /obj/structure/displaycase/trophy
 	name = "trophy display case"
@@ -280,6 +284,7 @@
 	var/is_locked = TRUE
 	integrity_failure = 0
 	openable = FALSE
+	flags_1 = NONE
 
 /obj/structure/displaycase/trophy/Initialize()
 	. = ..()
@@ -366,6 +371,7 @@
 /obj/item/key/displaycase
 	name = "display case key"
 	desc = "The key to the curator's display cases."
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/showpiece_dummy
 	name = "Cheap replica"
@@ -388,6 +394,7 @@
 	alert = FALSE //No, we're not calling the fire department because someone stole your cookie.
 	glass_fix = FALSE //Fixable with tools instead.
 	pass_flags = PASSTABLE ///Can be placed and moved onto a table.
+	flags_1 = NONE
 	///The price of the item being sold. Altered by grab intent ID use.
 	var/sale_price = 20
 	///The Account which will receive payment for purchases. Set by the first ID to swipe the tray.

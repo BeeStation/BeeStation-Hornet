@@ -22,6 +22,7 @@
 	icon_state = "shower_frame"
 	desc = "A shower frame, that needs 2 plastic sheets to finish construction."
 	anchored = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))

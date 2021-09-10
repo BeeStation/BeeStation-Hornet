@@ -5,6 +5,7 @@
 	icon_state = "headpike"
 	density = FALSE
 	anchored = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/bonespear = FALSE
 	var/obj/item/spear/spear
 	var/obj/item/bodypart/head/victim

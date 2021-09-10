@@ -22,6 +22,7 @@
 		/obj/item/gun/energy,
 		/obj/item/restraints/handcuffs
 		)
+	flags_1 = NONE
 	var/mode = VEST_STEALTH
 	var/stealth_active = FALSE
 	/// Cooldown in seconds
@@ -392,6 +393,7 @@
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	flags_1 = NONE
 
 /obj/item/paper/guides/antag/abductor
 	name = "Dissection Guide"
@@ -636,6 +638,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "abductor_headset"
 	keyslot2 = new /obj/item/encryptionkey/heads/captain
 	bang_protect = 1
+	flags_1 = NONE
 
 /obj/item/radio/headset/abductor/Initialize(mapload)
 	. = ..()
@@ -726,6 +729,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	flash_protect = 1
 	blockTracking = TRUE
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_1 = NONE
 
 // Operating Table / Beds / Lockers
 

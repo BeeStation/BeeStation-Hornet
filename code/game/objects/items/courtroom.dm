@@ -12,6 +12,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("bashed", "battered", "judged", "whacked")
 	resistance_flags = FLAMMABLE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gavelhammer/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] has sentenced [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -26,6 +27,7 @@
 	force = 2
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 	resistance_flags = FLAMMABLE
 
 /obj/item/gavelblock/attackby(obj/item/I, mob/user, params)

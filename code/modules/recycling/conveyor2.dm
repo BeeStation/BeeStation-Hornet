@@ -360,6 +360,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch-off"
 	w_class = WEIGHT_CLASS_BULKY
+	flags_1 = SAVE_SAFE_1
 	var/id = "" //inherited by the switch
 
 /obj/item/conveyor_switch_construct/Initialize()

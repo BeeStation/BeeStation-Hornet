@@ -271,6 +271,7 @@
 
 //Briefcase item that contains the launchpad.
 /obj/item/storage/briefcase/launchpad
+	flags_1 = NONE
 	var/obj/machinery/launchpad/briefcase/pad
 
 /obj/item/storage/briefcase/launchpad/Initialize()

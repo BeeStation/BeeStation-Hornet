@@ -80,6 +80,7 @@
 		are written on the back of one of the plates in russian. This seems like an awful idea."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bear_armor_upgrade"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/bear_armor/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()

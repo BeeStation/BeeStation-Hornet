@@ -4,6 +4,7 @@
 	desc = "A small handheld device that detects nearby research disks. Despite its extremely high sensitivity, the returned signal from research disks is so weak that it only has a short range."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "researchlocator"
+	flags_1 = SAVE_SAFE_1
 	var/next_use_time = 0
 	var/range = 30
 

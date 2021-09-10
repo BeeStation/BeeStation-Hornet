@@ -3,7 +3,7 @@
 	singular_name = "light floor tile"
 	desc = "A floor tile, made out of glass. It produces light."
 	icon_state = "tile_e"
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
 	turf_type = /turf/open/floor/light
 	var/state = 0
@@ -30,7 +30,7 @@
 		return ..()
 
 /obj/item/stack/tile/light/cyborg
-	materials = list() 
+	materials = list()
 	is_cyborg = 1
 	cost = 125
 

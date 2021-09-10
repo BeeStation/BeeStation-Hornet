@@ -11,6 +11,7 @@
 	throw_speed = 3
 	throw_range = 7
 	pressure_resistance = 8
+	flags_1 = SAVE_SAFE_1
 	var/papertype = /obj/item/paper
 	var/total_paper = 30
 	var/list/papers = list()

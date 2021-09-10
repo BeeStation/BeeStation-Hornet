@@ -20,6 +20,7 @@
 	knife_x_offset = 20
 	knife_y_offset = 12
 	block_upgrade_walk = 1
+	flags_1 = SAVE_SAFE_1
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
@@ -229,6 +230,7 @@
 	require_module = 1
 	module_type = list(/obj/item/robot_module/miner)
 	module_flags = BORG_MODULE_MINER
+	flags_1 = SAVE_SAFE_1
 	var/denied_type = null
 	var/maximum_of_type = 1
 	var/cost = 30

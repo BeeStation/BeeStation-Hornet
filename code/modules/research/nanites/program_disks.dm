@@ -6,6 +6,7 @@
 	desc = "A disk capable of storing nanite programs. Can be customized using a Nanite Programming Console."
 	var/program_type
 	var/datum/nanite_program/program
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/disk/nanite_program/Initialize()
 	. = ..()

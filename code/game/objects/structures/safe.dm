@@ -13,7 +13,8 @@ FLOOR SAFES
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT 
+	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
+	flags_1 = SAVE_SAFE_1
 	var/open = FALSE		//is the safe open?
 	var/tumbler_1_pos	//the tumbler position- from 0 to 72
 	var/tumbler_1_open	//the tumbler position to open at- 0 to 72
@@ -190,6 +191,20 @@ FLOOR SAFES
 			if(3)
 				desc = initial(desc) + "\nThe lock seems to be broken."
 
+//Safes are safe to save the contents of
+/obj/structure/safe/on_object_saved(save_flag, var/depth = 0)
+	if(depth >= 10)
+		return ""
+	var/dat = ""
+	for(var/obj/item in contents)
+		if(!item.is_save_safe(save_flag))
+			continue
+		var/metadata = generate_tgm_metadata(item)
+		dat += "[dat ? ",\n" : ""][item.type][metadata]"
+		//Save the contents of things inside the things inside us, EG saving the contents of bags inside lockers
+		var/custom_data = item.on_object_saved(save_flag, depth++)
+		dat += "[custom_data ? ",\n[custom_data]" : ""]"
+	return dat
 
 //FLOOR SAFES
 /obj/structure/safe/floor

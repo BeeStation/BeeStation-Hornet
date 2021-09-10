@@ -77,6 +77,7 @@ other types of metals and chemistry for reagents).
 	desc = "A disk for storing device design data for construction in lathes."
 	icon_state = "datadisk1"
 	materials = list(/datum/material/iron = 300, /datum/material/glass =100)
+	flags_1 = SAVE_SAFE_1
 	var/list/blueprints = list()
 	var/max_blueprints = 1
 

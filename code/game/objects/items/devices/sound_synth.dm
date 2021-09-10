@@ -11,6 +11,7 @@
     item_state = "radio"
     w_class = WEIGHT_CLASS_TINY
     siemens_coefficient = 1
+    flags_1 = SAVE_SAFE_1
 
     var/tmp/spam_flag = 0 //To prevent mashing the button to cause annoyance like a huge idiot.
     var/selected_sound = "sound/items/bikehorn.ogg"

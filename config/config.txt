@@ -517,6 +517,18 @@ RESPECT_GLOBAL_BANS
 MAX_SHUTTLE_COUNT 6
 MAX_SHUTTLE_SIZE 300
 
+### Shuttle ruin save settings
+## Uncomment to prevent saving shuttle dmm files to the server.
+SAVE_SHUTTLE_RUINS
+## Location where shuttle ruins are saved to
+SHUTTLE_RUIN_FILEPATH data/customShuttleSaves/
+## Max filesize in bytes that shuttles are allowed to take up on server
+## Default: 1 megabyte
+SHUTTLE_TOTAL_FILESIZE_MAX 1000000
+## Max filesize a single shuttle is allowed to take up
+## Default: 20 kB (40,000 characters)
+SHUTTLE_FILESIZE_MAX 40000
+
 ### Fail2Topic settings
 ### fail2topic is a system for automating IP bans for abusers of the world/Topic API.
 ### Note that this subsystem respects the IPs listed in topic_rate_limit_whitelist.txt. They will not be considered for a ban.

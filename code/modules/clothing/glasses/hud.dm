@@ -64,6 +64,7 @@
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
 	hud_trait = TRAIT_MEDICAL_HUD
 	glass_colour_type = /datum/client_colour/glass_colour/lightblue
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/hud/health/night
 	name = "night vision health scanner HUD"
@@ -103,6 +104,7 @@
 	icon_state = "diagnostichud"
 	hud_type = DATA_HUD_DIAGNOSTIC_BASIC
 	glass_colour_type = /datum/client_colour/glass_colour/lightorange
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/hud/diagnostic/night
 	name = "night vision diagnostic HUD"
@@ -133,6 +135,7 @@
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 	hud_trait = TRAIT_SECURITY_HUD
 	glass_colour_type = /datum/client_colour/glass_colour/red
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/hud/security/deputy
 	name = "deputy security HUD"
@@ -146,11 +149,13 @@
 	hud_trait = list(TRAIT_SECURITY_HUD, TRAIT_MEDICAL_HUD)
 
 	glass_colour_type = /datum/client_colour/glass_colour/red
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/glasses/hud/security/chameleon
 	name = "chameleon security HUD"
 	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Provides flash protection."
 	flash_protect = 1
+	flags_1 = NONE
 
 	// Yes this code is the same as normal chameleon glasses, but we don't
 	// have multiple inheritance, okay?

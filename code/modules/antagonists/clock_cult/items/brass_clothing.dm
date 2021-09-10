@@ -8,6 +8,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	flags_1 = NONE
 	allowed = list(/obj/item/clockwork, /obj/item/stack/tile/brass, /obj/item/clockwork, /obj/item/gun/ballistic/bow/clockwork)
 
 /obj/item/clothing/suit/clockwork/equipped(mob/living/user, slot)
@@ -69,6 +70,7 @@
 	name = "base clock glasses"
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass"
+	flags_1 = NONE
 
 /obj/item/clothing/glasses/clockwork/equipped(mob/user, slot)
 	. = ..()
@@ -141,12 +143,14 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flash_protect = 1
 	bang_protect = 3
+	flags_1 = NONE
 
 /obj/item/clothing/shoes/clockcult
 	name = "brass treads"
 	desc = "A strong pair of brass boots worn by the soldiers of the Ratvarian armies."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_treads"
+	flags_1 = NONE
 
 /obj/item/clothing/gloves/clockcult
 	name = "brass gauntlets"
@@ -162,3 +166,4 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50, "stamina" = 0)
+	flags_1 = NONE

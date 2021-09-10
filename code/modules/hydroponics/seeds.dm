@@ -7,6 +7,7 @@
 	icon_state = "seed"				// Unknown plant seed - these shouldn't exist in-game.
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
+	flags_1 = SAVE_SAFE_1
 	var/plantname = "Plants"		// Name of plant when planted.
 	var/plantdesc
 	var/product						// A type path. The thing that is created when the plant is harvested.
