@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - balance: cyborg *spinning someone now knocks down instead of paralyzing
