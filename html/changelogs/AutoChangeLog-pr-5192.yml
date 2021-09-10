@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Flashbangs now blind with an intensity of 2 meaning wearing glasses alone
+      will still blind you. (You will not get stunned while wearing glasses).
+  - balance: Flashbangs effect is directly proportional to the distance away.
