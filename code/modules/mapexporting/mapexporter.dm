@@ -2,6 +2,7 @@
 //BACONTODO
 //TYPES TO DO WITH SAVE_SAFE_1
 // [x] - obj/machinery (Fully completed and things that require save data is done.)
+// TODO: APC proper saving
 // [ ] - obj/structure
 // [ ] - obj/item (everything needs to be a special type that has no populatecontents call)
 // [ ] - obj/docking_port (Dont save static ports, should be good)
