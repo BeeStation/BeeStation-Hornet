@@ -1,9 +1,0 @@
-author: Goshagosha
-delete-after: true
-changes:
-  - rscadd: Added structure (plant) 'Strange plant' to code/modules/mining/lavaland/ash_flora.dm
-  - rscadd: Added boolean flag destroy_on_harvest (FALSE) to plants in ash_flora.
-      If it is on, plants will not regrow.
-  - rscdel: Strange seeds removed from biogenerator
-  - imageadd: xpod[1-4] added to icons/obj/lavaland/ash_flora.dmi (2,3,4 are placeholders
-      for better art variety)
