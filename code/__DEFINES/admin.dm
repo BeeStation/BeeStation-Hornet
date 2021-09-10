@@ -68,6 +68,8 @@
 #define ADMIN_PUNISHMENT_NUGGET "Nugget"
 #define ADMIN_PUNISHMENT_IMMERSE "Fully Immerse"
 #define ADMIN_PUNISHMENT_GHOST "Offer To Ghosts"
+#define ADMIN_PUNISHMENT_TOE "Stub Toe (Once)"
+#define ADMIN_PUNISHMENT_TOEPLUS "Stub Toe (Always)"
 
 #define AHELP_UNCLAIMED 1
 #define AHELP_ACTIVE 2
