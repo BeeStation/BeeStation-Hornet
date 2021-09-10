@@ -1,0 +1,5 @@
+author: AnturK, Ivniinvi, Inept, Coiax, AdipemDragon, YakumoChen, Sheits, tralezab
+delete-after: true
+changes:
+  - rscadd: Aquarium and aquarium accessories. Also fish. Check out cargo to start.
+  - rscadd: Aquarium fish now reproduce.
