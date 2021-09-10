@@ -37,6 +37,7 @@
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/aiModule/core/full/ert=1)
 	l_pocket = /obj/item/switchblade
+	r_pocket = /obj/item/door_remote/omni
 
 /datum/outfit/ert/commander/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -197,7 +198,8 @@
 	l_hand = /obj/item/nullrod/scythe/talking/chainsword
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
-		/obj/item/aiModule/core/full/ert=1)
+		/obj/item/aiModule/core/full/ert=1,
+		/obj/item/door_remote/omni=1)
 
 /datum/outfit/ert/security/inquisitor
 	name = "Inquisition Security"
@@ -435,7 +437,8 @@
 		/obj/item/storage/firstaid/regular=1,\
 		/obj/item/storage/box/flashbangs=1,\
 		/obj/item/flashlight=1,\
-		/obj/item/grenade/plastic/x4=1)
+		/obj/item/grenade/plastic/x4=1,
+		/obj/item/door_remote/omni=1)
 
 /datum/outfit/death_commando/doomguy
 	name = "The Juggernaut"
