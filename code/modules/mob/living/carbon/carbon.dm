@@ -80,7 +80,6 @@
 				visible_message("<span class='danger'>[victim] catches [src]!</span>",\
 					"<span class='userdanger'>[victim] catches you!</span>")
 				grabbedby(victim, TRUE)
-				victim.setGrabState(GRAB_AGGRESSIVE)
 				victim.throw_mode_off()
 				log_combat(victim, src, "caught (thrown mob)")
 				return
