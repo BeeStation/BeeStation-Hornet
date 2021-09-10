@@ -245,7 +245,7 @@
 	key = "Ctrl"
 	name = "block_movement"
 	full_name = "Block movement"
-	description = "Prevents you from moving"
+	description = "While pressed, prevents movement when pressing directional keys; instead just changes your facing direction"
 
 /datum/keybinding/mob/prevent_movement/down(client/user)
 	. = ..()
