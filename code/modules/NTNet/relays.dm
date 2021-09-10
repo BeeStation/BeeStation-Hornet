@@ -97,13 +97,11 @@
 			dos_failure = 0
 			update_icon()
 			SSnetworks.station_network.add_log("Quantum relay manually restarted from overload recovery mode to normal operation mode.")
-			ui_update()
 			return TRUE
 		if("toggle")
 			enabled = !enabled
 			SSnetworks.station_network.add_log("Quantum relay manually [enabled ? "enabled" : "disabled"].")
 			update_icon()
-			ui_update()
 			return TRUE
 
 /obj/machinery/ntnet_relay/Initialize()

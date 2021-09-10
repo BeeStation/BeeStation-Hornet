@@ -108,6 +108,7 @@
 		data["disk"] = disk_data
 	else
 		data["has_disk"] = FALSE
+		data["disk"] = null
 
 	data["new_backup_id"] = new_backup_id
 
@@ -182,20 +183,21 @@
 		if("update_new_backup_value")
 			var/backup_value = text2num(params["value"])
 			new_backup_id = backup_value
+			. = TRUE
 		if("create_backup")
 			var/cloud_id = new_backup_id
 			if(!isnull(cloud_id))
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
 				cloud_id = clamp(round(cloud_id, 1),1,100)
 				generate_backup(cloud_id, usr)
-			. = TRUE
+				. = TRUE
 		if("delete_backup")
 			var/datum/nanite_cloud_backup/backup = get_backup(current_view)
 			if(backup)
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
 				qdel(backup)
 				investigate_log("[key_name(usr)] deleted the nanite cloud backup #[current_view]", INVESTIGATE_NANITES)
-			. = TRUE
+				. = TRUE
 		if("upload_program")
 			if(disk && disk.program)
 				var/datum/nanite_cloud_backup/backup = get_backup(current_view)
@@ -204,7 +206,7 @@
 					var/datum/component/nanites/nanites = backup.nanites
 					nanites.add_program(null, disk.program.copy())
 					investigate_log("[key_name(usr)] uploaded program [disk.program.name] to cloud #[current_view]", INVESTIGATE_NANITES)
-			. = TRUE
+					. = TRUE
 		if("remove_program")
 			var/datum/nanite_cloud_backup/backup = get_backup(current_view)
 			if(backup)
@@ -213,7 +215,7 @@
 				var/datum/nanite_program/P = nanites.programs[text2num(params["program_id"])]
 				investigate_log("[key_name(usr)] deleted program [P.name] from cloud #[current_view]", INVESTIGATE_NANITES)
 				qdel(P)
-			. = TRUE
+				. = TRUE
 		if("add_rule")
 			if(disk && disk.program && istype(disk.program, /datum/nanite_program/sensor))
 				var/datum/nanite_program/sensor/rule_template = disk.program
@@ -227,7 +229,7 @@
 					var/datum/nanite_rule/rule = rule_template.make_rule(P)
 
 					investigate_log("[key_name(usr)] added rule [rule.display()] to program [P.name] in cloud #[current_view]", INVESTIGATE_NANITES)
-			. = TRUE
+					. = TRUE
 		if("remove_rule")
 			var/datum/nanite_cloud_backup/backup = get_backup(current_view)
 			if(backup)
@@ -238,8 +240,7 @@
 				rule.remove()
 
 				investigate_log("[key_name(usr)] removed rule [rule.display()] from program [P.name] in cloud #[current_view]", INVESTIGATE_NANITES)
-			. = TRUE
-	ui_update()
+				. = TRUE
 
 /datum/nanite_cloud_backup
 	var/cloud_id = 0

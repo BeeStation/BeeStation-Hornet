@@ -225,6 +225,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	return ..()
 
 
+/obj/machinery/gravity_generator/main/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(charging_state != POWER_IDLE && !(stat & BROKEN))
+		. = TRUE // Autoupdate while charging up/down
+
 /obj/machinery/gravity_generator/main/ui_state(mob/user)
 	return GLOB.default_state
 
@@ -233,7 +238,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	if(!ui)
 		ui = new(user, src, "GravityGenerator")
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/gravity_generator/main/ui_data(mob/user)
 	var/list/data = list()
@@ -307,7 +311,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 	update_icon()
 	update_list()
-	src.updateUsrDialog()
+	ui_update()
 	if(alert)
 		shake_everyone()
 
@@ -330,7 +334,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			if(charge_count % 4 == 0 && prob(75)) // Let them know it is charging/discharging.
 				playsound(src.loc, 'sound/effects/empulse.ogg', 100, 1)
 
-			updateDialog()
 			if(prob(25)) // To help stop "Your clothes feel warm." spam.
 				pulse_radiation()
 

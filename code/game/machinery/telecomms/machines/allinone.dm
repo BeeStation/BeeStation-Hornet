@@ -48,3 +48,4 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	freq_listening = list(FREQ_EXPLORATION)
+	autolinkers = list("exp_relay")
