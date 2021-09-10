@@ -520,7 +520,7 @@ MAX_SHUTTLE_SIZE 300
 ### Shuttle ruin save settings
 ## Uncomment to prevent saving shuttle dmm files to the server.
 SAVE_SHUTTLE_RUINS
-## Location where shuttle ruins are saved to
+## Location where shuttle ruins are saved to. Must end in /
 SHUTTLE_RUIN_FILEPATH data/customShuttleSaves/
 ## Max filesize in bytes that shuttles are allowed to take up on server
 ## Default: 1 megabyte
