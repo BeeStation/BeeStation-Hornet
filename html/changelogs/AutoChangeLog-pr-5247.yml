@@ -1,0 +1,5 @@
+author: AnCopper
+delete-after: true
+changes:
+  - rscadd: added microwaves, donk pockets, and oxygen tank dispensers to exploration
+      shuttles
