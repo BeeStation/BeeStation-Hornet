@@ -105,6 +105,10 @@
 			msg += "\t[C] is a mentor\n"
 
 		msg += "<span class='info'>Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.</span>"
+		if(world.time - src.staff_check_rate > 1 MINUTES)
+			message_admins("[ADMIN_LOOKUPFLW(src)] has checked online staff.")
+			log_admin("[key_name(src)] has checked online staff.")
+			src.staff_check_rate = world.time
 	to_chat(src, msg)
 
 /client/verb/mentorwho()  // redundant with staffwho, but people wont check the admin tab for if there are mentors on
@@ -156,5 +160,9 @@
 			msg += "\t[C] is a mentor\n"
 
 		msg += "<span class='info'>Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.</span>"
+		if(world.time - src.staff_check_rate > 1 MINUTES)
+			message_admins("[ADMIN_LOOKUPFLW(src)] has checked online staff.")
+			log_admin("[key_name(src)] has checked online staff.")
+			src.staff_check_rate = world.time
 	to_chat(src, msg)
 
