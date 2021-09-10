@@ -1,7 +1,10 @@
+/obj/item/storage/box/syndie_kit
+	name = "box"
+	desc = "A sleek, sturdy box."
+	icon_state = "syndiebox"
+	illustration = "writing_syndie"
 
-/obj/item/storage/box/syndicate
-
-/obj/item/storage/box/syndicate/bundle_A/PopulateContents()
+/obj/item/storage/box/syndie_kit/bundle_A/PopulateContents()
 	switch (pickweight(list("recon" = 2, "bloodyspai" = 3, "stealth" = 2, "screwed" = 2, "sabotage" = 3, "guns" = 2, "murder" = 2, "implant" = 1, "hacker" = 3, "sniper" = 1, "metaops" = 1)))
 		if("recon")
 			new /obj/item/clothing/glasses/thermal/xray(src) // ~8 tc?
@@ -123,7 +126,7 @@
 			new /obj/item/grenade/plastic/c4 (src) // 1 tc
 			new /obj/item/card/emag(src) // 6 tc
 
-/obj/item/storage/box/syndicate/bundle_B/PopulateContents()
+/obj/item/storage/box/syndie_kit/bundle_B/PopulateContents()
 	switch (pickweight(list( "bond" = 2, "ninja" = 1, "darklord" = 1, "white_whale_holy_grail" = 2, "mad_scientist" = 2, "bee" = 2, "mr_freeze" = 2)))
 		if("bond")
 			new /obj/item/gun/ballistic/automatic/pistol(src)
@@ -203,17 +206,13 @@
 			new /obj/item/gun/energy/temperature/pin(src)
 			new /obj/item/melee/transforming/energy/sword/saber/blue(src) //see see it fits the theme bc its blue and ice is blue
 
-/obj/item/storage/box/syndicate/contract_kit
+/obj/item/storage/box/syndie_kit/contract_kit
 	name = "Contract Kit"
 	desc = "Supplied to Syndicate contractors."
-	icon_state = "syndiebox"
-	illustration = "writing_syndie"
 
-/obj/item/storage/box/syndicate/contractor_loadout
+/obj/item/storage/box/syndie_kit/contractor_loadout
 	name = "Standard Loadout"
 	desc = "Supplied to Syndicate contractors, providing their specialised space suit and chameleon uniform."
-	icon_state = "syndiebox"
-	illustration = "writing_syndie"
 
 /obj/item/paper/contractor_guide
 	name = "Contractor Guide"
@@ -261,7 +260,7 @@
 
 	return ..()
 
-/obj/item/storage/box/syndicate/contractor_loadout/PopulateContents()
+/obj/item/storage/box/syndie_kit/contractor_loadout/PopulateContents()
 	new /obj/item/clothing/head/helmet/space/syndicate/contract(src)
 	new /obj/item/clothing/suit/space/syndicate/contract(src)
 	new /obj/item/clothing/under/chameleon(src)
@@ -271,9 +270,9 @@
 	new /obj/item/lighter(src)
 	new /obj/item/jammer(src)
 
-/obj/item/storage/box/syndicate/contract_kit/PopulateContents()
+/obj/item/storage/box/syndie_kit/contract_kit/PopulateContents()
 	new /obj/item/modular_computer/tablet/syndicate_contract_uplink/preset/uplink(src)
-	new /obj/item/storage/box/syndicate/contractor_loadout(src)
+	new /obj/item/storage/box/syndie_kit/contractor_loadout(src)
 	new /obj/item/melee/classic_baton/contractor_baton(src)
 
 	// All about 4 TC or less - some nukeops only items, but fit nicely to the theme.
@@ -306,12 +305,6 @@
 
 	// Paper guide
 	new /obj/item/paper/contractor_guide(src)
-
-/obj/item/storage/box/syndie_kit
-	name = "box"
-	desc = "A sleek, sturdy box."
-	icon_state = "syndiebox"
-	illustration = "writing_syndie"
 
 /obj/item/storage/box/syndie_kit/origami_bundle
 	name = "origami kit"

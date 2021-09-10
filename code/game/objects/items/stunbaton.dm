@@ -8,8 +8,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	throwforce = 7
-	block_upgrade_walk = 1
-	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("enforced the law upon")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 0)
