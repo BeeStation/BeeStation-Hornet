@@ -1,15 +1,3 @@
-
-//BACONTODO
-//TYPES TO DO WITH SAVE_SAFE_1
-// [x] - obj/machinery (Fully completed and things that require save data is done.)
-// [x] - obj/structure
-// [x] - obj/item
-// [x] - obj/docking_port (Dont save static ports, should be good)
-// [x] - obj/mecha (??? Save mech wrecks instead?)
-// [x] - obj/effect (This probably won't need much work)
-// [x] - mob (idek should be fine)
-// [x] - turf (Dont save indestructible << already done)
-
 //Map exporter
 //Inputting a list of turfs into convert_map_to_tgm() will output a string
 //with the turfs and their objects / areas on said turf into the TGM mapping format
@@ -60,7 +48,6 @@
 	//Check safety
 	if(flags_1 & HOLOGRAM_1)
 		return FALSE
-	//BACONTODO Finish SAVE_SAFE_1
 	if(!(flags_1 & SAVE_SAFE_1) && !(save_flag & SAVE_UNSAFE_OBJECTS))
 		return FALSE
 	//Check indestructible
@@ -97,7 +84,6 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 	"Y","Z"
 ))
 
-//BACONTODO Stop saving stuff like name and strings that players can change.
 //Converts a list of turfs into TGM file format
 /proc/convert_map_to_tgm(
 		//List of the turfs we want to save
