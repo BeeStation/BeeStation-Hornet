@@ -1,0 +1,5 @@
+author: Qwertytoforty AnCopper
+delete-after: true
+changes:
+  - tweak: Telekinesis can no longer throw objects with people in them, or buckled
+      to them.
