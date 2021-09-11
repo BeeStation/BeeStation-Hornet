@@ -522,9 +522,9 @@ MAX_SHUTTLE_SIZE 300
 SAVE_SHUTTLE_RUINS
 ## Location where shuttle ruins are saved to. Must end in /
 SHUTTLE_RUIN_FILEPATH data/customShuttleSaves/
-## Max filesize in bytes that shuttles are allowed to take up on server
+## Max filesize in kB that shuttles are allowed to take up on server
 ## Default: 1 megabyte
-SHUTTLE_TOTAL_FILESIZE_MAX 1000000
+SHUTTLE_TOTAL_FILESIZE_MAX 1000
 ## Max filesize a single shuttle is allowed to take up
 ## Default: 20 kB (40,000 characters)
 SHUTTLE_FILESIZE_MAX 40000

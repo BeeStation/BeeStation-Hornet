@@ -229,7 +229,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		CHECK_TICK
 
 	//Clear old shuttles to free up space
-	var/left_to_clear = max(current_size + space_required - CONFIG_GET(number/shuttle_total_filesize_max), 0)
+	var/left_to_clear = max(current_size + space_required - (CONFIG_GET(number/shuttle_total_filesize_max) * 1000), 0)
 	//Luck of the draw
 	while(left_to_clear > 0 && length(old_files))
 		var/first_thing = pick(old_files)
