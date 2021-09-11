@@ -25,3 +25,4 @@
 #define MAPEXPORTER_VAR_TYPEPATH 3	//Must be a typepath
 #define MAPEXPORTER_VAR_ACCESS_LIST 4	//Converts req_access to req_access_txt. (ADDS _TXT TO THE END OF THE VAR NAME)
 #define MAPEXPORTER_VAR_COLOUR 5	//Value must be of format "#FFF" or "#FFFFFF"
+#define MAPEXPORTER_VAR_CKEY 6		//Value is sanitized as a ckey.

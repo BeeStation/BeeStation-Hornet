@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 			"piping_layer" = MAPEXPORTER_VAR_NUM,
 			"color" = MAPEXPORTER_VAR_COLOUR,
 			"pipe_color" = MAPEXPORTER_VAR_COLOUR,
-			"amount" = MAPEXPORTER_VAR_NUM
+			"amount" = MAPEXPORTER_VAR_NUM,
 		),\
 		//A list of objects that are save safe that we want to blacklist anyway
 		var/list/obj_blacklist = list())
@@ -354,6 +354,10 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 					value = verify_colour(value)
 					if(!value)
 						continue
+					symbol = "\""
+				if(MAPEXPORTER_VAR_CKEY)
+					//ckey() only allows for characters and @s which are safe to dmm files.
+					value = ckey(value)
 					symbol = "\""
 				else
 					continue
