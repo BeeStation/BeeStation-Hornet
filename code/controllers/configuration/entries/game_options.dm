@@ -454,17 +454,21 @@
 	config_entry_value = 250
 
 /datum/config_entry/flag/save_shuttle_ruins
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/string/shuttle_ruin_filepath
 	config_entry_value = "data/customShuttleSaves/"
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/number/shuttle_total_filesize_max
 	config_entry_value = 1000000
 	min_val = 0
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/number/shuttle_filesize_max
 	config_entry_value = 40000
 	min_val = 0
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/restricted_suicide
 

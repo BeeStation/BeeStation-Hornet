@@ -3123,6 +3123,7 @@
 #include "code\modules\shuttle\super_cruise\shuttle_components\plasma_refiner.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\shuttle_console.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\shuttle_docking.dm"
+#include "code\modules\shuttle\super_cruise\shuttle_saving\save_shuttle_admin_verbs.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_saving\save_shuttle_proc.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_saving\shuttle_saving.dm"
 #include "code\modules\spells\spell.dm"

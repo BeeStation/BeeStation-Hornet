@@ -79,7 +79,10 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/datum/admins/proc/open_borgopanel,
 	/client/proc/fix_say,
 	/client/proc/stabilize_atmos,
-	/client/proc/openTicketManager
+	/client/proc/openTicketManager,
+	/client/proc/download_shuttle_files,
+	/client/proc/delete_shuttle_file,
+	/client/proc/spawn_saved_shuttle
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
