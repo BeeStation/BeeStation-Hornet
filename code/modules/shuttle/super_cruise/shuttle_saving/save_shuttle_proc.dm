@@ -7,7 +7,7 @@
 	//Converts shuttle turfs to TGM map format
 	return convert_map_to_tgm(
 		turfs,
-		SAVE_DEFAULT,
+		SAVE_DEFAULT | SAVE_RANDOMIZED_STACKS,
 		SAVE_SHUTTLEAREA_ONLY,
 		list(
 			"pixel_x" = MAPEXPORTER_VAR_NUM,

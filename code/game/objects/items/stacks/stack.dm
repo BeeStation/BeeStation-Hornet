@@ -33,7 +33,10 @@
 
 /obj/item/stack/get_save_vars(save_flag)
 	. = list()
-	.["amount"] = CLAMP(amount, 1, max_amount)
+	if(save_flag & SAVE_RANDOMIZED_STACKS)
+		.["amount"] = CLAMP(rand(1, amount), 1, max_amount)
+	else
+		.["amount"] = CLAMP(amount, 1, max_amount)
 
 /obj/item/stack/on_grind()
 	for(var/i in 1 to grind_results.len) //This should only call if it's ground, so no need to check if grind_results exists

@@ -8,6 +8,7 @@
 #define SAVE_UNSAFE_OBJECTS (1<<7)	//Bypass basic object safety checks allowing saving indestructible, traitor items etc.
 #define SAVE_INDESTRUCTABLE (1 << 8)//Allow indestructible items to be saved?
 #define SAVE_ADMINEDITTED (1 << 9)	//Allow items spawned by admins / editted by admins to be saved
+#define SAVE_RANDOMIZED_STACKS (1 << 10)	//Randomizes stack sizes between (1 and the current stack size)
 
 #define SAVE_DEFAULT SAVE_OBJECTS | SAVE_TURFS | SAVE_AREAS | SAVE_OBJECT_PROPERTIES
 #define SAVE_ADMIN SAVE_OBJECTS | SAVE_MOBS | SAVE_TURFS | SAVE_AREAS | SAVE_OBJECT_PROPERTIES | SAVE_ADMINEDITTED | SAVE_UNSAFE_OBJECTS | SAVE_INDESTRUCTABLE
