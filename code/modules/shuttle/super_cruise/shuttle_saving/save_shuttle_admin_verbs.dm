@@ -1,6 +1,4 @@
 
-#define SAFE_SAVEPATH "data/customShuttleSaves/"
-
 /client/proc/download_shuttle_files()
 	set name = "Saved Shuttles - Download"
 	set category = "Admin"
