@@ -448,12 +448,10 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 //Conveyors with no switch will not have special data saved
 /obj/machinery/conveyor_switch/pre_save(list/map, pre_save_key)
-	//Alright lets calculate a group code
-	//will make it EXTREMELY rare that 2 groups share conveyor
-	//network codes. If they do, who cares they will probably
-	//think the people before them messed it up rather than
-	//they got a 1 in 10 million chance of something going wrong.
-	var/mapcode = rand(1, 9999999)
+	//Alright lets calculate a unique group code!
+	//Its never been seen before!
+	var/static/saves = 0
+	var/mapcode = "[GLOB.round_id]_[saves++]"
 	var/unique_conveyor_code = "AUTOCONVCODE_[mapcode]"
 	//Lets save the group
 	for(var/obj/machinery/conveyor/thing in map)

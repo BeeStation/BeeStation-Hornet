@@ -19,8 +19,9 @@
 
 //Set the ID to something unique for saving
 /obj/docking_port/mobile/pre_save(list/group, pre_save_key)
-	//A reasonably unique map key
-	var/mapkey = rand(1, 999999)
+	//A unique map key
+	var/static/saves = 0
+	var/mapkey = "[GLOB.round_id]_[saves++]"
 	//The shuttle key
 	var/newShuttleKey = "SAVEDSHUTTLE_[mapkey]"
 	//Alright lets do pre saving

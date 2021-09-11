@@ -184,7 +184,8 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 //Run through all machines in the group and generate autolinkers
 /obj/machinery/telecomms/pre_save(list/group, pre_save_key = "")
 	//Makes it very rare that 2 maps will have the same autolinkers
-	var/map_key = rand(1, 999999)
+	var/static/per_round = 0
+	var/map_key = "[GLOB.round_id]_[per_round++]"	//Will always be unique!""
 	var/index = 0
 	//Pre save vars so they can be reset after save
 	for(var/obj/machinery/telecomms/commmachine in group)
