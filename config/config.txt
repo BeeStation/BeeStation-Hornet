@@ -528,6 +528,8 @@ SHUTTLE_TOTAL_FILESIZE_MAX 1000
 ## Max filesize a single shuttle is allowed to take up
 ## Default: 40 kB (40,000 characters)
 SHUTTLE_FILESIZE_MAX 40
+## Max amount of shuttles that can spawn at roundstart by SSorbits
+ROUNDSTART_ABANDONED_RUINS 5
 
 ### Fail2Topic settings
 ### fail2topic is a system for automating IP bans for abusers of the world/Topic API.

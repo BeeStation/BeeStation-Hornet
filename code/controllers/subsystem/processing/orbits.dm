@@ -59,7 +59,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	shuttle_ruin_list = flist(CONFIG_GET(string/shuttle_ruin_filepath))
 	//Create abandoned signal ruins
 	if(length(shuttle_ruin_list))
-		for(var/i in 1 to rand(1, min(length(shuttle_ruin_list), 4)))
+		for(var/i in 1 to rand(1, min(length(shuttle_ruin_list), CONFIG_GET(number/shuttle_filesize_max))))
 			new /datum/orbital_object/z_linked/beacon/ruin/abandoned_shuttle()
 
 /datum/controller/subsystem/processing/orbits/proc/setup_event_list()
