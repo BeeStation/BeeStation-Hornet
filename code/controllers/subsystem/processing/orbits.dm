@@ -214,8 +214,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		var/save_data = M.get_shuttle_tgm_data()
 		//Calculate filesize (1 byte = 1 char)
 		var/file_size = length(save_data)
-		if(file_size > CONFIG_GET(number/shuttle_filesize_max))
-			message_admins("Custom shuttle [M] skipped due to being over the file size limit of [CONFIG_GET(number/shuttle_filesize_max)] bytes.")
+		if(file_size > CONFIG_GET(number/shuttle_filesize_max) * 1000)
+			message_admins("Custom shuttle [M] skipped due to being over the file size limit of [CONFIG_GET(number/shuttle_filesize_max) * 1000] bytes.")
 			continue
 		space_required += file_size
 		//Save the shuttle file

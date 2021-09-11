@@ -466,7 +466,7 @@
 	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/number/shuttle_filesize_max
-	config_entry_value = 40000
+	config_entry_value = 40
 	min_val = 0
 	protection = CONFIG_ENTRY_LOCKED
 
