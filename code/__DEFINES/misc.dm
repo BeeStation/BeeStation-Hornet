@@ -9,6 +9,8 @@
 #define TEXT_EAST			"[EAST]"
 #define TEXT_WEST			"[WEST]"
 
+//  The maximum number of times a "for()" loop can iterate before triggering infinite loop detection.
+// +1 for "while()" loops, for some reason
 #define MAX_LOOP_ITERATIONS 1048574
 
 //Human Overlays Indexes/////////
