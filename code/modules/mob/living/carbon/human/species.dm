@@ -57,7 +57,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/allow_numbers_in_name // Can this species use numbers in its name?
 	var/datum/outfit/outfit_important_for_life /// A path to an outfit that is important for species life e.g. plasmaman outfit
 	var/datum/action/innate/flight/fly //the actual flying ability given to flying species
-	var/generic_icons = 'icons/mob/mob.dmi' //Generic icons like legcuffs and IDs
 	// species-only traits. Can be found in DNA.dm
 	var/list/species_traits = list()
 	// generic traits tied to having the species
@@ -1998,3 +1997,33 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(isturf(H.loc))
 			var/turf/T = H.loc
 			T.Entered(H)
+
+///Calls the DMI data for a custom icon for a given bodypart from the Species Datum.
+/datum/species/proc/get_custom_icons(var/part)
+	return
+/*Here's what a species that has a unique icon for every slot would look like. If your species doesnt have any custom icons for a given part, return null.
+/datum/species/teshari/get_custom_icons(var/part)
+	switch(part)
+		if(uniform)
+			return 'icons/mob/species/teshari/tesh_uniforms.dmi'
+		if(gloves)
+			return 'icons/mob/species/teshari/tesh_gloves.dmi'
+		if(glasses)
+			return 'icons/mob/species/teshari/tesh_glasses.dmi'
+		if(ears)
+			return 'icons/mob/species/teshari/tesh_ears.dmi'
+		if(shoes)
+			return 'icons/mob/species/teshari/tesh_shoes.dmi'
+		if(head)
+			return 'icons/mob/species/teshari/tesh_head.dmi'
+		if(belt)
+			return 'icons/mob/species/teshari/tesh_belts.dmi'
+		if(suit)
+			return 'icons/mob/species/teshari/tesh_suits.dmi'
+		if(mask)
+			return 'icons/mob/species/teshari/tesh_masks.dmi'
+		if(generic)
+			return 'icons/mob/species/teshari/tesh_generic.dmi'
+		else
+			return
+*/
