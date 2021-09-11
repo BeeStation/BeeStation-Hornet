@@ -12,6 +12,9 @@
 
 	var/list/can_hold								//if this is set, only things in this typecache will fit.
 	var/list/cant_hold								//if this is set, anything in this typecache will not be able to fit.
+	var/list/exception_hold							//if set, these items will be the exception to the max size of object that can fit.
+	/// If set can only contain stuff with this single trait present.
+	var/list/can_hold_trait
 
 	var/list/mob/is_using							//lazy list of mobs looking at the contents of this storage.
 
@@ -622,7 +625,7 @@
 			if(!stop_messages)
 				host.balloon_alert(M, "It doesn't fit")
 			return FALSE
-	if(is_type_in_typecache(I, cant_hold) || HAS_TRAIT(I, TRAIT_NO_STORAGE_INSERT)) //Items which this container can't hold.
+	if(is_type_in_typecache(I, cant_hold) || HAS_TRAIT(I, TRAIT_NO_STORAGE_INSERT) || (can_hold_trait && !HAS_TRAIT(I, can_hold_trait))) //Items which this container can't hold.
 		if(!stop_messages)
 			host.balloon_alert(M, "It doesn't fit")
 		return FALSE

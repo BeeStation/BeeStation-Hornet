@@ -96,7 +96,6 @@
 /obj/machinery/plumbing/synthesizer/ui_act(action, params)
 	if(..())
 		return
-	. = TRUE
 	switch(action)
 		if("amount")
 			var/new_amount = text2num(params["target"])
@@ -108,9 +107,9 @@
 			if(new_reagent in dispensable_reagents)
 				reagent_id = new_reagent
 				. = TRUE
-	update_icon()
-	reagents.clear_reagents()
-	ui_update()
+	if(.)
+		update_icon()
+		reagents.clear_reagents()
 
 /obj/machinery/plumbing/synthesizer/update_icon()
 	if(!r_overlay)

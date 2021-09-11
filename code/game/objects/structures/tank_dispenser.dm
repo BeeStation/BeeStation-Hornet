@@ -63,9 +63,14 @@
 		return
 
 	if(!user.transferItemToLoc(I, src))
+		if(istype(I, /obj/item/tank/internals/plasma))
+			plasmatanks--
+		else if(istype(I, /obj/item/tank/internals/oxygen))
+			oxygentanks--
 		return
 	to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 	update_icon()
+	ui_update()
 
 
 /obj/structure/tank_dispenser/ui_state(mob/user)

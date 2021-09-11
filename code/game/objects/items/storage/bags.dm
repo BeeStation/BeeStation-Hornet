@@ -167,6 +167,7 @@
 				continue
 			if (box)
 				user.transferItemToLoc(A, box)
+				box.ui_update()
 				show_message = TRUE
 			else if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, A, user, TRUE))
 				show_message = TRUE

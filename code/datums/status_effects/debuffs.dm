@@ -916,3 +916,31 @@
 	name = "Flesh Servant"
 	desc = "You are a Ghoul! A eldritch monster reanimated to serve its master."
 	icon_state = "mind_control"
+
+/datum/status_effect/spanish
+	id = "spanish"
+	duration = 120 SECONDS
+	alert_type = null
+
+/datum/status_effect/spanish/on_apply(mob/living/new_owner, ...)
+	. = ..()
+	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
+	owner.add_blocked_language(subtypesof(/datum/language/) - /datum/language/uncommon, LANGUAGE_EMP)
+	owner.grant_language(/datum/language/uncommon, FALSE, TRUE, LANGUAGE_EMP)
+
+/datum/status_effect/spanish/on_remove()
+	owner.remove_blocked_language(subtypesof(/datum/language/), LANGUAGE_EMP)
+	owner.remove_language(/datum/language/uncommon, TRUE, TRUE, LANGUAGE_EMP)
+	to_chat(owner, "<span class='warning'>Alert: Vocal cords restored to normal function.</span>")
+	return ..()
+
+/datum/status_effect/ipc/emp
+	id = "ipc_emp"
+	examine_text = "<span class='warning'>SUBJECTPRONOUN is buzzing and twitching!</span>"
+	duration = 120 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/emp
+	status_type = STATUS_EFFECT_REFRESH
+/atom/movable/screen/alert/status_effect/emp
+	name = "Electro-Magnetic Pulse"
+	desc = "You've been hit with an EMP! You're malfunctioning!"
+	icon_state = "hypnosis"

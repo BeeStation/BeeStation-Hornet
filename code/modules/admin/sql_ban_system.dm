@@ -126,6 +126,9 @@
 		qdel(query_build_ban_cache)
 
 /datum/admins/proc/ban_panel(player_key, player_ip, player_cid, role, duration = 1440, applies_to_admins, reason, edit_id, page, admin_key, global_ban = TRUE)
+	var/suppressor
+	if(check_rights(R_SUPPRESS))
+		suppressor = TRUE
 	var/panel_height = 620
 	if(edit_id)
 		panel_height = 240
@@ -149,12 +152,17 @@
 	<input type='checkbox' id='cidcheck' name='cidcheck' value='1' checked>
 	<div class='inputbox'></div></label>
 	<input type='text' name='cidtext' size='14' value='[player_cid]'>
+	[(suppressor && !edit_id) ? "" : "<!--"]
+	<label class='inputlabel checkbox banned'>Enable Suppression
+	<input type='checkbox' id='redactioncheck' name='redactioncheck' value='1' onClick='suppression_lock(this)'>
+	<div class='inputbox'></div></label>
+	[(suppressor && !edit_id) ? "" : "-->"]
 	<br>
 	<label class='inputlabel checkbox'>Use IP and CID from last connection of key
 	<input type='checkbox' id='lastconn' name='lastconn' value='1' [(isnull(duration) && !player_ip) || (!player_cid) ? " checked": ""]>
 	<div class='inputbox'></div></label>
 	<label class='inputlabel checkbox'>Applies to Admins
-	<input type='checkbox' id='applyadmins' name='applyadmins' value='1'[applies_to_admins ? " checked": ""]>
+	<input class='redact_incompatible' type='checkbox' id='applyadmins' name='applyadmins' value='1'[applies_to_admins ? " checked": ""]>
 	<div class='inputbox'></div></label>
 	<input type='submit' value='Submit'>
 	<br>
@@ -186,39 +194,39 @@
 			Ban type
 			<br>
 			<label class='inputlabel radio'>Server
-			<input type='radio' id='server' name='radioban' value='server'[role == "Server" ? " checked" : ""][edit_id ? " disabled" : ""]>
+			<input class='redact_force_checked' type='radio' id='server' name='radioban' value='server'[role == "Server" ? " checked" : ""][edit_id ? " disabled" : ""]>
 			<div class='inputbox'></div></label>
 			<br>
 			<label class='inputlabel radio'>Role
-			<input type='radio' id='role' name='radioban' value='role'[role == "Server" ? "" : " checked"][edit_id ? " disabled" : ""]>
+			<input class='redact_incompatible' type='radio' id='role' name='radioban' value='role'[role == "Server" ? "" : " checked"][edit_id ? " disabled" : ""]>
 			<div class='inputbox'></div></label>
 		</div>
 		<div class='column middle'>
 			Severity
 			<br>
 			<label class='inputlabel radio'>None
-			<input type='radio' id='none' name='radioseverity' value='none'[edit_id ? " disabled" : ""]>
+			<input class='redact_incompatible' type='radio' id='none' name='radioseverity' value='none'[edit_id ? " disabled" : ""]>
 			<div class='inputbox'></div></label>
 			<label class='inputlabel radio'>Medium
-			<input type='radio' id='medium' name='radioseverity' value='medium'[edit_id ? " disabled" : ""]>
+			<input class='redact_incompatible' type='radio' id='medium' name='radioseverity' value='medium'[edit_id ? " disabled" : ""]>
 			<div class='inputbox'></div></label>
 			<br>
 			<label class='inputlabel radio'>Minor
-			<input type='radio' id='minor' name='radioseverity' value='minor'[edit_id ? " disabled" : ""]>
+			<input class='redact_incompatible' type='radio' id='minor' name='radioseverity' value='minor'[edit_id ? " disabled" : ""]>
 			<div class='inputbox'></div></label>
 			<label class='inputlabel radio'>High
-			<input type='radio' id='high' name='radioseverity' value='high'[edit_id ? " disabled" : ""]>
+			<input class='redact_force_checked' type='radio' id='high' name='radioseverity' value='high'[edit_id ? " disabled" : ""]>
 			<div class='inputbox'></div></label>
 		</div>
 		<div class='column right'>
 			Location
 			<br>
 			<label class='inputlabel radio'>Local
-			<input type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""]>
+			<input class='redact_incompatible' type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""]>
 			<div class='inputbox'></div></label>
 			<br>
 			<label class='inputlabel radio'>Global
-			<input type='radio' id='servban' name='radioservban' value='global'[(global_ban) ? " checked" : ""]>
+			<input class='redact_force_checked' type='radio' id='servban' name='radioservban' value='global'[(global_ban) ? " checked" : ""]>
 			<div class='inputbox'></div></label>
 		</div>
 		<div class='column'>
@@ -372,8 +380,18 @@
 	var/old_globalban
 	var/page
 	var/admin_key
+	var/redact
 	var/list/changes = list()
 	var/list/roles_to_ban = list()
+	if(href_list["redactioncheck"])
+		if(check_rights(R_SUPPRESS))
+			if(!edit_id)
+				redact = TRUE
+			else
+				error_state += "Bans may not have their suppression flag edited. If a ban requiring suppression was accidently issued without it, contact [CONFIG_GET(string/hostedby)] immediately."
+		else
+			error_state += "You have attempted to issue a suppressed ban without permission, This incident has been logged."
+			log_admin_private("SUPPRESS: [key_name(usr)] ATTEMPTED TO ISSUE A SUPPRESSED BAN WITHOUT THE REQUISITE RIGHT!")
 	if(href_list["keycheck"])
 		player_key = href_list["keytext"]
 		if(!player_key)
@@ -399,10 +417,14 @@
 	if(use_last_connection && !ip_check && !cid_check)
 		error_state += "Use last connection was ticked, but neither IP nor CID was."
 	if(href_list["applyadmins"])
+		if(redact)
+			error_state += "Admin bans can not be suppressed."
 		applies_to_admins = TRUE
 	switch(href_list["radioservban"])
 		if("local")
 			global_ban = FALSE
+			if(redact)
+				error_state += "Suppressed bans must be global."
 		if("global")
 			global_ban = TRUE
 	switch(href_list["radioduration"])
@@ -463,15 +485,17 @@
 						roles_to_ban |= key
 			else
 				error_state += "No ban type was selected."
+	if((href_list["radioban"] != "server") && redact)
+		error_state += "Suppression may only be applied to server bans."
 	if(error_state.len)
 		to_chat(usr, "<span class='danger'>Ban not [edit_id ? "edited" : "created"] because the following errors were present:\n[error_state.Join("\n")]</span>")
 		return
 	if(edit_id)
 		edit_ban(edit_id, player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, reason, global_ban, mirror_edit, old_key, old_ip, old_cid, old_applies, old_globalban, page, admin_key, changes)
 	else
-		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban)
+		create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, roles_to_ban, redact)
 
-/datum/admins/proc/create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, list/roles_to_ban)
+/datum/admins/proc/create_ban(player_key, ip_check, player_ip, cid_check, player_cid, use_last_connection, applies_to_admins, duration, interval, severity, reason, global_ban, list/roles_to_ban, redact = 0)
 	if(!check_rights(R_BAN))
 		return
 	if(!SSdbcore.Connect())
@@ -483,10 +507,11 @@
 			return
 		var/kn = key_name(usr)
 		//Log the shit out of this and scream bloody murder to anyone who will listen.
-		send2irc("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
+		send2tgs("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
 		message_admins("<span class='danger'>[kn] Has overridden CID protection for a ban on CID [player_cid]!</span>")
 		log_admin_private("[kn] Has overridden CID protection for a ban on CID [player_cid]!")
-
+	if(redact && alert(usr, "You are about to issue a Suppressed ban, This will require direct database editing to revoke, ARE YOU SURE?", "Protected CID", "Yes", "No", "Cancel") != "Yes")
+		return
 	var/player_ckey = ckey(player_key)
 	if(player_ckey)
 		var/datum/DBQuery/query_create_ban_get_player = SSdbcore.NewQuery({"
@@ -563,6 +588,20 @@
 		"expiration_time" = "IF(? IS NULL, NULL, NOW() + INTERVAL ? [interval])"
 	)
 	var/sql_ban = list()
+	//I'm going to crosscheck this one last time because this is playing with fire.
+	if(redact)
+		if(!check_rights(R_SUPPRESS))
+			to_chat(usr, "<span class='danger'>You have attempted to register a suppressed ban without the correct access, this incident has been logged, and the ban has been aborted.</span>")
+			log_admin_private("SUPPRESS: [key_name(usr)] ATTEMPTED TO ISSUE A SUPPRESSED BAN WITHOUT THE REQUISITE RIGHT!")
+			return
+		if(roles_to_ban[1] != "Server") //This should never happen. Still checking it.
+			to_chat(usr, "<span class='danger'>You have attempted to directly register a suppressed ban that is not a server ban, this incident has been logged, and the ban has been aborted.</span>")
+			log_admin_private("SUPPRESS: [key_name(usr)] ATTEMPTED TO MANUALLY ISSUE A SUPPRESSED NON-SERVER BAN!")
+			return
+		if(applies_to_admins)
+			to_chat(usr, "<span class='danger'>You have attempted to directly register a suppressed ban that affects admins, this incident has been logged, and the ban has been aborted.</span>")
+			log_admin_private("SUPPRESS: [key_name(usr)] ATTEMPTED TO MANUALLY ISSUE A SUPPRESSED ADMIN BAN!")
+			return
 	for(var/role in roles_to_ban)
 		sql_ban += list(list(
 			"server_name" = CONFIG_GET(string/serversqlname),
@@ -581,26 +620,36 @@
 			"a_computerid" = admin_cid,
 			"who" = who,
 			"adminwho" = adminwho,
-			"global_ban" = global_ban
+			"global_ban" = global_ban,
+			"hidden" = redact
 		))
 	if(!SSdbcore.MassInsert(format_table_name("ban"), sql_ban, warn = TRUE, special_columns = special_columns))
 		return
 	var/target = ban_target_string(player_key, player_ip, player_cid)
 	var/msg = "has created a [global_ban ? "global" : "local"] [isnull(duration) ? "permanent" : "temporary [time_message]"] [applies_to_admins ? "admin " : ""][roles_to_ban[1] == "Server" ? "server ban" : "role ban from [roles_to_ban.len] roles"] for [target]."
-	log_admin_private("[kn] [msg][roles_to_ban[1] == "Server" ? "" : " Roles: [roles_to_ban.Join(", ")]"] Reason: [reason]")
-	message_admins("[kna] [msg][roles_to_ban[1] == "Server" ? "" : " Roles: [roles_to_ban.Join("\n")]"]\nReason: [reason]")
-	if(applies_to_admins)
-		send2irc("BAN ALERT","[kn] [msg]")
-	if(player_ckey)
+	if(!redact)
+		log_admin_private("[kn] [msg][roles_to_ban[1] == "Server" ? "" : " Roles: [roles_to_ban.Join(", ")]"] Reason: [reason]")
+		message_admins("[kna] [msg][roles_to_ban[1] == "Server" ? "" : " Roles: [roles_to_ban.Join("\n")]"]\nReason: [reason]")
+	else
+		log_admin_private("SUPPRESS: [kn] has created a suppressed ban.")
+		to_chat(usr, "Ban issued successfuly, This has not been announced to other admins.")
+	if(applies_to_admins && !redact) //Should never happen.
+		send2tgs("BAN ALERT","[kn] [msg]")
+	if(player_ckey && !redact)
 		create_message("note", player_ckey, admin_ckey, note_reason, null, null, 0, 0, null, -1, severity)
 	var/client/C = GLOB.directory[player_ckey]
 	var/datum/admin_help/AH = admin_ticket_log(player_ckey, msg)
 	var/appeal_url = "No ban appeal url set!"
 	appeal_url = CONFIG_GET(string/banappeals)
 	var/is_admin = FALSE
+	var/special_prefix = ""
+	if(redact)
+		special_prefix = "hard "
+	if(applies_to_admins)
+		special_prefix = "admin "
 	if(C)
 		build_ban_cache(C)
-		to_chat(C, "<span class='boldannounce'>You have been [applies_to_admins ? "admin " : ""]banned by [usr.client.key] from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"].\nReason: [reason]</span><br><span class='danger'>This ban is [isnull(duration) ? "permanent." : "temporary, it will be removed in [time_message]."] [global_ban ? "This ban applies to all of our servers." : "This is a single-server ban, and only applies to this server."] The round ID is [GLOB.round_id].</span><br><span class='danger'>To appeal this ban go to [appeal_url]</span>")
+		to_chat(C, "<span class='boldannounce'>You have been [special_prefix]banned by [usr.client.key] from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"].\nReason: [reason]</span><br><span class='danger'>This ban is [isnull(duration) ? "permanent." : "temporary, it will be removed in [time_message]."] [global_ban ? "This ban applies to all of our servers." : "This is a single-server ban, and only applies to this server."] The round ID is [GLOB.round_id].</span><br><span class='danger'>[redact ? "This ban may not be appealed." : "To appeal this ban go to [appeal_url]"]</span>")
 		if(GLOB.admin_datums[C.ckey] || GLOB.deadmins[C.ckey])
 			is_admin = TRUE
 		if(roles_to_ban[1] == "Server" && (!is_admin || (is_admin && applies_to_admins)))
@@ -610,7 +659,7 @@
 	for(var/client/i in GLOB.clients - C)
 		if(i.address == player_ip || i.computer_id == player_cid)
 			build_ban_cache(i)
-			to_chat(i, "<span class='boldannounce'>You have been [applies_to_admins ? "admin " : ""]banned by [usr.client.key] from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"].\nReason: [reason]</span><br><span class='danger'>This ban is [isnull(duration) ? "permanent." : "temporary, it will be removed in [time_message]."] [global_ban ? "This ban applies to all of our servers." : "This is a single-server ban, and only applies to this server."] The round ID is [GLOB.round_id].</span><br><span class='danger'>To appeal this ban go to [appeal_url]</span>")
+			to_chat(i, "<span class='boldannounce'>You have been [special_prefix]banned by [usr.client.key] from [roles_to_ban[1] == "Server" ? "the server" : " Roles: [roles_to_ban.Join(", ")]"].\nReason: [reason]</span><br><span class='danger'>This ban is [isnull(duration) ? "permanent." : "temporary, it will be removed in [time_message]."] [global_ban ? "This ban applies to all of our servers." : "This is a single-server ban, and only applies to this server."] The round ID is [GLOB.round_id].</span><br><span class='danger'>To appeal this ban go to [appeal_url]</span>")
 			if(GLOB.admin_datums[i.ckey] || GLOB.deadmins[i.ckey])
 				is_admin = TRUE
 			if(roles_to_ban[1] == "Server" && (!is_admin || (is_admin && applies_to_admins)))
@@ -808,7 +857,7 @@
 			return
 		var/kn = key_name(usr)
 		//Log the shit out of this and scream bloody murder to anyone who will listen.
-		send2irc("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
+		send2tgs("CID PROTECTION BYPASS", "[kn] Has overridden CID protection for a ban on CID [player_cid]!")
 		message_admins("<span class='danger'>[kn] Has overridden CID protection for a ban on CID [player_cid]!</span>")
 		log_admin_private("[kn] Has overridden CID protection for a ban on CID [player_cid]!")
 
@@ -929,7 +978,7 @@
 	log_admin_private("[kn] has edited the [changes_keys_text] of a ban for [old_key ? "[old_key]" : "[old_ip]-[old_cid]"].") //if a ban doesn't have a key it must have an ip and/or a cid to have reached this point normally
 	message_admins("[kna] has edited the [changes_keys_text] of a ban for [old_key ? "[old_key]" : "[old_ip]-[old_cid]"].")
 	if(changes["Applies to admins"])
-		send2irc("BAN ALERT","[kn] has edited a ban for [old_key ? "[old_key]" : "[old_ip]-[old_cid]"] to [applies_to_admins ? "" : "not"]affect admins")
+		send2tgs("BAN ALERT","[kn] has edited a ban for [old_key ? "[old_key]" : "[old_ip]-[old_cid]"] to [applies_to_admins ? "" : "not"]affect admins")
 	var/client/C = GLOB.directory[old_key]
 	if(C)
 		build_ban_cache(C)

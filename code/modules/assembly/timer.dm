@@ -61,6 +61,7 @@
 	if(loop)
 		timing = TRUE
 	update_icon()
+	ui_update()
 
 /obj/item/assembly/timer/process(delta_time)
 	if(!timing)
@@ -85,6 +86,11 @@
 		return ..()
 	return UI_CLOSE
 
+
+/obj/item/assembly/timer/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(timing)
+		. = TRUE // Autoupdate while counting down
 
 /obj/item/assembly/timer/ui_state(mob/user)
 	return GLOB.hands_state
@@ -124,4 +130,3 @@
 				time = clamp(value, 1, 600)
 				saved_time = time
 				. = TRUE
-	ui_update()

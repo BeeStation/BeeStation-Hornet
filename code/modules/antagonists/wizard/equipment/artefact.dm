@@ -106,6 +106,7 @@
 	desc = "This isn't right."
 	icon = 'icons/effects/224x224.dmi'
 	icon_state = "reality"
+	is_real = FALSE
 	pixel_x = -96
 	pixel_y = -96
 	dissipate = 0
@@ -154,13 +155,26 @@
 	return
 
 /obj/singularity/wizard/Bump(atom/A)
-	return
+	if(ismovableatom(A))
+		free(A)
 
 /obj/singularity/wizard/Bumped(atom/movable/AM)
-	return
+	free(AM)
 
 /obj/singularity/wizard/consume(atom/A)
-	return
+	if(ismovableatom(A))
+		free(A)
+
+/obj/singularity/wizard/proc/free(atom/movable/A)
+	if(!LAZYLEN(GLOB.destabliization_exits))
+		if(ismob(A))
+			to_chat(A, "<span class='warning'>There is no way out of this place...</span>")
+		return
+	var/atom/return_thing = pick(GLOB.destabliization_exits)
+	var/turf/T = get_turf(return_thing)
+	if(!T)
+		return
+	A.forceMove(T)
 
 /////////////////////////////////////////Scrying///////////////////
 

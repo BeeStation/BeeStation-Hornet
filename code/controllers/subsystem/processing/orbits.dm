@@ -1,12 +1,12 @@
 PROCESSING_SUBSYSTEM_DEF(orbits)
 	name = "Orbits"
 	flags = SS_KEEP_TIMING
-	//init_order = INIT_ORDER_ORBITS
+	init_order = INIT_ORDER_ORBITS
 	priority = FIRE_PRIORITY_ORBITS
 	wait = ORBITAL_UPDATE_RATE
 
 	//The primary orbital map.
-	var/datum/orbital_map/orbital_map = new()
+	var/list/orbital_maps = list()
 
 	var/datum/orbital_map_tgui/orbital_map_tgui = new()
 
@@ -41,12 +41,17 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/list/datum/tgui/open_orbital_maps = list()
 
+	//The station
+	var/datum/orbital_object/station_instance
+
 	//Ruin level count
 	var/ruin_levels = 0
 
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
 	setup_event_list()
+	//Create the main orbital map.
+	orbital_maps[PRIMARY_ORBITAL_MAP] = new /datum/orbital_map()
 
 /datum/controller/subsystem/processing/orbits/proc/setup_event_list()
 	runnable_events = list()
@@ -60,7 +65,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	return pickweight(runnable_events)
 
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
-	orbital_map.post_setup()
+	for(var/map_key in orbital_maps)
+		var/datum/orbital_map/orbital_map = orbital_maps[map_key]
+		orbital_map.post_setup()
 	orbits_setup = TRUE
 	//Create initial ruins
 	for(var/i in 1 to initial_space_ruins)

@@ -230,12 +230,12 @@ export const NaniteCloudBackupDetails = (props, context) => {
             )}>
             <Section>
               <NaniteInfoBox program={program} />
-              {!!can_rule && (
+              {!!(can_rule || program.has_rules) && (
                 <Section
                   mt={-2}
                   title="Rules"
                   level={2}
-                  buttons={(
+                  buttons={!!can_rule && (
                     <Button
                       icon="plus"
                       content="Add Rule from Disk"

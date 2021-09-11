@@ -62,7 +62,7 @@
 	orbiters[orbiter] = TRUE
 	orbiter.orbiting = src
 	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, .proc/orbiter_move_react)
-
+	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_BEGIN, orbiter)
 	var/matrix/initial_transform = matrix(orbiter.transform)
 	orbiters[orbiter] = initial_transform
 
@@ -88,6 +88,7 @@
 	if(!orbiters[orbiter])
 		return
 	UnregisterSignal(orbiter, COMSIG_MOVABLE_MOVED)
+	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 	orbiter.SpinAnimation(0, 0)
 	if(istype(orbiters[orbiter],/matrix)) //This is ugly.
 		orbiter.transform = orbiters[orbiter]

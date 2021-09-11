@@ -7,10 +7,15 @@
 	//Sure, why not?
 	can_dock_anywhere = TRUE
 
-/datum/orbital_object/z_linked/station/Destroy()
+/datum/orbital_object/z_linked/station/New()
+	. = ..()
+	SSorbits.station_instance = src
+
+/datum/orbital_object/z_linked/station/explode()
 	. = ..()
 	SSticker.force_ending = TRUE
 
 /datum/orbital_object/z_linked/station/post_map_setup()
 	//Orbit around the system center
-	set_orbitting_around_body(SSorbits.orbital_map.center, 2500)
+	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
+	set_orbitting_around_body(linked_map.center, 2500)
