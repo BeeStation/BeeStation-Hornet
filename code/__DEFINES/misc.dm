@@ -9,6 +9,7 @@
 #define TEXT_EAST			"[EAST]"
 #define TEXT_WEST			"[WEST]"
 
+#define MAX_LOOP_ITERATIONS 1048574
 
 //Human Overlays Indexes/////////
 #define MUTATIONS_LAYER			29		//! mutations. Tk headglows, cold resistance glow, etc
