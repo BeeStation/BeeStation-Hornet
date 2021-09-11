@@ -6,7 +6,6 @@
 	throwforce = 0
 	force = 0
 	w_class = WEIGHT_CLASS_TINY
-	flags_1 = SAVE_SAFE_1
 	var/credits = 0
 
 /obj/item/holochip/Initialize(mapload, amount)
