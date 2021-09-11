@@ -179,7 +179,7 @@
 	restricted_roles = list("Head of Security", "Captain") // Just to be sure that a wizard getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 1
 	weight = 2
-	cost = 20
+	cost = 40
 	requirements = list(90,90,70,40,30,20,10,10,10,10)
 	var/list/roundstart_wizards = list()
 
@@ -222,7 +222,7 @@
 	restricted_roles = list("AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Chaplain", "Head of Personnel")
 	required_candidates = 2
 	weight = 3
-	cost = 20
+	cost = 25
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
 	flags = HIGH_IMPACT_RULESET
 	antag_cap = list("denominator" = 20, "offset" = 1)
@@ -278,7 +278,7 @@
 	restricted_roles = list("Head of Security", "Captain") // Just to be sure that a nukie getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 5
 	weight = 3
-	cost = 20
+	cost = 30
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
 	flags = HIGH_IMPACT_RULESET
 	antag_cap = list("denominator" = 18, "offset" = 1)

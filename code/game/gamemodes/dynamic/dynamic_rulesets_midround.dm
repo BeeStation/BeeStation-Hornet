@@ -279,7 +279,7 @@
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 1
-	cost = 20
+	cost = 40
 	requirements = list(90,90,70,40,30,20,10,10,10,10)
 	repeatable = TRUE
 
@@ -310,7 +310,7 @@
 	required_enemies = list(3,3,3,3,3,2,1,1,0,0)
 	required_candidates = 5
 	weight = 5
-	cost = 20
+	cost = 30
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
 	var/list/operative_cap = list(2,2,3,3,4,5,5,5,5,5)
 	var/datum/team/nuclear/nuke_team
@@ -352,7 +352,7 @@
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 4
-	cost = 10
+	cost = 20
 	requirements = list(101,101,101,80,60,50,30,20,10,10)
 	repeatable = TRUE
 
@@ -374,7 +374,7 @@
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 3
-	cost = 10
+	cost = 20
 	requirements = list(101,101,101,70,50,40,20,15,10,10)
 	repeatable = TRUE
 	var/list/vents = list()
