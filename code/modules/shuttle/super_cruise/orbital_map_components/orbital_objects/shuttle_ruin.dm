@@ -16,6 +16,7 @@
 		var/datum/map_template/shuttle/abandoned_template = new("[CONFIG_GET(string/shuttle_ruin_filepath)][as_file]", "abandoned shuttle [rand(1, 99999)]")
 		//Only spawn once
 		SSorbits.shuttle_ruin_list -= dmm_file
+		SSorbits.spawned_shuttle_files += dmm_file
 		var/list/loaded_bounds = abandoned_template?.load(locate((world.maxx / 2) + rand(-70, 70), (world.maxy / 2) + rand(-70, 70), assigned_space_level.z_value), TRUE)
 		if(loaded_bounds && prob(80))	//Advanced optimisation system
 			//What happened?

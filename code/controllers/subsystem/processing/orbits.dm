@@ -48,7 +48,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	var/ruin_levels = 0
 
 	//DMM files of shuttle ruins
-	var/shuttle_ruin_list
+	var/list/shuttle_ruin_list
+	var/list/spawned_shuttle_files
 
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
@@ -56,6 +57,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Create the main orbital map.
 	orbital_maps[PRIMARY_ORBITAL_MAP] = new /datum/orbital_map()
 	//Fetch shuttle ruins
+	spawned_shuttle_files = list()
 	shuttle_ruin_list = flist(CONFIG_GET(string/shuttle_ruin_filepath))
 	//Create abandoned signal ruins
 	if(length(shuttle_ruin_list))
@@ -227,6 +229,13 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		shuttles_saved ++
 		message_admins("Custom shuttle [M] successfully saved!")
 		CHECK_TICK
+
+	//Delete any shuttles we spawned since they would have been saved.
+	//Rather than having 2 of the same ship, just remove the old one
+	for(var/filepath in spawned_shuttle_files)
+		//Save just the name.dmm so admins can't add anything to this list to delete any server file.
+		//Doesn't need too much protection since admins can delete any shuttle they want anyway.
+		fdel("[shuttle_filepath][filepath]")
 
 	//Clear old shuttles to free up space
 	var/left_to_clear = max(current_size + space_required - (CONFIG_GET(number/shuttle_total_filesize_max) * 1000), 0)
