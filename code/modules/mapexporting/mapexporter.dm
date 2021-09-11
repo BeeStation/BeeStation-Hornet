@@ -58,6 +58,45 @@
 		return FALSE
 	return TRUE
 
+/turf/proc/is_save_safe(save_flag)
+	return TRUE
+
+/turf/open/is_save_safe(save_flag)
+	if(save_flag & SAVE_UNSAFE_OBJECTS)
+		return TRUE
+	//These will be WEIRD
+	//Dont save them.
+	if(planetary_atmos)
+		return FALSE
+	return TRUE
+
+/turf/open/indestructible/is_save_safe(save_flag)
+	return FALSE
+
+/turf/open/openspace/is_save_safe(save_flag)
+	return FALSE
+
+/turf/open/ai_visible/is_save_safe(save_flag)
+	return FALSE
+
+/turf/open/genturf/is_save_safe(save_flag)
+	return FALSE
+
+/turf/open/space/bluespace/is_save_safe(save_flag)
+	return FALSE
+
+/turf/open/space/transit/is_save_safe(save_flag)
+	return FALSE
+
+/turf/closed/indestructible/is_save_safe(save_flag)
+	return FALSE
+
+/turf/baseturf_bottom/is_save_safe(save_flag)
+	return FALSE
+
+/turf/baseturf_skipover/is_save_safe(save_flag)
+	return FALSE
+
 /obj/effect/is_save_safe(save_flag)
 	return FALSE
 
@@ -194,6 +233,10 @@ GLOBAL_LIST_INIT(save_file_chars, list(
 				objects = list()
 			//Ignore things in space, must be a space turf and the area has to be empty space
 			else if(istype(place, /turf/open/space) && istype(AR, /area/space) && !(save_flag & SAVE_SPACE))
+				place = /turf/template_noop
+				location = /area/template_noop
+			else if(!place.is_save_safe(save_flag))
+				//Don't save this place, it's not save.
 				place = /turf/template_noop
 				location = /area/template_noop
 			//Stuff to add
