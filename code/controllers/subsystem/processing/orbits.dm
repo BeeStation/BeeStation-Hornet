@@ -231,9 +231,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Clear old shuttles to free up space
 	var/left_to_clear = max(current_size + space_required - CONFIG_GET(number/shuttle_total_filesize_max), 0)
 	//Luck of the draw
-	shuffle_inplace(old_files)
 	while(left_to_clear > 0 && length(old_files))
-		var/first_thing = old_files[1]
+		var/first_thing = old_files[rand(1, length(old_files))]
 		old_files -= first_thing
 		var/file_size = length(file(first_thing))
 		fdel(first_thing)
