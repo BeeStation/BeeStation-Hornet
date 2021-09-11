@@ -158,6 +158,7 @@
 	var/datum/map_template/shuttle/abandoned_template = new(path, "abandoned shuttle [rand(1, 99999)]")
 
 	//Load the preview
+	SSshuttle.unload_preview()
 	SSshuttle.load_template(abandoned_template)
 
 	//Teleport there
