@@ -1,6 +1,7 @@
 /datum/species/plasmaman
 	name = "Plasmaman"
 	id = SPECIES_PLASMAMAN
+	bodyflag = FLAG_PLASMAMAN
 	say_mod = "rattles"
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma

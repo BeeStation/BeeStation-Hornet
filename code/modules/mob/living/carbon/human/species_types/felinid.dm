@@ -2,6 +2,7 @@
 /datum/species/human/felinid
 	name = "Felinid"
 	id = SPECIES_FELINID
+	bodyflag = FLAG_FELINID
 	limbs_id = "human"
 	say_mod = "meows"
 

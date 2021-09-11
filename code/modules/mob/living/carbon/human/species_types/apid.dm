@@ -2,6 +2,7 @@
 	// Beepeople, god damn it. It's hip, and alive! - Fuck ubunutu edition
 	name = "Apids"
 	id = SPECIES_APID
+	bodyflag = FLAG_APID
 	say_mod = "buzzes"
 	default_color = "FFE800"
 	species_traits = list(LIPS,NOEYESPRITES)
