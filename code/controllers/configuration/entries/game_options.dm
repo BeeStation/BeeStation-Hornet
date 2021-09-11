@@ -470,7 +470,7 @@
 	min_val = 0
 	protection = CONFIG_ENTRY_LOCKED
 
-/datum/config_entry/numbe/roundstart_abandoned_ruins
+/datum/config_entry/number/roundstart_abandoned_ruins
 	config_entry_value = 5
 
 /datum/config_entry/flag/restricted_suicide
