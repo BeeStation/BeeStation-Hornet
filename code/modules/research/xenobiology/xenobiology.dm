@@ -951,9 +951,9 @@
 
 	if(!do_after(user, 50, target = L))
 		return
-	
+
 	to_chat(user, "<span class='notice'>You feed [L] the gender change potion!</span>")
-	
+
 	if(L.gender == MALE)
 		L.gender = FEMALE
 		L.visible_message("<span class='boldnotice'>[L] suddenly looks more feminine!</span>", "<span class='boldwarning'>You suddenly feel more feminine!</span>")
@@ -1034,6 +1034,7 @@
 	flags_1 = CONDUCT_1
 	max_amount = 60
 	turf_type = /turf/open/floor/bluespace
+	flags_1 = NONE
 
 
 /obj/item/stack/tile/sepia
@@ -1052,6 +1053,7 @@
 	flags_1 = CONDUCT_1
 	max_amount = 60
 	turf_type = /turf/open/floor/sepia
+	flags_1 = NONE
 
 
 /obj/item/areaeditor/blueprints/slime

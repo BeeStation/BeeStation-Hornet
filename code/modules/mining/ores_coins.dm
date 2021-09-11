@@ -197,6 +197,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	scan_state = "rock_Bananium"
+	flags_1 = NONE
 
 /obj/item/stack/ore/titanium
 	name = "titanium ore"

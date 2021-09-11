@@ -341,6 +341,7 @@ GLOBAL_LIST_INIT(copper_recipes, list ( \
 	grind_results = list(/datum/reagent/consumable/banana = 20)
 	point_value = 50
 	merge_type = /obj/item/stack/sheet/mineral/bananium
+	flags_1 = NONE
 
 GLOBAL_LIST_INIT(bananium_recipes, list ( \
 	new/datum/stack_recipe("bananium tile", /obj/item/stack/tile/mineral/bananium, 1, 4, 20), \
@@ -472,6 +473,7 @@ GLOBAL_LIST_INIT(adamantine_recipes, list(
 	singular_name = "mythril sheet"
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/mineral/mythril
+	flags_1 = NONE
 
 /*
  * Alien Alloy
@@ -484,6 +486,7 @@ GLOBAL_LIST_INIT(adamantine_recipes, list(
 	singular_name = "alien alloy sheet"
 	sheettype = "abductor"
 	merge_type = /obj/item/stack/sheet/mineral/abductor
+	flags_1 = NONE
 
 GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	new/datum/stack_recipe("alien bed", /obj/structure/bed/abductor, 2, one_per_turf = 1, on_floor = 1), \

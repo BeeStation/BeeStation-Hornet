@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 50
 	item_flags = NOBLUDGEON
+	flags_1 = NONE
 	merge_type = /obj/item/stack/telecrystal
 
 /obj/item/stack/telecrystal/attack(mob/target, mob/user)

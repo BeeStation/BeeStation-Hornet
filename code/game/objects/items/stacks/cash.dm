@@ -11,6 +11,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
+	flags_1 = NONE
 	var/value = 0
 
 /obj/item/stack/spacecash/Initialize()

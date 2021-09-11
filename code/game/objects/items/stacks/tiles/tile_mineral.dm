@@ -66,6 +66,7 @@
 	turf_type = /turf/open/floor/mineral/bananium
 	mineralType = "bananium"
 	materials = list(/datum/material/bananium=500)
+	flags_1 = NONE
 
 /obj/item/stack/tile/mineral/abductor
 	name = "alien floor tile"
@@ -76,6 +77,7 @@
 	item_state = "tile-abductor"
 	turf_type = /turf/open/floor/mineral/abductor
 	mineralType = "abductor"
+	flags_1 = NONE
 
 /obj/item/stack/tile/mineral/titanium
 	name = "titanium tile"
