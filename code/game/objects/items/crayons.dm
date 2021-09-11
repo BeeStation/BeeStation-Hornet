@@ -157,6 +157,7 @@
 			is_capped = !is_capped
 			to_chat(user, "<span class='notice'>The cap on [src] is now [is_capped ? "on" : "off"].</span>")
 			update_icon()
+			ui_update()
 
 /obj/item/toy/crayon/proc/staticDrawables()
 
@@ -250,8 +251,9 @@
 			. = TRUE
 			paint_mode = PAINT_NORMAL
 			drawtype = "a"
-	update_icon()
-	ui_update()
+
+	if(.)
+		update_icon()
 
 /obj/item/toy/crayon/proc/crayon_text_strip(text)
 	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")

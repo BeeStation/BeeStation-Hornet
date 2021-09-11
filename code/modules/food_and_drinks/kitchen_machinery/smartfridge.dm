@@ -73,7 +73,7 @@
 		cut_overlays()
 		if(panel_open)
 			add_overlay("[initial(icon_state)]-panel")
-		updateUsrDialog()
+		ui_update()
 		return
 
 	if(default_pry_open(O))
@@ -84,7 +84,6 @@
 		return
 
 	if(default_deconstruction_crowbar(O))
-		updateUsrDialog()
 		return
 
 	if(!stat)
@@ -96,7 +95,6 @@
 		if(accept_check(O))
 			load(O)
 			user.visible_message("[user] has added \the [O] to \the [src].", "<span class='notice'>You add \the [O] to \the [src].</span>")
-			updateUsrDialog()
 			if (visible_contents)
 				update_icon()
 			return TRUE
@@ -110,7 +108,6 @@
 				if(accept_check(G))
 					load(G)
 					loaded++
-			updateUsrDialog()
 
 			if(loaded)
 				if(contents.len >= max_n_of_items)
@@ -141,7 +138,6 @@
 					O.desc = "A container for holding body parts."
 					if(visible_contents)
 						update_icon()
-					updateUsrDialog()
 					return TRUE
 				else
 					to_chat(user, "<span class='warning'>[src] does not accept [I]!</span>")
@@ -152,7 +148,6 @@
 
 	if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>\The [src] smartly refuses [O].</span>")
-		updateUsrDialog()
 		return FALSE
 	else
 		return ..()
@@ -164,7 +159,6 @@
 			var/obj/item/O = AM
 			if(contents.len < max_n_of_items && accept_check(O))
 				load(O)
-				updateUsrDialog()
 				if (visible_contents)
 					update_icon()
 				return TRUE
@@ -183,13 +177,16 @@
 			to_chat(usr, "<span class='warning'>\the [O] is stuck to your hand, you cannot put it in \the [src]!</span>")
 			return FALSE
 		else
-			return TRUE
+			. = TRUE
 	else
 		if(SEND_SIGNAL(O.loc, COMSIG_CONTAINS_STORAGE))
-			return SEND_SIGNAL(O.loc, COMSIG_TRY_STORAGE_TAKE, O, src)
+			. = SEND_SIGNAL(O.loc, COMSIG_TRY_STORAGE_TAKE, O, src)
 		else
 			O.forceMove(src)
-			return TRUE
+			. = TRUE
+
+	if(.)
+		ui_update()
 
 ///Really simple proc, just moves the object "O" into the hands of mob "M" if able, done so I could modify the proc a little for the organ fridge
 /obj/machinery/smartfridge/proc/dispense(obj/item/O, var/mob/M)
@@ -248,28 +245,21 @@
 			else
 				desired = input("How many items?", "How many items would you like to take out?", 1) as null|num
 
-			if(QDELETED(src) || QDELETED(usr) || !usr.Adjacent(src)) // Sanity checkin' in case stupid stuff happens while we wait for input()
-				return FALSE
+			if(!isnum_safe(desired) || desired <= 0)
+				return
 
-			if(desired == 1 && Adjacent(usr) && !issilicon(usr))
-				for(var/obj/item/O in src)
-					if(O.name == params["name"])
-						dispense(O, usr)
-						break
-				if (visible_contents)
-					update_icon()
-				return TRUE
+			if(QDELETED(src) || QDELETED(usr) || !usr.Adjacent(src)) // Sanity checkin' in case stupid stuff happens while we wait for input()
+				return
 
 			for(var/obj/item/O in src)
-				if(desired <= 0)
-					break
 				if(O.name == params["name"])
 					dispense(O, usr)
 					desired--
-			if (visible_contents)
+					. = TRUE
+					if(desired <= 0)
+						break
+			if (visible_contents && .)
 				update_icon()
-			return TRUE
-	return FALSE
 
 
 // ----------------------------

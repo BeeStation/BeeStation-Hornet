@@ -97,6 +97,10 @@
 
 #define STATUS_EFFECT_SYRINGE /datum/status_effect/syringe //used to handle being injected with a syringe
 
+#define STATUS_EFFECT_SPANISH /datum/status_effect/spanish //Robotic Tongue EMP
+
+#define STATUS_EFFECT_IPC_EMP /datum/status_effect/ipc/emp //EMP'd IPC
+
 //---------//
 // NEUTRAL //
 //---------//

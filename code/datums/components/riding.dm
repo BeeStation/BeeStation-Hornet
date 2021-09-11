@@ -31,6 +31,7 @@
 /datum/component/riding/proc/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
 	SIGNAL_HANDLER
 
+	unequip_buckle_inhands(parent)
 	var/atom/movable/AM = parent
 	restore_position(M)
 	unequip_buckle_inhands(M)
@@ -315,7 +316,7 @@
 	M.visible_message("<span class='warning'>[M] is thrown clear of [AM]!</span>", \
 					"<span class='warning'>You're thrown clear of [AM]!</span>")
 	M.throw_at(target, 14, 5, AM)
-	M.Paralyze(60)
+	M.Knockdown(60)
 
 /datum/component/riding/proc/equip_buckle_inhands(mob/living/carbon/human/user, amount_required = 1, riding_target_override = null)
 	var/atom/movable/AM = parent

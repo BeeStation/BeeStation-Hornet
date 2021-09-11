@@ -3,15 +3,13 @@
 	desc = "Exosuit"
 	icon = 'icons/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
-	opacity = TRUE //Opaque. Menacing.
+	opacity = 1 ///opaque. Menacing.
 	move_force = MOVE_FORCE_VERY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	layer = BELOW_MOB_LAYER//icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
-	light_system = MOVABLE_LIGHT
-	light_on = FALSE
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/can_move = 0 //time of next allowed movement
 	var/mob/living/carbon/occupant = null
@@ -444,8 +442,6 @@
 /obj/mecha/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
 	if(speaker == occupant)
-		if(radio?.broadcasting)
-			radio.talk_into(speaker, text, , spans, message_language, message_mods)
 		//flick speech bubble
 		var/list/speech_bubble_recipients = list()
 		for(var/mob/M as() in hearers(7,src))

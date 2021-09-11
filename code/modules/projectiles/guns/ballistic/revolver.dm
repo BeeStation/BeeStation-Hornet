@@ -286,3 +286,7 @@
 
 /obj/item/gun/ballistic/revolver/mime/attack_self(mob/user)
 	qdel(src)
+
+//The Lethal Version from Advanced Mimery
+/obj/item/gun/ballistic/revolver/mime/magic
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/mime/lethal

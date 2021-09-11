@@ -88,6 +88,13 @@
 #define VV_HK_EDIT_FILTERS "edit_filters"
 #define VV_HK_ADD_AI "add_ai"
 
+// /datum/gas_mixture
+#define VV_HK_SET_MOLES "set_moles"
+#define VV_HK_EMPTY "empty"
+#define VV_HK_SET_TEMPERATURE "set_temp"
+#define VV_HK_PARSE_GASSTRING "parse_gasstring"
+#define VV_HK_SET_VOLUME "set_volume"
+
 // /obj
 #define VV_HK_OSAY "osay"
 #define VV_HK_MASS_DEL_TYPE "mass_delete_type"

@@ -145,6 +145,12 @@
 	eye_color = "000"
 	see_in_dark = 8
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	flash_protect = -INFINITY
+	tint = -INFINITY
+
+/obj/item/organ/eyes/robotic/xray/syndicate
+	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. On closer look, they have been modified to protect from sudden bright flashes."
+	flash_protect = 0
 
 /obj/item/organ/eyes/robotic/thermals
 	name = "thermal eyes"
@@ -205,7 +211,7 @@
 	var/active = FALSE
 	var/max_light_beam_distance = 5
 	var/light_beam_distance = 5
-	var/light_object_range = 2
+	var/light_object_range = 1
 	var/light_object_power = 2
 	var/list/obj/effect/abstract/eye_lighting/eye_lighting
 	var/obj/effect/abstract/eye_lighting/on_mob
@@ -312,11 +318,10 @@
 		clear_visuals()
 	var/turf/scanning = scanfrom
 	var/stop = FALSE
-	on_mob.set_light_flags(on_mob.light_flags & ~LIGHT_ATTACHED)
 	on_mob.forceMove(scanning)
 	for(var/i in 1 to light_beam_distance)
 		scanning = get_step(scanning, scandir)
-		if(IS_OPAQUE_TURF(scanning))
+		if(scanning.opacity || scanning.has_opaque_atom)
 			stop = TRUE
 		var/obj/effect/abstract/eye_lighting/L = LAZYACCESS(eye_lighting, i)
 		if(stop)
@@ -333,7 +338,6 @@
 			var/obj/effect/abstract/eye_lighting/L = i
 			L.forceMove(src)
 		if(!QDELETED(on_mob))
-			on_mob.set_light_flags(on_mob.light_flags | LIGHT_ATTACHED)
 			on_mob.forceMove(src)
 
 /obj/item/organ/eyes/robotic/glow/proc/start_visuals()
@@ -350,40 +354,27 @@
 
 /obj/item/organ/eyes/robotic/glow/proc/regenerate_light_effects()
 	clear_visuals(TRUE)
-	on_mob = new (src, light_object_range, light_object_power, current_color_string, LIGHT_ATTACHED)
+	on_mob = new(src)
 	for(var/i in 1 to light_beam_distance)
-		LAZYADD(eye_lighting, new /obj/effect/abstract/eye_lighting(src, light_object_range, light_object_power, current_color_string))
+		LAZYADD(eye_lighting, new /obj/effect/abstract/eye_lighting(src))
 	sync_light_effects()
 
-
 /obj/item/organ/eyes/robotic/glow/proc/sync_light_effects()
-	for(var/e in eye_lighting)
-		var/obj/effect/abstract/eye_lighting/eye_lighting = e
-		eye_lighting.set_light_color(current_color_string)
-	on_mob?.set_light_color(current_color_string)
-
+	for(var/I in eye_lighting)
+		var/obj/effect/abstract/eye_lighting/L = I
+		L.set_light(light_object_range, light_object_power, current_color_string)
+	if(on_mob)
+		on_mob.set_light(1, 1, current_color_string)
 
 /obj/effect/abstract/eye_lighting
-	light_system = MOVABLE_LIGHT
 	var/obj/item/organ/eyes/robotic/glow/parent
 
-
-/obj/effect/abstract/eye_lighting/Initialize(mapload, light_object_range, light_object_power, current_color_string, light_flags)
+/obj/effect/abstract/eye_lighting/Initialize()
 	. = ..()
 	parent = loc
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	if(!istype(parent))
-		stack_trace("/obj/effect/abstract/eye_lighting added to improper parent ([loc]). Deleting.")
 		return INITIALIZE_HINT_QDEL
-	if(!isnull(light_object_range))
-		set_light_range(light_object_range)
-	if(!isnull(light_object_power))
-		set_light_power(light_object_power)
-	if(!isnull(current_color_string))
-		set_light_color(current_color_string)
-	if(!isnull(light_flags))
-		set_light_flags(light_flags)
-
 
 /obj/item/organ/eyes/moth
 	name = "moth eyes"
