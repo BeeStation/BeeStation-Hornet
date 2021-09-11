@@ -134,7 +134,7 @@ There are several things that need to be remembered:
 		var/icon_file = 'icons/mob/uniform.dmi'
 		if(!uniform_overlay)
 			if(U.sprite_sheets & (dna?.species.bodyflag))
-				icon_file = dna.species.get_custom_icons(uniform)
+				icon_file = dna.species.get_custom_icons("uniform")
 			uniform_overlay = U.build_worn_icon(state = "[t_color]", default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE)
 
 
@@ -195,7 +195,7 @@ There are several things that need to be remembered:
 		if(istype(gloves, /obj/item/clothing/gloves))
 			var/obj/item/clothing/gloves/G = gloves
 			if(G.sprite_sheets & (dna?.species.bodyflag))
-				icon_file = dna.species.get_custom_icons(gloves)
+				icon_file = dna.species.get_custom_icons("gloves")
 		gloves.screen_loc = ui_gloves
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)
@@ -228,7 +228,7 @@ There are several things that need to be remembered:
 		var/obj/item/clothing/glasses/G = glasses
 		var/icon_file = 'icons/mob/eyes.dmi'
 		if(G.sprite_sheets & (dna?.species.bodyflag))
-			icon_file = dna.species.get_custom_icons(glasses)
+			icon_file = dna.species.get_custom_icons("glasses")
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
 				client.screen += glasses				//Either way, add the item to the HUD
@@ -260,7 +260,7 @@ There are several things that need to be remembered:
 		if(istype(ears, /obj/item/clothing/ears))
 			var/obj/item/clothing/ears/E = ears
 			if(E.sprite_sheets & (dna?.species.bodyflag))
-				icon_file = dna.species.get_custom_icons(ears)
+				icon_file = dna.species.get_custom_icons("ears")
 		ears.screen_loc = ui_ears	//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
@@ -291,7 +291,7 @@ There are several things that need to be remembered:
 		if(istype(shoes, /obj/item/clothing/shoes))
 			var/obj/item/clothing/shoes/S = shoes
 			if(S.sprite_sheets & (dna?.species.bodyflag))
-				icon_file = dna.species.get_custom_icons(shoes)
+				icon_file = dna.species.get_custom_icons("shoes")
 		shoes.screen_loc = ui_shoes					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
@@ -339,7 +339,7 @@ There are several things that need to be remembered:
 		if(istype(head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/HE = head
 			if(HE.sprite_sheets & (dna?.species.bodyflag))
-				icon_file = dna.species.get_custom_icons(head)
+				icon_file = dna.species.get_custom_icons("head")
 				overlays_standing[HEAD_LAYER] = head.build_worn_icon(state = head.icon_state, default_layer = HEAD_LAYER, default_icon_file = icon_file)
 	var/mutable_appearance/head_overlay = overlays_standing[HEAD_LAYER]
 	if(head_overlay)
@@ -362,7 +362,7 @@ There are several things that need to be remembered:
 		if(istype(belt, /obj/item/storage/belt))
 			var/obj/item/storage/belt/B = belt
 			if(B.sprite_sheets & (dna?.species.bodyflag))
-				icon_file = dna.species.get_custom_icons(belt)
+				icon_file = dna.species.get_custom_icons("belt")
 		belt.screen_loc = ui_belt
 		if(client && hud_used && hud_used.hud_shown)
 			client.screen += belt
@@ -394,7 +394,7 @@ There are several things that need to be remembered:
 		var/icon_file = 'icons/mob/suit.dmi'
 		var/obj/item/clothing/suit/S = wear_suit
 		if(S.sprite_sheets & (dna?.species.bodyflag))
-			icon_file = dna.species.get_custom_icons(suit)
+			icon_file = dna.species.get_custom_icons("suit")
 		wear_suit.screen_loc = ui_oclothing
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)
@@ -441,8 +441,8 @@ There are several things that need to be remembered:
 	if(wear_mask)
 		if(istype(wear_mask, /obj/item/clothing/mask))
 			var/obj/item/clothing/mask/M = wear_mask
-			if(M..sprite_sheets & (dna?.species.bodyflag))
-				var/icon_file = dna.species.get_custom_icons(mask)
+			if(M.sprite_sheets & (dna?.species.bodyflag))
+				var/icon_file = dna.species.get_custom_icons("mask")
 				overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(state = wear_suit.icon_state, default_layer = FACEMASK_LAYER, default_icon_file = icon_file)
 	var/mutable_appearance/mask_overlay = overlays_standing[FACEMASK_LAYER]
 	if(mask_overlay)
@@ -475,7 +475,7 @@ There are several things that need to be remembered:
 	remove_overlay(LEGCUFF_LAYER)
 	clear_alert("legcuffed")
 	if(legcuffed)
-		var/path = dna?.species.get_custom_icons(generic)
+		var/path = dna?.species.get_custom_icons("generic")
 		if(!path)
 			path = 'icons/mob/mob.dmi'
 		overlays_standing[LEGCUFF_LAYER] = mutable_appearance(path, "legcuff1", -LEGCUFF_LAYER)

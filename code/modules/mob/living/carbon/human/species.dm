@@ -2004,25 +2004,25 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /*Here's what a species that has a unique icon for every slot would look like. If your species doesnt have any custom icons for a given part, return null.
 /datum/species/teshari/get_custom_icons(var/part)
 	switch(part)
-		if(uniform)
+		if("uniform")
 			return 'icons/mob/species/teshari/tesh_uniforms.dmi'
-		if(gloves)
+		if("gloves")
 			return 'icons/mob/species/teshari/tesh_gloves.dmi'
-		if(glasses)
+		if("glasses")
 			return 'icons/mob/species/teshari/tesh_glasses.dmi'
-		if(ears)
+		if("ears")
 			return 'icons/mob/species/teshari/tesh_ears.dmi'
-		if(shoes)
+		if("shoes")
 			return 'icons/mob/species/teshari/tesh_shoes.dmi'
-		if(head)
+		if("head")
 			return 'icons/mob/species/teshari/tesh_head.dmi'
-		if(belt)
+		if("belt")
 			return 'icons/mob/species/teshari/tesh_belts.dmi'
-		if(suit)
+		if("suit")
 			return 'icons/mob/species/teshari/tesh_suits.dmi'
-		if(mask)
+		if("mask")
 			return 'icons/mob/species/teshari/tesh_masks.dmi'
-		if(generic)
+		if("generic")
 			return 'icons/mob/species/teshari/tesh_generic.dmi'
 		else
 			return
