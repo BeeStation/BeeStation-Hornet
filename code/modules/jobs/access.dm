@@ -362,14 +362,24 @@
 			return "Code Scotch"
 
 /proc/get_all_jobs()
-	return list("Assistant", "Captain", "Head of Personnel", "Bartender", "Cook", "Botanist", "Quartermaster", "Cargo Technician",
-				"Shaft Miner", "Clown", "Mime", "Janitor", "Curator", "Lawyer", "Chaplain", "Chief Engineer", "Station Engineer",
-				"Atmospheric Technician", "Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic",
-				"Research Director", "Scientist", "Roboticist", "Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician",
-				"Deputy", "Psychiatrist", "Barber", "Stage Magician")
+	return list("Captain",
+				// Service
+				"Assistant", "Head of Personnel", "Bartender", "Cook", "Botanist", "Janitor", "Curator",
+				"Chaplain", "Lawyer", "Clown", "Mime", "Barber", "Stage Magician",
+				// Cargo
+				"Quartermaster", "Cargo Technician","Shaft Miner",
+				// Engineering
+				"Chief Engineer", "Station Engineer", "Atmospheric Technician",
+				// R&D
+				"Research Director", "Scientist", "Roboticist", "Exploration Crew",
+				// Medical
+				"Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic", "Psychiatrist",
+				// Security
+				"Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy")
+				// Each job is supposed to be in their department due to the HoP console.
 
-/proc/get_all_job_icons() //We need their HUD icons, but we don't want to give these jobs to people at the job list from HoP console.
-	return get_all_jobs() + list("Prisoner", "King", "VIP", "Debtor")
+/proc/get_all_job_icons() //We need their HUD icons, but we don't want to give these jobs to people from the job list of HoP console.
+	return get_all_jobs() + list("Prisoner", "King", "VIP", "Debtor", "Acting Captain")
 
 /proc/get_all_centcom_jobs()
 	return list("VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Death Commando","Research Officer","Special Ops Officer","Admiral","CentCom Commander","Emergency Response Team Commander","Security Response Officer","Engineer Response Officer", "Medical Response Officer","CentCom Bartender","Comedy Response Officer", "HONK Squad Trooper")

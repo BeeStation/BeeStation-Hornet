@@ -43537,9 +43537,6 @@
 "bGd" = (
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
-"bGe" = (
-/turf/open/floor/circuit/green/telecomms/mainframe,
-/area/tcommsat/server)
 "bGf" = (
 /obj/machinery/telecomms/bus/preset_three,
 /turf/open/floor/circuit/green/telecomms/mainframe,
@@ -80809,6 +80806,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab/range)
+"esP" = (
+/obj/machinery/telecomms/hub/preset/exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "etr" = (
 /obj/effect/turf_decal/pool{
 	dir = 8
@@ -80870,6 +80871,14 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/crew_quarters/bar)
+"eId" = (
+/obj/machinery/telecomms/broadcaster/preset_exploration,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "eLn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -81101,6 +81110,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
+"fEL" = (
+/obj/machinery/telecomms/relay/preset/exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "fEQ" = (
 /turf/closed/wall,
 /area/science/nanite)
@@ -81224,10 +81237,6 @@
 	},
 /turf/closed/wall,
 /area/janitor)
-"gcu" = (
-/obj/machinery/telecomms/allinone/exploration,
-/turf/open/floor/circuit/green/telecomms/mainframe,
-/area/tcommsat/server)
 "ggI" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -81483,10 +81492,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
-"gKC" = (
-/obj/item/rack_parts,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "gLC" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/plasteel,
@@ -82169,6 +82174,11 @@
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"jAV" = (
+/obj/item/rack_parts,
+/mob/living/simple_animal/hostile/retaliate/goose/vomit,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "jCb" = (
 /obj/machinery/camera{
 	c_tag = "Research and Development";
@@ -82610,6 +82620,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
+"kNS" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/dark/telecomms,
+/area/tcommsat/server)
 "kOt" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
@@ -84363,6 +84380,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
+"slE" = (
+/obj/machinery/telecomms/receiver/preset_exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "sql" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -84885,6 +84906,10 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
+"utH" = (
+/obj/machinery/telecomms/processor/preset_exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "uun" = (
 /obj/machinery/vending/assist,
 /turf/open/floor/plasteel,
@@ -86004,6 +86029,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
+"yih" = (
+/obj/machinery/telecomms/bus/preset_exploration,
+/turf/open/floor/circuit/telecomms/mainframe,
+/area/tcommsat/server)
 "yjF" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
@@ -126199,7 +126228,7 @@ afD
 afD
 aqo
 ewK
-gKC
+jAV
 dnh
 dnh
 dnh
@@ -138334,8 +138363,8 @@ anT
 anT
 anT
 anT
-aaa
-aaa
+anT
+anT
 aaa
 aaa
 aaa
@@ -138584,6 +138613,8 @@ aNw
 aNw
 aNw
 aNw
+aNw
+aNw
 bJl
 aNw
 aNw
@@ -138591,8 +138622,6 @@ aNw
 aTQ
 aaa
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -138843,13 +138872,13 @@ bMt
 bMt
 bMt
 bMt
+bMt
+bMt
 aOT
 aOT
 bUK
 bBb
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -139101,12 +139130,12 @@ aOY
 aOY
 aOY
 aOY
+aOY
+aOY
 bcQ
 aNy
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -139358,12 +139387,12 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
 aMq
 aNy
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -139612,6 +139641,8 @@ aRy
 aRy
 bvt
 bvt
+bvt
+bvt
 aaa
 aaa
 aaa
@@ -139619,8 +139650,6 @@ aMq
 aNy
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -139870,6 +139899,8 @@ aRy
 aRy
 aRy
 aRy
+aRy
+aRy
 aaa
 aaa
 aMq
@@ -139878,8 +139909,6 @@ bBb
 anT
 anT
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -140124,6 +140153,8 @@ bGd
 bGd
 bJm
 bNX
+bGd
+yih
 bMo
 bOc
 aRy
@@ -140135,8 +140166,6 @@ bAT
 aNw
 aaa
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -140377,10 +140406,12 @@ bzo
 bAV
 bCD
 bEh
-gcu
+bGd
 bGd
 bKL
 bNY
+bGd
+esP
 bGd
 ceC
 aRy
@@ -140392,8 +140423,6 @@ bpn
 cpO
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -140639,6 +140668,8 @@ bHD
 bGd
 bGd
 bGd
+slE
+bGd
 bUL
 aRy
 bvt
@@ -140649,8 +140680,6 @@ cmK
 bpr
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -140895,6 +140924,8 @@ lWY
 bHE
 bKM
 bKO
+bGd
+bGd
 bMp
 bNZ
 aRz
@@ -140906,8 +140937,6 @@ ckT
 cmX
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -141152,6 +141181,8 @@ bCE
 bHF
 bJk
 bJk
+kNS
+eId
 bMq
 cgy
 aRy
@@ -141163,8 +141194,6 @@ cmK
 bpr
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -141405,10 +141434,12 @@ bzs
 bJi
 bCD
 bEj
-bGe
+bGd
 bGd
 bKP
 bOb
+bGd
+fEL
 bMr
 cho
 aRy
@@ -141420,8 +141451,6 @@ bpq
 bzv
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -141666,6 +141695,8 @@ bGd
 bGd
 bKN
 bOa
+bGd
+utH
 bMs
 chn
 aRy
@@ -141677,8 +141708,6 @@ aVk
 aOY
 aaa
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -141926,6 +141955,8 @@ aRy
 aRy
 aRy
 aRy
+aRy
+aRy
 aaa
 aaa
 aMq
@@ -141934,8 +141965,6 @@ bBb
 anT
 anT
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -142182,6 +142211,8 @@ aRy
 aRy
 bvt
 bvt
+bvt
+bvt
 aaa
 aaa
 aaa
@@ -142189,8 +142220,6 @@ aMq
 bez
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -142442,12 +142471,12 @@ aaa
 aaa
 aaa
 aaa
+aaa
+aaa
 aMq
 bez
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -142699,12 +142728,12 @@ aNw
 aNw
 aNw
 aNw
+aNw
+aNw
 bly
 bez
 bgn
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -142957,11 +142986,11 @@ bMt
 bMt
 bMt
 bMt
+bMt
+bMt
 bUM
 bBb
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -143214,11 +143243,11 @@ aOY
 aOY
 aOY
 aOY
+aOY
+aOY
 aNC
 aaa
 anT
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -143474,8 +143503,8 @@ anT
 anT
 anT
 anT
-aaa
-aaa
+anT
+anT
 aaa
 aaa
 aaa

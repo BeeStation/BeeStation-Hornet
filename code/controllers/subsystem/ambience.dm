@@ -18,15 +18,15 @@ SUBSYSTEM_DEF(ambience)
 		if(isnewplayer(client_iterator.mob))
 			continue
 
+		var/area/current_area = get_area(client_iterator.mob)
+
+		play_buzz(client_iterator.mob, current_area)
+
 		if(ambience_listening_clients[client_iterator] > world.time)
 			continue //Not ready for the next sound
 
-		var/area/current_area = get_area(client_iterator.mob)
-
 		var/ambi_fx = pick(current_area.ambientsounds)
 		var/ambi_music = pick(current_area.ambientmusic)
-
-		play_buzz(client_iterator.mob, current_area)
 
 		play_ambience_music(client_iterator.mob, ambi_music, current_area)
 
