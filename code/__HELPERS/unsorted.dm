@@ -608,7 +608,6 @@ Returns: A list of all areas of that type in the world.
 
 	var/list/areas = list()
 	if(subtypes)
-		var/list/cache = typesof(areatype)
 		for(var/area/A as() in GLOB.sortedAreas)
 			if(istype(A, areatype))
 				if(target_z == 0 || A.z == target_z)
