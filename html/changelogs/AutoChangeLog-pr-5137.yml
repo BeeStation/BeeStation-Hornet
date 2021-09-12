@@ -1,4 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - refactor: removed static usage of typecache in get_area()
