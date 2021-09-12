@@ -195,14 +195,9 @@ RSF
 		matter--
 	cooldown = world.time + cooldowndelay
 
-/*
-CONTAINS:
-RSF
-
-*/
-/obj/item/supplyfab
-	name = "\improper Rapid-Supply-Fabricator"
-	desc = "A device used to rapidly deploy supply items."
+/obj/item/clericalfab
+	name = "\improper Rapid-Clerical-Fabricator"
+	desc = "A device used to rapidly deploy clerical items."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
@@ -216,26 +211,26 @@ RSF
 	var/mode = 1
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/supplyfab/examine(mob/user)
+/obj/item/clericalfab/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It currently holds [matter]/30 fabrication-units.</span>"
 
-/obj/item/supplyfab/cyborg
+/obj/item/clericalfab/cyborg
 	matter = 30
 
-/obj/item/supplyfab/attackby(obj/item/W, mob/user, params)
+/obj/item/clericalfab/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcd_ammo))
 		if((matter + 10) > 30)
-			to_chat(user, "The RSF can't hold any more matter.")
+			to_chat(user, "The Clerical Fabricator can't hold any more matter.")
 			return
 		qdel(W)
 		matter += 10
 		playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
-		to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+		to_chat(user, "The Clerical Fabricator now holds [matter]/30 fabrication-units.")
 	else
 		return ..()
 
-/obj/item/supplyfab/attack_self(mob/user)
+/obj/item/clericalfab/attack_self(mob/user)
 	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
 	switch(mode)
 		if(5)
@@ -265,7 +260,7 @@ RSF
 			to_chat(user, "Changed dispensing mode to 'Folder'")
 	// Change mode
 
-/obj/item/supplyfab/afterattack(atom/A, mob/user, proximity)
+/obj/item/clericalfab/afterattack(atom/A, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
@@ -309,10 +304,10 @@ RSF
 			new /obj/item/origami/paperplane(T)
 			use_matter(20, user)
 
-/obj/item/supplyfab/proc/use_matter(charge, mob/user)
+/obj/item/clericalfab/proc/use_matter(charge, mob/user)
 	if (iscyborg(user))
 		var/mob/living/silicon/robot/R = user
 		R.cell.charge -= charge
 	else
 		matter--
-		to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+		to_chat(user, "The Clerical Fabricator now holds [matter]/30 fabrication-units.")

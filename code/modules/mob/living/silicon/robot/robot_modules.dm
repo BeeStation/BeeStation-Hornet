@@ -759,7 +759,7 @@
 		/obj/item/destTagger,
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/card/id/departmental_budget/car,
-		/obj/item/supplyfab,
+		/obj/item/clericalfab,
 		/obj/item/borg/charger,
 		/obj/item/megaphone/cargo
 		)
