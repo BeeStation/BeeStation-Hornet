@@ -750,7 +750,7 @@
 	name = "Clerical"
 	basic_modules = list(
 		/obj/item/pen,
-		/obj/item/hand_labeler,
+		/obj/item/hand_labeler/borg,
 		/obj/item/stamp,
 		/obj/item/stamp/denied,
 		/obj/item/stack/wrapping_paper,
@@ -772,7 +772,7 @@
 		/obj/item/clock_module/abscond,
 		/obj/item/clock_module/sigil_submission
 	)
-	cyborg_base_icon = "captainborg"
+	cyborg_base_icon = "hopborg"
 	moduleselect_icon = "standard"
 	hat_offset = 0
 
