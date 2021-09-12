@@ -76,7 +76,8 @@
 			skipcatch = TRUE
 			hitpush = FALSE
 
-		dtype = I.damtype
+		if(blocked)
+			return TRUE
 
 		if (I.throwforce > 0) //If the weapon's throwforce is greater than zero...
 			if (I.throwhitsound) //...and throwhitsound is defined...
@@ -95,9 +96,12 @@
 							"<span class='userdanger'>You're hit by [I]!</span>")
 			var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].",I.armour_penetration)
 			apply_damage(I.throwforce, dtype, zone, armor)
+
 			var/mob/thrown_by = I.thrownby?.resolve()
 			if(thrown_by)
 				log_combat(thrown_by, src, "threw and hit", I)
+			if(!incapacitated(FALSE, TRUE)) // physics says it's significantly harder to push someone by constantly chucking random furniture at them if they are down on the floor.
+				hitpush = FALSE
 		else
 			return 1
 	else

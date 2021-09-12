@@ -70,8 +70,40 @@
 #define COMP_ARITHMETIC_SUBTRACT "Subtract"
 #define COMP_ARITHMETIC_MULTIPLY "Multiply"
 #define COMP_ARITHMETIC_DIVIDE "Divide"
+#define COMP_ARITHMETIC_MODULO "Modulus"
 #define COMP_ARITHMETIC_MIN "Minimum"
 #define COMP_ARITHMETIC_MAX "Maximum"
+
+//Bitwise defines
+#define COMP_BITWISE_AND "And"
+#define COMP_BITWISE_OR "Or"
+#define COMP_BITWISE_XOR "Xor"
+#define COMP_BITWISE_LEFTSHIFT "Left Shift"
+#define COMP_BITWISE_RIGHTSHIFT "Right Shift"
+
+//Round defines
+#define COMP_ROUND_ROUND "Round"
+#define COMP_ROUND_FLOOR "Floor"
+#define COMP_ROUND_CEIL "Ceil"
+
+//Trig defines
+#define COMP_TRIG_COSINE "COS"
+#define COMP_TRIG_SINE "SIN"
+#define COMP_TRIG_TANGENT "TAN"
+#define COMP_TRIG_ASINE "ASIN"
+#define COMP_TRIG_ACOSINE "ACOS"
+#define COMP_TRIG_ATANGENT "ATAN"
+
+//Advanced Trig defines
+#define COMP_TRIG_SECANT "SEC"
+#define COMP_TRIG_COSECANT "CSC"
+#define COMP_TRIG_COTANGENT "COT"
+
+//Hyperbolic Trig Defines
+#define COMP_TRIG_HYPERBOLIC_COSINE "COSH"
+#define COMP_TRIG_HYPERBOLIC_SINE "SINH"
+#define COMP_TRIG_AHYPERBOLIC_COSINE "ACOSH"
+#define COMP_TRIG_AHYPERBOLIC_SINE "ASING"
 
 // Text defines
 #define COMP_TEXT_LOWER "To Lower"

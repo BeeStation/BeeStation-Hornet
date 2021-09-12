@@ -73,7 +73,10 @@
 	ui_interact(user)
 
 /obj/item/radio/intercom/ui_state(mob/user)
-	return GLOB.physical_state
+	if(issilicon(user)) // Silicons can't use physical state remotely
+		return GLOB.default_state
+
+	return GLOB.physical_state // But monkeys can't use default state, and they can already use hotkeys
 
 /obj/item/radio/intercom/can_receive(freq, level)
 	if(!on)

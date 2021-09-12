@@ -101,7 +101,8 @@ DEFINE_BITFIELD(admin_flags, list(
 	"SOUNDS" = R_SOUND,
 	"SPAWN" = R_SPAWN,
 	"AUTOLOGIN" = R_AUTOADMIN,
-	"DBRANKS" = R_DBRANKS
+	"DBRANKS" = R_DBRANKS,
+	"SUPPRESS" = R_SUPPRESS
 ))
 
 DEFINE_BITFIELD(interaction_flags_atom, list(
