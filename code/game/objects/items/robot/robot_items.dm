@@ -979,3 +979,47 @@
 	if(stored)
 		. += "You are currently holding [stored]."
 		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"
+
+///////////////////
+//clerical holder//
+///////////////////
+
+/obj/item/borg/apparatus/clerical
+	name = "clerical grasper"
+	desc = "Specially designed for carrying supply and personnel items."
+	icon_state = "borg_beaker_apparatus"
+	storable = list(
+		/obj/item/card/id,
+		/obj/item/paper,
+		/obj/item/pda,
+		/obj/item/cartridge,
+		/obj/item/pen,
+		/mob/living/simple_animal/pet/dog/corgi/Ian,
+		/obj/item/smallDelivery,
+		/obj/item/folder,
+		/obj/item/holochip,
+		/obj/item/stack/spacecash,
+		/obj/item/origami
+	)
+
+/obj/item/borg/apparatus/clerical/update_icon()
+	cut_overlays()
+	if(stored)
+		COMPILE_OVERLAYS(stored)
+		stored.pixel_x = 0
+		stored.pixel_y = 0
+		var/image/img = image("icon"=stored, "layer"=FLOAT_LAYER)
+		var/image/arm = image("icon"="borg_beaker_apparatus_arm", "layer"=FLOAT_LAYER)
+		img.plane = FLOAT_PLANE
+		add_overlay(img)
+		add_overlay(arm)
+	else
+		var/image/arm = image("icon"="borg_beaker_apparatus_arm", "layer"=FLOAT_LAYER)
+		arm.pixel_y = arm.pixel_y - 5
+		add_overlay(arm)
+
+/obj/item/borg/apparatus/clerical/examine()
+	. = ..()
+	if(stored)
+		. += "You are currently holding [stored]."
+		. += "<span class='notice'<i>Alt-click</i> will drop the currently stored [stored].</span>"

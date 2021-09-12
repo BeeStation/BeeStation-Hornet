@@ -614,6 +614,15 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_pens
+	name = "Cyborg Upgrade (Pen Expansion)"
+	id = "borg_upgrade_pens"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/multipen
+	materials = list(/datum/material/iron=2000)
+	construction_time = 20
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_diamonddrill
 	name = "Cyborg Upgrade (Diamond Drill)"
 	id = "borg_upgrade_diamonddrill"

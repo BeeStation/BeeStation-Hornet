@@ -10,6 +10,8 @@
 #define BORG_MODULE_ENGINEERING		(1<<4)
 /// Module is used for service Cyborgs specialization
 #define BORG_MODULE_SPECIALITY		(1<<5)
+/// Module is compatible with Clerical Cyborg models
+#define BORG_MODULE_CLERICAL        (1<<6)
 
 /// Module is compatible with Ripley Exosuit models
 #define EXOSUIT_MODULE_RIPLEY		(1<<0)

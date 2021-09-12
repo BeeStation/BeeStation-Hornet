@@ -851,3 +851,36 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/dance_trance,
 	)
+
+/obj/item/borg/upgrade/multipen
+	name = "clerical cyborg pen expansion"
+	desc = "Adds a four-color pen and a fountain pen to the clerical cyborg."
+	icon_state = "cyborg_upgrade3"
+	require_module = 1
+	module_type = list(/obj/item/robot_module/clerical)
+	module_flags = BORG_MODULE_CLERICAL
+
+/obj/item/borg/upgrade/multipen/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		for(var/obj/item/pen/D in R.module)
+			R.module.remove_module(D, TRUE)
+
+		var/obj/item/pen/fourcolor/F = new /obj/item/pen/fourcolor(R.module)
+		R.module.basic_modules += F
+		R.module.add_module(F, FALSE, TRUE)
+		var/obj/item/pen/fountain/T = new /obj/item/pen/fountain(R.module)
+		R.module.basic_modules += T
+		R.module.add_module(T, FALSE, TRUE)
+
+/obj/item/borg/upgrade/multipen/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		for(var/obj/item/pen/fourcolor/F in R.module)
+			R.module.remove_module(F, TRUE)
+		for(var/obj/item/pen/fountain/T in R.module)
+			R.module.remove_module(T, TRUE)
+
+		var/obj/item/pen/D = new (R.module)
+		R.module.basic_modules += D
+		R.module.add_module(D, FALSE, TRUE)

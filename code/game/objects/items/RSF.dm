@@ -194,3 +194,125 @@ RSF
 	else
 		matter--
 	cooldown = world.time + cooldowndelay
+
+/*
+CONTAINS:
+RSF
+
+*/
+/obj/item/supplyfab
+	name = "\improper Rapid-Supply-Fabricator"
+	desc = "A device used to rapidly deploy supply items."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "rcd"
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	opacity = 0
+	density = FALSE
+	anchored = FALSE
+	item_flags = NOBLUDGEON
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	var/matter = 0
+	var/mode = 1
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/supplyfab/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It currently holds [matter]/30 fabrication-units.</span>"
+
+/obj/item/supplyfab/cyborg
+	matter = 30
+
+/obj/item/supplyfab/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/rcd_ammo))
+		if((matter + 10) > 30)
+			to_chat(user, "The RSF can't hold any more matter.")
+			return
+		qdel(W)
+		matter += 10
+		playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+		to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
+	else
+		return ..()
+
+/obj/item/supplyfab/attack_self(mob/user)
+	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
+	switch(mode)
+		if(5)
+			mode = 1
+			if(iscyborg(user))
+				var/mob/living/silicon/robot/R = user
+				if(R.emagged)
+					mode = 6
+			if (mode==1)
+				to_chat(user, "Changed dispensing mode to 'ID Card'")
+			else
+				to_chat(user, "Changed dispensing mode to 'Sharpened Paper Plane'")
+		if(6)
+			mode = 1
+			to_chat(user, "Changed dispensing mode to 'ID Card'")
+		if(1)
+			mode = 2
+			to_chat(user, "Changed dispensing mode to 'Paper'")
+		if(2)
+			mode = 3
+			to_chat(user, "Changed dispensing mode to 'Pen'")
+		if(3)
+			mode = 4
+			to_chat(user, "Changed dispensing mode to 'PDA'")
+		if(4)
+			mode = 5
+			to_chat(user, "Changed dispensing mode to 'Folder'")
+	// Change mode
+
+/obj/item/supplyfab/afterattack(atom/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if (!(istype(A, /obj/structure/table) || isfloorturf(A)))
+		return
+
+	if(iscyborg(user))
+		var/mob/living/silicon/robot/R = user
+		if(!R.cell || R.cell.charge < 200)
+			to_chat(user, "<span class='warning'>You do not have enough power to use [src].</span>")
+			return
+	else if (matter < 1)
+		to_chat(user, "<span class='warning'>\The [src] doesn't have enough matter left.</span>")
+		return
+
+	var/turf/T = get_turf(A)
+	playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
+	switch(mode)
+		if(1)
+			to_chat(user, "Dispensing ID Card...")
+			new /obj/item/card/id(T)
+			use_matter(20, user)
+		if(2)
+			to_chat(user, "Dispensing Paper Sheet...")
+			new /obj/item/paper(T)
+			use_matter(10, user)
+		if(3)
+			to_chat(user, "Dispensing Pen...")
+			new /obj/item/pen(T)
+			use_matter(50, user)
+		if(4)
+			to_chat(user, "Dispensing PDA...")
+			new /obj/item/pda(T)
+			use_matter(200, user)
+		if(5)
+			to_chat(user, "Dispensing Folder...")
+			new /obj/item/folder(T)
+			use_matter(30, user)
+		if(6)
+			to_chat(user, "Dispensing Sharpened Paper Plane...")
+			new /obj/item/origami/paperplane(T)
+			use_matter(20, user)
+
+/obj/item/supplyfab/proc/use_matter(charge, mob/user)
+	if (iscyborg(user))
+		var/mob/living/silicon/robot/R = user
+		R.cell.charge -= charge
+	else
+		matter--
+		to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")

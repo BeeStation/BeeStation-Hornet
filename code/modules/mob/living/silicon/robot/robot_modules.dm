@@ -120,6 +120,10 @@
 			S.cost = 1
 			S.source = get_or_create_estorage(/datum/robot_energy_storage/beacon)
 
+		else if(istype(S, /obj/item/stack/wrapping_paper) || /obj/item/stack/packageWrap)
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/wrapping)
+
 		if(S?.source)
 			S.materials = list()
 			S.is_cyborg = 1
@@ -742,6 +746,36 @@
 	hat_offset = -4
 	canDispose = TRUE
 
+/obj/item/robot_module/clerical
+	name = "Clerical"
+	basic_modules = list(
+		/obj/item/pen,
+		/obj/item/hand_labeler,
+		/obj/item/stamp,
+		/obj/item/stamp/denied,
+		/obj/item/stack/wrapping_paper,
+		/obj/item/stack/packageWrap,
+		/obj/item/borg/apparatus/clerical,
+		/obj/item/destTagger,
+		/obj/item/assembly/flash/cyborg,
+		/obj/item/card/id/departmental_budget/car,
+		/obj/item/supplyfab,
+		/obj/item/borg/charger,
+		/obj/item/megaphone/cargo
+		)
+	emag_modules = list(
+		/obj/item/borg/stun,
+		/obj/item/stamp/chameleon
+	)
+	ratvar_modules = list(
+		/obj/item/clock_module/kindle,
+		/obj/item/clock_module/abscond,
+		/obj/item/clock_module/sigil_submission
+	)
+	cyborg_base_icon = "captainborg"
+	moduleselect_icon = "standard"
+	hat_offset = 0
+
 /datum/robot_energy_storage
 	var/name = "Generic energy storage"
 	var/max_energy = 30000
@@ -789,3 +823,8 @@
 	max_energy = 30
 	recharge_rate = 1
 	name = "Marker Beacon Storage"
+
+/datum/robot_energy_storage/wrapping
+	max_energy = 30
+	recharge_rate = 1
+	name = "Package Wrapper Storage"
