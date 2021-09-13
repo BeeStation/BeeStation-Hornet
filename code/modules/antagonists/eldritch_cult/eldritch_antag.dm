@@ -91,7 +91,7 @@
 		EK.on_life(owner.current)
 
 /datum/antagonist/heretic/proc/forge_primary_objectives()
-	if (prob(5))
+	if (prob(10))
 		if (prob(66))
 			var/datum/objective/ascend/AE = new()
 			AE.owner = owner
@@ -108,20 +108,13 @@
 		var/list/assasination = list()
 		var/list/protection = list()
 		for(var/i in 1 to 2)
-			if (prob(35))
-				var/datum/objective/stalk/S = new()
-				S.owner = owner
-				S.find_target()
-				objectives += S
-				log_objective(owner, S.explanation_text)
-			else
-				var/datum/objective/assassinate/A = new()
-				A.owner = owner
-				var/list/owners = A.get_owners()
-				A.find_target(owners,protection)
-				assasination += A.target
-				objectives += A
-				log_objective(owner, A.explanation_text)
+			var/datum/objective/assassinate/A = new()
+			A.owner = owner
+			var/list/owners = A.get_owners()
+			A.find_target(owners,protection)
+			assasination += A.target
+			objectives += A
+			log_objective(owner, A.explanation_text)
 		var/datum/objective/sacrifice_ecult/SE = new()
 		SE.owner = owner
 		SE.update_explanation_text()
@@ -224,34 +217,6 @@
 // Objectives //
 ////////////////
 
-/datum/objective/stalk
-	name = "spendtime"
-	var/timer = 5 MINUTES
-
-/datum/objective/stalk/process(delta_time)
-	if(owner?.current?.stat != DEAD && target?.current?.stat != DEAD && (owner.current in viewers(5, get_turf(target))))
-		timer -= delta_time * 10 // timer is in deciseconds
-	///we don't want to process after the counter reaches 0, otherwise it is wasted processing
-	if(timer <= 0)
-		completed = TRUE
-		STOP_PROCESSING(SSprocessing,src)
-
-/datum/objective/stalk/Destroy(force, ...)
-	stack_trace("Stalk objective is being removed! This shouldn't normally happen!")
-	STOP_PROCESSING(SSprocessing,src)
-	return ..()
-
-/datum/objective/stalk/update_explanation_text()
-	//we want to start processing after we set the timer
-	timer += rand(-3 MINUTES, 3 MINUTES)
-	START_PROCESSING(SSprocessing,src)
-	if(target?.current)
-		explanation_text = "Stalk [target.name] for at least [DisplayTimeText(timer)] while they're alive."
-	else
-		explanation_text = "Free Objective"
-
-/datum/objective/stalk/check_completion()
-	return timer <= 0 || explanation_text == "Free Objective"
 
 /datum/objective/sacrifice_ecult
 	name = "sacrifice"
