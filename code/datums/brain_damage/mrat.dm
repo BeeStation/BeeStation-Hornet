@@ -44,6 +44,7 @@
 	icons_available += list("Moonrat" = image(icon = 'icons/mob/pets.dmi', icon_state = "moonrat"))
 	icons_available += list("Hologram" = image(icon = 'icons/mob/ai.dmi', icon_state = "default"))
 	icons_available += list("Spaceman" = image(icon = 'icons/mob/animal.dmi', icon_state = "old"))
+	icons_available += list("Bee" = image(icon = 'icons/mob/animal.dmi', icon_state = "bee_1"))
 
 /mob/camera/imaginary_friend/mrat/proc/Costume()
 	update_available_icons()
@@ -71,6 +72,10 @@
 				human_image = icon('icons/mob/animal.dmi', icon_state = "old")
 				color = null
 				Show()
+			if("Bee")
+				human_image = icon('icons/mob/animal.dmi', icon_state = "bee_1")
+				color = "#1ABC9C"
+				Show()
 
 /mob/camera/imaginary_friend/mrat/friend_talk()
 	. = ..()
@@ -89,6 +94,9 @@
 		if("Spaceman")
 			SEND_SOUND(owner, sound('sound/machines/buzz-sigh.ogg'))
 			SEND_SOUND(src, sound('sound/machines/buzz-sigh.ogg'))
+		if("Bee")
+			SEND_SOUND(owner, sound('sound/creatures/bee.ogg'))
+			SEND_SOUND(src, sound('sound/creatures/bee.ogg'))
 
 /mob/camera/imaginary_friend/mrat/greet()
 	to_chat(src, "<span class='notice'><b>You are the mentor rat of [owner]!</b></span>")
