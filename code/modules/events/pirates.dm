@@ -184,7 +184,7 @@
 	light_color = LIGHT_COLOR_RED
 	possible_destinations = "pirateship_away;pirateship_home;pirateship_custom"
 
-/obj/docking_port/mobile/pirate
+/obj/docking_port/mobile/instance/pirate
 	name = "pirate shuttle"
 	id = "pirateship"
 	rechargeTime = 3 MINUTES

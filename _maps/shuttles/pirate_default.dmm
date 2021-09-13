@@ -845,7 +845,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/docking_port/mobile/pirate{
+/obj/docking_port/mobile/instance/pirate{
 	callTime = 100;
 	dheight = 0;
 	dir = 1;

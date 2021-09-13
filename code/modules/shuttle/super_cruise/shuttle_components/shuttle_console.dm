@@ -1,5 +1,3 @@
-GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
-
 /obj/machinery/computer/shuttle_flight
 	name = "shuttle console"
 	desc = "A shuttle control computer."
@@ -7,6 +5,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_CYAN
 	req_access = list()
+	circuit = /obj/item/circuitboard/computer/shuttle_flight
 	var/shuttleId
 
 	//Interdiction range
@@ -42,11 +41,13 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	else
 		var/static/i = 0
 		shuttlePortId = "unlinked_shuttle_console_[i++]"
+	SSshuttle.consoles += src
 
 /obj/machinery/computer/shuttle_flight/Destroy()
 	. = ..()
 	SSorbits.open_orbital_maps -= SStgui.get_all_open_uis(src)
 	shuttleObject = null
+	SSshuttle.consoles -= src
 
 /obj/machinery/computer/shuttle_flight/process()
 	. = ..()
@@ -178,7 +179,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["validDockingPorts"] = list()
 	if(shuttleObject.docking_target && !shuttleObject.docking_frozen)
 		//Stealth shuttles bypass shuttle jamming.
-		if(shuttleObject.docking_target.can_dock_anywhere && (!GLOB.shuttle_docking_jammed || shuttleObject.stealth || !istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station)))
+		if(shuttleObject.docking_target.can_dock_anywhere && (!SSshuttle.shuttle_docking_jammed || shuttleObject.stealth || !istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station)))
 			data["validDockingPorts"] += list(list(
 				"name" = "Custom Location",
 				"id" = "custom_location"
@@ -376,7 +377,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(params["port"] == "custom_location")
 				//Open up internal docking computer if any location is allowed.
 				if(shuttleObject.docking_target.can_dock_anywhere)
-					if(GLOB.shuttle_docking_jammed)
+					if(SSshuttle.shuttle_docking_jammed)
 						say("Shuttle docking computer jammed.")
 						return
 					if(current_user)
@@ -530,3 +531,15 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
+/obj/machinery/computer/shuttle_flight/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+	if(port && (shuttleId == initial(shuttleId) || override))
+		shuttleId = port.id
+		shuttlePortId = "[shuttleId]_custom"
+		//Link circuit board
+		if(istype(circuit, /obj/item/circuitboard/computer/shuttle_flight))
+			var/obj/item/circuitboard/computer/shuttle_flight/our_circuit = circuit
+			our_circuit.linked_shuttle_id = shuttleId
+			our_circuit.name = "[port.name] shuttle console (Computer Board)"
+
+/obj/machinery/computer/shuttle_flight/get_linked_shuttle()
+	return shuttleId

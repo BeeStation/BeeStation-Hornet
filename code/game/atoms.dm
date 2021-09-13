@@ -1168,6 +1168,10 @@
 /atom/proc/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	return
 
+///Get the shuttle this atom is attached to
+/atom/proc/get_linked_shuttle()
+	return ""
+
 /// Generic logging helper
 /atom/proc/log_message(message, message_type, color=null, log_globally=TRUE)
 	if(!log_globally)

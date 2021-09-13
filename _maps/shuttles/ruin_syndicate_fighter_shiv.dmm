@@ -87,7 +87,7 @@
 	req_access_txt = "150"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/instance{
 	callTime = 50;
 	dir = 4;
 	dwidth = 4;

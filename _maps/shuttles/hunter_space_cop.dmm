@@ -18,7 +18,7 @@
 	name = "Deep Space";
 	width = 7
 	},
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/instance{
 	dheight = 0;
 	dir = 4;
 	dwidth = 3;

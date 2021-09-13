@@ -69,7 +69,7 @@
 	normalspeed = 0;
 	req_access_txt = "150"
 	},
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/instance{
 	dir = 2;
 	dwidth = 6;
 	height = 7;

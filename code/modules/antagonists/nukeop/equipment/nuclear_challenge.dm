@@ -58,7 +58,7 @@
 		var/obj/item/circuitboard/computer/syndicate_shuttle/board = V
 		board.challenge = TRUE
 
-	GLOB.shuttle_docking_jammed = TRUE
+	SSshuttle.shuttle_docking_jammed = TRUE
 
 	var/list/orphans = list()
 	var/list/uplinks = list()

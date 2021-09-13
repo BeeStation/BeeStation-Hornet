@@ -296,11 +296,6 @@
 		current_user.client.images -= remove_images
 		current_user.client.images += add_images
 
-/obj/machinery/computer/shuttle_flight/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
-	if(port && (shuttleId == initial(shuttleId) || override))
-		shuttleId = port.id
-		shuttlePortId = "[shuttleId]_custom"
-
 /mob/camera/ai_eye/remote/shuttle_docker
 	visible_icon = FALSE
 	use_static = USE_STATIC_NONE

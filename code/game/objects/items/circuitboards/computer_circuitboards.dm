@@ -234,6 +234,12 @@
 	else
 		return ..()
 
+/obj/item/circuitboard/computer/shuttle_flight
+	name = "generic shuttle console (Computer Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/shuttle_flight
+	var/linked_shuttle_id
+
 /obj/item/circuitboard/computer/monastery_shuttle
 	name = "monastery shuttle console (Computer Board)"
 	icon_state = "generic"

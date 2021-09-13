@@ -7,6 +7,8 @@ SUBSYSTEM_DEF(shuttle)
 	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
 
+	var/list/consoles = list()		//A list of things that link to instanced shuttles. Use /proc/connect_to_shuttle()
+	var/list/ports_to_init = list()
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/beacons = list()
@@ -61,6 +63,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/datum/map_template/shuttle/preview_template
 
 	var/datum/turf_reservation/preview_reservation
+
+	var/shuttle_docking_jammed = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize(timeofday)
 	ordernum = rand(1, 9000)
@@ -897,3 +901,8 @@ SUBSYSTEM_DEF(shuttle)
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
 					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
 					SSblackbox.record_feedback("text", "shuttle_manipulator", 1, "[mdp.name]")
+
+/datum/controller/subsystem/shuttle/StopLoadingMap()
+	for(var/obj/docking_port/mobile/instance/thing in ports_to_init)
+		thing.generate_unique_id()
+	ports_to_init.Cut()

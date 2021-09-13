@@ -84,7 +84,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Shuttle Airlock"
 	},
-/obj/docking_port/mobile{
+/obj/docking_port/mobile/instance{
 	dheight = 0;
 	dir = 8;
 	dwidth = 4;
