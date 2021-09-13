@@ -19,6 +19,6 @@
 			"color" = MAPEXPORTER_VAR_COLOUR,
 			"pipe_color" = MAPEXPORTER_VAR_COLOUR,
 			"amount" = MAPEXPORTER_VAR_NUM,
-			"fingerprintlast" = MAPEXPORTER_VAR_CKEY,
+			"fingerprintslast" = MAPEXPORTER_VAR_CKEY,
 		),
 	)
