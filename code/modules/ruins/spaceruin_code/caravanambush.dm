@@ -49,7 +49,7 @@
 /obj/machinery/computer/shuttle_flight/caravan/trade1
 	name = "Small Freighter Shuttle Console"
 	desc = "Used to control the Small Freighter."
-	circuit = /obj/item/circuitboard/computer/caravan/trade1
+	circuit = /obj/item/circuitboard/computer/shuttle_flight/caravan/trade1
 	shuttleId = "caravantrade1"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4;whiteship_lavaland;caravantrade1_custom;caravantrade1_ambush"
 
@@ -59,7 +59,7 @@
 	icon_screen = "syndishuttle"
 	icon_keyboard = "syndie_key"
 	light_color = LIGHT_COLOR_RED
-	circuit = /obj/item/circuitboard/computer/caravan/pirate
+	circuit = /obj/item/circuitboard/computer/shuttle_flight/caravan/pirate
 	shuttleId = "caravanpirate"
 	possible_destinations = "caravanpirate_custom;caravanpirate_ambush"
 
@@ -70,7 +70,7 @@
 	icon_keyboard = "syndie_key"
 	light_color = LIGHT_COLOR_RED
 	req_access = list(ACCESS_SYNDICATE)
-	circuit = /obj/item/circuitboard/computer/caravan/syndicate1
+	circuit = /obj/item/circuitboard/computer/shuttle_flight/caravan/syndicate1
 	shuttleId = "caravansyndicate1"
 	possible_destinations = "caravansyndicate1_custom;caravansyndicate1_ambush;caravansyndicate1_listeningpost"
 
@@ -81,7 +81,7 @@
 	icon_keyboard = "syndie_key"
 	req_access = list(ACCESS_SYNDICATE)
 	light_color = LIGHT_COLOR_RED
-	circuit = /obj/item/circuitboard/computer/caravan/syndicate2
+	circuit = /obj/item/circuitboard/computer/shuttle_flight/caravan/syndicate2
 	shuttleId = "caravansyndicate2"
 	possible_destinations = "caravansyndicate2_custom;caravansyndicate2_ambush;caravansyndicate1_listeningpost"
 
@@ -92,6 +92,6 @@
 	icon_keyboard = "syndie_key"
 	req_access = list(ACCESS_SYNDICATE)
 	light_color = LIGHT_COLOR_RED
-	circuit = /obj/item/circuitboard/computer/caravan/syndicate3
+	circuit = /obj/item/circuitboard/computer/shuttle_flight/caravan/syndicate3
 	shuttleId = "caravansyndicate3"
 	possible_destinations = "caravansyndicate3_custom;caravansyndicate3_ambush;caravansyndicate3_listeningpost"

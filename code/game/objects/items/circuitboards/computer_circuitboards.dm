@@ -298,7 +298,7 @@
 	name = "salvage pod recall control (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod/recall
 
-/obj/item/circuitboard/computer/shuttle_flight/shuttle/flight_control
+/obj/item/circuitboard/computer/shuttle/flight_control
 	name = "shuttle flight control (Computer Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle

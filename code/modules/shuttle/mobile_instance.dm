@@ -5,11 +5,11 @@
 //Used for making ships that can spawn multiple times and are fully contained in 1 file.
 //
 //Works for shuttles carrying other shuttles too.
-/obj/docking_port/mobile/instance/New(loc, ...)
+/obj/docking_port/mobile/instance/Initialize(mapload)
 	. = ..()
-	SSshuttle.ports_to_init += src
+	return INITIALIZE_HINT_LATELOAD
 
-/obj/docking_port/mobile/instance/proc/generate_unique_id()
+/obj/docking_port/mobile/instance/LateInitialize()
 	var/static/number = 0
 	//Generate a unique ID
 	var/old_id = id
