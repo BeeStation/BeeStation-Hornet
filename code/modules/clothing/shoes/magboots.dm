@@ -94,7 +94,7 @@
 		if (A != user && A.lying)
 			A.adjustBruteLoss(rand(10,13))
 			to_chat(A,"<span class='userdanger'>[user]'s magboots press down on you, crushing you!</span>")
-			A.emote("scream")
+			INVOKE_ASYNC(A, /mob.proc/emote, "scream")
 
 /obj/item/clothing/shoes/magboots/crushing/attack_self(mob/user)
 	. = ..()

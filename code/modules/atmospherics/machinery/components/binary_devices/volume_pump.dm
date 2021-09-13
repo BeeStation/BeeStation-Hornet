@@ -35,6 +35,7 @@
 	if(can_interact(user))
 		on = !on
 		update_icon()
+		ui_update()
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/volume_pump/AltClick(mob/user)
@@ -42,6 +43,7 @@
 		transfer_rate = MAX_TRANSFER_RATE
 		balloon_alert(user, "Set to [transfer_rate] L/s")
 		update_icon()
+		ui_update()
 	return
 
 /obj/machinery/atmospherics/components/binary/volume_pump/Destroy()
@@ -147,8 +149,8 @@
 			if(.)
 				transfer_rate = clamp(rate, 0, MAX_TRANSFER_RATE)
 				investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", INVESTIGATE_ATMOS)
-	ui_update()
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/machinery/atmospherics/components/binary/volume_pump/receive_signal(datum/signal/signal)
 	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
@@ -175,6 +177,7 @@
 
 	broadcast_status()
 	update_icon()
+	ui_update()
 
 /obj/machinery/atmospherics/components/binary/volume_pump/power_change()
 	..()

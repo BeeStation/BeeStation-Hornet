@@ -18,7 +18,8 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/stop_sounds,
-	/client/proc/mark_datum_mapview
+	/client/proc/mark_datum_mapview,
+	/client/proc/requests
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 GLOBAL_PROTECT(admin_verbs_admin)
@@ -169,6 +170,7 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
 	/client/proc/jump_to_ruin,
+	/client/proc/generate_ruin,
 	/client/proc/clear_dynamic_transit,
 	/client/proc/fucky_wucky,
 	/client/proc/toggle_medal_disable,

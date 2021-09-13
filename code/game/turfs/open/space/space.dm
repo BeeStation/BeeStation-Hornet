@@ -5,8 +5,10 @@
 	intact = 0
 
 	FASTDMM_PROP(\
-		pipe_astar_cost = 4\
+		pipe_astar_cost = 100\
 	)
+
+	allow_z_travel = TRUE
 
 	initial_temperature = TCMB
 	thermal_conductivity = 0
@@ -46,11 +48,11 @@
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
 
-	if (light_system == STATIC_LIGHT && light_power && light_range)
+	if (light_power && light_range)
 		update_light()
 
 	if (opacity)
-		directional_opacity = ALL_CARDINALS
+		has_opaque_atom = TRUE
 
 	ComponentInitialize()
 
@@ -237,3 +239,10 @@
 	destination_x = dest_x
 	destination_y = dest_y
 	destination_z = dest_z
+
+//If someone is floating above space in 0 gravity, don't fall.
+/turf/open/space/zPassIn(atom/movable/A, direction, turf/source)
+	return A.has_gravity(src)
+
+/turf/open/space/check_gravity()
+	return FALSE

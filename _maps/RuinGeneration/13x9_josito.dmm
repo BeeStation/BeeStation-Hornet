@@ -1,0 +1,269 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/bookcase/random,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"c" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/snowdin/dungeonlite,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"h" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"i" = (
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/cat{
+	name = "Josito";
+	real_name = "Josito";
+	unique_name = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"j" = (
+/obj/structure/chair/wood,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"k" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/grown/poppy,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"m" = (
+/obj/item/twohanded/required/kirbyplants/random,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"n" = (
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"o" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"p" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/techstorage/medical,
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"r" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/effect/spawner/lootdrop/minor/kittyears_or_rabbitears,
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"s" = (
+/obj/structure/fans/tiny,
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"t" = (
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"u" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"x" = (
+/obj/structure/table/wood,
+/obj/item/candle,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"y" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/matches,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"A" = (
+/obj/structure/chair/sofa/left{
+	dir = 8
+	},
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"B" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"D" = (
+/obj/structure/chair/sofa/left,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"E" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"I" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"J" = (
+/obj/structure/chair/sofa/right,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"K" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"L" = (
+/obj/structure/chair/sofa/right{
+	dir = 8
+	},
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"O" = (
+/obj/effect/spawner/room/threexthree,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"Q" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+u
+u
+u
+u
+u
+u
+u
+u
+u
+"}
+(2,1,1) = {"
+u
+a
+n
+j
+x
+B
+n
+a
+u
+"}
+(3,1,1) = {"
+u
+i
+n
+j
+y
+B
+n
+a
+u
+"}
+(4,1,1) = {"
+u
+J
+n
+n
+n
+n
+n
+m
+u
+"}
+(5,1,1) = {"
+u
+D
+n
+n
+n
+n
+n
+n
+u
+"}
+(6,1,1) = {"
+u
+a
+n
+j
+x
+B
+n
+n
+u
+"}
+(7,1,1) = {"
+u
+c
+n
+j
+k
+B
+n
+n
+s
+"}
+(8,1,1) = {"
+u
+a
+n
+n
+n
+n
+n
+m
+u
+"}
+(9,1,1) = {"
+u
+u
+K
+u
+u
+u
+u
+u
+u
+"}
+(10,1,1) = {"
+u
+r
+t
+t
+u
+Q
+Q
+O
+u
+"}
+(11,1,1) = {"
+E
+t
+t
+t
+o
+Q
+Q
+Q
+h
+"}
+(12,1,1) = {"
+u
+p
+L
+A
+u
+Q
+Q
+Q
+u
+"}
+(13,1,1) = {"
+u
+u
+u
+u
+u
+u
+I
+u
+u
+"}

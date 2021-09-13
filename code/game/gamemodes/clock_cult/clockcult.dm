@@ -48,6 +48,8 @@ GLOBAL_VAR(clockcult_eminence)
 	var/datum/team/clock_cult/main_cult
 
 /datum/game_mode/clockcult/setup_maps()
+	//Since we are loading in pre_setup, disable map loading.
+	SSticker.gamemode_hotswap_disabled = TRUE
 	LoadReebe()
 	return TRUE
 

@@ -15,7 +15,6 @@
 	var/precision_coeff
 	var/message_cooldown
 	var/breakout_time = 1200
-	var/obj/machinery/computer/scan_consolenew/linked_console = null
 
 /obj/machinery/dna_scannernew/RefreshParts()
 	scan_level = 0
@@ -103,11 +102,6 @@
 
 	..(user)
 
-	// DNA manipulators cannot operate on severed heads or brains
-	if(iscarbon(occupant))
-		if(linked_console)
-			linked_console.on_scanner_close()
-
 	return TRUE
 
 /obj/machinery/dna_scannernew/open_machine()
@@ -115,9 +109,6 @@
 		return FALSE
 
 	..()
-
-	if(linked_console)
-		linked_console.on_scanner_open()
 
 	return TRUE
 

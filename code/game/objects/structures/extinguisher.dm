@@ -7,6 +7,7 @@
 	density = FALSE
 	max_integrity = 200
 	integrity_failure = 50
+	layer = ABOVE_WINDOW_LAYER
 	var/obj/item/extinguisher/stored_extinguisher
 	var/opened = FALSE
 

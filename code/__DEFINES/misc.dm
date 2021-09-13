@@ -9,6 +9,9 @@
 #define TEXT_EAST			"[EAST]"
 #define TEXT_WEST			"[WEST]"
 
+//  The highest number of "for()" loop iterations before infinite loop detection triggers
+// +1 for "while()" loops, for some reason
+#define INFINITE_LOOP_DETECTION_THRESHOLD 1048574
 
 //Human Overlays Indexes/////////
 #define MUTATIONS_LAYER			29		//! mutations. Tk headglows, cold resistance glow, etc

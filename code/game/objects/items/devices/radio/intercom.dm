@@ -7,6 +7,7 @@
 	canhear_range = 2
 	dog_fashion = null
 	unscrewed = FALSE
+	layer = ABOVE_WINDOW_LAYER
 
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE
@@ -58,6 +59,9 @@
 /obj/item/radio/intercom/attack_ai(mob/user)
 	interact(user)
 
+/obj/item/radio/intercom/attack_paw(mob/user)
+	return attack_hand(user)
+
 /obj/item/radio/intercom/attack_hand(mob/user)
 	. = ..()
 	if(.)
@@ -69,7 +73,10 @@
 	ui_interact(user)
 
 /obj/item/radio/intercom/ui_state(mob/user)
-	return GLOB.default_state
+	if(issilicon(user)) // Silicons can't use physical state remotely
+		return GLOB.default_state
+
+	return GLOB.physical_state // But monkeys can't use default state, and they can already use hotkeys
 
 /obj/item/radio/intercom/can_receive(freq, level)
 	if(!on)

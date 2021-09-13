@@ -180,7 +180,6 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/obj/item/malf_upgrade,
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aB" = (

@@ -47,6 +47,12 @@ SUBSYSTEM_DEF(timer)
 	var/static/last_invoke_warning = 0
 	var/static/bucket_auto_reset = TRUE
 
+/datum/controller/subsystem/timer/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["bucket_count"] = bucket_count
+	.["custom"] = cust
+
 /datum/controller/subsystem/timer/PreInit()
 	bucket_list.len = BUCKET_LEN
 	head_offset = world.time

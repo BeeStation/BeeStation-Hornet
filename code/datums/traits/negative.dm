@@ -247,13 +247,13 @@
 
 /datum/quirk/foreigner/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(ishuman(H) && !isipc(H) && H.job != "Curator")
+	if(ishuman(H) && H.job != "Curator")
 		H.add_blocked_language(/datum/language/common)
 		H.grant_language(/datum/language/uncommon)
 
 /datum/quirk/foreigner/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(ishuman(H) && !isipc(H) && H.job != "Curator")
+	if(ishuman(H) && H.job != "Curator")
 		H.remove_blocked_language(/datum/language/common)
 		H.remove_language(/datum/language/uncommon)
 
@@ -646,3 +646,20 @@
 	gain_text = "<span class='danger'>There's a lot on your mind right now.</span>"
 	lose_text = "<span class='notice'>Your mind finally feels calm.</span>"
 	medical_record_text = "Patient's mind is in a vulnerable state, and cannot recover from traumatic events."
+
+/datum/quirk/phobia
+	name = "Phobia"
+	desc = "Because of a traumatic event in your past you have developed a strong phobia."
+	value = -2
+	gain_text = "<span class='danger'>You start feeling an irrational fear of something.</span>"
+	lose_text = "<span class='notice'>You are no longer irrationally afraid.</span>"
+	medical_record_text = "Patient suffers from a deeply-rooted phobia."
+
+/datum/quirk/phobia/add()
+	var/datum/brain_trauma/mild/phobia/T = new()
+	var/mob/living/carbon/human/H = quirk_holder
+	H.gain_trauma(T, TRAUMA_RESILIENCE_ABSOLUTE)
+
+/datum/quirk/phobia/remove()
+	var/mob/living/carbon/human/H = quirk_holder	
+	H.cure_trauma_type(/datum/brain_trauma/mild/phobia, TRAUMA_RESILIENCE_ABSOLUTE)

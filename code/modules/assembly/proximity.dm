@@ -77,6 +77,7 @@
 	if(time <= 0)
 		timing = FALSE
 		toggle_scan(TRUE)
+		ui_update()
 		time = initial(time)
 
 /obj/item/assembly/prox_sensor/proc/toggle_scan(scan)
@@ -105,11 +106,16 @@
 		holder.update_icon()
 	return
 
+
+/obj/item/assembly/prox_sensor/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(timing)
+		. = TRUE // Autoupdate while counting down
+
 /obj/item/assembly/prox_sensor/ui_status(mob/user)
 	if(is_secured(user))
 		return ..()
 	return UI_CLOSE
-
 
 /obj/item/assembly/prox_sensor/ui_state(mob/user)
 	return GLOB.hands_state
@@ -152,4 +158,3 @@
 				value = round(time + value)
 				time = clamp(value, 0, 600)
 				. = TRUE
-	ui_update()

@@ -27,6 +27,7 @@
 		if(M.buffer && istype(M.buffer, /obj/machinery/launchpad))
 			if(LAZYLEN(launchpads) < maximum_pads)
 				launchpads |= M.buffer
+				RegisterSignal(M.buffer, COMSIG_PARENT_QDELETING, .proc/launchpad_deleted)
 				M.buffer = null
 				ui_update()
 				to_chat(user, "<span class='notice'>You upload the data from the [W.name]'s buffer.</span>")
@@ -34,6 +35,17 @@
 				to_chat(user, "<span class='warning'>[src] cannot handle any more connections!</span>")
 	else
 		return ..()
+
+/obj/machinery/computer/launchpad/proc/launchpad_deleted(datum/source)
+	SIGNAL_HANDLER
+	var/source_id = launchpads.Find(source)
+	if(source_id && selected_id)
+		if(selected_id > source_id)
+			selected_id--
+		else if(selected_id == source_id)
+			selected_id = null
+	launchpads -= source
+	ui_update()
 
 /obj/machinery/computer/launchpad/proc/pad_exists(number)
 	var/obj/machinery/launchpad/pad = launchpads[number]
@@ -116,11 +128,11 @@
 			)
 			. = TRUE
 		if("rename")
-			. = TRUE
 			var/new_name = params["name"]
 			if(!new_name)
 				return
 			current_pad.display_name = new_name
+			. = TRUE
 		if("remove")
 			if(usr && alert(usr, "Are you sure?", "Unlink Launchpad", "I'm Sure", "Abort") != "Abort")
 				launchpads -= current_pad
@@ -133,5 +145,3 @@
 		if("pull")
 			teleport(usr, current_pad, FALSE)
 			. = TRUE
-	ui_update()
-	. = TRUE
