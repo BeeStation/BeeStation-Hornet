@@ -1,4 +1,0 @@
-author: Bokkiewokkie
-delete-after: true
-changes:
-  - admin: Fixed a security issue with the advanced proccall
