@@ -33,7 +33,10 @@
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
 
-/obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
+/obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/computer/shuttle_flight/C)
+	//Recover the shuttle Id
+	if(istype(C) && C.linked_shuttle_id)
+		shuttleId = C.linked_shuttle_id
 	. = ..()
 	valid_docks = params2list(possible_destinations)
 	if(shuttleId)
