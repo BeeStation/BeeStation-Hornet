@@ -28,22 +28,22 @@
 
 /obj/machinery/computer/shuttle_flight/caravan
 
-/obj/item/circuitboard/computer/caravan
+/obj/item/circuitboard/computer/shuttle_flight/caravan
 	build_path = /obj/machinery/computer/shuttle_flight/caravan
 
-/obj/item/circuitboard/computer/caravan/trade1
+/obj/item/circuitboard/computer/shuttle_flight/caravan/trade1
 	build_path = /obj/machinery/computer/shuttle_flight/caravan/trade1
 
-/obj/item/circuitboard/computer/caravan/pirate
+/obj/item/circuitboard/computer/shuttle_flight/caravan/pirate
 	build_path = /obj/machinery/computer/shuttle_flight/caravan/pirate
 
-/obj/item/circuitboard/computer/caravan/syndicate1
+/obj/item/circuitboard/computer/shuttle_flight/caravan/syndicate1
 	build_path = /obj/machinery/computer/shuttle_flight/caravan/syndicate1
 
-/obj/item/circuitboard/computer/caravan/syndicate2
+/obj/item/circuitboard/computer/shuttle_flight/caravan/syndicate2
 	build_path = /obj/machinery/computer/shuttle_flight/caravan/syndicate2
 
-/obj/item/circuitboard/computer/caravan/syndicate3
+/obj/item/circuitboard/computer/shuttle_flight/caravan/syndicate3
 	build_path = /obj/machinery/computer/shuttle_flight/caravan/syndicate3
 
 /obj/machinery/computer/shuttle_flight/caravan/trade1

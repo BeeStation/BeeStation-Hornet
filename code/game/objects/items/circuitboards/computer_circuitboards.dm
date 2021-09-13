@@ -285,20 +285,20 @@
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/pod/old/syndicate
 
-/obj/item/circuitboard/computer/white_ship
+/obj/item/circuitboard/computer/shuttle_flight/white_ship
 	name = "white ship control (Computer Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle_flight/white_ship
 
-/obj/item/circuitboard/computer/white_ship/pod
+/obj/item/circuitboard/computer/shuttle_flight/white_ship/pod
 	name = "salvage pod control (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod
 
-/obj/item/circuitboard/computer/white_ship/pod/recall
+/obj/item/circuitboard/computer/shuttle_flight/white_ship/pod/recall
 	name = "salvage pod recall control (Computer Board)"
 	build_path = /obj/machinery/computer/shuttle_flight/white_ship/pod/recall
 
-/obj/item/circuitboard/computer/shuttle/flight_control
+/obj/item/circuitboard/computer/shuttle_flight/shuttle/flight_control
 	name = "shuttle flight control (Computer Board)"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle_flight/custom_shuttle
