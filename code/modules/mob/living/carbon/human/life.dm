@@ -110,7 +110,7 @@
 		else
 			adjust_blindness(-1)
 		//If you have blindness from a trait, heal blurryness too, otherwise return and ignore that.
-		if(!(HAS_TRAIT(src, TRAIT_BLIND))
+		if(!(HAS_TRAIT(src, TRAIT_BLIND)))
 			return
 	if(eye_blurry)			//blurry eyes heal slowly
 		adjust_blurriness(-1)
