@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Altered the charlie station ruin outpost to add an ORM, KA, Autolathe and
+      Ore Silo. Removed the exosuit fab having access to station mats. Added a bunch
+      of materials around and a shuttle creator.
