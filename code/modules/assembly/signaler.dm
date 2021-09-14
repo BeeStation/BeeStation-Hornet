@@ -243,12 +243,9 @@
 
 /obj/item/assembly/signaler/anomaly/activate()
 	. = ..()
-	var/obj/effect/anomaly/anomaly_path = anomaly_type
-	var/newAnomaly
-	newAnomaly = new anomaly_path(get_turf(src))
-	if(newAnomaly)
-		message_admins("An anomaly has been created via trigger assembly at [ADMIN_VERBOSEJMP(src)]")
-		qdel(src)
+	new anomaly_type(get_turf(src))
+	message_admins("An anomaly has been created via trigger assembly at [ADMIN_VERBOSEJMP(src)], assembled by [ADMIN_LOOKUPFLW(assembler)]")
+	qdel(src.holder)
 
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return
