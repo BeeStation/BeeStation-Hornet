@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Levelling up projectile spells (Fireball, spellcards, tesla spell, magic
-      missile) makes the projectiles more powerful.
-  - balance: Upgrading repulse makes the effect stronger (larger throw distance, longer
-      paralyze)
