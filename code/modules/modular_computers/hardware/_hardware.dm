@@ -41,7 +41,7 @@
 
 /obj/item/computer_hardware/Destroy()
 	if(holder)
-		holder.uninstall_component(src)
+		holder.forget_component(src)
 	return ..()
 
 
@@ -68,11 +68,11 @@
 	to_chat(user, "******************************")
 	return TRUE
 
-// Called on multitool click, prints diagnostic information to the user.
-/obj/item/computer_hardware/proc/diagnostics(var/mob/user)
+/// Called on multitool click, prints diagnostic information to the user.
+/obj/item/computer_hardware/proc/diagnostics(mob/user)
 	to_chat(user, "Hardware Integrity Test... (Corruption: [damage]/[max_damage]) [damage > damage_failure ? "FAIL" : damage > damage_malfunction ? "WARN" : "PASS"]")
 
-// Handles damage checks
+/// Handles damage checks
 /obj/item/computer_hardware/proc/check_functionality()
 	if(!enabled) // Disabled.
 		return FALSE
@@ -95,20 +95,20 @@
 	else if(damage)
 		. += "<span class='notice'>It seems to be slightly damaged.</span>"
 
-// Component-side compatibility check.
-/obj/item/computer_hardware/proc/can_install(obj/item/modular_computer/M, mob/living/user = null)
+/// Component-side compatibility check.
+/obj/item/computer_hardware/proc/can_install(obj/item/modular_computer/install_into, mob/living/user = null)
 	return can_install
 
-// Called when component is installed into PC.
-/obj/item/computer_hardware/proc/on_install(obj/item/modular_computer/M, mob/living/user = null)
+/// Called when component is installed into PC.
+/obj/item/computer_hardware/proc/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
 	return
 
-// Called when component is removed from PC.
-/obj/item/computer_hardware/proc/on_remove(obj/item/modular_computer/M, mob/living/user)
-	if(M.physical || !QDELETED(M))
+/// Called when component is removed from PC.
+/obj/item/computer_hardware/proc/on_remove(obj/item/modular_computer/remove_from, mob/living/user)
+	if(remove_from.physical && !QDELETED(remove_from) && !QDELETED(src))
 		try_eject(forced = TRUE)
 
-// Called when someone tries to insert something in it - paper in printer, card in card reader, etc.
+/// Called when someone tries to insert something in it - paper in printer, card in card reader, etc.
 /obj/item/computer_hardware/proc/try_insert(obj/item/I, mob/living/user = null)
 	return FALSE
 
