@@ -117,7 +117,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	set name = "Battle Royale"
 	set category = "Adminbus"
 	if(!(check_rights(R_FUN) || (check_rights(R_ADMIN) && SSticker.current_state == GAME_STATE_FINISHED)))
-		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
+		to_chat(src, "<span class='warning'>You do not have permission to do that! (If you don't have +FUN, wait until the round is over then you can trigger it.)</span>")
 		return
 	if(GLOB.battle_royale)
 		to_chat(src, "<span class='warning'>A game is already in progress!</span>")
