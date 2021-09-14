@@ -1,11 +1,12 @@
 {
-    "map_name": "Kilo Station",
-    "map_path": "map_files/KiloStation",
-    "map_file": "KiloStation.dmm",
+    "map_name": "Dead Station",
+    "map_path": "map_files/Deadstation",
+    "map_file": "deadstation.dmm",
     "shuttles": {
 	    "emergency": "emergency_kilo",
 	    "ferry": "ferry_kilo",
-	    "cargo": "cargo_kilo",
+	    "cargo": "cargo_corg",
 	    "whiteship": "whiteship_meta"
     }
+	"traits": [{"Up" : 1, "Linkage": "Self"}, {"Down": -1, "Baseturf" : "/turf/open/openspace", "Linkage": "Self"}]
 }
