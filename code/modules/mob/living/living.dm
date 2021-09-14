@@ -1017,8 +1017,6 @@
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force = MOVE_FORCE_STRONG, quickstart = TRUE)
 	stop_pulling()
 	. = ..()
-	if(.)
-		movement_type |= THROWN
 
 // Called when we are hit by a bolt of polymorph and changed
 // Generally the mob we are currently in is about to be deleted
