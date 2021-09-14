@@ -32,8 +32,32 @@
 			"restricted_roles": [
 				"Cyborg"
 			]
+		},
+		"Wizard": {
+			"cost": 35,
+			"weight": 5
+		},
+		"Nuclear Emergency": {
+			"cost": 30
+		},
+		"Blood Cult": {
+			"cost": 25
 		}
 	},
-	"Midround": {},
+	"Midround": {
+		"Wizard": {
+			"cost": 35,
+			"weight": 5
+		},
+		"Nuclear Assault": {
+			"cost": 30
+		},
+		"Blob": {
+			"cost": 20
+		},
+		"Alien Infestation": {
+			"cost": 20
+		}
+	},
 	"Latejoin": {}
 }
