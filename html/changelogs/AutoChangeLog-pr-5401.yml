@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Trait induced blindness will no longer cause your screen to be blurry
-      forever if you get blurred.
