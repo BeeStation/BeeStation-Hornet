@@ -1,0 +1,9 @@
+author: Pirill
+delete-after: true
+changes:
+  - imageadd: New sprites for geraniums, lilies and rainbow flowers
+  - rscadd: Forget-me-nots as a new flower type
+  - rscadd: Craftable flower crowns from rainbow flowers, sunflowers, poppies and
+      lilies
+  - rscadd: Two new botany cargo bounties for forget-me-nots and rainbow flower crowns
+  - bugfix: Fixes rainbow flower reagent code
