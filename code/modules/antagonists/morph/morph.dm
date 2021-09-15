@@ -161,8 +161,6 @@
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
 		. = form.examine(user)
-		if(get_dist(user,src)<=3)
-			. += "<span class='warning'>It doesn't look quite right...</span>"
 	else
 		. = ..()
 
