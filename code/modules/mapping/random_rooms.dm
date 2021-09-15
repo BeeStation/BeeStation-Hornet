@@ -1353,7 +1353,7 @@
 /datum/map_template/random_room/sk_rmd158
 	name = "Maint Drones"
 	room_id = "sk_rdm158_maintdrones"
-	mappath = "_maps/RandomRooms/10x10/sk_rdm158_maintdrones.dmm"
+	mappath = "_maps/RandomRooms/5x4/sk_rdm158_maintdrones.dmm"
 	centerspawner = FALSE
 	template_height = 4
 	template_width = 5
