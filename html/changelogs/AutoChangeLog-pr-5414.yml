@@ -1,6 +1,0 @@
-author: Kapu1178
-delete-after: true
-changes:
-  - tweak: Typing Indicators are now on the right instead of the left, to not be covered
-      by medhuds.
-  - tweak: Say hotkey is probably more responsive
