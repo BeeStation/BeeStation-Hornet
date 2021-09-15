@@ -1154,13 +1154,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP
 /obj/item/pda/emp_act(severity)
 	. = ..()
-	if (!(. & EMP_PROTECT_CONTENTS))
+	if(!(. & EMP_PROTECT_CONTENTS))
 		for(var/atom/A in src)
 			A.emp_act(severity)
-	if (!(. & EMP_PROTECT_SELF))
+	if(!(. & EMP_PROTECT_SELF))
 		emped += 1
-		spawn(200 * severity)
-			emped -= 1
+		var/emptime = 200 * severity
+		addtimer(CALLBACK(src, .proc/decrease_emp_level), emptime)
+
+/obj/item/pda/proc/decrease_emp_level()
+	emped -= 1
 
 /proc/get_viewable_pdas(sort_by_job = FALSE)
 	. = list()

@@ -180,51 +180,47 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(isopenturf(AM)) //So you can actually melee with it
+
+/mob/living/lighteater_act(obj/item/light_eater/light_eater)
+	if(on_fire)
+		ExtinguishMob()
+		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
+	for(var/obj/item/O in src)
+		if(O.light_range && O.light_power)
+			O.lighteater_act(light_eater)
+	if(pulling && pulling.light_range)
+		pulling.lighteater_act(light_eater)
+
+/mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater)
+	..()
+	if(isethereal(src))
+		emp_act(EMP_LIGHT)
+
+/mob/living/silicon/robot/lighteater_act(obj/item/light_eater/light_eater)
+	..()
+	if(!lamp_cooldown)
+		update_headlamp(TRUE, INFINITY)
+		to_chat(src, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
+
+/obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater)
+	if(burning)
+		extinguish()
+		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
+
+/obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
+	if(!light_range || !light_power)
 		return
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(isethereal(AM))
-			AM.emp_act(EMP_LIGHT)
+	set_light(0)
+	light_power = 0
+	update_icon()
+	visible_message("<span class='danger'>The light in [src] shorts out!</span>")
 
-		if(iscyborg(AM))
-			var/mob/living/silicon/robot/borg = AM
-			if(!borg.lamp_cooldown)
-				borg.update_headlamp(TRUE, INFINITY)
-				to_chat(borg, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
-
-		if(L.on_fire)
-			L.ExtinguishMob()
-			playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
-
-		else
-			for(var/obj/item/O in AM)
-				if(O.light_range && O.light_power)
-					disintegrate(O)
-		if(L.pulling && L.pulling.light_range && isitem(L.pulling))
-			disintegrate(L.pulling)
-	else if(isitem(AM))
-		var/obj/item/I = AM
-		if(I.light_range && I.light_power)
-			disintegrate(I)
-
-	else if(istype(AM, /obj/structure/bonfire))
-		var/obj/structure/bonfire/F = AM
-		if(F.burning)
-			F.extinguish()
-			playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
-
-/obj/item/light_eater/proc/disintegrate(obj/item/O)
-	if(istype(O, /obj/item/pda))
-		var/obj/item/pda/PDA = O
-		PDA.set_light(0)
-		PDA.fon = FALSE
-		PDA.f_lum = 0
-		PDA.update_icon()
-		visible_message("<span class='danger'>The light in [PDA] shorts out!</span>")
-	else
-		visible_message("<span class='danger'>[O] is disintegrated by [src]!</span>")
-		O.burn()
+/obj/item/lighteater_act(obj/item/light_eater/light_eater)
+	if(!light_range || !light_power)
+		return
+	if(light_eater)
+		visible_message("<span class='danger'>[src] is disintegrated by [light_eater]!</span>")
+	burn()
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
 
 #undef HEART_SPECIAL_SHADOWIFY

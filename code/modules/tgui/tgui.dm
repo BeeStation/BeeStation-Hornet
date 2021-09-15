@@ -135,7 +135,7 @@
 		// the error message properly.
 		window.release_lock()
 		window.close(can_be_suspended)
-		src_object.ui_close(user)
+		src_object.ui_close(user, src)	//Bee edit: ui_close now sends the tgui closed.
 		SStgui.on_close(src)
 	state = null
 	qdel(src)
@@ -271,6 +271,7 @@
 		return
 	// Update through a normal call to ui_interact
 	if(status != UI_DISABLED && (autoupdate || force || src_object.ui_requires_update(user, src)))
+		needs_update = FALSE
 		src_object.ui_interact(user, src)
 		return
 	// Update status only

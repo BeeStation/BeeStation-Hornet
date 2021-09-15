@@ -113,7 +113,8 @@
 #define INIT_ORDER_VIS				80
 #define INIT_ORDER_MATERIALS		76
 #define INIT_ORDER_RESEARCH			75
-#define INIT_ORDER_STATION			74 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
+#define INIT_ORDER_ORBITS			74 //Other things use the orbital map, so it needs to be made early on.
+#define INIT_ORDER_STATION			73 //This is high priority because it manipulates a lot of the subsystems that will initialize after it.
 #define INIT_ORDER_EVENTS			70
 #define INIT_ORDER_JOBS				65
 #define INIT_ORDER_QUIRKS			60
@@ -167,6 +168,7 @@
 #define FIRE_PRIOTITY_SMOOTHING		35
 #define FIRE_PRIORITY_NETWORKS		40
 #define FIRE_PRIORITY_OBJ			40
+#define FIRE_PRIORITY_ORBITS		40
 #define FIRE_PRIORITY_ACID			40
 #define FIRE_PRIOTITY_BURNING		40
 #define FIRE_PRIORITY_DEFAULT		50

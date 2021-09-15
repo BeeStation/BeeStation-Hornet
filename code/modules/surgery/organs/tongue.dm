@@ -238,9 +238,9 @@
 	languages_possible = languages_possible_base += typecacheof(/datum/language/machine) + typecacheof(/datum/language/voltaic)
 
 /obj/item/organ/tongue/robot/emp_act(severity)
-	owner.apply_effect(EFFECT_STUTTER, 120)
 	owner.emote("scream")
-	to_chat(owner, "<span class='warning'>Alert: Vocal cords are malfunctioning.</span>")
+	owner.apply_status_effect(STATUS_EFFECT_SPANISH)
+	owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
 
 /obj/item/organ/tongue/robot/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT

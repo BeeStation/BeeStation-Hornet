@@ -269,4 +269,3 @@
 			if(confirm == "Yes")
 				persists = FALSE
 				qdel(src)
-	ui_update()

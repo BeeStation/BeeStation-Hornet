@@ -68,10 +68,11 @@
 		if("readapt")
 			if(changeling.canrespec)
 				changeling.readapt()
+				. = TRUE
 		if("evolve")
 			var/sting_name = params["name"]
 			changeling.purchase_power(sting_name)
-	ui_update()
+			. = TRUE
 
 /datum/action/innate/cellular_emporium
 	name = "Cellular Emporium"

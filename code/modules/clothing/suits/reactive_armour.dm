@@ -130,7 +130,7 @@
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
-		return 0
+		return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
 			owner.visible_message("<span class='danger'>The reactive stealth system on [owner] activates, but is still recharging its holographic emitters!</span>")
@@ -141,10 +141,9 @@
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.alpha = 0
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
-		spawn(40)
-			owner.alpha = initial(owner.alpha)
+		addtimer(VARSET_CALLBACK(owner, alpha, initial(owner.alpha)), 40)
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
-		return 1
+		return TRUE
 
 //Tesla
 

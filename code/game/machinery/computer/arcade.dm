@@ -44,9 +44,11 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/extendohand/acme = 1,
 		/obj/item/hot_potato/harmless/toy = 1,
 		/obj/item/card/emagfake = 1,
+		/obj/item/disk/nuclear/fake/obvious = 1,
 		/obj/item/clothing/shoes/wheelys = 2,
 		/obj/item/clothing/shoes/kindleKicks = 2,
 		/obj/item/toy/plush/moth = 2,
+		/obj/item/toy/plush/rouny = 2,
 		/obj/item/storage/box/heretic_asshole = 1,
 		/obj/item/toy/eldrich_book = 1,
 		/obj/item/storage/belt/military/snack = 2,
@@ -65,6 +67,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	icon_keyboard = "no_keyboard"
 	icon_screen = "invaders"
 	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	var/list/prize_override
 	var/prizeselect = /obj/item/coin/arcade_token
 	light_color = LIGHT_COLOR_GREEN
