@@ -50,7 +50,7 @@
 
 	priority_announce(war_declaration, "Declaration of War", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
 
-	play_soundtrack_music('sound/soundtrack/future_perception.ogg')
+	play_soundtrack_music(/datum/soundtrack_song/bee/future_perception)
 
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 

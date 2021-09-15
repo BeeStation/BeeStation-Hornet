@@ -73,6 +73,8 @@
 					return
 				expiry = query_validate_expire_time.item[1]
 			qdel(query_validate_expire_time)
+	if(expiry == -1)
+		expiry = null //This is so garbage and hacky.
 	if(type == "note" && isnull(note_severity))
 		note_severity = input("Set the severity of the note.", "Severity", null, null) as null|anything in list("High", "Medium", "Minor", "None")
 		if(!note_severity)
