@@ -88,10 +88,11 @@ SUBSYSTEM_DEF(fail2topic)
 /datum/controller/subsystem/fail2topic/proc/BanFromFirewall(ip)
 	if (!enabled)
 		return
-	var/static/regex/R = regex(@"(\.0\.)|(\.0$)|(\l+|/|;|&|\||-|%)") // Anything that interacts with a shell should be parsed. Prevents direct call input tampering
-	if(lentext(ip) > 15 || lentext(findtext(ip, R)))
-		message_admins("Suspicious input detected in BanFromFirewall, aborting.")
+	var/static/regex/R = regex(@"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$") // Anything that interacts with a shell should be parsed. Prevents direct call input tampering
+	ip = findtext(ip, R)
+	if(length(ip) > 15 || length(ip) < 8 )
 		return FALSE
+
 	active_bans[ip] = world.time
 	fail_counts -= ip
 	rate_limiting -= ip
