@@ -152,6 +152,7 @@
 	var/turf/T = get_turf(client.eye)
 	tab_data["Location"] = GENERATE_STAT_TEXT("[COORD(T)]")
 	tab_data["CPU"] = GENERATE_STAT_TEXT("[world.cpu]")
+	tab_data["Tick Usage"] = GENERATE_STAT_TEXT("[TICK_USAGE] / [Master.current_ticklimit]")
 	tab_data["Instances"] = GENERATE_STAT_TEXT("[num2text(world.contents.len, 10)]")
 	tab_data["World Time"] = GENERATE_STAT_TEXT("[world.time]")
 	tab_data += GLOB.stat_entry()

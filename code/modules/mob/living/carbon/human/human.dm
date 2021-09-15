@@ -1205,6 +1205,15 @@
 		"<span class='warning'>You fall [levels] level[levels > 1 ? "s" : ""] into [T], perfecting the landing!</span>")
 	Stun(levels * 50)
 
+/mob/living/carbon/human/proc/stub_toe(var/power)
+	if(HAS_TRAIT(src, TRAIT_LIGHT_STEP))
+		power *= 0.5
+		src.emote("gasp")
+	else
+		src.emote("scream")
+	src.apply_damage(power, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+	src.Paralyze(10 * power)
+
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
 

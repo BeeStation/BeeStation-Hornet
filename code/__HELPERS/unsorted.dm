@@ -608,18 +608,15 @@ Returns: A list of all areas of that type in the world.
 
 	var/list/areas = list()
 	if(subtypes)
-		var/list/cache = typecacheof(areatype)
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
-			if(cache[A.type])
+		for(var/area/A as() in GLOB.sortedAreas)
+			if(istype(A, areatype))
 				if(target_z == 0 || A.z == target_z)
-					areas += V
+					areas += A
 	else
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
+		for(var/area/A as() in GLOB.sortedAreas)
 			if(A.type == areatype)
 				if(target_z == 0 || A.z == target_z)
-					areas += V
+					areas += A
 	return areas
 
 /**
@@ -638,17 +635,14 @@ Returns: A list of all turfs in areas of that type of that type in the world.
 
 	var/list/turfs = list()
 	if(subtypes)
-		var/list/cache = typecacheof(areatype)
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
-			if(!cache[A.type])
+		for(var/area/A as() in GLOB.sortedAreas)
+			if(!istype(A, areatype))
 				continue
 			for(var/turf/T in A)
 				if(target_z == 0 || target_z == T.z)
 					turfs += T
 	else
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
+		for(var/area/A as() in GLOB.sortedAreas)
 			if(A.type != areatype)
 				continue
 			for(var/turf/T in A)

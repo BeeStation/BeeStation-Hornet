@@ -114,18 +114,18 @@
 			say("Processing hub calibration to target...")
 			calibrating = TRUE
 			power_station.update_icon()
-			spawn(50 * (4 - power_station.teleporter_hub.accuracy)) //Better parts mean faster calibration
-				if(QDELETED(src))
-					return
-				calibrating = FALSE
-				if(check_hub_connection())
-					power_station.teleporter_hub.calibrated = TRUE
-					say("Calibration complete.")
-				else
-					say("Error: Unable to detect hub.")
-				power_station.update_icon()
-				ui_update()
+			var/calibrationtime = 50 * (3 - power_station.teleporter_hub.accuracy)
+			addtimer(CALLBACK(src, .proc/calibrate), calibrationtime)
 			. = TRUE
+
+/obj/machinery/computer/teleporter/proc/calibrate()
+	calibrating = FALSE
+	if(check_hub_connection())
+		power_station.teleporter_hub.calibrated = TRUE
+		say("Calibration complete.")
+	else
+		say("Error: Unable to detect hub.")
+	power_station.update_icon()
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)

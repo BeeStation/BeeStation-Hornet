@@ -115,9 +115,9 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /client/proc/battle_royale()
 	set name = "Battle Royale"
-	set category = "Fun"
-	if(!check_rights(R_FUN))
-		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
+	set category = "Adminbus"
+	if(!(check_rights(R_FUN) || (check_rights(R_ADMIN) && SSticker.current_state == GAME_STATE_FINISHED)))
+		to_chat(src, "<span class='warning'>You do not have permission to do that! (If you don't have +FUN, wait until the round is over then you can trigger it.)</span>")
 		return
 	if(GLOB.battle_royale)
 		to_chat(src, "<span class='warning'>A game is already in progress!</span>")
@@ -129,7 +129,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 	message_admins("[key_name(usr)] HAS TRIGGERED BATTLE ROYALE")
 
 	for(var/client/admin in GLOB.admins)
-		if(check_rights(R_FUN) && !GLOB.battle_royale && admin.tgui_panel)
+		if(check_rights(R_ADMIN) && !GLOB.battle_royale && admin.tgui_panel)
 			admin.tgui_panel.clear_br_popup()
 
 	GLOB.battle_royale = new()
@@ -138,7 +138,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /client/proc/battle_royale_speed()
 	set name = "Battle Royale - Change wall speed"
 	set category = "Event"
-	if(!check_rights(R_FUN))
+	if(!check_rights(R_ADMIN))
 		to_chat(src, "<span class='warning'>You do not have permission to do that!</span>")
 		return
 	if(!GLOB.battle_royale)
@@ -259,7 +259,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 /datum/battle_royale_controller/proc/start()
 	//Give Verbs to admins
 	for(var/client/C in GLOB.admins)
-		if(check_rights_for(C, R_FUN))
+		if(check_rights_for(C, R_ADMIN))
 			C.add_verb(BATTLE_ROYALE_AVERBS)
 	toggle_ooc(FALSE)
 	to_chat(world, "<span class='ratvar'><font size=24>Battle Royale will begin soon...</span></span>")

@@ -3,6 +3,16 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
+"b" = (
+/obj/effect/turf_decal/bot,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/item/pickaxe/emergency,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/pod_shuttle)
 "c" = (
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/stripes/line{
@@ -22,6 +32,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/pod_shuttle)
+"f" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/modular_fabricator/autolathe/hacked,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/pod_shuttle)
 "h" = (
@@ -132,15 +147,6 @@
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
-"y" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/three,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/pod_shuttle)
 "z" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/bluespace_pod/traitor,
 /turf/open/floor/mineral/plastitanium/red,
@@ -174,17 +180,6 @@
 "D" = (
 /obj/machinery/computer/crew/syndie,
 /turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/pod_shuttle)
-"E" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 6
-	},
-/obj/structure/cable/yellow,
-/mob/living/simple_animal/hostile/carp/cayenne,
-/turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
 "K" = (
 /obj/structure/cable/yellow{
@@ -220,14 +215,27 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
-"O" = (
-/obj/machinery/modular_fabricator/autolathe/hacked,
+"P" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/machinery/atmospherics/components/unary/plasma_refiner{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle/pod_shuttle)
+"Q" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/obj/structure/cable/yellow,
+/mob/living/simple_animal/hostile/carp/cayenne,
 /turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
 "S" = (
@@ -295,10 +303,10 @@ T
 k
 s
 i
+f
 a
 a
-a
-O
+P
 m
 m
 "}
@@ -311,7 +319,7 @@ e
 h
 h
 Z
-E
+Q
 x
 A
 "}
@@ -322,7 +330,7 @@ t
 h
 n
 B
-y
+b
 p
 W
 x

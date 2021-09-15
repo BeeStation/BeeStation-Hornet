@@ -324,11 +324,11 @@ Class Procs:
 /obj/machinery/Topic(href, href_list)
 	..()
 	if(!can_interact(usr))
-		return 1
+		return TRUE
 	if(!usr.canUseTopic(src))
-		return 1
+		return TRUE
 	add_fingerprint(usr)
-	return 0
+	return FALSE
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 

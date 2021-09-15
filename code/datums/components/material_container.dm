@@ -117,7 +117,7 @@
 
 /// Proc specifically for inserting items, returns the amount of materials entered.
 /datum/component/material_container/proc/insert_item(obj/item/I, var/multiplier = 1, stack_amt)
-	if(!I)
+	if(QDELETED(I))
 		return FALSE
 	if(istype(I, /obj/item/stack))
 		return insert_stack(I, stack_amt, multiplier)

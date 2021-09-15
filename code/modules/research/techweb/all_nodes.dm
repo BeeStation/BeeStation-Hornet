@@ -64,7 +64,7 @@
 	description = "Research on how to fully exploit the power of integrated circuits"
 	design_ids = list("integrated_circuit", "circuit_multitool", "comp_arithmetic", "comp_clock", "comp_combiner", "comp_comparison", "comp_delay",
 		"comp_direction", "comp_get_column", "comp_gps", "comp_health", "comp_hear", "comp_index", "comp_index_table", "comp_length", "comp_light", "comp_logic", "comp_mmi", "comp_multiplexer", "comp_not", "comp_ram",
-		"comp_random", "comp_select_query", "comp_species", "comp_textcase","comp_speech", "comp_concat", "comp_concat_list", "comp_speech", "comp_self", "comp_soundemitter", "comp_radio", "comp_tostring",
+		"comp_random", "comp_round", "comp_select_query", "comp_species", "comp_textcase", "comp_trig", "comp_speech", "comp_concat", "comp_concat_list", "comp_speech", "comp_self", "comp_soundemitter", "comp_radio", "comp_tostring",
 		"comp_typecheck", "compact_remote_shell", "component_printer", "comp_string_contains", "usb_cable")
 
 /////////////////////////Biotech/////////////////////////
@@ -341,6 +341,15 @@
 	export_price = 5000
 
 /////////////////////////integrated circuits tech/////////////////////////
+
+/datum/techweb_node/math_circuits
+	id = "math_circuits"
+	tech_tier = 1
+	display_name = "Math Circuitry"
+	description = "Development of more complex mathematical components for all your number manipulating needs"
+	prereq_ids = list("basic_circuitry", "datatheory")
+	design_ids = list("comp_adv_trig","comp_hyper_trig", "comp_bitwise", "comp_bitflag")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 
 /datum/techweb_node/adv_shells
 	id = "adv_shells"
@@ -668,7 +677,7 @@
 	display_name = "Advanced Cybernetic Implants"
 	description = "Upgraded and more powerful cybernetic implants."
 	prereq_ids = list("neural_programming", "cyber_implants","integrated_HUDs")
-	design_ids = list("ci-toolset", "ci-surgery", "ci-reviver", "ci-nutrimentplus")
+	design_ids = list("ci-toolset", "ci-surgery","ci-janitor", "ci-botany", "ci-reviver", "ci-nutrimentplus")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
