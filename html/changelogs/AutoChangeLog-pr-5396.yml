@@ -1,4 +1,0 @@
-author: TheFakeElon
-delete-after: true
-changes:
-  - code_imp: improves fail2topic regex
