@@ -1,4 +1,4 @@
-GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "default0", -TYPING_LAYER))
+GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "typingindicator", -TYPING_LAYER))
 
 /mob/proc/create_typing_indicator()
 	return
