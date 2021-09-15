@@ -12,6 +12,7 @@
 	exotic_blood = /datum/reagent/toxin/slimeooze
 	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
+	var/datum/action/innate/humanoid_customization/humanoid_customization
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
@@ -35,6 +36,8 @@
 /datum/species/oozeling/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
 		regenerate_limbs.Remove(C)
+	if(humanoid_customization)
+		humanoid_customization.Remove(C)
 	..()
 
 /datum/species/oozeling/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -42,6 +45,8 @@
 	if(ishuman(C))
 		regenerate_limbs = new
 		regenerate_limbs.Grant(C)
+		humanoid_customization = new
+		humanoid_customization.Grant(C)
 
 /datum/species/oozeling/spec_life(mob/living/carbon/human/H)
 	..()
@@ -159,3 +164,40 @@
 		H.blood_volume -= 25
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
+
+/datum/action/innate/humanoid_customization //oh boy this will be fun to do <-- clueless
+	name = "Alter Form"
+	check_flags = AB_CHECK_CONSCIOUS
+	button_icon_state = "slimeheal" //placeholder
+	icon_icon = 'icons/mob/actions/actions_slime.dmi' //also placeholder
+	background_icon_state = "bg_alien"
+
+/datum/action/innate/humanoid_customization/Activate()
+		var/mob/living/carbon/human/H = owner
+		H.visible_message("<span class='notice'>[owner] gains a look of concentration while standing perfectly still.")
+		change_form()
+
+/datum/action/innate/humanoid_customization/proc/change_form()
+	var/mob/living/carbon/human/H = owner
+	var/select_alteration = input(owner, "Select what part of your form to alter.", "Form Alteration", "Cancel") in list("Body Color", "Hair Style", "Ears", "Tail") //Select what you want to alter
+	switch(select_alteration) //fuck you i like readability
+		if("Body Color")
+			var/new_color = input(owner, "Select your new color.", "Color Change", "#"+H.dna.features["mcolor"]) as color|null
+			if(new_color)
+				H.dna.features["mcolor"] = sanitize_hexcolor(new_color, 6)
+				H.update_body()
+				H.update_hair()
+
+		if("Hair Style")
+			//facial hair
+			if(H.gender == MALE)
+				var/new_style = input(owner, "Select a facial hair style.", "Facial Hair Alterations") as null|anything in GLOB.facial_hair_styles_list
+				if(new_style)
+					H.facial_hair_style = new_style
+			else
+				H.facial_hair_style = "Shaved" //Female characters can't have beards
+			//normal hair
+			var/new_style = input(owner, "Select your hair style.", "Hair Style Alterations") as null|anything in GLOB.hair_styles_list
+			if(new_style)
+				H.hair_style = new_style
+				H.update_hair()
