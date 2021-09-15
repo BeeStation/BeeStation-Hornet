@@ -179,7 +179,7 @@
 
 /datum/action/innate/humanoid_customization/proc/change_form()
 	var/mob/living/carbon/human/H = owner
-	var/select_alteration = input(owner, "Select what part of your form to alter.", "Form Alteration", "Cancel") in list("Body Color", "Hair Style", "Ears", "Tail") //Select what you want to alter
+	var/select_alteration = input(owner, "Select what part of your form to alter.", "Form Alteration", "Cancel") in list("Body Color", "Hair Style") //Select what you want to alter
 	switch(select_alteration) //fuck you i like readability
 		if("Body Color")
 			var/new_color = input(owner, "Select your new color.", "Color Change", "#"+H.dna.features["mcolor"]) as color|null
