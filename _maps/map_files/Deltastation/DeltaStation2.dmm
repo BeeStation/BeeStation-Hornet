@@ -113534,14 +113534,12 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "dVZ" = (
-/obj/structure/chair/comfy/black{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
 	},
-/turf/open/floor/plasteel{
-	dir = 4;
-	icon_state = "chapel"
-	},
-/area/chapel/main)
+/obj/structure/window/reinforced,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/exit/departure_lounge)
 "dWa" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -115284,11 +115282,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "eab" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 5
 	},
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "eaf" = (
 /turf/closed/wall,
@@ -116427,6 +116424,9 @@
 /obj/item/storage/pill_bottle/dice,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/camera,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "ecI" = (
@@ -116862,16 +116862,12 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "eed" = (
-/obj/structure/chair/comfy/black{
-	pixel_y = 5
-	},
+/obj/structure/chair,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "eee" = (
 /obj/effect/landmark/start/hangover,
-/obj/structure/chair/comfy/black{
-	pixel_y = 5
-	},
+/obj/structure/chair,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "eeh" = (
@@ -116882,11 +116878,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "eej" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 8
 	},
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "een" = (
 /obj/structure/sign/warning/electricshock,
@@ -117084,19 +117079,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
-"eeR" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/chair/comfy/black{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/hallway/secondary/exit/departure_lounge)
 "eeS" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 9
 	},
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "eeU" = (
 /obj/machinery/door/airlock/external{
@@ -117269,7 +117256,7 @@
 /area/chapel/office)
 "eft" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/chair/comfy/black{
+/obj/structure/chair{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -117299,7 +117286,6 @@
 	},
 /obj/item/beacon,
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/light,
 /obj/structure/table,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
@@ -117308,7 +117294,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/chair/comfy/black{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -117316,7 +117302,7 @@
 "efB" = (
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden,
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/chair/comfy/black{
+/obj/structure/chair{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -117341,10 +117327,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "efF" = (
-/obj/structure/chair/comfy/black{
+/obj/effect/turf_decal/delivery,
+/obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "efG" = (
@@ -117545,16 +117531,14 @@
 /turf/open/floor/carpet,
 /area/chapel/office)
 "egi" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "egk" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
 	},
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "egm" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -117582,11 +117566,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "egp" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 10
 	},
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "egq" = (
 /obj/machinery/door/airlock/external{
@@ -118022,6 +118005,12 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"eSs" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/turf/closed/wall,
+/area/hallway/secondary/exit/departure_lounge)
 "eSz" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -119913,10 +119902,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "jOA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -123626,9 +123612,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "thZ" = (
@@ -125141,9 +125125,8 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "xns" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
+/obj/structure/window/reinforced{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
@@ -125269,9 +125252,8 @@
 /turf/open/indestructible/sound/pool/end,
 /area/crew_quarters/fitness/recreation)
 "xHS" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/turf/open/floor/plating,
+/turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "xJa" = (
 /obj/effect/decal/cleanable/dirt,
@@ -125288,6 +125270,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"xJZ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 10
+	},
+/turf/closed/wall,
+/area/hallway/secondary/exit/departure_lounge)
 "xOm" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
@@ -161491,7 +161479,7 @@ dYz
 dZm
 dZU
 dZk
-dVZ
+dWN
 ebZ
 ecE
 dTA
@@ -163038,7 +163026,7 @@ dYE
 dZo
 ecZ
 sOR
-eeL
+jOA
 eeJ
 efw
 egq
@@ -163294,7 +163282,7 @@ ebl
 dYF
 ecG
 ecZ
-sOR
+dVZ
 eee
 eeL
 efA
@@ -163551,7 +163539,7 @@ dXL
 dYG
 dZo
 ecZ
-sOR
+dVZ
 eed
 eeL
 efA
@@ -163808,7 +163796,7 @@ ebm
 dYH
 ecH
 klM
-sOR
+dVZ
 eee
 eeM
 efz
@@ -164065,7 +164053,7 @@ dXL
 dYE
 dZo
 ecZ
-sOR
+dVZ
 eee
 eeJ
 efA
@@ -164322,11 +164310,11 @@ dXL
 dYF
 ecG
 ecZ
-sOR
+dVZ
 eed
 eeN
 efB
-egn
+xJZ
 sBW
 eab
 aaa
@@ -164580,7 +164568,7 @@ dYG
 dZo
 eda
 sOR
-eeL
+xns
 sOR
 efC
 ego
@@ -164842,7 +164830,7 @@ sOR
 efD
 egp
 dYI
-egm
+eSs
 aaa
 aaa
 aaa
@@ -165086,7 +165074,7 @@ dUA
 dUA
 wXm
 dUA
-jOA
+dUA
 wXm
 dUA
 dUA
@@ -165343,7 +165331,7 @@ dWg
 dVl
 dVl
 dVl
-xns
+dVl
 dVl
 dVl
 dVl
@@ -165352,9 +165340,9 @@ dVl
 dVl
 dVl
 efF
-eeR
 efF
-dSU
+efF
+dST
 egn
 eeS
 aaa
