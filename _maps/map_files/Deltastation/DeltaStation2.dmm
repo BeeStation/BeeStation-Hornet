@@ -116852,9 +116852,6 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "edY" = (
-/obj/item/radio/intercom{
-	pixel_y = 24
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
