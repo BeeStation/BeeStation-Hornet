@@ -1,4 +1,4 @@
-GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "default0", -TYPING_LAYER))
+GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "typingindicator", -TYPING_LAYER))
 
 /mob/proc/create_typing_indicator()
 	return
@@ -20,6 +20,7 @@ GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearanc
 /mob/verb/say_wrapper()
 	set name = ".Say"
 	set hidden = 1
+	set instant = 1
 
 	create_typing_indicator()
 	var/message = input("","say (text)") as text|null
@@ -30,6 +31,7 @@ GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearanc
 /mob/verb/me_wrapper()
 	set name = ".Me"
 	set hidden = 1
+	set instant = 1
 
 	create_typing_indicator()
 	var/message = input("","me (text)") as text|null
