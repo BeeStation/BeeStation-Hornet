@@ -1,0 +1,16 @@
+"a" = (/obj/effect/decal/cleanable/dirt/dust,/obj/effect/gibspawner/robot,/turf/open/floor/plating,/area/template_noop)
+"g" = (/obj/item/stack/sheet/iron/five,/turf/open/floor/plating,/area/template_noop)
+"y" = (/obj/effect/decal/cleanable/dirt/dust,/turf/open/floor/plating,/area/template_noop)
+"z" = (/obj/effect/gibspawner/robot,/turf/open/floor/plating,/area/template_noop)
+"C" = (/turf/open/floor/plasteel,/area/template_noop)
+"M" = (/obj/effect/decal/cleanable/dirt/dust,/obj/item/clothing/head/chameleon/broken,/turf/open/floor/plating,/area/template_noop)
+"P" = (/obj/machinery/droneDispenser,/turf/open/floor/plating,/area/template_noop)
+"T" = (/obj/item/stack/sheet/glass{amount = 10},/turf/open/floor/plasteel,/area/template_noop)
+"Y" = (/turf/open/floor/plating,/area/template_noop)
+
+(1,1,1) = {"
+YYCYz
+Cyagy
+YMPyC
+aTYYY
+"}
