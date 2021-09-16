@@ -43,7 +43,8 @@
 	show_in_report = TRUE
 	report_message = "Please be nice to him."
 	blacklist = list(/datum/station_trait/announcement_medbot,
-	/datum/station_trait/announcement_baystation
+	/datum/station_trait/announcement_baystation,
+	/datum/station_trait/announcement_baystation_torch
 	)
 
 /datum/station_trait/announcement_intern/New()
@@ -58,7 +59,8 @@
 	report_message = "Our announcement system is under scheduled maintanance at the moment. Thankfully, we have a backup."
 	blacklist = list(
 		/datum/station_trait/announcement_intern,
-		/datum/station_trait/announcement_baystation
+		/datum/station_trait/announcement_baystation,
+		/datum/station_trait/announcement_baystation_torch
 		)
 
 /datum/station_trait/announcement_medbot/New()
@@ -72,9 +74,25 @@
 	show_in_report = TRUE
 	report_message = "We lost the primary datatape that holds the announcement system's voice responses. We did however find an older backup."
 	blacklist = list(/datum/station_trait/announcement_intern,
-	/datum/station_trait/announcement_medbot
+	/datum/station_trait/announcement_medbot,
+	/datum/station_trait/announcement_baystation_torch
 	)
 
 /datum/station_trait/announcement_baystation/New()
 	. = ..()
 	SSstation.announcer = /datum/centcom_announcer/baystation
+
+/datum/station_trait/announcement_baystation_torch
+	name = "Modern Announcement System"
+	trait_type = STATION_TRAIT_NEUTRAL
+	weight = 2
+	show_in_report = TRUE
+	report_message = "We've updated the station's announcement system. There may be some quirks to this one."
+	blacklist = list(/datum/station_trait/announcement_intern,
+	/datum/station_trait/announcement_medbot,
+	/datum/station_trait/announcement_baystation
+	)
+
+/datum/station_trait/announcement_baystation/New()
+	. = ..()
+	SSstation.announcer = /datum/centcom_announcer/baystation_torch
