@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(input)
 		"default" = list(
 			"Tab" = "\".winset \\\"input.focus=true?map.focus=true input.background-color=[COLOR_INPUT_DISABLED]:input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
 			"O" = "ooc",
-			"T" = ".say",
+			"T" = "\".winset \\\"command=.start_typing;command=.init_say;saywindow.is-visible=true;saywindow.input.focus=true;saywindow.input.text=\\\"\\\"\\\"\"",
 			"M" = ".me",
 			"Back" = "\".winset \\\"input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",
@@ -40,13 +40,13 @@ SUBSYSTEM_DEF(input)
 			),
 		"old_default" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=old_hotkeys map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"",
-			"Ctrl+T" = ".say",
+			"Ctrl+T" = "\".winset \\\"command=.start_typing;command=.init_say;saywindow.is-visible=true;saywindow.input.focus=true;saywindow.input.text=\\\"\\\"\\\"\"",
 			"Ctrl+O" = "ooc",
 			),
 		"old_hotkeys" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=old_default input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
 			"O" = "ooc",
-			"T" = ".say",
+			"T" = "\".winset \\\"command=.start_typing;command=.init_say;saywindow.is-visible=true;saywindow.input.focus=true;saywindow.input.text=\\\"\\\"\\\"\"",
 			"M" = ".me",
 			"Back" = "\".winset \\\"input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",

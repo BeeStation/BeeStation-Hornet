@@ -15,17 +15,29 @@ GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearanc
 	remove_typing_indicator()
 	. = ..()
 
-////Wrappers////
-//Keybindings were updated to change to use these wrappers. If you ever remove this file, revert those keybind changes
-/mob/verb/say_wrapper()
-	set name = ".Say"
+/mob/verb/start_typing()
+	set name = ".start_typing"
 	set hidden = 1
 
 	create_typing_indicator()
-	var/message = input("","say (text)") as text|null
+
+/mob/verb/cancel_typing()
+	set name = ".cancel_typing"
+	set hidden = 1
+
+	remove_typing_indicator()
+
+/mob/verb/say_wrapper(message as text)
+	set name = ".Say"
+	set hidden = 1
+
+	winshow(usr, "saywindow", FALSE)
 	remove_typing_indicator()
 	if(message)
 		say_verb(message)
+
+////Wrappers////
+//Keybindings were updated to change to use these wrappers. If you ever remove this file, revert those keybind changes
 
 /mob/verb/me_wrapper()
 	set name = ".Me"
