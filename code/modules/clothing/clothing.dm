@@ -32,6 +32,7 @@
 	var/blocks_shove_knockdown = FALSE //Whether wearing the clothing item blocks the ability for shove to knock down.
 
 	var/clothing_flags = NONE
+	sprite_sheets = FLAG_IPC
 
 	//Var modification - PLEASE be careful with this I know who you are and where you live
 	var/list/user_vars_to_edit //VARNAME = VARVALUE eg: "name" = "butts"

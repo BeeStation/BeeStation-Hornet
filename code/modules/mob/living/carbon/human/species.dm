@@ -2022,6 +2022,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			return 'icons/mob/species/teshari/tesh_suits.dmi'
 		if("mask")
 			return 'icons/mob/species/teshari/tesh_masks.dmi'
+		if("back")
+			return 'icons/mob/species/teshari/tesh_back.dmi'
 		if("generic")
 			return 'icons/mob/species/teshari/tesh_generic.dmi'
 		else

@@ -20,6 +20,7 @@
 	slot_flags = ITEM_SLOT_BACK	//ERROOOOO
 	resistance_flags = NONE
 	max_integrity = 300
+	sprite_sheets = FLAG_IPC
 
 /obj/item/storage/backpack/ComponentInitialize()
 	. = ..()
