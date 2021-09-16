@@ -1,5 +1,7 @@
 macro "default"
 
+macro "input_box_macro"
+
 
 menu "menu"
 	elem
@@ -316,40 +318,18 @@ window "preferences_window"
 window "input_box"
 	elem "input_box"
 		type = MAIN
-		pos = 281,14
+		pos = 759,487
 		size = 402x106
-		anchor1 = none
-		anchor2 = none
+		anchor1 = 50,50
+		anchor2 = 50,50
 		background-color = none
 		is-visible = false
-		saved-params = "macro"
+		saved-params = ""
 		statusbar = false
-		can-close = false
 		can-minimize = false
 		can-resize = false
 		outer-size = 410x133
 		inner-size = 402x106
-		macro = "default"
-	elem "cancel"
-		type = BUTTON
-		pos = 240,64
-		size = 100x28
-		anchor1 = none
-		anchor2 = none
-		font-size = 8
-		background-color = none
-		saved-params = ""
-		text = "Cancel"
-	elem "accept"
-		type = BUTTON
-		pos = 71,64
-		size = 100x28
-		anchor1 = none
-		anchor2 = none
-		font-size = 8
-		background-color = none
-		saved-params = ""
-		text = "OK"
 	elem "input"
 		type = INPUT
 		pos = 14,20
@@ -359,5 +339,26 @@ window "input_box"
 		font-size = 8
 		border = sunken
 		saved-params = ""
-		no-command = false
+	elem "accept"
+		type = BUTTON
+		pos = 71,64
+		size = 100x28
+		anchor1 = 0,100
+		anchor2 = 50,100
+		font-size = 8
+		background-color = none
+		saved-params = ""
+		text = "OK"
+		command = ""
+	elem "cancel"
+		type = BUTTON
+		pos = 240,64
+		size = 100x28
+		anchor1 = 50,100
+		anchor2 = 100,100
+		font-size = 8
+		background-color = none
+		saved-params = ""
+		text = "Cancel"
+		command = ""
 

@@ -31,7 +31,6 @@ GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearanc
 	set name = ".Say"
 	set hidden = 1
 
-	winshow(usr, "saywindow", FALSE)
 	remove_typing_indicator()
 	if(message)
 		say_verb(message)
