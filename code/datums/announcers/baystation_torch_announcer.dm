@@ -19,6 +19,6 @@
 						ANNOUNCER_POWERON = 'sound/ai/baystation_torch/poweron.ogg',
 						ANNOUNCER_RADIATION = 'sound/ai/baystation_torch/radiation.ogg',
 						ANNOUNCER_SHUTTLECALLED = 'sound/ai/baystation_torch/shuttlecalled.ogg',
-						ANNOUNCER_SHUTTLEDOCK = 'sound/ai/baystation_torch/shuttledock.ogg',
+						ANNOUNCER_SHUTTLEDOCK = 'sound/ai/baystation_torch/shuttledocked.ogg',
 						ANNOUNCER_SHUTTLERECALLED = 'sound/ai/baystation_torch/attention.ogg', //lacked suitable voice lines to splice, not a big deal
 						ANNOUNCER_SPANOMALIES = 'sound/ai/baystation_torch/spanomalies.ogg')
