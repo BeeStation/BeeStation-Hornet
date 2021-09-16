@@ -174,5 +174,5 @@
 			if(ghost.client.prefs.chat_toggles & CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
 				ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
 
-	visible_message(text, visible_message_flags = CHATMESSAGE_EMOTE)
+	visible_message(text, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
 
