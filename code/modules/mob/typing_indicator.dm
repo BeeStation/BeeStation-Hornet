@@ -42,7 +42,7 @@ GLOBAL_DATUM_INIT(human_typing_indicator, /mutable_appearance, mutable_appearanc
 ///Human Typing Indicators///
 /mob/living/carbon/human/update_typing_indicator(me = FALSE)
 	var/mob/living/carbon/human/H = src
-	if(HAS_TRAIT(H, TRAIT_MUTE) || H.silent)
+	if((HAS_TRAIT(H, TRAIT_MUTE) || H.silent) && !me)
 		remove_overlay(TYPING_LAYER)
 		return
 
