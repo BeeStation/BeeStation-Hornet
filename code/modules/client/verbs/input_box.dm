@@ -63,12 +63,10 @@
 	set name = ".init_say"
 	set hidden = TRUE
 
-	create_input_window("saywindow", "Say \\\"test\\\"", ".say", ".cancel_typing")
+	create_input_window("saywindow", "Say \\\"test\\\"", ".say", ".cancel_typing say")
 
-/client/verb/init_me() // Currently unused
+/client/verb/init_me()
 	set name = ".init_me"
 	set hidden = TRUE
 
-	create_input_window("saywindow", "me (text)", ".me", ".cancel_typing")
-
-	create_input_window("saywindow", "me (text)", ".me", ".cancel_typing")
+	create_input_window("mewindow", "me (text)", ".me", ".cancel_typing me")
