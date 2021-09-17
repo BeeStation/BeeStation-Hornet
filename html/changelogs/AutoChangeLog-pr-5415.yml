@@ -1,4 +1,0 @@
-author: KubeRoot, Mothblocks
-delete-after: true
-changes:
-  - code_imp: Tooltips in tgui are now very fast, even with a lot of them on one interface.
