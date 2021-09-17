@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 
 	keys_held[_key] = world.time
 	var/movement = SSinput.movement_keys[_key]
-	if(!(next_move_dir_sub & movement) && !keys_held["Ctrl"])
+	if(!(next_move_dir_sub & movement) && !movement_locked)
 		next_move_dir_add |= movement
 
 	// Client-level keybindings are ones anyone should be able to do at any time
