@@ -20,7 +20,7 @@
 		winset(src, "[id].cancel", "command=\".winset \\\"command=\\\"[cancel_verb]\\\";[id].is-visible=false\\\"\"")
 		winset(src, "[id]_macro_return", "parent=persist_[id]_macro;name=Return;command=\".winset \\\"command=\\\"[cancel_verb]\\\";[id].is-visible=false\\\"\"")
 		winset(src, "[id]_macro_escape", "parent=persist_[id]_macro;name=Escape;command=\".winset \\\"command=\\\"[cancel_verb]\\\";[id].is-visible=false\\\"\"")
-		winset(src, id, "on-close=[cancel_verb]")
+		winset(src, id, "on-close=\"[cancel_verb]\"")
 	else
 		winset(src, "[id]_macro_return", "parent=persist_[id]_macro;name=Return;command=\".winset \\\"[id].is-visible=false\\\"\"")
 		winset(src, "[id]_macro_escape", "parent=persist_[id]_macro;name=Escape;command=\".winset \\\"[id].is-visible=false\\\"\"")
@@ -63,7 +63,7 @@
 	set name = ".init_say"
 	set hidden = TRUE
 
-	create_input_window("saywindow", "Say \\\"test\\\"", ".say", ".cancel_typing say")
+	create_input_window("saywindow", "Say \\\"text\\\"", ".say", ".cancel_typing say")
 
 /client/verb/init_me()
 	set name = ".init_me"
