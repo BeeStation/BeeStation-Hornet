@@ -3350,6 +3350,7 @@
 #include "code\modules\wiremod\components\atom\hear.dm"
 #include "code\modules\wiremod\components\atom\self.dm"
 #include "code\modules\wiremod\components\atom\species.dm"
+#include "code\modules\wiremod\components\list\append.dm"
 #include "code\modules\wiremod\components\list\concat.dm"
 #include "code\modules\wiremod\components\list\get_column.dm"
 #include "code\modules\wiremod\components\list\index.dm"

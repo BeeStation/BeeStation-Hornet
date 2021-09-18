@@ -97,6 +97,12 @@
 	build_path = /obj/item/circuit_component/indexer/write
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
 
+/datum/design/component/append
+	name = "Append Component"
+	id = "comp_append"
+	build_path = /obj/item/circuit_component/append
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
 /datum/design/component/length
 	name = "Length Component"
 	id = "comp_length"

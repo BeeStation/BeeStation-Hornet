@@ -16,7 +16,7 @@
 
 /obj/item/circuit_component/indexer/write/Initialize()
 	. = ..()
-	value_port = add_input_port("Index", PORT_TYPE_ANY)
+	value_port = add_input_port("Value", PORT_TYPE_ANY)
 
 /obj/item/circuit_component/indexer/write/Destroy()
 	value_port = null
