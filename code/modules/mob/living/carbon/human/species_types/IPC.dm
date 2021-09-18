@@ -179,31 +179,4 @@
 	H.update_body()
 	return
 
-/datum/species/ipc/get_custom_icons(var/part)
-	switch(part)
-		if("uniform")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("gloves")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("glasses")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("ears")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("shoes")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("head")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("belt")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("suit")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("mask")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("back")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("neck")
-			return 'icons/mob/species/ipc/debug.dmi'
-		if("generic")
-			return 'icons/mob/species/ipc/debug.dmi'
-		else
-			return
+

@@ -532,6 +532,49 @@ There are several things that need to be remembered:
 		apply_overlay(LEGCUFF_LAYER)
 		throw_alert("legcuffed", /atom/movable/screen/alert/restrained/legcuffed, new_master = src.legcuffed)
 
+/mob/living/carbon/human/update_inv_hands()
+	remove_overlay(HANDS_LAYER)
+	if (handcuffed)
+		drop_all_held_items()
+		return
+
+	var/list/hands = list()
+	for(var/obj/item/I in held_items)
+		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
+			I.screen_loc = ui_hand_position(get_held_index_of_item(I))
+			client.screen += I
+			if(observers?.len)
+				for(var/M in observers)
+					var/mob/dead/observe = M
+					if(observe.client && observe.client.eye == src)
+						observe.client.screen += I
+					else
+						observers -= observe
+						if(!observers.len)
+							observers = null
+							break
+
+		var/t_state = I.item_state
+		if(!t_state)
+			t_state = I.icon_state
+
+		var/icon_file = I.lefthand_file
+		var/mutable_appearance/hand_overlay
+		if(get_held_index_of_item(I) % 2 == 0)
+			icon_file = I.righthand_file
+			hand_overlay = I.build_worn_icon(state = t_state, default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
+			if(OFFSET_RIGHT_HAND in dna.species.offset_features)
+				hand_overlay.pixel_x += dna.species.offset_features[OFFSET_RIGHT_HAND][1]
+				hand_overlay.pixel_y += dna.species.offset_features[OFFSET_RIGHT_HAND][2]
+		else
+			hand_overlay = I.build_worn_icon(state = t_state, default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
+			if(OFFSET_LEFT_HAND in dna.species.offset_features)
+				hand_overlay.pixel_x += dna.species.offset_features[OFFSET_LEFT_HAND][1]
+				hand_overlay.pixel_y += dna.species.offset_features[OFFSET_LEFT_HAND][2]
+		hands += hand_overlay
+	overlays_standing[HANDS_LAYER] = hands
+	apply_overlay(HANDS_LAYER)
+
 /proc/wear_female_version(t_color, icon, layer, type)
 	var/index = t_color
 	var/icon/female_clothing_icon = GLOB.female_clothing_icons[index]
@@ -662,8 +705,14 @@ generate/load female uniform sprites matching all previously decided variables
 /obj/item/proc/get_held_offsets()
 	var/list/L
 	if(ismob(loc))
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			L = H.dna?.species.get_item_offsets_for_index(src)
+			if(L)
+				return L
 		var/mob/M = loc
 		L = M.get_item_offsets_for_index(M.get_held_index_of_item(src))
+
 	return L
 
 
