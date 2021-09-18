@@ -88,7 +88,13 @@
 /datum/design/component/index
 	name = "Index Component"
 	id = "comp_index"
-	build_path = /obj/item/circuit_component/index
+	build_path = /obj/item/circuit_component/indexer/index
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
+/datum/design/component/write
+	name = "Write Component"
+	id = "comp_write"
+	build_path = /obj/item/circuit_component/indexer/write
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
 
 /datum/design/component/length

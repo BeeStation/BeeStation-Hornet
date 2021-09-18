@@ -105,14 +105,14 @@
 #define COMP_TRIG_AHYPERBOLIC_COSINE "ACOSH"
 #define COMP_TRIG_AHYPERBOLIC_SINE "ASING"
 
-//Index defines
-#define COMP_INDEX_NONE "None"
-#define COMP_INDEX_INCREMENT "Increment"
-#define COMP_INDEX_LOOP "Loop"
-#define COMP_INDEX_BOTH "Both"
+//Indexer defines
+#define COMP_INDEXER_NONE "None"
+#define COMP_INDEXER_INCREMENT "Increment"
+#define COMP_INDEXER_LOOP "Loop"
+#define COMP_INDEXER_BOTH "Both"
 
-#define COMP_INDEX_FLAG_INCREMENT (1<<0)
-#define COMP_INDEX_FLAG_LOOP (1<<1)
+#define COMP_INDEXER_FLAG_INCREMENT (1<<0)
+#define COMP_INDEXER_FLAG_LOOP (1<<1)
 
 // Text defines
 #define COMP_TEXT_LOWER "To Lower"
