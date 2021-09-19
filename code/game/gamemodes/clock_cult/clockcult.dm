@@ -47,16 +47,13 @@ GLOBAL_VAR(clockcult_eminence)
 
 	var/datum/team/clock_cult/main_cult
 
+/datum/game_mode/clockcult/setup_maps()
+	//Since we are loading in pre_setup, disable map loading.
+	SSticker.gamemode_hotswap_disabled = TRUE
+	LoadReebe()
+	return TRUE
+
 /datum/game_mode/clockcult/pre_setup()
-	//Load Reebe
-	var/list/errorList = list()
-	var/list/reebe = SSmapping.LoadGroup(errorList, "Reebe", "map_files/generic", "CityOfCogs.dmm", default_traits=ZTRAITS_REEBE, silent=TRUE)
-	if(errorList.len)
-		message_admins("Reebe failed to load")
-		log_game("Reebe failed to load")
-		return FALSE
-	for(var/datum/parsed_map/map in reebe)
-		map.initTemplateBounds()
 	//Generate cultists
 	for(var/i in 1 to clock_cultists)
 		if(!antag_candidates.len)
@@ -155,7 +152,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(ishuman(M) && (M.mind.assigned_role in list("Captain", "Chaplain")))
 		return FALSE
-	if(istype(M.get_item_by_slot(SLOT_HEAD), /obj/item/clothing/head/foilhat))
+	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		return FALSE
 	if(is_servant_of_ratvar(M))
 		return FALSE

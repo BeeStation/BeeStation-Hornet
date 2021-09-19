@@ -29,6 +29,9 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/vehicle_moved)
 
 /datum/component/riding/proc/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
+	SIGNAL_HANDLER
+
+	unequip_buckle_inhands(parent)
 	var/atom/movable/AM = parent
 	restore_position(M)
 	unequip_buckle_inhands(M)
@@ -36,6 +39,8 @@
 		qdel(src)
 
 /datum/component/riding/proc/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
+	SIGNAL_HANDLER
+
 	handle_vehicle_offsets()
 
 /datum/component/riding/proc/handle_vehicle_layer()
@@ -52,6 +57,8 @@
 	directional_vehicle_layers["[dir]"] = layer
 
 /datum/component/riding/proc/vehicle_moved(datum/source)
+	SIGNAL_HANDLER
+
 	var/atom/movable/AM = parent
 	for(var/i in AM.buckled_mobs)
 		ride_check(i)
@@ -213,6 +220,8 @@
 	H.add_movespeed_modifier(MOVESPEED_ID_HUMAN_CARRYING, multiplicative_slowdown = HUMAN_CARRY_SLOWDOWN)
 
 /datum/component/riding/human/proc/on_host_unarmed_melee(atom/target)
+	SIGNAL_HANDLER
+
 	var/mob/living/carbon/human/H = parent
 	if(H.a_intent == INTENT_DISARM && (target in H.buckled_mobs))
 		force_dismount(target)
@@ -307,7 +316,7 @@
 	M.visible_message("<span class='warning'>[M] is thrown clear of [AM]!</span>", \
 					"<span class='warning'>You're thrown clear of [AM]!</span>")
 	M.throw_at(target, 14, 5, AM)
-	M.Paralyze(60)
+	M.Knockdown(60)
 
 /datum/component/riding/proc/equip_buckle_inhands(mob/living/carbon/human/user, amount_required = 1, riding_target_override = null)
 	var/atom/movable/AM = parent

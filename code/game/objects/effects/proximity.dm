@@ -36,6 +36,8 @@
 	return ..()
 
 /datum/proximity_monitor/proc/HandleMove()
+	SIGNAL_HANDLER
+
 	var/atom/_host = host
 	var/atom/new_host_loc = _host.loc
 	if(last_host_loc != new_host_loc)
@@ -107,6 +109,8 @@
 		return INITIALIZE_HINT_QDEL
 
 /obj/effect/abstract/proximity_checker/Destroy()
+	if(monitor.checkers)
+		monitor.checkers -= src
 	monitor = null
 	return ..()
 

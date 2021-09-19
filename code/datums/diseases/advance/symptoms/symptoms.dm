@@ -8,7 +8,7 @@
 	var/stealth = 0
 	var/resistance = 0
 	var/stage_speed = 0
-	var/transmittable = 0
+	var/transmission = 0
 	// The type level of the symptom. Higher is harder to generate.
 	var/level = -1
 	// The severity level of the symptom. Higher is more dangerous.

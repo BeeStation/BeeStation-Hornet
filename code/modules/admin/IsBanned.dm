@@ -9,7 +9,7 @@
 GLOBAL_LIST_EMPTY(ckey_redirects)
 
 /world/IsBanned(key, address, computer_id, type, real_bans_only=FALSE)
-	debug_world_log("isbanned(): '[args.Join("', '")]'")
+	debug_world_log("isbanned(): SRC:'[src]', USR:'[usr]' ARGS:'[args.Join("', '")]'")
 	if (!key || (!real_bans_only && (!address || !computer_id)))
 		if(real_bans_only)
 			return FALSE

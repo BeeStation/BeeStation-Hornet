@@ -29,9 +29,11 @@
 
 	var/triggering	//admin cancellation
 	var/auto_add = TRUE				//Auto add to the event pool, if not you have to do it yourself!
+	var/can_malf_fake_alert = FALSE	//Can be faked by malf ai?
 
-	/// Whether or not dynamic should hijack this event
-	var/dynamic_should_hijack = FALSE
+
+	var/dynamic_should_hijack = FALSE	// Whether or not dynamic should hijack this event
+	var/cannot_spawn_after_shuttlecall = FALSE	// Prevents the event from spawning after the shuttle was called
 
 /datum/round_event_control/New()
 	if(config && !wizardevent) // Magic is unaffected by configs
@@ -58,7 +60,9 @@
 		return FALSE
 	if(holidayID && (!SSevents.holidays || !SSevents.holidays[holidayID]))
 		return FALSE
-	if(ispath(typepath, /datum/round_event/ghost_role) && GHOSTROLE_MIDROUND_EVENT)
+	if(cannot_spawn_after_shuttlecall && !EMERGENCY_IDLE_OR_RECALLED)
+		return FALSE
+	if(ispath(typepath, /datum/round_event/ghost_role) && !(GLOB.ghost_role_flags & GHOSTROLE_MIDROUND_EVENT))
 		return FALSE
 
 	var/datum/game_mode/dynamic/dynamic = SSticker.mode
@@ -151,9 +155,8 @@
 //Provides ghosts a follow link to an atom if possible
 //Only called once.
 /datum/round_event/proc/announce_to_ghosts(atom/atom_of_interest)
-	if(control.alert_observers)
-		if (atom_of_interest)
-			notify_ghosts("[control.name] has an object of interest: [atom_of_interest]!", source=atom_of_interest, action=NOTIFY_ORBIT, header="Something's Interesting!")
+	if(control.alert_observers && atom_of_interest)
+		notify_ghosts("[control.name] has an object of interest: [atom_of_interest]!", source=atom_of_interest, action=NOTIFY_ORBIT, header="Something's Interesting!")
 	return
 
 //Called when the tick is equal to the announceWhen variable.
@@ -213,6 +216,9 @@
 
 	activeFor++
 
+// Called when an admin triggers the event.
+/datum/round_event/proc/on_admin_trigger()
+	return
 
 //Garbage collects the event by removing it from the global events list,
 //which should be the only place it's referenced.

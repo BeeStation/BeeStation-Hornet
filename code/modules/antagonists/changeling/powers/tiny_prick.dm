@@ -61,7 +61,7 @@
 		return
 	to_chat(user, "<span class='notice'>We stealthily sting [target.name].</span>")
 	if((target.mind && target.mind.has_antag_datum(/datum/antagonist/changeling)) || !stealthy)
-		to_chat(target, "<span class='warning'>You feel a tiny prick.</span>")
+		to_chat(target, "<span class='warning'>You feel a tiny prick!</span>")
 	return 1
 
 
@@ -108,7 +108,7 @@
 		C.real_name = NewDNA.real_name
 		NewDNA.transfer_identity(C)
 		if(ismonkey(C))
-			C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG)
+			C.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPORGANS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPAI)
 		C.updateappearance(mutcolor_update=1)
 
 

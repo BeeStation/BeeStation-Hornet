@@ -101,7 +101,8 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 		return ..()
 
 /obj/structure/bodycontainer/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/iron (loc, 5)
+	if (!(flags_1 & NODECONSTRUCT_1))
+		new /obj/item/stack/sheet/iron (loc, 5)
 	recursive_organ_check(src)
 	qdel(src)
 
@@ -264,7 +265,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 			if(O.resistance_flags & INDESTRUCTIBLE)
 				O.forceMove(src) // in case an item in container should be spared
 				conts -= O
-		
+
 		for(var/mob/living/M in conts)
 			if (M.stat != DEAD)
 				M.emote("scream")
@@ -346,6 +347,17 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		add_fingerprint(user)
 	else
 		to_chat(user, "<span class='warning'>That's not connected to anything!</span>")
+
+/obj/structure/tray/attackby(obj/P, mob/user, params)
+	if(!istype(P, /obj/item/riding_offhand))
+		return ..()
+
+	var/obj/item/riding_offhand/riding_item = P
+	var/mob/living/carried_mob = riding_item.rider
+	if(carried_mob == user) //Piggyback user.
+		return
+	user.unbuckle_mob(carried_mob)
+	MouseDrop_T(carried_mob, user)
 
 /obj/structure/tray/MouseDrop_T(atom/movable/O as mob|obj, mob/user)
 	if(!ismovableatom(O) || O.anchored || !Adjacent(user) || !user.Adjacent(O) || O.loc == user)

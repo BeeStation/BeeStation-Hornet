@@ -643,12 +643,13 @@ update_label("John Doe", "Clowny")
 ///Department Budget Cards///
 
 /obj/item/card/id/departmental_budget
-	name = "departmental card (FUCK)"
+	name = "departmental card (budget)"
 	desc = "Provides access to the departmental budget."
 	icon_state = "budget"
 	var/department_ID = ACCOUNT_CIV
 	var/department_name = ACCOUNT_CIV_NAME
-
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	
 /obj/item/card/id/departmental_budget/Initialize()
 	. = ..()
 	var/datum/bank_account/B = SSeconomy.get_dep_account(department_ID)
@@ -746,6 +747,9 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/miner
 	icon_state = "miner"
 
+/obj/item/card/id/job/exploration
+	icon_state = "exploration"
+
 /obj/item/card/id/job/cargo
 	icon_state = "cargo"
 
@@ -757,3 +761,26 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/lawyer
 	icon_state = "lawyer"
+
+/obj/item/card/id/pass
+	name = "promotion pass"
+	desc = "A card that, when swiped on your ID card, will grant you all the access. Should not substitute your actual ID card."
+	icon_state = "data_1"
+	registered_name = "Unregistered ID"
+	assignment = "Access Pass"
+
+/obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if (!proximity)
+		return .
+	var/obj/item/card/id/idcard = target
+	if(istype(idcard))
+		for(var/give_access in access)
+			idcard.access |= give_access
+		if(assignment!=initial(assignment))
+			idcard.assignment = assignment
+		if(name!=initial(name))
+			idcard.name = name
+		to_chat(user, "You upgrade your [idcard] with the [name].")
+		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
+		qdel(src)

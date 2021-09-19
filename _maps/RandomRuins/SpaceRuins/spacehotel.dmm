@@ -147,7 +147,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
 "aD" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-02"
 	},
 /turf/open/floor/wood,
@@ -187,7 +187,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_4)
 "aL" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-16"
 	},
 /turf/open/floor/wood,
@@ -227,7 +227,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_5)
 "aT" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-16"
 	},
 /turf/open/floor/wood,
@@ -267,7 +267,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_6)
 "bb" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-18"
 	},
 /turf/open/floor/wood,
@@ -1094,7 +1094,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_2)
 "dq" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21"
 	},
 /turf/open/floor/wood,
@@ -1155,7 +1155,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/guestroom/room_1)
 "dy" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-14"
 	},
 /turf/open/floor/wood,
@@ -1829,7 +1829,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/bar)
 "fI" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-02"
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
@@ -2009,7 +2009,7 @@
 	},
 /area/ruin/space/has_grav/hotel/dock)
 "gh" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
 /turf/open/floor/wood,
@@ -2411,7 +2411,7 @@
 /turf/open/floor/carpet,
 /area/ruin/space/has_grav/hotel)
 "hq" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-18"
 	},
 /turf/open/floor/plasteel/dark,
@@ -2987,7 +2987,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/power)
 "iM" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/item/kirbyplants,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel)
 "iN" = (
@@ -4760,7 +4760,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/pool)
 "mD" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-25"
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -4967,7 +4967,7 @@
 /turf/open/indestructible/sound/pool/end,
 /area/ruin/space/has_grav/hotel/pool)
 "pY" = (
-/obj/item/twohanded/required/pool/rubber_ring,
+/obj/item/pool/rubber_ring,
 /turf/open/indestructible/sound/pool,
 /area/ruin/space/has_grav/hotel/pool)
 "sb" = (
@@ -5056,7 +5056,7 @@
 /area/ruin/space/has_grav/hotel/pool)
 "KB" = (
 /obj/structure/closet/secure_closet/personal,
-/obj/item/twohanded/required/pool/pool_noodle,
+/obj/item/pool/pool_noodle,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/hotel/pool)
 "Lm" = (
@@ -5115,7 +5115,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/pool)
 "Sg" = (
-/obj/item/twohanded/required/pool/pool_noodle,
+/obj/item/pool/pool_noodle,
 /turf/open/indestructible/sound/pool,
 /area/ruin/space/has_grav/hotel/pool)
 "VD" = (

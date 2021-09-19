@@ -7,7 +7,7 @@
 	agent = "Severe Genetic Damage"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = @"If left untreated the subject will [REDACTED]!"
-	severity = "Dangerous!"
+	danger = DISEASE_DANGEROUS
 	cures = list(/datum/reagent/medicine/rezadone)
 	disease_flags = CAN_CARRY|CAN_RESIST
 	spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS

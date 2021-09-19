@@ -73,6 +73,11 @@
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
 
+//Species gib types
+
+#define GIB_TYPE_HUMAN "human"
+#define GIB_TYPE_ROBOTIC "robotic"
+
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
 #define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
@@ -87,7 +92,8 @@
 #define HUMAN_MAX_OXYLOSS 3
 #define HUMAN_CRIT_MAX_OXYLOSS (SSmobs.wait/30)
 
-#define STAMINA_REGEN_BLOCK_TIME (10 SECONDS)
+#define STAMINA_CRIT_TIME (5 SECONDS)	//Time before regen starts when in stam crit
+#define STAMINA_REGEN_BLOCK_TIME (2 SECONDS) //Time before regen starts when hit with stam damage
 
 #define HEAT_DAMAGE_LEVEL_1 2 //! Amount of damage applied when your body temperature just passes the 360.15k safety point
 #define HEAT_DAMAGE_LEVEL_2 3 //! Amount of damage applied when your body temperature passes the 400K point
@@ -201,6 +207,9 @@
 #define ETHEREAL_CHARGE_NORMAL 50
 #define ETHEREAL_CHARGE_ALMOSTFULL 75
 #define ETHEREAL_CHARGE_FULL 100
+
+//Base nutrition value used for newly initialized slimes
+#define SLIME_DEFAULT_NUTRITION 700
 
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10
@@ -367,5 +376,24 @@
 #define WABBAJACK     (1<<6)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+#define INTERACTING_WITH(X, Y) (Y in X.do_afters)
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
+
+// Mob Playability Set By Admin Or Ghosting
+#define SENTIENCE_SKIP 0
+#define SENTIENCE_RETAIN 1	//a player ghosting out of the mob will make the mob playable for others, if it was already playable
+#define SENTIENCE_FORCE 2		//the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+#define SENTIENCE_ERASE 3
+
+//Flavor Text When Entering A Playable Mob
+#define FLAVOR_TEXT_EVIL "evil"	//mob antag
+#define FLAVOR_TEXT_GOOD "good"	//ie do not cause evil
+#define FLAVOR_TEXT_NONE "none"
+#define FLAVOR_TEXT_GOAL_ANTAG "blob"	//is antag, but should work towards its goals
+
+//Saves a proc call, life is suffering. If who has no targets_from var, we assume it's just who
+#define GET_TARGETS_FROM(who) (who.targets_from ? who.get_targets_from() : who)
+
+///Define for spawning megafauna instead of a mob for cave gen
+#define SPAWN_MEGAFAUNA "bluh bluh huge boss"

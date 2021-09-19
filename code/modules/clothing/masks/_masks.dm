@@ -17,7 +17,7 @@
 
 /obj/item/clothing/mask/equipped(mob/M, slot)
 	. = ..()
-	if (slot == SLOT_WEAR_MASK && modifies_speech)
+	if (slot == ITEM_SLOT_MASK && modifies_speech)
 		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 	else
 		UnregisterSignal(M, COMSIG_MOB_SAY)
@@ -27,7 +27,7 @@
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/clothing/mask/proc/handle_speech()
-
+	SIGNAL_HANDLER
 /obj/item/clothing/mask/worn_overlays(isinhands = FALSE)
 	. = list()
 	if(!isinhands)
@@ -68,5 +68,8 @@
 		if(adjusted_flags)
 			slot_flags = adjusted_flags
 	if(user)
-		user.wear_mask_update(src, toggle_off = mask_adjusted)
-		user.update_action_buttons_icon() //when mask is adjusted out, we update all buttons icon so the user's potential internal tank correctly shows as off.
+		if(iscarbon(user))
+			var/mob/living/carbon/U = user
+			if(U.wear_mask == src)
+				user.wear_mask_update(src, toggle_off = mask_adjusted)
+	user.update_action_buttons_icon() //when mask is adjusted out, we update all buttons icon so the user's potential internal tank correctly shows as off.

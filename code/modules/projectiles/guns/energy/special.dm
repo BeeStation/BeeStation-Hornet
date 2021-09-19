@@ -27,6 +27,9 @@
 	flight_x_offset = 18
 	flight_y_offset = 11
 
+/obj/item/gun/energy/ionrifle/carbine/pin
+	pin = /obj/item/firing_pin
+
 /obj/item/gun/energy/decloner
 	name = "biological demolecularisor"
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
@@ -237,8 +240,8 @@
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
 	tool_behaviour = null //because it will drain the cutters cell and not the borgs.
-	
-	
+
+
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
@@ -258,10 +261,10 @@
 	for(var/i in 1 to ammo_type.len)
 		var/obj/item/ammo_casing/energy/wormhole/W = ammo_type[i]
 		if(istype(W))
-			W.gun = src
+			W.gun = WEAKREF(src)
 			var/obj/item/projectile/beam/wormhole/WH = W.BB
 			if(istype(WH))
-				WH.gun = src
+				WH.gun = WEAKREF(src)
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
@@ -337,11 +340,15 @@
 	pin = null
 	block_upgrade_walk = 1
 
+/obj/item/gun/energy/temperature/pin
+	pin = /obj/item/firing_pin
+
 /obj/item/gun/energy/temperature/security
 	name = "security temperature gun"
 	desc = "A weapon that can only be used to its full potential by the truly robust."
 	pin = /obj/item/firing_pin
 	block_upgrade_walk = 1
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/gun/energy/laser/instakill
 	name = "instakill rifle"

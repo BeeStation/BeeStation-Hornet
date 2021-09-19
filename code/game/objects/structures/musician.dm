@@ -66,7 +66,7 @@
 	var/turf/source = get_turf(instrumentObj)
 	if((world.time - MUSICIAN_HEARCHECK_MINDELAY) > last_hearcheck)
 		LAZYCLEARLIST(hearing_mobs)
-		for(var/mob/M as() in hearers(15, source))
+		for(var/mob/M in range(11, source))
 			LAZYADD(hearing_mobs, M)
 		last_hearcheck = world.time
 
@@ -78,7 +78,7 @@
 			L.apply_status_effect(STATUS_EFFECT_GOOD_MUSIC)
 		if(!M.client || !(M.client.prefs.toggles & SOUND_INSTRUMENTS))
 			continue
-		M.playsound_local(source, null, 100, falloff = 5, S = music_played)
+		M.playsound_local(source, null, 100, falloff_exponent = 5, S = music_played)
 
 /datum/song/proc/updateDialog(mob/user)
 	instrumentObj.updateDialog()		// assumes it's an object in world, override if otherwise

@@ -1,7 +1,7 @@
 /datum/disease
 	//Flags
 	var/visibility_flags = 0
-	var/disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
+	var/disease_flags = CURABLE | CAN_CARRY | CAN_RESIST
 	var/spread_flags = DISEASE_SPREAD_AIRBORNE | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
 
 	//Fluff
@@ -26,7 +26,7 @@
 	var/carrier = FALSE //If our host is only a carrier
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
 	var/permeability_mod = 1
-	var/severity = DISEASE_SEVERITY_NONTHREAT
+	var/danger = DISEASE_NONTHREAT
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit
@@ -150,7 +150,7 @@
 	//note that stage is not copied over - the copy starts over at stage 1
 	var/static/list/copy_vars = list("name", "visibility_flags", "disease_flags", "spread_flags", "form", "desc", "agent", "spread_text",
 									"cure_text", "max_stages", "stage_prob", "viable_mobtypes", "cures", "infectivity", "cure_chance",
-									"bypasses_immunity", "permeability_mod", "severity", "required_organs", "needs_all_cures", "strain_data",
+									"bypasses_immunity", "permeability_mod", "danger", "required_organs", "needs_all_cures", "strain_data",
 									"infectable_biotypes", "process_dead")
 
 	var/datum/disease/D = copy_type ? new copy_type() : new type()
@@ -175,25 +175,25 @@
 	affected_mob = null
 
 //Use this to compare severities
-/proc/get_disease_severity_value(severity)
-	switch(severity)
-		if(DISEASE_SEVERITY_BENEFICIAL)
+/proc/get_disease_danger_value(danger)
+	switch(danger)
+		if(DISEASE_BENEFICIAL)
 			return 1
-		if(DISEASE_SEVERITY_POSITIVE)
+		if(DISEASE_POSITIVE)
 			return 2
-		if(DISEASE_SEVERITY_NONTHREAT)
+		if(DISEASE_NONTHREAT)
 			return 3
-		if(DISEASE_SEVERITY_MINOR)
+		if(DISEASE_MINOR)
 			return 4
-		if(DISEASE_SEVERITY_MEDIUM)
+		if(DISEASE_MEDIUM)
 			return 5
-		if(DISEASE_SEVERITY_HARMFUL)
+		if(DISEASE_HARMFUL)
 			return 6
-		if(DISEASE_SEVERITY_DANGEROUS)
+		if(DISEASE_DANGEROUS)
 			return 7
-		if(DISEASE_SEVERITY_BIOHAZARD)
+		if(DISEASE_BIOHAZARD)
 			return 8
-		if(DISEASE_SEVERITY_PANDEMIC)
+		if(DISEASE_PANDEMIC)
 			return 9
 
 /datum/disease/proc/speechModification(message)

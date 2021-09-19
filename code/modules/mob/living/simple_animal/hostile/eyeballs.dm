@@ -25,4 +25,4 @@
 	movement_type = FLYING
 
 	faction = list("spooky")
-	del_on_death = 1
+	del_on_death = TRUE

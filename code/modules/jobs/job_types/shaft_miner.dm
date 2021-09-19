@@ -20,6 +20,7 @@
 	paycheck_department = ACCOUNT_CAR
 
 	display_order = JOB_DISPLAY_ORDER_SHAFT_MINER
+	departments = DEPARTMENT_CARGO
 
 /datum/outfit/job/miner
 	name = "Shaft Miner"
@@ -52,7 +53,7 @@
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
 	suit_store = /obj/item/tank/internals/oxygen
-	internals_slot = SLOT_S_STORE
+	internals_slot = ITEM_SLOT_SUITSTORE
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
 		/obj/item/kitchen/knife/combat/survival=1,

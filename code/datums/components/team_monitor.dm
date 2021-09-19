@@ -152,6 +152,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //When the parent is removed, we need to update our arrows
 //Also if we are visible update the arrows of anything tracking us
 /datum/component/team_monitor/proc/parent_moved()
+	SIGNAL_HANDLER
+
 	//Update our alt appearences
 	update_all_directions()
 
@@ -169,7 +171,7 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 	var/atom/movable/screen/arrow/screen = tracking[beacon]
 	var/turf/target_turf = get_turf(beacon.parent)
 	var/turf/parent_turf = get_turf(parent)
-	if(target_turf.z != parent_turf.z || target_turf == parent_turf)
+	if(target_turf.get_virtual_z_level() != parent_turf.get_virtual_z_level() || target_turf == parent_turf)
 		if(screen)
 			//Remove the screen
 			updating.hud_used.team_finder_arrows -= screen
@@ -201,10 +203,12 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //The parent equipped an item with a team_monitor, check if its in the right slot and apply the hud
 //Also needs to enable other trackers pointers towards us
 /datum/component/team_monitor/proc/parent_equipped(datum/source, mob/equipper, slot)
+	SIGNAL_HANDLER
+
 	var/obj/item/clothing/item = parent
 	if(!istype(item))
 		return
-	if(item.slot_flags & slotdefine2slotbit(slot)) //Was equipped to a valid slot for this item?
+	if(item.slot_flags & slot) //Was equipped to a valid slot for this item?
 		show_hud(equipper)
 	else
 		hide_hud(equipper)
@@ -212,6 +216,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //Disable our hud
 //Disable the pointers to us
 /datum/component/team_monitor/proc/parent_dequpped(datum/source, mob/user)
+	SIGNAL_HANDLER
+
 	hide_hud(user)
 
 //===========
@@ -420,10 +426,12 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //The parent equipped an item with a team_monitor, check if its in the right slot and apply the hud
 //Also needs to enable other trackers pointers towards us
 /datum/component/tracking_beacon/proc/parent_equipped(datum/source, mob/equipper, slot)
+	SIGNAL_HANDLER
+
 	var/obj/item/clothing/item = parent
 	if(!istype(item))
 		return
-	if(item.slot_flags & slotdefine2slotbit(slot)) //Was equipped to a valid slot for this item?
+	if(item.slot_flags & slot) //Was equipped to a valid slot for this item?
 		updating = equipper
 		toggle_visibility(TRUE)
 		RegisterSignal(updating, COMSIG_MOVABLE_MOVED, .proc/update_position)
@@ -436,6 +444,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //Disable our hud
 //Disable the pointers to us
 /datum/component/tracking_beacon/proc/parent_dequpped(datum/source, mob/user)
+	SIGNAL_HANDLER
+
 	toggle_visibility(FALSE)
 	if(updating)
 		UnregisterSignal(updating, COMSIG_MOVABLE_MOVED)
@@ -460,6 +470,8 @@ GLOBAL_LIST_EMPTY(tracker_beacons)
 //===========
 
 /datum/component/tracking_beacon/proc/update_position()
+	SIGNAL_HANDLER
+
 	//Update everyone tracking us
 	if(!visible)
 		return

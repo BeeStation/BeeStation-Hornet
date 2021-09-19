@@ -3,14 +3,23 @@ SUBSYSTEM_DEF(mobs)
 	priority = FIRE_PRIORITY_MOBS
 	flags = SS_KEEP_TIMING | SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	wait = 2 SECONDS
 
 	var/list/currentrun = list()
 	var/static/list/clients_by_zlevel[][]
 	var/static/list/dead_players_by_zlevel[][] = list(list()) // Needs to support zlevel 1 here, MaxZChanged only happens when z2 is created and new_players can login before that.
 	var/static/list/cubemonkeys = list()
 
+	var/datum/spawners_menu/spawner_menu
+
 /datum/controller/subsystem/mobs/stat_entry()
 	. = ..("P:[GLOB.mob_living_list.len]")
+
+/datum/controller/subsystem/mobs/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	cust["processing"] = length(GLOB.mob_living_list)
+	.["custom"] = cust
 
 /datum/controller/subsystem/mobs/proc/MaxZChanged()
 	if (!islist(clients_by_zlevel))
@@ -22,8 +31,7 @@ SUBSYSTEM_DEF(mobs)
 		dead_players_by_zlevel.len++
 		dead_players_by_zlevel[dead_players_by_zlevel.len] = list()
 
-/datum/controller/subsystem/mobs/fire(resumed = 0)
-	var/seconds = wait * 0.1
+/datum/controller/subsystem/mobs/fire(resumed = FALSE)
 	if (!resumed)
 		src.currentrun = GLOB.mob_living_list.Copy()
 
@@ -47,7 +55,7 @@ SUBSYSTEM_DEF(mobs)
 					break
 				var/msg = "[ADMIN_LOOKUPFLW(M)] was found to have no .loc with an attached client, if the cause is unknown it would be wise to ask how this was accomplished."
 				message_admins(msg)
-				send2irc_adminless_only("Mob", msg, R_ADMIN)
+				send2tgs_adminless_only("Mob", msg, R_ADMIN)
 				log_game("[key_name(M)] was found to have no .loc with an attached client.")
 
 			// This is a temporary error tracker to make sure we've caught everything
@@ -62,8 +70,13 @@ SUBSYSTEM_DEF(mobs)
 		var/mob/living/L = currentrun[currentrun.len]
 		currentrun.len--
 		if(L)
-			L.Life(seconds, times_fired)
+			L.Life(wait * 0.1, times_fired)
 		else
 			GLOB.mob_living_list.Remove(L)
 		if (MC_TICK_CHECK)
 			return
+
+/datum/controller/subsystem/mobs/proc/update_spawners()
+	if(!spawner_menu)
+		return
+	spawner_menu.ui_update()

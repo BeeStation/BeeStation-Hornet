@@ -22,6 +22,8 @@
 
 // initialize a holder from the contents of a disposal unit
 /obj/structure/disposalholder/proc/init(obj/machinery/disposal/D)
+	if(!istype(D))
+		return //Why check for things that don't exist?
 	gas = D.air_contents// transfer gas resv. into holder object
 
 	//Check for any living mobs trigger hasmob.
@@ -103,6 +105,7 @@
 // merge two holder objects
 // used when a holder meets a stuck holder
 /obj/structure/disposalholder/proc/merge(obj/structure/disposalholder/other)
+	destinationTag = other.destinationTag //copies typetag from other holder
 	for(var/A in other)
 		var/atom/movable/AM = A
 		AM.forceMove(src)		// move everything in other holder to this one

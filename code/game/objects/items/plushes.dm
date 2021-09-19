@@ -539,6 +539,14 @@
 	gender = FEMALE
 	squeak_override = list('sound/voice/moth/scream_moth.ogg'=1)
 
+/obj/item/toy/plush/rouny
+	name = "runner plushie"
+	desc = "A plushie depicting a xenomorph runner, made to commemorate the centenary of the Battle of LV-426. Much cuddlier than the real thing."
+	icon_state = "rouny"
+	icon_state = "rouny"
+	attack_verb = list("slashes", "bites", "charges")
+	squeak_override = list('sound/weapons/bite.ogg' = 1)
+
 /obj/item/toy/plush/moth
 	name = "moth plushie"
 	desc = "An adorable mothperson plushy. It's a huggable bug!"
@@ -565,3 +573,27 @@
 		forceMove(random_open_spot)
 	user.dust(just_ash = FALSE, drop_items = TRUE)
 	return MANUAL_SUICIDE
+
+/////////////////
+//DONATOR ITEMS//
+/////////////////
+
+/obj/item/toy/plush/ian
+	name = "ian plushie"
+	desc = "Keep him by your side."
+	icon_state = "ianplush"
+
+/obj/item/toy/plush/lisa
+	name = "lisa plushie"
+	desc = "Keep her by your side."
+	icon_state = "lisaplush"
+
+/obj/item/toy/plush/renault
+	name = "renault plushie"
+	desc = "AWOOOO!"
+	icon_state = "renaultplush"
+
+/obj/item/toy/plush/opa
+	name = "metal upa"
+	desc = "You feel like this could have prevented World War 3 in a pararel timeline."
+	icon_state = "upaplush"

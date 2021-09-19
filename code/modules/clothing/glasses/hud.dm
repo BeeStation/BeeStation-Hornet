@@ -7,7 +7,7 @@
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if(slot != SLOT_GLASSES)
+	if(slot != ITEM_SLOT_EYES)
 		return
 	if(hud_type)
 		if(islist(hud_type))
@@ -83,6 +83,20 @@
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/blue
 
+/obj/item/clothing/glasses/hud/health/prescription
+	name = "prescription medical HUDglasses"
+	desc = "prescription glasses with a built-in medical HUD."
+	item_state = "prescmedhud"
+	icon_state = "prescmedhud"
+	hud_type = DATA_HUD_MEDICAL_ADVANCED
+	hud_trait = TRAIT_MEDICAL_HUD
+	vision_correction = 1
+
+/obj/item/clothing/glasses/hud/health/sunglasses/degraded
+	name = "degraded medical HUDSunglasses"
+	desc = "Sunglasses with a medical HUD. They do not provide flash protection."
+	flash_protect = 0
+
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "diagnostic HUD"
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."
@@ -106,6 +120,11 @@
 	item_state = "glasses"
 	flash_protect = 1
 	tint = 1
+
+/obj/item/clothing/glasses/hud/diagnostic/sunglasses/degraded
+	name = "degraded diagnostic sunglasses"
+	desc = "Sunglasses with a diagnostic HUD. They do not provide flash protection."
+	flash_protect = 0
 
 /obj/item/clothing/glasses/hud/security
 	name = "security HUD"
@@ -165,6 +184,11 @@
 	flash_protect = 1
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/darkred
+
+/obj/item/clothing/glasses/hud/security/sunglasses/degraded
+	name = "degraded security HUDSunglasses"
+	desc = "Sunglasses with a security HUD. They do not provide flash protection"
+	flash_protect = 0
 
 /obj/item/clothing/glasses/hud/security/night
 	name = "night vision security HUD"

@@ -69,6 +69,8 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	RegisterSignal(rune_turf, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_rune)
 
 /obj/effect/warped_rune/proc/clean_rune()
+	SIGNAL_HANDLER
+
 	qdel(src)
 
 ///using the extract on the floor will "draw" the rune.
@@ -156,29 +158,36 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	name = "greyspace rune"
 	desc = "Death is merely a setback, anything can be rebuilt given the right components."
 	icon_state = "rune_grey"
-	///extractype is used to remember the type of the extract on the rune
-	var/extractype
+	///extracttype is used to remember the type of the extract on the rune
+	var/extracttype
 	var/req_extracts = 8
 
 /obj/effect/warped_rune/greyspace/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>Requires absorbing [req_extracts] [extractype ? "[extractype] extracts" : "slime extracts"].</span>")
+	to_chat(user, "<span class='notice'>Requires absorbing [req_extracts] [extracttype ? "[extracttype] extracts" : "slime extracts"].</span>")
 
 /obj/effect/warped_rune/greyspace/do_effect(mob/user)
 	for(var/obj/item/slime_extract/extract in rune_turf)
-		if(extract.color_slime == extractype || !extractype) //check if the extract is the first one or of the right color.
-			extractype = extract.color_slime
+		if(extract.color_slime == extracttype || !extracttype) //check if the extract is the first one or of the right color.
+			extracttype = extract.color_slime
 			qdel(extract) //vores the slime extract
 			req_extracts--
 			if(req_extracts <= 0)
-				new /mob/living/simple_animal/slime (rune_turf, extractype) //spawn a slime from the extract's color
+				switch(extracttype)
+					if("lightpink")
+						extracttype = "light pink"
+					if("darkblue")
+						extracttype = "dark blue"
+					if("darkpurple")
+						extracttype = "dark purple"
+				new /mob/living/simple_animal/slime (rune_turf, extracttype) //spawn a slime from the extract's color
 				req_extracts = initial(req_extracts)
-				extractype = null // reset extractype to FALSE to allow a new extract type
+				extracttype = null // reset extracttype to FALSE to allow a new extract type
 				. = ..()
 				break
 			playsound(rune_turf, 'sound/effects/splat.ogg', 20, TRUE)
 		else
-			to_chat(user, "<span class='warning'>Requires a [extractype ? "[extractype] extracts" : "slime extract"].</span>")
+			to_chat(user, "<span class='warning'>Requires a [extracttype ? "[extracttype] extracts" : "slime extract"].</span>")
 
 
 /obj/item/slimecross/warping/orange
@@ -597,7 +606,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/gun/ballistic/shotgun/toy/unrestricted,
 		/obj/item/gun/ballistic/shotgun/toy/crossbow,
 		/obj/item/clothing/mask/facehugger/toy,
-		/obj/item/twohanded/dualsaber/toy,
+		/obj/item/dualsaber/toy,
 		/obj/item/clothing/under/costume/roman,
 		/obj/item/clothing/under/costume/pirate,
 		/obj/item/clothing/under/costume/kilt/highlander,
@@ -790,6 +799,9 @@ GLOBAL_DATUM(warped_room, /datum/map_template/warped_room)
 	requires_power = FALSE
 	has_gravity = TRUE
 	teleport_restriction = TELEPORT_ALLOW_NONE
+
+/area/warped_room/get_virtual_z(turf/T)
+	return WARPED_ROOM_VIRTUAL_Z
 
 ///creates the warped room and place an exit rune to exit the room
 /obj/effect/warped_rune/rainbowspace/Initialize()

@@ -62,7 +62,7 @@
 	return make_plating()
 
 /turf/open/floor/wood/cold
-	temperature = 255.37
+	initial_temperature = 255.37
 
 /turf/open/floor/wood/airless
 	initial_gas_mix = AIRLESS_ATMOS
@@ -310,3 +310,6 @@
 	clawfootstep = FOOTSTEP_WOOD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+
+/turf/open/floor/wax/airless
+	initial_gas_mix = AIRLESS_ATMOS

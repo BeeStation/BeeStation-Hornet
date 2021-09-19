@@ -4,7 +4,7 @@
 	stealth = 1
 	resistance = -2
 	stage_speed = -3
-	transmittable = -1
+	transmission = -1
 	level = 8
 	severity = 3
 	symptom_delay_min = 15
@@ -16,15 +16,15 @@
 
 /datum/symptom/braindamage/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 12)
+	if(A.transmission >= 12)
 		severity += 1
 
 /datum/symptom/braindamage/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 12)
+	if(A.transmission >= 12)
 		lethal = TRUE
-	if(A.properties["stage_rate"] >= 9)
+	if(A.stage_rate >= 9)
 		moretrauma = TRUE
 
 /datum/symptom/braindamage/Activate(datum/disease/advance/A)
@@ -53,5 +53,5 @@
 /datum/symptom/braindamage/proc/givetrauma(datum/disease/advance/A, chance)
 	if(prob(chance))
 		if(ishuman(A.affected_mob))
-			var/mob/living/carbon/human/M = A.affected_mob 
+			var/mob/living/carbon/human/M = A.affected_mob
 			M?.gain_trauma(BRAIN_TRAUMA_MILD)

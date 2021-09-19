@@ -61,6 +61,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "migniter"
 	resistance_flags = FIRE_PROOF
+	layer = ABOVE_WINDOW_LAYER
 	var/id = null
 	var/disable = 0
 	var/last_spark = 0

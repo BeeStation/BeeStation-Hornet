@@ -88,10 +88,11 @@
 	html = replacetextEx(html, "<!-- tgui:html -->\n", inline_html)
 	// Open the window
 	client << browse(html, "window=[id];[options]")
-	// Instruct the client to signal UI when the window is closed.
-	winset(client, id, "on-close=\"uiclose [id]\"")
 	// Detect whether the control is a browser
 	is_browser = winexists(client, id) == "BROWSER"
+	// Instruct the client to signal UI when the window is closed.
+	if(!is_browser)
+		winset(client, id, "on-close=\"uiclose [id]\"")
 
 /**
  * public
@@ -251,7 +252,7 @@
 	if(istype(asset, /datum/asset/spritesheet))
 		var/datum/asset/spritesheet/spritesheet = asset
 		send_message("asset/stylesheet", spritesheet.css_filename())
-	send_message("asset/mappings", asset.get_url_mappings())
+	send_raw_message(asset.get_serialized_url_mappings())
 
 /**
  * private

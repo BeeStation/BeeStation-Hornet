@@ -36,20 +36,22 @@
 	deathmessage = "is hacked into pieces!"
 	loot = list(/obj/item/stack/sheet/mineral/wood)
 	gold_core_spawnable = HOSTILE_SPAWN
-	del_on_death = 1
+	del_on_death = TRUE
 	hardattacks = TRUE
+
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/tree/Life()
 	..()
 	if(isopenturf(loc))
 		var/turf/open/T = src.loc
 		if(T.air)
-			var/co2 = T.air.get_moles(/datum/gas/carbon_dioxide)
+			var/co2 = T.air.get_moles(GAS_CO2)
 			if(co2 > 0)
 				if(prob(25))
 					var/amt = min(co2, 9)
-					T.air.adjust_moles(/datum/gas/carbon_dioxide, -amt)
-					T.atmos_spawn_air("o2=[amt]")
+					T.air.adjust_moles(GAS_CO2, -amt)
+					T.atmos_spawn_air("o2=[amt];TEMP=293.15")
 
 /mob/living/simple_animal/hostile/tree/festivus
 	name = "festivus pole"

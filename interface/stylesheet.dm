@@ -42,6 +42,7 @@ em						{font-style: normal;	font-weight: bold;}
 .binarysay a:active, .binarysay a:visited {color: #88ff88;}
 .radio					{color: #008000;}
 .sciradio				{color: #993399;}
+.explradio				{color: #7ed4c2;}
 .comradio				{color: #948f02;}
 .secradio				{color: #a30000;}
 .medradio				{color: #337296;}
@@ -166,6 +167,7 @@ h1.alert, h2.alert		{color: #000000;}
 .robot					{font-family: "Courier New", cursive, sans-serif;}
 
 .command_headset		{font-weight: bold; font-size: 3;}
+.megaphone				{font-weight: bold; font-size: 3;}
 .small					{font-size: 1;}
 .big					{font-size: 3;}
 .reallybig				{font-size: 4;}

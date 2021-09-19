@@ -145,6 +145,12 @@
 	eye_color = "000"
 	see_in_dark = 8
 	sight_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
+	flash_protect = -INFINITY
+	tint = -INFINITY
+
+/obj/item/organ/eyes/robotic/xray/syndicate
+	desc = "These cybernetic eyes will give you X-ray vision. Blinking is futile. On closer look, they have been modified to protect from sudden bright flashes."
+	flash_protect = 0
 
 /obj/item/organ/eyes/robotic/thermals
 	name = "thermal eyes"
@@ -279,26 +285,20 @@
 		return
 	deactivate(silent = TRUE)
 
-/obj/item/organ/eyes/robotic/glow/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = FALSE)
-	. = ..()
-	RegisterSignal(M, COMSIG_ATOM_DIR_CHANGE, .proc/update_visuals)
-
-/obj/item/organ/eyes/robotic/glow/Remove(mob/living/carbon/M, special = FALSE)
-	. = ..()
-	UnregisterSignal(M, COMSIG_ATOM_DIR_CHANGE)
-
 /obj/item/organ/eyes/robotic/glow/Destroy()
 	QDEL_NULL(mobhook) // mobhook is not our component
 	return ..()
 
 /obj/item/organ/eyes/robotic/glow/proc/activate(silent = FALSE)
 	start_visuals()
+	RegisterSignal(owner, COMSIG_ATOM_DIR_CHANGE, .proc/update_visuals)
 	if(!silent)
 		to_chat(owner, "<span class='warning'>Your [src] clicks and makes a whining noise, before shooting out a beam of light!</span>")
 	active = TRUE
 	cycle_mob_overlay()
 
 /obj/item/organ/eyes/robotic/glow/proc/deactivate(silent = FALSE)
+	UnregisterSignal(owner, COMSIG_ATOM_DIR_CHANGE)
 	clear_visuals()
 	if(!silent)
 		to_chat(owner, "<span class='warning'>Your [src] shuts off!</span>")
@@ -306,6 +306,8 @@
 	remove_mob_overlay()
 
 /obj/item/organ/eyes/robotic/glow/proc/update_visuals(datum/source, olddir, newdir)
+	SIGNAL_HANDLER
+
 	if((LAZYLEN(eye_lighting) < light_beam_distance) || !on_mob)
 		regenerate_light_effects()
 	var/turf/scanfrom = get_turf(owner)
@@ -354,7 +356,7 @@
 	clear_visuals(TRUE)
 	on_mob = new(src)
 	for(var/i in 1 to light_beam_distance)
-		LAZYADD(eye_lighting,new /obj/effect/abstract/eye_lighting(src))
+		LAZYADD(eye_lighting, new /obj/effect/abstract/eye_lighting(src))
 	sync_light_effects()
 
 /obj/item/organ/eyes/robotic/glow/proc/sync_light_effects()
@@ -370,6 +372,7 @@
 /obj/effect/abstract/eye_lighting/Initialize()
 	. = ..()
 	parent = loc
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	if(!istype(parent))
 		return INITIALIZE_HINT_QDEL
 

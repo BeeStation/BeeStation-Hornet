@@ -75,6 +75,8 @@
 	return ..()
 
 /datum/status_effect/slimerecall/proc/resistField()
+	SIGNAL_HANDLER
+
 	interrupted = TRUE
 	owner.remove_status_effect(src)
 /datum/status_effect/slimerecall/on_remove()
@@ -110,6 +112,8 @@
 		owner.remove_status_effect(src)
 
 /datum/status_effect/frozenstasis/proc/breakCube()
+	SIGNAL_HANDLER
+
 	owner.remove_status_effect(src)
 
 /datum/status_effect/frozenstasis/on_remove()
@@ -229,7 +233,7 @@
 	duration = -1
 	alert_type = null
 
-datum/status_effect/rebreathing/tick()
+/datum/status_effect/rebreathing/tick()
 	owner.adjustOxyLoss(-6, 0) //Just a bit more than normal breathing.
 
 ///////////////////////////////////////////////////////
@@ -467,7 +471,7 @@ datum/status_effect/rebreathing/tick()
 	for(var/mob/living/simple_animal/slime/S in viewers(1, owner))
 		if(!(owner in S.Friends))
 			to_chat(owner, "<span class='notice'>[linked_extract] pulses gently as it communicates with [S].</span>")
-			S.Friends[owner] = 1
+			S.set_friendship(owner, 1)
 	return ..()
 
 /datum/status_effect/stabilized/orange
@@ -509,7 +513,7 @@ datum/status_effect/rebreathing/tick()
 	ADD_TRAIT(owner, TRAIT_NOSLIPWATER, "slimestatus")
 	return ..()
 
-datum/status_effect/stabilized/blue/on_remove()
+/datum/status_effect/stabilized/blue/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_NOSLIPWATER, "slimestatus")
 
 /datum/status_effect/stabilized/metal
@@ -577,8 +581,10 @@ datum/status_effect/stabilized/blue/on_remove()
 
 /datum/status_effect/stabilized/darkpurple/tick()
 	var/obj/item/I = owner.get_active_held_item()
-	var/obj/item/reagent_containers/food/snacks/F = I
-	if(istype(F))
+	if(!I)
+		return
+	if(istype(I, /obj/item/reagent_containers/food/snacks))
+		var/obj/item/reagent_containers/food/snacks/F = I
 		if(F.cooked_type)
 			to_chat(owner, "<span class='warning'>[linked_extract] flares up brightly, and your hands alone are enough cook [F]!</span>")
 			var/obj/item/result = F.microwave_act()
@@ -904,7 +910,8 @@ datum/status_effect/stabilized/blue/on_remove()
 	colour = "light pink"
 
 /datum/status_effect/stabilized/lightpink/on_apply()
-	owner.add_movespeed_modifier(MOVESPEED_ID_SLIME_STATUS, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+	owner.add_movespeed_modifier(MOVESPEED_ID_SLIME_STATUS, update=TRUE, priority=100, multiplicative_slowdown=-0.5, blacklisted_movetypes=(FLYING|FLOATING))
+	ADD_TRAIT(owner, TRAIT_PACIFISM, LIGHTPINK_TRAIT)
 	return ..()
 
 /datum/status_effect/stabilized/lightpink/tick()
@@ -916,6 +923,7 @@ datum/status_effect/stabilized/blue/on_remove()
 
 /datum/status_effect/stabilized/lightpink/on_remove()
 	owner.remove_movespeed_modifier(MOVESPEED_ID_SLIME_STATUS)
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, LIGHTPINK_TRAIT)
 
 /datum/status_effect/stabilized/adamantine
 	id = "stabilizedadamantine"

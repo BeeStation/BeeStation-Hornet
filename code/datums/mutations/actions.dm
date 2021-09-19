@@ -89,10 +89,10 @@
 	if(tracking_target == user)
 		to_chat(user,"<span class='warning'>You smell out the trail to yourself. Yep, it's you.</span>")
 		return
-	if(usr.z < tracking_target.z)
+	if(usr.get_virtual_z_level() < tracking_target.get_virtual_z_level())
 		to_chat(user,"<span class='warning'>The trail leads... way up above you? Huh. They must be really, really far away.</span>")
 		return
-	else if(usr.z > tracking_target.z)
+	else if(usr.get_virtual_z_level() > tracking_target.get_virtual_z_level())
 		to_chat(user,"<span class='warning'>The trail leads... way down below you? Huh. They must be really, really far away.</span>")
 		return
 	var/direction_text = "[dir2text(get_dir(usr, tracking_target))]"

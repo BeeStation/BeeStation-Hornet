@@ -12,6 +12,6 @@ GLOBAL_DATUM_INIT(z_state, /datum/ui_state/z_state, new)
 /datum/ui_state/z_state/can_use_topic(src_object, mob/user)
 	var/turf/turf_obj = get_turf(src_object)
 	var/turf/turf_usr = get_turf(user)
-	if(turf_obj && turf_usr && turf_obj.z == turf_usr.z)
+	if(turf_obj && turf_usr && turf_obj.get_virtual_z_level() == turf_usr.get_virtual_z_level())
 		return UI_INTERACTIVE
 	return UI_CLOSE

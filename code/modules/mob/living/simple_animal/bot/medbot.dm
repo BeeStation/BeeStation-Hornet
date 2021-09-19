@@ -421,10 +421,10 @@ GLOBAL_VAR(medibot_unique_id_gen)
 				if((get_dist(src, patient) <= 1) && (on) && assess_patient(patient))
 					var/healies = heal_amount
 					var/obj/item/storage/firstaid/FA = firstaid
-					if(treatment_method == TOX && isoozeling(patient))
-						healies *= -1.5
 					if(treatment_method == initial(FA.damagetype_healed)) //using the damage specific medkits give bonuses when healing this type of damage.
 						healies *= 1.5
+					if(treatment_method == TOX && HAS_TRAIT(patient, TRAIT_TOXINLOVER))
+						healies *= -1.5
 					if(emagged == 2)
 						patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
 						patient.apply_damage_type((healies*1),treatment_method)

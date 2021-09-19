@@ -4,13 +4,13 @@
 	antagpanel_category = "Heretic"
 	antag_moodlet = /datum/mood_event/heretics
 	job_rank = ROLE_HERETIC
-	var/antag_hud_type = ANTAG_HUD_HERETIC
+	var/antag_hud_type = ANTAG_HUD_HERETIC // someone make all the other antags conform to this too lol
 	var/antag_hud_name = "heretic"
+	hijack_speed = 0.5
 	var/give_equipment = TRUE
 	var/list/researched_knowledge = list()
 	var/total_sacrifices = 0
 	var/ascended = FALSE
-	can_hijack = HIJACK_HIJACKER
 
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
 	give_equipment = FALSE
@@ -19,7 +19,7 @@
 	log_admin("[key_name(admin)] has heresized [key_name(new_owner)].")
 
 /datum/antagonist/heretic/greet()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
 	to_chat(owner, "<span class='boldannounce'>You are the Heretic!</span><br>\
 	<B>The old ones gave you these tasks to fulfill:</B>")
 	owner.announce_objectives()
@@ -67,9 +67,9 @@
 
 /datum/antagonist/heretic/proc/ecult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
-		"backpack" = SLOT_IN_BACKPACK,
-		"left pocket" = SLOT_L_STORE,
-		"right pocket" = SLOT_R_STORE
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_LPOCKET,
+		"right pocket" = ITEM_SLOT_RPOCKET
 	)
 
 	var/T = new item_path(H)
@@ -228,9 +228,9 @@
 	name = "spendtime"
 	var/timer = 5 MINUTES
 
-/datum/objective/stalk/process()
+/datum/objective/stalk/process(delta_time)
 	if(owner?.current?.stat != DEAD && target?.current?.stat != DEAD && (owner.current in viewers(5, get_turf(target))))
-		timer -= 1 SECONDS
+		timer -= delta_time * 10 // timer is in deciseconds
 	///we don't want to process after the counter reaches 0, otherwise it is wasted processing
 	if(timer <= 0)
 		completed = TRUE

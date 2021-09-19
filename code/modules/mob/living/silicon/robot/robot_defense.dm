@@ -124,7 +124,7 @@
 
 	SetEmagged(1)
 	SetStun(60) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
-	lawupdate = 0
+	lawupdate = FALSE
 	connected_ai = null
 	message_admins("[ADMIN_LOOKUPFLW(user)] emagged cyborg [ADMIN_LOOKUPFLW(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")

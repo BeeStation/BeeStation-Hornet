@@ -27,6 +27,8 @@
 	enter_pool()
 
 /datum/component/swimming/proc/onMove()
+	SIGNAL_HANDLER
+
 	lengths ++
 	if(lengths > lengths_for_bonus)
 		var/mob/living/L = parent
@@ -36,6 +38,8 @@
 
 //Damn edge cases
 /datum/component/swimming/proc/onChangeSpecies()
+	SIGNAL_HANDLER
+
 	var/mob/living/carbon/C = parent
 	var/component_type = /datum/component/swimming
 	if(istype(C) && C?.dna?.species)
@@ -45,6 +49,8 @@
 	M.AddComponent(component_type)
 
 /datum/component/swimming/proc/try_leave_pool(datum/source, turf/clicked_turf)
+	SIGNAL_HANDLER
+
 	var/mob/living/L = parent
 	if(!L.can_interact_with(clicked_turf))
 		return
@@ -53,6 +59,18 @@
 	if(istype(clicked_turf, /turf/open/indestructible/sound/pool))
 		return
 	if(L.pulling)
+		INVOKE_ASYNC(src, .proc/pull_out, L, clicked_turf)
+		return
+	INVOKE_ASYNC(src, .proc/climb_out, L, clicked_turf)
+
+/datum/component/swimming/proc/climb_out(var/mob/living/L, turf/clicked_turf)
+	L.forceMove(clicked_turf)
+	L.visible_message("<span class='notice'>[parent] climbs out of the pool.</span>")
+	RemoveComponent()
+
+/datum/component/swimming/proc/pull_out(var/mob/living/L, turf/clicked_turf)
+	to_chat(parent, "<span class='notice'>You start to climb out of the pool...</span>")
+	if(do_after(parent, 1 SECONDS, target=clicked_turf))
 		to_chat(parent, "<span class='notice'>You start to lift [L.pulling] out of the pool...</span>")
 		var/atom/movable/pulled_object = L.pulling
 		if(do_after(parent, 1 SECONDS, target=pulled_object))
@@ -61,12 +79,6 @@
 			var/datum/component/swimming/swimming_comp = pulled_object.GetComponent(/datum/component/swimming)
 			if(swimming_comp)
 				swimming_comp.RemoveComponent()
-		return
-	to_chat(parent, "<span class='notice'>You start to climb out of the pool...</span>")
-	if(do_after(parent, 1 SECONDS, target=clicked_turf))
-		L.forceMove(clicked_turf)
-		L.visible_message("<span class='notice'>[parent] climbs out of the pool.</span>")
-		RemoveComponent()
 
 /datum/component/swimming/UnregisterFromParent()
 	exit_pool()
@@ -85,8 +97,8 @@
 /datum/component/swimming/process()
 	var/mob/living/L = parent
 	var/floating = FALSE
-	var/obj/item/twohanded/required/pool/helditem = L.get_active_held_item()
-	if(istype(helditem) && helditem.wielded)
+	var/obj/item/pool/helditem = L.get_active_held_item()
+	if(istype(helditem) && ISWIELDED(helditem))
 		bob_tick ++
 		animate(L, time=9.5, pixel_y = (L.pixel_y == bob_height_max) ? bob_height_min : bob_height_max)
 		floating = TRUE
@@ -105,8 +117,8 @@
 	L.adjust_fire_stacks(-1)
 
 /datum/component/swimming/proc/is_drowning(mob/living/victim)
-	var/obj/item/twohanded/required/pool/helditem = victim.get_active_held_item()
-	if(istype(helditem) && helditem.wielded)
+	var/obj/item/pool/helditem = victim.get_active_held_item()
+	if(istype(helditem) && ISWIELDED(helditem))
 		return
 	return ((!(victim.mobility_flags & MOBILITY_STAND)) && (!HAS_TRAIT(victim, TRAIT_NOBREATH)))
 

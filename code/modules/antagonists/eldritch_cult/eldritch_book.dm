@@ -11,6 +11,9 @@
 	///Is it in use?
 	var/in_use = FALSE
 
+/obj/item/forbidden_book/empty
+	charge = 0
+
 /obj/item/forbidden_book/Destroy()
 	last_user = null
 	. = ..()
@@ -112,9 +115,7 @@
 					charge -= text2num(params["cost"])
 					return TRUE
 
-	update_icon() // Not applicable to all objects.
-
-/obj/item/forbidden_book/ui_close(mob/user)
+/obj/item/forbidden_book/ui_close(mob/user, datum/tgui/tgui)
 	flick("book_closing",src)
 	icon_state = initial(icon_state)
 	return ..()

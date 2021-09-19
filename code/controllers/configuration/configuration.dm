@@ -24,6 +24,7 @@
 	var/static/regex/ooc_filter_regex
 
 	var/list/fail2topic_whitelisted_ips
+	var/list/protected_cids
 
 /datum/controller/configuration/proc/admin_reload()
 	if(IsAdminAdvancedProcCall())
@@ -56,7 +57,7 @@
 				break
 	loadmaplist(CONFIG_MAPS_FILE)
 	LoadTopicRateWhitelist()
-	LoadMOTD()
+	LoadProtectedIDs()
 	LoadChatFilter()
 
 	if (Master)
@@ -210,6 +211,8 @@
 	var/entry_is_abstract = initial(E.abstract_type) == entry_type
 	if(entry_is_abstract)
 		CRASH("Tried to retrieve an abstract config_entry: [entry_type]")
+	if(!entries_by_type)
+		CRASH("Tried to retrieve config value before it was loaded or it was nulled.")
 	E = entries_by_type[entry_type]
 	if(!E)
 		CRASH("Missing config entry for [entry_type]!")
@@ -403,6 +406,16 @@
 			continue
 
 		fail2topic_whitelisted_ips[line] = 1
+
+/datum/controller/configuration/proc/LoadProtectedIDs()
+	var/jsonfile = rustg_file_read("[directory]/protected_cids.json")
+	if(!jsonfile)
+		log_config("Error 404: protected_cids.json not found!")
+		return
+
+	log_config("Loading config file protected_cids.json...")
+
+	protected_cids = json_decode(jsonfile)
 
 /datum/controller/configuration/proc/LoadChatFilter()
 	var/list/in_character_filter = list()

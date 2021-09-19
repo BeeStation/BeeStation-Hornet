@@ -32,22 +32,22 @@ SUBSYSTEM_DEF(input)
 		"default" = list(
 			"Tab" = "\".winset \\\"input.focus=true?map.focus=true input.background-color=[COLOR_INPUT_DISABLED]:input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
 			"O" = "ooc",
-			"T" = "say",
-			"M" = "me",
+			"T" = ".say",
+			"M" = ".me",
 			"Back" = "\".winset \\\"input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",
 			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
 			),
 		"old_default" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=old_hotkeys map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"",
-			"Ctrl+T" = "say",
+			"Ctrl+T" = ".say",
 			"Ctrl+O" = "ooc",
 			),
 		"old_hotkeys" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=old_default input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
 			"O" = "ooc",
-			"T" = "say",
-			"M" = "me",
+			"T" = ".say",
+			"M" = ".me",
 			"Back" = "\".winset \\\"input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",
 			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
@@ -109,7 +109,5 @@ SUBSYSTEM_DEF(input)
 		user.set_macros()
 
 /datum/controller/subsystem/input/fire()
-	var/list/clients = GLOB.clients // Let's sing the list cache song
-	for(var/i in 1 to clients.len)
-		var/client/C = clients[i]
-		C.keyLoop()
+	for(var/mob/user as anything in GLOB.player_list)
+		user?.focus?.keyLoop(user.client)

@@ -299,7 +299,7 @@
 			brightness = A.lighting_brightness_bulb
 		else
 			bulb_colour = A.lighting_colour_tube
-			brightness = A.lighting_brightness_bulb
+			brightness = A.lighting_brightness_tube
 
 	if(nightshift_light_color == initial(nightshift_light_color))
 		nightshift_light_color = A.lighting_colour_night
@@ -314,11 +314,11 @@
 	spawn(2)
 		switch(fitting)
 			if("tube")
-				brightness = 11
+				brightness = A.lighting_brightness_tube
 				if(prob(2))
 					break_light_tube(1)
 			if("bulb")
-				brightness = 6
+				brightness = A.lighting_brightness_bulb
 				if(prob(5))
 					break_light_tube(1)
 		spawn(1)
@@ -356,7 +356,7 @@
 			lighting_overlays = list()
 		var/mutable_appearance/LO = lighting_overlays["[base_state]-[light_power]-[light_color]"]
 		if(!LO)
-			LO = mutable_appearance(overlayicon, base_state, ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
+			LO = mutable_appearance(overlayicon, base_state, layer, EMISSIVE_PLANE)
 			LO.color = light_color
 			LO.alpha = clamp(light_power*255, 30, 200)
 			lighting_overlays["[base_state]-[light_power]-[light_color]"] = LO
@@ -391,7 +391,7 @@
 			if(rigged)
 				if(status == LIGHT_OK && trigger)
 					explode()
-			else if( prob( min(60, (switchcount^2)*0.01) ) )
+			else if( prob( min(60, (switchcount**2)*0.01) ) )
 				if(trigger)
 					burn_out()
 			else
@@ -551,7 +551,7 @@
 				drop_light_tube()
 			new /obj/item/stack/cable_coil(loc, 1, "red")
 		transfer_fingerprints_to(newlight)
-		if(cell)
+		if(!QDELETED(cell))
 			newlight.cell = cell
 			cell.forceMove(newlight)
 			cell = null
@@ -758,7 +758,12 @@
 
 /obj/machinery/light/tesla_act(power, tesla_flags)
 	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
-		explosion(src,0,0,0,flame_range = 5, adminlog = 0)
+		//Fire can cause a lot of lag, just do a mini explosion.
+		explosion(src,0,0,1, adminlog = 0)
+		for(var/mob/living/L in range(3, src))
+			L.fire_stacks = max(L.fire_stacks, 3)
+			L.IgniteMob()
+			L.electrocute_act(0, "Tesla Light Zap", tesla_shock = TRUE, stun = TRUE)
 		qdel(src)
 	else
 		return ..()

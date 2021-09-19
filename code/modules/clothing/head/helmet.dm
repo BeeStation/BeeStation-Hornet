@@ -186,6 +186,11 @@
 	strip_delay = 80
 	dog_fashion = null
 
+/obj/item/clothing/head/helmet/thunderdome/holosuit
+	cold_protection = null
+	heat_protection = null
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+
 /obj/item/clothing/head/helmet/roman
 	name = "\improper Roman helmet"
 	desc = "An ancient helmet made of bronze and leather."

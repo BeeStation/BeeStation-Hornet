@@ -19,12 +19,13 @@
 	var/map_file = "BoxStation.dmm"
 
 	var/traits = null
-	var/space_ruin_levels = 7
+	var/space_ruin_levels = 4	//Keep this low, as new ones are created dynamically when needed.
 	var/space_empty_levels = 1
 
 	var/minetype = "lavaland"
 
 	var/allow_custom_shuttles = TRUE
+	var/allow_night_lighting = TRUE
 	var/shuttles = list(
 		"cargo" = "cargo_box",
 		"ferry" = "ferry_fancy",
@@ -127,6 +128,8 @@
 		minetype = json["minetype"]
 
 	allow_custom_shuttles = json["allow_custom_shuttles"] != FALSE
+
+	allow_night_lighting = json["allow_night_lighting"] != FALSE
 
 	defaulted = FALSE
 	return TRUE

@@ -4,6 +4,7 @@
 /mob/verb/say_verb(message as text)
 	set name = "Say"
 	set category = "IC"
+
 	if(GLOB.say_disabled)	//This is here to try to identify lag problems
 		to_chat(usr, "<span class='danger'>Speech is currently admin-disabled.</span>")
 		return
@@ -77,6 +78,8 @@
 	var/spanned = say_quote(message)
 	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>[name]</span>[alt_name] <span class='message'>[emoji_parse(spanned)]</span></span>"
 	log_talk(message, LOG_SAY, tag="DEAD")
+	if(SEND_SIGNAL(src, COMSIG_MOB_DEADSAY, message) & MOB_DEADSAY_SIGNAL_INTERCEPT)
+		return
 	deadchat_broadcast(rendered, follow_target = src, speaker_key = key)
 
 ///Check if this message is an emote
@@ -117,7 +120,7 @@
 			mods[WHISPER_MODE] = MODE_WHISPER
 		else if(key == "%" && !mods[MODE_SING])
 			mods[MODE_SING] = TRUE
-		else if(key == ";" && !mods[MODE_HEADSET])
+		else if(key == ";" && !mods[MODE_HEADSET] && stat == CONSCIOUS)
 			mods[MODE_HEADSET] = TRUE
 		else if((key in GLOB.department_radio_prefixes) && length(message) > length(key) + 1 && !mods[RADIO_EXTENSION])
 			mods[RADIO_KEY] = lowertext(message[1 + length(key)])

@@ -42,6 +42,7 @@
 #define ACCESS_THEATRE 46
 #define ACCESS_RESEARCH 47
 #define ACCESS_MINING 48
+#define ACCESS_EXPLORATION 49
 #define ACCESS_MAILSORTING 50
 #define ACCESS_VAULT 53
 #define ACCESS_MINING_STATION 54
@@ -63,6 +64,7 @@
 #define ACCESS_WEAPONS 66 //! Weapon authorization for secbots
 #define ACCESS_NETWORK 67 //! NTnet diagnostics/monitoring software
 #define ACCESS_CLONING 68 //! Cloning room and clone pod ejection
+#define ACCESS_SEC_RECORDS 69 //! Update security records
 
 /// Room and launching.
 #define ACCESS_AUX_BASE 72

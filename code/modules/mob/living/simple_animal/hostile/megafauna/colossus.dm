@@ -44,7 +44,7 @@ Difficulty: Very Hard
 	gps_name = "Angelic Signal"
 	medal_type = BOSS_MEDAL_COLOSSUS
 	score_type = COLOSSUS_SCORE
-	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus/crusher)
+	crusher_loot = list(/obj/structure/closet/crate/necropolis/colossus, /obj/item/crusher_trophy/blaster_tubes)
 	loot = list(/obj/structure/closet/crate/necropolis/colossus)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	deathsound = 'sound/magic/demon_dies.ogg'
@@ -255,8 +255,14 @@ Difficulty: Very Hard
 /obj/item/projectile/colossus/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(isturf(target) || isobj(target))
-		target.ex_act(EXPLODE_HEAVY)
+		if(isobj(target))
+			SSexplosions.med_mov_atom += target
+		else
+			SSexplosions.medturf += target
 
+
+//There can only ever be one blackbox, and we want to know if there already is one when we spawn
+GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 
 //Black Box
 
@@ -287,11 +293,9 @@ Difficulty: Very Hard
 
 /obj/machinery/smartfridge/black_box/Initialize()
 	. = ..()
-	var/static/obj/machinery/smartfridge/black_box/current
-	if(current && current != src)
-		qdel(src, force=TRUE)
-		return
-	current = src
+	if(GLOB.blackbox != src)
+		return INITIALIZE_HINT_QDEL_FORCE
+	GLOB.blackbox = src
 	ReadMemory()
 
 /obj/machinery/smartfridge/black_box/process()
@@ -336,6 +340,8 @@ Difficulty: Very Hard
 
 /obj/machinery/smartfridge/black_box/Destroy(force = FALSE)
 	if(force)
+		if(GLOB.blackbox == src)
+			GLOB.blackbox = null
 		for(var/thing in src)
 			qdel(thing)
 		return ..()
@@ -385,7 +391,6 @@ Difficulty: Very Hard
 	use_power = NO_POWER_USE
 	anchored = FALSE
 	density = TRUE
-	flags_1 = HEAR_1
 	var/activation_method
 	var/list/possible_methods = list(ACTIVATE_TOUCH, ACTIVATE_SPEECH, ACTIVATE_HEAT, ACTIVATE_BULLET, ACTIVATE_ENERGY, ACTIVATE_BOMB, ACTIVATE_MOB_BUMP, ACTIVATE_WEAPON, ACTIVATE_MAGIC)
 
@@ -399,6 +404,7 @@ Difficulty: Very Hard
 	. = ..()
 	if(!activation_method)
 		activation_method = pick(possible_methods)
+	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 /obj/machinery/anomalous_crystal/examine(mob/user)
 	. = ..()
@@ -676,7 +682,7 @@ Difficulty: Very Hard
 			L.heal_overall_damage(heal_power, heal_power)
 			new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 
-/mob/living/simple_animal/hostile/lightgeist/ghostize()
+/mob/living/simple_animal/hostile/lightgeist/ghostize(can_reenter_corpse, sentience_retention)
 	. = ..()
 	if(.)
 		death()
@@ -747,6 +753,7 @@ Difficulty: Very Hard
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/closet/stasis/Entered(atom/A)
+	. = ..()
 	if(isliving(A) && holder_animal)
 		var/mob/living/L = A
 		L.notransform = 1

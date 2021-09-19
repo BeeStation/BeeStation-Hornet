@@ -31,6 +31,14 @@
 	..()
 
 /datum/clockcult/scripture/marauder/invoke_success()
-	var/mob/new_mob = new /mob/living/simple_animal/clockwork_marauder(get_turf(invoker))
+	var/mob/new_mob = new /mob/living/simple_animal/hostile/clockwork_marauder(get_turf(invoker))
 	new_mob.key = selected.key
 	selected = null
+
+/datum/clockcult/scripture/marauder/check_special_requirements(mob/user)
+	if(!..())
+		return FALSE
+	if(LAZYLEN(GLOB.clockwork_marauders) >= 4)
+		to_chat(user, "<span class='brass'>The mechanical-soul infrastructure of Reebe is too weak to support more clockwork battle constructs!</span>")
+		return FALSE
+	return TRUE

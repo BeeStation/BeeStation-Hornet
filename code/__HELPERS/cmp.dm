@@ -63,9 +63,6 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 /proc/cmp_timer(datum/timedevent/a, datum/timedevent/b)
 	return a.timeToRun - b.timeToRun
 
-/proc/cmp_clientcolour_priority(datum/client_colour/A, datum/client_colour/B)
-	return B.priority - A.priority
-
 /proc/cmp_ruincost_priority(datum/map_template/ruin/A, datum/map_template/ruin/B)
 	return initial(A.cost) - initial(B.cost)
 
@@ -99,7 +96,7 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 		return A.layer - B.layer
 
 /proc/cmp_advdisease_resistance_asc(datum/disease/advance/A, datum/disease/advance/B)
-	return A.totalResistance() - B.totalResistance()
+	return A.resistance - B.resistance
 
 /proc/cmp_quirk_asc(datum/quirk/A, datum/quirk/B)
 	var/a_sign = num2sign(initial(A.value) * -1)

@@ -1,6 +1,5 @@
 import { useBackend } from '../backend';
 import { Box, Button, Section, Input, Table, Icon } from '../components';
-import { Fragment } from 'inferno';
 import { NtosWindow } from '../layouts';
 
 export const NtosNetChat = (props, context) => {
@@ -130,7 +129,7 @@ export const NtosNetChat = (props, context) => {
                   ))}
                 </Box>
                 {(in_channel && authorized) && (
-                  <Fragment>
+                  <>
                     <Button.Input
                       fluid
                       content="Save log..."
@@ -142,10 +141,10 @@ export const NtosNetChat = (props, context) => {
                       fluid
                       content="Leave Channel"
                       onClick={() => act('PRG_leavechannel')} />
-                  </Fragment>
+                  </>
                 )}
                 {!!is_operator && authed && (
-                  <Fragment>
+                  <>
                     <Button.Confirm
                       fluid
                       content="Delete Channel"
@@ -162,7 +161,7 @@ export const NtosNetChat = (props, context) => {
                       onCommit={(e, value) => act('PRG_setpassword', {
                         new_password: value,
                       })} />
-                  </Fragment>
+                  </>
                 )}
               </Table.Cell>
             </Table.Row>

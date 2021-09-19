@@ -30,6 +30,7 @@
 	if(!ui)
 		ui = new(user, src, "GulagTeleporterConsole")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_data(mob/user)
 	var/list/data = list()
@@ -53,14 +54,14 @@
 
 	if(teleporter)
 		data["teleporter"] = teleporter
-		data["teleporter_location"] = "([teleporter.x], [teleporter.y], [teleporter.z])"
+		data["teleporter_location"] = "([teleporter.x], [teleporter.y], [teleporter.get_virtual_z_level()])"
 		data["teleporter_lock"] = teleporter.locked
 		data["teleporter_state_open"] = teleporter.state_open
 	else
 		data["teleporter"] = null
 	if(beacon)
 		data["beacon"] = beacon
-		data["beacon_location"] = "([beacon.x], [beacon.y], [beacon.z])"
+		data["beacon_location"] = "([beacon.x], [beacon.y], [beacon.get_virtual_z_level()])"
 	else
 		data["beacon"] = null
 	if(contained_id)
@@ -74,10 +75,10 @@
 	return data
 
 /obj/machinery/computer/prisoner/gulag_teleporter_computer/ui_act(action, list/params)
-	if(isliving(usr))
-		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(..())
 		return
+	if(isliving(usr))
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	if(!allowed(usr))
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return

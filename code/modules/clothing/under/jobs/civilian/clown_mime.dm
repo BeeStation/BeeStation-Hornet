@@ -6,6 +6,16 @@
 	item_state = "mime"
 	item_color = "mime"
 
+/obj/item/clothing/under/rank/civilian/mime/skirt
+	name = "mime's skirt"
+	icon_state = "mime_skirt"
+	item_state = "mime"
+	item_color = "mime_skirt"
+	body_parts_covered = CHEST|GROIN|ARMS
+	can_adjust = FALSE
+	fitted = FEMALE_UNIFORM_TOP
+
+
 /obj/item/clothing/under/rank/civilian/mime/sexy
 	name = "sexy mime outfit"
 	desc = "The only time when you DON'T enjoy looking at someone's rack."

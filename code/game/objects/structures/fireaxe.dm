@@ -8,9 +8,10 @@
 	armor = list("melee" = 50, "bullet" = 20, "laser" = 0, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50, "stamina" = 0)
 	max_integrity = 150
 	integrity_failure = 50
+	layer = ABOVE_WINDOW_LAYER
 	var/locked = TRUE
 	var/open = FALSE
-	var/obj/item/twohanded/fireaxe/fireaxe
+	var/obj/item/fireaxe/fireaxe
 
 /obj/structure/fireaxecabinet/Initialize()
 	. = ..()
@@ -49,9 +50,9 @@
 			obj_integrity = max_integrity
 			update_icon()
 	else if(open || broken)
-		if(istype(I, /obj/item/twohanded/fireaxe) && !fireaxe)
-			var/obj/item/twohanded/fireaxe/F = I
-			if(F.wielded)
+		if(istype(I, /obj/item/fireaxe) && !fireaxe)
+			var/obj/item/fireaxe/F = I
+			if(F && ISWIELDED(F))
 				to_chat(user, "<span class='warning'>Unwield the [F.name] first.</span>")
 				return
 			if(!user.transferItemToLoc(F, src))
