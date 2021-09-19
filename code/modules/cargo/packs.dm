@@ -274,6 +274,32 @@
 	crate_name = "emergency crate"
 	crate_type = /obj/structure/closet/crate/internals
 
+/datum/supply_pack/emergency/syndieclothes
+	name = "Syndicate Uniform Supplies"
+	desc = "(*!&@#SAD ABOUT THAT NULL_ENTRY, HUH OPERATIVE? WELL, THIS LITTLE ORDER WILL MAKE YOU STYLISH SYNDICATE STYLE. CONTAINS A COLLECTION OF THREE TACTICAL TURTLENECKS, THREE COMBAT BOOTS, THREE COMBAT GLOVES, THREE BALACLAVAS, THREE SYNDICATE BERETS AND THREE ARMOR VESTS!#@*$"
+	hidden = TRUE
+	cost = 1800
+	contains = list(/obj/item/clothing/under/syndicate,
+					/obj/item/clothing/under/syndicate,
+					/obj/item/clothing/under/syndicate,
+					/obj/item/clothing/shoes/combat,
+					/obj/item/clothing/shoes/combat,
+					/obj/item/clothing/shoes/combat,
+					/obj/item/clothing/mask/balaclava,
+					/obj/item/clothing/mask/balaclava,
+					/obj/item/clothing/mask/balaclava,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/head/HoS/beret/syndicate,
+					/obj/item/clothing/head/HoS/beret/syndicate,
+					/obj/item/clothing/head/HoS/beret/syndicate,
+					/obj/item/clothing/suit/armor/vest,
+					/obj/item/clothing/suit/armor/vest,
+					/obj/item/clothing/suit/armor/vest)
+	crate_name = "emergency crate"
+	crate_type = /obj/structure/closet/crate/internals
+
 /datum/supply_pack/emergency/weedcontrol
 	name = "Weed Control Crate"
 	desc = "Keep those invasive species OUT. Contains a scythe, gasmask, and two anti-weed chemical grenades. Warranty void if used on ambrosia. Requires Hydroponics access to open."
