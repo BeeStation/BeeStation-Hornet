@@ -319,7 +319,7 @@ window "input_box"
 	elem "input_box"
 		type = MAIN
 		pos = 759,487
-		size = 402x106
+		size = 302x86
 		anchor1 = 50,50
 		anchor2 = 50,50
 		background-color = none
@@ -328,35 +328,35 @@ window "input_box"
 		statusbar = false
 		can-minimize = false
 		can-resize = false
-		outer-size = 410x133
-		inner-size = 402x106
+		outer-size = 308x114
+		inner-size = 302x86
 	elem "input"
 		type = INPUT
-		pos = 14,20
-		size = 374x28
-		anchor1 = 0,0
-		anchor2 = 100,0
-		font-size = 8
+		pos = 11,17
+		size = 281x23
+		anchor1 = 4,20
+		anchor2 = 96,47
+		font-size = 7
 		border = sunken
 		saved-params = ""
 	elem "accept"
 		type = BUTTON
-		pos = 71,64
-		size = 100x28
-		anchor1 = 0,100
-		anchor2 = 50,100
-		font-size = 8
+		pos = 52,52
+		size = 75x23
+		anchor1 = 17,60
+		anchor2 = 42,87
+		font-size = 7
 		background-color = none
 		saved-params = ""
 		text = "OK"
 		command = ""
 	elem "cancel"
 		type = BUTTON
-		pos = 240,64
-		size = 100x28
-		anchor1 = 50,100
-		anchor2 = 100,100
-		font-size = 8
+		pos = 179,52
+		size = 75x23
+		anchor1 = 59,60
+		anchor2 = 84,87
+		font-size = 7
 		background-color = none
 		saved-params = ""
 		text = "Cancel"
