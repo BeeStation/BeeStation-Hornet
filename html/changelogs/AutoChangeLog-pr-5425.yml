@@ -1,4 +1,0 @@
-author: Therosass
-delete-after: true
-changes:
-  - bugfix: Warping grey runes no longer create invisible slimes.
