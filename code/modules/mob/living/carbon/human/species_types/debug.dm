@@ -2,6 +2,7 @@
 	name = "CODER DISASTER"
 	id = "debug"
 	bodyflag = FLAG_DEBUG_SPECIES
+	changesource_flags = NONE
 	sexes = 0
 
 /datum/species/debug/get_custom_icons(var/part)
