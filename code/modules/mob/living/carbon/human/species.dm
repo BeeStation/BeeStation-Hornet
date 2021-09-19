@@ -1052,7 +1052,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 // Other return values will cause weird badness
 /datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
+		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		H.reagents.del_reagent(R.type)
 		return FALSE
 	return TRUE
