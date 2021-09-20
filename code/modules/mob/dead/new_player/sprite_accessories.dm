@@ -2164,3 +2164,16 @@
 /datum/sprite_accessory/ipc_chassis/zenghupharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
+
+
+////GROD SHIT////
+/datum/sprite_accessory/grod_crown
+	icon = 'icons/mob/species/grod/crowns.dmi'
+	color_src = MUTCOLORS
+
+/datum/sprite_accessory/grod_crown/none
+	name = "None"
+	icon_state = "none"
+/datum/sprite_accessory/grod_crown/royal
+	name = "Royal"
+	icon_state = "royal"

@@ -52,6 +52,7 @@
 #define MOB_EPIC		"epic" //megafauna
 #define MOB_REPTILE		"reptile"
 #define MOB_SPIRIT		"spirit"
+#define MOB_GROD		"grod" //CATERPILLAR PEOPLE
 
 //Organ defines for carbon mobs
 #define ORGAN_ORGANIC   1
@@ -89,6 +90,7 @@
 #define SPECIES_OOZELING		"oozeling"
 #define SPECIES_FLY 			"fly"
 #define SPECIES_SQUID			"squid" //I forgot squids existed lmao
+#define SPECIES_GROD			"grod"
 
 //Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
 #define FLAG_HUMAN			(1<<0)
@@ -102,6 +104,7 @@
 #define FLAG_OOZELING		(1<<8)
 #define FLAG_FLY			(1<<9)
 #define FLAG_SQUID			(1<<10)
+#define FLAG_GROD			(1<<11)
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"

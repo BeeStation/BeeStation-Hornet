@@ -466,7 +466,7 @@
 //any cost it has isn't a worry
 /mob/proc/change_number_of_hands(amt)
 	if(amt < held_items.len)
-		for(var/i in held_items.len to amt step -1)
+		for(var/i in held_items.len to amt+1 step -1)
 			dropItemToGround(held_items[i])
 	held_items.len = amt
 
@@ -474,12 +474,16 @@
 		hud_used.build_hand_slots()
 
 
-/mob/living/carbon/human/change_number_of_hands(amt)
+/mob/living/carbon/human/change_number_of_hands(amt, bloody = FALSE)
 	var/old_limbs = held_items.len
 	if(amt < old_limbs)
-		for(var/i in hand_bodyparts.len to amt step -1)
+		for(var/i in hand_bodyparts.len to amt+1 step -1)
 			var/obj/item/bodypart/BP = hand_bodyparts[i]
-			BP.dismember()
+			if(bloody)
+				BP.dismember() //Buggy
+			else
+				BP.drop_limb()
+				BP.Destroy()
 			hand_bodyparts[i] = null
 		hand_bodyparts.len = amt
 	else if(amt > old_limbs)

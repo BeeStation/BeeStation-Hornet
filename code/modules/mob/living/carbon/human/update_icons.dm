@@ -707,7 +707,7 @@ generate/load female uniform sprites matching all previously decided variables
 	if(ismob(loc))
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			L = H.dna?.species.get_item_offsets_for_index(src)
+			L = H.dna?.species.get_item_offsets_for_index(H.get_held_index_of_item(src))
 			if(L)
 				return L
 		var/mob/M = loc
@@ -826,3 +826,63 @@ generate/load female uniform sprites matching all previously decided variables
 
 	update_inv_head()
 	update_inv_wear_mask()
+
+
+////Extremely special handling for species with abnormal hand placement. This essentially rebuilds the hand overlay every
+////rotation, with every direction having a unique pixel offset for in-hands.
+////On species gain, a signal is registered to track direction changes.
+/mob/living/carbon/human/proc/update_hands_on_rotate() //Required for unconventionally placed hands on species
+	SIGNAL_HANDLER
+	if(!is_updating_hands) //Defined in human_defines.dm
+		RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/debug_proc_thing)
+		is_updating_hands = TRUE
+/mob/living/carbon/human/proc/stop_updating_hands()
+	if(is_updating_hands)
+		UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
+		is_updating_hands = FALSE
+		to_chat(src, "<span class='warning'>Unregistered signal!</span>")
+/mob/living/carbon/human/proc/special_update_hands(var/mob/living/carbon/human/H, var/olddir, var/newdir)
+	if(olddir == newdir)
+		return
+
+	remove_overlay(HANDS_LAYER)
+	if (handcuffed)
+		drop_all_held_items()
+		return
+
+	var/list/hands = list()
+	for(var/obj/item/I in held_items)
+		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
+			I.screen_loc = ui_hand_position(get_held_index_of_item(I))
+			client.screen += I
+			if(observers?.len)
+				for(var/M in observers)
+					var/mob/dead/observe = M
+					if(observe.client && observe.client.eye == src)
+						observe.client.screen += I
+					else
+						observers -= observe
+						if(!observers.len)
+							observers = null
+							break
+
+		var/t_state = I.item_state
+		if(!t_state)
+			t_state = I.icon_state
+
+		var/icon_file = I.lefthand_file
+		var/mutable_appearance/hand_overlay
+		if(get_held_index_of_item(I) % 2 == 0)
+			icon_file = I.righthand_file
+			hand_overlay = I.build_worn_icon(state = t_state, default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
+			if(OFFSET_RIGHT_HAND in dna.species.offset_features)
+				hand_overlay.pixel_x += dna.species.offset_features[OFFSET_RIGHT_HAND][1]
+				hand_overlay.pixel_y += dna.species.offset_features[OFFSET_RIGHT_HAND][2]
+		else
+			hand_overlay = I.build_worn_icon(state = t_state, default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
+			if(OFFSET_LEFT_HAND in dna.species.offset_features)
+				hand_overlay.pixel_x += dna.species.offset_features[OFFSET_LEFT_HAND][1]
+				hand_overlay.pixel_y += dna.species.offset_features[OFFSET_LEFT_HAND][2]
+		hands += hand_overlay
+	overlays_standing[HANDS_LAYER] = hands
+	apply_overlay(HANDS_LAYER)

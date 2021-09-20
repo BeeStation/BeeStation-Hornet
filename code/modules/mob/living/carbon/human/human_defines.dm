@@ -59,3 +59,5 @@
 	var/lastpuke = 0
 	var/last_fire_update
 	var/account_id
+
+	var/is_updating_hands = FALSE //This is used to track signals relating to updating hands on rotation.
