@@ -2,7 +2,7 @@
 	name = "CODER DISASTER"
 	id = "debug"
 	bodyflag = FLAG_DEBUG_SPECIES
-	changesource_flags = NONE
+	changesource_flags = MIRROR_BADMIN
 	sexes = 0
 
 /datum/species/debug/get_custom_icons(var/part)
