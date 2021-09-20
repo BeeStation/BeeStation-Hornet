@@ -44,7 +44,7 @@
 
 /obj/item/circuit_component/indexer/Initialize()
 	. = ..()
-	index_port = add_input_port("Index", PORT_TYPE_ANY)
+	index_port = add_input_port("Index", PORT_TYPE_NUMBER)
 	list_port = add_input_port("List", PORT_TYPE_LIST)
 
 	output = add_output_port(output_name, output_port_type)

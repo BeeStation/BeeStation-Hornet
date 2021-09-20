@@ -121,6 +121,12 @@
 	build_path = /obj/item/circuit_component/arbitrary_input_amount/list_constructor
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
 
+/datum/design/component/list_length_constructor
+	name = "List Length Constructor"
+	id = "comp_list_length_constructor"
+	build_path = /obj/item/circuit_component/list_length_constructor
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
+
 /datum/design/component/not
 	name = "Not Component"
 	id = "comp_not"

@@ -48,6 +48,9 @@
 /// The value that is sent whenever a component is simply sending a signal. This can be anything.
 #define COMPONENT_SIGNAL 1
 
+/// The largest sized list a component can make
+#define COMPONENT_MAXIMUM_LIST_SIZE 256
+
 // Comparison defines
 #define COMP_COMPARISON_EQUAL "="
 #define COMP_COMPARISON_NOT_EQUAL "!="
