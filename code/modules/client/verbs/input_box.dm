@@ -1,6 +1,14 @@
-/client/proc/create_input_window(id, title, accept_verb, cancel_verb)
+/client/proc/create_input_window(id, title, accept_verb, cancel_verb, force=FALSE, show=TRUE)
 	if(winexists(src, id))
-		return
+		if(force)
+			//Delete all clientside objects that are part of the window
+			winset(src, "[id]_macro_returnup", "parent=none")
+			winset(src, "[id]_macro_return", "parent=none")
+			winset(src, "[id]_macro_escape", "parent=none")
+			winset(src, "persist_[id]_macro", "parent=none")
+			winset(src, id, "parent=none")
+		else
+			return
 
 	// Create a macro set for handling enter presses
 	winclone(src, "input_box_macro", "persist_[id]_macro")
@@ -26,7 +34,7 @@
 		winset(src, "[id]_macro_escape", "parent=persist_[id]_macro;name=Escape;command=\".winset \\\"[id].is-visible=false\\\"\"")
 
 	//Window scaling!
-	//The window isn't scaled by DPI scaling, so it'll appear too big/too small with DPI scaling other than the one it was based on
+	//BYOND doesn't scale the window by DPI scaling, so it'll appear too big/too small with DPI scaling other than the one it was based on
 	//This code uses the title bar to figure out what DPI scaling is being used and resize the window based on that
 	//Figure out the DPI scaling based on the titlebar size of the window, based on outer-inner height
 	var/window_data = params2list(winget(src, id, "outer-size;inner-size"))
@@ -98,18 +106,51 @@
 	winset(src, id, "pos=[target_x],[target_y]")
 	//End centering
 
-	//Show the window and focus on the textbox
-	winshow(src, id, TRUE)
-	winset(src, "[id].input", "focus=true")
+	if(show)
+		//Show the window and focus on the textbox
+		winshow(src, id, TRUE)
+		winset(src, "[id].input", "focus=true")
+
+///Presets for standard windows
+GLOBAL_LIST_INIT(input_window_presets, list(
+	"say" = list("saywindow", "say \\\"text\\\"", ".say", ".cancel_typing say"),
+	"me"  = list("mewindow",  "me (text)",        ".me",  ".cancel_typing me"),
+))
+
+/client/proc/create_preset_input_window(name, force=FALSE, show=TRUE)
+	var/arglist = GLOB.input_window_presets[name]
+
+	create_input_window(arglist[1], arglist[2], arglist[3], arglist[4], force=force, show=show)
+
+//Those verbs are used by the hotkeys to ensure the window is created when you try to use it
 
 /client/verb/init_say()
 	set name = ".init_say"
 	set hidden = TRUE
 
-	create_input_window("saywindow", "say \\\"text\\\"", ".say", ".cancel_typing say")
+	create_preset_input_window("say")
 
 /client/verb/init_me()
 	set name = ".init_me"
 	set hidden = TRUE
 
-	create_input_window("mewindow", "me (text)", ".me", ".cancel_typing me")
+	create_preset_input_window("me")
+
+//Verb available to the user in case something in the window breaks
+/client/verb/fix_chatbox()
+	set name = "Fix chatbox"
+
+	var/preset = input(src, "Which chat window do you want to recreate?", "Fix chatbox") as null|anything in GLOB.input_window_presets
+
+	if(!preset)
+		return
+
+	create_preset_input_window(preset, force=TRUE)
+
+//Create the windows for say and me ahead of time
+/client/New()
+	. = ..()
+
+	if(src) //In case the client was deleted while New was running
+		create_preset_input_window("say", show=FALSE)
+		create_preset_input_window("me", show=FALSE)
