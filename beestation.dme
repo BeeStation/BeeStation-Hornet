@@ -3355,6 +3355,7 @@
 #include "code\modules\wiremod\components\list\get_column.dm"
 #include "code\modules\wiremod\components\list\index.dm"
 #include "code\modules\wiremod\components\list\list_length_constructor.dm"
+#include "code\modules\wiremod\components\list\pop.dm"
 #include "code\modules\wiremod\components\list\write.dm"
 #include "code\modules\wiremod\components\list\index_table.dm"
 #include "code\modules\wiremod\components\list\list_constructor.dm"

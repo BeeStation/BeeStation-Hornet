@@ -103,6 +103,12 @@
 	build_path = /obj/item/circuit_component/append
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LIST_COMPONENTS)
 
+/datum/design/component/pop
+	name = "Pop Component"
+	id = "comp_pop"
+	build_path = /obj/item/circuit_component/pop
+	category = list(WIREMOD_CIRCUITRY,WIREMOD_LIST_COMPONENTS)
+
 /datum/design/component/length
 	name = "Length Component"
 	id = "comp_length"

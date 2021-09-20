@@ -36,14 +36,15 @@
 
 	var/value = value_port.input_value
 	var/list/input_list = list_port.input_value
-	input_list = input_list ? input_list.Copy() : null //input_value of an input port isn't typecasted to a list, so it doesn't reconize Copy() until you put it in a typed var
+	input_list = input_list?.Copy() //input_value of an input port isn't typecasted to a list, so it doesn't reconize Copy() until you put it in a typed var
 
-	//appending a null value is a reasonable thing to do if the goal is only to change the length of the list, therefore, isnull(value) isn't checked
+	//appending a null value onto a list is a reasonable thing to do if the goal is only to change the length of the list, therefore, isnull(value) isn't checked
 	if(isnull(input_list))
 		output.set_output(null)
 		return
 
-	input_list += value
+	if(input_list.len < COMPONENT_MAXIMUM_LIST_SIZE) //Prevents lists from growing too large
+		input_list += value
 	output.set_output(input_list)
 
 

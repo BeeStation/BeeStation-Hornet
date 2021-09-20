@@ -117,6 +117,10 @@
 #define COMP_INDEXER_FLAG_INCREMENT (1<<0)
 #define COMP_INDEXER_FLAG_LOOP (1<<1)
 
+//Pop defines
+#define COMP_POP_POP "Pop"
+#define COMP_POP_DEQUEUE "Dequeue"
+
 // Text defines
 #define COMP_TEXT_LOWER "To Lower"
 #define COMP_TEXT_UPPER "To Upper"
