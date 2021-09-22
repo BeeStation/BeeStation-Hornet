@@ -239,7 +239,7 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/proc/LoadStationRooms()
 	var/start_time = REALTIMEOFDAY
-	for (var/obj/effect/spawner/room/R in world)
+	for (var/obj/effect/spawner/room/R as anything in GLOB.room_spawners)
 		var/list/possibletemplates = list()
 		var/datum/map_template/random_room/cantidate = null
 		shuffle_inplace(random_room_templates)
