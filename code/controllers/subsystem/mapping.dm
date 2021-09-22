@@ -256,6 +256,7 @@ SUBSYSTEM_DEF(mapping)
 			if(R.template.stock <= 0)
 				R.template.spawned = TRUE
 			R.template.stationinitload(get_turf(R), centered = R.template.centerspawner)
+		qdel(R)
 	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
 
 /datum/controller/subsystem/mapping/proc/loadWorld()

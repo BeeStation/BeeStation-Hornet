@@ -11,6 +11,22 @@
 
 /obj/effect/spawner/room/Initialize()
 	..()
+	var/list/possibletemplates = list()
+	var/datum/map_template/random_room/cantidate = null
+	shuffle_inplace(SSmapping.random_room_templates)
+	for(var/ID in SSmapping.random_room_templates)
+		cantidate = SSmapping.random_room_templates[ID]
+		if(istype(cantidate, /datum/map_template/random_room) && room_height == cantidate.template_height && room_width == cantidate.template_width)
+			if(!cantidate.spawned)
+				possibletemplates[cantidate] = cantidate.weight
+		cantidate = null
+	if(possibletemplates.len)
+		template = pickweight(possibletemplates)
+		template.stock --
+		template.weight = (template.weight / 2)
+		if(template.stock <= 0)
+			template.spawned = TRUE
+		template.load(get_turf(src), centered = template.centerspawner)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/room/fivexfour
