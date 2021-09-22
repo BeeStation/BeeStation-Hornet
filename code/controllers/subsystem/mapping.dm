@@ -237,6 +237,27 @@ SUBSYSTEM_DEF(mapping)
 		INIT_ANNOUNCE("Loaded [name] in [(REALTIMEOFDAY - start_time)/10]s!")
 	return parsed_maps
 
+/datum/controller/subsystem/mapping/proc/LoadStationRooms()
+	var/start_time = REALTIMEOFDAY
+	for (var/obj/effect/spawner/room/R in world)
+		var/list/possibletemplates = list()
+		var/datum/map_template/random_room/cantidate = null
+		shuffle_inplace(random_room_templates)
+		for(var/ID in random_room_templates)
+			cantidate = random_room_templates[ID]
+			if(istype(cantidate, /datum/map_template/random_room) && R.room_height == cantidate.template_height && R.room_width == cantidate.template_width)
+				if(!cantidate.spawned)
+					possibletemplates[cantidate] = cantidate.weight
+			cantidate = null
+		if(possibletemplates.len)
+			R.template = pickweight(possibletemplates)
+			R.template.stock --
+			R.template.weight = (R.template.weight / 2)
+			if(R.template.stock <= 0)
+				R.template.spawned = TRUE
+			R.template.stationinitload(get_turf(R), centered = R.template.centerspawner)
+	INIT_ANNOUNCE("Loaded Random Rooms in [(REALTIMEOFDAY - start_time)/10]s!")
+
 /datum/controller/subsystem/mapping/proc/loadWorld()
 	//if any of these fail, something has gone horribly, HORRIBLY, wrong
 	var/list/FailedZs = list()
@@ -248,6 +269,9 @@ SUBSYSTEM_DEF(mapping)
 	station_start = world.maxz + 1
 	INIT_ANNOUNCE("Loading [config.map_name]...")
 	LoadGroup(FailedZs, "Station", config.map_path, config.map_file, config.traits, ZTRAITS_STATION, orbital_body_type = /datum/orbital_object/z_linked/station)
+
+	LoadStationRoomTemplates()
+	LoadStationRooms()
 
 	if(SSdbcore.Connect())
 		var/datum/DBQuery/query_round_map_name = SSdbcore.NewQuery({"
@@ -370,10 +394,9 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 	preloadRuinTemplates()
 	preloadShuttleTemplates()
 	preloadShelterTemplates()
-	preloadRandomRoomTemplates()
 	preloadHolodeckTemplates()
 
-/datum/controller/subsystem/mapping/proc/preloadRandomRoomTemplates()
+/datum/controller/subsystem/mapping/proc/LoadStationRoomTemplates()
 	for(var/item in subtypesof(/datum/map_template/random_room))
 		var/datum/map_template/random_room/room_type = item
 		if(!(initial(room_type.mappath)))
