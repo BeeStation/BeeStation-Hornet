@@ -488,6 +488,8 @@
 	var/obj/item/organ/brain/BR = H.getorgan(/obj/item/organ/brain)
 	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
 		return
+	if(!H.dna?.species.can_be_defib)
+		return
 	return TRUE
 
 /obj/item/shockpaddles/proc/shock_touching(dmg, mob/H)

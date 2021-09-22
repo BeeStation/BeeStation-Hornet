@@ -271,8 +271,14 @@
 		if(2)
 			owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25)
 			to_chat(owner, "<span class='warning'>Alert: Posibrain damaged.</span>")
+////////////////////////////////////GROD BRAIN////////////////////////////////////
+/obj/item/organ/brain/grod
+	name = "DEBUG - GROD BRAIN NAME"
+	desc = "DEBUG - GROD BRAIN DESC"
+	icon = 'icons/mob/species/grod/crown_spider.dmi'
+	icon_state = "crown_spider"
 
-////////////////////////////////////TRAUMAS////////////////////////////////////////
+////////////////////////////////////TRAUMAS////////////////////////////////////
 
 /obj/item/organ/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)
 	for(var/X in traumas)

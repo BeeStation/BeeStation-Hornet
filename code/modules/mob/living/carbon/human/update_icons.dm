@@ -834,7 +834,7 @@ generate/load female uniform sprites matching all previously decided variables
 /mob/living/carbon/human/proc/update_hands_on_rotate() //Required for unconventionally placed hands on species
 	SIGNAL_HANDLER
 	if(!is_updating_hands) //Defined in human_defines.dm
-		RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/debug_proc_thing)
+		RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/special_update_hands)
 		is_updating_hands = TRUE
 /mob/living/carbon/human/proc/stop_updating_hands()
 	if(is_updating_hands)

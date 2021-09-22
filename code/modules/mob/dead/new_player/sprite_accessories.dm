@@ -2174,6 +2174,63 @@
 /datum/sprite_accessory/grod_crown/none
 	name = "None"
 	icon_state = "none"
-/datum/sprite_accessory/grod_crown/royal
-	name = "Royal"
-	icon_state = "royal"
+/datum/sprite_accessory/grod_crown/diadem
+	name = "Diadem"
+	icon_state = "diadem"
+
+/datum/sprite_accessory/grod_crown/antenna
+	name = "Antenna"
+	icon_state = "antenna"
+
+/datum/sprite_accessory/grod_crown/asymmetric
+	name = "Asymmetric"
+	icon_state = "asymmetric"
+
+/datum/sprite_accessory/grod_crown/aureole
+	name = "Aureole"
+	icon_state = "aureole"
+
+/datum/sprite_accessory/grod_crown/coronet
+	name = "Coronet"
+	icon_state = "coronet"
+
+/datum/sprite_accessory/grod_crown/crown
+	name = "Crown"
+	icon_state = "crown"
+
+/datum/sprite_accessory/grod_crown/garland
+	name = "Garland"
+	icon_state = "garland"
+
+/datum/sprite_accessory/grod_crown/krone
+	name = "Krone"
+	icon_state = "krone"
+
+/datum/sprite_accessory/grod_crown/reflector
+	name = "Reflector"
+	icon_state = "reflector"
+
+/datum/sprite_accessory/grod_crown/royalist
+	name = "Royalist"
+	icon_state = "royalist"
+
+/datum/sprite_accessory/grod_crown/sapling
+	name = "Sapling"
+	icon_state = "sapling"
+
+/datum/sprite_accessory/grod_crown/sprout
+	name = "Sprout"
+	icon_state = "sprout"
+
+/datum/sprite_accessory/grod_crown/tiara
+	name = "Tiara"
+	icon_state = "tiara"
+
+/datum/sprite_accessory/grod_crown/wreath
+	name = "Wreath"
+	icon_state = "wreath"
+
+/datum/sprite_accessory/grod_crown/youngling
+	name = "Youngling"
+	icon_state = "youngling"
+

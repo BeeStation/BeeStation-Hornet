@@ -43,6 +43,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/clonemod = 1
 	var/toxmod = 1
 	var/staminamod = 1		// multiplier for stun duration
+	var/can_be_defib = TRUE //Can a defibrillator revive?
 	var/attack_type = BRUTE //Type of damage attack does
 	var/punchdamage = 7      //highest possible punch damage
 	var/siemens_coeff = 1 //base electrocution coefficient
@@ -480,7 +481,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/mutable_appearance/hair_overlay = mutable_appearance(layer = -HAIR_LAYER)
 		if(!hair_hidden && !H.getorgan(/obj/item/organ/brain)) //Applies the debrained overlay if there is no brain
 			if(!(NOBLOOD in species_traits))
-				hair_overlay.icon = 'icons/mob/human_face.dmi'
+				var/hair_icon = H.dna.species.get_custom_icons("hair")
+				hair_overlay.icon =  hair_icon ? hair_icon : 'icons/mob/human_face.dmi'
 				hair_overlay.icon_state = "debrained"
 
 		else if(H.hair_style && (HAIR in species_traits))
