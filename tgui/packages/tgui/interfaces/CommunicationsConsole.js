@@ -608,9 +608,7 @@ const PageMessages = (props, context) => {
   const { act, data } = useBackend(context);
   const messages = data.messages || [];
 
-  const children = [];
-
-  children.push((
+  return (<>
     <Section>
       <Button
         icon="chevron-left"
@@ -618,55 +616,50 @@ const PageMessages = (props, context) => {
         onClick={() => act("setState", { state: STATE_MAIN })}
       />
     </Section>
-  ));
+    {
+      messages.map((message, messageIndex) => {
+        let answers = null;
 
-  const messageElements = [];
+        if (message.possibleAnswers.length > 0) {
+          answers = (
+            <Box mt={1}>
+              {message.possibleAnswers.map((answer, answerIndex) => (
+                <Button
+                  content={answer}
+                  color={message.answered === answerIndex + 1 ? "good" : undefined}
+                  key={answerIndex}
+                  onClick={message.answered ? undefined : () => act("answerMessage", {
+                    message: messageIndex + 1,
+                    answer: answerIndex + 1,
+                  })}
+                />
+              ))}
+            </Box>
+          );
+        }
 
-  for (const [messageIndex, message] of Object.entries(messages)) {
-    let answers = null;
+        return (
+          <Section
+            title={message.title}
+            key={messageIndex}
+            buttons={(
+              <Button.Confirm
+                icon="trash"
+                content="Delete"
+                color="red"
+                onClick={() => act("deleteMessage", {
+                  message: messageIndex + 1,
+                })}
+              />
+            )}>
+            <Box>{message.content}</Box>
 
-    if (message.possibleAnswers.length > 0) {
-      answers = (
-        <Box mt={1}>
-          {message.possibleAnswers.map((answer, answerIndex) => (
-            <Button
-              content={answer}
-              color={message.answered === answerIndex + 1 ? "good" : undefined}
-              key={answerIndex}
-              onClick={message.answered ? undefined : () => act("answerMessage", {
-                message: messageIndex + 1,
-                answer: answerIndex + 1,
-              })}
-            />
-          ))}
-        </Box>
-      );
+            {answers}
+          </Section>
+        );
+      }).reverse()
     }
-
-    messageElements.push((
-      <Section
-        title={message.title}
-        key={messageIndex}
-        buttons={(
-          <Button.Confirm
-            icon="trash"
-            content="Delete"
-            color="red"
-            onClick={() => act("deleteMessage", {
-              message: messageIndex + 1,
-            })}
-          />
-        )}>
-        <Box>{message.content}</Box>
-
-        {answers}
-      </Section>
-    ));
-  }
-
-  children.push(messageElements.reverse());
-
-  return children;
+  </>);
 };
 
 export const CommunicationsConsole = (props, context) => {
