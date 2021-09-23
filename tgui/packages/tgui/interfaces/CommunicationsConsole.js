@@ -366,32 +366,32 @@ const PageMain = (props, context) => {
       <Section title="Functions">
         <Flex
           direction="column">
-          {!!canMakeAnnouncement && <Button
+          {!!canMakeAnnouncement && <Flex.Item mt={0.3}><Button fluid
             icon="bullhorn"
             content="Make Priority Announcement"
             onClick={() => act("makePriorityAnnouncement")}
-          />}
+          /></Flex.Item>}
 
-          {!!canToggleEmergencyAccess && <Button.Confirm
+          {!!canToggleEmergencyAccess && <Flex.Item mt={0.3}><Button.Confirm fluid
             icon="id-card-o"
             content={`${emergencyAccess ? "Disable" : "Enable"} Emergency Maintenance Access`}
             color={emergencyAccess ? "bad" : undefined}
             onClick={() => act("toggleEmergencyAccess")}
-          />}
+          /></Flex.Item>}
 
-          <Button
+          <Flex.Item mt={0.3}><Button fluid
             icon="desktop"
             content="Set Status Display"
             onClick={() => act("setState", { state: STATE_CHANGING_STATUS })}
-          />
+          /></Flex.Item>
 
-          <Button
+          <Flex.Item mt={0.3}><Button fluid
             icon="envelope-o"
             content="Message List"
             onClick={() => act("setState", { state: STATE_MESSAGES })}
-          />
+          /></Flex.Item>
 
-          {(canBuyShuttles !== 0) && <Button
+          {(canBuyShuttles !== 0) && <Flex.Item mt={0.3}><Button fluid
             icon="shopping-cart"
             content="Purchase Shuttle"
             disabled={canBuyShuttles !== 1}
@@ -400,27 +400,27 @@ const PageMain = (props, context) => {
             tooltip={canBuyShuttles !== 1 ? canBuyShuttles : undefined}
             tooltipPosition="right"
             onClick={() => act("setState", { state: STATE_BUYING_SHUTTLE })}
-          />}
+          /></Flex.Item>}
 
-          {!!canMessageAssociates && <Button
+          {!!canMessageAssociates && <Flex.Item mt={0.3}><Button fluid
             icon="comment-o"
             content={`Send message to ${emagged ? "[UNKNOWN]" : "CentCom"}`}
             disabled={!importantActionReady}
             onClick={() => setMessagingAssociates(true)}
-          />}
+          /></Flex.Item>}
 
-          {!!canRequestNuke && <Button
+          {!!canRequestNuke && <Flex.Item mt={0.3}><Button fluid
             icon="radiation"
             content="Request Nuclear Authentication Codes"
             disabled={!importantActionReady}
             onClick={() => setRequestingNukeCodes(true)}
-          />}
+          /></Flex.Item>}
 
-          {!!emagged && <Button
+          {!!emagged && <Flex.Item mt={0.3}><Button fluid
             icon="undo"
             content="Restore Backup Routing Data"
             onClick={() => act("restoreBackupRoutingData")}
-          />}
+          /></Flex.Item>}
         </Flex>
       </Section>
 
