@@ -1,0 +1,4 @@
+author: Autisem
+delete-after: true
+changes:
+  - bugfix: Mines explode once instead of too much
