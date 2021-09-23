@@ -509,6 +509,7 @@
 
 /obj/machinery/computer/communications/proc/add_message(datum/comm_message/new_message)
 	LAZYADD(messages, new_message)
+	ui_update()
 
 /datum/comm_message
 	var/title
