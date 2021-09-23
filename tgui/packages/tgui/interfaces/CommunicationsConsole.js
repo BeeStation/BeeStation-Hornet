@@ -547,42 +547,19 @@ const PageMain = (props, context) => {
 
       {
         !!canSendToSectors
-        && sectors.length > 0
         && (
           <Section title="Allied Sectors">
-            <Flex
-              direction="column">
-              {
-                sectors.map(sectorName => (
-                  <Flex.Item key={sectorName}>
-                    <Button
-                      content={
-                        `Send a message to station in ${sectorName} sector`
-                      }
-                      disabled={!importantActionReady}
-                      onClick={() => setMessagingSector(sectorName)}
-                    />
-                  </Flex.Item>
-                ))
-              }
-
-              {sectors.length > 2 && (
-                <Flex.Item>
-                  <Button
-                    content="Send a message to all allied stations"
-                    disabled={!importantActionReady}
-                    onClick={() => setMessagingSector("all")}
-                  />
-                </Flex.Item>
-              )}
-            </Flex>
+            <Button
+              content="Send a message to allied stations"
+              disabled={!importantActionReady}
+              onClick={() => setMessagingSector(true)}
+            />
           </Section>
         )
       }
 
       {
         !!canSendToSectors
-        && sectors.length > 0
         && messagingSector
         && <MessageModal
           label="Message to send to allied station"
@@ -592,7 +569,6 @@ const PageMain = (props, context) => {
           onBack={() => setMessagingSector(null)}
           onSubmit={message => {
             act("sendToOtherSector", {
-              destination: messagingSector,
               message,
             });
 
