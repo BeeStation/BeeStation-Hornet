@@ -337,33 +337,36 @@ const PageMain = (props, context) => {
       <Section title="Emergency Shuttle">
         {
           shuttleCalled
-            ? <Button.Confirm
-              icon="space-shuttle"
-              content="Recall Emergency Shuttle"
-              color="bad"
-              disabled={!canRecallShuttles || !shuttleRecallable}
-              tooltip={(
-                canRecallShuttles ? (
-                  !shuttleRecallable && "It's too late for the emergency shuttle to be recalled."
-                ) : (
-                  "You do not have permission to recall the emergency shuttle."
-                )
-              )}
-              tooltipPosition="bottom-end"
-              onClick={() => act("recallShuttle")}
-            />
-            : <Button
-              icon="space-shuttle"
-              content="Call Emergency Shuttle"
-              disabled={shuttleCanEvacOrFailReason !== 1}
-              tooltip={
-                shuttleCanEvacOrFailReason !== 1
-                  ? shuttleCanEvacOrFailReason
-                  : undefined
-              }
-              tooltipPosition="bottom-end"
-              onClick={() => setCallingShuttle(true)}
-            />
+            ? (
+              <Button.Confirm
+                icon="space-shuttle"
+                content="Recall Emergency Shuttle"
+                color="bad"
+                disabled={!canRecallShuttles || !shuttleRecallable}
+                tooltip={(
+                  canRecallShuttles ? (
+                    !shuttleRecallable && "It's too late for the emergency shuttle to be recalled."
+                  ) : (
+                    "You do not have permission to recall the emergency shuttle."
+                  )
+                )}
+                tooltipPosition="bottom-end"
+                onClick={() => act("recallShuttle")}
+              />
+            ) : (
+              <Button
+                icon="space-shuttle"
+                content="Call Emergency Shuttle"
+                disabled={shuttleCanEvacOrFailReason !== 1}
+                tooltip={
+                  shuttleCanEvacOrFailReason !== 1
+                    ? shuttleCanEvacOrFailReason
+                    : undefined
+                }
+                tooltipPosition="bottom-end"
+                onClick={() => setCallingShuttle(true)}
+              />
+            )
         }
 
         {!!shuttleCalledPreviously && (
@@ -407,61 +410,89 @@ const PageMain = (props, context) => {
       <Section title="Functions">
         <Flex
           direction="column">
-          {!!canMakeAnnouncement && <Flex.Item mt={0.3}><Button fluid
-            icon="bullhorn"
-            content="Make Priority Announcement"
-            onClick={() => act("makePriorityAnnouncement")}
-          /></Flex.Item>}
+          {!!canMakeAnnouncement && (
+            <Flex.Item mt={0.3}>
+              <Button fluid
+                icon="bullhorn"
+                content="Make Priority Announcement"
+                onClick={() => act("makePriorityAnnouncement")}
+              />
+            </Flex.Item>
+          )}
 
-          {!!canToggleEmergencyAccess && <Flex.Item mt={0.3}><Button.Confirm fluid
-            icon="id-card-o"
-            content={`${emergencyAccess ? "Disable" : "Enable"} Emergency Maintenance Access`}
-            color={emergencyAccess ? "bad" : undefined}
-            onClick={() => act("toggleEmergencyAccess")}
-          /></Flex.Item>}
+          {!!canToggleEmergencyAccess && (
+            <Flex.Item mt={0.3}>
+              <Button.Confirm fluid
+                icon="id-card-o"
+                content={`${emergencyAccess ? "Disable" : "Enable"} Emergency Maintenance Access`}
+                color={emergencyAccess ? "bad" : undefined}
+                onClick={() => act("toggleEmergencyAccess")}
+              />
+            </Flex.Item>
+          )}
 
-          <Flex.Item mt={0.3}><Button fluid
-            icon="desktop"
-            content="Set Status Display"
-            onClick={() => act("setState", { state: STATE_CHANGING_STATUS })}
-          /></Flex.Item>
+          <Flex.Item mt={0.3}>
+            <Button fluid
+              icon="desktop"
+              content="Set Status Display"
+              onClick={() => act("setState", { state: STATE_CHANGING_STATUS })}
+            />
+          </Flex.Item>
 
-          <Flex.Item mt={0.3}><Button fluid
-            icon="envelope-o"
-            content="Message List"
-            onClick={() => act("setState", { state: STATE_MESSAGES })}
-          /></Flex.Item>
+          <Flex.Item mt={0.3}>
+            <Button fluid
+              icon="envelope-o"
+              content="Message List"
+              onClick={() => act("setState", { state: STATE_MESSAGES })}
+            />
+          </Flex.Item>
 
-          {(canBuyShuttles !== 0) && <Flex.Item mt={0.3}><Button fluid
-            icon="shopping-cart"
-            content="Purchase Shuttle"
-            disabled={canBuyShuttles !== 1}
-            // canBuyShuttles is a string detailing the fail reason
-            // if one can be given
-            tooltip={canBuyShuttles !== 1 ? canBuyShuttles : undefined}
-            tooltipPosition="right"
-            onClick={() => act("setState", { state: STATE_BUYING_SHUTTLE })}
-          /></Flex.Item>}
+          {(canBuyShuttles !== 0) && (
+            <Flex.Item mt={0.3}>
+              <Button fluid
+                icon="shopping-cart"
+                content="Purchase Shuttle"
+                disabled={canBuyShuttles !== 1}
+                // canBuyShuttles is a string detailing the fail reason
+                // if one can be given
+                tooltip={canBuyShuttles !== 1 ? canBuyShuttles : undefined}
+                tooltipPosition="right"
+                onClick={() => act("setState", { state: STATE_BUYING_SHUTTLE })}
+              />
+            </Flex.Item>
+          )}
 
-          {!!canMessageAssociates && <Flex.Item mt={0.3}><Button fluid
-            icon="comment-o"
-            content={`Send message to ${emagged ? "[UNKNOWN]" : "CentCom"}`}
-            disabled={!importantActionReady}
-            onClick={() => setMessagingAssociates(true)}
-          /></Flex.Item>}
+          {!!canMessageAssociates && (
+            <Flex.Item mt={0.3}>
+              <Button fluid
+                icon="comment-o"
+                content={`Send message to ${emagged ? "[UNKNOWN]" : "CentCom"}`}
+                disabled={!importantActionReady}
+                onClick={() => setMessagingAssociates(true)}
+              />
+            </Flex.Item>
+          )}
 
-          {!!canRequestNuke && <Flex.Item mt={0.3}><Button fluid
-            icon="radiation"
-            content="Request Nuclear Authentication Codes"
-            disabled={!importantActionReady}
-            onClick={() => setRequestingNukeCodes(true)}
-          /></Flex.Item>}
+          {!!canRequestNuke && (
+            <Flex.Item mt={0.3}>
+              <Button fluid
+                icon="radiation"
+                content="Request Nuclear Authentication Codes"
+                disabled={!importantActionReady}
+                onClick={() => setRequestingNukeCodes(true)}
+              />
+            </Flex.Item>
+          )}
 
-          {!!emagged && <Flex.Item mt={0.3}><Button fluid
-            icon="undo"
-            content="Restore Backup Routing Data"
-            onClick={() => act("restoreBackupRoutingData")}
-          /></Flex.Item>}
+          {!!emagged && (
+            <Flex.Item mt={0.3}>
+              <Button fluid
+                icon="undo"
+                content="Restore Backup Routing Data"
+                onClick={() => act("restoreBackupRoutingData")}
+              />
+            </Flex.Item>
+          )}
         </Flex>
       </Section>
 
@@ -584,58 +615,60 @@ const PageMessages = (props, context) => {
   const { act, data } = useBackend(context);
   const messages = data.messages || [];
 
-  return (<>
-    <Section>
-      <Button
-        icon="chevron-left"
-        content="Back"
-        onClick={() => act("setState", { state: STATE_MAIN })}
-      />
-    </Section>
-    {
-      messages.map((message, messageIndex) => {
-        let answers = null;
+  return (
+    <>
+      <Section>
+        <Button
+          icon="chevron-left"
+          content="Back"
+          onClick={() => act("setState", { state: STATE_MAIN })}
+        />
+      </Section>
+      {
+        messages.map((message, messageIndex) => {
+          let answers = null;
 
-        if (message.possibleAnswers.length > 0) {
-          answers = (
-            <Box mt={1}>
-              {message.possibleAnswers.map((answer, answerIndex) => (
-                <Button
-                  content={answer}
-                  color={message.answered === answerIndex + 1 ? "good" : undefined}
-                  key={answerIndex}
-                  onClick={message.answered ? undefined : () => act("answerMessage", {
+          if (message.possibleAnswers.length > 0) {
+            answers = (
+              <Box mt={1}>
+                {message.possibleAnswers.map((answer, answerIndex) => (
+                  <Button
+                    content={answer}
+                    color={message.answered === answerIndex + 1 ? "good" : undefined}
+                    key={answerIndex}
+                    onClick={message.answered ? undefined : () => act("answerMessage", {
+                      message: messageIndex + 1,
+                      answer: answerIndex + 1,
+                    })}
+                  />
+                ))}
+              </Box>
+            );
+          }
+
+          return (
+            <Section
+              title={message.title}
+              key={messageIndex}
+              buttons={(
+                <Button.Confirm
+                  icon="trash"
+                  content="Delete"
+                  color="red"
+                  onClick={() => act("deleteMessage", {
                     message: messageIndex + 1,
-                    answer: answerIndex + 1,
                   })}
                 />
-              ))}
-            </Box>
+              )}>
+              <Box>{message.content}</Box>
+
+              {answers}
+            </Section>
           );
-        }
-
-        return (
-          <Section
-            title={message.title}
-            key={messageIndex}
-            buttons={(
-              <Button.Confirm
-                icon="trash"
-                content="Delete"
-                color="red"
-                onClick={() => act("deleteMessage", {
-                  message: messageIndex + 1,
-                })}
-              />
-            )}>
-            <Box>{message.content}</Box>
-
-            {answers}
-          </Section>
-        );
-      }).reverse()
-    }
-  </>);
+        }).reverse()
+      }
+    </>
+  );
 };
 
 export const CommunicationsConsole = (props, context) => {
