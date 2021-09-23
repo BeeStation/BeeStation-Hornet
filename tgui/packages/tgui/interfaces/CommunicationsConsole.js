@@ -343,9 +343,9 @@ const PageMain = (props, context) => {
               color="bad"
               disabled={!canRecallShuttles || !shuttleRecallable}
               tooltip={(
-                canRecallShuttles && (
+                canRecallShuttles ? (
                   !shuttleRecallable && "It's too late for the emergency shuttle to be recalled."
-                ) || (
+                ) : (
                   "You do not have permission to recall the emergency shuttle."
                 )
               )}
