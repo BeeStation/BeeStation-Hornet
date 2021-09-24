@@ -360,16 +360,6 @@
 				if (can_send_messages_to_other_sectors(user))
 					data["canSendToSectors"] = TRUE
 
-					var/list/sectors = list()
-					var/our_id = CONFIG_GET(string/cross_comms_name)
-
-					for (var/server in CONFIG_GET(keyed_list/cross_server))
-						if (server == our_id)
-							continue
-						sectors += server
-
-					data["sectors"] = sectors
-
 				if (authenticated_as_silicon_or_captain(user))
 					data["canToggleEmergencyAccess"] = TRUE
 					data["emergencyAccess"] = GLOB.emergency_access

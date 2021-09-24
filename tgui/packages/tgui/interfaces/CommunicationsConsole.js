@@ -310,7 +310,6 @@ const PageMain = (props, context) => {
     emagged,
     emergencyAccess,
     importantActionReady,
-    sectors,
     shuttleCalled,
     shuttleCalledPreviously,
     shuttleCanEvacOrFailReason,
