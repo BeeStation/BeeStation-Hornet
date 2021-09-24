@@ -132,6 +132,12 @@
 	if(T.y+height > world.maxy)
 		return
 
+	var/list/border = block(locate(max(T.x, 1), max(T.y, 1),  T.z),
+							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
+	for(var/L in border)
+		var/turf/turf_to_disable = L
+		turf_to_disable.ImmediateDisableAdjacency()
+
 	// Accept cached maps, but don't save them automatically - we don't want
 	// ruins clogging up memory for the whole round.
 	var/datum/parsed_map/parsed = cached_map || new(file(mappath))
