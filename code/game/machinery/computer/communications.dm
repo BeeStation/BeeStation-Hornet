@@ -92,8 +92,6 @@
 	if (!has_communication())
 		return
 
-	. = TRUE
-
 	switch (action)
 		if ("answerMessage")
 			if (!authenticated(usr))
@@ -107,6 +105,7 @@
 				return
 			message.answered = answer_index
 			message.answer_callback.InvokeAsync()
+			. = TRUE
 		if ("callShuttle")
 			if (!authenticated(usr))
 				return
@@ -115,6 +114,7 @@
 				return
 			SSshuttle.requestEvac(usr, reason)
 			post_status("shuttle")
+			. = TRUE
 		if ("changeSecurityLevel")
 			if (!authenticated_as_silicon_or_captain(usr))
 				return
@@ -149,6 +149,7 @@
 			deadchat_broadcast("<span class='deadsay'><span class='name'>[usr.real_name]</span> has changed the security level to [params["newSecurityLevel"]] with [src] at <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", usr)
 
 			alert_level_tick += 1
+			. = TRUE
 		if ("deleteMessage")
 			if (!authenticated(usr))
 				return
@@ -156,10 +157,12 @@
 			if (!message_index)
 				return
 			LAZYREMOVE(messages, LAZYACCESS(messages, message_index))
+			. = TRUE
 		if ("makePriorityAnnouncement")
 			if (!authenticated_as_silicon_or_captain(usr))
 				return
 			make_announcement(usr)
+			. = TRUE
 		if ("messageAssociates")
 			if (!authenticated_as_non_silicon_captain(usr))
 				return
@@ -181,6 +184,7 @@
 			usr.log_talk(message, LOG_SAY, tag = "message to [associates]")
 			deadchat_broadcast("<span class='deadsay'><span class='name'>[usr.real_name]</span> has messaged [associates], \"[message]\" at <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", usr)
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
+			. = TRUE
 		if ("purchaseShuttle")
 			var/can_buy_shuttles_or_fail_reason = can_buy_shuttles(usr)
 			if (can_buy_shuttles_or_fail_reason != TRUE)
@@ -207,11 +211,12 @@
 			log_game("[key_name(usr)] has purchased [shuttle.name].")
 			SSblackbox.record_feedback("text", "shuttle_purchase", 1, shuttle.name)
 			state = STATE_MAIN
+			. = TRUE
 		if ("recallShuttle")
 			// AIs cannot recall the shuttle
 			if (!authenticated(usr) || issilicon(usr))
 				return
-			SSshuttle.cancelEvac(usr)
+			. = SSshuttle.cancelEvac(usr)
 		if ("requestNukeCodes")
 			if (!authenticated_as_non_silicon_captain(usr))
 				return
@@ -224,6 +229,7 @@
 			priority_announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self-Destruct Codes Requested", SSstation.announcer.get_rand_report_sound())
 			playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
+			. = TRUE
 		if ("restoreBackupRoutingData")
 			if (!authenticated_as_non_silicon_captain(usr))
 				return
@@ -232,6 +238,7 @@
 			to_chat(usr, "<span class='notice'>Backup routing data restored.</span>")
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			obj_flags &= ~EMAGGED
+			. = TRUE
 		if ("sendToOtherSector")
 			if (!authenticated_as_non_silicon_captain(usr))
 				return
@@ -253,6 +260,7 @@
 			deadchat_broadcast("<span class='deadsay bold'>[usr.real_name] has sent an outgoing message to the other station(s).</span>", usr)
 
 			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
+			. = TRUE
 		if ("setState")
 			if (!authenticated(usr))
 				return
@@ -262,6 +270,7 @@
 				return
 			set_state(usr, params["state"])
 			playsound(src, "terminal_type", 50, FALSE)
+			. = TRUE
 		if ("setStatusMessage")
 			if (!authenticated(usr))
 				return
@@ -271,6 +280,7 @@
 			post_status("message", line_one, line_two)
 			last_status_display = list(line_one, line_two)
 			playsound(src, "terminal_type", 50, FALSE)
+			. = TRUE
 		if ("setStatusPicture")
 			if (!authenticated(usr))
 				return
@@ -279,6 +289,7 @@
 				return
 			post_status("alert", picture)
 			playsound(src, "terminal_type", 50, FALSE)
+			. = TRUE
 		if ("toggleAuthentication")
 			// Log out if we're logged in
 			if (authorize_name)
@@ -303,9 +314,11 @@
 
 			state = STATE_MAIN
 			playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
+			. = TRUE
 		if ("toggleEmergencyAccess")
 			if (!authenticated_as_silicon_or_captain(usr))
 				return
+			. = TRUE
 			if (GLOB.emergency_access)
 				revoke_maint_all_access()
 				log_game("[key_name(usr)] disabled emergency maintenance access.")
