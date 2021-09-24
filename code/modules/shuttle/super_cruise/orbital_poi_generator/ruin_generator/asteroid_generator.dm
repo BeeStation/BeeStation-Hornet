@@ -87,3 +87,4 @@
 
 /area/asteroid/generated
 	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	outdoors = TRUE

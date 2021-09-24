@@ -184,8 +184,8 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 			var/mob/M = m
 			M.playsound_local(M, null, volume, vary, frequency, null, channel, pressure_affected, S)
 
-/proc/play_soundtrack_music(sound_path, list/hearers = null, volume = 80, ignore_prefs = FALSE, play_to_lobby = FALSE, allow_deaf = TRUE, only_station = FALSE)
-	var/sound/S = sound(sound_path, volume=volume, wait=0, channel=CHANNEL_AMBIENT_MUSIC)
+/proc/play_soundtrack_music(var/datum/soundtrack_song/song, list/hearers = null, volume = 80, ignore_prefs = FALSE, play_to_lobby = FALSE, allow_deaf = TRUE, only_station = FALSE)
+	var/sound/S = sound(initial(song.file), volume=volume, wait=0, channel=CHANNEL_AMBIENT_MUSIC)
 	. = S
 
 	if(!hearers)
@@ -208,6 +208,8 @@ distance_multiplier - Can be used to multiply the distance at which the sound is
 			continue
 
 		SEND_SOUND(M, S)
+
+	GLOB.soundtrack_this_round |= song
 
 /proc/stop_soundtrack_music()
 	for(var/mob/M as() in GLOB.player_list)
