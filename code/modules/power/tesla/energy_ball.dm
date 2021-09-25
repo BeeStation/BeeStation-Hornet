@@ -1,5 +1,6 @@
 #define TESLA_DEFAULT_POWER 1738260
 #define TESLA_MINI_POWER 869130
+#define TESLA_MAX_BALLS 10
 
 /obj/singularity/energy_ball
 	name = "energy ball"
@@ -18,57 +19,54 @@
 	dissipate_delay = 5
 	dissipate_strength = 1
 	var/list/orbiting_balls = list()
-	var/miniball = FALSE
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
 
-/obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
-	miniball = is_miniball
+/*
+/obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50)
 	. = ..()
+	//TODO: Renable when we get a better lighting system that doesn't need constant updating
 	if(!is_miniball)
 		set_light(10, 7, "#EEEEFF")
+*/
 
 /obj/singularity/energy_ball/ex_act(severity, target)
 	return
 
 /obj/singularity/energy_ball/Destroy()
-	if(orbiting && istype(orbiting.parent, /obj/singularity/energy_ball))
-		var/obj/singularity/energy_ball/EB = orbiting.parent
-		EB.orbiting_balls -= src
-
-	for(var/ball in orbiting_balls)
-		var/obj/singularity/energy_ball/EB = ball
-		qdel(EB)
-
+	QDEL_LIST(orbiting_balls)
 	. = ..()
 
-/obj/singularity/energy_ball/admin_investigate_setup()
-	if(miniball)
-		return //don't annnounce miniballs
-	..()
-
-
 /obj/singularity/energy_ball/process()
-	if(!orbiting)
-		handle_energy()
+	handle_energy()
 
-		move_the_basket_ball(4 + orbiting_balls.len * 1.5)
+	move_the_basket_ball(4 + orbiting_balls.len * 1.5)
 
-		playsound(src.loc, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 30)
+	playsound(src.loc, 'sound/magic/lightningbolt.ogg', 100, 1, extrarange = 30)
 
-		pixel_x = 0
-		pixel_y = 0
+	pixel_x = 0
+	pixel_y = 0
 
-		tesla_zap(src, 7, TESLA_DEFAULT_POWER, TRUE)
-
+	//Main one can zap
+	//Tesla only zaps if the tick usage isn't over the limit.
+	if(!TICK_CHECK)
+		tesla_zap(src, 7, TESLA_DEFAULT_POWER, TESLA_ENERGY_PRIMARY_BALL_FLAGS)
+	else
+		//Weaker, less intensive zap
+		tesla_zap(src, 4, TESLA_DEFAULT_POWER, TESLA_ENERGY_MINI_BALL_FLAGS)
 		pixel_x = -32
 		pixel_y = -32
-		for (var/ball in orbiting_balls)
-			var/range = rand(1, CLAMP(orbiting_balls.len, 3, 7))
-			tesla_zap(ball, range, TESLA_MINI_POWER/7*range)
-	else
-		energy = 0 // ensure we dont have miniballs of miniballs
+		return
+
+	pixel_x = -32
+	pixel_y = -32
+	for (var/ball in orbiting_balls)
+		if(TICK_CHECK)
+			return
+		var/range = rand(1, CLAMP(orbiting_balls.len, 3, 7))
+		//Miniballs don't explode.
+		tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TESLA_ENERGY_MINI_BALL_FLAGS)
 
 /obj/singularity/energy_ball/examine(mob/user)
 	. = ..()
@@ -112,12 +110,14 @@
 /obj/singularity/energy_ball/proc/new_mini_ball()
 	if(!loc)
 		return
-	var/obj/singularity/energy_ball/EB = new(loc, 0, TRUE)
+	if(orbiting_balls.len >= TESLA_MAX_BALLS)
+		return
+	var/obj/effect/energy_ball/EB = new(loc, 0, TRUE)
 
-	EB.transform *= pick(0.3, 0.4, 0.5, 0.6, 0.7)
+	EB.transform *= rand(30, 70) * 0.01
 	var/icon/I = icon(icon,icon_state,dir)
 
-	var/orbitsize = (I.Width() + I.Height()) * pick(0.4, 0.5, 0.6, 0.7, 0.8)
+	var/orbitsize = (I.Width() + I.Height()) * rand(40, 80) * 0.01
 	orbitsize -= (orbitsize / world.icon_size) * (world.icon_size * 0.25)
 
 	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
@@ -138,23 +138,6 @@
 		qdel(rip_u)
 		C.death()
 
-/obj/singularity/energy_ball/orbit(obj/singularity/energy_ball/target)
-	if (istype(target))
-		target.orbiting_balls += src
-		GLOB.poi_list -= src
-		target.dissipate_strength = target.orbiting_balls.len
-
-	. = ..()
-/obj/singularity/energy_ball/stop_orbit()
-	if (orbiting && istype(orbiting.parent, /obj/singularity/energy_ball))
-		var/obj/singularity/energy_ball/orbitingball = orbiting.parent
-		orbitingball.orbiting_balls -= src
-		orbitingball.dissipate_strength = orbitingball.orbiting_balls.len
-	. = ..()
-	if (!QDELETED(src))
-		qdel(src)
-
-
 /obj/singularity/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))
 		var/mob/living/L = A
@@ -167,6 +150,34 @@
 			return
 	var/mob/living/carbon/C = A
 	C.dust()
+
+//Less intensive energy ball for the orbiting ones.
+/obj/effect/energy_ball
+	name = "energy ball"
+	desc = "An energy ball."
+	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
+	icon_state = "energy_ball"
+	pixel_x = -32
+	pixel_y = -32
+
+/obj/effect/energy_ball/Destroy(force)
+	if(orbiting && istype(orbiting.parent, /obj/singularity/energy_ball))
+		var/obj/singularity/energy_ball/EB = orbiting.parent
+		EB.orbiting_balls -= src
+		EB.dissipate_strength = EB.orbiting_balls.len
+	. = ..()
+
+/obj/effect/energy_ball/orbit(obj/singularity/energy_ball/target)
+	if (istype(target))
+		target.orbiting_balls += src
+		target.dissipate_strength = target.orbiting_balls.len
+	. = ..()
+
+/obj/effect/energy_ball/stop_orbit()
+	. = ..()
+	//Qdel handles removing from the parent ball list.
+	if (!QDELETED(src))
+		qdel(src)
 
 /proc/tesla_zap(atom/source, zap_range = 3, power, tesla_flags = TESLA_DEFAULT_FLAGS, list/shocked_targets)
 	. = source.dir
@@ -312,3 +323,5 @@
 
 	else if(closest_structure)
 		closest_structure.tesla_act(power, tesla_flags, shocked_targets)
+
+#undef TESLA_MAX_BALLS

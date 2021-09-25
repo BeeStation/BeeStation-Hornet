@@ -74,6 +74,7 @@
 		SSshuttle.clearHostileEnvironment(src)
 		if(EMERGENCY_IDLE_OR_RECALLED)
 			priority_announce("Xenomorph infestation detected: crisis shuttle protocols activated - jamming recall signals across all frequencies.", SSstation.announcer.get_rand_alert_sound())
+			play_soundtrack_music(/datum/soundtrack_song/bee/mind_crawler, only_station = TRUE)
 			SSshuttle.emergency.request(null, set_coefficient=0.5)
 			SSshuttle.emergencyNoRecall = TRUE
 

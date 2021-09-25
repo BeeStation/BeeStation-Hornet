@@ -192,8 +192,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		return
 	if (href_list["forced_extended"])
 		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
+		message_admins("[key_name(usr)] toggled dynamic's Forced Extended setting to [GLOB.dynamic_forced_extended].")
 	else if (href_list["no_stacking"])
 		GLOB.dynamic_no_stacking = !GLOB.dynamic_no_stacking
+		message_admins("[key_name(usr)] toggled dynamic's No Stacking setting to [GLOB.dynamic_no_stacking].")
 	else if (href_list["adjustthreat"])
 		var/threatadd = input("Specify how much threat to add (negative to subtract). This can inflate the threat level.", "Adjust Threat", 0) as null|num
 		if(!threatadd)
@@ -204,6 +206,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		else
 			spend_midround_budget(-threatadd)
 			threat_log += "[worldtime2text()]: [key_name(usr)] decreased threat by [-threatadd] threat."
+		message_admins("[key_name(usr)] adjusted the dynamic threat level by [threatadd] threat.")
 	else if (href_list["injectlate"])
 		latejoin_injection_cooldown = 0
 		forced_injection = TRUE
@@ -216,6 +219,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		show_threatlog(usr)
 	else if (href_list["stacking_limit"])
 		GLOB.dynamic_stacking_limit = input(usr,"Change the threat limit at which round-endings rulesets will start to stack.", "Change stacking limit", null) as num
+		message_admins("[key_name(usr)] adjusted dynamic's Stacking Limit setting to [GLOB.dynamic_stacking_limit].")
 	else if(href_list["force_latejoin_rule"])
 		var/added_rule = input(usr,"What ruleset do you want to force upon the next latejoiner? This will bypass threat level and population restrictions.", "Rigging Latejoin", null) as null|anything in sortList(latejoin_rules)
 		if (!added_rule)

@@ -52,3 +52,7 @@
 	input = /mob/living/simple_animal/slime
 	output = null
 	required_machine = /obj/machinery/processor/slime
+
+/datum/food_processor_process/fish
+	input = /obj/item/fish
+	output = /obj/item/reagent_containers/food/snacks/carpmeat/icantbeliveitsnotcarp
