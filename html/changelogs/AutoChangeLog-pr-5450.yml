@@ -1,0 +1,5 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: The metastation external airlock in holodeck maintenance now sets up correctly
+      roundstart
