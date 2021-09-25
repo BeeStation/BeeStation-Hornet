@@ -1,0 +1,4 @@
+author: Raven-Industries
+delete-after: true
+changes:
+  - tweak: increased book title limit from 20 chars to 50
