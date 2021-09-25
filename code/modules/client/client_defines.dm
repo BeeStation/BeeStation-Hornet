@@ -35,6 +35,7 @@
 	/// The client's preferences
 	var/datum/preferences/prefs = null
 	var/list/keybindings[0]
+	var/movement_locked = FALSE
 
 	/// The last world.time that the client's mob turned
 	var/last_turn = 0
