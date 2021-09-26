@@ -30,8 +30,8 @@
 	throw_speed = 2
 	throw_range = 3
 	attack_verb = list("pompfed")
-	greyscale_config = /datum/greyscale_config/flower_simple
-	greyscale_config_worn = /datum/greyscale_config/flower_simple_worn
+	greyscale_config = /datum/greyscale_config/rainbow_bunch
+	greyscale_config_worn = /datum/greyscale_config/rainbow_bunch_worn
 
 /obj/item/reagent_containers/food/snacks/grown/rainbow_flower/Initialize()
 	. = ..()
