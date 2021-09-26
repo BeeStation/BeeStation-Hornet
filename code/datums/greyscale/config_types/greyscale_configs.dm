@@ -176,10 +176,9 @@
 	icon_file = 'icons/obj/hydroponics/harvest.dmi'
 	json_config = 'code/datums/greyscale/json_configs/rainbow_flower.json'
 
-/datum/greyscale_config/rainbow_bunch_worn
+/datum/greyscale_config/rainbow_bunch/worn
 	name = "Flower Worn"
 	icon_file = 'icons/mob/head.dmi'
-	json_config = 'code/datums/greyscale/json_configs/rainbow_flower_worn.json'
 
 /datum/greyscale_config/suspenders
 	name = "Suspenders"
