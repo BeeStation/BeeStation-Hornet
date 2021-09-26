@@ -3,7 +3,7 @@
 	desc = "A pack of seeds that'll grow into a beautiful bush of various colored flowers."
 	icon_state = "seed-rainbowbunch"
 	species = "rainbowbunch"
-	plantname = "Rainbow Flowers"
+	plantname = "Rainbow Bunch"
 	icon_harvest = "rainbowbunch-harvest"
 	product = /obj/item/reagent_containers/food/snacks/grown/rainbow_flower
 	lifespan = 25
@@ -42,41 +42,41 @@
 	switch(flower_color)
 		if(1)
 			item_color = "red"
-			set_greyscale("#C50B0B")
-			list_reagents = list(/datum/reagent/colorful_reagent/powder/red = 3)
-			desc += " This one is in a bright red color."
+			set_greyscale("#DA0000")
+			reagents.add_reagent(/datum/reagent/colorful_reagent/powder/red, 3)
+			desc += " This one is in a fiery red color."
 		if(2)
 			item_color = "orange"
-			set_greyscale("#F76F07")
-			list_reagents = list(/datum/reagent/colorful_reagent/powder/orange = 3)
+			set_greyscale("#FF9300")
+			reagents.add_reagent(/datum/reagent/colorful_reagent/powder/orange, 3)
 			desc += " This one is in a citrus orange color."
 		if(3)
 			item_color = "yellow"
-			set_greyscale("#D8CE13")
-			list_reagents = list(/datum/reagent/colorful_reagent/powder/yellow = 3)
+			set_greyscale("#FFF200")
+			reagents.add_reagent(/datum/reagent/colorful_reagent/powder/yellow, 3)
 			desc += " This one is in a bright yellow color."
 		if(4)
 			item_color = "green"
-			set_greyscale("#A0DA23")
-			list_reagents = list(/datum/reagent/colorful_reagent/powder/green = 3)
+			set_greyscale("#A8E61D")
+			reagents.add_reagent(/datum/reagent/colorful_reagent/powder/green, 3)
 			desc += " This one is in a grassy green color."
 		if(5)
 			item_color = "blue"
-			set_greyscale("#0862C1")
-			list_reagents = list(/datum/reagent/colorful_reagent/powder/blue = 3)
+			set_greyscale("#00B7EF)"
+			reagents.add_reagent(/datum/reagent/colorful_reagent/powder/blue, 3)
 			desc += " This one is in a soothing blue color."
 		if(6)
 			item_color = "purple"
-			set_greyscale("#AD00CC")
-			list_reagents = list(/datum/reagent/colorful_reagent/powder/purple = 3)
+			set_greyscale("#DA00FF")
+			reagents.add_reagent(/datum/reagent/colorful_reagent/powder/purple, 3)
 			desc += " This one is in a vibrant purple color."
 		if(7)
 			item_color = "black"
-			set_greyscale("#161616")
-			list_reagents = list(/datum/reagent/colorful_reagent/powder/black = 3)
+			set_greyscale("#1C1C1C")
+			reagents.add_reagent(/datum/reagent/colorful_reagent/powder/black, 3)
 			desc += " This one is in a midnight black color."
 		if(8)
 			item_color = "white"
 			set_greyscale("#FFFFFF")
-			list_reagents = list(/datum/reagent/colorful_reagent/powder/white = 3)
+			reagents.add_reagent(/datum/reagent/colorful_reagent/powder/white, 3)
 			desc += " This one is in a pure white color."

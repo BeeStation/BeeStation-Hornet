@@ -171,15 +171,15 @@
 	name = "Beret With Badge Worn"
 	json_config = 'code/datums/greyscale/json_configs/beret_badge_worn.json'
 
-/datum/greyscale_config/flower_simple
+/datum/greyscale_config/rainbow_bunch
 	name = "Flower"
 	icon_file = 'icons/obj/hydroponics/harvest.dmi'
-	json_config = 'code/datums/greyscale/json_configs/simple_flower.json'
+	json_config = 'code/datums/greyscale/json_configs/rainbow_flower.json'
 
-/datum/greyscale_config/flower_simple_worn
+/datum/greyscale_config/rainbow_bunch_worn
 	name = "Flower Worn"
 	icon_file = 'icons/mob/head.dmi'
-	json_config = 'code/datums/greyscale/json_configs/simple_flower_worn.json'
+	json_config = 'code/datums/greyscale/json_configs/rainbow_flower_worn.json'
 
 /datum/greyscale_config/suspenders
 	name = "Suspenders"
