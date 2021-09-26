@@ -62,7 +62,7 @@
 			desc += " This one is in a grassy green color."
 		if(5)
 			item_color = "blue"
-			set_greyscale("#00B7EF)"
+			set_greyscale("#00B7EF")
 			reagents.add_reagent(/datum/reagent/colorful_reagent/powder/blue, 3)
 			desc += " This one is in a soothing blue color."
 		if(6)
