@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - tweak: 514.1568 is now required for playing and compiling
