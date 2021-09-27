@@ -1,0 +1,4 @@
+author: Archanial
+delete-after: true
+changes:
+  - bugfix: Fixed join via pod trait sending people to hyperspace
