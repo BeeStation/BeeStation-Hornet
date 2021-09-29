@@ -122,7 +122,7 @@ Bonus
 
 /datum/symptom/alkali/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.resistance >= 9 || A.stage_rate >= 10)
+	if(A.resistance >= 9 || A.stage_rate >= 8)
 		severity = 6
 
 /datum/symptom/alkali/Start(datum/disease/advance/A)
