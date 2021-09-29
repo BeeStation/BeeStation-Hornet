@@ -460,3 +460,47 @@
 		/obj/item/gun/ballistic/automatic/sniper_rifle=1,\
 		/obj/item/gun/grenadelauncher/security=1,\
 		/obj/item/gun/ballistic/automatic/ar=1)
+
+/datum/outfit/hitman
+	name = "Hitman"
+
+	uniform = /obj/item/clothing/under/suit/black
+	shoes = /obj/item/clothing/shoes/sneakers/black
+	gloves = /obj/item/clothing/gloves/color/black
+	ears = /obj/item/radio/headset
+	glasses = /obj/item/clothing/glasses/sunglasses/advanced
+	l_hand = /obj/item/storage/secure/briefcase
+	id = /obj/item/card/id/syndicate
+	belt = /obj/item/pda/heads
+	r_hand = /obj/item/storage/box/syndie_kit/chameleon
+	r_pocket = /obj/item/kitchen/knife/combat
+
+/datum/outfit/hitman/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	var/obj/item/clothing/under/U = H.w_uniform
+	U.attach_accessory(new /obj/item/clothing/accessory/waistcoat(H))
+
+	if(visualsOnly)
+		return
+
+	//Could use a type
+	var/obj/item/storage/secure/briefcase/sec_briefcase = H.get_item_for_held_index(1)
+	for(var/obj/item/briefcase_item in sec_briefcase)
+		qdel(briefcase_item)
+	for(var/i = 3 to 0 step -1)
+	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/stack/spacecash/c1000, null, TRUE, TRUE)
+	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/pen/sleepy, null, TRUE, TRUE)
+	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/gun/ballistic/automatic/pistol/suppressed, null, TRUE, TRUE)
+	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/grenade/plastic/x4, null, TRUE, TRUE)
+	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/m10mm, null, TRUE, TRUE)
+	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/magazine/m10mm, null, TRUE, TRUE)
+
+	var/obj/item/pda/heads/pda = H.belt
+	pda.owner = H.real_name
+	pda.ownjob = "Reaper"
+	pda.update_label()
+
+	var/obj/item/card/id/syndicate/W = H.wear_id
+	W.access = get_all_accesses()
+	W.assignment = "Reaper"
+	W.registered_name = H.real_name
+	W.update_label(H.real_name)

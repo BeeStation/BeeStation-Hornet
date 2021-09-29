@@ -99,3 +99,12 @@
 	mission = "HONK them into submission"
 	polldesc = "an elite Nanotrasen tactical pranking squad"
 	code = "HOOOOOOOOOONK"
+
+/datum/ert/hitman
+	roles = list(/datum/antagonist/ert/hitman)
+	leader_role = /datum/antagonist/ert/hitman
+	teamsize = 1
+	opendoors = FALSE
+	rename_team = "Assassins"
+	mission = "Take down your designated target, while causing minimal non-target casulties."
+	polldesc = "A Nanotrasen Special Forces Agent"

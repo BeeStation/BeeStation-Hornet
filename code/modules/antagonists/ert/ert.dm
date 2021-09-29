@@ -161,6 +161,11 @@
 	role = "HONKER"
 	plasmaman_outfit = /datum/outfit/plasmaman/honk_squad
 
+/datum/antagonist/ert/hitman
+	name = "Contract Killer"
+	outfit = /datum/ert/hitman
+	plasmaman_outfit = /datum/outfit/plasmaman/vip
+
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))
 		ert_team = new_team
@@ -248,6 +253,22 @@
 		missiondesc += " Follow orders given to you by your squad leader, or ignore them if it's funnier."
 
 		missiondesc += " Slip as many civilians as possible."
+
+	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
+	to_chat(owner,missiondesc)
+
+/datum/antagonist/ert/hitman/greet()
+	if(!ert_team)
+		return
+
+	to_chat(owner, "<B><font size=3 color=red>You are an Assassin hired by Nanotrasen.</font></B>")
+
+	var/missiondesc = "Good day Agent, you have been hired by Nanotrasen on a mission to [station_name()] to take down one or more targets, try to remain unseen, and inflict minimal\
+	non-target casulties, we will leave you to prepare, Agent."
+	if(leader) //If Squad Leader
+		missiondesc += " Take stock of your equipment and teammates (if any) and board the transit shuttle when you are ready."
+	else
+		missiondesc += " Take down the desginated target(s)."
 
 	missiondesc += "<BR><B>Your Mission</B> : [ert_team.mission.explanation_text]"
 	to_chat(owner,missiondesc)
