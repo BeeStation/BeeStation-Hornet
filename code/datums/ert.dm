@@ -107,4 +107,4 @@
 	opendoors = FALSE
 	rename_team = "Assassins"
 	mission = "Take down your designated target, while causing minimal non-target casulties."
-	polldesc = "A Nanotrasen Special Forces Agent"
+	polldesc = "a contract killer hired by Nanotrasen"
