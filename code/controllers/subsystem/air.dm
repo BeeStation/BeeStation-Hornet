@@ -431,14 +431,19 @@ SUBSYSTEM_DEF(air)
 	LAZYADD(paused_z_levels, z_level)
 	var/list/turfs_to_disable = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
 	for(var/turf/T as anything in turfs_to_disable)
-		T.ImmediateDisableAdjacency(FALSE)
+		T.update_air_ref(-1)
 		CHECK_TICK
 
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
 	var/list/turfs_to_reinit = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
 	for(var/turf/T as anything in turfs_to_reinit)
-		if(T.blocks_air)
-			continue
+		if(isspaceturf(T))
+			T.update_air_ref(0)
+		else if(isopenturf(T))
+			var/turf/open/terf = T
+			terf.update_air_ref(terf.planetary_atmos ? 1 : 2)
+		else if(isclosedturf(T))
+			T.update_air_ref(-1)
 		T.Initalize_Atmos()
 		CHECK_TICK
 	LAZYREMOVE(paused_z_levels, z_level)
