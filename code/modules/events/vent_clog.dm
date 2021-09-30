@@ -1,3 +1,5 @@
+GLOBAL_VAR(CustomBeerMix) //this is probably a really dumb way to do this but I can't think of a better one
+
 /datum/round_event_control/vent_clog
 	name = "Clogged Vents: Normal"
 	typepath = /datum/round_event/vent_clog
@@ -75,14 +77,32 @@
 	reagentsAmount = 250
 
 /datum/round_event_control/vent_clog/beer
-	name = "Foamy beer stationwide"
+	name = "Foamy Beer Stationwide"
 	typepath = /datum/round_event/vent_clog/beer
+	max_occurrences = 0
+
+/datum/round_event_control/vent_clog/custom
+	name = "Foam-Pocalypse"
+	typepath = /datum/round_event/vent_clog/custom
 	max_occurrences = 0
 
 /datum/round_event_control/vent_clog/plasma_decon
 	name = "Plasma decontamination"
 	typepath = /datum/round_event/vent_clog/plasma_decon
 	max_occurrences = 0
+
+/datum/round_event/vent_clog/custom
+	reagentsAmount = 100
+
+/datum/round_event/vent_clog/custom/announce()
+	priority_announce("The scrubbers network is experiencing an unexpected surge of pressurized chemicals. Some ejection of contents may occur.", "Atmospherics alert", SSstation.announcer.get_rand_alert_sound())
+
+/datum/round_event/vent_clog/custom/start()
+	var/datum/reagents/reagent_holder = GLOB.CustomBeerMix
+	saferChems = list()
+	for(var/datum/reagent/R in reagent_holder.reagent_list)
+		saferChems += R.type
+	..()
 
 /datum/round_event/vent_clog/beer
 	reagentsAmount = 100

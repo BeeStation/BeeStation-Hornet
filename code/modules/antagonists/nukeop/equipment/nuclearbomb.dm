@@ -534,6 +534,8 @@
 	desc = "One of the more successful achievements of the Nanotrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap to produce and devastatingly effective. Signs explain that though this particular device has been decommissioned, every Nanotrasen station is equipped with an equivalent one, just in case. All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
 	proper_bomb = FALSE
 	var/obj/structure/reagent_dispensers/beerkeg/keg
+	var/custom_load = FALSE
+	var/has_been_filled = FALSE
 
 /obj/machinery/nuclearbomb/beer/Initialize()
 	. = ..()
@@ -548,12 +550,33 @@
 		to_chat(user, "<span class='danger'>It's empty.</span>")
 
 /obj/machinery/nuclearbomb/beer/attackby(obj/item/W, mob/user, params)
-	if(W.is_refillable())
+	if(W.is_refillable() && custom_load == FALSE)
 		W.afterattack(keg, user, TRUE) 	// redirect refillable containers to the keg, allowing them to be filled
 		return TRUE 										// pretend we handled the attack, too.
 	if(istype(W, /obj/item/nuke_core_container))
 		to_chat(user, "<span class='notice'>[src] has had its plutonium core removed as a part of being decommissioned.</span>")
 		return TRUE
+	if((W.tool_behaviour == TOOL_SCREWDRIVER) && !istype(W, /obj/item/screwdriver/nuke))
+		if(custom_load == FALSE)
+			to_chat(user, "<span class='notice'>You switch the keg's mode from Emptying to Filling.")
+			W.play_tool_sound(src, 50)
+			custom_load = TRUE
+			has_been_filled = TRUE
+		else
+			to_chat(user, "<span class='notice'>You switch the keg's mode from Filling to Emptying")
+			W.play_tool_sound(src, 50)
+			custom_load = FALSE
+		return TRUE
+	if(istype(W, /obj/item/reagent_containers) && W.is_open_container())
+		add_fingerprint(user)
+		var/obj/item/reagent_containers/RC = W
+		if((RC.amount_per_transfer_from_this + src.keg.reagents.total_volume) <= 1000)
+			var/units = RC.reagents.trans_to(src.keg, RC.amount_per_transfer_from_this, transfered_by = user)
+			if(units)
+				to_chat(user, "<span class='notice'>You transfer [units] units of the solution to [src].</span>")
+				return TRUE
+		else
+			to_chat(user, "<span class=warning>[src] is full!")
 	return ..()
 
 /obj/machinery/nuclearbomb/beer/actually_explode()
@@ -564,9 +587,17 @@
 		disarm()
 		return
 	if(is_station_level(bomb_location.z))
-		var/datum/round_event_control/E = locate(/datum/round_event_control/vent_clog/beer) in SSevents.control
-		if(E)
-			E.runEvent()
+		if(has_been_filled)
+			var/turf/T = get_turf(src)
+			message_admins("A Custom Beer Nuke has been activated in [ADMIN_VERBOSEJMP(T)] - Last Fingerprints: [(src.fingerprintslast ? src.fingerprintslast : "N/A")]")
+			var/datum/round_event_control/E = locate(/datum/round_event_control/vent_clog/custom) in SSevents.control
+			if(E)
+				GLOB.CustomBeerMix = src.keg.reagents
+				E.runEvent()
+		else
+			var/datum/round_event_control/E = locate(/datum/round_event_control/vent_clog/beer) in SSevents.control
+			if(E)
+				E.runEvent()
 		addtimer(CALLBACK(src, .proc/really_actually_explode), 110)
 	else
 		visible_message("<span class='notice'>[src] fizzes ominously.</span>")
