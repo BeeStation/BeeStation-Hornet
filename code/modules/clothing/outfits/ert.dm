@@ -482,7 +482,8 @@
 		/obj/item/pen/sleepy,\
 		/obj/item/gun/ballistic/automatic/pistol/suppressed,\
 		/obj/item/grenade/plastic/x4,\
-		/obj/item/ammo_box/magazine/m10mm=2)
+		/obj/item/ammo_box/magazine/m10mm=2,\
+		/obj/item/uplink/assassin)
 
 /datum/outfit/hitman/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)

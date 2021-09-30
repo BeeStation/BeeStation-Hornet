@@ -31,6 +31,12 @@
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
 	hidden_uplink.name = "debug uplink"
 
+/obj/item/uplink/assassin
+	name = "Bluespace Requesition device"
+
+/obj/item/uplink/assassin/Initialize(mapload, owner, tc_amount = 7)
+	. = ..()
+
 /obj/item/uplink/incursion/Initialize(mapload, owner, tc_amount = 20)
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
