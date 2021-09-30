@@ -1,0 +1,5 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - tweak: The "Say" window no longer has input lag when opening it with the hotkey.
+  - tweak: The "Say" window now has input lag when closing it with enter.
