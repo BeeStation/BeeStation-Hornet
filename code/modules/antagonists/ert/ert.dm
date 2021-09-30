@@ -164,7 +164,7 @@
 /datum/antagonist/ert/hitman
 	name = "Contract Killer"
 	outfit = /datum/ert/hitman
-	plasmaman_outfit = /datum/outfit/plasmaman/vip
+	plasmaman_outfit = /datum/outfit/plasmaman/assassin/chameleon
 
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))
@@ -261,10 +261,10 @@
 	if(!ert_team)
 		return
 
-	to_chat(owner, "<B><font size=3 color=red>You are an Assassin hired by Nanotrasen.</font></B>")
+	to_chat(owner, "<B><font size=3 color=red>You are an Agent hired by Nanotrasen.</font></B>")
 
 	var/missiondesc = "Good day Agent, you have been hired by Nanotrasen on a mission to [station_name()] to take down one or more targets, try to remain unseen, and inflict minimal\
-	non-target casulties, we will leave you to prepare, Agent."
+	non-target casulties, also, the pen in your backpack injects a potent mix of chemicals which is sure to knock someone out, we will leave you to prepare, Agent."
 	if(leader) //If Squad Leader
 		missiondesc += " Take stock of your equipment and teammates (if any) and board the transit shuttle when you are ready."
 	else

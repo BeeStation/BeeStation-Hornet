@@ -501,6 +501,6 @@
 
 	var/obj/item/card/id/syndicate/W = H.wear_id
 	W.access = get_all_accesses()
-	W.assignment = "Reaper"
+	W.assignment = "Special Operations Agent"
 	W.registered_name = H.real_name
 	W.update_label(H.real_name)
