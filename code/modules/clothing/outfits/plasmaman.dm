@@ -227,3 +227,9 @@
 
 	head = null
 	uniform = /obj/item/clothing/under/plasmaman/honk
+
+/datum/outfit/plasmaman/assassin/chameleon
+	name = "Chameleon Plasmaman"
+
+	uniform = /obj/item/clothing/under/chameleon/envirosuit
+	head = /obj/item/clothing/head/chameleon/envirohelm
