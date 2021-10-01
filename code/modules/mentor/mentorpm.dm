@@ -1,4 +1,4 @@
-//I REALLY HATE THIS FILE
+//This file was ported from hippie, used to be indented with spaces, and is the single worst corner of this codebase next to voice radio. For the love of god please rewrite this.
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_Mentor_pm
 /client/proc/cmd_mentor_pm_panel()
