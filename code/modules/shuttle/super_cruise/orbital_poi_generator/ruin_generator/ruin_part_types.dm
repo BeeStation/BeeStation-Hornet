@@ -415,6 +415,12 @@
 	loot_room = TRUE
 	max_occurances = 1
 
+/datum/map_template/ruin_part/ailab
+	file_name = "13x13_ai-lab"
+	weight = 5
+	loot_room = TRUE
+	max_occurances = 1
+
 /datum/map_template/ruin_part/cratestorage
 	file_name = "13x9_cratestorage"
 	weight = 3

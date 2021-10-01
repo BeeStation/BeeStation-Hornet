@@ -18,7 +18,8 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/stop_sounds,
-	/client/proc/mark_datum_mapview
+	/client/proc/mark_datum_mapview,
+	/client/proc/requests
 	)
 GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 GLOBAL_PROTECT(admin_verbs_admin)
@@ -78,7 +79,8 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/datum/admins/proc/open_borgopanel,
 	/client/proc/fix_say,
 	/client/proc/stabilize_atmos,
-	/client/proc/openTicketManager
+	/client/proc/openTicketManager,
+	/client/proc/battle_royale
 	)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(/client/proc/unban_panel, /client/proc/ban_panel, /client/proc/stickybanpanel))
 GLOBAL_PROTECT(admin_verbs_ban)
@@ -109,8 +111,7 @@ GLOBAL_LIST_INIT(admin_verbs_fun, list(
 	/client/proc/admin_away,
 	/client/proc/healall,
 	/client/proc/spawn_floor_cluwne,
-	/client/proc/spawnhuman,
-	/client/proc/battle_royale
+	/client/proc/spawnhuman
 	))
 GLOBAL_PROTECT(admin_verbs_fun)
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(/datum/admins/proc/spawn_atom, /datum/admins/proc/podspawn_atom, /datum/admins/proc/spawn_cargo, /datum/admins/proc/spawn_objasmob, /client/proc/respawn_character, /datum/admins/proc/beaker_panel))

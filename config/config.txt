@@ -367,6 +367,13 @@ NOTIFY_NEW_PLAYER_ACCOUNT_AGE 1
 ##	Requires database
 #PANIC_BUNKER
 
+## If a player connects during a bunker with less then or this amount of living time (Minutes), we deny the connection
+#PANIC_BUNKER_LIVING 60
+
+## The message the Panic Bunker gives when someone is rejected by it
+## %minutes% is replaced with PANIC_BUNKER_LIVING on runtime, remove it if you don't want this
+#PANIC_BUNKER_MESSAGE Sorry, but the server is currently not accepting connections from players with less than %minutes% minutes of living time.
+
 ## If panic bunker is on and a player is rejected (see above), attempt to send them to this connected server (see below) instead.
 ##	You probably want this to be the same as CROSS_SERVER_ADDRESS
 #PANIC_SERVER_ADDRESS byond://address:port
@@ -419,10 +426,10 @@ AUTOADMIN_RANK Admin
 #CLIENT_WARN_VERSION 513
 #CLIENT_WARN_POPUP
 #CLIENT_WARN_MESSAGE 512 is no longer being directly supported as version 513 is set to become the new stable version soon. We've made a number of changes to take advantage of the improvements made in 513 which should make for a smoother experience. We will be removing support for 512 when this new version replaces it as stable, so it's recommended that you upgrade now. (You can update to the BETA via the website or directly in the BYOND client)
-CLIENT_ERROR_VERSION 513
+CLIENT_ERROR_VERSION 514
 CLIENT_ERROR_MESSAGE Your version of byond is not supported. Please upgrade.
 ## The minimum build needed for joining the server, if using 513, a good minimum build would be 1526.
-CLIENT_ERROR_BUILD 1526
+CLIENT_ERROR_BUILD 1568
 
 ## TOPIC RATE LIMITING
 ## This allows you to limit how many topic calls (clicking on an interface window) the client can do in any given game second and/or game minute.

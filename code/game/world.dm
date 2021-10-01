@@ -246,6 +246,7 @@ GLOBAL_VAR(restart_counter)
 
 /world/Reboot(reason = 0, fast_track = FALSE)
 	if (reason || fast_track) //special reboot, do none of the normal stuff
+		SSdbcore.Disconnect()
 		if (usr)
 			log_admin("[key_name(usr)] Has requested an immediate world restart via client side debugging tools")
 			message_admins("[key_name_admin(usr)] Has requested an immediate world restart via client side debugging tools")

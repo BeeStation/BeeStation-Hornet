@@ -57,8 +57,8 @@
 				to_chat(usr, "<span class='notice'>Minor alarm for [zone] cleared.</span>")
 				minor_alarms -= zone
 				. = TRUE
-	update_icon()
-	ui_update()
+	if(.)
+		update_icon()
 
 /obj/machinery/computer/atmos_alert/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, receive_frequency)

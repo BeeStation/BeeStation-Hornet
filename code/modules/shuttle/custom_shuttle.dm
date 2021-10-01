@@ -98,8 +98,7 @@
 				shuttleObject.commence_docking(shuttleObject.can_dock_with, TRUE)
 			else
 				//Send shuttle object to random location
-				var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle()
-				z_linked.position = new /datum/orbital_vector(shuttleObject.position.x, shuttleObject.position.y)
+				var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle(new /datum/orbital_vector(shuttleObject.position.x, shuttleObject.position.y))
 				z_linked.name = "Stranded [shuttleObject]"
 				if(!z_linked)
 					say("Failed to dethrottle shuttle, please contact a Nanotrasen supervisor.")
