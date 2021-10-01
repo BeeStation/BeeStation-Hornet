@@ -158,29 +158,36 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	name = "greyspace rune"
 	desc = "Death is merely a setback, anything can be rebuilt given the right components."
 	icon_state = "rune_grey"
-	///extractype is used to remember the type of the extract on the rune
-	var/extractype
+	///extracttype is used to remember the type of the extract on the rune
+	var/extracttype
 	var/req_extracts = 8
 
 /obj/effect/warped_rune/greyspace/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>Requires absorbing [req_extracts] [extractype ? "[extractype] extracts" : "slime extracts"].</span>")
+	to_chat(user, "<span class='notice'>Requires absorbing [req_extracts] [extracttype ? "[extracttype] extracts" : "slime extracts"].</span>")
 
 /obj/effect/warped_rune/greyspace/do_effect(mob/user)
 	for(var/obj/item/slime_extract/extract in rune_turf)
-		if(extract.color_slime == extractype || !extractype) //check if the extract is the first one or of the right color.
-			extractype = extract.color_slime
+		if(extract.color_slime == extracttype || !extracttype) //check if the extract is the first one or of the right color.
+			extracttype = extract.color_slime
 			qdel(extract) //vores the slime extract
 			req_extracts--
 			if(req_extracts <= 0)
-				new /mob/living/simple_animal/slime (rune_turf, extractype) //spawn a slime from the extract's color
+				switch(extracttype)
+					if("lightpink")
+						extracttype = "light pink"
+					if("darkblue")
+						extracttype = "dark blue"
+					if("darkpurple")
+						extracttype = "dark purple"
+				new /mob/living/simple_animal/slime (rune_turf, extracttype) //spawn a slime from the extract's color
 				req_extracts = initial(req_extracts)
-				extractype = null // reset extractype to FALSE to allow a new extract type
+				extracttype = null // reset extracttype to FALSE to allow a new extract type
 				. = ..()
 				break
 			playsound(rune_turf, 'sound/effects/splat.ogg', 20, TRUE)
 		else
-			to_chat(user, "<span class='warning'>Requires a [extractype ? "[extractype] extracts" : "slime extract"].</span>")
+			to_chat(user, "<span class='warning'>Requires a [extracttype ? "[extracttype] extracts" : "slime extract"].</span>")
 
 
 /obj/item/slimecross/warping/orange
