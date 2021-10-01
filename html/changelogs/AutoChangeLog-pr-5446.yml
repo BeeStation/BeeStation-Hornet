@@ -1,0 +1,4 @@
+author: fighterslam
+delete-after: true
+changes:
+  - bugfix: Fixed DeltaStation holodeck.
