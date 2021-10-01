@@ -242,6 +242,7 @@
 	mob_size = MOB_SIZE_LARGE
 	hud_type = /datum/hud/blobbernaut
 	flavor_text = FLAVOR_TEXT_GOAL_ANTAG
+	move_resist = MOVE_FORCE_STRONG
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life()
 	if(..())

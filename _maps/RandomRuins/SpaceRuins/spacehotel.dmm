@@ -66,7 +66,7 @@
 /area/ruin/unpowered/no_grav)
 "ak" = (
 /obj/machinery/power/solar,
-/obj/structure/cable/yellow,
+/obj/structure/cable,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -278,7 +278,7 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_6)
 "bd" = (
 /obj/machinery/power/solar,
-/obj/structure/cable/yellow,
+/obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "be" = (
@@ -1407,11 +1407,17 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/hotel/workroom)
 "er" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/hotel/workroom)
@@ -1462,7 +1468,7 @@
 	name = "Laundry APC";
 	pixel_y = -24
 	},
-/obj/structure/cable,
+/obj/structure/cable/yellow,
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/hotel/workroom)
 "eB" = (
@@ -1655,7 +1661,7 @@
 	name = "Kitchen APC";
 	pixel_y = -24
 	},
-/obj/structure/cable,
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hotel/bar)
 "fi" = (
@@ -3141,7 +3147,7 @@
 	name = "Dock APC";
 	pixel_y = -24
 	},
-/obj/structure/cable,
+/obj/structure/cable/yellow,
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/dock)
 "jf" = (
@@ -4884,7 +4890,7 @@
 /area/ruin/space/has_grav/hotel/pool)
 "mO" = (
 /obj/machinery/power/tracker,
-/obj/structure/cable/yellow,
+/obj/structure/cable,
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "mP" = (
@@ -4970,6 +4976,15 @@
 /obj/item/pool/rubber_ring,
 /turf/open/indestructible/sound/pool,
 /area/ruin/space/has_grav/hotel/pool)
+"rc" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel,
+/area/ruin/space/has_grav/hotel/secondary_solars)
 "sb" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -4986,6 +5001,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/pool)
+"sc" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/template_noop,
+/area/ruin/unpowered/no_grav)
 "sN" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/structure/cable{
@@ -5013,6 +5035,23 @@
 /obj/effect/turf_decal/pool,
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/pool)
+"tr" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/hotel/secondary_solars)
+"uL" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating/airless,
+/area/ruin/unpowered/no_grav)
 "wM" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
@@ -5046,14 +5085,50 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/pool)
+"xX" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel,
+/area/ruin/space/has_grav/hotel/secondary_solars)
 "zZ" = (
 /obj/structure/pool_ladder,
 /turf/open/indestructible/sound/pool/end,
 /area/ruin/space/has_grav/hotel/pool)
+"Bn" = (
+/obj/machinery/power/apc/highcap/five_k{
+	dir = 2;
+	name = "Laundry APC";
+	pixel_y = -24
+	},
+/obj/structure/cable/yellow,
+/turf/open/floor/plasteel,
+/area/ruin/space/has_grav/hotel/secondary_solars)
+"BR" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/hotel/workroom)
 "Ix" = (
 /obj/item/bikehorn/rubberducky,
 /turf/open/indestructible/sound/pool,
 /area/ruin/space/has_grav/hotel/pool)
+"Ju" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating/airless,
+/area/ruin/unpowered/no_grav)
 "KB" = (
 /obj/structure/closet/secure_closet/personal,
 /obj/item/pool/pool_noodle,
@@ -5080,6 +5155,32 @@
 "MR" = (
 /turf/open/indestructible/sound/pool/end,
 /area/ruin/space/has_grav/hotel/pool)
+"Nb" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/hotel/workroom)
+"Ov" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/template_noop,
+/area/ruin/unpowered/no_grav)
+"Pc" = (
+/obj/machinery/door/airlock/engineering{
+	name = "Power Storage";
+	req_access_txt = "200,201"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/hotel/secondary_solars)
 "PD" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -5098,6 +5199,16 @@
 /obj/machinery/pool_filter,
 /turf/open/indestructible/sound/pool/end,
 /area/ruin/space/has_grav/hotel/pool)
+"Ra" = (
+/obj/machinery/power/solar_control{
+	dir = 1
+	},
+/obj/structure/cable,
+/turf/open/floor/plasteel,
+/area/ruin/space/has_grav/hotel/secondary_solars)
+"Ru" = (
+/turf/closed/wall,
+/area/ruin/space/has_grav/hotel/secondary_solars)
 "RI" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -5118,6 +5229,11 @@
 /obj/item/pool/pool_noodle,
 /turf/open/indestructible/sound/pool,
 /area/ruin/space/has_grav/hotel/pool)
+"TW" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/hotel/secondary_solars)
 "VD" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -5709,7 +5825,7 @@ aj
 lX
 aj
 aj
-aj
+Ju
 mO
 ac
 ab
@@ -8049,7 +8165,7 @@ cF
 di
 di
 ea
-ep
+Nb
 dV
 di
 eT
@@ -8119,7 +8235,7 @@ cF
 di
 dF
 ea
-ep
+Nb
 dF
 di
 eU
@@ -8259,7 +8375,7 @@ cF
 di
 dF
 eb
-dV
+BR
 dF
 di
 eV
@@ -8329,7 +8445,7 @@ cF
 di
 di
 di
-dV
+BR
 dV
 di
 eW
@@ -8399,7 +8515,7 @@ cR
 am
 ac
 di
-dV
+BR
 eB
 di
 eX
@@ -8469,7 +8585,7 @@ cF
 cG
 ac
 ec
-dV
+BR
 eC
 di
 eY
@@ -8539,7 +8655,7 @@ cF
 cG
 ac
 ec
-dV
+BR
 eD
 di
 eZ
@@ -8609,7 +8725,7 @@ cF
 cG
 ac
 ec
-dV
+BR
 eE
 di
 eW
@@ -8679,7 +8795,7 @@ cF
 am
 ac
 di
-dV
+BR
 eF
 di
 fa
@@ -8736,7 +8852,7 @@ aa
 af
 aj
 aj
-al
+uL
 at
 at
 at
@@ -8748,10 +8864,10 @@ cG
 cG
 am
 ac
-di
-di
-di
-di
+Ru
+Pc
+Ru
+Ru
 fb
 fu
 fu
@@ -8806,22 +8922,22 @@ aa
 ag
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-ac
-aa
-aa
-aa
-aa
-ac
-aa
-aa
-aa
-aa
-eG
+Ov
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+sc
+tr
+xX
+Bn
+Ru
 fc
 fu
 fu
@@ -8888,10 +9004,10 @@ aa
 aa
 ac
 aa
-aa
-aa
-aa
-eG
+TW
+rc
+Ra
+Ru
 eX
 fu
 fu
@@ -8958,10 +9074,10 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-eG
+Ru
+Ru
+Ru
+Ru
 eY
 fu
 fu
