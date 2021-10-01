@@ -319,6 +319,16 @@
 	req_components = list(/obj/item/stock_parts/micro_laser = 2,
 		/obj/item/stock_parts/matter_bin = 1)
 
+/obj/item/circuitboard/machine/plasma_refiner
+	name = "plasma refinery (Machine Board)"
+	build_path = /obj/machinery/atmospherics/components/unary/plasma_refiner
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/assembly/igniter = 1
+	)
+
 /obj/item/circuitboard/machine/scanner_gate
 	name = "scanner gate (Machine Board)"
 	icon_state = "engineering"
