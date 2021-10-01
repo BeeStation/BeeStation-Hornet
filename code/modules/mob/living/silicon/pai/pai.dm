@@ -19,6 +19,7 @@
 	head_icon = 'icons/mob/pai_item_head.dmi'
 	var/network = "ss13"
 	var/obj/machinery/camera/current = null
+	does_not_deadmin = TRUE
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/list/software = list()
