@@ -1,4 +1,0 @@
-author: qwertyquerty
-delete-after: true
-changes:
-  - server: Report round id as int on ?status
