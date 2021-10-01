@@ -58,6 +58,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/list/species_whitelist //Only allow certain species to receive this gear
 	var/sort_category = "General"
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
+	var/multi_purchase = FALSE //Allows multiple purchases, should not be used on actual items.
 
 /datum/gear/New()
 	..()
