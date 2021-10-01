@@ -36,13 +36,19 @@
 		if(!istype(TG, /datum/gear/donator) && !istype(TG, /datum/gear/ooc/lootbox))
 			finding_item = FALSE
 			if(TG.id in C.prefs.purchased_gear)
-				to_chat(world, "<span class=boldannounce>[C.ckey] bought a lootbox, and got a [TG.display_name], but it was a duplicate.")
+				if(SSticker.current_state != 3)
+					to_chat(world, "<span class=boldannounce>[C.ckey] bought a lootbox, and got a [TG.display_name], but it was a duplicate.")
+				else
+					to_chat(C.mob, "<span class=boldannounce>You got a [TG.display_name] in a lootbox, but it was a duplicate.")
 				C.inc_metabalance(cost * 0.5, TRUE, "Received a duplicate in a lootbox.")
 			else
 				if(!TG.multi_purchase)
 					C.prefs.purchased_gear += TG.id
 				TG.purchase(C)
-				if(!istype(TG, /datum/gear/ooc/real_antagtoken))
-					to_chat(world, "<span class=boldannounce>[C.ckey] bought a lootbox, and got a [TG.display_name].")
+				if(SSticker.current_state != 3)
+					if(!istype(TG, /datum/gear/ooc/real_antagtoken))
+						to_chat(world, "<span class=boldannounce>[C.ckey] bought a lootbox, and got a [TG.display_name].")
+					else
+						to_chat(world, "<font color='red' size='4'>[C.ckey] got an antag token in a lootbox!")
 				else
-					to_chat(world, "<font color='red' size='4'>[C.ckey] got an antag token in a lootbox!")
+					to_chat(C.mob, "<span class=boldannounce>You got a [TG.display_name] in a lootbox.")
