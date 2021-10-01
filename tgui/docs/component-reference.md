@@ -794,10 +794,12 @@ If you want to have a button on the right side of an section title
 </Section>
 ```
 
+**New:** Sections can now be nested, and will automatically font size of the
+header according to their nesting level. Previously this was done via `level`
+prop, but now it is automatically calculated.
+
 - See inherited props: [Box](#box)
 - `title: string` - Title of the section.
-- `level: number` - Section level in hierarchy. Default is 1, higher number
-means deeper level of nesting. Must be an integer number.
 - `buttons: any` - Buttons to render aside the section title.
 - `fill: boolean` - If true, fills all available vertical space.
 - `fitted: boolean` - If true, removes all section padding.
