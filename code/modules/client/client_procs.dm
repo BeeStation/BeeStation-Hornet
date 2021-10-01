@@ -291,7 +291,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		player_details = GLOB.player_details[ckey]
 		player_details.byond_version = full_version
 	else
-		player_details = new
+		player_details = new(ckey)
 		player_details.byond_version = full_version
 		GLOB.player_details[ckey] = player_details
 
@@ -539,6 +539,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			)
 
 			send2tgs("Server", "[cheesy_message] (No admins online)")
+
+	player_details.achievements.save()
 
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.requests.client_logout(src)
@@ -1101,3 +1103,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		SSambience.ambience_listening_clients[src] = world.time + 10 SECONDS //Just wait 10 seconds before the next one aight mate? cheers.
 	else
 		SSambience.ambience_listening_clients -= src
+
+/client/proc/give_award(achievement_type, mob/user)
+	return	player_details.achievements.unlock(achievement_type, mob/user)
