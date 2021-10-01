@@ -36,19 +36,21 @@
 	species = "lily"
 	plantname = "Lily Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/poppy/lily
+	icon_grow = "lily-grow"
+	icon_dead = "lily-dead"
 	mutatelist = list(/obj/item/seeds/poppy/lily/trumpet)
 
 /obj/item/reagent_containers/food/snacks/grown/poppy/lily
 	seed = /obj/item/seeds/poppy/lily
 	name = "lily"
-	desc = "A beautiful orange flower."
+	desc = "A beautiful white flower with rich symbolism. The lily is said to represent love and affection as well as purity and innocence in some cultures."
 	icon_state = "lily"
-	filling_color = "#FFA500"
+	filling_color = "#fff8ea"
 
-	//Spacemans's Trumpet
+//Spacemans's Trumpet
 /obj/item/seeds/poppy/lily/trumpet
 	name = "pack of spaceman's trumpet seeds"
-	desc = "A plant sculped by extensive genetic engineering. The spaceman's trumpet is said to bear no resemblance to its wild ancestors. Inside NT AgriSci circles it is better known as NTPW-0372."
+	desc = "A plant sculpted by extensive genetic engineering. The spaceman's trumpet is said to bear no resemblance to its wild ancestors. Inside NT AgriSci circles it is better known as NTPW-0372."
 	icon_state = "seed-trumpet"
 	species = "spacemanstrumpet"
 	plantname = "Spaceman's Trumpet Plant"
@@ -80,7 +82,7 @@
 	name = "spaceman's trumpet"
 	desc = "A vivid flower that smells faintly of freshly cut grass. Touching the flower seems to stain the skin some time after contact, yet most other surfaces seem to be unaffected by this phenomenon."
 	icon_state = "spacemanstrumpet"
-	filling_color = "#FF6347"
+	filling_color = "#8324f0"
 	bitesize_mod = 3
 	foodtype = VEGETABLES
 
@@ -92,14 +94,41 @@
 	species = "geranium"
 	plantname = "Geranium Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
-	mutatelist = list()
+	icon_grow = "geranium-grow"
+	icon_dead = "geranium-dead"
+	mutatelist = list(/obj/item/seeds/poppy/geranium/forgetmenot)
 
 /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
 	seed = /obj/item/seeds/poppy/geranium
 	name = "geranium"
-	desc = "A beautiful blue flower."
+	desc = "A cluster of small purple geranium flowers. They symbolize happiness, good health, wishes and friendship and are generally associated with positive emotions."
 	icon_state = "geranium"
-	filling_color = "#008B8B"
+	filling_color = "#9325ee"
+
+//Forget-Me-Not
+/obj/item/seeds/poppy/geranium/forgetmenot
+	name = "pack of forget-me-not seeds"
+	desc = "These seeds grow into forget-me-nots."
+	icon_state = "seed-forget_me_not"
+	species = "forget_me_not"
+	plantname = "Forget-Me-Not Plants"
+	product = /obj/item/reagent_containers/food/snacks/grown/poppy/geranium/forgetmenot
+	endurance = 30
+	maturation = 5
+	yield = 4
+	potency = 25
+	icon_grow = "forget_me_not-grow"
+	icon_dead = "forget_me_not-dead"
+	mutatelist = list()
+	reagents_add = list(/datum/reagent/medicine/kelotane = 0.2, /datum/reagent/consumable/nutriment = 0.05)
+
+/obj/item/reagent_containers/food/snacks/grown/poppy/geranium/forgetmenot
+	seed = /obj/item/seeds/poppy/geranium/forgetmenot
+	name = "forget-me-not"
+	desc = "A clump of small blue flowers, they are primarily associated with rememberance, respect and loyalty."
+	icon_state = "forget_me_not"
+	filling_color = "#4466ff"
+	bitesize_mod = 2
 
 // Harebell
 /obj/item/seeds/harebell
@@ -253,4 +282,3 @@
 	if(!user.gloves)
 		to_chat(user, "<span class='danger'>The [name] burns your bare hand!</span>")
 		user.adjustFireLoss(rand(1, 5))
-

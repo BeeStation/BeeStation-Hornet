@@ -7472,7 +7472,7 @@
 	dir = 6
 	},
 /turf/closed/wall,
-/area/crew_quarters/fitness/recreation)
+/area/maintenance/starboard/fore)
 "anO" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
@@ -78216,7 +78216,7 @@
 	dir = 10
 	},
 /turf/closed/wall/r_wall,
-/area/engine/gravity_generator)
+/area/maintenance/starboard/fore)
 "dhu" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/sign/poster/contraband/random{
@@ -80933,6 +80933,10 @@
 /obj/effect/landmark/start/hangover,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+"eWJ" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/turf/closed/wall,
+/area/maintenance/starboard/fore)
 "eXl" = (
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
@@ -82075,6 +82079,12 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
+"jgD" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
+	},
+/turf/closed/wall,
+/area/maintenance/starboard/fore)
 "jhA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -85908,7 +85918,7 @@
 "xCu" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
-/area/engine/gravity_generator)
+/area/maintenance/starboard/fore)
 "xHp" = (
 /obj/machinery/advanced_airlock_controller{
 	dir = 1;
@@ -127248,10 +127258,10 @@ aav
 aaa
 acP
 acQ
-acP
+dnh
 anN
-amH
-vgU
+eWJ
+jgD
 dnS
 dnS
 dnS
@@ -127762,7 +127772,7 @@ aaa
 aaa
 aie
 aie
-ajb
+dqT
 dht
 xCu
 qHy
