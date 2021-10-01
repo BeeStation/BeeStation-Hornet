@@ -1,6 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - rscadd: Space hotel now has a secondary solar control console that can reach the
-      north-east solar array.
-  - bugfix: Space hotel has had some missing and miscolored cables tidied up.
