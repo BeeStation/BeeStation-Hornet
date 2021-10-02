@@ -540,8 +540,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 			send2tgs("Server", "[cheesy_message] (No admins online)")
 
-	player_details.achievements.save()
-
 	GLOB.ahelp_tickets.ClientLogout(src)
 	GLOB.requests.client_logout(src)
 	GLOB.directory -= ckey
@@ -1105,4 +1103,4 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		SSambience.ambience_listening_clients -= src
 
 /client/proc/give_award(achievement_type, mob/user)
-	return	player_details.achievements.unlock(achievement_type, mob/user)
+	return	player_details.achievements.unlock(achievement_type, user)
