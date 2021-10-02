@@ -548,6 +548,15 @@ update_label("John Doe", "Clowny")
 	access = get_all_accesses()
 	. = ..()
 
+/obj/item/card/id/ert/kudzu
+	registered_name = "Weed Whacker"
+	assignment = "Weed Whacker"
+	icon_state = "ert"
+
+/obj/item/card/id/ert/kudzu/Initialize()
+	access = get_all_accesses()
+	. = ..()
+
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
