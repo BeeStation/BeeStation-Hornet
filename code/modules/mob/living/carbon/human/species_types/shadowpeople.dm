@@ -180,6 +180,7 @@
 	. = ..()
 	if(!proximity)
 		return
+	AM.lighteater_act(src)
 
 /mob/living/lighteater_act(obj/item/light_eater/light_eater)
 	if(on_fire)
