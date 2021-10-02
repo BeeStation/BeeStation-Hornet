@@ -40,8 +40,12 @@
 	return priority_reactions
 
 /datum/gas_reaction
-	//regarding the requirements list: the minimum or maximum requirements must be non-zero.
-	//when in doubt, use MINIMUM_MOLE_COUNT.
+	/**
+	 * Regarding the requirements list: the minimum or maximum requirements must be non-zero.
+	 * When in doubt, use MINIMUM_MOLE_COUNT.
+	 * Another thing to note is that reactions will not fire if we have any requirements outside of gas id path or MIN_TEMP or MAX_TEMP.
+	 * More complex implementations will require modifications to gas_mixture.react()
+	 */
 	var/list/requirements
 	var/major_gas //the highest rarity gas used in the reaction.
 	var/exclude = FALSE //do it this way to allow for addition/removal of reactions midmatch in the future
@@ -240,7 +244,7 @@
 			plasma_burn_rate = (temperature_scale * (cached_gases[/datum/gas/oxygen][MOLES] / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
 
 		if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-			plasma_burn_rate = min(plasma_burn_rate, cached_gases[/datum/gas/plasma][MOLES], cached_gases[/datum/gas/oxygen][MOLES]/oxygen_burn_rate) //Ensures matter is conserved properly
+			plasma_burn_rate = min(plasma_burn_rate, cached_gases[/datum/gas/plasma][MOLES], cached_gases[/datum/gas/oxygen][MOLES] *  INVERSE(oxygen_burn_rate)) //Ensures matter is conserved properly
 			cached_gases[/datum/gas/plasma][MOLES] = QUANTIZE(cached_gases[/datum/gas/plasma][MOLES] - plasma_burn_rate)
 			cached_gases[/datum/gas/oxygen][MOLES] = QUANTIZE(cached_gases[/datum/gas/oxygen][MOLES] - (plasma_burn_rate * oxygen_burn_rate))
 			if (super_saturation)
@@ -259,7 +263,7 @@
 	if(energy_released > 0)
 		var/new_heat_capacity = air.heat_capacity()
 		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.temperature = (temperature*old_heat_capacity + energy_released)/new_heat_capacity
+			air.temperature = (temperature * old_heat_capacity + energy_released) / new_heat_capacity
 
 	//let the floor know a fire is happening
 	if(istype(location))
@@ -390,7 +394,7 @@
 	var/temperature = air.temperature
 
 	var/old_heat_capacity = air.heat_capacity()
-	var/heat_efficency = min(temperature / (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8), cached_gases[/datum/gas/oxygen][MOLES], cached_gases[/datum/gas/nitrogen][MOLES])
+	var/heat_efficency = min(temperature / (FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 8), cached_gases[/datum/gas/oxygen][MOLES], cached_gases[/datum/gas/nitrogen][MOLES], cached_gases[/datum/gas/bz][MOLES] * INVERSE(0.05))
 	var/energy_used = heat_efficency * NITRYL_FORMATION_ENERGY
 	ASSERT_GAS(/datum/gas/nitryl, air)
 	if ((cached_gases[/datum/gas/oxygen][MOLES] - heat_efficency < 0 ) || (cached_gases[/datum/gas/nitrogen][MOLES] - heat_efficency < 0) || (cached_gases[/datum/gas/bz][MOLES] - heat_efficency * 0.05 < 0)) //Shouldn't produce gas from nothing.
@@ -424,7 +428,7 @@
 	var/temperature = air.temperature
 	var/pressure = air.return_pressure()
 	var/old_heat_capacity = air.heat_capacity()
-	var/reaction_efficency = min(1 / ((pressure / (0.1 * ONE_ATMOSPHERE)) * (max(cached_gases[/datum/gas/plasma][MOLES] / cached_gases[/datum/gas/nitrous_oxide][MOLES], 1))), cached_gases[/datum/gas/nitrous_oxide][MOLES], cached_gases[/datum/gas/plasma][MOLES] * 0.5)
+	var/reaction_efficency = min(1 / ((pressure / (0.1 * ONE_ATMOSPHERE)) * (max(cached_gases[/datum/gas/plasma][MOLES] / cached_gases[/datum/gas/nitrous_oxide][MOLES], 1))), cached_gases[/datum/gas/nitrous_oxide][MOLES], cached_gases[/datum/gas/plasma][MOLES] * INVERSE(2))
 	var/energy_released = 2 * reaction_efficency * FIRE_CARBON_ENERGY_RELEASED
 	if ((cached_gases[/datum/gas/nitrous_oxide][MOLES] - reaction_efficency < 0 )|| (cached_gases[/datum/gas/plasma][MOLES] - (2 * reaction_efficency) < 0) || energy_released <= 0) //Shouldn't produce gas from nothing.
 		return NO_REACTION
@@ -433,8 +437,8 @@
 	cached_gases[/datum/gas/bz][MOLES] += reaction_efficency * 2.5
 	if(reaction_efficency == cached_gases[/datum/gas/nitrous_oxide][MOLES])
 		ASSERT_GAS(/datum/gas/oxygen, air)
-		cached_gases[/datum/gas/bz][MOLES] -= min(pressure,0.5)
-		cached_gases[/datum/gas/oxygen][MOLES] += min(pressure,0.5)
+		cached_gases[/datum/gas/bz][MOLES] -= min(pressure, 0.5)
+		cached_gases[/datum/gas/oxygen][MOLES] += min(pressure, 0.5)
 	cached_gases[/datum/gas/nitrous_oxide][MOLES] -= reaction_efficency
 	cached_gases[/datum/gas/plasma][MOLES]  -= 2 * reaction_efficency
 
@@ -460,14 +464,14 @@
 	var/list/cached_gases = air.gases
 
 	var/old_heat_capacity = air.heat_capacity()
-	var/heat_scale = min(air.temperature/STIMULUM_HEAT_SCALE,cached_gases[/datum/gas/tritium][MOLES],cached_gases[/datum/gas/plasma][MOLES],cached_gases[/datum/gas/nitryl][MOLES])
-	var/stim_energy_change = heat_scale + STIMULUM_FIRST_RISE*(heat_scale**2) - STIMULUM_FIRST_DROP*(heat_scale**3) + STIMULUM_SECOND_RISE*(heat_scale**4) - STIMULUM_ABSOLUTE_DROP*(heat_scale**5)
+	var/heat_scale = min(air.temperature/STIMULUM_HEAT_SCALE, cached_gases[/datum/gas/tritium][MOLES], cached_gases[/datum/gas/plasma][MOLES], cached_gases[/datum/gas/nitryl][MOLES])
+	var/stim_energy_change = heat_scale + STIMULUM_FIRST_RISE * (heat_scale ** 2) - STIMULUM_FIRST_DROP * (heat_scale ** 3) + STIMULUM_SECOND_RISE * (heat_scale ** 4) - STIMULUM_ABSOLUTE_DROP * (heat_scale ** 5)
 	ASSERT_GAS(/datum/gas/stimulum, air)
 	if ((cached_gases[/datum/gas/tritium][MOLES] - heat_scale < 0 ) || (cached_gases[/datum/gas/nitryl][MOLES] - heat_scale < 0)) //Shouldn't produce gas from nothing.
 		return NO_REACTION
-	cached_gases[/datum/gas/stimulum][MOLES] += heat_scale * 0.75
 	cached_gases[/datum/gas/tritium][MOLES] -= heat_scale
 	cached_gases[/datum/gas/nitryl][MOLES] -= heat_scale
+	cached_gases[/datum/gas/stimulum][MOLES] += heat_scale * 0.75
 
 	if(stim_energy_change)
 		var/new_heat_capacity = air.heat_capacity()
@@ -492,7 +496,7 @@
 	var/list/cached_gases = air.gases
 	air.assert_gases(/datum/gas/hypernoblium, /datum/gas/bz)
 	var/old_heat_capacity = air.heat_capacity()
-	var/nob_formed = min((cached_gases[/datum/gas/nitrogen][MOLES] + cached_gases[/datum/gas/tritium][MOLES]) * 0.01, cached_gases[/datum/gas/tritium][MOLES] * 0.1, cached_gases[/datum/gas/nitrogen][MOLES] * 0.2)
+	var/nob_formed = min((cached_gases[/datum/gas/nitrogen][MOLES] + cached_gases[/datum/gas/tritium][MOLES]) * 0.01, cached_gases[/datum/gas/tritium][MOLES] * INVERSE(5), cached_gases[/datum/gas/nitrogen][MOLES] * INVERSE(10))
 	var/energy_produced = nob_formed * (NOBLIUM_FORMATION_ENERGY / (max(cached_gases[/datum/gas/bz][MOLES], 1)))
 	if ((cached_gases[/datum/gas/tritium][MOLES] - 5 * nob_formed < 0) || (cached_gases[/datum/gas/nitrogen][MOLES] - 10 * nob_formed < 0))
 		return NO_REACTION
