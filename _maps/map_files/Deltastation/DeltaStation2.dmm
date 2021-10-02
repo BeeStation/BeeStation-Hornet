@@ -78742,10 +78742,10 @@
 /turf/closed/wall,
 /area/crew_quarters/fitness/recreation)
 "cDS" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
+	dir = 4
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
 "cDT" = (
@@ -81131,7 +81131,10 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "cIo" = (
-/obj/machinery/status_display/evac,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/machinery/status_display/ai,
 /turf/closed/wall,
 /area/crew_quarters/fitness/recreation)
 "cIp" = (
@@ -81772,6 +81775,36 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "cJD" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
+/turf/open/floor/plating,
+/area/crew_quarters/fitness/recreation)
+"cJE" = (
+/obj/machinery/status_display/evac,
+/turf/closed/wall,
+/area/crew_quarters/fitness/recreation)
+"cJF" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Holodeck Access"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel,
+/area/crew_quarters/fitness/recreation)
+"cJG" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Access"
 	},
@@ -81790,55 +81823,12 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
-"cJE" = (
+"cJH" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness/recreation)
-"cJF" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/crew_quarters/fitness/recreation)
-"cJG" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Holodeck Control";
-	dir = 2;
-	name = "holodeck camera"
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/crew_quarters/fitness/recreation)
-"cJH" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "cJI" = (
@@ -82945,40 +82935,42 @@
 /turf/closed/wall,
 /area/crew_quarters/fitness/recreation)
 "cLo" = (
-/obj/machinery/computer/holodeck{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},
 /area/crew_quarters/fitness/recreation)
 "cLp" = (
-/obj/structure/chair/office/light{
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/effect/landmark/start/assistant,
+/obj/machinery/camera{
+	c_tag = "Holodeck Control";
+	dir = 2;
+	name = "holodeck camera"
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
 	},
-/turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "cLq" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -83733,9 +83725,9 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "cMJ" = (
-/obj/structure/table/reinforced,
-/obj/item/folder/blue,
-/obj/item/storage/firstaid/regular,
+/obj/machinery/computer/holodeck{
+	dir = 4
+	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -83747,15 +83739,26 @@
 	},
 /area/crew_quarters/fitness/recreation)
 "cMK" = (
-/obj/machinery/holopad,
-/obj/effect/turf_decal/bot,
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/obj/effect/landmark/start/assistant,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "cML" = (
 /obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/folder,
-/obj/item/paper/fluff/holodeck/disclaimer,
+/obj/item/paper_bin,
+/obj/item/pen,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -84354,6 +84357,36 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "cOe" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/blue,
+/obj/item/storage/firstaid/regular,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/crew_quarters/fitness/recreation)
+"cOf" = (
+/obj/machinery/holopad,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/crew_quarters/fitness/recreation)
+"cOg" = (
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/folder,
+/obj/item/paper/fluff/holodeck/disclaimer,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/fitness/recreation)
+"cOh" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Holodeck Access"
 	},
@@ -84372,7 +84405,7 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
-"cOf" = (
+"cOi" = (
 /obj/machinery/light{
 	dir = 1
 	},
@@ -84383,36 +84416,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness/recreation)
-"cOg" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness/recreation)
-"cOh" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/crew_quarters/fitness/recreation)
-"cOi" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "cOj" = (
@@ -88037,17 +88040,17 @@
 /turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
 "cVj" = (
-/obj/machinery/status_display/evac,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
+/obj/machinery/status_display/ai,
 /turf/closed/wall,
 /area/crew_quarters/fitness/recreation)
 "cVk" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
-	dir = 9
+	dir = 4
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/crew_quarters/fitness/recreation)
 "cVm" = (
@@ -120385,6 +120388,16 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/aisat)
+"joQ" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/fitness/recreation)
 "jpa" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -120540,6 +120553,16 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
+"jDb" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/fitness/recreation)
 "jFn" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -121523,6 +121546,13 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/aisat)
+"mdu" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 4
+	},
+/obj/machinery/status_display/evac,
+/turf/closed/wall,
+/area/crew_quarters/fitness/recreation)
 "mei" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -122413,6 +122443,13 @@
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"opF" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/crew_quarters/fitness/recreation)
 "osm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -125751,22 +125788,13 @@
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "xaf" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Holodeck Access"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "xaF" = (
@@ -183985,26 +184013,26 @@ aaa
 aaa
 aaa
 aaa
-ajr
-aad
-cuL
-aad
+aaa
+qYo
+cuM
+aaa
 cDS
-cFE
-cFE
-cFE
-cJD
-cuM
-cuM
-cOe
-cQb
-cQb
-cQb
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
 cVk
-aad
-cuL
-aad
-ajr
+aaa
+cuM
+qYo
+aaa
 aaa
 aaa
 aaa
@@ -184243,24 +184271,24 @@ aaa
 aaa
 aaa
 aaa
-aad
+qYo
 cuM
-aaa
-aaa
-aad
-aaa
+qYo
+cIo
+cFG
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cTi
+mdu
+qYo
 cuM
-cJE
-cLn
-cuL
-cOf
-cuM
-aaa
-aad
-aaa
-aaa
-cuM
-aad
+qYo
 aaa
 aaa
 aaa
@@ -184500,25 +184528,25 @@ aaa
 aaa
 aaa
 aaa
-aad
+qYo
 cuM
+aaa
+cDS
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cVk
+aaa
 cuM
-cuM
-cuM
-cuM
-cuM
-xaf
-cuM
-cuM
-upk
-cuM
-cuM
-cuM
-cuM
-cuM
-cuM
-aad
-ajr
+qYo
+aaa
 aaa
 aaa
 aaa
@@ -184757,24 +184785,24 @@ aaa
 aaa
 aaa
 aaa
-aad
-aad
-aad
-aad
-aad
-aad
+qYo
 cuM
-cJF
-cLo
-cMJ
-cOg
+aaa
+cDS
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cFF
+cVk
+aaa
 cuM
-aad
-aad
-aad
-aad
-aad
-aad
+qYo
 aaa
 aaa
 aaa
@@ -185013,26 +185041,26 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-ajr
-ajr
-aaa
 ajr
 aad
-cIo
+cuL
+aad
+cJD
+cFE
+cFE
+cFE
 cJG
-cLp
-cMK
+cuM
+cuM
 cOh
-cIo
+cQb
+cQb
+cQb
+opF
 aad
-aaa
+cuL
+aad
 ajr
-ajr
-aaa
-aaa
-aaa
 aaa
 aaa
 aaa
@@ -185271,24 +185299,24 @@ aaa
 aaa
 aaa
 aaa
+aad
+cuM
 aaa
 aaa
-aaa
-aaa
-aaa
+aad
 aaa
 cuM
 cJH
-cLq
-cML
+cLn
+cuL
 cOi
 cuM
 aaa
+aad
 aaa
 aaa
-aaa
-aaa
-aaa
+cuM
+aad
 aaa
 aaa
 aaa
@@ -185528,25 +185556,25 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aad
 cuM
 cuM
 cuM
 cuM
 cuM
 cuM
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+cJF
+cuM
+cuM
+upk
+cuM
+cuM
+cuM
+cuM
+cuM
+cuM
+aad
+ajr
 aaa
 aaa
 aaa
@@ -185785,24 +185813,24 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+aad
+aad
+aad
+aad
+aad
+aad
+cuM
+cLo
+cMJ
+cOe
+xaf
+cuM
+aad
+aad
+aad
+aad
+aad
+aad
 aaa
 aaa
 aaa
@@ -186043,21 +186071,21 @@ aaa
 aaa
 aaa
 aaa
+ajr
+ajr
 aaa
+ajr
+aad
+cJE
+cLp
+cMK
+cOf
+jDb
+cJE
+aad
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+ajr
+ajr
 aaa
 aaa
 aaa
@@ -186305,12 +186333,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+cuM
+cLq
+cML
+cOg
+joQ
+cuM
 aaa
 aaa
 aaa
@@ -186562,12 +186590,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+cuM
+cuM
+cuM
+cuM
+cuM
+cuM
 aaa
 aaa
 aaa
@@ -187078,7 +187106,7 @@ aaa
 aaa
 aaa
 aaa
-aab
+aaa
 aaa
 aaa
 aaa
@@ -189905,7 +189933,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aab
 aaa
 aaa
 aaa
