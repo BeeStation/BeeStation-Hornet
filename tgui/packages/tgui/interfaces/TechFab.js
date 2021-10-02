@@ -218,10 +218,7 @@ const ConditionalTooltip = (props, context) => {
     ...rest
   } = props;
 
-  if (!condition || true) // TOOLTIPS DISABLED DUE TO PERFORMANCE LIMITATIONS
-  // Turns out, tooltips just don't run well right now in the amounts you'd get
-  // in protolathes/circuit imprinters
-  // See https://github.com/tgstation/tgstation/pull/60995
+  if (!condition)
   {
     return children;
   }
