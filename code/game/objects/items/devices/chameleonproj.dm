@@ -64,11 +64,10 @@
 	if(istype(target, /atom/movable)) //Record vis_overlays data
 		var/atom/movable/M = target
 		var/count = 0
-		var/list/temp_vis_overlay_data = list()
+		vis_overlay_data = list()
 		for(var/obj/effect/overlay/vis/overlay in M.vis_contents)
 			count++
-			temp_vis_overlay_data["[count]"] = list("icon" = overlay.icon, "icon_state" = overlay.icon_state, "layer" = overlay.layer, "plane" = overlay.plane, "alpha" = overlay.alpha, "appearance_flags" = overlay.appearance_flags)
-		vis_overlay_data = temp_vis_overlay_data
+			vis_overlay_data["[count]"] = list("icon" = overlay.icon, "icon_state" = overlay.icon_state, "layer" = overlay.layer, "plane" = overlay.plane, "alpha" = overlay.alpha, "appearance_flags" = overlay.appearance_flags)
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
 	if(target.icon_state in icon_states(target.icon))
