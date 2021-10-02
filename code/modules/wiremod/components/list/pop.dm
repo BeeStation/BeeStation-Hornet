@@ -43,17 +43,14 @@
 
 	var/list/input_list = list_port.input_value
 	input_list = input_list?.Copy() //Same as in the append component
-	var/list_length = input_list?.len
 	var/result = null
 
-	if(list_length > 0)
+	if(input_list)
 		switch(current_option)
 			if(COMP_POP_POP)
-				result = input_list[list_length]
-				input_list.Cut(list_length)
+				result = pop(input_list)
 			if(COMP_POP_DEQUEUE)
-				result = input_list[1]
-				input_list.Cut(1,2)
+				result = popleft(input_list)
 
 	output_value.set_output(result)
 	output_list.set_output(input_list)
