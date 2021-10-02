@@ -57,6 +57,7 @@
 /datum/disease/advance/Destroy()
 	if(affected_mob)
 		SEND_SIGNAL(affected_mob, COMSIG_DISEASE_END, GetDiseaseID())
+		UnregisterSignal(affected_mob, COMSIG_MOB_DEATH)
 	if(processing)
 		for(var/datum/symptom/S in symptoms)
 			S.End(src)
@@ -86,6 +87,16 @@
 				return FALSE //we are not strong enough to bully our way in
 	infect(infectee, make_copy)
 	return TRUE
+
+/datum/disease/advance/after_add()
+	if(affected_mob)
+		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, .proc/on_mob_death)
+
+/datum/disease/advance/proc/on_mob_death()
+	SIGNAL_HANDLER
+
+	for(var/datum/symptom/S as() in symptoms)
+		S.OnDeath(src)
 
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
@@ -208,7 +219,7 @@
 	stage_rate = 0
 	transmission = 0
 	severity = 0
-	for(var/datum/symptom/S in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
+	for(var/datum/symptom/S as() in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
@@ -216,7 +227,7 @@
 		S.severityset(src)
 		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
 			severity += S.severity
-	for(var/datum/symptom/S in symptoms)
+	for(var/datum/symptom/S as() in symptoms)
 		S.severityset(src)
 		if(!S.neutered)
 			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
@@ -224,7 +235,7 @@
 					severity= max(severity, min(3, (S.severity + severity)))
 				if(3 to 4)
 					severity = max(severity, min(4, (S.severity + severity)))
-	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
+	for(var/datum/symptom/S as() in symptoms) //benign and beneficial symptoms go last
 		S.severityset(src)
 		if(!S.neutered && S.severity <= 0)
 			severity += S.severity
@@ -415,7 +426,7 @@
 */
 
 // Mix a list of advance diseases and return the mixed result.
-/proc/Advance_Mix(var/list/D_list)
+/proc/Advance_Mix(list/D_list)
 	var/list/diseases = list()
 
 	for(var/datum/disease/advance/A in D_list)
