@@ -40,9 +40,9 @@ const TechFabTopBar = (props, context) => {
             <Input
               align="right"
               value={search}
-              //onInput={(e, value) => {
-              //  value.trim().length>2 && act("search", { "value": value });
-              //}}
+              // onInput={(e, value) => {
+              //   value.trim().length>2 && act("search", { "value": value });
+              // }}
               onChange={(e, value) => act("search", { "value": value })} />
           </Flex.Item>
           <Flex.Item mx={0.5}>
@@ -343,7 +343,7 @@ const TechFabContent = (props, context) => {
     return recipe.name;
   });
 
-  const recipesDisplayed = search != null
+  const recipesDisplayed = search !== null
     ? recipes.filter(testSearch)
     : category
       ? recipes.filter(recipe => recipe.category.includes(category))
@@ -354,7 +354,7 @@ const TechFabContent = (props, context) => {
     return (
       <Stack.Item grow>
         <Section grow fill scrollable
-          title={search != null ? "Search" : category}
+          title={search !== null ? "Search" : category}
           buttons={(
             <Button icon="backspace" content="Back"
               onClick={() => act("mainmenu")} />
