@@ -80418,6 +80418,11 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
+"dIY" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/structure/closet/firecloset,
+/turf/open/floor/plasteel,
+/area/maintenance/department/science)
 "dJo" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/effect/turf_decal/tile/neutral{
@@ -84958,6 +84963,7 @@
 /area/space/nearstation)
 "uGW" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/structure/closet/wardrobe/grey,
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
 "uOD" = (
@@ -121142,7 +121148,7 @@ qqg
 cAK
 cBF
 uGW
-uGW
+dIY
 dqU
 cCJ
 dww
@@ -127824,11 +127830,11 @@ aaf
 aaf
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+fwb
+fwb
+fwb
+fwb
+fwb
 aaf
 aaa
 aaa
