@@ -388,7 +388,6 @@
 		intercepttext += report
 
 	intercepttext += generate_station_goal_report()
-	intercepttext += generate_station_trait_report()
 
 	print_command_report(intercepttext, "Central Command Status Summary", announce=FALSE)
 	priority_announce("A summary has been copied and printed to all communications consoles.", "Enemy communication intercepted. Security level elevated.", ANNOUNCER_INTERCEPT)
@@ -408,21 +407,6 @@
 	for(var/datum/station_goal/station_goal in station_goals)
 		station_goal.on_report()
 		. += station_goal.get_report()
-	return
-
-/*
- * Generate a list of active station traits to report to the crew.
- *
- * Returns a formatted string of all station traits (that are shown) affecting the station.
- */
-/datum/game_mode/proc/generate_station_trait_report()
-	if(!SSstation.station_traits.len)
-		return
-	. = "<hr><b>Identified shift divergencies:</b><BR>"
-	for(var/datum/station_trait/station_trait as anything in SSstation.station_traits)
-		if(!station_trait.show_in_report)
-			continue
-		. += "[station_trait.get_report()]<BR><hr>"
 	return
 
 // This is a frequency selection system. You may imagine it like a raffle where each player can have some number of tickets. The more tickets you have the more likely you are to
