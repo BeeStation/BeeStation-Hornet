@@ -15,8 +15,8 @@
 	var/datum/techweb/stored_research
 	var/datum/techweb/host_research
 
-	var/screen = RESEARCH_FABRICATOR_SCREEN_MAIN
-	var/selected_category
+	var/search = null
+	var/selected_category = null
 
 	var/list/mob/viewing_mobs = list()
 
@@ -87,6 +87,9 @@
 
 	data["busy"] = busy
 	data["efficiency"] = efficiency_coeff
+
+	data["category"] = selected_category
+	data["search"] = search
 
 	data += build_materials()
 	data += build_reagents()
@@ -195,6 +198,21 @@
 		if(M)
 			eject_sheets(M, params["amount"])
 			. = TRUE
+	if(action == "search")
+		var/new_search = params["value"]
+		if(new_search != search)
+			search = new_search
+			. = TRUE
+	if(action == "category")
+		var/new_category = params["category"]
+		if(new_category != selected_category)
+			search = null
+			selected_category = new_category
+			. = TRUE
+	if(action == "mainmenu" && (search != null || selected_category != null))
+		search = null
+		selected_category = null
+		. = TRUE
 
 /obj/machinery/rnd/production/proc/calculate_efficiency()
 	efficiency_coeff = 1

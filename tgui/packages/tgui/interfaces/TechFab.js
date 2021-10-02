@@ -28,11 +28,8 @@ const TechFabTopBar = (props, context) => {
   const {
     busy,
     efficiency,
-  } = data;
-  const [
     search,
-    setSearch,
-  ] = useLocalState(context, "search", "");
+  } = data;
 
   return (
     <Stack.Item>
@@ -43,12 +40,10 @@ const TechFabTopBar = (props, context) => {
             <Input
               align="right"
               value={search}
-              onInput={(e, value) => {
-                value.trim().length>2 && setSearch(value);
-              }}
-              onChange={(e, value) => {
-                setSearch(value);
-              }} />
+              //onInput={(e, value) => {
+              //  value.trim().length>2 && act("search", { "value": value });
+              //}}
+              onChange={(e, value) => act("search", { "value": value })} />
           </Flex.Item>
           <Flex.Item mx={0.5}>
             <Button
@@ -343,21 +338,15 @@ const TechFabContent = (props, context) => {
   const {
     categories = [],
     recipes = [],
-  } = data;
-  const [
     search,
-    setSearch,
-  ] = useLocalState(context, "search", "");
-  const [
     category,
-    setCategory,
-  ] = useLocalState(context, "category", null);
+  } = data;
 
-  const testSearch = createSearch(search, recipe => {
+  const testSearch = createSearch(search || "", recipe => {
     return recipe.name;
   });
 
-  const recipesDisplayed = search.length > 0
+  const recipesDisplayed = search != null
     ? recipes.filter(testSearch)
     : category
       ? recipes.filter(recipe => recipe.category.includes(category))
@@ -368,12 +357,10 @@ const TechFabContent = (props, context) => {
     return (
       <Stack.Item grow>
         <Section grow fill scrollable
-          title={search.length>0 ? "Search" : category}
+          title={search != null ? "Search" : category}
           buttons={(
             <Button icon="backspace" content="Back"
-              onClick={() => search.length>0 
-                ? setSearch("") 
-                : setCategory(null)} />
+              onClick={() => act("mainmenu")} />
           )}>
           <Flex direction="column">
             {
@@ -401,7 +388,7 @@ const TechFabContent = (props, context) => {
                     <Button
                       content={category}
                       width="100%"
-                      onClick={() => setCategory(category)}
+                      onClick={() => act("category", { "category": category })}
                     />
                   </Flex.Item>
                 );
