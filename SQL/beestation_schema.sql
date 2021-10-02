@@ -214,7 +214,7 @@ DROP TABLE IF EXISTS `SS13_library`;
 CREATE TABLE IF NOT EXISTS `SS13_library` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `author` varchar(45) NOT NULL,
-  `title` varchar(45) NOT NULL,
+  `title` varchar(50) NOT NULL,
   `content` text NOT NULL,
   `category` enum('Any','Fiction','Non-Fiction','Adult','Reference','Religion') NOT NULL,
   `ckey` varchar(32) NOT NULL DEFAULT 'LEGACY',
@@ -481,7 +481,7 @@ CREATE TABLE IF NOT EXISTS `SS13_schema_revision` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`major`,`minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 7);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 8);
 
 
 
