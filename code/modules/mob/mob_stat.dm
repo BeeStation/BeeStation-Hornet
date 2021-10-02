@@ -105,7 +105,9 @@
 	return tab_data
 
 /mob/proc/get_all_verbs()
-	var/list/all_verbs = deepCopyList(sorted_verbs)
+	var/list/all_verbs = new
+	if(sorted_verbs)
+		all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:
 	// list A [A: ["b", "c"]] +  (list B) [A: ["c", "d"]] will only have A from list B
 	for(var/i in client.sorted_verbs)
