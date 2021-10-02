@@ -384,7 +384,7 @@ const TechFabContent = (props, context) => {
                   <Flex.Item key={category} minWidth="50%" p={0.2}>
                     <Button
                       content={category}
-                      width="100%"
+                      fluid
                       onClick={() => act("category", { "category": category })}
                     />
                   </Flex.Item>
