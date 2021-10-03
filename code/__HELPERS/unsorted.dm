@@ -1118,25 +1118,46 @@ eg2: `center_image(I, 96,96)`
 
 /proc/get_safe_random_station_turf(list/areas_to_pick_from = GLOB.the_station_areas) //excludes dense turfs (like walls) and areas that have valid_territory set to FALSE
 	var/turf/target
-	for (var/i in 1 to 5)
-		var/list/L = get_area_turfs(pick(areas_to_pick_from))
-		while (L.len && !target)
-			var/I = rand(1, L.len)
-			var/turf/T = L[I]
-			var/area/X = get_area(T)
-			if(!T.density && (X.area_flags & VALID_TERRITORY))
-				var/clear = TRUE
-				for(var/obj/O in T)
-					if(O.density)
-						clear = FALSE
-						break
-				if(clear)
-					target = T
-			if (!target)
-				L.Cut(I,I+1)
-		if (target)
-			return target
+	var/list/L
+	for(var/area/A as() in areas_to_pick_from)
+		L += get_area_turfs(A)
+	while(L.len && !target)
+		var/I = rand(1, L.len)
+		var/turf/T = L[I]
+		var/area/X = get_area(T)
+		if(!T.density && (X.area_flags & VALID_TERRITORY))
+			var/clear = TRUE
+			for(var/obj/O in T)
+				if(O.density)
+					clear = FALSE
+					break
+			if(clear)
+				target = T
+		if(!target)
+			L.Cut(I,I+1)
+	if(target)
+		return target
 
+/proc/get_multiple_safe_random_station_turf(list/areas_to_pick_from = GLOB.the_station_areas, amount)
+	var/list/picked_turfs = list()
+	var/list/L
+	for(var/area/A as() in areas_to_pick_from)
+		L += get_area_turfs(A)
+	while(L.len && picked_turfs.len != amount)
+		var/I = rand(1, L.len)
+		var/turf/T = L[I]
+		var/area/X = get_area(T)
+		if(!T.density && (X.area_flags & VALID_TERRITORY))
+			var/clear = TRUE
+			for(var/obj/O in T)
+				if(O.density)
+					clear = FALSE
+					break
+			if(clear)
+				picked_turfs |= T
+			L.Cut(I,I+1)
+		CHECK_TICK
+	return picked_turfs
 
 /proc/get_closest_atom(type, list, source)
 	var/closest_atom
