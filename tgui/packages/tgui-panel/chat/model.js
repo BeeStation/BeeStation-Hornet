@@ -12,11 +12,10 @@ export const canPageAcceptType = (page, type) => (
 );
 
 export const createPage = obj => {
-  let acceptedTypes = {}
+  let acceptedTypes = {};
 
   for (let typeDef of MESSAGE_TYPES) {
-    if(typeDef.important)
-    {
+    if (typeDef.important) {
       acceptedTypes[typeDef.type] = true;
     }
   }
