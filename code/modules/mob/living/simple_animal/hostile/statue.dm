@@ -50,6 +50,8 @@
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
+	discovery_points = 10000
+
 
 
 // No movement while seen code.

@@ -76,8 +76,7 @@
 						overrides += I.loc
 				tab_data[REF(listed_turf)] = list(
 					text="[listed_turf.name]",
-					icon=SSstat.get_flat_icon(client, listed_turf),
-					type=STAT_ATOM,
+					type=STAT_ATOM
 				)
 				var/sanity = MAX_ICONS_PER_TILE
 				for(var/atom/A in listed_turf)
@@ -92,21 +91,10 @@
 					sanity --
 					tab_data[REF(A)] = list(
 						text="[A.name]",
-						icon=SSstat.get_flat_icon(client, A),
-						type=STAT_ATOM,
+						type=STAT_ATOM
 					)
 					if(sanity < 0)
 						break
-			var/list/all_verbs = get_all_verbs()								// ~0.252 CPU Time [14000 CALLS]
-			if(selected_tab in all_verbs)
-				client.stat_update_mode = STAT_SLOW_UPDATE
-				for(var/verb in all_verbs[selected_tab])
-					var/procpath/V = verb
-					tab_data["[V.name]"] = list(
-						action = "verb",
-						params = list("verb" = V.name),
-						type=STAT_VERB,
-					)
 			if(mind)
 				tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
 			tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
@@ -117,7 +105,9 @@
 	return tab_data
 
 /mob/proc/get_all_verbs()
-	var/list/all_verbs = deepCopyList(sorted_verbs)
+	var/list/all_verbs = new
+	if(sorted_verbs)
+		all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:
 	// list A [A: ["b", "c"]] +  (list B) [A: ["c", "d"]] will only have A from list B
 	for(var/i in client.sorted_verbs)
@@ -126,6 +116,7 @@
 		else
 			var/list/verbs_to_copy = client.sorted_verbs[i]
 			all_verbs[i] = verbs_to_copy.Copy()
+	//TODO: Call tgui_panel/add_verbs on pickup and remove on drop.
 	for(var/atom/A as() in contents)
 		//As an optimisation we will make it so all verbs on objects will go into the object tab.
 		//If you don't want this to happen change this.
@@ -145,7 +136,10 @@
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
 	tab_data["Round ID"] = GENERATE_STAT_TEXT("[GLOB.round_id ? GLOB.round_id : "Null"]")
 	tab_data["Server Time"] = GENERATE_STAT_TEXT(time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"))
-	tab_data["Round Time"] = GENERATE_STAT_TEXT(worldtime2text())
+	if (SSticker.round_start_time)
+		tab_data["Round Time"] = GENERATE_STAT_TEXT(gameTimestamp("hh:mm:ss", (world.time - SSticker.round_start_time)))
+	else
+		tab_data["Lobby Time"] = GENERATE_STAT_TEXT(worldtime2text())
 	tab_data["Station Time"] = GENERATE_STAT_TEXT(station_time_timestamp())
 	tab_data["Time Dilation"] = GENERATE_STAT_TEXT("[round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
 	tab_data["Players Connected"] = GENERATE_STAT_TEXT("[GLOB.clients.len]")
@@ -160,6 +154,7 @@
 	var/turf/T = get_turf(client.eye)
 	tab_data["Location"] = GENERATE_STAT_TEXT("[COORD(T)]")
 	tab_data["CPU"] = GENERATE_STAT_TEXT("[world.cpu]")
+	tab_data["Tick Usage"] = GENERATE_STAT_TEXT("[TICK_USAGE] / [Master.current_ticklimit]")
 	tab_data["Instances"] = GENERATE_STAT_TEXT("[num2text(world.contents.len, 10)]")
 	tab_data["World Time"] = GENERATE_STAT_TEXT("[world.time]")
 	tab_data += GLOB.stat_entry()
@@ -251,6 +246,14 @@
 				actor.ShiftClickOn(atom_actual)
 			else
 				actor.ClickOn(atom_actual)
+		if("atomDrop")
+			var/atomRef1 = params["ref"]
+			var/atomRef2 = params["ref_other"]
+			var/atom/atom_actual1 = locate(atomRef1)
+			var/atom/atom_actual2 = locate(atomRef2)
+			if(!atom_actual1 || !atom_actual2)
+				return
+			client.MouseDrop(atom_actual2, atom_actual1)
 		if("statClickDebug")
 			var/targetRef = params["targetRef"]
 			var/class = params["class"]
@@ -290,6 +293,9 @@
 						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
 				else
 					to_chat(src, "<span class='warning'>You are sending messages too fast!</span>")
+		if("start_br")
+			if(client.holder && check_rights(R_FUN))
+				client.battle_royale()
 
 /*
  * Sets the current stat tab selected.

@@ -68,7 +68,7 @@
 			M.adjustBruteLoss(-5, FALSE)
 			M.adjustFireLoss(-5, FALSE)
 			M.adjustOxyLoss(-5, FALSE)
-			M.adjustToxLoss(-5, FALSE)
+			M.adjustToxLoss(-5, FALSE, TRUE)
 			M.adjustCloneLoss(-5)
 		else
 			visible_message("<span class='neovgre'>\The [src] fails to heal [M]!</span>", "<span class='neovgre'>There is insufficient vitality to heal your wounds!</span>")
@@ -86,7 +86,7 @@
 			visible_message("<span class='neovgre'>\The [src] fails to siphon [M]'s spirit!</span>")
 			return
 		playsound(loc, 'sound/magic/clockwork/ratvar_attack.ogg', 40)
-		if(M.stat == DEAD)
+		if(M.stat == DEAD && length(GLOB.servant_spawns))
 			M.become_husk()
 			M.death()
 			playsound(loc, 'sound/magic/exit_blood.ogg', 60)

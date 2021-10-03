@@ -17,11 +17,14 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	var/list/baseturfs = /turf/baseturf_bottom
 
 	/// How hot the turf is, in kelvin
-	var/temperature = T20C
+	var/initial_temperature = T20C
 
 	/// Used for fire, if a melting temperature was reached, it will be destroyed
 	var/to_be_destroyed = 0
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
+
+	//If true, turf will allow users to float up and down in 0 grav.
+	var/allow_z_travel = FALSE
 
 	/// Whether the turf blocks atmos from passing through it or not
 	var/blocks_air = FALSE
@@ -47,6 +50,9 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	var/tiled_dirt = FALSE
 
 	vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_ID	//when this be added to vis_contents of something it inherit something.plane and be associated with something on clicking, important for visualisation of turf in openspace and interraction with openspace that show you turf.
+
+	///the holodeck can load onto this turf if TRUE
+	var/holodeck_compatible = FALSE
 
 /turf/vv_edit_var(var_name, new_value)
 	var/static/list/banned_edits = list("x", "y", "z")
@@ -78,7 +84,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)
-		SSair.add_to_active(src)
 
 	if (light_power && light_range)
 		update_light()
@@ -96,8 +101,20 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		has_opaque_atom = TRUE
 
 	ComponentInitialize()
+	if(isopenturf(src))
+		var/turf/open/O = src
+		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()) && !O.planetary_atmos)
+	else
+		update_air_ref(-1)
+		__auxtools_update_turf_temp_info(isspaceturf(get_z_base_turf()))
 
 	return INITIALIZE_HINT_NORMAL
+
+/turf/proc/__auxtools_update_turf_temp_info()
+
+/turf/return_temperature()
+
+/turf/proc/set_temperature()
 
 /turf/proc/Initalize_Atmos(times_fired)
 	CALCULATE_ADJACENT_TURFS(src)
@@ -122,20 +139,74 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		for(var/I in B.vars)
 			B.vars[I] = null
 		return
-	SSair.remove_from_active(src)
 	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	flags_1 &= ~INITIALIZED_1
 	requires_activation = FALSE
 	..()
 
+	vis_contents.Cut()
+
 /turf/attack_hand(mob/user)
+	//Must have no gravity.
+	if(allow_z_travel && get_turf(user) == src)
+		if(!user.has_gravity(src) || (user.movement_type & FLYING))
+			check_z_travel(user)
+			return
+		else
+			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
 		. = TRUE
 	if(.)
 		return
 	user.Move_Pulled(src)
+
+/turf/proc/check_z_travel(mob/user)
+	if(get_turf(user) != src)
+		return
+	var/list/tool_list = list()
+	var/turf/above = above()
+	if(above)
+		tool_list["Up"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = NORTH)
+	var/turf/below = below()
+	if(below)
+		tool_list["Down"] = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow", dir = SOUTH)
+
+	if(!length(tool_list))
+		return
+
+	var/result = show_radial_menu(user, user, tool_list, require_near = TRUE, tooltips = TRUE)
+	if(get_turf(user) != src)
+		return
+	switch(result)
+		if("Cancel")
+			return
+		if("Up")
+			travel_z(user, above, TRUE)
+		if("Down")
+			travel_z(user, below, FALSE)
+
+/turf/proc/travel_z(mob/user, turf/target, upwards = TRUE)
+	user.visible_message("<span class='notice'>[user] begins floating upwards!</span>", "<span class='notice'>You begin floating upwards.</span>")
+	var/matrix/M = user.transform
+	//Animation is inverted due to immediately resetting user vars.
+	animate(user, 30, pixel_y = upwards ? -64 : 64, transform = matrix() * (upwards ? 0.7 : 1.3))
+	user.pixel_y = 0
+	user.transform = M
+	if(!do_after(user, 30, FALSE, get_turf(user)))
+		animate(user, 0, flags = ANIMATION_END_NOW)
+		return
+	if(!istype(target, /turf/open/space) && !istype(target, /turf/open/openspace))
+		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
+		return
+	var/atom/movable/AM
+	if(user.pulling)
+		AM = user.pulling
+		AM.forceMove(target)
+	user.forceMove(target)
+	if(AM)
+		user.start_pulling(AM)
 
 /turf/proc/multiz_turf_del(turf/T, dir)
 
@@ -186,12 +257,20 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
 		return FALSE
 	A.zfalling = TRUE
+	var/atom/movable/pulling = A.pulling
 	A.forceMove(target)
 	A.zfalling = FALSE
+	if(pulling)
+		//Things you are pulling fall with you
+		pulling.zfalling = TRUE
+		pulling.forceMove(target)
+		A.start_pulling(pulling)
+		pulling.zfalling = FALSE
+		target.zImpact(pulling, levels, src)
 	target.zImpact(A, levels, src)
 	return TRUE
 
-/turf/proc/handleRCL(obj/item/twohanded/rcl/C, mob/user)
+/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
 	if(C.loaded)
 		for(var/obj/structure/cable/LC in src)
 			if(!LC.d1 || !LC.d2)
@@ -214,7 +293,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		coil.place_turf(src, user)
 		return TRUE
 
-	else if(istype(C, /obj/item/twohanded/rcl))
+	else if(istype(C, /obj/item/rcl))
 		handleRCL(C, user)
 
 	return FALSE
@@ -381,7 +460,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	if(length(src_object.contents()))
-		to_chat(usr, "<span class='notice'>You start dumping out the contents...</span>")
+		balloon_alert(usr, "You dump out the contents")
 		if(!do_after(usr,20,target=src_object.parent))
 			return FALSE
 
@@ -504,7 +583,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
-	if(!SSticker.HasRoundStarted())
+	if(!SSicon_smooth.initialized)
 		add_blueprints(AM)
 
 /turf/proc/is_transition_turf()
@@ -590,3 +669,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	. = ..()
 	if(. != BULLET_ACT_FORCE_PIERCE)
 		. =  BULLET_ACT_TURF
+
+/turf/proc/check_gravity()
+	return TRUE

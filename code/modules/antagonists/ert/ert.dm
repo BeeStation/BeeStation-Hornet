@@ -13,6 +13,7 @@
 	var/datum/team/ert/ert_team
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/ert/security
+	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/ert
 	var/role = "Security Officer"
 	var/list/name_source
 	var/random_names = TRUE
@@ -83,6 +84,7 @@
 	name = "Deathsquad Trooper"
 	outfit = /datum/outfit/death_commando
 	role = "Trooper"
+	plasmaman_outfit = /datum/outfit/plasmaman/death_commando
 
 /datum/antagonist/ert/medic/inquisitor
 	outfit = /datum/outfit/ert/medic/inquisitor
@@ -134,6 +136,7 @@
 	outfit = /datum/outfit/centcom_intern
 	random_names = FALSE
 	role = "Intern"
+	plasmaman_outfit = /datum/outfit/plasmaman/intern
 
 /datum/antagonist/ert/intern/leader
 	name = "CentCom Head Intern"
@@ -150,11 +153,13 @@
 	name = "Comedy Response Officer"
 	outfit = /datum/outfit/centcom_clown
 	role = "Prankster"
+	plasmaman_outfit = /datum/outfit/plasmaman/honk
 
 /datum/antagonist/ert/clown/honk
 	name = "HONK Squad Trooper"
 	outfit = /datum/outfit/centcom_clown/honk_squad
 	role = "HONKER"
+	plasmaman_outfit = /datum/outfit/plasmaman/honk_squad
 
 /datum/antagonist/ert/create_team(datum/team/ert/new_team)
 	if(istype(new_team))
@@ -168,6 +173,10 @@
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H))
 		return
+	if(isplasmaman(H))
+		H.equipOutfit(plasmaman_outfit)
+		H.internal = H.get_item_for_held_index(2)
+		H.update_internals_hud_icon(1)
 	H.equipOutfit(outfit)
 	//Set the suits frequency
 	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_OCLOTHING)

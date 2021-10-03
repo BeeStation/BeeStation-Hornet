@@ -23,7 +23,7 @@ Bonus
 	stealth = -2
 	resistance = -0
 	stage_speed = -1
-	transmittable = -2
+	transmission = -2
 	level = 9
 	severity = 5
 	base_message_chance = 15
@@ -35,15 +35,15 @@ Bonus
 
 /datum/symptom/asphyxiation/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["transmittable"] >= 8)
+	if(A.transmission >= 8)
 		severity += 1
 
 /datum/symptom/asphyxiation/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 8)
+	if(A.stage_rate >= 8)
 		paralysis = TRUE
-	if(A.properties["transmittable"] >= 8)
+	if(A.transmission >= 8)
 		power = 2
 
 /datum/symptom/asphyxiation/Activate(datum/disease/advance/A)

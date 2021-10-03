@@ -95,12 +95,12 @@
 						webpage_url = "<a href=\"[data["webpage_url"]]\">[title]</a>"
 					music_extra_data["start"] = data["start_time"]
 					music_extra_data["end"] = data["end_time"]
-					music_extra_data["link"] = data["webpage_url"]
-					music_extra_data["title"] = data["title"]
 
 					var/res = alert(usr, "Show the title of and link to this song to the players?\n[title]",, "No", "Yes", "Cancel")
 					switch(res)
 						if("Yes")
+							music_extra_data["title"] = data["title"]
+							music_extra_data["link"] = data["webpage_url"]
 							to_chat(world, "<span class='boldannounce'>An admin played: [webpage_url]</span>")
 						if("Cancel")
 							return

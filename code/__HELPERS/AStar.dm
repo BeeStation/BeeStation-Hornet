@@ -113,7 +113,7 @@ Actual Adjacent procs :
 	if(!start || !end)
 		stack_trace("Invalid A* start or destination")
 		return FALSE
-	if( start.z != end.z || start == end ) //no pathfinding between z levels
+	if( start.get_virtual_z_level() != end.get_virtual_z_level() || start == end ) //no pathfinding between z levels
 		return FALSE
 	if(maxnodes)
 		//if start turf is farther than maxnodes from end turf, no need to do anything

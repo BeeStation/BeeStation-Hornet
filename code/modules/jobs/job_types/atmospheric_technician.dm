@@ -9,6 +9,7 @@
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
 	chat_color = "#D4A07D"
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
 	outfit = /datum/outfit/job/atmos
@@ -19,6 +20,7 @@
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_ENG
 	display_order = JOB_DISPLAY_ORDER_ATMOSPHERIC_TECHNICIAN
+	departments = DEPARTMENT_ENGINEERING
 
 /datum/outfit/job/atmos
 	name = "Atmospheric Technician"

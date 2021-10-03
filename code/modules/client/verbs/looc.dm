@@ -87,19 +87,6 @@ GLOBAL_VAR_INIT(looc_allowed, 1)
                 prefix = "LOOC"
             to_chat(C,"<span class='looc'>[ADMIN_FLW(usr)]<span class='prefix'>[prefix]:</span> <EM>[src.key]/[src.mob.name]:</EM> <span class='message'>[msg]</span></span>")
 
-    /*for(var/mob/dead/observer/G in world)
-        if(!G.client)
-            continue
-        var/client/C = G.client
-        if (C in GLOB.admins)
-            continue //handled earlier.
-        if(C.prefs.toggles & CHAT_OOC)
-            var/prefix = "(G)LOOC"
-            if (C.mob in heard)
-                prefix = "LOOC"
-        to_chat(C,"<font color='#6699CC'><span class='ooc'><span class='prefix'>[prefix]:</span> <EM>[src.key]/[src.mob.name]:</EM> <span class='message'>[msg]</span></span></font>")*/
-
-
 /proc/log_looc(text)
     if (CONFIG_GET(flag/log_ooc))
         WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]LOOC: [text]")

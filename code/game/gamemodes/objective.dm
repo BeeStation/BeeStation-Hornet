@@ -17,6 +17,11 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(text)
 		explanation_text = text
 
+//Apparently objectives can be qdel'd. Learn a new thing every day
+/datum/objective/Destroy()
+	GLOB.objectives -= src
+	return ..()
+
 /datum/objective/proc/get_owners() // Combine owner and team into a single list.
 	. = (team && team.members) ? team.members.Copy() : list()
 	if(owner)
@@ -27,7 +32,7 @@ GLOBAL_LIST_EMPTY(objectives)
 
 //Shared by few objective types
 /datum/objective/proc/admin_simple_target_pick(mob/admin)
-	var/list/possible_targets = list("Free objective","Random")
+	var/list/possible_targets = list()
 	var/def_value
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if ((possible_target != src) && ishuman(possible_target.current))
@@ -37,7 +42,7 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(target?.current)
 		def_value = target.current
 
-	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in sortNames(possible_targets)
+	var/mob/new_target = input(admin,"Select target:", "Objective target", def_value) as null|anything in (sortNames(possible_targets) | list("Free objective","Random"))
 	if (!new_target)
 		return
 
@@ -104,16 +109,50 @@ GLOBAL_LIST_EMPTY(objectives)
 	var/list/datum/mind/owners = get_owners()
 	if(!dupe_search_range)
 		dupe_search_range = get_owners()
+	var/list/prefered_targets = list()
 	var/list/possible_targets = list()
 	var/try_target_late_joiners = FALSE
+	var/owner_is_exploration_crew = FALSE
+	var/owner_is_shaft_miner = FALSE
 	for(var/I in owners)
 		var/datum/mind/O = I
 		if(O.late_joiner)
 			try_target_late_joiners = TRUE
+		if(O.assigned_role == "Exploration Crew")
+			owner_is_exploration_crew = TRUE
+		if(O.assigned_role == "Shaft Miner")
+			owner_is_shaft_miner = TRUE
 	for(var/datum/mind/possible_target in get_crewmember_minds())
-		if(!(possible_target in owners) && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && is_unique_objective(possible_target,dupe_search_range))
-			if (!(possible_target in blacklist))
-				possible_targets += possible_target
+		if(possible_target in owners)
+			continue
+		if(!ishuman(possible_target.current))
+			continue
+		if(possible_target.current.stat == DEAD)
+			continue
+		if(!is_unique_objective(possible_target,dupe_search_range))
+			continue
+		var/target_area = get_area(possible_target.current)
+		if(!HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS) && istype(target_area, /area/shuttle/arrival))
+			continue
+		if(possible_target in blacklist)
+			continue
+
+		if(possible_target.assigned_role == "Exploration Crew")
+			if(owner_is_exploration_crew)
+				prefered_targets += possible_target
+			else
+				//Reduced chance to get people off station
+				if(prob(70) && !owner_is_shaft_miner)
+					continue
+		else if(possible_target.assigned_role == "Shaft Miner")
+			if(owner_is_shaft_miner)
+				prefered_targets += possible_target
+			else
+				//Reduced chance to get people off station
+				if(prob(70) && !owner_is_exploration_crew)
+					continue
+
+		possible_targets += possible_target
 	if(try_target_late_joiners)
 		var/list/all_possible_targets = possible_targets.Copy()
 		for(var/I in all_possible_targets)
@@ -122,7 +161,11 @@ GLOBAL_LIST_EMPTY(objectives)
 				possible_targets -= PT
 		if(!possible_targets.len)
 			possible_targets = all_possible_targets
-	if(possible_targets.len > 0)
+	//30% chance to go for a prefered target
+	if(prefered_targets.len > 0 && prob(30))
+		target = pick(prefered_targets)
+		target.isAntagTarget = TRUE
+	else if(possible_targets.len > 0)
 		target = pick(possible_targets)
 		target.isAntagTarget = TRUE
 	update_explanation_text()
@@ -160,9 +203,13 @@ GLOBAL_LIST_EMPTY(objectives)
 	if(receiver && receiver.current)
 		if(ishuman(receiver.current))
 			var/mob/living/carbon/human/H = receiver.current
-			var/list/slots = list("backpack" = ITEM_SLOT_BACKPACK)
+			var/static/list/slots = list(
+				"backpack" = ITEM_SLOT_BACKPACK,
+				"left pocket" = ITEM_SLOT_LPOCKET,
+				"right pocket" = ITEM_SLOT_RPOCKET,
+				"hands" = ITEM_SLOT_HANDS)
 			for(var/eq_path in special_equipment)
-				var/obj/O = new eq_path
+				var/obj/O = new eq_path(get_turf(receiver.current))
 				H.equip_in_one_of_slots(O, slots)
 
 /datum/objective/assassinate

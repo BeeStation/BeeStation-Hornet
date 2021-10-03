@@ -1,4 +1,3 @@
-
 /obj
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
@@ -78,6 +77,7 @@
 				obj_flags &= ~string_to_objflag[flag]
 			else
 				obj_flags |= string_to_objflag[flag]
+				
 	if((obj_flags & ON_BLUEPRINTS) && isturf(loc))
 		var/turf/T = loc
 		T.add_blueprints_preround(src)
@@ -105,9 +105,39 @@
 	else
 		return null
 
+/obj/assume_air_moles(datum/gas_mixture/giver, moles)
+	if(loc)
+		return loc.assume_air_moles(giver, moles)
+	else
+		return null
+
+/obj/assume_air_ratio(datum/gas_mixture/giver, ratio)
+	if(loc)
+		return loc.assume_air_ratio(giver, ratio)
+	else
+		return null
+
+/obj/transfer_air(datum/gas_mixture/taker, moles)
+	if(loc)
+		return loc.transfer_air(taker, moles)
+	else
+		return null
+
+/obj/transfer_air_ratio(datum/gas_mixture/taker, ratio)
+	if(loc)
+		return loc.transfer_air_ratio(taker, ratio)
+	else
+		return null
+
 /obj/remove_air(amount)
 	if(loc)
 		return loc.remove_air(amount)
+	else
+		return null
+
+/obj/remove_air_ratio(ratio)
+	if(loc)
+		return loc.remove_air_ratio(ratio)
 	else
 		return null
 
@@ -125,8 +155,7 @@
 
 	if(breath_request>0)
 		var/datum/gas_mixture/environment = return_air()
-		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
-		return remove_air(environment.total_moles() * breath_percentage)
+		return remove_air_ratio(BREATH_VOLUME / environment.return_volume())
 	else
 		return null
 
@@ -182,22 +211,24 @@
 		return
 	ui_interact(user)
 
-/obj/proc/container_resist(mob/living/user)
-	return
-
 /mob/proc/unset_machine()
-	if(machine)
-		machine.on_unset_machine(src)
-		machine = null
+	SIGNAL_HANDLER
+
+	if(!machine)
+		return
+	UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
+	machine.on_unset_machine(src)
+	machine = null
 
 //called when the user unsets the machine.
 /atom/movable/proc/on_unset_machine(mob/user)
 	return
 
 /mob/proc/set_machine(obj/O)
-	if(src.machine)
+	if(machine)
 		unset_machine()
-	src.machine = O
+	machine = O
+	RegisterSignal(O, COMSIG_PARENT_QDELETING, .proc/unset_machine)
 	if(istype(O))
 		O.obj_flags |= IN_USE
 
@@ -363,3 +394,8 @@
 //generate_tgm_metadata(thing) handles everything inside the {} for you
 /obj/proc/on_object_saved(var/depth = 0)
 	return ""
+
+/obj/handle_ricochet(obj/item/projectile/P)
+	. = ..()
+	if(. && ricochet_damage_mod)
+		take_damage(P.damage * ricochet_damage_mod, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration) // pass along ricochet_damage_mod damage to the structure for the ricochet

@@ -28,7 +28,8 @@
 	chat_color = "#82AF84"
 	var/list/ratdisease = list()
 	can_be_held = TRUE
-	held_state = "mouse_gray"
+	worn_slot_flags = ITEM_SLOT_HEAD
+
 
 /mob/living/simple_animal/mouse/Initialize()
 	. = ..()
@@ -38,6 +39,7 @@
 	icon_state = "mouse_[body_color]"
 	icon_living = "mouse_[body_color]"
 	icon_dead = "mouse_[body_color]_dead"
+	held_state = "mouse_[body_color]"
 	if(prob(75))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), 9, rand(3,4))
 		ratdisease += R

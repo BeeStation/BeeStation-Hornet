@@ -137,8 +137,7 @@
  *
  * Width and height are multiplied by 64 by default.
  */
-/client/proc/setup_popup(popup_name, width = 9, height = 9, \
-		tilesize = 2, bg_icon)
+/client/proc/setup_popup(popup_name, width = 9, height = 9, tilesize = 2, bg_icon)
 	if(!popup_name)
 		return
 	clear_map("[popup_name]_map")

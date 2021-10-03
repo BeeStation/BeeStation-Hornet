@@ -1,0 +1,97 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"f" = (
+/obj/effect/spawner/structure/window,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"j" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"s" = (
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/template_noop)
+"t" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"E" = (
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"L" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Y" = (
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+t
+b
+L
+b
+t
+"}
+(2,1,1) = {"
+t
+b
+b
+b
+t
+"}
+(3,1,1) = {"
+t
+f
+f
+f
+t
+"}
+(4,1,1) = {"
+Y
+s
+Y
+s
+Y
+"}
+(5,1,1) = {"
+Y
+s
+Y
+s
+Y
+"}
+(6,1,1) = {"
+Y
+s
+Y
+s
+Y
+"}
+(7,1,1) = {"
+t
+f
+f
+f
+t
+"}
+(8,1,1) = {"
+t
+E
+E
+E
+t
+"}
+(9,1,1) = {"
+t
+t
+j
+t
+t
+"}

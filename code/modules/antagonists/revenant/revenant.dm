@@ -68,6 +68,7 @@
 	var/list/drained_mobs = list() //Cannot harvest the same mob twice
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has. //TODO, add objective for getting a perfect soul(s?)
 	var/generated_objectives_and_spells = FALSE
+	discovery_points = 4000
 
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
@@ -246,7 +247,7 @@
 	R.revenant = src
 	invisibility = INVISIBILITY_ABSTRACT
 	revealed = FALSE
-	ghostize(0)//Don't re-enter invisible corpse
+	ghostize(FALSE)//Don't re-enter invisible corpse
 
 
 //reveal, stun, icon updates, cast checks, and essence changing

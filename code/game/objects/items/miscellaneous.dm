@@ -328,13 +328,13 @@
 	var/mob/your_pet = new mob_choice(pod)
 	pod.explosionSize = list(0,0,0,0)
 	your_pet.name = name
+	your_pet.real_name = name
 	var/msg = "<span class=danger>After making your selection, you notice a strange target on the ground. It might be best to step back!</span>"
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(istype(H.ears, /obj/item/radio/headset))
 			msg = "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows: <span class='bold'>One pet delivery straight from Central Command. Stand clear!</span> Message ends.\""
 	to_chat(M, msg)
-
 	new /obj/effect/pod_landingzone(get_turf(src), pod)
 
 /obj/item/choice_beacon/pet/cat

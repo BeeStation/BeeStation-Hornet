@@ -317,6 +317,10 @@
 	if(!hasPower())
 		return
 
+	//Check radio signal jamming
+	if(is_jammed())
+		return
+
 	// Check packet access level.
 	if(!check_access_ntnet(data))
 		return
@@ -403,6 +407,9 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+
+/obj/machinery/door/window/clockwork/ratvar_act()
+	return FALSE
 
 /obj/machinery/door/window/clockwork/attackby(obj/item/I, mob/living/user, params)
 

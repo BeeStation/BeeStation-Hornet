@@ -120,7 +120,7 @@
 	category = CAT_MISC
 
 /obj/item/banner/medical/special_inspiration(mob/living/carbon/human/H)
-	H.adjustToxLoss(-15)
+	H.adjustToxLoss(-15, FALSE, TRUE)
 	H.setOxyLoss(0)
 	H.reagents.add_reagent(/datum/reagent/medicine/inaprovaline, 5)
 

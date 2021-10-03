@@ -218,7 +218,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			else
 				++num_disconnected
 	if(num_disconnected)
-		tab_data["Diconnected"] = list(
+		tab_data["Disconnected"] = list(
 			text = "[num_disconnected]",
 			type = STAT_BUTTON,
 			action = "browsetickets",
@@ -313,7 +313,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	id = ++ticket_counter
 	opened_at = world.time
 
-	name = msg
+	name = copytext_char(msg, 1, 100)
 
 	initiator = C
 	initiator_ckey = initiator.ckey
@@ -337,11 +337,11 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	else
 		MessageNoRecipient(msg)
 
-		//send it to irc if nobody is on and tell us how many were on
-		var/admin_number_present = send2irc_adminless_only(initiator_ckey, "Ticket #[id]: [name]")
+		//send it to tgs if nobody is on and tell us how many were on
+		var/admin_number_present = send2tgs_adminless_only(initiator_ckey, "Ticket #[id]: [msg]")
 		log_admin_private("Ticket #[id]: [key_name(initiator)]: [name] - heard by [admin_number_present] non-AFK admins who have +BAN.")
 		if(admin_number_present <= 0)
-			to_chat(C, "<span class='notice'>No active admins are online, your adminhelp was sent to the admin irc.</span>")
+			to_chat(C, "<span class='notice'>No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord.</span>")
 			heard_by_no_admins = TRUE
 
 	bwoink = is_bwoink
@@ -357,7 +357,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 /datum/admin_help/proc/AddInteraction(msg_color, message, name_from, name_to, safe_from, safe_to)
 	if(heard_by_no_admins && usr && usr.ckey != initiator_ckey)
 		heard_by_no_admins = FALSE
-		send2irc(initiator_ckey, "Ticket #[id]: Answered by [key_name(usr)]")
+		send2tgs(initiator_ckey, "Ticket #[id]: Answered by [key_name(usr)]")
 	var/datum/ticket_interaction/interaction_message = new /datum/ticket_interaction
 	interaction_message.message_color = msg_color
 	interaction_message.message = message
@@ -747,10 +747,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 // Used for methods where input via arg doesn't work
 /client/proc/get_adminhelp()
-	var/msg = capped_input(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents")
+	var/msg = capped_multiline_input(src, "Please describe your problem concisely and an admin will help as soon as they're able. Include the names of the people you are ahelping against if applicable.", "Adminhelp contents")
 	adminhelp(msg)
 
-/client/verb/adminhelp(msg as text)
+/client/verb/adminhelp(msg as message)
 	set category = "Admin"
 	set name = "Adminhelp"
 
@@ -831,7 +831,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		else
 			.["present"] += X
 
-/proc/send2irc_adminless_only(source, msg, requiredflags = R_BAN)
+/proc/send2tgs_adminless_only(source, msg, requiredflags = R_BAN)
 	var/list/adm = get_admin_counts(requiredflags)
 	var/list/activemins = adm["present"]
 	. = activemins.len
@@ -845,32 +845,16 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 			final = "[msg] - No admins online"
 		else
 			final = "[msg] - All admins stealthed\[[english_list(stealthmins)]\], AFK\[[english_list(afkmins)]\], or lacks +BAN\[[english_list(powerlessmins)]\]! Total: [allmins.len] "
-		send2irc(source,final)
-		send2otherserver(source,final)
+		send2tgs(source,final)
+		SStopic.crosscomms_send("ahelp", final, source)
 
 
-/proc/send2irc(msg,msg2)
+/proc/send2tgs(msg,msg2)
 	msg = replacetext(replacetext(msg, "\proper", ""), "\improper", "")
 	msg2 = replacetext(replacetext(msg2, "\proper", ""), "\improper", "")
 	world.TgsTargetedChatBroadcast("[msg] | [msg2]", TRUE)
 
-/proc/send2otherserver(source,msg,type = "Ahelp")
-	var/comms_key = CONFIG_GET(string/comms_key)
-	if(!comms_key)
-		return
-	var/list/message = list()
-	message["message_sender"] = source
-	message["message"] = msg
-	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
-	message["key"] = comms_key
-	message += type
-
-	var/list/servers = CONFIG_GET(keyed_list/cross_server)
-	for(var/I in servers)
-		world.Export("[servers[I]]?[list2params(message)]")
-
-
-/proc/ircadminwho()
+/proc/tgsadminwho()
 	var/list/message = list("Admins: ")
 	var/list/admin_keys = list()
 	for(var/adm in GLOB.admins)
@@ -885,7 +869,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 	return jointext(message, "")
 
-/proc/keywords_lookup(msg,irc)
+/proc/keywords_lookup(msg,external)
 
 	//This is a list of words which are ignored by the parser when comparing message contents for names. MUST BE IN LOWER CASE!
 	var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","alien","as", "i")
@@ -897,8 +881,11 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	var/list/surnames = list()
 	var/list/forenames = list()
 	var/list/ckeys = list()
-	var/founds = ""
+	var/list/founds = list()
 	for(var/mob/M in GLOB.mob_list)
+		if(istype(M, /mob/living/carbon/human/dummy))
+			continue
+
 		var/list/indexing = list(M.real_name, M.name)
 		if(M.mind)
 			indexing += M.mind.name
@@ -944,15 +931,16 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 							var/is_antag = 0
 							if(found.mind?.special_role)
 								is_antag = 1
-							founds += "Name: [found.name]([found.real_name]) Key: [found.key] Ckey: [found.ckey] [is_antag ? "(Antag)" : null] "
+							founds[++founds.len] = list("name" = found.name,
+								            "real_name" = found.real_name,
+								            "ckey" = found.ckey,
+								            "key" = found.key,
+								            "antag" = is_antag)
 							msg += "[original_word]<font size='1' color='[is_antag ? "red" : "black"]'>(<A HREF='?_src_=holder;[HrefToken(TRUE)];adminmoreinfo=[REF(found)]'>?</A>|<A HREF='?_src_=holder;[HrefToken(TRUE)];adminplayerobservefollow=[REF(found)]'>F</A>)</font> "
 							continue
 		msg += "[original_word] "
-	if(irc)
-		if(founds == "")
-			return "Search Failed"
-		else
-			return founds
+	if(external)
+		return founds
 
 	return msg
 

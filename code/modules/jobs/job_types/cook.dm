@@ -19,6 +19,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_COOK
+	departments = DEPARTMENT_SERVICE
 
 /datum/outfit/job/cook
 	name = "Cook"

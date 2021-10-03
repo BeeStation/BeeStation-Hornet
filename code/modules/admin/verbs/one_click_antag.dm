@@ -388,7 +388,7 @@
 				ERTOperative.key = chosen_candidate.key
 				log_objective(ERTOperative, missionobj.explanation_text)
 
-				if(ertemplate.enforce_human || !ERTOperative.dna.species.changesource_flags & ERT_SPAWN) // Don't want any exploding plasmemes
+				if(ertemplate.enforce_human || !(ERTOperative.dna.species.changesource_flags & ERT_SPAWN)) // Don't want any exploding plasmemes
 					ERTOperative.set_species(/datum/species/human)
 
 				//Give antag datum

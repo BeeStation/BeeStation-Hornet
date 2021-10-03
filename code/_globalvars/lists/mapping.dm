@@ -37,6 +37,7 @@ GLOBAL_LIST_EMPTY(emergencyresponseteamspawn)
 GLOBAL_LIST_EMPTY(servant_spawns) //Servants of Ratvar spawn here
 GLOBAL_LIST_EMPTY(city_of_cogs_spawns) //Anyone entering the City of Cogs spawns here
 GLOBAL_LIST_EMPTY(ruin_landmarks)
+GLOBAL_LIST_EMPTY(bar_areas)
 
 	//away missions
 GLOBAL_LIST_EMPTY(awaydestinations)	//a list of landmarks that the warpgate can take you to
@@ -48,3 +49,6 @@ GLOBAL_LIST_EMPTY(sortedAreas)
 GLOBAL_LIST_EMPTY_TYPED(areas_by_type, /area)
 
 GLOBAL_LIST_EMPTY(all_abstract_markers)
+
+/// Global list of megafauna spawns on cave gen
+GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = 6))

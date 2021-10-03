@@ -98,9 +98,9 @@
 	for(var/D in GLOB.cardinals)
 		var/color
 		var/direction
-		if(D & demand_connects)
+		if(D & initial(demand_connects))
 			color = "red" //red because red is mean and it takes
-		else if(D & supply_connects)
+		else if(D & initial(supply_connects))
 			color = "blue" //blue is nice and gives
 		else
 			continue
@@ -123,6 +123,8 @@
 		ducterlays += I
 ///we stop acting like a plumbing thing and disconnect if we are, so we can safely be moved and stuff
 /datum/component/plumbing/proc/disable()
+	SIGNAL_HANDLER
+
 	if(!active)
 		return
 	STOP_PROCESSING(SSfluids, src)
@@ -163,6 +165,8 @@
 
 /// Toggle our machinery on or off. This is called by a hook from default_unfasten_wrench with anchored as only param, so we dont have to copypaste this on every object that can move
 /datum/component/plumbing/proc/toggle_active(obj/O, new_state)
+	SIGNAL_HANDLER
+
 	if(new_state)
 		enable()
 	else
@@ -178,6 +182,7 @@
 	var/new_supply_connects
 	var/new_dir = AM.dir
 	var/angle = 180 - dir2angle(new_dir)
+
 	if(new_dir == SOUTH)
 		demand_connects = initial(demand_connects)
 		supply_connects = initial(supply_connects)

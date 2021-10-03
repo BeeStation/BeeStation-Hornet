@@ -431,10 +431,10 @@
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 	START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/suit/space/changeling/process()
+/obj/item/clothing/suit/space/changeling/process(delta_time)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		H.reagents.add_reagent(/datum/reagent/medicine/salbutamol, REAGENTS_METABOLISM)
+		H.reagents.add_reagent(/datum/reagent/medicine/salbutamol, REAGENTS_METABOLISM * (delta_time / SSMOBS_DT))
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"
@@ -474,7 +474,7 @@
 	icon_state = "lingarmor"
 	item_flags = DROPDEL
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
-	armor = list("melee" = 25, "bullet" = 25, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 50, "energy" = 50, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
@@ -492,7 +492,7 @@
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
 	item_flags = DROPDEL
-	armor = list("melee" = 25, "bullet" = 25, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 50, "energy" = 50, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 25, "acid" = 25, "stamina" = 30)
 	flags_inv = HIDEEARS|HIDEHAIR|HIDEEYES|HIDEFACIALHAIR|HIDEFACE
 
 /obj/item/clothing/head/helmet/changeling/Initialize()

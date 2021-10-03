@@ -55,7 +55,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	// of the mob
 	var/deadchat_name
 	var/datum/orbit_menu/orbit_menu
-	var/datum/spawners_menu/spawners_menu
 
 /mob/dead/observer/Initialize()
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -168,7 +167,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	updateallghostimages()
 
 	QDEL_NULL(orbit_menu)
-	QDEL_NULL(spawners_menu)
 
 	var/datum/component/tracking_beacon/beacon = GetComponent(/datum/component/tracking_beacon)
 	if(beacon)
@@ -275,7 +273,7 @@ Transfer_mind is there to check if mob is being deleted/not going to have a body
 Works together with spawning an observer, noted above.
 */
 
-/mob/proc/ghostize(can_reenter_corpse = 1)
+/mob/proc/ghostize(can_reenter_corpse = TRUE,sentience_retention = SENTIENCE_SKIP)
 	if(key)
 		if(key[1] != "@") // Skip aghosts.
 			stop_sound_channel(CHANNEL_HEARTBEAT) //Stop heartbeat sounds because You Are A Ghost Now
@@ -301,7 +299,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)","Are you sure you want to ghost?","Ghost","Stay in body")
 		if(response != "Ghost")
 			return	//didn't want to ghost after-all
-		ghostize(0)						//0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
+		ghostize(FALSE,SENTIENCE_RETAIN)						//0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 
 /mob/camera/verb/ghost()
 	set category = "OOC"
@@ -311,7 +309,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost whilst still alive you may not play again this round! You can't change your mind so choose wisely!!)","Are you sure you want to ghost?","Ghost","Stay in body")
 	if(response != "Ghost")
 		return
-	ghostize(0)
+	ghostize(FALSE,SENTIENCE_RETAIN)
 
 /mob/dead/observer/Move(NewLoc, direct)
 	if(updatedir)
@@ -402,7 +400,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/list/filtered = list()
 	for(var/V in GLOB.sortedAreas)
 		var/area/A = V
-		if(!A.hidden)
+		if(!(A.area_flags & HIDDEN_AREA))
 			filtered += A
 	var/area/thearea  = input("Area to jump to", "BOOYEA") as null|anything in filtered
 
@@ -885,10 +883,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Spawners Menu"
 	set desc = "See all currently available spawners"
 	set category = "Ghost"
-	if(!spawners_menu)
-		spawners_menu = new(src)
+	if(!SSmobs.spawner_menu)
+		SSmobs.spawner_menu = new()
 
-	spawners_menu.ui_interact(src)
+	SSmobs.spawner_menu.ui_interact(src)
 
 /mob/dead/observer/proc/tray_view()
 	set category = "Ghost"

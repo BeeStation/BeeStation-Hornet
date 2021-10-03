@@ -278,7 +278,7 @@
 		infectee.AddComponent(/datum/component/nanites, 5)
 		SEND_SIGNAL(infectee, COMSIG_NANITE_SYNC, nanites)
 		infectee.investigate_log("was infected by a nanite cluster by [key_name(host_mob)] at [AREACOORD(infectee)].", INVESTIGATE_NANITES)
-		to_chat(infectee, "<span class='warning'>You feel a tiny prick.</span>")
+		to_chat(infectee, "<span class='warning'>You feel a tiny prick!</span>")
 
 /datum/nanite_program/mitosis
 	name = "Mitosis"
@@ -326,7 +326,7 @@
 
 /datum/nanite_program/dermal_button/on_mob_remove()
 	. = ..()
-	qdel(button)
+	QDEL_NULL(button)
 
 /datum/nanite_program/dermal_button/proc/press()
 	if(activated)

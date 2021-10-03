@@ -59,14 +59,14 @@
 /datum/quirk/proc/clone_data() //return additional data that should be remembered by cloning
 /datum/quirk/proc/on_clone(data) //create the quirk from clone data
 
-/datum/quirk/process()
+/datum/quirk/process(delta_time)
 	if(QDELETED(quirk_holder))
 		quirk_holder = null
 		qdel(src)
 		return
 	if(quirk_holder.stat == DEAD)
 		return
-	on_process()
+	on_process(delta_time)
 
 /mob/living/proc/get_trait_string(medical) //helper string. gets a string of all the traits the mob has
 	var/list/dat = list()

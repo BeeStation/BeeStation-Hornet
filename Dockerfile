@@ -1,72 +1,66 @@
-FROM beestation/byond:513.1536 as base
-ONBUILD ENV BYOND_MAJOR=513
-ONBUILD ENV BYOND_MINOR=1536
+# syntax=docker/dockerfile:1
+FROM beestation/byond:514.1568 as base
 
-FROM base as build_base
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    git \
-	dos2unix\
-    ca-certificates
-
-FROM build_base as rust_g
-
-WORKDIR /rust_g
-
-RUN apt-get install -y --no-install-recommends \
-    libssl-dev \
-    pkg-config \
-    curl \
-    gcc-multilib \
-    && curl https://sh.rustup.rs -sSf | sh -s -- -y --default-host i686-unknown-linux-gnu \
-    && git init \
-    && git remote add origin https://github.com/BeeStation/rust-g
-
+# Install the tools needed to compile our rust dependencies
+FROM base as rust-build
+ENV PKG_CONFIG_ALLOW_CROSS=1 \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:$PATH
+WORKDIR /build
 COPY dependencies.sh .
+RUN dpkg --add-architecture i386 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+    curl ca-certificates gcc-multilib \
+    g++-multilib libc6-i386 zlib1g-dev:i386 \
+    libssl-dev:i386 pkg-config:i386 git \
+    && /bin/bash -c "source dependencies.sh \
+    && curl https://sh.rustup.rs | sh -s -- -y -t i686-unknown-linux-gnu --no-modify-path --profile minimal --default-toolchain \$RUST_VERSION" \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN dos2unix dependencies.sh \
-	&& /bin/bash -c "source dependencies.sh \
+# Build rust-g
+FROM rust-build as rustg
+RUN git init \
+    && git remote add origin https://github.com/BeeStation/rust-g \
+    && /bin/bash -c "source dependencies.sh \
     && git fetch --depth 1 origin \$RUST_G_VERSION" \
     && git checkout FETCH_HEAD \
-    && ~/.cargo/bin/cargo build --release --all-features \
-	&& apt-get --purge remove -y dos2unix
+    && cargo build --release --all-features --target i686-unknown-linux-gnu
 
-FROM base as dm_base
+# Build auxmos
+FROM rust-build as auxmos
+RUN git init \
+    && git remote add origin https://github.com/BeeStation/auxmos \
+    && /bin/bash -c "source dependencies.sh \
+    && git fetch --depth 1 origin \$AUXMOS_VERSION" \
+    && git checkout FETCH_HEAD \
+    && cargo rustc --target=i686-unknown-linux-gnu --release --features=trit_fire_hook,plasma_fire_hook,generic_fire_hook
 
-WORKDIR /beestation
+# Install nodejs which is required to deploy BeeStation
+FROM base as node
+COPY dependencies.sh .
+RUN apt-get update \
+    && apt-get install curl -y \
+    && /bin/bash -c "source dependencies.sh \
+    && curl -fsSL https://deb.nodesource.com/setup_\$NODE_VERSION.x | bash -" \
+    && apt-get install -y nodejs
 
-FROM dm_base as build
-
+# Build TGUI, tgfonts, and the dmb
+FROM node as dm-build
+ENV TG_BOOTSTRAP_NODE_LINUX=1
+WORKDIR /dm-build
 COPY . .
+# Required to satisfy our compile_options
+COPY --from=auxmos /build/target/i686-unknown-linux-gnu/release/libauxmos.so /dm-build/auxtools/libauxmos.so
+RUN tools/build/build \
+    && tools/deploy.sh /deploy \
+    && apt-get autoremove curl -y \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends dos2unix \
-    && rm -rf /var/lib/apt/lists/* \
-    && DreamMaker -max_errors 0 beestation.dme && dos2unix tools/deploy.sh && tools/deploy.sh /deploy
-
-FROM dm_base
-
-EXPOSE 1337
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends software-properties-common \
-    && add-apt-repository ppa:ubuntu-toolchain-r/test \
-    && apt-get update \
-    && apt-get upgrade -y \
-    && apt-get dist-upgrade -y \
-    && apt-get install -y --no-install-recommends \
-    mariadb-client \
-    libssl1.0.0 \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /root/.byond/bin
-
-COPY --from=rust_g /rust_g/target/release/librust_g.so /root/.byond/bin/rust_g
-COPY --from=build /deploy ./
-
-#extools fexists memes
-RUN ln -s /beestation/libbyond-extools.so /root/.byond/bin/libbyond-extools.so
-
+FROM base
+WORKDIR /beestation
+COPY --from=dm-build /deploy ./
+COPY --from=rustg /build/target/i686-unknown-linux-gnu/release/librust_g.so /root/.byond/bin/rust_g
 VOLUME [ "/beestation/config", "/beestation/data" ]
-
 ENTRYPOINT [ "DreamDaemon", "beestation.dmb", "-port", "1337", "-trusted", "-close", "-verbose" ]
+EXPOSE 1337

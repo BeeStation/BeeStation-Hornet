@@ -35,7 +35,7 @@
 	description = "CentCom's security forces are going through budget cuts. You will be paid if you ship a set of spears."
 	reward = 2000
 	required_count = 5
-	wanted_types = list(/obj/item/twohanded/spear)
+	wanted_types = list(/obj/item/spear)
 
 /datum/bounty/item/assistant/toolbox
 	name = "Toolboxes"
@@ -124,13 +124,6 @@
 	required_count = 5
 	wanted_types = list(/obj/structure/chair/comfy)
 
-/datum/bounty/item/assistant/geranium
-	name = "Geraniums"
-	description = "Commander Zot has the hots for Commander Zena. Send a shipment of geraniums - her favorite flower - and he'll happily reward you."
-	reward = 4000
-	required_count = 3
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/grown/poppy/geranium)
-
 /datum/bounty/item/assistant/poppy
 	name = "Poppies"
 	description = "Commander Zot really wants to sweep Security Officer Olivia off her feet. Send a shipment of Poppies - her favorite flower - and he'll happily reward you."
@@ -150,7 +143,7 @@
 	description = "Central Command is looking to commission a new BirdBoat-class station. You've been ordered to supply the potted plants."
 	reward = 2000
 	required_count = 8
-	wanted_types = list(/obj/item/twohanded/required/kirbyplants)
+	wanted_types = list(/obj/item/kirbyplants)
 
 /datum/bounty/item/assistant/earmuffs
 	name = "Earmuffs"
@@ -176,7 +169,7 @@
 	name = "Chainsaw"
 	description = "The chef at CentCom is having trouble butchering her animals. She requests one chainsaw, please."
 	reward = 2500
-	wanted_types = list(/obj/item/twohanded/required/chainsaw)
+	wanted_types = list(/obj/item/chainsaw)
 
 /datum/bounty/item/assistant/ied
 	name = "IED"

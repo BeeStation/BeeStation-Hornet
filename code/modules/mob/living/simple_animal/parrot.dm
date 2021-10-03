@@ -38,6 +38,10 @@
 	health = 80
 	maxHealth = 80
 	pass_flags = PASSTABLE | PASSMOB
+	can_be_held = TRUE
+	worn_slot_flags = ITEM_SLOT_HEAD
+	held_state = "parrot"
+
 
 	speak = list("Hi!","Hello!","Cracker?","BAWWWWK george mellons griffing me!")
 	speak_emote = list("squawks","says","yells")
@@ -106,7 +110,8 @@
 						/obj/item/radio/headset/headset_eng, \
 						/obj/item/radio/headset/headset_med, \
 						/obj/item/radio/headset/headset_sci, \
-						/obj/item/radio/headset/headset_cargo)
+						/obj/item/radio/headset/headset_cargo, \
+						/obj/item/radio/headset/headset_exploration)
 		ears = new headset(src)
 
 	parrot_sleep_dur = parrot_sleep_max //In case someone decides to change the max without changing the duration var
@@ -247,6 +252,8 @@
 								available_channels.Add(RADIO_TOKEN_MEDICAL)
 							if(RADIO_CHANNEL_SUPPLY)
 								available_channels.Add(RADIO_TOKEN_SUPPLY)
+							if(RADIO_CHANNEL_EXPLORATION)
+								available_channels.Add(RADIO_TOKEN_EXPLORATION)
 							if(RADIO_CHANNEL_SERVICE)
 								available_channels.Add(RADIO_TOKEN_SERVICE)
 

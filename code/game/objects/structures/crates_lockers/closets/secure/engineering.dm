@@ -22,6 +22,7 @@
 	new /obj/item/areaeditor/blueprints(src)
 	new /obj/item/airlock_painter(src)
 	new /obj/item/holosign_creator/engineering(src)
+	new /obj/item/holosign_creator/atmos(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/multitool(src)
 	new /obj/item/assembly/flash/handheld(src)
@@ -33,6 +34,7 @@
 	new /obj/item/extinguisher/advanced(src)
 	new /obj/item/storage/photo_album/CE(src)
 	new /obj/item/card/id/departmental_budget/eng(src)
+	new /obj/item/storage/bag/construction(src)
 	
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
@@ -78,7 +80,6 @@
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/glasses/meson/engine(src)
 	new /obj/item/storage/box/emptysandbags(src)
-
 
 /obj/structure/closet/secure_closet/atmospherics
 	name = "\proper atmospheric technician's locker"

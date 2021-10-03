@@ -224,14 +224,14 @@
 	sleep(1)
 	flick("[cyborg_base_icon]_transform", R)
 	R.notransform = TRUE
-	R.SetLockdown(1)
+	R.SetLockdown(TRUE)
 	R.anchored = TRUE
 	sleep(1)
 	for(var/i in 1 to 4)
 		playsound(R, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 80, 1, -1)
 		sleep(7)
 	if(!prev_lockcharge)
-		R.SetLockdown(0)
+		R.SetLockdown(FALSE)
 	R.setDir(SOUTH)
 	R.anchored = FALSE
 	R.notransform = FALSE
@@ -240,6 +240,22 @@
 	if(R.hud_used)
 		R.hud_used.update_robot_modules_display()
 	SSblackbox.record_feedback("tally", "cyborg_modules", 1, R.module)
+
+/**
+ * Checks if we are allowed to interact with a radial menu
+ *
+ * Arguments:
+ * * user The cyborg mob interacting with the menu
+ * * old_module The old cyborg's module
+ */
+/obj/item/robot_module/proc/check_menu(mob/living/silicon/robot/user, obj/item/robot_module/old_module)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated())
+		return FALSE
+	if(user.module != old_module)
+		return FALSE
+	return TRUE
 
 /obj/item/robot_module/standard
 	name = "Standard"
@@ -268,7 +284,7 @@
 		/obj/item/clock_module/abstraction_crystal,
 		/obj/item/clockwork/replica_fabricator,
 		/obj/item/stack/tile/brass/cyborg,
-		/obj/item/twohanded/clockwork/brass_spear)
+		/obj/item/clockwork/weapon/brass_spear)
 	moduleselect_icon = "standard"
 	hat_offset = -3
 
@@ -382,7 +398,7 @@
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
-		/obj/item/twohanded/clockwork/brass_spear,
+		/obj/item/clockwork/weapon/brass_spear,
 		/obj/item/clock_module/ocular_warden,
 		/obj/item/clock_module/vanguard)
 	cyborg_base_icon = "sec"
@@ -404,7 +420,7 @@
 			T.cell.give(S.e_cost * coeff)
 			T.update_icon()
 		else
-			T.charge_tick = 0
+			T.charge_timer = 0
 
 /obj/item/robot_module/peacekeeper
 	name = "Peacekeeper"
@@ -501,7 +517,7 @@
 	ratvar_modules = list(
 		/obj/item/clock_module/abscond,
 		/obj/item/clock_module/vanguard,
-		/obj/item/twohanded/clockwork/brass_battlehammer)	//honk
+		/obj/item/clockwork/weapon/brass_battlehammer)	//honk
 	moduleselect_icon = "service"
 	cyborg_base_icon = "clown"
 	hat_offset = -2
@@ -533,6 +549,7 @@
 		/obj/item/clock_module/sentinels_compromise,
 		/obj/item/clockwork/replica_fabricator)
 	moduleselect_icon = "service"
+	cyborg_base_icon = "service_m" // display as butlerborg for radial model selection
 	special_light_key = "service"
 	hat_offset = 0
 
@@ -543,11 +560,16 @@
 		O.reagents.add_reagent(/datum/reagent/consumable/enzyme, 2 * coeff)
 
 /obj/item/robot_module/butler/be_transformed_to(obj/item/robot_module/old_module)
-	var/mob/living/silicon/robot/R = loc
-	var/borg_icon = input(R, "Select an icon!", "Robot Icon", null) as null|anything in sortList(list("Waitress", "Butler", "Tophat", "Kent", "Bro"))
-	if(!borg_icon)
-		return FALSE
-	switch(borg_icon)
+	var/mob/living/silicon/robot/cyborg = loc
+	var/list/service_icons = list(
+		"Waitress" = image(icon = 'icons/mob/robots.dmi', icon_state = "service_f"),
+		"Butler" = image(icon = 'icons/mob/robots.dmi', icon_state = "service_m"),
+		"Bro" = image(icon = 'icons/mob/robots.dmi', icon_state = "brobot"),
+		"Kent" = image(icon = 'icons/mob/robots.dmi', icon_state = "kent"),
+		"Tophat" = image(icon = 'icons/mob/robots.dmi', icon_state = "tophat")
+	)
+	var/service_robot_icon = show_radial_menu(cyborg, cyborg, service_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 42, require_near = TRUE)
+	switch(service_robot_icon)
 		if("Waitress")
 			cyborg_base_icon = "service_f"
 		if("Butler")
@@ -561,7 +583,9 @@
 		if("Tophat")
 			cyborg_base_icon = "tophat"
 			special_light_key = null
-			hat_offset = INFINITY //He is already wearing a hat
+			hat_offset = INFINITY //He's already wearing a hat
+		else
+			return FALSE
 	return ..()
 
 /obj/item/robot_module/borgi
@@ -601,11 +625,14 @@
 	var/obj/item/t_scanner/adv_mining_scanner/cyborg/mining_scanner //built in memes.
 
 /obj/item/robot_module/miner/be_transformed_to(obj/item/robot_module/old_module)
-	var/mob/living/silicon/robot/R = loc
-	var/borg_icon = input(R, "Select an icon!", "Robot Icon", null) as null|anything in sortList(list("Lavaland Miner", "Asteroid Miner", "Spider Miner"))
-	if(!borg_icon)
-		return FALSE
-	switch(borg_icon)
+	var/mob/living/silicon/robot/cyborg = loc
+	var/list/miner_icons = list(
+		"Lavaland Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner"),
+		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
+		"Spider Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "spidermin")
+	)
+	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 42, require_near = TRUE)
+	switch(miner_robot_icon)
 		if("Lavaland Miner")
 			cyborg_base_icon = "miner"
 		if("Asteroid Miner")
@@ -613,6 +640,8 @@
 			special_light_key = "miner"
 		if("Spider Miner")
 			cyborg_base_icon = "spidermin"
+		else
+			return FALSE
 	return ..()
 
 /obj/item/robot_module/miner/rebuild_modules()
@@ -656,7 +685,7 @@
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/reagent_containers/borghypo/syndicate,
-		/obj/item/twohanded/shockpaddles/syndicate/cyborg,
+		/obj/item/shockpaddles/syndicate/cyborg,
 		/obj/item/healthanalyzer,
 		/obj/item/surgical_drapes,
 		/obj/item/borg/charger,

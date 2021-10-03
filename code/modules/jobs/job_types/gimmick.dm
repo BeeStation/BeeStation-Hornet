@@ -11,12 +11,19 @@
 
 	exp_type_department = EXP_TYPE_GIMMICK
 
-	access = list( ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_ASSISTANT
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
+	departments = DEPARTMENT_SERVICE
+	
+	allow_bureaucratic_error = FALSE
+	outfit = /datum/outfit/job/gimmick
+
+/datum/outfit/job/gimmick
+	can_be_admin_equipped = FALSE // we want just the parent outfit to be unequippable since this leads to problems
 
 /datum/job/gimmick/barber
 	title = "Barber"
@@ -37,6 +44,7 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	l_hand = /obj/item/storage/wallet
 	l_pocket = /obj/item/razor/straightrazor
+	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/magician
 	title = "Stage Magician"
@@ -60,6 +68,7 @@
 	gloves = /obj/item/clothing/gloves/color/white
 	l_hand = /obj/item/cane
 	backpack_contents = list(/obj/item/choice_beacon/magic=1)
+	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/hobo
 	title = "Debtor"
@@ -69,6 +78,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
 	chat_color = "#929292"
+	departments = NONE		//being hobo is not a real job
 
 /datum/outfit/job/gimmick/hobo
 	name = "Debtor"
@@ -78,7 +88,7 @@
 	ears = null //hobos dont start with a headset
 	uniform = /obj/item/clothing/under/pants/jeans
 	suit = /obj/item/clothing/suit/jacket
-
+	can_be_admin_equipped = TRUE
 
 /datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -103,6 +113,7 @@
 	paycheck = PAYCHECK_EASY
 	gimmick = TRUE
 	chat_color = "#a2dfdc"
+	departments = DEPARTMENT_MEDICAL
 
 /datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = "Psychiatrist"
@@ -113,6 +124,7 @@
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/laceup
 	backpack_contents = list(/obj/item/choice_beacon/pet/ems=1)
+	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/celebrity
 	title = "VIP"
@@ -133,3 +145,4 @@
 	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason
 	uniform = /obj/item/clothing/under/suit/black_really
 	shoes = /obj/item/clothing/shoes/laceup
+	can_be_admin_equipped = TRUE

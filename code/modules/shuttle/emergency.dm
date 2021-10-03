@@ -58,6 +58,7 @@
 	if(!ui)
 		ui = new(user, src, "EmergencyShuttleConsole")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/emergency_shuttle/ui_data(user)
 	var/list/data = list()
@@ -155,7 +156,7 @@
 	log_game("[key_name(user)] has authorized early shuttle launch in [COORD(src)], [authorized.len] of [auth_need] needed..")
 	// Now check if we're on our way
 	. = TRUE
-	process()
+	process(SSMACHINES_DT)
 
 /obj/machinery/computer/emergency_shuttle/proc/clear_recent_action(mob/user)
 	acted_recently -= user
@@ -279,7 +280,7 @@
 
 		authorized += ID
 
-	process()
+	process(SSMACHINES_DT)
 
 /obj/machinery/computer/emergency_shuttle/Destroy()
 	// Our fake IDs that the emag generated are just there for colour
@@ -348,7 +349,7 @@
 	else
 		SSshuttle.emergencyLastCallLoc = null
 
-	priority_announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]", null, 'sound/ai/shuttlecalled.ogg', "Priority")
+	priority_announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ][SSshuttle.adminEmergencyNoRecall ? "\n\nWarning: Shuttle recall subroutines disabled; Recall not possible." : ""]", null, ANNOUNCER_SHUTTLECALLED, "Priority")
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
 	if(mode != SHUTTLE_CALL)
@@ -363,7 +364,7 @@
 		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
 		SSshuttle.emergencyLastCallLoc = null
-	priority_announce("The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]", null, 'sound/ai/shuttlerecalled.ogg', "Priority")
+	priority_announce("The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]", null, ANNOUNCER_SHUTTLERECALLED, "Priority")
 
 /**
   * Proc that handles checking if the emergency shuttle was successfully hijacked via being the only people present on the shuttle for the elimination hijack or highlander objective
@@ -466,8 +467,8 @@
 					return
 				mode = SHUTTLE_DOCKED
 				setTimer(SSshuttle.emergencyDockTime)
-				send2irc("Server", "The Emergency Shuttle has docked with the station.")
-				priority_announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.", null, 'sound/ai/shuttledock.ogg', "Priority")
+				send2tgs("Server", "The Emergency Shuttle has docked with the station.")
+				priority_announce("[SSshuttle.emergency] has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.", null, ANNOUNCER_SHUTTLEDOCK, "Priority")
 				ShuttleDBStuff()
 
 
@@ -575,7 +576,7 @@
 	mode = SHUTTLE_ESCAPE
 	launch_status = ENDGAME_LAUNCHED
 	setTimer(SSshuttle.emergencyEscapeTime)
-	priority_announce("The Emergency Shuttle is preparing for direct jump. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, null, "Priority")
+	priority_announce("The Emergency Shuttle is preparing for direct jump. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.", null, SSstation.announcer.get_rand_alert_sound(), "Priority")
 
 
 /obj/docking_port/mobile/pod
@@ -587,8 +588,8 @@
 	launch_status = UNLAUNCHED
 
 /obj/docking_port/mobile/pod/request(obj/docking_port/stationary/S)
-	var/obj/machinery/computer/shuttle/C = getControlConsole()
-	if(!istype(C, /obj/machinery/computer/shuttle/pod))
+	var/obj/machinery/computer/shuttle_flight/C = getControlConsole()
+	if(!istype(C, /obj/machinery/computer/shuttle_flight/pod))
 		return ..()
 	if(GLOB.security_level >= SEC_LEVEL_RED || (C && (C.obj_flags & EMAGGED)))
 		if(launch_status == UNLAUNCHED)
@@ -601,9 +602,11 @@
 /obj/docking_port/mobile/pod/cancel()
 	return
 
-/obj/machinery/computer/shuttle/pod
+/obj/machinery/computer/shuttle_flight/pod
 	name = "pod control computer"
 	admin_controlled = 1
+	recall_docking_port_id = "null"
+	request_shuttle_message = "Override Escape"
 	possible_destinations = "pod_asteroid"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
@@ -611,19 +614,19 @@
 	density = FALSE
 	clockwork = TRUE //it'd look weird
 
-/obj/machinery/computer/shuttle/pod/update_icon()
+/obj/machinery/computer/shuttle_flight/pod/update_icon()
 	return
 
-/obj/machinery/computer/shuttle/pod/emag_act(mob/user)
+/obj/machinery/computer/shuttle_flight/pod/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
 	to_chat(user, "<span class='warning'>You fry the pod's alert level monitoring system.</span>")
 
-/obj/machinery/computer/shuttle/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
+/obj/machinery/computer/shuttle_flight/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
 	. = ..()
-	if(possible_destinations == initial(possible_destinations) || override)
-		possible_destinations = "pod_lavaland[idnum]"
+	if(recall_docking_port_id == initial(recall_docking_port_id) || override)
+		recall_docking_port_id = "pod_lavaland[idnum]"
 
 /obj/docking_port/stationary/random
 	name = "escape pod"
@@ -736,6 +739,11 @@
 	. = ..()
 	SSshuttle.emergency = current_emergency
 	SSshuttle.backup_shuttle = src
+
+/obj/docking_port/mobile/emergency/backup/Destroy(force)
+	if(SSshuttle.backup_shuttle == src)
+		SSshuttle.backup_shuttle = null
+	return ..()
 
 /obj/docking_port/mobile/emergency/shuttle_build/register()
 	. = ..()

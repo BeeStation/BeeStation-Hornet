@@ -15,6 +15,8 @@
 	spam_flag = FALSE
 
 /datum/component/honkspam/proc/interact(mob/user)
+	SIGNAL_HANDLER
+
 	if(!spam_flag)
 		spam_flag = TRUE
 		var/obj/item/parent_item = parent

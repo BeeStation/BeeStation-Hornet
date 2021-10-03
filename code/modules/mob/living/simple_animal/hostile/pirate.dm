@@ -23,7 +23,7 @@
 	speak_emote = list("yarrs")
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 			/obj/item/melee/transforming/energy/sword/pirate)
-	del_on_death = 1
+	del_on_death = TRUE
 	faction = list("pirate")
 	mobchatspan = "syndmob"
 

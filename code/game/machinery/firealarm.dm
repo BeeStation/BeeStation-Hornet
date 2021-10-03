@@ -25,6 +25,7 @@
 	active_power_usage = 6
 	power_channel = AREA_USAGE_ENVIRON
 	resistance_flags = FIRE_PROOF
+	layer = ABOVE_WINDOW_LAYER
 
 	light_power = 0
 	light_range = 7
@@ -49,6 +50,7 @@
 	LAZYADD(myarea.firealarms, src)
 
 /obj/machinery/firealarm/Destroy()
+	myarea.firereset(src)
 	LAZYREMOVE(myarea.firealarms, src)
 	return ..()
 
@@ -117,6 +119,12 @@
 	user?.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
 							"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
 	playsound(src, "sparks", 50, 1)
+
+/obj/machinery/firealarm/eminence_act(mob/living/simple_animal/eminence/eminence)
+	. = ..()
+	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	if(do_after(eminence, 20, target=get_turf(eminence)))
+		attack_hand(eminence)
 
 /obj/machinery/firealarm/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	if((temperature > T0C + 200 || temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && (last_alarm+FIREALARM_COOLDOWN < world.time) && !(obj_flags & EMAGGED) && detecting && !stat)
@@ -264,7 +272,7 @@
 
 /obj/machinery/firealarm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	if((buildstage == 0) && (the_rcd.upgrade & RCD_UPGRADE_SIMPLE_CIRCUITS))
-		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)	
+		return list("mode" = RCD_UPGRADE_SIMPLE_CIRCUITS, "delay" = 20, "cost" = 1)
 	return FALSE
 
 /obj/machinery/firealarm/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)

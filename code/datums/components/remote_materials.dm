@@ -24,6 +24,7 @@ handles linking back and forth.
 	src.allow_standalone = allow_standalone
 
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
+	RegisterSignal(parent, COMSIG_MOVABLE_Z_CHANGED, .proc/check_z_disconnect)
 
 	var/turf/T = get_turf(parent)
 	if (force_connect || (mapload && is_station_level(T.z)))
@@ -53,18 +54,30 @@ handles linking back and forth.
 
 /datum/component/remote_materials/proc/_MakeLocal()
 	silo = null
-	mat_container = parent.AddComponent(/datum/component/material_container,
-		list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/gold, /datum/material/diamond, /datum/material/plasma, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace, /datum/material/plastic),
-		local_size,
-		FALSE,
-		/obj/item/stack)
+
+	var/static/list/allowed_mats = list(
+		/datum/material/iron,
+		/datum/material/glass,
+		/datum/material/copper,
+		/datum/material/silver,
+		/datum/material/gold,
+		/datum/material/diamond,
+		/datum/material/plasma,
+		/datum/material/uranium,
+		/datum/material/bananium,
+		/datum/material/titanium,
+		/datum/material/bluespace,
+		/datum/material/plastic,
+		)
+
+	mat_container = parent.AddComponent(/datum/component/material_container, allowed_mats, local_size, allowed_types=/obj/item/stack)
 
 /datum/component/remote_materials/proc/set_local_size(size)
 	local_size = size
 	if (!silo && mat_container)
 		mat_container.max_amount = size
 
-// called if disconnected by ore silo UI or destruction
+// called if disconnected by ore silo UI, or destruction
 /datum/component/remote_materials/proc/disconnect_from(obj/machinery/ore_silo/old_silo)
 	if (!old_silo || silo != old_silo)
 		return
@@ -72,13 +85,42 @@ handles linking back and forth.
 	mat_container = null
 	if (allow_standalone)
 		_MakeLocal()
+	return TRUE
+
+/datum/component/remote_materials/proc/is_valid_link(atom/targeta, atom/targetb = silo)
+	return ((is_station_level(targeta.z) && is_station_level(targetb.z)) || (targeta.get_virtual_z_level() == targetb.get_virtual_z_level()))
+
+
+/datum/component/remote_materials/proc/check_z_disconnect()
+	SIGNAL_HANDLER
+	if(!silo) //No silo?
+		return
+	var/atom/P = parent
+	if(!is_valid_link(P))
+		graceful_disconnect()
+
+// like disconnect_from, but does proper cleanup instead of simple deletion.
+/datum/component/remote_materials/proc/graceful_disconnect()
+	var/obj/machinery/ore_silo/old_silo = silo
+	if(!disconnect_from(old_silo))
+		return
+	old_silo.connected -= src
+	old_silo.updateUsrDialog()
+	var/atom/P = parent
+	P.visible_message("<span class='warning'>[parent]'s material manager blinks orange: Disconnected.</span>")
 
 /datum/component/remote_materials/proc/OnAttackBy(datum/source, obj/item/I, mob/user)
+	SIGNAL_HANDLER
+
 	if(I.tool_behaviour == TOOL_MULTITOOL)
 		if(!I.multitool_check_buffer(user, I))
 			return COMPONENT_NO_AFTERATTACK
 		var/obj/item/multitool/M = I
 		if (!QDELETED(M.buffer) && istype(M.buffer, /obj/machinery/ore_silo))
+			var/atom/P = parent
+			if (!is_valid_link(P, M.buffer))
+				to_chat(usr, "<span class='warning'>[parent]'s material manager blinks red: Out of Range.</span>")
+				return COMPONENT_NO_AFTERATTACK
 			if (silo == M.buffer)
 				to_chat(user, "<span class='notice'>[parent] is already connected to [silo].</span>")
 				return COMPONENT_NO_AFTERATTACK
@@ -111,3 +153,21 @@ handles linking back and forth.
 		return "[mat_container.total_amount] / [mat_container.max_amount == INFINITY ? "Unlimited" : mat_container.max_amount] ([silo ? "remote" : "local"])"
 	else
 		return "0 / 0"
+
+/// Ejects the given material ref and logs it, or says out loud the problem.
+/datum/component/remote_materials/proc/eject_sheets(datum/material/material_ref, eject_amount)
+	var/atom/movable/movable_parent = parent
+	if (!istype(movable_parent))
+		return 0
+
+	if (!mat_container)
+		movable_parent.say("No access to material storage, please contact the quartermaster.")
+		return 0
+	if (on_hold())
+		movable_parent.say("Mineral access is on hold, please contact the quartermaster.")
+		return 0
+	var/count = mat_container.retrieve_sheets(eject_amount, material_ref, movable_parent.drop_location())
+	var/list/matlist = list()
+	matlist[material_ref] = eject_amount
+	silo_log(parent, "ejected", -count, "sheets", matlist)
+	return count

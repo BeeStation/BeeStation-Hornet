@@ -105,7 +105,6 @@ export const RDConsole = (props, context) => {
   } = data;
   return (
     <Window
-      resizable
       width={900}
       height={750}>
       <Window.Content scrollable>

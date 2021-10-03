@@ -19,7 +19,7 @@ BONUS
 	stealth = 3
 	resistance = 5
 	stage_speed = -3
-	transmittable = 0
+	transmission = 0
 	level = 3
 
 /*
@@ -44,7 +44,7 @@ BONUS
 	stealth = -2
 	resistance = -3
 	stage_speed = 5
-	transmittable = 3
+	transmission = 3
 	level = 3
 
 /*
@@ -73,7 +73,7 @@ Bonus
 	stealth = 1
 	resistance = -4
 	stage_speed = 3
-	transmittable = -3
+	transmission = -3
 	level = 3
 	symptom_delay_min = 1
 	symptom_delay_max = 1
@@ -101,6 +101,6 @@ Bonus
 	if(!..())
 		return
 	A.stage = 5
-	if(A.properties["stealth"] >= 4) //more time before it's cured
+	if(A.stealth >= 4) //more time before it's cured
 		power = 2
-	time_to_cure = max(A.properties["resistance"], A.properties["stage_rate"]) * 10 * power
+	time_to_cure = max(A.resistance, A.stage_rate) * 10 * power

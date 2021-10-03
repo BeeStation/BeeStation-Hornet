@@ -3,7 +3,7 @@
 
 GLOBAL_LIST_EMPTY(clockwork_marauders)
 
-/mob/living/simple_animal/clockwork_marauder
+/mob/living/simple_animal/hostile/clockwork_marauder
 	name = "clockwork marauder"
 	desc = "A brass machine of destruction,"
 	icon = 'icons/mob/clockwork_mobs.dmi'
@@ -20,7 +20,6 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	move_resist = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_LARGE
 	pass_flags = PASSTABLE
-	hud_possible = list(ANTAG_HUD)
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 	attacktext = "slices"
@@ -38,21 +37,22 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 	var/debris = list(/obj/item/clockwork/alloy_shards/large = 1, \
 	/obj/item/clockwork/alloy_shards/medium = 2, \
 	/obj/item/clockwork/alloy_shards/small = 3) //Parts left behind when a structure breaks
+	discovery_points = 1000
 
-/mob/living/simple_animal/clockwork_marauder/Initialize()
+/mob/living/simple_animal/hostile/clockwork_marauder/Initialize()
 	. = ..()
 	GLOB.clockwork_marauders += src
 
-/mob/living/simple_animal/clockwork_marauder/Destroy()
+/mob/living/simple_animal/hostile/clockwork_marauder/Destroy()
 	GLOB.clockwork_marauders -= src
 	. = ..()
 
-/mob/living/simple_animal/clockwork_marauder/Login()
+/mob/living/simple_animal/hostile/clockwork_marauder/Login()
 	. = ..()
 	add_servant_of_ratvar(src)
 	to_chat(src, "<span class='brass'>You can block up to 4 attacks with your shield, however it requires a welder to be repaired.</span>")
 
-/mob/living/simple_animal/clockwork_marauder/death(gibbed)
+/mob/living/simple_animal/hostile/clockwork_marauder/death(gibbed)
 	. = ..()
 	for(var/item in debris)
 		var/count = debris[item]
@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 			new item(get_turf(src))
 	qdel(src)
 
-/mob/living/simple_animal/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/clockwork_marauder/attacked_by(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/nullrod))
 		apply_damage(15, BURN)
 		if(shield_health > 0)
@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 		return
 	. = ..()
 
-/mob/living/simple_animal/clockwork_marauder/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/clockwork_marauder/bullet_act(obj/item/projectile/Proj)
 	//Block Ranged Attacks
 	if(shield_health > 0)
 		damage_shield()
@@ -79,14 +79,14 @@ GLOBAL_LIST_EMPTY(clockwork_marauders)
 		return BULLET_ACT_BLOCK
 	return ..()
 
-/mob/living/simple_animal/clockwork_marauder/proc/damage_shield()
+/mob/living/simple_animal/hostile/clockwork_marauder/proc/damage_shield()
 	shield_health --
 	playsound(src, 'sound/magic/clockwork/anima_fragment_attack.ogg', 60, TRUE)
 	if(shield_health == 0)
 		to_chat(src, "<span class='userdanger'>Your shield breaks!</span>")
 		to_chat(src, "<span class='brass'>You require a welding tool to repair your damaged shield!</span>")
 
-/mob/living/simple_animal/clockwork_marauder/welder_act(mob/living/user, obj/item/I)
+/mob/living/simple_animal/hostile/clockwork_marauder/welder_act(mob/living/user, obj/item/I)
 	if(do_after(user, 25, target=src))
 		health = min(health + 10, maxHealth)
 		to_chat(user, "<span class='notice'>You repair some of [src]'s damage.</span>")

@@ -12,7 +12,6 @@
 	minimal_player_age = 7
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
-	exp_type_department = EXP_TYPE_SECURITY
 
 	outfit = /datum/outfit/job/brig_phys
 
@@ -22,6 +21,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
+	departments = DEPARTMENT_MEDICAL | DEPARTMENT_SECURITY
 
 /datum/outfit/job/brig_phys
 	name = "Brig Physician"
@@ -33,6 +33,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit = /obj/item/clothing/suit/hazardvest/brig_phys
+	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	suit_store = /obj/item/flashlight/seclite
 	l_hand = /obj/item/storage/firstaid/medical
 	head = /obj/item/clothing/head/soft/sec/brig_phys

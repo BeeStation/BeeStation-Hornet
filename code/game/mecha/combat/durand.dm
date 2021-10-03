@@ -56,6 +56,8 @@
 
 ///Relays the signal from the action button to the shield, and creates a new shield if the old one is MIA.
 /obj/mecha/combat/durand/proc/relay(datum/source, list/signal_args)
+	SIGNAL_HANDLER
+
 	if(!shield) //if the shield somehow got deleted
 		shield = new/obj/durand_shield
 		shield.chassis = src
@@ -66,6 +68,8 @@
 
 //Redirects projectiles to the shield if defense_check decides they should be blocked and returns true.
 /obj/mecha/combat/durand/proc/prehit(obj/item/projectile/source, list/signal_args)
+	SIGNAL_HANDLER
+
 	if(defense_check(source.loc) && shield)
 		signal_args[2] = shield
 
@@ -156,18 +160,20 @@ and relayed by the mech itself. The "forced" variabe, signal_args[1], will skip 
 the shield is disabled by means other than the action button (like running out of power)*/
 
 /obj/durand_shield/proc/activate(datum/source, var/datum/action/innate/mecha/mech_defense_mode/button, list/signal_args)
+	SIGNAL_HANDLER
+
 	if(!chassis || !chassis.occupant)
 		return
 	if(switching && !signal_args[1])
 		return
 	if(!chassis.defense_mode && (!chassis.cell || chassis.cell.charge < 100)) //If it's off, and we have less than 100 units of power
-		chassis.occupant_message("<span class='warn'>Insufficient power; cannot activate defense mode.</span>")
+		chassis.balloon_alert(chassis.occupant, "Insufficient power")
 		return
 	switching = TRUE
 	chassis.defense_mode = !chassis.defense_mode
 	chassis.defense_action.button_icon_state = "mech_defense_mode_[chassis.defense_mode ? "on" : "off"]" //This is backwards because we haven't changed the var yet
 	if(!signal_args[1])
-		chassis.occupant_message("<span class='notice'>Defense mode [chassis.defense_mode?"enabled":"disabled"].</span>")
+		chassis.balloon_alert(chassis.occupant, "Shield [chassis.defense_mode?"enabled":"disabled"]")
 		chassis.log_message("User has toggled defense mode -- now [chassis.defense_mode?"enabled":"disabled"].", LOG_MECHA)
 	else
 		chassis.log_message("defense mode state changed -- now [chassis.defense_mode?"enabled":"disabled"].", LOG_MECHA)
@@ -178,12 +184,10 @@ the shield is disabled by means other than the action button (like running out o
 		flick("shield_raise", src)
 		playsound(src, 'sound/mecha/mech_shield_raise.ogg', 50, FALSE)
 		set_light(l_range = MINIMUM_USEFUL_LIGHT_RANGE	, l_power = 5, l_color = "#00FFFF")
-		sleep(3)
 		icon_state = "shield"
 	else
 		flick("shield_drop", src)
 		playsound(src, 'sound/mecha/mech_shield_drop.ogg', 50, FALSE)
-		sleep(5)
 		set_light(0)
 		icon_state = "shield_null"
 		invisibility = INVISIBILITY_MAXIMUM //no showing on right-click

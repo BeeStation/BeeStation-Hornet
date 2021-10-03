@@ -148,17 +148,21 @@
 
 /obj/vehicle/ridden/scooter/skateboard/MouseDrop(atom/over_object)
 	. = ..()
-	var/mob/living/carbon/M = usr
-	if(!istype(M) || M.incapacitated() || !Adjacent(M))
+	var/mob/living/carbon/skater = usr
+	if(!istype(skater))
 		return
-	if(has_buckled_mobs() && over_object == M)
-		to_chat(M, "<span class='warning'>You can't lift this up when somebody's on it.</span>")
-		return
-	if(over_object == M)
-		var/board = new board_item_type(get_turf(M))
-		M.put_in_hands(board)
-		qdel(src)
+	if (over_object == skater)
+		pick_up_board(skater)
 
+
+/obj/vehicle/ridden/scooter/skateboard/proc/pick_up_board(mob/living/carbon/skater)
+	if (skater.incapacitated() || !Adjacent(skater))
+		return
+	if(has_buckled_mobs())
+		to_chat(skater, "<span class='warning'>You can't lift this up when somebody's on it.</span>")
+		return
+	skater.put_in_hands(new board_item_type(get_turf(skater)))
+	qdel(src)
 /obj/vehicle/ridden/scooter/skateboard/pro
 	name = "skateboard"
 	desc = "A RaDSTORMz brand professional skateboard. Looks a lot more stable than the average board."

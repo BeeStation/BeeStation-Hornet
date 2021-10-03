@@ -113,6 +113,7 @@
 /// Used to get a properly sanitized (html encoded) input, of max_length. no_trim is self explanatory but it prevents the input from being trimed if you intend to parse newlines or whitespace.
 /proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
 	var/name = input(user, message, title, default) as text|null
+
 	if(no_trim)
 		return copytext(html_encode(name), 1, max_length)
 	else
@@ -840,3 +841,10 @@ GLOBAL_LIST_INIT(binary, list("0","1"))
 			continue
 		out += prob(replaceprob) ? pick(replacementchars) : char
 	return out.Join("")
+
+/proc/num2loadingbar(percent as num, numSquares = 20, reverse = FALSE)
+	var/loadstring = ""
+	var/limit = reverse ? numSquares - percent*numSquares : percent*numSquares
+	for (var/i in 1 to numSquares)
+		loadstring += i <= limit ? "█" : "░"
+	return "\[[loadstring]\]"

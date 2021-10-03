@@ -24,18 +24,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
-"bI" = (
-/obj/machinery/door/airlock{
-	id_tag = "Dorm4";
-	name = "Long Term Stay Cabin 4"
+"bC" = (
+/obj/machinery/vending/games{
+	pixel_y = -1
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/turf/open/floor/carpet/red,
+/turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "bR" = (
 /obj/structure/chair/comfy/shuttle{
@@ -104,16 +97,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
-"ea" = (
-/obj/structure/dresser,
-/obj/structure/sign/poster/random{
-	pixel_y = 32
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/carpet/red,
-/area/shuttle/escape)
 "ed" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -139,10 +122,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"fg" = (
-/obj/structure/closet/secure_closet/personal/cabinet,
-/turf/open/floor/carpet/red,
-/area/shuttle/escape)
 "fr" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -160,6 +139,7 @@
 	name = "Morgue";
 	req_access_txt = "6"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "fG" = (
@@ -181,10 +161,7 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "fO" = (
@@ -200,6 +177,10 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
+"gk" = (
+/obj/structure/bookcase/random/nonfiction,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "gl" = (
@@ -246,18 +227,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
-"ix" = (
-/obj/structure/dresser,
-/turf/open/floor/carpet/red,
-/area/shuttle/escape)
 "iy" = (
 /obj/machinery/door/airlock/wood{
 	name = "VIP Lounge"
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/carpet/red,
 /area/shuttle/escape)
 "iN" = (
@@ -269,6 +243,21 @@
 "iX" = (
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
+"iZ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/status_display/shuttle{
+	pixel_x = 32
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "jc" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -278,6 +267,16 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
+"kt" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/status_display/shuttle{
+	pixel_y = -32
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
 "kD" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/bottle/epinephrine,
@@ -286,10 +285,6 @@
 /area/shuttle/escape)
 "kF" = (
 /turf/open/floor/wood,
-/area/shuttle/escape)
-"kK" = (
-/obj/machinery/food_cart,
-/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "kL" = (
 /obj/effect/turf_decal/tile/blue{
@@ -308,16 +303,11 @@
 /obj/item/storage/backpack/duffelbag/med/surgery,
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
-"lN" = (
-/obj/machinery/button/door{
-	id = "Dorm2";
-	name = "Dormitory Door Lock";
-	normaldoorcontrol = 1;
-	pixel_x = -6;
-	pixel_y = -26;
-	specialfunctions = 4
+"lG" = (
+/obj/structure/chair/wood{
+	dir = 1
 	},
-/turf/open/floor/carpet/red,
+/turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "mI" = (
 /obj/effect/turf_decal/stripes/line{
@@ -346,9 +336,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "nf" = (
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -357,6 +344,9 @@
 	},
 /obj/effect/turf_decal/tile/red{
 	dir = 4
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -378,10 +368,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "nI" = (
@@ -404,12 +391,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
+"ow" = (
+/obj/structure/bookcase/random/adult,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "oI" = (
@@ -425,6 +411,13 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
+"oO" = (
+/obj/structure/displaycase,
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "pa" = (
 /obj/effect/turf_decal/tile/blue{
@@ -478,18 +471,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
+"qn" = (
+/obj/structure/displaycase,
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "qr" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Medical Bay"
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "qv" = (
@@ -555,14 +552,14 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "sB" = (
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -632,10 +629,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "ux" = (
@@ -682,12 +676,7 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "uP" = (
@@ -703,6 +692,20 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
+"uQ" = (
+/obj/machinery/computer/libraryconsole/bookmanagement{
+	pixel_y = 7
+	},
+/obj/structure/table/wood,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
+"uR" = (
+/obj/machinery/food_cart,
+/obj/machinery/status_display/shuttle{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
 "vc" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -717,7 +720,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "vl" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
@@ -725,6 +727,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "vM" = (
@@ -755,16 +758,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Emergency Shuttle Engineering";
 	req_one_access_txt = "32;19"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "wj" = (
@@ -781,6 +779,10 @@
 	},
 /obj/item/storage/firstaid/fire,
 /turf/open/floor/mineral/titanium/white,
+/area/shuttle/escape)
+"wk" = (
+/obj/structure/bookcase/random/reference,
+/turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "wl" = (
 /obj/structure/chair/comfy/shuttle{
@@ -833,12 +835,7 @@
 	name = "Cockpit";
 	req_access_txt = "19"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "xH" = (
@@ -896,6 +893,12 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
+"yM" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
 "zd" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/yellow,
@@ -952,19 +955,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
-"Al" = (
-/obj/machinery/door/airlock{
-	id_tag = "Dorm3";
-	name = "Long Term Stay Cabin 3"
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/turf/open/floor/carpet/red,
-/area/shuttle/escape)
 "AF" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium,
@@ -1006,7 +996,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Br" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "Bt" = (
@@ -1022,6 +1012,14 @@
 "BI" = (
 /turf/open/floor/plating,
 /area/shuttle/escape)
+"BN" = (
+/obj/structure/closet/emcloset/anchored,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/status_display/shuttle{
+	pixel_y = 32
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/escape)
 "BQ" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
@@ -1034,17 +1032,23 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
-"CQ" = (
-/obj/structure/chair/comfy/shuttle{
+"Ct" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel,
+/area/shuttle/escape)
+"CA" = (
+/obj/structure/bookcase/random/religion,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
+"CH" = (
+/obj/structure/chair/comfy/black{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/mineral/titanium,
+/turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Dn" = (
 /obj/effect/turf_decal/stripes/line,
@@ -1087,31 +1091,28 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
-"DO" = (
-/obj/machinery/button/door{
-	id = "Dorm1";
-	name = "Dormitory Door Lock";
-	normaldoorcontrol = 1;
-	pixel_x = -6;
-	pixel_y = -24;
-	specialfunctions = 4
-	},
-/turf/open/floor/carpet/red,
-/area/shuttle/escape)
 "DP" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Emergency Shuttle Engineering";
 	req_one_access_txt = "32;19"
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
+"DT" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/status_display/shuttle{
+	pixel_y = 32
+	},
+/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Ei" = (
 /obj/machinery/light{
@@ -1149,11 +1150,20 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
+"Fd" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -1;
+	pixel_y = 3
+	},
+/obj/item/pen,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
 "Fp" = (
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "FS" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/carpet/red,
 /area/shuttle/escape)
 "Gu" = (
@@ -1172,11 +1182,6 @@
 	req_access_txt = "2"
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
-/area/shuttle/escape)
-"GX" = (
-/obj/structure/bed,
-/obj/item/bedsheet/dorms,
-/turf/open/floor/carpet/red,
 /area/shuttle/escape)
 "Hh" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1289,12 +1294,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Km" = (
@@ -1479,6 +1479,18 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
+"Nb" = (
+/obj/machinery/button/door{
+	id = "Dorm2";
+	name = "Dormitory Door Lock";
+	normaldoorcontrol = 1;
+	pixel_x = -6;
+	pixel_y = -26;
+	specialfunctions = 4
+	},
+/obj/structure/bookcase/random/fiction,
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
 "Ng" = (
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
@@ -1497,6 +1509,10 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
+"NW" = (
+/obj/structure/bookcase/random/fiction,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "NX" = (
@@ -1539,19 +1555,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
-"PL" = (
-/obj/machinery/door/airlock{
-	id_tag = "Dorm2";
-	name = "Long Term Stay Cabin 2"
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/turf/open/floor/carpet/red,
-/area/shuttle/escape)
 "Qt" = (
 /obj/structure/bodycontainer/morgue,
 /obj/machinery/light/small{
@@ -1590,17 +1593,6 @@
 	},
 /turf/open/floor/plating,
 /area/shuttle/escape)
-"QT" = (
-/obj/machinery/button/door{
-	id = "Dorm4";
-	name = "Dormitory Door Lock";
-	normaldoorcontrol = 1;
-	pixel_x = 26;
-	pixel_y = -26;
-	specialfunctions = 4
-	},
-/turf/open/floor/carpet/red,
-/area/shuttle/escape)
 "QZ" = (
 /obj/effect/turf_decal/box/corners,
 /obj/effect/turf_decal/box/corners{
@@ -1631,17 +1623,6 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
-"Rs" = (
-/obj/machinery/button/door{
-	id = "Dorm3";
-	name = "Dormitory Door Lock";
-	normaldoorcontrol = 1;
-	pixel_x = 26;
-	pixel_y = -26;
-	specialfunctions = 4
-	},
-/turf/open/floor/carpet/red,
-/area/shuttle/escape)
 "RB" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -1653,11 +1634,6 @@
 	dir = 5
 	},
 /turf/open/floor/mineral/titanium,
-/area/shuttle/escape)
-"RR" = (
-/obj/structure/window/shuttle,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
 /area/shuttle/escape)
 "Sl" = (
 /obj/machinery/computer/operating{
@@ -1686,6 +1662,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
+"Sy" = (
+/obj/effect/spawner/structure/window/shuttle,
+/turf/open/floor/plating,
+/area/shuttle/escape)
 "SZ" = (
 /obj/machinery/door/airlock/security{
 	req_access_txt = "2"
@@ -1696,12 +1676,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Td" = (
@@ -1750,31 +1725,27 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
-"UF" = (
-/obj/structure/sign/poster/random{
-	pixel_x = -32
+"TQ" = (
+/obj/machinery/door/window/northright{
+	base_state = "left";
+	dir = 2;
+	icon_state = "left";
+	name = "Library Desk Door";
+	req_access_txt = "37"
 	},
-/obj/machinery/light{
+/obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/open/floor/carpet/red,
+/turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
-"UQ" = (
-/obj/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
-"Vs" = (
-/obj/machinery/door/airlock{
-	id_tag = "Dorm1";
-	name = "Long Term Stay Cabin 1"
+"Up" = (
+/obj/structure/table/wood,
+/obj/machinery/door/window/northright{
+	name = "Library Desk Door";
+	pixel_x = 3;
+	req_access_txt = "37"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
-/turf/open/floor/carpet/red,
+/turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Vx" = (
 /turf/open/floor/carpet/red,
@@ -1792,27 +1763,14 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Emergency Shuttle Medical Bay"
 	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/escape)
-"WY" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "Xk" = (
 /obj/machinery/door/airlock/external/glass,
@@ -1831,6 +1789,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
+"Xy" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/titanium,
+/area/shuttle/escape)
 "XV" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -1847,8 +1812,19 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
+"Yw" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/storage/crayons,
+/obj/machinery/status_display/shuttle{
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/escape)
 "Zf" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "Zm" = (
@@ -1858,7 +1834,6 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "ZL" = (
-/obj/machinery/door/firedoor/border_only,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
@@ -1866,6 +1841,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "ZN" = (
@@ -1913,9 +1889,9 @@ GK
 Tw
 IK
 Tw
-RR
-RR
-RR
+Sy
+Sy
+Sy
 Tw
 QQ
 Tw
@@ -1944,8 +1920,8 @@ MH
 MH
 Tw
 Tw
-RR
-RR
+Sy
+Sy
 Tw
 Bt
 Pu
@@ -1990,7 +1966,7 @@ zz
 pB
 sK
 Ho
-UQ
+Sy
 qE
 QN
 dX
@@ -2022,7 +1998,7 @@ JU
 MH
 MH
 Tw
-WY
+DT
 Pu
 Pu
 Pu
@@ -2030,7 +2006,7 @@ Pu
 ul
 Pu
 rH
-UQ
+Sy
 qE
 RB
 ZN
@@ -2070,7 +2046,7 @@ Pu
 pB
 Pu
 jc
-UQ
+Sy
 qE
 qE
 qE
@@ -2100,7 +2076,7 @@ JU
 "}
 (6,1,1) = {"
 MH
-RR
+Sy
 Bt
 pB
 Bt
@@ -2116,7 +2092,7 @@ vP
 VD
 zo
 Np
-CQ
+iZ
 VD
 zo
 Zf
@@ -2139,8 +2115,8 @@ BQ
 BQ
 "}
 (7,1,1) = {"
-RR
-RR
+Sy
+Sy
 uP
 Fp
 fK
@@ -2152,9 +2128,9 @@ Bt
 SZ
 Bt
 pB
-UQ
-UQ
-UQ
+Sy
+Sy
+Sy
 pB
 pB
 pB
@@ -2179,7 +2155,7 @@ BQ
 MH
 "}
 (8,1,1) = {"
-RR
+Sy
 MN
 mI
 Fp
@@ -2213,13 +2189,13 @@ Xo
 bR
 wl
 Xo
-RR
+Sy
 ar
 MH
 MH
 "}
 (9,1,1) = {"
-RR
+Sy
 tb
 Fp
 Rj
@@ -2253,13 +2229,13 @@ kF
 kF
 kF
 Br
-RR
+Sy
 ar
 Ju
 MH
 "}
 (10,1,1) = {"
-RR
+Sy
 xi
 AF
 ci
@@ -2273,11 +2249,11 @@ Ny
 gL
 qg
 Bt
-pB
-Vs
-pB
-pB
-PL
+Bt
+oi
+oi
+oi
+Bt
 Bt
 rx
 ek
@@ -2293,32 +2269,32 @@ Vx
 Vx
 Vx
 KW
-RR
+Sy
 ar
 MH
 MH
 "}
 (11,1,1) = {"
-RR
+Sy
 DL
 AF
 yL
 tX
 Xu
-Es
+kt
 pB
 IJ
 Bo
 xL
-iX
+Ct
 fO
 pB
-GX
-DO
-pB
-GX
-lN
-pB
+yM
+qE
+qE
+qE
+Nb
+Bt
 rx
 ux
 qv
@@ -2333,13 +2309,13 @@ Vx
 Vx
 Vx
 pW
-RR
+Sy
 ar
 MH
 MH
 "}
 (12,1,1) = {"
-RR
+Sy
 tb
 Fp
 iN
@@ -2353,12 +2329,12 @@ ZZ
 iX
 yG
 pB
-ea
-Vx
-pB
-ea
-Vx
-pB
+Yw
+qE
+oO
+qE
+NW
+Bt
 ts
 Mm
 Mm
@@ -2373,13 +2349,13 @@ kF
 kF
 kF
 Br
-RR
+Sy
 ar
 Ju
 MH
 "}
 (13,1,1) = {"
-RR
+Sy
 oI
 Hh
 Fp
@@ -2390,15 +2366,15 @@ Bt
 qE
 Bo
 QZ
-kK
+uR
 aJ
 pB
-GX
-Vx
-pB
-GX
-Vx
-pB
+Fd
+qE
+Xy
+qE
+bC
+Bt
 rx
 kL
 ux
@@ -2413,14 +2389,14 @@ JL
 hP
 Ht
 JL
-RR
+Sy
 ar
 MH
 MH
 "}
 (14,1,1) = {"
-RR
-RR
+Sy
+Sy
 Dn
 Fp
 fK
@@ -2433,12 +2409,12 @@ Bt
 pB
 pB
 pB
-pB
-pB
-pB
-pB
-pB
-pB
+CH
+qE
+qn
+qE
+gk
+Sy
 rx
 Zm
 Zm
@@ -2460,7 +2436,7 @@ MH
 "}
 (15,1,1) = {"
 MH
-RR
+Sy
 Bt
 pB
 Bt
@@ -2470,14 +2446,14 @@ Bt
 oi
 oi
 pB
-ix
-UF
-fg
-pB
-fg
-UF
-Vx
-ix
+ow
+Ei
+Up
+qE
+qE
+qE
+qE
+gk
 pB
 rx
 Oh
@@ -2510,13 +2486,13 @@ Ph
 Ph
 yp
 pB
-GX
-QT
-GX
-pB
-GX
-Rs
-GX
+CA
+qE
+TQ
+qE
+uQ
+lG
+wk
 Bt
 Bt
 rx
@@ -2542,7 +2518,7 @@ JU
 MH
 MH
 Tw
-DF
+BN
 rx
 qE
 qE
@@ -2551,12 +2527,12 @@ qE
 ze
 Bt
 Bt
-bI
+Sy
 Bt
-pB
-pB
-Al
-pB
+Bt
+Bt
+Sy
+Bt
 Bt
 ux
 ek
@@ -2624,8 +2600,8 @@ MH
 MH
 Tw
 Tw
-RR
-RR
+Sy
+Sy
 Tw
 Bt
 Ln
@@ -2673,9 +2649,9 @@ Xk
 Tw
 Xk
 Tw
-RR
-RR
-RR
+Sy
+Sy
+Sy
 Tw
 Xk
 Tw
@@ -2687,8 +2663,8 @@ MH
 Tw
 Tw
 Tw
-RR
-RR
+Sy
+Sy
 Tw
 Tw
 Tw

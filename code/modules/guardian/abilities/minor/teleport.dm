@@ -41,7 +41,7 @@
 		return
 
 	var/turf/T = get_turf(A)
-	if(G.beacon.z != T.z)
+	if(G.beacon.get_virtual_z_level() != T.get_virtual_z_level())
 		to_chat(G, "<span class='danger'><B>The beacon is too far away to warp to!</span></B>")
 		return
 	remove_ranged_ability()

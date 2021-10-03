@@ -113,6 +113,11 @@
 	icon_state = "vintageberet"
 	dog_fashion = null
 
+/obj/item/clothing/head/beret/navy
+	name = "navy beret"
+	icon_state = "beret_blue"
+	dog_fashion = null
+
 /obj/item/clothing/head/beret/archaic
 	name = "archaic beret"
 	desc = "An absolutely ancient beret, allegedly worn by the first mime to ever step foot on a Nanotrasen station."
@@ -213,6 +218,8 @@
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/clothing/head/warden/drill/proc/handle_speech(datum/source, mob/speech_args)
+	SIGNAL_HANDLER
+
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		switch (mode)

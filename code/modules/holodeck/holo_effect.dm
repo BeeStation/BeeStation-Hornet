@@ -28,31 +28,36 @@
 /obj/effect/holodeck_effect/cards
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_nanotrasen_full"
-	var/obj/item/toy/cards/deck/D
+	var/obj/item/toy/cards/deck/deck
 
 /obj/effect/holodeck_effect/cards/activate(var/obj/machinery/computer/holodeck/HC)
-	D = new(loc)
+	deck = new(loc)
 	safety(!(HC.obj_flags & EMAGGED))
-	D.holo = HC
-	return D
+	deck.holo = HC
+	RegisterSignal(deck, COMSIG_PARENT_QDELETING, .proc/handle_card_delete)
+	return deck
+
+/obj/effect/holodeck_effect/cards/proc/handle_card_delete(datum/source)
+	SIGNAL_HANDLER
+	deck = null
 
 /obj/effect/holodeck_effect/cards/safety(active)
-	if(!D)
+	if(!deck)
 		return
 	if(active)
-		D.card_hitsound = null
-		D.card_force = 0
-		D.card_throwforce = 0
-		D.card_throw_speed = 3
-		D.card_throw_range = 7
-		D.card_attack_verb = list("attacked")
+		deck.card_hitsound = null
+		deck.card_force = 0
+		deck.card_throwforce = 0
+		deck.card_throw_speed = 3
+		deck.card_throw_range = 7
+		deck.card_attack_verb = list("attacked")
 	else
-		D.card_hitsound = 'sound/weapons/bladeslice.ogg'
-		D.card_force = 5
-		D.card_throwforce = 10
-		D.card_throw_speed = 3
-		D.card_throw_range = 7
-		D.card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
+		deck.card_hitsound = 'sound/weapons/bladeslice.ogg'
+		deck.card_force = 5
+		deck.card_throwforce = 10
+		deck.card_throw_speed = 3
+		deck.card_throw_range = 7
+		deck.card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
 
 
 /obj/effect/holodeck_effect/sparks/activate(var/obj/machinery/computer/holodeck/HC)
@@ -61,30 +66,43 @@
 		var/datum/effect_system/spark_spread/s = new
 		s.set_up(3, 1, T)
 		s.start()
-		T.temperature = 5000
+		T.set_temperature(5000)
 		T.hotspot_expose(50000,50000,1)
 
+/obj/effect/holodeck_effect/random_book
 
+
+/obj/effect/holodeck_effect/random_book/activate(obj/machinery/computer/holodeck/father_holodeck)
+	var/static/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear, /obj/item/book/manual/wiki)
+	var/newtype = pick(subtypesof(/obj/item/book/manual) - banned_books)
+	var/obj/item/book/manual/to_spawn = new newtype(loc)
+	to_spawn.flags_1 |= (HOLOGRAM_1 | NODECONSTRUCT_1)
+	return to_spawn
 
 /obj/effect/holodeck_effect/mobspawner
 	var/mobtype = /mob/living/simple_animal/hostile/carp/holocarp
-	var/mob/mob = null
+	var/mob/our_mob = null
 
 /obj/effect/holodeck_effect/mobspawner/activate(var/obj/machinery/computer/holodeck/HC)
 	if(islist(mobtype))
 		mobtype = pick(mobtype)
-	mob = new mobtype(loc)
-	mob.flags_1 |= HOLOGRAM_1
+	our_mob = new mobtype(loc)
+	our_mob.flags_1 |= HOLOGRAM_1
 
 	// these vars are not really standardized but all would theoretically create stuff on death
-	for(var/v in list("butcher_results","corpse","weapon1","weapon2","blood_volume") & mob.vars)
-		mob.vars[v] = null
-	return mob
+	for(var/v in list("butcher_results","corpse","weapon1","weapon2","blood_volume") & our_mob.vars)
+		our_mob.vars[v] = null
+	RegisterSignal(our_mob, COMSIG_PARENT_QDELETING, .proc/handle_mob_delete)
+	return our_mob
 
 /obj/effect/holodeck_effect/mobspawner/deactivate(var/obj/machinery/computer/holodeck/HC)
-	if(mob)
-		HC.derez(mob)
+	if(our_mob)
+		HC.derez(our_mob)
 	qdel(src)
+
+/obj/effect/holodeck_effect/mobspawner/proc/handle_mob_delete(datum/source)
+	SIGNAL_HANDLER
+	our_mob = null
 
 /obj/effect/holodeck_effect/mobspawner/pet
 	mobtype = list(
@@ -101,7 +119,7 @@
 
 /obj/effect/holodeck_effect/mobspawner/penguin
 	mobtype = /mob/living/simple_animal/pet/penguin/emperor
-	
+
 /obj/effect/holodeck_effect/mobspawner/penguin/Initialize()
 	if(prob(1))
 		mobtype = /mob/living/simple_animal/pet/penguin/emperor/shamebrero
@@ -109,3 +127,21 @@
 
 /obj/effect/holodeck_effect/mobspawner/penguin_baby
 	mobtype = /mob/living/simple_animal/pet/penguin/baby
+
+/obj/effect/holodeck_effect/mobspawner/cat
+	mobtype = /mob/living/simple_animal/pet/cat
+
+/obj/effect/holodeck_effect/mobspawner/butterfly
+	mobtype = /mob/living/simple_animal/butterfly
+
+/obj/effect/holodeck_effect/mobspawner/clown
+	mobtype = list (/mob/living/simple_animal/hostile/retaliate/clown = 10,
+	/mob/living/simple_animal/hostile/retaliate/clown/banana = 6, /mob/living/simple_animal/hostile/retaliate/clown/honkling = 6,
+	/mob/living/simple_animal/hostile/retaliate/clown/fleshclown = 3, /mob/living/simple_animal/hostile/retaliate/clown/longface = 3,
+	/mob/living/simple_animal/hostile/retaliate/clown/mutant = 1, /mob/living/simple_animal/hostile/retaliate/clown/mutant/blob = 1)
+
+/obj/effect/holodeck_effect/mobspawner/psycho
+	mobtype = list (/mob/living/simple_animal/hostile/psycho/regular = 9,
+					/mob/living/simple_animal/hostile/psycho/muzzle = 3,
+					/mob/living/simple_animal/hostile/psycho/fast = 3,
+					/mob/living/simple_animal/hostile/psycho/trap = 1)

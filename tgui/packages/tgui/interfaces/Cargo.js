@@ -1,5 +1,4 @@
 import { toArray } from 'common/collections';
-import { Fragment } from 'inferno';
 import { useBackend, useSharedState } from '../backend';
 import { AnimatedNumber, Box, Button, Flex, LabeledList, Section, Table, Tabs } from '../components';
 import { formatMoney } from '../format';
@@ -15,7 +14,6 @@ export const Cargo = (props, context) => {
   const requests = data.requests || [];
   return (
     <Window
-      resizable
       width={780}
       height={750}>
       <Window.Content scrollable>
@@ -118,10 +116,14 @@ const CargoStatus = (props, context) => {
 };
 
 export const CargoCatalog = (props, context) => {
-  const { express } = props;
+  const { 
+    express,
+    canOrder = true,
+  } = props;
   const { act, data } = useBackend(context);
   const {
     self_paid,
+    points,
   } = data;
   const supplies = toArray(data.supplies);
   const [
@@ -135,14 +137,14 @@ export const CargoCatalog = (props, context) => {
     <Section
       title="Catalog"
       buttons={!express && (
-        <Fragment>
+        <>
           <CargoCartButtons />
           <Button.Checkbox
             ml={2}
             content="Buy Privately"
             checked={self_paid}
             onClick={() => act('toggleprivate')} />
-        </Fragment>
+        </>
       )}>
       <Flex>
         <Flex.Item ml={-1} mr={1}>
@@ -187,6 +189,8 @@ export const CargoCatalog = (props, context) => {
                       fluid
                       tooltip={pack.desc}
                       tooltipPosition="left"
+                      disabled={!canOrder 
+                        || (express && points && points<pack.cost)}
                       onClick={() => act('add', {
                         id: pack.id,
                       })}>
@@ -284,7 +288,7 @@ const CargoCartButtons = (props, context) => {
     return null;
   }
   return (
-    <Fragment>
+    <>
       <Box inline mx={1}>
         {cart.length === 0 && 'Cart is empty'}
         {cart.length === 1 && '1 item'}
@@ -297,7 +301,7 @@ const CargoCartButtons = (props, context) => {
         color="transparent"
         content="Clear"
         onClick={() => act('clear')} />
-    </Fragment>
+    </>
   );
 };
 

@@ -37,6 +37,7 @@
 	initial_gas_mix = AIRLESS_ATMOS
 
 /turf/open/lava/Entered(atom/movable/AM)
+	. = ..()
 	if(burn_stuff(AM))
 		START_PROCESSING(SSobj, src)
 
@@ -51,8 +52,8 @@
 	if(burn_stuff(AM))
 		START_PROCESSING(SSobj, src)
 
-/turf/open/lava/process()
-	if(!burn_stuff())
+/turf/open/lava/process(delta_time)
+	if(!burn_stuff(null, delta_time))
 		STOP_PROCESSING(SSobj, src)
 
 /turf/open/lava/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
@@ -99,7 +100,7 @@
 	return LAZYLEN(found_safeties)
 
 
-/turf/open/lava/proc/burn_stuff(AM)
+/turf/open/lava/proc/burn_stuff(AM, delta_time = 1)
 	. = 0
 
 	if(is_safe())
@@ -122,7 +123,7 @@
 				O.resistance_flags &= ~FIRE_PROOF
 			if(O.armor.fire > 50) //obj with 100% fire armor still get slowly burned away.
 				O.armor = O.armor.setRating(fire = 50)
-			O.fire_act(10000, 1000)
+			O.fire_act(10000, 1000 * delta_time)
 			if(istype(O, /obj/structure/closet))
 				var/obj/structure/closet/C = O
 				for(var/I in C.contents)
@@ -157,10 +158,9 @@
 
 			if("lava" in L.weather_immunities)
 				continue
-
-			L.adjustFireLoss(20)
+			L.adjustFireLoss(20 * delta_time)
 			if(L) //mobs turning into object corpses could get deleted here.
-				L.adjust_fire_stacks(20)
+				L.adjust_fire_stacks(20 * delta_time)
 				L.IgniteMob()
 
 /turf/open/lava/smooth

@@ -45,25 +45,6 @@
 			adjustBruteLoss(2)
 
 		if(stat != DEAD)
-			//handle embedded objects
-			//Stuff jammed in your limbs hurts
-			for(var/X in bodyparts)
-				var/obj/item/bodypart/BP = X
-				for(var/obj/item/I in BP.embedded_objects)
-					if(prob(I.embedding.embedded_pain_chance))
-						BP.receive_damage(I.w_class*I.embedding.embedded_pain_multiplier)
-						to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
-
-					if(prob(I.embedding.embedded_fall_chance))
-						BP.receive_damage(I.w_class*I.embedding.embedded_fall_pain_multiplier)
-						BP.embedded_objects -= I
-						I.forceMove(drop_location())
-						visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
-						if(!has_embedded_objects())
-							clear_alert("embeddedobject")
-							SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "embedded")
-
-		if(stat != DEAD)
 			//Handle hygiene
 			if(HAS_TRAIT(src, TRAIT_ALWAYS_CLEAN))
 				set_hygiene(HYGIENE_LEVEL_CLEAN)
@@ -104,27 +85,35 @@
 
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
-	if (wear_suit && head && isclothing(wear_suit) && isclothing(head))
-		var/obj/item/clothing/CS = wear_suit
-		var/obj/item/clothing/CH = head
-		if (CS.clothing_flags & CH.clothing_flags & STOPSPRESSUREDAMAGE)
-			return ONE_ATMOSPHERE
+	var/chest_covered = FALSE
+	var/head_covered = FALSE
+	for(var/obj/item/clothing/equipped in get_equipped_items())
+		if((equipped.body_parts_covered & CHEST) && (equipped.clothing_flags & STOPSPRESSUREDAMAGE))
+			chest_covered = TRUE
+		if((equipped.body_parts_covered & HEAD) && (equipped.clothing_flags & STOPSPRESSUREDAMAGE))
+			head_covered = TRUE
+
+	if(chest_covered && head_covered)
+		return ONE_ATMOSPHERE
 	return pressure
 
 
 /mob/living/carbon/human/handle_traits()
+	if (getOrganLoss(ORGAN_SLOT_BRAIN) >= 60)
+		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
+	else
+		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
+
 	if(eye_blind)			//blindness, heals slowly over time
 		if(HAS_TRAIT_FROM(src, TRAIT_BLIND, EYES_COVERED)) //covering your eyes heals blurry eyes faster
 			adjust_blindness(-3)
 		else
 			adjust_blindness(-1)
-	else if(eye_blurry)			//blurry eyes heal slowly
+		//If you have blindness from a trait, heal blurryness too, otherwise return and ignore that.
+		if(!(HAS_TRAIT(src, TRAIT_BLIND)))
+			return
+	if(eye_blurry)			//blurry eyes heal slowly
 		adjust_blurriness(-1)
-
-	if (getOrganLoss(ORGAN_SLOT_BRAIN) >= 60)
-		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "brain_damage", /datum/mood_event/brain_damage)
-	else
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "brain_damage")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
 	if(!dna || !dna.species.handle_mutations_and_radiation(src))

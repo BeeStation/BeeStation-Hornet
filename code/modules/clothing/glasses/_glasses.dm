@@ -111,6 +111,11 @@
 	item_state = "sunhudscience"
 	flash_protect = 1
 
+/obj/item/clothing/glasses/science/sciencesun/degraded
+	name = "degraded science sunglasses"
+	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion."
+	flash_protect = 0
+
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
 	desc = "You can totally see in the dark now!"
@@ -284,12 +289,17 @@
 	icon_state = "bustin-g"
 	item_state = "bustin-g"
 	flash_protect = 1
-	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_INVISVIEW
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/team_monitor, "ghost", 1)
+
+/obj/item/clothing/glasses/welding/ghostbuster/visor_toggling()
+	..()
+	var/datum/component/team_monitor/ghost_vision = GetComponent(/datum/component/team_monitor)
+	ghost_vision.toggle_hud(!ghost_vision.hud_visible, usr)
 
 /obj/item/clothing/glasses/blindfold
 	name = "blindfold"
@@ -300,15 +310,6 @@
 	tint = 3
 	darkness_view = 1
 	dog_fashion = /datum/dog_fashion/head
-
-/obj/item/clothing/glasses/blindfold/equipped(mob/living/carbon/human/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_EYES)
-		user.become_blind("blindfold_[REF(src)]")
-
-/obj/item/clothing/glasses/blindfold/dropped(mob/living/carbon/human/user)
-	..()
-	user.cure_blind("blindfold_[REF(src)]")
 
 /obj/item/clothing/glasses/blindfold/white
 	name = "blind personnel blindfold"
@@ -338,7 +339,6 @@
 		. += M
 
 /obj/item/clothing/glasses/sunglasses/advanced/big
-	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	icon_state = "bigsunglasses"
 	item_state = "bigsunglasses"
 
@@ -349,7 +349,6 @@
 	item_state = "glasses"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = 0
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
@@ -362,7 +361,7 @@
 	name = "syndicate xray goggles"
 	desc = "A pair of xray goggles manufactured by the Syndicate."
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	flash_protect = -1
+	tint = -INFINITY
 
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete
 	name = "chameleon thermals"

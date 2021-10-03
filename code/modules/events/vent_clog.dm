@@ -19,7 +19,7 @@
 	//needs to be chemid unit checked at some point
 
 /datum/round_event/vent_clog/announce()
-	priority_announce("The scrubbers network is experiencing a backpressure surge. Some ejection of contents may occur.", "Atmospherics alert")
+	priority_announce("The scrubbers network is experiencing a backpressure surge. Some ejection of contents may occur.", "Atmospherics alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/vent_clog/setup()
 	endWhen = rand(25, 100)
@@ -88,7 +88,7 @@
 	reagentsAmount = 100
 
 /datum/round_event/vent_clog/beer/announce()
-	priority_announce("The scrubbers network is experiencing an unexpected surge of pressurized beer. Some ejection of contents may occur.", "Atmospherics alert")
+	priority_announce("The scrubbers network is experiencing an unexpected surge of pressurized beer. Some ejection of contents may occur.", "Atmospherics alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/vent_clog/beer/start()
 	for(var/obj/machinery/atmospherics/components/unary/vent in vents)
@@ -103,7 +103,7 @@
 		CHECK_TICK
 
 /datum/round_event/vent_clog/plasma_decon/announce()
-	priority_announce("We are deploying an experimental plasma decontamination system. Please stand away from the vents and do not breathe the smoke that comes out.", "Central Command Update")
+	priority_announce("We are deploying an experimental plasma decontamination system. Please stand away from the vents and do not breathe the smoke that comes out.", "Central Command Update", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/vent_clog/plasma_decon/start()
 	for(var/obj/machinery/atmospherics/components/unary/vent in vents)

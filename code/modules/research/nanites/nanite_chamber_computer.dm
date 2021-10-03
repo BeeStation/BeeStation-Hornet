@@ -2,7 +2,6 @@
 	name = "nanite chamber control console"
 	desc = "Controls a connected nanite chamber. Can inoculate nanites, load programs, and analyze existing nanite swarms."
 	var/obj/machinery/nanite_chamber/chamber
-	var/obj/item/disk/nanite_program/disk
 	icon_screen = "nanite_chamber_control"
 	circuit = /obj/item/circuitboard/computer/nanite_chamber_control
 
@@ -17,8 +16,7 @@
 		var/C = locate(/obj/machinery/nanite_chamber, get_step(src, direction))
 		if(C)
 			var/obj/machinery/nanite_chamber/NC = C
-			chamber = NC
-			NC.console = src
+			set_connected_chamber(NC)
 
 /obj/machinery/computer/nanite_chamber_control/interact()
 	if(!chamber)
@@ -34,6 +32,7 @@
 	if(!ui)
 		ui = new(user, src, "NaniteChamberControl")
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/nanite_chamber_control/ui_data()
 	var/list/data = list()
@@ -102,3 +101,15 @@
 			log_combat(usr, chamber.occupant, "injected", null, "with nanites via [src]")
 			chamber.occupant.investigate_log("was injected with nanites by [key_name(usr)] via [src] at [AREACOORD(src)].", INVESTIGATE_NANITES)
 			. = TRUE
+
+/obj/machinery/computer/nanite_chamber_control/proc/set_connected_chamber(new_chamber)
+	if(chamber)
+		UnregisterSignal(chamber, COMSIG_PARENT_QDELETING)
+	chamber = new_chamber
+	ui_update()
+	if(chamber)
+		RegisterSignal(chamber, COMSIG_PARENT_QDELETING, .proc/react_to_chamber_del)
+
+/obj/machinery/computer/nanite_chamber_control/proc/react_to_chamber_del(datum/source)
+	SIGNAL_HANDLER
+	set_connected_chamber(null)

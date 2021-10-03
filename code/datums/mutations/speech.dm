@@ -30,6 +30,8 @@
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
 /datum/mutation/human/wacky/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
 	speech_args[SPEECH_SPANS] |= SPAN_SANS
 
 /datum/mutation/human/mute
@@ -73,7 +75,6 @@
 		message = " [message] "
 		//Time for a friendly game of SS13
 		message = replacetext(message," stupid "," smart ")
-		message = replacetext(message," retard "," genius ")
 		message = replacetext(message," unrobust "," robust ")
 		message = replacetext(message," dumb "," smart ")
 		message = replacetext(message," awful "," great ")
@@ -153,6 +154,8 @@
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
 /datum/mutation/human/swedish/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)
 		message = replacetext(message,"w","v")
@@ -182,6 +185,8 @@
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
 /datum/mutation/human/chav/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
@@ -242,6 +247,8 @@
 	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
 /datum/mutation/human/elvis/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)
 		message = " [message] "

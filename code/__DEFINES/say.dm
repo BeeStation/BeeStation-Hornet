@@ -89,9 +89,6 @@
 #define MAX_BROADCAST_LEN		512
 #define MAX_CHARTER_LEN			80
 
-//Sets the max string size that can be put in for circuit cloning
-#define MAX_SIZE_CIRCUIT		15000
-
 // Is something in the IC chat filter? This is config dependent.
 #define CHAT_FILTER_CHECK(T) (CONFIG_GET(flag/ic_filter_enabled) && config.ic_filter_regex && findtext(T, config.ic_filter_regex))
 // Is something in the OOC chat filter?
@@ -105,6 +102,5 @@
 #define INVOCATION_EMOTE "emote"
 #define INVOCATION_WHISPER "whisper"
 
-//Used in visible_message_flags, audible_message_flags and runechat_flags
-#define EMOTE_MESSAGE (1<<0)
-#define RADIO_MESSAGE (1<<1)
+//Used in visible_message_flags, audible_message_flags and message_mods
+#define CHATMESSAGE_EMOTE "emotemessage"

@@ -93,3 +93,30 @@
 		return
 	stored.attack_hand(H) // take out thing from backpack
 	return
+
+/datum/keybinding/human/quick_equip_suit_storage
+	key = "Shift-Q"
+	name = "quick_equip_suit_storage"
+	full_name = "Put Item In Suit Storage"
+	description = ""
+
+/datum/keybinding/human/quick_equip_suit_storage/down(client/user)
+	if(!ishuman(user.mob) || user.mob.incapacitated())
+		return
+	var/mob/living/carbon/human/H = user.mob
+	var/obj/item/thing = H.get_active_held_item()
+	var/obj/item/stored = H.get_item_by_slot(ITEM_SLOT_SUITSTORE)
+	if(!stored)
+		if(!thing)
+			to_chat(user, "<span class='notice'>There's nothing in your suit storage to take out.")
+			return TRUE
+		if(H.equip_to_slot_if_possible(thing, ITEM_SLOT_SUITSTORE))
+			H.update_inv_hands()
+			return TRUE
+	if(thing && stored)
+		to_chat(user, "<span class='notice'>There's already something in your suit storage!")
+		return TRUE
+	if(!stored || stored.on_found(H))
+		return TRUE
+	stored.attack_hand(H)
+	return TRUE

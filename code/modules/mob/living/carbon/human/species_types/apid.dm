@@ -4,8 +4,9 @@
 	id = "apid"
 	say_mod = "buzzes"
 	default_color = "FFE800"
-	species_traits = list(LIPS, NOEYESPRITES, TRAIT_BEEFRIEND)
-	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
+	species_traits = list(LIPS,NOEYESPRITES)
+	inherent_traits = list(TRAIT_BEEFRIEND)
+	inherent_biotypes = list(MOB_ORGANIC,MOB_HUMANOID,MOB_BUG)
 	mutanttongue = /obj/item/organ/tongue/bee
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
@@ -27,7 +28,7 @@
 
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()
-	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping()) // Sleep when cold, like bees
+	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping() && !HAS_TRAIT(H,TRAIT_RESISTCOLD)) // Sleep when cold, like bees
 		cold_cycle++
 		if(prob(5))
 			to_chat(H, "<span class='warning'>The cold is making you feel tired...</span>")

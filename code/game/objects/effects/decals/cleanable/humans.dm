@@ -65,6 +65,7 @@
 	layer = LOW_OBJ_LAYER
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	mergeable_decal = FALSE
+	turf_loc_check = FALSE
 
 	var/already_rotting = FALSE
 
@@ -81,6 +82,9 @@
 		name = "rotting [initial(name)]"
 		desc += " They smell terrible."
 	AddComponent(/datum/component/rot/gibs)
+
+/obj/effect/decal/cleanable/blood/gibs/replace_decal(obj/effect/decal/cleanable/C)
+	return FALSE //Never fail to place us
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return

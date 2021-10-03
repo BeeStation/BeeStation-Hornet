@@ -18,7 +18,7 @@
 	if(active)
 		return ..()
 	return 0
-	
+
 
 /obj/item/melee/transforming/Initialize()
 	. = ..()
@@ -28,6 +28,8 @@
 	else
 		if(attack_verb_off.len)
 			attack_verb = attack_verb_off
+		if(embedding)
+			updateEmbedding()
 	if(is_sharp())
 		AddComponent(/datum/component/butchering, 50, 100, 0, hitsound, !active)
 
@@ -59,6 +61,8 @@
 			attack_verb = attack_verb_on
 		icon_state = icon_state_on
 		w_class = w_class_on
+		if(embedding)
+			updateEmbedding()
 	else
 		force = initial(force)
 		throwforce = initial(throwforce)
@@ -68,6 +72,8 @@
 			attack_verb = attack_verb_off
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
+		if(embedding)
+			disableEmbedding()
 	if(is_sharp())
 		var/datum/component/butchering/BT = LoadComponent(/datum/component/butchering)
 		BT.butchering_enabled = TRUE
@@ -85,7 +91,7 @@
 /obj/item/melee/transforming/proc/transform_messages(mob/living/user, supress_message_text)
 	playsound(user, active ? 'sound/weapons/saberon.ogg' : 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
 	if(!supress_message_text)
-		to_chat(user, "<span class='notice'>[src] [active ? "is now active":"can now be concealed"].</span>")
+		balloon_alert(user, "[src] [active ? "is now active":"can now be concealed"]")
 
 /obj/item/melee/transforming/proc/clumsy_transform_effect(mob/living/user)
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))

@@ -25,8 +25,9 @@
 	var/total_message_count = 0
 	/// Next tick to reset the total message counter
 	var/total_count_reset = 0
-	var/ircreplyamount = 0
+	var/externalreplyamount = 0
 	var/cryo_warned = -3000//when was the last time we warned them about not cryoing without an ahelp, set to -5 minutes so that rounstart cryo still warns
+	var/staff_check_rate = 0 //when was the last time they checked online staff
 
 		/////////
 		//OTHER//
@@ -34,6 +35,7 @@
 	/// The client's preferences
 	var/datum/preferences/prefs = null
 	var/list/keybindings[0]
+	var/movement_locked = FALSE
 
 	/// The last world.time that the client's mob turned
 	var/last_turn = 0
@@ -42,12 +44,7 @@
 	var/move_delay = 0
 	var/area			= null
 
-		///////////////
-		//SOUND STUFF//
-		///////////////
-	var/ambient_buzz_playing = null // What buzz ambience is currently playing
-	var/ambient_buzz = null
-	var/ambient_effect_last_played = 0 // What was the last time we played an ambient effect noise?
+	var/buzz_playing = null
 		////////////
 		//SECURITY//
 		////////////
@@ -122,6 +119,3 @@
 
 	//Tick when ghost roles are useable again
 	var/next_ghost_role_tick = 0
-
-	/// Messages currently seen by this client
-	var/list/seen_messages

@@ -55,7 +55,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "ak" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
 /turf/open/floor/mineral/gold,
@@ -322,7 +322,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bl" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-10"
 	},
 /obj/machinery/light{
@@ -331,7 +331,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "cu" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -347,11 +347,11 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "nZ" = (
-/obj/item/twohanded/required/pool/pool_noodle,
+/obj/item/pool/pool_noodle,
 /turf/open/indestructible/sound/pool,
 /area/shuttle/escape/luxury)
 "vB" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -363,7 +363,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "wf" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3
@@ -397,7 +397,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "Ui" = (
-/obj/item/twohanded/required/pool/rubber_ring,
+/obj/item/pool/rubber_ring,
 /turf/open/indestructible/sound/pool,
 /area/shuttle/escape/luxury)
 "Vf" = (
@@ -410,7 +410,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "Vq" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-21";
 	pixel_x = -3;
 	pixel_y = 3

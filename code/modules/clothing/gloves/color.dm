@@ -7,6 +7,23 @@
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
+	cut_type = /obj/item/clothing/gloves/cut
+
+/obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
+	. = ..()
+	if((slot == ITEM_SLOT_GLOVES) && (user.mind?.assigned_role in GLOB.security_positions))
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
+
+/obj/item/clothing/gloves/color/black/dropped(mob/user)
+	. = ..()
+	if(user.mind?.assigned_role in GLOB.security_positions)
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
+
+/obj/item/clothing/gloves/color/black/hos
+	item_color = "hosred"	//Exists for washing machines. Is not different from black gloves in any way.
+
+/obj/item/clothing/gloves/color/black/ce
+	item_color = "chief"		//Exists for washing machines. Is not different from black gloves in any way.
 
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
 	. = ..()
@@ -33,6 +50,7 @@
 	permeability_coefficient = 0.05
 	item_color = "yellow"
 	resistance_flags = NONE
+	cut_type = /obj/item/clothing/gloves/cut
 
 /obj/item/clothing/gloves/color/fyellow/Initialize()
 	. = ..()
@@ -57,6 +75,16 @@
 	. = ..()
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
+/obj/item/clothing/gloves/cut
+	desc = "These gloves would protect the wearer from electric shock... if the fingers were covered."
+	name = "fingerless insulated gloves"
+	icon_state = "yellowcut"
+	item_state = "ygloves"
+	transfer_prints = TRUE
+
+/obj/item/clothing/gloves/cut/heirloom
+	desc = "The old gloves your great grandfather stole from Engineering, many moons ago. They've seen some tough times recently."
+
 /obj/item/clothing/gloves/color/black
 	desc = "These gloves are fire-resistant."
 	name = "black gloves"
@@ -68,33 +96,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	var/can_be_cut = 1
-
-/obj/item/clothing/gloves/color/black/equipped(mob/user, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_GLOVES)
-		if(user.mind?.assigned_role in GLOB.security_positions)
-			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
-
-/obj/item/clothing/gloves/color/black/dropped(mob/user)
-	. = ..()
-	if(user.mind?.assigned_role in GLOB.security_positions)
-		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
-
-/obj/item/clothing/gloves/color/black/hos
-	item_color = "hosred"	//Exists for washing machines. Is not different from black gloves in any way.
-
-/obj/item/clothing/gloves/color/black/ce
-	item_color = "chief"		//Exists for washing machines. Is not different from black gloves in any way.
-
-/obj/item/clothing/gloves/color/black/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER)
-		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
-			to_chat(user, "<span class='notice'>You snip the fingertips off of [src].</span>")
-			I.play_tool_sound(src)
-			new /obj/item/clothing/gloves/fingerless(drop_location())
-			qdel(src)
-	..()
+	cut_type = /obj/item/clothing/gloves/fingerless
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"

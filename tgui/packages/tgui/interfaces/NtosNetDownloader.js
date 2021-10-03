@@ -14,7 +14,6 @@ export const NtosNetDownloader = (props, context) => {
   } = data;
   return (
     <NtosWindow
-      resizable
       width={480}
       height={735}>
       <NtosWindow.Content scrollable>
