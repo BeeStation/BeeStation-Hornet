@@ -2892,9 +2892,7 @@
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/deepstorage/power)
 "gw" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel/white,
 /area/ruin/space/has_grav/deepstorage/dorm)
 "gx" = (
@@ -3309,6 +3307,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/deepstorage/airlock)
+"XQ" = (
+/obj/machinery/computer/operating{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/ruin/space/has_grav/deepstorage/dorm)
 
 (1,1,1) = {"
 aa
@@ -4074,7 +4078,7 @@ fN
 ge
 dB
 gw
-gw
+XQ
 dB
 ab
 ab

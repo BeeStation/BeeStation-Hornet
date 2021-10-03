@@ -164,8 +164,8 @@
 "id" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	set_obj_flags = "EMAGGED";
-	installation = /obj/item/gun/energy/lasercannon
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
 	},
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Fore)
@@ -1151,10 +1151,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/awaymission/BMPship/Aft)
-"AR" = (
-/obj/machinery/sleeper,
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Midship)
 "AT" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4
@@ -1572,8 +1568,8 @@
 "Iv" = (
 /obj/machinery/porta_turret{
 	dir = 8;
-	set_obj_flags = "EMAGGED";
-	installation = /obj/item/gun/energy/lasercannon
+	installation = /obj/item/gun/energy/lasercannon;
+	set_obj_flags = "EMAGGED"
 	},
 /turf/open/floor/engine,
 /area/awaymission/BMPship/Aft)
@@ -2047,12 +2043,6 @@
 "Sx" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/awaymission/BMPship/Fore)
-"SB" = (
-/obj/machinery/sleeper{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/awaymission/BMPship/Midship)
 "SF" = (
 /turf/open/floor/plasteel{
 	icon_state = "platingdmg3"
@@ -4221,7 +4211,7 @@ Ht
 mu
 Co
 mu
-SB
+mu
 VT
 mw
 Xr
@@ -4272,7 +4262,7 @@ Vw
 mu
 mu
 mu
-AR
+mu
 VT
 OD
 Xr
@@ -4374,7 +4364,7 @@ Hq
 mu
 aH
 mu
-SB
+mu
 VT
 mw
 Xr
@@ -4425,7 +4415,7 @@ qT
 mu
 aH
 mu
-AR
+mu
 VT
 qe
 KD

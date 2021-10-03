@@ -62,12 +62,10 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "an" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ao" = (
@@ -333,12 +331,6 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/ruin/powered/animal_hospital)
-"bn" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bo" = (
 /obj/machinery/light/small{
@@ -658,9 +650,6 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cJ" = (
-/obj/machinery/sleeper{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1908,7 +1897,7 @@ bh
 bv
 bv
 cJ
-bn
+ao
 bv
 bP
 ae

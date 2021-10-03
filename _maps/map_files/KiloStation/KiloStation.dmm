@@ -27281,9 +27281,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/sleeper{
-	dir = 4
-	},
+/obj/machinery/stasis,
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "aOI" = (

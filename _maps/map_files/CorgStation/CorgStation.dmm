@@ -96192,10 +96192,6 @@
 /turf/open/floor/plating,
 /area/library)
 "wAy" = (
-/obj/machinery/sleeper{
-	dir = 4;
-	icon_state = "sleeper"
-	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1

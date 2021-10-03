@@ -20979,13 +20979,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
-"bhb" = (
-/obj/machinery/sleeper,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/sleeper)
 "bhc" = (
 /obj/machinery/iv_drip,
 /obj/machinery/power/apc/auto_name/north{
@@ -59800,15 +59793,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"vIS" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/sleeper{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/central)
 "vIT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -95762,7 +95746,7 @@ bof
 bof
 ctQ
 bCB
-vIS
+jIS
 cvb
 bof
 bZN
@@ -96771,7 +96755,7 @@ aYV
 aYV
 ber
 cZK
-bhb
+blh
 sqB
 bmG
 bmG

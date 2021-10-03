@@ -28,11 +28,16 @@
 	var/enter_message = "<span class='notice'><b>You feel cool air surround you. You go numb as your senses turn inward.</b></span>"
 	payment_department = ACCOUNT_MED
 	fair_market_price = 5
+
 /obj/machinery/sleeper/Initialize()
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
 	update_icon()
 	reset_chem_buttons()
+
+/obj/machinery/sleeper/Destroy()
+	. = ..()
+	qdel(circuit)
 
 /obj/machinery/sleeper/RefreshParts()
 	var/E
