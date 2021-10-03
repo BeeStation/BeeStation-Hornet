@@ -1135,6 +1135,8 @@ eg2: `center_image(I, 96,96)`
 				picked_turfs |= T
 			L.Cut(I,I+1)
 		CHECK_TICK
+	if(amount == 1)
+		return picked_turfs[1]
 	return picked_turfs
 
 /proc/get_closest_atom(type, list, source)
