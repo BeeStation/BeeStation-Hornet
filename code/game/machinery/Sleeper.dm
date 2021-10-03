@@ -35,10 +35,6 @@
 	update_icon()
 	reset_chem_buttons()
 
-/obj/machinery/sleeper/Destroy()
-	. = ..()
-	qdel(circuit)
-
 /obj/machinery/sleeper/RefreshParts()
 	var/E
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
