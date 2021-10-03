@@ -126,6 +126,7 @@
 #define NOHUSK			22 // Can't be husked.
 #define ROBOTIC_LIMBS	23 //limbs start out as robotic; but also use organic icons. If you want to use the default ones, you'll have to use on_species_gain
 #define NOMOUTH			24
+#define SQUIDLEGS       25 // Like the lizard's digitigrade feet, but for squids. Currently is only relevant for wearing socks
 
 //organ slots
 #define ORGAN_SLOT_BRAIN "brain"
