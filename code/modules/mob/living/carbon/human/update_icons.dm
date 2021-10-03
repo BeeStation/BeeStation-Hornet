@@ -282,11 +282,16 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_inv_neck()
 	remove_overlay(NECK_LAYER)
 
-	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1])
+	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1]
 		inv.update_icon()
 
 	if(wear_neck)
+		wear_neck.screen_loc = ui_neck
+		if(client && hud_used && hud_used.hud_shown)
+			if(hud_used.inventory_shown)			//if the inventory is open
+				client.screen += wear_neck					//add it to the client's screen
+		update_observer_view(wear_neck,1)
 		if(!(ITEM_SLOT_NECK in check_obscured_slots()))
 			var/icon_file = 'icons/mob/neck.dmi'
 			if(istype(wear_neck, /obj/item))
@@ -476,11 +481,12 @@ There are several things that need to be remembered:
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
 		return
 
-	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1])
+	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1]
 		inv.update_icon()
 
 	if(wear_mask)
+		update_hud_wear_mask(wear_mask)
 		var/icon_file = 'icons/mob/mask.dmi'
 		if(istype(wear_mask, /obj/item/clothing/mask))
 			var/obj/item/clothing/mask/M = wear_mask
