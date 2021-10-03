@@ -219,26 +219,21 @@
 	stage_rate = 0
 	transmission = 0
 	severity = 0
-	for(var/datum/symptom/S as() in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
+	for(var/datum/symptom/S as() in symptoms)
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
 		S.severityset(src)
-		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
-			severity += S.severity
-	for(var/datum/symptom/S as() in symptoms)
-		S.severityset(src)
-		if(!S.neutered)
-			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
-				if(1 to 2)
-					severity= max(severity, min(3, (S.severity + severity)))
-				if(3 to 4)
-					severity = max(severity, min(4, (S.severity + severity)))
-	for(var/datum/symptom/S as() in symptoms) //benign and beneficial symptoms go last
-		S.severityset(src)
-		if(!S.neutered && S.severity <= 0)
-			severity += S.severity
+		if(S.neutered)
+			continue
+		switch(severity)
+			if(1 to 2)
+				severity= max(severity, min(3, (S.severity + severity)))
+			if(3 to 4)
+				severity = max(severity, min(4, (S.severity + severity)))
+			else		// <= 0 or >= 5
+				severity += S.severity
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
