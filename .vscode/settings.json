@@ -15,6 +15,12 @@
 	"workbench.editorAssociations": {
 		"*.dmi": "imagePreview.previewEditor"
 	},
+<<<<<<< Updated upstream
+=======
+	"workbench.editorAssociations": {
+		"*.dmi": "imagePreview.previewEditor"
+	},
+>>>>>>> Stashed changes
 	"files.eol": "\n",
 	"files.insertFinalNewline": true,
 	"gitlens.advanced.blame.customArguments": ["-w"],
