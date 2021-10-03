@@ -1,0 +1,5 @@
+author: St0rmC4st3r
+delete-after: true
+changes:
+  - bugfix: Shuttles will no longer refuse to lift off due to counting all other shuttle's
+      weight as their own.
