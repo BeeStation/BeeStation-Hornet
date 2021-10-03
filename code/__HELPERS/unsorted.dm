@@ -1116,6 +1116,8 @@ eg2: `center_image(I, 96,96)`
 /proc/get_random_station_turf()
 	return safepick(get_area_turfs(pick(GLOB.the_station_areas)))
 
+///Gets random safe - which mean clear of dense objects and valid, turf from provided areas that are on station
+///Amount 1 makes it return turf, anything else a list of turfs
 /proc/get_safe_random_station_turfs(list/areas_to_pick_from = GLOB.the_station_areas, amount = 1)
 	var/list/picked_turfs = list()
 	var/list/L
