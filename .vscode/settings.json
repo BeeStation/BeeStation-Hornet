@@ -13,6 +13,12 @@
 	"workbench.editorAssociations": {
 		"*.dmi": "imagePreview.previewEditor"
 	},
+<<<<<<< Updated upstream
+=======
+	"workbench.editorAssociations": {
+		"*.dmi": "imagePreview.previewEditor"
+	},
+>>>>>>> Stashed changes
 	"files.eol": "\n",
 	"gitlens.advanced.blame.customArguments": ["-w"],
 	"tgstationTestExplorer.project.resultsType": "json",
