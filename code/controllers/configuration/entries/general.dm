@@ -20,6 +20,9 @@
 /datum/config_entry/flag/auto_deadmin_security
 	protection = CONFIG_ENTRY_LOCKED
 
+/datum/config_entry/flag/auto_deadmin_pai
+	protection = CONFIG_ENTRY_LOCKED
+
 
 /datum/config_entry/string/servername	// server name (the name of the game window)
 

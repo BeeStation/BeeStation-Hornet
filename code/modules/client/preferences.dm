@@ -795,6 +795,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							dat += "<b>As Silicon:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_silicon'>[(toggles & DEADMIN_POSITION_SILICON)?"Deadmin":"Keep Admin"]</a><br>"
 						else
 							dat += "<b>As Silicon:</b> FORCED<br>"
+						
+						if(!CONFIG_GET(flag/auto_deadmin_pai))
+							dat += "<b>As pAI:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_pai'>[(toggles & DEADMIN_POSITION_PAI)?"Deadmin":"Keep Admin"]</a><br>"
+						else
+							dat += "<b>As pAI:</b> FORCED<br>"
 
 				dat += "</td>"
 			dat += "</tr></table>"
@@ -1730,7 +1735,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					toggles ^= DEADMIN_POSITION_SECURITY
 				if("toggle_deadmin_silicon")
 					toggles ^= DEADMIN_POSITION_SILICON
-
+				if("toggle_deadmin_pai")
+					toggles ^= DEADMIN_POSITION_PAI
 
 				if("be_special")
 					var/be_special_type = href_list["be_special_type"]
