@@ -23,7 +23,7 @@
 		if(!check_rights(R_DEBUG|R_SERVER)) //Prevents buildmoded non-admins from breaking everything.
 			return
 		if(isturf(object))
-				return
+			return
 		var/atom/deleting = object
 		var/action_type = alert(usr,"Strict type ([deleting.type]) or type and all subtypes?","Strict type","Type and subtypes","Cancel")
 		if(action_type == "Cancel" || !action_type)
