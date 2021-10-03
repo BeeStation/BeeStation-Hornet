@@ -280,17 +280,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
-/datum/crafting_recipe/pulseslug
-	name = "Pulse Slug Shell"
-	result = /obj/item/ammo_casing/shotgun/pulseslug
-	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
-				/obj/item/stock_parts/capacitor/adv = 2,
-				/obj/item/stock_parts/micro_laser/ultra = 1)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 5
-	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
-
 /datum/crafting_recipe/dragonsbreath
 	name = "Dragonsbreath Shell"
 	result = /obj/item/ammo_casing/shotgun/dragonsbreath
