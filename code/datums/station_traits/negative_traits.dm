@@ -54,7 +54,7 @@
 	RegisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE, .proc/create_spawners)
 
 /datum/station_trait/hangover/proc/create_spawners()
-	var/list/turf/turfs = get_multiple_safe_random_station_turf(typesof(/area/hallway), rand(200, 300))
+	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/hallway), rand(200, 300))
 	for(var/turf/T as() in turfs)
 		new /obj/effect/spawner/hangover_spawn(T)
 

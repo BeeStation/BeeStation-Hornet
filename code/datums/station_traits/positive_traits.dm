@@ -22,7 +22,7 @@
 	COOLDOWN_START(src, party_cooldown, rand(PARTY_COOLDOWN_LENGTH_MIN, PARTY_COOLDOWN_LENGTH_MAX))
 
 	var/area/area_to_spawn_in = pick(GLOB.bar_areas)
-	var/turf/T = get_safe_random_station_turf(area_to_spawn_in)
+	var/turf/T = get_safe_random_station_turfs(area_to_spawn_in)
 
 	var/obj/structure/closet/supplypod/centcompod/toLaunch = new()
 	var/obj/item/pizzabox/pizza_to_spawn = pick(list(/obj/item/pizzabox/margherita, /obj/item/pizzabox/mushroom, /obj/item/pizzabox/meat, /obj/item/pizzabox/vegetable)) //no pineapple pizza you monster
