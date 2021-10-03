@@ -137,7 +137,7 @@
 	. = ..()
 	deathrattle_group = new("[department_name] group")
 	blacklist += subtypesof(/datum/station_trait/deathrattle_department) - type //All but ourselves
-	name = "deathrattled [department_name]"
+	name = "Deathrattled [department_name]"
 	report_message = "All members of [department_name] have received an implant to notify each other if one of them dies. This should help improve job-safety!"
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, .proc/on_job_after_spawn)
 
