@@ -1,0 +1,5 @@
+author: DrMacCool
+delete-after: true
+changes:
+  - rscadd: Added exploration envirosuit+helmet.
+  - rscadd: Plasmamen on the exploration crew now spawn in said clothes.
