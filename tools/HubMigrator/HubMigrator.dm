@@ -15,6 +15,7 @@
 #define MEDAL_15_AI_LAW_CHANGES       "Dave, my mind is going"
 #define MEDAL_DETONATE_WELDERBOMB     "That was stupid of you."
 #define MEDAL_SUCCUMB                 "Please just end the pain"
+#define MEDAL_GHOSTS                  "G-G-Ghosts?"
 
 //Boss medals
 
@@ -75,6 +76,7 @@
                         MEDAL_15_AI_LAW_CHANGES,
                         MEDAL_DETONATE_WELDERBOMB,
                         MEDAL_SUCCUMB,
+						MEDAL_GHOSTS,
 						BOSS_MEDAL_ANY,
 						BOSS_MEDAL_MINER,
 						BOSS_MEDAL_BUBBLEGUM,

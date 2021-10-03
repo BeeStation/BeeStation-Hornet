@@ -16,6 +16,7 @@
 #define MEDAL_15_AI_LAW_CHANGES       "Dave, my mind is going"
 #define MEDAL_DETONATE_WELDERBOMB     "That was stupid of you."
 #define MEDAL_SUCCUMB                 "Please just end the pain"
+#define MEDAL_GHOSTS                  "G-G-Ghosts?"
 #define MEDAL_CLOWNCARKING            "Round and Full"
 #define MEDAL_THANKSALOT              "The Best Driver"
 

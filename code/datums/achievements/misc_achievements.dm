@@ -53,12 +53,12 @@
 
 /datum/award/achievement/misc/meth
     name = "NYOOOOM"
-    desc = "Off to kill that egg-head of a doctor."
+    desc = "You're Walter, and not the Warden's dog."
     database_id = MEDAL_APPLY_REAGENT_METH
 
 /datum/award/achievement/misc/soy
     name = "Soyboy"
-    desc = "Plant-based implies the existence of plant-cringe."
+    desc = "Drank soymilk."
     database_id = MEDAL_APPLY_REAGENT_SOYMILK
 
 /datum/award/achievement/misc/laws
@@ -75,6 +75,11 @@
     name = "Please just end the pain"
     desc = "Shuffling off this mortal coil while the getting's good."
     database_id = MEDAL_SUCCUMB
+
+/datum/award/achievement/misc/ghosts
+    name = "G-G-Ghosts?"
+    desc = "Some people say that being a ghost is better than being alive. You don't have much of a choice now."
+    database_id = MEDAL_GHOSTS
 
 /datum/award/achievement/misc/the_best_driver
 	name = "The Best Driver"
