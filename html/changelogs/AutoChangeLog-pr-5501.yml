@@ -1,0 +1,7 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: Newly created chat tabs will now show important messages. If you're using
+      custom-created chat tabs, you'll need to delete and recreate them to be able
+      to see them. This fixes being unable to see if somebody is overdosing when doing
+      chemical scans with the health analyzer.
