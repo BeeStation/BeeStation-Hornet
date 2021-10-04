@@ -53176,7 +53176,8 @@
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera{
-	c_tag = "Cargo Security Post"
+	c_tag = "Incinerator";
+	network = list("ss13", "turbine")
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
