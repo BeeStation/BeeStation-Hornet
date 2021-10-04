@@ -149,7 +149,7 @@
 
 /datum/species/synth/proc/handle_snowflake_code(mob/living/carbon/human/H, datum/species/S) //I LITERALLY FUCKING HATE ALL OF YOU. I HATE THE FACT THIS NEEDS TO EXIST.
 	switch(S.id)
-		if("felinid")
+		if(SPECIES_FELINID)
 			if(H.dna.features["tail_human"] == "None")
 				H.dna.features["tail_human"] = "Cat"
 			if(H.dna.features["ears"] == "None")
@@ -164,7 +164,7 @@
 				tail.Insert(H, drop_if_replaced = FALSE)
 			else
 				mutanttail = null
-		if("lizard")
+		if(SPECIES_LIZARD)
 			if(DIGITIGRADE in species_traits)
 				var/mob/living/carbon/C = H
 				default_features["legs"] = "Digitigrade Legs"
