@@ -1,3 +1,5 @@
+//This file was ported from hippie, used to be indented with spaces, and is the single worst corner of this codebase next to voice radio. For the love of god please rewrite this.
+
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_Mentor_pm
 /client/proc/cmd_mentor_pm_panel()
 	set category = "Mentor"
@@ -24,11 +26,13 @@
 		C = M.client
 	else if(istext(whom))
 		C = GLOB.directory[whom]
-	else if(istype(whom,/client))
+	else if(istype(whom, /client))
 		C = whom
 	if(!C)
-		if(is_mentor())	to_chat(src, "<font color='red'>Error: Mentor-PM: Client not found.</span>")
-		else		mentorhelp(msg)	//Mentor we are replying to left. Mentorhelp instead(check below)
+		if(is_mentor())
+			to_chat(src, "<font color='red'>Error: Mentor-PM: Client not found.</span>")
+		else
+			mentorhelp(msg)	//Mentor we are replying to left. Mentorhelp instead(check below)
 		return
 
 	//get message text, limit it's length.and clean/escape html
@@ -43,7 +47,7 @@
 				to_chat(src, "<font color='red'>Error: Mentor-PM: Client not found.</span>")
 			else
 				mentorhelp(msg)	//Mentor we are replying to has vanished, Mentorhelp instead (how the fuck does this work?let's hope it works,shrug)
-				return
+			return
 
 		// Neither party is a mentor, they shouldn't be PMing!
 		if (!C.is_mentor() && !is_mentor())

@@ -104,7 +104,8 @@
 #define FLAG_OOZELING		(1<<8)
 #define FLAG_FLY			(1<<9)
 #define FLAG_SQUID			(1<<10)
-#define FLAG_GROD			(1<<11)
+#define FLAG_DEBUG_SPECIES	(1<<11)
+#define FLAG_GROD			(1<<12)
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"

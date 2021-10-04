@@ -139,6 +139,9 @@
 		if("Atmospheric Technician")
 			O = new /datum/outfit/plasmaman/atmospherics
 
+		if("Exploration Crew")
+			O = new /datum/outfit/plasmaman/exploration
+
 		if("Captain")
 			O = new /datum/outfit/plasmaman/command
 

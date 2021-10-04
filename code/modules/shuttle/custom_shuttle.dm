@@ -144,7 +144,8 @@
 	//Calculate all the data
 	var/list/areas = M.shuttle_areas
 	for(var/shuttleArea in areas)
-		calculated_mass += length(get_area_turfs(shuttleArea))
+		for(var/turf/T in shuttleArea)
+			calculated_mass += 1
 	for(var/obj/machinery/shuttle/engine/E in GLOB.custom_shuttle_machines)
 		if(!(get_area(E) in areas))
 			continue
