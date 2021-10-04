@@ -11,8 +11,8 @@
 	symptom_delay_max = 45
 	var/teleport = FALSE
 	var/robes = FALSE
-	threshold_desc = "<b>Transmission 14:</b> The host teleports occasionally.<br>\
-					  <b>Speed 7:</b> The host grows a set of wizard robes."
+	threshold_desc = "<b>Transmission 8:</b> The host teleports occasionally.<br>\
+					  <b>Stage Speed 7:</b> The host grows a set of wizard robes."
 
 /datum/symptom/wizarditis/severityset(datum/disease/advance/A)
 	. = ..()
