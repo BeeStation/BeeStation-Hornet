@@ -71,10 +71,8 @@
 	update_client_colour()
 	update_mouse_pointer()
 	if(client)
-		if(client.view_size)
-			client.view_size.resetToDefault()	// Sets the defaul view_size because it can be different to what it was on the lobby.
-		else
-			client.change_view(getScreenSize(src)) // Resets the client.view in case it was changed.
+		client.view_size?.setDefault(getScreenSize(src))	// Sets the defaul view_size because it can be different to what it was on the lobby.
+		client.change_view(getScreenSize(src)) // Resets the client.view in case it was changed.
 
 		//Reset verb information, give verbs accessible to the mob.
 		if(client.tgui_panel)
