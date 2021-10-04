@@ -72,7 +72,7 @@
 	update_mouse_pointer()
 	if(client)
 		if(client.view_size)
-			client.view_size.resetToDefault()	// Sets the defaul view_size because it can be different to what it was on the lobby.
+			client.view_size.resetToDefault(getScreenSize(src))	// Sets the defaul view_size because it can be different to what it was on the lobby.
 		else
 			client.change_view(getScreenSize(src)) // Resets the client.view in case it was changed.
 
