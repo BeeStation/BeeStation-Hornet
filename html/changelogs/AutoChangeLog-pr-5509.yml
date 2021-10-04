@@ -1,4 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - bugfix: View range is now actually fixed, sorry for the trouble.
