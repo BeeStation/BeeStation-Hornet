@@ -154,6 +154,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// Used for choosing different midround injections.
 	var/list/current_midround_rulesets
 
+	/// Maximum amount of threat allowed to generate.
+	var/max_threat_level = 100
+
+
 /datum/game_mode/dynamic/admin_panel()
 	var/list/dat = list("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Game Mode Panel</title></head><body><h1><B>Game Mode Panel</B></h1>")
 	dat += "Dynamic Mode <a href='?_src_=vars;[HrefToken()];Vars=[REF(src)]'>\[VV\]</a> <a href='?src=\ref[src];[HrefToken()]'>\[Refresh\]</a><BR>"
@@ -323,7 +327,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 /// Generates the threat level using lorentz distribution and assigns peaceful_percentage.
 /datum/game_mode/dynamic/proc/generate_threat()
 	var/relative_threat = LORENTZ_DISTRIBUTION(threat_curve_centre, threat_curve_width)
-	threat_level = round(lorentz_to_amount(relative_threat), 0.1)
+	threat_level = clamp(round(lorentz_to_amount(relative_threat), 0.1), 0, max_threat_level)
 
 	peaceful_percentage = round(LORENTZ_CUMULATIVE_DISTRIBUTION(relative_threat, threat_curve_centre, threat_curve_width), 0.01)*100
 
