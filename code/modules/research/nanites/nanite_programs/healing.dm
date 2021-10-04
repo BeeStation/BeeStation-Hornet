@@ -225,7 +225,7 @@
 	var/mob/living/carbon/C = host_mob
 	if(C.suiciding || C.hellbound || HAS_TRAIT(C, TRAIT_HUSK)) //can't revive
 		return FALSE
-	if((world.time - C.timeofdeath) > 1800) //too late
+	if((world.time - C.timeofdeath) > DEFIB_TIME_LIMIT * 10) //too late
 		return FALSE
 	if((C.getBruteLoss() >= MAX_REVIVE_BRUTE_DAMAGE) || (C.getFireLoss() >= MAX_REVIVE_FIRE_DAMAGE) || !C.can_be_revived()) //too damaged
 		return FALSE
