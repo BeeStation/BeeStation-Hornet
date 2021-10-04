@@ -1203,7 +1203,9 @@
 		/obj/item/stack/sheet/iron/fifty=1, \
 		/obj/item/stack/sheet/glass/fifty=1,\
 		/obj/item/stack/sheet/rglass=50,\
+		/obj/item/stack/sheet/mineral/copper/fifty=1,\
 		/obj/item/stack/sheet/plasmaglass=50,\
+		/obj/item/stack/sheet/plasmarglass=50,\
 		/obj/item/stack/sheet/titaniumglass=50,\
 		/obj/item/stack/sheet/plastitaniumglass=50,\
 		/obj/item/stack/sheet/plasteel=50,\
@@ -1216,9 +1218,18 @@
 		/obj/item/stack/sheet/mineral/diamond=50,\
 		/obj/item/stack/sheet/bluespace_crystal=50,\
 		/obj/item/stack/sheet/mineral/bananium=50,\
-		/obj/item/stack/sheet/mineral/wood=50,\
 		/obj/item/stack/sheet/plastic/fifty=1,\
-		/obj/item/stack/sheet/runed_metal/fifty=1
+		/obj/item/stack/sheet/runed_metal/fifty=1,\
+		/obj/item/stack/tile/brass/fifty=1,\
+		/obj/item/stack/sheet/mineral/abductor=50,\
+		/obj/item/stack/sheet/mineral/adamantine=50,\
+		/obj/item/stack/sheet/mineral/wood=50,\
+		/obj/item/stack/sheet/cotton/cloth=50,\
+		/obj/item/stack/sheet/leather=50,\
+		/obj/item/stack/sheet/bone=12,\
+		/obj/item/stack/sheet/cardboard/fifty=1,\
+		/obj/item/stack/sheet/mineral/sandstone=50,\
+		/obj/item/stack/sheet/mineral/snow=50
 		)
 	generate_items_inside(items_inside,src)
 
@@ -1231,10 +1242,13 @@
 		/obj/item/flashlight/emp/debug=1,\
 		/obj/item/pda=1,\
 		/obj/item/modular_computer/tablet/preset/advanced=1,\
+		/obj/item/storage/belt/military/abductor/full=1,\
 		/obj/item/geiger_counter=1,\
 		/obj/item/pipe_dispenser=1,\
 		/obj/item/construction/rcd/combat/admin=1,\
+		/obj/item/areaeditor/blueprints=1,\
 		/obj/item/card/emag=1,\
+		/obj/item/card/id/captains_spare=1,\
 		/obj/item/card/id/syndicate/nuke_leader=1,\
 		/obj/item/card/id/departmental_budget/car=1,\
 		/obj/item/stack/spacecash/c1000=50,\
@@ -1245,9 +1259,7 @@
 		/obj/item/uplink/nuclear/debug=1,\
 		/obj/item/storage/box/beakers/bluespace=1,\
 		/obj/item/storage/box/beakers/variety=1,\
-		/obj/item/storage/box/material=1,\
-		/obj/item/storage/box/beakers/bluespace=1,\
-		/obj/item/storage/box/beakers/variety=1
+		/obj/item/storage/box/material=1
 		)
 	generate_items_inside(items_inside,src)
 
