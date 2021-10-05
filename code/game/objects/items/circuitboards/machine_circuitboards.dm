@@ -1084,6 +1084,15 @@
 		/obj/item/stack/sheet/glass = 2)
 	needs_anchored = FALSE
 
+/obj/item/circuitboard/machine/mass_driver
+	name = "mass driver (Machine Board)"
+	icon_state = "service"
+	build_path = /obj/machinery/mass_driver
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/capacitor = 1
+	)
+
 /obj/item/circuitboard/machine/plantgenes
 	name = "plant DNA manipulator (Machine Board)"
 	icon_state = "service"
