@@ -839,21 +839,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 	eject_cart(usr)
 
 /obj/item/pda/proc/toggle_light(mob/user)
-	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
-	if(fon)
-		fon = FALSE
-		set_light(0)
-	else if(f_lum)
-		fon = TRUE
-		set_light(f_lum)
-	if(!shorted)
-		update_icon()
-	else
-		to_chat(user, "<span class='notice'>[src]'s light is not turning on!.</span>")
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+    if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
+        return
+    if(shorted)
+        to_chat(user, "<span class='notice'>[src]'s light is not turning on!.</span>")
+        return
+    fon = !fon
+    setlight = [fon ? f_lum : 0]
+    for(var/X in actions)
+        var/datum/action/A = X
+        A.UpdateButtonIcon()
 
 /obj/item/pda/proc/remove_pen(mob/user)
 
