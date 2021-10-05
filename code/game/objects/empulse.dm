@@ -6,7 +6,7 @@
 		epicenter = get_turf(epicenter.loc)
 
 	if(log)
-		message_admins("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] ")
+		message_admins("EMP with size ([heavy_range], [light_range]) in [ADMIN_VERBOSEJMP(epicenter)] ")
 		log_game("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] ")
 
 	if(heavy_range > 1)
