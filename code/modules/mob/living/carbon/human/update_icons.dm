@@ -295,7 +295,7 @@ There are several things that need to be remembered:
 				var/obj/item/N = wear_neck
 				if(N.sprite_sheets & dna?.species.bodyflag)
 					icon_file = dna.species.get_custom_icons("neck")
-			overlays_standing[NECK_LAYER] = wear_neck.build_worn_icon(state = wear_neck.icon_state, default_layer = NECK_LAYER, default_icon_file = icon_file)
+			overlays_standing[NECK_LAYER] = wear_neck.build_worn_icon(default_layer = NECK_LAYER, default_icon_file = icon_file)
 			var/mutable_appearance/neck_overlay = overlays_standing[NECK_LAYER]
 			if(OFFSET_NECK in dna.species.offset_features)
 				neck_overlay.pixel_x += dna.species.offset_features[OFFSET_NECK][1]
@@ -377,7 +377,7 @@ There are several things that need to be remembered:
 			var/obj/item/clothing/head/HE = head
 			if(HE.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("head")
-		overlays_standing[HEAD_LAYER] = head.build_worn_icon(state = head.icon_state, default_layer = HEAD_LAYER, default_icon_file = icon_file)
+		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = icon_file)
 	var/mutable_appearance/head_overlay = overlays_standing[HEAD_LAYER]
 	if(head_overlay)
 		remove_overlay(HEAD_LAYER)
@@ -486,7 +486,7 @@ There are several things that need to be remembered:
 			var/obj/item/clothing/mask/M = wear_mask
 			if(M.sprite_sheets & dna?.species.bodyflag)
 				icon_file = dna.species.get_custom_icons("mask")
-		overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(state = wear_mask.icon_state, default_layer = FACEMASK_LAYER, default_icon_file = icon_file)
+		overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = icon_file)
 		var/mutable_appearance/mask_overlay = overlays_standing[FACEMASK_LAYER]
 		if(mask_overlay)
 			remove_overlay(FACEMASK_LAYER)
@@ -511,7 +511,7 @@ There are several things that need to be remembered:
 			var/obj/item/I = back
 			if(I.sprite_sheets & dna?.species.bodyflag)
 				icon_file = dna.species.get_custom_icons("back")
-		overlays_standing[BACK_LAYER] = back.build_worn_icon(state = back.icon_state, default_layer = BACK_LAYER, default_icon_file = icon_file)
+		overlays_standing[BACK_LAYER] = back.build_worn_icon(default_layer = BACK_LAYER, default_icon_file = icon_file)
 		var/mutable_appearance/back_overlay = overlays_standing[BACK_LAYER]
 		if(back_overlay)
 			remove_overlay(BACK_LAYER)
@@ -562,12 +562,12 @@ There are several things that need to be remembered:
 		var/mutable_appearance/hand_overlay
 		if(get_held_index_of_item(I) % 2 == 0)
 			icon_file = I.righthand_file
-			hand_overlay = I.build_worn_icon(state = t_state, default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
+			hand_overlay = I.build_worn_icon(default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
 			if(OFFSET_RIGHT_HAND in dna.species.offset_features)
 				hand_overlay.pixel_x += dna.species.offset_features[OFFSET_RIGHT_HAND][1]
 				hand_overlay.pixel_y += dna.species.offset_features[OFFSET_RIGHT_HAND][2]
 		else
-			hand_overlay = I.build_worn_icon(state = t_state, default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
+			hand_overlay = I.build_worn_icon(default_layer = HANDS_LAYER, default_icon_file = icon_file, isinhands = TRUE)
 			if(OFFSET_LEFT_HAND in dna.species.offset_features)
 				hand_overlay.pixel_x += dna.species.offset_features[OFFSET_LEFT_HAND][1]
 				hand_overlay.pixel_y += dna.species.offset_features[OFFSET_LEFT_HAND][2]
