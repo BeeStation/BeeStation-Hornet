@@ -841,16 +841,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/proc/toggle_light(mob/user)
 	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
+	if(shorted)
+		to_chat(user, "<span class='notice'>[src]'s light is not turning on!</span>")
+		return
 	if(fon)
 		fon = FALSE
 		set_light(0)
 	else if(f_lum)
 		fon = TRUE
 		set_light(f_lum)
-	if(!shorted)
-		update_icon()
-	else
-		to_chat(user, "<span class='notice'>[src]'s light is not turning on!.</span>")
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
