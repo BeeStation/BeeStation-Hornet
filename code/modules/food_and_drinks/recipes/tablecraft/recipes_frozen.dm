@@ -112,7 +112,7 @@
 	reqs = list(
 		/obj/item/reagent_containers/food/drinks/sillycup = 1,
 		/datum/reagent/consumable/ice = 15,
-		/datum/reagent/consumable/berryjuice = 5
+		/datum/reagent/consumable/grapejuice = 5
 	)
 	result = /obj/item/reagent_containers/food/snacks/snowcones/grape
 	subcategory = CAT_ICE
@@ -209,13 +209,13 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/snowcones/spacemountainwind
 	subcategory = CAT_ICE
-	
+
 /datum/crafting_recipe/food/pwrgame_sc
 	name = "Pwrgame snowcone"
 	reqs = list(
 		/obj/item/reagent_containers/food/drinks/sillycup = 1,
 		/datum/reagent/consumable/ice = 15,
-		/datum/reagent/consumable/pwr_game = 15
+		/datum/reagent/consumable/pwr_game = 5
 	)
 	result = /obj/item/reagent_containers/food/snacks/snowcones/pwrgame
 	subcategory = CAT_ICE
@@ -235,7 +235,7 @@
 	reqs = list(
 		/obj/item/reagent_containers/food/drinks/sillycup = 1,
 		/datum/reagent/consumable/ice = 15,
-		/datum/reagent/colorful_reagent = 1 //Harder to make
+		/datum/reagent/colorful_reagent = 10 //Harder to make
 	)
 	result = /obj/item/reagent_containers/food/snacks/snowcones/rainbow
 	subcategory = CAT_ICE
