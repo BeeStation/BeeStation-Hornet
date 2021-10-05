@@ -842,10 +842,11 @@ GLOBAL_LIST_EMPTY(PDAs)
     if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
         return
     if(shorted)
-        to_chat(user, "<span class='notice'>[src]'s light is not turning on!.</span>")
+        to_chat(user, "<span class='notice'>[src]'s light is not turning on!</span>")
         return
     fon = !fon
     set_light(fon ? f_lum : 0)
+    update_icon()
     for(var/X in actions)
         var/datum/action/A = X
         A.UpdateButtonIcon()
