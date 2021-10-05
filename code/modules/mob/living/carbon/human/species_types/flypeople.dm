@@ -1,6 +1,7 @@
 /datum/species/fly
 	name = "Flyperson"
-	id = "fly"
+	id = SPECIES_FLY
+	bodyflag = FLAG_FLY
 	say_mod = "buzzes"
 	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
