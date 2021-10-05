@@ -845,7 +845,7 @@ GLOBAL_LIST_EMPTY(PDAs)
         to_chat(user, "<span class='notice'>[src]'s light is not turning on!.</span>")
         return
     fon = !fon
-    setlight = [fon ? f_lum : 0]
+    set_light(fon ? f_lum : 0)
     for(var/X in actions)
         var/datum/action/A = X
         A.UpdateButtonIcon()
