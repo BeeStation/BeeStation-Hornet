@@ -1123,7 +1123,7 @@ eg2: `center_image(I, 96,96)`
 	var/list/L
 	for(var/area/A as() in areas_to_pick_from)
 		L += get_area_turfs(A)
-	while(L.len && picked_turfs.len != amount)
+	while(L.len && length(picked_turfs) <= amount)
 		var/I = rand(1, L.len)
 		var/turf/T = L[I]
 		var/area/X = get_area(T)
