@@ -548,6 +548,17 @@ update_label("John Doe", "Clowny")
 	access = get_all_accesses()
 	. = ..()
 
+/obj/item/card/id/debug
+	name = "\improper Debug ID"
+	desc = "A shimmering ID card with the ability to open anything."
+	icon_state = "centcom"
+	registered_name = "Central Command"
+	assignment = "Admiral"
+
+/obj/item/card/id/debug/Initialize()
+	access = get_every_access()
+	. = ..()
+
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
 	desc = "You are a number, you are not a free man."
