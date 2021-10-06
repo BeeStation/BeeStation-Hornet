@@ -15,7 +15,6 @@
 	offset_features = list(OFFSET_LEFT_HAND = list(-1,-4), OFFSET_RIGHT_HAND = list(2,-4))
 	changesource_flags = MIRROR_BADMIN | MIRROR_MAGIC | RACE_SWAP
 	can_be_defib = FALSE
-
 	stance = STANCE_MOBILE
 	var/datum/action/innate/grod/swap_stance/swap_stance
 	var/datum/action/innate/grod/crownspider/crownspider
@@ -24,6 +23,7 @@
 	. = ..()
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
+		H.update_hands_on_rotate()
 		if(!swap_stance)
 			swap_stance = new
 			swap_stance.Grant(C)
@@ -33,13 +33,13 @@
 		if(!("grod_crown" in H.dna.features)) //TEMPORARY UNTIL BRAIN IS IMPLEMENTED
 			H.dna.features["grod_crown"] = H.dna.species.default_features["grod_crown"]
 
-/datum/species/grod/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+/datum/species/grod/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
 	if(swap_stance)
 		swap_stance.Remove()
 	if(crownspider)
 		crownspider.Remove()
-	//C.stop_listening_for_dir_update()
+	H.stop_updating_hands()
 
 /datum/action/innate/grod/swap_stance
 	name = "Swap Stance"
@@ -106,9 +106,17 @@
 		else
 			return
 
-/*/datum/species/grod/get_hand_offsets_for_dir(var/dir, var/hand)
+/datum/species/grod/get_item_offsets_for_dir(var/dir, var/hand)
+	////BOTTOM LEFT | BOTTOM RIGHT | TOP LEFT | TOP RIGHT
 	switch(dir)
-*/
+		if(SOUTH)
+			return list(list("x" = -1, "y" = -4), list("x" = 2, "y" = -4), list("x" = -2, "y" = 1),list("x" = 3, "y" = 1))
+		if(NORTH)
+			return list(list("x" = 3, "y" = 0), list("x" = -2, "y" = 0), list("x" = 3, "y" = 5),list("x" = -2, "y" = 5))
+		if(EAST)
+			return list(list("x" = 4, "y" = -4), list("x" = 10, "y" = -3), list("x" = 6, "y" = 2),list("x" = 10, "y" = 1))
+		if(WEST)
+			return list(list("x" = -10, "y" = -3), list("x" = -4, "y" = -4), list("x" = -10, "y" = 1),list("x" = -6, "y" = 2))
 
 /datum/species/grod/get_custom_icons(part)
 	return // placeholder

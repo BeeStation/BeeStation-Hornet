@@ -14,6 +14,7 @@
 #define INFINITE_LOOP_DETECTION_THRESHOLD 1048574
 
 //Human Overlays Indexes/////////
+#define SPECIAL_HANDS_LAYER		31
 #define MUTATIONS_LAYER			30		//! mutations. Tk headglows, cold resistance glow, etc
 #define BODY_BEHIND_LAYER		29		//! certain mutantrace features (tail when looking south) that must appear behind the body parts
 #define BODYPARTS_LAYER			28		//! Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
@@ -44,7 +45,7 @@
 #define HALO_LAYER				3		//! blood cult ascended halo, because there's currently no better solution for adding/removing
 #define TYPING_LAYER			2
 #define FIRE_LAYER				1		//! If you're on fire
-#define TOTAL_LAYERS			30		//! KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS			31		//! KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 
 //Human Overlay Index Shortcuts for alternate_worn_layer, layers
 //Because I *KNOW* somebody will think layer+1 means "above"

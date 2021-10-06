@@ -18,6 +18,8 @@
 	var/freshly_laundered = FALSE
 	var/dodgy_colours = FALSE
 
+	species_restricted = FLAG_GROD
+
 /obj/item/clothing/under/worn_overlays(isinhands = FALSE)
 	. = list()
 	if(!isinhands)

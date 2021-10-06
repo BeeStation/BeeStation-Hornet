@@ -69,3 +69,6 @@
 
 /mob/proc/update_inv_ears()
 	return
+
+/mob/proc/special_update_hands()
+	return
