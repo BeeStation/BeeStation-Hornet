@@ -288,6 +288,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					to_chat(O.owner.current, "<BR><span class='userdanger'>Your target is no longer within reach. Objective removed!</span>")
 					for(var/datum/antagonist/A in O.owner.antag_datums)
 						A.objectives -= O
+					qdel(O)
 				if (!O.team)
 					O.update_explanation_text()
 					O.owner.announce_objectives()
@@ -306,7 +307,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 						ob.update_explanation_text()
 						to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 						ob.owner.announce_objectives()
-				qdel(O)
 
 // This function can not be undone; do not call this unless you are sure
 /obj/machinery/cryopod/proc/despawn_occupant()
