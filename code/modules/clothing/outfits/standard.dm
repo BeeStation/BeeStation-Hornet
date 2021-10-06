@@ -4,7 +4,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	mask = /obj/item/clothing/mask/gas/welding/up
 	gloves = /obj/item/clothing/gloves/combat
-	belt = /obj/item/storage/belt/military/abductor/full
+	belt = /obj/item/storage/belt/utility/chief/full
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	id = /obj/item/card/id/debug
 	suit_store = /obj/item/tank/internals/oxygen
