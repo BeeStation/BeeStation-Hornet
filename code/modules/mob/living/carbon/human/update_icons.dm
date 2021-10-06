@@ -88,6 +88,7 @@ There are several things that need to be remembered:
 		update_inv_wear_suit()
 		update_inv_pockets()
 		update_inv_neck()
+		update_inv_hands()
 		update_transform()
 		//mutations
 		update_mutations_overlay()
@@ -381,12 +382,11 @@ There are several things that need to be remembered:
 				icon_file = dna.species.get_custom_icons("head")
 		overlays_standing[HEAD_LAYER] = head.build_worn_icon(state = head.icon_state, default_layer = HEAD_LAYER, default_icon_file = icon_file)
 	var/mutable_appearance/head_overlay = overlays_standing[HEAD_LAYER]
-	if(head_overlay)
+	if(OFFSET_HEAD in dna.species.offset_features && head_overlay)
 		remove_overlay(HEAD_LAYER)
-		if(OFFSET_HEAD in dna.species.offset_features)
-			head_overlay.pixel_x += dna.species.offset_features[OFFSET_HEAD][1]
-			head_overlay.pixel_y += dna.species.offset_features[OFFSET_HEAD][2]
-			overlays_standing[HEAD_LAYER] = head_overlay
+		head_overlay.pixel_x += dna.species.offset_features[OFFSET_HEAD][1]
+		head_overlay.pixel_y += dna.species.offset_features[OFFSET_HEAD][2]
+		overlays_standing[HEAD_LAYER] = head_overlay
 	apply_overlay(HEAD_LAYER)
 
 /mob/living/carbon/human/update_inv_belt()
@@ -886,14 +886,14 @@ generate/load female uniform sprites matching all previously decided variables
 		if(get_held_index_of_item(I) % 2 == 0)
 			icon_file = I.righthand_file
 			if(newdir == WEST || newdir == NORTH)
-				layer = SPECIAL_HANDS_LAYER
+				layer = SPECIAL_HANDS_LAYER //If facing left or up, the right hand's sprite will be rendered under the mob
 			else
 				layer = HANDS_LAYER
 			hand_overlay = I.build_worn_icon(state = t_state, default_layer = layer, default_icon_file = icon_file, isinhands = TRUE, direction = newdir)
 
 		else
 			if(newdir == EAST || newdir == NORTH)
-				layer = SPECIAL_HANDS_LAYER
+				layer = SPECIAL_HANDS_LAYER //If facing right or up, the left hand's sprite will be rendered under the mob
 			else
 				layer = HANDS_LAYER
 			hand_overlay = I.build_worn_icon(state = t_state, default_layer = layer, default_icon_file = icon_file, isinhands = TRUE, direction = newdir)

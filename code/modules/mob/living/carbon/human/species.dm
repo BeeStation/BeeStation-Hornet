@@ -677,7 +677,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			bodyparts_to_add -= "ipc_antenna"
 
 	if("grod_crown" in mutant_bodyparts)
-		if(!H.dna.features["grod_crown"]) //Add shit here later, me
+		if(!H.dna.features["grod_crown"] || H.head && (H.head.flags_inv & HIDEHAIR)) //Add shit here later, me
 			bodyparts_to_add -= "grod_crown"
 
 	//Digitigrade legs are stuck in the phantom zone between true limbs and mutant bodyparts. Mainly it just needs more agressive updating than most limbs.

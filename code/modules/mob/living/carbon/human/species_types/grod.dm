@@ -36,6 +36,8 @@
 /datum/species/grod/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
 	if(swap_stance)
+		/*if(stance == STANCE_INTERACT)
+			swap_stance.Activate()*/
 		swap_stance.Remove()
 	if(crownspider)
 		crownspider.Remove()
@@ -119,7 +121,9 @@
 			return list(list("x" = -10, "y" = -3), list("x" = -4, "y" = -4), list("x" = -10, "y" = 1),list("x" = -6, "y" = 2))
 
 /datum/species/grod/get_custom_icons(part)
-	return // placeholder
+	switch(part)
+		if("head")
+			return 'icons/mob/species/grod/onmob_grod_head.dmi'
 
 
 
