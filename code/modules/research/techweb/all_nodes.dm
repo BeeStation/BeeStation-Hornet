@@ -249,8 +249,8 @@
 /datum/techweb_node/wormhole_gun
 	id = "wormholegun"
 	tech_tier = 5
-	display_name = "Bluespace Wormhold Projector"
-	description = "Develop the research required to create a miniturized bluespace wormhold projector, allowing you to jump between 2 places instantly."
+	display_name = "Bluespace Wormhole Projector"
+	description = "Develop the research required to create a miniaturized bluespace wormhole projector, allowing you to jump between two places instantly."
 	prereq_ids = list("micro_bluespace")
 	design_ids = list("wormholeprojector")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
