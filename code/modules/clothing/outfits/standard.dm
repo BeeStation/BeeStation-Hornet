@@ -6,10 +6,10 @@
 	gloves = /obj/item/clothing/gloves/combat
 	belt = /obj/item/storage/belt/utility/chief/full
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	id = /obj/item/card/id/debug
+	id = /obj/item/card/id/syndicate/debug
 	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
-	glasses = /obj/item/clothing/glasses/meson/night
+	glasses = /obj/item/clothing/glasses/hud/debug
 	ears = /obj/item/radio/headset/headset_cent/commander
 	box = /obj/item/storage/box/debugtools
 	back = /obj/item/storage/backpack/holding

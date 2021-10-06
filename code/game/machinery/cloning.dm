@@ -140,7 +140,8 @@
 	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 
 /obj/item/disk/data/debug
-	name = "debug genetic data disk"
+	name = "Debug genetic data disk"
+	desc = "A disk that contains all existing genetic mutations."
 	max_mutations = 100
 
 /obj/item/disk/data/debug/Initialize()
