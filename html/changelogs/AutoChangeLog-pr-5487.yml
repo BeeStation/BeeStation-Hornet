@@ -1,0 +1,4 @@
+author: rkvothe14
+delete-after: true
+changes:
+  - bugfix: fixes Nightmare's lighteater so they can destroy light sources again.
