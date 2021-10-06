@@ -1,0 +1,5 @@
+author: KubeRoot, EdgeLordExe
+delete-after: true
+changes:
+  - rscadd: Radios now have code support for anonymization
+  - tweak: The intercoms in chapel confessionals will now hide your name
