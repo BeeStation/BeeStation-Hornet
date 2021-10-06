@@ -84021,20 +84021,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/science/research)
 "cNs" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall,
-/area/science/research)
-"cNt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plasteel,
 /area/science/research)
 "cNu" = (
 /obj/structure/sign/directions/evac{
@@ -86412,6 +86404,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/science/research)
 "cSz" = (
@@ -87382,6 +87375,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/science/research)
 "cUo" = (
@@ -163978,7 +163972,7 @@ cHM
 boT
 bqU
 bsO
-cNt
+ejx
 cPf
 tSV
 hnQ
