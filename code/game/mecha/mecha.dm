@@ -1164,3 +1164,12 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 
 /obj/mecha/rust_heretic_act()
 	take_damage(500,  BRUTE)
+
+/obj/mecha/lighteater_act(obj/item/light_eater/light_eater)
+	if(!lights_power)
+		return
+	lights = FALSE
+	lights_power = 0
+	set_light(0)
+	visible_message(src, "<span class='danger'>The lights on [src] short out!</span>")
+	playsound(src, 'sound/items/welder.ogg', 50, 1)
