@@ -284,6 +284,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			C.dropItemToGround(thing)
 	if(C.hud_used)
 		C.hud_used.update_locked_slots()
+	///Cycles through all their equipped items and unequips any they arent supposed to wear according to the new restriction system.
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		for(var/obj/item/I in H.get_equipped_items(TRUE))
+			if(I.species_restricted & H.dna.species.bodyflag)
+				H.dropItemToGround(I)
+
 
 	// this needs to be FIRST because qdel calls update_body which checks if we have DIGITIGRADE legs or not and if not then removes DIGITIGRADE from species_traits
 	if(("legs" in C.dna.species.mutant_bodyparts) && C.dna.features["legs"] == "Digitigrade Legs")

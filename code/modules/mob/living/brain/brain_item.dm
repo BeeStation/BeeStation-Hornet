@@ -277,6 +277,23 @@
 	desc = "DEBUG - GROD BRAIN DESC"
 	icon = 'icons/mob/species/grod/crown_spider.dmi'
 	icon_state = "crown_spider"
+	var/crown
+/obj/item/organ/brain/grod/Insert(mob/living/carbon/C, special = 0,no_id_transfer = FALSE)
+	if(isgrod(C) && crown)
+		var/mob/living/carbon/human/H = C
+		H.dna.features["grod_crown"] = crown
+		H.dna.species.handle_mutant_bodyparts(H)
+	..()
+
+/obj/item/organ/brain/grod/Remove(mob/living/carbon/C, special = 0, no_id_transfer = FALSE)
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		crown = H.dna.features["grod_crown"]
+		H.dna.features["grod_crown"] = "None"
+		H.dna.species.handle_mutant_bodyparts(H)
+	..()
+
+
 
 ////////////////////////////////////TRAUMAS////////////////////////////////////
 

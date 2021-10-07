@@ -723,7 +723,7 @@ generate/load female uniform sprites matching all previously decided variables
 				if(L)
 					return L
 			else
-				L = H.dna?.species.get_item_offsets_for_dir(direction)
+				L = H.dna?.species.get_item_offsets_for_dir(direction ? direction : H.dir)
 				L = L[index]
 				return L
 		var/mob/M = loc
@@ -864,7 +864,8 @@ generate/load female uniform sprites matching all previously decided variables
 /mob/living/carbon/human/special_update_hands(var/mob/living/carbon/human/H, var/olddir, var/newdir, var/override = FALSE)
 	if(olddir == newdir && !override)
 		return
-
+	if(!newdir)
+		newdir = dir //For when update_inv_hands() calls this proc instead of the signal
 	remove_overlay(HANDS_LAYER)
 	remove_overlay(SPECIAL_HANDS_LAYER)
 	if (handcuffed)

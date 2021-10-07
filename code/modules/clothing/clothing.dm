@@ -33,6 +33,8 @@
 
 	var/clothing_flags = NONE
 
+	species_restricted = FLAG_GROD //Grod can't wear most things, so what they CAN wear overrides this.
+
 	//Var modification - PLEASE be careful with this I know who you are and where you live
 	var/list/user_vars_to_edit //VARNAME = VARVALUE eg: "name" = "butts"
 	var/list/user_vars_remembered //Auto built by the above + dropped() + equipped()
