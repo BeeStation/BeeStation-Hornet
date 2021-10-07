@@ -286,7 +286,7 @@
 	desc = "Glasses with every function."
 	icon_state = "doublegodeye"
 	item_state = "doublegodeye"
-	vision_flags = SEE_TURFS
+	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	darkness_view = 8
 	flash_protect = 2
 	vision_correction = 1
@@ -295,7 +295,7 @@
 	hud_type = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED)
 	resistance_flags = INDESTRUCTIBLE
 	actions_types = list(/datum/action/item_action/toggle,/datum/action/item_action/toggle_research_scanner)
-	var/xray = FALSE
+	var/xray = TRUE
 
 /obj/item/clothing/glasses/hud/debug/attack_self(mob/user)
 	if(!ishuman(user))

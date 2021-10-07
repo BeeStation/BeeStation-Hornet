@@ -1198,6 +1198,14 @@
 	name = "box of materials"
 	illustration = "implant"
 
+/obj/item/storage/box/material/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 1000
+	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
+	STR.max_items = 1000
+	STR.allow_big_nesting = TRUE
+
 /obj/item/storage/box/material/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/stack/sheet/iron/fifty=1, \
@@ -1237,6 +1245,14 @@
 	name = "box of debug tools"
 	icon_state = "syndiebox"
 
+/obj/item/storage/box/debugtools/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_combined_w_class = 1000
+	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
+	STR.max_items = 1000
+	STR.allow_big_nesting = TRUE
+
 /obj/item/storage/box/debugtools/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/flashlight/emp/debug=1,\
@@ -1244,6 +1260,7 @@
 		/obj/item/modular_computer/tablet/preset/advanced=1,\
 		/obj/item/storage/belt/military/abductor/full=1,\
 		/obj/item/geiger_counter=1,\
+		/obj/item/holosign_creator/atmos=1,\
 		/obj/item/pipe_dispenser=1,\
 		/obj/item/construction/rcd/combat/admin=1,\
 		/obj/item/areaeditor/blueprints=1,\
