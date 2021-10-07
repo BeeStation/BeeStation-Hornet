@@ -1,0 +1,31 @@
+"aa" = (/turf/closed/wall/r_wall/syndicate,/area/shuttle/hunter)
+"ab" = (/obj/effect/spawner/structure/window/plastitanium,/turf/open/floor/plating,/area/shuttle/hunter)
+"ac" = (/obj/structure/fans/tiny,/obj/docking_port/stationary{dir = 4; dwidth = 3; height = 12; id = "huntership_home"; name = "Deep Space"; width = 7},/obj/docking_port/mobile{dheight = 0; dir = 4; dwidth = 3; height = 12; id = "huntership"; name = "hunter shuttle"; rechargeTime = 1800; width = 7},/obj/machinery/door/poddoor/shutters{id = "Interpolship"},/turf/open/floor/mineral/titanium/blue,/area/shuttle/hunter)
+"ad" = (/obj/machinery/button/door{id = "Interpolship"; pixel_y = 26},/obj/effect/turf_decal/stripes{icon_state = "warningline"; dir = 8},/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"ae" = (/obj/structure/chair/comfy/shuttle,/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"af" = (/obj/structure/closet/crate/internals,/obj/effect/turf_decal/box,/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"ag" = (/obj/machinery/artillerycontrol,/obj/effect/turf_decal/box,/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"ah" = (/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"ai" = (/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/hunter{dir = 8; view_range = 7; x_offset = 6},/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"aj" = (/obj/effect/turf_decal/stripes{icon_state = "warningline"; dir = 8},/obj/effect/turf_decal/caution{icon_state = "caution"; dir = 4},/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"ak" = (/obj/machinery/door/airlock/public,/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"al" = (/obj/structure/chair/comfy/shuttle{dir = 4},/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"am" = (/obj/structure/table,/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"an" = (/obj/effect/turf_decal/stripes{icon_state = "warningline"; dir = 8},/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"ao" = (/obj/structure/chair/comfy/shuttle{icon_state = "shuttle_chair"; dir = 1},/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"ap" = (/obj/machinery/droneDispenser/syndrone/badass,/obj/effect/turf_decal/box,/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"aq" = (/obj/effect/turf_decal/box,/obj/machinery/suit_storage_unit/syndicate,/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"ar" = (/obj/machinery/computer/shuttle/hunter{dir = 8},/turf/open/floor/plasteel/dark,/area/shuttle/hunter)
+"hB" = (/obj/structure/shuttle/engine/propulsion{dir = 8},/turf/closed/wall/mineral/titanium,/area/shuttle/hunter)
+"te" = (/obj/structure/fans/tiny,/obj/machinery/door/poddoor/shutters{id = "Interpolship"},/turf/open/floor/mineral/titanium/blue,/area/shuttle/hunter)
+"Pq" = (/turf/template_noop,/area/template_noop)
+
+(1,1,1) = {"
+PqPqPqhBaaPqPqPqhBaaPqPq
+aaaaaaaaaaababaaaaaaabaa
+teadaeaeaeafafagaaahaiab
+acajahahahahahahakalamab
+teanaoaoaoapaqaqaaaharab
+aaaaaaaaaaababaaaaaaabaa
+PqPqPqhBaaPqPqPqhBaaPqPq
+"}
