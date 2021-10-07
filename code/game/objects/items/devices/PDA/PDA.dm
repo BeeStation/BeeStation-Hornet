@@ -142,7 +142,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 			equipped = TRUE
 
 /obj/item/pda/proc/update_label()
-	name = "PDA-[owner] ([ownjob])" //Name generalisation
+	if(!id)
+		name = "PDA-[owner] ([ownjob])"
+		return
+	if(id.is_intern)
+		name = "PDA-[owner] (Intern [ownjob])" //Name generalisation
+	else
+		name = "PDA-[owner] ([ownjob])"
 
 /obj/item/pda/GetAccess()
 	if(id)

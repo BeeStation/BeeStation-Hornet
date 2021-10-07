@@ -11,6 +11,11 @@
 /*
  * DATA CARDS - Used for the IC data card reader
  */
+
+/// Fallback time if none of the config entries are set for USE_LOW_LIVING_HOUR_INTERN
+#define INTERN_THRESHOLD_FALLBACK_HOURS 15
+
+
 /obj/item/card
 	name = "card"
 	desc = "Does card things."
@@ -120,17 +125,23 @@
 	var/access_txt // mapping aid
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store
+	var/is_intern = FALSE
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
 	if(mapload && access_txt)
 		access = text2access(access_txt)
+	RegisterSignal(src, COMSIG_ITEM_EQUIPPED, .proc/update_intern_status)
+	RegisterSignal(src, COMSIG_ITEM_DROPPED, .proc/remove_intern_status)
+	update_intern_status()
+	update_label()
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
 		registered_account.bank_cards -= src
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
+	UnregisterSignal(src, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)
 	return ..()
 
 /obj/item/card/id/attack_self(mob/user)
@@ -244,6 +255,77 @@
 	to_chat(user, "<span class='warning'>The account ID number provided is invalid.</span>")
 	return
 
+/obj/item/card/id/proc/update_intern_status(datum/source, mob/user)
+	SIGNAL_HANDLER
+
+	if(!user?.client)
+		return
+	if(!CONFIG_GET(flag/use_exp_tracking))
+		return
+	if(!CONFIG_GET(flag/use_low_living_hour_intern))
+		return
+	if(!SSdbcore.Connect())
+		return
+
+	var/intern_threshold = (CONFIG_GET(number/use_low_living_hour_intern_hours) * 60) || (CONFIG_GET(number/use_exp_restrictions_heads_hours) * 60) || INTERN_THRESHOLD_FALLBACK_HOURS * 60
+	var/playtime = user.client.get_exp_living(pure_numeric = TRUE)
+
+	if((intern_threshold >= playtime) && (user.mind?.assigned_role in SSjob.name_occupations))
+		is_intern = TRUE
+		update_label()
+		return
+
+	if(!is_intern)
+		return
+	is_intern = FALSE
+	update_label()
+
+/obj/item/card/id/proc/remove_intern_status(datum/source, mob/user)
+	SIGNAL_HANDLER
+
+	if(!is_intern)
+		return
+
+	is_intern = FALSE
+	update_label()
+
+/obj/item/card/id/proc/on_holding_card_slot_moved(obj/item/computer_hardware/card_slot/source, atom/old_loc, dir, forced)
+	if(istype(old_loc, /obj/item/modular_computer/tablet))
+		UnregisterSignal(old_loc, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)
+
+	if(istype(source.loc, /obj/item/modular_computer/tablet))
+		RegisterSignal(source.loc, COMSIG_ITEM_EQUIPPED, .proc/update_intern_status)
+		RegisterSignal(source.loc, COMSIG_ITEM_DROPPED, .proc/remove_intern_status)
+
+/obj/item/card/id/Moved(atom/OldLoc, Dir)
+	. = ..()
+
+	if(istype(OldLoc, /obj/item/pda) || istype(OldLoc, /obj/item/storage/wallet))
+		UnregisterSignal(OldLoc, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)
+
+	if(istype(OldLoc, /obj/item/computer_hardware/card_slot))
+		var/obj/item/computer_hardware/card_slot/slot = OldLoc
+
+		UnregisterSignal(OldLoc, COMSIG_MOVABLE_MOVED)
+
+		if(istype(slot.holder, /obj/item/modular_computer/tablet))
+			var/obj/item/modular_computer/tablet/slot_holder = slot.holder
+			UnregisterSignal(slot_holder, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)
+
+	if(istype(loc, /obj/item/pda) || istype(OldLoc, /obj/item/storage/wallet))
+		RegisterSignal(loc, COMSIG_ITEM_EQUIPPED, .proc/update_intern_status)
+		RegisterSignal(loc, COMSIG_ITEM_DROPPED, .proc/remove_intern_status)
+
+	if(istype(loc, /obj/item/computer_hardware/card_slot))
+		var/obj/item/computer_hardware/card_slot/slot = loc
+
+		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, .proc/on_holding_card_slot_moved)
+
+		if(istype(slot.holder, /obj/item/modular_computer/tablet))
+			var/obj/item/modular_computer/tablet/slot_holder = slot.holder
+			RegisterSignal(slot_holder, COMSIG_ITEM_EQUIPPED, .proc/update_intern_status)
+			RegisterSignal(slot_holder, COMSIG_ITEM_DROPPED, .proc/remove_intern_status)
+
 /obj/item/card/id/AltClick(mob/living/user)
 	if(!alt_click_can_use_id(user))
 		return
@@ -305,11 +387,24 @@ update_label("John Doe", "Clowny")
 	Properly formats the name and occupation and sets the id name to the arguments
 */
 /obj/item/card/id/proc/update_label(newname, newjob)
-	if(newname || newjob)
-		name = "[(!newname)	? "identification card"	: "[newname]'s ID Card"][(!newjob) ? "" : " ([newjob])"]"
-		return
+	var/name_string = registered_name ? "[newname ? newname : registered_name]'s ID Card" : (newname ? "[newname]'s ID Card" : "identification card")
+	var/assignment_string
+	if(is_intern)
+		if(assignment)
+			assignment_string = " (Intern [assignment])"
+		if(newjob)
+			assignment_string = " (Intern [newjob])"
+		if((!assignment) && (!newjob))
+			assignment_string = " (Intern)"
+	else
+		if(assignment)
+			assignment_string = " ([assignment])"
+		if(newjob)
+			assignment_string = "[newjob])"
+		if((!assignment) && (!newjob))
+			assignment_string = ""
 
-	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
+	name = "[name_string][assignment_string]"
 
 /obj/item/card/id/silver
 	name = "silver identification card"
@@ -784,3 +879,5 @@ update_label("John Doe", "Clowny")
 		to_chat(user, "You upgrade your [idcard] with the [name].")
 		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
 		qdel(src)
+
+#undef INTERN_THRESHOLD_FALLBACK_HOURS
