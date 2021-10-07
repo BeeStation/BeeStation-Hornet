@@ -93,7 +93,7 @@ const CfStep2 = (props, context) => {
       minHeight="282px"
       buttons={(
         <Box bold color="good">
-          {data.totalprice} cr
+          {data.totalprice} kr
         </Box>
       )}>
       <Table>
@@ -371,7 +371,7 @@ const CfStep3 = (props, context) => {
         </Box>
         {' '}
         <Box inline color="good">
-          {data.totalprice} cr
+          {data.totalprice} kr
         </Box>
       </Box>
       <Box
@@ -387,7 +387,7 @@ const CfStep3 = (props, context) => {
         textAlign="center"
         fontSize="18px"
         color={data.credits >= data.totalprice ? "good" : "bad"}>
-        {data.credits} cr
+        {data.credits} kr
       </Box>
       <Button
         fluid

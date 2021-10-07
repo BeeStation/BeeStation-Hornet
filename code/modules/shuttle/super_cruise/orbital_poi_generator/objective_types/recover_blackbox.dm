@@ -14,7 +14,7 @@
 
 /datum/orbital_objective/recover_blackbox/get_text()
 	. = "Outpost [station_name] recently went dark and is no longer responding to our attempts \
-		to contact them. Send in a team and recover the station's blackbox for a payout of [payout] credits."
+		to contact them. Send in a team and recover the station's blackbox for a payout of [payout] kromer."
 	if(linked_beacon)
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 

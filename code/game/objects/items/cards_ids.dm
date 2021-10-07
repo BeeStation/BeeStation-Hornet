@@ -162,7 +162,7 @@
 		var/money_added = mass_insert_money(money_contained, user)
 
 		if (money_added)
-			to_chat(user, "<span class='notice'>You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [money_added] worth of credits to the linked account.</span>")
+			to_chat(user, "<span class='notice'>You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [money_added] worth of kromer to the linked account.</span>")
 		return
 	else
 		return ..()
@@ -178,9 +178,9 @@
 
 	registered_account.adjust_money(cash_money)
 	if(physical_currency)
-		to_chat(user, "<span class='notice'>You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [cash_money] credits to the linked account.</span>")
+		to_chat(user, "<span class='notice'>You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [cash_money] kromer to the linked account.</span>")
 	else
-		to_chat(user, "<span class='notice'>You insert [I] into [src], adding [cash_money] credits to the linked account.</span>")
+		to_chat(user, "<span class='notice'>You insert [I] into [src], adding [cash_money] kromer to the linked account.</span>")
 
 	to_chat(user, "<span class='notice'>The linked account now reports a balance of $[registered_account.account_balance].</span>")
 	qdel(I)
@@ -266,7 +266,7 @@
 	if(registered_account.adjust_money(-amount_to_remove))
 		var/obj/item/holochip/holochip = new (user.drop_location(), amount_to_remove)
 		user.put_in_hands(holochip)
-		to_chat(user, "<span class='notice'>You withdraw [amount_to_remove] credits into a holochip.</span>")
+		to_chat(user, "<span class='notice'>You withdraw [amount_to_remove] kromer into a holochip.</span>")
 		return
 	else
 		var/difference = amount_to_remove - registered_account.account_balance
@@ -284,7 +284,7 @@
 			if(D)
 				. += "The [D.account_holder] reports a balance of $[D.account_balance]."
 		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
-		. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
+		. += "<span class='info'>You can insert kromer into the linked account by pressing holochips, cash, or coins against the ID.</span>"
 		if(registered_account.account_holder == user.real_name)
 			. += "<span class='boldnotice'>If you lose this ID card, you can reclaim your account by Alt-Clicking a blank ID card while holding it and entering your account ID number.</span>"
 	else

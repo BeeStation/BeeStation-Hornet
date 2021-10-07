@@ -36,7 +36,7 @@
 
 /obj/item/clothing/under/plasmaman/gold //yes, you can sell this for ludicrous mony
 	name = "designer envirosuit"
-	desc = "A flashy gold-trimmed envirosuit, complete with a suit jacket outerwear. This is a designer model, worth a few thousand credits."
+	desc = "A flashy gold-trimmed envirosuit, complete with a suit jacket outerwear. This is a designer model, worth a few thousand kromer."
 	icon_state = "gold_envirosuit"
 	item_state = "gold_envirosuit"
 	item_color = "gold_envirosuit"
@@ -68,7 +68,7 @@
 	icon_state = "botany_envirosuit"
 	item_state = "botany_envirosuit"
 	item_color = "botany_envirosuit"
-	
+
 /obj/item/clothing/under/plasmaman/command //fun fact, captains uniforms don't get the sec uniform defense buff, pretty stupid
 	name = "captains plasma envirosuit"
 	desc = "A blue envirosuit with gold trimmings. A suit made for those who demand respect from their subordinates."
@@ -77,7 +77,7 @@
 	item_color = "command_envirosuit"
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
-	
+
 /obj/item/clothing/under/plasmaman/hop
 	name = "head of personnel plasma envirosuit"
 	desc = "The head of personnels blue envirosuit, complete with red trimmings and adorned with various medals."

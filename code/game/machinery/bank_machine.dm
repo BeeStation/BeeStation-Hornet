@@ -92,7 +92,7 @@
 
 	switch(action)
 		if("siphon")
-			say("Siphon of station credits has begun!")
+			say("Siphon of station kromer has begun!")
 			siphoning = TRUE
 			. = TRUE
 		if("halt")

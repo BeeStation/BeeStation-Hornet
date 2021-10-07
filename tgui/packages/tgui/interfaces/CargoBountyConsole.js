@@ -26,9 +26,9 @@ export const CargoBountyConsole = (props, context) => {
               onClick={() => act('Print')} />
           )}>
           <Table border>
-            <Table.Row 
-              bold 
-              italic 
+            <Table.Row
+              bold
+              italic
               color="label"
               fontSize={1.25}>
               <Table.Cell p={1} textAlign="center">
@@ -56,31 +56,31 @@ export const CargoBountyConsole = (props, context) => {
                 <Table.Cell bold p={1}>
                   {bounty.name}
                 </Table.Cell>
-                <Table.Cell 
-                  italic 
+                <Table.Cell
+                  italic
                   textAlign="center"
                   p={1}>
                   {bounty.description}
                 </Table.Cell>
-                <Table.Cell 
-                  bold 
-                  p={1} 
+                <Table.Cell
+                  bold
+                  p={1}
                   textAlign="center">
                   {bounty.priority === 1
                     ? <Box>High Priority</Box>
                     : ""}
                   {bounty.completion_string}
                 </Table.Cell>
-                <Table.Cell 
-                  bold 
+                <Table.Cell
+                  bold
                   p={1}
                   textAlign="center">
                   {bounty.reward_string}
                 </Table.Cell>
-                <Table.Cell 
-                  bold 
+                <Table.Cell
+                  bold
                   p={1}>
-                  <Button 
+                  <Button
                     fluid
                     textAlign="center"
                     icon={bounty.claimed === 1
@@ -101,7 +101,7 @@ export const CargoBountyConsole = (props, context) => {
             ))}
           </Table>
         </Section>
-        
+
       </Window.Content>
     </Window>
   );
@@ -117,7 +117,7 @@ const BountyHeader = (props, context) => {
       <AnimatedNumber
         value={stored_cash}
         format={value => formatMoney(value)} />
-      {' credits'}
+      {' kromer'}
     </Box>
   );
 };

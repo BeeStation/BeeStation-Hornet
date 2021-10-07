@@ -31,7 +31,7 @@ const CargoExpressContent = (props, context) => {
           <Box inline bold>
             <AnimatedNumber
               value={Math.round(data.points)} />
-            {' credits'}
+            {' kromer'}
           </Box>
         )}>
         <LabeledList>

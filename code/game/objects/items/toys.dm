@@ -1542,7 +1542,7 @@
 
 /obj/item/gobbler
 	name = "Coin Gobbler"
-	desc = "Feed it credits, and activate it, with a chance to spit out DOUBLE the amount!"
+	desc = "Feed it kromer, and activate it, with a chance to spit out DOUBLE the amount!"
 	icon = 'icons/obj/plushes.dmi'
 	icon_state = "debug"
 	var/money = 0
@@ -1553,7 +1553,7 @@
 
 /obj/item/gobbler/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The Coin Gobbler holds [money] credits.</span>"
+	. += "<span class='notice'>The Coin Gobbler holds [money] kromer.</span>"
 
 /obj/item/gobbler/attackby()
 	return
@@ -1573,7 +1573,7 @@
 
 	if(prob(33*(777+moneyeaten-money)/777))
 		playsound(src.loc, 'sound/arcade/win.ogg', 10, 1)
-		user.visible_message("<span class='warning'>[src] cashes out! [user] starts spitting credits!</span>", \
+		user.visible_message("<span class='warning'>[src] cashes out! [user] starts spitting kromer!</span>", \
 		"<span class='notice'>[src] cashes out!</span>")
 		var/obj/item/holochip/payout = new (user.drop_location(), money*2)
 		payout.throw_at( get_step(loc,user.dir) ,3,1,user)

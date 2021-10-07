@@ -26,7 +26,7 @@
 
 /datum/orbital_objective/artifact/get_text()
 	. = "Outpost [station_name] is a research outpost with an extremely powerful alien artifact on board. \
-		Recover the unknown artifact for a payout of [payout] credits."
+		Recover the unknown artifact for a payout of [payout] kromer."
 	if(linked_beacon)
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 

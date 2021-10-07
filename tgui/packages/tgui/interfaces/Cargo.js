@@ -82,7 +82,7 @@ const CargoStatus = (props, context) => {
           <AnimatedNumber
             value={points}
             format={value => formatMoney(value)} />
-          {' credits'}
+          {' kromer'}
         </Box>
       )}>
       <LabeledList>
@@ -116,7 +116,7 @@ const CargoStatus = (props, context) => {
 };
 
 export const CargoCatalog = (props, context) => {
-  const { 
+  const {
     express,
     canOrder = true,
   } = props;
@@ -189,7 +189,7 @@ export const CargoCatalog = (props, context) => {
                       fluid
                       tooltip={pack.desc}
                       tooltipPosition="left"
-                      disabled={!canOrder 
+                      disabled={!canOrder
                         || (express && points && points<pack.cost)}
                       onClick={() => act('add', {
                         id: pack.id,
@@ -197,7 +197,7 @@ export const CargoCatalog = (props, context) => {
                       {formatMoney(self_paid
                         ? Math.round(pack.cost * 1.1)
                         : pack.cost)}
-                      {' cr'}
+                      {' kr'}
                     </Button>
                   </Table.Cell>
                 </Table.Row>
@@ -251,7 +251,7 @@ const CargoRequests = (props, context) => {
                 <i>{request.reason}</i>
               </Table.Cell>
               <Table.Cell collapsing textAlign="right">
-                {formatMoney(request.cost)} cr
+                {formatMoney(request.cost)} kr
               </Table.Cell>
               {!requestonly && (
                 <Table.Cell collapsing>
@@ -294,7 +294,7 @@ const CargoCartButtons = (props, context) => {
         {cart.length === 1 && '1 item'}
         {cart.length >= 2 && cart.length + ' items'}
         {' '}
-        {total > 0 && `(${formatMoney(total)} cr)`}
+        {total > 0 && `(${formatMoney(total)} kr)`}
       </Box>
       <Button
         icon="times"
@@ -343,7 +343,7 @@ const CargoCart = (props, context) => {
                 )}
               </Table.Cell>
               <Table.Cell collapsing textAlign="right">
-                {formatMoney(entry.cost)} cr
+                {formatMoney(entry.cost)} kr
               </Table.Cell>
               <Table.Cell collapsing>
                 <Button

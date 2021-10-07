@@ -29,9 +29,9 @@ export const NtosBountyConsole = (props, context) => {
               tooltip={!has_printer && "No printer found"} />
           )}>
           <Table border>
-            <Table.Row 
-              bold 
-              italic 
+            <Table.Row
+              bold
+              italic
               color="label"
               fontSize={1.25}>
               <Table.Cell p={1} textAlign="center">
@@ -59,31 +59,31 @@ export const NtosBountyConsole = (props, context) => {
                 <Table.Cell bold p={1}>
                   {bounty.name}
                 </Table.Cell>
-                <Table.Cell 
-                  italic 
+                <Table.Cell
+                  italic
                   textAlign="center"
                   p={1}>
                   {bounty.description}
                 </Table.Cell>
-                <Table.Cell 
-                  bold 
-                  p={1} 
+                <Table.Cell
+                  bold
+                  p={1}
                   textAlign="center">
                   {bounty.priority === 1
                     ? <Box>High Priority</Box>
                     : ""}
                   {bounty.completion_string}
                 </Table.Cell>
-                <Table.Cell 
-                  bold 
+                <Table.Cell
+                  bold
                   p={1}
                   textAlign="center">
                   {bounty.reward_string}
                 </Table.Cell>
-                <Table.Cell 
-                  bold 
+                <Table.Cell
+                  bold
                   p={1}>
-                  <Button 
+                  <Button
                     fluid
                     textAlign="center"
                     icon={bounty.claimed === 1
@@ -119,7 +119,7 @@ const BountyHeader = (props, context) => {
       <AnimatedNumber
         value={stored_cash}
         format={value => formatMoney(value)} />
-      {' credits'}
+      {' kromer'}
     </Box>
   );
 };

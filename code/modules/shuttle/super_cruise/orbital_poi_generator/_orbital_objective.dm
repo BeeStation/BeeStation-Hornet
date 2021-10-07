@@ -47,7 +47,7 @@
 	SSeconomy.distribute_funds(payout)
 	GLOB.exploration_points += payout * 0.1
 	//Announcement
-	priority_announce("Central Command priority objective completed. [payout] credits have been \
+	priority_announce("Central Command priority objective completed. [payout] kromer have been \
 		distributed across departmental budgets. [payout * 0.1] points have been distrubted to exploration vendors.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 	//Delete
 	QDEL_NULL(SSorbits.current_objective)

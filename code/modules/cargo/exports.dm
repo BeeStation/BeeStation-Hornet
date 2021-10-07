@@ -179,7 +179,7 @@ Credit dupes that require a lot of manual work shouldn't be removed, unless they
 	var/total_value = ex.total_value[src]
 	var/total_amount = ex.total_amount[src]
 
-	var/msg = "[total_value] credits: Received [total_amount] "
+	var/msg = "[total_value] kromer: Received [total_amount] "
 	if(total_value > 0)
 		msg = "+" + msg
 

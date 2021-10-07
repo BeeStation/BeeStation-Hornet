@@ -1,6 +1,6 @@
 /obj/item/holochip
 	name = "credit holochip"
-	desc = "A hard-light chip encoded with an amount of credits. It is a modern replacement for physical money that can be directly converted to virtual currency and viceversa. Keep away from magnets."
+	desc = "A hard-light chip encoded with an amount of kromer. It is a modern replacement for physical money that can be directly converted to virtual currency and viceversa. Keep away from magnets."
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "holochip"
 	throwforce = 0
@@ -77,14 +77,14 @@
 	if(istype(I, /obj/item/holochip))
 		var/obj/item/holochip/H = I
 		credits += H.credits
-		to_chat(user, "<span class='notice'>You insert the credits into [src].</span>")
+		to_chat(user, "<span class='notice'>You insert the kromer into [src].</span>")
 		update_icon()
 		qdel(H)
 
 /obj/item/holochip/AltClick(mob/user)
 	if(!istype(user) || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
-	var/split_amount = round(input(user,"How many credits do you want to extract from the holochip?") as null|num)
+	var/split_amount = round(input(user,"How many kromer do you want to extract from the holochip?") as null|num)
 	if(split_amount == null || split_amount <= 0 || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	else
@@ -95,7 +95,7 @@
 				H.forceMove(user.drop_location())
 			add_fingerprint(user)
 		H.add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You extract [split_amount] credits into a new holochip.</span>")
+		to_chat(user, "<span class='notice'>You extract [split_amount] kromer into a new holochip.</span>")
 
 /obj/item/holochip/emp_act(severity)
 	. = ..()

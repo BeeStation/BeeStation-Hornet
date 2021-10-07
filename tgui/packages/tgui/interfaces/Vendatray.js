@@ -31,7 +31,7 @@ export const Vendatray = (props, context) => {
               align="center">
               <b>{product_name ? product_name : "Empty"}</b>
               <Box fontSize="16px">
-                <i>{product_name ? product_cost : "N/A"} cr </i>
+                <i>{product_name ? product_cost : "N/A"} kr </i>
                 <Button
                   icon="pen"
                   onClick={() => act('Adjust')} />

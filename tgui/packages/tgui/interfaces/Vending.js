@@ -61,7 +61,7 @@ const VendingRow = (props, context) => {
         {custom && (
           <Button
             fluid
-            content={data.access ? 'FREE' : product.price + ' cr'}
+            content={data.access ? 'FREE' : product.price + ' kr'}
             onClick={() => act('dispense', {
               'item': product.name,
             })} />
@@ -75,7 +75,7 @@ const VendingRow = (props, context) => {
                 || product.price > data.user.cash
               )
             )}
-            content={free ? 'FREE' : product.price + ' cr'}
+            content={free ? 'FREE' : product.price + ' kr'}
             onClick={() => act('vend', {
               'ref': product.ref,
             })} />
@@ -117,7 +117,7 @@ export const Vending = (props, context) => {
                 {' '}
                 <b>{data.user.job || 'Unemployed'}</b>!
                 <br />
-                Your balance is <b>{data.user.cash} credits</b>.
+                Your balance is <b>{data.user.cash} kromer</b>.
               </Box>
             ) || (
               <Box color="light-gray">

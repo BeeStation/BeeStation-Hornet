@@ -463,7 +463,7 @@
 				if(payments_acc)
 					payments_acc.adjust_money(sale_price)
 				usr.put_in_hands(showpiece)
-				to_chat(usr, "<span class='notice'>You purchase [showpiece] for [sale_price] credits.</span>")
+				to_chat(usr, "<span class='notice'>You purchase [showpiece] for [sale_price] kromer.</span>")
 				playsound(src, 'sound/effects/cashregister.ogg', 40, TRUE)
 				flick("[initial(icon_state)]_vend", src)
 				showpiece = null
@@ -566,7 +566,7 @@
 /obj/structure/displaycase/forsale/examine(mob/user)
 	. = ..()
 	if(showpiece && !open)
-		. += "<span class='notice'>[showpiece] is for sale for [sale_price] credits.</span>"
+		. += "<span class='notice'>[showpiece] is for sale for [sale_price] kromer.</span>"
 	if(broken)
 		. += "<span class='notice'>[src] is sparking and the hover field generator seems to be overloaded. Use a multitool to fix it.</span>"
 

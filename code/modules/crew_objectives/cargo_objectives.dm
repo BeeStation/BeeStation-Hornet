@@ -40,7 +40,7 @@
 
 /datum/objective/crew/points/update_explanation_text()
 	. = ..()
-	explanation_text = "Make sure the station has at least [target_amount] station credits at the end of the shift."
+	explanation_text = "Make sure the station has at least [target_amount] kromer at the end of the shift."
 
 /datum/objective/crew/points/check_completion()
 	if(SSshuttle.points >= target_amount)

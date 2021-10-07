@@ -1845,14 +1845,14 @@
 /area/awaymission/cabin/caves/mountain)
 "fn" = (
 /obj/structure/table/wood/poker{
-	desc = "I bought this for, like, one hundred space credits.";
+	desc = "I bought this for, like, one hundred kromer.";
 	name = "cheap and fancy table"
 	},
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "fo" = (
 /obj/structure/table/wood/poker{
-	desc = "I bought this for, like, one hundred space credits.";
+	desc = "I bought this for, like, one hundred kromer.";
 	name = "cheap and fancy table"
 	},
 /obj/structure/showcase/machinery/tv{
@@ -2455,7 +2455,7 @@
 "gt" = (
 /obj/structure/sign/poster/contraband/pwr_game{
 	pixel_x = 32;
-	
+
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
@@ -3276,7 +3276,7 @@
 "io" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24;
-	
+
 	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)

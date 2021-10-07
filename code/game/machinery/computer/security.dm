@@ -403,10 +403,10 @@
 						for(var/datum/data/crime/c in active2.fields["citation"])
 							var/owed = c.fine - c.paid
 							dat += {"<tr><td>[c.crimeName]</td>
-							<td>[c.fine] cr</td><td>[c.author]</td>
+							<td>[c.fine] kr</td><td>[c.author]</td>
 							<td>[c.time]</td>"}
 							if(owed > 0)
-								dat += "<td>[owed] cr <A href='?src=[REF(src)];choice=Pay;field=citation_pay;cdataid=[c.dataId]'>\[Pay\]</A></td></td>"
+								dat += "<td>[owed] kr <A href='?src=[REF(src)];choice=Pay;field=citation_pay;cdataid=[c.dataId]'>\[Pay\]</A></td></td>"
 							else
 								dat += "<td>All Paid Off</td>"
 							dat += {"<td>
@@ -626,7 +626,7 @@ What a mess.*/
 							printing = 1
 							for(var/i in 1 to posternum)
 								playsound(loc, 'sound/items/poster_being_created.ogg', 100, 1)
-								
+
 								sleep(30)
 								if((istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1)))//make sure the record still exists.
 									var/obj/item/photo/photo = active1.fields["photo_front"]
@@ -889,7 +889,7 @@ What a mess.*/
 							var/crime = GLOB.data_core.createCrimeEntry(t1, "", authenticated, station_time_timestamp(), fine)
 							for (var/obj/item/pda/P in GLOB.PDAs)
 								if(P.owner == active1.fields["name"])
-									var/message = "You have been fined [fine] credits for '[t1]'. Fines may be paid at security."
+									var/message = "You have been fined [fine] kromer for '[t1]'. Fines may be paid at security."
 									var/datum/signal/subspace/messaging/pda/signal = new(src, list(
 										"name" = "Security Citation",
 										"job" = "Citation Server",
