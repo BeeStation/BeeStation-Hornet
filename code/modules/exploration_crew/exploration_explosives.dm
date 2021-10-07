@@ -115,7 +115,8 @@
 		return
 	var/explosives_trigged = 0
 	for(var/obj/item/grenade/exploration/exploration in linked_explosives)
-		if(get_dist(exploration.target, user) <= range)
+		var/turf/T2 = get_turf(exploration.target)
+		if(T2.get_virtual_z_level() == T.get_virtual_z_level() && get_dist(exploration.target, user) <= range)
 			addtimer(CALLBACK(exploration, /obj/item/grenade/exploration.proc/prime), 10)
 			explosives_trigged ++
 	to_chat(user, "<span class='notice'>[explosives_trigged] explosives triggered.</span>")
