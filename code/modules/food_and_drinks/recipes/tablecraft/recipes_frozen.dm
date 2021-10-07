@@ -64,7 +64,7 @@
 		/obj/item/reagent_containers/food/drinks/sillycup = 1,
 		/datum/reagent/consumable/ice = 15
 	)
-	result = /obj/item/reagent_containers/food/snacks/snowcones
+	result = /obj/item/reagent_containers/food/snacks/snowcones/flavourless
 	subcategory = CAT_ICE
 
 /datum/crafting_recipe/food/pineapple_sc

@@ -62,16 +62,21 @@
 /////////////
 
 /obj/item/reagent_containers/food/snacks/snowcones //We use this as a base for all other snowcones (I feel that this is extremely outdated as it forced all snowcones to have no contents other than water)
-	name = "flavorless snowcone"
-	desc = "It's just shaved ice. Still fun to chew on."
 	icon = 'icons/obj/food/frozen_treats.dmi'
-	icon_state = "flavorless_sc"
 	trash = /obj/item/reagent_containers/food/drinks/sillycup //We dont eat paper cups
 	bonus_reagents = list(/datum/reagent/water = 10) //~~Base line will allways give water~~ This line seems to break everything, added "redundant" code to force and override flavorings, appologies
 	list_reagents = list(/datum/reagent/water = 10) // We dont get food for water/juices.
 	filling_color = "#FFFFFF" //Ice is white
 	tastes = list("ice" = 1, "water" = 1)
 	foodtype = SUGAR //We use SUGAR as a base line to act in as junkfood, other wise we use fruit
+
+/obj/item/reagent_containers/food/snacks/snowcones/flavourless
+	name = "flavorless snowcone"
+	desc = "It's just shaved ice. Still fun to chew on."
+	icon_state = "flavorless_sc"
+	bonus_reagents = list(/datum/reagent/consumable/ice = 10)
+	list_reagents = list(/datum/reagent/consumable/ice = 10)
+	tastes = list("ice" = 1)
 
 /obj/item/reagent_containers/food/snacks/snowcones/lime
 	name = "lime snowcone"
