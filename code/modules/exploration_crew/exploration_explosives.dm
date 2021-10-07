@@ -110,7 +110,7 @@
 	if(.)
 		return
 	var/turf/T = get_turf(user)
-	if(is_station_level(T) && !(obj_flags & EMAGGED))
+	if(is_station_level(T.z) && !(obj_flags & EMAGGED))
 		to_chat(user, "<span class='warning'>STATION SAFETY ENABLED.</span>")
 		return
 	var/explosives_trigged = 0
