@@ -118459,6 +118459,9 @@
 "ens" = (
 /obj/machinery/computer/shuttle_flight/custom_shuttle/exploration,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "enE" = (
@@ -118565,6 +118568,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 9
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "eCM" = (
@@ -118958,6 +118962,9 @@
 "fxU" = (
 /obj/machinery/vendor/exploration,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "fyB" = (
@@ -121399,6 +121406,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"lMh" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/exploration_prep)
 "lMw" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 4
@@ -121690,6 +121707,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "myL" = (
@@ -124306,6 +124324,17 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit/departure_lounge)
+"sWc" = (
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/exploration_prep)
 "sXR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -156184,7 +156213,7 @@ eHD
 nBE
 pYd
 ftr
-rDt
+lMh
 rDt
 qVn
 kNe
@@ -157466,7 +157495,7 @@ aaO
 rlG
 xSF
 rUy
-hLx
+sWc
 hLx
 hLx
 hjT
