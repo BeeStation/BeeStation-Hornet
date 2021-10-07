@@ -67,11 +67,11 @@
 	if(!dissolvable || !target.is_refillable())
 		return
 	if(target.is_drainable() && !target.reagents.total_volume)
-		balloon_alert(user, "It's empty")
+		to_chat(user, "<span class='warning'>[target] is empty! There's nothing to dissolve [src] in.</span>")
 		return
 
 	if(target.reagents.holder_full())
-		balloon_alert(user, "It's full")
+		to_chat(user, "<span class='warning'>[target] is full.</span>")
 		return
 
 	user.visible_message("<span class='warning'>[user] slips something into [target]!</span>", "<span class='notice'>You dissolve [src] in [target].</span>", null, 2)

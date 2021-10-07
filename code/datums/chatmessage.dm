@@ -20,9 +20,12 @@
 #define CHAT_LAYER_MAX_Z			(CHAT_LAYER_MAX - CHAT_LAYER) / CHAT_LAYER_Z_STEP
 /// The dimensions of the chat message icons
 #define CHAT_MESSAGE_ICON_SIZE		7
+/// Macro from Lummox used to get height from a MeasureText proc
+#define WXH_TO_HEIGHT(x)			text2num(copytext(x, findtextEx(x, "x") + 1))
 /// How much the message moves up before fading out.
 #define MESSAGE_FADE_PIXEL_Y 10
 
+<<<<<<< HEAD
 // Message types
 #define CHATMESSAGE_CANNOT_HEAR 0
 #define CHATMESSAGE_HEAR 1
@@ -39,6 +42,8 @@
 /// The amount of characters needed before this increase takes into effect
 #define BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN 10
 
+=======
+>>>>>>> parent of d49b6a1... Ports balloon alerts (#4414)
 #define COLOR_JOB_UNKNOWN "#dda583"
 #define COLOR_PERSON_UNKNOWN "#999999"
 #define COLOR_CHAT_EMOTE "#727272"
@@ -74,8 +79,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/datum/chatmessage/prev
 	/// The current index used for adjusting the layer of each sequential chat message such that recent messages will overlay older ones
 	var/static/current_z_idx = 0
-	/// Color of the message
-	var/tgt_color
 
 /**
   * Constructs a chat message overlay
@@ -153,33 +156,33 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	if (length_char(text) > CHAT_MESSAGE_MAX_LENGTH)
 		text = copytext_char(text, 1, CHAT_MESSAGE_MAX_LENGTH + 1) + "..." // BYOND index moment
 
-	//The color of the message.
+	//The colour of the message.
+	var/tgt_color
 
 	// Get the chat color
-	if(!tgt_color)		//in case we have color predefined
-		if(isliving(target))		//target is living, thus we have preset color for him
-			if(ishuman(target))
-				var/mob/living/carbon/human/H = target
-				if(H.wear_id?.GetID())
-					var/obj/item/card/id/idcard = H.wear_id
-					var/datum/job/wearer_job = SSjob.GetJob(idcard.GetJobName())
-					if(wearer_job)
-						tgt_color = wearer_job.chat_color
-					else
-						tgt_color = GLOB.job_colors_pastel[idcard.GetJobName()]
+	if(isliving(target))		//target is living, thus we have preset color for him
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			if(H.wear_id?.GetID())
+				var/obj/item/card/id/idcard = H.wear_id
+				var/datum/job/wearer_job = SSjob.GetJob(idcard.GetJobName())
+				if(wearer_job)
+					tgt_color = wearer_job.chat_color
 				else
-					tgt_color = COLOR_PERSON_UNKNOWN
+					tgt_color = GLOB.job_colors_pastel[idcard.GetJobName()]
 			else
-				if(!target.chat_color)		//extreme case - mob doesn't have set color
-					stack_trace("Error: Mob did not have a chat_color. The only way this can happen is if you set it to null purposely in the thing. Don't do that please.")
-					target.chat_color = colorize_string(target.name)
-					target.chat_color_name = target.name
-				tgt_color = target.chat_color
-		else		//target is not living, randomizing its color
-			if(!target.chat_color || target.chat_color_name != target.name)
+				tgt_color = COLOR_PERSON_UNKNOWN
+		else
+			if(!target.chat_color)		//extreme case - mob doesn't have set color
+				stack_trace("Error: Mob did not have a chat_color. The only way this can happen is if you set it to null purposely in the thing. Don't do that please.")
 				target.chat_color = colorize_string(target.name)
 				target.chat_color_name = target.name
 			tgt_color = target.chat_color
+	else		//target is not living, randomizing its color
+		if(!target.chat_color || target.chat_color_name != target.name)
+			target.chat_color = colorize_string(target.name)
+			target.chat_color_name = target.name
+		tgt_color = target.chat_color
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
@@ -451,6 +454,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
+<<<<<<< HEAD
 /atom/proc/balloon_alert(mob/viewer, text)
 	if(!viewer?.client)
 		return
@@ -546,6 +550,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
+=======
+>>>>>>> parent of d49b6a1... Ports balloon alerts (#4414)
 #undef CHAT_MESSAGE_SPAWN_TIME
 #undef CHAT_MESSAGE_LIFESPAN
 #undef CHAT_MESSAGE_EOL_FADE
@@ -556,6 +562,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 #undef CHAT_LAYER_Z_STEP
 #undef CHAT_LAYER_MAX_Z
 #undef CHAT_MESSAGE_ICON_SIZE
+<<<<<<< HEAD
 #undef BALLOON_TEXT_FADE_TIME
 #undef BALLOON_TEXT_FULLY_VISIBLE_TIME
 #undef BALLOON_TEXT_SPAWN_TIME
@@ -564,3 +571,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 #undef CHATMESSAGE_CANNOT_HEAR
 #undef CHATMESSAGE_HEAR
 #undef CHATMESSAGE_SHOW_LANGUAGE_ICON
+=======
+#undef WXH_TO_HEIGHT
+>>>>>>> parent of d49b6a1... Ports balloon alerts (#4414)

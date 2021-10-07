@@ -193,10 +193,10 @@
 		if(!W.tool_start_check(user, amount=0))
 			return FALSE
 
-		balloon_alert(user, "You begin fixing dents on the wall")
+		to_chat(user, "<span class='notice'>You begin fixing dents on the wall...</span>")
 		if(W.use_tool(src, user, 0, volume=100))
 			if(iswallturf(src) && LAZYLEN(dent_decals))
-				balloon_alert(user, "Some dents on the wall were fixed")
+				to_chat(user, "<span class='notice'>You fix some dents on the wall.</span>")
 				cut_overlay(dent_decals)
 				dent_decals.Cut()
 			return TRUE
@@ -222,10 +222,10 @@
 		if(!I.tool_start_check(user, amount=0))
 			return FALSE
 
-		balloon_alert(user, "You start slicing through outer plating")
+		to_chat(user, "<span class='notice'>You begin slicing through the outer plating...</span>")
 		if(I.use_tool(src, user, slicing_duration, volume=100))
 			if(iswallturf(src))
-				balloon_alert(user, "Outer plating removed")
+				to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
 				dismantle_wall()
 			return TRUE
 
