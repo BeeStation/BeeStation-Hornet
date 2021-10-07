@@ -98,12 +98,12 @@
 	SIGNAL_HANDLER
 
 	if(istype(item, /obj/item/stock_parts/cell))
-		source.balloon_alert(attacker, "Can't pull cell in directly!")
+		to_chat(attacker, "Can't pull cell in directly!")
 		return
 
 	if(attached_circuit?.owner_id && item == attached_circuit.owner_id.resolve())
 		locked = !locked
-		source.balloon_alert(attacker, "[locked? "Locked" : "Unlocked"] [source]")
+		to_chat(attacker, "[locked? "Locked" : "Unlocked"] [source]")
 		return COMPONENT_NO_AFTERATTACK
 
 	if(attached_circuit && istype(item, /obj/item/circuit_component))
@@ -119,11 +119,11 @@
 		return
 
 	if(attached_circuit)
-		source.balloon_alert(attacker, "There is already a circuitboard inside!")
+		to_chat(attacker, "There is already a circuitboard inside!")
 		return
 
 	if(length(logic_board.attached_components) > capacity)
-		source.balloon_alert(attacker, "This is too large to fit into [parent]!")
+		to_chat(attacker, "This is too large to fit into [parent]!")
 		return
 
 	logic_board.inserter_mind = WEAKREF(attacker.mind)
@@ -137,7 +137,7 @@
 	if(locked)
 		if(shell_flags & SHELL_FLAG_ALLOW_FAILURE_ACTION)
 			return
-		source.balloon_alert(user, "It's locked!")
+		source.tochat_alert(user, "It's locked!")
 		return COMPONENT_BLOCK_TOOL_ATTACK
 
 	attached_circuit.interact(user)
@@ -154,11 +154,11 @@
 	if(locked)
 		if(shell_flags & SHELL_FLAG_ALLOW_FAILURE_ACTION)
 			return
-		source.balloon_alert(user, "It's locked!")
+		to_chat(user, "It's locked!")
 		return COMPONENT_BLOCK_TOOL_ATTACK
 
 	tool.play_tool_sound(parent)
-	source.balloon_alert(user, "You unscrew [attached_circuit] from [parent].")
+	to_chat(user, "You unscrew [attached_circuit] from [parent].")
 	remove_circuit()
 	return COMPONENT_BLOCK_TOOL_ATTACK
 
@@ -181,11 +181,11 @@
 	SIGNAL_HANDLER
 
 	if(locked)
-		source.balloon_alert(user, "It's locked!")
+		to_chat(user, "It's locked!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
 	if(length(attached_circuit.attached_components) - length(unremovable_circuit_components) >= capacity)
-		source.balloon_alert(user, "It's at maximum capacity!")
+		to_chat(user, "It's at maximum capacity!")
 		return COMPONENT_CANCEL_ADD_COMPONENT
 
 /**
@@ -233,11 +233,11 @@
 	SIGNAL_HANDLER
 
 	if (!(shell_flags & SHELL_FLAG_USB_PORT))
-		source.balloon_alert(user, "This shell has no usb ports")
+		to_chat(user, "This shell has no usb ports")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	if (isnull(attached_circuit))
-		source.balloon_alert(user, "No circuit inside")
+		to_chat(user, "No circuit inside")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	usb_cable.attached_circuit = attached_circuit
