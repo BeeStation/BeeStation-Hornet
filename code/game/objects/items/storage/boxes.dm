@@ -542,6 +542,23 @@
 	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/food/snacks/monkeycube/gorilla(src)
 
+/obj/item/storage/box/ratcubes
+	name = "monkey cube box"
+	desc = "A banged-up, low quality red box. Probably from Space India."
+	icon_state = "ratcubebox"
+	illustration = null
+	var/cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/rat
+
+/obj/item/storage/box/ratcubes/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.can_hold = typecacheof(list(/obj/item/reagent_containers/food/snacks/monkeycube/rat))
+
+/obj/item/storage/box/ratcubes/PopulateContents()
+	for(var/i in 1 to 5)
+		new cube_type(src)
+
 /obj/item/storage/box/ids
 	name = "box of spare IDs"
 	desc = "Has so many empty IDs."

@@ -2376,6 +2376,15 @@
 					/mob/living/simple_animal/hostile/retaliate/poison/snake)
 	crate_name = "snake crate"
 
+/datum/supply_pack/critter/rat
+	name = "Rat Cube Crate"
+	desc = "Hungry? Virologist out of samples? Buy some RATS! Fresh from the finest space dump, also known as your station. "
+	cost = 750
+	contains = list(/obj/item/storage/box/ratcubes)
+	crate_type = /obj/structure/closet/crate
+	crate_name = "rat cube crate"
+	small_item = TRUE 
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Costumes & Toys /////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

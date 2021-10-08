@@ -188,6 +188,13 @@
 	tastes = list("the jungle" = 1, "bananas" = 1, "jimmies" = 1)
 	spawned_mob = /mob/living/simple_animal/hostile/gorilla
 
+/obj/item/reagent_containers/food/snacks/monkeycube/rat 
+	name = "rat cube"
+	desc = "A rat cube. A lizard's favorite!"
+	tastes = list("mold" = 1, "damp moss"= 1, "fungus" = 1)
+	spawned_mob = /mob/living/simple_animal/mouse/sterile
+	icon_state = "ratcube"
+
 /obj/item/reagent_containers/food/snacks/enchiladas
 	name = "enchiladas"
 	desc = "Viva La Mexico!"
