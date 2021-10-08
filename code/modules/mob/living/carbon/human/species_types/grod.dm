@@ -98,16 +98,35 @@
 	var/datum/mind/M = H.mind
 	var/list/organs = H.getorganszone(BODY_ZONE_HEAD, 1)
 	var/turf = get_turf(H)
+	var/obj/item/seeds/replicapod/grodpod/seed = new
+	var/list/blood_data = H.get_blood_data(H.get_blood_id())
+
+	if(blood_data["mind"] && blood_data["cloneable"])
+		seed.mind = blood_data["mind"]
+		seed.ckey = blood_data["ckey"]
+		seed.realName = blood_data["real_name"]
+		seed.blood_gender = blood_data["gender"]
+		seed.blood_type = blood_data["blood_type"]
+		seed.features = blood_data["features"]
+		seed.factions = blood_data["factions"]
+		seed.quirks = blood_data["quirks"]
+		seed.sampleDNA = blood_data["blood_DNA"]
+		seed.features["grod_crown"] = H.dna.features["grod_crown"]
 
 	for(var/obj/item/organ/brain/I in organs)
 		I.Remove(H, 1)
 
 	var/mob/living/simple_animal/hostile/crown_spider/crown = new(turf)
-	crown.name = "[H.name]'s Crown"
 
+	crown.name = "[H.name]'s Crown"
+	crown.color = H.dna.features["mcolor"]
 	for(var/obj/item/organ/brain/I in organs)
 		I.forceMove(crown)
 		crown.health = (200 - I.damage) > crown.maxHealth ? crown.maxHealth : 200 - I.damage
+
+	crown.seed = seed
+	if(seed)
+		log_cloning("[key_name(M)]'s cloning record was added to [crown] at [AREACOORD(crown)].")
 
 	crown.origin = M
 	if(crown.origin)
@@ -166,25 +185,22 @@
 	head_icon = 'icons/mob/species/grod/crown_spider_worn.dmi'
 	held_state = "crown_spider"
 	var/datum/mind/origin
-	var/crown = "Crown"
+	var/obj/item/seeds/replicapod/grodpod/seed
 
-/mob/living/simple_animal/hostile/crown_spider/AttackingTarget()
+/mob/living/simple_animal/hostile/crown_spider/MouseDrop(var/atom/over)
 	. = ..()
-	if(ishuman(target))
-		var/mob/living/carbon/C = target
-		if(C.getorganslot(ORGAN_SLOT_BRAIN))
-			to_chat(src, "<span class='userdanger'>A foreign presence repels you from this body. Perhaps you should try to infest another?</span>")
-			return
-		Infect(target)
-
-/mob/living/simple_animal/hostile/crown_spider/MouseDrop(/mob/living/carbon/target)
-	. = ..()
-	if(. && ishuman(target))
-		var/mob/living/carbon/C = target
-		if(C.getorganslot(ORGAN_SLOT_BRAIN))
+	if(ishuman(over))
+		var/mob/living/carbon/human/H = over
+		if(H.getorganslot(ORGAN_SLOT_BRAIN))
 			to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 			return
-		Infect(target)
+		Infect(H)
+	if(istype(over, /obj/machinery/hydroponics))
+		var/obj/machinery/hydroponics/O = over
+		O.myseed = seed
+		seed = null
+		src.visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
+		qdel(src)
 
 /mob/living/simple_animal/hostile/crown_spider/proc/Infect(mob/living/carbon/C)
 	if(!origin)
@@ -204,3 +220,12 @@
 		src.visible_message("<span class='danger'>[src] burrows into [target], planting itself firmly into [target.p_their()] head!</span>")
 	else
 		src.visible_message("<span class='danger'>[src] burrows into [target]'s head!</span>")
+
+/obj/machinery/hydroponics/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(istype(M, /mob/living/simple_animal/hostile/crown_spider))
+		var/mob/living/simple_animal/hostile/crown_spider/C = M
+		myseed = C.seed
+		C.seed = null
+		C.visible_message("<span class='danger'>[C] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
+		qdel(C)

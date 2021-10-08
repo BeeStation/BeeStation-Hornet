@@ -161,3 +161,102 @@
 
 	parent.update_tray()
 	return result
+
+/obj/item/seeds/replicapod/grodpod
+	name = "Grodpod Seed"
+	desc = "You shouldn't see this"
+	species = "replicapod"
+	plantname = "Grod Cocoon"
+	maturation = 15
+	var/crown
+
+/obj/item/seeds/replicapod/grodpod/harvest(mob/user)
+	var/obj/machinery/hydroponics/parent = loc
+	var/make_podman = FALSE
+	var/ckey_holder = null
+	var/list/result = list()
+	if(CONFIG_GET(flag/revival_pod_plants))
+		if(ckey)
+			for(var/mob/M in GLOB.player_list)
+				if(isobserver(M))
+					var/mob/dead/observer/O = M
+					if(O.ckey == ckey && O.can_reenter_corpse)
+						make_podman = TRUE
+						break
+				else
+					if(M.ckey == ckey && M.stat == DEAD && !M.suiciding)
+						make_podman = TRUE
+						// Devil code
+						if(isliving(M))
+							var/mob/living/L = M
+							make_podman = !L.hellbound
+						break
+		else //If the player has ghosted from his corpse before blood was drawn, his ckey is no longer attached to the mob, so we need to match up the cloned player through the mind key
+			for(var/mob/M in GLOB.player_list)
+				if(mind && M.mind && ckey(M.mind.key) == ckey(mind.key) && M.ckey && M.client && M.stat == DEAD && !M.suiciding)
+					if(isobserver(M))
+						var/mob/dead/observer/O = M
+						if(!O.can_reenter_corpse)
+							break
+					make_podman = TRUE
+					// Devil code
+					if(isliving(M))
+						var/mob/living/L = M
+						make_podman = !L.hellbound
+					ckey_holder = M.ckey
+					break
+
+	// No podman player, give one or two seeds.
+	if(!make_podman)
+		// Prevent accidental harvesting. Make sure the user REALLY wants to do this if there's a chance of this coming from a living creature.
+		if(mind || ckey)
+			if(alert("The pod is currently devoid of soul. There is a possibility that a soul could claim this creature, or you could harvest it for seeds.", "Harvest Seeds?", "Harvest Seeds", "Cancel") == "Cancel")
+				return result
+
+		// If this plant has already been harvested, return early.
+		// parent.update_tray() qdels this seed.
+		if(QDELETED(src))
+			to_chat(user, text = "This pod has already had its seeds harvested!", type = MESSAGE_TYPE_INFO)
+			return result
+
+		// Make sure they can still interact with the parent hydroponics tray.
+		if(!parent.can_interact(user))
+			to_chat(user, text = "You are no longer able to harvets the seeds from [parent]!", type = MESSAGE_TYPE_INFO)
+			return result
+
+		var/seed_count = 1
+		if(prob(getYield() * 20))
+			seed_count++
+		var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc //needed for TK
+		while(seed_count)
+			var/obj/item/seeds/replicapod/harvestseeds = src.Copy()
+			result.Add(harvestseeds)
+			harvestseeds.forceMove(output_loc)
+			seed_count--
+		parent.update_tray()
+		return result
+
+	// All conditions met!
+	var/mob/living/carbon/human/podman = new /mob/living/carbon/human(parent.loc)
+	if(realName)
+		podman.real_name = realName
+	else
+		podman.real_name = "Pod Person ([rand(1,999)])"
+	mind.transfer_to(podman)
+	if(ckey)
+		podman.ckey = ckey
+	else
+		podman.ckey = ckey_holder
+	podman.gender = blood_gender
+	podman.faction |= factions
+	for(var/V in quirks)
+		new V(podman)
+	podman.hardset_dna(null,null,podman.real_name,blood_type, new /datum/species/grod,features,null)//Discard SE's and UI's, podman cloning is inaccurate, and always make them a podman
+	podman.set_cloned_appearance()
+	// On harvest
+	to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
+	podman.flash_act()
+	log_cloning("[key_name(mind)] cloned as a pod-grod via [src] in [parent] at [AREACOORD(parent)].")
+
+	parent.update_tray()
+	return result

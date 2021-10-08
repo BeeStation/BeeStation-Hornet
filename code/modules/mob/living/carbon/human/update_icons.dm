@@ -859,7 +859,6 @@ generate/load female uniform sprites matching all previously decided variables
 		UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
 		special_hands = FALSE
 		remove_overlay(SPECIAL_HANDS_LAYER)
-		to_chat(src, "<span class='warning'>Unregistered signal!</span>")
 
 /mob/living/carbon/human/special_update_hands(var/mob/living/carbon/human/H, var/olddir, var/newdir, var/override = FALSE)
 	if(olddir == newdir && !override)
