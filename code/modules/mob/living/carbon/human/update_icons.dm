@@ -494,12 +494,10 @@ There are several things that need to be remembered:
 				icon_file = dna.species.get_custom_icons("mask")
 		overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(state = wear_mask.icon_state, default_layer = FACEMASK_LAYER, default_icon_file = icon_file)
 		var/mutable_appearance/mask_overlay = overlays_standing[FACEMASK_LAYER]
-		if(mask_overlay)
-			remove_overlay(FACEMASK_LAYER)
-			if(OFFSET_FACEMASK in dna.species.offset_features)
-				mask_overlay.pixel_x += dna.species.offset_features[OFFSET_FACEMASK][1]
-				mask_overlay.pixel_y += dna.species.offset_features[OFFSET_FACEMASK][2]
-				overlays_standing[FACEMASK_LAYER] = mask_overlay
+		if(mask_overlay && (OFFSET_FACEMASK in dna.species.offset_features))
+			mask_overlay.pixel_x += dna.species.offset_features[OFFSET_FACEMASK][1]
+			mask_overlay.pixel_y += dna.species.offset_features[OFFSET_FACEMASK][2]
+			overlays_standing[FACEMASK_LAYER] = mask_overlay
 		apply_overlay(FACEMASK_LAYER)
 	update_mutant_bodyparts() //e.g. upgate needed because mask now hides lizard snout
 

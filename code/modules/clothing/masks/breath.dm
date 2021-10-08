@@ -14,6 +14,9 @@
 	visor_flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
 
+	sprite_sheets = FLAG_GROD
+	species_restricted = null
+
 /obj/item/clothing/mask/breath/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is wrapping \the [src]'s tube around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS

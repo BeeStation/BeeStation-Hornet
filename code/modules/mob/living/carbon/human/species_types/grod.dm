@@ -17,10 +17,13 @@
 	heatmod = 1.3
 	coldmod = 0.7
 	toxmod = 0.8
-	default_features = list("mcolor" = "#0F0", "grod_crown" = "Crown")
+	speedmod = 1.1
+	staminamod = 1.2
+	default_features = list("mcolor" = "#00FF00", "grod_crown" = "Crown")
 	offset_features = list(OFFSET_LEFT_HAND = list(-1,-4), OFFSET_RIGHT_HAND = list(2,-4))
 	changesource_flags = MIRROR_BADMIN | MIRROR_MAGIC | RACE_SWAP
 	can_be_defib = FALSE
+	allow_numbers_in_name = TRUE
 	stance = STANCE_MOBILE
 
 	var/datum/action/innate/grod/swap_stance/swap_stance
@@ -73,7 +76,7 @@
 		H.dna.species.inherent_traits -= TRAIT_NOBLOCK
 		H.dna.species.stance = STANCE_MOBILE
 		H.dna.species.brutemod = 1.1
-		H.dna.species.speedmod = 1
+		H.dna.species.speedmod = 1.1
 
 /datum/action/innate/grod/crownspider
 	name = "Detach Crown"
@@ -117,7 +120,7 @@
 	var/mob/living/simple_animal/hostile/crown_spider/crown = new(turf)
 
 	crown.name = "[H.name]'s Crown"
-	crown.color = H.dna.features["mcolor"]
+	crown.color = "#" + H.dna.features["mcolor"]
 	for(var/obj/item/organ/brain/I in organs)
 		I.forceMove(crown)
 		crown.health = (200 - I.damage) > crown.maxHealth ? crown.maxHealth : 200 - I.damage
@@ -157,6 +160,8 @@
 	switch(part)
 		if("head")
 			return 'icons/mob/species/grod/onmob_grod_head.dmi'
+		if("mask")
+			return 'icons/mob/species/grod/onmob_grod_mask.dmi'
 
 
 
