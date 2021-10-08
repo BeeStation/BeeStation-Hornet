@@ -543,7 +543,7 @@
 		new /obj/item/reagent_containers/food/snacks/monkeycube/gorilla(src)
 
 /obj/item/storage/box/ratcubes
-	name = "monkey cube box"
+	name = "rat cube box"
 	desc = "A banged-up, low quality red box. Probably from Space India."
 	icon_state = "ratcubebox"
 	illustration = null
