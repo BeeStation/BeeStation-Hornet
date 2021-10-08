@@ -718,6 +718,8 @@ generate/load female uniform sprites matching all previously decided variables
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			var/index = H.get_held_index_of_item(src)
+			if(!index)
+				index = 1
 			if(!H.special_hands)
 				L = H.dna?.species.get_item_offsets_for_index(index)
 				if(L)

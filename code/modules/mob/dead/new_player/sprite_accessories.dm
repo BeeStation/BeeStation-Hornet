@@ -2171,9 +2171,6 @@
 	icon = 'icons/mob/species/grod/crowns.dmi'
 	color_src = MUTCOLORS
 
-/datum/sprite_accessory/grod_crown/none
-	name = "None"
-	icon_state = "none"
 /datum/sprite_accessory/grod_crown/diadem
 	name = "Diadem"
 	icon_state = "diadem"

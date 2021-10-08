@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/skin_tone = "caucasian1"		//Skin color
 	var/eye_color = "000"				//Eye color
 	var/datum/species/pref_species = new /datum/species/human()	//Mutant race
-	var/list/features = list("mcolor" = "FFF", "ethcolor" = "9c3030", "tail_lizard" = "Smooth", "tail_human" = "None", "snout" = "Round", "horns" = "None", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "moth_wings" = "Plain", "ipc_screen" = "Blue", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)", "insect_type" = "Common Fly")
+	var/list/features = list("mcolor" = "FFF", "ethcolor" = "9c3030", "tail_lizard" = "Smooth", "tail_human" = "None", "snout" = "Round", "horns" = "None", "ears" = "None", "wings" = "None", "frills" = "None", "spines" = "None", "body_markings" = "None", "legs" = "Normal Legs", "moth_wings" = "Plain", "ipc_screen" = "Blue", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)", "insect_type" = "Common Fly", "grod_crown" = "None")
 
 	var/list/custom_names = list()
 	var/preferred_ai_core_display = "Blue"
@@ -500,6 +500,18 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h3>Ears</h3>"
 
 				dat += "<a href='?_src_=prefs;preference=ears;task=input'>[features["ears"]]</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
+			if("grod_crown" in pref_species.default_features)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+				dat += "<h3>Grod Crown</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=grod_crown;task=input'>[features["grod_crown"]]</a><BR>"
 
 				mutant_category++
 				if(mutant_category >= MAX_MUTANT_ROWS)
@@ -1583,6 +1595,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_insect_type)
 						features["insect_type"] = new_insect_type
 
+				if("grod_crown")
+					var/new_grod_crown
+					new_grod_crown = input(user, "Choose your character's Crown:", "Character Preference") as null|anything in GLOB.grod_crowns_list
+					if(new_grod_crown)
+						features["grod_crown"] = new_grod_crown
 				if("s_tone")
 					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones
 					if(new_s_tone)
@@ -1977,8 +1994,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		pref_species = new /datum/species/human
 		save_character()
 
+
+	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE) //somehow this sets "grod_crown" = "None" if species is already equal to grod
 	character.dna.features = features.Copy()
-	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
 	character.dna.real_name = character.real_name
 
 	if("tail_lizard" in pref_species.default_features)

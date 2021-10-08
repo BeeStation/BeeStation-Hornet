@@ -387,6 +387,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["feature_ipc_antenna"], features["ipc_antenna"])
 	READ_FILE(S["feature_ipc_chassis"], features["ipc_chassis"])
 	READ_FILE(S["feature_insect_type"], features["insect_type"])
+	READ_FILE(S["feature_grod_crown"], features["grod_crown"])
 	if(!CONFIG_GET(flag/join_with_mutant_humans) && !species_id != "felinid") // felinids arent mutant humans anymore i guess
 		features["tail_human"] = "none"
 		features["ears"] = "none"
@@ -472,6 +473,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["ipc_antenna"]	 = sanitize_inlist(features["ipc_antenna"], GLOB.ipc_antennas_list)
 	features["ipc_chassis"]	 = sanitize_inlist(features["ipc_chassis"], GLOB.ipc_chassis_list)
 	features["insect_type"]	 = sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
+	features["grod_crown"]	= sanitize_inlist(features["grod_crown"], GLOB.grod_crowns_list)
 
 	//Validate species forced mutant parts
 	for(var/forced_part in pref_species.forced_features)
@@ -538,6 +540,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_ipc_antenna"]			, features["ipc_antenna"])
 	WRITE_FILE(S["feature_ipc_chassis"]			, features["ipc_chassis"])
 	WRITE_FILE(S["feature_insect_type"]			, features["insect_type"])
+	WRITE_FILE(S["feature_grod_crown"]			, features["grod_crown"])
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)

@@ -37,8 +37,6 @@
 		if(!crownspider)
 			crownspider = new
 			crownspider.Grant(C)
-		if(!("grod_crown" in H.dna.features)) //TEMPORARY UNTIL BRAIN IS IMPLEMENTED
-			H.dna.features["grod_crown"] = H.dna.species.default_features["grod_crown"]
 
 /datum/species/grod/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
