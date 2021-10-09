@@ -29,7 +29,7 @@
 	var/list/ratdisease = list()
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
-	var/clean = FALSE 
+	var/sterile = FALSE 
 
 
 /mob/living/simple_animal/mouse/Initialize()
