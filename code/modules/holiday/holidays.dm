@@ -610,3 +610,16 @@ Since Ramadan is an entire month that lasts 29.5 days on average, the start and 
 
 /datum/holiday/easter/getStationPrefix()
 	return pick("Fluffy","Bunny","Easter","Egg")
+
+/datum/holiday/ianbirthday
+	name = "Ian's Birthday" //github.com/tgstation/tgstation/commit/de7e4f0de0d568cd6e1f0d7bcc3fd34700598acb
+	begin_month = SEPTEMBER
+	begin_day = 9
+	end_day = 10
+
+/datum/holiday/ianbirthday/greet()
+	return "Happy birthday, Ian!"
+
+/datum/holiday/ianbirthday/getStationPrefix()
+	return pick("Ian", "Corgi", "Erro")
+
