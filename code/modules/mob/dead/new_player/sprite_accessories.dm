@@ -94,6 +94,10 @@
 	name = "Bald"
 	icon_state = null
 
+/datum/sprite_accessory/hair/bald2
+	name = "Bald 2"
+	icon_state = "hair_bald2"
+
 /datum/sprite_accessory/hair/balding
 	name = "Balding Hair"
 	icon_state = "hair_e"
@@ -650,6 +654,10 @@
 	name = "Poofy"
 	icon_state = "hair_poofy"
 
+/datum/sprite_accessory/hair/pride
+	name = "Pride"
+	icon_state = "hair_pride"
+
 /datum/sprite_accessory/hair/quiff
 	name = "Quiff"
 	icon_state = "hair_quiff"
@@ -802,10 +810,6 @@
 	name = "Updo"
 	icon_state = "hair_updo"
 
-/datum/sprite_accessory/hair/vegeta
-	name = "Vegeta"
-	icon_state = "hair_vegeta"
-
 /datum/sprite_accessory/hair/longer
 	name = "Very Long Hair"
 	icon_state = "hair_vlong"
@@ -876,10 +880,6 @@
 	name = "Beard (Cropped Fullbeard)"
 	icon_state = "facial_croppedfullbeard"
 
-/datum/sprite_accessory/facial_hair/gigachad
-	name = "Beard (Gigachad)"
-	icon_state = "facial_gigachad"
-
 /datum/sprite_accessory/facial_hair/gt
 	name = "Beard (Goatee)"
 	icon_state = "facial_gt"
@@ -919,6 +919,10 @@
 /datum/sprite_accessory/facial_hair/longbeard
 	name = "Beard (Long)"
 	icon_state = "facial_longbeard"
+
+/datum/sprite_accessory/facial_hair/powerful
+	name = "Beard (Powerful)"
+	icon_state = "facial_powerful"
 
 /datum/sprite_accessory/facial_hair/volaju
 	name = "Beard (Volaju)"
