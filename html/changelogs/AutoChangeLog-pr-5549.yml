@@ -1,5 +1,0 @@
-author: KubeRoot
-delete-after: true
-changes:
-  - bugfix: Artifacts from supercruise often didn't work, they should be much more
-      interesting now.
