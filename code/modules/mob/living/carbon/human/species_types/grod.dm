@@ -19,6 +19,9 @@
 	toxmod = 0.8
 	speedmod = 1.1
 	staminamod = 1.2
+	liked_food = VEGETABLES | GRAIN | FRUIT
+	disliked_food = DAIRY
+	toxic_food = TOXIC | MEAT | RAW
 	say_mod = "decrees"
 	species_language_holder = /datum/language_holder/grod
 	default_features = list("mcolor" = "#00FF00", "grod_crown" = "Crown")
