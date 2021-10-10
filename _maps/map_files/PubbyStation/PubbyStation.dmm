@@ -63696,10 +63696,7 @@
 /obj/structure/chair/wood/normal{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1481;
-	name = "Confessional Intercom";
+/obj/item/radio/intercom/chapel{
 	pixel_x = 26
 	},
 /turf/open/floor/plasteel/dark,
@@ -63987,10 +63984,7 @@
 /area/science/xenobiology)
 "whH" = (
 /obj/structure/chair/wood/normal,
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1481;
-	name = "Confessional Intercom";
+/obj/item/radio/intercom/chapel{
 	pixel_x = -26
 	},
 /turf/open/floor/plasteel/dark,

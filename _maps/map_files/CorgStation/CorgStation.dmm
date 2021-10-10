@@ -54783,6 +54783,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/radio/intercom/chapel{
+	pixel_x = -26
+	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "mJJ" = (
@@ -72523,6 +72526,9 @@
 	},
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/item/radio/intercom/chapel{
+	pixel_x = 26
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
@@ -97960,7 +97966,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/upper/primary/fore)
 "wWV" = (
-/obj/effect/spawner/structure/window/reinforced/tinted,
+/obj/structure/grille,
+/obj/structure/window/reinforced/tinted/fulltile,
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "wXa" = (

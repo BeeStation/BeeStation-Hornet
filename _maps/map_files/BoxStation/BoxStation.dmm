@@ -14717,11 +14717,8 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
 "aNX" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1481;
-	name = "Confessional Intercom";
-	pixel_x = 25
+/obj/item/radio/intercom/chapel{
+	pixel_x = 26
 	},
 /obj/structure/chair,
 /turf/open/floor/plasteel/dark,
@@ -15470,11 +15467,8 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "aQz" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1481;
-	name = "Confessional Intercom";
-	pixel_x = 25
+/obj/item/radio/intercom/chapel{
+	pixel_x = 26
 	},
 /obj/structure/chair{
 	dir = 1
