@@ -151,7 +151,7 @@
 	var/datum/proximity_monitor/monitor
 	var/datum/callback/callback
 
-/atom/movable/proximity_monitor_holder/proc/setup(datum/proximity_monitor/_monitor, datum/callback/_callback)
+/atom/movable/proximity_monitor_holder/Initialize(mapload, datum/proximity_monitor/_monitor, datum/callback/_callback)
 	monitor = _monitor
 	callback = _callback
 
@@ -171,9 +171,10 @@
 
 /datum/artifact_effect/projreflect/Initialize(source)
 	. = ..()
+	if(monitor_holder)
+		QDEL_NULL(monitor_holder)
 	var/datum/proximity_monitor/monitor = new(source, 3, FALSE)
-	monitor_holder = new()
-	monitor_holder.setup(monitor, CALLBACK(src, .proc/HasProximity))
+	monitor_holder = new(null, monitor, CALLBACK(src, .proc/HasProximity))
 
 /datum/artifact_effect/projreflect/Destroy()
 	QDEL_NULL(monitor_holder)
