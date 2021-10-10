@@ -19,6 +19,8 @@
 	toxmod = 0.8
 	speedmod = 1.1
 	staminamod = 1.2
+	say_mod = "decrees"
+	species_language_holder = /datum/language_holder/grod
 	default_features = list("mcolor" = "#00FF00", "grod_crown" = "Crown")
 	offset_features = list(OFFSET_LEFT_HAND = list(-1,-4), OFFSET_RIGHT_HAND = list(2,-4))
 	changesource_flags = MIRROR_BADMIN | MIRROR_MAGIC | RACE_SWAP
@@ -61,6 +63,9 @@
 	if(!isgrod(owner))
 		return
 	var/mob/living/carbon/human/H = owner
+	if(H.get_item_by_slot(ITEM_SLOT_HANDCUFFED))
+		return
+
 	if(!H.dna.species.stance)
 		H.change_number_of_hands(4)
 		to_chat(H,"<span class ='warning'>You focus your energy into your additional hands.</span>")
@@ -81,6 +86,8 @@
 /datum/action/innate/grod/crownspider
 	name = "Detach Crown"
 	desc = "Detach your crown from your current body. This should only be done in dire circumstances!"
+	icon_icon = 'icons/mob/actions/actions_grod.dmi'
+	button_icon_state = "crownspider"
 
 /datum/action/innate/grod/crownspider/Activate()
 	if(!isgrod(owner)) //Stop trying to break shit
@@ -101,6 +108,7 @@
 	var/turf = get_turf(H)
 	var/obj/item/seeds/replicapod/grodpod/seed = new
 	var/list/blood_data = H.get_blood_data(H.get_blood_id())
+	var/crown_feature = H.dna.features["grod_crown"]
 
 	if(blood_data["mind"] && blood_data["cloneable"])
 		seed.mind = blood_data["mind"]
@@ -112,7 +120,7 @@
 		seed.factions = blood_data["factions"]
 		seed.quirks = blood_data["quirks"]
 		seed.sampleDNA = blood_data["blood_DNA"]
-		seed.features["grod_crown"] = H.dna.features["grod_crown"]
+
 
 	for(var/obj/item/organ/brain/I in organs)
 		I.Remove(H, 1)
@@ -125,6 +133,7 @@
 		I.forceMove(crown)
 		crown.health = (200 - I.damage) > crown.maxHealth ? crown.maxHealth : 200 - I.damage
 
+	seed.features["grod_crown"] = crown_feature //agony
 	crown.seed = seed
 	if(seed)
 		log_cloning("[key_name(M)]'s cloning record was added to [crown] at [AREACOORD(crown)].")
@@ -162,10 +171,123 @@
 			return 'icons/mob/species/grod/onmob_grod_head.dmi'
 		if("mask")
 			return 'icons/mob/species/grod/onmob_grod_mask.dmi'
+		if("gloves")
+			return 'icons/mob/species/grod/onmob_grod_gloves.dmi'
+		if("uniform")
+			return 'icons/mob/species/grod/onmob_grod_under.dmi'
+		if("ears")
+			return 'icons/mob/species/grod/onmob_grod_ears.dmi'
+		if("back")
+			return 'icons/mob/species/grod/onmob_grod_back.dmi'
+		if("generic")
+			return 'icons/mob/species/grod/onmob_grod_generic.dmi'
 
 
 
+/datum/species/grod/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
+	var/current_job = J.title
+	var/datum/outfit/grod/O = new /datum/outfit/grod
+	switch(current_job)
+		if("Chaplain")
+			O = new /datum/outfit/grod/chaplain
 
+		if("Curator")
+			O = new /datum/outfit/grod/curator
+
+		if("Janitor")
+			O = new /datum/outfit/grod/janitor
+
+		if("Botanist")
+			O = new /datum/outfit/grod/botanist
+
+		if("Bartender")
+			O = new /datum/outfit/grod/barman
+
+		if("VIP")
+			O = new /datum/outfit/grod/vip
+
+		if("Debtor")
+			O = new /datum/outfit/grod/debtor
+
+		if("Cook")
+			O = new /datum/outfit/grod/chef
+
+		if("Security Officer")
+			O = new /datum/outfit/grod/sec
+
+		if("Deputy")
+			O = new /datum/outfit/grod/sec
+
+		if("Brig Physician")
+			O = new /datum/outfit/grod/secmed
+
+		if("Detective")
+			O = new /datum/outfit/grod/detective
+
+		if("Warden")
+			O = new /datum/outfit/grod/warden
+
+		if("Cargo Technician")
+			O = new /datum/outfit/grod/cargo
+
+		if("Quartermaster")
+			O = new /datum/outfit/grod/qm
+
+		if("Shaft Miner")
+			O = new /datum/outfit/grod/miner
+
+		if("Medical Doctor")
+			O = new /datum/outfit/grod/md
+
+		if("Paramedic")
+			O = new /datum/outfit/grod/paramed
+
+		if("Chemist")
+			O = new /datum/outfit/grod/chem
+
+		if("Geneticist")
+			O = new /datum/outfit/grod/gene
+
+		if("Roboticist")
+			O = new /datum/outfit/grod/robo
+
+		if("Virologist")
+			O = new /datum/outfit/grod/viro
+
+		if("Scientist")
+			O = new /datum/outfit/grod/scientist
+
+		if("Station Engineer")
+			O = new /datum/outfit/grod/engineer
+
+		if("Atmospheric Technician")
+			O = new /datum/outfit/grod/atmos
+
+		if("Captain")
+			O = new /datum/outfit/grod/captain
+
+		if("Chief Engineer")
+			O = new /datum/outfit/grod/ce
+
+		if("Chief Medical Officer")
+			O = new /datum/outfit/grod/cmo
+
+		if("Head of Security")
+			O = new /datum/outfit/grod/hos
+
+		if("Research Director")
+			O = new /datum/outfit/grod/rd
+
+		if("Head of Personnel")
+			O = new /datum/outfit/grod/hop
+
+		if("Clown")
+			O = new /datum/outfit/grod/clown
+
+		if("Mime")
+			O = new /datum/outfit/grod/mime
+	H.equipOutfit(O, visualsOnly)
+	return 0
 ///////Grod Crown////////
 /mob/living/simple_animal/hostile/crown_spider
 	name = "Crownspider"
@@ -187,6 +309,7 @@
 	worn_slot_flags = ITEM_SLOT_HEAD
 	head_icon = 'icons/mob/species/grod/crown_spider_worn.dmi'
 	held_state = "crown_spider"
+	initial_language_holder = /datum/language_holder/grodcrown //They can only speak Poh'lan in spider
 	var/datum/mind/origin
 	var/obj/item/seeds/replicapod/grodpod/seed
 
@@ -210,6 +333,7 @@
 		return
 	for(var/obj/item/organ/I in src)
 		I.Insert(C, 1)
+		//The following math is FUCKING BAD and needs to be written by someone smarter than me. Same with the math on line 134.
 		if(I.damage < 84) //84 is the point where max damage_to_deal (116) would instantly kill the brain
 			var/damage_to_deal = (maxHealth - health) * 4
 			I.damage += damage_to_deal > 30 ? damage_to_deal : 30 //Deals a minimum of 30 damage to the brain
@@ -224,11 +348,3 @@
 	else
 		src.visible_message("<span class='danger'>[src] burrows into [target]'s head!</span>")
 
-/obj/machinery/hydroponics/attack_animal(mob/living/simple_animal/M)
-	. = ..()
-	if(istype(M, /mob/living/simple_animal/hostile/crown_spider))
-		var/mob/living/simple_animal/hostile/crown_spider/C = M
-		myseed = C.seed
-		C.seed = null
-		C.visible_message("<span class='danger'>[C] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
-		qdel(C)

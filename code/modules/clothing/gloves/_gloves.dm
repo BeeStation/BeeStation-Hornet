@@ -13,6 +13,9 @@
 	// Path variable. If defined, will produced the type through interaction with wirecutters.
 	var/cut_type = null
 
+	species_restricted = null
+	sprite_sheets = FLAG_GROD
+
 /obj/item/clothing/gloves/ComponentInitialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)

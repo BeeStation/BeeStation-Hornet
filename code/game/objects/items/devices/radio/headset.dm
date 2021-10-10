@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	subspace_transmission = TRUE
 	headset = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
+	sprite_sheets = FLAG_GROD
 	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
 
 	slot_flags = ITEM_SLOT_EARS

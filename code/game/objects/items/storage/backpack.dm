@@ -21,6 +21,9 @@
 	resistance_flags = NONE
 	max_integrity = 300
 
+	species_restricted = null
+	sprite_sheets = FLAG_GROD
+
 /obj/item/storage/backpack/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)

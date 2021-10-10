@@ -8,6 +8,7 @@
 	var/modifies_speech = FALSE
 	var/mask_adjusted = 0
 	var/adjusted_flags = null
+	species_restricted = FLAG_GROD
 
 /obj/item/clothing/mask/attack_self(mob/user)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))

@@ -698,7 +698,7 @@ generate/load female uniform sprites matching all previously decided variables
 
 	//Handle held offsets
 	var/mob/M = loc
-	if(istype(M))
+	if(istype(M) && isinhands)
 		var/list/L = get_held_offsets(direction)
 		if(L)
 			standing.pixel_x += L["x"] //+= because of center()ing

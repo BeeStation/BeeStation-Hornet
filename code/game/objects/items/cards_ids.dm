@@ -16,7 +16,7 @@
 	desc = "Does card things."
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
-
+	sprite_sheets = FLAG_GROD
 	var/list/files = list()
 
 /obj/item/card/suicide_act(mob/living/carbon/user)

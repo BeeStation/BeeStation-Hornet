@@ -376,6 +376,17 @@ Key procs
 							/datum/language/terrum = list(LANGUAGE_ATOM),
 							/datum/language/narsie = list(LANGUAGE_ATOM))
 
+/datum/language_holder/grod
+	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+								/datum/language/pohlan = list(LANGUAGE_ATOM),)
+	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+							/datum/language/pohlan = list(LANGUAGE_ATOM),)
+
+/datum/language_holder/grodcrown
+	understood_languages = list(/datum/language/pohlan = list(LANGUAGE_ATOM),
+								/datum/language/common = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/pohlan = list(LANGUAGE_ATOM))
+
 /datum/language_holder/fly
 	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 								/datum/language/buzzwords = list(LANGUAGE_ATOM))

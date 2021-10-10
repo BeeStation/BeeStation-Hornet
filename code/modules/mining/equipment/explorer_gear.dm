@@ -48,6 +48,8 @@
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 20, "acid" = 40, "stamina" = 10)
 	resistance_flags = FIRE_PROOF
 
+	species_restricted = null
+
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
 
