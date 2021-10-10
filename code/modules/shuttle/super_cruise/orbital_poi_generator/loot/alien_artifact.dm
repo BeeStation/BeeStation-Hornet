@@ -295,7 +295,8 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 
 /datum/artifact_effect/reality_destabilizer/Destroy()
 	for(var/atom/movable/AM as() in contained_things)
-		AM.forceMove(get_turf(source_object))
+		if(istype(get_area(AM), /area/tear_in_reality))
+			AM.forceMove(get_turf(source_object))
 	contained_things.Cut()
 	GLOB.destabliization_exits -= source_object
 	. = ..()
