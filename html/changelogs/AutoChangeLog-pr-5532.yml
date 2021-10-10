@@ -1,0 +1,6 @@
+author: KubeRoot
+delete-after: true
+changes:
+  - bugfix: The exploration detonator now correctly checks if you're on the station
+      Z level for its safety. You can also no longer detonate explosives across Z
+      levels.
