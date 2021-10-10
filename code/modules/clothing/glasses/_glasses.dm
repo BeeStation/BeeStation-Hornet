@@ -63,6 +63,8 @@
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/lightgreen
+	species_restricted = null
+	sprite_sheets = FLAG_GROD
 
 /obj/item/clothing/glasses/meson/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is putting \the [src] to [user.p_their()] eyes and overloading the brightness! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -206,15 +208,20 @@
 	glass_colour_type = /datum/client_colour/glass_colour/gray
 	dog_fashion = /datum/dog_fashion/head
 
+	species_restricted = null
+	sprite_sheets = FLAG_GROD
+
 /obj/item/clothing/glasses/sunglasses/advanced/
 	name = "advanced sunglasses"
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Has enhanced shielding which blocks flashes."
 	flash_protect = 1
+	species_restricted = FLAG_GROD
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	name = "beer goggles"
 	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion. Has enhanced shielding which blocks flashes."
 	clothing_flags = SCAN_REAGENTS
+	species_restricted = FLAG_GROD
 
 /obj/item/clothing/glasses/sunglasses/advanced/reagent/equipped(mob/user, slot)
 	. = ..()
@@ -236,6 +243,7 @@
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
+	species_restricted = FLAG_GROD
 
 /obj/item/clothing/glasses/sunglasses/advanced/garb/supergarb
 	name = "black giga gar glasses"
@@ -244,6 +252,7 @@
 	item_state = "garb"
 	force = 12
 	throwforce = 12
+	species_restricted = FLAG_GROD
 
 /obj/item/clothing/glasses/sunglasses/advanced/gar
 	name = "gar glasses"
@@ -257,6 +266,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = IS_SHARP
 	glass_colour_type = /datum/client_colour/glass_colour/orange
+	species_restricted = FLAG_GROD
 
 /obj/item/clothing/glasses/sunglasses/advanced/gar/supergar
 	name = "giga gar glasses"
@@ -266,6 +276,7 @@
 	force = 12
 	throwforce = 12
 	glass_colour_type = /datum/client_colour/glass_colour/red
+	species_restricted = FLAG_GROD
 
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"

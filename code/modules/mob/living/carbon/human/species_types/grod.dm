@@ -56,8 +56,8 @@
 /datum/action/innate/grod/swap_stance
 	name = "Swap Stance"
 	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
-	button_icon_state = "drone_vision"
+	icon_icon = 'icons/mob/actions/actions_grod.dmi'
+	button_icon_state = "stanceswap"
 
 /datum/action/innate/grod/swap_stance/Activate()
 	if(!isgrod(owner))
@@ -74,6 +74,7 @@
 		H.dna.species.stance = STANCE_INTERACT
 		H.dna.species.brutemod = 1.3
 		H.dna.species.speedmod = 0.9
+		H.nutrition -= 20
 	else
 		H.change_number_of_hands(2)
 		to_chat(H,"<span class ='warning'>You focus your energy back into your legs.</span>")
@@ -82,6 +83,7 @@
 		H.dna.species.stance = STANCE_MOBILE
 		H.dna.species.brutemod = 1.1
 		H.dna.species.speedmod = 1.1
+		H.nutrition -= 20
 
 /datum/action/innate/grod/crownspider
 	name = "Detach Crown"
@@ -179,6 +181,10 @@
 			return 'icons/mob/species/grod/onmob_grod_ears.dmi'
 		if("back")
 			return 'icons/mob/species/grod/onmob_grod_back.dmi'
+		if("shoes")
+			return 'icons/mob/species/grod/onmob_grod_shoes.dmi'
+		if("glasses")
+			return 'icons/mob/species/grod/onmob_grod_glasses.dmi'
 		if("generic")
 			return 'icons/mob/species/grod/onmob_grod_generic.dmi'
 
@@ -295,7 +301,7 @@
 	icon = 'icons/mob/species/grod/crown_spider.dmi'
 	icon_state = "crown_spider"
 	icon_living = "crown_spider"
-	icon_dead = "crown_spider"
+	icon_dead = "crown_spider_dead"
 	gender = NEUTER
 	health = 30
 	maxHealth = 30

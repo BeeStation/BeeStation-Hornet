@@ -14,6 +14,8 @@
 
 /obj/item/clothing/shoes/sneakers/black/redcoat
 	item_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.
+	species_restricted = null
+	sprite_sheets = FLAG_GROD
 
 /obj/item/clothing/shoes/sneakers/brown
 	name = "brown shoes"
@@ -104,7 +106,7 @@
 		src.slowdown = 15
 		src.icon_state = "orange1"
 	return
-	
+
 /obj/item/clothing/shoes/sneakers/orange/allow_attack_hand_drop(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/hummie = user
@@ -119,7 +121,7 @@
 	if(ishuman(m))
 		var/mob/living/carbon/human/hummie = m
 		if(hummie.shoes == src && chained)
-			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")			
+			to_chat(hummie, "<span class='warning'>You start taking off your [src]!</span>")
 			if(!do_after(hummie,15 SECONDS, src))
 				return FALSE
 	return ..()

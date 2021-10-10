@@ -64,6 +64,8 @@
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
 	hud_trait = TRAIT_MEDICAL_HUD
 	glass_colour_type = /datum/client_colour/glass_colour/lightblue
+	species_restricted = null
+	sprite_sheets = FLAG_GROD
 
 /obj/item/clothing/glasses/hud/health/night
 	name = "night vision health scanner HUD"
@@ -184,6 +186,8 @@
 	flash_protect = 1
 	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/darkred
+	species_restricted = null
+	sprite_sheets = FLAG_GROD
 
 /obj/item/clothing/glasses/hud/security/sunglasses/degraded
 	name = "degraded security HUDSunglasses"
