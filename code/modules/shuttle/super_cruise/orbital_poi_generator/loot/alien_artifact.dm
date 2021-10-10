@@ -436,6 +436,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		var/obj/item/stock_parts/cell/C = thing.get_cell()
 		if(C)
 			C.give(250 * delta_time)
+			thing.update_icon()
 
 //===================
 // Light Breaker
