@@ -97,20 +97,20 @@
 //===================
 
 /datum/artifact_effect/throwchaos
-	signal_types = list(COMSIG_MOVABLE_POST_THROW)
+	signal_types = list(COMSIG_MOVABLE_PRE_THROW)
 	effect_act_descs = list("thrown")
 
 /datum/artifact_effect/throwchaos/register_signals(source)
-	RegisterSignal(source, COMSIG_MOVABLE_POST_THROW, .proc/throw_thing_randomly)
+	RegisterSignal(source, COMSIG_MOVABLE_PRE_THROW, .proc/throw_thing_randomly)
 
-/datum/artifact_effect/throwchaos/proc/throw_thing_randomly(datum/source, datum/thrownthing, spin)
-	if(!isitem(thrownthing) || QDELETED(thrownthing))
-		return
+/datum/artifact_effect/throwchaos/proc/throw_thing_randomly(datum/source, list/arguments)
 	if(prob(40))
 		return
-	var/atom/new_throw_target = pick(view(5, thrownthing))
-	var/obj/item/I = thrownthing
-	I.throw_at(new_throw_target, 5, 4)
+	var/atom/new_throw_target = pick(view(5, source))
+	if(ismovable(new_throw_target))
+		arguments[1] = new_throw_target //target
+		arguments[2] = 5 //range
+		arguments[3] = 4 //speed
 
 //===================
 // Laughing
@@ -147,13 +147,41 @@
 // Projectile Reflector
 //===================
 
-/datum/artifact_effect/projreflect
-	requires_processing = TRUE
-	effect_act_descs = list("shot at")
+/atom/movable/proximity_monitor_holder
+	var/datum/proximity_monitor/monitor
+	var/datum/callback/callback
 
-/datum/artifact_effect/projreflect/process(delta_time)
-	for(var/obj/item/projectile/P in range(3, src))
-		//Reflect projectile
+/atom/movable/proximity_monitor_holder/proc/setup(datum/proximity_monitor/_monitor, datum/callback/_callback)
+	monitor = _monitor
+	callback = _callback
+
+	monitor.hasprox_receiver = src
+
+/atom/movable/proximity_monitor_holder/HasProximity(atom/movable/AM)
+	return callback.Invoke(AM)
+
+/atom/movable/proximity_monitor_holder/Destroy()
+	QDEL_NULL(monitor)
+	QDEL_NULL(callback)
+	return ..()
+
+/datum/artifact_effect/projreflect
+	effect_act_descs = list("shot at")
+	var/atom/movable/proximity_monitor_holder/monitor_holder
+
+/datum/artifact_effect/projreflect/Initialize(source)
+	. = ..()
+	var/datum/proximity_monitor/monitor = new(source, 3, FALSE)
+	monitor_holder = new()
+	monitor_holder.setup(monitor, CALLBACK(src, .proc/HasProximity))
+
+/datum/artifact_effect/projreflect/Destroy()
+	QDEL_NULL(monitor_holder)
+	return ..()
+
+/datum/artifact_effect/projreflect/proc/HasProximity(atom/movable/AM)
+	if(istype(AM, /obj/item/projectile))
+		var/obj/item/projectile/P = AM
 		P.setAngle(rand(0, 360))
 
 //===================
@@ -161,11 +189,23 @@
 //===================
 
 /datum/artifact_effect/airfreeze
+	signal_types = list(COMSIG_MOVABLE_MOVED)
 	effect_act_descs = list("depressurised")
 
 /datum/artifact_effect/airfreeze/Initialize(atom/source)
 	. = ..()
 	source.CanAtmosPass = ATMOS_PASS_NO
+
+/datum/artifact_effect/airfreeze/register_signals(source)
+	RegisterSignal(source, COMSIG_MOVABLE_MOVED, .proc/updateAir)
+
+/datum/artifact_effect/airfreeze/proc/updateAir(atom/source, atom/oldLoc)
+	if(isturf(oldLoc))
+		var/turf/oldTurf = oldLoc
+		oldTurf.air_update_turf(TRUE)
+	if(isturf(source.loc))
+		var/turf/newTurf = source.loc
+		newTurf.air_update_turf(TRUE)
 
 //===================
 // Atmos Stabilizer
@@ -198,7 +238,7 @@
 	var/turf/T = get_turf(warper)
 	if(T)
 		goonchem_vortex(T, FALSE, 8)
-		playsound(src, 'sound/magic/repulse.ogg')
+		playsound(source_object, 'sound/magic/repulse.ogg', 60)
 		next_use_world_time = world.time + 150
 
 //===================
@@ -212,11 +252,11 @@
 	var/next_use_time = 0
 
 /datum/artifact_effect/access/process(delta_time)
-	if(next_use_time < world.time)
+	if(world.time < next_use_time)
 		return
 	next_use_time = world.time + rand(30 SECONDS, 5 MINUTES)
 	var/list/idcards = list()
-	var/list/things_in_view = view(5, src)
+	var/list/things_in_view = view(5, source_object)
 	for(var/mob/living/carbon/human/H in things_in_view)
 		if(H.get_idcard())
 			idcards += H.get_idcard()
@@ -255,7 +295,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 
 /datum/artifact_effect/reality_destabilizer/Destroy()
 	for(var/atom/movable/AM as() in contained_things)
-		AM.forceMove(get_turf(src))
+		AM.forceMove(get_turf(source_object))
 	contained_things.Cut()
 	GLOB.destabliization_exits -= source_object
 	. = ..()
@@ -268,7 +308,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	if(!T)
 		return
 	for(var/atom/movable/AM in view(3, T))
-		if(AM == src)
+		if(AM == source_object)
 			continue
 		if(isobj(AM))
 			var/obj/O = AM
@@ -370,10 +410,12 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 /datum/artifact_effect/gas_remove/process(delta_time)
 	var/turf/T = get_turf(source_object)
 	var/datum/gas_mixture/air = T.return_air()
-	var/moles = min(air.get_moles(input), 5)
+	var/input_id = initial(input.id)
+	var/output_id = initial(output.id)
+	var/moles = min(air.get_moles(input_id), 5)
 	if(moles)
-		air.adjust_moles(input, -moles)
-		air.adjust_moles(output, moles)
+		air.adjust_moles(input_id, -moles)
+		air.adjust_moles(output_id, moles)
 
 //===================
 // Recharger
