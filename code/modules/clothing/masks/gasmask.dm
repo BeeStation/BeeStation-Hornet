@@ -246,5 +246,3 @@
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."
 	icon_state = "gas_alt_old"
 	item_state = "gas_alt_old"
-
-	species_restricted = FLAG_GROD
