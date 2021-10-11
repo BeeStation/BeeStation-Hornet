@@ -843,6 +843,23 @@ generate/load female uniform sprites matching all previously decided variables
 	update_inv_head()
 	update_inv_wear_mask()
 
+/mob/living/carbon/human/update_damage_overlays()
+	remove_overlay(DAMAGE_LAYER)
+	var/icon_source = 'icons/mob/dam_mob.dmi'
+	if(dna?.species.get_custom_icons("bloodmask"))
+		icon_source = dna.species.get_custom_icons("bloodmask")
+	var/mutable_appearance/damage_overlay = mutable_appearance(icon_source, "blank", -DAMAGE_LAYER)
+	overlays_standing[DAMAGE_LAYER] = damage_overlay
+
+	for(var/X in bodyparts)
+		var/obj/item/bodypart/BP = X
+		if(BP.dmg_overlay_type)
+			if(BP.brutestate)
+				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")	//we're adding icon_states of the base image as overlays
+			if(BP.burnstate)
+				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_0[BP.burnstate]")
+
+	apply_overlay(DAMAGE_LAYER)
 
 ////Extremely special handling for species with abnormal hand placement. This essentially rebuilds the hand overlay every
 ////rotation, with every direction having a unique pixel offset for in-hands.

@@ -11,9 +11,6 @@
 	equip_delay_other = 70
 	resistance_flags = FIRE_PROOF
 
-	species_restricted = null
-	sprite_sheets = FLAG_GROD
-
 /obj/item/clothing/shoes/magboots/verb/toggle()
 	set name = "Toggle Magboots"
 	set category = "Object"

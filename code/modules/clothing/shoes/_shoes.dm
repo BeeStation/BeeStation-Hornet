@@ -17,6 +17,9 @@
 	var/equipped_before_drop = FALSE
 	var/can_be_bloody = TRUE
 
+	species_restricted = null
+	sprite_sheets = FLAG_GROD
+
 /obj/item/clothing/shoes/ComponentInitialize()
 	. = ..()
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_blood)

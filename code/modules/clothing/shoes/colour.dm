@@ -14,8 +14,6 @@
 
 /obj/item/clothing/shoes/sneakers/black/redcoat
 	item_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.
-	species_restricted = null
-	sprite_sheets = FLAG_GROD
 
 /obj/item/clothing/shoes/sneakers/brown
 	name = "brown shoes"

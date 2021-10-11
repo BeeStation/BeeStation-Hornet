@@ -12,6 +12,7 @@
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	mutant_bodyparts = list("grod_crown")
 	mutant_brain = /obj/item/organ/brain/grod
+	limbs_id = "grod"
 	brutemod = 1.1
 	burnmod = 1.2
 	heatmod = 1.3
@@ -188,6 +189,8 @@
 			return 'icons/mob/species/grod/onmob_grod_shoes.dmi'
 		if("glasses")
 			return 'icons/mob/species/grod/onmob_grod_glasses.dmi'
+		/*if("bloodmask") NOT READY
+			return 'icons/mob/species/grod/bloodmask_grod.dmi'*/
 		if("generic")
 			return 'icons/mob/species/grod/onmob_grod_generic.dmi'
 
