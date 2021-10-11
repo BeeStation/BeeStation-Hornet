@@ -54160,9 +54160,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
-	c_tag = "Brig Interrogation";
+	c_tag = "Incinerator";
 	dir = 8;
-	network = list("interrogation")
+	network = list("ss13", "turbine")
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
