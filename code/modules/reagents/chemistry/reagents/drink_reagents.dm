@@ -824,6 +824,14 @@
 	taste_description = "peaches"
 	glass_name = "glass of peach juice"
 
+/datum/reagent/consumable/pineapplejuice
+	name = "Pineapple Juice"
+	description = "Tart, tropical, and hotly debated."
+	color = "#F7D435"
+	taste_description = "pineapple"
+	glass_name = "glass of pineapple juice"
+	glass_desc = "Tart, tropical, and hotly debated."
+
 /datum/reagent/consumable/cream_soda
 	name = "Cream Soda"
 	description = "A classic space-American vanilla flavored soft drink."
