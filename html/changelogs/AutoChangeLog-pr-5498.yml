@@ -1,0 +1,7 @@
+author: Archanial
+delete-after: true
+changes:
+  - rscdel: Removed hangover landmarks
+  - tweak: Hangover now dynamically places its spawns around the station
+  - bugfix: Fixed random_safe_station_turf sometimes returning null even if it had
+      viable turf
