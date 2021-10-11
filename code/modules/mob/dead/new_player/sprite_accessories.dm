@@ -810,6 +810,10 @@
 	name = "Updo"
 	icon_state = "hair_updo"
 
+/datum/sprite_accessory/hair/vegeta
+	name = "Vegeta"
+	icon_state = "hair_vegeta"
+
 /datum/sprite_accessory/hair/longer
 	name = "Very Long Hair"
 	icon_state = "hair_vlong"
@@ -879,6 +883,10 @@
 /datum/sprite_accessory/facial_hair/croppedfullbeard
 	name = "Beard (Cropped Fullbeard)"
 	icon_state = "facial_croppedfullbeard"
+
+/datum/sprite_accessory/facial_hair/gigachad
+	name = "Beard (Gigachad)"
+	icon_state = "facial_gigachad"
 
 /datum/sprite_accessory/facial_hair/gt
 	name = "Beard (Goatee)"
