@@ -1,0 +1,4 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - bugfix: Fixed camera name and network in Incenerator on Meta and Box
