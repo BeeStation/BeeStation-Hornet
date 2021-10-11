@@ -333,12 +333,18 @@
 	. = ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/H = over
+		if(H.stat == DEAD)
+			to_chat(src, "<span class='userdanger'>This one is no longer living. It is of no use to us!</span>")
+			return
 		if(H.getorganslot(ORGAN_SLOT_BRAIN))
 			to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 			return
 		Infect(H)
 	if(istype(over, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/O = over
+		if(O.myseed)
+			to_chat(src, "<span class='userdanger'>This tray is already in use!</span>")
+			return
 		O.myseed = seed
 		seed = null
 		src.visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
