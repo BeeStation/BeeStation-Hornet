@@ -189,10 +189,14 @@
 			return 'icons/mob/species/grod/onmob_grod_shoes.dmi'
 		if("glasses")
 			return 'icons/mob/species/grod/onmob_grod_glasses.dmi'
-		/*if("bloodmask") NOT READY
-			return 'icons/mob/species/grod/bloodmask_grod.dmi'*/
+		if("neck")
+			return 'icons/mob/species/grod/onmob_grod_neck.dmi'
 		if("generic")
 			return 'icons/mob/species/grod/onmob_grod_generic.dmi'
+		/*if("bloodmask") NOT READY
+			return 'icons/mob/species/grod/bloodmask_grod.dmi'*/
+		else
+			return
 
 
 
