@@ -18,7 +18,7 @@
 	heatmod = 1.3
 	coldmod = 0.7
 	toxmod = 0.8
-	speedmod = 1.1
+	speedmod = 0.9 //10% faster than human
 	staminamod = 1.2
 	liked_food = VEGETABLES | GRAIN | FRUIT
 	disliked_food = DAIRY
@@ -77,7 +77,7 @@
 		H.dna.species.inherent_traits += TRAIT_NOBLOCK
 		H.dna.species.stance = STANCE_INTERACT
 		H.dna.species.brutemod = 1.3
-		H.dna.species.speedmod = 0.9
+		H.dna.species.speedmod = 1.1 //10% slower than human
 		H.nutrition -= 20
 	else
 		H.change_number_of_hands(2)
@@ -86,7 +86,7 @@
 		H.dna.species.inherent_traits -= TRAIT_NOBLOCK
 		H.dna.species.stance = STANCE_MOBILE
 		H.dna.species.brutemod = 1.1
-		H.dna.species.speedmod = 1.1
+		H.dna.species.speedmod = 0.9
 		H.nutrition -= 20
 
 /datum/action/innate/grod/crownspider
