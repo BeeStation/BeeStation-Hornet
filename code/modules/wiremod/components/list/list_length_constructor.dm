@@ -9,6 +9,8 @@
 	display_name = "List Length Constructor"
 	display_desc = "A varient of the list constructor that makes an emtpy list with a specified length"
 
+	power_usage_per_input = 10 //B I G cost
+
 	//A specified length
 	var/datum/port/input/input_length
 

@@ -8,6 +8,8 @@
 	display_name = "List Constructor"
 	display_desc = "A component that creates a list from given inputs"
 
+	power_usage_per_input = 5 //Large cost
+
 	//Takes any inputs, makes a list out of them
 	input_port_type = PORT_TYPE_ANY
 	output_port_type = PORT_TYPE_LIST
