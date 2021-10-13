@@ -36,6 +36,7 @@
 	idle_power_usage = 10
 	active_power_usage = 400
 	light_color = LIGHT_COLOR_BLUE
+	req_access = list(ACCESS_GENETICS)
 
 	var/datum/techweb/stored_research
 	var/max_storage = 6
@@ -156,6 +157,12 @@
 
 	else
 		return ..()
+
+/obj/machinery/computer/scan_consolenew/interact(mob/user, special_state)
+	if(!allowed(user))
+		to_chat(user, "<span class='notice'>Missing required access!</span>")
+		return
+	..()
 
 /obj/machinery/computer/scan_consolenew/AltClick(mob/user)
 	// Make sure the user can interact with the machine.
@@ -622,7 +629,7 @@
 			// Activators are also called "research" injectors and are used to create
 			//  chromosomes by recycling at the DNA Console
 			if(is_activator)
-				I.name = "[HM.name] activator"
+				I.name = "DNA activator"
 				I.research = TRUE
 				// If there's an operational connected scanner, we can use its upgrades
 				//  to improve our injector's radiation generation
@@ -632,7 +639,8 @@
 				else
 					injectorready = world.time + INJECTOR_TIMEOUT
 			else
-				I.name = "[HM.name] mutator"
+				I.name = "DNA mutator"
+				I.desc = "Adds the current mutation on injection, at the cost of genetic stability."
 				I.doitanyway = TRUE
 				// If there's an operational connected scanner, we can use its upgrades
 				//  to improve our injector's radiation generation
@@ -2034,6 +2042,13 @@
 	if(!istype(user) || !Adjacent(user) || !user.put_in_active_hand(diskette))
 		diskette.forceMove(drop_location())
 	diskette = null
+
+/obj/machinery/computer/scan_consolenew/emag_act(mob/user)
+	obj_flags |= EMAGGED
+	if(req_access)
+		req_access = list()
+		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")
+
 /////////////////////////// DNA MACHINES
 #undef INJECTOR_TIMEOUT
 #undef NUMBER_OF_BUFFERS
