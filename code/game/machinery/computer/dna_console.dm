@@ -644,6 +644,53 @@
 
 			return
 
+		//Activate mutation already in a subject's genome
+		if("activate_mutation")
+			if(!can_modify_occupant())
+				return
+
+			var/path = GET_MUTATION_TYPE_FROM_ALIAS(params["alias"])
+			if(stored_research && (path in stored_research.discovered_mutations))
+				var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(path)
+				// GUARD CHECK - This should not be possible. Unexpected result
+				if(!HM)
+					return
+
+				scanner_occupant.dna.activate_mutation(HM)
+				log_game("[key_name(usr)] activated [HM] in [key_name(scanner_occupant)] [loc_name(usr)]")
+
+				if(scanner_occupant.client)
+					var/c_typepath = generate_chromosome()
+					var/obj/item/chromosome/CM = new c_typepath (drop_location())
+					if(LAZYLEN(stored_chromosomes) < max_chromosomes)
+						CM.forceMove(src)
+						stored_chromosomes += CM
+						to_chat(usr,"<span class='notice'>[capitalize(CM.name)] added to storage.</span>")
+
+		//Creates a new MUT_EXTRA mutation in subject
+		if("add_mutation")
+			if(!can_modify_occupant())
+				return
+
+			var/search_flags = 0
+
+			switch(params["source"])
+				if("console")
+					search_flags |= SEARCH_STORED
+				if("disk")
+					search_flags |= SEARCH_DISKETTE
+
+			var/bref = params["mutref"]
+			var/datum/mutation/human/HM = get_mut_by_ref(bref, search_flags)
+
+			if(!HM)
+				return
+			if(scanner_occupant.dna.mutation_in_sequence(HM))
+				scanner_occupant.dna.activate_mutation(HM)
+			else
+				scanner_occupant.dna.add_mutation(HM, MUT_EXTRA)
+			log_game("[key_name(usr)] added [HM] to [key_name(scanner_occupant)] [loc_name(usr)]")
+
 		// Save a mutation to the console's storage buffer.
 		// ---------------------------------------------------------------------- //
 		// params["mutref"] - ATOM Ref of specific mutation to store
