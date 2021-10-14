@@ -623,9 +623,12 @@ GLOBAL_LIST_EMPTY(colored_images)
 	if(!pipe_init_dirs_cache[type])
 		pipe_init_dirs_cache[type] = list()
 
-	if(!pipe_init_dirs_cache[type]["[dir]"])
-		var/obj/machinery/atmospherics/temp = new type(null, FALSE, dir)
-		pipe_init_dirs_cache[type]["[dir]"] = temp.get_init_directions()
+	if(!pipe_init_dirs_cache[type]["[init_dir]"])
+		pipe_init_dirs_cache[type]["[init_dir]"] = list()
+
+	if(!pipe_init_dirs_cache[type]["[init_dir]"]["[dir]"])
+		var/obj/machinery/atmospherics/temp = new type(null, FALSE, dir, init_dir)
+		pipe_init_dirs_cache[type]["[init_dir]"]["[dir]"] = temp.get_init_directions()
 		qdel(temp)
 
 	return pipe_init_dirs_cache[type]["[dir]"]

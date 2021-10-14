@@ -467,7 +467,10 @@
 	explosion_block = 2
 	glass_type = /obj/item/stack/sheet/plasmarglass
 
-/obj/structure/window/plasma/reinforced/spawner/east
+/obj/structure/window/reinforced/plasma/block_superconductivity()
+	return TRUE
+
+/obj/structure/window/reinforced/plasma/spawner/east
 	dir = EAST
 
 /obj/structure/window/plasma/reinforced/spawner/west

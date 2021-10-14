@@ -37,9 +37,8 @@
 			return //Indestructable cans shouldn't release air
 
 		//This explosion will destroy the can, release its air.
-		var/turf/T = get_turf(src)
-		T.assume_air(air_contents)
-		T.air_update_turf(FALSE, FALSE)
+		var/turf/local_turf = get_turf(src)
+		local_turf.assume_air(air_contents)
 
 	return ..()
 
@@ -132,48 +131,50 @@
 	update_appearance()
 	return TRUE
 
-/obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
-		if(!(machine_stat & BROKEN))
-			var/obj/item/tank/T = W
-			if(!user.transferItemToLoc(T, src))
-				return
-			to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
-			investigate_log("had its internal [holding] swapped with [T] by [key_name(user)].", INVESTIGATE_ATMOS)
-			replace_tank(user, FALSE, T)
-			update_appearance()
-	else if(W.tool_behaviour == TOOL_WRENCH)
-		if(!(machine_stat & BROKEN))
-			if(connected_port)
-				investigate_log("was disconnected from [connected_port] by [key_name(user)].", INVESTIGATE_ATMOS)
-				disconnect()
-				W.play_tool_sound(src)
-				user.visible_message( \
-					"[user] disconnects [src].", \
-					"<span class='notice'>You unfasten [src] from the port.</span>", \
-					"<span class='italics'>You hear a ratchet.</span>")
-				update_appearance()
-				return
-			else
-				var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
-				if(!possible_port)
-					to_chat(user, "<span class='notice'>Nothing happens.</span>")
-					return
-				if(!connect(possible_port))
-					to_chat(user, "<span class='notice'>[name] failed to connect to the port.</span>")
-					return
-				W.play_tool_sound(src)
-				user.visible_message( \
-					"[user] connects [src].", \
-					"<span class='notice'>You fasten [src] to the port.</span>", \
-					"<span class='italics'>You hear a ratchet.</span>")
-				update_appearance()
-				investigate_log("was connected to [possible_port] by [key_name(user)].", INVESTIGATE_ATMOS)
-	else
+/obj/machinery/portable_atmospherics/attackby(obj/item/item, mob/user, params)
+	if(!istype(item, /obj/item/tank))
 		return ..()
+	if(machine_stat & BROKEN)
+		return FALSE
+	var/obj/item/tank/insert_tank = item
+	if(!user.transferItemToLoc(insert_tank, src))
+		return FALSE
+	to_chat(user, span_notice("[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [insert_tank]" : "You insert [insert_tank] into [src]"]."))
+	investigate_log("had its internal [holding] swapped with [insert_tank] by [key_name(user)].", INVESTIGATE_ATMOS)
+	replace_tank(user, FALSE, insert_tank)
+	update_appearance()
 
-/obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
-	if(I.force < 10 && !(machine_stat & BROKEN))
+/obj/machinery/portable_atmospherics/wrench_act(mob/living/user, obj/item/wrench)
+	if(machine_stat & BROKEN)
+		return FALSE
+	if(connected_port)
+		investigate_log("was disconnected from [connected_port] by [key_name(user)].", INVESTIGATE_ATMOS)
+		disconnect()
+		wrench.play_tool_sound(src)
+		user.visible_message( \
+			"[user] disconnects [src].", \
+			span_notice("You unfasten [src] from the port."), \
+			span_hear("You hear a ratchet."))
+		update_appearance()
+		return TRUE
+	var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/components/unary/portables_connector) in loc
+	if(!possible_port)
+		to_chat(user, span_notice("Nothing happens."))
+		return FALSE
+	if(!connect(possible_port))
+		to_chat(user, span_notice("[name] failed to connect to the port."))
+		return FALSE
+	wrench.play_tool_sound(src)
+	user.visible_message( \
+		"[user] connects [src].", \
+		span_notice("You fasten [src] to the port."), \
+		span_hear("You hear a ratchet."))
+	update_appearance()
+	investigate_log("was connected to [possible_port] by [key_name(user)].", INVESTIGATE_ATMOS)
+	return TRUE
+
+/obj/machinery/portable_atmospherics/attacked_by(obj/item/item, mob/user)
+	if(item.force < 10 && !(machine_stat & BROKEN))
 		take_damage(0)
 	else
 		investigate_log("was smacked with \a [I] by [key_name(user)].", INVESTIGATE_ATMOS)

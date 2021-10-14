@@ -21,21 +21,26 @@
 
 	interacts_with_air = TRUE
 
+	///Direction of pumping the gas (RELEASING or SIPHONING)
 	var/pump_direction = RELEASING
-
+	///Should we check internal pressure, external pressure, both or none? (EXT_BOUND, INT_BOUND, NO_BOUND)
 	var/pressure_checks = EXT_BOUND
+	///The external pressure threshold (default 101 kPa)
 	var/external_pressure_bound = ONE_ATMOSPHERE
+	///The internal pressure threshold (default 0 kPa)
 	var/internal_pressure_bound = 0
 	// EXT_BOUND: Do not pass external_pressure_bound
 	// INT_BOUND: Do not pass internal_pressure_bound
 	// NO_BOUND: Do not pass either
 
+	///Frequency id for connecting to the NTNet
 	var/frequency = FREQ_ATMOS_CONTROL
+	///Reference to the radio datum
 	var/datum/radio_frequency/radio_connection
+	///Radio connection to the air alarm
 	var/radio_filter_out
+	///Radio connection from the air alarm
 	var/radio_filter_in
-
-	var/obj/machinery/advanced_airlock_controller/aac = null
 
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
 	if(!id_tag)
@@ -117,8 +122,9 @@
 			pressure_delta = min(pressure_delta, (air_contents.return_pressure() - internal_pressure_bound))
 
 		if(pressure_delta > 0)
-			if(air_contents.return_temperature() > 0 && air_contents.return_volume() > 0)
-				var/transfer_moles = (pressure_delta*environment.return_volume())/(air_contents.return_temperature() * R_IDEAL_GAS_EQUATION)
+			if(air_contents.temperature > 0)
+				var/transfer_moles = (pressure_delta * environment.volume) / (air_contents.temperature * R_IDEAL_GAS_EQUATION)
+				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
 				loc.assume_air_moles(air_contents, transfer_moles)
 				air_update_turf(FALSE, FALSE)
@@ -252,11 +258,12 @@
 	broadcast_status()
 	update_icon()
 
-/obj/machinery/atmospherics/components/unary/vent_pump/welder_act(mob/living/user, obj/item/I)
-	if(!I.tool_start_check(user, amount=0))
+/obj/machinery/atmospherics/components/unary/vent_pump/welder_act(mob/living/user, obj/item/welder)
+	..()
+	if(!welder.tool_start_check(user, amount=0))
 		return TRUE
-	to_chat(user, "<span class='notice'>You begin welding the vent...</span>")
-	if(I.use_tool(src, user, 20, volume=50))
+	to_chat(user, span_notice("You begin welding the vent..."))
+	if(welder.use_tool(src, user, 20, volume=50))
 		if(!welded)
 			user.visible_message("[user] welds the vent shut.", "<span class='notice'>You weld the vent shut.</span>", "<span class='italics'>You hear welding.</span>")
 			welded = TRUE

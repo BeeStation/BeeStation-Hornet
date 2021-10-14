@@ -32,6 +32,7 @@ field_generator power level display
 	density = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 500
+	can_atmos_pass = ATMOS_PASS_YES
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
 	armor = list(MELEE = 25,  BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70, STAMINA = 0)
 	var/power_level = 0
@@ -182,6 +183,7 @@ field_generator power level display
 
 /obj/machinery/field/generator/proc/turn_off()
 	active = FG_OFFLINE
+	can_atmos_pass = ATMOS_PASS_YES
 	air_update_turf(TRUE, FALSE)
 	can_atmos_pass = ATMOS_PASS_YES
 	spawn(1)

@@ -7,6 +7,7 @@
 	layer = GAS_FILTER_LAYER
 	pipe_flags = PIPING_ONE_PER_TURF
 
+	///Flips the node connections so that the first and third ports are swapped
 	var/flipped = FALSE
 
 /obj/machinery/atmospherics/components/trinary/set_init_directions()

@@ -3,7 +3,7 @@
 	desc = "Watch your step!"
 	icon_state = "invisible"
 	baseturfs = /turf/open/openspace
-	can_atmos_passVertical = ATMOS_PASS_YES
+	can_atmos_pass_vertical = ATMOS_PASS_YES
 	overfloor_placed = FALSE
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	allow_z_travel = TRUE

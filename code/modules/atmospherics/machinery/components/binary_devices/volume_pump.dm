@@ -95,6 +95,11 @@
 	if(overclocked)
 		. += "Its warning light is on[on ? " and it's spewing gas!" : "."]"
 
+/**
+ * Called in atmos_init(), used to change or remove the radio frequency from the component
+ * Arguments:
+ * * -new_frequency: the frequency that should be used for the radio to attach to the component, use 0 to remove the radio
+ */
 /obj/machinery/atmospherics/components/binary/volume_pump/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
@@ -103,7 +108,6 @@
 
 /obj/machinery/atmospherics/components/binary/volume_pump/proc/broadcast_status()
 	if(!radio_connection)
-		return
 
 	var/datum/signal/signal = new(list(
 		"tag" = id,
@@ -132,7 +136,7 @@
 	return data
 
 /obj/machinery/atmospherics/components/binary/volume_pump/atmos_init()
-	..()
+	. = ..()
 
 	set_frequency(frequency)
 

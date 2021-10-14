@@ -2,7 +2,7 @@
 ///Check if the turfs allows gas passage based on density, do not use.
 #define CANATMOSPASS(A, O) ( A.can_atmos_pass == ATMOS_PASS_PROC ? A.can_atmos_pass(O) : ( A.can_atmos_pass == ATMOS_PASS_DENSITY ? !A.density : A.can_atmos_pass ) )
 ///Check if the turfs allows gas passage on a z level, do not use.
-#define CANVERTICALATMOSPASS(A, O) ( A.can_atmos_passVertical == ATMOS_PASS_PROC ? A.can_atmos_pass(O, TRUE) : ( A.can_atmos_passVertical == ATMOS_PASS_DENSITY ? !A.density : A.can_atmos_passVertical ) )
+#define CANVERTICALATMOSPASS(A, O) ( A.can_atmos_pass_vertical == ATMOS_PASS_PROC ? A.can_atmos_pass(O, TRUE) : ( A.can_atmos_pass_vertical == ATMOS_PASS_DENSITY ? !A.density : A.can_atmos_pass_vertical ) )
 
 //Helpers
 ///Moves the icon of the device based on the piping layer and on the direction

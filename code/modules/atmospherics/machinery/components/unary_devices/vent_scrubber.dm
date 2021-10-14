@@ -31,6 +31,26 @@
 
 	pipe_state = "scrubber"
 
+	///The mode of the scrubber (SCRUBBING or SIPHONING)
+	var/scrubbing = SCRUBBING //0 = siphoning, 1 = scrubbing
+	///The list of gases we are filtering
+	var/filter_types = list(/datum/gas/carbon_dioxide)
+	///Rate of the scrubber to remove gases from the air
+	var/volume_rate = 200
+	///is this scrubber acting on the 3x3 area around it.
+	var/widenet = FALSE
+	///List of the turfs near the scrubber, used for widenet
+	var/list/turf/adjacent_turfs = list()
+
+	///Frequency id for connecting to the NTNet
+	var/frequency = FREQ_ATMOS_CONTROL
+	///Reference to the radio datum
+	var/datum/radio_frequency/radio_connection
+	///Radio connection to the air alarm
+	var/radio_filter_out
+	///Radio connection from the air alarm
+	var/radio_filter_in
+
 /obj/machinery/atmospherics/components/unary/vent_scrubber/New()
 	if(!id_tag)
 		id_tag = SSnetworks.assign_random_name()
@@ -122,14 +142,19 @@
 
 	return TRUE
 
+/obj/machinery/atmospherics/components/unary/vent_scrubber/update_name()
+	. = ..()
+	var/area/scrub_area = get_area(src)
+	name = "\proper [scrub_area.name] [name] [id_tag]"
+
 /obj/machinery/atmospherics/components/unary/vent_scrubber/atmos_init()
-	radio_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
-	radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
+	radio_filter_in = frequency == initial(frequency) ? RADIO_FROM_AIRALARM : null
+	radio_filter_out = frequency == initial(frequency) ? RADIO_TO_AIRALARM : null
 	if(frequency)
 		set_frequency(frequency)
 	broadcast_status()
 	check_turfs()
-	..()
+	. = ..()
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/process_atmos()
 	..()
@@ -176,9 +201,8 @@
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/proc/check_turfs()
 	adjacent_turfs.Cut()
-	var/turf/T = get_turf(src)
-	if(istype(T))
-		adjacent_turfs = T.GetAtmosAdjacentTurfs(alldir = 1)
+	var/turf/local_turf = get_turf(src)
+	adjacent_turfs = local_turf.get_atmos_adjacent_turfs(alldir = TRUE)
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/receive_signal(datum/signal/signal)
 	if(!is_operational || !signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
@@ -228,11 +252,12 @@
 	. = ..()
 	update_icon_nopipes()
 
-/obj/machinery/atmospherics/components/unary/vent_scrubber/welder_act(mob/living/user, obj/item/I)
-	if(!I.tool_start_check(user, amount=0))
+/obj/machinery/atmospherics/components/unary/vent_scrubber/welder_act(mob/living/user, obj/item/welder)
+	..()
+	if(!welder.tool_start_check(user, amount=0))
 		return TRUE
-	to_chat(user, "<span class='notice'>Now welding the scrubber.</span>")
-	if(I.use_tool(src, user, 20, volume=50))
+	to_chat(user, ("<span class='notice'>Now welding the scrubber.</span>"))
+	if(welder.use_tool(src, user, 20, volume=50))
 		if(!welded)
 			user.visible_message("[user] welds the scrubber shut.","You weld the scrubber shut.", "You hear welding.")
 			welded = TRUE

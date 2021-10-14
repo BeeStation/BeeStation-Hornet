@@ -30,10 +30,10 @@
 	oxygen_mix.gases[/datum/gas/oxygen][MOLES] = pressure_o*oxygen_mix.volume/(R_IDEAL_GAS_EQUATION*CELSIUS_TO_KELVIN(temp_o))
 	oxygen_mix.temperature = CELSIUS_TO_KELVIN(temp_o)
 
-	V.tank_one = PT
-	V.tank_two = OT
-	PT.master = V
-	OT.master = V
+	V.tank_one = plasma_tank
+	V.tank_two = oxygen_tank
+	plasma_tank.master = V
+	oxygen_tank.master = V
 
 	if(assembly_type)
 		var/obj/item/assembly/A = new assembly_type(V)

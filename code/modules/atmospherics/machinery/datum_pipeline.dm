@@ -28,7 +28,7 @@
 			continue
 		SSair.add_to_rebuild_queue(considered_pipe)
 	for(var/obj/machinery/atmospherics/components/considered_component in other_atmos_machines)
-		considered_component.nullifyPipenet(src)
+		considered_component.nullify_pipenet(src)
 	return ..()
 
 /datum/pipeline/process()
@@ -121,7 +121,7 @@
 
 /datum/pipeline/proc/add_machinery_member(obj/machinery/atmospherics/components/considered_component)
 	other_atmos_machines |= considered_component
-	var/list/returned_airs = considered_component.return_pipenetAirs(src)
+	var/list/returned_airs = considered_component.return_pipenet_airs(src)
 	if (!length(returned_airs) || (null in returned_airs))
 		stack_trace("add_machinery_member: Nonexistent (empty list) or null machinery gasmix added to pipeline datum from [considered_component] \
 		which is of type [considered_component.type]. Nearby: ([considered_component.x], [considered_component.y], [considered_component.z])")
@@ -256,16 +256,11 @@
 			continue
 		gas_mixture_list += pipeline.other_airs
 		gas_mixture_list += pipeline.air
-		for(var/atmosmch in pipeline.other_atmos_machines)
-			if (istype(atmosmch, /obj/machinery/atmospherics/components/binary/valve))
-				var/obj/machinery/atmospherics/components/binary/valve/considered_valve = atmosmch
-				if(considered_valve.on)
-					pipeline_list |= considered_valve.parents[1]
-					pipeline_list |= considered_valve.parents[2]
-			else if (istype(atmosmch, /obj/machinery/atmospherics/components/unary/portables_connector))
-				var/obj/machinery/atmospherics/components/unary/portables_connector/considered_connector = atmosmch
-				if(considered_connector.connected_device)
-					gas_mixture_list += considered_connector.connected_device.return_air()
+		for(var/obj/machinery/atmospherics/components/atmos_machine as anything in pipeline.other_atmos_machines)
+			if(!atmos_machine.custom_reconcilation)
+				continue
+			pipeline_list |= atmos_machine.return_pipenets_for_reconcilation(src)
+			gas_mixture_list |= atmos_machine.return_airs_for_reconcilation(src)
 
 	var/total_thermal_energy = 0
 	var/total_heat_capacity = 0

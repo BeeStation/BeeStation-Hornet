@@ -44,10 +44,9 @@
 				target.partner_ref = WEAKREF(src)
 				break
 
-	..()
+	. = ..()
 
 /obj/machinery/atmospherics/components/unary/heat_exchanger/process_atmos()
-	..()
 	var/obj/machinery/atmospherics/components/unary/heat_exchanger/partner = partner_ref?.resolve()
 	if(!partner)
 		partner_ref = null
@@ -69,14 +68,14 @@
 	var/other_old_temperature = partner_air_contents.return_temperature()
 
 	if(combined_heat_capacity > 0)
-		var/combined_energy = partner_air_contents.return_temperature()*other_air_heat_capacity + air_heat_capacity*air_contents.return_temperature()
+		var/combined_energy = partnerair_contents.temperature * other_air_heat_capacity + air_heat_capacity * air_contents.temperature
 
-		var/new_temperature = combined_energy/combined_heat_capacity
-		air_contents.temperature = (new_temperature)
-		partner_air_contents.temperature = (new_temperature)
+		var/new_temperature = combined_energy / combined_heat_capacity
+		air_contents.temperature = new_temperature
+		partnerair_contents.temperature = new_temperature
 
-	if(abs(old_temperature-air_contents.return_temperature()) > 1)
+	if(abs(old_temperature - air_contents.temperature) > 1)
 		update_parents()
 
-	if(abs(other_old_temperature-partner_air_contents.return_temperature()) > 1)
+	if(abs(other_old_temperature - partnerair_contents.temperature) > 1)
 		partner.update_parents()

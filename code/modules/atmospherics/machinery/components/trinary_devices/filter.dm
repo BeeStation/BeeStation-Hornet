@@ -6,14 +6,17 @@
 	desc = "Very useful for filtering gasses."
 
 	can_unwrench = TRUE
-	var/transfer_rate = MAX_TRANSFER_RATE
-	var/filter_type = null
-	var/frequency = 0
-	var/datum/radio_frequency/radio_connection
-
 	construction_type = /obj/item/pipe/trinary/flippable
 	pipe_state = "filter"
 
+	///Rate of transfer of the gases to the outputs
+	var/transfer_rate = MAX_TRANSFER_RATE
+	///What gas are we filtering
+	var/filter_type = null
+	///Frequency id for connecting to the NTNet
+	var/frequency = 0
+	///Reference to the radio datum
+	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/atmospherics/components/trinary/filter/CtrlClick(mob/user)
 	if(can_interact(user))
@@ -47,15 +50,7 @@
 			continue
 		var/obj/machinery/atmospherics/node = find_connecting(direction)
 
-		var/image/cap
-		if(node)
-			cap = get_pipe_image(icon, "cap", direction, node.pipe_color, piping_layer = piping_layer, trinary = TRUE)
-		else
-			cap = get_pipe_image(icon, "cap", direction, piping_layer = piping_layer, trinary = TRUE)
-
-		add_overlay(cap)
-
-	return ..()
+		. += get_pipe_image(icon, "cap", direction, pipe_color, piping_layer, TRUE)
 
 /obj/machinery/atmospherics/components/trinary/filter/update_icon_nopipes()
 	var/on_state = on && nodes[1] && nodes[2] && nodes[3] && is_operational
