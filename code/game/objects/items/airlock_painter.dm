@@ -170,11 +170,11 @@
 
 /obj/item/airlock_painter/decal/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	var/turf/open/floor/F = target
 	if(!proximity)
 		to_chat(user, "<span class=notice>You need to get closer!")
 		return
-	if(use_paint(user) && isturf(F))
+	if(use_paint(user) && isturf(target))
+		var/turf/open/floor/F = target
 		F.AddElement(/datum/element/decal, 'icons/turf/decals.dmi', stored_decal_total, stored_dir, null, null, alpha, color, null, TRUE, null)
 
 /obj/item/airlock_painter/decal/AltClick(mob/user)
