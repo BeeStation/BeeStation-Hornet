@@ -13,6 +13,7 @@
 	var/text_lose_indication = ""
 	var/static/list/visual_indicators = list()
 	var/obj/effect/proc_holder/spell/power
+	var/power_dormant = FALSE //whether the power needs something to be activated
 	var/layer_used = MUTATIONS_LAYER //which mutation layer to use
 	var/list/species_allowed = list() //to restrict mutation to only certain species
 	var/health_req //minimum health required to acquire the mutation
@@ -37,12 +38,11 @@
 
 	var/can_chromosome = CHROMOSOME_NONE //can we take chromosomes? 0: CHROMOSOME_NEVER never,  1:CHROMOSOME_NONE yeah, 2: CHROMOSOME_USED no, already have one
 	var/chromosome_name   //purely cosmetic
-	var/modified = FALSE  //ugly but we really don't want chromosomes and on_acquiring to overlap and apply double the powers
 	var/mutadone_proof = FALSE
 
 	//Chromosome stuff - set to -1 to prevent people from changing it. Example: It'd be a waste to decrease cooldown on mutism
 	var/stabilizer_coeff = 1 //genetic stability coeff
-	var/synchronizer_coeff = -1 //makes the mutation hurt the user less
+	var/synchronizer = -1 //makes the mutation more controllable
 	var/power_coeff = -1 //boosts mutation strength
 	var/energy_coeff = -1 //lowers mutation cooldown
 
@@ -83,9 +83,9 @@
 		owner.remove_overlay(layer_used)
 		owner.overlays_standing[layer_used] = mut_overlay
 		owner.apply_overlay(layer_used)
-	grant_spell() //we do checks here so nothing about hulk getting magic
-	if(!modified)
-		addtimer(CALLBACK(src, .proc/modify, 5)) //gonna want children calling ..() to run first
+	if(!power_dormant)
+		grant_spell() //we do checks here so nothing about hulk getting magic
+	addtimer(CALLBACK(src, .proc/modify, 5)) //gonna want children calling ..() to run first
 
 /datum/mutation/human/proc/get_visual_indicator()
 	return
@@ -101,6 +101,9 @@
 
 /datum/mutation/human/proc/on_life()
 	return
+
+/datum/mutation/human/proc/trigger_mutation()
+	return FALSE
 
 /datum/mutation/human/proc/on_losing(mob/living/carbon/human/owner)
 	if(owner && istype(owner) && (owner.dna.mutations.Remove(src)))
@@ -142,18 +145,28 @@
 				apply_overlay(CM.layer_used)
 
 /datum/mutation/human/proc/modify() //called when a genome is applied so we can properly update some stats without having to remove and reapply the mutation from someone
-	if(modified || !power || !owner)
+	if(!owner)
 		return
-	power.charge_max *= GET_MUTATION_ENERGY(src)
-	power.charge_counter *= GET_MUTATION_ENERGY(src)
-	modified = TRUE
+	power_dormant = !GET_MUTATION_SYNCHRONIZER(src) //Granting dormant powers is only by synchronizer chromosome so far
+	if(power)
+		var/power_given = FALSE
+		for(var/spell in owner.mind.spell_list)
+			if(spell == power)
+				power_given = TRUE
+		if(power_given && power_dormant) //Power going back into dormancy
+			owner.RemoveSpell(power)
+		if(!power_given && !power_dormant)
+			grant_spell()
+		if(istype(power))
+			power.charge_max *= GET_MUTATION_ENERGY(src)
+			power.charge_counter *= GET_MUTATION_ENERGY(src)
 
 /datum/mutation/human/proc/copy_mutation(datum/mutation/human/HM)
 	if(!HM)
 		return
 	chromosome_name = HM.chromosome_name
 	stabilizer_coeff = HM.stabilizer_coeff
-	synchronizer_coeff = HM.synchronizer_coeff
+	synchronizer = HM.synchronizer
 	power_coeff = HM.power_coeff
 	energy_coeff = HM.energy_coeff
 	mutadone_proof = HM.mutadone_proof
@@ -162,7 +175,7 @@
 
 /datum/mutation/human/proc/remove_chromosome()
 	stabilizer_coeff = initial(stabilizer_coeff)
-	synchronizer_coeff = initial(synchronizer_coeff)
+	synchronizer = initial(synchronizer)
 	power_coeff = initial(power_coeff)
 	energy_coeff = initial(energy_coeff)
 	mutadone_proof = initial(mutadone_proof)
@@ -198,9 +211,27 @@
 
 	if(stabilizer_coeff != -1)
 		valid_chrom_list += "Stabilizer"
-	if(synchronizer_coeff != -1)
+	if(synchronizer != -1)
 		valid_chrom_list += "Synchronizer"
 	if(power_coeff != -1)
 		valid_chrom_list += "Power"
 	if(energy_coeff != -1)
 		valid_chrom_list += "Energetic"
+
+/obj/effect/proc_holder/spell/self/trigger_mutation //A base spell to trigger the mutation.
+	name = "Trigger the attached mutation"
+	desc = "Causes your mutation to activate."
+	clothes_req = FALSE
+	human_req = FALSE
+	charge_max = 150
+	action_icon_state = "void_magnet"
+	var/mutation_type //Identifier like EPILEPSY or OLFACTION
+
+/obj/effect/proc_holder/spell/self/trigger_mutation/cast(mob/user = usr)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/C = user
+	var/datum/mutation/human/M = C.dna.get_mutation(mutation_type)
+	if(!M)
+		return
+	M.trigger_mutation()

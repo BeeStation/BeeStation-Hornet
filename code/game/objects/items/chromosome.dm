@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/stabilizer_coeff = 1 //lower is better, affects genetic stability
-	var/synchronizer_coeff = 1 //lower is better, affects chance to backfire
+	var/synchronizer = FALSE //whether or not the mutation can be controlled more precisely
 	var/power_coeff = 1 //higher is better, affects "strength"
 	var/energy_coeff = 1 //lower is better. affects recharge time
 
@@ -18,7 +18,7 @@
 		return FALSE
 	if((stabilizer_coeff != 1) && (HM.stabilizer_coeff != -1)) //if the chromosome is 1, we dont change anything. If the mutation is -1, we cant change it. sorry
 		return TRUE
-	if((synchronizer_coeff != 1) && (HM.synchronizer_coeff != -1))
+	if((synchronizer = TRUE) && (HM.synchronizer != -1))
 		return TRUE
 	if((power_coeff != 1) && (HM.power_coeff != -1))
 		return TRUE
@@ -28,8 +28,8 @@
 /obj/item/chromosome/proc/apply(datum/mutation/human/HM)
 	if(HM.stabilizer_coeff != -1)
 		HM.stabilizer_coeff = stabilizer_coeff
-	if(HM.synchronizer_coeff != -1)
-		HM.synchronizer_coeff = synchronizer_coeff
+	if(HM.synchronizer != -1)
+		HM.synchronizer = synchronizer
 	if(HM.power_coeff != -1)
 		HM.power_coeff = power_coeff
 	if(HM.energy_coeff != -1)
@@ -60,9 +60,9 @@
 
 /obj/item/chromosome/synchronizer
 	name = "synchronizer chromosome"
-	desc = "A chromosome that reduces mutation knockback and downsides by 50%."
+	desc = "A chromosome that allows for more precise control and less drawbacks of some mutations."
 	icon_state = "synchronizer"
-	synchronizer_coeff = 0.5
+	synchronizer = TRUE
 
 /obj/item/chromosome/power
 	name = "power chromosome"

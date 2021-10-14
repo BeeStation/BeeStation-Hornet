@@ -19,17 +19,19 @@
 	text_lose_indication = "<span class='notice'>Your sense of smell goes back to normal.</span>"
 	power = /obj/effect/proc_holder/spell/targeted/olfaction
 	instability = 30
-	synchronizer_coeff = 1
+	synchronizer = FALSE
 	var/reek = 200
 
 /datum/mutation/human/olfaction/on_life()
+	if(GET_MUTATION_SYNCHRONIZER(src))
+		return //If we've synchronized, we have enough control to filter out our stench
 	var/hygiene_now = owner.hygiene
 
 	if(hygiene_now < 100 && prob(3))
-		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * (rand(3,5)))
+		owner.adjust_disgust(rand(3,5))
 	if(hygiene_now < HYGIENE_LEVEL_DIRTY && prob(15))
 		to_chat(owner,"<span class='danger'>You get a whiff of your stench and feel sick!</span>")
-		owner.adjust_disgust(GET_MUTATION_SYNCHRONIZER(src) * rand(5,10))
+		owner.adjust_disgust(rand(5,10))
 
 	if(hygiene_now < HYGIENE_LEVEL_NORMAL && reek >= HYGIENE_LEVEL_NORMAL)
 		to_chat(owner,"<span class='warning'>Your inhumanly strong nose picks up a faint odor. Maybe you should shower soon.</span>")
@@ -168,12 +170,12 @@
 	instability = 30
 	power = /obj/effect/proc_holder/spell/self/void
 	energy_coeff = 1
-	synchronizer_coeff = 1
+	synchronizer = FALSE
 
 /datum/mutation/human/void/on_life()
-	if(!isturf(owner.loc))
+	if(!isturf(owner.loc) || GET_MUTATION_SYNCHRONIZER(src))
 		return
-	if(prob((0.5+((100-dna.stability)/20))) * GET_MUTATION_SYNCHRONIZER(src)) //very rare, but enough to annoy you hopefully. +0.5 probability for every 10 points lost in stability
+	if(prob((0.5+((100-dna.stability)/20)))) //very rare, but enough to annoy you hopefully. +0.5 probability for every 10 points lost in stability
 		new /obj/effect/immortality_talisman/void(get_turf(owner), owner)
 
 /obj/effect/proc_holder/spell/self/void
@@ -204,7 +206,7 @@
 	power = /obj/effect/proc_holder/spell/self/self_amputation
 
 	energy_coeff = 1
-	synchronizer_coeff = 1
+	synchronizer = FALSE
 
 /obj/effect/proc_holder/spell/self/self_amputation
 	name = "Drop a limb"
