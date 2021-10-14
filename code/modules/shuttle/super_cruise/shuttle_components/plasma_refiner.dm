@@ -24,7 +24,7 @@
 		say("[moles_created] moles of plasma refined.")
 		return
 
-	if(default_deconstruction_screwdriver(user, icon_state, icon_state, W)) //There's no off icon_state and I don't know how to sprite. I guess that's a problem...
+	if(default_deconstruction_screwdriver(user, "plasma_refinery_o", "plasma_refinery", W))
 		return
 	if(default_change_direction_wrench(user, W))
 		return
