@@ -23,7 +23,7 @@
 	. = ..()
 
 /obj/machinery/mass_driver/proc/drive(amount)
-	if(stat & (BROKEN|NOPOWER) || !panel_open)
+	if(stat & (BROKEN|NOPOWER) || panel_open)
 		return
 	use_power(power_per_obj)
 	var/O_limit
@@ -45,7 +45,7 @@
 	if(is_wire_tool(I) && panel_open)
 		wires.interact(user)
 		return
-	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I)) //There's no off icon_state and I don't know how to sprite. I guess that's a problem...
+	if(default_deconstruction_screwdriver(user, "mass_driver_o", "mass_driver", I))
 		return
 	if(default_change_direction_wrench(user, I))
 		return

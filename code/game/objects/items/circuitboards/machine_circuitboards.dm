@@ -1094,7 +1094,6 @@
 
 /obj/item/circuitboard/machine/mass_driver
 	name = "mass driver (Machine Board)"
-	icon_state = "service"
 	build_path = /obj/machinery/mass_driver
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 2,

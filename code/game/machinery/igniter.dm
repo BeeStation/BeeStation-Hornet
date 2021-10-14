@@ -29,7 +29,7 @@
 
 /obj/machinery/igniter/attack_hand(mob/user)
 	. = ..()
-	if(.)
+	if(. || panel_open)
 		return
 	add_fingerprint(user)
 
@@ -53,7 +53,7 @@
 	if(is_wire_tool(I) && panel_open)
 		wires.interact(user)
 		return
-	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I)) //There's no off icon_state and I don't know how to sprite. I guess that's a problem...
+	if(default_deconstruction_screwdriver(user, "igniter_o", "igniter[on]", I)) //There's no off icon_state and I don't know how to sprite. I guess that's a problem...
 		return
 	if(default_deconstruction_crowbar(I))
 		return
