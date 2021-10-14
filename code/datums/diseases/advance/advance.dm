@@ -63,7 +63,7 @@
 			S.End(src)
 	return ..()
 
-/datum/disease/advance/try_infect(var/mob/living/infectee, make_copy = TRUE)
+/datum/disease/advance/try_infect(mob/living/infectee, make_copy = TRUE)
 	//see if we are more transmittable than enough diseases to replace them
 	//diseases replaced in this way do not confer immunity
 	var/list/advance_diseases = list()
@@ -219,21 +219,31 @@
 	stage_rate = 0
 	transmission = 0
 	severity = 0
+	var/list/L
+	//Why do we need 2 loops here?
+	//First loop just sets stats and second is purely just to set (and get) symptom severity
 	for(var/datum/symptom/S as() in symptoms)
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
+
+	for(var/datum/symptom/S as() in symptoms)
 		S.severityset(src)
 		if(S.neutered)
 			continue
-		switch(severity)
+		L.Add(S.severity)
+
+	L = sortList(L, /proc/cmp_numeric_asc)
+
+	for(var/i in L)
+		switch(i)
 			if(1 to 2)
-				severity= max(severity, min(3, (S.severity + severity)))
+				severity= max(severity, min(3, (i + severity)))
 			if(3 to 4)
-				severity = max(severity, min(4, (S.severity + severity)))
+				severity = max(severity, min(4, (i + severity)))
 			else		// <= 0 or >= 5
-				severity += S.severity
+				severity += i
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
