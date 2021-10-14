@@ -649,7 +649,7 @@ update_label("John Doe", "Clowny")
 	var/department_ID = ACCOUNT_CIV
 	var/department_name = ACCOUNT_CIV_NAME
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	
+
 /obj/item/card/id/departmental_budget/Initialize()
 	. = ..()
 	var/datum/bank_account/B = SSeconomy.get_dep_account(department_ID)
