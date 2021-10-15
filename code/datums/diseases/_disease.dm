@@ -33,6 +33,7 @@
 	var/list/infectable_biotypes = list(MOB_ORGANIC) //if the disease can spread on organics, synthetics, or undead
 	var/process_dead = FALSE //if this ticks while the host is dead
 	var/copy_type = null //if this is null, copies will use the type of the instance being copied
+	var/initial = TRUE //used in advance diseases to check if a virus has already infected a mob- the first infection never mutates
 
 /datum/disease/Destroy()
 	. = ..()
@@ -48,6 +49,25 @@
 //add the disease with no checks
 /datum/disease/proc/infect(var/mob/living/infectee, make_copy = TRUE)
 	var/datum/disease/D = make_copy ? Copy() : src
+	if(istype(D, /datum/disease/advance))
+		var/datum/disease/advance/A = D
+		if(!initial && A.mutable && (spread_flags & DISEASE_SPREAD_CONTACT_FLUIDS))
+			var/minimum = 1
+			if(prob(CLAMP(35-(A.resistance + A.stealth), 0, 50) * (A.mutability)))//stealthy/resistant diseases are less likely to mutate. this means diseases used to farm mutations should be easier to cure. hypothetically.
+				if(infectee.job == "clown" || infectee.job == "mime" || prob(1))//infecting a clown or mime can evolve l0 symptoms/. they can also appear very rarely
+					minimum = 0
+				else
+					minimum = CLAMP(A.severity - 3, 1, 6)
+				A.Evolve(minimum, CLAMP(A.severity + 4, minimum, 9))
+				A.id = GetDiseaseID()
+				A.keepid = TRUE//this is really janky, but basically mutated diseases count as the original disease
+				//if you want to evolve a higher level symptom you need to test and spread a deadly virus among test subjects. 
+				//this is to give monkey testing a use, and add a bit more of a roleplay element to virology- testing deadly diseases on and curing/vaccinating monkeys
+				//this also adds the risk of disease escape if strict biohazard protocol is not followed, however
+				//the immutability of resistant diseases discourages this with hard-to-cure diseases.
+				//if players intentionally grief/cant seem to get biohazard protocol down, this can be changed to not use severity. 
+		else
+			A.initial = FALSE //diseases *only* mutate when spreading. they wont mutate from any other kind of injection	*/	
 	infectee.diseases += D
 	D.affected_mob = infectee
 	SSdisease.active_diseases += D //Add it to the active diseases list, now that it's actually in a mob and being processed.
