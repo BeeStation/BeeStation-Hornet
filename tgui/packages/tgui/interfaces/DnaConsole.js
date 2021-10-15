@@ -642,7 +642,7 @@ const MutationInfo = (props, context) => {
             {consoleMode === CONSOLE_MODE_STORAGE && (
               <Button
                 icon="exchange-alt"
-                disabled={!isViableSubject}
+                disabled={!isViableSubject || !isInjectorReady}
                 content="Mutate"
                 onClick={() => act('add_mutation', {
                   mutref: mutation.ByondRef,
@@ -653,7 +653,8 @@ const MutationInfo = (props, context) => {
                 icon="exchange-alt"
                 disabled={subjectStatus === SUBJECT_TRANSFORMING
                   || mutation.Active
-                  || !mutation.Discovered}
+                  || !mutation.Discovered
+                  || !isInjectorReady}
                 content="Activate"
                 onClick={() => act('activate_mutation', {
                   alias: mutation.Alias,

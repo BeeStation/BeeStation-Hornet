@@ -668,6 +668,11 @@
 				scanner_occupant.dna.activate_mutation(HM)
 				log_game("[key_name(usr)] activated [HM] in [key_name(scanner_occupant)] [loc_name(usr)]")
 
+				if(scanner_operational())
+					injectorready = world.time + INJECTOR_TIMEOUT * 0.1 * (1 - 0.1 * connected_scanner.precision_coeff)
+				else
+					injectorready = world.time + INJECTOR_TIMEOUT * 0.1
+
 				if(scanner_occupant.client)
 					var/c_typepath = generate_chromosome()
 					var/obj/item/chromosome/CM = new c_typepath (drop_location())
@@ -698,6 +703,12 @@
 				scanner_occupant.dna.activate_mutation(HM)
 			else
 				scanner_occupant.dna.add_mutation(HM, MUT_EXTRA)
+
+			if(scanner_operational())
+				injectorready = world.time + INJECTOR_TIMEOUT * 0.5 * (1 - 0.1 * connected_scanner.precision_coeff)
+			else
+				injectorready = world.time + INJECTOR_TIMEOUT * 0.5
+
 			log_game("[key_name(usr)] added [HM] to [key_name(scanner_occupant)] [loc_name(usr)]")
 
 		// Save a mutation to the console's storage buffer.
