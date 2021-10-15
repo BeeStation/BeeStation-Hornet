@@ -256,6 +256,10 @@
 /obj/item/reagent_containers/food/snacks/deepfryholder/proc/clean_batter()
 	qdel(src)
 
+/obj/item/reagent_containers/food/snacks/deepfryholder/Destroy()
+	UnregisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT)
+	. = ..()
+
 /obj/item/reagent_containers/food/snacks/deepfryholder/On_Consume(mob/living/eater)
 	if(contents)
 		for(var/atom/movable/A in contents)
