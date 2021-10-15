@@ -159,9 +159,10 @@
 		return ..()
 
 /obj/machinery/computer/scan_consolenew/interact(mob/user, special_state)
-	if(!allowed(user))
-		to_chat(user, "<span class='notice'>Missing required access!</span>")
-		return
+	if(!connected_scanner?.ignore_id)
+		if(!allowed(user))
+			to_chat(user, "<span class='notice'>Missing required access!</span>")
+			return
 	..()
 
 /obj/machinery/computer/scan_consolenew/AltClick(mob/user)
@@ -1546,7 +1547,7 @@
 	if(!connected_scanner)
 		return FALSE
 
-	return (connected_scanner && connected_scanner.is_operational())
+	return (connected_scanner && connected_scanner.is_operational() && !connected_scanner.wires.is_cut(WIRE_LIMIT))
 
 /**
   * Checks if there is a valid DNA Scanner occupant for genetic modification
