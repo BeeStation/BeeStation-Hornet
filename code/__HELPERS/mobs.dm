@@ -280,7 +280,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	if(holding)
 		holdingnull = 0 //Users hand started holding something, check to see if it's still holding that
 
-	delay *= user.cached_multiplicative_actions_slowdown
+	delay *= user.do_after_coefficent()
 
 	var/datum/progressbar/progbar
 	if (progress)
@@ -334,6 +334,9 @@ GLOBAL_LIST_EMPTY(species_list)
 		LAZYREMOVE(user.do_afters, target)
 		LAZYREMOVE(target.targeted_by, user)
 
+/mob/proc/do_after_coefficent() // This gets added to the delay on a do_after, default 1
+	. = 1
+	return
 
 /proc/do_after_mob(mob/user, list/targets, time = 30, uninterruptible = 0, progress = 1, datum/callback/extra_checks, required_mobility_flags = MOBILITY_STAND)
 	if(!user || !targets)
@@ -342,9 +345,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		targets = list(targets)
 	var/user_loc = user.loc
 
-	time *= user.cached_multiplicative_actions_slowdown
-
-	var/drifting = FALSE
+	var/drifting = 0
 	if(!user.Process_Spacemove(0) && user.inertia_dir)
 		drifting = 1
 
