@@ -134,6 +134,7 @@ const DnaScannerButtons = (props, context) => {
     isViableSubject,
     scannerLocked,
     scannerOpen,
+    scannerBoltWireCut,
     scrambleSeconds,
   } = data;
   if (!isScannerConnected) {
@@ -162,7 +163,7 @@ const DnaScannerButtons = (props, context) => {
       <Button
         icon={scannerLocked ? 'lock' : 'lock-open'}
         color={scannerLocked && 'bad'}
-        disabled={scannerOpen}
+        disabled={scannerBoltWireCut}
         content={scannerLocked ? 'Locked' : 'Unlocked'}
         onClick={() => act('toggle_lock')} />
       <Button

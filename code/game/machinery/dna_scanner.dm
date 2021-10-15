@@ -49,6 +49,8 @@
 	if(stat & (NOPOWER|BROKEN))
 		icon_state = initial(icon_state)+ (state_open ? "_open" : "") + "_unpowered"
 		return
+	else if(locked)
+		add_overlay("locked")
 
 	//running and someone in there
 	if(occupant)
@@ -63,16 +65,12 @@
 	update_icon()
 
 /obj/machinery/dna_scannernew/proc/toggle_open(mob/user)
-	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+	if(locked)
+		to_chat(user, "<span class='notice'>The bolts are locked down, securing the door [state_open ? "open" : "shut"].</span>")
 		return
 
 	if(state_open)
 		close_machine()
-		return
-
-	else if(locked)
-		to_chat(user, "<span class='notice'>The bolts are locked down, securing the door shut.</span>")
 		return
 
 	open_machine()
@@ -118,7 +116,7 @@
 	return TRUE
 
 /obj/machinery/dna_scannernew/relaymove(mob/user as mob)
-	if(user.stat || locked)
+	if(user.stat || (locked && !state_open))
 		if(message_cooldown <= world.time)
 			message_cooldown = world.time + 50
 			to_chat(user, "<span class='warning'>[src]'s door won't budge!</span>")
@@ -148,7 +146,7 @@
 
 /obj/machinery/dna_scannernew/MouseDrop_T(mob/target, mob/user)
 	var/mob/living/L = user
-	if(user.stat || (isliving(user) && (!(L.mobility_flags & MOBILITY_STAND) || !(L.mobility_flags & MOBILITY_UI))) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser())
+	if(user.stat || (isliving(user) && (!(L.mobility_flags & MOBILITY_STAND) || !(L.mobility_flags & MOBILITY_UI))) || !Adjacent(user) || !user.Adjacent(target) || !iscarbon(target) || !user.IsAdvancedToolUser() || locked)
 		return
 	close_machine(target)
 
@@ -185,5 +183,5 @@
 		if(WIRE_IDSCAN)
 			ignore_id = FALSE
 		if(WIRE_BOLTS)
-			if(!state_open)
-				locked = FALSE
+			locked = FALSE
+			update_icon()

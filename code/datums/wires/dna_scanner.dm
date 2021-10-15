@@ -28,16 +28,17 @@
 			S.ignore_id = !S.ignore_id
 			addtimer(CALLBACK(S, /obj/machinery/dna_scannernew.proc/reset, wire), 1200)
 		if(WIRE_BOLTS)
-			if(!S.state_open)
-				S.locked = !S.locked
+			S.locked = !S.locked
+			S.update_icon()
 		if(WIRE_LIMIT)
 			if(iscarbon(usr))
 				S.irradiate(usr)
 		if(WIRE_OPEN)
-			if(S.state_open)
-				S.close_machine()
-			else if(!S.locked)
-				S.open_machine()
+			if(!S.locked)
+				if(S.state_open)
+					S.close_machine()
+				else
+					S.open_machine()
 		if(WIRE_ZAP1, WIRE_ZAP2)
 			if(isliving(usr))
 				S.shock(usr, 50)
@@ -53,8 +54,11 @@
 			if(iscarbon(usr))
 				S.irradiate(usr)
 		if(WIRE_OPEN)
-			if(!mend && !S.state_open)
-				S.locked = TRUE
+			if(!mend)
+				S.open_machine()
+				if(!is_cut(WIRE_BOLTS))
+					S.locked = TRUE
+					S.update_icon()
 		if(WIRE_ZAP1, WIRE_ZAP2)
 			if(isliving(usr))
 				S.shock(usr, 90)

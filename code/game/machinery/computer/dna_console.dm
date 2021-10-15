@@ -161,7 +161,7 @@
 /obj/machinery/computer/scan_consolenew/interact(mob/user, special_state)
 	if(!connected_scanner?.ignore_id)
 		if(!allowed(user))
-			to_chat(user, "<span class='notice'>Missing required access!</span>")
+			to_chat(user, "<span class='warning'>Missing required access!</span>")
 			return
 	..()
 
@@ -291,6 +291,7 @@
 	if(can_use_scanner)
 		data["scannerOpen"] = connected_scanner.state_open
 		data["scannerLocked"] = connected_scanner.locked
+		data["scannerBoltWireCut"] = connected_scanner.wires.is_cut(WIRE_BOLTS)
 		data["radStrength"] = radstrength
 		data["radDuration"] = radduration
 		data["stdDevStr"] = radstrength * RADIATION_STRENGTH_MULTIPLIER
@@ -398,8 +399,11 @@
 			// GUARD CHECK - Scanner still connected and operational?
 			if(!scanner_operational())
 				return
+			if(connected_scanner.wires.is_cut(WIRE_BOLTS))
+				return
 
 			connected_scanner.locked = !connected_scanner.locked
+			connected_scanner.update_icon()
 			return
 
 		// Scramble scanner occupant's DNA
