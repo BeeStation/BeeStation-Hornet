@@ -1,0 +1,8 @@
+{
+    "map_name": "Payday",
+    "map_path": "map_files/Payday",
+    "map_file": "Payday.dmm",
+	"shuttles": {
+	    "cargo": "cargo_delta"
+    }
+}
