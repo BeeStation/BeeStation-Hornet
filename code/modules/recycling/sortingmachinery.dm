@@ -7,13 +7,25 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/giftwrapped = FALSE
 	var/sortTag = 0
+	var/obj/item/paper/note
 
 /obj/structure/bigDelivery/interact(mob/user)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 
+/obj/structure/bigDelivery/examine(mob/user)
+	. = ..()
+	if(note)
+		if(!in_range(user, src))
+			. += "There's a [note.name] attached to it. You can't read it from here."
+		else
+			. += "There's a [note.name] attached to it..."
+			. += note.examine(user)
+
 /obj/structure/bigDelivery/Destroy()
 	var/turf/T = get_turf(src)
+	if(note)
+		note.forceMove(T)
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(T)
 	return ..()
@@ -59,6 +71,21 @@
 			icon_state = "gift[icon_state]"
 		else
 			to_chat(user, "<span class='warning'>You need more paper!</span>")
+
+	else if(istype(W, /obj/item/paper))
+		if(note)
+			to_chat(user, "<span class='warning'>This package already has a note attached!</span>")
+			return
+		if(!user.transferItemToLoc(W, src))
+			to_chat(user, "<span class='warning'>For some reason, you can't attach [W]!</span>")
+			return
+		user.visible_message("<span class='notice'>[user] attaches [W] to [src].</span>", "<span class='notice'>You attach [W] to [src].</span>")
+		note = W
+		if(giftwrapped)
+			add_overlay(copytext("[icon_state]_note",5))
+			return
+		add_overlay("[icon_state]_note")
+
 	else
 		return ..()
 
@@ -88,6 +115,16 @@
 	item_state = "deliverypackage"
 	var/giftwrapped = 0
 	var/sortTag = 0
+	var/obj/item/paper/note
+
+/obj/item/smallDelivery/examine(mob/user)
+	. = ..()
+	if(note)
+		if(!in_range(user, src))
+			. += "There's a [note.name] attached to it. You can't read it from here."
+		else
+			. += "There's a [note.name] attached to it..."
+			. += note.examine(user)
 
 /obj/item/smallDelivery/contents_explosion(severity, target)
 	for(var/thing in contents)
@@ -153,6 +190,19 @@
 		else
 			to_chat(user, "<span class='warning'>You need more paper!</span>")
 
+	else if(istype(W, /obj/item/paper))
+		if(note)
+			to_chat(user, "<span class='warning'>This package already has a note attached!</span>")
+			return
+		if(!user.transferItemToLoc(W, src))
+			to_chat(user, "<span class='warning'>For some reason, you can't attach [W]!</span>")
+			return
+		user.visible_message("<span class='notice'>[user] attaches [W] to [src].</span>", "<span class='notice'>You attach [W] to [src].</span>")
+		note = W
+		if(giftwrapped)
+			add_overlay(copytext("[icon_state]_note",5))
+			return
+		add_overlay("[icon_state]_note")
 
 /obj/item/destTagger
 	name = "destination tagger"
