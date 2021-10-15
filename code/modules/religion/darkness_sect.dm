@@ -6,14 +6,30 @@
 	convert_opener = "Turn out the lights, acolyte, and let the darkness cover the world!"
 	alignment = ALIGNMENT_NEUT
 	favor = 100 //Starts off with enough favor to make an obelisk
-	//No desired items, favor is gained through building obelisks in the dark
+	desired_items = list(/obj/item/candle) //favor should mostly gained through obelisks, but this is a backup
 	rites_list = list(/datum/religion_rites/extend_darkness,/datum/religion_rites/darkobelisk, /datum/religion_rites/darkconversion)
 	altar_icon_state = "convertaltar-dark"
+	var/light_reach = 1
+	var/light_power = 0
+	var/obelisks = list()
 
 /datum/religion_sect/darkness_sect/sect_bless(mob/living/blessed, mob/living/user)
 	return TRUE
 
+/datum/religion_sect/darkness_sect/on_sacrifice(obj/item/candle/offering, mob/living/user)
+	if(!istype(offering))
+		return
+	if(offering.lit)
+		to_chat(user, "<span class='notice'>The candle needs to be snuffed out to be offered!</span>")
+		return
+	to_chat(user, "<span class='notice'>Another candle forever unlit in the name of [GLOB.deity].</span>")
+	adjust_favor(10, user) //small amount, want to incentivise obelisks
+	qdel(offering)
+	return TRUE
+
 /**** Rites ****/
+
+#define DARKNESS_INVERSE_COLOR "#88ff88" //The color of light has to be inverse, since we're using negative light power
 
 /datum/religion_rites/darkconversion
 	name = "Shadowperson Conversion"
@@ -63,7 +79,10 @@
 /datum/religion_rites/darkobelisk/invoke_effect(mob/living/user, atom/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
 	var/obj/structure/darkobelisk/obelisk = new(altar_turf)
+	var/datum/religion_sect/darkness_sect/sect = GLOB.religious_sect
+	sect.obelisks += obelisk
 	obelisk.creator = user
+	obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return ..()
 
@@ -93,14 +112,18 @@
 
 /datum/religion_rites/extend_darkness
 	name = "Extend Darkness"
-	desc = "Grow the reach of darkness extending from the altar."
-	ritual_length = 20 SECONDS
-	invoke_msg = "Darkness, reach your tendrils from my altar, and extend thy reach."
+	desc = "Grow the reach of darkness extending from the altar, and any obelisks."
+	ritual_length = 10 SECONDS
+	invoke_msg = "Darkness, reach your tendrils from my altar, and extend thy domain."
 	favor_cost = 75
 
 /datum/religion_rites/extend_darkness/invoke_effect(mob/living/user, atom/religious_tool)
 	. = ..()
-	var/old_light_range = religious_tool.light_range
-	if(!old_light_range)
-		old_light_range = 0
-	religious_tool.set_light(old_light_range + 2, -1, "#000000")
+	var/datum/religion_sect/darkness_sect/sect = GLOB.religious_sect
+	if(!sect)
+		return
+	sect.light_reach += 2
+	sect.light_power -= 1
+	religious_tool.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+	for(var/obj/structure/darkobelisk/D in sect.obelisks)
+		D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
