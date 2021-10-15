@@ -4,7 +4,7 @@
 
 /datum/wires/dna_scanner/New(atom/holder)
 	wires = list(
-		WIRE_IDSCAN, WIRE_BOLTS, WIRE_OPEN, WIRE_LIMIT
+		WIRE_IDSCAN, WIRE_BOLTS, WIRE_OPEN, WIRE_LIMIT, WIRE_ZAP1, WIRE_ZAP2
 	)
 	add_duds(2)
 	..()
@@ -31,13 +31,16 @@
 			if(!S.state_open)
 				S.locked = !S.locked
 		if(WIRE_LIMIT)
-			if(usr && iscarbon(usr))
+			if(iscarbon(usr))
 				S.irradiate(usr)
 		if(WIRE_OPEN)
 			if(S.state_open)
 				S.close_machine()
 			else if(!S.locked)
 				S.open_machine()
+		if(WIRE_ZAP1, WIRE_ZAP2)
+			if(isliving(usr))
+				S.shock(usr, 50)
 	ui_update()
 
 /datum/wires/dna_scanner/on_cut(wire, mend)
@@ -47,9 +50,12 @@
 			if(!mend)
 				S.ignore_id = TRUE
 		if(WIRE_LIMIT)
-			if(usr && iscarbon(usr))
+			if(iscarbon(usr))
 				S.irradiate(usr)
 		if(WIRE_OPEN)
 			if(!mend && !S.state_open)
 				S.locked = TRUE
+		if(WIRE_ZAP1, WIRE_ZAP2)
+			if(isliving(usr))
+				S.shock(usr, 90)
 	ui_update()

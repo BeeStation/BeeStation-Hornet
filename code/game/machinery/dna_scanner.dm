@@ -155,7 +155,7 @@
 /obj/machinery/dna_scannernew/proc/irradiate(mob/living/carbon/target)
 	if(!HAS_TRAIT(target, TRAIT_RADIMMUNE))
 		to_chat(target, "<span class='danger'>You feel warm.</span>")
-		target.rad_act(50/(damage_coeff ** 2))
+		target.rad_act(250/(damage_coeff ** 2))
 
 		if(target.has_dna() && !HAS_TRAIT(target, TRAIT_BADDNA))
 			var/resist = target.getarmor(null, "rad")
@@ -167,6 +167,18 @@
 					else
 						target.easy_randmut(POSITIVE)
 					target.domutcheck()
+
+/obj/machinery/dna_scannernew/proc/shock(mob/user, prb)
+	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
+		return FALSE
+	if(!prob(prb))
+		return FALSE
+	do_sparks(5, TRUE, src)
+	var/check_range = TRUE
+	if(electrocute_mob(user, get_area(src), src, 0.7, check_range))
+		return TRUE
+	else
+		return FALSE
 
 /obj/machinery/dna_scannernew/proc/reset(wire)
 	switch(wire)
