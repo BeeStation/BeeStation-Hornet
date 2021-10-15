@@ -209,7 +209,7 @@
 
 	if(!visualsOnly && announce)
 		announce(H)
-	dormantdiseasecheck(H)
+	dormant_disease_check(H)
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
@@ -350,8 +350,8 @@
 
 //why is this as part of a job? because it's something every human recieves at roundstart after all other initializations and factors job in. it fits best with the equipment proc
 //this gives a dormant disease for the virologist to check for. if this disease actually does something to the mob... call me, or your local coder
-/datum/job/proc/dormantdiseasecheck(mob/living/carbon/human/H)
-	var/datum/symptom/guaranteed = null
+/datum/job/proc/dormant_disease_check(mob/living/carbon/human/H)
+	var/datum/symptom/guaranteed
 	var/sickrisk = 1
 	var/unfunny = TRUE
 	if((flag == CLOWN) || (flag == MIME))

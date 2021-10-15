@@ -24,10 +24,10 @@ BONUS
 	prefixes = list("Chronic ")
 
 /datum/symptom/viraladaptation/OnAdd(datum/disease/advance/A)
-	A.mutability = 0.5
+	A.mutability -= 0.5
 
 /datum/symptom/viraladaptation/OnRemove(datum/disease/advance/A)
-	A.mutability = 1
+	A.mutability += 0.5
 
 /*
 //////////////////////////////////////
@@ -56,10 +56,10 @@ BONUS
 	prefixes = list("Unstable ")
 
 /datum/symptom/viralevolution/OnAdd(datum/disease/advance/A)
-	A.mutability = 2
+	A.mutability += 2
 
 /datum/symptom/viralevolution/OnRemove(datum/disease/advance/A)
-	A.mutability = 1
+	A.mutability -= 1
 
 /*
 //////////////////////////////////////
