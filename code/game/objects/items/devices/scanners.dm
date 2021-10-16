@@ -992,7 +992,7 @@ GENE SCANNER
 		return
 	var/datum/disease/advance/A = input(user,"What disease do you wish to extract") in null|advancediseases
 	if(isolate)
-		for(var/datum/symptom/S in A.symptoms)
+		for(var/datum/symptom/S as() in A.symptoms)
 			if(S.level <= 6 + scanner.rating)
 				symptoms += S
 			continue

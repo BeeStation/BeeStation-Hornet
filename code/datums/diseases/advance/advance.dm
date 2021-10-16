@@ -132,7 +132,7 @@
 // Tell symptoms stage changed
 /datum/disease/advance/update_stage(new_stage)
 	..()
-	for(var/datum/symptom/S in symptoms)
+	for(var/datum/symptom/S as() in symptoms)
 		S.on_stage_change(new_stage, src)
 
 // Compares type then ID.
@@ -237,23 +237,21 @@
 	stage_rate = 0
 	transmission = 0
 	severity = 0
-	//Why do we need 2 loops here?
-	//First loop just sets stats and second is purely just to set (and get) symptom severity
-	for(var/datum/symptom/S as() in symptoms)
+	for(var/datum/symptom/S as() in symptoms) 
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
-	for(var/datum/symptom/S as() in symptoms)
+	for(var/datum/symptom/S as() in symptoms) //YES, THIS LOOPS SEVERAL TIMES. YES, IT HAS TO BE THIS WAY AND THERE ISNT REALLY ANY OTHER WAY TO DO IT
 		S.severityset(src)
-	for(var/datum/symptom/S as() in symptoms)
+	for(var/datum/symptom/S as() in symptoms)//MAKING IT NOT THIS WAY FUCKS UP THE BALANCE OF DISEASE CHANNELS
 		S.severityset(src)
 		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
 			if(severity >= 5)
 				severity += (S.severity -3)//diminishing returns
 			else 
 				severity += S.severity
-	for(var/datum/symptom/S as() in symptoms)
+	for(var/datum/symptom/S as() in symptoms)//SO DON'T CHANGE IT UNLESS YOU KEEP THE SAME EXACT ORDER OF SEVERITY ADDITION
 		S.severityset(src)
 		if(!S.neutered)
 			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
