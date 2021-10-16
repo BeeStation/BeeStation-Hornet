@@ -412,6 +412,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/burnheal = FALSE
 	var/turf/open/location_return = null
 	var/cooldowntimer = 0
+	var/telecooldown = 0
 	threshold_desc = "<b>Resistance 6:</b> The disease acts on a smaller scale, resetting burnt tissue back to a state of health.<br>\
 					<b>Transmission 8:</b> The disease becomes more active, activating in a smaller temperature range."
 
@@ -439,20 +440,26 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		if(4, 5)
 			if(burnheal)
 				M.heal_overall_damage(0, 1.5) //no required_status checks here, this does all bodyparts equally
-			if(prob(5) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
+			if(!cooldowntimer && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT) && (!location_return || location_return.z != M.loc.z))
 				location_return = get_turf(M)	//sets up return point
-				if(prob(50))
-					to_chat(M, "<span class='userwarning'>The lukewarm temperature makes you feel strange!</span>")
-			if(cooldowntimer == 0 && ((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
+				to_chat(M, "<span class='userwarning'>The lukewarm temperature makes you feel strange!</span>")
+				cooldowntimer = (300 + rand(1, 300))
+			if(!telecooldown && location_return && location_return.z == M.loc.z && ((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
 				do_sparks(5,FALSE,M)
 				to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
 				do_teleport(M, location_return, 0, asoundin = 'sound/effects/phasein.ogg') //Teleports home
 				do_sparks(5,FALSE,M)
-				cooldowntimer = 10
 				if(burnheal)
 					M.adjust_fire_stacks(-10)
+				telecooldown = 20
+				location_return = null
+				cooldowntimer = 60 //you have to wait awhile before a new return location is set
 			if(cooldowntimer > 0)
 				cooldowntimer --
+			else 
+				location_return = null
+			if(telecooldown > 0)
+				telecooldown --
 		else
 			if(prob(7))
 				to_chat(M, "<span class='notice'>[pick("Your warm breath fizzles out of existence.", "You feel attracted to temperate climates", "You feel like you're forgetting something")]</span>")

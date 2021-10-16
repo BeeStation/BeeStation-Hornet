@@ -66,15 +66,11 @@
 				continue
 			switch(O.slot) //i hate doing it this way, but the cleaner way runtimes and does not work
 				if(ORGAN_SLOT_BRAIN)
-					var/obj/item/organ/brain/clockwork/organ = new()
-					var/datum/mind/ownermind = H.mind
-					if(robustbits)
-						organ.robust = TRUE //STOPS THAT GODDAMN CLANGING BECAUSE IT'S WELL OILED OR SOMETHING
-					organ.Insert(H, TRUE, FALSE)
-					ownermind.transfer_to(H)
-					to_chat(H, "<span class='userdanger'>Your head throbs with pain for a moment, and then goes numb.</span>")
-					H.emote("scream")
-					H.grab_ghost()
+					O.name = "enigmatic gearbox"
+					O.desc ="An engineer would call this inconcievable wonder of gears and metal a 'black box'"
+					O.icon_state = "brain-clock"
+					O.status = ORGAN_ROBOTIC
+					O.organ_flags = ORGAN_SYNTHETIC
 					return TRUE
 				if(ORGAN_SLOT_STOMACH)
 					if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))

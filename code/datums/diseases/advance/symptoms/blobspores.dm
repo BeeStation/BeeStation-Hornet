@@ -57,7 +57,7 @@
 			ready_to_pop = TRUE
 			if(prob(5))
 				M.visible_message("<span class='warning'>[M] coughs blood!</span>")
-				new /obj/effect/decal/cleanable/blood/(M.loc)
+				M.add_splatter_floor(M.loc)
 				M.adjustBruteLoss(3)
 
 
