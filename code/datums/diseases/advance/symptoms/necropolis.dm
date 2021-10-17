@@ -13,6 +13,8 @@
 	var/tendrils = FALSE
 	var/chest = FALSE
 	var/fireproof = FALSE
+	prefixes = list("Lava ", "Lavaland ", "Eldritch ")
+	bodies = list("Goliath", "Tentacle", "Carapace")
 	threshold_desc = "<b>Stealth 8:</b> Upon death, the host's soul will solidify into an unholy artifact, rendering them utterly unrevivable in the process.<br>\
 					  <b>Resistance 15:</b> The area near the host roils with paralyzing tendrils.<br>\
 					  <b>Resistance 20:</b>	Host becomes immune to heat, ash, and lava"

@@ -9,6 +9,9 @@
 	severity = 0
 	symptom_delay_min = 10
 	symptom_delay_max = 30
+	prefixes = list("Ratvarian ", "Keter ", "Clockwork ", "Robo")
+	bodies = list("Robot")
+	suffixes = list("-217")
 	var/replaceorgans = FALSE
 	var/replacebody = FALSE
 	var/robustbits = FALSE

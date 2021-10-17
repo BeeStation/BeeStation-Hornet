@@ -9,6 +9,8 @@
 	severity = 0
 	symptom_delay_min = 2
 	symptom_delay_max = 15
+	prefixes = list("Fool's ")
+	bodies = list("Clown", "Red-Nose")
 	var/honkspread = FALSE
 	var/clownmask = FALSE
 	var/clumsy = FALSE
@@ -18,6 +20,8 @@
 
 /datum/symptom/pierrot/severityset(datum/disease/advance/A)
 	. = ..()
+	prefixes += "[pick(GLOB.clown_names)]'s "
+	bodies += "[pick(GLOB.clown_names)]"
 	if(A.resistance >= 10)
 		severity +=1
 		if(A.resistance >= 15)
