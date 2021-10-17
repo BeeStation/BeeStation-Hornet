@@ -157,14 +157,14 @@
 	// .. or if you cannot read
 	if(!user.can_read(src))
 		return UI_CLOSE
-	if(in_contents_of(/obj/machinery/door/airlock))
+	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/structure/bigDelivery) || in_contents_of(/obj/item/smallDelivery))
 		return UI_INTERACTIVE
 	return ..()
 
 
 
 /obj/item/paper/can_interact(mob/user)
-	if(in_contents_of(/obj/machinery/door/airlock))
+	if(in_contents_of(/obj/machinery/door/airlock) || in_contents_of(/obj/structure/bigDelivery) || in_contents_of(/obj/item/smallDelivery))
 		return TRUE
 	return ..()
 
