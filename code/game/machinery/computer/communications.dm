@@ -205,7 +205,7 @@
 			SSshuttle.existing_shuttle = SSshuttle.emergency
 			SSshuttle.action_load(shuttle)
 			bank_account.adjust_money(-shuttle.credit_cost)
-			minor_announce("[usr.real_name] has purchased [shuttle.name] for [shuttle.credit_cost] credits.[shuttle.extra_desc ? " [shuttle.extra_desc]" : ""]" , "Shuttle Purchase")
+			minor_announce("[shuttle.name] has been purchased for [shuttle.credit_cost] credits! Purchase authorized by [authorize_name] [shuttle.extra_desc ? " [shuttle.extra_desc]" : ""]" , "Shuttle Purchase")
 			message_admins("[ADMIN_LOOKUPFLW(usr)] purchased [shuttle.name].")
 			log_game("[key_name(usr)] has purchased [shuttle.name].")
 			SSblackbox.record_feedback("text", "shuttle_purchase", 1, shuttle.name)
@@ -407,12 +407,15 @@
 
 				for (var/shuttle_id in SSmapping.shuttle_templates)
 					var/datum/map_template/shuttle/shuttle_template = SSmapping.shuttle_templates[shuttle_id]
-					if (!shuttle_template.can_be_bought || shuttle_template.credit_cost == INFINITY)
+					if (shuttle_template.credit_cost == INFINITY)
+						continue
+					if (!shuttle_template.can_be_bought && !shuttle_template.illegal_shuttle)
 						continue
 					shuttles += list(list(
 						"name" = shuttle_template.name,
 						"description" = shuttle_template.description,
 						"creditCost" = shuttle_template.credit_cost,
+						"illegal" = shuttle_template.illegal_shuttle,
 						"prerequisites" = shuttle_template.prerequisites,
 						"ref" = REF(shuttle_template),
 					))

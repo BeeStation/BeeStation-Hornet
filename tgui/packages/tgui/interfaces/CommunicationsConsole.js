@@ -12,7 +12,13 @@ const STATE_MESSAGES = "messages";
 // Used for whether or not you need to swipe to confirm an alert level change
 const SWIPE_NEEDED = "SWIPE_NEEDED";
 
-const sortByCreditCost = sortBy(shuttle => shuttle.creditCost);
+const ILLEGAL_SHUTTLE_NOTICE
+  = "This shuttle is deemed significantly dangerous to the crew, and is only supplied by the Syndicate.";
+
+const sortShuttles = sortBy(
+  shuttle => !shuttle.illegal,
+  shuttle => shuttle.creditCost
+);
 
 const AlertButton = (props, context) => {
   const { act, data } = useBackend(context);
@@ -164,7 +170,7 @@ const PageBuyingShuttle = (props, context) => {
         <Stack.Item grow>
           <Section fill scrollable>
             <Stack vertical>
-              {sortByCreditCost(data.shuttles).slice(0, 6).map(shuttle => (
+              {sortShuttles(data.shuttles).map(shuttle => (
                 <Stack.Item key={shuttle.ref}>
                   <Section
                     title={(
@@ -181,6 +187,7 @@ const PageBuyingShuttle = (props, context) => {
                         content={
                           `${shuttle.creditCost.toLocaleString()} credits`
                         }
+                        color={shuttle.illegal ? "red" : "default"}
                         disabled={
                           !canBuyShuttles || data.budget < shuttle.creditCost
                         }
@@ -188,11 +195,12 @@ const PageBuyingShuttle = (props, context) => {
                           shuttle: shuttle.ref,
                         })}
                         tooltip={
-                          data.budget < shuttle.creditCost
-                            ? `You need ${
-                              shuttle.creditCost - data.budget
-                            } more credits.`
-                            : undefined
+                          data.budget < shuttle.creditCost ? (`You need ${
+                            shuttle.creditCost - data.budget
+                          } more credits.`
+                          ) : (shuttle.illegal 
+                            ? ILLEGAL_SHUTTLE_NOTICE 
+                            : undefined)
                         }
                         tooltipPosition="left"
                       />
