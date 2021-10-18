@@ -156,6 +156,8 @@
 	desc = "A micro-cell, for IPC use. Do not swallow."
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
+	max_charge = 2750 //50 nutrition from 250 charge
+	charge = 2750
 
 /obj/item/organ/stomach/battery/ipc/emp_act(severity)
 	..()
