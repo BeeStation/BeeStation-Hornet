@@ -832,16 +832,26 @@
 			return
 		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 		if(H.a_intent == INTENT_HARM)
-			E.drain_time = world.time + 75
+			if(!istype(stomach))
+				to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+				return
+			if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
+				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+				return
+			if(cell.charge <= cell.maxcharge/2) // if charge is under 50% you shouldn't drain it
+				to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain anymore.</span>")
+				return
+
+			E.drain_time = world.time + 80
 			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
 			while(do_after(user, 75, target = src))
-				if(!istype(stomach) || !isethereal(H))
+				if(!istype(stomach))
 					to_chat(H, "<span class='warning'>You can't receive charge!</span>")
 					return
 				if(cell.charge <= cell.maxcharge/2) // if charge is under 50% you shouldn't drain it
 					to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain anymore.</span>")
 					return
-				E.drain_time = world.time + 75
+				E.drain_time = world.time + 80
 				if(stomach.charge + 250 >= stomach.max_charge)
 					to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 					stomach.set_charge(stomach.max_charge)
@@ -855,13 +865,16 @@
 			E.drain_time = 0
 			return
 		else if(H.a_intent == INTENT_GRAB)
-			E.drain_time = world.time + 75
+			if(!istype(stomach))
+				to_chat(H, "<span class='warning'>You can't transfer charge!</span>")
+				return
+			E.drain_time = world.time + 80
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
 			while(do_after(user, 75, target = src))
-				if(!istype(stomach) || !isethereal(H))
+				if(!istype(stomach))
 					to_chat(H, "<span class='warning'>You can't transfer charge!</span>")
 					return
-				E.drain_time = world.time + 75
+				E.drain_time = world.time + 80
 				if(stomach.charge > 250)
 					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
 					stomach.adjust_charge(-250)

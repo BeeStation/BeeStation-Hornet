@@ -155,13 +155,20 @@
 		if(E.drain_time > world.time)
 			return
 		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		if(!istype(stomach))
+			to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+			return
+		if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
+			to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+			return
+
 		to_chat(H, "<span class='notice'>You clumsily channel power through the [src] and into your body, wasting some in the process.</span>")
-		E.drain_time = world.time + 20
+		E.drain_time = world.time + 25
 		while(do_after(user, 20, target = src))
 			if(!istype(stomach))
 				to_chat(H, "<span class='warning'>You can't receive charge!</span>")
 				return
-			E.drain_time = world.time + 20
+			E.drain_time = world.time + 25
 			if(charge > 300)
 				stomach.adjust_charge(75)
 				charge -= 300 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
