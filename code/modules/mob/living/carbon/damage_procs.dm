@@ -67,7 +67,10 @@
 	if(amount > 0)
 		take_overall_damage(amount, 0, 0, updating_health, required_status)
 	else
-		heal_overall_damage(abs(amount), 0, 0, required_status ? required_status : BODYPART_ORGANIC, updating_health)
+		//Whichever lazy cunt changed this to force bodypart_organic, broke IPC vv healing. This is due for a small rewrite, but this works for now. Probably.
+		if(!required_status)
+			required_status = forced ? null : BODYPART_ORGANIC
+		heal_overall_damage(abs(amount), 0, 0, required_status, updating_health)
 	return amount
 
 /mob/living/carbon/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE, required_status)
@@ -76,7 +79,9 @@
 	if(amount > 0)
 		take_overall_damage(0, amount, 0, updating_health, required_status)
 	else
-		heal_overall_damage(0, abs(amount), 0, required_status ? required_status : BODYPART_ORGANIC, updating_health)
+		if(!required_status)
+			required_status = forced ? null : BODYPART_ORGANIC
+		heal_overall_damage(0, abs(amount), 0, required_status, updating_health)
 	return amount
 
 /mob/living/carbon/adjustToxLoss(amount, updating_health = TRUE, forced = FALSE)

@@ -69,6 +69,9 @@
 	head = /obj/item/clothing/head/grodhat/miner
 
 ///Gimmick
+/datum/outfit/grod/assistant
+	name = "Grod Assistant"
+	head = /obj/item/clothing/head/grodhat/
 /datum/outfit/grod/clown
 	name = "Grod Clown"
 	head = /obj/item/clothing/head/grodhat/clown

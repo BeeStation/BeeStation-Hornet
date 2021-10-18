@@ -1,6 +1,16 @@
 #define STANCE_MOBILE 0
 #define STANCE_INTERACT 1
 
+#define GROD_BRUTEMOD 1.1
+#define GROD_BURNMOD 1.2
+#define GROD_HEATMOD 1.3
+#define GROD_COLDMOD 0.7
+#define GROD_TOXMOD 0.8
+#define GROD_SPEEDMOD 0.9 //10% faster than a human
+#define GROD_STAMMOD 1.2
+
+#define CROWNSPIDER_MAX_HEALTH 30
+#define CROWNSPIDER_BASE_HEALTH 30
 /datum/species/grod
 	name = "Grod"
 	id = SPECIES_GROD
@@ -8,18 +18,18 @@
 	sexes = FALSE
 	default_color = "#00FF00"
 	species_traits = list(NO_DNA_COPY, AGENDER, NOHUSK, NO_UNDERWEAR, NOEYESPRITES, MUTCOLORS)
-	inherent_traits = list(TRAIT_RESISTLOWPRESSURE, TRAIT_NOSLIPWATER, TRAIT_NEVER_STUBS)
+	inherent_traits = list(TRAIT_NO_DEFIB, TRAIT_RESISTLOWPRESSURE, TRAIT_NOSLIPWATER, TRAIT_NEVER_STUBS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	mutant_bodyparts = list("grod_crown")
 	mutant_brain = /obj/item/organ/brain/grod
 	limbs_id = "grod"
-	brutemod = 1.1
-	burnmod = 1.2
-	heatmod = 1.3
-	coldmod = 0.7
-	toxmod = 0.8
-	speedmod = 0.9 //10% faster than human
-	staminamod = 1.2
+	brutemod = GROD_BRUTEMOD
+	burnmod = GROD_BURNMOD
+	heatmod = GROD_HEATMOD
+	coldmod = GROD_COLDMOD
+	toxmod = GROD_TOXMOD
+	speedmod = GROD_SPEEDMOD
+	staminamod = GROD_STAMMOD
 	liked_food = VEGETABLES | GRAIN | FRUIT
 	disliked_food = DAIRY
 	toxic_food = TOXIC | MEAT | RAW
@@ -28,7 +38,6 @@
 	default_features = list("mcolor" = "#00FF00", "grod_crown" = "Crown")
 	offset_features = list(OFFSET_LEFT_HAND = list(-1,-4), OFFSET_RIGHT_HAND = list(2,-4))
 	changesource_flags = MIRROR_BADMIN | MIRROR_MAGIC | RACE_SWAP
-	can_be_defib = FALSE
 	allow_numbers_in_name = TRUE
 	stance = STANCE_MOBILE
 
@@ -53,8 +62,10 @@
 		if(stance == STANCE_INTERACT)
 			swap_stance.Activate()
 		swap_stance.Remove(H)
+		QDEL_NULL(swap_stance)
 	if(crownspider)
 		crownspider.Remove(H)
+		QDEL_NULL(crownspider)
 	H.stop_updating_hands()
 
 /datum/action/innate/grod/swap_stance
@@ -71,22 +82,33 @@
 		return
 
 	if(!H.dna.species.stance)
+		var/obj/item/G = H.gloves
+		if(G)
+			H.doUnEquip(H.gloves)
 		H.change_number_of_hands(4)
+		if(G)
+			H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES) //Hacky? Yes. Works? Yes. Do I want to touch bodypart code? No.
 		to_chat(H,"<span class ='warning'>You focus your energy into your additional hands.</span>")
 		to_chat(H,"<span class ='warning'>You feel weak and slow.</span>")
 		H.dna.species.inherent_traits += TRAIT_NOBLOCK
 		H.dna.species.stance = STANCE_INTERACT
-		H.dna.species.brutemod = 1.3
-		H.dna.species.speedmod = 1.1 //10% slower than human
+		H.dna.species.staminamod = GROD_STAMMOD + 0.3
+		H.dna.species.speedmod = GROD_SPEEDMOD + 0.2 //10% slower than human
 		H.nutrition -= 20
 	else
+
+		var/obj/item/G = H.gloves
+		if(G)
+			H.doUnEquip(H.gloves)
 		H.change_number_of_hands(2)
+		if(G)
+			H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES)
 		to_chat(H,"<span class ='warning'>You focus your energy back into your legs.</span>")
 		to_chat(H,"<span class ='warning'>The feeling dissipates.</span>")
 		H.dna.species.inherent_traits -= TRAIT_NOBLOCK
 		H.dna.species.stance = STANCE_MOBILE
-		H.dna.species.brutemod = 1.1
-		H.dna.species.speedmod = 0.9
+		H.dna.species.staminamod = GROD_STAMMOD
+		H.dna.species.speedmod = GROD_SPEEDMOD
 		H.nutrition -= 20
 
 /datum/action/innate/grod/crownspider
@@ -143,14 +165,14 @@
 	crown.seed = seed
 	if(seed)
 		log_cloning("[key_name(M)]'s cloning record was added to [crown] at [AREACOORD(crown)].")
-
+		qdel(seed)
 	crown.origin = M
 	if(crown.origin)
 		crown.origin.active = 1
 		crown.origin.transfer_to(crown)
 		to_chat(crown, "<span class='warning'>Your consiousness returns to its Crown and you leave your body!</span>")
 
-/datum/species/grod/get_item_offsets_for_index(var/i)
+/datum/species/grod/get_item_offsets_for_index(var/i) //a fall-back incase the mob loses its dir tracking somehow
 	switch(i)
 		if(3) //odd = left hands
 			return list("x" = -1, "y" = 5)
@@ -198,7 +220,16 @@
 		else
 			return
 
-
+/datum/species/grod/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	if(chem.type == /datum/reagent/toxin/pestkiller)
+		H.adjustToxLoss(5)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		return FALSE
+	if(chem.type == /datum/reagent/toxin/plantbgone)
+		H.adjustToxLoss(10)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		return TRUE
+	return ..()
 
 /datum/species/grod/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/current_job = J.title
@@ -302,6 +333,9 @@
 
 		if("Mime")
 			O = new /datum/outfit/grod/mime
+
+		if("Assistant")
+			O = new /datum/outfit/grod/assistant
 	H.equipOutfit(O, visualsOnly)
 	return 0
 ///////Grod Crown////////
@@ -313,8 +347,8 @@
 	icon_living = "crown_spider"
 	icon_dead = "crown_spider_dead"
 	gender = NEUTER
-	health = 30
-	maxHealth = 30
+	health = CROWNSPIDER_MAX_HEALTH
+	maxHealth = CROWNSPIDER_BASE_HEALTH
 	melee_damage = 0
 	attacktext = "pinches"
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -334,8 +368,8 @@
 	if(ishuman(over))
 		var/mob/living/carbon/human/H = over
 		if(H.stat == DEAD)
-			to_chat(src, "<span class='userdanger'>This one is no longer living. It is of no use to us!</span>")
-			return
+			if(alert("This one is no longer living. Are you sure we should infest it?",,"Yes", "No") == "No")
+				return
 		if(H.getorganslot(ORGAN_SLOT_BRAIN))
 			to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 			return
@@ -358,7 +392,7 @@
 		//The following math is FUCKING BAD and needs to be written by someone smarter than me. Same with the math on line 134.
 		if(I.damage < 84) //84 is the point where max damage_to_deal (116) would instantly kill the brain
 			var/damage_to_deal = (maxHealth - health) * 4
-			I.damage += damage_to_deal > 30 ? damage_to_deal : 30 //Deals a minimum of 30 damage to the brain
+			I.damage += damage_to_deal > CROWNSPIDER_MAX_HEALTH ? damage_to_deal : CROWNSPIDER_MAX_HEALTH //Deals a minimum of 30 damage to the brain
 	announce_infest(C)
 	origin.transfer_to(C)
 	C.key = origin.key

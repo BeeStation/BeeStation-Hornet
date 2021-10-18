@@ -39,7 +39,8 @@
 	if(chem.type == /datum/reagent/toxin/plantbgone)
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
-		return 1
+		return TRUE
+	return ..()
 
 /datum/species/pod/on_hit(obj/item/projectile/P, mob/living/carbon/human/H)
 	switch(P.type)

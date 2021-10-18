@@ -6,6 +6,7 @@
 	species_traits = list(NOTRANSSTING, NOZOMBIE, REVIVESBYHEALING, NOHUSK, NO_DNA_COPY) //all of these + whatever we inherit from the real species
 	inherent_traits = list(TRAIT_NODISMEMBER,TRAIT_NOLIMBDISABLE,TRAIT_NOHUNGER,TRAIT_NOBREATH, TRAIT_NOHUNGER, TRAIT_TOXIMMUNE, TRAIT_NOCRITDAMAGE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
+	reagent_tag = PROCESS_SYNTHETIC
 	meat = null
 	damage_overlay_type = "synth"
 	limbs_id = "synth"
@@ -41,13 +42,13 @@
 	. = ..()
 	UnregisterSignal(H, COMSIG_MOB_SAY)
 
-/datum/species/synth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+/datum/species/synth/handle_chemicals(datum/reagent/R, mob/living/carbon/human/H)
 	if(istype(R, /datum/reagent/medicine/synthflesh))
-		R.reaction_mob(H, TOUCH, 2, 0) //heal a little
-		H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
-	else
-		H.reagents.del_reagent(R.type) //Not synth flesh? eat shit and die
-	return FALSE
+		R.reaction_mob(H, PATCH, 2, 0) //heal a little
+		H.reagents.remove_reagent(R.type, R.metabolization_rate)
+		return TRUE
+	return ..()
+
 
 /datum/species/synth/spec_life(mob/living/carbon/human/H)
 	. = ..()

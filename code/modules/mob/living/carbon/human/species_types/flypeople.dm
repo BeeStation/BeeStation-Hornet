@@ -34,7 +34,7 @@
 						"<span class='userdanger'>You throw up on the floor!</span>")
 		return TRUE
 
-	..()
+	return ..()
 
 // Change body types
 /datum/species/fly/on_species_gain(mob/living/carbon/C)

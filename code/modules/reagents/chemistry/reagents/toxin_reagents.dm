@@ -241,7 +241,8 @@
 			if(!C.wear_mask) // If not wearing a mask
 				var/damage = min(round(0.4*reac_volume, 0.1),10)
 				C.adjustToxLoss(damage)
-
+				if(isgrod(C))
+					C.adjustToxLoss(damage*2)
 /datum/reagent/toxin/plantbgone/weedkiller
 	name = "Weed Killer"
 	description = "A harmful toxic mixture to kill weeds. Do not ingest!"

@@ -1,11 +1,11 @@
-/datum/species/ipc // im fucking lazy mk2 and cant get sprites to normally work
-	name = "IPC" //inherited from the real species, for health scanners and things
+/datum/species/ipc
+	name = "IPC"
 	id = SPECIES_IPC
 	bodyflag = FLAG_IPC
-	say_mod = "states" //inherited from a user's real species
+	say_mod = "states"
 	sexes = 0
-	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER)
+	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER, TRAIT_TOXIMMUNE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -18,7 +18,7 @@
 	default_features = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
-	exotic_blood = "oil"
+	exotic_blood = /datum/reagent/oil
 	damage_overlay_type = "synth"
 	limbs_id = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
@@ -26,7 +26,6 @@
 	burnmod = 2
 	heatmod = 1.5
 	brutemod = 1
-	toxmod = 0
 	clonemod = 0
 	staminamod = 0.8
 	siemens_coeff = 1.5
@@ -36,8 +35,6 @@
 	allow_numbers_in_name = TRUE
 	deathsound = "sound/voice/borg_deathsound.ogg"
 	var/saved_screen //for saving the screen when they die
-	var/list/initial_species_traits //for getting these values back for assume_disguise()
-	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
 	special_step_sounds = list('sound/effects/servostep.ogg')
@@ -57,15 +54,6 @@
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
-	for(var/obj/item/bodypart/O in C.bodyparts)
-		O.render_like_organic = TRUE // Makes limbs render like organic limbs instead of augmented limbs, check bodyparts.dm
-		var/chassis = C.dna.features["ipc_chassis"]
-		var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[chassis]
-		C.dna.species.limbs_id = chassis_of_choice.limbs_id
-		if(chassis_of_choice.color_src == MUTCOLORS && !(MUTCOLORS in C.dna.species.species_traits)) // If it's a colorable(Greyscale) chassis, we use MUTCOLORS.
-			C.dna.species.species_traits += MUTCOLORS
-		else if(MUTCOLORS in C.dna.species.species_traits)
-			C.dna.species.species_traits -= MUTCOLORS
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -179,4 +167,7 @@
 	H.update_body()
 	return
 
+
+/datum/species/ipc/get_harm_descriptors()
+	return list("bleed" = "leaking", "brute" = "denting", "burn" = "burns")
 

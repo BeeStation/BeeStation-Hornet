@@ -43,7 +43,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/clonemod = 1
 	var/toxmod = 1
 	var/staminamod = 1		// multiplier for stun duration
-	var/can_be_defib = TRUE //Can a defibrillator revive?
 	var/attack_type = BRUTE //Type of damage attack does
 	var/punchdamage = 7      //highest possible punch damage
 	var/siemens_coeff = 1 //base electrocution coefficient
@@ -683,6 +682,26 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
 
+	if("ipc_chassis" in mutant_bodyparts)
+		for(var/obj/item/bodypart/O in H.bodyparts)
+			O.render_like_organic = TRUE // Makes limbs render like organic limbs instead of augmented limbs, check bodyparts.dm
+			var/chassis = H.dna.features["ipc_chassis"]
+			var/datum/sprite_accessory/ipc_chassis/chassis_of_choice = GLOB.ipc_chassis_list[chassis]
+			H.dna.species.limbs_id = chassis_of_choice.limbs_id
+			if(chassis_of_choice.color_src == MUTCOLORS && !(MUTCOLORS in H.dna.species.species_traits)) // If it's a colorable(Greyscale) chassis, we use MUTCOLORS.
+				H.dna.species.species_traits += MUTCOLORS
+			else if(MUTCOLORS in H.dna.species.species_traits)
+				H.dna.species.species_traits -= MUTCOLORS
+			O.light_brute_msg = "scratched"
+			O.medium_brute_msg = "dented"
+			O.heavy_brute_msg = "sheared"
+
+			O.light_burn_msg = "burned"
+			O.medium_burn_msg = "scorched"
+			O.heavy_burn_msg = "seared"
+		bodyparts_to_add -= "ipc_chassis"
+
+
 	if("grod_crown" in mutant_bodyparts)
 		if(!H.dna.features["grod_crown"] || (H.head && (H.head.flags_inv & HIDEHAIR))) //Add shit here later, me
 			bodyparts_to_add -= "grod_crown"
@@ -859,7 +878,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
 	if(I.species_restricted & H.dna?.species.bodyflag)
-		to_chat(H, "<span class='warning'>Your species cannot wear this item!</span>")
+		if(!disable_warning)//Wow im a dipshit
+			to_chat(H, "<span class='warning'>Your species cannot wear this item!</span>")
 		return FALSE
 	var/num_arms = H.get_num_arms(FALSE)
 	var/num_legs = H.get_num_legs(FALSE)
@@ -1057,23 +1077,23 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.update_mutant_bodyparts()
 
+// if it returns 0, it will run the usual on_mob_life for that reagent. otherwise, it will stop after running handle_chemicals for the species.
 /datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == exotic_blood)
 		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		H.reagents.del_reagent(chem.type)
 		return TRUE
-	return FALSE
 
-// Do species-specific reagent handling here
-// Return 1 if it should do normal processing too
-// Return 0 if it shouldn't deplete and do its normal effect
-// Other return values will cause weird badness
-/datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
-		H.reagents.del_reagent(R.type)
-		return FALSE
-	return TRUE
+	//This handles dumping unprocessable reagents.
+	var/dump_reagent = TRUE
+	if((chem.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+		dump_reagent = FALSE
+	if((chem.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
+		dump_reagent = FALSE
+	if(dump_reagent)
+		chem.holder.remove_reagent(chem.type, chem.metabolization_rate)
+		return TRUE
+	return FALSE
 
 /datum/species/proc/check_species_weakness(obj/item, mob/living/attacker)
 	return 0 //This is not a boolean, it's the multiplier for the damage that the user takes from the item.It is added onto the check_weakness value of the mob, and then the force of the item is multiplied by this value
@@ -2050,4 +2070,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	return
 
 /datum/species/proc/get_item_offsets_for_dir(dir, hand_index)
+	return
+
+/datum/species/proc/get_harm_descriptors() //Passes descriptor changes like "You are bleeding!" > "You are leaking!"
 	return

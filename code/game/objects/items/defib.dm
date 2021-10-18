@@ -477,7 +477,7 @@
 
 /obj/item/shockpaddles/proc/can_defib(mob/living/carbon/H)
 	var/obj/item/organ/heart = H.getorgan(/obj/item/organ/heart)
-	if(H.suiciding || H.hellbound || HAS_TRAIT(H, TRAIT_HUSK))
+	if(H.suiciding || H.hellbound || HAS_TRAIT(H, TRAIT_HUSK) || HAS_TRAIT(H, TRAIT_NO_DEFIB))
 		return
 	if((world.time - H.timeofdeath) > tlimit)
 		return
@@ -487,8 +487,6 @@
 		return
 	var/obj/item/organ/brain/BR = H.getorgan(/obj/item/organ/brain)
 	if(QDELETED(BR) || BR.brain_death || (BR.organ_flags & ORGAN_FAILING) || BR.suicided)
-		return
-	if(!H.dna?.species.can_be_defib)
 		return
 	return TRUE
 
