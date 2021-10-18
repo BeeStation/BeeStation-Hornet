@@ -148,7 +148,7 @@
 /datum/disease/advance/Copy()
 	var/datum/disease/advance/A = ..()
 	QDEL_LIST(A.symptoms)
-	for(var/datum/symptom/S in symptoms)
+	for(var/datum/symptom/S as() in symptoms)
 		A.symptoms += S.Copy()
 	A.dormant = dormant
 	A.resistance = resistance
