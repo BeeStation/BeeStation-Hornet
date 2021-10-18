@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/should_have_brain = TRUE
 	var/should_have_heart = !(NOBLOOD in species_traits)
 	var/should_have_lungs = !(TRAIT_NOBREATH in inherent_traits)
-	var/should_have_appendix = !(TRAIT_NOHUNGER in inherent_traits)
+	var/should_have_appendix = !((TRAIT_NOHUNGER in inherent_traits) || (TRAIT_POWERHUNGRY in inherent_traits))
 	var/should_have_eyes = TRUE
 	var/should_have_ears = TRUE
 	var/should_have_tongue = TRUE
@@ -592,7 +592,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
 
-		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(DIGITIGRADE in species_traits))
+		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(DIGITIGRADE in species_traits) && !(NOSOCKS in species_traits))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[H.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
@@ -1184,23 +1184,38 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			var/hungry = (500 - H.nutrition) / 5 //So overeat would be 100 and default level would be 80
 			if(hungry >= 70)
 				H.add_movespeed_modifier(MOVESPEED_ID_HUNGRY, override = TRUE, multiplicative_slowdown = (hungry / 50))
-			else if(isethereal(H))
-				var/datum/species/ethereal/E = H.dna.species
-				var/charge = E.get_charge()
-				if(charge <= ETHEREAL_CHARGE_NORMAL)
-					. += 1.5 * (1 - charge / 100)
 			else
 				H.remove_movespeed_modifier(MOVESPEED_ID_HUNGRY)
 
+	if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))
+		handle_charge(H)
+	else
+		switch(H.nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				H.throw_alert("nutrition", /atom/movable/screen/alert/fat)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FULL)
+				H.clear_alert("nutrition")
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				H.throw_alert("nutrition", /atom/movable/screen/alert/hungry)
+			if(0 to NUTRITION_LEVEL_STARVING)
+				H.throw_alert("nutrition", /atom/movable/screen/alert/starving)
+
+/datum/species/proc/handle_charge(mob/living/carbon/human/H)
 	switch(H.nutrition)
-		if(NUTRITION_LEVEL_FULL to INFINITY)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/fat)
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FULL)
+		if(NUTRITION_LEVEL_FED to INFINITY)
 			H.clear_alert("nutrition")
+		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 1)
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/hungry)
-		if(0 to NUTRITION_LEVEL_STARVING)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/starving)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 2)
+		if(1 to NUTRITION_LEVEL_STARVING)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 3)
+		else
+			var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
+			if(!istype(battery))
+				H.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
+			else
+				H.throw_alert("nutrition", /atom/movable/screen/alert/emptycell)
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return 0

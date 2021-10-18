@@ -154,27 +154,29 @@
 		var/datum/species/ethereal/E = H.dna.species
 		if(E.drain_time > world.time)
 			return
-
-		if(charge < 100)
-			to_chat(H, "<span class='warning'>The [src] doesn't have enough power!</span>")
-			return
-		var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
-		if(!istype(stomach))
-			to_chat(H, "<span class='warning'>You can't receive charge!</span>")
-			return
-		if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
-			to_chat(H, "<span class='warning'>Your charge is full!</span>")
-			return
+		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 		to_chat(H, "<span class='notice'>You clumsily channel power through the [src] and into your body, wasting some in the process.</span>")
 		E.drain_time = world.time + 20
-		if((charge < 100) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
-			return
-		if(do_after(user, 20, target = src))
-			to_chat(H, "<span class='notice'>You receive some charge from the [src].</span>")
-			stomach.adjust_charge(3)
-			charge -= 100 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
-		else
-			to_chat(H, "<span class='warning'>You fail to receive charge from the [src]!</span>")
+		while(do_after(user, 20, target = src))
+			if(!istype(stomach))
+				to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+				return
+			E.drain_time = world.time + 20
+			if(charge > 300)
+				stomach.adjust_charge(75)
+				charge -= 300 //you waste way more than you receive, so that ethereals cant just steal one cell and forget about hunger
+				to_chat(H, "<span class='notice'>You receive some charge from the [src].</span>")
+			else
+				stomach.adjust_charge(charge/4)
+				charge = 0
+				to_chat(H, "<span class='notice'>You drain the [src].</span>")
+				return
+
+			if(stomach.charge >= stomach.max_charge)
+				to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+				return
+		to_chat(H, "<span class='warning'>You fail to receive charge from the [src]!</span>")
+		E.drain_time = 0
 	return
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)

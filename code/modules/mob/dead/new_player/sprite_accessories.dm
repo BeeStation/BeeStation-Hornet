@@ -94,6 +94,10 @@
 	name = "Bald"
 	icon_state = null
 
+/datum/sprite_accessory/hair/bald2
+	name = "Bald 2"
+	icon_state = "hair_bald2"
+
 /datum/sprite_accessory/hair/balding
 	name = "Balding Hair"
 	icon_state = "hair_e"
@@ -278,6 +282,10 @@
 	name = "Curls"
 	icon_state = "hair_curls"
 
+/datum/sprite_accessory/hair/curtains
+	name = "Curtains"
+	icon_state = "hair_curtains"
+
 /datum/sprite_accessory/hair/cut
 	name = "Cut Hair"
 	icon_state = "hair_c"
@@ -365,6 +373,10 @@
 /datum/sprite_accessory/hair/gelled
 	name = "Gelled Back"
 	icon_state = "hair_gelled"
+
+/datum/sprite_accessory/hair/gelledeyebrows
+	name = "Gelled Spikes"
+	icon_state = "hair_ebgel"
 
 /datum/sprite_accessory/hair/gentle
 	name = "Gentle"
@@ -490,9 +502,17 @@
 	name = "Mohawk (Unshaven)"
 	icon_state = "hair_unshaven_mohawk"
 
+/datum/sprite_accessory/hair/moustache
+	name = "Moustache"
+	icon_state = "hair_moustache"
+
 /datum/sprite_accessory/hair/mulder
 	name = "Mulder"
 	icon_state = "hair_mulder"
+
+/datum/sprite_accessory/hair/mullet
+	name = "Mullet"
+	icon_state = "hair_mullet"
 
 /datum/sprite_accessory/hair/odango
 	name = "Odango"
@@ -517,6 +537,10 @@
 /datum/sprite_accessory/hair/parted
 	name = "Parted"
 	icon_state = "hair_parted"
+
+/datum/sprite_accessory/hair/parted2
+	name = "Parted 2"
+	icon_state ="hair_parted2"
 
 /datum/sprite_accessory/hair/partedside
 	name = "Parted (Side)"
@@ -546,6 +570,10 @@
 	name = "Pompadour (Big)"
 	icon_state = "hair_bigpompadour"
 
+/datum/sprite_accessory/hair/hugepompadour
+	name = "Pompadour (Huge)"
+	icon_state = "hair_hugepompadour"
+
 /datum/sprite_accessory/hair/ponytail1
 	name = "Ponytail"
 	icon_state = "hair_ponytail"
@@ -574,9 +602,17 @@
 	name = "Ponytail 7"
 	icon_state = "hair_ponytail7"
 
+/datum/sprite_accessory/hair/ponytailalchemist
+	name = "Ponytail (Alchemist)"
+	icon_state = "hair_alchemist"
+
 /datum/sprite_accessory/hair/highponytail
 	name = "Ponytail (High)"
 	icon_state = "hair_highponytail"
+
+/datum/sprite_accessory/hair/tightponytail
+	name = "Ponytail (Tight)"
+	icon_state = "hair_tightponytail"
 
 /datum/sprite_accessory/hair/stail
 	name = "Ponytail (Short)"
@@ -618,6 +654,10 @@
 	name = "Poofy"
 	icon_state = "hair_poofy"
 
+/datum/sprite_accessory/hair/pride
+	name = "Pride"
+	icon_state = "hair_pride"
+
 /datum/sprite_accessory/hair/quiff
 	name = "Quiff"
 	icon_state = "hair_quiff"
@@ -633,6 +673,10 @@
 /datum/sprite_accessory/hair/shavedpart
 	name = "Shaved Part"
 	icon_state = "hair_shavedpart"
+
+/datum/sprite_accessory/hair/shortafro
+	name = "Short Afro"
+	icon_state = "hair_shortafro"
 
 /datum/sprite_accessory/hair/shortbangs
 	name = "Short Bangs"
@@ -689,6 +733,10 @@
 /datum/sprite_accessory/hair/protagonist
 	name = "Slightly Long Hair"
 	icon_state = "hair_protagonist"
+
+/datum/sprite_accessory/hair/spamton
+	name = "Spamton"
+	icon_state = "hair_spamton"
 
 /datum/sprite_accessory/hair/spiky
 	name = "Spiky"
@@ -800,6 +848,10 @@
 
 // please make sure they're sorted alphabetically and categorized
 
+/datum/sprite_accessory/facial_hair/eyebrows
+	name = "Eyebrows"
+	icon_state = "facial_eyebrows"
+
 /datum/sprite_accessory/facial_hair/abe
 	name = "Beard (Abraham Lincoln)"
 	icon_state = "facial_abe"
@@ -823,6 +875,7 @@
 /datum/sprite_accessory/facial_hair/croppedfullbeard
 	name = "Beard (Cropped Fullbeard)"
 	icon_state = "facial_croppedfullbeard"
+
 
 /datum/sprite_accessory/facial_hair/gt
 	name = "Beard (Goatee)"
@@ -864,6 +917,10 @@
 	name = "Beard (Long)"
 	icon_state = "facial_longbeard"
 
+/datum/sprite_accessory/facial_hair/powerful
+	name = "Beard (Powerful)"
+	icon_state = "facial_powerful"
+
 /datum/sprite_accessory/facial_hair/volaju
 	name = "Beard (Volaju)"
 	icon_state = "facial_volaju"
@@ -887,6 +944,10 @@
 /datum/sprite_accessory/facial_hair/sevenoclockm
 	name = "Beard (Seven o Clock Moustache)"
 	icon_state = "facial_7oclockmoustache"
+
+/datum/sprite_accessory/facial_hair/thecolonel
+	name = "Beard (The Colonel)"
+	icon_state = "facial_thecolonel"
 
 /datum/sprite_accessory/facial_hair/moustache
 	name = "Moustache"
@@ -912,6 +973,10 @@
 	name = "Moustache (Hulk Hogan)"
 	icon_state = "facial_hogan" //-Neek
 
+/datum/sprite_accessory/facial_hair/robotnik
+	name = "Moustache (Robotnik)"
+	icon_state = "facial_robotnik"
+
 /datum/sprite_accessory/facial_hair/selleck
 	name = "Moustache (Selleck)"
 	icon_state = "facial_selleck"
@@ -919,6 +984,10 @@
 /datum/sprite_accessory/facial_hair/chaplin
 	name = "Moustache (Square)"
 	icon_state = "facial_chaplin"
+
+/datum/sprite_accessory/facial_hair/stachenchops
+	name = "Moustache ('Stache 'n Chops)"
+	icon_state = "facial_stachenchops"
 
 /datum/sprite_accessory/facial_hair/vandyke
 	name = "Moustache (Van Dyke)"
