@@ -514,7 +514,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.Immobilize(5)
 				new /obj/effect/decal/cleanable/blood/(M.loc)
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
-				if(prob(60))
+				if(prob(60) && M.mind && ishuman(M))
 					if(tetsuo && prob(15))
 						if(A.affected_mob.job == "Clown")
 							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
