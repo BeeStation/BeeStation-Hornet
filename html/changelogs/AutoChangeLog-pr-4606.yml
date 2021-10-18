@@ -1,0 +1,7 @@
+author: lordScrubling, Ghilker, TetraK1, Dennok, Donkie
+delete-after: true
+changes:
+  - rscadd: Temperature pump atmos device from tg
+  - rscadd: Pressure valve from atmos device tg
+  - rscadd: Temperature gate atmos device from tg
+  - tweak: Passive gate pressure limit upped to 100 atmospheres
