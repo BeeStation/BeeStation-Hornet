@@ -94,75 +94,96 @@
 	icon_state = "stomach-p"
 	desc = "A strange crystal that is responsible for metabolizing the unseen energy force that feeds plasmamen."
 
-/obj/item/organ/stomach/cell
+
+/obj/item/organ/stomach/battery
+	name = "implantable battery"
+	icon_state = "implant-power"
+	desc = "A battery that stores charge for species that run on electricity."
+	var/max_charge = 10000 //same as high capacity cell
+	var/charge = 10000
+
+/obj/item/organ/stomach/battery/Insert(mob/living/carbon/M, special = 0)
+	..()
+	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
+	update_nutrition()
+
+/obj/item/organ/stomach/battery/Remove(mob/living/carbon/M, special = 0)
+	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
+	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
+		owner.nutrition = 0
+		owner.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
+	..()
+
+/obj/item/organ/stomach/battery/proc/charge(datum/source, amount, repairs)
+	SIGNAL_HANDLER
+	adjust_charge(amount)
+
+/obj/item/organ/stomach/battery/proc/adjust_charge(amount)
+	if(amount > 0)
+		charge = clamp(round((charge + amount)*(1-(damage/maxHealth))), 0, max_charge)
+	else
+		charge = clamp(round(charge + amount), 0, max_charge)
+	update_nutrition()
+
+/obj/item/organ/stomach/battery/proc/adjust_charge_scaled(amount)
+	adjust_charge(amount*max_charge/NUTRITION_LEVEL_FULL)
+
+/obj/item/organ/stomach/battery/proc/set_charge(amount)
+	charge = clamp(round(amount*(1-(damage/maxHealth))), 0, max_charge)
+	update_nutrition()
+
+/obj/item/organ/stomach/battery/proc/set_charge_scaled(amount)
+	set_charge(amount*max_charge/NUTRITION_LEVEL_FULL)
+
+/obj/item/organ/stomach/battery/proc/update_nutrition()
+	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && HAS_TRAIT(owner, TRAIT_POWERHUNGRY))
+		owner.nutrition = (charge/max_charge)*NUTRITION_LEVEL_FULL
+
+/obj/item/organ/stomach/battery/emp_act(severity)
+	switch(severity)
+		if(1)
+			adjust_charge(-0.5*max_charge)
+			applyOrganDamage(30)
+		if(2)
+			adjust_charge(-0.25*max_charge)
+			applyOrganDamage(15)
+
+/obj/item/organ/stomach/battery/ipc
 	name = "micro-cell"
 	icon_state = "microcell"
 	w_class = WEIGHT_CLASS_NORMAL
-	zone = "chest"
-	slot = "stomach"
 	attack_verb = list("assault and battery'd")
-	desc = "A micro-cell, for IPC use only. Do not swallow."
+	desc = "A micro-cell, for IPC use. Do not swallow."
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 
-/obj/item/organ/stomach/cell/emp_act(severity)
+/obj/item/organ/stomach/battery/ipc/emp_act(severity)
+	..()
 	switch(severity)
 		if(1)
-			owner.nutrition = 50
 			to_chat(owner, "<span class='warning'>Alert: Heavy EMP Detected. Rebooting power cell to prevent damage.</span>")
 		if(2)
-			owner.nutrition = 250
 			to_chat(owner, "<span class='warning'>Alert: EMP Detected. Cycling battery.</span>")
 
-/obj/item/organ/stomach/cell/Insert(mob/living/carbon/M, special = 0)
-	..()
-	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
-
-/obj/item/organ/stomach/cell/Remove(mob/living/carbon/M, special = 0)
-	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
-	..()
-
-/obj/item/organ/stomach/cell/proc/charge(datum/source, amount, repairs)
-	SIGNAL_HANDLER
-
-	if(owner.nutrition < NUTRITION_LEVEL_WELL_FED)
-		owner.nutrition += (amount / 10) //IPCs can feed themselves from a borg recharging station
-	if(owner.nutrition >= NUTRITION_LEVEL_WELL_FED)
-		to_chat(owner, "<span class='warning'>You are already fully charged!</span>")
-		return
-
-/obj/item/organ/stomach/ethereal
+/obj/item/organ/stomach/battery/ethereal
 	name = "biological battery"
 	icon_state = "stomach-p" //Welp. At least it's more unique in functionaliy.
 	desc = "A crystal-like organ that stores the electric charge of ethereals."
-	var/crystal_charge = ETHEREAL_CHARGE_FULL
+	max_charge = 2500
+	charge = 2500
 
-/obj/item/organ/stomach/ethereal/on_life()
+/obj/item/organ/stomach/battery/ethereal/Insert(mob/living/carbon/M, special = 0)
 	..()
-	adjust_charge(-ETHEREAL_CHARGE_FACTOR)
-
-/obj/item/organ/stomach/ethereal/Insert(mob/living/carbon/M, special = 0)
-	..()
-	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, .proc/charge)
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, .proc/on_electrocute)
 
-/obj/item/organ/stomach/ethereal/Remove(mob/living/carbon/M, special = 0)
-	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
+/obj/item/organ/stomach/battery/ethereal/Remove(mob/living/carbon/M, special = 0)
 	UnregisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT)
 	..()
 
-/obj/item/organ/stomach/ethereal/proc/charge(datum/source, amount, repairs)
+/obj/item/organ/stomach/battery/ethereal/proc/on_electrocute(datum/source, shock_damage, shock_source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)
 	SIGNAL_HANDLER
 
-	adjust_charge(amount / 70)
-
-/obj/item/organ/stomach/ethereal/proc/on_electrocute(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
-	SIGNAL_HANDLER
-
-	if(flags & SHOCK_ILLUSION)
+	if(illusion)
 		return
-	adjust_charge(shock_damage * siemens_coeff * 2)
+	adjust_charge(shock_damage * siemens_coeff * 20)
 	to_chat(owner, "<span class='notice'>You absorb some of the shock into your body!</span>")
-
-/obj/item/organ/stomach/ethereal/proc/adjust_charge(amount)
-	crystal_charge = clamp(crystal_charge + amount, ETHEREAL_CHARGE_NONE, ETHEREAL_CHARGE_FULL)
