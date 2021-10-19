@@ -172,10 +172,10 @@
 		msg += "[t_He] really keeps to the left.\n"
 	else if(l_limbs_missing >= 2 && r_limbs_missing >= 2)
 		msg += "[t_He] [p_do()]n't seem all there.\n"
-	var/list/harm_descriptors= dna?.species.get_harm_descriptors()
-	var/brute_msg = harm_descriptors["brute"]
-	var/burn_msg = harm_descriptors["burn"]
-	var/bleed_msg = harm_descriptors["bleed"]
+	var/list/harm_descriptors = dna?.species.get_harm_descriptors()
+	var/brute_msg = harm_descriptors?["brute"]
+	var/burn_msg = harm_descriptors?["burn"]
+	var/bleed_msg = harm_descriptors?["bleed"]
 
 	brute_msg = brute_msg ? brute_msg : "brusing"
 	burn_msg = burn_msg ? burn_msg : "burns"

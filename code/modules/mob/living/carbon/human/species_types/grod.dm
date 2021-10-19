@@ -58,6 +58,7 @@
 
 /datum/species/grod/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
+	H.swap_hand(1)
 	if(swap_stance)
 		if(stance == STANCE_INTERACT)
 			swap_stance.Activate()
@@ -67,6 +68,7 @@
 		crownspider.Remove(H)
 		QDEL_NULL(crownspider)
 	H.stop_updating_hands()
+
 
 /datum/action/innate/grod/swap_stance
 	name = "Swap Stance"
