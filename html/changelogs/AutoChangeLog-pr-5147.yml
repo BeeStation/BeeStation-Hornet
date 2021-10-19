@@ -1,0 +1,5 @@
+author: tiramisuapimancer
+delete-after: true
+changes:
+  - balance: nuclear particles no longer deal direct toxin damage, but do more regular
+      irradiating
