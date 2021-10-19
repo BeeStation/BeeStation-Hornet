@@ -191,10 +191,10 @@ GLOBAL_LIST_INIT(phonetic_alphabet, world.file2list("strings/phonetic_alphabet.t
 GLOBAL_LIST_INIT(numbers_as_words, world.file2list("strings/numbers_as_words.txt"))
 
 /proc/generate_number_strings()
-	var/list/L = list()
+	var/list/L[198]
 	for(var/i in 1 to 99)
-		L += "[i]"
-		L += "\Roman[i]"
+		L[i] = "[i]"
+		L[i+99] = "\Roman[i]"
 	return L
 
 GLOBAL_LIST_INIT(station_numerals, greek_letters + phonetic_alphabet + numbers_as_words + generate_number_strings())
