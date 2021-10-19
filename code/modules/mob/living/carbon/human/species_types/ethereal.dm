@@ -36,6 +36,13 @@
 	//this is shit but how do i fix it? no clue.
 	var/drain_time = 0 //used to keep ethereals from spam draining power sources
 
+/datum/species/ethereal/character_gen_autism(mob/living/carbon/human/H, list/features)
+	default_color = "#" + features["ethcolor"]
+	r1 = GETREDPART(default_color)
+	g1 = GETGREENPART(default_color)
+	b1 = GETBLUEPART(default_color)
+	spec_updatehealth(H)
+
 /datum/species/ethereal/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	.=..()
 	if(ishuman(C))

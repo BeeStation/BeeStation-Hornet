@@ -1994,9 +1994,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		save_character()
 
 
-	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE) //somehow this sets "grod_crown" = "None" if species is already equal to grod
+	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE) //This happens before features are set because it causes problems otherwise.
 	character.dna.features = features.Copy()
 	character.dna.real_name = character.real_name
+	character.dna.species.character_gen_autism(character, character.dna.features) //FUCK: DIGITIGRADE LEG CODE AND ETHEREAL CODE.
+
 
 	if("tail_lizard" in pref_species.default_features)
 		character.dna.species.mutant_bodyparts |= "tail_lizard"

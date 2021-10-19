@@ -177,7 +177,7 @@
 	var/burn_msg = harm_descriptors?["burn"]
 	var/bleed_msg = harm_descriptors?["bleed"]
 
-	brute_msg = brute_msg ? brute_msg : "brusing"
+	brute_msg = brute_msg ? brute_msg : "bruising"
 	burn_msg = burn_msg ? burn_msg : "burns"
 	bleed_msg = bleed_msg ? bleed_msg : "bleeding"
 

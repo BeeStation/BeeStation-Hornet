@@ -55,7 +55,7 @@
 	return TRUE
 
 /datum/surgery_step/filter_blood/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	display_results(user, target, "<span class='warning'>You screw up, brusing [target]'s chest!</span>",
-		"<span class='warning'>[user] screws up, brusing [target]'s chest!</span>",
+	display_results(user, target, "<span class='warning'>You screw up, bruising [target]'s chest!</span>",
+		"<span class='warning'>[user] screws up, bruising [target]'s chest!</span>",
 		"<span class='warning'>[user] screws up!</span>")
 	target.adjustBruteLoss(5)

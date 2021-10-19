@@ -26,6 +26,16 @@
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
 
+/datum/species/lizard/character_gen_autism(mob/living/carbon/human/H, list/features)
+	if(("legs" in H.dna.species.mutant_bodyparts) && features["legs"] == "Digitigrade Legs")
+		species_traits += DIGITIGRADE
+	if(DIGITIGRADE in species_traits)
+		H.Digitigrade_Leg_Swap(FALSE)
+	else
+		H.Digitigrade_Leg_Swap(TRUE)
+
+
+
 /datum/species/lizard/random_name(gender,unique,lastname)
 	if(unique)
 		return random_unique_lizard_name(gender)

@@ -2089,3 +2089,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/get_harm_descriptors() //Passes descriptor changes like "You are bleeding!" > "You are leaking!"
 	return
+
+/datum/species/proc/character_gen_autism(mob/living/carbon/human/H, list/features) //https://pastebin.com/CnEkJAb8
+	return
