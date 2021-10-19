@@ -1,4 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - code_imp: A few unused globals were cleaned up.
