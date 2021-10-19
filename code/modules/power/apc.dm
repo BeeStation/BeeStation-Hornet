@@ -838,7 +838,7 @@
 			if(H.nutrition >= NUTRITION_LEVEL_ALMOST_FULL)
 				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 				return
-			if(cell.charge <= cell.maxcharge/2) // if charge is under 50% you shouldn't drain it
+			if(cell.charge <= cell.maxcharge/4) // if charge is under 25% you shouldn't drain it
 				to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain anymore.</span>")
 				return
 
@@ -848,7 +848,7 @@
 				if(!istype(stomach))
 					to_chat(H, "<span class='warning'>You can't receive charge!</span>")
 					return
-				if(cell.charge <= cell.maxcharge/2) // if charge is under 50% you shouldn't drain it
+				if(cell.charge <= cell.maxcharge/4) // if charge is under 25% you shouldn't drain it
 					to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain anymore.</span>")
 					return
 				E.drain_time = world.time + 80
