@@ -850,6 +850,7 @@
 					return
 				if(cell.charge <= cell.maxcharge/4)
 					to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain anymore.</span>")
+					E.drain_time = 0
 					return
 				E.drain_time = world.time + 80
 				if(cell.charge > cell.maxcharge/4 + 250)
@@ -860,9 +861,11 @@
 					stomach.adjust_charge(cell.charge - cell.maxcharge/4)
 					cell.charge = cell.maxcharge/4
 					to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain anymore.</span>")
+					E.drain_time = 0
 					return
 				if(stomach.charge >= stomach.max_charge)
 					to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+					E.drain_time = 0
 					return
 			to_chat(H, "<span class='warning'>You fail to receive charge from the APC!</span>")
 			E.drain_time = 0
@@ -886,9 +889,11 @@
 					to_chat(H, "<span class='notice'>You transfer the last of your charge to the APC.</span>")
 					cell.charge = min(cell.charge + stomach.charge, cell.maxcharge)
 					stomach.set_charge(0)
+					E.drain_time = 0
 					return
 				if(cell.charge >= cell.maxcharge)
 					to_chat(H, "<span class='notice'>The APC is now fully recharged.</span>")
+					E.drain_time = 0
 					return
 			to_chat(H, "<span class='warning'>You fail to transfer power to the APC!</span>")
 			E.drain_time = 0

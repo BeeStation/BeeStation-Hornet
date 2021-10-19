@@ -687,6 +687,7 @@
 					use_power(50)
 					if(stomach.charge >= stomach.max_charge)
 						to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+						E.drain_time = 0
 						return
 				to_chat(H, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
 				E.drain_time = 0
