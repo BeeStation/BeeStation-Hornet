@@ -28,9 +28,10 @@ SUBSYSTEM_DEF(adjacent_air)
 
 	while (length(disable_queue))
 		var/turf/terf = disable_queue[1]
+		var/arg = disable_queue[terf]
 		disable_queue.Cut(1,2)
 
-		terf.ImmediateDisableAdjacency()
+		terf.ImmediateDisableAdjacency(arg)
 
 		if(mc_check)
 			if(MC_TICK_CHECK)

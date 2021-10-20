@@ -70,7 +70,7 @@
 
 /turf/proc/ImmediateDisableAdjacency(disable_adjacent = TRUE)
 	if(SSair.thread_running())
-		SSadjacent_air.disable_queue[src] = 1
+		SSadjacent_air.disable_queue[src] = disable_adjacent
 		return
 	if(disable_adjacent)
 		for(var/direction in GLOB.cardinals_multiz)
