@@ -27,6 +27,7 @@
 	var/author
 	var/SQLquery
 	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 
 /obj/machinery/computer/libraryconsole/ui_interact(mob/user)
 	. = ..()

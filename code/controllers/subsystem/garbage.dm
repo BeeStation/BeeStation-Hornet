@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(garbage)
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	init_order = INIT_ORDER_GARBAGE
 
-	var/list/collection_timeout = list(0, 2 MINUTES, 10 SECONDS)	// deciseconds to wait before moving something up in the queue to the next level
+	var/list/collection_timeout = list(2 MINUTES, 10 SECONDS)	// deciseconds to wait before moving something up in the queue to the next level
 
 	//Stat tracking
 	var/delslasttick = 0			// number of del()'s we've done this tick
@@ -27,6 +27,19 @@ SUBSYSTEM_DEF(garbage)
 	#ifdef LEGACY_REFERENCE_TRACKING
 	var/list/reference_find_on_fail = list()
 	#endif
+
+/datum/controller/subsystem/garbage/get_metrics()
+	. = ..()
+	var/list/cust = list()
+	// You can calculate TGCR in kibana
+	cust["total_harddels"] = totaldels
+	cust["total_softdels"] = totalgcs
+	var/i = 0
+	for(var/list/L in queues)
+		i++
+		cust["queue_[i]"] = length(L)
+
+	.["custom"] = cust
 
 
 /datum/controller/subsystem/garbage/PreInit()
@@ -130,7 +143,7 @@ SUBSYSTEM_DEF(garbage)
 		if(GCd_at_time > cut_off_time)
 			break // Everything else is newer, skip them
 		count++
-		
+
 		var/refID = L[2]
 		var/datum/D
 		D = locate(refID)
@@ -214,7 +227,7 @@ SUBSYSTEM_DEF(garbage)
 
 	D.gc_destroyed = gctime
 	var/list/queue = queues[level]
-	
+
 	queue[++queue.len] = list(gctime, refid) // not += for byond reasons
 
 //this is mainly to separate things profile wise.

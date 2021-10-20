@@ -55,6 +55,8 @@
 		. += "<span class='notice'>Alt-click to rotate the input and output direction.</span>"
 
 /obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
+	if(QDELETED(O))
+		return
 	var/datum/component/material_container/mat_container = materials.mat_container
 	if (!mat_container)
 		return
@@ -143,12 +145,15 @@
 	signal.send_to_receivers()
 
 /obj/machinery/mineral/ore_redemption/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
+	if(QDELETED(target))
+		return
 	if(!materials.mat_container || panel_open || !powered())
 		return
 
 	if(istype(target, /obj/structure/ore_box))
 		var/obj/structure/ore_box/box = target
 		process_ores(box.contents)
+		box.ui_update()
 	else if(istype(target, /obj/item/stack/ore))
 		var/obj/item/stack/ore/O = target
 		smelt_ore(O)
@@ -213,7 +218,7 @@
 	if(!ui)
 		ui = new(user, src, "OreRedemptionMachine")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Material amounts
 
 /obj/machinery/mineral/ore_redemption/ui_data(mob/user)
 	var/list/data = list()
@@ -233,6 +238,8 @@
 		for(var/v in stored_research.researched_designs)
 			var/datum/design/D = SSresearch.techweb_design_by_id(v)
 			data["alloys"] += list(list("name" = D.name, "id" = D.id, "amount" = can_smelt_alloy(D)))
+	else
+		data["alloys"] = null // In case we lose mat_container while UI is open somehow
 
 	if (!mat_container)
 		data["disconnected"] = "local mineral storage is unavailable"
@@ -240,6 +247,8 @@
 		data["disconnected"] = "no ore silo connection is available; storing locally"
 	else if (materials.on_hold())
 		data["disconnected"] = "mineral withdrawal is on hold"
+	else
+		data["disconnected"] = null
 
 	data["diskDesigns"] = list()
 	data["hasDisk"] = FALSE
@@ -264,11 +273,11 @@
 			if(points)
 				if(I?.mining_points += points)
 					points = 0
+					. = TRUE
 				else
 					to_chat(usr, "<span class='warning'>No ID detected.</span>")
 			else
 				to_chat(usr, "<span class='warning'>No points to claim.</span>")
-			return TRUE
 		if("Release")
 			if(!mat_container)
 				return
@@ -302,26 +311,26 @@
 				mats[mat] = MINERAL_MATERIAL_AMOUNT
 				materials.silo_log(src, "released", -count, "sheets", mats)
 				//Logging deleted for quick coding
-			return TRUE
+				. = TRUE
 		if("diskInsert")
 			var/obj/item/disk/design_disk/disk = usr.get_active_held_item()
 			if(istype(disk))
 				if(!usr.transferItemToLoc(disk,src))
 					return
 				inserted_disk = disk
+				. = TRUE
 			else
 				to_chat(usr, "<span class='warning'>Not a valid Design Disk!</span>")
-			return TRUE
 		if("diskEject")
 			if(inserted_disk)
 				usr.put_in_hands(inserted_disk)
 				inserted_disk = null
-			return TRUE
+				. = TRUE
 		if("diskUpload")
 			var/n = text2num(params["design"])
 			if(inserted_disk && inserted_disk.blueprints && inserted_disk.blueprints[n])
 				stored_research.add_design(inserted_disk.blueprints[n])
-			return TRUE
+				. = TRUE
 		if("Smelt")
 			if(!mat_container)
 				return
@@ -346,9 +355,9 @@
 				else
 					output = new alloy.build_path(src)
 				unload_mineral(output)
+				. = TRUE
 			else
 				to_chat(usr, "<span class='warning'>Required access not found.</span>")
-			return TRUE
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
 	do_sparks(5, TRUE, src)

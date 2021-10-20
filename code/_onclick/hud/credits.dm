@@ -12,6 +12,14 @@ GLOBAL_LIST(end_titles)
 		GLOB.end_titles += "<br>"
 		GLOB.end_titles += "<br>"
 
+		if(GLOB.soundtrack_this_round.len)
+			GLOB.end_titles += "<center><h1>Music Credits</h1>"
+			for(var/song_path in GLOB.soundtrack_this_round)
+				var/datum/soundtrack_song/song = song_path
+				GLOB.end_titles += "<center><h2>[sanitize(initial(song.artist))] - \"[sanitize(initial(song.title))]\" ([sanitize(initial(song.album))])</h2>"
+			GLOB.end_titles += "<br>"
+			GLOB.end_titles += "<br>"
+
 		if(GLOB.patrons.len)
 			GLOB.end_titles += "<center><h1>Thank you to our patrons!</h1>"
 			for(var/patron in GLOB.patrons)

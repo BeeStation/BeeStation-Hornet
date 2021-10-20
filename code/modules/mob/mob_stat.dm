@@ -105,7 +105,9 @@
 	return tab_data
 
 /mob/proc/get_all_verbs()
-	var/list/all_verbs = deepCopyList(sorted_verbs)
+	var/list/all_verbs = new
+	if(sorted_verbs)
+		all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:
 	// list A [A: ["b", "c"]] +  (list B) [A: ["c", "d"]] will only have A from list B
 	for(var/i in client.sorted_verbs)
@@ -152,6 +154,7 @@
 	var/turf/T = get_turf(client.eye)
 	tab_data["Location"] = GENERATE_STAT_TEXT("[COORD(T)]")
 	tab_data["CPU"] = GENERATE_STAT_TEXT("[world.cpu]")
+	tab_data["Tick Usage"] = GENERATE_STAT_TEXT("[TICK_USAGE] / [Master.current_ticklimit]")
 	tab_data["Instances"] = GENERATE_STAT_TEXT("[num2text(world.contents.len, 10)]")
 	tab_data["World Time"] = GENERATE_STAT_TEXT("[world.time]")
 	tab_data += GLOB.stat_entry()

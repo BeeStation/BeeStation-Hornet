@@ -590,4 +590,5 @@
 	icon_screen = "medlaptop"
 	icon_keyboard = "laptop_key"
 	clockwork = TRUE //it'd look weird
+	broken_overlay_emissive = TRUE
 	pass_flags = PASSTABLE

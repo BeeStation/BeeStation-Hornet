@@ -123,7 +123,7 @@ export const SettingsGeneral = (props, context) => {
             step={1}
             stepPixelSize={10}
             minValue={8}
-            maxValue={32}
+            maxValue={24}
             value={fontSize}
             unit="px"
             format={value => toFixed(value)}

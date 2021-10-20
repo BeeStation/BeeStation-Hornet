@@ -31,7 +31,7 @@
 	..()
 
 /datum/clockcult/scripture/marauder/invoke_success()
-	var/mob/new_mob = new /mob/living/simple_animal/clockwork_marauder(get_turf(invoker))
+	var/mob/new_mob = new /mob/living/simple_animal/hostile/clockwork_marauder(get_turf(invoker))
 	new_mob.key = selected.key
 	selected = null
 

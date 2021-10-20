@@ -111,7 +111,7 @@
 		wearer = user
 		applied_eye_damage = 0
 		START_PROCESSING(SSobj, src)
-		to_chat(user, "<span class='nezbere'>You suddenly see so much more, but your eyes begin to faulter...</span>")
+		to_chat(user, "<span class='nezbere'>You suddenly see so much more, but your eyes begin to falter...</span>")
 
 /obj/item/clothing/glasses/clockwork/wraith_spectacles/process(delta_time)
 	. = ..()

@@ -307,6 +307,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/list/alljobs = list("Unassigned")
 		alljobs += (istype(src, /obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_jobs()) + "Custom"
 		for(var/job in alljobs)
+			if(job == "Assistant")
+				jobs_all += "<br/>* Service: "
+			if(job == "Quartermaster")
+				jobs_all += "<br/>* Cargo: "
+			if(job == "Chief Engineer")
+				jobs_all += "<br/>* Engineering: "
+			if(job == "Research Director")
+				jobs_all += "<br/>* R&D: "
+			if(job == "Chief Medical Officer")
+				jobs_all += "<br/>* Medical: "
+			if(job == "Head of Security")
+				jobs_all += "<br/>* Security: "
+			if(job == "Custom")
+				jobs_all += "<br/>"
+			// these will make some separation for the department.
 			jobs_all += "<a href='?src=[REF(src)];choice=assign;assign_target=[job]'>[replacetext(job, " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
 
 

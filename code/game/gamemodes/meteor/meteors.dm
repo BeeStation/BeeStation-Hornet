@@ -21,17 +21,17 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 //Meteor spawning global procs
 ///////////////////////////////
 
-/proc/spawn_meteors(number = 10, list/meteortypes)
+/proc/spawn_meteors(number = 10, list/meteortypes, z = 0)
 	for(var/i = 0; i < number; i++)
-		spawn_meteor(meteortypes)
+		spawn_meteor(meteortypes, z)
 
-/proc/spawn_meteor(list/meteortypes)
+/proc/spawn_meteor(list/meteortypes, z = 0)
 	var/turf/pickedstart
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
 	while(!isspaceturf(pickedstart))
 		var/startSide = pick(GLOB.cardinals)
-		var/startZ = pick(SSmapping.levels_by_trait(ZTRAIT_STATION))
+		var/startZ = (z || pick(SSmapping.levels_by_trait(ZTRAIT_STATION)))
 		pickedstart = spaceDebrisStartLoc(startSide, startZ)
 		pickedgoal = spaceDebrisFinishLoc(startSide, startZ)
 		max_i--
@@ -121,6 +121,10 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	GLOB.meteor_list -= src
 	SSaugury.unregister_doom(src)
 	walk(src,0) //this cancels the walk_towards() proc
+	if(istype(loc, /obj/effect/falling_meteor))
+		var/obj/effect/falling_meteor/holder = loc
+		holder.contained_meteor = null
+		qdel(holder)
 	. = ..()
 
 /obj/effect/meteor/Initialize(mapload, target)
@@ -375,3 +379,68 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	meteorsound = pick('sound/hallucinations/im_here1.ogg','sound/hallucinations/im_here2.ogg')
 //////////////////////////
 #undef DEFAULT_METEOR_LIFETIME
+
+//////////////////////////
+// Falling meteors
+/////////////////////////
+
+/obj/effect/falling_meteor
+	name = "falling meteor"
+	desc = "..."
+	alpha = 0
+	var/obj/effect/meteor/contained_meteor
+	var/obj/effect/meteor_shadow/shadow
+	var/falltime = 2 SECONDS
+	var/prefalltime = 8 SECONDS
+	layer = METEOR_LAYER
+
+/obj/effect/falling_meteor/Initialize(loc, meteor_type)
+	. = ..()
+	if(!meteor_type)
+		meteor_type = /obj/effect/meteor/big
+	contained_meteor = new meteor_type(src)
+	name = contained_meteor.name
+	desc = contained_meteor.desc
+	icon = contained_meteor.icon
+	icon_state = contained_meteor.icon_state
+	var/matrix/M = new()
+	M.Scale(3, 3)
+	M.Translate(-1.5 * world.icon_size, -1.5 * world.icon_size)
+	M.Translate(0, world.icon_size * 7)
+	transform = M
+	INVOKE_ASYNC(src, .proc/fall_animation)
+
+/obj/effect/falling_meteor/Destroy(force)
+	if(contained_meteor)
+		QDEL_NULL(contained_meteor)
+	QDEL_NULL(shadow)
+	. = ..()
+
+/obj/effect/falling_meteor/proc/fall_animation()
+	//Create a dummy effect
+	shadow = new(get_turf(src))
+	shadow.icon = icon
+	shadow.icon_state = icon_state
+	animate(shadow, time = (prefalltime + falltime), transform = matrix(), alpha = 255)
+	sleep(prefalltime)
+	animate(src, 5, alpha = 255)
+	animate(src, falltime, transform = matrix(), flags = ANIMATION_PARALLEL)
+	sleep(falltime)
+	contained_meteor.forceMove(loc)
+	contained_meteor.make_debris()
+	contained_meteor.meteor_effect()
+	qdel(src)
+
+/obj/effect/meteor_shadow
+	name = "shadow"
+	desc = "What the hell? Is something falling out the sky???"
+	alpha = 0
+	layer = METEOR_SHADOW_LAYER
+
+/obj/effect/meteor_shadow/Initialize()
+	. = ..()
+	color = list(0, 0, 0, 0, 0, 0, 0, 0, 0)
+	var/matrix/M = matrix()
+	M.Scale(3, 3)
+	M.Translate(-1.5 * world.icon_size, -1.5 * world.icon_size)
+	transform = M

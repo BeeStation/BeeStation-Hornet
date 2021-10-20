@@ -74,32 +74,14 @@
 					H.grab_ghost()
 					return TRUE
 				if(ORGAN_SLOT_STOMACH)
-					var/obj/item/organ/stomach/clockwork/organ = new()
-					organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
-						H.emote("scream")
-					return TRUE
-				if(ORGAN_SLOT_EARS)
-					var/obj/item/organ/ears/robot/clockwork/organ = new()
-					if(robustbits)
-						organ.damage_multiplier = 0.5
-					organ.Insert(H, TRUE, FALSE)
-					to_chat(H, "<span class='warning'>Your ears pop.</span>")
-					return TRUE
-				if(ORGAN_SLOT_EYES)
-					var/obj/item/organ/eyes/robotic/clockwork/organ = new()
-					if(robustbits)
-						organ.flash_protect = 1
-					organ.Insert(H, TRUE, FALSE)
-					if(prob(40))
-						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your eyeballs!</span>")
-						H.emote("scream")
-						H.grab_ghost()
-						return TRUE
-				if(ORGAN_SLOT_STOMACH)
-					var/obj/item/organ/stomach/clockwork/organ = new()
-					organ.Insert(H, TRUE, FALSE)
+					if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))
+						var/obj/item/organ/stomach/battery/clockwork/organ = new()
+						if(robustbits)
+							organ.max_charge = 15000
+						organ.Insert(H, TRUE, FALSE)
+					else
+						var/obj/item/organ/stomach/clockwork/organ = new()
+						organ.Insert(H, TRUE, FALSE)
 					if(prob(40))
 						to_chat(H, "<span class='userdanger'>You feel a stabbing pain in your abdomen!</span>")
 						H.emote("scream")
@@ -264,18 +246,26 @@
 
 /obj/item/organ/stomach/clockwork
 	name = "nutriment refinery"
-	icon_state = "stomach-clock"
 	desc = "A biomechanical furnace, which turns calories into mechanical energy."
-	icon_state = "liver-clock"
+	icon_state = "stomach-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 
-/obj/item/organ/stomach/cell/emp_act(severity)
-	owner.nutrition -= 100 * severity
+/obj/item/organ/stomach/clockwork/emp_act(severity)
+	owner.adjust_nutrition(-200/severity)
+
+/obj/item/organ/stomach/battery/clockwork
+	name = "biometallic flywheel"
+	desc = "A biomechanical battery which stores mechanical energy."
+	icon_state = "stomach-clock"
+	status = ORGAN_ROBOTIC
+	organ_flags = ORGAN_SYNTHETIC
+	max_charge = 7500
+	charge = 7500
 
 /obj/item/organ/tongue/robot/clockwork
 	name = "dynamic micro-phonograph"
-	desc = "an old-timey looking device connected to an odd, shifting cylinder."
+	desc = "An old-timey looking device connected to an odd, shifting cylinder."
 	icon_state = "tongueclock"
 
 /obj/item/organ/tongue/robot/clockwork/better
@@ -288,11 +278,10 @@
 /obj/item/organ/brain/clockwork
 	name = "enigmatic gearbox"
 	desc ="An engineer would call this inconcievable wonder of gears and metal a 'black box'"
-	icon_state = "posibrain-occupied"
+	icon_state = "brain-clock"
 	status = ORGAN_ROBOTIC
 	organ_flags = ORGAN_SYNTHETIC
 	var/robust //Set to true if the robustbits causes brain replacement. Because holy fuck is the CLANG CLANG CLANG CLANG annoying
-	icon_state = "brain-clock"
 
 /obj/item/organ/brain/clockwork/emp_act(severity)
 	switch(severity)
@@ -308,8 +297,8 @@
 
 /obj/item/organ/liver/clockwork
 	name = "biometallic alembic"
-	icon_state = "liver-c"
 	desc = "A series of small pumps and boilers, designed to facilitate proper metabolism."
+	icon_state = "liver-clock"
 	organ_flags = ORGAN_SYNTHETIC
 	status = ORGAN_ROBOTIC
 	alcohol_tolerance = 0

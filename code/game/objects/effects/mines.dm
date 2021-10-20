@@ -131,8 +131,8 @@
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	mineEffect(victim)
 	triggered = 1
+	mineEffect(victim)
 	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, victim)
 	qdel(src)
 

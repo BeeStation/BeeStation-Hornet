@@ -86,6 +86,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define VENTCRAWLING	(1<<2)
 #define FLOATING		(1<<3)
 #define UNSTOPPABLE		(1<<4)			//! When moving, will Bump()/Cross()/Uncross() everything, but won't be stopped.
+#define THROWN			(1<<5) //! while an atom is being thrown
 
 //! ## Fire and Acid stuff, for resistance_flags
 #define LAVA_PROOF		(1<<0)
@@ -105,6 +106,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define TESLA_MOB_STUN				(1<<4)
 
 #define TESLA_DEFAULT_FLAGS ALL
+#define TESLA_ENERGY_PRIMARY_BALL_FLAGS TESLA_MACHINE_EXPLOSIVE | TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN
+#define TESLA_ENERGY_MINI_BALL_FLAGS TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN
 #define TESLA_FUSION_FLAGS TESLA_OBJ_DAMAGE | TESLA_MOB_DAMAGE | TESLA_MOB_STUN
 
 //EMP protection

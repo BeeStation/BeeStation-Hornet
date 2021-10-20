@@ -56,6 +56,7 @@
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
+	layer = ABOVE_WINDOW_LAYER
 
 
 
@@ -827,51 +828,54 @@
 	if(isethereal(user))
 		var/mob/living/carbon/human/H = user
 		var/datum/species/ethereal/E = H.dna.species
-		if((H.a_intent == INTENT_HARM) && (E.drain_time < world.time))
-			if(cell.charge <= (cell.maxcharge / 2)) // if charge is under 50% you shouldn't drain it
-				to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain any.</span>")
-				return
-			var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
-			if(!istype(stomach))
-				to_chat(H, "<span class='warning'>You can't receive charge!</span>")
-				return
-			if(stomach.crystal_charge >= ETHEREAL_CHARGE_FULL)
-				to_chat(H, "<span class='warning'>Your charge is full!</span>")
-				return
+		if(E.drain_time > world.time)
+			return
+		var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
+		if(H.a_intent == INTENT_HARM)
 			E.drain_time = world.time + 75
 			to_chat(H, "<span class='notice'>You start channeling some power through the APC into your body.</span>")
-			if(do_after(user, 75, target = src))
-				if(cell.charge <= (cell.maxcharge / 2) || (stomach.crystal_charge >= ETHEREAL_CHARGE_FULL))
-					to_chat(H, "<span class='warning'>You can't receive more charge from the APC.</span>")
+			while(do_after(user, 75, target = src))
+				if(!istype(stomach) || !isethereal(H))
+					to_chat(H, "<span class='warning'>You can't receive charge!</span>")
 					return
-				to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
-				stomach.adjust_charge(10)
-				cell.charge -= 10
-			else
-				to_chat(H, "<span class='warning'>You fail to receive charge from the APC!</span>")
+				if(cell.charge <= cell.maxcharge/2) // if charge is under 50% you shouldn't drain it
+					to_chat(H, "<span class='warning'>The APC doesn't have much power, you probably shouldn't drain anymore.</span>")
+					return
+				E.drain_time = world.time + 75
+				if(stomach.charge + 250 >= stomach.max_charge)
+					to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+					stomach.set_charge(stomach.max_charge)
+					cell.charge -= stomach.charge + 250 - stomach.max_charge
+					return
+				else
+					to_chat(H, "<span class='notice'>You receive some charge from the APC.</span>")
+					stomach.adjust_charge(250)
+					cell.charge -= 250
+			to_chat(H, "<span class='warning'>You fail to receive charge from the APC!</span>")
+			E.drain_time = 0
 			return
-		if((H.a_intent == INTENT_GRAB) && (E.drain_time < world.time))
-			if(cell.charge == cell.maxcharge)
-				to_chat(H, "<span class='warning'>The APC is full!</span>")
-				return
-			var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
-			if(!istype(stomach))
-				to_chat(H, "<span class='warning'>You can't transfer charge!</span>")
-				return
-			if(stomach.crystal_charge < 10)
-				to_chat(H, "<span class='warning'>Your charge is too low!</span>")
-				return
+		else if(H.a_intent == INTENT_GRAB)
 			E.drain_time = world.time + 75
 			to_chat(H, "<span class='notice'>You start channeling power through your body into the APC.</span>")
-			if(cell.charge == cell.maxcharge || (stomach.crystal_charge < 10))
-				to_chat(H, "<span class='warning'>You can't transfer more charge to the APC.</span>")
-				return
-			if(do_after(user, 75, target = src))
-				to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
-				stomach.adjust_charge(-10)
-				cell.charge += 10
-			else
-				to_chat(H, "<span class='warning'>You fail to transfer power to the APC!</span>")
+			while(do_after(user, 75, target = src))
+				if(!istype(stomach) || !isethereal(H))
+					to_chat(H, "<span class='warning'>You can't transfer charge!</span>")
+					return
+				E.drain_time = world.time + 75
+				if(stomach.charge > 250)
+					to_chat(H, "<span class='notice'>You transfer some power to the APC.</span>")
+					stomach.adjust_charge(-250)
+					cell.charge = min(cell.charge + 250, cell.maxcharge)
+				else
+					to_chat(H, "<span class='notice'>You transfer the last of your charge to the APC.</span>")
+					cell.charge = min(cell.charge + stomach.charge, cell.maxcharge)
+					stomach.set_charge(0)
+					return
+				if(cell.charge >= cell.maxcharge)
+					to_chat(H, "<span class='notice'>The APC is now fully recharged.</span>")
+					return
+			to_chat(H, "<span class='warning'>You fail to transfer power to the APC!</span>")
+			E.drain_time = 0
 			return
 
 	if(opened && (!issilicon(user)))
@@ -905,7 +909,7 @@
 	if(!ui)
 		ui = new(user, src, "Apc")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Power level, reboot timer
 
 /obj/machinery/power/apc/ui_data(mob/user)
 	var/list/data = list(
@@ -1017,8 +1021,20 @@
 		. = UI_INTERACTIVE
 
 /obj/machinery/power/apc/ui_act(action, params)
-	if(..() || !can_use(usr, 1) || (locked && !usr.has_unlimited_silicon_privilege && !failure_timer))
+	if(..() || !can_use(usr, 1))
 		return
+
+	switch(action)
+		if("reboot")
+			if(failure_timer)
+				failure_timer = 0
+				update_icon()
+				update()
+				. = TRUE
+
+	if(locked && !usr.has_unlimited_silicon_privilege)
+		return
+
 	switch(action)
 		if("lock")
 			if(usr.has_unlimited_silicon_privilege)
@@ -1056,6 +1072,8 @@
 				environ = setsubsystem(text2num(params["env"]))
 				update_icon()
 				update()
+			else
+				return FALSE
 			. = TRUE
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
@@ -1064,16 +1082,15 @@
 		if("hack")
 			if(get_malf_status(usr))
 				malfhack(usr)
+				. = TRUE
 		if("occupy")
 			if(get_malf_status(usr))
 				malfoccupy(usr)
+				. = TRUE
 		if("deoccupy")
 			if(get_malf_status(usr))
 				malfvacate()
-		if("reboot")
-			failure_timer = 0
-			update_icon()
-			update()
+				. = TRUE
 		if("emergency_lighting")
 			emergency_lights = !emergency_lights
 			for(var/obj/machinery/light/L in area)
@@ -1081,10 +1098,12 @@
 					L.no_emergency = emergency_lights
 					INVOKE_ASYNC(L, /obj/machinery/light/.proc/update, FALSE)
 				CHECK_TICK
-	wires.ui_update()
-	return 1
+			. = TRUE
 
-/obj/machinery/power/apc/ui_close(mob/user)
+	if(.)
+		wires.ui_update() // I don't know why this would be here, but I'm too scared to remove it
+
+/obj/machinery/power/apc/ui_close(mob/user, datum/tgui/tgui)
 	if(isAI(user))
 		var/mob/living/silicon/ai/AI = user
 		if(AI.apc_override == src)

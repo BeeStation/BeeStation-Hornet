@@ -49,6 +49,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	//Secondary variables
 	var/scanmode = PDA_SCANNER_NONE
 	var/fon = FALSE //Is the flashlight function on?
+	var/shorted = FALSE //Is the flashlight shorted out?
 	var/f_lum = 2.3 //Luminosity for the flashlight function
 	var/silent = FALSE //To beep or not to beep, that is the question
 	var/toff = FALSE //If TRUE, messenger disabled
@@ -838,18 +839,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 	eject_cart(usr)
 
 /obj/item/pda/proc/toggle_light(mob/user)
-	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
-		return
-	if(fon)
-		fon = FALSE
-		set_light(0)
-	else if(f_lum)
-		fon = TRUE
-		set_light(f_lum)
-	update_icon()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+    if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
+        return
+    if(shorted)
+        to_chat(user, "<span class='notice'>[src]'s light is not turning on!</span>")
+        return
+    fon = !fon
+    set_light(fon ? f_lum : 0)
+    update_icon()
+    for(var/X in actions)
+        var/datum/action/A = X
+        A.UpdateButtonIcon()
 
 /obj/item/pda/proc/remove_pen(mob/user)
 
@@ -1154,13 +1154,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP
 /obj/item/pda/emp_act(severity)
 	. = ..()
-	if (!(. & EMP_PROTECT_CONTENTS))
+	if(!(. & EMP_PROTECT_CONTENTS))
 		for(var/atom/A in src)
 			A.emp_act(severity)
-	if (!(. & EMP_PROTECT_SELF))
+	if(!(. & EMP_PROTECT_SELF))
 		emped += 1
-		spawn(200 * severity)
-			emped -= 1
+		var/emptime = 200 * severity
+		addtimer(CALLBACK(src, .proc/decrease_emp_level), emptime)
+
+/obj/item/pda/proc/decrease_emp_level()
+	emped -= 1
 
 /proc/get_viewable_pdas(sort_by_job = FALSE)
 	. = list()

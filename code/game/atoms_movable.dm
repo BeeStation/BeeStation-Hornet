@@ -462,7 +462,7 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, A)
 	. = ..()
 	if(!QDELETED(throwing))
-		throwing.hit_atom(A)
+		throwing.finalize(hit = TRUE, target = A)
 		. = TRUE
 		if(QDELETED(A))
 			return
@@ -637,7 +637,7 @@
 	else
 		target_zone = thrower.zone_selected
 
-	var/datum/thrownthing/TT = new(src, get_turf(target), get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
+	var/datum/thrownthing/TT = new(src, target, get_dir(src, target), range, speed, thrower, diagonals_first, force, callback, target_zone)
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -663,6 +663,7 @@
 
 	if(pulledby)
 		pulledby.stop_pulling()
+	movement_type |= THROWN
 
 	throwing = TT
 	if(spin)
@@ -975,7 +976,7 @@
 
 	UnregisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HEARING_SENSITIVE))
 	for(var/atom/movable/location as anything in get_nested_locs(src) + src)
-		LAZYREMOVE(location.important_recursive_contents[RECURSIVE_CONTENTS_HEARING_SENSITIVE], src)
+		LAZYREMOVEASSOC(location.important_recursive_contents, RECURSIVE_CONTENTS_HEARING_SENSITIVE, src)
 
 ///allows this movable to hear and adds itself to the important_recursive_contents list of itself and every movable loc its in
 /atom/movable/proc/become_hearing_sensitive(trait_source = TRAIT_GENERIC)

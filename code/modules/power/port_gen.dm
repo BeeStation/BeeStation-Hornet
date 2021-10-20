@@ -228,7 +228,7 @@
 	if(!ui)
 		ui = new(user, src, "PortableGenerator")
 		ui.open()
-		ui.set_autoupdate(TRUE)
+		ui.set_autoupdate(TRUE) // Fuel left, power generated, power in powernet, current heat(?)
 
 /obj/machinery/power/port_gen/pacman/ui_data()
 	var/data = list()

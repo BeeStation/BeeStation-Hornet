@@ -2,6 +2,7 @@
 	name = "Nar'Sie's Avatar"
 	desc = "Your mind begins to bubble and ooze as it tries to comprehend what it sees."
 	icon = 'icons/obj/magic_terror.dmi'
+	is_real = FALSE
 	pixel_x = -89
 	pixel_y = -85
 	density = FALSE
