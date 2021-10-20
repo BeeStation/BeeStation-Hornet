@@ -49,7 +49,7 @@
 	Finalize()
 	Refresh()
 	if(randomname)
-		var/randname = randomdiseasename(infected)
+		var/randname = random_disease_name(infected)
 		AssignName(randname)
 		name = randname
 

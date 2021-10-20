@@ -508,14 +508,14 @@
 
 
 
-/datum/disease/advance/proc/randomdiseasename(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
-	var/list/prefixes = list("Spacer's ", "Space ", "Infectious ","Viral ", "The ", "[pick(GLOB.first_names)]'s ", "[pick(GLOB.last_names)]'s ", "Acute ")
+/datum/disease/advance/proc/random_disease_name(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
+	var/list/prefixes = list("Spacer's ", "Space ", "Infectious ","Viral ", "The ", "[pick(GLOB.first_names)]'s ", "[pick(GLOB.last_names)]'s ", "Acute ")//prefixes that arent tacked to the body need spaces after the word
 	var/list/bodies = list(pick("[pick(GLOB.first_names)]", "[pick(GLOB.last_names)]"), "Space", "Disease", "Noun", "Cold", "Germ", "Virus")
 	var/list/suffixes = list("ism", "itis", "osis", "itosis", " #[rand(1,10000)]", "-[rand(1,100)]", "s", "y", " Virus", " Bug", " Infection", " Disease", " Complex", " Syndrome", " Sickness") //suffixes that arent tacked directly on need spaces before the word
 	if(stealth >=2)
 		prefixes += "Crypto "
 	switch(max(resistance - (symptoms.len / 2), 1))
-		if(-INFINITY to 1)
+		if(1)
 			suffixes += "-alpha"
 		if(2)
 			suffixes += "-beta"
@@ -570,22 +570,22 @@
 			if(islizard(H) || iscatperson(H))//add rat-origin prefixes to races that eat rats
 				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
 				bodies += list("Rat", "Maint")
-		else
-			if(istype(diseasesource, /mob/living/simple_animal/pet/hamster/vector))
+		else switch(diseasesource.type)
+			if(/mob/living/simple_animal/pet/hamster/vector)
 				prefixes += list("Vector's ", "Hamster ")
 				bodies += list("Freebie")
-			if(istype(diseasesource, /obj/effect/decal/cleanable))
+			if(/obj/effect/decal/cleanable)
 				prefixes += list("Bloody ", "Maintenance ") 
 				bodies += list("Maint")
-			if(istype(diseasesource, /mob/living/simple_animal/mouse))
+			if(/mob/living/simple_animal/mouse)
 				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
 				bodies += list("Rat", "Maint")
-			if(istype(diseasesource, /obj/item/reagent_containers/syringe))
+			if(/obj/item/reagent_containers/syringe)
 				prefixes += list("Junkie ", "Maintenance ") 
 				bodies += list("Needle", "Maint")
-			if(istype(diseasesource, /obj/item/fugu_gland))
+			if(/obj/item/fugu_gland)
 				prefixes += "Wumbo"
-			if(istype(diseasesource, /obj/item/organ/lungs))
+			if(/obj/item/organ/lungs)
 				prefixes += "Miasmic "
 				bodies += list("Stench", "Lung")
 	for(var/datum/symptom/Symptom as() in symptoms)
@@ -593,13 +593,10 @@
 			prefixes += Symptom.prefixes
 			bodies += Symptom.bodies
 			suffixes += Symptom.suffixes
-	var/prefix = pick(prefixes)
-	var/body = pick(bodies)
-	var/suffix = pick(suffixes)
 	switch(rand(1, 3))
 		if(1)
-			return "[prefix][body]"
+			return "[pick(prefixes)][pick(bodies)]"
 		if(2)
-			return "[prefix][body][suffix]"
+			return "[pick(prefixes)][pick(bodies)][pick(suffixes)]"
 		if(3)
-			return "[body][suffix]"
+			return "[pick(bodies)][pick(suffixes)]"

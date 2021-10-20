@@ -37,10 +37,10 @@ Bonus
 	. = ..()
 	if(A.resistance >= 5)
 		severity += 1
-		prefixes += list("Desert")
+		prefixes = list("Desert")
 		if(A.resistance >= 10)
 			severity += 1
-			prefixes += list("Volcanic")
+			prefixes = list("Volcanic")
 
 /datum/symptom/fever/Start(datum/disease/advance/A)
 	if(!..())
