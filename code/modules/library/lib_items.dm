@@ -242,7 +242,7 @@
 				var/newtitle = reject_bad_text(stripped_input(user, "Write a new title:"))
 				if(!user.canUseTopic(src, BE_CLOSE, literate))
 					return
-				if (length(newtitle) > 20)
+				if (length(newtitle) > 50)
 					to_chat(user, "That title won't fit on the cover!")
 					return
 				if(!newtitle)

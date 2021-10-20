@@ -663,20 +663,25 @@
 		var/mob/living/carbon/human/H = user
 
 		if(istype(H))
-			var/datum/species/ethereal/eth_species = H.dna?.species
-			if(istype(eth_species))
+			if(isethereal(H))
 				var/datum/species/ethereal/E = H.dna.species
 				if(E.drain_time > world.time)
 					return
+				var/obj/item/organ/stomach/battery/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
 				to_chat(H, "<span class='notice'>You start channeling some power through the [fitting] into your body.</span>")
 				E.drain_time = world.time + 30
-				if(do_after(user, 30, target = src))
-					var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
-					if(istype(stomach))
-						to_chat(H, "<span class='notice'>You receive some charge from the [fitting].</span>")
-						stomach.adjust_charge(2)
-					else
-						to_chat(H, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
+				while(do_after(user, 30, target = src))
+					E.drain_time = world.time + 30
+					if(!istype(stomach))
+						to_chat(H, "<span class='warning'>You can't receive charge!</span>")
+						return
+					to_chat(H, "<span class='notice'>You receive some charge from the [fitting].</span>")
+					stomach.adjust_charge(50)
+					if(stomach.charge >= stomach.max_charge)
+						to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+						return
+				to_chat(H, "<span class='warning'>You fail to receive charge from the [fitting]!</span>")
+				E.drain_time = 0
 				return
 
 			if(H.gloves)

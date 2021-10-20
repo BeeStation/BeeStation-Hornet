@@ -129,7 +129,7 @@
 				if(S.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
 					return
-				balloon_alert(user, "You start building reinfored false wall")
+				balloon_alert(user, "You start building reinforced false wall")
 				if(do_after(user, 20, target = src))
 					if(S.get_amount() < 2)
 						return
