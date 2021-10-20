@@ -60,7 +60,7 @@
 		no_protection = TRUE
 	. = ..()
 
-/datum/species/plasmaman/before_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/species/plasmaman/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.internal = H.get_item_for_held_index(2)
 	H.update_internals_hud_icon(1)
 	return FALSE
