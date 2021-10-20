@@ -618,3 +618,230 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		..()
 
 #undef TELEPORT_COOLDOWN
+
+/datum/symptom/vampirism
+	name = "Hemetophagy"
+	desc = "The host absorbs blood from external sources, and seemlessly reintegrates it into their own bloodstream, regardless of its bloodtype or how it was ingested."
+	stealth = 0
+	resistance = 0
+	stage_speed = 0
+	transmission = 0
+	level = 9
+	severity = -1
+	symptom_delay_min = 1
+	symptom_delay_max = 1
+	var/bloodpoints = 0
+	var/maxbloodpoints = 50
+	var/bloodtypearchive
+	var/bruteheal = FALSE
+	var/aggression = FALSE
+	var/vampire = FALSE
+	var/mob/living/carbon/human/bloodbag
+	threshold_desc = "<b>Transmission 4:</b> The virus recycles excess absorbed blood into restorative biomass, healing brute damage.<br>\
+					<b>Stage Speed 6:</b> The virus aggressively assimilates blood, resulting in contiguous blood pools being absorbed by the virus, as well as sucking blood out of open wounds of subjects in physical contact with the host.<br>\
+					<b>Transmission 8:</b> The virus grows more aggressive, assimilating blood at a faster rate"
+
+/datum/symptom/vampirism/severityset(datum/disease/advance/A)
+	. = ..()
+	if(A.transmission >= 4)
+		severity -= 1
+	if((A.stealth >= 2) && (A.transmission >= 8) && A.process_dead)
+		severity -= 1
+
+/datum/symptom/vampirism/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.transmission >= 4)
+		bruteheal = TRUE
+	if(A.transmission >= 6)
+		aggression = TRUE
+		maxbloodpoints += 50
+	if(A.stage_rate >= 8)
+		power += 1
+	if((A.stealth >= 2) && (A.transmission >= 8) && A.process_dead) //this is low transmission for 2 reasons: transmission is hard to raise, especially with stealth, and i dont want this to be obligated to be transmittable
+		vampire = TRUE
+		maxbloodpoints += 50
+		power += 1
+	if(ishuman(A.affected_mob) && A.affected_mob.get_blood_id() == /datum/reagent/blood)
+		var/mob/living/carbon/human/H = A.affected_mob
+		bloodtypearchive = H.dna.blood_type
+		H.dna.blood_type = "U"
+
+/datum/symptom/vampirism/Activate(datum/disease/advance/A)
+	if(!..())
+		return
+	var/mob/living/carbon/M = A.affected_mob
+	var/mob/living/carbon/human/H = A.affected_mob
+	switch(A.stage)
+		if(5)
+			ADD_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
+			var/grabbedblood = succ(M) //before adding sucked blood to bloodpoints, immediately try to heal bloodloss
+			if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood)
+				var/missing = BLOOD_VOLUME_NORMAL - M.blood_volume
+				var/inflated = grabbedblood * 4
+				M.blood_volume = min(M.blood_volume + inflated, BLOOD_VOLUME_NORMAL)
+				bloodpoints += round(max(0, (inflated - missing)/4))
+			else
+				bloodpoints += grabbedblood
+			for(var/I in 1 to power)//power doesnt increase efficiency, just usage. 
+				if(bloodpoints)
+					if(H.bleed_rate >= 2 && bruteheal && bloodpoints)
+						bloodpoints -= 1
+						H.bleed_rate = max(0, (H.bleed_rate - 2))
+					if(M.blood_volume < BLOOD_VOLUME_NORMAL && M.get_blood_id() == /datum/reagent/blood) //bloodloss is prioritized over healing brute
+						bloodpoints -= 1
+						M.blood_volume = max((M.blood_volume + 3 * power), BLOOD_VOLUME_NORMAL) //bloodpoints are valued at 4 units of blood volume per point, so this is diminished
+					else if(bruteheal && M.getBruteLoss())
+						bloodpoints -= 1
+						M.heal_overall_damage(2, required_status = BODYPART_ORGANIC)
+					else
+						if(prob(20) && !M.stat) 
+							bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
+
+/datum/symptom/vampirism/End(datum/disease/advance/A)
+	. = ..()
+	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
+	if(bloodtypearchive && ishuman(A.affected_mob))
+		var/mob/living/carbon/human/H = A.affected_mob
+		H.dna.blood_type = bloodtypearchive 
+
+/datum/symptom/vampirism/proc/succ(mob/living/carbon/M) //you dont need the blood reagent to suck blood. however, you need 
+	var/gainedpoints = 0
+	if(ishuman(M) && M.stat == DEAD && vampire)
+		var/mob/living/carbon/human/H = M
+		var/possibledist = power
+		if(M.get_blood_id() != /datum/reagent/blood)
+			possibledist = 1
+		if(!(NOBLOOD in H.dna.species.species_traits)) //if you dont have blood, well... sucks to be you
+			if(bloodpoints >= 200 && H.health > 0 && H.blood_volume >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
+				H.revive(0)
+				H.visible_message("<span class='warning'>[H.name]'s skin takes on a rosy hue as they begin moving. They live again!</span>", "<span class='userdanger'>As your body fills with fresh blood, you feel your limbs once more, accompanied by an insatiable thirst for blood.</span>")
+				bloodpoints -= 200
+				return 0
+			else if(bloodbag && bloodbag.blood_volume && (bloodbag.stat || bloodbag.bleed_rate))
+				if(get_dist(bloodbag, H) <= 1)
+					var/amt = ((bloodbag.stat * 2) + 5) * power
+					var/excess = max(((min(amt, bloodbag.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 2), 0)
+					H.blood_volume = min(H.blood_volume + min(amt, bloodbag.blood_volume), BLOOD_VOLUME_NORMAL)
+					bloodbag.blood_volume = max(bloodbag.blood_volume - amt, 0)
+					bloodpoints += max(excess, 0)
+					bloodbag.visible_message("<span class='warning'>Blood flows from [bloodbag.name]'s wounds into [H.name]'s corpse!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]'s corpse!</span>")
+				else if(bloodbag.stat >= SOFT_CRIT && bloodpoints <= 20) //don't waste blood chasing them
+					bloodbag = null
+				else if(get_dist(bloodbag, H) >= possibledist) //they've been taken out of range.
+					bloodbag = null
+				else if(bloodpoints >= 2)
+					var/turf/T = H.loc
+					var/obj/effect/decal/cleanable/blood/influenceone = (locate(/obj/effect/decal/cleanable/blood) in H.loc)
+					if(!influenceone && bloodpoints >= 2)
+						H.add_splatter_floor(T)
+						playsound(T, 'sound/effects/splat.ogg', 50, 1)
+						bloodpoints -= 2
+						return 0
+					else 
+						var/todir = get_dir(H, bloodbag)
+						var/targetloc = bloodbag.loc
+						var/dist = get_dist(H, bloodbag)
+						for(var/i=0 to dist)
+							T = get_step(T, todir)
+							todir = get_dir(T, bloodbag)
+							var/obj/effect/decal/cleanable/blood/influence = (locate(/obj/effect/decal/cleanable/blood) in T)
+							if(!influence && bloodpoints >= 2)
+								H.add_splatter_floor(T)
+								playsound(T, 'sound/effects/splat.ogg', 50, 1)
+								bloodpoints -= 2
+								return 0
+							else if(T == targetloc && bloodpoints >= 2)
+								bloodbag.throw_at(H, 2, spin = FALSE)
+								bloodpoints -= 2
+								bloodbag.visible_message("<span class='warning'>A current of blood pushes [bloodbag.name] towards [H.name]'s corpse!</span>")
+								playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 50, 1)
+								return 0 
+					
+				if(!bloodbag.blood_volume) //we've exsanguinated them!
+					bloodbag = null
+			else 
+				var/list/cantidates = list()
+				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
+					if(NOBLOOD in C.dna.species.species_traits)
+						continue
+					if(C.stat >= SOFT_CRIT && bloodpoints <= (20 + get_dist(C, H) * 4))//this target can crawl, so we dont want to waste blood chasing them down if we dont have enough
+						continue
+					if(C.stat && C.blood_volume && C.get_blood_id() == H.get_blood_id())
+						cantidates += C
+				for(var/prospect in cantidates)
+					cantidates[prospect] = 1
+					if(ishuman(prospect))
+						var/mob/living/carbon/human/cantidate = prospect
+						cantidates[prospect] += (cantidate.stat - 1)
+						cantidates[prospect] += (3 - get_dist(cantidate, H)) * 2
+						cantidates[prospect] += round(cantidate.blood_volume / 150)
+				bloodbag = pickweight(cantidates) //dont return here
+	
+	if(bloodpoints >= maxbloodpoints)
+		return 0
+	if(ishuman(M) && aggression) //first, try to suck those the host is actively grabbing
+		var/mob/living/carbon/human/H = M
+		if(H.pulling && ishuman(H.pulling) && H.pulling.can_inject) //grabbing is handled with the disease instead of the component, so the component doesn't have to be processed
+			var/mob/living/carbon/human/C = H.pulling
+			if(!C.bleed_rate && vampire && H.grab_state && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))//aggressive grab as a "vampire" starts the target bleeding
+				C.bleed_rate += 1
+				C.visible_message("<span class='warning'>Wounds open on [C.name]'s skin as [H.name] grips them tightly!</span>", "<span class='userdanger'>You begin bleeding at [H.name]'s touch!</span>")
+			if(C.blood_volume && (C.bleed_rate && (!C.bleedsuppress || vampire )) && C.get_blood_id() == H.get_blood_id() && !(NOBLOOD in C.dna.species.species_traits))
+				var/amt = (H.grab_state + C.stat + 2) * power
+				if(C.blood_volume)
+					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4), 0)
+					H.blood_volume = min(H.blood_volume + min(amt, C.blood_volume), BLOOD_VOLUME_NORMAL)
+					C.blood_volume = max(C.blood_volume - amt, 0)
+					gainedpoints = CLAMP(excess, 0, maxbloodpoints - bloodpoints)
+					C.visible_message("<span class='warning'>Blood flows from [C.name]'s wounds into [H.name]!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]!</span>")
+					playsound(C.loc, 'sound/magic/exit_blood.ogg', 50, 1)
+					return gainedpoints
+	if(locate(/obj/effect/decal/cleanable/blood) in M.loc)
+		var/obj/effect/decal/cleanable/blood/initialstain = (locate(/obj/effect/decal/cleanable/blood) in M.loc)
+		var/list/stains = list()
+		var/suckamt = power
+		if(aggression)
+			for(var/obj/effect/decal/cleanable/blood/contiguousstain in orange(1, M))
+				if(suckamt)
+					suckamt --
+					stains += contiguousstain
+			if(suckamt)
+				suckamt --
+				stains += initialstain
+		for(var/obj/effect/decal/cleanable/blood/stain in stains)
+			if(istype(stain, /obj/effect/decal/cleanable/blood/gibs/old))
+				playsound(stain.loc, 'sound/magic/exit_blood.ogg', 50, 1)
+				gainedpoints += 3
+				qdel(stain)
+			else if(istype(stain, /obj/effect/decal/cleanable/blood/old))
+				gainedpoints += 1
+				qdel(stain)
+			else if(istype(stain, /obj/effect/decal/cleanable/blood/gibs))
+				playsound(stain.loc, 'sound/magic/exit_blood.ogg', 50, 1)
+				gainedpoints += 5
+				qdel(stain)
+			else if(istype(stain, /obj/effect/decal/cleanable/blood/footprints) || istype(stain, /obj/effect/decal/cleanable/blood/tracks) || istype(stain, /obj/effect/decal/cleanable/blood/drip))
+				qdel(stain)
+			else
+				gainedpoints += 2
+				qdel(stain)
+		if(gainedpoints)
+			playsound(M.loc, 'sound/magic/exit_blood.ogg', 50, 1)
+			M.visible_message("<span class='warning'>Blood flows from the floor into [M.name]!</span>", "<span class='warning'>You consume the errant blood</span>")
+		return CLAMP(gainedpoints, 0, maxbloodpoints - bloodpoints)
+	if(ishuman(M) && aggression)//finally, attack mobs touching the host. 
+		var/mob/living/carbon/human/H = M
+		for(var/mob/living/carbon/human/C in ohearers(1, H))
+			if(NOBLOOD in C.dna.species.species_traits)
+				continue
+			if((C.pulling && C.pulling == H) || (C.loc == H.loc) && C.bleed_rate && C.get_blood_id() == H.get_blood_id())
+				var/amt = (2 * power)
+				if(C.blood_volume)
+					var/excess = max(((min(amt, C.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 4 * power), 0)
+					H.blood_volume = min(H.blood_volume + min(amt, C.blood_volume), BLOOD_VOLUME_NORMAL)
+					C.blood_volume = max(C.blood_volume - amt, 0)
+					gainedpoints += CLAMP(excess, 0, maxbloodpoints - bloodpoints)
+					C.visible_message("<span class='warning'>Blood flows from [C.name]'s wounds into [H.name]!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]!</span>")
+		return CLAMP(gainedpoints, 0, maxbloodpoints - bloodpoints)
+
