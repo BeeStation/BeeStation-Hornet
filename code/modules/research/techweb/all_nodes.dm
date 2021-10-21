@@ -327,7 +327,7 @@
 	display_name = "Basic Shuttle Research"
 	description = "Research the technology required to create and use basic shuttles."
 	prereq_ids = list("bluespace_travel", "adv_engi")
-	design_ids = list("shuttle_creator", "engine_plasma", "engine_heater", "shuttle_control", "plasma_refiner", "wingpack")
+	design_ids = list("shuttle_creator", "engine_plasma", "engine_heater", "shuttle_control", "wingpack")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
@@ -339,6 +339,17 @@
 	design_ids = list("engine_void", "wingpack_ayy")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 12500)
 	export_price = 5000
+
+/datum/techweb_node/plasma_refiner
+	id = "plasmarefiner"
+	tech_tier = 4
+	display_name = "Plasma Refining"
+	description = "Development of a machine capable of safely and efficently converting plasma from a solid state to a gaseous state."
+	prereq_ids = list("basic_shuttle")
+	design_ids = list("plasma_refiner")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	export_price = 5000
+	hidden = TRUE
 
 /////////////////////////integrated circuits tech/////////////////////////
 
