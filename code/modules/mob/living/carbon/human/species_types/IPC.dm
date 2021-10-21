@@ -1,11 +1,11 @@
-/datum/species/ipc // im fucking lazy mk2 and cant get sprites to normally work
-	name = "IPC" //inherited from the real species, for health scanners and things
+/datum/species/ipc
+	name = "IPC"
 	id = SPECIES_IPC
 	bodyflag = FLAG_IPC
-	say_mod = "states" //inherited from a user's real species
-	sexes = 0
-	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,NOBLOOD,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH) //all of these + whatever we inherit from the real species
-	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE)
+	say_mod = "states"
+	sexes = FALSE
+	species_traits = list(NOTRANSSTING,NOEYESPRITES,NO_DNA_COPY,ROBOTIC_LIMBS,NOZOMBIE,MUTCOLORS,REVIVESBYHEALING,NOHUSK,NOMOUTH)
+	inherent_traits = list(TRAIT_RESISTCOLD,TRAIT_NOBREATH,TRAIT_RADIMMUNE,TRAIT_LIMBATTACHMENT,TRAIT_NOCRITDAMAGE,TRAIT_EASYDISMEMBER,TRAIT_POWERHUNGRY,TRAIT_XENO_IMMUNE, TRAIT_TOXIMMUNE)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
 	mutant_brain = /obj/item/organ/brain/positron
 	mutanteyes = /obj/item/organ/eyes/robotic
@@ -18,7 +18,7 @@
 	default_features = list("mcolor" = "#7D7D7D", "ipc_screen" = "Static", "ipc_antenna" = "None", "ipc_chassis" = "Morpheus Cyberkinetics(Greyscale)")
 	meat = /obj/item/stack/sheet/plasteel{amount = 5}
 	skinned_type = /obj/item/stack/sheet/iron{amount = 10}
-	exotic_blood = "oil"
+	exotic_blood = /datum/reagent/oil
 	damage_overlay_type = "synth"
 	limbs_id = "synth"
 	mutant_bodyparts = list("ipc_screen", "ipc_antenna", "ipc_chassis")
@@ -26,7 +26,6 @@
 	burnmod = 2
 	heatmod = 1.5
 	brutemod = 1
-	toxmod = 0
 	clonemod = 0
 	staminamod = 0.8
 	siemens_coeff = 1.5
@@ -35,21 +34,27 @@
 	attack_sound = 'sound/items/trayhit1.ogg'
 	allow_numbers_in_name = TRUE
 	deathsound = "sound/voice/borg_deathsound.ogg"
-	var/saved_screen //for saving the screen when they die
-	var/list/initial_species_traits //for getting these values back for assume_disguise()
-	var/list/initial_inherent_traits
 	changesource_flags = MIRROR_BADMIN | WABBAJACK
 	species_language_holder = /datum/language_holder/synthetic
 	special_step_sounds = list('sound/effects/servostep.ogg')
 
+	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
 
 /datum/species/ipc/random_name(unique)
 	var/ipc_name = "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
 	return ipc_name
 
-/datum/species/ipc/on_species_gain(mob/living/carbon/C) // Let's make that IPC actually robotic.
+/datum/species/ipc/on_species_gain(mob/living/carbon/C)
 	. = ..()
+	var/obj/item/organ/appendix/A = C.getorganslot("appendix") //See below.
+	if(A)
+		A.Remove(C)
+		QDEL_NULL(A)
+	var/obj/item/organ/lungs/L = C.getorganslot("lungs") //Hacky and bad. Will be rewritten entirely in KapuCarbons anyway.
+	if(L)
+		L.Remove(C)
+		QDEL_NULL(L)
 	if(ishuman(C) && !change_screen)
 		change_screen = new
 		change_screen.Grant(C)
@@ -62,6 +67,13 @@
 			C.dna.species.species_traits += MUTCOLORS
 		else if(MUTCOLORS in C.dna.species.species_traits)
 			C.dna.species.species_traits -= MUTCOLORS
+		O.light_brute_msg = "scratched"
+		O.medium_brute_msg = "dented"
+		O.heavy_brute_msg = "sheared"
+
+		O.light_burn_msg = "burned"
+		O.medium_burn_msg = "scorched"
+		O.heavy_burn_msg = "seared"
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -75,8 +87,12 @@
 	saved_screen = C.dna.features["ipc_screen"]
 	C.dna.features["ipc_screen"] = "BSOD"
 	C.update_body()
-	sleep(3 SECONDS)
-	C.dna.features["ipc_screen"] = null // Turns off their monitor on death.
+	addtimer(CALLBACK(src, .proc/post_death, C), 5 SECONDS)
+
+/datum/species/ipc/proc/post_death(mob/living/carbon/C)
+	if(C.stat < DEAD)
+		return
+	C.dna.features["ipc_screen"] = null //Turns off screen on death
 	C.update_body()
 
 /datum/action/innate/change_screen
@@ -184,4 +200,5 @@
 	H.update_body()
 	return
 
-
+/datum/species/ipc/get_harm_descriptors()
+	return list("bleed" = "leaking", "brute" = "denting", "burn" = "burns")
