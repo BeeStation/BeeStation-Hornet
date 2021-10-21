@@ -504,3 +504,99 @@
 			name_symptoms += S.name
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()]")
 		log_virus("[key_name(user)] has triggered a custom virus outbreak of [D.admin_details()]!")
+
+
+
+
+/datum/disease/advance/proc/random_disease_name(var/atom/diseasesource)//generates a name for a disease depending on its symptoms and where it comes from
+	var/list/prefixes = list("Spacer's ", "Space ", "Infectious ","Viral ", "The ", "[pick(GLOB.first_names)]'s ", "[pick(GLOB.last_names)]'s ", "Acute ")//prefixes that arent tacked to the body need spaces after the word
+	var/list/bodies = list(pick("[pick(GLOB.first_names)]", "[pick(GLOB.last_names)]"), "Space", "Disease", "Noun", "Cold", "Germ", "Virus")
+	var/list/suffixes = list("ism", "itis", "osis", "itosis", " #[rand(1,10000)]", "-[rand(1,100)]", "s", "y", " Virus", " Bug", " Infection", " Disease", " Complex", " Syndrome", " Sickness") //suffixes that arent tacked directly on need spaces before the word
+	if(stealth >=2)
+		prefixes += "Crypto "
+	switch(max(resistance - (symptoms.len / 2), 1))
+		if(1)
+			suffixes += "-alpha"
+		if(2)
+			suffixes += "-beta"
+		if(3)
+			suffixes += "-gamma"
+		if(4)
+			suffixes += "-delta"
+		if(5)
+			suffixes += "-epsilon"
+		if(6)
+			suffixes += pick("-zeta", "-eta", "-theta", "-iota")
+		if(7)
+			suffixes += pick("-kappa", "-lambda")
+		if(8)
+			suffixes += pick("-mu", "-nu", "-xi", "-omicron")
+		if(9)
+			suffixes += pick("-pi", "-rho", "-sigma", "-tau")
+		if(10)
+			suffixes += pick("-upsilon", "-phi", "-chi", "-psi")
+		if(11 to INFINITY)
+			suffixes += "-omega"
+			prefixes += "Robust "
+	switch(transmission - symptoms.len)
+		if(-INFINITY to 2)
+			prefixes += "Bloodborne "
+		if(3)
+			prefixes += list("Mucous ", "Kissing ")
+		if(4)
+			prefixes += "Contact "
+			suffixes += " Flu"
+		if(5 to INFINITY)
+			prefixes += "Airborne "
+			suffixes += " Plague"
+	switch(severity)
+		if(-INFINITY to 0)
+			prefixes += "Altruistic "
+		if(1 to 2)
+			prefixes += "Benign "
+		if(3 to 4)
+			prefixes += "Malignant "
+		if(5)
+			prefixes += "Deadly "
+			bodies += "Death"
+		if(6 to INFINITY)
+			prefixes += "Morbid "
+			bodies += "Death"
+	if(diseasesource)
+		if(ishuman(diseasesource))
+			var/mob/living/carbon/human/H = diseasesource
+			prefixes += pick("[H.first_name()]'s", "[H.name]'s", "[H.job]'s", "[H.dna.species]'s")
+			bodies += pick("[H.first_name()]", "[H.job]", "[H.dna.species]")
+			if(islizard(H) || iscatperson(H))//add rat-origin prefixes to races that eat rats
+				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				bodies += list("Rat", "Maint")
+		else switch(diseasesource.type)
+			if(/mob/living/simple_animal/pet/hamster/vector)
+				prefixes += list("Vector's ", "Hamster ")
+				bodies += list("Freebie")
+			if(/obj/effect/decal/cleanable)
+				prefixes += list("Bloody ", "Maintenance ") 
+				bodies += list("Maint")
+			if(/mob/living/simple_animal/mouse)
+				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				bodies += list("Rat", "Maint")
+			if(/obj/item/reagent_containers/syringe)
+				prefixes += list("Junkie ", "Maintenance ") 
+				bodies += list("Needle", "Maint")
+			if(/obj/item/fugu_gland)
+				prefixes += "Wumbo"
+			if(/obj/item/organ/lungs)
+				prefixes += "Miasmic "
+				bodies += list("Stench", "Lung")
+	for(var/datum/symptom/Symptom as() in symptoms)
+		if(!Symptom.neutered)
+			prefixes += Symptom.prefixes
+			bodies += Symptom.bodies
+			suffixes += Symptom.suffixes
+	switch(rand(1, 3))
+		if(1)
+			return "[pick(prefixes)][pick(bodies)]"
+		if(2)
+			return "[pick(prefixes)][pick(bodies)][pick(suffixes)]"
+		if(3)
+			return "[pick(bodies)][pick(suffixes)]"

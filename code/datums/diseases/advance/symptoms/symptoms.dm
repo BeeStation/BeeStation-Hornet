@@ -29,6 +29,9 @@
 	var/neutered = FALSE
 	var/list/thresholds
 	var/naturally_occuring = TRUE //if this symptom can appear from /datum/disease/advance/GenerateSymptoms()
+	var/list/prefixes = list()
+	var/list/bodies = list()
+	var/list/suffixes = list()
 
 /datum/symptom/New()
 	var/list/S = SSdisease.list_symptoms
@@ -48,6 +51,9 @@
 //called when a disease first tries to infect someone.
 /datum/symptom/proc/severityset(datum/disease/advance/A)
 	severity = initial(severity)
+	prefixes = initial(prefixes)
+	bodies = initial(bodies)
+	suffixes = initial(suffixes)
 
 // Called when the advance disease is going to be deleted or when the advance disease stops processing.
 /datum/symptom/proc/End(datum/disease/advance/A)

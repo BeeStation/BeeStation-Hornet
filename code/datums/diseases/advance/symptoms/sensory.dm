@@ -9,6 +9,7 @@
 	severity = -1
 	symptom_delay_min = 5
 	symptom_delay_max = 10
+	bodies = list("Neuron")
 	var/purge_alcohol = FALSE
 	var/trauma_heal_mild = FALSE
 	var/trauma_heal_severe = FALSE
