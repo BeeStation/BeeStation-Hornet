@@ -1,6 +1,7 @@
 /datum/species/plasmaman
 	name = "Plasmaman"
-	id = "plasmaman"
+	id = SPECIES_PLASMAMAN
+	bodyflag = FLAG_PLASMAMAN
 	say_mod = "rattles"
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
@@ -137,6 +138,9 @@
 
 		if("Atmospheric Technician")
 			O = new /datum/outfit/plasmaman/atmospherics
+
+		if("Exploration Crew")
+			O = new /datum/outfit/plasmaman/exploration
 
 		if("Captain")
 			O = new /datum/outfit/plasmaman/command
