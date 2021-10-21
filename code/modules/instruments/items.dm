@@ -41,7 +41,7 @@
 	ui_interact(user)
 
 /obj/item/instrument/ui_interact(mob/living/user)
-	if(!isliving(user) || user.stat || user.restrained())
+	if(!isliving(user) || user.stat || (user.restrained() && !ispAI(user)))
 		return
 
 	user.set_machine(src)
@@ -89,7 +89,7 @@
 	item_state = "guitar"
 	attack_verb = list("played metal on", "serenaded", "crashed", "smashed")
 	hitsound = 'sound/weapons/stringsmash.ogg'
-	allowed_instrument_ids = list("guitar", "csteelgt")
+	allowed_instrument_ids = list("guitar","csteelgt","cnylongt", "ccleangt", "cmutedgt")
 
 /obj/item/instrument/eguitar
 	name = "electric guitar"
@@ -106,21 +106,21 @@
 	desc = "Smooth metal bars perfect for any marching band."
 	icon_state = "glockenspiel"
 	item_state = "glockenspiel"
-	allowed_instrument_ids = "glockenspiel"
+	allowed_instrument_ids = list("glockenspiel","crvibr", "sgmmbox", "r3celeste")
 
 /obj/item/instrument/accordion
 	name = "accordion"
 	desc = "Pun-Pun not included."
 	icon_state = "accordion"
 	item_state = "accordion"
-	allowed_instrument_ids = list("accordion", "crack")
+	allowed_instrument_ids = list("crack", "crtango", "accordion")
 
 /obj/item/instrument/trumpet
 	name = "trumpet"
 	desc = "To announce the arrival of the king!"
 	icon_state = "trumpet"
 	item_state = "trombone"
-	allowed_instrument_ids = list("trombone", "crtrumpet")
+	allowed_instrument_ids = "crtrumpet"
 
 /obj/item/instrument/trumpet/spectral
 	name = "spectral trumpet"
@@ -167,7 +167,7 @@
 	desc = "How can any pool table ever hope to compete?"
 	icon_state = "trombone"
 	item_state = "trombone"
-	allowed_instrument_ids = list("trombone", "crtrumpet")
+	allowed_instrument_ids = list("crtrombone", "crbrass", "trombone")
 
 /obj/item/instrument/trombone/spectral
 	name = "spectral trombone"
@@ -262,3 +262,15 @@
 			var/atom/A = V
 			instruments[initial(A.name)] = A
 	return instruments
+
+/obj/item/instrument/musicalmoth
+	name = "musical moth"
+	desc = "Despite its popularity, this controversial musical toy was eventually banned due to its unethically sampled sounds of moths screaming in agony."
+	icon_state = "mothsician"
+	allowed_instrument_ids = "mothscream"
+	attack_verb = list("flutter", "flap")
+	w_class = WEIGHT_CLASS_TINY
+	force = 0
+	hitsound = 'sound/voice/moth/scream_moth.ogg'
+	custom_price = 237
+	custom_premium_price = 237
