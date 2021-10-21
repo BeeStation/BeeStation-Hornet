@@ -57,12 +57,13 @@
 /datum/disease/advance/Destroy()
 	if(affected_mob)
 		SEND_SIGNAL(affected_mob, COMSIG_DISEASE_END, GetDiseaseID())
+		UnregisterSignal(affected_mob, COMSIG_MOB_DEATH)
 	if(processing)
 		for(var/datum/symptom/S in symptoms)
 			S.End(src)
 	return ..()
 
-/datum/disease/advance/try_infect(var/mob/living/infectee, make_copy = TRUE)
+/datum/disease/advance/try_infect(mob/living/infectee, make_copy = TRUE)
 	//see if we are more transmittable than enough diseases to replace them
 	//diseases replaced in this way do not confer immunity
 	var/list/advance_diseases = list()
@@ -86,6 +87,16 @@
 				return FALSE //we are not strong enough to bully our way in
 	infect(infectee, make_copy)
 	return TRUE
+
+/datum/disease/advance/after_add()
+	if(affected_mob)
+		RegisterSignal(affected_mob, COMSIG_MOB_DEATH, .proc/on_mob_death)
+
+/datum/disease/advance/proc/on_mob_death()
+	SIGNAL_HANDLER
+
+	for(var/datum/symptom/S as() in symptoms)
+		S.OnDeath(src)
 
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
@@ -208,26 +219,19 @@
 	stage_rate = 0
 	transmission = 0
 	severity = 0
-	for(var/datum/symptom/S in symptoms) //I can't change the order of the symptom list by severity, so i have to loop through symptoms three times, one for each tier of severity, to keep it consistent
+	//Why do we need 2 loops here?
+	//First loop just sets stats and second is purely just to set (and get) symptom severity
+	for(var/datum/symptom/S as() in symptoms)
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
+
+	for(var/datum/symptom/S as() in symptoms)
 		S.severityset(src)
-		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
-			severity += S.severity
-	for(var/datum/symptom/S in symptoms)
-		S.severityset(src)
-		if(!S.neutered)
-			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
-				if(1 to 2)
-					severity= max(severity, min(3, (S.severity + severity)))
-				if(3 to 4)
-					severity = max(severity, min(4, (S.severity + severity)))
-	for(var/datum/symptom/S in symptoms) //benign and beneficial symptoms go last
-		S.severityset(src)
-		if(!S.neutered && S.severity <= 0)
-			severity += S.severity
+		if(S.neutered)
+			continue
+		severity += S.severity
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
@@ -415,7 +419,7 @@
 */
 
 // Mix a list of advance diseases and return the mixed result.
-/proc/Advance_Mix(var/list/D_list)
+/proc/Advance_Mix(list/D_list)
 	var/list/diseases = list()
 
 	for(var/datum/disease/advance/A in D_list)

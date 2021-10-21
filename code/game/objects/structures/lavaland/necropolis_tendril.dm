@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	var/datum/disease/advance/random/necropolis/R = new
 	necroseed += R
 
-/obj/structure/spawner/lavaland/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
+/obj/structure/spawner/lavaland/extrapolator_act(mob/user, obj/item/extrapolator/E, scan = TRUE)
 	if(!necroseed.len)
 		return FALSE
 	if(scan)
