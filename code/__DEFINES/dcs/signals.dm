@@ -11,6 +11,7 @@
 #define COMSIG_GLOB_MOB_CREATED "!mob_created"					//! mob was created somewhere : (mob)
 #define COMSIG_GLOB_MOB_DEATH "!mob_death"						//! mob died somewhere : (mob , gibbed)
 #define COMSIG_GLOB_LIVING_SAY_SPECIAL "!say_special"			//! global living say plug - use sparingly: (mob/speaker , message)
+#define COMSIG_GLOB_CARBON_THROW_THING	"!throw_thing"			//! a person somewhere has thrown something : (mob/living/carbon/carbon_thrower, target)
 /// called by datum/cinematic/play() : (datum/cinematic/new_cinematic)
 #define COMSIG_GLOB_PLAY_CINEMATIC "!play_cinematic"
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC 1
@@ -106,6 +107,7 @@
 #define COMSIG_ATOM_ATTACK_HAND "atom_attack_hand"				//! from base of atom/attack_hand(): (mob/user)
 #define COMSIG_ATOM_ATTACK_PAW "atom_attack_paw"				//! from base of atom/attack_paw(): (mob/user)
 	#define COMPONENT_NO_ATTACK_HAND 1							//works on all 3.
+#define COMSIG_ATOM_ATTACK_ANIMAL "attack_animal"				//! from base of atom/animal_attack(): (/mob/user)
 //This signal return value bitflags can be found in __DEFINES/misc.dm
 #define COMSIG_ATOM_INTERCEPT_Z_FALL "movable_intercept_z_impact"	//called for each movable in a turf contents on /turf/zImpact(): (atom/movable/A, levels)
 
@@ -157,6 +159,7 @@
 #define COMSIG_MOVABLE_PRE_THROW "movable_pre_throw"			//! from base of atom/movable/throw_at(): (list/args)
 	#define COMPONENT_CANCEL_THROW 1
 #define COMSIG_MOVABLE_POST_THROW "movable_post_throw"			//! from base of atom/movable/throw_at(): (datum/thrownthing, spin)
+#define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"		//! from base of datum/thrownthing/finalize(): (obj/thrown_object, datum/thrownthing) used for when a throw is finished
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit" 			//! from base of atom/movable/onTransitZ(): (old_z, new_z)
 #define COMSIG_MOVABLE_SECLUDED_LOCATION "movable_secluded" 	//! called when the movable is placed in an unaccessible area, used for stationloving: ()
 #define COMSIG_MOVABLE_HEAR "movable_hear"						//! from base of atom/movable/Hear(): (message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
@@ -192,6 +195,8 @@
 #define COMSIG_MOB_UPDATE_SIGHT "mob_update_sight"				//! from base of /mob/update_sight(): ()
 #define COMSIG_MOB_EXAMINATE "mob_examinate"					//from base of /mob/verb/examinate(): (atom/target)
 #define COMSIG_MOB_SAY "mob_say" // from /mob/living/say(): ()
+#define COMSIG_MOB_ATTACK_ALIEN "mob_attack_alien"				//! from base of /mob/living/attack_alien(): (user)
+#define COMSIG_MOB_MOVESPEED_UPDATED "mob_update_movespeed"		//! From base of mob/update_movespeed():area
 	#define COMPONENT_UPPERCASE_SPEECH 1
 	// used to access COMSIG_MOB_SAY argslist
 	#define SPEECH_MESSAGE 1
@@ -206,6 +211,7 @@
   #define COMPONENT_BLOCK_SWAP 1
 #define COMSIG_MOB_DEADSAY "mob_deadsay" // from /mob/say_dead(): (mob/speaker, message)
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT 1
+#define COMSIG_MOB_POINTED "mob_pointed" //from base of /mob/verb/pointed: (atom/A)
 
 ///from base of /obj/item/mmi/set_brainmob(): (mob/living/brain/new_brainmob)
 #define COMSIG_MMI_SET_BRAINMOB "mmi_set_brainmob"

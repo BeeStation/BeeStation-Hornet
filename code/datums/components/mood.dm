@@ -328,12 +328,11 @@
 	print_mood(user)
 
 /datum/component/mood/proc/HandleNutrition(mob/living/L)
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(isethereal(H))
-			HandleCharge(H)
-		if(HAS_TRAIT(H, TRAIT_NOHUNGER))
-			return FALSE //no mood events for nutrition
+	if(HAS_TRAIT(L, TRAIT_NOHUNGER))
+		return FALSE //no mood events for nutrition
+	if(HAS_TRAIT(L, TRAIT_POWERHUNGRY))
+		HandleCharge(L)
+		return
 	switch(L.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			if (!HAS_TRAIT(L, TRAIT_VORACIOUS))
@@ -351,17 +350,16 @@
 		if(0 to NUTRITION_LEVEL_STARVING)
 			add_event(null, "nutrition", /datum/mood_event/starving)
 
-/datum/component/mood/proc/HandleCharge(mob/living/carbon/human/H)
-	var/datum/species/ethereal/E = H.dna?.species
-	switch(E.get_charge(H))
-		if(ETHEREAL_CHARGE_NONE to ETHEREAL_CHARGE_LOWPOWER)
-			add_event(null, "charge", /datum/mood_event/decharged)
-		if(ETHEREAL_CHARGE_LOWPOWER to ETHEREAL_CHARGE_NORMAL)
-			add_event(null, "charge", /datum/mood_event/lowpower)
-		if(ETHEREAL_CHARGE_NORMAL to ETHEREAL_CHARGE_ALMOSTFULL)
-			clear_event(null, "charge")
-		if(ETHEREAL_CHARGE_ALMOSTFULL to ETHEREAL_CHARGE_FULL)
-			add_event(null, "charge", /datum/mood_event/charged)
+/datum/component/mood/proc/HandleCharge(mob/living/L)
+	switch(L.nutrition)
+		if(NUTRITION_LEVEL_WELL_FED to INFINITY)
+			add_event(null, "nutrition", /datum/mood_event/charged)
+		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+			clear_event(null, "nutrition")
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_FED)
+			add_event(null, "nutrition", /datum/mood_event/lowpower)
+		if(0 to NUTRITION_LEVEL_STARVING)
+			add_event(null, "nutrition", /datum/mood_event/decharged)
 
 /datum/component/mood/proc/HandleHygiene(mob/living/carbon/human/H)
 	if(H.has_quirk(/datum/quirk/neet))
