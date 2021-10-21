@@ -11,7 +11,11 @@
 
 /datum/eldritch_knowledge/base_ash/on_gain(mob/user)
 	. = ..()
-	ADD_TRAIT( user, TRAIT_NOFIRE,MAGIC_TRAIT)
+	ADD_TRAIT( user, TRAIT_NOFIRE, MAGIC_TRAIT)
+
+/datum/eldritch_knowledge/base_ash/on_lose(mob/user)
+	. = ..()
+	REMOVE_TRAIT( user, TRAIT_NOFIRE, MAGIC_TRAIT)
 
 /datum/eldritch_knowledge/spell/ashen_shift
 	name = "Ashen Shift"
