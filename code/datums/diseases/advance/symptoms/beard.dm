@@ -26,6 +26,8 @@ BONUS
 	severity = 0
 	symptom_delay_min = 18
 	symptom_delay_max = 36
+	prefixes = list("Facial ")
+	bodies = list("Beard")
 
 	var/list/beard_order = list("Beard (Jensen)", "Beard (Full)", "Beard (Dwarf)", "Beard (Very Long)")
 

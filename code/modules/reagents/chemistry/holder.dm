@@ -313,7 +313,7 @@
 			C = R.holder.my_atom
 
 		if(C && R)
-			if(C.reagent_check(R) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions. Except for IPCs, because fuck you.
+			if(C.reagent_check(R) != TRUE) //Most relevant to Humans, this handles species-specific chem interactions.
 				if(liverless && !R.self_consuming) //need to be metabolized
 					continue
 				if(!R.metabolizing)

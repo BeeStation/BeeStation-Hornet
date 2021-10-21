@@ -49,7 +49,6 @@
 		return TRUE
 	return ..()
 
-
 /datum/species/synth/spec_life(mob/living/carbon/human/H)
 	. = ..()
 	if(H.health <= 0 && H.stat != DEAD) // So they die eventually instead of being stuck in crit limbo, due to not taking OXY damage.

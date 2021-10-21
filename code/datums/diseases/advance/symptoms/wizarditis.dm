@@ -9,6 +9,8 @@
 	severity = 0
 	symptom_delay_min = 15
 	symptom_delay_max = 45
+	prefixes = list("Wizard's ", "Magic ", "Accursed ")
+	bodies = list("Wizard")
 	var/teleport = FALSE
 	var/robes = FALSE
 	threshold_desc = "<b>Transmission 14:</b> The host teleports occasionally.<br>\
