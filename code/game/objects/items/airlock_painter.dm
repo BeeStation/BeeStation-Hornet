@@ -152,12 +152,12 @@
 	icon_state = "decal_sprayer"
 	item_state = "decalsprayer"
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=50)
-	var/stored_dir = 2
+	var/stored_dir = SOUTH
 	var/stored_color = ""
 	var/stored_decal = "warningline"
 	var/stored_decal_total = "warningline"
 	var/color_list = list("","red","white")
-	var/dir_list = list(1,2,4,8)
+	var/dir_list = list(NORTH,SOUTH,EAST,WEST)
 	var/decal_list = list(list("Warning Line","warningline"),
 			list("Warning Line Corner","warninglinecorner"),
 			list("Caution Label","caution"),
