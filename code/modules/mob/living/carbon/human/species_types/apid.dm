@@ -60,10 +60,11 @@
 	return 0
 
 /datum/species/apid/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	. = ..()
 	if(chem.type == /datum/reagent/toxin/pestkiller)
 		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		return FALSE
+	return ..()
 
 /datum/species/apid/after_equip_job(datum/job/J, mob/living/carbon/human/H) // For roundstart
 	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/honeycomb)

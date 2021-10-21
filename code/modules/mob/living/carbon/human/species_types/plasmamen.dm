@@ -190,7 +190,6 @@
 	return randname
 
 /datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	. = ..()
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.volume - 10)
@@ -223,3 +222,4 @@
 					H.emote("sigh")
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
+	return ..()
