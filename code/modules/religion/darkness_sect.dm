@@ -3,29 +3,24 @@
 /datum/religion_sect/darkness_sect
 	name = "Dark City"
 	desc = "A sect dedicated to the darkness."
-	convert_opener = "Turn out the lights, acolyte, and let the darkness cover the world!"
+	convert_opener = "Turn out the lights, acolyte, and let the darkness cover the world!<br>The altar and manifested obelisks will generate favor from being in darkness."
 	alignment = ALIGNMENT_NEUT
 	favor = 100 //Starts off with enough favor to make an obelisk
-	desired_items = list(/obj/item/candle) //favor should mostly gained through obelisks, but this is a backup
+	//No desired items, favor is gained through obelisks and the altar in darkness
 	rites_list = list(/datum/religion_rites/extend_darkness,/datum/religion_rites/darkobelisk, /datum/religion_rites/darkconversion)
 	altar_icon_state = "convertaltar-dark"
 	var/light_reach = 1
 	var/light_power = 0
-	var/obelisks = list()
+	var/list/obelisks
 
 /datum/religion_sect/darkness_sect/sect_bless(mob/living/blessed, mob/living/user)
 	return TRUE
 
-/datum/religion_sect/darkness_sect/on_sacrifice(obj/item/candle/offering, mob/living/user)
-	if(!istype(offering))
+/datum/religion_sect/darkness_sect/on_select(atom/religious_tool, mob/living/user)
+	. = ..()
+	if(!religious_tool || !user)
 		return
-	if(offering.lit)
-		to_chat(user, "<span class='notice'>The candle needs to be snuffed out to be offered!</span>")
-		return
-	to_chat(user, "<span class='notice'>Another candle forever unlit in the name of [GLOB.deity].</span>")
-	adjust_favor(10, user) //small amount, want to incentivise obelisks
-	qdel(offering)
-	return TRUE
+	religious_tool.AddComponent(/datum/component/dark_favor, user)
 
 /**** Rites ****/
 
@@ -81,7 +76,7 @@
 	var/obj/structure/darkobelisk/obelisk = new(altar_turf)
 	var/datum/religion_sect/darkness_sect/sect = GLOB.religious_sect
 	sect.obelisks += obelisk
-	obelisk.creator = user
+	obelisk.AddComponent(/datum/component/dark_favor, user)
 	obelisk.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return ..()
@@ -92,23 +87,6 @@
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "darkness-obelisk"
 	density = TRUE
-	var/mob/living/creator
-
-/obj/structure/darkobelisk/Initialize()
-	. = ..()
-	START_PROCESSING(SSobj, src)
-
-/obj/structure/darkobelisk/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	. = ..()
-
-/obj/structure/darkobelisk/process()
-	var/turf/T = src.loc
-	if(!istype(T) || !istype(creator))
-		return
-	var/light_amount = T.get_lumcount()
-	var/favor_gained = max(1 - light_amount, 0)
-	GLOB.religious_sect?.adjust_favor(favor_gained, creator)
 
 /datum/religion_rites/extend_darkness
 	name = "Extend Darkness"
@@ -127,3 +105,29 @@
 	religious_tool.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
 	for(var/obj/structure/darkobelisk/D in sect.obelisks)
 		D.set_light(sect.light_reach, sect.light_power, DARKNESS_INVERSE_COLOR)
+
+// Favor generator component. Used on the altar and obelisks
+/datum/component/dark_favor
+	var/mob/living/creator
+
+/datum/component/dark_favor/Initialize(mob/living/L)
+	. = ..()
+	if(!L)
+		return
+	creator = L
+	START_PROCESSING(SSobj, src)
+
+/datum/component/dark_favor/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/datum/component/dark_favor/process()
+	if(!istype(parent, /atom) || !istype(creator))
+		return
+	var/atom/P = parent
+	var/turf/T = P.loc
+	if(!istype(T))
+		return
+	var/light_amount = T.get_lumcount()
+	var/favor_gained = max(1 - light_amount, 0)
+	GLOB.religious_sect?.adjust_favor(favor_gained, creator)

@@ -68,7 +68,7 @@
 			to_chat(user,"<span class ='warning'>You cannot select a sect at this time.</span>")
 			return
 		var/type_selected = available_options[sect_select]
-		GLOB.religious_sect = new type_selected()
+		GLOB.religious_sect = new type_selected(parent, user)
 		for(var/mob/living/am_i_holy_living in GLOB.player_list)
 			if(!am_i_holy_living.mind?.holy_role)
 				continue

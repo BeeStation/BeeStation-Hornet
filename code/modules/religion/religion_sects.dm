@@ -37,14 +37,14 @@
 /// Currently Active (non-deleted) rites
 	var/list/active_rites
 
-/datum/religion_sect/New()
+/datum/religion_sect/New(atom/religious_tool, mob/living/creator)
 	. = ..()
 	if(desired_items)
 		desired_items_typecache = typecacheof(desired_items)
 	if(rites_list)
 		var/listylist = generate_rites_list()
 		rites_list = listylist
-	on_select()
+	on_select(religious_tool, creator)
 
 ///Generates a list of rites with 'name' = 'type'
 /datum/religion_sect/proc/generate_rites_list()
@@ -62,7 +62,7 @@
 		. += list("[name_entry]" = i)
 
 /// Activates once selected
-/datum/religion_sect/proc/on_select()
+/datum/religion_sect/proc/on_select(atom/religious_tool, mob/living/user)
 
 /// Activates once selected and on newjoins, oriented around people who become holy.
 /datum/religion_sect/proc/on_conversion(mob/living/L)
