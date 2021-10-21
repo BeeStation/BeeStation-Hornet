@@ -1,4 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - refactor: action speed modifier refactored into modifier system, similar to movespeed.

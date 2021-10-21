@@ -1,5 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: fixed necroseed runtime
-  - refactor: symptoms on death is now triggered by disease itself using signals
