@@ -1,5 +1,0 @@
-author: francinum
-delete-after: true
-changes:
-  - bugfix: Exosuit fabricators no longer automatically link to the default silo network
-      on build.
