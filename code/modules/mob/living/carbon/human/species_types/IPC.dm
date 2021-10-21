@@ -67,6 +67,13 @@
 			C.dna.species.species_traits += MUTCOLORS
 		else if(MUTCOLORS in C.dna.species.species_traits)
 			C.dna.species.species_traits -= MUTCOLORS
+		O.light_brute_msg = "scratched"
+		O.medium_brute_msg = "dented"
+		O.heavy_brute_msg = "sheared"
+
+		O.light_burn_msg = "burned"
+		O.medium_burn_msg = "scorched"
+		O.heavy_burn_msg = "seared"
 
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
