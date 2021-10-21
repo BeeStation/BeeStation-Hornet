@@ -6,7 +6,7 @@
 	max_payout = 200000
 
 /datum/orbital_objective/vip_recovery/get_text()
-	return "Someone of particular interest to use is located at [station_name]. We require them to be extracted immediately. \
+	return "Someone of particular interest to us is located at [station_name]. We require them to be extracted immediately. \
 		We have good intel to suggest that the VIP is still alive, however if not their personal diary-disk should have enough infomation \
 		about what we are looking for. An additional point to note is that it is recommended a security team assists in this mission due \
 		to the potentially hostile nature of the individual. Return the individual to the station alive to complete the objective."

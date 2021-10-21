@@ -51,16 +51,46 @@
 /datum/station_trait/hangover/New()
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, .proc/on_job_after_spawn)
+	RegisterSignal(SSmapping, COMSIG_SUBSYSTEM_POST_INITIALIZE, .proc/create_spawners)
+
+/datum/station_trait/hangover/proc/create_spawners()
+	var/list/turf/turfs = get_safe_random_station_turfs(typesof(/area/hallway), rand(200, 300))
+	for(var/turf/T as() in turfs)
+		new /obj/effect/spawner/hangover_spawn(T)
+
 
 /datum/station_trait/hangover/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/living_mob, mob/spawned_mob, joined_late)
 	SIGNAL_HANDLER
 
 	if(joined_late)
 		return
-	if(prob(35))
+	if(!iscarbon(living_mob))
+		return
+
+	var/mob/living/carbon/spawned_carbon = living_mob
+	spawned_carbon.set_resting(TRUE, silent = TRUE)
+	if(prob(50))
+		spawned_carbon.adjust_drugginess(rand(15, 20))
+	else
+		spawned_carbon.drunkenness += rand(15, 25)
+	spawned_carbon.adjust_disgust(rand(5, 55)) //How hungover are you?
+
+	if(prob(35) && !spawned_carbon.head)
 		var/obj/item/hat = pick(list(/obj/item/clothing/head/sombrero, /obj/item/clothing/head/fedora, /obj/item/clothing/mask/balaclava, /obj/item/clothing/head/ushanka, /obj/item/clothing/head/cardborg, /obj/item/clothing/head/pirate, /obj/item/clothing/head/cone))
 		hat = new hat(spawned_mob)
 		spawned_mob.equip_to_slot(hat, ITEM_SLOT_HEAD)
+
+/obj/effect/spawner/hangover_spawn
+	name = "hangover spawner"
+
+/obj/effect/spawner/hangover_spawn/Initialize()
+	. = ..()
+	if(prob(60))
+		new /obj/effect/decal/cleanable/vomit(get_turf(src))
+	if(prob(70))
+		var/bottle_count = pick(10;1, 5;2, 2;3)
+		for(var/index in 1 to bottle_count)
+			new /obj/item/reagent_containers/food/drinks/beer/almost_empty(get_turf(src))
 
 /datum/station_trait/blackout
 	name = "Blackout"

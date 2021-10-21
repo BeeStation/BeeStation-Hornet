@@ -119,7 +119,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/attack_verb
 	/// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/list/species_exception = null
-
+	///A bitfield of a species to use as an alternative sprite for any given item. DMIs are stored in the species datum and called via proc in update_icons.
+	var/sprite_sheets = null
+	///A bitfield of species that the item cannot be worn by.
+	var/species_restricted = null
 	///A weakref to the mob who threw the item
 	var/datum/weakref/thrownby = null
 
