@@ -1,6 +1,7 @@
 /datum/species/moth
 	name = "Mothman"
-	id = "moth"
+	id = SPECIES_MOTH
+	bodyflag = FLAG_MOTH
 	say_mod = "flutters"
 	default_color = "00FF00"
 	species_traits = list(LIPS, NOEYESPRITES)

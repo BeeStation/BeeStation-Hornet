@@ -1815,8 +1815,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							pixel_size = PIXEL_SCALING_3X
 						if(PIXEL_SCALING_3X)
 							pixel_size = PIXEL_SCALING_AUTO
-					user.client.view_size.setDefault(getScreenSize(user))	//Fix our viewport size so it doesn't reset on change
-					user.client.view_size.apply() //Let's winset() it so it actually works
+					user.client.view_size.resetToDefault(getScreenSize(user))	//Fix our viewport size so it doesn't reset on change
 
 				if("scaling_method")
 					switch(scaling_method)

@@ -39,7 +39,7 @@
 	icon_state = "chemist_envirosuit"
 	item_state = "chemist_envirosuit"
 	item_color = "chemist_envirosuit"
-	
+
 /obj/item/clothing/under/plasmaman/cmo
 	name = "chief medical officers envirosuit"
 	desc = "An envirosuit designed primarily of nitryl, for the medical savvy plasmamen."
@@ -60,3 +60,10 @@
 	icon_state = "emt_envirosuit"
 	item_state = "emt_envirosuit"
 	item_color = "emt_envirosuit"
+
+/obj/item/clothing/under/plasmaman/exploration
+	name = "exploration plasma envirosuit"
+	desc = "A plasmaman envirosuit designed for the exploration crew."
+	icon_state = "exploration_envirosuit"
+	item_state = "exploration_envirosuit"
+	item_color = "exploration_envirosuit"
