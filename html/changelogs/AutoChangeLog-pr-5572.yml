@@ -1,0 +1,5 @@
+author: Dingo-Dongler
+delete-after: true
+changes:
+  - rscadd: Clipboards and notice boards are now updated to TGUI, with clipboards
+      having much better functionality.

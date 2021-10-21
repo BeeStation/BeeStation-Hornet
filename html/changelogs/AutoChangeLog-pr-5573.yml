@@ -1,0 +1,4 @@
+author: Hardly
+delete-after: true
+changes:
+  - rscadd: Shuttle seat is now craftable using two sheets of iron

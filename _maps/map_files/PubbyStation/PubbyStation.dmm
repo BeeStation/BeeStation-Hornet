@@ -39513,9 +39513,7 @@
 /area/medical/virology)
 "bLF" = (
 /obj/structure/table,
-/obj/item/clipboard{
-	toppaper = null
-	},
+/obj/item/clipboard,
 /obj/item/pen{
 	layer = 3.1
 	},
