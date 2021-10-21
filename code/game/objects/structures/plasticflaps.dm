@@ -57,17 +57,17 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
+/obj/structure/plasticflaps/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
 	if(isliving(caller))
 		if(isbot(caller))
 			return TRUE
 
-		var/mob/living/M = caller
-		if(!M.ventcrawler && M.mob_size != MOB_SIZE_TINY)
+		var/mob/living/living_caller = caller
+		if(!living_caller.ventcrawler && living_caller.mob_size != MOB_SIZE_TINY)
 			return FALSE
-	var/atom/movable/M = caller
-	if(M?.pulling)
-		return CanAStarPass(ID, to_dir, M.pulling)
+
+	if(caller?.pulling)
+		return CanAStarPass(ID, to_dir, caller.pulling)
 	return TRUE //diseases, stings, etc can pass
 
 /obj/structure/plasticflaps/CanPass(atom/movable/A, turf/T)
