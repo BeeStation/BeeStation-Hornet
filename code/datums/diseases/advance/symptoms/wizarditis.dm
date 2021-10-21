@@ -49,7 +49,7 @@
 			if(prob(30) && prob(50))
 				to_chat(M, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
 
-		if(4,5)
+		if(4, 5)
 
 			if(prob(50))
 				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
