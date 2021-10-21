@@ -1,7 +1,0 @@
-author: TheChaser212
-delete-after: true
-changes:
-  - bugfix: IPCs use charge at the same rate they used to
-  - bugfix: Ethereals can't queue up multiple chargings
-  - tweak: Ethereals don't need to wait if they can't charge
-  - tweak: APCs can be drained to a quarter charge
