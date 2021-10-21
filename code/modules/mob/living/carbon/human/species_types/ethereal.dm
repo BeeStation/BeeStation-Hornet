@@ -8,7 +8,7 @@
 	attack_sound = 'sound/weapons/etherealhit.ogg'
 	miss_sound = 'sound/weapons/etherealmiss.ogg'
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/ethereal
-	mutantstomach = /obj/item/organ/stomach/ethereal
+	mutantstomach = /obj/item/organ/stomach/battery/ethereal
 	mutanttongue = /obj/item/organ/tongue/ethereal
 	exotic_blood = /datum/reagent/consumable/liquidelectricity //Liquid Electricity. fuck you think of something better gamer
 	siemens_coeff = 0.5 //They thrive on energy
@@ -18,14 +18,13 @@
 	species_traits = list(DYNCOLORS, AGENDER, HAIR)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/ethereal
-	inherent_traits = list(TRAIT_NOHUNGER)
+	inherent_traits = list(TRAIT_POWERHUNGRY)
 	sexes = FALSE //no fetish content allowed
 	toxic_food = NONE
 	hair_color = "fixedmutcolor"
 	hair_alpha = 140
 	swimming_component = /datum/component/swimming/ethereal
 	var/current_color
-	var/ethereal_charge = ETHEREAL_CHARGE_FULL
 	var/EMPeffect = FALSE
 	var/emageffect = FALSE
 	var/r1
@@ -124,30 +123,23 @@
 	spec_updatehealth(H)
 	H.visible_message("<span class='danger'>[H] stops flickering and goes back to their normal state!</span>")
 
-/datum/species/ethereal/proc/handle_charge(mob/living/carbon/human/H)
+/datum/species/ethereal/handle_charge(mob/living/carbon/human/H)
 	brutemod = 1.25
-	switch(get_charge(H))
-		if(ETHEREAL_CHARGE_NONE)
-			H.throw_alert("ethereal_charge", /atom/movable/screen/alert/etherealcharge, 3)
-		if(ETHEREAL_CHARGE_NONE to ETHEREAL_CHARGE_LOWPOWER)
-			H.throw_alert("ethereal_charge", /atom/movable/screen/alert/etherealcharge, 2)
+	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
+		return
+	switch(H.nutrition)
+		if(NUTRITION_LEVEL_FED to INFINITY)
+			H.clear_alert("nutrition")
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_FED)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 1)
+			brutemod = 1.5
+		if(1 to NUTRITION_LEVEL_STARVING)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 2)
 			if(H.health > 10.5)
 				apply_damage(0.65, TOX, null, null, H)
 			brutemod = 1.75
-		if(ETHEREAL_CHARGE_LOWPOWER to ETHEREAL_CHARGE_NORMAL)
-			H.throw_alert("ethereal_charge", /atom/movable/screen/alert/etherealcharge, 1)
-			brutemod = 1.5
 		else
-			H.clear_alert("ethereal_charge")
-
-/datum/species/ethereal/proc/get_charge(mob/living/carbon/H) //this feels like it should be somewhere else. Eh?
-	var/obj/item/organ/stomach/ethereal/stomach = H.getorganslot(ORGAN_SLOT_STOMACH)
-	if(istype(stomach))
-		return stomach.crystal_charge
-	return ETHEREAL_CHARGE_NONE
-
-/datum/species/ethereal/proc/adjust_charge(var/change)
-	ethereal_charge = CLAMP(ethereal_charge + change, ETHEREAL_CHARGE_NONE, ETHEREAL_CHARGE_FULL)
-
-/datum/species/ethereal/proc/set_charge(var/change)
-	ethereal_charge = CLAMP(change, ETHEREAL_CHARGE_NONE, ETHEREAL_CHARGE_FULL)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/etherealcharge, 3)
+			if(H.health > 10.5)
+				apply_damage(1, TOX, null, null, H)
+			brutemod = 2
