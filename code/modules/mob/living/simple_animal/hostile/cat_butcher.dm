@@ -38,7 +38,7 @@
 	dodging = TRUE
 	move_resist = MOVE_FORCE_VERY_STRONG
 	pull_force = MOVE_FORCE_VERY_STRONG
-	lose_patience_timeout = 150
+	lose_patience_timeout = 200
 	rapid_melee = 2
 	var/list/victims = list()
 
