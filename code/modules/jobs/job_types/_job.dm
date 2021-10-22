@@ -370,7 +370,7 @@
 	else if(!(MOB_ORGANIC in H.mob_biotypes))
 		return //this mob cant be given a disease
 	if(prob(biohazard * sickrisk))
-		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(1, 4), rand(1, 9), unfunny, guaranteed)
+		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(1, 4), rand(1, 9), unfunny, guaranteed, infected = H)
 		scandisease.dormant = TRUE
 		scandisease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		scandisease.spread_text = "None"
