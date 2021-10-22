@@ -19,7 +19,7 @@ Bonus
 	resistance = -1
 	stage_speed = -2
 	transmission = -2
-	level = 6
+	level = 4
 	symptom_delay_min = 10
 	symptom_delay_max = 30
 	prefixes = list("Lazy ", "Yawning ")

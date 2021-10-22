@@ -50,7 +50,7 @@
 	resistance = -2
 	stage_speed = 2
 	transmission = -2
-	level = 7
+	level = 6
 	power = 2
 	prefixes = list("Toxo")
 	var/food_conversion = FALSE
@@ -183,7 +183,7 @@
 	stage_speed = -2
 	transmission = 0
 	severity = -1
-	level = 6
+	level = 8
 	passive_message = "<span class='notice'>Your skin tingles.</span>"
 	prefixes = list("Healing ", "Minor ")
 	var/threshhold = 15
@@ -234,7 +234,7 @@
 	resistance = -2
 	stage_speed = 2
 	transmission = 1
-	level = 4
+	level = 6
 	prefixes = list("Metabolic ", "Junkie's ", "Chemical ")
 	bodies = list("Hunger")
 	var/triple_metabolism = FALSE
@@ -468,7 +468,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	resistance = -2
 	stage_speed = 1
 	transmission = -2
-	level = 7
+	level = 8
 	severity = 1
 	symptom_delay_min = 1
 	symptom_delay_max = 1
