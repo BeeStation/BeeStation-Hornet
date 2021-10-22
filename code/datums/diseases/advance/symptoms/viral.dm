@@ -20,7 +20,7 @@ BONUS
 	resistance = 5
 	stage_speed = -3
 	transmission = 0
-	level = 3
+	level = 4
 	prefixes = list("Chronic ")
 
 /*
@@ -46,7 +46,7 @@ BONUS
 	resistance = -3
 	stage_speed = 5
 	transmission = 3
-	level = 3
+	level = 4
 	prefixes = list("Unstable ")
 
 /*
@@ -73,10 +73,10 @@ Bonus
 	desc = "The virus sacrifices its long term survivability to nearly instantly fully spread inside a host. \
 	The virus will start at the last stage, but will eventually decay and die off by itself."
 	stealth = 1
-	resistance = -4
+	resistance = 1
 	stage_speed = 3
-	transmission = -3
-	level = 3
+	transmission = -4
+	level = 4
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	prefixes = list("Spontaneous ")
