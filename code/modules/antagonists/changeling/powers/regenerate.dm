@@ -80,15 +80,15 @@
 	snek.faction |= "[REF(C)]"
 	return TRUE
 
-/mob/living/simple_animal/hostile/poison/limbsnake
+/mob/living/simple_animal/hostile/poison/limbsnake //its venom, not poison
 	name = "limb snake"
 	desc = "This is no snake at all! It looks like someone's limb grew fangs out of it's fingers and it's out to bite anyone!"
 	icon_state = "snake"
 	icon_living = "snake"
 	del_on_death = TRUE
 	speak_emote = list("gargles")
-	health = 50
-	maxHealth = 50
+	health = 40
+	maxHealth = 40
 	melee_damage = 3
 	attacktext = "bites"
 	response_help  = "pokes"
@@ -104,6 +104,6 @@
 	chat_color = "#26F55A"
 	mobchatspan = "chaplain"
 	faction = list("hostile","creature")
-	poison_per_bite = 4
+	poison_per_bite = 2
 	poison_type = /datum/reagent/toxin/staminatoxin
 	discovery_points = 1000
