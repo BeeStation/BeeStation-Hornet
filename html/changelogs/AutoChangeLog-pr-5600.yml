@@ -1,0 +1,9 @@
+author: 'Ivniinvi, timothymtorres, Azarak, mickyan, '
+delete-after: true
+changes:
+  - bugfix: Fixed pAI loudness booster to work when not in holoform
+  - bugfix: Fixed garbage collection for songs, making the game slightly faster
+  - tweak: You may now change the sound of certain instruments with a selection of
+      appropriate variations, similarly to the piano synth
+  - bugfix: Fixed accordion not working
+  - rscadd: Adds a hidden fun instrument
