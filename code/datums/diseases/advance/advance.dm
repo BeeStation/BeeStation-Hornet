@@ -237,32 +237,32 @@
 	stage_rate = 0
 	transmission = 0
 	severity = 0
+	var/c1sev
+	var/c2sev
+	var/c3sev
 	for(var/datum/symptom/S as() in symptoms) 
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
-	for(var/datum/symptom/S as() in symptoms) //YES, THIS LOOPS SEVERAL TIMES. YES, IT HAS TO BE THIS WAY AND THERE ISNT REALLY ANY OTHER WAY TO DO IT
+	for(var/datum/symptom/S as() in symptoms) 
 		S.severityset(src)
-	for(var/datum/symptom/S as() in symptoms)//MAKING IT NOT THIS WAY FUCKS UP THE BALANCE OF DISEASE CHANNELS
-		S.severityset(src)
-		if(!S.neutered && S.severity >= 5) //big severity goes first. This means it can be reduced by beneficials, but won't increase from minor symptoms
-			if(severity >= 5)
-				severity += (S.severity -3)//diminishing returns
-			else 
-				severity += S.severity
-	for(var/datum/symptom/S as() in symptoms)//SO DON'T CHANGE IT UNLESS YOU KEEP THE SAME EXACT ORDER OF SEVERITY ADDITION
-		S.severityset(src)
-		if(!S.neutered)
-			switch(S.severity)//these go in the middle. They won't augment large severity diseases, but they can push low ones up to channel 2
-				if(1 to 2)
-					severity= max(severity, min(3, (S.severity + severity)))
-				if(3 to 4)
-					severity = max(severity, min(4, (S.severity + severity)))
-	for(var/datum/symptom/S as() in symptoms) //benign and beneficial symptoms go last
-		S.severityset(src)
-		if(!S.neutered && S.severity <= 0)
-			severity += S.severity
+		if(S.neutered)
+			continue
+		switch(S.severity)
+			if(-INFINITY to 0)
+				c1sev += S.severity
+			if(1 to 2)
+				c2sev= max(c2sev, min(3, (S.severity + c2sev)))
+			if(3 to 4)
+				c2sev = max(c2sev, min(4, (S.severity + c2sev)))
+			if(5 to INFINITY)
+				if(c3sev >= 5)
+					c3sev += (S.severity -3)//diminishing returns
+				else 
+					c3sev += S.severity
+	severity += (max(c2sev, c3sev) + c1sev)
+
 
 // Assign the properties that are in the list.
 /datum/disease/advance/proc/AssignProperties()
