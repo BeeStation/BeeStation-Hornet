@@ -87,8 +87,8 @@
 	icon_living = "snake"
 	del_on_death = TRUE
 	speak_emote = list("gargles")
-	health = 40
-	maxHealth = 40
+	health = 35
+	maxHealth = 35
 	melee_damage = 3
 	attacktext = "bites"
 	response_help  = "pokes"
