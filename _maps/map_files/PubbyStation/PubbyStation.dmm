@@ -51916,6 +51916,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
 "cxD" = (
@@ -51935,6 +51938,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
@@ -52094,6 +52100,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
 "cyA" = (
@@ -52115,6 +52124,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/library/lounge)
@@ -53789,6 +53801,20 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
+"eFC" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/modular_computer/console/preset/curator,
+/turf/open/floor/plasteel/dark,
+/area/library)
 "eGh" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /obj/structure/lattice/catwalk,
@@ -58041,6 +58067,18 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"mlx" = (
+/obj/effect/turf_decal/tile/purple{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/purple{
+	dir = 4
+	},
+/obj/structure/sign/painting/library_private{
+	pixel_x = 32
+	},
+/turf/open/floor/plasteel/dark,
+/area/library)
 "mmv" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Supplies";
@@ -82630,7 +82668,7 @@ ckH
 ckH
 cAa
 cAg
-cAt
+eFC
 ckH
 cAa
 cAV
@@ -83145,7 +83183,7 @@ czO
 cli
 ckH
 cAy
-cAB
+mlx
 cyU
 cjp
 aht

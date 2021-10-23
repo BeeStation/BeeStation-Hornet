@@ -30,8 +30,7 @@ export const NtosPortraitPrinter = (props, context) => {
     },
   ];
   const tab2list = TABS[tabIndex].list;
-  const current_portrait_title = tab2list[listIndex]["title"];
-  const current_portrait_asset_name = TABS[tabIndex].asset_prefix + "_" + tab2list[listIndex]["md5"];
+  const is_category_empty = tab2list[listIndex] === 0;
   return (
     <NtosWindow
       title="Art Galaxy"
@@ -56,29 +55,36 @@ export const NtosPortraitPrinter = (props, context) => {
               </Tabs>
             </Section>
           </Stack.Item>
-          <Stack.Item grow={2}>
-            <Section fill>
-              <Stack
-                height="100%"
-                align="center"
-                justify="center"
-                direction="column">
-                <Stack.Item>
-                  <img
-                    src={resolveAsset(current_portrait_asset_name)}
-                    height="128px"
-                    width="128px"
-                    style={{
-                      'vertical-align': 'middle',
-                      '-ms-interpolation-mode': 'nearest-neighbor',
-                    }} />
-                </Stack.Item>
-                <Stack.Item className="Section__titleText">
-                  {current_portrait_title}
-                </Stack.Item>
-              </Stack>
-            </Section>
-          </Stack.Item>
+          {is_category_empty && (
+            <Stack.Item grow={2}>
+              <Section fill>
+                <Stack
+                  height="100%"
+                  align="center"
+                  justify="center"
+                  direction="column">
+                  <Stack.Item>
+                    <img
+                      src={resolveAsset(TABS[tabIndex].asset_prefix + "_" + tab2list[listIndex]["md5"])}
+                      height="128px"
+                      width="128px"
+                      style={{
+                        'vertical-align': 'middle',
+                        '-ms-interpolation-mode': 'nearest-neighbor',
+                      }} />
+                  </Stack.Item>
+                  <Stack.Item className="Section__titleText">
+                    {tab2list[listIndex]["title"]}
+                  </Stack.Item>
+                </Stack>
+              </Section>
+            </Stack.Item>)}
+          {!is_category_empty && (
+            <Stack.Item grow={2}>
+              <Section fill align="center">
+                No Paintings detected in this category
+              </Section>
+            </Stack.Item>)}
           <Stack.Item>
             <Stack>
               <Stack.Item grow={3}>
@@ -102,6 +108,7 @@ export const NtosPortraitPrinter = (props, context) => {
                       <Button
                         icon="check"
                         content="Print Portrait"
+                        disabled={!is_category_empty}
                         onClick={() => act("select", {
                           tab: tabIndex+1,
                           selected: listIndex+1,

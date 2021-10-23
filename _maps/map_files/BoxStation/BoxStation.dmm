@@ -12147,6 +12147,9 @@
 	pixel_y = 9
 	},
 /obj/item/stack/packageWrap,
+/obj/structure/sign/painting/library{
+	pixel_y = 32
+	},
 /turf/open/floor/wood,
 /area/library)
 "aHc" = (
@@ -12674,6 +12677,9 @@
 "aIx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -15051,6 +15057,9 @@
 	pixel_y = 7
 	},
 /obj/item/pen/invisible,
+/obj/structure/sign/painting/library_private{
+	pixel_y = 32
+	},
 /turf/open/floor/engine/cult,
 /area/library)
 "aPi" = (
@@ -15857,6 +15866,9 @@
 "aRP" = (
 /obj/machinery/camera/autoname{
 	dir = 8
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = 32
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -18722,6 +18734,9 @@
 "bax" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
+	},
+/obj/structure/sign/painting/library{
+	pixel_y = -32
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -47779,6 +47794,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
 	dir = 4
 	},
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
 /turf/open/floor/wood,
 /area/library)
 "gfL" = (
@@ -48039,6 +48057,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/nanite)
+"gwp" = (
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
+/turf/open/floor/wood,
+/area/library)
 "gxa" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
 	dir = 10
@@ -48652,6 +48676,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
+"hhQ" = (
+/obj/machinery/modular_computer/console/preset/curator{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/library)
 "hiA" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/stripes/line{
@@ -50430,6 +50460,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/courtroom)
+"ken" = (
+/obj/structure/chair/comfy/black{
+	dir = 8
+	},
+/obj/structure/sign/painting/library{
+	pixel_y = -32
+	},
+/turf/open/floor/wood,
+/area/library)
 "keG" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
 /turf/open/floor/plasteel/grimy,
@@ -53452,6 +53491,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"nHY" = (
+/obj/structure/easel,
+/obj/item/canvas/nineteen_nineteen,
+/obj/item/canvas/twentythree_nineteen,
+/obj/item/canvas/twentythree_twentythree,
+/turf/open/floor/wood,
+/area/library)
 "nIK" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -59554,6 +59600,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"wbJ" = (
+/obj/structure/table/wood,
+/obj/structure/disposalpipe/segment,
+/obj/item/storage/crayons,
+/turf/open/floor/wood,
+/area/library)
 "wci" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -104281,7 +104333,7 @@ anf
 tMn
 aFu
 aIr
-aIt
+gwp
 aLf
 gey
 aNS
@@ -105053,7 +105105,7 @@ aFu
 aHc
 aIw
 aJS
-aJS
+wbJ
 aMJ
 aNP
 aOS
@@ -105568,7 +105620,7 @@ aHd
 aIx
 aJF
 aLh
-aIt
+nHY
 aNV
 aPd
 aIt
@@ -105578,7 +105630,7 @@ aIt
 aVQ
 aXu
 aXV
-aVQ
+ken
 aFu
 aYV
 aXq
@@ -106603,10 +106655,10 @@ aQt
 aRQ
 aIt
 aUF
-aLg
+hhQ
 aYW
 aYW
-aVQ
+ken
 aFu
 aYV
 aXq
