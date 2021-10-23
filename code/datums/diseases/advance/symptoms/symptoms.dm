@@ -51,9 +51,6 @@
 //called when a disease first tries to infect someone.
 /datum/symptom/proc/severityset(datum/disease/advance/A)
 	severity = initial(severity)
-	prefixes = initial(prefixes)
-	bodies = initial(bodies)
-	suffixes = initial(suffixes)
 
 // Called when the advance disease is going to be deleted or when the advance disease stops processing.
 /datum/symptom/proc/End(datum/disease/advance/A)
