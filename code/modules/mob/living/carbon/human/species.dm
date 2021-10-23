@@ -6,11 +6,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/id	// if the game needs to manually check your race to do something not included in a proc here, it will use this
 	var/limbs_id		//this is used if you want to use a different species limb sprites. Mainly used for angels as they look like humans.
 	var/name	// this is the fluff name. these will be left generic (such as 'Lizardperson' for the lizard race) so servers can change them to whatever
+	var/bodyflag = FLAG_HUMAN //Species flags currently used for species restriction on items
 	var/default_color = "#FFF"	// if alien colors are disabled, this is the color that will be used by that race
 
 	var/sexes = 1		// whether or not the race has sexual characteristics. at the moment this is only 0 for skeletons and shadows
 
-	var/list/offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0))
+	var/list/offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
 
 	var/hair_color	// this allows races to have specific hair colors... if null, it uses the H's hair/facial hair colors. if "mutcolor", it uses the H's mutant_color
 	var/hair_alpha = 255	// the alpha used by the hair. 255 is completely solid, 0 is transparent.
@@ -56,7 +57,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/allow_numbers_in_name // Can this species use numbers in its name?
 	var/datum/outfit/outfit_important_for_life /// A path to an outfit that is important for species life e.g. plasmaman outfit
 	var/datum/action/innate/flight/fly //the actual flying ability given to flying species
-
 	// species-only traits. Can be found in DNA.dm
 	var/list/species_traits = list()
 	// generic traits tied to having the species
@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/should_have_brain = TRUE
 	var/should_have_heart = !(NOBLOOD in species_traits)
 	var/should_have_lungs = !(TRAIT_NOBREATH in inherent_traits)
-	var/should_have_appendix = !(TRAIT_NOHUNGER in inherent_traits)
+	var/should_have_appendix = !((TRAIT_NOHUNGER in inherent_traits) || (TRAIT_POWERHUNGRY in inherent_traits))
 	var/should_have_eyes = TRUE
 	var/should_have_ears = TRUE
 	var/should_have_tongue = TRUE
@@ -583,7 +583,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				else
 					standing += mutable_appearance(undershirt.icon, undershirt.icon_state, -BODY_LAYER)
 
-		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(DIGITIGRADE in species_traits))
+		if(H.socks && H.get_num_legs(FALSE) >= 2 && !(DIGITIGRADE in species_traits) && !(NOSOCKS in species_traits))
 			var/datum/sprite_accessory/socks/socks = GLOB.socks_list[H.socks]
 			if(socks)
 				standing += mutable_appearance(socks.icon, socks.icon_state, -BODY_LAYER)
@@ -842,7 +842,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
-
+	if(I.species_restricted & H.dna?.species.bodyflag)
+		to_chat(H, "<span class='warning'>Your species cannot wear this item!</span>")
+		return FALSE
 	var/num_arms = H.get_num_arms(FALSE)
 	var/num_legs = H.get_num_legs(FALSE)
 
@@ -1039,23 +1041,26 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	H.update_mutant_bodyparts()
 
+// Do species-specific reagent handling here
+// Return 1 if it should do normal processing too
+// Return 0 if it shouldn't deplete and do its normal effect
+// Other return values will cause weird badness
+
 /datum/species/proc/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == exotic_blood)
 		H.blood_volume = min(H.blood_volume + round(chem.volume, 0.1), BLOOD_VOLUME_MAXIMUM)
 		H.reagents.del_reagent(chem.type)
 		return TRUE
+	//This handles dumping unprocessable reagents.
+	var/dump_reagent = TRUE
+	if((chem.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYNTHETIC))		//SYNTHETIC-oriented reagents require PROCESS_SYNTHETIC
+		dump_reagent = FALSE
+	if((chem.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORGANIC))		//ORGANIC-oriented reagents require PROCESS_ORGANIC
+		dump_reagent = FALSE
+	if(dump_reagent)
+		chem.holder.remove_reagent(chem.type, chem.metabolization_rate)
+		return TRUE
 	return FALSE
-
-// Do species-specific reagent handling here
-// Return 1 if it should do normal processing too
-// Return 0 if it shouldn't deplete and do its normal effect
-// Other return values will cause weird badness
-/datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.type == exotic_blood)
-		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
-		H.reagents.del_reagent(R.type)
-		return FALSE
-	return TRUE
 
 /datum/species/proc/check_species_weakness(obj/item, mob/living/attacker)
 	return 0 //This is not a boolean, it's the multiplier for the damage that the user takes from the item.It is added onto the check_weakness value of the mob, and then the force of the item is multiplied by this value
@@ -1146,23 +1151,38 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			var/hungry = (500 - H.nutrition) / 5 //So overeat would be 100 and default level would be 80
 			if(hungry >= 70)
 				H.add_movespeed_modifier(MOVESPEED_ID_HUNGRY, override = TRUE, multiplicative_slowdown = (hungry / 50))
-			else if(isethereal(H))
-				var/datum/species/ethereal/E = H.dna.species
-				var/charge = E.get_charge()
-				if(charge <= ETHEREAL_CHARGE_NORMAL)
-					. += 1.5 * (1 - charge / 100)
 			else
 				H.remove_movespeed_modifier(MOVESPEED_ID_HUNGRY)
 
+	if(HAS_TRAIT(H, TRAIT_POWERHUNGRY))
+		handle_charge(H)
+	else
+		switch(H.nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				H.throw_alert("nutrition", /atom/movable/screen/alert/fat)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FULL)
+				H.clear_alert("nutrition")
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				H.throw_alert("nutrition", /atom/movable/screen/alert/hungry)
+			if(0 to NUTRITION_LEVEL_STARVING)
+				H.throw_alert("nutrition", /atom/movable/screen/alert/starving)
+
+/datum/species/proc/handle_charge(mob/living/carbon/human/H)
 	switch(H.nutrition)
-		if(NUTRITION_LEVEL_FULL to INFINITY)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/fat)
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FULL)
+		if(NUTRITION_LEVEL_FED to INFINITY)
 			H.clear_alert("nutrition")
+		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 1)
 		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/hungry)
-		if(0 to NUTRITION_LEVEL_STARVING)
-			H.throw_alert("nutrition", /atom/movable/screen/alert/starving)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 2)
+		if(1 to NUTRITION_LEVEL_STARVING)
+			H.throw_alert("nutrition", /atom/movable/screen/alert/lowcell, 3)
+		else
+			var/obj/item/organ/stomach/battery/battery = H.getorganslot(ORGAN_SLOT_STOMACH)
+			if(!istype(battery))
+				H.throw_alert("nutrition", /atom/movable/screen/alert/nocell)
+			else
+				H.throw_alert("nutrition", /atom/movable/screen/alert/emptycell)
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return 0
@@ -1995,3 +2015,41 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(isturf(H.loc))
 			var/turf/T = H.loc
 			T.Entered(H)
+
+///Calls the DMI data for a custom icon for a given bodypart from the Species Datum.
+/datum/species/proc/get_custom_icons(var/part)
+	return
+/*Here's what a species that has a unique icon for every slot would look like. If your species doesnt have any custom icons for a given part, return null.
+/datum/species/teshari/get_custom_icons(var/part)
+	switch(part)
+		if("uniform")
+			return 'icons/mob/species/teshari/tesh_uniforms.dmi'
+		if("gloves")
+			return 'icons/mob/species/teshari/tesh_gloves.dmi'
+		if("glasses")
+			return 'icons/mob/species/teshari/tesh_glasses.dmi'
+		if("ears")
+			return 'icons/mob/species/teshari/tesh_ears.dmi'
+		if("shoes")
+			return 'icons/mob/species/teshari/tesh_shoes.dmi'
+		if("head")
+			return 'icons/mob/species/teshari/tesh_head.dmi'
+		if("belt")
+			return 'icons/mob/species/teshari/tesh_belts.dmi'
+		if("suit")
+			return 'icons/mob/species/teshari/tesh_suits.dmi'
+		if("mask")
+			return 'icons/mob/species/teshari/tesh_masks.dmi'
+		if("back")
+			return 'icons/mob/species/teshari/tesh_back.dmi'
+		if("generic")
+			return 'icons/mob/species/teshari/tesh_generic.dmi'
+		else
+			return
+*/
+
+/datum/species/proc/get_item_offsets_for_index(i)
+	return
+
+/datum/species/proc/get_harm_descriptors()
+	return

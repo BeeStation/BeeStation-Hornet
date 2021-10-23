@@ -153,3 +153,26 @@
 		var/mob/living/L = user
 		if(HAS_TRAIT(L, TRAIT_EMOTEMUTE))
 			return FALSE
+
+/mob/proc/manual_emote(text) //Just override the song and dance
+	. = TRUE
+	if(stat != CONSCIOUS)
+		return
+
+	if(!text)
+		CRASH("Someone passed nothing to manual_emote(), fix it")
+
+	log_message(text, LOG_EMOTE)
+
+	var/ghost_text = "<b>[src]</b> [text]"
+
+	var/origin_turf = get_turf(src)
+	if(client)
+		for(var/mob/ghost as anything in GLOB.dead_mob_list)
+			if(!ghost.client || isnewplayer(ghost))
+				continue
+			if(ghost.client.prefs.chat_toggles & CHAT_GHOSTSIGHT && !(ghost in viewers(origin_turf, null)))
+				ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
+
+	visible_message(text, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
+

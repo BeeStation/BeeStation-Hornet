@@ -1,6 +1,7 @@
 /datum/species/plasmaman
 	name = "Plasmaman"
-	id = "plasmaman"
+	id = SPECIES_PLASMAMAN
+	bodyflag = FLAG_PLASMAMAN
 	say_mod = "rattles"
 	sexes = 0
 	meat = /obj/item/stack/sheet/mineral/plasma
@@ -138,6 +139,9 @@
 		if("Atmospheric Technician")
 			O = new /datum/outfit/plasmaman/atmospherics
 
+		if("Exploration Crew")
+			O = new /datum/outfit/plasmaman/exploration
+
 		if("Captain")
 			O = new /datum/outfit/plasmaman/command
 
@@ -186,7 +190,6 @@
 	return randname
 
 /datum/species/plasmaman/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
-	. = ..()
 	if(chem.type == /datum/reagent/consumable/milk)
 		if(chem.volume > 10)
 			H.reagents.remove_reagent(chem.type, chem.volume - 10)
@@ -219,3 +222,4 @@
 					H.emote("sigh")
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return TRUE
+	return ..()

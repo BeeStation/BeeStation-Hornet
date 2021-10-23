@@ -200,4 +200,8 @@ SUBSYSTEM_DEF(throwing)
 		if(T && thrownthing.has_gravity(T))
 			T.zFall(thrownthing)
 
+	if(thrownthing)
+		SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
+		thrownthing.movement_type &= ~THROWN
+
 	qdel(src)

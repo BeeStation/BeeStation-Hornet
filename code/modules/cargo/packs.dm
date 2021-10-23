@@ -2689,6 +2689,13 @@
 	contains = list(/obj/item/vending_refill/wardrobe/cargo_wardrobe)
 	crate_name = "cargo department supply crate"
 
+/datum/supply_pack/costumes_toys/wardrobes/clothesmate
+	name = "ClothesMate Wardrobe Supply Crate"
+	desc = "This crate contains a refill for the ClothesMate."
+	cost = 800 
+	contains = list(/obj/item/vending_refill/clothing)
+	crate_name = "clothesmate supply crate"
+
 /datum/supply_pack/costumes_toys/wardrobes/engineering
 	name = "Engineering Wardrobe Supply Crate"
 	desc = "This crate contains refills for the EngiDrobe and AtmosDrobe."
@@ -2808,7 +2815,7 @@
 					/obj/item/instrument/trombone,
 					/obj/item/instrument/recorder,
 					/obj/item/instrument/harmonica,
-					/obj/structure/piano/unanchored)
+					/obj/structure/musician/piano/unanchored)
 	crate_type = /obj/structure/closet/crate/wooden
 
 /datum/supply_pack/misc/book_crate

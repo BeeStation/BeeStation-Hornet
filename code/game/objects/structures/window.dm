@@ -356,7 +356,7 @@
 /obj/structure/window/get_dumping_location(obj/item/storage/source,mob/user)
 	return null
 
-/obj/structure/window/CanAStarPass(ID, to_dir)
+/obj/structure/window/CanAStarPass(obj/item/card/id/ID, to_dir, atom/movable/caller)
 	if(!density)
 		return 1
 	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))

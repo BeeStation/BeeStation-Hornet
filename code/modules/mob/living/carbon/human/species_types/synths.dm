@@ -41,13 +41,12 @@
 	. = ..()
 	UnregisterSignal(H, COMSIG_MOB_SAY)
 
-/datum/species/synth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+/datum/species/synth/handle_chemicals(datum/reagent/R, mob/living/carbon/human/H)
 	if(istype(R, /datum/reagent/medicine/synthflesh))
-		R.reaction_mob(H, TOUCH, 2, 0) //heal a little
-		H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
-	else
-		H.reagents.del_reagent(R.type) //Not synth flesh? eat shit and die
-	return FALSE
+		R.reaction_mob(H, PATCH, 2, 0) //heal a little
+		H.reagents.remove_reagent(R.type, R.metabolization_rate)
+		return TRUE
+	return ..()
 
 /datum/species/synth/spec_life(mob/living/carbon/human/H)
 	. = ..()
@@ -149,7 +148,7 @@
 
 /datum/species/synth/proc/handle_snowflake_code(mob/living/carbon/human/H, datum/species/S) //I LITERALLY FUCKING HATE ALL OF YOU. I HATE THE FACT THIS NEEDS TO EXIST.
 	switch(S.id)
-		if("felinid")
+		if(SPECIES_FELINID)
 			if(H.dna.features["tail_human"] == "None")
 				H.dna.features["tail_human"] = "Cat"
 			if(H.dna.features["ears"] == "None")
@@ -164,7 +163,7 @@
 				tail.Insert(H, drop_if_replaced = FALSE)
 			else
 				mutanttail = null
-		if("lizard")
+		if(SPECIES_LIZARD)
 			if(DIGITIGRADE in species_traits)
 				var/mob/living/carbon/C = H
 				default_features["legs"] = "Digitigrade Legs"
