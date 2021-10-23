@@ -34219,6 +34219,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
+	req_access_txt = "30";
 	security_level = 6
 	},
 /obj/machinery/door/firedoor,
