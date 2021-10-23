@@ -1,0 +1,5 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - bugfix: Removed the extra light switch from Box Station's research lab
+  - bugfix: Re-added the access requirement to Pubby's RD office
