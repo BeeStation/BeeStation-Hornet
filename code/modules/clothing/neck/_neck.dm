@@ -6,6 +6,9 @@
 	strip_delay = 40
 	equip_delay_other = 40
 
+	species_restricted = null
+	sprite_sheets = FLAG_GROD
+
 /obj/item/clothing/neck/worn_overlays(isinhands = FALSE)
 	. = list()
 	if(!isinhands)

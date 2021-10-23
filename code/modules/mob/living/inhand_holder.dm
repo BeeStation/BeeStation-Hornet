@@ -11,6 +11,8 @@
 	var/can_head = TRUE
 	var/destroying = FALSE
 
+	species_restricted = FLAG_GROD
+
 /obj/item/clothing/head/mob_holder/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags = NONE)
 	. = ..()
 	if(head_icon)

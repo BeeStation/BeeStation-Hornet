@@ -165,9 +165,10 @@
 /obj/item/seeds/replicapod/grodpod
 	name = "Grodpod Seed"
 	desc = "You shouldn't see this"
-	species = "replicapod"
+	species = "grodpod"
 	plantname = "Grod Cocoon"
 	maturation = 15
+	growthstages = 2
 	var/crown
 
 /obj/item/seeds/replicapod/grodpod/harvest(mob/user)

@@ -241,6 +241,8 @@
 	icon = 'icons/mob/species/grod/crown_spider.dmi'
 	icon_state = "crown_spider"
 	var/crown
+	var/obj/item/seeds/replicapod/grodpod/seed = new()
+
 /obj/item/organ/brain/grod/Insert(mob/living/carbon/C, special = 0,no_id_transfer = FALSE)
 	if(isgrod(C) && crown)
 		var/mob/living/carbon/human/H = C
@@ -251,13 +253,49 @@
 /obj/item/organ/brain/grod/Remove(mob/living/carbon/C, special = 0, no_id_transfer = FALSE)
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
+		var/list/blood_data = H.get_blood_data(H.get_blood_id())
+
+		if(blood_data["mind"] && blood_data["cloneable"])
+			seed.mind = blood_data["mind"]
+			seed.ckey = blood_data["ckey"]
+			seed.realName = blood_data["real_name"]
+			seed.blood_gender = blood_data["gender"]
+			seed.blood_type = blood_data["blood_type"]
+			seed.features = blood_data["features"]
+			seed.factions = blood_data["factions"]
+			seed.quirks = blood_data["quirks"]
+			seed.sampleDNA = blood_data["blood_DNA"]
+			seed.features["grod_crown"] = blood_data["features"]["grod_crown"]
+
+		if(seed)
+			log_cloning("[key_name(H)]'s cloning record was added to [src] at [AREACOORD(src)].")
+
 		crown = H.dna.features["grod_crown"]
 		H.dna.features["grod_crown"] = "None"
 		H.dna.species.handle_mutant_bodyparts(H)
 	..()
 
+/obj/item/organ/brain/grod/MouseDrop(var/atom/over)
+	. = ..()
+	if(istype(over, /obj/machinery/hydroponics))
+		var/obj/machinery/hydroponics/O = over
+		if(O.myseed)
+			to_chat(src, "<span class='userdanger'>This tray is already in use!</span>")
+			return
+		O.myseed = seed
+		src.visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
+		qdel(src)
 
-
+/obj/item/organ/brain/grod/attack_obj(var/obj/O)
+	. = ..()
+	if(istype(O, /obj/machinery/hydroponics))
+		var/obj/machinery/hydroponics/Ob = O
+		if(Ob.myseed)
+			to_chat(src, "<span class='userdanger'>This tray is already in use!</span>")
+			return
+		Ob.myseed = seed
+		src.visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
+		qdel(src)
 ////////////////////////////////////TRAUMAS////////////////////////////////////
 
 /obj/item/organ/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)

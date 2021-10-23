@@ -136,21 +136,6 @@
 	var/datum/mind/M = H.mind
 	var/list/organs = H.getorganszone(BODY_ZONE_HEAD, 1)
 	var/turf = get_turf(H)
-	var/obj/item/seeds/replicapod/grodpod/seed = new
-	var/list/blood_data = H.get_blood_data(H.get_blood_id())
-	var/crown_feature = H.dna.features["grod_crown"]
-
-	if(blood_data["mind"] && blood_data["cloneable"])
-		seed.mind = blood_data["mind"]
-		seed.ckey = blood_data["ckey"]
-		seed.realName = blood_data["real_name"]
-		seed.blood_gender = blood_data["gender"]
-		seed.blood_type = blood_data["blood_type"]
-		seed.features = blood_data["features"]
-		seed.factions = blood_data["factions"]
-		seed.quirks = blood_data["quirks"]
-		seed.sampleDNA = blood_data["blood_DNA"]
-
 
 	for(var/obj/item/organ/brain/I in organs)
 		I.Remove(H, 1)
@@ -163,11 +148,6 @@
 		I.forceMove(crown)
 		crown.health = (200 - I.damage) > crown.maxHealth ? crown.maxHealth : 200 - I.damage
 
-	seed.features["grod_crown"] = crown_feature //agony
-	crown.seed = seed
-	if(seed)
-		log_cloning("[key_name(M)]'s cloning record was added to [crown] at [AREACOORD(crown)].")
-		qdel(seed)
 	crown.origin = M
 	if(crown.origin)
 		crown.origin.active = 1
@@ -363,28 +343,28 @@
 	held_state = "crown_spider"
 	initial_language_holder = /datum/language_holder/grodcrown //They can only speak Poh'lan in spider
 	var/datum/mind/origin
-	var/obj/item/seeds/replicapod/grodpod/seed
 
 /mob/living/simple_animal/hostile/crown_spider/MouseDrop(var/atom/over)
 	. = ..()
 	if(ishuman(over))
 		var/mob/living/carbon/human/H = over
-		if(H.stat == DEAD)
+		if(H.stat > CONSCIOUS)
 			if(alert("This one is no longer living. Are you sure we should infest it?",,"Yes", "No") == "No")
 				return
 		if(H.getorganslot(ORGAN_SLOT_BRAIN))
 			to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 			return
 		Infect(H)
+
 	if(istype(over, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/O = over
-		if(O.myseed)
-			to_chat(src, "<span class='userdanger'>This tray is already in use!</span>")
-			return
-		O.myseed = seed
-		seed = null
-		src.visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
-		qdel(src)
+		for(var/obj/item/organ/brain/grod/brain in src)
+			if(O.myseed)
+				to_chat(src, "<span class='userdanger'>This tray is already in use!</span>")
+				return
+			O.myseed = brain.seed
+			src.visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
+			qdel(src)
 
 /mob/living/simple_animal/hostile/crown_spider/proc/Infect(mob/living/carbon/C)
 	if(!origin)

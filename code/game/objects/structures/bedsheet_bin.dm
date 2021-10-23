@@ -24,6 +24,8 @@ LINEN BINS
 	dog_fashion = /datum/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")
 
+	sprite_sheets = FLAG_GROD
+
 /obj/item/bedsheet/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/bed_tuckable, 0, 0, 0)
