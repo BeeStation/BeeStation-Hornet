@@ -276,7 +276,7 @@
 		if("pink")
 			. = "D7377D"
 
-/mob/living/carbon/proc/Digitigrade_Leg_Swap(swap_back)
+/*/mob/living/carbon/proc/Digitigrade_Leg_Swap(swap_back)
 	var/body_plan_changed = FALSE
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/O = X
@@ -310,3 +310,4 @@
 				H.update_inv_w_uniform()
 		if(H.shoes && !swap_back)
 			H.dropItemToGround(H.shoes)
+*/

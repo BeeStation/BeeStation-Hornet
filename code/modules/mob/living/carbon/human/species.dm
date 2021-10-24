@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/name	// this is the fluff name. these will be left generic (such as 'Lizardperson' for the lizard race) so servers can change them to whatever
 	var/bodyflag = FLAG_HUMAN //Species flags currently used for species restriction on items
 	var/default_color = "#FFF"	// if alien colors are disabled, this is the color that will be used by that race
-
+	var/list/bodytype = list(BODYTYPE_HUMANOID)
 	var/sexes = 1		// whether or not the race has sexual characteristics. at the moment this is only 0 for skeletons and shadows
 
 	var/list/offset_features = list(OFFSET_UNIFORM = list(0,0), OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,0), OFFSET_GLASSES = list(0,0), OFFSET_EARS = list(0,0), OFFSET_SHOES = list(0,0), OFFSET_S_STORE = list(0,0), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), OFFSET_SUIT = list(0,0), OFFSET_NECK = list(0,0), OFFSET_RIGHT_HAND = list(0,0), OFFSET_LEFT_HAND = list(0,0))
@@ -16,6 +16,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/hair_color	// this allows races to have specific hair colors... if null, it uses the H's hair/facial hair colors. if "mutcolor", it uses the H's mutant_color
 	var/hair_alpha = 255	// the alpha used by the hair. 255 is completely solid, 0 is transparent.
 
+	var/digitigrade_customization = DIGITIGRADE_NEVER
 	var/use_skintones = 0	// does it use skintones or not? (spoiler alert this is only used by humans)
 	var/exotic_blood = ""	// If your race wants to bleed something other than bog standard blood, change this to reagent id.
 	var/exotic_bloodtype = "" //If your race uses a non standard bloodtype (A+, O-, AB-, etc)
@@ -93,6 +94,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	//The component to add when swimming
 	var/swimming_component = /datum/component/swimming
+
+
+	var/obj/item/bodypart/species_chest = /obj/item/bodypart/chest
+	var/obj/item/bodypart/species_head = /obj/item/bodypart/head
+	var/obj/item/bodypart/species_l_arm = /obj/item/bodypart/l_arm
+	var/obj/item/bodypart/species_r_arm = /obj/item/bodypart/r_arm
+	var/obj/item/bodypart/species_r_leg = /obj/item/bodypart/r_leg
+	var/obj/item/bodypart/species_l_leg = /obj/item/bodypart/l_leg
 
 ///////////
 // PROCS //
@@ -271,6 +280,47 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	for(var/path in mutant_organs)
 		var/obj/item/organ/I = new path()
 		I.Insert(C)
+/datum/species/proc/write_species_limbs()
+	return
+/datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
+	new_species ||= C.dna?.species
+
+	if((new_species.digitigrade_customization >= DIGITIGRADE_OPTIONAL) && C.dna?.features["legs"] == "Digitigrade Legs")
+		new_species.species_r_leg = /obj/item/bodypart/r_leg/digitigrade
+		new_species.species_l_leg = /obj/item/bodypart/l_leg/digitigrade
+
+	for(var/obj/item/bodypart/old_part in C.bodyparts)
+		switch(old_part.body_zone)
+			if(BODY_ZONE_HEAD)
+				var/obj/item/bodypart/head/new_part = new new_species.species_head()
+				new_part.replace_limb(C, TRUE)
+				new_part.update_limb(,,TRUE)
+				qdel(old_part)
+			if(BODY_ZONE_CHEST)
+				var/obj/item/bodypart/chest/new_part = new new_species.species_chest()
+				new_part.replace_limb(C, TRUE)
+				new_part.update_limb(,,TRUE)
+				qdel(old_part)
+			if(BODY_ZONE_L_ARM)
+				var/obj/item/bodypart/l_arm/new_part = new new_species.species_l_arm()
+				new_part.replace_limb(C, TRUE)
+				new_part.update_limb(,,TRUE)
+				qdel(old_part)
+			if(BODY_ZONE_R_ARM)
+				var/obj/item/bodypart/r_arm/new_part = new new_species.species_r_arm()
+				new_part.replace_limb(C, TRUE)
+				new_part.update_limb(,,TRUE)
+				qdel(old_part)
+			if(BODY_ZONE_L_LEG)
+				var/obj/item/bodypart/l_leg/new_part = new new_species.species_l_leg()
+				new_part.replace_limb(C, TRUE)
+				new_part.update_limb(,,TRUE)
+				qdel(old_part)
+			if(BODY_ZONE_R_LEG)
+				var/obj/item/bodypart/r_leg/new_part = new new_species.species_r_leg()
+				new_part.replace_limb(C, TRUE)
+				new_part.update_limb(,,TRUE)
+				qdel(old_part)
 
 /datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load)
 	// Drop the items the new species can't wear
@@ -283,11 +333,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(C.hud_used)
 		C.hud_used.update_locked_slots()
 
+	replace_body(C)
+
+
 	// this needs to be FIRST because qdel calls update_body which checks if we have DIGITIGRADE legs or not and if not then removes DIGITIGRADE from species_traits
 	if(("legs" in C.dna.species.mutant_bodyparts) && C.dna.features["legs"] == "Digitigrade Legs")
 		species_traits += DIGITIGRADE
-	if(DIGITIGRADE in species_traits)
-		C.Digitigrade_Leg_Swap(FALSE)
+	/*if(DIGITIGRADE in species_traits)
+		C.Digitigrade_Leg_Swap(FALSE)*/
 
 	C.mob_biotypes = inherent_biotypes
 
@@ -356,8 +409,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	if(C.dna.species.exotic_bloodtype)
 		C.dna.blood_type = random_blood_type()
-	if(DIGITIGRADE in species_traits)
-		C.Digitigrade_Leg_Swap(TRUE)
+	/*if(DIGITIGRADE in species_traits)
+		C.Digitigrade_Leg_Swap(TRUE)*/
 	if(ROBOTIC_LIMBS in species_traits)
 		for(var/obj/item/bodypart/B in C.bodyparts)
 			B.change_bodypart_status(BODYPART_ORGANIC, FALSE, TRUE)
@@ -382,7 +435,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		for(var/i in inherent_factions)
 			C.faction -= i
 	C.remove_movespeed_modifier(MOVESPEED_ID_SPECIES)
-
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
 
 /datum/species/proc/handle_hair(mob/living/carbon/human/H, forced_colour)
@@ -674,7 +726,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			bodyparts_to_add -= "ipc_antenna"
 
 	//Digitigrade legs are stuck in the phantom zone between true limbs and mutant bodyparts. Mainly it just needs more agressive updating than most limbs.
-	var/update_needed = FALSE
+	/*var/update_needed = FALSE
 	var/not_digitigrade = TRUE
 	for(var/X in H.bodyparts)
 		var/obj/item/bodypart/O = X
@@ -695,7 +747,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(update_needed)
 		H.update_body_parts()
 	if(not_digitigrade && (DIGITIGRADE in species_traits)) //Curse is lifted
-		species_traits -= DIGITIGRADE
+		species_traits -= DIGITIGRADE*/
 
 	if(!bodyparts_to_add)
 		return

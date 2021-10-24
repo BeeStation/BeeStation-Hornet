@@ -123,6 +123,8 @@
 				continue
 			O.transfer_to_limb(src, C)
 
+	synchronize_bodytypes(C)
+
 	update_icon_dropped()
 	C.update_health_hud() //update the healthdoll
 	C.update_body()
@@ -303,6 +305,8 @@
 	for(var/obj/item/organ/O in contents)
 		O.Insert(C)
 
+	synchronize_bodytypes(C)
+
 	update_bodypart_damage_state()
 
 	C.updatehealth()
@@ -352,6 +356,17 @@
 
 	..()
 
+/obj/item/bodypart/proc/synchronize_bodytypes(mob/living/carbon/C)
+	if(!C.dna?.species)
+		return
+	//This codeblock makes sure that the owner's bodytype flags match the flags of all of it's parts.
+	var/all_limb_flags = list()
+	for(var/obj/item/bodypart/BP in C.bodyparts)
+		for(var/flag in BP.bodytype)
+			if(!(flag in all_limb_flags))
+				all_limb_flags += flag
+
+	C.dna.species.bodytype = all_limb_flags
 
 //Regenerates all limbs. Returns amount of limbs regenerated
 /mob/living/proc/regenerate_limbs(noheal, excluded_limbs)

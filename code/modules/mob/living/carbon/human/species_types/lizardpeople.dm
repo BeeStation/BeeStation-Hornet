@@ -25,6 +25,15 @@
 	inert_mutation = FIREBREATH
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
+	digitigrade_customization = DIGITIGRADE_OPTIONAL
+
+	species_chest = /obj/item/bodypart/chest/lizard
+	species_head = /obj/item/bodypart/head/lizard
+	species_l_arm = /obj/item/bodypart/l_arm/lizard
+	species_r_arm = /obj/item/bodypart/r_arm/lizard
+	species_l_leg = /obj/item/bodypart/l_leg/lizard
+	species_r_leg = /obj/item/bodypart/r_leg/lizard
+
 
 /datum/species/lizard/random_name(gender,unique,lastname)
 	if(unique)
@@ -76,6 +85,7 @@
 	name = "Ash Walker"
 	id = "ashlizard"
 	limbs_id = "lizard"
-	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,DIGITIGRADE)
+	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
 	inherent_traits = list(TRAIT_NOGUNS,TRAIT_NOBREATH)
 	species_language_holder = /datum/language_holder/lizard/ash
+	digitigrade_customization = DIGITIGRADE_FORCED

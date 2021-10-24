@@ -121,8 +121,6 @@ There are several things that need to be remembered:
 			t_color = U.icon_state
 		if(U.adjusted == ALT_STYLE)
 			t_color = "[t_color]_d"
-		else if(U.adjusted == DIGITIGRADE_STYLE)
-			t_color = "[t_color]_l"
 
 		var/mutable_appearance/uniform_overlay
 
@@ -135,6 +133,22 @@ There are several things that need to be remembered:
 		if(!uniform_overlay)
 			if(U.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("uniform")
+
+			//Kapu's autistic attempt at digitigrade handling
+			if(BODYTYPE_DIGITIGRADE in dna?.species.bodytype)
+				if(U.supports_variations & DIGITIGRADE_VARIATION)
+					icon_file = 'icons/mob/species/misc/digitigrade.dmi'
+					for(var/obj/item/bodypart/BP in bodyparts)
+						if(DIGITIGRADE in BP.bodytype)
+							BP.limb_id = "digitigrade"
+							BP.update_limb()
+				else
+					for(var/obj/item/bodypart/BP in bodyparts)
+						if(DIGITIGRADE in BP.bodytype)
+							BP.limb_id = "lizard"
+							BP.update_limb()
+
+
 			uniform_overlay = U.build_worn_icon(state = "[t_color]", default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE)
 
 
@@ -734,7 +748,7 @@ generate/load female uniform sprites matching all previously decided variables
 
 //produces a key based on the human's limbs
 /mob/living/carbon/human/generate_icon_render_key()
-	. = "[dna.species.limbs_id]"
+	. = "[dna.species.id]"
 
 	if(dna.check_mutation(HULK))
 		. += "-coloured-hulk"
@@ -756,8 +770,6 @@ generate/load female uniform sprites matching all previously decided variables
 			. += "-organic"
 		else
 			. += "-robotic"
-		if(BP.use_digitigrade)
-			. += "-digitigrade[BP.use_digitigrade]"
 		if(BP.dmg_overlay_type)
 			. += "-[BP.dmg_overlay_type]"
 

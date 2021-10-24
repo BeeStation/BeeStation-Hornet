@@ -12,11 +12,18 @@
 	var/status = BODYPART_ORGANIC
 	var/needs_processing = FALSE
 
+	var/list/bodytype = list(BODYTYPE_HUMANOID)
+	var/ishusked = FALSE
+	var/limb_id = SPECIES_HUMAN
+	var/limb_gender
+	var/uses_mutcolor = FALSE
+	var/is_dimorphic = FALSE //Is there a sprite difference between male and female?
+
 	var/body_zone //BODY_ZONE_CHEST, BODY_ZONE_L_ARM, etc , used for def_zone
 	var/aux_zone // used for hands
 	var/aux_layer
 	var/body_part = null //bitflag used to check which clothes cover this bodypart
-	var/use_digitigrade = NOT_DIGITIGRADE //Used for alternate legs, useless elsewhere
+
 	var/list/embedded_objects = list()
 	var/held_index = 0 //are we a hand? if so, which one!
 	var/render_like_organic = FALSE // TRUE is for when you want a BODYPART_ROBOTIC to pretend to be a BODYPART_ORGANIC.
@@ -286,7 +293,7 @@
 	return (status == BODYPART_ORGANIC)
 
 //we inform the bodypart of the changes that happened to the owner, or give it the informations from a source mob.
-/obj/item/bodypart/proc/update_limb(dropping_limb, mob/living/carbon/source)
+/obj/item/bodypart/proc/update_limb(dropping_limb, mob/living/carbon/source, is_creating = FALSE)
 	var/mob/living/carbon/C
 	if(source)
 		C = source
@@ -306,6 +313,9 @@
 		no_update = TRUE
 
 	if(no_update)
+		return
+
+	if(!is_creating)
 		return
 
 	if(!animal_origin)
@@ -403,8 +413,6 @@
 			limb.icon = 'icons/mob/human_parts_greyscale.dmi'
 			if(should_draw_gender)
 				limb.icon_state = "[species_id]_[body_zone]_[icon_gender]"
-			else if(use_digitigrade)
-				limb.icon_state = "digitigrade_[use_digitigrade]_[body_zone]"
 			else
 				limb.icon_state = "[species_id]_[body_zone]"
 		else
@@ -452,6 +460,7 @@
 	px_y = 0
 	stam_damage_coeff = 1
 	max_stamina_damage = 120
+	is_dimorphic = TRUE
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
@@ -667,9 +676,6 @@
 		if(owner.stat < DEAD)
 			to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
 
-/obj/item/bodypart/l_leg/digitigrade
-	name = "left digitigrade leg"
-	use_digitigrade = FULL_DIGITIGRADE
 
 /obj/item/bodypart/l_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'
@@ -729,9 +735,6 @@
 		if(owner.stat < DEAD)
 			to_chat(owner, "<span class='userdanger'>You can't feel your [name]!</span>")
 
-/obj/item/bodypart/r_leg/digitigrade
-	name = "right digitigrade leg"
-	use_digitigrade = FULL_DIGITIGRADE
 
 /obj/item/bodypart/r_leg/monkey
 	icon = 'icons/mob/animal_parts.dmi'

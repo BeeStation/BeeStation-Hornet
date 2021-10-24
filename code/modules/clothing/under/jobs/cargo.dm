@@ -22,7 +22,7 @@
 	item_state = "cargo"
 	item_color = "cargo"
 	body_parts_covered = CHEST|GROIN|ARMS
-	mutantrace_variation = MUTANTRACE_VARIATION
+	supports_variations = DIGITIGRADE_VARIATION
 	alt_covers_chest = TRUE
 
 /obj/item/clothing/under/rank/cargo/tech/skirt
@@ -34,7 +34,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
-	mutantrace_variation = NO_MUTANTRACE_VARIATION
+	supports_variations = null
 
 /obj/item/clothing/under/rank/cargo/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."

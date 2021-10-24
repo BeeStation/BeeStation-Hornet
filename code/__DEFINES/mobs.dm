@@ -104,6 +104,14 @@
 #define FLAG_SQUID			(1<<10)
 #define FLAG_DEBUG_SPECIES	(1<<11)
 
+#define BODYTYPE_HUMANOID		"humanoid"
+#define BODYTYPE_BOXHEAD		"boxhead"
+#define BODYTYPE_DIGITIGRADE	"digitigrade"
+
+#define DIGITIGRADE_NEVER 0
+#define DIGITIGRADE_OPTIONAL 1
+#define DIGITIGRADE_FORCED 2
+
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
 #define PROCESS_SYNTHETIC 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"

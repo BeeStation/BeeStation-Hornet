@@ -266,8 +266,6 @@
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
 		. += "-[BP.body_zone]"
-		if(BP.use_digitigrade)
-			. += "-digitigrade[BP.use_digitigrade]"
 		if(BP.animal_origin)
 			. += "-[BP.animal_origin]"
 		if(BP.status == BODYPART_ORGANIC)
