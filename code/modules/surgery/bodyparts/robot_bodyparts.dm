@@ -102,6 +102,7 @@
 	flags_1 = CONDUCT_1
 	icon_state = "borg_chest"
 	status = BODYPART_ROBOTIC
+	is_dimorphic = FALSE
 
 	brute_reduction = 5
 	burn_reduction = 4
@@ -202,6 +203,7 @@
 	flags_1 = CONDUCT_1
 	icon_state = "borg_head"
 	status = BODYPART_ROBOTIC
+	is_dimorphic = FALSE
 
 	brute_reduction = 5
 	burn_reduction = 4

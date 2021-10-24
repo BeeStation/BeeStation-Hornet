@@ -4,7 +4,8 @@
 	desc = "Why is it detached..."
 	force = 3
 	throwforce = 3
-	icon = 'icons/mob/human_parts.dmi'
+	icon = 'icons/mob/human_parts_greyscale.dmi'
+	var/static_icon = 'icons/mob/human_parts.dmi' //Uncolorable sprites
 	icon_state = ""
 	layer = BELOW_MOB_LAYER //so it isn't hidden behind objects when on the floor
 	var/mob/living/carbon/owner = null
@@ -12,10 +13,10 @@
 	var/status = BODYPART_ORGANIC
 	var/needs_processing = FALSE
 
-	var/list/bodytype = list(BODYTYPE_HUMANOID)
-	var/ishusked = FALSE
-	var/limb_id = SPECIES_HUMAN
-	var/limb_gender
+	var/list/bodytype = list(BODYTYPE_HUMANOID) //List of bodytypes flags, important for fitting clothing.
+	var/is_husked = FALSE
+	var/limb_id = SPECIES_HUMAN //This is effectively the icon_state for limbs.
+	var/limb_gender //Defines what sprite the limb should use if it is also sexually dimorphic.
 	var/uses_mutcolor = FALSE
 	var/is_dimorphic = FALSE //Is there a sprite difference between male and female?
 
@@ -47,10 +48,9 @@
 
 	//Coloring and proper item icon update
 	var/skin_tone = ""
-	var/body_gender = ""
 	var/species_id = ""
 	var/should_draw_gender = FALSE
-	var/should_draw_greyscale = FALSE
+	var/should_draw_greyscale = TRUE //Is the sprite going to be greyscale, or a static color defined by the DMI?
 	var/species_color = ""
 	var/mutation_color = ""
 	var/no_update = 0
@@ -306,11 +306,16 @@
 		no_update = FALSE
 
 	if(HAS_TRAIT(C, TRAIT_HUSK) && is_organic_limb())
-		species_id = "husk" //overrides species_id
 		dmg_overlay_type = "" //no damage overlay shown when husked
 		should_draw_gender = FALSE
 		should_draw_greyscale = FALSE
 		no_update = TRUE
+		is_husked = TRUE
+
+	if(!dropping_limb && C.dna?.check_mutation(HULK)) //Please remove hulk from the game. I beg you.
+		mutation_color = "00aa00"
+	else
+		mutation_color = ""
 
 	if(no_update)
 		return
@@ -323,8 +328,7 @@
 		should_draw_greyscale = FALSE
 
 		var/datum/species/S = H.dna.species
-		species_id = S.limbs_id
-		species_flags_list = H.dna.species.species_traits
+		species_flags_list = H.dna.species.species_traits //Kapu: Literally only exists for a single use of NOBLOOD, but, no reason to remove it i guess...?
 
 		if(S.use_skintones)
 			skin_tone = H.skin_tone
@@ -332,10 +336,11 @@
 		else
 			skin_tone = ""
 
-		body_gender = H.gender
 		should_draw_gender = S.sexes
+		if(should_draw_gender) //Assigns the limb a gender for rendering
+			limb_gender = (H.gender == MALE) ? "m" : "f"
 
-		if((MUTCOLORS in S.species_traits) || (DYNCOLORS in S.species_traits))
+		if(((MUTCOLORS in S.species_traits) || (DYNCOLORS in S.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
 			if(S.fixed_mut_color)
 				species_color = S.fixed_mut_color
 			else
@@ -343,11 +348,6 @@
 			should_draw_greyscale = TRUE
 		else
 			species_color = ""
-
-		if(!dropping_limb && H.dna.check_mutation(HULK))
-			mutation_color = "00aa00"
-		else
-			mutation_color = ""
 
 		dmg_overlay_type = S.damage_overlay_type
 
@@ -391,10 +391,15 @@
 	var/image/aux
 	. += limb
 
-	if(animal_origin)
+	if(is_husked)
+		limb.icon = 'icons/mob/human_parts.dmi'
+		limb.icon_state = "[limb_id]_husk_[body_zone]"
+		return
+
+	if(animal_origin) //Cringe ass animal-specific code.
 		if(is_organic_limb())
 			limb.icon = 'icons/mob/animal_parts.dmi'
-			if(species_id == "husk")
+			if(limb_id == "husk")
 				limb.icon_state = "[animal_origin]_husk_[body_zone]"
 			else
 				limb.icon_state = "[animal_origin]_[body_zone]"
@@ -403,33 +408,23 @@
 			limb.icon_state = "[animal_origin]_[body_zone]"
 		return
 
-	var/icon_gender = (body_gender == FEMALE) ? "f" : "m" //gender of the icon, if applicable
-
-	if((body_zone != BODY_ZONE_HEAD && body_zone != BODY_ZONE_CHEST))
-		should_draw_gender = FALSE
-
 	if(status == BODYPART_ORGANIC || (status == BODYPART_ROBOTIC && render_like_organic == TRUE)) // So IPC augments can be colorful without disrupting normal BODYPART_ROBOTIC render code.
-		if(should_draw_greyscale)
-			limb.icon = 'icons/mob/human_parts_greyscale.dmi'
-			if(should_draw_gender)
-				limb.icon_state = "[species_id]_[body_zone]_[icon_gender]"
-			else
-				limb.icon_state = "[species_id]_[body_zone]"
+		limb.icon = icon
+		if(!should_draw_greyscale)
+			limb.icon = static_icon
+		if(is_dimorphic) //Does this type of limb have sexual dimorphism?
+			limb.icon_state = "[limb_id]_[body_zone]_[limb_gender]"
 		else
-			limb.icon = 'icons/mob/human_parts.dmi'
-			if(should_draw_gender)
-				limb.icon_state = "[species_id]_[body_zone]_[icon_gender]"
-			else
-				limb.icon_state = "[species_id]_[body_zone]"
+			limb.icon_state = "[limb_id]_[body_zone]"
 
-		if(aux_zone)
-			aux = image(limb.icon, "[species_id]_[aux_zone]", -aux_layer, image_dir)
+		if(aux_zone) //Hand shit
+			aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
 			. += aux
 
-	else
+	else //Robotic limb handling
 		limb.icon = icon
-		if(should_draw_gender)
-			limb.icon_state = "[body_zone]_[icon_gender]"
+		if(is_dimorphic)
+			limb.icon_state = "[body_zone]_[limb_gender]" //Robotic limbs are stored without a species identifier
 		else
 			limb.icon_state = "[body_zone]"
 		if(aux_zone)
@@ -438,7 +433,7 @@
 		return
 
 
-	if(should_draw_greyscale)
+	if(should_draw_greyscale) //Should the limb be colored?
 		var/draw_color = mutation_color || species_color || (skin_tone && skintone2hex(skin_tone))
 		if(draw_color)
 			limb.color = "#[draw_color]"

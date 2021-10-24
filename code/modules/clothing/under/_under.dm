@@ -14,7 +14,6 @@
 	var/alt_covers_chest = FALSE // for adjusted/rolled-down jumpsuits, FALSE = exposes chest and arms, TRUE = exposes arms only
 	var/obj/item/clothing/accessory/attached_accessory
 	var/mutable_appearance/accessory_overlay
-	var/supports_variations = null //This is a bitfield that defines what variations exist for bodyparts like Digi legs.
 	var/freshly_laundered = FALSE
 	var/dodgy_colours = FALSE
 

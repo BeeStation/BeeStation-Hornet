@@ -1953,12 +1953,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(!initial(organ_eyes.eye_color))
 			organ_eyes.eye_color = eye_color
 		organ_eyes.old_eye_color = eye_color
-	character.hair_color = hair_color
-	character.facial_hair_color = facial_hair_color
 
 	character.skin_tone = skin_tone
-	character.hair_style = hair_style
-	character.facial_hair_style = facial_hair_style
 	character.underwear = underwear
 	character.underwear_color = underwear_color
 	character.undershirt = undershirt
@@ -1978,7 +1974,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	character.dna.features = features.Copy()
 	character.set_species(chosen_species, icon_update = FALSE, pref_load = TRUE)
+	//Because of how set_species replaces all bodyparts with new ones, hair needs to be set AFTER species.
 	character.dna.real_name = character.real_name
+	character.hair_color = hair_color
+	character.facial_hair_color = facial_hair_color
+
+	character.hair_style = hair_style
+	character.facial_hair_style = facial_hair_style
 
 	if("tail_lizard" in pref_species.default_features)
 		character.dna.species.mutant_bodyparts |= "tail_lizard"
@@ -1986,7 +1988,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(icon_updates)
 		character.update_body()
 		character.update_hair()
-		character.update_body_parts()
+		character.update_body_parts(TRUE)
 
 /datum/preferences/proc/get_default_name(name_id)
 	switch(name_id)

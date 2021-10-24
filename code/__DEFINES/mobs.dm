@@ -60,6 +60,11 @@
 #define BODYPART_ORGANIC   1
 #define BODYPART_ROBOTIC   2
 
+//Bodytype defines for how things can be worn.
+#define BODYTYPE_HUMANOID		"humanoid" //Everything that isnt Grod
+#define BODYTYPE_BOXHEAD		"boxhead" //TV Head
+#define BODYTYPE_DIGITIGRADE	"digitigrade" //Cancer
+
 #define BODYPART_NOT_DISABLED 0
 #define BODYPART_DISABLED_DAMAGE 1
 #define BODYPART_DISABLED_PARALYSIS 2
@@ -103,10 +108,6 @@
 #define FLAG_FLY			(1<<9)
 #define FLAG_SQUID			(1<<10)
 #define FLAG_DEBUG_SPECIES	(1<<11)
-
-#define BODYTYPE_HUMANOID		"humanoid"
-#define BODYTYPE_BOXHEAD		"boxhead"
-#define BODYTYPE_DIGITIGRADE	"digitigrade"
 
 #define DIGITIGRADE_NEVER 0
 #define DIGITIGRADE_OPTIONAL 1

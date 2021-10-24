@@ -5,7 +5,7 @@
 	bodyflag = FLAG_LIZARD
 	say_mod = "hisses"
 	default_color = "00FF00"
-	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
+	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,NO_UNDERWEAR)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list("tail_lizard", "snout", "spines", "horns", "frills", "body_markings", "legs")
 	mutanttongue = /obj/item/organ/tongue/lizard
@@ -84,7 +84,6 @@
 /datum/species/lizard/ashwalker
 	name = "Ash Walker"
 	id = "ashlizard"
-	limbs_id = "lizard"
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS)
 	inherent_traits = list(TRAIT_NOGUNS,TRAIT_NOBREATH)
 	species_language_holder = /datum/language_holder/lizard/ash

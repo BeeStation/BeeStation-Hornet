@@ -24,6 +24,13 @@
 	species_language_holder = /datum/language_holder/squid
 	swimming_component = /datum/component/swimming/squid
 
+	species_chest = /obj/item/bodypart/chest/squid
+	species_head = /obj/item/bodypart/head/squid
+	species_l_arm = /obj/item/bodypart/l_arm/squid
+	species_r_arm = /obj/item/bodypart/r_arm/squid
+	species_l_leg = /obj/item/bodypart/l_leg/squid
+	species_r_leg = /obj/item/bodypart/r_leg/squid
+
 /mob/living/carbon/human/species/squid
 	race = /datum/species/squid
 

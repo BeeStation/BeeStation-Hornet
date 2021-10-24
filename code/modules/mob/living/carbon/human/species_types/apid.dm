@@ -27,6 +27,13 @@
 	inert_mutation = WAXSALIVA
 	var/cold_cycle = 0
 
+	species_chest = /obj/item/bodypart/chest/apid
+	species_head = /obj/item/bodypart/head/apid
+	species_l_arm = /obj/item/bodypart/l_arm/apid
+	species_r_arm = /obj/item/bodypart/r_arm/apid
+	species_l_leg = /obj/item/bodypart/l_leg/apid
+	species_r_leg = /obj/item/bodypart/r_leg/apid
+
 /datum/species/apid/spec_life(mob/living/carbon/human/H)
 	. = ..()
 	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !H.IsSleeping() && !HAS_TRAIT(H,TRAIT_RESISTCOLD)) // Sleep when cold, like bees

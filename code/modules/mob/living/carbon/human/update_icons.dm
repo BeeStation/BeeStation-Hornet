@@ -60,7 +60,7 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_body()
 	remove_overlay(BODY_LAYER)
 	dna.species.handle_body(src)
-	..()
+	//..() Handle Body calls update_body_parts
 
 /mob/living/carbon/human/update_fire()
 	..((fire_stacks > HUMAN_FIRE_STACK_ICON_NUM) ? "Standing" : "Generic_mob_burning")
@@ -138,16 +138,6 @@ There are several things that need to be remembered:
 			if(BODYTYPE_DIGITIGRADE in dna?.species.bodytype)
 				if(U.supports_variations & DIGITIGRADE_VARIATION)
 					icon_file = 'icons/mob/species/misc/digitigrade.dmi'
-					for(var/obj/item/bodypart/BP in bodyparts)
-						if(DIGITIGRADE in BP.bodytype)
-							BP.limb_id = "digitigrade"
-							BP.update_limb()
-				else
-					for(var/obj/item/bodypart/BP in bodyparts)
-						if(DIGITIGRADE in BP.bodytype)
-							BP.limb_id = "lizard"
-							BP.update_limb()
-
 
 			uniform_overlay = U.build_worn_icon(state = "[t_color]", default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE)
 
@@ -336,6 +326,11 @@ There are several things that need to be remembered:
 			var/obj/item/clothing/shoes/S = shoes
 			if(S.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("shoes")
+
+			if(BODYTYPE_DIGITIGRADE in dna?.species.bodytype)
+				if(S.supports_variations & DIGITIGRADE_VARIATION)
+					icon_file = 'icons/mob/species/misc/digitigrade_shoes.dmi'
+
 		shoes.screen_loc = ui_shoes					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
@@ -798,7 +793,7 @@ generate/load female uniform sprites matching all previously decided variables
 					break
 
 // Only renders the head of the human
-/mob/living/carbon/human/proc/update_body_parts_head_only()
+/mob/living/carbon/human/proc/update_body_parts_head_only(var/forced_update)
 	if (!dna)
 		return
 
@@ -810,7 +805,7 @@ generate/load female uniform sprites matching all previously decided variables
 	if (!istype(HD))
 		return
 
-	HD.update_limb()
+	HD.update_limb(,,forced_update)
 
 	add_overlay(HD.get_limb_icon())
 	update_damage_overlays()

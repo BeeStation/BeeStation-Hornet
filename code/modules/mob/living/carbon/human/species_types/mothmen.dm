@@ -20,6 +20,13 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
 
+	species_chest = /obj/item/bodypart/chest/moth
+	species_head = /obj/item/bodypart/head/moth
+	species_l_arm = /obj/item/bodypart/l_arm/moth
+	species_r_arm = /obj/item/bodypart/r_arm/moth
+	species_l_leg = /obj/item/bodypart/l_leg/moth
+	species_r_leg = /obj/item/bodypart/r_leg/moth
+
 /datum/species/moth/random_name(gender,unique,lastname)
 	if(unique)
 		return random_unique_moth_name()

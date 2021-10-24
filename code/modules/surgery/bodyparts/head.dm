@@ -1,7 +1,7 @@
 /obj/item/bodypart/head
 	name = BODY_ZONE_HEAD
 	desc = "Didn't make sense not to live for fun, your brain gets smart but your head gets dumb."
-	icon = 'icons/mob/human_parts.dmi'
+	icon = 'icons/mob/human_parts_greyscale.dmi'
 	icon_state = "default_human_head"
 	max_damage = 200
 	body_zone = BODY_ZONE_HEAD
@@ -125,7 +125,7 @@
 	ears = null
 	tongue = null
 
-/obj/item/bodypart/head/update_limb(dropping_limb, mob/living/carbon/source)
+/obj/item/bodypart/head/update_limb(dropping_limb, mob/living/carbon/source, is_creating)
 	var/mob/living/carbon/C
 	if(source)
 		C = source

@@ -285,7 +285,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	new_species ||= C.dna?.species
 
-	if((new_species.digitigrade_customization >= DIGITIGRADE_OPTIONAL) && C.dna?.features["legs"] == "Digitigrade Legs")
+	if(((new_species.digitigrade_customization == DIGITIGRADE_OPTIONAL) && C.dna?.features["legs"] == "Digitigrade Legs") || new_species.digitigrade_customization == DIGITIGRADE_FORCED)
 		new_species.species_r_leg = /obj/item/bodypart/r_leg/digitigrade
 		new_species.species_l_leg = /obj/item/bodypart/l_leg/digitigrade
 
@@ -724,6 +724,28 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if("ipc_antenna" in mutant_bodyparts)
 		if(!H.dna.features["ipc_antenna"] || H.dna.features["ipc_antenna"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD)
 			bodyparts_to_add -= "ipc_antenna"
+
+
+	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
+	if(BODYTYPE_DIGITIGRADE in H.dna?.species.bodytype)
+		if(!(H.w_uniform) || (H.w_uniform?.supports_variations & DIGITIGRADE_VARIATION)) //Checks uniform compatibility
+			if((!H.wear_suit) || (H.wear_suit?.supports_variations & DIGITIGRADE_VARIATION) || !(H.wear_suit?.body_parts_covered & LEGS)) //Checks suit compatability
+				for(var/obj/item/bodypart/BP in H.bodyparts)
+					if(BODYTYPE_DIGITIGRADE in BP.bodytype)
+						if(!(BP.limb_id == "digitigrade"))
+							BP.limb_id = "digitigrade"
+
+
+		else
+			for(var/obj/item/bodypart/BP in H.bodyparts)
+				if(BODYTYPE_DIGITIGRADE in BP.bodytype)
+					if(!(BP.limb_id == "lizard"))
+						BP.limb_id = "lizard"
+
+
+
+	////END REAL-LIMB HANDLING
+	H.update_body_parts()
 
 	//Digitigrade legs are stuck in the phantom zone between true limbs and mutant bodyparts. Mainly it just needs more agressive updating than most limbs.
 	/*var/update_needed = FALSE

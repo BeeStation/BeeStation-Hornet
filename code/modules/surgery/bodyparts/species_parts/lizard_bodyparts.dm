@@ -1,13 +1,14 @@
 /obj/item/bodypart/head/lizard
 	icon = 'icons/mob/species/lizard/bodyparts.dmi'
-	limb_id = "lizard" //This is appended to in display code. Example: lizard_head_m
+	limb_id = "lizard"
 	uses_mutcolor = TRUE
+	is_dimorphic = FALSE
 
 /obj/item/bodypart/chest/lizard
 	icon = 'icons/mob/species/lizard/bodyparts.dmi'
 	uses_mutcolor = TRUE
 	limb_id = "lizard"
-
+	is_dimorphic = FALSE
 
 /obj/item/bodypart/l_arm/lizard
 	icon = 'icons/mob/species/lizard/bodyparts.dmi'
