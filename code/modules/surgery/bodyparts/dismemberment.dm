@@ -308,8 +308,8 @@
 	synchronize_bodytypes(C)
 
 	update_bodypart_damage_state()
-
-	C.updatehealth()
+	if(!special) //This causes a runtime on carbon init otherwise. Special is only used by mob init and some weird exceptions so its probably fine.
+		C.updatehealth()
 	C.update_body()
 	C.update_hair()
 	C.update_damage_overlays()
