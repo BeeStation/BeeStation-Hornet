@@ -327,9 +327,9 @@ There are several things that need to be remembered:
 			if(S.sprite_sheets & (dna?.species.bodyflag))
 				icon_file = dna.species.get_custom_icons("shoes")
 
-			if(BODYTYPE_DIGITIGRADE in dna?.species.bodytype)
+			/*if(BODYTYPE_DIGITIGRADE in dna?.species.bodytype)
 				if(S.supports_variations & DIGITIGRADE_VARIATION)
-					icon_file = 'icons/mob/species/misc/digitigrade_shoes.dmi'
+					icon_file = 'icons/mob/species/misc/digitigrade_shoes.dmi'*/
 
 		shoes.screen_loc = ui_shoes					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
